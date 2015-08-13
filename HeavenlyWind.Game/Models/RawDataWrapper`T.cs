@@ -6,7 +6,7 @@
 
         protected RawDataWrapper(T rpRawData)
         {
-            Update(rpRawData);
+            RawData = rpRawData;
         }
 
         public void Update(T rpRawData)

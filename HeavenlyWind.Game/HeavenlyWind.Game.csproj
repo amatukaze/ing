@@ -56,9 +56,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClampedValue.cs" />
+    <Compile Include="GameState.cs" />
     <Compile Include="IDTable`T.cs" />
+    <Compile Include="KanColleGame.cs" />
+    <Compile Include="Models\AbyssalShipClass.cs" />
+    <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\EquipmentIcon.cs" />
+    <Compile Include="Models\EquipmentInfo.cs" />
+    <Compile Include="Models\EquipmentType.cs" />
+    <Compile Include="Models\EquipmentTypeInfo.cs" />
+    <Compile Include="Models\Experience.cs" />
+    <Compile Include="Models\ExperienceTable.cs" />
     <Compile Include="Models\IID.cs" />
+    <Compile Include="MasterInfo.cs" />
+    <Compile Include="Models\Raw\RawBasic.cs" />
+    <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
+    <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
+    <Compile Include="Models\Raw\RawMasterInfo.cs" />
+    <Compile Include="Models\ShipModernizationStatus.cs" />
     <Compile Include="Models\RawDataWrapper`T.cs" />
+    <Compile Include="Models\Raw\RawEquipment.cs" />
+    <Compile Include="Models\Raw\RawShip.cs" />
+    <Compile Include="Models\Raw\RawShipInfo.cs" />
+    <Compile Include="Models\Raw\RawShipType.cs" />
+    <Compile Include="Models\Ship.cs" />
+    <Compile Include="Models\ShipConditionType.cs" />
+    <Compile Include="Models\ShipInfo.cs" />
+    <Compile Include="Models\ShipSpeed.cs" />
+    <Compile Include="Models\ShipStatus.cs" />
+    <Compile Include="Models\ShipSlot.cs" />
+    <Compile Include="Models\ShipType.cs" />
+    <Compile Include="Port.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
