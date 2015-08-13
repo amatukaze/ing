@@ -61,6 +61,7 @@
     <Compile Include="IDTable`T.cs" />
     <Compile Include="KanColleGame.cs" />
     <Compile Include="Models\AbyssalShipClass.cs" />
+    <Compile Include="Models\Admiral.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\EquipmentIcon.cs" />
     <Compile Include="Models\EquipmentInfo.cs" />
@@ -68,11 +69,16 @@
     <Compile Include="Models\EquipmentTypeInfo.cs" />
     <Compile Include="Models\Experience.cs" />
     <Compile Include="Models\ExperienceTable.cs" />
+    <Compile Include="Models\Fleet.cs" />
+    <Compile Include="Models\FleetLoSStatus.cs" />
+    <Compile Include="Models\FleetStatus.cs" />
+    <Compile Include="Models\Headquarter.cs" />
     <Compile Include="Models\IID.cs" />
     <Compile Include="MasterInfo.cs" />
     <Compile Include="Models\Raw\RawBasic.cs" />
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
     <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
+    <Compile Include="Models\Raw\RawFleet.cs" />
     <Compile Include="Models\Raw\RawMasterInfo.cs" />
     <Compile Include="Models\ShipModernizationStatus.cs" />
     <Compile Include="Models\RawDataWrapper`T.cs" />
