@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.Game", "HeavenlyWind.Game\HeavenlyWind.Game.csproj", "{9263590F-63A1-4586-B478-A12D7D67B622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.Base", "HeavenlyWind.Base\HeavenlyWind.Base.csproj", "{EEB0BEA3-8D40-47C3-AEEF-BA7774D721CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind", "HeavenlyWind\HeavenlyWind.csproj", "{9653C822-A04C-4521-BAF0-8207AC4B729A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{C061BBB9-7802-4BCF-B411-C852DAA1C217}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.Base", "Library\Sakuno.Base\Sakuno.Base.csproj", "{85FE16EB-F999-445C-872E-B8181C67031C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.SystemInterop", "Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj", "{3CD66841-054E-409B-8653-F846216061AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.UserInterface", "Library\Sakuno.UserInterface\Sakuno.UserInterface.csproj", "{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9263590F-63A1-4586-B478-A12D7D67B622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9263590F-63A1-4586-B478-A12D7D67B622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9263590F-63A1-4586-B478-A12D7D67B622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9263590F-63A1-4586-B478-A12D7D67B622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB0BEA3-8D40-47C3-AEEF-BA7774D721CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB0BEA3-8D40-47C3-AEEF-BA7774D721CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB0BEA3-8D40-47C3-AEEF-BA7774D721CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB0BEA3-8D40-47C3-AEEF-BA7774D721CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9653C822-A04C-4521-BAF0-8207AC4B729A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9653C822-A04C-4521-BAF0-8207AC4B729A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9653C822-A04C-4521-BAF0-8207AC4B729A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9653C822-A04C-4521-BAF0-8207AC4B729A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85FE16EB-F999-445C-872E-B8181C67031C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85FE16EB-F999-445C-872E-B8181C67031C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85FE16EB-F999-445C-872E-B8181C67031C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85FE16EB-F999-445C-872E-B8181C67031C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CD66841-054E-409B-8653-F846216061AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CD66841-054E-409B-8653-F846216061AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CD66841-054E-409B-8653-F846216061AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CD66841-054E-409B-8653-F846216061AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{85FE16EB-F999-445C-872E-B8181C67031C} = {C061BBB9-7802-4BCF-B411-C852DAA1C217}
+		{3CD66841-054E-409B-8653-F846216061AA} = {C061BBB9-7802-4BCF-B411-C852DAA1C217}
+		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8} = {C061BBB9-7802-4BCF-B411-C852DAA1C217}
+	EndGlobalSection
+EndGlobal
