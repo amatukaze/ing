@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDTable`T.cs" />
+    <Compile Include="Models\IID.cs" />
+    <Compile Include="Models\RawDataWrapper`T.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
