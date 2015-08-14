@@ -25,7 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int AA
         {
             get { return r_AA; }
-            set
+            private set
             {
                 if (r_AA != value)
                 {

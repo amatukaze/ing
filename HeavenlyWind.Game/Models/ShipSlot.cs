@@ -11,7 +11,7 @@
         public int PlaneCount
         {
             get { return r_PlaneCount; }
-            set
+            internal set
             {
                 if (r_PlaneCount != value)
                 {

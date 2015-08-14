@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public DateTimeOffset? CompleteTime
         {
             get { return r_CompleteTime; }
-            set
+            protected set
             {
                 if (r_CompleteTime != value)
                 {
@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public TimeSpan? RemainingTime
         {
             get { return r_RemainingTime; }
-            set
+            protected set
             {
                 if (r_RemainingTime != value)
                 {

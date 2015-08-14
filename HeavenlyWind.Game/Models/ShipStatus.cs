@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ShipModernizationStatus FirepowerBase
         {
             get { return r_FirepowerBase; }
-            set
+            private set
             {
                 r_FirepowerBase = value;
                 OnPropertyChanged(nameof(FirepowerBase));
@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ShipModernizationStatus TorpedoBase
         {
             get { return r_TorpedoBase; }
-            set
+            private set
             {
                 r_TorpedoBase = value;
                 OnPropertyChanged(nameof(TorpedoBase));
@@ -38,7 +38,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ShipModernizationStatus AABase
         {
             get { return r_AABase; }
-            set
+            private set
             {
                 r_AABase = value;
                 OnPropertyChanged(nameof(AABase));
@@ -50,7 +50,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ShipModernizationStatus ArmorBase
         {
             get { return r_ArmorBase; }
-            set
+            private set
             {
                 r_ArmorBase = value;
                 OnPropertyChanged(nameof(ArmorBase));
@@ -67,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ShipModernizationStatus Luck
         {
             get { return r_Luck; }
-            set
+            private set
             {
                 r_Luck = value;
                 OnPropertyChanged(nameof(Luck));

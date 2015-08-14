@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public Headquarter Headquarter
         {
             get { return r_Headquarter; }
-            set
+            private set
             {
                 if (r_Headquarter != value)
                 {

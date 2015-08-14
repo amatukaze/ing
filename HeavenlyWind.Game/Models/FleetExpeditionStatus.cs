@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ExpeditionInfo Current
         {
             get { return r_Current; }
-            set
+            private set
             {
                 if (r_Current != value)
                 {

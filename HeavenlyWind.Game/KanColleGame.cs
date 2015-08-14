@@ -12,7 +12,7 @@
         public GameState State
         {
             get { return r_State; }
-            set
+            internal set
             {
                 if (r_State != value)
                 {

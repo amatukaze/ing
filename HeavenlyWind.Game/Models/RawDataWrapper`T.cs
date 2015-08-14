@@ -9,7 +9,7 @@
             RawData = rpRawData;
         }
 
-        public void Update(T rpRawData)
+        internal void Update(T rpRawData)
         {
             RawData = rpRawData;
             OnRawDataUpdated();

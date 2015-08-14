@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public double Old25
         {
             get { return r_Old25; }
-            set
+            private set
             {
                 if (r_Old25 != value)
                 {
@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public double Autumn25
         {
             get { return r_Autumn25; }
-            set
+            private set
             {
                 if (r_Autumn25 != value)
                 {
