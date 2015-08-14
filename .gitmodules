@@ -1,0 +1,3 @@
+[submodule "Library"]
+	path = Library
+	url = https://github.com/KodamaSakuno/Library
