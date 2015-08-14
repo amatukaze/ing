@@ -120,11 +120,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                             rEquipmentLoS += rLoS * 1.7787282;
                             break;
 
-                        case EquipmentType.SmallRader:
+                        case EquipmentType.SmallRadar:
                             rEquipmentLoS += rLoS * 1.0045358;
                             break;
 
-                        case EquipmentType.LargeRader:
+                        case EquipmentType.LargeRadar:
                             rEquipmentLoS += rLoS * 0.9906638;
                             break;
 
