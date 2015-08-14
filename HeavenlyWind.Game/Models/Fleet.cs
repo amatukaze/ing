@@ -43,12 +43,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         }
 
         public FleetStatus Status { get; }
+        public FleetExpeditionStatus ExpeditionStatus { get; }
 
         internal Fleet(Port rpPort, RawFleet rpRawData) : base(rpRawData)
         {
             Port = rpPort;
 
             Status = new FleetStatus(this);
+            ExpeditionStatus = new FleetExpeditionStatus(this);
 
             OnRawDataUpdated();
         }
@@ -65,6 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
 
             Status.Update();
+            ExpeditionStatus.Update(RawData.Expedition);
         }
 
         public override string ToString()
