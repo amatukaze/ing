@@ -27,6 +27,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public IDTable<Equipment> Equipments { get; } = new IDTable<Equipment>();
 
+        public IDTable<RepairDock> RepairDocks { get; } = new IDTable<RepairDock>();
+        public IDTable<BuildingDock> BuildingDocks { get; } = new IDTable<BuildingDock>();
+
         internal Port()
         {
         }
