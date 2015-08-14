@@ -81,6 +81,7 @@
     <Compile Include="MasterInfo.cs" />
     <Compile Include="Models\MapAreaInfo.cs" />
     <Compile Include="Models\MapMasterInfo.cs" />
+    <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\Raw\RawBasic.cs" />
     <Compile Include="Models\Raw\RawBuildingDock.cs" />
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Models\Raw\RawMapAreaInfo.cs" />
     <Compile Include="Models\Raw\RawMapMasterInfo.cs" />
     <Compile Include="Models\Raw\RawMasterInfo.cs" />
+    <Compile Include="Models\Raw\RawQuest.cs" />
     <Compile Include="Models\Raw\RawRepairDock.cs" />
     <Compile Include="Models\RepairDock.cs" />
     <Compile Include="Models\ShipModernizationStatus.cs" />
