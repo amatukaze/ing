@@ -141,6 +141,7 @@
     <Compile Include="Parsers\DefaultApiParser.cs" />
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
     <Compile Include="Parsers\Root\GetMember\BasicParser.cs" />
+    <Compile Include="Parsers\Root\GetMember\BuildingDockParser.cs" />
     <Compile Include="Parsers\Root\GetMember\EquipmentParser.cs" />
     <Compile Include="Parsers\Root\GetMember\MaterialParser.cs" />
     <Compile Include="Parsers\Root\PortParser.cs" />

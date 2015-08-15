@@ -51,6 +51,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 OnPropertyChanged(nameof(Equipments));
         }
 
+        internal void UpdateBuildingDocks(RawBuildingDock[] rpBuildingDocks)
+        {
+            BuildingDocks.UpdateRawData<RawBuildingDock>(rpBuildingDocks, r => new BuildingDock(r), (rpData, rpRawData) => rpData.Update(rpRawData));
+        }
+
         #endregion
     }
 }
