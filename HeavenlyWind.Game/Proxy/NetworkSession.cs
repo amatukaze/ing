@@ -11,7 +11,7 @@
         public NetworkSessionState State
         {
             get { return r_State; }
-            set
+            internal set
             {
                 r_State = value;
                 OnPropertyChanged(nameof(State));
@@ -56,7 +56,7 @@
         public string ErrorMessage
         {
             get { return r_ErrorMessage; }
-            set
+            internal set
             {
                 r_ErrorMessage = value;
                 OnPropertyChanged(nameof(ErrorMessage));
