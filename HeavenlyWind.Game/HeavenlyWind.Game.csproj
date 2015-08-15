@@ -107,6 +107,16 @@
     <Compile Include="Models\ShipStatus.cs" />
     <Compile Include="Models\ShipSlot.cs" />
     <Compile Include="Models\ShipType.cs" />
+    <Compile Include="Models\Events\AerialReconnaissanceEvent.cs" />
+    <Compile Include="Models\Events\NothingHappenedEvent.cs" />
+    <Compile Include="Models\Events\BattleEvent.cs" />
+    <Compile Include="Models\Events\RewardItemEvent.cs" />
+    <Compile Include="Models\Events\SortieEvent.cs" />
+    <Compile Include="Models\Events\WhirlpoolEvent.cs" />
+    <Compile Include="Models\SortieItem.cs" />
+    <Compile Include="Models\SortieEventType.cs" />
+    <Compile Include="Models\SortieInfo.cs" />
+    <Compile Include="Models\SortieCellInfo.cs" />
     <Compile Include="Port.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
