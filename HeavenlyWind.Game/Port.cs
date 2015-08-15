@@ -1,24 +1,15 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class Port : ModelBase
     {
-        Headquarter r_Headquarter;
-        public Headquarter Headquarter
-        {
-            get { return r_Headquarter; }
-            private set
-            {
-                if (r_Headquarter != value)
-                {
-                    r_Headquarter = value;
-                    OnPropertyChanged(nameof(Headquarter));
-                }
-            }
-        }
+        public Admiral Admiral { get; } = new Admiral(null);
+
+        public Materials Materials { get; } = new Materials();
 
         public HashSet<int> ShipIDs { get; private set; }
         public IDTable<Ship> Ships { get; } = new IDTable<Ship>();
@@ -36,12 +27,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
         }
 
-        internal void UpdateHeadquarter(RawBasic rpData)
+        #region Update
+
+        internal void UpdatePort(RawPort rpPort)
         {
-            if (Headquarter == null)
-                Headquarter = new Headquarter(rpData);
-            else
-                Headquarter.Update(rpData);
+            Admiral.Update(rpPort.Basic);
+            Materials.Update(rpPort.Materials);
+
+            if (Ships.UpdateRawData<RawShip>(rpPort.Ships, r => new Ship(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+            {
+                ShipIDs = new HashSet<int>(Ships.Values.Select(r => r.Info.ID));
+                OnPropertyChanged(nameof(Ships));
+            }
+            
+            RepairDocks.UpdateRawData<RawRepairDock>(rpPort.RepairDocks, r => new RepairDock(r), (rpData, rpRawData) => rpData.Update(rpRawData));
+
+            Fleets.UpdateRawData<RawFleet>(rpPort.Fleets, r => new Fleet(this, r), (rpData, rpRawData) => rpData.Update(rpRawData));
         }
+
+        internal void UpdateEquipments(RawEquipment[] rpEquipments)
+        {
+            if (Equipments.UpdateRawData<RawEquipment>(rpEquipments, r => new Equipment(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                OnPropertyChanged(nameof(Equipments));
+        }
+
+        #endregion
     }
 }

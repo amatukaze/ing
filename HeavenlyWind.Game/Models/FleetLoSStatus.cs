@@ -138,7 +138,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rShipLoS += Math.Sqrt(rShipLoSBase) * 1.6841056;
             }
 
-            var rAdmiralLoS = Math.Floor((r_Fleet.Port.Headquarter.Admiral.Level + 4) / 5.0) * 5 * 0.6142467;
+            var rAdmiralLoS = Math.Floor((r_Fleet.Port.Admiral.Level + 4) / 5.0) * 5 * 0.6142467;
 
             return rShipLoS + rEquipmentLoS - 0;
         }

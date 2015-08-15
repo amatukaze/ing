@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_CompleteTime = value;
                     IsNotificated = false;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(CompleteTime));
                 }
             }
         }
@@ -32,7 +32,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (r_RemainingTime != value)
                 {
                     r_RemainingTime = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(RemainingTime));
                 }
             }
         }

@@ -41,6 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public IEnumerator<KeyValuePair<int, T>> GetEnumerator() => r_Dictionary.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        public override string ToString() => $"Count = {Count}";
+
         public bool UpdateRawData<TRawData>(IEnumerable<TRawData> rpRawDataCollection, Func<TRawData, T> rpValueFactory, Action<T, TRawData> rpUpdate)
             where TRawData : IID
         {
