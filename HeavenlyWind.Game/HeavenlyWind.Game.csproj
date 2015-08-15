@@ -129,6 +129,13 @@
     <Compile Include="Models\SortieEventType.cs" />
     <Compile Include="Models\SortieInfo.cs" />
     <Compile Include="Models\SortieCellInfo.cs" />
+    <Compile Include="Parsers\ApiAttribute.cs" />
+    <Compile Include="Parsers\ApiData.cs" />
+    <Compile Include="Parsers\ApiParser.cs" />
+    <Compile Include="Parsers\ApiParserBase.cs" />
+    <Compile Include="Parsers\ApiParserManager.cs" />
+    <Compile Include="Parsers\DefaultApiParser.cs" />
+    <Compile Include="Parsers\Root\ApiStartParser.cs" />
     <Compile Include="Port.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxy\ApiSession.cs" />
