@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -54,7 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 rShipLoS += rShip.Status.LoS;
 
-                foreach (var rSlot in rShip.Slots)
+                foreach (var rSlot in rShip.Slots.Where(r => r.HasEquipment))
                 {
                     var rInfo = rSlot.Equipment.Info;
 
@@ -92,7 +93,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 var rShipLoSBase = (double)rShip.Status.LoS;
 
-                foreach (var rSlot in rShip.Slots)
+                foreach (var rSlot in rShip.Slots.Where(r => r.HasEquipment))
                 {
                     var rInfo = rSlot.Equipment.Info;
                     var rLoS = (double)rInfo.LoS;

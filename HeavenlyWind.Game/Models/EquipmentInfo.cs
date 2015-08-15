@@ -28,14 +28,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         #region Type
 
-        public EquipmentType Type => (EquipmentType)RawData.Type?[2];
-        public EquipmentIcon Icon => (EquipmentIcon)RawData.Type?[3];
+        public EquipmentType Type => RawData.Type != null ? (EquipmentType)RawData.Type[2] : 0;
+        public EquipmentIcon Icon => RawData.Type != null ? (EquipmentIcon)RawData.Type[3] : 0;
 
         public bool CanParticipateInFighterCombat => 
-            Type != EquipmentType.CarrierBasedFighter &&
-            Type != EquipmentType.CarrierBasedDiveBomber &&
-            Type != EquipmentType.CarrierBasedTorpedoBomber &&
-            Type != EquipmentType.SeaplaneBomber;
+            Type == EquipmentType.CarrierBasedFighter ||
+            Type == EquipmentType.CarrierBasedDiveBomber ||
+            Type == EquipmentType.CarrierBasedTorpedoBomber ||
+            Type == EquipmentType.SeaplaneBomber;
 
         #endregion;
 

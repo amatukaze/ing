@@ -48,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             TotalLevel = r_Fleet.Ships.Sum(r => r.Level);
 
             AA = r_Fleet.Ships.Sum(rpShip =>
-                rpShip.Slots.Sum(rpSlot =>
+                rpShip.Slots.Where(r => r.HasEquipment).Sum(rpSlot =>
                 {
                     if (rpSlot.Equipment.Info.CanParticipateInFighterCombat)
                         return (int)(rpSlot.Equipment.Info.AA * Math.Sqrt(rpSlot.PlaneCount));
