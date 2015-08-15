@@ -3,7 +3,7 @@
     public class RewardItemEvent : SortieEvent
     {
         public SortieItem Item { get; }
-        public int Count { get; }
+        public int Quantity { get; }
 
         internal RewardItemEvent()
         {
