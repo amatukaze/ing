@@ -56,7 +56,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
                 var rJson = JObject.Parse(rContent);
 
+                rParser.Requests = rRequests;
                 rParser.Process(rJson);
+                rParser.Requests = null;
             }
         }
     }
