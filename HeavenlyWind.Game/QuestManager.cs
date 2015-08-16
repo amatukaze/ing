@@ -36,7 +36,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         }
         public bool IsLoadCompleted => IsLoaded && TotalCount == Table.Count;
 
-        public QuestManager()
+        public Quest this[int rpID] => Table[rpID];
+
+        internal QuestManager()
         {
             ApiParserManager.Instance["api_get_member/questlist"].ProcessSucceeded += delegate
             {

@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClampedValue.cs" />
+    <Compile Include="FleetManager.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="IDTable`T.cs" />
     <Compile Include="KanColleGame.cs" />

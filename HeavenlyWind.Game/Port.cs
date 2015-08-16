@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public HashSet<int> ShipIDs { get; private set; }
         public IDTable<Ship> Ships { get; } = new IDTable<Ship>();
 
-        public IDTable<Fleet> Fleets { get; } = new IDTable<Fleet>();
+        public FleetManager Fleets { get; } = new FleetManager();
 
         public IDTable<Equipment> Equipments { get; } = new IDTable<Equipment>();
 
@@ -42,7 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             
             RepairDocks.UpdateRawData<RawRepairDock>(rpPort.RepairDocks, r => new RepairDock(r), (rpData, rpRawData) => rpData.Update(rpRawData));
 
-            Fleets.UpdateRawData<RawFleet>(rpPort.Fleets, r => new Fleet(this, r), (rpData, rpRawData) => rpData.Update(rpRawData));
+            Fleets.Update(rpPort);
         }
 
         internal void UpdateEquipments(RawEquipment[] rpEquipments)
