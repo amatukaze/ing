@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public IDTable<RepairDock> RepairDocks { get; } = new IDTable<RepairDock>();
         public IDTable<BuildingDock> BuildingDocks { get; } = new IDTable<BuildingDock>();
 
-        public IDTable<Quest> Quests { get; } = new IDTable<Quest>();
+        public QuestManager Quests { get; } = new QuestManager();
 
         internal Port()
         {
