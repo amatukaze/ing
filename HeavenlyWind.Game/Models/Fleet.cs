@@ -61,8 +61,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (r_ShipIDs == null || !r_ShipIDs.SequenceEqual(RawData.Ship))
             {
+                if (r_ShipList != null)
+                    foreach (var rShip in r_ShipList)
+                        rShip.OwnerFleet = null;
+
                 r_ShipIDs = RawData.Ship;
                 r_ShipList = RawData.Ship.TakeWhile(r => r != -1).Select(r => Port.Ships[r]).ToList();
+                
+                foreach (var rShip in r_ShipList)
+                    rShip.OwnerFleet = this;
+
                 Ships = r_ShipList.AsReadOnly();
             }
 

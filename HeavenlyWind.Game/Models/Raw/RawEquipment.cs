@@ -17,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public int Level { get; set; }
 
         [JsonProperty("api_alv")]
-        public int? Proficiency { get; set; }
+        public int Proficiency { get; set; }
     }
 
 }

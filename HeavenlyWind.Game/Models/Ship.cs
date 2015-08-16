@@ -39,6 +39,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public TimeSpan? RepairTime => RawData.RepairTime == 0 ? (TimeSpan?)null : TimeSpan.FromMilliseconds(RawData.RepairTime);
 
+        public Fleet OwnerFleet { get; internal set; }
+
         ClampedValue r_HP;
         public ClampedValue HP
         {
