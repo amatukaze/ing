@@ -79,7 +79,7 @@
     <Compile Include="Models\CombinedFleetType.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />
     <Compile Include="Models\Equipment.cs" />
-    <Compile Include="Models\EquipmentIcon.cs" />
+    <Compile Include="Models\EquipmentIconType.cs" />
     <Compile Include="Models\EquipmentInfo.cs" />
     <Compile Include="Models\EquipmentType.cs" />
     <Compile Include="Models\EquipmentTypeInfo.cs" />

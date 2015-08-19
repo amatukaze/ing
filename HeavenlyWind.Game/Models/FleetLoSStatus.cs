@@ -61,8 +61,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                     switch (rInfo.Icon)
                     {
-                        case EquipmentIcon.CarrierBasedRecon:
-                        case EquipmentIcon.Seaplane:
+                        case EquipmentIconType.CarrierBasedRecon:
+                        case EquipmentIconType.Seaplane:
                             if (rSlot.PlaneCount > 0)
                             {
                                 rReconLoS += rInfo.LoS;
@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                             }
                             break;
 
-                        case EquipmentIcon.Rader:
+                        case EquipmentIconType.Rader:
                             rRaderLoS += rInfo.LoS;
                             rShipLoS -= rInfo.LoS;
                             break;

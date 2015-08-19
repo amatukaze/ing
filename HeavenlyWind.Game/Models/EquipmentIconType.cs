@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public enum EquipmentIcon
+    public enum EquipmentIconType
     {
         None,
         SmallCaliberGun,

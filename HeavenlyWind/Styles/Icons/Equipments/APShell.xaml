@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
+
+    <ControlTemplate x:Key="APShellIcon" TargetType="{x:Type rc:EquipmentIcon}">
+        <Path Fill="#FFD55A5A" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M55.787979,18.369939 L47.120976,27.036895 111.12101,66.370014 C111.12101,66.370014 75.787653,109.70366 53.120976,117.03699 L22.454296,52.370354 15.12096,60.370351 C15.12096,60.370351 -3.045715,17.370366 1.1209535,9.537035 5.287622,1.7037043 13.121001,-9.6296619 55.787979,18.369939 z M116.871,72.786999 L155.871,114.787 C155.871,114.787 135.621,140.787 98.871002,166.037 L59.621002,123.787 C59.621002,123.787 87.621002,106.537 116.871,72.786999 z M161.371,118.787 L170.871,129.037 C170.871,129.037 165.621,141.537 114.621,182.537 L102.871,170.537 C102.871,170.537 125.621,157.037 161.371,118.787 z M175.871,137.787 C175.871,137.787 181.6212,141.537 181.12118,153.037 L140.871,192.287 C140.871,192.287 123.121,191.537 120.121,185.787 z" />
+    </ControlTemplate>
+
+</ResourceDictionary>
