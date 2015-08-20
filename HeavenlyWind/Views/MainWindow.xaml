@@ -1,0 +1,28 @@
+﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.MainWindow"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                  mc:Ignorable="d"
+                  Title="{Binding Title}" 
+                  Width="1024" Height="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="23" />
+        </Grid.RowDefinitions>
+        
+        <DockPanel ruic:MetroWindow.IsCaptionBar="True">
+            <Border Height="4" DockPanel.Dock="Bottom" />
+            
+            <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
+            
+            <TextBlock Text="{Binding Title}" FontSize="16" FontFamily="Segoe UI Light, Meiryo UI" TextTrimming="WordEllipsis" Opacity=".85" VerticalAlignment="Center" Margin="8, 0" />
+        </DockPanel>
+        
+        
+        
+    </Grid>
+</ruic:MetroWindow>

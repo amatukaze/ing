@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Sakuno.KanColle.Amatsukaze.Models;
+using Sakuno.KanColle.Amatsukaze.ViewModels;
+using Sakuno.KanColle.Amatsukaze.Views;
 using System.Windows;
 
 namespace Sakuno.KanColle.Amatsukaze
@@ -13,5 +10,18 @@ namespace Sakuno.KanColle.Amatsukaze
     /// </summary>
     public partial class App : Application
     {
+        public static MainWindowViewModel Root { get; private set; }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            Preference.Load();
+            StringResources.Instance.Load(Preference.Current.Language);
+
+            MainWindow = new MainWindow();
+            MainWindow.DataContext = Root = new MainWindowViewModel();
+            MainWindow.Show();
+        }
     }
 }
