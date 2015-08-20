@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Xml.Linq;
 using System.Linq;
 using System.Collections.Generic;
+using System.Globalization;
+using Sakuno.KanColle.Amatsukaze.Models;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
@@ -31,6 +33,19 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             var rRootDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             StringResourceDirectory = Path.Combine(rRootDirectory, "Resources", "Strings");
+        }
+
+        public void Load() => Load(Preference.Current.Language);
+        public static string GetDefaultLanguage()
+        {
+            var rCurrentCulture = CultureInfo.CurrentCulture;
+            switch (rCurrentCulture.Name)
+            {
+                case "ja-JP":
+                default: return "Japanese";
+
+                case "zh-CN": return "SimplifiedChinese";
+            }
         }
 
         public void Load(string rpLanguageName)
