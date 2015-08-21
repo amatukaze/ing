@@ -7,6 +7,11 @@
                 <ResourceDictionary Source="pack://application:,,,/Sakuno.UserInterface;component/Themes/Dark.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Sakuno.UserInterface;component/Themes/Accents/Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

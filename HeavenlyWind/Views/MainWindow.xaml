@@ -4,6 +4,7 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                  xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
                   mc:Ignorable="d"
                   Title="{Binding Title}" 
                   Width="1024" Height="600">
@@ -22,7 +23,7 @@
             <TextBlock Text="{Binding Title}" FontSize="16" FontFamily="Segoe UI Light, Meiryo UI" TextTrimming="WordEllipsis" Opacity=".85" VerticalAlignment="Center" Margin="8, 0" />
         </DockPanel>
         
-        
+        <rv:StatusBar Background="{DynamicResource AccentBrushKey}" Grid.Row="2" />
         
     </Grid>
 </ruic:MetroWindow>

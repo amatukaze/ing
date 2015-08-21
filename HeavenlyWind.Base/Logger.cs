@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze
         Task r_LoggingTask;
         ManualResetEventSlim r_HasNewItems;
 
-        public event Action<LogItem> LogAdded = delegate { };
+        public static event Action<LogItem> LogAdded = delegate { };
 
         Logger()
         {

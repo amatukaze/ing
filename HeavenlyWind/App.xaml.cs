@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models;
+using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.KanColle.Amatsukaze.Views;
 using System.Windows;
@@ -18,6 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
             Preference.Load();
             StringResources.Instance.Load(Preference.Current.Language);
+
+            StatusBarService.Instance.Initialize();
 
             MainWindow = new MainWindow();
             MainWindow.DataContext = Root = new MainWindowViewModel();

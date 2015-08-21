@@ -84,10 +84,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controls\EquipmentIcon.cs" />
+    <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatusBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
