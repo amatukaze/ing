@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Models;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.KanColle.Amatsukaze.Views;
@@ -17,14 +18,23 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             base.OnStartup(e);
 
+            StatusBarService.Instance.Initialize();
+
             Preference.Load();
             StringResources.Instance.Load(Preference.Current.Language);
 
-            StatusBarService.Instance.Initialize();
+            KanColleProxy.Start();
 
             MainWindow = new MainWindow();
             MainWindow.DataContext = Root = new MainWindowViewModel();
             MainWindow.Show();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+
+            Preference.Save();
         }
     }
 }

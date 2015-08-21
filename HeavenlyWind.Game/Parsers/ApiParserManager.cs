@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Subjects;
 using System.Reflection;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
@@ -11,6 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
         public static ApiParserManager Instance { get; } = new ApiParserManager();
 
         Dictionary<string, ApiParserBase> r_Parsers = new Dictionary<string, ApiParserBase>();
+
+        Subject<ApiSession> r_SessionSources = new Subject<ApiSession>();
 
         public ApiParserBase this[string rpApi]
         {
@@ -40,8 +44,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
                 r_Parsers.Add(rAttribute.Name, rParser);
             }
+
+            r_SessionSources.Subscribe(r => Process(r.DisplayUrl, r.RequestBodyString, r.ResponseBodyString));
         }
 
+        public void Process(ApiSession rpSession) => r_SessionSources.OnNext(rpSession);
         public void Process(string rpApi, string rpRequest, string rpResponse)
         {
             var rContent = rpResponse.Replace("svdata=", string.Empty);

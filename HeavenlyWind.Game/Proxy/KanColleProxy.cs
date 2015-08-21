@@ -1,4 +1,6 @@
 ﻿using Fiddler;
+using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+using Sakuno.KanColle.Amatsukaze.Models;
 using System.Reactive.Subjects;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
@@ -17,8 +19,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;
         }
 
+        public static void Start()
+        {
+            var rStartupFlags = FiddlerCoreStartupFlags.ChainToUpstreamGateway;
+            if (Preference.Current.Network.UpstreamProxy.UseSSL)
+                rStartupFlags |= FiddlerCoreStartupFlags.DecryptSSL;
+
+            FiddlerApplication.Startup(Preference.Current.Network.Port, rStartupFlags);
+        }
+
         static void FiddlerApplication_BeforeRequest(Session rpSession)
         {
+            if (Preference.Current.Network.UpstreamProxy.Enabled)
+                rpSession["x-OverrideGateway"] = Preference.Current.Network.UpstreamProxy.Address;
+
             var rRequest = rpSession.oRequest;
 
             var rFullUrl = rpSession.fullUrl;
@@ -49,7 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         {
             var rSession = rpSession.Tag as NetworkSession;
             var rContentLength = rpSession.oResponse["Content-Length"];
-            if (rContentLength != null && rSession != null)
+            if (!rContentLength.IsNullOrEmpty() && rSession != null)
                 rSession.ContentLength = int.Parse(rContentLength);
         }
 
@@ -65,6 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 if (rApiSession != null)
                 {
                     rApiSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
+                    ApiParserManager.Instance.Process(rApiSession);
                 }
             }
         }
