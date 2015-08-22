@@ -175,7 +175,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (RawData.ExtraEquipment != 0 && r_ExtraEquipmentID != RawData.ExtraEquipment)
             {
                 r_ExtraEquipmentID = RawData.ExtraEquipment;
-                ExtraSlot = new ShipSlot(KanColleGame.Current.Port.Equipments[RawData.ExtraEquipment], 0, 0);
+                ExtraSlot = new ShipSlot(r_ExtraEquipmentID != -1 ? KanColleGame.Current.Port.Equipments[RawData.ExtraEquipment] : Equipment.Dummy, 0, 0);
 
                 rUpdateList = true;
             }

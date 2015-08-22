@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -45,6 +46,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public FleetStatus Status { get; }
         public FleetExpeditionStatus ExpeditionStatus { get; }
 
+        public event Action<IEnumerable<Ship>> ShipsUpdated = delegate { };
+
         internal Fleet(Port rpPort, RawFleet rpRawData) : base(rpRawData)
         {
             Port = rpPort;
@@ -72,6 +75,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     rShip.OwnerFleet = this;
 
                 Ships = r_ShipList.AsReadOnly();
+
+                ShipsUpdated(Ships);
             }
 
             Status.Update();

@@ -1,5 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System;
+using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
@@ -11,6 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public Fleet this[int rpID] => Table[rpID];
 
+        public event Action<IEnumerable<Fleet>> FleetsUpdated = delegate { };
+
         internal FleetManager()
         {
 
@@ -20,7 +24,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             CombinedFleetType = rpPort.CombinedFleetType;
 
-            Table.UpdateRawData<RawFleet>(rpPort.Fleets, r => new Fleet(KanColleGame.Current.Port, r), (rpData, rpRawData) => rpData.Update(rpRawData));
+            if (Table.UpdateRawData<RawFleet>(rpPort.Fleets, r => new Fleet(KanColleGame.Current.Port, r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                FleetsUpdated(Table.Values);
         }
     }
 }

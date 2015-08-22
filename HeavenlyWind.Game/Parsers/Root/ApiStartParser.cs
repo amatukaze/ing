@@ -8,6 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root
         public override void Process(RawMasterInfo rpData)
         {
             Game.MasterInfo.Update(rpData);
+            Game.IsStarted = true;
 
             Logger.Write(LoggingLevel.Info, StringResources.Instance.Main.Log_Welcome);
         }

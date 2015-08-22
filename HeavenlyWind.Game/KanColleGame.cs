@@ -8,16 +8,16 @@
 
         public Port Port { get; } = new Port();
 
-        GameState r_State;
-        public GameState State
+        bool r_IsStarted;
+        public bool IsStarted
         {
-            get { return r_State; }
+            get { return r_IsStarted; }
             internal set
             {
-                if (r_State != value)
+                if (r_IsStarted != value)
                 {
-                    r_State = value;
-                    OnPropertyChanged(nameof(State));
+                    r_IsStarted = value;
+                    OnPropertyChanged(nameof(IsStarted));
                 }
             }
         }
