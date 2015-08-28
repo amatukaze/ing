@@ -4,10 +4,10 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class CachePreference
     {
-        [JsonProperty("enabled")]
-        public bool Enabled { get; set; } = false;
+        [JsonProperty("mode")]
+        public CacheMode Mode { get; set; } = CacheMode.Disabled;
 
-        [JsonProperty("folder")]
-        public string CacheFolder { get; set; } = "Cache";
+        [JsonProperty("path")]
+        public string Path { get; set; } = "Cache";
     }
 }

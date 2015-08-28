@@ -13,9 +13,6 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         [JsonProperty("port")]
         public int Port { get; set; } = 0;
 
-        [JsonProperty("usessl")]
-        public bool UseSSL { get; set; } = false;
-
         string r_Address;
         [JsonIgnore]
         public string Address

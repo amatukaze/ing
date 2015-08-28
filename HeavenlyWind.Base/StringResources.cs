@@ -13,6 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         public static StringResources Instance { get; } = new StringResources();
 
+        public bool IsLoaded { get; private set; }
+
         static string StringResourceDirectory;
 
         StringResourcesItems r_Main;
@@ -55,6 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 throw new Exception();
             
             Main = new StringResourcesItems(XDocument.Load(rMainResourceFile).Root.Descendants("String").ToDictionary(r => r.Attribute("Key").Value, r => r.Value));
+            IsLoaded = true;
         }
     }
     

@@ -65,6 +65,7 @@
     <Compile Include="LogItem.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LoggingLevel.cs" />
+    <Compile Include="Models\CacheMode.cs" />
     <Compile Include="Models\FlashQuality.cs" />
     <Compile Include="Models\FlashRenderMode.cs" />
     <Compile Include="Models\Preferences\BrowserPreference.cs" />
