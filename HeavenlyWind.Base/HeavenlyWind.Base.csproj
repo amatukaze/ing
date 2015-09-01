@@ -79,8 +79,10 @@
     <Compile Include="Models\UpdateChannel.cs" />
     <Compile Include="Models\Preference.cs" />
     <Compile Include="Models\Preference.Data.cs" />
+    <Compile Include="PreferenceExtension.cs" />
     <Compile Include="ProductInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringResourceExtension.cs" />
     <Compile Include="StringResources.cs" />
     <Compile Include="StringResources.Items.cs" />
   </ItemGroup>
