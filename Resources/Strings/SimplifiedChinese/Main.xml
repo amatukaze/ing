@@ -3,4 +3,26 @@
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   
+  <String Key="Window_Preferences">设置</String>
+  
+  <String Key="PreferenceWindow_Network">网络</String>
+  <String Key="PreferenceWindow_Network_Port">端口</String>
+  <String Key="PreferenceWindow_Network_EnableForSSL">对 SSL 连接也使用代理</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy">使用上游代理</String>
+  <String Key="PreferenceWindow_Cache">缓存</String>
+  <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
+  <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
+  <String Key="PreferenceWindow_Cache_Mode_FullTrust">完全信任（不校验文件版本）</String>
+  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">校验文件版本</String>
+  <String Key="PreferenceWindow_Cache_Path">路径</String>
+  <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Browser">浏览器</String>
+  <String Key="PreferenceWindow_Browser_Homepage">首页</String>
+  <String Key="PreferenceWindow_Screenshot">截图</String>
+  <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
+  
+  <String Key="ValidationRule_PleaseInputNumber">请输入数字</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">必须小于等于 {0}</String>
+  
 </Strings>

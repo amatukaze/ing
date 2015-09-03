@@ -23,7 +23,7 @@
             
             <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
             
-            <TextBlock Text="{Binding Title}" FontSize="16" FontFamily="Segoe UI Light, Meiryo UI" TextTrimming="WordEllipsis" Opacity=".85" VerticalAlignment="Center" Margin="8, 0" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
         </DockPanel>
 
         <ContentControl Content="{Binding Content}" Grid.Row="1">

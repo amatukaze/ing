@@ -3,4 +3,26 @@
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   
+  <String Key="Window_Preferences">設定</String>
+  
+  <String Key="PreferenceWindow_Network">通信</String>
+  <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
+  <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
+  <String Key="PreferenceWindow_Cache">キャッシュ</String>
+  <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
+  <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
+  <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust</String>
+  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">Check Version</String>
+  <String Key="PreferenceWindow_Cache_Path">パス</String>
+  <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Browser">ブラウザ</String>
+  <String Key="PreferenceWindow_Browser_Homepage">ホームページ</String>
+  <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
+  <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
+  
+  <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
+  
 </Strings>
