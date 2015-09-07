@@ -9,7 +9,7 @@
                   xmlns:rvc="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Contents"
                   mc:Ignorable="d"
                   Title="{Binding Title}" 
-                  Width="1024" Height="600"
+                  Width="1300" Height="600"
                   UseLayoutRounding="True">
     <Grid>
         <Grid.RowDefinitions>

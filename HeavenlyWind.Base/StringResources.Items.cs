@@ -7,6 +7,18 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Log_Welcome => GetString(nameof(Log_Welcome));
 
+        public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
+        public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));
+        public string Quest_Type_Monthly => GetString(nameof(Quest_Type_Monthly));
+        public string Quest_Category_Composition => GetString(nameof(Quest_Category_Composition));
+        public string Quest_Category_Sortie => GetString(nameof(Quest_Category_Sortie));
+        public string Quest_Category_Practice => GetString(nameof(Quest_Category_Practice));
+        public string Quest_Category_Expedition => GetString(nameof(Quest_Category_Expedition));
+        public string Quest_Category_SupplyOrDocking => GetString(nameof(Quest_Category_SupplyOrDocking));
+        public string Quest_Category_Arsenal => GetString(nameof(Quest_Category_Arsenal));
+        public string Quest_Category_Modernization => GetString(nameof(Quest_Category_Modernization));
+        public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
+
         public string Window_Preferences => GetString(nameof(Window_Preferences));
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));

@@ -15,7 +15,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border BorderBrush="{DynamicResource BorderBrushKey}" BorderThickness="0, 0, 0, 1">
+        <Border BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Padding="0, 3">
             <ListBox ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet, Mode=TwoWay}">
                 <ListBox.Template>
                     <ControlTemplate TargetType="{x:Type ListBox}">
@@ -58,10 +58,10 @@
                 </Grid.RowDefinitions>
 
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0, 4, 0, 0" Grid.Row="1">
-                    <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Margin="0, -1, 0, 0" Grid.IsSharedSizeScope="True">
+                    <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Margin="0, -5, 0, 0" Grid.IsSharedSizeScope="True">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type rgm:Ship}">
-                                <Border BorderBrush="{DynamicResource BorderBrushKey}" BorderThickness="0, 1, 0, 0">
+                                <Border BorderBrush="Gray" BorderThickness="0, 1, 0, 0" Padding="3">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
@@ -82,7 +82,7 @@
                                         <TextBlock Text="{Binding Info.Name}" Grid.RowSpan="2" />
 
                                         <TextBlock Name="Level" Text="{Binding Level, StringFormat=Lv.{0}}" Margin="3, 0, 0, 0" Grid.Column="1" />
-                                        <TextBlock Name="ExperienceToNextLevel" Foreground="#AAA" Text="{Binding ExperienceToNextLevel, StringFormat=Next:{0}}" FontSize="8" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="1" />
+                                        <TextBlock Name="ExperienceToNextLevel" Foreground="#AAA" Text="{Binding ExperienceToNextLevel, StringFormat=Next:{0}}" FontSize="10" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="1" />
 
                                         <TextBlock HorizontalAlignment="Right" Margin="3, 0, 0, 0" Grid.Column="3">
                                             <Run Text="{Binding HP.Current, Mode=OneWay}" />

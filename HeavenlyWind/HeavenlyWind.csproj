@@ -91,6 +91,8 @@
     <Compile Include="ViewModels\Contents\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetViewModel.cs" />
+    <Compile Include="ViewModels\Game\QuestsViewModel.cs" />
+    <Compile Include="ViewModels\Game\QuestViewModel.cs" />
     <Compile Include="ViewModels\Game\ShipViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
@@ -100,6 +102,9 @@
     </Compile>
     <Compile Include="Views\Game\Fleets.xaml.cs">
       <DependentUpon>Fleets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Quests.xaml.cs">
+      <DependentUpon>Quests.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -330,6 +335,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\Fleets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Quests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,6 +3,18 @@
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   
+  <String Key="Quest_Type_Daily">日</String>
+  <String Key="Quest_Type_Weekly">周</String>
+  <String Key="Quest_Type_Monthly">月</String>
+  <String Key="Quest_Category_Composition">编成</String>
+  <String Key="Quest_Category_Sortie">出击</String>
+  <String Key="Quest_Category_Practice">演习</String>
+  <String Key="Quest_Category_Expedition">远征</String>
+  <String Key="Quest_Category_SupplyOrDocking">补给</String>
+  <String Key="Quest_Category_Arsenal">工厂</String>
+  <String Key="Quest_Category_Modernization">改装</String>
+  <String Key="Quest_State_Completed">达成</String>
+  
   <String Key="Window_Preferences">设置</String>
   
   <String Key="PreferenceWindow_Network">网络</String>
