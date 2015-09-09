@@ -1,5 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
-using Sakuno.KanColle.Amatsukaze.ViewModels.Contents;
+using System;
+using System.ComponentModel;
+using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
@@ -22,12 +24,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         public MainWindowViewModel()
         {
             Title = "Heavenly Wind";
-
-            KanColleGame.Current.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(KanColleGame.Current.IsStarted))
-                    Content = new GameInformationViewModel();
-            };
+            
+            var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(KanColleGame.Current, nameof(KanColleGame.Current.PropertyChanged))
+                .Select(r => r.EventArgs.PropertyName);
+            rPropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.IsStarted)).Subscribe(_ => Content = new GameInformationViewModel());
         }
     }
 }

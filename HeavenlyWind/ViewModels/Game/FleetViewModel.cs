@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
     {
         public Fleet Source { get; }
 
-        public FleetViewModel(Fleet rpFleet)
+        internal FleetViewModel(Fleet rpFleet)
         {
             Source = rpFleet;
         }

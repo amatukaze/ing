@@ -4,9 +4,8 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
-                  xmlns:rvmc="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Contents"
+                  xmlns:rvm="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels"
                   xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
-                  xmlns:rvc="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Contents"
                   mc:Ignorable="d"
                   Title="{Binding Title}" 
                   Width="1300" Height="600"
@@ -26,13 +25,15 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
         </DockPanel>
 
-        <ContentControl Content="{Binding Content}" Grid.Row="1">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type rvmc:GameInformationViewModel}">
-                    <rvc:GameInformation />
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
+        <DockPanel Grid.Row="1">
+            <ContentControl Content="{Binding Content}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type rvm:GameInformationViewModel}">
+                        <rv:GameInformation />
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </DockPanel>
         
         <rv:StatusBar Background="{DynamicResource AccentBrushKey}" Grid.Row="2" />
         

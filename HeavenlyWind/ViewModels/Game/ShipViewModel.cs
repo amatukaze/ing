@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
     {
         public Ship Source { get; }
 
-        public ShipViewModel(Ship rpShip)
+        internal ShipViewModel(Ship rpShip)
         {
             Source = rpShip;
         }

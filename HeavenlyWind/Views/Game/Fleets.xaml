@@ -8,8 +8,9 @@
              xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
              d:DataContext="{d:DesignInstance rvmg:FleetsViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid DataContext="{Binding Fleets}">
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding Fleets}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />

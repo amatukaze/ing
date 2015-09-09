@@ -34,7 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
         }
 
-        public FleetsViewModel()
+        internal FleetsViewModel()
         {
             KanColleGame.Current.Port.Fleets.FleetsUpdated += UpdateFleets;
         }

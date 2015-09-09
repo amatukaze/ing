@@ -88,23 +88,35 @@
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
     <Compile Include="Services\StatusBarService.cs" />
-    <Compile Include="ViewModels\Contents\GameInformationViewModel.cs" />
+    <Compile Include="ViewModels\GameInformationViewModel.cs" />
+    <Compile Include="ViewModels\Game\BuildingDockViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetViewModel.cs" />
+    <Compile Include="ViewModels\Game\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestsViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestViewModel.cs" />
+    <Compile Include="ViewModels\Game\RepairDockViewModel.cs" />
     <Compile Include="ViewModels\Game\ShipViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
-    <Compile Include="Views\Contents\GameInformation.xaml.cs">
+    <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\BuildingDocks.xaml.cs">
+      <DependentUpon>BuildingDocks.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Fleets.xaml.cs">
       <DependentUpon>Fleets.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Overview.xaml.cs">
+      <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Quests.xaml.cs">
       <DependentUpon>Quests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\RepairDocks.xaml.cs">
+      <DependentUpon>RepairDocks.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -330,7 +342,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Contents\GameInformation.xaml">
+    <Page Include="Views\GameInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\BuildingDocks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -338,7 +354,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\Overview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\Quests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\RepairDocks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

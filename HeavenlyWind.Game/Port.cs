@@ -39,8 +39,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 ShipIDs = new HashSet<int>(Ships.Values.Select(r => r.Info.ID));
                 OnPropertyChanged(nameof(Ships));
             }
-            
-            RepairDocks.UpdateRawData<RawRepairDock>(rpPort.RepairDocks, r => new RepairDock(r), (rpData, rpRawData) => rpData.Update(rpRawData));
+
+            if (RepairDocks.UpdateRawData<RawRepairDock>(rpPort.RepairDocks, r => new RepairDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                OnPropertyChanged(nameof(RepairDocks));
 
             Fleets.Update(rpPort);
         }
@@ -53,7 +54,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal void UpdateBuildingDocks(RawBuildingDock[] rpBuildingDocks)
         {
-            BuildingDocks.UpdateRawData<RawBuildingDock>(rpBuildingDocks, r => new BuildingDock(r), (rpData, rpRawData) => rpData.Update(rpRawData));
+            if (BuildingDocks.UpdateRawData<RawBuildingDock>(rpBuildingDocks, r => new BuildingDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                OnPropertyChanged(nameof(BuildingDocks));
         }
 
         #endregion

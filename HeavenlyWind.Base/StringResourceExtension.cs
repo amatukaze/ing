@@ -8,9 +8,12 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         string r_Path;
 
+        public BindingMode Mode { get; set; }
+
         public StringResourceExtension(string rpPath)
         {
             r_Path = rpPath;
+            Mode = BindingMode.Default;
         }
 
         public override object ProvideValue(IServiceProvider rpServiceProvider)
@@ -18,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze
             if (!StringResources.Instance.IsLoaded)
                 return r_Path;
 
-            return new Binding(r_Path) { Source = StringResources.Instance }.ProvideValue(rpServiceProvider);
+            return new Binding(r_Path) { Source = StringResources.Instance, Mode = Mode }.ProvideValue(rpServiceProvider);
         }
     }
 }
