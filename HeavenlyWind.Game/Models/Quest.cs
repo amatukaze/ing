@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public enum QuestCategory { Composition = 1, Sortie, Practicce, Expedition, SupplyOrDocking, Arsenal, Modernization }
+    public enum QuestCategory { Composition = 1, Sortie, Practice, Expedition, SupplyOrDocking, Arsenal, Modernization }
     public enum QuestType { Once = 1, Daily, Weekly, Special1, Special2, Monthly, }
     public enum QuestState { None = 1, Progress, Completed }
     public enum QuestProgress { None, Progress50, Progress80, }

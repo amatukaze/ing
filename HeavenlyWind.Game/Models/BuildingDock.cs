@@ -137,12 +137,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (State == BuildingDockState.Building || State == BuildingDockState.Completed)
             {
                 Ship = KanColleGame.Current.MasterInfo.Ships[rpRawData.ShipID];
-                CompleteTime = DateTimeUtil.UnixEpoch.AddMilliseconds(rpRawData.CompleteTime);
+                TimeToComplete = DateTimeUtil.UnixEpoch.AddMilliseconds(rpRawData.TimeToComplete);
             }
             else
             {
                 Ship = null;
-                CompleteTime = null;
+                TimeToComplete = null;
             }
         }
 
@@ -150,7 +150,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             IsNotificated = true;
             State = BuildingDockState.Completed;
-            CompleteTime = null;
+            TimeToComplete = null;
         }
 
         protected override void TimeOut()
@@ -166,7 +166,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (State == BuildingDockState.Building || State == BuildingDockState.Completed)
                 rBuilder.Append($", Ship = \"{Ship.Name}\"");
             if (State == BuildingDockState.Building)
-                rBuilder.Append($", CompleteTime = \"{CompleteTime.Value}\"");
+                rBuilder.Append($", TimeToComplete = \"{TimeToComplete.Value}\"");
 
             return rBuilder.ToString();
         }

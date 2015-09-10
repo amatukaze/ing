@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             }
         }
 
-        public MainWindowViewModel()
+        internal MainWindowViewModel()
         {
             Title = "Heavenly Wind";
             

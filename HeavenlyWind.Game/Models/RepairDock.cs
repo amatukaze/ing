@@ -54,12 +54,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (State == RepairDockState.Repairing)
             {
                 Ship = KanColleGame.Current.Port.Ships[rpRawData.ShipID];
-                CompleteTime = DateTimeUtil.UnixEpoch.AddMilliseconds(rpRawData.CompleteTime);
+                TimeToComplete = DateTimeUtil.UnixEpoch.AddMilliseconds(rpRawData.TimeToComplete);
             }
             else
             {
                 Ship = null;
-                CompleteTime = null;
+                TimeToComplete = null;
             }
         }
 
@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rBuilder = new StringBuilder(32);
             rBuilder.Append($"ID = {ID}, State = {State}");
             if (State == RepairDockState.Repairing)
-                rBuilder.Append($", Ship = \"{Ship.Info.Name}\", CompleteTime = \"{CompleteTime.Value}\"");
+                rBuilder.Append($", Ship = \"{Ship.Info.Name}\", TimeToComplete = \"{TimeToComplete.Value}\"");
 
             return rBuilder.ToString();
         }

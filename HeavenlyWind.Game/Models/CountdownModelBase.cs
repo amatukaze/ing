@@ -9,17 +9,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         static IConnectableObservable<long> r_Interval;
         static IDisposable r_IntervalSubscription;
 
-        DateTimeOffset? r_CompleteTime;
-        public DateTimeOffset? CompleteTime
+        DateTimeOffset? r_TimeToComplete;
+        public DateTimeOffset? TimeToComplete
         {
-            get { return r_CompleteTime; }
+            get { return r_TimeToComplete; }
             protected set
             {
-                if (r_CompleteTime != value)
+                if (r_TimeToComplete != value)
                 {
-                    r_CompleteTime = value;
+                    r_TimeToComplete = value;
                     IsNotificated = false;
-                    OnPropertyChanged(nameof(CompleteTime));
+                    OnPropertyChanged(nameof(TimeToComplete));
                 }
             }
         }
@@ -61,11 +61,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         void OnTick()
         {
-            if (!CompleteTime.HasValue)
+            if (!TimeToComplete.HasValue)
                 RemainingTime = null;
             else
             {
-                var rRemainingTime = CompleteTime.Value - DateTimeOffset.Now;
+                var rRemainingTime = TimeToComplete.Value - DateTimeOffset.Now;
                 if (rRemainingTime.Ticks < 0L)
                     rRemainingTime = TimeSpan.Zero;
 

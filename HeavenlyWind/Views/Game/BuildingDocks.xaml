@@ -37,7 +37,7 @@
                                 <ToolTip>
                                     <TextBlock>
                                         <Run Text="{rb:StringResource Main.Overview_BuildingDock_TimeToComplete, Mode=OneWay}" />
-                                        <Run Text="{Binding CompleteTime, Mode=OneWay}" />
+                                        <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
                                         <LineBreak />
                                         <Run Text="{rb:StringResource Main.Overview_BuildingDock_MaterialConsumption, Mode=OneWay}" />
                                         <Run>

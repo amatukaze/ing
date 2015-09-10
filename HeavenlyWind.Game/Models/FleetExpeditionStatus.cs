@@ -6,16 +6,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         Fleet r_Fleet;
 
-        ExpeditionInfo r_Current;
-        public ExpeditionInfo Current
+        ExpeditionInfo r_Expedition;
+        public ExpeditionInfo Expedition
         {
-            get { return r_Current; }
+            get { return r_Expedition; }
             private set
             {
-                if (r_Current != value)
+                if (r_Expedition != value)
                 {
-                    r_Current = value;
-                    OnPropertyChanged(nameof(Current));
+                    r_Expedition = value;
+                    OnPropertyChanged(nameof(Expedition));
                 }
             }
         }
@@ -33,20 +33,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             var rState = (int)rpRawData[0];
             var rExpeditionID = (int)rpRawData[1];
-            var rCompleteTime = rpRawData[2];
+            var rTimeToComplete = rpRawData[2];
 
             if (rState != 0)
             {
-                Current = KanColleGame.Current.MasterInfo.Expeditions[rExpeditionID];
-                CompleteTime = new DateTimeOffset?(DateTimeUtil.UnixEpoch.AddMilliseconds(rCompleteTime));
+                Expedition = KanColleGame.Current.MasterInfo.Expeditions[rExpeditionID];
+                TimeToComplete = new DateTimeOffset?(DateTimeUtil.UnixEpoch.AddMilliseconds(rTimeToComplete));
             }
             else
             {
-                Current = null;
-                CompleteTime = null;
+                Expedition = null;
+                TimeToComplete = null;
             }
         }
 
-        protected override void TimeOut() => Returned(r_Fleet.Name, Current?.Name);
+        protected override void TimeOut() => Returned(r_Fleet.Name, r_Expedition?.Name);
     }
 }

@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public int ShipID { get; set; }
 
         [JsonProperty("api_complete_time")]
-        public long CompleteTime { get; set; }
+        public long TimeToComplete { get; set; }
 
         [JsonProperty("api_item1")]
         public int FuelConsumption { get; set; }
