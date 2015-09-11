@@ -62,6 +62,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HasFlagExtension.cs" />
     <Compile Include="IntegerRangeValidationRule.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="Logger.cs" />
