@@ -89,6 +89,7 @@
     <Compile Include="Models\ExperienceTable.cs" />
     <Compile Include="Models\Fleet.cs" />
     <Compile Include="Models\FleetLoSStatus.cs" />
+    <Compile Include="Models\FleetState.cs" />
     <Compile Include="Models\FleetStatus.cs" />
     <Compile Include="Models\IID.cs" />
     <Compile Include="MasterInfo.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Models\ShipConditionType.cs" />
     <Compile Include="Models\ShipInfo.cs" />
     <Compile Include="Models\ShipSpeed.cs" />
+    <Compile Include="Models\ShipState.cs" />
     <Compile Include="Models\ShipStatus.cs" />
     <Compile Include="Models\ShipSlot.cs" />
     <Compile Include="Models\ShipType.cs" />

@@ -43,6 +43,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        FleetState r_State;
+        public FleetState State
+        {
+            get { return r_State; }
+            private set
+            {
+                if (r_State != value)
+                {
+                    r_State = value;
+                    OnPropertyChanged(nameof(State));
+                }
+            }
+        }
+
         public FleetStatus Status { get; }
         public FleetExpeditionStatus ExpeditionStatus { get; }
 
@@ -81,6 +95,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Status.Update();
             ExpeditionStatus.Update(RawData.Expedition);
+
+            UpdateState();
+        }
+        void UpdateState()
+        {
+            var rState = FleetState.None;
+
+            if (ExpeditionStatus.Expedition != null)
+                rState |= FleetState.Expedition;
+            else
+                rState |= FleetState.Idle;
+
+            if ((rState & FleetState.Idle) == FleetState.Idle)
+            {
+                if (r_Ships.Any(r => r.Fuel.Current < r.Fuel.Maximum || r.Bullet.Current < r.Bullet.Maximum))
+                    rState |= FleetState.Unsupplied;
+
+                if (r_Ships.Any(r => Port.RepairDocks.Values.Any(rpDock => rpDock.Ship == r)))
+                    rState |= FleetState.Repairing;
+
+                if (r_Ships.Any(r => (r.State & ShipState.HeavilyDamaged) == ShipState.HeavilyDamaged))
+                    rState |= FleetState.HeavilyDamaged;
+            }
+
+            State = rState;
         }
 
         public override string ToString()

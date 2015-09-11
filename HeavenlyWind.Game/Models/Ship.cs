@@ -51,6 +51,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_HP = value;
                     OnPropertyChanged(nameof(HP));
+
+                    if (r_HP.Current / (double)r_HP.Maximum <= .25)
+                        State |= ShipState.HeavilyDamaged;
+                    else
+                        State &= ~ShipState.HeavilyDamaged;
                 }
             }
         }
@@ -77,6 +82,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_Bullet = value;
                     OnPropertyChanged(nameof(Bullet));
+                }
+            }
+        }
+
+        ShipState r_State;
+        public ShipState State
+        {
+            get { return r_State; }
+            internal set
+            {
+                if (r_State != value)
+                {
+                    r_State = value;
+                    OnPropertyChanged(nameof(State));
                 }
             }
         }
@@ -154,7 +173,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (RawData.Equipments != null)
                 UpdateSlots();
         }
-        
+
         void UpdateSlots()
         {
             var rUpdateList = false;
