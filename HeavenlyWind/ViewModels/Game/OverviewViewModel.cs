@@ -9,6 +9,20 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
     public class OverviewViewModel : ModelBase
     {
+        IReadOnlyList<FleetViewModel> r_Fleets;
+        public IReadOnlyList<FleetViewModel> Fleets
+        {
+            get { return r_Fleets; }
+            internal set
+            {
+                if (r_Fleets != value)
+                {
+                    r_Fleets = value;
+                    OnPropertyChanged(nameof(Fleets));
+                }
+            }
+        }
+
         IReadOnlyCollection<RepairDockViewModel> r_RepairDocks;
         public IReadOnlyCollection<RepairDockViewModel> RepairDocks
         {

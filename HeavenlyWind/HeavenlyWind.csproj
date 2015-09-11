@@ -90,6 +90,7 @@
     <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\BuildingDockViewModel.cs" />
+    <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetViewModel.cs" />
     <Compile Include="ViewModels\Game\OverviewViewModel.cs" />
@@ -108,6 +109,9 @@
     </Compile>
     <Compile Include="Views\Game\Fleets.xaml.cs">
       <DependentUpon>Fleets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\FleetsOverview.xaml.cs">
+      <DependentUpon>FleetsOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
@@ -351,6 +355,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\Fleets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\FleetsOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

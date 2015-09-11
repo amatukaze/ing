@@ -7,6 +7,10 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Log_Welcome => GetString(nameof(Log_Welcome));
 
+        public string Overview_Fleet_Idle => GetString(nameof(Overview_Fleet_Idle));
+        public string Overview_Fleet_Unsupplied => GetString(nameof(Overview_Fleet_Unsupplied));
+        public string Overview_Fleet_HeavilyDamaged => GetString(nameof(Overview_Fleet_HeavilyDamaged));
+        public string Overview_Fleet_Expedition_TimeToComplete => GetString(nameof(Overview_Fleet_Expedition_TimeToComplete));
         public string Overview_Dock_Locked => GetString(nameof(Overview_Dock_Locked));
         public string Overview_RepairDock_TimeToComplete => GetString(nameof(Overview_RepairDock_TimeToComplete));
         public string Overview_BuildingDock_Completed => GetString(nameof(Overview_BuildingDock_Completed));

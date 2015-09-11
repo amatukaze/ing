@@ -7,6 +7,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
     public class FleetsViewModel : ModelBase
     {
+        GameInformationViewModel r_Parent;
+
         IReadOnlyList<FleetViewModel> r_Fleets;
         public IReadOnlyList<FleetViewModel> Fleets
         {
@@ -34,8 +36,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
         }
 
-        internal FleetsViewModel()
+        internal FleetsViewModel(GameInformationViewModel rpParent)
         {
+            r_Parent = rpParent;
+
             KanColleGame.Current.Port.Fleets.FleetsUpdated += UpdateFleets;
         }
 
@@ -43,6 +47,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         {
             Fleets = KanColleGame.Current.Port.Fleets.Table.Values.Select(r => new FleetViewModel(r)).ToList();
             SelectedFleet = Fleets.FirstOrDefault();
+
+            r_Parent.Overview.Fleets = Fleets;
         }
     }
 }

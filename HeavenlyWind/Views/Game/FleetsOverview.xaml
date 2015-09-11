@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.FleetsOverview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding Fleets}">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="DefaultContentTemplate">
+            <Border Name="Border" Background="Transparent" >
+                <TextBlock Name="Text" Text="{rb:StringResource Main.Overview_Fleet_Idle}" TextAlignment="Center" />
+            </Border>
+
+            <ControlTemplate.Triggers>
+                <DataTrigger Binding="{rb:HasFlag Source.State, Unsupplied}" Value="True">
+                    <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleet_Unsupplied}" />
+                </DataTrigger>
+                <DataTrigger Binding="{rb:HasFlag Source.State, HeavilyDamaged}" Value="True">
+                    <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleet_HeavilyDamaged}" />
+                </DataTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+        
+        <ControlTemplate x:Key="ExpeditionContentTemplate">
+            <Border Background="Transparent" DataContext="{Binding ExpeditionStatus}">
+                <Border.ToolTip>
+                    <ToolTip>
+                        <TextBlock>
+                            <Run Text="{rb:StringResource Main.Overview_Fleet_Expedition_TimeToComplete, Mode=OneWay}" />
+                            <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
+                        </TextBlock>
+                    </ToolTip>
+                </Border.ToolTip>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition SharedSizeGroup="RemainingTime" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding Expedition.Name}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{Binding RemainingTime}" Margin="3, 0, 0, 0" Grid.Column="1" />
+                </Grid>
+            </Border>
+        </ControlTemplate>
+    </UserControl.Resources>
+    
+    <ItemsControl ItemsSource="{Binding}" Grid.IsSharedSizeScope="True">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="{x:Type rvmg:FleetViewModel}">
+                <Border Name="Border" Background="Transparent" Padding="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding Source.ID}" />
+                        <Control Name="Content" Template="{StaticResource DefaultContentTemplate}" Margin="4, 0, 0, 0" Grid.Column="1" />
+                    </Grid>
+                </Border>
+
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{rb:HasFlag Source.State, Expedition}" Value="True">
+                        <Setter TargetName="Content" Property="Template" Value="{StaticResource ExpeditionContentTemplate}" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

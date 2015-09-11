@@ -3,6 +3,10 @@
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   
+  <String Key="Overview_Fleet_Idle">等待中</String>
+  <String Key="Overview_Fleet_Unsupplied">未补给</String>
+  <String Key="Overview_Fleet_HeavilyDamaged">有大破船</String>
+  <String Key="Overview_Fleet_Expedition_TimeToComplete">完成时间</String>
   <String Key="Overview_Dock_Locked">未解锁</String>
   <String Key="Overview_RepairDock_TimeToComplete">完成时间</String>
   <String Key="Overview_BuildingDock_Completed">完成</String>
