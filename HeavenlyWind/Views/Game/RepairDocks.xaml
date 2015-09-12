@@ -36,7 +36,7 @@
                             <Setter.Value>
                                 <ToolTip>
                                     <TextBlock>
-                                        <Run Text="{rb:StringResource Main.Overview_RepairDock_TimeToComplete, Mode=OneWay}" />
+                                        <Run Text="{rb:StringResource Main.Overview_RepairDocks_TimeToComplete, Mode=OneWay}" />
                                         <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
                                     </TextBlock>
                                 </ToolTip>

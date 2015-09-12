@@ -7,20 +7,23 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Log_Welcome => GetString(nameof(Log_Welcome));
 
-        public string Overview_Fleet_Idle => GetString(nameof(Overview_Fleet_Idle));
-        public string Overview_Fleet_Unsupplied => GetString(nameof(Overview_Fleet_Unsupplied));
-        public string Overview_Fleet_HeavilyDamaged => GetString(nameof(Overview_Fleet_HeavilyDamaged));
-        public string Overview_Fleet_Expedition_TimeToComplete => GetString(nameof(Overview_Fleet_Expedition_TimeToComplete));
         public string Tab_Overview => GetString(nameof(Tab_Overview));
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));
         public string Tab_Quests => GetString(nameof(Tab_Quests));
         public string Tab_Tools => GetString(nameof(Tab_Tools));
 
+        public string Overview_Fleets => GetString(nameof(Overview_Fleets));
+        public string Overview_Fleets_Idle => GetString(nameof(Overview_Fleets_Idle));
+        public string Overview_Fleets_Unsupplied => GetString(nameof(Overview_Fleets_Unsupplied));
+        public string Overview_Fleets_HeavilyDamaged => GetString(nameof(Overview_Fleets_HeavilyDamaged));
+        public string Overview_Fleets_Expedition_TimeToComplete => GetString(nameof(Overview_Fleets_Expedition_TimeToComplete));
         public string Overview_Dock_Locked => GetString(nameof(Overview_Dock_Locked));
-        public string Overview_RepairDock_TimeToComplete => GetString(nameof(Overview_RepairDock_TimeToComplete));
-        public string Overview_BuildingDock_Completed => GetString(nameof(Overview_BuildingDock_Completed));
-        public string Overview_BuildingDock_TimeToComplete => GetString(nameof(Overview_BuildingDock_TimeToComplete));
-        public string Overview_BuildingDock_MaterialConsumption => GetString(nameof(Overview_BuildingDock_MaterialConsumption));
+        public string Overview_RepairDocks => GetString(nameof(Overview_RepairDocks));
+        public string Overview_RepairDocks_TimeToComplete => GetString(nameof(Overview_RepairDocks_TimeToComplete));
+        public string Overview_BuildingDocks => GetString(nameof(Overview_BuildingDocks));
+        public string Overview_BuildingDocks_Completed => GetString(nameof(Overview_BuildingDocks_Completed));
+        public string Overview_BuildingDocks_TimeToComplete => GetString(nameof(Overview_BuildingDocks_TimeToComplete));
+        public string Overview_BuildingDocks_MaterialConsumption => GetString(nameof(Overview_BuildingDocks_MaterialConsumption));
 
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));

@@ -11,15 +11,15 @@
     <UserControl.Resources>
         <ControlTemplate x:Key="DefaultContentTemplate">
             <Border Name="Border" Background="Transparent" >
-                <TextBlock Name="Text" Text="{rb:StringResource Main.Overview_Fleet_Idle}" TextAlignment="Center" />
+                <TextBlock Name="Text" Text="{rb:StringResource Main.Overview_Fleets_Idle}" TextAlignment="Center" />
             </Border>
 
             <ControlTemplate.Triggers>
                 <DataTrigger Binding="{rb:HasFlag Source.State, Unsupplied}" Value="True">
-                    <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleet_Unsupplied}" />
+                    <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleets_Unsupplied}" />
                 </DataTrigger>
                 <DataTrigger Binding="{rb:HasFlag Source.State, HeavilyDamaged}" Value="True">
-                    <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleet_HeavilyDamaged}" />
+                    <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleets_HeavilyDamaged}" />
                 </DataTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -29,7 +29,7 @@
                 <Border.ToolTip>
                     <ToolTip>
                         <TextBlock>
-                            <Run Text="{rb:StringResource Main.Overview_Fleet_Expedition_TimeToComplete, Mode=OneWay}" />
+                            <Run Text="{rb:StringResource Main.Overview_Fleets_Expedition_TimeToComplete, Mode=OneWay}" />
                             <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
                         </TextBlock>
                     </ToolTip>

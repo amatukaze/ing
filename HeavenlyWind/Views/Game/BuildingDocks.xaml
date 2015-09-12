@@ -36,10 +36,10 @@
                             <Setter.Value>
                                 <ToolTip>
                                     <TextBlock>
-                                        <Run Text="{rb:StringResource Main.Overview_BuildingDock_TimeToComplete, Mode=OneWay}" />
+                                        <Run Text="{rb:StringResource Main.Overview_BuildingDocks_TimeToComplete, Mode=OneWay}" />
                                         <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
                                         <LineBreak />
-                                        <Run Text="{rb:StringResource Main.Overview_BuildingDock_MaterialConsumption, Mode=OneWay}" />
+                                        <Run Text="{rb:StringResource Main.Overview_BuildingDocks_MaterialConsumption, Mode=OneWay}" />
                                         <Run>
                                             <MultiBinding StringFormat="{}{0}/{1}/{2}/{3}/{4}" Mode="OneWay">
                                                 <Binding Path="FuelConsumption" />
@@ -62,7 +62,7 @@
                             <Setter.Value>
                                 <ToolTip>
                                     <TextBlock>
-                                        <Run Text="{rb:StringResource Main.Overview_BuildingDock_MaterialConsumption, Mode=OneWay}" />
+                                        <Run Text="{rb:StringResource Main.Overview_BuildingDocks_MaterialConsumption, Mode=OneWay}" />
                                         <Run>
                                             <MultiBinding StringFormat="{}{0}/{1}/{2}/{3}/{4}" Mode="OneWay">
                                                 <Binding Path="FuelConsumption" />
@@ -78,7 +78,7 @@
                         </Setter>
                         <Setter TargetName="Ship" Property="Text" Value="{Binding Ship}" />
                         <Setter TargetName="Ship" Property="Grid.ColumnSpan" Value="1" />
-                        <Setter TargetName="RemainingTime" Property="Text" Value="{rb:StringResource Main.Overview_BuildingDock_Completed}" />
+                        <Setter TargetName="RemainingTime" Property="Text" Value="{rb:StringResource Main.Overview_BuildingDocks_Completed}" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>

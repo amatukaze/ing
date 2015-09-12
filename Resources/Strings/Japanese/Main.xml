@@ -8,15 +8,18 @@
   <String Key="Tab_Quests">任務</String>
   <String Key="Tab_Tools">ツール</String>
   
-  <String Key="Overview_Fleet_Idle">待機中</String>
-  <String Key="Overview_Fleet_Unsupplied">未補給</String>
-  <String Key="Overview_Fleet_HeavilyDamaged">大破艦がいます</String>
-  <String Key="Overview_Fleet_Expedition_TimeToComplete">完了時刻</String>
+  <String Key="Overview_Fleets">艦隊一覧</String>
+  <String Key="Overview_Fleets_Idle">待機中</String>
+  <String Key="Overview_Fleets_Unsupplied">未補給</String>
+  <String Key="Overview_Fleets_HeavilyDamaged">大破艦がいます</String>
+  <String Key="Overview_Fleets_Expedition_TimeToComplete">完了時刻</String>
   <String Key="Overview_Dock_Locked">ロック</String>
-  <String Key="Overview_RepairDock_TimeToComplete">完了時刻</String>
-  <String Key="Overview_BuildingDock_Completed">完了</String>
-  <String Key="Overview_BuildingDock_TimeToComplete">完了時刻</String>
-  <String Key="Overview_BuildingDock_MaterialConsumption">投入した資材</String>
+  <String Key="Overview_RepairDocks">入渠ドック</String>
+  <String Key="Overview_RepairDocks_TimeToComplete">完了時刻</String>
+  <String Key="Overview_BuildingDocks">建造ドック</String>
+  <String Key="Overview_BuildingDocks_Completed">完了</String>
+  <String Key="Overview_BuildingDocks_TimeToComplete">完了時刻</String>
+  <String Key="Overview_BuildingDocks_MaterialConsumption">投入した資材</String>
   
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>
