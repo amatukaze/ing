@@ -15,7 +15,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Padding="0, 3">
+        <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 0, 0, 1" Padding="0, 3">
             <ListBox ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet, Mode=TwoWay}">
                 <ListBox.Template>
                     <ControlTemplate TargetType="{x:Type ListBox}">
@@ -50,7 +50,7 @@
             </ListBox>
         </Border>
 
-        <Border DataContext="{Binding SelectedFleet}" Padding="4" TextElement.Foreground="White" TextElement.FontSize="12" Grid.Row="1">
+        <Border DataContext="{Binding SelectedFleet}" Padding="4" TextElement.FontSize="12" Grid.Row="1">
             <Grid DataContext="{Binding Source}" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -61,7 +61,7 @@
                     <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Margin="0, -5, 0, 0" Grid.IsSharedSizeScope="True">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type rgm:Ship}">
-                                <Border BorderBrush="Gray" BorderThickness="0, 1, 0, 0" Padding="3">
+                                <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Padding="3">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />

@@ -109,7 +109,7 @@
     <ScrollViewer>
         <StackPanel Grid.IsSharedSizeScope="True">
             <ListBox ItemsSource="{Binding Executing}" />
-            <Rectangle Fill="#30FFFFFF" Height="1" Margin="0, 5" />
+            <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="0, 5" />
             <ListBox ItemsSource="{Binding Unexecuted}" />
         </StackPanel>
     </ScrollViewer>
