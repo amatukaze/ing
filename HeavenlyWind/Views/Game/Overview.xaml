@@ -6,6 +6,5 @@
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Overview}">
+             d:DesignHeight="300" d:DesignWidth="300">
 </UserControl>

@@ -7,8 +7,14 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class OverviewViewModel : ModelBase
+    public class OverviewViewModel : TabItemViewModel
     {
+        public override string Name
+        {
+            get { return StringResources.Instance.Main.Tab_Overview; }
+            protected set { throw new NotImplementedException(); }
+        }
+
         IReadOnlyList<FleetViewModel> r_Fleets;
         public IReadOnlyList<FleetViewModel> Fleets
         {

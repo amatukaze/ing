@@ -7,8 +7,14 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class QuestsViewModel : ModelBase
+    public class QuestsViewModel : TabItemViewModel
     {
+        public override string Name
+        {
+            get { return StringResources.Instance.Main.Tab_Quests; }
+            protected set { throw new NotImplementedException(); }
+        }
+
         IReadOnlyCollection<QuestViewModel> r_Executing;
         public IReadOnlyCollection<QuestViewModel> Executing
         {
