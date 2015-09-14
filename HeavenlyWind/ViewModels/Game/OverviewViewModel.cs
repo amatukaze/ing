@@ -56,6 +56,20 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
         }
 
+        IReadOnlyCollection<QuestViewModel> r_ExecutingQuests;
+        public IReadOnlyCollection<QuestViewModel> ExecutingQuests
+        {
+            get { return r_ExecutingQuests; }
+            internal set
+            {
+                if (r_ExecutingQuests != value)
+                {
+                    r_ExecutingQuests = value;
+                    OnPropertyChanged(nameof(ExecutingQuests));
+                }
+            }
+        }
+
         internal OverviewViewModel()
         {
             var rPort = KanColleGame.Current.Port;

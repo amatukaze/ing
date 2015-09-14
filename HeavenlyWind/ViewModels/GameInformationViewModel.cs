@@ -33,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             {
                 (Overview = new OverviewViewModel()),
                 (Fleets = new FleetsViewModel(this)),
-                (Quests = new QuestsViewModel()),
+                (Quests = new QuestsViewModel(this)),
             };
 
             SelectedItem = TabItems.FirstOrDefault();

@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public int ExecutingCount
         {
             get { return r_ExecutingCount; }
-            set
+            internal set
             {
                 if (r_ExecutingCount != value)
                 {
@@ -90,7 +90,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Unexecuted = rQuests[false].ToList();
 
                 if (rExecuting.Count < ExecutingCount)
-                    rExecuting.AddRange(Enumerable.Repeat<Quest>(null, ExecutingCount - rExecuting.Count));
+                    rExecuting.AddRange(Enumerable.Repeat<Quest>(Quest.Dummy, ExecutingCount - rExecuting.Count));
 
                 Executing = rExecuting;
 

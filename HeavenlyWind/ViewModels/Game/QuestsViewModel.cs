@@ -42,17 +42,17 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
         }
 
-        internal QuestsViewModel()
+        internal QuestsViewModel(GameInformationViewModel rpParent)
         {
             var rQuestManager = KanColleGame.Current.Port.Quests;
-
-            Executing = rQuestManager.Executing?.Select(r => new QuestViewModel(r)).ToList();
+            
+            Executing = rpParent.Overview.ExecutingQuests = rQuestManager.Executing?.Select(r => new QuestViewModel(r)).ToList();
             Unexecuted = rQuestManager.Unexecuted?.Select(r => new QuestViewModel(r)).ToList();
 
             var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rQuestManager, nameof(rQuestManager.PropertyChanged))
                 .Select(r => r.EventArgs.PropertyName);
             rPropertyChangedSource.Where(r => r == nameof(rQuestManager.Executing))
-                .Subscribe(_ => Executing = rQuestManager.Executing.Select(r => new QuestViewModel(r)).ToList());
+                .Subscribe(_ => Executing = rpParent.Overview.ExecutingQuests = rQuestManager.Executing.Select(r => new QuestViewModel(r)).ToList());
             rPropertyChangedSource.Where(r => r == nameof(rQuestManager.Unexecuted))
                 .Subscribe(_ => Unexecuted = rQuestManager.Unexecuted.Select(r => new QuestViewModel(r)).ToList());
         }

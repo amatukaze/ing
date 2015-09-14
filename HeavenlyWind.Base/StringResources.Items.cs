@@ -24,7 +24,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_BuildingDocks_Completed => GetString(nameof(Overview_BuildingDocks_Completed));
         public string Overview_BuildingDocks_TimeToComplete => GetString(nameof(Overview_BuildingDocks_TimeToComplete));
         public string Overview_BuildingDocks_MaterialConsumption => GetString(nameof(Overview_BuildingDocks_MaterialConsumption));
+        public string Overview_ExecutingQuests => GetString(nameof(Overview_ExecutingQuests));
 
+        public string Quest_Unknown => GetString(nameof(Quest_Unknown));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));
         public string Quest_Type_Monthly => GetString(nameof(Quest_Type_Monthly));

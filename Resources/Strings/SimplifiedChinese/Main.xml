@@ -20,7 +20,9 @@
   <String Key="Overview_BuildingDocks_Completed">完成</String>
   <String Key="Overview_BuildingDocks_TimeToComplete">完成时间</String>
   <String Key="Overview_BuildingDocks_MaterialConsumption">投入的资材</String>
+  <String Key="Overview_ExecutingQuests">执行中的任务</String>
   
+  <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">周</String>
   <String Key="Quest_Type_Monthly">月</String>

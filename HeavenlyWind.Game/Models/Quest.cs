@@ -9,6 +9,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
     public class Quest : RawDataWrapper<RawQuest>, IID
     {
+        public static Quest Dummy { get; } = new Quest(new RawQuest() { ID = -1, Name = StringResources.Instance.Main.Quest_Unknown });
+
         public int ID => RawData.ID;
 
         public string Name => RawData.Name;

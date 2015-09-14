@@ -16,6 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.GetMember
             var rQuestManager = Game.Port.Quests;
 
             rQuestManager.TotalCount = rpData.Count;
+            rQuestManager.ExecutingCount = rpData.ExecutingCount;
 
             foreach (var rRawQuest in rpData.Quests.Where(r => r.Type == JTokenType.Object).Select(r => r.ToObject<RawQuest>()))
             {
