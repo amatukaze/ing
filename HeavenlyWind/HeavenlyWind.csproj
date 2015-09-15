@@ -93,6 +93,8 @@
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetViewModel.cs" />
+    <Compile Include="ViewModels\Game\AdmiralViewModel.cs" />
+    <Compile Include="ViewModels\Game\MaterialsViewModel.cs" />
     <Compile Include="ViewModels\Game\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestsViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestViewModel.cs" />

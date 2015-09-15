@@ -15,6 +15,36 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             protected set { throw new NotImplementedException(); }
         }
 
+        public AdmiralViewModel Admiral { get; } = new AdmiralViewModel();
+        public MaterialsViewModel Materials { get; } = new MaterialsViewModel();
+
+        int r_ShipCount;
+        public int ShipCount
+        {
+            get { return r_ShipCount; }
+            private set
+            {
+                if (r_ShipCount != value)
+                {
+                    r_ShipCount = value;
+                    OnPropertyChanged(nameof(ShipCount));
+                }
+            }
+        }
+        int r_EquipmentCount;
+        public int EquipmentCount
+        {
+            get { return r_EquipmentCount; }
+            private set
+            {
+                if (r_EquipmentCount != value)
+                {
+                    r_EquipmentCount = value;
+                    OnPropertyChanged(nameof(EquipmentCount));
+                }
+            }
+        }
+
         IReadOnlyList<FleetViewModel> r_Fleets;
         public IReadOnlyList<FleetViewModel> Fleets
         {
@@ -76,6 +106,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rPort, nameof(rPort.PropertyChanged))
                 .Select(r => r.EventArgs.PropertyName);
+            rPropertyChangedSource.Where(r => r == nameof(rPort.Ships))
+                .Subscribe(_ => ShipCount = rPort.Ships.Count);
+            rPropertyChangedSource.Where(r => r == nameof(rPort.Equipments))
+                .Subscribe(_ => EquipmentCount = rPort.Equipments.Count);
             rPropertyChangedSource.Where(r => r == nameof(rPort.RepairDocks))
                 .Subscribe(_ => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
             rPropertyChangedSource.Where(r => r == nameof(rPort.BuildingDocks))

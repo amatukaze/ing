@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.GetMember
     {
         public override void Process(RawBasic rpData)
         {
-            Game.Port.Admiral.Update(rpData);
+            Game.Port.UpdateAdmiral(rpData);
         }
     }
 }

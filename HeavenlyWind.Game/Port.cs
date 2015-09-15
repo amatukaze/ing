@@ -29,9 +29,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         #region Update
 
+        internal void UpdateAdmiral(RawBasic rpAdmiral)
+        {
+            Admiral.Update(rpAdmiral);
+            OnPropertyChanged(nameof(Admiral));
+        }
+
         internal void UpdatePort(RawPort rpPort)
         {
-            Admiral.Update(rpPort.Basic);
+            UpdateAdmiral(rpPort.Basic);
             Materials.Update(rpPort.Materials);
 
             if (Ships.UpdateRawData<RawShip>(rpPort.Ships, r => new Ship(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
