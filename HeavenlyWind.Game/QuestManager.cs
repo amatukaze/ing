@@ -1,5 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
-using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -83,7 +83,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         
         internal QuestManager()
         {
-            ApiParserManager.Instance["api_get_member/questlist"].ProcessSucceeded += delegate
+            SessionService.Instance.Subscribe("api_get_member/questlist", _ =>
             {
                 var rQuests = Table.Values.ToLookup(r => r.State != QuestState.None);
                 var rExecuting = rQuests[true].ToList();
@@ -96,13 +96,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 IsLoaded = true;
                 OnPropertyChanged(nameof(IsLoaded));
-            };
-            ApiParserManager.Instance["api_req_quest/clearitemget"].ProcessSucceeded += (rpRequests, _) =>
+            });
+            SessionService.Instance.Subscribe("api_req_quest/clearitemget", r =>
             {
-                var rQuestID = int.Parse(rpRequests["api_quest_id"]);
+                var rQuestID = int.Parse(r.Requests["api_quest_id"]);
                 Table.Remove(rQuestID);
                 TotalCount--;
-            };
+            });
         }
     }
 }

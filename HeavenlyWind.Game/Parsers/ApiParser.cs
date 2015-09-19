@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
             base.Process(rpJson);
             Process();
 
-            OnProcessSucceeded(new ApiData(Api, rpJson));
+            OnProcessSucceeded(new ApiData(Api, Requests, rpJson));
         }
         public abstract void Process();
     }
@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
                 Process(rData);
 
-                OnProcessSucceeded(new ApiData(Api, rpJson) { Data = rData });
+                OnProcessSucceeded(new ApiData(Api, Requests, rpJson) { Data = rData });
             }
             catch (JsonReaderException) { }
         }

@@ -24,7 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze
         Logger()
         {
             var rCurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var rLogDirectory = new DirectoryInfo(Path.Combine(rCurrentDirectory, "Log"));
+            var rLogDirectory = new DirectoryInfo(Path.Combine(rCurrentDirectory, "Logs"));
             if (!rLogDirectory.Exists)
                 rLogDirectory.Create();
 

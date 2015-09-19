@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Reactive.Subjects;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 {
@@ -15,7 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
         public int ResultCode { get; private set; }
         public JObject ResponseJson { get; private set; }
 
-        public event Action<IReadOnlyDictionary<string, string>, ApiData> ProcessSucceeded = delegate { };
+        internal Subject<ApiData> ProcessSucceeded { get; } = new Subject<ApiData>();
 
         internal virtual void Process(JObject rpJson)
         {
@@ -23,6 +24,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
             ResponseJson = rpJson;
         }
 
-        protected void OnProcessSucceeded(ApiData rpData) => ProcessSucceeded(Requests, rpData);
+        protected void OnProcessSucceeded(ApiData rpData) => ProcessSucceeded.OnNext(rpData);
     }
 }
