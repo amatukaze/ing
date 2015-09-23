@@ -14,6 +14,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public long[] Expedition { get; set; }
 
         [JsonProperty("api_ship")]
-        public int[] Ship { get; set; }
+        public int[] Ships { get; set; }
     }
 }

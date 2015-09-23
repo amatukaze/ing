@@ -6,6 +6,11 @@ namespace Sakuno.KanColle.Amatsukaze
     {
 
         public string Log_Welcome => GetString(nameof(Log_Welcome));
+        public string Log_ExpeditionResult => GetString(nameof(Log_ExpeditionResult));
+
+        public string Expedition_Result_Failure => GetString(nameof(Expedition_Result_Failure));
+        public string Expedition_Result_Success => GetString(nameof(Expedition_Result_Success));
+        public string Expedition_Result_GreatSuccess => GetString(nameof(Expedition_Result_GreatSuccess));
 
         public string Tab_Overview => GetString(nameof(Tab_Overview));
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));

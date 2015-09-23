@@ -2,6 +2,11 @@
 <Strings CultureName="ja-JP" Name="日本語" Version="0.1">
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
+  <String Key="Log_ExpeditionResult">/{0}「{1}」が遠征「{2}:{3}」から帰投しました。(結果:{4})</String>
+  
+  <String Key="Expedition_Result_Failure">失敗</String>
+  <String Key="Expedition_Result_Success">成功</String>
+  <String Key="Expedition_Result_GreatSuccess">大成功</String>
   
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>

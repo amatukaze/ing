@@ -80,6 +80,7 @@
     <Compile Include="Models\EquipmentInfo.cs" />
     <Compile Include="Models\EquipmentType.cs" />
     <Compile Include="Models\EquipmentTypeInfo.cs" />
+    <Compile Include="Models\ExpeditionResult.cs" />
     <Compile Include="Models\FleetExpeditionStatus.cs" />
     <Compile Include="Models\ExpeditionInfo.cs" />
     <Compile Include="Models\Experience.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
     <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
+    <Compile Include="Models\Raw\RawExpeditionResult.cs" />
     <Compile Include="Models\Raw\RawFleet.cs" />
     <Compile Include="Models\Raw\RawMapAreaInfo.cs" />
     <Compile Include="Models\Raw\RawMapMasterInfo.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="Parsers\ApiParserManager.cs" />
     <Compile Include="Parsers\DefaultApiParser.cs" />
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
+    <Compile Include="Parsers\Root\Expedition\ResultParser.cs" />
     <Compile Include="Parsers\Root\GetMember\BasicParser.cs" />
     <Compile Include="Parsers\Root\GetMember\BuildingDockParser.cs" />
     <Compile Include="Parsers\Root\GetMember\EquipmentParser.cs" />
@@ -155,6 +158,7 @@
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Services\RecordService.cs" />
+    <Compile Include="Services\Records\ExpeditionRecord.cs" />
     <Compile Include="Services\Records\ExperienceRecord.cs" />
     <Compile Include="Services\Records\RecordBase.cs" />
     <Compile Include="Services\Records\RecordBaseExtension.cs" />
