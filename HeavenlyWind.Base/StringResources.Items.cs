@@ -25,10 +25,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_Dock_Locked => GetString(nameof(Overview_Dock_Locked));
         public string Overview_RepairDocks => GetString(nameof(Overview_RepairDocks));
         public string Overview_RepairDocks_TimeToComplete => GetString(nameof(Overview_RepairDocks_TimeToComplete));
-        public string Overview_BuildingDocks => GetString(nameof(Overview_BuildingDocks));
-        public string Overview_BuildingDocks_Completed => GetString(nameof(Overview_BuildingDocks_Completed));
-        public string Overview_BuildingDocks_TimeToComplete => GetString(nameof(Overview_BuildingDocks_TimeToComplete));
-        public string Overview_BuildingDocks_MaterialConsumption => GetString(nameof(Overview_BuildingDocks_MaterialConsumption));
+        public string Overview_ConstructionDocks => GetString(nameof(Overview_ConstructionDocks));
+        public string Overview_ConstructionDocks_Completed => GetString(nameof(Overview_ConstructionDocks_Completed));
+        public string Overview_ConstructionDocks_TimeToComplete => GetString(nameof(Overview_ConstructionDocks_TimeToComplete));
+        public string Overview_ConstructionDocks_MaterialConsumption => GetString(nameof(Overview_ConstructionDocks_MaterialConsumption));
         public string Overview_ExecutingQuests => GetString(nameof(Overview_ExecutingQuests));
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));

@@ -21,10 +21,10 @@
   <String Key="Overview_Dock_Locked">未解锁</String>
   <String Key="Overview_RepairDocks">入渠</String>
   <String Key="Overview_RepairDocks_TimeToComplete">完成时间</String>
-  <String Key="Overview_BuildingDocks">建造</String>
-  <String Key="Overview_BuildingDocks_Completed">完成</String>
-  <String Key="Overview_BuildingDocks_TimeToComplete">完成时间</String>
-  <String Key="Overview_BuildingDocks_MaterialConsumption">投入的资材</String>
+  <String Key="Overview_ConstructionDocks">建造</String>
+  <String Key="Overview_ConstructionDocks_Completed">完成</String>
+  <String Key="Overview_ConstructionDocks_TimeToComplete">完成时间</String>
+  <String Key="Overview_ConstructionDocks_MaterialConsumption">投入的资材</String>
   <String Key="Overview_ExecutingQuests">执行中的任务</String>
   
   <String Key="Quest_Unknown">?????</String>

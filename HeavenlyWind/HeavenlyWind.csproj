@@ -89,7 +89,7 @@
     <Compile Include="Controls\ShipSlot.cs" />
     <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
-    <Compile Include="ViewModels\Game\BuildingDockViewModel.cs" />
+    <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetViewModel.cs" />
@@ -107,8 +107,8 @@
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Game\BuildingDocks.xaml.cs">
-      <DependentUpon>BuildingDocks.xaml</DependentUpon>
+    <Compile Include="Views\Game\ConstructionDocks.xaml.cs">
+      <DependentUpon>ConstructionDocks.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\ExecutingQuestsOverview.xaml.cs">
       <DependentUpon>ExecutingQuestsOverview.xaml</DependentUpon>
@@ -360,7 +360,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Game\BuildingDocks.xaml">
+    <Page Include="Views\Game\ConstructionDocks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

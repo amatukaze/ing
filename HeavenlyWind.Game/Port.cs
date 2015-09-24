@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public IDTable<Equipment> Equipments { get; } = new IDTable<Equipment>();
 
         public IDTable<RepairDock> RepairDocks { get; } = new IDTable<RepairDock>();
-        public IDTable<BuildingDock> BuildingDocks { get; } = new IDTable<BuildingDock>();
+        public IDTable<ConstructionDock> ConstructionDocks { get; } = new IDTable<ConstructionDock>();
 
         public QuestManager Quests { get; } = new QuestManager();
 
@@ -58,10 +58,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 OnPropertyChanged(nameof(Equipments));
         }
 
-        internal void UpdateBuildingDocks(RawBuildingDock[] rpBuildingDocks)
+        internal void UpdateConstructionDocks(RawConstructionDock[] rpConstructionDocks)
         {
-            if (BuildingDocks.UpdateRawData<RawBuildingDock>(rpBuildingDocks, r => new BuildingDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
-                OnPropertyChanged(nameof(BuildingDocks));
+            if (ConstructionDocks.UpdateRawData<RawConstructionDock>(rpConstructionDocks, r => new ConstructionDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                OnPropertyChanged(nameof(ConstructionDocks));
         }
 
         #endregion

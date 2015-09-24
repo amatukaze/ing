@@ -72,7 +72,7 @@
     <Compile Include="KanColleGame.cs" />
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
-    <Compile Include="Models\BuildingDock.cs" />
+    <Compile Include="Models\ConstructionDock.cs" />
     <Compile Include="Models\CombinedFleetType.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />
     <Compile Include="Models\Equipment.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="Models\MaterialType.cs" />
     <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\Raw\RawBasic.cs" />
-    <Compile Include="Models\Raw\RawBuildingDock.cs" />
+    <Compile Include="Models\Raw\RawConstructionDock.cs" />
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
     <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
@@ -145,7 +145,7 @@
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
     <Compile Include="Parsers\Root\Expedition\ResultParser.cs" />
     <Compile Include="Parsers\Root\GetMember\BasicParser.cs" />
-    <Compile Include="Parsers\Root\GetMember\BuildingDockParser.cs" />
+    <Compile Include="Parsers\Root\GetMember\ConstructionDockParser.cs" />
     <Compile Include="Parsers\Root\GetMember\EquipmentParser.cs" />
     <Compile Include="Parsers\Root\GetMember\MaterialParser.cs" />
     <Compile Include="Parsers\Root\GetMember\QuestListParser.cs" />

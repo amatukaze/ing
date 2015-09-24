@@ -2,13 +2,13 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 {
-    public class RawBuildingDock : IID
+    public class RawConstructionDock : IID
     {
         [JsonProperty("api_id")]
         public int ID { get; set; }
 
         [JsonProperty("api_state")]
-        public BuildingDockState State { get; set; }
+        public ConstructionDockState State { get; set; }
 
         [JsonProperty("api_created_ship_id")]
         public int ShipID { get; set; }

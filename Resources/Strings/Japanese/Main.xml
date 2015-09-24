@@ -21,10 +21,10 @@
   <String Key="Overview_Dock_Locked">ロック</String>
   <String Key="Overview_RepairDocks">入渠ドック</String>
   <String Key="Overview_RepairDocks_TimeToComplete">完了時刻</String>
-  <String Key="Overview_BuildingDocks">建造ドック</String>
-  <String Key="Overview_BuildingDocks_Completed">完了</String>
-  <String Key="Overview_BuildingDocks_TimeToComplete">完了時刻</String>
-  <String Key="Overview_BuildingDocks_MaterialConsumption">投入した資材</String>
+  <String Key="Overview_ConstructionDocks">建造ドック</String>
+  <String Key="Overview_ConstructionDocks_Completed">完了</String>
+  <String Key="Overview_ConstructionDocks_TimeToComplete">完了時刻</String>
+  <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
   <String Key="Overview_ExecutingQuests">遂行中の任務</String>
   
   <String Key="Quest_Unknown">?????</String>

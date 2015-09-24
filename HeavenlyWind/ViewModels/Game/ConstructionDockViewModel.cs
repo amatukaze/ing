@@ -5,12 +5,12 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class BuildingDockViewModel : ModelBase
+    public class ConstructionDockViewModel : ModelBase
     {
-        BuildingDock r_Source;
+        ConstructionDock r_Source;
 
         public int ID => r_Source.ID;
-        public BuildingDockState State => r_Source.State;
+        public ConstructionDockState State => r_Source.State;
         public string Ship => r_Source.Ship?.Name;
 
         public string TimeToComplete => r_Source.TimeToComplete?.LocalDateTime.ToString();
@@ -24,9 +24,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public int BauxiteConsumption => r_Source.BauxiteConsumption;
         public int DevelopmentMaterialConsumption => r_Source.DevelopmentMaterialConsumption;
 
-        internal BuildingDockViewModel(BuildingDock rpBuildingDock)
+        internal ConstructionDockViewModel(ConstructionDock rpConstructionDock)
         {
-            r_Source = rpBuildingDock;
+            r_Source = rpConstructionDock;
 
             Observable.FromEventPattern<PropertyChangedEventArgs>(r_Source, nameof(r_Source.PropertyChanged))
                 .Select(r => r.EventArgs.PropertyName).Subscribe(OnPropertyChanged);

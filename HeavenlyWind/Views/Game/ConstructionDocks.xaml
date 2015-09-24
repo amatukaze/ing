@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.BuildingDocks"
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.ConstructionDocks"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,10 +7,10 @@
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding BuildingDocks}">
+             DataContext="{Binding ConstructionDocks}">
     <ItemsControl ItemsSource="{Binding}" Grid.IsSharedSizeScope="True">
         <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type rvmg:BuildingDockViewModel}">
+            <DataTemplate DataType="{x:Type rvmg:ConstructionDockViewModel}">
                 <Border Name="Border" Background="Transparent" Padding="4">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -36,10 +36,10 @@
                             <Setter.Value>
                                 <ToolTip>
                                     <TextBlock>
-                                        <Run Text="{rb:StringResource Main.Overview_BuildingDocks_TimeToComplete, Mode=OneWay}" />
+                                        <Run Text="{rb:StringResource Main.Overview_ConstructionDocks_TimeToComplete, Mode=OneWay}" />
                                         <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
                                         <LineBreak />
-                                        <Run Text="{rb:StringResource Main.Overview_BuildingDocks_MaterialConsumption, Mode=OneWay}" />
+                                        <Run Text="{rb:StringResource Main.Overview_ConstructionDocks_MaterialConsumption, Mode=OneWay}" />
                                         <Run>
                                             <MultiBinding StringFormat="{}{0}/{1}/{2}/{3}/{4}" Mode="OneWay">
                                                 <Binding Path="FuelConsumption" />
@@ -62,7 +62,7 @@
                             <Setter.Value>
                                 <ToolTip>
                                     <TextBlock>
-                                        <Run Text="{rb:StringResource Main.Overview_BuildingDocks_MaterialConsumption, Mode=OneWay}" />
+                                        <Run Text="{rb:StringResource Main.Overview_ConstructionDocks_MaterialConsumption, Mode=OneWay}" />
                                         <Run>
                                             <MultiBinding StringFormat="{}{0}/{1}/{2}/{3}/{4}" Mode="OneWay">
                                                 <Binding Path="FuelConsumption" />
@@ -78,7 +78,7 @@
                         </Setter>
                         <Setter TargetName="Ship" Property="Text" Value="{Binding Ship}" />
                         <Setter TargetName="Ship" Property="Grid.ColumnSpan" Value="1" />
-                        <Setter TargetName="RemainingTime" Property="Text" Value="{rb:StringResource Main.Overview_BuildingDocks_Completed}" />
+                        <Setter TargetName="RemainingTime" Property="Text" Value="{rb:StringResource Main.Overview_ConstructionDocks_Completed}" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>

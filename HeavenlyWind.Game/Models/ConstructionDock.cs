@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public enum BuildingDockState { Locked = -1, Idle, Building = 2, Completed }
+    public enum ConstructionDockState { Locked = -1, Idle, Building = 2, Completed }
 
-    public class BuildingDock : CountdownModelBase, IID
+    public class ConstructionDock : CountdownModelBase, IID
     {
         public int ID { get; }
 
-        BuildingDockState r_State;
-        public BuildingDockState State
+        ConstructionDockState r_State;
+        public ConstructionDockState State
         {
             get { return r_State; }
             private set
@@ -108,7 +108,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             get
             {
-                if (State == BuildingDockState.Idle || State == BuildingDockState.Locked)
+                if (State == ConstructionDockState.Idle || State == ConstructionDockState.Locked)
                     return null;
 
                 return FuelConsumption >= 1000 && BulletConsumption >= 1000 && SteelConsumption >= 1000 & BauxiteConsumption >= 1000;
@@ -117,14 +117,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public event Action<string> BuildingCompleted = delegate { };
 
-        internal BuildingDock(RawBuildingDock rpRawData)
+        internal ConstructionDock(RawConstructionDock rpRawData)
         {
             ID = rpRawData.ID;
 
             Update(rpRawData);
         }
 
-        public void Update(RawBuildingDock rpRawData)
+        public void Update(RawConstructionDock rpRawData)
         {
             State = rpRawData.State;
 
@@ -134,7 +134,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             BauxiteConsumption = rpRawData.BauxiteConsumption;
             DevelopmentMaterialConsumption = rpRawData.DevelopmentMaterialConsumption;
 
-            if (State == BuildingDockState.Building || State == BuildingDockState.Completed)
+            if (State == ConstructionDockState.Building || State == ConstructionDockState.Completed)
             {
                 Ship = KanColleGame.Current.MasterInfo.Ships[rpRawData.ShipID];
                 TimeToComplete = DateTimeUtil.UnixEpoch.AddMilliseconds(rpRawData.TimeToComplete);
@@ -149,13 +149,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal void CompleteConstruction()
         {
             IsNotificated = true;
-            State = BuildingDockState.Completed;
+            State = ConstructionDockState.Completed;
             TimeToComplete = null;
         }
 
         protected override void TimeOut()
         {
-            State = BuildingDockState.Completed;
+            State = ConstructionDockState.Completed;
             BuildingCompleted(Ship.Name);
         }
 
@@ -163,9 +163,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             var rBuilder = new StringBuilder(64);
             rBuilder.Append($"ID = {ID}, State = {State}");
-            if (State == BuildingDockState.Building || State == BuildingDockState.Completed)
+            if (State == ConstructionDockState.Building || State == ConstructionDockState.Completed)
                 rBuilder.Append($", Ship = \"{Ship.Name}\"");
-            if (State == BuildingDockState.Building)
+            if (State == ConstructionDockState.Building)
                 rBuilder.Append($", TimeToComplete = \"{TimeToComplete.Value}\"");
 
             return rBuilder.ToString();

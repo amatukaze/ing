@@ -72,16 +72,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 }
             }
         }
-        IReadOnlyCollection<BuildingDockViewModel> r_BuildingDocks;
-        public IReadOnlyCollection<BuildingDockViewModel> BuildingDocks
+        IReadOnlyCollection<ConstructionDockViewModel> r_ConstructionDocks;
+        public IReadOnlyCollection<ConstructionDockViewModel> ConstructionDocks
         {
-            get { return r_BuildingDocks; }
+            get { return r_ConstructionDocks; }
             private set
             {
-                if (r_BuildingDocks != value)
+                if (r_ConstructionDocks != value)
                 {
-                    r_BuildingDocks = value;
-                    OnPropertyChanged(nameof(BuildingDocks));
+                    r_ConstructionDocks = value;
+                    OnPropertyChanged(nameof(ConstructionDocks));
                 }
             }
         }
@@ -112,8 +112,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 .Subscribe(_ => EquipmentCount = rPort.Equipments.Count);
             rPropertyChangedSource.Where(r => r == nameof(rPort.RepairDocks))
                 .Subscribe(_ => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
-            rPropertyChangedSource.Where(r => r == nameof(rPort.BuildingDocks))
-                .Subscribe(_ => BuildingDocks = rPort.BuildingDocks.Values.Select(r => new BuildingDockViewModel(r)).ToList());
+            rPropertyChangedSource.Where(r => r == nameof(rPort.ConstructionDocks))
+                .Subscribe(_ => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
         }
     }
 }
