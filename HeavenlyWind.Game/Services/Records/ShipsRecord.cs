@@ -34,7 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.CommandText = "CREATE TABLE IF NOT EXISTS ships(" +
                     "id INTEGER PRIMARY KEY NOT NULL, " +
                     "ship_id INTEGER NOT NULL, " +
-                    "absent BOOLEAN NOT NULL DEFAULT FALSE);";
+                    "absent BOOLEAN NOT NULL DEFAULT 0);";
 
                 rCommand.ExecuteNonQuery();
             }
