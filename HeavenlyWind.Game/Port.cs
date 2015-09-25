@@ -57,6 +57,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             if (Equipments.UpdateRawData<RawEquipment>(rpEquipments, r => new Equipment(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                 OnPropertyChanged(nameof(Equipments));
         }
+        internal void AddEquipment(Equipment rpEquipment)
+        {
+            Equipments.Add(rpEquipment);
+            OnPropertyChanged(nameof(Equipments));
+        }
 
         internal void UpdateConstructionDocks(RawConstructionDock[] rpConstructionDocks)
         {

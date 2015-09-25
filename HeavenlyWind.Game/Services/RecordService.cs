@@ -15,6 +15,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public ShipsRecord Ships { get; private set; }
         public ExperienceRecord Experience { get; private set; }
         public ExpeditionRecord Expedition { get; private set; }
+        public ConstructionRecord Construction { get; private set; }
+        public DevelopmentRecord Development { get; private set; }
 
         public bool IsConnected { get; private set; }
 
@@ -40,6 +42,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Ships?.Dispose();
             Experience?.Dispose();
             Expedition?.Dispose();
+            Construction?.Dispose();
+            Development?.Dispose();
             r_Connection?.Dispose();
 
             r_UserID = rpUserID;
@@ -53,6 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Ships = new ShipsRecord(r_Connection).ConnectAndReturn();
                 Experience = new ExperienceRecord(r_Connection).ConnectAndReturn();
                 Expedition = new ExpeditionRecord(r_Connection).ConnectAndReturn();
+                Construction = new ConstructionRecord(r_Connection).ConnectAndReturn();
+                Development = new DevelopmentRecord(r_Connection).ConnectAndReturn();
 
                 rTransaction.Commit();
             }

@@ -98,6 +98,7 @@
     <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\Raw\RawBasic.cs" />
     <Compile Include="Models\Raw\RawConstructionDock.cs" />
+    <Compile Include="Models\Raw\RawEquipmentDevelopment.cs" />
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
     <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Parsers\ApiParserManager.cs" />
     <Compile Include="Parsers\DefaultApiParser.cs" />
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
+    <Compile Include="Parsers\Root\Arsenal\DevelopmentParser.cs" />
     <Compile Include="Parsers\Root\Expedition\ResultParser.cs" />
     <Compile Include="Parsers\Root\GetMember\BasicParser.cs" />
     <Compile Include="Parsers\Root\GetMember\ConstructionDockParser.cs" />
@@ -158,6 +160,8 @@
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Services\RecordService.cs" />
+    <Compile Include="Services\Records\ConstructionRecord.cs" />
+    <Compile Include="Services\Records\DevelopmentRecord.cs" />
     <Compile Include="Services\Records\ExpeditionRecord.cs" />
     <Compile Include="Services\Records\ExperienceRecord.cs" />
     <Compile Include="Services\Records\RecordBase.cs" />
