@@ -47,7 +47,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             r_Connection?.Dispose();
 
             r_UserID = rpUserID;
-            r_Connection = new SQLiteConnection($@"Data Source=Records\{r_UserID}.db").OpenAndReturn();
+            r_Connection = new SQLiteConnection($@"Data Source=Records\{r_UserID}.db;Page Size=8192").OpenAndReturn();
 
             using (var rTransaction = r_Connection.BeginTransaction())
             {
