@@ -5,8 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class DevelopmentRecord : RecordBase
     {
-        public override string TableName => "development";
-        public override int Version => 1;
+        public override string GroupName => "development";
 
         internal DevelopmentRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {

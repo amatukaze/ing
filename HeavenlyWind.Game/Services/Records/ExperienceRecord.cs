@@ -7,8 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class ExperienceRecord : RecordBase
     {
-        public override string TableName => "experience";
-        public override int Version => 1;
+        public override string GroupName => "experience";
 
         int r_Admiral;
         Dictionary<int, int> r_Ships = new Dictionary<int, int>(100);

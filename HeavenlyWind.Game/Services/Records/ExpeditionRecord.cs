@@ -7,8 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class ExpeditionRecord : RecordBase
     {
-        public override string TableName => "expedition";
-        public override int Version => 1;
+        public override string GroupName => "expedition";
 
         internal ExpeditionRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {

@@ -8,8 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     {
         protected SQLiteConnection Connection { get; }
 
-        public abstract string TableName { get; }
-        public abstract int Version { get; }
+        public abstract string GroupName { get; }
+        public virtual int Version => 1;
 
         List<IDisposable> r_DisposableObjects;
         protected IList<IDisposable> DisposableObjects
@@ -37,8 +37,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             int rVersion;
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "SELECT value FROM versions WHERE key = @table;";
-                rCommand.Parameters.AddWithValue("@table", TableName);
+                rCommand.CommandText = "SELECT value FROM versions WHERE key = @group;";
+                rCommand.Parameters.AddWithValue("@group", GroupName);
 
                 rVersion = Convert.ToInt32(rCommand.ExecuteScalar());
             }
@@ -54,8 +54,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT INTO versions(key, value) VALUES(@table, @version);";
-                rCommand.Parameters.AddWithValue("@table", TableName);
+                rCommand.CommandText = "INSERT INTO versions(key, value) VALUES(@group, @version);";
+                rCommand.Parameters.AddWithValue("@group", GroupName);
                 rCommand.Parameters.AddWithValue("@version", Version.ToString());
 
                 rCommand.ExecuteNonQuery();

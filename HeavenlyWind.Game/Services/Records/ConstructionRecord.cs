@@ -8,8 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class ConstructionRecord : RecordBase
     {
-        public override string TableName => "construction";
-        public override int Version => 1;
+        public override string GroupName => "construction";
         
         internal ConstructionRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {

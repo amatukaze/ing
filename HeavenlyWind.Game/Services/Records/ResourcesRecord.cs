@@ -8,8 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class ResourcesRecord : RecordBase
     {
-        public override string TableName => "resources";
-        public override int Version => 1;
+        public override string GroupName => "resources";
 
         int r_Fuel;
         int r_Bullet;

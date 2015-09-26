@@ -7,8 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class ShipsRecord : RecordBase
     {
-        public override string TableName => "ships";
-        public override int Version => 1;
+        public override string GroupName => "ships";
 
         HashSet<int> r_Ships = new HashSet<int>();
 

@@ -33,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             SessionService.Instance.Subscribe("api_get_member/basic", _ => Connect(KanColleGame.Current.Port.Admiral.ID));
         }
 
-        public void Connect(int rpUserID)
+        void Connect(int rpUserID)
         {
             if (r_UserID == rpUserID)
                 return;
