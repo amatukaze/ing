@@ -18,6 +18,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public ConstructionRecord Construction { get; private set; }
         public DevelopmentRecord Development { get; private set; }
 
+        public QuestProgressRecord QuestProgress { get; private set; }
+
         public bool IsConnected { get; private set; }
 
         int r_UserID;
@@ -44,6 +46,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Expedition?.Dispose();
             Construction?.Dispose();
             Development?.Dispose();
+
+            QuestProgress?.Dispose();
+
             r_Connection?.Dispose();
 
             r_UserID = rpUserID;
@@ -59,6 +64,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Expedition = new ExpeditionRecord(r_Connection).ConnectAndReturn();
                 Construction = new ConstructionRecord(r_Connection).ConnectAndReturn();
                 Development = new DevelopmentRecord(r_Connection).ConnectAndReturn();
+
+                QuestProgress = new QuestProgressRecord(r_Connection).ConnectAndReturn();
 
                 rTransaction.Commit();
             }

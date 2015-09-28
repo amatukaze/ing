@@ -159,11 +159,14 @@
     <Compile Include="Proxy\NetworkSession.cs" />
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="QuestManager.cs" />
+    <Compile Include="Services\Quest\ProgressInfo.cs" />
+    <Compile Include="Services\QuestProgressService.cs" />
     <Compile Include="Services\RecordService.cs" />
     <Compile Include="Services\Records\ConstructionRecord.cs" />
     <Compile Include="Services\Records\DevelopmentRecord.cs" />
     <Compile Include="Services\Records\ExpeditionRecord.cs" />
     <Compile Include="Services\Records\ExperienceRecord.cs" />
+    <Compile Include="Services\Records\QuestProgressRecord.cs" />
     <Compile Include="Services\Records\RecordBase.cs" />
     <Compile Include="Services\Records\RecordBaseExtension.cs" />
     <Compile Include="Services\Records\ResourcesRecord.cs" />
