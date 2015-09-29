@@ -36,14 +36,14 @@ namespace Sakuno.KanColle.Amatsukaze
             r_HasNewItems = new ManualResetEventSlim(false);
         }
 
-        void Process()
+        async void Process()
         {
             while (true)
             {
                 r_HasNewItems.Wait();
                 r_HasNewItems.Reset();
 
-                Thread.Sleep(100);
+                await Task.Delay(100);
 
                 LogItem rItem;
                 while (r_Queue.TryDequeue(out rItem))
