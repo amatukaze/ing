@@ -11,6 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public static RecordService Instance { get; } = new RecordService();
 
+        public bool IsReadOnlyMode { get; set; }
+
         public ResourcesRecord Resources { get; private set; }
         public ShipsRecord Ships { get; private set; }
         public ExperienceRecord Experience { get; private set; }
@@ -46,8 +48,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Development?.Dispose();
             r_Connection?.Dispose();
 
+            IsConnected = false;
+
             r_UserID = rpUserID;
+            
             r_Connection = new SQLiteConnection($@"Data Source=Records\{r_UserID}.db;Page Size=8192").OpenAndReturn();
+
+            if (IsReadOnlyMode)
+                using (var rSourceConnection = r_Connection)
+                {
+                    r_Connection = new SQLiteConnection("Data Source=:memory:; Page Size=8192").OpenAndReturn();
+                    rSourceConnection.BackupDatabase(r_Connection, "main", "main", -1, null, 0);
+                }
 
             using (var rTransaction = r_Connection.BeginTransaction())
             {
@@ -62,6 +74,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                 rTransaction.Commit();
             }
+
+            IsConnected = true;
         }
 
         void CheckVersion()
