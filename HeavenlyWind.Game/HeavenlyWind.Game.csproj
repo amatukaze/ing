@@ -160,6 +160,7 @@
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Services\Quest\ProgressInfo.cs" />
+    <Compile Include="Services\Quest\QuestInfo.cs" />
     <Compile Include="Services\QuestProgressService.cs" />
     <Compile Include="Services\RecordService.cs" />
     <Compile Include="Services\Records\ConstructionRecord.cs" />

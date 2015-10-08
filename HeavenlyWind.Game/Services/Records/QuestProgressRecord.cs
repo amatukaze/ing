@@ -67,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     using (var rCommand = Connection.CreateCommand())
                     {
                         rCommand.CommandText = "UPDATE quest_progress SET progress = @progress, update_time = strftime('%s', 'now') WHERE id = @id;";
-                        rCommand.Parameters.AddWithValue("@id", rProgress.ID);
+                        rCommand.Parameters.AddWithValue("@id", rProgress.Quest.ID);
                         rCommand.Parameters.AddWithValue("@progress", rProgress.Progress);
 
                         rCommand.ExecuteNonQuery();

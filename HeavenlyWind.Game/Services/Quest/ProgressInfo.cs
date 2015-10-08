@@ -4,7 +4,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
 {
     public class ProgressInfo : ModelBase
     {
-        public int ID { get; }
+        public QuestInfo Quest { get; }
 
         int r_Progress;
         public int Progress
@@ -27,6 +27,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
         internal ProgressInfo(int rpID, int rpProgress) : this(rpID, rpProgress, DateTimeOffset.Now) { }
         internal ProgressInfo(int rpID, int rpProgress, DateTimeOffset rpUpdateTime)
         {
+            Quest = QuestProgressService.Instance.Infos[rpID];
+
             Progress = rpProgress;
             UpdateTime = rpUpdateTime;
         }
