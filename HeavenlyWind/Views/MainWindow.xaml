@@ -26,13 +26,15 @@
         </DockPanel>
 
         <DockPanel Grid.Row="1">
-            <ContentControl Content="{Binding Content}">
+            <ContentControl Content="{Binding Content}" DockPanel.Dock="Right">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type rvm:GameInformationViewModel}">
                         <rv:GameInformation />
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
+            
+            <rv:Browser />
         </DockPanel>
         
         <rv:StatusBar Background="{DynamicResource AccentBrushKey}" Grid.Row="2" />
