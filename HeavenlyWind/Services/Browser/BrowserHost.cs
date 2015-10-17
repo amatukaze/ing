@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_Handle = rpHandle;
 
             BrowserService.Instance.Messages.SubscribeOnDispatcher("InvalidateArrange", _ => InvalidateArrange());
-            BrowserService.Instance.Messages.SubscribeOnDispatcher("ExtractFlashResult", r =>
+            BrowserService.Instance.Messages.SubscribeOnDispatcher("ExtractionResult", r =>
             {
                 r_IsExtracted = bool.Parse(r);
                 InvalidateArrange();

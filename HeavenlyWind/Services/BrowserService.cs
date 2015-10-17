@@ -36,8 +36,25 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
 
         public BrowserNavigator Navigator { get; private set; }
+        
+        bool r_IsNavigatorVisible;
+        public bool IsNavigatorVisible
+        {
+            get { return r_IsNavigatorVisible; }
+            private set
+            {
+                if (r_IsNavigatorVisible != value)
+                {
+                    r_IsNavigatorVisible = value;
+                    OnPropertyChanged(nameof(IsNavigatorVisible));
+                }
+            }
+        }
 
-        BrowserService() { }
+        BrowserService()
+        {
+            r_IsNavigatorVisible = true;
+        }
 
         public void Initialize()
         {
@@ -61,7 +78,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 r_Initialized = true;
 
+                Messages.Subscribe("LoadCompleted", _ =>
+                {
+                    Communicator.Write("TryExtractFlash");
+                    Communicator.Write("SetZoom:" + Preference.Current.Browser.Zoom);
+                });
+
                 Navigator = new BrowserNavigator();
+
+                Messages.Subscribe("ExtractionResult", r => IsNavigatorVisible = !bool.Parse(r));
 
             }
         }

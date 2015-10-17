@@ -14,7 +14,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <rv:BrowserNavigator />
+        <rv:BrowserNavigator Visibility="{Binding IsNavigatorVisible, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToVisibilityConverter}}" />
         <ContentPresenter Name="BrowserControl" Content="{Binding BrowserControl}" Margin="0, 5, 0, 0" Grid.Row="1" />
     </Grid>
 </UserControl>

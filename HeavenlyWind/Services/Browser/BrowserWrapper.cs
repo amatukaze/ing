@@ -31,6 +31,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         IBrowserProvider r_BrowserProvider;
         IBrowser r_Browser;
 
+        bool r_IsExtracted;
+
+        double r_Zoom;
+
         static BrowserWrapper()
         {
             r_BrowsersDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "Browsers"));
@@ -91,12 +95,36 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_Messages.Subscribe("Navigate", rpUrl => r_Browser?.Navigate(rpUrl));
             r_Messages.Subscribe("Refresh", _ => r_Browser?.Refresh());
 
+            r_Messages.Subscribe("SetZoom", r =>
+            {
+                r_Zoom = double.Parse(r);
+                r_Browser?.SetZoom(r_Zoom);
+                r_Communicator.Write("InvalidateArrange");
+            });
+
             r_Messages.Subscribe("Resize", rpSize =>
             {
                 var rValues = rpSize.Split(';');
 
                 r_Container.Width = int.Parse(rValues[0]);
                 r_Container.Height = int.Parse(rValues[1]);
+            });
+
+            r_Messages.Subscribe("TryExtractFlash", _ =>
+            {
+                var rResult = r_Browser?.TryExtractFlash();
+                if (rResult.HasValue)
+                {
+                    r_IsExtracted = rResult.Value;
+
+                    if (r_IsExtracted)
+                    {
+                        r_Container.Width = 800 * r_Zoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
+                        r_Container.Height = 480 * r_Zoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
+                    }
+
+                    r_Communicator.Write("ExtractionResult:" + r_IsExtracted.ToString());
+                }
             });
 
         }

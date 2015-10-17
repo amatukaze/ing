@@ -13,5 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze.Browser
 
         void Refresh();
 
+        bool TryExtractFlash();
+
+        void SetZoom(double rpZoom);
     }
 }
