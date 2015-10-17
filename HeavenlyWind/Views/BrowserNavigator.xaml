@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.BrowserNavigator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rbe="clr-namespace:Sakuno.KanColle.Amatsukaze.Behaviors"
+             mc:Ignorable="d" 
+             DataContext="{Binding Navigator}"
+             d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="NavigatorButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Width" Value="30" />
+            <Setter Property="Margin" Value="5, 0, 0, 0" />
+            <Setter Property="Padding" Value="4" />
+        </Style>
+        <Style x:Key="NavigatorButtonIcon" TargetType="{x:Type Path}">
+            <Setter Property="Stretch" Value="Uniform" />
+            <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
+        </Style>
+    </UserControl.Resources>
+    
+    <DockPanel Height="30" Margin="0, 0, 5, 0">
+        <Button Style="{StaticResource NavigatorButton}" Command="{Binding GoBackCommand}" IsEnabled="{Binding CanGoBack}">
+            <Path Style="{StaticResource NavigatorButtonIcon}" Data="M0,120 120,240 205,240 110,150 300,150 300,90 110,90 205,0 120,0 z" />
+        </Button>
+
+        <Button Style="{StaticResource NavigatorButton}" Command="{Binding GoForwardCommand}" IsEnabled="{Binding CanGoForward}">
+            <Path Style="{StaticResource NavigatorButtonIcon}" Data="M95,0 L180,0 300,120 180,240 95,240 190,150 0,150 0,90 190,90 z" />
+        </Button>
+        
+        <Button Style="{StaticResource NavigatorButton}" Command="{Binding RefreshCommand}" DockPanel.Dock="Right">
+            <Path Style="{StaticResource NavigatorButtonIcon}" Data="M120,0 L180,60 120,120 120,77.640465 118.07536,77.762432 C71.605317,81.298275 35.000001,120.12432 35.000001,167.5 35.000001,217.20563 75.294374,257.5 125,257.5 174.70563,257.5 215,217.20563 215,167.5 L250,167.5 C250,236.5356 194.0356,292.5 125,292.5 55.964406,292.5 1.2665987E-06,236.5356 0,167.5 1.2665987E-06,100.62177 52.521283,46.01054 118.56751,42.662651 L120,42.608222 z" />
+        </Button>
+
+        <TextBox Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5, 0, 0, 0">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Return" Command="{Binding NavigateCommand}" />
+            </TextBox.InputBindings>
+            
+            <i:Interaction.Behaviors>
+                <rbe:TextBoxLoseFocusAfterPressingEnterBehavior />
+            </i:Interaction.Behaviors>
+        </TextBox>
+    </DockPanel>
+</UserControl>

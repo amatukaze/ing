@@ -35,6 +35,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
         }
 
+        public BrowserNavigator Navigator { get; private set; }
+
         BrowserService() { }
 
         public void Initialize()
@@ -59,6 +61,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 r_Initialized = true;
 
+                Navigator = new BrowserNavigator();
+
             }
         }
         void InitializeCommunicator()
@@ -76,6 +80,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         void Attach(IntPtr rpHandle)
         {
             BrowserControl = new BrowserHost(rpHandle);
+
+            Navigator.Navigate(Preference.Current.Browser.Homepage);
         }
 
     }

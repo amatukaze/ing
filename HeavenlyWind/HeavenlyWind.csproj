@@ -91,11 +91,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\TextBoxLoseFocusAfterPressingEnterBehavior.cs" />
     <Compile Include="Controls\ColorIndicator.cs" />
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
     <Compile Include="Services\BrowserService.cs" />
+    <Compile Include="Services\Browser\BrowserNavigator.cs" />
     <Compile Include="Services\Browser\BrowserHost.cs" />
     <Compile Include="Services\Browser\BrowserWrapper.cs" />
     <Compile Include="Services\Browser\CommunicatorMessageExtensions.cs" />
@@ -120,6 +122,9 @@
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Views\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BrowserNavigator.xaml.cs">
+      <DependentUpon>BrowserNavigator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
@@ -374,6 +379,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Browser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BrowserNavigator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
