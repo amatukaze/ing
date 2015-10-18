@@ -73,20 +73,20 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 r_BrowserProcess.BeginOutputReadLine();
                 r_BrowserProcess.OutputDataReceived += (s, e) => Trace.WriteLine(e.Data);
 
-                Messages.Subscribe("Ready", _ => Communicator.Write("SetPort:" + Preference.Current.Network.Port));
-                Messages.SubscribeOnDispatcher("Attach", rpHandle => Attach((IntPtr)int.Parse(rpHandle)));
+                Messages.Subscribe(CommunicatorMessages.Ready, _ => Communicator.Write(CommunicatorMessages.SetPort + ":" + Preference.Current.Network.Port));
+                Messages.SubscribeOnDispatcher(CommunicatorMessages.Attach, rpHandle => Attach((IntPtr)int.Parse(rpHandle)));
 
                 r_Initialized = true;
 
-                Messages.Subscribe("LoadCompleted", _ =>
+                Messages.Subscribe(CommunicatorMessages.LoadCompleted, _ =>
                 {
-                    Communicator.Write("TryExtractFlash");
-                    Communicator.Write("SetZoom:" + Preference.Current.Browser.Zoom);
+                    Communicator.Write(CommunicatorMessages.TryExtractFlash);
+                    Communicator.Write(CommunicatorMessages.SetZoom + ":" + Preference.Current.Browser.Zoom);
                 });
 
                 Navigator = new BrowserNavigator();
 
-                Messages.Subscribe("ExtractionResult", r => IsNavigatorVisible = !bool.Parse(r));
+                Messages.Subscribe(CommunicatorMessages.ExtractionResult, r => IsNavigatorVisible = !bool.Parse(r));
 
             }
         }

@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         public BrowserNavigator()
         {
-            BrowserService.Instance.Messages.Subscribe("LoadCompleted", r =>
+            BrowserService.Instance.Messages.Subscribe(CommunicatorMessages.LoadCompleted, r =>
             {
                 var rMatch = r_LoadCompletedParameterRegex.Match(r);
                 if (!rMatch.Success)
@@ -87,15 +87,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             RefreshCommand = new DelegatedCommand(Refresh);
         }
 
-        public void GoBack() => BrowserService.Instance.Communicator.Write("GoBack");
-        public void GoForward() => BrowserService.Instance.Communicator.Write("GoForward");
+        public void GoBack() => BrowserService.Instance.Communicator.Write(CommunicatorMessages.GoBack);
+        public void GoForward() => BrowserService.Instance.Communicator.Write(CommunicatorMessages.GoForward);
 
         public void Navigate() => Navigate(Url);
         public void Navigate(string rpUrl)
         {
             Uri rUri;
             if (!rpUrl.IsNullOrEmpty() && Uri.TryCreate(rpUrl, UriKind.Absolute, out rUri))
-                BrowserService.Instance.Communicator.Write("Navigate:" + rUri.ToString());
+                BrowserService.Instance.Communicator.Write(CommunicatorMessages.Navigate + ":" + rUri.ToString());
         }
 
         public void Refresh()
@@ -103,7 +103,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             if (r_Url.IsNullOrEmpty())
                 return;
 
-            BrowserService.Instance.Communicator.Write("Refresh");
+            BrowserService.Instance.Communicator.Write(CommunicatorMessages.Refresh);
         }
 
     }

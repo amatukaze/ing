@@ -10,7 +10,6 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -55,7 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             InitializeCommunicator(rpHostProcessID);
 
-            r_Messages.Subscribe("SetPort", r =>
+            r_Messages.Subscribe(CommunicatorMessages.SetPort, r =>
             {
                 try
                 {
@@ -72,11 +71,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 }
 
                 InitializeHwndSource();
-                r_Communicator.Write("Attach:" + r_HwndSource.Handle.ToInt32());
+                r_Communicator.Write(CommunicatorMessages.Attach + ":" + r_HwndSource.Handle.ToInt32());
 
             });
 
-            r_Communicator.Write("Ready");
+            r_Communicator.Write(CommunicatorMessages.Ready);
         }
 
         void InitializeCommunicator(int rpHostProcessID)
@@ -90,19 +89,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             r_Communicator.StartReader();
             
-            r_Messages.Subscribe("GoBack", _ => r_Browser?.GoBack());
-            r_Messages.Subscribe("GoForward", _ => r_Browser?.GoForward());
-            r_Messages.Subscribe("Navigate", rpUrl => r_Browser?.Navigate(rpUrl));
-            r_Messages.Subscribe("Refresh", _ => r_Browser?.Refresh());
+            r_Messages.Subscribe(CommunicatorMessages.GoBack, _ => r_Browser?.GoBack());
+            r_Messages.Subscribe(CommunicatorMessages.GoForward, _ => r_Browser?.GoForward());
+            r_Messages.Subscribe(CommunicatorMessages.Navigate, rpUrl => r_Browser?.Navigate(rpUrl));
+            r_Messages.Subscribe(CommunicatorMessages.Refresh, _ => r_Browser?.Refresh());
 
-            r_Messages.Subscribe("SetZoom", r =>
+            r_Messages.Subscribe(CommunicatorMessages.SetZoom, r =>
             {
                 r_Zoom = double.Parse(r);
                 r_Browser?.SetZoom(r_Zoom);
-                r_Communicator.Write("InvalidateArrange");
+                r_Communicator.Write(CommunicatorMessages.InvalidateArrange);
             });
 
-            r_Messages.Subscribe("Resize", rpSize =>
+            r_Messages.Subscribe(CommunicatorMessages.Resize, rpSize =>
             {
                 var rValues = rpSize.Split(';');
 
@@ -110,7 +109,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 r_Container.Height = int.Parse(rValues[1]);
             });
 
-            r_Messages.Subscribe("TryExtractFlash", _ =>
+            r_Messages.Subscribe(CommunicatorMessages.TryExtractFlash, _ =>
             {
                 var rResult = r_Browser?.TryExtractFlash();
                 if (rResult.HasValue)
@@ -123,7 +122,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                         r_Container.Height = 480 * r_Zoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
                     }
 
-                    r_Communicator.Write("ExtractionResult:" + r_IsExtracted.ToString());
+                    r_Communicator.Write(CommunicatorMessages.ExtractionResult + ":" + r_IsExtracted.ToString());
                 }
             });
 
@@ -143,7 +142,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         {
             r_Browser = r_BrowserProvider.CreateBrowserInstance();
 
-            r_Browser.LoadCompleted += (rpCanGoBack, rpCanGoForward, rpUrl) => r_Communicator.Write($"LoadCompleted:{rpCanGoBack};{rpCanGoForward};{rpUrl}");
+            r_Browser.LoadCompleted += (rpCanGoBack, rpCanGoForward, rpUrl) => r_Communicator.Write(CommunicatorMessages.LoadCompleted + $":{rpCanGoBack};{rpCanGoForward};{rpUrl}");
         }
 
         void LoadBrowser(string rpLayoutEngine)

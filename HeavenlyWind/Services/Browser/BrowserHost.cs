@@ -18,8 +18,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         {
             r_Handle = rpHandle;
 
-            BrowserService.Instance.Messages.SubscribeOnDispatcher("InvalidateArrange", _ => InvalidateArrange());
-            BrowserService.Instance.Messages.SubscribeOnDispatcher("ExtractionResult", r =>
+            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.InvalidateArrange, _ => InvalidateArrange());
+            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.ExtractionResult, r =>
             {
                 r_IsExtracted = bool.Parse(r);
                 InvalidateArrange();
@@ -48,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 rHeight = 480 * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
             }
             
-            BrowserService.Instance.Communicator.Write($"Resize:{rWidth};{rHeight}");
+            BrowserService.Instance.Communicator.Write(CommunicatorMessages.Resize + $":{rWidth};{rHeight}");
 
             return new Size(rWidth, rHeight);
         }
