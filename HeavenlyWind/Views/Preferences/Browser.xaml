@@ -4,9 +4,29 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
              mc:Ignorable="d" 
+             DataContext="{Binding Source={x:Static rs:BrowserService.Instance}}"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding InstalledLayoutEngines.Count}" Value="0">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+    
     <StackPanel>
+        <StackPanel Margin="0, 0, 0, 8">
+            <TextBlock Margin="0, 0, 0, 6">
+                <Run Text="{rb:StringResource Main.PreferenceWindow_Browser_LayoutEngine, Mode=OneWay}" />
+                <Run Text="*" />
+            </TextBlock>
+            <ComboBox ItemsSource="{Binding InstalledLayoutEngines}" DisplayMemberPath="DisplayName" SelectedValue="{rb:Preference Browser.CurrentLayoutEngine}" SelectedValuePath="Name" />
+        </StackPanel>
+        
         <DockPanel Margin="0, 0, 0, 8">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Homepage}" />
             <TextBox Text="{rb:Preference Browser.Homepage}" Margin="6, 0, 0, 0" />

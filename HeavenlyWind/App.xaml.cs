@@ -1,8 +1,12 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.KanColle.Amatsukaze.Views;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Sakuno.KanColle.Amatsukaze
@@ -17,6 +21,23 @@ namespace Sakuno.KanColle.Amatsukaze
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            if (e.Args.Length >= 3 && e.Args[0] == "browser")
+            {
+
+                var rLayoutEngine = e.Args[1];
+                var rHostProcessID = int.Parse(e.Args[2]);
+
+                new BrowserWrapper(rLayoutEngine, rHostProcessID);
+
+                Task.Factory.StartNew(() =>
+                {
+                    Process.GetProcessById(rHostProcessID).WaitForExit();
+                    Environment.Exit(0);
+                }, TaskCreationOptions.LongRunning);
+
+                return;
+            }
 
             StatusBarService.Instance.Initialize();
 

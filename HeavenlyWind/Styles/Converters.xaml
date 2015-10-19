@@ -7,4 +7,6 @@
     <rb:IsLessThanConverter x:Key="IsLessThanConverter" />
     <rb:IsLessThanOrEqualToConverter x:Key="IsLessThanOrEqualToConverter" />
 
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    
 </ResourceDictionary>
