@@ -155,8 +155,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             var rEntryFile = r_BrowsersDirectory.EnumerateFiles("*.json").Select(r =>
             {
-                using (var rReader = File.OpenText(r.FullName))
-                    return JObject.Load(new JsonTextReader(rReader)).ToObject<LayoutEngineInfo>();
+                using (var rReader = new JsonTextReader(File.OpenText(r.FullName)))
+                    return JObject.Load(rReader).ToObject<LayoutEngineInfo>();
             }).SingleOrDefault(r => r.Name == rpLayoutEngine)?.EntryFile;
 
             if (rEntryFile == null)

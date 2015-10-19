@@ -1,8 +1,13 @@
-﻿using Sakuno.KanColle.Amatsukaze.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -14,6 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         internal MemoryMappedFileCommunicator Communicator { get; private set; }
         internal IConnectableObservable<KeyValuePair<string, string>> Messages { get; private set; }
+
+        public IReadOnlyCollection<LayoutEngineInfo> InstalledLayoutEngines { get; private set; }
 
         public int HostProcessID => Process.GetCurrentProcess().Id;
 
@@ -60,6 +67,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             if (!r_Initialized)
             {
+                if (!LoadLayoutEngines())
+                {
+                    r_Initialized = true;
+                    return;
+                }
+
                 InitializeCommunicator();
 
                 var rStartInfo = new ProcessStartInfo()
@@ -89,6 +102,31 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 Messages.Subscribe(CommunicatorMessages.ExtractionResult, r => IsNavigatorVisible = !bool.Parse(r));
 
             }
+        }
+        bool LoadLayoutEngines()
+        {
+            var rBrowsersDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "Browsers"));
+            if (!rBrowsersDirectory.Exists)
+                return false;
+
+            try
+            {
+                var rInstalledLayoutEngines = rBrowsersDirectory.EnumerateFiles("*.json").Select(r =>
+                {
+                    using (var rReader = new JsonTextReader(File.OpenText(r.FullName)))
+                        return JObject.Load(rReader).ToObject<LayoutEngineInfo>();
+                });
+                InstalledLayoutEngines = new ReadOnlyCollection<LayoutEngineInfo>(rInstalledLayoutEngines.ToList());
+
+                if (InstalledLayoutEngines.Count == 0)
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
         }
         void InitializeCommunicator()
         {

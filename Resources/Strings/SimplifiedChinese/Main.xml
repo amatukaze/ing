@@ -57,6 +57,7 @@
   <String Key="PreferenceWindow_Cache_Path">路径</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Browser">浏览器</String>
+  <String Key="PreferenceWindow_Browser_LayoutEngine">排版引擎</String>
   <String Key="PreferenceWindow_Browser_Homepage">首页</String>
   <String Key="PreferenceWindow_Screenshot">截图</String>
   <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>

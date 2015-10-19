@@ -8,13 +8,9 @@
              mc:Ignorable="d" 
              DataContext="{Binding Source={x:Static rs:BrowserService.Instance}}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-
-        <rv:BrowserNavigator Visibility="{Binding IsNavigatorVisible, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToVisibilityConverter}}" />
-        <ContentPresenter Name="BrowserControl" Content="{Binding BrowserControl}" Margin="0, 5, 0, 0" Grid.Row="1" />
-    </Grid>
+    <DockPanel>
+        <rv:BrowserNavigator DockPanel.Dock="Top" />
+        
+        <ContentPresenter Name="BrowserControl" Content="{Binding BrowserControl}" Margin="0, 5, 0, 0" />
+    </DockPanel>
 </UserControl>

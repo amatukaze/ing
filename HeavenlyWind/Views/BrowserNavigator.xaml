@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rbe="clr-namespace:Sakuno.KanColle.Amatsukaze.Behaviors"
+             xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
              mc:Ignorable="d" 
              DataContext="{Binding Navigator}"
+             Visibility="{Binding IsNavigatorVisible, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToVisibilityConverter}}"
              d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="NavigatorButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
