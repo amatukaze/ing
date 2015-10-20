@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using System.Windows.Interop;
 using System.Windows;
 using Sakuno.UserInterface;
-using Sakuno.KanColle.Amatsukaze.Models;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 {

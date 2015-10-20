@@ -81,8 +81,8 @@
     <Compile Include="Models\Preferences\WindowPreference.cs" />
     <Compile Include="Models\ScreenshotImageFormat.cs" />
     <Compile Include="Models\UpdateChannel.cs" />
-    <Compile Include="Models\Preference.cs" />
-    <Compile Include="Models\Preference.Data.cs" />
+    <Compile Include="Preference.cs" />
+    <Compile Include="Preference.Data.cs" />
     <Compile Include="PreferenceExtension.cs" />
     <Compile Include="ProductInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

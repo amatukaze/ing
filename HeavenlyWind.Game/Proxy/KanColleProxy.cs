@@ -1,6 +1,5 @@
 ﻿using Fiddler;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
-using Sakuno.KanColle.Amatsukaze.Models;
 using System.Reactive.Subjects;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Sakuno.KanColle.Amatsukaze.Models
+namespace Sakuno.KanColle.Amatsukaze
 {
     public partial class Preference
     {
@@ -16,9 +16,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models
         {
             try
             {
-                using (var rReader = new StreamReader(r_FilePath))
-                using (var rJsonReader = new JsonTextReader(rReader))
-                    Current = r_Serializer.Deserialize<Preference>(rJsonReader);
+                using (var rReader = new JsonTextReader(File.OpenText(r_FilePath)))
+                    Current = r_Serializer.Deserialize<Preference>(rReader);
             }
             catch
             {
@@ -32,9 +31,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models
 
             if (!Directory.Exists(rFolder))
                 Directory.CreateDirectory(rFolder);
-
-            using (var rWriter = new StreamWriter(r_FilePath, false, new UTF8Encoding(true)))
-            using (var rJsonWriter = new JsonTextWriter(rWriter))
+            
+            using (var rJsonWriter = new JsonTextWriter(new StreamWriter(r_FilePath, false, new UTF8Encoding(true))))
                 r_Serializer.Serialize(rJsonWriter, Current);
         }
     }

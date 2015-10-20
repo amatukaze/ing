@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Models.Preferences;
 
-namespace Sakuno.KanColle.Amatsukaze.Models
+namespace Sakuno.KanColle.Amatsukaze
 {
     partial class Preference
     {

@@ -5,7 +5,6 @@ using System.Xml.Linq;
 using System.Linq;
 using System.Collections.Generic;
 using System.Globalization;
-using Sakuno.KanColle.Amatsukaze.Models;
 
 namespace Sakuno.KanColle.Amatsukaze
 {

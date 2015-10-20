@@ -1,5 +1,4 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
-using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
