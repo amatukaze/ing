@@ -57,6 +57,22 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
         }
 
+        public GameController GameController { get; } = new GameController();
+
+        bool r_IsGameControllerVisible;
+        public bool IsGameControllerVisible
+        {
+            get { return r_IsGameControllerVisible; }
+            private set
+            {
+                if (r_IsGameControllerVisible != value)
+                {
+                    r_IsGameControllerVisible = value;
+                    OnPropertyChanged(nameof(IsGameControllerVisible));
+                }
+            }
+        }
+
         BrowserService()
         {
             r_IsNavigatorVisible = true;
@@ -98,7 +114,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 Navigator = new BrowserNavigator();
 
-                Messages.Subscribe(CommunicatorMessages.ExtractionResult, r => IsNavigatorVisible = !bool.Parse(r));
+                Messages.Subscribe(CommunicatorMessages.ExtractionResult, r =>
+                {
+                    var rResult = bool.Parse(r);
+                    IsGameControllerVisible = rResult;
+                    IsNavigatorVisible = !rResult;
+                });
 
             }
         }
