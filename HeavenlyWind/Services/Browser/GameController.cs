@@ -22,6 +22,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             }
         }
 
+        public ICommand MuteToggleCommand { get; }
+
         public ICommand RestartGameCommand { get; }
 
         public GameController()
@@ -64,6 +66,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 };
 
             }
+
+            MuteToggleCommand = new DelegatedCommand(() => Volume.IsMute = !Volume.IsMute, () => OS.IsWin7OrLater);
 
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }
