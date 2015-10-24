@@ -20,6 +20,16 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Tab_Quests => GetString(nameof(Tab_Quests));
         public string Tab_Tools => GetString(nameof(Tab_Tools));
 
+        public string Overview_Admiral_Rank_MarshalAdmiral => GetString(nameof(Overview_Admiral_Rank_MarshalAdmiral));
+        public string Overview_Admiral_Rank_Admiral => GetString(nameof(Overview_Admiral_Rank_Admiral));
+        public string Overview_Admiral_Rank_ViceAdmiral => GetString(nameof(Overview_Admiral_Rank_ViceAdmiral));
+        public string Overview_Admiral_Rank_RearAdmiral => GetString(nameof(Overview_Admiral_Rank_RearAdmiral));
+        public string Overview_Admiral_Rank_Captain => GetString(nameof(Overview_Admiral_Rank_Captain));
+        public string Overview_Admiral_Rank_Commander => GetString(nameof(Overview_Admiral_Rank_Commander));
+        public string Overview_Admiral_Rank_NoviceCommander => GetString(nameof(Overview_Admiral_Rank_NoviceCommander));
+        public string Overview_Admiral_Rank_LieutenantCommander => GetString(nameof(Overview_Admiral_Rank_LieutenantCommander));
+        public string Overview_Admiral_Rank_ViceLieutenantCommander => GetString(nameof(Overview_Admiral_Rank_ViceLieutenantCommander));
+        public string Overview_Admiral_Rank_NoviceLieutenantCommander => GetString(nameof(Overview_Admiral_Rank_NoviceLieutenantCommander));
         public string Overview_Fleets => GetString(nameof(Overview_Fleets));
         public string Overview_Fleets_Idle => GetString(nameof(Overview_Fleets_Idle));
         public string Overview_Fleets_Unsupplied => GetString(nameof(Overview_Fleets_Unsupplied));

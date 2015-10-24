@@ -9,6 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public string Comment => RawData.Comment;
 
         public int Level => RawData.Level;
+        public AdmiralRank Rank => RawData.Rank;
         public int Experience => RawData.Experience;
         public int ExperienceToNextLevel => ExperienceTable.GetAdmiralExperienceToNextLevel(Level, Experience);
 

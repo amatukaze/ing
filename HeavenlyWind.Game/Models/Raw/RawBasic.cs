@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public int Level { get; set; }
 
         [JsonProperty("api_rank")]
-        public int Rank { get; set; }
+        public AdmiralRank Rank { get; set; }
 
         [JsonProperty("api_experience")]
         public int Experience { get; set; }

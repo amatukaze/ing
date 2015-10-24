@@ -72,6 +72,7 @@
     <Compile Include="KanColleGame.cs" />
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
+    <Compile Include="Models\AdmiralRank.cs" />
     <Compile Include="Models\ConstructionDock.cs" />
     <Compile Include="Models\CombinedFleetType.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />

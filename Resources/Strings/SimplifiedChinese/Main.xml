@@ -16,6 +16,16 @@
   <String Key="Tab_Quests">任務</String>
   <String Key="Tab_Tools">ツール</String>
   
+  <String Key="Overview_Admiral_Rank_MarshalAdmiral">元帅</String>
+  <String Key="Overview_Admiral_Rank_Admiral">大将</String>
+  <String Key="Overview_Admiral_Rank_ViceAdmiral">中将</String>
+  <String Key="Overview_Admiral_Rank_RearAdmiral">少将</String>
+  <String Key="Overview_Admiral_Rank_Captain">大佐</String>
+  <String Key="Overview_Admiral_Rank_Commander">中佐</String>
+  <String Key="Overview_Admiral_Rank_NoviceCommander">新米中佐</String>
+  <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
+  <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中坚少佐</String>
+  <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
   <String Key="Overview_Fleets">舰队一览</String>
   <String Key="Overview_Fleets_Idle">等待中</String>
   <String Key="Overview_Fleets_Unsupplied">未补给</String>
