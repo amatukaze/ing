@@ -20,5 +20,10 @@
         public const string TryExtractFlash = nameof(TryExtractFlash);
         public const string ExtractionResult = nameof(ExtractionResult);
 
+        public const string TakeScreenshot = nameof(TakeScreenshot);
+        public const string ScreenshotFail = nameof(ScreenshotFail);
+        public const string StartScreenshotTransmission = nameof(StartScreenshotTransmission);
+        public const string FinishScreenshotTransmission = nameof(FinishScreenshotTransmission);
+
     }
 }

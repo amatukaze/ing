@@ -6,6 +6,7 @@ using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -88,7 +89,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_Messages.Connect();
 
             r_Communicator.StartReader();
-            
+
             r_Messages.Subscribe(CommunicatorMessages.GoBack, _ => r_Browser?.GoBack());
             r_Messages.Subscribe(CommunicatorMessages.GoForward, _ => r_Browser?.GoForward());
             r_Messages.Subscribe(CommunicatorMessages.Navigate, rpUrl => r_Browser?.Navigate(rpUrl));
@@ -126,7 +127,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 }
             });
 
+            InitializeScreenshotMessagesSubscription();
+
         }
+
         void InitializeHwndSource()
         {
             var rParameters = new HwndSourceParameters("HeavenlyWind Browser Window") { WindowStyle = 0 };
@@ -169,6 +173,33 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 throw new Exception();
 
             r_BrowserProvider = (IBrowserProvider)rAssembly.CreateInstance(rType.FullName);
+        }
+
+        void InitializeScreenshotMessagesSubscription()
+        {
+            var rScreenshotMMFSource = r_Messages.Where(r => r.Key == CommunicatorMessages.TakeScreenshot).Select(r =>
+            {
+                var rScreenshotData = r_Browser.TakeScreenshot();
+                if (rScreenshotData == null || rScreenshotData.BitmapData == null)
+                {
+                    r_Communicator.Write(CommunicatorMessages.ScreenshotFail);
+                    return null;
+                }
+
+                const string MapName = "HeavenlyWind/ScreenshotTransmission";
+                var rMemoryMappedFile = MemoryMappedFile.CreateNew(MapName, rScreenshotData.BitmapData.Length, MemoryMappedFileAccess.ReadWrite);
+                using (var rStream = rMemoryMappedFile.CreateViewStream())
+                    rStream.Write(rScreenshotData.BitmapData, 0, rScreenshotData.BitmapData.Length);
+
+                r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{MapName};{rScreenshotData.Width};{rScreenshotData.Height}");
+
+                return rMemoryMappedFile;
+            });
+            var rScreenshotTransmission = from rScreenshotMMF in rScreenshotMMFSource
+                                          where rScreenshotMMF != null
+                                          from _ in r_Messages.Where(r => r.Key == CommunicatorMessages.FinishScreenshotTransmission).Take(1)
+                                          select rScreenshotMMF;
+            rScreenshotTransmission.Subscribe(rpMemoryMappedFile => rpMemoryMappedFile.Dispose());
         }
 
     }
