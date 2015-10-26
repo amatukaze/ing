@@ -22,12 +22,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             }
         }
 
+        public ICommand TakeScreenshotCommand { get; }
         public ICommand MuteToggleCommand { get; }
 
         public ICommand RestartGameCommand { get; }
 
         public GameController()
         {
+            TakeScreenshotCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: true));
+
             if (OS.IsWin7OrLater)
             {
                 foreach (var rSession in VolumeManager.Instance.EnumerateSessions())
