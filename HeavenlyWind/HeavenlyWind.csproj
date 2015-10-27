@@ -107,6 +107,7 @@
     <Compile Include="Services\Browser\GameController.cs" />
     <Compile Include="Services\Browser\LayoutEngineInfo.cs" />
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
+    <Compile Include="Services\ScreenshotService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />

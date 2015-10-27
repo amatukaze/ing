@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Browser\IBrowser.cs" />
     <Compile Include="Browser\IBrowserProvider.cs" />
+    <Compile Include="Browser\ScreenshotData.cs" />
     <Compile Include="HasFlagExtension.cs" />
     <Compile Include="IntegerRangeValidationRule.cs" />
     <Compile Include="LogItem.cs" />
