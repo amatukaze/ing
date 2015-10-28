@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
@@ -39,6 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze
             }
 
             StatusBarService.Instance.Initialize();
+            RecordService.Instance.Initialize();
 
             Preference.Load();
             StringResources.Instance.Load(Preference.Current.Language);
