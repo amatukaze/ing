@@ -12,6 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         IntPtr r_Handle;
 
         bool r_IsExtracted;
+        double r_LastWidth, r_LastHeight;
 
         public BrowserHost(IntPtr rpHandle)
         {
@@ -41,13 +42,32 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             if (r_IsExtracted)
             {
+                rWidth = Math.Min(rWidth, 800);
+                rHeight = Math.Min(rHeight, 480);
+            }
+
+            if (r_LastWidth != rWidth && r_LastHeight != rHeight)
+            {
+                BrowserService.Instance.Communicator.Write(CommunicatorMessages.Resize + $":{rWidth};{rHeight}");
+
+                r_LastWidth = rWidth;
+                r_LastHeight = rHeight;
+            }
+
+            return new Size(rWidth, rHeight);
+        }
+        protected override Size MeasureOverride(Size rpConstraint)
+        {
+            var rWidth = rpConstraint.Width;
+            var rHeight = rpConstraint.Height;
+
+            if (r_IsExtracted)
+            {
                 var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
 
                 rWidth = 800 * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
                 rHeight = 480 * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
             }
-            
-            BrowserService.Instance.Communicator.Write(CommunicatorMessages.Resize + $":{rWidth};{rHeight}");
 
             return new Size(rWidth, rHeight);
         }
