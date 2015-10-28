@@ -31,6 +31,16 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
+        <Border Style="{StaticResource PanelBorderStyle}" Grid.ColumnSpan="3">
+            <StackPanel>
+                <Border Style="{StaticResource PanelCaptionStyle}">
+                    <TextBlock Text="{rb:StringResource Main.Overview_Headquarter}" />
+                </Border>
+
+                <rvg:Headquarter />
+            </StackPanel>
+        </Border>
+
         <StackPanel Grid.Row="1">
             
             <Border Style="{StaticResource PanelBorderStyle}">

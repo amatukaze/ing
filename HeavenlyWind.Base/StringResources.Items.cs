@@ -20,6 +20,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Tab_Quests => GetString(nameof(Tab_Quests));
         public string Tab_Tools => GetString(nameof(Tab_Tools));
 
+        public string Overview_Headquarter => GetString(nameof(Overview_Headquarter));
+        public string Overview_Headquarter_Ships => GetString(nameof(Overview_Headquarter_Ships));
+        public string Overview_Headquarter_Equipments => GetString(nameof(Overview_Headquarter_Equipments));
         public string Overview_Admiral_Rank_MarshalAdmiral => GetString(nameof(Overview_Admiral_Rank_MarshalAdmiral));
         public string Overview_Admiral_Rank_Admiral => GetString(nameof(Overview_Admiral_Rank_Admiral));
         public string Overview_Admiral_Rank_ViceAdmiral => GetString(nameof(Overview_Admiral_Rank_ViceAdmiral));
