@@ -43,6 +43,10 @@
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
   <String Key="Overview_ExecutingQuests">遂行中の任務</String>
   
+  <String Key="Fleet_TotalLevel">Lv合計</String>
+  <String Key="Fleet_LoS">索敵</String>
+  <String Key="Fleet_AA">対空</String>
+  
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>

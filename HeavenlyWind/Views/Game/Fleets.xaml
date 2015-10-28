@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
@@ -57,6 +58,12 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
+                <TextBlock>
+                    <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
+                    <Run Text="{rb:StringResource Main.Fleet_LoS, Mode=OneWay}" />:<Run Text="{Binding Status.LoS.Old25, StringFormat=0.0}" />/<Run Text="{Binding Status.LoS.Autumn25, StringFormat=0.0}" />
+                    <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.AA}" />
+                </TextBlock>
+                
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0, 4, 0, 0" Grid.Row="1">
                     <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Margin="0, -5, 0, 0" Grid.IsSharedSizeScope="True">
                         <ItemsControl.ItemTemplate>
