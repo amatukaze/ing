@@ -1,7 +1,9 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using System;
 using System.ComponentModel;
 using System.Reactive.Linq;
+using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
@@ -20,6 +22,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 }
             }
         }
+
+        public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => new PreferencesWindow().ShowDialog());
 
         internal MainWindowViewModel()
         {
