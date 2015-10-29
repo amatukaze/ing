@@ -8,9 +8,47 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
         <Border DataContext="{Binding Admiral.Source}" Padding="4" Margin="0, 0, 0, 4">
+            <Border.Resources>
+                <Style x:Key="AdmiralRanking" TargetType="{x:Type Run}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Rank}" Value="MarshalAdmiral">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_MarshalAdmiral, Mode=OneWay}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Rank}" Value="Admiral">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_Admiral, Mode=OneWay}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Rank}" Value="ViceAdmiral">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_ViceAdmiral, Mode=OneWay}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Rank}" Value="RearAdmiral">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_RearAdmiral, Mode=OneWay}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Rank}" Value="Captain">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_Captain, Mode=OneWay}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Rank}" Value="Commander">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_Commander, Mode=OneWay}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Rank}" Value="NoviceCommander">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_NoviceCommander, Mode=OneWay}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Rank}" Value="LieutenantCommander">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_LieutenantCommander, Mode=OneWay}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Rank}" Value="ViceLieutenantCommander">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_ViceLieutenantCommander, Mode=OneWay}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Rank}" Value="NoviceLieutenantCommander">
+                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_NoviceLieutenantCommander, Mode=OneWay}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Resources>
+            
             <TextBlock>
                 <Run Text="{Binding Name, Mode=OneWay}" />
                 <Run Text="{Binding Level, StringFormat=Lv. {0}, Mode=OneWay}" />
+                [<Run Style="{StaticResource AdmiralRanking}" />]
                 <Run Text="{Binding ExperienceToNextLevel, StringFormat=Next: {0}, Mode=OneWay}" />
             </TextBlock>
         </Border>
