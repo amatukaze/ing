@@ -38,12 +38,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             var rPath = rpSession.PathAndQuery;
 
             NetworkSession rSession;
-            if (!rPath.StartsWith("/kcs"))
-                rSession = new NetworkSession(rFullUrl);
-            else if (rPath[4] == '/')
+            if (rPath.StartsWith("/kcsapi/"))
+                rSession = new ApiSession(rFullUrl);
+            else if (rPath.StartsWith("/kcs/"))
                 rSession = new ResourceSession(rFullUrl, rPath);
             else
-                rSession = new ApiSession(rFullUrl);
+                rSession = new NetworkSession(rFullUrl);
 
             rSession.RequestBodyString = rpSession.GetRequestBodyAsString();
 
