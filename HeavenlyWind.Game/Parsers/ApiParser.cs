@@ -8,6 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
         internal override sealed void Process(JObject rpJson)
         {
             base.Process(rpJson);
+
             Process();
 
             OnProcessSucceeded(new ApiData(Api, Requests, rpJson));
@@ -19,19 +20,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
         internal override sealed void Process(JObject rpJson)
         {
             base.Process(rpJson);
-            try
-            {
-                T rData = default(T);
 
-                var rApiData = rpJson["api_data"];
-                if (rApiData != null)
-                    rData = rApiData.ToObject<T>();
+            var rApiData = rpJson["api_data"];
+            if (rApiData != null)
+            {
+                var rData = rApiData.ToObject<T>();
 
                 Process(rData);
 
                 OnProcessSucceeded(new ApiData(Api, Requests, rpJson) { Data = rData });
             }
-            catch (JsonReaderException) { }
         }
         public abstract void Process(T rpData);
     }

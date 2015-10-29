@@ -140,6 +140,7 @@
     <Compile Include="Models\SortieCellInfo.cs" />
     <Compile Include="Parsers\ApiAttribute.cs" />
     <Compile Include="Parsers\ApiData.cs" />
+    <Compile Include="Parsers\ApiFailedException.cs" />
     <Compile Include="Parsers\ApiParser.cs" />
     <Compile Include="Parsers\ApiParserBase.cs" />
     <Compile Include="Parsers\ApiParserManager.cs" />

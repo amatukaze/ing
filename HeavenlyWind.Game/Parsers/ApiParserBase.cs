@@ -22,6 +22,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
         {
             ResultCode = (int)rpJson["api_result"];
             ResponseJson = rpJson;
+
+            if (ResultCode != 1)
+                throw new ApiFailedException(ResultCode);
         }
 
         protected void OnProcessSucceeded(ApiData rpData) => ProcessSucceeded.OnNext(rpData);
