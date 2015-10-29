@@ -55,7 +55,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             CombinedFleetType = rpPort.CombinedFleetType;
 
-            if (Table.UpdateRawData<RawFleet>(rpPort.Fleets, r => new Fleet(KanColleGame.Current.Port, r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+            Update(rpPort.Fleets);
+        }
+        internal void Update(RawFleet[] rpFleets)
+        {
+            if (Table.UpdateRawData(rpFleets, r => new Fleet(KanColleGame.Current.Port, r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                 FleetsUpdated(Table.Values);
         }
     }

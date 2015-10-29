@@ -109,6 +109,7 @@
     <Compile Include="Models\Raw\RawMapMasterInfo.cs" />
     <Compile Include="Models\Raw\RawMasterInfo.cs" />
     <Compile Include="Models\Raw\RawMaterial.cs" />
+    <Compile Include="Models\Raw\RawModernization.cs" />
     <Compile Include="Models\Raw\RawPort.cs" />
     <Compile Include="Models\Raw\RawQuest.cs" />
     <Compile Include="Models\Raw\RawQuestList.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Parsers\Root\GetMember\EquipmentParser.cs" />
     <Compile Include="Parsers\Root\GetMember\MaterialParser.cs" />
     <Compile Include="Parsers\Root\GetMember\QuestListParser.cs" />
+    <Compile Include="Parsers\Root\Upgrading\ModernizationParser.cs" />
     <Compile Include="Parsers\Root\PortParser.cs" />
     <Compile Include="Port.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

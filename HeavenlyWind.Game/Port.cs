@@ -40,21 +40,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             UpdateAdmiral(rpPort.Basic);
             Materials.Update(rpPort.Materials);
 
-            if (Ships.UpdateRawData<RawShip>(rpPort.Ships, r => new Ship(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
-            {
-                ShipIDs = new HashSet<int>(Ships.Values.Select(r => r.Info.ID));
-                OnPropertyChanged(nameof(Ships));
-            }
+            UpdateShips(rpPort);
 
-            if (RepairDocks.UpdateRawData<RawRepairDock>(rpPort.RepairDocks, r => new RepairDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+            if (RepairDocks.UpdateRawData(rpPort.RepairDocks, r => new RepairDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                 OnPropertyChanged(nameof(RepairDocks));
 
             Fleets.Update(rpPort);
         }
 
+        internal void UpdateShips(RawPort rpPort) => UpdateShips(rpPort.Ships);
+        internal void UpdateShips(RawShip[] rpShips)
+        {
+            if (Ships.UpdateRawData(rpShips, r => new Ship(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                UpdateShipsCore();
+        }
+
+        internal void UpdateShipsCore()
+        {
+            ShipIDs = new HashSet<int>(Ships.Values.Select(r => r.Info.ID));
+            OnPropertyChanged(nameof(Ships));
+        }
+
         internal void UpdateEquipments(RawEquipment[] rpEquipments)
         {
-            if (Equipments.UpdateRawData<RawEquipment>(rpEquipments, r => new Equipment(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+            if (Equipments.UpdateRawData(rpEquipments, r => new Equipment(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                 OnPropertyChanged(nameof(Equipments));
         }
         internal void AddEquipment(Equipment rpEquipment)
@@ -65,7 +74,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal void UpdateConstructionDocks(RawConstructionDock[] rpConstructionDocks)
         {
-            if (ConstructionDocks.UpdateRawData<RawConstructionDock>(rpConstructionDocks, r => new ConstructionDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+            if (ConstructionDocks.UpdateRawData(rpConstructionDocks, r => new ConstructionDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                 OnPropertyChanged(nameof(ConstructionDocks));
         }
 
