@@ -114,6 +114,7 @@
     <Compile Include="Models\Raw\RawQuest.cs" />
     <Compile Include="Models\Raw\RawQuestList.cs" />
     <Compile Include="Models\Raw\RawRepairDock.cs" />
+    <Compile Include="Models\Raw\RawShipsAndFleets.cs" />
     <Compile Include="Models\RepairDock.cs" />
     <Compile Include="Models\ShipModernizationStatus.cs" />
     <Compile Include="Models\RawDataWrapper`T.cs" />

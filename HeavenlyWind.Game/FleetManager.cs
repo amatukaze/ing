@@ -44,6 +44,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rOriginalIndex.HasValue)
                     rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
             });
+
+            SessionService.Instance.Subscribe("api_get_member/deck", r => Update(r.GetData<RawFleet[]>()));
             SessionService.Instance.Subscribe("api_req_hensei/preset_select", r =>
             {
                 var rFleet = Table[int.Parse(r.Requests["api_deck_id"])];

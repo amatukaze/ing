@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,6 +26,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal Port()
         {
+            SessionService.Instance.Subscribe("api_get_member/ship_deck", r =>
+            {
+                var rData = r.GetData<RawShipsAndFleets>();
+                UpdateShips(rData.Ships);
+                Fleets.Update(rData.Fleets);
+            });
+            SessionService.Instance.Subscribe("api_get_member/ship3", r =>
+            {
+                var rData = r.GetData<RawShipsAndFleets>();
+                UpdateShips(rData.Ships);
+                Fleets.Update(rData.Fleets);
+            });
         }
 
         #region Update
