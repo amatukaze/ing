@@ -17,5 +17,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
             Requests = rpRequests;
             Json = rpJson;
         }
+
+        public T GetData<T>() where T : class
+        {
+            var rData = Json["api_data"];
+            return rData != null ? rData.ToObject<T>() : null;
+        }
     }
 }
