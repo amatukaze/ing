@@ -161,6 +161,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             UpdateShips();
         }
+        public void Remove(Ship rpShip)
+        {
+            var rIndex = r_ShipList.IndexOf(rpShip);
+            if (rIndex != -1)
+                Remove(rIndex);
+        }
         public void RemoveAllExceptFlagship()
         {
             foreach (var rShip in r_ShipList.Skip(1))

@@ -38,6 +38,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 UpdateShips(rData.Ships);
                 Fleets.Update(rData.Fleets);
             });
+
+            SessionService.Instance.Subscribe("api_req_kousyou/destroyship", r =>
+            {
+                var rShip = Ships[int.Parse(r.Requests["api_ship_id"])];
+
+                rShip.OwnerFleet?.Remove(rShip);
+                Ships.Remove(rShip);
+                UpdateShipsCore();
+
+            });
+            SessionService.Instance.Subscribe("api_req_kousyou/destroyitem2", r =>
+            {
+                var rEquipmentIDs = r.Requests["api_slotitem_ids"].Split(',').Select(int.Parse);
+
+                foreach (var rEquipmentID in rEquipmentIDs)
+                    Equipments.Remove(rEquipmentID);
+
+                OnPropertyChanged(nameof(Equipments));
+            });
+
         }
 
         #region Update
