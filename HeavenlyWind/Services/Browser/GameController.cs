@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         public GameController()
         {
-            TakeScreenshotCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: true));
+            TakeScreenshotCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
 
             if (OS.IsWin7OrLater)
             {
