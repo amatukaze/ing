@@ -40,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             NetworkSession rSession;
             if (rPath.StartsWith("/kcsapi/"))
                 rSession = new ApiSession(rFullUrl);
-            else if (rPath.StartsWith("/kcs/"))
+            else if (rPath.StartsWith("/kcs/") || rPath.StartsWith("/gadget/"))
                 rSession = new ResourceSession(rFullUrl, rPath);
             else
                 rSession = new NetworkSession(rFullUrl);
