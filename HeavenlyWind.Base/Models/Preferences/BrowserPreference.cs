@@ -9,8 +9,6 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 
         [JsonProperty("homepage")]
         public string Homepage { get; set; } = "http://www.dmm.com/netgame/social/application/-/detail/=/app_id=854854/";
-        [JsonProperty("game_token")]
-        public string GameToken { get; set; }
 
         [JsonProperty("layoutengine")]
         public string CurrentLayoutEngine { get; set; } = "trident";
