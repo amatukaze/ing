@@ -8,7 +8,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class Port : ModelBase
     {
-        public Admiral Admiral { get; } = new Admiral(null);
+        Admiral r_Admiral;
+        public Admiral Admiral
+        {
+            get { return r_Admiral; }
+            private set
+            {
+                if (r_Admiral != value)
+                {
+                    r_Admiral = value;
+                    OnPropertyChanged(nameof(Admiral));
+                }
+            }
+        }
 
         public Materials Materials { get; } = new Materials();
 
@@ -64,8 +76,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal void UpdateAdmiral(RawBasic rpAdmiral)
         {
-            Admiral.Update(rpAdmiral);
-            OnPropertyChanged(nameof(Admiral));
+            if (Admiral == null)
+                Admiral = new Admiral(rpAdmiral);
+            else
+                Admiral.Update(rpAdmiral);
         }
 
         internal void UpdatePort(RawPort rpPort)

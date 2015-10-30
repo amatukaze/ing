@@ -16,18 +16,30 @@
                         </ItemsControl.Template>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="{x:Type rgm:ShipSlot}">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition SharedSizeGroup="PlaneCount" MinWidth="20" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <rc:EquipmentIcon Type="{Binding Equipment.Info.Icon}" />
-                                    <TextBlock Name="Level" Text="{Binding Equipment.Level}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                                    <TextBlock Name="Proficiency" Text="{Binding Equipment.Proficiency}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                <Border Background="Transparent">
+                                    <Border.ToolTip>
+                                        <ToolTip>
+                                            <TextBlock>
+                                                <Run Text="{Binding Equipment.Info.Name, Mode=OneWay}" />
+                                                <Run Text="{Binding Equipment.LevelText, Mode=OneWay}" /><Run Text="{Binding Equipment.ProficiencyText, Mode=OneWay}" />
+                                                [<Run Name="ToolTipPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
+                                            </TextBlock>
+                                        </ToolTip>
+                                    </Border.ToolTip>
                                     
-                                    <TextBlock Name="PlaneCount" Text="{Binding PlaneCount}" TextAlignment="Center" Grid.Column="1" />
-                                </Grid>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition SharedSizeGroup="PlaneCount" MinWidth="20" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <rc:EquipmentIcon Type="{Binding Equipment.Info.Icon}" />
+                                        <TextBlock Name="Level" Text="{Binding Equipment.Level}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <TextBlock Name="Proficiency" Text="{Binding Equipment.Proficiency}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+
+                                        <TextBlock Name="PlaneCount" Text="{Binding PlaneCount}" TextAlignment="Center" Grid.Column="1" />
+                                    </Grid>
+                                </Border>
 
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Equipment.Level}" Value="0">
@@ -46,6 +58,7 @@
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding HasLostPlane}" Value="True">
                                         <Setter TargetName="PlaneCount" Property="Foreground" Value="Red" />
+                                        <Setter TargetName="ToolTipPlaneCount" Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
