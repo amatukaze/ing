@@ -25,6 +25,20 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         bool r_Initialized;
 
+        bool r_NoInstalledLayoutEngines;
+        public bool NoInstalledLayoutEngines
+        {
+            get { return r_NoInstalledLayoutEngines; }
+            private set
+            {
+                if (r_NoInstalledLayoutEngines != value)
+                {
+                    r_NoInstalledLayoutEngines = value;
+                    OnPropertyChanged(nameof(NoInstalledLayoutEngines));
+                }
+            }
+        }
+
         Process r_BrowserProcess;
 
         object r_BrowserControl;
@@ -59,20 +73,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public GameController GameController { get; } = new GameController();
 
-        bool r_IsGameControllerVisible;
-        public bool IsGameControllerVisible
-        {
-            get { return r_IsGameControllerVisible; }
-            private set
-            {
-                if (r_IsGameControllerVisible != value)
-                {
-                    r_IsGameControllerVisible = value;
-                    OnPropertyChanged(nameof(IsGameControllerVisible));
-                }
-            }
-        }
-
         BrowserService()
         {
             r_IsNavigatorVisible = true;
@@ -84,6 +84,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 if (!LoadLayoutEngines())
                 {
+                    NoInstalledLayoutEngines = true;
                     r_Initialized = true;
                     return;
                 }
@@ -114,12 +115,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 Navigator = new BrowserNavigator();
 
-                Messages.Subscribe(CommunicatorMessages.ExtractionResult, r =>
-                {
-                    var rResult = bool.Parse(r);
-                    IsGameControllerVisible = rResult;
-                    IsNavigatorVisible = !rResult;
-                });
+                Messages.Subscribe(CommunicatorMessages.ExtractionResult, r =>   IsNavigatorVisible = !bool.Parse(r));
 
             }
         }

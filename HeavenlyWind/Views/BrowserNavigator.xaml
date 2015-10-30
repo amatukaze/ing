@@ -21,7 +21,7 @@
         </Style>
     </UserControl.Resources>
     
-    <DockPanel Height="30" Margin="0, 0, 5, 0">
+    <DockPanel Height="30">
         <Button Style="{StaticResource NavigatorButton}" Command="{Binding GoBackCommand}" IsEnabled="{Binding CanGoBack}">
             <Path Style="{StaticResource NavigatorButtonIcon}" Data="M0,120 120,240 205,240 110,150 300,150 300,90 110,90 205,0 120,0 z" />
         </Button>

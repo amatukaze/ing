@@ -7,6 +7,7 @@
              xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
              mc:Ignorable="d" 
              DataContext="{Binding Source={x:Static rs:BrowserService.Instance}}"
+             Visibility="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToInvisibilityConverter}}"
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel>
         <rv:BrowserNavigator DockPanel.Dock="Top" />
