@@ -67,6 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
 
         public string Window_Preferences => GetString(nameof(Window_Preferences));
+        public string Window_ClosingConfirmation => GetString(nameof(Window_ClosingConfirmation));
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
         public string PreferenceWindow_Network_Port => GetString(nameof(PreferenceWindow_Network_Port));

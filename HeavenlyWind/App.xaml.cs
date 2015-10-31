@@ -20,11 +20,12 @@ namespace Sakuno.KanColle.Amatsukaze
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
             base.OnStartup(e);
 
             if (e.Args.Length >= 3 && e.Args[0] == "browser")
             {
-
                 var rLayoutEngine = e.Args[1];
                 var rHostProcessID = int.Parse(e.Args[2]);
 
@@ -47,6 +48,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
             KanColleProxy.Start();
 
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
+
             MainWindow = new MainWindow();
             MainWindow.DataContext = Root = new MainWindowViewModel();
             MainWindow.Show();
@@ -58,5 +61,11 @@ namespace Sakuno.KanColle.Amatsukaze
 
             Preference.Save();
         }
+
+        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.ExceptionObject.ToString(), "HeavenlyWind", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
     }
 }

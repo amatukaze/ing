@@ -63,6 +63,7 @@
   <String Key="Quest_State_Completed">达成</String>
   
   <String Key="Window_Preferences">设置</String>
+  <String Key="Window_ClosingConfirmation">要关闭 HeavenlyWind 吗？</String>
   
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">端口</String>
