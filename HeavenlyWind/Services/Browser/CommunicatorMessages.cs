@@ -6,6 +6,9 @@
         public const string SetPort = nameof(SetPort);
         public const string Attach = nameof(Attach);
 
+        public const string ClearCache = nameof(ClearCache);
+        public const string ClearCacheAndCookie = nameof(ClearCacheAndCookie);
+
         public const string GoBack = nameof(GoBack);
         public const string GoForward = nameof(GoForward);
         public const string Navigate = nameof(Navigate);

@@ -31,5 +31,10 @@
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Homepage}" />
             <TextBox Text="{rb:Preference Browser.Homepage}" Margin="6, 0, 0, 0" />
         </DockPanel>
+        
+        <StackPanel Orientation="Horizontal">
+            <Button Content="{rb:StringResource Main.PreferenceWindow_Browser_ClearCache}" Command="{Binding ClearCacheCommand}" />
+            <Button Content="{rb:StringResource Main.PreferenceWindow_Browser_ClearCacheAndCookie}" Command="{Binding ClearCacheAndCookieCommand}" Margin="6, 0, 0, 0" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

@@ -6,7 +6,7 @@
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
+    <StackPanel IsEnabled="False">
         <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Cache_Mode}" Margin="0, 0, 0, 8" />
         <RadioButton GroupName="CacheMode" Margin="0, 0, 0, 8">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Cache_Mode_Disabled}" />

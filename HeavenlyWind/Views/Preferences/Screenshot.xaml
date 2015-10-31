@@ -10,7 +10,7 @@
     <StackPanel>
         <DockPanel Margin="0, 0, 0, 8">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Screenshot_Folder}" />
-            <Button Content="..." Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
+            <Button Content="..." IsEnabled="False"  Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
             <TextBox Text="{rb:Preference Browser.Screenshot.Destination}" Margin="6, 0, 0, 0" />
         </DockPanel>
         <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 8">

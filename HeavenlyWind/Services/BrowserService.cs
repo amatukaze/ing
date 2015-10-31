@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -56,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
 
         public BrowserNavigator Navigator { get; private set; }
-        
+
         bool r_IsNavigatorVisible;
         public bool IsNavigatorVisible
         {
@@ -73,9 +74,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public GameController GameController { get; } = new GameController();
 
+        public ICommand ClearCacheCommand { get; }
+        public ICommand ClearCacheAndCookieCommand { get; }
+
         BrowserService()
         {
             r_IsNavigatorVisible = true;
+
+            ClearCacheCommand = new DelegatedCommand(() => Communicator.Write(CommunicatorMessages.ClearCache));
+            ClearCacheAndCookieCommand = new DelegatedCommand(() => Communicator.Write(CommunicatorMessages.ClearCacheAndCookie));
         }
 
         public void Initialize()

@@ -90,6 +90,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             r_Communicator.StartReader();
 
+            r_Messages.Subscribe(CommunicatorMessages.ClearCache, _ => r_BrowserProvider?.ClearCache(false));
+            r_Messages.Subscribe(CommunicatorMessages.ClearCacheAndCookie, _ => r_BrowserProvider?.ClearCache(true));
+
             r_Messages.Subscribe(CommunicatorMessages.GoBack, _ => r_Browser?.GoBack());
             r_Messages.Subscribe(CommunicatorMessages.GoForward, _ => r_Browser?.GoForward());
             r_Messages.Subscribe(CommunicatorMessages.Navigate, rpUrl => r_Browser?.Navigate(rpUrl));
