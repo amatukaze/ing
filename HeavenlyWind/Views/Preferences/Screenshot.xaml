@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rbm="clr-namespace:Sakuno.KanColle.Amatsukaze.Models;assembly=HeavenlyWind.Base"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
@@ -13,9 +14,9 @@
             <TextBox Text="{rb:Preference Browser.Screenshot.Destination}" Margin="6, 0, 0, 0" />
         </DockPanel>
         <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 8">
-            <RadioButton GroupName="ImageFormat" Content="PNG" />
-            <RadioButton GroupName="ImageFormat" Content="JPG" Margin="12, 0, 0, 0" />
-            <RadioButton GroupName="ImageFormat" Content="BMP" Margin="12, 0, 0, 0" />
+            <RadioButton GroupName="ImageFormat" Content="PNG" IsChecked="{rb:Preference Browser.Screenshot.ImageFormat, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:ScreenshotImageFormat.Png}}" />
+            <RadioButton GroupName="ImageFormat" Content="JPG" IsChecked="{rb:Preference Browser.Screenshot.ImageFormat, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:ScreenshotImageFormat.Jpeg}}" Margin="12, 0, 0, 0" />
+            <RadioButton GroupName="ImageFormat" Content="BMP" IsChecked="{rb:Preference Browser.Screenshot.ImageFormat, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:ScreenshotImageFormat.Bmp}}" Margin="12, 0, 0, 0" />
         </StackPanel>
     </StackPanel>
 </UserControl>

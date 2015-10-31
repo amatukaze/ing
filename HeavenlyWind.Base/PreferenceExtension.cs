@@ -9,6 +9,9 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         string r_Path;
 
+        public IValueConverter Converter { get; set; }
+        public object ConverterParameter { get; set; }
+
         public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
         public ValidationRule ValidationRule { get; set; }
 
@@ -19,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public override object ProvideValue(IServiceProvider rpServiceProvider)
         {
-            var rBinding = new Binding(r_Path) { Source = Preference.Current, Mode = BindingMode.TwoWay, UpdateSourceTrigger = UpdateSourceTrigger };
+            var rBinding = new Binding(r_Path) { Source = Preference.Current, Mode = BindingMode.TwoWay, Converter = Converter, ConverterParameter = ConverterParameter, UpdateSourceTrigger = UpdateSourceTrigger };
             if (ValidationRule != null)
                 rBinding.ValidationRules.Add(ValidationRule);
 
