@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.Quests"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
+            <Grid DataContext="{Binding Source}" Background="Transparent" Margin="0, 2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="Type" MinWidth="12" />
+                    <ColumnDefinition SharedSizeGroup="Group" />
+                    <ColumnDefinition />
+                    <ColumnDefinition SharedSizeGroup="Progress" />
+                </Grid.ColumnDefinitions>
+                <Grid.ToolTip>
+                    <ToolTip>
+                        <TextBlock Text="{Binding Description}" />
+                    </ToolTip>
+                </Grid.ToolTip>
+
+                <TextBlock Name="Type" TextAlignment="Center" />
+                <TextBlock Name="Category" Foreground="Black" Margin="3, 0, 0, 0" Grid.Column="1" />
+
+                <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0" Grid.Column="2">
+                    <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                    <Border Name="ProgressBorder" Background="Green" Margin="3, 0, 0, 0" Padding="4, 2" Visibility="Collapsed">
+                        <TextBlock Name="Progress" Foreground="White" />
+                    </Border>
+                    <Border Name="CanCompletedBorder" Background="Yellow" Margin="3, 0, 0, 0" Padding="4, 2" Visibility="Collapsed">
+                        <TextBlock Foreground="Black" />
+                    </Border>
+                </StackPanel>
+
+                <Border Name="DetailProgressBorder" Background="Transparent" Margin="3, 0, 0, 0" Grid.Column="3">
+                    <ContentControl Name="DetailProgressContent">
+                        
+                    </ContentControl>
+                </Border>
+            </Grid>
+
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Source.Type}" Value="Daily">
+                    <Setter TargetName="Type" Property="Text" Value="{rb:StringResource Main.Quest_Type_Daily}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Type}" Value="Special1">
+                    <Setter TargetName="Type" Property="Text" Value="{rb:StringResource Main.Quest_Type_Daily}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Type}" Value="Special2">
+                    <Setter TargetName="Type" Property="Text" Value="{rb:StringResource Main.Quest_Type_Daily}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Type}" Value="Weekly">
+                    <Setter TargetName="Type" Property="Text" Value="{rb:StringResource Main.Quest_Type_Weekly}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Type}" Value="Monthly">
+                    <Setter TargetName="Type" Property="Text" Value="{rb:StringResource Main.Quest_Type_Monthly}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Source.Category}" Value="Composition">
+                    <Setter TargetName="Category" Property="Foreground" Value="#43C769" />
+                    <Setter TargetName="Category" Property="Text" Value="{rb:StringResource Main.Quest_Category_Composition}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Category}" Value="Sortie">
+                    <Setter TargetName="Category" Property="Foreground" Value="#EC6063" />
+                    <Setter TargetName="Category" Property="Text" Value="{rb:StringResource Main.Quest_Category_Sortie}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Category}" Value="Practice">
+                    <Setter TargetName="Category" Property="Foreground" Value="#93CE67" />
+                    <Setter TargetName="Category" Property="Text" Value="{rb:StringResource Main.Quest_Category_Practice}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Category}" Value="Expedition">
+                    <Setter TargetName="Category" Property="Foreground" Value="#4EBBD4" />
+                    <Setter TargetName="Category" Property="Text" Value="{rb:StringResource Main.Quest_Category_Expedition}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Category}" Value="SupplyOrDocking">
+                    <Setter TargetName="Category" Property="Foreground" Value="#DEC772" />
+                    <Setter TargetName="Category" Property="Text" Value="{rb:StringResource Main.Quest_Category_SupplyOrDocking}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Category}" Value="Arsenal">
+                    <Setter TargetName="Category" Property="Foreground" Value="#BA8F79" />
+                    <Setter TargetName="Category" Property="Text" Value="{rb:StringResource Main.Quest_Category_Arsenal}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Category}" Value="Modernization">
+                    <Setter TargetName="Category" Property="Foreground" Value="#CAA6DD" />
+                    <Setter TargetName="Category" Property="Text" Value="{rb:StringResource Main.Quest_Category_Modernization}" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Source.Progress}" Value="Progress50">
+                    <Setter TargetName="Progress" Property="Text" Value="50%" />
+                    <Setter TargetName="ProgressBorder" Property="Background" Value="#FF4F9C3A" />
+                    <Setter TargetName="ProgressBorder" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Progress}" Value="Progress80">
+                    <Setter TargetName="Progress" Property="Text" Value="80%" />
+                    <Setter TargetName="ProgressBorder" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Source.State}" Value="Completed">
+                    <Setter TargetName="Progress" Property="Text" Value="{rb:StringResource Main.Quest_State_Completed}" />
+                    <Setter TargetName="ProgressBorder" Property="Background" Value="Purple" />
+                    <Setter TargetName="ProgressBorder" Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ScrollViewer>
+        <StackPanel Grid.IsSharedSizeScope="True">
+            <ListBox ItemsSource="{Binding Executing}" />
+            <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="0, 5" />
+            <ListBox ItemsSource="{Binding Unexecuted}" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

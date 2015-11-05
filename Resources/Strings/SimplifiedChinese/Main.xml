@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1">
+
+  <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
+  <String Key="Log_Exception_API_Failed">API「{0}」返回错误代码：{1} </String>
+  <String Key="Log_Exception_API_ParseException">解析 API 时发生错误: {0}</String>
+  <String Key="Log_ExpeditionResult">/{0}「{1}」从远征「{2}:{3}」归来。(结果:{4})</String>
+  <String Key="Log_StartConstruction">开始建造「{0}」。(投入的资材:{1}/{2}/{3}/{4}-{5})</String>
+  <String Key="Log_DevelopmentSuccess">「{0}」开发成功。(投入的资材:{1}/{2}/{3}/{4})</String>
+  <String Key="Log_DevelopmentFailure">开发失败。(投入的资材:{0}/{1}/{2}/{3})</String>
+  
+  <String Key="Expedition_Result_Failure">失败</String>
+  <String Key="Expedition_Result_Success">成功</String>
+  <String Key="Expedition_Result_GreatSuccess">大成功</String>
+  
+  <String Key="Tab_Overview">概要</String>
+  <String Key="Tab_Fleets">艦隊</String>
+  <String Key="Tab_Quests">任務</String>
+  <String Key="Tab_Tools">ツール</String>
+  
+  <String Key="Overview_Headquarter">司令部</String>
+  <String Key="Overview_Headquarter_Ships">舰娘</String>
+  <String Key="Overview_Headquarter_Equipments">装备</String>
+  <String Key="Overview_Admiral_Rank_MarshalAdmiral">元帅</String>
+  <String Key="Overview_Admiral_Rank_Admiral">大将</String>
+  <String Key="Overview_Admiral_Rank_ViceAdmiral">中将</String>
+  <String Key="Overview_Admiral_Rank_RearAdmiral">少将</String>
+  <String Key="Overview_Admiral_Rank_Captain">大佐</String>
+  <String Key="Overview_Admiral_Rank_Commander">中佐</String>
+  <String Key="Overview_Admiral_Rank_NoviceCommander">新米中佐</String>
+  <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
+  <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中坚少佐</String>
+  <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
+  <String Key="Overview_Fleets">舰队一览</String>
+  <String Key="Overview_Fleets_Idle">等待中</String>
+  <String Key="Overview_Fleets_Unsupplied">未补给</String>
+  <String Key="Overview_Fleets_HeavilyDamaged">有大破船</String>
+  <String Key="Overview_Fleets_Expedition_TimeToComplete">完成时间</String>
+  <String Key="Overview_Dock_Locked">未解锁</String>
+  <String Key="Overview_RepairDocks">入渠</String>
+  <String Key="Overview_RepairDocks_TimeToComplete">完成时间</String>
+  <String Key="Overview_ConstructionDocks">建造</String>
+  <String Key="Overview_ConstructionDocks_Completed">完成</String>
+  <String Key="Overview_ConstructionDocks_TimeToComplete">完成时间</String>
+  <String Key="Overview_ConstructionDocks_MaterialConsumption">投入的资材</String>
+  <String Key="Overview_ExecutingQuests">执行中的任务</String>
+  
+  <String Key="Fleet_TotalLevel">总等级</String>
+  <String Key="Fleet_LoS">索敌</String>
+  <String Key="Fleet_AA">对空</String>
+  
+  <String Key="Quest_Unknown">?????</String>
+  <String Key="Quest_Type_Daily">日</String>
+  <String Key="Quest_Type_Weekly">周</String>
+  <String Key="Quest_Type_Monthly">月</String>
+  <String Key="Quest_Category_Composition">编成</String>
+  <String Key="Quest_Category_Sortie">出击</String>
+  <String Key="Quest_Category_Practice">演习</String>
+  <String Key="Quest_Category_Expedition">远征</String>
+  <String Key="Quest_Category_SupplyOrDocking">补给</String>
+  <String Key="Quest_Category_Arsenal">工厂</String>
+  <String Key="Quest_Category_Modernization">改装</String>
+  <String Key="Quest_State_Completed">达成</String>
+  
+  <String Key="Window_Preferences">设置</String>
+  <String Key="Window_ClosingConfirmation">要关闭 HeavenlyWind 吗？</String>
+  
+  <String Key="PreferenceWindow_Network">网络</String>
+  <String Key="PreferenceWindow_Network_Port">端口</String>
+  <String Key="PreferenceWindow_Network_EnableForSSL">对 SSL 连接也使用代理</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy">使用上游代理</String>
+  <String Key="PreferenceWindow_Cache">缓存</String>
+  <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
+  <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
+  <String Key="PreferenceWindow_Cache_Mode_FullTrust">完全信任（不校验文件版本）</String>
+  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">校验文件版本</String>
+  <String Key="PreferenceWindow_Cache_Path">路径</String>
+  <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Browser">浏览器</String>
+  <String Key="PreferenceWindow_Browser_LayoutEngine">排版引擎</String>
+  <String Key="PreferenceWindow_Browser_Homepage">首页</String>
+  <String Key="PreferenceWindow_Browser_ClearCache">删除缓存文件</String>
+  <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">删除缓存文件和 Cookie</String>
+  <String Key="PreferenceWindow_Screenshot">截图</String>
+  <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
+  
+  <String Key="ValidationRule_PleaseInputNumber">请输入数字</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">必须小于等于 {0}</String>
+  
+</Strings>

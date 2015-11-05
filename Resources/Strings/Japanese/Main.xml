@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1">
+
+  <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
+  <String Key="Log_Exception_API_Failed">API「{0}」のエラーコードを受信しました: {1}</String>
+  <String Key="Log_Exception_API_ParseException">API の解析中にエラーが発生しました: {0}</String>
+  <String Key="Log_ExpeditionResult">/{0}「{1}」が遠征「{2}:{3}」から帰投しました。(結果:{4})</String>
+  <String Key="Log_StartConstruction">「{0}」の建造を開始しました。(投入した資材:{1}/{2}/{3}/{4}-{5})</String>
+  <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材:{1}/{2}/{3}/{4})</String>
+  <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
+  
+  <String Key="Expedition_Result_Failure">失敗</String>
+  <String Key="Expedition_Result_Success">成功</String>
+  <String Key="Expedition_Result_GreatSuccess">大成功</String>
+  
+  <String Key="Tab_Overview">概要</String>
+  <String Key="Tab_Fleets">艦隊</String>
+  <String Key="Tab_Quests">任務</String>
+  <String Key="Tab_Tools">ツール</String>
+  
+  <String Key="Overview_Headquarter">司令部</String>
+  <String Key="Overview_Headquarter_Ships">艦娘</String>
+  <String Key="Overview_Headquarter_Equipments">装備</String>
+  <String Key="Overview_Admiral_Rank_MarshalAdmiral">元帥</String>
+  <String Key="Overview_Admiral_Rank_Admiral">大将</String>
+  <String Key="Overview_Admiral_Rank_ViceAdmiral">中将</String>
+  <String Key="Overview_Admiral_Rank_RearAdmiral">少将</String>
+  <String Key="Overview_Admiral_Rank_Captain">大佐</String>
+  <String Key="Overview_Admiral_Rank_Commander">中佐</String>
+  <String Key="Overview_Admiral_Rank_NoviceCommander">新米中佐</String>
+  <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
+  <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中堅少佐</String>
+  <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
+  <String Key="Overview_Fleets">艦隊一覧</String>
+  <String Key="Overview_Fleets_Idle">待機中</String>
+  <String Key="Overview_Fleets_Unsupplied">未補給</String>
+  <String Key="Overview_Fleets_HeavilyDamaged">大破艦がいます</String>
+  <String Key="Overview_Fleets_Expedition_TimeToComplete">完了時刻</String>
+  <String Key="Overview_Dock_Locked">ロック</String>
+  <String Key="Overview_RepairDocks">入渠ドック</String>
+  <String Key="Overview_RepairDocks_TimeToComplete">完了時刻</String>
+  <String Key="Overview_ConstructionDocks">建造ドック</String>
+  <String Key="Overview_ConstructionDocks_Completed">完了</String>
+  <String Key="Overview_ConstructionDocks_TimeToComplete">完了時刻</String>
+  <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
+  <String Key="Overview_ExecutingQuests">遂行中の任務</String>
+  
+  <String Key="Fleet_TotalLevel">Lv合計</String>
+  <String Key="Fleet_LoS">索敵</String>
+  <String Key="Fleet_AA">対空</String>
+  
+  <String Key="Quest_Unknown">?????</String>
+  <String Key="Quest_Type_Daily">日</String>
+  <String Key="Quest_Type_Weekly">週</String>
+  <String Key="Quest_Type_Monthly">月</String>
+  <String Key="Quest_Category_Composition">編成</String>
+  <String Key="Quest_Category_Sortie">出撃</String>
+  <String Key="Quest_Category_Practice">演習</String>
+  <String Key="Quest_Category_Expedition">遠征</String>
+  <String Key="Quest_Category_SupplyOrDocking">補給</String>
+  <String Key="Quest_Category_Arsenal">工廠</String>
+  <String Key="Quest_Category_Modernization">改装</String>
+  <String Key="Quest_State_Completed">達成</String>
+  
+  <String Key="Window_Preferences">設定</String>
+  <String Key="Window_ClosingConfirmation">HeavenlyWind を終了しますか？</String>
+  
+  <String Key="PreferenceWindow_Network">通信</String>
+  <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
+  <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
+  <String Key="PreferenceWindow_Cache">キャッシュ</String>
+  <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
+  <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
+  <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust</String>
+  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">Check Version</String>
+  <String Key="PreferenceWindow_Cache_Path">パス</String>
+  <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Browser">ブラウザ</String>
+  <String Key="PreferenceWindow_Browser_LayoutEngine">レイアウトエンジン</String>
+  <String Key="PreferenceWindow_Browser_Homepage">ホームページ</String>
+  <String Key="PreferenceWindow_Browser_ClearCache">キャッシュの削除</String>
+  <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">キャッシュとクッキーの削除</String>
+  <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
+  <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
+  
+  <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
+  
+</Strings>

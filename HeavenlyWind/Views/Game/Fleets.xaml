@@ -1,0 +1,143 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.Fleets"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+             xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+             xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
+             d:DataContext="{d:DesignInstance rvmg:FleetsViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 0, 0, 1" Padding="0, 3">
+            <ListBox ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet, Mode=TwoWay}">
+                <ListBox.Template>
+                    <ControlTemplate TargetType="{x:Type ListBox}">
+                        <StackPanel Orientation="Horizontal" IsItemsHost="True" />
+                    </ControlTemplate>
+                </ListBox.Template>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="OverridesDefaultStyle" Value="True" />
+                        <Setter Property="Foreground" Value="Gray" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Border Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" Padding="4">
+                                        <TextBlock Text="{Binding Source.Name}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="White" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Border>
+
+        <Border DataContext="{Binding SelectedFleet}" Padding="4" TextElement.FontSize="12" Grid.Row="1">
+            <Grid DataContext="{Binding Source}" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <TextBlock>
+                    <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
+                    <Run Text="{rb:StringResource Main.Fleet_LoS, Mode=OneWay}" />:<Run Text="{Binding Status.LoS.Old25, StringFormat=0.0}" />/<Run Text="{Binding Status.LoS.Autumn25, StringFormat=0.0}" />
+                    <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.MinAA, StringFormat=0.0}" />-<Run Text="{Binding Status.MaxAA, StringFormat=0.0}" />
+                </TextBlock>
+                
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0, 4, 0, 0" Grid.Row="1">
+                    <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Margin="0, -5, 0, 0" Grid.IsSharedSizeScope="True">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type rgm:Ship}">
+                                <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Padding="3">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition SharedSizeGroup="Name" />
+                                            <ColumnDefinition SharedSizeGroup="Level" />
+                                            <ColumnDefinition SharedSizeGroup="NextExperience" />
+                                            <ColumnDefinition Width="60" />
+                                            <ColumnDefinition Width="25" />
+                                            <ColumnDefinition SharedSizeGroup="FuelAndBullet" />
+                                            <ColumnDefinition SharedSizeGroup="Slots" />
+                                            <ColumnDefinition SharedSizeGroup="ExtraSlot" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Text="{Binding Info.Name}" Grid.RowSpan="2" />
+
+                                        <TextBlock Name="Level" Text="{Binding Level, StringFormat=Lv.{0}}" Margin="3, 0, 0, 0" Grid.Column="1" />
+                                        <TextBlock Name="ExperienceToNextLevel" Foreground="#AAA" Text="{Binding ExperienceToNextLevel, StringFormat=Next:{0}}" FontSize="10" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="1" />
+
+                                        <TextBlock HorizontalAlignment="Right" Margin="3, 0, 0, 0" Grid.Column="3">
+                                            <Run Text="{Binding HP.Current, Mode=OneWay}" />
+                                            <Run Text=" /" Foreground="Gray" />
+                                            <Run Text="{Binding HP.Maximum, Mode=OneWay}" FontSize="11" Foreground="Gray" />
+                                        </TextBlock>
+                                        <rc:ColorIndicator Value="{Binding HP.Current}" Maximum="{Binding HP.Maximum}" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="3" />
+
+                                        <TextBlock Name="Condition" Text="{Binding Condition}" Margin="3, 0, 0, 0" TextAlignment="Center" Grid.Column="4" Grid.RowSpan="2" />
+                                        <Grid Width="50" Margin="3, 2, 0, 2" Grid.Column="5" Grid.RowSpan="2">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <rc:ColorIndicator Value="{Binding Fuel.Current}" Median="{Binding Fuel.Before}" Maximum="{Binding Info.MaxFuelConsumption}" />
+                                            <rc:ColorIndicator Value="{Binding Bullet.Current}" Median="{Binding Bullet.Before}" Maximum="{Binding Info.MaxBulletConsumption}" Grid.Row="1" />
+                                        </Grid>
+
+                                        <rc:ShipSlot DataContext="{Binding Slots}" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2" />
+                                        <Border Name="ExtraSlot" BorderBrush="Gray" BorderThickness="1, 0, 0, 0" Margin="3, 0, 0, 0" Grid.Column="7" Grid.RowSpan="2">
+                                            <rc:EquipmentIcon Type="{Binding ExtraSlot.Equipment.Info.Icon}" />
+                                        </Border>
+                                    </Grid>
+                                </Border>
+
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
+                                        <Setter TargetName="Level" Property="Grid.RowSpan" Value="2" />
+                                        <Setter TargetName="ExperienceToNextLevel" Property="Visibility" Value="Hidden" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=50}" Value="True">
+                                        <Setter TargetName="Condition" Property="Foreground" Value="Yellow" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=30}" Value="True">
+                                        <Setter TargetName="Condition" Property="Foreground" Value="Red" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ExtraSlot}" Value="{x:Null}">
+                                        <Setter TargetName="ExtraSlot" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

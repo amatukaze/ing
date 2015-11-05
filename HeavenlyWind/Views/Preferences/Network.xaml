@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Preferences.Network"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <rb:IntegerRangeValidationRule x:Key="PortRangeValidationRule" Minimum="0" Maximum="65535" />
+    </UserControl.Resources>
+    
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 6">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port}" />
+            <TextBox Text="{rb:Preference Network.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0" />
+        </StackPanel>
+        <CheckBox IsChecked="{rb:Preference Network.EnableForSSL}" Margin="0, 0, 0, 12">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_EnableForSSL}" />
+        </CheckBox>
+
+        <CheckBox IsChecked="{rb:Preference Network.UpstreamProxy.Enabled}" Margin="0, 0, 0, 6">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_UseUpstreamProxy}" />
+        </CheckBox>
+        <StackPanel IsEnabled="{rb:Preference Network.UpstreamProxy.Enabled}" Orientation="Horizontal" Margin="0, 0, 0, 12">
+            <TextBox Text="{rb:Preference Network.UpstreamProxy.Host}" Width="120" />
+            <TextBox Text="{rb:Preference Network.UpstreamProxy.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

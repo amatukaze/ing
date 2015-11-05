@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.RepairDocks"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding RepairDocks}">
+    <ItemsControl ItemsSource="{Binding}" Grid.IsSharedSizeScope="True">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="{x:Type rvmg:RepairDockViewModel}">
+                <Border Name="Border" Background="Transparent" Padding="4">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition SharedSizeGroup="RemainingTime" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding ID}" />
+                        <TextBlock Name="Ship" TextTrimming="CharacterEllipsis" Margin="5, 0, 0, 0" Grid.Column="1" Grid.ColumnSpan="2" />
+                        <TextBlock Name="RemainingTime" Margin="3, 0, 0, 0" Grid.Column="2" />
+                    </Grid>
+                </Border>
+
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding State}" Value="Locked">
+                        <Setter TargetName="Ship" Property="Text" Value="{rb:StringResource Main.Overview_Dock_Locked}" />
+                        <Setter TargetName="Ship" Property="FontStyle" Value="Oblique" />
+                        <Setter TargetName="Ship" Property="TextAlignment" Value="Center" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding State}" Value="Repairing">
+                        <Setter TargetName="Border" Property="ToolTip">
+                            <Setter.Value>
+                                <ToolTip>
+                                    <TextBlock>
+                                        <Run Text="{rb:StringResource Main.Overview_RepairDocks_TimeToComplete, Mode=OneWay}" />
+                                        <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
+                                    </TextBlock>
+                                </ToolTip>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter TargetName="Ship" Property="Text" Value="{Binding Ship}" />
+                        <Setter TargetName="Ship" Property="Grid.ColumnSpan" Value="1" />
+                        <Setter TargetName="RemainingTime" Property="Text" Value="{Binding RemainingTime}" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

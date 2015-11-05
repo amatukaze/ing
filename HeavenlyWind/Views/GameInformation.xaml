@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.GameInformation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+             xmlns:rvm="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels"
+             xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+             xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
+             xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance rvm:GameInformationViewModel}"
+             d:DesignWidth="480" d:DesignHeight="320">
+    <ruic:DragableTabControl ItemsSource="{Binding TabItems}" SelectedValue="{Binding SelectedItem, Mode=TwoWay}" IsMainHost="True">
+        <ruic:DragableTabControl.ItemTemplate>
+            <DataTemplate DataType="{x:Type rvm:TabItemViewModel}">
+                <TextBlock Text="{Binding Name}" FontSize="14" />
+            </DataTemplate>
+        </ruic:DragableTabControl.ItemTemplate>
+        <ruic:DragableTabControl.NewHostProvider>
+            <rv:TabNewHostProvider />
+        </ruic:DragableTabControl.NewHostProvider>
+
+        <ruic:DragableTabControl.Resources>
+            <DataTemplate DataType="{x:Type rvmg:OverviewViewModel}">
+                <rvg:Overview />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type rvmg:FleetsViewModel}">
+                <rvg:Fleets />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type rvmg:QuestsViewModel}">
+                <rvg:Quests />
+            </DataTemplate>
+        </ruic:DragableTabControl.Resources>
+    </ruic:DragableTabControl>
+</UserControl>

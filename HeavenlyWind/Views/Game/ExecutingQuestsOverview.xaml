@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.ExecutingQuestsOverview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ItemsControl ItemsSource="{Binding ExecutingQuests}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
+                <Border Background="Transparent" Padding="4">
+                    <Grid DataContext="{Binding Source}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition SharedSizeGroup="Progress" Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                        <Border Name="DetailProgressBorder" Background="Transparent" Margin="3, 0, 0, 0" Grid.Column="1">
+                            <ContentControl Name="DetailProgressContent">
+                            </ContentControl>
+                        </Border>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

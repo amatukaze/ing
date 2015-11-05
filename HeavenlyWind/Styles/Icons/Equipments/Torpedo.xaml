@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
+
+    <ControlTemplate x:Key="TorpedoIcon" TargetType="{x:Type rc:EquipmentIcon}">
+        <Path Fill="#5887AB" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M37.333333,105.33333 L77.500332,100.83367 80.167003,93.501219 110.8331,90.168137 114.83341,97.500749 198.16716,97.500749 210.16681,76.168542 241.49971,74.834929 264.16631,108.16685 262.83266,125.49878 270.16596,133.49828 261.49901,148.83065 222.16591,174.16286 C222.16591,174.16286 222.83257,238.82524 155.49963,198.16106 L88.833361,226.82632 C88.833361,226.82632 58.166875,248.82541 52.833574,202.82802 52.833574,202.82802 11.500485,215.49435 24.833739,158.16411 L37.500478,152.83106 C37.500478,152.83106 15.166333,128.49846 37.333333,105.33333 z" />
+    </ControlTemplate>
+
+</ResourceDictionary>
