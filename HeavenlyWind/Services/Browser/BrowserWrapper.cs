@@ -105,14 +105,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 r_Communicator.Write(CommunicatorMessages.InvalidateArrange);
             });
 
-            r_Messages.Subscribe(CommunicatorMessages.Resize, rpSize =>
-            {
-                var rValues = rpSize.Split(';');
-
-                r_Container.Width = int.Parse(rValues[0]);
-                r_Container.Height = int.Parse(rValues[1]);
-            });
-
             r_Messages.Subscribe(CommunicatorMessages.TryExtractFlash, _ =>
             {
                 var rResult = r_Browser?.TryExtractFlash();
@@ -140,11 +132,27 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_HwndSource = new HwndSource(rParameters);
             r_HwndSource.CompositionTarget.BackgroundColor = Colors.White;
 
+            r_HwndSource.AddHook(WndProc);
+
             NativeMethods.User32.SetWindowLongPtr(r_HwndSource.Handle, NativeConstants.GetWindowLong.GWL_STYLE, (IntPtr)(NativeEnums.WindowStyle.WS_CHILD | NativeEnums.WindowStyle.WS_CLIPCHILDREN));
             NativeMethods.User32.SetWindowPos(r_HwndSource.Handle, IntPtr.Zero, 0, 0, 0, 0, NativeEnums.SetWindowPosition.SWP_FRAMECHANGED | NativeEnums.SetWindowPosition.SWP_NOSIZEORMOVE | NativeEnums.SetWindowPosition.SWP_NOZORDER);
 
             r_HwndSource.RootVisual = r_Container;
         }
+        IntPtr WndProc(IntPtr rpHandle, int rpMessage, IntPtr rpWParam, IntPtr rpLParam, ref bool rrpHandled)
+        {
+            var rMessage = (NativeConstants.WindowMessage)rpMessage;
+            if (rMessage == CommunicatorMessages.ResizeBrowserWindow)
+            {
+                r_Container.Width = rpWParam.ToInt32();
+                r_Container.Height = rpLParam.ToInt32();
+
+                rrpHandled = true;
+            }
+
+            return IntPtr.Zero;
+        }
+
         void InitializeBrowserControl()
         {
             r_Browser = r_BrowserProvider.CreateBrowserInstance();

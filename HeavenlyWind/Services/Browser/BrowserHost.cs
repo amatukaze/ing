@@ -12,7 +12,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         IntPtr r_Handle;
 
         bool r_IsExtracted;
-        double r_LastWidth, r_LastHeight;
 
         public BrowserHost(IntPtr rpHandle)
         {
@@ -42,17 +41,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             if (r_IsExtracted)
             {
-                rWidth = Math.Min(rWidth, 800);
-                rHeight = Math.Min(rHeight, 480);
+                var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
+
+                rWidth = Math.Min(rWidth, 800 * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX);
+                rHeight = Math.Min(rHeight, 480 * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY);
             }
 
-            if (r_LastWidth != rWidth && r_LastHeight != rHeight)
-            {
-                BrowserService.Instance.Communicator.Write(CommunicatorMessages.Resize + $":{rWidth};{rHeight}");
-
-                r_LastWidth = rWidth;
-                r_LastHeight = rHeight;
-            }
+            NativeMethods.User32.PostMessageW(r_Handle, CommunicatorMessages.ResizeBrowserWindow, (IntPtr)rWidth, (IntPtr)rHeight);
 
             return new Size(rWidth, rHeight);
         }

@@ -122,7 +122,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 Navigator = new BrowserNavigator();
 
-                Messages.Subscribe(CommunicatorMessages.ExtractionResult, r =>   IsNavigatorVisible = !bool.Parse(r));
+                Messages.Subscribe(CommunicatorMessages.ExtractionResult, r => IsNavigatorVisible = !bool.Parse(r));
 
             }
         }

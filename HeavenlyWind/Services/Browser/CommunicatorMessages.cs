@@ -1,4 +1,6 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Services.Browser
+﻿using Sakuno.SystemInterop;
+
+namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 {
     public static class CommunicatorMessages
     {
@@ -17,7 +19,6 @@
         public const string LoadCompleted = nameof(LoadCompleted);
 
         public const string SetZoom = nameof(SetZoom);
-        public const string Resize = nameof(Resize);
         public const string InvalidateArrange = nameof(InvalidateArrange);
 
         public const string TryExtractFlash = nameof(TryExtractFlash);
@@ -27,6 +28,14 @@
         public const string ScreenshotFail = nameof(ScreenshotFail);
         public const string StartScreenshotTransmission = nameof(StartScreenshotTransmission);
         public const string FinishScreenshotTransmission = nameof(FinishScreenshotTransmission);
+
+        public static readonly NativeConstants.WindowMessage ResizeBrowserWindow;
+
+        static CommunicatorMessages()
+        {
+            var rAppMessage = (int)NativeConstants.WindowMessage.WM_APP;
+            ResizeBrowserWindow = (NativeConstants.WindowMessage)(rAppMessage + 1);
+        }
 
     }
 }
