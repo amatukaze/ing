@@ -81,6 +81,9 @@
   <String Key="PreferenceWindow_Browser_Homepage">首页</String>
   <String Key="PreferenceWindow_Browser_ClearCache">删除缓存文件</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">删除缓存文件和 Cookie</String>
+  <String Key="PreferenceWindow_Browser_Flash">Flash 设置</String>
+  <String Key="PreferenceWindow_Browser_Flash_Quality">画质</String>
+  <String Key="PreferenceWindow_Browser_Flash_RenderMode">渲染模式</String>
   <String Key="PreferenceWindow_Screenshot">截图</String>
   <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
   
