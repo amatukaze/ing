@@ -183,7 +183,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 r_EquipmentIDs = RawData.Equipments;
                 Slots = RawData.Equipments.Take(RawData.EquipmentCount)
                     .Zip(RawData.PlaneCountInSlot.Zip(Info.PlaneCountInSlot, (rpCount, rpMaxCount) => new { Count = rpCount, MaxCount = rpMaxCount }),
-                        (rpID, rpPlane) => new ShipSlot(rpID != -1 ? KanColleGame.Current.Port.Equipments[rpID] : Equipment.Dummy, rpPlane.Count, rpPlane.MaxCount))
+                        (rpID, rpPlane) => new ShipSlot(rpID != -1 ? KanColleGame.Current.Port.Equipments[rpID] : Equipment.Dummy, rpPlane.MaxCount, rpPlane.Count))
                         .ToArray().AsReadOnly();
 
                 rUpdateList = true;
