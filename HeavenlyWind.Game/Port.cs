@@ -74,6 +74,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 OnPropertyChanged(nameof(Equipments));
             });
 
+            SessionService.Instance.Subscribe("api_req_hokyu/charge", r =>
+            {
+                var rData = r.GetData<RawSupplyResult>();
+
+                foreach (var rShipSupplyResult in rData.Ships)
+                {
+                    var rShip = Ships[rShipSupplyResult.ID];
+                    rShip.Fuel.Update(rShipSupplyResult.Fuel);
+                    rShip.Bullet.Update(rShipSupplyResult.Bullet);
+
+                    var rPlanes = rShipSupplyResult.Planes;
+                    for (var i = 0; i < rShip.Slots.Count; i++)
+                    {
+                        var rCount = (int)rPlanes[i];
+                        if (rCount > 0)
+                            rShip.Slots[i].PlaneCount = rCount;
+                    }
+                }
+            });
+
         }
 
         #region Update
