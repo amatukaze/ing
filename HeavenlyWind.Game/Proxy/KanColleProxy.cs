@@ -1,12 +1,17 @@
 ﻿using Fiddler;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+using Sakuno.KanColle.Amatsukaze.Models;
 using System.Reactive.Subjects;
+using System.Text.RegularExpressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
     public static class KanColleProxy
     {
         public static Subject<NetworkSession> SessionSubject { get; } = new Subject<NetworkSession>();
+
+        static Regex r_FlashQualityRegex = new Regex("(\"quality\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Multiline);
+        static Regex r_FlashRenderModeRegex = new Regex("(\"wmode\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Multiline);
 
         static KanColleProxy()
         {
@@ -50,6 +55,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             rpSession.Tag = rSession;
 
             SessionSubject.OnNext(rSession);
+
+            if (rPath == "/gadget/js/kcs_flash.js")
+                rpSession.bBufferResponse = true;
         }
 
         static void FiddlerApplication_OnReadResponseBuffer(object sender, RawReadEventArgs e)
@@ -79,6 +87,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 {
                     rApiSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
                     ApiParserManager.Instance.Process(rApiSession);
+                }
+
+                if (rpSession.PathAndQuery == "/gadget/js/kcs_flash.js")
+                {
+                    var rScript = rpSession.GetResponseBodyAsString();
+                    var rModified = false;
+
+                    var rQuality = Preference.Current.Browser.Flash.Quality;
+                    if (rQuality != FlashQuality.Default)
+                    {
+                        rScript = r_FlashQualityRegex.Replace(rScript, $"$1{rQuality}$2");
+                        rModified = true;
+                    }
+
+                    var rRenderMode = Preference.Current.Browser.Flash.RenderMode;
+                    if (rRenderMode != FlashRenderMode.Default)
+                    {
+                        rScript = r_FlashRenderModeRegex.Replace(rScript, $"$1{rRenderMode}$2");
+                        rModified = true;
+                    }
+
+                    if (rModified)
+                        rpSession.utilSetResponseBody(rScript);
                 }
             }
         }

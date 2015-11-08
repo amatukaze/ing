@@ -81,6 +81,9 @@
   <String Key="PreferenceWindow_Browser_Homepage">ホームページ</String>
   <String Key="PreferenceWindow_Browser_ClearCache">キャッシュの削除</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">キャッシュとクッキーの削除</String>
+  <String Key="PreferenceWindow_Browser_Flash">Flash の設定</String>
+  <String Key="PreferenceWindow_Browser_Flash_Quality">品質</String>
+  <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
   
