@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
+using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -117,7 +118,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 Messages.Subscribe(CommunicatorMessages.LoadCompleted, _ =>
                 {
                     Communicator.Write(CommunicatorMessages.TryExtractFlash);
-                    Communicator.Write(CommunicatorMessages.SetZoom + ":" + Preference.Current.Browser.Zoom);
+
+                    var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
+                    Communicator.Write(CommunicatorMessages.SetZoom + ":" + rZoom);
                 });
 
                 Navigator = new BrowserNavigator();
