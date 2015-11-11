@@ -20,6 +20,9 @@
 
         StatusBarService() { }
 
-        public void Initialize() => Logger.LogAdded += r => Message = $"{r.Time}: {r.Content}";
+        public void Initialize()
+        {
+            Logger.LogAdded += r => Message = $"{r.Time}: {r.Content}";
+        }
     }
 }

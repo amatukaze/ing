@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using Sakuno.UserInterface.Controls;
+﻿using Sakuno.UserInterface.Controls;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Sakuno.KanColle.Amatsukaze.Views
