@@ -1,4 +1,6 @@
-﻿using Sakuno.UserInterface.Controls;
+﻿using Sakuno.SystemInterop;
+using Sakuno.UserInterface.Controls;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -12,6 +14,12 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+
+            PowerMonitor.RegisterMonitor(this);
         }
 
         protected override void OnClosing(CancelEventArgs e)

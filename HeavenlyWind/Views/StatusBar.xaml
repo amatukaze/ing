@@ -18,6 +18,23 @@
             <ruic:ResizeGrip DockPanel.Dock="Right"/>
 
             <DockPanel Margin="3, 0">
+                <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0" DockPanel.Dock="Right">
+                    <StackPanel.Style>
+                        <Style TargetType="{x:Type StackPanel}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Power.Source}" Value="Battery">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <TextBlock>
+                        <Run Text="{Binding Power.BatteryRemainingPercentage, Mode=OneWay}" />%
+                    </TextBlock>
+                </StackPanel>
 
                 <TextBlock Text="{Binding Message}" TextWrapping="NoWrap" />
             </DockPanel>
