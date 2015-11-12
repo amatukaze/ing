@@ -46,6 +46,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Info = EquipmentInfo.Dummy;
         }
 
+        protected override void OnRawDataUpdated()
+        {
+            if (Info == null || Info.ID != RawData.EquipmentID)
+            {
+                EquipmentInfo rInfo;
+                if (!KanColleGame.Current.MasterInfo.Equipments.TryGetValue(RawData.EquipmentID, out rInfo))
+                    rInfo = EquipmentInfo.Dummy;
+
+                Info = rInfo;
+            }
+
+            OnPropertyChanged(nameof(Info));
+            OnPropertyChanged(nameof(Level));
+            OnPropertyChanged(nameof(LevelText));
+            OnPropertyChanged(nameof(IsLocked));
+            OnPropertyChanged(nameof(Proficiency));
+            OnPropertyChanged(nameof(ProficiencyText));
+        }
+
         public override string ToString() => $"ID = {ID}, Name = \"{Info.Name}\", Level = {Level}{(Proficiency == 0 ? string.Empty : $" Proficiency = {Proficiency}")}";
     }
 }

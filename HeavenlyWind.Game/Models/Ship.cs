@@ -63,7 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ClampedValue Fuel
         {
             get { return r_Fuel; }
-            private set
+            internal set
             {
                 if (r_Fuel != value)
                 {
@@ -76,7 +76,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ClampedValue Bullet
         {
             get { return r_Bullet; }
-            private set
+            internal set
             {
                 if (r_Bullet != value)
                 {
@@ -172,6 +172,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (RawData.Equipments != null)
                 UpdateSlots();
+
+            OnPropertyChanged(nameof(Condition));
         }
 
         void UpdateSlots()
@@ -183,8 +185,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 r_EquipmentIDs = RawData.Equipments;
                 Slots = RawData.Equipments.Take(RawData.EquipmentCount)
                     .Zip(RawData.PlaneCountInSlot.Zip(Info.PlaneCountInSlot, (rpCount, rpMaxCount) => new { Count = rpCount, MaxCount = rpMaxCount }),
-                        (rpID, rpPlane) => new ShipSlot(rpID != -1 ? KanColleGame.Current.Port.Equipments[rpID] : Equipment.Dummy, rpPlane.MaxCount, rpPlane.Count))
-                        .ToArray().AsReadOnly();
+                        (rpID, rpPlane) => 
+                        {
+                            Equipment rEquipment;
+                            if (rpID != -1 && !KanColleGame.Current.Port.Equipments.TryGetValue(rpID, out rEquipment))
+                                KanColleGame.Current.Port.Equipments.Add(rEquipment = new Equipment(new RawEquipment() { ID = rpID, EquipmentID = -1 }));
+                            else
+                                rEquipment = Equipment.Dummy;
+
+                            return new ShipSlot(rEquipment, rpPlane.MaxCount, rpPlane.Count);
+                        }).ToArray().AsReadOnly();
 
                 rUpdateList = true;
             }

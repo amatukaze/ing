@@ -81,8 +81,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rShipSupplyResult in rData.Ships)
                 {
                     var rShip = Ships[rShipSupplyResult.ID];
-                    rShip.Fuel.Update(rShipSupplyResult.Fuel);
-                    rShip.Bullet.Update(rShipSupplyResult.Bullet);
+                    rShip.Fuel = rShip.Fuel.Update(rShipSupplyResult.Fuel);
+                    rShip.Bullet = rShip.Bullet.Update(rShipSupplyResult.Bullet);
 
                     var rPlanes = rShipSupplyResult.Planes;
                     for (var i = 0; i < rShip.Slots.Count; i++)
