@@ -1,4 +1,6 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Services
+﻿using Sakuno.KanColle.Amatsukaze.Models;
+
+namespace Sakuno.KanColle.Amatsukaze.Services
 {
     public class StatusBarService : ModelBase
     {
@@ -17,6 +19,8 @@
                 }
             }
         }
+
+        public Power Power { get; } = new Power();
 
         StatusBarService() { }
 
