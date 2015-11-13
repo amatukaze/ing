@@ -1,6 +1,8 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -36,6 +38,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public QuestManager Quests { get; } = new QuestManager();
 
+        int r_PendingShipCount;
+        public int PendingShipCount
+        {
+            get { return r_PendingShipCount; }
+            private set
+            {
+                if (r_PendingShipCount != value)
+                {
+                    r_PendingShipCount = value;
+                    OnPropertyChanged(nameof(PendingShipCount));
+                }
+            }
+        }
+
         internal Port()
         {
             SessionService.Instance.Subscribe("api_get_member/ship_deck", r =>
@@ -47,6 +63,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 var rRawFleet = rData.Fleets[0];
                 Fleets[rRawFleet.ID].Update(rRawFleet);
+
+                OnPropertyChanged(nameof(Ships));
             });
             SessionService.Instance.Subscribe("api_get_member/ship3", r =>
             {
@@ -99,6 +117,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rFleet in rFleets)
                     rFleet.Update();
             });
+
+            Action<ApiData> rProcessIfShipDropped = r =>
+            {
+                var rData = (RawBattleResult)r.Data;
+                if (rData.DroppedShip != null)
+                {
+                    PendingShipCount++;
+
+                    Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Ship_Dropped, rData.DroppedShip.Name));
+                }
+            };
+            SessionService.Instance.Subscribe("api_req_sortie/battleresult", rProcessIfShipDropped);
+            SessionService.Instance.Subscribe("api_req_combined_battle/battleresult", rProcessIfShipDropped);
+            SessionService.Instance.Subscribe("api_port/port", _ => PendingShipCount = 0);
 
         }
 

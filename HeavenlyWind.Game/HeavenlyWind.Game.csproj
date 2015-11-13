@@ -81,6 +81,7 @@
     <Compile Include="Models\EquipmentInfo.cs" />
     <Compile Include="Models\EquipmentType.cs" />
     <Compile Include="Models\EquipmentTypeInfo.cs" />
+    <Compile Include="Models\EventMapBounsType.cs" />
     <Compile Include="Models\ExpeditionResult.cs" />
     <Compile Include="Models\FleetExpeditionStatus.cs" />
     <Compile Include="Models\ExpeditionInfo.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Models\MaterialType.cs" />
     <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\Raw\RawBasic.cs" />
+    <Compile Include="Models\Raw\RawBattleResult.cs" />
     <Compile Include="Models\Raw\RawConstructionDock.cs" />
     <Compile Include="Models\Raw\RawEquipmentDevelopment.cs" />
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
@@ -150,6 +152,7 @@
     <Compile Include="Parsers\DefaultApiParser.cs" />
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
     <Compile Include="Parsers\Root\Arsenal\DevelopmentParser.cs" />
+    <Compile Include="Parsers\Root\Battle\BattleResultParser.cs" />
     <Compile Include="Parsers\Root\Expedition\ResultParser.cs" />
     <Compile Include="Parsers\Root\GetMember\BasicParser.cs" />
     <Compile Include="Parsers\Root\GetMember\ConstructionDockParser.cs" />

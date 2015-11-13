@@ -107,7 +107,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rPort, nameof(rPort.PropertyChanged))
                 .Select(r => r.EventArgs.PropertyName);
             rPropertyChangedSource.Where(r => r == nameof(rPort.Ships))
-                .Subscribe(_ => ShipCount = rPort.Ships.Count);
+                .Subscribe(_ => ShipCount = rPort.Ships.Count + rPort.PendingShipCount);
             rPropertyChangedSource.Where(r => r == nameof(rPort.Equipments))
                 .Subscribe(_ => EquipmentCount = rPort.Equipments.Count);
             rPropertyChangedSource.Where(r => r == nameof(rPort.RepairDocks))

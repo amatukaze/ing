@@ -29,14 +29,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
             var rParserTypes = rAssembly.GetTypes().Where(r => !r.IsAbstract && r.IsSubclassOf(typeof(ApiParserBase)));
             foreach (var rType in rParserTypes)
             {
-                var rAttribute = rType.GetCustomAttribute<ApiAttribute>();
-                if (rAttribute == null)
-                    continue;
+                var rAttributes = rType.GetCustomAttributes<ApiAttribute>();
+                foreach (var rAttribute in rAttributes)
+                {
+                    var rParser = (ApiParserBase)Activator.CreateInstance(rType);
+                    rParser.Api = rAttribute.Name;
 
-                var rParser = (ApiParserBase)Activator.CreateInstance(rType);
-                rParser.Api = rAttribute.Name;
-
-                Parsers.Add(rAttribute.Name, rParser);
+                    Parsers.Add(rAttribute.Name, rParser);
+                }
             }
 
             r_SessionSources.Subscribe(ProcessCore);
