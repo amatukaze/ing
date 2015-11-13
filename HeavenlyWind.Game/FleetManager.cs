@@ -26,6 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rIndex == -1)
                 {
                     rFleet.RemoveAllExceptFlagship();
+                    rFleet.Update();
                     return;
                 }
 
@@ -33,6 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rShipID == -1)
                 {
                     rFleet.Remove(rIndex);
+                    rFleet.Update();
                     return;
                 }
 
@@ -43,6 +45,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rOriginalShip = rFleet.Organize(rIndex, rShip);
                 if (rOriginalIndex.HasValue)
                     rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
+
+                rFleet.Update();
             });
 
             SessionService.Instance.Subscribe("api_get_member/deck", r => Update(r.GetData<RawFleet[]>()));

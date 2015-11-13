@@ -91,20 +91,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 UpdateShips();
             }
 
+            Update();
+        }
+
+        internal void Update()
+        {
             Status.Update();
             ExpeditionStatus.Update(RawData.Expedition);
 
-            UpdateState();
-        }
-        void UpdateShips()
-        {
-            Ships = r_ShipList.AsReadOnly();
-
-            ShipsUpdated(Ships);
-        }
-
-        void UpdateState()
-        {
             var rState = FleetState.None;
 
             if (ExpeditionStatus.Expedition != null)
@@ -125,6 +119,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
 
             State = rState;
+        }
+
+        void UpdateShips()
+        {
+            Ships = r_ShipList.AsReadOnly();
+
+            ShipsUpdated(Ships);
         }
 
         public Ship Organize(int rpIndex, Ship rpShip)

@@ -173,6 +173,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (RawData.Equipments != null)
                 UpdateSlots();
 
+            OnPropertyChanged(nameof(Level));
+            OnPropertyChanged(nameof(ExperienceToNextLevel));
             OnPropertyChanged(nameof(Condition));
         }
 
@@ -188,9 +190,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         (rpID, rpPlane) => 
                         {
                             Equipment rEquipment;
-                            if (rpID != -1 && !KanColleGame.Current.Port.Equipments.TryGetValue(rpID, out rEquipment))
+                            if (!KanColleGame.Current.Port.Equipments.TryGetValue(rpID, out rEquipment))
                                 KanColleGame.Current.Port.Equipments.Add(rEquipment = new Equipment(new RawEquipment() { ID = rpID, EquipmentID = -1 }));
-                            else
+                            else if (rpID == -1)
                                 rEquipment = Equipment.Dummy;
 
                             return new ShipSlot(rEquipment, rpPlane.MaxCount, rpPlane.Count);

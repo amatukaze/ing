@@ -77,6 +77,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe("api_req_hokyu/charge", r =>
             {
                 var rData = r.GetData<RawSupplyResult>();
+                var rFleets = new HashSet<Fleet>();
 
                 foreach (var rShipSupplyResult in rData.Ships)
                 {
@@ -84,14 +85,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     rShip.Fuel = rShip.Fuel.Update(rShipSupplyResult.Fuel);
                     rShip.Bullet = rShip.Bullet.Update(rShipSupplyResult.Bullet);
 
+                    rFleets.Add(rShip.OwnerFleet);
+
                     var rPlanes = rShipSupplyResult.Planes;
                     for (var i = 0; i < rShip.Slots.Count; i++)
                     {
-                        var rCount = (int)rPlanes[i];
+                        var rCount = rPlanes[i];
                         if (rCount > 0)
                             rShip.Slots[i].PlaneCount = rCount;
                     }
                 }
+
+                foreach (var rFleet in rFleets)
+                    rFleet.Update();
             });
 
         }
