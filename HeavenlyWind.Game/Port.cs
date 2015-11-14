@@ -118,6 +118,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     rFleet.Update();
             });
 
+            SessionService.Instance.Subscribe("api_get_member/ndock", r => UpdateRepairDocks(r.GetData<RawRepairDock[]>()));
+            SessionService.Instance.Subscribe("api_req_nyukyo/start", r =>
+            {
+                var rShip = Ships[int.Parse(r.Requests["api_ship_id"])];
+                var rIsInstantRepair = r.Requests["api_highspeed"] == "1";
+                rShip.Repair(rIsInstantRepair);
+                rShip.OwnerFleet?.Update();
+            });
+
             Action<ApiData> rProcessIfShipDropped = r =>
             {
                 var rData = (RawBattleResult)r.Data;
@@ -150,12 +159,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             Materials.Update(rpPort.Materials);
 
             UpdateShips(rpPort);
-
-            if (RepairDocks.UpdateRawData(rpPort.RepairDocks, r => new RepairDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
-                OnPropertyChanged(nameof(RepairDocks));
+            UpdateRepairDocks(rpPort.RepairDocks);
 
             Fleets.Update(rpPort);
         }
+
 
         internal void UpdateShips(RawPort rpPort) => UpdateShips(rpPort.Ships);
         internal void UpdateShips(RawShip[] rpShips)
@@ -185,6 +193,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             if (ConstructionDocks.UpdateRawData(rpConstructionDocks, r => new ConstructionDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                 OnPropertyChanged(nameof(ConstructionDocks));
+        }
+        void UpdateRepairDocks(RawRepairDock[] rpDocks)
+        {
+            if (RepairDocks.UpdateRawData(rpDocks, r => new RepairDock(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                OnPropertyChanged(nameof(RepairDocks));
         }
 
         #endregion

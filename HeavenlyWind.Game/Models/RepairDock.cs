@@ -58,7 +58,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
             else
             {
-                Ship = null;
+                if (Ship != null)
+                {
+                    Ship.Repair(true);
+                    Ship = null;
+                }
                 TimeToComplete = null;
             }
         }

@@ -14,8 +14,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int SortNumber => RawData.SortNumber;
 
         public int Level => RawData.Level;
-        
-        public int Condition => RawData.Condition;
+
+        int r_Condition;
+        public int Condition
+        {
+            get { return r_Condition; }
+            internal set
+            {
+                if (r_Condition != value)
+                {
+                    r_Condition = value;
+                    OnPropertyChanged(nameof(Condition));
+                    OnPropertyChanged(nameof(ConditionType));
+                }
+            }
+        }
         public ShipConditionType ConditionType
         {
             get
@@ -27,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 return ShipConditionType.SeriouslyTired;
             }
         }
-        
+
         public bool IsLocked => RawData.IsLocked;
 
         public int LockingTag => RawData.LockingTag;
@@ -167,6 +180,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Fuel = new ClampedValue(Info.MaxFuelConsumption, RawData.Fuel);
             Bullet = new ClampedValue(Info.MaxBulletConsumption, RawData.Bullet);
 
+            Condition = RawData.Condition;
+
             if (RawData.ModernizedStatus?.Length >= 5)
                 Status.Update(Info, RawData);
 
@@ -175,7 +190,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             OnPropertyChanged(nameof(Level));
             OnPropertyChanged(nameof(ExperienceToNextLevel));
-            OnPropertyChanged(nameof(Condition));
         }
 
         void UpdateSlots()
@@ -187,7 +201,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 r_EquipmentIDs = RawData.Equipments;
                 Slots = RawData.Equipments.Take(RawData.EquipmentCount)
                     .Zip(RawData.PlaneCountInSlot.Zip(Info.PlaneCountInSlot, (rpCount, rpMaxCount) => new { Count = rpCount, MaxCount = rpMaxCount }),
-                        (rpID, rpPlane) => 
+                        (rpID, rpPlane) =>
                         {
                             Equipment rEquipment;
                             if (!KanColleGame.Current.Port.Equipments.TryGetValue(rpID, out rEquipment))
@@ -219,6 +233,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 Equipments = rList.ToArray().AsReadOnly();
                 rUpdateList = false;
+            }
+        }
+
+        internal void Repair(bool rpInstantRepair)
+        {
+            if (!rpInstantRepair)
+                State |= ShipState.Repairing;
+            else
+            {
+                HP = HP.Update(HP.Maximum);
+
+                if (Condition < 40)
+                    Condition = 40;
             }
         }
 
