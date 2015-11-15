@@ -9,16 +9,16 @@
   <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Ship_Dropped">「{0}」がドロップしました</String>
-  
+
   <String Key="Expedition_Result_Failure">失敗</String>
   <String Key="Expedition_Result_Success">成功</String>
   <String Key="Expedition_Result_GreatSuccess">大成功</String>
-  
+
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
   <String Key="Tab_Quests">任務</String>
   <String Key="Tab_Tools">ツール</String>
-  
+
   <String Key="Overview_Headquarter">司令部</String>
   <String Key="Overview_Headquarter_Ships">艦娘</String>
   <String Key="Overview_Headquarter_Equipments">装備</String>
@@ -45,11 +45,11 @@
   <String Key="Overview_ConstructionDocks_TimeToComplete">完了時刻</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
   <String Key="Overview_ExecutingQuests">遂行中の任務</String>
-  
+
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
   <String Key="Fleet_AA">対空</String>
-  
+
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>
@@ -62,10 +62,10 @@
   <String Key="Quest_Category_Arsenal">工廠</String>
   <String Key="Quest_Category_Modernization">改装</String>
   <String Key="Quest_State_Completed">達成</String>
-  
+
   <String Key="Window_Preferences">設定</String>
   <String Key="Window_ClosingConfirmation">HeavenlyWind を終了しますか？</String>
-  
+
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
@@ -87,9 +87,9 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
-  
+
   <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
   <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
-  
+
 </Strings>

@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         public static EquipmentTypeInfo Dummy { get; } = new EquipmentTypeInfo(new RawEquipmentTypeInfo() { ID = -1, Name = "?" });
 
-        public int ID => RawData.ID; 
+        public int ID => RawData.ID;
 
         public string Name => RawData.Name;
 

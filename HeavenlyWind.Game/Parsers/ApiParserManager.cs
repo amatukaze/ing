@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
         Subject<ApiSession> r_SessionSources = new Subject<ApiSession>();
         public Subject<Tuple<ApiSession, Exception>> ExceptionSources { get; } = new Subject<Tuple<ApiSession, Exception>>();
-        
+
         ApiParserManager()
         {
             var rAssembly = Assembly.GetExecutingAssembly();

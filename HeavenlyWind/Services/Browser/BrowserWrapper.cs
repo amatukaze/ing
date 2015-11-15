@@ -60,7 +60,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 try
                 {
                     LoadBrowser(rpLayoutEngine);
-                    
+
                     r_BrowserProvider.SetPort(int.Parse(r));
 
                     InitializeBrowserControl();

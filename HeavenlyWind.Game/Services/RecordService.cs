@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             IsConnected = false;
 
             r_UserID = rpUserID;
-            
+
             r_Connection = new SQLiteConnection($@"Data Source=Records\{r_UserID}.db;Page Size=8192").OpenAndReturn();
 
             if (IsReadOnlyMode)

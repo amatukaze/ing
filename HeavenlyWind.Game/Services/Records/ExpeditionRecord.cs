@@ -25,7 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 }
             }));
         }
-        
+
         protected override void CreateTable()
         {
             using (var rCommand = Connection.CreateCommand())

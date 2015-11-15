@@ -45,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         internal QuestsViewModel(GameInformationViewModel rpParent)
         {
             var rQuestManager = KanColleGame.Current.Port.Quests;
-            
+
             Executing = rpParent.Overview.ExecutingQuests = rQuestManager.Executing?.Select(r => new QuestViewModel(r)).ToList();
             Unexecuted = rQuestManager.Unexecuted?.Select(r => new QuestViewModel(r)).ToList();
 

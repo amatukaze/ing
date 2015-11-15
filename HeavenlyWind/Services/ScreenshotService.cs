@@ -40,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             BrowserService.Instance.Communicator.Write(CommunicatorMessages.TakeScreenshot);
 
             var rImage = await r_TaskScreenshotTask.Task;
-            
+
             if (rpProcessAction != null)
                 rImage = rpProcessAction(rImage);
 

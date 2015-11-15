@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.StatusBar"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              DataContext="{Binding Source={x:Static rs:StatusBarService.Instance}}"
              d:DesignWidth="800" d:DesignHeight="23" >
     <Grid>

@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public string Name => RawData.Name;
         public string NameReading => RawData.NameReading;
-        
+
         public ShipType Type
         {
             get
@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public int MaxFuelConsumption => RawData.MaxFuelConsumption;
         public int MaxBulletConsumption => RawData.MaxBulletConsumption;
-        
+
         public int SlotCount => RawData.SlotCount;
         public int[] PlaneCountInSlot => RawData.PlaneCountInSlot ?? Enumerable.Repeat(0, SlotCount).ToArray();
 

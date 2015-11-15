@@ -9,16 +9,16 @@
   <String Key="Log_Development_Success">「{0}」开发成功。(投入的资材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">开发失败。(投入的资材:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Ship_Dropped">获得「{0}」</String>
-  
+
   <String Key="Expedition_Result_Failure">失败</String>
   <String Key="Expedition_Result_Success">成功</String>
   <String Key="Expedition_Result_GreatSuccess">大成功</String>
-  
+
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
   <String Key="Tab_Quests">任務</String>
   <String Key="Tab_Tools">ツール</String>
-  
+
   <String Key="Overview_Headquarter">司令部</String>
   <String Key="Overview_Headquarter_Ships">舰娘</String>
   <String Key="Overview_Headquarter_Equipments">装备</String>
@@ -45,11 +45,11 @@
   <String Key="Overview_ConstructionDocks_TimeToComplete">完成时间</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入的资材</String>
   <String Key="Overview_ExecutingQuests">执行中的任务</String>
-  
+
   <String Key="Fleet_TotalLevel">总等级</String>
   <String Key="Fleet_LoS">索敌</String>
   <String Key="Fleet_AA">对空</String>
-  
+
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">周</String>
@@ -62,10 +62,10 @@
   <String Key="Quest_Category_Arsenal">工厂</String>
   <String Key="Quest_Category_Modernization">改装</String>
   <String Key="Quest_State_Completed">达成</String>
-  
+
   <String Key="Window_Preferences">设置</String>
   <String Key="Window_ClosingConfirmation">要关闭 HeavenlyWind 吗？</String>
-  
+
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">端口</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">对 SSL 连接也使用代理</String>
@@ -87,9 +87,9 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">渲染模式</String>
   <String Key="PreferenceWindow_Screenshot">截图</String>
   <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
-  
+
   <String Key="ValidationRule_PleaseInputNumber">请输入数字</String>
   <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">必须小于等于 {0}</String>
-  
+
 </Strings>

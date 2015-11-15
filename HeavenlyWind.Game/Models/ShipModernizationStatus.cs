@@ -4,7 +4,7 @@
     {
         public int Minimum { get; internal set; }
         public int Maximum { get; internal set; }
-        
+
         public int Delta { get; internal set; }
         public int Current => Minimum + Delta;
 

@@ -54,12 +54,12 @@ namespace Sakuno.KanColle.Amatsukaze
             var rMainResourceFile = Path.Combine(StringResourceDirectory, rpLanguageName, "Main.xml");
             if (!File.Exists(rMainResourceFile))
                 throw new Exception();
-            
+
             Main = new StringResourcesItems(XDocument.Load(rMainResourceFile).Root.Descendants("String").ToDictionary(r => r.Attribute("Key").Value, r => r.Value));
             IsLoaded = true;
         }
     }
-    
+
     public partial class StringResourcesItems
     {
         Dictionary<string, string> r_Items;

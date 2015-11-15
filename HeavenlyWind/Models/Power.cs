@@ -17,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
                 }
             }
         }
-        
+
         int r_BatteryRemainingPercentage;
         public int BatteryRemainingPercentage
         {

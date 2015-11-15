@@ -11,9 +11,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public string Name => RawData.Name;
         public string Description => RawData.Description;
-        
+
         public TimeSpan Time => TimeSpan.FromMinutes(RawData.Time);
-        
+
         public double FuelConsumption => RawData.FuelConsumption;
         public double BulletConsumption => RawData.BulletConsumption;
 

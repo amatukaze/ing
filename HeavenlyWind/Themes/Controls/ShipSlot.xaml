@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                     xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game">
-    
+
     <Style TargetType="{x:Type rc:ShipSlot}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
@@ -26,7 +26,7 @@
                                             </TextBlock>
                                         </ToolTip>
                                     </Border.ToolTip>
-                                    
+
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -48,7 +48,7 @@
                                     <DataTrigger Binding="{Binding Equipment.Level}" Value="10">
                                         <Setter TargetName="Level" Property="Text" Value="max" />
                                     </DataTrigger>
-                                    
+
                                     <DataTrigger Binding="{Binding Equipment.Proficiency}" Value="0">
                                         <Setter TargetName="Proficiency" Property="Visibility" Value="Hidden" />
                                     </DataTrigger>
@@ -76,5 +76,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>

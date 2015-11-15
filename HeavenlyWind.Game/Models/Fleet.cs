@@ -156,7 +156,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             var rShip = r_ShipList[rpIndex];
             rShip.OwnerFleet = null;
-            
+
             r_ShipList.RemoveAt(rpIndex);
             r_ShipIDs = r_ShipList.Select(r => r.ID).ToArray();
 
