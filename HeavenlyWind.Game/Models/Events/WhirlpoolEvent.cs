@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
@@ -20,6 +21,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
                 Name = StringResources.Instance.Main.Material_Fuel;
             else
                 Name = StringResources.Instance.Main.Material_Bullet;
+
+            var rShips = KanColleGame.Current.Port.Fleets.Table.Values
+                .Where(r => (r.State & FleetState.Sortie) == FleetState.Sortie)
+                .SelectMany(r => r.Ships);
+            var rMaxAmount = (double)rShips.Max(r => LostItem == SortieItem.Fuel ? r.Fuel.Current : r.Bullet.Current);
+            var rReducedRate = Amount / rMaxAmount;
+
+            foreach (var rShip in rShips)
+                if (LostItem == SortieItem.Fuel)
+                    rShip.Fuel = rShip.Fuel.Update(rShip.Fuel.Current - (int)(rShip.Fuel.Current * rReducedRate));
+                else
+                    rShip.Bullet = rShip.Bullet.Update(rShip.Bullet.Current - (int)(rShip.Bullet.Current * rReducedRate));
         }
     }
 }
