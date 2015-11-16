@@ -1,15 +1,19 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+
+namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
-    public enum AerialReconnaissancePlaneType { None, LargeSizedFlyingBoat, Seaplane }
-    public enum AerialReconnaissanceResult { Failure, Success, GreatSuccess }
+    public enum AviationReconnaissancePlaneType { None, LargeFlyingBoat, Seaplane }
+    public enum AviationReconnaissanceResult { Failure, Success, GreatSuccess }
 
-    public class AerialReconnaissanceEvent : RewardItemEvent
+    public class AerialReconnaissanceEvent : RewardEvent
     {
-        public AerialReconnaissancePlaneType PlaneType { get; }
-        public AerialReconnaissanceResult Result { get; }
+        public AviationReconnaissancePlaneType PlaneType { get; }
+        public AviationReconnaissanceResult Result { get; }
 
-        internal AerialReconnaissanceEvent()
+        internal AerialReconnaissanceEvent(RawMapExploration rpData) : base(rpData)
         {
+            PlaneType = rpData.AviationReconnaissance.PlaneType;
+            Result = rpData.AviationReconnaissance.Result;
         }
     }
 }

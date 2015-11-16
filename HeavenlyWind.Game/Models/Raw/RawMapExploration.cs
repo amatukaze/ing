@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 {
-    class RawMapExploration
+    public class RawMapExploration
     {
         [JsonProperty("api_maparea_id")]
         public int AreaID { get; set; }
@@ -61,13 +62,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public class WhirlpoolEvent
         {
             [JsonProperty("api_count")]
-            public int Count { get; set; }
+            public int Amount { get; set; }
 
             [JsonProperty("api_mst_id")]
-            public int MaterialType { get; set; }
+            public SortieItem MaterialType { get; set; }
 
             [JsonProperty("api_icon_id")]
-            public int IconID { get; set; }
+            public SortieItem IconID { get; set; }
 
             [JsonProperty("api_dentan")]
             public bool IsReducedByRadar { get; set; }
@@ -75,7 +76,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public class RawItemReward
         {
             [JsonProperty("api_id")]
-            public int ID { get; set; }
+            public SortieItem ID { get; set; }
 
             [JsonProperty("api_getcount")]
             public int Count { get; set; }

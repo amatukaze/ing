@@ -14,6 +14,33 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             ID = rpData.Cell;
             EventType = rpData.CellEventType;
+
+            switch (EventType)
+            {
+                case SortieEventType.Reward:
+                    Event = new RewardEvent(rpData);
+                    break;
+
+                case SortieEventType.Whirlpool:
+                    Event = new WhirlpoolEvent(rpData);
+                    break;
+
+                case SortieEventType.NormalBattle:
+                case SortieEventType.BossBattle:
+                    Event = new BattleEvent(rpData);
+                    break;
+
+                case SortieEventType.Nothing:
+                    Event = new NothingHappenedEvent(rpData);
+                    break;
+
+                case SortieEventType.AerialReconnaissance:
+                    Event = new AerialReconnaissanceEvent(rpData);
+                    break;
+
+                case SortieEventType.EscortSuccess:
+                    break;
+            }
         }
     }
 }

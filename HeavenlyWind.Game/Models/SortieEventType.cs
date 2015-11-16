@@ -9,7 +9,7 @@
         NormalBattle,
         BossBattle,
         Nothing,
-        Aerial,
+        AerialReconnaissance,
         EscortSuccess,
     }
 }

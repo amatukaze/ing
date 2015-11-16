@@ -73,8 +73,6 @@
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
     <Compile Include="Models\AdmiralRank.cs" />
-    <Compile Include="Models\AviationReconnaissancePlaneType.cs" />
-    <Compile Include="Models\AviationReconnaissanceResult.cs" />
     <Compile Include="Models\ConstructionDock.cs" />
     <Compile Include="Models\CombinedFleetType.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />
@@ -139,7 +137,7 @@
     <Compile Include="Models\Events\AerialReconnaissanceEvent.cs" />
     <Compile Include="Models\Events\NothingHappenedEvent.cs" />
     <Compile Include="Models\Events\BattleEvent.cs" />
-    <Compile Include="Models\Events\RewardItemEvent.cs" />
+    <Compile Include="Models\Events\RewardEvent.cs" />
     <Compile Include="Models\Events\SortieEvent.cs" />
     <Compile Include="Models\Events\WhirlpoolEvent.cs" />
     <Compile Include="Models\SortieItem.cs" />

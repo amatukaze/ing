@@ -58,8 +58,8 @@
   <String Key="Sortie_Event_Whirlpool">渦潮</String>
   <String Key="Sortie_Event_NormalBattle">通常戦闘</String>
   <String Key="Sortie_Event_BossBattle">ボス戦闘</String>
-  <String Key="Sortie_Event_Nothing">戦闘なし</String>
-  <String Key="Sortie_Event_Aerial">航空偵察</String>
+  <String Key="Sortie_Event_NothingHappened">戦闘なし</String>
+  <String Key="Sortie_Event_AerialReconnaissance">航空偵察</String>
   <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
 
   <String Key="Quest_Unknown">?????</String>

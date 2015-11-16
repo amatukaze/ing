@@ -62,8 +62,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_Event_Whirlpool => GetString(nameof(Sortie_Event_Whirlpool));
         public string Sortie_Event_NormalBattle => GetString(nameof(Sortie_Event_NormalBattle));
         public string Sortie_Event_BossBattle => GetString(nameof(Sortie_Event_BossBattle));
-        public string Sortie_Event_Nothing => GetString(nameof(Sortie_Event_Nothing));
-        public string Sortie_Event_Aerial => GetString(nameof(Sortie_Event_Aerial));
+        public string Sortie_Event_NothingHappened => GetString(nameof(Sortie_Event_NothingHappened));
+        public string Sortie_Event_AerialReconnaissance => GetString(nameof(Sortie_Event_AerialReconnaissance));
         public string Sortie_Event_EscortSuccess => GetString(nameof(Sortie_Event_EscortSuccess));
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
