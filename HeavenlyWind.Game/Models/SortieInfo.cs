@@ -1,14 +1,19 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models
+﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
+
+namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class SortieInfo : ModelBase
     {
+        static SortieInfo r_Current;
+
+        public Fleet Fleet { get; }
         public MapMasterInfo Map { get; }
 
         SortieCellInfo r_Cell;
         public SortieCellInfo Cell
         {
             get { return r_Cell; }
-            internal set
+            private set
             {
                 if (r_Cell != value)
                 {
@@ -18,22 +23,15 @@
             }
         }
 
-        int r_DroppedShipCount;
-        public int DroppedShipCount
+        static SortieInfo()
         {
-            get { return r_DroppedShipCount; }
-            internal set
-            {
-                if (r_DroppedShipCount != value)
-                {
-                    r_DroppedShipCount = value;
-                    OnPropertyChanged(nameof(DroppedShipCount));
-                }
-            }
+            SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
         }
-
-        internal SortieInfo(int rpMapID)
+        internal SortieInfo(Fleet rpFleet, int rpMapID)
         {
+            r_Current = this;
+
+            Fleet = rpFleet;
             Map = KanColleGame.Current.MasterInfo.Maps[rpMapID];
         }
     }

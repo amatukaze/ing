@@ -8,6 +8,7 @@
   <String Key="Log_StartConstruction">开始建造「{0}」。(投入的资材:{1}/{2}/{3}/{4}-{5})</String>
   <String Key="Log_Development_Success">「{0}」开发成功。(投入的资材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">开发失败。(投入的资材:{0}/{1}/{2}/{3})</String>
+  <String Key="Log_Sortie">/{0}「{1}」向「{2} ({3}-{4})」出击</String>
   <String Key="Log_Ship_Dropped">获得「{0}」</String>
 
   <String Key="Expedition_Result_Failure">失败</String>

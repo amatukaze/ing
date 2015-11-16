@@ -73,6 +73,8 @@
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
     <Compile Include="Models\AdmiralRank.cs" />
+    <Compile Include="Models\AviationReconnaissancePlaneType.cs" />
+    <Compile Include="Models\AviationReconnaissanceResult.cs" />
     <Compile Include="Models\ConstructionDock.cs" />
     <Compile Include="Models\CombinedFleetType.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Models\Raw\RawExpeditionResult.cs" />
     <Compile Include="Models\Raw\RawFleet.cs" />
     <Compile Include="Models\Raw\RawMapAreaInfo.cs" />
+    <Compile Include="Models\Raw\RawMapExploration.cs" />
     <Compile Include="Models\Raw\RawMapMasterInfo.cs" />
     <Compile Include="Models\Raw\RawMasterInfo.cs" />
     <Compile Include="Models\Raw\RawMaterial.cs" />
@@ -159,6 +162,7 @@
     <Compile Include="Parsers\Root\GetMember\EquipmentParser.cs" />
     <Compile Include="Parsers\Root\GetMember\MaterialParser.cs" />
     <Compile Include="Parsers\Root\GetMember\QuestListParser.cs" />
+    <Compile Include="Parsers\Root\Map\StartSortieParser.cs" />
     <Compile Include="Parsers\Root\Upgrading\ModernizationParser.cs" />
     <Compile Include="Parsers\Root\PortParser.cs" />
     <Compile Include="Port.cs" />

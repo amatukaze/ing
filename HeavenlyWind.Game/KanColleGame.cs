@@ -1,4 +1,6 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+
+namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class KanColleGame : ModelBase
     {
@@ -18,6 +20,20 @@
                 {
                     r_IsStarted = value;
                     OnPropertyChanged(nameof(IsStarted));
+                }
+            }
+        }
+
+        SortieInfo r_Sortie;
+        public SortieInfo Sortie
+        {
+            get { return r_Sortie; }
+            internal set
+            {
+                if (r_Sortie != value)
+                {
+                    r_Sortie = value;
+                    OnPropertyChanged(nameof(Sortie));
                 }
             }
         }

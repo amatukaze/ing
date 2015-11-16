@@ -8,6 +8,7 @@
   <String Key="Log_StartConstruction">「{0}」の建造を開始しました。(投入した資材:{1}/{2}/{3}/{4}-{5})</String>
   <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
+  <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
   <String Key="Log_Ship_Dropped">「{0}」がドロップしました</String>
 
   <String Key="Expedition_Result_Failure">失敗</String>
