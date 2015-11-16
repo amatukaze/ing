@@ -69,7 +69,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe("api_get_member/ship3", r =>
             {
                 var rData = r.GetData<RawShipsAndFleets>();
-                UpdateShips(rData.Ships);
+                foreach (var rShip in rData.Ships)
+                    Ships[rShip.ID].Update(rShip);
                 Fleets.Update(rData.Fleets);
             });
 
