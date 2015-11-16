@@ -1,4 +1,8 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System.Collections.Generic;
+using System;
+using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -26,6 +30,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         static SortieInfo()
         {
             SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
+
+            Action<ApiData> rExplorationParser = r => r_Current?.Explore(r.Requests, r.GetData<RawMapExploration>());
+            SessionService.Instance.Subscribe("api_req_map/start", rExplorationParser);
+            SessionService.Instance.Subscribe("api_req_map/next", rExplorationParser);
         }
         internal SortieInfo(Fleet rpFleet, int rpMapID)
         {
@@ -33,6 +41,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Fleet = rpFleet;
             Map = KanColleGame.Current.MasterInfo.Maps[rpMapID];
+        }
+
+        void Explore(IReadOnlyDictionary<string, string> rpRequests, RawMapExploration rpData)
+        {
+            Cell = new SortieCellInfo(rpData);
         }
     }
 }

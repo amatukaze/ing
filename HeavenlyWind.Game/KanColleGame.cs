@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
@@ -38,6 +39,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             }
         }
 
-        KanColleGame() { }
+        KanColleGame()
+        {
+            SessionService.Instance.Subscribe("api_port/port", _ => Sortie = null);
+        }
     }
 }
