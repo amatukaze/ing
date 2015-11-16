@@ -125,6 +125,7 @@
     <Compile Include="ViewModels\Game\QuestViewModel.cs" />
     <Compile Include="ViewModels\Game\RepairDockViewModel.cs" />
     <Compile Include="ViewModels\Game\ShipViewModel.cs" />
+    <Compile Include="ViewModels\Game\SortieViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
@@ -164,6 +165,9 @@
     </Compile>
     <Compile Include="Views\Game\RepairDocks.xaml.cs">
       <DependentUpon>RepairDocks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Sortie.xaml.cs">
+      <DependentUpon>Sortie.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -450,6 +454,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\RepairDocks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Sortie.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -17,6 +17,7 @@
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
+  <String Key="Tab_Sortie">出撃</String>
   <String Key="Tab_Quests">任務</String>
   <String Key="Tab_Tools">ツール</String>
 
@@ -50,6 +51,16 @@
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
   <String Key="Fleet_AA">対空</String>
+
+  <String Key="Sortie_Cell">セル</String>
+  <String Key="Sortie_Event_Unknown">不明</String>
+  <String Key="Sortie_Event_Reward">資源</String>
+  <String Key="Sortie_Event_Whirlpool">渦潮</String>
+  <String Key="Sortie_Event_NormalBattle">通常戦闘</String>
+  <String Key="Sortie_Event_BossBattle">ボス戦闘</String>
+  <String Key="Sortie_Event_Nothing">戦闘なし</String>
+  <String Key="Sortie_Event_Aerial">航空偵察</String>
+  <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
 
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>

@@ -51,6 +51,16 @@
   <String Key="Fleet_LoS">索敌</String>
   <String Key="Fleet_AA">对空</String>
 
+  <String Key="Sortie_Cell">场所</String>
+  <String Key="Sortie_Event_Unknown">未知</String>
+  <String Key="Sortie_Event_Reward">资源</String>
+  <String Key="Sortie_Event_Whirlpool">漩涡</String>
+  <String Key="Sortie_Event_NormalBattle">普通战斗</String>
+  <String Key="Sortie_Event_BossBattle">Boss 战</String>
+  <String Key="Sortie_Event_Nothing">无战斗</String>
+  <String Key="Sortie_Event_Aerial">航空侦查</String>
+  <String Key="Sortie_Event_EscortSuccess">护送成功</String>
+
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">周</String>

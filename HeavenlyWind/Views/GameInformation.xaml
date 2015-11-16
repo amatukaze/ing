@@ -28,6 +28,9 @@
             <DataTemplate DataType="{x:Type rvmg:FleetsViewModel}">
                 <rvg:Fleets />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type rvmg:SortieViewModel}">
+                <rvg:Sortie />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type rvmg:QuestsViewModel}">
                 <rvg:Quests />
             </DataTemplate>

@@ -21,6 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Tab_Overview => GetString(nameof(Tab_Overview));
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));
+        public string Tab_Sortie => GetString(nameof(Tab_Sortie));
         public string Tab_Quests => GetString(nameof(Tab_Quests));
         public string Tab_Tools => GetString(nameof(Tab_Tools));
 
@@ -54,6 +55,16 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Fleet_TotalLevel => GetString(nameof(Fleet_TotalLevel));
         public string Fleet_LoS => GetString(nameof(Fleet_LoS));
         public string Fleet_AA => GetString(nameof(Fleet_AA));
+
+        public string Sortie_Cell => GetString(nameof(Sortie_Cell));
+        public string Sortie_Event_Unknown => GetString(nameof(Sortie_Event_Unknown));
+        public string Sortie_Event_Reward => GetString(nameof(Sortie_Event_Reward));
+        public string Sortie_Event_Whirlpool => GetString(nameof(Sortie_Event_Whirlpool));
+        public string Sortie_Event_NormalBattle => GetString(nameof(Sortie_Event_NormalBattle));
+        public string Sortie_Event_BossBattle => GetString(nameof(Sortie_Event_BossBattle));
+        public string Sortie_Event_Nothing => GetString(nameof(Sortie_Event_Nothing));
+        public string Sortie_Event_Aerial => GetString(nameof(Sortie_Event_Aerial));
+        public string Sortie_Event_EscortSuccess => GetString(nameof(Sortie_Event_EscortSuccess));
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
