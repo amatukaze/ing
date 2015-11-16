@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
@@ -56,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             SessionSubject.OnNext(rSession);
 
-            if (rPath == "/gadget/js/kcs_flash.js")
+            if (rFullUrl == "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/" || rPath == " / gadget/js/kcs_flash.js")
                 rpSession.bBufferResponse = true;
         }
 
@@ -111,6 +112,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                     if (rModified)
                         rpSession.utilSetResponseBody(rScript);
                 }
+
+                if (rSession.FullUrl == "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
+                    ForceOverrideStylesheet(rpSession);
+
             }
         }
 
@@ -130,5 +135,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             if (rSession != null)
                 rSession.StatusCode = rpSession.responseCode;
         }
+
+        static void ForceOverrideStylesheet(Session rpSession)
+        {
+            rpSession.utilDecodeResponse();
+            rpSession.utilReplaceInResponse("</head>", @"<style type=""text/css"">
+html { touch-action: none }
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#ntg-recommend { display: none !important; }
+
+#game_frame {
+    position: fixed;
+    left: 50%;
+    top: -16px;
+    margin-left: -450px;
+    z-index: 1;
+}
+</style></head>");
+        }
+
     }
 }
