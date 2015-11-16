@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Strings CultureName="ja-JP" Name="日本語" Version="0.1">
 
+  <String Key="Feature_UnderConstruction">未実装</String>
+
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_Exception_API_Failed">API「{0}」のエラーコードを受信しました: {1}</String>
   <String Key="Log_Exception_API_ParseException">API の解析中にエラーが発生しました: {0}</String>
@@ -52,6 +54,15 @@
   <String Key="Fleet_LoS">索敵</String>
   <String Key="Fleet_AA">対空</String>
 
+  <String Key="Material_Fuel">燃料</String>
+  <String Key="Material_Bullet">弾薬</String>
+  <String Key="Material_Steel">鋼材</String>
+  <String Key="Material_Bauxite">ボーキサイト</String>
+  <String Key="Material_InstantConstruction">高速建造材</String>
+  <String Key="Material_Bucket">高速修復材</String>
+  <String Key="Material_DevelopmentMaterial">開発資材</String>
+  <String Key="Material_ImprovementMaterial">改修資材</String>
+
   <String Key="Sortie_Cell">セル</String>
   <String Key="Sortie_Event_Unknown">不明</String>
   <String Key="Sortie_Event_Reward">資源</String>
@@ -59,7 +70,7 @@
   <String Key="Sortie_Event_NormalBattle">通常戦闘</String>
   <String Key="Sortie_Event_BossBattle">ボス戦闘</String>
   <String Key="Sortie_Event_NothingHappened">戦闘なし</String>
-  <String Key="Sortie_Event_AerialReconnaissance">航空偵察</String>
+  <String Key="Sortie_Event_AviationReconnaissance">航空偵察</String>
   <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
 
   <String Key="Quest_Unknown">?????</String>

@@ -34,8 +34,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     Event = new NothingHappenedEvent(rpData);
                     break;
 
-                case SortieEventType.AerialReconnaissance:
-                    Event = new AerialReconnaissanceEvent(rpData);
+                case SortieEventType.AviationReconnaissance:
+                    Event = new AviationReconnaissanceEvent(rpData);
                     break;
 
                 case SortieEventType.EscortSuccess:

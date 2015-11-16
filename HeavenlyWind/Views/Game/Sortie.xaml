@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rgme="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models.Events;assembly=HeavenlyWind.Game"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+             xmlns:rvge="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game.Events"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <UserControl.Resources>
@@ -42,6 +44,7 @@
         <Grid DataContext="{Binding Model}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="4" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
@@ -57,6 +60,26 @@
                     <Run Style="{StaticResource EventType}" />
                 </TextBlock>
             </StackPanel>
+
+            <ContentControl Content="{Binding Cell.Event}" VerticalContentAlignment="Top" Grid.Row="2">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type rgme:RewardEvent}">
+                        <rvge:Reward />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type rgme:WhirlpoolEvent}">
+                        <rvge:Whirlpool />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type rgme:BattleEvent}">
+                        <rvge:Battle />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type rgme:NothingHappenedEvent}">
+                        <rvge:NothingHappened />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type rgme:AviationReconnaissanceEvent}">
+                        <rvge:AviationReconnaissance />
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
 
         </Grid>
     </ScrollViewer>

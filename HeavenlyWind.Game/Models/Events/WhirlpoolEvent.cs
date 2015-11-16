@@ -9,10 +9,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         public bool HasReduceLossesWithRadar { get; }
 
+        public string Name { get; }
+
         internal WhirlpoolEvent(RawMapExploration rpData) : base(rpData)
         {
             LostItem = rpData.Whirlpool.MaterialType;
             Amount = rpData.Whirlpool.Amount;
+
+            if (LostItem == SortieItem.Fuel)
+                Name = StringResources.Instance.Main.Material_Fuel;
+            else
+                Name = StringResources.Instance.Main.Material_Bullet;
         }
     }
 }

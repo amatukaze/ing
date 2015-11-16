@@ -42,9 +42,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public WhirlpoolEvent Whirlpool { get; set; }
 
         [JsonProperty("api_itemget")]
-        public RawItemReward ItemReward { get; set; }
+        public RawReward Reward { get; set; }
         [JsonProperty("api_itemget_eo_comment")]
-        public RawItemReward ItemRewardInExtraOperation { get; set; }
+        public RawReward RewardInExtraOperation { get; set; }
 
         [JsonProperty("api_select_route")]
         public RawRouteSelection RouteSelections { get; set; }
@@ -73,13 +73,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
             [JsonProperty("api_dentan")]
             public bool IsReducedByRadar { get; set; }
         }
-        public class RawItemReward
+        public class RawReward
         {
+            [JsonProperty("api_usemst")]
+            public int TypeID { get; set; }
             [JsonProperty("api_id")]
-            public SortieItem ID { get; set; }
+            public SortieItem Item { get; set; }
 
             [JsonProperty("api_getcount")]
-            public int Count { get; set; }
+            public int Quantity { get; set; }
         }
         public class RawRouteSelection
         {

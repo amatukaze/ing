@@ -134,7 +134,7 @@
     <Compile Include="Models\ShipStatus.cs" />
     <Compile Include="Models\ShipSlot.cs" />
     <Compile Include="Models\ShipType.cs" />
-    <Compile Include="Models\Events\AerialReconnaissanceEvent.cs" />
+    <Compile Include="Models\Events\AviationReconnaissanceEvent.cs" />
     <Compile Include="Models\Events\NothingHappenedEvent.cs" />
     <Compile Include="Models\Events\BattleEvent.cs" />
     <Compile Include="Models\Events\RewardEvent.cs" />

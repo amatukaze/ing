@@ -145,6 +145,21 @@
     <Compile Include="Views\Game\ConstructionDocks.xaml.cs">
       <DependentUpon>ConstructionDocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Events\AviationReconnaissance.xaml.cs">
+      <DependentUpon>AviationReconnaissance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Battle.xaml.cs">
+      <DependentUpon>Battle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\NothingHappened.xaml.cs">
+      <DependentUpon>NothingHappened.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Reward.xaml.cs">
+      <DependentUpon>Reward.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Whirlpool.xaml.cs">
+      <DependentUpon>Whirlpool.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\ExecutingQuestsOverview.xaml.cs">
       <DependentUpon>ExecutingQuestsOverview.xaml</DependentUpon>
     </Compile>
@@ -426,6 +441,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\ConstructionDocks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\AviationReconnaissance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Battle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\NothingHappened.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Reward.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Whirlpool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

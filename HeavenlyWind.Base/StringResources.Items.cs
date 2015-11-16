@@ -5,6 +5,8 @@ namespace Sakuno.KanColle.Amatsukaze
     partial class StringResourcesItems
     {
 
+        public string Feature_UnderConstruction => GetString(nameof(Feature_UnderConstruction));
+
         public string Log_Welcome => GetString(nameof(Log_Welcome));
         public string Log_Exception_API_Failed => GetString(nameof(Log_Exception_API_Failed));
         public string Log_Exception_API_ParseException => GetString(nameof(Log_Exception_API_ParseException));
@@ -56,6 +58,15 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Fleet_LoS => GetString(nameof(Fleet_LoS));
         public string Fleet_AA => GetString(nameof(Fleet_AA));
 
+        public string Material_Fuel => GetString(nameof(Material_Fuel));
+        public string Material_Bullet => GetString(nameof(Material_Bullet));
+        public string Material_Steel => GetString(nameof(Material_Steel));
+        public string Material_Bauxite => GetString(nameof(Material_Bauxite));
+        public string Material_InstantConstruction => GetString(nameof(Material_InstantConstruction));
+        public string Material_Bucket => GetString(nameof(Material_Bucket));
+        public string Material_DevelopmentMaterial => GetString(nameof(Material_DevelopmentMaterial));
+        public string Material_ImprovementMaterial => GetString(nameof(Material_ImprovementMaterial));
+
         public string Sortie_Cell => GetString(nameof(Sortie_Cell));
         public string Sortie_Event_Unknown => GetString(nameof(Sortie_Event_Unknown));
         public string Sortie_Event_Reward => GetString(nameof(Sortie_Event_Reward));
@@ -63,7 +74,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_Event_NormalBattle => GetString(nameof(Sortie_Event_NormalBattle));
         public string Sortie_Event_BossBattle => GetString(nameof(Sortie_Event_BossBattle));
         public string Sortie_Event_NothingHappened => GetString(nameof(Sortie_Event_NothingHappened));
-        public string Sortie_Event_AerialReconnaissance => GetString(nameof(Sortie_Event_AerialReconnaissance));
+        public string Sortie_Event_AviationReconnaissance => GetString(nameof(Sortie_Event_AviationReconnaissance));
         public string Sortie_Event_EscortSuccess => GetString(nameof(Sortie_Event_EscortSuccess));
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
