@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Strings CultureName="zh-Hans" Name="简体中文" Version="0.1">
 
+  <String Key="Feature_UnderConstruction">未实现</String>
+  
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_Exception_API_Failed">API「{0}」返回错误代码：{1} </String>
   <String Key="Log_Exception_API_ParseException">解析 API 时发生错误: {0}</String>
@@ -8,6 +10,7 @@
   <String Key="Log_StartConstruction">开始建造「{0}」。(投入的资材:{1}/{2}/{3}/{4}-{5})</String>
   <String Key="Log_Development_Success">「{0}」开发成功。(投入的资材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">开发失败。(投入的资材:{0}/{1}/{2}/{3})</String>
+  <String Key="Log_Sortie">/{0}「{1}」向「{2} ({3}-{4})」出击</String>
   <String Key="Log_Ship_Dropped">获得「{0}」</String>
 
   <String Key="Expedition_Result_Failure">失败</String>
@@ -49,6 +52,26 @@
   <String Key="Fleet_TotalLevel">总等级</String>
   <String Key="Fleet_LoS">索敌</String>
   <String Key="Fleet_AA">对空</String>
+
+  <String Key="Material_Fuel">燃料</String>
+  <String Key="Material_Bullet">弹药</String>
+  <String Key="Material_Steel">钢材</String>
+  <String Key="Material_Bauxite">铝土</String>
+  <String Key="Material_InstantConstruction">高速建造材</String>
+  <String Key="Material_Bucket">高速修复材</String>
+  <String Key="Material_DevelopmentMaterial">开发资材</String>
+  <String Key="Material_ImprovementMaterial">改修资材</String>
+
+  <String Key="Sortie_Cell">场所</String>
+  <String Key="Sortie_Event_Unknown">未知</String>
+  <String Key="Sortie_Event_Reward">资源</String>
+  <String Key="Sortie_Event_Whirlpool">漩涡</String>
+  <String Key="Sortie_Event_NormalBattle">普通战斗</String>
+  <String Key="Sortie_Event_BossBattle">Boss 战</String>
+  <String Key="Sortie_Event_NothingHappened">无战斗</String>
+  <String Key="Sortie_Event_AviationReconnaissance">航空侦查</String>
+  <String Key="Sortie_Event_EscortSuccess">护送成功</String>
+  <String Key="Sortie_Event_Reward">资源</String>
 
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>

@@ -6,6 +6,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         public int ID => RawData.ID;
 
+        public int AreaID => RawData.MapAreaID;
+        public int AreaSubID => RawData.MapNo;
+
         public string Name => RawData.Name;
 
         public int? RequiredDefeatCount => RawData.RequiredDefeatCount;
