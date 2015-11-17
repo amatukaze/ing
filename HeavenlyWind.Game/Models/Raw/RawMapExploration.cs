@@ -65,10 +65,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
             public int Amount { get; set; }
 
             [JsonProperty("api_mst_id")]
-            public SortieItem MaterialType { get; set; }
+            public MaterialType MaterialType { get; set; }
 
             [JsonProperty("api_icon_id")]
-            public SortieItem IconID { get; set; }
+            public MaterialType IconID { get; set; }
 
             [JsonProperty("api_dentan")]
             public bool IsReducedByRadar { get; set; }
@@ -78,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
             [JsonProperty("api_usemst")]
             public int TypeID { get; set; }
             [JsonProperty("api_id")]
-            public SortieItem Item { get; set; }
+            public MaterialType ID { get; set; }
 
             [JsonProperty("api_getcount")]
             public int Quantity { get; set; }

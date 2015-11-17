@@ -30,7 +30,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     Event = new BattleEvent(rpData);
                     break;
 
-                case SortieEventType.Nothing:
+                case SortieEventType.NothingHappened:
                     Event = new NothingHappenedEvent(rpData);
                     break;
 

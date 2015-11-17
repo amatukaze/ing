@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
     public class WhirlpoolEvent : SortieEvent
     {
-        public SortieItem LostItem { get; }
+        public MaterialType LostMaterial { get; }
         public int Amount { get; }
 
         public bool HasReduceLossesWithRadar { get; }
@@ -14,10 +14,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         internal WhirlpoolEvent(RawMapExploration rpData) : base(rpData)
         {
-            LostItem = rpData.Whirlpool.MaterialType;
+            LostMaterial = rpData.Whirlpool.MaterialType;
             Amount = rpData.Whirlpool.Amount;
 
-            if (LostItem == SortieItem.Fuel)
+            if (LostMaterial == MaterialType.Fuel)
                 Name = StringResources.Instance.Main.Material_Fuel;
             else
                 Name = StringResources.Instance.Main.Material_Bullet;
@@ -25,11 +25,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
             var rShips = KanColleGame.Current.Port.Fleets.Table.Values
                 .Where(r => (r.State & FleetState.Sortie) == FleetState.Sortie)
                 .SelectMany(r => r.Ships);
-            var rMaxAmount = (double)rShips.Max(r => LostItem == SortieItem.Fuel ? r.Fuel.Current : r.Bullet.Current);
+            var rMaxAmount = (double)rShips.Max(r => LostMaterial == MaterialType.Fuel ? r.Fuel.Current : r.Bullet.Current);
             var rReducedRate = Amount / rMaxAmount;
 
             foreach (var rShip in rShips)
-                if (LostItem == SortieItem.Fuel)
+                if (LostMaterial == MaterialType.Fuel)
                     rShip.Fuel = rShip.Fuel.Update(rShip.Fuel.Current - (int)(rShip.Fuel.Current * rReducedRate));
                 else
                     rShip.Bullet = rShip.Bullet.Update(rShip.Bullet.Current - (int)(rShip.Bullet.Current * rReducedRate));

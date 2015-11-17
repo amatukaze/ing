@@ -90,7 +90,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     rShip.Fuel = rShip.Fuel.Update(rShipSupplyResult.Fuel);
                     rShip.Bullet = rShip.Bullet.Update(rShipSupplyResult.Bullet);
 
-                    rFleets.Add(rShip.OwnerFleet);
+                    if (rShip.OwnerFleet != null)
+                        rFleets.Add(rShip.OwnerFleet);
 
                     var rPlanes = rShipSupplyResult.Planes;
                     for (var i = 0; i < rShip.Slots.Count; i++)

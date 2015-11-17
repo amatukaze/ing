@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
     public class RewardEvent : SortieEvent
     {
         public int TypeID { get; set; }
-        public SortieItem Item { get; }
+        public MaterialType ID { get; }
         public int Quantity { get; }
 
         public string Name { get; }
@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
         internal RewardEvent(RawMapExploration rpData) : base(rpData)
         {
             TypeID = rpData.Reward.TypeID;
-            Item = rpData.Reward.Item;
+            ID = rpData.Reward.ID;
             Quantity = rpData.Reward.Quantity;
 
             if (TypeID == 4)
@@ -24,16 +24,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         string GetMaterialName()
         {
-            switch (Item)
+            switch (ID)
             {
-                case SortieItem.Fuel: return StringResources.Instance.Main.Material_Fuel;
-                case SortieItem.Bullet: return StringResources.Instance.Main.Material_Bullet;
-                case SortieItem.Steel: return StringResources.Instance.Main.Material_Steel;
-                case SortieItem.Bauxite: return StringResources.Instance.Main.Material_Bauxite;
-                case SortieItem.InstantConstruction: return StringResources.Instance.Main.Material_InstantConstruction;
-                case SortieItem.Bucket: return StringResources.Instance.Main.Material_Bucket;
-                case SortieItem.DevelopmentMaterial: return StringResources.Instance.Main.Material_DevelopmentMaterial;
-                case SortieItem.ImprovementMaterial: return StringResources.Instance.Main.Material_ImprovementMaterial;
+                case MaterialType.Fuel: return StringResources.Instance.Main.Material_Fuel;
+                case MaterialType.Bullet: return StringResources.Instance.Main.Material_Bullet;
+                case MaterialType.Steel: return StringResources.Instance.Main.Material_Steel;
+                case MaterialType.Bauxite: return StringResources.Instance.Main.Material_Bauxite;
+                case MaterialType.InstantConstruction: return StringResources.Instance.Main.Material_InstantConstruction;
+                case MaterialType.Bucket: return StringResources.Instance.Main.Material_Bucket;
+                case MaterialType.DevelopmentMaterial: return StringResources.Instance.Main.Material_DevelopmentMaterial;
+                case MaterialType.ImprovementMaterial: return StringResources.Instance.Main.Material_ImprovementMaterial;
 
                 default: return StringResources.Instance.Main.Sortie_Event_Unknown;
             }
