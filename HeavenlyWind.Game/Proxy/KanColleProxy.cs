@@ -147,7 +147,7 @@ body {
     overflow: hidden;
 }
 
-#ntg-recommend { display: none !important; }
+#ntg-recommend, #dmm-ntgnavi-renew { display: none !important; }
 
 #game_frame {
     position: fixed;
