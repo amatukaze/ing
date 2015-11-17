@@ -21,6 +21,9 @@
                 <DataTrigger Binding="{rb:HasFlag Source.State, HeavilyDamaged}" Value="True">
                     <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleets_HeavilyDamaged}" />
                 </DataTrigger>
+                <DataTrigger Binding="{rb:HasFlag Source.State, Sortie}" Value="True">
+                    <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleets_Sortie}" />
+                </DataTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
 

@@ -7,6 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root
     {
         public override void Process(RawPort rpData)
         {
+            Game.Sortie = null;
             Game.Port.UpdatePort(rpData);
         }
     }

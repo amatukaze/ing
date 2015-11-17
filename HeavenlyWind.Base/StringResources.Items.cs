@@ -42,6 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_Admiral_Rank_NoviceLieutenantCommander => GetString(nameof(Overview_Admiral_Rank_NoviceLieutenantCommander));
         public string Overview_Fleets => GetString(nameof(Overview_Fleets));
         public string Overview_Fleets_Idle => GetString(nameof(Overview_Fleets_Idle));
+        public string Overview_Fleets_Sortie => GetString(nameof(Overview_Fleets_Sortie));
         public string Overview_Fleets_Unsupplied => GetString(nameof(Overview_Fleets_Unsupplied));
         public string Overview_Fleets_HeavilyDamaged => GetString(nameof(Overview_Fleets_HeavilyDamaged));
         public string Overview_Fleets_Expedition_TimeToComplete => GetString(nameof(Overview_Fleets_Expedition_TimeToComplete));

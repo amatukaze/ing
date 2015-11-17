@@ -38,6 +38,7 @@
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
   <String Key="Overview_Fleets">艦隊一覧</String>
   <String Key="Overview_Fleets_Idle">待機中</String>
+  <String Key="Overview_Fleets_Sortie">出撃中</String>
   <String Key="Overview_Fleets_Unsupplied">未補給</String>
   <String Key="Overview_Fleets_HeavilyDamaged">大破艦がいます</String>
   <String Key="Overview_Fleets_Expedition_TimeToComplete">完了時刻</String>

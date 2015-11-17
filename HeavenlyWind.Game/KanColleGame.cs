@@ -39,9 +39,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             }
         }
 
-        KanColleGame()
-        {
-            SessionService.Instance.Subscribe("api_port/port", _ => Sortie = null);
-        }
+        KanColleGame() { }
     }
 }

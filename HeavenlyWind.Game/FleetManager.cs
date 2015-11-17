@@ -55,8 +55,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rFleet = Table[int.Parse(r.Requests["api_deck_id"])];
                 rFleet.Update(r.GetData<RawFleet>());
             });
+
+            SessionService.Instance.Subscribe("api_req_map/start", _ => Update());
+
         }
 
+        internal void Update()
+        {
+            foreach (var rFleet in Table.Values)
+                rFleet.Update();
+        }
         internal void Update(RawPort rpPort)
         {
             CombinedFleetType = rpPort.CombinedFleetType;
