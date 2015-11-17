@@ -27,6 +27,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        int r_PendingShipCount;
+        public int PendingShipCount
+        {
+            get { return r_PendingShipCount; }
+            private set
+            {
+                if (r_PendingShipCount != value)
+                {
+                    r_PendingShipCount = value;
+                    OnPropertyChanged(nameof(PendingShipCount));
+                }
+            }
+        }
+
         static SortieInfo()
         {
             SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
@@ -34,6 +48,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Action<ApiData> rExplorationParser = r => r_Current?.Explore(r.Requests, r.GetData<RawMapExploration>());
             SessionService.Instance.Subscribe("api_req_map/start", rExplorationParser);
             SessionService.Instance.Subscribe("api_req_map/next", rExplorationParser);
+
+            Action<ApiData> rProcessIfShipDropped = r =>
+            {
+                var rData = (RawBattleResult)r.Data;
+                if (rData.DroppedShip != null)
+                {
+                    r_Current.PendingShipCount++;
+
+                    Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Ship_Dropped, rData.DroppedShip.Name));
+                }
+            };
+            SessionService.Instance.Subscribe("api_req_sortie/battleresult", rProcessIfShipDropped);
+            SessionService.Instance.Subscribe("api_req_combined_battle/battleresult", rProcessIfShipDropped);
+
         }
         internal SortieInfo(Fleet rpFleet, int rpMapID)
         {
