@@ -19,6 +19,7 @@
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
+  <String Key="Tab_Sortie">出击</String>
   <String Key="Tab_Quests">任務</String>
   <String Key="Tab_Tools">ツール</String>
 
