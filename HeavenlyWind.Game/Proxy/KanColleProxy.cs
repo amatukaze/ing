@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             else
                 rSession = new NetworkSession(rFullUrl);
 
-            rSession.RequestBodyString = rpSession.GetRequestBodyAsString();
+            rSession.RequestBodyString = Uri.UnescapeDataString(rpSession.GetRequestBodyAsString());
 
             rpSession.Tag = rSession;
 
