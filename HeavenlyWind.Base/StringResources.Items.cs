@@ -17,6 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Development_Success => GetString(nameof(Log_Development_Success));
         public string Log_Development_Failure => GetString(nameof(Log_Development_Failure));
         public string Log_Sortie => GetString(nameof(Log_Sortie));
+        public string Log_Sortie_Event => GetString(nameof(Log_Sortie_Event));
         public string Log_Ship_Dropped => GetString(nameof(Log_Ship_Dropped));
 
         public string Expedition_Result_Failure => GetString(nameof(Expedition_Result_Failure));
@@ -79,6 +80,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_Event_NothingHappened => GetString(nameof(Sortie_Event_NothingHappened));
         public string Sortie_Event_AviationReconnaissance => GetString(nameof(Sortie_Event_AviationReconnaissance));
         public string Sortie_Event_EscortSuccess => GetString(nameof(Sortie_Event_EscortSuccess));
+
+        public string Map_Difficulty_Easy => GetString(nameof(Map_Difficulty_Easy));
+        public string Map_Difficulty_Normal => GetString(nameof(Map_Difficulty_Normal));
+        public string Map_Difficulty_Hard => GetString(nameof(Map_Difficulty_Hard));
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));

@@ -13,6 +13,7 @@
   <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
+  <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3}{4})」へ出撃しました</String>
   <String Key="Log_Ship_Dropped">「{0}」がドロップしました</String>
 
   <String Key="Expedition_Result_Failure">失敗</String>
@@ -75,6 +76,10 @@
   <String Key="Sortie_Event_NothingHappened">戦闘なし</String>
   <String Key="Sortie_Event_AviationReconnaissance">航空偵察</String>
   <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
+
+  <String Key="Map_Difficulty_Easy">丙</String>
+  <String Key="Map_Difficulty_Normal">乙</String>
+  <String Key="Map_Difficulty_Hard">甲</String>
 
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>

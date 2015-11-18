@@ -10,8 +10,21 @@
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <UserControl.Resources>
+        <Style x:Key="Map" TargetType="{x:Type Run}">
+            <Setter Property="Text" Value="{Binding MasterInfo.AreaID, StringFormat={}{0}-, Mode=OneWay}" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEventMap}" Value="True">
+                    <Setter Property="Text" Value="E" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="EventType" TargetType="{x:Type Run}">
             <Style.Triggers>
+                <DataTrigger Binding="{Binding Cell.Event}" Value="{x:Null}">
+                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
+                </DataTrigger>
+
                 <DataTrigger Binding="{Binding Cell.EventType}" Value="Unknown">
                     <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
                 </DataTrigger>
@@ -38,6 +51,19 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="EventMapDifficulty" TargetType="{x:Type Run}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Difficulty}" Value="Easy">
+                    <Setter Property="Text" Value="{rb:StringResource Main.Map_Difficulty_Easy, Mode=OneWay}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Difficulty}" Value="Normal">
+                    <Setter Property="Text" Value="{rb:StringResource Main.Map_Difficulty_Normal, Mode=OneWay}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Difficulty}" Value="Hard">
+                    <Setter Property="Text" Value="{rb:StringResource Main.Map_Difficulty_Hard, Mode=OneWay}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <ScrollViewer>
@@ -50,10 +76,13 @@
             </Grid.RowDefinitions>
 
             <StackPanel>
-                <TextBlock>
-                    <Run Text="{Binding Map.AreaID, Mode=OneWay}" />-<Run Text="{Binding Map.AreaSubID, Mode=OneWay}" />
-                    <Run Text="{Binding Map.Name, StringFormat=({0}), Mode=OneWay}" />
-                </TextBlock>
+                <StackPanel DataContext="{Binding Map}" Orientation="Horizontal">
+                    <TextBlock>
+                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" />
+                        <Run Style="{StaticResource EventMapDifficulty}" />
+                        <Run Text="{Binding MasterInfo.Name, StringFormat=({0}), Mode=OneWay}" />
+                    </TextBlock>
+                </StackPanel>
 
                 <TextBlock Margin="0, 4, 0, 0">
                     <Run Text="{rb:StringResource Main.Sortie_Cell, Mode=OneWay}" />:

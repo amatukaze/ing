@@ -14,8 +14,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
 
             Game.Sortie = new SortieInfo(rFleet, rAreaID * 10 + rAreaSubID);
 
-            Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Sortie,
-                rFleet.ID, rFleet.Name, Game.Sortie.Map.Name, rAreaID, rAreaSubID));
+            var rMap = Game.Sortie.Map;
+            if (!rMap.IsEventMap)
+                Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Sortie,
+                    rFleet.ID, rFleet.Name, rMap.MasterInfo.Name, rAreaID, rAreaSubID));
+            else
+            {
+                var rDifficulty = string.Empty;
+                switch (rMap.Difficulty.Value)
+                {
+                    case EventMapDifficulty.Easy:
+                        rDifficulty = StringResources.Instance.Main.Map_Difficulty_Easy;
+                        break;
+
+                    case EventMapDifficulty.Normal:
+                        rDifficulty = StringResources.Instance.Main.Map_Difficulty_Normal;
+                        break;
+
+                    case EventMapDifficulty.Hard:
+                        rDifficulty = StringResources.Instance.Main.Map_Difficulty_Hard;
+                        break;
+                }
+
+                Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Sortie_Event,
+                    rFleet.ID, rFleet.Name, rMap.MasterInfo.Name, rAreaSubID, rDifficulty));
+            }
         }
     }
 }

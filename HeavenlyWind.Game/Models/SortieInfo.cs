@@ -1,8 +1,8 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
-using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using System.Collections.Generic;
-using System;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
+using System;
+using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         static SortieInfo r_Current;
 
         public Fleet Fleet { get; }
-        public MapMasterInfo Map { get; }
+        public MapInfo Map { get; }
 
         SortieCellInfo r_Cell;
         public SortieCellInfo Cell
@@ -68,7 +68,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             r_Current = this;
 
             Fleet = rpFleet;
-            Map = KanColleGame.Current.MasterInfo.Maps[rpMapID];
+            Map = KanColleGame.Current.Maps[rpMapID];
         }
 
         void Explore(IReadOnlyDictionary<string, string> rpRequests, RawMapExploration rpData)

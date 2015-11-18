@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
@@ -25,6 +26,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             }
         }
 
+        public IDTable<MapInfo> Maps { get; } = new IDTable<MapInfo>();
+
         SortieInfo r_Sortie;
         public SortieInfo Sortie
         {
@@ -39,6 +42,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             }
         }
 
-        KanColleGame() { }
+        KanColleGame()
+        {
+            SessionService.Instance.Subscribe("api_get_member/mapinfo", rpApiData =>
+            {
+                if (Maps.UpdateRawData(rpApiData.GetData<RawMapInfo[]>(), r => new MapInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                    OnPropertyChanged(nameof(Maps));
+            });
+
+        }
     }
 }
