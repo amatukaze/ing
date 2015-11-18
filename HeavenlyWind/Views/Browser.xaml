@@ -13,6 +13,16 @@
         <rv:BrowserNavigator DockPanel.Dock="Top" />
         <rv:GameController DockPanel.Dock="Top" />
 
-        <ContentPresenter Name="BrowserControl" Content="{Binding BrowserControl}" Margin="0, 5, 0, 0" />
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 5, 0, 0">
+            <Grid>
+                <Rectangle Fill="Black">
+                    <Rectangle.Effect>
+                        <BlurEffect Radius="24" />
+                    </Rectangle.Effect>
+                </Rectangle>
+
+                <ContentPresenter Name="BrowserControl" Content="{Binding BrowserControl}" />
+            </Grid>
+        </Border>
     </DockPanel>
 </UserControl>
