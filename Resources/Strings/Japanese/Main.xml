@@ -2,6 +2,8 @@
 <Strings CultureName="ja-JP" Name="日本語" Version="0.1">
 
   <String Key="Feature_UnderConstruction">未実装</String>
+  <String Key="Feature_Filter">フィルター</String>
+  <String Key="Feature_Filter_All">すべて</String>
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_Exception_API_Failed">API「{0}」のエラーコードを受信しました: {1}</String>
@@ -88,6 +90,7 @@
   <String Key="Quest_State_Completed">達成</String>
 
   <String Key="Window_Preferences">設定</String>
+  <String Key="Window_EquipmentOverview">装備一覧</String>
   <String Key="Window_ClosingConfirmation">HeavenlyWind を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
@@ -115,5 +118,13 @@
   <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
   <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
+
+  <String Key="EquipmentOverview_Name">装備名</String>
+  <String Key="EquipmentOverview_TotalCount">合計</String>
+  <String Key="EquipmentOverview_Remaining">余り</String>
+  <String Key="EquipmentOverview_Level">改修度</String>
+  <String Key="EquipmentOverview_Proficiency">熟練度</String>
+  <String Key="EquipmentOverview_EquippedCount">持有数</String>
+  <String Key="EquipmentOverview_EquippedShip">装備している艦娘</String>
 
 </Strings>

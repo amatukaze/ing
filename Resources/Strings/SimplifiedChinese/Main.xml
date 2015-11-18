@@ -2,7 +2,9 @@
 <Strings CultureName="zh-Hans" Name="简体中文" Version="0.1">
 
   <String Key="Feature_UnderConstruction">未实现</String>
-  
+  <String Key="Feature_Filter">过滤器</String>
+  <String Key="Feature_Filter_All">全部</String>
+
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_Exception_API_Failed">API「{0}」返回错误代码：{1} </String>
   <String Key="Log_Exception_API_ParseException">解析 API 时发生错误: {0}</String>
@@ -89,6 +91,7 @@
   <String Key="Quest_State_Completed">达成</String>
 
   <String Key="Window_Preferences">设置</String>
+  <String Key="Window_EquipmentOverview">装备一览</String>
   <String Key="Window_ClosingConfirmation">要关闭 HeavenlyWind 吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
@@ -116,5 +119,13 @@
   <String Key="ValidationRule_PleaseInputNumber">请输入数字</String>
   <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">必须小于等于 {0}</String>
+
+  <String Key="EquipmentOverview_Name">装备名</String>
+  <String Key="EquipmentOverview_TotalCount">总数</String>
+  <String Key="EquipmentOverview_Remaining">剩余</String>
+  <String Key="EquipmentOverview_Level">改修度</String>
+  <String Key="EquipmentOverview_Proficiency">熟练度</String>
+  <String Key="EquipmentOverview_EquippedCount">持有数</String>
+  <String Key="EquipmentOverview_EquippedShip">装备的舰娘</String>
 
 </Strings>

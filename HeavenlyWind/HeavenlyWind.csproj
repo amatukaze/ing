@@ -126,7 +126,15 @@
     <Compile Include="ViewModels\Game\RepairDockViewModel.cs" />
     <Compile Include="ViewModels\Game\ShipViewModel.cs" />
     <Compile Include="ViewModels\Game\SortieViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentGroupingKey.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByFleet.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByMasterID.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByLevel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByShip.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
@@ -186,6 +194,9 @@
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overviews\EquipmentOverviewWindow.xaml.cs">
+      <DependentUpon>EquipmentOverviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
@@ -497,6 +508,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overviews\EquipmentOverviewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
