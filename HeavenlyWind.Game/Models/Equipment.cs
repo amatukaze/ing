@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class Equipment : RawDataWrapper<RawEquipment>, IID
     {
-        public static Equipment Dummy { get; } = new Equipment(new RawEquipment() { EquipmentID = -1 });
+        public static Equipment Dummy { get; } = new Equipment(new RawEquipment() { ID = -1, EquipmentID = -1 });
 
         public int ID => RawData.ID;
 

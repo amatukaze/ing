@@ -204,10 +204,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         (rpID, rpPlane) =>
                         {
                             Equipment rEquipment;
-                            if (!KanColleGame.Current.Port.Equipments.TryGetValue(rpID, out rEquipment))
-                                KanColleGame.Current.Port.Equipments.Add(rEquipment = new Equipment(new RawEquipment() { ID = rpID, EquipmentID = -1 }));
-                            else if (rpID == -1)
+                            if (rpID == -1)
                                 rEquipment = Equipment.Dummy;
+                            else if (!KanColleGame.Current.Port.Equipments.TryGetValue(rpID, out rEquipment))
+                                KanColleGame.Current.Port.Equipments.Add(rEquipment = new Equipment(new RawEquipment() { ID = rpID, EquipmentID = -1 }));
 
                             return new ShipSlot(rEquipment, rpPlane.MaxCount, rpPlane.Count);
                         }).ToArray().AsReadOnly();
@@ -228,7 +228,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (rUpdateList)
             {
                 var rList = Slots.Where(r => r.HasEquipment).Select(r => r.Equipment);
-                if (ExtraSlot != null)
+                if (ExtraSlot != null && ExtraSlot.HasEquipment)
                     rList = rList.Concat(new[] { ExtraSlot.Equipment });
 
                 Equipments = rList.ToArray().AsReadOnly();
