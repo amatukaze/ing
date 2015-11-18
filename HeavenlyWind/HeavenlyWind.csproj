@@ -133,6 +133,8 @@
     <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByLevel.cs" />
     <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByShip.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />

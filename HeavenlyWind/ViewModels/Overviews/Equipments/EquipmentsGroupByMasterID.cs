@@ -7,6 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Equipments
     public class EquipmentsGroupByMasterID
     {
         public EquipmentInfo Info { get; }
+        public EquipmentTypeViewModel Type { get; }
 
         Dictionary<EquipmentGroupingKey, EquipmentsGroupByLevel> r_LevelMap;
         public IReadOnlyCollection<EquipmentsGroupByLevel> Levels { get; }
@@ -14,9 +15,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Equipments
         public int Count => r_LevelMap.Values.Sum(r => r.Count);
         public int RemainingCount => r_LevelMap.Values.Sum(r => r.RemainingCount);
 
-        internal EquipmentsGroupByMasterID(EquipmentInfo rpInfo, IEnumerable<Equipment> rpEquipments)
+        internal EquipmentsGroupByMasterID(EquipmentInfo rpInfo, EquipmentTypeViewModel rpType, IEnumerable<Equipment> rpEquipments)
         {
             Info = rpInfo;
+            Type = rpType;
 
             r_LevelMap = rpEquipments.GroupBy(r => new EquipmentGroupingKey(r.Level, r.Proficiency)).ToDictionary(r => r.Key, r => new EquipmentsGroupByLevel(r.Key, r));
             Levels = r_LevelMap.OrderBy(r => r.Key.Level).ThenBy(r => r.Key.Proficiency).Select(r => r.Value).ToArray().AsReadOnly();

@@ -71,6 +71,28 @@
 
         <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
             <Border Margin="0, 0, 0, 8" DockPanel.Dock="Top">
+                <StackPanel>
+                    <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="14" Margin="4, 0, 0, 0" />
+
+                    <CheckBox IsChecked="{Binding SelectAllTypes}" Margin="4, 4, 4, 2">
+                        <TextBlock Text="{rb:StringResource Main.Feature_Filter_All}" />
+                    </CheckBox>
+
+                    <ItemsControl ItemsSource="{Binding Types}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected}" Margin="4, 2">
+                                    <rc:EquipmentIcon Type="{Binding Type}" Width="20" Height="20" />
+                                </CheckBox>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
             </Border>
 
             <ListView ItemsSource="{Binding Equipments}">

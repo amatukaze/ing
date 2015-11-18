@@ -2,6 +2,8 @@
 <Strings CultureName="ja-JP" Name="日本語" Version="0.1">
 
   <String Key="Feature_UnderConstruction">未実装</String>
+  <String Key="Feature_Filter">フィルター</String>
+  <String Key="Feature_Filter_All">すべて</String>
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_Exception_API_Failed">API「{0}」のエラーコードを受信しました: {1}</String>

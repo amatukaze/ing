@@ -2,6 +2,8 @@
 <Strings CultureName="zh-Hans" Name="简体中文" Version="0.1">
 
   <String Key="Feature_UnderConstruction">未实现</String>
+  <String Key="Feature_Filter">过滤器</String>
+  <String Key="Feature_Filter_All">全部</String>
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_Exception_API_Failed">API「{0}」返回错误代码：{1} </String>

@@ -6,6 +6,8 @@ namespace Sakuno.KanColle.Amatsukaze
     {
 
         public string Feature_UnderConstruction => GetString(nameof(Feature_UnderConstruction));
+        public string Feature_Filter => GetString(nameof(Feature_Filter));
+        public string Feature_Filter_All => GetString(nameof(Feature_Filter_All));
 
         public string Log_Welcome => GetString(nameof(Log_Welcome));
         public string Log_Exception_API_Failed => GetString(nameof(Log_Exception_API_Failed));
