@@ -8,6 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         string r_Path;
 
+        public string StringFormat { get; set; }
         public BindingMode Mode { get; set; }
 
         public StringResourceExtension(string rpPath)
@@ -21,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze
             if (!StringResources.Instance.IsLoaded)
                 return r_Path;
 
-            return new Binding(r_Path) { Source = StringResources.Instance, Mode = Mode }.ProvideValue(rpServiceProvider);
+            return new Binding(r_Path) { Source = StringResources.Instance, StringFormat = StringFormat, Mode = Mode }.ProvideValue(rpServiceProvider);
         }
     }
 }

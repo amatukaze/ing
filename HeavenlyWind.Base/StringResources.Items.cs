@@ -92,6 +92,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
 
         public string Window_Preferences => GetString(nameof(Window_Preferences));
+        public string Window_EquipmentOverview => GetString(nameof(Window_EquipmentOverview));
         public string Window_ClosingConfirmation => GetString(nameof(Window_ClosingConfirmation));
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
@@ -119,6 +120,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ValidationRule_PleaseInputNumber => GetString(nameof(ValidationRule_PleaseInputNumber));
         public string ValidationRule_NumberLessThanMinimum => GetString(nameof(ValidationRule_NumberLessThanMinimum));
         public string ValidationRule_NumberGreaterThanMaximum => GetString(nameof(ValidationRule_NumberGreaterThanMaximum));
+
+        public string EquipmentOverview_Name => GetString(nameof(EquipmentOverview_Name));
+        public string EquipmentOverview_TotalCount => GetString(nameof(EquipmentOverview_TotalCount));
+        public string EquipmentOverview_Remaining => GetString(nameof(EquipmentOverview_Remaining));
+        public string EquipmentOverview_Level => GetString(nameof(EquipmentOverview_Level));
+        public string EquipmentOverview_Proficiency => GetString(nameof(EquipmentOverview_Proficiency));
+        public string EquipmentOverview_EquippedCount => GetString(nameof(EquipmentOverview_EquippedCount));
+        public string EquipmentOverview_EquippedShip => GetString(nameof(EquipmentOverview_EquippedShip));
 
     }
 }
