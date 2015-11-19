@@ -20,6 +20,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal Admiral(RawBasic rpRawData) : base(rpRawData) { }
 
+        protected override void OnRawDataUpdated()
+        {
+            OnPropertyChanged(nameof(Level));
+            OnPropertyChanged(nameof(Rank));
+            OnPropertyChanged(nameof(Experience));
+            OnPropertyChanged(nameof(ExperienceToNextLevel));
+
+            OnPropertyChanged(nameof(MaxShipCount));
+            OnPropertyChanged(nameof(MaxEquipmentCount));
+        }
+
         public override string ToString() => $"ID = {ID}, Name = \"{Name}\", Level = {Level}";
     }
 }
