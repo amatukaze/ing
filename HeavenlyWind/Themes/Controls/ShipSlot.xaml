@@ -19,11 +19,15 @@
                                 <Border Background="Transparent">
                                     <Border.ToolTip>
                                         <ToolTip>
-                                            <TextBlock>
-                                                <Run Text="{Binding Equipment.Info.Name, Mode=OneWay}" />
-                                                <Run Text="{Binding Equipment.LevelText, Mode=OneWay}" /><Run Text="{Binding Equipment.ProficiencyText, Mode=OneWay}" />
-                                                [<Run Name="ToolTipPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
-                                            </TextBlock>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock>
+                                                    <Run Text="{Binding Equipment.Info.Name, Mode=OneWay}" />
+                                                    <Run Text="{Binding Equipment.LevelText, Mode=OneWay}" /><Run Text="{Binding Equipment.ProficiencyText, Mode=OneWay}" />
+                                                </TextBlock>
+                                                <TextBlock Name="ToolTipPlaneCount">
+                                                    [<Run Name="ToolTipCurrentPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
+                                                </TextBlock>
+                                            </StackPanel>
                                         </ToolTip>
                                     </Border.ToolTip>
 
@@ -55,10 +59,11 @@
 
                                     <DataTrigger Binding="{Binding Equipment.Info.IsPlane}" Value="False">
                                         <Setter TargetName="PlaneCount" Property="Opacity" Value=".25" />
+                                        <Setter TargetName="ToolTipPlaneCount" Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding HasLostPlane}" Value="True">
                                         <Setter TargetName="PlaneCount" Property="Foreground" Value="Red" />
-                                        <Setter TargetName="ToolTipPlaneCount" Property="Foreground" Value="Red" />
+                                        <Setter TargetName="ToolTipCurrentPlaneCount" Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
