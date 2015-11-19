@@ -21,7 +21,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 using (var rTransaction = Connection.BeginTransaction())
                 {
                     if (r_Admiral != rPort.Admiral.Experience)
+                    {
+                        r_Admiral = rPort.Admiral.Experience;
                         InsertAdmiralRecord(rPort.Admiral.Experience);
+                    }
 
                     foreach (var rShip in rPort.Ships.Values.Where(r => r.Experience > 0))
                     {

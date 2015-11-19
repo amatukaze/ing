@@ -1,4 +1,6 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+using System;
 using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
@@ -6,6 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     public class BattleRecord : RecordBase
     {
         public override string GroupName => "battle";
+
+        static int r_DifficultyCount = Enum.GetNames(typeof(EventMapDifficulty)).Length - 1;
 
         internal BattleRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
@@ -27,9 +31,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 rCommand.CommandText = "CREATE TABLE IF NOT EXISTS battle_count(" +
                     "map INTEGER NOT NULL, " +
+                    "difficulty INTEGER" +
                     "cell INTEGER NOT NULL, " +
                     "count INTEGER NOT NULL DEFAULT 0, " +
-                    "CONSTRAINT [] PRIMARY KEY(map, cell)) WITHOUT ROWID;";
+                    "CONSTRAINT [] PRIMARY KEY(map, difficulty, cell)) WITHOUT ROWID;";
 
                 rCommand.ExecuteNonQuery();
             }
@@ -45,6 +50,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             var rSortieInfo = KanColleGame.Current.Sortie;
             var rMap = rSortieInfo.Map.ID;
             var rCell = rSortieInfo.Cell.ID;
+            var rDifficulty = rSortieInfo.Map.Difficulty;
+            if (rDifficulty.HasValue)
+                rCell = rCell * r_DifficultyCount - 3 + (int)rDifficulty.Value;
 
             using (var rCommand = Connection.CreateCommand())
             {
