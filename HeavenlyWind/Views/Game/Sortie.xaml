@@ -49,6 +49,9 @@
                 <DataTrigger Binding="{Binding Cell.EventType}" Value="EscortSuccess">
                     <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_EscortSuccess, Mode=OneWay}" />
                 </DataTrigger>
+                <DataTrigger Binding="{Binding Cell.EventType}" Value="Landing">
+                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Landing, Mode=OneWay}" />
+                </DataTrigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="EventMapDifficulty" TargetType="{x:Type Run}">
@@ -107,6 +110,8 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type rgme:AviationReconnaissanceEvent}">
                         <rvge:AviationReconnaissance />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type rgme:LandingEvent}">
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>

@@ -83,6 +83,7 @@
     <Compile Include="Models\EquipmentTypeInfo.cs" />
     <Compile Include="Models\EventMapBounsType.cs" />
     <Compile Include="Models\EventMapDifficulty.cs" />
+    <Compile Include="Models\Events\LandingEvent.cs" />
     <Compile Include="Models\ExpeditionResult.cs" />
     <Compile Include="Models\FleetExpeditionStatus.cs" />
     <Compile Include="Models\ExpeditionInfo.cs" />

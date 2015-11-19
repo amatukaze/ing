@@ -40,6 +40,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 case SortieEventType.EscortSuccess:
                     break;
+
+                case SortieEventType.Landing:
+                    Event = new LandingEvent(rpData);
+                    break;
+
             }
         }
     }

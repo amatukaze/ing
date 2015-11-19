@@ -77,6 +77,7 @@
   <String Key="Sortie_Event_AviationReconnaissance">航空侦查</String>
   <String Key="Sortie_Event_EscortSuccess">护送成功</String>
   <String Key="Sortie_Event_Reward">资源</String>
+  <String Key="Sortie_Event_Landing">登陆</String>
 
   <String Key="Map_Difficulty_Easy">丙</String>
   <String Key="Map_Difficulty_Normal">乙</String>

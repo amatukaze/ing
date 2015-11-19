@@ -11,5 +11,6 @@
         NothingHappened,
         AviationReconnaissance,
         EscortSuccess,
+        Landing,
     }
 }
