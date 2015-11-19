@@ -42,7 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         void Process(ApiData rpData)
         {
-            if (rpData.Api != "api_req_battle_midnight/battle" || rpData.Api != "api_req_combined_battle/midnight_battle")
+            if (rpData.Api != "api_req_battle_midnight/battle" && rpData.Api != "api_req_combined_battle/midnight_battle")
                 UpdateCount();
         }
         void UpdateCount()
