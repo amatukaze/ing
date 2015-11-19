@@ -15,16 +15,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ClampedValue HP { get; private set; }
 
         public bool IsEventMap => RawData.Event != null;
-        public EventMapDifficulty? Difficulty { get; private set; }
+        public EventMapDifficulty? Difficulty { get; internal set; }
 
         internal MapInfo(RawMapInfo rpRawData) : base(rpRawData)
         {
-            SessionService.Instance.Subscribe("api_req_map/select_eventmap_rank", r =>
-            {
-                if (ID == int.Parse(r.Requests["api_maparea_id"]))
-                    Difficulty = (EventMapDifficulty)int.Parse(r.Requests["api_rank"]);
-            });
-
             OnRawDataUpdated();
         }
 

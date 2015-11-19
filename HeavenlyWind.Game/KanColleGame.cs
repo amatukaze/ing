@@ -49,6 +49,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (Maps.UpdateRawData(rpApiData.GetData<RawMapInfo[]>(), r => new MapInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                     OnPropertyChanged(nameof(Maps));
             });
+            SessionService.Instance.Subscribe("api_req_map/select_eventmap_rank", r =>
+            {
+                var rMap = Maps[int.Parse(r.Requests["api_maparea_id"]) * 10 + int.Parse(r.Requests["api_map_no"])];
+                rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Requests["api_rank"]);
+            });
 
         }
     }
