@@ -99,11 +99,8 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="220">
-                            <GridViewColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Name}" />
-                                </DataTemplate>
-                            </GridViewColumn.HeaderTemplate>
+                            <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Name}" />
+
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -115,19 +112,16 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="80">
-                            <GridViewColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock>
-                                            <Run Text="{rb:StringResource Main.EquipmentOverview_TotalCount, Mode=OneWay}" />
-                                            <Run Text="{rb:StringResource Main.EquipmentOverview_Remaining, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
-                                    </TextBlock>
-                                </DataTemplate>
-                            </GridViewColumn.HeaderTemplate>
+                            <TextBlock>
+                                <Run Text="{rb:StringResource Main.EquipmentOverview_TotalCount, Mode=OneWay}" />
+                                <Run Text="{rb:StringResource Main.EquipmentOverview_Remaining, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
+                            </TextBlock>
+
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="0, 4">
-                                            <Run Text="{Binding Count, Mode=OneWay}" />
-                                            <Run Name="RemainingCount" Text="{Binding RemainingCount, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
+                                        <Run Text="{Binding Count, Mode=OneWay}" />
+                                        <Run Name="RemainingCount" Text="{Binding RemainingCount, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
                                     </TextBlock>
 
                                     <DataTemplate.Triggers>
@@ -140,25 +134,24 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="650">
-                            <GridViewColumn.Header>
-                                <DockPanel>
-                                    <Border Width="50">
-                                        <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Level}" />
-                                    </Border>
-                                    <Border Width="50">
-                                        <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Proficiency}" />
-                                    </Border>
-                                    <Border Width="80">
-                                        <TextBlock>
-                                                <Run Text="{rb:StringResource Main.EquipmentOverview_EquippedCount, Mode=OneWay}" />
-                                                <Run Text="{rb:StringResource Main.EquipmentOverview_Remaining, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
-                                        </TextBlock>
-                                    </Border>
-                                    <Border Width="470">
-                                        <TextBlock Text="{rb:StringResource Main.EquipmentOverview_EquippedShip}" />
-                                    </Border>
-                                </DockPanel>
-                            </GridViewColumn.Header>
+                            <DockPanel>
+                                <Border Width="50">
+                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Level}" />
+                                </Border>
+                                <Border Width="50">
+                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Proficiency}" />
+                                </Border>
+                                <Border Width="80">
+                                    <TextBlock>
+                                        <Run Text="{rb:StringResource Main.EquipmentOverview_EquippedCount, Mode=OneWay}" />
+                                        <Run Text="{rb:StringResource Main.EquipmentOverview_Remaining, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
+                                    </TextBlock>
+                                </Border>
+                                <Border Width="470">
+                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_EquippedShip}" />
+                                </Border>
+                            </DockPanel>
+
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <ItemsControl ItemsSource="{Binding Levels}">
@@ -173,8 +166,8 @@
                                                     </Border>
                                                     <Border Width="80">
                                                         <TextBlock Margin="0, 4">
-                                                                <Run Text="{Binding Count, Mode=OneWay}" />
-                                                                <Run Name="RemainingCount" Text="{Binding RemainingCount, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
+                                                            <Run Text="{Binding Count, Mode=OneWay}" />
+                                                            <Run Name="RemainingCount" Text="{Binding RemainingCount, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
                                                         </TextBlock>
                                                     </Border>
                                                     <Border Width="470">
