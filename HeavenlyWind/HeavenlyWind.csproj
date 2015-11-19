@@ -135,6 +135,9 @@
     <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByShip.cs" />
     <Compile Include="ViewModels\Overviews\Equipments\EquipmentTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Ships\ShipOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Ships\ShipTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Ships\ShipViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
@@ -197,6 +200,9 @@
     </Compile>
     <Compile Include="Views\Overviews\EquipmentOverviewWindow.xaml.cs">
       <DependentUpon>EquipmentOverviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overviews\ShipOverviewWindow.xaml.cs">
+      <DependentUpon>ShipOverviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
@@ -514,6 +520,10 @@
     <Page Include="Views\Overviews\EquipmentOverviewWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overviews\ShipOverviewWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Preferences\Browser.xaml">
       <SubType>Designer</SubType>
