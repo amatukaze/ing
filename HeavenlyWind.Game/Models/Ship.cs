@@ -171,10 +171,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         protected override void OnRawDataUpdated()
         {
             ShipInfo rInfo;
-            if (KanColleGame.Current.MasterInfo.Ships.TryGetValue(RawData.ShipID, out rInfo))
-                Info = rInfo;
-            else
+            if (!KanColleGame.Current.MasterInfo.Ships.TryGetValue(RawData.ShipID, out rInfo))
                 Info = ShipInfo.Dummy;
+            else
+            {
+                r_EquipmentIDs = null;
+                Info = rInfo;
+            }
 
             HP = new ClampedValue(RawData.HPMaximum, RawData.HPCurrent);
             Fuel = new ClampedValue(Info.MaxFuelConsumption, RawData.Fuel);
