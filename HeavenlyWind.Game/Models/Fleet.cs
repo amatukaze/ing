@@ -104,8 +104,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (KanColleGame.Current.Sortie?.Fleet == this ||
                 KanColleGame.Current.Port.Fleets.CombinedFleetType != CombinedFleetType.None && KanColleGame.Current.Sortie?.Fleet.ID == 1 && ID == 2)
                 rState |= FleetState.Sortie;
-
-            if (ExpeditionStatus.Expedition != null)
+            else if (ExpeditionStatus.Expedition != null)
                 rState |= FleetState.Expedition;
             else
                 rState |= FleetState.Idle;

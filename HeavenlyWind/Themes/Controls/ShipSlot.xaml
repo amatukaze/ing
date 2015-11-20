@@ -24,7 +24,7 @@
                                                     <Run Text="{Binding Equipment.Info.Name, Mode=OneWay}" />
                                                     <Run Text="{Binding Equipment.LevelText, Mode=OneWay}" /><Run Text="{Binding Equipment.ProficiencyText, Mode=OneWay}" />
                                                 </TextBlock>
-                                                <TextBlock Name="ToolTipPlaneCount">
+                                                <TextBlock Name="ToolTipPlaneCount" Margin="4, 0, 0, 0">
                                                     [<Run Name="ToolTipCurrentPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
                                                 </TextBlock>
                                             </StackPanel>
