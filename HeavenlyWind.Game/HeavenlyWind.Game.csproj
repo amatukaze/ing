@@ -70,6 +70,7 @@
     <Compile Include="GameState.cs" />
     <Compile Include="IDTable`T.cs" />
     <Compile Include="KanColleGame.cs" />
+    <Compile Include="MasterInfo.cs" />
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
     <Compile Include="Models\AdmiralRank.cs" />
@@ -94,7 +95,6 @@
     <Compile Include="Models\FleetState.cs" />
     <Compile Include="Models\FleetStatus.cs" />
     <Compile Include="Models\IID.cs" />
-    <Compile Include="MasterInfo.cs" />
     <Compile Include="Models\MapAreaInfo.cs" />
     <Compile Include="Models\MapInfo.cs" />
     <Compile Include="Models\MapMasterInfo.cs" />
@@ -162,9 +162,9 @@
     <Compile Include="Parsers\Root\GetMember\ConstructionDockParser.cs" />
     <Compile Include="Parsers\Root\GetMember\EquipmentParser.cs" />
     <Compile Include="Parsers\Root\GetMember\MaterialParser.cs" />
+    <Compile Include="Parsers\Root\GetMember\MapInformationParser.cs" />
     <Compile Include="Parsers\Root\GetMember\QuestListParser.cs" />
     <Compile Include="Parsers\Root\Map\ExplorationParser.cs" />
-    <Compile Include="Parsers\Root\GetMember\MapInformationParser.cs" />
     <Compile Include="Parsers\Root\Map\StartSortieParser.cs" />
     <Compile Include="Parsers\Root\Upgrading\ModernizationParser.cs" />
     <Compile Include="Parsers\Root\PortParser.cs" />

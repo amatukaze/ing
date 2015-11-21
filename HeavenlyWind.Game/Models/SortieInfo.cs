@@ -74,6 +74,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         void Explore(IReadOnlyDictionary<string, string> rpRequests, RawMapExploration rpData)
         {
             Cell = new SortieCellInfo(rpData);
+
+            var rDifficulty = Map.Difficulty;
+            if (rDifficulty.HasValue)
+            {
+                var rDifficultyCount = Enum.GetNames(typeof(EventMapDifficulty)).Length - 1;
+                Cell.InternalID = Cell.ID * rDifficultyCount  + (int)rDifficulty.Value - 3;
+            }
         }
     }
 }

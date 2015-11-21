@@ -9,8 +9,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     {
         public override string GroupName => "battle";
 
-        static int r_DifficultyCount = Enum.GetNames(typeof(EventMapDifficulty)).Length - 1;
-
         internal BattleRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_sortie/battle", Process));
@@ -49,10 +47,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             var rSortieInfo = KanColleGame.Current.Sortie;
             var rMap = rSortieInfo.Map.ID;
-            var rCell = rSortieInfo.Cell.ID;
-            var rDifficulty = rSortieInfo.Map.Difficulty;
-            if (rDifficulty.HasValue)
-                rCell = rCell * r_DifficultyCount - 3 + (int)rDifficulty.Value;
+            var rCell = rSortieInfo.Cell.InternalID;
 
             using (var rCommand = Connection.CreateCommand())
             {

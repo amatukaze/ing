@@ -6,6 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     public class SortieCellInfo
     {
         public int ID { get; }
+        internal int InternalID { get; set; }
 
         public SortieEventType EventType { get; }
         public SortieEvent Event { get; }
