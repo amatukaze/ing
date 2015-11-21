@@ -29,10 +29,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 rCommand.CommandText = "CREATE TABLE IF NOT EXISTS battle_count(" +
                     "map INTEGER NOT NULL, " +
-                    "difficulty INTEGER" +
                     "cell INTEGER NOT NULL, " +
                     "count INTEGER NOT NULL DEFAULT 0, " +
-                    "CONSTRAINT [] PRIMARY KEY(map, difficulty, cell)) WITHOUT ROWID;";
+                    "CONSTRAINT [] PRIMARY KEY(map, cell)) WITHOUT ROWID;";
 
                 rCommand.ExecuteNonQuery();
             }
