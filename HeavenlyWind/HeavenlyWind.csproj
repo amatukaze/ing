@@ -171,6 +171,9 @@
     <Compile Include="Views\Game\ExecutingQuestsOverview.xaml.cs">
       <DependentUpon>ExecutingQuestsOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\FleetDetail.xaml.cs">
+      <DependentUpon>FleetDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Fleets.xaml.cs">
       <DependentUpon>Fleets.xaml</DependentUpon>
     </Compile>
@@ -476,6 +479,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\ExecutingQuestsOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\FleetDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
