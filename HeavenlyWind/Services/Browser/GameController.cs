@@ -39,7 +39,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 VolumeManager.Instance.NewSession += VolumeManager_NewSession;
             }
 
-            MuteToggleCommand = new DelegatedCommand(() => Volume.IsMute = !Volume.IsMute, () => OS.IsWin7OrLater && Volume != null);
+            MuteToggleCommand = new DelegatedCommand(() =>
+            {
+                if (Volume != null)
+                    Volume.IsMute = !Volume.IsMute;
+            }, () => OS.IsWin7OrLater);
 
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }
