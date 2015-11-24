@@ -12,6 +12,27 @@
                   Width="1080" Height="600"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
+        <Style x:Key="ModernizationStatusStyle" TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Control}">
+                        <Border Name="Border" Background="Transparent" Padding="4, 2">
+                            <TextBlock>
+                                <Run Text="{Binding Current, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                <Run Name="Maximum" Text="{Binding Maximum, StringFormat=/{0}, Mode=OneWay}" FontSize="10" />
+                            </TextBlock>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsMaximum}" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Setter TargetName="Maximum" Property="Text" Value="MAX" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="EquipmentIconStyle" TargetType="{x:Type Control}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -115,9 +136,9 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Margin="0, 4">
-                                            <Run Text="Lv." FontSize="11" />
+                                            <Run Text="Lv." FontSize="10" />
                                             <Run Text="{Binding Ship.Level, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-                                            Next:<Run Text="{Binding Ship.ExperienceToNextLevel, Mode=OneWay}" />
+                                            <Run Text="{Binding Ship.ExperienceToNextLevel, StringFormat=Next:{0}, Mode=OneWay}" FontSize="10" />
                                         </TextBlock>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -147,6 +168,7 @@
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
+                                        <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding Ship.Status.FirepowerBase}" Background="#CA2817" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -155,6 +177,7 @@
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
+                                        <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding Ship.Status.TorpedoBase}" Background="#2970AB" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -163,6 +186,7 @@
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
+                                        <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding Ship.Status.AABase}" Background="#DF6300" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -171,6 +195,7 @@
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
+                                        <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding Ship.Status.ArmorBase}" Background="#D9971A" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -179,6 +204,7 @@
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
+                                        <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding Ship.Status.LuckBase}" Background="#AF9441" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

@@ -7,55 +7,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         Ship r_Ship;
 
-        public bool IsCompleted => FirepowerBase.IsMax && TorpedoBase.IsMax && AABase.IsMax && ArmorBase.IsMax;
+        public bool IsMaximum => FirepowerBase.IsMaximum && TorpedoBase.IsMaximum && AABase.IsMaximum && ArmorBase.IsMaximum;
 
         public int Firepower => r_Ship.RawData.Firepower[0];
-        ShipModernizationStatus r_FirepowerBase;
-        public ShipModernizationStatus FirepowerBase
-        {
-            get { return r_FirepowerBase; }
-            private set
-            {
-                r_FirepowerBase = value;
-                OnPropertyChanged(nameof(FirepowerBase));
-            }
-        }
+        public ShipModernizationStatus FirepowerBase { get; private set; }
 
         public int Torpedo => r_Ship.RawData.Torpedo[0];
-        ShipModernizationStatus r_TorpedoBase;
-        public ShipModernizationStatus TorpedoBase
-        {
-            get { return r_TorpedoBase; }
-            private set
-            {
-                r_TorpedoBase = value;
-                OnPropertyChanged(nameof(TorpedoBase));
-            }
-        }
+        public ShipModernizationStatus TorpedoBase { get; private set; }
 
         public int AA => r_Ship.RawData.AA[0];
-        ShipModernizationStatus r_AABase;
-        public ShipModernizationStatus AABase
-        {
-            get { return r_AABase; }
-            private set
-            {
-                r_AABase = value;
-                OnPropertyChanged(nameof(AABase));
-            }
-        }
+        public ShipModernizationStatus AABase { get; private set; }
 
         public int Armor => r_Ship.RawData.Armor[0];
-        ShipModernizationStatus r_ArmorBase;
-        public ShipModernizationStatus ArmorBase
-        {
-            get { return r_ArmorBase; }
-            private set
-            {
-                r_ArmorBase = value;
-                OnPropertyChanged(nameof(ArmorBase));
-            }
-        }
+        public ShipModernizationStatus ArmorBase { get; private set; }
 
         public int Evasion => r_Ship.RawData.Evasion[0];
 
@@ -63,16 +27,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public int LoS => r_Ship.RawData.LoS[0];
 
-        ShipModernizationStatus r_Luck;
-        public ShipModernizationStatus Luck
-        {
-            get { return r_Luck; }
-            private set
-            {
-                r_Luck = value;
-                OnPropertyChanged(nameof(Luck));
-            }
-        }
+        public int Luck => r_Ship.RawData.Luck[0];
+        public ShipModernizationStatus LuckBase { get; private set; }
 
         internal ShipStatus(Ship rpShip)
         {
@@ -85,7 +41,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             TorpedoBase = new ShipModernizationStatus(rpInfo.TorpedoMinimum, rpInfo.TorpedoMaximum, rpData.ModernizedStatus[1]);
             AABase = new ShipModernizationStatus(rpInfo.AAMinimum, rpInfo.AAMaximum, rpData.ModernizedStatus[2]);
             ArmorBase = new ShipModernizationStatus(rpInfo.ArmorMinimum, rpInfo.ArmorMaximum, rpData.ModernizedStatus[3]);
-            Luck = new ShipModernizationStatus(rpInfo.LuckMinimum, rpInfo.LuckMaximum, rpData.ModernizedStatus[4]);
+            LuckBase = new ShipModernizationStatus(rpInfo.LuckMinimum, rpInfo.LuckMaximum, rpData.ModernizedStatus[4]);
+
+            OnPropertyChanged(nameof(FirepowerBase));
+            OnPropertyChanged(nameof(TorpedoBase));
+            OnPropertyChanged(nameof(AABase));
+            OnPropertyChanged(nameof(ArmorBase));
+            OnPropertyChanged(nameof(LuckBase));
         }
     }
 }
