@@ -35,6 +35,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         double r_Zoom;
 
+        static Dictionary<string, string> r_LayoutEngineDependencies;
+
         static BrowserWrapper()
         {
             r_BrowsersDirectory = new DirectoryInfo(Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "Browsers"));
@@ -45,6 +47,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 var rPosition = rName.IndexOf(',');
                 if (rPosition != -1)
                     rName = rName.Remove(rPosition);
+
+                string rPath;
+                if (r_LayoutEngineDependencies != null && r_LayoutEngineDependencies.TryGetValue(rName, out rPath))
+                    return Assembly.LoadFile(rPath);
 
                 return null;
             };
@@ -168,16 +174,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             foreach (var rFile in r_BrowsersDirectory.EnumerateFiles("*.dll", SearchOption.AllDirectories))
                 FileSystem.Unblock(rFile.FullName);
 
-            var rEntryFile = r_BrowsersDirectory.EnumerateFiles("*.json").Select(r =>
+            var rInfo = r_BrowsersDirectory.EnumerateFiles("*.json").Select(r =>
             {
                 using (var rReader = new JsonTextReader(File.OpenText(r.FullName)))
                     return JObject.Load(rReader).ToObject<LayoutEngineInfo>();
-            }).SingleOrDefault(r => r.Name == rpLayoutEngine)?.EntryFile;
+            }).SingleOrDefault(r => r.Name == rpLayoutEngine);
 
-            if (rEntryFile == null)
+            if (rInfo == null)
                 throw new Exception();
 
-            var rAssembly = Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rEntryFile));
+            if (rInfo.Dependencies != null)
+                r_LayoutEngineDependencies = rInfo.Dependencies.ToDictionary(r => r.AssemblyName, r => r.Path);
+
+            var rAssembly = Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rInfo.EntryFile));
             var rType = rAssembly.GetTypes().Where(r => r.GetInterface(typeof(IBrowserProvider).FullName) != null).FirstOrDefault();
 
             if (rType == null)

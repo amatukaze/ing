@@ -109,6 +109,7 @@
     <Compile Include="Services\Browser\CommunicatorMessageExtensions.cs" />
     <Compile Include="Services\Browser\CommunicatorMessages.cs" />
     <Compile Include="Services\Browser\GameController.cs" />
+    <Compile Include="Services\Browser\LayoutEngineDependency.cs" />
     <Compile Include="Services\Browser\LayoutEngineInfo.cs" />
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
     <Compile Include="Services\ScreenshotService.cs" />
