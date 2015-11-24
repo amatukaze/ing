@@ -31,8 +31,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         IBrowserProvider r_BrowserProvider;
         IBrowser r_Browser;
 
-        bool r_IsExtracted;
-
         double r_Zoom;
 
         static Dictionary<string, string> r_LayoutEngineDependencies;
@@ -111,21 +109,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 r_Communicator.Write(CommunicatorMessages.InvalidateArrange);
             });
 
-            r_Messages.Subscribe(CommunicatorMessages.TryExtractFlash, _ =>
+            r_Messages.Subscribe(CommunicatorMessages.ResizeBrowserToFitGame, _ =>
             {
-                var rResult = r_Browser?.TryExtractFlash();
-                if (rResult.HasValue)
-                {
-                    r_IsExtracted = rResult.Value;
-
-                    if (r_IsExtracted)
-                    {
-                        r_Container.Width = 800 * r_Zoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
-                        r_Container.Height = 480 * r_Zoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
-                    }
-
-                    r_Communicator.Write(CommunicatorMessages.ExtractionResult + ":" + r_IsExtracted.ToString());
-                }
+                r_Container.Width = GameConstants.GameWidth * r_Zoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
+                r_Container.Height = GameConstants.GameHeight * r_Zoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
             });
 
             InitializeScreenshotMessagesSubscription();
@@ -163,7 +150,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         {
             r_Browser = r_BrowserProvider.CreateBrowserInstance();
 
-            r_Browser.LoadCompleted += (rpCanGoBack, rpCanGoForward, rpUrl) => r_Communicator.Write(CommunicatorMessages.LoadCompleted + $":{rpCanGoBack};{rpCanGoForward};{rpUrl}");
+            r_Browser.LoadCompleted += (rpCanGoBack, rpCanGoForward, rpUrl) =>
+            {
+                r_Communicator.Write(CommunicatorMessages.LoadCompleted + $":{rpCanGoBack};{rpCanGoForward};{rpUrl}");
+                if (rpUrl == GameConstants.GamePageUrl)
+                    r_Communicator.Write(CommunicatorMessages.LoadGamePageCompleted);
+            };
         }
 
         void LoadBrowser(string rpLayoutEngine)

@@ -1,9 +1,9 @@
 ﻿using Fiddler;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Models;
+using System;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
@@ -57,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             SessionSubject.OnNext(rSession);
 
-            if (rFullUrl == "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/" || rPath == " / gadget/js/kcs_flash.js")
+            if (rFullUrl == GameConstants.GamePageUrl || rPath == " / gadget/js/kcs_flash.js")
                 rpSession.bBufferResponse = true;
         }
 
@@ -113,7 +113,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                         rpSession.utilSetResponseBody(rScript);
                 }
 
-                if (rSession.FullUrl == "http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
+                if (rSession.FullUrl == GameConstants.GamePageUrl)
                     ForceOverrideStylesheet(rpSession);
 
             }

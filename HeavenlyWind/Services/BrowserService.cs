@@ -115,17 +115,18 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 r_Initialized = true;
 
-                Messages.Subscribe(CommunicatorMessages.LoadCompleted, _ =>
+                Messages.Subscribe(CommunicatorMessages.LoadCompleted, _r =>
                 {
-                    Communicator.Write(CommunicatorMessages.TryExtractFlash);
-
                     var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
                     Communicator.Write(CommunicatorMessages.SetZoom + ":" + rZoom);
                 });
+                Messages.Subscribe(CommunicatorMessages.LoadGamePageCompleted, _ =>
+                {
+                    Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
+                    IsNavigatorVisible = false;
+                });
 
                 Navigator = new BrowserNavigator();
-
-                Messages.Subscribe(CommunicatorMessages.ExtractionResult, r => IsNavigatorVisible = !bool.Parse(r));
 
             }
         }

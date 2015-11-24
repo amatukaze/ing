@@ -17,12 +17,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public const string Refresh = nameof(Refresh);
 
         public const string LoadCompleted = nameof(LoadCompleted);
+        public const string LoadGamePageCompleted = nameof(LoadGamePageCompleted);
 
         public const string SetZoom = nameof(SetZoom);
         public const string InvalidateArrange = nameof(InvalidateArrange);
 
-        public const string TryExtractFlash = nameof(TryExtractFlash);
-        public const string ExtractionResult = nameof(ExtractionResult);
+        public const string ResizeBrowserToFitGame = nameof(ResizeBrowserToFitGame);
 
         public const string TakeScreenshot = nameof(TakeScreenshot);
         public const string ScreenshotFail = nameof(ScreenshotFail);

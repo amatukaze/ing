@@ -66,6 +66,7 @@
     <Compile Include="Browser\IBrowserProvider.cs" />
     <Compile Include="Browser\ScreenshotData.cs" />
     <Compile Include="EnumerationExtension.cs" />
+    <Compile Include="GameConstants.cs" />
     <Compile Include="HasFlagExtension.cs" />
     <Compile Include="IntegerRangeValidationRule.cs" />
     <Compile Include="LogItem.cs" />

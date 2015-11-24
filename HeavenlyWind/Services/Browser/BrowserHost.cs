@@ -1,9 +1,9 @@
 ﻿using Sakuno.SystemInterop;
+using Sakuno.UserInterface;
 using System;
 using System.Runtime.InteropServices;
-using System.Windows.Interop;
 using System.Windows;
-using Sakuno.UserInterface;
+using System.Windows.Interop;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 {
@@ -18,9 +18,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_Handle = rpHandle;
 
             BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.InvalidateArrange, _ => InvalidateArrange());
-            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.ExtractionResult, r =>
+            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.LoadCompleted, r =>
             {
-                r_IsExtracted = bool.Parse(r);
+                r_IsExtracted = false;
+                InvalidateArrange();
+            });
+            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.LoadGamePageCompleted, r =>
+            {
+                r_IsExtracted = true;
                 InvalidateArrange();
             });
         }
@@ -43,8 +48,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             {
                 var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
 
-                rWidth = Math.Min(rWidth, 800 * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX);
-                rHeight = Math.Min(rHeight, 480 * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY);
+                rWidth = Math.Min(rWidth, GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX);
+                rHeight = Math.Min(rHeight, GameConstants.GameHeight * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY);
             }
 
             NativeMethods.User32.PostMessageW(r_Handle, CommunicatorMessages.ResizeBrowserWindow, (IntPtr)rWidth, (IntPtr)rHeight);
@@ -60,8 +65,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             {
                 var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
 
-                rWidth = 800 * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
-                rHeight = 480 * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
+                rWidth = GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
+                rHeight = GameConstants.GameHeight * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
             }
 
             return new Size(rWidth, rHeight);
