@@ -81,6 +81,7 @@
     <Compile Include="Models\Battle\BattleParticipantState.cs" />
     <Compile Include="Models\Battle\BattleRank.cs" />
     <Compile Include="Models\Battle\BattleResult.cs" />
+    <Compile Include="Models\Battle\BattleStage.cs" />
     <Compile Include="Models\Battle\BattleStageType.cs" />
     <Compile Include="Models\Battle\EngagementForm.cs" />
     <Compile Include="Models\Battle\Formation.cs" />
@@ -91,6 +92,18 @@
     <Compile Include="Models\Battle\Phases\ShellingPhase.cs" />
     <Compile Include="Models\Battle\Phases\SupportingFirePhase.cs" />
     <Compile Include="Models\Battle\Phases\TorpedoSalvoPhase.cs" />
+    <Compile Include="Models\Battle\Stages\AerialCombatStage.cs" />
+    <Compile Include="Models\Battle\Stages\CombinedFleetCTFDayNormalStage.cs" />
+    <Compile Include="Models\Battle\Stages\CombinedFleetDay.cs" />
+    <Compile Include="Models\Battle\Stages\CombinedFleetNight.cs" />
+    <Compile Include="Models\Battle\Stages\CombinedFleetNightNormalStage.cs" />
+    <Compile Include="Models\Battle\Stages\CombinedFleetNightOnlyStage.cs" />
+    <Compile Include="Models\Battle\Stages\CombinedFleetSTFDayNormalStage.cs" />
+    <Compile Include="Models\Battle\Stages\Day.cs" />
+    <Compile Include="Models\Battle\Stages\DayNormalStage.cs" />
+    <Compile Include="Models\Battle\Stages\Night.cs" />
+    <Compile Include="Models\Battle\Stages\NightNormalStage.cs" />
+    <Compile Include="Models\Battle\Stages\NightOnlyStage.cs" />
     <Compile Include="Models\ConstructionDock.cs" />
     <Compile Include="Models\CombinedFleetType.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />
