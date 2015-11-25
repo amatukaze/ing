@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 {
@@ -8,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public int[] ShipIDs { get; set; }
 
         [JsonProperty("api_win_rank")]
-        public string Rank { get; set; }
+        public BattleRank Rank { get; set; }
 
         [JsonProperty("api_get_exp")]
         public int AdmiralExperienceIncrement { get; set; }
