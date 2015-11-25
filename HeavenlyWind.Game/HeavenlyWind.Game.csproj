@@ -85,6 +85,12 @@
     <Compile Include="Models\Battle\EngagementForm.cs" />
     <Compile Include="Models\Battle\Formation.cs" />
     <Compile Include="Models\Battle\IParticipant.cs" />
+    <Compile Include="Models\Battle\Phases\AerialCombatPhase.cs" />
+    <Compile Include="Models\Battle\Phases\BattlePhase.cs" />
+    <Compile Include="Models\Battle\Phases\PhaseRound.cs" />
+    <Compile Include="Models\Battle\Phases\ShellingPhase.cs" />
+    <Compile Include="Models\Battle\Phases\SupportingFirePhase.cs" />
+    <Compile Include="Models\Battle\Phases\TorpedoSalvoPhase.cs" />
     <Compile Include="Models\ConstructionDock.cs" />
     <Compile Include="Models\CombinedFleetType.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />
