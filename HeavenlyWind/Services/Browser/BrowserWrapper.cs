@@ -48,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                 string rPath;
                 if (r_LayoutEngineDependencies != null && r_LayoutEngineDependencies.TryGetValue(rName, out rPath))
-                    return Assembly.LoadFile(rPath);
+                    return Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rPath));
 
                 return null;
             };
@@ -69,6 +69,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                     InitializeBrowserControl();
                     r_Container.Content = r_Browser;
+                }
+                catch (ReflectionTypeLoadException e)
+                {
+                    r_Container.Content = e.LoaderExceptions[0].ToString();
                 }
                 catch (Exception e)
                 {
