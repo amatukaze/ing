@@ -126,6 +126,10 @@
   <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">必须小于等于 {0}</String>
 
+  <String Key="Screenshot_Failed">截图失败</String>
+  <String Key="Screenshot_Succeeded_Clipboard">已截图到剪贴板</String>
+  <String Key="Screenshot_Succeeded_File">已保存截图:{0}</String>
+
   <String Key="EquipmentOverview_Name">装备名</String>
   <String Key="EquipmentOverview_TotalCount">总数</String>
   <String Key="EquipmentOverview_Remaining">剩余</String>

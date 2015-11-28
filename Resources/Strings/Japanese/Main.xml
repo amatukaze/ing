@@ -125,6 +125,10 @@
   <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
 
+  <String Key="Screenshot_Failed">スクリーンショットの保存に失敗しました</String>
+  <String Key="Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
+  <String Key="Screenshot_Succeeded_File">スクリーンショットを保存しました:{0}</String>
+
   <String Key="EquipmentOverview_Name">装備名</String>
   <String Key="EquipmentOverview_TotalCount">合計</String>
   <String Key="EquipmentOverview_Remaining">余り</String>

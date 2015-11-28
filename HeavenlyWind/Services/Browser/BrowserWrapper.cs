@@ -207,7 +207,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 using (var rStream = rMemoryMappedFile.CreateViewStream())
                     rStream.Write(rScreenshotData.BitmapData, 0, rScreenshotData.BitmapData.Length);
 
-                r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{MapName};{rScreenshotData.Width};{rScreenshotData.Height}");
+                r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{MapName};{rScreenshotData.Width};{rScreenshotData.Height};{rScreenshotData.BitCount}");
 
                 return rMemoryMappedFile;
             });

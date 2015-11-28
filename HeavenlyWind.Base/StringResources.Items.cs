@@ -129,6 +129,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ValidationRule_NumberLessThanMinimum => GetString(nameof(ValidationRule_NumberLessThanMinimum));
         public string ValidationRule_NumberGreaterThanMaximum => GetString(nameof(ValidationRule_NumberGreaterThanMaximum));
 
+        public string Screenshot_Failed => GetString(nameof(Screenshot_Failed));
+        public string Screenshot_Succeeded_Clipboard => GetString(nameof(Screenshot_Succeeded_Clipboard));
+        public string Screenshot_Succeeded_File => GetString(nameof(Screenshot_Succeeded_File));
+
         public string EquipmentOverview_Name => GetString(nameof(EquipmentOverview_Name));
         public string EquipmentOverview_TotalCount => GetString(nameof(EquipmentOverview_TotalCount));
         public string EquipmentOverview_Remaining => GetString(nameof(EquipmentOverview_Remaining));
