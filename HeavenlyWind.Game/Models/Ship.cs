@@ -72,6 +72,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
             }
         }
+
         ClampedValue r_Fuel;
         public ClampedValue Fuel
         {
@@ -250,6 +251,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (Condition < 40)
                     Condition = 40;
             }
+        }
+
+        internal void UpdateEquipmentIDs(int[] rpEquipmentIDs)
+        {
+            RawData.Equipments = rpEquipmentIDs;
+            UpdateSlots();
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Info.Name}\", Type = \"{Info.Type.Name}\", Level = {Level}";

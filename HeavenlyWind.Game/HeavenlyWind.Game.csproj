@@ -105,6 +105,7 @@
     <Compile Include="Models\Raw\RawBattleResult.cs" />
     <Compile Include="Models\Raw\RawConstructionDock.cs" />
     <Compile Include="Models\Raw\RawEquipmentDevelopment.cs" />
+    <Compile Include="Models\Raw\RawEquipmentIDs.cs" />
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
     <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
