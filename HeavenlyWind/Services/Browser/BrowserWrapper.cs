@@ -117,6 +117,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             {
                 r_Container.Width = GameConstants.GameWidth * r_Zoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
                 r_Container.Height = GameConstants.GameHeight * r_Zoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
+                r_Communicator.Write(CommunicatorMessages.InvalidateArrange);
             });
 
             InitializeScreenshotMessagesSubscription();
