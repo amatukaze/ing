@@ -8,7 +8,7 @@
         public int Delta { get; internal set; }
         public int Current => Minimum + Delta;
 
-        public bool IsMax => Current == Maximum;
+        public bool IsMaximum => Current == Maximum;
 
         internal ShipModernizationStatus(int rpMinimum, int rpMaximum, int rpDelta)
         {

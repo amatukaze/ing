@@ -101,6 +101,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Window_Preferences => GetString(nameof(Window_Preferences));
         public string Window_EquipmentOverview => GetString(nameof(Window_EquipmentOverview));
+        public string Window_ShipOverview => GetString(nameof(Window_ShipOverview));
         public string Window_ClosingConfirmation => GetString(nameof(Window_ClosingConfirmation));
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
@@ -140,6 +141,20 @@ namespace Sakuno.KanColle.Amatsukaze
         public string EquipmentOverview_Proficiency => GetString(nameof(EquipmentOverview_Proficiency));
         public string EquipmentOverview_EquippedCount => GetString(nameof(EquipmentOverview_EquippedCount));
         public string EquipmentOverview_EquippedShip => GetString(nameof(EquipmentOverview_EquippedShip));
+
+        public string ShipOverview_Type => GetString(nameof(ShipOverview_Type));
+        public string ShipOverview_Name => GetString(nameof(ShipOverview_Name));
+        public string ShipOverview_Level => GetString(nameof(ShipOverview_Level));
+        public string ShipOverview_Condition => GetString(nameof(ShipOverview_Condition));
+        public string ShipOverview_Firepower => GetString(nameof(ShipOverview_Firepower));
+        public string ShipOverview_Torpedo => GetString(nameof(ShipOverview_Torpedo));
+        public string ShipOverview_AA => GetString(nameof(ShipOverview_AA));
+        public string ShipOverview_Armor => GetString(nameof(ShipOverview_Armor));
+        public string ShipOverview_Luck => GetString(nameof(ShipOverview_Luck));
+        public string ShipOverview_Evasion => GetString(nameof(ShipOverview_Evasion));
+        public string ShipOverview_ASW => GetString(nameof(ShipOverview_ASW));
+        public string ShipOverview_LoS => GetString(nameof(ShipOverview_LoS));
+        public string ShipOverview_Equipment => GetString(nameof(ShipOverview_Equipment));
 
     }
 }

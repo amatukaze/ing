@@ -98,6 +98,7 @@
 
   <String Key="Window_Preferences">设置</String>
   <String Key="Window_EquipmentOverview">装备一览</String>
+  <String Key="Window_ShipOverview">舰娘一览</String>
   <String Key="Window_ClosingConfirmation">要关闭 HeavenlyWind 吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
@@ -137,5 +138,19 @@
   <String Key="EquipmentOverview_Proficiency">熟练度</String>
   <String Key="EquipmentOverview_EquippedCount">持有数</String>
   <String Key="EquipmentOverview_EquippedShip">装备的舰娘</String>
+
+  <String Key="ShipOverview_Type">舰种</String>
+  <String Key="ShipOverview_Name">舰名</String>
+  <String Key="ShipOverview_Level">等级</String>
+  <String Key="ShipOverview_Condition">Cond.</String>
+  <String Key="ShipOverview_Firepower">火力</String>
+  <String Key="ShipOverview_Torpedo">雷装</String>
+  <String Key="ShipOverview_AA">对空</String>
+  <String Key="ShipOverview_Armor">装甲</String>
+  <String Key="ShipOverview_Luck">运</String>
+  <String Key="ShipOverview_Evasion">回避</String>
+  <String Key="ShipOverview_ASW">对潜</String>
+  <String Key="ShipOverview_LoS">索敌</String>
+  <String Key="ShipOverview_Equipment">装备</String>
 
 </Strings>

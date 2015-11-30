@@ -97,6 +97,7 @@
 
   <String Key="Window_Preferences">設定</String>
   <String Key="Window_EquipmentOverview">装備一覧</String>
+  <String Key="Window_ShipOverview">艦娘一覧</String>
   <String Key="Window_ClosingConfirmation">HeavenlyWind を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
@@ -136,5 +137,19 @@
   <String Key="EquipmentOverview_Proficiency">熟練度</String>
   <String Key="EquipmentOverview_EquippedCount">持有数</String>
   <String Key="EquipmentOverview_EquippedShip">装備している艦娘</String>
+
+  <String Key="ShipOverview_Type">艦種</String>
+  <String Key="ShipOverview_Name">艦名</String>
+  <String Key="ShipOverview_Level">レベル</String>
+  <String Key="ShipOverview_Condition">Cond.</String>
+  <String Key="ShipOverview_Firepower">火力</String>
+  <String Key="ShipOverview_Torpedo">雷装</String>
+  <String Key="ShipOverview_AA">対空</String>
+  <String Key="ShipOverview_Armor">装甲</String>
+  <String Key="ShipOverview_Luck">運</String>
+  <String Key="ShipOverview_Evasion">回避</String>
+  <String Key="ShipOverview_ASW">対潜</String>
+  <String Key="ShipOverview_LoS">索敵</String>
+  <String Key="ShipOverview_Equipment">装備</String>
 
 </Strings>
