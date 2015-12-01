@@ -31,15 +31,28 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border Style="{StaticResource PanelBorderStyle}" Grid.ColumnSpan="3">
-            <StackPanel>
-                <Border Style="{StaticResource PanelCaptionStyle}">
-                    <TextBlock Text="{rb:StringResource Main.Overview_Headquarter}" />
-                </Border>
+        <Grid Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-                <rvg:Headquarter />
+            <Border Style="{StaticResource PanelBorderStyle}" >
+                <StackPanel>
+                    <Border Style="{StaticResource PanelCaptionStyle}">
+                        <TextBlock Text="{rb:StringResource Main.Overview_Headquarter}" />
+                    </Border>
+
+                    <rvg:Headquarter />
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Column="2">
+                <Button Content="{rb:StringResource Main.Overview_ShipOverview}" Command="{Binding ShowShipOverviewWindowCommand}" Padding="10, 6" />
+                <Button Content="{rb:StringResource Main.Overview_EquipmentOverview}" Command="{Binding ShowEquipmentOverviewWindowCommand}" Padding="10, 6" Margin="0, 4, 0, 0" />
             </StackPanel>
-        </Border>
+        </Grid>
 
         <StackPanel Grid.Row="1">
 

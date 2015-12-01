@@ -57,6 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_ConstructionDocks_TimeToComplete => GetString(nameof(Overview_ConstructionDocks_TimeToComplete));
         public string Overview_ConstructionDocks_MaterialConsumption => GetString(nameof(Overview_ConstructionDocks_MaterialConsumption));
         public string Overview_ExecutingQuests => GetString(nameof(Overview_ExecutingQuests));
+        public string Overview_EquipmentOverview => GetString(nameof(Overview_EquipmentOverview));
+        public string Overview_ShipOverview => GetString(nameof(Overview_ShipOverview));
 
         public string Fleet_TotalLevel => GetString(nameof(Fleet_TotalLevel));
         public string Fleet_LoS => GetString(nameof(Fleet_LoS));

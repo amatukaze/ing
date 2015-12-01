@@ -1,9 +1,11 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
@@ -100,6 +102,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
         }
 
+        public ICommand ShowShipOverviewWindowCommand { get; }
+        public ICommand ShowEquipmentOverviewWindowCommand { get; }
+
         internal OverviewViewModel()
         {
             var rPort = KanColleGame.Current.Port;
@@ -121,6 +126,19 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 .Subscribe(_ => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
             rPropertyChangedSource.Where(r => r == nameof(rPort.ConstructionDocks))
                 .Subscribe(_ => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
+
+            ShowShipOverviewWindowCommand = new DelegatedCommand(ShowShipOverviewWindow);
+            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(ShowEquipmentOverviewWindow);
         }
+
+        void ShowShipOverviewWindow()
+        {
+            new ShipOverviewWindow().Show();
+        }
+        void ShowEquipmentOverviewWindow()
+        {
+            new EquipmentOverviewWindow().Show();
+        }
+
     }
 }
