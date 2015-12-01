@@ -13,5 +13,5 @@
         <Setter Property="Opacity" Value=".85" />
         <Setter Property="Margin" Value="8, 0" />
     </Style>
-    
+
 </ResourceDictionary>

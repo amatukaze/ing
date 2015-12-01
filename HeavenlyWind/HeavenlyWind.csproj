@@ -100,6 +100,7 @@
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Models\Power.cs" />
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
     <Compile Include="Services\Browser\BrowserHost.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Services\Browser\CommunicatorMessageExtensions.cs" />
     <Compile Include="Services\Browser\CommunicatorMessages.cs" />
     <Compile Include="Services\Browser\GameController.cs" />
+    <Compile Include="Services\Browser\LayoutEngineDependency.cs" />
     <Compile Include="Services\Browser\LayoutEngineInfo.cs" />
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
     <Compile Include="Services\ScreenshotService.cs" />
@@ -124,7 +126,19 @@
     <Compile Include="ViewModels\Game\QuestViewModel.cs" />
     <Compile Include="ViewModels\Game\RepairDockViewModel.cs" />
     <Compile Include="ViewModels\Game\ShipViewModel.cs" />
+    <Compile Include="ViewModels\Game\SortieViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentGroupingKey.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByFleet.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByMasterID.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByLevel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByShip.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Ships\ShipOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Ships\ShipTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Ships\ShipViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
@@ -143,8 +157,26 @@
     <Compile Include="Views\Game\ConstructionDocks.xaml.cs">
       <DependentUpon>ConstructionDocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Events\AviationReconnaissance.xaml.cs">
+      <DependentUpon>AviationReconnaissance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Battle.xaml.cs">
+      <DependentUpon>Battle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\NothingHappened.xaml.cs">
+      <DependentUpon>NothingHappened.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Reward.xaml.cs">
+      <DependentUpon>Reward.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Whirlpool.xaml.cs">
+      <DependentUpon>Whirlpool.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\ExecutingQuestsOverview.xaml.cs">
       <DependentUpon>ExecutingQuestsOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\FleetDetail.xaml.cs">
+      <DependentUpon>FleetDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Fleets.xaml.cs">
       <DependentUpon>Fleets.xaml</DependentUpon>
@@ -164,8 +196,17 @@
     <Compile Include="Views\Game\RepairDocks.xaml.cs">
       <DependentUpon>RepairDocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Sortie.xaml.cs">
+      <DependentUpon>Sortie.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overviews\EquipmentOverviewWindow.xaml.cs">
+      <DependentUpon>EquipmentOverviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overviews\ShipOverviewWindow.xaml.cs">
+      <DependentUpon>ShipOverviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
@@ -424,7 +465,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\Events\AviationReconnaissance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Battle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\NothingHappened.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Reward.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Whirlpool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\ExecutingQuestsOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\FleetDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -452,9 +517,21 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\Sortie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overviews\EquipmentOverviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overviews\ShipOverviewWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Preferences\Browser.xaml">
       <SubType>Designer</SubType>

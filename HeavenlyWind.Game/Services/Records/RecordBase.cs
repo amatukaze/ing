@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             Connection = rpConnection;
         }
-        
+
         internal void Connect()
         {
             CheckVersion();

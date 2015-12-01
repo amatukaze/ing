@@ -26,6 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rIndex == -1)
                 {
                     rFleet.RemoveAllExceptFlagship();
+                    rFleet.Update();
                     return;
                 }
 
@@ -33,6 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rShipID == -1)
                 {
                     rFleet.Remove(rIndex);
+                    rFleet.Update();
                     return;
                 }
 
@@ -43,6 +45,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rOriginalShip = rFleet.Organize(rIndex, rShip);
                 if (rOriginalIndex.HasValue)
                     rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
+
+                rFleet.Update();
             });
 
             SessionService.Instance.Subscribe("api_get_member/deck", r => Update(r.GetData<RawFleet[]>()));
@@ -51,8 +55,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rFleet = Table[int.Parse(r.Requests["api_deck_id"])];
                 rFleet.Update(r.GetData<RawFleet>());
             });
+
+            SessionService.Instance.Subscribe("api_req_map/start", _ => Update());
+
         }
 
+        internal void Update()
+        {
+            foreach (var rFleet in Table.Values)
+                rFleet.Update();
+        }
         internal void Update(RawPort rpPort)
         {
             CombinedFleetType = rpPort.CombinedFleetType;

@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Expedition
         {
             var rFleet = Game.Port.Fleets[int.Parse(Requests["api_deck_id"])];
             var rExpeditionID = Game.MasterInfo.Expeditions.Values.Single(r => r.Name == rpData.Name).ID;
-            
+
             var rLogContent = string.Format(StringResources.Instance.Main.Log_ExpeditionResult,
                 rFleet.ID, rFleet.Name, rExpeditionID, rpData.Name, GetStringFromExpeditionResult(rpData.Result));
             Logger.Write(LoggingLevel.Info, rLogContent);

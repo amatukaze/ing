@@ -22,15 +22,18 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         ScreenshotService()
         {
             var rMessages = BrowserService.Instance.Communicator.GetMessageObservable();
-            rMessages.Subscribe(CommunicatorMessages.ScreenshotFail, _ => ScreenshotFail());
+            rMessages.Subscribe(CommunicatorMessages.ScreenshotFail, _ => ScreenshotFailed());
             rMessages.Subscribe(CommunicatorMessages.StartScreenshotTransmission, rpParameter =>
             {
                 var rParameters = rpParameter.Split(';');
+                if (rParameters.Length < 4)
+                    return;
 
                 var rMapName = rParameters[0];
                 var rWidth = int.Parse(rParameters[1]);
                 var rHeight = int.Parse(rParameters[2]);
-                GetScreenshot(rMapName, rWidth, rHeight);
+                var rBitCount = int.Parse(rParameters[3]);
+                GetScreenshot(rMapName, rWidth, rHeight, rBitCount);
             });
         }
 
@@ -40,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             BrowserService.Instance.Communicator.Write(CommunicatorMessages.TakeScreenshot);
 
             var rImage = await r_TaskScreenshotTask.Task;
-            
+
             if (rpProcessAction != null)
                 rImage = rpProcessAction(rImage);
 
@@ -60,41 +63,59 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
         public async void TakeScreenshotAndOutput(Func<BitmapSource, BitmapSource> rpProcessAction = null, bool rpOutputToClipboard = true)
         {
-            if (r_TaskScreenshotTask != null)
-                return;
+            try
+            {
+                if (r_TaskScreenshotTask != null)
+                    return;
 
-            var rImage = await TakeScreenshot(rpProcessAction);
-            if (rImage == null)
-                return;
+                var rImage = await TakeScreenshot(rpProcessAction);
+                if (rImage == null)
+                    return;
 
-            if (rpOutputToClipboard)
-                OutputToClipboard(rImage);
-            else
-                OutputAsFile(rImage);
+                if (rpOutputToClipboard)
+                    OutputToClipboard(rImage);
+                else
+                    OutputAsFile(rImage);
+            }
+            catch (Exception e)
+            {
+                StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Screenshot_Failed, e.Message);
+            }
         }
         public async void TakePartialScreenshotAndOutput(Int32Rect rpRect, bool rpOutputToClipboard)
         {
-            if (r_TaskScreenshotTask != null)
-                return;
+            try
+            {
+                if (r_TaskScreenshotTask != null)
+                    return;
 
-            var rImage = await TakePartialScreenshot(rpRect);
-            if (rImage == null)
-                return;
+                var rImage = await TakePartialScreenshot(rpRect);
+                if (rImage == null)
+                    return;
 
-            if (rpOutputToClipboard)
-                OutputToClipboard(rImage);
-            else
-                OutputAsFile(rImage);
+                if (rpOutputToClipboard)
+                    OutputToClipboard(rImage);
+                else
+                    OutputAsFile(rImage);
+            }
+            catch (Exception e)
+            {
+                StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Screenshot_Failed, e.Message);
+            }
         }
 
-        void ScreenshotFail()
+        void ScreenshotFailed()
         {
             r_TaskScreenshotTask.SetResult(null);
+
+            StatusBarService.Instance.Message = StringResources.Instance.Main.Screenshot_Failed;
         }
 
         public void OutputToClipboard(BitmapSource rpImage)
         {
             Clipboard.SetImage(rpImage);
+
+            StatusBarService.Instance.Message = StringResources.Instance.Main.Screenshot_Succeeded_Clipboard;
         }
         public void OutputAsFile(BitmapSource rpImage)
         {
@@ -132,17 +153,21 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 rEncoder.Frames.Add(BitmapFrame.Create(rpImage));
                 rEncoder.Save(rFile);
             }
+
+            StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Screenshot_Succeeded_File, Path.GetFileName(rPath));
         }
 
-        void GetScreenshot(string rpMapName, int rpWidth, int rpHeight)
+        void GetScreenshot(string rpMapName, int rpWidth, int rpHeight, int rpBitCount)
         {
-            using (var rMap = MemoryMappedFile.CreateOrOpen(rpMapName, rpWidth * rpHeight * 3, MemoryMappedFileAccess.ReadWrite))
+            var rHeight = Math.Abs(rpHeight);
+
+            using (var rMap = MemoryMappedFile.CreateOrOpen(rpMapName, rpWidth * rHeight * 3, MemoryMappedFileAccess.ReadWrite))
             {
                 var rInfo = new NativeStructs.BITMAPINFO();
                 rInfo.bmiHeader.biSize = Marshal.SizeOf(typeof(NativeStructs.BITMAPINFOHEADER));
                 rInfo.bmiHeader.biWidth = rpWidth;
                 rInfo.bmiHeader.biHeight = rpHeight;
-                rInfo.bmiHeader.biBitCount = 24;
+                rInfo.bmiHeader.biBitCount = (ushort)rpBitCount;
                 rInfo.bmiHeader.biPlanes = 1;
 
                 IntPtr rBits;
@@ -150,7 +175,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 if (rHBitmap == IntPtr.Zero)
                     throw new InvalidOperationException();
 
-                var rImage = Imaging.CreateBitmapSourceFromHBitmap(rHBitmap, IntPtr.Zero, new Int32Rect(0, 0, rpWidth, rpHeight), BitmapSizeOptions.FromEmptyOptions());
+                var rImage = Imaging.CreateBitmapSourceFromHBitmap(rHBitmap, IntPtr.Zero, new Int32Rect(0, 0, rpWidth, rHeight), BitmapSizeOptions.FromEmptyOptions());
                 rImage.Freeze();
                 r_TaskScreenshotTask.SetResult(rImage);
 

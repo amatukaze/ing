@@ -31,9 +31,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         IBrowserProvider r_BrowserProvider;
         IBrowser r_Browser;
 
-        bool r_IsExtracted;
-
         double r_Zoom;
+
+        static Dictionary<string, string> r_LayoutEngineDependencies;
 
         static BrowserWrapper()
         {
@@ -45,6 +45,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 var rPosition = rName.IndexOf(',');
                 if (rPosition != -1)
                     rName = rName.Remove(rPosition);
+
+                string rPath;
+                if (r_LayoutEngineDependencies != null && r_LayoutEngineDependencies.TryGetValue(rName, out rPath))
+                    return Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rPath));
 
                 return null;
             };
@@ -60,11 +64,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 try
                 {
                     LoadBrowser(rpLayoutEngine);
-                    
+
                     r_BrowserProvider.SetPort(int.Parse(r));
 
                     InitializeBrowserControl();
                     r_Container.Content = r_Browser;
+                }
+                catch (ReflectionTypeLoadException e)
+                {
+                    r_Container.Content = e.LoaderExceptions[0].ToString();
                 }
                 catch (Exception e)
                 {
@@ -105,29 +113,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 r_Communicator.Write(CommunicatorMessages.InvalidateArrange);
             });
 
-            r_Messages.Subscribe(CommunicatorMessages.Resize, rpSize =>
+            r_Messages.Subscribe(CommunicatorMessages.ResizeBrowserToFitGame, _ =>
             {
-                var rValues = rpSize.Split(';');
-
-                r_Container.Width = int.Parse(rValues[0]);
-                r_Container.Height = int.Parse(rValues[1]);
-            });
-
-            r_Messages.Subscribe(CommunicatorMessages.TryExtractFlash, _ =>
-            {
-                var rResult = r_Browser?.TryExtractFlash();
-                if (rResult.HasValue)
-                {
-                    r_IsExtracted = rResult.Value;
-
-                    if (r_IsExtracted)
-                    {
-                        r_Container.Width = 800 * r_Zoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
-                        r_Container.Height = 480 * r_Zoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
-                    }
-
-                    r_Communicator.Write(CommunicatorMessages.ExtractionResult + ":" + r_IsExtracted.ToString());
-                }
+                r_Container.Width = GameConstants.GameWidth * r_Zoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
+                r_Container.Height = GameConstants.GameHeight * r_Zoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
+                r_Communicator.Write(CommunicatorMessages.InvalidateArrange);
             });
 
             InitializeScreenshotMessagesSubscription();
@@ -140,16 +130,37 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_HwndSource = new HwndSource(rParameters);
             r_HwndSource.CompositionTarget.BackgroundColor = Colors.White;
 
+            r_HwndSource.AddHook(WndProc);
+
             NativeMethods.User32.SetWindowLongPtr(r_HwndSource.Handle, NativeConstants.GetWindowLong.GWL_STYLE, (IntPtr)(NativeEnums.WindowStyle.WS_CHILD | NativeEnums.WindowStyle.WS_CLIPCHILDREN));
             NativeMethods.User32.SetWindowPos(r_HwndSource.Handle, IntPtr.Zero, 0, 0, 0, 0, NativeEnums.SetWindowPosition.SWP_FRAMECHANGED | NativeEnums.SetWindowPosition.SWP_NOSIZEORMOVE | NativeEnums.SetWindowPosition.SWP_NOZORDER);
 
             r_HwndSource.RootVisual = r_Container;
         }
+        IntPtr WndProc(IntPtr rpHandle, int rpMessage, IntPtr rpWParam, IntPtr rpLParam, ref bool rrpHandled)
+        {
+            var rMessage = (NativeConstants.WindowMessage)rpMessage;
+            if (rMessage == CommunicatorMessages.ResizeBrowserWindow)
+            {
+                r_Container.Width = rpWParam.ToInt32();
+                r_Container.Height = rpLParam.ToInt32();
+
+                rrpHandled = true;
+            }
+
+            return IntPtr.Zero;
+        }
+
         void InitializeBrowserControl()
         {
             r_Browser = r_BrowserProvider.CreateBrowserInstance();
 
-            r_Browser.LoadCompleted += (rpCanGoBack, rpCanGoForward, rpUrl) => r_Communicator.Write(CommunicatorMessages.LoadCompleted + $":{rpCanGoBack};{rpCanGoForward};{rpUrl}");
+            r_Browser.LoadCompleted += (rpCanGoBack, rpCanGoForward, rpUrl) =>
+            {
+                r_Communicator.Write(CommunicatorMessages.LoadCompleted + $":{rpCanGoBack};{rpCanGoForward};{rpUrl}");
+                if (rpUrl == GameConstants.GamePageUrl)
+                    r_Communicator.Write(CommunicatorMessages.LoadGamePageCompleted);
+            };
         }
 
         void LoadBrowser(string rpLayoutEngine)
@@ -160,16 +171,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             foreach (var rFile in r_BrowsersDirectory.EnumerateFiles("*.dll", SearchOption.AllDirectories))
                 FileSystem.Unblock(rFile.FullName);
 
-            var rEntryFile = r_BrowsersDirectory.EnumerateFiles("*.json").Select(r =>
+            var rInfo = r_BrowsersDirectory.EnumerateFiles("*.json").Select(r =>
             {
                 using (var rReader = new JsonTextReader(File.OpenText(r.FullName)))
                     return JObject.Load(rReader).ToObject<LayoutEngineInfo>();
-            }).SingleOrDefault(r => r.Name == rpLayoutEngine)?.EntryFile;
+            }).SingleOrDefault(r => r.Name == rpLayoutEngine);
 
-            if (rEntryFile == null)
+            if (rInfo == null)
                 throw new Exception();
 
-            var rAssembly = Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rEntryFile));
+            if (rInfo.Dependencies != null)
+                r_LayoutEngineDependencies = rInfo.Dependencies.ToDictionary(r => r.AssemblyName, r => r.Path);
+
+            var rAssembly = Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rInfo.EntryFile));
             var rType = rAssembly.GetTypes().Where(r => r.GetInterface(typeof(IBrowserProvider).FullName) != null).FirstOrDefault();
 
             if (rType == null)
@@ -194,7 +208,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 using (var rStream = rMemoryMappedFile.CreateViewStream())
                     rStream.Write(rScreenshotData.BitmapData, 0, rScreenshotData.BitmapData.Length);
 
-                r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{MapName};{rScreenshotData.Width};{rScreenshotData.Height}");
+                r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{MapName};{rScreenshotData.Width};{rScreenshotData.Height};{rScreenshotData.BitCount}");
 
                 return rMemoryMappedFile;
             });

@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     public class ConstructionRecord : RecordBase
     {
         public override string GroupName => "construction";
-        
+
         internal ConstructionRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
             DisposableObjects.Add(ConstructionDock.NewConstruction.Subscribe(InsertRecord));

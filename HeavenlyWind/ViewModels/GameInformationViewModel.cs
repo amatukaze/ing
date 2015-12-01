@@ -9,6 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
     {
         public OverviewViewModel Overview { get; }
         public FleetsViewModel Fleets { get; }
+        public SortieViewModel Sortie { get; }
         public QuestsViewModel Quests { get; }
 
         public IList<TabItemViewModel> TabItems { get; }
@@ -33,6 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             {
                 (Overview = new OverviewViewModel()),
                 (Fleets = new FleetsViewModel(this)),
+                (Sortie = new SortieViewModel()),
                 (Quests = new QuestsViewModel(this)),
             };
 

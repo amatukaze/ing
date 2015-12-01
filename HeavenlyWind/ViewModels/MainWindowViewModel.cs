@@ -28,7 +28,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         internal MainWindowViewModel()
         {
             Title = "Heavenly Wind";
-            
+
             var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(KanColleGame.Current, nameof(KanColleGame.Current.PropertyChanged))
                 .Select(r => r.EventArgs.PropertyName);
             rPropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.IsStarted)).Subscribe(_ => Content = new GameInformationViewModel());

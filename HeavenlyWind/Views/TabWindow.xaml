@@ -9,7 +9,7 @@
                   xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
                   xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
                   mc:Ignorable="d"
-                  Title="{Binding Title}" 
+                  Title="{Binding Title}"
                   Width="320" Height="240"
                   ShowInTaskbar="False"
                   UseLayoutRounding="True">
@@ -45,6 +45,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type rvmg:FleetsViewModel}">
                     <rvg:Fleets />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type rvmg:SortieViewModel}">
+                    <rvg:Sortie />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type rvmg:QuestsViewModel}">
                     <rvg:Quests />

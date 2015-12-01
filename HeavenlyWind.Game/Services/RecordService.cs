@@ -19,6 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public ExpeditionRecord Expedition { get; private set; }
         public ConstructionRecord Construction { get; private set; }
         public DevelopmentRecord Development { get; private set; }
+        public BattleRecord Battle { get; private set; }
 
         public bool IsConnected { get; private set; }
 
@@ -46,12 +47,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Expedition?.Dispose();
             Construction?.Dispose();
             Development?.Dispose();
+            Battle?.Dispose();
             r_Connection?.Dispose();
 
             IsConnected = false;
 
             r_UserID = rpUserID;
-            
+
             r_Connection = new SQLiteConnection($@"Data Source=Records\{r_UserID}.db;Page Size=8192").OpenAndReturn();
 
             if (IsReadOnlyMode)
@@ -71,6 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Expedition = new ExpeditionRecord(r_Connection).ConnectAndReturn();
                 Construction = new ConstructionRecord(r_Connection).ConnectAndReturn();
                 Development = new DevelopmentRecord(r_Connection).ConnectAndReturn();
+                Battle = new BattleRecord(r_Connection).ConnectAndReturn();
 
                 rTransaction.Commit();
             }

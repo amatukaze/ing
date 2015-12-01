@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
             }
         }
-        public bool CanParticipateInFighterCombat => 
+        public bool CanParticipateInFighterCombat =>
             Type == EquipmentType.CarrierBasedFighter ||
             Type == EquipmentType.CarrierBasedDiveBomber ||
             Type == EquipmentType.CarrierBasedTorpedoBomber ||

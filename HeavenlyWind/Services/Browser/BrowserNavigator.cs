@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 {
     class BrowserNavigator : ModelBase
     {
-        static Regex r_LoadCompletedParameterRegex = new Regex(@"(True|False);(True|False);(.*)");
+        static Regex r_LoadCompletedParameterRegex { get; } = new Regex(@"(True|False);(True|False);(.*)");
 
         string r_Url;
         public string Url

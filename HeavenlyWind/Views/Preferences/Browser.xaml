@@ -1,11 +1,12 @@
 ﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Preferences.Browser"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rbm="clr-namespace:Sakuno.KanColle.Amatsukaze.Models;assembly=HeavenlyWind.Base"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              DataContext="{Binding Source={x:Static rs:BrowserService.Instance}}"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Style>
@@ -17,7 +18,7 @@
             </Style.Triggers>
         </Style>
     </UserControl.Style>
-    
+
     <StackPanel>
         <StackPanel Margin="0, 0, 0, 8">
             <TextBlock Margin="0, 0, 0, 6">
@@ -26,15 +27,29 @@
             </TextBlock>
             <ComboBox ItemsSource="{Binding InstalledLayoutEngines}" DisplayMemberPath="DisplayName" SelectedValue="{rb:Preference Browser.CurrentLayoutEngine}" SelectedValuePath="Name" />
         </StackPanel>
-        
+
         <DockPanel Margin="0, 0, 0, 8">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Homepage}" />
             <TextBox Text="{rb:Preference Browser.Homepage}" Margin="6, 0, 0, 0" />
         </DockPanel>
-        
+
         <StackPanel Orientation="Horizontal">
             <Button Content="{rb:StringResource Main.PreferenceWindow_Browser_ClearCache}" Command="{Binding ClearCacheCommand}" />
             <Button Content="{rb:StringResource Main.PreferenceWindow_Browser_ClearCacheAndCookie}" Command="{Binding ClearCacheAndCookieCommand}" Margin="6, 0, 0, 0" />
         </StackPanel>
+
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash}" />
+
+        <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash_Quality}" />
+            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:FlashQuality}}" SelectedValue="{rb:Preference Browser.Flash.Quality}" Margin="6, 0, 0, 0" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash_RenderMode}" />
+            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:FlashRenderMode}}" SelectedValue="{rb:Preference Browser.Flash.RenderMode}" Margin="6, 0, 0, 0" />
+        </StackPanel>
+
     </StackPanel>
 </UserControl>

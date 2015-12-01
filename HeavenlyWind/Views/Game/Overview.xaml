@@ -1,12 +1,12 @@
 ﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.Overview"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="PanelBorderStyle" TargetType="{x:Type Border}">
@@ -31,18 +31,31 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border Style="{StaticResource PanelBorderStyle}" Grid.ColumnSpan="3">
-            <StackPanel>
-                <Border Style="{StaticResource PanelCaptionStyle}">
-                    <TextBlock Text="{rb:StringResource Main.Overview_Headquarter}" />
-                </Border>
+        <Grid Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-                <rvg:Headquarter />
+            <Border Style="{StaticResource PanelBorderStyle}" >
+                <StackPanel>
+                    <Border Style="{StaticResource PanelCaptionStyle}">
+                        <TextBlock Text="{rb:StringResource Main.Overview_Headquarter}" />
+                    </Border>
+
+                    <rvg:Headquarter />
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Column="2">
+                <Button Content="{rb:StringResource Main.Overview_ShipOverview}" Command="{Binding ShowShipOverviewWindowCommand}" Padding="10, 6" />
+                <Button Content="{rb:StringResource Main.Overview_EquipmentOverview}" Command="{Binding ShowEquipmentOverviewWindowCommand}" Padding="10, 6" Margin="0, 4, 0, 0" />
             </StackPanel>
-        </Border>
+        </Grid>
 
         <StackPanel Grid.Row="1">
-            
+
             <Border Style="{StaticResource PanelBorderStyle}">
                 <StackPanel>
                     <Border Style="{StaticResource PanelCaptionStyle}">
@@ -52,7 +65,7 @@
                     <rvg:FleetsOverview />
                 </StackPanel>
             </Border>
-            
+
             <Border Style="{StaticResource PanelBorderStyle}">
                 <StackPanel>
                     <Border Style="{StaticResource PanelCaptionStyle}">
@@ -62,11 +75,11 @@
                     <rvg:ExecutingQuestsOverview />
                 </StackPanel>
             </Border>
-            
+
         </StackPanel>
 
         <StackPanel Grid.Column="2" Grid.Row="1">
-            
+
             <Border Style="{StaticResource PanelBorderStyle}">
                 <StackPanel>
                     <Border Style="{StaticResource PanelCaptionStyle}">
@@ -76,7 +89,7 @@
                     <rvg:RepairDocks />
                 </StackPanel>
             </Border>
-            
+
             <Border Style="{StaticResource PanelBorderStyle}">
                 <StackPanel>
                     <Border Style="{StaticResource PanelCaptionStyle}">
@@ -86,7 +99,7 @@
                     <rvg:ConstructionDocks />
                 </StackPanel>
             </Border>
-            
+
         </StackPanel>
     </Grid>
 </UserControl>

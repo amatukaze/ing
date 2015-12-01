@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                     xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game">
-    
+
     <Style TargetType="{x:Type rc:ShipSlot}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
@@ -19,14 +19,18 @@
                                 <Border Background="Transparent">
                                     <Border.ToolTip>
                                         <ToolTip>
-                                            <TextBlock>
-                                                <Run Text="{Binding Equipment.Info.Name, Mode=OneWay}" />
-                                                <Run Text="{Binding Equipment.LevelText, Mode=OneWay}" /><Run Text="{Binding Equipment.ProficiencyText, Mode=OneWay}" />
-                                                [<Run Name="ToolTipPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
-                                            </TextBlock>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock>
+                                                    <Run Text="{Binding Equipment.Info.Name, Mode=OneWay}" />
+                                                    <Run Text="{Binding Equipment.LevelText, Mode=OneWay}" /><Run Text="{Binding Equipment.ProficiencyText, Mode=OneWay}" />
+                                                </TextBlock>
+                                                <TextBlock Name="ToolTipPlaneCount" Margin="4, 0, 0, 0">
+                                                    [<Run Name="ToolTipCurrentPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
+                                                </TextBlock>
+                                            </StackPanel>
                                         </ToolTip>
                                     </Border.ToolTip>
-                                    
+
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
@@ -48,17 +52,18 @@
                                     <DataTrigger Binding="{Binding Equipment.Level}" Value="10">
                                         <Setter TargetName="Level" Property="Text" Value="max" />
                                     </DataTrigger>
-                                    
+
                                     <DataTrigger Binding="{Binding Equipment.Proficiency}" Value="0">
                                         <Setter TargetName="Proficiency" Property="Visibility" Value="Hidden" />
                                     </DataTrigger>
 
                                     <DataTrigger Binding="{Binding Equipment.Info.IsPlane}" Value="False">
                                         <Setter TargetName="PlaneCount" Property="Opacity" Value=".25" />
+                                        <Setter TargetName="ToolTipPlaneCount" Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding HasLostPlane}" Value="True">
                                         <Setter TargetName="PlaneCount" Property="Foreground" Value="Red" />
-                                        <Setter TargetName="ToolTipPlaneCount" Property="Foreground" Value="Red" />
+                                        <Setter TargetName="ToolTipCurrentPlaneCount" Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
@@ -76,5 +81,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>

@@ -37,7 +37,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 }
             }
         }
-        
+
         public BrowserVolume(VolumeSession rpSession)
         {
             r_Session = rpSession;

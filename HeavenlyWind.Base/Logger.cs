@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze
                     r_Writer.WriteLine(rItem);
                     LogAdded(rItem);
                 }
-                
+
                 r_Writer.Flush();
             }
         }

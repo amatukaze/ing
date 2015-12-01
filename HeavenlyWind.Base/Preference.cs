@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public static Preference Current { get; private set; }
 
         static JsonSerializer r_Serializer = new JsonSerializer() { Formatting = Formatting.Indented };
-        
+
         public static void Load()
         {
             try
@@ -31,7 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             if (!Directory.Exists(rFolder))
                 Directory.CreateDirectory(rFolder);
-            
+
             using (var rJsonWriter = new JsonTextWriter(new StreamWriter(r_FilePath, false, new UTF8Encoding(true))))
                 r_Serializer.Serialize(rJsonWriter, Current);
         }

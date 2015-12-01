@@ -91,23 +91,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 UpdateShips();
             }
 
+            Update();
+        }
+
+        internal void Update()
+        {
             Status.Update();
             ExpeditionStatus.Update(RawData.Expedition);
 
-            UpdateState();
-        }
-        void UpdateShips()
-        {
-            Ships = r_ShipList.AsReadOnly();
-
-            ShipsUpdated(Ships);
-        }
-
-        void UpdateState()
-        {
             var rState = FleetState.None;
 
-            if (ExpeditionStatus.Expedition != null)
+            if (KanColleGame.Current.Sortie?.Fleet == this ||
+                KanColleGame.Current.Port.Fleets.CombinedFleetType != CombinedFleetType.None && KanColleGame.Current.Sortie?.Fleet.ID == 1 && ID == 2)
+                rState |= FleetState.Sortie;
+            else if (ExpeditionStatus.Expedition != null)
                 rState |= FleetState.Expedition;
             else
                 rState |= FleetState.Idle;
@@ -125,6 +122,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
 
             State = rState;
+        }
+
+        void UpdateShips()
+        {
+            Ships = r_ShipList.AsReadOnly();
+
+            ShipsUpdated(Ships);
         }
 
         public Ship Organize(int rpIndex, Ship rpShip)
@@ -155,7 +159,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             var rShip = r_ShipList[rpIndex];
             rShip.OwnerFleet = null;
-            
+
             r_ShipList.RemoveAt(rpIndex);
             r_ShipIDs = r_ShipList.Select(r => r.ID).ToArray();
 

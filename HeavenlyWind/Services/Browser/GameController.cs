@@ -36,43 +36,50 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 foreach (var rSession in VolumeManager.Instance.EnumerateSessions())
                     rSession.Dispose();
 
-                VolumeManager.Instance.NewSession += r =>
-                {
-                    var rHostProcessID = Process.GetCurrentProcess().Id;
-                    int? rProcessID = r.ProcessID;
-
-                    var rIsBrowserProcess = false;
-
-                    while (rProcessID.HasValue)
-                        using (var rManagementObject = new ManagementObject($"Win32_Process.Handle='{rProcessID.Value}'"))
-                            try
-                            {
-                                rManagementObject.Get();
-                                rProcessID = Convert.ToInt32(rManagementObject["ParentProcessId"]);
-
-                                if (rProcessID == rHostProcessID)
-                                {
-                                    rIsBrowserProcess = true;
-                                    break;
-                                }
-                            }
-                            catch (ManagementException e) when (e.ErrorCode == ManagementStatus.NotFound)
-                            {
-                                rProcessID = null;
-                            }
-
-                    if (!rIsBrowserProcess)
-                        return;
-
-                    Volume?.Dispose();
-                    Volume = new BrowserVolume(r);
-                };
-
+                VolumeManager.Instance.NewSession += VolumeManager_NewSession;
             }
 
-            MuteToggleCommand = new DelegatedCommand(() => Volume.IsMute = !Volume.IsMute, () => OS.IsWin7OrLater);
+            MuteToggleCommand = new DelegatedCommand(() =>
+            {
+                if (Volume != null)
+                    Volume.IsMute = !Volume.IsMute;
+            }, () => OS.IsWin7OrLater);
 
             RestartGameCommand = new DelegatedCommand(RestartGame);
+        }
+
+        void VolumeManager_NewSession(VolumeSession rpSession)
+        {
+            var rHostProcessID = Process.GetCurrentProcess().Id;
+            int? rProcessID = rpSession.ProcessID;
+
+            var rIsBrowserProcess = false;
+
+            while (rProcessID.HasValue)
+                using (var rManagementObject = new ManagementObject($"Win32_Process.Handle='{rProcessID.Value}'"))
+                    try
+                    {
+                        rManagementObject.Get();
+                        rProcessID = Convert.ToInt32(rManagementObject["ParentProcessId"]);
+
+                        if (rProcessID == rHostProcessID)
+                        {
+                            rIsBrowserProcess = true;
+                            break;
+                        }
+                    }
+                    catch (ManagementException e) when (e.ErrorCode == ManagementStatus.NotFound)
+                    {
+                        rProcessID = null;
+                    }
+
+            if (!rIsBrowserProcess)
+                return;
+
+            Volume?.Dispose();
+            Volume = new BrowserVolume(rpSession);
+
+            VolumeManager.Instance.NewSession -= VolumeManager_NewSession;
         }
 
         void RestartGame()

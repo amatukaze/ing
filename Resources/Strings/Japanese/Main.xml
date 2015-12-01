@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Strings CultureName="ja-JP" Name="日本語" Version="0.1">
 
+  <String Key="Feature_UnderConstruction">未実装</String>
+  <String Key="Feature_Filter">フィルター</String>
+  <String Key="Feature_Filter_All">すべて</String>
+
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_Exception_API_Failed">API「{0}」のエラーコードを受信しました: {1}</String>
   <String Key="Log_Exception_API_ParseException">API の解析中にエラーが発生しました: {0}</String>
@@ -8,16 +12,20 @@
   <String Key="Log_StartConstruction">「{0}」の建造を開始しました。(投入した資材:{1}/{2}/{3}/{4}-{5})</String>
   <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
-  
+  <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
+  <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3}{4})」へ出撃しました</String>
+  <String Key="Log_Ship_Dropped">「{0}」がドロップしました</String>
+
   <String Key="Expedition_Result_Failure">失敗</String>
   <String Key="Expedition_Result_Success">成功</String>
   <String Key="Expedition_Result_GreatSuccess">大成功</String>
-  
+
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
+  <String Key="Tab_Sortie">出撃</String>
   <String Key="Tab_Quests">任務</String>
   <String Key="Tab_Tools">ツール</String>
-  
+
   <String Key="Overview_Headquarter">司令部</String>
   <String Key="Overview_Headquarter_Ships">艦娘</String>
   <String Key="Overview_Headquarter_Equipments">装備</String>
@@ -33,6 +41,7 @@
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
   <String Key="Overview_Fleets">艦隊一覧</String>
   <String Key="Overview_Fleets_Idle">待機中</String>
+  <String Key="Overview_Fleets_Sortie">出撃中</String>
   <String Key="Overview_Fleets_Unsupplied">未補給</String>
   <String Key="Overview_Fleets_HeavilyDamaged">大破艦がいます</String>
   <String Key="Overview_Fleets_Expedition_TimeToComplete">完了時刻</String>
@@ -44,11 +53,37 @@
   <String Key="Overview_ConstructionDocks_TimeToComplete">完了時刻</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
   <String Key="Overview_ExecutingQuests">遂行中の任務</String>
-  
+  <String Key="Overview_EquipmentOverview">艦娘一覧</String>
+  <String Key="Overview_ShipOverview">装備一覧</String>
+
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
   <String Key="Fleet_AA">対空</String>
-  
+
+  <String Key="Material_Fuel">燃料</String>
+  <String Key="Material_Bullet">弾薬</String>
+  <String Key="Material_Steel">鋼材</String>
+  <String Key="Material_Bauxite">ボーキサイト</String>
+  <String Key="Material_InstantConstruction">高速建造材</String>
+  <String Key="Material_Bucket">高速修復材</String>
+  <String Key="Material_DevelopmentMaterial">開発資材</String>
+  <String Key="Material_ImprovementMaterial">改修資材</String>
+
+  <String Key="Sortie_Cell">セル</String>
+  <String Key="Sortie_Event_Unknown">不明</String>
+  <String Key="Sortie_Event_Reward">資源</String>
+  <String Key="Sortie_Event_Whirlpool">渦潮</String>
+  <String Key="Sortie_Event_NormalBattle">通常戦闘</String>
+  <String Key="Sortie_Event_BossBattle">ボス戦闘</String>
+  <String Key="Sortie_Event_NothingHappened">戦闘なし</String>
+  <String Key="Sortie_Event_AviationReconnaissance">航空偵察</String>
+  <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
+  <String Key="Sortie_Event_Landing">揚陸</String>
+
+  <String Key="Map_Difficulty_Easy">丙</String>
+  <String Key="Map_Difficulty_Normal">乙</String>
+  <String Key="Map_Difficulty_Hard">甲</String>
+
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>
@@ -61,10 +96,12 @@
   <String Key="Quest_Category_Arsenal">工廠</String>
   <String Key="Quest_Category_Modernization">改装</String>
   <String Key="Quest_State_Completed">達成</String>
-  
+
   <String Key="Window_Preferences">設定</String>
+  <String Key="Window_EquipmentOverview">装備一覧</String>
+  <String Key="Window_ShipOverview">艦娘一覧</String>
   <String Key="Window_ClosingConfirmation">HeavenlyWind を終了しますか？</String>
-  
+
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
@@ -81,11 +118,40 @@
   <String Key="PreferenceWindow_Browser_Homepage">ホームページ</String>
   <String Key="PreferenceWindow_Browser_ClearCache">キャッシュの削除</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">キャッシュとクッキーの削除</String>
+  <String Key="PreferenceWindow_Browser_Flash">Flash の設定</String>
+  <String Key="PreferenceWindow_Browser_Flash_Quality">品質</String>
+  <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
-  
+
   <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
   <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
-  
+
+  <String Key="Screenshot_Failed">スクリーンショットの保存に失敗しました</String>
+  <String Key="Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
+  <String Key="Screenshot_Succeeded_File">スクリーンショットを保存しました:{0}</String>
+
+  <String Key="EquipmentOverview_Name">装備名</String>
+  <String Key="EquipmentOverview_TotalCount">合計</String>
+  <String Key="EquipmentOverview_Remaining">余り</String>
+  <String Key="EquipmentOverview_Level">改修度</String>
+  <String Key="EquipmentOverview_Proficiency">熟練度</String>
+  <String Key="EquipmentOverview_EquippedCount">持有数</String>
+  <String Key="EquipmentOverview_EquippedShip">装備している艦娘</String>
+
+  <String Key="ShipOverview_Type">艦種</String>
+  <String Key="ShipOverview_Name">艦名</String>
+  <String Key="ShipOverview_Level">レベル</String>
+  <String Key="ShipOverview_Condition">Cond.</String>
+  <String Key="ShipOverview_Firepower">火力</String>
+  <String Key="ShipOverview_Torpedo">雷装</String>
+  <String Key="ShipOverview_AA">対空</String>
+  <String Key="ShipOverview_Armor">装甲</String>
+  <String Key="ShipOverview_Luck">運</String>
+  <String Key="ShipOverview_Evasion">回避</String>
+  <String Key="ShipOverview_ASW">対潜</String>
+  <String Key="ShipOverview_LoS">索敵</String>
+  <String Key="ShipOverview_Equipment">装備</String>
+
 </Strings>

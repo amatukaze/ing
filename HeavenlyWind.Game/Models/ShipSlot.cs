@@ -21,7 +21,7 @@
                 }
             }
         }
-        public bool HasLostPlane => r_PlaneCount != MaxPlaneCount;
+        public bool HasLostPlane => r_PlaneCount < MaxPlaneCount;
 
         internal ShipSlot(Equipment rpEquipment, int rpMaxPlaneCount, int rpPlaneCount)
         {

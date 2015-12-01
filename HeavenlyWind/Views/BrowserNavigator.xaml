@@ -1,12 +1,12 @@
 ﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.BrowserNavigator"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rbe="clr-namespace:Sakuno.KanColle.Amatsukaze.Behaviors"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              DataContext="{Binding Navigator}"
              Visibility="{Binding IsNavigatorVisible, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToVisibilityConverter}}"
              d:DesignWidth="300">
@@ -20,7 +20,7 @@
             <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}" />
         </Style>
     </UserControl.Resources>
-    
+
     <DockPanel Height="30">
         <Button Style="{StaticResource NavigatorButton}" Command="{Binding GoBackCommand}" IsEnabled="{Binding CanGoBack}">
             <Path Style="{StaticResource NavigatorButtonIcon}" Data="M0,120 120,240 205,240 110,150 300,150 300,90 110,90 205,0 120,0 z" />
@@ -38,7 +38,7 @@
             <TextBox.InputBindings>
                 <KeyBinding Key="Return" Command="{Binding NavigateCommand}" />
             </TextBox.InputBindings>
-            
+
             <i:Interaction.Behaviors>
                 <rbe:TextBoxLoseFocusAfterPressingEnterBehavior />
             </i:Interaction.Behaviors>

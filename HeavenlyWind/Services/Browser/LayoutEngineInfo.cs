@@ -12,5 +12,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         [JsonProperty("entry")]
         public string EntryFile { get; set; }
+
+        [JsonProperty("dependencies")]
+        public LayoutEngineDependency[] Dependencies { get; set; }
     }
 }

@@ -14,8 +14,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int SortNumber => RawData.SortNumber;
 
         public int Level => RawData.Level;
-        
-        public int Condition => RawData.Condition;
+
+        int r_Condition;
+        public int Condition
+        {
+            get { return r_Condition; }
+            internal set
+            {
+                if (r_Condition != value)
+                {
+                    r_Condition = value;
+                    OnPropertyChanged(nameof(Condition));
+                    OnPropertyChanged(nameof(ConditionType));
+                }
+            }
+        }
         public ShipConditionType ConditionType
         {
             get
@@ -27,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 return ShipConditionType.SeriouslyTired;
             }
         }
-        
+
         public bool IsLocked => RawData.IsLocked;
 
         public int LockingTag => RawData.LockingTag;
@@ -59,11 +72,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
             }
         }
+
         ClampedValue r_Fuel;
         public ClampedValue Fuel
         {
             get { return r_Fuel; }
-            private set
+            internal set
             {
                 if (r_Fuel != value)
                 {
@@ -76,7 +90,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ClampedValue Bullet
         {
             get { return r_Bullet; }
-            private set
+            internal set
             {
                 if (r_Bullet != value)
                 {
@@ -158,20 +172,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         protected override void OnRawDataUpdated()
         {
             ShipInfo rInfo;
-            if (KanColleGame.Current.MasterInfo.Ships.TryGetValue(RawData.ShipID, out rInfo))
-                Info = rInfo;
-            else
+            if (!KanColleGame.Current.MasterInfo.Ships.TryGetValue(RawData.ShipID, out rInfo))
                 Info = ShipInfo.Dummy;
+            else
+            {
+                r_EquipmentIDs = null;
+                Info = rInfo;
+            }
 
             HP = new ClampedValue(RawData.HPMaximum, RawData.HPCurrent);
             Fuel = new ClampedValue(Info.MaxFuelConsumption, RawData.Fuel);
             Bullet = new ClampedValue(Info.MaxBulletConsumption, RawData.Bullet);
+
+            Condition = RawData.Condition;
 
             if (RawData.ModernizedStatus?.Length >= 5)
                 Status.Update(Info, RawData);
 
             if (RawData.Equipments != null)
                 UpdateSlots();
+
+            OnPropertyChanged(nameof(Level));
+            OnPropertyChanged(nameof(ExperienceToNextLevel));
         }
 
         void UpdateSlots()
@@ -183,8 +205,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 r_EquipmentIDs = RawData.Equipments;
                 Slots = RawData.Equipments.Take(RawData.EquipmentCount)
                     .Zip(RawData.PlaneCountInSlot.Zip(Info.PlaneCountInSlot, (rpCount, rpMaxCount) => new { Count = rpCount, MaxCount = rpMaxCount }),
-                        (rpID, rpPlane) => new ShipSlot(rpID != -1 ? KanColleGame.Current.Port.Equipments[rpID] : Equipment.Dummy, rpPlane.Count, rpPlane.MaxCount))
-                        .ToArray().AsReadOnly();
+                        (rpID, rpPlane) =>
+                        {
+                            Equipment rEquipment;
+                            if (rpID == -1)
+                                rEquipment = Equipment.Dummy;
+                            else if (!KanColleGame.Current.Port.Equipments.TryGetValue(rpID, out rEquipment))
+                                KanColleGame.Current.Port.Equipments.Add(rEquipment = new Equipment(new RawEquipment() { ID = rpID, EquipmentID = -1 }));
+
+                            return new ShipSlot(rEquipment, rpPlane.MaxCount, rpPlane.Count);
+                        }).ToArray().AsReadOnly();
 
                 rUpdateList = true;
             }
@@ -202,12 +232,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (rUpdateList)
             {
                 var rList = Slots.Where(r => r.HasEquipment).Select(r => r.Equipment);
-                if (ExtraSlot != null)
+                if (ExtraSlot != null && ExtraSlot.HasEquipment)
                     rList = rList.Concat(new[] { ExtraSlot.Equipment });
 
                 Equipments = rList.ToArray().AsReadOnly();
                 rUpdateList = false;
             }
+        }
+
+        internal void Repair(bool rpInstantRepair)
+        {
+            if (!rpInstantRepair)
+                State |= ShipState.Repairing;
+            else
+            {
+                HP = HP.Update(HP.Maximum);
+
+                if (Condition < 40)
+                    Condition = 40;
+            }
+        }
+
+        internal void UpdateEquipmentIDs(int[] rpEquipmentIDs)
+        {
+            RawData.Equipments = rpEquipmentIDs;
+            UpdateSlots();
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Info.Name}\", Type = \"{Info.Type.Name}\", Level = {Level}";
