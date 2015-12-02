@@ -53,8 +53,8 @@
   <String Key="Overview_ConstructionDocks_TimeToComplete">完了時刻</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
   <String Key="Overview_ExecutingQuests">遂行中の任務</String>
-  <String Key="Overview_EquipmentOverview">艦娘一覧</String>
-  <String Key="Overview_ShipOverview">装備一覧</String>
+  <String Key="Overview_EquipmentOverview">装備一覧</String>
+  <String Key="Overview_ShipOverview">艦娘一覧</String>
 
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
