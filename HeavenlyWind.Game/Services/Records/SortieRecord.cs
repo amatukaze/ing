@@ -9,9 +9,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class SortieRecord : RecordBase
     {
+        const int RETURN_CELL_ID = -1;
+        enum ReturnReason { DeadEnd, Retreat, RetreatWithHeavilyDamagedShip, Unexpected }
+
         public override string GroupName => "sortie";
 
         long? r_CurrentSortieID;
+        bool r_IsDeadEnd;
 
         IDisposable r_CellSubscription;
 
@@ -19,9 +23,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_map/start", StartSortie));
 
+            DisposableObjects.Add(SessionService.Instance.Subscribe("api_start2", _ => ProcessReturn(ReturnReason.Unexpected)));
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", _ =>
             {
                 r_CellSubscription?.Dispose();
+
+                ReturnReason rType;
+
+                if (r_IsDeadEnd)
+                    rType = ReturnReason.DeadEnd;
+                else
+                    rType = ReturnReason.Retreat;
+
+                ProcessReturn(rType);
             }));
         }
 
@@ -66,6 +80,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
+        protected override void Load() => ProcessUnexpectedReturn();
+
         void StartSortie(ApiData rpData)
         {
             var rSortie = KanColleGame.Current.Sortie;
@@ -108,6 +124,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                 rTransaction.Commit();
             }
+
+            r_IsDeadEnd = rpSortie.Cell.IsDeadEnd;
         }
         void InsertCellInfo(int rpMapID, SortieCellInfo rpCell)
         {
@@ -132,6 +150,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.Parameters.AddWithValue("@extra_info", rpExtraInfo);
 
                 rCommand.ExecuteNonQuery();
+            }
+        }
+
+        void InsertReturnRecord(long rpSortieID, ReturnReason rpType) => InsertRecord(rpSortieID, RETURN_CELL_ID, (int)rpType);
+        void ProcessUnexpectedReturn()
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "INSERT OR IGNORE INTO sortie_detail(id, cell, extra_info) VALUES((SELECT MAX(id) FROM sortie), -1, @return_reason);";
+                rCommand.Parameters.AddWithValue("@return_reason", (int)ReturnReason.Unexpected);
+
+                rCommand.ExecuteNonQuery();
+            }
+        }
+        void ProcessReturn(ReturnReason rpType)
+        {
+            if (r_CurrentSortieID.HasValue)
+            {
+                InsertReturnRecord(r_CurrentSortieID.Value, rpType);
+
+                r_CurrentSortieID = null;
             }
         }
 

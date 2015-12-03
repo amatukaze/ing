@@ -12,6 +12,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int EventSubType { get; }
         public SortieEvent Event { get; }
 
+        public bool IsDeadEnd { get; }
+
         internal SortieCellInfo(RawMapExploration rpData)
         {
             ID = rpData.Cell;
@@ -49,6 +51,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     break;
 
             }
+
+            IsDeadEnd = rpData.NextRouteCount == 0;
         }
     }
 }
