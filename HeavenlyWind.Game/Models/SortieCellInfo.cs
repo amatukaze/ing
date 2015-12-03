@@ -9,12 +9,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal int InternalID { get; set; }
 
         public SortieEventType EventType { get; }
+        public int EventSubType { get; }
         public SortieEvent Event { get; }
 
         internal SortieCellInfo(RawMapExploration rpData)
         {
             ID = rpData.Cell;
             EventType = rpData.CellEventType;
+            EventSubType = rpData.CellEventSubType;
 
             switch (EventType)
             {
