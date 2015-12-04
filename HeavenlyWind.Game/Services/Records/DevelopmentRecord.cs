@@ -50,7 +50,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.Parameters.AddWithValue("@steel", rpSteel);
                 rCommand.Parameters.AddWithValue("@bauxite", rpBauxite);
                 rCommand.Parameters.AddWithValue("@flagship", KanColleGame.Current.Port.Fleets[1].Ships[0].Info.ID);
-                rCommand.Parameters.AddWithValue("@hq", KanColleGame.Current.Port.Admiral.Level);
+                rCommand.Parameters.AddWithValue("@hq_level", KanColleGame.Current.Port.Admiral.Level);
 
                 rCommand.ExecuteNonQuery();
             }
