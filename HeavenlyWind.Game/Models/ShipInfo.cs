@@ -28,6 +28,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        public int Rarity => RawData.Rarity;
+
         #region Paramater
 
         public int HPMinimum => RawData.HP[0];

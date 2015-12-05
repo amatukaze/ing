@@ -106,9 +106,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             internal RecordItem(DbDataReader rpReader)
             {
                 Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
-                if (rpReader["equipment"] != DBNull.Value)
+                var rEquipmentID = rpReader["equipment"];
+                if (rEquipmentID != DBNull.Value)
                 {
-                    Equipment = KanColleGame.Current.MasterInfo.Equipments[Convert.ToInt32(rpReader["equipment"])];
+                    Equipment = KanColleGame.Current.MasterInfo.Equipments[Convert.ToInt32(rEquipmentID)];
                     IsRareEquipment = Equipment.Rarity >= 3;
                 }
 

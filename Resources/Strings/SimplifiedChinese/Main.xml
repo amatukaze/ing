@@ -100,6 +100,7 @@
   <String Key="Window_Preferences">设置</String>
   <String Key="Window_EquipmentOverview">装备一览</String>
   <String Key="Window_ShipOverview">舰娘一览</String>
+  <String Key="Window_ConstructionHistory">建造历史</String>
   <String Key="Window_DevelopmentHistory">开发历史</String>
   <String Key="Window_ClosingConfirmation">要关闭 HeavenlyWind 吗？</String>
 
@@ -157,6 +158,8 @@
 
   <String Key="Record_Time">时间</String>
   <String Key="Record_SecretaryShip">秘书舰</String>
+
+  <String Key="ConstructionHistory_Ship">舰娘</String>
 
   <String Key="DevelopmentHistory_Equipment">装备</String>
 
