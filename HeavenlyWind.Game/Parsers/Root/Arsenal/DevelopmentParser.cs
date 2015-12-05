@@ -15,13 +15,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
 
             string rLogContent;
             if (!rpData.Success)
-                rLogContent = StringResources.Instance.Main.Log_Development_Failure;
+                rLogContent = string.Format(StringResources.Instance.Main.Log_Development_Failure,
+                    rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             else
             {
                 Game.Port.AddEquipment(new Equipment(new RawEquipment() { ID = rpData.Result.ID, EquipmentID = rpData.Result.EquipmentID }));
 
                 rLogContent = string.Format(StringResources.Instance.Main.Log_Development_Success,
-                    Game.MasterInfo.Equipments[rpData.Result.ID].Name, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
+                    Game.MasterInfo.Equipments[rpData.Result.EquipmentID].Name, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             }
 
             Logger.Write(LoggingLevel.Info, rLogContent);

@@ -186,6 +186,7 @@
     <Compile Include="Services\Records\RecordBaseExtension.cs" />
     <Compile Include="Services\Records\ResourcesRecord.cs" />
     <Compile Include="Services\Records\ShipsRecord.cs" />
+    <Compile Include="Services\Records\SortieRecord.cs" />
     <Compile Include="Services\SessionService.cs" />
   </ItemGroup>
   <ItemGroup>

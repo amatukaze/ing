@@ -104,6 +104,14 @@
 
             <TabItem>
                 <TabItem.Header>
+                    <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Language}" FontSize="14" />
+                </TabItem.Header>
+
+                <rvp:Language />
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
                     <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Notification}" FontSize="14" />
                 </TabItem.Header>
 
