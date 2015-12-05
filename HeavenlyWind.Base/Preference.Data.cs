@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Version { get; } = ProductInfo.AssemblyVersionString;
 
         [JsonProperty("language")]
-        public string Language { get; set; } = StringResources.GetDefaultLanguage();
+        public string Language { get; set; } = StringResources.GetDefaultLanguage().Directory;
 
         [JsonProperty("firstrun")]
         public bool FirstRun { get; set; } = true;

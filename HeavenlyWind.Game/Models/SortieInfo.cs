@@ -10,22 +10,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         static SortieInfo r_Current;
 
+        public long ID { get; } = (long)DateTimeOffset.Now.ToUnixTime();
+
         public Fleet Fleet { get; }
         public MapInfo Map { get; }
 
-        SortieCellInfo r_Cell;
-        public SortieCellInfo Cell
-        {
-            get { return r_Cell; }
-            private set
-            {
-                if (r_Cell != value)
-                {
-                    r_Cell = value;
-                    OnPropertyChanged(nameof(Cell));
-                }
-            }
-        }
+        public SortieCellInfo Cell { get; private set; }
 
         int r_PendingShipCount;
         public int PendingShipCount
@@ -45,7 +35,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
 
-            Action<ApiData> rExplorationParser = r => r_Current?.Explore(r.Requests, r.GetData<RawMapExploration>());
+            Action<ApiData> rExplorationParser = r => r_Current?.Explore(r.Requests, (RawMapExploration)r.Data);
             SessionService.Instance.Subscribe("api_req_map/start", rExplorationParser);
             SessionService.Instance.Subscribe("api_req_map/next", rExplorationParser);
 
@@ -76,11 +66,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Cell = new SortieCellInfo(rpData);
 
             var rDifficulty = Map.Difficulty;
-            if (rDifficulty.HasValue)
+            if (!rDifficulty.HasValue)
+                Cell.InternalID = Cell.ID;
+            else
             {
                 var rDifficultyCount = Enum.GetNames(typeof(EventMapDifficulty)).Length - 1;
-                Cell.InternalID = Cell.ID * rDifficultyCount  + (int)rDifficulty.Value - 3;
+                Cell.InternalID = Cell.ID * rDifficultyCount + (int)rDifficulty.Value - 3;
             }
+
+            OnPropertyChanged(nameof(Cell));
         }
     }
 }

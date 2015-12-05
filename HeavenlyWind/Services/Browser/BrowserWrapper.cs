@@ -48,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                 string rPath;
                 if (r_LayoutEngineDependencies != null && r_LayoutEngineDependencies.TryGetValue(rName, out rPath))
-                    return Assembly.LoadFile(rPath);
+                    return Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rPath));
 
                 return null;
             };
@@ -69,6 +69,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                     InitializeBrowserControl();
                     r_Container.Content = r_Browser;
+                }
+                catch (ReflectionTypeLoadException e)
+                {
+                    r_Container.Content = e.LoaderExceptions[0].ToString();
                 }
                 catch (Exception e)
                 {
@@ -113,6 +117,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             {
                 r_Container.Width = GameConstants.GameWidth * r_Zoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
                 r_Container.Height = GameConstants.GameHeight * r_Zoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
+                r_Communicator.Write(CommunicatorMessages.InvalidateArrange);
             });
 
             InitializeScreenshotMessagesSubscription();
@@ -203,7 +208,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 using (var rStream = rMemoryMappedFile.CreateViewStream())
                     rStream.Write(rScreenshotData.BitmapData, 0, rScreenshotData.BitmapData.Length);
 
-                r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{MapName};{rScreenshotData.Width};{rScreenshotData.Height}");
+                r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{MapName};{rScreenshotData.Width};{rScreenshotData.Height};{rScreenshotData.BitCount}");
 
                 return rMemoryMappedFile;
             });

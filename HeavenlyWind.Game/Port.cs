@@ -60,6 +60,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Fleets.Update(rData.Fleets);
             });
 
+            SessionService.Instance.Subscribe("api_req_kaisou/slot_exchange_index", r =>
+            {
+                Ship rShip;
+                if (Ships.TryGetValue(int.Parse(r.Requests["api_id"]), out rShip))
+                    rShip.UpdateEquipmentIDs(r.GetData<RawEquipmentIDs>().EquipmentIDs);
+            });
+
             SessionService.Instance.Subscribe("api_req_kousyou/destroyship", r =>
             {
                 var rShip = Ships[int.Parse(r.Requests["api_ship_id"])];

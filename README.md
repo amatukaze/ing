@@ -3,7 +3,7 @@
 艦これ補助ツール
 
 ### Updated
-**0.1 (Divinium)** First version
+**0.1.2 (Eis)** Third version
 
 ### Lincense
 The MIT License (MIT)

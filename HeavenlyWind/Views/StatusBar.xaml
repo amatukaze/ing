@@ -7,7 +7,7 @@
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
              mc:Ignorable="d"
              DataContext="{Binding Source={x:Static rs:StatusBarService.Instance}}"
-             d:DesignWidth="800" d:DesignHeight="23" >
+             d:DesignWidth="800" d:DesignHeight="23">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -37,7 +37,26 @@
                     </TextBlock>
                 </StackPanel>
 
-                <TextBlock Text="{Binding Message}" TextWrapping="NoWrap" />
+                <TextBlock Text="{Binding Message}" TextWrapping="NoWrap">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMessageObsolete}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Name="Akarin">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.5" Duration="0:0:0.5"  />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="Akarin" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </DockPanel>
         </DockPanel>
 

@@ -57,6 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_ConstructionDocks_TimeToComplete => GetString(nameof(Overview_ConstructionDocks_TimeToComplete));
         public string Overview_ConstructionDocks_MaterialConsumption => GetString(nameof(Overview_ConstructionDocks_MaterialConsumption));
         public string Overview_ExecutingQuests => GetString(nameof(Overview_ExecutingQuests));
+        public string Overview_EquipmentOverview => GetString(nameof(Overview_EquipmentOverview));
+        public string Overview_ShipOverview => GetString(nameof(Overview_ShipOverview));
 
         public string Fleet_TotalLevel => GetString(nameof(Fleet_TotalLevel));
         public string Fleet_LoS => GetString(nameof(Fleet_LoS));
@@ -101,6 +103,9 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Window_Preferences => GetString(nameof(Window_Preferences));
         public string Window_EquipmentOverview => GetString(nameof(Window_EquipmentOverview));
+        public string Window_ShipOverview => GetString(nameof(Window_ShipOverview));
+        public string Window_ConstructionHistory => GetString(nameof(Window_ConstructionHistory));
+        public string Window_DevelopmentHistory => GetString(nameof(Window_DevelopmentHistory));
         public string Window_ClosingConfirmation => GetString(nameof(Window_ClosingConfirmation));
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
@@ -114,6 +119,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Cache_Mode_CheckVersion => GetString(nameof(PreferenceWindow_Cache_Mode_CheckVersion));
         public string PreferenceWindow_Cache_Path => GetString(nameof(PreferenceWindow_Cache_Path));
         public string PreferenceWindow_Notification => GetString(nameof(PreferenceWindow_Notification));
+        public string PreferenceWindow_Language => GetString(nameof(PreferenceWindow_Language));
         public string PreferenceWindow_Browser => GetString(nameof(PreferenceWindow_Browser));
         public string PreferenceWindow_Browser_LayoutEngine => GetString(nameof(PreferenceWindow_Browser_LayoutEngine));
         public string PreferenceWindow_Browser_Homepage => GetString(nameof(PreferenceWindow_Browser_Homepage));
@@ -129,6 +135,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ValidationRule_NumberLessThanMinimum => GetString(nameof(ValidationRule_NumberLessThanMinimum));
         public string ValidationRule_NumberGreaterThanMaximum => GetString(nameof(ValidationRule_NumberGreaterThanMaximum));
 
+        public string Screenshot_Failed => GetString(nameof(Screenshot_Failed));
+        public string Screenshot_Succeeded_Clipboard => GetString(nameof(Screenshot_Succeeded_Clipboard));
+        public string Screenshot_Succeeded_File => GetString(nameof(Screenshot_Succeeded_File));
+
         public string EquipmentOverview_Name => GetString(nameof(EquipmentOverview_Name));
         public string EquipmentOverview_TotalCount => GetString(nameof(EquipmentOverview_TotalCount));
         public string EquipmentOverview_Remaining => GetString(nameof(EquipmentOverview_Remaining));
@@ -136,6 +146,27 @@ namespace Sakuno.KanColle.Amatsukaze
         public string EquipmentOverview_Proficiency => GetString(nameof(EquipmentOverview_Proficiency));
         public string EquipmentOverview_EquippedCount => GetString(nameof(EquipmentOverview_EquippedCount));
         public string EquipmentOverview_EquippedShip => GetString(nameof(EquipmentOverview_EquippedShip));
+
+        public string ShipOverview_Type => GetString(nameof(ShipOverview_Type));
+        public string ShipOverview_Name => GetString(nameof(ShipOverview_Name));
+        public string ShipOverview_Level => GetString(nameof(ShipOverview_Level));
+        public string ShipOverview_Condition => GetString(nameof(ShipOverview_Condition));
+        public string ShipOverview_Firepower => GetString(nameof(ShipOverview_Firepower));
+        public string ShipOverview_Torpedo => GetString(nameof(ShipOverview_Torpedo));
+        public string ShipOverview_AA => GetString(nameof(ShipOverview_AA));
+        public string ShipOverview_Armor => GetString(nameof(ShipOverview_Armor));
+        public string ShipOverview_Luck => GetString(nameof(ShipOverview_Luck));
+        public string ShipOverview_Evasion => GetString(nameof(ShipOverview_Evasion));
+        public string ShipOverview_ASW => GetString(nameof(ShipOverview_ASW));
+        public string ShipOverview_LoS => GetString(nameof(ShipOverview_LoS));
+        public string ShipOverview_Equipment => GetString(nameof(ShipOverview_Equipment));
+
+        public string Record_Time => GetString(nameof(Record_Time));
+        public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));
+
+        public string ConstructionHistory_Ship => GetString(nameof(ConstructionHistory_Ship));
+
+        public string DevelopmentHistory_Equipment => GetString(nameof(DevelopmentHistory_Equipment));
 
     }
 }

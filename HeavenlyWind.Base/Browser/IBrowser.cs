@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Browser
 
         void Refresh();
 
-        void SetZoom(double rpZoom);
+        void SetZoom(double rpPercentage);
 
         ScreenshotData TakeScreenshot();
     }

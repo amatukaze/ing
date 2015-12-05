@@ -150,6 +150,7 @@
     <Compile Include="Models\Raw\RawBattleResult.cs" />
     <Compile Include="Models\Raw\RawConstructionDock.cs" />
     <Compile Include="Models\Raw\RawEquipmentDevelopment.cs" />
+    <Compile Include="Models\Raw\RawEquipmentIDs.cs" />
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
     <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Services\Records\RecordBaseExtension.cs" />
     <Compile Include="Services\Records\ResourcesRecord.cs" />
     <Compile Include="Services\Records\ShipsRecord.cs" />
+    <Compile Include="Services\Records\SortieRecord.cs" />
     <Compile Include="Services\SessionService.cs" />
   </ItemGroup>
   <ItemGroup>

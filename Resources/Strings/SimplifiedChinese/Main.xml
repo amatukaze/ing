@@ -53,6 +53,8 @@
   <String Key="Overview_ConstructionDocks_TimeToComplete">完成时间</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入的资材</String>
   <String Key="Overview_ExecutingQuests">执行中的任务</String>
+  <String Key="Overview_EquipmentOverview">装备一览</String>
+  <String Key="Overview_ShipOverview">舰娘一览</String>
 
   <String Key="Fleet_TotalLevel">总等级</String>
   <String Key="Fleet_LoS">索敌</String>
@@ -76,7 +78,6 @@
   <String Key="Sortie_Event_NothingHappened">无战斗</String>
   <String Key="Sortie_Event_AviationReconnaissance">航空侦查</String>
   <String Key="Sortie_Event_EscortSuccess">护送成功</String>
-  <String Key="Sortie_Event_Reward">资源</String>
   <String Key="Sortie_Event_Landing">登陆</String>
 
   <String Key="Map_Difficulty_Easy">丙</String>
@@ -98,6 +99,9 @@
 
   <String Key="Window_Preferences">设置</String>
   <String Key="Window_EquipmentOverview">装备一览</String>
+  <String Key="Window_ShipOverview">舰娘一览</String>
+  <String Key="Window_ConstructionHistory">建造历史</String>
+  <String Key="Window_DevelopmentHistory">开发历史</String>
   <String Key="Window_ClosingConfirmation">要关闭 HeavenlyWind 吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
@@ -111,6 +115,7 @@
   <String Key="PreferenceWindow_Cache_Mode_CheckVersion">校验文件版本</String>
   <String Key="PreferenceWindow_Cache_Path">路径</String>
   <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Language">语言</String>
   <String Key="PreferenceWindow_Browser">浏览器</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">排版引擎</String>
   <String Key="PreferenceWindow_Browser_Homepage">首页</String>
@@ -126,6 +131,10 @@
   <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">必须小于等于 {0}</String>
 
+  <String Key="Screenshot_Failed">截图失败</String>
+  <String Key="Screenshot_Succeeded_Clipboard">已截图到剪贴板</String>
+  <String Key="Screenshot_Succeeded_File">已保存截图:{0}</String>
+
   <String Key="EquipmentOverview_Name">装备名</String>
   <String Key="EquipmentOverview_TotalCount">总数</String>
   <String Key="EquipmentOverview_Remaining">剩余</String>
@@ -133,5 +142,26 @@
   <String Key="EquipmentOverview_Proficiency">熟练度</String>
   <String Key="EquipmentOverview_EquippedCount">持有数</String>
   <String Key="EquipmentOverview_EquippedShip">装备的舰娘</String>
+
+  <String Key="ShipOverview_Type">舰种</String>
+  <String Key="ShipOverview_Name">舰名</String>
+  <String Key="ShipOverview_Level">等级</String>
+  <String Key="ShipOverview_Condition">Cond.</String>
+  <String Key="ShipOverview_Firepower">火力</String>
+  <String Key="ShipOverview_Torpedo">雷装</String>
+  <String Key="ShipOverview_AA">对空</String>
+  <String Key="ShipOverview_Armor">装甲</String>
+  <String Key="ShipOverview_Luck">运</String>
+  <String Key="ShipOverview_Evasion">回避</String>
+  <String Key="ShipOverview_ASW">对潜</String>
+  <String Key="ShipOverview_LoS">索敌</String>
+  <String Key="ShipOverview_Equipment">装备</String>
+
+  <String Key="Record_Time">时间</String>
+  <String Key="Record_SecretaryShip">秘书舰</String>
+
+  <String Key="ConstructionHistory_Ship">舰娘</String>
+
+  <String Key="DevelopmentHistory_Equipment">装备</String>
 
 </Strings>
