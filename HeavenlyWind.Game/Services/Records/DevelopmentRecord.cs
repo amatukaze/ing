@@ -1,10 +1,18 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SQLite;
+using System.Reactive.Subjects;
+using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class DevelopmentRecord : RecordBase
     {
+        public static Subject<RecordItem> NewRecord { get; } = new Subject<RecordItem>();
+
         public override string GroupName => "development";
 
         internal DevelopmentRecord(SQLiteConnection rpConnection) : base(rpConnection)
@@ -38,21 +46,96 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void InsertRecord(RawEquipmentDevelopment rpData, int rpFuel, int rpBullet, int rpSteel, int rpBauxite)
+        public async Task<List<RecordItem>> LoadRecordsAsync()
         {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT * FROM development ORDER BY time DESC;";
+
+                using (var rReader = await rCommand.ExecuteReaderAsync())
+                {
+                    var rResult = new List<RecordItem>(rReader.VisibleFieldCount);
+
+                    while (rReader.Read())
+                        rResult.Add(new RecordItem(rReader));
+
+                    return rResult;
+                }
+            }
+        }
+
+        void InsertRecord(RawEquipmentDevelopment rpData, int rpFuelConsumption, int rpBulletConsumption, int rpSteelConsumption, int rpBauxiteConsumption)
+        {
+            var rEquipmentID = rpData.Success ? rpData.Result.EquipmentID : (int?)null;
+            var rSecretaryShip = KanColleGame.Current.Port.Fleets[1].Ships[0].Info;
+            var rHeadquarterLevel = KanColleGame.Current.Port.Admiral.Level;
+
             using (var rCommand = Connection.CreateCommand())
             {
                 rCommand.CommandText = "INSERT INTO development(time, equipment, fuel, bullet, steel, bauxite, flagship, hq_level) " +
                     "VALUES(strftime('%s', 'now'), @equipment, @fuel, @bullet, @steel, @bauxite, @flagship, @hq_level);";
-                rCommand.Parameters.AddWithValue("@equipment", rpData.Success ? rpData.Result.EquipmentID : (int?)null);
-                rCommand.Parameters.AddWithValue("@fuel", rpFuel);
-                rCommand.Parameters.AddWithValue("@bullet", rpBullet);
-                rCommand.Parameters.AddWithValue("@steel", rpSteel);
-                rCommand.Parameters.AddWithValue("@bauxite", rpBauxite);
-                rCommand.Parameters.AddWithValue("@flagship", KanColleGame.Current.Port.Fleets[1].Ships[0].Info.ID);
+                rCommand.Parameters.AddWithValue("@equipment", rEquipmentID);
+                rCommand.Parameters.AddWithValue("@fuel", rpFuelConsumption);
+                rCommand.Parameters.AddWithValue("@bullet", rpBulletConsumption);
+                rCommand.Parameters.AddWithValue("@steel", rpSteelConsumption);
+                rCommand.Parameters.AddWithValue("@bauxite", rpBauxiteConsumption);
+                rCommand.Parameters.AddWithValue("@flagship", rSecretaryShip.ID);
                 rCommand.Parameters.AddWithValue("@hq_level", KanColleGame.Current.Port.Admiral.Level);
 
                 rCommand.ExecuteNonQuery();
+            }
+
+            NewRecord.OnNext(new RecordItem(rEquipmentID, rpFuelConsumption, rpBulletConsumption, rpSteelConsumption, rpBauxiteConsumption, rSecretaryShip, rHeadquarterLevel));
+        }
+
+        public class RecordItem
+        {
+            public string Time { get; }
+
+            public EquipmentInfo Equipment { get; }
+            public bool IsRareEquipment { get; }
+
+            public int FuelConsumption { get; }
+            public int BulletConsumption { get; }
+            public int SteelConsumption { get; }
+            public int BauxiteConsumption { get; }
+
+            public ShipInfo SecretaryShip { get; }
+            public int HeadquarterLevel { get; }
+
+            internal RecordItem(DbDataReader rpReader)
+            {
+                Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
+                if (rpReader["equipment"] != DBNull.Value)
+                {
+                    Equipment = KanColleGame.Current.MasterInfo.Equipments[Convert.ToInt32(rpReader["equipment"])];
+                    IsRareEquipment = Equipment.Rarity >= 3;
+                }
+
+                FuelConsumption = Convert.ToInt32(rpReader["fuel"]);
+                BulletConsumption = Convert.ToInt32(rpReader["bullet"]);
+                SteelConsumption = Convert.ToInt32(rpReader["steel"]);
+                BauxiteConsumption = Convert.ToInt32(rpReader["bauxite"]);
+
+                SecretaryShip = KanColleGame.Current.MasterInfo.Ships[Convert.ToInt32(rpReader["flagship"])];
+                HeadquarterLevel = Convert.ToInt32(rpReader["hq_level"]);
+            }
+            internal RecordItem(int? rpEquipmentID, int rpFuelConsumption, int rpBulletConsumption, int rpSteelConsumption, int rpBauxiteConsumption, ShipInfo rpSecretaryShip, int rpHeadquarterLevel)
+            {
+                Time = DateTime.Now.ToString();
+                if (rpEquipmentID.HasValue)
+                {
+                    Equipment = KanColleGame.Current.MasterInfo.Equipments[rpEquipmentID.Value];
+                    IsRareEquipment = Equipment.Rarity >= 3;
+                }
+
+                FuelConsumption = rpFuelConsumption;
+                BulletConsumption = rpBulletConsumption;
+                SteelConsumption = rpSteelConsumption;
+                BauxiteConsumption = rpBauxiteConsumption;
+
+                SecretaryShip = rpSecretaryShip;
+                HeadquarterLevel = rpHeadquarterLevel;
             }
         }
     }

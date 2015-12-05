@@ -1,10 +1,8 @@
-﻿using Sakuno.KanColle.Amatsukaze.Views.Overviews;
-using Sakuno.SystemInterop;
+﻿using Sakuno.SystemInterop;
 using Sakuno.UserInterface.Controls;
 using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Views
 {
@@ -33,14 +31,6 @@ namespace Sakuno.KanColle.Amatsukaze.Views
             }
 
             base.OnClosing(e);
-        }
-
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            base.OnKeyUp(e);
-
-            if (e.Key == Key.F3)
-                new ShipOverviewWindow().Show();
         }
 
     }

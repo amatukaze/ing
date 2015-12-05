@@ -12,6 +12,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public string Name => RawData.Name;
 
+        public int Rarity => RawData.Rarity;
+
         #region Paramater
 
         public int Firepower => RawData.Firepower;
