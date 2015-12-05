@@ -3,7 +3,7 @@
 艦これ補助ツール
 
 ### Updated
-**0.2 (Margwa)** Second version
+**0.1.2 (Eis)** Third version
 
 ### Lincense
 The MIT License (MIT)
