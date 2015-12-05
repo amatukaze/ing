@@ -44,7 +44,7 @@ namespace Sakuno.KanColle.Amatsukaze
             RecordService.Instance.Initialize();
 
             Preference.Load();
-            StringResources.Instance.Load(Preference.Current.Language);
+            StringResources.Instance.Load();
 
             KanColleProxy.Start();
 

@@ -115,6 +115,7 @@
   <String Key="PreferenceWindow_Cache_Mode_CheckVersion">校验文件版本</String>
   <String Key="PreferenceWindow_Cache_Path">路径</String>
   <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Language">语言</String>
   <String Key="PreferenceWindow_Browser">浏览器</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">排版引擎</String>
   <String Key="PreferenceWindow_Browser_Homepage">首页</String>

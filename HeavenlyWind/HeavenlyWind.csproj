@@ -222,6 +222,9 @@
     <Compile Include="Views\Preferences\Cache.xaml.cs">
       <DependentUpon>Cache.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Preferences\Language.xaml.cs">
+      <DependentUpon>Language.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Preferences\Network.xaml.cs">
       <DependentUpon>Network.xaml</DependentUpon>
     </Compile>
@@ -554,6 +557,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Cache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Preferences\Language.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

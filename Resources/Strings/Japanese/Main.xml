@@ -115,6 +115,7 @@
   <String Key="PreferenceWindow_Cache_Mode_CheckVersion">Check Version</String>
   <String Key="PreferenceWindow_Cache_Path">パス</String>
   <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Language">言語</String>
   <String Key="PreferenceWindow_Browser">ブラウザ</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">レイアウトエンジン</String>
   <String Key="PreferenceWindow_Browser_Homepage">ホームページ</String>

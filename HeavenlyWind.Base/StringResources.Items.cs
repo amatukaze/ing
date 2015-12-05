@@ -119,6 +119,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Cache_Mode_CheckVersion => GetString(nameof(PreferenceWindow_Cache_Mode_CheckVersion));
         public string PreferenceWindow_Cache_Path => GetString(nameof(PreferenceWindow_Cache_Path));
         public string PreferenceWindow_Notification => GetString(nameof(PreferenceWindow_Notification));
+        public string PreferenceWindow_Language => GetString(nameof(PreferenceWindow_Language));
         public string PreferenceWindow_Browser => GetString(nameof(PreferenceWindow_Browser));
         public string PreferenceWindow_Browser_LayoutEngine => GetString(nameof(PreferenceWindow_Browser_LayoutEngine));
         public string PreferenceWindow_Browser_Homepage => GetString(nameof(PreferenceWindow_Browser_Homepage));
