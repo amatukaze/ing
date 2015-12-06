@@ -5,5 +5,6 @@
         None,
         CarrierTaskForce,
         SurfaceTaskForce,
+        TransportEscort,
     }
 }
