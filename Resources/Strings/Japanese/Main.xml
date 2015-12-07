@@ -84,6 +84,16 @@
   <String Key="Map_Difficulty_Normal">乙</String>
   <String Key="Map_Difficulty_Hard">甲</String>
 
+  <String Key="Battle_State_Healthy" />
+  <String Key="Battle_State_LightlyDamaged">小破</String>
+  <String Key="Battle_State_ModeratelyDamaged">中破</String>
+  <String Key="Battle_State_HeavilyDamaged">大破</String>
+  <String Key="Battle_State_Sunk">撃沈</String>
+  <String Key="Battle_State_Disordered">混乱</String>
+  <String Key="Battle_State_Damaged">損害</String>
+  <String Key="Battle_State_Destroyed">損壊</String>
+  <String Key="Battle_State_Demolished">破壊</String>
+  <String Key="Battle_State_Evacuated">退避</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>

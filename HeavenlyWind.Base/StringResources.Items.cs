@@ -88,6 +88,16 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Map_Difficulty_Normal => GetString(nameof(Map_Difficulty_Normal));
         public string Map_Difficulty_Hard => GetString(nameof(Map_Difficulty_Hard));
 
+        public string Battle_State_Healthy => GetString(nameof(Battle_State_Healthy));
+        public string Battle_State_LightlyDamaged => GetString(nameof(Battle_State_LightlyDamaged));
+        public string Battle_State_ModeratelyDamaged => GetString(nameof(Battle_State_ModeratelyDamaged));
+        public string Battle_State_HeavilyDamaged => GetString(nameof(Battle_State_HeavilyDamaged));
+        public string Battle_State_Sunk => GetString(nameof(Battle_State_Sunk));
+        public string Battle_State_Disordered => GetString(nameof(Battle_State_Disordered));
+        public string Battle_State_Damaged => GetString(nameof(Battle_State_Damaged));
+        public string Battle_State_Destroyed => GetString(nameof(Battle_State_Destroyed));
+        public string Battle_State_Demolished => GetString(nameof(Battle_State_Demolished));
+        public string Battle_State_Evacuated => GetString(nameof(Battle_State_Evacuated));
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));

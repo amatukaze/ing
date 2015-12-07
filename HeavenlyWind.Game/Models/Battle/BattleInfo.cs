@@ -105,6 +105,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             FriendFormation = (Formation)rFormationRawData.FormationAndEngagementForm[0];
             EnemyFormation = (Formation)rFormationRawData.FormationAndEngagementForm[1];
             EngagementForm = (EngagementForm)rFormationRawData.FormationAndEngagementForm[2];
+
+            OnPropertyChanged(nameof(FriendFormation));
+            OnPropertyChanged(nameof(EnemyFormation));
+            OnPropertyChanged(nameof(EngagementForm));
         }
 
         void ProcessSecondStage(ApiData rpData)

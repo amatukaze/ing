@@ -84,6 +84,16 @@
   <String Key="Map_Difficulty_Normal">Medium</String>
   <String Key="Map_Difficulty_Hard">Hard</String>
 
+  <String Key="Battle_State_Healthy" />
+  <String Key="Battle_State_LightlyDamaged">Lightly</String>
+  <String Key="Battle_State_ModeratelyDamaged">Moderately</String>
+  <String Key="Battle_State_HeavilyDamaged">Heavily</String>
+  <String Key="Battle_State_Sunk">Sunk</String>
+  <String Key="Battle_State_Disordered">Disordered</String>
+  <String Key="Battle_State_Damaged">Damaged</String>
+  <String Key="Battle_State_Destroyed">Destroyed</String>
+  <String Key="Battle_State_Demolished">Demolished</String>
+  <String Key="Battle_State_Evacuated">Evacuated</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">D</String>
   <String Key="Quest_Type_Weekly">W</String>
