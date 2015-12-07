@@ -22,9 +22,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Expedition
         {
             switch (rpResult)
             {
-                case ExpeditionResult.Failure: return StringResources.Instance.Main.Expedition_Result_Failure;
-                case ExpeditionResult.Success: return StringResources.Instance.Main.Expedition_Result_Success;
-                case ExpeditionResult.GreatSuccess: return StringResources.Instance.Main.Expedition_Result_GreatSuccess;
+                case ExpeditionResult.Failure: return StringResources.Instance.Main.Result_Failure;
+                case ExpeditionResult.Success: return StringResources.Instance.Main.Result_Success;
+                case ExpeditionResult.GreatSuccess: return StringResources.Instance.Main.Result_GreatSuccess;
 
                 default: throw new InvalidEnumArgumentException(nameof(rpResult), (int)rpResult, typeof(ExpeditionResult));
             }

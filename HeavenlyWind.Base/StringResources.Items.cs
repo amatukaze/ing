@@ -20,9 +20,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Sortie_Event => GetString(nameof(Log_Sortie_Event));
         public string Log_Ship_Dropped => GetString(nameof(Log_Ship_Dropped));
 
-        public string Expedition_Result_Failure => GetString(nameof(Expedition_Result_Failure));
-        public string Expedition_Result_Success => GetString(nameof(Expedition_Result_Success));
-        public string Expedition_Result_GreatSuccess => GetString(nameof(Expedition_Result_GreatSuccess));
+        public string Result_Failure => GetString(nameof(Result_Failure));
+        public string Result_Success => GetString(nameof(Result_Success));
+        public string Result_GreatSuccess => GetString(nameof(Result_GreatSuccess));
 
         public string Tab_Overview => GetString(nameof(Tab_Overview));
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));

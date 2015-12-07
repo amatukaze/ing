@@ -16,9 +16,9 @@
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3}{4})</String>
   <String Key="Log_Ship_Dropped">{0} dropped</String>
 
-  <String Key="Expedition_Result_Failure">Failure</String>
-  <String Key="Expedition_Result_Success">Success</String>
-  <String Key="Expedition_Result_GreatSuccess">Great success</String>
+  <String Key="Result_Failure">Failure</String>
+  <String Key="Result_Success">Success</String>
+  <String Key="Result_GreatSuccess">Great success</String>
 
   <String Key="Tab_Overview">Overview</String>
   <String Key="Tab_Fleets">Fleet</String>

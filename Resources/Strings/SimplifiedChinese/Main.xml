@@ -16,9 +16,9 @@
   <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3}{4})」出击</String>
   <String Key="Log_Ship_Dropped">获得「{0}」</String>
 
-  <String Key="Expedition_Result_Failure">失败</String>
-  <String Key="Expedition_Result_Success">成功</String>
-  <String Key="Expedition_Result_GreatSuccess">大成功</String>
+  <String Key="Result_Failure">失败</String>
+  <String Key="Result_Success">成功</String>
+  <String Key="Result_GreatSuccess">大成功</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
