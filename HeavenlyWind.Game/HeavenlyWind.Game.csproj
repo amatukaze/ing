@@ -77,14 +77,17 @@
     <Compile Include="Models\Battle\AerialCombat.cs" />
     <Compile Include="Models\Battle\AerialCombatResult.cs" />
     <Compile Include="Models\Battle\BattleInfo.cs" />
+    <Compile Include="Models\Battle\BattleParticipants.cs" />
     <Compile Include="Models\Battle\BattleParticipantSnapshot.cs" />
     <Compile Include="Models\Battle\BattleParticipantState.cs" />
     <Compile Include="Models\Battle\BattleRank.cs" />
     <Compile Include="Models\Battle\BattleResult.cs" />
     <Compile Include="Models\Battle\BattleStage.cs" />
     <Compile Include="Models\Battle\BattleStageType.cs" />
+    <Compile Include="Models\Battle\EnemyShip.cs" />
     <Compile Include="Models\Battle\EngagementForm.cs" />
     <Compile Include="Models\Battle\Formation.cs" />
+    <Compile Include="Models\Battle\FriendShip.cs" />
     <Compile Include="Models\Battle\IParticipant.cs" />
     <Compile Include="Models\Battle\Phases\AerialCombatPhase.cs" />
     <Compile Include="Models\Battle\Phases\BattlePhase.cs" />

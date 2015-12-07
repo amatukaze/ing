@@ -1,7 +1,9 @@
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
@@ -12,6 +14,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public long ID { get; } = (long)DateTimeUtil.ToUnixTime(DateTimeOffset.Now);
 
         public bool IsInitialized { get; private set; }
+
+        public BattleParticipants Participants { get; } = new BattleParticipants();
 
         public BattleStage CurrentStage { get; private set; }
         public BattleStage First { get; private set; }
@@ -51,11 +55,49 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         internal BattleInfo()
         {
             r_Current = this;
+
+            var rFleets = KanColleGame.Current.Port.Fleets;
+            if (rFleets.CombinedFleetType == 0)
+                Participants.FriendMain = KanColleGame.Current.Sortie.Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
+
+            OnPropertyChanged(nameof(CurrentStage));
         }
 
         void ProcessFirstStage(ApiData rpData)
         {
+            SetEnemy((RawBattleBase)rpData.Data);
             SetFormationAndEngagementForm(rpData);
+
+            switch (rpData.Api)
+            {
+                case "api_req_sortie/battle": First = new DayNormalStage(this, rpData); break;
+                case "api_req_battle_midnight/sp_midnight": First = new NightOnlyStage(this, rpData); break;
+
+                case "api_req_sortie/airbattle":
+                case "api_req_combined_battle/airbattle":
+                    First = new AerialCombatStage(this, rpData);
+                    break;
+
+                case "api_req_combined_battle/battle": First = new CombinedFleetCTFDayNormalStage(this, rpData); break;
+                case "api_req_combined_battle/battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpData); break;
+
+                case "api_req_combined_battle/sp_midnight": First = new CombinedFleetNightOnlyStage(this, rpData); break;
+            }
+
+            First.Process(rpData);
+            CurrentStage = First;
+            OnPropertyChanged(nameof(CurrentStage));
+        }
+        void SetEnemy(RawBattleBase rpData)
+        {
+            Participants.Enemy = rpData.EnemyShipTypeIDs.Skip(1).TakeWhile(r => r != -1).Select((r, i) =>
+            {
+                i++;
+                var rLevel = rpData.EnemyShipLevels[i];
+
+                return new EnemyShip(r, rLevel);
+            }).ToList<IParticipant>().AsReadOnly();
+        }
         void SetFormationAndEngagementForm(ApiData rpData)
         {
             var rFormationRawData = rpData.Data as IRawFormationAndEngagementForm;
@@ -67,6 +109,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         void ProcessSecondStage(ApiData rpData)
         {
+            switch (rpData.Api)
+            {
+                case "api_req_battle_midnight/battle": Second = new NightNormalStage(this, rpData); break;
+
+                case "api_req_combined_battle/midnight_battle": Second = new CombinedFleetNightNormalStage(this, rpData); break;
+            }
+
+            Second.Process(rpData);
+
+            CurrentStage = Second;
+            OnPropertyChanged(nameof(CurrentStage));
         }
     }
 }

@@ -4,7 +4,59 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+             xmlns:rgmb="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models.Battle;assembly=HeavenlyWind.Game"
+             xmlns:rvgb="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game.Battle"
              mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance rgmb:BattleInfo}"
              d:DesignWidth="300" d:DesignHeight="300">
-    <TextBlock Text="{rb:StringResource Main.Feature_UnderConstruction}" />
+    <UserControl.Resources>
+        <DataTemplate x:Key="ParticipantTemplate">
+            <DataTemplate.Resources>
+                <Style x:Key="AbyssalShipClass" TargetType="{x:Type Run}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding AbyssalShipClass}" Value="Elite">
+                            <Setter Property="Text" Value="elite" />
+                            <Setter Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding AbyssalShipClass}" Value="Flagship">
+                            <Setter Property="Text" Value="flagship" />
+                            <Setter Property="Foreground" Value="#FCC800" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding AbyssalShipClass}" Value="LateModel">
+                            <Setter Property="Text" Value="後期型" />
+                            <Setter Property="Foreground" Value="SkyBlue" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataTemplate.Resources>
+
+            <Border Height="30">
+                <TextBlock DataContext="{Binding Info}">
+                    <Run Name="Name" Text="{Binding Name, Mode=OneWay}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                </TextBlock>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid DataContext="{Binding Battle}" Grid.IsSharedSizeScope="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="75" />
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ItemsControl ItemsSource="{Binding Participants.FriendMain}" ItemTemplate="{StaticResource ParticipantTemplate}" />
+
+        <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" />
+    </Grid>
 </UserControl>
