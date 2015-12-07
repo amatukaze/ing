@@ -85,8 +85,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             }
 
             First.Process(rpData);
+            Result.Update(First, Second);
+
+            IsInitialized = true;
+
             CurrentStage = First;
             OnPropertyChanged(nameof(CurrentStage));
+            OnPropertyChanged(nameof(AerialCombat));
+            OnPropertyChanged(nameof(IsInitialized));
         }
         void SetEnemy(RawBattleBase rpData)
         {
@@ -121,6 +127,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             }
 
             Second.Process(rpData);
+            Result.Update(First, Second);
 
             CurrentStage = Second;
             OnPropertyChanged(nameof(CurrentStage));

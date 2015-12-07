@@ -58,6 +58,8 @@
         <ItemsControl ItemsSource="{Binding Participants.FriendMain}" ItemTemplate="{StaticResource ParticipantTemplate}" />
         <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendMain}" Grid.Column="2" />
 
+        <rvgb:Information Grid.Row="2" Grid.ColumnSpan="3" />
+
         <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" />
         <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="2" Grid.Row="4" />
     </Grid>

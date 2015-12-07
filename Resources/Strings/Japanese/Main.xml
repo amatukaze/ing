@@ -94,6 +94,27 @@
   <String Key="Battle_State_Destroyed">損壊</String>
   <String Key="Battle_State_Demolished">破壊</String>
   <String Key="Battle_State_Evacuated">退避</String>
+  <String Key="Battle_Formation_LineAhead">単縦陣</String>
+  <String Key="Battle_Formation_DoubleLine">複縦陣</String>
+  <String Key="Battle_Formation_Diamond">輪形陣</String>
+  <String Key="Battle_Formation_Echolon">梯形陣</String>
+  <String Key="Battle_Formation_LineAbreast">単横陣</String>
+  <String Key="Battle_Formation_Cruising1">第一警戒航行序列</String>
+  <String Key="Battle_Formation_Cruising2">第二警戒航行序列</String>
+  <String Key="Battle_Formation_Cruising3">第三警戒航行序列</String>
+  <String Key="Battle_Formation_Cruising4">第四警戒航行序列</String>
+  <String Key="Battle_EngagementForm_Parallel">同航戦</String>
+  <String Key="Battle_EngagementForm_HeadOn">反航戦</String>
+  <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T字有利</String>
+  <String Key="Battle_EngagementForm_CrossingTheTDisadvantage">T字不利</String>
+  <String Key="Battle_AerialCombat_Fighter">戦</String>
+  <String Key="Battle_AerialCombat_Bomber">攻</String>
+  <String Key="Battle_AerialCombatResult_Supremacy">制空権確保</String>
+  <String Key="Battle_AerialCombatResult_Superiority">航空優勢</String>
+  <String Key="Battle_AerialCombatResult_Parity">制空均衡</String>
+  <String Key="Battle_AerialCombatResult_Incapability">航空劣勢</String>
+  <String Key="Battle_AerialCombatResult_Denial">制空権喪失</String>
+
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>
