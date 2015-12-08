@@ -24,6 +24,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Result_Success => GetString(nameof(Result_Success));
         public string Result_GreatSuccess => GetString(nameof(Result_GreatSuccess));
 
+        public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
+
         public string Tab_Overview => GetString(nameof(Tab_Overview));
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));
         public string Tab_Sortie => GetString(nameof(Tab_Sortie));

@@ -13,13 +13,15 @@
   <String Key="Log_Development_Success">{0} was successfully developed.(Material Consumption:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">Development failed. (Material Consumption:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})」</String>
-  <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3}{4})</String>
+  <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
   <String Key="Log_Ship_Dropped">{0} dropped</String>
 
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>
   <String Key="Result_GreatSuccess">Great success</String>
 
+  <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
+  
   <String Key="Tab_Overview">Overview</String>
   <String Key="Tab_Fleets">Fleet</String>
   <String Key="Tab_Sortie">Sortie</String>

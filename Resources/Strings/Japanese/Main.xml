@@ -13,12 +13,14 @@
   <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
-  <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3}{4})」へ出撃しました</String>
+  <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
   <String Key="Log_Ship_Dropped">「{0}」がドロップしました</String>
 
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>
+
+  <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
