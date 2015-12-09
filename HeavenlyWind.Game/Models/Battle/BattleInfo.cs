@@ -59,6 +59,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             var rFleets = KanColleGame.Current.Port.Fleets;
             if (rFleets.CombinedFleetType == 0)
                 Participants.FriendMain = KanColleGame.Current.Sortie.Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
+            else
+            {
+                Participants.FriendMain = rFleets[1].Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+                Participants.FriendEscort = rFleets[2].Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+            }
 
             OnPropertyChanged(nameof(CurrentStage));
         }
