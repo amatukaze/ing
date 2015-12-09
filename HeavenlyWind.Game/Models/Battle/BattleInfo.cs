@@ -65,6 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 Participants.FriendEscort = rFleets[2].Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
             }
 
+            CurrentStage = new FakeStage(this);
             OnPropertyChanged(nameof(CurrentStage));
         }
 

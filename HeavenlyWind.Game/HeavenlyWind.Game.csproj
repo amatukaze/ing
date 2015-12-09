@@ -86,6 +86,7 @@
     <Compile Include="Models\Battle\BattleStageType.cs" />
     <Compile Include="Models\Battle\EnemyShip.cs" />
     <Compile Include="Models\Battle\EngagementForm.cs" />
+    <Compile Include="Models\Battle\FakeStage.cs" />
     <Compile Include="Models\Battle\Formation.cs" />
     <Compile Include="Models\Battle\FriendShip.cs" />
     <Compile Include="Models\Battle\IParticipant.cs" />
