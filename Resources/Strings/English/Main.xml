@@ -71,7 +71,7 @@
   <String Key="Material_DevelopmentMaterial">DevelopmentMaterial</String>
   <String Key="Material_ImprovementMaterial">ImprovementMaterial</String>
 
-  <String Key="Sortie_Cell">Cell</String>
+  <String Key="Sortie_Cell">Node</String>
   <String Key="Sortie_Event_Unknown">Unknown</String>
   <String Key="Sortie_Event_Reward">Reward</String>
   <String Key="Sortie_Event_Whirlpool">Whirlpool</String>
