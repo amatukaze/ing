@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
 using System.ComponentModel;
@@ -92,7 +93,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 using (var rCommand = Connection.CreateCommand())
                 {
-                    rCommand.CommandText = "INSERT OR IGNORE INTO sortie_map(id, is_event_map) VALUES (@id, @is_event_map);";
+                    rCommand.CommandText = "INSERT OR IGNORE INTO sortie_map(id, is_event_map) VALUES(@id, @is_event_map);";
                     rCommand.Parameters.AddWithValue("@id", rMap.ID);
                     rCommand.Parameters.AddWithValue("@is_event_map", rMap.IsEventMap);
 
@@ -100,7 +101,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 }
                 using (var rCommand = Connection.CreateCommand())
                 {
-                    rCommand.CommandText = "INSERT INTO sortie(id, map) VALUES (@id, @map);";
+                    rCommand.CommandText = "INSERT INTO sortie(id, map) VALUES(@id, @map);";
                     rCommand.Parameters.AddWithValue("@id", rSortie.ID);
                     rCommand.Parameters.AddWithValue("@map", rMap.ID);
 
@@ -117,10 +118,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         void InsertExplorationRecord(SortieInfo rpSortie)
         {
+            var rCell = rpSortie.Cell;
+
             using (var rTransaction = Connection.BeginTransaction())
             {
-                InsertCellInfo(rpSortie.Map.ID, rpSortie.Cell);
-                InsertRecord(rpSortie.ID, rpSortie.Cell.InternalID);
+                InsertCellInfo(rpSortie.Map.ID, rCell);
+                InsertRecord(rpSortie.ID, rCell.InternalID, (rCell.Event as BattleEvent)?.Battle.ID);
 
                 rTransaction.Commit();
             }
@@ -131,7 +134,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT OR IGNORE INTO sortie_cell(map, id, type, subtype) VALUES (@map, @id, @type, @subtype);";
+                rCommand.CommandText = "INSERT OR IGNORE INTO sortie_cell(map, id, type, subtype) VALUES(@map, @id, @type, @subtype);";
                 rCommand.Parameters.AddWithValue("@map", rpMapID);
                 rCommand.Parameters.AddWithValue("@id", rpCell.ID);
                 rCommand.Parameters.AddWithValue("@type", (int)rpCell.EventType);
@@ -140,11 +143,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
         }
-        void InsertRecord(long rpSortieID, int rpCell, int? rpExtraInfo = null)
+        void InsertRecord(long rpSortieID, int rpCell, long? rpExtraInfo = null)
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT INTO sortie_detail(id, cell, extra_info) VALUES (@id, @cell, @extra_info);";
+                rCommand.CommandText = "INSERT INTO sortie_detail(id, cell, extra_info) VALUES(@id, @cell, @extra_info);";
                 rCommand.Parameters.AddWithValue("@id", rpSortieID);
                 rCommand.Parameters.AddWithValue("@cell", rpCell);
                 rCommand.Parameters.AddWithValue("@extra_info", rpExtraInfo);
