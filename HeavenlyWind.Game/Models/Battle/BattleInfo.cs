@@ -125,6 +125,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         void ProcessSecondStage(ApiData rpData)
         {
+            foreach (FriendShip rParticipant in Participants.FriendMain)
+                rParticipant.IsMVP = false;
+            if (Participants.FriendEscort != null)
+                foreach (FriendShip rParticipant in Participants.FriendEscort)
+                    rParticipant.IsMVP = false;
+
             switch (rpData.Api)
             {
                 case "api_req_battle_midnight/battle": Second = new NightNormalStage(this, rpData); break;

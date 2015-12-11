@@ -44,6 +44,9 @@
                         <Setter TargetName="Damage" Property="Text" Value="" />
                     </DataTrigger>
 
+                    <DataTrigger Binding="{Binding Participant.IsMVP}" Value="True">
+                        <Setter TargetName="DamageGivenToOpponent" Property="Foreground" Value="Yellow" />
+                    </DataTrigger>
                     <DataTrigger Binding="{Binding DamageGivenToOpponent}" Value="0">
                         <Setter TargetName="DamageGivenToOpponent" Property="Visibility" Value="Collapsed" />
                     </DataTrigger>
@@ -80,6 +83,10 @@
 
                     <DataTrigger Binding="{Binding State}" Value="Evacuated">
                         <Setter TargetName="StateColor" Property="Background" Value="#B1B1B1" />
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding IsStateChanged}" Value="False">
+                        <Setter TargetName="StateColor" Property="Opacity" Value=".5" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>

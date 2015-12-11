@@ -55,6 +55,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             foreach (var rPhase in Phases)
                 rPhase.Process();
+
+            var rMaxDamage = FriendMain.Max(r => r.DamageGivenToOpponent);
+            ((FriendShip)FriendMain.First(r => r.DamageGivenToOpponent == rMaxDamage).Participant).IsMVP = true;
+
+            if (FriendEscort != null)
+            {
+                rMaxDamage = FriendEscort.Max(r => r.DamageGivenToOpponent);
+                ((FriendShip)FriendEscort.First(r => r.DamageGivenToOpponent == rMaxDamage).Participant).IsMVP = true;
+            }
         }
     }
 }

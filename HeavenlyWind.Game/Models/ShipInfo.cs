@@ -92,6 +92,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     return $"{Name} {NameReading}";
             }
         }
+        public string NameWithoutAbyssalShipClass
+        {
+            get
+            {
+                if (!IsAbyssalShip || NameReading.IsNullOrEmpty() || NameReading == "-")
+                    return Name;
+                else
+                    return Name.Replace("後期型", string.Empty);
+            }
+        }
 
         internal ShipInfo(RawShipInfo rpRawData) : base(rpRawData) { }
 

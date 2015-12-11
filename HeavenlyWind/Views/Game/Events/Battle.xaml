@@ -33,9 +33,15 @@
 
             <Border Height="30">
                 <TextBlock DataContext="{Binding Info}">
-                    <Run Name="Name" Text="{Binding Name, Mode=OneWay}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                    <Run Name="Name" Text="{Binding NameWithoutAbyssalShipClass, Mode=OneWay}" /><Run Style="{StaticResource AbyssalShipClass}" />
                 </TextBlock>
             </Border>
+
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding IsMVP}" Value="True">
+                    <Setter TargetName="Name" Property="Foreground" Value="Yellow" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
     </UserControl.Resources>
 
