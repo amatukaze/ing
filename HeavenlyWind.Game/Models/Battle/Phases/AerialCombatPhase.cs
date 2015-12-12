@@ -90,6 +90,42 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                 if (rParticipant != null)
                     rParticipant.Current -= rDamages[i];
             }
+
+            var rFriendAttackers = RawData.Attackers[0];
+            if (rFriendAttackers.Length == 1 && rFriendAttackers[0] != -1)
+                rParticipants[rFriendAttackers[0] - 1].DamageGivenToOpponent += rEnemyDamages.Sum();
+            else if (rFriendAttackers.Length > 1)
+            {
+                var rFirepowers = rFriendAttackers.Select(r =>
+                {
+                    var rShip = ((FriendShip)rParticipants[r - 1].Participant).Ship;
+                    return rShip.Slots.Where(rpSlot => rpSlot.HasEquipment).Sum(rpSlot =>
+                    {
+                        var rEquipmentInfo = rpSlot.Equipment.Info;
+                        switch (rEquipmentInfo.Type)
+                        {
+                            case EquipmentType.CarrierBasedDiveBomber:
+                            case EquipmentType.SeaplaneBomber:
+                                return rEquipmentInfo.DiveBomberAttack * Math.Sqrt(rpSlot.PlaneCount) + 25;
+
+                            case EquipmentType.CarrierBasedTorpedoBomber:
+                                return 1.15 * (rEquipmentInfo.Torpedo * Math.Sqrt(rpSlot.PlaneCount) + 25);
+
+                            default: return 0;
+                        }
+                    });
+                }).ToArray();
+
+                var rTotalDamages = rDamages.Sum();
+                var rTotalFirepowers = rFirepowers.Sum();
+
+                for (var i = 0; i < rFriendAttackers.Length; i++)
+                {
+                    var rParticipant = rParticipants[rFriendAttackers[i] - 1];
+                    rParticipant.DamageGivenToOpponent += (int)Math.Round(rTotalDamages * rFirepowers[i] / rTotalFirepowers);
+                    rParticipant.Inaccurate = true;
+                }
+            }
         }
     }
 }

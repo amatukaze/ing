@@ -50,6 +50,9 @@
                     <DataTrigger Binding="{Binding DamageGivenToOpponent}" Value="0">
                         <Setter TargetName="DamageGivenToOpponent" Property="Visibility" Value="Collapsed" />
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding Inaccurate}" Value="True">
+                        <Setter TargetName="DamageGivenToOpponent" Property="Text" Value="{Binding DamageGivenToOpponent, StringFormat=~{0}}" />
+                    </DataTrigger>
 
                     <DataTrigger Binding="{Binding State}" Value="LightlyDamaged">
                         <Setter TargetName="StateText" Property="Foreground" Value="Black" />

@@ -96,6 +96,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             IsInitialized = true;
 
             CurrentStage = First;
+            OnPropertyChanged(nameof(First));
             OnPropertyChanged(nameof(CurrentStage));
             OnPropertyChanged(nameof(AerialCombat));
             OnPropertyChanged(nameof(IsInitialized));
@@ -142,6 +143,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Result.Update(First, Second);
 
             CurrentStage = Second;
+            OnPropertyChanged(nameof(Second));
             OnPropertyChanged(nameof(CurrentStage));
         }
     }
