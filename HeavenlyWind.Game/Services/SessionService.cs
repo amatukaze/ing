@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
@@ -24,5 +25,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public Subject<ApiData> GetProcessSucceededSubject(string rpApi) => GetParser(rpApi).ProcessSucceeded;
         public IDisposable Subscribe(string rpApi, Action<ApiData> rpAction) => GetProcessSucceededSubject(rpApi).Subscribe(rpAction);
+        public IDisposable Subscribe(string[] rpApis, Action<ApiData> rpAction)
+        {
+            IObservable<ApiData> rObservable = GetProcessSucceededSubject(rpApis[0]);
+            for (var i = 1; i < rpApis.Length; i++)
+                rObservable = rObservable.Merge(GetProcessSucceededSubject(rpApis[i]));
+
+            return rObservable.Subscribe(rpAction);
+        }
     }
 }

@@ -90,6 +90,37 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Map_Difficulty_Normal => GetString(nameof(Map_Difficulty_Normal));
         public string Map_Difficulty_Hard => GetString(nameof(Map_Difficulty_Hard));
 
+        public string Battle_State_Healthy => GetString(nameof(Battle_State_Healthy));
+        public string Battle_State_LightlyDamaged => GetString(nameof(Battle_State_LightlyDamaged));
+        public string Battle_State_ModeratelyDamaged => GetString(nameof(Battle_State_ModeratelyDamaged));
+        public string Battle_State_HeavilyDamaged => GetString(nameof(Battle_State_HeavilyDamaged));
+        public string Battle_State_Sunk => GetString(nameof(Battle_State_Sunk));
+        public string Battle_State_Disordered => GetString(nameof(Battle_State_Disordered));
+        public string Battle_State_Damaged => GetString(nameof(Battle_State_Damaged));
+        public string Battle_State_Destroyed => GetString(nameof(Battle_State_Destroyed));
+        public string Battle_State_Demolished => GetString(nameof(Battle_State_Demolished));
+        public string Battle_State_Evacuated => GetString(nameof(Battle_State_Evacuated));
+        public string Battle_Formation_LineAhead => GetString(nameof(Battle_Formation_LineAhead));
+        public string Battle_Formation_DoubleLine => GetString(nameof(Battle_Formation_DoubleLine));
+        public string Battle_Formation_Diamond => GetString(nameof(Battle_Formation_Diamond));
+        public string Battle_Formation_Echolon => GetString(nameof(Battle_Formation_Echolon));
+        public string Battle_Formation_LineAbreast => GetString(nameof(Battle_Formation_LineAbreast));
+        public string Battle_Formation_Cruising1 => GetString(nameof(Battle_Formation_Cruising1));
+        public string Battle_Formation_Cruising2 => GetString(nameof(Battle_Formation_Cruising2));
+        public string Battle_Formation_Cruising3 => GetString(nameof(Battle_Formation_Cruising3));
+        public string Battle_Formation_Cruising4 => GetString(nameof(Battle_Formation_Cruising4));
+        public string Battle_EngagementForm_Parallel => GetString(nameof(Battle_EngagementForm_Parallel));
+        public string Battle_EngagementForm_HeadOn => GetString(nameof(Battle_EngagementForm_HeadOn));
+        public string Battle_EngagementForm_CrossingTheTAdvantage => GetString(nameof(Battle_EngagementForm_CrossingTheTAdvantage));
+        public string Battle_EngagementForm_CrossingTheTDisadvantage => GetString(nameof(Battle_EngagementForm_CrossingTheTDisadvantage));
+        public string Battle_AerialCombat_Fighter => GetString(nameof(Battle_AerialCombat_Fighter));
+        public string Battle_AerialCombat_Bomber => GetString(nameof(Battle_AerialCombat_Bomber));
+        public string Battle_AerialCombatResult_Supremacy => GetString(nameof(Battle_AerialCombatResult_Supremacy));
+        public string Battle_AerialCombatResult_Superiority => GetString(nameof(Battle_AerialCombatResult_Superiority));
+        public string Battle_AerialCombatResult_Parity => GetString(nameof(Battle_AerialCombatResult_Parity));
+        public string Battle_AerialCombatResult_Incapability => GetString(nameof(Battle_AerialCombatResult_Incapability));
+        public string Battle_AerialCombatResult_Denial => GetString(nameof(Battle_AerialCombatResult_Denial));
+
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));
