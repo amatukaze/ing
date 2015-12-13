@@ -12,7 +12,7 @@
   <String Key="Log_StartConstruction">Start construction of {0} (Material Consumption:{1}/{2}/{3}/{4}-{5})</String>
   <String Key="Log_Development_Success">{0} was successfully developed.(Material Consumption:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">Development failed. (Material Consumption:{0}/{1}/{2}/{3})</String>
-  <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})」</String>
+  <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})</String>
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
   <String Key="Log_Ship_Dropped">{0} dropped</String>
 
@@ -81,6 +81,9 @@
   <String Key="Sortie_Event_AviationReconnaissance">Aviation Reconnaissance</String>
   <String Key="Sortie_Event_EscortSuccess">Escort Success</String>
   <String Key="Sortie_Event_Landing">Landing</String>
+  <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
+  <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
+  <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>
 
   <String Key="Map_Difficulty_Easy">Easy</String>
   <String Key="Map_Difficulty_Normal">Medium</String>

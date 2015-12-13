@@ -39,18 +39,19 @@ namespace Sakuno.KanColle.Amatsukaze
             StringResourceDirectory = new DirectoryInfo(Path.Combine(rRootDirectory, "Resources", "Strings"));
 
             r_InstalledLanguages = new Dictionary<string, LanguageInfo>(StringComparer.InvariantCultureIgnoreCase);
-            foreach (var rLanguageDirectory in StringResourceDirectory.EnumerateDirectories())
-            {
-                var rResourceFile = Path.Combine(rLanguageDirectory.FullName, "Main.xml");
-                if (!File.Exists(rResourceFile))
-                    continue;
+            if (StringResourceDirectory.Exists)
+                foreach (var rLanguageDirectory in StringResourceDirectory.EnumerateDirectories())
+                {
+                    var rResourceFile = Path.Combine(rLanguageDirectory.FullName, "Main.xml");
+                    if (!File.Exists(rResourceFile))
+                        continue;
 
-                var rRoot = XDocument.Load(rResourceFile).Root;
-                var rCultureName = rRoot.Attribute("CultureName").Value;
-                var rDisplayName = rRoot.Attribute("Name").Value;
+                    var rRoot = XDocument.Load(rResourceFile).Root;
+                    var rCultureName = rRoot.Attribute("CultureName").Value;
+                    var rDisplayName = rRoot.Attribute("Name").Value;
 
-                r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rLanguageDirectory.Name, rCultureName, rDisplayName));
-            }
+                    r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rLanguageDirectory.Name, rCultureName, rDisplayName));
+                }
 
             InstalledLanguages = r_InstalledLanguages.Values.ToList().AsReadOnly();
         }

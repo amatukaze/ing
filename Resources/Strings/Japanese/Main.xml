@@ -81,6 +81,9 @@
   <String Key="Sortie_Event_AviationReconnaissance">航空偵察</String>
   <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
   <String Key="Sortie_Event_Landing">揚陸</String>
+  <String Key="Sortie_NothingHappened_Imagination">気のせいだった。</String>
+  <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
+  <String Key="Sortie_NothingHappened_ManualSelection">能動分岐</String>
 
   <String Key="Map_Difficulty_Easy">丙</String>
   <String Key="Map_Difficulty_Normal">乙</String>
