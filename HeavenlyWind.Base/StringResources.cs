@@ -58,7 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public void Load()
         {
-            if (!InstalledLanguages.Any(r => r.DisplayName == Preference.Current.Language))
+            if (!InstalledLanguages.Any(r => r.Directory == Preference.Current.Language))
                 Preference.Current.Language = GetDefaultLanguage().Directory;
 
             Load(Preference.Current.Language);
@@ -71,7 +71,6 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (rNames.Contains(rLanguage.CultureName))
                     return rLanguage;
 
-
             return r_InstalledLanguages["en"];
         }
         static IEnumerable<string> GetAncestorsAndSelfCultureNames(CultureInfo rpCultureInfo)
@@ -83,7 +82,7 @@ namespace Sakuno.KanColle.Amatsukaze
             } while (rpCultureInfo != CultureInfo.InvariantCulture);
         }
 
-        public void Load(string rpLanguageName)
+        void Load(string rpLanguageName)
         {
             var rMainResourceFile = Path.Combine(StringResourceDirectory.FullName, rpLanguageName, "Main.xml");
             if (!File.Exists(rMainResourceFile))
