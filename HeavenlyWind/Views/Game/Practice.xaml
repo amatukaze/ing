@@ -6,6 +6,7 @@
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+             xmlns:rvge="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game.Events"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance rvmg:SortieViewModel}"
              d:DesignWidth="300" d:DesignHeight="300">
@@ -48,5 +49,19 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
+        <rvge:Battle Grid.Row="2">
+            <rvge:Battle.Style>
+                <Style TargetType="{x:Type rvge:Battle}">
+                    <Setter Property="Visibility" Value="Visible" />
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Battle}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </rvge:Battle.Style>
+        </rvge:Battle>
     </Grid>
 </UserControl>

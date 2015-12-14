@@ -219,6 +219,9 @@
     <Compile Include="Parsers\Root\Battle\DayNormalBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\NightNormalBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\NightOnlyBattleParser.cs" />
+    <Compile Include="Parsers\Root\Battle\PracticeDayBattleParser.cs" />
+    <Compile Include="Parsers\Root\Battle\PracticeNightBattleParser.cs" />
+    <Compile Include="Parsers\Root\Battle\PracticeResultParser.cs" />
     <Compile Include="Parsers\Root\Expedition\ResultParser.cs" />
     <Compile Include="Parsers\Root\GetMember\BasicParser.cs" />
     <Compile Include="Parsers\Root\GetMember\ConstructionDockParser.cs" />
