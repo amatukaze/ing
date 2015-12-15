@@ -2,9 +2,9 @@
 {
     public class ProductInfo
     {
-        public const string AssemblyVersionString = "0.1.2";
+        public const string AssemblyVersionString = "0.1.3";
 
-        public const string ReleaseCodeName = "Eis";
+        public const string ReleaseCodeName = "Serpentina";
 
     }
 }
