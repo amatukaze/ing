@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1">
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.3">
 
   <String Key="Feature_UnderConstruction">未实现</String>
   <String Key="Feature_Filter">过滤器</String>
@@ -13,12 +13,14 @@
   <String Key="Log_Development_Success">「{0}」开发成功。(投入的资材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">开发失败。(投入的资材:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Sortie">/{0}「{1}」向「{2} ({3}-{4})」出击</String>
-  <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3}{4})」出击</String>
+  <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3} {4})」出击</String>
   <String Key="Log_Ship_Dropped">获得「{0}」</String>
 
-  <String Key="Expedition_Result_Failure">失败</String>
-  <String Key="Expedition_Result_Success">成功</String>
-  <String Key="Expedition_Result_GreatSuccess">大成功</String>
+  <String Key="Result_Failure">失败</String>
+  <String Key="Result_Success">成功</String>
+  <String Key="Result_GreatSuccess">大成功</String>
+
+  <String Key="GameInfomation_Waiting">等待游戏启动</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
@@ -79,10 +81,44 @@
   <String Key="Sortie_Event_AviationReconnaissance">航空侦查</String>
   <String Key="Sortie_Event_EscortSuccess">护送成功</String>
   <String Key="Sortie_Event_Landing">登陆</String>
+  <String Key="Sortie_NothingHappened_Imagination">也许是错觉吧。</String>
+  <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">没有看到敌影。</String>
+  <String Key="Sortie_NothingHappened_ManualSelection">能动分岐</String>
 
   <String Key="Map_Difficulty_Easy">丙</String>
   <String Key="Map_Difficulty_Normal">乙</String>
   <String Key="Map_Difficulty_Hard">甲</String>
+
+  <String Key="Battle_State_Healthy" />
+  <String Key="Battle_State_LightlyDamaged">小破</String>
+  <String Key="Battle_State_ModeratelyDamaged">中破</String>
+  <String Key="Battle_State_HeavilyDamaged">大破</String>
+  <String Key="Battle_State_Sunk">击沉</String>
+  <String Key="Battle_State_Disordered">混乱</String>
+  <String Key="Battle_State_Damaged">损害</String>
+  <String Key="Battle_State_Destroyed">损坏</String>
+  <String Key="Battle_State_Demolished">破坏</String>
+  <String Key="Battle_State_Evacuated">退避</String>
+  <String Key="Battle_Formation_LineAhead">单纵阵</String>
+  <String Key="Battle_Formation_DoubleLine">复纵阵</String>
+  <String Key="Battle_Formation_Diamond">轮形阵</String>
+  <String Key="Battle_Formation_Echolon">梯形阵</String>
+  <String Key="Battle_Formation_LineAbreast">单横阵</String>
+  <String Key="Battle_Formation_Cruising1">第一警戒航行序列</String>
+  <String Key="Battle_Formation_Cruising2">第二警戒航行序列</String>
+  <String Key="Battle_Formation_Cruising3">第三警戒航行序列</String>
+  <String Key="Battle_Formation_Cruising4">第四警戒航行序列</String>
+  <String Key="Battle_EngagementForm_Parallel">同航战</String>
+  <String Key="Battle_EngagementForm_HeadOn">反航战</String>
+  <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T字有利</String>
+  <String Key="Battle_EngagementForm_CrossingTheTDisadvantage">T字不利</String>
+  <String Key="Battle_AerialCombat_Fighter">战</String>
+  <String Key="Battle_AerialCombat_Bomber">攻</String>
+  <String Key="Battle_AerialCombatResult_Supremacy">制空权确保</String>
+  <String Key="Battle_AerialCombatResult_Superiority">航空优势</String>
+  <String Key="Battle_AerialCombatResult_Parity">制空均衡</String>
+  <String Key="Battle_AerialCombatResult_Incapability">航空劣势</String>
+  <String Key="Battle_AerialCombatResult_Denial">制空权丧失</String>
 
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>

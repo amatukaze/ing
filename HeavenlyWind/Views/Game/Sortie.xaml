@@ -43,8 +43,8 @@
                 <DataTrigger Binding="{Binding Cell.EventType}" Value="NothingHappened">
                     <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_NothingHappened, Mode=OneWay}" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="AerialReconnaissance">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_AerialReconnaissance, Mode=OneWay}" />
+                <DataTrigger Binding="{Binding Cell.EventType}" Value="AviationReconnaissance">
+                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_AviationReconnaissance, Mode=OneWay}" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Cell.EventType}" Value="EscortSuccess">
                     <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_EscortSuccess, Mode=OneWay}" />
@@ -70,7 +70,7 @@
     </UserControl.Resources>
 
     <ScrollViewer>
-        <Grid DataContext="{Binding Model}">
+        <Grid DataContext="{Binding Sortie}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="8" />

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1">
+<Strings CultureName="en" Name="English" Version="0.1.3">
 
   <String Key="Feature_UnderConstruction">Under construction</String>
   <String Key="Feature_Filter">Filter</String>
@@ -12,14 +12,16 @@
   <String Key="Log_StartConstruction">Start construction of {0} (Material Consumption:{1}/{2}/{3}/{4}-{5})</String>
   <String Key="Log_Development_Success">{0} was successfully developed.(Material Consumption:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">Development failed. (Material Consumption:{0}/{1}/{2}/{3})</String>
-  <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})」</String>
-  <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3}{4})</String>
+  <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})</String>
+  <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
   <String Key="Log_Ship_Dropped">{0} dropped</String>
 
-  <String Key="Expedition_Result_Failure">Failure</String>
-  <String Key="Expedition_Result_Success">Success</String>
-  <String Key="Expedition_Result_GreatSuccess">Great success</String>
+  <String Key="Result_Failure">Failure</String>
+  <String Key="Result_Success">Success</String>
+  <String Key="Result_GreatSuccess">Great success</String>
 
+  <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
+  
   <String Key="Tab_Overview">Overview</String>
   <String Key="Tab_Fleets">Fleet</String>
   <String Key="Tab_Sortie">Sortie</String>
@@ -69,7 +71,7 @@
   <String Key="Material_DevelopmentMaterial">DevelopmentMaterial</String>
   <String Key="Material_ImprovementMaterial">ImprovementMaterial</String>
 
-  <String Key="Sortie_Cell">Cell</String>
+  <String Key="Sortie_Cell">Node</String>
   <String Key="Sortie_Event_Unknown">Unknown</String>
   <String Key="Sortie_Event_Reward">Reward</String>
   <String Key="Sortie_Event_Whirlpool">Whirlpool</String>
@@ -79,10 +81,44 @@
   <String Key="Sortie_Event_AviationReconnaissance">Aviation Reconnaissance</String>
   <String Key="Sortie_Event_EscortSuccess">Escort Success</String>
   <String Key="Sortie_Event_Landing">Landing</String>
+  <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
+  <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
+  <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>
 
   <String Key="Map_Difficulty_Easy">Easy</String>
   <String Key="Map_Difficulty_Normal">Medium</String>
   <String Key="Map_Difficulty_Hard">Hard</String>
+
+  <String Key="Battle_State_Healthy" />
+  <String Key="Battle_State_LightlyDamaged">Lightly</String>
+  <String Key="Battle_State_ModeratelyDamaged">Moderately</String>
+  <String Key="Battle_State_HeavilyDamaged">Heavily</String>
+  <String Key="Battle_State_Sunk">Sunk</String>
+  <String Key="Battle_State_Disordered">Disordered</String>
+  <String Key="Battle_State_Damaged">Damaged</String>
+  <String Key="Battle_State_Destroyed">Destroyed</String>
+  <String Key="Battle_State_Demolished">Demolished</String>
+  <String Key="Battle_State_Evacuated">Evacuated</String>
+  <String Key="Battle_Formation_LineAhead">Line Ahead</String>
+  <String Key="Battle_Formation_DoubleLine">Double Line</String>
+  <String Key="Battle_Formation_Diamond">Diamond</String>
+  <String Key="Battle_Formation_Echolon">Echolon</String>
+  <String Key="Battle_Formation_LineAbreast">Line Abreast</String>
+  <String Key="Battle_Formation_Cruising1">Cruising 1st</String>
+  <String Key="Battle_Formation_Cruising2">Cruising 2nd</String>
+  <String Key="Battle_Formation_Cruising3">Cruising 3rd</String>
+  <String Key="Battle_Formation_Cruising4">Cruising 4th</String>
+  <String Key="Battle_EngagementForm_Parallel">Parallel</String>
+  <String Key="Battle_EngagementForm_HeadOn">Head-on</String>
+  <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T Advantage</String>
+  <String Key="Battle_EngagementForm_CrossingTheTDisadvantage">T Disadvantage</String>
+  <String Key="Battle_AerialCombat_Fighter">F</String>
+  <String Key="Battle_AerialCombat_Bomber">B</String>
+  <String Key="Battle_AerialCombatResult_Supremacy">Air Supremacy</String>
+  <String Key="Battle_AerialCombatResult_Superiority">Air Superiority</String>
+  <String Key="Battle_AerialCombatResult_Parity">Air Parity</String>
+  <String Key="Battle_AerialCombatResult_Incapability">Air Incapability</String>
+  <String Key="Battle_AerialCombatResult_Denial">Air Denial</String>
 
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">D</String>
@@ -120,7 +156,7 @@
   <String Key="PreferenceWindow_Browser_LayoutEngine">Layout Engine</String>
   <String Key="PreferenceWindow_Browser_Homepage">Homepage</String>
   <String Key="PreferenceWindow_Browser_ClearCache">Clear cache</String>
-  <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">Clean</String>
+  <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">Clear cache and cookie</String>
   <String Key="PreferenceWindow_Browser_Flash">Flash Settings</String>
   <String Key="PreferenceWindow_Browser_Flash_Quality">Quality</String>
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">Render Mode</String>

@@ -156,6 +156,12 @@
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Battle\Information.xaml.cs">
+      <DependentUpon>Information.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Battle\ParticipantSnapshot.xaml.cs">
+      <DependentUpon>ParticipantSnapshot.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\ConstructionDocks.xaml.cs">
       <DependentUpon>ConstructionDocks.xaml</DependentUpon>
     </Compile>
@@ -192,6 +198,9 @@
     <Compile Include="Views\Game\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Practice.xaml.cs">
+      <DependentUpon>Practice.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Quests.xaml.cs">
       <DependentUpon>Quests.xaml</DependentUpon>
     </Compile>
@@ -200,6 +209,9 @@
     </Compile>
     <Compile Include="Views\Game\Sortie.xaml.cs">
       <DependentUpon>Sortie.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\SortieOrPractice.xaml.cs">
+      <DependentUpon>SortieOrPractice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\History\ConstructionHistoryWindow.xaml.cs">
       <DependentUpon>ConstructionHistoryWindow.xaml</DependentUpon>
@@ -472,6 +484,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\Battle\Information.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Battle\ParticipantSnapshot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\ConstructionDocks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -520,6 +540,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\Practice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\Quests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -529,6 +553,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\Sortie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\SortieOrPractice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

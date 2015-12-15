@@ -53,6 +53,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             SessionService.Instance.Subscribe("api_req_combined_battle/battleresult", rProcessIfShipDropped);
 
         }
+        internal SortieInfo() { }
         internal SortieInfo(Fleet rpFleet, int rpMapID)
         {
             r_Current = this;

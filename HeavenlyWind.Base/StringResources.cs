@@ -39,25 +39,26 @@ namespace Sakuno.KanColle.Amatsukaze
             StringResourceDirectory = new DirectoryInfo(Path.Combine(rRootDirectory, "Resources", "Strings"));
 
             r_InstalledLanguages = new Dictionary<string, LanguageInfo>(StringComparer.InvariantCultureIgnoreCase);
-            foreach (var rLanguageDirectory in StringResourceDirectory.EnumerateDirectories())
-            {
-                var rResourceFile = Path.Combine(rLanguageDirectory.FullName, "Main.xml");
-                if (!File.Exists(rResourceFile))
-                    continue;
+            if (StringResourceDirectory.Exists)
+                foreach (var rLanguageDirectory in StringResourceDirectory.EnumerateDirectories())
+                {
+                    var rResourceFile = Path.Combine(rLanguageDirectory.FullName, "Main.xml");
+                    if (!File.Exists(rResourceFile))
+                        continue;
 
-                var rRoot = XDocument.Load(rResourceFile).Root;
-                var rCultureName = rRoot.Attribute("CultureName").Value;
-                var rDisplayName = rRoot.Attribute("Name").Value;
+                    var rRoot = XDocument.Load(rResourceFile).Root;
+                    var rCultureName = rRoot.Attribute("CultureName").Value;
+                    var rDisplayName = rRoot.Attribute("Name").Value;
 
-                r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rLanguageDirectory.Name, rCultureName, rDisplayName));
-            }
+                    r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rLanguageDirectory.Name, rCultureName, rDisplayName));
+                }
 
             InstalledLanguages = r_InstalledLanguages.Values.ToList().AsReadOnly();
         }
 
         public void Load()
         {
-            if (!InstalledLanguages.Any(r => r.DisplayName == Preference.Current.Language))
+            if (!InstalledLanguages.Any(r => r.Directory == Preference.Current.Language))
                 Preference.Current.Language = GetDefaultLanguage().Directory;
 
             Load(Preference.Current.Language);
@@ -70,7 +71,6 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (rNames.Contains(rLanguage.CultureName))
                     return rLanguage;
 
-
             return r_InstalledLanguages["en"];
         }
         static IEnumerable<string> GetAncestorsAndSelfCultureNames(CultureInfo rpCultureInfo)
@@ -82,7 +82,7 @@ namespace Sakuno.KanColle.Amatsukaze
             } while (rpCultureInfo != CultureInfo.InvariantCulture);
         }
 
-        public void Load(string rpLanguageName)
+        void Load(string rpLanguageName)
         {
             var rMainResourceFile = Path.Combine(StringResourceDirectory.FullName, rpLanguageName, "Main.xml");
             if (!File.Exists(rMainResourceFile))

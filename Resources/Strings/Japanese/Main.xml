@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.3">
 
   <String Key="Feature_UnderConstruction">未実装</String>
   <String Key="Feature_Filter">フィルター</String>
@@ -13,12 +13,14 @@
   <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
-  <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3}{4})」へ出撃しました</String>
+  <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
   <String Key="Log_Ship_Dropped">「{0}」がドロップしました</String>
 
-  <String Key="Expedition_Result_Failure">失敗</String>
-  <String Key="Expedition_Result_Success">成功</String>
-  <String Key="Expedition_Result_GreatSuccess">大成功</String>
+  <String Key="Result_Failure">失敗</String>
+  <String Key="Result_Success">成功</String>
+  <String Key="Result_GreatSuccess">大成功</String>
+
+  <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
@@ -79,10 +81,44 @@
   <String Key="Sortie_Event_AviationReconnaissance">航空偵察</String>
   <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
   <String Key="Sortie_Event_Landing">揚陸</String>
+  <String Key="Sortie_NothingHappened_Imagination">気のせいだった。</String>
+  <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
+  <String Key="Sortie_NothingHappened_ManualSelection">能動分岐</String>
 
   <String Key="Map_Difficulty_Easy">丙</String>
   <String Key="Map_Difficulty_Normal">乙</String>
   <String Key="Map_Difficulty_Hard">甲</String>
+
+  <String Key="Battle_State_Healthy" />
+  <String Key="Battle_State_LightlyDamaged">小破</String>
+  <String Key="Battle_State_ModeratelyDamaged">中破</String>
+  <String Key="Battle_State_HeavilyDamaged">大破</String>
+  <String Key="Battle_State_Sunk">撃沈</String>
+  <String Key="Battle_State_Disordered">混乱</String>
+  <String Key="Battle_State_Damaged">損害</String>
+  <String Key="Battle_State_Destroyed">損壊</String>
+  <String Key="Battle_State_Demolished">破壊</String>
+  <String Key="Battle_State_Evacuated">退避</String>
+  <String Key="Battle_Formation_LineAhead">単縦陣</String>
+  <String Key="Battle_Formation_DoubleLine">複縦陣</String>
+  <String Key="Battle_Formation_Diamond">輪形陣</String>
+  <String Key="Battle_Formation_Echolon">梯形陣</String>
+  <String Key="Battle_Formation_LineAbreast">単横陣</String>
+  <String Key="Battle_Formation_Cruising1">第一警戒航行序列</String>
+  <String Key="Battle_Formation_Cruising2">第二警戒航行序列</String>
+  <String Key="Battle_Formation_Cruising3">第三警戒航行序列</String>
+  <String Key="Battle_Formation_Cruising4">第四警戒航行序列</String>
+  <String Key="Battle_EngagementForm_Parallel">同航戦</String>
+  <String Key="Battle_EngagementForm_HeadOn">反航戦</String>
+  <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T字有利</String>
+  <String Key="Battle_EngagementForm_CrossingTheTDisadvantage">T字不利</String>
+  <String Key="Battle_AerialCombat_Fighter">戦</String>
+  <String Key="Battle_AerialCombat_Bomber">攻</String>
+  <String Key="Battle_AerialCombatResult_Supremacy">制空権確保</String>
+  <String Key="Battle_AerialCombatResult_Superiority">航空優勢</String>
+  <String Key="Battle_AerialCombatResult_Parity">制空均衡</String>
+  <String Key="Battle_AerialCombatResult_Incapability">航空劣勢</String>
+  <String Key="Battle_AerialCombatResult_Denial">制空権喪失</String>
 
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Daily">日</String>

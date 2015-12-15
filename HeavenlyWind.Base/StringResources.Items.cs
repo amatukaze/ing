@@ -20,9 +20,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Sortie_Event => GetString(nameof(Log_Sortie_Event));
         public string Log_Ship_Dropped => GetString(nameof(Log_Ship_Dropped));
 
-        public string Expedition_Result_Failure => GetString(nameof(Expedition_Result_Failure));
-        public string Expedition_Result_Success => GetString(nameof(Expedition_Result_Success));
-        public string Expedition_Result_GreatSuccess => GetString(nameof(Expedition_Result_GreatSuccess));
+        public string Result_Failure => GetString(nameof(Result_Failure));
+        public string Result_Success => GetString(nameof(Result_Success));
+        public string Result_GreatSuccess => GetString(nameof(Result_GreatSuccess));
+
+        public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 
         public string Tab_Overview => GetString(nameof(Tab_Overview));
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));
@@ -83,10 +85,44 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_Event_AviationReconnaissance => GetString(nameof(Sortie_Event_AviationReconnaissance));
         public string Sortie_Event_EscortSuccess => GetString(nameof(Sortie_Event_EscortSuccess));
         public string Sortie_Event_Landing => GetString(nameof(Sortie_Event_Landing));
+        public string Sortie_NothingHappened_Imagination => GetString(nameof(Sortie_NothingHappened_Imagination));
+        public string Sortie_NothingHappened_NoSighOfTheEnemy => GetString(nameof(Sortie_NothingHappened_NoSighOfTheEnemy));
+        public string Sortie_NothingHappened_ManualSelection => GetString(nameof(Sortie_NothingHappened_ManualSelection));
 
         public string Map_Difficulty_Easy => GetString(nameof(Map_Difficulty_Easy));
         public string Map_Difficulty_Normal => GetString(nameof(Map_Difficulty_Normal));
         public string Map_Difficulty_Hard => GetString(nameof(Map_Difficulty_Hard));
+
+        public string Battle_State_Healthy => GetString(nameof(Battle_State_Healthy));
+        public string Battle_State_LightlyDamaged => GetString(nameof(Battle_State_LightlyDamaged));
+        public string Battle_State_ModeratelyDamaged => GetString(nameof(Battle_State_ModeratelyDamaged));
+        public string Battle_State_HeavilyDamaged => GetString(nameof(Battle_State_HeavilyDamaged));
+        public string Battle_State_Sunk => GetString(nameof(Battle_State_Sunk));
+        public string Battle_State_Disordered => GetString(nameof(Battle_State_Disordered));
+        public string Battle_State_Damaged => GetString(nameof(Battle_State_Damaged));
+        public string Battle_State_Destroyed => GetString(nameof(Battle_State_Destroyed));
+        public string Battle_State_Demolished => GetString(nameof(Battle_State_Demolished));
+        public string Battle_State_Evacuated => GetString(nameof(Battle_State_Evacuated));
+        public string Battle_Formation_LineAhead => GetString(nameof(Battle_Formation_LineAhead));
+        public string Battle_Formation_DoubleLine => GetString(nameof(Battle_Formation_DoubleLine));
+        public string Battle_Formation_Diamond => GetString(nameof(Battle_Formation_Diamond));
+        public string Battle_Formation_Echolon => GetString(nameof(Battle_Formation_Echolon));
+        public string Battle_Formation_LineAbreast => GetString(nameof(Battle_Formation_LineAbreast));
+        public string Battle_Formation_Cruising1 => GetString(nameof(Battle_Formation_Cruising1));
+        public string Battle_Formation_Cruising2 => GetString(nameof(Battle_Formation_Cruising2));
+        public string Battle_Formation_Cruising3 => GetString(nameof(Battle_Formation_Cruising3));
+        public string Battle_Formation_Cruising4 => GetString(nameof(Battle_Formation_Cruising4));
+        public string Battle_EngagementForm_Parallel => GetString(nameof(Battle_EngagementForm_Parallel));
+        public string Battle_EngagementForm_HeadOn => GetString(nameof(Battle_EngagementForm_HeadOn));
+        public string Battle_EngagementForm_CrossingTheTAdvantage => GetString(nameof(Battle_EngagementForm_CrossingTheTAdvantage));
+        public string Battle_EngagementForm_CrossingTheTDisadvantage => GetString(nameof(Battle_EngagementForm_CrossingTheTDisadvantage));
+        public string Battle_AerialCombat_Fighter => GetString(nameof(Battle_AerialCombat_Fighter));
+        public string Battle_AerialCombat_Bomber => GetString(nameof(Battle_AerialCombat_Bomber));
+        public string Battle_AerialCombatResult_Supremacy => GetString(nameof(Battle_AerialCombatResult_Supremacy));
+        public string Battle_AerialCombatResult_Superiority => GetString(nameof(Battle_AerialCombatResult_Superiority));
+        public string Battle_AerialCombatResult_Parity => GetString(nameof(Battle_AerialCombatResult_Parity));
+        public string Battle_AerialCombatResult_Incapability => GetString(nameof(Battle_AerialCombatResult_Incapability));
+        public string Battle_AerialCombatResult_Denial => GetString(nameof(Battle_AerialCombatResult_Denial));
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
