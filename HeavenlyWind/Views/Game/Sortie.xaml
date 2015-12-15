@@ -70,7 +70,7 @@
     </UserControl.Resources>
 
     <ScrollViewer>
-        <Grid DataContext="{Binding Model}">
+        <Grid DataContext="{Binding Sortie}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="8" />

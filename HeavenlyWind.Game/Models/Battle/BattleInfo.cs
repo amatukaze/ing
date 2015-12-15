@@ -42,6 +42,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 "api_req_combined_battle/battle",
                 "api_req_combined_battle/battle_water",
                 "api_req_combined_battle/sp_midnight",
+
+                "api_req_practice/battle",
             };
             SessionService.Instance.Subscribe(rFirstStages, r => r_Current?.ProcessFirstStage(r));
 
@@ -49,6 +51,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             {
                 "api_req_battle_midnight/battle",
                 "api_req_combined_battle/midnight_battle",
+
+                "api_req_practice/midnight_battle",
             };
             SessionService.Instance.Subscribe(rSecondStages, r => r_Current?.ProcessSecondStage(r));
         }
@@ -68,6 +72,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             CurrentStage = new FakeStage(this);
             OnPropertyChanged(nameof(CurrentStage));
         }
+        internal BattleInfo(Fleet rpParticipantFleet)
+        {
+            r_Current = this;
+
+            Participants.FriendMain = rpParticipantFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
+        }
 
         void ProcessFirstStage(ApiData rpData)
         {
@@ -76,7 +86,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             switch (rpData.Api)
             {
-                case "api_req_sortie/battle": First = new DayNormalStage(this, rpData); break;
+                case "api_req_sortie/battle":
+                case "api_req_practice/battle":
+                    First = new DayNormalStage(this, rpData);
+                    break;
+
                 case "api_req_battle_midnight/sp_midnight": First = new NightOnlyStage(this, rpData); break;
 
                 case "api_req_sortie/airbattle":
@@ -134,7 +148,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             switch (rpData.Api)
             {
-                case "api_req_battle_midnight/battle": Second = new NightNormalStage(this, rpData); break;
+                case "api_req_battle_midnight/battle":
+                case "api_req_practice/midnight_battle":
+                    Second = new NightNormalStage(this, rpData);
+                    break;
 
                 case "api_req_combined_battle/midnight_battle": Second = new CombinedFleetNightNormalStage(this, rpData); break;
             }
