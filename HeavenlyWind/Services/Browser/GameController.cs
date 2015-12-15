@@ -2,12 +2,14 @@
 using System;
 using System.Diagnostics;
 using System.Management;
+using System.Runtime.InteropServices;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 {
     class GameController : ModelBase
     {
+        bool r_IsAudioDeviceNotAvailable;
         BrowserVolume r_Volume;
         public BrowserVolume Volume
         {
@@ -32,18 +34,23 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             TakeScreenshotCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
 
             if (OS.IsWin7OrLater)
-            {
-                foreach (var rSession in VolumeManager.Instance.EnumerateSessions())
-                    rSession.Dispose();
+                try
+                {
+                    foreach (var rSession in VolumeManager.Instance.EnumerateSessions())
+                        rSession.Dispose();
 
-                VolumeManager.Instance.NewSession += VolumeManager_NewSession;
-            }
+                    VolumeManager.Instance.NewSession += VolumeManager_NewSession;
+                }
+                catch (TypeInitializationException e) when (e.InnerException is COMException)
+                {
+                    r_IsAudioDeviceNotAvailable = true;
+                }
 
             MuteToggleCommand = new DelegatedCommand(() =>
             {
                 if (Volume != null)
                     Volume.IsMute = !Volume.IsMute;
-            }, () => OS.IsWin7OrLater);
+            }, () => OS.IsWin7OrLater && !r_IsAudioDeviceNotAvailable);
 
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }
