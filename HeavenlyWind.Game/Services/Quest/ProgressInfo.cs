@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
 {
     public class ProgressInfo : ModelBase
     {
         public QuestInfo Quest { get; }
+
+        public QuestState State { get; internal set; }
 
         int r_Progress;
         public int Progress
@@ -16,6 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
                 {
                     r_Progress = value;
                     UpdateTime = DateTimeOffset.Now;
+                    IsDirty = true;
                     OnPropertyChanged(nameof(Progress));
                 }
             }
@@ -24,11 +28,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
 
         internal bool IsDirty { get; set; }
 
-        internal ProgressInfo(int rpID, int rpProgress) : this(rpID, rpProgress, DateTimeOffset.Now) { }
-        internal ProgressInfo(int rpID, int rpProgress, DateTimeOffset rpUpdateTime)
+        internal ProgressInfo(int rpID, QuestState rpState, int rpProgress) : this(rpID, rpState, rpProgress, DateTimeOffset.Now) { }
+        internal ProgressInfo(int rpID, QuestState rpState, int rpProgress, DateTimeOffset rpUpdateTime)
         {
             Quest = QuestProgressService.Instance.Infos[rpID];
 
+            State = rpState;
             Progress = rpProgress;
             UpdateTime = rpUpdateTime;
         }

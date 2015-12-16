@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -23,6 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 rCommand.CommandText = "CREATE TABLE IF NOT EXISTS quest_progress(" +
                     "id INTEGER PRIMARY KEY NOT NULL, " +
+                    "state INTEGER NOT NULL, " +
                     "progress INTEGER NOT NULL, " +
                     "update_time INTEGER NOT NULL);";
 
@@ -40,14 +42,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     while (rReader.Read())
                     {
                         var rID = Convert.ToInt32(rReader["id"]);
+                        var rState = (QuestState)Convert.ToInt32(rReader["state"]);
                         var rProgress = Convert.ToInt32(rReader["progress"]);
                         var rUpdateTime = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rReader["update_time"]));
 
                         ProgressInfo rInfo;
                         if (!r_Progresses.TryGetValue(rID, out rInfo))
-                            r_Progresses.Add(rID, new ProgressInfo(rID, rProgress, rUpdateTime));
+                            r_Progresses.Add(rID, new ProgressInfo(rID, rState, rProgress, rUpdateTime));
                         else
                         {
+                            rInfo.State = rState;
                             rInfo.Progress = rProgress;
                             rInfo.UpdateTime = rUpdateTime;
                             rInfo.IsDirty = false;

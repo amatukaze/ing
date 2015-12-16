@@ -12,5 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Updaters
         {
             Function = rpFunction;
         }
+
+        public abstract void Invoke(ProgressInfo rpProgressInfo);
     }
 }

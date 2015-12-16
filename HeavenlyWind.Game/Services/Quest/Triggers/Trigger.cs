@@ -10,6 +10,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
     {
         internal static Dictionary<string, TriggerParserBuilder> ParserBuilders { get; }
 
+        public IObservable<object> Observable { get; protected set; }
+
         static Trigger()
         {
             var rAssembly = Assembly.GetExecutingAssembly();

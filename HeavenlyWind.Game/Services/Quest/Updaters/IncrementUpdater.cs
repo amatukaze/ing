@@ -6,6 +6,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Updaters
     {
         public IncrementUpdater(Function rpFunction) : base(rpFunction) { }
 
+        public override void Invoke(ProgressInfo rpProgressInfo)
+        {
+            rpProgressInfo.Progress++;
+        }
+
         public override string ToString() => "Progress += " + Function.ToString();
     }
 }
