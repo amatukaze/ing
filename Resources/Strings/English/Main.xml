@@ -121,6 +121,7 @@
   <String Key="Battle_AerialCombatResult_Denial">Air Denial</String>
 
   <String Key="Quest_Unknown">?????</String>
+  <String Key="Quest_Type_Once" />
   <String Key="Quest_Type_Daily">D</String>
   <String Key="Quest_Type_Weekly">W</String>
   <String Key="Quest_Type_Monthly">M</String>

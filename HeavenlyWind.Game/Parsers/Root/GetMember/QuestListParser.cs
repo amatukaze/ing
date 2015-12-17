@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.GetMember
     {
         public override void Process(RawQuestList rpData)
         {
-            if (rpData.Quests.Type != JTokenType.Array)
+            if (rpData.QuestsJson.Type != JTokenType.Array)
                 return;
 
             var rQuestManager = Game.Port.Quests;
@@ -18,7 +18,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.GetMember
             rQuestManager.TotalCount = rpData.Count;
             rQuestManager.ExecutingCount = rpData.ExecutingCount;
 
-            foreach (var rRawQuest in rpData.Quests.Where(r => r.Type == JTokenType.Object).Select(r => r.ToObject<RawQuest>()))
+            rpData.Quests = rpData.QuestsJson.Where(r => r.Type == JTokenType.Object).Select(r => r.ToObject<RawQuest>()).ToArray();
+            foreach (var rRawQuest in rpData.Quests)
             {
                 Quest rQuest;
                 if (!rQuestManager.Table.TryGetValue(rRawQuest.ID, out rQuest))

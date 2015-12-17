@@ -125,6 +125,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_AerialCombatResult_Denial => GetString(nameof(Battle_AerialCombatResult_Denial));
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
+        public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));
         public string Quest_Type_Monthly => GetString(nameof(Quest_Type_Monthly));

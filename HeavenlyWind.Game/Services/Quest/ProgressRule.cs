@@ -6,7 +6,7 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
 {
-    class ProgressRule
+    public class ProgressRule
     {
         public Trigger Trigger { get; }
         public Updater Updater { get; }
@@ -19,13 +19,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
 
         public void Register(QuestInfo rpQuest)
         {
+            if (Trigger is UnknownTrigger)
+                return;
+
             if (Trigger.Observable == null)
                 throw null;
 
             Trigger.Observable.Subscribe(_ =>
             {
-                var rProgressInfo = QuestProgressService.Instance.Progresses[rpQuest.ID];
-                if (rProgressInfo.State != QuestState.Progress)
+                if (QuestProgressService.Instance.Progresses == null)
+                    return;
+
+                ProgressInfo rProgressInfo;
+                if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Executing)
                     return;
 
                 Updater.Invoke(rProgressInfo);

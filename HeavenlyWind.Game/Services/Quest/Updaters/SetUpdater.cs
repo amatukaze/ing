@@ -1,5 +1,5 @@
-﻿using System;
-using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Functions;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Functions;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Updaters
 {

@@ -62,27 +62,43 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             return r_Progresses;
         }
 
-        void UpdateRecords()
+        internal void InsertRecord(ProgressInfo rpInfo)
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "INSERT INTO quest_progress(id, state, progress, update_time) VALUES(@id, @state, @progress, strftime('%s', 'now'));";
+                rCommand.Parameters.AddWithValue("@id", rpInfo.Quest.ID);
+                rCommand.Parameters.AddWithValue("@state", (int)rpInfo.State);
+                rCommand.Parameters.AddWithValue("@progress", rpInfo.Progress);
+
+                rCommand.ExecuteNonQuery();
+            }
+        }
+
+        internal void UpdateRecords()
         {
             using (var rTransaction = Connection.BeginTransaction())
             {
                 foreach (var rProgress in r_Progresses.Values.Where(r => r.IsDirty))
-                {
-                    using (var rCommand = Connection.CreateCommand())
-                    {
-                        rCommand.CommandText = "UPDATE quest_progress SET progress = @progress, update_time = strftime('%s', 'now') WHERE id = @id;";
-                        rCommand.Parameters.AddWithValue("@id", rProgress.Quest.ID);
-                        rCommand.Parameters.AddWithValue("@progress", rProgress.Progress);
-
-                        rCommand.ExecuteNonQuery();
-                    }
-
-                    rProgress.IsDirty = false;
-                }
+                    UpdateRecord(rProgress);
 
                 rTransaction.Commit();
             }
         }
+        internal void UpdateRecord(ProgressInfo rpProgress)
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "UPDATE quest_progress SET progress = @progress, update_time = strftime('%s', 'now') WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@id", rpProgress.Quest.ID);
+                rCommand.Parameters.AddWithValue("@progress", rpProgress.Progress);
+
+                rCommand.ExecuteNonQuery();
+            }
+
+            rpProgress.IsDirty = false;
+        }
+
         void DeleteRecord(int rpID)
         {
             using (var rCommand = Connection.CreateCommand())

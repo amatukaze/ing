@@ -247,6 +247,7 @@
     <Compile Include="Services\Quest\Parsers\DictionaryExtensions.cs" />
     <Compile Include="Services\Quest\Parsers\ExpeditionTriggerParserBuilder.cs" />
     <Compile Include="Services\Quest\Parsers\MatchingRuleParser.cs" />
+    <Compile Include="Services\Quest\Parsers\ModernizationTriggerParserBuilder.cs" />
     <Compile Include="Services\Quest\Parsers\ParserBase.cs" />
     <Compile Include="Services\Quest\Parsers\ParserCombinatorExtensions.cs" />
     <Compile Include="Services\Quest\Parsers\ParserCombinatorsMonad.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Services\Quest\QuestInfo.cs" />
     <Compile Include="Services\Quest\Triggers\ApiTrigger.cs" />
     <Compile Include="Services\Quest\Triggers\ExpeditionTrigger.cs" />
+    <Compile Include="Services\Quest\Triggers\ModernizationTrigger.cs" />
     <Compile Include="Services\Quest\Triggers\Trigger.cs" />
     <Compile Include="Services\Quest\Triggers\TriggerNameAttribute.cs" />
     <Compile Include="Services\Quest\Triggers\UnknownTrigger.cs" />

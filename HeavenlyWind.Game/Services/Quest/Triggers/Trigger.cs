@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
 {
-    abstract class Trigger
+    public abstract class Trigger
     {
         internal static Dictionary<string, TriggerParserBuilder> ParserBuilders { get; }
 

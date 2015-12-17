@@ -15,12 +15,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             get { return r_Progress; }
             internal set
             {
-                if (r_Progress != value)
+                var rProgress = Math.Min(value, Quest.Total);
+                if (r_Progress != rProgress)
                 {
-                    r_Progress = value;
+                    r_Progress = rProgress;
                     UpdateTime = DateTimeOffset.Now;
                     IsDirty = true;
                     OnPropertyChanged(nameof(Progress));
+
+                    RecordService.Instance.QuestProgress.UpdateRecord(this);
                 }
             }
         }

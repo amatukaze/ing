@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
 {
@@ -9,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
         public int Total { get; }
         public int? StartFrom { get; }
 
-        public string ProgressRuleString { get; }
+        public ProgressRule[] ProgressRules { get; }
 
         internal QuestInfo(JToken rpJson)
         {
@@ -17,7 +18,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             Total = (int?)rpJson["total"] ?? 1;
             StartFrom = (int?)rpJson["start_from"];
 
-            ProgressRuleString = (string)rpJson["progress_rule"];
+            ProgressRules = MatchingRuleParser.Instance.ParseProgressRule((string)rpJson["progress_rule"]);
+            foreach (var rRule in ProgressRules)
+                rRule.Register(this);
         }
     }
 }

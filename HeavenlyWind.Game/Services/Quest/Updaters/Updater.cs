@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Updaters
 {
-    abstract class Updater
+    public abstract class Updater
     {
         public static Updater Default { get; } = new IncrementUpdater(ConstantFunction.One);
 
