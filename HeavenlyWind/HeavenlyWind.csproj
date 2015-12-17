@@ -38,6 +38,9 @@
   <PropertyGroup>
     <ApplicationManifest>Properties\HeavenlyWind.exe.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -45,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
@@ -59,6 +63,14 @@
     </Reference>
     <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-XAML.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -83,10 +95,24 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\TextBoxLoseFocusAfterPressingEnterBehavior.cs" />
     <Compile Include="Controls\ColorIndicator.cs" />
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Models\Power.cs" />
+    <Compile Include="Services\BrowserService.cs" />
+    <Compile Include="Services\Browser\BrowserNavigator.cs" />
+    <Compile Include="Services\Browser\BrowserHost.cs" />
+    <Compile Include="Services\Browser\BrowserVolume.cs" />
+    <Compile Include="Services\Browser\BrowserWrapper.cs" />
+    <Compile Include="Services\Browser\CommunicatorMessageExtensions.cs" />
+    <Compile Include="Services\Browser\CommunicatorMessages.cs" />
+    <Compile Include="Services\Browser\GameController.cs" />
+    <Compile Include="Services\Browser\LayoutEngineDependency.cs" />
+    <Compile Include="Services\Browser\LayoutEngineInfo.cs" />
+    <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
+    <Compile Include="Services\ScreenshotService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
@@ -100,18 +126,65 @@
     <Compile Include="ViewModels\Game\QuestViewModel.cs" />
     <Compile Include="ViewModels\Game\RepairDockViewModel.cs" />
     <Compile Include="ViewModels\Game\ShipViewModel.cs" />
+    <Compile Include="ViewModels\Game\SortieViewModel.cs" />
+    <Compile Include="ViewModels\History\ConstructionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentGroupingKey.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByFleet.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByMasterID.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByLevel.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByShip.cs" />
+    <Compile Include="ViewModels\Overviews\Equipments\EquipmentTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Ships\ShipOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Ships\ShipTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\Ships\ShipViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
+    <Compile Include="Views\Browser.xaml.cs">
+      <DependentUpon>Browser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BrowserNavigator.xaml.cs">
+      <DependentUpon>BrowserNavigator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GameController.xaml.cs">
+      <DependentUpon>GameController.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Battle\Information.xaml.cs">
+      <DependentUpon>Information.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Battle\ParticipantSnapshot.xaml.cs">
+      <DependentUpon>ParticipantSnapshot.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\ConstructionDocks.xaml.cs">
       <DependentUpon>ConstructionDocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Events\AviationReconnaissance.xaml.cs">
+      <DependentUpon>AviationReconnaissance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Battle.xaml.cs">
+      <DependentUpon>Battle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\NothingHappened.xaml.cs">
+      <DependentUpon>NothingHappened.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Reward.xaml.cs">
+      <DependentUpon>Reward.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Whirlpool.xaml.cs">
+      <DependentUpon>Whirlpool.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\ExecutingQuestsOverview.xaml.cs">
       <DependentUpon>ExecutingQuestsOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\FleetDetail.xaml.cs">
+      <DependentUpon>FleetDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Fleets.xaml.cs">
       <DependentUpon>Fleets.xaml</DependentUpon>
@@ -119,8 +192,14 @@
     <Compile Include="Views\Game\FleetsOverview.xaml.cs">
       <DependentUpon>FleetsOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Headquarter.xaml.cs">
+      <DependentUpon>Headquarter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Practice.xaml.cs">
+      <DependentUpon>Practice.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Quests.xaml.cs">
       <DependentUpon>Quests.xaml</DependentUpon>
@@ -128,14 +207,35 @@
     <Compile Include="Views\Game\RepairDocks.xaml.cs">
       <DependentUpon>RepairDocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Sortie.xaml.cs">
+      <DependentUpon>Sortie.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\SortieOrPractice.xaml.cs">
+      <DependentUpon>SortieOrPractice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\History\ConstructionHistoryWindow.xaml.cs">
+      <DependentUpon>ConstructionHistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\History\DevelopmentHistoryWindow.xaml.cs">
+      <DependentUpon>DevelopmentHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overviews\EquipmentOverviewWindow.xaml.cs">
+      <DependentUpon>EquipmentOverviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Overviews\ShipOverviewWindow.xaml.cs">
+      <DependentUpon>ShipOverviewWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\Cache.xaml.cs">
       <DependentUpon>Cache.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Preferences\Language.xaml.cs">
+      <DependentUpon>Language.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\Network.xaml.cs">
       <DependentUpon>Network.xaml</DependentUpon>
@@ -188,6 +288,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\Controls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Controls\ListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Controls\TextElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Converters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -356,7 +468,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Browser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BrowserNavigator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GameController.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GameInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Battle\Information.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Battle\ParticipantSnapshot.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -364,7 +496,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\Events\AviationReconnaissance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Battle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\NothingHappened.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Reward.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Whirlpool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\ExecutingQuestsOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\FleetDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -376,7 +532,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\Headquarter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\Overview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Practice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -388,15 +552,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\Sortie.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\SortieOrPractice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\History\ConstructionHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\History\DevelopmentHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overviews\EquipmentOverviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Overviews\ShipOverviewWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Preferences\Browser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Cache.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Preferences\Language.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -420,6 +612,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

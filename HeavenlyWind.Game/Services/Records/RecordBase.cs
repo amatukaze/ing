@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             Connection = rpConnection;
         }
-        
+
         internal void Connect()
         {
             CheckVersion();
@@ -44,14 +44,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
 
             if (rVersion == 0)
-                InitializeTable();
+                InitializeTableVersion();
             else if (rVersion != Version)
+            {
                 UpgradeFromOldVersion(rVersion);
-        }
-        void InitializeTable()
-        {
-            CreateTable();
+                UpdateVersion(rVersion);
+            }
 
+            CreateTable();
+        }
+        void InitializeTableVersion()
+        {
             using (var rCommand = Connection.CreateCommand())
             {
                 rCommand.CommandText = "INSERT INTO versions(key, value) VALUES(@group, @version);";
@@ -65,6 +68,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         protected virtual void Load() { }
 
         protected virtual void UpgradeFromOldVersion(int rpOldVersion) { }
+        void UpdateVersion(int rpVersion)
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "UPDATE versions SET value = @version WHERE key = @group;";
+                rCommand.Parameters.AddWithValue("@group", GroupName);
+                rCommand.Parameters.AddWithValue("@version", Version.ToString());
+
+                rCommand.ExecuteNonQuery();
+            }
+        }
 
         public void Dispose()
         {

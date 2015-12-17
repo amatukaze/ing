@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public string Name => RawData.Name;
         public string NameReading => RawData.NameReading;
-        
+
         public ShipType Type
         {
             get
@@ -27,6 +27,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     return ShipType.Dummy;
             }
         }
+
+        public int Rarity => RawData.Rarity;
 
         #region Paramater
 
@@ -51,7 +53,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public int MaxFuelConsumption => RawData.MaxFuelConsumption;
         public int MaxBulletConsumption => RawData.MaxBulletConsumption;
-        
+
         public int SlotCount => RawData.SlotCount;
         public int[] PlaneCountInSlot => RawData.PlaneCountInSlot ?? Enumerable.Repeat(0, SlotCount).ToArray();
 
@@ -88,6 +90,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     return Name;
                 else
                     return $"{Name} {NameReading}";
+            }
+        }
+        public string NameWithoutAbyssalShipClass
+        {
+            get
+            {
+                if (!IsAbyssalShip || NameReading.IsNullOrEmpty() || NameReading == "-")
+                    return Name;
+                else
+                    return Name.Replace("後期型", string.Empty);
             }
         }
 

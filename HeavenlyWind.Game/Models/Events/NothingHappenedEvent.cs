@@ -1,13 +1,18 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+
+namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
+    public enum NothingHappenedMessage { Imagination, NoSighOfTheEnemy, ManualSelection }
+
     public class NothingHappenedEvent : SortieEvent
     {
-        public string Message { get; }
-        
+        public NothingHappenedMessage Message { get; }
+
         public bool CanManuallySelectRoute { get; }
 
-        internal NothingHappenedEvent()
+        internal NothingHappenedEvent(RawMapExploration rpData) : base(rpData)
         {
+            Message = (NothingHappenedMessage)rpData.CellEventSubType;
         }
     }
 }

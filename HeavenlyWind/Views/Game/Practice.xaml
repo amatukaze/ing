@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.Practice"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
+             xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+             xmlns:rvge="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game.Events"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance rvmg:SortieViewModel}"
+             d:DesignWidth="300" d:DesignHeight="300">
+    <Grid DataContext="{Binding Practice}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="8" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock DataContext="{Binding Opponent}">
+            <Run Text="{Binding Name, Mode=OneWay}" />
+            <Run Text="{Binding Level, StringFormat=Lv. {0}, Mode=OneWay}" />
+            [<Run Text="{rb:EnumToStringResource Rank, Overview_Admiral_Rank, Mode=OneWay}" />]
+        </TextBlock>
+
+        <ItemsControl ItemsSource="{Binding Opponent.Ships}" HorizontalAlignment="Left" Grid.Row="2" Grid.IsSharedSizeScope="True">
+            <ItemsControl.Style>
+                <Style TargetType="{x:Type ItemsControl}">
+                    <Setter Property="Visibility" Value="Hidden" />
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Battle}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ItemsControl.Style>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="30">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="75" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="Level" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding Info.Name}" />
+                        <TextBlock Text="{Binding Level, StringFormat=Lv. {0}}" Grid.Column="1" />
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <rvge:Battle Grid.Row="2">
+            <rvge:Battle.Style>
+                <Style TargetType="{x:Type rvge:Battle}">
+                    <Setter Property="Visibility" Value="Visible" />
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Battle}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </rvge:Battle.Style>
+        </rvge:Battle>
+    </Grid>
+</UserControl>

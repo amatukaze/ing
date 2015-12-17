@@ -1,7 +1,8 @@
 ﻿using Newtonsoft.Json;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Models.Preferences;
 
-namespace Sakuno.KanColle.Amatsukaze.Models
+namespace Sakuno.KanColle.Amatsukaze
 {
     partial class Preference
     {
@@ -9,8 +10,20 @@ namespace Sakuno.KanColle.Amatsukaze.Models
         [JsonProperty("version")]
         public string Version { get; } = ProductInfo.AssemblyVersionString;
 
+        string r_Language = StringResources.GetDefaultLanguage().Directory;
         [JsonProperty("language")]
-        public string Language { get; set; } = StringResources.GetDefaultLanguage();
+        public string Language
+        {
+            get { return r_Language; }
+            set
+            {
+                if (r_Language != value)
+                {
+                    r_Language = value;
+                    StringResources.Instance.Load();
+                }
+            }
+        }
 
         [JsonProperty("firstrun")]
         public bool FirstRun { get; set; } = true;

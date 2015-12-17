@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Strings CultureName="en" Name="English" Version="0.1.3">
+
+  <String Key="Feature_UnderConstruction">Under construction</String>
+  <String Key="Feature_Filter">Filter</String>
+  <String Key="Feature_Filter_All">All</String>
+
+  <String Key="Log_Welcome">Ready</String>
+  <String Key="Log_Exception_API_Failed">Error code from API「{0}」: {1}</String>
+  <String Key="Log_Exception_API_ParseException">Error occured when parsing API: {0}</String>
+  <String Key="Log_ExpeditionResult">/{0}"{1}" has returned from expedition {2}:{3}.(Result:{4})</String>
+  <String Key="Log_StartConstruction">Start construction of {0} (Material Consumption:{1}/{2}/{3}/{4}-{5})</String>
+  <String Key="Log_Development_Success">{0} was successfully developed.(Material Consumption:{1}/{2}/{3}/{4})</String>
+  <String Key="Log_Development_Failure">Development failed. (Material Consumption:{0}/{1}/{2}/{3})</String>
+  <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})</String>
+  <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
+  <String Key="Log_Ship_Dropped">{0} dropped</String>
+
+  <String Key="Result_Failure">Failure</String>
+  <String Key="Result_Success">Success</String>
+  <String Key="Result_GreatSuccess">Great success</String>
+
+  <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
+  
+  <String Key="Tab_Overview">Overview</String>
+  <String Key="Tab_Fleets">Fleet</String>
+  <String Key="Tab_Sortie">Sortie</String>
+  <String Key="Tab_Quests">Quest</String>
+  <String Key="Tab_Tools">Tool</String>
+
+  <String Key="Overview_Headquarter">Headquarter</String>
+  <String Key="Overview_Headquarter_Ships">Ships</String>
+  <String Key="Overview_Headquarter_Equipments">Equipment</String>
+  <String Key="Overview_Admiral_Rank_MarshalAdmiral">Marshal Admiral</String>
+  <String Key="Overview_Admiral_Rank_Admiral">Admiral</String>
+  <String Key="Overview_Admiral_Rank_ViceAdmiral">Vice Admiral</String>
+  <String Key="Overview_Admiral_Rank_RearAdmiral">Rear Admiral</String>
+  <String Key="Overview_Admiral_Rank_Captain">Captain</String>
+  <String Key="Overview_Admiral_Rank_Commander">Commander</String>
+  <String Key="Overview_Admiral_Rank_NoviceCommander">Novice Commander</String>
+  <String Key="Overview_Admiral_Rank_LieutenantCommander">Lieutenant Commander</String>
+  <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">Vice Lieutenant Commander</String>
+  <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">Novice Lieutenant Commander</String>
+  <String Key="Overview_Fleets">Fleets</String>
+  <String Key="Overview_Fleets_Idle">Idle</String>
+  <String Key="Overview_Fleets_Sortie">Sortie</String>
+  <String Key="Overview_Fleets_Unsupplied">Unsupplied</String>
+  <String Key="Overview_Fleets_HeavilyDamaged">Heavily Damaged</String>
+  <String Key="Overview_Fleets_Expedition_TimeToComplete">Completion Time</String>
+  <String Key="Overview_Dock_Locked">Locked</String>
+  <String Key="Overview_RepairDocks">Repair docks</String>
+  <String Key="Overview_RepairDocks_TimeToComplete">Completion Time</String>
+  <String Key="Overview_ConstructionDocks">Construction docks</String>
+  <String Key="Overview_ConstructionDocks_Completed">Completed</String>
+  <String Key="Overview_ConstructionDocks_TimeToComplete">Completion Time</String>
+  <String Key="Overview_ConstructionDocks_MaterialConsumption">Material Consumption</String>
+  <String Key="Overview_ExecutingQuests">Executing Quests</String>
+  <String Key="Overview_EquipmentOverview">Equipment Overview</String>
+  <String Key="Overview_ShipOverview">Ship Overview</String>
+
+  <String Key="Fleet_TotalLevel">Total Lv.</String>
+  <String Key="Fleet_LoS">LoS</String>
+  <String Key="Fleet_AA">AA</String>
+
+  <String Key="Material_Fuel">Fuel</String>
+  <String Key="Material_Bullet">Bullet</String>
+  <String Key="Material_Steel">Steel</String>
+  <String Key="Material_Bauxite">Bauxite</String>
+  <String Key="Material_InstantConstruction">InstantConstruction</String>
+  <String Key="Material_Bucket">Bucket</String>
+  <String Key="Material_DevelopmentMaterial">DevelopmentMaterial</String>
+  <String Key="Material_ImprovementMaterial">ImprovementMaterial</String>
+
+  <String Key="Sortie_Cell">Node</String>
+  <String Key="Sortie_Event_Unknown">Unknown</String>
+  <String Key="Sortie_Event_Reward">Reward</String>
+  <String Key="Sortie_Event_Whirlpool">Whirlpool</String>
+  <String Key="Sortie_Event_NormalBattle">Normal Battle</String>
+  <String Key="Sortie_Event_BossBattle">Boss Battle</String>
+  <String Key="Sortie_Event_NothingHappened">No Battle</String>
+  <String Key="Sortie_Event_AviationReconnaissance">Aviation Reconnaissance</String>
+  <String Key="Sortie_Event_EscortSuccess">Escort Success</String>
+  <String Key="Sortie_Event_Landing">Landing</String>
+  <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
+  <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
+  <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>
+
+  <String Key="Map_Difficulty_Easy">Easy</String>
+  <String Key="Map_Difficulty_Normal">Medium</String>
+  <String Key="Map_Difficulty_Hard">Hard</String>
+
+  <String Key="Battle_State_Healthy" />
+  <String Key="Battle_State_LightlyDamaged">Lightly</String>
+  <String Key="Battle_State_ModeratelyDamaged">Moderately</String>
+  <String Key="Battle_State_HeavilyDamaged">Heavily</String>
+  <String Key="Battle_State_Sunk">Sunk</String>
+  <String Key="Battle_State_Disordered">Disordered</String>
+  <String Key="Battle_State_Damaged">Damaged</String>
+  <String Key="Battle_State_Destroyed">Destroyed</String>
+  <String Key="Battle_State_Demolished">Demolished</String>
+  <String Key="Battle_State_Evacuated">Evacuated</String>
+  <String Key="Battle_Formation_LineAhead">Line Ahead</String>
+  <String Key="Battle_Formation_DoubleLine">Double Line</String>
+  <String Key="Battle_Formation_Diamond">Diamond</String>
+  <String Key="Battle_Formation_Echolon">Echolon</String>
+  <String Key="Battle_Formation_LineAbreast">Line Abreast</String>
+  <String Key="Battle_Formation_Cruising1">Cruising 1st</String>
+  <String Key="Battle_Formation_Cruising2">Cruising 2nd</String>
+  <String Key="Battle_Formation_Cruising3">Cruising 3rd</String>
+  <String Key="Battle_Formation_Cruising4">Cruising 4th</String>
+  <String Key="Battle_EngagementForm_Parallel">Parallel</String>
+  <String Key="Battle_EngagementForm_HeadOn">Head-on</String>
+  <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T Advantage</String>
+  <String Key="Battle_EngagementForm_CrossingTheTDisadvantage">T Disadvantage</String>
+  <String Key="Battle_AerialCombat_Fighter">F</String>
+  <String Key="Battle_AerialCombat_Bomber">B</String>
+  <String Key="Battle_AerialCombatResult_Supremacy">Air Supremacy</String>
+  <String Key="Battle_AerialCombatResult_Superiority">Air Superiority</String>
+  <String Key="Battle_AerialCombatResult_Parity">Air Parity</String>
+  <String Key="Battle_AerialCombatResult_Incapability">Air Incapability</String>
+  <String Key="Battle_AerialCombatResult_Denial">Air Denial</String>
+
+  <String Key="Quest_Unknown">?????</String>
+  <String Key="Quest_Type_Daily">D</String>
+  <String Key="Quest_Type_Weekly">W</String>
+  <String Key="Quest_Type_Monthly">M</String>
+  <String Key="Quest_Category_Composition">Composition</String>
+  <String Key="Quest_Category_Sortie">Sortie</String>
+  <String Key="Quest_Category_Practice">Practice</String>
+  <String Key="Quest_Category_Expedition">Expedition</String>
+  <String Key="Quest_Category_SupplyOrDocking">SupplyOrDocking</String>
+  <String Key="Quest_Category_Arsenal">Arsenal</String>
+  <String Key="Quest_Category_Modernization">Modernization</String>
+  <String Key="Quest_State_Completed">Completed</String>
+
+  <String Key="Window_Preferences">Setting</String>
+  <String Key="Window_EquipmentOverview">Equipment Overview</String>
+  <String Key="Window_ShipOverview">Ship Overview</String>
+  <String Key="Window_ConstructionHistory">Construction history</String>
+  <String Key="Window_DevelopmentHistory">Development history</String>
+  <String Key="Window_ClosingConfirmation">Are you sure to close HeavenlyWind?</String>
+
+  <String Key="PreferenceWindow_Network">Network</String>
+  <String Key="PreferenceWindow_Network_Port">Port</String>
+  <String Key="PreferenceWindow_Network_EnableForSSL">Use proxy for SSL connections</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
+  <String Key="PreferenceWindow_Cache">Cache</String>
+  <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
+  <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
+  <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust</String>
+  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">Check Version</String>
+  <String Key="PreferenceWindow_Cache_Path">Path</String>
+  <String Key="PreferenceWindow_Notification">Notification</String>
+  <String Key="PreferenceWindow_Language">Language</String>
+  <String Key="PreferenceWindow_Browser">Browser</String>
+  <String Key="PreferenceWindow_Browser_LayoutEngine">Layout Engine</String>
+  <String Key="PreferenceWindow_Browser_Homepage">Homepage</String>
+  <String Key="PreferenceWindow_Browser_ClearCache">Clear cache</String>
+  <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">Clear cache and cookie</String>
+  <String Key="PreferenceWindow_Browser_Flash">Flash Settings</String>
+  <String Key="PreferenceWindow_Browser_Flash_Quality">Quality</String>
+  <String Key="PreferenceWindow_Browser_Flash_RenderMode">Render Mode</String>
+  <String Key="PreferenceWindow_Screenshot">Screenshot</String>
+  <String Key="PreferenceWindow_Screenshot_Folder">Destination</String>
+
+  <String Key="ValidationRule_PleaseInputNumber">Please input number</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">Please input number greater than {0}</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">Please input number less than {0}</String>
+
+  <String Key="Screenshot_Failed">Fail to save screenshot</String>
+  <String Key="Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
+  <String Key="Screenshot_Succeeded_File">Screenshot was saved:{0}</String>
+
+  <String Key="EquipmentOverview_Name">Name</String>
+  <String Key="EquipmentOverview_TotalCount">Total</String>
+  <String Key="EquipmentOverview_Remaining">Remaining</String>
+  <String Key="EquipmentOverview_Level">Level</String>
+  <String Key="EquipmentOverview_Proficiency">Proficiency</String>
+  <String Key="EquipmentOverview_EquippedCount">Equipped count</String>
+  <String Key="EquipmentOverview_EquippedShip">Equipped ship</String>
+
+  <String Key="ShipOverview_Type">Type</String>
+  <String Key="ShipOverview_Name">Name</String>
+  <String Key="ShipOverview_Level">Level</String>
+  <String Key="ShipOverview_Condition">Cond.</String>
+  <String Key="ShipOverview_Firepower">Firepower</String>
+  <String Key="ShipOverview_Torpedo">Torpedo</String>
+  <String Key="ShipOverview_AA">AA</String>
+  <String Key="ShipOverview_Armor">Armor</String>
+  <String Key="ShipOverview_Luck">Luck</String>
+  <String Key="ShipOverview_Evasion">Evasion</String>
+  <String Key="ShipOverview_ASW">ASW</String>
+  <String Key="ShipOverview_LoS">LoS</String>
+  <String Key="ShipOverview_Equipment">Equipment</String>
+
+  <String Key="Record_Time">Time</String>
+  <String Key="Record_SecretaryShip">Secretary ship</String>
+
+  <String Key="ConstructionHistory_Ship">Ship</String>
+
+  <String Key="DevelopmentHistory_Equipment">Equipment</String>
+
+</Strings>

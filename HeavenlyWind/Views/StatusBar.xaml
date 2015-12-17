@@ -1,20 +1,64 @@
 ﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.StatusBar"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
-             mc:Ignorable="d" 
-             d:DesignHeight="23" d:DesignWidth="800">
+             mc:Ignorable="d"
+             DataContext="{Binding Source={x:Static rs:StatusBarService.Instance}}"
+             d:DesignWidth="800" d:DesignHeight="23">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="{Binding Message, Source={x:Static rs:StatusBarService.Instance}}" TextWrapping="NoWrap" Margin="4, 0" />
-        
-        <ruic:ResizeGrip />
+        <DockPanel>
+            <ruic:ResizeGrip DockPanel.Dock="Right"/>
+
+            <DockPanel Margin="3, 0">
+                <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0" DockPanel.Dock="Right">
+                    <StackPanel.Style>
+                        <Style TargetType="{x:Type StackPanel}">
+                            <Setter Property="Visibility" Value="Collapsed" />
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Power.Source}" Value="Battery">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <Path Fill="{DynamicResource ActiveForegroundBrushKey}" Stretch="Uniform" Margin="2" Data="M35.009781,64.453026 L105.61525,64.453026 105.61525,255.46832 35.009781,255.46832 z M20.507813,50.097588 L20.507813,269.82375 120.41019,269.82375 120.41019,50.097588 z M39.99025,0 L100.92775,0 100.92775,29.882778 140.918,29.882778 140.918,290.77099 0,290.77099 0,29.882778 39.99025,29.882778 z" />
+                    <TextBlock>
+                        <Run Text="{Binding Power.BatteryRemainingPercentage, Mode=OneWay}" />%
+                    </TextBlock>
+                </StackPanel>
+
+                <TextBlock Text="{Binding Message}" TextWrapping="NoWrap">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsMessageObsolete}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Name="Akarin">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.5" Duration="0:0:0.5"  />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="Akarin" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </DockPanel>
+        </DockPanel>
+
     </Grid>
 </UserControl>

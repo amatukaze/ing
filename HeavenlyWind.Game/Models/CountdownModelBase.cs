@@ -39,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public virtual TimeSpan RemainingTimeToNotify => TimeSpan.Zero;
         public bool IsNotificated { get; protected set; }
-        
+
         static CountdownModelBase()
         {
             r_Interval = Observable.Interval(TimeSpan.FromSeconds(1.0)).Publish();

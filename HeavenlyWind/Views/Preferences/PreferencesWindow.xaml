@@ -67,7 +67,7 @@
             </Setter>
         </Style>
     </ruic:MetroWindow.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -104,6 +104,14 @@
 
             <TabItem>
                 <TabItem.Header>
+                    <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Language}" FontSize="14" />
+                </TabItem.Header>
+
+                <rvp:Language />
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
                     <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Notification}" FontSize="14" />
                 </TabItem.Header>
 
@@ -118,7 +126,7 @@
 
                 <rvp:Browser />
             </TabItem>
-            
+
             <TabItem>
                 <TabItem.Header>
                     <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Screenshot}" FontSize="14" />
@@ -127,7 +135,7 @@
                 <rvp:Screenshot />
             </TabItem>
         </TabControl>
-        
+
         <ruic:ResizeGrip Grid.Row="1" />
     </Grid>
 </ruic:MetroWindow>

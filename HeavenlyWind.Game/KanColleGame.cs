@@ -1,4 +1,8 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
+
+namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class KanColleGame : ModelBase
     {
@@ -22,6 +26,35 @@
             }
         }
 
-        KanColleGame() { }
+        public IDTable<MapInfo> Maps { get; } = new IDTable<MapInfo>();
+
+        SortieInfo r_Sortie;
+        public SortieInfo Sortie
+        {
+            get { return r_Sortie; }
+            internal set
+            {
+                if (r_Sortie != value)
+                {
+                    r_Sortie = value;
+                    OnPropertyChanged(nameof(Sortie));
+                }
+            }
+        }
+
+        KanColleGame()
+        {
+            SessionService.Instance.Subscribe("api_get_member/mapinfo", rpApiData =>
+            {
+                if (Maps.UpdateRawData(rpApiData.GetData<RawMapInfo[]>(), r => new MapInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                    OnPropertyChanged(nameof(Maps));
+            });
+            SessionService.Instance.Subscribe("api_req_map/select_eventmap_rank", r =>
+            {
+                var rMap = Maps[int.Parse(r.Requests["api_maparea_id"]) * 10 + int.Parse(r.Requests["api_map_no"])];
+                rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Requests["api_rank"]);
+            });
+
+        }
     }
 }

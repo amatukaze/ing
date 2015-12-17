@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
     {
         [JsonProperty("port")]
         public int Port { get; set; } = 15820;
-        
+
         [JsonProperty("enableforssl")]
         public bool EnableForSSL { get; set; } = false;
 

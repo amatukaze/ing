@@ -11,12 +11,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public static RecordService Instance { get; } = new RecordService();
 
+        public bool IsReadOnlyMode { get; set; }
+
         public ResourcesRecord Resources { get; private set; }
         public ShipsRecord Ships { get; private set; }
         public ExperienceRecord Experience { get; private set; }
         public ExpeditionRecord Expedition { get; private set; }
         public ConstructionRecord Construction { get; private set; }
         public DevelopmentRecord Development { get; private set; }
+        public SortieRecord Sortie { get; private set; }
+        public BattleRecord Battle { get; private set; }
 
         public QuestProgressRecord QuestProgress { get; private set; }
 
@@ -46,13 +50,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Expedition?.Dispose();
             Construction?.Dispose();
             Development?.Dispose();
-
+            Sortie?.Dispose();
+            Battle?.Dispose();
             QuestProgress?.Dispose();
-
             r_Connection?.Dispose();
 
+            IsConnected = false;
+
             r_UserID = rpUserID;
+
             r_Connection = new SQLiteConnection($@"Data Source=Records\{r_UserID}.db;Page Size=8192").OpenAndReturn();
+
+            if (IsReadOnlyMode)
+                using (var rSourceConnection = r_Connection)
+                {
+                    r_Connection = new SQLiteConnection("Data Source=:memory:; Page Size=8192").OpenAndReturn();
+                    rSourceConnection.BackupDatabase(r_Connection, "main", "main", -1, null, 0);
+                }
 
             using (var rTransaction = r_Connection.BeginTransaction())
             {
@@ -64,11 +78,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Expedition = new ExpeditionRecord(r_Connection).ConnectAndReturn();
                 Construction = new ConstructionRecord(r_Connection).ConnectAndReturn();
                 Development = new DevelopmentRecord(r_Connection).ConnectAndReturn();
+                Sortie = new SortieRecord(r_Connection).ConnectAndReturn();
+                Battle = new BattleRecord(r_Connection).ConnectAndReturn();
 
                 QuestProgress = new QuestProgressRecord(r_Connection).ConnectAndReturn();
 
                 rTransaction.Commit();
             }
+
+            IsConnected = true;
         }
 
         void CheckVersion()

@@ -80,7 +80,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             }
         }
-        
+
         internal QuestManager()
         {
             SessionService.Instance.Subscribe("api_get_member/questlist", _ =>

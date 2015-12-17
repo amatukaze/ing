@@ -4,7 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="{x:Type rc:EquipmentIcon}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Width" Value="24" />
@@ -24,7 +24,7 @@
             <Trigger Property="Type" Value="None">
                 <Setter Property="Visibility" Value="Hidden" />
             </Trigger>
-            
+
             <Trigger Property="Type" Value="SmallCaliberGun">
                 <Setter Property="Template" Value="{StaticResource SmallCaliberGunIcon}" />
             </Trigger>
@@ -130,8 +130,8 @@
             <Trigger Property="Type" Value="Supplies">
                 <Setter Property="Template" Value="{StaticResource SuppliesIcon}" />
             </Trigger>
-            
+
         </Style.Triggers>
     </Style>
-    
+
 </ResourceDictionary>

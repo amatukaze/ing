@@ -84,25 +84,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 r_ShipIDs = RawData.Ships;
                 r_ShipList = RawData.Ships.TakeWhile(r => r != -1).Select(r => Port.Ships[r]).ToList();
-                
+
                 foreach (var rShip in r_ShipList)
                     rShip.OwnerFleet = this;
 
-                Ships = r_ShipList.AsReadOnly();
-
-                ShipsUpdated(Ships);
+                UpdateShips();
             }
 
+            Update();
+        }
+
+        internal void Update()
+        {
             Status.Update();
             ExpeditionStatus.Update(RawData.Expedition);
 
-            UpdateState();
-        }
-        void UpdateState()
-        {
             var rState = FleetState.None;
 
-            if (ExpeditionStatus.Expedition != null)
+            if (KanColleGame.Current.Sortie?.Fleet == this ||
+                KanColleGame.Current.Port.Fleets.CombinedFleetType != CombinedFleetType.None && KanColleGame.Current.Sortie?.Fleet.ID == 1 && ID == 2)
+                rState |= FleetState.Sortie;
+            else if (ExpeditionStatus.Expedition != null)
                 rState |= FleetState.Expedition;
             else
                 rState |= FleetState.Idle;
@@ -120,6 +122,64 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
 
             State = rState;
+        }
+
+        void UpdateShips()
+        {
+            Ships = r_ShipList.AsReadOnly();
+
+            ShipsUpdated(Ships);
+        }
+
+        public Ship Organize(int rpIndex, Ship rpShip)
+        {
+            var rOriginalShip = rpIndex < r_ShipList.Count ? r_ShipList[rpIndex] : null;
+            if (rOriginalShip != null)
+                rOriginalShip.OwnerFleet = null;
+
+            if (rpIndex >= r_ShipList.Count)
+            {
+                r_ShipList.Add(rpShip);
+                r_ShipIDs = r_ShipList.Select(r => r.ID).ToArray();
+            }
+            else
+            {
+                r_ShipIDs[rpIndex] = rpShip.ID;
+                r_ShipList[rpIndex] = rpShip;
+            }
+
+            rpShip.OwnerFleet = this;
+
+            UpdateShips();
+
+            return rOriginalShip;
+        }
+
+        public void Remove(int rpIndex)
+        {
+            var rShip = r_ShipList[rpIndex];
+            rShip.OwnerFleet = null;
+
+            r_ShipList.RemoveAt(rpIndex);
+            r_ShipIDs = r_ShipList.Select(r => r.ID).ToArray();
+
+            UpdateShips();
+        }
+        public void Remove(Ship rpShip)
+        {
+            var rIndex = r_ShipList.IndexOf(rpShip);
+            if (rIndex != -1)
+                Remove(rIndex);
+        }
+        public void RemoveAllExceptFlagship()
+        {
+            foreach (var rShip in r_ShipList.Skip(1))
+                rShip.OwnerFleet = null;
+
+            r_ShipIDs = r_ShipIDs.Take(1).ToArray();
+            r_ShipList.RemoveRange(1, r_ShipList.Count - 1);
+
+            UpdateShips();
         }
 
         public override string ToString()

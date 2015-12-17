@@ -25,7 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 }
             }));
         }
-        
+
         protected override void CreateTable()
         {
             using (var rCommand = Connection.CreateCommand())
@@ -81,7 +81,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             foreach (var rShip in rpShips)
                 using (var rCommand = Connection.CreateCommand())
                 {
-                    rCommand.CommandText = "INSERT OR IGNORE INTO expedition_count(ship, expedition) VALUES (@ship, @expedition);" +
+                    rCommand.CommandText = "INSERT OR IGNORE INTO expedition_count(ship, expedition) VALUES(@ship, @expedition);" +
                         "UPDATE expedition_count SET count = count + 1 WHERE ship = @ship AND expedition = @expedition;";
                     rCommand.Parameters.AddWithValue("@ship", rShip);
                     rCommand.Parameters.AddWithValue("@expedition", rpExpedition);

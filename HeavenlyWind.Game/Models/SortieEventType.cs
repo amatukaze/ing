@@ -8,8 +8,9 @@
         Whirlpool,
         NormalBattle,
         BossBattle,
-        Nothing,
-        Aerial,
+        NothingHappened,
+        AviationReconnaissance,
         EscortSuccess,
+        Landing,
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Data.SQLite;
-using System.Reactive;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
@@ -18,9 +15,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         int r_Bucket;
         int r_InstantConstruction;
         int r_ImprovementMaterial;
-
-        Subject<Unit> r_UpdateSource = new Subject<Unit>();
-        DateTime r_LastUpdateTime;
 
         internal ResourcesRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
@@ -38,20 +32,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     r_InstantConstruction != rMaterials.InstantConstruction ||
                     r_ImprovementMaterial != rMaterials.ImprovementMaterial;
 
-                r_Fuel = rMaterials.Fuel;
-                r_Bullet = rMaterials.Bullet;
-                r_Steel = rMaterials.Steel;
-                r_Bauxite = rMaterials.Bauxite;
-                r_DevelopmentMaterial = rMaterials.DevelopmentMaterial;
-                r_Bucket = rMaterials.Bucket;
-                r_InstantConstruction = rMaterials.InstantConstruction;
-                r_ImprovementMaterial = rMaterials.ImprovementMaterial;
-
                 if (rShouldInsertRecord)
-                    r_UpdateSource.OnNext(Unit.Default);
-            }));
+                {
+                    r_Fuel = rMaterials.Fuel;
+                    r_Bullet = rMaterials.Bullet;
+                    r_Steel = rMaterials.Steel;
+                    r_Bauxite = rMaterials.Bauxite;
+                    r_DevelopmentMaterial = rMaterials.DevelopmentMaterial;
+                    r_Bucket = rMaterials.Bucket;
+                    r_InstantConstruction = rMaterials.InstantConstruction;
+                    r_ImprovementMaterial = rMaterials.ImprovementMaterial;
 
-            DisposableObjects.Add(r_UpdateSource.Subscribe(_ => InsertRecord()));
+                    InsertRecord();
+                }
+            }));
         }
 
         protected override void CreateTable()
@@ -95,9 +89,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         void InsertRecord()
         {
-            if ((DateTime.Now - r_LastUpdateTime).TotalMinutes < 2.0)
-                return;
-
             using (var rCommand = Connection.CreateCommand())
             {
                 rCommand.CommandText = "INSERT INTO resources(time, fuel, bullet, steel, bauxite, development_material, bucket, instant_construction, improvement_material) " +
@@ -113,8 +104,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                 rCommand.ExecuteNonQuery();
             }
-
-            r_LastUpdateTime = DateTime.Now;
         }
     }
 }

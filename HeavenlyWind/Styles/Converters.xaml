@@ -1,10 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:rb="clr-namespace:Sakuno;assembly=Sakuno.Base">
+                    xmlns:rb="clr-namespace:Sakuno;assembly=Sakuno.Base"
+                    xmlns:ruic="clr-namespace:Sakuno.UserInterface.Converters;assembly=Sakuno.UserInterface">
 
-    <rb:IsGreaterThanConverter x:Key="IsGreaterThanConverter" />
+    <rb:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter" />
+
+<rb:IsGreaterThanConverter x:Key="IsGreaterThanConverter" />
     <rb:IsGreaterThanOrEqualToConverter x:Key="IsGreaterThanOrEqualToConverter" />
     <rb:IsLessThanConverter x:Key="IsLessThanConverter" />
     <rb:IsLessThanOrEqualToConverter x:Key="IsLessThanOrEqualToConverter" />
+
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <ruic:BooleanToInvisibilityConverter x:Key="BooleanToInvisibilityConverter" />
 
 </ResourceDictionary>
