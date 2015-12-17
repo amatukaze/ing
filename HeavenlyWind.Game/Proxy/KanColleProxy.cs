@@ -57,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             SessionSubject.OnNext(rSession);
 
-            if (rFullUrl == GameConstants.GamePageUrl || rPath == " / gadget/js/kcs_flash.js")
+            if (rFullUrl == GameConstants.GamePageUrl || rPath == "/gadget/js/kcs_flash.js")
                 rpSession.bBufferResponse = true;
         }
 
