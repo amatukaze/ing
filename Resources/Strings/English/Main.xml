@@ -122,6 +122,8 @@
 
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Once" />
+  <String Key="Quest_Type_Special">D</String>
+  <String Key="Quest_Type_Special2">D</String>
   <String Key="Quest_Type_Daily">D</String>
   <String Key="Quest_Type_Weekly">W</String>
   <String Key="Quest_Type_Monthly">M</String>

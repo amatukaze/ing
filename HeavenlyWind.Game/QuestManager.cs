@@ -90,7 +90,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Unexecuted = rQuests[false].ToList();
 
                 if (rExecuting.Count < ExecutingCount)
-                    rExecuting.AddRange(Enumerable.Repeat<Quest>(Quest.Dummy, ExecutingCount - rExecuting.Count));
+                    rExecuting.AddRange(Enumerable.Repeat(Quest.Dummy, ExecutingCount - rExecuting.Count));
 
                 Executing = rExecuting;
 
