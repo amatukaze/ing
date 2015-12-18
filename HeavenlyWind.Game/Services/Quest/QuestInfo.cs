@@ -18,6 +18,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             Total = (int?)rpJson["total"] ?? 1;
             StartFrom = (int?)rpJson["start_from"];
 
+            RuleVersion = (int?)rpJson["version"] ?? 1;
+            if (MatchingRuleParser.Version < RuleVersion)
+                return;
+
             ProgressRules = MatchingRuleParser.Instance.ParseProgressRule((string)rpJson["progress_rule"]);
             foreach (var rRule in ProgressRules)
                 rRule.Register(this);

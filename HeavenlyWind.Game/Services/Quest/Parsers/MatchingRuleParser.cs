@@ -8,6 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
 
     class MatchingRuleParser : ParserBase
     {
+        public const int Version = 1;
+
         public static MatchingRuleParser Instance { get; } = new MatchingRuleParser();
 
         static Dictionary<string, ProgressRule[]> r_CachedProgressRules = new Dictionary<string, ProgressRule[]>();
