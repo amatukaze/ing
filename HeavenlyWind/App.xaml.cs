@@ -34,7 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 Task.Factory.StartNew(() =>
                 {
                     Process.GetProcessById(rHostProcessID).WaitForExit();
-                    Environment.Exit(0);
+                    Process.GetCurrentProcess().Kill();
                 }, TaskCreationOptions.LongRunning);
 
                 return;
