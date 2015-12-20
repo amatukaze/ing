@@ -148,7 +148,7 @@
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
   <String Key="PreferenceWindow_Cache_Mode_FullTrust">完全信任（不校验文件版本）</String>
-  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">校验文件版本</String>
+  <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">校验文件版本</String>
   <String Key="PreferenceWindow_Cache_Path">路径</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Language">语言</String>

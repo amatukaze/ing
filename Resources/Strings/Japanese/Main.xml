@@ -145,10 +145,10 @@
   <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
-  <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
-  <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
-  <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust</String>
-  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">Check Version</String>
+  <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
+  <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>
+  <String Key="PreferenceWindow_Cache_Mode_FullTrust">ファイルの検証をしない</String>
+  <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">ファイルの検証をする</String>
   <String Key="PreferenceWindow_Cache_Path">パス</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Language">言語</String>

@@ -147,8 +147,8 @@
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
-  <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust</String>
-  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">Check Version</String>
+  <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust (No verification)</String>
+  <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">Verify Version</String>
   <String Key="PreferenceWindow_Cache_Path">Path</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Language">Language</String>
