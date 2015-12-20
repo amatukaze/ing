@@ -30,7 +30,22 @@
         </DockPanel>
 
         <DockPanel Grid.Row="1">
-            <rv:Browser />
+            <rv:Browser>
+                <rv:Browser.Style>
+                    <Style TargetType="{x:Type rv:Browser}">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Value="Maximized" />
+                                    <Condition Binding="{Binding ScreenOrientation, RelativeSource={RelativeSource AncestorType={x:Type ruic:MetroWindow}}}" Value="Portrait" />
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter Property="DockPanel.Dock" Value="Top" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </rv:Browser.Style>
+            </rv:Browser>
 
             <ContentControl>
                 <ContentControl.Resources>
