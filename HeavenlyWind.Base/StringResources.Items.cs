@@ -126,7 +126,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
         public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
-        public string Quest_Type_Special => GetString(nameof(Quest_Type_Special));
+        public string Quest_Type_Special1 => GetString(nameof(Quest_Type_Special1));
         public string Quest_Type_Special2 => GetString(nameof(Quest_Type_Special2));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));

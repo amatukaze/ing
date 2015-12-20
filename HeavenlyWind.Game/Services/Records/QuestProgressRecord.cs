@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class QuestProgressRecord : RecordBase
     {
-        public override string GroupName => "quest_progress";
+        public override string GroupName => "quest";
 
         Dictionary<int, ProgressInfo> r_Progresses = new Dictionary<int, ProgressInfo>(16);
 
@@ -22,8 +23,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS quest_progress(" +
+                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS quest(" +
                     "id INTEGER PRIMARY KEY NOT NULL, " +
+                    "name TEXT NOT NULL, " +
+                    "description TEXT NOT NULL, " +
+                    "type INTEGER NOT NULL, " +
                     "state INTEGER NOT NULL, " +
                     "progress INTEGER NOT NULL, " +
                     "update_time INTEGER NOT NULL);";
@@ -36,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "SELECT * FROM quest_progress;";
+                rCommand.CommandText = "SELECT * FROM quest;";
 
                 using (var rReader = rCommand.ExecuteReader())
                     while (rReader.Read())
@@ -54,7 +58,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                             rInfo.State = rState;
                             rInfo.Progress = rProgress;
                             rInfo.UpdateTime = rUpdateTime;
-                            rInfo.IsDirty = false;
                         }
                     }
             }
@@ -62,48 +65,51 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             return r_Progresses;
         }
 
-        internal void InsertRecord(ProgressInfo rpInfo)
+        internal void InsertRecord(RawQuest rpQuest, int rpProgress)
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT INTO quest_progress(id, state, progress, update_time) VALUES(@id, @state, @progress, strftime('%s', 'now'));";
-                rCommand.Parameters.AddWithValue("@id", rpInfo.Quest.ID);
-                rCommand.Parameters.AddWithValue("@state", (int)rpInfo.State);
-                rCommand.Parameters.AddWithValue("@progress", rpInfo.Progress);
+                rCommand.CommandText = "INSERT OR REPLACE INTO quest(id, name, description, type, state, progress, update_time) " +
+                    "VALUES(@id, @name, @description, @type, @state, @progress, strftime('%s', 'now'));";
+                rCommand.Parameters.AddWithValue("@id", rpQuest.ID);
+                rCommand.Parameters.AddWithValue("@name", rpQuest.Name);
+                rCommand.Parameters.AddWithValue("@description", rpQuest.Description);
+                rCommand.Parameters.AddWithValue("@type", rpQuest.Type);
+                rCommand.Parameters.AddWithValue("@state", (int)rpQuest.State);
+                rCommand.Parameters.AddWithValue("@progress", rpProgress);
 
                 rCommand.ExecuteNonQuery();
             }
         }
 
-        internal void UpdateRecords()
-        {
-            using (var rTransaction = Connection.BeginTransaction())
-            {
-                foreach (var rProgress in r_Progresses.Values.Where(r => r.IsDirty))
-                    UpdateRecord(rProgress);
-
-                rTransaction.Commit();
-            }
-        }
-        internal void UpdateRecord(ProgressInfo rpProgress)
+        internal void UpdateState(ProgressInfo rpProgress)
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "UPDATE quest_progress SET progress = @progress, update_time = strftime('%s', 'now') WHERE id = @id;";
+                rCommand.CommandText = "UPDATE quest SET state = @state, update_time = strftime('%s', 'now') WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@id", rpProgress.Quest.ID);
+                rCommand.Parameters.AddWithValue("@state", rpProgress.State);
+
+                rCommand.ExecuteNonQuery();
+            }
+        }
+        internal void UpdateProgress(ProgressInfo rpProgress)
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "UPDATE quest SET progress = @progress, update_time = strftime('%s', 'now') WHERE id = @id;";
                 rCommand.Parameters.AddWithValue("@id", rpProgress.Quest.ID);
                 rCommand.Parameters.AddWithValue("@progress", rpProgress.Progress);
 
                 rCommand.ExecuteNonQuery();
             }
-
-            rpProgress.IsDirty = false;
         }
 
-        void DeleteRecord(int rpID)
+        internal void DeleteRecord(int rpID)
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "DELETE FROM quest_progress WHERE id = @id;";
+                rCommand.CommandText = "DELETE FROM quest WHERE id = @id;";
                 rCommand.Parameters.AddWithValue("@id", rpID);
 
                 rCommand.ExecuteNonQuery();

@@ -14,6 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
     public class QuestProgressService
     {
         const string Data = @"Data\Quests.json";
+        static TimeSpan Offset = TimeSpan.FromHours(4.0);
 
         public static QuestProgressService Instance { get; } = new QuestProgressService();
 
@@ -26,6 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             SessionService.Instance.Subscribe("api_get_member/basic", _ => Progresses = RecordService.Instance.QuestProgress.Reload());
 
             SessionService.Instance.Subscribe("api_get_member/questlist", r => ProcessQuestList(r.Data as RawQuestList));
+            SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => Progresses.Remove(int.Parse(r.Requests["api_quest_id"])));
         }
 
         public void Initialize()
@@ -49,37 +51,84 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
             foreach (var rQuest in rpData.Quests)
             {
-                if (rQuest.State == QuestState.None)
-                    continue;
-
                 var rID = rQuest.ID;
 
                 QuestInfo rInfo;
                 if (!Infos.TryGetValue(rID, out rInfo))
                     continue;
 
+                var rTotal = rInfo.Total;
+                int rProgress;
+
                 ProgressInfo rProgressInfo;
-                if (!Progresses.TryGetValue(rID, out rProgressInfo))
+                if (Progresses.TryGetValue(rID, out rProgressInfo))
                 {
-                    var rTotal = rInfo.Total;
-                    var rProgress = 0;
+                    if (GetResetTime(rQuest.Type) > rProgressInfo.UpdateTime)
+                        rProgress = 0;
+                    else
+                        rProgress = rProgressInfo.Progress;
 
                     if (rQuest.State == QuestState.Completed)
                         rProgress = rTotal;
                     else
                         switch (rQuest.Progress)
                         {
-                            case QuestProgress.Progress50: rProgress = (int)Math.Ceiling(rTotal * 0.5); break;
-                            case QuestProgress.Progress80: rProgress = (int)Math.Ceiling(rTotal * 0.8); break;
+                            case QuestProgress.Progress50: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom); break;
+                            case QuestProgress.Progress80: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom); break;
                         }
 
-                    Progresses.Add(rID, rProgressInfo = new ProgressInfo(rID, QuestState.Executing, rProgress));
-
-                    RecordService.Instance.QuestProgress.InsertRecord(rProgressInfo);
+                    rProgressInfo.Progress = rProgress;
+                    rProgressInfo.State = rQuest.State;
                 }
+                else
+                {
+                    rProgress = 0;
+                    if (rQuest.State == QuestState.Completed)
+                        rProgress = rTotal;
+                    else
+                        switch (rQuest.Progress)
+                        {
+                            case QuestProgress.Progress50: rProgress = (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom; break;
+                            case QuestProgress.Progress80: rProgress = (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom; break;
+                        }
+
+                    Progresses.Add(rID, rProgressInfo = new ProgressInfo(rID, rQuest.State, rProgress));
+                }
+
+                if (rQuest.State == QuestState.Executing)
+                    RecordService.Instance.QuestProgress.InsertRecord(rQuest, rProgress);
 
                 KanColleGame.Current.Port.Quests[rID].RealtimeProgress = rProgressInfo;
             }
+        }
+
+        internal static DateTimeOffset GetResetTime(QuestType rpType)
+        {
+            var rCurrentTime = DateTimeOffset.Now.ToOffset(Offset);
+            var rResult = DateTimeOffset.MinValue;
+
+            switch (rpType)
+            {
+                case QuestType.Daily:
+                case QuestType.Special1:
+                case QuestType.Special2:
+                    rResult = new DateTimeOffset(rCurrentTime.Date, Offset);
+                    break;
+
+                case QuestType.Weekly:
+                    var rDelta = rCurrentTime.DayOfWeek - DayOfWeek.Monday;
+                    if (rDelta < 0)
+                        rDelta += 7;
+
+                    rResult = new DateTimeOffset(rCurrentTime.AddDays(-rDelta).Date, Offset);
+                    break;
+
+                case QuestType.Monthly:
+                    rResult = new DateTimeOffset(rCurrentTime.Year, rCurrentTime.Month, 1, 0, 0, 0, Offset);
+                    break;
+            }
+
+            return rResult;
         }
     }
 }

@@ -8,15 +8,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
         public int ID { get; }
 
         public int Total { get; }
-        public int? StartFrom { get; }
+        public int StartFrom { get; }
+        public int DisplayTotal => Total - StartFrom;
 
+        public int RuleVersion { get; }
         public ProgressRule[] ProgressRules { get; }
 
         internal QuestInfo(JToken rpJson)
         {
             ID = (int)rpJson["id"];
             Total = (int?)rpJson["total"] ?? 1;
-            StartFrom = (int?)rpJson["start_from"];
+            StartFrom = (int?)rpJson["start_from"] ?? 0;
 
             RuleVersion = (int?)rpJson["version"] ?? 1;
             if (MatchingRuleParser.Version < RuleVersion)

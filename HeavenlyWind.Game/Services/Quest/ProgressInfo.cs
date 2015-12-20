@@ -7,7 +7,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
     {
         public QuestInfo Quest { get; }
 
-        public QuestState State { get; internal set; }
+        QuestState r_State;
+        public QuestState State
+        {
+            get { return r_State; }
+            set
+            {
+                if (r_State != value)
+                {
+                    r_State = value;
+                    UpdateTime = DateTimeOffset.Now;
+
+                    RecordService.Instance.QuestProgress.UpdateState(this);
+                }
+            }
+        }
 
         int r_Progress;
         public int Progress
@@ -15,29 +29,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             get { return r_Progress; }
             internal set
             {
-                var rProgress = Math.Min(value, Quest.Total);
+                var rProgress = Math.Min(value, Quest.Total - Quest.StartFrom);
                 if (r_Progress != rProgress)
                 {
                     r_Progress = rProgress;
                     UpdateTime = DateTimeOffset.Now;
-                    IsDirty = true;
                     OnPropertyChanged(nameof(Progress));
+                    OnPropertyChanged(nameof(DisplayProgress));
 
-                    RecordService.Instance.QuestProgress.UpdateRecord(this);
+                    RecordService.Instance.QuestProgress.UpdateProgress(this);
                 }
             }
         }
-        public DateTimeOffset UpdateTime { get; internal set; }
+        public int DisplayProgress => Progress - Quest.StartFrom;
 
-        internal bool IsDirty { get; set; }
+        public DateTimeOffset UpdateTime { get; internal set; }
 
         internal ProgressInfo(int rpID, QuestState rpState, int rpProgress) : this(rpID, rpState, rpProgress, DateTimeOffset.Now) { }
         internal ProgressInfo(int rpID, QuestState rpState, int rpProgress, DateTimeOffset rpUpdateTime)
         {
             Quest = QuestProgressService.Instance.Infos[rpID];
 
-            State = rpState;
-            Progress = rpProgress;
+            r_State = rpState;
+            r_Progress = rpProgress;
             UpdateTime = rpUpdateTime;
         }
     }

@@ -46,11 +46,11 @@
                                 <ColumnDefinition SharedSizeGroup="Total" />
                             </Grid.ColumnDefinitions>
 
-                            <rc:Indicator Maximum="{Binding Quest.Total}" Value="{Binding Progress}" />
+                            <rc:Indicator Maximum="{Binding Quest.DisplayTotal}" Value="{Binding DisplayProgress}" />
 
                             <TextBlock Text="{Binding Progress}" Margin="3, 0, 0, 0" Grid.Column="1" />
-                            <TextBlock Text="/" Foreground="Gray" Grid.Column="2" />
-                            <TextBlock Text="{Binding Quest.Total}" FontSize="11" Foreground="Gray" HorizontalAlignment="Right" Grid.Column="3" />
+                            <TextBlock Text="/" Foreground="Gray" Margin="3, 0"  Grid.Column="2" />
+                            <TextBlock Text="{Binding Quest.DisplayTotal}" FontSize="11" Foreground="Gray" HorizontalAlignment="Right" Grid.Column="3" />
                         </Grid>
                     </ContentControl>
                 </Border>
