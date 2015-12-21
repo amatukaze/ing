@@ -116,8 +116,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_EngagementForm_HeadOn => GetString(nameof(Battle_EngagementForm_HeadOn));
         public string Battle_EngagementForm_CrossingTheTAdvantage => GetString(nameof(Battle_EngagementForm_CrossingTheTAdvantage));
         public string Battle_EngagementForm_CrossingTheTDisadvantage => GetString(nameof(Battle_EngagementForm_CrossingTheTDisadvantage));
-        public string Battle_AerialCombat_Fighter => GetString(nameof(Battle_AerialCombat_Fighter));
-        public string Battle_AerialCombat_Bomber => GetString(nameof(Battle_AerialCombat_Bomber));
+        public string Battle_AerialCombat_FighterCombat => GetString(nameof(Battle_AerialCombat_FighterCombat));
+        public string Battle_AerialCombat_AA => GetString(nameof(Battle_AerialCombat_AA));
         public string Battle_AerialCombatResult_Supremacy => GetString(nameof(Battle_AerialCombatResult_Supremacy));
         public string Battle_AerialCombatResult_Superiority => GetString(nameof(Battle_AerialCombatResult_Superiority));
         public string Battle_AerialCombatResult_Parity => GetString(nameof(Battle_AerialCombatResult_Parity));

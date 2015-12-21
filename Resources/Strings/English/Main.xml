@@ -112,8 +112,8 @@
   <String Key="Battle_EngagementForm_HeadOn">Head-on</String>
   <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T Advantage</String>
   <String Key="Battle_EngagementForm_CrossingTheTDisadvantage">T Disadvantage</String>
-  <String Key="Battle_AerialCombat_Fighter">F</String>
-  <String Key="Battle_AerialCombat_Bomber">B</String>
+  <String Key="Battle_AerialCombat_FighterConbat">FC</String>
+  <String Key="Battle_AerialCombat_AA">AA</String>
   <String Key="Battle_AerialCombatResult_Supremacy">Air Supremacy</String>
   <String Key="Battle_AerialCombatResult_Superiority">Air Superiority</String>
   <String Key="Battle_AerialCombatResult_Parity">Air Parity</String>

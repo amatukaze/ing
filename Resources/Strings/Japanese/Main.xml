@@ -112,8 +112,8 @@
   <String Key="Battle_EngagementForm_HeadOn">反航戦</String>
   <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T字有利</String>
   <String Key="Battle_EngagementForm_CrossingTheTDisadvantage">T字不利</String>
-  <String Key="Battle_AerialCombat_Fighter">戦</String>
-  <String Key="Battle_AerialCombat_Bomber">攻</String>
+  <String Key="Battle_AerialCombat_FighterCombat">空戦</String>
+  <String Key="Battle_AerialCombat_AA">対空</String>
   <String Key="Battle_AerialCombatResult_Supremacy">制空権確保</String>
   <String Key="Battle_AerialCombatResult_Superiority">航空優勢</String>
   <String Key="Battle_AerialCombatResult_Parity">制空均衡</String>
