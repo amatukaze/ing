@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
         static Dictionary<int[], Trigger> r_CachedFunctions = new Dictionary<int[], Trigger>(
             new DelegatedEqualityComparer<int[]>((x, y) => x.SequenceEqual(y), r => r.GetHashCode()));
 
-        public override Parser<Trigger> Parser =>
+        public override Parser<Trigger> Parser { get; } =
             from rExpeditions in Option(Repeat(from rExpeditionID in Number
                                                from _ in Character(',').AsContinuationCondition()
                                                select rExpeditionID))

@@ -253,6 +253,7 @@
     <Compile Include="Services\Quest\Parsers\ParserCombinatorsMonad.cs" />
     <Compile Include="Services\Quest\Parsers\Parser`T.cs" />
     <Compile Include="Services\Quest\Parsers\Result`T.cs" />
+    <Compile Include="Services\Quest\Parsers\ScrappingTriggerParserBuilder.cs" />
     <Compile Include="Services\Quest\Parsers\TriggerParserBuilder.cs" />
     <Compile Include="Services\Quest\ProgressInfo.cs" />
     <Compile Include="Services\Quest\ProgressRule.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="Services\Quest\Triggers\ApiTrigger.cs" />
     <Compile Include="Services\Quest\Triggers\ExpeditionTrigger.cs" />
     <Compile Include="Services\Quest\Triggers\ModernizationTrigger.cs" />
+    <Compile Include="Services\Quest\Triggers\ScrappingTrigger.cs" />
     <Compile Include="Services\Quest\Triggers\Trigger.cs" />
     <Compile Include="Services\Quest\Triggers\TriggerNameAttribute.cs" />
     <Compile Include="Services\Quest\Triggers\UnknownTrigger.cs" />

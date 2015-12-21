@@ -7,6 +7,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
     {
         static ModernizationTrigger r_TriggerInstance = new ModernizationTrigger();
 
-        public override Parser<Trigger> Parser => rpInput => new Result<Trigger>(r_TriggerInstance, rpInput);
+        public override Parser<Trigger> Parser { get; } = rpInput => new Result<Trigger>(r_TriggerInstance, rpInput);
     }
 }

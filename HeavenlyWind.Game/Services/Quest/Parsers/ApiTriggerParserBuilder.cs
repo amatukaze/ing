@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
     {
         static Dictionary<string, Trigger> r_CachedFunctions = new Dictionary<string, Trigger>(StringComparer.OrdinalIgnoreCase);
 
-        public override Parser<Trigger> Parser =>
+        public override Parser<Trigger> Parser { get; } =
             from rApi in from rFirstCharacter in Character(char.IsLetter)
                          from rNextCharacters in Repeat(Char(char.IsLetterOrDigit).Or(Char('_')).Or(Char('/')))
                          select new string(new[] { rFirstCharacter }.Concat(rNextCharacters).ToArray())

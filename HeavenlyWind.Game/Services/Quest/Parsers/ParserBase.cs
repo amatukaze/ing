@@ -32,6 +32,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
         protected static Parser<T> Succeed<T>(T rpValue) => rpInput => new Result<T>(rpValue, rpInput);
 
         protected static Parser<T> Option<T>(Parser<T> rpParser) where T : class => rpParser.Or(rpInput => null).Or(Succeed<T>(null));
+        protected static Parser<T?> ValueTypeOption<T>(Parser<T> rpParser) where T : struct => rpParser.Select(r => new T?(r)).Or(rpInput => null).Or(Succeed<T?>(null));
 
         protected static Parser<T[]> Repeat<T>(Parser<T> rpParser)
         {
