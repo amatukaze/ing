@@ -11,6 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
         public int StartFrom { get; }
         public int DisplayTotal => Total - StartFrom;
 
+        public bool IsDailyReset { get; }
+
         public int RuleVersion { get; }
         public ProgressRule[] ProgressRules { get; }
 
@@ -19,6 +21,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             ID = (int)rpJson["id"];
             Total = (int?)rpJson["total"] ?? 1;
             StartFrom = (int?)rpJson["start_from"] ?? 0;
+
+            IsDailyReset = (bool?)rpJson["daily_reset"] ?? false;
 
             RuleVersion = (int?)rpJson["version"] ?? 1;
             if (MatchingRuleParser.Version < RuleVersion)

@@ -63,7 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 ProgressInfo rProgressInfo;
                 if (Progresses.TryGetValue(rID, out rProgressInfo))
                 {
-                    if (GetResetTime(rQuest.Type) > rProgressInfo.UpdateTime)
+                    if (GetResetTime(!rInfo.IsDailyReset ? rQuest.Type : QuestType.Daily) > rProgressInfo.UpdateTime)
                         rProgress = 0;
                     else
                         rProgress = rProgressInfo.Progress;
