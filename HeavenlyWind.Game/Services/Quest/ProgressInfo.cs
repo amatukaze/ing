@@ -6,6 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
     public class ProgressInfo : ModelBase
     {
         public QuestInfo Quest { get; }
+        public QuestType ResetType { get; }
 
         QuestState r_State;
         public QuestState State
@@ -45,10 +46,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
 
         public DateTimeOffset UpdateTime { get; internal set; }
 
-        internal ProgressInfo(int rpID, QuestState rpState, int rpProgress) : this(rpID, rpState, rpProgress, DateTimeOffset.Now) { }
-        internal ProgressInfo(int rpID, QuestState rpState, int rpProgress, DateTimeOffset rpUpdateTime)
+        internal ProgressInfo(int rpID, QuestType rpResetType, QuestState rpState, int rpProgress) : this(rpID, rpResetType, rpState, rpProgress, DateTimeOffset.Now) { }
+        internal ProgressInfo(int rpID, QuestType rpResetType, QuestState rpState, int rpProgress, DateTimeOffset rpUpdateTime)
         {
             Quest = QuestProgressService.Instance.Infos[rpID];
+            ResetType = rpResetType;
 
             r_State = rpState;
             r_Progress = rpProgress;

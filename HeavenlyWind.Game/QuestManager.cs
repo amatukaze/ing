@@ -85,14 +85,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             SessionService.Instance.Subscribe("api_get_member/questlist", _ =>
             {
-                var rQuests = Table.Values.ToLookup(r => r.State != QuestState.None);
-                var rExecuting = rQuests[true].ToList();
-                Unexecuted = rQuests[false].ToList();
-
-                if (rExecuting.Count < ExecutingCount)
-                    rExecuting.AddRange(Enumerable.Repeat(Quest.Dummy, ExecutingCount - rExecuting.Count));
-
-                Executing = rExecuting;
+                UpdateQuestList();
 
                 IsLoaded = true;
                 OnPropertyChanged(nameof(IsLoaded));
@@ -103,6 +96,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Table.Remove(rQuestID);
                 TotalCount--;
             });
+        }
+
+        internal void UpdateQuestList()
+        {
+            var rQuests = Table.Values.OrderBy(r => r.ID).ToLookup(r => r.State != QuestState.None);
+
+            var rExecuting = rQuests[true].ToList();
+            if (rExecuting.Count < ExecutingCount)
+                rExecuting.AddRange(Enumerable.Repeat(Quest.Dummy, ExecutingCount - rExecuting.Count));
+
+            Executing = rExecuting;
+            Unexecuted = rQuests[false].ToList();
         }
     }
 }

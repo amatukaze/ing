@@ -22,6 +22,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         internal Dictionary<int, QuestInfo> Infos { get; set; }
 
+        DateTimeOffset r_LastProcessTime;
+
         QuestProgressService()
         {
             SessionService.Instance.Subscribe("api_get_member/basic", _ => Progresses = RecordService.Instance.QuestProgress.Reload());
@@ -46,6 +48,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         void ProcessQuestList(RawQuestList rpData)
         {
+            if (GetResetTime(QuestType.Daily) > r_LastProcessTime)
+            {
+                var rQuests = KanColleGame.Current.Port.Quests.Table;
+                var rOutdatedProgresses = Progresses.Values.Where(r => GetResetTime(!r.Quest.IsDailyReset ? r.ResetType : QuestType.Daily) > r.UpdateTime).ToArray();
+
+                foreach (var rProgressInfo in rOutdatedProgresses)
+                {
+                    var rID = rProgressInfo.Quest.ID;
+
+                    rQuests.Remove(rID);
+                    Progresses.Remove(rID);
+                }
+            }
+
             if (rpData == null)
                 return;
 
@@ -63,10 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 ProgressInfo rProgressInfo;
                 if (Progresses.TryGetValue(rID, out rProgressInfo))
                 {
-                    if (GetResetTime(!rInfo.IsDailyReset ? rQuest.Type : QuestType.Daily) > rProgressInfo.UpdateTime)
-                        rProgress = 0;
-                    else
-                        rProgress = rProgressInfo.Progress;
+                    rProgress = rProgressInfo.Progress;
 
                     if (rQuest.State == QuestState.Completed)
                         rProgress = rTotal;
@@ -83,6 +96,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 else
                 {
                     rProgress = 0;
+
                     if (rQuest.State == QuestState.Completed)
                         rProgress = rTotal;
                     else
@@ -92,7 +106,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                             case QuestProgress.Progress80: rProgress = (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom; break;
                         }
 
-                    Progresses.Add(rID, rProgressInfo = new ProgressInfo(rID, rQuest.State, rProgress));
+                    Progresses.Add(rID, rProgressInfo = new ProgressInfo(rID, rQuest.Type, rQuest.State, rProgress));
                 }
 
                 if (rQuest.State == QuestState.Executing)
@@ -100,6 +114,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                 KanColleGame.Current.Port.Quests[rID].RealtimeProgress = rProgressInfo;
             }
+
+            r_LastProcessTime = DateTimeOffset.Now.ToOffset(Offset);
         }
 
         internal static DateTimeOffset GetResetTime(QuestType rpType)
