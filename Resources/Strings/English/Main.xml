@@ -14,7 +14,8 @@
   <String Key="Log_Development_Failure">Development failed. (Material Consumption:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})</String>
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
-  <String Key="Log_Ship_Dropped">{0} dropped</String>
+  <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
+  <String Key="Log_ShipAndItem_Dropped">{0} and {1} dropped</String>
 
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>

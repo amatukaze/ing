@@ -14,7 +14,8 @@
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
-  <String Key="Log_Ship_Dropped">「{0}」がドロップしました</String>
+  <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
+  <String Key="Log_ShipAndItem_Dropped">「{0}」や「{1}」がドロップしました</String>
 
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>

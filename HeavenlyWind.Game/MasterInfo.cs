@@ -11,6 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public IDTable<EquipmentInfo> Equipments { get; } = new IDTable<EquipmentInfo>();
         public IDTable<EquipmentTypeInfo> EquipmentTypes { get; } = new IDTable<EquipmentTypeInfo>();
 
+        public IDTable<ItemInfo> Items { get; } = new IDTable<ItemInfo>();
+
         public IDTable<MapAreaInfo> MapAreas { get; } = new IDTable<MapAreaInfo>();
         public IDTable<MapMasterInfo> Maps { get; } = new IDTable<MapMasterInfo>();
 
@@ -25,6 +27,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
             Equipments.UpdateRawData(rpInfo.Equipments, r => new EquipmentInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
             EquipmentTypes.UpdateRawData(rpInfo.EquipmentTypes, r => new EquipmentTypeInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
+
+            Items.UpdateRawData(rpInfo.Items, r => new ItemInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
 
             MapAreas.UpdateRawData(rpInfo.MapAreas, r => new MapAreaInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
             Maps.UpdateRawData(rpInfo.Maps, r => new MapMasterInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));

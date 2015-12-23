@@ -16,6 +16,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_mst_slotitem")]
         public RawEquipmentInfo[] Equipments { get; set; }
 
+        [JsonProperty("api_mst_useitem")]
+        public RawItemInfo[] Items { get; set; }
+
         [JsonProperty("api_mst_maparea")]
         public RawMapAreaInfo[] MapAreas { get; set; }
         [JsonProperty("api_mst_mapinfo")]

@@ -14,7 +14,8 @@
   <String Key="Log_Development_Failure">开发失败。(投入的资材:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Sortie">/{0}「{1}」向「{2} ({3}-{4})」出击</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3} {4})」出击</String>
-  <String Key="Log_Ship_Dropped">获得「{0}」</String>
+  <String Key="Log_ShipOrItem_Dropped">获得「{0}」</String>
+  <String Key="Log_ShipAndItem_Dropped">获得「{0}」和「{1}」</String>
 
   <String Key="Result_Failure">失败</String>
   <String Key="Result_Success">成功</String>
