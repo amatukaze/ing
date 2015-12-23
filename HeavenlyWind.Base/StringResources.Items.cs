@@ -12,6 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Welcome => GetString(nameof(Log_Welcome));
         public string Log_Exception_API_Failed => GetString(nameof(Log_Exception_API_Failed));
         public string Log_Exception_API_ParseException => GetString(nameof(Log_Exception_API_ParseException));
+        public string Log_Exception_Cache_FailedToSaveFile => GetString(nameof(Log_Exception_Cache_FailedToSaveFile));
         public string Log_ExpeditionResult => GetString(nameof(Log_ExpeditionResult));
         public string Log_StartConstruction => GetString(nameof(Log_StartConstruction));
         public string Log_Development_Success => GetString(nameof(Log_Development_Success));

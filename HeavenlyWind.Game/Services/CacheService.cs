@@ -105,18 +105,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (rpSession.responseCode != 200 || rpResourceSession.CacheFilename == null)
                 return;
 
-            var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
-            if (!Directory.Exists(rDirectoryName))
-                Directory.CreateDirectory(rDirectoryName);
+            try
+            {
+                var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
+                if (!Directory.Exists(rDirectoryName))
+                    Directory.CreateDirectory(rDirectoryName);
 
-            var rFile = new FileInfo(rpResourceSession.CacheFilename);
-            if (rFile.Exists)
-                rFile.Delete();
+                var rFile = new FileInfo(rpResourceSession.CacheFilename);
+                if (rFile.Exists)
+                    rFile.Delete();
 
-            rpSession.SaveResponseBody(rFile.FullName);
-            rFile.LastWriteTime = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
+                rpSession.SaveResponseBody(rFile.FullName);
+                rFile.LastWriteTime = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
 
-            rpResourceSession.State = NetworkSessionState.Cached;
+                rpResourceSession.State = NetworkSessionState.Cached;
+            }
+            catch (Exception e)
+            {
+                Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_Cache_FailedToSaveFile, e.Message));
+            }
         }
     }
 }
