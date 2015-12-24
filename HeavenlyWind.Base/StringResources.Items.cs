@@ -12,6 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Welcome => GetString(nameof(Log_Welcome));
         public string Log_Exception_API_Failed => GetString(nameof(Log_Exception_API_Failed));
         public string Log_Exception_API_ParseException => GetString(nameof(Log_Exception_API_ParseException));
+        public string Log_Exception_Cache_FailedToSaveFile => GetString(nameof(Log_Exception_Cache_FailedToSaveFile));
         public string Log_ExpeditionResult => GetString(nameof(Log_ExpeditionResult));
         public string Log_StartConstruction => GetString(nameof(Log_StartConstruction));
         public string Log_Development_Success => GetString(nameof(Log_Development_Success));
@@ -153,7 +154,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));
         public string PreferenceWindow_Cache_Mode_FullTrust => GetString(nameof(PreferenceWindow_Cache_Mode_FullTrust));
-        public string PreferenceWindow_Cache_Mode_CheckVersion => GetString(nameof(PreferenceWindow_Cache_Mode_CheckVersion));
+        public string PreferenceWindow_Cache_Mode_VerifyVersion => GetString(nameof(PreferenceWindow_Cache_Mode_VerifyVersion));
         public string PreferenceWindow_Cache_Path => GetString(nameof(PreferenceWindow_Cache_Path));
         public string PreferenceWindow_Notification => GetString(nameof(PreferenceWindow_Notification));
         public string PreferenceWindow_Language => GetString(nameof(PreferenceWindow_Language));

@@ -243,6 +243,7 @@
     <Compile Include="Proxy\NetworkSession.cs" />
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="QuestManager.cs" />
+    <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\RecordService.cs" />
     <Compile Include="Services\Records\BattleRecord.cs" />
     <Compile Include="Services\Records\ConstructionRecord.cs" />

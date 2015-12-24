@@ -8,6 +8,7 @@
   <String Key="Log_Welcome">Ready</String>
   <String Key="Log_Exception_API_Failed">Error code from API「{0}」: {1}</String>
   <String Key="Log_Exception_API_ParseException">Error occured when parsing API: {0}</String>
+  <String Key="Log_Exception_Cache_FailedToSaveFile">Failed to save file: {0}</String>
   <String Key="Log_ExpeditionResult">/{0}"{1}" has returned from expedition {2}:{3}.(Result:{4})</String>
   <String Key="Log_StartConstruction">Start construction of {0} (Material Consumption:{1}/{2}/{3}/{4}-{5})</String>
   <String Key="Log_Development_Success">{0} was successfully developed.(Material Consumption:{1}/{2}/{3}/{4})</String>
@@ -148,8 +149,8 @@
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
-  <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust</String>
-  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">Check Version</String>
+  <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust (No verification)</String>
+  <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">Verify Version</String>
   <String Key="PreferenceWindow_Cache_Path">Path</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Language">Language</String>
