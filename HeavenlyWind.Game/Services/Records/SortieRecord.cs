@@ -2,8 +2,10 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SQLite;
+using System.Linq;
 using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
@@ -27,16 +29,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_start2", _ => ProcessReturn(ReturnReason.Unexpected)));
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", _ =>
             {
-                r_CellSubscription?.Dispose();
+                if (r_CellSubscription != null)
+                {
+                    r_CellSubscription.Dispose();
 
-                ReturnReason rType;
+                    ReturnReason rType;
 
-                if (r_IsDeadEnd)
-                    rType = ReturnReason.DeadEnd;
-                else
-                    rType = ReturnReason.Retreat;
+                    if (r_IsDeadEnd)
+                        rType = ReturnReason.DeadEnd;
+                    else
+                    {
+                        var rSortie = KanColleGame.Current.OldSortie;
 
-                ProcessReturn(rType);
+                        IEnumerable<Ship> rShips = rSortie.Fleet.Ships;
+                        if (rSortie.EscortFleet != null)
+                            rShips = rShips.Concat(rSortie.EscortFleet.Ships);
+
+                        rType = rShips.Any(r => r.State.HasFlag(ShipState.HeavilyDamaged)) ? ReturnReason.RetreatWithHeavilyDamagedShip : ReturnReason.Retreat;
+                    }
+
+                    ProcessReturn(rType);
+                }
             }));
         }
 

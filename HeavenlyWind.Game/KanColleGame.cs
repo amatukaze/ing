@@ -41,6 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             }
         }
+        internal SortieInfo OldSortie { get; set; }
 
         KanColleGame()
         {

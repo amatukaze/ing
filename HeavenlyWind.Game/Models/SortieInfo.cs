@@ -13,6 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public long ID { get; } = (long)DateTimeOffset.Now.ToUnixTime();
 
         public Fleet Fleet { get; }
+        public Fleet EscortFleet { get; }
         public MapInfo Map { get; }
 
         public SortieCellInfo Cell { get; private set; }
@@ -51,6 +52,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             r_Current = this;
 
             Fleet = rpFleet;
+            if (KanColleGame.Current.Port.Fleets.CombinedFleetType != 0 && rpFleet.ID == 1)
+                EscortFleet = KanColleGame.Current.Port.Fleets[2];
+
             Map = KanColleGame.Current.Maps[rpMapID];
         }
 
