@@ -52,6 +52,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "rank INTEGER, " +
                     "dropped_ship INTEGER);" +
 
+                "CREATE TABLE IF NOT EXISTS battle_dropped_item(" +
+                    "id INTEGER PRIMARY KEY, " +
+                    "item INTEGER NOT NULL);" +
+
                 "CREATE TABLE IF NOT EXISTS battle_participant(" +
                     "battle INTEGER NOT NULL REFERENCES battle(id), " +
                     "ship INTEGER NOT NULL, " +
@@ -96,6 +100,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.Parameters.AddWithValue("@id", ((BattleEvent)KanColleGame.Current.Sortie.Cell.Event).Battle.ID);
                 rCommand.Parameters.AddWithValue("@rank", (int)rpData.Rank);
                 rCommand.Parameters.AddWithValue("@dropped_ship", rpData.DroppedShip?.ID);
+
+                if (rpData.DroppedItem != null)
+                {
+                    rCommand.CommandText += "INSERT INTO battle_dropped_item(id, item) VALUES(@id, @item);";
+                    rCommand.Parameters.AddWithValue("@item", rpData.DroppedItem.ID);
+                }
 
                 rCommand.ExecuteNonQuery();
             }
