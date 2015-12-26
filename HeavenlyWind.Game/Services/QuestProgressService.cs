@@ -18,6 +18,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public static QuestProgressService Instance { get; } = new QuestProgressService();
 
+        static IDisposable r_LoadDataSubscription;
+
         public IDictionary<int, ProgressInfo> Progresses { get; private set; }
 
         internal Dictionary<int, QuestInfo> Infos { get; set; }
@@ -34,16 +36,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            var rDataFile = new FileInfo(Data);
-            if (!rDataFile.Exists)
-                Infos = new Dictionary<int, QuestInfo>();
-            else
-                using (var rReader = new JsonTextReader(rDataFile.OpenText()))
-                {
-                    var rData = JArray.Load(rReader);
+            r_LoadDataSubscription = SessionService.Instance.Subscribe("api_start2", _ =>
+            {
+                var rDataFile = new FileInfo(Data);
+                if (!rDataFile.Exists)
+                    Infos = new Dictionary<int, QuestInfo>();
+                else
+                    using (var rReader = new JsonTextReader(rDataFile.OpenText()))
+                    {
+                        var rData = JArray.Load(rReader);
 
-                    Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
-                }
+                        Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
+                    }
+
+                r_LoadDataSubscription.Dispose();
+            });
         }
 
         void ProcessQuestList(RawQuestList rpData)
