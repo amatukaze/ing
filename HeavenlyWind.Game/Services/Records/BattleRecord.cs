@@ -53,8 +53,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "dropped_ship INTEGER);" +
 
                 "CREATE TABLE IF NOT EXISTS battle_dropped_item(" +
-                    "id INTEGER PRIMARY KEY, " +
+                    "id INTEGER PRIMARY KEY NOT NULL REFERENCES battle(id), " +
                     "item INTEGER NOT NULL);" +
+
+                "CREATE TABLE IF NOT EXISTS battle_bonus_point(" +
+                    "id INTEGER PRIMARY KEY NOT NULL REFERENCES battle(id), " +
+                    "time INTEGER NOT NULL, " +
+                    "point INTEGER NOT NULL);" +
 
                 "CREATE TABLE IF NOT EXISTS battle_participant(" +
                     "battle INTEGER NOT NULL REFERENCES battle(id), " +
@@ -105,6 +110,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 {
                     rCommand.CommandText += "INSERT INTO battle_dropped_item(id, item) VALUES(@id, @item);";
                     rCommand.Parameters.AddWithValue("@item", rpData.DroppedItem.ID);
+                }
+
+                if (rpData.ExtraOperationBonusPoint != 0)
+                {
+                    rCommand.CommandText += "INSERT INTO battle_bonus_point(id, time, point) VALUES(@id, strftime('%s', 'now'), @point);";
+                    rCommand.Parameters.AddWithValue("@point", rpData.ExtraOperationBonusPoint);
                 }
 
                 rCommand.ExecuteNonQuery();

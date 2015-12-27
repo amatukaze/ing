@@ -62,6 +62,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_get_ship")]
         public RawDroppedShip DroppedShip { get; set; }
 
+        [JsonProperty("api_get_exmap_rate")]
+        public int ExtraOperationBonusPoint { get; set; }
+
         public RawEventMapBouns[] EventMapBouns { get; set; }
 
         [JsonProperty("api_escape_flag")]
