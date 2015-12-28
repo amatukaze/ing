@@ -3,9 +3,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+             xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <Grid DataContext="{Binding MapGauges}">
+    <UserControl.Resources>
+        <Style x:Key="Map" TargetType="{x:Type Run}">
+            <Setter Property="Text" Value="{Binding MasterInfo.AreaID, StringFormat={}{0}-, Mode=OneWay}" />
 
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsEventMap}" Value="True">
+                    <Setter Property="Text" Value="E" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate DataType="{x:Type rgm:MapInfo}">
+            <Border Height="30">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition SharedSizeGroup="Map" />
+                        <ColumnDefinition Width="8" />
+                        <ColumnDefinition Width="85" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.RowSpan="2">
+                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, Mode=OneWay}" />
+                        <Run Text="{Binding MasterInfo.Name, Mode=OneWay}" />
+                    </TextBlock>
+
+                    <TextBlock HorizontalAlignment="Right" Grid.Column="2">
+                        <Run Text="{Binding HP.Current, Mode=OneWay}" />
+                        <Run Text=" /" Foreground="Gray" />
+                        <Run Text="{Binding HP.Maximum, Mode=OneWay}" Foreground="Gray" FontSize="11" />
+                    </TextBlock>
+
+                    <rc:Indicator Maximum="{Binding HP.Maximum}" Value="{Binding HP.Current}" Grid.Column="2" Grid.Row="1" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid DataContext="{Binding MapGauges}" Grid.IsSharedSizeScope="True">
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ItemsControl ItemsSource="{Binding EventMaps}" Margin="0, 0, 0, 8" />
+            <ItemsControl ItemsSource="{Binding ExtraOperations}" />
+        </StackPanel>
     </Grid>
 </UserControl>

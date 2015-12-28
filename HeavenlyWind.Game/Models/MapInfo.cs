@@ -15,7 +15,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ClampedValue HP { get; private set; }
 
         public bool IsEventMap => RawData.Event != null;
-        public EventMapDifficulty? Difficulty { get; internal set; }
+
+        EventMapDifficulty? r_Difficulty;
+        public EventMapDifficulty? Difficulty
+        {
+            get { return r_Difficulty; }
+            internal set
+            {
+                if (r_Difficulty != value)
+                {
+                    r_Difficulty = value;
+                    OnPropertyChanged(nameof(Difficulty));
+                }
+            }
+        }
 
         internal MapInfo(RawMapInfo rpRawData) : base(rpRawData)
         {
