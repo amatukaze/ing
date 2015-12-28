@@ -45,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "map INTEGER NOT NULL, " +
                     "cell INTEGER NOT NULL, " +
                     "count INTEGER NOT NULL DEFAULT 0, " +
-                    "CONSTRAINT [] PRIMARY KEY(map, cell)) WITHOUT ROWID;"+
+                    "PRIMARY KEY(map, cell)) WITHOUT ROWID;" +
 
                 "CREATE TABLE IF NOT EXISTS battle(" +
                     "id INTEGER PRIMARY KEY, " +
@@ -65,7 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "battle INTEGER NOT NULL REFERENCES battle(id), " +
                     "ship INTEGER NOT NULL, " +
                     "level INTEGER NOT NULL, " +
-                    "CONSTRAINT [] PRIMARY KEY(battle, ship)) WITHOUT ROWID;";
+                    "PRIMARY KEY(battle, ship)) WITHOUT ROWID;";
 
                 rCommand.ExecuteNonQuery();
             }

@@ -55,7 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "id INTEGER NOT NULL, " +
                     "time INTEGER NOT NULL, " +
                     "experience INTEGER NOT NULL, " +
-                    "CONSTRAINT [] PRIMARY KEY(id, time)) WITHOUT ROWID;";
+                    "PRIMARY KEY(id, time)) WITHOUT ROWID;";
 
                 rCommand.ExecuteNonQuery();
             }

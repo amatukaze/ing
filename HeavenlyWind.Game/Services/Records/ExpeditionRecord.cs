@@ -48,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "ship INTEGER NOT NULL, " +
                     "expedition INTEGER NOT NULL, " +
                     "count INTEGER NOT NULL DEFAULT 0, " +
-                    "CONSTRAINT [] PRIMARY KEY(ship, expedition)) WITHOUT ROWID;";
+                    "PRIMARY KEY(ship, expedition)) WITHOUT ROWID;";
 
                 rCommand.ExecuteNonQuery();
             }
