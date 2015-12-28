@@ -146,7 +146,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             using (var rTransaction = Connection.BeginTransaction())
             {
                 InsertCellInfo(rpSortie.Map.ID, rNode);
-                InsertRecord(rpSortie.ID, rNode.InternalID, (rNode.Event as BattleEvent)?.Battle.ID);
+                InsertRecord(rpSortie.ID, rNode.InternalID, (rNode.Event as IExtraInfo)?.GetExtraInfo());
 
                 rTransaction.Commit();
             }

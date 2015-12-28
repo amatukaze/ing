@@ -71,7 +71,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
             public MaterialType IconID { get; set; }
 
             [JsonProperty("api_dentan")]
-            public bool IsReducedByRadar { get; set; }
+            public bool HasReduceLossesWithRadar { get; set; }
         }
         public class RawReward
         {

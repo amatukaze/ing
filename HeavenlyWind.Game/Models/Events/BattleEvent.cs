@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
     public enum BattleType { None, Normal, NightOnly, DayAfterNight, AerialCombat }
 
-    public class BattleEvent : SortieEvent
+    public class BattleEvent : SortieEvent, IExtraInfo
     {
         public BattleType Type { get; }
 
@@ -15,5 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
         {
             Battle = new BattleInfo();
         }
+
+        long IExtraInfo.GetExtraInfo() => Battle.ID;
     }
 }

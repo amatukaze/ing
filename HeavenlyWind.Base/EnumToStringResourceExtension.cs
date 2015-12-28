@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Prefix { get; }
 
         public string StringFormat { get; set; }
-        public BindingMode Mode { get; set; } = BindingMode.Default;
+        public BindingMode Mode { get; set; } = BindingMode.OneWay;
 
         public EnumToStringResourceExtension(string rpPath, string rpPrefix)
         {
