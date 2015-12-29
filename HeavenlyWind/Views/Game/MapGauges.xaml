@@ -50,7 +50,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid DataContext="{Binding MapGauges}" Grid.IsSharedSizeScope="True">
+    <Grid Grid.IsSharedSizeScope="True">
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
             <ItemsControl ItemsSource="{Binding EventMaps}" Margin="0, 0, 0, 8" />
             <ItemsControl ItemsSource="{Binding ExtraOperations}" />

@@ -11,7 +11,7 @@
             <Style TargetType="{x:Type ContentControl}">
                 <Setter Property="Content">
                     <Setter.Value>
-                        <rvg:MapGauges />
+                        <rvg:MapGauges DataContext="{Binding MapGauges}" />
                     </Setter.Value>
                 </Setter>
 

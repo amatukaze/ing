@@ -47,8 +47,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     else
                     {
                         Info = rInfo;
-                        Type = rInfo is PracticeInfo ? DisplayType.Practice : DisplayType.Sortie;
                         OnPropertyChanged(nameof(Info));
+
+                        Type = rInfo is PracticeInfo ? DisplayType.Practice : DisplayType.Sortie;
                     }
                 });
         }
