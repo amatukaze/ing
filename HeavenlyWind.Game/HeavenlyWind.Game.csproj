@@ -253,6 +253,7 @@
     <Compile Include="Services\Records\DevelopmentRecord.cs" />
     <Compile Include="Services\Records\ExpeditionRecord.cs" />
     <Compile Include="Services\Records\ExperienceRecord.cs" />
+    <Compile Include="Services\Records\RankingPointBonusRecord.cs" />
     <Compile Include="Services\Records\RecordBase.cs" />
     <Compile Include="Services\Records\RecordBaseExtension.cs" />
     <Compile Include="Services\Records\ResourcesRecord.cs" />

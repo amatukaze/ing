@@ -21,6 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public DevelopmentRecord Development { get; private set; }
         public SortieRecord Sortie { get; private set; }
         public BattleRecord Battle { get; private set; }
+        public RankingPointBonusRecord RankingPointBonus { get; private set; }
 
         public bool IsConnected { get; private set; }
 
@@ -50,6 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Development?.Dispose();
             Sortie?.Dispose();
             Battle?.Dispose();
+            RankingPointBonus?.Dispose();
             r_Connection?.Dispose();
 
             IsConnected = false;
@@ -77,6 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Development = new DevelopmentRecord(r_Connection).ConnectAndReturn();
                 Sortie = new SortieRecord(r_Connection).ConnectAndReturn();
                 Battle = new BattleRecord(r_Connection).ConnectAndReturn();
+                RankingPointBonus = new RankingPointBonusRecord(r_Connection).ConnectAndReturn();
 
                 rTransaction.Commit();
             }

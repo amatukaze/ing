@@ -19,7 +19,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         public override int Version => 2;
 
         long? r_CurrentSortieID;
-        int r_Step;
         bool r_IsDeadEnd;
 
         IDisposable r_NodeSubscription;
@@ -112,14 +111,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 }
         }
 
-        protected override void Load() => ProcessUnexpectedReturn();
+        protected override void Load() => InsertReturnReason(ReturnReason.Unexpected);
 
         void StartSortie(ApiData rpData)
         {
             var rSortie = KanColleGame.Current.Sortie;
             var rMap = rSortie.Map;
             r_CurrentSortieID = rSortie.ID;
-            r_Step = 1;
 
             using (var rCommand = Connection.CreateCommand())
             {
@@ -136,7 +134,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             r_NodeSubscription = Observable.FromEventPattern<PropertyChangedEventArgs>(rSortie, nameof(rSortie.PropertyChanged))
                 .Where(r => r.EventArgs.PropertyName == nameof(rSortie.Cell))
-                .Subscribe(r_ => InsertExplorationRecord(KanColleGame.Current.Sortie));
+                .Subscribe(_ => InsertExplorationRecord(KanColleGame.Current.Sortie));
         }
 
         void InsertExplorationRecord(SortieInfo rpSortie)
@@ -170,9 +168,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT INTO sortie_detail(id, step, node, extra_info) VALUES(@id, @step, @node, @extra_info);";
+                rCommand.CommandText = "INSERT INTO sortie_detail(id, step, node, extra_info) VALUES(@id, (SELECT coalesce(max(step), 0) + 1 FROM sortie_detail WHERE id = @id), @node, @extra_info);";
                 rCommand.Parameters.AddWithValue("@id", rpSortieID);
-                rCommand.Parameters.AddWithValue("@step", r_Step++);
                 rCommand.Parameters.AddWithValue("@node", rpNode);
                 rCommand.Parameters.AddWithValue("@extra_info", rpExtraInfo);
 
@@ -180,8 +177,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void InsertReturnRecord(long rpSortieID, ReturnReason rpType) => InsertRecord(rpSortieID, RETURN_NODE_ID, (int)rpType);
-        void ProcessUnexpectedReturn()
+        void InsertReturnReason(ReturnReason rpReason)
         {
             long rID;
             int rStep;
@@ -203,7 +199,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.CommandText = "INSERT INTO sortie_detail(id, step, node, extra_info) VALUES(@id, @step, -1, @return_reason);";
                 rCommand.Parameters.AddWithValue("@id", rID);
                 rCommand.Parameters.AddWithValue("@step", rStep);
-                rCommand.Parameters.AddWithValue("@return_reason", (int)ReturnReason.Unexpected);
+                rCommand.Parameters.AddWithValue("@return_reason", (int)rpReason);
 
                 rCommand.ExecuteNonQuery();
             }
@@ -212,7 +208,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             if (r_CurrentSortieID.HasValue)
             {
-                InsertReturnRecord(r_CurrentSortieID.Value, rpType);
+                InsertReturnReason(rpType);
 
                 r_CurrentSortieID = null;
             }

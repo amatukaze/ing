@@ -33,6 +33,9 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             public object Convert(object rpValue, Type rpTargetType, object rpParameter, CultureInfo rpCulture)
             {
+                if (rpValue == null)
+                    return string.Empty;
+
                 var rType = rpValue.GetType();
                 if (!rType.IsEnum || !rType.IsEnumDefined(rpValue))
                     return string.Empty;
