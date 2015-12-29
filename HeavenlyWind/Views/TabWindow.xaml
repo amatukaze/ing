@@ -47,7 +47,7 @@
                     <rvg:Fleets />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type rvmg:SortieViewModel}">
-                    <rvg:SortieOrPractice />
+                    <rvg:SortieOverview />
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type rvmg:QuestsViewModel}">
                     <rvg:Quests />
