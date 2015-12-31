@@ -78,6 +78,9 @@
                 <DataTrigger Binding="{Binding Source.Category}" Value="Modernization">
                     <Setter TargetName="Category" Property="Foreground" Value="#CAA6DD" />
                 </DataTrigger>
+                <DataTrigger Binding="{Binding Source.Category}" Value="Sortie2">
+                    <Setter TargetName="Category" Property="Foreground" Value="#EC6063" />
+                </DataTrigger>
 
                 <DataTrigger Binding="{Binding Source.Progress}" Value="Progress50">
                     <Setter TargetName="Progress" Property="Text" Value="50%" />

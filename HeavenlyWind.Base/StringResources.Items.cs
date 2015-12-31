@@ -138,6 +138,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Category_SupplyOrDocking => GetString(nameof(Quest_Category_SupplyOrDocking));
         public string Quest_Category_Arsenal => GetString(nameof(Quest_Category_Arsenal));
         public string Quest_Category_Modernization => GetString(nameof(Quest_Category_Modernization));
+        public string Quest_Category_Sortie2 => GetString(nameof(Quest_Category_Sortie2));
         public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
 
         public string Window_Preferences => GetString(nameof(Window_Preferences));

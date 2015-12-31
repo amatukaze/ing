@@ -134,6 +134,7 @@
   <String Key="Quest_Category_SupplyOrDocking">補給</String>
   <String Key="Quest_Category_Arsenal">工廠</String>
   <String Key="Quest_Category_Modernization">改装</String>
+  <String Key="Quest_Category_Sortie2">出撃</String>
   <String Key="Quest_State_Completed">達成</String>
 
   <String Key="Window_Preferences">設定</String>
