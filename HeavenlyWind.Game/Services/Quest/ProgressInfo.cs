@@ -30,6 +30,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             get { return r_Progress; }
             internal set
             {
+                if (QuestProgressService.GetResetTime(ResetType) > UpdateTime)
+                    return;
+
                 var rProgress = Math.Min(value, Quest.Total - Quest.StartFrom);
                 if (r_Progress != rProgress)
                 {
