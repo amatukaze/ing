@@ -50,6 +50,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
 
+            Task.Factory.StartNew(UpdateService.Instance.CheckForUpdate);
+
             MainWindow = new MainWindow();
             MainWindow.DataContext = Root = new MainWindowViewModel();
             MainWindow.Show();

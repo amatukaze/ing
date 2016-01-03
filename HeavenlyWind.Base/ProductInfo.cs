@@ -6,5 +6,6 @@
 
         public const string ReleaseCodeName = "Serpentina";
 
+        public const string UserAgent = "KanColleInspector/" + AssemblyVersionString;
     }
 }
