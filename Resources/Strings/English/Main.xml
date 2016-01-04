@@ -22,6 +22,9 @@
   <String Key="Result_Success">Success</String>
   <String Key="Result_GreatSuccess">Great success</String>
 
+  <String Key="Update_NewVersionIsAvailable">A new version is available!</String>
+  <String Key="Update_Download">Download</String>
+
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
   
   <String Key="Tab_Overview">Overview</String>

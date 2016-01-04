@@ -3,10 +3,12 @@ using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.SystemInterop;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -21,7 +23,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public CheckForUpdateResult.UpdateInfo Info { get; private set; }
 
-        UpdateService() { }
+        public ICommand DownloadCommand { get; }
+
+        UpdateService()
+        {
+            DownloadCommand = new DelegatedCommand(() => Process.Start(Info?.Link));
+        }
 
         internal void CheckForUpdate()
         {

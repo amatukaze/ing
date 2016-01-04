@@ -22,6 +22,9 @@
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>
 
+  <String Key="Update_NewVersionIsAvailable">新しいバージョンがあります！</String>
+  <String Key="Update_Download">更新します</String>
+
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
   <String Key="Tab_Overview">概要</String>
