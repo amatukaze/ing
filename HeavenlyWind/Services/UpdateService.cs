@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
@@ -30,15 +31,22 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             DownloadCommand = new DelegatedCommand(() => Process.Start(Info?.Link));
         }
 
-        internal void CheckForUpdate()
+        internal async void CheckForUpdate()
         {
             if (!Preference.Current.CheckUpdate || !NetworkInterface.GetIsNetworkAvailable())
                 return;
 
-            CheckForUpdateCore();
+            try
+            {
+                await CheckForUpdateCore();
+            }
+            catch (Exception e)
+            {
+                Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_CheckForUpdate_Exception, e.Message));
+            }
         }
 
-        async void CheckForUpdateCore()
+        async Task CheckForUpdateCore()
         {
             var rRequest = WebRequest.CreateHttp("https://api.sakuno.moe/kci/check_for_update");
             rRequest.UserAgent = ProductInfo.UserAgent;

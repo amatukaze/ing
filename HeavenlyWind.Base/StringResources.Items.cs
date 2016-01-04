@@ -10,6 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Feature_Filter_All => GetString(nameof(Feature_Filter_All));
 
         public string Log_Welcome => GetString(nameof(Log_Welcome));
+        public string Log_CheckForUpdate_Exception => GetString(nameof(Log_CheckForUpdate_Exception));
         public string Log_Exception_API_Failed => GetString(nameof(Log_Exception_API_Failed));
         public string Log_Exception_API_ParseException => GetString(nameof(Log_Exception_API_ParseException));
         public string Log_Exception_Cache_FailedToSaveFile => GetString(nameof(Log_Exception_Cache_FailedToSaveFile));

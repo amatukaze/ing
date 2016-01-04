@@ -6,6 +6,7 @@
   <String Key="Feature_Filter_All">All</String>
 
   <String Key="Log_Welcome">Ready</String>
+  <String Key="Log_CheckForUpdate_Exception">Error occured when checking for update: {0}</String>
   <String Key="Log_Exception_API_Failed">Error code from API「{0}」: {1}</String>
   <String Key="Log_Exception_API_ParseException">Error occured when parsing API: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">Failed to save file: {0}</String>
