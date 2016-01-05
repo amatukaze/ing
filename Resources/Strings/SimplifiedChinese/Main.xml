@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.3">
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.4">
 
   <String Key="Feature_UnderConstruction">未实现</String>
   <String Key="Feature_Filter">过滤器</String>
@@ -148,7 +148,7 @@
   <String Key="Window_ShipOverview">舰娘一览</String>
   <String Key="Window_ConstructionHistory">建造历史</String>
   <String Key="Window_DevelopmentHistory">开发历史</String>
-  <String Key="Window_ClosingConfirmation">要关闭 HeavenlyWind 吗？</String>
+  <String Key="Window_ClosingConfirmation">要关闭 KanColle Inspector 吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">端口</String>

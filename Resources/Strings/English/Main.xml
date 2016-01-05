@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.3">
+<Strings CultureName="en" Name="English" Version="0.1.4">
 
   <String Key="Feature_UnderConstruction">Under construction</String>
   <String Key="Feature_Filter">Filter</String>
@@ -148,7 +148,7 @@
   <String Key="Window_ShipOverview">Ship Overview</String>
   <String Key="Window_ConstructionHistory">Construction history</String>
   <String Key="Window_DevelopmentHistory">Development history</String>
-  <String Key="Window_ClosingConfirmation">Are you sure to close HeavenlyWind?</String>
+  <String Key="Window_ClosingConfirmation">Are you sure to close KanColle Inspector?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Port</String>
