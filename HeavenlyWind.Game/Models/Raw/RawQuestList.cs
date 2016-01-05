@@ -1,10 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 {
@@ -20,12 +15,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public int CurrentPage { get; set; }
 
         [JsonProperty("api_list")]
-        public JToken Quests { get; set; }
+        public JToken QuestsJson { get; set; }
 
         [JsonProperty("api_exec_count")]
         public int ExecutingCount { get; set; }
 
         [JsonProperty("api_exec_type")]
         public int ExecutingType { get; set; }
+
+        [JsonIgnore]
+        public RawQuest[] Quests { get; internal set; }
     }
 }

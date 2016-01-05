@@ -127,6 +127,9 @@
   <String Key="Battle_AerialCombatResult_Denial">制空权丧失</String>
 
   <String Key="Quest_Unknown">?????</String>
+  <String Key="Quest_Type_Once" />
+  <String Key="Quest_Type_Special1">日</String>
+  <String Key="Quest_Type_Special2">日</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">周</String>
   <String Key="Quest_Type_Monthly">月</String>
@@ -137,6 +140,7 @@
   <String Key="Quest_Category_SupplyOrDocking">补给</String>
   <String Key="Quest_Category_Arsenal">工厂</String>
   <String Key="Quest_Category_Modernization">改装</String>
+  <String Key="Quest_Category_Sortie2">出击</String>
   <String Key="Quest_State_Completed">达成</String>
 
   <String Key="Window_Preferences">设置</String>

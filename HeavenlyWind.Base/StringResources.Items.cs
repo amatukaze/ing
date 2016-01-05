@@ -131,6 +131,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_AerialCombatResult_Denial => GetString(nameof(Battle_AerialCombatResult_Denial));
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
+        public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
+        public string Quest_Type_Special1 => GetString(nameof(Quest_Type_Special1));
+        public string Quest_Type_Special2 => GetString(nameof(Quest_Type_Special2));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));
         public string Quest_Type_Monthly => GetString(nameof(Quest_Type_Monthly));
@@ -141,6 +144,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Category_SupplyOrDocking => GetString(nameof(Quest_Category_SupplyOrDocking));
         public string Quest_Category_Arsenal => GetString(nameof(Quest_Category_Arsenal));
         public string Quest_Category_Modernization => GetString(nameof(Quest_Category_Modernization));
+        public string Quest_Category_Sortie2 => GetString(nameof(Quest_Category_Sortie2));
         public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
 
         public string Window_Preferences => GetString(nameof(Window_Preferences));

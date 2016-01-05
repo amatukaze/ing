@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
@@ -35,5 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
             Expeditions.UpdateRawData(rpInfo.Expeditions, r => new ExpeditionInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
         }
+
+        public ExpeditionInfo GetExpeditionFromName(string rpName) => Expeditions.Values.SingleOrDefault(r => r.Name == rpName);
     }
 }

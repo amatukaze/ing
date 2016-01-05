@@ -127,6 +127,9 @@
   <String Key="Battle_AerialCombatResult_Denial">Air Denial</String>
 
   <String Key="Quest_Unknown">?????</String>
+  <String Key="Quest_Type_Once" />
+  <String Key="Quest_Type_Special1">D</String>
+  <String Key="Quest_Type_Special2">D</String>
   <String Key="Quest_Type_Daily">D</String>
   <String Key="Quest_Type_Weekly">W</String>
   <String Key="Quest_Type_Monthly">M</String>
@@ -137,6 +140,7 @@
   <String Key="Quest_Category_SupplyOrDocking">SupplyOrDocking</String>
   <String Key="Quest_Category_Arsenal">Arsenal</String>
   <String Key="Quest_Category_Modernization">Modernization</String>
+  <String Key="Quest_Category_Sortie2">Sortie</String>
   <String Key="Quest_State_Completed">Completed</String>
 
   <String Key="Window_Preferences">Setting</String>
