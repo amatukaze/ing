@@ -1,5 +1,6 @@
 ﻿using Fiddler;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
 using System.Reactive.Subjects;
@@ -57,8 +58,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             SessionSubject.OnNext(rSession);
 
-            if (rFullUrl == GameConstants.GamePageUrl || rPath == " / gadget/js/kcs_flash.js")
+            if (rFullUrl == GameConstants.GamePageUrl || rPath == "/gadget/js/kcs_flash.js")
                 rpSession.bBufferResponse = true;
+
+            var rResourceSession = rSession as ResourceSession;
+            if (rResourceSession != null)
+                CacheService.Instance.ProcessRequest(rResourceSession, rpSession);
         }
 
         static void FiddlerApplication_OnReadResponseBuffer(object sender, RawReadEventArgs e)
@@ -89,6 +94,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                     rApiSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
                     ApiParserManager.Instance.Process(rApiSession);
                 }
+
+                var rResourceSession = rSession as ResourceSession;
+                if (rResourceSession != null)
+                    CacheService.Instance.ProcessResponse(rResourceSession, rpSession);
 
                 if (rpSession.PathAndQuery == "/gadget/js/kcs_flash.js")
                 {
@@ -134,6 +143,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             var rSession = rpSession.Tag as NetworkSession;
             if (rSession != null)
                 rSession.StatusCode = rpSession.responseCode;
+
+            var rResourceSession = rSession as ResourceSession;
+            if (rResourceSession != null)
+                CacheService.Instance.ProcessOnCompletion(rResourceSession, rpSession);
         }
 
         static void ForceOverrideStylesheet(Session rpSession)

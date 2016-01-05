@@ -37,6 +37,9 @@
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Style.Triggers>
+                            <DataTrigger Binding="{Binding AerialCombat.Stage1}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding AerialCombat.Stage1.FriendPlaneCount}" Value="0">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
@@ -44,13 +47,16 @@
                     </Style>
                 </TextBlock.Style>
 
-                <Run Text="{rb:StringResource Main.Battle_AerialCombat_Fighter, Mode=OneWay}" />:
+                <Run Text="{rb:StringResource Main.Battle_AerialCombat_FighterCombat, Mode=OneWay}" />:
                 <Run Text="{Binding AerialCombat.Stage1.FriendPlaneRemaningCount, Mode=OneWay}" />/<Run Text="{Binding AerialCombat.Stage1.FriendPlaneCount, Mode=OneWay}" />
             </TextBlock>
             <TextBlock HorizontalAlignment="Center" Grid.Column="4">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Style.Triggers>
+                            <DataTrigger Binding="{Binding AerialCombat.Stage2}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding AerialCombat.Stage2.FriendPlaneCount}" Value="0">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
@@ -58,7 +64,7 @@
                     </Style>
                 </TextBlock.Style>
 
-                <Run Text="{rb:StringResource Main.Battle_AerialCombat_Bomber, Mode=OneWay}" />:
+                <Run Text="{rb:StringResource Main.Battle_AerialCombat_AA, Mode=OneWay}" />:
                 <Run Text="{Binding AerialCombat.Stage2.FriendPlaneRemaningCount, Mode=OneWay}" />/<Run Text="{Binding AerialCombat.Stage2.FriendPlaneCount, Mode=OneWay}" />
             </TextBlock>
 
@@ -68,6 +74,9 @@
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Style.Triggers>
+                            <DataTrigger Binding="{Binding AerialCombat.Stage1}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding AerialCombat.Stage1.EnemyPlaneCount}" Value="0">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
@@ -75,13 +84,16 @@
                     </Style>
                 </TextBlock.Style>
 
-                <Run Text="{rb:StringResource Main.Battle_AerialCombat_Fighter, Mode=OneWay}" />:
+                <Run Text="{rb:StringResource Main.Battle_AerialCombat_FighterCombat, Mode=OneWay}" />:
                 <Run Text="{Binding AerialCombat.Stage1.EnemyPlaneRemaningCount, Mode=OneWay}" />/<Run Text="{Binding AerialCombat.Stage1.EnemyPlaneCount, Mode=OneWay}" />
             </TextBlock>
             <TextBlock HorizontalAlignment="Center" Grid.Column="4" Grid.Row="4">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Style.Triggers>
+                            <DataTrigger Binding="{Binding AerialCombat.Stage2}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding AerialCombat.Stage2.EnemyPlaneCount}" Value="0">
                                 <Setter Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
@@ -89,7 +101,7 @@
                     </Style>
                 </TextBlock.Style>
 
-                <Run Text="{rb:StringResource Main.Battle_AerialCombat_Bomber, Mode=OneWay}" />:
+                <Run Text="{rb:StringResource Main.Battle_AerialCombat_AA, Mode=OneWay}" />:
                 <Run Text="{Binding AerialCombat.Stage2.EnemyPlaneRemaningCount, Mode=OneWay}" />/<Run Text="{Binding AerialCombat.Stage2.EnemyPlaneCount, Mode=OneWay}" />
             </TextBlock>
 

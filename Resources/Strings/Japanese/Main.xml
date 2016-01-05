@@ -1,24 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.3">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.4">
 
   <String Key="Feature_UnderConstruction">未実装</String>
   <String Key="Feature_Filter">フィルター</String>
   <String Key="Feature_Filter_All">すべて</String>
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
+  <String Key="Log_CheckForUpdate_Exception">更新の確認中にエラーが発生しました: {0}</String>
   <String Key="Log_Exception_API_Failed">API「{0}」のエラーコードを受信しました: {1}</String>
   <String Key="Log_Exception_API_ParseException">API の解析中にエラーが発生しました: {0}</String>
+  <String Key="Log_Exception_Cache_FailedToSaveFile">ファイルの保存に失敗しました: {0}</String>
   <String Key="Log_ExpeditionResult">/{0}「{1}」が遠征「{2}:{3}」から帰投しました。(結果:{4})</String>
   <String Key="Log_StartConstruction">「{0}」の建造を開始しました。(投入した資材:{1}/{2}/{3}/{4}-{5})</String>
   <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材:{1}/{2}/{3}/{4})</String>
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
   <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
-  <String Key="Log_Ship_Dropped">「{0}」がドロップしました</String>
+  <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
+  <String Key="Log_ShipAndItem_Dropped">「{0}」や「{1}」がドロップしました</String>
 
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>
+
+  <String Key="Update_NewVersionIsAvailable">新しいバージョンがあります！</String>
+  <String Key="Update_Download">更新します</String>
 
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
@@ -112,8 +118,8 @@
   <String Key="Battle_EngagementForm_HeadOn">反航戦</String>
   <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T字有利</String>
   <String Key="Battle_EngagementForm_CrossingTheTDisadvantage">T字不利</String>
-  <String Key="Battle_AerialCombat_Fighter">戦</String>
-  <String Key="Battle_AerialCombat_Bomber">攻</String>
+  <String Key="Battle_AerialCombat_FighterCombat">空戦</String>
+  <String Key="Battle_AerialCombat_AA">対空</String>
   <String Key="Battle_AerialCombatResult_Supremacy">制空権確保</String>
   <String Key="Battle_AerialCombatResult_Superiority">航空優勢</String>
   <String Key="Battle_AerialCombatResult_Parity">制空均衡</String>
@@ -121,6 +127,9 @@
   <String Key="Battle_AerialCombatResult_Denial">制空権喪失</String>
 
   <String Key="Quest_Unknown">?????</String>
+  <String Key="Quest_Type_Once" />
+  <String Key="Quest_Type_Special1">日</String>
+  <String Key="Quest_Type_Special2">日</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>
   <String Key="Quest_Type_Monthly">月</String>
@@ -131,6 +140,7 @@
   <String Key="Quest_Category_SupplyOrDocking">補給</String>
   <String Key="Quest_Category_Arsenal">工廠</String>
   <String Key="Quest_Category_Modernization">改装</String>
+  <String Key="Quest_Category_Sortie2">出撃</String>
   <String Key="Quest_State_Completed">達成</String>
 
   <String Key="Window_Preferences">設定</String>
@@ -138,17 +148,17 @@
   <String Key="Window_ShipOverview">艦娘一覧</String>
   <String Key="Window_ConstructionHistory">建造歴史</String>
   <String Key="Window_DevelopmentHistory">開発歴史</String>
-  <String Key="Window_ClosingConfirmation">HeavenlyWind を終了しますか？</String>
+  <String Key="Window_ClosingConfirmation">KanColle Inspector を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
-  <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
-  <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
-  <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust</String>
-  <String Key="PreferenceWindow_Cache_Mode_CheckVersion">Check Version</String>
+  <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
+  <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>
+  <String Key="PreferenceWindow_Cache_Mode_FullTrust">ファイルの検証をしない</String>
+  <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">ファイルの検証をする</String>
   <String Key="PreferenceWindow_Cache_Path">パス</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Language">言語</String>

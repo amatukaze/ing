@@ -9,12 +9,11 @@ namespace Sakuno.KanColle.Amatsukaze
         string r_Path;
 
         public string StringFormat { get; set; }
-        public BindingMode Mode { get; set; }
+        public BindingMode Mode { get; set; } = BindingMode.OneWay;
 
         public StringResourceExtension(string rpPath)
         {
             r_Path = rpPath;
-            Mode = BindingMode.Default;
         }
 
         public override object ProvideValue(IServiceProvider rpServiceProvider)

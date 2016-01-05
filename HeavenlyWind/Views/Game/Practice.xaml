@@ -8,9 +8,8 @@
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              xmlns:rvge="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game.Events"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance rvmg:SortieViewModel}"
              d:DesignWidth="300" d:DesignHeight="300">
-    <Grid DataContext="{Binding Practice}">
+    <Grid DataContext="{Binding Info}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="8" />

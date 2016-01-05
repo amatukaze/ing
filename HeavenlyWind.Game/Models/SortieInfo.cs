@@ -13,6 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public long ID { get; } = (long)DateTimeOffset.Now.ToUnixTime();
 
         public Fleet Fleet { get; }
+        public Fleet EscortFleet { get; }
         public MapInfo Map { get; }
 
         public SortieCellInfo Cell { get; private set; }
@@ -35,23 +36,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
 
-            Action<ApiData> rExplorationParser = r => r_Current?.Explore(r.Requests, (RawMapExploration)r.Data);
-            SessionService.Instance.Subscribe("api_req_map/start", rExplorationParser);
-            SessionService.Instance.Subscribe("api_req_map/next", rExplorationParser);
+            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, r => r_Current?.Explore(r.Requests, (RawMapExploration)r.Data));
 
-            Action<ApiData> rProcessIfShipDropped = r =>
+            SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
                 var rData = (RawBattleResult)r.Data;
+
                 if (rData.DroppedShip != null)
-                {
-                    r_Current.PendingShipCount++;
-
-                    Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Ship_Dropped, rData.DroppedShip.Name));
-                }
-            };
-            SessionService.Instance.Subscribe("api_req_sortie/battleresult", rProcessIfShipDropped);
-            SessionService.Instance.Subscribe("api_req_combined_battle/battleresult", rProcessIfShipDropped);
-
+                     r_Current.PendingShipCount++;
+            });
         }
         internal SortieInfo() { }
         internal SortieInfo(Fleet rpFleet, int rpMapID)
@@ -59,6 +52,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             r_Current = this;
 
             Fleet = rpFleet;
+            if (KanColleGame.Current.Port.Fleets.CombinedFleetType != 0 && rpFleet.ID == 1)
+                EscortFleet = KanColleGame.Current.Port.Fleets[2];
+
             Map = KanColleGame.Current.Maps[rpMapID];
         }
 

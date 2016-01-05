@@ -21,6 +21,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public DevelopmentRecord Development { get; private set; }
         public SortieRecord Sortie { get; private set; }
         public BattleRecord Battle { get; private set; }
+        public RankingPointBonusRecord RankingPointBonus { get; private set; }
+
+        public QuestProgressRecord QuestProgress { get; private set; }
 
         public bool IsConnected { get; private set; }
 
@@ -50,6 +53,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Development?.Dispose();
             Sortie?.Dispose();
             Battle?.Dispose();
+            RankingPointBonus?.Dispose();
+            QuestProgress?.Dispose();
             r_Connection?.Dispose();
 
             IsConnected = false;
@@ -61,7 +66,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (IsReadOnlyMode)
                 using (var rSourceConnection = r_Connection)
                 {
-                    r_Connection = new SQLiteConnection("Data Source=:memory:; Page Size=8192").OpenAndReturn();
+                    r_Connection = new SQLiteConnection("Data Source=:memory:;Page Size=8192").OpenAndReturn();
                     rSourceConnection.BackupDatabase(r_Connection, "main", "main", -1, null, 0);
                 }
 
@@ -77,6 +82,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Development = new DevelopmentRecord(r_Connection).ConnectAndReturn();
                 Sortie = new SortieRecord(r_Connection).ConnectAndReturn();
                 Battle = new BattleRecord(r_Connection).ConnectAndReturn();
+                RankingPointBonus = new RankingPointBonusRecord(r_Connection).ConnectAndReturn();
+
+                QuestProgress = new QuestProgressRecord(r_Connection).ConnectAndReturn();
 
                 rTransaction.Commit();
             }

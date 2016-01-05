@@ -24,7 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            if (MessageBox.Show(this, StringResources.Instance.Main.Window_ClosingConfirmation, "HeavenlyWind", MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.No) == MessageBoxResult.No)
+            if (MessageBox.Show(this, StringResources.Instance.Main.Window_ClosingConfirmation, ProductInfo.FullAppName, MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.No) == MessageBoxResult.No)
             {
                 e.Cancel = true;
                 return;

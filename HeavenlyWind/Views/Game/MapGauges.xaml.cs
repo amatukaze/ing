@@ -3,11 +3,11 @@
 namespace Sakuno.KanColle.Amatsukaze.Views.Game
 {
     /// <summary>
-    /// SortieOrPractice.xaml の相互作用ロジック
+    /// MapGauges.xaml の相互作用ロジック
     /// </summary>
-    public partial class SortieOrPractice : UserControl
+    public partial class MapGauges : UserControl
     {
-        public SortieOrPractice()
+        public MapGauges()
         {
             InitializeComponent();
         }

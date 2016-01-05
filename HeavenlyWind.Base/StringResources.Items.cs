@@ -10,19 +10,25 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Feature_Filter_All => GetString(nameof(Feature_Filter_All));
 
         public string Log_Welcome => GetString(nameof(Log_Welcome));
+        public string Log_CheckForUpdate_Exception => GetString(nameof(Log_CheckForUpdate_Exception));
         public string Log_Exception_API_Failed => GetString(nameof(Log_Exception_API_Failed));
         public string Log_Exception_API_ParseException => GetString(nameof(Log_Exception_API_ParseException));
+        public string Log_Exception_Cache_FailedToSaveFile => GetString(nameof(Log_Exception_Cache_FailedToSaveFile));
         public string Log_ExpeditionResult => GetString(nameof(Log_ExpeditionResult));
         public string Log_StartConstruction => GetString(nameof(Log_StartConstruction));
         public string Log_Development_Success => GetString(nameof(Log_Development_Success));
         public string Log_Development_Failure => GetString(nameof(Log_Development_Failure));
         public string Log_Sortie => GetString(nameof(Log_Sortie));
         public string Log_Sortie_Event => GetString(nameof(Log_Sortie_Event));
-        public string Log_Ship_Dropped => GetString(nameof(Log_Ship_Dropped));
+        public string Log_ShipOrItem_Dropped => GetString(nameof(Log_ShipOrItem_Dropped));
+        public string Log_ShipAndItem_Dropped => GetString(nameof(Log_ShipAndItem_Dropped));
 
         public string Result_Failure => GetString(nameof(Result_Failure));
         public string Result_Success => GetString(nameof(Result_Success));
         public string Result_GreatSuccess => GetString(nameof(Result_GreatSuccess));
+
+        public string Update_NewVersionIsAvailable => GetString(nameof(Update_NewVersionIsAvailable));
+        public string Update_Download => GetString(nameof(Update_Download));
 
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 
@@ -116,8 +122,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_EngagementForm_HeadOn => GetString(nameof(Battle_EngagementForm_HeadOn));
         public string Battle_EngagementForm_CrossingTheTAdvantage => GetString(nameof(Battle_EngagementForm_CrossingTheTAdvantage));
         public string Battle_EngagementForm_CrossingTheTDisadvantage => GetString(nameof(Battle_EngagementForm_CrossingTheTDisadvantage));
-        public string Battle_AerialCombat_Fighter => GetString(nameof(Battle_AerialCombat_Fighter));
-        public string Battle_AerialCombat_Bomber => GetString(nameof(Battle_AerialCombat_Bomber));
+        public string Battle_AerialCombat_FighterCombat => GetString(nameof(Battle_AerialCombat_FighterCombat));
+        public string Battle_AerialCombat_AA => GetString(nameof(Battle_AerialCombat_AA));
         public string Battle_AerialCombatResult_Supremacy => GetString(nameof(Battle_AerialCombatResult_Supremacy));
         public string Battle_AerialCombatResult_Superiority => GetString(nameof(Battle_AerialCombatResult_Superiority));
         public string Battle_AerialCombatResult_Parity => GetString(nameof(Battle_AerialCombatResult_Parity));
@@ -125,6 +131,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_AerialCombatResult_Denial => GetString(nameof(Battle_AerialCombatResult_Denial));
 
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
+        public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
+        public string Quest_Type_Special1 => GetString(nameof(Quest_Type_Special1));
+        public string Quest_Type_Special2 => GetString(nameof(Quest_Type_Special2));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));
         public string Quest_Type_Monthly => GetString(nameof(Quest_Type_Monthly));
@@ -135,6 +144,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Category_SupplyOrDocking => GetString(nameof(Quest_Category_SupplyOrDocking));
         public string Quest_Category_Arsenal => GetString(nameof(Quest_Category_Arsenal));
         public string Quest_Category_Modernization => GetString(nameof(Quest_Category_Modernization));
+        public string Quest_Category_Sortie2 => GetString(nameof(Quest_Category_Sortie2));
         public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
 
         public string Window_Preferences => GetString(nameof(Window_Preferences));
@@ -152,7 +162,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));
         public string PreferenceWindow_Cache_Mode_FullTrust => GetString(nameof(PreferenceWindow_Cache_Mode_FullTrust));
-        public string PreferenceWindow_Cache_Mode_CheckVersion => GetString(nameof(PreferenceWindow_Cache_Mode_CheckVersion));
+        public string PreferenceWindow_Cache_Mode_VerifyVersion => GetString(nameof(PreferenceWindow_Cache_Mode_VerifyVersion));
         public string PreferenceWindow_Cache_Path => GetString(nameof(PreferenceWindow_Cache_Path));
         public string PreferenceWindow_Notification => GetString(nameof(PreferenceWindow_Notification));
         public string PreferenceWindow_Language => GetString(nameof(PreferenceWindow_Language));

@@ -7,13 +7,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
     public class AviationReconnaissanceEvent : RewardEvent
     {
-        public AviationReconnaissancePlaneType PlaneType { get; }
-        public AviationReconnaissanceResult Result { get; }
+        public AviationReconnaissancePlaneType PlaneType => RawData.AviationReconnaissance.PlaneType;
+        public AviationReconnaissanceResult Result => RawData.AviationReconnaissance.Result;
 
-        internal AviationReconnaissanceEvent(RawMapExploration rpData) : base(rpData)
-        {
-            PlaneType = rpData.AviationReconnaissance.PlaneType;
-            Result = rpData.AviationReconnaissance.Result;
-        }
+        internal AviationReconnaissanceEvent(RawMapExploration rpData) : base(rpData) { }
     }
 }

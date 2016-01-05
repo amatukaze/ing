@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root
 {
@@ -7,6 +8,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root
     {
         public override void Process(RawPort rpData)
         {
+            if (Game.Sortie != null && !(Game.Sortie is PracticeInfo))
+                Game.OldSortie = Game.Sortie;
+
             Game.Sortie = null;
             Game.Port.UpdatePort(rpData);
         }

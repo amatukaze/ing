@@ -65,7 +65,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
         protected abstract void CreateTable();
-        protected virtual void Load() { }
 
         protected virtual void UpgradeFromOldVersion(int rpOldVersion) { }
         void UpdateVersion(int rpVersion)
@@ -79,6 +78,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
         }
+
+        protected virtual void Load() { }
 
         public void Dispose()
         {

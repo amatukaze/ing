@@ -9,17 +9,28 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
     public class SortieViewModel : TabItemViewModel
     {
+        public enum DisplayType { MapGauge, Sortie, Practice }
+
         public override string Name
         {
             get { return StringResources.Instance.Main.Tab_Sortie; }
             protected set { throw new NotImplementedException(); }
         }
 
-        public SortieInfo Sortie { get; private set; }
-        public bool IsSortieVisible { get; private set; }
+        DisplayType r_Type;
+        public DisplayType Type
+        {
+            get { return r_Type; }
+            private set
+            {
+                r_Type = value;
+                OnPropertyChanged(nameof(Type));
+            }
+        }
 
-        public PracticeInfo Practice { get; private set; }
-        public bool IsPracticeVisible { get; private set; }
+        public MapGaugesViewModel MapGauges { get; } = new MapGaugesViewModel();
+
+        public SortieInfo Info { get; private set; }
 
         internal SortieViewModel()
         {
@@ -31,17 +42,15 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 .Subscribe(_ =>
                 {
                     var rInfo = KanColleGame.Current.Sortie;
+                    if (rInfo == null)
+                        Type = DisplayType.MapGauge;
+                    else
+                    {
+                        Info = rInfo;
+                        OnPropertyChanged(nameof(Info));
 
-                    Sortie = rInfo as SortieInfo;
-                    Practice = rInfo as PracticeInfo;
-
-                    IsPracticeVisible = Practice != null;
-                    IsSortieVisible = Sortie != null && !IsPracticeVisible;
-
-                    OnPropertyChanged(nameof(Sortie));
-                    OnPropertyChanged(nameof(Practice));
-                    OnPropertyChanged(nameof(IsSortieVisible));
-                    OnPropertyChanged(nameof(IsPracticeVisible));
+                        Type = rInfo is PracticeInfo ? DisplayType.Practice : DisplayType.Sortie;
+                    }
                 });
         }
     }

@@ -5,23 +5,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
     public class WhirlpoolEvent : SortieEvent
     {
-        public MaterialType LostMaterial { get; }
-        public int Amount { get; }
+        public MaterialType LostMaterial => RawData.Whirlpool.MaterialType;
+        public int Amount => RawData.Whirlpool.Amount;
 
-        public bool HasReduceLossesWithRadar { get; }
+        public bool HasReduceLossesWithRadar => RawData.Whirlpool.HasReduceLossesWithRadar;
 
-        public string Name { get; }
+        public string Name => LostMaterial == MaterialType.Fuel ? StringResources.Instance.Main.Material_Fuel : StringResources.Instance.Main.Material_Bullet;
 
         internal WhirlpoolEvent(RawMapExploration rpData) : base(rpData)
         {
-            LostMaterial = rpData.Whirlpool.MaterialType;
-            Amount = rpData.Whirlpool.Amount;
-
-            if (LostMaterial == MaterialType.Fuel)
-                Name = StringResources.Instance.Main.Material_Fuel;
-            else
-                Name = StringResources.Instance.Main.Material_Bullet;
-
             var rShips = KanColleGame.Current.Port.Fleets.Table.Values
                 .Where(r => (r.State & FleetState.Sortie) == FleetState.Sortie)
                 .SelectMany(r => r.Ships);

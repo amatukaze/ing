@@ -57,8 +57,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_get_flag")]
         public bool[] IsDropped { get; set; }
 
+        [JsonProperty("api_get_useitem")]
+        public RawDroppedItem DroppedItem { get; set; }
         [JsonProperty("api_get_ship")]
         public RawDroppedShip DroppedShip { get; set; }
+
+        [JsonProperty("api_get_exmap_rate")]
+        public int ExtraOperationRankingPointBonus { get; set; }
 
         public RawEventMapBouns[] EventMapBouns { get; set; }
 
@@ -75,6 +80,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 
             [JsonProperty("api_deck_name")]
             public string FleetName { get; set; }
+        }
+        public class RawDroppedItem
+        {
+            [JsonProperty("api_useitem_id")]
+            public int ID { get; set; }
         }
         public class RawDroppedShip
         {

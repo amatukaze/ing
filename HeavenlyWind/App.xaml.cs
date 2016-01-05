@@ -34,7 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 Task.Factory.StartNew(() =>
                 {
                     Process.GetProcessById(rHostProcessID).WaitForExit();
-                    Environment.Exit(0);
+                    Process.GetCurrentProcess().Kill();
                 }, TaskCreationOptions.LongRunning);
 
                 return;
@@ -42,6 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             StatusBarService.Instance.Initialize();
             RecordService.Instance.Initialize();
+            QuestProgressService.Instance.Initialize();
 
             Preference.Load();
             StringResources.Instance.Load();
@@ -49,6 +50,8 @@ namespace Sakuno.KanColle.Amatsukaze
             KanColleProxy.Start();
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
+
+            Task.Factory.StartNew(UpdateService.Instance.CheckForUpdate);
 
             MainWindow = new MainWindow();
             MainWindow.DataContext = Root = new MainWindowViewModel();
@@ -64,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(e.ExceptionObject.ToString(), "HeavenlyWind", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.ExceptionObject.ToString(), ProductInfo.FullAppName, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
     }

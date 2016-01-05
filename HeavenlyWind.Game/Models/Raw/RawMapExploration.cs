@@ -43,6 +43,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 
         [JsonProperty("api_itemget")]
         public RawReward Reward { get; set; }
+        [JsonProperty("api_get_eo_rate")]
+        public int RankingPointBonus { get; set; }
         [JsonProperty("api_itemget_eo_comment")]
         public RawReward RewardInExtraOperation { get; set; }
 
@@ -71,7 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
             public MaterialType IconID { get; set; }
 
             [JsonProperty("api_dentan")]
-            public bool IsReducedByRadar { get; set; }
+            public bool HasReduceLossesWithRadar { get; set; }
         }
         public class RawReward
         {

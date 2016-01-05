@@ -4,6 +4,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
     public abstract class SortieEvent
     {
-        internal protected SortieEvent(RawMapExploration rpData) { }
+        protected RawMapExploration RawData { get; }
+
+        internal protected SortieEvent(RawMapExploration rpData)
+        {
+            RawData = rpData;
+        }
     }
 }

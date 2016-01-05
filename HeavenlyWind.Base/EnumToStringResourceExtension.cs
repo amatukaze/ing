@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Prefix { get; }
 
         public string StringFormat { get; set; }
-        public BindingMode Mode { get; set; } = BindingMode.Default;
+        public BindingMode Mode { get; set; } = BindingMode.OneWay;
 
         public EnumToStringResourceExtension(string rpPath, string rpPrefix)
         {
@@ -33,6 +33,9 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             public object Convert(object rpValue, Type rpTargetType, object rpParameter, CultureInfo rpCulture)
             {
+                if (rpValue == null)
+                    return string.Empty;
+
                 var rType = rpValue.GetType();
                 if (!rType.IsEnum || !rType.IsEnumDefined(rpValue))
                     return string.Empty;

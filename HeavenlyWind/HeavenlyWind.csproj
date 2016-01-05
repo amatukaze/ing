@@ -42,8 +42,8 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -100,6 +100,7 @@
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Models\CheckForUpdateResult.cs" />
     <Compile Include="Models\Power.cs" />
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
@@ -114,12 +115,14 @@
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
     <Compile Include="Services\ScreenshotService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
+    <Compile Include="Services\UpdateService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetViewModel.cs" />
     <Compile Include="ViewModels\Game\AdmiralViewModel.cs" />
+    <Compile Include="ViewModels\Game\MapGaugesViewModel.cs" />
     <Compile Include="ViewModels\Game\MaterialsViewModel.cs" />
     <Compile Include="ViewModels\Game\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestsViewModel.cs" />
@@ -195,6 +198,9 @@
     <Compile Include="Views\Game\Headquarter.xaml.cs">
       <DependentUpon>Headquarter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\MapGauges.xaml.cs">
+      <DependentUpon>MapGauges.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
     </Compile>
@@ -210,8 +216,8 @@
     <Compile Include="Views\Game\Sortie.xaml.cs">
       <DependentUpon>Sortie.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Game\SortieOrPractice.xaml.cs">
-      <DependentUpon>SortieOrPractice.xaml</DependentUpon>
+    <Compile Include="Views\Game\SortieOverview.xaml.cs">
+      <DependentUpon>SortieOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\History\ConstructionHistoryWindow.xaml.cs">
       <DependentUpon>ConstructionHistoryWindow.xaml</DependentUpon>
@@ -536,6 +542,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\MapGauges.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\Overview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -556,7 +566,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Game\SortieOrPractice.xaml">
+    <Page Include="Views\Game\SortieOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

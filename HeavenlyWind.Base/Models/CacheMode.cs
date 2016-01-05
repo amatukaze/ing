@@ -4,6 +4,6 @@
     {
         Disabled,
         FullTrust,
-        CheckVersion,
+        VerifyVersion,
     }
 }

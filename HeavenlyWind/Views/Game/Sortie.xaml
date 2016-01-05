@@ -20,57 +20,18 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="EventType" TargetType="{x:Type Run}">
+            <Setter Property="Text" Value="{rb:EnumToStringResource Cell.EventType, Sortie_Event}" />
+
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Cell.Event}" Value="{x:Null}">
                     <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
-                </DataTrigger>
-
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="Unknown">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="Reward">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Reward, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="Whirlpool">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Whirlpool, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="NormalBattle">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_NormalBattle, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="BossBattle">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_BossBattle, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="NothingHappened">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_NothingHappened, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="AviationReconnaissance">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_AviationReconnaissance, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="EscortSuccess">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_EscortSuccess, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Cell.EventType}" Value="Landing">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Landing, Mode=OneWay}" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="EventMapDifficulty" TargetType="{x:Type Run}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Difficulty}" Value="Easy">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Map_Difficulty_Easy, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Difficulty}" Value="Normal">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Map_Difficulty_Normal, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Difficulty}" Value="Hard">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Map_Difficulty_Hard, Mode=OneWay}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
     <ScrollViewer>
-        <Grid DataContext="{Binding Sortie}">
+        <Grid DataContext="{Binding Info}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="8" />
@@ -81,8 +42,7 @@
             <StackPanel>
                 <StackPanel DataContext="{Binding Map}" Orientation="Horizontal">
                     <TextBlock>
-                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" />
-                        <Run Style="{StaticResource EventMapDifficulty}" />
+                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, Mode=OneWay}" />
                         <Run Text="{Binding MasterInfo.Name, StringFormat=({0}), Mode=OneWay}" />
                     </TextBlock>
                 </StackPanel>
@@ -110,6 +70,9 @@
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type rgme:AviationReconnaissanceEvent}">
                         <rvge:AviationReconnaissance />
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type rgme:EscortSuccessEvent}">
+                        <rvge:Reward />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type rgme:LandingEvent}">
                     </DataTemplate>
