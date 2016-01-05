@@ -6,6 +6,7 @@
   <String Key="Feature_Filter_All">すべて</String>
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
+  <String Key="Log_CheckForUpdate_Exception">更新の確認中にエラーが発生しました: {0}</String>
   <String Key="Log_Exception_API_Failed">API「{0}」のエラーコードを受信しました: {1}</String>
   <String Key="Log_Exception_API_ParseException">API の解析中にエラーが発生しました: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">ファイルの保存に失敗しました: {0}</String>
@@ -21,6 +22,9 @@
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>
+
+  <String Key="Update_NewVersionIsAvailable">新しいバージョンがあります！</String>
+  <String Key="Update_Download">更新します</String>
 
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 

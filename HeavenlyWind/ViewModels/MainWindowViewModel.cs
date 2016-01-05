@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using System;
 using System.ComponentModel;
@@ -22,6 +23,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 }
             }
         }
+
+        public UpdateService UpdateService => UpdateService.Instance;
 
         public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => new PreferencesWindow().ShowDialog());
 

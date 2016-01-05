@@ -10,6 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Feature_Filter_All => GetString(nameof(Feature_Filter_All));
 
         public string Log_Welcome => GetString(nameof(Log_Welcome));
+        public string Log_CheckForUpdate_Exception => GetString(nameof(Log_CheckForUpdate_Exception));
         public string Log_Exception_API_Failed => GetString(nameof(Log_Exception_API_Failed));
         public string Log_Exception_API_ParseException => GetString(nameof(Log_Exception_API_ParseException));
         public string Log_Exception_Cache_FailedToSaveFile => GetString(nameof(Log_Exception_Cache_FailedToSaveFile));
@@ -25,6 +26,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Result_Failure => GetString(nameof(Result_Failure));
         public string Result_Success => GetString(nameof(Result_Success));
         public string Result_GreatSuccess => GetString(nameof(Result_GreatSuccess));
+
+        public string Update_NewVersionIsAvailable => GetString(nameof(Update_NewVersionIsAvailable));
+        public string Update_Download => GetString(nameof(Update_Download));
 
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 

@@ -100,6 +100,7 @@
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Models\CheckForUpdateResult.cs" />
     <Compile Include="Models\Power.cs" />
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
     <Compile Include="Services\ScreenshotService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
+    <Compile Include="Services\UpdateService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
