@@ -148,7 +148,7 @@
   <String Key="Window_ShipOverview">Ship Overview</String>
   <String Key="Window_ConstructionHistory">Construction history</String>
   <String Key="Window_DevelopmentHistory">Development history</String>
-  <String Key="Window_ClosingConfirmation">Are you sure to close HeavenlyWind?</String>
+  <String Key="Window_ClosingConfirmation">Are you sure to close KanColle Inspector?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Port</String>

@@ -148,7 +148,7 @@
   <String Key="Window_ShipOverview">艦娘一覧</String>
   <String Key="Window_ConstructionHistory">建造歴史</String>
   <String Key="Window_DevelopmentHistory">開発歴史</String>
-  <String Key="Window_ClosingConfirmation">HeavenlyWind を終了しますか？</String>
+  <String Key="Window_ClosingConfirmation">KanColle Inspector を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
