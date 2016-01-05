@@ -29,7 +29,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
 
-                <Border DataContext="{Binding UpdateService}" Background="Yellow" Visibility="{Binding Info.IsAvailable, Converter={StaticResource BooleanToVisibilityConverter}}" Padding="8, 0" Margin="20, 0, 0, 0" WindowChrome.IsHitTestVisibleInChrome="True">
+                <Border DataContext="{Binding UpdateService}" Background="Yellow" Visibility="{Binding Info.IsAvailable, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" Padding="8, 0" Margin="20, 0, 0, 0" WindowChrome.IsHitTestVisibleInChrome="True">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
