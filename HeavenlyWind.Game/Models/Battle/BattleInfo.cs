@@ -105,6 +105,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             }
 
             First.Process(rpData);
+            First.ProcessMVP();
             Result.Update(First, Second);
 
             IsInitialized = true;
@@ -140,12 +141,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         void ProcessSecondStage(ApiData rpData)
         {
-            foreach (FriendShip rParticipant in Participants.FriendMain)
-                rParticipant.IsMVP = false;
-            if (Participants.FriendEscort != null)
-                foreach (FriendShip rParticipant in Participants.FriendEscort)
-                    rParticipant.IsMVP = false;
-
             switch (rpData.Api)
             {
                 case "api_req_battle_midnight/battle":
@@ -157,11 +152,32 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             }
 
             Second.Process(rpData);
+            InheritFromPreviousStage(Second);
+            Second.ProcessMVP();
             Result.Update(First, Second);
 
             CurrentStage = Second;
             OnPropertyChanged(nameof(Second));
             OnPropertyChanged(nameof(CurrentStage));
+        }
+        void InheritFromPreviousStage(BattleStage rpStage)
+        {
+            if (rpStage.FriendEscort == null)
+                for (var i = 0; i < rpStage.FriendMain.Count; i++)
+                {
+                    rpStage.FriendMain[i].DamageGivenToOpponent += CurrentStage.FriendMain[i].DamageGivenToOpponent;
+                    rpStage.FriendMain[i].Inaccurate = CurrentStage.FriendMain[i].Inaccurate;
+                }
+
+            for (var i = 0; i < rpStage.Enemy.Count; i++)
+                rpStage.Enemy[i].DamageGivenToOpponent += CurrentStage.Enemy[i].DamageGivenToOpponent;
+
+            if (rpStage.FriendEscort != null)
+                for (var i = 0; i < rpStage.FriendEscort.Count; i++)
+                {
+                    rpStage.FriendEscort[i].DamageGivenToOpponent += CurrentStage.FriendEscort[i].DamageGivenToOpponent;
+                    rpStage.FriendEscort[i].Inaccurate = CurrentStage.FriendEscort[i].Inaccurate;
+                }
         }
     }
 }
