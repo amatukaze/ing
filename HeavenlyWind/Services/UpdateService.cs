@@ -91,6 +91,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     switch (rFileUpdate.Action)
                     {
                         case CheckForUpdateFileAction.CreateOrOverwrite:
+                            var rDirectory = rFile.Directory;
+                            if (!rDirectory.Exists)
+                                rDirectory.Create();
+
                             using (var rWriter = new StreamWriter(rFile.Open(FileMode.Create, FileAccess.Write, FileShare.Read)))
                                 await rWriter.WriteAsync(rFileUpdate.Content);
 
