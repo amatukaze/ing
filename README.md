@@ -1,4 +1,4 @@
-﻿HeavenlyWind
+﻿KanColle Inspector
 =====
 艦これ補助ツール
 
