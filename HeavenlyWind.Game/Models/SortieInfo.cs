@@ -18,6 +18,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public SortieCellInfo Cell { get; private set; }
 
+        public double DirectionAngle { get; private set; }
+
         int r_PendingShipCount;
         public int PendingShipCount
         {
@@ -60,6 +62,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         void Explore(IReadOnlyDictionary<string, string> rpRequests, RawMapExploration rpData)
         {
+            DirectionAngle = MapService.Instance.GetAngle(Map.ID, Cell?.ID ?? 0, rpData.Cell);
+            OnPropertyChanged(nameof(DirectionAngle));
+
             Cell = new SortieCellInfo(rpData);
 
             var rDifficulty = Map.Difficulty;

@@ -43,6 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze
             StatusBarService.Instance.Initialize();
             RecordService.Instance.Initialize();
             QuestProgressService.Instance.Initialize();
+            MapService.Instance.Initialize();
 
             Preference.Load();
             StringResources.Instance.Load();
