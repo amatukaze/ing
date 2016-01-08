@@ -16,6 +16,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public string Name => RawData.Name;
         public string NameReading => RawData.NameReading;
 
+        string r_NameWithoutLateModel;
+
         public ShipType Type
         {
             get
@@ -62,48 +64,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public bool IsLandBase => Speed == ShipSpeed.None;
 
-        public bool IsAbyssalShip => ID > 500 && ID <= 900;
-        public AbyssalShipClass? AbyssalShipClass
-        {
-            get
-            {
-                if (ID > 500 && ID <= 900)
-                {
-                    if (Name.Contains("後期型") && NameReading.IsNullOrEmpty())
-                        return AbyssalShipClassEnum.LateModel;
-                    if (NameReading == "elite")
-                        return AbyssalShipClassEnum.Elite;
-                    if (NameReading == "flagship")
-                        return AbyssalShipClassEnum.Flagship;
+        public bool IsAbyssalShip => ID > 500;
+        public AbyssalShipClass? AbyssalShipClass { get; }
 
-                    return AbyssalShipClassEnum.Normal;
-                }
-                return null;
-            }
-        }
+        public string NameWithClass => !IsAbyssalShip ? Name : Name + NameReading;
+        public string NameWithoutAbyssalShipClass => !IsAbyssalShip ? Name : r_NameWithoutLateModel;
 
-        public string NameWithClass
+        internal ShipInfo(RawShipInfo rpRawData) : base(rpRawData)
         {
-            get
+            if (IsAbyssalShip)
             {
-                if (!IsAbyssalShip || NameReading.IsNullOrEmpty() || NameReading == "-")
-                    return Name;
+                if (NameReading == "elite")
+                    AbyssalShipClass = AbyssalShipClassEnum.Elite;
+                else if (NameReading == "flagship")
+                    AbyssalShipClass = AbyssalShipClassEnum.Flagship;
+                else if (Name.Contains("後期型"))
+                    AbyssalShipClass = AbyssalShipClassEnum.LateModel;
                 else
-                    return $"{Name} {NameReading}";
-            }
-        }
-        public string NameWithoutAbyssalShipClass
-        {
-            get
-            {
-                if (!IsAbyssalShip || NameReading.IsNullOrEmpty() || NameReading == "-")
-                    return Name;
-                else
-                    return Name.Replace("後期型", string.Empty);
-            }
-        }
+                    AbyssalShipClass = AbyssalShipClassEnum.Normal;
 
-        internal ShipInfo(RawShipInfo rpRawData) : base(rpRawData) { }
+                r_NameWithoutLateModel = Name.Replace("後期型", string.Empty);
+            }
+        }
 
         public override string ToString() => $"ID = {ID}, Name = \"{NameWithClass}\", ShipType = \"{Type.Name}\"";
     }
