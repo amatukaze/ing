@@ -46,8 +46,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     }
 
                 r_LoadDataSubscription.Dispose();
+                r_LoadDataSubscription = null;
             });
-            
+
             SessionService.Instance.Subscribe("api_get_member/basic", _ => Progresses = RecordService.Instance.QuestProgress.Reload());
 
             SessionService.Instance.Subscribe("api_get_member/questlist", r => ProcessQuestList(r.Data as RawQuestList));

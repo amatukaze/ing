@@ -63,6 +63,7 @@
       <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClampedValue.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\MapService.cs" />
     <Compile Include="Services\Quest\Functions\ConstantFunction.cs" />
     <Compile Include="Services\Quest\Functions\Function.cs" />
     <Compile Include="Services\Quest\Parsers\ApiTriggerParserBuilder.cs" />
