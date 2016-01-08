@@ -1,5 +1,4 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using Sakuno.KanColle.Amatsukaze.Game.Services;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -12,7 +11,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public bool IsCleared => RawData.IsCleared;
         public bool IsIncompleted => RawData.IsIncompleted;
 
-        public ClampedValue HP { get; private set; }
+        ClampedValue r_HP;
+        public ClampedValue HP
+        {
+            get { return r_HP; }
+            internal set
+            {
+                r_HP = value;
+                OnPropertyChanged(nameof(HP));
+            }
+        }
 
         public bool IsEventMap => RawData.Event != null;
 
@@ -52,7 +60,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             OnPropertyChanged(nameof(IsCleared));
             OnPropertyChanged(nameof(IsIncompleted));
-            OnPropertyChanged(nameof(HP));
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{MasterInfo.Name}\"";

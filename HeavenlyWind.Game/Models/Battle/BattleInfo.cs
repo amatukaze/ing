@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
     public class BattleInfo : ModelBase
     {
-        static BattleInfo r_Current;
+        internal static BattleInfo Current { get; private set; }
 
         public long ID { get; } = (long)DateTimeUtil.ToUnixTime(DateTimeOffset.Now);
 
@@ -31,7 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         static BattleInfo()
         {
-            SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
+            SessionService.Instance.Subscribe("api_port/port", _ => Current = null);
 
             var rFirstStages = new[]
             {
@@ -45,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
                 "api_req_practice/battle",
             };
-            SessionService.Instance.Subscribe(rFirstStages, r => r_Current?.ProcessFirstStage(r));
+            SessionService.Instance.Subscribe(rFirstStages, r => Current?.ProcessFirstStage(r));
 
             var rSecondStages = new[]
             {
@@ -54,11 +54,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
                 "api_req_practice/midnight_battle",
             };
-            SessionService.Instance.Subscribe(rSecondStages, r => r_Current?.ProcessSecondStage(r));
+            SessionService.Instance.Subscribe(rSecondStages, r => Current?.ProcessSecondStage(r));
         }
         internal BattleInfo()
         {
-            r_Current = this;
+            Current = this;
 
             var rFleets = KanColleGame.Current.Port.Fleets;
             if (rFleets.CombinedFleetType == 0)
@@ -74,7 +74,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         }
         internal BattleInfo(Fleet rpParticipantFleet)
         {
-            r_Current = this;
+            Current = this;
 
             Participants.FriendMain = rpParticipantFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
         }
