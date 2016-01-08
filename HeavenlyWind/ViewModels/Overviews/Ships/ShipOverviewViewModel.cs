@@ -40,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Ships
         {
             Title = StringResources.Instance.Main.Window_ShipOverview;
 
-            r_TypeMap = KanColleGame.Current.MasterInfo.ShipTypes.Values.ToDictionary(r => r, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
+            r_TypeMap = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 15).ToDictionary(r => r, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 
             Task.Run(new Action(UpdateCore));
@@ -62,11 +62,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Ships
             OnPropertyChanged(nameof(SelectAllTypes));
         }
 
-
         void UpdateCore()
         {
             r_Ships = KanColleGame.Current.Port.Ships.Values.Select((r, i) => new ShipViewModel(i, r, r_TypeMap[r.Info.Type])).ToArray();
-
             UpdateFilterResult();
         }
 
