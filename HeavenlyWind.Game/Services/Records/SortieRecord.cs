@@ -1,12 +1,15 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Common;
 using System.Data.SQLite;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
@@ -214,5 +217,75 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
+        public async Task<List<RecordItem>> LoadRecordsAsync()
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, is_event_map, step, CASE is_event_map WHEN 0 THEN node ELSE (node + 2) / 3 END AS node, type, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item FROM sortie
+JOIN sortie_map ON sortie.map = sortie_map.id
+JOIN sortie_detail ON sortie.id = sortie_detail.id
+JOIN sortie_node ON sortie.map = sortie_node.map AND CASE sortie_map.is_event_map WHEN 0 THEN sortie_detail.node ELSE (sortie_detail.node + 2) / 3 END = sortie_node.id
+JOIN battle ON extra_info = battle.id
+LEFT JOIN battle_dropped_item ON battle.id = battle_dropped_item.id
+ORDER BY id DESC, step DESC;";
+
+                using (var rReader = await rCommand.ExecuteReaderAsync())
+                {
+                    var rResult = new List<RecordItem>(rReader.VisibleFieldCount);
+
+                    while (rReader.Read())
+                        rResult.Add(new RecordItem(rReader));
+
+                    return rResult;
+                }
+            }
+        }
+
+        public class RecordItem
+        {
+            public long SortieID { get; }
+
+            public MapMasterInfo Map { get; }
+            public bool IsEventMap { get; }
+
+            public int Step { get; }
+            public int Node { get; }
+            public SortieEventType EventType { get; }
+
+            public string Time { get; }
+
+            public BattleRank? BattleRank { get; }
+            public ShipInfo DroppedShip { get; }
+
+            internal RecordItem(DbDataReader rpReader)
+            {
+                SortieID = Convert.ToInt64(rpReader["id"]);
+
+                var rMapID = Convert.ToInt32(rpReader["map"]);
+                MapMasterInfo rMap;
+                if (KanColleGame.Current.MasterInfo.Maps.TryGetValue(rMapID, out rMap))
+                    Map = rMap;
+
+                IsEventMap = Convert.ToBoolean(rpReader["is_event_map"]);
+
+                Step = Convert.ToInt32(rpReader["step"]);
+                Node = Convert.ToInt32(rpReader["node"]);
+
+                EventType = (SortieEventType)Convert.ToInt32(rpReader["type"]);
+
+                if (EventType == SortieEventType.NormalBattle || EventType == SortieEventType.BossBattle)
+                    Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["extra_info"])).LocalDateTime.ToString();
+
+                var rBattleRank = rpReader["rank"];
+                if (rBattleRank != DBNull.Value)
+                    BattleRank = (BattleRank)Convert.ToInt32(rBattleRank);
+
+                var rDroppedShip = rpReader["dropped_ship"];
+                if (rDroppedShip != DBNull.Value)
+                    DroppedShip = KanColleGame.Current.MasterInfo.Ships[Convert.ToInt32(rDroppedShip)];
+            }
+
+            public override string ToString() => SortieID.ToString();
+        }
     }
 }
