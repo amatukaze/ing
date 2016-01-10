@@ -7,7 +7,18 @@
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <StackPanel>
-        <ComboBox ItemsSource="{Binding Source={x:Static rb:StringResources.InstalledLanguages}}" SelectedValue="{rb:Preference Language}" SelectedValuePath="Directory">
+        <ComboBox ItemsSource="{Binding InstalledLanguages, Source={x:Static rb:StringResources.Instance}}" SelectedValue="{rb:Preference Language}" SelectedValuePath="Directory">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <Run Text="{Binding DisplayName, Mode=OneWay}" />
+                        (<Run Text="{Binding Directory, Mode=OneWay}" />)
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <ComboBox ItemsSource="{Binding InstalledExtraResources, Source={x:Static rb:StringResources.Instance}}" SelectedValue="{rb:Preference ExtraResourceLanguage}" SelectedValuePath="Directory" Margin="0, 8, 0, 0">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>

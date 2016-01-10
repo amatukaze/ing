@@ -40,13 +40,14 @@ namespace Sakuno.KanColle.Amatsukaze
                 return;
             }
 
+            StringResources.Instance.Initialize();
             StatusBarService.Instance.Initialize();
             RecordService.Instance.Initialize();
             QuestProgressService.Instance.Initialize();
             MapService.Instance.Initialize();
 
             Preference.Load();
-            StringResources.Instance.Load();
+            StringResources.Instance.LoadMainResource();
 
             KanColleProxy.Start();
 

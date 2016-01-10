@@ -85,6 +85,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 r_NameWithoutLateModel = Name.Replace("後期型", string.Empty);
             }
+
+            OnRawDataUpdated();
+        }
+
+        protected override void OnRawDataUpdated()
+        {
+            var rTranslatedName = StringResources.Instance.Extra?.GetShipName(ID);
+            if (rTranslatedName != null)
+                RawData.Name = rTranslatedName;
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{NameWithClass}\", ShipType = \"{Type.Name}\"";

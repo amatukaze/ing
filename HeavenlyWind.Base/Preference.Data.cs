@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("version")]
         public string Version { get; } = ProductInfo.AssemblyVersionString;
 
-        string r_Language = StringResources.GetDefaultLanguage().Directory;
+        string r_Language = StringResources.Instance.GetDefaultLanguage().Directory;
         [JsonProperty("language")]
         public string Language
         {
@@ -20,7 +20,22 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (r_Language != value)
                 {
                     r_Language = value;
-                    StringResources.Instance.Load();
+                    StringResources.Instance.LoadMainResource();
+                }
+            }
+        }
+
+        string r_ExtraResourceLanguage;
+        [JsonProperty("language_extra")]
+        public string ExtraResourceLanguage
+        {
+            get { return r_ExtraResourceLanguage; }
+            set
+            {
+                if (r_ExtraResourceLanguage != value)
+                {
+                    r_ExtraResourceLanguage = value;
+                    StringResources.Instance.LoadExtraResource(value);
                 }
             }
         }
