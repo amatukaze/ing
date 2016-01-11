@@ -6,6 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze
     {
 
         public string Feature_UnderConstruction => GetString(nameof(Feature_UnderConstruction));
+        public string Feature_Disabled => GetString(nameof(Feature_Disabled));
         public string Feature_Filter => GetString(nameof(Feature_Filter));
         public string Feature_Filter_All => GetString(nameof(Feature_Filter_All));
 
@@ -166,6 +167,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Cache_Path => GetString(nameof(PreferenceWindow_Cache_Path));
         public string PreferenceWindow_Notification => GetString(nameof(PreferenceWindow_Notification));
         public string PreferenceWindow_Language => GetString(nameof(PreferenceWindow_Language));
+        public string PreferenceWindow_Language_NameTranslation => GetString(nameof(PreferenceWindow_Language_NameTranslation));
         public string PreferenceWindow_Browser => GetString(nameof(PreferenceWindow_Browser));
         public string PreferenceWindow_Browser_LayoutEngine => GetString(nameof(PreferenceWindow_Browser_LayoutEngine));
         public string PreferenceWindow_Browser_Homepage => GetString(nameof(PreferenceWindow_Browser_Homepage));

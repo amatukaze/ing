@@ -2,6 +2,7 @@
 <Strings CultureName="ja-JP" Name="日本語" Version="0.1.4">
 
   <String Key="Feature_UnderConstruction">未実装</String>
+  <String Key="Feature_Disabled">無効化</String>
   <String Key="Feature_Filter">フィルター</String>
   <String Key="Feature_Filter_All">すべて</String>
 
@@ -162,6 +163,7 @@
   <String Key="PreferenceWindow_Cache_Path">パス</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Language">言語</String>
+  <String Key="PreferenceWindow_Language_NameTranslation">名前の翻訳</String>
   <String Key="PreferenceWindow_Browser">ブラウザ</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">レイアウトエンジン</String>
   <String Key="PreferenceWindow_Browser_Homepage">ホームページ</String>

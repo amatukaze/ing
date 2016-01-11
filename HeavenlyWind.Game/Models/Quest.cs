@@ -24,7 +24,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public ProgressInfo RealtimeProgress { get; internal set; }
 
-        internal Quest(RawQuest rpRawData) : base(rpRawData) { }
+        internal Quest(RawQuest rpRawData) : base(rpRawData)
+        {
+            OnRawDataUpdated();
+        }
+
+        protected override void OnRawDataUpdated()
+        {
+            var rTranslatedName = StringResources.Instance.Extra?.GetQuestName(ID);
+            if (rTranslatedName != null)
+                RawData.Name = rTranslatedName;
+        }
 
         public override string ToString() => $"ID = {ID}, Category = {Category}, Name = \"{Name}\", State = {State}";
     }

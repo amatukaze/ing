@@ -2,6 +2,7 @@
 <Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.4">
 
   <String Key="Feature_UnderConstruction">未实现</String>
+  <String Key="Feature_Disabled">禁用</String>
   <String Key="Feature_Filter">过滤器</String>
   <String Key="Feature_Filter_All">全部</String>
 
@@ -162,6 +163,7 @@
   <String Key="PreferenceWindow_Cache_Path">路径</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Language">语言</String>
+  <String Key="PreferenceWindow_Language_NameTranslation">名字翻译</String>
   <String Key="PreferenceWindow_Browser">浏览器</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">排版引擎</String>
   <String Key="PreferenceWindow_Browser_Homepage">首页</String>

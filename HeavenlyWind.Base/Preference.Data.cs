@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Models.Preferences;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
@@ -10,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("version")]
         public string Version { get; } = ProductInfo.AssemblyVersionString;
 
-        string r_Language = StringResources.GetDefaultLanguage().Directory;
+        string r_Language;
         [JsonProperty("language")]
         public string Language
         {
@@ -20,7 +21,22 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (r_Language != value)
                 {
                     r_Language = value;
-                    StringResources.Instance.Load();
+                    StringResources.Instance.LoadMainResource();
+                }
+            }
+        }
+
+        string r_ExtraResourceLanguage;
+        [JsonProperty("language_extra")]
+        public string ExtraResourceLanguage
+        {
+            get { return r_ExtraResourceLanguage; }
+            set
+            {
+                if (r_ExtraResourceLanguage != value)
+                {
+                    r_ExtraResourceLanguage = value;
+                    StringResources.Instance.LoadExtraResource(value);
                 }
             }
         }
@@ -45,5 +61,11 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("windows")]
         public WindowPreference[] Windows { get; set; }
 
+        public Preference()
+        {
+            r_Language = StringResources.Instance.GetDefaultLanguage().Directory;
+            if (r_Language.Equals("English", StringComparison.InvariantCultureIgnoreCase))
+                r_ExtraResourceLanguage = "English";
+        }
     }
 }

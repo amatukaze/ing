@@ -2,6 +2,7 @@
 <Strings CultureName="en" Name="English" Version="0.1.4">
 
   <String Key="Feature_UnderConstruction">Under construction</String>
+  <String Key="Feature_Disabled">Disabled</String>
   <String Key="Feature_Filter">Filter</String>
   <String Key="Feature_Filter_All">All</String>
 
@@ -162,6 +163,7 @@
   <String Key="PreferenceWindow_Cache_Path">Path</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Language">Language</String>
+  <String Key="PreferenceWindow_Language_NameTranslation">Name translation</String>
   <String Key="PreferenceWindow_Browser">Browser</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">Layout Engine</String>
   <String Key="PreferenceWindow_Browser_Homepage">Homepage</String>
