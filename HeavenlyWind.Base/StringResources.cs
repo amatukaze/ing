@@ -56,7 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 }
 
             InstalledLanguages = r_InstalledLanguages.Values.ToList().AsReadOnly();
-            InstalledExtraResources = new[] { (ExtraStringResourceInfo)null }.Concat(r_InstalledExtraResources.Values).ToList().AsReadOnly();
+            InstalledExtraResources = new[] { ExtraStringResourceInfo.Disabled }.Concat(r_InstalledExtraResources.Values).ToList().AsReadOnly();
         }
         void InitializeMainResource(DirectoryInfo rpDirectory)
         {
@@ -127,7 +127,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public void LoadExtraResource(string rpLanguageName)
         {
             ExtraStringResourceInfo rInfo;
-            if (!r_InstalledExtraResources.TryGetValue(rpLanguageName, out rInfo))
+            if (rpLanguageName.IsNullOrEmpty() || !r_InstalledExtraResources.TryGetValue(rpLanguageName, out rInfo))
                 return;
 
             Extra = new ExtraStringResources();

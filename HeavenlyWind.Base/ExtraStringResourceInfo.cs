@@ -5,6 +5,8 @@ namespace Sakuno.KanColle.Amatsukaze
 {
     public class ExtraStringResourceInfo
     {
+        public static ExtraStringResourceInfo Disabled { get; } = new ExtraStringResourceInfo() { Directory = null, DisplayName = "Disabled" };
+
         [JsonIgnore]
         public string Directory { get; internal set; }
 
