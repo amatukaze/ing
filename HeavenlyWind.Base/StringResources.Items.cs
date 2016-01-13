@@ -100,6 +100,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Map_Difficulty_Normal => GetString(nameof(Map_Difficulty_Normal));
         public string Map_Difficulty_Hard => GetString(nameof(Map_Difficulty_Hard));
 
+        public string Practice_Opponent_Experience => GetString(nameof(Practice_Opponent_Experience));
+
         public string Battle_State_Healthy => GetString(nameof(Battle_State_Healthy));
         public string Battle_State_LightlyDamaged => GetString(nameof(Battle_State_LightlyDamaged));
         public string Battle_State_ModeratelyDamaged => GetString(nameof(Battle_State_ModeratelyDamaged));

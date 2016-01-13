@@ -96,6 +96,8 @@
   <String Key="Map_Difficulty_Normal">乙</String>
   <String Key="Map_Difficulty_Hard">甲</String>
 
+  <String Key="Practice_Opponent_Experience">演习经验值</String>
+
   <String Key="Battle_State_Healthy" />
   <String Key="Battle_State_LightlyDamaged">小破</String>
   <String Key="Battle_State_ModeratelyDamaged">中破</String>
