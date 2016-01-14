@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
 using System.IO;
+using System.Threading;
 using System.Text.RegularExpressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
@@ -16,6 +17,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public CacheMode CurrentMode = Preference.Current.Cache.Mode;
 
         public string CacheDirectory = Preference.Current.Cache.Path;
+
+        ReaderWriterLockSlim r_Lock = new ReaderWriterLockSlim();
 
         CacheService() { }
 
@@ -79,7 +82,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (!rpSession.bBufferResponse)
                 rpSession.utilCreateResponseAndBypassServer();
 
-            rpSession.ResponseBody = File.ReadAllBytes(rpFilename);
+            try
+            {
+                r_Lock.EnterReadLock();
+                rpSession.ResponseBody = File.ReadAllBytes(rpFilename);
+            }
+            finally
+            {
+                r_Lock.ExitReadLock();
+            }
             rpSession.oResponse["Server"] = "Apache";
             rpSession.oResponse["Connection"] = "close";
             rpSession.oResponse["Accept-Ranges"] = "bytes";
@@ -107,6 +118,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
             try
             {
+                r_Lock.EnterWriteLock();
+
                 var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
                 if (!Directory.Exists(rDirectoryName))
                     Directory.CreateDirectory(rDirectoryName);
@@ -123,6 +136,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             catch (Exception e)
             {
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_Cache_FailedToSaveFile, e.Message));
+            }
+            finally
+            {
+                r_Lock.ExitWriteLock();
             }
         }
     }
