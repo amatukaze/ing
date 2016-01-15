@@ -221,7 +221,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, is_event_map, step, CASE is_event_map WHEN 0 THEN node ELSE (node + 2) / 3 END AS node, type, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item FROM sortie
+                rCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, CASE is_event_map WHEN 0 THEN 0 ELSE sortie_detail.node - (sortie_detail.node + 2) / 3 * 3 + 3 END AS difficulty, step, CASE is_event_map WHEN 0 THEN node ELSE (node + 2) / 3 END AS node, type, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item FROM sortie
 JOIN sortie_map ON sortie.map = sortie_map.id
 JOIN sortie_detail ON sortie.id = sortie_detail.id
 JOIN sortie_node ON sortie.map = sortie_node.map AND CASE sortie_map.is_event_map WHEN 0 THEN sortie_detail.node ELSE (sortie_detail.node + 2) / 3 END = sortie_node.id
@@ -245,8 +245,9 @@ ORDER BY id DESC, step DESC;";
         {
             public long SortieID { get; }
 
-            public MapMasterInfo Map { get; }
+            public IMapMasterInfo Map { get; }
             public bool IsEventMap { get; }
+            public EventMapDifficulty EventMapDifficulty { get; }
 
             public int Step { get; }
             public int Node { get; }
@@ -262,11 +263,10 @@ ORDER BY id DESC, step DESC;";
                 SortieID = Convert.ToInt64(rpReader["id"]);
 
                 var rMapID = Convert.ToInt32(rpReader["map"]);
-                MapMasterInfo rMap;
-                if (KanColleGame.Current.MasterInfo.Maps.TryGetValue(rMapID, out rMap))
-                    Map = rMap;
+                Map = MapService.Instance.GetMasterInfo(rMapID);
 
-                IsEventMap = Convert.ToBoolean(rpReader["is_event_map"]);
+                EventMapDifficulty = (EventMapDifficulty)Convert.ToInt32(rpReader["difficulty"]);
+                IsEventMap = EventMapDifficulty != EventMapDifficulty.None;
 
                 Step = Convert.ToInt32(rpReader["step"]);
                 Node = Convert.ToInt32(rpReader["node"]);
