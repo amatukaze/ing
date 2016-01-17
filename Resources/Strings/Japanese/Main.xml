@@ -20,6 +20,13 @@
   <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
   <String Key="Log_ShipAndItem_Dropped">「{0}」や「{1}」がドロップしました</String>
 
+  <String Key="Notification_Expedition">遠征完了</String>
+  <String Key="Notification_Expedition_Content">「{0}」が遠征「{1}」から帰投しました</String>
+  <String Key="Notification_Repair">入渠完了</String>
+  <String Key="Notification_Repair_Content">「{0}」の修理が完了しました。</String>
+  <String Key="Notification_Construction">建造完了</String>
+  <String Key="Notification_Construction_Content">「{0}」の建造が完了しました。</String>
+
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>
