@@ -30,6 +30,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Notification_Repair_Content => GetString(nameof(Notification_Repair_Content));
         public string Notification_Construction => GetString(nameof(Notification_Construction));
         public string Notification_Construction_Content => GetString(nameof(Notification_Construction_Content));
+        public string Notification_HeavilyDamagedWarning => GetString(nameof(Notification_HeavilyDamagedWarning));
+        public string Notification_HeavilyDamagedWarning_Content => GetString(nameof(Notification_HeavilyDamagedWarning_Content));
+        public string Notification_AdvanceWarning => GetString(nameof(Notification_AdvanceWarning));
+        public string Notification_AdvanceWarning_Content => GetString(nameof(Notification_AdvanceWarning_Content));
 
         public string Result_Failure => GetString(nameof(Result_Failure));
         public string Result_Success => GetString(nameof(Result_Success));
