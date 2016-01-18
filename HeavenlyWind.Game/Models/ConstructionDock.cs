@@ -117,7 +117,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        public event Action<string> BuildingCompleted = delegate { };
+        public event Action<string> ConstructionCompleted = delegate { };
 
         internal static IObservable<ConstructionDock> NewConstruction { get; }
 
@@ -173,7 +173,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         protected override void TimeOut()
         {
             State = ConstructionDockState.Completed;
-            BuildingCompleted(Ship.Name);
+            ConstructionCompleted(Ship.Name);
         }
 
         public override string ToString()

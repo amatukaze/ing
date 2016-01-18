@@ -20,6 +20,17 @@
   <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
   <String Key="Log_ShipAndItem_Dropped">{0} and {1} dropped</String>
 
+  <String Key="Notification_Expedition">Expedition Completed</String>
+  <String Key="Notification_Expedition_Content">"{0}" has returned from expedition {1}.</String>
+  <String Key="Notification_Repair">Repairs Completed</String>
+  <String Key="Notification_Repair_Content">Repairs on {0} have been completed.</String>
+  <String Key="Notification_Construction">Construction Completed</String>
+  <String Key="Notification_Construction_Content">Construction of {0} has been completed.</String>
+  <String Key="Notification_HeavilyDamagedWarning">Warning</String>
+  <String Key="Notification_HeavilyDamagedWarning_Content">You have heavily damaged ship(s).</String>
+  <String Key="Notification_AdvanceWarning">Warning</String>
+  <String Key="Notification_AdvanceWarning_Content">Advancing with your ship heavily damaged may result in being sunk.</String>
+
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>
   <String Key="Result_GreatSuccess">Great success</String>

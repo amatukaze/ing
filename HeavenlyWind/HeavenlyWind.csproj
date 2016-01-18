@@ -113,6 +113,7 @@
     <Compile Include="Services\Browser\LayoutEngineDependency.cs" />
     <Compile Include="Services\Browser\LayoutEngineInfo.cs" />
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
+    <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ScreenshotService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="Services\UpdateService.cs" />

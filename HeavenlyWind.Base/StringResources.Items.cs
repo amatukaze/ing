@@ -24,6 +24,17 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_ShipOrItem_Dropped => GetString(nameof(Log_ShipOrItem_Dropped));
         public string Log_ShipAndItem_Dropped => GetString(nameof(Log_ShipAndItem_Dropped));
 
+        public string Notification_Expedition => GetString(nameof(Notification_Expedition));
+        public string Notification_Expedition_Content => GetString(nameof(Notification_Expedition_Content));
+        public string Notification_Repair => GetString(nameof(Notification_Repair));
+        public string Notification_Repair_Content => GetString(nameof(Notification_Repair_Content));
+        public string Notification_Construction => GetString(nameof(Notification_Construction));
+        public string Notification_Construction_Content => GetString(nameof(Notification_Construction_Content));
+        public string Notification_HeavilyDamagedWarning => GetString(nameof(Notification_HeavilyDamagedWarning));
+        public string Notification_HeavilyDamagedWarning_Content => GetString(nameof(Notification_HeavilyDamagedWarning_Content));
+        public string Notification_AdvanceWarning => GetString(nameof(Notification_AdvanceWarning));
+        public string Notification_AdvanceWarning_Content => GetString(nameof(Notification_AdvanceWarning_Content));
+
         public string Result_Failure => GetString(nameof(Result_Failure));
         public string Result_Success => GetString(nameof(Result_Success));
         public string Result_GreatSuccess => GetString(nameof(Result_GreatSuccess));

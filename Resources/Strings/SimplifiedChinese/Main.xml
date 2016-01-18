@@ -20,6 +20,17 @@
   <String Key="Log_ShipOrItem_Dropped">获得「{0}」</String>
   <String Key="Log_ShipAndItem_Dropped">获得「{0}」和「{1}」</String>
 
+  <String Key="Notification_Expedition">远征结束</String>
+  <String Key="Notification_Expedition_Content">「{0}」从远征「{1}」归来。</String>
+  <String Key="Notification_Repair">入渠结束</String>
+  <String Key="Notification_Repair_Content">「{0}」修理完毕。</String>
+  <String Key="Notification_Construction">建造完成</String>
+  <String Key="Notification_Construction_Content">已完成「{0}」的建造。</String>
+  <String Key="Notification_HeavilyDamagedWarning">大破警告</String>
+  <String Key="Notification_HeavilyDamagedWarning_Content">有舰娘处于大破状态。</String>
+  <String Key="Notification_AdvanceWarning">大破进击</String>
+  <String Key="Notification_AdvanceWarning_Content">有舰娘处于大破状态，继续进击有被击沉的风险。</String>
+
   <String Key="Result_Failure">失败</String>
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>
