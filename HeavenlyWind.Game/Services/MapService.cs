@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Windows;
@@ -14,6 +15,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         SQLiteConnection r_Connection;
 
         Dictionary<int, Dictionary<int, Point>> r_Positions = new Dictionary<int, Dictionary<int, Point>>();
+
+        Dictionary<int, PastEventMapInfo> r_PastEventMaps = new Dictionary<int, PastEventMapInfo>();
 
         MapService() { }
 
@@ -65,6 +68,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 return 0.0;
             }
+        }
+
+        public IMapMasterInfo GetMasterInfo(int rpMapID)
+        {
+            MapMasterInfo rMap;
+            if (KanColleGame.Current.MasterInfo.Maps.TryGetValue(rpMapID, out rMap))
+                return rMap;
+
+            PastEventMapInfo rPastEventMap;
+            if (r_PastEventMaps.TryGetValue(rpMapID, out rPastEventMap))
+                return rPastEventMap;
+
+            r_PastEventMaps.Add(rpMapID, rPastEventMap = new PastEventMapInfo(rpMapID));
+
+            return rPastEventMap;
         }
     }
 }

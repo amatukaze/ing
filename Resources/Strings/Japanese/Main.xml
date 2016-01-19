@@ -162,6 +162,7 @@
   <String Key="Window_ShipOverview">艦娘一覧</String>
   <String Key="Window_ConstructionHistory">建造歴史</String>
   <String Key="Window_DevelopmentHistory">開発歴史</String>
+  <String Key="Window_SortieHistory">出撃歴史</String>
   <String Key="Window_ClosingConfirmation">KanColle Inspector を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
@@ -224,5 +225,11 @@
   <String Key="ConstructionHistory_Ship">艦娘</String>
 
   <String Key="DevelopmentHistory_Equipment">装備</String>
+
+  <String Key="SortieHistory_Area">海域</String>
+  <String Key="SortieHistory_Node">セル</String>
+  <String Key="SortieHistory_Type">タイプ</String>
+  <String Key="SortieHistory_BattleRank">ランキング</String>
+  <String Key="SortieHistory_DroppedShip">ドロップ</String>
 
 </Strings>

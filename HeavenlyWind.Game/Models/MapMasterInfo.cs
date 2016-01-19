@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public class MapMasterInfo : RawDataWrapper<RawMapMasterInfo>, IID
+    public class MapMasterInfo : RawDataWrapper<RawMapMasterInfo>, IID, IMapMasterInfo
     {
         public int ID => RawData.ID;
 

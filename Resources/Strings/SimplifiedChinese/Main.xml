@@ -162,6 +162,7 @@
   <String Key="Window_ShipOverview">舰娘一览</String>
   <String Key="Window_ConstructionHistory">建造历史</String>
   <String Key="Window_DevelopmentHistory">开发历史</String>
+  <String Key="Window_SortieHistory">出击历史</String>
   <String Key="Window_ClosingConfirmation">要关闭 KanColle Inspector 吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
@@ -224,5 +225,11 @@
   <String Key="ConstructionHistory_Ship">舰娘</String>
 
   <String Key="DevelopmentHistory_Equipment">装备</String>
+
+  <String Key="SortieHistory_Area">海域</String>
+  <String Key="SortieHistory_Node">场所</String>
+  <String Key="SortieHistory_Type">类型</String>
+  <String Key="SortieHistory_BattleRank">战斗评价</String>
+  <String Key="SortieHistory_DroppedShip">船掉落</String>
 
 </Strings>

@@ -160,8 +160,9 @@
   <String Key="Window_Preferences">Setting</String>
   <String Key="Window_EquipmentOverview">Equipment Overview</String>
   <String Key="Window_ShipOverview">Ship Overview</String>
-  <String Key="Window_ConstructionHistory">Construction history</String>
-  <String Key="Window_DevelopmentHistory">Development history</String>
+  <String Key="Window_ConstructionHistory">Construction History</String>
+  <String Key="Window_DevelopmentHistory">Development History</String>
+  <String Key="Window_SortieHistory">Sortie History</String>
   <String Key="Window_ClosingConfirmation">Are you sure to close KanColle Inspector?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
@@ -224,5 +225,11 @@
   <String Key="ConstructionHistory_Ship">Ship</String>
 
   <String Key="DevelopmentHistory_Equipment">Equipment</String>
+
+  <String Key="SortieHistory_Area">Area</String>
+  <String Key="SortieHistory_Node">Node</String>
+  <String Key="SortieHistory_Type">Type</String>
+  <String Key="SortieHistory_BattleRank">Battle Rank</String>
+  <String Key="SortieHistory_DroppedShip">Dropped Ship</String>
 
 </Strings>

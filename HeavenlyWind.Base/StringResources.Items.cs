@@ -166,6 +166,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Window_ShipOverview => GetString(nameof(Window_ShipOverview));
         public string Window_ConstructionHistory => GetString(nameof(Window_ConstructionHistory));
         public string Window_DevelopmentHistory => GetString(nameof(Window_DevelopmentHistory));
+        public string Window_SortieHistory => GetString(nameof(Window_SortieHistory));
         public string Window_ClosingConfirmation => GetString(nameof(Window_ClosingConfirmation));
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
@@ -228,6 +229,12 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ConstructionHistory_Ship => GetString(nameof(ConstructionHistory_Ship));
 
         public string DevelopmentHistory_Equipment => GetString(nameof(DevelopmentHistory_Equipment));
+
+        public string SortieHistory_Area => GetString(nameof(SortieHistory_Area));
+        public string SortieHistory_Node => GetString(nameof(SortieHistory_Node));
+        public string SortieHistory_Type => GetString(nameof(SortieHistory_Type));
+        public string SortieHistory_BattleRank => GetString(nameof(SortieHistory_BattleRank));
+        public string SortieHistory_DroppedShip => GetString(nameof(SortieHistory_DroppedShip));
 
     }
 }
