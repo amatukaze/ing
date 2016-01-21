@@ -19,9 +19,10 @@ namespace Sakuno.KanColle.Amatsukaze
                 using (var rReader = new JsonTextReader(File.OpenText(r_FilePath)))
                     Current = r_Serializer.Deserialize<Preference>(rReader);
             }
-            catch
+            finally
             {
-                Current = new Preference();
+                if (Current == null)
+                    Current = new Preference();
             }
         }
 
