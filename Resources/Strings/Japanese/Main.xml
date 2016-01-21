@@ -80,6 +80,8 @@
   <String Key="Fleet_LoS">索敵</String>
   <String Key="Fleet_AA">対空</String>
 
+  <String Key="Ship_Repairing">入渠中</String>
+
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弾薬</String>
   <String Key="Material_Steel">鋼材</String>

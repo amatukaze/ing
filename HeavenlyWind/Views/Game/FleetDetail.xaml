@@ -47,12 +47,16 @@
                                 <TextBlock Name="Level" Text="{Binding Level, StringFormat=Lv.{0}}" Margin="3, 0, 0, 0" Grid.Column="1" />
                                 <TextBlock Name="ExperienceToNextLevel" Foreground="#AAA" Text="{Binding ExperienceToNextLevel, StringFormat=Next:{0}}" FontSize="10" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="1" />
 
-                                <TextBlock HorizontalAlignment="Right" Margin="3, 0, 0, 0" Grid.Column="3">
-                                            <Run Text="{Binding HP.Current, Mode=OneWay}" />
-                                            <Run Text=" /" Foreground="Gray" />
-                                            <Run Text="{Binding HP.Maximum, Mode=OneWay}" FontSize="11" Foreground="Gray" />
+                                <TextBlock Name="HP" HorizontalAlignment="Right" Margin="3, 0, 0, 0" Grid.Column="3">
+                                    <Run Text="{Binding HP.Current, Mode=OneWay}" />
+                                    <Run Text=" /" Foreground="Gray" />
+                                    <Run Text="{Binding HP.Maximum, Mode=OneWay}" FontSize="11" Foreground="Gray" />
                                 </TextBlock>
-                                <rc:ColorIndicator Value="{Binding HP.Current}" Maximum="{Binding HP.Maximum}" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="3" />
+                                <rc:ColorIndicator x:Name="HPIndicator" Value="{Binding HP.Current}" Maximum="{Binding HP.Maximum}" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="3" />
+
+                                <Border Name="Repairing" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.RowSpan="2">
+                                    <TextBlock Text="{rb:StringResource Main.Ship_Repairing}" FontSize="14" HorizontalAlignment="Center" />
+                                </Border>
 
                                 <TextBlock Name="Condition" Text="{Binding Condition}" Margin="3, 0, 0, 0" TextAlignment="Center" Grid.Column="4" Grid.RowSpan="2" />
                                 <Grid Width="50" Margin="3, 2, 0, 2" Grid.Column="5" Grid.RowSpan="2">
@@ -76,6 +80,12 @@
                             <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
                                 <Setter TargetName="Level" Property="Grid.RowSpan" Value="2" />
                                 <Setter TargetName="ExperienceToNextLevel" Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{rb:HasFlag State, Repairing}" Value="True">
+                                <Setter TargetName="Repairing" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="HP" Property="Opacity" Value=".2" />
+                                <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
                             </DataTrigger>
 
                             <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=50}" Value="True">

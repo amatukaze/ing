@@ -186,6 +186,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Condition = RawData.Condition;
 
+            if (KanColleGame.Current.Port.RepairDocks.Values.Any(r => r.Ship == this))
+                State |= ShipState.Repairing;
+            else
+                State &= ~ShipState.Repairing;
+
             if (RawData.ModernizedStatus?.Length >= 5)
                 Status.Update(Info, RawData);
 

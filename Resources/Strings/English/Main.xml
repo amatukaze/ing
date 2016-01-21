@@ -80,6 +80,8 @@
   <String Key="Fleet_LoS">LoS</String>
   <String Key="Fleet_AA">AA</String>
 
+  <String Key="Ship_Repairing">Repairing</String>
+
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>
   <String Key="Material_Steel">Steel</String>

@@ -54,6 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (State == RepairDockState.Repairing)
             {
                 Ship = KanColleGame.Current.Port.Ships[rpRawData.ShipID];
+                Ship.State |= ShipState.Repairing;
                 TimeToComplete = DateTimeUtil.UnixEpoch.AddMilliseconds(rpRawData.TimeToComplete);
             }
             else
@@ -61,6 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (Ship != null)
                 {
                     Ship.Repair(true);
+                    Ship.State &= ~ShipState.Repairing;
                     Ship = null;
                 }
                 TimeToComplete = null;
