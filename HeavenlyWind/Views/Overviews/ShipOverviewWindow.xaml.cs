@@ -1,4 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.ViewModels.Overviews;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Views.Overviews
 {
@@ -7,11 +9,22 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Overviews
     /// </summary>
     public partial class ShipOverviewWindow
     {
+        ShipOverviewViewModel r_ViewModel;
+
         public ShipOverviewWindow()
         {
             InitializeComponent();
 
-            DataContext = new ShipOverviewViewModel();
+            DataContext = r_ViewModel = new ShipOverviewViewModel();
+
+            r_ListView.AddHandler(GridViewColumnHeader.ClickEvent, new RoutedEventHandler((s, e)=>
+            {
+                var rColumnHeader = e.OriginalSource as GridViewColumnHeader;
+                if (rColumnHeader == null)
+                    return;
+
+                r_ViewModel.Sort(rColumnHeader);
+            }));
         }
     }
 }

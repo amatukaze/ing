@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Behaviors\TextBoxLoseFocusAfterPressingEnterBehavior.cs" />
     <Compile Include="Controls\ColorIndicator.cs" />
+    <Compile Include="Controls\Data.cs" />
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
@@ -135,12 +136,12 @@
     <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\Overviews\EquipmentGroupingKey.cs" />
-    <Compile Include="ViewModels\Overviews\EquipmentOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByFleet.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByMasterID.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByLevel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByShip.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentGroupingKey.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipOverviewViewModel.cs" />
