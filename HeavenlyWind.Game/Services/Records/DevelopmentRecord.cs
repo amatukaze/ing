@@ -93,7 +93,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             public string Time { get; }
 
             public EquipmentInfo Equipment { get; }
-            public bool IsRareEquipment { get; }
 
             public int FuelConsumption { get; }
             public int BulletConsumption { get; }
@@ -108,10 +107,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
                 var rEquipmentID = rpReader["equipment"];
                 if (rEquipmentID != DBNull.Value)
-                {
-                    Equipment = KanColleGame.Current.MasterInfo.Equipments[Convert.ToInt32(rEquipmentID)];
-                    IsRareEquipment = Equipment.Rarity >= 3;
-                }
+                    Equipment = KanColleGame.Current.MasterInfo.Equipment[Convert.ToInt32(rEquipmentID)];
 
                 FuelConsumption = Convert.ToInt32(rpReader["fuel"]);
                 BulletConsumption = Convert.ToInt32(rpReader["bullet"]);
@@ -125,10 +121,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 Time = DateTime.Now.ToString();
                 if (rpEquipmentID.HasValue)
-                {
-                    Equipment = KanColleGame.Current.MasterInfo.Equipments[rpEquipmentID.Value];
-                    IsRareEquipment = Equipment.Rarity >= 3;
-                }
+                    Equipment = KanColleGame.Current.MasterInfo.Equipment[rpEquipmentID.Value];
 
                 FuelConsumption = rpFuelConsumption;
                 BulletConsumption = rpBulletConsumption;

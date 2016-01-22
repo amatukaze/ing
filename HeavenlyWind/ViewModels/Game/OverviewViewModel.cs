@@ -120,8 +120,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
                     ShipCount = rCount;
                 });
-            rPropertyChangedSource.Where(r => r == nameof(rPort.Equipments))
-                .Subscribe(_ => EquipmentCount = rPort.Equipments.Count);
+            rPropertyChangedSource.Where(r => r == nameof(rPort.Equipment))
+                .Subscribe(_ => EquipmentCount = rPort.Equipment.Count);
             rPropertyChangedSource.Where(r => r == nameof(rPort.RepairDocks))
                 .Subscribe(_ => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
             rPropertyChangedSource.Where(r => r == nameof(rPort.ConstructionDocks))

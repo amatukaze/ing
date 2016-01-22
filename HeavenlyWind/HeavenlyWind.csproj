@@ -135,17 +135,17 @@
     <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\Overviews\Equipments\EquipmentGroupingKey.cs" />
-    <Compile Include="ViewModels\Overviews\Equipments\EquipmentOverviewViewModel.cs" />
-    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByFleet.cs" />
-    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByMasterID.cs" />
-    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByLevel.cs" />
-    <Compile Include="ViewModels\Overviews\Equipments\EquipmentsGroupByShip.cs" />
-    <Compile Include="ViewModels\Overviews\Equipments\EquipmentTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentGroupingKey.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentGroupByFleet.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentGroupByMasterID.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentGroupByLevel.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentGroupByShip.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
-    <Compile Include="ViewModels\Overviews\Ships\ShipOverviewViewModel.cs" />
-    <Compile Include="ViewModels\Overviews\Ships\ShipTypeViewModel.cs" />
-    <Compile Include="ViewModels\Overviews\Ships\ShipViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\ShipOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\ShipTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
@@ -319,147 +319,147 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\AAFireDirector.xaml">
+    <Page Include="Styles\Icons\Equipment\AAFireDirector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\AAGun.xaml">
+    <Page Include="Styles\Icons\Equipment\AAGun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\AAShell.xaml">
+    <Page Include="Styles\Icons\Equipment\AAShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\AntiGroundArtillery.xaml">
+    <Page Include="Styles\Icons\Equipment\AntiGroundArtillery.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\APShell.xaml">
+    <Page Include="Styles\Icons\Equipment\APShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\ASAircraft.xaml">
+    <Page Include="Styles\Icons\Equipment\ASAircraft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\ASW.xaml">
+    <Page Include="Styles\Icons\Equipment\ASW.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Autogyro.xaml">
+    <Page Include="Styles\Icons\Equipment\Autogyro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\CarrierBasedDiveBomber.xaml">
+    <Page Include="Styles\Icons\Equipment\CarrierBasedDiveBomber.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\CarrierBasedFighter.xaml">
+    <Page Include="Styles\Icons\Equipment\CarrierBasedFighter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\CarrierBasedTorpedoBomber.xaml">
+    <Page Include="Styles\Icons\Equipment\CarrierBasedTorpedoBomber.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\CombatProvisions.xaml">
+    <Page Include="Styles\Icons\Equipment\CombatProvisions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\CommandFacility.xaml">
+    <Page Include="Styles\Icons\Equipment\CommandFacility.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Common\CarrierBasedPlane.xaml">
+    <Page Include="Styles\Icons\Equipment\Common\CarrierBasedPlane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\CarrierBasedRecon.xaml">
+    <Page Include="Styles\Icons\Equipment\CarrierBasedRecon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\DamageControl.xaml">
+    <Page Include="Styles\Icons\Equipment\DamageControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\DrumCanister.xaml">
+    <Page Include="Styles\Icons\Equipment\DrumCanister.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Engine.xaml">
+    <Page Include="Styles\Icons\Equipment\Engine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\ExtraArmor.xaml">
+    <Page Include="Styles\Icons\Equipment\ExtraArmor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Flare.xaml">
+    <Page Include="Styles\Icons\Equipment\Flare.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\FlyingBoat.xaml">
+    <Page Include="Styles\Icons\Equipment\FlyingBoat.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\HighAngleGun.xaml">
+    <Page Include="Styles\Icons\Equipment\HighAngleGun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\LandingCraft.xaml">
+    <Page Include="Styles\Icons\Equipment\LandingCraft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\LargeCaliberGun.xaml">
+    <Page Include="Styles\Icons\Equipment\LargeCaliberGun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\MaintenanceTeam.xaml">
+    <Page Include="Styles\Icons\Equipment\MaintenanceTeam.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\MediumCaliberGun.xaml">
+    <Page Include="Styles\Icons\Equipment\MediumCaliberGun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Rader.xaml">
+    <Page Include="Styles\Icons\Equipment\Rader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\RepairFacility.xaml">
+    <Page Include="Styles\Icons\Equipment\RepairFacility.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Seaplane.xaml">
+    <Page Include="Styles\Icons\Equipment\Seaplane.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Searchlight.xaml">
+    <Page Include="Styles\Icons\Equipment\Searchlight.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\SecondaryGun.xaml">
+    <Page Include="Styles\Icons\Equipment\SecondaryGun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\SmallCaliberGun.xaml">
+    <Page Include="Styles\Icons\Equipment\SmallCaliberGun.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Soner.xaml">
+    <Page Include="Styles\Icons\Equipment\Soner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Supplies.xaml">
+    <Page Include="Styles\Icons\Equipment\Supplies.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\SurfaceShipPersonnel.xaml">
+    <Page Include="Styles\Icons\Equipment\SurfaceShipPersonnel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Icons\Equipments\Torpedo.xaml">
+    <Page Include="Styles\Icons\Equipment\Torpedo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

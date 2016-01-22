@@ -48,7 +48,7 @@
 
   <String Key="Overview_Headquarter">Headquarter</String>
   <String Key="Overview_Headquarter_Ships">Ships</String>
-  <String Key="Overview_Headquarter_Equipments">Equipment</String>
+  <String Key="Overview_Headquarter_Equipment">Equipment</String>
   <String Key="Overview_Admiral_Rank_MarshalAdmiral">Marshal Admiral</String>
   <String Key="Overview_Admiral_Rank_Admiral">Admiral</String>
   <String Key="Overview_Admiral_Rank_ViceAdmiral">Vice Admiral</String>

@@ -48,7 +48,7 @@
 
   <String Key="Overview_Headquarter">司令部</String>
   <String Key="Overview_Headquarter_Ships">艦娘</String>
-  <String Key="Overview_Headquarter_Equipments">装備</String>
+  <String Key="Overview_Headquarter_Equipment">装備</String>
   <String Key="Overview_Admiral_Rank_MarshalAdmiral">元帥</String>
   <String Key="Overview_Admiral_Rank_Admiral">大将</String>
   <String Key="Overview_Admiral_Rank_ViceAdmiral">中将</String>

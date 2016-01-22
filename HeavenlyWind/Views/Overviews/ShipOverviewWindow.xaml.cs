@@ -1,4 +1,4 @@
-﻿using Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Ships;
+﻿using Sakuno.KanColle.Amatsukaze.ViewModels.Overviews;
 
 namespace Sakuno.KanColle.Amatsukaze.Views.Overviews
 {

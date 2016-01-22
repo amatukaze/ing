@@ -2,14 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipments/Common/CarrierBasedPlane.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Common/CarrierBasedPlane.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <ControlTemplate x:Key="CarrierBasedFighterIcon" TargetType="{x:Type rc:EquipmentIcon}">
+    <ControlTemplate x:Key="CarrierBasedTorpedoBomberIcon" TargetType="{x:Type rc:EquipmentIcon}">
         <Viewbox Stretch="Uniform">
             <Grid Width="250" Height="250">
                 <Path Style="{StaticResource CarrierBasedPlaneIcon}" />
-                <Path Fill="#66CC77" Stroke="Black" StrokeThickness="3" Stretch="Uniform" Width="105" Height="105" Margin="0, 0, 15, 15" VerticalAlignment="Bottom" HorizontalAlignment="Right" SnapsToDevicePixels="True" Data="M150,0 L300,75 300,225 150,300 0,225 0,75 z" />
+                <Path Fill="#60B3F5" Stroke="Black" StrokeThickness="3" Stretch="Uniform" Width="105" Height="105" Margin="0, 0, 15, 15" VerticalAlignment="Bottom" HorizontalAlignment="Right" SnapsToDevicePixels="True" Data="M150,0 L300,75 300,225 150,300 0,225 0,75 z" />
             </Grid>
         </Viewbox>
     </ControlTemplate>

@@ -92,7 +92,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                         if (rSortie.EscortFleet != null)
                             rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
-                        if (rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.Equipments.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
+                        if (rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
                             Show(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
                     });
                 }

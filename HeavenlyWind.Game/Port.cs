@@ -31,7 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public FleetManager Fleets { get; } = new FleetManager();
 
-        public IDTable<Equipment> Equipments { get; } = new IDTable<Equipment>();
+        public IDTable<Equipment> Equipment { get; } = new IDTable<Equipment>();
 
         public IDTable<RepairDock> RepairDocks { get; } = new IDTable<RepairDock>();
         public IDTable<ConstructionDock> ConstructionDocks { get; } = new IDTable<ConstructionDock>();
@@ -67,6 +67,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     rShip.UpdateEquipmentIDs(r.GetData<RawEquipmentIDs>().EquipmentIDs);
             });
 
+            SessionService.Instance.Subscribe("api_req_kousyou/getship", r =>
+            {
+                var rData = r.GetData<RawConstructionResult>();
+
+                UpdateConstructionDocks(rData.ConstructionDocks);
+                AddEquipment(rData.Equipment);
+
+                Ships.Add(new Ship(rData.Ship));
+                UpdateShipsCore();
+            });
+            SessionService.Instance.Subscribe("api_req_kousyou/createship_speedchage", r =>
+            {
+                if (r.Requests["api_highspeed"] == "1")
+                    ConstructionDocks[int.Parse(r.Requests["api_kdock_id"])].CompleteConstruction();
+            });
+
             SessionService.Instance.Subscribe("api_req_kousyou/destroyship", r =>
             {
                 var rShip = Ships[int.Parse(r.Requests["api_ship_id"])];
@@ -81,9 +97,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rEquipmentIDs = r.Requests["api_slotitem_ids"].Split(',').Select(int.Parse);
 
                 foreach (var rEquipmentID in rEquipmentIDs)
-                    Equipments.Remove(rEquipmentID);
+                    Equipment.Remove(rEquipmentID);
 
-                OnPropertyChanged(nameof(Equipments));
+                OnPropertyChanged(nameof(Equipment));
             });
 
             SessionService.Instance.Subscribe("api_req_hokyu/charge", r =>
@@ -159,15 +175,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             OnPropertyChanged(nameof(Ships));
         }
 
-        internal void UpdateEquipments(RawEquipment[] rpEquipments)
+        internal void UpdateEquipment(RawEquipment[] rpEquipment)
         {
-            if (Equipments.UpdateRawData(rpEquipments, r => new Equipment(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
-                OnPropertyChanged(nameof(Equipments));
+            if (Equipment.UpdateRawData(rpEquipment, r => new Equipment(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                OnPropertyChanged(nameof(Equipment));
         }
         internal void AddEquipment(Equipment rpEquipment)
         {
-            Equipments.Add(rpEquipment);
-            OnPropertyChanged(nameof(Equipments));
+            Equipment.Add(rpEquipment);
+            OnPropertyChanged(nameof(Equipment));
+        }
+        internal void AddEquipment(RawEquipment[] rpRawData)
+        {
+            foreach (var rRawData in rpRawData)
+                Equipment.Add(new Equipment(rRawData));
+            OnPropertyChanged(nameof(Equipment));
         }
 
         internal void UpdateConstructionDocks(RawConstructionDock[] rpConstructionDocks)

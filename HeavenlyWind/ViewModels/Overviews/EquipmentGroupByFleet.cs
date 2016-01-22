@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Equipments
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentsGroupByFleet
+    public class EquipmentGroupByFleet
     {
         public int FleetID { get; }
 
-        Dictionary<Ship, EquipmentsGroupByShip> r_Ships;
-        public IReadOnlyCollection<EquipmentsGroupByShip> Ships
+        Dictionary<Ship, EquipmentGroupByShip> r_Ships;
+        public IReadOnlyCollection<EquipmentGroupByShip> Ships
         {
             get
             {
@@ -20,17 +20,17 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Equipments
             }
         }
 
-        internal EquipmentsGroupByFleet(int rpFleetID)
+        internal EquipmentGroupByFleet(int rpFleetID)
         {
             FleetID = rpFleetID;
-            r_Ships = new Dictionary<Ship, EquipmentsGroupByShip>();
+            r_Ships = new Dictionary<Ship, EquipmentGroupByShip>();
         }
 
         internal void Update(Ship rpShip)
         {
-            EquipmentsGroupByShip rShip;
+            EquipmentGroupByShip rShip;
             if (!r_Ships.TryGetValue(rpShip, out rShip))
-                r_Ships.Add(rpShip, rShip = new EquipmentsGroupByShip(rpShip));
+                r_Ships.Add(rpShip, rShip = new EquipmentGroupByShip(rpShip));
 
             rShip.Count++;
         }

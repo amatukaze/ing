@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
         public int[] MaximumHPs { get; set; }
 
         [JsonProperty("api_eSlot")]
-        public int[][] EnemyEquipments { get; set; }
+        public int[][] EnemyEquipment { get; set; }
 
         [JsonProperty("api_eKyouka")]
         public int[][] EnemyModernizationStatuses { get; set; }

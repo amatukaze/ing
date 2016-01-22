@@ -28,7 +28,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public int Range { get; set; }
 
         [JsonProperty("api_slot")]
-        public int[] Equipments { get; set; }
+        public int[] Equipment { get; set; }
 
         [JsonProperty("api_onslot")]
         public int[] PlaneCountInSlot { get; set; }

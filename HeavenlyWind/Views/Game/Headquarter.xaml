@@ -56,7 +56,7 @@
             <TextBlock>
                 <Run Text="{rb:StringResource Main.Overview_Headquarter_Ships, Mode=OneWay}" />:
                 <Run Text="{Binding ShipCount, Mode=OneWay}" />/<Run Text="{Binding Admiral.Source.MaxShipCount, Mode=OneWay}" />
-                <Run Text="{rb:StringResource Main.Overview_Headquarter_Equipments, Mode=OneWay}" />:
+                <Run Text="{rb:StringResource Main.Overview_Headquarter_Equipment, Mode=OneWay}" />:
                 <Run Text="{Binding EquipmentCount, Mode=OneWay}" />/<Run Text="{Binding Admiral.Source.MaxEquipmentCount, Mode=OneWay}" />
             </TextBlock>
         </Border>

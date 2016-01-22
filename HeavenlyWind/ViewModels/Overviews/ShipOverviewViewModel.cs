@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Ships
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
     public class ShipOverviewViewModel : WindowViewModel
     {

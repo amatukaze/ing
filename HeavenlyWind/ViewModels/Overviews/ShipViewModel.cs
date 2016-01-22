@@ -1,6 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Ships
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
     public class ShipViewModel
     {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Equipments
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
     public class EquipmentOverviewViewModel : WindowViewModel
     {
@@ -33,8 +33,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Equipments
             }
         }
 
-        Dictionary<EquipmentInfo, EquipmentsGroupByMasterID> r_EquipmentMap;
-        public IReadOnlyList<EquipmentsGroupByMasterID> Equipments { get; private set; }
+        Dictionary<EquipmentInfo, EquipmentGroupByMasterID> r_EquipmentMap;
+        public IReadOnlyList<EquipmentGroupByMasterID> Equipment { get; private set; }
 
         internal EquipmentOverviewViewModel()
         {
@@ -66,13 +66,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Equipments
         {
             var rGame = KanColleGame.Current;
             var rShips = rGame.Port.Ships.Values;
-            var rEquipments = rGame.Port.Equipments.Values;
 
-            r_EquipmentMap = rEquipments.GroupBy(r => r.Info).OrderBy(r => r.Key.Type).ThenBy(r => r.Key.ID)
-                .ToDictionary(r => r.Key, r => new EquipmentsGroupByMasterID(r.Key, r_TypeMap[r.Key.Icon], r));
+            r_EquipmentMap = rGame.Port.Equipment.Values.GroupBy(r => r.Info).OrderBy(r => r.Key.Type).ThenBy(r => r.Key.ID)
+                .ToDictionary(r => r.Key, r => new EquipmentGroupByMasterID(r.Key, r_TypeMap[r.Key.Icon], r));
 
             foreach (var rShip in rShips)
-                foreach (var rEquipment in rShip.Equipments)
+                foreach (var rEquipment in rShip.EquipedEquipment)
                     r_EquipmentMap[rEquipment.Info].Update(rShip, new EquipmentGroupingKey(rEquipment.Level, rEquipment.Proficiency));
 
             UpdateFilterResult();
@@ -80,8 +79,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Equipments
 
         void UpdateFilterResult()
         {
-            Equipments = r_EquipmentMap.Values.Where(r => r.Type.IsSelected).ToArray().AsReadOnly();
-            OnPropertyChanged(nameof(Equipments));
+            Equipment = r_EquipmentMap.Values.Where(r => r.Type.IsSelected).ToArray().AsReadOnly();
+            OnPropertyChanged(nameof(Equipment));
         }
     }
 }

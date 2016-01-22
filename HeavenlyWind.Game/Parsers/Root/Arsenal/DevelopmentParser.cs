@@ -22,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
                 Game.Port.AddEquipment(new Equipment(new RawEquipment() { ID = rpData.Result.ID, EquipmentID = rpData.Result.EquipmentID }));
 
                 rLogContent = string.Format(StringResources.Instance.Main.Log_Development_Success,
-                    Game.MasterInfo.Equipments[rpData.Result.EquipmentID].Name, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
+                    Game.MasterInfo.Equipment[rpData.Result.EquipmentID].Name, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             }
 
             Logger.Write(LoggingLevel.Info, rLogContent);

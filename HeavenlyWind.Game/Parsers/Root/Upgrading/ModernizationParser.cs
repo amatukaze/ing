@@ -26,8 +26,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Upgrading
 
             foreach (var rShip in rShips)
             {
-                foreach (var rEquipment in rShip.Equipments)
-                    Game.Port.Equipments.Remove(rEquipment);
+                foreach (var rEquipment in rShip.EquipedEquipment)
+                    Game.Port.Equipment.Remove(rEquipment);
 
                 rShipsTable.Remove(rShip);
             }

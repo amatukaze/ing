@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public RawShipType[] ShipTypes { get; set; }
 
         [JsonProperty("api_mst_slotitem")]
-        public RawEquipmentInfo[] Equipments { get; set; }
+        public RawEquipmentInfo[] Equipment { get; set; }
 
         [JsonProperty("api_mst_useitem")]
         public RawItemInfo[] Items { get; set; }

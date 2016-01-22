@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Equipments
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
     public struct EquipmentGroupingKey : IEquatable<EquipmentGroupingKey>
     {

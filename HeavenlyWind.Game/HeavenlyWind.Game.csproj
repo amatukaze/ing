@@ -168,6 +168,7 @@
     <Compile Include="Models\Raw\RawBasic.cs" />
     <Compile Include="Models\Raw\RawBattleResult.cs" />
     <Compile Include="Models\Raw\RawConstructionDock.cs" />
+    <Compile Include="Models\Raw\RawConstructionResult.cs" />
     <Compile Include="Models\Raw\RawEquipmentDevelopment.cs" />
     <Compile Include="Models\Raw\RawEquipmentIDs.cs" />
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Parsers\ApiParserManager.cs" />
     <Compile Include="Parsers\DefaultApiParser.cs" />
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
+    <Compile Include="Parsers\Root\Arsenal\ConstructionResultParser.cs" />
     <Compile Include="Parsers\Root\Arsenal\DevelopmentParser.cs" />
     <Compile Include="Parsers\Root\Battle\AerialCombatParser.cs" />
     <Compile Include="Parsers\Root\Battle\BattleResultParser.cs" />
