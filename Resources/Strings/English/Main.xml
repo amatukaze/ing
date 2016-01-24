@@ -165,6 +165,7 @@
   <String Key="Window_ConstructionHistory">Construction History</String>
   <String Key="Window_DevelopmentHistory">Development History</String>
   <String Key="Window_SortieHistory">Sortie History</String>
+  <String Key="Window_ExpeditionHistory">Expedition History</String>
   <String Key="Window_ClosingConfirmation">Are you sure to close KanColle Inspector?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
@@ -233,5 +234,9 @@
   <String Key="SortieHistory_Type">Type</String>
   <String Key="SortieHistory_BattleRank">Battle Rank</String>
   <String Key="SortieHistory_DroppedShip">Dropped Ship</String>
+
+  <String Key="ExpeditionHistory_Name">Expedition</String>
+  <String Key="ExpeditionHistory_Result">Result</String>
+  <String Key="ExpeditionHistory_Reward">Reward</String>
 
 </Strings>

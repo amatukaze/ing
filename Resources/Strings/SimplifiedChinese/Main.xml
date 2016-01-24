@@ -165,6 +165,7 @@
   <String Key="Window_ConstructionHistory">建造历史</String>
   <String Key="Window_DevelopmentHistory">开发历史</String>
   <String Key="Window_SortieHistory">出击历史</String>
+  <String Key="Window_ExpeditionHistory">远征历史</String>
   <String Key="Window_ClosingConfirmation">要关闭 KanColle Inspector 吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
@@ -233,5 +234,9 @@
   <String Key="SortieHistory_Type">类型</String>
   <String Key="SortieHistory_BattleRank">战斗评价</String>
   <String Key="SortieHistory_DroppedShip">船掉落</String>
+
+  <String Key="ExpeditionHistory_Name">远征名</String>
+  <String Key="ExpeditionHistory_Result">结果</String>
+  <String Key="ExpeditionHistory_Reward">奖励</String>
 
 </Strings>
