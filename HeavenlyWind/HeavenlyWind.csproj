@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\Game\SortieViewModel.cs" />
     <Compile Include="ViewModels\History\ConstructionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByFleet.cs" />
@@ -227,6 +228,9 @@
     </Compile>
     <Compile Include="Views\History\DevelopmentHistoryWindow.xaml.cs">
       <DependentUpon>DevelopmentHistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\History\ExpeditionHistoryWindow.xaml.cs">
+      <DependentUpon>ExpeditionHistoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\History\SortieHistoryWindow.xaml.cs">
       <DependentUpon>SortieHistoryWindow.xaml</DependentUpon>
@@ -583,6 +587,10 @@
     <Page Include="Views\History\DevelopmentHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\History\ExpeditionHistoryWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\History\SortieHistoryWindow.xaml">
       <SubType>Designer</SubType>
