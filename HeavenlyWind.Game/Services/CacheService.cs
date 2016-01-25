@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public string CacheDirectory = Preference.Current.Cache.Path;
 
-        ReaderWriterLockSlim r_Lock = new ReaderWriterLockSlim();
+        static object r_ThreadSyncObject = new object();
 
         CacheService() { }
 
@@ -28,7 +28,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return;
 
             string rFilename;
-            var rNoVerification = CheckFileinCache(rpSession, out rFilename);
+            var rNoVerification = CheckFileInCache(rpSession, out rFilename);
 
             rpResourceSession.CacheFilename = rFilename;
 
@@ -36,14 +36,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return;
 
             if (rNoVerification.Value)
+            {
+                rpSession.utilCreateResponseAndBypassServer();
                 LoadFile(rFilename, rpResourceSession, rpSession);
+            }
             else
             {
                 rpSession.oRequest["If-Modified-Since"] = File.GetLastWriteTime(rFilename).ToString("R");
                 rpSession.bBufferResponse = true;
             }
         }
-        bool? CheckFileinCache(Session rpSession, out string ropFilename)
+        bool? CheckFileInCache(Session rpSession, out string ropFilename)
         {
             ropFilename = null;
 
@@ -79,18 +82,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         void LoadFile(string rpFilename, ResourceSession rpResourceSession, Session rpSession)
         {
-            if (!rpSession.bBufferResponse)
-                rpSession.utilCreateResponseAndBypassServer();
-
-            try
-            {
-                r_Lock.EnterReadLock();
-                rpSession.ResponseBody = File.ReadAllBytes(rpFilename);
-            }
-            finally
-            {
-                r_Lock.ExitReadLock();
-            }
+            rpSession.ResponseBody = File.ReadAllBytes(rpFilename);
             rpSession.oResponse["Server"] = "Apache";
             rpSession.oResponse["Connection"] = "close";
             rpSession.oResponse["Accept-Ranges"] = "bytes";
@@ -113,33 +105,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         internal void ProcessOnCompletion(ResourceSession rpResourceSession, Session rpSession)
         {
-            if (rpSession.responseCode != 200 || rpResourceSession.CacheFilename == null)
+            if (rpSession.responseCode != 200 || rpResourceSession.State == NetworkSessionState.LoadedFromCache || rpResourceSession.CacheFilename == null)
                 return;
 
             try
             {
-                r_Lock.EnterWriteLock();
+                lock (r_ThreadSyncObject)
+                {
+                    var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
+                    if (!Directory.Exists(rDirectoryName))
+                        Directory.CreateDirectory(rDirectoryName);
 
-                var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
-                if (!Directory.Exists(rDirectoryName))
-                    Directory.CreateDirectory(rDirectoryName);
+                    var rFile = new FileInfo(rpResourceSession.CacheFilename);
+                    if (rFile.Exists)
+                        rFile.Delete();
 
-                var rFile = new FileInfo(rpResourceSession.CacheFilename);
-                if (rFile.Exists)
-                    rFile.Delete();
+                    rpSession.SaveResponseBody(rFile.FullName);
+                    rFile.LastWriteTime = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
 
-                rpSession.SaveResponseBody(rFile.FullName);
-                rFile.LastWriteTime = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
-
-                rpResourceSession.State = NetworkSessionState.Cached;
+                    rpResourceSession.State = NetworkSessionState.Cached;
+                }
             }
             catch (Exception e)
             {
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_Cache_FailedToSaveFile, e.Message));
-            }
-            finally
-            {
-                r_Lock.ExitWriteLock();
             }
         }
     }
