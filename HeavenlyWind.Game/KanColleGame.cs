@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe("api_req_map/next", r =>
             {
                 var rSortieMap = Sortie.Map;
-                if (rSortieMap.IsCleared || Sortie.Cell.EventType != SortieEventType.EscortSuccess)
+                if (rSortieMap.IsCleared || ((RawMapExploration)r.Data).CellEventType != SortieEventType.EscortSuccess)
                     return;
 
                 rSortieMap.HP = rSortieMap.HP.Decrease(1);
