@@ -9,6 +9,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public ItemInfo(RawItemInfo rpRawData) : base(rpRawData) { }
 
+        protected override void OnRawDataUpdated()
+        {
+            var rTranslatedName = StringResources.Instance.Extra?.GetItemName(ID);
+            if (rTranslatedName != null)
+                RawData.Name = rTranslatedName;
+        }
+
         public override string ToString() => $"ID = {ID}, Name = \"{Name}\"";
     }
 }

@@ -139,16 +139,41 @@ namespace Sakuno.KanColle.Amatsukaze
 
                 using (var rReader = new JsonTextReader(rContent.File.OpenText()))
                 {
-                    var rTranslations = JArray.Load(rReader);
+                        var rTranslations = JArray.Load(rReader);
+                        var rNames = rTranslations.ToDictionary(r => (int)r["id"], r => (string)r["name"]);
 
                     switch (rContent.Type)
                     {
                         case ExtraStringResourceType.Ship:
-                            Extra.Ships = rTranslations.ToDictionary(r => (int)r["id"], r => (string)r["name"]);
+                            Extra.Ships = rNames;
+                            break;
+
+                        case ExtraStringResourceType.ShipType:
+                            Extra.ShipTypes = rNames;
                             break;
 
                         case ExtraStringResourceType.Equipment:
-                            Extra.Equipment = rTranslations.ToDictionary(r => (int)r["id"], r => (string)r["name"]);
+                            Extra.Equipment = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Item:
+                            Extra.Items = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Expedition:
+                            Extra.Expeditions = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Quest:
+                            Extra.Quests = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Area:
+                            Extra.Areas = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Map:
+                            Extra.Maps = rNames;
                             break;
                     }
                 }

@@ -5,8 +5,10 @@
         Ship,
         ShipType,
         Equipment,
+        Item,
         Expedition,
         Quest,
-        Sortie,
+        Area,
+        Map,
     }
 }
