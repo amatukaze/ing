@@ -7,6 +7,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class ExperienceRecord : RecordBase
     {
+        static object r_ThreadSyncLock = new object();
+
         public override string GroupName => "experience";
 
         int r_Admiral;
@@ -18,28 +20,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 var rPort = KanColleGame.Current.Port;
 
-                using (var rTransaction = Connection.BeginTransaction())
-                {
-                    if (r_Admiral != rPort.Admiral.Experience)
+                lock (r_ThreadSyncLock)
+                    using (var rTransaction = Connection.BeginTransaction())
                     {
-                        r_Admiral = rPort.Admiral.Experience;
-                        InsertAdmiralRecord(rPort.Admiral.Experience);
+                        if (r_Admiral != rPort.Admiral.Experience)
+                        {
+                            r_Admiral = rPort.Admiral.Experience;
+                            InsertAdmiralRecord(rPort.Admiral.Experience);
+                        }
+
+                        foreach (var rShip in rPort.Ships.Values.Where(r => r.Experience > 0))
+                        {
+                            int rOldExperience;
+                            if (!r_Ships.TryGetValue(rShip.ID, out rOldExperience))
+                                r_Ships.Add(rShip.ID, rShip.Experience);
+                            else
+                                r_Ships[rShip.ID] = rShip.Experience;
+
+                            if (rOldExperience != rShip.Experience)
+                                InsertShipExperience(rShip.ID, rShip.Experience);
+                        }
+
+                        rTransaction.Commit();
                     }
-
-                    foreach (var rShip in rPort.Ships.Values.Where(r => r.Experience > 0))
-                    {
-                        int rOldExperience;
-                        if (!r_Ships.TryGetValue(rShip.ID, out rOldExperience))
-                            r_Ships.Add(rShip.ID, rShip.Experience);
-                        else
-                            r_Ships[rShip.ID] = rShip.Experience;
-
-                        if (rOldExperience != rShip.Experience)
-                            InsertShipExperience(rShip.ID, rShip.Experience);
-                    }
-
-                    rTransaction.Commit();
-                }
             }));
         }
 

@@ -73,7 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
         }
 
-        public GameController GameController { get; } = new GameController();
+        public GameController GameController { get; private set; }
 
         public ICommand ClearCacheCommand { get; }
         public ICommand ClearCacheAndCookieCommand { get; }
@@ -127,7 +127,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 });
 
                 Navigator = new BrowserNavigator();
-
+                GameController = new GameController();
             }
         }
         bool LoadLayoutEngines()
