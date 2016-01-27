@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public SortieCellInfo Cell { get; private set; }
 
-        public double DirectionAngle { get; private set; }
+        public double? DirectionAngle { get; private set; }
 
         int r_PendingShipCount;
         public int PendingShipCount

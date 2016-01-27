@@ -1,20 +1,26 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
     public class MapService
     {
+        const string DataFilename = @"Data\node_position.json";
+
         public static MapService Instance { get; } = new MapService();
 
         IDisposable r_ConnectionSubscription;
 
         SQLiteConnection r_Connection;
 
-        Dictionary<int, Dictionary<int, Point>> r_Positions = new Dictionary<int, Dictionary<int, Point>>();
+        Dictionary<int, Dictionary<int, Point>> r_Positions;
 
         Dictionary<int, PastEventMapInfo> r_PastEventMaps = new Dictionary<int, PastEventMapInfo>();
 
@@ -24,38 +30,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         {
             r_ConnectionSubscription = SessionService.Instance.Subscribe("api_get_member/basic", _ =>
             {
-                r_Connection = new SQLiteConnection(@"Data Source=Data\Maps.db").OpenAndReturn();
+                var rDataFile = new FileInfo(DataFilename);
+                if (!rDataFile.Exists)
+                    r_Positions = new Dictionary<int, Dictionary<int, Point>>();
+                else
+                    using (var rReader = new JsonTextReader(rDataFile.OpenText()))
+                    {
+                        var rData = JObject.Load(rReader);
 
-                using (var rCommand = r_Connection.CreateCommand())
-                {
-                    rCommand.CommandText = "SELECT * FROM node_position;";
-
-                    var rCurrentMap = 0;
-                    Dictionary<int, Point> rPositions = null;
-                    using (var rReader = rCommand.ExecuteReader())
-                        while (rReader.Read())
-                        {
-                            var rMapID = Convert.ToInt32(rReader["map"]);
-                            if (rMapID != rCurrentMap)
-                            {
-                                r_Positions.Add(rMapID, rPositions = new Dictionary<int, Point>());
-                                rCurrentMap = rMapID;
-                            }
-
-                            var rNode = Convert.ToInt32(rReader["node"]);
-                            var rPositionX = Convert.ToDouble(rReader["x"]);
-                            var rPositionY = Convert.ToDouble(rReader["y"]);
-
-                            rPositions.Add(rNode, new Point(rPositionX, rPositionY));
-                        }
-                }
+                        r_Positions = rData.Properties().ToDictionary(r => int.Parse(r.Name), r =>
+                            r.Value.ToDictionary(rpNode => (int)rpNode["id"], rpNode => new Point((double)rpNode["x"], (double)rpNode["y"])));
+                    }
 
                 r_ConnectionSubscription?.Dispose();
                 r_ConnectionSubscription = null;
             });
         }
 
-        public double GetAngle(int rpMapID, int rpSourceNode, int rpDestinationNode)
+        public double? GetAngle(int rpMapID, int rpSourceNode, int rpDestinationNode)
         {
             try
             {
@@ -66,7 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             }
             catch
             {
-                return 0.0;
+                return null;
             }
         }
 

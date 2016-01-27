@@ -48,7 +48,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                    <Border Padding="2" Width="18" Height="18">
+                    <Border Padding="2" Width="18" Height="18" Margin="0, 0, 4, 0" Visibility="{rb:CollapsedIfNull DirectionAngle}">
                         <Path Data="M0,0 L300,150 0,300 65,150 z" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" RenderTransformOrigin=".5, .5">
                             <Path.RenderTransform>
                                 <RotateTransform Angle="{Binding DirectionAngle}" CenterX=".5" CenterY=".5" />
@@ -56,7 +56,7 @@
                         </Path>
                     </Border>
 
-                    <TextBlock VerticalAlignment="Center" Margin="4, 0, 0, 0">
+                    <TextBlock VerticalAlignment="Center">
                         <Run Text="{rb:StringResource Main.Sortie_Cell, Mode=OneWay}" />:
                         <Run Text="{Binding Cell.ID, Mode=OneWay}" />
                         <Run Style="{StaticResource EventType}" />

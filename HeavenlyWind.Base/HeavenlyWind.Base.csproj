@@ -65,6 +65,7 @@
     <Compile Include="Browser\IBrowser.cs" />
     <Compile Include="Browser\IBrowserProvider.cs" />
     <Compile Include="Browser\ScreenshotData.cs" />
+    <Compile Include="CollapsedIfNullExtension.cs" />
     <Compile Include="EnumerationExtension.cs" />
     <Compile Include="EnumToStringResourceExtension.cs" />
     <Compile Include="ExtraStringResources.cs" />
