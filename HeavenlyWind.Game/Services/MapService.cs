@@ -49,17 +49,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public double? GetAngle(int rpMapID, int rpSourceNode, int rpDestinationNode)
         {
-            try
+            Dictionary<int, Point> rMap;
+            if (r_Positions.TryGetValue(rpMapID, out rMap))
             {
-                var rSourcePosition = r_Positions[rpMapID][rpSourceNode];
-                var rDestinationPosition = r_Positions[rpMapID][rpDestinationNode];
+                Point rSourcePosition, rDestinationPosition;
+                if (rMap.TryGetValue(rpSourceNode, out rSourcePosition) && rMap.TryGetValue(rpDestinationNode, out rDestinationPosition))
+                    return Math.Atan2(rDestinationPosition.Y - rSourcePosition.Y, rDestinationPosition.X - rSourcePosition.X) * MathUtil.DegOf1Rad;
+            }
 
-                return Math.Atan2(rDestinationPosition.Y - rSourcePosition.Y, rDestinationPosition.X - rSourcePosition.X) * MathUtil.DegOf1Rad;
-            }
-            catch
-            {
-                return null;
-            }
+            return null;
         }
 
         public IMapMasterInfo GetMasterInfo(int rpMapID)

@@ -2,9 +2,9 @@
 {
     public class Experience : IID
     {
-        public int Level { get; private set; }
-        public int Total { get; private set; }
-        public int Next { get; private set; }
+        public int Level { get; }
+        public int Total { get; }
+        public int Next { get; }
 
         int IID.ID => Level;
 
