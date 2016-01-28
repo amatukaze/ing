@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -17,8 +16,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public static MapService Instance { get; } = new MapService();
 
         IDisposable r_ConnectionSubscription;
-
-        SQLiteConnection r_Connection;
 
         Dictionary<int, Dictionary<int, Point>> r_Positions;
 

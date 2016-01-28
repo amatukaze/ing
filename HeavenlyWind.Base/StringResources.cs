@@ -19,9 +19,6 @@ namespace Sakuno.KanColle.Amatsukaze
         Dictionary<string, LanguageInfo> r_InstalledLanguages;
         public IList<LanguageInfo> InstalledLanguages { get; private set; }
 
-        Dictionary<string, ExtraStringResourceInfo> r_InstalledExtraResources;
-        public IList<ExtraStringResourceInfo> InstalledExtraResources { get; private set; }
-
         public bool IsLoaded { get; private set; }
 
         StringResourcesItems r_Main;
@@ -43,20 +40,15 @@ namespace Sakuno.KanColle.Amatsukaze
         public void Initialize()
         {
             r_InstalledLanguages = new Dictionary<string, LanguageInfo>(StringComparer.InvariantCultureIgnoreCase);
-            r_InstalledExtraResources = new Dictionary<string, ExtraStringResourceInfo>(StringComparer.InvariantCultureIgnoreCase);
 
             var rRootDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             r_StringResourceDirectory = new DirectoryInfo(Path.Combine(rRootDirectory, "Resources", "Strings"));
             if (r_StringResourceDirectory.Exists)
                 foreach (var rLanguageDirectory in r_StringResourceDirectory.EnumerateDirectories())
-                {
                     InitializeMainResource(rLanguageDirectory);
-                    InitializeExtraResource(rLanguageDirectory);
-                }
 
             InstalledLanguages = r_InstalledLanguages.Values.ToList().AsReadOnly();
-            InstalledExtraResources = new[] { ExtraStringResourceInfo.Disabled }.Concat(r_InstalledExtraResources.Values).ToList().AsReadOnly();
         }
         void InitializeMainResource(DirectoryInfo rpDirectory)
         {
@@ -69,23 +61,6 @@ namespace Sakuno.KanColle.Amatsukaze
             var rDisplayName = rRoot.Attribute("Name").Value;
 
             r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rpDirectory.Name, rCultureName, rDisplayName));
-        }
-        void InitializeExtraResource(DirectoryInfo rpDirectory)
-        {
-            var rFile = new FileInfo(Path.Combine(rpDirectory.FullName, "Extra.json"));
-            if (!rFile.Exists)
-                return;
-
-            using (var rReader = new JsonTextReader(rFile.OpenText()))
-            {
-                var rInfo = JObject.Load(rReader).ToObject<ExtraStringResourceInfo>();
-                rInfo.Directory = rpDirectory.Name;
-
-                foreach (var rContent in rInfo.Contents)
-                    rContent.File = new FileInfo(Path.Combine(rFile.Directory.FullName, rContent.Type + ".json"));
-
-                r_InstalledExtraResources.Add(rInfo.Directory, rInfo);
-            }
         }
 
         public void LoadMainResource()
@@ -126,8 +101,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public void LoadExtraResource(string rpLanguageName)
         {
-            ExtraStringResourceInfo rInfo;
-            if (rpLanguageName.IsNullOrEmpty() || !r_InstalledExtraResources.TryGetValue(rpLanguageName, out rInfo))
+            var rInfo = LoadExtraResourceInfo(rpLanguageName);
+            if (rInfo == null)
                 return;
 
             Extra = new ExtraStringResources();
@@ -177,6 +152,23 @@ namespace Sakuno.KanColle.Amatsukaze
                             break;
                     }
                 }
+            }
+        }
+        ExtraStringResourceInfo LoadExtraResourceInfo(string rpLanguageName)
+        {
+            var rFile = new FileInfo(Path.Combine(r_StringResourceDirectory.FullName, rpLanguageName, "Extra.json"));
+            if (!rFile.Exists)
+                return null;
+
+            using (var rReader = new JsonTextReader(rFile.OpenText()))
+            {
+                var rInfo = JObject.Load(rReader).ToObject<ExtraStringResourceInfo>();
+                rInfo.Directory = rpLanguageName;
+
+                foreach (var rContent in rInfo.Contents)
+                    rContent.File = new FileInfo(Path.Combine(rFile.Directory.FullName, rContent.Type + ".json"));
+
+                return rInfo;
             }
         }
     }

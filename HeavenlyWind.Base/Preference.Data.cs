@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Models.Preferences;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
@@ -63,9 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public Preference()
         {
-            r_Language = StringResources.Instance.GetDefaultLanguage().Directory;
-            if (r_Language.Equals("English", StringComparison.InvariantCultureIgnoreCase))
-                r_ExtraResourceLanguage = "English";
+            r_Language = r_ExtraResourceLanguage = StringResources.Instance.GetDefaultLanguage().Directory;
         }
     }
 }
