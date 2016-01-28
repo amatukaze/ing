@@ -24,7 +24,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public bool CanReturn => RawData.CanReturn;
 
-        internal ExpeditionInfo(RawExpeditionInfo rpRawData) : base(rpRawData) { }
+        internal ExpeditionInfo(RawExpeditionInfo rpRawData) : base(rpRawData)
+        {
+            OnRawDataUpdated();
+        }
 
         protected override void OnRawDataUpdated()
         {

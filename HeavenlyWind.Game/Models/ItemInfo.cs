@@ -7,7 +7,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int ID => RawData.ID;
         public string Name => RawData.Name;
 
-        public ItemInfo(RawItemInfo rpRawData) : base(rpRawData) { }
+        public ItemInfo(RawItemInfo rpRawData) : base(rpRawData)
+        {
+            OnRawDataUpdated();
+        }
 
         protected override void OnRawDataUpdated()
         {

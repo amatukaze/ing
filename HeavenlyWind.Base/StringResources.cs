@@ -101,7 +101,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public void LoadExtraResource(string rpLanguageName)
         {
-            var rInfo = LoadExtraResourceInfo(rpLanguageName);
+            var rInfo = LoadExtraResourceInfo(rpLanguageName) ?? LoadExtraResourceInfo(GetDefaultLanguage().DisplayName);
             if (rInfo == null)
                 return;
 
@@ -114,8 +114,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
                 using (var rReader = new JsonTextReader(rContent.File.OpenText()))
                 {
-                        var rTranslations = JArray.Load(rReader);
-                        var rNames = rTranslations.ToDictionary(r => (int)r["id"], r => (string)r["name"]);
+                    var rTranslations = JArray.Load(rReader);
+                    var rNames = rTranslations.ToDictionary(r => (int)r["id"], r => (string)r["name"]);
 
                     switch (rContent.Type)
                     {
@@ -156,6 +156,9 @@ namespace Sakuno.KanColle.Amatsukaze
         }
         ExtraStringResourceInfo LoadExtraResourceInfo(string rpLanguageName)
         {
+            if (rpLanguageName.IsNullOrEmpty())
+                return null;
+
             var rFile = new FileInfo(Path.Combine(r_StringResourceDirectory.FullName, rpLanguageName, "Extra.json"));
             if (!rFile.Exists)
                 return null;
