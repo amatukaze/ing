@@ -19,23 +19,13 @@
         </ComboBox>
 
         <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Language_NameTranslation}" Margin="0, 8, 0, 0" />
-        <ComboBox ItemsSource="{Binding InstalledExtraResources, Source={x:Static rb:StringResources.Instance}}" SelectedValue="{rb:Preference ExtraResourceLanguage}" SelectedValuePath="Directory" Margin="0, 6, 0, 0">
+        <ComboBox ItemsSource="{Binding InstalledLanguages, Source={x:Static rb:StringResources.Instance}}" SelectedValue="{rb:Preference ExtraResourceLanguage}" SelectedValuePath="Directory" Margin="0, 6, 0, 0">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Name="Info">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} ({1})">
-                                <Binding Path="DisplayName" />
-                                <Binding Path="Directory" />
-                            </MultiBinding>
-                        </TextBlock.Text>
+                    <TextBlock>
+                        <Run Text="{Binding DisplayName, Mode=OneWay}" />
+                        (<Run Text="{Binding Directory, Mode=OneWay}" />)
                     </TextBlock>
-
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Directory}" Value="{x:Null}">
-                            <Setter TargetName="Info" Property="Text" Value="{rb:StringResource Main.Feature_Disabled, StringFormat=({0})}" />
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
