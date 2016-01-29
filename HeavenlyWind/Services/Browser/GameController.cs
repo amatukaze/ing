@@ -33,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         {
             TakeScreenshotCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
 
-            if (OS.IsWin7OrLater)
+            if (OS.IsWin7OrLater && !BrowserService.Instance.NoInstalledLayoutEngines)
                 try
                 {
                     foreach (var rSession in VolumeManager.Instance.EnumerateSessions())
@@ -41,7 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                     VolumeManager.Instance.NewSession += VolumeManager_NewSession;
                 }
-                catch (TypeInitializationException e) when (e.InnerException is COMException)
+                catch (Exception)
                 {
                     r_IsAudioDeviceNotAvailable = true;
                 }

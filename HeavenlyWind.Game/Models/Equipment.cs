@@ -40,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal Equipment(RawEquipment rpRawData) : base(rpRawData)
         {
             EquipmentInfo rInfo;
-            if (KanColleGame.Current.MasterInfo.Equipments.TryGetValue(rpRawData.EquipmentID, out rInfo))
+            if (KanColleGame.Current.MasterInfo.Equipment.TryGetValue(rpRawData.EquipmentID, out rInfo))
                 Info = rInfo;
             else
                 Info = EquipmentInfo.Dummy;
@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (Info == null || Info.ID != RawData.EquipmentID)
             {
                 EquipmentInfo rInfo;
-                if (!KanColleGame.Current.MasterInfo.Equipments.TryGetValue(RawData.EquipmentID, out rInfo))
+                if (!KanColleGame.Current.MasterInfo.Equipment.TryGetValue(RawData.EquipmentID, out rInfo))
                     rInfo = EquipmentInfo.Dummy;
 
                 Info = rInfo;

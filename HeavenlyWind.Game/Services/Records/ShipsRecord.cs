@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System.Data.SQLite;
-using System.Linq;
-using Sakuno.KanColle.Amatsukaze.Game.Models;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
@@ -9,21 +7,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     {
         public override string GroupName => "ships";
 
-        HashSet<int> r_Ships = new HashSet<int>();
-
         internal ShipsRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", _ =>
-            {
-                using (var rTransaction = Connection.BeginTransaction())
-                {
-                    foreach (var rShip in KanColleGame.Current.Port.Ships.Values.Where(r => r.Experience > 0))
-                        if (r_Ships.Add(rShip.ID))
-                            InsertRecord(rShip);
-
-                    rTransaction.Commit();
-                }
-            }));
         }
 
         protected override void CreateTable()
@@ -36,17 +21,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "absent BOOLEAN NOT NULL DEFAULT 0);";
 
                 rCommand.ExecuteNonQuery();
-            }
-        }
-        protected override void Load()
-        {
-            using (var rCommand = Connection.CreateCommand())
-            {
-                rCommand.CommandText = "SELECT id FROM ships WHERE NOT(absent);";
-
-                using (var rReader = rCommand.ExecuteReader())
-                    while (rReader.Read())
-                        r_Ships.Add(rReader.GetInt32(0));
             }
         }
 

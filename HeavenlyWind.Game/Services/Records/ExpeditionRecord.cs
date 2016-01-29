@@ -1,13 +1,18 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SQLite;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class ExpeditionRecord : RecordBase
     {
         public override string GroupName => "expedition";
+        public override int Version => 2;
 
         internal ExpeditionRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
@@ -53,6 +58,52 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
         }
+        protected override void UpgradeFromOldVersion(int rpOldVersion)
+        {
+            if (rpOldVersion < 2)
+            {
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "SELECT expedition FROM expedition WHERE item1 = -1 OR item2 = -1 GROUP BY expedition;";
+
+                    using (var rReader = rCommand.ExecuteReader())
+                        while (rReader.Read())
+                        {
+                            var rExpedition = KanColleGame.Current.MasterInfo.Expeditions[Convert.ToInt32(rReader["expedition"])];
+
+                            using (var rUpdateCommand = Connection.CreateCommand())
+                            {
+                                rUpdateCommand.CommandText =
+                                    "UPDATE expedition SET item1 = @item1 WHERE expedition = @expedition AND item1 = -1;" +
+                                    "UPDATE expedition SET item2 = @item2 WHERE expedition = @expedition AND item2 = -1;";
+                                rUpdateCommand.Parameters.AddWithValue("@expedition", rExpedition.ID);
+                                rUpdateCommand.Parameters.AddWithValue("@item1", rExpedition.RewardItem1ID);
+                                rUpdateCommand.Parameters.AddWithValue("@item2", rExpedition.RewardItem2ID);
+
+                                rUpdateCommand.ExecuteNonQuery();
+                            }
+                        }
+                }
+            }
+        }
+
+        public async Task<List<RecordItem>> LoadRecordsAsync()
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT * FROM expedition ORDER BY time DESC;";
+
+                using (var rReader = await rCommand.ExecuteReaderAsync())
+                {
+                    var rResult = new List<RecordItem>(rReader.VisibleFieldCount);
+
+                    while (rReader.Read())
+                        rResult.Add(new RecordItem(rReader));
+
+                    return rResult;
+                }
+            }
+        }
 
         internal void InsertRecord(int rpExpedition, RawExpeditionResult rpData)
         {
@@ -68,13 +119,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.Parameters.AddWithValue("@bullet", rMaterials != null ? rMaterials[1] : (int?)null);
                 rCommand.Parameters.AddWithValue("@steel", rMaterials != null ? rMaterials[2] : (int?)null);
                 rCommand.Parameters.AddWithValue("@bauxite", rMaterials != null ? rMaterials[3] : (int?)null);
-                rCommand.Parameters.AddWithValue("@item1", rpData.Item1 != null ? rpData.Item1.ID : (int?)null);
+
+                rCommand.Parameters.AddWithValue("@item1", GetItemID(rpData.RewardItems[0], rpData.Item1?.ID));
                 rCommand.Parameters.AddWithValue("@item1_count", rpData.Item1 != null ? rpData.Item1.Count : (int?)null);
-                rCommand.Parameters.AddWithValue("@item2", rpData.Item2 != null ? rpData.Item2.ID : (int?)null);
+                rCommand.Parameters.AddWithValue("@item2", GetItemID(rpData.RewardItems[1], rpData.Item2?.ID));
                 rCommand.Parameters.AddWithValue("@item2_count", rpData.Item2 != null ? rpData.Item2.Count : (int?)null);
 
                 rCommand.ExecuteNonQuery();
             }
+        }
+        int? GetItemID(int rpFlag, int? rpItemID)
+        {
+            if (rpFlag == 0)
+                return null;
+
+            return rpItemID <= 0 ? rpFlag : rpItemID;
         }
         internal void UpdateCount(int rpExpedition, IEnumerable<int> rpShips)
         {
@@ -88,6 +147,59 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                     rCommand.ExecuteNonQuery();
                 }
+        }
+
+        public class RecordItem
+        {
+            public string Time { get; }
+
+            public ExpeditionInfo Expedition { get; }
+
+            public ExpeditionResult Result { get; }
+
+            public int? Fuel { get; }
+            public int? Bullet { get; }
+            public int? Steel { get; }
+            public int? Bauxite { get; }
+
+            public ItemInfo Item1 { get; }
+            public int? Item1Count { get; }
+            public ItemInfo Item2 { get; }
+            public int? Item2Count { get; }
+
+            internal RecordItem(DbDataReader rpReader)
+            {
+                Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
+
+                Expedition = KanColleGame.Current.MasterInfo.Expeditions[Convert.ToInt32(rpReader["expedition"])];
+
+                Result = (ExpeditionResult)Convert.ToInt32(rpReader["result"]);
+
+                if (Result == ExpeditionResult.Failure)
+                    return;
+
+                Fuel = Convert.ToInt32(rpReader["fuel"]);
+                Bullet = Convert.ToInt32(rpReader["bullet"]);
+                Steel = Convert.ToInt32(rpReader["steel"]);
+                Bauxite = Convert.ToInt32(rpReader["bauxite"]);
+
+                var rItem1 = rpReader["item1"];
+                if (rItem1 != DBNull.Value)
+                {
+                    var rItem1ID = Convert.ToInt32(rItem1);
+                    if (rItem1ID != -1)
+                        Item1 = KanColleGame.Current.MasterInfo.Items[rItem1ID];
+                    Item1Count = Convert.ToInt32(rpReader["item1_count"]);
+                }
+                var rItem2 = rpReader["item2"];
+                if (rItem2 != DBNull.Value)
+                {
+                    var rItem2ID = Convert.ToInt32(rItem2);
+                    if (rItem2ID != -1)
+                        Item2 = KanColleGame.Current.MasterInfo.Items[rItem2ID];
+                    Item2Count = Convert.ToInt32(rpReader["item2_count"]);
+                }
+            }
         }
     }
 }

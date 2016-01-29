@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Ships
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class ShipOverviewViewModel : WindowViewModel
+    public class EquipmentOverviewViewModel : WindowViewModel
     {
-        Dictionary<ShipType, ShipTypeViewModel> r_TypeMap;
-        public IReadOnlyCollection<ShipTypeViewModel> Types { get; }
+        Dictionary<EquipmentIconType, EquipmentTypeViewModel> r_TypeMap;
+        public IList<EquipmentTypeViewModel> Types { get; }
 
         bool? r_SelectAllTypes = true;
         public bool? SelectAllTypes
@@ -33,14 +33,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Ships
             }
         }
 
-        ShipViewModel[] r_Ships;
-        public IReadOnlyCollection<ShipViewModel> Ships { get; private set; }
+        Dictionary<EquipmentInfo, EquipmentGroupByMasterID> r_EquipmentMap;
+        public IReadOnlyList<EquipmentGroupByMasterID> Equipment { get; private set; }
 
-        internal ShipOverviewViewModel()
+        internal EquipmentOverviewViewModel()
         {
-            Title = StringResources.Instance.Main.Window_ShipOverview;
+            Title = StringResources.Instance.Main.Window_EquipmentOverview;
 
-            r_TypeMap = KanColleGame.Current.MasterInfo.ShipTypes.Values.ToDictionary(r => r, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
+            r_TypeMap = ((EquipmentIconType[])Enum.GetValues(typeof(EquipmentIconType))).Skip(1).ToDictionary(r => r, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 
             Task.Run(new Action(UpdateCore));
@@ -62,18 +62,25 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Ships
             OnPropertyChanged(nameof(SelectAllTypes));
         }
 
-
         void UpdateCore()
         {
-            r_Ships = KanColleGame.Current.Port.Ships.Values.Select((r, i) => new ShipViewModel(i, r, r_TypeMap[r.Info.Type])).ToArray();
+            var rGame = KanColleGame.Current;
+            var rShips = rGame.Port.Ships.Values;
+
+            r_EquipmentMap = rGame.Port.Equipment.Values.GroupBy(r => r.Info).OrderBy(r => r.Key.Type).ThenBy(r => r.Key.ID)
+                .ToDictionary(r => r.Key, r => new EquipmentGroupByMasterID(r.Key, r_TypeMap[r.Key.Icon], r));
+
+            foreach (var rShip in rShips)
+                foreach (var rEquipment in rShip.EquipedEquipment)
+                    r_EquipmentMap[rEquipment.Info].Update(rShip, new EquipmentGroupingKey(rEquipment.Level, rEquipment.Proficiency));
 
             UpdateFilterResult();
         }
 
         void UpdateFilterResult()
         {
-            Ships = r_Ships.Where(r => r.Type.IsSelected).ToArray().AsReadOnly();
-            OnPropertyChanged(nameof(Ships));
+            Equipment = r_EquipmentMap.Values.Where(r => r.Type.IsSelected).ToArray().AsReadOnly();
+            OnPropertyChanged(nameof(Equipment));
         }
     }
 }

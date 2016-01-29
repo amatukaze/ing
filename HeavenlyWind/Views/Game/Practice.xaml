@@ -12,6 +12,7 @@
     <Grid DataContext="{Binding Info}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="8" />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -19,10 +20,17 @@
         <TextBlock DataContext="{Binding Opponent}">
             <Run Text="{Binding Name, Mode=OneWay}" />
             <Run Text="{Binding Level, StringFormat=Lv. {0}, Mode=OneWay}" />
-            [<Run Text="{rb:EnumToStringResource Rank, Overview_Admiral_Rank, Mode=OneWay}" />]
+            [<Run Text="{rb:EnumToStringResource Rank, Overview_Admiral_Rank}" />]
         </TextBlock>
 
-        <ItemsControl ItemsSource="{Binding Opponent.Ships}" HorizontalAlignment="Left" Grid.Row="2" Grid.IsSharedSizeScope="True">
+        <Border DataContext="{Binding Opponent}" Margin="0, 4, 0, 0" Grid.Row="1">
+            <TextBlock>
+                <Run Text="{rb:StringResource Main.Practice_Opponent_Experience}" />:
+                <Run Text="{Binding Experience, Mode=OneWay}" />
+            </TextBlock>
+        </Border>
+
+        <ItemsControl ItemsSource="{Binding Opponent.Ships}" HorizontalAlignment="Left" Grid.Row="3" Grid.IsSharedSizeScope="True">
             <ItemsControl.Style>
                 <Style TargetType="{x:Type ItemsControl}">
                     <Setter Property="Visibility" Value="Hidden" />
@@ -49,7 +57,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <rvge:Battle Grid.Row="2">
+        <rvge:Battle Grid.Row="3">
             <rvge:Battle.Style>
                 <Style TargetType="{x:Type rvge:Battle}">
                     <Setter Property="Visibility" Value="Visible" />

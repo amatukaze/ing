@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -12,12 +14,12 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         public static StringResources Instance { get; } = new StringResources();
 
-        static Dictionary<string, LanguageInfo> r_InstalledLanguages;
-        public static IList<LanguageInfo> InstalledLanguages { get; private set; }
+        DirectoryInfo r_StringResourceDirectory;
+
+        Dictionary<string, LanguageInfo> r_InstalledLanguages;
+        public IList<LanguageInfo> InstalledLanguages { get; private set; }
 
         public bool IsLoaded { get; private set; }
-
-        static DirectoryInfo StringResourceDirectory;
 
         StringResourcesItems r_Main;
         public StringResourcesItems Main
@@ -33,37 +35,42 @@ namespace Sakuno.KanColle.Amatsukaze
             }
         }
 
-        StringResources()
+        public ExtraStringResources Extra { get; private set; }
+
+        public void Initialize()
         {
-            var rRootDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            StringResourceDirectory = new DirectoryInfo(Path.Combine(rRootDirectory, "Resources", "Strings"));
-
             r_InstalledLanguages = new Dictionary<string, LanguageInfo>(StringComparer.InvariantCultureIgnoreCase);
-            if (StringResourceDirectory.Exists)
-                foreach (var rLanguageDirectory in StringResourceDirectory.EnumerateDirectories())
-                {
-                    var rResourceFile = Path.Combine(rLanguageDirectory.FullName, "Main.xml");
-                    if (!File.Exists(rResourceFile))
-                        continue;
 
-                    var rRoot = XDocument.Load(rResourceFile).Root;
-                    var rCultureName = rRoot.Attribute("CultureName").Value;
-                    var rDisplayName = rRoot.Attribute("Name").Value;
+            var rRootDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-                    r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rLanguageDirectory.Name, rCultureName, rDisplayName));
-                }
+            r_StringResourceDirectory = new DirectoryInfo(Path.Combine(rRootDirectory, "Resources", "Strings"));
+            if (r_StringResourceDirectory.Exists)
+                foreach (var rLanguageDirectory in r_StringResourceDirectory.EnumerateDirectories())
+                    InitializeMainResource(rLanguageDirectory);
 
             InstalledLanguages = r_InstalledLanguages.Values.ToList().AsReadOnly();
         }
+        void InitializeMainResource(DirectoryInfo rpDirectory)
+        {
+            var rResourceFile = Path.Combine(rpDirectory.FullName, "Main.xml");
+            if (!File.Exists(rResourceFile))
+                return;
 
-        public void Load()
+            var rRoot = XDocument.Load(rResourceFile).Root;
+            var rCultureName = rRoot.Attribute("CultureName").Value;
+            var rDisplayName = rRoot.Attribute("Name").Value;
+
+            r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rpDirectory.Name, rCultureName, rDisplayName));
+        }
+
+        public void LoadMainResource()
         {
             if (!InstalledLanguages.Any(r => r.Directory == Preference.Current.Language))
                 Preference.Current.Language = GetDefaultLanguage().Directory;
 
-            Load(Preference.Current.Language);
+            LoadMainResource(Preference.Current.Language);
         }
-        public static LanguageInfo GetDefaultLanguage()
+        public LanguageInfo GetDefaultLanguage()
         {
             var rNames = GetAncestorsAndSelfCultureNames(CultureInfo.CurrentCulture).ToList();
 
@@ -82,14 +89,90 @@ namespace Sakuno.KanColle.Amatsukaze
             } while (rpCultureInfo != CultureInfo.InvariantCulture);
         }
 
-        void Load(string rpLanguageName)
+        void LoadMainResource(string rpLanguageName)
         {
-            var rMainResourceFile = Path.Combine(StringResourceDirectory.FullName, rpLanguageName, "Main.xml");
+            var rMainResourceFile = Path.Combine(r_StringResourceDirectory.FullName, rpLanguageName, "Main.xml");
             if (!File.Exists(rMainResourceFile))
                 throw new Exception();
 
             Main = new StringResourcesItems(XDocument.Load(rMainResourceFile).Root.Descendants("String").ToDictionary(r => r.Attribute("Key").Value, r => r.Value));
             IsLoaded = true;
+        }
+
+        public void LoadExtraResource(string rpLanguageName)
+        {
+            var rInfo = LoadExtraResourceInfo(rpLanguageName) ?? LoadExtraResourceInfo(GetDefaultLanguage().DisplayName);
+            if (rInfo == null)
+                return;
+
+            Extra = new ExtraStringResources();
+
+            foreach (var rContent in rInfo.Contents)
+            {
+                if (!rContent.File.Exists)
+                    continue;
+
+                using (var rReader = new JsonTextReader(rContent.File.OpenText()))
+                {
+                    var rTranslations = JArray.Load(rReader);
+                    var rNames = rTranslations.ToDictionary(r => (int)r["id"], r => (string)r["name"]);
+
+                    switch (rContent.Type)
+                    {
+                        case ExtraStringResourceType.Ship:
+                            Extra.Ships = rNames;
+                            break;
+
+                        case ExtraStringResourceType.ShipType:
+                            Extra.ShipTypes = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Equipment:
+                            Extra.Equipment = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Item:
+                            Extra.Items = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Expedition:
+                            Extra.Expeditions = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Quest:
+                            Extra.Quests = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Area:
+                            Extra.Areas = rNames;
+                            break;
+
+                        case ExtraStringResourceType.Map:
+                            Extra.Maps = rNames;
+                            break;
+                    }
+                }
+            }
+        }
+        ExtraStringResourceInfo LoadExtraResourceInfo(string rpLanguageName)
+        {
+            if (rpLanguageName.IsNullOrEmpty())
+                return null;
+
+            var rFile = new FileInfo(Path.Combine(r_StringResourceDirectory.FullName, rpLanguageName, "Extra.json"));
+            if (!rFile.Exists)
+                return null;
+
+            using (var rReader = new JsonTextReader(rFile.OpenText()))
+            {
+                var rInfo = JObject.Load(rReader).ToObject<ExtraStringResourceInfo>();
+                rInfo.Directory = rpLanguageName;
+
+                foreach (var rContent in rInfo.Contents)
+                    rContent.File = new FileInfo(Path.Combine(rFile.Directory.FullName, rContent.Type + ".json"));
+
+                return rInfo;
+            }
         }
     }
 

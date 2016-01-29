@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public class MapMasterInfo : RawDataWrapper<RawMapMasterInfo>, IID
+    public class MapMasterInfo : RawDataWrapper<RawMapMasterInfo>, IID, IMapMasterInfo
     {
         public int ID => RawData.ID;
 
@@ -13,7 +13,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public int? RequiredDefeatCount => RawData.RequiredDefeatCount;
 
-        internal MapMasterInfo(RawMapMasterInfo rpRawData) : base(rpRawData) { }
+        internal MapMasterInfo(RawMapMasterInfo rpRawData) : base(rpRawData)
+        {
+            OnRawDataUpdated();
+        }
+
+        protected override void OnRawDataUpdated()
+        {
+            var rTranslatedName = StringResources.Instance.Extra?.GetMapName(ID);
+            if (rTranslatedName != null)
+                RawData.Name = rTranslatedName;
+        }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Name}\"";
     }

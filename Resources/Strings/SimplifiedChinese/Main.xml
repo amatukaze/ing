@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.4">
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.5">
 
   <String Key="Feature_UnderConstruction">未实现</String>
+  <String Key="Feature_Disabled">禁用</String>
   <String Key="Feature_Filter">过滤器</String>
   <String Key="Feature_Filter_All">全部</String>
 
@@ -18,6 +19,17 @@
   <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3} {4})」出击</String>
   <String Key="Log_ShipOrItem_Dropped">获得「{0}」</String>
   <String Key="Log_ShipAndItem_Dropped">获得「{0}」和「{1}」</String>
+
+  <String Key="Notification_Expedition">远征结束</String>
+  <String Key="Notification_Expedition_Content">「{0}」从远征「{1}」归来。</String>
+  <String Key="Notification_Repair">入渠结束</String>
+  <String Key="Notification_Repair_Content">「{0}」修理完毕。</String>
+  <String Key="Notification_Construction">建造完成</String>
+  <String Key="Notification_Construction_Content">已完成「{0}」的建造。</String>
+  <String Key="Notification_HeavilyDamagedWarning">大破警告</String>
+  <String Key="Notification_HeavilyDamagedWarning_Content">有舰娘处于大破状态。</String>
+  <String Key="Notification_AdvanceWarning">大破进击</String>
+  <String Key="Notification_AdvanceWarning_Content">有舰娘处于大破状态，继续进击有被击沉的风险。</String>
 
   <String Key="Result_Failure">失败</String>
   <String Key="Result_Success">成功</String>
@@ -36,7 +48,7 @@
 
   <String Key="Overview_Headquarter">司令部</String>
   <String Key="Overview_Headquarter_Ships">舰娘</String>
-  <String Key="Overview_Headquarter_Equipments">装备</String>
+  <String Key="Overview_Headquarter_Equipment">装备</String>
   <String Key="Overview_Admiral_Rank_MarshalAdmiral">元帅</String>
   <String Key="Overview_Admiral_Rank_Admiral">大将</String>
   <String Key="Overview_Admiral_Rank_ViceAdmiral">中将</String>
@@ -68,6 +80,8 @@
   <String Key="Fleet_LoS">索敌</String>
   <String Key="Fleet_AA">对空</String>
 
+  <String Key="Ship_Repairing">修理中</String>
+
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弹药</String>
   <String Key="Material_Steel">钢材</String>
@@ -94,6 +108,8 @@
   <String Key="Map_Difficulty_Easy">丙</String>
   <String Key="Map_Difficulty_Normal">乙</String>
   <String Key="Map_Difficulty_Hard">甲</String>
+
+  <String Key="Practice_Opponent_Experience">演习经验值</String>
 
   <String Key="Battle_State_Healthy" />
   <String Key="Battle_State_LightlyDamaged">小破</String>
@@ -148,6 +164,8 @@
   <String Key="Window_ShipOverview">舰娘一览</String>
   <String Key="Window_ConstructionHistory">建造历史</String>
   <String Key="Window_DevelopmentHistory">开发历史</String>
+  <String Key="Window_SortieHistory">出击历史</String>
+  <String Key="Window_ExpeditionHistory">远征历史</String>
   <String Key="Window_ClosingConfirmation">要关闭 KanColle Inspector 吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
@@ -162,6 +180,7 @@
   <String Key="PreferenceWindow_Cache_Path">路径</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Language">语言</String>
+  <String Key="PreferenceWindow_Language_NameTranslation">名字翻译</String>
   <String Key="PreferenceWindow_Browser">浏览器</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">排版引擎</String>
   <String Key="PreferenceWindow_Browser_Homepage">首页</String>
@@ -209,5 +228,15 @@
   <String Key="ConstructionHistory_Ship">舰娘</String>
 
   <String Key="DevelopmentHistory_Equipment">装备</String>
+
+  <String Key="SortieHistory_Area">海域</String>
+  <String Key="SortieHistory_Node">场所</String>
+  <String Key="SortieHistory_Type">类型</String>
+  <String Key="SortieHistory_BattleRank">战斗评价</String>
+  <String Key="SortieHistory_DroppedShip">船掉落</String>
+
+  <String Key="ExpeditionHistory_Name">远征名</String>
+  <String Key="ExpeditionHistory_Result">结果</String>
+  <String Key="ExpeditionHistory_Reward">奖励</String>
 
 </Strings>

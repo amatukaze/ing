@@ -17,6 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         }
 
         public ClampedValue Update(int rpCurrent) => new ClampedValue(Maximum, rpCurrent);
+        public ClampedValue Decrease(int rpValue) => new ClampedValue(Maximum, Current - rpValue);
 
         public bool Equals(ClampedValue rpOther) => Current == rpOther.Current && Before == rpOther.Before && Maximum == rpOther.Maximum;
         public override bool Equals(object rpObject) => rpObject != null ? Equals((ClampedValue)rpObject) : false;

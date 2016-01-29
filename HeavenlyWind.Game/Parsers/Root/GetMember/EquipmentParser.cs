@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.GetMember
     {
         public override void Process(RawEquipment[] rpData)
         {
-            Game.Port.UpdateEquipments(rpData);
+            Game.Port.UpdateEquipment(rpData);
         }
     }
 }

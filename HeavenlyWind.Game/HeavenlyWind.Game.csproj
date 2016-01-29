@@ -63,6 +63,7 @@
       <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClampedValue.cs" />
@@ -138,12 +139,14 @@
     <Compile Include="Models\FleetState.cs" />
     <Compile Include="Models\FleetStatus.cs" />
     <Compile Include="Models\IID.cs" />
+    <Compile Include="Models\IMapMasterInfo.cs" />
     <Compile Include="Models\ItemInfo.cs" />
     <Compile Include="Models\MapAreaInfo.cs" />
     <Compile Include="Models\MapInfo.cs" />
     <Compile Include="Models\MapMasterInfo.cs" />
     <Compile Include="Models\Materials.cs" />
     <Compile Include="Models\MaterialType.cs" />
+    <Compile Include="Models\PastEventMapInfo.cs" />
     <Compile Include="Models\PracticeInfo.cs" />
     <Compile Include="Models\PracticeOpponentInfo.cs" />
     <Compile Include="Models\Quest.cs" />
@@ -165,6 +168,7 @@
     <Compile Include="Models\Raw\RawBasic.cs" />
     <Compile Include="Models\Raw\RawBattleResult.cs" />
     <Compile Include="Models\Raw\RawConstructionDock.cs" />
+    <Compile Include="Models\Raw\RawConstructionResult.cs" />
     <Compile Include="Models\Raw\RawEquipmentDevelopment.cs" />
     <Compile Include="Models\Raw\RawEquipmentIDs.cs" />
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
@@ -213,6 +217,7 @@
     <Compile Include="Parsers\ApiParserManager.cs" />
     <Compile Include="Parsers\DefaultApiParser.cs" />
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
+    <Compile Include="Parsers\Root\Arsenal\ConstructionResultParser.cs" />
     <Compile Include="Parsers\Root\Arsenal\DevelopmentParser.cs" />
     <Compile Include="Parsers\Root\Battle\AerialCombatParser.cs" />
     <Compile Include="Parsers\Root\Battle\BattleResultParser.cs" />
@@ -247,6 +252,7 @@
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\MapService.cs" />
     <Compile Include="Services\Quest\Functions\ConstantFunction.cs" />
     <Compile Include="Services\Quest\Functions\Function.cs" />
     <Compile Include="Services\Quest\Parsers\ApiTriggerParserBuilder.cs" />

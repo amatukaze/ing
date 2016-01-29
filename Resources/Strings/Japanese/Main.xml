@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.4">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.5">
 
   <String Key="Feature_UnderConstruction">未実装</String>
+  <String Key="Feature_Disabled">無効化</String>
   <String Key="Feature_Filter">フィルター</String>
   <String Key="Feature_Filter_All">すべて</String>
 
@@ -18,6 +19,17 @@
   <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
   <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
   <String Key="Log_ShipAndItem_Dropped">「{0}」や「{1}」がドロップしました</String>
+
+  <String Key="Notification_Expedition">遠征完了</String>
+  <String Key="Notification_Expedition_Content">「{0}」が遠征「{1}」から帰投しました。</String>
+  <String Key="Notification_Repair">入渠完了</String>
+  <String Key="Notification_Repair_Content">「{0}」の修理が完了しました。</String>
+  <String Key="Notification_Construction">建造完了</String>
+  <String Key="Notification_Construction_Content">「{0}」の建造が完了しました。</String>
+  <String Key="Notification_HeavilyDamagedWarning">大破警告</String>
+  <String Key="Notification_HeavilyDamagedWarning_Content">大破した艦娘がいます。</String>
+  <String Key="Notification_AdvanceWarning">進撃警告</String>
+  <String Key="Notification_AdvanceWarning_Content">大破状態で進撃し、轟沈の恐れがあります。</String>
 
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
@@ -36,7 +48,7 @@
 
   <String Key="Overview_Headquarter">司令部</String>
   <String Key="Overview_Headquarter_Ships">艦娘</String>
-  <String Key="Overview_Headquarter_Equipments">装備</String>
+  <String Key="Overview_Headquarter_Equipment">装備</String>
   <String Key="Overview_Admiral_Rank_MarshalAdmiral">元帥</String>
   <String Key="Overview_Admiral_Rank_Admiral">大将</String>
   <String Key="Overview_Admiral_Rank_ViceAdmiral">中将</String>
@@ -68,6 +80,8 @@
   <String Key="Fleet_LoS">索敵</String>
   <String Key="Fleet_AA">対空</String>
 
+  <String Key="Ship_Repairing">入渠中</String>
+
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弾薬</String>
   <String Key="Material_Steel">鋼材</String>
@@ -94,6 +108,8 @@
   <String Key="Map_Difficulty_Easy">丙</String>
   <String Key="Map_Difficulty_Normal">乙</String>
   <String Key="Map_Difficulty_Hard">甲</String>
+
+  <String Key="Practice_Opponent_Experience">演習経験値</String>
 
   <String Key="Battle_State_Healthy" />
   <String Key="Battle_State_LightlyDamaged">小破</String>
@@ -148,6 +164,8 @@
   <String Key="Window_ShipOverview">艦娘一覧</String>
   <String Key="Window_ConstructionHistory">建造歴史</String>
   <String Key="Window_DevelopmentHistory">開発歴史</String>
+  <String Key="Window_SortieHistory">出撃歴史</String>
+  <String Key="Window_ExpeditionHistory">遠征歴史</String>
   <String Key="Window_ClosingConfirmation">KanColle Inspector を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
@@ -162,6 +180,7 @@
   <String Key="PreferenceWindow_Cache_Path">パス</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Language">言語</String>
+  <String Key="PreferenceWindow_Language_NameTranslation">名前の翻訳</String>
   <String Key="PreferenceWindow_Browser">ブラウザ</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">レイアウトエンジン</String>
   <String Key="PreferenceWindow_Browser_Homepage">ホームページ</String>
@@ -209,5 +228,15 @@
   <String Key="ConstructionHistory_Ship">艦娘</String>
 
   <String Key="DevelopmentHistory_Equipment">装備</String>
+
+  <String Key="SortieHistory_Area">海域</String>
+  <String Key="SortieHistory_Node">セル</String>
+  <String Key="SortieHistory_Type">タイプ</String>
+  <String Key="SortieHistory_BattleRank">ランキング</String>
+  <String Key="SortieHistory_DroppedShip">ドロップ</String>
+
+  <String Key="ExpeditionHistory_Name">遠征名</String>
+  <String Key="ExpeditionHistory_Result">結果</String>
+  <String Key="ExpeditionHistory_Reward">アイテム</String>
 
 </Strings>

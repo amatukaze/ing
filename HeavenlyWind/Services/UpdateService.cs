@@ -19,7 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         string[] r_FilesToBeChecked = new[]
         {
-            @"Data\Quests.json",
+            @"Data\node_position.json",
+            @"Data\quests.json",
         };
 
         public CheckForUpdateResult.UpdateInfo Info { get; private set; }
@@ -29,6 +30,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         UpdateService()
         {
             DownloadCommand = new DelegatedCommand(() => Process.Start(Info?.Link));
+
+            var rRootPath = Path.GetDirectoryName(GetType().Assembly.Location);
+            var rRootPathLength = rRootPath.Length + 1;
+            var rSRFiles = Directory.EnumerateFiles(Path.Combine(rRootPath, "Resources", "Strings"), "*", SearchOption.AllDirectories).Select(r => r.Substring(rRootPathLength));
+            r_FilesToBeChecked = r_FilesToBeChecked.Concat(rSRFiles).ToArray();
         }
 
         internal async void CheckForUpdate()

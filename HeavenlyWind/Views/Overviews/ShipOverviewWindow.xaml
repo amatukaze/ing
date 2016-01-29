@@ -5,7 +5,7 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
-                  xmlns:rvmos="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Overviews.Ships"
+                  xmlns:rvmo="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Overviews"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   mc:Ignorable="d"
                   Title="{Binding Title}"
@@ -97,10 +97,10 @@
             </Border>
 
             <Border>
-                <ListView ItemsSource="{Binding Ships}">
+                <ListView Name="r_ListView" ItemsSource="{Binding Ships}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Width="55">
+                            <GridViewColumn Width="55" rc:Data.Content="ID">
                                 <TextBlock Text="ID" />
 
                                 <GridViewColumn.CellTemplate>
@@ -130,7 +130,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="130">
+                            <GridViewColumn Width="130" rc:Data.Content="Level">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_Level}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -144,7 +144,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="50">
+                            <GridViewColumn Width="50" rc:Data.Content="Condition">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_Condition}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -163,7 +163,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="65">
+                            <GridViewColumn Width="65" rc:Data.Content="Firepower">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_Firepower}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -172,7 +172,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="65">
+                            <GridViewColumn Width="65" rc:Data.Content="Torpedo">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_Torpedo}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -181,7 +181,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="65">
+                            <GridViewColumn Width="65" rc:Data.Content="AA">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_AA}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -190,7 +190,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="65">
+                            <GridViewColumn Width="65" rc:Data.Content="Armor">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_Armor}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -199,7 +199,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="65">
+                            <GridViewColumn Width="65" rc:Data.Content="Luck">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_Luck}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -209,7 +209,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="50">
+                            <GridViewColumn Width="50" rc:Data.Content="Evasion">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_Evasion}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -218,7 +218,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="50">
+                            <GridViewColumn Width="50" rc:Data.Content="ASW">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_ASW}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -227,7 +227,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Width="50">
+                            <GridViewColumn Width="50" rc:Data.Content="LoS">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_LoS}" />
 
                                 <GridViewColumn.CellTemplate>

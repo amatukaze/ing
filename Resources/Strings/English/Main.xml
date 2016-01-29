@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.4">
+<Strings CultureName="en" Name="English" Version="0.1.5">
 
   <String Key="Feature_UnderConstruction">Under construction</String>
+  <String Key="Feature_Disabled">Disabled</String>
   <String Key="Feature_Filter">Filter</String>
   <String Key="Feature_Filter_All">All</String>
 
@@ -18,6 +19,17 @@
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
   <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
   <String Key="Log_ShipAndItem_Dropped">{0} and {1} dropped</String>
+
+  <String Key="Notification_Expedition">Expedition Completed</String>
+  <String Key="Notification_Expedition_Content">"{0}" has returned from expedition {1}.</String>
+  <String Key="Notification_Repair">Repairs Completed</String>
+  <String Key="Notification_Repair_Content">Repairs on {0} have been completed.</String>
+  <String Key="Notification_Construction">Construction Completed</String>
+  <String Key="Notification_Construction_Content">Construction of {0} has been completed.</String>
+  <String Key="Notification_HeavilyDamagedWarning">Warning</String>
+  <String Key="Notification_HeavilyDamagedWarning_Content">You have heavily damaged ship(s).</String>
+  <String Key="Notification_AdvanceWarning">Warning</String>
+  <String Key="Notification_AdvanceWarning_Content">Advancing with your ship heavily damaged may result in being sunk.</String>
 
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>
@@ -36,7 +48,7 @@
 
   <String Key="Overview_Headquarter">Headquarter</String>
   <String Key="Overview_Headquarter_Ships">Ships</String>
-  <String Key="Overview_Headquarter_Equipments">Equipment</String>
+  <String Key="Overview_Headquarter_Equipment">Equipment</String>
   <String Key="Overview_Admiral_Rank_MarshalAdmiral">Marshal Admiral</String>
   <String Key="Overview_Admiral_Rank_Admiral">Admiral</String>
   <String Key="Overview_Admiral_Rank_ViceAdmiral">Vice Admiral</String>
@@ -68,14 +80,16 @@
   <String Key="Fleet_LoS">LoS</String>
   <String Key="Fleet_AA">AA</String>
 
+  <String Key="Ship_Repairing">Repairing</String>
+
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>
   <String Key="Material_Steel">Steel</String>
   <String Key="Material_Bauxite">Bauxite</String>
-  <String Key="Material_InstantConstruction">InstantConstruction</String>
+  <String Key="Material_InstantConstruction">Instant Construction</String>
   <String Key="Material_Bucket">Bucket</String>
-  <String Key="Material_DevelopmentMaterial">DevelopmentMaterial</String>
-  <String Key="Material_ImprovementMaterial">ImprovementMaterial</String>
+  <String Key="Material_DevelopmentMaterial">Development Material</String>
+  <String Key="Material_ImprovementMaterial">Improvement Material</String>
 
   <String Key="Sortie_Cell">Node</String>
   <String Key="Sortie_Event_Unknown">Unknown</String>
@@ -94,6 +108,8 @@
   <String Key="Map_Difficulty_Easy">Easy</String>
   <String Key="Map_Difficulty_Normal">Medium</String>
   <String Key="Map_Difficulty_Hard">Hard</String>
+
+  <String Key="Practice_Opponent_Experience">PvP XP</String>
 
   <String Key="Battle_State_Healthy" />
   <String Key="Battle_State_LightlyDamaged">LGT</String>
@@ -146,8 +162,10 @@
   <String Key="Window_Preferences">Setting</String>
   <String Key="Window_EquipmentOverview">Equipment Overview</String>
   <String Key="Window_ShipOverview">Ship Overview</String>
-  <String Key="Window_ConstructionHistory">Construction history</String>
-  <String Key="Window_DevelopmentHistory">Development history</String>
+  <String Key="Window_ConstructionHistory">Construction History</String>
+  <String Key="Window_DevelopmentHistory">Development History</String>
+  <String Key="Window_SortieHistory">Sortie History</String>
+  <String Key="Window_ExpeditionHistory">Expedition History</String>
   <String Key="Window_ClosingConfirmation">Are you sure to close KanColle Inspector?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
@@ -162,6 +180,7 @@
   <String Key="PreferenceWindow_Cache_Path">Path</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Language">Language</String>
+  <String Key="PreferenceWindow_Language_NameTranslation">Name translation</String>
   <String Key="PreferenceWindow_Browser">Browser</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">Layout Engine</String>
   <String Key="PreferenceWindow_Browser_Homepage">Homepage</String>
@@ -209,5 +228,15 @@
   <String Key="ConstructionHistory_Ship">Ship</String>
 
   <String Key="DevelopmentHistory_Equipment">Equipment</String>
+
+  <String Key="SortieHistory_Area">Area</String>
+  <String Key="SortieHistory_Node">Node</String>
+  <String Key="SortieHistory_Type">Type</String>
+  <String Key="SortieHistory_BattleRank">Battle Rank</String>
+  <String Key="SortieHistory_DroppedShip">Dropped Ship</String>
+
+  <String Key="ExpeditionHistory_Name">Expedition</String>
+  <String Key="ExpeditionHistory_Result">Result</String>
+  <String Key="ExpeditionHistory_Reward">Reward</String>
 
 </Strings>

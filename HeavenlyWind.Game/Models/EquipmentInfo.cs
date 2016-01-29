@@ -61,7 +61,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         #endregion;
 
-        internal EquipmentInfo(RawEquipmentInfo rpRawData) : base(rpRawData) { }
+        internal EquipmentInfo(RawEquipmentInfo rpRawData) : base(rpRawData)
+        {
+            OnRawDataUpdated();
+        }
+
+        protected override void OnRawDataUpdated()
+        {
+            var rTranslatedName = StringResources.Instance.Extra?.GetEquipmentName(ID);
+            if (rTranslatedName != null)
+                RawData.Name = rTranslatedName;
+        }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Name}\", Type = [{Type}, {Icon}]";
     }

@@ -12,7 +12,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public string Name => RawData.Name;
 
-        internal ShipType(RawShipType rpRawData) : base(rpRawData) { }
+        internal ShipType(RawShipType rpRawData) : base(rpRawData)
+        {
+            OnRawDataUpdated();
+        }
+
+        protected override void OnRawDataUpdated()
+        {
+            var rTranslatedName = StringResources.Instance.Extra?.GetShipTypeName(ID);
+            if (rTranslatedName != null)
+                RawData.Name = rTranslatedName;
+        }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Name}\"";
     }

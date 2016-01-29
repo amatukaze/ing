@@ -20,6 +20,8 @@
         DepthCharge,
         ExtraArmor,
         //
+        DamageControl = 23,
+        //
         Searchlight = 29,
         //
     }

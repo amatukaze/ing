@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 
@@ -56,6 +57,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Requests["api_rank"]);
             });
 
+            SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, _ =>
+            {
+                var rSortieMap = Sortie.Map;
+                if (rSortieMap.IsCleared || rSortieMap.IsEventMap || Sortie.Cell.EventType != SortieEventType.BossBattle)
+                    return;
+
+                var rBattle = BattleInfo.Current;
+                if (rBattle.CurrentStage.Enemy[0].State == BattleParticipantState.Sunk)
+                    rSortieMap.HP = rSortieMap.HP.Decrease(1);
+            });
+            SessionService.Instance.Subscribe("api_req_map/next", r =>
+            {
+                var rSortieMap = Sortie.Map;
+                if (rSortieMap.IsCleared || ((RawMapExploration)r.Data).CellEventType != SortieEventType.EscortSuccess)
+                    return;
+
+                rSortieMap.HP = rSortieMap.HP.Decrease(1);
+            });
         }
     }
 }

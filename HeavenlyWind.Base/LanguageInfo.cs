@@ -7,7 +7,7 @@
         public string CultureName { get; }
         public string DisplayName { get; }
 
-        public LanguageInfo(string rpDirectory, string rpCultureName, string rpDisplayName)
+        internal LanguageInfo(string rpDirectory, string rpCultureName, string rpDisplayName)
         {
             Directory = rpDirectory;
 

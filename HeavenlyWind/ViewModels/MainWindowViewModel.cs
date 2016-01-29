@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using System;
 using System.ComponentModel;
@@ -24,9 +25,44 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             }
         }
 
+        bool r_IsGameStarted;
+        public bool IsGameStarted
+        {
+            get { return r_IsGameStarted; }
+            private set
+            {
+                if (r_IsGameStarted != value)
+                {
+                    r_IsGameStarted = value;
+                    OnPropertyChanged(nameof(IsGameStarted));
+                }
+            }
+        }
+
         public UpdateService UpdateService => UpdateService.Instance;
 
+        bool r_IsMenuExpanded;
+        public bool IsMenuExpanded
+        {
+            get { return r_IsMenuExpanded; }
+            private set
+            {
+                if (r_IsMenuExpanded != value)
+                {
+                    r_IsMenuExpanded = value;
+                    OnPropertyChanged(nameof(IsMenuExpanded));
+                }
+            }
+        }
+
         public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => new PreferencesWindow().ShowDialog());
+
+        public ICommand ExpandMenuCommand { get; }
+
+        public ICommand ShowConstructionHistoryCommand { get; }
+        public ICommand ShowDevelopmentHistoryCommand { get; }
+        public ICommand ShowSortieHistoryCommand { get; }
+        public ICommand ShowExpeditionHistoryCommand { get; }
 
         internal MainWindowViewModel()
         {
@@ -34,7 +70,34 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
             var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(KanColleGame.Current, nameof(KanColleGame.Current.PropertyChanged))
                 .Select(r => r.EventArgs.PropertyName);
-            rPropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.IsStarted)).Subscribe(_ => Content = new GameInformationViewModel());
+            rPropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.IsStarted)).Subscribe(delegate
+            {
+                Content = new GameInformationViewModel();
+                IsGameStarted = true;
+            });
+
+            ExpandMenuCommand = new DelegatedCommand(() => IsMenuExpanded = true);
+
+            ShowConstructionHistoryCommand = new DelegatedCommand(delegate
+            {
+                IsMenuExpanded = false;
+                new ConstructionHistoryWindow().Show();
+            });
+            ShowDevelopmentHistoryCommand = new DelegatedCommand(delegate
+            {
+                IsMenuExpanded = false;
+                new DevelopmentHistoryWindow().Show();
+            });
+            ShowSortieHistoryCommand = new DelegatedCommand(delegate
+            {
+                IsMenuExpanded = false;
+                new SortieHistoryWindow().Show();
+            });
+            ShowExpeditionHistoryCommand = new DelegatedCommand(delegate
+            {
+                IsMenuExpanded = false;
+                new ExpeditionHistoryWindow().Show();
+            });
         }
     }
 }

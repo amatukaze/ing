@@ -6,6 +6,7 @@ using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.KanColle.Amatsukaze.Views;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -20,6 +21,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            Environment.CurrentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             base.OnStartup(e);
@@ -40,12 +43,15 @@ namespace Sakuno.KanColle.Amatsukaze
                 return;
             }
 
+            StringResources.Instance.Initialize();
             StatusBarService.Instance.Initialize();
             RecordService.Instance.Initialize();
             QuestProgressService.Instance.Initialize();
+            MapService.Instance.Initialize();
+            NotificationService.Instance.Initialize();
 
             Preference.Load();
-            StringResources.Instance.Load();
+            StringResources.Instance.LoadMainResource();
 
             KanColleProxy.Start();
 

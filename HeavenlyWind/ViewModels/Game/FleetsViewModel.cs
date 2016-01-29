@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             r_Parent = rpParent;
 
             KanColleGame.Current.Port.Fleets.FleetsUpdated += UpdateFleets;
+
+            SessionService.Instance.Subscribe("api_req_hensei/change", r => SelectedFleet = Fleets[int.Parse(r.Requests["api_id"]) - 1]);
+            SessionService.Instance.Subscribe("api_req_hensei/preset_select", r => SelectedFleet = Fleets[int.Parse(r.Requests["api_deck_id"]) - 1]);
         }
 
         void UpdateFleets(IEnumerable<Fleet> rpFleets)

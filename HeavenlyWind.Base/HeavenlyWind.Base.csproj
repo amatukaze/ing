@@ -65,8 +65,12 @@
     <Compile Include="Browser\IBrowser.cs" />
     <Compile Include="Browser\IBrowserProvider.cs" />
     <Compile Include="Browser\ScreenshotData.cs" />
+    <Compile Include="CollapsedIfNullExtension.cs" />
     <Compile Include="EnumerationExtension.cs" />
     <Compile Include="EnumToStringResourceExtension.cs" />
+    <Compile Include="ExtraStringResources.cs" />
+    <Compile Include="ExtraStringResourceInfo.cs" />
+    <Compile Include="ExtraStringResourceType.cs" />
     <Compile Include="GameConstants.cs" />
     <Compile Include="HasFlagExtension.cs" />
     <Compile Include="IntegerRangeValidationRule.cs" />

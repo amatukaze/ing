@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
 using System.IO;
+using System.Threading;
 using System.Text.RegularExpressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
@@ -17,6 +18,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public string CacheDirectory = Preference.Current.Cache.Path;
 
+        static object r_ThreadSyncObject = new object();
+
         CacheService() { }
 
         internal void ProcessRequest(ResourceSession rpResourceSession, Session rpSession)
@@ -25,7 +28,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return;
 
             string rFilename;
-            var rNoVerification = CheckFileinCache(rpSession, out rFilename);
+            var rNoVerification = CheckFileInCache(rpSession, out rFilename);
 
             rpResourceSession.CacheFilename = rFilename;
 
@@ -33,14 +36,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return;
 
             if (rNoVerification.Value)
+            {
+                rpSession.utilCreateResponseAndBypassServer();
                 LoadFile(rFilename, rpResourceSession, rpSession);
+            }
             else
             {
                 rpSession.oRequest["If-Modified-Since"] = File.GetLastWriteTime(rFilename).ToString("R");
                 rpSession.bBufferResponse = true;
             }
         }
-        bool? CheckFileinCache(Session rpSession, out string ropFilename)
+        bool? CheckFileInCache(Session rpSession, out string ropFilename)
         {
             ropFilename = null;
 
@@ -76,9 +82,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         void LoadFile(string rpFilename, ResourceSession rpResourceSession, Session rpSession)
         {
-            if (!rpSession.bBufferResponse)
-                rpSession.utilCreateResponseAndBypassServer();
-
             rpSession.ResponseBody = File.ReadAllBytes(rpFilename);
             rpSession.oResponse["Server"] = "Apache";
             rpSession.oResponse["Connection"] = "close";
@@ -102,23 +105,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         internal void ProcessOnCompletion(ResourceSession rpResourceSession, Session rpSession)
         {
-            if (rpSession.responseCode != 200 || rpResourceSession.CacheFilename == null)
+            if (rpSession.responseCode != 200 || rpResourceSession.State == NetworkSessionState.LoadedFromCache || rpResourceSession.CacheFilename == null)
                 return;
 
             try
             {
-                var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
-                if (!Directory.Exists(rDirectoryName))
-                    Directory.CreateDirectory(rDirectoryName);
+                lock (r_ThreadSyncObject)
+                {
+                    var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
+                    if (!Directory.Exists(rDirectoryName))
+                        Directory.CreateDirectory(rDirectoryName);
 
-                var rFile = new FileInfo(rpResourceSession.CacheFilename);
-                if (rFile.Exists)
-                    rFile.Delete();
+                    var rFile = new FileInfo(rpResourceSession.CacheFilename);
+                    if (rFile.Exists)
+                        rFile.Delete();
 
-                rpSession.SaveResponseBody(rFile.FullName);
-                rFile.LastWriteTime = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
+                    rpSession.SaveResponseBody(rFile.FullName);
+                    rFile.LastWriteTime = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
 
-                rpResourceSession.State = NetworkSessionState.Cached;
+                    rpResourceSession.State = NetworkSessionState.Cached;
+                }
             }
             catch (Exception e)
             {

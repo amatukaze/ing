@@ -56,6 +56,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             foreach (var rPhase in Phases)
                 rPhase.Process();
 
+            ProcessMVP();
+        }
+        internal void ProcessMVP()
+        {
+            foreach (var rSnapshot in FriendMain)
+                ((FriendShip)rSnapshot.Participant).IsMVP = false;
+            if (FriendEscort != null)
+                foreach (var rSnapshot in FriendEscort)
+                    ((FriendShip)rSnapshot.Participant).IsMVP = false;
+
             var rMaxDamage = FriendMain.Max(r => r.DamageGivenToOpponent);
             ((FriendShip)FriendMain.First(r => r.DamageGivenToOpponent == rMaxDamage).Participant).IsMVP = true;
 

@@ -116,7 +116,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public ShipStatus Status { get; }
 
-        #region Equipments
+        #region Equipment
 
         int[] r_EquipmentIDs;
         ReadOnlyCollection<ShipSlot> r_Slots;
@@ -147,16 +147,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        ReadOnlyCollection<Equipment> r_Equipments;
-        public ReadOnlyCollection<Equipment> Equipments
+        ReadOnlyCollection<Equipment> r_EquipedEquipment;
+        public ReadOnlyCollection<Equipment> EquipedEquipment
         {
-            get { return r_Equipments; }
+            get { return r_EquipedEquipment; }
             private set
             {
-                if (r_Equipments != value)
+                if (r_EquipedEquipment != value)
                 {
-                    r_Equipments = value;
-                    OnPropertyChanged(nameof(Equipments));
+                    r_EquipedEquipment = value;
+                    OnPropertyChanged(nameof(EquipedEquipment));
                 }
             }
         }
@@ -186,10 +186,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Condition = RawData.Condition;
 
+            if (KanColleGame.Current.Port.RepairDocks.Values.Any(r => r.Ship == this))
+                State |= ShipState.Repairing;
+            else
+                State &= ~ShipState.Repairing;
+
             if (RawData.ModernizedStatus?.Length >= 5)
                 Status.Update(Info, RawData);
 
-            if (RawData.Equipments != null)
+            if (RawData.Equipment != null)
                 UpdateSlots();
 
             OnPropertyChanged(nameof(Level));
@@ -200,18 +205,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             var rUpdateList = false;
 
-            if (r_EquipmentIDs == null || !r_EquipmentIDs.SequenceEqual(RawData.Equipments))
+            if (r_EquipmentIDs == null || !r_EquipmentIDs.SequenceEqual(RawData.Equipment))
             {
-                r_EquipmentIDs = RawData.Equipments;
-                Slots = RawData.Equipments.Take(RawData.EquipmentCount)
+                r_EquipmentIDs = RawData.Equipment;
+                Slots = RawData.Equipment.Take(RawData.EquipmentCount)
                     .Zip(RawData.PlaneCountInSlot.Zip(Info.PlaneCountInSlot, (rpCount, rpMaxCount) => new { Count = rpCount, MaxCount = rpMaxCount }),
                         (rpID, rpPlane) =>
                         {
                             Equipment rEquipment;
                             if (rpID == -1)
                                 rEquipment = Equipment.Dummy;
-                            else if (!KanColleGame.Current.Port.Equipments.TryGetValue(rpID, out rEquipment))
-                                KanColleGame.Current.Port.Equipments.Add(rEquipment = new Equipment(new RawEquipment() { ID = rpID, EquipmentID = -1 }));
+                            else if (!KanColleGame.Current.Port.Equipment.TryGetValue(rpID, out rEquipment))
+                                KanColleGame.Current.Port.Equipment.Add(rEquipment = new Equipment(new RawEquipment() { ID = rpID, EquipmentID = -1 }));
 
                             return new ShipSlot(rEquipment, rpPlane.MaxCount, rpPlane.Count);
                         }).ToArray().AsReadOnly();
@@ -224,7 +229,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (RawData.ExtraEquipment != 0 && r_ExtraEquipmentID != RawData.ExtraEquipment)
             {
                 r_ExtraEquipmentID = RawData.ExtraEquipment;
-                ExtraSlot = new ShipSlot(r_ExtraEquipmentID != -1 ? KanColleGame.Current.Port.Equipments[RawData.ExtraEquipment] : Equipment.Dummy, 0, 0);
+                ExtraSlot = new ShipSlot(r_ExtraEquipmentID != -1 ? KanColleGame.Current.Port.Equipment[RawData.ExtraEquipment] : Models.Equipment.Dummy, 0, 0);
 
                 rUpdateList = true;
             }
@@ -235,7 +240,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (ExtraSlot != null && ExtraSlot.HasEquipment)
                     rList = rList.Concat(new[] { ExtraSlot.Equipment });
 
-                Equipments = rList.ToArray().AsReadOnly();
+                EquipedEquipment = rList.ToArray().AsReadOnly();
                 rUpdateList = false;
             }
         }
@@ -255,7 +260,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal void UpdateEquipmentIDs(int[] rpEquipmentIDs)
         {
-            RawData.Equipments = rpEquipmentIDs;
+            RawData.Equipment = rpEquipmentIDs;
             UpdateSlots();
         }
 
