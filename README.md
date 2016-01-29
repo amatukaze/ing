@@ -3,11 +3,16 @@
 艦これ補助ツール
 
 ### Updated
+**0.1.5 (Traum)**
+ * Show sortie direction directly
+ * Support translated name
+ * History windows
+ * Toast notification (Need Windows 8 or later)
+
 **0.1.4.1 (Pipiro)**
  * Fix execution order
 
 **0.1.4 (Pipiro)**
-
  * Realtime quest progress _(Not fully completed)_
  * Map gauges shown in map selection
  * Cache system
