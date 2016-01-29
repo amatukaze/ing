@@ -3,7 +3,7 @@
 艦これ補助ツール
 
 ### Updated
-**0.1.5 (Traum)**
+**0.1.5.1 (Traum)**
  * Show sortie direction directly
  * Support translated name
  * History windows
