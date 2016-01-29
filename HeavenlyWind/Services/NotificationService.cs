@@ -21,6 +21,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public void Initialize()
         {
+            if (!OS.IsWin8OrLater)
+                return;
+
             ToastNotificationUtil.Initialize("KanColleInspector.lnk", typeof(App).Assembly.Location, AppUserModelID);
 
             var rGamePropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(KanColleGame.Current, nameof(KanColleGame.Current.PropertyChanged))
