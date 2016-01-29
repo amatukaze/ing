@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.4">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.5">
 
   <String Key="Feature_UnderConstruction">未実装</String>
   <String Key="Feature_Disabled">無効化</String>
