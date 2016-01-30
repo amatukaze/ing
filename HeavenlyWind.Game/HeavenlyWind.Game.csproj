@@ -130,6 +130,7 @@
     <Compile Include="Models\Events\SortieEvent.cs" />
     <Compile Include="Models\Events\WhirlpoolEvent.cs" />
     <Compile Include="Models\ExpeditionResult.cs" />
+    <Compile Include="Models\FleetConditionRegeneration.cs" />
     <Compile Include="Models\FleetExpeditionStatus.cs" />
     <Compile Include="Models\ExpeditionInfo.cs" />
     <Compile Include="Models\Experience.cs" />

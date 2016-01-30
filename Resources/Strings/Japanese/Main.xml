@@ -79,6 +79,7 @@
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
   <String Key="Fleet_AA">対空</String>
+  <String Key="Fleet_MoraleRegeneration">疲労回復</String>
 
   <String Key="Ship_Repairing">入渠中</String>
 
