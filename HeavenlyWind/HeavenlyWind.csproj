@@ -120,6 +120,7 @@
     <Compile Include="Services\UpdateService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
+    <Compile Include="ViewModels\Game\FleetConditionRegenerationViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetViewModel.cs" />

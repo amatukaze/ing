@@ -79,6 +79,7 @@
   <String Key="Fleet_TotalLevel">Total Lv.</String>
   <String Key="Fleet_LoS">LoS</String>
   <String Key="Fleet_AA">AA</String>
+  <String Key="Fleet_MoraleRegeneration">Fatigue</String>
 
   <String Key="Ship_Repairing">Repairing</String>
 

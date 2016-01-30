@@ -59,6 +59,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public FleetStatus Status { get; }
         public FleetExpeditionStatus ExpeditionStatus { get; }
+        public FleetConditionRegeneration ConditionRegeneration { get; }
 
         public event Action<IEnumerable<Ship>> ShipsUpdated = delegate { };
 
@@ -68,6 +69,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Status = new FleetStatus(this);
             ExpeditionStatus = new FleetExpeditionStatus(this);
+            ConditionRegeneration = new FleetConditionRegeneration(this);
 
             OnRawDataUpdated();
         }
@@ -98,6 +100,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             Status.Update();
             ExpeditionStatus.Update(RawData.Expedition);
+            ConditionRegeneration.Update();
 
             var rState = FleetState.None;
 
