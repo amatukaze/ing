@@ -10,6 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public MapAreaInfo MapArea => KanColleGame.Current.MasterInfo.MapAreas[RawData.MapAreaID];
 
         public string Name => RawData.Name;
+        public string OriginalName { get; }
         public string Description => RawData.Description;
 
         public TimeSpan Time => TimeSpan.FromMinutes(RawData.Time);
@@ -26,6 +27,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal ExpeditionInfo(RawExpeditionInfo rpRawData) : base(rpRawData)
         {
+            OriginalName = rpRawData.Name;
+
             OnRawDataUpdated();
         }
 
