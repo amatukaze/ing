@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (r_Language != value)
                 {
                     r_Language = value;
-                    StringResources.Instance.LoadMainResource();
+                    StringResources.Instance.LoadMainResource(value);
                 }
             }
         }
