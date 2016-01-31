@@ -3,6 +3,10 @@
 艦これ補助ツール
 
 ### Updated
+**0.1.5.2 (Traum)**
+ * Fix a bug that preference file is reset at startup every time
+ * Fix a bug that it can't mute the browser in Windows 7
+
 **0.1.5.1 (Traum)**
  * Show sortie direction directly
  * Support translated name
