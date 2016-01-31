@@ -63,12 +63,12 @@ namespace Sakuno.KanColle.Amatsukaze
             r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rpDirectory.Name, rCultureName, rDisplayName));
         }
 
-        public void LoadMainResource()
+        public void LoadMainResource(string rpLanguage)
         {
-            if (!InstalledLanguages.Any(r => r.Directory == Preference.Current.Language))
+            if (!InstalledLanguages.Any(r => r.Directory == rpLanguage))
                 Preference.Current.Language = GetDefaultLanguage().Directory;
 
-            LoadMainResource(Preference.Current.Language);
+            LoadMainResourceCore(rpLanguage);
         }
         public LanguageInfo GetDefaultLanguage()
         {
@@ -89,7 +89,7 @@ namespace Sakuno.KanColle.Amatsukaze
             } while (rpCultureInfo != CultureInfo.InvariantCulture);
         }
 
-        void LoadMainResource(string rpLanguageName)
+        void LoadMainResourceCore(string rpLanguageName)
         {
             var rMainResourceFile = Path.Combine(r_StringResourceDirectory.FullName, rpLanguageName, "Main.xml");
             if (!File.Exists(rMainResourceFile))
