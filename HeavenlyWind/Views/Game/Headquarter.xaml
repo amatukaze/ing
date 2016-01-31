@@ -6,6 +6,14 @@
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <StackPanel>
         <Border DataContext="{Binding Admiral.Source}" Padding="4" Margin="0, 0, 0, 4">
             <Border.Resources>
@@ -59,6 +67,54 @@
                 <Run Text="{rb:StringResource Main.Overview_Headquarter_Equipment, Mode=OneWay}" />:
                 <Run Text="{Binding EquipmentCount, Mode=OneWay}" />/<Run Text="{Binding Admiral.Source.MaxEquipmentCount, Mode=OneWay}" />
             </TextBlock>
+        </Border>
+        <Border DataContext="{Binding Materials.Source}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <DockPanel Margin="4">
+                    <Control Style="{StaticResource FuelIcon}" />
+                    <TextBlock Text="{Binding Fuel}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Row="1">
+                    <Control Style="{StaticResource BulletIcon}" />
+                    <TextBlock Text="{Binding Bullet}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="1">
+                    <Control Style="{StaticResource SteelIcon}" />
+                    <TextBlock Text="{Binding Steel}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="1" Grid.Row="1">
+                    <Control Style="{StaticResource BauxiteIcon}" />
+                    <TextBlock Text="{Binding Bauxite}" Margin="4, 2" />
+                </DockPanel>
+
+                <DockPanel Margin="4" Grid.Column="2">
+                    <Control Style="{StaticResource DevelopmentMaterialIcon}" />
+                    <TextBlock Text="{Binding DevelopmentMaterial}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="3">
+                    <Control Style="{StaticResource BucketIcon}" />
+                    <TextBlock Text="{Binding Bucket}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="2" Grid.Row="1">
+                    <Control Style="{StaticResource InstantConstructionIcon}" />
+                    <TextBlock Text="{Binding InstantConstruction}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="3" Grid.Row="1">
+                    <Control Style="{StaticResource ImprovementMaterialIcon}" />
+                    <TextBlock Text="{Binding ImprovementMaterial}" Margin="4, 2" />
+                </DockPanel>
+            </Grid>
         </Border>
     </StackPanel>
 </UserControl>
