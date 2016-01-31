@@ -57,6 +57,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void VolumeManager_NewSession(VolumeSession rpSession)
         {
+            if (rpSession.DisplayName.OICEquals(@"@%SystemRoot%\System32\AudioSrv.Dll,-202"))
+                return;
+
             var rHostProcessID = Process.GetCurrentProcess().Id;
             int? rProcessID = rpSession.ProcessID;
 
