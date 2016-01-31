@@ -38,5 +38,14 @@
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/CombatProvisions.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Supplies.xaml" />
 
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Fuel.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Bullet.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Steel.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Bauxite.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/DevelopmentMaterial.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Bucket.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/InstantConstruction.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/ImprovementMaterial.xaml" />
+
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
