@@ -58,7 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rReconLoS = 0;
             var rRaderLoS = 0;
 
-            foreach (var rShip in r_Fleet.Ships)
+            foreach (var rShip in r_Fleet.Ships.ExceptEvacuated())
             {
                 rShipLoS += rShip.Status.LoS;
 
@@ -96,7 +96,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rShipLoS = .0;
             var rEquipmentLoS = .0;
 
-            foreach (var rShip in r_Fleet.Ships)
+            foreach (var rShip in r_Fleet.Ships.ExceptEvacuated())
             {
                 var rShipLoSBase = (double)rShip.Status.LoS;
 
