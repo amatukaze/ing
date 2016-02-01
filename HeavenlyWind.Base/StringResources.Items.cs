@@ -131,10 +131,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_Formation_Diamond => GetString(nameof(Battle_Formation_Diamond));
         public string Battle_Formation_Echolon => GetString(nameof(Battle_Formation_Echolon));
         public string Battle_Formation_LineAbreast => GetString(nameof(Battle_Formation_LineAbreast));
-        public string Battle_Formation_Cruising1 => GetString(nameof(Battle_Formation_Cruising1));
-        public string Battle_Formation_Cruising2 => GetString(nameof(Battle_Formation_Cruising2));
-        public string Battle_Formation_Cruising3 => GetString(nameof(Battle_Formation_Cruising3));
-        public string Battle_Formation_Cruising4 => GetString(nameof(Battle_Formation_Cruising4));
+        public string Battle_Formation_CruisingFormation1 => GetString(nameof(Battle_Formation_CruisingFormation1));
+        public string Battle_Formation_CruisingFormation2 => GetString(nameof(Battle_Formation_CruisingFormation2));
+        public string Battle_Formation_CruisingFormation3 => GetString(nameof(Battle_Formation_CruisingFormation3));
+        public string Battle_Formation_CruisingFormation4 => GetString(nameof(Battle_Formation_CruisingFormation4));
         public string Battle_EngagementForm_Parallel => GetString(nameof(Battle_EngagementForm_Parallel));
         public string Battle_EngagementForm_HeadOn => GetString(nameof(Battle_EngagementForm_HeadOn));
         public string Battle_EngagementForm_CrossingTheTAdvantage => GetString(nameof(Battle_EngagementForm_CrossingTheTAdvantage));

@@ -127,10 +127,10 @@
   <String Key="Battle_Formation_Diamond">Diamond</String>
   <String Key="Battle_Formation_Echolon">Echolon</String>
   <String Key="Battle_Formation_LineAbreast">Line Abreast</String>
-  <String Key="Battle_Formation_Cruising1">Cruising 1st</String>
-  <String Key="Battle_Formation_Cruising2">Cruising 2nd</String>
-  <String Key="Battle_Formation_Cruising3">Cruising 3rd</String>
-  <String Key="Battle_Formation_Cruising4">Cruising 4th</String>
+  <String Key="Battle_Formation_CruisingFormation1">CF 1st</String>
+  <String Key="Battle_Formation_CruisingFormation2">CF 2nd</String>
+  <String Key="Battle_Formation_CruisingFormation3">CF 3rd</String>
+  <String Key="Battle_Formation_CruisingFormation4">CF 4th</String>
   <String Key="Battle_EngagementForm_Parallel">Parallel</String>
   <String Key="Battle_EngagementForm_HeadOn">Head-on</String>
   <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T Advantage</String>
