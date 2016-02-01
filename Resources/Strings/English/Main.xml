@@ -82,6 +82,7 @@
   <String Key="Fleet_MoraleRegeneration">Fatigue</String>
 
   <String Key="Ship_Repairing">Repairing</String>
+  <String Key="Ship_Evacuated">Evacuated</String>
 
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>
