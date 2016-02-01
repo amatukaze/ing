@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -45,36 +46,36 @@
                 </Grid.RowDefinitions>
 
                 <DockPanel Margin="4">
-                    <Control Style="{StaticResource FuelIcon}" />
+                    <rc:MaterialIcon Type="Fuel" />
                     <TextBlock Text="{Binding Fuel}" Margin="4, 2" />
                 </DockPanel>
                 <DockPanel Margin="4" Grid.Row="1">
-                    <Control Style="{StaticResource BulletIcon}" />
+                    <rc:MaterialIcon Type="Bullet" />
                     <TextBlock Text="{Binding Bullet}" Margin="4, 2" />
                 </DockPanel>
                 <DockPanel Margin="4" Grid.Column="1">
-                    <Control Style="{StaticResource SteelIcon}" />
+                    <rc:MaterialIcon Type="Steel" />
                     <TextBlock Text="{Binding Steel}" Margin="4, 2" />
                 </DockPanel>
                 <DockPanel Margin="4" Grid.Column="1" Grid.Row="1">
-                    <Control Style="{StaticResource BauxiteIcon}" />
+                    <rc:MaterialIcon Type="Bauxite" />
                     <TextBlock Text="{Binding Bauxite}" Margin="4, 2" />
                 </DockPanel>
 
                 <DockPanel Margin="4" Grid.Column="2">
-                    <Control Style="{StaticResource DevelopmentMaterialIcon}" />
+                    <rc:MaterialIcon Type="DevelopmentMaterial" />
                     <TextBlock Text="{Binding DevelopmentMaterial}" Margin="4, 2" />
                 </DockPanel>
                 <DockPanel Margin="4" Grid.Column="3">
-                    <Control Style="{StaticResource BucketIcon}" />
+                    <rc:MaterialIcon Type="Bucket" />
                     <TextBlock Text="{Binding Bucket}" Margin="4, 2" />
                 </DockPanel>
                 <DockPanel Margin="4" Grid.Column="2" Grid.Row="1">
-                    <Control Style="{StaticResource InstantConstructionIcon}" />
+                    <rc:MaterialIcon Type="InstantConstruction" />
                     <TextBlock Text="{Binding InstantConstruction}" Margin="4, 2" />
                 </DockPanel>
                 <DockPanel Margin="4" Grid.Column="3" Grid.Row="1">
-                    <Control Style="{StaticResource ImprovementMaterialIcon}" />
+                    <rc:MaterialIcon Type="ImprovementMaterial" />
                     <TextBlock Text="{Binding ImprovementMaterial}" Margin="4, 2" />
                 </DockPanel>
             </Grid>
