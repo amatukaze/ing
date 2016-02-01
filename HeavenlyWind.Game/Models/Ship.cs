@@ -14,6 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int SortNumber => RawData.SortNumber;
 
         public int Level => RawData.Level;
+        public bool IsMarried => Level > 99;
 
         int r_Condition;
         public int Condition

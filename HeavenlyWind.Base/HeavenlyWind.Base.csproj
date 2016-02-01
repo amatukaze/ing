@@ -90,6 +90,7 @@
     <Compile Include="Models\Preferences\WindowPreference.cs" />
     <Compile Include="Models\ScreenshotImageFormat.cs" />
     <Compile Include="Models\UpdateChannel.cs" />
+    <Compile Include="MultiplyExtension.cs" />
     <Compile Include="Preference.cs" />
     <Compile Include="Preference.Data.cs" />
     <Compile Include="PreferenceExtension.cs" />

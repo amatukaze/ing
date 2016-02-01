@@ -137,6 +137,7 @@
     <Compile Include="Models\ExperienceTable.cs" />
     <Compile Include="Models\Fleet.cs" />
     <Compile Include="Models\FleetLoSStatus.cs" />
+    <Compile Include="Models\FleetResupplyInfo.cs" />
     <Compile Include="Models\FleetState.cs" />
     <Compile Include="Models\FleetStatus.cs" />
     <Compile Include="Models\IID.cs" />

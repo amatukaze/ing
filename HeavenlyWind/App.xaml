@@ -8,6 +8,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Sakuno.UserInterface;component/Themes/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Sakuno.UserInterface;component/Styles/Controls.xaml" />
 
+                <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
