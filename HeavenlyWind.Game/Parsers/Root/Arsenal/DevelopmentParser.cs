@@ -13,6 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
             var rSteelConsumption = int.Parse(Requests["api_item3"]);
             var rBauxiteConsumption = int.Parse(Requests["api_item4"]);
 
+            Game.Port.Materials.Update(rpData.Materials);
+
             string rLogContent;
             if (!rpData.Success)
                 rLogContent = string.Format(StringResources.Instance.Main.Log_Development_Failure,

@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public Ship[] Ships { get; set; }
 
         [JsonProperty("api_material")]
-        public int[] Material { get; set; }
+        public int[] Materials { get; set; }
 
         [JsonProperty("api_use_bou")]
         public int BauxiteConsumption { get; set; }

@@ -252,8 +252,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 State |= ShipState.Repairing;
             else
             {
-                HP = HP.Update(HP.Maximum);
+                State &= ~ShipState.Repairing;
 
+                HP = HP.Update(HP.Maximum);
                 if (Condition < 40)
                     Condition = 40;
             }

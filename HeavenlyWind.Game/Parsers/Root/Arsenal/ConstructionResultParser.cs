@@ -1,5 +1,4 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
 {
