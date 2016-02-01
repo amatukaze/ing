@@ -41,6 +41,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal void Update()
         {
+            if (r_Fleet.Ships.Count == 0)
+            {
+                Old25 = .0;
+                Autumn25 = .0;
+                return;
+            }
+
             Old25 = CalclateWith25Old();
             Autumn25 = CalclateWith25Autumn();
         }
@@ -138,9 +145,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rShipLoS += Math.Sqrt(rShipLoSBase) * 1.6841056;
             }
 
-            var rAdmiralLoS = Math.Floor((r_Fleet.Port.Admiral.Level + 4) / 5.0) * 5 * 0.6142467;
+            var rAdmiralLoS = Math.Ceiling(r_Fleet.Port.Admiral.Level / 5.0) * 5.0 * 0.6142467;
 
-            return rShipLoS + rEquipmentLoS - 0;
+            return rShipLoS + rEquipmentLoS - rAdmiralLoS;
         }
     }
 }
