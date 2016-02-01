@@ -58,6 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         }
 
         public FleetStatus Status { get; }
+        public FleetResupplyInfo Resupply { get; }
         public FleetExpeditionStatus ExpeditionStatus { get; }
         public FleetConditionRegeneration ConditionRegeneration { get; }
 
@@ -68,6 +69,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Port = rpPort;
 
             Status = new FleetStatus(this);
+            Resupply = new FleetResupplyInfo(this);
             ExpeditionStatus = new FleetExpeditionStatus(this);
             ConditionRegeneration = new FleetConditionRegeneration(this);
 
@@ -99,6 +101,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal void Update()
         {
             Status.Update();
+            Resupply.Update();
             ExpeditionStatus.Update(RawData.Expedition);
             ConditionRegeneration.Update();
 

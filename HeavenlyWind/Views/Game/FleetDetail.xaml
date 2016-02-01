@@ -15,12 +15,15 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="4">
-            <TextBlock  DataContext="{Binding Source}">
+            <TextBlock DataContext="{Binding Source}">
                 <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
                 <Run Text="{rb:StringResource Main.Fleet_LoS, Mode=OneWay}" />:<Run Text="{Binding Status.LoS.Old25, StringFormat=0.0}" />/<Run Text="{Binding Status.LoS.Autumn25, StringFormat=0.0}" />
                 <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.MinAA, StringFormat=0.0}" />-<Run Text="{Binding Status.MaxAA, StringFormat=0.0}" />
             </TextBlock>
 
+            <Border DataContext="{Binding Source.Resupply}" Background="Transparent" ToolTip="{StaticResource UnsuppliedToolTip}" Margin="4, 0, 0, 0" Visibility="{Binding NeedResupply, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Unsupplied}" />
+            </Border>
             <Border Margin="4, 0, 0, 0" Visibility="{rb:CollapsedIfNull ConditionRegeneration.TimeToComplete}">
                 <TextBlock>
                     <Run Text="{rb:StringResource Main.Fleet_MoraleRegeneration}" />:<Run Text="{Binding ConditionRegeneration.RemainingTime, Mode=OneWay}" />
