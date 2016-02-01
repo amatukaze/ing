@@ -68,6 +68,9 @@
                                 <Border Name="Repairing" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.RowSpan="2">
                                     <TextBlock Text="{rb:StringResource Main.Ship_Repairing}" FontSize="14" HorizontalAlignment="Center" />
                                 </Border>
+                                <Border Name="Evacuated" Background="#33B1B1B1" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.RowSpan="2">
+                                    <TextBlock Text="{rb:StringResource Main.Ship_Evacuated}" FontSize="14" HorizontalAlignment="Center" />
+                                </Border>
 
                                 <TextBlock Name="Condition" Text="{Binding Condition}" Margin="3, 0, 0, 0" TextAlignment="Center" Grid.Column="4" Grid.RowSpan="2" />
                                 <Grid Width="50" Margin="3, 2, 0, 2" Grid.Column="5" Grid.RowSpan="2">
@@ -95,6 +98,11 @@
 
                             <DataTrigger Binding="{rb:HasFlag State, Repairing}" Value="True">
                                 <Setter TargetName="Repairing" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="HP" Property="Opacity" Value=".2" />
+                                <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{rb:HasFlag State, Evacuated}" Value="True">
+                                <Setter TargetName="Evacuated" Property="Visibility" Value="Visible" />
                                 <Setter TargetName="HP" Property="Opacity" Value=".2" />
                                 <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
                             </DataTrigger>

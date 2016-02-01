@@ -86,6 +86,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Fleet_MoraleRegeneration => GetString(nameof(Fleet_MoraleRegeneration));
 
         public string Ship_Repairing => GetString(nameof(Ship_Repairing));
+        public string Ship_Evacuated => GetString(nameof(Ship_Evacuated));
 
         public string Material_Fuel => GetString(nameof(Material_Fuel));
         public string Material_Bullet => GetString(nameof(Material_Bullet));

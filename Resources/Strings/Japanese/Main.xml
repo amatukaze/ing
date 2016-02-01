@@ -82,6 +82,7 @@
   <String Key="Fleet_MoraleRegeneration">疲労回復</String>
 
   <String Key="Ship_Repairing">入渠中</String>
+  <String Key="Ship_Evacuated">退避中</String>
 
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弾薬</String>

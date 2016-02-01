@@ -187,7 +187,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Condition = RawData.Condition;
 
-            if (KanColleGame.Current.Port.RepairDocks.Values.Any(r => r.Ship == this))
+            var rPort = KanColleGame.Current.Port;
+
+            if (KanColleGame.Current.Sortie != null && rPort.EvacuatedShipIDs.Contains(ID))
+                State |= ShipState.Evacuated;
+            else
+                State &= ~ShipState.Evacuated;
+
+            if (rPort.RepairDocks.Values.Any(r => r.Ship == this))
                 State |= ShipState.Repairing;
             else
                 State &= ~ShipState.Repairing;

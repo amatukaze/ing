@@ -69,7 +69,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             LoS.Update();
         }
         double CalculateAA(Func<int, double> rpInternalBouns) =>
-            r_Fleet.Ships.Sum(rpShip =>
+            r_Fleet.Ships.ExceptEvacuated().Sum(rpShip =>
                     rpShip.Slots.Where(r => r.HasEquipment).Sum(rpSlot =>
                     {
                         if (!rpSlot.Equipment.Info.CanParticipateInFighterCombat)

@@ -30,6 +30,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public HashSet<int> ShipIDs { get; private set; }
         public IDTable<Ship> Ships { get; } = new IDTable<Ship>();
 
+        int[] r_EvacuatedShipIDs;
+        internal HashSet<int> EvacuatedShipIDs { get; } = new HashSet<int>();
+
         public FleetManager Fleets { get; } = new FleetManager();
 
         public IDTable<Equipment> Equipment { get; } = new IDTable<Equipment>();
@@ -41,6 +44,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal Port()
         {
+            SessionService.Instance.Subscribe("api_get_member/ship2", r =>
+            {
+                UpdateShips(r.Json["api_data"].ToObject<RawShip[]>());
+                Fleets.Update(r.Json["api_data_deck"].ToObject<RawFleet[]>());
+            });
             SessionService.Instance.Subscribe("api_get_member/ship_deck", r =>
             {
                 var rData = r.GetData<RawShipsAndFleets>();
@@ -158,6 +166,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rShip.OwnerFleet?.Update();
             });
             SessionService.Instance.Subscribe("api_req_nyukyo/speedchange", r => RepairDocks[int.Parse(r.Requests["api_ndock_id"])].CompleteRepair());
+
+            SessionService.Instance.Subscribe("api_req_combined_battle/battleresult", r =>
+            {
+                var rData = (RawBattleResult)r.Data;
+                if (!rData.HasEvacuatedShip)
+                    return;
+
+                var rEvacuatedShipIndex = rData.EvacuatedShips.EvacuatedShipIndex[0] - 1;
+                var rEvacuatedShipID = Fleets[rEvacuatedShipIndex < 6 ? 1 : 2].Ships[rEvacuatedShipIndex % 6].ID;
+
+                var rEscortShipIndex = rData.EvacuatedShips.EscortShipIndex[0] - 1;
+                var rEscortShipID =Fleets[rEscortShipIndex < 6 ? 1 : 2].Ships[rEscortShipIndex % 6].ID;
+
+                r_EvacuatedShipIDs = new[] { rEvacuatedShipID, rEscortShipID };
+            });
+            SessionService.Instance.Subscribe("api_req_combined_battle/goback_port", delegate
+            {
+                if (KanColleGame.Current.Sortie == null || r_EvacuatedShipIDs == null || r_EvacuatedShipIDs.Length == 0)
+                    return;
+
+                EvacuatedShipIDs.Add(r_EvacuatedShipIDs[0]);
+                EvacuatedShipIDs.Add(r_EvacuatedShipIDs[1]);
+            });
+            SessionService.Instance.Subscribe("api_get_member/ship_deck", _ => r_EvacuatedShipIDs = null);
+            SessionService.Instance.Subscribe("api_port/port", _ => EvacuatedShipIDs.Clear());
         }
 
         #region Update
