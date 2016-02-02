@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
@@ -8,6 +9,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         public int ID { get; }
         internal int InternalID { get; }
+
+        public string WikiID { get; }
 
         public SortieEventType EventType { get; }
         public int EventSubType { get; }
@@ -27,6 +30,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 var rDifficultyCount = Enum.GetNames(typeof(EventMapDifficulty)).Length - 1;
                 InternalID = ID * rDifficultyCount + (int)rDifficulty.Value - 3;
             }
+
+            WikiID = MapService.Instance.GetNodeWikiID(rpMap.ID, ID);
 
             EventType = rpData.NodeEventType;
             EventSubType = rpData.NodeEventSubType;

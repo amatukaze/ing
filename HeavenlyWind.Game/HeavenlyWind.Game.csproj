@@ -148,6 +148,7 @@
     <Compile Include="Models\MapMasterInfo.cs" />
     <Compile Include="Models\Materials.cs" />
     <Compile Include="Models\MaterialType.cs" />
+    <Compile Include="Models\Node.cs" />
     <Compile Include="Models\PastEventMapInfo.cs" />
     <Compile Include="Models\PracticeInfo.cs" />
     <Compile Include="Models\PracticeOpponentInfo.cs" />

@@ -58,7 +58,7 @@
 
                     <TextBlock VerticalAlignment="Center">
                         <Run Text="{rb:StringResource Main.Sortie_Node, Mode=OneWay}" />:
-                        <Run Text="{Binding Node.ID, Mode=OneWay}" />
+                        <Run Text="{Binding Node.ID, Mode=OneWay}" /><Run Text="{Binding Node.WikiID, StringFormat={} ({0}), TargetNullValue={x:Null}, Mode=OneWay}" />
                         <Run Style="{StaticResource EventType}" />
                     </TextBlock>
                 </StackPanel>

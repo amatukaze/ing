@@ -251,6 +251,8 @@ ORDER BY id DESC, step DESC;";
 
             public int Step { get; }
             public int Node { get; }
+            public string NodeWikiID { get; }
+
             public SortieEventType EventType { get; }
 
             public string Time { get; }
@@ -270,6 +272,7 @@ ORDER BY id DESC, step DESC;";
 
                 Step = Convert.ToInt32(rpReader["step"]);
                 Node = Convert.ToInt32(rpReader["node"]);
+                NodeWikiID = MapService.Instance.GetNodeWikiID(rMapID, Node);
 
                 EventType = (SortieEventType)Convert.ToInt32(rpReader["type"]);
 
