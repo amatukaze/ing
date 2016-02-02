@@ -1,5 +1,4 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
@@ -16,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public Fleet EscortFleet { get; }
         public MapInfo Map { get; }
 
-        public SortieCellInfo Cell { get; private set; }
+        public SortieNodeInfo Node { get; private set; }
 
         public double? DirectionAngle { get; private set; }
 
@@ -62,21 +61,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         void Explore(IReadOnlyDictionary<string, string> rpRequests, RawMapExploration rpData)
         {
-            DirectionAngle = MapService.Instance.GetAngle(Map.ID, Cell?.ID ?? 0, rpData.Cell);
+            DirectionAngle = MapService.Instance.GetAngle(Map.ID, Node?.ID ?? 0, rpData.Node);
             OnPropertyChanged(nameof(DirectionAngle));
 
-            Cell = new SortieCellInfo(rpData);
+            Node = new SortieNodeInfo(Map, rpData);
 
-            var rDifficulty = Map.Difficulty;
-            if (!rDifficulty.HasValue)
-                Cell.InternalID = Cell.ID;
-            else
-            {
-                var rDifficultyCount = Enum.GetNames(typeof(EventMapDifficulty)).Length - 1;
-                Cell.InternalID = Cell.ID * rDifficultyCount + (int)rDifficulty.Value - 3;
-            }
-
-            OnPropertyChanged(nameof(Cell));
+            OnPropertyChanged(nameof(Node));
         }
     }
 }

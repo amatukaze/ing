@@ -136,25 +136,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
 
             r_NodeSubscription = Observable.FromEventPattern<PropertyChangedEventArgs>(rSortie, nameof(rSortie.PropertyChanged))
-                .Where(r => r.EventArgs.PropertyName == nameof(rSortie.Cell))
+                .Where(r => r.EventArgs.PropertyName == nameof(rSortie.Node))
                 .Subscribe(_ => InsertExplorationRecord(KanColleGame.Current.Sortie));
         }
 
         void InsertExplorationRecord(SortieInfo rpSortie)
         {
-            var rNode = rpSortie.Cell;
+            var rNode = rpSortie.Node;
 
             using (var rTransaction = Connection.BeginTransaction())
             {
-                InsertCellInfo(rpSortie.Map.ID, rNode);
+                InsertNodeInfo(rpSortie.Map.ID, rNode);
                 InsertRecord(rpSortie.ID, rNode.InternalID, (rNode.Event as IExtraInfo)?.GetExtraInfo());
 
                 rTransaction.Commit();
             }
 
-            r_IsDeadEnd = rpSortie.Cell.IsDeadEnd;
+            r_IsDeadEnd = rpSortie.Node.IsDeadEnd;
         }
-        void InsertCellInfo(int rpMapID, SortieCellInfo rpNode)
+        void InsertNodeInfo(int rpMapID, SortieNodeInfo rpNode)
         {
             using (var rCommand = Connection.CreateCommand())
             {

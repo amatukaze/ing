@@ -93,7 +93,7 @@
   <String Key="Material_DevelopmentMaterial">開発資材</String>
   <String Key="Material_ImprovementMaterial">改修資材</String>
 
-  <String Key="Sortie_Cell">セル</String>
+  <String Key="Sortie_Node">セル</String>
   <String Key="Sortie_Event_Unknown">不明</String>
   <String Key="Sortie_Event_Reward">資源</String>
   <String Key="Sortie_Event_Whirlpool">渦潮</String>

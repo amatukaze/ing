@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
     public class NothingHappenedEvent : SortieEvent
     {
-        public NothingHappenedMessage Message => (NothingHappenedMessage)RawData.CellEventSubType;
+        public NothingHappenedMessage Message => (NothingHappenedMessage)RawData.NodeEventSubType;
 
         public bool CanManuallySelectRoute { get; }
 

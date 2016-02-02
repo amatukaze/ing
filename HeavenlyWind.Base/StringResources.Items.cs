@@ -97,7 +97,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Material_DevelopmentMaterial => GetString(nameof(Material_DevelopmentMaterial));
         public string Material_ImprovementMaterial => GetString(nameof(Material_ImprovementMaterial));
 
-        public string Sortie_Cell => GetString(nameof(Sortie_Cell));
+        public string Sortie_Node => GetString(nameof(Sortie_Node));
         public string Sortie_Event_Unknown => GetString(nameof(Sortie_Event_Unknown));
         public string Sortie_Event_Reward => GetString(nameof(Sortie_Event_Reward));
         public string Sortie_Event_Whirlpool => GetString(nameof(Sortie_Event_Whirlpool));

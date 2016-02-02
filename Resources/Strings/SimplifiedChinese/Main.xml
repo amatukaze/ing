@@ -93,7 +93,7 @@
   <String Key="Material_DevelopmentMaterial">开发资材</String>
   <String Key="Material_ImprovementMaterial">改修资材</String>
 
-  <String Key="Sortie_Cell">场所</String>
+  <String Key="Sortie_Node">场所</String>
   <String Key="Sortie_Event_Unknown">未知</String>
   <String Key="Sortie_Event_Reward">资源</String>
   <String Key="Sortie_Event_Whirlpool">漩涡</String>

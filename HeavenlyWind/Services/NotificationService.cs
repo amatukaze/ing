@@ -89,7 +89,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     var rSortiePropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rSortie, nameof(rSortie.PropertyChanged))
                         .Select(r => r.EventArgs.PropertyName);
 
-                    r_ExplorationSubscription = rSortiePropertyChangedSource.Where(r => r == nameof(rSortie.Cell)).Subscribe(delegate
+                    r_ExplorationSubscription = rSortiePropertyChangedSource.Where(r => r == nameof(rSortie.Node)).Subscribe(delegate
                     {
                         var rParticipants = rSortie.Fleet.Ships.Skip(1);
                         if (rSortie.EscortFleet != null)

@@ -20,10 +20,10 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="EventType" TargetType="{x:Type Run}">
-            <Setter Property="Text" Value="{rb:EnumToStringResource Cell.EventType, Sortie_Event}" />
+            <Setter Property="Text" Value="{rb:EnumToStringResource Node.EventType, Sortie_Event}" />
 
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Cell.Event}" Value="{x:Null}">
+                <DataTrigger Binding="{Binding Node.Event}" Value="{x:Null}">
                     <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
                 </DataTrigger>
             </Style.Triggers>
@@ -57,14 +57,14 @@
                     </Border>
 
                     <TextBlock VerticalAlignment="Center">
-                        <Run Text="{rb:StringResource Main.Sortie_Cell, Mode=OneWay}" />:
-                        <Run Text="{Binding Cell.ID, Mode=OneWay}" />
+                        <Run Text="{rb:StringResource Main.Sortie_Node, Mode=OneWay}" />:
+                        <Run Text="{Binding Node.ID, Mode=OneWay}" />
                         <Run Style="{StaticResource EventType}" />
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
 
-            <ContentControl Content="{Binding Cell.Event}" VerticalContentAlignment="Top" Grid.Row="2">
+            <ContentControl Content="{Binding Node.Event}" VerticalContentAlignment="Top" Grid.Row="2">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type rgme:RewardEvent}">
                         <rvge:Reward />

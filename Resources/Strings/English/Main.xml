@@ -93,7 +93,7 @@
   <String Key="Material_DevelopmentMaterial">Development Material</String>
   <String Key="Material_ImprovementMaterial">Improvement Material</String>
 
-  <String Key="Sortie_Cell">Node</String>
+  <String Key="Sortie_Node">Node</String>
   <String Key="Sortie_Event_Unknown">Unknown</String>
   <String Key="Sortie_Event_Reward">Reward</String>
   <String Key="Sortie_Event_Whirlpool">Whirlpool</String>

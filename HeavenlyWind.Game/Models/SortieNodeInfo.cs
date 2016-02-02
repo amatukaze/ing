@@ -1,12 +1,13 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public class SortieCellInfo
+    public class SortieNodeInfo
     {
         public int ID { get; }
-        internal int InternalID { get; set; }
+        internal int InternalID { get; }
 
         public SortieEventType EventType { get; }
         public int EventSubType { get; }
@@ -14,11 +15,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public bool IsDeadEnd { get; }
 
-        internal SortieCellInfo(RawMapExploration rpData)
+        internal SortieNodeInfo(MapInfo rpMap, RawMapExploration rpData)
         {
-            ID = rpData.Cell;
-            EventType = rpData.CellEventType;
-            EventSubType = rpData.CellEventSubType;
+            ID = rpData.Node;
+
+            var rDifficulty = rpMap.Difficulty;
+            if (!rDifficulty.HasValue)
+                InternalID = ID;
+            else
+            {
+                var rDifficultyCount = Enum.GetNames(typeof(EventMapDifficulty)).Length - 1;
+                InternalID = ID * rDifficultyCount + (int)rDifficulty.Value - 3;
+            }
+
+            EventType = rpData.NodeEventType;
+            EventSubType = rpData.NodeEventSubType;
 
             switch (EventType)
             {
