@@ -69,7 +69,9 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Node}" Margin="0, 4" />
+                                    <TextBlock Margin="0, 4">
+                                        <Run Text="{Binding Node, Mode=OneWay}" /><Run Text="{Binding NodeWikiID, StringFormat={} ({0}), TargetNullValue={x:Null}, Mode=OneWay}" />
+                                    </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
