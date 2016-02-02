@@ -39,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         internal async void CheckForUpdate()
         {
-            if (!Preference.Current.CheckUpdate || !NetworkInterface.GetIsNetworkAvailable())
+            if (Environment.GetCommandLineArgs().Any(r => r.OICEquals("--no-check-update")) || !Preference.Current.CheckUpdate || !NetworkInterface.GetIsNetworkAvailable())
                 return;
 
             try
