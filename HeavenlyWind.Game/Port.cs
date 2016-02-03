@@ -76,17 +76,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     rShip.UpdateEquipmentIDs(r.GetData<RawEquipmentIDs>().EquipmentIDs);
             });
 
-            var rNewConstruction = from rDockID in SessionService.Instance.GetProcessSucceededSubject("api_req_kousyou/createship").Select(r => int.Parse(r.Requests["api_kdock_id"]))
-                                   from _ in SessionService.Instance.GetProcessSucceededSubject("api_get_member/kdock").Take(1)
-                                   select ConstructionDocks[rDockID];
-            rNewConstruction.Subscribe(r =>
-            {
-                var rLogContent = string.Format(StringResources.Instance.Main.Log_StartConstruction,
-                    r.Ship.Name, r.FuelConsumption, r.BulletConsumption, r.SteelConsumption, r.BauxiteConsumption, r.DevelopmentMaterialConsumption);
-                Logger.Write(LoggingLevel.Info, rLogContent);
-            });
-            ConstructionDock.NewConstruction = rNewConstruction;
-
+            SessionService.Instance.Subscribe("api_req_kousyou/createship", r => ConstructionDocks[int.Parse(r.Requests["api_kdock_id"])].IsConstructionStarted = true);
             SessionService.Instance.Subscribe("api_req_kousyou/getship", r =>
             {
                 var rData = r.GetData<RawConstructionResult>();

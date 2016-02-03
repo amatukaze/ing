@@ -25,6 +25,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        internal bool IsConstructionStarted { get; set; }
+
         ShipInfo r_Ship;
         public ShipInfo Ship
         {
@@ -118,7 +120,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public event Action<string> ConstructionCompleted = delegate { };
 
-        internal static IObservable<ConstructionDock> NewConstruction { get; set; }
+        internal static Subject<ConstructionDock> NewConstruction { get; } = new Subject<ConstructionDock>();
 
         internal ConstructionDock(RawConstructionDock rpRawData)
         {
@@ -146,6 +148,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 Ship = null;
                 TimeToComplete = null;
+            }
+
+            if (IsConstructionStarted)
+            {
+                var rLogContent = string.Format(StringResources.Instance.Main.Log_StartConstruction,
+                    Ship.Name, FuelConsumption, BulletConsumption, SteelConsumption, BauxiteConsumption, DevelopmentMaterialConsumption);
+                Logger.Write(LoggingLevel.Info, rLogContent);
+
+                NewConstruction.OnNext(this);
+
+                IsConstructionStarted = false;
             }
         }
 

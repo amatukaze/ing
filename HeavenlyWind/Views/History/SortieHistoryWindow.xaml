@@ -58,7 +58,7 @@
 
                                     <TextBlock Margin="0, 4">
                                         <Run Text="{Binding Map.Name, Mode=OneWay}" />
-                                        (<Run Style="{StaticResource Map}" /><Run Text="{Binding Map.AreaSubID, Mode=OneWay}" />)
+                                        (<Run Style="{StaticResource Map}" /><Run Text="{Binding Map.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource EventMapDifficulty, Map_Difficulty, TargetNullValue={x:Null}}" />)
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

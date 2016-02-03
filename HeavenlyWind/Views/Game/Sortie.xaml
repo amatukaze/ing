@@ -42,7 +42,7 @@
             <StackPanel>
                 <StackPanel DataContext="{Binding Map}" Orientation="Horizontal">
                     <TextBlock>
-                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, Mode=OneWay}" />
+                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, TargetNullValue={x:Null}}" />
                         <Run Text="{Binding MasterInfo.Name, StringFormat=({0}), Mode=OneWay}" />
                     </TextBlock>
                 </StackPanel>

@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
+    using EventMapDifficultyEnum = EventMapDifficulty;
+
     public class SortieRecord : RecordBase
     {
         const int RETURN_NODE_ID = -1;
@@ -247,7 +249,7 @@ ORDER BY id DESC, step DESC;";
 
             public IMapMasterInfo Map { get; }
             public bool IsEventMap { get; }
-            public EventMapDifficulty EventMapDifficulty { get; }
+            public EventMapDifficultyEnum? EventMapDifficulty { get; }
 
             public int Step { get; }
             public int Node { get; }
@@ -267,8 +269,10 @@ ORDER BY id DESC, step DESC;";
                 var rMapID = Convert.ToInt32(rpReader["map"]);
                 Map = MapService.Instance.GetMasterInfo(rMapID);
 
-                EventMapDifficulty = (EventMapDifficulty)Convert.ToInt32(rpReader["difficulty"]);
-                IsEventMap = EventMapDifficulty != EventMapDifficulty.None;
+                var rEventMapDifficulty = (EventMapDifficultyEnum)Convert.ToInt32(rpReader["difficulty"]);
+                IsEventMap = rEventMapDifficulty != EventMapDifficultyEnum.None;
+                if (IsEventMap)
+                    EventMapDifficulty = rEventMapDifficulty;
 
                 Step = Convert.ToInt32(rpReader["step"]);
                 Node = Convert.ToInt32(rpReader["node"]);
