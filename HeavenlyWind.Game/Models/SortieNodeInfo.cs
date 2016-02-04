@@ -52,7 +52,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     break;
 
                 case SortieEventType.NothingHappened:
-                    Event = new NothingHappenedEvent(rpData);
+                    Event = new NothingHappenedEvent(rpMap, rpData);
                     break;
 
                 case SortieEventType.AviationReconnaissance:

@@ -49,7 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public RawReward RewardInExtraOperation { get; set; }
 
         [JsonProperty("api_select_route")]
-        public RawRouteSelection RouteSelections { get; set; }
+        public RawNodeSelection NodeSelection { get; set; }
 
         [JsonProperty("api_airsearch")]
         public RawAviationReconnaissance AviationReconnaissance { get; set; }
@@ -85,7 +85,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
             [JsonProperty("api_getcount")]
             public int Quantity { get; set; }
         }
-        public class RawRouteSelection
+        public class RawNodeSelection
         {
             [JsonProperty("api_select_cells")]
             public int[] Nodes { get; set; }
