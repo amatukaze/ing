@@ -19,6 +19,9 @@
   <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3} {4})」出击</String>
   <String Key="Log_ShipOrItem_Dropped">获得「{0}」</String>
   <String Key="Log_ShipAndItem_Dropped">获得「{0}」和「{1}」</String>
+  <String Key="Log_Screenshot_Failed">截图失败</String>
+  <String Key="Log_Screenshot_Succeeded_Clipboard">已截图到剪贴板: {0}</String>
+  <String Key="Log_Screenshot_Succeeded_File">已保存截图: {0}</String>
 
   <String Key="Notification_Expedition">远征结束</String>
   <String Key="Notification_Expedition_Content">「{0}」从远征「{1}」归来。</String>
@@ -198,9 +201,8 @@
   <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">必须小于等于 {0}</String>
 
-  <String Key="Screenshot_Failed">截图失败</String>
-  <String Key="Screenshot_Succeeded_Clipboard">已截图到剪贴板</String>
-  <String Key="Screenshot_Succeeded_File">已保存截图:{0}</String>
+  <String Key="Screenshot_File">截图到文件</String>
+  <String Key="Screenshot_Clipboard">截图到剪贴板</String>
 
   <String Key="EquipmentOverview_Name">装备名</String>
   <String Key="EquipmentOverview_TotalCount">总数</String>

@@ -19,6 +19,9 @@
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
   <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
   <String Key="Log_ShipAndItem_Dropped">{0} and {1} dropped</String>
+  <String Key="Log_Screenshot_Failed">Fail to save screenshot: {0}</String>
+  <String Key="Log_Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
+  <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
 
   <String Key="Notification_Expedition">Expedition Completed</String>
   <String Key="Notification_Expedition_Content">"{0}" has returned from expedition {1}.</String>
@@ -198,9 +201,8 @@
   <String Key="ValidationRule_NumberLessThanMinimum">Please input number greater than {0}</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">Please input number less than {0}</String>
 
-  <String Key="Screenshot_Failed">Fail to save screenshot</String>
-  <String Key="Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
-  <String Key="Screenshot_Succeeded_File">Screenshot was saved:{0}</String>
+  <String Key="Screenshot_File">Take screenshot to file</String>
+  <String Key="Screenshot_Clipboard">Take screenshot to clipboard</String>
 
   <String Key="EquipmentOverview_Name">Name</String>
   <String Key="EquipmentOverview_TotalCount">Total</String>

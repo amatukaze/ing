@@ -19,6 +19,9 @@
   <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
   <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
   <String Key="Log_ShipAndItem_Dropped">「{0}」や「{1}」がドロップしました</String>
+  <String Key="Log_Screenshot_Failed">スクリーンショットの保存に失敗しました: {0}</String>
+  <String Key="Log_Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
+  <String Key="Log_Screenshot_Succeeded_File">スクリーンショットを保存しました: {0}</String>
 
   <String Key="Notification_Expedition">遠征完了</String>
   <String Key="Notification_Expedition_Content">「{0}」が遠征「{1}」から帰投しました。</String>
@@ -198,9 +201,8 @@
   <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
 
-  <String Key="Screenshot_Failed">スクリーンショットの保存に失敗しました</String>
-  <String Key="Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
-  <String Key="Screenshot_Succeeded_File">スクリーンショットを保存しました:{0}</String>
+  <String Key="Screenshot_File">ファイルに保存</String>
+  <String Key="Screenshot_Clipboard">クリップボードに保存</String>
 
   <String Key="EquipmentOverview_Name">装備名</String>
   <String Key="EquipmentOverview_TotalCount">合計</String>

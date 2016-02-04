@@ -22,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         ScreenshotService()
         {
             var rMessages = BrowserService.Instance.Communicator.GetMessageObservable();
-            rMessages.Subscribe(CommunicatorMessages.ScreenshotFail, _ => ScreenshotFailed());
+            rMessages.Subscribe(CommunicatorMessages.ScreenshotFail, r => ScreenshotFailed(r));
             rMessages.Subscribe(CommunicatorMessages.StartScreenshotTransmission, rpParameter =>
             {
                 var rParameters = rpParameter.Split(';');
@@ -79,7 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
             catch (Exception e)
             {
-                StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Screenshot_Failed, e.Message);
+                StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, e.Message);
             }
         }
         public async void TakePartialScreenshotAndOutput(Int32Rect rpRect, bool rpOutputToClipboard)
@@ -100,22 +100,22 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
             catch (Exception e)
             {
-                StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Screenshot_Failed, e.Message);
+                StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, e.Message);
             }
         }
 
-        void ScreenshotFailed()
+        void ScreenshotFailed(string rpMessage)
         {
             r_TaskScreenshotTask.SetResult(null);
 
-            StatusBarService.Instance.Message = StringResources.Instance.Main.Screenshot_Failed;
+            StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, rpMessage);
         }
 
         public void OutputToClipboard(BitmapSource rpImage)
         {
             Clipboard.SetImage(rpImage);
 
-            StatusBarService.Instance.Message = StringResources.Instance.Main.Screenshot_Succeeded_Clipboard;
+            StatusBarService.Instance.Message = StringResources.Instance.Main.Log_Screenshot_Succeeded_Clipboard;
         }
         public void OutputAsFile(BitmapSource rpImage)
         {
@@ -154,7 +154,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 rEncoder.Save(rFile);
             }
 
-            StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Screenshot_Succeeded_File, Path.GetFileName(rPath));
+            StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Succeeded_File, Path.GetFileName(rPath));
         }
 
         void GetScreenshot(string rpMapName, int rpWidth, int rpHeight, int rpBitCount)

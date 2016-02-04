@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.Management;
-using System.Runtime.InteropServices;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Browser
@@ -24,14 +23,17 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             }
         }
 
-        public ICommand TakeScreenshotCommand { get; }
+        public ICommand TakeScreenshotToFileCommand { get; }
+        public ICommand TakeScreenshotToClipboardCommand { get; }
+
         public ICommand MuteToggleCommand { get; }
 
         public ICommand RestartGameCommand { get; }
 
         public GameController()
         {
-            TakeScreenshotCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
+            TakeScreenshotToFileCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
+            TakeScreenshotToClipboardCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: true));
 
             if (OS.IsWin7OrLater && !BrowserService.Instance.NoInstalledLayoutEngines)
                 try

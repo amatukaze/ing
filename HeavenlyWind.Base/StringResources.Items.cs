@@ -23,6 +23,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Sortie_Event => GetString(nameof(Log_Sortie_Event));
         public string Log_ShipOrItem_Dropped => GetString(nameof(Log_ShipOrItem_Dropped));
         public string Log_ShipAndItem_Dropped => GetString(nameof(Log_ShipAndItem_Dropped));
+        public string Log_Screenshot_Failed => GetString(nameof(Log_Screenshot_Failed));
+        public string Log_Screenshot_Succeeded_Clipboard => GetString(nameof(Log_Screenshot_Succeeded_Clipboard));
+        public string Log_Screenshot_Succeeded_File => GetString(nameof(Log_Screenshot_Succeeded_File));
 
         public string Notification_Expedition => GetString(nameof(Notification_Expedition));
         public string Notification_Expedition_Content => GetString(nameof(Notification_Expedition_Content));
@@ -202,9 +205,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ValidationRule_NumberLessThanMinimum => GetString(nameof(ValidationRule_NumberLessThanMinimum));
         public string ValidationRule_NumberGreaterThanMaximum => GetString(nameof(ValidationRule_NumberGreaterThanMaximum));
 
-        public string Screenshot_Failed => GetString(nameof(Screenshot_Failed));
-        public string Screenshot_Succeeded_Clipboard => GetString(nameof(Screenshot_Succeeded_Clipboard));
-        public string Screenshot_Succeeded_File => GetString(nameof(Screenshot_Succeeded_File));
+        public string Screenshot_File => GetString(nameof(Screenshot_File));
+        public string Screenshot_Clipboard => GetString(nameof(Screenshot_Clipboard));
 
         public string EquipmentOverview_Name => GetString(nameof(EquipmentOverview_Name));
         public string EquipmentOverview_TotalCount => GetString(nameof(EquipmentOverview_TotalCount));

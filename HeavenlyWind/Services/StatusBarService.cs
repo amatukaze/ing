@@ -48,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public void Initialize()
         {
-            Logger.LogAdded += r => Message = $"{r.Time}: {r.Content}";
+            Logger.LogAdded += r => Message = r.Content;
         }
     }
 }
