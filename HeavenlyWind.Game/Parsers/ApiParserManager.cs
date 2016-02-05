@@ -92,10 +92,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                         rRequests = rRequest.Split('&').Where(r => r.Length > 0).Select(r => r.Split('='))
                             .ToDictionary(r => Uri.UnescapeDataString(r[0]), r => Uri.UnescapeDataString(r[1]));
 
-                    var rJson = JObject.Parse(rContent);
-
                     rParser.Requests = rRequests;
-                    rParser.Process(rJson);
+                    rParser.Process(JObject.Parse(rContent));
                     rParser.Requests = null;
                 }
             }
