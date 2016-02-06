@@ -177,6 +177,12 @@
   <String Key="PreferenceWindow_Network_Port">Port</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">Use proxy for SSL connections</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
+  <String Key="PreferenceWindow_Window">Window</String>
+  <String Key="PreferenceWindow_Window_Layout">Layout</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">Landscape</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait</String>
+  <String Key="PreferenceWindow_Window_Layout_Game">KanColle</String>
+  <String Key="PreferenceWindow_Window_Layout_Information">Info</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>

@@ -177,6 +177,12 @@
   <String Key="PreferenceWindow_Network_Port">端口</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">对 SSL 连接也使用代理</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">使用上游代理</String>
+  <String Key="PreferenceWindow_Window">窗口</String>
+  <String Key="PreferenceWindow_Window_Layout">布局</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">横屏</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">竖屏</String>
+  <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
+  <String Key="PreferenceWindow_Window_Layout_Information">信息</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>

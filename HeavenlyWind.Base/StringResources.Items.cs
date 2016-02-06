@@ -181,6 +181,12 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Network_Port => GetString(nameof(PreferenceWindow_Network_Port));
         public string PreferenceWindow_Network_EnableForSSL => GetString(nameof(PreferenceWindow_Network_EnableForSSL));
         public string PreferenceWindow_Network_UseUpstreamProxy => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy));
+        public string PreferenceWindow_Window => GetString(nameof(PreferenceWindow_Window));
+        public string PreferenceWindow_Window_Layout => GetString(nameof(PreferenceWindow_Window_Layout));
+        public string PreferenceWindow_Window_Layout_Landscape => GetString(nameof(PreferenceWindow_Window_Layout_Landscape));
+        public string PreferenceWindow_Window_Layout_Portrait => GetString(nameof(PreferenceWindow_Window_Layout_Portrait));
+        public string PreferenceWindow_Window_Layout_Game => GetString(nameof(PreferenceWindow_Window_Layout_Game));
+        public string PreferenceWindow_Window_Layout_Information => GetString(nameof(PreferenceWindow_Window_Layout_Information));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));

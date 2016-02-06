@@ -177,6 +177,12 @@
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
+  <String Key="PreferenceWindow_Window">ウィンドウ</String>
+  <String Key="PreferenceWindow_Window_Layout">レイアウト</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">横持ち</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">縦持ち</String>
+  <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
+  <String Key="PreferenceWindow_Window_Layout_Information">情報</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>

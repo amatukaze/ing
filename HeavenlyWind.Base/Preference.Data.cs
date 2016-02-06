@@ -60,6 +60,9 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("windows")]
         public WindowPreference[] Windows { get; set; }
 
+        [JsonProperty("layout")]
+        public LayoutPreference Layout { get; set; } = new LayoutPreference();
+
         public Preference()
         {
             r_Language = r_ExtraResourceLanguage = StringResources.Instance.GetDefaultLanguage().Directory;

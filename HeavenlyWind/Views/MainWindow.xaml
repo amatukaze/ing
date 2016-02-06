@@ -70,15 +70,12 @@
             <rv:Browser>
                 <rv:Browser.Style>
                     <Style TargetType="{x:Type rv:Browser}">
-                        <Style.Triggers>
-                            <MultiDataTrigger>
-                                <MultiDataTrigger.Conditions>
-                                    <Condition Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" Value="Maximized" />
-                                    <Condition Binding="{Binding ScreenOrientation, RelativeSource={RelativeSource AncestorType={x:Type ruic:MetroWindow}}}" Value="Portrait" />
-                                </MultiDataTrigger.Conditions>
+                        <Setter Property="DockPanel.Dock" Value="{rb:Preference Layout.LandscapeDock}" />
 
-                                <Setter Property="DockPanel.Dock" Value="Top" />
-                            </MultiDataTrigger>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ScreenOrientation, RelativeSource={RelativeSource AncestorType={x:Type ruic:MetroWindow}}}" Value="Portrait">
+                                <Setter Property="DockPanel.Dock" Value="{rb:Preference Layout.PortraitDock}" />
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </rv:Browser.Style>
