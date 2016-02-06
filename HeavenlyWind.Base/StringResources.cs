@@ -150,6 +150,10 @@ namespace Sakuno.KanColle.Amatsukaze
                         case ExtraStringResourceType.Map:
                             Extra.Maps = rNames;
                             break;
+
+                        case ExtraStringResourceType.ShipLocking:
+                            Extra.ShipLocking = rNames;
+                            break;
                     }
                 }
             }

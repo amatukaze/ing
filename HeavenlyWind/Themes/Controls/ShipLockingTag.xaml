@@ -15,6 +15,10 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type rc:ShipLockingTag}">
                     <Border Background="{TemplateBinding Background}">
+                        <Border.ToolTip>
+                            <TextBlock Text="{Binding Name}" />
+                        </Border.ToolTip>
+
                         <Path Stretch="Uniform" Fill="{Binding Color}" Data="{StaticResource ShipLockingTagIcon}" />
                     </Border>
                 </ControlTemplate>

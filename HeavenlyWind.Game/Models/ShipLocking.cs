@@ -7,6 +7,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         [JsonProperty("id")]
         public int ID { get; internal set; }
 
+        public string Name => StringResources.Instance.Extra?.GetShipLockingName(ID);
+
         [JsonProperty("color")]
         public string Color { get; internal set; }
     }
