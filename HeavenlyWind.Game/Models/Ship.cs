@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -44,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public bool IsLocked => RawData.IsLocked;
 
-        public int LockingTag => RawData.LockingTag;
+        public ShipLocking LockingTag => ShipLockingService.Instance?.GetLocking(RawData.LockingTag);
 
         public int Experience => RawData.Experience[0];
         public int ExperienceToNextLevel => RawData.Experience[1];

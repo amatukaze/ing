@@ -12,47 +12,53 @@
                   Width="1080" Height="600"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
-        <Style x:Key="ModernizationStatusStyle" TargetType="{x:Type Control}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Control}">
-                        <Border Name="Border" Background="Transparent" Padding="4, 2">
-                            <TextBlock>
-                                <Run Text="{Binding Current, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-                                <Run Name="Maximum" Text="{Binding Maximum, StringFormat=/{0}, Mode=OneWay}" FontSize="10" />
-                            </TextBlock>
-                        </Border>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/ShipLockingTag.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-                        <ControlTemplate.Triggers>
-                            <DataTrigger Binding="{Binding IsMaximum}" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
-                                <Setter TargetName="Maximum" Property="Text" Value="MAX" />
-                            </DataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="EquipmentIconStyle" TargetType="{x:Type Control}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Control}">
-                        <Border Background="Transparent">
-                            <Border.ToolTip>
-                                <ToolTip>
-                                    <TextBlock>
-                                        <Run Text="{Binding Info.Name, Mode=OneWay}" />
-                                        <Run Text="{Binding LevelText, Mode=OneWay}" /><Run Text="{Binding ProficiencyText, Mode=OneWay}" />
-                                    </TextBlock>
-                                </ToolTip>
-                            </Border.ToolTip>
+            <Style x:Key="ModernizationStatusStyle" TargetType="{x:Type Control}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Control}">
+                            <Border Name="Border" Background="Transparent" Padding="4, 2">
+                                <TextBlock>
+                                    <Run Text="{Binding Current, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                    <Run Name="Maximum" Text="{Binding Maximum, StringFormat=/{0}, Mode=OneWay}" FontSize="10" />
+                                </TextBlock>
+                            </Border>
 
-                            <rc:EquipmentIcon Type="{Binding Info.Icon}" Width="20" Height="20" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsMaximum}" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <Setter TargetName="Maximum" Property="Text" Value="MAX" />
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="EquipmentIconStyle" TargetType="{x:Type Control}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Control}">
+                            <Border Background="Transparent">
+                                <Border.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock>
+                                            <Run Text="{Binding Info.Name, Mode=OneWay}" />
+                                            <Run Text="{Binding LevelText, Mode=OneWay}" /><Run Text="{Binding ProficiencyText, Mode=OneWay}" />
+                                        </TextBlock>
+                                    </ToolTip>
+                                </Border.ToolTip>
+
+                                <rc:EquipmentIcon Type="{Binding Info.Icon}" Width="20" Height="20" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
     </ruic:MetroWindow.Resources>
 
     <Grid>
@@ -116,6 +122,16 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Ship.Info.Name}" Margin="0, 4" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Width="30">
+                                <Path Stretch="Uniform" Fill="{DynamicResource ForegroundBrushKey}" Width="16" Height="16" Data="{StaticResource ShipLockingTagIcon}" />
+
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <rc:ShipLockingTag DataContext="{Binding Ship.LockingTag}" Width="16" Height="16" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

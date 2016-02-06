@@ -105,6 +105,7 @@
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\MaterialIcon.cs" />
+    <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
     <Compile Include="Models\CheckForUpdateResult.cs" />
     <Compile Include="Models\Power.cs" />
@@ -514,11 +515,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Icons\ShipLockingTag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\Indicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Controls\MaterialIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\ShipLockingTag.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
