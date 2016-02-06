@@ -177,7 +177,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Info = ShipInfo.Dummy;
             else
             {
-                r_EquipmentIDs = null;
+                if (Info?.ID != RawData.ShipID)
+                    r_EquipmentIDs = null;
+
                 Info = rInfo;
             }
 

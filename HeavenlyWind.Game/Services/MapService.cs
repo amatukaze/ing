@@ -44,6 +44,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             });
         }
 
+        public bool ContainsMap(int rpMapID) => r_Nodes.ContainsKey(rpMapID);
+
         public string GetNodeWikiID(int rpMapID, int rpNodeID)
         {
             Dictionary<int, Node> rMap;

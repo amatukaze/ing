@@ -16,7 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         internal NothingHappenedEvent(MapInfo rpMap, RawMapExploration rpData) : base(rpData)
         {
-            if (Message == NothingHappenedMessage.ManualSelection)
+            if (Message == NothingHappenedMessage.ManualSelection && MapService.Instance.ContainsMap(rpMap.ID))
             {
                 CurrentNode = MapService.Instance.GetNodeWikiID(rpMap.ID, rpData.Node) ?? rpData.Node.ToString();
                 NodeSelections = rpData.NodeSelection.Nodes.Select(r => new NodeSelection(rpMap, rpData.Node, r)).ToList().AsReadOnly();
