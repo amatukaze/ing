@@ -126,7 +126,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="30">
+                            <GridViewColumn Width="{Binding ShipLockingColumnWidth}">
                                 <Path Stretch="Uniform" Fill="{DynamicResource ForegroundBrushKey}" Width="16" Height="16" Data="{StaticResource ShipLockingTagIcon}" />
 
                                 <GridViewColumn.CellTemplate>
