@@ -12,6 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public Dictionary<int, string> Quests { get; internal set; }
         public Dictionary<int, string> Areas { get; internal set; }
         public Dictionary<int, string> Maps { get; internal set; }
+        public Dictionary<int, string> ShipLocking { get; internal set; }
 
         internal ExtraStringResources() { }
 
@@ -30,5 +31,6 @@ namespace Sakuno.KanColle.Amatsukaze
         public string GetQuestName(int rpID) => GetName(Quests, rpID);
         public string GetAreaName(int rpID) => GetName(Areas, rpID);
         public string GetMapName(int rpID) => GetName(Maps, rpID);
+        public string GetShipLockingName(int rpID) => GetName(ShipLocking, rpID);
     }
 }

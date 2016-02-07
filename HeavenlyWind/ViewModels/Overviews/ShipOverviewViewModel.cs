@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Controls;
 using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,6 +40,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         public IReadOnlyCollection<ShipViewModel> Ships { get; private set; }
 
         string r_SortingColumn;
+
+        public int ShipLockingColumnWidth => ShipLockingService.Instance?.ShipLocking?.Count > 0 && KanColleGame.Current.MasterInfo.EventMapCount > 0 ? 30 : 0;
 
         internal ShipOverviewViewModel()
         {

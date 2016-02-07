@@ -13,6 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public int? RequiredDefeatCount => RawData.RequiredDefeatCount;
 
+        public CombinedFleetType SortieFleetType => (CombinedFleetType)RawData.SortieFleetType[1];
+
         internal MapMasterInfo(RawMapMasterInfo rpRawData) : base(rpRawData)
         {
             OnRawDataUpdated();

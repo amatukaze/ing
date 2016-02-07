@@ -196,6 +196,7 @@
     <Compile Include="Models\Raw\RawSupplyResult.cs" />
     <Compile Include="Models\RepairDock.cs" />
     <Compile Include="Models\ShipExtensions.cs" />
+    <Compile Include="Models\ShipLocking.cs" />
     <Compile Include="Models\ShipModernizationStatus.cs" />
     <Compile Include="Models\RawDataWrapper`T.cs" />
     <Compile Include="Models\Raw\RawEquipment.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Services\Records\ShipsRecord.cs" />
     <Compile Include="Services\Records\SortieRecord.cs" />
     <Compile Include="Services\SessionService.cs" />
+    <Compile Include="Services\ShipLockingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HeavenlyWind.Base\HeavenlyWind.Base.csproj">

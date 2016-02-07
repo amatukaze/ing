@@ -98,6 +98,10 @@
   <String Key="Material_DevelopmentMaterial">開発資材</String>
   <String Key="Material_ImprovementMaterial">改修資材</String>
 
+  <String Key="SortieOverview_MapGauges">マップゲージ</String>
+  <String Key="SortieOverview_FleetLockingTable">出撃制限</String>
+  <String Key="SortieOverview_FleetLockingTable_CombinedFleet">連合艦隊</String>
+
   <String Key="Sortie_Node">セル</String>
   <String Key="Sortie_Event_Unknown">不明</String>
   <String Key="Sortie_Event_Reward">資源</String>

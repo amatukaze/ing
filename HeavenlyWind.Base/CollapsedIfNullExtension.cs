@@ -10,6 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         string r_Path;
 
+        public CollapsedIfNullExtension() { }
         public CollapsedIfNullExtension(string rpPath)
         {
             r_Path = rpPath;

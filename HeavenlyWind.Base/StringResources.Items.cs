@@ -102,6 +102,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Material_DevelopmentMaterial => GetString(nameof(Material_DevelopmentMaterial));
         public string Material_ImprovementMaterial => GetString(nameof(Material_ImprovementMaterial));
 
+        public string SortieOverview_MapGauges => GetString(nameof(SortieOverview_MapGauges));
+        public string SortieOverview_FleetLockingTable => GetString(nameof(SortieOverview_FleetLockingTable));
+        public string SortieOverview_FleetLockingTable_CombinedFleet => GetString(nameof(SortieOverview_FleetLockingTable_CombinedFleet));
+
         public string Sortie_Node => GetString(nameof(Sortie_Node));
         public string Sortie_Event_Unknown => GetString(nameof(Sortie_Event_Unknown));
         public string Sortie_Event_Reward => GetString(nameof(Sortie_Event_Reward));

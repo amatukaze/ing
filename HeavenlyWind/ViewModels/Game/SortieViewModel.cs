@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -30,6 +31,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         public MapGaugesViewModel MapGauges { get; } = new MapGaugesViewModel();
 
+        public EventMapOverviewViewModel EventMaps { get; private set; }
+        IDisposable r_EventMapShipLockingSubscription;
+
         public SortieInfo Info { get; private set; }
 
         internal SortieViewModel()
@@ -38,20 +42,39 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rGame, nameof(rGame.PropertyChanged))
                 .Select(r => r.EventArgs.PropertyName);
-            rPropertyChangedSource.Where(r => r == nameof(rGame.Sortie))
-                .Subscribe(_ =>
+            rPropertyChangedSource.Where(r => r == nameof(rGame.Sortie)).Subscribe(delegate
+            {
+                var rInfo = KanColleGame.Current.Sortie;
+                if (rInfo == null)
+                    Type = DisplayType.MapGauge;
+                else
                 {
-                    var rInfo = KanColleGame.Current.Sortie;
-                    if (rInfo == null)
-                        Type = DisplayType.MapGauge;
-                    else
-                    {
-                        Info = rInfo;
-                        OnPropertyChanged(nameof(Info));
+                    Info = rInfo;
+                    OnPropertyChanged(nameof(Info));
 
-                        Type = rInfo is PracticeInfo ? DisplayType.Practice : DisplayType.Sortie;
-                    }
-                });
+                    Type = rInfo is PracticeInfo ? DisplayType.Practice : DisplayType.Sortie;
+                }
+            });
+
+            r_EventMapShipLockingSubscription = SessionService.Instance.Subscribe("api_get_member/basic", delegate
+            {
+                ShipLockingService.Instance.Initialize();
+
+                var rMasterInfo = rGame.MasterInfo;
+                if (ShipLockingService.Instance.ShipLocking.Count > 0 && rMasterInfo.EventMapCount > 0)
+                {
+                    var rEventMaps = from rArea in rMasterInfo.MapAreas.Values
+                                     where rArea.IsEventArea
+                                     join rMap in rMasterInfo.Maps.Values on rArea.ID equals rMap.AreaID
+                                     select rMap;
+
+                    EventMaps = new EventMapOverviewViewModel(rEventMaps.ToArray());
+                    OnPropertyChanged(nameof(EventMaps));
+                }
+
+                r_EventMapShipLockingSubscription.Dispose();
+                r_EventMapShipLockingSubscription = null;
+            });
         }
     }
 }

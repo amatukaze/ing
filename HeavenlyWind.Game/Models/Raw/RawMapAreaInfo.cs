@@ -11,6 +11,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public string Name { get; set; }
 
         [JsonProperty("api_type")]
-        public bool IsEventMap { get; set; }
+        public bool IsEventArea { get; set; }
     }
 }

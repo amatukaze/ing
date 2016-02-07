@@ -98,6 +98,10 @@
   <String Key="Material_DevelopmentMaterial">开发资材</String>
   <String Key="Material_ImprovementMaterial">改修资材</String>
 
+  <String Key="SortieOverview_MapGauges">海域血量</String>
+  <String Key="SortieOverview_FleetLockingTable">贴条表</String>
+  <String Key="SortieOverview_FleetLockingTable_CombinedFleet">联合舰队</String>
+
   <String Key="Sortie_Node">场所</String>
   <String Key="Sortie_Event_Unknown">未知</String>
   <String Key="Sortie_Event_Reward">资源</String>

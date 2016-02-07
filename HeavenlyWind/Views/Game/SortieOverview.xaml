@@ -11,7 +11,11 @@
             <Style TargetType="{x:Type ContentControl}">
                 <Setter Property="Content">
                     <Setter.Value>
-                        <rvg:MapGauges DataContext="{Binding MapGauges}" />
+                        <StackPanel>
+                            <rvg:MapGauges DataContext="{Binding MapGauges}" />
+
+                            <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="0, 8, 0, 0" />
+                        </StackPanel>
                     </Setter.Value>
                 </Setter>
 
