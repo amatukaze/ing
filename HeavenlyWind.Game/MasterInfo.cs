@@ -19,6 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public IDTable<ExpeditionInfo> Expeditions { get; } = new IDTable<ExpeditionInfo>();
 
+        public int EventMapCount { get; private set; }
+
         internal MasterInfo() { }
 
         public void Update(RawMasterInfo rpInfo)
@@ -35,6 +37,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             Maps.UpdateRawData(rpInfo.Maps, r => new MapMasterInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
 
             Expeditions.UpdateRawData(rpInfo.Expeditions, r => new ExpeditionInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
+
+            EventMapCount = (from rArea in MapAreas.Values
+                             where rArea.IsEventArea
+                             join rMap in Maps.Values on rArea.ID equals rMap.AreaID
+                             select rMap).Count();
         }
 
         public ExpeditionInfo GetExpeditionFromName(string rpName) => Expeditions.Values.SingleOrDefault(r => r.Name == rpName);

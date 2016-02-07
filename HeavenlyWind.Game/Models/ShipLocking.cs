@@ -11,5 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         [JsonProperty("color")]
         public string Color { get; internal set; }
+
+        [JsonProperty("maps")]
+        public int AllowedEventMaps { get; internal set; }
     }
 }

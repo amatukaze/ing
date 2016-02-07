@@ -108,6 +108,8 @@
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
     <Compile Include="Models\CheckForUpdateResult.cs" />
+    <Compile Include="Models\EventMap.cs" />
+    <Compile Include="Models\FleetLocking.cs" />
     <Compile Include="Models\Power.cs" />
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Services\UpdateService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
+    <Compile Include="ViewModels\Game\EventMapOverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetConditionRegenerationViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
@@ -178,6 +181,9 @@
     </Compile>
     <Compile Include="Views\Game\ConstructionDocks.xaml.cs">
       <DependentUpon>ConstructionDocks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\EventMapOverview.xaml.cs">
+      <DependentUpon>EventMapOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Events\AviationReconnaissance.xaml.cs">
       <DependentUpon>AviationReconnaissance.xaml</DependentUpon>
@@ -568,6 +574,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\ConstructionDocks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\EventMapOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
