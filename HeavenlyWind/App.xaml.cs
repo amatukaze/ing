@@ -52,6 +52,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             Preference.Load();
             StringResources.Instance.LoadMainResource(Preference.Current.Language);
+            StringResources.Instance.LoadExtraResource(Preference.Current.ExtraResourceLanguage);
 
             KanColleProxy.Start();
 
