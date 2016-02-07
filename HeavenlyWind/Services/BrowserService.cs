@@ -115,7 +115,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 r_Initialized = true;
 
-                Messages.Subscribe(CommunicatorMessages.LoadCompleted, _r =>
+                Messages.Subscribe(CommunicatorMessages.LoadCompleted, delegate
                 {
                     var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
                     Communicator.Write(CommunicatorMessages.SetZoom + ":" + rZoom);
@@ -126,8 +126,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     IsNavigatorVisible = false;
                 });
 
-                Navigator = new BrowserNavigator();
-                GameController = new GameController();
+                Navigator = new BrowserNavigator(this);
+                GameController = new GameController(this);
             }
         }
         bool LoadLayoutEngines()

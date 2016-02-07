@@ -9,7 +9,7 @@
                   xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
                   mc:Ignorable="d"
                   Title="{Binding Title}"
-                  Width="1300" Height="600"
+                  Width="1280" Height="600"
                   UseLayoutRounding="True">
     <Grid>
         <Grid.RowDefinitions>
@@ -18,7 +18,7 @@
             <RowDefinition Height="23" />
         </Grid.RowDefinitions>
 
-        <DockPanel ruic:MetroWindow.IsCaptionBar="True">
+        <DockPanel x:Name="r_CaptionBar" x:FieldModifier="private" ruic:MetroWindow.IsCaptionBar="True">
             <Border Height="4" DockPanel.Dock="Bottom" />
 
             <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
@@ -67,7 +67,7 @@
         </DockPanel>
 
         <DockPanel Grid.Row="1">
-            <rv:Browser>
+            <rv:Browser x:Name="r_Browser" x:FieldModifier="private">
                 <rv:Browser.Style>
                     <Style TargetType="{x:Type rv:Browser}">
                         <Setter Property="DockPanel.Dock" Value="{rb:Preference Layout.LandscapeDock}" />
@@ -81,7 +81,7 @@
                 </rv:Browser.Style>
             </rv:Browser>
 
-            <ContentControl>
+            <ContentControl x:Name="r_Content" x:FieldModifier="private">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type rvm:GameInformationViewModel}">
                         <rv:GameInformation />
@@ -105,7 +105,7 @@
             </ContentControl>
         </DockPanel>
 
-        <rv:StatusBar Background="{DynamicResource AccentBrushKey}" Grid.Row="2" />
+        <rv:StatusBar x:Name="r_StatusBar" x:FieldModifier="private" Background="{DynamicResource AccentBrushKey}" Grid.Row="2" />
 
     </Grid>
 </ruic:MetroWindow>

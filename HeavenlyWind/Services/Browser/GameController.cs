@@ -8,6 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 {
     class GameController : ModelBase
     {
+        BrowserService r_Owner;
+
         bool r_IsAudioDeviceNotAvailable;
         BrowserVolume r_Volume;
         public BrowserVolume Volume
@@ -30,12 +32,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         public ICommand RestartGameCommand { get; }
 
-        public GameController()
+        public GameController(BrowserService rpOwner)
         {
+            r_Owner = rpOwner;
+
             TakeScreenshotToFileCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
             TakeScreenshotToClipboardCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: true));
 
-            if (OS.IsWin7OrLater && !BrowserService.Instance.NoInstalledLayoutEngines)
+            if (OS.IsWin7OrLater && !rpOwner.NoInstalledLayoutEngines)
                 try
                 {
                     foreach (var rSession in VolumeManager.Instance.EnumerateSessions())
@@ -96,7 +100,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void RestartGame()
         {
-            BrowserService.Instance.Navigator.Refresh();
+            r_Owner.Navigator.Refresh();
         }
 
     }

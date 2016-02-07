@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
     {
         IntPtr r_Handle;
 
-        bool r_IsExtracted;
+        public bool IsExtracted { get; private set; }
 
         public BrowserHost(IntPtr rpHandle)
         {
@@ -20,12 +20,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.InvalidateArrange, _ => InvalidateArrange());
             BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.LoadCompleted, r =>
             {
-                r_IsExtracted = false;
+                IsExtracted = false;
                 InvalidateArrange();
             });
             BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.LoadGamePageCompleted, r =>
             {
-                r_IsExtracted = true;
+                IsExtracted = true;
                 InvalidateArrange();
             });
         }
@@ -44,7 +44,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             var rWidth = rpFinalSize.Width;
             var rHeight = rpFinalSize.Height;
 
-            if (r_IsExtracted)
+            if (IsExtracted)
             {
                 var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
 
@@ -61,7 +61,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             var rWidth = rpConstraint.Width;
             var rHeight = rpConstraint.Height;
 
-            if (r_IsExtracted)
+            if (IsExtracted)
             {
                 var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
 
