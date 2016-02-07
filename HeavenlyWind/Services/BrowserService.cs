@@ -43,8 +43,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         Process r_BrowserProcess;
 
-        object r_BrowserControl;
-        public object BrowserControl
+        BrowserHost r_BrowserControl;
+        public BrowserHost BrowserControl
         {
             get { return r_BrowserControl; }
             private set
@@ -120,11 +120,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
                     Communicator.Write(CommunicatorMessages.SetZoom + ":" + rZoom);
                 });
-                Messages.Subscribe(CommunicatorMessages.LoadGamePageCompleted, _ =>
-                {
-                    Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
-                    IsNavigatorVisible = false;
-                });
+                Messages.Subscribe(CommunicatorMessages.LoadGamePageCompleted, _ => ResizeBrowserToFitGame());
 
                 Navigator = new BrowserNavigator(this);
                 GameController = new GameController(this);
@@ -174,5 +170,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             Navigator.Navigate(Preference.Current.Browser.Homepage);
         }
 
+        internal void ResizeBrowserToFitGame()
+        {
+            if (BrowserControl == null)
+                return;
+
+            Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
+            IsNavigatorVisible = false;
+
+            BrowserControl.Dispatcher.BeginInvoke(new Action(BrowserControl.ResizeBrowserToFitGame));
+        }
     }
 }

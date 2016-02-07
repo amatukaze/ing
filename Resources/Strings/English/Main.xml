@@ -42,7 +42,9 @@
   <String Key="Update_Download">Download</String>
 
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
-  
+
+  <String Key="Browser_Navigator_ResizeBrowserToFitGame">Resize browser to fit game</String>
+
   <String Key="Tab_Overview">Overview</String>
   <String Key="Tab_Fleets">Fleet</String>
   <String Key="Tab_Sortie">Sortie</String>

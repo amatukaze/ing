@@ -70,6 +70,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public ICommand NavigateCommand { get; }
         public ICommand RefreshCommand { get; }
 
+        public ICommand ResizeBrowserToFitGameCommand { get; }
+
         public BrowserNavigator(BrowserService rpOwner)
         {
             r_Owner = rpOwner;
@@ -89,6 +91,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             GoForwardCommand = new DelegatedCommand(GoForward);
             NavigateCommand = new DelegatedCommand(Navigate);
             RefreshCommand = new DelegatedCommand(Refresh);
+
+            ResizeBrowserToFitGameCommand = new DelegatedCommand(ResizeBrowserToFitGame);
         }
 
         public void GoBack() => r_Owner.Communicator.Write(CommunicatorMessages.GoBack);
@@ -110,5 +114,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_Owner.Communicator.Write(CommunicatorMessages.Refresh);
         }
 
+        public void ResizeBrowserToFitGame() => r_Owner.ResizeBrowserToFitGame();
     }
 }

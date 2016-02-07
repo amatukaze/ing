@@ -18,14 +18,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_Handle = rpHandle;
 
             BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.InvalidateArrange, _ => InvalidateArrange());
-            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.LoadCompleted, r =>
+            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.LoadCompleted, delegate
             {
                 IsExtracted = false;
-                InvalidateArrange();
-            });
-            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.LoadGamePageCompleted, r =>
-            {
-                IsExtracted = true;
                 InvalidateArrange();
             });
         }
@@ -38,6 +33,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         }
 
         protected override void DestroyWindowCore(HandleRef rpHandle) { }
+
+        internal void ResizeBrowserToFitGame()
+        {
+            IsExtracted = true;
+            InvalidateArrange();
+        }
 
         protected override Size ArrangeOverride(Size rpFinalSize)
         {

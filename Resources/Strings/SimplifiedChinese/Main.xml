@@ -43,6 +43,8 @@
 
   <String Key="GameInfomation_Waiting">等待游戏启动</String>
 
+  <String Key="Browser_Navigator_ResizeBrowserToFitGame">调整浏览器大小以适应游戏</String>
+
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
   <String Key="Tab_Sortie">出击</String>

@@ -47,6 +47,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 
+        public string Browser_Navigator_ResizeBrowserToFitGame => GetString(nameof(Browser_Navigator_ResizeBrowserToFitGame));
+
         public string Tab_Overview => GetString(nameof(Tab_Overview));
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));
         public string Tab_Sortie => GetString(nameof(Tab_Sortie));
