@@ -106,7 +106,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         void ScreenshotFailed(string rpMessage)
         {
-            r_TaskScreenshotTask.SetResult(null);
+            r_TaskScreenshotTask?.SetResult(null);
 
             StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, rpMessage);
         }
