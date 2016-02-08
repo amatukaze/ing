@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.5">
+<Strings CultureName="en" Name="English" Version="0.1.6">
+
+  <String Key="Product_Name">Intelligent Naval Gun-kun</String>
 
   <String Key="Feature_UnderConstruction">Under construction</String>
   <String Key="Feature_Disabled">Disabled</String>
@@ -177,7 +179,7 @@
   <String Key="Window_DevelopmentHistory">Development History</String>
   <String Key="Window_SortieHistory">Sortie History</String>
   <String Key="Window_ExpeditionHistory">Expedition History</String>
-  <String Key="Window_ClosingConfirmation">Are you sure to close KanColle Inspector?</String>
+  <String Key="Window_ClosingConfirmation">Are you sure to close {0}?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Port</String>

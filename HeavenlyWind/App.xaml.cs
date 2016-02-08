@@ -74,7 +74,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(e.ExceptionObject.ToString(), ProductInfo.FullAppName, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.ExceptionObject.ToString(), ProductInfo.AppName, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
     }

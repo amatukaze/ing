@@ -66,7 +66,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         internal MainWindowViewModel()
         {
-            Title = ProductInfo.FullAppName;
+            Title = StringResources.Instance.Main.Product_Name;
 
             var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(KanColleGame.Current, nameof(KanColleGame.Current.PropertyChanged))
                 .Select(r => r.EventArgs.PropertyName);

@@ -5,6 +5,8 @@ namespace Sakuno.KanColle.Amatsukaze
     partial class StringResourcesItems
     {
 
+        public string Product_Name => GetString(nameof(Product_Name));
+
         public string Feature_UnderConstruction => GetString(nameof(Feature_UnderConstruction));
         public string Feature_Disabled => GetString(nameof(Feature_Disabled));
         public string Feature_Filter => GetString(nameof(Feature_Filter));

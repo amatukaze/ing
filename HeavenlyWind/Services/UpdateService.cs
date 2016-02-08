@@ -52,7 +52,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         async Task CheckForUpdateCore()
         {
-            var rRequest = WebRequest.CreateHttp("https://api.sakuno.moe/kci/check_for_update");
+            var rRequest = WebRequest.CreateHttp("https://api.sakuno.moe/ing/check_for_update");
             rRequest.UserAgent = ProductInfo.UserAgent;
             rRequest.Method = "POST";
 

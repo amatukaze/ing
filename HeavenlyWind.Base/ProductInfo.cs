@@ -2,13 +2,13 @@
 {
     public class ProductInfo
     {
-        public const string AppName = "KanColle Inspector";
-        public const string FullAppName = "KanColle Inspector ~ HeavenlyWind";
+        public const string AppName = "いんてりじぇんと連装砲くん";
+        public const string ProductName = "Intelligent Naval Gun-kun";
 
-        public const string AssemblyVersionString = "0.1.5.2";
+        public const string AssemblyVersionString = "0.1.6";
 
-        public const string ReleaseCodeName = "Traum";
+        public const string ReleaseCodeName = "Moonbria";
 
-        public const string UserAgent = "KanColleInspector/" + AssemblyVersionString;
+        public const string UserAgent = "ING/" + AssemblyVersionString;
     }
 }
