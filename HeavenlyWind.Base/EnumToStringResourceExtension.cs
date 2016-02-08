@@ -14,6 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string StringFormat { get; set; }
         public BindingMode Mode { get; set; } = BindingMode.OneWay;
+        public object TargetNullValue { get; set; }
 
         public EnumToStringResourceExtension(string rpPath, string rpPrefix)
         {
@@ -26,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze
             if (!StringResources.Instance.IsLoaded)
                 return Path;
 
-            return new Binding(Path) { Converter = r_Converter, ConverterParameter = Prefix, StringFormat = StringFormat, Mode = Mode }.ProvideValue(rpServiceProvider);
+            return new Binding(Path) { Converter = r_Converter, ConverterParameter = Prefix, StringFormat = StringFormat, Mode = Mode, TargetNullValue = TargetNullValue }.ProvideValue(rpServiceProvider);
         }
 
         class Converter : IValueConverter

@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Models
 {
-    public enum CheckForUpdateFileAction { CreateOrOverwrite, Delete }
+    public enum CheckForUpdateFileAction { CreateOrOverwrite, Delete, Rename }
 
     public class CheckForUpdateResult
     {

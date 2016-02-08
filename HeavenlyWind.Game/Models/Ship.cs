@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int SortNumber => RawData.SortNumber;
 
         public int Level => RawData.Level;
+        public bool IsMarried => Level > 99;
 
         int r_Condition;
         public int Condition
@@ -43,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public bool IsLocked => RawData.IsLocked;
 
-        public int LockingTag => RawData.LockingTag;
+        public ShipLocking LockingTag => ShipLockingService.Instance?.GetLocking(RawData.LockingTag);
 
         public int Experience => RawData.Experience[0];
         public int ExperienceToNextLevel => RawData.Experience[1];
@@ -176,7 +178,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Info = ShipInfo.Dummy;
             else
             {
-                r_EquipmentIDs = null;
+                if (Info?.ID != RawData.ShipID)
+                    r_EquipmentIDs = null;
+
                 Info = rInfo;
             }
 
@@ -186,7 +190,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Condition = RawData.Condition;
 
-            if (KanColleGame.Current.Port.RepairDocks.Values.Any(r => r.Ship == this))
+            var rPort = KanColleGame.Current.Port;
+
+            if (KanColleGame.Current.Sortie != null && rPort.EvacuatedShipIDs.Contains(ID))
+                State |= ShipState.Evacuated;
+            else
+                State &= ~ShipState.Evacuated;
+
+            if (rPort.RepairDocks.Values.Any(r => r.Ship == this))
                 State |= ShipState.Repairing;
             else
                 State &= ~ShipState.Repairing;
@@ -251,8 +262,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 State |= ShipState.Repairing;
             else
             {
-                HP = HP.Update(HP.Maximum);
+                State &= ~ShipState.Repairing;
 
+                HP = HP.Update(HP.Maximum);
                 if (Condition < 40)
                     Condition = 40;
             }

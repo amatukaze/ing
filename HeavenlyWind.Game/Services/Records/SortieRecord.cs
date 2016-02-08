@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
+    using EventMapDifficultyEnum = EventMapDifficulty;
+
     public class SortieRecord : RecordBase
     {
         const int RETURN_NODE_ID = -1;
@@ -136,25 +138,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
 
             r_NodeSubscription = Observable.FromEventPattern<PropertyChangedEventArgs>(rSortie, nameof(rSortie.PropertyChanged))
-                .Where(r => r.EventArgs.PropertyName == nameof(rSortie.Cell))
+                .Where(r => r.EventArgs.PropertyName == nameof(rSortie.Node))
                 .Subscribe(_ => InsertExplorationRecord(KanColleGame.Current.Sortie));
         }
 
         void InsertExplorationRecord(SortieInfo rpSortie)
         {
-            var rNode = rpSortie.Cell;
+            var rNode = rpSortie.Node;
 
             using (var rTransaction = Connection.BeginTransaction())
             {
-                InsertCellInfo(rpSortie.Map.ID, rNode);
+                InsertNodeInfo(rpSortie.Map.ID, rNode);
                 InsertRecord(rpSortie.ID, rNode.InternalID, (rNode.Event as IExtraInfo)?.GetExtraInfo());
 
                 rTransaction.Commit();
             }
 
-            r_IsDeadEnd = rpSortie.Cell.IsDeadEnd;
+            r_IsDeadEnd = rpSortie.Node.IsDeadEnd;
         }
-        void InsertCellInfo(int rpMapID, SortieCellInfo rpNode)
+        void InsertNodeInfo(int rpMapID, SortieNodeInfo rpNode)
         {
             using (var rCommand = Connection.CreateCommand())
             {
@@ -247,10 +249,12 @@ ORDER BY id DESC, step DESC;";
 
             public IMapMasterInfo Map { get; }
             public bool IsEventMap { get; }
-            public EventMapDifficulty EventMapDifficulty { get; }
+            public EventMapDifficultyEnum? EventMapDifficulty { get; }
 
             public int Step { get; }
             public int Node { get; }
+            public string NodeWikiID { get; }
+
             public SortieEventType EventType { get; }
 
             public string Time { get; }
@@ -265,11 +269,14 @@ ORDER BY id DESC, step DESC;";
                 var rMapID = Convert.ToInt32(rpReader["map"]);
                 Map = MapService.Instance.GetMasterInfo(rMapID);
 
-                EventMapDifficulty = (EventMapDifficulty)Convert.ToInt32(rpReader["difficulty"]);
-                IsEventMap = EventMapDifficulty != EventMapDifficulty.None;
+                var rEventMapDifficulty = (EventMapDifficultyEnum)Convert.ToInt32(rpReader["difficulty"]);
+                IsEventMap = rEventMapDifficulty != EventMapDifficultyEnum.None;
+                if (IsEventMap)
+                    EventMapDifficulty = rEventMapDifficulty;
 
                 Step = Convert.ToInt32(rpReader["step"]);
                 Node = Convert.ToInt32(rpReader["node"]);
+                NodeWikiID = MapService.Instance.GetNodeWikiID(rMapID, Node);
 
                 EventType = (SortieEventType)Convert.ToInt32(rpReader["type"]);
 

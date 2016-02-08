@@ -6,5 +6,84 @@
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <TextBlock Text="{rb:EnumToStringResource Message, Sortie_NothingHappened}" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{rb:EnumToStringResource Message, Sortie_NothingHappened}" />
+
+        <Control Grid.Row="1">
+            <Control.Style>
+                <Style TargetType="{x:Type Control}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Control}">
+                                <Grid Width="200" Height="200" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Ellipse Fill="Transparent" Stroke="White" StrokeThickness="1" Grid.Row="1" Grid.Column="1" />
+                                    <TextBlock Text="{Binding CurrentNode}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" />
+
+                                    <ItemsControl ItemsSource="{Binding NodeSelections}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <Grid />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ContentPresenter}">
+                                                <Setter Property="VerticalAlignment" Value="Center" />
+                                                <Setter Property="HorizontalAlignment" Value="Left" />
+                                                <Setter Property="Margin" Value="15, 0, 0, 0" />
+                                            </Style>
+                                        </ItemsControl.ItemContainerStyle>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid RenderTransformOrigin=".0, .5">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RenderTransform>
+                                                        <RotateTransform Angle="{Binding DirectionAngle}" />
+                                                    </Grid.RenderTransform>
+
+                                                    <Line Stroke="White" StrokeThickness="1" X2="30" Margin="15, 0, 0, 0" VerticalAlignment="Center" />
+
+                                                    <Ellipse Fill="Transparent" Stroke="White" StrokeThickness="1" Width="30" Height="30" Grid.Column="1" />
+                                                    <TextBlock Text="{Binding ID}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin=".5, .5" Grid.Column="1">
+                                                        <TextBlock.RenderTransform>
+                                                            <RotateTransform Angle="{Binding DirectionAngle, Converter={StaticResource OppositeNumberConverter}}" />
+                                                        </TextBlock.RenderTransform>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding NodeSelections}" Value="{x:Null}">
+                            <Setter Property="Template" Value="{x:Null}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Control.Style>
+        </Control>
+    </Grid>
 </UserControl>

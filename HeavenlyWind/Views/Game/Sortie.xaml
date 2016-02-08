@@ -20,10 +20,10 @@
             </Style.Triggers>
         </Style>
         <Style x:Key="EventType" TargetType="{x:Type Run}">
-            <Setter Property="Text" Value="{rb:EnumToStringResource Cell.EventType, Sortie_Event}" />
+            <Setter Property="Text" Value="{rb:EnumToStringResource Node.EventType, Sortie_Event}" />
 
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Cell.Event}" Value="{x:Null}">
+                <DataTrigger Binding="{Binding Node.Event}" Value="{x:Null}">
                     <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
                 </DataTrigger>
             </Style.Triggers>
@@ -42,7 +42,7 @@
             <StackPanel>
                 <StackPanel DataContext="{Binding Map}" Orientation="Horizontal">
                     <TextBlock>
-                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, Mode=OneWay}" />
+                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, TargetNullValue={x:Null}}" />
                         <Run Text="{Binding MasterInfo.Name, StringFormat=({0}), Mode=OneWay}" />
                     </TextBlock>
                 </StackPanel>
@@ -51,20 +51,20 @@
                     <Border Padding="2" Width="18" Height="18" Margin="0, 0, 4, 0" Visibility="{rb:CollapsedIfNull DirectionAngle}">
                         <Path Data="M0,0 L300,150 0,300 65,150 z" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" RenderTransformOrigin=".5, .5">
                             <Path.RenderTransform>
-                                <RotateTransform Angle="{Binding DirectionAngle}" CenterX=".5" CenterY=".5" />
+                                <RotateTransform Angle="{Binding DirectionAngle, TargetNullValue=0}" CenterX=".5" CenterY=".5" />
                             </Path.RenderTransform>
                         </Path>
                     </Border>
 
                     <TextBlock VerticalAlignment="Center">
-                        <Run Text="{rb:StringResource Main.Sortie_Cell, Mode=OneWay}" />:
-                        <Run Text="{Binding Cell.ID, Mode=OneWay}" />
+                        <Run Text="{rb:StringResource Main.Sortie_Node, Mode=OneWay}" />:
+                        <Run Text="{Binding Node.ID, Mode=OneWay}" /><Run Text="{Binding Node.WikiID, StringFormat={} ({0}), TargetNullValue={x:Null}, Mode=OneWay}" />
                         <Run Style="{StaticResource EventType}" />
                     </TextBlock>
                 </StackPanel>
             </StackPanel>
 
-            <ContentControl Content="{Binding Cell.Event}" VerticalContentAlignment="Top" Grid.Row="2">
+            <ContentControl Content="{Binding Node.Event}" VerticalContentAlignment="Top" Grid.Row="2">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type rgme:RewardEvent}">
                         <rvge:Reward />

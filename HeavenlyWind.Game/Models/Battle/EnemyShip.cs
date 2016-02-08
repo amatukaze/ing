@@ -7,6 +7,7 @@
         public int Level { get; }
 
         public bool IsMVP => false;
+        public Ship Ship => null;
 
         public EnemyShip(int rpID, int rpLevel)
         {

@@ -8,19 +8,30 @@
              xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <Grid DataContext="{Binding Source}" >
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <TextBlock Margin="4">
-            <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
-            <Run Text="{rb:StringResource Main.Fleet_LoS, Mode=OneWay}" />:<Run Text="{Binding Status.LoS.Old25, StringFormat=0.0}" />/<Run Text="{Binding Status.LoS.Autumn25, StringFormat=0.0}" />
-            <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.MinAA, StringFormat=0.0}" />-<Run Text="{Binding Status.MaxAA, StringFormat=0.0}" />
-        </TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="4">
+            <TextBlock DataContext="{Binding Source}">
+                <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
+                <Run Text="{rb:StringResource Main.Fleet_LoS, Mode=OneWay}" />:<Run Text="{Binding Status.LoS.Old25, StringFormat=0.0}" />/<Run Text="{Binding Status.LoS.Autumn25, StringFormat=0.0}" />
+                <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.MinAA, StringFormat=0.0}" />-<Run Text="{Binding Status.MaxAA, StringFormat=0.0}" />
+            </TextBlock>
 
-        <ScrollViewer Margin="0, 4, 0, 0" Grid.Row="1">
+            <Border DataContext="{Binding Source.Resupply}" Background="Transparent" ToolTip="{StaticResource UnsuppliedToolTip}" Margin="4, 0, 0, 0" Visibility="{Binding NeedResupply, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Unsupplied}" />
+            </Border>
+            <Border Margin="4, 0, 0, 0" Visibility="{rb:CollapsedIfNull ConditionRegeneration.TimeToComplete}">
+                <TextBlock>
+                    <Run Text="{rb:StringResource Main.Fleet_MoraleRegeneration}" />:<Run Text="{Binding ConditionRegeneration.RemainingTime, Mode=OneWay}" />
+                </TextBlock>
+            </Border>
+        </StackPanel>
+
+        <ScrollViewer DataContext="{Binding Source}" Margin="0, 4, 0, 0" Grid.Row="1">
             <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Margin="0, -5, 0, 0" Grid.IsSharedSizeScope="True">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type rgm:Ship}">
@@ -57,6 +68,9 @@
                                 <Border Name="Repairing" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.RowSpan="2">
                                     <TextBlock Text="{rb:StringResource Main.Ship_Repairing}" FontSize="14" HorizontalAlignment="Center" />
                                 </Border>
+                                <Border Name="Evacuated" Background="#33B1B1B1" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.RowSpan="2">
+                                    <TextBlock Text="{rb:StringResource Main.Ship_Evacuated}" FontSize="14" HorizontalAlignment="Center" />
+                                </Border>
 
                                 <TextBlock Name="Condition" Text="{Binding Condition}" Margin="3, 0, 0, 0" TextAlignment="Center" Grid.Column="4" Grid.RowSpan="2" />
                                 <Grid Width="50" Margin="3, 2, 0, 2" Grid.Column="5" Grid.RowSpan="2">
@@ -84,6 +98,11 @@
 
                             <DataTrigger Binding="{rb:HasFlag State, Repairing}" Value="True">
                                 <Setter TargetName="Repairing" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="HP" Property="Opacity" Value=".2" />
+                                <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{rb:HasFlag State, Evacuated}" Value="True">
+                                <Setter TargetName="Evacuated" Property="Visibility" Value="Visible" />
                                 <Setter TargetName="HP" Property="Opacity" Value=".2" />
                                 <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
                             </DataTrigger>

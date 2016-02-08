@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public string Name => RawData.Name;
 
-        public bool IsEventMap => RawData.IsEventMap;
+        public bool IsEventArea => RawData.IsEventArea;
 
         internal MapAreaInfo(RawMapAreaInfo rpRawData) : base(rpRawData)
         {

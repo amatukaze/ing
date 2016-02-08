@@ -33,6 +33,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public int? RequiredDefeatCount { get; set; }
 
         [JsonProperty("api_sally_flag")]
-        public int[] SortieFlag { get; set; }
+        public int[] SortieFleetType { get; set; }
     }
 }

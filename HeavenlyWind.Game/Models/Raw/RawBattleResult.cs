@@ -68,7 +68,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public RawEventMapBouns[] EventMapBouns { get; set; }
 
         [JsonProperty("api_escape_flag")]
-        public bool HasEscapedShip { get; set; }
+        public bool HasEvacuatedShip { get; set; }
+        [JsonProperty("api_escape")]
+        public RawEvacuatedShips EvacuatedShips { get; set; }
 
         public class RawEnemyInfo
         {
@@ -108,13 +110,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
             [JsonProperty("api_value")]
             public int Count { get; set; }
         }
-        public class RawEscapedShip
+        public class RawEvacuatedShips
         {
             [JsonProperty("api_escape_idx")]
-            public int[] EscapedShipID { get; set; }
+            public int[] EvacuatedShipIndex { get; set; }
 
             [JsonProperty("api_tow_idx")]
-            public int[] EscortShipID { get; set; }
+            public int[] EscortShipIndex { get; set; }
         }
     }
 }

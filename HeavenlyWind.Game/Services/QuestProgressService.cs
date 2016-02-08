@@ -2,7 +2,6 @@
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
     public class QuestProgressService
     {
-        const string Data = @"Data\Quests.json";
+        public const string DataFilename = @"Data\Quests.json";
         static TimeSpan Offset = TimeSpan.FromHours(4.0);
 
         public static QuestProgressService Instance { get; } = new QuestProgressService();
@@ -34,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         {
             r_LoadDataSubscription = SessionService.Instance.Subscribe("api_start2", _ =>
             {
-                var rDataFile = new FileInfo(Data);
+                var rDataFile = new FileInfo(DataFilename);
                 if (!rDataFile.Exists)
                     Infos = new Dictionary<int, QuestInfo>();
                 else

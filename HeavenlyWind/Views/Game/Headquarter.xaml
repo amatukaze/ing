@@ -4,51 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <StackPanel>
         <Border DataContext="{Binding Admiral.Source}" Padding="4" Margin="0, 0, 0, 4">
-            <Border.Resources>
-                <Style x:Key="AdmiralRanking" TargetType="{x:Type Run}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Rank}" Value="MarshalAdmiral">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_MarshalAdmiral, Mode=OneWay}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Rank}" Value="Admiral">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_Admiral, Mode=OneWay}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Rank}" Value="ViceAdmiral">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_ViceAdmiral, Mode=OneWay}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Rank}" Value="RearAdmiral">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_RearAdmiral, Mode=OneWay}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Rank}" Value="Captain">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_Captain, Mode=OneWay}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Rank}" Value="Commander">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_Commander, Mode=OneWay}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Rank}" Value="NoviceCommander">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_NoviceCommander, Mode=OneWay}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Rank}" Value="LieutenantCommander">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_LieutenantCommander, Mode=OneWay}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Rank}" Value="ViceLieutenantCommander">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_ViceLieutenantCommander, Mode=OneWay}" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding Rank}" Value="NoviceLieutenantCommander">
-                            <Setter Property="Text" Value="{rb:StringResource Main.Overview_Admiral_Rank_NoviceLieutenantCommander, Mode=OneWay}" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Border.Resources>
-
             <TextBlock>
                 <Run Text="{Binding Name, Mode=OneWay}" />
                 <Run Text="{Binding Level, StringFormat=Lv. {0}, Mode=OneWay}" />
-                [<Run Style="{StaticResource AdmiralRanking}" />]
+                [<Run Text="{rb:EnumToStringResource Rank, Overview_Admiral_Rank}" />]
                 <Run Text="{Binding ExperienceToNextLevel, StringFormat=Next: {0}, Mode=OneWay}" />
             </TextBlock>
         </Border>
@@ -59,6 +31,54 @@
                 <Run Text="{rb:StringResource Main.Overview_Headquarter_Equipment, Mode=OneWay}" />:
                 <Run Text="{Binding EquipmentCount, Mode=OneWay}" />/<Run Text="{Binding Admiral.Source.MaxEquipmentCount, Mode=OneWay}" />
             </TextBlock>
+        </Border>
+        <Border DataContext="{Binding Materials.Source}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <DockPanel Margin="4">
+                    <rc:MaterialIcon Type="Fuel" />
+                    <TextBlock Text="{Binding Fuel}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Row="1">
+                    <rc:MaterialIcon Type="Bullet" />
+                    <TextBlock Text="{Binding Bullet}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="1">
+                    <rc:MaterialIcon Type="Steel" />
+                    <TextBlock Text="{Binding Steel}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="1" Grid.Row="1">
+                    <rc:MaterialIcon Type="Bauxite" />
+                    <TextBlock Text="{Binding Bauxite}" Margin="4, 2" />
+                </DockPanel>
+
+                <DockPanel Margin="4" Grid.Column="2">
+                    <rc:MaterialIcon Type="DevelopmentMaterial" />
+                    <TextBlock Text="{Binding DevelopmentMaterial}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="3">
+                    <rc:MaterialIcon Type="Bucket" />
+                    <TextBlock Text="{Binding Bucket}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="2" Grid.Row="1">
+                    <rc:MaterialIcon Type="InstantConstruction" />
+                    <TextBlock Text="{Binding InstantConstruction}" Margin="4, 2" />
+                </DockPanel>
+                <DockPanel Margin="4" Grid.Column="3" Grid.Row="1">
+                    <rc:MaterialIcon Type="ImprovementMaterial" />
+                    <TextBlock Text="{Binding ImprovementMaterial}" Margin="4, 2" />
+                </DockPanel>
+            </Grid>
         </Border>
     </StackPanel>
 </UserControl>

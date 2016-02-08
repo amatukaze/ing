@@ -12,20 +12,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public int AreaSubID { get; set; }
 
         [JsonProperty("api_no")]
-        public int Cell { get; set; }
+        public int Node { get; set; }
         [JsonProperty("api_color_no")]
-        public int CellColor { get; set; }
+        public int NodeColor { get; set; }
 
         [JsonProperty("api_event_id")]
-        public SortieEventType CellEventType { get; set; }
+        public SortieEventType NodeEventType { get; set; }
         [JsonProperty("api_event_kind")]
-        public int CellEventSubType { get; set; }
+        public int NodeEventSubType { get; set; }
 
         [JsonProperty("api_next")]
         public int NextRouteCount { get; set; }
 
         [JsonProperty("api_bosscell_no")]
-        public int BossCellNo { get; set; }
+        public int BossNodeID { get; set; }
 
         [JsonProperty("api_bosscomp")]
         public int ApiBosscomp { get; set; }
@@ -49,7 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public RawReward RewardInExtraOperation { get; set; }
 
         [JsonProperty("api_select_route")]
-        public RawRouteSelection RouteSelections { get; set; }
+        public RawNodeSelection NodeSelection { get; set; }
 
         [JsonProperty("api_airsearch")]
         public RawAviationReconnaissance AviationReconnaissance { get; set; }
@@ -85,10 +85,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
             [JsonProperty("api_getcount")]
             public int Quantity { get; set; }
         }
-        public class RawRouteSelection
+        public class RawNodeSelection
         {
             [JsonProperty("api_select_cells")]
-            public int[] Cells { get; set; }
+            public int[] Nodes { get; set; }
         }
         public class RawAviationReconnaissance
         {

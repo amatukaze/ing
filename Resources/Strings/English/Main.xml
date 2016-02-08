@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.5">
+<Strings CultureName="en" Name="English" Version="0.1.6">
+
+  <String Key="Product_Name">Intelligent Naval Gun-kun</String>
 
   <String Key="Feature_UnderConstruction">Under construction</String>
   <String Key="Feature_Disabled">Disabled</String>
@@ -19,6 +21,9 @@
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
   <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
   <String Key="Log_ShipAndItem_Dropped">{0} and {1} dropped</String>
+  <String Key="Log_Screenshot_Failed">Fail to save screenshot: {0}</String>
+  <String Key="Log_Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
+  <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
 
   <String Key="Notification_Expedition">Expedition Completed</String>
   <String Key="Notification_Expedition_Content">"{0}" has returned from expedition {1}.</String>
@@ -39,7 +44,9 @@
   <String Key="Update_Download">Download</String>
 
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
-  
+
+  <String Key="Browser_Navigator_ResizeBrowserToFitGame">Resize browser to fit game</String>
+
   <String Key="Tab_Overview">Overview</String>
   <String Key="Tab_Fleets">Fleet</String>
   <String Key="Tab_Sortie">Sortie</String>
@@ -79,8 +86,10 @@
   <String Key="Fleet_TotalLevel">Total Lv.</String>
   <String Key="Fleet_LoS">LoS</String>
   <String Key="Fleet_AA">AA</String>
+  <String Key="Fleet_MoraleRegeneration">Fatigue</String>
 
   <String Key="Ship_Repairing">Repairing</String>
+  <String Key="Ship_Evacuated">Evacuated</String>
 
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>
@@ -91,7 +100,11 @@
   <String Key="Material_DevelopmentMaterial">Development Material</String>
   <String Key="Material_ImprovementMaterial">Improvement Material</String>
 
-  <String Key="Sortie_Cell">Node</String>
+  <String Key="SortieOverview_MapGauges">Map Gauges</String>
+  <String Key="SortieOverview_FleetLockingTable">Fleet Locking Table</String>
+  <String Key="SortieOverview_FleetLockingTable_CombinedFleet">Combined Fleet</String>
+
+  <String Key="Sortie_Node">Node</String>
   <String Key="Sortie_Event_Unknown">Unknown</String>
   <String Key="Sortie_Event_Reward">Reward</String>
   <String Key="Sortie_Event_Whirlpool">Whirlpool</String>
@@ -126,10 +139,10 @@
   <String Key="Battle_Formation_Diamond">Diamond</String>
   <String Key="Battle_Formation_Echolon">Echolon</String>
   <String Key="Battle_Formation_LineAbreast">Line Abreast</String>
-  <String Key="Battle_Formation_Cruising1">Cruising 1st</String>
-  <String Key="Battle_Formation_Cruising2">Cruising 2nd</String>
-  <String Key="Battle_Formation_Cruising3">Cruising 3rd</String>
-  <String Key="Battle_Formation_Cruising4">Cruising 4th</String>
+  <String Key="Battle_Formation_CruisingFormation1">CF 1st</String>
+  <String Key="Battle_Formation_CruisingFormation2">CF 2nd</String>
+  <String Key="Battle_Formation_CruisingFormation3">CF 3rd</String>
+  <String Key="Battle_Formation_CruisingFormation4">CF 4th</String>
   <String Key="Battle_EngagementForm_Parallel">Parallel</String>
   <String Key="Battle_EngagementForm_HeadOn">Head-on</String>
   <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T Advantage</String>
@@ -166,12 +179,18 @@
   <String Key="Window_DevelopmentHistory">Development History</String>
   <String Key="Window_SortieHistory">Sortie History</String>
   <String Key="Window_ExpeditionHistory">Expedition History</String>
-  <String Key="Window_ClosingConfirmation">Are you sure to close KanColle Inspector?</String>
+  <String Key="Window_ClosingConfirmation">Are you sure to close {0}?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Port</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">Use proxy for SSL connections</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
+  <String Key="PreferenceWindow_Window">Window</String>
+  <String Key="PreferenceWindow_Window_Layout">Layout</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">Landscape</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait</String>
+  <String Key="PreferenceWindow_Window_Layout_Game">KanColle</String>
+  <String Key="PreferenceWindow_Window_Layout_Information">Info</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
@@ -196,9 +215,8 @@
   <String Key="ValidationRule_NumberLessThanMinimum">Please input number greater than {0}</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">Please input number less than {0}</String>
 
-  <String Key="Screenshot_Failed">Fail to save screenshot</String>
-  <String Key="Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
-  <String Key="Screenshot_Succeeded_File">Screenshot was saved:{0}</String>
+  <String Key="Screenshot_File">Take screenshot to file</String>
+  <String Key="Screenshot_Clipboard">Take screenshot to clipboard</String>
 
   <String Key="EquipmentOverview_Name">Name</String>
   <String Key="EquipmentOverview_TotalCount">Total</String>

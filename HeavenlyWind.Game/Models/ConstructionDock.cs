@@ -1,8 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Text;
-using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -25,6 +24,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
             }
         }
+
+        internal bool IsConstructionStarted { get; set; }
 
         ShipInfo r_Ship;
         public ShipInfo Ship
@@ -119,26 +120,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public event Action<string> ConstructionCompleted = delegate { };
 
-        internal static IObservable<ConstructionDock> NewConstruction { get; }
+        internal static Subject<ConstructionDock> NewConstruction { get; } = new Subject<ConstructionDock>();
 
-        static ConstructionDock()
-        {
-            NewConstruction = from rDockID in SessionService.Instance.GetProcessSucceededSubject("api_req_kousyou/createship").Select(r => int.Parse(r.Requests["api_kdock_id"]))
-                              from _ in SessionService.Instance.GetProcessSucceededSubject("api_get_member/kdock").Take(1)
-                              select KanColleGame.Current.Port.ConstructionDocks[rDockID];
-        }
         internal ConstructionDock(RawConstructionDock rpRawData)
         {
             ID = rpRawData.ID;
 
             Update(rpRawData);
-
-            NewConstruction.Where(r => r == this).Subscribe(_ =>
-            {
-                var rLogContent = string.Format(StringResources.Instance.Main.Log_StartConstruction,
-                    Ship.Name, FuelConsumption, BulletConsumption, SteelConsumption, BauxiteConsumption, DevelopmentMaterialConsumption);
-                Logger.Write(LoggingLevel.Info, rLogContent);
-            });
         }
 
         public void Update(RawConstructionDock rpRawData)
@@ -160,6 +148,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 Ship = null;
                 TimeToComplete = null;
+            }
+
+            if (IsConstructionStarted)
+            {
+                var rLogContent = string.Format(StringResources.Instance.Main.Log_StartConstruction,
+                    Ship.Name, FuelConsumption, BulletConsumption, SteelConsumption, BauxiteConsumption, DevelopmentMaterialConsumption);
+                Logger.Write(LoggingLevel.Info, rLogContent);
+
+                NewConstruction.OnNext(this);
+
+                IsConstructionStarted = false;
             }
         }
 

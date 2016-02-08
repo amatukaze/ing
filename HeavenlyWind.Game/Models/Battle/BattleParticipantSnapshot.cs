@@ -4,7 +4,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
     public class BattleParticipantSnapshot
     {
-        public IParticipant Participant { get; internal set; }
+        IParticipant r_Participant;
+        public IParticipant Participant
+        {
+            get { return r_Participant; }
+            internal set
+            {
+                r_Participant = value;
+
+                var rFriendShip = value as FriendShip;
+                if (rFriendShip != null)
+                    IsEvacuated = rFriendShip.Ship.State.HasFlag(ShipState.Evacuated);
+            }
+        }
 
         public int Maximum { get; }
         public int Before { get; }

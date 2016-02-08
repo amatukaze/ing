@@ -2,7 +2,8 @@
 {
     public enum MaterialType
     {
-        Fuel = 1,
+        None,
+        Fuel,
         Bullet,
         Steel,
         Bauxite,

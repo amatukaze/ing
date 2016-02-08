@@ -84,12 +84,14 @@
     <Compile Include="Models\Preferences\BrowserPreference.cs" />
     <Compile Include="Models\Preferences\CachePreference.cs" />
     <Compile Include="Models\Preferences\FlashPreference.cs" />
+    <Compile Include="Models\Preferences\LayoutPreference.cs" />
     <Compile Include="Models\Preferences\NetworkPreference.cs" />
     <Compile Include="Models\Preferences\ScreenshotPreference.cs" />
     <Compile Include="Models\Preferences\UpstreamProxyPreference.cs" />
     <Compile Include="Models\Preferences\WindowPreference.cs" />
     <Compile Include="Models\ScreenshotImageFormat.cs" />
     <Compile Include="Models\UpdateChannel.cs" />
+    <Compile Include="MultiplyExtension.cs" />
     <Compile Include="Preference.cs" />
     <Compile Include="Preference.Data.cs" />
     <Compile Include="PreferenceExtension.cs" />

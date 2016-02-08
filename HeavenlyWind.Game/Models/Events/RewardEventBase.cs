@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
         public abstract MaterialType ID { get; }
         public abstract int Quantity { get; }
 
-        public string Name => TypeID == 4 ? GetMaterialName() : StringResources.Instance.Main.Sortie_Event_Unknown;
+        public string Name => TypeID == 4 ? GetMaterialName() : GetItemName();
 
         internal protected RewardEventBase(RawMapExploration rpData) : base(rpData) { }
 
@@ -27,6 +27,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
                 default: return StringResources.Instance.Main.Sortie_Event_Unknown;
             }
+        }
+        string GetItemName()
+        {
+            ItemInfo rItem;
+            if (KanColleGame.Current.MasterInfo.Items.TryGetValue((int)ID, out rItem))
+                return rItem.Name;
+            else
+                return StringResources.Instance.Main.Sortie_Event_Unknown;
         }
     }
 }

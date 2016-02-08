@@ -31,7 +31,7 @@
                 </Style>
             </DataTemplate.Resources>
 
-            <Border Height="30">
+            <Border Name="Border" Height="30">
                 <TextBlock DataContext="{Binding Info}">
                     <Run Name="Name" Text="{Binding NameWithoutAbyssalShipClass, Mode=OneWay}" /><Run Style="{StaticResource AbyssalShipClass}" />
                 </TextBlock>
@@ -40,6 +40,10 @@
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding IsMVP}" Value="True">
                     <Setter TargetName="Name" Property="Foreground" Value="Yellow" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{rb:HasFlag Ship.State, Evacuated}" Value="True">
+                    <Setter TargetName="Border" Property="Opacity" Value=".3" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>

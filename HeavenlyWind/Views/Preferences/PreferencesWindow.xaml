@@ -10,7 +10,7 @@
                   mc:Ignorable="d"
                   DataContext="{Binding Source={x:Static rvmp:PreferencesWindowViewModel.Instance}}"
                   Title="{Binding Title}"
-                  Width="480" Height="280"
+                  Width="640" Height="320"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
         <Style TargetType="{x:Type TabControl}">
@@ -92,6 +92,14 @@
                 </TabItem.Header>
 
                 <rvp:Network />
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window}" FontSize="14" />
+                </TabItem.Header>
+
+                <rvp:Window />
             </TabItem>
 
             <TabItem>

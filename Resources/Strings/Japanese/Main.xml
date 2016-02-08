@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.5">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.6">
+
+  <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
   <String Key="Feature_UnderConstruction">未実装</String>
   <String Key="Feature_Disabled">無効化</String>
@@ -19,6 +21,9 @@
   <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
   <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
   <String Key="Log_ShipAndItem_Dropped">「{0}」や「{1}」がドロップしました</String>
+  <String Key="Log_Screenshot_Failed">スクリーンショットの保存に失敗しました: {0}</String>
+  <String Key="Log_Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
+  <String Key="Log_Screenshot_Succeeded_File">スクリーンショットを保存しました: {0}</String>
 
   <String Key="Notification_Expedition">遠征完了</String>
   <String Key="Notification_Expedition_Content">「{0}」が遠征「{1}」から帰投しました。</String>
@@ -39,6 +44,8 @@
   <String Key="Update_Download">更新します</String>
 
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
+
+  <String Key="Browser_Navigator_ResizeBrowserToFitGame">ブラウザをフィット</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
@@ -79,8 +86,10 @@
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
   <String Key="Fleet_AA">対空</String>
+  <String Key="Fleet_MoraleRegeneration">疲労回復</String>
 
   <String Key="Ship_Repairing">入渠中</String>
+  <String Key="Ship_Evacuated">退避中</String>
 
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弾薬</String>
@@ -91,7 +100,11 @@
   <String Key="Material_DevelopmentMaterial">開発資材</String>
   <String Key="Material_ImprovementMaterial">改修資材</String>
 
-  <String Key="Sortie_Cell">セル</String>
+  <String Key="SortieOverview_MapGauges">マップゲージ</String>
+  <String Key="SortieOverview_FleetLockingTable">出撃制限</String>
+  <String Key="SortieOverview_FleetLockingTable_CombinedFleet">連合艦隊</String>
+
+  <String Key="Sortie_Node">セル</String>
   <String Key="Sortie_Event_Unknown">不明</String>
   <String Key="Sortie_Event_Reward">資源</String>
   <String Key="Sortie_Event_Whirlpool">渦潮</String>
@@ -126,10 +139,10 @@
   <String Key="Battle_Formation_Diamond">輪形陣</String>
   <String Key="Battle_Formation_Echolon">梯形陣</String>
   <String Key="Battle_Formation_LineAbreast">単横陣</String>
-  <String Key="Battle_Formation_Cruising1">第一警戒航行序列</String>
-  <String Key="Battle_Formation_Cruising2">第二警戒航行序列</String>
-  <String Key="Battle_Formation_Cruising3">第三警戒航行序列</String>
-  <String Key="Battle_Formation_Cruising4">第四警戒航行序列</String>
+  <String Key="Battle_Formation_CruisingFormation1">第一警戒航行序列</String>
+  <String Key="Battle_Formation_CruisingFormation2">第二警戒航行序列</String>
+  <String Key="Battle_Formation_CruisingFormation3">第三警戒航行序列</String>
+  <String Key="Battle_Formation_CruisingFormation4">第四警戒航行序列</String>
   <String Key="Battle_EngagementForm_Parallel">同航戦</String>
   <String Key="Battle_EngagementForm_HeadOn">反航戦</String>
   <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T字有利</String>
@@ -166,12 +179,18 @@
   <String Key="Window_DevelopmentHistory">開発歴史</String>
   <String Key="Window_SortieHistory">出撃歴史</String>
   <String Key="Window_ExpeditionHistory">遠征歴史</String>
-  <String Key="Window_ClosingConfirmation">KanColle Inspector を終了しますか？</String>
+  <String Key="Window_ClosingConfirmation">{0}を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
+  <String Key="PreferenceWindow_Window">ウィンドウ</String>
+  <String Key="PreferenceWindow_Window_Layout">レイアウト</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">横持ち</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">縦持ち</String>
+  <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
+  <String Key="PreferenceWindow_Window_Layout_Information">情報</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>
@@ -196,9 +215,8 @@
   <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
   <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
 
-  <String Key="Screenshot_Failed">スクリーンショットの保存に失敗しました</String>
-  <String Key="Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
-  <String Key="Screenshot_Succeeded_File">スクリーンショットを保存しました:{0}</String>
+  <String Key="Screenshot_File">ファイルに保存</String>
+  <String Key="Screenshot_Clipboard">クリップボードに保存</String>
 
   <String Key="EquipmentOverview_Name">装備名</String>
   <String Key="EquipmentOverview_TotalCount">合計</String>

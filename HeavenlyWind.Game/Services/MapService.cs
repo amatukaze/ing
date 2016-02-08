@@ -5,19 +5,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
     public class MapService
     {
-        const string DataFilename = @"Data\node_position.json";
+        public const string DataFilename = @"Data\nodes.json";
 
         public static MapService Instance { get; } = new MapService();
 
         IDisposable r_ConnectionSubscription;
 
-        Dictionary<int, Dictionary<int, Point>> r_Positions;
+        Dictionary<int, Dictionary<int, Node>> r_Nodes;
 
         Dictionary<int, PastEventMapInfo> r_PastEventMaps = new Dictionary<int, PastEventMapInfo>();
 
@@ -29,14 +28,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 var rDataFile = new FileInfo(DataFilename);
                 if (!rDataFile.Exists)
-                    r_Positions = new Dictionary<int, Dictionary<int, Point>>();
+                    r_Nodes = new Dictionary<int, Dictionary<int, Node>>();
                 else
                     using (var rReader = new JsonTextReader(rDataFile.OpenText()))
                     {
                         var rData = JObject.Load(rReader);
 
-                        r_Positions = rData.Properties().ToDictionary(r => int.Parse(r.Name), r =>
-                            r.Value.ToDictionary(rpNode => (int)rpNode["id"], rpNode => new Point((double)rpNode["x"], (double)rpNode["y"])));
+                        r_Nodes = rData.Properties().ToDictionary(r => int.Parse(r.Name), r =>
+                            r.Value.Select(rpNode => rpNode.ToObject<Node>()).ToDictionary(rpNode => rpNode.ID));
                     }
 
                 r_ConnectionSubscription?.Dispose();
@@ -44,15 +43,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             });
         }
 
+        public bool ContainsMap(int rpMapID) => r_Nodes.ContainsKey(rpMapID);
+
+        public string GetNodeWikiID(int rpMapID, int rpNodeID)
+        {
+            Dictionary<int, Node> rMap;
+            Node rNode;
+            if (r_Nodes.TryGetValue(rpMapID, out rMap) && rMap.TryGetValue(rpNodeID, out rNode))
+                return rNode.WikiID;
+
+            return null;
+        }
+
         public double? GetAngle(int rpMapID, int rpSourceNode, int rpDestinationNode)
         {
-            Dictionary<int, Point> rMap;
-            if (r_Positions.TryGetValue(rpMapID, out rMap))
-            {
-                Point rSourcePosition, rDestinationPosition;
-                if (rMap.TryGetValue(rpSourceNode, out rSourcePosition) && rMap.TryGetValue(rpDestinationNode, out rDestinationPosition))
-                    return Math.Atan2(rDestinationPosition.Y - rSourcePosition.Y, rDestinationPosition.X - rSourcePosition.X) * MathUtil.DegOf1Rad;
-            }
+            Dictionary<int, Node> rMap;
+            Node rSourceNode, rDestinationNode;
+
+            if (r_Nodes.TryGetValue(rpMapID, out rMap) && rMap.TryGetValue(rpSourceNode, out rSourceNode) && rMap.TryGetValue(rpDestinationNode, out rDestinationNode))
+                return Math.Atan2(rDestinationNode.PositionY - rSourceNode.PositionY, rDestinationNode.PositionX - rSourceNode.PositionX) * MathUtil.DegOf1Rad;
 
             return null;
         }

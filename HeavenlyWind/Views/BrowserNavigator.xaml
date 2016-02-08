@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rbe="clr-namespace:Sakuno.KanColle.Amatsukaze.Behaviors"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
+             xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              DataContext="{Binding Navigator}"
              Visibility="{Binding IsNavigatorVisible, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -30,7 +32,19 @@
             <Path Style="{StaticResource NavigatorButtonIcon}" Data="M95,0 L180,0 300,120 180,240 95,240 190,150 0,150 0,90 190,90 z" />
         </Button>
 
-        <Button Style="{StaticResource NavigatorButton}" Command="{Binding RefreshCommand}"  Margin="5, 0, 0, 0" DockPanel.Dock="Right">
+        <ruic:DropDownButton ShowDropDownMarker="False" Width="30" Margin="5, 0, 0, 0" HorizontalContentAlignment="Center" DockPanel.Dock="Right">
+            <ruic:DropDownButton.Header>
+                <Path Stretch="Uniform" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ruic:DropDownButton}}}" Data="M0,0 L0,1 1,1 1,0 z M0,2 L0,3 1,3 1,2 z M0,4 L0,5 1,5 1,4 z" />
+            </ruic:DropDownButton.Header>
+
+            <ListBox Style="{StaticResource MenuListBoxStyle}">
+                <ListBoxItem>
+                    <Button Content="{rb:StringResource Main.Browser_Navigator_ResizeBrowserToFitGame}" Command="{Binding ResizeBrowserToFitGameCommand}" />
+                </ListBoxItem>
+            </ListBox>
+        </ruic:DropDownButton>
+
+        <Button Style="{StaticResource NavigatorButton}" Command="{Binding RefreshCommand}" Margin="5, 0, 0, 0" DockPanel.Dock="Right">
             <Path Style="{StaticResource NavigatorButtonIcon}" Data="M120,0 L180,60 120,120 120,77.640465 118.07536,77.762432 C71.605317,81.298275 35.000001,120.12432 35.000001,167.5 35.000001,217.20563 75.294374,257.5 125,257.5 174.70563,257.5 215,217.20563 215,167.5 L250,167.5 C250,236.5356 194.0356,292.5 125,292.5 55.964406,292.5 1.2665987E-06,236.5356 0,167.5 1.2665987E-06,100.62177 52.521283,46.01054 118.56751,42.662651 L120,42.608222 z" />
         </Button>
 

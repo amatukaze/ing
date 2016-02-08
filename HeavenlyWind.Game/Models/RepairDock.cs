@@ -62,11 +62,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (Ship != null)
                 {
                     Ship.Repair(true);
-                    Ship.State &= ~ShipState.Repairing;
                     Ship = null;
                 }
                 TimeToComplete = null;
             }
+        }
+
+        internal void CompleteRepair()
+        {
+            Ship.Repair(true);
+            Ship = null;
+
+            IsNotificated = true;
+            State = RepairDockState.Idle;
+            TimeToComplete = null;
         }
 
         protected override void TimeOut() => RepairCompleted(Ship.Info.Name);

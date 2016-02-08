@@ -10,5 +10,6 @@
         Quest,
         Area,
         Map,
+        ShipLocking,
     }
 }

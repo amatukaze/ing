@@ -10,8 +10,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         public bool HasReduceLossesWithRadar => RawData.Whirlpool.HasReduceLossesWithRadar;
 
-        public string Name => LostMaterial == MaterialType.Fuel ? StringResources.Instance.Main.Material_Fuel : StringResources.Instance.Main.Material_Bullet;
-
         internal WhirlpoolEvent(RawMapExploration rpData) : base(rpData)
         {
             var rShips = KanColleGame.Current.Port.Fleets.Table.Values

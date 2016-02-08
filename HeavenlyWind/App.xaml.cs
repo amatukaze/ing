@@ -52,6 +52,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             Preference.Load();
             StringResources.Instance.LoadMainResource(Preference.Current.Language);
+            StringResources.Instance.LoadExtraResource(Preference.Current.ExtraResourceLanguage);
 
             KanColleProxy.Start();
 
@@ -73,7 +74,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(e.ExceptionObject.ToString(), ProductInfo.FullAppName, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(e.ExceptionObject.ToString(), ProductInfo.AppName, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
     }

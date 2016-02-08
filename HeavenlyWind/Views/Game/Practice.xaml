@@ -24,10 +24,13 @@
         </TextBlock>
 
         <Border DataContext="{Binding Opponent}" Margin="0, 4, 0, 0" Grid.Row="1">
-            <TextBlock>
-                <Run Text="{rb:StringResource Main.Practice_Opponent_Experience}" />:
-                <Run Text="{Binding Experience, Mode=OneWay}" />
-            </TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>
+                    <Run Text="{rb:StringResource Main.Practice_Opponent_Experience}" />:
+                    <Run Text="{Binding Experience, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Text="{Binding ExperienceBonus, StringFormat=+{0}, TargetNullValue={x:Null}}" />
+            </StackPanel>
         </Border>
 
         <ItemsControl ItemsSource="{Binding Opponent.Ships}" HorizontalAlignment="Left" Grid.Row="3" Grid.IsSharedSizeScope="True">

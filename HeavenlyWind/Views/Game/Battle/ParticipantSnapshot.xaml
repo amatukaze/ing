@@ -22,13 +22,13 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <TextBlock Margin="3, 0, 0, 0">
+                        <TextBlock Name="HP" Margin="3, 0, 0, 0">
                             <Run Name="Current" Text="{Binding Current, Mode=OneWay}" />
                             <Run Name="Damage" Text="{Binding Damage, StringFormat=(-{0}), Mode=OneWay}" FontSize="11" />
                         </TextBlock>
                         <TextBlock Name="DamageGivenToOpponent" Text="{Binding DamageGivenToOpponent}" HorizontalAlignment="Right" />
 
-                        <rc:ColorIndicator Maximum="{Binding Maximum}" Value="{Binding Current}" Median="{Binding Before}" Width="85" Grid.Row="1" />
+                        <rc:ColorIndicator Name="HPIndicator" Maximum="{Binding Maximum}" Value="{Binding Current}" Median="{Binding Before}" Width="85" Grid.Row="1" />
 
                         <Border Name="StateColor" Margin="3, 0, 0, 0" Padding="4, 3, 4, 4" VerticalAlignment="Center" Grid.Column="1" Grid.RowSpan="2">
                             <TextBlock Name="StateText" Text="{rb:EnumToStringResource State, Battle_State}" HorizontalAlignment="Center" />
@@ -85,6 +85,9 @@
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding State}" Value="Evacuated">
+                        <Setter TargetName="HP" Property="Opacity" Value=".3" />
+                        <Setter TargetName="DamageGivenToOpponent" Property="Opacity" Value=".3" />
+                        <Setter TargetName="HPIndicator" Property="Opacity" Value=".3" />
                         <Setter TargetName="StateColor" Property="Background" Value="#B1B1B1" />
                     </DataTrigger>
 

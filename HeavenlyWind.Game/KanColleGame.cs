@@ -60,7 +60,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, _ =>
             {
                 var rSortieMap = Sortie.Map;
-                if (rSortieMap.IsCleared || rSortieMap.IsEventMap || Sortie.Cell.EventType != SortieEventType.BossBattle)
+                if (rSortieMap.IsCleared || rSortieMap.IsEventMap || Sortie.Node.EventType != SortieEventType.BossBattle)
                     return;
 
                 var rBattle = BattleInfo.Current;
@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe("api_req_map/next", r =>
             {
                 var rSortieMap = Sortie.Map;
-                if (rSortieMap.IsCleared || ((RawMapExploration)r.Data).CellEventType != SortieEventType.EscortSuccess)
+                if (rSortieMap.IsCleared || ((RawMapExploration)r.Data).NodeEventType != SortieEventType.EscortSuccess)
                     return;
 
                 rSortieMap.HP = rSortieMap.HP.Decrease(1);

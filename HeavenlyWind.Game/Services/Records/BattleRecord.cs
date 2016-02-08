@@ -75,7 +75,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             var rSortieInfo = KanColleGame.Current.Sortie;
             var rMap = rSortieInfo.Map.ID;
-            var rCell = rSortieInfo.Cell.InternalID;
+            var rNode = rSortieInfo.Node.InternalID;
 
             using (var rCommand = Connection.CreateCommand())
             {
@@ -85,8 +85,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "INSERT INTO battle(id) VALUES(@id);" +
                     "COMMIT;";
                 rCommand.Parameters.AddWithValue("@map", rMap);
-                rCommand.Parameters.AddWithValue("@cell", rCell);
-                rCommand.Parameters.AddWithValue("@id", ((BattleEvent)KanColleGame.Current.Sortie.Cell.Event).Battle.ID);
+                rCommand.Parameters.AddWithValue("@cell", rNode);
+                rCommand.Parameters.AddWithValue("@id", ((BattleEvent)KanColleGame.Current.Sortie.Node.Event).Battle.ID);
 
                 rCommand.ExecuteNonQuery();
             }
@@ -97,7 +97,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             using (var rCommand = Connection.CreateCommand())
             {
                 rCommand.CommandText = "UPDATE battle SET rank = @rank, dropped_ship = @dropped_ship WHERE id = @id;";
-                rCommand.Parameters.AddWithValue("@id", ((BattleEvent)KanColleGame.Current.Sortie.Cell.Event).Battle.ID);
+                rCommand.Parameters.AddWithValue("@id", ((BattleEvent)KanColleGame.Current.Sortie.Node.Event).Battle.ID);
                 rCommand.Parameters.AddWithValue("@rank", (int)rpData.Rank);
                 rCommand.Parameters.AddWithValue("@dropped_ship", rpData.DroppedShip?.ID);
 

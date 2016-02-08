@@ -130,12 +130,14 @@
     <Compile Include="Models\Events\SortieEvent.cs" />
     <Compile Include="Models\Events\WhirlpoolEvent.cs" />
     <Compile Include="Models\ExpeditionResult.cs" />
+    <Compile Include="Models\FleetConditionRegeneration.cs" />
     <Compile Include="Models\FleetExpeditionStatus.cs" />
     <Compile Include="Models\ExpeditionInfo.cs" />
     <Compile Include="Models\Experience.cs" />
     <Compile Include="Models\ExperienceTable.cs" />
     <Compile Include="Models\Fleet.cs" />
     <Compile Include="Models\FleetLoSStatus.cs" />
+    <Compile Include="Models\FleetResupplyInfo.cs" />
     <Compile Include="Models\FleetState.cs" />
     <Compile Include="Models\FleetStatus.cs" />
     <Compile Include="Models\IID.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Models\MapMasterInfo.cs" />
     <Compile Include="Models\Materials.cs" />
     <Compile Include="Models\MaterialType.cs" />
+    <Compile Include="Models\Node.cs" />
     <Compile Include="Models\PastEventMapInfo.cs" />
     <Compile Include="Models\PracticeInfo.cs" />
     <Compile Include="Models\PracticeOpponentInfo.cs" />
@@ -192,6 +195,8 @@
     <Compile Include="Models\Raw\RawShipsAndFleets.cs" />
     <Compile Include="Models\Raw\RawSupplyResult.cs" />
     <Compile Include="Models\RepairDock.cs" />
+    <Compile Include="Models\ShipExtensions.cs" />
+    <Compile Include="Models\ShipLocking.cs" />
     <Compile Include="Models\ShipModernizationStatus.cs" />
     <Compile Include="Models\RawDataWrapper`T.cs" />
     <Compile Include="Models\Raw\RawEquipment.cs" />
@@ -208,7 +213,7 @@
     <Compile Include="Models\ShipType.cs" />
     <Compile Include="Models\SortieEventType.cs" />
     <Compile Include="Models\SortieInfo.cs" />
-    <Compile Include="Models\SortieCellInfo.cs" />
+    <Compile Include="Models\SortieNodeInfo.cs" />
     <Compile Include="Parsers\ApiAttribute.cs" />
     <Compile Include="Parsers\ApiData.cs" />
     <Compile Include="Parsers\ApiFailedException.cs" />
@@ -295,6 +300,7 @@
     <Compile Include="Services\Records\ShipsRecord.cs" />
     <Compile Include="Services\Records\SortieRecord.cs" />
     <Compile Include="Services\SessionService.cs" />
+    <Compile Include="Services\ShipLockingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HeavenlyWind.Base\HeavenlyWind.Base.csproj">
