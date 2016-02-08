@@ -3,7 +3,7 @@
 艦これ補助ツール
 
 ### Updated
-**0.1.6 (Moonbria)**
+**0.1.6.1 (Moonbria)**
  * Show node's character ID
  * Show resupply infomation
  * Can change the docking side of information panel
