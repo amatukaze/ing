@@ -17,11 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
     {
         public static UpdateService Instance { get; } = new UpdateService();
 
-        string[] r_FilesToBeChecked = new[]
-        {
-            @"Data\node_position.json",
-            @"Data\quests.json",
-        };
+        string[] r_FilesToBeChecked;
 
         public CheckForUpdateResult.UpdateInfo Info { get; private set; }
 
@@ -33,8 +29,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             var rRootPath = Path.GetDirectoryName(GetType().Assembly.Location);
             var rRootPathLength = rRootPath.Length + 1;
+
+            var rDataFiles = Directory.EnumerateFiles(Path.Combine(rRootPath, "Data"), "*").Select(r => r.Substring(rRootPathLength));
             var rSRFiles = Directory.EnumerateFiles(Path.Combine(rRootPath, "Resources", "Strings"), "*", SearchOption.AllDirectories).Select(r => r.Substring(rRootPathLength));
-            r_FilesToBeChecked = r_FilesToBeChecked.Concat(rSRFiles).ToArray();
+            r_FilesToBeChecked = rDataFiles.Concat(rSRFiles).ToArray();
         }
 
         internal async void CheckForUpdate()
@@ -97,9 +95,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     switch (rFileUpdate.Action)
                     {
                         case CheckForUpdateFileAction.CreateOrOverwrite:
-                            var rDirectory = rFile.Directory;
-                            if (!rDirectory.Exists)
-                                rDirectory.Create();
+                            EnsureDirectory(rFile);
 
                             using (var rWriter = new StreamWriter(rFile.Open(FileMode.Create, FileAccess.Write, FileShare.Read)))
                                 await rWriter.WriteAsync(rFileUpdate.Content);
@@ -110,9 +106,21 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                         case CheckForUpdateFileAction.Delete:
                             NativeMethods.Kernel32.DeleteFileW(rFile.FullName);
                             break;
+
+                        case CheckForUpdateFileAction.Rename:
+                            EnsureDirectory(rFile);
+
+                            rFile.MoveTo(rFileUpdate.Content);
+                            break;
                     }
                 }
             }
+        }
+        void EnsureDirectory(FileInfo rpFile)
+        {
+            var rDirectory = rpFile.Directory;
+            if (!rDirectory.Exists)
+                rDirectory.Create();
         }
     }
 }

@@ -5,13 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
     public class MapService
     {
-        const string DataFilename = @"Data\nodes.json";
+        public const string DataFilename = @"Data\nodes.json";
 
         public static MapService Instance { get; } = new MapService();
 
