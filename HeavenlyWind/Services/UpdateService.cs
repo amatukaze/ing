@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.SystemInterop;
 using System;
 using System.Collections.Generic;
@@ -36,14 +37,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             if (rDataDirectory.Exists)
                 rDataFiles = rDataDirectory.EnumerateFiles("*").Select(r => r.FullName.Substring(rRootPathLength));
             else
-                rDataFiles = Enumerable.Empty<string>();
+                rDataFiles = new string[]
+                {
+                    QuestProgressService.DataFilename,
+                    MapService.DataFilename,
+                    ShipLockingService.DataFilename,
+                };
 
-            IEnumerable<string> rSRFiles;
             var rSRDirectory = new DirectoryInfo(Path.Combine(rRootPath, "Resources", "Strings"));
-            if (rSRDirectory.Exists)
-                rSRFiles = rSRDirectory.EnumerateFiles("*", SearchOption.AllDirectories).Select(r => r.FullName.Substring(rRootPathLength));
-            else
-                rSRFiles = Enumerable.Empty<string>();
+            var rSRFiles = rSRDirectory.EnumerateFiles("*", SearchOption.AllDirectories).Select(r => r.FullName.Substring(rRootPathLength));
 
             r_FilesToBeChecked = rDataFiles.Concat(rSRFiles).ToArray();
         }
