@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.SystemInterop;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -30,8 +32,21 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             var rRootPath = Path.GetDirectoryName(GetType().Assembly.Location);
             var rRootPathLength = rRootPath.Length + 1;
 
-            var rDataFiles = Directory.EnumerateFiles(Path.Combine(rRootPath, "Data"), "*").Select(r => r.Substring(rRootPathLength));
-            var rSRFiles = Directory.EnumerateFiles(Path.Combine(rRootPath, "Resources", "Strings"), "*", SearchOption.AllDirectories).Select(r => r.Substring(rRootPathLength));
+            IEnumerable<string> rDataFiles;
+            var rDataDirectory = new DirectoryInfo(Path.Combine(rRootPath, "Data"));
+            if (rDataDirectory.Exists)
+                rDataFiles = rDataDirectory.EnumerateFiles("*").Select(r => r.FullName.Substring(rRootPathLength));
+            else
+                rDataFiles = new string[]
+                {
+                    QuestProgressService.DataFilename,
+                    MapService.DataFilename,
+                    ShipLockingService.DataFilename,
+                };
+
+            var rSRDirectory = new DirectoryInfo(Path.Combine(rRootPath, "Resources", "Strings"));
+            var rSRFiles = rSRDirectory.EnumerateFiles("*", SearchOption.AllDirectories).Select(r => r.FullName.Substring(rRootPathLength));
+
             r_FilesToBeChecked = rDataFiles.Concat(rSRFiles).ToArray();
         }
 
@@ -88,32 +103,33 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 Info = rResult.Update;
                 OnPropertyChanged(nameof(Info));
 
-                foreach (var rFileUpdate in rResult.Files)
-                {
-                    var rFile = new FileInfo(rFileUpdate.Name);
-
-                    switch (rFileUpdate.Action)
+                if (rResult.Files != null)
+                    foreach (var rFileUpdate in rResult.Files)
                     {
-                        case CheckForUpdateFileAction.CreateOrOverwrite:
-                            EnsureDirectory(rFile);
+                        var rFile = new FileInfo(rFileUpdate.Name);
 
-                            using (var rWriter = new StreamWriter(rFile.Open(FileMode.Create, FileAccess.Write, FileShare.Read)))
-                                await rWriter.WriteAsync(rFileUpdate.Content);
+                        switch (rFileUpdate.Action)
+                        {
+                            case CheckForUpdateFileAction.CreateOrOverwrite:
+                                EnsureDirectory(rFile);
 
-                            rFile.LastWriteTime = DateTimeUtil.FromUnixTime((ulong)rFileUpdate.Timestamp).LocalDateTime;
-                            break;
+                                using (var rWriter = new StreamWriter(rFile.Open(FileMode.Create, FileAccess.Write, FileShare.Read)))
+                                    await rWriter.WriteAsync(rFileUpdate.Content);
 
-                        case CheckForUpdateFileAction.Delete:
-                            NativeMethods.Kernel32.DeleteFileW(rFile.FullName);
-                            break;
+                                rFile.LastWriteTime = DateTimeUtil.FromUnixTime((ulong)rFileUpdate.Timestamp).LocalDateTime;
+                                break;
 
-                        case CheckForUpdateFileAction.Rename:
-                            EnsureDirectory(rFile);
+                            case CheckForUpdateFileAction.Delete:
+                                NativeMethods.Kernel32.DeleteFileW(rFile.FullName);
+                                break;
 
-                            rFile.MoveTo(rFileUpdate.Content);
-                            break;
+                            case CheckForUpdateFileAction.Rename:
+                                EnsureDirectory(rFile);
+
+                                rFile.MoveTo(rFileUpdate.Content);
+                                break;
+                        }
                     }
-                }
             }
         }
         void EnsureDirectory(FileInfo rpFile)
