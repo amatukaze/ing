@@ -11,10 +11,9 @@
 
 ### Screenshot
 ![Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/01.jpg)
-![Fleet detail](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/02.jpg)
-![Battle Information](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/03.jpg)
-![Ships Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/04.png)
-![Equipments Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/05.png)
+![Battle Information](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/02.jpg)
+![Ships Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/03.png)
+![Equipments Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/04.png)
 
 ### Third-party Libraries
 
