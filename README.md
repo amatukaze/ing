@@ -1,25 +1,13 @@
-﻿KanColle Inspector
+﻿Intelligent Naval Gun-kun
 =====
 艦これ補助ツール
 
 ### Updated
-**0.1.5.2 (Traum)**
- * Fix a bug that preference file is reset at startup every time
- * Fix a bug that it can't mute the browser in Windows 7
-
-**0.1.5.1 (Traum)**
- * Show sortie direction directly
- * Support translated name
- * History windows
- * Toast notification (Need Windows 8 or later)
-
-**0.1.4.1 (Pipiro)**
- * Fix execution order
-
-**0.1.4 (Pipiro)**
- * Realtime quest progress _(Not fully completed)_
- * Map gauges shown in map selection
- * Cache system
+**0.1.6 (Moonbria)**
+ * Show node's character ID
+ * Show resupply infomation
+ * Can change the docking side of information panel
+ * Show extra PvP XP bonus from CLP
 
 ### Screenshot
 ![Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/01.jpg)
