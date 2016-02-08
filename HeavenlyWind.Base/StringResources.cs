@@ -173,7 +173,10 @@ namespace Sakuno.KanColle.Amatsukaze
                 rInfo.Directory = rpLanguageName;
 
                 foreach (var rContent in rInfo.Contents)
-                    rContent.File = new FileInfo(Path.Combine(rFile.Directory.FullName, rContent.Type + ".json"));
+                    if (rContent.ShareWith.IsNullOrEmpty())
+                        rContent.File = new FileInfo(Path.Combine(rFile.Directory.FullName, rContent.Type + ".json"));
+                    else
+                        rContent.File = new FileInfo(Path.Combine(r_StringResourceDirectory.FullName, rContent.ShareWith, rContent.Type + ".json"));
 
                 return rInfo;
             }

@@ -26,6 +26,9 @@ namespace Sakuno.KanColle.Amatsukaze
             [JsonProperty("version")]
             public int Version { get; internal set; }
 
+            [JsonProperty("share_with")]
+            public string ShareWith { get; internal set; }
+
             [JsonIgnore]
             public FileInfo File { get; internal set; }
         }
