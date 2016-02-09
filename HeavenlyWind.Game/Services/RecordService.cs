@@ -24,6 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public RankingPointBonusRecord RankingPointBonus { get; private set; }
 
         public QuestProgressRecord QuestProgress { get; private set; }
+        public BattleDetailRecord BattleDetail { get; private set; }
 
         public bool IsConnected { get; private set; }
 
@@ -55,6 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Battle?.Dispose();
             RankingPointBonus?.Dispose();
             QuestProgress?.Dispose();
+            BattleDetail?.Dispose();
             r_Connection?.Dispose();
 
             IsConnected = false;
@@ -88,6 +90,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                 rTransaction.Commit();
             }
+
+            BattleDetail = new BattleDetailRecord(r_Connection, r_UserID).ConnectAndReturn();
 
             IsConnected = true;
         }
