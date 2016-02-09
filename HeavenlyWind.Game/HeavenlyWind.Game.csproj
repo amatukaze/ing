@@ -287,6 +287,7 @@
     <Compile Include="Services\Quest\Updaters\Updater.cs" />
     <Compile Include="Services\QuestProgressService.cs" />
     <Compile Include="Services\RecordService.cs" />
+    <Compile Include="Services\Records\BattleDetailRecord.cs" />
     <Compile Include="Services\Records\BattleRecord.cs" />
     <Compile Include="Services\Records\ConstructionRecord.cs" />
     <Compile Include="Services\Records\DevelopmentRecord.cs" />
