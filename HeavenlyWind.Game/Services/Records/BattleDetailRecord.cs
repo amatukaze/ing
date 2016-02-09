@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
@@ -35,6 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_combined_battle/sp_midnight",
             };
             DisposableObjects.Add(SessionService.Instance.Subscribe(rSortieFirstStageApis, ProcessSortieFirstStage));
+            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_practice/battle", ProcessPracticeFirstStage));
 
             var rSecondStageApis = new[]
             {
@@ -100,7 +102,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "level INTEGER NOT NULL, " +
                     "plane_count INTEGER NOT NULL, " +
                     "PRIMARY KEY(battle, participant, id), " +
-                    "FOREIGN KEY(battle, participant) REFERENCES participant(battle, id)) WITHOUT ROWID;";
+                    "FOREIGN KEY(battle, participant) REFERENCES participant(battle, id)) WITHOUT ROWID;" +
+
+                "CREATE TABLE IF NOT EXISTS practice_opponent(" +
+                    "id INTEGER PRIMARY KEY NOT NULL, " +
+                    "name TEXT NOT NULL);" +
+                "CREATE TABLE IF NOT EXISTS practice_opponent_comment(" +
+                    "id INTEGER PRIMARY KEY NOT NULL, " +
+                    "comment TEXT NOT NULL);" +
+                "CREATE TABLE IF NOT EXISTS practice_opponent_fleet(" +
+                    "id INTEGER PRIMARY KEY NOT NULL, " +
+                    "name TEXT NOT NULL);" +
+                "CREATE TABLE IF NOT EXISTS practice(" +
+                    "id INTEGER PRIMARY KEY NOT NULL, " +
+                    "opponent INTEGER NOT NULL, " +
+                    "opponent_level INTEGER NOT NULL, " +
+                    "opponent_experience INTEGER NOT NULL, " +
+                    "opponent_rank INTEGER NOT NULL, " +
+                    "opponent_comment INTEGER NOT NULL REFERENCES practice_opponent_comment(id), " +
+                    "opponent_fleet INTEGER NOT NULL REFERENCES practice_opponent_fleet(id), " +
+                    "rank INTEGER); ";
 
                 rCommand.ExecuteNonQuery();
             }
@@ -156,6 +177,42 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rTransaction.Commit();
             }
         }
+        void ProcessPracticeFirstStage(ApiData rpData)
+        {
+            var rParticipantFleet = KanColleGame.Current.Port.Fleets[int.Parse(rpData.Requests["api_deck_id"])];
+            var rPractice = (PracticeInfo)KanColleGame.Current.Sortie;
+            var rOpponent = rPractice.Opponent;
+            r_CurrentBattleID = rPractice.Battle.ID;
+
+            using (var rTransaction = Connection.BeginTransaction())
+            using (var rCommand = Connection.CreateCommand())
+            {
+                var rCommandTextBuilder = new StringBuilder(1024);
+                rCommandTextBuilder.Append("INSERT INTO practice_opponent(id, name) VALUES(@opponent_id, @opponent_name);" +
+                    "INSERT INTO practice_opponent_comment(id, comment) VALUES(@opponent_comment_id, @opponent_coment);" +
+                    "INSERT INTO practice_opponent_fleet(id, name) VALUES(@opponent_fleet_name_id, @opponent_fleet_name);" +
+                    "INSERT INTO practice(id, opponent, opponent_level, opponent_experience, opponent_rank, opponent_comment, opponent_fleet) VALUES(@battle_id, @opponent_id, @opponent_level, @opponent_experience, @opponent_rank, @opponent_comment_id, @opponent_fleet_name_id);" +
+                    "INSERT INTO battle_detail.battle(id, first) VALUES(@battle_id, @first);");
+                rCommand.Parameters.AddWithValue("@opponent_id", rOpponent.RawData.ID);
+                rCommand.Parameters.AddWithValue("@opponent_name", rOpponent.Name);
+                rCommand.Parameters.AddWithValue("@opponent_comment_id", rOpponent.RawData.CommentID);
+                rCommand.Parameters.AddWithValue("@opponent_coment", rOpponent.Comment);
+                rCommand.Parameters.AddWithValue("@opponent_fleet_name_id", rOpponent.RawData.FleetNameID);
+                rCommand.Parameters.AddWithValue("@opponent_fleet_name", rOpponent.FleetName);
+                rCommand.Parameters.AddWithValue("@opponent_level", rOpponent.Level);
+                rCommand.Parameters.AddWithValue("@opponent_experience", rOpponent.RawData.Experience[0]);
+                rCommand.Parameters.AddWithValue("@opponent_rank", (int)rOpponent.Rank);
+                rCommand.Parameters.AddWithValue("@battle_id", r_CurrentBattleID.Value);
+                rCommand.Parameters.AddWithValue("@first", CompressJson(rpData.Json["api_data"]));
+
+                ProcessParticipantFleet(rCommandTextBuilder, rParticipantFleet, ParticipantFleetType.Main);
+
+                rCommand.CommandText = rCommandTextBuilder.ToString();
+                rCommand.ExecuteNonQuery();
+
+                rTransaction.Commit();
+            }
+        }
         void ProcessSecondStage(ApiData rpData)
         {
             if (!r_CurrentBattleID.HasValue)
@@ -180,6 +237,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.CommandText = "UPDATE battle_detail.battle SET result = @result WHERE id = @id;";
                 rCommand.Parameters.AddWithValue("@id", r_CurrentBattleID.Value);
                 rCommand.Parameters.AddWithValue("@result", CompressJson(rpData.Json["api_data"]));
+
+                if (rpData.Api == "api_req_practice/battle_result")
+                {
+                    rCommand.CommandText += "UPDATE SET battle_detail.practice SET rank = @rank WHERE id = @id;";
+                    rCommand.Parameters.AddWithValue("@rank", (int)((RawBattleResult)rpData.Data).Rank);
+                }
 
                 rCommand.ExecuteNonQuery();
             }
