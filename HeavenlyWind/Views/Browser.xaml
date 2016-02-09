@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ruib="clr-namespace:Sakuno.UserInterface.Behaviors;assembly=Sakuno.UserInterface"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
              xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
              mc:Ignorable="d"
@@ -21,7 +23,11 @@
                     </Rectangle.Effect>
                 </Rectangle>
 
-                <ContentPresenter Name="BrowserControl" Content="{Binding BrowserControl}" />
+                <ContentPresenter Name="BrowserControl" Content="{Binding BrowserControl}">
+                    <i:Interaction.Behaviors>
+                        <ruib:TaskbarThumbnailBehavior />
+                    </i:Interaction.Behaviors>
+                </ContentPresenter>
             </Grid>
         </Border>
     </DockPanel>
