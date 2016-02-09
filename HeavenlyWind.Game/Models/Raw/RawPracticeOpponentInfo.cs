@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_cmt")]
         public string Comment { get; set; }
         [JsonProperty("api_cmt_id")]
-        public long CommentID { get; set; }
+        public long? CommentID { get; set; }
 
         [JsonProperty("api_level")]
         public int Level { get; set; }
@@ -34,7 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_deckname")]
         public string FleetName { get; set; }
         [JsonProperty("api_deckname_id")]
-        public long FleetNameID { get; set; }
+        public long? FleetNameID { get; set; }
         [JsonProperty("api_deck")]
         public RawFleet Fleet { get; set; }
 

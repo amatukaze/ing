@@ -195,9 +195,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "INSERT INTO battle_detail.battle(id, first) VALUES(@battle_id, @first);");
                 rCommand.Parameters.AddWithValue("@opponent_id", rOpponent.RawData.ID);
                 rCommand.Parameters.AddWithValue("@opponent_name", rOpponent.Name);
-                rCommand.Parameters.AddWithValue("@opponent_comment_id", rOpponent.RawData.CommentID);
+                rCommand.Parameters.AddWithValue("@opponent_comment_id", rOpponent.RawData.CommentID ?? -1);
                 rCommand.Parameters.AddWithValue("@opponent_coment", rOpponent.Comment);
-                rCommand.Parameters.AddWithValue("@opponent_fleet_name_id", rOpponent.RawData.FleetNameID);
+                rCommand.Parameters.AddWithValue("@opponent_fleet_name_id", rOpponent.RawData.FleetNameID ?? -1);
                 rCommand.Parameters.AddWithValue("@opponent_fleet_name", rOpponent.FleetName);
                 rCommand.Parameters.AddWithValue("@opponent_level", rOpponent.Level);
                 rCommand.Parameters.AddWithValue("@opponent_experience", rOpponent.RawData.Experience[0]);
@@ -254,7 +254,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             var rFleetID = (int)rpType;
 
-            rpCommandTextBuilder.Append($"INSERT OR IGNORE INTO battle_detail.participant_fleet_name(id, name) VALUES({rpFleet.RawData.NameID}, '{rpFleet.Name}');");
+            rpCommandTextBuilder.Append($"INSERT OR IGNORE INTO battle_detail.participant_fleet_name(id, name) VALUES({rpFleet.RawData.NameID ?? -rpFleet.ID}, '{rpFleet.Name}');");
             rpCommandTextBuilder.Append($"INSERT INTO battle_detail.participant_fleet(battle, id, name) VALUES(@battle_id, {rFleetID}, {rpFleet.RawData.NameID});");
 
             for (var i = 0; i < rpFleet.Ships.Count; i++)

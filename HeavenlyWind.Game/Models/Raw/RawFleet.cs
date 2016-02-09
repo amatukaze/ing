@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_name")]
         public string Name { get; set; }
         [JsonProperty("api_name_id")]
-        public long NameID { get; set; }
+        public long? NameID { get; set; }
 
         [JsonProperty("api_mission")]
         public long[] Expedition { get; set; }
