@@ -240,7 +240,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                 if (rpData.Api == "api_req_practice/battle_result")
                 {
-                    rCommand.CommandText += "UPDATE SET battle_detail.practice SET rank = @rank WHERE id = @id;";
+                    rCommand.CommandText += "UPDATE battle_detail.practice SET rank = @rank WHERE id = @id;";
                     rCommand.Parameters.AddWithValue("@rank", (int)((RawBattleResult)rpData.Data).Rank);
                 }
 
