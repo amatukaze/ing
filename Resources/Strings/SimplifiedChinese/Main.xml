@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.6">
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.7">
 
   <String Key="Product_Name">智能型连装炮君</String>
 
@@ -48,9 +48,9 @@
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">调整浏览器大小以适应游戏</String>
 
   <String Key="Tab_Overview">概要</String>
-  <String Key="Tab_Fleets">艦隊</String>
+  <String Key="Tab_Fleets">舰队</String>
   <String Key="Tab_Sortie">出击</String>
-  <String Key="Tab_Quests">任務</String>
+  <String Key="Tab_Quests">任务</String>
   <String Key="Tab_Tools">ツール</String>
 
   <String Key="Overview_Headquarter">司令部</String>
