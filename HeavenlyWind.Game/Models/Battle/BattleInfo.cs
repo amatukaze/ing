@@ -38,10 +38,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 "api_req_sortie/battle",
                 "api_req_battle_midnight/sp_midnight",
                 "api_req_sortie/airbattle",
+                "api_req_sortie/ld_airbattle",
                 "api_req_combined_battle/airbattle",
                 "api_req_combined_battle/battle",
                 "api_req_combined_battle/battle_water",
                 "api_req_combined_battle/sp_midnight",
+                "api_req_combined_battle/ld_airbattle",
 
                 "api_req_practice/battle",
             };
