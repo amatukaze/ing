@@ -188,9 +188,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             using (var rCommand = Connection.CreateCommand())
             {
                 var rCommandTextBuilder = new StringBuilder(1024);
-                rCommandTextBuilder.Append("INSERT INTO practice_opponent(id, name) VALUES(@opponent_id, @opponent_name);" +
-                    "INSERT INTO practice_opponent_comment(id, comment) VALUES(@opponent_comment_id, @opponent_coment);" +
-                    "INSERT INTO practice_opponent_fleet(id, name) VALUES(@opponent_fleet_name_id, @opponent_fleet_name);" +
+                rCommandTextBuilder.Append("INSERT OR IGNORE INTO practice_opponent(id, name) VALUES(@opponent_id, @opponent_name);" +
+                    "INSERT OR IGNORE INTO practice_opponent_comment(id, comment) VALUES(@opponent_comment_id, @opponent_coment);" +
+                    "INSERT OR IGNORE INTO practice_opponent_fleet(id, name) VALUES(@opponent_fleet_name_id, @opponent_fleet_name);" +
                     "INSERT INTO practice(id, opponent, opponent_level, opponent_experience, opponent_rank, opponent_comment, opponent_fleet) VALUES(@battle_id, @opponent_id, @opponent_level, @opponent_experience, @opponent_rank, @opponent_comment_id, @opponent_fleet_name_id);" +
                     "INSERT INTO battle_detail.battle(id, first) VALUES(@battle_id, @first);");
                 rCommand.Parameters.AddWithValue("@opponent_id", rOpponent.RawData.ID);
