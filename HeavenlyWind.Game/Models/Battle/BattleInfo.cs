@@ -60,14 +60,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         {
             Current = this;
 
-            var rFleets = KanColleGame.Current.Port.Fleets;
-            if (rFleets.CombinedFleetType == 0)
-                Participants.FriendMain = KanColleGame.Current.Sortie.Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
-            else
-            {
-                Participants.FriendMain = rFleets[1].Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
-                Participants.FriendEscort = rFleets[2].Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
-            }
+            var rSortie = KanColleGame.Current.Sortie;
+            Participants.FriendMain = rSortie.Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+            if (rSortie.EscortFleet != null)
+                Participants.FriendEscort = rSortie.EscortFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
 
             CurrentStage = new FakeStage(this);
             OnPropertyChanged(nameof(CurrentStage));
@@ -98,10 +94,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     First = new AerialCombatStage(this, rpData);
                     break;
 
+                case "api_req_sortie/ld_airbattle": First = new AerialAttackStage(this, rpData); break;
+
                 case "api_req_combined_battle/battle": First = new CombinedFleetCTFDayNormalStage(this, rpData); break;
                 case "api_req_combined_battle/battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpData); break;
 
                 case "api_req_combined_battle/sp_midnight": First = new CombinedFleetNightOnlyStage(this, rpData); break;
+
+                case "api_req_combined_battle/ld_airbattle": First = new CombinedFleetAerialAttackStage(this, rpData); break;
             }
 
             First.Process(rpData);

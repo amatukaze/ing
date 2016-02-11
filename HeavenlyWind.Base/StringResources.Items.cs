@@ -118,10 +118,12 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_Event_AviationReconnaissance => GetString(nameof(Sortie_Event_AviationReconnaissance));
         public string Sortie_Event_EscortSuccess => GetString(nameof(Sortie_Event_EscortSuccess));
         public string Sortie_Event_Landing => GetString(nameof(Sortie_Event_Landing));
+        public string Sortie_Event_AerialAttack => GetString(nameof(Sortie_Event_AerialAttack));
         public string Sortie_NothingHappened_Imagination => GetString(nameof(Sortie_NothingHappened_Imagination));
         public string Sortie_NothingHappened_NoSighOfTheEnemy => GetString(nameof(Sortie_NothingHappened_NoSighOfTheEnemy));
         public string Sortie_NothingHappened_ManualSelection => GetString(nameof(Sortie_NothingHappened_ManualSelection));
 
+        public string Map_Difficulty_None => GetString(nameof(Map_Difficulty_None));
         public string Map_Difficulty_Easy => GetString(nameof(Map_Difficulty_Easy));
         public string Map_Difficulty_Normal => GetString(nameof(Map_Difficulty_Normal));
         public string Map_Difficulty_Hard => GetString(nameof(Map_Difficulty_Hard));

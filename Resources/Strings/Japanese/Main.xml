@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.6">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.7">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -114,10 +114,12 @@
   <String Key="Sortie_Event_AviationReconnaissance">航空偵察</String>
   <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
   <String Key="Sortie_Event_Landing">揚陸</String>
+  <String Key="Sortie_Event_AerialAttack">空襲戦</String>
   <String Key="Sortie_NothingHappened_Imagination">気のせいだった。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能動分岐</String>
 
+  <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">丙</String>
   <String Key="Map_Difficulty_Normal">乙</String>
   <String Key="Map_Difficulty_Hard">甲</String>

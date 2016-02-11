@@ -48,6 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 case SortieEventType.NormalBattle:
                 case SortieEventType.BossBattle:
+                case SortieEventType.AerialAttack:
                     Event = new BattleEvent(rpData);
                     break;
 

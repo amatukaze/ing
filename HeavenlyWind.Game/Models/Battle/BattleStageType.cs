@@ -8,5 +8,6 @@
         NightOnly,
         DayAfterNight,
         AerialCombat,
+        AerialAttack,
     }
 }

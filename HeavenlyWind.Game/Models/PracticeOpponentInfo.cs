@@ -9,10 +9,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     public class PracticeOpponentInfo : RawDataWrapper<RawPracticeOpponentInfo>
     {
         public string Name => RawData.Name;
+        public string Comment => RawData.Comment;
 
         public int Level => RawData.Level;
         public AdmiralRank Rank => RawData.Rank;
 
+        public string FleetName => RawData.FleetName;
         public IList<IParticipant> Ships { get; private set; }
 
         public int Experience { get; private set; }

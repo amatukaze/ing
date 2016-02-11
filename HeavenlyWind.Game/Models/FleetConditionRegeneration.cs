@@ -37,7 +37,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         protected override void TimeOut()
         {
-
+            TimeToComplete = null;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.6">
+<Strings CultureName="en" Name="English" Version="0.1.7">
 
   <String Key="Product_Name">Intelligent Naval Gun-kun</String>
 
@@ -114,10 +114,12 @@
   <String Key="Sortie_Event_AviationReconnaissance">Aviation Reconnaissance</String>
   <String Key="Sortie_Event_EscortSuccess">Escort Success</String>
   <String Key="Sortie_Event_Landing">Landing</String>
+  <String Key="Sortie_Event_AerialAttack">Aerial Attack</String>
   <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
   <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>
 
+  <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">Easy</String>
   <String Key="Map_Difficulty_Normal">Medium</String>
   <String Key="Map_Difficulty_Hard">Hard</String>

@@ -125,6 +125,7 @@
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ScreenshotService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
+    <Compile Include="Services\TaskbarProgressService.cs" />
     <Compile Include="Services\UpdateService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />

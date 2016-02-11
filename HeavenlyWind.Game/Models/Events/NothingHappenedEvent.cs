@@ -18,8 +18,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
         {
             if (Message == NothingHappenedMessage.ManualSelection && MapService.Instance.ContainsMap(rpMap.ID))
             {
-                CurrentNode = MapService.Instance.GetNodeWikiID(rpMap.ID, rpData.Node) ?? rpData.Node.ToString();
-                NodeSelections = rpData.NodeSelection.Nodes.Select(r => new NodeSelection(rpMap, rpData.Node, r)).ToList().AsReadOnly();
+                CurrentNode = MapService.Instance.GetNodeWikiID(rpMap.ID, rpData.StartNode ?? rpData.Node) ?? rpData.Node.ToString();
+                NodeSelections = rpData.NodeSelection.Nodes.Select(r => new NodeSelection(rpMap, rpData.StartNode ?? rpData.Node, r)).ToList().AsReadOnly();
             }
         }
 
