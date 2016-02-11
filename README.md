@@ -3,11 +3,9 @@
 艦これ補助ツール
 
 ### Updated
-**0.1.6.1 (Moonbria)**
- * Show node's character ID
- * Show resupply infomation
- * Can change the docking side of information panel
- * Show extra PvP XP bonus from CLP
+**0.1.7 (Moonbria)**
+ * Record battle detail for battle detail window in the future version
+ * Add two new mechanics from game update
 
 ### Screenshot
 ![Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/01.jpg)
