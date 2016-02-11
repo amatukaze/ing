@@ -12,5 +12,6 @@
         AviationReconnaissance,
         EscortSuccess,
         Landing,
+        AerialAttack,
     }
 }

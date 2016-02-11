@@ -114,6 +114,7 @@
   <String Key="Sortie_Event_AviationReconnaissance">Aviation Reconnaissance</String>
   <String Key="Sortie_Event_EscortSuccess">Escort Success</String>
   <String Key="Sortie_Event_Landing">Landing</String>
+  <String Key="Sortie_Event_AerialAttack">Aerial Attack</String>
   <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
   <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>

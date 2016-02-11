@@ -38,6 +38,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_eventmap")]
         public RawEventMap EventMap { get; set; }
 
+        [JsonProperty("api_from_no")]
+        public int? StartNode { get; set; }
+
         [JsonProperty("api_happening")]
         public WhirlpoolEvent Whirlpool { get; set; }
 
