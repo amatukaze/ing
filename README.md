@@ -3,7 +3,7 @@
 艦これ補助ツール
 
 ### Updated
-**0.1.7 (Moonbria)**
+**0.1.7.1 (Moonbria)**
  * Record battle detail for battle detail window in the future version
  * Add two new mechanics from game update
 
