@@ -14,6 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public SortieEventType EventType { get; }
         public int EventSubType { get; }
+        public BattleType? BattleType => EventType == SortieEventType.NormalBattle ? (BattleType)EventSubType : (BattleType?)null;
         public SortieEvent Event { get; }
 
         public bool IsDeadEnd { get; }

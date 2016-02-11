@@ -26,6 +26,9 @@
                 <DataTrigger Binding="{Binding Node.Event}" Value="{x:Null}">
                     <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
                 </DataTrigger>
+                <DataTrigger Binding="{Binding Node.EventType}" Value="NormalBattle">
+                    <Setter Property="Text" Value="{rb:EnumToStringResource Node.BattleType, Sortie_BattleType}" />
+                </DataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>

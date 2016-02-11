@@ -115,6 +115,10 @@
   <String Key="Sortie_Event_EscortSuccess">护送成功</String>
   <String Key="Sortie_Event_Landing">登陆</String>
   <String Key="Sortie_Event_AerialAttack">空袭战</String>
+  <String Key="Sortie_BattleType_Normal">普通战斗</String>
+  <String Key="Sortie_BattleType_NightOnly">开幕夜战</String>
+  <String Key="Sortie_BattleType_AerialCombat">航空戦</String>
+  <String Key="Sortie_BattleType_AerialAttack">空袭战</String>
   <String Key="Sortie_NothingHappened_Imagination">也许是错觉吧。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">没有看到敌影。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能动分岐</String>

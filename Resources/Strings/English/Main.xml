@@ -115,6 +115,10 @@
   <String Key="Sortie_Event_EscortSuccess">Escort Success</String>
   <String Key="Sortie_Event_Landing">Landing</String>
   <String Key="Sortie_Event_AerialAttack">Aerial Attack</String>
+  <String Key="Sortie_BattleType_Normal">Normal Battle</String>
+  <String Key="Sortie_BattleType_NightOnly">Night Battle</String>
+  <String Key="Sortie_BattleType_AerialCombat">Aerial Combat</String>
+  <String Key="Sortie_BattleType_AerialAttack">Aerial Attack</String>
   <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
   <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>

@@ -81,7 +81,13 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{rb:EnumToStringResource EventType, Sortie_Event}" Margin="0, 4" />
+                                    <TextBlock Name="Type" Text="{rb:EnumToStringResource EventType, Sortie_Event}" Margin="0, 4" />
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding EventType}" Value="NormalBattle">
+                                            <Setter TargetName="Type" Property="Text" Value="{rb:EnumToStringResource BattleType, Sortie_BattleType}" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

@@ -75,6 +75,7 @@
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
     <Compile Include="Models\AdmiralRank.cs" />
+    <Compile Include="Models\BattleType.cs" />
     <Compile Include="Models\Battle\AerialCombat.cs" />
     <Compile Include="Models\Battle\AerialCombatResult.cs" />
     <Compile Include="Models\Battle\BattleInfo.cs" />
