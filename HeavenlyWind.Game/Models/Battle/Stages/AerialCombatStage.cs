@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 
         internal protected AerialCombatStage(BattleInfo rpOwner, ApiData rpData) : base(rpOwner)
         {
-            var rRawData = rpData.Data as RawAerialCombat;
+            var rRawData = rpData.Data as IAerialCombatSecondRound;
 
             AerialCombatFirstRound = new AerialCombatPhase(this, rRawData.AerialCombat, PhaseRound.First);
             AerialCombatSecondRound = new AerialCombatPhase(this, rRawData.AerialCombatSecondRound, PhaseRound.Second);

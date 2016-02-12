@@ -96,14 +96,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     First = new AerialCombatStage(this, rpData);
                     break;
 
-                case "api_req_sortie/ld_airbattle": First = new AerialAttackStage(this, rpData); break;
+                case "api_req_sortie/ld_airbattle":
+                case "api_req_combined_battle/ld_airbattle":
+                    First = new AerialAttackStage(this, rpData);
+                    break;
 
                 case "api_req_combined_battle/battle": First = new CombinedFleetCTFDayNormalStage(this, rpData); break;
                 case "api_req_combined_battle/battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpData); break;
 
                 case "api_req_combined_battle/sp_midnight": First = new CombinedFleetNightOnlyStage(this, rpData); break;
-
-                case "api_req_combined_battle/ld_airbattle": First = new CombinedFleetAerialAttackStage(this, rpData); break;
             }
 
             First.Process(rpData);

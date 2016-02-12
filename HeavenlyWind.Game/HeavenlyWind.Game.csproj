@@ -99,7 +99,6 @@
     <Compile Include="Models\Battle\Phases\TorpedoSalvoPhase.cs" />
     <Compile Include="Models\Battle\Stages\AerialAttackStage.cs" />
     <Compile Include="Models\Battle\Stages\AerialCombatStage.cs" />
-    <Compile Include="Models\Battle\Stages\CombinedFleetAerialAttackStage.cs" />
     <Compile Include="Models\Battle\Stages\CombinedFleetCTFDayNormalStage.cs" />
     <Compile Include="Models\Battle\Stages\CombinedFleetDay.cs" />
     <Compile Include="Models\Battle\Stages\CombinedFleetNight.cs" />
@@ -155,6 +154,7 @@
     <Compile Include="Models\PracticeInfo.cs" />
     <Compile Include="Models\PracticeOpponentInfo.cs" />
     <Compile Include="Models\Quest.cs" />
+    <Compile Include="Models\Raw\Battle\IAerialCombat.cs" />
     <Compile Include="Models\Raw\Battle\IRawCombinedFleet.cs" />
     <Compile Include="Models\Raw\Battle\IRawFormationAndEngagementForm.cs" />
     <Compile Include="Models\Raw\Battle\RawAerialAttack.cs" />
