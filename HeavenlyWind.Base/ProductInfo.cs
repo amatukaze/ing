@@ -5,7 +5,7 @@
         public const string AppName = "いんてりじぇんと連装砲くん";
         public const string ProductName = "Intelligent Naval Gun-kun";
 
-        public const string AssemblyVersionString = "0.1.7.1";
+        public const string AssemblyVersionString = "0.1.7.2";
 
         public const string ReleaseCodeName = "Moonbria";
 

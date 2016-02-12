@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 
         internal protected AerialAttackStage(BattleInfo rpOwner, ApiData rpData) : base(rpOwner)
         {
-            var rRawData = rpData.Data as RawAerialAttack;
+            var rRawData = rpData.Data as IAerialCombat;
 
             AerialAttack = new AerialCombatPhase(this, rRawData.AerialCombat, PhaseRound.First);
         }
