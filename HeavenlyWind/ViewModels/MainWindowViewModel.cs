@@ -2,9 +2,6 @@
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
-using System;
-using System.ComponentModel;
-using System.Reactive.Linq;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
@@ -68,9 +65,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         {
             Title = StringResources.Instance.Main.Product_Name;
 
-            var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(KanColleGame.Current, nameof(KanColleGame.Current.PropertyChanged))
-                .Select(r => r.EventArgs.PropertyName);
-            rPropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.IsStarted)).Subscribe(delegate
+            var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
+            rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
             {
                 Content = new GameInformationViewModel();
                 IsGameStarted = true;

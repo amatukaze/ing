@@ -5,7 +5,6 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.SystemInterop;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 
@@ -17,7 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public static NotificationService Instance { get; } = new NotificationService();
 
-        IDisposable r_InitializationSubscription, r_ExplorationSubscription;
+        PropertyChangedEventListener r_SortiePCEL;
 
         public void Initialize()
         {
@@ -26,15 +25,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             ToastNotificationUtil.Initialize("KanColleInspector.lnk", typeof(App).Assembly.Location, AppUserModelID);
 
-            var rGamePropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(KanColleGame.Current, nameof(KanColleGame.Current.PropertyChanged))
-                .Select(r => r.EventArgs.PropertyName);
-            r_InitializationSubscription = rGamePropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.IsStarted)).Subscribe(_ =>
+            var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
+            rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
             {
                 var rPort = KanColleGame.Current.Port;
-
-                var rPortPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rPort, nameof(rPort.PropertyChanged))
-                    .Select(r => r.EventArgs.PropertyName);
-
                 rPort.Fleets.FleetsUpdated += rpFleets =>
                 {
                     foreach (var rFleet in rpFleets)
@@ -42,26 +36,25 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                             Show(StringResources.Instance.Main.Notification_Expedition, string.Format(StringResources.Instance.Main.Notification_Expedition_Content, rpFleetName, rpExpeditionName));
                 };
 
-                rPortPropertyChangedSource.Where(r => r == nameof(rPort.ConstructionDocks)).Subscribe(delegate
+                var rPortPCEL = PropertyChangedEventListener.FromSource(rPort);
+                rPortPCEL.Add(nameof(rPort.ConstructionDocks), delegate
                 {
                     foreach (var rConstructionDock in rPort.ConstructionDocks.Values)
                         rConstructionDock.ConstructionCompleted += rpShipName =>
                             Show(StringResources.Instance.Main.Notification_Construction, string.Format(StringResources.Instance.Main.Notification_Construction_Content, rpShipName));
                 });
-                rPortPropertyChangedSource.Where(r => r == nameof(rPort.RepairDocks)).Subscribe(delegate
+                rPortPCEL.Add(nameof(rPort.RepairDocks), delegate
                 {
                     foreach (var rRepairDock in rPort.RepairDocks.Values)
                         rRepairDock.RepairCompleted += rpShipName =>
                             Show(StringResources.Instance.Main.Notification_Repair, string.Format(StringResources.Instance.Main.Notification_Repair_Content, rpShipName));
                 });
-
-                r_InitializationSubscription.Dispose();
-                r_InitializationSubscription = null;
             });
 
-            InitializeHeavilyDamagedWarning(rGamePropertyChangedSource);
+            InitializeHeavilyDamagedWarning(rGamePCEL);
         }
-        void InitializeHeavilyDamagedWarning(IObservable<string> rpGamePropertyChangedSource)
+
+        void InitializeHeavilyDamagedWarning(PropertyChangedEventListener rpGamePCEL)
         {
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, delegate
             {
@@ -75,21 +68,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     Show(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
             });
 
-            rpGamePropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.Sortie)).Subscribe(delegate
+            rpGamePCEL.Add(nameof(KanColleGame.Current.Sortie), delegate
             {
                 var rSortie = KanColleGame.Current.Sortie;
 
                 if (rSortie == null)
                 {
-                    r_ExplorationSubscription?.Dispose();
-                    r_ExplorationSubscription = null;
+                    r_SortiePCEL?.Dispose();
+                    r_SortiePCEL = null;
                 }
                 else
                 {
-                    var rSortiePropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rSortie, nameof(rSortie.PropertyChanged))
-                        .Select(r => r.EventArgs.PropertyName);
-
-                    r_ExplorationSubscription = rSortiePropertyChangedSource.Where(r => r == nameof(rSortie.Node)).Subscribe(delegate
+                    r_SortiePCEL = new PropertyChangedEventListener(rSortie);
+                    r_SortiePCEL.Add(nameof(rSortie.Node), delegate
                     {
                         var rParticipants = rSortie.Fleet.Ships.Skip(1);
                         if (rSortie.EscortFleet != null)

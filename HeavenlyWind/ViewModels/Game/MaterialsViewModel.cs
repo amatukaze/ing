@@ -1,9 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
-using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
@@ -15,10 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         {
             var rPort = KanColleGame.Current.Port;
 
-            var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rPort, nameof(rPort.PropertyChanged))
-                .Select(r => r.EventArgs.PropertyName);
-            rPropertyChangedSource.Where(r => r == nameof(rPort.Materials))
-                .Subscribe(_ => OnPropertyChanged(nameof(Source)));
+            PropertyChangedEventListener.FromSource(rPort).Add(nameof(rPort.Materials), (s, e) => OnPropertyChanged(nameof(Source)));
         }
     }
 }
