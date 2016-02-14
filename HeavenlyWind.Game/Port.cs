@@ -1,8 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -11,19 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class Port : ModelBase
     {
-        Admiral r_Admiral;
-        public Admiral Admiral
-        {
-            get { return r_Admiral; }
-            private set
-            {
-                if (r_Admiral != value)
-                {
-                    r_Admiral = value;
-                    OnPropertyChanged(nameof(Admiral));
-                }
-            }
-        }
+        public Admiral Admiral { get; private set; }
 
         public Materials Materials { get; } = new Materials();
 
@@ -187,10 +173,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal void UpdateAdmiral(RawBasic rpAdmiral)
         {
-            if (Admiral == null)
-                Admiral = new Admiral(rpAdmiral);
-            else
+            if (Admiral != null)
                 Admiral.Update(rpAdmiral);
+            else
+            {
+                Admiral = new Admiral(rpAdmiral);
+                OnPropertyChanged(nameof(Admiral));
+            }
         }
 
         internal void UpdatePort(RawPort rpPort)

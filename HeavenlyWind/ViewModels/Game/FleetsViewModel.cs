@@ -52,6 +52,15 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             SessionService.Instance.Subscribe("api_req_hensei/change", r => SelectedFleet = Fleets[int.Parse(r.Requests["api_id"]) - 1]);
             SessionService.Instance.Subscribe("api_req_hensei/preset_select", r => SelectedFleet = Fleets[int.Parse(r.Requests["api_deck_id"]) - 1]);
+            SessionService.Instance.Subscribe("api_req_kaisou/slotset", r =>
+            {
+                Ship rShip;
+                if (!KanColleGame.Current.Port.Ships.TryGetValue(int.Parse(r.Requests["api_id"]), out rShip))
+                    return;
+
+                if (rShip.OwnerFleet != null)
+                    SelectedFleet = Fleets[rShip.OwnerFleet.ID - 1];
+            });
 
             SessionService.Instance.Subscribe("api_req_map/start", r => SelectedFleet = Fleets[int.Parse(r.Requests["api_deck_id"]) - 1]);
         }
