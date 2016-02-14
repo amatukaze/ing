@@ -17,13 +17,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     {
         enum ParticipantFleetType { Main, Escort, SupportFire }
 
+        public override string GroupName => "battle_detail";
+        public override int Version => 2;
+
         string r_Filename;
+        SQLiteConnection r_Connection;
 
         long? r_CurrentBattleID;
 
         internal BattleDetailRecord(SQLiteConnection rpConnection, int rpUserID) : base(rpConnection)
         {
             r_Filename = new FileInfo($"Records\\{rpUserID}_Battle.db").FullName;
+            r_Connection = new SQLiteConnection($@"Data Source={r_Filename};Page Size=8192").OpenAndReturn();
 
             var rSortieFirstStageApis = new[]
             {
@@ -58,12 +63,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             DisposableObjects.Add(SessionService.Instance.Subscribe(rBattleResultApis, ProcessResult));
         }
 
-        public override string GroupName => "battle_detail";
-
         protected override void CreateTable()
         {
-            using (var rConnection = new SQLiteConnection($@"Data Source={r_Filename};Page Size=8192").OpenAndReturn())
-            using (var rCommand = rConnection.CreateCommand())
+            using (var rCommand = r_Connection.CreateCommand())
             {
                 rCommand.CommandText = "CREATE TABLE IF NOT EXISTS battle(" +
                     "id INTEGER PRIMARY KEY NOT NULL, " +
@@ -86,6 +88,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "ship INTEGER NOT NULL, " +
                     "level INTEGER NOT NULL, " +
                     "condition INTEGER NOT NULL, " +
+                    "fuel INTEGER NOT NULL, " +
+                    "bullet INTEGER NOT NULL, " +
                     "firepower INTEGER NOT NULL, " +
                     "torpedo INTEGER NOT NULL, " +
                     "aa INTEGER NOT NULL, " +
@@ -133,6 +137,35 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.CommandText = "ATTACH @battle_detail_db AS battle_detail";
                 rCommand.Parameters.AddWithValue("@battle_detail_db", r_Filename);
                 rCommand.ExecuteNonQuery();
+            }
+
+            if (r_Connection != null)
+            {
+                r_Connection.Dispose();
+                r_Connection = null;
+            }
+        }
+
+        protected override void UpgradeFromOldVersion(int rpOldVersion)
+        {
+            if (rpOldVersion == 1)
+            {
+                using (var rTransaction = r_Connection.BeginTransaction())
+                using (var rCommand = r_Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "ALTER TABLE participant RENAME TO participant_old;" +
+
+                        "CREATE TABLE IF NOT EXISTS participant(battle INTEGER NOT NULL REFERENCES battle(id), id INTEGER NOT NULL, ship INTEGER NOT NULL, level INTEGER NOT NULL, condition INTEGER NOT NULL, fuel INTEGER NOT NULL, bullet INTEGER NOT NULL, firepower INTEGER NOT NULL, torpedo INTEGER NOT NULL, aa INTEGER NOT NULL, armor INTEGER NOT NULL, evasion INTEGER NOT NULL, asw INTEGER NOT NULL, los INTEGER NOT NULL, luck INTEGER NOT NULL, range INTEGER NOT NULL, PRIMARY KEY(battle, id)) WITHOUT ROWID;" +
+
+                        "INSERT INTO participant(battle, id, ship, level, condition, fuel, bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) SELECT battle, id, ship, level, condition, -1 AS fuel, -1 AS bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range FROM participant_old;" +
+
+                        "DROP TABLE participant_old;";
+
+                    rCommand.ExecuteNonQuery();
+
+                    rTransaction.Commit();
+                }
             }
         }
 
@@ -264,8 +297,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 var rShip = rpFleet.Ships[i];
                 var rID = rFleetID * 6 + i;
 
-                rpCommandTextBuilder.Append("INSERT INTO battle_detail.participant(battle, id, ship, level, condition, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) ");
-                rpCommandTextBuilder.Append($"VALUES(@battle_id, {rID}, {rShip.Info.ID}, {rShip.Level}, {rShip.Condition}, {rShip.Status.FirepowerBase.Current}, {rShip.Status.TorpedoBase.Current}, {rShip.Status.AABase.Current}, {rShip.Status.ArmorBase.Current}, {rShip.Status.Evasion}, {rShip.Status.ASW}, {rShip.Status.LoS}, {rShip.Status.Luck}, {rShip.RawData.Range});");
+                rpCommandTextBuilder.Append("INSERT INTO battle_detail.participant(battle, id, ship, level, condition, fuel, bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) ");
+                rpCommandTextBuilder.Append($"VALUES(@battle_id, {rID}, {rShip.Info.ID}, {rShip.Level}, {rShip.Condition}, {rShip.Fuel.Current}, {rShip.Bullet.Current}, {rShip.Status.FirepowerBase.Current}, {rShip.Status.TorpedoBase.Current}, {rShip.Status.AABase.Current}, {rShip.Status.ArmorBase.Current}, {rShip.Status.Evasion}, {rShip.Status.ASW}, {rShip.Status.LoS}, {rShip.Status.Luck}, {rShip.RawData.Range});");
 
                 for (var j = 0; j < rShip.Slots.Count; j++)
                 {
