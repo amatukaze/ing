@@ -104,6 +104,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Materials.Bauxite += rMaterials[3];
             });
 
+            SessionService.Instance.Subscribe("api_req_kousyou/remodel_slot", r =>
+            {
+                var rData = (RawImprovementResult)r.Data;
+
+                Materials.Update(rData.Materials);
+
+                Equipment rEquipment;
+                if (rData.Success && Equipment.TryGetValue(rData.ImprovedEquipment.ID, out rEquipment))
+                    rEquipment.Update(rData.ImprovedEquipment);
+
+                if (rData.RemovedEquipmentID.HasValue)
+                {
+                    Equipment.Remove(rData.RemovedEquipmentID.Value);
+                    OnPropertyChanged(nameof(Equipment));
+                }
+            });
+
             SessionService.Instance.Subscribe("api_req_hokyu/charge", r =>
             {
                 var rData = r.GetData<RawSupplyResult>();

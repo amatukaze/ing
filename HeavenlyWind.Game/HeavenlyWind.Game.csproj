@@ -184,6 +184,7 @@
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionResult.cs" />
     <Compile Include="Models\Raw\RawFleet.cs" />
+    <Compile Include="Models\Raw\RawImprovementResult.cs" />
     <Compile Include="Models\Raw\RawItemInfo.cs" />
     <Compile Include="Models\Raw\RawMapAreaInfo.cs" />
     <Compile Include="Models\Raw\RawMapExploration.cs" />
@@ -229,6 +230,7 @@
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
     <Compile Include="Parsers\Root\Arsenal\ConstructionResultParser.cs" />
     <Compile Include="Parsers\Root\Arsenal\DevelopmentParser.cs" />
+    <Compile Include="Parsers\Root\Arsenal\ImprovementResultParser.cs" />
     <Compile Include="Parsers\Root\Battle\AerialAttackParser.cs" />
     <Compile Include="Parsers\Root\Battle\AerialCombatParser.cs" />
     <Compile Include="Parsers\Root\Battle\BattleResultParser.cs" />
