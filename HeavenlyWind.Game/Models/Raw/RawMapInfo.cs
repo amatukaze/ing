@@ -30,6 +30,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 
             [JsonProperty("api_selected_rank")]
             public EventMapDifficulty SelectedDifficulty { get; set; }
+
+            [JsonProperty("api_gauge_type")]
+            public MapGaugeType? GaugeType { get; set; }
         }
     }
 }

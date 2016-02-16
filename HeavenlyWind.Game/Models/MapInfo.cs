@@ -38,6 +38,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        public MapGaugeType? GaugeType => RawData.Event?.GaugeType;
+
         internal MapInfo(RawMapInfo rpRawData) : base(rpRawData)
         {
             OnRawDataUpdated();

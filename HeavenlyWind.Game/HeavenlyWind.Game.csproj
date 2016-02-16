@@ -146,6 +146,7 @@
     <Compile Include="Models\IMapMasterInfo.cs" />
     <Compile Include="Models\ItemInfo.cs" />
     <Compile Include="Models\MapAreaInfo.cs" />
+    <Compile Include="Models\MapGaugeType.cs" />
     <Compile Include="Models\MapInfo.cs" />
     <Compile Include="Models\MapMasterInfo.cs" />
     <Compile Include="Models\Materials.cs" />
