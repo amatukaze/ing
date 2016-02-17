@@ -5,6 +5,8 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.SystemInterop;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 
@@ -12,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 {
     class NotificationService
     {
-        const string AppUserModelID = "Sakuno.KanColleInspector";
+        const string AppUserModelID = "Sakuno.Amatsukaze";
 
         public static NotificationService Instance { get; } = new NotificationService();
 
@@ -23,7 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             if (!OS.IsWin8OrLater)
                 return;
 
-            ToastNotificationUtil.Initialize("KanColleInspector.lnk", typeof(App).Assembly.Location, AppUserModelID);
+            InstallShortcut();
 
             var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
             rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
@@ -52,6 +54,25 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             });
 
             InitializeHeavilyDamagedWarning(rGamePCEL);
+        }
+        static void InstallShortcut()
+        {
+            var rOldShortcut = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "KanColleInspector.lnk"));
+            if (rOldShortcut.Exists)
+                rOldShortcut.Delete();
+
+            string rShortcutName;
+            var rCultures = StringResources.GetAncestorsAndSelfCultureNames(CultureInfo.CurrentCulture).ToArray();
+            if (rCultures.Any(r => r.OICEquals("ja")))
+                rShortcutName = "いんてりじぇんと連装砲くん.lnk";
+            else if (rCultures.Any(r => r.OICEquals("zh-Hans")))
+                rShortcutName = "智能型连装炮君.lnk";
+            else if (rCultures.Any(r => r.OICEquals("zh-Hant")))
+                rShortcutName = "智能型連裝炮君.lnk";
+            else
+                rShortcutName = "Intelligent Naval Gun.lnk";
+
+            ToastNotificationUtil.Initialize(rShortcutName, typeof(App).Assembly.Location, AppUserModelID);
         }
 
         void InitializeHeavilyDamagedWarning(PropertyChangedEventListener rpGamePCEL)
