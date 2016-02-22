@@ -124,6 +124,7 @@
   <String Key="Sortie_NothingHappened_Imagination">也许是错觉吧。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">没有看到敌影。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能动分岐</String>
+  <String Key="Sortie_SupportFleet_Ready">支援舰队等待中</String>
 
   <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">丙</String>

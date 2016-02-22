@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         internal BattleEvent(RawMapExploration rpData) : base(rpData)
         {
-            Battle = new BattleInfo();
+            Battle = new BattleInfo((BattleType)rpData.NodeEventSubType);
         }
 
         long IExtraInfo.GetExtraInfo() => Battle.ID;
