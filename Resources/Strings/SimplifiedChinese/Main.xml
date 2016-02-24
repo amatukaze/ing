@@ -72,6 +72,8 @@
   <String Key="Overview_Fleets_Unsupplied">未补给</String>
   <String Key="Overview_Fleets_HeavilyDamaged">有大破船</String>
   <String Key="Overview_Fleets_Expedition_TimeToComplete">完成时间</String>
+  <String Key="Overview_Fleets_Expedition_TotalYield">收入理论值</String>
+  <String Key="Overview_Fleets_Expedition_TotalYield_GreatSuccess">收入理论值(大成功)</String>
   <String Key="Overview_Dock_Locked">未解锁</String>
   <String Key="Overview_RepairDocks">入渠</String>
   <String Key="Overview_RepairDocks_TimeToComplete">完成时间</String>

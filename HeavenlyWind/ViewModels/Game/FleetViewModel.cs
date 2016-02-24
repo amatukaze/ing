@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         internal FleetViewModel(Fleet rpFleet)
         {
             Source = rpFleet;
-            ExpeditionStatus = new FleetExpeditionStatusViewModel(rpFleet.ExpeditionStatus);
+            ExpeditionStatus = new FleetExpeditionStatusViewModel(rpFleet);
             ConditionRegeneration = new FleetConditionRegenerationViewModel(rpFleet.ConditionRegeneration);
         }
     }
