@@ -49,6 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze
             QuestProgressService.Instance.Initialize();
             MapService.Instance.Initialize();
             NotificationService.Instance.Initialize();
+            ExpeditionService.Instance.Initialize();
 
             Preference.Load();
             StringResources.Instance.LoadMainResource(Preference.Current.Language);

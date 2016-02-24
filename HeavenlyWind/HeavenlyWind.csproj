@@ -109,6 +109,7 @@
     <Compile Include="Controls\ShipSlot.cs" />
     <Compile Include="Models\CheckForUpdateResult.cs" />
     <Compile Include="Models\EventMap.cs" />
+    <Compile Include="Models\ExpeditionInfo2.cs" />
     <Compile Include="Models\FleetLocking.cs" />
     <Compile Include="Models\Power.cs" />
     <Compile Include="Services\BrowserService.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Services\Browser\LayoutEngineDependency.cs" />
     <Compile Include="Services\Browser\LayoutEngineInfo.cs" />
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
+    <Compile Include="Services\ExpeditionService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\ScreenshotService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
