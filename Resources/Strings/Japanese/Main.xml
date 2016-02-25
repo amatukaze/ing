@@ -51,6 +51,7 @@
   <String Key="Tab_Fleets">艦隊</String>
   <String Key="Tab_Sortie">出撃</String>
   <String Key="Tab_Quests">任務</String>
+  <String Key="Tab_ExpeditionOverview">遠征一覧</String>
   <String Key="Tab_Tools">ツール</String>
 
   <String Key="Overview_Headquarter">司令部</String>

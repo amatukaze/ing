@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
         public int ShipCount { get; internal set; }
 
         [JsonProperty("ship_requirement")]
-        public RawShipRequirement[] ShipRequirements { get; internal set; }
+        public RawShipRequirements[] ShipRequirements { get; internal set; }
 
         [JsonProperty("drum")]
         public RawDrum DrumRequirement { get; internal set; }
@@ -39,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
             [JsonProperty("bauxite")]
             public int Bauxite { get; internal set; }
         }
-        public class RawShipRequirement
+        public class RawShipRequirements
         {
             [JsonProperty("count")]
             public int Count { get; internal set; }
@@ -49,9 +49,9 @@ namespace Sakuno.KanColle.Amatsukaze.Models
         public class RawDrum
         {
             [JsonProperty("count")]
-            public int Count { get; internal set; }
-            [JsonProperty("ship_count")]
-            public int ShipCount { get; internal set; }
+            public int TotalCount { get; internal set; }
+            [JsonProperty("carrier_count")]
+            public int CarrierCount { get; internal set; }
         }
     }
 }

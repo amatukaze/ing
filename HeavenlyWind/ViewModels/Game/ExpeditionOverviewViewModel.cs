@@ -8,8 +8,14 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class ExpeditionOverviewViewModel : ModelBase
+    public class ExpeditionOverviewViewModel : TabItemViewModel
     {
+        public override string Name
+        {
+            get { return StringResources.Instance.Main.Tab_ExpeditionOverview; }
+            protected set { }
+        }
+
         public IList<ExpeditionGroupByMapArea> MapAreas { get; private set; }
 
         IDisposable r_MasterInfoSubscription;
@@ -24,6 +30,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 r_MasterInfoSubscription.Dispose();
                 r_MasterInfoSubscription = null;
             });
+
+            foreach (var rFleet in KanColleGame.Current.Port.Fleets.Table.Values.Skip(1))
+                PropertyChangedEventListener.FromSource(rFleet).Add(nameof(rFleet.Ships), (s, e) => Update(rFleet));
+        }
+
+        void Update(Fleet rpFleet)
+        {
+            foreach (var rArea in MapAreas)
+                foreach (var rExpedition in rArea.Expeditions)
+                    rExpedition.Update(rpFleet);
         }
     }
 }

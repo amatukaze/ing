@@ -26,10 +26,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public Tuple<ItemInfo, int> RewardItem1 => Info.RewardItem1ID != 0 ? Tuple.Create(KanColleGame.Current.MasterInfo.Items[Info.RewardItem1ID], Info.RewardItem1Count) : null;
         public Tuple<ItemInfo, int> RewardItem2 => Info.RewardItem2ID != 0 ? Tuple.Create(KanColleGame.Current.MasterInfo.Items[Info.RewardItem2ID], Info.RewardItem2Count) : null;
 
+        public IList<ExpeditionResultPrediction> ResultPrediction { get; }
+
         internal ExpeditionViewModel(ExpeditionInfo rpInfo)
         {
             Info = rpInfo;
             r_Info2 = ExpeditionService.Instance.GetInfo(rpInfo.ID);
+
+            ResultPrediction = KanColleGame.Current.Port.Fleets.Table.Values.Skip(1).Select(r => new ExpeditionResultPrediction(r_Info2, r)).ToList();
         }
+
+        internal void Update(Fleet rpFleet) => ResultPrediction[rpFleet.ID - 2].Check();
     }
 }

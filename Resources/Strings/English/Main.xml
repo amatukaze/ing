@@ -51,6 +51,7 @@
   <String Key="Tab_Fleets">Fleet</String>
   <String Key="Tab_Sortie">Sortie</String>
   <String Key="Tab_Quests">Quest</String>
+  <String Key="Tab_ExpeditionOverview">Expedition</String>
   <String Key="Tab_Tools">Tool</String>
 
   <String Key="Overview_Headquarter">Headquarter</String>

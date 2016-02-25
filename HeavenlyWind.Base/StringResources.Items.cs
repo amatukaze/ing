@@ -55,6 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));
         public string Tab_Sortie => GetString(nameof(Tab_Sortie));
         public string Tab_Quests => GetString(nameof(Tab_Quests));
+        public string Tab_ExpeditionOverview => GetString(nameof(Tab_ExpeditionOverview));
         public string Tab_Tools => GetString(nameof(Tab_Tools));
 
         public string Overview_Headquarter => GetString(nameof(Overview_Headquarter));

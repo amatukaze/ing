@@ -86,6 +86,31 @@
                                                 </ToolTip>
                                             </Border.ToolTip>
                                         </Border>
+
+                                        <ItemsControl ItemsSource="{Binding ResultPrediction}" Grid.Column="4">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Name="Border" Background="Transparent" Margin="4, 0" Padding="4, 2">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding ID}" />
+                                                            <Path Name="Result" Data="{StaticResource CrossPathData}" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" Width="14" Height="14" Margin="4, 0, 0, 0" />
+                                                        </StackPanel>
+                                                    </Border>
+
+                                                    <DataTemplate.Triggers>
+                                                        <DataTrigger Binding="{Binding Success}" Value="True">
+                                                            <Setter TargetName="Border" Property="Background" Value="Green" />
+                                                            <Setter TargetName="Result" Property="Data" Value="{StaticResource TickPathData}" />
+                                                        </DataTrigger>
+                                                    </DataTemplate.Triggers>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

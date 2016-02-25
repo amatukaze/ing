@@ -110,6 +110,7 @@
     <Compile Include="Models\CheckForUpdateResult.cs" />
     <Compile Include="Models\EventMap.cs" />
     <Compile Include="Models\ExpeditionInfo2.cs" />
+    <Compile Include="Models\ExpeditionResultPrediction.cs" />
     <Compile Include="Models\FleetLocking.cs" />
     <Compile Include="Models\Power.cs" />
     <Compile Include="Services\BrowserService.cs" />
