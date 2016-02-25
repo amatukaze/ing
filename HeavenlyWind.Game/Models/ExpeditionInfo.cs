@@ -1,5 +1,4 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -13,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public string OriginalName { get; }
         public string Description => RawData.Description;
 
-        public TimeSpan Time => TimeSpan.FromMinutes(RawData.Time);
+        public int Time => RawData.Time;
 
         public double FuelConsumption => RawData.FuelConsumption;
         public double BulletConsumption => RawData.BulletConsumption;

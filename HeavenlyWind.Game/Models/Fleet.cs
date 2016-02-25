@@ -62,8 +62,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public FleetExpeditionStatus ExpeditionStatus { get; }
         public FleetConditionRegeneration ConditionRegeneration { get; }
 
-        public event Action<IEnumerable<Ship>> ShipsUpdated = delegate { };
-
         internal Fleet(Port rpPort, RawFleet rpRawData) : base(rpRawData)
         {
             Port = rpPort;
@@ -130,12 +128,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             State = rState;
         }
 
-        void UpdateShips()
-        {
-            Ships = r_ShipList.AsReadOnly();
-
-            ShipsUpdated(Ships);
-        }
+        void UpdateShips() => Ships = r_ShipList.AsReadOnly();
 
         public Ship Organize(int rpIndex, Ship rpShip)
         {

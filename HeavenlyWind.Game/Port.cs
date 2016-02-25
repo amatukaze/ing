@@ -157,6 +157,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rIsInstantRepair = r.Requests["api_highspeed"] == "1";
                 rShip.Repair(rIsInstantRepair);
                 rShip.OwnerFleet?.Update();
+
+                if (rIsInstantRepair)
+                    Materials.Bucket--;
             });
             SessionService.Instance.Subscribe("api_req_nyukyo/speedchange", r => RepairDocks[int.Parse(r.Requests["api_ndock_id"])].CompleteRepair());
 
