@@ -183,6 +183,11 @@
   <String Key="Quest_Category_Sortie2">Sortie</String>
   <String Key="Quest_State_Completed">Completed</String>
 
+  <String Key="ExpeditionOverview_Time">Time</String>
+  <String Key="ExpeditionOverview_Consumption">Consumption</String>
+  <String Key="ExpeditionOverview_Rewards">Rewards</String>
+  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(Great Success Only)</String>
+
   <String Key="Window_Preferences">Setting</String>
   <String Key="Window_EquipmentOverview">Equipment Overview</String>
   <String Key="Window_ShipOverview">Ship Overview</String>

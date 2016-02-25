@@ -183,6 +183,11 @@
   <String Key="Quest_Category_Sortie2">出击</String>
   <String Key="Quest_State_Completed">达成</String>
 
+  <String Key="ExpeditionOverview_Time">时间</String>
+  <String Key="ExpeditionOverview_Consumption">消费</String>
+  <String Key="ExpeditionOverview_Rewards">奖励</String>
+  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(仅大成功)</String>
+
   <String Key="Window_Preferences">设置</String>
   <String Key="Window_EquipmentOverview">装备一览</String>
   <String Key="Window_ShipOverview">舰娘一览</String>

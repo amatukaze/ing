@@ -132,6 +132,9 @@
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
     <Compile Include="ViewModels\Game\EventMapOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Game\ExpeditionGroupByMapArea.cs" />
+    <Compile Include="ViewModels\Game\ExpeditionOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Game\ExpeditionViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetConditionRegenerationViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
@@ -205,6 +208,9 @@
     </Compile>
     <Compile Include="Views\Game\ExecutingQuestsOverview.xaml.cs">
       <DependentUpon>ExecutingQuestsOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\ExpeditionOverview.xaml.cs">
+      <DependentUpon>ExpeditionOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\FleetDetail.xaml.cs">
       <DependentUpon>FleetDetail.xaml</DependentUpon>
@@ -348,6 +354,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Icons\Cross.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -531,6 +541,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Icons\Tick.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\Indicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -608,6 +622,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\ExecutingQuestsOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\ExpeditionOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

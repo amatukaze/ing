@@ -66,10 +66,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 var rLandingCraftCount = rpFleet.Ships.SelectMany(r => r.Slots).Select(r => r.Equipment.Info.Icon).Count(r => r == EquipmentIconType.LandingCraft);
                 var rRate = 1.0 + rLandingCraftCount * .05;
 
-                var rFuel = rpInfo.Resources.Fuel * rRate;
-                var rBullet = rpInfo.Resources.Bullet * rRate;
-                var rSteel = rpInfo.Resources.Steel * rRate;
-                var rBauxite = rpInfo.Resources.Bauxite * rRate;
+                var rFuel = rpInfo.RewardResources.Fuel * rRate;
+                var rBullet = rpInfo.RewardResources.Bullet * rRate;
+                var rSteel = rpInfo.RewardResources.Steel * rRate;
+                var rBauxite = rpInfo.RewardResources.Bauxite * rRate;
 
                 var rFuelConsumption = (int)rpFleet.Ships.Sum(r => r.Info.MaxFuelConsumption * rExpedition.FuelConsumption * (r.IsMarried ? .85 : 1.0));
                 var rBulletConsumption = (int)rpFleet.Ships.Sum(r => r.Info.MaxBulletConsumption * rExpedition.BulletConsumption * (r.IsMarried ? .85 : 1.0));

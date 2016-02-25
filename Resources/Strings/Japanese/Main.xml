@@ -183,6 +183,11 @@
   <String Key="Quest_Category_Sortie2">出撃</String>
   <String Key="Quest_State_Completed">達成</String>
 
+  <String Key="ExpeditionOverview_Time">時間</String>
+  <String Key="ExpeditionOverview_Consumption">消費</String>
+  <String Key="ExpeditionOverview_Rewards">ボーナス</String>
+  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(大成功のみ)</String>
+
   <String Key="Window_Preferences">設定</String>
   <String Key="Window_EquipmentOverview">装備一覧</String>
   <String Key="Window_ShipOverview">艦娘一覧</String>

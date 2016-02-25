@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
         public int ID { get; internal set; }
 
         [JsonProperty("resources")]
-        public RawResources Resources { get; internal set; }
+        public RawRewardResources RewardResources { get; internal set; }
 
         [JsonProperty("flagship_lv")]
         public int FlagshipLevel { get; internal set; }
@@ -28,7 +28,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
         [JsonProperty("drum")]
         public RawDrum DrumRequirement { get; internal set; }
 
-        public class RawResources
+        public class RawRewardResources
         {
             [JsonProperty("bullet")]
             public int Bullet { get; internal set; }

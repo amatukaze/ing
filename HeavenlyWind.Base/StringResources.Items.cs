@@ -187,6 +187,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Category_Sortie2 => GetString(nameof(Quest_Category_Sortie2));
         public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
 
+        public string ExpeditionOverview_Time => GetString(nameof(ExpeditionOverview_Time));
+        public string ExpeditionOverview_Consumption => GetString(nameof(ExpeditionOverview_Consumption));
+        public string ExpeditionOverview_Rewards => GetString(nameof(ExpeditionOverview_Rewards));
+        public string ExpeditionOverview_Rewards_GreatSuccessOnly => GetString(nameof(ExpeditionOverview_Rewards_GreatSuccessOnly));
+
         public string Window_Preferences => GetString(nameof(Window_Preferences));
         public string Window_EquipmentOverview => GetString(nameof(Window_EquipmentOverview));
         public string Window_ShipOverview => GetString(nameof(Window_ShipOverview));
