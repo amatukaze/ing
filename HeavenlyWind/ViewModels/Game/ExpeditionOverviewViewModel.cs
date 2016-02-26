@@ -22,14 +22,22 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         internal ExpeditionOverviewViewModel()
         {
-            r_MasterInfoSubscription = SessionService.Instance.Subscribe("api_port/port", delegate
-            {
-                MapAreas = KanColleGame.Current.MasterInfo.Expeditions.Values.Where(r => ExpeditionService.Instance.ContainsInfo(r.ID)).GroupBy(r => r.MapArea).Select(r => new ExpeditionGroupByMapArea(r)).ToList();
-                OnPropertyChanged(nameof(MapAreas));
+            if (KanColleGame.Current.Port.Ships.Count > 0)
+                Initialize();
+            else
+                r_MasterInfoSubscription = SessionService.Instance.Subscribe("api_port/port", delegate
+                {
+                    Initialize();
 
-                r_MasterInfoSubscription.Dispose();
-                r_MasterInfoSubscription = null;
-            });
+                    r_MasterInfoSubscription.Dispose();
+                    r_MasterInfoSubscription = null;
+                });
+        }
+
+        void Initialize()
+        {
+            MapAreas = KanColleGame.Current.MasterInfo.Expeditions.Values.Where(r => ExpeditionService.Instance.ContainsInfo(r.ID)).GroupBy(r => r.MapArea).Select(r => new ExpeditionGroupByMapArea(r)).ToList();
+            OnPropertyChanged(nameof(MapAreas));
 
             foreach (var rFleet in KanColleGame.Current.Port.Fleets.Table.Values.Skip(1))
                 PropertyChangedEventListener.FromSource(rFleet).Add(nameof(rFleet.Ships), (s, e) => Update(rFleet));
