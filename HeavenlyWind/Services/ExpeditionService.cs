@@ -41,6 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             });
         }
 
+        public bool ContainsInfo(int rpID) => r_Infos.ContainsKey(rpID);
+
         public ExpeditionInfo2 GetInfo(int rpID)
         {
             ExpeditionInfo2 rInfo;

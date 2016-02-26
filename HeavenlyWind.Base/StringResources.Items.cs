@@ -55,6 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));
         public string Tab_Sortie => GetString(nameof(Tab_Sortie));
         public string Tab_Quests => GetString(nameof(Tab_Quests));
+        public string Tab_ExpeditionOverview => GetString(nameof(Tab_ExpeditionOverview));
         public string Tab_Tools => GetString(nameof(Tab_Tools));
 
         public string Overview_Headquarter => GetString(nameof(Overview_Headquarter));
@@ -186,6 +187,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Category_Modernization => GetString(nameof(Quest_Category_Modernization));
         public string Quest_Category_Sortie2 => GetString(nameof(Quest_Category_Sortie2));
         public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
+
+        public string ExpeditionOverview_Time => GetString(nameof(ExpeditionOverview_Time));
+        public string ExpeditionOverview_Consumption => GetString(nameof(ExpeditionOverview_Consumption));
+        public string ExpeditionOverview_Rewards => GetString(nameof(ExpeditionOverview_Rewards));
+        public string ExpeditionOverview_Rewards_GreatSuccessOnly => GetString(nameof(ExpeditionOverview_Rewards_GreatSuccessOnly));
 
         public string Window_Preferences => GetString(nameof(Window_Preferences));
         public string Window_EquipmentOverview => GetString(nameof(Window_EquipmentOverview));
