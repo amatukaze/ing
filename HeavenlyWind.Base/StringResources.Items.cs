@@ -273,6 +273,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieHistory_Type => GetString(nameof(SortieHistory_Type));
         public string SortieHistory_BattleRank => GetString(nameof(SortieHistory_BattleRank));
         public string SortieHistory_DroppedShip => GetString(nameof(SortieHistory_DroppedShip));
+        public string SortieHistory_HeavilyDamagedShip => GetString(nameof(SortieHistory_HeavilyDamagedShip));
 
         public string ExpeditionHistory_Name => GetString(nameof(ExpeditionHistory_Name));
         public string ExpeditionHistory_Result => GetString(nameof(ExpeditionHistory_Result));

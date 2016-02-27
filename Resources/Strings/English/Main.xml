@@ -269,6 +269,7 @@
   <String Key="SortieHistory_Type">Type</String>
   <String Key="SortieHistory_BattleRank">Battle Rank</String>
   <String Key="SortieHistory_DroppedShip">Dropped Ship</String>
+  <String Key="SortieHistory_HeavilyDamagedShip">Heavily Damaged</String>
 
   <String Key="ExpeditionHistory_Name">Expedition</String>
   <String Key="ExpeditionHistory_Result">Result</String>

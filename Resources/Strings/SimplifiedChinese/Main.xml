@@ -269,6 +269,7 @@
   <String Key="SortieHistory_Type">类型</String>
   <String Key="SortieHistory_BattleRank">战斗评价</String>
   <String Key="SortieHistory_DroppedShip">船掉落</String>
+  <String Key="SortieHistory_HeavilyDamagedShip">大破的舰娘</String>
 
   <String Key="ExpeditionHistory_Name">远征名</String>
   <String Key="ExpeditionHistory_Result">结果</String>
