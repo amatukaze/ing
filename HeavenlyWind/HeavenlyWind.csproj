@@ -113,6 +113,7 @@
     <Compile Include="Models\ExpeditionResultPrediction.cs" />
     <Compile Include="Models\FleetLocking.cs" />
     <Compile Include="Models\Power.cs" />
+    <Compile Include="Models\ScreenshotRegion.cs" />
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
     <Compile Include="Services\Browser\BrowserHost.cs" />
@@ -167,6 +168,9 @@
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="ViewModels\Tools\OverviewScreenshotToolViewModel.cs" />
+    <Compile Include="ViewModels\Tools\ScreenshotToolPreviewViewModel.cs" />
+    <Compile Include="ViewModels\Tools\ScreenshotToolViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Views\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
@@ -295,6 +299,10 @@
     <Compile Include="Views\TabWindow.xaml.cs">
       <DependentUpon>TabWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Tools\ScreenshotTool.xaml.cs">
+      <DependentUpon>ScreenshotTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tools\ScreenshotToolOverlayWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -735,6 +743,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TabWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tools\ScreenshotTool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

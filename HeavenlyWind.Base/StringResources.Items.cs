@@ -238,6 +238,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Screenshot_File => GetString(nameof(Screenshot_File));
         public string Screenshot_Clipboard => GetString(nameof(Screenshot_Clipboard));
+        public string Screenshot_Tool => GetString(nameof(Screenshot_Tool));
 
         public string EquipmentOverview_Name => GetString(nameof(EquipmentOverview_Name));
         public string EquipmentOverview_TotalCount => GetString(nameof(EquipmentOverview_TotalCount));
@@ -278,6 +279,24 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ExpeditionHistory_Name => GetString(nameof(ExpeditionHistory_Name));
         public string ExpeditionHistory_Result => GetString(nameof(ExpeditionHistory_Result));
         public string ExpeditionHistory_Reward => GetString(nameof(ExpeditionHistory_Reward));
+
+        public string ScreenshotTool_Title => GetString(nameof(ScreenshotTool_Title));
+        public string ScreenshotTool_General => GetString(nameof(ScreenshotTool_General));
+        public string ScreenshotTool_General_All => GetString(nameof(ScreenshotTool_General_All));
+        public string ScreenshotTool_General_FleetComposition => GetString(nameof(ScreenshotTool_General_FleetComposition));
+        public string ScreenshotTool_General_Materials => GetString(nameof(ScreenshotTool_General_Materials));
+        public string ScreenshotTool_Overview => GetString(nameof(ScreenshotTool_Overview));
+        public string ScreenshotTool_Overview_Type => GetString(nameof(ScreenshotTool_Overview_Type));
+        public string ScreenshotTool_Overview_Type_ShipDetail => GetString(nameof(ScreenshotTool_Overview_Type_ShipDetail));
+        public string ScreenshotTool_Overview_Type_ShipList => GetString(nameof(ScreenshotTool_Overview_Type_ShipList));
+        public string ScreenshotTool_Overview_Size => GetString(nameof(ScreenshotTool_Overview_Size));
+        public string ScreenshotTool_Overview_Size_Column => GetString(nameof(ScreenshotTool_Overview_Size_Column));
+        public string ScreenshotTool_Overview_Size_Row => GetString(nameof(ScreenshotTool_Overview_Size_Row));
+        public string ScreenshotTool_Overview_Capture => GetString(nameof(ScreenshotTool_Overview_Capture));
+        public string ScreenshotTool_Overview_Save => GetString(nameof(ScreenshotTool_Overview_Save));
+        public string ScreenshotTool_OutputOption => GetString(nameof(ScreenshotTool_OutputOption));
+        public string ScreenshotTool_OutputOption_Clipboard => GetString(nameof(ScreenshotTool_OutputOption_Clipboard));
+        public string ScreenshotTool_OutputOption_File => GetString(nameof(ScreenshotTool_OutputOption_File));
 
     }
 }
