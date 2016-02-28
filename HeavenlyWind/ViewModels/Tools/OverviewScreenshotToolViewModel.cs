@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {
     class OverviewScreenshotToolViewModel : ModelBase
     {
-        ScreenshotToolViewModel r_Owner;
+        internal ScreenshotToolViewModel Owner { get; }
 
         public IList<int> Numbers { get; } = Enumerable.Range(1, 6).ToList();
 
@@ -61,7 +61,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 
         internal OverviewScreenshotToolViewModel(ScreenshotToolViewModel rpOwner)
         {
-            r_Owner = rpOwner;
+            Owner = rpOwner;
 
             SaveCommand = new DelegatedCommand(Save);
 
@@ -125,7 +125,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
             var rBitmap = new RenderTargetBitmap(rWidth, rHeight, 96, 96, PixelFormats.Default);
             rBitmap.Render(rDrawingVisual);
 
-            if (r_Owner.OutputToClipboard)
+            if (Owner.OutputToClipboard)
                 ScreenshotService.Instance.OutputToClipboard(rBitmap);
             else
                 ScreenshotService.Instance.OutputAsFile(rBitmap);

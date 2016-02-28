@@ -50,91 +50,120 @@
                     <StackPanel>
                         <Button CommandParameter="{x:Static rgm:ScreenshotRegion.All}">
                             <TextBlock Text="{rb:StringResource Main.ScreenshotTool_General_All}" />
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseEnter">
+                                    <i:InvokeCommandAction Command="{Binding ShowOverlayWindowCommand}" CommandParameter="{x:Static rgm:ScreenshotRegion.All}" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseLeave">
+                                    <i:InvokeCommandAction Command="{Binding HideOverlayWindowCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Button>
                         <Button CommandParameter="{x:Static rgm:ScreenshotRegion.FleetComposition}">
                             <TextBlock Text="{rb:StringResource Main.ScreenshotTool_General_FleetComposition}" />
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseEnter">
+                                    <i:InvokeCommandAction Command="{Binding ShowOverlayWindowCommand}" CommandParameter="{x:Static rgm:ScreenshotRegion.FleetComposition}" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseLeave">
+                                    <i:InvokeCommandAction Command="{Binding HideOverlayWindowCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Button>
                         <Button CommandParameter="{x:Static rgm:ScreenshotRegion.Materials}">
                             <TextBlock Text="{rb:StringResource Main.ScreenshotTool_General_Materials}" />
+
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseEnter">
+                                    <i:InvokeCommandAction Command="{Binding ShowOverlayWindowCommand}" CommandParameter="{x:Static rgm:ScreenshotRegion.Materials}" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseLeave">
+                                    <i:InvokeCommandAction Command="{Binding HideOverlayWindowCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </Button>
                     </StackPanel>
                 </TabItem>
 
                 <TabItem DataContext="{Binding Overview}" Header="{rb:StringResource Main.ScreenshotTool_Overview}">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Type}" />
-                            <RadioButton GroupName="OverviewType" IsChecked="{Binding Type, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rgm:ScreenshotRegion.ShipDetail}}" Margin="4, 0, 0, 0">
-                                <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Type_ShipDetail}" />
-                            </RadioButton>
-                            <RadioButton GroupName="OverviewType" IsChecked="{Binding Type, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rgm:ScreenshotRegion.ShipList}}" Margin="4, 0, 0, 0">
-                                <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Type_ShipList}" />
-                            </RadioButton>
-                        </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Type}" />
+                                <RadioButton GroupName="OverviewType" IsChecked="{Binding Type, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rgm:ScreenshotRegion.ShipDetail}}" Margin="4, 0, 0, 0">
+                                    <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Type_ShipDetail}" />
+                                </RadioButton>
+                                <RadioButton GroupName="OverviewType" IsChecked="{Binding Type, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rgm:ScreenshotRegion.ShipList}}" Margin="4, 0, 0, 0">
+                                    <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Type_ShipList}" />
+                                </RadioButton>
+                            </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                            <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Size}" />
-                            <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Size_Column}" Margin="4, 0, 0, 0" />
-                            <ComboBox ItemsSource="{Binding Numbers}" SelectedValue="{Binding Column}" Margin="4, 0, 0, 0" />
-                            <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Size_Row}" Margin="4, 0, 0, 0" />
-                            <ComboBox ItemsSource="{Binding Numbers}" SelectedValue="{Binding Row}" Margin="4, 0, 0, 0" />
-                        </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Size}" />
+                                <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Size_Column}" Margin="4, 0, 0, 0" />
+                                <ComboBox ItemsSource="{Binding Numbers}" SelectedValue="{Binding Column}" Margin="4, 0, 0, 0" />
+                                <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Size_Row}" Margin="4, 0, 0, 0" />
+                                <ComboBox ItemsSource="{Binding Numbers}" SelectedValue="{Binding Row}" Margin="4, 0, 0, 0" />
+                            </StackPanel>
 
-                        <Border Width="{Binding PreviewBoxWidth}" Height="{Binding PreviewBoxHeight}" Margin="0, 4, 0, 0" HorizontalAlignment="Left">
-                            <Border.Resources>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="Foreground" Value="White" />
-                                    <Setter Property="Visibility" Value="Hidden" />
+                            <Border Width="{Binding PreviewBoxWidth}" Height="{Binding PreviewBoxHeight}" Margin="0, 4, 0, 0" HorizontalAlignment="Left">
+                                <Border.Resources>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Foreground" Value="White" />
+                                        <Setter Property="Visibility" Value="Hidden" />
 
-                                    <Setter Property="Command" Value="{Binding TakeScreenshotCommand}" />
+                                        <Setter Property="Command" Value="{Binding TakeScreenshotCommand}" />
 
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type Button}">
-                                                <Border Background="#A0000000">
-                                                    <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Capture}" HorizontalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Border.Resources>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border Background="#A0000000">
+                                                        <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Capture}" HorizontalAlignment="Center" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Border.Resources>
 
-                            <ItemsControl ItemsSource="{Binding Previews}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <WrapPanel />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Name="Border" Background="{DynamicResource BackgroundBrushKey}" Width="78" Height="61">
-                                            <Border.ToolTip>
-                                                <ToolTip>
+                                <ItemsControl ItemsSource="{Binding Previews}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Name="Border" Background="{DynamicResource BackgroundBrushKey}" Width="78" Height="61">
+                                                <Border.ToolTip>
+                                                    <ToolTip>
+                                                        <Image Source="{Binding Screenshot}" />
+                                                    </ToolTip>
+                                                </Border.ToolTip>
+
+                                                <Grid>
                                                     <Image Source="{Binding Screenshot}" />
-                                                </ToolTip>
-                                            </Border.ToolTip>
+                                                    <Button Visibility="{Binding IsMouseOver, ElementName=Border, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                                </Grid>
+                                            </Border>
 
-                                            <Grid>
-                                                <Image Source="{Binding Screenshot}" />
-                                                <Button Visibility="{Binding IsMouseOver, ElementName=Border, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                            </Grid>
-                                        </Border>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding Screenshot}" Value="{x:Null}">
+                                                    <Setter TargetName="Border" Property="ToolTip" Value="{x:Null}" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Border>
 
-                                        <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding Screenshot}" Value="{x:Null}">
-                                                <Setter TargetName="Border" Property="ToolTip" Value="{x:Null}" />
-                                            </DataTrigger>
-                                        </DataTemplate.Triggers>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </Border>
-
-                        <Button Command="{Binding SaveCommand}" MinWidth="75" Margin="0, 6, 0, 0" HorizontalAlignment="Right">
-                            <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Save}" />
-                        </Button>
-                    </StackPanel>
+                            <Button Command="{Binding SaveCommand}" MinWidth="75" Margin="0, 6, 0, 0" HorizontalAlignment="Right">
+                                <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Save}" />
+                            </Button>
+                        </StackPanel>
+                    </ScrollViewer>
                 </TabItem>
             </TabControl>
 

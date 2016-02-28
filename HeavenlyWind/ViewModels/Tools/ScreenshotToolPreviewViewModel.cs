@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {
     class ScreenshotToolPreviewViewModel : ModelBase
     {
-        OverviewScreenshotToolViewModel r_Owner;
+        internal OverviewScreenshotToolViewModel Owner { get; }
 
         public BitmapSource Screenshot { get; private set; }
 
@@ -14,11 +14,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 
         public ScreenshotToolPreviewViewModel(OverviewScreenshotToolViewModel rpOwner)
         {
-            r_Owner = rpOwner;
+            Owner = rpOwner;
 
             TakeScreenshotCommand = new DelegatedCommand(async () =>
             {
-                Screenshot = await ScreenshotService.Instance.TakePartialScreenshot(ScreenshotToolViewModel.Regions[r_Owner.Type]);
+                Screenshot = await ScreenshotService.Instance.TakePartialScreenshot(ScreenshotToolViewModel.Regions[Owner.Type]);
                 OnPropertyChanged(nameof(Screenshot));
             });
         }

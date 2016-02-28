@@ -302,6 +302,7 @@
     <Compile Include="Views\Tools\ScreenshotTool.xaml.cs">
       <DependentUpon>ScreenshotTool.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Tools\ScreenshotToolOverlayWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

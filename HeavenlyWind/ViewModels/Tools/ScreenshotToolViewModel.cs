@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -35,11 +36,26 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 
         public ICommand TakeGeneralScreenshotCommand { get; }
 
+        ScreenshotToolOverlayWindow r_OverlayWindow;
+        public ICommand ShowOverlayWindowCommand { get; }
+        public ICommand HideOverlayWindowCommand { get; }
+
         public ScreenshotToolViewModel()
         {
             Overview = new OverviewScreenshotToolViewModel(this);
 
             TakeGeneralScreenshotCommand = new DelegatedCommand<ScreenshotRegion>(r => ScreenshotService.Instance.TakePartialScreenshotAndOutput(Regions[r], r_OutputToClipboard));
+
+            ShowOverlayWindowCommand = new DelegatedCommand<ScreenshotRegion>(r =>
+            {
+                r_OverlayWindow = new ScreenshotToolOverlayWindow();
+                r_OverlayWindow.Show(Regions[r]);
+            });
+            HideOverlayWindowCommand = new DelegatedCommand(() =>
+            {
+                r_OverlayWindow?.Hide();
+                r_OverlayWindow = null;
+            });
         }
     }
 }
