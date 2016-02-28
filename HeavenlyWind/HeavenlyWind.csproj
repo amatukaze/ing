@@ -168,6 +168,8 @@
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="ViewModels\Tools\OverviewScreenshotToolViewModel.cs" />
+    <Compile Include="ViewModels\Tools\ScreenshotToolPreviewViewModel.cs" />
     <Compile Include="ViewModels\Tools\ScreenshotToolViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
     <Compile Include="Views\Browser.xaml.cs">

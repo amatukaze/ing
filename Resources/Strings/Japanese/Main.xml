@@ -281,6 +281,15 @@
   <String Key="ScreenshotTool_General_All">全体</String>
   <String Key="ScreenshotTool_General_FleetComposition">艦隊編成</String>
   <String Key="ScreenshotTool_General_Materials">資材</String>
+  <String Key="ScreenshotTool_Overview">一覧</String>
+  <String Key="ScreenshotTool_Overview_Type">タイプ:</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipDetail">艦娘</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipList">艦娘リスト</String>
+  <String Key="ScreenshotTool_Overview_Size">サイズ:</String>
+  <String Key="ScreenshotTool_Overview_Size_Column">列:</String>
+  <String Key="ScreenshotTool_Overview_Size_Row">行:</String>
+  <String Key="ScreenshotTool_Overview_Capture">撮る</String>
+  <String Key="ScreenshotTool_Overview_Save">保存</String>
   <String Key="ScreenshotTool_OutputOption">保存先:</String>
   <String Key="ScreenshotTool_OutputOption_Clipboard">クリップボード</String>
   <String Key="ScreenshotTool_OutputOption_File">ファイル</String>

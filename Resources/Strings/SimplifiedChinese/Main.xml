@@ -281,6 +281,15 @@
   <String Key="ScreenshotTool_General_All">全部</String>
   <String Key="ScreenshotTool_General_FleetComposition">舰队编组</String>
   <String Key="ScreenshotTool_General_Materials">资材</String>
+  <String Key="ScreenshotTool_Overview">一览</String>
+  <String Key="ScreenshotTool_Overview_Type">类型:</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipDetail">舰娘</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipList">舰娘列表</String>
+  <String Key="ScreenshotTool_Overview_Size">大小:</String>
+  <String Key="ScreenshotTool_Overview_Size_Column">列:</String>
+  <String Key="ScreenshotTool_Overview_Size_Row">行:</String>
+  <String Key="ScreenshotTool_Overview_Capture">截取</String>
+  <String Key="ScreenshotTool_Overview_Save">保存</String>
   <String Key="ScreenshotTool_OutputOption">保存到:</String>
   <String Key="ScreenshotTool_OutputOption_Clipboard">剪贴板</String>
   <String Key="ScreenshotTool_OutputOption_File">文件</String>

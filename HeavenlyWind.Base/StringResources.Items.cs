@@ -285,6 +285,15 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ScreenshotTool_General_All => GetString(nameof(ScreenshotTool_General_All));
         public string ScreenshotTool_General_FleetComposition => GetString(nameof(ScreenshotTool_General_FleetComposition));
         public string ScreenshotTool_General_Materials => GetString(nameof(ScreenshotTool_General_Materials));
+        public string ScreenshotTool_Overview => GetString(nameof(ScreenshotTool_Overview));
+        public string ScreenshotTool_Overview_Type => GetString(nameof(ScreenshotTool_Overview_Type));
+        public string ScreenshotTool_Overview_Type_ShipDetail => GetString(nameof(ScreenshotTool_Overview_Type_ShipDetail));
+        public string ScreenshotTool_Overview_Type_ShipList => GetString(nameof(ScreenshotTool_Overview_Type_ShipList));
+        public string ScreenshotTool_Overview_Size => GetString(nameof(ScreenshotTool_Overview_Size));
+        public string ScreenshotTool_Overview_Size_Column => GetString(nameof(ScreenshotTool_Overview_Size_Column));
+        public string ScreenshotTool_Overview_Size_Row => GetString(nameof(ScreenshotTool_Overview_Size_Row));
+        public string ScreenshotTool_Overview_Capture => GetString(nameof(ScreenshotTool_Overview_Capture));
+        public string ScreenshotTool_Overview_Save => GetString(nameof(ScreenshotTool_Overview_Save));
         public string ScreenshotTool_OutputOption => GetString(nameof(ScreenshotTool_OutputOption));
         public string ScreenshotTool_OutputOption_Clipboard => GetString(nameof(ScreenshotTool_OutputOption_Clipboard));
         public string ScreenshotTool_OutputOption_File => GetString(nameof(ScreenshotTool_OutputOption_File));

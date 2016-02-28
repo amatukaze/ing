@@ -17,6 +17,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
             { ScreenshotRegion.ShipList, new Int32Rect(356, 100, 441, 362) },
         };
 
+        public OverviewScreenshotToolViewModel Overview { get; }
+
         bool r_OutputToClipboard;
         public bool OutputToClipboard
         {
