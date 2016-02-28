@@ -234,6 +234,7 @@
 
   <String Key="Screenshot_File">Take screenshot to file</String>
   <String Key="Screenshot_Clipboard">Take screenshot to clipboard</String>
+  <String Key="Screenshot_Tool">Screenshot Tool</String>
 
   <String Key="EquipmentOverview_Name">Name</String>
   <String Key="EquipmentOverview_TotalCount">Total</String>
@@ -274,5 +275,14 @@
   <String Key="ExpeditionHistory_Name">Expedition</String>
   <String Key="ExpeditionHistory_Result">Result</String>
   <String Key="ExpeditionHistory_Reward">Reward</String>
+
+  <String Key="ScreenshotTool_Title">Screenshot Tool</String>
+  <String Key="ScreenshotTool_General">General</String>
+  <String Key="ScreenshotTool_General_All">All</String>
+  <String Key="ScreenshotTool_General_FleetComposition">Fleet Composition</String>
+  <String Key="ScreenshotTool_General_Materials">Materials</String>
+  <String Key="ScreenshotTool_OutputOption">Output To:</String>
+  <String Key="ScreenshotTool_OutputOption_Clipboard">Clipboard</String>
+  <String Key="ScreenshotTool_OutputOption_File">File</String>
 
 </Strings>

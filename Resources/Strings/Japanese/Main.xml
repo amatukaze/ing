@@ -234,6 +234,7 @@
 
   <String Key="Screenshot_File">ファイルに保存</String>
   <String Key="Screenshot_Clipboard">クリップボードに保存</String>
+  <String Key="Screenshot_Tool">スクリーンショットツール</String>
 
   <String Key="EquipmentOverview_Name">装備名</String>
   <String Key="EquipmentOverview_TotalCount">合計</String>
@@ -274,5 +275,14 @@
   <String Key="ExpeditionHistory_Name">遠征名</String>
   <String Key="ExpeditionHistory_Result">結果</String>
   <String Key="ExpeditionHistory_Reward">アイテム</String>
+
+  <String Key="ScreenshotTool_Title">スクリーンショットツール</String>
+  <String Key="ScreenshotTool_General">通常</String>
+  <String Key="ScreenshotTool_General_All">全体</String>
+  <String Key="ScreenshotTool_General_FleetComposition">艦隊編成</String>
+  <String Key="ScreenshotTool_General_Materials">資材</String>
+  <String Key="ScreenshotTool_OutputOption">保存先:</String>
+  <String Key="ScreenshotTool_OutputOption_Clipboard">クリップボード</String>
+  <String Key="ScreenshotTool_OutputOption_File">ファイル</String>
 
 </Strings>
