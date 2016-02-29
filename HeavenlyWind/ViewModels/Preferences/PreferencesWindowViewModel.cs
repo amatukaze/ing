@@ -4,9 +4,6 @@
     {
         public static PreferencesWindowViewModel Instance { get; } = new PreferencesWindowViewModel();
 
-        PreferencesWindowViewModel()
-        {
-            Title = StringResources.Instance.Main.Window_Preferences;
-        }
+        PreferencesWindowViewModel() { }
     }
 }

@@ -160,7 +160,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_Browser.LoadCompleted += (rpCanGoBack, rpCanGoForward, rpUrl) =>
             {
                 r_Communicator.Write(CommunicatorMessages.LoadCompleted + $":{rpCanGoBack};{rpCanGoForward};{rpUrl}");
-                if (rpUrl == GameConstants.GamePageUrl)
+                if (rpUrl == GameConstants.GamePageUrl || rpUrl.Contains(".swf"))
                     r_Communicator.Write(CommunicatorMessages.LoadGamePageCompleted);
             };
         }

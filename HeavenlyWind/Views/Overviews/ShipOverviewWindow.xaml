@@ -8,7 +8,7 @@
                   xmlns:rvmo="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Overviews"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   mc:Ignorable="d"
-                  Title="{Binding Title}"
+                  Title="{rb:StringResource Main.Window_ShipOverview}"
                   Width="1080" Height="600"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
@@ -73,7 +73,7 @@
 
             <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
 
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_ShipOverview}" />
         </DockPanel>
 
         <DockPanel Margin="8, 0, 8, 8"  Grid.Row="1">
@@ -271,17 +271,7 @@
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>
-                                            <Border BorderBrush="Gray" BorderThickness="1, 0, 0, 0">
-                                                <Border.Style>
-                                                    <Style TargetType="{x:Type Border}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Ship.ExtraSlot}" Value="{x:Null}">
-                                                                <Setter Property="Visibility" Value="Collapsed" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Border.Style>
-
+                                            <Border BorderBrush="Gray" BorderThickness="1, 0, 0, 0" Visibility="{rb:CollapsedIfNull Ship.ExtraSlot}">
                                                 <Control Style="{StaticResource EquipmentIconStyle}" DataContext="{Binding Ship.ExtraSlot.Equipment}" />
                                             </Border>
                                         </StackPanel>

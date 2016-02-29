@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class ExpeditionOverviewViewModel : TabItemViewModel
+    public class ExpeditionOverviewViewModel : TabItemViewModel, IDisposable
     {
         public override string Name
         {
@@ -19,6 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public IList<ExpeditionGroupByMapArea> MapAreas { get; private set; }
 
         IDisposable r_MasterInfoSubscription;
+        IDisposable[] r_PCELs;
 
         internal ExpeditionOverviewViewModel()
         {
@@ -39,8 +40,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             MapAreas = KanColleGame.Current.MasterInfo.Expeditions.Values.Where(r => ExpeditionService.Instance.ContainsInfo(r.ID)).GroupBy(r => r.MapArea).Select(r => new ExpeditionGroupByMapArea(r)).ToList();
             OnPropertyChanged(nameof(MapAreas));
 
-            foreach (var rFleet in KanColleGame.Current.Port.Fleets.Table.Values.Skip(1))
-                PropertyChangedEventListener.FromSource(rFleet).Add(nameof(rFleet.Ships), (s, e) => Update(rFleet));
+            r_PCELs = KanColleGame.Current.Port.Fleets.Table.Values.Skip(1).Select(r =>
+            {
+                var rPCEL = new PropertyChangedEventListener(r);
+                rPCEL.Add(nameof(r.Ships), (s, e) => Update(r));
+                return rPCEL;
+            }).ToArray();
         }
 
         void Update(Fleet rpFleet)
@@ -48,6 +53,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             foreach (var rArea in MapAreas)
                 foreach (var rExpedition in rArea.Expeditions)
                     rExpedition.Update(rpFleet);
+        }
+
+        public void Dispose()
+        {
+            if (r_PCELs != null)
+                foreach (var rPCEL in r_PCELs)
+                    rPCEL.Dispose();
+            r_PCELs = null;
         }
     }
 }

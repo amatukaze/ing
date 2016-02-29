@@ -16,8 +16,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         public DevelopmentHistoryViewModel()
         {
-            Title = StringResources.Instance.Main.Window_DevelopmentHistory;
-
             r_Records = new ObservableRangeCollection<DevelopmentRecord.RecordItem>();
             Records = new ReadOnlyObservableCollection<DevelopmentRecord.RecordItem>(r_Records);
 

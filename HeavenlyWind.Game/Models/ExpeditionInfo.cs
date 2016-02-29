@@ -4,6 +4,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class ExpeditionInfo : RawDataWrapper<RawExpeditionInfo>, IID
     {
+        public static ExpeditionInfo Dummy { get; } = new ExpeditionInfo(new RawExpeditionInfo() { ID = -1, Name = "?????" });
+
         public int ID => RawData.ID;
 
         public MapAreaInfo MapArea => KanColleGame.Current.MasterInfo.MapAreas[RawData.MapAreaID];

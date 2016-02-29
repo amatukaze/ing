@@ -63,8 +63,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         internal MainWindowViewModel()
         {
-            Title = StringResources.Instance.Main.Product_Name;
-
             var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
             rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
             {

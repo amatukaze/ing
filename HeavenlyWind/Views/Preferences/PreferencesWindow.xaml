@@ -9,7 +9,7 @@
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   mc:Ignorable="d"
                   DataContext="{Binding Source={x:Static rvmp:PreferencesWindowViewModel.Instance}}"
-                  Title="{Binding Title}"
+                  Title="{rb:StringResource Main.Window_Preferences}"
                   Width="640" Height="320"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
@@ -82,7 +82,7 @@
                 <ruic:WindowCaptionButton WindowAction="Close" />
             </StackPanel>
 
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_Preferences}" />
         </DockPanel>
 
         <TabControl Margin="8" Grid.Row="1">
