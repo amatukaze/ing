@@ -5,10 +5,12 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.SystemInterop;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Windows.Forms;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -18,14 +20,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public static NotificationService Instance { get; } = new NotificationService();
 
+        NotifyIcon r_NotifyIcon;
+
         PropertyChangedEventListener r_SortiePCEL;
 
         public void Initialize()
         {
-            if (!OS.IsWin8OrLater)
-                return;
-
-            InstallShortcut();
+            if (OS.IsWin8OrLater)
+                InstallShortcut();
+            else
+                InitializeNotifyIcon();
 
             var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
             rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
@@ -74,6 +78,20 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             ToastNotificationUtil.Initialize(rShortcutName, typeof(App).Assembly.Location, AppUserModelID);
         }
+        void InitializeNotifyIcon()
+        {
+            var rResourceInfo = App.GetResourceStream(new Uri("pack://application:,,,/HeavenlyWind;component/app.ico"));
+            if (rResourceInfo == null)
+                return;
+
+            using (var rStream = rResourceInfo.Stream)
+                r_NotifyIcon = new NotifyIcon()
+                {
+                    Text = StringResources.Instance.Main.Product_Name,
+                    Icon = new Icon(rStream),
+                    Visible = true,
+                };
+        }
 
         void InitializeHeavilyDamagedWarning(PropertyChangedEventListener rpGamePCEL)
         {
@@ -116,14 +134,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public void Show(string rpTitle, string rpBody)
         {
-            var rToast = new ToastContent()
+            if (!OS.IsWin8OrLater)
+                r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rpBody, ToolTipIcon.None);
+            else
             {
-                Title = rpTitle,
-                Body = rpBody,
-                Audio = ToastAudio.Default,
-            };
+                var rToast = new ToastContent()
+                {
+                    Title = rpTitle,
+                    Body = rpBody,
+                    Audio = ToastAudio.Default,
+                };
 
-            ToastNotificationUtil.Show(rToast);
+                ToastNotificationUtil.Show(rToast);
+            }
         }
     }
 }
