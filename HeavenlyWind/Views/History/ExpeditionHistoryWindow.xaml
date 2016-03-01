@@ -22,6 +22,7 @@
 
             <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
 
+            <rc:AppIcon />
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_ExpeditionHistory}" />
         </DockPanel>
 

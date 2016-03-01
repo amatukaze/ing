@@ -4,6 +4,7 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+                  xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   xmlns:rvm="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels"
                   xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
@@ -70,6 +71,7 @@
             </ruic:DropDownButton>
 
             <StackPanel Orientation="Horizontal">
+                <rc:AppIcon />
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Product_Name}" />
 
                 <Border DataContext="{Binding UpdateService}" Background="Yellow" Visibility="{Binding Info.IsAvailable, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" Padding="8, 0" Margin="20, 0, 0, 0" WindowChrome.IsHitTestVisibleInChrome="True">

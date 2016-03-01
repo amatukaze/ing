@@ -102,6 +102,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Behaviors\TextBoxLoseFocusAfterPressingEnterBehavior.cs" />
+    <Compile Include="Controls\AppIcon.cs" />
     <Compile Include="Controls\ColorIndicator.cs" />
     <Compile Include="Controls\Data.cs" />
     <Compile Include="Controls\EquipmentIcon.cs" />
@@ -553,6 +554,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Icons\Tick.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\AppIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
