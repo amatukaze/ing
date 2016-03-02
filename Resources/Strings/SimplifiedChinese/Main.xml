@@ -277,6 +277,8 @@
   <String Key="ExpeditionHistory_Result">结果</String>
   <String Key="ExpeditionHistory_Reward">奖励</String>
 
+  <String Key="Tool_ExpeditionOverview">远征一览</String>
+
   <String Key="ScreenshotTool_Title">截图工具</String>
   <String Key="ScreenshotTool_General">一般</String>
   <String Key="ScreenshotTool_General_All">全部</String>

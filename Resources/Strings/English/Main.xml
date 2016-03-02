@@ -277,6 +277,8 @@
   <String Key="ExpeditionHistory_Result">Result</String>
   <String Key="ExpeditionHistory_Reward">Reward</String>
 
+  <String Key="Tool_ExpeditionOverview">Expedition Overview</String>
+
   <String Key="ScreenshotTool_Title">Screenshot Tool</String>
   <String Key="ScreenshotTool_General">General</String>
   <String Key="ScreenshotTool_General_All">All</String>

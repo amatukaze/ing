@@ -281,6 +281,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ExpeditionHistory_Result => GetString(nameof(ExpeditionHistory_Result));
         public string ExpeditionHistory_Reward => GetString(nameof(ExpeditionHistory_Reward));
 
+        public string Tool_ExpeditionOverview => GetString(nameof(Tool_ExpeditionOverview));
+
         public string ScreenshotTool_Title => GetString(nameof(ScreenshotTool_Title));
         public string ScreenshotTool_General => GetString(nameof(ScreenshotTool_General));
         public string ScreenshotTool_General_All => GetString(nameof(ScreenshotTool_General_All));
