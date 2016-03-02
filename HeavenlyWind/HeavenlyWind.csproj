@@ -292,6 +292,9 @@
     <Compile Include="Views\Preferences\Screenshot.xaml.cs">
       <DependentUpon>Screenshot.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Preferences\VersionInfo.xaml.cs">
+      <DependentUpon>VersionInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Preferences\Window.xaml.cs">
       <DependentUpon>Window.xaml</DependentUpon>
     </Compile>
@@ -738,6 +741,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Screenshot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Preferences\VersionInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

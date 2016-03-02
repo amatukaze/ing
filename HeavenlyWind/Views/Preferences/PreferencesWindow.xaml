@@ -144,6 +144,14 @@
 
                 <rvp:Screenshot />
             </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="{rb:StringResource Main.PreferenceWindow_VersionInfo}" FontSize="14" />
+                </TabItem.Header>
+
+                <rvp:VersionInfo />
+            </TabItem>
         </TabControl>
 
         <ruic:ResizeGrip Grid.Row="1" />
