@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             get
             {
                 var rTime = TimeSpan.FromMinutes(Info.Time);
-                return ((int)rTime.TotalHours).ToString("D2") + rTime.ToString(@"\:mm");
+                return ((int)rTime.TotalHours).ToString("D2") + rTime.ToString(@"\:mm\:ss");
             }
         }
 
