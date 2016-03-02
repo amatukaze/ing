@@ -17,8 +17,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public static QuestProgressService Instance { get; } = new QuestProgressService();
 
-        static IDisposable r_LoadDataSubscription;
-
         public IDictionary<int, ProgressInfo> Progresses { get; private set; }
 
         internal Dictionary<int, QuestInfo> Infos { get; set; }
@@ -31,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            r_LoadDataSubscription = SessionService.Instance.Subscribe("api_start2", _ =>
+            SessionService.Instance.SubscribeOnce("api_start2", delegate
             {
                 var rDataFile = new FileInfo(DataFilename);
                 if (!rDataFile.Exists)
@@ -43,9 +41,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                         Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
                     }
-
-                r_LoadDataSubscription.Dispose();
-                r_LoadDataSubscription = null;
             });
 
             SessionService.Instance.Subscribe("api_get_member/basic", _ => Progresses = RecordService.Instance.QuestProgress.Reload());

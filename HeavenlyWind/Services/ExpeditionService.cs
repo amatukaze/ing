@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
-using System;
 using System.IO;
 using System.Linq;
 
@@ -15,15 +14,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public static ExpeditionService Instance { get; } = new ExpeditionService();
 
-        IDisposable r_ConnectionSubscription;
-
         IDTable<ExpeditionInfo2> r_Infos;
 
         ExpeditionService() { }
 
         public void Initialize()
         {
-            r_ConnectionSubscription = SessionService.Instance.Subscribe("api_get_member/basic", _ =>
+            SessionService.Instance.SubscribeOnce("api_get_member/basic", delegate
             {
                 var rDataFile = new FileInfo(DataFilename);
                 if (!rDataFile.Exists)
@@ -35,9 +32,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                         r_Infos = new IDTable<ExpeditionInfo2>(rData.ToObject<ExpeditionInfo2[]>().ToDictionary(r => r.ID));
                     }
-
-                r_ConnectionSubscription?.Dispose();
-                r_ConnectionSubscription = null;
             });
         }
 

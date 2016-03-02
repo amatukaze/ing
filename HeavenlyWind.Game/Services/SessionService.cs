@@ -29,5 +29,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public IDisposable Subscribe(string rpApi, Action<ApiData> rpAction) => GetProcessSucceededSubject(rpApi).Subscribe(rpAction);
         public IDisposable Subscribe(string[] rpApis, Action<ApiData> rpAction) => GetProcessSucceededSubject(rpApis).Subscribe(rpAction);
+
+        public void SubscribeOnce(string rpApi, Action<ApiData> rpAction)
+        {
+            IDisposable rSubscription = null;
+            rSubscription = GetProcessSucceededSubject(rpApi).Subscribe(r =>
+            {
+                rpAction(r);
+                rSubscription.Dispose();
+            });
+        }
     }
 }

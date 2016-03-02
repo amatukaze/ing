@@ -14,8 +14,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public static MapService Instance { get; } = new MapService();
 
-        IDisposable r_ConnectionSubscription;
-
         Dictionary<int, Dictionary<int, Node>> r_Nodes;
 
         Dictionary<int, PastEventMapInfo> r_PastEventMaps = new Dictionary<int, PastEventMapInfo>();
@@ -24,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            r_ConnectionSubscription = SessionService.Instance.Subscribe("api_get_member/basic", _ =>
+            SessionService.Instance.Subscribe("api_get_member/basic", delegate
             {
                 var rDataFile = new FileInfo(DataFilename);
                 if (!rDataFile.Exists)
@@ -37,9 +35,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                         r_Nodes = rData.Properties().ToDictionary(r => int.Parse(r.Name), r =>
                             r.Value.Select(rpNode => rpNode.ToObject<Node>()).ToDictionary(rpNode => rpNode.ID));
                     }
-
-                r_ConnectionSubscription?.Dispose();
-                r_ConnectionSubscription = null;
             });
         }
 
