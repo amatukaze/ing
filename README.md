@@ -1,11 +1,13 @@
-﻿Intelligent Naval Gun-kun
+﻿Intelligent Naval Gun
 =====
-艦これ補助ツール
+艦これ補助ツール「いんてりじぇんと連装砲くん」（智能型连装炮君 / ING）
 
 ### Updated
-**0.1.7.2 (Moonbria)**
- * Record battle detail for battle detail window in the future version
- * Add two new mechanics from game update
+**0.1.8 (Lavender)**
+ * Screenshot Tool
+ * Expedition yield prediction
+ * Expedition overview table
+ * Record heavily damaged ships in sortie history
 
 ### Screenshot
 ![Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/01.jpg)
