@@ -55,6 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));
         public string Tab_Sortie => GetString(nameof(Tab_Sortie));
         public string Tab_Quests => GetString(nameof(Tab_Quests));
+        public string Tab_ExpeditionOverview => GetString(nameof(Tab_ExpeditionOverview));
         public string Tab_Tools => GetString(nameof(Tab_Tools));
 
         public string Overview_Headquarter => GetString(nameof(Overview_Headquarter));
@@ -76,6 +77,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_Fleets_Unsupplied => GetString(nameof(Overview_Fleets_Unsupplied));
         public string Overview_Fleets_HeavilyDamaged => GetString(nameof(Overview_Fleets_HeavilyDamaged));
         public string Overview_Fleets_Expedition_TimeToComplete => GetString(nameof(Overview_Fleets_Expedition_TimeToComplete));
+        public string Overview_Fleets_Expedition_TotalYield => GetString(nameof(Overview_Fleets_Expedition_TotalYield));
+        public string Overview_Fleets_Expedition_TotalYield_GreatSuccess => GetString(nameof(Overview_Fleets_Expedition_TotalYield_GreatSuccess));
         public string Overview_Dock_Locked => GetString(nameof(Overview_Dock_Locked));
         public string Overview_RepairDocks => GetString(nameof(Overview_RepairDocks));
         public string Overview_RepairDocks_TimeToComplete => GetString(nameof(Overview_RepairDocks_TimeToComplete));
@@ -105,6 +108,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Material_ImprovementMaterial => GetString(nameof(Material_ImprovementMaterial));
 
         public string SortieOverview_MapGauges => GetString(nameof(SortieOverview_MapGauges));
+        public string SortieOverview_MapGauges_Type_HP => GetString(nameof(SortieOverview_MapGauges_Type_HP));
+        public string SortieOverview_MapGauges_Type_TP => GetString(nameof(SortieOverview_MapGauges_Type_TP));
         public string SortieOverview_FleetLockingTable => GetString(nameof(SortieOverview_FleetLockingTable));
         public string SortieOverview_FleetLockingTable_CombinedFleet => GetString(nameof(SortieOverview_FleetLockingTable_CombinedFleet));
 
@@ -119,9 +124,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_Event_EscortSuccess => GetString(nameof(Sortie_Event_EscortSuccess));
         public string Sortie_Event_Landing => GetString(nameof(Sortie_Event_Landing));
         public string Sortie_Event_AerialAttack => GetString(nameof(Sortie_Event_AerialAttack));
+        public string Sortie_BattleType_Normal => GetString(nameof(Sortie_BattleType_Normal));
+        public string Sortie_BattleType_NightOnly => GetString(nameof(Sortie_BattleType_NightOnly));
+        public string Sortie_BattleType_AerialCombat => GetString(nameof(Sortie_BattleType_AerialCombat));
+        public string Sortie_BattleType_AerialAttack => GetString(nameof(Sortie_BattleType_AerialAttack));
         public string Sortie_NothingHappened_Imagination => GetString(nameof(Sortie_NothingHappened_Imagination));
         public string Sortie_NothingHappened_NoSighOfTheEnemy => GetString(nameof(Sortie_NothingHappened_NoSighOfTheEnemy));
         public string Sortie_NothingHappened_ManualSelection => GetString(nameof(Sortie_NothingHappened_ManualSelection));
+        public string Sortie_SupportFleet_Ready => GetString(nameof(Sortie_SupportFleet_Ready));
 
         public string Map_Difficulty_None => GetString(nameof(Map_Difficulty_None));
         public string Map_Difficulty_Easy => GetString(nameof(Map_Difficulty_Easy));
@@ -178,6 +188,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Category_Sortie2 => GetString(nameof(Quest_Category_Sortie2));
         public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
 
+        public string ExpeditionOverview_Time => GetString(nameof(ExpeditionOverview_Time));
+        public string ExpeditionOverview_Consumption => GetString(nameof(ExpeditionOverview_Consumption));
+        public string ExpeditionOverview_Rewards => GetString(nameof(ExpeditionOverview_Rewards));
+        public string ExpeditionOverview_Rewards_GreatSuccessOnly => GetString(nameof(ExpeditionOverview_Rewards_GreatSuccessOnly));
+
         public string Window_Preferences => GetString(nameof(Window_Preferences));
         public string Window_EquipmentOverview => GetString(nameof(Window_EquipmentOverview));
         public string Window_ShipOverview => GetString(nameof(Window_ShipOverview));
@@ -216,6 +231,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Flash_RenderMode => GetString(nameof(PreferenceWindow_Browser_Flash_RenderMode));
         public string PreferenceWindow_Screenshot => GetString(nameof(PreferenceWindow_Screenshot));
         public string PreferenceWindow_Screenshot_Folder => GetString(nameof(PreferenceWindow_Screenshot_Folder));
+        public string PreferenceWindow_VersionInfo => GetString(nameof(PreferenceWindow_VersionInfo));
 
         public string ValidationRule_PleaseInputNumber => GetString(nameof(ValidationRule_PleaseInputNumber));
         public string ValidationRule_NumberLessThanMinimum => GetString(nameof(ValidationRule_NumberLessThanMinimum));
@@ -223,6 +239,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Screenshot_File => GetString(nameof(Screenshot_File));
         public string Screenshot_Clipboard => GetString(nameof(Screenshot_Clipboard));
+        public string Screenshot_Tool => GetString(nameof(Screenshot_Tool));
 
         public string EquipmentOverview_Name => GetString(nameof(EquipmentOverview_Name));
         public string EquipmentOverview_TotalCount => GetString(nameof(EquipmentOverview_TotalCount));
@@ -258,10 +275,31 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieHistory_Type => GetString(nameof(SortieHistory_Type));
         public string SortieHistory_BattleRank => GetString(nameof(SortieHistory_BattleRank));
         public string SortieHistory_DroppedShip => GetString(nameof(SortieHistory_DroppedShip));
+        public string SortieHistory_HeavilyDamagedShip => GetString(nameof(SortieHistory_HeavilyDamagedShip));
 
         public string ExpeditionHistory_Name => GetString(nameof(ExpeditionHistory_Name));
         public string ExpeditionHistory_Result => GetString(nameof(ExpeditionHistory_Result));
         public string ExpeditionHistory_Reward => GetString(nameof(ExpeditionHistory_Reward));
+
+        public string Tool_ExpeditionOverview => GetString(nameof(Tool_ExpeditionOverview));
+
+        public string ScreenshotTool_Title => GetString(nameof(ScreenshotTool_Title));
+        public string ScreenshotTool_General => GetString(nameof(ScreenshotTool_General));
+        public string ScreenshotTool_General_All => GetString(nameof(ScreenshotTool_General_All));
+        public string ScreenshotTool_General_FleetComposition => GetString(nameof(ScreenshotTool_General_FleetComposition));
+        public string ScreenshotTool_General_Materials => GetString(nameof(ScreenshotTool_General_Materials));
+        public string ScreenshotTool_Overview => GetString(nameof(ScreenshotTool_Overview));
+        public string ScreenshotTool_Overview_Type => GetString(nameof(ScreenshotTool_Overview_Type));
+        public string ScreenshotTool_Overview_Type_ShipDetail => GetString(nameof(ScreenshotTool_Overview_Type_ShipDetail));
+        public string ScreenshotTool_Overview_Type_ShipList => GetString(nameof(ScreenshotTool_Overview_Type_ShipList));
+        public string ScreenshotTool_Overview_Size => GetString(nameof(ScreenshotTool_Overview_Size));
+        public string ScreenshotTool_Overview_Size_Column => GetString(nameof(ScreenshotTool_Overview_Size_Column));
+        public string ScreenshotTool_Overview_Size_Row => GetString(nameof(ScreenshotTool_Overview_Size_Row));
+        public string ScreenshotTool_Overview_Capture => GetString(nameof(ScreenshotTool_Overview_Capture));
+        public string ScreenshotTool_Overview_Save => GetString(nameof(ScreenshotTool_Overview_Save));
+        public string ScreenshotTool_OutputOption => GetString(nameof(ScreenshotTool_OutputOption));
+        public string ScreenshotTool_OutputOption_Clipboard => GetString(nameof(ScreenshotTool_OutputOption_Clipboard));
+        public string ScreenshotTool_OutputOption_File => GetString(nameof(ScreenshotTool_OutputOption_File));
 
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
@@ -11,19 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class Port : ModelBase
     {
-        Admiral r_Admiral;
-        public Admiral Admiral
-        {
-            get { return r_Admiral; }
-            private set
-            {
-                if (r_Admiral != value)
-                {
-                    r_Admiral = value;
-                    OnPropertyChanged(nameof(Admiral));
-                }
-            }
-        }
+        public Admiral Admiral { get; private set; }
 
         public Materials Materials { get; } = new Materials();
 
@@ -118,6 +104,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Materials.Bauxite += rMaterials[3];
             });
 
+            SessionService.Instance.Subscribe("api_req_kousyou/remodel_slot", r =>
+            {
+                var rData = (RawImprovementResult)r.Data;
+
+                Materials.Update(rData.Materials);
+
+                Equipment rEquipment;
+                if (rData.Success && Equipment.TryGetValue(rData.ImprovedEquipment.ID, out rEquipment))
+                    rEquipment.Update(rData.ImprovedEquipment);
+
+                if (rData.RemovedEquipmentID.HasValue)
+                {
+                    Equipment.Remove(rData.RemovedEquipmentID.Value);
+                    OnPropertyChanged(nameof(Equipment));
+                }
+            });
+
             SessionService.Instance.Subscribe("api_req_hokyu/charge", r =>
             {
                 var rData = r.GetData<RawSupplyResult>();
@@ -154,6 +157,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rIsInstantRepair = r.Requests["api_highspeed"] == "1";
                 rShip.Repair(rIsInstantRepair);
                 rShip.OwnerFleet?.Update();
+
+                if (rIsInstantRepair)
+                    Materials.Bucket--;
             });
             SessionService.Instance.Subscribe("api_req_nyukyo/speedchange", r => RepairDocks[int.Parse(r.Requests["api_ndock_id"])].CompleteRepair());
 
@@ -187,10 +193,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal void UpdateAdmiral(RawBasic rpAdmiral)
         {
-            if (Admiral == null)
-                Admiral = new Admiral(rpAdmiral);
-            else
+            if (Admiral != null)
                 Admiral.Update(rpAdmiral);
+            else
+            {
+                Admiral = new Admiral(rpAdmiral);
+                OnPropertyChanged(nameof(Admiral));
+            }
         }
 
         internal void UpdatePort(RawPort rpPort)

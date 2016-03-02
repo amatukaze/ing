@@ -2,7 +2,6 @@
 using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
@@ -109,23 +108,18 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         {
             var rPort = KanColleGame.Current.Port;
 
-            var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rPort, nameof(rPort.PropertyChanged))
-                .Select(r => r.EventArgs.PropertyName);
-            rPropertyChangedSource.Where(r => r == nameof(rPort.Ships))
-                .Subscribe(_ =>
-                {
-                    var rCount = rPort.Ships.Count;
-                    if (KanColleGame.Current.Sortie != null)
-                        rCount += KanColleGame.Current.Sortie.PendingShipCount;
+            var rPortPCEL = PropertyChangedEventListener.FromSource(rPort);
+            rPortPCEL.Add(nameof(rPort.Ships), delegate
+            {
+                var rCount = rPort.Ships.Count;
+                if (KanColleGame.Current.Sortie != null)
+                    rCount += KanColleGame.Current.Sortie.PendingShipCount;
 
-                    ShipCount = rCount;
-                });
-            rPropertyChangedSource.Where(r => r == nameof(rPort.Equipment))
-                .Subscribe(_ => EquipmentCount = rPort.Equipment.Count);
-            rPropertyChangedSource.Where(r => r == nameof(rPort.RepairDocks))
-                .Subscribe(_ => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
-            rPropertyChangedSource.Where(r => r == nameof(rPort.ConstructionDocks))
-                .Subscribe(_ => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
+                ShipCount = rCount;
+            });
+            rPortPCEL.Add(nameof(rPort.Equipment), (s, e) => EquipmentCount = rPort.Equipment.Count);
+            rPortPCEL.Add(nameof(rPort.RepairDocks), (s, e) => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
+            rPortPCEL.Add(nameof(rPort.ConstructionDocks), (s, e) => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
 
             ShowShipOverviewWindowCommand = new DelegatedCommand(ShowShipOverviewWindow);
             ShowEquipmentOverviewWindowCommand = new DelegatedCommand(ShowEquipmentOverviewWindow);

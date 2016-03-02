@@ -8,7 +8,7 @@
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   mc:Ignorable="d"
-                  Title="{Binding Title}"
+                  Title="{rb:StringResource Main.Window_SortieHistory}"
                   Width="1024" Height="600"
                   UseLayoutRounding="True">
     <Grid>
@@ -22,7 +22,8 @@
 
             <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
 
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
+            <rc:AppIcon />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_SortieHistory}" />
         </DockPanel>
 
         <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
@@ -81,7 +82,13 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{rb:EnumToStringResource EventType, Sortie_Event}" Margin="0, 4" />
+                                    <TextBlock Name="Type" Text="{rb:EnumToStringResource EventType, Sortie_Event}" Margin="0, 4" />
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding EventType}" Value="NormalBattle">
+                                            <Setter TargetName="Type" Property="Text" Value="{rb:EnumToStringResource BattleType, Sortie_BattleType}" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -113,6 +120,33 @@
                                             <Setter TargetName="Name" Property="Foreground" Value="Yellow" />
                                         </DataTrigger>
                                     </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="175">
+                            <TextBlock Text="{rb:StringResource Main.SortieHistory_HeavilyDamagedShip}" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ItemsControl ItemsSource="{Binding HeavilyDamagedShips}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Name="Ship" Text="{Binding Name, StringFormat={}\, {0}}" />
+
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                                        <Setter TargetName="Ship" Property="Text" Value="{Binding Name}" />
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

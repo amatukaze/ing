@@ -223,12 +223,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, CASE is_event_map WHEN 0 THEN 0 ELSE sortie_detail.node - (sortie_detail.node + 2) / 3 * 3 + 3 END AS difficulty, step, CASE is_event_map WHEN 0 THEN node ELSE (node + 2) / 3 END AS node, type, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item FROM sortie
+                rCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, CASE is_event_map WHEN 0 THEN 0 ELSE sortie_detail.node - (sortie_detail.node + 2) / 3 * 3 + 3 END AS difficulty, step, CASE is_event_map WHEN 0 THEN node ELSE (node + 2) / 3 END AS node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM sortie
 JOIN sortie_map ON sortie.map = sortie_map.id
 JOIN sortie_detail ON sortie.id = sortie_detail.id
 JOIN sortie_node ON sortie.map = sortie_node.map AND CASE sortie_map.is_event_map WHEN 0 THEN sortie_detail.node ELSE (sortie_detail.node + 2) / 3 END = sortie_node.id
 JOIN battle ON extra_info = battle.id
 LEFT JOIN battle_dropped_item ON battle.id = battle_dropped_item.id
+LEFT JOIN battle_detail.battle battle_detail ON extra_info = battle_detail.id
+LEFT JOIN (SELECT participant_hd.battle, group_concat(ship) AS ships FROM battle_detail.participant_heavily_damaged participant_hd
+    JOIN battle_detail.participant participant ON participant_hd.battle = participant.battle AND participant_hd.id = participant.id
+    GROUP BY participant_hd.battle) participant_hd ON extra_info = participant_hd.battle
 ORDER BY id DESC, step DESC;";
 
                 using (var rReader = await rCommand.ExecuteReaderAsync())
@@ -256,11 +260,16 @@ ORDER BY id DESC, step DESC;";
             public string NodeWikiID { get; }
 
             public SortieEventType EventType { get; }
+            public BattleType BattleType { get; }
 
             public string Time { get; }
 
             public BattleRank? BattleRank { get; }
             public ShipInfo DroppedShip { get; }
+
+            public bool IsBattleDetailAvailable { get; }
+
+            public IList<ShipInfo> HeavilyDamagedShips { get; }
 
             internal RecordItem(DbDataReader rpReader)
             {
@@ -279,6 +288,8 @@ ORDER BY id DESC, step DESC;";
                 NodeWikiID = MapService.Instance.GetNodeWikiID(rMapID, Node);
 
                 EventType = (SortieEventType)Convert.ToInt32(rpReader["type"]);
+                if (EventType == SortieEventType.NormalBattle)
+                    BattleType = (BattleType)Convert.ToInt32(rpReader["subtype"]);
 
                 if (EventType == SortieEventType.NormalBattle || EventType == SortieEventType.BossBattle)
                     Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["extra_info"])).LocalDateTime.ToString();
@@ -290,6 +301,12 @@ ORDER BY id DESC, step DESC;";
                 var rDroppedShip = rpReader["dropped_ship"];
                 if (rDroppedShip != DBNull.Value)
                     DroppedShip = KanColleGame.Current.MasterInfo.Ships[Convert.ToInt32(rDroppedShip)];
+
+                IsBattleDetailAvailable = Convert.ToBoolean(rpReader["battle_detail"]);
+
+                var rHeavilyDamagedShipIDs = rpReader["heavily_damaged"];
+                if (rHeavilyDamagedShipIDs != DBNull.Value)
+                    HeavilyDamagedShips = ((string)rpReader["heavily_damaged"]).Split(',').Select(r => KanColleGame.Current.MasterInfo.Ships[int.Parse(r)]).ToList();
             }
 
             public override string ToString() => SortieID.ToString();

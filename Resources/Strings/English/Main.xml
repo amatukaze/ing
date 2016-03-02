@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.7">
+<Strings CultureName="en" Name="English" Version="0.1.8">
 
-  <String Key="Product_Name">Intelligent Naval Gun-kun</String>
+  <String Key="Product_Name">Intelligent Naval Gun</String>
 
   <String Key="Feature_UnderConstruction">Under construction</String>
   <String Key="Feature_Disabled">Disabled</String>
@@ -51,6 +51,7 @@
   <String Key="Tab_Fleets">Fleet</String>
   <String Key="Tab_Sortie">Sortie</String>
   <String Key="Tab_Quests">Quest</String>
+  <String Key="Tab_ExpeditionOverview">Expedition</String>
   <String Key="Tab_Tools">Tool</String>
 
   <String Key="Overview_Headquarter">Headquarter</String>
@@ -72,6 +73,8 @@
   <String Key="Overview_Fleets_Unsupplied">Unsupplied</String>
   <String Key="Overview_Fleets_HeavilyDamaged">Heavily Damaged</String>
   <String Key="Overview_Fleets_Expedition_TimeToComplete">Completion Time</String>
+  <String Key="Overview_Fleets_Expedition_TotalYield">Total Yield</String>
+  <String Key="Overview_Fleets_Expedition_TotalYield_GreatSuccess">Total Yield (GS)</String>
   <String Key="Overview_Dock_Locked">Locked</String>
   <String Key="Overview_RepairDocks">Repair docks</String>
   <String Key="Overview_RepairDocks_TimeToComplete">Completion Time</String>
@@ -101,6 +104,8 @@
   <String Key="Material_ImprovementMaterial">Improvement Material</String>
 
   <String Key="SortieOverview_MapGauges">Map Gauges</String>
+  <String Key="SortieOverview_MapGauges_Type_HP">Kills Part</String>
+  <String Key="SortieOverview_MapGauges_Type_TP">TE Part</String>
   <String Key="SortieOverview_FleetLockingTable">Fleet Locking Table</String>
   <String Key="SortieOverview_FleetLockingTable_CombinedFleet">Combined Fleet</String>
 
@@ -115,9 +120,14 @@
   <String Key="Sortie_Event_EscortSuccess">Escort Success</String>
   <String Key="Sortie_Event_Landing">Landing</String>
   <String Key="Sortie_Event_AerialAttack">Aerial Attack</String>
+  <String Key="Sortie_BattleType_Normal">Normal Battle</String>
+  <String Key="Sortie_BattleType_NightOnly">Night Battle</String>
+  <String Key="Sortie_BattleType_AerialCombat">Aerial Combat</String>
+  <String Key="Sortie_BattleType_AerialAttack">Aerial Attack</String>
   <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
   <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>
+  <String Key="Sortie_SupportFleet_Ready">Support Fleet Ready</String>
 
   <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">Easy</String>
@@ -174,6 +184,11 @@
   <String Key="Quest_Category_Sortie2">Sortie</String>
   <String Key="Quest_State_Completed">Completed</String>
 
+  <String Key="ExpeditionOverview_Time">Time</String>
+  <String Key="ExpeditionOverview_Consumption">Consumption</String>
+  <String Key="ExpeditionOverview_Rewards">Rewards</String>
+  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(Great Success Only)</String>
+
   <String Key="Window_Preferences">Setting</String>
   <String Key="Window_EquipmentOverview">Equipment Overview</String>
   <String Key="Window_ShipOverview">Ship Overview</String>
@@ -212,6 +227,7 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">Render Mode</String>
   <String Key="PreferenceWindow_Screenshot">Screenshot</String>
   <String Key="PreferenceWindow_Screenshot_Folder">Destination</String>
+  <String Key="PreferenceWindow_VersionInfo">Version</String>
 
   <String Key="ValidationRule_PleaseInputNumber">Please input number</String>
   <String Key="ValidationRule_NumberLessThanMinimum">Please input number greater than {0}</String>
@@ -219,6 +235,7 @@
 
   <String Key="Screenshot_File">Take screenshot to file</String>
   <String Key="Screenshot_Clipboard">Take screenshot to clipboard</String>
+  <String Key="Screenshot_Tool">Screenshot Tool</String>
 
   <String Key="EquipmentOverview_Name">Name</String>
   <String Key="EquipmentOverview_TotalCount">Total</String>
@@ -254,9 +271,30 @@
   <String Key="SortieHistory_Type">Type</String>
   <String Key="SortieHistory_BattleRank">Battle Rank</String>
   <String Key="SortieHistory_DroppedShip">Dropped Ship</String>
+  <String Key="SortieHistory_HeavilyDamagedShip">Heavily Damaged</String>
 
   <String Key="ExpeditionHistory_Name">Expedition</String>
   <String Key="ExpeditionHistory_Result">Result</String>
   <String Key="ExpeditionHistory_Reward">Reward</String>
+
+  <String Key="Tool_ExpeditionOverview">Expedition Overview</String>
+
+  <String Key="ScreenshotTool_Title">Screenshot Tool</String>
+  <String Key="ScreenshotTool_General">General</String>
+  <String Key="ScreenshotTool_General_All">All</String>
+  <String Key="ScreenshotTool_General_FleetComposition">Fleet Composition</String>
+  <String Key="ScreenshotTool_General_Materials">Materials</String>
+  <String Key="ScreenshotTool_Overview">Overview</String>
+  <String Key="ScreenshotTool_Overview_Type">Type:</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipDetail">Ship Detail</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipList">Ship List</String>
+  <String Key="ScreenshotTool_Overview_Size">Size:</String>
+  <String Key="ScreenshotTool_Overview_Size_Column">Column:</String>
+  <String Key="ScreenshotTool_Overview_Size_Row">Row:</String>
+  <String Key="ScreenshotTool_Overview_Capture">Capture</String>
+  <String Key="ScreenshotTool_Overview_Save">Save</String>
+  <String Key="ScreenshotTool_OutputOption">Output To:</String>
+  <String Key="ScreenshotTool_OutputOption_Clipboard">Clipboard</String>
+  <String Key="ScreenshotTool_OutputOption_File">File</String>
 
 </Strings>

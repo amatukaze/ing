@@ -65,7 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 var rBattle = BattleInfo.Current;
                 if (rBattle.CurrentStage.Enemy[0].State == BattleParticipantState.Sunk)
-                    rSortieMap.HP = rSortieMap.HP.Decrease(1);
+                    rSortieMap.HP = rSortieMap.HP - 1;
             });
             SessionService.Instance.Subscribe("api_req_map/next", r =>
             {
@@ -73,7 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rSortieMap.IsCleared || ((RawMapExploration)r.Data).NodeEventType != SortieEventType.EscortSuccess)
                     return;
 
-                rSortieMap.HP = rSortieMap.HP.Decrease(1);
+                rSortieMap.HP = rSortieMap.HP - 1;
             });
         }
     }

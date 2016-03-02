@@ -8,7 +8,7 @@
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   mc:Ignorable="d"
-                  Title="{Binding Title}"
+                  Title="{rb:StringResource Main.Window_EquipmentOverview}"
                   Width="1024" Height="600"
                   UseLayoutRounding="True">
     <Window.Resources>
@@ -66,7 +66,8 @@
 
             <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
 
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
+            <rc:AppIcon />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_EquipmentOverview}" />
         </DockPanel>
 
         <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">

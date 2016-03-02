@@ -52,6 +52,9 @@
                     <ListBoxItem>
                         <Button Content="{rb:StringResource Main.Screenshot_Clipboard}" Command="{Binding TakeScreenshotToClipboardCommand}" />
                     </ListBoxItem>
+                    <ListBoxItem>
+                        <Button Content="{rb:StringResource Main.Screenshot_Tool}" Command="{Binding OpenScreenshotToolCommand}" />
+                    </ListBoxItem>
                 </ListBox>
             </ruic:SplitButton>
 

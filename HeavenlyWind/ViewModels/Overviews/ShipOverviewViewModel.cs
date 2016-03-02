@@ -45,8 +45,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         internal ShipOverviewViewModel()
         {
-            Title = StringResources.Instance.Main.Window_ShipOverview;
-
             r_TypeMap = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 15).ToDictionary(r => r, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 

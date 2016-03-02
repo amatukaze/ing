@@ -1,10 +1,8 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
 using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
-using System;
-using System.ComponentModel;
-using System.Reactive.Linq;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
@@ -41,23 +39,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public UpdateService UpdateService => UpdateService.Instance;
 
-        bool r_IsMenuExpanded;
-        public bool IsMenuExpanded
-        {
-            get { return r_IsMenuExpanded; }
-            private set
-            {
-                if (r_IsMenuExpanded != value)
-                {
-                    r_IsMenuExpanded = value;
-                    OnPropertyChanged(nameof(IsMenuExpanded));
-                }
-            }
-        }
-
         public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => new PreferencesWindow().ShowDialog());
 
         public ICommand ExpandMenuCommand { get; }
+
+        public ICommand ShowExpeditionOverviewCommand { get; }
 
         public ICommand ShowConstructionHistoryCommand { get; }
         public ICommand ShowDevelopmentHistoryCommand { get; }
@@ -66,38 +52,28 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         internal MainWindowViewModel()
         {
-            Title = StringResources.Instance.Main.Product_Name;
-
-            var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(KanColleGame.Current, nameof(KanColleGame.Current.PropertyChanged))
-                .Select(r => r.EventArgs.PropertyName);
-            rPropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.IsStarted)).Subscribe(delegate
+            var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
+            rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
             {
                 Content = new GameInformationViewModel();
                 IsGameStarted = true;
             });
 
-            ExpandMenuCommand = new DelegatedCommand(() => IsMenuExpanded = true);
+            ShowExpeditionOverviewCommand = new DelegatedCommand(() =>
+            {
+                var rGameInfo = Content as GameInformationViewModel;
+                if (rGameInfo == null)
+                    return;
 
-            ShowConstructionHistoryCommand = new DelegatedCommand(delegate
-            {
-                IsMenuExpanded = false;
-                new ConstructionHistoryWindow().Show();
+                var rExpeditionOverview = new ExpeditionOverviewViewModel();
+                rGameInfo.TabItems.Add(rExpeditionOverview);
+                rGameInfo.SelectedItem = rExpeditionOverview;
             });
-            ShowDevelopmentHistoryCommand = new DelegatedCommand(delegate
-            {
-                IsMenuExpanded = false;
-                new DevelopmentHistoryWindow().Show();
-            });
-            ShowSortieHistoryCommand = new DelegatedCommand(delegate
-            {
-                IsMenuExpanded = false;
-                new SortieHistoryWindow().Show();
-            });
-            ShowExpeditionHistoryCommand = new DelegatedCommand(delegate
-            {
-                IsMenuExpanded = false;
-                new ExpeditionHistoryWindow().Show();
-            });
+
+            ShowConstructionHistoryCommand = new DelegatedCommand(() => new ConstructionHistoryWindow().Show());
+            ShowDevelopmentHistoryCommand = new DelegatedCommand(() => new DevelopmentHistoryWindow().Show());
+            ShowSortieHistoryCommand = new DelegatedCommand(() => new SortieHistoryWindow().Show());
+            ShowExpeditionHistoryCommand = new DelegatedCommand(() => new ExpeditionHistoryWindow().Show());
         }
     }
 }

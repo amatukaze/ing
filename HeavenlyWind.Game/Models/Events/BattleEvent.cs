@@ -3,17 +3,13 @@ using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
-    public enum BattleType { None, Normal, NightOnly, DayAfterNight, AerialCombat }
-
     public class BattleEvent : SortieEvent, IExtraInfo
     {
-        public BattleType Type { get; }
-
         public BattleInfo Battle { get; }
 
         internal BattleEvent(RawMapExploration rpData) : base(rpData)
         {
-            Battle = new BattleInfo();
+            Battle = new BattleInfo((BattleType)rpData.NodeEventSubType);
         }
 
         long IExtraInfo.GetExtraInfo() => Battle.ID;

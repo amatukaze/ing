@@ -171,7 +171,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
 
-                Expedition = KanColleGame.Current.MasterInfo.Expeditions[Convert.ToInt32(rpReader["expedition"])];
+                ExpeditionInfo rExpedition;
+                if (KanColleGame.Current.MasterInfo.Expeditions.TryGetValue(Convert.ToInt32(rpReader["expedition"]), out rExpedition))
+                    Expedition = rExpedition;
+                else
+                    Expedition = ExpeditionInfo.Dummy;
 
                 Result = (ExpeditionResult)Convert.ToInt32(rpReader["result"]);
 

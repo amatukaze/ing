@@ -40,11 +40,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         {
             var rGame = KanColleGame.Current;
 
-            var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rGame, nameof(rGame.PropertyChanged))
-                .Select(r => r.EventArgs.PropertyName);
-            rPropertyChangedSource.Where(r => r == nameof(rGame.Sortie)).Subscribe(delegate
+            PropertyChangedEventListener.FromSource(rGame).Add(nameof(rGame.Sortie), delegate
             {
-                var rInfo = KanColleGame.Current.Sortie;
+                var rInfo = rGame.Sortie;
                 if (rInfo == null)
                     Type = DisplayType.MapGauge;
                 else

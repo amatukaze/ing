@@ -36,7 +36,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -75,6 +75,7 @@
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
     <Compile Include="Models\AdmiralRank.cs" />
+    <Compile Include="Models\BattleType.cs" />
     <Compile Include="Models\Battle\AerialCombat.cs" />
     <Compile Include="Models\Battle\AerialCombatResult.cs" />
     <Compile Include="Models\Battle\BattleInfo.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Models\IMapMasterInfo.cs" />
     <Compile Include="Models\ItemInfo.cs" />
     <Compile Include="Models\MapAreaInfo.cs" />
+    <Compile Include="Models\MapGaugeType.cs" />
     <Compile Include="Models\MapInfo.cs" />
     <Compile Include="Models\MapMasterInfo.cs" />
     <Compile Include="Models\Materials.cs" />
@@ -183,6 +185,7 @@
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionResult.cs" />
     <Compile Include="Models\Raw\RawFleet.cs" />
+    <Compile Include="Models\Raw\RawImprovementResult.cs" />
     <Compile Include="Models\Raw\RawItemInfo.cs" />
     <Compile Include="Models\Raw\RawMapAreaInfo.cs" />
     <Compile Include="Models\Raw\RawMapExploration.cs" />
@@ -228,6 +231,7 @@
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
     <Compile Include="Parsers\Root\Arsenal\ConstructionResultParser.cs" />
     <Compile Include="Parsers\Root\Arsenal\DevelopmentParser.cs" />
+    <Compile Include="Parsers\Root\Arsenal\ImprovementResultParser.cs" />
     <Compile Include="Parsers\Root\Battle\AerialAttackParser.cs" />
     <Compile Include="Parsers\Root\Battle\AerialCombatParser.cs" />
     <Compile Include="Parsers\Root\Battle\BattleResultParser.cs" />

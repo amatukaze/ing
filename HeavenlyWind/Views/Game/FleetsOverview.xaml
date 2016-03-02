@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
@@ -33,10 +34,42 @@
             <Border Background="Transparent" DataContext="{Binding ExpeditionStatus}">
                 <Border.ToolTip>
                     <ToolTip>
-                        <TextBlock>
-                            <Run Text="{rb:StringResource Main.Overview_Fleets_Expedition_TimeToComplete, Mode=OneWay}" />
-                            <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
-                        </TextBlock>
+                        <StackPanel>
+                            <TextBlock>
+                                <Run Text="{rb:StringResource Main.Overview_Fleets_Expedition_TimeToComplete, Mode=OneWay}" />
+                                <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
+                            </TextBlock>
+
+                            <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Expedition_TotalYield}" Margin="0, 8, 0, 0" Visibility="{rb:CollapsedIfNull Yield}" />
+                            <StackPanel DataContext="{Binding Yield}" Orientation="Horizontal" Margin="0, 4, 0, 0" Visibility="{rb:CollapsedIfNull}">
+                                <rc:MaterialIcon Type="Fuel" Margin="2" />
+                                <TextBlock Text="{Binding Fuel}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Bullet" Margin="2" />
+                                <TextBlock Text="{Binding Bullet}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Steel" Margin="2" />
+                                <TextBlock Text="{Binding Steel}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Bauxite" Margin="2" />
+                                <TextBlock Text="{Binding Bauxite}" Margin="4, 2" />
+                            </StackPanel>
+
+                            <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Expedition_TotalYield_GreatSuccess}" Margin="0, 4, 0, 0" Visibility="{rb:CollapsedIfNull Yield}" />
+                            <StackPanel DataContext="{Binding Yield}" Orientation="Horizontal" Margin="0, 4, 0, 0" Visibility="{rb:CollapsedIfNull}">
+                                <rc:MaterialIcon Type="Fuel" Margin="2" />
+                                <TextBlock Text="{Binding FuelGS}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Bullet" Margin="2" />
+                                <TextBlock Text="{Binding BulletGS}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Steel" Margin="2" />
+                                <TextBlock Text="{Binding SteelGS}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Bauxite" Margin="2" />
+                                <TextBlock Text="{Binding BauxiteGS}" Margin="4, 2" />
+                            </StackPanel>
+                        </StackPanel>
                     </ToolTip>
                 </Border.ToolTip>
 

@@ -80,7 +80,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             return r_InstalledLanguages["en"];
         }
-        static IEnumerable<string> GetAncestorsAndSelfCultureNames(CultureInfo rpCultureInfo)
+        public static IEnumerable<string> GetAncestorsAndSelfCultureNames(CultureInfo rpCultureInfo)
         {
             do
             {

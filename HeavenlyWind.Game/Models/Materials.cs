@@ -131,6 +131,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Bullet = rpData[1];
                 Steel = rpData[2];
                 Bauxite = rpData[3];
+
+                if (rpData.Length == 8)
+                {
+                    InstantConstruction = rpData[4];
+                    Bucket = rpData[5];
+                    DevelopmentMaterial = rpData[6];
+                    ImprovementMaterial = rpData[7];
+                }
             }
         }
 

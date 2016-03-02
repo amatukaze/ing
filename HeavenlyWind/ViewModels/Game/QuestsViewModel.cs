@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 
@@ -49,12 +48,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             Executing = rpParent.Overview.ExecutingQuests = rQuestManager.Executing?.Select(r => new QuestViewModel(r)).ToList();
             Unexecuted = rQuestManager.Unexecuted?.Select(r => new QuestViewModel(r)).ToList();
 
-            var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rQuestManager, nameof(rQuestManager.PropertyChanged))
-                .Select(r => r.EventArgs.PropertyName);
-            rPropertyChangedSource.Where(r => r == nameof(rQuestManager.Executing))
-                .Subscribe(_ => Executing = rpParent.Overview.ExecutingQuests = rQuestManager.Executing.Select(r => new QuestViewModel(r)).ToList());
-            rPropertyChangedSource.Where(r => r == nameof(rQuestManager.Unexecuted))
-                .Subscribe(_ => Unexecuted = rQuestManager.Unexecuted.Select(r => new QuestViewModel(r)).ToList());
+            var rQuestManagerPCEL = PropertyChangedEventListener.FromSource(rQuestManager);
+            rQuestManagerPCEL.Add(nameof(rQuestManager.Executing), (s, e) => Executing = rpParent.Overview.ExecutingQuests = rQuestManager.Executing.Select(r => new QuestViewModel(r)).ToList());
+            rQuestManagerPCEL.Add(nameof(rQuestManager.Unexecuted), (s, e) => Unexecuted = rQuestManager.Unexecuted.Select(r => new QuestViewModel(r)).ToList());
         }
     }
 }

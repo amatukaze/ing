@@ -16,8 +16,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         public ConstructionHistoryViewModel()
         {
-            Title = StringResources.Instance.Main.Window_ConstructionHistory;
-
             r_Records = new ObservableRangeCollection<ConstructionRecord.RecordItem>();
             Records = new ReadOnlyObservableCollection<ConstructionRecord.RecordItem>(r_Records);
 

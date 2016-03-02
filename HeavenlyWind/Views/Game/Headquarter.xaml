@@ -16,7 +16,7 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <Border DataContext="{Binding Admiral.Source}" Padding="4" Margin="0, 0, 0, 4">
+        <Border DataContext="{Binding Admiral.Source}" Padding="4" Margin="0, 0, 0, 4" Visibility="{rb:CollapsedIfNull}">
             <TextBlock>
                 <Run Text="{Binding Name, Mode=OneWay}" />
                 <Run Text="{Binding Level, StringFormat=Lv. {0}, Mode=OneWay}" />
@@ -24,7 +24,7 @@
                 <Run Text="{Binding ExperienceToNextLevel, StringFormat=Next: {0}, Mode=OneWay}" />
             </TextBlock>
         </Border>
-        <Border Padding="4">
+        <Border Padding="4" Visibility="{rb:CollapsedIfNull Admiral.Source}">
             <TextBlock>
                 <Run Text="{rb:StringResource Main.Overview_Headquarter_Ships, Mode=OneWay}" />:
                 <Run Text="{Binding ShipCount, Mode=OneWay}" />/<Run Text="{Binding Admiral.Source.MaxShipCount, Mode=OneWay}" />

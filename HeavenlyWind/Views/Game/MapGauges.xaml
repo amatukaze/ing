@@ -33,10 +33,13 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.RowSpan="2">
-                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, Mode=OneWay}" />
-                        <Run Text="{Binding MasterInfo.Name, Mode=OneWay}" />
-                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
+                        <TextBlock>
+                            <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty}" />
+                            <Run Text="{Binding MasterInfo.Name, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull GaugeType}" />
+                    </StackPanel>
 
                     <TextBlock HorizontalAlignment="Right" Grid.Column="2">
                         <Run Text="{Binding HP.Current, Mode=OneWay}" />

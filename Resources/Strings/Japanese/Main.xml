@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.7">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.8">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -51,6 +51,7 @@
   <String Key="Tab_Fleets">艦隊</String>
   <String Key="Tab_Sortie">出撃</String>
   <String Key="Tab_Quests">任務</String>
+  <String Key="Tab_ExpeditionOverview">遠征一覧</String>
   <String Key="Tab_Tools">ツール</String>
 
   <String Key="Overview_Headquarter">司令部</String>
@@ -72,6 +73,8 @@
   <String Key="Overview_Fleets_Unsupplied">未補給</String>
   <String Key="Overview_Fleets_HeavilyDamaged">大破艦がいます</String>
   <String Key="Overview_Fleets_Expedition_TimeToComplete">完了時刻</String>
+  <String Key="Overview_Fleets_Expedition_TotalYield">収入理論値</String>
+  <String Key="Overview_Fleets_Expedition_TotalYield_GreatSuccess">収入理論値(大成功)</String>
   <String Key="Overview_Dock_Locked">ロック</String>
   <String Key="Overview_RepairDocks">入渠ドック</String>
   <String Key="Overview_RepairDocks_TimeToComplete">完了時刻</String>
@@ -101,6 +104,8 @@
   <String Key="Material_ImprovementMaterial">改修資材</String>
 
   <String Key="SortieOverview_MapGauges">マップゲージ</String>
+  <String Key="SortieOverview_MapGauges_Type_HP">撃破パート</String>
+  <String Key="SortieOverview_MapGauges_Type_TP">輸送パート</String>
   <String Key="SortieOverview_FleetLockingTable">出撃制限</String>
   <String Key="SortieOverview_FleetLockingTable_CombinedFleet">連合艦隊</String>
 
@@ -115,9 +120,14 @@
   <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
   <String Key="Sortie_Event_Landing">揚陸</String>
   <String Key="Sortie_Event_AerialAttack">空襲戦</String>
+  <String Key="Sortie_BattleType_Normal">通常戦闘</String>
+  <String Key="Sortie_BattleType_NightOnly">開幕夜戦</String>
+  <String Key="Sortie_BattleType_AerialCombat">航空戦</String>
+  <String Key="Sortie_BattleType_AerialAttack">空襲戦</String>
   <String Key="Sortie_NothingHappened_Imagination">気のせいだった。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能動分岐</String>
+  <String Key="Sortie_SupportFleet_Ready">支援艦隊待機中</String>
 
   <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">丙</String>
@@ -174,6 +184,11 @@
   <String Key="Quest_Category_Sortie2">出撃</String>
   <String Key="Quest_State_Completed">達成</String>
 
+  <String Key="ExpeditionOverview_Time">時間</String>
+  <String Key="ExpeditionOverview_Consumption">消費</String>
+  <String Key="ExpeditionOverview_Rewards">ボーナス</String>
+  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(大成功のみ)</String>
+
   <String Key="Window_Preferences">設定</String>
   <String Key="Window_EquipmentOverview">装備一覧</String>
   <String Key="Window_ShipOverview">艦娘一覧</String>
@@ -212,6 +227,7 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
+  <String Key="PreferenceWindow_VersionInfo">バージョン情報</String>
 
   <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
   <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
@@ -219,6 +235,7 @@
 
   <String Key="Screenshot_File">ファイルに保存</String>
   <String Key="Screenshot_Clipboard">クリップボードに保存</String>
+  <String Key="Screenshot_Tool">スクリーンショットツール</String>
 
   <String Key="EquipmentOverview_Name">装備名</String>
   <String Key="EquipmentOverview_TotalCount">合計</String>
@@ -254,9 +271,30 @@
   <String Key="SortieHistory_Type">タイプ</String>
   <String Key="SortieHistory_BattleRank">ランキング</String>
   <String Key="SortieHistory_DroppedShip">ドロップ</String>
+  <String Key="SortieHistory_HeavilyDamagedShip">大破した艦娘</String>
 
   <String Key="ExpeditionHistory_Name">遠征名</String>
   <String Key="ExpeditionHistory_Result">結果</String>
   <String Key="ExpeditionHistory_Reward">アイテム</String>
+
+  <String Key="Tool_ExpeditionOverview">遠征一覧</String>
+  
+  <String Key="ScreenshotTool_Title">スクリーンショットツール</String>
+  <String Key="ScreenshotTool_General">通常</String>
+  <String Key="ScreenshotTool_General_All">全体</String>
+  <String Key="ScreenshotTool_General_FleetComposition">艦隊編成</String>
+  <String Key="ScreenshotTool_General_Materials">資材</String>
+  <String Key="ScreenshotTool_Overview">一覧</String>
+  <String Key="ScreenshotTool_Overview_Type">タイプ:</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipDetail">艦娘</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipList">艦娘リスト</String>
+  <String Key="ScreenshotTool_Overview_Size">サイズ:</String>
+  <String Key="ScreenshotTool_Overview_Size_Column">列:</String>
+  <String Key="ScreenshotTool_Overview_Size_Row">行:</String>
+  <String Key="ScreenshotTool_Overview_Capture">撮る</String>
+  <String Key="ScreenshotTool_Overview_Save">保存</String>
+  <String Key="ScreenshotTool_OutputOption">保存先:</String>
+  <String Key="ScreenshotTool_OutputOption_Clipboard">クリップボード</String>
+  <String Key="ScreenshotTool_OutputOption_File">ファイル</String>
 
 </Strings>

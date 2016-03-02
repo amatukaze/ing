@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.7">
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.8">
 
   <String Key="Product_Name">智能型连装炮君</String>
 
@@ -51,6 +51,7 @@
   <String Key="Tab_Fleets">舰队</String>
   <String Key="Tab_Sortie">出击</String>
   <String Key="Tab_Quests">任务</String>
+  <String Key="Tab_ExpeditionOverview">远征一览</String>
   <String Key="Tab_Tools">ツール</String>
 
   <String Key="Overview_Headquarter">司令部</String>
@@ -72,6 +73,8 @@
   <String Key="Overview_Fleets_Unsupplied">未补给</String>
   <String Key="Overview_Fleets_HeavilyDamaged">有大破船</String>
   <String Key="Overview_Fleets_Expedition_TimeToComplete">完成时间</String>
+  <String Key="Overview_Fleets_Expedition_TotalYield">收入理论值</String>
+  <String Key="Overview_Fleets_Expedition_TotalYield_GreatSuccess">收入理论值(大成功)</String>
   <String Key="Overview_Dock_Locked">未解锁</String>
   <String Key="Overview_RepairDocks">入渠</String>
   <String Key="Overview_RepairDocks_TimeToComplete">完成时间</String>
@@ -101,6 +104,8 @@
   <String Key="Material_ImprovementMaterial">改修资材</String>
 
   <String Key="SortieOverview_MapGauges">海域血量</String>
+  <String Key="SortieOverview_MapGauges_Type_HP">击破阶段</String>
+  <String Key="SortieOverview_MapGauges_Type_TP">运输阶段</String>
   <String Key="SortieOverview_FleetLockingTable">贴条表</String>
   <String Key="SortieOverview_FleetLockingTable_CombinedFleet">联合舰队</String>
 
@@ -115,9 +120,14 @@
   <String Key="Sortie_Event_EscortSuccess">护送成功</String>
   <String Key="Sortie_Event_Landing">登陆</String>
   <String Key="Sortie_Event_AerialAttack">空袭战</String>
+  <String Key="Sortie_BattleType_Normal">普通战斗</String>
+  <String Key="Sortie_BattleType_NightOnly">开幕夜战</String>
+  <String Key="Sortie_BattleType_AerialCombat">航空戦</String>
+  <String Key="Sortie_BattleType_AerialAttack">空袭战</String>
   <String Key="Sortie_NothingHappened_Imagination">也许是错觉吧。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">没有看到敌影。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能动分岐</String>
+  <String Key="Sortie_SupportFleet_Ready">支援舰队等待中</String>
 
   <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">丙</String>
@@ -174,6 +184,11 @@
   <String Key="Quest_Category_Sortie2">出击</String>
   <String Key="Quest_State_Completed">达成</String>
 
+  <String Key="ExpeditionOverview_Time">时间</String>
+  <String Key="ExpeditionOverview_Consumption">消费</String>
+  <String Key="ExpeditionOverview_Rewards">奖励</String>
+  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(仅大成功)</String>
+
   <String Key="Window_Preferences">设置</String>
   <String Key="Window_EquipmentOverview">装备一览</String>
   <String Key="Window_ShipOverview">舰娘一览</String>
@@ -212,6 +227,7 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">渲染模式</String>
   <String Key="PreferenceWindow_Screenshot">截图</String>
   <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
+  <String Key="PreferenceWindow_VersionInfo">版本信息</String>
 
   <String Key="ValidationRule_PleaseInputNumber">请输入数字</String>
   <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
@@ -219,6 +235,7 @@
 
   <String Key="Screenshot_File">截图到文件</String>
   <String Key="Screenshot_Clipboard">截图到剪贴板</String>
+  <String Key="Screenshot_Tool">截图工具</String>
 
   <String Key="EquipmentOverview_Name">装备名</String>
   <String Key="EquipmentOverview_TotalCount">总数</String>
@@ -254,9 +271,30 @@
   <String Key="SortieHistory_Type">类型</String>
   <String Key="SortieHistory_BattleRank">战斗评价</String>
   <String Key="SortieHistory_DroppedShip">船掉落</String>
+  <String Key="SortieHistory_HeavilyDamagedShip">大破的舰娘</String>
 
   <String Key="ExpeditionHistory_Name">远征名</String>
   <String Key="ExpeditionHistory_Result">结果</String>
   <String Key="ExpeditionHistory_Reward">奖励</String>
+
+  <String Key="Tool_ExpeditionOverview">远征一览</String>
+
+  <String Key="ScreenshotTool_Title">截图工具</String>
+  <String Key="ScreenshotTool_General">一般</String>
+  <String Key="ScreenshotTool_General_All">全部</String>
+  <String Key="ScreenshotTool_General_FleetComposition">舰队编组</String>
+  <String Key="ScreenshotTool_General_Materials">资材</String>
+  <String Key="ScreenshotTool_Overview">一览</String>
+  <String Key="ScreenshotTool_Overview_Type">类型:</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipDetail">舰娘</String>
+  <String Key="ScreenshotTool_Overview_Type_ShipList">舰娘列表</String>
+  <String Key="ScreenshotTool_Overview_Size">大小:</String>
+  <String Key="ScreenshotTool_Overview_Size_Column">列:</String>
+  <String Key="ScreenshotTool_Overview_Size_Row">行:</String>
+  <String Key="ScreenshotTool_Overview_Capture">截取</String>
+  <String Key="ScreenshotTool_Overview_Save">保存</String>
+  <String Key="ScreenshotTool_OutputOption">保存到:</String>
+  <String Key="ScreenshotTool_OutputOption_Clipboard">剪贴板</String>
+  <String Key="ScreenshotTool_OutputOption_File">文件</String>
 
 </Strings>

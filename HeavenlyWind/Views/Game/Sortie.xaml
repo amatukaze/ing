@@ -26,6 +26,9 @@
                 <DataTrigger Binding="{Binding Node.Event}" Value="{x:Null}">
                     <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
                 </DataTrigger>
+                <DataTrigger Binding="{Binding Node.EventType}" Value="NormalBattle">
+                    <Setter Property="Text" Value="{rb:EnumToStringResource Node.BattleType, Sortie_BattleType}" />
+                </DataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
@@ -45,6 +48,7 @@
                         <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, TargetNullValue={x:Null}}" />
                         <Run Text="{Binding MasterInfo.Name, StringFormat=({0}), Mode=OneWay}" />
                     </TextBlock>
+                    <TextBlock Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0"  Visibility="{rb:CollapsedIfNull GaugeType}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">

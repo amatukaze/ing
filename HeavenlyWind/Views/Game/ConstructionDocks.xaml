@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
@@ -35,21 +36,30 @@
                         <Setter TargetName="Border" Property="ToolTip">
                             <Setter.Value>
                                 <ToolTip>
-                                    <TextBlock>
-                                        <Run Text="{rb:StringResource Main.Overview_ConstructionDocks_TimeToComplete, Mode=OneWay}" />
-                                        <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
-                                        <LineBreak />
-                                        <Run Text="{rb:StringResource Main.Overview_ConstructionDocks_MaterialConsumption, Mode=OneWay}" />
-                                        <Run>
-                                            <MultiBinding StringFormat="{}{0}/{1}/{2}/{3}/{4}" Mode="OneWay">
-                                                <Binding Path="FuelConsumption" />
-                                                <Binding Path="BulletConsumption" />
-                                                <Binding Path="SteelConsumption" />
-                                                <Binding Path="BauxiteConsumption" />
-                                                <Binding Path="DevelopmentMaterialConsumption" />
-                                            </MultiBinding>
-                                        </Run>
-                                    </TextBlock>
+                                    <StackPanel>
+                                        <TextBlock>
+                                            <Run Text="{rb:StringResource Main.Overview_ConstructionDocks_TimeToComplete}" />
+                                            <Run Text="{Binding TimeToComplete, Mode=OneWay}" />
+                                        </TextBlock>
+
+                                        <TextBlock Text="{rb:StringResource Main.Overview_ConstructionDocks_MaterialConsumption}" Margin="0, 4, 0, 0" />
+                                        <StackPanel Orientation="Horizontal" Margin="0, 2, 0, 0">
+                                            <rc:MaterialIcon Type="Fuel" Margin="2" />
+                                            <TextBlock Text="{Binding FuelConsumption}" Margin="4, 2" />
+
+                                            <rc:MaterialIcon Type="Bullet" Margin="2" />
+                                            <TextBlock Text="{Binding BulletConsumption}" Margin="4, 2" />
+
+                                            <rc:MaterialIcon Type="Steel" Margin="2" />
+                                            <TextBlock Text="{Binding SteelConsumption}" Margin="4, 2" />
+
+                                            <rc:MaterialIcon Type="Bauxite" Margin="2" />
+                                            <TextBlock Text="{Binding BauxiteConsumption}" Margin="4, 2" />
+
+                                            <rc:MaterialIcon Type="DevelopmentMaterial" Margin="2" Visibility="{Binding IsLargeShipConstruction, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            <TextBlock Text="{Binding DevelopmentMaterialConsumption}" Margin="4, 2" Visibility="{Binding IsLargeShipConstruction, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        </StackPanel>
+                                    </StackPanel>
                                 </ToolTip>
                             </Setter.Value>
                         </Setter>
@@ -61,18 +71,25 @@
                         <Setter TargetName="Border" Property="ToolTip">
                             <Setter.Value>
                                 <ToolTip>
-                                    <TextBlock>
-                                        <Run Text="{rb:StringResource Main.Overview_ConstructionDocks_MaterialConsumption, Mode=OneWay}" />
-                                        <Run>
-                                            <MultiBinding StringFormat="{}{0}/{1}/{2}/{3}/{4}" Mode="OneWay">
-                                                <Binding Path="FuelConsumption" />
-                                                <Binding Path="BulletConsumption" />
-                                                <Binding Path="SteelConsumption" />
-                                                <Binding Path="BauxiteConsumption" />
-                                                <Binding Path="DevelopmentMaterialConsumption" />
-                                            </MultiBinding>
-                                        </Run>
-                                    </TextBlock>
+                                    <StackPanel>
+                                        <TextBlock Text="{rb:StringResource Main.Overview_ConstructionDocks_MaterialConsumption}" />
+                                        <StackPanel Orientation="Horizontal" Margin="0, 2, 0, 0">
+                                            <rc:MaterialIcon Type="Fuel" Margin="2" />
+                                            <TextBlock Text="{Binding FuelConsumption}" Margin="4, 2" />
+
+                                            <rc:MaterialIcon Type="Bullet" Margin="2" />
+                                            <TextBlock Text="{Binding BulletConsumption}" Margin="4, 2" />
+
+                                            <rc:MaterialIcon Type="Steel" Margin="2" />
+                                            <TextBlock Text="{Binding SteelConsumption}" Margin="4, 2" />
+
+                                            <rc:MaterialIcon Type="Bauxite" Margin="2" />
+                                            <TextBlock Text="{Binding BauxiteConsumption}" Margin="4, 2" />
+
+                                            <rc:MaterialIcon Type="DevelopmentMaterial" Margin="2" Visibility="{Binding IsLargeShipConstruction, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            <TextBlock Text="{Binding DevelopmentMaterialConsumption}" Margin="4, 2" Visibility="{Binding IsLargeShipConstruction, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        </StackPanel>
+                                    </StackPanel>
                                 </ToolTip>
                             </Setter.Value>
                         </Setter>

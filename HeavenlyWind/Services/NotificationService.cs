@@ -5,36 +5,36 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.SystemInterop;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Windows.Forms;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
     class NotificationService
     {
-        const string AppUserModelID = "Sakuno.KanColleInspector";
+        const string AppUserModelID = "Sakuno.Amatsukaze";
 
         public static NotificationService Instance { get; } = new NotificationService();
 
-        IDisposable r_InitializationSubscription, r_ExplorationSubscription;
+        NotifyIcon r_NotifyIcon;
+
+        PropertyChangedEventListener r_SortiePCEL;
 
         public void Initialize()
         {
-            if (!OS.IsWin8OrLater)
-                return;
+            if (OS.IsWin8OrLater)
+                InstallShortcut();
+            else
+                InitializeNotifyIcon();
 
-            ToastNotificationUtil.Initialize("KanColleInspector.lnk", typeof(App).Assembly.Location, AppUserModelID);
-
-            var rGamePropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(KanColleGame.Current, nameof(KanColleGame.Current.PropertyChanged))
-                .Select(r => r.EventArgs.PropertyName);
-            r_InitializationSubscription = rGamePropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.IsStarted)).Subscribe(_ =>
+            var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
+            rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
             {
                 var rPort = KanColleGame.Current.Port;
-
-                var rPortPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rPort, nameof(rPort.PropertyChanged))
-                    .Select(r => r.EventArgs.PropertyName);
-
                 rPort.Fleets.FleetsUpdated += rpFleets =>
                 {
                     foreach (var rFleet in rpFleets)
@@ -42,26 +42,58 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                             Show(StringResources.Instance.Main.Notification_Expedition, string.Format(StringResources.Instance.Main.Notification_Expedition_Content, rpFleetName, rpExpeditionName));
                 };
 
-                rPortPropertyChangedSource.Where(r => r == nameof(rPort.ConstructionDocks)).Subscribe(delegate
+                var rPortPCEL = PropertyChangedEventListener.FromSource(rPort);
+                rPortPCEL.Add(nameof(rPort.ConstructionDocks), delegate
                 {
                     foreach (var rConstructionDock in rPort.ConstructionDocks.Values)
                         rConstructionDock.ConstructionCompleted += rpShipName =>
                             Show(StringResources.Instance.Main.Notification_Construction, string.Format(StringResources.Instance.Main.Notification_Construction_Content, rpShipName));
                 });
-                rPortPropertyChangedSource.Where(r => r == nameof(rPort.RepairDocks)).Subscribe(delegate
+                rPortPCEL.Add(nameof(rPort.RepairDocks), delegate
                 {
                     foreach (var rRepairDock in rPort.RepairDocks.Values)
                         rRepairDock.RepairCompleted += rpShipName =>
                             Show(StringResources.Instance.Main.Notification_Repair, string.Format(StringResources.Instance.Main.Notification_Repair_Content, rpShipName));
                 });
-
-                r_InitializationSubscription.Dispose();
-                r_InitializationSubscription = null;
             });
 
-            InitializeHeavilyDamagedWarning(rGamePropertyChangedSource);
+            InitializeHeavilyDamagedWarning(rGamePCEL);
         }
-        void InitializeHeavilyDamagedWarning(IObservable<string> rpGamePropertyChangedSource)
+        static void InstallShortcut()
+        {
+            var rOldShortcut = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "KanColleInspector.lnk"));
+            if (rOldShortcut.Exists)
+                rOldShortcut.Delete();
+
+            string rShortcutName;
+            var rCultures = StringResources.GetAncestorsAndSelfCultureNames(CultureInfo.CurrentCulture).ToArray();
+            if (rCultures.Any(r => r.OICEquals("ja")))
+                rShortcutName = "いんてりじぇんと連装砲くん.lnk";
+            else if (rCultures.Any(r => r.OICEquals("zh-Hans")))
+                rShortcutName = "智能型连装炮君.lnk";
+            else if (rCultures.Any(r => r.OICEquals("zh-Hant")))
+                rShortcutName = "智能型連裝炮君.lnk";
+            else
+                rShortcutName = "Intelligent Naval Gun.lnk";
+
+            ToastNotificationUtil.Initialize(rShortcutName, typeof(App).Assembly.Location, AppUserModelID);
+        }
+        void InitializeNotifyIcon()
+        {
+            var rResourceInfo = App.GetResourceStream(new Uri("pack://application:,,,/HeavenlyWind;component/app.ico"));
+            if (rResourceInfo == null)
+                return;
+
+            using (var rStream = rResourceInfo.Stream)
+                r_NotifyIcon = new NotifyIcon()
+                {
+                    Text = StringResources.Instance.Main.Product_Name,
+                    Icon = new Icon(rStream),
+                    Visible = true,
+                };
+        }
+
+        void InitializeHeavilyDamagedWarning(PropertyChangedEventListener rpGamePCEL)
         {
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, delegate
             {
@@ -75,21 +107,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     Show(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
             });
 
-            rpGamePropertyChangedSource.Where(r => r == nameof(KanColleGame.Current.Sortie)).Subscribe(delegate
+            rpGamePCEL.Add(nameof(KanColleGame.Current.Sortie), delegate
             {
                 var rSortie = KanColleGame.Current.Sortie;
 
                 if (rSortie == null)
                 {
-                    r_ExplorationSubscription?.Dispose();
-                    r_ExplorationSubscription = null;
+                    r_SortiePCEL?.Dispose();
+                    r_SortiePCEL = null;
                 }
                 else
                 {
-                    var rSortiePropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(rSortie, nameof(rSortie.PropertyChanged))
-                        .Select(r => r.EventArgs.PropertyName);
-
-                    r_ExplorationSubscription = rSortiePropertyChangedSource.Where(r => r == nameof(rSortie.Node)).Subscribe(delegate
+                    r_SortiePCEL = new PropertyChangedEventListener(rSortie);
+                    r_SortiePCEL.Add(nameof(rSortie.Node), delegate
                     {
                         var rParticipants = rSortie.Fleet.Ships.Skip(1);
                         if (rSortie.EscortFleet != null)
@@ -104,14 +134,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public void Show(string rpTitle, string rpBody)
         {
-            var rToast = new ToastContent()
+            if (!OS.IsWin8OrLater)
+                r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rpBody, ToolTipIcon.None);
+            else
             {
-                Title = rpTitle,
-                Body = rpBody,
-                Audio = ToastAudio.Default,
-            };
+                var rToast = new ToastContent()
+                {
+                    Title = rpTitle,
+                    Body = rpBody,
+                    Audio = ToastAudio.Default,
+                };
 
-            ToastNotificationUtil.Show(rToast);
+                ToastNotificationUtil.Show(rToast);
+            }
         }
     }
 }

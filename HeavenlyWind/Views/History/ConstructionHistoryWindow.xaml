@@ -5,9 +5,10 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+                  xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   mc:Ignorable="d"
-                  Title="{Binding Title}"
+                  Title="{rb:StringResource Main.Window_ConstructionHistory}"
                   Width="800" Height="480"
                   UseLayoutRounding="True">
     <Grid>
@@ -21,7 +22,8 @@
 
             <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
 
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
+            <rc:AppIcon />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_ConstructionHistory}" />
         </DockPanel>
 
         <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">

@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.IO.Compression;
@@ -17,13 +19,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     {
         enum ParticipantFleetType { Main, Escort, SupportFire }
 
+        public override string GroupName => "battle_detail";
+        public override int Version => 2;
+
         string r_Filename;
+        SQLiteConnection r_Connection;
 
         long? r_CurrentBattleID;
 
         internal BattleDetailRecord(SQLiteConnection rpConnection, int rpUserID) : base(rpConnection)
         {
             r_Filename = new FileInfo($"Records\\{rpUserID}_Battle.db").FullName;
+            r_Connection = new SQLiteConnection($@"Data Source={r_Filename};Page Size=8192").OpenAndReturn();
 
             var rSortieFirstStageApis = new[]
             {
@@ -58,12 +65,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             DisposableObjects.Add(SessionService.Instance.Subscribe(rBattleResultApis, ProcessResult));
         }
 
-        public override string GroupName => "battle_detail";
-
         protected override void CreateTable()
         {
-            using (var rConnection = new SQLiteConnection($@"Data Source={r_Filename};Page Size=8192").OpenAndReturn())
-            using (var rCommand = rConnection.CreateCommand())
+            using (var rCommand = r_Connection.CreateCommand())
             {
                 rCommand.CommandText = "CREATE TABLE IF NOT EXISTS battle(" +
                     "id INTEGER PRIMARY KEY NOT NULL, " +
@@ -86,6 +90,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "ship INTEGER NOT NULL, " +
                     "level INTEGER NOT NULL, " +
                     "condition INTEGER NOT NULL, " +
+                    "fuel INTEGER NOT NULL, " +
+                    "bullet INTEGER NOT NULL, " +
                     "firepower INTEGER NOT NULL, " +
                     "torpedo INTEGER NOT NULL, " +
                     "aa INTEGER NOT NULL, " +
@@ -105,6 +111,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "plane_count INTEGER NOT NULL, " +
                     "PRIMARY KEY(battle, participant, id), " +
                     "FOREIGN KEY(battle, participant) REFERENCES participant(battle, id)) WITHOUT ROWID;" +
+
+                "CREATE TABLE IF NOT EXISTS participant_heavily_damaged(" +
+                    "battle INTEGER NOT NULL REFERENCES battle(id), " +
+                    "id INTEGER NOT NULL, " +
+                    "PRIMARY KEY(battle, id), " +
+                    "FOREIGN KEY(battle, id) REFERENCES participant(battle, id)) WITHOUT ROWID;" +
 
                 "CREATE TABLE IF NOT EXISTS practice_opponent(" +
                     "id INTEGER PRIMARY KEY NOT NULL, " +
@@ -134,6 +146,35 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.Parameters.AddWithValue("@battle_detail_db", r_Filename);
                 rCommand.ExecuteNonQuery();
             }
+
+            if (r_Connection != null)
+            {
+                r_Connection.Dispose();
+                r_Connection = null;
+            }
+        }
+
+        protected override void UpgradeFromOldVersion(int rpOldVersion)
+        {
+            if (rpOldVersion == 1)
+            {
+                using (var rTransaction = r_Connection.BeginTransaction())
+                using (var rCommand = r_Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "ALTER TABLE participant RENAME TO participant_old;" +
+
+                        "CREATE TABLE IF NOT EXISTS participant(battle INTEGER NOT NULL REFERENCES battle(id), id INTEGER NOT NULL, ship INTEGER NOT NULL, level INTEGER NOT NULL, condition INTEGER NOT NULL, fuel INTEGER NOT NULL, bullet INTEGER NOT NULL, firepower INTEGER NOT NULL, torpedo INTEGER NOT NULL, aa INTEGER NOT NULL, armor INTEGER NOT NULL, evasion INTEGER NOT NULL, asw INTEGER NOT NULL, los INTEGER NOT NULL, luck INTEGER NOT NULL, range INTEGER NOT NULL, PRIMARY KEY(battle, id)) WITHOUT ROWID;" +
+
+                        "INSERT INTO participant(battle, id, ship, level, condition, fuel, bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) SELECT battle, id, ship, level, condition, -1 AS fuel, -1 AS bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range FROM participant_old;" +
+
+                        "DROP TABLE participant_old;";
+
+                    rCommand.ExecuteNonQuery();
+
+                    rTransaction.Commit();
+                }
+            }
         }
 
         byte[] CompressJson(JToken rpJsonToken)
@@ -153,7 +194,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             var rSortie = KanColleGame.Current.Sortie;
             var rData = (RawDay)rpData.Data;
-            r_CurrentBattleID = ((BattleEvent)rSortie.Node.Event).Battle.ID;
+            r_CurrentBattleID = BattleInfo.Current.ID;
 
             using (var rTransaction = Connection.BeginTransaction())
             using (var rCommand = Connection.CreateCommand())
@@ -234,22 +275,49 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (!r_CurrentBattleID.HasValue)
                 return;
 
-            using (var rCommand = Connection.CreateCommand())
+            using (var rTransaction = Connection.BeginTransaction())
             {
-                rCommand.CommandText = "UPDATE battle_detail.battle SET result = @result WHERE id = @id;";
-                rCommand.Parameters.AddWithValue("@id", r_CurrentBattleID.Value);
-                rCommand.Parameters.AddWithValue("@result", CompressJson(rpData.Json["api_data"]));
-
-                if (rpData.Api == "api_req_practice/battle_result")
+                using (var rCommand = Connection.CreateCommand())
                 {
-                    rCommand.CommandText += "UPDATE battle_detail.practice SET rank = @rank WHERE id = @id;";
-                    rCommand.Parameters.AddWithValue("@rank", (int)((RawBattleResult)rpData.Data).Rank);
+                    rCommand.CommandText = "UPDATE battle_detail.battle SET result = @result WHERE id = @id;";
+                    rCommand.Parameters.AddWithValue("@id", r_CurrentBattleID.Value);
+                    rCommand.Parameters.AddWithValue("@result", CompressJson(rpData.Json["api_data"]));
+
+                    if (rpData.Api == "api_req_practice/battle_result")
+                    {
+                        rCommand.CommandText += "UPDATE battle_detail.practice SET rank = @rank WHERE id = @id;";
+                        rCommand.Parameters.AddWithValue("@rank", (int)((RawBattleResult)rpData.Data).Rank);
+                    }
+
+                    rCommand.ExecuteNonQuery();
                 }
 
-                rCommand.ExecuteNonQuery();
+                var rStage = BattleInfo.Current.CurrentStage;
+                ProcessHeavilyDamagedShip(rStage.FriendMain, ParticipantFleetType.Main);
+                if (rStage.FriendEscort != null)
+                    ProcessHeavilyDamagedShip(rStage.FriendEscort, ParticipantFleetType.Escort);
+
+                rTransaction.Commit();
             }
 
             r_CurrentBattleID = null;
+        }
+        void ProcessHeavilyDamagedShip(IList<BattleParticipantSnapshot> rpParticipants, ParticipantFleetType rpType)
+        {
+            for (var i = 0; i < rpParticipants.Count; i++)
+            {
+                var rID = (int)rpType * 6 + i;
+
+                if (rpParticipants[i].State == BattleParticipantState.HeavilyDamaged || rpParticipants[i].State == BattleParticipantState.Sunk)
+                    using (var rCommand = Connection.CreateCommand())
+                    {
+                        rCommand.CommandText = "INSERT INTO battle_detail.participant_heavily_damaged(battle, id) VALUES(@battle_id, @id);";
+                        rCommand.Parameters.AddWithValue("@battle_id", r_CurrentBattleID.Value);
+                        rCommand.Parameters.AddWithValue("@id", rID);
+
+                        rCommand.ExecuteNonQuery();
+                    }
+            }
         }
 
         void ProcessParticipantFleet(StringBuilder rpCommandTextBuilder, Fleet rpFleet, ParticipantFleetType rpType)
@@ -264,8 +332,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 var rShip = rpFleet.Ships[i];
                 var rID = rFleetID * 6 + i;
 
-                rpCommandTextBuilder.Append("INSERT INTO battle_detail.participant(battle, id, ship, level, condition, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) ");
-                rpCommandTextBuilder.Append($"VALUES(@battle_id, {rID}, {rShip.Info.ID}, {rShip.Level}, {rShip.Condition}, {rShip.Status.FirepowerBase.Current}, {rShip.Status.TorpedoBase.Current}, {rShip.Status.AABase.Current}, {rShip.Status.ArmorBase.Current}, {rShip.Status.Evasion}, {rShip.Status.ASW}, {rShip.Status.LoS}, {rShip.Status.Luck}, {rShip.RawData.Range});");
+                rpCommandTextBuilder.Append("INSERT INTO battle_detail.participant(battle, id, ship, level, condition, fuel, bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) ");
+                rpCommandTextBuilder.Append($"VALUES(@battle_id, {rID}, {rShip.Info.ID}, {rShip.Level}, {rShip.Condition}, {rShip.Fuel.Current}, {rShip.Bullet.Current}, {rShip.Status.FirepowerBase.Current}, {rShip.Status.TorpedoBase.Current}, {rShip.Status.AABase.Current}, {rShip.Status.ArmorBase.Current}, {rShip.Status.Evasion}, {rShip.Status.ASW}, {rShip.Status.LoS}, {rShip.Status.Luck}, {rShip.RawData.Range});");
 
                 for (var j = 0; j < rShip.Slots.Count; j++)
                 {

@@ -116,7 +116,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                     });
                 }).ToArray();
 
-                var rTotalDamages = rDamages.Sum();
+                var rTotalDamages = rEnemyDamages.Sum();
                 var rTotalFirepowers = rFirepowers.Sum();
 
                 for (var i = 0; i < rFriendAttackers.Length; i++)

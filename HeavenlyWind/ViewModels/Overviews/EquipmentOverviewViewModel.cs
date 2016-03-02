@@ -38,8 +38,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         internal EquipmentOverviewViewModel()
         {
-            Title = StringResources.Instance.Main.Window_EquipmentOverview;
-
             r_TypeMap = ((EquipmentIconType[])Enum.GetValues(typeof(EquipmentIconType))).Skip(1).ToDictionary(r => r, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 
