@@ -1,6 +1,9 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Security.Cryptography;
@@ -113,6 +116,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                 rTransaction.Commit();
             }
+        }
+
+        public IList<EnemyFleet> GetEncounters(int rpMap, int rpNode, EventMapDifficulty? rpDifficulty)
+        {
+            var rResult = new List<EnemyFleet>();
+
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT group_concat(ship) AS ships, formation FROM fleet JOIN composition ON fleet.composition = composition.id WHERE map = @map AND node = @node AND difficulty = @difficulty GROUP BY id, formation;";
+                rCommand.Parameters.AddWithValue("@map", rpMap);
+                rCommand.Parameters.AddWithValue("@node", rpNode);
+                rCommand.Parameters.AddWithValue("@difficulty", (int?)rpDifficulty ?? 0);
+
+                using (var rReader = rCommand.ExecuteReader())
+                    while (rReader.Read())
+                    {
+                        var rShips = (string)rReader["ships"];
+                        var rShipIDs = rShips.Split(',').Select(int.Parse);
+                        var rFormation = (Formation)Convert.ToInt32(rReader["formation"]);
+
+                        rResult.Add(new EnemyFleet(rShipIDs, rFormation));
+                    }
+            }
+
+            return rResult;
         }
     }
 }

@@ -5,32 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
-             xmlns:rgmb="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models.Battle;assembly=HeavenlyWind.Game"
+             xmlns:rgme="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models.Events;assembly=HeavenlyWind.Game"
              xmlns:rvgb="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game.Battle"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance rgmb:BattleInfo}"
+             d:DataContext="{d:DesignInstance rgme:BattleEvent}"
              d:DesignWidth="300" d:DesignHeight="300">
     <UserControl.Resources>
-        <DataTemplate x:Key="ParticipantTemplate">
-            <DataTemplate.Resources>
-                <Style x:Key="AbyssalShipClass" TargetType="{x:Type Run}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding AbyssalShipClass}" Value="Elite">
-                            <Setter Property="Text" Value="elite" />
-                            <Setter Property="Foreground" Value="Red" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding AbyssalShipClass}" Value="Flagship">
-                            <Setter Property="Text" Value="flagship" />
-                            <Setter Property="Foreground" Value="#FCC800" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding AbyssalShipClass}" Value="LateModel">
-                            <Setter Property="Text" Value="後期型" />
-                            <Setter Property="Foreground" Value="SkyBlue" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataTemplate.Resources>
+        <Style x:Key="AbyssalShipClass" TargetType="{x:Type Run}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding AbyssalShipClass}" Value="Elite">
+                    <Setter Property="Text" Value="elite" />
+                    <Setter Property="Foreground" Value="Red" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding AbyssalShipClass}" Value="Flagship">
+                    <Setter Property="Text" Value="flagship" />
+                    <Setter Property="Foreground" Value="#FCC800" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding AbyssalShipClass}" Value="LateModel">
+                    <Setter Property="Text" Value="後期型" />
+                    <Setter Property="Foreground" Value="SkyBlue" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
 
+        <DataTemplate x:Key="ParticipantTemplate">
             <Border Name="Border" Height="30">
                 <TextBlock DataContext="{Binding Info}">
                     <Run Name="Name" Text="{Binding NameWithoutAbyssalShipClass, Mode=OneWay}" /><Run Style="{StaticResource AbyssalShipClass}" />
@@ -49,36 +47,100 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid DataContext="{Binding Battle}" Grid.IsSharedSizeScope="True">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="75" />
-            <ColumnDefinition Width="8" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="8" />
-            <ColumnDefinition Width="Auto" MinWidth="75" />
-            <ColumnDefinition Width="8" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="2" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="2" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <StackPanel Grid.IsSharedSizeScope="True">
+        <Grid DataContext="{Binding Battle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" MinWidth="75" />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="Auto" MinWidth="75" />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-        <ItemsControl ItemsSource="{Binding Participants.FriendMain}" ItemTemplate="{StaticResource ParticipantTemplate}" />
-        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendMain}" Grid.Column="2" />
+            <ItemsControl ItemsSource="{Binding Participants.FriendMain}" ItemTemplate="{StaticResource ParticipantTemplate}" />
+            <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendMain}" Grid.Column="2" />
 
-        <ItemsControl ItemsSource="{Binding Participants.FriendEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="4" />
-        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendEscort}" Grid.Column="6" />
+            <ItemsControl ItemsSource="{Binding Participants.FriendEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="4" />
+            <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendEscort}" Grid.Column="6" />
 
-        <TextBlock Text="{rb:StringResource Main.Sortie_SupportFleet_Ready}" FontWeight="Bold" Visibility="{Binding IsSupportFleetReady, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0, 4" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="7" />
-        <rvgb:Information Grid.Row="2" Grid.ColumnSpan="7" />
+            <TextBlock Text="{rb:StringResource Main.Sortie_SupportFleet_Ready}" FontWeight="Bold" Visibility="{Binding IsSupportFleetReady, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0, 4" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="7" />
+            <rvgb:Information Grid.Row="2" Grid.ColumnSpan="7" />
 
-        <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" />
-        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="2" Grid.Row="4" />
-    </Grid>
+            <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" />
+            <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="2" Grid.Row="4" />
+        </Grid>
+
+        <StackPanel Margin="0, 8, 0, 0" Grid.Row="1">
+            <StackPanel.Style>
+                <Style TargetType="{x:Type StackPanel}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding EnemyEncounters.Count, FallbackValue=0}" Value="0">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Battle.IsInitialized}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+
+            <TextBlock Text="{rb:StringResource Main.Sortie_EnemyEncounters}" FontSize="14" Margin="4" />
+
+            <ItemsControl ItemsSource="{Binding EnemyEncounters, FallbackValue={x:Null}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="1, 0, 0, 0" Padding="3, 0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition SharedSizeGroup="Ships" />
+                                    <RowDefinition Height="8" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <ItemsControl ItemsSource="{Binding Ships}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Name="Border" Height="30">
+                                                <TextBlock>
+                                                    <Run Name="Name" Text="{Binding NameWithoutAbyssalShipClass, Mode=OneWay}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                                                </TextBlock>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Grid.Row="1" />
+
+                                <TextBlock Text="{rb:EnumToStringResource Formation, Battle_Formation}" Grid.Row="2" />
+                            </Grid>
+                        </Border>
+
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                                <Setter TargetName="Border" Property="Margin" Value="0" />
+                                <Setter TargetName="Border" Property="Padding" Value="0, 0, 3, 0" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </StackPanel>
 </UserControl>

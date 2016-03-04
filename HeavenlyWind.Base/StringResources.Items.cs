@@ -132,6 +132,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_NothingHappened_NoSighOfTheEnemy => GetString(nameof(Sortie_NothingHappened_NoSighOfTheEnemy));
         public string Sortie_NothingHappened_ManualSelection => GetString(nameof(Sortie_NothingHappened_ManualSelection));
         public string Sortie_SupportFleet_Ready => GetString(nameof(Sortie_SupportFleet_Ready));
+        public string Sortie_EnemyEncounters => GetString(nameof(Sortie_EnemyEncounters));
 
         public string Map_Difficulty_None => GetString(nameof(Map_Difficulty_None));
         public string Map_Difficulty_Easy => GetString(nameof(Map_Difficulty_Easy));
