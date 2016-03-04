@@ -128,6 +128,7 @@
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">没有看到敌影。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能动分岐</String>
   <String Key="Sortie_SupportFleet_Ready">支援舰队等待中</String>
+  <String Key="Sortie_EnemyEncounters">可能遭遇的敌方舰队</String>
 
   <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">丙</String>

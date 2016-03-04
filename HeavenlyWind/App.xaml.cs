@@ -50,6 +50,7 @@ namespace Sakuno.KanColle.Amatsukaze
             MapService.Instance.Initialize();
             NotificationService.Instance.Initialize();
             ExpeditionService.Instance.Initialize();
+            EnemyEncounterService.Instance.Initialize();
 
             Preference.Load();
             StringResources.Instance.LoadMainResource(Preference.Current.Language);
