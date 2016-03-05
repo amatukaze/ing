@@ -3,7 +3,7 @@
 艦これ補助ツール「いんてりじぇんと連装砲くん」（智能型连装炮君 / ING）
 
 ### Updated
-**0.1.8 (Lavender)**
+**0.1.8.1 (Lavender)**
  * Screenshot Tool
  * Expedition yield prediction
  * Expedition overview table
