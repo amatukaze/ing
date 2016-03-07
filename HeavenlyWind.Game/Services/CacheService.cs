@@ -3,7 +3,6 @@ using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
 using System.IO;
-using System.Threading;
 using System.Text.RegularExpressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
@@ -55,6 +54,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return null;
 
             var rFilename = CacheDirectory + rUri.AbsolutePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            if (rpPath.OICContains("mainD2.swf"))
+            {
+                ropFilename = rFilename;
+                return false;
+            }
+
             var rFilenameForceToLoad = r_ExtensionRegex.Replace(rFilename, ".hack$0");
             if (File.Exists(rFilenameForceToLoad))
             {
