@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -19,7 +20,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         static object r_ThreadSyncObject = new object();
 
+        SQLiteConnection r_Connection;
+
         CacheService() { }
+
+        public void Initialize()
+        {
+            r_Connection = new SQLiteConnection(@"Data Source=Data\Cache.db; Page Size=8192").OpenAndReturn();
+
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS file(" +
+                    "name TEXT PRIMARY KEY NOT NULL, " +
+                    "version TEXT, " +
+                    "timestamp INTEGER NOT NULL) WITHOUT ROWID;";
+
+                rCommand.ExecuteNonQuery();
+            }
+        }
 
         internal void ProcessRequest(ResourceSession rpResourceSession, Session rpSession)
         {
@@ -27,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return;
 
             string rFilename;
-            var rNoVerification = CheckFileInCache(rpSession, out rFilename);
+            var rNoVerification = CheckFileInCache(rpResourceSession.Path, out rFilename);
 
             rpResourceSession.CacheFilename = rFilename;
 
@@ -45,15 +63,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 rpSession.bBufferResponse = true;
             }
         }
-        bool? CheckFileInCache(Session rpSession, out string ropFilename)
+        bool? CheckFileInCache(string rpPath, out string ropFilename)
         {
             ropFilename = null;
 
-            Uri rUri;
-            if (!Uri.TryCreate(rpSession.fullUrl, UriKind.Absolute, out rUri))
+            if (rpPath.IsNullOrEmpty())
                 return null;
 
-            var rFilename = CacheDirectory + rUri.AbsolutePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            var rFilename = CacheDirectory + rpPath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
             if (rpPath.OICContains("mainD2.swf"))
             {
                 ropFilename = rFilename;
@@ -81,6 +98,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return;
 
             LoadFile(rpResourceSession.CacheFilename, rpResourceSession, rpSession);
+
+            RecordCachedFile(rpResourceSession, File.GetLastWriteTime(rpResourceSession.CacheFilename), false);
 
             rpResourceSession.State = NetworkSessionState.LoadedFromCache;
         }
@@ -126,14 +145,35 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                         rFile.Delete();
 
                     rpSession.SaveResponseBody(rFile.FullName);
-                    rFile.LastWriteTime = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
+
+                    var rTimestamp = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
+                    rFile.LastWriteTime = rTimestamp;
 
                     rpResourceSession.State = NetworkSessionState.Cached;
+
+                    RecordCachedFile(rpResourceSession, rTimestamp, true);
                 }
             }
             catch (Exception e)
             {
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_Cache_FailedToSaveFile, e.Message));
+            }
+        }
+
+        void RecordCachedFile(ResourceSession rpResourceSession, DateTime rpTimestamp, bool rpReplace)
+        {
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                if (rpReplace)
+                    rCommand.CommandText = "REPLACE INTO file(name, version, timestamp) VALUES(@name, @version, @timestamp);";
+                else
+                    rCommand.CommandText = "INSERT OR IGNORE INTO file(name, version, timestamp) VALUES(@name, @version, @timestamp);";
+
+                rCommand.Parameters.AddWithValue("@name", rpResourceSession.Path);
+                rCommand.Parameters.AddWithValue("@version", rpResourceSession.CacheVersion);
+                rCommand.Parameters.AddWithValue("@timestamp", new DateTimeOffset(rpTimestamp).ToUnixTime());
+
+                rCommand.ExecuteNonQuery();
             }
         }
     }
