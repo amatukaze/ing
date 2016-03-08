@@ -52,16 +52,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (rNoVerification == null)
                 return;
 
-            if (rNoVerification.Value)
+            if (!rNoVerification.Value)
             {
-                rpSession.utilCreateResponseAndBypassServer();
-                LoadFile(rFilename, rpResourceSession, rpSession);
+                var rTimestamp = new DateTimeOffset(File.GetLastWriteTime(rFilename));
+
+                if (!CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
+                {
+                    rpSession.oRequest["If-Modified-Since"] = rTimestamp.ToString("R");
+                    rpSession.bBufferResponse = true;
+                    return;
+                }
             }
-            else
-            {
-                rpSession.oRequest["If-Modified-Since"] = File.GetLastWriteTime(rFilename).ToString("R");
-                rpSession.bBufferResponse = true;
-            }
+
+            rpSession.utilCreateResponseAndBypassServer();
+            LoadFile(rFilename, rpResourceSession, rpSession);
         }
         bool? CheckFileInCache(string rpPath, out string ropFilename)
         {
@@ -90,6 +94,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return CurrentMode == CacheMode.FullTrust;
 
             return null;
+        }
+        bool CheckFileVersionAndTimestamp(ResourceSession rpResourceSession, DateTimeOffset rpTimestamp)
+        {
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT (CASE WHEN version IS NOT NULL THEN version ELSE '' END) = @version AND timestamp = @timestamp FROM file WHERE name = @name;";
+                rCommand.Parameters.AddWithValue("@name", rpResourceSession.Path);
+                rCommand.Parameters.AddWithValue("@version", rpResourceSession.CacheVersion ?? string.Empty);
+                rCommand.Parameters.AddWithValue("@timestamp", rpTimestamp.ToUnixTime());
+
+                return Convert.ToBoolean(rCommand.ExecuteScalar());
+            }
         }
 
         internal void ProcessResponse(ResourceSession rpResourceSession, Session rpSession)
