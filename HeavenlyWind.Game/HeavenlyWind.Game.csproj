@@ -194,7 +194,7 @@
     <Compile Include="Models\Raw\RawMapMasterInfo.cs" />
     <Compile Include="Models\Raw\RawMasterInfo.cs" />
     <Compile Include="Models\Raw\RawMaterial.cs" />
-    <Compile Include="Models\Raw\RawModernization.cs" />
+    <Compile Include="Models\Raw\RawModernizationResult.cs" />
     <Compile Include="Models\Raw\RawPort.cs" />
     <Compile Include="Models\Raw\RawPracticeOpponentInfo.cs" />
     <Compile Include="Models\Raw\RawQuest.cs" />

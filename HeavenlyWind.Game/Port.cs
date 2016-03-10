@@ -62,6 +62,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     rShip.UpdateEquipmentIDs(r.GetData<RawEquipmentIDs>().EquipmentIDs);
             });
 
+            SessionService.Instance.Subscribe("api_req_kaisou/powerup", r =>
+            {
+                var rShipID = int.Parse(r.Requests["api_id"]);
+                var rData = r.GetData<RawModernizationResult>();
+
+                Ship rModernizedShip;
+                if (Ships.TryGetValue(rShipID, out rModernizedShip))
+                    rModernizedShip.Update(rData.Ship);
+
+                var rConsumedShips = r.Requests["api_id_items"].Split(',').Select(rpID => Ships[int.Parse(rpID)]).ToArray();
+                var rConsumedEquipment = rConsumedShips.SelectMany(rpShip => rpShip.EquipedEquipment).ToArray();
+
+                foreach (var rEquipment in rConsumedEquipment)
+                    Equipment.Remove(rEquipment);
+                foreach (var rShip in rConsumedShips)
+                    Ships.Remove(rShip);
+
+                UpdateShipsCore();
+                OnPropertyChanged(nameof(Equipment));
+                Fleets.Update(rData.Fleets);
+            });
+
             SessionService.Instance.Subscribe("api_req_kousyou/createship", r => ConstructionDocks[int.Parse(r.Requests["api_kdock_id"])].IsConstructionStarted = true);
             SessionService.Instance.Subscribe("api_req_kousyou/getship", r =>
             {
