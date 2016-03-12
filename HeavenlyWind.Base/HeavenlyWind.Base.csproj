@@ -69,6 +69,7 @@
     <Compile Include="CollapsedIfZeroExtension.cs" />
     <Compile Include="EnumerationExtension.cs" />
     <Compile Include="EnumToStringResourceExtension.cs" />
+    <Compile Include="ExtraStringResourceExtension.cs" />
     <Compile Include="ExtraStringResources.cs" />
     <Compile Include="ExtraStringResourceInfo.cs" />
     <Compile Include="ExtraStringResourceType.cs" />

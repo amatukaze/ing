@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
@@ -15,6 +16,41 @@ namespace Sakuno.KanColle.Amatsukaze
         public Dictionary<int, string> ShipLocking { get; internal set; }
 
         internal ExtraStringResources() { }
+
+        public Dictionary<int, string> GetTranslations(ExtraStringResourceType rpType)
+        {
+            switch (rpType)
+            {
+                case ExtraStringResourceType.Ship:
+                    return Ships;
+
+                case ExtraStringResourceType.ShipType:
+                    return ShipTypes;
+
+                case ExtraStringResourceType.Equipment:
+                    return Equipment;
+
+                case ExtraStringResourceType.Item:
+                    return Items;
+
+                case ExtraStringResourceType.Expedition:
+                    return Expeditions;
+
+                case ExtraStringResourceType.Quest:
+                    return Quests;
+
+                case ExtraStringResourceType.Area:
+                    return Areas;
+
+                case ExtraStringResourceType.Map:
+                    return Maps;
+
+                case ExtraStringResourceType.ShipLocking:
+                    return ShipLocking;
+
+                default: throw new ArgumentException(nameof(rpType));
+            }
+        }
 
         string GetName(Dictionary<int, string> rpDictionary, int rpID)
         {

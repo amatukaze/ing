@@ -103,9 +103,13 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             var rInfo = LoadExtraResourceInfo(rpLanguageName) ?? LoadExtraResourceInfo(GetDefaultLanguage().DisplayName);
             if (rInfo == null)
+            {
+                Extra = null;
+                OnPropertyChanged(nameof(Extra));
                 return;
+            }
 
-            Extra = new ExtraStringResources();
+            var rESR = new ExtraStringResources();
 
             foreach (var rContent in rInfo.Contents)
             {
@@ -120,43 +124,46 @@ namespace Sakuno.KanColle.Amatsukaze
                     switch (rContent.Type)
                     {
                         case ExtraStringResourceType.Ship:
-                            Extra.Ships = rNames;
+                            rESR.Ships = rNames;
                             break;
 
                         case ExtraStringResourceType.ShipType:
-                            Extra.ShipTypes = rNames;
+                            rESR.ShipTypes = rNames;
                             break;
 
                         case ExtraStringResourceType.Equipment:
-                            Extra.Equipment = rNames;
+                            rESR.Equipment = rNames;
                             break;
 
                         case ExtraStringResourceType.Item:
-                            Extra.Items = rNames;
+                            rESR.Items = rNames;
                             break;
 
                         case ExtraStringResourceType.Expedition:
-                            Extra.Expeditions = rNames;
+                            rESR.Expeditions = rNames;
                             break;
 
                         case ExtraStringResourceType.Quest:
-                            Extra.Quests = rNames;
+                            rESR.Quests = rNames;
                             break;
 
                         case ExtraStringResourceType.Area:
-                            Extra.Areas = rNames;
+                            rESR.Areas = rNames;
                             break;
 
                         case ExtraStringResourceType.Map:
-                            Extra.Maps = rNames;
+                            rESR.Maps = rNames;
                             break;
 
                         case ExtraStringResourceType.ShipLocking:
-                            Extra.ShipLocking = rNames;
+                            rESR.ShipLocking = rNames;
                             break;
                     }
                 }
             }
+
+            Extra = rESR;
+            OnPropertyChanged(nameof(Extra));
         }
         ExtraStringResourceInfo LoadExtraResourceInfo(string rpLanguageName)
         {
