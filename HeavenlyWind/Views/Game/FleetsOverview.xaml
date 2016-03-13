@@ -79,7 +79,7 @@
                         <ColumnDefinition SharedSizeGroup="RemainingTime" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="{Binding Expedition.Name}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{rb:ExtraStringResource Expedition, Expedition.ID, Expedition.Name}" TextTrimming="CharacterEllipsis" />
                     <TextBlock Text="{Binding RemainingTime}" Margin="3, 0, 0, 0" Grid.Column="1" />
                 </Grid>
             </Border>

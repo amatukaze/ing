@@ -63,7 +63,7 @@
                                 </ToolTip>
                             </Setter.Value>
                         </Setter>
-                        <Setter TargetName="Ship" Property="Text" Value="{Binding Ship}" />
+                        <Setter TargetName="Ship" Property="Text" Value="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" />
                         <Setter TargetName="Ship" Property="Grid.ColumnSpan" Value="1" />
                         <Setter TargetName="RemainingTime" Property="Text" Value="{Binding RemainingTime}" />
                     </DataTrigger>
@@ -93,7 +93,7 @@
                                 </ToolTip>
                             </Setter.Value>
                         </Setter>
-                        <Setter TargetName="Ship" Property="Text" Value="{Binding Ship}" />
+                        <Setter TargetName="Ship" Property="Text" Value="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" />
                         <Setter TargetName="Ship" Property="Grid.ColumnSpan" Value="1" />
                         <Setter TargetName="RemainingTime" Property="Text" Value="{rb:StringResource Main.Overview_ConstructionDocks_Completed}" />
                     </DataTrigger>

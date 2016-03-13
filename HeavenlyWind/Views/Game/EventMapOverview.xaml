@@ -64,7 +64,7 @@
 
                                 <StackPanel Orientation="Horizontal">
                                     <Path Stretch="Uniform" Fill="{Binding Color}" Width="16" Height="16" Data="{StaticResource ShipLockingTagIcon}" />
-                                    <TextBlock Text="{Binding Name}" Margin="4, 0, 0, 0" />
+                                    <TextBlock Text="{rb:ExtraStringResource ShipLocking, ID, Name}" Margin="4, 0, 0, 0" />
                                 </StackPanel>
 
                                 <ItemsControl ItemsSource="{Binding CanParticipateIn}" Grid.Column="2">

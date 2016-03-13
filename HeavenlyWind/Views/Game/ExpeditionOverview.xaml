@@ -22,7 +22,7 @@
                 <DataTemplate>
                     <Expander IsExpanded="True">
                         <Expander.Header>
-                            <TextBlock Text="{Binding MapArea.Name}" Margin="4, 2" />
+                            <TextBlock Text="{rb:ExtraStringResource Area, MapArea.ID, MapArea.Name}" Margin="4, 2" />
                         </Expander.Header>
 
                         <ItemsControl ItemsSource="{Binding Expeditions}">
@@ -39,7 +39,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Text="{Binding Info.ID}" />
-                                        <TextBlock Text="{Binding Info.Name}" Grid.Column="2" />
+                                        <TextBlock Text="{rb:ExtraStringResource Expedition, Info.ID, Info.Name}" Grid.Column="2" />
                                         <Border Background="Transparent" Margin="4, 2" Grid.ColumnSpan="4">
                                             <Border.ToolTip>
                                                 <ToolTip>
