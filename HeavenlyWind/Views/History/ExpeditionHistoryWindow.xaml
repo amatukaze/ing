@@ -45,7 +45,7 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Expedition.Name}" Margin="0, 4" />
+                                    <TextBlock Text="{rb:ExtraStringResource Expedition, Expedition.ID, Expedition.Name}" Margin="0, 4" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -103,11 +103,11 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal" Margin="0, 4">
                                         <TextBlock Name="Item1" Margin="0, 0, 8, 0">
-                                            <Run Text="{Binding Item1.Name, Mode=OneWay}" />
+                                            <Run Text="{rb:ExtraStringResource Item, Item1.ID, Item1.Name}" />
                                             <Run Text="{Binding Item1Count, StringFormat=x{0}, Mode=OneWay}" FontSize="11" />
                                         </TextBlock>
                                         <TextBlock Name="Item2">
-                                            <Run Text="{Binding Item2.Name, Mode=OneWay}" />
+                                            <Run Text="{rb:ExtraStringResource Item, Item2.ID, Item2.Name}" />
                                             <Run Text="{Binding Item2Count, StringFormat=x{0}, Mode=OneWay}" FontSize="11" />
                                         </TextBlock>
                                     </StackPanel>

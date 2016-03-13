@@ -27,7 +27,7 @@
                 <TextBlock Name="Category" Text="{rb:EnumToStringResource Category, Quest_Category}" Foreground="Black" Margin="3, 0, 0, 0" Grid.Column="1" />
 
                 <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0" Grid.Column="2">
-                    <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Text="{rb:ExtraStringResource Quest, ID, Name}" TextTrimming="CharacterEllipsis" />
                     <Border Name="ProgressBorder" Background="Green" Margin="3, 0, 0, 0" Padding="4, 2" Visibility="Collapsed">
                         <TextBlock Name="Progress" Foreground="White" />
                     </Border>

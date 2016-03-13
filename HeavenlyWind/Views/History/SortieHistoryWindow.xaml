@@ -58,7 +58,7 @@
                                     </DataTemplate.Resources>
 
                                     <TextBlock Margin="0, 4">
-                                        <Run Text="{Binding Map.Name, Mode=OneWay}" />
+                                        <Run Text="{rb:ExtraStringResource Map, Map.ID, Map.Name}" />
                                         (<Run Style="{StaticResource Map}" /><Run Text="{Binding Map.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource EventMapDifficulty, Map_Difficulty, TargetNullValue={x:Null}}" />)
                                     </TextBlock>
                                 </DataTemplate>
@@ -107,7 +107,7 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Name="Name" Text="{Binding DroppedShip.Name}" Margin="0, 4" />
+                                    <TextBlock Name="Name" Text="{rb:ExtraStringResource Ship, DroppedShip.ID, DroppedShip.Name}" Margin="0, 4" />
 
                                     <DataTemplate.Triggers>
                                         <DataTrigger Binding="{Binding DroppedShip.Rarity, Converter={StaticResource IsLessThanConverter}, ConverterParameter=4}" Value="True">
@@ -137,7 +137,7 @@
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock Name="Ship" Text="{Binding Name, StringFormat={}\, {0}}" />
+                                                <TextBlock Name="Ship" Text="{rb:ExtraStringResource Ship, ID, Name, StringFormat={}\, {0}}" />
 
                                                 <DataTemplate.Triggers>
                                                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">

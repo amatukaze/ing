@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         public int ID => r_Source.ID;
         public RepairDockState State => r_Source.State;
-        public string Ship => r_Source.Ship?.Info.Name;
+        public ShipInfo Ship => r_Source.Ship?.Info;
 
         public string TimeToComplete => r_Source.TimeToComplete?.LocalDateTime.ToString();
         public string RemainingTime => r_Source.RemainingTime.HasValue ? ((int)r_Source.RemainingTime.Value.TotalHours).ToString("D2") + r_Source.RemainingTime.Value.ToString(@"\:mm\:ss") : "--:--:--";

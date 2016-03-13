@@ -57,7 +57,7 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Ship.Name}" Margin="0, 4" />
+                                    <TextBlock Text="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" Margin="0, 4" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -113,7 +113,7 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding SecretaryShip.Name}" Margin="0, 4" />
+                                    <TextBlock Text="{rb:ExtraStringResource Ship, SecretaryShip.ID, SecretaryShip.Name}" Margin="0, 4" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

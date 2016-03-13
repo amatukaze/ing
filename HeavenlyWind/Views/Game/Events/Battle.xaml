@@ -31,7 +31,7 @@
         <DataTemplate x:Key="ParticipantTemplate">
             <Border Name="Border" Height="30">
                 <TextBlock DataContext="{Binding Info}">
-                    <Run Name="Name" Text="{Binding NameWithoutAbyssalShipClass, Mode=OneWay}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                    <Run Name="Name" Text="{rb:ExtraStringResource Ship, ID, NameWithoutAbyssalShipClass}" /><Run Style="{StaticResource AbyssalShipClass}" />
                 </TextBlock>
             </Border>
 
