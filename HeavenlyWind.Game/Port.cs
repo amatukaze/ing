@@ -140,9 +140,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rData.Success && Equipment.TryGetValue(rData.ImprovedEquipment.ID, out rEquipment))
                     rEquipment.Update(rData.ImprovedEquipment);
 
-                if (rData.RemovedEquipmentID.HasValue)
+                if (rData.ConsumedEquipmentID != null)
                 {
-                    Equipment.Remove(rData.RemovedEquipmentID.Value);
+                    foreach (var rEquipmentID in rData.ConsumedEquipmentID)
+                        Equipment.Remove(rEquipmentID);
                     OnPropertyChanged(nameof(Equipment));
                 }
             });
