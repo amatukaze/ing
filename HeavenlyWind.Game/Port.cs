@@ -79,6 +79,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rShip in rConsumedShips)
                     Ships.Remove(rShip);
 
+                var rRecord = RecordService.Instance?.Fate;
+                if (rRecord != null)
+                {
+                    rRecord.AddShipFate(rConsumedShips, Fate.ConsumedByModernization);
+                    rRecord.AddEquipmentFate(rConsumedEquipment, Fate.ConsumedByModernization);
+                }
+
                 UpdateShipsCore();
                 OnPropertyChanged(nameof(Equipment));
                 Fleets.Update(rData.Fleets);
@@ -107,6 +114,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 var rShip = Ships[int.Parse(r.Requests["api_ship_id"])];
 
+                var rRecord = RecordService.Instance?.Fate;
+                if (rRecord != null)
+                {
+                    rRecord.AddShipFate(rShip, Fate.Dismantled);
+                    rRecord.AddEquipmentFate(rShip.EquipedEquipment, Fate.Dismantled);
+                }
+
                 foreach (var rEquipment in rShip.EquipedEquipment)
                     Equipment.Remove(rEquipment);
                 OnPropertyChanged(nameof(Equipment));
@@ -118,6 +132,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe("api_req_kousyou/destroyitem2", r =>
             {
                 var rEquipmentIDs = r.Requests["api_slotitem_ids"].Split(',').Select(int.Parse);
+
+                RecordService.Instance?.Fate?.AddEquipmentFate(rEquipmentIDs.Select(rpID => Equipment[rpID]), Fate.Scrapped);
 
                 foreach (var rEquipmentID in rEquipmentIDs)
                     Equipment.Remove(rEquipmentID);
@@ -142,6 +158,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 if (rData.ConsumedEquipmentID != null)
                 {
+                    RecordService.Instance?.Fate?.AddEquipmentFate(rData.ConsumedEquipmentID.Select(rpID => Equipment[rpID]), Fate.ConsumedByImprovement);
+
                     foreach (var rEquipmentID in rData.ConsumedEquipmentID)
                         Equipment.Remove(rEquipmentID);
                     OnPropertyChanged(nameof(Equipment));
