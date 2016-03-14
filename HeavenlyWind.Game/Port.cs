@@ -106,6 +106,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Materials.Update(r.Json["api_data"]["api_material"].ToObject<int[]>());
 
                 var rShip = Ships[int.Parse(r.Requests["api_ship_id"])];
+
+                foreach (var rEquipment in rShip.EquipedEquipment)
+                    Equipment.Remove(rEquipment);
+                OnPropertyChanged(nameof(Equipment));
+
                 rShip.OwnerFleet?.Remove(rShip);
                 Ships.Remove(rShip);
                 UpdateShipsCore();
@@ -116,7 +121,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 foreach (var rEquipmentID in rEquipmentIDs)
                     Equipment.Remove(rEquipmentID);
-
                 OnPropertyChanged(nameof(Equipment));
 
                 var rMaterials = r.Json["api_data"]["api_get_material"].ToObject<int[]>();
