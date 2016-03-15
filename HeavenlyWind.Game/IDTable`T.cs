@@ -38,6 +38,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public bool ContainsKey(int rpKey) => r_Dictionary.ContainsKey(rpKey);
         public bool TryGetValue(int rpKey, out T ropValue) => r_Dictionary.TryGetValue(rpKey, out ropValue);
 
+        public T GetValueOrDefault(int rpKey)
+        {
+            T rResult;
+            r_Dictionary.TryGetValue(rpKey, out rResult);
+            return rResult;
+        }
+
         public IEnumerator<KeyValuePair<int, T>> GetEnumerator() => r_Dictionary.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
