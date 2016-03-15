@@ -98,7 +98,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe("api_req_kousyou/createship_speedchage", r =>
             {
                 if (r.Requests["api_highspeed"] == "1")
-                    ConstructionDocks[int.Parse(r.Requests["api_kdock_id"])].CompleteConstruction();
+                {
+                    var rDock = ConstructionDocks[int.Parse(r.Requests["api_kdock_id"])];
+                    if (!rDock.IsLargeShipConstruction.GetValueOrDefault())
+                        Materials.InstantConstruction--;
+                    else
+                        Materials.InstantConstruction -= 10;
+
+                    rDock.CompleteConstruction();
+                }
             });
 
             SessionService.Instance.Subscribe("api_req_kousyou/destroyship", r =>
@@ -188,7 +196,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rIsInstantRepair)
                     Materials.Bucket--;
             });
-            SessionService.Instance.Subscribe("api_req_nyukyo/speedchange", r => RepairDocks[int.Parse(r.Requests["api_ndock_id"])].CompleteRepair());
+            SessionService.Instance.Subscribe("api_req_nyukyo/speedchange", r =>
+            {
+                Materials.Bucket--;
+                RepairDocks[int.Parse(r.Requests["api_ndock_id"])].CompleteRepair();
+            });
 
             SessionService.Instance.Subscribe("api_req_combined_battle/battleresult", r =>
             {
