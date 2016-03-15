@@ -1,0 +1,117 @@
+﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.History.ScrappingHistoryWindow"
+                  x:ClassModifier="internal"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+                  xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                  xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                  mc:Ignorable="d"
+                  Title="{rb:StringResource Main.Window_ScrappingHistory}"
+                  Width="800" Height="480"
+                  UseLayoutRounding="True">
+    <Window.Resources>
+        <Style x:Key="EquipmentLevel" TargetType="{x:Type Run}">
+            <Setter Property="Text" Value="{Binding Level, StringFormat=★+{0}, Mode=OneWay}" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Level}" Value="0">
+                    <Setter Property="Text" Value="" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Level}" Value="10">
+                    <Setter Property="Text" Value="★max" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="EquipmentProficiency" TargetType="{x:Type Run}">
+            <Setter Property="Text" Value="{Binding Proficiency, StringFormat=+{0}, Mode=OneWay}" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Proficiency}" Value="0">
+                    <Setter Property="Text" Value="" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <DockPanel ruic:MetroWindow.IsCaptionBar="True">
+            <Border Height="4" DockPanel.Dock="Bottom" />
+
+            <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
+
+            <rc:AppIcon />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_ScrappingHistory}" />
+        </DockPanel>
+
+        <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
+            <ListView ItemsSource="{Binding Records}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="150">
+                            <TextBlock Text="{rb:StringResource Main.Record_Time}" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Time}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="200">
+                            <TextBlock Text="{rb:StringResource Main.ScrappingHistory_ShipOrEquipment}" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="24" />
+                                            <ColumnDefinition Width="4" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <rc:EquipmentIcon Type="{Binding Equipment.Icon}" Visibility="{Binding IsEquipment, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                                        <TextBlock Margin="0, 4" Grid.Column="2">
+                                            <Run Name="Name" Text="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" />
+                                            <Run Name="Level" />
+                                            <Run Style="{StaticResource EquipmentProficiency}" />
+                                        </TextBlock>
+                                    </Grid>
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding IsEquipment}" Value="False">
+                                            <Setter TargetName="Level" Property="Text" Value="{Binding Level, StringFormat=Lv.{0}, Mode=OneWay}" />
+                                            <Setter TargetName="Level" Property="FontSize" Value="11" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsEquipment}" Value="True">
+                                            <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource Equipment, Equipment.ID, Equipment.Name}" />
+                                            <Setter TargetName="Level" Property="Style" Value="{StaticResource EquipmentLevel}" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="200">
+                            <TextBlock Text="{rb:StringResource Main.ScrappingHistory_Reason}" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{rb:EnumToStringResource Fate, ScrappingHistory_Reason}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+    </Grid>
+
+</ruic:MetroWindow>

@@ -197,6 +197,7 @@
   <String Key="Window_DevelopmentHistory">Development History</String>
   <String Key="Window_SortieHistory">Sortie History</String>
   <String Key="Window_ExpeditionHistory">Expedition History</String>
+  <String Key="Window_ScrappingHistory">Scrapping History</String>
   <String Key="Window_ClosingConfirmation">Are you sure to close {0}?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
@@ -277,6 +278,14 @@
   <String Key="ExpeditionHistory_Name">Expedition</String>
   <String Key="ExpeditionHistory_Result">Result</String>
   <String Key="ExpeditionHistory_Reward">Reward</String>
+  
+  <String Key="ScrappingHistory_ShipOrEquipment">Ship/Equipment</String>
+  <String Key="ScrappingHistory_Reason">Reason</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByModernization">Consumed by modernization</String>
+  <String Key="ScrappingHistory_Reason_Dismantled">Dismantled</String>
+  <String Key="ScrappingHistory_Reason_Scrapped">Scrapped</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByImprovement">Consumed by improvement</String>
+  <String Key="ScrappingHistory_Reason_Sunk">Sunk</String>
 
   <String Key="Tool_ExpeditionOverview">Expedition Overview</String>
 
