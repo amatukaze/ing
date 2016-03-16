@@ -197,6 +197,7 @@
   <String Key="Window_DevelopmentHistory">开发历史</String>
   <String Key="Window_SortieHistory">出击历史</String>
   <String Key="Window_ExpeditionHistory">远征历史</String>
+  <String Key="Window_ScrappingHistory">解体・废弃历史</String>
   <String Key="Window_ClosingConfirmation">要关闭{0}吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
@@ -277,6 +278,14 @@
   <String Key="ExpeditionHistory_Name">远征名</String>
   <String Key="ExpeditionHistory_Result">结果</String>
   <String Key="ExpeditionHistory_Reward">奖励</String>
+  
+  <String Key="ScrappingHistory_ShipOrEquipment">舰娘・装备</String>
+  <String Key="ScrappingHistory_Reason">原因</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByModernization">近代化改修</String>
+  <String Key="ScrappingHistory_Reason_Dismantled">舰娘解体</String>
+  <String Key="ScrappingHistory_Reason_Scrapped">装备废弃</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByImprovement">装备改修</String>
+  <String Key="ScrappingHistory_Reason_Sunk">沉没</String>
 
   <String Key="Tool_ExpeditionOverview">远征一览</String>
 

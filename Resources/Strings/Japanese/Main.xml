@@ -197,6 +197,7 @@
   <String Key="Window_DevelopmentHistory">開発歴史</String>
   <String Key="Window_SortieHistory">出撃歴史</String>
   <String Key="Window_ExpeditionHistory">遠征歴史</String>
+  <String Key="Window_ScrappingHistory">解体・廃棄歴史</String>
   <String Key="Window_ClosingConfirmation">{0}を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
@@ -277,6 +278,14 @@
   <String Key="ExpeditionHistory_Name">遠征名</String>
   <String Key="ExpeditionHistory_Result">結果</String>
   <String Key="ExpeditionHistory_Reward">アイテム</String>
+  
+  <String Key="ScrappingHistory_ShipOrEquipment">艦娘・装備</String>
+  <String Key="ScrappingHistory_Reason">原因</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByModernization">近代化改修</String>
+  <String Key="ScrappingHistory_Reason_Dismantled">艦娘の解体</String>
+  <String Key="ScrappingHistory_Reason_Scrapped">装備の廃棄</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByImprovement">装備改修</String>
+  <String Key="ScrappingHistory_Reason_Sunk">沈没</String>
 
   <String Key="Tool_ExpeditionOverview">遠征一覧</String>
   

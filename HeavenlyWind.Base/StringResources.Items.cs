@@ -201,6 +201,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Window_DevelopmentHistory => GetString(nameof(Window_DevelopmentHistory));
         public string Window_SortieHistory => GetString(nameof(Window_SortieHistory));
         public string Window_ExpeditionHistory => GetString(nameof(Window_ExpeditionHistory));
+        public string Window_ScrappingHistory => GetString(nameof(Window_ScrappingHistory));
         public string Window_ClosingConfirmation => GetString(nameof(Window_ClosingConfirmation));
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
@@ -281,6 +282,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ExpeditionHistory_Name => GetString(nameof(ExpeditionHistory_Name));
         public string ExpeditionHistory_Result => GetString(nameof(ExpeditionHistory_Result));
         public string ExpeditionHistory_Reward => GetString(nameof(ExpeditionHistory_Reward));
+
+        public string ScrappingHistory_ShipOrEquipment => GetString(nameof(ScrappingHistory_ShipOrEquipment));
+        public string ScrappingHistory_Reason => GetString(nameof(ScrappingHistory_Reason));
+        public string ScrappingHistory_Reason_ConsumedByModernization => GetString(nameof(ScrappingHistory_Reason_ConsumedByModernization));
+        public string ScrappingHistory_Reason_Dismantled => GetString(nameof(ScrappingHistory_Reason_Dismantled));
+        public string ScrappingHistory_Reason_Scrapped => GetString(nameof(ScrappingHistory_Reason_Scrapped));
+        public string ScrappingHistory_Reason_ConsumedByImprovement => GetString(nameof(ScrappingHistory_Reason_ConsumedByImprovement));
+        public string ScrappingHistory_Reason_Sunk => GetString(nameof(ScrappingHistory_Reason_Sunk));
 
         public string Tool_ExpeditionOverview => GetString(nameof(Tool_ExpeditionOverview));
 
