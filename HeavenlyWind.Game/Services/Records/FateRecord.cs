@@ -14,6 +14,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     {
         public override string GroupName => "fate";
 
+        HashSet<Ship> r_SunkShips = new HashSet<Ship>();
+
         internal FateRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
             var rBattleResultApis = new[]
@@ -22,6 +24,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_combined_battle/battleresult",
             };
             DisposableObjects.Add(SessionService.Instance.Subscribe(rBattleResultApis, ProcessBattleResult));
+
+            DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", delegate
+            {
+                if (r_SunkShips.Count == 0)
+                    return;
+
+                var rAliveShips = r_SunkShips.Intersect(KanColleGame.Current.Port.Ships.Values);
+                DeleteShipFate(rAliveShips);
+
+                r_SunkShips.Clear();
+            }));
         }
 
         protected override void CreateTable()
@@ -125,6 +138,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
+        void DeleteShipFate(IEnumerable<Ship> rpShips)
+        {
+            if (!rpShips.Any())
+                return;
+
+            using (var rTransaction = Connection.BeginTransaction())
+            {
+                var rEquipmentIDs = rpShips.SelectMany(r => r.EquipedEquipment).Select(r => r.ID).ToArray();
+
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = $"DELETE FROM ship_fate WHERE id IN ({rpShips.Select(r => r.ID.ToString()).Join(", ")});";
+
+                    if (rEquipmentIDs.Length > 0)
+                        rCommand.CommandText += $"DELETE FROM equipment_fate WHERE id IN ({rEquipmentIDs.Select(r => r.ToString()).Join(", ")});";
+
+                    rCommand.ExecuteNonQuery();
+                }
+
+                rTransaction.Commit();
+            }
+        }
+
         void ProcessBattleResult(ApiData rpData)
         {
             var rBattle = BattleInfo.Current;
@@ -134,7 +170,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (rCurrentStage.FriendEscort != null)
                 rParticipants = rParticipants.Concat(rCurrentStage.FriendEscort);
 
-            var rSunkShips = rParticipants.Where(r => r.State == BattleParticipantState.Damaged).Select(r => ((FriendShip)r.Participant).Ship).ToArray();
+            var rSunkShips = rParticipants.Where(r => r.State == BattleParticipantState.Damaged).Select(r => ((FriendShip)r.Participant).Ship).Where(r_SunkShips.Add).ToArray();
             if (rSunkShips.Length == 0)
                 return;
 
