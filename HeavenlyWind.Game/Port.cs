@@ -79,12 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rShip in rConsumedShips)
                     Ships.Remove(rShip);
 
-                var rRecord = RecordService.Instance?.Fate;
-                if (rRecord != null)
-                {
-                    rRecord.AddShipFate(rConsumedShips, Fate.ConsumedByModernization);
-                    rRecord.AddEquipmentFate(rConsumedEquipment, Fate.ConsumedByModernization);
-                }
+                RecordService.Instance?.Fate?.AddShipFate(rConsumedShips, Fate.ConsumedByModernization);
 
                 UpdateShipsCore();
                 OnPropertyChanged(nameof(Equipment));
@@ -114,12 +109,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 var rShip = Ships[int.Parse(r.Requests["api_ship_id"])];
 
-                var rRecord = RecordService.Instance?.Fate;
-                if (rRecord != null)
-                {
-                    rRecord.AddShipFate(rShip, Fate.Dismantled);
-                    rRecord.AddEquipmentFate(rShip.EquipedEquipment, Fate.Dismantled);
-                }
+                RecordService.Instance?.Fate?.AddShipFate(rShip, Fate.Dismantled);
 
                 foreach (var rEquipment in rShip.EquipedEquipment)
                     Equipment.Remove(rEquipment);

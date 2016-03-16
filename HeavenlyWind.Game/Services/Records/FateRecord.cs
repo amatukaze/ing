@@ -48,30 +48,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        internal void AddShipFate(Ship rpShip, Fate rpFate)
-        {
-            using (var rCommand = Connection.CreateCommand())
-            {
-                rCommand.CommandText = "INSERT OR IGNORE INTO ship_fate(id, ship, level, time, fate) VALUES(@id, @ship, @level, strftime('%s', 'now'), @fate);";
-                rCommand.Parameters.AddWithValue("@id", rpShip.ID);
-                rCommand.Parameters.AddWithValue("@ship", rpShip.Info.ID);
-                rCommand.Parameters.AddWithValue("@level", rpShip.Level);
-                rCommand.Parameters.AddWithValue("@fate", (int)rpFate);
-
-                rCommand.ExecuteNonQuery();
-            }
-        }
-        internal void AddShipFate(IEnumerable<Ship> rpShips, Fate rpFate)
-        {
-            using (var rCommand = Connection.CreateCommand())
-            {
-                rCommand.CommandText = "INSERT OR IGNORE INTO ship_fate(id, ship, level, time, fate) VALUES" + rpShips.Select(r => $"({r.ID}, {r.Info.ID}, {r.Level}, strftime('%s', 'now'), @fate)").Join(", ") + ";";
-                rCommand.Parameters.AddWithValue("@fate", (int)rpFate);
-
-                rCommand.ExecuteNonQuery();
-            }
-        }
-
         internal void AddEquipmentFate(Equipment rpEquipment, Fate rpFate)
         {
             using (var rCommand = Connection.CreateCommand())
@@ -86,14 +62,66 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
         }
-        internal void AddEquipmentFate(IEnumerable<Equipment> rpEquipment, Fate rpFate)
+        internal void AddEquipmentFate(IEnumerable<Equipment> rpEquipment, Fate rpFate, ulong rpTimestamp = 0)
         {
+            if (!rpEquipment.Any())
+                return;
+
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT OR IGNORE INTO equipment_fate(id, equipment, level, proficiency, time, fate) VALUES" + rpEquipment.Select(r => $"({r.ID}, {r.Info.ID}, {r.Level}, {r.Proficiency}, strftime('%s', 'now'), @fate)").Join(", ") + ";";
+                rCommand.CommandText = "INSERT OR IGNORE INTO equipment_fate(id, equipment, level, proficiency, time, fate) VALUES" + rpEquipment.Select(r => $"({r.ID}, {r.Info.ID}, {r.Level}, {r.Proficiency}, @timestamp, @fate)").Join(", ") + ";";
+                rCommand.Parameters.AddWithValue("@timestamp", rpTimestamp == 0 ? DateTimeOffset.Now.ToUnixTime() : rpTimestamp);
                 rCommand.Parameters.AddWithValue("@fate", (int)rpFate);
 
                 rCommand.ExecuteNonQuery();
+            }
+        }
+
+        internal void AddShipFate(Ship rpShip, Fate rpFate, ulong rpTimestamp = 0)
+        {
+            using (var rTransaction = Connection.BeginTransaction())
+            {
+                var rTimestamp = rpTimestamp == 0 ? DateTimeOffset.Now.ToUnixTime() : rpTimestamp;
+
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "INSERT OR IGNORE INTO ship_fate(id, ship, level, time, fate) VALUES(@id, @ship, @level, @timestamp, @fate);";
+                    rCommand.Parameters.AddWithValue("@id", rpShip.ID);
+                    rCommand.Parameters.AddWithValue("@ship", rpShip.Info.ID);
+                    rCommand.Parameters.AddWithValue("@level", rpShip.Level);
+                    rCommand.Parameters.AddWithValue("@timestamp", rTimestamp);
+                    rCommand.Parameters.AddWithValue("@fate", (int)rpFate);
+
+                    rCommand.ExecuteNonQuery();
+                }
+
+                if (rpShip.EquipedEquipment.Count > 0)
+                    AddEquipmentFate(rpShip.EquipedEquipment, rpFate, rTimestamp);
+
+                rTransaction.Commit();
+            }
+        }
+        internal void AddShipFate(IEnumerable<Ship> rpShips, Fate rpFate, ulong rpTimestamp = 0)
+        {
+            if (!rpShips.Any())
+                return;
+
+            using (var rTransaction = Connection.BeginTransaction())
+            {
+                var rTimestamp = rpTimestamp == 0 ? DateTimeOffset.Now.ToUnixTime() : rpTimestamp;
+
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "INSERT OR IGNORE INTO ship_fate(id, ship, level, time, fate) VALUES" + rpShips.Select(r => $"({r.ID}, {r.Info.ID}, {r.Level}, @timestamp, @fate)").Join(", ") + ";";
+                    rCommand.Parameters.AddWithValue("@timestamp", rTimestamp);
+                    rCommand.Parameters.AddWithValue("@fate", (int)rpFate);
+
+                    rCommand.ExecuteNonQuery();
+                }
+
+                AddEquipmentFate(rpShips.SelectMany(r => r.EquipedEquipment), rpFate, rTimestamp);
+
+                rTransaction.Commit();
             }
         }
 
@@ -110,10 +138,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (rSunkShips.Length == 0)
                 return;
 
-            var rSunkEquipment = rSunkShips.SelectMany(r => r.EquipedEquipment);
-
-            AddShipFate(rSunkShips, Fate.Sunk);
-            AddEquipmentFate(rSunkEquipment, Fate.Sunk);
+            AddShipFate(rSunkShips, Fate.Sunk, (ulong)rBattle.ID);
         }
 
         public async Task<List<RecordItem>> LoadRecordsAsync()
