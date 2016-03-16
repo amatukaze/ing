@@ -52,6 +52,37 @@
 
         <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
             <ListView ItemsSource="{Binding Records}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEquipment}" Value="False" />
+                                    <Condition Binding="{Binding Ship.Rarity, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=4}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEquipment}" Value="False" />
+                                    <Condition Binding="{Binding Ship.Rarity, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=6}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter Property="Foreground" Value="Yellow" />
+                            </MultiDataTrigger>
+
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsEquipment}" Value="True" />
+                                    <Condition Binding="{Binding Equipment.Rarity, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=3}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter Property="Foreground" Value="Yellow" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="150">
