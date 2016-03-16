@@ -1,4 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -14,6 +16,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal FateRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
+            var rBattleResultApis = new[]
+            {
+                "api_req_sortie/battleresult",
+                "api_req_combined_battle/battleresult",
+            };
+            DisposableObjects.Add(SessionService.Instance.Subscribe(rBattleResultApis, ProcessBattleResult));
         }
 
         protected override void CreateTable()
@@ -87,6 +95,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                 rCommand.ExecuteNonQuery();
             }
+        }
+
+        void ProcessBattleResult(ApiData rpData)
+        {
+            var rBattle = BattleInfo.Current;
+            var rCurrentStage = rBattle.CurrentStage;
+
+            IEnumerable<BattleParticipantSnapshot> rParticipants = rCurrentStage.FriendMain;
+            if (rCurrentStage.FriendEscort != null)
+                rParticipants = rParticipants.Concat(rCurrentStage.FriendEscort);
+
+            var rSunkShips = rParticipants.Where(r => r.State == BattleParticipantState.Damaged).Select(r => ((FriendShip)r.Participant).Ship).ToArray();
+            if (rSunkShips.Length == 0)
+                return;
+
+            var rSunkEquipment = rSunkShips.SelectMany(r => r.EquipedEquipment);
+
+            AddShipFate(rSunkShips, Fate.Sunk);
+            AddEquipmentFate(rSunkEquipment, Fate.Sunk);
         }
 
         public async Task<List<RecordItem>> LoadRecordsAsync()
