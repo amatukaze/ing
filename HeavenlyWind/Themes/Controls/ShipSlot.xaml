@@ -24,11 +24,9 @@
                                     <Border.ToolTip>
                                         <ToolTip>
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock>
-                                                    <Run Text="{rb:ExtraStringResource Equipment, Equipment.Info.ID, Equipment.Info.Name}" />
-                                                    <Run Text="{Binding Equipment.ProficiencyText, Mode=OneWay}" />
-                                                    <Run Text="{Binding Equipment.LevelText, Mode=OneWay}" />
-                                                </TextBlock>
+                                                <TextBlock Text="{rb:ExtraStringResource Equipment, Equipment.Info.ID, Equipment.Info.Name}" />
+                                                <TextBlock Name="ToolTipProficiency" Text="{Binding Equipment.ProficiencyText}" Margin="4, 0, 0, 0" />
+                                                <TextBlock Name="ToolTipLevel" Text="{Binding Equipment.LevelText}" Margin="4, 0, 0, 0" />
                                                 <TextBlock Name="ToolTipPlaneCount" Margin="4, 0, 0, 0">
                                                     [<Run Name="ToolTipCurrentPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
                                                 </TextBlock>
@@ -53,6 +51,7 @@
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Equipment.Level}" Value="0">
                                         <Setter TargetName="Level" Property="Visibility" Value="Hidden" />
+                                        <Setter TargetName="ToolTipLevel" Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Equipment.Level}" Value="10">
                                         <Setter TargetName="Level" Property="Text" Value="max" />
@@ -60,6 +59,7 @@
 
                                     <DataTrigger Binding="{Binding Equipment.Proficiency}" Value="0">
                                         <Setter TargetName="Proficiency" Property="Visibility" Value="Hidden" />
+                                        <Setter TargetName="ToolTipProficiency" Property="Visibility" Value="Collapsed" />
                                     </DataTrigger>
 
                                     <MultiDataTrigger>
