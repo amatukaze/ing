@@ -1,7 +1,9 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -13,6 +15,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public Fleet Fleet { get; }
         public Fleet EscortFleet { get; }
+
+        public IList<IParticipant> MainShips { get; }
+        public IList<IParticipant> EscortShips { get; }
+
         public MapInfo Map { get; }
 
         public SortieNodeInfo Node { get; private set; }
@@ -53,8 +59,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             r_Current = this;
 
             Fleet = rpFleet;
+            MainShips = Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+
             if (KanColleGame.Current.Port.Fleets.CombinedFleetType != 0 && rpFleet.ID == 1)
+            {
                 EscortFleet = KanColleGame.Current.Port.Fleets[2];
+                EscortShips = EscortFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+            }
 
             Map = KanColleGame.Current.Maps[rpMapID];
         }

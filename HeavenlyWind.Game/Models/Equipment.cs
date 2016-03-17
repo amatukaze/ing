@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
@@ -6,6 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     public class Equipment : RawDataWrapper<RawEquipment>, IID
     {
         public static Equipment Dummy { get; } = new Equipment(new RawEquipment() { ID = -1, EquipmentID = -1 });
+        static Dictionary<int, Equipment> r_Dummies = new Dictionary<int, Equipment>();
 
         public int ID => RawData.ID;
 
@@ -44,6 +46,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Info = rInfo;
             else
                 Info = EquipmentInfo.Dummy;
+        }
+
+        public static Equipment GetDummy(int rpID)
+        {
+            Equipment rResult;
+            if (!r_Dummies.TryGetValue(rpID, out rResult))
+            {
+                EquipmentInfo rMasterInfo;
+                if (!KanColleGame.Current.MasterInfo.Equipment.TryGetValue(rpID, out rMasterInfo))
+                    return null;
+
+                r_Dummies.Add(rpID, rResult = new Equipment(new RawEquipment() { ID = -1, EquipmentID = rpID }));
+            }
+
+            return rResult;
         }
 
         protected override void OnRawDataUpdated()

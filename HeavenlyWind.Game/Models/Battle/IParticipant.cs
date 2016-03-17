@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -7,5 +7,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         ShipInfo Info { get; }
 
         int Level { get; }
+        IList<ShipSlot> Slots { get; }
     }
 }
