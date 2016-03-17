@@ -12,6 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         public bool IsMVP => false;
         public Ship Ship => null;
+        public ShipSlot ExtraSlot => null;
 
         public EnemyShip(int rpID, int rpLevel, int[] rpEquipment = null)
         {
