@@ -58,7 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         internal async void CheckForUpdate()
         {
-            if (Environment.GetCommandLineArgs().Any(r => r.OICEquals("--no-check-update")) || !Preference.Current.CheckUpdate || !NetworkInterface.GetIsNetworkAvailable())
+            if (Environment.GetCommandLineArgs().Any(r => r.OICEquals("--no-check-update")) || !NetworkInterface.GetIsNetworkAvailable())
                 return;
 
             try
@@ -78,6 +78,25 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 var rResult = JObject.Load(rReader).ToObject<CheckForUpdateResult>();
 
                 Info = rResult.Update;
+
+                if (Info.IsAvailable)
+                    switch (Preference.Current.Update.NotificationMode)
+                    {
+                        case UpdateNotificationMode.Disabled:
+                            Info.IsAvailable = false;
+                            break;
+
+                        case UpdateNotificationMode.IgnoreOptionalUpdate:
+                            var rCurrentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                            var rLastestVersion = new Version(Info.Version);
+                            if (!Info.IsImportantUpdate &&
+                                rCurrentVersion.Major == rLastestVersion.Major &&
+                                rCurrentVersion.Minor == rLastestVersion.Minor &&
+                                rCurrentVersion.Build == rLastestVersion.Build &&
+                                rCurrentVersion.Revision < rLastestVersion.Revision)
+                                Info.IsAvailable = false;
+                            break;
+                    }
                 OnPropertyChanged(nameof(Info));
 
                 await ProcessFiles(rResult);
