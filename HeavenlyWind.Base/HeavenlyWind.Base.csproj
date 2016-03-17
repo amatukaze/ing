@@ -89,10 +89,12 @@
     <Compile Include="Models\Preferences\LayoutPreference.cs" />
     <Compile Include="Models\Preferences\NetworkPreference.cs" />
     <Compile Include="Models\Preferences\ScreenshotPreference.cs" />
+    <Compile Include="Models\Preferences\UpdatePreference.cs" />
     <Compile Include="Models\Preferences\UpstreamProxyPreference.cs" />
     <Compile Include="Models\Preferences\WindowPreference.cs" />
     <Compile Include="Models\ScreenshotImageFormat.cs" />
     <Compile Include="Models\UpdateChannel.cs" />
+    <Compile Include="Models\UpdateNotificationMode.cs" />
     <Compile Include="MultiplyExtension.cs" />
     <Compile Include="Preference.cs" />
     <Compile Include="Preference.Data.cs" />

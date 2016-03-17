@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Reflection;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -25,10 +26,18 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public ICommand DownloadCommand { get; }
 
+        public ICommand HideNotificationCommand { get; }
+
         UpdateService()
         {
+            InitializeFilesToBeChecked();
+
             DownloadCommand = new DelegatedCommand(() => Process.Start(Info?.Link));
 
+            HideNotificationCommand = new DelegatedCommand<UpdateNotificationMode>(HideNotification);
+        }
+        void InitializeFilesToBeChecked()
+        {
             var rRootPath = Path.GetDirectoryName(GetType().Assembly.Location);
             var rRootPathLength = rRootPath.Length + 1;
 
@@ -52,7 +61,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         internal async void CheckForUpdate()
         {
-            if (Environment.GetCommandLineArgs().Any(r => r.OICEquals("--no-check-update")) || !Preference.Current.CheckUpdate || !NetworkInterface.GetIsNetworkAvailable())
+            if (Environment.GetCommandLineArgs().Any(r => r.OICEquals("--no-check-update")) || !NetworkInterface.GetIsNetworkAvailable())
                 return;
 
             try
@@ -64,8 +73,39 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_CheckForUpdate_Exception, e.Message));
             }
         }
-
         async Task CheckForUpdateCore()
+        {
+            using (var rResponse = await CreateRequest().GetResponseAsync())
+            using (var rReader = new JsonTextReader(new StreamReader(rResponse.GetResponseStream())))
+            {
+                var rResult = JObject.Load(rReader).ToObject<CheckForUpdateResult>();
+
+                Info = rResult.Update;
+
+                if (Info.IsAvailable)
+                    switch (Preference.Current.Update.NotificationMode)
+                    {
+                        case UpdateNotificationMode.Disabled:
+                            Info.IsAvailable = false;
+                            break;
+
+                        case UpdateNotificationMode.IgnoreOptionalUpdate:
+                            var rCurrentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                            var rLastestVersion = new Version(Info.Version);
+                            if (!Info.IsImportantUpdate &&
+                                rCurrentVersion.Major == rLastestVersion.Major &&
+                                rCurrentVersion.Minor == rLastestVersion.Minor &&
+                                rCurrentVersion.Build == rLastestVersion.Build &&
+                                rCurrentVersion.Revision < rLastestVersion.Revision)
+                                Info.IsAvailable = false;
+                            break;
+                    }
+                OnPropertyChanged(nameof(Info));
+
+                await ProcessFiles(rResult);
+            }
+        }
+        HttpWebRequest CreateRequest()
         {
             var rRequest = WebRequest.CreateHttp("https://api.sakuno.moe/ing/check_for_update");
             rRequest.UserAgent = ProductInfo.UserAgent;
@@ -75,7 +115,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 client = new
                 {
-                    version = ProductInfo.AssemblyVersionString,
+                    version = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                 },
                 files = r_FilesToBeChecked.Select(r =>
                 {
@@ -89,54 +129,59 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 }).ToArray(),
             };
 
-            using (var rRequestWriter = new StreamWriter(await rRequest.GetRequestStreamAsync()))
+            using (var rRequestWriter = new StreamWriter(rRequest.GetRequestStream()))
             {
                 rRequestWriter.Write(JsonConvert.SerializeObject(rData));
                 rRequestWriter.Flush();
             }
 
-            using (var rResponse = await rRequest.GetResponseAsync())
-            using (var rReader = new JsonTextReader(new StreamReader(rResponse.GetResponseStream())))
-            {
-                var rResult = JObject.Load(rReader).ToObject<CheckForUpdateResult>();
+            return rRequest;
+        }
+        async Task ProcessFiles(CheckForUpdateResult rpResult)
+        {
+            if (rpResult.Files != null)
+                foreach (var rFileUpdate in rpResult.Files)
+                {
+                    var rFile = new FileInfo(rFileUpdate.Name);
 
-                Info = rResult.Update;
-                OnPropertyChanged(nameof(Info));
-
-                if (rResult.Files != null)
-                    foreach (var rFileUpdate in rResult.Files)
+                    switch (rFileUpdate.Action)
                     {
-                        var rFile = new FileInfo(rFileUpdate.Name);
+                        case CheckForUpdateFileAction.CreateOrOverwrite:
+                            EnsureDirectory(rFile);
 
-                        switch (rFileUpdate.Action)
-                        {
-                            case CheckForUpdateFileAction.CreateOrOverwrite:
-                                EnsureDirectory(rFile);
+                            using (var rWriter = new StreamWriter(rFile.Open(FileMode.Create, FileAccess.Write, FileShare.Read)))
+                                await rWriter.WriteAsync(rFileUpdate.Content);
 
-                                using (var rWriter = new StreamWriter(rFile.Open(FileMode.Create, FileAccess.Write, FileShare.Read)))
-                                    await rWriter.WriteAsync(rFileUpdate.Content);
+                            rFile.LastWriteTime = DateTimeUtil.FromUnixTime((ulong)rFileUpdate.Timestamp).LocalDateTime;
+                            break;
 
-                                rFile.LastWriteTime = DateTimeUtil.FromUnixTime((ulong)rFileUpdate.Timestamp).LocalDateTime;
-                                break;
+                        case CheckForUpdateFileAction.Delete:
+                            NativeMethods.Kernel32.DeleteFileW(rFile.FullName);
+                            break;
 
-                            case CheckForUpdateFileAction.Delete:
-                                NativeMethods.Kernel32.DeleteFileW(rFile.FullName);
-                                break;
+                        case CheckForUpdateFileAction.Rename:
+                            EnsureDirectory(rFile);
 
-                            case CheckForUpdateFileAction.Rename:
-                                EnsureDirectory(rFile);
-
-                                rFile.MoveTo(rFileUpdate.Content);
-                                break;
-                        }
+                            rFile.MoveTo(rFileUpdate.Content);
+                            break;
                     }
-            }
+                }
         }
         void EnsureDirectory(FileInfo rpFile)
         {
             var rDirectory = rpFile.Directory;
             if (!rDirectory.Exists)
                 rDirectory.Create();
+        }
+
+        void HideNotification(UpdateNotificationMode rpMode)
+        {
+            if (Info == null)
+                return;
+
+            Preference.Current.Update.NotificationMode = rpMode;
+            Info.IsAvailable = false;
+            OnPropertyChanged(nameof(Info));
         }
     }
 }

@@ -43,10 +43,8 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("firstrun")]
         public bool FirstRun { get; set; } = true;
 
-        [JsonProperty("checkupdate")]
-        public bool CheckUpdate { get; set; } = true;
-        [JsonProperty("channel")]
-        public UpdateChannel UpdateChannel { get; set; } = UpdateChannel.Release;
+        [JsonProperty("update")]
+        public UpdatePreference Update { get; set; } = new UpdatePreference();
 
         [JsonProperty("network")]
         public NetworkPreference Network { get; set; } = new NetworkPreference();

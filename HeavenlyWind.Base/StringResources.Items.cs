@@ -46,6 +46,9 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Update_NewVersionIsAvailable => GetString(nameof(Update_NewVersionIsAvailable));
         public string Update_Download => GetString(nameof(Update_Download));
+        public string Update_Notification_Ignore => GetString(nameof(Update_Notification_Ignore));
+        public string Update_Notification_IgnoreOptionalUpdate => GetString(nameof(Update_Notification_IgnoreOptionalUpdate));
+        public string Update_Notification_AlwaysIgnore => GetString(nameof(Update_Notification_AlwaysIgnore));
 
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 
