@@ -88,19 +88,7 @@
                 <rc:AppIcon />
                 <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Product_Name}" />
 
-                <Border DataContext="{Binding UpdateService}" Background="Yellow" Visibility="{Binding Info.IsAvailable, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" Padding="8, 0" Margin="20, 0, 0, 0" WindowChrome.IsHitTestVisibleInChrome="True">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="8" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="{rb:StringResource Main.Update_NewVersionIsAvailable}" Foreground="Black" />
-
-                        <Button Content="{rb:StringResource Main.Update_Download}" Command="{Binding DownloadCommand}" Padding="8, 2" VerticalAlignment="Center" Grid.Column="2" />
-                    </Grid>
-                </Border>
+                <rv:UpdateNotification Margin="20, 0, 0, 0" WindowChrome.IsHitTestVisibleInChrome="True" />
             </StackPanel>
         </DockPanel>
 

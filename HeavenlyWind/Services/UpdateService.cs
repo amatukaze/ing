@@ -26,12 +26,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public ICommand DownloadCommand { get; }
 
+        public ICommand HideNotificationCommand { get; }
+
         UpdateService()
         {
             InitializeFilesToBeChecked();
 
             DownloadCommand = new DelegatedCommand(() => Process.Start(Info?.Link));
 
+            HideNotificationCommand = new DelegatedCommand<UpdateNotificationMode>(HideNotification);
         }
         void InitializeFilesToBeChecked()
         {
@@ -169,6 +172,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             var rDirectory = rpFile.Directory;
             if (!rDirectory.Exists)
                 rDirectory.Create();
+        }
+
+        void HideNotification(UpdateNotificationMode rpMode)
+        {
+            if (Info == null)
+                return;
+
+            Preference.Current.Update.NotificationMode = rpMode;
+            Info.IsAvailable = false;
+            OnPropertyChanged(nameof(Info));
         }
     }
 }

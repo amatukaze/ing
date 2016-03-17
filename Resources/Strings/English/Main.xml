@@ -42,6 +42,9 @@
 
   <String Key="Update_NewVersionIsAvailable">A new version is available!</String>
   <String Key="Update_Download">Download</String>
+  <String Key="Update_Notification_Ignore">Ignore</String>
+  <String Key="Update_Notification_IgnoreOptionalUpdate">Ignore optional update</String>
+  <String Key="Update_Notification_AlwaysIgnore">Always ignore</String>
 
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
 

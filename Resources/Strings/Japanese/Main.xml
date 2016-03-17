@@ -42,6 +42,9 @@
 
   <String Key="Update_NewVersionIsAvailable">新しいバージョンがあります！</String>
   <String Key="Update_Download">更新します</String>
+  <String Key="Update_Notification_Ignore">無視する</String>
+  <String Key="Update_Notification_IgnoreOptionalUpdate">重要でない更新を無視する</String>
+  <String Key="Update_Notification_AlwaysIgnore">常に無視する</String>
 
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
