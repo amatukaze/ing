@@ -29,7 +29,66 @@
         </Style>
 
         <DataTemplate x:Key="ParticipantTemplate">
-            <Border Name="Border" Height="30">
+            <Border Name="Border" Background="Transparent" Height="30" Grid.IsSharedSizeScope="True">
+                <Border.ToolTip>
+                    <ToolTip Placement="Left">
+                        <StackPanel>
+                            <ItemsControl ItemsSource="{Binding Slots}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="4" />
+                                                <ColumnDefinition SharedSizeGroup="Name" />
+                                                <ColumnDefinition Width="4" />
+                                                <ColumnDefinition SharedSizeGroup="PlaneCount" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <rc:EquipmentIcon Type="{Binding Equipment.Info.Icon}" VerticalAlignment="Center" />
+                                            <StackPanel Orientation="Horizontal" Margin="0, 4" Grid.Column="2">
+                                                <TextBlock Text="{rb:ExtraStringResource Equipment, Equipment.Info.ID, Equipment.Info.Name}" />
+                                                <TextBlock Name="Proficiency" Text="{Binding Equipment.ProficiencyText}" Margin="4, 0, 0, 0" />
+                                                <TextBlock Name="Level" Text="{Binding Equipment.LevelText}" Margin="4, 0, 0, 0" />
+                                            </StackPanel>
+
+                                            <TextBlock Name="PlaneCount" HorizontalAlignment="Right" Grid.Column="4">
+                                                [<Run Name="CurrentPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
+                                            </TextBlock>
+                                        </Grid>
+
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Equipment.Level}" Value="0">
+                                                <Setter TargetName="Level" Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Equipment.Proficiency}" Value="0">
+                                                <Setter TargetName="Proficiency" Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding Equipment.Info.IsPlane}" Value="False">
+                                                <Setter TargetName="PlaneCount" Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MaxPlaneCount}" Value="0">
+                                                <Setter TargetName="PlaneCount" Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding HasLostPlane}" Value="True">
+                                                <Setter TargetName="CurrentPlaneCount" Property="Foreground" Value="Red" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Margin="0, 2, 0, 0" Padding="0, 2, 0, 0" Visibility="{rb:CollapsedIfNull ExtraSlot}">
+                                <StackPanel DataContext="{Binding ExtraSlot}" Orientation="Horizontal">
+                                    <rc:EquipmentIcon Type="{Binding Equipment.Info.Icon}" VerticalAlignment="Center" />
+                                    <TextBlock Text="{rb:ExtraStringResource Equipment, Equipment.Info.ID, Equipment.Info.Name}" Margin="4, 4, 0, 4" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ToolTip>
+                </Border.ToolTip>
+
                 <TextBlock DataContext="{Binding Info}">
                     <Run Name="Name" Text="{rb:ExtraStringResource Ship, ID, NameWithoutAbyssalShipClass}" /><Run Style="{StaticResource AbyssalShipClass}" />
                 </TextBlock>

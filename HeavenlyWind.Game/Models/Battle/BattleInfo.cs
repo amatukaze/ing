@@ -65,9 +65,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Current = this;
 
             var rSortie = KanColleGame.Current.Sortie;
-            Participants.FriendMain = rSortie.Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
-            if (rSortie.EscortFleet != null)
-                Participants.FriendEscort = rSortie.EscortFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+            Participants.FriendMain = rSortie.MainShips;
+            Participants.FriendEscort = rSortie.EscortShips;
 
             CurrentStage = new FakeStage(this);
             OnPropertyChanged(nameof(CurrentStage));
@@ -138,10 +137,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         {
             Participants.Enemy = rpData.EnemyShipTypeIDs.Skip(1).TakeWhile(r => r != -1).Select((r, i) =>
             {
-                i++;
-                var rLevel = rpData.EnemyShipLevels[i];
+                var rLevel = rpData.EnemyShipLevels[i + 1];
+                var rEquipment = rpData.EnemyEquipment[i];
 
-                return new EnemyShip(r, rLevel);
+                return new EnemyShip(r, rLevel, rEquipment);
             }).ToList<IParticipant>().AsReadOnly();
         }
         void SetFormationAndEngagementForm(ApiData rpData)
