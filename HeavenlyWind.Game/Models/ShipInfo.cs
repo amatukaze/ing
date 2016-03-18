@@ -57,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int MaxBulletConsumption => RawData.MaxBulletConsumption;
 
         public int SlotCount => RawData.SlotCount;
-        public int[] PlaneCountInSlot => RawData.PlaneCountInSlot ?? Enumerable.Repeat(0, SlotCount).ToArray();
+        public int[] PlaneCountInSlot => RawData.PlaneCountInSlot;
 
         public int? RemodelingMinimumLevel => RawData.RemodelingMinimumLevel == 0 ? (int?)null : RawData.RemodelingMinimumLevel;
         public ShipInfo ShipAfterRemodeling => RawData.ShipIDAfterRemodel == 0 ? null : KanColleGame.Current.MasterInfo.Ships[RawData.ShipIDAfterRemodel];

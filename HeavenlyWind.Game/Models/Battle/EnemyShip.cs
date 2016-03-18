@@ -22,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             if (rpEquipment != null)
                 Slots = rpEquipment.TakeWhile(r => r != -1).Select((r, i) =>
                 {
-                    var rMaxPlaneCount = i <= Info.SlotCount ? Info.PlaneCountInSlot[i] : 0;
+                    var rMaxPlaneCount = i < Info.SlotCount ? Info.PlaneCountInSlot?[i] ?? 0 : 0;
                     return new ShipSlot(Equipment.GetDummy(r), rMaxPlaneCount, rMaxPlaneCount);
                 }).ToList();
         }
