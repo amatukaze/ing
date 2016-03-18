@@ -43,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
 
-            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, r => r_Current?.Explore(r.Requests, (RawMapExploration)r.Data));
+            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, r => r_Current?.Explore((RawMapExploration)r.Data));
 
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Map = KanColleGame.Current.Maps[rpMapID];
         }
 
-        void Explore(IDictionary<string, string> rpRequests, RawMapExploration rpData)
+        void Explore(RawMapExploration rpData)
         {
             DirectionAngle = MapService.Instance.GetAngle(Map.ID, rpData.StartNode ?? Node?.ID ?? 0, rpData.Node);
             OnPropertyChanged(nameof(DirectionAngle));

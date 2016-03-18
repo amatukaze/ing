@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
         public string Api { get; internal set; }
 
-        public IDictionary<string, string> Requests { get; internal set; }
+        public IDictionary<string, string> Parameters { get; internal set; }
 
         internal Subject<ApiData> ProcessSucceeded { get; } = new Subject<ApiData>();
 

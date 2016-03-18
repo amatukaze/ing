@@ -53,8 +53,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             });
             SessionService.Instance.Subscribe("api_req_map/select_eventmap_rank", r =>
             {
-                var rMap = Maps[int.Parse(r.Requests["api_maparea_id"]) * 10 + int.Parse(r.Requests["api_map_no"])];
-                rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Requests["api_rank"]);
+                var rMap = Maps[int.Parse(r.Parameters["api_maparea_id"]) * 10 + int.Parse(r.Parameters["api_map_no"])];
+                rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Parameters["api_rank"]);
             });
 
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, _ =>

@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Expedition
     {
         public override void Process(RawExpeditionResult rpData)
         {
-            var rFleet = Game.Port.Fleets[int.Parse(Requests["api_deck_id"])];
+            var rFleet = Game.Port.Fleets[int.Parse(Parameters["api_deck_id"])];
             var rExpeditionID = Game.MasterInfo.Expeditions.Values.Single(r => r.OriginalName == rpData.Name).ID;
 
             var rLogContent = string.Format(StringResources.Instance.Main.Log_ExpeditionResult,

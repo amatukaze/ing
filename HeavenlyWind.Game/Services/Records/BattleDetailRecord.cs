@@ -222,7 +222,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         }
         void ProcessPracticeFirstStage(ApiData rpData)
         {
-            var rParticipantFleet = KanColleGame.Current.Port.Fleets[int.Parse(rpData.Requests["api_deck_id"])];
+            var rParticipantFleet = KanColleGame.Current.Port.Fleets[int.Parse(rpData.Parameters["api_deck_id"])];
             var rPractice = (PracticeInfo)KanColleGame.Current.Sortie;
             var rOpponent = rPractice.Opponent;
             r_CurrentBattleID = rPractice.Battle.ID;

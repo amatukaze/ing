@@ -8,9 +8,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
     {
         public override void Process(RawMapExploration rpData)
         {
-            var rFleet = Game.Port.Fleets[int.Parse(Requests["api_deck_id"])];
-            var rAreaID = int.Parse(Requests["api_maparea_id"]);
-            var rAreaSubID = int.Parse(Requests["api_mapinfo_no"]);
+            var rFleet = Game.Port.Fleets[int.Parse(Parameters["api_deck_id"])];
+            var rAreaID = int.Parse(Parameters["api_maparea_id"]);
+            var rAreaSubID = int.Parse(Parameters["api_mapinfo_no"]);
 
             Game.Sortie = new SortieInfo(rFleet, rAreaID * 10 + rAreaSubID);
 

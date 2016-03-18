@@ -19,10 +19,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_kousyou/createitem", r =>
             {
-                var rFuelConsumption = int.Parse(r.Requests["api_item1"]);
-                var rBulletConsumption = int.Parse(r.Requests["api_item2"]);
-                var rSteelConsumption = int.Parse(r.Requests["api_item3"]);
-                var rBauxiteConsumption = int.Parse(r.Requests["api_item4"]);
+                var rFuelConsumption = int.Parse(r.Parameters["api_item1"]);
+                var rBulletConsumption = int.Parse(r.Parameters["api_item2"]);
+                var rSteelConsumption = int.Parse(r.Parameters["api_item3"]);
+                var rBauxiteConsumption = int.Parse(r.Parameters["api_item4"]);
 
                 InsertRecord((RawEquipmentDevelopment)r.Data, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             }));

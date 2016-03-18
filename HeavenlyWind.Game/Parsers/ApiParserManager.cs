@@ -88,17 +88,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                 ApiParserBase rParser;
                 if (!rContent.IsNullOrEmpty() && rContent.StartsWith("{") && Parsers.TryGetValue(rApi, out rParser))
                 {
-                    ListDictionary<string, string> rRequests = null;
+                    ListDictionary<string, string> rParameters = null;
                     if (!rRequest.IsNullOrEmpty() && rRequest.Contains('&'))
                     {
-                        rRequests = new ListDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                        rParameters = new ListDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                         foreach (var rParameter in rRequest.Split('&').Where(r => r.Length > 0).Select(r => r.Split('=')))
-                            rRequests.Add(Uri.UnescapeDataString(rParameter[0]), Uri.UnescapeDataString(rParameter[1]));
+                            rParameters.Add(Uri.UnescapeDataString(rParameter[0]), Uri.UnescapeDataString(rParameter[1]));
                     }
 
-                    rParser.Requests = rRequests;
+                    rParser.Parameters = rParameters;
                     rParser.Process(JObject.Parse(rContent));
-                    rParser.Requests = null;
+                    rParser.Parameters = null;
                 }
             }
             catch (ApiFailedException e)

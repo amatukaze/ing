@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
             var rPracticeInfo = Game.Sortie as PracticeInfo;
             if (rPracticeInfo != null)
             {
-                var rParticipantFleet = Game.Port.Fleets[int.Parse(Requests["api_deck_id"])];
+                var rParticipantFleet = Game.Port.Fleets[int.Parse(Parameters["api_deck_id"])];
 
                 rPracticeInfo.Battle = new BattleInfo(rParticipantFleet);
             }

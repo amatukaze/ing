@@ -16,7 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal QuestProgressRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => DeleteRecord(int.Parse(r.Requests["api_quest_id"]))));
+            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => DeleteRecord(int.Parse(r.Parameters["api_quest_id"]))));
         }
 
         protected override void CreateTable()

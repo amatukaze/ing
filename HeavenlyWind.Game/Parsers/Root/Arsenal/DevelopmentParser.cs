@@ -8,10 +8,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
     {
         public override void Process(RawEquipmentDevelopment rpData)
         {
-            var rFuelConsumption = int.Parse(Requests["api_item1"]);
-            var rBulletConsumption = int.Parse(Requests["api_item2"]);
-            var rSteelConsumption = int.Parse(Requests["api_item3"]);
-            var rBauxiteConsumption = int.Parse(Requests["api_item4"]);
+            var rFuelConsumption = int.Parse(Parameters["api_item1"]);
+            var rBulletConsumption = int.Parse(Parameters["api_item2"]);
+            var rSteelConsumption = int.Parse(Parameters["api_item3"]);
+            var rBauxiteConsumption = int.Parse(Parameters["api_item4"]);
 
             Game.Port.Materials.Update(rpData.Materials);
 
