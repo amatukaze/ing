@@ -1,17 +1,17 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class IDTable<T> : IReadOnlyDictionary<int, T> where T : IID
     {
-        IDictionary<int, T> r_Dictionary;
-        public IEnumerable<int> Keys { get { return r_Dictionary.Keys; } }
-        public IEnumerable<T> Values { get { return r_Dictionary.Values; } }
-        public int Count { get { return r_Dictionary.Count; } }
+        HybridDictionary<int, T> r_Dictionary;
+
+        public int Count => r_Dictionary.Count;
+
         public T this[int rpKey]
         {
             get
@@ -24,9 +24,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             }
         }
 
-        public IDTable() : this(new Dictionary<int, T>()) { }
-        public IDTable(IEnumerable<T> rpSource) : this(rpSource.ToDictionary(r => r.ID)) { }
-        public IDTable(Dictionary<int, T> rpSource)
+        public IEnumerable<int> Keys => r_Dictionary.Keys;
+        public IEnumerable<T> Values => r_Dictionary.Values;
+
+        public IDTable() : this(new HybridDictionary<int, T>()) { }
+        public IDTable(HybridDictionary<int, T> rpSource)
         {
             r_Dictionary = rpSource;
         }
@@ -35,6 +37,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         internal void Remove(int rpID) => r_Dictionary.Remove(rpID);
         internal void Remove(T rpData) => r_Dictionary.Remove(rpData.ID);
         internal void Clear() => r_Dictionary.Clear();
+
         public bool ContainsKey(int rpKey) => r_Dictionary.ContainsKey(rpKey);
         public bool TryGetValue(int rpKey, out T ropValue) => r_Dictionary.TryGetValue(rpKey, out ropValue);
 
@@ -48,17 +51,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public IEnumerator<KeyValuePair<int, T>> GetEnumerator() => r_Dictionary.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public override string ToString() => $"Count = {Count}";
+        public override string ToString() => "Count = " + Count;
 
         public bool UpdateRawData<TRawData>(IEnumerable<TRawData> rpRawDataCollection, Func<TRawData, T> rpValueFactory, Action<T, TRawData> rpUpdate)
             where TRawData : IID
         {
             var rResult = false;
 
-            var rRemovedIDs = new HashSet<int>(r_Dictionary.Keys);
+            HashSet<int> rRemovedIDs = null;
+            if (r_Dictionary.Count != 0)
+                rRemovedIDs = new HashSet<int>(r_Dictionary.Keys);
             foreach (var rRawData in rpRawDataCollection)
             {
-                rRemovedIDs.Remove(rRawData.ID);
+                if (rRemovedIDs != null)
+                    rRemovedIDs.Remove(rRawData.ID);
 
                 T rData;
                 if (rpUpdate != null && r_Dictionary.TryGetValue(rRawData.ID, out rData))
@@ -70,11 +76,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             }
 
-            foreach (var rID in rRemovedIDs)
-            {
-                Remove(rID);
-                rResult = true;
-            }
+            if (rRemovedIDs != null)
+                foreach (var rID in rRemovedIDs)
+                {
+                    Remove(rID);
+                    rResult = true;
+                }
 
             return rResult;
         }

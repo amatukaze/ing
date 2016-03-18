@@ -30,7 +30,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     {
                         var rData = JArray.Load(rReader);
 
-                        r_Infos = new IDTable<ExpeditionInfo2>(rData.ToObject<ExpeditionInfo2[]>().ToDictionary(r => r.ID));
+                        r_Infos = rData.Select(r => r.ToObject<ExpeditionInfo2>()).ToIDTable();
                     }
             });
         }
