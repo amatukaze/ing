@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using System;
 using System.Collections.Generic;
@@ -87,10 +88,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                 ApiParserBase rParser;
                 if (!rContent.IsNullOrEmpty() && rContent.StartsWith("{") && Parsers.TryGetValue(rApi, out rParser))
                 {
-                    Dictionary<string, string> rRequests = null;
+                    ListDictionary<string, string> rRequests = null;
                     if (!rRequest.IsNullOrEmpty() && rRequest.Contains('&'))
-                        rRequests = rRequest.Split('&').Where(r => r.Length > 0).Select(r => r.Split('='))
-                            .ToDictionary(r => Uri.UnescapeDataString(r[0]), r => Uri.UnescapeDataString(r[1]));
+                    {
+                        rRequests = new ListDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                        foreach (var rParameter in rRequest.Split('&').Where(r => r.Length > 0).Select(r => r.Split('=')))
+                            rRequests.Add(Uri.UnescapeDataString(rParameter[0]), Uri.UnescapeDataString(rParameter[1]));
+                    }
 
                     rParser.Requests = rRequests;
                     rParser.Process(JObject.Parse(rContent));

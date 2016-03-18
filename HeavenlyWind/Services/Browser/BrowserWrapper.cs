@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Browser;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
@@ -35,7 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         MemoryMappedFile r_ScreenshotMMF;
 
-        static Dictionary<string, string> r_LayoutEngineDependencies;
+        static HybridDictionary<string, string> r_LayoutEngineDependencies;
 
         static BrowserWrapper()
         {
@@ -183,7 +184,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 throw new Exception();
 
             if (rInfo.Dependencies != null)
-                r_LayoutEngineDependencies = rInfo.Dependencies.ToDictionary(r => r.AssemblyName, r => r.Path);
+                r_LayoutEngineDependencies = rInfo.Dependencies.ToHybridDictionary(r => r.AssemblyName, r => r.Path);
 
             var rAssembly = Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rInfo.EntryFile));
             var rType = rAssembly.GetTypes().Where(r => r.GetInterface(typeof(IBrowserProvider).FullName) != null).FirstOrDefault();

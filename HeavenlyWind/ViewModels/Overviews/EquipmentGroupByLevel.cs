@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
     {
         public EquipmentGroupingKey Key { get; }
 
-        Dictionary<int, EquipmentGroupByFleet> r_Fleets;
+        ListDictionary<int, EquipmentGroupByFleet> r_Fleets;
         public IReadOnlyCollection<EquipmentGroupByFleet> Fleets => r_Fleets.Values.OrderBy(r => r.FleetID).ToList();
 
         public int Count { get; set; }
@@ -17,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         internal EquipmentGroupByLevel(EquipmentGroupingKey rpKey, IEnumerable<Equipment> rpEquipment)
         {
             Key = rpKey;
-            r_Fleets = new Dictionary<int, EquipmentGroupByFleet>(5);
+            r_Fleets = new ListDictionary<int, EquipmentGroupByFleet>();
 
             Count = RemainingCount = rpEquipment.Count();
         }

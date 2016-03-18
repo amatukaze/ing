@@ -1,6 +1,6 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
     [TriggerName("api")]
     class ApiTriggerParserBuilder : TriggerParserBuilder
     {
-        static Dictionary<string, Trigger> r_CachedFunctions = new Dictionary<string, Trigger>(StringComparer.OrdinalIgnoreCase);
+        static HybridDictionary<string, Trigger> r_CachedFunctions = new HybridDictionary<string, Trigger>(StringComparer.OrdinalIgnoreCase);
 
         public override Parser<Trigger> Parser { get; } =
             from rApi in from rFirstCharacter in Character(char.IsLetter)

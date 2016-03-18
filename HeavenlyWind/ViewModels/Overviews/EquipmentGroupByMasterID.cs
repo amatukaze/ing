@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         public EquipmentInfo Info { get; }
         public EquipmentTypeViewModel Type { get; }
 
-        Dictionary<EquipmentGroupingKey, EquipmentGroupByLevel> r_LevelMap;
+        ListDictionary<EquipmentGroupingKey, EquipmentGroupByLevel> r_LevelMap = new ListDictionary<EquipmentGroupingKey, EquipmentGroupByLevel>();
         public IReadOnlyCollection<EquipmentGroupByLevel> Levels { get; }
 
         public int Count => r_LevelMap.Values.Sum(r => r.Count);
@@ -20,7 +21,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             Info = rpInfo;
             Type = rpType;
 
-            r_LevelMap = rpEquipment.GroupBy(r => new EquipmentGroupingKey(r.Level, r.Proficiency)).ToDictionary(r => r.Key, r => new EquipmentGroupByLevel(r.Key, r));
+            foreach (var rGroup in rpEquipment.GroupBy(r => new EquipmentGroupingKey(r.Level, r.Proficiency)))
+                r_LevelMap.Add(rGroup.Key, new EquipmentGroupByLevel(rGroup.Key, rGroup));
             Levels = r_LevelMap.OrderBy(r => r.Key.Level).ThenBy(r => r.Key.Proficiency).Select(r => r.Value).ToArray().AsReadOnly();
         }
 

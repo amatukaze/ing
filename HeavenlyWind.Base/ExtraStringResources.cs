@@ -1,23 +1,24 @@
-﻿using System;
+﻿using Sakuno.Collections;
+using System;
 using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
     public class ExtraStringResources : ModelBase
     {
-        public Dictionary<int, string> Ships { get; internal set; }
-        public Dictionary<int, string> ShipTypes { get; internal set; }
-        public Dictionary<int, string> Equipment { get; internal set; }
-        public Dictionary<int, string> Items { get; internal set; }
-        public Dictionary<int, string> Expeditions { get; internal set; }
-        public Dictionary<int, string> Quests { get; internal set; }
-        public Dictionary<int, string> Areas { get; internal set; }
-        public Dictionary<int, string> Maps { get; internal set; }
-        public Dictionary<int, string> ShipLocking { get; internal set; }
+        public HybridDictionary<int, string> Ships { get; internal set; }
+        public HybridDictionary<int, string> ShipTypes { get; internal set; }
+        public HybridDictionary<int, string> Equipment { get; internal set; }
+        public HybridDictionary<int, string> Items { get; internal set; }
+        public HybridDictionary<int, string> Expeditions { get; internal set; }
+        public HybridDictionary<int, string> Quests { get; internal set; }
+        public HybridDictionary<int, string> Areas { get; internal set; }
+        public HybridDictionary<int, string> Maps { get; internal set; }
+        public HybridDictionary<int, string> ShipLocking { get; internal set; }
 
         internal ExtraStringResources() { }
 
-        public Dictionary<int, string> GetTranslations(ExtraStringResourceType rpType)
+        public HybridDictionary<int, string> GetTranslations(ExtraStringResourceType rpType)
         {
             switch (rpType)
             {
@@ -52,7 +53,7 @@ namespace Sakuno.KanColle.Amatsukaze
             }
         }
 
-        string GetName(Dictionary<int, string> rpDictionary, int rpID)
+        string GetName(IDictionary<int, string> rpDictionary, int rpID)
         {
             string rResult = null;
             rpDictionary?.TryGetValue(rpID, out rResult);

@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
 {
     public abstract class Trigger
     {
-        internal static Dictionary<string, TriggerParserBuilder> ParserBuilders { get; }
+        internal static HybridDictionary<string, TriggerParserBuilder> ParserBuilders { get; }
 
         public IObservable<object> Observable { get; protected set; }
 
@@ -21,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
                          where rAttribute != null
                          select new { Name = rAttribute.Name, Parser = (TriggerParserBuilder)Activator.CreateInstance(rType) };
 
-            ParserBuilders = rInfos.ToDictionary(r => r.Name, r => r.Parser, StringComparer.OrdinalIgnoreCase);
+            ParserBuilders = rInfos.ToHybridDictionary(r => r.Name, r => r.Parser, StringComparer.OrdinalIgnoreCase);
         }
 
         internal static Parser<Trigger> GetParser(string rpName)

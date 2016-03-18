@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         DirectoryInfo r_StringResourceDirectory;
 
-        Dictionary<string, LanguageInfo> r_InstalledLanguages;
+        ListDictionary<string, LanguageInfo> r_InstalledLanguages;
         public IList<LanguageInfo> InstalledLanguages { get; private set; }
 
         public bool IsLoaded { get; private set; }
@@ -39,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public void Initialize()
         {
-            r_InstalledLanguages = new Dictionary<string, LanguageInfo>(StringComparer.InvariantCultureIgnoreCase);
+            r_InstalledLanguages = new ListDictionary<string, LanguageInfo>(StringComparer.InvariantCultureIgnoreCase);
 
             var rRootDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
@@ -119,7 +120,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 using (var rReader = new JsonTextReader(rContent.File.OpenText()))
                 {
                     var rTranslations = JArray.Load(rReader);
-                    var rNames = rTranslations.ToDictionary(r => (int)r["id"], r => (string)r["name"]);
+                    var rNames = rTranslations.ToHybridDictionary(r => (int)r["id"], r => (string)r["name"]);
 
                     switch (rContent.Type)
                     {

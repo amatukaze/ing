@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public static MapService Instance { get; } = new MapService();
 
-        Dictionary<int, Dictionary<int, Node>> r_Nodes;
+        Dictionary<int, HybridDictionary<int, Node>> r_Nodes;
 
-        Dictionary<int, PastEventMapInfo> r_PastEventMaps = new Dictionary<int, PastEventMapInfo>();
+        HybridDictionary<int, PastEventMapInfo> r_PastEventMaps = new HybridDictionary<int, PastEventMapInfo>();
 
         MapService() { }
 
@@ -26,14 +27,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 var rDataFile = new FileInfo(DataFilename);
                 if (!rDataFile.Exists)
-                    r_Nodes = new Dictionary<int, Dictionary<int, Node>>();
+                    r_Nodes = new Dictionary<int, HybridDictionary<int, Node>>();
                 else
                     using (var rReader = new JsonTextReader(rDataFile.OpenText()))
                     {
                         var rData = JObject.Load(rReader);
 
                         r_Nodes = rData.Properties().ToDictionary(r => int.Parse(r.Name), r =>
-                            r.Value.Select(rpNode => rpNode.ToObject<Node>()).ToDictionary(rpNode => rpNode.ID));
+                            r.Value.Select(rpNode => rpNode.ToObject<Node>()).ToHybridDictionary(rpNode => rpNode.ID));
                     }
             });
         }
@@ -42,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public string GetNodeWikiID(int rpMapID, int rpNodeID)
         {
-            Dictionary<int, Node> rMap;
+            HybridDictionary<int, Node> rMap;
             Node rNode;
             if (r_Nodes.TryGetValue(rpMapID, out rMap) && rMap.TryGetValue(rpNodeID, out rNode))
                 return rNode.WikiID;
@@ -52,7 +53,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public double? GetAngle(int rpMapID, int rpSourceNode, int rpDestinationNode)
         {
-            Dictionary<int, Node> rMap;
+            HybridDictionary<int, Node> rMap;
             Node rSourceNode, rDestinationNode;
 
             if (r_Nodes.TryGetValue(rpMapID, out rMap) && rMap.TryGetValue(rpSourceNode, out rSourceNode) && rMap.TryGetValue(rpDestinationNode, out rDestinationNode))
