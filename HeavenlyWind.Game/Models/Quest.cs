@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -22,6 +23,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public QuestType Type => RawData.Type;
         public QuestState State => RawData.State;
         public QuestProgress Progress => RawData.Progress;
+
+        internal DateTimeOffset CreationTime { get; } = DateTimeOffset.Now;
 
         public ProgressInfo RealtimeProgress { get; internal set; }
 

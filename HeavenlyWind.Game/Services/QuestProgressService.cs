@@ -55,7 +55,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 var rQuests = KanColleGame.Current.Port.Quests.Table;
                 var rOutdatedProgresses = Progresses.Values.Where(r => GetResetTime(!r.Quest.IsDailyReset ? r.ResetType : QuestType.Daily) > r.UpdateTime).ToArray();
-
                 foreach (var rProgressInfo in rOutdatedProgresses)
                 {
                     var rID = rProgressInfo.Quest.ID;
@@ -63,6 +62,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     rQuests.Remove(rID);
                     Progresses.Remove(rID);
                 }
+                var rOutdatedQuests = rQuests.Values.Where(r => GetResetTime(r.Type) > r.CreationTime).ToArray();
+                foreach (var rQuest in rOutdatedQuests)
+                    rQuests.Remove(rQuest);
             }
 
             if (rpData == null)
