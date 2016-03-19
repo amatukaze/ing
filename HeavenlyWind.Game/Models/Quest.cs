@@ -8,13 +8,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     public enum QuestState { None = 1, Executing, Completed }
     public enum QuestProgress { None, Progress50, Progress80, }
 
-    public class Quest : RawDataWrapper<RawQuest>, IID
+    public class Quest : RawDataWrapper<RawQuest>, IID, ITranslatedName
     {
         public static Quest Dummy { get; } = new Quest(new RawQuest() { ID = -1, Name = StringResources.Instance.Main.Quest_Unknown });
 
         public int ID => RawData.ID;
 
         public string Name => RawData.Name;
+        public string TranslatedName => StringResources.Instance.Extra?.GetQuestName(ID) ?? Name;
         public string Description => RawData.Description;
 
         public QuestCategory Category => RawData.Category;
@@ -24,17 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public ProgressInfo RealtimeProgress { get; internal set; }
 
-        internal Quest(RawQuest rpRawData) : base(rpRawData)
-        {
-            OnRawDataUpdated();
-        }
-
-        protected override void OnRawDataUpdated()
-        {
-            var rTranslatedName = StringResources.Instance.Extra?.GetQuestName(ID);
-            if (rTranslatedName != null)
-                RawData.Name = rTranslatedName;
-        }
+        internal Quest(RawQuest rpRawData) : base(rpRawData) { }
 
         public override string ToString() => $"ID = {ID}, Category = {Category}, Name = \"{Name}\", State = {State}";
     }

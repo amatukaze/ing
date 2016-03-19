@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 var rBuilder = new StringBuilder();
 
-                rBuilder.Append(Info.Name);
+                rBuilder.Append(Info.TranslatedName);
 
                 if (Level > 0)
                     rBuilder.Append(' ').Append(LevelText);

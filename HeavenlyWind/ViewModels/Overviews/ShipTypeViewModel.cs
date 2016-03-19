@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         internal ShipTypeViewModel(ShipType rpShipType)
         {
             ID = rpShipType.ID;
-            Name = rpShipType.Name;
+            Name = rpShipType.TranslatedName;
         }
     }
 }

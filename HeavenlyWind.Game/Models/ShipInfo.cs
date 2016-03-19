@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     using AbyssalShipClassEnum = AbyssalShipClass;
 
-    public class ShipInfo : RawDataWrapper<RawShipInfo>, IID
+    public class ShipInfo : RawDataWrapper<RawShipInfo>, IID, ITranslatedName
     {
         public static ShipInfo Dummy { get; } = new ShipInfo(new RawShipInfo() { ID = -1, Name = "?" });
 
@@ -15,6 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public string Name => RawData.Name;
         public string NameReading => RawData.NameReading;
+        public string TranslatedName => StringResources.Instance.Extra?.GetShipName(ID) ?? Name;
 
         string r_NameWithoutLateModel;
 
@@ -85,15 +86,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 r_NameWithoutLateModel = Name.Replace("後期型", string.Empty);
             }
-
-            OnRawDataUpdated();
-        }
-
-        protected override void OnRawDataUpdated()
-        {
-            var rTranslatedName = StringResources.Instance.Extra?.GetShipName(ID);
-            if (rTranslatedName != null)
-                RawData.Name = rTranslatedName;
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{NameWithClass}\", ShipType = \"{Type.Name}\"";

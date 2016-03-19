@@ -47,6 +47,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        protected override void TimeOut() => Returned(r_Fleet.Name, r_Expedition?.Name);
+        protected override void TimeOut() => Returned(r_Fleet.Name, r_Expedition?.TranslatedName);
     }
 }

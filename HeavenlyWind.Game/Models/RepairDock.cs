@@ -78,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             TimeToComplete = null;
         }
 
-        protected override void TimeOut() => RepairCompleted(Ship.Info.Name);
+        protected override void TimeOut() => RepairCompleted(Ship.Info.TranslatedName);
 
         public override string ToString()
         {
