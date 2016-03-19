@@ -164,7 +164,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="1, 0, 0, 0" Padding="3, 0">
+                        <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="1, 0, 0, 0" Margin="6, 0, 0, 0" Padding="6, 0">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition SharedSizeGroup="Ships" />
@@ -194,7 +194,7 @@
                             <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
                                 <Setter TargetName="Border" Property="BorderThickness" Value="0" />
                                 <Setter TargetName="Border" Property="Margin" Value="0" />
-                                <Setter TargetName="Border" Property="Padding" Value="0, 0, 3, 0" />
+                                <Setter TargetName="Border" Property="Padding" Value="0, 0, 6, 0" />
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
