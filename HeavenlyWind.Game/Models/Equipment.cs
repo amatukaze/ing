@@ -41,11 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal Equipment(RawEquipment rpRawData) : base(rpRawData)
         {
-            EquipmentInfo rInfo;
-            if (KanColleGame.Current.MasterInfo.Equipment.TryGetValue(rpRawData.EquipmentID, out rInfo))
-                Info = rInfo;
-            else
-                Info = EquipmentInfo.Dummy;
+            Info = KanColleGame.Current.MasterInfo.Equipment.GetValueOrDefault(rpRawData.EquipmentID) ?? EquipmentInfo.Dummy;
         }
 
         public static Equipment GetDummy(int rpID)
@@ -66,13 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         protected override void OnRawDataUpdated()
         {
             if (Info == null || Info.ID != RawData.EquipmentID)
-            {
-                EquipmentInfo rInfo;
-                if (!KanColleGame.Current.MasterInfo.Equipment.TryGetValue(RawData.EquipmentID, out rInfo))
-                    rInfo = EquipmentInfo.Dummy;
-
-                Info = rInfo;
-            }
+                Info = KanColleGame.Current.MasterInfo.Equipment.GetValueOrDefault(RawData.EquipmentID) ?? EquipmentInfo.Dummy;
 
             OnPropertyChanged(nameof(Info));
             OnPropertyChanged(nameof(Level));
