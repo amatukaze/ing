@@ -65,7 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         {
             var rBuilder = new StringBuilder(32);
 
-            rBuilder.Append($"{Participant.Info.Name} Lv.{Participant.Level}: ");
+            rBuilder.Append($"{Participant.Info.TranslatedName} Lv.{Participant.Level}: ");
 
             rBuilder.Append(Before);
             if (Before != Current)

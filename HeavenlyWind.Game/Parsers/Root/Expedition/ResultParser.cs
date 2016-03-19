@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System.ComponentModel;
-using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Expedition
 {
@@ -11,10 +10,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Expedition
         public override void Process(RawExpeditionResult rpData)
         {
             var rFleet = Game.Port.Fleets[int.Parse(Parameters["api_deck_id"])];
-            var rExpeditionID = Game.MasterInfo.Expeditions.Values.Single(r => r.OriginalName == rpData.Name).ID;
+            var rExpedition = rFleet.ExpeditionStatus.Expedition;
 
             var rLogContent = string.Format(StringResources.Instance.Main.Log_ExpeditionResult,
-                rFleet.ID, rFleet.Name, rExpeditionID, rpData.Name, GetStringFromExpeditionResult(rpData.Result));
+                rFleet.ID, rFleet.Name, rExpedition.ID, rExpedition.TranslatedName, GetStringFromExpeditionResult(rpData.Result));
             Logger.Write(LoggingLevel.Info, rLogContent);
         }
 
