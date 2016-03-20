@@ -12,6 +12,7 @@
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Product_Name}"
                   Width="1280" Height="600"
+                  WindowPlacementPreference="{StaticResource WindowPlacementPreference}"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.TaskbarItemInfo>
         <TaskbarItemInfo ProgressState="{Binding State, Source={x:Static rs:TaskbarProgressService.Instance}}" ProgressValue="{Binding Value, Source={x:Static rs:TaskbarProgressService.Instance}}" />

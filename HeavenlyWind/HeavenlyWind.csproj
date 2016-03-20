@@ -114,6 +114,7 @@
     <Compile Include="Controls\MaterialIcon.cs" />
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Internal\WindowPlacementPreference.cs" />
     <Compile Include="Models\CheckForUpdateResult.cs" />
     <Compile Include="Models\EventMap.cs" />
     <Compile Include="Models\ExpeditionInfo2.cs" />

@@ -1,6 +1,7 @@
 ﻿<Application x:Class="Sakuno.KanColle.Amatsukaze.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -12,6 +13,8 @@
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <ri:WindowPlacementPreference x:Key="WindowPlacementPreference" />
 
             <Style TargetType="{x:Type ScrollViewer}">
                 <Setter Property="VerticalScrollBarVisibility" Value="Auto" />

@@ -55,8 +55,13 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("browser")]
         public BrowserPreference Browser { get; set; } = new BrowserPreference();
 
+        WindowsPreference r_Windows;
         [JsonProperty("windows")]
-        public WindowPreference[] Windows { get; set; }
+        public WindowsPreference Windows
+        {
+            get { return r_Windows ?? (r_Windows = new WindowsPreference()); }
+            set { r_Windows = value; }
+        }
 
         [JsonProperty("layout")]
         public LayoutPreference Layout { get; set; } = new LayoutPreference();

@@ -92,6 +92,7 @@
     <Compile Include="Models\Preferences\UpdatePreference.cs" />
     <Compile Include="Models\Preferences\UpstreamProxyPreference.cs" />
     <Compile Include="Models\Preferences\WindowPreference.cs" />
+    <Compile Include="Models\Preferences\WindowsPreference.cs" />
     <Compile Include="Models\ScreenshotImageFormat.cs" />
     <Compile Include="Models\UpdateChannel.cs" />
     <Compile Include="Models\UpdateNotificationMode.cs" />
