@@ -222,6 +222,7 @@
     <Compile Include="Models\ShipStatus.cs" />
     <Compile Include="Models\ShipSlot.cs" />
     <Compile Include="Models\ShipType.cs" />
+    <Compile Include="Models\ShipTypeInfo.cs" />
     <Compile Include="Models\SortieEventType.cs" />
     <Compile Include="Models\SortieInfo.cs" />
     <Compile Include="Models\SortieNodeInfo.cs" />

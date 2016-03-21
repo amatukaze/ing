@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         string r_NameWithoutLateModel;
 
-        public ShipType Type => KanColleGame.Current.MasterInfo.ShipTypes.GetValueOrDefault(RawData.Type) ?? ShipType.Dummy;
+        public ShipTypeInfo Type => KanColleGame.Current.MasterInfo.ShipTypes.GetValueOrDefault(RawData.Type) ?? ShipTypeInfo.Dummy;
 
         public int Rarity => RawData.Rarity;
 

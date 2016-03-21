@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
     public class ShipOverviewViewModel : WindowViewModel
     {
-        Dictionary<ShipType, ShipTypeViewModel> r_TypeMap;
+        Dictionary<ShipTypeInfo, ShipTypeViewModel> r_TypeMap;
         public IReadOnlyCollection<ShipTypeViewModel> Types { get; }
 
         bool? r_SelectAllTypes = true;
