@@ -100,6 +100,30 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Ship_Repairing => GetString(nameof(Ship_Repairing));
         public string Ship_Evacuated => GetString(nameof(Ship_Evacuated));
+        public string Ship_ToolTip_DayBattle => GetString(nameof(Ship_ToolTip_DayBattle));
+        public string Ship_ToolTip_NightBattle => GetString(nameof(Ship_ToolTip_NightBattle));
+        public string Ship_ToolTip_AttackMode => GetString(nameof(Ship_ToolTip_AttackMode));
+        public string Ship_ToolTip_AttackMode_None => GetString(nameof(Ship_ToolTip_AttackMode_None));
+        public string Ship_ToolTip_AttackMode_SingleAttack => GetString(nameof(Ship_ToolTip_AttackMode_SingleAttack));
+        public string Ship_ToolTip_AttackMode_DoubleAttack => GetString(nameof(Ship_ToolTip_AttackMode_DoubleAttack));
+        public string Ship_ToolTip_AttackMode_CutIn => GetString(nameof(Ship_ToolTip_AttackMode_CutIn));
+        public string Ship_ToolTip_AttackMode_AerialStrike => GetString(nameof(Ship_ToolTip_AttackMode_AerialStrike));
+        public string Ship_ToolTip_AttackMode_Torpedo => GetString(nameof(Ship_ToolTip_AttackMode_Torpedo));
+        public string Ship_ToolTip_AttackMode_ASW => GetString(nameof(Ship_ToolTip_AttackMode_ASW));
+        public string Ship_ToolTip_CutInType_None => GetString(nameof(Ship_ToolTip_CutInType_None));
+        public string Ship_ToolTip_CutInType_DoubleMainGun => GetString(nameof(Ship_ToolTip_CutInType_DoubleMainGun));
+        public string Ship_ToolTip_CutInType_MainGunAndAPShell => GetString(nameof(Ship_ToolTip_CutInType_MainGunAndAPShell));
+        public string Ship_ToolTip_CutInType_MainGunAndRadar => GetString(nameof(Ship_ToolTip_CutInType_MainGunAndRadar));
+        public string Ship_ToolTip_CutInType_MainGunAndSecondaryGun => GetString(nameof(Ship_ToolTip_CutInType_MainGunAndSecondaryGun));
+        public string Ship_ToolTip_CutInType_TripleMainGun => GetString(nameof(Ship_ToolTip_CutInType_TripleMainGun));
+        public string Ship_ToolTip_CutInType_DoubleMainGunAndSecondaryGun => GetString(nameof(Ship_ToolTip_CutInType_DoubleMainGunAndSecondaryGun));
+        public string Ship_ToolTip_CutInType_DoubleTorpedo => GetString(nameof(Ship_ToolTip_CutInType_DoubleTorpedo));
+        public string Ship_ToolTip_CutInType_Mixed => GetString(nameof(Ship_ToolTip_CutInType_Mixed));
+        public string Ship_ToolTip_AttackPower_Shelling => GetString(nameof(Ship_ToolTip_AttackPower_Shelling));
+        public string Ship_ToolTip_AttackPower_AerialStrike => GetString(nameof(Ship_ToolTip_AttackPower_AerialStrike));
+        public string Ship_ToolTip_AttackPower_Torpedo => GetString(nameof(Ship_ToolTip_AttackPower_Torpedo));
+        public string Ship_ToolTip_AttackPower_ASW => GetString(nameof(Ship_ToolTip_AttackPower_ASW));
+        public string Ship_ToolTip_AttackPower_NightBattle => GetString(nameof(Ship_ToolTip_AttackPower_NightBattle));
 
         public string Material_Fuel => GetString(nameof(Material_Fuel));
         public string Material_Bullet => GetString(nameof(Material_Bullet));

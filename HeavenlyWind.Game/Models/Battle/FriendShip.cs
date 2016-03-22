@@ -12,6 +12,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public IList<ShipSlot> Slots => Ship.Slots;
         public ShipSlot ExtraSlot => Ship.ExtraSlot;
 
+        public ShipCombatAbility CombatAbility => Ship.CombatAbility;
+
         bool r_IsMVP;
         public bool IsMVP
         {
