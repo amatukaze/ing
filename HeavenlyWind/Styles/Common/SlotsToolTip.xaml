@@ -7,7 +7,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <DataTemplate x:Key="SlotsList">
-        <Grid>
+        <Grid Visibility="{Binding HasEquipment, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="4" />

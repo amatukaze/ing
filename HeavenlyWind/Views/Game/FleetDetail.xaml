@@ -48,7 +48,7 @@
                                     <ColumnDefinition Width="60" />
                                     <ColumnDefinition Width="25" />
                                     <ColumnDefinition SharedSizeGroup="FuelAndBullet" />
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" MinWidth="48" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
