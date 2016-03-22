@@ -96,6 +96,30 @@
 
   <String Key="Ship_Repairing">Repairing</String>
   <String Key="Ship_Evacuated">Evacuated</String>
+  <String Key="Ship_ToolTip_DayBattle">Day</String>
+  <String Key="Ship_ToolTip_NightBattle">Night</String>
+  <String Key="Ship_ToolTip_AttackMode">Attack Mode</String>
+  <String Key="Ship_ToolTip_AttackMode_None" />
+  <String Key="Ship_ToolTip_AttackMode_SingleAttack">Single Attack</String>
+  <String Key="Ship_ToolTip_AttackMode_DoubleAttack">Double Attack</String>
+  <String Key="Ship_ToolTip_AttackMode_CutIn">Cut-In</String>
+  <String Key="Ship_ToolTip_AttackMode_AerialStrike">Aerial Strike</String>
+  <String Key="Ship_ToolTip_AttackMode_Torpedo">Torpedo</String>
+  <String Key="Ship_ToolTip_AttackMode_ASW">ASW</String>
+  <String Key="Ship_ToolTip_CutInType_None" />
+  <String Key="Ship_ToolTip_CutInType_DoubleMainGun">MG×2</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndAPShell">MG + AP</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndRadar">MG + R</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndSecondaryGun">MG + SG</String>
+  <String Key="Ship_ToolTip_CutInType_TripleMainGun">MGx3</String>
+  <String Key="Ship_ToolTip_CutInType_DoubleMainGunAndSecondaryGun">MG×2 + SG</String>
+  <String Key="Ship_ToolTip_CutInType_DoubleTorpedo">Tx2</String>
+  <String Key="Ship_ToolTip_CutInType_Mixed">Mixed</String>
+  <String Key="Ship_ToolTip_AttackPower_Shelling">Shelling</String>
+  <String Key="Ship_ToolTip_AttackPower_AerialStrike">Aerial</String>
+  <String Key="Ship_ToolTip_AttackPower_Torpedo">Torpedo</String>
+  <String Key="Ship_ToolTip_AttackPower_ASW">ASW</String>
+  <String Key="Ship_ToolTip_AttackPower_NightBattle">Night</String>
 
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>

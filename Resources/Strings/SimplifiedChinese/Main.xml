@@ -96,6 +96,30 @@
 
   <String Key="Ship_Repairing">修理中</String>
   <String Key="Ship_Evacuated">退避中</String>
+  <String Key="Ship_ToolTip_DayBattle">昼战</String>
+  <String Key="Ship_ToolTip_NightBattle">夜战</String>
+  <String Key="Ship_ToolTip_AttackMode">攻击形式</String>
+  <String Key="Ship_ToolTip_AttackMode_None" />
+  <String Key="Ship_ToolTip_AttackMode_SingleAttack">普通攻击</String>
+  <String Key="Ship_ToolTip_AttackMode_DoubleAttack">二连</String>
+  <String Key="Ship_ToolTip_AttackMode_CutIn">Cut-In</String>
+  <String Key="Ship_ToolTip_AttackMode_AerialStrike">航空攻击</String>
+  <String Key="Ship_ToolTip_AttackMode_Torpedo">雷击</String>
+  <String Key="Ship_ToolTip_AttackMode_ASW">对潜</String>
+  <String Key="Ship_ToolTip_CutInType_None" />
+  <String Key="Ship_ToolTip_CutInType_DoubleMainGun">主炮×2</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndAPShell">主炮 + 撤甲弹</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndRadar">主炮 + 电探</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndSecondaryGun">主炮 + 副炮</String>
+  <String Key="Ship_ToolTip_CutInType_TripleMainGun">主炮×3</String>
+  <String Key="Ship_ToolTip_CutInType_DoubleMainGunAndSecondaryGun">主炮×2 + 副炮</String>
+  <String Key="Ship_ToolTip_CutInType_DoubleTorpedo">鱼雷×2</String>
+  <String Key="Ship_ToolTip_CutInType_Mixed">炮・雷混合</String>
+  <String Key="Ship_ToolTip_AttackPower_Shelling">炮击</String>
+  <String Key="Ship_ToolTip_AttackPower_AerialStrike">航空攻击</String>
+  <String Key="Ship_ToolTip_AttackPower_Torpedo">雷击</String>
+  <String Key="Ship_ToolTip_AttackPower_ASW">対潜</String>
+  <String Key="Ship_ToolTip_AttackPower_NightBattle">夜战</String>
 
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弹药</String>
