@@ -7,6 +7,7 @@ using Sakuno.KanColle.Amatsukaze.Views;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -63,6 +64,9 @@ namespace Sakuno.KanColle.Amatsukaze
             ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             Task.Factory.StartNew(UpdateService.Instance.CheckForUpdate);
+
+            if (e.Args.Any(r => r.OICEquals("--background")))
+                return;
 
             MainWindow = new MainWindow();
             MainWindow.DataContext = Root = new MainWindowViewModel();
