@@ -187,6 +187,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                         if (rCount > 0)
                             rShip.Slots[i].PlaneCount = rCount;
                     }
+
+                    rShip.CombatAbility.Update();
                 }
 
                 foreach (var rFleet in rFleets)

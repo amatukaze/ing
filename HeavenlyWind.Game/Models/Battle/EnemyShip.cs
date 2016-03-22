@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
-    class EnemyShip : IParticipant
+    class EnemyShip : IParticipant, ICombatAbility
     {
         public ShipInfo Info { get; }
 
@@ -13,6 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public bool IsMVP => false;
         public Ship Ship => null;
         public ShipSlot ExtraSlot => null;
+
+        public ShipCombatAbility CombatAbility => null;
 
         public EnemyShip(int rpID, int rpLevel, int[] rpEquipment = null)
         {

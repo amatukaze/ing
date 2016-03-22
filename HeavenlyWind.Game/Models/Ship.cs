@@ -6,10 +6,8 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public class Ship : RawDataWrapper<RawShip>, IID
+    public class Ship : RawDataWrapper<RawShip>, IID, ICombatAbility
     {
-        public static Ship Dummy { get; } = new Ship(new RawShip() { ShipID = -1 });
-
         public int ID => RawData.ID;
         public ShipInfo Info { get; private set; }
         public int SortNumber => RawData.SortNumber;
@@ -118,6 +116,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public ShipStatus Status { get; }
 
+        public ShipCombatAbility CombatAbility { get; }
+
         #region Equipment
 
         int[] r_EquipmentIDs;
@@ -168,6 +168,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal Ship(RawShip rpRawData) : base(rpRawData)
         {
             Status = new ShipStatus(this);
+            CombatAbility = new ShipCombatAbility(this);
+
             OnRawDataUpdated();
         }
 
@@ -207,6 +209,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (RawData.Equipment != null)
                 UpdateSlots();
+
+            CombatAbility.Update();
 
             OnPropertyChanged(nameof(Level));
             OnPropertyChanged(nameof(ExperienceToNextLevel));
