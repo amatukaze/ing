@@ -17,6 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 new OldFormula(),
                 new AutumnFormula(),
                 new AutumnSimplifiedFormula(),
+                new Formula33(),
             };
             Formulas = r_Formulas.AsReadOnly();
         }

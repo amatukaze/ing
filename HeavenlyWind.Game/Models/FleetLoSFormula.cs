@@ -5,5 +5,6 @@
         Old,
         Autumn,
         AutumnSimplified,
+        Formula33,
     }
 }
