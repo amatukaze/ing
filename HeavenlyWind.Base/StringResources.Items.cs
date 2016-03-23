@@ -234,6 +234,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
         public string PreferenceWindow_Network_Port => GetString(nameof(PreferenceWindow_Network_Port));
         public string PreferenceWindow_Network_EnableForSSL => GetString(nameof(PreferenceWindow_Network_EnableForSSL));
+        public string PreferenceWindow_Network_AllowRequestsFromOtherDevices => GetString(nameof(PreferenceWindow_Network_AllowRequestsFromOtherDevices));
         public string PreferenceWindow_Network_UseUpstreamProxy => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy));
         public string PreferenceWindow_Window => GetString(nameof(PreferenceWindow_Window));
         public string PreferenceWindow_Window_Layout => GetString(nameof(PreferenceWindow_Window_Layout));

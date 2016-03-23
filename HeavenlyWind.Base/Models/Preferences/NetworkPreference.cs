@@ -10,6 +10,9 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         [JsonProperty("enableforssl")]
         public bool EnableForSSL { get; set; } = false;
 
+        [JsonProperty("allowremoterequests")]
+        public bool AllowRequestsFromOtherDevices { get; set; } = false;
+
         [JsonProperty("upstreamproxy")]
         public UpstreamProxyPreference UpstreamProxy { get; set; } = new UpstreamProxyPreference();
     }

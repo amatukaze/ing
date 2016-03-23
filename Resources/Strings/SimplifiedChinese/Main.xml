@@ -230,6 +230,7 @@
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">端口</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">对 SSL 连接也使用代理</String>
+  <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">允许来自其它设备的请求 (不推荐：有安全风险)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">使用上游代理</String>
   <String Key="PreferenceWindow_Window">窗口</String>
   <String Key="PreferenceWindow_Window_Layout">布局</String>

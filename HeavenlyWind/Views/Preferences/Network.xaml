@@ -11,18 +11,21 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 6">
+        <StackPanel Orientation="Horizontal">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port}" />
             <TextBox Text="{rb:Preference Network.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0" />
         </StackPanel>
-        <CheckBox IsChecked="{rb:Preference Network.EnableForSSL}" Margin="0, 0, 0, 12">
+        <CheckBox IsChecked="{rb:Preference Network.EnableForSSL}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_EnableForSSL}" />
         </CheckBox>
+        <CheckBox IsChecked="{rb:Preference Network.AllowRequestsFromOtherDevices}" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Network_AllowRequestsFromOtherDevices}" />
+        </CheckBox>
 
-        <CheckBox IsChecked="{rb:Preference Network.UpstreamProxy.Enabled}" Margin="0, 0, 0, 6">
+        <CheckBox IsChecked="{rb:Preference Network.UpstreamProxy.Enabled}" Margin="0, 12, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_UseUpstreamProxy}" />
         </CheckBox>
-        <StackPanel IsEnabled="{rb:Preference Network.UpstreamProxy.Enabled}" Orientation="Horizontal" Margin="0, 0, 0, 12">
+        <StackPanel IsEnabled="{rb:Preference Network.UpstreamProxy.Enabled}" Orientation="Horizontal" Margin="0, 6, 0, 0">
             <TextBox Text="{rb:Preference Network.UpstreamProxy.Host}" Width="120" />
             <TextBox Text="{rb:Preference Network.UpstreamProxy.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0" />
         </StackPanel>
