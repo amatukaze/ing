@@ -91,6 +91,10 @@
 
   <String Key="Fleet_TotalLevel">Total Lv.</String>
   <String Key="Fleet_LoS">LoS</String>
+  <String Key="Fleet_LoS_Formula_Old">2-5 Old</String>
+  <String Key="Fleet_LoS_Formula_Autumn">2-5 Autumn</String>
+  <String Key="Fleet_LoS_Formula_AutumnSimplified">Autumn Simplified</String>
+  <String Key="Fleet_LoS_Formula_Formula33">Formula 33</String>
   <String Key="Fleet_AA">AA</String>
   <String Key="Fleet_MoraleRegeneration">Fatigue</String>
 

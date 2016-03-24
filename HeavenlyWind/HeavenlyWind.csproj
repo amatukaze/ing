@@ -111,6 +111,7 @@
     <Compile Include="Controls\Data.cs" />
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\Indicator.cs" />
+    <Compile Include="Controls\LoSFormulas.cs" />
     <Compile Include="Controls\MaterialIcon.cs" />
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
@@ -590,6 +591,10 @@
     <Page Include="Themes\Controls\Indicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\LoSFormulas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\MaterialIcon.xaml">
       <SubType>Designer</SubType>

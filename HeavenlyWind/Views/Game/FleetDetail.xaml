@@ -15,11 +15,17 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="4">
-            <TextBlock DataContext="{Binding Source}">
-                <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
-                <Run Text="{rb:StringResource Main.Fleet_LoS, Mode=OneWay}" />:<Run Text="{Binding Status.LoS.Old25, StringFormat=0.0}" />/<Run Text="{Binding Status.LoS.Autumn25, StringFormat=0.0}" />
-                <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.MinAA, StringFormat=0.0}" />-<Run Text="{Binding Status.MaxAA, StringFormat=0.0}" />
-            </TextBlock>
+            <StackPanel DataContext="{Binding Source}" Orientation="Horizontal">
+                <TextBlock>
+                    <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
+                </TextBlock>
+
+                <rc:LoSFormulas ItemsSource="{Binding Status.LoS.Formulas}" Margin="3, 0, 0, 0" />
+
+                <TextBlock Margin="3, 0, 0, 0">
+                    <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.MinAA, StringFormat=0.0}" />-<Run Text="{Binding Status.MaxAA, StringFormat=0.0}" />
+                </TextBlock>
+            </StackPanel>
 
             <Border DataContext="{Binding Source.Resupply}" Background="Transparent" ToolTip="{StaticResource UnsuppliedToolTip}" Margin="4, 0, 0, 0" Visibility="{Binding NeedResupply, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Unsupplied}" />

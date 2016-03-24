@@ -91,6 +91,10 @@
 
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
+  <String Key="Fleet_LoS_Formula_Old">2-5式(旧)</String>
+  <String Key="Fleet_LoS_Formula_Autumn">2-5式(秋)</String>
+  <String Key="Fleet_LoS_Formula_AutumnSimplified">新秋式簡易</String>
+  <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
   <String Key="Fleet_AA">対空</String>
   <String Key="Fleet_MoraleRegeneration">疲労回復</String>
 
