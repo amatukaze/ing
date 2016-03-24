@@ -86,6 +86,7 @@
     <Compile Include="Models\Preferences\BrowserPreference.cs" />
     <Compile Include="Models\Preferences\CachePreference.cs" />
     <Compile Include="Models\Preferences\FlashPreference.cs" />
+    <Compile Include="Models\Preferences\GamePreference.cs" />
     <Compile Include="Models\Preferences\LayoutPreference.cs" />
     <Compile Include="Models\Preferences\NetworkPreference.cs" />
     <Compile Include="Models\Preferences\ScreenshotPreference.cs" />

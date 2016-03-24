@@ -143,6 +143,8 @@
     <Compile Include="Models\Experience.cs" />
     <Compile Include="Models\ExperienceTable.cs" />
     <Compile Include="Models\Fleet.cs" />
+    <Compile Include="Models\FleetLoSFormula.cs" />
+    <Compile Include="Models\FleetLoSFormulaInfo.cs" />
     <Compile Include="Models\FleetLoSStatus.cs" />
     <Compile Include="Models\FleetResupplyInfo.cs" />
     <Compile Include="Models\FleetState.cs" />
@@ -152,6 +154,10 @@
     <Compile Include="Models\IMapMasterInfo.cs" />
     <Compile Include="Models\ItemInfo.cs" />
     <Compile Include="Models\ITranslatedName.cs" />
+    <Compile Include="Models\LoS\AutumnSimplifiedFormula.cs" />
+    <Compile Include="Models\LoS\AutumnFormula.cs" />
+    <Compile Include="Models\LoS\Formula33.cs" />
+    <Compile Include="Models\LoS\OldFormula.cs" />
     <Compile Include="Models\MapAreaInfo.cs" />
     <Compile Include="Models\MapGaugeType.cs" />
     <Compile Include="Models\MapInfo.cs" />
