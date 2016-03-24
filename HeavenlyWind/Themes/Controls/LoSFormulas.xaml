@@ -2,6 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                     xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Converters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type rc:LoSFormulas}">
         <Setter Property="Background" Value="Transparent" />
@@ -31,7 +34,13 @@
                                     <ContentPresenter Content="{TemplateBinding SelectionBoxItem}" IsHitTestVisible="False">
                                         <ContentPresenter.ContentTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding Value, StringFormat={}{0:0.#}}" />
+                                                <TextBlock Name="LoS" Text="{Binding Value, StringFormat={}{0:0.#}}" />
+
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True">
+                                                        <Setter TargetName="LoS" Property="Foreground" Value="Yellow" />
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
                                             </DataTemplate>
                                         </ContentPresenter.ContentTemplate>
                                     </ContentPresenter>
@@ -95,7 +104,7 @@
 
                                         <Path Name="CheckMark" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" Width="12" Height="12" Margin="1" Visibility="Hidden" Data="F1 M10.2209,8.946 L17.1875,15.5167 30.9627,1.0440487E-53 34.2877,2.9292 17.5834,22.9585 6.8959,12.271 10.2209,8.946 z" />
                                         <TextBlock Text="{rb:EnumToStringResource Key.Name, Fleet_LoS_Formula}" Grid.Column="2" />
-                                        <TextBlock Text="{Binding Value, StringFormat={}{0:0.#}}" HorizontalAlignment="Right" Grid.Column="4" />
+                                        <TextBlock Name="LoS" Text="{Binding Value, StringFormat={}{0:0.#}}" HorizontalAlignment="Right" Grid.Column="4" />
                                     </Grid>
                                 </Border>
 
@@ -103,6 +112,15 @@
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
                                     </Trigger>
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Key.Name}" Value="Formula33" />
+                                            <Condition Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
+                                        </MultiDataTrigger.Conditions>
+
+                                        <Setter TargetName="LoS" Property="Foreground" Value="Yellow" />
+                                    </MultiDataTrigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
