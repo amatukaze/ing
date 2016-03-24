@@ -16,10 +16,6 @@
 
             <ri:WindowPlacementPreference x:Key="WindowPlacementPreference" />
 
-            <Style TargetType="{x:Type ScrollViewer}">
-                <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-            </Style>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>
