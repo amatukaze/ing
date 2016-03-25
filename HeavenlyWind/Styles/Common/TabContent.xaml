@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
+                    xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+                    xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game">
+
+    <ri:TabContentTemplateSelector x:Key="TabContentTemplateSelector" />
+
+</ResourceDictionary>

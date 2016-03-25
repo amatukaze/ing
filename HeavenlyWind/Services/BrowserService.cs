@@ -43,20 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         Process r_BrowserProcess;
 
-        BrowserHost r_BrowserControl;
-        public BrowserHost BrowserControl
-        {
-            get { return r_BrowserControl; }
-            private set
-            {
-                if (r_BrowserControl != value)
-                {
-                    r_BrowserControl = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
+        public BrowserHost BrowserControl { get; private set; }
         public BrowserNavigator Navigator { get; private set; }
 
         bool r_IsNavigatorVisible;
@@ -72,6 +59,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 }
             }
         }
+
+        public bool IsResizedToFitGame { get; private set; }
 
         public GameController GameController { get; private set; }
 
@@ -166,6 +155,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         void Attach(IntPtr rpHandle)
         {
             BrowserControl = new BrowserHost(rpHandle);
+            OnPropertyChanged(nameof(BrowserControl));
 
             Navigator.Navigate(Preference.Current.Browser.Homepage);
         }
@@ -179,6 +169,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             IsNavigatorVisible = false;
 
             BrowserControl.Dispatcher.BeginInvoke(new Action(BrowserControl.ResizeBrowserToFitGame));
+
+            IsResizedToFitGame = true;
+            OnPropertyChanged(nameof(IsResizedToFitGame));
         }
     }
 }

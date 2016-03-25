@@ -39,6 +39,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public UpdateService UpdateService => UpdateService.Instance;
 
+        public bool IsBrowserAvailable { get; private set; } = true;
+
         public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => new PreferencesWindow().ShowDialog());
 
         public ICommand ExpandMenuCommand { get; }
@@ -53,6 +55,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         internal MainWindowViewModel()
         {
+            var rBrowserServicePCEL = PropertyChangedEventListener.FromSource(BrowserService.Instance);
+            rBrowserServicePCEL.Add(nameof(BrowserService.Instance.NoInstalledLayoutEngines), delegate
+            {
+                IsBrowserAvailable = false;
+                OnPropertyChanged(nameof(IsBrowserAvailable));
+            });
+
             var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
             rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
             {
