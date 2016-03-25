@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
              xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
              xmlns:rvm="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
@@ -11,32 +12,18 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance rvm:GameInformationViewModel}"
              d:DesignWidth="480" d:DesignHeight="320">
-    <ruic:DragableTabControl ItemsSource="{Binding TabItems}" SelectedValue="{Binding SelectedItem, Mode=TwoWay}" IsMainHost="True">
-        <ruic:DragableTabControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type rvm:TabItemViewModel}">
+    <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}">
+        <ruic:AdvancedTabControl.ItemTemplate>
+            <DataTemplate>
                 <TextBlock Text="{Binding Name}" FontSize="14" />
             </DataTemplate>
-        </ruic:DragableTabControl.ItemTemplate>
-        <ruic:DragableTabControl.NewHostProvider>
-            <rv:TabNewHostProvider />
-        </ruic:DragableTabControl.NewHostProvider>
-
-        <ruic:DragableTabControl.Resources>
-            <DataTemplate DataType="{x:Type rvmg:OverviewViewModel}">
-                <rvg:Overview />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type rvmg:FleetsViewModel}">
-                <rvg:Fleets />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type rvmg:SortieViewModel}">
-                <rvg:SortieOverview />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type rvmg:QuestsViewModel}">
-                <rvg:Quests />
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type rvmg:ExpeditionOverviewViewModel}">
-                <rvg:ExpeditionOverview />
-            </DataTemplate>
-        </ruic:DragableTabControl.Resources>
-    </ruic:DragableTabControl>
+        </ruic:AdvancedTabControl.ItemTemplate>
+        <ruic:AdvancedTabControl.TabController>
+            <ruic:TabController>
+                <ruic:TabController.TearOffController>
+                    <ri:TabTearOffController />
+                </ruic:TabController.TearOffController>
+            </ruic:TabController>
+        </ruic:AdvancedTabControl.TabController>
+    </ruic:AdvancedTabControl>
 </UserControl>

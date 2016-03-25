@@ -8,31 +8,11 @@
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <ruic:DragableTabControl ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet, Mode=TwoWay}">
-        <ruic:DragableTabControl.ItemContainerStyle>
-            <Style TargetType="{x:Type ruic:DragableTabItem}">
-                <Setter Property="Padding" Value="8, 0" />
-
-                <Style.Triggers>
-                    <Trigger Property="IsSelected" Value="False">
-                        <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />
-                    </Trigger>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </ruic:DragableTabControl.ItemContainerStyle>
-        <ruic:DragableTabControl.ItemTemplate>
+    <ruic:AdvancedTabControl DisableTabReorder="True" ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" Padding="0">
+        <ruic:AdvancedTabControl.ItemTemplate>
             <DataTemplate DataType="{x:Type rvmg:FleetViewModel}">
                 <TextBlock Text="{Binding Source.Name}" />
             </DataTemplate>
-        </ruic:DragableTabControl.ItemTemplate>
-
-        <ruic:DragableTabControl.Resources>
-            <DataTemplate DataType="{x:Type rvmg:FleetViewModel}">
-                <rvg:FleetDetail />
-            </DataTemplate>
-        </ruic:DragableTabControl.Resources>
-    </ruic:DragableTabControl>
+        </ruic:AdvancedTabControl.ItemTemplate>
+    </ruic:AdvancedTabControl>
 </UserControl>

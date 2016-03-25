@@ -117,6 +117,7 @@
     <Compile Include="Controls\ShipSlot.cs" />
     <Compile Include="Internal\WindowPlacementPreference.cs" />
     <Compile Include="Internal\TabContentTemplateSelector.cs" />
+    <Compile Include="Internal\TabDockingController.cs" />
     <Compile Include="Models\CheckForUpdateResult.cs" />
     <Compile Include="Models\EventMap.cs" />
     <Compile Include="Models\ExpeditionInfo2.cs" />
@@ -315,7 +316,7 @@
     <Compile Include="Views\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TabNewHostProvider.cs" />
+    <Compile Include="Internal\TabTearOffController.cs" />
     <Compile Include="Views\TabWindow.xaml.cs">
       <DependentUpon>TabWindow.xaml</DependentUpon>
     </Compile>
