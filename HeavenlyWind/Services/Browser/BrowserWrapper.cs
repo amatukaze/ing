@@ -148,6 +148,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 r_Container.Width = rpWParam.ToInt32();
                 r_Container.Height = rpLParam.ToInt32();
 
+                NativeMethods.User32.SetWindowPos(r_HwndSource.Handle, IntPtr.Zero, 0, 0, rpWParam.ToInt32(), rpLParam.ToInt32(), NativeEnums.SetWindowPosition.SWP_NOMOVE | NativeEnums.SetWindowPosition.SWP_NOZORDER);
+
                 rrpHandled = true;
             }
 

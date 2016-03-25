@@ -23,7 +23,7 @@
                     </Rectangle.Effect>
                 </Rectangle>
 
-                <ContentPresenter Name="BrowserControl" Content="{Binding BrowserControl}">
+                <ContentPresenter Content="{Binding BrowserControl}">
                     <i:Interaction.Behaviors>
                         <ruib:TaskbarThumbnailBehavior />
                     </i:Interaction.Behaviors>
