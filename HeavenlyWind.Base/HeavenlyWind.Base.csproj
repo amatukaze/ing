@@ -106,6 +106,7 @@
     <Compile Include="StringResourceExtension.cs" />
     <Compile Include="StringResources.cs" />
     <Compile Include="StringResources.Items.cs" />
+    <Compile Include="ViewInfoAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj">

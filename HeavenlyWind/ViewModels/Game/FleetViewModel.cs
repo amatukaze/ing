@@ -1,7 +1,9 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Views.Game;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
+    [ViewInfo(typeof(FleetDetail))]
     public class FleetViewModel : ModelBase
     {
         public Fleet Source { get; }
