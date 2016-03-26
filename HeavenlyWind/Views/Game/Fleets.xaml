@@ -9,8 +9,26 @@
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <ruic:AdvancedTabControl DisableTabReorder="True" ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" Padding="0">
+        <ruic:AdvancedTabControl.ItemContainerStyle>
+            <Style TargetType="{x:Type ruic:AdvancedTabItem}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Padding" Value="10, 6" />
+
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource AccentHighlightBrushKey}" />
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource ActiveBackgroundBrushKey}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ruic:AdvancedTabControl.ItemContainerStyle>
         <ruic:AdvancedTabControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type rvmg:FleetViewModel}">
+            <DataTemplate>
                 <TextBlock Text="{Binding Source.Name}" />
             </DataTemplate>
         </ruic:AdvancedTabControl.ItemTemplate>
