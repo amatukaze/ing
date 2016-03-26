@@ -82,6 +82,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_Fleets_Expedition_TimeToComplete => GetString(nameof(Overview_Fleets_Expedition_TimeToComplete));
         public string Overview_Fleets_Expedition_TotalYield => GetString(nameof(Overview_Fleets_Expedition_TotalYield));
         public string Overview_Fleets_Expedition_TotalYield_GreatSuccess => GetString(nameof(Overview_Fleets_Expedition_TotalYield_GreatSuccess));
+        public string Overview_Fleets_Expedition_HourlyYield => GetString(nameof(Overview_Fleets_Expedition_HourlyYield));
+        public string Overview_Fleets_Expedition_HourlyYield_GreatSuccess => GetString(nameof(Overview_Fleets_Expedition_HourlyYield_GreatSuccess));
         public string Overview_Dock_Locked => GetString(nameof(Overview_Dock_Locked));
         public string Overview_RepairDocks => GetString(nameof(Overview_RepairDocks));
         public string Overview_RepairDocks_TimeToComplete => GetString(nameof(Overview_RepairDocks_TimeToComplete));
