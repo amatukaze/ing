@@ -11,6 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
             {
                 DataContext = rpSourceTabControl.DataContext,
                 ItemTemplate = rpSourceTabControl.ItemTemplate,
+                ContentTemplateSelector = rpSourceTabControl.ContentTemplateSelector,
                 TabController = new TabController() { TearOffController = rpSourceTabControl.TabController.TearOffController, Partition = rpSourceTabControl.TabController.Partition },
             };
         }

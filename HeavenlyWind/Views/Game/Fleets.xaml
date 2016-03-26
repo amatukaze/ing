@@ -8,7 +8,7 @@
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <ruic:AdvancedTabControl DisableTabReorder="True" ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" Padding="0">
+    <ruic:AdvancedTabControl DisableTabReorder="True" TabController="{StaticResource TabController}" ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" Padding="0">
         <ruic:AdvancedTabControl.ItemContainerStyle>
             <Style TargetType="{x:Type ruic:AdvancedTabItem}">
                 <Setter Property="Background" Value="Transparent" />
@@ -29,7 +29,7 @@
         </ruic:AdvancedTabControl.ItemContainerStyle>
         <ruic:AdvancedTabControl.ItemTemplate>
             <DataTemplate>
-                <TextBlock Text="{Binding Source.Name}" />
+                <TextBlock Text="{Binding Name}" />
             </DataTemplate>
         </ruic:AdvancedTabControl.ItemTemplate>
     </ruic:AdvancedTabControl>

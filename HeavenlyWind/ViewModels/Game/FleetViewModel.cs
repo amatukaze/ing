@@ -7,6 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
     public class FleetViewModel : ModelBase
     {
         public Fleet Source { get; }
+        public string Name => Source.Name;
 
         public FleetExpeditionStatusViewModel ExpeditionStatus { get; }
         public FleetConditionRegenerationViewModel ConditionRegeneration { get; }
