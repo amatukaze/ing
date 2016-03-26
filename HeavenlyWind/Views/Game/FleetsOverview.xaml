@@ -69,6 +69,36 @@
                                 <rc:MaterialIcon Type="Bauxite" Margin="2" />
                                 <TextBlock Text="{Binding BauxiteGS}" Margin="4, 2" />
                             </StackPanel>
+
+                            <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Expedition_HourlyYield}" Margin="0, 8, 0, 0" Visibility="{rb:CollapsedIfNull Yield}" />
+                            <StackPanel DataContext="{Binding Yield}" Orientation="Horizontal" Margin="0, 4, 0, 0" Visibility="{rb:CollapsedIfNull}">
+                                <rc:MaterialIcon Type="Fuel" Margin="2" />
+                                <TextBlock Text="{Binding HourlyFuel, StringFormat={}{0:0.##}}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Bullet" Margin="2" />
+                                <TextBlock Text="{Binding HourlyBullet, StringFormat={}{0:0.##}}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Steel" Margin="2" />
+                                <TextBlock Text="{Binding HourlySteel, StringFormat={}{0:0.##}}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Bauxite" Margin="2" />
+                                <TextBlock Text="{Binding HourlyBauxite, StringFormat={}{0:0.##}}" Margin="4, 2" />
+                            </StackPanel>
+
+                            <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Expedition_HourlyYield_GreatSuccess}" Margin="0, 4, 0, 0" Visibility="{rb:CollapsedIfNull Yield}" />
+                            <StackPanel DataContext="{Binding Yield}" Orientation="Horizontal" Margin="0, 4, 0, 0" Visibility="{rb:CollapsedIfNull}">
+                                <rc:MaterialIcon Type="Fuel" Margin="2" />
+                                <TextBlock Text="{Binding HourlyFuelGS, StringFormat={}{0:0.##}}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Bullet" Margin="2" />
+                                <TextBlock Text="{Binding HourlyBulletGS, StringFormat={}{0:0.##}}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Steel" Margin="2" />
+                                <TextBlock Text="{Binding HourlySteelGS, StringFormat={}{0:0.##}}" Margin="4, 2" />
+
+                                <rc:MaterialIcon Type="Bauxite" Margin="2" />
+                                <TextBlock Text="{Binding HourlyBauxiteGS, StringFormat={}{0:0.##}}" Margin="4, 2" />
+                            </StackPanel>
                         </StackPanel>
                     </ToolTip>
                 </Border.ToolTip>

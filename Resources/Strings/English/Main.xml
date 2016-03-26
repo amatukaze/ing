@@ -78,6 +78,8 @@
   <String Key="Overview_Fleets_Expedition_TimeToComplete">Completion Time</String>
   <String Key="Overview_Fleets_Expedition_TotalYield">Total Yield</String>
   <String Key="Overview_Fleets_Expedition_TotalYield_GreatSuccess">Total Yield (GS)</String>
+  <String Key="Overview_Fleets_Expedition_HourlyYield">Hourly Yield</String>
+  <String Key="Overview_Fleets_Expedition_HourlyYield_GreatSuccess">Hourly Yield (GS)</String>
   <String Key="Overview_Dock_Locked">Locked</String>
   <String Key="Overview_RepairDocks">Repair docks</String>
   <String Key="Overview_RepairDocks_TimeToComplete">Completion Time</String>

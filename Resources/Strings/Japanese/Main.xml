@@ -78,6 +78,8 @@
   <String Key="Overview_Fleets_Expedition_TimeToComplete">完了時刻</String>
   <String Key="Overview_Fleets_Expedition_TotalYield">収入理論値</String>
   <String Key="Overview_Fleets_Expedition_TotalYield_GreatSuccess">収入理論値(大成功)</String>
+  <String Key="Overview_Fleets_Expedition_HourlyYield">時給理論値</String>
+  <String Key="Overview_Fleets_Expedition_HourlyYield_GreatSuccess">時給理論値(大成功)</String>
   <String Key="Overview_Dock_Locked">ロック</String>
   <String Key="Overview_RepairDocks">入渠ドック</String>
   <String Key="Overview_RepairDocks_TimeToComplete">完了時刻</String>
