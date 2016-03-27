@@ -59,6 +59,8 @@ namespace Sakuno.KanColle.Amatsukaze
             CacheService.Instance.Initialize();
             NotificationService.Instance.Initialize();
 
+            PluginService.Instance.Initialize();
+
             KanColleProxy.Start();
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
