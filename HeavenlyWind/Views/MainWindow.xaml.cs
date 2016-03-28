@@ -3,6 +3,7 @@ using Sakuno.UserInterface.Controls;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Views
 {
@@ -11,6 +12,10 @@ namespace Sakuno.KanColle.Amatsukaze.Views
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        static MainWindow()
+        {
+            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(int.MaxValue));
+        }
         public MainWindow()
         {
             InitializeComponent();
