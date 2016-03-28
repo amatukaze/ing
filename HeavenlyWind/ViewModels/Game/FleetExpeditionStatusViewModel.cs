@@ -38,6 +38,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 Yield = null;
             else
             {
+                ExpeditionService.Instance.WaitForInitialization();
+
                 var rInfo = ExpeditionService.Instance.GetInfo(r_Source.Expedition.ID);
                 if (rInfo != null)
                     Yield = new ExpeditionYield(r_Fleet, rInfo);
