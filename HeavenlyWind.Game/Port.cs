@@ -236,6 +236,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             });
             SessionService.Instance.Subscribe("api_get_member/ship_deck", _ => r_EvacuatedShipIDs = null);
             SessionService.Instance.Subscribe("api_port/port", _ => EvacuatedShipIDs.Clear());
+
+            SessionService.Instance.Subscribe("api_req_member/updatedeckname", r =>
+            {
+                var rFleet = Fleets[int.Parse(r.Parameters["api_deck_id"])];
+                rFleet.Name = r.Parameters["api_name"];
+            });
         }
 
         #region Update
