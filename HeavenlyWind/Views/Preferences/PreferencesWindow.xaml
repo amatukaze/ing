@@ -125,8 +125,7 @@
                     <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Notification}" FontSize="14" />
                 </TabItem.Header>
 
-                <StackPanel>
-                </StackPanel>
+                <rvp:Notification />
             </TabItem>
 
             <TabItem>

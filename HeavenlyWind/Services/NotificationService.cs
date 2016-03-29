@@ -39,7 +39,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     foreach (var rFleet in rpFleets)
                         rFleet.ExpeditionStatus.Returned += (rpFleetName, rpExpeditionName) =>
-                            Show(StringResources.Instance.Main.Notification_Expedition, string.Format(StringResources.Instance.Main.Notification_Expedition_Content, rpFleetName, rpExpeditionName));
+                        {
+                            if (Preference.Current.Notification.Expedition)
+                                Show(StringResources.Instance.Main.Notification_Expedition, string.Format(StringResources.Instance.Main.Notification_Expedition_Content, rpFleetName, rpExpeditionName));
+                        };
                 };
 
                 var rPortPCEL = PropertyChangedEventListener.FromSource(rPort);
@@ -47,13 +50,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     foreach (var rConstructionDock in rPort.ConstructionDocks.Values)
                         rConstructionDock.ConstructionCompleted += rpShipName =>
-                            Show(StringResources.Instance.Main.Notification_Construction, string.Format(StringResources.Instance.Main.Notification_Construction_Content, rpShipName));
+                        {
+                            if (Preference.Current.Notification.Construction)
+                                Show(StringResources.Instance.Main.Notification_Construction, string.Format(StringResources.Instance.Main.Notification_Construction_Content, rpShipName));
+                        };
                 });
                 rPortPCEL.Add(nameof(rPort.RepairDocks), delegate
                 {
                     foreach (var rRepairDock in rPort.RepairDocks.Values)
                         rRepairDock.RepairCompleted += rpShipName =>
-                            Show(StringResources.Instance.Main.Notification_Repair, string.Format(StringResources.Instance.Main.Notification_Repair_Content, rpShipName));
+                        {
+                            if (Preference.Current.Notification.Repair)
+                                Show(StringResources.Instance.Main.Notification_Repair, string.Format(StringResources.Instance.Main.Notification_Repair_Content, rpShipName));
+                        };
                 });
             });
 
@@ -103,7 +112,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 if (rBattle.FriendEscort != null)
                     rParticipants = rParticipants.Concat(rBattle.FriendEscort);
 
-                if (rParticipants.Any(r => r.State == BattleParticipantState.HeavilyDamaged))
+                if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == BattleParticipantState.HeavilyDamaged))
                     Show(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
             });
 
@@ -125,7 +134,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                         if (rSortie.EscortFleet != null)
                             rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
-                        if (rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
+                        if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
                             Show(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
                     });
                 }

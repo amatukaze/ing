@@ -89,6 +89,7 @@
     <Compile Include="Models\Preferences\GamePreference.cs" />
     <Compile Include="Models\Preferences\LayoutPreference.cs" />
     <Compile Include="Models\Preferences\NetworkPreference.cs" />
+    <Compile Include="Models\Preferences\NotificationPreference.cs" />
     <Compile Include="Models\Preferences\ScreenshotPreference.cs" />
     <Compile Include="Models\Preferences\UpdatePreference.cs" />
     <Compile Include="Models\Preferences\UpstreamProxyPreference.cs" />

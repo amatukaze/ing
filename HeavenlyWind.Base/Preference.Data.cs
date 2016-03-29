@@ -58,6 +58,9 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("browser")]
         public BrowserPreference Browser { get; set; } = new BrowserPreference();
 
+        [JsonProperty("notification")]
+        public NotificationPreference Notification { get; set; } = new NotificationPreference();
+
         WindowsPreference r_Windows;
         [JsonProperty("windows")]
         public WindowsPreference Windows

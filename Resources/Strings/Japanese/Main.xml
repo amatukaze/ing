@@ -251,6 +251,10 @@
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">ファイルの検証をする</String>
   <String Key="PreferenceWindow_Cache_Path">パス</String>
   <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Notification_Construction">建造完了を通知する</String>
+  <String Key="PreferenceWindow_Notification_Expedition">遠征帰投を通知する</String>
+  <String Key="PreferenceWindow_Notification_Repair">入渠完了を通知する</String>
+  <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">大破艦・大破進撃を通知する</String>
   <String Key="PreferenceWindow_Language">言語</String>
   <String Key="PreferenceWindow_Language_NameTranslation">名前の翻訳</String>
   <String Key="PreferenceWindow_Browser">ブラウザ</String>

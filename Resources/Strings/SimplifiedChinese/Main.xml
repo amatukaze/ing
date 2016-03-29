@@ -251,6 +251,10 @@
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">校验文件版本</String>
   <String Key="PreferenceWindow_Cache_Path">路径</String>
   <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Notification_Construction">在建造完成时通知</String>
+  <String Key="PreferenceWindow_Notification_Expedition">在远征归来时通知</String>
+  <String Key="PreferenceWindow_Notification_Repair">在入渠结束时通知</String>
+  <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">在有大破船以及大破进击时发出警告</String>
   <String Key="PreferenceWindow_Language">语言</String>
   <String Key="PreferenceWindow_Language_NameTranslation">名字翻译</String>
   <String Key="PreferenceWindow_Browser">浏览器</String>
