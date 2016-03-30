@@ -29,11 +29,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 rBuilder.Append(Info.TranslatedName);
 
-                if (Level > 0)
-                    rBuilder.Append(' ').Append(LevelText);
-
                 if (Proficiency > 0)
                     rBuilder.Append(' ').Append(ProficiencyText);
+
+                if (Level > 0)
+                    rBuilder.Append(' ').Append(LevelText);
 
                 return rBuilder.ToString();
             }
