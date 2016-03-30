@@ -14,11 +14,15 @@
         <DataTemplate x:Key="ParticipantTemplate">
             <Border Name="Border" Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Height="30" Grid.IsSharedSizeScope="True">
                 <TextBlock DataContext="{Binding Info}">
-                    <Run Name="Name" Text="{rb:ExtraStringResource Ship, ID, NameWithoutAbyssalShipClass}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                    <Run Name="Name" Text="{rb:ExtraStringResource Ship, ID, Name}" /><Run Style="{StaticResource AbyssalShipClass}" />
                 </TextBlock>
             </Border>
 
             <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Ship.Info.IsAbyssalShip}" Value="True">
+                    <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource AbyssalShip, ID, NameWithoutAbyssalShipClass}" />
+                </DataTrigger>
+
                 <DataTrigger Binding="{Binding IsMVP}" Value="True">
                     <Setter TargetName="Name" Property="Foreground" Value="Yellow" />
                 </DataTrigger>

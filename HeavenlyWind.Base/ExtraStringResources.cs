@@ -8,6 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         public HybridDictionary<int, string> Ships { get; internal set; }
         public HybridDictionary<int, string> ShipTypes { get; internal set; }
+        public HybridDictionary<int, string> AbyssalShip { get; internal set; }
         public HybridDictionary<int, string> Equipment { get; internal set; }
         public HybridDictionary<int, string> Items { get; internal set; }
         public HybridDictionary<int, string> Expeditions { get; internal set; }
@@ -27,6 +28,9 @@ namespace Sakuno.KanColle.Amatsukaze
 
                 case ExtraStringResourceType.ShipType:
                     return ShipTypes;
+
+                case ExtraStringResourceType.AbyssalShip:
+                    return AbyssalShip;
 
                 case ExtraStringResourceType.Equipment:
                     return Equipment;
@@ -55,13 +59,17 @@ namespace Sakuno.KanColle.Amatsukaze
 
         string GetName(IDictionary<int, string> rpDictionary, int rpID)
         {
-            string rResult = null;
-            rpDictionary?.TryGetValue(rpID, out rResult);
+            if (rpDictionary == null)
+                return null;
+
+            string rResult;
+            rpDictionary.TryGetValue(rpID, out rResult);
             return rResult;
         }
 
         public string GetShipName(int rpID) => GetName(Ships, rpID);
         public string GetShipTypeName(int rpID) => GetName(ShipTypes, rpID);
+        public string GetAbyssalShip(int rpID) => GetName(AbyssalShip, rpID);
         public string GetEquipmentName(int rpID) => GetName(Equipment, rpID);
         public string GetItemName(int rpID) => GetName(Items, rpID);
         public string GetExpeditionName(int rpID) => GetName(Expeditions, rpID);

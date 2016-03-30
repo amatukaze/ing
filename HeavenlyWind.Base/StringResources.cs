@@ -120,45 +120,54 @@ namespace Sakuno.KanColle.Amatsukaze
                 using (var rReader = new JsonTextReader(rContent.File.OpenText()))
                 {
                     var rTranslations = JArray.Load(rReader);
-                    var rNames = rTranslations.ToHybridDictionary(r => (int)r["id"], r => (string)r["name"]);
-
-                    switch (rContent.Type)
+                    if (rContent.Type == ExtraStringResourceType.AbyssalShip)
                     {
-                        case ExtraStringResourceType.Ship:
-                            rESR.Ships = rNames;
-                            break;
+                        rESR.AbyssalShip = rTranslations
+                            .SelectMany(r => r["id"], (rpID, rpTranslation) => new { ID = (int)rpID, Name = (string)rpTranslation["name"] })
+                            .ToHybridDictionary(r => r.ID, r => r.Name);
+                    }
+                    else
+                    {
+                        var rNames = rTranslations.ToHybridDictionary(r => (int)r["id"], r => (string)r["name"]);
 
-                        case ExtraStringResourceType.ShipType:
-                            rESR.ShipTypes = rNames;
-                            break;
+                        switch (rContent.Type)
+                        {
+                            case ExtraStringResourceType.Ship:
+                                rESR.Ships = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Equipment:
-                            rESR.Equipment = rNames;
-                            break;
+                            case ExtraStringResourceType.ShipType:
+                                rESR.ShipTypes = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Item:
-                            rESR.Items = rNames;
-                            break;
+                            case ExtraStringResourceType.Equipment:
+                                rESR.Equipment = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Expedition:
-                            rESR.Expeditions = rNames;
-                            break;
+                            case ExtraStringResourceType.Item:
+                                rESR.Items = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Quest:
-                            rESR.Quests = rNames;
-                            break;
+                            case ExtraStringResourceType.Expedition:
+                                rESR.Expeditions = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Area:
-                            rESR.Areas = rNames;
-                            break;
+                            case ExtraStringResourceType.Quest:
+                                rESR.Quests = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Map:
-                            rESR.Maps = rNames;
-                            break;
+                            case ExtraStringResourceType.Area:
+                                rESR.Areas = rNames;
+                                break;
 
-                        case ExtraStringResourceType.ShipLocking:
-                            rESR.ShipLocking = rNames;
-                            break;
+                            case ExtraStringResourceType.Map:
+                                rESR.Maps = rNames;
+                                break;
+
+                            case ExtraStringResourceType.ShipLocking:
+                                rESR.ShipLocking = rNames;
+                                break;
+                        }
                     }
                 }
             }

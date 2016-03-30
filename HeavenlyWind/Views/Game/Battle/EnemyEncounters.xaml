@@ -41,7 +41,7 @@
                                     <DataTemplate>
                                         <Border Name="Border" MinWidth="75" Height="30">
                                             <TextBlock>
-                                                <Run Name="Name" Text="{Binding NameWithoutAbyssalShipClass, Mode=OneWay}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                                                <Run Text="{rb:ExtraStringResource AbyssalShip, ID, NameWithoutAbyssalShipClass}" /><Run Style="{StaticResource AbyssalShipClass}" />
                                             </TextBlock>
                                         </Border>
                                     </DataTemplate>

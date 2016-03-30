@@ -163,6 +163,11 @@
   <String Key="Sortie_SupportFleet_Ready">Support Fleet Ready</String>
   <String Key="Sortie_EnemyEncounters">Enemy Encounters</String>
 
+  <String Key="AbyssalShip_Class_Normal" />
+  <String Key="AbyssalShip_Class_Elite"> elite</String>
+  <String Key="AbyssalShip_Class_Flagship"> flagship</String>
+  <String Key="AbyssalShip_Class_LateModel"> Late model</String>
+
   <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">Easy</String>
   <String Key="Map_Difficulty_Normal">Medium</String>

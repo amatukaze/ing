@@ -65,16 +65,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             if (IsAbyssalShip)
             {
+                r_NameWithoutLateModel = Name;
+
                 if (NameReading == "elite")
                     AbyssalShipClass = AbyssalShipClassEnum.Elite;
                 else if (NameReading == "flagship")
                     AbyssalShipClass = AbyssalShipClassEnum.Flagship;
                 else if (Name.Contains("後期型"))
+                {
                     AbyssalShipClass = AbyssalShipClassEnum.LateModel;
+                    r_NameWithoutLateModel = r_NameWithoutLateModel.Replace("後期型", string.Empty);
+                }
                 else
+                {
                     AbyssalShipClass = AbyssalShipClassEnum.Normal;
-
-                r_NameWithoutLateModel = Name.Replace("後期型", string.Empty);
+                }
             }
         }
 

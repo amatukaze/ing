@@ -163,6 +163,11 @@
   <String Key="Sortie_SupportFleet_Ready">支援舰队等待中</String>
   <String Key="Sortie_EnemyEncounters">可能遭遇的敌方舰队</String>
 
+  <String Key="AbyssalShip_Class_Normal" />
+  <String Key="AbyssalShip_Class_Elite">elite</String>
+  <String Key="AbyssalShip_Class_Flagship">flagship</String>
+  <String Key="AbyssalShip_Class_LateModel">後期型</String>
+
   <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">丙</String>
   <String Key="Map_Difficulty_Normal">乙</String>
