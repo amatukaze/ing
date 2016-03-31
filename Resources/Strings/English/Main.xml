@@ -272,6 +272,7 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">Render Mode</String>
   <String Key="PreferenceWindow_Screenshot">Screenshot</String>
   <String Key="PreferenceWindow_Screenshot_Folder">Destination</String>
+  <String Key="PreferenceWindow_Plugin">Plugin</String>
   <String Key="PreferenceWindow_VersionInfo">Version</String>
 
   <String Key="ValidationRule_PleaseInputNumber">Please input number</String>

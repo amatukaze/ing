@@ -55,6 +55,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
@@ -139,6 +140,9 @@
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
     <Compile Include="Services\ExpeditionService.cs" />
     <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\PluginService.cs" />
+    <Compile Include="Services\Plugins\FailureInfo.cs" />
+    <Compile Include="Services\Plugins\Plugin.cs" />
     <Compile Include="Services\ScreenshotService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="Services\TaskbarProgressService.cs" />
@@ -179,8 +183,10 @@
     <Compile Include="ViewModels\Overviews\ShipOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="ViewModels\ToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\OverviewScreenshotToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\ScreenshotToolPreviewViewModel.cs" />
     <Compile Include="ViewModels\Tools\ScreenshotToolViewModel.cs" />
@@ -305,6 +311,9 @@
     <Compile Include="Views\Preferences\Notification.xaml.cs">
       <DependentUpon>Notification.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Preferences\Plugin.xaml.cs">
+      <DependentUpon>Plugin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Preferences\PreferencesWindow.xaml.cs">
       <DependentUpon>PreferencesWindow.xaml</DependentUpon>
     </Compile>
@@ -347,6 +356,10 @@
     <ProjectReference Include="..\HeavenlyWind.Base\HeavenlyWind.Base.csproj">
       <Project>{eeb0bea3-8d40-47c3-aeef-ba7774d721ca}</Project>
       <Name>HeavenlyWind.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HeavenlyWind.Extensibility\HeavenlyWind.Extensibility.csproj">
+      <Project>{2541487f-d8db-4ca5-9b41-df6243b259b7}</Project>
+      <Name>HeavenlyWind.Extensibility</Name>
     </ProjectReference>
     <ProjectReference Include="..\HeavenlyWind.Game\HeavenlyWind.Game.csproj">
       <Project>{9263590f-63a1-4586-b478-a12d7d67b622}</Project>
@@ -783,6 +796,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Notification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Preferences\Plugin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

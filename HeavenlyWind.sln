@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.SystemInterop", "Lib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.UserInterface", "Library\Sakuno.UserInterface\Sakuno.UserInterface.csproj", "{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.Extensibility", "HeavenlyWind.Extensibility\HeavenlyWind.Extensibility.csproj", "{2541487F-D8DB-4CA5-9B41-DF6243B259B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2541487F-D8DB-4CA5-9B41-DF6243B259B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2541487F-D8DB-4CA5-9B41-DF6243B259B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2541487F-D8DB-4CA5-9B41-DF6243B259B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2541487F-D8DB-4CA5-9B41-DF6243B259B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,10 @@
 ﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.ViewModels;
 using System;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Sakuno.KanColle.Amatsukaze.Internal
 {
@@ -22,6 +24,10 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
 
                 r_ViewTypeMap.Add(rType, new DataTemplate(rType) { VisualTree = new FrameworkElementFactory(rViewInfo.ViewType) });
             }
+
+            var rContentPresenter = new FrameworkElementFactory(typeof(ContentPresenter));
+            rContentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding(nameof(ToolViewModel.View)));
+            r_ViewTypeMap.Add(typeof(ToolViewModel), new DataTemplate(typeof(ToolViewModel)) { VisualTree = rContentPresenter });
         }
 
         public override DataTemplate SelectTemplate(object rpItem, DependencyObject rpContainer)
