@@ -104,7 +104,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <ScrollViewer>
+    <ScrollViewer PanningMode="VerticalOnly">
         <StackPanel Grid.IsSharedSizeScope="True">
             <ListBox ItemsSource="{Binding Executing}" />
             <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="0, 5" />

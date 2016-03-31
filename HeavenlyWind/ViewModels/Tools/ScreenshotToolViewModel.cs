@@ -1,7 +1,7 @@
-﻿using Sakuno.KanColle.Amatsukaze.Models;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Tools;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {
     class ScreenshotToolViewModel : ModelBase
     {
-        internal static readonly Dictionary<ScreenshotRegion, Int32Rect> Regions = new Dictionary<ScreenshotRegion, Int32Rect>()
+        internal static readonly ListDictionary<ScreenshotRegion, Int32Rect> Regions = new ListDictionary<ScreenshotRegion, Int32Rect>()
         {
             { ScreenshotRegion.All, new Int32Rect(0, 0, 800, 480) },
             { ScreenshotRegion.FleetComposition, new Int32Rect(105, 100, 690, 370) },
