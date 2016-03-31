@@ -183,6 +183,7 @@
     <Compile Include="ViewModels\Overviews\ShipOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\ToolViewModel.cs" />
@@ -306,6 +307,9 @@
     </Compile>
     <Compile Include="Views\Preferences\Network.xaml.cs">
       <DependentUpon>Network.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Preferences\Plugin.xaml.cs">
+      <DependentUpon>Plugin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\PreferencesWindow.xaml.cs">
       <DependentUpon>PreferencesWindow.xaml</DependentUpon>
@@ -785,6 +789,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Network.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Preferences\Plugin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

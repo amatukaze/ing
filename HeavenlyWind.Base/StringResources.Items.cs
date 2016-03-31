@@ -267,6 +267,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Flash_RenderMode => GetString(nameof(PreferenceWindow_Browser_Flash_RenderMode));
         public string PreferenceWindow_Screenshot => GetString(nameof(PreferenceWindow_Screenshot));
         public string PreferenceWindow_Screenshot_Folder => GetString(nameof(PreferenceWindow_Screenshot_Folder));
+        public string PreferenceWindow_Plugin => GetString(nameof(PreferenceWindow_Plugin));
         public string PreferenceWindow_VersionInfo => GetString(nameof(PreferenceWindow_VersionInfo));
 
         public string ValidationRule_PleaseInputNumber => GetString(nameof(ValidationRule_PleaseInputNumber));

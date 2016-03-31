@@ -31,6 +31,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         [ImportMany]
         IEnumerable<Lazy<IPreference, IPluginMetadata>> r_Preferences = null;
 
+        public IEnumerable<Plugin> LoadedPlugins => r_LoadedPlugins.Values;
+
         public IEnumerable<IToolPane> ToolPanes => Cache<IToolPane>.Contents?.AsReadOnly();
 
         PluginService() { }

@@ -263,6 +263,7 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">渲染模式</String>
   <String Key="PreferenceWindow_Screenshot">截图</String>
   <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
+  <String Key="PreferenceWindow_Plugin">插件</String>
   <String Key="PreferenceWindow_VersionInfo">版本信息</String>
 
   <String Key="ValidationRule_PleaseInputNumber">请输入数字</String>

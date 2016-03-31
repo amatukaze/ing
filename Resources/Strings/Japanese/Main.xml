@@ -263,6 +263,7 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
+  <String Key="PreferenceWindow_Plugin">プラグイン</String>
   <String Key="PreferenceWindow_VersionInfo">バージョン情報</String>
 
   <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
