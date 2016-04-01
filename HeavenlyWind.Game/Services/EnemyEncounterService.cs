@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            SessionService.Instance.SubscribeOnce("api_get_member/basic", delegate
+            SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
             {
                 r_Connection = new SQLiteConnection(@"Data Source=Data\AbyssalFleets.db; Page Size=8192").OpenAndReturn();
 

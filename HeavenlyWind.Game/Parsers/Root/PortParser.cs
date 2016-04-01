@@ -12,6 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root
                 Game.OldSortie = Game.Sortie;
 
             Game.Sortie = null;
+            Game.Port.UpdateAdmiral(rpData.Basic);
             Game.Port.UpdatePort(rpData);
         }
     }

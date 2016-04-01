@@ -39,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (!Directory.Exists("Records"))
                 Directory.CreateDirectory("Records");
 
-            SessionService.Instance.Subscribe("api_get_member/basic", _ => Connect(KanColleGame.Current.Port.Admiral.ID));
+            SessionService.Instance.Subscribe("api_get_member/require_info", _ => Connect(KanColleGame.Current.Port.Admiral.ID));
         }
 
         void Connect(int rpUserID)

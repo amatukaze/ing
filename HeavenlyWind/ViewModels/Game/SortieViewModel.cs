@@ -55,7 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 }
             });
 
-            r_EventMapShipLockingSubscription = SessionService.Instance.Subscribe("api_get_member/basic", delegate
+            r_EventMapShipLockingSubscription = SessionService.Instance.Subscribe("api_get_member/require_info", delegate
             {
                 ShipLockingService.Instance.Initialize();
 
