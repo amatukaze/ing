@@ -17,8 +17,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public static QuestProgressService Instance { get; } = new QuestProgressService();
 
-        static IDisposable r_LoadDataSubscription;
-
         public IDictionary<int, ProgressInfo> Progresses { get; private set; }
 
         internal Dictionary<int, QuestInfo> Infos { get; set; }
@@ -31,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            r_LoadDataSubscription = SessionService.Instance.Subscribe("api_start2", _ =>
+            SessionService.Instance.SubscribeOnce("api_start2", delegate
             {
                 var rDataFile = new FileInfo(DataFilename);
                 if (!rDataFile.Exists)
@@ -43,15 +41,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                         Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
                     }
-
-                r_LoadDataSubscription.Dispose();
-                r_LoadDataSubscription = null;
             });
 
-            SessionService.Instance.Subscribe("api_get_member/basic", _ => Progresses = RecordService.Instance.QuestProgress.Reload());
+            SessionService.Instance.Subscribe("api_get_member/require_info", _ => Progresses = RecordService.Instance.QuestProgress.Reload());
 
             SessionService.Instance.Subscribe("api_get_member/questlist", r => ProcessQuestList(r.Data as RawQuestList));
-            SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => Progresses.Remove(int.Parse(r.Requests["api_quest_id"])));
+            SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => Progresses.Remove(int.Parse(r.Parameters["api_quest_id"])));
         }
 
         void ProcessQuestList(RawQuestList rpData)
@@ -60,7 +55,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 var rQuests = KanColleGame.Current.Port.Quests.Table;
                 var rOutdatedProgresses = Progresses.Values.Where(r => GetResetTime(!r.Quest.IsDailyReset ? r.ResetType : QuestType.Daily) > r.UpdateTime).ToArray();
-
                 foreach (var rProgressInfo in rOutdatedProgresses)
                 {
                     var rID = rProgressInfo.Quest.ID;
@@ -68,6 +62,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     rQuests.Remove(rID);
                     Progresses.Remove(rID);
                 }
+                var rOutdatedQuests = rQuests.Values.Where(r => GetResetTime(r.Type) > r.CreationTime).ToArray();
+                foreach (var rQuest in rOutdatedQuests)
+                    rQuests.Remove(rQuest);
             }
 
             if (rpData == null)

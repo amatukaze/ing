@@ -2,12 +2,14 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.Views.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
+    [ViewInfo(typeof(ExpeditionOverview))]
     public class ExpeditionOverviewViewModel : TabItemViewModel, IDisposable
     {
         public override string Name

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Browser;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
@@ -35,7 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         MemoryMappedFile r_ScreenshotMMF;
 
-        static Dictionary<string, string> r_LayoutEngineDependencies;
+        static HybridDictionary<string, string> r_LayoutEngineDependencies;
 
         static BrowserWrapper()
         {
@@ -147,6 +148,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 r_Container.Width = rpWParam.ToInt32();
                 r_Container.Height = rpLParam.ToInt32();
 
+                NativeMethods.User32.SetWindowPos(r_HwndSource.Handle, IntPtr.Zero, 0, 0, rpWParam.ToInt32(), rpLParam.ToInt32(), NativeEnums.SetWindowPosition.SWP_NOMOVE | NativeEnums.SetWindowPosition.SWP_NOZORDER);
+
                 rrpHandled = true;
             }
 
@@ -183,7 +186,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 throw new Exception();
 
             if (rInfo.Dependencies != null)
-                r_LayoutEngineDependencies = rInfo.Dependencies.ToDictionary(r => r.AssemblyName, r => r.Path);
+                r_LayoutEngineDependencies = rInfo.Dependencies.ToHybridDictionary(r => r.AssemblyName, r => r.Path);
 
             var rAssembly = Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rInfo.EntryFile));
             var rType = rAssembly.GetTypes().Where(r => r.GetInterface(typeof(IBrowserProvider).FullName) != null).FirstOrDefault();

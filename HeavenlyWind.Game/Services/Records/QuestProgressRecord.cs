@@ -1,10 +1,10 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
@@ -12,11 +12,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     {
         public override string GroupName => "quest";
 
-        Dictionary<int, ProgressInfo> r_Progresses = new Dictionary<int, ProgressInfo>(16);
+        HybridDictionary<int, ProgressInfo> r_Progresses = new HybridDictionary<int, ProgressInfo>(16);
 
         internal QuestProgressRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => DeleteRecord(int.Parse(r.Requests["api_quest_id"]))));
+            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => DeleteRecord(int.Parse(r.Parameters["api_quest_id"]))));
         }
 
         protected override void CreateTable()
@@ -36,7 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        internal Dictionary<int, ProgressInfo> Reload()
+        internal HybridDictionary<int, ProgressInfo> Reload()
         {
             using (var rCommand = Connection.CreateCommand())
             {

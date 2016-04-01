@@ -18,11 +18,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             r_Handle = rpHandle;
 
             BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.InvalidateArrange, _ => InvalidateArrange());
-            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.LoadCompleted, delegate
-            {
-                IsExtracted = false;
-                InvalidateArrange();
-            });
         }
 
         protected override HandleRef BuildWindowCore(HandleRef rpParentHandle)
@@ -37,6 +32,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         internal void ResizeBrowserToFitGame()
         {
             IsExtracted = true;
+            InvalidateMeasure();
             InvalidateArrange();
         }
 
@@ -66,8 +62,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             {
                 var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
 
-                rWidth = GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
-                rHeight = GameConstants.GameHeight * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
+                rWidth = Math.Min(rWidth, GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX);
+                rHeight = Math.Min(rHeight, GameConstants.GameHeight * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY);
             }
 
             return new Size(rWidth, rHeight);

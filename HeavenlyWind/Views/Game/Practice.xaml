@@ -53,7 +53,7 @@
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Level" />
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{Binding Info.Name}" />
+                        <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" />
                         <TextBlock Text="{Binding Level, StringFormat=Lv. {0}}" Grid.Column="1" />
                     </Grid>
                 </DataTemplate>

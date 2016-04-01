@@ -2,8 +2,8 @@
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
+using System.Data.SQLite;
 using System.IO;
-using System.Threading;
 using System.Text.RegularExpressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
@@ -14,13 +14,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public static CacheService Instance { get; } = new CacheService();
 
-        public CacheMode CurrentMode = Preference.Current.Cache.Mode;
-
-        public string CacheDirectory = Preference.Current.Cache.Path;
+        public CacheMode CurrentMode => Preference.Current.Cache.Mode;
+        public string CacheDirectory => Preference.Current.Cache.Path;
 
         static object r_ThreadSyncObject = new object();
 
+        SQLiteConnection r_Connection;
+
         CacheService() { }
+
+        public void Initialize()
+        {
+            r_Connection = new SQLiteConnection(@"Data Source=Data\Cache.db; Page Size=8192").OpenAndReturn();
+
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS file(" +
+                    "name TEXT PRIMARY KEY NOT NULL, " +
+                    "version TEXT, " +
+                    "timestamp INTEGER NOT NULL) WITHOUT ROWID;";
+
+                rCommand.ExecuteNonQuery();
+            }
+        }
 
         internal void ProcessRequest(ResourceSession rpResourceSession, Session rpSession)
         {
@@ -28,33 +44,42 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return;
 
             string rFilename;
-            var rNoVerification = CheckFileInCache(rpSession, out rFilename);
+            var rNoVerification = CheckFileInCache(rpResourceSession.Path, out rFilename);
 
             rpResourceSession.CacheFilename = rFilename;
 
             if (rNoVerification == null)
                 return;
 
-            if (rNoVerification.Value)
+            if (!rNoVerification.Value)
             {
-                rpSession.utilCreateResponseAndBypassServer();
-                LoadFile(rFilename, rpResourceSession, rpSession);
+                var rTimestamp = new DateTimeOffset(File.GetLastWriteTime(rFilename));
+
+                if (rpResourceSession.Path.OICContains("mainD2.swf") || !CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
+                {
+                    rpSession.oRequest["If-Modified-Since"] = rTimestamp.ToString("R");
+                    rpSession.bBufferResponse = true;
+                    return;
+                }
             }
-            else
-            {
-                rpSession.oRequest["If-Modified-Since"] = File.GetLastWriteTime(rFilename).ToString("R");
-                rpSession.bBufferResponse = true;
-            }
+
+            rpSession.utilCreateResponseAndBypassServer();
+            LoadFile(rFilename, rpResourceSession, rpSession);
         }
-        bool? CheckFileInCache(Session rpSession, out string ropFilename)
+        bool? CheckFileInCache(string rpPath, out string ropFilename)
         {
             ropFilename = null;
 
-            Uri rUri;
-            if (!Uri.TryCreate(rpSession.fullUrl, UriKind.Absolute, out rUri))
+            if (rpPath.IsNullOrEmpty())
                 return null;
 
-            var rFilename = CacheDirectory + rUri.AbsolutePath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            var rFilename = CacheDirectory + rpPath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            if (rpPath.OICContains("mainD2.swf"))
+            {
+                ropFilename = rFilename;
+                return false;
+            }
+
             var rFilenameForceToLoad = r_ExtensionRegex.Replace(rFilename, ".hack$0");
             if (File.Exists(rFilenameForceToLoad))
             {
@@ -69,6 +94,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
             return null;
         }
+        bool CheckFileVersionAndTimestamp(ResourceSession rpResourceSession, DateTimeOffset rpTimestamp)
+        {
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT (CASE WHEN version IS NOT NULL THEN version ELSE '' END) = @version AND timestamp = @timestamp FROM file WHERE name = @name;";
+                rCommand.Parameters.AddWithValue("@name", rpResourceSession.Path);
+                rCommand.Parameters.AddWithValue("@version", rpResourceSession.CacheVersion ?? string.Empty);
+                rCommand.Parameters.AddWithValue("@timestamp", rpTimestamp.ToUnixTime());
+
+                return Convert.ToBoolean(rCommand.ExecuteScalar());
+            }
+        }
 
         internal void ProcessResponse(ResourceSession rpResourceSession, Session rpSession)
         {
@@ -76,6 +113,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return;
 
             LoadFile(rpResourceSession.CacheFilename, rpResourceSession, rpSession);
+
+            RecordCachedFile(rpResourceSession, File.GetLastWriteTime(rpResourceSession.CacheFilename), false);
 
             rpResourceSession.State = NetworkSessionState.LoadedFromCache;
         }
@@ -121,14 +160,35 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                         rFile.Delete();
 
                     rpSession.SaveResponseBody(rFile.FullName);
-                    rFile.LastWriteTime = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
+
+                    var rTimestamp = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
+                    rFile.LastWriteTime = rTimestamp;
 
                     rpResourceSession.State = NetworkSessionState.Cached;
+
+                    RecordCachedFile(rpResourceSession, rTimestamp, true);
                 }
             }
             catch (Exception e)
             {
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_Cache_FailedToSaveFile, e.Message));
+            }
+        }
+
+        void RecordCachedFile(ResourceSession rpResourceSession, DateTime rpTimestamp, bool rpReplace)
+        {
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                if (rpReplace)
+                    rCommand.CommandText = "REPLACE INTO file(name, version, timestamp) VALUES(@name, @version, @timestamp);";
+                else
+                    rCommand.CommandText = "INSERT OR IGNORE INTO file(name, version, timestamp) VALUES(@name, @version, @timestamp);";
+
+                rCommand.Parameters.AddWithValue("@name", rpResourceSession.Path);
+                rCommand.Parameters.AddWithValue("@version", rpResourceSession.CacheVersion);
+                rCommand.Parameters.AddWithValue("@timestamp", new DateTimeOffset(rpTimestamp).ToUnixTime());
+
+                rCommand.ExecuteNonQuery();
             }
         }
     }

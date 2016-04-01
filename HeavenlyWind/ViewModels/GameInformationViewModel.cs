@@ -12,10 +12,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         public SortieViewModel Sortie { get; }
         public QuestsViewModel Quests { get; }
 
-        public IList<TabItemViewModel> TabItems { get; }
+        public IList<object> TabItems { get; }
 
-        TabItemViewModel r_SelectedItem;
-        public TabItemViewModel SelectedItem
+        object r_SelectedItem;
+        public object SelectedItem
         {
             get { return r_SelectedItem; }
             set
@@ -30,7 +30,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         internal GameInformationViewModel()
         {
-            TabItems = new ObservableCollection<TabItemViewModel>()
+            TabItems = new ObservableCollection<object>()
             {
                 (Overview = new OverviewViewModel()),
                 (Fleets = new FleetsViewModel(this)),

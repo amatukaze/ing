@@ -38,6 +38,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 if (r_NodeSubscription != null)
                 {
                     r_NodeSubscription.Dispose();
+                    r_NodeSubscription = null;
 
                     ReturnReason rType;
 
@@ -46,12 +47,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     else
                     {
                         var rSortie = KanColleGame.Current.OldSortie;
+                        if (rSortie == null)
+                            return;
 
                         IEnumerable<Ship> rShips = rSortie.Fleet.Ships;
                         if (rSortie.EscortFleet != null)
                             rShips = rShips.Concat(rSortie.EscortFleet.Ships);
 
                         rType = rShips.Any(r => r.State.HasFlag(ShipState.HeavilyDamaged)) ? ReturnReason.RetreatWithHeavilyDamagedShip : ReturnReason.Retreat;
+
+                        KanColleGame.Current.OldSortie = null;
                     }
 
                     ProcessReturn(rType);

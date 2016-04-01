@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.UpdateNotification"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rbm="clr-namespace:Sakuno.KanColle.Amatsukaze.Models;assembly=HeavenlyWind.Base"
+             xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
+             xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+             mc:Ignorable="d"
+             DataContext="{Binding UpdateService}"
+             d:DataContext="{d:DesignInstance rs:UpdateService}"
+             d:DesignWidth="200" d:DesignHeight="26">
+    <Border Background="Yellow" Visibility="{Binding Info.IsAvailable, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" Padding="8, 0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="8" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="{rb:StringResource Main.Update_NewVersionIsAvailable}" Foreground="Black" />
+
+            <ruic:SplitButton Command="{Binding DownloadCommand}" Padding="8, 3" VerticalAlignment="Center" Grid.Column="2">
+                <ruic:SplitButton.Header>
+                    <TextBlock Text="{rb:StringResource Main.Update_Download}" />
+                </ruic:SplitButton.Header>
+
+                <ListBox Style="{StaticResource MenuListBoxStyle}">
+                    <ListBoxItem>
+                        <Button Command="{Binding HideNotificationCommand}" CommandParameter="{x:Static rbm:UpdateNotificationMode.AlwaysShow}">
+                            <TextBlock Text="{rb:StringResource Main.Update_Notification_Ignore}" />
+                        </Button>
+                    </ListBoxItem>
+                    <ListBoxItem Visibility="{Binding Info.IsImportantUpdate, Converter={StaticResource BooleanToInvisibilityConverter}}">
+                        <Button Command="{Binding HideNotificationCommand}" CommandParameter="{x:Static rbm:UpdateNotificationMode.IgnoreOptionalUpdate}">
+                            <TextBlock Text="{rb:StringResource Main.Update_Notification_IgnoreOptionalUpdate}" />
+                        </Button>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Button Command="{Binding HideNotificationCommand}" CommandParameter="{x:Static rbm:UpdateNotificationMode.Disabled}">
+                            <TextBlock Text="{rb:StringResource Main.Update_Notification_AlwaysIgnore}" />
+                        </Button>
+                    </ListBoxItem>
+                </ListBox>
+            </ruic:SplitButton>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,12 +1,14 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Views.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
+    [ViewInfo(typeof(Fleets))]
     public class FleetsViewModel : TabItemViewModel
     {
         public override string Name
@@ -50,19 +52,19 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             KanColleGame.Current.Port.Fleets.FleetsUpdated += UpdateFleets;
 
-            SessionService.Instance.Subscribe("api_req_hensei/change", r => SelectedFleet = Fleets[int.Parse(r.Requests["api_id"]) - 1]);
-            SessionService.Instance.Subscribe("api_req_hensei/preset_select", r => SelectedFleet = Fleets[int.Parse(r.Requests["api_deck_id"]) - 1]);
+            SessionService.Instance.Subscribe("api_req_hensei/change", r => SelectedFleet = Fleets[int.Parse(r.Parameters["api_id"]) - 1]);
+            SessionService.Instance.Subscribe("api_req_hensei/preset_select", r => SelectedFleet = Fleets[int.Parse(r.Parameters["api_deck_id"]) - 1]);
             SessionService.Instance.Subscribe("api_req_kaisou/slotset", r =>
             {
                 Ship rShip;
-                if (!KanColleGame.Current.Port.Ships.TryGetValue(int.Parse(r.Requests["api_id"]), out rShip))
+                if (!KanColleGame.Current.Port.Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out rShip))
                     return;
 
                 if (rShip.OwnerFleet != null)
                     SelectedFleet = Fleets[rShip.OwnerFleet.ID - 1];
             });
 
-            SessionService.Instance.Subscribe("api_req_map/start", r => SelectedFleet = Fleets[int.Parse(r.Requests["api_deck_id"]) - 1]);
+            SessionService.Instance.Subscribe("api_req_map/start", r => SelectedFleet = Fleets[int.Parse(r.Parameters["api_deck_id"]) - 1]);
         }
 
         void UpdateFleets(IEnumerable<Fleet> rpFleets)

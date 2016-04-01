@@ -36,7 +36,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClampedValue.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="FleetManager.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="IDTable`T.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
     <Compile Include="Models\AdmiralRank.cs" />
+    <Compile Include="Models\AttackMode.cs" />
     <Compile Include="Models\BattleType.cs" />
     <Compile Include="Models\Battle\AerialCombat.cs" />
     <Compile Include="Models\Battle\AerialCombatResult.cs" />
@@ -114,6 +116,8 @@
     <Compile Include="Models\ConstructionDock.cs" />
     <Compile Include="Models\CombinedFleetType.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />
+    <Compile Include="Models\CutInType.cs" />
+    <Compile Include="Models\EnemyFleet.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\EquipmentIconType.cs" />
     <Compile Include="Models\EquipmentInfo.cs" />
@@ -132,19 +136,28 @@
     <Compile Include="Models\Events\SortieEvent.cs" />
     <Compile Include="Models\Events\WhirlpoolEvent.cs" />
     <Compile Include="Models\ExpeditionResult.cs" />
+    <Compile Include="Models\Fate.cs" />
     <Compile Include="Models\FleetConditionRegeneration.cs" />
     <Compile Include="Models\FleetExpeditionStatus.cs" />
     <Compile Include="Models\ExpeditionInfo.cs" />
     <Compile Include="Models\Experience.cs" />
     <Compile Include="Models\ExperienceTable.cs" />
     <Compile Include="Models\Fleet.cs" />
+    <Compile Include="Models\FleetLoSFormula.cs" />
+    <Compile Include="Models\FleetLoSFormulaInfo.cs" />
     <Compile Include="Models\FleetLoSStatus.cs" />
     <Compile Include="Models\FleetResupplyInfo.cs" />
     <Compile Include="Models\FleetState.cs" />
     <Compile Include="Models\FleetStatus.cs" />
+    <Compile Include="Models\ICombatAbility.cs" />
     <Compile Include="Models\IID.cs" />
     <Compile Include="Models\IMapMasterInfo.cs" />
     <Compile Include="Models\ItemInfo.cs" />
+    <Compile Include="Models\ITranslatedName.cs" />
+    <Compile Include="Models\LoS\AutumnSimplifiedFormula.cs" />
+    <Compile Include="Models\LoS\AutumnFormula.cs" />
+    <Compile Include="Models\LoS\Formula33.cs" />
+    <Compile Include="Models\LoS\OldFormula.cs" />
     <Compile Include="Models\MapAreaInfo.cs" />
     <Compile Include="Models\MapGaugeType.cs" />
     <Compile Include="Models\MapInfo.cs" />
@@ -193,15 +206,17 @@
     <Compile Include="Models\Raw\RawMapMasterInfo.cs" />
     <Compile Include="Models\Raw\RawMasterInfo.cs" />
     <Compile Include="Models\Raw\RawMaterial.cs" />
-    <Compile Include="Models\Raw\RawModernization.cs" />
+    <Compile Include="Models\Raw\RawModernizationResult.cs" />
     <Compile Include="Models\Raw\RawPort.cs" />
     <Compile Include="Models\Raw\RawPracticeOpponentInfo.cs" />
     <Compile Include="Models\Raw\RawQuest.cs" />
     <Compile Include="Models\Raw\RawQuestList.cs" />
     <Compile Include="Models\Raw\RawRepairDock.cs" />
+    <Compile Include="Models\Raw\RawRequiredInfo.cs" />
     <Compile Include="Models\Raw\RawShipsAndFleets.cs" />
     <Compile Include="Models\Raw\RawSupplyResult.cs" />
     <Compile Include="Models\RepairDock.cs" />
+    <Compile Include="Models\ShipCombatAbility.cs" />
     <Compile Include="Models\ShipExtensions.cs" />
     <Compile Include="Models\ShipLocking.cs" />
     <Compile Include="Models\ShipModernizationStatus.cs" />
@@ -218,6 +233,7 @@
     <Compile Include="Models\ShipStatus.cs" />
     <Compile Include="Models\ShipSlot.cs" />
     <Compile Include="Models\ShipType.cs" />
+    <Compile Include="Models\ShipTypeInfo.cs" />
     <Compile Include="Models\SortieEventType.cs" />
     <Compile Include="Models\SortieInfo.cs" />
     <Compile Include="Models\SortieNodeInfo.cs" />
@@ -254,6 +270,7 @@
     <Compile Include="Parsers\Root\GetMember\MaterialParser.cs" />
     <Compile Include="Parsers\Root\GetMember\MapInformationParser.cs" />
     <Compile Include="Parsers\Root\GetMember\QuestListParser.cs" />
+    <Compile Include="Parsers\Root\GetMember\RequiredInfo.cs" />
     <Compile Include="Parsers\Root\Map\ExplorationParser.cs" />
     <Compile Include="Parsers\Root\Map\StartSortieParser.cs" />
     <Compile Include="Parsers\Root\Member\PracticeOpponentsParser.cs" />
@@ -267,6 +284,7 @@
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\EnemyEncounterService.cs" />
     <Compile Include="Services\MapService.cs" />
     <Compile Include="Services\Quest\Functions\ConstantFunction.cs" />
     <Compile Include="Services\Quest\Functions\Function.cs" />
@@ -303,6 +321,7 @@
     <Compile Include="Services\Records\DevelopmentRecord.cs" />
     <Compile Include="Services\Records\ExpeditionRecord.cs" />
     <Compile Include="Services\Records\ExperienceRecord.cs" />
+    <Compile Include="Services\Records\FateRecord.cs" />
     <Compile Include="Services\Records\QuestProgressRecord.cs" />
     <Compile Include="Services\Records\RankingPointBonusRecord.cs" />
     <Compile Include="Services\Records\RecordBase.cs" />

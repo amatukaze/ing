@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
+                    xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                    xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
+                    xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game">
+
+    <ri:TabContentTemplateSelector x:Key="TabContentTemplateSelector" />
+
+    <ruic:TabController x:Key="TabController">
+        <ruic:TabController.TearOffController>
+            <ri:TabTearOffController />
+        </ruic:TabController.TearOffController>
+    </ruic:TabController>
+    <ri:TabDockingController x:Key="TabDockingController" />
+
+</ResourceDictionary>

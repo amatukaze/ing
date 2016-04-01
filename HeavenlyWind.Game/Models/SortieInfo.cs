@@ -1,7 +1,9 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -13,6 +15,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public Fleet Fleet { get; }
         public Fleet EscortFleet { get; }
+
+        public IList<IParticipant> MainShips { get; }
+        public IList<IParticipant> EscortShips { get; }
+
         public MapInfo Map { get; }
 
         public SortieNodeInfo Node { get; private set; }
@@ -37,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
 
-            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, r => r_Current?.Explore(r.Requests, (RawMapExploration)r.Data));
+            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, r => r_Current?.Explore((RawMapExploration)r.Data));
 
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
@@ -53,13 +59,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             r_Current = this;
 
             Fleet = rpFleet;
+            MainShips = Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+
             if (KanColleGame.Current.Port.Fleets.CombinedFleetType != 0 && rpFleet.ID == 1)
+            {
                 EscortFleet = KanColleGame.Current.Port.Fleets[2];
+                EscortShips = EscortFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+            }
 
             Map = KanColleGame.Current.Maps[rpMapID];
         }
 
-        void Explore(IReadOnlyDictionary<string, string> rpRequests, RawMapExploration rpData)
+        void Explore(RawMapExploration rpData)
         {
             DirectionAngle = MapService.Instance.GetAngle(Map.ID, rpData.StartNode ?? Node?.ID ?? 0, rpData.Node);
             OnPropertyChanged(nameof(DirectionAngle));

@@ -1,4 +1,6 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
+﻿using System.Collections.Generic;
+
+namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
     class FriendShip : ModelBase, IParticipant
     {
@@ -7,6 +9,10 @@
         public ShipInfo Info => Ship.Info;
 
         public int Level => Ship.Level;
+        public IList<ShipSlot> Slots => Ship.Slots;
+        public ShipSlot ExtraSlot => Ship.ExtraSlot;
+
+        public ShipCombatAbility CombatAbility => Ship.CombatAbility;
 
         bool r_IsMVP;
         public bool IsMVP

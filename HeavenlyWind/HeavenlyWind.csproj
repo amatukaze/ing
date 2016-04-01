@@ -42,8 +42,12 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sakuno.Toast, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -51,6 +55,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
@@ -76,7 +81,7 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -107,9 +112,13 @@
     <Compile Include="Controls\Data.cs" />
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\Indicator.cs" />
+    <Compile Include="Controls\LoSFormulas.cs" />
     <Compile Include="Controls\MaterialIcon.cs" />
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Internal\WindowPlacementPreference.cs" />
+    <Compile Include="Internal\TabContentTemplateSelector.cs" />
+    <Compile Include="Internal\TabDockingController.cs" />
     <Compile Include="Models\CheckForUpdateResult.cs" />
     <Compile Include="Models\EventMap.cs" />
     <Compile Include="Models\ExpeditionInfo2.cs" />
@@ -122,6 +131,7 @@
     <Compile Include="Services\Browser\BrowserHost.cs" />
     <Compile Include="Services\Browser\BrowserVolume.cs" />
     <Compile Include="Services\Browser\BrowserWrapper.cs" />
+    <Compile Include="Services\Browser\BrowserZoomInfo.cs" />
     <Compile Include="Services\Browser\CommunicatorMessageExtensions.cs" />
     <Compile Include="Services\Browser\CommunicatorMessages.cs" />
     <Compile Include="Services\Browser\GameController.cs" />
@@ -130,6 +140,9 @@
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
     <Compile Include="Services\ExpeditionService.cs" />
     <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\PluginService.cs" />
+    <Compile Include="Services\Plugins\FailureInfo.cs" />
+    <Compile Include="Services\Plugins\Plugin.cs" />
     <Compile Include="Services\ScreenshotService.cs" />
     <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="Services\TaskbarProgressService.cs" />
@@ -156,6 +169,7 @@
     <Compile Include="ViewModels\History\ConstructionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByFleet.cs" />
@@ -169,8 +183,10 @@
     <Compile Include="ViewModels\Overviews\ShipOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
+    <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="ViewModels\ToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\OverviewScreenshotToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\ScreenshotToolPreviewViewModel.cs" />
     <Compile Include="ViewModels\Tools\ScreenshotToolViewModel.cs" />
@@ -186,6 +202,9 @@
     </Compile>
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Battle\EnemyEncounters.xaml.cs">
+      <DependentUpon>EnemyEncounters.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Battle\Information.xaml.cs">
       <DependentUpon>Information.xaml</DependentUpon>
@@ -262,6 +281,9 @@
     <Compile Include="Views\History\ExpeditionHistoryWindow.xaml.cs">
       <DependentUpon>ExpeditionHistoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\History\ScrappingHistoryWindow.xaml.cs">
+      <DependentUpon>ScrappingHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\History\SortieHistoryWindow.xaml.cs">
       <DependentUpon>SortieHistoryWindow.xaml</DependentUpon>
     </Compile>
@@ -286,6 +308,12 @@
     <Compile Include="Views\Preferences\Network.xaml.cs">
       <DependentUpon>Network.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Preferences\Notification.xaml.cs">
+      <DependentUpon>Notification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Preferences\Plugin.xaml.cs">
+      <DependentUpon>Plugin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Preferences\PreferencesWindow.xaml.cs">
       <DependentUpon>PreferencesWindow.xaml</DependentUpon>
     </Compile>
@@ -301,7 +329,7 @@
     <Compile Include="Views\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TabNewHostProvider.cs" />
+    <Compile Include="Internal\TabTearOffController.cs" />
     <Compile Include="Views\TabWindow.xaml.cs">
       <DependentUpon>TabWindow.xaml</DependentUpon>
     </Compile>
@@ -309,6 +337,9 @@
       <DependentUpon>ScreenshotTool.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tools\ScreenshotToolOverlayWindow.cs" />
+    <Compile Include="Views\UpdateNotification.xaml.cs">
+      <DependentUpon>UpdateNotification.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -325,6 +356,10 @@
     <ProjectReference Include="..\HeavenlyWind.Base\HeavenlyWind.Base.csproj">
       <Project>{eeb0bea3-8d40-47c3-aeef-ba7774d721ca}</Project>
       <Name>HeavenlyWind.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HeavenlyWind.Extensibility\HeavenlyWind.Extensibility.csproj">
+      <Project>{2541487f-d8db-4ca5-9b41-df6243b259b7}</Project>
+      <Name>HeavenlyWind.Extensibility</Name>
     </ProjectReference>
     <ProjectReference Include="..\HeavenlyWind.Game\HeavenlyWind.Game.csproj">
       <Project>{9263590f-63a1-4586-b478-a12d7d67b622}</Project>
@@ -345,6 +380,18 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Styles\Common.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Common\AbyssalShipClass.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Common\SlotsToolTip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Common\TabContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -568,6 +615,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Themes\Controls\LoSFormulas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\MaterialIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -601,6 +652,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GameInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Battle\EnemyEncounters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -704,6 +759,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\History\ScrappingHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\History\SortieHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -736,6 +795,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Preferences\Notification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Preferences\Plugin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Preferences\PreferencesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -764,6 +831,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UpdateNotification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="app.ico" />
@@ -772,7 +843,7 @@
   <PropertyGroup>
     <PreBuildEvent>xcopy /Y /E /I "$(SolutionDir)Resources" "$(TargetDir)Resources"</PreBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

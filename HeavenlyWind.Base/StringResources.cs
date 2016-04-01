@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         DirectoryInfo r_StringResourceDirectory;
 
-        Dictionary<string, LanguageInfo> r_InstalledLanguages;
+        ListDictionary<string, LanguageInfo> r_InstalledLanguages;
         public IList<LanguageInfo> InstalledLanguages { get; private set; }
 
         public bool IsLoaded { get; private set; }
@@ -39,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public void Initialize()
         {
-            r_InstalledLanguages = new Dictionary<string, LanguageInfo>(StringComparer.InvariantCultureIgnoreCase);
+            r_InstalledLanguages = new ListDictionary<string, LanguageInfo>(StringComparer.InvariantCultureIgnoreCase);
 
             var rRootDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
@@ -103,9 +104,13 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             var rInfo = LoadExtraResourceInfo(rpLanguageName) ?? LoadExtraResourceInfo(GetDefaultLanguage().DisplayName);
             if (rInfo == null)
+            {
+                Extra = null;
+                OnPropertyChanged(nameof(Extra));
                 return;
+            }
 
-            Extra = new ExtraStringResources();
+            var rESR = new ExtraStringResources();
 
             foreach (var rContent in rInfo.Contents)
             {
@@ -115,48 +120,60 @@ namespace Sakuno.KanColle.Amatsukaze
                 using (var rReader = new JsonTextReader(rContent.File.OpenText()))
                 {
                     var rTranslations = JArray.Load(rReader);
-                    var rNames = rTranslations.ToDictionary(r => (int)r["id"], r => (string)r["name"]);
-
-                    switch (rContent.Type)
+                    if (rContent.Type == ExtraStringResourceType.AbyssalShip)
                     {
-                        case ExtraStringResourceType.Ship:
-                            Extra.Ships = rNames;
-                            break;
+                        rESR.AbyssalShip = rTranslations
+                            .SelectMany(r => r["id"], (rpID, rpTranslation) => new { ID = (int)rpID, Name = (string)rpTranslation["name"] })
+                            .ToHybridDictionary(r => r.ID, r => r.Name);
+                    }
+                    else
+                    {
+                        var rNames = rTranslations.ToHybridDictionary(r => (int)r["id"], r => (string)r["name"]);
 
-                        case ExtraStringResourceType.ShipType:
-                            Extra.ShipTypes = rNames;
-                            break;
+                        switch (rContent.Type)
+                        {
+                            case ExtraStringResourceType.Ship:
+                                rESR.Ships = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Equipment:
-                            Extra.Equipment = rNames;
-                            break;
+                            case ExtraStringResourceType.ShipType:
+                                rESR.ShipTypes = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Item:
-                            Extra.Items = rNames;
-                            break;
+                            case ExtraStringResourceType.Equipment:
+                                rESR.Equipment = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Expedition:
-                            Extra.Expeditions = rNames;
-                            break;
+                            case ExtraStringResourceType.Item:
+                                rESR.Items = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Quest:
-                            Extra.Quests = rNames;
-                            break;
+                            case ExtraStringResourceType.Expedition:
+                                rESR.Expeditions = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Area:
-                            Extra.Areas = rNames;
-                            break;
+                            case ExtraStringResourceType.Quest:
+                                rESR.Quests = rNames;
+                                break;
 
-                        case ExtraStringResourceType.Map:
-                            Extra.Maps = rNames;
-                            break;
+                            case ExtraStringResourceType.Area:
+                                rESR.Areas = rNames;
+                                break;
 
-                        case ExtraStringResourceType.ShipLocking:
-                            Extra.ShipLocking = rNames;
-                            break;
+                            case ExtraStringResourceType.Map:
+                                rESR.Maps = rNames;
+                                break;
+
+                            case ExtraStringResourceType.ShipLocking:
+                                rESR.ShipLocking = rNames;
+                                break;
+                        }
                     }
                 }
             }
+
+            Extra = rESR;
+            OnPropertyChanged(nameof(Extra));
         }
         ExtraStringResourceInfo LoadExtraResourceInfo(string rpLanguageName)
         {

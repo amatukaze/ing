@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 r_ShipLocking = new IDTable<ShipLocking>();
             else
                 using (var rReader = new JsonTextReader(rDataFile.OpenText()))
-                    r_ShipLocking = new IDTable<ShipLocking>(JArray.Load(rReader).Select(r => r.ToObject<ShipLocking>()));
+                    r_ShipLocking = JArray.Load(rReader).Select(r => r.ToObject<ShipLocking>()).ToIDTable();
 
             ShipLocking = r_ShipLocking.Values.ToList().AsReadOnly();
         }

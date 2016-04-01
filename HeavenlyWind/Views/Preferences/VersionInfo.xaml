@@ -16,7 +16,7 @@
             <Run Text="{Binding Source={x:Static rb:ProductInfo.ReleaseCodeName}, StringFormat=({0}), Mode=OneWay}" FontSize="14" />
         </TextBlock>
 
-        <Line Fill="{DynamicResource BorderBrushKey}" Height="1" Margin="4, 8, 4, 0" />
+        <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="4, 8, 4, 0" />
 
         <TextBlock Margin="0, 4, 0, 0">
             Author / Devloper:

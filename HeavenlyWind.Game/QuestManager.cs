@@ -92,7 +92,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             });
             SessionService.Instance.Subscribe("api_req_quest/clearitemget", r =>
             {
-                var rQuestID = int.Parse(r.Requests["api_quest_id"]);
+                var rQuestID = int.Parse(r.Parameters["api_quest_id"]);
                 Table.Remove(rQuestID);
                 TotalCount--;
             });

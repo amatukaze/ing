@@ -38,6 +38,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 Yield = null;
             else
             {
+                ExpeditionService.Instance.WaitForInitialization();
+
                 var rInfo = ExpeditionService.Instance.GetInfo(r_Source.Expedition.ID);
                 if (rInfo != null)
                     Yield = new ExpeditionYield(r_Fleet, rInfo);
@@ -58,6 +60,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             public int BulletGS { get; }
             public int SteelGS { get; }
             public int BauxiteGS { get; }
+
+            public double HourlyFuel { get; }
+            public double HourlyBullet { get; }
+            public double HourlySteel { get; }
+            public double HourlyBauxite { get; }
+
+            public double HourlyFuelGS { get; }
+            public double HourlyBulletGS { get; }
+            public double HourlySteelGS { get; }
+            public double HourlyBauxiteGS { get; }
 
             public ExpeditionYield(Fleet rpFleet, ExpeditionInfo2 rpInfo)
             {
@@ -83,6 +95,20 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 Bauxite = (int)rBauxite;
                 SteelGS = (int)(Steel * 1.5);
                 BauxiteGS = (int)(rBauxite * 1.5);
+
+                var rTotalHours = TimeSpan.FromMinutes(rExpedition.Time).TotalHours;
+                var rHourlyFuelConsumption = rFuelConsumption / rTotalHours;
+                var rHourlyBulletConsumption = rBulletConsumption / rTotalHours;
+
+                HourlyFuel = rFuel / rTotalHours - rHourlyFuelConsumption;
+                HourlyBullet = rBullet / rTotalHours - rHourlyBulletConsumption;
+                HourlyFuelGS = rFuel * 1.5 / rTotalHours - rHourlyFuelConsumption;
+                HourlyBulletGS = rBullet * 1.5 / rTotalHours - rHourlyBulletConsumption;
+
+                HourlySteel = rSteel / rTotalHours;
+                HourlyBauxite = rBauxite / rTotalHours;
+                HourlySteelGS = Steel * 1.5 / rTotalHours;
+                HourlyBauxiteGS = rBauxite * 1.5 / rTotalHours;
             }
         }
     }

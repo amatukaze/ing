@@ -22,6 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         protected override void OnRawDataUpdated()
         {
+            OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Level));
             OnPropertyChanged(nameof(Rank));
             OnPropertyChanged(nameof(Experience));

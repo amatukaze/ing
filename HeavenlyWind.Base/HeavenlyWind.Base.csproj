@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -69,6 +69,7 @@
     <Compile Include="CollapsedIfZeroExtension.cs" />
     <Compile Include="EnumerationExtension.cs" />
     <Compile Include="EnumToStringResourceExtension.cs" />
+    <Compile Include="ExtraStringResourceExtension.cs" />
     <Compile Include="ExtraStringResources.cs" />
     <Compile Include="ExtraStringResourceInfo.cs" />
     <Compile Include="ExtraStringResourceType.cs" />
@@ -85,13 +86,18 @@
     <Compile Include="Models\Preferences\BrowserPreference.cs" />
     <Compile Include="Models\Preferences\CachePreference.cs" />
     <Compile Include="Models\Preferences\FlashPreference.cs" />
+    <Compile Include="Models\Preferences\GamePreference.cs" />
     <Compile Include="Models\Preferences\LayoutPreference.cs" />
     <Compile Include="Models\Preferences\NetworkPreference.cs" />
+    <Compile Include="Models\Preferences\NotificationPreference.cs" />
     <Compile Include="Models\Preferences\ScreenshotPreference.cs" />
+    <Compile Include="Models\Preferences\UpdatePreference.cs" />
     <Compile Include="Models\Preferences\UpstreamProxyPreference.cs" />
     <Compile Include="Models\Preferences\WindowPreference.cs" />
+    <Compile Include="Models\Preferences\WindowsPreference.cs" />
     <Compile Include="Models\ScreenshotImageFormat.cs" />
     <Compile Include="Models\UpdateChannel.cs" />
+    <Compile Include="Models\UpdateNotificationMode.cs" />
     <Compile Include="MultiplyExtension.cs" />
     <Compile Include="Preference.cs" />
     <Compile Include="Preference.Data.cs" />
@@ -101,6 +107,7 @@
     <Compile Include="StringResourceExtension.cs" />
     <Compile Include="StringResources.cs" />
     <Compile Include="StringResources.Items.cs" />
+    <Compile Include="ViewInfoAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj">

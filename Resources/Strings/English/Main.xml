@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.8">
+<Strings CultureName="en" Name="English" Version="0.1.9">
 
   <String Key="Product_Name">Intelligent Naval Gun</String>
 
@@ -42,6 +42,9 @@
 
   <String Key="Update_NewVersionIsAvailable">A new version is available!</String>
   <String Key="Update_Download">Download</String>
+  <String Key="Update_Notification_Ignore">Ignore</String>
+  <String Key="Update_Notification_IgnoreOptionalUpdate">Ignore optional update</String>
+  <String Key="Update_Notification_AlwaysIgnore">Always ignore</String>
 
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
 
@@ -75,6 +78,8 @@
   <String Key="Overview_Fleets_Expedition_TimeToComplete">Completion Time</String>
   <String Key="Overview_Fleets_Expedition_TotalYield">Total Yield</String>
   <String Key="Overview_Fleets_Expedition_TotalYield_GreatSuccess">Total Yield (GS)</String>
+  <String Key="Overview_Fleets_Expedition_HourlyYield">Hourly Yield</String>
+  <String Key="Overview_Fleets_Expedition_HourlyYield_GreatSuccess">Hourly Yield (GS)</String>
   <String Key="Overview_Dock_Locked">Locked</String>
   <String Key="Overview_RepairDocks">Repair docks</String>
   <String Key="Overview_RepairDocks_TimeToComplete">Completion Time</String>
@@ -88,11 +93,39 @@
 
   <String Key="Fleet_TotalLevel">Total Lv.</String>
   <String Key="Fleet_LoS">LoS</String>
+  <String Key="Fleet_LoS_Formula_Old">2-5 Old</String>
+  <String Key="Fleet_LoS_Formula_Autumn">2-5 Autumn</String>
+  <String Key="Fleet_LoS_Formula_AutumnSimplified">Autumn Simplified</String>
+  <String Key="Fleet_LoS_Formula_Formula33">Formula 33</String>
   <String Key="Fleet_AA">AA</String>
   <String Key="Fleet_MoraleRegeneration">Fatigue</String>
 
   <String Key="Ship_Repairing">Repairing</String>
   <String Key="Ship_Evacuated">Evacuated</String>
+  <String Key="Ship_ToolTip_DayBattle">Day</String>
+  <String Key="Ship_ToolTip_NightBattle">Night</String>
+  <String Key="Ship_ToolTip_AttackMode">Attack Mode</String>
+  <String Key="Ship_ToolTip_AttackMode_None" />
+  <String Key="Ship_ToolTip_AttackMode_SingleAttack">Single Attack</String>
+  <String Key="Ship_ToolTip_AttackMode_DoubleAttack">Double Attack</String>
+  <String Key="Ship_ToolTip_AttackMode_CutIn">Cut-In</String>
+  <String Key="Ship_ToolTip_AttackMode_AerialStrike">Aerial Strike</String>
+  <String Key="Ship_ToolTip_AttackMode_Torpedo">Torpedo</String>
+  <String Key="Ship_ToolTip_AttackMode_ASW">ASW</String>
+  <String Key="Ship_ToolTip_CutInType_None" />
+  <String Key="Ship_ToolTip_CutInType_DoubleMainGun">MG×2</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndAPShell">MG + AP</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndRadar">MG + R</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndSecondaryGun">MG + SG</String>
+  <String Key="Ship_ToolTip_CutInType_TripleMainGun">MGx3</String>
+  <String Key="Ship_ToolTip_CutInType_DoubleMainGunAndSecondaryGun">MG×2 + SG</String>
+  <String Key="Ship_ToolTip_CutInType_DoubleTorpedo">Tx2</String>
+  <String Key="Ship_ToolTip_CutInType_Mixed">Mixed</String>
+  <String Key="Ship_ToolTip_AttackPower_Shelling">Shelling</String>
+  <String Key="Ship_ToolTip_AttackPower_AerialStrike">Aerial</String>
+  <String Key="Ship_ToolTip_AttackPower_Torpedo">Torpedo</String>
+  <String Key="Ship_ToolTip_AttackPower_ASW">ASW</String>
+  <String Key="Ship_ToolTip_AttackPower_NightBattle">Night</String>
 
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>
@@ -128,6 +161,12 @@
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
   <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>
   <String Key="Sortie_SupportFleet_Ready">Support Fleet Ready</String>
+  <String Key="Sortie_EnemyEncounters">Enemy Encounters</String>
+
+  <String Key="AbyssalShip_Class_Normal" />
+  <String Key="AbyssalShip_Class_Elite"> elite</String>
+  <String Key="AbyssalShip_Class_Flagship"> flagship</String>
+  <String Key="AbyssalShip_Class_LateModel"> Late model</String>
 
   <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">Easy</String>
@@ -196,11 +235,13 @@
   <String Key="Window_DevelopmentHistory">Development History</String>
   <String Key="Window_SortieHistory">Sortie History</String>
   <String Key="Window_ExpeditionHistory">Expedition History</String>
+  <String Key="Window_ScrappingHistory">Scrapping History</String>
   <String Key="Window_ClosingConfirmation">Are you sure to close {0}?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Port</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">Use proxy for SSL connections</String>
+  <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">Allow requests from other devices (WARNING: Security Risk)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
   <String Key="PreferenceWindow_Window">Window</String>
   <String Key="PreferenceWindow_Window_Layout">Layout</String>
@@ -215,6 +256,10 @@
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">Verify Version</String>
   <String Key="PreferenceWindow_Cache_Path">Path</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
+  <String Key="PreferenceWindow_Notification_Construction">Notify the completion of construction</String>
+  <String Key="PreferenceWindow_Notification_Expedition">Notify the return from an expedition</String>
+  <String Key="PreferenceWindow_Notification_Repair">Notify the completion of ship repair</String>
+  <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">Warn if advancing with heavily damaged ship</String>
   <String Key="PreferenceWindow_Language">Language</String>
   <String Key="PreferenceWindow_Language_NameTranslation">Name translation</String>
   <String Key="PreferenceWindow_Browser">Browser</String>
@@ -227,6 +272,7 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">Render Mode</String>
   <String Key="PreferenceWindow_Screenshot">Screenshot</String>
   <String Key="PreferenceWindow_Screenshot_Folder">Destination</String>
+  <String Key="PreferenceWindow_Plugin">Plugin</String>
   <String Key="PreferenceWindow_VersionInfo">Version</String>
 
   <String Key="ValidationRule_PleaseInputNumber">Please input number</String>
@@ -276,6 +322,14 @@
   <String Key="ExpeditionHistory_Name">Expedition</String>
   <String Key="ExpeditionHistory_Result">Result</String>
   <String Key="ExpeditionHistory_Reward">Reward</String>
+  
+  <String Key="ScrappingHistory_ShipOrEquipment">Ship/Equipment</String>
+  <String Key="ScrappingHistory_Reason">Reason</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByModernization">Consumed by modernization</String>
+  <String Key="ScrappingHistory_Reason_Dismantled">Dismantled</String>
+  <String Key="ScrappingHistory_Reason_Scrapped">Scrapped</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByImprovement">Consumed by improvement</String>
+  <String Key="ScrappingHistory_Reason_Sunk">Sunk</String>
 
   <String Key="Tool_ExpeditionOverview">Expedition Overview</String>
 

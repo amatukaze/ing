@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     using AbyssalShipClassEnum = AbyssalShipClass;
 
-    public class ShipInfo : RawDataWrapper<RawShipInfo>, IID
+    public class ShipInfo : RawDataWrapper<RawShipInfo>, IID, ITranslatedName
     {
         public static ShipInfo Dummy { get; } = new ShipInfo(new RawShipInfo() { ID = -1, Name = "?" });
 
@@ -15,20 +15,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public string Name => RawData.Name;
         public string NameReading => RawData.NameReading;
+        public string TranslatedName => StringResources.Instance.Extra?.GetShipName(ID) ?? Name;
 
         string r_NameWithoutLateModel;
 
-        public ShipType Type
-        {
-            get
-            {
-                ShipType rResult;
-                if (KanColleGame.Current.MasterInfo.ShipTypes.TryGetValue(RawData.Type, out rResult))
-                    return rResult;
-                else
-                    return ShipType.Dummy;
-            }
-        }
+        public ShipTypeInfo Type => KanColleGame.Current.MasterInfo.ShipTypes.GetValueOrDefault(RawData.Type) ?? ShipTypeInfo.Dummy;
 
         public int Rarity => RawData.Rarity;
 
@@ -57,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int MaxBulletConsumption => RawData.MaxBulletConsumption;
 
         public int SlotCount => RawData.SlotCount;
-        public int[] PlaneCountInSlot => RawData.PlaneCountInSlot ?? Enumerable.Repeat(0, SlotCount).ToArray();
+        public int[] PlaneCountInSlot => RawData.PlaneCountInSlot;
 
         public int? RemodelingMinimumLevel => RawData.RemodelingMinimumLevel == 0 ? (int?)null : RawData.RemodelingMinimumLevel;
         public ShipInfo ShipAfterRemodeling => RawData.ShipIDAfterRemodel == 0 ? null : KanColleGame.Current.MasterInfo.Ships[RawData.ShipIDAfterRemodel];
@@ -74,26 +65,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             if (IsAbyssalShip)
             {
+                r_NameWithoutLateModel = Name;
+
                 if (NameReading == "elite")
                     AbyssalShipClass = AbyssalShipClassEnum.Elite;
                 else if (NameReading == "flagship")
                     AbyssalShipClass = AbyssalShipClassEnum.Flagship;
                 else if (Name.Contains("後期型"))
+                {
                     AbyssalShipClass = AbyssalShipClassEnum.LateModel;
+                    r_NameWithoutLateModel = r_NameWithoutLateModel.Replace("後期型", string.Empty);
+                }
                 else
+                {
                     AbyssalShipClass = AbyssalShipClassEnum.Normal;
-
-                r_NameWithoutLateModel = Name.Replace("後期型", string.Empty);
+                }
             }
-
-            OnRawDataUpdated();
-        }
-
-        protected override void OnRawDataUpdated()
-        {
-            var rTranslatedName = StringResources.Instance.Extra?.GetShipName(ID);
-            if (rTranslatedName != null)
-                RawData.Name = rTranslatedName;
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{NameWithClass}\", ShipType = \"{Type.Name}\"";

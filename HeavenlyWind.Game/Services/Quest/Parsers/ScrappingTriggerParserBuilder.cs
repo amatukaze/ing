@@ -1,5 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers;
-using System.Collections.Generic;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
 {
@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
     class ScrappingTriggerParserBuilder : TriggerParserBuilder
     {
         static ScrappingTrigger r_Any = new ScrappingTrigger(null);
-        static Dictionary<int, Trigger> r_CachedFunctions = new Dictionary<int, Trigger>();
+        static HybridDictionary<int, Trigger> r_CachedFunctions = new HybridDictionary<int, Trigger>();
 
         public override Parser<Trigger> Parser { get; } =
             from rEquipmentID in ValueTypeOption(Number)

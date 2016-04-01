@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using System;
 using System.Collections.Generic;
@@ -47,29 +48,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
                 rSession.ErrorMessage = rException.ToString();
 
-                var rDirectory = new DirectoryInfo(@"Logs\Exceptions");
-                if (!rDirectory.Exists)
-                    rDirectory.Create();
-
-                var rPrefix = DateTime.Now.ToString("yyMMdd");
-                var rRegex = new Regex(rPrefix + @"_(?<Index>\d+)\.log$");
-                var rIndex = 0;
-                var rSavedLogs = rDirectory.GetFiles(rPrefix + "_*.log");
-                if (rSavedLogs.Any())
-                    rIndex = rSavedLogs.Max(r => int.Parse(rRegex.Match(r.FullName).Groups["Index"].Value));
-
-                using (var rStreamWriter = new StreamWriter($@"{rDirectory.FullName}\{rPrefix}_{rIndex + 1}.log", false, new UTF8Encoding(true)))
-                {
-                    rStreamWriter.WriteLine(TokenRegex.Replace(rSession.FullUrl, "***************************"));
-                    rStreamWriter.WriteLine("Request Data:");
-                    rStreamWriter.WriteLine(TokenRegex.Replace(rSession.RequestBodyString, "***************************"));
-                    rStreamWriter.WriteLine();
-                    rStreamWriter.WriteLine("Exception:");
-                    rStreamWriter.WriteLine(rException.ToString());
-                    rStreamWriter.WriteLine();
-                    rStreamWriter.WriteLine("Response Data:");
-                    rStreamWriter.WriteLine(Regex.Unescape(rSession.ResponseBodyString));
+                try {
+                    using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
+                    {
+                        rStreamWriter.WriteLine(TokenRegex.Replace(rSession.FullUrl, "***************************"));
+                        rStreamWriter.WriteLine("Request Data:");
+                        rStreamWriter.WriteLine(TokenRegex.Replace(rSession.RequestBodyString, "***************************"));
+                        rStreamWriter.WriteLine();
+                        rStreamWriter.WriteLine("Exception:");
+                        rStreamWriter.WriteLine(rException.ToString());
+                        rStreamWriter.WriteLine();
+                        rStreamWriter.WriteLine("Response Data:");
+                        rStreamWriter.WriteLine(Regex.Unescape(rSession.ResponseBodyString));
+                    }
                 }
+                catch { }
             });
         }
 
@@ -87,14 +80,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                 ApiParserBase rParser;
                 if (!rContent.IsNullOrEmpty() && rContent.StartsWith("{") && Parsers.TryGetValue(rApi, out rParser))
                 {
-                    Dictionary<string, string> rRequests = null;
+                    ListDictionary<string, string> rParameters = null;
                     if (!rRequest.IsNullOrEmpty() && rRequest.Contains('&'))
-                        rRequests = rRequest.Split('&').Where(r => r.Length > 0).Select(r => r.Split('='))
-                            .ToDictionary(r => Uri.UnescapeDataString(r[0]), r => Uri.UnescapeDataString(r[1]));
+                    {
+                        rParameters = new ListDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                        foreach (var rParameter in rRequest.Split('&').Where(r => r.Length > 0).Select(r => r.Split('=')))
+                            rParameters.Add(Uri.UnescapeDataString(rParameter[0]), Uri.UnescapeDataString(rParameter[1]));
+                    }
 
-                    rParser.Requests = rRequests;
+                    rParser.Parameters = rParameters;
                     rParser.Process(JObject.Parse(rContent));
-                    rParser.Requests = null;
+                    rParser.Parameters = null;
                 }
             }
             catch (ApiFailedException e)

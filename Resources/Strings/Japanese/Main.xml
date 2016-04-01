@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.8">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.9">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -42,6 +42,9 @@
 
   <String Key="Update_NewVersionIsAvailable">新しいバージョンがあります！</String>
   <String Key="Update_Download">更新します</String>
+  <String Key="Update_Notification_Ignore">無視する</String>
+  <String Key="Update_Notification_IgnoreOptionalUpdate">重要でない更新を無視する</String>
+  <String Key="Update_Notification_AlwaysIgnore">常に無視する</String>
 
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
@@ -75,6 +78,8 @@
   <String Key="Overview_Fleets_Expedition_TimeToComplete">完了時刻</String>
   <String Key="Overview_Fleets_Expedition_TotalYield">収入理論値</String>
   <String Key="Overview_Fleets_Expedition_TotalYield_GreatSuccess">収入理論値(大成功)</String>
+  <String Key="Overview_Fleets_Expedition_HourlyYield">時給理論値</String>
+  <String Key="Overview_Fleets_Expedition_HourlyYield_GreatSuccess">時給理論値(大成功)</String>
   <String Key="Overview_Dock_Locked">ロック</String>
   <String Key="Overview_RepairDocks">入渠ドック</String>
   <String Key="Overview_RepairDocks_TimeToComplete">完了時刻</String>
@@ -88,11 +93,39 @@
 
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
+  <String Key="Fleet_LoS_Formula_Old">2-5式(旧)</String>
+  <String Key="Fleet_LoS_Formula_Autumn">2-5式(秋)</String>
+  <String Key="Fleet_LoS_Formula_AutumnSimplified">新秋式簡易</String>
+  <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
   <String Key="Fleet_AA">対空</String>
   <String Key="Fleet_MoraleRegeneration">疲労回復</String>
 
   <String Key="Ship_Repairing">入渠中</String>
   <String Key="Ship_Evacuated">退避中</String>
+  <String Key="Ship_ToolTip_DayBattle">昼戦</String>
+  <String Key="Ship_ToolTip_NightBattle">夜戦</String>
+  <String Key="Ship_ToolTip_AttackMode">攻撃種別</String>
+  <String Key="Ship_ToolTip_AttackMode_None" />
+  <String Key="Ship_ToolTip_AttackMode_SingleAttack">通常攻撃</String>
+  <String Key="Ship_ToolTip_AttackMode_DoubleAttack">連撃</String>
+  <String Key="Ship_ToolTip_AttackMode_CutIn">カットイン</String>
+  <String Key="Ship_ToolTip_AttackMode_AerialStrike">航空攻撃</String>
+  <String Key="Ship_ToolTip_AttackMode_Torpedo">雷撃</String>
+  <String Key="Ship_ToolTip_AttackMode_ASW">対潜</String>
+  <String Key="Ship_ToolTip_CutInType_None" />
+  <String Key="Ship_ToolTip_CutInType_DoubleMainGun">主砲×2</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndAPShell">主砲 + 徹甲弾</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndRadar">主砲 + 電探</String>
+  <String Key="Ship_ToolTip_CutInType_MainGunAndSecondaryGun">主砲 + 副砲</String>
+  <String Key="Ship_ToolTip_CutInType_TripleMainGun">主砲×3</String>
+  <String Key="Ship_ToolTip_CutInType_DoubleMainGunAndSecondaryGun">主砲×2 + 副砲</String>
+  <String Key="Ship_ToolTip_CutInType_DoubleTorpedo">魚雷×2</String>
+  <String Key="Ship_ToolTip_CutInType_Mixed">砲・雷混合</String>
+  <String Key="Ship_ToolTip_AttackPower_Shelling">砲撃</String>
+  <String Key="Ship_ToolTip_AttackPower_AerialStrike">航空攻撃</String>
+  <String Key="Ship_ToolTip_AttackPower_Torpedo">雷撃</String>
+  <String Key="Ship_ToolTip_AttackPower_ASW">対潜</String>
+  <String Key="Ship_ToolTip_AttackPower_NightBattle">夜戦</String>
 
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弾薬</String>
@@ -128,6 +161,12 @@
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能動分岐</String>
   <String Key="Sortie_SupportFleet_Ready">支援艦隊待機中</String>
+  <String Key="Sortie_EnemyEncounters">遭遇できる敵艦隊</String>
+
+  <String Key="AbyssalShip_Class_Normal" />
+  <String Key="AbyssalShip_Class_Elite">elite</String>
+  <String Key="AbyssalShip_Class_Flagship">flagship</String>
+  <String Key="AbyssalShip_Class_LateModel">後期型</String>
 
   <String Key="Map_Difficulty_None" />
   <String Key="Map_Difficulty_Easy">丙</String>
@@ -196,11 +235,13 @@
   <String Key="Window_DevelopmentHistory">開発歴史</String>
   <String Key="Window_SortieHistory">出撃歴史</String>
   <String Key="Window_ExpeditionHistory">遠征歴史</String>
+  <String Key="Window_ScrappingHistory">解体・廃棄歴史</String>
   <String Key="Window_ClosingConfirmation">{0}を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
+  <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">他のデバイスからのリクエストを許可する (非推奨：セキュリティリスク)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
   <String Key="PreferenceWindow_Window_Layout">レイアウト</String>
@@ -215,6 +256,10 @@
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">ファイルの検証をする</String>
   <String Key="PreferenceWindow_Cache_Path">パス</String>
   <String Key="PreferenceWindow_Notification">通知</String>
+  <String Key="PreferenceWindow_Notification_Construction">建造完了を通知する</String>
+  <String Key="PreferenceWindow_Notification_Expedition">遠征帰投を通知する</String>
+  <String Key="PreferenceWindow_Notification_Repair">入渠完了を通知する</String>
+  <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">大破艦・大破進撃を通知する</String>
   <String Key="PreferenceWindow_Language">言語</String>
   <String Key="PreferenceWindow_Language_NameTranslation">名前の翻訳</String>
   <String Key="PreferenceWindow_Browser">ブラウザ</String>
@@ -227,6 +272,7 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
+  <String Key="PreferenceWindow_Plugin">プラグイン</String>
   <String Key="PreferenceWindow_VersionInfo">バージョン情報</String>
 
   <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
@@ -276,6 +322,14 @@
   <String Key="ExpeditionHistory_Name">遠征名</String>
   <String Key="ExpeditionHistory_Result">結果</String>
   <String Key="ExpeditionHistory_Reward">アイテム</String>
+  
+  <String Key="ScrappingHistory_ShipOrEquipment">艦娘・装備</String>
+  <String Key="ScrappingHistory_Reason">原因</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByModernization">近代化改修</String>
+  <String Key="ScrappingHistory_Reason_Dismantled">艦娘の解体</String>
+  <String Key="ScrappingHistory_Reason_Scrapped">装備の廃棄</String>
+  <String Key="ScrappingHistory_Reason_ConsumedByImprovement">装備改修</String>
+  <String Key="ScrappingHistory_Reason_Sunk">沈没</String>
 
   <String Key="Tool_ExpeditionOverview">遠征一覧</String>
   

@@ -1,6 +1,8 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.SystemInterop;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Diagnostics;
 using System.Management;
 using System.Windows.Input;
@@ -32,6 +34,18 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         public ICommand MuteToggleCommand { get; }
 
+        public ICommand SetZoomCommand { get; }
+        public IList<BrowserZoomInfo> SupportedZoomFactors { get; }
+        public double Zoom
+        {
+            get { return Preference.Current.Browser.Zoom; }
+            set
+            {
+                if (Zoom != value)
+                    SetZoom(value);
+            }
+        }
+
         public ICommand RestartGameCommand { get; }
 
         public GameController(BrowserService rpOwner)
@@ -60,6 +74,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 if (Volume != null)
                     Volume.IsMute = !Volume.IsMute;
             }, () => OS.IsWin7OrLater && !r_IsAudioDeviceNotAvailable);
+
+            SetZoomCommand = new DelegatedCommand<double>(SetZoom);
+            SupportedZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new BrowserZoomInfo(r, SetZoomCommand)).ToList().AsReadOnly();
 
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }
@@ -99,6 +116,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             Volume = new BrowserVolume(rpSession);
 
             VolumeManager.Instance.NewSession -= VolumeManager_NewSession;
+        }
+
+        void SetZoom(double rpZoom)
+        {
+            Preference.Current.Browser.Zoom = rpZoom;
+            OnPropertyChanged(nameof(Zoom));
+
+            foreach (var rInfo in SupportedZoomFactors)
+                rInfo.IsSelected = rInfo.Zoom == rpZoom;
+
+            r_Owner.Communicator.Write(CommunicatorMessages.SetZoom + ":" + rpZoom);
+            r_Owner.Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
+            r_Owner.BrowserControl.Dispatcher.BeginInvoke(new Action(r_Owner.BrowserControl.ResizeBrowserToFitGame));
         }
 
         void RestartGame()

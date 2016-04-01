@@ -153,7 +153,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (IsConstructionStarted)
             {
                 var rLogContent = string.Format(StringResources.Instance.Main.Log_StartConstruction,
-                    Ship.Name, FuelConsumption, BulletConsumption, SteelConsumption, BauxiteConsumption, DevelopmentMaterialConsumption);
+                    Ship.TranslatedName, FuelConsumption, BulletConsumption, SteelConsumption, BauxiteConsumption, DevelopmentMaterialConsumption);
                 Logger.Write(LoggingLevel.Info, rLogContent);
 
                 NewConstruction.OnNext(this);
@@ -172,7 +172,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         protected override void TimeOut()
         {
             State = ConstructionDockState.Completed;
-            ConstructionCompleted(Ship.Name);
+            ConstructionCompleted(Ship.TranslatedName);
         }
 
         public override string ToString()
@@ -180,7 +180,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rBuilder = new StringBuilder(64);
             rBuilder.Append($"ID = {ID}, State = {State}");
             if (State == ConstructionDockState.Building || State == ConstructionDockState.Completed)
-                rBuilder.Append($", Ship = \"{Ship.Name}\"");
+                rBuilder.Append($", Ship = \"{Ship.TranslatedName}\"");
             if (State == ConstructionDockState.Building)
                 rBuilder.Append($", TimeToComplete = \"{TimeToComplete.Value}\"");
 

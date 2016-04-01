@@ -5,6 +5,7 @@
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/AppIcon.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/EquipmentIcon.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/Indicator.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/LoSFormulas.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/MaterialIcon.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/ShipLockingTag.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/ShipSlot.xaml" />

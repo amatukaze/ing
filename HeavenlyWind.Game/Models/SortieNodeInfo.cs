@@ -49,7 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 case SortieEventType.NormalBattle:
                 case SortieEventType.BossBattle:
-                    Event = new BattleEvent(rpData);
+                    Event = new BattleEvent(rpMap, rpData, WikiID);
                     break;
 
                 case SortieEventType.NothingHappened:

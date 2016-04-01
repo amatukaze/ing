@@ -3,9 +3,9 @@ using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
-using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public static ExpeditionService Instance { get; } = new ExpeditionService();
 
-        IDisposable r_ConnectionSubscription;
+        ManualResetEventSlim r_InitializationLock = new ManualResetEventSlim(false);
 
         IDTable<ExpeditionInfo2> r_Infos;
 
@@ -23,23 +23,31 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public void Initialize()
         {
-            r_ConnectionSubscription = SessionService.Instance.Subscribe("api_get_member/basic", _ =>
+            SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
             {
-                var rDataFile = new FileInfo(DataFilename);
-                if (!rDataFile.Exists)
-                    r_Infos = new IDTable<ExpeditionInfo2>();
-                else
-                    using (var rReader = new JsonTextReader(rDataFile.OpenText()))
-                    {
-                        var rData = JArray.Load(rReader);
+                try
+                {
+                    var rDataFile = new FileInfo(DataFilename);
+                    if (rDataFile.Exists)
+                        using (var rReader = new JsonTextReader(rDataFile.OpenText()))
+                        {
+                            var rData = JArray.Load(rReader);
 
-                        r_Infos = new IDTable<ExpeditionInfo2>(rData.ToObject<ExpeditionInfo2[]>().ToDictionary(r => r.ID));
-                    }
+                            r_Infos = rData.Select(r => r.ToObject<ExpeditionInfo2>()).ToIDTable();
+                        }
+                }
+                finally
+                {
+                    if (r_Infos == null)
+                        r_Infos = new IDTable<ExpeditionInfo2>();
 
-                r_ConnectionSubscription?.Dispose();
-                r_ConnectionSubscription = null;
+                    r_InitializationLock.Set();
+                    r_InitializationLock = null;
+                }
             });
         }
+
+        public void WaitForInitialization() => r_InitializationLock?.Wait();
 
         public bool ContainsInfo(int rpID) => r_Infos.ContainsKey(rpID);
 

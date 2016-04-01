@@ -4,6 +4,7 @@
     {
         Ship,
         ShipType,
+        AbyssalShip,
         Equipment,
         Item,
         Expedition,

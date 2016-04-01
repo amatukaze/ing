@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
@@ -6,6 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     public class Equipment : RawDataWrapper<RawEquipment>, IID
     {
         public static Equipment Dummy { get; } = new Equipment(new RawEquipment() { ID = -1, EquipmentID = -1 });
+        static Dictionary<int, Equipment> r_Dummies = new Dictionary<int, Equipment>();
 
         public int ID => RawData.ID;
 
@@ -25,13 +27,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 var rBuilder = new StringBuilder();
 
-                rBuilder.Append(Info.Name);
-
-                if (Level > 0)
-                    rBuilder.Append(' ').Append(LevelText);
+                rBuilder.Append(Info.TranslatedName);
 
                 if (Proficiency > 0)
                     rBuilder.Append(' ').Append(ProficiencyText);
+
+                if (Level > 0)
+                    rBuilder.Append(' ').Append(LevelText);
 
                 return rBuilder.ToString();
             }
@@ -39,23 +41,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal Equipment(RawEquipment rpRawData) : base(rpRawData)
         {
-            EquipmentInfo rInfo;
-            if (KanColleGame.Current.MasterInfo.Equipment.TryGetValue(rpRawData.EquipmentID, out rInfo))
-                Info = rInfo;
-            else
-                Info = EquipmentInfo.Dummy;
+            Info = KanColleGame.Current.MasterInfo.Equipment.GetValueOrDefault(rpRawData.EquipmentID) ?? EquipmentInfo.Dummy;
+        }
+
+        public static Equipment GetDummy(int rpID)
+        {
+            Equipment rResult;
+            if (!r_Dummies.TryGetValue(rpID, out rResult))
+            {
+                EquipmentInfo rMasterInfo;
+                if (!KanColleGame.Current.MasterInfo.Equipment.TryGetValue(rpID, out rMasterInfo))
+                    return null;
+
+                r_Dummies.Add(rpID, rResult = new Equipment(new RawEquipment() { ID = -1, EquipmentID = rpID }));
+            }
+
+            return rResult;
         }
 
         protected override void OnRawDataUpdated()
         {
             if (Info == null || Info.ID != RawData.EquipmentID)
-            {
-                EquipmentInfo rInfo;
-                if (!KanColleGame.Current.MasterInfo.Equipment.TryGetValue(RawData.EquipmentID, out rInfo))
-                    rInfo = EquipmentInfo.Dummy;
-
-                Info = rInfo;
-            }
+                Info = KanColleGame.Current.MasterInfo.Equipment.GetValueOrDefault(RawData.EquipmentID) ?? EquipmentInfo.Dummy;
 
             OnPropertyChanged(nameof(Info));
             OnPropertyChanged(nameof(Level));

@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public class ExpeditionInfo : RawDataWrapper<RawExpeditionInfo>, IID
+    public class ExpeditionInfo : RawDataWrapper<RawExpeditionInfo>, IID, ITranslatedName
     {
         public static ExpeditionInfo Dummy { get; } = new ExpeditionInfo(new RawExpeditionInfo() { ID = -1, Name = "?????" });
 
@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public MapAreaInfo MapArea => KanColleGame.Current.MasterInfo.MapAreas[RawData.MapAreaID];
 
         public string Name => RawData.Name;
-        public string OriginalName { get; }
+        public string TranslatedName => StringResources.Instance.Extra?.GetExpeditionName(ID) ?? Name;
         public string Description => RawData.Description;
 
         public int Time => RawData.Time;
@@ -26,19 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public bool CanReturn => RawData.CanReturn;
 
-        internal ExpeditionInfo(RawExpeditionInfo rpRawData) : base(rpRawData)
-        {
-            OriginalName = rpRawData.Name;
-
-            OnRawDataUpdated();
-        }
-
-        protected override void OnRawDataUpdated()
-        {
-            var rTranslatedName = StringResources.Instance.Extra?.GetExpeditionName(ID);
-            if (rTranslatedName != null)
-                RawData.Name = rTranslatedName;
-        }
+        internal ExpeditionInfo(RawExpeditionInfo rpRawData) : base(rpRawData) { }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Name}\"";
     }

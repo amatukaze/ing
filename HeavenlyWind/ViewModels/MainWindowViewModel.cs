@@ -1,8 +1,11 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game;
+﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
 using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
@@ -39,6 +42,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public UpdateService UpdateService => UpdateService.Instance;
 
+        public bool IsBrowserAvailable { get; private set; } = true;
+
         public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => new PreferencesWindow().ShowDialog());
 
         public ICommand ExpandMenuCommand { get; }
@@ -49,9 +54,21 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         public ICommand ShowDevelopmentHistoryCommand { get; }
         public ICommand ShowSortieHistoryCommand { get; }
         public ICommand ShowExpeditionHistoryCommand { get; }
+        public ICommand ShowScrappingHistoryCommand { get; }
+
+
+        ICommand r_OpenToolPaneCommand;
+        public IList<ToolViewModel> ToolPanes { get; }
 
         internal MainWindowViewModel()
         {
+            var rBrowserServicePCEL = PropertyChangedEventListener.FromSource(BrowserService.Instance);
+            rBrowserServicePCEL.Add(nameof(BrowserService.Instance.NoInstalledLayoutEngines), delegate
+            {
+                IsBrowserAvailable = false;
+                OnPropertyChanged(nameof(IsBrowserAvailable));
+            });
+
             var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
             rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
             {
@@ -74,6 +91,18 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             ShowDevelopmentHistoryCommand = new DelegatedCommand(() => new DevelopmentHistoryWindow().Show());
             ShowSortieHistoryCommand = new DelegatedCommand(() => new SortieHistoryWindow().Show());
             ShowExpeditionHistoryCommand = new DelegatedCommand(() => new ExpeditionHistoryWindow().Show());
+            ShowScrappingHistoryCommand = new DelegatedCommand(() => new ScrappingHistoryWindow().Show());
+
+            r_OpenToolPaneCommand = new DelegatedCommand<ToolViewModel>(r =>
+            {
+                var rGameInfo = Content as GameInformationViewModel;
+                if (rGameInfo == null)
+                    return;
+
+                rGameInfo.TabItems.Add(r);
+                rGameInfo.SelectedItem = r;
+            });
+            ToolPanes = PluginService.Instance.ToolPanes?.Select(r => new ToolViewModel(r, r_OpenToolPaneCommand)).ToList().AsReadOnly();
         }
     }
 }

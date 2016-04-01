@@ -20,9 +20,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             SessionService.Instance.Subscribe("api_req_hensei/change", r =>
             {
-                var rFleet = Table[int.Parse(r.Requests["api_id"])];
+                var rFleet = Table[int.Parse(r.Parameters["api_id"])];
 
-                var rIndex = int.Parse(r.Requests["api_ship_idx"]);
+                var rIndex = int.Parse(r.Parameters["api_ship_idx"]);
                 if (rIndex == -1)
                 {
                     rFleet.RemoveAllExceptFlagship();
@@ -30,7 +30,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     return;
                 }
 
-                var rShipID = int.Parse(r.Requests["api_ship_id"]);
+                var rShipID = int.Parse(r.Parameters["api_ship_id"]);
                 if (rShipID == -1)
                 {
                     rFleet.Remove(rIndex);
@@ -52,7 +52,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe("api_get_member/deck", r => Update(r.GetData<RawFleet[]>()));
             SessionService.Instance.Subscribe("api_req_hensei/preset_select", r =>
             {
-                var rFleet = Table[int.Parse(r.Requests["api_deck_id"])];
+                var rFleet = Table[int.Parse(r.Parameters["api_deck_id"])];
                 rFleet.Update(r.GetData<RawFleet>());
             });
 

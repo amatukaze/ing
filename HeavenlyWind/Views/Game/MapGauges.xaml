@@ -36,7 +36,7 @@
                     <StackPanel Orientation="Horizontal" Grid.RowSpan="2">
                         <TextBlock>
                             <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty}" />
-                            <Run Text="{Binding MasterInfo.Name, Mode=OneWay}" />
+                            <Run Text="{rb:ExtraStringResource Map, MasterInfo.ID, MasterInfo.Name}" />
                         </TextBlock>
                         <TextBlock Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull GaugeType}" />
                     </StackPanel>

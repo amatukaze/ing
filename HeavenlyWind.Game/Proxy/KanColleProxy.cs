@@ -30,6 +30,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             var rStartupFlags = FiddlerCoreStartupFlags.ChainToUpstreamGateway;
             if (Preference.Current.Network.EnableForSSL)
                 rStartupFlags |= FiddlerCoreStartupFlags.DecryptSSL;
+            if (Preference.Current.Network.AllowRequestsFromOtherDevices)
+                rStartupFlags |= FiddlerCoreStartupFlags.AllowRemoteClients;
 
             FiddlerApplication.Startup(Preference.Current.Network.Port, rStartupFlags);
         }

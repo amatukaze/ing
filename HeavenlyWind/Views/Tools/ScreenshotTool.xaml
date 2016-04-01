@@ -36,7 +36,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TabControl>
+            <ruic:AdvancedTabControl DisableTabReorder="True">
                 <TabItem Header="{rb:StringResource Main.ScreenshotTool_General}">
                     <TabItem.Resources>
                         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
@@ -87,8 +87,8 @@
                     </StackPanel>
                 </TabItem>
 
-                <TabItem DataContext="{Binding Overview}" Header="{rb:StringResource Main.ScreenshotTool_Overview}">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <TabItem Header="{rb:StringResource Main.ScreenshotTool_Overview}">
+                    <ScrollViewer DataContext="{Binding Overview}" VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Type}" />
@@ -159,13 +159,13 @@
                                 </ItemsControl>
                             </Border>
 
-                            <Button Command="{Binding SaveCommand}" MinWidth="75" Margin="0, 6, 0, 0" HorizontalAlignment="Right">
+                            <Button Command="{Binding SaveCommand}" MinWidth="75" Margin="0, 6, 0, 0">
                                 <TextBlock Text="{rb:StringResource Main.ScreenshotTool_Overview_Save}" />
                             </Button>
                         </StackPanel>
                     </ScrollViewer>
                 </TabItem>
-            </TabControl>
+            </ruic:AdvancedTabControl>
 
             <StackPanel Orientation="Horizontal" Grid.Row="2">
                 <TextBlock Text="{rb:StringResource Main.ScreenshotTool_OutputOption}" />

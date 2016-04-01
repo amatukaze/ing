@@ -43,13 +43,14 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("firstrun")]
         public bool FirstRun { get; set; } = true;
 
-        [JsonProperty("checkupdate")]
-        public bool CheckUpdate { get; set; } = true;
-        [JsonProperty("channel")]
-        public UpdateChannel UpdateChannel { get; set; } = UpdateChannel.Release;
+        [JsonProperty("update")]
+        public UpdatePreference Update { get; set; } = new UpdatePreference();
 
         [JsonProperty("network")]
         public NetworkPreference Network { get; set; } = new NetworkPreference();
+
+        [JsonProperty("game")]
+        public GamePreference Game { get; set; } = new GamePreference();
 
         [JsonProperty("cache")]
         public CachePreference Cache { get; set; } = new CachePreference();
@@ -57,8 +58,16 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("browser")]
         public BrowserPreference Browser { get; set; } = new BrowserPreference();
 
+        [JsonProperty("notification")]
+        public NotificationPreference Notification { get; set; } = new NotificationPreference();
+
+        WindowsPreference r_Windows;
         [JsonProperty("windows")]
-        public WindowPreference[] Windows { get; set; }
+        public WindowsPreference Windows
+        {
+            get { return r_Windows ?? (r_Windows = new WindowsPreference()); }
+            set { r_Windows = value; }
+        }
 
         [JsonProperty("layout")]
         public LayoutPreference Layout { get; set; } = new LayoutPreference();

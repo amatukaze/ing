@@ -8,31 +8,29 @@
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <ruic:DragableTabControl ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet, Mode=TwoWay}">
-        <ruic:DragableTabControl.ItemContainerStyle>
-            <Style TargetType="{x:Type ruic:DragableTabItem}">
-                <Setter Property="Padding" Value="8, 0" />
+    <ruic:AdvancedTabControl DisableTabReorder="True" TabController="{StaticResource TabController}" ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" Padding="0">
+        <ruic:AdvancedTabControl.ItemContainerStyle>
+            <Style TargetType="{x:Type ruic:AdvancedTabItem}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="Padding" Value="10, 6" />
 
                 <Style.Triggers>
-                    <Trigger Property="IsSelected" Value="False">
-                        <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />
-                    </Trigger>
                     <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource AccentHighlightBrushKey}" />
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{DynamicResource ActiveBackgroundBrushKey}" />
                         <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
-        </ruic:DragableTabControl.ItemContainerStyle>
-        <ruic:DragableTabControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type rvmg:FleetViewModel}">
-                <TextBlock Text="{Binding Source.Name}" />
+        </ruic:AdvancedTabControl.ItemContainerStyle>
+        <ruic:AdvancedTabControl.ItemTemplate>
+            <DataTemplate>
+                <TextBlock Text="{Binding Name}" />
             </DataTemplate>
-        </ruic:DragableTabControl.ItemTemplate>
-
-        <ruic:DragableTabControl.Resources>
-            <DataTemplate DataType="{x:Type rvmg:FleetViewModel}">
-                <rvg:FleetDetail />
-            </DataTemplate>
-        </ruic:DragableTabControl.Resources>
-    </ruic:DragableTabControl>
+        </ruic:AdvancedTabControl.ItemTemplate>
+    </ruic:AdvancedTabControl>
 </UserControl>

@@ -1,39 +1,12 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
-using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using System.Linq;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Upgrading
 {
     [Api("api_req_kaisou/powerup")]
-    class ModernizationParser : ApiParser<RawModernization>
+    class ModernizationParser : ApiParser<RawModernizationResult>
     {
-        public override void Process(RawModernization rpData)
+        public override void Process(RawModernizationResult rpData)
         {
-            var rShipsTable = Game.Port.Ships;
-
-            var rShipID = int.Parse(Requests["api_id"]);
-            Ship rTargetShip;
-            if (rShipsTable.TryGetValue(rShipID, out rTargetShip))
-                rTargetShip.Update(rpData.Ship);
-
-            var rShips = Requests["api_id_items"].Split(',').Select(r =>
-            {
-                Ship rShip = null;
-                rShipsTable.TryGetValue(int.Parse(r), out rShip);
-
-                return rShip;
-            }).Where(r => r != null);
-
-            foreach (var rShip in rShips)
-            {
-                foreach (var rEquipment in rShip.EquipedEquipment)
-                    Game.Port.Equipment.Remove(rEquipment);
-
-                rShipsTable.Remove(rShip);
-            }
-
-            Game.Port.UpdateShipsCore();
-            Game.Port.Fleets.Update(rpData.Fleets);
         }
     }
 }

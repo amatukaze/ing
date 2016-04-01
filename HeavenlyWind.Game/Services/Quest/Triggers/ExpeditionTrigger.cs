@@ -15,9 +15,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
             if (rpExpeditions?.Length != 0)
                 Expeditions = new HashSet<int>(rpExpeditions);
 
-            Observable = SessionService.Instance.GetProcessSucceededSubject("api_req_mission/result").Select(r => (RawExpeditionResult)r.Data)
-                .Where(r => r.Result != ExpeditionResult.Failure &&
-                    (Expeditions == null || Expeditions.Contains(KanColleGame.Current.MasterInfo.GetExpeditionFromName(r.Name).ID)));
+            Observable = SessionService.Instance.GetProcessSucceededSubject("api_req_mission/result").Select(r =>
+            {
+                var rFleet = KanColleGame.Current.Port.Fleets[int.Parse(r.Parameters["api_deck_id"])];
+                var rExpedition = rFleet.ExpeditionStatus.Expedition;
+
+                return new { Expedition = rExpedition, Result = ((RawExpeditionResult)r.Data).Result };
+            }).Where(r => r.Result != ExpeditionResult.Failure && (Expeditions == null || Expeditions.Contains(r.Expedition.ID)));
         }
 
         public override string ToString() => $"Expedition: {(Expeditions != null ? string.Join(", ", Expeditions) : "All")}";

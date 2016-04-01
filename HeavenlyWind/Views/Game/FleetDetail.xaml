@@ -15,11 +15,17 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Margin="4">
-            <TextBlock DataContext="{Binding Source}">
-                <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
-                <Run Text="{rb:StringResource Main.Fleet_LoS, Mode=OneWay}" />:<Run Text="{Binding Status.LoS.Old25, StringFormat=0.0}" />/<Run Text="{Binding Status.LoS.Autumn25, StringFormat=0.0}" />
-                <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.MinAA, StringFormat=0.0}" />-<Run Text="{Binding Status.MaxAA, StringFormat=0.0}" />
-            </TextBlock>
+            <StackPanel DataContext="{Binding Source}" Orientation="Horizontal">
+                <TextBlock>
+                    <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
+                </TextBlock>
+
+                <rc:LoSFormulas ItemsSource="{Binding Status.LoS.Formulas}" Margin="3, 0, 0, 0" />
+
+                <TextBlock Margin="3, 0, 0, 0">
+                    <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.MinAA, StringFormat=0.0}" />-<Run Text="{Binding Status.MaxAA, StringFormat=0.0}" />
+                </TextBlock>
+            </StackPanel>
 
             <Border DataContext="{Binding Source.Resupply}" Background="Transparent" ToolTip="{StaticResource UnsuppliedToolTip}" Margin="4, 0, 0, 0" Visibility="{Binding NeedResupply, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Unsupplied}" />
@@ -31,7 +37,7 @@
             </Border>
         </StackPanel>
 
-        <ScrollViewer DataContext="{Binding Source}" Margin="0, 4, 0, 0" Grid.Row="1">
+        <ScrollViewer DataContext="{Binding Source}" HorizontalScrollBarVisibility="Auto" Margin="0, 4, 0, 0" Grid.Row="1">
             <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Margin="0, -5, 0, 0" Grid.IsSharedSizeScope="True">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type rgm:Ship}">
@@ -42,18 +48,17 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition SharedSizeGroup="Name" />
-                                    <ColumnDefinition SharedSizeGroup="Level" />
+                                    <ColumnDefinition MinWidth="75" SharedSizeGroup="ShipName" />
+                                    <ColumnDefinition SharedSizeGroup="ShipLevel" />
                                     <ColumnDefinition SharedSizeGroup="NextExperience" />
                                     <ColumnDefinition Width="60" />
                                     <ColumnDefinition Width="25" />
                                     <ColumnDefinition SharedSizeGroup="FuelAndBullet" />
-                                    <ColumnDefinition SharedSizeGroup="Slots" />
-                                    <ColumnDefinition SharedSizeGroup="ExtraSlot" />
+                                    <ColumnDefinition Width="Auto" MinWidth="48" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{Binding Info.Name}" Grid.RowSpan="2" />
+                                <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" Grid.RowSpan="2" />
 
                                 <TextBlock Name="Level" Text="{Binding Level, StringFormat=Lv.{0}}" Margin="3, 0, 0, 0" Grid.Column="1" />
                                 <TextBlock Name="ExperienceToNextLevel" Foreground="#AAA" Text="{Binding ExperienceToNextLevel, StringFormat=Next:{0}}" FontSize="10" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="1" />
@@ -83,9 +88,13 @@
                                     <rc:ColorIndicator Value="{Binding Bullet.Current}" Median="{Binding Bullet.Before}" Maximum="{Binding Info.MaxBulletConsumption}" Grid.Row="1" />
                                 </Grid>
 
-                                <rc:ShipSlot DataContext="{Binding Slots}" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2" />
-                                <Border Name="ExtraSlot" BorderBrush="Gray" BorderThickness="1, 0, 0, 0" Margin="3, 0, 0, 0" Grid.Column="7" Grid.RowSpan="2">
-                                    <rc:EquipmentIcon Type="{Binding ExtraSlot.Equipment.Info.Icon}" />
+                                <Border Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <rc:ShipSlot DataContext="{Binding Slots}" />
+                                        <Border Name="ExtraSlot" BorderBrush="Gray" BorderThickness="1, 0, 0, 0" Margin="3, 0, 0, 0">
+                                            <rc:EquipmentIcon Type="{Binding ExtraSlot.Equipment.Info.Icon}" />
+                                        </Border>
+                                    </StackPanel>
                                 </Border>
                             </Grid>
                         </Border>

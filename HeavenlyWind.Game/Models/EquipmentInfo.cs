@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public class EquipmentInfo : RawDataWrapper<RawEquipmentInfo>, IID
+    public class EquipmentInfo : RawDataWrapper<RawEquipmentInfo>, IID, ITranslatedName
     {
         public static EquipmentInfo Dummy { get; } = new EquipmentInfo(new RawEquipmentInfo() { ID = -1 });
 
@@ -11,6 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int SortNumber => RawData.SortNumber;
 
         public string Name => RawData.Name;
+        public string TranslatedName => StringResources.Instance.Extra?.GetEquipmentName(ID) ?? Name;
 
         public int Rarity => RawData.Rarity;
 
@@ -61,17 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         #endregion;
 
-        internal EquipmentInfo(RawEquipmentInfo rpRawData) : base(rpRawData)
-        {
-            OnRawDataUpdated();
-        }
-
-        protected override void OnRawDataUpdated()
-        {
-            var rTranslatedName = StringResources.Instance.Extra?.GetEquipmentName(ID);
-            if (rTranslatedName != null)
-                RawData.Name = rTranslatedName;
-        }
+        internal EquipmentInfo(RawEquipmentInfo rpRawData) : base(rpRawData) { }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Name}\", Type = [{Type}, {Icon}]";
     }

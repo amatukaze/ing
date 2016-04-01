@@ -56,7 +56,7 @@
                                 <DataTemplate>
                                     <DockPanel>
                                         <rc:EquipmentIcon Type="{Binding Equipment.Icon}" VerticalAlignment="Center" />
-                                        <TextBlock Text="{Binding Equipment.Name}" TextTrimming="CharacterEllipsis" Margin="4, 4, 0, 4" />
+                                        <TextBlock Text="{rb:ExtraStringResource Equipment, Equipment.ID, Equipment.Name}" TextTrimming="CharacterEllipsis" Margin="4, 4, 0, 4" />
                                     </DockPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -104,7 +104,7 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding SecretaryShip.Name}" Margin="0, 4" />
+                                    <TextBlock Text="{rb:ExtraStringResource Ship, SecretaryShip.ID, SecretaryShip.Name}" Margin="0, 4" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

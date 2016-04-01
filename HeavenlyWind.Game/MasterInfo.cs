@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
     public class MasterInfo
     {
         public IDTable<ShipInfo> Ships { get; } = new IDTable<ShipInfo>();
-        public IDTable<ShipType> ShipTypes { get; } = new IDTable<ShipType>();
+        public IDTable<ShipTypeInfo> ShipTypes { get; } = new IDTable<ShipTypeInfo>();
 
         public IDTable<EquipmentInfo> Equipment { get; } = new IDTable<EquipmentInfo>();
         public IDTable<EquipmentTypeInfo> EquipmentTypes { get; } = new IDTable<EquipmentTypeInfo>();
@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public void Update(RawMasterInfo rpInfo)
         {
             Ships.UpdateRawData(rpInfo.Ships, r => new ShipInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
-            ShipTypes.UpdateRawData(rpInfo.ShipTypes, r => new ShipType(r), (rpData, rpRawData) => rpData.Update(rpRawData));
+            ShipTypes.UpdateRawData(rpInfo.ShipTypes, r => new ShipTypeInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
 
             Equipment.UpdateRawData(rpInfo.Equipment, r => new EquipmentInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
             EquipmentTypes.UpdateRawData(rpInfo.EquipmentTypes, r => new EquipmentTypeInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData));
@@ -43,7 +43,5 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                              join rMap in Maps.Values on rArea.ID equals rMap.AreaID
                              select rMap).Count();
         }
-
-        public ExpeditionInfo GetExpeditionFromName(string rpName) => Expeditions.Values.SingleOrDefault(r => r.Name == rpName);
     }
 }

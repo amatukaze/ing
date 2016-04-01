@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 {
-    public class RawModernization
+    public class RawModernizationResult
     {
         [JsonProperty("api_powerup_flag")]
         public bool Success { get; set; }

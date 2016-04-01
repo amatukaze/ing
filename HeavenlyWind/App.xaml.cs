@@ -7,6 +7,7 @@ using Sakuno.KanColle.Amatsukaze.Views;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -49,18 +50,25 @@ namespace Sakuno.KanColle.Amatsukaze
             QuestProgressService.Instance.Initialize();
             MapService.Instance.Initialize();
             ExpeditionService.Instance.Initialize();
+            EnemyEncounterService.Instance.Initialize();
 
             Preference.Load();
             StringResources.Instance.LoadMainResource(Preference.Current.Language);
             StringResources.Instance.LoadExtraResource(Preference.Current.ExtraResourceLanguage);
 
+            CacheService.Instance.Initialize();
             NotificationService.Instance.Initialize();
+
+            PluginService.Instance.Initialize();
 
             KanColleProxy.Start();
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             Task.Factory.StartNew(UpdateService.Instance.CheckForUpdate);
+
+            if (e.Args.Any(r => r.OICEquals("--background")))
+                return;
 
             MainWindow = new MainWindow();
             MainWindow.DataContext = Root = new MainWindowViewModel();

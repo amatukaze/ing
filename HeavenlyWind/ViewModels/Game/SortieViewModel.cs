@@ -1,13 +1,14 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Views.Game;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
+    [ViewInfo(typeof(SortieOverview))]
     public class SortieViewModel : TabItemViewModel
     {
         public enum DisplayType { MapGauge, Sortie, Practice }
@@ -54,7 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 }
             });
 
-            r_EventMapShipLockingSubscription = SessionService.Instance.Subscribe("api_get_member/basic", delegate
+            r_EventMapShipLockingSubscription = SessionService.Instance.Subscribe("api_get_member/require_info", delegate
             {
                 ShipLockingService.Instance.Initialize();
 

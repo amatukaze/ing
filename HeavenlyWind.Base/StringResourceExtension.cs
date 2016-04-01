@@ -13,7 +13,10 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public StringResourceExtension(string rpPath)
         {
-            r_Path = rpPath;
+            if (rpPath.StartsWith("Main."))
+                r_Path = rpPath;
+            else
+                r_Path = "Main." + rpPath;
         }
 
         public override object ProvideValue(IServiceProvider rpServiceProvider)

@@ -3,6 +3,9 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/UnsuppliedToolTip.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/AbyssalShipClass.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/SlotsToolTip.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/TabContent.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
 {
     static class DictionaryExtensions
     {
-        public static TValue Get<TKey, TValue>(this Dictionary<TKey, TValue> rpCache, TKey rpKey, Func<TKey, TValue> rpFactory)
+        public static TValue Get<TKey, TValue>(this IDictionary<TKey, TValue> rpCache, TKey rpKey, Func<TKey, TValue> rpFactory)
         {
             TValue rResult;
             if (!rpCache.TryGetValue(rpKey, out rResult))

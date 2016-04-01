@@ -5,39 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
-             xmlns:rgmb="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models.Battle;assembly=HeavenlyWind.Game"
+             xmlns:rgme="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models.Events;assembly=HeavenlyWind.Game"
              xmlns:rvgb="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game.Battle"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance rgmb:BattleInfo}"
+             d:DataContext="{d:DesignInstance rgme:BattleEvent}"
              d:DesignWidth="300" d:DesignHeight="300">
     <UserControl.Resources>
         <DataTemplate x:Key="ParticipantTemplate">
-            <DataTemplate.Resources>
-                <Style x:Key="AbyssalShipClass" TargetType="{x:Type Run}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding AbyssalShipClass}" Value="Elite">
-                            <Setter Property="Text" Value="elite" />
-                            <Setter Property="Foreground" Value="Red" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding AbyssalShipClass}" Value="Flagship">
-                            <Setter Property="Text" Value="flagship" />
-                            <Setter Property="Foreground" Value="#FCC800" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding AbyssalShipClass}" Value="LateModel">
-                            <Setter Property="Text" Value="後期型" />
-                            <Setter Property="Foreground" Value="SkyBlue" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataTemplate.Resources>
-
-            <Border Name="Border" Height="30">
+            <Border Name="Border" Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Height="30" Grid.IsSharedSizeScope="True">
                 <TextBlock DataContext="{Binding Info}">
-                    <Run Name="Name" Text="{Binding NameWithoutAbyssalShipClass, Mode=OneWay}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                    <Run Name="Name" Text="{rb:ExtraStringResource Ship, ID, Name}" /><Run Style="{StaticResource AbyssalShipClass}" />
                 </TextBlock>
             </Border>
 
             <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Ship.Info.IsAbyssalShip}" Value="True">
+                    <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource AbyssalShip, ID, NameWithoutAbyssalShipClass}" />
+                </DataTrigger>
+
                 <DataTrigger Binding="{Binding IsMVP}" Value="True">
                     <Setter TargetName="Name" Property="Foreground" Value="Yellow" />
                 </DataTrigger>
@@ -49,36 +34,91 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid DataContext="{Binding Battle}" Grid.IsSharedSizeScope="True">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="75" />
-            <ColumnDefinition Width="8" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="8" />
-            <ColumnDefinition Width="Auto" MinWidth="75" />
-            <ColumnDefinition Width="8" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="2" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="2" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <Control Grid.IsSharedSizeScope="True">
+        <Control.Style>
+            <Style TargetType="{x:Type Control}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Control}">
+                            <DockPanel>
+                                <Grid DataContext="{Binding Battle}" DockPanel.Dock="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" MinWidth="75" />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="Auto" MinWidth="75" />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition Height="8" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
 
-        <ItemsControl ItemsSource="{Binding Participants.FriendMain}" ItemTemplate="{StaticResource ParticipantTemplate}" />
-        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendMain}" Grid.Column="2" />
+                                    <ItemsControl ItemsSource="{Binding Participants.FriendMain}" ItemTemplate="{StaticResource ParticipantTemplate}" />
+                                    <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendMain}" Grid.Column="2" />
 
-        <ItemsControl ItemsSource="{Binding Participants.FriendEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="4" />
-        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendEscort}" Grid.Column="6" />
+                                    <ItemsControl ItemsSource="{Binding Participants.FriendEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="4" />
+                                    <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendEscort}" Grid.Column="6" />
 
-        <TextBlock Text="{rb:StringResource Main.Sortie_SupportFleet_Ready}" FontWeight="Bold" Visibility="{Binding IsSupportFleetReady, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0, 4" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="7" />
-        <rvgb:Information Grid.Row="2" Grid.ColumnSpan="7" />
+                                    <TextBlock Text="{rb:StringResource Main.Sortie_SupportFleet_Ready}" FontWeight="Bold" Visibility="{Binding IsSupportFleetReady, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0, 4" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="7" />
+                                </Grid>
 
-        <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" />
-        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="2" Grid.Row="4" />
-    </Grid>
+                                <rvgb:EnemyEncounters Margin="0, 8, 0, 0" />
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Battle.IsInitialized}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Control}">
+                                    <Grid DataContext="{Binding Battle}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" MinWidth="75" />
+                                            <ColumnDefinition Width="8" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="8" />
+                                            <ColumnDefinition Width="Auto" MinWidth="75" />
+                                            <ColumnDefinition Width="8" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="2" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="2" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <ItemsControl ItemsSource="{Binding Participants.FriendMain}" ItemTemplate="{StaticResource ParticipantTemplate}" />
+                                        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendMain}" Grid.Column="2" />
+
+                                        <ItemsControl ItemsSource="{Binding Participants.FriendEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="4" />
+                                        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendEscort}" Grid.Column="6" />
+
+                                        <rvgb:Information Grid.Row="2" Grid.ColumnSpan="7" />
+
+                                        <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" />
+                                        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="2" Grid.Row="4" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Control.Style>
+    </Control>
 </UserControl>

@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
         {
             base.Process(rpJson);
 
-            OnProcessSucceeded(new ApiData(Api, Requests, rpJson));
+            OnProcessSucceeded(new ApiData(Api, Parameters, rpJson));
         }
     }
 }

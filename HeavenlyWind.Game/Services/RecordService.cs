@@ -22,6 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public SortieRecord Sortie { get; private set; }
         public BattleRecord Battle { get; private set; }
         public RankingPointBonusRecord RankingPointBonus { get; private set; }
+        public FateRecord Fate { get; private set; }
 
         public QuestProgressRecord QuestProgress { get; private set; }
         public BattleDetailRecord BattleDetail { get; private set; }
@@ -38,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (!Directory.Exists("Records"))
                 Directory.CreateDirectory("Records");
 
-            SessionService.Instance.Subscribe("api_get_member/basic", _ => Connect(KanColleGame.Current.Port.Admiral.ID));
+            SessionService.Instance.Subscribe("api_get_member/require_info", _ => Connect(KanColleGame.Current.Port.Admiral.ID));
         }
 
         void Connect(int rpUserID)
@@ -55,6 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Sortie?.Dispose();
             Battle?.Dispose();
             RankingPointBonus?.Dispose();
+            Fate?.Dispose();
             QuestProgress?.Dispose();
             BattleDetail?.Dispose();
             r_Connection?.Dispose();
@@ -85,6 +87,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Sortie = new SortieRecord(r_Connection).ConnectAndReturn();
                 Battle = new BattleRecord(r_Connection).ConnectAndReturn();
                 RankingPointBonus = new RankingPointBonusRecord(r_Connection).ConnectAndReturn();
+                Fate = new FateRecord(r_Connection).ConnectAndReturn();
 
                 QuestProgress = new QuestProgressRecord(r_Connection).ConnectAndReturn();
 

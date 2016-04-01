@@ -46,7 +46,7 @@
                 <Setter.Value>
                     <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByShip}">
                         <TextBlock Margin="0, 4, 15, 4">
-                            <Run Text="{Binding Ship.Info.Name, Mode=OneWay}" />
+                            <Run Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" />
                             <Run Text="{Binding Ship.Level, StringFormat=Lv.{0}, Mode=OneWay}" FontSize="11" /><Run Text="{Binding CountDisplayString, Mode=OneWay}" FontSize="11" />
                         </TextBlock>
                     </DataTemplate>
@@ -106,7 +106,7 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <rc:EquipmentIcon Type="{Binding Info.Icon}" VerticalAlignment="Center" />
-                                        <TextBlock Text="{Binding Info.Name}" TextTrimming="CharacterEllipsis" Margin="4, 4, 0, 4" />
+                                        <TextBlock Text="{rb:ExtraStringResource Equipment, Info.ID, Info.Name}" TextTrimming="CharacterEllipsis" Margin="4, 4, 0, 4" />
                                     </StackPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

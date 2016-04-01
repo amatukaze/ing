@@ -20,6 +20,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public RawEquipment ImprovedEquipment { get; set; }
 
         [JsonProperty("api_use_slot_id")]
-        public int? RemovedEquipmentID { get; set; }
+        public int[] ConsumedEquipmentID { get; set; }
     }
 }

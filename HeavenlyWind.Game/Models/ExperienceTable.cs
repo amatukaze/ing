@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Sakuno.Collections;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         static ExperienceTable()
         {
-            Ship = new IDTable<Experience>(new Dictionary<int, Experience>()
+            Ship = new IDTable<Experience>(new HybridDictionary<int, Experience>(155)
             {
                 { 1, new Experience(1, 0, 100) },
                 { 2, new Experience(2, 100, 200) },
@@ -168,7 +168,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 { 155, new Experience(155, 5470000, 0) },
             });
 
-            Admiral = new IDTable<Experience>(new Dictionary<int, Experience>()
+            Admiral = new IDTable<Experience>(new HybridDictionary<int, Experience>(120)
             {
                 { 1, new Experience(1, 0, 100) },
                 { 2, new Experience(2, 100, 200) },

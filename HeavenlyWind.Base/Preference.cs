@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Text;
 
@@ -19,7 +20,19 @@ namespace Sakuno.KanColle.Amatsukaze
                 using (var rReader = new JsonTextReader(File.OpenText(r_FilePath)))
                     Current = r_Serializer.Deserialize<Preference>(rReader);
             }
-            catch { }
+            catch (Exception e)
+            {
+                try
+                {
+                    using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
+                    {
+                        rStreamWriter.WriteLine("Loading preference file error.");
+                        rStreamWriter.WriteLine();
+                        rStreamWriter.WriteLine(e.ToString());
+                    }
+                }
+                catch { }
+            }
             finally
             {
                 if (Current == null)

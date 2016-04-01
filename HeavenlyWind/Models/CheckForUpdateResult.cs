@@ -19,6 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models
 
             [JsonProperty("version")]
             public string Version { get; set; }
+            [JsonProperty("important")]
+            public bool IsImportantUpdate { get; set; }
 
             [JsonProperty("link")]
             public string Link { get; set; }

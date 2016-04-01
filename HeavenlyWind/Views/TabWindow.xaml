@@ -4,6 +4,7 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                  xmlns:ruicd="clr-namespace:Sakuno.UserInterface.Controls.Docking;assembly=Sakuno.UserInterface"
                   xmlns:rvm="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels"
                   xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
                   xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
@@ -29,34 +30,15 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
         </DockPanel>
 
-        <ruic:DragableTabControl x:Name="TabControl" Grid.Row="1">
-            <ruic:DragableTabControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type rvm:TabItemViewModel}">
-                    <TextBlock Text="{Binding Name}" FontSize="14" />
-                </DataTemplate>
-            </ruic:DragableTabControl.ItemTemplate>
-            <ruic:DragableTabControl.NewHostProvider>
-                <rv:TabNewHostProvider />
-            </ruic:DragableTabControl.NewHostProvider>
-
-            <ruic:DragableTabControl.Resources>
-                <DataTemplate DataType="{x:Type rvmg:OverviewViewModel}">
-                    <rvg:Overview />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type rvmg:FleetsViewModel}">
-                    <rvg:Fleets />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type rvmg:SortieViewModel}">
-                    <rvg:SortieOverview />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type rvmg:QuestsViewModel}">
-                    <rvg:Quests />
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type rvmg:ExpeditionOverviewViewModel}">
-                    <rvg:ExpeditionOverview />
-                </DataTemplate>
-            </ruic:DragableTabControl.Resources>
-        </ruic:DragableTabControl>
+        <ruic:DockableZone x:Name="DockableZone" Grid.Row="1">
+            <ruic:AdvancedTabControl x:Name="TabControl" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}">
+                <ruic:AdvancedTabControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type rvm:TabItemViewModel}">
+                        <TextBlock Text="{Binding Name}" FontSize="14" />
+                    </DataTemplate>
+                </ruic:AdvancedTabControl.ItemTemplate>
+            </ruic:AdvancedTabControl>
+        </ruic:DockableZone>
 
         <ruic:ResizeGrip Grid.Row="1" />
     </Grid>
