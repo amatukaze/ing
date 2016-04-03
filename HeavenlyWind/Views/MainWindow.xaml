@@ -111,19 +111,24 @@
                     <rv:GameInformation />
                 </DataTemplate>
 
-                <Style x:Key="ContentStyle" TargetType="{x:Type ContentControl}">
-                    <Setter Property="Content" Value="{Binding Content}" />
+                <rv:Browser x:Key="Browser" />
+                <ContentControl x:Key="Content">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Setter Property="Content" Value="{Binding Content}" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsGameStarted}" Value="False">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <TextBlock Text="{rb:StringResource Main.GameInfomation_Waiting}" FontSize="16" HorizontalAlignment="Center" />
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsGameStarted}" Value="False">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock Text="{rb:StringResource Main.GameInfomation_Waiting}" FontSize="16" HorizontalAlignment="Center" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
             </Control.Resources>
             <Control.Style>
                 <Style TargetType="{x:Type Control}">
@@ -152,15 +157,74 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type Control}">
                                         <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Grid.Row="1">
-                                            <ruicd:DockGroup Orientation="Horizontal" FirstItemLength="Auto" SecondItemLength="*">
-                                                <ruicd:DockGroup.FirstItem>
-                                                    <rv:Browser />
-                                                </ruicd:DockGroup.FirstItem>
-                                                <ruicd:DockGroup.SecondItem>
-                                                    <ContentControl Style="{StaticResource ContentStyle}" />
-                                                </ruicd:DockGroup.SecondItem>
-                                            </ruicd:DockGroup>
+                                            <ruicd:DockGroup x:Name="DockGroup" Orientation="Horizontal" FirstItem="{StaticResource Browser}" FirstItemLength="Auto" SecondItem="{StaticResource Content}" SecondItemLength="*" />
                                         </ruic:DockableZone>
+
+                                        <ControlTemplate.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ScreenOrientation, RelativeSource={RelativeSource AncestorType={x:Type ruic:MetroWindow}}}" Value="Landscape" />
+                                                    <Condition Binding="{rb:Preference Layout.LandscapeDock}" Value="Top" />
+                                                </MultiDataTrigger.Conditions>
+
+                                                <Setter TargetName="DockGroup" Property="Orientation" Value="Vertical" />
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ScreenOrientation, RelativeSource={RelativeSource AncestorType={x:Type ruic:MetroWindow}}}" Value="Landscape" />
+                                                    <Condition Binding="{rb:Preference Layout.LandscapeDock}" Value="Right" />
+                                                </MultiDataTrigger.Conditions>
+
+                                                <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource Content}" />
+                                                <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
+                                                <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
+                                                <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ScreenOrientation, RelativeSource={RelativeSource AncestorType={x:Type ruic:MetroWindow}}}" Value="Landscape" />
+                                                    <Condition Binding="{rb:Preference Layout.LandscapeDock}" Value="Bottom" />
+                                                </MultiDataTrigger.Conditions>
+
+                                                <Setter TargetName="DockGroup" Property="Orientation" Value="Vertical" />
+                                                <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource Content}" />
+                                                <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
+                                                <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
+                                                <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
+                                            </MultiDataTrigger>
+
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ScreenOrientation, RelativeSource={RelativeSource AncestorType={x:Type ruic:MetroWindow}}}" Value="Portrait" />
+                                                    <Condition Binding="{rb:Preference Layout.PortraitDock}" Value="Top" />
+                                                </MultiDataTrigger.Conditions>
+
+                                                <Setter TargetName="DockGroup" Property="Orientation" Value="Vertical" />
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ScreenOrientation, RelativeSource={RelativeSource AncestorType={x:Type ruic:MetroWindow}}}" Value="Portrait" />
+                                                    <Condition Binding="{rb:Preference Layout.PortraitDock}" Value="Right" />
+                                                </MultiDataTrigger.Conditions>
+
+                                                <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource Content}" />
+                                                <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
+                                                <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
+                                                <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
+                                            </MultiDataTrigger>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ScreenOrientation, RelativeSource={RelativeSource AncestorType={x:Type ruic:MetroWindow}}}" Value="Portrait" />
+                                                    <Condition Binding="{rb:Preference Layout.PortraitDock}" Value="Bottom" />
+                                                </MultiDataTrigger.Conditions>
+
+                                                <Setter TargetName="DockGroup" Property="Orientation" Value="Vertical" />
+                                                <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource Content}" />
+                                                <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
+                                                <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
+                                                <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
+                                            </MultiDataTrigger>
+                                        </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>

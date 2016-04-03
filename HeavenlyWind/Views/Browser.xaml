@@ -11,11 +11,17 @@
              DataContext="{Binding Source={x:Static rs:BrowserService.Instance}}"
              Visibility="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToInvisibilityConverter}}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel>
-        <rv:BrowserNavigator DockPanel.Dock="Top" />
-        <rv:GameController DockPanel.Dock="Top" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="4" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-        <Border VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 5, 0, 0">
+        <rv:BrowserNavigator />
+        <rv:GameController />
+
+        <Border VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
             <Grid>
                 <Rectangle Fill="Black">
                     <Rectangle.Effect>
@@ -30,5 +36,5 @@
                 </ContentPresenter>
             </Grid>
         </Border>
-    </DockPanel>
+    </Grid>
 </UserControl>
