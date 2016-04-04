@@ -22,6 +22,8 @@
   <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
   <String Key="Log_ShipAndItem_Dropped">「{0}」や「{1}」がドロップしました</String>
   <String Key="Log_Screenshot_Failed">スクリーンショットの保存に失敗しました: {0}</String>
+  <String Key="Log_Screenshot_Failed_FlashElementNotFound">Flash 要素が見つかりません</String>
+  <String Key="Log_Screenshot_Failed_NoData">ブラウザからのスクリーンショットデータはありません</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
   <String Key="Log_Screenshot_Succeeded_File">スクリーンショットを保存しました: {0}</String>
 

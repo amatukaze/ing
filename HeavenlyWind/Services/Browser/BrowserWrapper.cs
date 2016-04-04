@@ -206,8 +206,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                     var rScreenshotData = r_Browser.TakeScreenshot();
                     if (rScreenshotData == null || rScreenshotData.BitmapData == null)
                     {
-                        r_Communicator.Write(CommunicatorMessages.ScreenshotFail);
+                        r_Communicator.Write(CommunicatorMessages.ScreenshotFail + ":" + StringResources.Instance.Main.Log_Screenshot_Failed_NoData);
                         r_ScreenshotMMF = null;
+                        return;
                     }
 
                     const string MapName = "HeavenlyWind/ScreenshotTransmission";

@@ -26,6 +26,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_ShipOrItem_Dropped => GetString(nameof(Log_ShipOrItem_Dropped));
         public string Log_ShipAndItem_Dropped => GetString(nameof(Log_ShipAndItem_Dropped));
         public string Log_Screenshot_Failed => GetString(nameof(Log_Screenshot_Failed));
+        public string Log_Screenshot_Failed_FlashElementNotFound => GetString(nameof(Log_Screenshot_Failed_FlashElementNotFound));
+        public string Log_Screenshot_Failed_NoData => GetString(nameof(Log_Screenshot_Failed_NoData));
         public string Log_Screenshot_Succeeded_Clipboard => GetString(nameof(Log_Screenshot_Succeeded_Clipboard));
         public string Log_Screenshot_Succeeded_File => GetString(nameof(Log_Screenshot_Succeeded_File));
 

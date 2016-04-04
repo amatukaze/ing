@@ -62,6 +62,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Browser\FlashElementNotFoundException.cs" />
     <Compile Include="Browser\IBrowser.cs" />
     <Compile Include="Browser\IBrowserProvider.cs" />
     <Compile Include="Browser\ScreenshotData.cs" />

@@ -22,6 +22,8 @@
   <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
   <String Key="Log_ShipAndItem_Dropped">{0} and {1} dropped</String>
   <String Key="Log_Screenshot_Failed">Fail to save screenshot: {0}</String>
+  <String Key="Log_Screenshot_Failed_FlashElementNotFound">The flash element cannot be found</String>
+  <String Key="Log_Screenshot_Failed_NoData">No screenshot data from the browser</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
   <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
 
