@@ -31,7 +31,7 @@
                         <rc:ColorIndicator x:Name="HPIndicator" Maximum="{Binding Maximum}" Value="{Binding Current}" Median="{Binding Before}" Grid.Row="1" />
 
                         <Border Name="StateColor" Margin="3, 0, 0, 0" Padding="4, 3, 4, 4" VerticalAlignment="Center" Grid.Column="1" Grid.RowSpan="2">
-                            <TextBlock Name="StateText" Text="{rb:EnumToStringResource State, Battle_State}" HorizontalAlignment="Center" />
+                            <TextBlock Name="StateText" Text="{rb:EnumToStringResource State, Battle_State}" Foreground="{DynamicResource HighlightForegroundBrushKey}" HorizontalAlignment="Center" />
                         </Border>
                     </Grid>
                 </Border>
