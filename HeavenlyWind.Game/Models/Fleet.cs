@@ -80,10 +80,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (r_ShipIDs == null || !r_ShipIDs.SequenceEqual(RawData.Ships))
             {
-                if (r_ShipList != null)
-                    foreach (var rShip in r_ShipList)
-                        rShip.OwnerFleet = null;
-
                 r_ShipIDs = RawData.Ships;
                 r_ShipList = RawData.Ships.TakeWhile(r => r != -1).Select(r => Port.Ships[r]).ToList();
 
@@ -152,6 +148,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (rpShip != null)
                 rpShip.OwnerFleet = this;
+            if (rOriginalShip != null)
+                rOriginalShip.OwnerFleet = null;
 
             UpdateShips();
 

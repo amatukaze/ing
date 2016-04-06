@@ -40,9 +40,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 var rShip = KanColleGame.Current.Port.Ships[rShipID];
                 var rOriginalFleet = rShip.OwnerFleet;
-                var rOriginalIndex = rOriginalFleet?.Ships.IndexOf(rShip);
-
                 var rOriginalShip = rFleet.Organize(rIndex, rShip);
+                var rOriginalIndex = rOriginalFleet?.Ships.IndexOf(rShip);
                 if (rOriginalIndex.HasValue)
                     rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
 
@@ -53,6 +52,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe("api_req_hensei/preset_select", r =>
             {
                 var rFleet = Table[int.Parse(r.Parameters["api_deck_id"])];
+                foreach (var rShip in rFleet.Ships)
+                    rShip.OwnerFleet = null;
                 rFleet.Update(r.GetData<RawFleet>());
             });
 
