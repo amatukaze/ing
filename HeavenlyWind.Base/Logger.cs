@@ -86,7 +86,7 @@ namespace Sakuno.KanColle.Amatsukaze
             var rIndex = 0;
             var rSavedLogs = rExceptionLogDirectory.GetFiles(rPrefix + "_*.log");
             if (rSavedLogs.Any())
-                rIndex = rSavedLogs.Max(r => int.Parse(rRegex.Match(r.FullName).Groups["Index"].Value));
+                rIndex = rSavedLogs.Max(r => int.Parse(rRegex.Match(r.FullName).Groups[1].Value));
 
             return Path.Combine(rExceptionLogDirectory.FullName, $"{rPrefix}_{rIndex + 1}.log");
         }
