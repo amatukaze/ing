@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using Sakuno.KanColle.Amatsukaze.Views.Overviews;
+using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;

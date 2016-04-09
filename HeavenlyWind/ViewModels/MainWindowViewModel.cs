@@ -1,9 +1,9 @@
-﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
-using Sakuno.KanColle.Amatsukaze.Game;
+﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
 using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
+using Sakuno.UserInterface;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -44,7 +44,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public bool IsBrowserAvailable { get; private set; } = true;
 
-        public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => new PreferencesWindow().ShowDialog());
+        public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowUtil.ShowDialog(new PreferencesWindow()));
 
         public ICommand ExpandMenuCommand { get; }
 
@@ -55,7 +55,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         public ICommand ShowSortieHistoryCommand { get; }
         public ICommand ShowExpeditionHistoryCommand { get; }
         public ICommand ShowScrappingHistoryCommand { get; }
-
 
         ICommand r_OpenToolPaneCommand;
         public IList<ToolViewModel> ToolPanes { get; }

@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Tools;
+using Sakuno.UserInterface;
 using System.Windows;
 using System.Windows.Input;
 
