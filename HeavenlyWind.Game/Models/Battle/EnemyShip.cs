@@ -6,6 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
     class EnemyShip : IParticipant, ICombatAbility
     {
         public ShipInfo Info { get; }
+        public bool IsAbyssalShip => Info.IsAbyssalShip;
 
         public int Level { get; }
         public IList<ShipSlot> Slots { get; }

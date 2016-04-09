@@ -19,7 +19,7 @@
             </Border>
 
             <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding Ship.Info.IsAbyssalShip}" Value="True">
+                <DataTrigger Binding="{Binding IsAbyssalShip}" Value="True">
                     <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource AbyssalShip, ID, NameWithoutAbyssalShipClass}" />
                 </DataTrigger>
 
