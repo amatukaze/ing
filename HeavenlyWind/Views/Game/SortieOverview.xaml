@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
@@ -20,6 +21,23 @@
                 </Setter>
 
                 <Style.Triggers>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Type}" Value="MapGauge" />
+                            <Condition Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical" />
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter Property="Content">
+                            <Setter.Value>
+                                <StackPanel Orientation="Horizontal">
+                                    <rvg:MapGauges DataContext="{Binding MapGauges}" />
+
+                                    <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="8, 0, 0, 0" />
+                                </StackPanel>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+
                     <DataTrigger Binding="{Binding Type}" Value="Sortie">
                         <Setter Property="Content">
                             <Setter.Value>

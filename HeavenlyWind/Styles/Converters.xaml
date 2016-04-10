@@ -16,4 +16,6 @@
 
     <rbc:OppositeNumberConverter x:Key="OppositeNumberConverter" />
 
+    <ruic:DockToOrientationConverter x:Key="DockToOrientationConverter" />
+
 </ResourceDictionary>
