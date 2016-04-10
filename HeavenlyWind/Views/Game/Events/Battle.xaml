@@ -84,6 +84,7 @@
                     <MultiDataTrigger>
                         <MultiDataTrigger.Conditions>
                             <Condition Binding="{Binding Battle.IsInitialized}" Value="True" />
+                            <Condition Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Horizontal" />
                         </MultiDataTrigger.Conditions>
 
                         <Setter Property="Template">
@@ -119,6 +120,44 @@
 
                                         <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" />
                                         <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="2" Grid.Row="4" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Battle.IsInitialized}" Value="True" />
+                            <Condition Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical" />
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Control}">
+                                    <Grid DataContext="{Binding Battle}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" MinWidth="75" />
+                                            <ColumnDefinition Width="8" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="8" />
+                                            <ColumnDefinition Width="Auto" MinWidth="75" />
+                                            <ColumnDefinition Width="8" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="8" />
+                                            <ColumnDefinition Width="Auto" MinWidth="75" />
+                                            <ColumnDefinition Width="8" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <ItemsControl ItemsSource="{Binding Participants.FriendMain}" ItemTemplate="{StaticResource ParticipantTemplate}" />
+                                        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendMain}" Grid.Column="2" />
+
+                                        <ItemsControl ItemsSource="{Binding Participants.FriendEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="4" />
+                                        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendEscort}" Grid.Column="6" />
+
+                                        <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="8" />
+                                        <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="10" />
                                     </Grid>
                                 </ControlTemplate>
                             </Setter.Value>
