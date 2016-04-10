@@ -33,7 +33,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public MapGaugesViewModel MapGauges { get; } = new MapGaugesViewModel();
 
         public EventMapOverviewViewModel EventMaps { get; private set; }
-        IDisposable r_EventMapShipLockingSubscription;
 
         public SortieInfo Info { get; private set; }
 
@@ -55,7 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 }
             });
 
-            r_EventMapShipLockingSubscription = SessionService.Instance.Subscribe("api_get_member/require_info", delegate
+            SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
             {
                 ShipLockingService.Instance.Initialize();
 
@@ -70,9 +69,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     EventMaps = new EventMapOverviewViewModel(rEventMaps.ToArray());
                     OnPropertyChanged(nameof(EventMaps));
                 }
-
-                r_EventMapShipLockingSubscription.Dispose();
-                r_EventMapShipLockingSubscription = null;
             });
         }
     }

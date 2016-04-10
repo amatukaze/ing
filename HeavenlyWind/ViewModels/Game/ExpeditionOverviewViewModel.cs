@@ -20,7 +20,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         public IList<ExpeditionGroupByMapArea> MapAreas { get; private set; }
 
-        IDisposable r_MasterInfoSubscription;
         IDisposable[] r_PCELs;
 
         internal ExpeditionOverviewViewModel()
@@ -28,13 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             if (KanColleGame.Current.Port.Ships.Count > 0)
                 Initialize();
             else
-                r_MasterInfoSubscription = SessionService.Instance.Subscribe("api_port/port", delegate
-                {
-                    Initialize();
-
-                    r_MasterInfoSubscription.Dispose();
-                    r_MasterInfoSubscription = null;
-                });
+                SessionService.Instance.SubscribeOnce("api_port/port", _ => Initialize());
         }
 
         void Initialize()
