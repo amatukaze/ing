@@ -38,6 +38,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        internal bool PendingToUpdateMaterials { get; set; }
+
         public event Action<string> RepairCompleted = delegate { };
 
         internal RepairDock(RawRepairDock rpRawData)
@@ -56,6 +58,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Ship = KanColleGame.Current.Port.Ships[rpRawData.ShipID];
                 Ship.State |= ShipState.Repairing;
                 TimeToComplete = DateTimeUtil.UnixEpoch.AddMilliseconds(rpRawData.TimeToComplete);
+
+                if (PendingToUpdateMaterials)
+                {
+                    var rMaterials = KanColleGame.Current.Port.Materials;
+
+                    rMaterials.Fuel -= rpRawData.FuelConsumption;
+                    rMaterials.Bullet -= rpRawData.BulletConsumption;
+                    rMaterials.Steel -= rpRawData.SteelConsumption;
+                    rMaterials.Bauxite -= rpRawData.BauxiteConsumption;
+
+                    PendingToUpdateMaterials = false;
+                }
             }
             else
             {

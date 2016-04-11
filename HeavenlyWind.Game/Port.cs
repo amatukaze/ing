@@ -203,6 +203,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rShip.Repair(rIsInstantRepair);
                 rShip.OwnerFleet?.Update();
 
+                var rDock = RepairDocks[int.Parse(r.Parameters["api_ndock_id"])];
+                rDock.PendingToUpdateMaterials = true;
                 if (rIsInstantRepair)
                     Materials.Bucket--;
             });
