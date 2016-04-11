@@ -145,9 +145,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type Control}">
-                                        <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Grid.Row="1">
-                                            <ContentControl Style="{StaticResource ContentStyle}" />
-                                        </ruic:DockableZone>
+                                        <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Content="{StaticResource Content}" Grid.Row="1" />
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
