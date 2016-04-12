@@ -262,6 +262,9 @@
   <String Key="PreferenceWindow_Notification_Expedition">在远征归来时通知</String>
   <String Key="PreferenceWindow_Notification_Repair">在入渠结束时通知</String>
   <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">在有大破船以及大破进击时发出警告</String>
+  <String Key="PreferenceWindow_Notification_Sound">音效</String>
+  <String Key="PreferenceWindow_Notification_Sound_Slient">静音</String>
+  <String Key="PreferenceWindow_Notification_Sound_SystemSound">系统音效</String>
   <String Key="PreferenceWindow_Language">语言</String>
   <String Key="PreferenceWindow_Language_NameTranslation">名字翻译</String>
   <String Key="PreferenceWindow_Browser">浏览器</String>

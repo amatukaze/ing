@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.SystemInterop;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,10 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Reactive.Linq;
 using System.Windows.Forms;
+using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -21,6 +24,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         public static NotificationService Instance { get; } = new NotificationService();
 
         NotifyIcon r_NotifyIcon;
+
+        Tuple<string, MediaPlayer> r_CustomSound;
 
         PropertyChangedEventListener r_SortiePCEL;
 
@@ -143,19 +148,46 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public void Show(string rpTitle, string rpBody)
         {
+            var rSound = Preference.Current.Notification.Sound;
+
             if (!OS.IsWin8OrLater)
+            {
                 r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rpBody, ToolTipIcon.None);
+
+                if (rSound == NotificationSound.SystemSound)
+                    SystemSounds.Exclamation.Play();
+            }
             else
             {
                 var rToast = new ToastContent()
                 {
                     Title = rpTitle,
                     Body = rpBody,
-                    Audio = ToastAudio.Default,
+                    Audio = rSound == NotificationSound.SystemSound ? ToastAudio.Default : ToastAudio.None,
                 };
 
                 ToastNotificationUtil.Show(rToast);
             }
+
+            if (rSound == NotificationSound.Custom)
+                PlayCustomSound();
+        }
+        void PlayCustomSound()
+        {
+            if (r_CustomSound == null || r_CustomSound.Item1 != Preference.Current.Notification.SoundFilename)
+            {
+                Uri rUri;
+                if (!Uri.TryCreate(Preference.Current.Notification.SoundFilename, UriKind.RelativeOrAbsolute, out rUri))
+                    return;
+
+                var rMediaPlayer = new MediaPlayer();
+                rMediaPlayer.Open(rUri);
+
+                r_CustomSound = Tuple.Create(Preference.Current.Notification.SoundFilename, rMediaPlayer);
+            }
+
+            r_CustomSound.Item2.Stop();
+            r_CustomSound.Item2.Play();
         }
     }
 }
