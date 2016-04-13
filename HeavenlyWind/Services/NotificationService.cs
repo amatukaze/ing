@@ -12,7 +12,9 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Reactive.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
@@ -118,7 +120,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     rParticipants = rParticipants.Concat(rBattle.FriendEscort);
 
                 if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == BattleParticipantState.HeavilyDamaged))
+                {
                     Show(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
+                    FlashWindow();
+                }
             });
 
             rpGamePCEL.Add(nameof(KanColleGame.Current.Sortie), delegate
@@ -140,7 +145,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                             rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
                         if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
+                        {
                             Show(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
+                            FlashWindow();
+                        }
                     });
                 }
             });
@@ -188,6 +196,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             r_CustomSound.Item2.Stop();
             r_CustomSound.Item2.Play();
+        }
+        void FlashWindow()
+        {
+            var rHandle = DispatcherUtil.UIDispatcher.Invoke(() => new WindowInteropHelper(App.Current.MainWindow).Handle);
+            var rInfo = new NativeStructs.FLASHWINFO()
+            {
+                cbSize = Marshal.SizeOf(typeof(NativeStructs.FLASHWINFO)),
+                hwnd = rHandle,
+                dwFlags = NativeEnums.FLASHW.FLASHW_TRAY | NativeEnums.FLASHW.FLASHW_TIMERNOFG,
+                dwTimeout = 250,
+                uCount = 5,
+            };
+            NativeMethods.User32.FlashWindowEx(ref rInfo);
         }
     }
 }
