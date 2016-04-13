@@ -26,7 +26,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
             Environment.CurrentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            if (!Debugger.IsAttached)
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             base.OnStartup(e);
 
