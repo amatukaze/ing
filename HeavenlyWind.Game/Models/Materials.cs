@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -14,6 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_Fuel = value;
                     OnPropertyChanged(nameof(Fuel));
+                    UpdateDifference(MaterialType.Fuel);
                 }
             }
         }
@@ -27,6 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_Bullet = value;
                     OnPropertyChanged(nameof(Bullet));
+                    UpdateDifference(MaterialType.Bullet);
                 }
             }
         }
@@ -40,6 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_Steel = value;
                     OnPropertyChanged(nameof(Steel));
+                    UpdateDifference(MaterialType.Steel);
                 }
             }
         }
@@ -53,6 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_Bauxite = value;
                     OnPropertyChanged(nameof(Bauxite));
+                    UpdateDifference(MaterialType.Bauxite);
                 }
             }
         }
@@ -66,6 +71,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_DevelopmentMaterial = value;
                     OnPropertyChanged(nameof(DevelopmentMaterial));
+                    UpdateDifference(MaterialType.DevelopmentMaterial);
                 }
             }
         }
@@ -79,6 +85,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_Bucket = value;
                     OnPropertyChanged(nameof(Bucket));
+                    UpdateDifference(MaterialType.Bucket);
                 }
             }
         }
@@ -92,6 +99,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_InstantConstruction = value;
                     OnPropertyChanged(nameof(InstantConstruction));
+                    UpdateDifference(MaterialType.InstantConstruction);
                 }
             }
         }
@@ -105,8 +113,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_ImprovementMaterial = value;
                     OnPropertyChanged(nameof(ImprovementMaterial));
+                    UpdateDifference(MaterialType.ImprovementMaterial);
                 }
             }
+        }
+
+        public MaterialsDifference DayDifference { get; private set; }
+        public MaterialsDifference WeekDifference { get; private set; }
+        public MaterialsDifference MonthDifference { get; private set; }
+
+        internal Materials()
+        {
+            SessionService.Instance.SubscribeOnce("api_port/port", delegate
+            {
+                DayDifference = new MaterialsDifference(this, MaterialsDifferenceType.Day);
+                WeekDifference = new MaterialsDifference(this, MaterialsDifferenceType.Week);
+                MonthDifference = new MaterialsDifference(this, MaterialsDifferenceType.Month);
+
+                UpdateCore();
+            });
         }
 
         internal void Update(RawMaterial[] rpData)
@@ -121,6 +146,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Bucket = rpData[5].Amount;
                 DevelopmentMaterial = rpData[6].Amount;
                 ImprovementMaterial = rpData[7].Amount;
+
+                UpdateCore();
             }
         }
         internal void Update(int[] rpData)
@@ -139,7 +166,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     DevelopmentMaterial = rpData[6];
                     ImprovementMaterial = rpData[7];
                 }
+
+                UpdateCore();
             }
+        }
+        void UpdateCore()
+        {
+            OnPropertyChanged(nameof(DayDifference));
+            OnPropertyChanged(nameof(WeekDifference));
+            OnPropertyChanged(nameof(MonthDifference));
+        }
+
+        public void UpdateDifference(MaterialType rpType)
+        {
+            DayDifference?.Update(rpType);
+            WeekDifference?.Update(rpType);
+            MonthDifference?.Update(rpType);
         }
 
         public override string ToString() => $"{Fuel}, {Bullet}, {Steel}, {Bauxite}";

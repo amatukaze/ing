@@ -137,6 +137,9 @@
   <String Key="Material_Bucket">高速修復材</String>
   <String Key="Material_DevelopmentMaterial">開発資材</String>
   <String Key="Material_ImprovementMaterial">改修資材</String>
+  <String Key="Material_Difference_Type_Day">日</String>
+  <String Key="Material_Difference_Type_Week">週</String>
+  <String Key="Material_Difference_Type_Month">月</String>
 
   <String Key="SortieOverview_MapGauges">マップゲージ</String>
   <String Key="SortieOverview_MapGauges_Type_HP">撃破パート</String>

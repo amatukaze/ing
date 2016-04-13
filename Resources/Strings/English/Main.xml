@@ -137,6 +137,9 @@
   <String Key="Material_Bucket">Bucket</String>
   <String Key="Material_DevelopmentMaterial">Development Material</String>
   <String Key="Material_ImprovementMaterial">Improvement Material</String>
+  <String Key="Material_Difference_Type_Day">D</String>
+  <String Key="Material_Difference_Type_Week">W</String>
+  <String Key="Material_Difference_Type_Month">M</String>
 
   <String Key="SortieOverview_MapGauges">Map Gauges</String>
   <String Key="SortieOverview_MapGauges_Type_HP">Kills Part</String>

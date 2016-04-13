@@ -132,5 +132,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 rCommand.ExecuteNonQuery();
             }
         }
+
+        public SQLiteCommand CreateCommand() => r_Connection.CreateCommand();
     }
 }

@@ -141,6 +141,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Material_Bucket => GetString(nameof(Material_Bucket));
         public string Material_DevelopmentMaterial => GetString(nameof(Material_DevelopmentMaterial));
         public string Material_ImprovementMaterial => GetString(nameof(Material_ImprovementMaterial));
+        public string Material_Difference_Type_Day => GetString(nameof(Material_Difference_Type_Day));
+        public string Material_Difference_Type_Week => GetString(nameof(Material_Difference_Type_Week));
+        public string Material_Difference_Type_Month => GetString(nameof(Material_Difference_Type_Month));
 
         public string SortieOverview_MapGauges => GetString(nameof(SortieOverview_MapGauges));
         public string SortieOverview_MapGauges_Type_HP => GetString(nameof(SortieOverview_MapGauges_Type_HP));

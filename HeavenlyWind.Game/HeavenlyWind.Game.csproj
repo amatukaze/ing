@@ -163,6 +163,8 @@
     <Compile Include="Models\MapInfo.cs" />
     <Compile Include="Models\MapMasterInfo.cs" />
     <Compile Include="Models\Materials.cs" />
+    <Compile Include="Models\MaterialsDifference.cs" />
+    <Compile Include="Models\MaterialsDifferenceType.cs" />
     <Compile Include="Models\MaterialType.cs" />
     <Compile Include="Models\Node.cs" />
     <Compile Include="Models\PastEventMapInfo.cs" />

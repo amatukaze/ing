@@ -254,6 +254,9 @@
     <Compile Include="Views\Game\MapGauges.xaml.cs">
       <DependentUpon>MapGauges.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Materials.xaml.cs">
+      <DependentUpon>Materials.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
     </Compile>
@@ -720,6 +723,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\MapGauges.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Materials.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,17 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
-             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+             xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <StackPanel>
         <Border DataContext="{Binding Admiral.Source}" Padding="4" Margin="0, 0, 0, 4" Visibility="{rb:CollapsedIfNull}">
             <TextBlock>
@@ -24,6 +16,7 @@
                 <Run Text="{Binding ExperienceToNextLevel, StringFormat=Next: {0}, Mode=OneWay}" />
             </TextBlock>
         </Border>
+
         <Border Padding="4" Visibility="{rb:CollapsedIfNull Admiral.Source}">
             <TextBlock>
                 <Run Text="{rb:StringResource Main.Overview_Headquarter_Ships, Mode=OneWay}" />:
@@ -32,53 +25,7 @@
                 <Run Text="{Binding EquipmentCount, Mode=OneWay}" />/<Run Text="{Binding Admiral.Source.MaxEquipmentCount, Mode=OneWay}" />
             </TextBlock>
         </Border>
-        <Border DataContext="{Binding Materials.Source}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
 
-                <DockPanel Margin="4">
-                    <rc:MaterialIcon Type="Fuel" />
-                    <TextBlock Text="{Binding Fuel}" Margin="4, 2" />
-                </DockPanel>
-                <DockPanel Margin="4" Grid.Row="1">
-                    <rc:MaterialIcon Type="Bullet" />
-                    <TextBlock Text="{Binding Bullet}" Margin="4, 2" />
-                </DockPanel>
-                <DockPanel Margin="4" Grid.Column="1">
-                    <rc:MaterialIcon Type="Steel" />
-                    <TextBlock Text="{Binding Steel}" Margin="4, 2" />
-                </DockPanel>
-                <DockPanel Margin="4" Grid.Column="1" Grid.Row="1">
-                    <rc:MaterialIcon Type="Bauxite" />
-                    <TextBlock Text="{Binding Bauxite}" Margin="4, 2" />
-                </DockPanel>
-
-                <DockPanel Margin="4" Grid.Column="2">
-                    <rc:MaterialIcon Type="DevelopmentMaterial" />
-                    <TextBlock Text="{Binding DevelopmentMaterial}" Margin="4, 2" />
-                </DockPanel>
-                <DockPanel Margin="4" Grid.Column="3">
-                    <rc:MaterialIcon Type="Bucket" />
-                    <TextBlock Text="{Binding Bucket}" Margin="4, 2" />
-                </DockPanel>
-                <DockPanel Margin="4" Grid.Column="2" Grid.Row="1">
-                    <rc:MaterialIcon Type="InstantConstruction" />
-                    <TextBlock Text="{Binding InstantConstruction}" Margin="4, 2" />
-                </DockPanel>
-                <DockPanel Margin="4" Grid.Column="3" Grid.Row="1">
-                    <rc:MaterialIcon Type="ImprovementMaterial" />
-                    <TextBlock Text="{Binding ImprovementMaterial}" Margin="4, 2" />
-                </DockPanel>
-            </Grid>
-        </Border>
+        <rvg:Materials />
     </StackPanel>
 </UserControl>
