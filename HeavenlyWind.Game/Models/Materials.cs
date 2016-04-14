@@ -1,5 +1,8 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using System;
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -131,6 +134,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 MonthDifference = new MaterialsDifference(this, MaterialsDifferenceType.Month);
 
                 UpdateCore();
+
+                Observable.Timer(new DateTimeOffset(DateTime.Now.Date.AddDays(1.0)), TimeSpan.FromDays(1.0)).Subscribe(delegate
+                {
+                    DayDifference.Reload();
+                    WeekDifference.Reload();
+                    MonthDifference.Reload();
+
+                    UpdateDifference(MaterialType.Fuel);
+                    UpdateDifference(MaterialType.Bullet);
+                    UpdateDifference(MaterialType.Steel);
+                    UpdateDifference(MaterialType.Bauxite);
+                    UpdateDifference(MaterialType.DevelopmentMaterial);
+                    UpdateDifference(MaterialType.Bucket);
+                    UpdateDifference(MaterialType.InstantConstruction);
+                    UpdateDifference(MaterialType.ImprovementMaterial);
+                });
             });
         }
 

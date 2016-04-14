@@ -39,9 +39,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Type = rpType;
 
-            Initialize();
+            Reload();
         }
-        void Initialize()
+        internal void Reload()
         {
             using (var rCommand = RecordService.Instance.CreateCommand())
             {
