@@ -64,17 +64,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
             }
         }
-        int r_DevelopmentMaterial;
-        public int DevelopmentMaterial
+        int r_InstantConstruction;
+        public int InstantConstruction
         {
-            get { return r_DevelopmentMaterial; }
+            get { return r_InstantConstruction; }
             internal set
             {
-                if (r_DevelopmentMaterial != value)
+                if (r_InstantConstruction != value)
                 {
-                    r_DevelopmentMaterial = value;
-                    OnPropertyChanged(nameof(DevelopmentMaterial));
-                    UpdateDifference(MaterialType.DevelopmentMaterial);
+                    r_InstantConstruction = value;
+                    OnPropertyChanged(nameof(InstantConstruction));
+                    UpdateDifference(MaterialType.InstantConstruction);
                 }
             }
         }
@@ -92,17 +92,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
             }
         }
-        int r_InstantConstruction;
-        public int InstantConstruction
+        int r_DevelopmentMaterial;
+        public int DevelopmentMaterial
         {
-            get { return r_InstantConstruction; }
+            get { return r_DevelopmentMaterial; }
             internal set
             {
-                if (r_InstantConstruction != value)
+                if (r_DevelopmentMaterial != value)
                 {
-                    r_InstantConstruction = value;
-                    OnPropertyChanged(nameof(InstantConstruction));
-                    UpdateDifference(MaterialType.InstantConstruction);
+                    r_DevelopmentMaterial = value;
+                    OnPropertyChanged(nameof(DevelopmentMaterial));
+                    UpdateDifference(MaterialType.DevelopmentMaterial);
                 }
             }
         }
@@ -145,9 +145,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     UpdateDifference(MaterialType.Bullet);
                     UpdateDifference(MaterialType.Steel);
                     UpdateDifference(MaterialType.Bauxite);
-                    UpdateDifference(MaterialType.DevelopmentMaterial);
-                    UpdateDifference(MaterialType.Bucket);
                     UpdateDifference(MaterialType.InstantConstruction);
+                    UpdateDifference(MaterialType.Bucket);
+                    UpdateDifference(MaterialType.DevelopmentMaterial);
                     UpdateDifference(MaterialType.ImprovementMaterial);
                 });
             });

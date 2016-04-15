@@ -7,9 +7,9 @@
         Bullet,
         Steel,
         Bauxite,
-        DevelopmentMaterial,
-        Bucket,
         InstantConstruction,
+        Bucket,
+        DevelopmentMaterial,
         ImprovementMaterial,
     }
 }

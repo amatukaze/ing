@@ -21,14 +21,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         int r_Bauxite;
         public int Bauxite => r_Owner.Bauxite - r_Bauxite;
 
-        int r_DevelopmentMaterial;
-        public int DevelopmentMaterial => r_Owner.DevelopmentMaterial - r_DevelopmentMaterial;
+        int r_InstantConstruction;
+        public int InstantConstruction => r_Owner.InstantConstruction - r_InstantConstruction;
 
         int r_Bucket;
         public int Bucket => r_Owner.Bucket - r_Bucket;
 
-        int r_InstantConstruction;
-        public int InstantConstruction => r_Owner.InstantConstruction - r_InstantConstruction;
+        int r_DevelopmentMaterial;
+        public int DevelopmentMaterial => r_Owner.DevelopmentMaterial - r_DevelopmentMaterial;
 
         int r_ImprovementMaterial;
         public int ImprovementMaterial => r_Owner.ImprovementMaterial - r_ImprovementMaterial;
@@ -67,9 +67,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         r_Bullet = Convert.ToInt32(rReader["bullet"]);
                         r_Steel = Convert.ToInt32(rReader["steel"]);
                         r_Bauxite = Convert.ToInt32(rReader["bauxite"]);
-                        r_DevelopmentMaterial = Convert.ToInt32(rReader["development_material"]);
-                        r_Bucket = Convert.ToInt32(rReader["bucket"]);
                         r_InstantConstruction = Convert.ToInt32(rReader["instant_construction"]);
+                        r_Bucket = Convert.ToInt32(rReader["bucket"]);
+                        r_DevelopmentMaterial = Convert.ToInt32(rReader["development_material"]);
                         r_ImprovementMaterial = Convert.ToInt32(rReader["improvement_material"]);
                     }
             }
@@ -95,16 +95,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     OnPropertyChanged(nameof(Bauxite));
                     break;
 
-                case MaterialType.DevelopmentMaterial:
-                    OnPropertyChanged(nameof(DevelopmentMaterial));
+                case MaterialType.InstantConstruction:
+                    OnPropertyChanged(nameof(InstantConstruction));
                     break;
 
                 case MaterialType.Bucket:
                     OnPropertyChanged(nameof(Bucket));
                     break;
 
-                case MaterialType.InstantConstruction:
-                    OnPropertyChanged(nameof(InstantConstruction));
+                case MaterialType.DevelopmentMaterial:
+                    OnPropertyChanged(nameof(DevelopmentMaterial));
                     break;
 
                 case MaterialType.ImprovementMaterial:

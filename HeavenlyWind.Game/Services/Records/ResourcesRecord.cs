@@ -11,9 +11,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         int r_Bullet;
         int r_Steel;
         int r_Bauxite;
-        int r_DevelopmentMaterial;
-        int r_Bucket;
         int r_InstantConstruction;
+        int r_Bucket;
+        int r_DevelopmentMaterial;
         int r_ImprovementMaterial;
 
         internal ResourcesRecord(SQLiteConnection rpConnection) : base(rpConnection)
@@ -27,9 +27,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     r_Bullet != rMaterials.Bullet ||
                     r_Steel != rMaterials.Steel ||
                     r_Bauxite != rMaterials.Bauxite ||
-                    r_DevelopmentMaterial != rMaterials.DevelopmentMaterial ||
-                    r_Bucket != rMaterials.Bucket ||
                     r_InstantConstruction != rMaterials.InstantConstruction ||
+                    r_Bucket != rMaterials.Bucket ||
+                    r_DevelopmentMaterial != rMaterials.DevelopmentMaterial ||
                     r_ImprovementMaterial != rMaterials.ImprovementMaterial;
 
                 if (rShouldInsertRecord)
@@ -38,9 +38,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     r_Bullet = rMaterials.Bullet;
                     r_Steel = rMaterials.Steel;
                     r_Bauxite = rMaterials.Bauxite;
-                    r_DevelopmentMaterial = rMaterials.DevelopmentMaterial;
-                    r_Bucket = rMaterials.Bucket;
                     r_InstantConstruction = rMaterials.InstantConstruction;
+                    r_Bucket = rMaterials.Bucket;
+                    r_DevelopmentMaterial = rMaterials.DevelopmentMaterial;
                     r_ImprovementMaterial = rMaterials.ImprovementMaterial;
 
                     InsertRecord();
@@ -58,9 +58,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "bullet INTEGER NOT NULL, " +
                     "steel INTEGER NOT NULL, " +
                     "bauxite INTEGER NOT NULL, " +
-                    "development_material INTEGER NOT NULL, " +
-                    "bucket INTEGER NOT NULL, " +
                     "instant_construction INTEGER NOT NULL, " +
+                    "bucket INTEGER NOT NULL, " +
+                    "development_material INTEGER NOT NULL, " +
                     "improvement_material INTEGER NOT NULL);";
 
                 rCommand.ExecuteNonQuery();
@@ -79,9 +79,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         r_Bullet = Convert.ToInt32(rReader["bullet"]);
                         r_Steel = Convert.ToInt32(rReader["steel"]);
                         r_Bauxite = Convert.ToInt32(rReader["bauxite"]);
-                        r_DevelopmentMaterial = Convert.ToInt32(rReader["development_material"]);
-                        r_Bucket = Convert.ToInt32(rReader["bucket"]);
                         r_InstantConstruction = Convert.ToInt32(rReader["instant_construction"]);
+                        r_Bucket = Convert.ToInt32(rReader["bucket"]);
+                        r_DevelopmentMaterial = Convert.ToInt32(rReader["development_material"]);
                         r_ImprovementMaterial = Convert.ToInt32(rReader["improvement_material"]);
                     }
             }
@@ -91,15 +91,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT INTO resources(time, fuel, bullet, steel, bauxite, development_material, bucket, instant_construction, improvement_material) " +
-                    "VALUES(strftime('%s', 'now'), @fuel, @bullet, @steel, @bauxite, @development_material, @bucket, @instant_construction, @improvement_material);";
+                rCommand.CommandText = "INSERT INTO resources(time, fuel, bullet, steel, bauxite, instant_construction, bucket, development_material, improvement_material) " +
+                    "VALUES(strftime('%s', 'now'), @fuel, @bullet, @steel, @bauxite, @instant_construction, @bucket, @development_material, @improvement_material);";
                 rCommand.Parameters.AddWithValue("@fuel", r_Fuel);
                 rCommand.Parameters.AddWithValue("@bullet", r_Bullet);
                 rCommand.Parameters.AddWithValue("@steel", r_Steel);
                 rCommand.Parameters.AddWithValue("@bauxite", r_Bauxite);
-                rCommand.Parameters.AddWithValue("@development_material", r_DevelopmentMaterial);
-                rCommand.Parameters.AddWithValue("@bucket", r_Bucket);
                 rCommand.Parameters.AddWithValue("@instant_construction", r_InstantConstruction);
+                rCommand.Parameters.AddWithValue("@bucket", r_Bucket);
+                rCommand.Parameters.AddWithValue("@development_material", r_DevelopmentMaterial);
                 rCommand.Parameters.AddWithValue("@improvement_material", r_ImprovementMaterial);
 
                 rCommand.ExecuteNonQuery();
