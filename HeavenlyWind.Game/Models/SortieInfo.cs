@@ -67,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Map = KanColleGame.Current.Maps[rpMapID];
         }
 
-        void Explore(RawMapExploration rpData)
+        internal void Explore(RawMapExploration rpData)
         {
             DirectionAngle = MapService.Instance.GetAngle(Map.ID, rpData.StartNode ?? Node?.ID ?? 0, rpData.Node);
             OnPropertyChanged(nameof(DirectionAngle));

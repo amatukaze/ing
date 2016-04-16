@@ -31,6 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         internal SortieRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_map/start", StartSortie));
+            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_map/next", _ => InsertExplorationRecord(SortieInfo.Current)));
 
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_start2", _ => ProcessReturn(ReturnReason.Unexpected)));
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", _ =>
@@ -142,11 +143,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
 
-            r_NodeSubscription = Observable.FromEventPattern<PropertyChangedEventArgs>(rSortie, nameof(rSortie.PropertyChanged))
-                .Where(r => r.EventArgs.PropertyName == nameof(rSortie.Node))
-                .Subscribe(_ => InsertExplorationRecord(KanColleGame.Current.Sortie));
+            InsertExplorationRecord(rSortie);
         }
-
         void InsertExplorationRecord(SortieInfo rpSortie)
         {
             var rNode = rpSortie.Node;

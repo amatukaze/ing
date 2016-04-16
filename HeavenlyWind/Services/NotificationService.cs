@@ -126,7 +126,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 }
             });
 
-            rpGamePCEL.Add(nameof(KanColleGame.Current.Sortie), delegate
+            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, delegate
             {
                 var rSortie = SortieInfo.Current;
 
