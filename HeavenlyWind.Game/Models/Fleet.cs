@@ -100,9 +100,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             ConditionRegeneration.Update();
 
             var rState = FleetState.None;
-
-            if (KanColleGame.Current.Sortie?.Fleet == this ||
-                KanColleGame.Current.Port.Fleets.CombinedFleetType != CombinedFleetType.None && KanColleGame.Current.Sortie?.Fleet.ID == 1 && ID == 2)
+            var rSortie = SortieInfo.Current;
+            if (rSortie?.Fleet == this ||
+                Port.Fleets.CombinedFleetType != CombinedFleetType.None && rSortie?.Fleet.ID == 1 && ID == 2)
                 rState |= FleetState.Sortie;
             else if (ExpeditionStatus.Expedition != null)
                 rState |= FleetState.Expedition;

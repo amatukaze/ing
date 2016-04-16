@@ -125,7 +125,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         void StartSortie(ApiData rpData)
         {
-            var rSortie = KanColleGame.Current.Sortie;
+            var rSortie = SortieInfo.Current;
             var rMap = rSortie.Map;
             r_CurrentSortieID = rSortie.ID;
 

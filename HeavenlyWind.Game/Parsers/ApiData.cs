@@ -20,6 +20,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
         public T GetData<T>() where T : class
         {
+            var rResult = Data as T;
+            if (rResult != null)
+                return rResult;
+
             var rData = Json["api_data"];
             return rData != null ? rData.ToObject<T>() : null;
         }

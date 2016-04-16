@@ -128,7 +128,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             rpGamePCEL.Add(nameof(KanColleGame.Current.Sortie), delegate
             {
-                var rSortie = KanColleGame.Current.Sortie;
+                var rSortie = SortieInfo.Current;
 
                 if (rSortie == null)
                 {

@@ -81,7 +81,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             }
 
             int rNodeID;
-            var rSortie = KanColleGame.Current.Sortie;
+            var rSortie = SortieInfo.Current;
             if (rSortie.Node.WikiID.IsNullOrEmpty())
                 rNodeID = rSortie.Node.ID << 16;
             else

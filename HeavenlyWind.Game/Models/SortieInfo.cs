@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class SortieInfo : ModelBase
     {
-        static SortieInfo r_Current;
+        internal static SortieInfo Current { get; private set; }
 
         public long ID { get; } = (long)DateTimeOffset.Now.ToUnixTime();
 
@@ -41,22 +41,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         static SortieInfo()
         {
-            SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
-
-            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, r => r_Current?.Explore((RawMapExploration)r.Data));
+            SessionService.Instance.Subscribe("api_port/port", _ => Current = null);
 
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
                 var rData = (RawBattleResult)r.Data;
-
                 if (rData.DroppedShip != null)
-                     r_Current.PendingShipCount++;
+                     Current.PendingShipCount++;
             });
         }
         internal SortieInfo() { }
         internal SortieInfo(Fleet rpFleet, int rpMapID)
         {
-            r_Current = this;
+            Current = this;
 
             Fleet = rpFleet;
             MainShips = Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();

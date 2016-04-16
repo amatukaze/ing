@@ -192,7 +192,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         void ProcessSortieFirstStage(ApiData rpData)
         {
-            var rSortie = KanColleGame.Current.Sortie;
+            var rSortie = SortieInfo.Current;
             r_CurrentBattleID = BattleInfo.Current.ID;
 
             using (var rTransaction = Connection.BeginTransaction())

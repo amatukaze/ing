@@ -64,7 +64,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         {
             Current = this;
 
-            var rSortie = KanColleGame.Current.Sortie;
+            var rSortie = SortieInfo.Current;
             Participants.FriendMain = rSortie.MainShips;
             Participants.FriendEscort = rSortie.EscortShips;
 

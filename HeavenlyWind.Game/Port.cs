@@ -230,7 +230,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             });
             SessionService.Instance.Subscribe("api_req_combined_battle/goback_port", delegate
             {
-                if (KanColleGame.Current.Sortie == null || r_EvacuatedShipIDs == null || r_EvacuatedShipIDs.Length == 0)
+                if (SortieInfo.Current == null || r_EvacuatedShipIDs == null || r_EvacuatedShipIDs.Length == 0)
                     return;
 
                 EvacuatedShipIDs.Add(r_EvacuatedShipIDs[0]);

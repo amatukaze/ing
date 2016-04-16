@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using Sakuno.UserInterface;
@@ -115,8 +116,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             rPortPCEL.Add(nameof(rPort.Ships), delegate
             {
                 var rCount = rPort.Ships.Count;
-                if (KanColleGame.Current.Sortie != null)
-                    rCount += KanColleGame.Current.Sortie.PendingShipCount;
+                var rSortie = SortieInfo.Current;
+                if (rSortie != null)
+                    rCount += rSortie.PendingShipCount;
 
                 ShipCount = rCount;
             });

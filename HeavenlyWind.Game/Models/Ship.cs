@@ -194,7 +194,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             var rPort = KanColleGame.Current.Port;
 
-            if (KanColleGame.Current.Sortie != null && rPort.EvacuatedShipIDs.Contains(ID))
+            if (SortieInfo.Current != null && rPort.EvacuatedShipIDs.Contains(ID))
                 State |= ShipState.Evacuated;
             else
                 State &= ~ShipState.Evacuated;
