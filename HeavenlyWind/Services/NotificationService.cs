@@ -29,8 +29,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         Tuple<string, MediaPlayer> r_CustomSound;
 
-        PropertyChangedEventListener r_SortiePCEL;
-
         public void Initialize()
         {
             if (OS.IsWin8OrLater)
@@ -129,27 +127,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, delegate
             {
                 var rSortie = SortieInfo.Current;
+                var rParticipants = rSortie.Fleet.Ships.Skip(1);
+                if (rSortie.EscortFleet != null)
+                    rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
-                if (rSortie == null)
+                if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
                 {
-                    r_SortiePCEL?.Dispose();
-                    r_SortiePCEL = null;
-                }
-                else
-                {
-                    r_SortiePCEL = new PropertyChangedEventListener(rSortie);
-                    r_SortiePCEL.Add(nameof(rSortie.Node), delegate
-                    {
-                        var rParticipants = rSortie.Fleet.Ships.Skip(1);
-                        if (rSortie.EscortFleet != null)
-                            rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
-
-                        if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
-                        {
-                            Show(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
-                            FlashWindow();
-                        }
-                    });
+                    Show(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
+                    FlashWindow();
                 }
             });
         }

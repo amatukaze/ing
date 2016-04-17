@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
@@ -42,7 +43,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             }
         }
-        internal SortieInfo OldSortie { get; set; }
+
+        public event Action<SortieInfo> ReturnedFromSortie = delegate { };
 
         KanColleGame()
         {
@@ -74,6 +76,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     return;
 
                 rSortieMap.HP = rSortieMap.HP - 1;
+            });
+
+            SessionService.Instance.Subscribe("api_port/port", r =>
+            {
+                if (Sortie != null && !(Sortie is PracticeInfo))
+                    ReturnedFromSortie(Sortie);
+
+                Sortie = null;
             });
         }
     }

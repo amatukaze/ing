@@ -4,7 +4,6 @@ using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Linq;
@@ -26,42 +25,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         long? r_CurrentSortieID;
         bool r_IsDeadEnd;
 
-        IDisposable r_NodeSubscription;
-
         internal SortieRecord(SQLiteConnection rpConnection) : base(rpConnection)
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_map/start", StartSortie));
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_map/next", _ => InsertExplorationRecord(SortieInfo.Current)));
 
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_start2", _ => ProcessReturn(ReturnReason.Unexpected)));
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", _ =>
+            DisposableObjects.Add(Observable.FromEvent<SortieInfo>(r => KanColleGame.Current.ReturnedFromSortie += r, r => KanColleGame.Current.ReturnedFromSortie -= r).Subscribe(r =>
             {
-                if (r_NodeSubscription != null)
+                ReturnReason rType;
+
+                if (r_IsDeadEnd)
+                    rType = ReturnReason.DeadEnd;
+                else
                 {
-                    r_NodeSubscription.Dispose();
-                    r_NodeSubscription = null;
+                    IEnumerable<Ship> rShips = r.Fleet.Ships;
+                    if (r.EscortFleet != null)
+                        rShips = rShips.Concat(r.EscortFleet.Ships);
 
-                    ReturnReason rType;
-
-                    if (r_IsDeadEnd)
-                        rType = ReturnReason.DeadEnd;
-                    else
-                    {
-                        var rSortie = KanColleGame.Current.OldSortie;
-                        if (rSortie == null)
-                            return;
-
-                        IEnumerable<Ship> rShips = rSortie.Fleet.Ships;
-                        if (rSortie.EscortFleet != null)
-                            rShips = rShips.Concat(rSortie.EscortFleet.Ships);
-
-                        rType = rShips.Any(r => r.State.HasFlag(ShipState.HeavilyDamaged)) ? ReturnReason.RetreatWithHeavilyDamagedShip : ReturnReason.Retreat;
-
-                        KanColleGame.Current.OldSortie = null;
-                    }
-
-                    ProcessReturn(rType);
+                    rType = rShips.Any(rpShip => rpShip.State.HasFlag(ShipState.HeavilyDamaged)) ? ReturnReason.RetreatWithHeavilyDamagedShip : ReturnReason.Retreat;
                 }
+
+                ProcessReturn(rType);
             }));
         }
 
