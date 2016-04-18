@@ -7,53 +7,59 @@
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <ContentControl>
-        <ContentControl.Style>
-            <Style TargetType="{x:Type ContentControl}">
-                <Setter Property="Content">
-                    <Setter.Value>
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type UserControl}">
                         <StackPanel>
                             <rvg:MapGauges DataContext="{Binding MapGauges}" />
 
                             <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="0, 8, 0, 0" />
                         </StackPanel>
-                    </Setter.Value>
-                </Setter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
 
-                <Style.Triggers>
-                    <MultiDataTrigger>
-                        <MultiDataTrigger.Conditions>
-                            <Condition Binding="{Binding Type}" Value="MapGauge" />
-                            <Condition Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical" />
-                        </MultiDataTrigger.Conditions>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding Type}" Value="MapGauge" />
+                        <Condition Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical" />
+                    </MultiDataTrigger.Conditions>
 
-                        <Setter Property="Content">
-                            <Setter.Value>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type UserControl}">
                                 <StackPanel Orientation="Horizontal">
                                     <rvg:MapGauges DataContext="{Binding MapGauges}" />
 
                                     <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="8, 0, 0, 0" />
                                 </StackPanel>
-                            </Setter.Value>
-                        </Setter>
-                    </MultiDataTrigger>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger>
 
-                    <DataTrigger Binding="{Binding Type}" Value="Sortie">
-                        <Setter Property="Content">
-                            <Setter.Value>
+                <DataTrigger Binding="{Binding Type}" Value="Sortie">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type UserControl}">
                                 <rvg:Sortie />
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Type}" Value="Practice">
-                        <Setter Property="Content">
-                            <Setter.Value>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Type}" Value="Practice">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type UserControl}">
                                 <rvg:Practice />
-                            </Setter.Value>
-                        </Setter>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        </ContentControl.Style>
-    </ContentControl>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
 </UserControl>

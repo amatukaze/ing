@@ -73,7 +73,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             OnPropertyChanged(nameof(DirectionAngle));
 
             Node = new SortieNodeInfo(Map, rpData);
-
             OnPropertyChanged(nameof(Node));
         }
     }
