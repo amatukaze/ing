@@ -61,20 +61,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             HashSet<int> rRemovedIDs = null;
             if (r_Dictionary.Count != 0)
                 rRemovedIDs = new HashSet<int>(r_Dictionary.Keys);
-            foreach (var rRawData in rpRawDataCollection)
-            {
-                if (rRemovedIDs != null)
-                    rRemovedIDs.Remove(rRawData.ID);
 
-                T rData;
-                if (rpUpdate != null && r_Dictionary.TryGetValue(rRawData.ID, out rData))
-                    rpUpdate(rData, rRawData);
-                else
+            if (rpRawDataCollection != null)
+                foreach (var rRawData in rpRawDataCollection)
                 {
-                    Add(rpValueFactory(rRawData));
-                    rResult = true;
+                    if (rRemovedIDs != null)
+                        rRemovedIDs.Remove(rRawData.ID);
+
+                    T rData;
+                    if (rpUpdate != null && r_Dictionary.TryGetValue(rRawData.ID, out rData))
+                        rpUpdate(rData, rRawData);
+                    else
+                    {
+                        Add(rpValueFactory(rRawData));
+                        rResult = true;
+                    }
                 }
-            }
 
             if (rRemovedIDs != null)
                 foreach (var rID in rRemovedIDs)
