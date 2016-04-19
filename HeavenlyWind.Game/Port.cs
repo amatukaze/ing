@@ -296,6 +296,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         }
         internal void AddEquipment(RawEquipment[] rpRawData)
         {
+            if (rpRawData == null)
+                return;
+
             foreach (var rRawData in rpRawData)
                 Equipment.Add(new Equipment(rRawData));
             OnPropertyChanged(nameof(Equipment));
