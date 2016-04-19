@@ -5,7 +5,7 @@ using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public class SortieNodeInfo
+    public class SortieNodeInfo : ModelBase
     {
         public int ID { get; }
         internal int InternalID { get; }

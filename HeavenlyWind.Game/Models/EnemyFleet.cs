@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public class EnemyFleet
+    public class EnemyFleet : ModelBase
     {
         public IList<ShipInfo> Ships { get; }
 

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentGroupByMasterID
+    public class EquipmentGroupByMasterID : ModelBase
     {
         public EquipmentInfo Info { get; }
         public EquipmentTypeViewModel Type { get; }

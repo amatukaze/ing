@@ -198,7 +198,7 @@ ORDER BY time DESC;";
             }
         }
 
-        public class RecordItem
+        public class RecordItem : ModelBase
         {
             public string Time { get; }
 

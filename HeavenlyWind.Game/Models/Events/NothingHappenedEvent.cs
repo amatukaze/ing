@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
             }
         }
 
-        public class NodeSelection
+        public class NodeSelection : ModelBase
         {
             public string ID { get; }
 

@@ -235,7 +235,7 @@ ORDER BY id DESC, step DESC;";
             }
         }
 
-        public class RecordItem
+        public class RecordItem : ModelBase
         {
             public long SortieID { get; }
 

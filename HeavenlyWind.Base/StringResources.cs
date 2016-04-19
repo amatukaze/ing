@@ -200,7 +200,7 @@ namespace Sakuno.KanColle.Amatsukaze
         }
     }
 
-    public partial class StringResourcesItems
+    public partial class StringResourcesItems : ModelBase
     {
         Dictionary<string, string> r_Items;
 

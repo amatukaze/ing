@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
-    class EnemyShip : IParticipant, ICombatAbility
+    class EnemyShip : ModelBase, IParticipant, ICombatAbility
     {
         public ShipInfo Info { get; }
         public bool IsAbyssalShip => Info.IsAbyssalShip;

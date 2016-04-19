@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
-    public abstract class SortieEvent
+    public abstract class SortieEvent : ModelBase
     {
         protected RawMapExploration RawData { get; }
 

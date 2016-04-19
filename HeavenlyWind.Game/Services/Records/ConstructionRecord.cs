@@ -90,7 +90,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rSecretaryShip, rHeadquarterLevel, rEmptyDockCount));
         }
 
-        public class RecordItem
+        public class RecordItem : ModelBase
         {
             public string Time { get; }
 

@@ -88,7 +88,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             NewRecord.OnNext(new RecordItem(rEquipmentID, rpFuelConsumption, rpBulletConsumption, rpSteelConsumption, rpBauxiteConsumption, rSecretaryShip, rHeadquarterLevel));
         }
 
-        public class RecordItem
+        public class RecordItem : ModelBase
         {
             public string Time { get; }
 

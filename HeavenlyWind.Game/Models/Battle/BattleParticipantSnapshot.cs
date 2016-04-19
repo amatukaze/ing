@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
-    public class BattleParticipantSnapshot
+    public class BattleParticipantSnapshot : ModelBase
     {
         IParticipant r_Participant;
         public IParticipant Participant

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
-    public class MasterInfo
+    public class MasterInfo : ModelBase
     {
         public IDTable<ShipInfo> Ships { get; } = new IDTable<ShipInfo>();
         public IDTable<ShipTypeInfo> ShipTypes { get; } = new IDTable<ShipTypeInfo>();

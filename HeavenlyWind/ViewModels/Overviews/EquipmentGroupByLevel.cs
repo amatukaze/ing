@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentGroupByLevel
+    public class EquipmentGroupByLevel : ModelBase
     {
         public EquipmentGroupingKey Key { get; }
 
