@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using Sakuno.UserInterface;
@@ -113,18 +114,17 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             var rPort = KanColleGame.Current.Port;
 
             var rPortPCEL = PropertyChangedEventListener.FromSource(rPort);
-            rPortPCEL.Add(nameof(rPort.Ships), delegate
-            {
-                var rCount = rPort.Ships.Count;
-                var rSortie = SortieInfo.Current;
-                if (rSortie != null)
-                    rCount += rSortie.PendingShipCount;
-
-                ShipCount = rCount;
-            });
+            rPortPCEL.Add(nameof(rPort.Ships), (s, e) => ShipCount = rPort.Ships.Count);
             rPortPCEL.Add(nameof(rPort.Equipment), (s, e) => EquipmentCount = rPort.Equipment.Count);
             rPortPCEL.Add(nameof(rPort.RepairDocks), (s, e) => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
             rPortPCEL.Add(nameof(rPort.ConstructionDocks), (s, e) => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
+
+            SessionService.Instance.Subscribe("api_req_map/next", delegate
+            {
+                var rSortie = SortieInfo.Current;
+                if (rSortie != null)
+                    ShipCount = rPort.Ships.Count + rSortie.PendingShipCount;
+            });
 
             ShowShipOverviewWindowCommand = new DelegatedCommand(ShowShipOverviewWindow);
             ShowEquipmentOverviewWindowCommand = new DelegatedCommand(ShowEquipmentOverviewWindow);
