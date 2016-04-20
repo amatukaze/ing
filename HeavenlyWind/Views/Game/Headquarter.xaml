@@ -11,9 +11,11 @@
         <Border DataContext="{Binding Admiral.Source}" Padding="4" Margin="0, 0, 0, 4" Visibility="{rb:CollapsedIfNull}">
             <TextBlock>
                 <Run Text="{Binding Name, Mode=OneWay}" />
-                <Run Text="{Binding Level, StringFormat=Lv. {0}, Mode=OneWay}" />
+                <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
+                <Run Text="{Binding Level, Mode=OneWay}" />
                 [<Run Text="{rb:EnumToStringResource Rank, Overview_Admiral_Rank}" />]
-                <Run Text="{Binding ExperienceToNextLevel, StringFormat=Next: {0}, Mode=OneWay}" />
+                <Run Text="Next:" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
+                <Run Text="{Binding ExperienceToNextLevel, Mode=OneWay}" />
             </TextBlock>
         </Border>
 

@@ -60,13 +60,16 @@
 
                                 <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" Grid.RowSpan="2" />
 
-                                <TextBlock Name="Level" Text="{Binding Level, StringFormat=Lv.{0}}" Margin="3, 0, 0, 0" Grid.Column="1" />
+                                <TextBlock Name="Level" Margin="3, 0, 0, 0" Grid.Column="1">
+                                    <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
+                                    <Run Text="{Binding Level, Mode=OneWay}" />
+                                </TextBlock>
                                 <TextBlock Name="ExperienceToNextLevel" Foreground="#AAA" Text="{Binding ExperienceToNextLevel, StringFormat=Next:{0}}" FontSize="10" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="1" />
 
                                 <TextBlock Name="HP" HorizontalAlignment="Right" Margin="3, 0, 0, 0" Grid.Column="3">
                                     <Run Text="{Binding HP.Current, Mode=OneWay}" />
                                     <Run Text=" /" Foreground="Gray" />
-                                    <Run Text="{Binding HP.Maximum, Mode=OneWay}" FontSize="11" Foreground="Gray" />
+                                    <Run Text="{Binding HP.Maximum, Mode=OneWay}" FontSize="11" Foreground="{DynamicResource ForegroundBrushKey}" />
                                 </TextBlock>
                                 <rc:ColorIndicator x:Name="HPIndicator" Value="{Binding HP.Current}" Maximum="{Binding HP.Maximum}" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="3" />
 
