@@ -119,7 +119,13 @@
                             <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=50}" Value="True">
                                 <Setter TargetName="Condition" Property="Foreground" Value="Yellow" />
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=40}" Value="True">
+                                <Setter TargetName="Condition" Property="Foreground" Value="Gray" />
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=30}" Value="True">
+                                <Setter TargetName="Condition" Property="Foreground" Value="Orange" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=20}" Value="True">
                                 <Setter TargetName="Condition" Property="Foreground" Value="Red" />
                             </DataTrigger>
 
