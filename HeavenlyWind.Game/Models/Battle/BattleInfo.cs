@@ -127,7 +127,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             First.Process(rpData);
             First.ProcessMVP();
-            Result.Update(First);
+            Result.Update(First, Second);
 
             IsInitialized = true;
             IsSupportFleetReady = false;
@@ -177,7 +177,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Second.Process(rpData);
             InheritFromPreviousStage(Second);
             Second.ProcessMVP();
-            Result.Update(Second);
+            Result.Update(First, Second);
 
             CurrentStage = Second;
             OnPropertyChanged(nameof(Second));
