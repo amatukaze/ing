@@ -4,6 +4,6 @@
     {
         None,
         Slow = 5,
-        High = 10,
+        Fast = 10,
     }
 }

@@ -100,6 +100,10 @@
   <String Key="Fleet_LoS_Formula_AutumnSimplified">新秋式簡易</String>
   <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
   <String Key="Fleet_FighterPower">制空</String>
+  <String Key="Fleet_Speed">速力</String>
+  <String Key="Fleet_Speed_Slow">低速</String>
+  <String Key="Fleet_Speed_Fast">高速</String>
+  <String Key="Fleet_Speed_Mixed">混合</String>
   <String Key="Fleet_MoraleRegeneration">疲労回復</String>
 
   <String Key="Ship_Repairing">入渠中</String>

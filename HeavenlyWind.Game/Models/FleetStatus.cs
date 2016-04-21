@@ -53,6 +53,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public FleetLoSStatus LoS { get; }
 
+        FleetSpeed? r_Speed;
+        public FleetSpeed? Speed
+        {
+            get { return r_Speed; }
+            private set
+            {
+                if (r_Speed != value)
+                {
+                    r_Speed = value;
+                    OnPropertyChanged(nameof(Speed));
+                }
+            }
+        }
+
         internal FleetStatus(Fleet rpOwner)
         {
             r_Fleet = rpOwner;
@@ -67,6 +81,33 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             MaxFighterPower = CalculateFighterPower(r => r == 9 ? .0 : (r - 1) * 15.0 + 24.0);
 
             LoS.Update();
+
+            if (r_Fleet.Ships.Count == 0)
+                Speed = null;
+            else
+            {
+                var rSlowShip = 0;
+                var rFastShip = 0;
+
+                foreach (var rShip in r_Fleet.Ships)
+                    switch (rShip.Info.Speed)
+                    {
+                        case ShipSpeed.Slow:
+                            rSlowShip++;
+                            break;
+
+                        case ShipSpeed.Fast:
+                            rFastShip++;
+                            break;
+                    }
+
+                if (rSlowShip > 0 && rFastShip == 0)
+                    Speed = FleetSpeed.Slow;
+                else if (rFastShip > 0 && rSlowShip == 0)
+                    Speed = FleetSpeed.Fast;
+                else
+                    Speed = FleetSpeed.Mixed;
+            }
         }
         double CalculateFighterPower(Func<int, double> rpInternalBouns) =>
             r_Fleet.Ships.ExceptEvacuated().Sum(rpShip =>
