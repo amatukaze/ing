@@ -24,12 +24,12 @@
 
                 <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0">
                     <TextBlock Text="{rb:StringResource Main.Fleet_FighterPower}" />
-                    <TextBlock>
+                    <TextBlock Margin="3, 0, 0, 0">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
                                 <Setter Property="Text">
                                     <Setter.Value>
-                                        <MultiBinding StringFormat=":{0:0.#}-{1:0.#}">
+                                        <MultiBinding StringFormat="{}{0:0.#}-{1:0.#}">
                                             <Binding Path="Status.MinFighterPower" />
                                             <Binding Path="Status.MaxFighterPower" />
                                         </MultiBinding>
@@ -45,7 +45,7 @@
                                             </MultiBinding>
                                         </DataTrigger.Binding>
 
-                                        <Setter Property="Text" Value="{Binding Status.MinFighterPower, StringFormat=:0.#}" />
+                                        <Setter Property="Text" Value="{Binding Status.MinFighterPower, StringFormat=0.#}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -54,7 +54,8 @@
                 </StackPanel>
 
                 <TextBlock Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull Status.Speed}">
-                    <Run Text="{rb:StringResource Main.Fleet_Speed, Mode=OneWay}" />:<Run Text="{rb:EnumToStringResource Status.Speed, Fleet_Speed}" />
+                    <Run Text="{rb:StringResource Main.Fleet_Speed, Mode=OneWay}" />:
+                    <Run Text="{rb:EnumToStringResource Status.Speed, Fleet_Speed}" />
                 </TextBlock>
 
                 <Border DataContext="{Binding Resupply}" Background="Transparent" ToolTip="{StaticResource UnsuppliedToolTip}" Margin="6, 0, 0, 0" Visibility="{Binding NeedResupply, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -64,7 +65,8 @@
 
             <Border Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull ConditionRegeneration.TimeToComplete}">
                 <TextBlock>
-                    <Run Text="{rb:StringResource Main.Fleet_MoraleRegeneration}" />:<Run Text="{Binding ConditionRegeneration.RemainingTime, Mode=OneWay}" />
+                    <Run Text="{rb:StringResource Main.Fleet_MoraleRegeneration}" />:
+                    <Run Text="{Binding ConditionRegeneration.RemainingTime, Mode=OneWay}" />
                 </TextBlock>
             </Border>
         </StackPanel>
