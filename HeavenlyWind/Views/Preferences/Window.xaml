@@ -18,8 +18,9 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_Layout}" Margin="0, 0, 0, 6" />
-        <StackPanel Orientation="Horizontal">
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_Layout}" FontSize="14" FontWeight="Bold" />
+
+        <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
             <StackPanel.Resources>
                 <Style x:Key="GameStyle" TargetType="{x:Type Control}">
                     <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
@@ -55,7 +56,7 @@
                     <Style.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
-                            <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+                            <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>

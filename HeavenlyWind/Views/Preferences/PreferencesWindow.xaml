@@ -43,8 +43,9 @@
                     <Style TargetType="{x:Type TabItem}">
                         <Setter Property="OverridesDefaultStyle" Value="True" />
                         <Setter Property="Background" Value="Transparent" />
-                        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+                        <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                         <Setter Property="Padding" Value="6, 4" />
+
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type TabItem}">

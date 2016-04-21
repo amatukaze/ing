@@ -8,12 +8,13 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <StackPanel>
-        <DockPanel Margin="0, 0, 0, 8">
+        <DockPanel>
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Screenshot_Folder}" />
             <Button Content="..." IsEnabled="False"  Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
             <TextBox Text="{rb:Preference Browser.Screenshot.Destination}" Margin="6, 0, 0, 0" />
         </DockPanel>
-        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 8">
+
+        <StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
             <RadioButton GroupName="ImageFormat" Content="PNG" IsChecked="{rb:Preference Browser.Screenshot.ImageFormat, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:ScreenshotImageFormat.Png}}" />
             <RadioButton GroupName="ImageFormat" Content="JPG" IsChecked="{rb:Preference Browser.Screenshot.ImageFormat, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:ScreenshotImageFormat.Jpeg}}" Margin="12, 0, 0, 0" />
             <RadioButton GroupName="ImageFormat" Content="BMP" IsChecked="{rb:Preference Browser.Screenshot.ImageFormat, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:ScreenshotImageFormat.Bmp}}" Margin="12, 0, 0, 0" />

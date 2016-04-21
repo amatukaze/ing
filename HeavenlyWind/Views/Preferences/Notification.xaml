@@ -24,7 +24,8 @@
             <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_HeavilyDamagedWarning}" />
         </CheckBox>
 
-        <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound}" FontSize="14" Margin="0, 12, 0, 0" />
+        <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+
         <RadioButton IsChecked="{rb:Preference Notification.Sound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Slient}}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_Slient}" />
         </RadioButton>
