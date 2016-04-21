@@ -33,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze
             public object Convert(object[] rpValues, Type rpTargetType, object rpParameter, CultureInfo rpCulture)
             {
                 if (rpValues[0] == DependencyProperty.UnsetValue || rpValues[1] == DependencyProperty.UnsetValue || rpValues[2] == DependencyProperty.UnsetValue)
-                    throw new ArgumentException();
+                    return DependencyProperty.UnsetValue;
 
                 var rScreenOrientation = (ScreenOrientation)rpValues[0];
                 var rResult = rScreenOrientation == ScreenOrientation.Landscape ? rpValues[1] : rpValues[2];
