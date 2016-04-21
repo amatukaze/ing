@@ -22,15 +22,43 @@
 
                 <rc:LoSFormulas ItemsSource="{Binding Status.LoS.Formulas}" Margin="3, 0, 0, 0" />
 
-                <TextBlock Margin="3, 0, 0, 0">
-                    <Run Text="{rb:StringResource Main.Fleet_AA, Mode=OneWay}" />:<Run Text="{Binding Status.MinAA, StringFormat=0.0}" />-<Run Text="{Binding Status.MaxAA, StringFormat=0.0}" />
-                </TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0">
+                    <TextBlock Text="{rb:StringResource Main.Fleet_FighterPower}" />
+                    <TextBlock>
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="Text">
+                                    <Setter.Value>
+                                        <MultiBinding StringFormat=":{0:0.#}-{1:0.#}">
+                                            <Binding Path="Status.MinFighterPower" />
+                                            <Binding Path="Status.MaxFighterPower" />
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+
+                                <Style.Triggers>
+                                    <DataTrigger Value="True">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding Converter="{StaticResource AreEqualConverter}">
+                                                <Binding Path="Status.MinFighterPower" />
+                                                <Binding Path="Status.MaxFighterPower" />
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
+
+                                        <Setter Property="Text" Value="{Binding Status.MinFighterPower, StringFormat=:0.#}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+
+                <Border DataContext="{Binding Resupply}" Background="Transparent" ToolTip="{StaticResource UnsuppliedToolTip}" Margin="6, 0, 0, 0" Visibility="{Binding NeedResupply, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Unsupplied}" />
+                </Border>
             </StackPanel>
 
-            <Border DataContext="{Binding Source.Resupply}" Background="Transparent" ToolTip="{StaticResource UnsuppliedToolTip}" Margin="4, 0, 0, 0" Visibility="{Binding NeedResupply, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Unsupplied}" />
-            </Border>
-            <Border Margin="4, 0, 0, 0" Visibility="{rb:CollapsedIfNull ConditionRegeneration.TimeToComplete}">
+            <Border Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull ConditionRegeneration.TimeToComplete}">
                 <TextBlock>
                     <Run Text="{rb:StringResource Main.Fleet_MoraleRegeneration}" />:<Run Text="{Binding ConditionRegeneration.RemainingTime, Mode=OneWay}" />
                 </TextBlock>

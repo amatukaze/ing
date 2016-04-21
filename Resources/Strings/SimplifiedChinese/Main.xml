@@ -99,7 +99,7 @@
   <String Key="Fleet_LoS_Formula_Autumn">2-5(秋)</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5(秋)简易</String>
   <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
-  <String Key="Fleet_AA">对空</String>
+  <String Key="Fleet_FighterPower">制空</String>
   <String Key="Fleet_MoraleRegeneration">疲劳回复</String>
 
   <String Key="Ship_Repairing">修理中</String>

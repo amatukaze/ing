@@ -99,7 +99,7 @@
   <String Key="Fleet_LoS_Formula_Autumn">2-5 Autumn</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">Autumn Simplified</String>
   <String Key="Fleet_LoS_Formula_Formula33">Formula 33</String>
-  <String Key="Fleet_AA">AA</String>
+  <String Key="Fleet_FighterPower">FP</String>
   <String Key="Fleet_MoraleRegeneration">Fatigue</String>
 
   <String Key="Ship_Repairing">Repairing</String>
