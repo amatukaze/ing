@@ -48,15 +48,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 switch (Type)
                 {
                     case MaterialsDifferenceType.Day:
-                        rCommand.CommandText = "SELECT * FROM resources WHERE time >= strftime('%s', 'now', 'start of day') LIMIT 1";
+                        rCommand.CommandText = "SELECT * FROM resources WHERE time < strftime('%s', 'now', 'localtime', 'start of day', 'utc') ORDER BY time DESC LIMIT 1;";
                         break;
 
                     case MaterialsDifferenceType.Week:
-                        rCommand.CommandText = "SELECT * FROM resources WHERE time >= strftime('%s', 'now', 'weekday 1', '-7 days', 'start of day') LIMIT 1";
+                        rCommand.CommandText = "SELECT * FROM resources WHERE time < strftime('%s', 'now', 'localtime', 'weekday 0', '-6 days', 'start of day', 'utc') ORDER BY time DESC LIMIT 1;";
                         break;
 
                     case MaterialsDifferenceType.Month:
-                        rCommand.CommandText = "SELECT * FROM resources WHERE time >= strftime('%s', 'now', 'start of month') LIMIT 1";
+                        rCommand.CommandText = "SELECT * FROM resources WHERE time < strftime('%s', 'now', 'localtime', 'start of month', 'utc') ORDER BY time DESC LIMIT 1;";
                         break;
                 }
 

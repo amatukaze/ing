@@ -141,14 +141,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     WeekDifference.Reload();
                     MonthDifference.Reload();
 
-                    UpdateDifference(MaterialType.Fuel);
-                    UpdateDifference(MaterialType.Bullet);
-                    UpdateDifference(MaterialType.Steel);
-                    UpdateDifference(MaterialType.Bauxite);
-                    UpdateDifference(MaterialType.InstantConstruction);
-                    UpdateDifference(MaterialType.Bucket);
-                    UpdateDifference(MaterialType.DevelopmentMaterial);
-                    UpdateDifference(MaterialType.ImprovementMaterial);
+                    OnPropertyChanged(nameof(DayDifference));
+                    OnPropertyChanged(nameof(WeekDifference));
+                    OnPropertyChanged(nameof(MonthDifference));
                 });
             });
         }
