@@ -315,6 +315,7 @@
   <String Key="ShipOverview_Evasion">Evasion</String>
   <String Key="ShipOverview_ASW">ASW</String>
   <String Key="ShipOverview_LoS">LoS</String>
+  <String Key="ShipOverview_RepairTime">Repair Time</String>
   <String Key="ShipOverview_Equipment">Equipment</String>
 
   <String Key="Record_Time">Time</String>

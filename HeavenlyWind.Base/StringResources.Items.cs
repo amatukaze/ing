@@ -319,6 +319,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ShipOverview_Evasion => GetString(nameof(ShipOverview_Evasion));
         public string ShipOverview_ASW => GetString(nameof(ShipOverview_ASW));
         public string ShipOverview_LoS => GetString(nameof(ShipOverview_LoS));
+        public string ShipOverview_RepairTime => GetString(nameof(ShipOverview_RepairTime));
         public string ShipOverview_Equipment => GetString(nameof(ShipOverview_Equipment));
 
         public string Record_Time => GetString(nameof(Record_Time));

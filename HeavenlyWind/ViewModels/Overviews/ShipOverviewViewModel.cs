@@ -128,6 +128,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                 case "LoS":
                     rShips = rShips.OrderByDescending(r => r.Ship.Status.LoS);
                     break;
+
+                case "RepairTime":
+                    rShips = rShips.OrderByDescending(r => r.Ship.RepairTime);
+                    break;
             }
 
             Ships = rShips.ToArray().AsReadOnly();

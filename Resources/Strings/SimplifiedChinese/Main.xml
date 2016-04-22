@@ -315,6 +315,7 @@
   <String Key="ShipOverview_Evasion">回避</String>
   <String Key="ShipOverview_ASW">对潜</String>
   <String Key="ShipOverview_LoS">索敌</String>
+  <String Key="ShipOverview_RepairTime">入渠时间</String>
   <String Key="ShipOverview_Equipment">装备</String>
 
   <String Key="Record_Time">时间</String>

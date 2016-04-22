@@ -9,7 +9,7 @@
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_ShipOverview}"
-                  Width="1080" Height="600"
+                  Width="1200" Height="720"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
         <ResourceDictionary>
@@ -23,8 +23,8 @@
                         <ControlTemplate TargetType="{x:Type Control}">
                             <Border Name="Border" Background="Transparent" Padding="4, 2">
                                 <TextBlock>
-                                    <Run Text="{Binding Current, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-                                    <Run Name="Maximum" Text="{Binding Maximum, StringFormat=/{0}, Mode=OneWay}" FontSize="10" />
+                                    <Run Text="{Binding Current, Mode=OneWay}" />
+                                    <Run Name="Maximum" Text="{Binding Maximum, StringFormat=/{0}, Mode=OneWay}" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
                                 </TextBlock>
                             </Border>
 
@@ -153,9 +153,10 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Margin="0, 4">
-                                            <Run Text="Lv." FontSize="10" />
-                                            <Run Text="{Binding Ship.Level, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-                                            <Run Text="{Binding Ship.ExperienceToNextLevel, StringFormat=Next:{0}, Mode=OneWay}" FontSize="10" />
+                                            <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
+                                            <Run Text="{Binding Ship.Level, Mode=OneWay}" />
+                                            <Run Text="Next:" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
+                                            <Run Text="{Binding Ship.ExperienceToNextLevel, Mode=OneWay}" FontSize="10" />
                                         </TextBlock>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -250,6 +251,16 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Ship.Status.LoS}" Margin="0, 4" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Width="75" rc:Data.Content="RepairTime">
+                                <TextBlock Text="{rb:StringResource Main.ShipOverview_RepairTime}" />
+
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Name="RepairTime" Text="{Binding Ship.RepairTime, StringFormat=hh\\:mm\\:ss, TargetNullValue={}}" Margin="0, 4" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
