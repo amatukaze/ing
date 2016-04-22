@@ -67,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     rQuests.Remove(rQuest);
             }
 
-            if (rpData == null)
+            if (rpData == null || rpData.Quests == null)
                 return;
 
             foreach (var rQuest in rpData.Quests)
