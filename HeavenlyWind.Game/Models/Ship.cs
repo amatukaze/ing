@@ -184,6 +184,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     r_EquipmentIDs = null;
 
                 Info = rInfo;
+                OnPropertyChanged(nameof(Info));
             }
 
             HP = new ClampedValue(RawData.HPMaximum, RawData.HPCurrent);
