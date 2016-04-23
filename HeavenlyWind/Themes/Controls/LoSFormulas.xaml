@@ -37,9 +37,14 @@
                                                 <TextBlock Name="LoS" Text="{Binding Value, StringFormat=0.#}" />
 
                                                 <DataTemplate.Triggers>
-                                                    <DataTrigger Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True">
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding Key.Name}" Value="Formula33" />
+                                                            <Condition Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
+                                                        </MultiDataTrigger.Conditions>
+
                                                         <Setter TargetName="LoS" Property="Foreground" Value="Yellow" />
-                                                    </DataTrigger>
+                                                    </MultiDataTrigger>
                                                 </DataTemplate.Triggers>
                                             </DataTemplate>
                                         </ContentPresenter.ContentTemplate>
