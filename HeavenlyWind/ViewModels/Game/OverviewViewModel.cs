@@ -64,6 +64,19 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 }
             }
         }
+        FleetViewModel r_SelectedFleet;
+        public FleetViewModel SelectedFleet
+        {
+            get { return r_SelectedFleet; }
+            internal set
+            {
+                if (r_SelectedFleet != value)
+                {
+                    r_SelectedFleet = value;
+                    OnPropertyChanged(nameof(SelectedFleet));
+                }
+            }
+        }
 
         IReadOnlyCollection<RepairDockViewModel> r_RepairDocks;
         public IReadOnlyCollection<RepairDockViewModel> RepairDocks
@@ -126,18 +139,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     ShipCount = rPort.Ships.Count + rSortie.PendingShipCount;
             });
 
-            ShowShipOverviewWindowCommand = new DelegatedCommand(ShowShipOverviewWindow);
-            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(ShowEquipmentOverviewWindow);
+            ShowShipOverviewWindowCommand = new DelegatedCommand(() => new ShipOverviewWindow().Show());
+            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => new EquipmentOverviewWindow().Show());
         }
-
-        void ShowShipOverviewWindow()
-        {
-            new ShipOverviewWindow().Show();
-        }
-        void ShowEquipmentOverviewWindow()
-        {
-            new EquipmentOverviewWindow().Show();
-        }
-
     }
 }

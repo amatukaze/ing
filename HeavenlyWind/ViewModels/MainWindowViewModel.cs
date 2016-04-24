@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
 using Sakuno.KanColle.Amatsukaze.Views.History;
+using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using Sakuno.UserInterface;
 using System.Collections.Generic;
@@ -50,6 +51,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public ICommand ShowExpeditionOverviewCommand { get; }
 
+        public ICommand ShowShipOverviewWindowCommand { get; }
+        public ICommand ShowEquipmentOverviewWindowCommand { get; }
+
         public ICommand ShowConstructionHistoryCommand { get; }
         public ICommand ShowDevelopmentHistoryCommand { get; }
         public ICommand ShowSortieHistoryCommand { get; }
@@ -85,6 +89,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 rGameInfo.TabItems.Add(rExpeditionOverview);
                 rGameInfo.SelectedItem = rExpeditionOverview;
             });
+
+            ShowShipOverviewWindowCommand = new DelegatedCommand(() => new ShipOverviewWindow().Show());
+            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => new EquipmentOverviewWindow().Show());
 
             ShowConstructionHistoryCommand = new DelegatedCommand(() => new ConstructionHistoryWindow().Show());
             ShowDevelopmentHistoryCommand = new DelegatedCommand(() => new DevelopmentHistoryWindow().Show());

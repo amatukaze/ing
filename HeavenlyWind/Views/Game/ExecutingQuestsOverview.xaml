@@ -7,24 +7,48 @@
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ItemsControl ItemsSource="{Binding ExecutingQuests}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
-                <Border Background="Transparent" Padding="4">
-                    <Grid DataContext="{Binding Source}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition SharedSizeGroup="Progress" Width="Auto" />
-                        </Grid.ColumnDefinitions>
+    <Control>
+        <Control.Style>
+            <Style TargetType="{x:Type Control}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Control}">
+                            <ItemsControl ItemsSource="{Binding ExecutingQuests}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
+                                        <Border Background="Transparent" Padding="4">
+                                            <Grid DataContext="{Binding Source}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition SharedSizeGroup="Progress" Width="Auto" />
+                                                </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{rb:ExtraStringResource Quest, ID, Name}" TextTrimming="CharacterEllipsis" />
-                        <Border Name="DetailProgressBorder" Background="Transparent" Margin="3, 0, 0, 0" Grid.Column="1">
-                            <ContentControl Name="DetailProgressContent">
-                            </ContentControl>
-                        </Border>
-                    </Grid>
-                </Border>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+                                                <TextBlock Text="{rb:ExtraStringResource Quest, ID, Name}" TextTrimming="CharacterEllipsis" />
+                                                <Border Name="DetailProgressBorder" Background="Transparent" Margin="3, 0, 0, 0" Grid.Column="1">
+                                                    <ContentControl Name="DetailProgressContent">
+                                                    </ContentControl>
+                                                </Border>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ExecutingQuests.Count, FallbackValue=0}" Value="0">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Control}">
+                                    <TextBlock Text="{rb:StringResource Main.Overview_NoExecutingQuest}" HorizontalAlignment="Center" Margin="0, 4" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Control.Style>
+    </Control>
 </UserControl>

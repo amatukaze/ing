@@ -76,6 +76,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_Admiral_Rank_LieutenantCommander => GetString(nameof(Overview_Admiral_Rank_LieutenantCommander));
         public string Overview_Admiral_Rank_ViceLieutenantCommander => GetString(nameof(Overview_Admiral_Rank_ViceLieutenantCommander));
         public string Overview_Admiral_Rank_NoviceLieutenantCommander => GetString(nameof(Overview_Admiral_Rank_NoviceLieutenantCommander));
+        public string Overview_ShipOverview => GetString(nameof(Overview_ShipOverview));
+        public string Overview_EquipmentOverview => GetString(nameof(Overview_EquipmentOverview));
         public string Overview_Fleets => GetString(nameof(Overview_Fleets));
         public string Overview_Fleets_Idle => GetString(nameof(Overview_Fleets_Idle));
         public string Overview_Fleets_Sortie => GetString(nameof(Overview_Fleets_Sortie));
@@ -94,8 +96,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_ConstructionDocks_TimeToComplete => GetString(nameof(Overview_ConstructionDocks_TimeToComplete));
         public string Overview_ConstructionDocks_MaterialConsumption => GetString(nameof(Overview_ConstructionDocks_MaterialConsumption));
         public string Overview_ExecutingQuests => GetString(nameof(Overview_ExecutingQuests));
-        public string Overview_EquipmentOverview => GetString(nameof(Overview_EquipmentOverview));
-        public string Overview_ShipOverview => GetString(nameof(Overview_ShipOverview));
+        public string Overview_NoExecutingQuest => GetString(nameof(Overview_NoExecutingQuest));
 
         public string Fleet_TotalLevel => GetString(nameof(Fleet_TotalLevel));
         public string Fleet_LoS => GetString(nameof(Fleet_LoS));
@@ -219,6 +220,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_AerialCombatResult_Incapability => GetString(nameof(Battle_AerialCombatResult_Incapability));
         public string Battle_AerialCombatResult_Denial => GetString(nameof(Battle_AerialCombatResult_Denial));
 
+        public string Quest_NoData => GetString(nameof(Quest_NoData));
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
         public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
         public string Quest_Type_Special1 => GetString(nameof(Quest_Type_Special1));
@@ -242,8 +244,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ExpeditionOverview_Rewards_GreatSuccessOnly => GetString(nameof(ExpeditionOverview_Rewards_GreatSuccessOnly));
 
         public string Window_Preferences => GetString(nameof(Window_Preferences));
-        public string Window_EquipmentOverview => GetString(nameof(Window_EquipmentOverview));
         public string Window_ShipOverview => GetString(nameof(Window_ShipOverview));
+        public string Window_EquipmentOverview => GetString(nameof(Window_EquipmentOverview));
         public string Window_ConstructionHistory => GetString(nameof(Window_ConstructionHistory));
         public string Window_DevelopmentHistory => GetString(nameof(Window_DevelopmentHistory));
         public string Window_SortieHistory => GetString(nameof(Window_SortieHistory));

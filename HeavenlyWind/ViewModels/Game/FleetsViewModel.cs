@@ -41,6 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 if (r_SelectedFleet != value)
                 {
                     r_SelectedFleet = value;
+                    r_Parent.Overview.SelectedFleet = value;
                     OnPropertyChanged(nameof(SelectedFleet));
                 }
             }

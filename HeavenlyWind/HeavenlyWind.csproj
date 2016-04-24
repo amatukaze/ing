@@ -215,6 +215,9 @@
     <Compile Include="Views\Game\ConstructionDocks.xaml.cs">
       <DependentUpon>ConstructionDocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\DockOverview.xaml.cs">
+      <DependentUpon>DockOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\EventMapOverview.xaml.cs">
       <DependentUpon>EventMapOverview.xaml</DependentUpon>
     </Compile>
@@ -241,6 +244,9 @@
     </Compile>
     <Compile Include="Views\Game\FleetDetail.xaml.cs">
       <DependentUpon>FleetDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\FleetExpeditionOverview.xaml.cs">
+      <DependentUpon>FleetExpeditionOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Fleets.xaml.cs">
       <DependentUpon>Fleets.xaml</DependentUpon>
@@ -387,6 +393,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Common\AbyssalShipClass.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Common\OverviewTabControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -674,6 +684,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\DockOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\EventMapOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -707,6 +721,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\FleetDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\FleetExpeditionOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

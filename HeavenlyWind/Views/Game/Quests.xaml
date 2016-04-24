@@ -104,11 +104,43 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <ScrollViewer PanningMode="VerticalOnly">
-        <StackPanel Grid.IsSharedSizeScope="True">
-            <ListBox ItemsSource="{Binding Executing}" />
-            <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="0, 5" />
-            <ListBox ItemsSource="{Binding Unexecuted}" />
-        </StackPanel>
-    </ScrollViewer>
+    <Control>
+        <Control.Style>
+            <Style TargetType="{x:Type Control}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Control}">
+                            <ScrollViewer PanningMode="VerticalOnly">
+                                <StackPanel Grid.IsSharedSizeScope="True">
+                                    <ListBox ItemsSource="{Binding Executing}" />
+
+                                    <Rectangle Name="Separator" Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="0, 5" />
+
+                                    <ListBox ItemsSource="{Binding Unexecuted}" />
+                                </StackPanel>
+                            </ScrollViewer>
+
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Executing.Count}" Value="0">
+                                    <Setter TargetName="Separator" Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsLoaded}" Value="False">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Control}">
+                                    <TextBlock Text="{rb:StringResource Main.Quest_NoData}" FontSize="16" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Control.Style>
+    </Control>
 </UserControl>

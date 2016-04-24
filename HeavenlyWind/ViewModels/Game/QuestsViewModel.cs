@@ -16,6 +16,20 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             protected set { throw new NotImplementedException(); }
         }
 
+        bool r_IsLoaded;
+        public bool IsLoaded
+        {
+            get { return r_IsLoaded; }
+            private set
+            {
+                if (r_IsLoaded != value)
+                {
+                    r_IsLoaded = value;
+                    OnPropertyChanged(nameof(IsLoaded));
+                }
+            }
+        }
+
         IReadOnlyCollection<QuestViewModel> r_Executing;
         public IReadOnlyCollection<QuestViewModel> Executing
         {
@@ -51,6 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             Unexecuted = rQuestManager.Unexecuted?.Select(r => new QuestViewModel(r)).ToList();
 
             var rQuestManagerPCEL = PropertyChangedEventListener.FromSource(rQuestManager);
+            rQuestManagerPCEL.Add(nameof(rQuestManager.IsLoaded), (s, e) => IsLoaded = true);
             rQuestManagerPCEL.Add(nameof(rQuestManager.Executing), (s, e) => Executing = rpParent.Overview.ExecutingQuests = rQuestManager.Executing.Select(r => new QuestViewModel(r)).ToList());
             rQuestManagerPCEL.Add(nameof(rQuestManager.Unexecuted), (s, e) => Unexecuted = rQuestManager.Unexecuted.Select(r => new QuestViewModel(r)).ToList());
         }

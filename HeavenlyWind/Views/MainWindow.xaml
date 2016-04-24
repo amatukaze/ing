@@ -58,19 +58,39 @@
 
                 <ListBox Style="{StaticResource MenuListBoxStyle}">
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_ConstructionHistory}" Command="{Binding ShowConstructionHistoryCommand}" />
+                        <Button Command="{Binding ShowShipOverviewWindowCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_ShipOverview}" />
+                        </Button>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_DevelopmentHistory}" Command="{Binding ShowDevelopmentHistoryCommand}" />
+                        <Button Command="{Binding ShowEquipmentOverviewWindowCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_EquipmentOverview}" />
+                        </Button>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_SortieHistory}" Command="{Binding ShowSortieHistoryCommand}" />
+                        <Button Command="{Binding ShowConstructionHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_ConstructionHistory}" />
+                        </Button>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_ExpeditionHistory}" Command="{Binding ShowExpeditionHistoryCommand}" />
+                        <Button Command="{Binding ShowDevelopmentHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_DevelopmentHistory}" />
+                        </Button>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_ScrappingHistory}" Command="{Binding ShowScrappingHistoryCommand}" />
+                        <Button Command="{Binding ShowSortieHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_SortieHistory}" />
+                        </Button>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Button Command="{Binding ShowExpeditionHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_ExpeditionHistory}" />
+                        </Button>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Button Command="{Binding ShowScrappingHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_ScrappingHistory}" />
+                        </Button>
                     </ListBoxItem>
                 </ListBox>
             </ruic:DropDownButton>

@@ -60,8 +60,8 @@
   <String Key="Tab_Tools">Tool</String>
 
   <String Key="Overview_Headquarter">Headquarter</String>
-  <String Key="Overview_Headquarter_Ships">Ships</String>
-  <String Key="Overview_Headquarter_Equipment">Equipment</String>
+  <String Key="Overview_Headquarter_Ships">Ship</String>
+  <String Key="Overview_Headquarter_Equipment">EQPT</String>
   <String Key="Overview_Admiral_Rank_MarshalAdmiral">Marshal Admiral</String>
   <String Key="Overview_Admiral_Rank_Admiral">Admiral</String>
   <String Key="Overview_Admiral_Rank_ViceAdmiral">Vice Admiral</String>
@@ -72,6 +72,8 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">Lieutenant Commander</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">Vice Lieutenant Commander</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">Novice Lieutenant Commander</String>
+  <String Key="Overview_ShipOverview">Ship</String>
+  <String Key="Overview_EquipmentOverview">EQPT</String>
   <String Key="Overview_Fleets">Fleets</String>
   <String Key="Overview_Fleets_Idle">Idle</String>
   <String Key="Overview_Fleets_Sortie">Sortie</String>
@@ -83,17 +85,16 @@
   <String Key="Overview_Fleets_Expedition_HourlyYield">Hourly Yield</String>
   <String Key="Overview_Fleets_Expedition_HourlyYield_GreatSuccess">Hourly Yield (GS)</String>
   <String Key="Overview_Dock_Locked">Locked</String>
-  <String Key="Overview_RepairDocks">Repair docks</String>
+  <String Key="Overview_RepairDocks">Repair</String>
   <String Key="Overview_RepairDocks_TimeToComplete">Completion Time</String>
-  <String Key="Overview_ConstructionDocks">Construction docks</String>
+  <String Key="Overview_ConstructionDocks">Construction</String>
   <String Key="Overview_ConstructionDocks_Completed">Completed</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">Completion Time</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">Material Consumption</String>
   <String Key="Overview_ExecutingQuests">Executing Quests</String>
-  <String Key="Overview_EquipmentOverview">Equipment Overview</String>
-  <String Key="Overview_ShipOverview">Ship Overview</String>
+  <String Key="Overview_NoExecutingQuest">No executing quest</String>
 
-  <String Key="Fleet_TotalLevel">Total Lv.</String>
+  <String Key="Fleet_TotalLevel">Total Lv</String>
   <String Key="Fleet_LoS">LoS</String>
   <String Key="Fleet_LoS_Formula_Old">2-5 Old</String>
   <String Key="Fleet_LoS_Formula_Autumn">2-5 Autumn</String>
@@ -215,6 +216,7 @@
   <String Key="Battle_AerialCombatResult_Incapability">Air Incapability</String>
   <String Key="Battle_AerialCombatResult_Denial">Air Denial</String>
 
+  <String Key="Quest_NoData">Please open the "Quests" menu in the game to populate the quest list</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Once" />
   <String Key="Quest_Type_Special1">D</String>
@@ -238,8 +240,8 @@
   <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(Great Success Only)</String>
 
   <String Key="Window_Preferences">Setting</String>
-  <String Key="Window_EquipmentOverview">Equipment Overview</String>
   <String Key="Window_ShipOverview">Ship Overview</String>
+  <String Key="Window_EquipmentOverview">Equipment Overview</String>
   <String Key="Window_ConstructionHistory">Construction History</String>
   <String Key="Window_DevelopmentHistory">Development History</String>
   <String Key="Window_SortieHistory">Sortie History</String>

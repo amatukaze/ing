@@ -3,11 +3,11 @@
 namespace Sakuno.KanColle.Amatsukaze.Views.Game
 {
     /// <summary>
-    /// FleetsOverview.xaml の相互作用ロジック
+    /// DockOverview.xaml の相互作用ロジック
     /// </summary>
-    partial class FleetsOverview
+    partial class DockOverview
     {
-        public FleetsOverview()
+        public DockOverview()
         {
             InitializeComponent();
         }

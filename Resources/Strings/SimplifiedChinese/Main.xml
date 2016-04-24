@@ -72,6 +72,8 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中坚少佐</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
+  <String Key="Overview_ShipOverview">舰娘一览</String>
+  <String Key="Overview_EquipmentOverview">装备一览</String>
   <String Key="Overview_Fleets">舰队一览</String>
   <String Key="Overview_Fleets_Idle">等待中</String>
   <String Key="Overview_Fleets_Sortie">出击中</String>
@@ -90,8 +92,7 @@
   <String Key="Overview_ConstructionDocks_TimeToComplete">完成时间</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入的资材</String>
   <String Key="Overview_ExecutingQuests">执行中的任务</String>
-  <String Key="Overview_EquipmentOverview">装备一览</String>
-  <String Key="Overview_ShipOverview">舰娘一览</String>
+  <String Key="Overview_NoExecutingQuest">无执行中的任务</String>
 
   <String Key="Fleet_TotalLevel">总等级</String>
   <String Key="Fleet_LoS">索敌</String>
@@ -215,6 +216,7 @@
   <String Key="Battle_AerialCombatResult_Incapability">航空劣势</String>
   <String Key="Battle_AerialCombatResult_Denial">制空权丧失</String>
 
+  <String Key="Quest_NoData">请打开游戏中的「任務(クエスト)」获取任务信息</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Once" />
   <String Key="Quest_Type_Special1">日</String>
@@ -238,8 +240,8 @@
   <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(仅大成功)</String>
 
   <String Key="Window_Preferences">设置</String>
-  <String Key="Window_EquipmentOverview">装备一览</String>
   <String Key="Window_ShipOverview">舰娘一览</String>
+  <String Key="Window_EquipmentOverview">装备一览</String>
   <String Key="Window_ConstructionHistory">建造历史</String>
   <String Key="Window_DevelopmentHistory">开发历史</String>
   <String Key="Window_SortieHistory">出击历史</String>
