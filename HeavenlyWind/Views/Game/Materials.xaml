@@ -25,6 +25,7 @@
                 <Style TargetType="{x:Type DockPanel}">
                     <Setter Property="Background" Value="Transparent" />
                     <Setter Property="Margin" Value="1, 2" />
+                    <Setter Property="TextElement.FontSize" Value="12" />
                 </Style>
             </Grid.Resources>
 

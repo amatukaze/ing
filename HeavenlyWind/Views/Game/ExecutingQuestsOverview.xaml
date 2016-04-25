@@ -38,11 +38,20 @@
                 </Setter>
 
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding ExecutingQuests.Count, FallbackValue=0}" Value="0">
+                    <DataTrigger Binding="{Binding ExecutingQuests}" Value="{x:Null}">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Control}">
-                                    <TextBlock Text="{rb:StringResource Main.Overview_NoExecutingQuest}" HorizontalAlignment="Center" Margin="0, 4" />
+                                    <TextBlock Text="{rb:StringResource Main.Overview_ExecutingQuest_NotLoaded}" HorizontalAlignment="Center" Margin="0, 4" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ExecutingQuests.Count}" Value="0">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Control}">
+                                    <TextBlock Text="{rb:StringResource Main.Overview_ExecutingQuest_None}" HorizontalAlignment="Center" Margin="0, 4" />
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>

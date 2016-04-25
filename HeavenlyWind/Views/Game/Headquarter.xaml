@@ -35,11 +35,13 @@
 
         <TextBlock Padding="4, 2" Grid.Row="2">
             <Run Text="{rb:StringResource Main.Overview_Headquarter_Ships, Mode=OneWay}" />:
-            <Run Text="{Binding ShipCount, Mode=OneWay}" />/<Run Text="{Binding Admiral.Source.MaxShipCount, Mode=OneWay}" />
+            <Run Text="{Binding ShipCount, Mode=OneWay}" />
+            <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" /><Run Text="{Binding Admiral.Source.MaxShipCount, Mode=OneWay}" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
         </TextBlock>
         <TextBlock Padding="4, 2" Grid.Row="4">
             <Run Text="{rb:StringResource Main.Overview_Headquarter_Equipment, Mode=OneWay}" />:
-            <Run Text="{Binding EquipmentCount, Mode=OneWay}" />/<Run Text="{Binding Admiral.Source.MaxEquipmentCount, Mode=OneWay}" />
+            <Run Text="{Binding EquipmentCount, Mode=OneWay}" />
+            <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" /><Run Text="{Binding Admiral.Source.MaxEquipmentCount, Mode=OneWay}" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
         </TextBlock>
 
         <rvg:Materials Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" />

@@ -91,8 +91,8 @@
   <String Key="Overview_ConstructionDocks_Completed">Completed</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">Completion Time</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">Material Consumption</String>
-  <String Key="Overview_ExecutingQuests">Executing Quests</String>
-  <String Key="Overview_NoExecutingQuest">No executing quest</String>
+  <String Key="Overview_ExecutingQuest_None">No executing quest</String>
+  <String Key="Overview_ExecutingQuest_NotLoaded">Executing quest not loaded</String>
 
   <String Key="Fleet_TotalLevel">Total Lv</String>
   <String Key="Fleet_LoS">LoS</String>

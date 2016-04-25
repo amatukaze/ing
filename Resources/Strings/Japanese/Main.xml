@@ -91,8 +91,8 @@
   <String Key="Overview_ConstructionDocks_Completed">完了</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">完了時刻</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
-  <String Key="Overview_ExecutingQuests">遂行中の任務</String>
-  <String Key="Overview_NoExecutingQuest">遂行中の任務なし</String>
+  <String Key="Overview_ExecutingQuest_None">遂行中の任務なし</String>
+  <String Key="Overview_ExecutingQuest_NotLoaded">遂行中の任務未取得</String>
 
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>

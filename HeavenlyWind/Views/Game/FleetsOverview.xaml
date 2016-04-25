@@ -75,21 +75,21 @@
                     <ItemsControl ItemsSource="{Binding Source.Ships}" Grid.Row="2" Grid.IsSharedSizeScope="True">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Padding="4, 2">
+                                <Border Name="Border" Padding="4, 2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition SharedSizeGroup="ShipName" />
                                             <ColumnDefinition SharedSizeGroup="LevelAndExp" />
                                             <ColumnDefinition />
                                             <ColumnDefinition Width="25" />
-                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Name="FuelAndBulletColumn" Width="50" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" FontSize="14" TextTrimming="CharacterEllipsis" Grid.RowSpan="2" />
+                                        <TextBlock Name="ShipName" Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" FontSize="14" TextTrimming="CharacterEllipsis" Grid.RowSpan="2" />
 
                                         <TextBlock Name="Level" Margin="3, 0, 0, 0" Grid.Column="1">
                                             <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
@@ -138,6 +138,11 @@
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=20}" Value="True">
                                         <Setter TargetName="Condition" Property="Foreground" Value="Red" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding ActualWidth, ElementName=Border, Converter={StaticResource IsLessThanConverter}, ConverterParameter=300.0}" Value="True">
+                                        <Setter TargetName="ShipName" Property="MaxWidth" Value="100" />
+                                        <Setter TargetName="FuelAndBulletColumn" Property="Width" Value="0" />
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>
