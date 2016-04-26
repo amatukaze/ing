@@ -67,6 +67,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        double r_TransportPoint;
+        public double TransportPoint
+        {
+            get { return r_TransportPoint; }
+            private set
+            {
+                if(r_TransportPoint!= value)
+                {
+                    r_TransportPoint = value;
+                    OnPropertyChanged(nameof(TransportPoint));
+                }
+            }
+        }
+
         internal FleetStatus(Fleet rpOwner)
         {
             r_Fleet = rpOwner;
@@ -82,6 +96,39 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             LoS.Update();
 
+            UpdateFleetSpeed();
+
+            CalculateTransportPoint();
+        }
+
+        double CalculateFighterPower(Func<int, double> rpInternalBouns) =>
+            r_Fleet.Ships.ExceptEvacuated().Sum(rpShip =>
+                rpShip.Slots.Where(r => r.HasEquipment).Sum(rpSlot =>
+                {
+                    if (!rpSlot.Equipment.Info.CanParticipateInFighterCombat)
+                        return .0;
+                    else
+                    {
+                        var rResult = rpSlot.Equipment.Info.AA * Math.Sqrt(rpSlot.PlaneCount);
+
+                        if (rpSlot.PlaneCount > 0)
+                        {
+                            var rProficiency = rpSlot.Equipment.Proficiency;
+
+                            if (rpSlot.Equipment.Info.Type == EquipmentType.CarrierBasedFighter)
+                                rResult += r_CarrierBasedFighterFPBouns[rProficiency];
+                            else if (rpSlot.Equipment.Info.Type == EquipmentType.SeaplaneBomber)
+                                rResult += r_SeaplaneBomberFPBouns[rProficiency];
+
+                            rResult += Math.Sqrt(rpInternalBouns(rProficiency) / 10.0);
+                        }
+
+                        return rResult;
+                    }
+                }));
+
+        void UpdateFleetSpeed()
+        {
             if (r_Fleet.Ships.Count == 0)
                 Speed = null;
             else
@@ -109,30 +156,75 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     Speed = FleetSpeed.Mixed;
             }
         }
-        double CalculateFighterPower(Func<int, double> rpInternalBouns) =>
-            r_Fleet.Ships.ExceptEvacuated().Sum(rpShip =>
-                rpShip.Slots.Where(r => r.HasEquipment).Sum(rpSlot =>
+
+        void CalculateTransportPoint()
+        {
+            var rResult = .0;
+
+            foreach (var rShip in r_Fleet.Ships)
+            {
+                if (rShip.HP.Current / (double)rShip.HP.Maximum <= .25)
+                    continue;
+
+                switch ((ShipType)rShip.Info.Type.ID)
                 {
-                    if (!rpSlot.Equipment.Info.CanParticipateInFighterCombat)
-                        return .0;
-                    else
+                    case ShipType.Destroyer:
+                        rResult += 5.0;
+                        break;
+
+                    case ShipType.LightCruiser:
+                        rResult += 2.0;
+                        break;
+
+                    case ShipType.AircraftCruiser:
+                        rResult += 4.0;
+                        break;
+
+                    case ShipType.AviationBattleship:
+                        rResult += 7.0;
+                        break;
+
+                    case ShipType.SeaplaneCarrier:
+                        rResult += 9.0;
+                        break;
+
+                    case ShipType.AmphibiousAssaultShip:
+                        rResult += 12.0;
+                        break;
+
+                    case ShipType.SubmarineTender:
+                        rResult += 7.0;
+                        break;
+
+                    case ShipType.TrainingCruiser:
+                        rResult += 6.0;
+                        break;
+
+                    case ShipType.FleetOiler:
+                        rResult += 15.0;
+                        break;
+                }
+
+                foreach (var rEquipment in rShip.EquipedEquipment)
+                {
+                    switch (rEquipment.Info.Type)
                     {
-                        var rResult = rpSlot.Equipment.Info.AA * Math.Sqrt(rpSlot.PlaneCount);
+                        case EquipmentType.LandingCraft:
+                            rResult += 8.0;
+                            break;
 
-                        if (rpSlot.PlaneCount > 0)
-                        {
-                            var rProficiency = rpSlot.Equipment.Proficiency;
+                        case EquipmentType.SupplyTransportContainer:
+                            rResult += 5.0;
+                            break;
 
-                            if (rpSlot.Equipment.Info.Type == EquipmentType.CarrierBasedFighter)
-                                rResult += r_CarrierBasedFighterFPBouns[rProficiency];
-                            else if (rpSlot.Equipment.Info.Type == EquipmentType.SeaplaneBomber)
-                                rResult += r_SeaplaneBomberFPBouns[rProficiency];
-
-                            rResult += Math.Sqrt(rpInternalBouns(rProficiency) / 10.0);
-                        }
-
-                        return rResult;
+                        case EquipmentType.CombatRation:
+                            rResult += 1.0;
+                            break;
                     }
-                }));
+                }
+
+                TransportPoint = rResult;
+            }
+        }
     }
 }
