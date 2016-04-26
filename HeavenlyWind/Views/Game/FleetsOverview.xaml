@@ -80,9 +80,10 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition SharedSizeGroup="ShipName" />
                                             <ColumnDefinition SharedSizeGroup="LevelAndExp" />
-                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="80" />
                                             <ColumnDefinition Width="25" />
                                             <ColumnDefinition Name="FuelAndBulletColumn" Width="50" />
+                                            <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
@@ -138,11 +139,6 @@
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=20}" Value="True">
                                         <Setter TargetName="Condition" Property="Foreground" Value="Red" />
-                                    </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding ActualWidth, ElementName=Border, Converter={StaticResource IsLessThanConverter}, ConverterParameter=300.0}" Value="True">
-                                        <Setter TargetName="ShipName" Property="MaxWidth" Value="100" />
-                                        <Setter TargetName="FuelAndBulletColumn" Property="Width" Value="0" />
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>

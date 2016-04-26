@@ -14,6 +14,10 @@
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="Margin" Value="0, 0, 0, 8" />
         </Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="8, 6" />
+        </Style>
     </UserControl.Resources>
 
     <Grid Visibility="{rb:CollapsedIfNull Admiral.Source}" TextElement.FontSize="14">
@@ -23,6 +27,9 @@
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -39,29 +46,25 @@
             </Border>
 
             <StackPanel Margin="0, 0, 0, 8" Grid.Column="2">
-                <Button Command="{Binding ShowShipOverviewWindowCommand}" Padding="8, 4">
+                <Button Command="{Binding ShowShipOverviewWindowCommand}">
                     <TextBlock Text="{rb:StringResource Main.Overview_ShipOverview}" />
                 </Button>
-                <Button Command="{Binding ShowEquipmentOverviewWindowCommand}" Padding="8, 4" Margin="0, 4, 0, 0">
+                <Button Command="{Binding ShowEquipmentOverviewWindowCommand}" Margin="0, 4, 0, 0">
                     <TextBlock Text="{rb:StringResource Main.Overview_EquipmentOverview}" />
                 </Button>
             </StackPanel>
         </Grid>
 
-        <StackPanel Grid.Row="1">
-            <rvg:FleetsOverview Margin="0, 0, 0, 8" />
+        <rvg:FleetsOverview Margin="0, 0, 0, 8" Grid.Row="1" Grid.ColumnSpan="3" />
 
-            <Border Style="{StaticResource PanelBorderStyle}">
-                <rvg:ExecutingQuestsOverview />
-            </Border>
-        </StackPanel>
+        <Border Style="{StaticResource PanelBorderStyle}" Grid.Row="2" Grid.RowSpan="2">
+            <rvg:ExecutingQuestsOverview />
+        </Border>
 
-        <StackPanel Grid.Column="2" Grid.Row="1">
-            <rvg:DockOverview Margin="0, 0, 0, 8" />
+        <rvg:DockOverview Margin="0, 0, 0, 8" Grid.Column="2" Grid.Row="2" />
 
-            <Border Style="{StaticResource PanelBorderStyle}">
-                <rvg:FleetExpeditionOverview />
-            </Border>
-        </StackPanel>
+        <Border Style="{StaticResource PanelBorderStyle}" Grid.Column="2" Grid.Row="3">
+            <rvg:FleetExpeditionOverview />
+        </Border>
     </Grid>
 </UserControl>

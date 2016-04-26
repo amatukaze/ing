@@ -23,10 +23,29 @@
 
                             <Setter Property="Background" Value="{DynamicResource ActiveBackgroundBrushKey}" />
                         </MultiTrigger>
-                        <Trigger Property="IsSelected" Value="True">
+
+                        <Trigger Property="TabStripPlacement" Value="Left">
+                            <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
+                        </Trigger>
+
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="TabStripPlacement" Value="Top" />
+                                <Condition Property="IsSelected" Value="True" />
+                            </MultiTrigger.Conditions>
+
                             <Setter Property="BorderThickness" Value="1, 1, 1, 0" />
                             <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
-                        </Trigger>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="TabStripPlacement" Value="Left" />
+                                <Condition Property="IsSelected" Value="True" />
+                            </MultiTrigger.Conditions>
+
+                            <Setter Property="BorderThickness" Value="1, 1, 0, 1" />
+                            <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -53,15 +72,28 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Horizontal" IsItemsHost="True" />
+                            <StackPanel Name="TabItemsPanel" Orientation="Horizontal" IsItemsHost="True" />
 
-                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0, 0, 0, 1" Grid.Column="1" />
+                            <Border Name="EmptySpaceBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0, 0, 0, 1" Grid.Column="1" />
 
-                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1, 0, 1, 1" Grid.Row="1" Grid.ColumnSpan="2">
+                            <Border Name="ContentBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1, 0, 1, 1" Grid.Row="1" Grid.ColumnSpan="2">
                                 <ContentPresenter Name="PART_SelectedContentHost" ContentSource="SelectedContent" />
                             </Border>
                         </Grid>
                     </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="TabStripPlacement" Value="Left">
+                            <Setter TargetName="TabItemsPanel" Property="Orientation" Value="Vertical" />
+                            <Setter TargetName="EmptySpaceBorder" Property="BorderThickness" Value="0, 0, 1, 0" />
+                            <Setter TargetName="EmptySpaceBorder" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="EmptySpaceBorder" Property="Grid.Row" Value="1" />
+                            <Setter TargetName="ContentBorder" Property="BorderThickness" Value="0, 1, 1, 1" />
+                            <Setter TargetName="ContentBorder" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="ContentBorder" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="ContentBorder" Property="Grid.RowSpan" Value="2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
