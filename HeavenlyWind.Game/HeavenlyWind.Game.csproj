@@ -199,6 +199,7 @@
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
     <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
+    <Compile Include="Models\Raw\RawExpeditionRecalling.cs" />
     <Compile Include="Models\Raw\RawExpeditionResult.cs" />
     <Compile Include="Models\Raw\RawFleet.cs" />
     <Compile Include="Models\Raw\RawImprovementResult.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Parsers\Root\Battle\PracticeDayBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\PracticeNightBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\PracticeResultParser.cs" />
+    <Compile Include="Parsers\Root\Expedition\RecallingParser.cs" />
     <Compile Include="Parsers\Root\Expedition\ResultParser.cs" />
     <Compile Include="Parsers\Root\GetMember\BasicParser.cs" />
     <Compile Include="Parsers\Root\GetMember\ConstructionDockParser.cs" />

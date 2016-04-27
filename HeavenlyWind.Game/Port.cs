@@ -224,7 +224,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rEvacuatedShipID = Fleets[rEvacuatedShipIndex < 6 ? 1 : 2].Ships[rEvacuatedShipIndex % 6].ID;
 
                 var rEscortShipIndex = rData.EvacuatedShips.EscortShipIndex[0] - 1;
-                var rEscortShipID =Fleets[rEscortShipIndex < 6 ? 1 : 2].Ships[rEscortShipIndex % 6].ID;
+                var rEscortShipID = Fleets[rEscortShipIndex < 6 ? 1 : 2].Ships[rEscortShipIndex % 6].ID;
 
                 r_EvacuatedShipIDs = new[] { rEvacuatedShipID, rEscortShipID };
             });
@@ -243,6 +243,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             {
                 var rFleet = Fleets[int.Parse(r.Parameters["api_deck_id"])];
                 rFleet.Name = r.Parameters["api_name"];
+            });
+
+            SessionService.Instance.Subscribe("api_req_mission/return_instruction", r =>
+            {
+                var rFleet = Fleets[int.Parse(r.Parameters["api_deck_id"])];
+                rFleet.ExpeditionStatus.Update(r.GetData<RawExpeditionRecalling>().Expedition);
             });
         }
 
