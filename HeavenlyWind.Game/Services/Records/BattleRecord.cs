@@ -80,18 +80,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             var rMap = rSortieInfo.Map.ID;
             var rNode = rSortieInfo.Node.InternalID;
 
-            using (var rCommand = Connection.CreateCommand())
+            using (var rTransaction = Connection.BeginTransaction())
             {
-                rCommand.CommandText = "BEGIN TRANSACTION;" +
-                    "INSERT OR IGNORE INTO battle_count(map, cell) VALUES(@map, @cell);" +
-                    "UPDATE battle_count SET count = count + 1 WHERE map = @map AND cell = @cell;" +
-                    "INSERT INTO battle(id) VALUES(@id);" +
-                    "COMMIT;";
-                rCommand.Parameters.AddWithValue("@map", rMap);
-                rCommand.Parameters.AddWithValue("@cell", rNode);
-                rCommand.Parameters.AddWithValue("@id", BattleInfo.Current.ID);
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "INSERT OR IGNORE INTO battle_count(map, cell) VALUES(@map, @cell);" +
+                        "UPDATE battle_count SET count = count + 1 WHERE map = @map AND cell = @cell;" +
+                        "INSERT INTO battle(id) VALUES(@id);";
+                    rCommand.Parameters.AddWithValue("@map", rMap);
+                    rCommand.Parameters.AddWithValue("@cell", rNode);
+                    rCommand.Parameters.AddWithValue("@id", BattleInfo.Current.ID);
 
-                rCommand.ExecuteNonQuery();
+                    rCommand.ExecuteNonQuery();
+                }
+
+                rTransaction.Commit();
             }
         }
 

@@ -115,17 +115,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             var rMap = rSortie.Map;
             r_CurrentSortieID = rSortie.ID;
 
-            using (var rCommand = Connection.CreateCommand())
+            using (var rTransaction = Connection.BeginTransaction())
             {
-                rCommand.CommandText = "BEGIN TRANSACTION; " +
-                    "INSERT OR IGNORE INTO sortie_map(id, is_event_map) VALUES(@map_id, @is_event_map);" +
-                    "INSERT INTO sortie(id, map) VALUES(@sortie_id, @map_id);" +
-                    "COMMIT;";
-                rCommand.Parameters.AddWithValue("@map_id", rMap.ID);
-                rCommand.Parameters.AddWithValue("@sortie_id", rSortie.ID);
-                rCommand.Parameters.AddWithValue("@is_event_map", rMap.IsEventMap);
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "INSERT OR IGNORE INTO sortie_map(id, is_event_map) VALUES(@map_id, @is_event_map);" +
+                        "INSERT INTO sortie(id, map) VALUES(@sortie_id, @map_id);";
+                    rCommand.Parameters.AddWithValue("@map_id", rMap.ID);
+                    rCommand.Parameters.AddWithValue("@sortie_id", rSortie.ID);
+                    rCommand.Parameters.AddWithValue("@is_event_map", rMap.IsEventMap);
 
-                rCommand.ExecuteNonQuery();
+                    rCommand.ExecuteNonQuery();
+                }
+
+                rTransaction.Commit();
             }
 
             InsertExplorationRecord(rSortie);
