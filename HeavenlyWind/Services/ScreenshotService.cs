@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Models;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.SystemInterop;
 using System;
@@ -17,12 +18,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services
     {
         public static ScreenshotService Instance { get; } = new ScreenshotService();
 
-        TaskCompletionSource<BitmapSource> r_TaskScreenshotTask;
+        ListDictionary<long, TaskCompletionSource<BitmapSource>> r_TaskScreenshotTasks = new ListDictionary<long, TaskCompletionSource<BitmapSource>>();
 
         ScreenshotService()
         {
             var rMessages = BrowserService.Instance.Communicator.GetMessageObservable();
-            rMessages.Subscribe(CommunicatorMessages.ScreenshotFail, r => ScreenshotFailed(r));
+            rMessages.Subscribe(CommunicatorMessages.ScreenshotFail, ScreenshotFailed);
             rMessages.Subscribe(CommunicatorMessages.StartScreenshotTransmission, rpParameter =>
             {
                 var rParameters = rpParameter.Split(';');
@@ -39,15 +40,17 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public async Task<BitmapSource> TakeScreenshot(Func<BitmapSource, BitmapSource> rpProcessAction = null)
         {
-            r_TaskScreenshotTask = new TaskCompletionSource<BitmapSource>();
-            BrowserService.Instance.Communicator.Write(CommunicatorMessages.TakeScreenshot);
+            var rTimestamp = DateTimeOffset.Now.Ticks;
+            var rTaskScreenshotTask = new TaskCompletionSource<BitmapSource>();
+            r_TaskScreenshotTasks.Add(rTimestamp, rTaskScreenshotTask);
+            BrowserService.Instance.Communicator.Write(CommunicatorMessages.TakeScreenshot + ":" + rTimestamp.ToString());
 
-            var rImage = await r_TaskScreenshotTask.Task;
+            var rImage = await rTaskScreenshotTask.Task;
 
             if (rpProcessAction != null)
                 rImage = rpProcessAction(rImage);
 
-            r_TaskScreenshotTask = null;
+            rTaskScreenshotTask = null;
 
             return rImage;
         }
@@ -65,9 +68,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             try
             {
-                if (r_TaskScreenshotTask != null)
-                    return;
-
                 var rImage = await TakeScreenshot(rpProcessAction);
                 if (rImage == null)
                     return;
@@ -86,9 +86,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             try
             {
-                if (r_TaskScreenshotTask != null)
-                    return;
-
                 var rImage = await TakePartialScreenshot(rpRect);
                 if (rImage == null)
                     return;
@@ -104,11 +101,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
         }
 
-        void ScreenshotFailed(string rpMessage)
+        void ScreenshotFailed(string rpParameter)
         {
-            r_TaskScreenshotTask?.TrySetResult(null);
+            var rParameters = rpParameter.Split(';');
+            var rTimestamp = long.Parse(rParameters[0]);
+            var rMessage = rParameters[1];
 
-            StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, rpMessage);
+            r_TaskScreenshotTasks[rTimestamp].TrySetResult(null);
+            r_TaskScreenshotTasks.Remove(rTimestamp);
+
+            StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, rMessage);
         }
 
         public void OutputToClipboard(BitmapSource rpImage)
@@ -159,6 +161,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         void GetScreenshot(string rpMapName, int rpWidth, int rpHeight, int rpBitCount)
         {
+            var rTimestamp = long.Parse(rpMapName.Substring(rpMapName.LastIndexOf('/') + 1));
             var rHeight = Math.Abs(rpHeight);
 
             using (var rMap = MemoryMappedFile.CreateOrOpen(rpMapName, rpWidth * rHeight * 3, MemoryMappedFileAccess.ReadWrite))
@@ -177,7 +180,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 var rImage = Imaging.CreateBitmapSourceFromHBitmap(rHBitmap, IntPtr.Zero, new Int32Rect(0, 0, rpWidth, rHeight), BitmapSizeOptions.FromEmptyOptions());
                 rImage.Freeze();
-                r_TaskScreenshotTask.SetResult(rImage);
+                r_TaskScreenshotTasks[rTimestamp].SetResult(rImage);
 
                 NativeMethods.Gdi32.DeleteObject(rHBitmap);
             }
