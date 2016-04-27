@@ -308,8 +308,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             for (var i = 0; i < rpParticipants.Count; i++)
             {
                 var rID = (int)rpType * 6 + i;
-
-                if (rpParticipants[i].State == BattleParticipantState.HeavilyDamaged || rpParticipants[i].State == BattleParticipantState.Sunk)
+                var rState = rpParticipants[i].State;
+                if (rState == BattleParticipantState.HeavilyDamaged || rState == BattleParticipantState.Sunk || rState == BattleParticipantState.Demolished)
                     using (var rCommand = Connection.CreateCommand())
                     {
                         rCommand.CommandText = "INSERT INTO battle_detail.participant_heavily_damaged(battle, id) VALUES(@battle_id, @id);";

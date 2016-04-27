@@ -117,7 +117,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 if (rBattle.FriendEscort != null)
                     rParticipants = rParticipants.Concat(rBattle.FriendEscort);
 
-                if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == BattleParticipantState.HeavilyDamaged))
+                if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == BattleParticipantState.HeavilyDamaged || r.State == BattleParticipantState.Demolished))
                 {
                     Show(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
                     FlashWindow();

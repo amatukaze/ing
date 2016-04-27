@@ -170,7 +170,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (rCurrentStage.FriendEscort != null)
                 rParticipants = rParticipants.Concat(rCurrentStage.FriendEscort);
 
-            var rSunkShips = rParticipants.Where(r => r.State == BattleParticipantState.Damaged).Select(r => ((FriendShip)r.Participant).Ship).Where(r_SunkShips.Add).ToArray();
+            var rSunkShips = rParticipants.Where(r => r.State == BattleParticipantState.Damaged || r.State == BattleParticipantState.Demolished).Select(r => ((FriendShip)r.Participant).Ship).Where(r_SunkShips.Add).ToArray();
             if (rSunkShips.Length == 0)
                 return;
 
