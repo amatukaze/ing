@@ -133,6 +133,7 @@
     <Compile Include="Models\Records\DevelopmentRecord.cs" />
     <Compile Include="Models\Records\ExpeditionRecord.cs" />
     <Compile Include="Models\Records\FateRecord.cs" />
+    <Compile Include="Models\Records\ResourceRecord.cs" />
     <Compile Include="Models\Records\SortieRecord.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
     <Compile Include="Services\BrowserService.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="ViewModels\History\ConstructionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -298,6 +300,9 @@
     </Compile>
     <Compile Include="Views\History\ExpeditionHistoryWindow.xaml.cs">
       <DependentUpon>ExpeditionHistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\History\ResourceHistoryWindow.xaml.cs">
+      <DependentUpon>ResourceHistoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\History\ScrappingHistoryWindow.xaml.cs">
       <DependentUpon>ScrappingHistoryWindow.xaml</DependentUpon>
@@ -792,6 +797,10 @@
     <Page Include="Views\History\ExpeditionHistoryWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\History\ResourceHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\History\ScrappingHistoryWindow.xaml">
       <SubType>Designer</SubType>

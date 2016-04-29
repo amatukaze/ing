@@ -247,6 +247,7 @@
   <String Key="Window_SortieHistory">Sortie History</String>
   <String Key="Window_ExpeditionHistory">Expedition History</String>
   <String Key="Window_ScrappingHistory">Scrapping History</String>
+  <String Key="Window_ResourceHistory">Resource History</String>
   <String Key="Window_ClosingConfirmation">Are you sure to close {0}?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>

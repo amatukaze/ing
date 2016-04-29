@@ -247,6 +247,7 @@
   <String Key="Window_SortieHistory">出撃歴史</String>
   <String Key="Window_ExpeditionHistory">遠征歴史</String>
   <String Key="Window_ScrappingHistory">解体・廃棄歴史</String>
+  <String Key="Window_ResourceHistory">資材歴史</String>
   <String Key="Window_ClosingConfirmation">{0}を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>

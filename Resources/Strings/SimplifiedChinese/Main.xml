@@ -247,6 +247,7 @@
   <String Key="Window_SortieHistory">出击历史</String>
   <String Key="Window_ExpeditionHistory">远征历史</String>
   <String Key="Window_ScrappingHistory">解体・废弃历史</String>
+  <String Key="Window_ResourceHistory">资源历史</String>
   <String Key="Window_ClosingConfirmation">要关闭{0}吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>

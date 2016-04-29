@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
-using System.Reactive;
 using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models

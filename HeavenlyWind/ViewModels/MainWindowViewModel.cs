@@ -59,6 +59,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         public ICommand ShowSortieHistoryCommand { get; }
         public ICommand ShowExpeditionHistoryCommand { get; }
         public ICommand ShowScrappingHistoryCommand { get; }
+        public ICommand ShowResourceHistoryCommand { get; }
 
         ICommand r_OpenToolPaneCommand;
         public IList<ToolViewModel> ToolPanes { get; }
@@ -98,6 +99,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             ShowSortieHistoryCommand = new DelegatedCommand(() => new SortieHistoryWindow().Show());
             ShowExpeditionHistoryCommand = new DelegatedCommand(() => new ExpeditionHistoryWindow().Show());
             ShowScrappingHistoryCommand = new DelegatedCommand(() => new ScrappingHistoryWindow().Show());
+            ShowResourceHistoryCommand = new DelegatedCommand(() => new ResourceHistoryWindow().Show());
 
             r_OpenToolPaneCommand = new DelegatedCommand<ToolViewModel>(r =>
             {

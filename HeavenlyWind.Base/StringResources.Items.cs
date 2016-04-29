@@ -251,6 +251,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Window_SortieHistory => GetString(nameof(Window_SortieHistory));
         public string Window_ExpeditionHistory => GetString(nameof(Window_ExpeditionHistory));
         public string Window_ScrappingHistory => GetString(nameof(Window_ScrappingHistory));
+        public string Window_ResourceHistory => GetString(nameof(Window_ResourceHistory));
         public string Window_ClosingConfirmation => GetString(nameof(Window_ClosingConfirmation));
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));

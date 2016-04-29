@@ -92,6 +92,11 @@
                             <TextBlock Text="{rb:StringResource Main.Window_ScrappingHistory}" />
                         </Button>
                     </ListBoxItem>
+                    <ListBoxItem>
+                        <Button Command="{Binding ShowResourceHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_ResourceHistory}" />
+                        </Button>
+                    </ListBoxItem>
                 </ListBox>
             </ruic:DropDownButton>
             <ruic:DropDownButton Visibility="{Binding IsGameStarted, Converter={StaticResource BooleanToVisibilityConverter}}" WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right">
