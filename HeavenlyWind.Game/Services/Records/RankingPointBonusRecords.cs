@@ -3,11 +3,11 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class RankingPointBonusRecord : RecordBase
+    public class RankingPointBonusRecords : RecordsBase
     {
         public override string GroupName => "ranking_point";
 
-        internal RankingPointBonusRecord(SQLiteConnection rpConnection) : base(rpConnection)
+        internal RankingPointBonusRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_map/next", r=>ProcessEscortSuccess((RawMapExploration)r.Data)));
 

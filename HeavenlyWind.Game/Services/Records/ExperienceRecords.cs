@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class ExperienceRecord : RecordBase
+    public class ExperienceRecords : RecordsBase
     {
         static object r_ThreadSyncLock = new object();
 
@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         int r_Admiral;
         Dictionary<int, int> r_Ships = new Dictionary<int, int>(100);
 
-        internal ExperienceRecord(SQLiteConnection rpConnection) : base(rpConnection)
+        internal ExperienceRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", _ =>
             {

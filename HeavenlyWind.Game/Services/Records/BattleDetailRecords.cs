@@ -15,7 +15,7 @@ using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class BattleDetailRecord : RecordBase
+    public class BattleDetailRecords : RecordsBase
     {
         enum ParticipantFleetType { Main, Escort, SupportFire }
 
@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         long? r_CurrentBattleID;
 
-        internal BattleDetailRecord(SQLiteConnection rpConnection, int rpUserID) : base(rpConnection)
+        internal BattleDetailRecords(SQLiteConnection rpConnection, int rpUserID) : base(rpConnection)
         {
             r_Filename = new FileInfo($"Records\\{rpUserID}_Battle.db").FullName;
             r_Connection = new SQLiteConnection($@"Data Source={r_Filename};Page Size=8192").OpenAndReturn();

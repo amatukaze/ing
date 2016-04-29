@@ -1,20 +1,17 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
-using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Data.SQLite;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class ExpeditionRecord : RecordBase
+    public class ExpeditionRecords : RecordsBase
     {
         public override string GroupName => "expedition";
         public override int Version => 2;
 
-        internal ExpeditionRecord(SQLiteConnection rpConnection) : base(rpConnection)
+        internal ExpeditionRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_mission/result", r =>
             {
@@ -89,24 +86,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        public async Task<List<RecordItem>> LoadRecordsAsync()
-        {
-            using (var rCommand = Connection.CreateCommand())
-            {
-                rCommand.CommandText = "SELECT * FROM expedition ORDER BY time DESC;";
-
-                using (var rReader = await rCommand.ExecuteReaderAsync())
-                {
-                    var rResult = new List<RecordItem>(rReader.VisibleFieldCount);
-
-                    while (rReader.Read())
-                        rResult.Add(new RecordItem(rReader));
-
-                    return rResult;
-                }
-            }
-        }
-
         internal void InsertRecord(int rpExpedition, RawExpeditionResult rpData)
         {
             using (var rCommand = Connection.CreateCommand())
@@ -149,63 +128,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                     rCommand.ExecuteNonQuery();
                 }
-        }
-
-        public class RecordItem : ModelBase
-        {
-            public string Time { get; }
-
-            public ExpeditionInfo Expedition { get; }
-
-            public ExpeditionResult Result { get; }
-
-            public int? Fuel { get; }
-            public int? Bullet { get; }
-            public int? Steel { get; }
-            public int? Bauxite { get; }
-
-            public ItemInfo Item1 { get; }
-            public int? Item1Count { get; }
-            public ItemInfo Item2 { get; }
-            public int? Item2Count { get; }
-
-            internal RecordItem(DbDataReader rpReader)
-            {
-                Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
-
-                ExpeditionInfo rExpedition;
-                if (KanColleGame.Current.MasterInfo.Expeditions.TryGetValue(Convert.ToInt32(rpReader["expedition"]), out rExpedition))
-                    Expedition = rExpedition;
-                else
-                    Expedition = ExpeditionInfo.Dummy;
-
-                Result = (ExpeditionResult)Convert.ToInt32(rpReader["result"]);
-
-                if (Result == ExpeditionResult.Failure)
-                    return;
-
-                Fuel = Convert.ToInt32(rpReader["fuel"]);
-                Bullet = Convert.ToInt32(rpReader["bullet"]);
-                Steel = Convert.ToInt32(rpReader["steel"]);
-                Bauxite = Convert.ToInt32(rpReader["bauxite"]);
-
-                var rItem1 = rpReader["item1"];
-                if (rItem1 != DBNull.Value)
-                {
-                    var rItem1ID = Convert.ToInt32(rItem1);
-                    if (rItem1ID != -1)
-                        Item1 = KanColleGame.Current.MasterInfo.Items[rItem1ID];
-                    Item1Count = Convert.ToInt32(rpReader["item1_count"]);
-                }
-                var rItem2 = rpReader["item2"];
-                if (rItem2 != DBNull.Value)
-                {
-                    var rItem2ID = Convert.ToInt32(rItem2);
-                    if (rItem2ID != -1)
-                        Item2 = KanColleGame.Current.MasterInfo.Items[rItem2ID];
-                    Item2Count = Convert.ToInt32(rpReader["item2_count"]);
-                }
-            }
         }
     }
 }

@@ -1,29 +1,50 @@
-﻿using Sakuno.Collections;
+﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using Sakuno.KanColle.Amatsukaze.Game.Services.Records;
+using Sakuno.KanColle.Amatsukaze.Models.Records;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
-    class ConstructionHistoryViewModel : WindowViewModel, IDisposable
+    class ConstructionHistoryViewModel : ModelBase, IDisposable
     {
-        ObservableRangeCollection<ConstructionRecord.RecordItem> r_Records;
-        public ReadOnlyObservableCollection<ConstructionRecord.RecordItem> Records { get; }
+        ObservableCollection<ConstructionRecord> r_Records;
+        public ReadOnlyObservableCollection<ConstructionRecord> Records { get; }
 
-        IDisposable r_NewRecordSubscription;
+        IDisposable r_NewConstructionSubscription;
 
         public ConstructionHistoryViewModel()
         {
-            r_Records = new ObservableRangeCollection<ConstructionRecord.RecordItem>();
-            Records = new ReadOnlyObservableCollection<ConstructionRecord.RecordItem>(r_Records);
+            r_Records = new ObservableCollection<ConstructionRecord>();
+            Records = new ReadOnlyObservableCollection<ConstructionRecord>(r_Records);
 
-            r_NewRecordSubscription = ConstructionRecord.NewRecord.ObserveOnDispatcher().Subscribe(r => r_Records.Insert(0, r));
+            r_NewConstructionSubscription = ConstructionDock.NewConstruction.ObserveOnDispatcher().Subscribe(r =>
+            {
+                var rPort = KanColleGame.Current.Port;
+                var rShip = r.Ship;
+                var rSecretaryShip = rPort.Fleets[1].Ships[0].Info;
+                var rHeadquarterLevel = rPort.Admiral.Level;
+                var rEmptyDockCount = !r.IsLargeShipConstruction.Value ? (int?)null : rPort.ConstructionDocks.Values.Count(rpDock => rpDock.State == ConstructionDockState.Idle);
+
+                r_Records.Add(new ConstructionRecord(rShip, r.FuelConsumption, r.BulletConsumption, r.SteelConsumption, r.BauxiteConsumption, r.DevelopmentMaterialConsumption, rSecretaryShip, rHeadquarterLevel, rEmptyDockCount));
+            });
         }
 
-        public async void LoadRecords() => r_Records.AddRange(await RecordService.Instance.Construction.LoadRecordsAsync());
+        public async void LoadRecords()
+        {
+            using (var rCommand = RecordService.Instance.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT * FROM construction ORDER BY time DESC;";
 
-        public void Dispose() => r_NewRecordSubscription?.Dispose();
+                using (var rReader = await rCommand.ExecuteReaderAsync())
+                    while (rReader.Read())
+                        r_Records.Add(new ConstructionRecord(rReader));
+            }
+        }
+
+        public void Dispose() => r_NewConstructionSubscription?.Dispose();
     }
 }

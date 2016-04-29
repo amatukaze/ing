@@ -3,11 +3,11 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class ShipsRecord : RecordBase
+    public class ShipsRecords : RecordsBase
     {
         public override string GroupName => "ships";
 
-        internal ShipsRecord(SQLiteConnection rpConnection) : base(rpConnection)
+        internal ShipsRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
         }
 

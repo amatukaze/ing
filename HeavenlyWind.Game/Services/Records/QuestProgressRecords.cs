@@ -8,13 +8,13 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class QuestProgressRecord : RecordBase
+    public class QuestProgressRecords : RecordsBase
     {
         public override string GroupName => "quest";
 
         HybridDictionary<int, ProgressInfo> r_Progresses = new HybridDictionary<int, ProgressInfo>(16);
 
-        internal QuestProgressRecord(SQLiteConnection rpConnection) : base(rpConnection)
+        internal QuestProgressRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => DeleteRecord(int.Parse(r.Parameters["api_quest_id"]))));
         }

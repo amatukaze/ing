@@ -8,13 +8,13 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class BattleRecord : RecordBase
+    public class BattleRecords : RecordsBase
     {
         public override string GroupName => "battle";
 
         public override int Version => 2;
 
-        internal BattleRecord(SQLiteConnection rpConnection) : base(rpConnection)
+        internal BattleRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
             var rBattleApis = new[]
             {

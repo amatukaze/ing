@@ -27,7 +27,7 @@
         </DockPanel>
 
         <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
-            <ListView ItemsSource="{Binding Data}">
+            <ListView ItemsSource="{Binding Records}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="170">
