@@ -23,7 +23,7 @@
                 <rc:LoSFormulas ItemsSource="{Binding Status.LoS.Formulas}" Margin="3, 0, 0, 0" />
 
                 <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0">
-                    <TextBlock Text="{rb:StringResource Main.Fleet_FighterPower}" />
+                    <TextBlock Text="{rb:StringResource Main.Fleet_FighterPower, StringFormat={}{0}:}" />
                     <TextBlock Margin="3, 0, 0, 0">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">

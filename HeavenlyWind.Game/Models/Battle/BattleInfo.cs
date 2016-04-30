@@ -71,7 +71,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             foreach (FriendShip rShip in rSortie.MainShips)
                 rShip.IsMVP = false;
             if (rSortie.EscortShips != null)
-                foreach (FriendShip rShip in rSortie.MainShips)
+                foreach (FriendShip rShip in rSortie.EscortShips)
                     rShip.IsMVP = false;
 
             CurrentStage = new FakeStage(this);
