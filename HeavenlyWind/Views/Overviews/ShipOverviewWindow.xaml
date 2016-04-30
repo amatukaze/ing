@@ -23,8 +23,8 @@
                         <ControlTemplate TargetType="{x:Type Control}">
                             <Border Name="Border" Background="Transparent" Padding="4, 2">
                                 <TextBlock>
-                                    <Run Text="{Binding Current, Mode=OneWay}" />
-                                    <Run Name="Maximum" Text="{Binding Maximum, StringFormat=/{0}, Mode=OneWay}" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
+                                    <Run Text="{Binding Current, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                    <Run Name="Maximum" Text="{Binding Maximum, StringFormat=/{0}, Mode=OneWay}" FontSize="10" />
                                 </TextBlock>
                             </Border>
 
@@ -122,7 +122,7 @@
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Margin="0, 4" />
+                                        <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 4" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -142,7 +142,7 @@
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{rb:ExtraStringResource ShipType, Ship.Info.Type.ID, Ship.Info.Type.Name}" Margin="0, 4" />
+                                        <TextBlock Text="{rb:ExtraStringResource ShipType, Ship.Info.Type.ID, Ship.Info.Type.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 4" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -153,10 +153,10 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Margin="0, 4">
-                                            <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
-                                            <Run Text="{Binding Ship.Level, Mode=OneWay}" />
-                                            <Run Text="Next:" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
-                                            <Run Text="{Binding Ship.ExperienceToNextLevel, Mode=OneWay}" FontSize="10" />
+                                            <Run Text="Lv." FontSize="10" />
+                                            <Run Text="{Binding Ship.Level, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                            <Run Text="Next:" FontSize="10" />
+                                            <Run Text="{Binding Ship.ExperienceToNextLevel, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" FontSize="10" />
                                         </TextBlock>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -173,7 +173,13 @@
                                             <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=50}" Value="True">
                                                 <Setter TargetName="Condition" Property="Foreground" Value="Yellow" />
                                             </DataTrigger>
+                                            <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=40}" Value="True">
+                                                <Setter TargetName="Condition" Property="Foreground" Value="Gray" />
+                                            </DataTrigger>
                                             <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=30}" Value="True">
+                                                <Setter TargetName="Condition" Property="Foreground" Value="Orange" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=20}" Value="True">
                                                 <Setter TargetName="Condition" Property="Foreground" Value="Red" />
                                             </DataTrigger>
                                         </DataTemplate.Triggers>
