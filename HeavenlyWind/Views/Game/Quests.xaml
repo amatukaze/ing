@@ -107,6 +107,8 @@
     <Control>
         <Control.Style>
             <Style TargetType="{x:Type Control}">
+                <Setter Property="FontSize" Value="14" />
+
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Control}">

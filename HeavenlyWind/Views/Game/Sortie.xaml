@@ -33,7 +33,7 @@
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer>
+    <ScrollViewer TextElement.FontSize="14">
         <Grid DataContext="{Binding Info}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

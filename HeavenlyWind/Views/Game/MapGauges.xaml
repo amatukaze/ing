@@ -44,7 +44,7 @@
                     <TextBlock HorizontalAlignment="Right" Grid.Column="2">
                         <Run Text="{Binding HP.Current, Mode=OneWay}" />
                         <Run Text=" /" Foreground="Gray" />
-                        <Run Text="{Binding HP.Maximum, Mode=OneWay}" Foreground="Gray" FontSize="11" />
+                        <Run Text="{Binding HP.Maximum, Mode=OneWay}" Foreground="Gray" FontSize="12" />
                     </TextBlock>
 
                     <rc:Indicator Maximum="{Binding HP.Maximum}" Value="{Binding HP.Current}" Grid.Column="2" Grid.Row="1" />
@@ -54,7 +54,7 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <TextBlock Text="{rb:StringResource Main.SortieOverview_MapGauges}" FontSize="14" Margin="4" />
+        <TextBlock Text="{rb:StringResource Main.SortieOverview_MapGauges}" FontSize="16" Margin="4" />
 
         <Grid Grid.IsSharedSizeScope="True">
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">

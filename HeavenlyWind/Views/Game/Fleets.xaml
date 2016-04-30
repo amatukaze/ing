@@ -8,29 +8,24 @@
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <ruic:AdvancedTabControl DisableTabReorder="True" TabController="{StaticResource TabController}" ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" Padding="0">
-        <ruic:AdvancedTabControl.ItemContainerStyle>
-            <Style TargetType="{x:Type ruic:AdvancedTabItem}">
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
-                <Setter Property="FontSize" Value="12" />
-                <Setter Property="Padding" Value="10, 6" />
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/OverviewTabControl.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource AccentHighlightBrushKey}" />
-                    </Trigger>
-                    <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="{DynamicResource ActiveBackgroundBrushKey}" />
-                        <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </ruic:AdvancedTabControl.ItemContainerStyle>
-        <ruic:AdvancedTabControl.ItemTemplate>
+    <TabControl ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedFleet}">
+        <TabControl.ItemTemplate>
             <DataTemplate>
-                <TextBlock Text="{Binding Name}" />
+                <TextBlock Text="{Binding Source.ID, StringFormat=/{0}}" Margin="8, 0" />
             </DataTemplate>
-        </ruic:AdvancedTabControl.ItemTemplate>
-    </ruic:AdvancedTabControl>
+        </TabControl.ItemTemplate>
+        <TabControl.ContentTemplate>
+            <DataTemplate>
+                <rvg:FleetDetail />
+            </DataTemplate>
+        </TabControl.ContentTemplate>
+    </TabControl>
 </UserControl>

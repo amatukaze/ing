@@ -18,7 +18,7 @@
     </UserControl.Style>
 
     <StackPanel>
-        <TextBlock Text="{rb:StringResource Main.Sortie_EnemyEncounters}" FontSize="14" Margin="4" />
+        <TextBlock Text="{rb:StringResource Main.Sortie_EnemyEncounters}" FontSize="16" Margin="4" />
 
         <ItemsControl ItemsSource="{Binding EnemyEncounters, FallbackValue={x:Null}}">
             <ItemsControl.ItemsPanel>

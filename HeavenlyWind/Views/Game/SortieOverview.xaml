@@ -9,6 +9,8 @@
              d:DesignWidth="300" d:DesignHeight="300">
     <UserControl.Style>
         <Style TargetType="{x:Type UserControl}">
+            <Setter Property="TextElement.FontSize" Value="14" />
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type UserControl}">
