@@ -6,36 +6,35 @@
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <Grid>
-        <DockPanel>
-            <DockPanel.Style>
-                <Style TargetType="{x:Type DockPanel}">
-                    <Setter Property="Visibility" Value="Hidden" />
+    <ItemsControl ItemsSource="{Binding Rewards}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Control Name="Reward">
+                    <Control.Template>
+                        <ControlTemplate>
+                            <TextBlock Margin="4, 2" >
+                                <Run Text="{Binding Name, Mode=OneWay}" />
+                                x<Run Text="{Binding Quantity, Mode=OneWay}" />
+                            </TextBlock>
+                        </ControlTemplate>
+                    </Control.Template>
+                </Control>
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding TypeID}" Value="4">
-                            <Setter Property="Visibility" Value="Visible" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DockPanel.Style>
-
-            <rc:MaterialIcon Type="{Binding ID}" />
-            <TextBlock Text="{Binding Quantity, StringFormat=x{0}}" Margin="4, 2" />
-        </DockPanel>
-        <TextBlock>
-            <TextBlock.Style>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding TypeID}" Value="4">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-
-            <Run Text="{Binding Name, Mode=OneWay}" />
-            x<Run Text="{Binding Quantity, Mode=OneWay}" />
-        </TextBlock>
-    </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding TypeID}" Value="4">
+                        <Setter TargetName="Reward" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <DockPanel>
+                                        <rc:MaterialIcon Type="{Binding ID}" />
+                                        <TextBlock Text="{Binding Quantity, StringFormat=x{0}}" Margin="4, 2" />
+                                    </DockPanel>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </UserControl>
