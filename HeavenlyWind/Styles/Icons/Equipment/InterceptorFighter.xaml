@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
+
+    <ControlTemplate x:Key="InterceptorFighterIcon" TargetType="{x:Type rc:EquipmentIcon}">
+        <Viewbox Stretch="Uniform">
+            <Grid Width="250" Height="250">
+                <Path Fill="#39B64D" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True" Data="M130.86101,111.39729 C130.86101,111.39729 162.17221,102.9351 203.63838,134.2463 L191.79122,108.85909 196.86874,108.01238 224.79508,135.93879 246.79714,126.63041 C246.79714,126.63041 277.26216,122.39911 261.18342,146.09441 L242.5663,164.71286 258.64509,202.79499 249.33631,205.33393 223.1025,164.71281 C223.1025,164.71281 190.94492,163.86654 172.32737,157.09637 153.70982,150.32621 154.55608,160.48145 154.55608,160.48145 L156.24858,196.02482 C156.24858,196.02482 152.86357,222.25921 127.47601,196.87109 L94.472191,149.48011 C94.472191,149.48011 37.773736,141.86364 37.773736,117.32169 L30.157148,128.32325 22.541339,128.32325 31.850288,105.47385 C31.850288,105.47385 12.386553,89.39413 37.774033,88.547853 L54.69902,66.544137 60.622765,69.083102 50.467773,86.854982 76.701503,83.469862 79.240251,43.694701 C79.240251,43.694701 80.93275,23.384451 95.318988,41.156286 109.70523,58.928121 130.86101,111.39729 130.86101,111.39729 z" />
+                <Path Fill="#3DAC12" Stroke="#267109" StrokeThickness="3" Stretch="Uniform" Width="105" Height="105" Margin="0, 0, 15, 15" VerticalAlignment="Bottom" HorizontalAlignment="Right" SnapsToDevicePixels="True" Data="M150,0 L300,75 300,225 150,300 0,225 0,75 z" />
+            </Grid>
+        </Viewbox>
+    </ControlTemplate>
+
+</ResourceDictionary>

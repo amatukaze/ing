@@ -39,6 +39,7 @@
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Supplies.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/SpecialAmphibiousLandingCraft.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/LandBasedAttackAircraft.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/InterceptorFighter.xaml" />
 
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Fuel.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Bullet.xaml" />

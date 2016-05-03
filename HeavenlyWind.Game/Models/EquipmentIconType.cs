@@ -40,5 +40,6 @@
         Supplies,
         SpecialAmphibiousLandingCraft,
         LandBasedAttackAircraft,
+        InterceptorFighter,
     }
 }

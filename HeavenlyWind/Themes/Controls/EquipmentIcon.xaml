@@ -136,6 +136,9 @@
             <Trigger Property="Type" Value="LandBasedAttackAircraft">
                 <Setter Property="Template" Value="{StaticResource LandBasedAttackAircraftIcon}" />
             </Trigger>
+            <Trigger Property="Type" Value="InterceptorFighter">
+                <Setter Property="Template" Value="{StaticResource InterceptorFighterIcon}" />
+            </Trigger>
 
         </Style.Triggers>
     </Style>
