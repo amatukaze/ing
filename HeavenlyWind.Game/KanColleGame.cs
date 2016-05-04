@@ -77,14 +77,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 rSortieMap.HP = rSortieMap.HP - 1;
             });
-
-            SessionService.Instance.Subscribe("api_port/port", r =>
-            {
-                if (Sortie != null && !(Sortie is PracticeInfo))
-                    ReturnedFromSortie(Sortie);
-
-                Sortie = null;
-            });
         }
+
+        internal void RaiseReturnedFromSortie(SortieInfo rpSortie) => ReturnedFromSortie(rpSortie);
     }
 }

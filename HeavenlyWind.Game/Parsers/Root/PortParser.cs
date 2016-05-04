@@ -8,6 +8,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root
     {
         public override void Process(RawPort rpData)
         {
+            var rSortie = Game.Sortie;
+            if (rSortie != null && !(rSortie is PracticeInfo))
+                Game.RaiseReturnedFromSortie(rSortie);
+            Game.Sortie = null;
+
             Game.Port.UpdateAdmiral(rpData.Basic);
             Game.Port.UpdatePort(rpData);
         }
