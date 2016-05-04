@@ -154,6 +154,9 @@
                                 <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
                             </DataTrigger>
 
+                            <DataTrigger Binding="{Binding Condition}" Value="100">
+                                <Setter TargetName="Condition" Property="FontSize" Value="13" />
+                            </DataTrigger>
                             <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=50}" Value="True">
                                 <Setter TargetName="Condition" Property="Foreground" Value="Yellow" />
                             </DataTrigger>
