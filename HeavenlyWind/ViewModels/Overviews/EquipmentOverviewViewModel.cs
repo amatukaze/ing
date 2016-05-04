@@ -38,7 +38,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         internal EquipmentOverviewViewModel()
         {
-            r_TypeMap = ((EquipmentIconType[])Enum.GetValues(typeof(EquipmentIconType))).Skip(1).ToDictionary(r => r, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
+            r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 
             Task.Run(new Action(UpdateCore));

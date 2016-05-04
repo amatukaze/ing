@@ -80,10 +80,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (r_ShipIDs == null || !r_ShipIDs.SequenceEqual(RawData.Ships))
             {
-                if (r_ShipList != null)
-                    foreach (var rShip in r_ShipList)
-                        rShip.OwnerFleet = null;
-
                 r_ShipIDs = RawData.Ships;
                 r_ShipList = RawData.Ships.TakeWhile(r => r != -1).Select(r => Port.Ships[r]).ToList();
 
@@ -133,21 +129,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public Ship Organize(int rpIndex, Ship rpShip)
         {
             var rOriginalShip = rpIndex < r_ShipList.Count ? r_ShipList[rpIndex] : null;
-            if (rOriginalShip != null)
-                rOriginalShip.OwnerFleet = null;
 
             if (rpIndex >= r_ShipList.Count)
             {
                 r_ShipList.Add(rpShip);
                 r_ShipIDs = r_ShipList.Select(r => r.ID).ToArray();
             }
-            else
+            else if (rpShip != null)
             {
                 r_ShipIDs[rpIndex] = rpShip.ID;
                 r_ShipList[rpIndex] = rpShip;
             }
+            else
+            {
+                r_ShipList.RemoveAt(rpIndex);
+                r_ShipIDs = r_ShipList.Select(r => r.ID).ToArray();
+            }
 
-            rpShip.OwnerFleet = this;
+            if (rpShip != null)
+                rpShip.OwnerFleet = this;
+            if (rOriginalShip != null)
+                rOriginalShip.OwnerFleet = null;
 
             UpdateShips();
 

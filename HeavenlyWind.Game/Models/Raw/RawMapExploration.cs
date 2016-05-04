@@ -45,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public WhirlpoolEvent Whirlpool { get; set; }
 
         [JsonProperty("api_itemget")]
-        public RawReward Reward { get; set; }
+        public RawReward[] Rewards { get; set; }
         [JsonProperty("api_get_eo_rate")]
         public int RankingPointBonus { get; set; }
         [JsonProperty("api_itemget_eo_comment")]
@@ -78,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
             [JsonProperty("api_dentan")]
             public bool HasReduceLossesWithRadar { get; set; }
         }
-        public class RawReward
+        public class RawReward : ModelBase
         {
             [JsonProperty("api_usemst")]
             public int TypeID { get; set; }

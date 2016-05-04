@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             r_TypeMap = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 15).ToDictionary(r => r, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 
-            Task.Factory.StartNew(UpdateCore);
+            Task.Run(new Action(UpdateCore));
         }
 
         internal void Sort(GridViewColumnHeader rpColumnHeader)
@@ -58,7 +59,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                 return;
 
             r_SortingColumn = rColumn;
-            Task.Factory.StartNew(UpdateCore);
+            Task.Run(new Action(UpdateCore));
         }
 
         void UpdateSelection()
@@ -73,7 +74,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             else
                 r_SelectAllTypes = null;
 
-            Task.Factory.StartNew(UpdateCore);
+            Task.Run(new Action(UpdateCore));
             OnPropertyChanged(nameof(SelectAllTypes));
         }
 

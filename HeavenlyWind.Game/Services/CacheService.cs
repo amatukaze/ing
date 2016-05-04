@@ -109,7 +109,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         internal void ProcessResponse(ResourceSession rpResourceSession, Session rpSession)
         {
-            if (rpSession.responseCode != 304 || CurrentMode != CacheMode.VerifyVersion)
+            if (rpSession.responseCode != 304 || !rpResourceSession.Path.OICContains("mainD2.swf") && CurrentMode != CacheMode.VerifyVersion)
                 return;
 
             LoadFile(rpResourceSession.CacheFilename, rpResourceSession, rpSession);

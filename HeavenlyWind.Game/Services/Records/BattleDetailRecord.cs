@@ -193,7 +193,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         void ProcessSortieFirstStage(ApiData rpData)
         {
             var rSortie = KanColleGame.Current.Sortie;
-            var rData = (RawDay)rpData.Data;
             r_CurrentBattleID = BattleInfo.Current.ID;
 
             using (var rTransaction = Connection.BeginTransaction())
@@ -207,7 +206,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 ProcessParticipantFleet(rCommandTextBuilder, rSortie.Fleet, ParticipantFleetType.Main);
                 if (rSortie.EscortFleet != null)
                     ProcessParticipantFleet(rCommandTextBuilder, rSortie.EscortFleet, ParticipantFleetType.Escort);
-                if (rData.SupportingFireType != 0)
+
+                var rData = rpData.Data as RawDay;
+                if (rData != null && rData.SupportingFireType != 0)
                 {
                     var rSupportFire = rData.SupportingFire;
                     var rFleetID = (rSupportFire.Shelling?.FleetID ?? rSupportFire.AerialCombat?.FleetID).Value;
