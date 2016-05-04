@@ -60,7 +60,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             };
             SessionService.Instance.Subscribe(rSecondStages, r => Current?.ProcessSecondStage(r));
         }
-        internal BattleInfo(BattleType rpBattleType)
+        internal BattleInfo(BattleType rpBattleType, bool rpIsBossBattle)
         {
             Current = this;
 
@@ -82,7 +82,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 var rSupportFleets = KanColleGame.Current.Port.Fleets.Table.Values
                     .Where(r => r.ExpeditionStatus.Expedition != null && !r.ExpeditionStatus.Expedition.CanReturn)
                     .Select(r => r.ExpeditionStatus.Expedition)
-                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (rSortie.Node.EventType == SortieEventType.NormalBattle ? 15 : 30));
+                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (!rpIsBossBattle ? 15 : 30));
 
                 IsSupportFleetReady = rSupportFleets != null;
                 OnPropertyChanged(nameof(IsSupportFleetReady));
