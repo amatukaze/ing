@@ -238,6 +238,9 @@
     <Compile Include="Views\Game\Events\Battle.xaml.cs">
       <DependentUpon>Battle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Events\Landing.xaml.cs">
+      <DependentUpon>Landing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Events\NothingHappened.xaml.cs">
       <DependentUpon>NothingHappened.xaml</DependentUpon>
     </Compile>
@@ -723,6 +726,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\Events\Battle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Landing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

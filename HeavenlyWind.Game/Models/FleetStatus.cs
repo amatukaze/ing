@@ -163,7 +163,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             foreach (var rShip in r_Fleet.Ships)
             {
-                if (rShip.HP.Current / (double)rShip.HP.Maximum <= .25)
+                if (rShip.HP.Current / (double)rShip.HP.Maximum <= .25 || rShip.State == ShipState.Evacuated)
                     continue;
 
                 switch ((ShipType)rShip.Info.Type.ID)
@@ -207,12 +207,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 foreach (var rEquipment in rShip.EquipedEquipment)
                 {
+                    if (rEquipment.Info.ID == 68)
+                        rResult += 8.0;
+
                     switch (rEquipment.Info.Type)
                     {
-                        case EquipmentType.LandingCraft:
-                            rResult += 8.0;
-                            break;
-
                         case EquipmentType.SupplyTransportContainer:
                             rResult += 5.0;
                             break;

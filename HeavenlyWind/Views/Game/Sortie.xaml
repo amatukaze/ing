@@ -89,6 +89,7 @@
                         <rvge:Reward />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type rgme:LandingEvent}">
+                        <rvge:Landing />
                     </DataTemplate>
                 </ContentControl.Resources>
             </ContentControl>
