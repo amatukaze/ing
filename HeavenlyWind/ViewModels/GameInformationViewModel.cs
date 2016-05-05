@@ -30,10 +30,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         internal GameInformationViewModel()
         {
+            Fleets = new FleetsViewModel(this);
+
             TabItems = new ObservableCollection<object>()
             {
                 (Overview = new OverviewViewModel()),
-                (Fleets = new FleetsViewModel(this)),
                 (Sortie = new SortieViewModel()),
                 (Quests = new QuestsViewModel(this)),
             };
