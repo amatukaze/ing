@@ -207,17 +207,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 foreach (var rEquipment in rShip.EquipedEquipment)
                 {
-                    if (rEquipment.Info.ID == 68)
-                        rResult += 8.0;
-
                     switch (rEquipment.Info.Type)
                     {
+                        case EquipmentType.LandingCraft:
+                            rResult += 8.0;
+                            break;
+
                         case EquipmentType.SupplyTransportContainer:
                             rResult += 5.0;
                             break;
 
                         case EquipmentType.CombatRation:
                             rResult += 1.0;
+                            break;
+
+                        case EquipmentType.SpecialAmphibiousLandingCraft:
+                            rResult += 2.0;
                             break;
                     }
                 }
