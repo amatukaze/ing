@@ -149,6 +149,7 @@
   <String Key="SortieOverview_MapGauges">Map Gauges</String>
   <String Key="SortieOverview_MapGauges_Type_HP">Kills Part</String>
   <String Key="SortieOverview_MapGauges_Type_TP">TE Part</String>
+  <String Key="SortieOverview_MapGauges_Type_TP_Only">TE Only</String>
   <String Key="SortieOverview_FleetLockingTable">Fleet Locking Table</String>
   <String Key="SortieOverview_FleetLockingTable_CombinedFleet">Combined Fleet</String>
 

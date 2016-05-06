@@ -48,7 +48,19 @@
                         <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, TargetNullValue={x:Null}}" />
                         (<Run Text="{rb:ExtraStringResource Map, MasterInfo.ID, MasterInfo.Name}" />)
                     </TextBlock>
-                    <TextBlock Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0"  Visibility="{rb:CollapsedIfNull GaugeType}" />
+                    <TextBlock Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Visibility" Value="{rb:CollapsedIfNull GaugeType}" />
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TransportEscortOnly}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">

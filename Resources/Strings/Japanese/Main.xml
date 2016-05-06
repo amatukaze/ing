@@ -149,6 +149,7 @@
   <String Key="SortieOverview_MapGauges">マップゲージ</String>
   <String Key="SortieOverview_MapGauges_Type_HP">撃破パート</String>
   <String Key="SortieOverview_MapGauges_Type_TP">輸送パート</String>
+  <String Key="SortieOverview_MapGauges_Type_TP_Only">輸送のみ</String>
   <String Key="SortieOverview_FleetLockingTable">出撃制限</String>
   <String Key="SortieOverview_FleetLockingTable_CombinedFleet">連合艦隊</String>
 

@@ -149,6 +149,7 @@
   <String Key="SortieOverview_MapGauges">海域血量</String>
   <String Key="SortieOverview_MapGauges_Type_HP">击破阶段</String>
   <String Key="SortieOverview_MapGauges_Type_TP">运输阶段</String>
+  <String Key="SortieOverview_MapGauges_Type_TP_Only">仅运输</String>
   <String Key="SortieOverview_FleetLockingTable">贴条表</String>
   <String Key="SortieOverview_FleetLockingTable_CombinedFleet">联合舰队</String>
 

@@ -153,6 +153,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieOverview_MapGauges => GetString(nameof(SortieOverview_MapGauges));
         public string SortieOverview_MapGauges_Type_HP => GetString(nameof(SortieOverview_MapGauges_Type_HP));
         public string SortieOverview_MapGauges_Type_TP => GetString(nameof(SortieOverview_MapGauges_Type_TP));
+        public string SortieOverview_MapGauges_Type_TP_Only => GetString(nameof(SortieOverview_MapGauges_Type_TP_Only));
         public string SortieOverview_FleetLockingTable => GetString(nameof(SortieOverview_FleetLockingTable));
         public string SortieOverview_FleetLockingTable_CombinedFleet => GetString(nameof(SortieOverview_FleetLockingTable_CombinedFleet));
 

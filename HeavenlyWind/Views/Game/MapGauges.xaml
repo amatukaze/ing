@@ -38,7 +38,7 @@
                             <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty}" />
                             <Run Text="{rb:ExtraStringResource Map, MasterInfo.ID, MasterInfo.Name}" />
                         </TextBlock>
-                        <TextBlock Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull GaugeType}" />
+                        <TextBlock Name="GaugeType" Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull GaugeType}" />
                     </StackPanel>
 
                     <TextBlock HorizontalAlignment="Right" Grid.Column="2">
@@ -50,6 +50,12 @@
                     <rc:Indicator Maximum="{Binding HP.Maximum}" Value="{Binding HP.Current}" Grid.Column="2" Grid.Row="1" />
                 </Grid>
             </Border>
+
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding TransportEscortOnly}" Value="True">
+                    <Setter TargetName="GaugeType" Property="Text" Value="{rb:StringResource Main.SortieOverview_MapGauges_Type_TP_Only, StringFormat=({0})}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
     </UserControl.Resources>
 

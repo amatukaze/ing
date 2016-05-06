@@ -38,6 +38,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        public bool TransportEscortOnly => MasterInfo.SortieFleetType == CombinedFleetType.TransportEscort;
         public MapGaugeType? GaugeType => RawData.Event?.GaugeType;
 
         internal MapInfo(RawMapInfo rpRawData) : base(rpRawData)
