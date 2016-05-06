@@ -8,7 +8,7 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class QuestProgressRecords : RecordsBase
+    public class QuestProgressRecords : RecordsGroup
     {
         public override string GroupName => "quest";
 

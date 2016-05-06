@@ -3,7 +3,7 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class RankingPointBonusRecords : RecordsBase
+    public class RankingPointBonusRecords : RecordsGroup
     {
         public override string GroupName => "ranking_point";
 

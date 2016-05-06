@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class FateRecords : RecordsBase
+    public class FateRecords : RecordsGroup
     {
         public override string GroupName => "fate";
 

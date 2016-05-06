@@ -4,7 +4,7 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public abstract class RecordsBase : IDisposable
+    public abstract class RecordsGroup : IDisposable
     {
         protected SQLiteConnection Connection { get; }
 
@@ -22,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        protected RecordsBase(SQLiteConnection rpConnection)
+        protected RecordsGroup(SQLiteConnection rpConnection)
         {
             Connection = rpConnection;
         }

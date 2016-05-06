@@ -9,7 +9,7 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class SortieRecords : RecordsBase
+    public class SortieRecords : RecordsGroup
     {
         const int RETURN_NODE_ID = -1;
         enum ReturnReason { DeadEnd, Retreat, RetreatWithHeavilyDamagedShip, Unexpected }

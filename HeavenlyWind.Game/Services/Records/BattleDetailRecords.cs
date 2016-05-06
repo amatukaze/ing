@@ -15,7 +15,7 @@ using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class BattleDetailRecords : RecordsBase
+    public class BattleDetailRecords : RecordsGroup
     {
         enum ParticipantFleetType { Main, Escort, SupportFire }
 

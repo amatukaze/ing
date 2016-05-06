@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class ExperienceRecords : RecordsBase
+    public class ExperienceRecords : RecordsGroup
     {
         static object r_ThreadSyncLock = new object();
 

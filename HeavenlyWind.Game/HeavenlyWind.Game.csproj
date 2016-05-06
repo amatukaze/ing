@@ -329,8 +329,8 @@
     <Compile Include="Services\Records\FateRecords.cs" />
     <Compile Include="Services\Records\QuestProgressRecords.cs" />
     <Compile Include="Services\Records\RankingPointBonusRecords.cs" />
-    <Compile Include="Services\Records\RecordsBase.cs" />
-    <Compile Include="Services\Records\RecordsBaseExtensions.cs" />
+    <Compile Include="Services\Records\RecordsGroup.cs" />
+    <Compile Include="Services\Records\RecordsGroupExtensions.cs" />
     <Compile Include="Services\Records\ResourcesRecords.cs" />
     <Compile Include="Services\Records\ShipsRecords.cs" />
     <Compile Include="Services\Records\SortieRecords.cs" />

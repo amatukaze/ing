@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class ExpeditionRecords : RecordsBase
+    public class ExpeditionRecords : RecordsGroup
     {
         public override string GroupName => "expedition";
         public override int Version => 2;

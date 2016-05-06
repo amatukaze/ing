@@ -6,7 +6,7 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class ConstructionRecords : RecordsBase
+    public class ConstructionRecords : RecordsGroup
     {
         public override string GroupName => "construction";
 
