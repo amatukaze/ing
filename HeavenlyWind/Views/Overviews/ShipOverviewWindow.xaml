@@ -117,7 +117,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="100">
+                            <GridViewColumn Width="100" rc:Data.Content="Name">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_Name}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -127,7 +127,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="{Binding ShipLockingColumnWidth}">
+                            <GridViewColumn Width="{Binding ShipLockingColumnWidth}" rc:Data.Content="ShipLocking">
                                 <Path Stretch="Uniform" Fill="{DynamicResource ForegroundBrushKey}" Width="16" Height="16" Data="{StaticResource ShipLockingTagIcon}" />
 
                                 <GridViewColumn.CellTemplate>

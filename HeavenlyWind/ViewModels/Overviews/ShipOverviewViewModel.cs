@@ -96,6 +96,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                     rShips = rShips.OrderBy(r => r.Ship.ID);
                     break;
 
+                case "Name":
+                    rShips = rShips.OrderBy(r => r.Ship.Info.Name);
+                    break;
+
+                case "ShipLocking":
+                    rShips = rShips.OrderByDescending(r => r.Ship.RawData.LockingTag != 0).ThenBy(r => r.Ship.RawData.LockingTag);
+                    break;
+
                 case "Level":
                     rShips = rShips.OrderByDescending(r => r.Ship.Level).ThenBy(r => r.Ship.ExperienceToNextLevel);
                     break;
