@@ -144,7 +144,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         internal void ProcessOnCompletion(ResourceSession rpResourceSession, Session rpSession)
         {
-            if (rpSession.responseCode != 200 || rpResourceSession.State == NetworkSessionState.LoadedFromCache || rpResourceSession.CacheFilename == null)
+            if (rpSession.responseCode != 200 || rpResourceSession.State == NetworkSessionState.LoadedFromCache || rpResourceSession.CacheFilename == null ||
+                Convert.ToInt32(rpSession.ResponseHeaders["Content-Length"]) != rpSession.ResponseBody.Length)
                 return;
 
             try
