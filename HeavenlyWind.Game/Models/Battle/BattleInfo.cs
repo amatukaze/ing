@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
@@ -30,6 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public BattleResult Result { get; } = new BattleResult();
 
         public bool IsSupportFleetReady { get; private set; }
+        public bool IsLandBaseAerialSupportReady { get; }
 
         static BattleInfo()
         {
@@ -85,6 +87,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (rpData.NodeEventType != SortieEventType.BossBattle ? 15 : 30));
 
                 IsSupportFleetReady = rSupportFleets != null;
+            }
+
+            if (rSortie.LandBaseAerialSupportRequests != null)
+            {
+                var rNodeUniqueID = MapService.Instance.GetNodeUniqueID(rSortie.Map.ID, rpData.Node);
+                if (rNodeUniqueID.HasValue && rSortie.LandBaseAerialSupportRequests.Any(r => r == rNodeUniqueID.Value))
+                    IsLandBaseAerialSupportReady = true;
             }
         }
         internal BattleInfo(Fleet rpParticipantFleet)

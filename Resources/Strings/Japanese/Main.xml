@@ -172,6 +172,7 @@
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能動分岐</String>
   <String Key="Sortie_SupportFleet_Ready">支援艦隊待機中</String>
+  <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空隊は空襲を準備中</String>
   <String Key="Sortie_EnemyEncounters">遭遇できる敵艦隊</String>
 
   <String Key="AbyssalShip_Class_Normal" />

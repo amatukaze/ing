@@ -39,6 +39,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        internal int[] LandBaseAerialSupportRequests { get; set; }
+
         static SortieInfo()
         {
             SessionService.Instance.Subscribe("api_port/port", _ => Current = null);

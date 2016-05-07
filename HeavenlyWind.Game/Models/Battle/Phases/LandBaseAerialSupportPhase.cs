@@ -13,9 +13,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             if (RawData == null)
                 return;
 
+            var rInfo = Stage.Owner.AerialCombat;
             foreach (var rRawData in RawData)
+            {
+                ProcessStage1(rInfo, rRawData);
+                ProcessStage2(rInfo, rRawData);
                 ProcessStage3(rRawData);
+            }
         }
+
+        void ProcessStage1(AerialCombat rpInfo, RawLandBaseAerialSupport rpRawData)
+        {
+        }
+        void ProcessStage2(AerialCombat rpInfo, RawLandBaseAerialSupport rpRawData)
+        {
+        }
+
         void ProcessStage3(RawLandBaseAerialSupport rpRawData)
         {
             var rStage3 = rpRawData.Stage3;

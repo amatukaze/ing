@@ -172,6 +172,7 @@
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
   <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>
   <String Key="Sortie_SupportFleet_Ready">Support Fleet Ready</String>
+  <String Key="Sortie_LandBaseAerialSupport_Ready">Land-base Aerial Support Ready</String>
   <String Key="Sortie_EnemyEncounters">Enemy Encounters</String>
 
   <String Key="AbyssalShip_Class_Normal" />

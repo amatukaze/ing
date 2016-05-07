@@ -279,6 +279,7 @@
     <Compile Include="Parsers\Root\GetMember\MapInformationParser.cs" />
     <Compile Include="Parsers\Root\GetMember\QuestListParser.cs" />
     <Compile Include="Parsers\Root\GetMember\RequiredInfoParser.cs" />
+    <Compile Include="Parsers\Root\Map\LandBaseAerialSupportDesignationParser.cs" />
     <Compile Include="Parsers\Root\Map\ExplorationParser.cs" />
     <Compile Include="Parsers\Root\Map\StartSortieParser.cs" />
     <Compile Include="Parsers\Root\Member\PracticeOpponentsParser.cs" />
