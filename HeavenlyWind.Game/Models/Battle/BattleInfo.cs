@@ -60,7 +60,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             };
             SessionService.Instance.Subscribe(rSecondStages, r => Current?.ProcessSecondStage(r));
         }
-        internal BattleInfo(BattleType rpBattleType, bool rpIsBossBattle)
+        internal BattleInfo(RawMapExploration rpData)
         {
             Current = this;
 
@@ -77,15 +77,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             CurrentStage = new FakeStage(this);
             OnPropertyChanged(nameof(CurrentStage));
 
-            if (rpBattleType == BattleType.Normal)
+            if ((BattleType)rpData.NodeEventSubType == BattleType.Normal)
             {
                 var rSupportFleets = KanColleGame.Current.Port.Fleets.Table.Values
                     .Where(r => r.ExpeditionStatus.Expedition != null && !r.ExpeditionStatus.Expedition.CanReturn)
                     .Select(r => r.ExpeditionStatus.Expedition)
-                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (!rpIsBossBattle ? 15 : 30));
+                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (rpData.NodeEventType != SortieEventType.BossBattle ? 15 : 30));
 
                 IsSupportFleetReady = rSupportFleets != null;
-                OnPropertyChanged(nameof(IsSupportFleetReady));
             }
         }
         internal BattleInfo(Fleet rpParticipantFleet)
@@ -130,14 +129,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Result.Update(First, Second);
 
             IsInitialized = true;
-            IsSupportFleetReady = false;
 
             CurrentStage = First;
             OnPropertyChanged(nameof(First));
             OnPropertyChanged(nameof(CurrentStage));
             OnPropertyChanged(nameof(AerialCombat));
             OnPropertyChanged(nameof(IsInitialized));
-            OnPropertyChanged(nameof(IsSupportFleetReady));
         }
         void SetEnemy(RawBattleBase rpData)
         {

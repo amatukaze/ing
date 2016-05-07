@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         internal BattleEvent(MapInfo rpMap, RawMapExploration rpData, string rpNodeWikiID) : base(rpData)
         {
-            Battle = new BattleInfo((BattleType)rpData.NodeEventSubType, rpData.NodeEventType == SortieEventType.BossBattle);
+            Battle = new BattleInfo(rpData);
 
             int rNodeID;
             if (rpNodeWikiID.IsNullOrEmpty())

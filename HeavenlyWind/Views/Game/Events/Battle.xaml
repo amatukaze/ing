@@ -65,7 +65,7 @@
                                     <ItemsControl ItemsSource="{Binding Participants.FriendEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="4" />
                                     <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendEscort}" Grid.Column="6" />
 
-                                    <TextBlock Text="{rb:StringResource Main.Sortie_SupportFleet_Ready}" FontWeight="Bold" Visibility="{Binding IsSupportFleetReady, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0, 4" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="7" />
+                                    <TextBlock Text="{rb:StringResource Main.Sortie_SupportFleet_Ready}" FontWeight="Bold" Visibility="{Binding IsSupportFleetReady, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0, 4, 0, 0" HorizontalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="7" />
                                 </Grid>
 
                                 <rvgb:EnemyEncounters Margin="0, 8, 0, 0" />
