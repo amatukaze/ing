@@ -16,6 +16,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
         [JsonProperty("api_formation")]
         public int[] FormationAndEngagementForm { get; set; }
 
+        [JsonProperty("api_air_base_attack")]
+        public RawLandBaseAerialSupport[] LandBaseAerialSupport { get; set; }
+
         //[JsonProperty("api_stage_flag")]
         [JsonProperty("api_kouku")]
         public RawAerialCombatPhase AerialCombat { get; set; }

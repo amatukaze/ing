@@ -194,6 +194,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rFleet in rFleets)
                     rFleet.Update();
             });
+            SessionService.Instance.Subscribe("api_req_air_corps/supply", r =>
+            {
+                var rData = r.GetData<RawAirForceSquadronResupplyResult>();
+
+                Materials.Fuel = rData.Fuel;
+                Materials.Bauxite = rData.Bauxite;
+            });
 
             SessionService.Instance.Subscribe("api_get_member/ndock", r => UpdateRepairDocks(r.GetData<RawRepairDock[]>()));
             SessionService.Instance.Subscribe("api_req_nyukyo/start", r =>
