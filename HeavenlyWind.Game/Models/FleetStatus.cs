@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class FleetStatus : ModelBase
     {
-        static int[] r_CarrierBasedFighterFPBouns = { 0, 0, 2, 5, 9, 14, 14, 22 };
+        static int[] r_FighterFPBouns = { 0, 0, 2, 5, 9, 14, 14, 22 };
         static int[] r_SeaplaneBomberFPBouns = { 0, 0, 1, 1, 1, 3, 3, 6 };
 
         Fleet r_Fleet;
@@ -105,20 +105,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             r_Fleet.Ships.ExceptEvacuated().Sum(rpShip =>
                 rpShip.Slots.Where(r => r.HasEquipment).Sum(rpSlot =>
                 {
-                    if (!rpSlot.Equipment.Info.CanParticipateInFighterCombat)
+                    var rEquipment = rpSlot.Equipment;
+                    var rInfo = rEquipment.Info;
+
+                    if (!rInfo.CanParticipateInFighterCombat)
                         return .0;
                     else
                     {
-                        var rResult = rpSlot.Equipment.Info.AA * Math.Sqrt(rpSlot.PlaneCount);
+                        var rResult = rInfo.AA * Math.Sqrt(rpSlot.PlaneCount);
 
                         if (rpSlot.PlaneCount > 0)
                         {
-                            var rProficiency = rpSlot.Equipment.Proficiency;
+                            var rProficiency = rEquipment.Proficiency;
 
-                            if (rpSlot.Equipment.Info.Type == EquipmentType.CarrierBasedFighter)
-                                rResult += r_CarrierBasedFighterFPBouns[rProficiency];
-                            else if (rpSlot.Equipment.Info.Type == EquipmentType.SeaplaneBomber)
-                                rResult += r_SeaplaneBomberFPBouns[rProficiency];
+                            switch (rInfo.Type)
+                            {
+                                case EquipmentType.CarrierBasedFighter:
+                                case EquipmentType.SeaplaneFighter:
+                                    rResult += r_FighterFPBouns[rProficiency];
+                                    break;
+
+                                case EquipmentType.SeaplaneBomber:
+                                    rResult += r_SeaplaneBomberFPBouns[rProficiency];
+                                    break;
+                            }
 
                             rResult += Math.Sqrt(rpInternalBouns(rProficiency) / 10.0);
                         }

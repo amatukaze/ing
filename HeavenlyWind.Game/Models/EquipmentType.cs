@@ -41,7 +41,8 @@
         //
         CombatRation = 43,
         //
-        SpecialAmphibiousLandingCraft = 46,
+        SeaplaneFighter = 45,
+        SpecialAmphibiousLandingCraft,
         //
     }
 }
