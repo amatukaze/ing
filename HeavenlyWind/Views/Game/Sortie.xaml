@@ -19,6 +19,18 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="NodeID" TargetType="{x:Type Run}">
+            <Setter Property="Text" Value="{Binding WikiID, Mode=OneWay}" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                    <Setter Property="Text" Value="start" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding WikiID}" Value="{x:Null}">
+                    <Setter Property="Text" Value="{Binding ID, Mode=OneWay}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="EventType" TargetType="{x:Type Run}">
             <Setter Property="Text" Value="{rb:EnumToStringResource Node.EventType, Sortie_Event}" />
 
@@ -74,7 +86,7 @@
 
                     <TextBlock VerticalAlignment="Center">
                         <Run Text="{rb:StringResource Main.Sortie_Node, Mode=OneWay}" />:
-                        <Run Text="{Binding Node.ID, Mode=OneWay}" /><Run Text="{Binding Node.WikiID, StringFormat={} ({0}), TargetNullValue={x:Null}, Mode=OneWay}" />
+                        <Run Style="{StaticResource NodeID}" DataContext="{Binding Node}" />
                         <Run Style="{StaticResource EventType}" />
                     </TextBlock>
                 </StackPanel>

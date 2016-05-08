@@ -21,6 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public MapInfo Map { get; }
 
+        public SortieNodeInfo PreviousNode { get; private set; }
         public SortieNodeInfo Node { get; private set; }
 
         public double? DirectionAngle { get; private set; }
@@ -71,11 +72,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal void Explore(RawMapExploration rpData)
         {
+            PreviousNode = Node;
+            if (PreviousNode != null)
+                PreviousNode.Event = null;
+
             DirectionAngle = MapService.Instance.GetAngle(Map.ID, rpData.StartNode ?? Node?.ID ?? 0, rpData.Node);
             OnPropertyChanged(nameof(DirectionAngle));
 
             Node = new SortieNodeInfo(Map, rpData);
             OnPropertyChanged(nameof(Node));
+            OnPropertyChanged(nameof(PreviousNode));
         }
     }
 }
