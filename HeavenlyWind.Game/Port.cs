@@ -28,6 +28,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public QuestManager Quests { get; } = new QuestManager();
 
+        public AirBase AirBase { get; } = new AirBase();
+
         internal Port()
         {
             SessionService.Instance.Subscribe("api_get_member/ship2", r =>
@@ -257,6 +259,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rFleet = Fleets[int.Parse(r.Parameters["api_deck_id"])];
                 rFleet.ExpeditionStatus.Update(r.GetData<RawExpeditionRecalling>().Expedition);
             });
+
+            SessionService.Instance.Subscribe("api_req_air_corps/set_plane", r => Materials.Bauxite = r.GetData<RawAirForceGroupOrganization>().Bauxite);
         }
 
         #region Update
