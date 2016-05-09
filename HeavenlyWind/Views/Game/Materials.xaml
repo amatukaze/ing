@@ -27,6 +27,9 @@
                     <Setter Property="Margin" Value="1, 2" />
                     <Setter Property="TextElement.FontSize" Value="12" />
                 </Style>
+                <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource {x:Type ToolTip}}">
+                    <Setter Property="TextElement.FontSize" Value="14" />
+                </Style>
             </Grid.Resources>
 
             <DockPanel>

@@ -48,7 +48,7 @@
                                         <ColumnDefinition Width="8" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="8" />
-                                        <ColumnDefinition Width="Auto" MinWidth="75" />
+                                        <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="8" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition />
