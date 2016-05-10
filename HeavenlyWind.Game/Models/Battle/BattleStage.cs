@@ -14,6 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         public abstract IList<BattlePhase> Phases { get; }
 
+        public IList<BattleParticipantSnapshot> Friend { get; protected set; }
         public IList<BattleParticipantSnapshot> FriendMain { get; protected set; }
         public IList<BattleParticipantSnapshot> FriendEscort { get; protected set; }
 
@@ -53,6 +54,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 FriendAndEnemy = Enumerable.Concat(FriendAndEnemy, FriendEscort).ToArray();
             }
 
+            if (FriendEscort == null)
+                Friend = FriendMain;
+            else
+                Friend = FriendMain.Concat(FriendEscort).ToList().AsReadOnly();
+
             foreach (var rPhase in Phases)
                 rPhase.Process();
 
@@ -60,11 +66,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         }
         internal void ProcessMVP()
         {
-            foreach (var rSnapshot in FriendMain)
+            foreach (var rSnapshot in Friend)
                 ((FriendShip)rSnapshot.Participant).IsMVP = false;
-            if (FriendEscort != null)
-                foreach (var rSnapshot in FriendEscort)
-                    ((FriendShip)rSnapshot.Participant).IsMVP = false;
 
             var rMaxDamage = FriendMain.Max(r => r.DamageGivenToOpponent);
             ((FriendShip)FriendMain.First(r => r.DamageGivenToOpponent == rMaxDamage).Participant).IsMVP = true;
