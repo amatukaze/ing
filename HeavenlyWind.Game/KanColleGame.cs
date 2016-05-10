@@ -68,6 +68,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rBattle = BattleInfo.Current;
                 if (rBattle.CurrentStage.Enemy[0].State == BattleParticipantState.Sunk)
                     rSortieMap.HP = rSortieMap.HP - 1;
+
+                rSortieMap.UpdateGauge();
             });
             SessionService.Instance.Subscribe("api_req_map/next", r =>
             {
@@ -76,6 +78,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     return;
 
                 rSortieMap.HP = rSortieMap.HP - 1;
+
+                rSortieMap.UpdateGauge();
             });
         }
 

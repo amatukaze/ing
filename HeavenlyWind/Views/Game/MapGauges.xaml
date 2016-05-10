@@ -20,7 +20,7 @@
         </Style>
 
         <DataTemplate DataType="{x:Type rgm:MapInfo}">
-            <Border Height="30">
+            <Border Name="Border" Height="30">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="Map" />
@@ -52,6 +52,10 @@
             </Border>
 
             <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding HasGauge}" Value="False">
+                    <Setter TargetName="Border" Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+
                 <DataTrigger Binding="{Binding TransportEscortOnly}" Value="True">
                     <Setter TargetName="GaugeType" Property="Text" Value="{rb:StringResource Main.SortieOverview_MapGauges_Type_TP_Only, StringFormat=({0})}" />
                 </DataTrigger>
