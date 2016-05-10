@@ -61,7 +61,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             {
                 Ship rShip;
                 if (Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out rShip))
+                {
                     rShip.UpdateEquipmentIDs(r.GetData<RawEquipmentIDs>().EquipmentIDs);
+                    rShip.OwnerFleet?.Update();
+                }
             });
 
             SessionService.Instance.Subscribe("api_req_kaisou/powerup", r =>
