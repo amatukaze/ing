@@ -29,7 +29,7 @@
                         <TextBlock Text="{Binding Source.Name}" />
 
                         <StackPanel Orientation="Horizontal" Grid.Row="2">
-                            <TextBlock Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" />
+                            <TextBlock Name="Option" Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" />
 
                             <TextBlock Margin="4, 0, 0, 0">
                                 <Run Text="{rb:StringResource Main.AirBase_Group_CombatRadius}" />:
@@ -76,6 +76,19 @@
                 <DataTemplate.Triggers>
                     <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
                         <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding Source.Option}" Value="Sortie">
+                        <Setter TargetName="Option" Property="Foreground" Value="Red" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Source.Option}" Value="AirDefense">
+                        <Setter TargetName="Option" Property="Foreground" Value="Orange" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Source.Option}" Value="Retreat">
+                        <Setter TargetName="Option" Property="Foreground" Value="Gray" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Source.Option}" Value="Rest">
+                        <Setter TargetName="Option" Property="Foreground" Value="Yellow" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
