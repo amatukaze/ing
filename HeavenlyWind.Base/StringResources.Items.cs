@@ -138,6 +138,13 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Ship_ToolTip_AttackPower_ASW => GetString(nameof(Ship_ToolTip_AttackPower_ASW));
         public string Ship_ToolTip_AttackPower_NightBattle => GetString(nameof(Ship_ToolTip_AttackPower_NightBattle));
 
+        public string AirBase_Group_Option_Standby => GetString(nameof(AirBase_Group_Option_Standby));
+        public string AirBase_Group_Option_Sortie => GetString(nameof(AirBase_Group_Option_Sortie));
+        public string AirBase_Group_Option_AirDefense => GetString(nameof(AirBase_Group_Option_AirDefense));
+        public string AirBase_Group_Option_Retreat => GetString(nameof(AirBase_Group_Option_Retreat));
+        public string AirBase_Group_Option_Rest => GetString(nameof(AirBase_Group_Option_Rest));
+        public string AirBase_Group_CombatRadius => GetString(nameof(AirBase_Group_CombatRadius));
+
         public string Material_Fuel => GetString(nameof(Material_Fuel));
         public string Material_Bullet => GetString(nameof(Material_Bullet));
         public string Material_Steel => GetString(nameof(Material_Steel));

@@ -158,6 +158,8 @@
     <Compile Include="Services\TaskbarProgressService.cs" />
     <Compile Include="Services\UpdateService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
+    <Compile Include="ViewModels\Game\AirBaseViewModel.cs" />
+    <Compile Include="ViewModels\Game\AirForceGroupViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
     <Compile Include="ViewModels\Game\EventMapOverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\ExpeditionGroupByMapArea.cs" />
@@ -214,6 +216,9 @@
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\AirBaseOverview.xaml.cs">
+      <DependentUpon>AirBaseOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Battle\EnemyEncounters.xaml.cs">
       <DependentUpon>EnemyEncounters.xaml</DependentUpon>
     </Compile>
@@ -262,8 +267,8 @@
     <Compile Include="Views\Game\FleetExpeditionOverview.xaml.cs">
       <DependentUpon>FleetExpeditionOverview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Game\Fleets.xaml.cs">
-      <DependentUpon>Fleets.xaml</DependentUpon>
+    <Compile Include="Views\Game\FleetsAndAirBase.xaml.cs">
+      <DependentUpon>FleetsAndAirBase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\FleetsOverview.xaml.cs">
       <DependentUpon>FleetsOverview.xaml</DependentUpon>
@@ -697,6 +702,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\AirBaseOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\Battle\EnemyEncounters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -761,7 +770,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Game\Fleets.xaml">
+    <Page Include="Views\Game\FleetsAndAirBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -55,7 +55,7 @@
             </StackPanel>
         </Grid>
 
-        <rvg:Fleets Margin="0, 0, 0, 8" Grid.Row="1" Grid.ColumnSpan="3" />
+        <rvg:FleetsAndAirBase Margin="0, 0, 0, 8" Grid.Row="1" Grid.ColumnSpan="3" />
 
         <Border Style="{StaticResource PanelBorderStyle}" Grid.Row="2" Grid.RowSpan="2">
             <rvg:ExecutingQuestsOverview />

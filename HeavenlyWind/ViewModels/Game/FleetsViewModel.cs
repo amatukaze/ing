@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    [ViewInfo(typeof(Fleets))]
+    [ViewInfo(typeof(FleetsAndAirBase))]
     public class FleetsViewModel : TabItemViewModel
     {
         public override string Name
@@ -41,7 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 if (r_SelectedFleet != value)
                 {
                     r_SelectedFleet = value;
-                    r_Parent.Overview.SelectedFleet = value;
+                    r_Parent.Overview.SelectedTab = value;
                     OnPropertyChanged(nameof(SelectedFleet));
                 }
             }

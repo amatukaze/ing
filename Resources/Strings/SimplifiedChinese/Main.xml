@@ -134,6 +134,13 @@
   <String Key="Ship_ToolTip_AttackPower_ASW">対潜</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">夜战</String>
 
+  <String Key="AirBase_Group_Option_Standby">待机</String>
+  <String Key="AirBase_Group_Option_Sortie">出击</String>
+  <String Key="AirBase_Group_Option_AirDefense">防空</String>
+  <String Key="AirBase_Group_Option_Retreat">退避</String>
+  <String Key="AirBase_Group_Option_Rest">休息</String>
+  <String Key="AirBase_Group_CombatRadius">行动半径</String>
+
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弹药</String>
   <String Key="Material_Steel">钢材</String>

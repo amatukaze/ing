@@ -6,6 +6,7 @@ using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
@@ -64,16 +65,21 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 }
             }
         }
-        FleetViewModel r_SelectedFleet;
-        public FleetViewModel SelectedFleet
+
+        public AirBaseViewModel AirBase { get; }
+
+        public IList<ModelBase> RightTabs { get; private set; }
+
+        ModelBase r_SelectedTab;
+        public ModelBase SelectedTab
         {
-            get { return r_SelectedFleet; }
+            get { return r_SelectedTab; }
             internal set
             {
-                if (r_SelectedFleet != value)
+                if (r_SelectedTab != value)
                 {
-                    r_SelectedFleet = value;
-                    OnPropertyChanged(nameof(SelectedFleet));
+                    r_SelectedTab = value;
+                    OnPropertyChanged(nameof(SelectedTab));
                 }
             }
         }
@@ -131,6 +137,22 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             rPortPCEL.Add(nameof(rPort.Equipment), (s, e) => EquipmentCount = rPort.Equipment.Count);
             rPortPCEL.Add(nameof(rPort.RepairDocks), (s, e) => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
             rPortPCEL.Add(nameof(rPort.ConstructionDocks), (s, e) => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
+
+            AirBase = new AirBaseViewModel();
+
+            SessionService.Instance.SubscribeOnce("api_get_member/base_air_corps", delegate
+            {
+                DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() =>
+                {
+                    if (RightTabs == null)
+                    {
+                        RightTabs = new ObservableCollection<ModelBase>();
+                        OnPropertyChanged(nameof(RightTabs));
+                    }
+
+                    RightTabs.Add(AirBase);
+                }));
+            });
 
             SessionService.Instance.Subscribe("api_req_map/next", delegate
             {

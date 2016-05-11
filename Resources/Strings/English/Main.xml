@@ -134,6 +134,13 @@
   <String Key="Ship_ToolTip_AttackPower_ASW">ASW</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">Night</String>
 
+  <String Key="AirBase_Group_Option_Standby">Standby</String>
+  <String Key="AirBase_Group_Option_Sortie">Sortie</String>
+  <String Key="AirBase_Group_Option_AirDefense">Air Defense</String>
+  <String Key="AirBase_Group_Option_Retreat">Retreat</String>
+  <String Key="AirBase_Group_Option_Rest">Rest</String>
+  <String Key="AirBase_Group_CombatRadius">CR</String>
+
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>
   <String Key="Material_Steel">Steel</String>
