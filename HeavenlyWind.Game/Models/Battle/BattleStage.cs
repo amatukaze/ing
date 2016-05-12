@@ -61,6 +61,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             foreach (var rPhase in Phases)
                 rPhase.Process();
+
+            if (!Owner.IsPractice)
+                foreach (var rSnapshot in Friend)
+                {
+                    var rParticipant = (FriendShip)rSnapshot.Participant;
+                    if (rSnapshot.State == BattleParticipantState.HeavilyDamaged && rParticipant.EquipedEquipment.Any(r => r.Info.Type == EquipmentType.DamageControl))
+                        rParticipant.IsDamageControlVisible = true;
+                }
         }
         internal void ProcessMVP()
         {

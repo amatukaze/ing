@@ -14,9 +14,13 @@
     <UserControl.Resources>
         <DataTemplate x:Key="ParticipantTemplate">
             <Border Name="Border" Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Height="30" Grid.IsSharedSizeScope="True">
-                <TextBlock DataContext="{Binding Info}">
-                    <Run Name="Name" Text="{rb:ExtraStringResource Ship, ID, Name}" /><Run Style="{StaticResource AbyssalShipClass}" />
-                </TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock DataContext="{Binding Info}">
+                        <Run Name="Name" Text="{rb:ExtraStringResource Ship, ID, Name}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                    </TextBlock>
+
+                    <rc:EquipmentIcon Type="DamageControl" Width="16" Height="16" Margin="4, 0, 0, 0" Visibility="{Binding IsDamageControlVisible, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                </StackPanel>
             </Border>
 
             <DataTemplate.Triggers>

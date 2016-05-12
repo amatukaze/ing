@@ -12,6 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public int Level => Ship.Level;
         public IList<ShipSlot> Slots => Ship.Slots;
         public ShipSlot ExtraSlot => Ship.ExtraSlot;
+        public IList<Equipment> EquipedEquipment => Ship.EquipedEquipment;
 
         public ShipCombatAbility CombatAbility => Ship.CombatAbility;
 
@@ -23,6 +24,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             {
                 r_IsMVP = value;
                 OnPropertyChanged(nameof(IsMVP));
+            }
+        }
+
+        bool r_IsDamageControlVisible;
+        public bool IsDamageControlVisible
+        {
+            get { return r_IsDamageControlVisible; }
+            internal set
+            {
+                if (r_IsDamageControlVisible != value)
+                {
+                    r_IsDamageControlVisible = value;
+                    OnPropertyChanged(nameof(IsDamageControlVisible));
+                }
             }
         }
 

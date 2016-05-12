@@ -16,6 +16,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         public bool IsInitialized { get; private set; }
 
+        public bool IsPractice { get; }
+
         public BattleParticipants Participants { get; } = new BattleParticipants();
 
         public BattleStage CurrentStage { get; private set; }
@@ -99,6 +101,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         internal BattleInfo(Fleet rpParticipantFleet)
         {
             Current = this;
+
+            IsPractice = true;
 
             Participants.FriendMain = rpParticipantFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
         }
