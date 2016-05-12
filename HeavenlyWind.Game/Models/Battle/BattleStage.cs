@@ -61,8 +61,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             foreach (var rPhase in Phases)
                 rPhase.Process();
-
-            ProcessMVP();
         }
         internal void ProcessMVP()
         {

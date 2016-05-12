@@ -19,7 +19,8 @@
 
         <TextBlock DataContext="{Binding Opponent}">
             <Run Text="{Binding Name, Mode=OneWay}" />
-            <Run Text="{Binding Level, StringFormat=Lv. {0}, Mode=OneWay}" />
+            <Run Text="Lv." />
+            <Run Text="{Binding Level, Mode=OneWay}" />
             [<Run Text="{rb:EnumToStringResource Rank, Overview_Admiral_Rank}" />]
         </TextBlock>
 
@@ -50,11 +51,15 @@
                     <Grid Height="30">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition MinWidth="75" />
+                            <ColumnDefinition Width="4" />
                             <ColumnDefinition Width="Auto" SharedSizeGroup="Level" />
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" />
-                        <TextBlock Text="{Binding Level, StringFormat=Lv. {0}}" Grid.Column="1" />
+                        <TextBlock Grid.Column="2">
+                            <Run Text="Lv." />
+                            <Run Text="{Binding Level, Mode=OneWay}" />
+                        </TextBlock>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
