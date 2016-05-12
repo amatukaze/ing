@@ -198,16 +198,15 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Practice_Opponent_Experience => GetString(nameof(Practice_Opponent_Experience));
 
-        public string Battle_State_Healthy => GetString(nameof(Battle_State_Healthy));
-        public string Battle_State_LightlyDamaged => GetString(nameof(Battle_State_LightlyDamaged));
-        public string Battle_State_ModeratelyDamaged => GetString(nameof(Battle_State_ModeratelyDamaged));
-        public string Battle_State_HeavilyDamaged => GetString(nameof(Battle_State_HeavilyDamaged));
-        public string Battle_State_Sunk => GetString(nameof(Battle_State_Sunk));
-        public string Battle_State_Disordered => GetString(nameof(Battle_State_Disordered));
-        public string Battle_State_Damaged => GetString(nameof(Battle_State_Damaged));
-        public string Battle_State_Destroyed => GetString(nameof(Battle_State_Destroyed));
-        public string Battle_State_Demolished => GetString(nameof(Battle_State_Demolished));
         public string Battle_State_Evacuated => GetString(nameof(Battle_State_Evacuated));
+        public string Battle_State_Ship_LightlyDamaged => GetString(nameof(Battle_State_Ship_LightlyDamaged));
+        public string Battle_State_Ship_ModeratelyDamaged => GetString(nameof(Battle_State_Ship_ModeratelyDamaged));
+        public string Battle_State_Ship_HeavilyDamaged => GetString(nameof(Battle_State_Ship_HeavilyDamaged));
+        public string Battle_State_Ship_Sunk => GetString(nameof(Battle_State_Ship_Sunk));
+        public string Battle_State_LandBase_LightlyDamaged => GetString(nameof(Battle_State_LandBase_LightlyDamaged));
+        public string Battle_State_LandBase_ModeratelyDamaged => GetString(nameof(Battle_State_LandBase_ModeratelyDamaged));
+        public string Battle_State_LandBase_HeavilyDamaged => GetString(nameof(Battle_State_LandBase_HeavilyDamaged));
+        public string Battle_State_LandBase_Sunk => GetString(nameof(Battle_State_LandBase_Sunk));
         public string Battle_Formation_LineAhead => GetString(nameof(Battle_Formation_LineAhead));
         public string Battle_Formation_DoubleLine => GetString(nameof(Battle_Formation_DoubleLine));
         public string Battle_Formation_Diamond => GetString(nameof(Battle_Formation_Diamond));

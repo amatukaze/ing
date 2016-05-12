@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         void Process()
         {
-            var rMapWithGauge = KanColleGame.Current.Maps.Values.Where(r => !r.IsCleared).ToLookup(r => r.IsEventMap);
+            var rMapWithGauge = KanColleGame.Current.Maps.Values.Where(r => r.HasGauge).ToLookup(r => r.IsEventMap);
 
             EventMaps = !rMapWithGauge[true].Any() ? null : rMapWithGauge[true].ToList().AsReadOnly();
             ExtraOperations = rMapWithGauge[false].ToList().AsReadOnly();

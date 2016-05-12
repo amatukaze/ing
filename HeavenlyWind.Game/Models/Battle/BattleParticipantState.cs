@@ -3,17 +3,9 @@
     public enum BattleParticipantState
     {
         Healthy,
-
         LightlyDamaged,
         ModeratelyDamaged,
         HeavilyDamaged,
         Sunk,
-
-        Disordered,
-        Damaged,
-        Destroyed,
-        Demolished,
-
-        Evacuated,
     }
 }

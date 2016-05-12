@@ -194,16 +194,15 @@
 
   <String Key="Practice_Opponent_Experience">演习经验值</String>
 
-  <String Key="Battle_State_Healthy" />
-  <String Key="Battle_State_LightlyDamaged">小破</String>
-  <String Key="Battle_State_ModeratelyDamaged">中破</String>
-  <String Key="Battle_State_HeavilyDamaged">大破</String>
-  <String Key="Battle_State_Sunk">击沉</String>
-  <String Key="Battle_State_Disordered">混乱</String>
-  <String Key="Battle_State_Damaged">损害</String>
-  <String Key="Battle_State_Destroyed">损坏</String>
-  <String Key="Battle_State_Demolished">破坏</String>
   <String Key="Battle_State_Evacuated">退避</String>
+  <String Key="Battle_State_Ship_LightlyDamaged">小破</String>
+  <String Key="Battle_State_Ship_ModeratelyDamaged">中破</String>
+  <String Key="Battle_State_Ship_HeavilyDamaged">大破</String>
+  <String Key="Battle_State_Ship_Sunk">击沉</String>
+  <String Key="Battle_State_LandBase_LightlyDamaged">混乱</String>
+  <String Key="Battle_State_LandBase_ModeratelyDamaged">损害</String>
+  <String Key="Battle_State_LandBase_HeavilyDamaged">损坏</String>
+  <String Key="Battle_State_LandBase_Sunk">破坏</String>
   <String Key="Battle_Formation_LineAhead">单纵阵</String>
   <String Key="Battle_Formation_DoubleLine">复纵阵</String>
   <String Key="Battle_Formation_Diamond">轮形阵</String>

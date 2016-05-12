@@ -15,6 +15,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 var rFriendShip = value as FriendShip;
                 if (rFriendShip != null)
                     IsEvacuated = rFriendShip.Ship.State.HasFlag(ShipState.Evacuated);
+
+                r_PreviousState = GetState(Current);
             }
         }
 
@@ -36,23 +38,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         {
             Maximum = rpMaximum;
             Before = Current = rpCurrent;
-
-            r_PreviousState = GetState(rpCurrent);
         }
 
         BattleParticipantState GetState(int rpHP)
         {
-            if (IsEvacuated)
-                return BattleParticipantState.Evacuated;
-
             var rRatio = rpHP / (double)Maximum;
-
-            if (Participant?.Info?.Speed == ShipSpeed.None)
-                if (rRatio <= 0.0) return BattleParticipantState.Demolished;
-                else if (rRatio <= 0.25) return BattleParticipantState.Destroyed;
-                else if (rRatio <= 0.5) return BattleParticipantState.Damaged;
-                else if (rRatio <= 0.75) return BattleParticipantState.Disordered;
-                else return BattleParticipantState.Healthy;
 
             if (rRatio <= 0.0) return BattleParticipantState.Sunk;
             else if (rRatio <= 0.25) return BattleParticipantState.HeavilyDamaged;
@@ -65,7 +55,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         {
             var rBuilder = new StringBuilder(32);
 
-            rBuilder.Append($"{Participant.Info.TranslatedName} Lv.{Participant.Level}: ");
+            if (Participant != null)
+                rBuilder.Append($"{Participant.Info.TranslatedName} Lv.{Participant.Level}: ");
 
             rBuilder.Append(Before);
             if (Before != Current)

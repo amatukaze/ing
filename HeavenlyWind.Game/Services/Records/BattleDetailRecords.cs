@@ -309,7 +309,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 var rID = (int)rpType * 6 + i;
                 var rState = rpParticipants[i].State;
-                if (rState == BattleParticipantState.HeavilyDamaged || rState == BattleParticipantState.Sunk || rState == BattleParticipantState.Demolished)
+                if (rState == BattleParticipantState.HeavilyDamaged || rState == BattleParticipantState.Sunk)
                     using (var rCommand = Connection.CreateCommand())
                     {
                         rCommand.CommandText = "INSERT INTO battle_detail.participant_heavily_damaged(battle, id) VALUES(@battle_id, @id);";

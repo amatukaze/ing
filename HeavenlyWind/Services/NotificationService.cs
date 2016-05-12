@@ -113,7 +113,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 var rBattle = BattleInfo.Current.CurrentStage;
 
-                if (Preference.Current.Notification.HeavilyDamagedWarning && rBattle.Friend.Any(r => r.State == BattleParticipantState.HeavilyDamaged || r.State == BattleParticipantState.Demolished))
+                if (Preference.Current.Notification.HeavilyDamagedWarning && rBattle.Friend.Any(r => r.State == BattleParticipantState.HeavilyDamaged))
                 {
                     Show(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
                     FlashWindow();

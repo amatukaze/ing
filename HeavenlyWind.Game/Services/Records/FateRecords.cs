@@ -164,7 +164,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             var rBattle = BattleInfo.Current;
             var rCurrentStage = rBattle.CurrentStage;
 
-            var rSunkShips = rCurrentStage.Friend.Where(r => r.State == BattleParticipantState.Damaged || r.State == BattleParticipantState.Demolished).Select(r => ((FriendShip)r.Participant).Ship).Where(r_SunkShips.Add).ToArray();
+            var rSunkShips = rCurrentStage.Friend.Where(r => r.State == BattleParticipantState.Sunk).Select(r => ((FriendShip)r.Participant).Ship).Where(r_SunkShips.Add).ToArray();
             if (rSunkShips.Length == 0)
                 return;
 
