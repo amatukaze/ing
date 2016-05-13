@@ -1,6 +1,8 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Records;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 
@@ -27,6 +29,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public QuestProgressRecords QuestProgress { get; private set; }
         public BattleDetailRecords BattleDetail { get; private set; }
+
+        HashSet<IRecordsGroupProvider> r_CustomRecordsGroupProviders = new HashSet<IRecordsGroupProvider>();
+        HybridDictionary<string, RecordsGroup> r_CustomRecordsGroups = new HybridDictionary<string, RecordsGroup>();
 
         public bool IsConnected { get; private set; }
 
@@ -62,6 +67,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             BattleDetail?.Dispose();
             r_Connection?.Dispose();
 
+            foreach (var rCustomGroup in r_CustomRecordsGroups.Values)
+                rCustomGroup.Dispose();
+
             IsConnected = false;
 
             r_UserID = rpUserID;
@@ -91,6 +99,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Fate = new FateRecords(r_Connection).ConnectAndReturn();
 
                 QuestProgress = new QuestProgressRecords(r_Connection).ConnectAndReturn();
+
+                foreach (var rProvider in r_CustomRecordsGroupProviders)
+                {
+                    var rGroup = rProvider.Create(r_Connection).ConnectAndReturn();
+                    r_CustomRecordsGroups[rGroup.GroupName] = rGroup;
+                }
 
                 rTransaction.Commit();
             }
@@ -135,5 +149,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         }
 
         public SQLiteCommand CreateCommand() => r_Connection.CreateCommand();
+
+        public void RegisterRecordsGroupProvider(IRecordsGroupProvider rpProvider) => r_CustomRecordsGroupProviders.Add(rpProvider);
+
+        public RecordsGroup GetCustomRecordsGroup(string rpName)
+        {
+            RecordsGroup rResult;
+            r_CustomRecordsGroups.TryGetValue(rpName, out rResult);
+            return rResult;
+        }
     }
 }

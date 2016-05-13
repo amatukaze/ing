@@ -341,6 +341,7 @@
     <Compile Include="Services\Records\ExpeditionRecords.cs" />
     <Compile Include="Services\Records\ExperienceRecords.cs" />
     <Compile Include="Services\Records\FateRecords.cs" />
+    <Compile Include="Services\Records\IRecordsGroupProvider.cs" />
     <Compile Include="Services\Records\QuestProgressRecords.cs" />
     <Compile Include="Services\Records\RankingPointBonusRecords.cs" />
     <Compile Include="Services\Records\RecordsGroup.cs" />
