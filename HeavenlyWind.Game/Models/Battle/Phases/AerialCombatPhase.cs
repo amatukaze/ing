@@ -91,6 +91,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                     rParticipant.Current -= rDamages[i];
             }
 
+            if (rEnemyDamages.All(r => r == 0))
+                return;
+
             var rFriendAttackers = RawData.Attackers[0];
             if (rFriendAttackers.Length == 1 && rFriendAttackers[0] != -1)
                 rParticipants[rFriendAttackers[0] - 1].DamageGivenToOpponent += rEnemyDamages.Sum();
@@ -118,6 +121,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
                 var rTotalDamages = rEnemyDamages.Sum();
                 var rTotalFirepowers = rFirepowers.Sum();
+
+                if (rTotalDamages == 0)
+                    return;
 
                 for (var i = 0; i < rFriendAttackers.Length; i++)
                 {
