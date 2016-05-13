@@ -38,7 +38,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             get
             {
-                switch(Icon)
+                switch (Icon)
                 {
                     case EquipmentIconType.CarrierBasedFighter:
                     case EquipmentIconType.CarrierBasedDiveBomber:
@@ -50,15 +50,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     case EquipmentIconType.FlyingBoat:
                         return true;
 
-                    default:return false;
+                    default: return false;
                 }
             }
         }
-        public bool CanParticipateInFighterCombat =>
-            Type == EquipmentType.CarrierBasedFighter ||
-            Type == EquipmentType.CarrierBasedDiveBomber ||
-            Type == EquipmentType.CarrierBasedTorpedoBomber ||
-            Type == EquipmentType.SeaplaneBomber;
+        public bool CanParticipateInFighterCombat
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case EquipmentType.CarrierBasedFighter:
+                    case EquipmentType.CarrierBasedDiveBomber:
+                    case EquipmentType.CarrierBasedTorpedoBomber:
+                    case EquipmentType.SeaplaneBomber:
+                    case EquipmentType.SeaplaneFighter:
+                        return true;
+
+                    default: return false;
+                }
+            }
+        }
 
         #endregion;
 
