@@ -40,14 +40,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             {
                 if (FriendDamageRate == .0)
                     Rank = BattleRank.SS;
-                else if (FriendDamageRate < .1)
+                else if (FriendDamageRate < 10.0)
                     Rank = BattleRank.A;
-                else if (FriendDamageRate < .2)
+                else if (FriendDamageRate < 20.0)
                     Rank = BattleRank.B;
-                else if (FriendDamageRate < .5)
+                else if (FriendDamageRate < 50.0)
                     Rank = BattleRank.C;
-                else
+                else if (FriendDamageRate < 80.0)
                     Rank = BattleRank.D;
+                else
+                    Rank = BattleRank.E;
             }
             else
             {
