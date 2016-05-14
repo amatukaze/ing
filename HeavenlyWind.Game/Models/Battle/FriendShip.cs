@@ -40,6 +40,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 }
             }
         }
+        bool r_IsDamageControlConsumed;
+        public bool IsDamageControlConsumed
+        {
+            get { return r_IsDamageControlConsumed; }
+            internal set
+            {
+                r_IsDamageControlConsumed = value;
+                OnPropertyChanged(nameof(IsDamageControlConsumed));
+            }
+        }
 
         public FriendShip(Ship rpShip)
         {

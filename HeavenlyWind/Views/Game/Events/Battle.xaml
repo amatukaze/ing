@@ -19,7 +19,7 @@
                         <Run Name="Name" Text="{rb:ExtraStringResource Ship, ID, Name}" /><Run Style="{StaticResource AbyssalShipClass}" />
                     </TextBlock>
 
-                    <rc:EquipmentIcon Type="DamageControl" Width="16" Height="16" Margin="4, 0, 0, 0" Visibility="{Binding IsDamageControlVisible, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    <rc:EquipmentIcon x:Name="DamageControl" Type="DamageControl" Width="16" Height="16" Margin="4, 0, 0, 0" Visibility="{Binding IsDamageControlVisible, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </Border>
 
@@ -34,6 +34,10 @@
 
                 <DataTrigger Binding="{rb:HasFlag Ship.State, Evacuated}" Value="True">
                     <Setter TargetName="Border" Property="Opacity" Value=".3" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding IsDamageControlConsumed}" Value="True">
+                    <Setter TargetName="DamageControl" Property="Opacity" Value=".3" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>

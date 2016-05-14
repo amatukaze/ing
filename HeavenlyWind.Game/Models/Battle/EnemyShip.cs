@@ -17,6 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         public ShipCombatAbility CombatAbility => null;
         public bool IsDamageControlVisible => false;
+        public bool IsDamageControlConsumed => false;
 
         public EnemyShip(int rpID, int rpLevel, int[] rpEquipment = null)
         {

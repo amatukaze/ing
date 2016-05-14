@@ -67,7 +67,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 {
                     var rParticipant = (FriendShip)rSnapshot.Participant;
                     if (rSnapshot.State == BattleParticipantState.HeavilyDamaged && rParticipant.EquipedEquipment.Any(r => r.Info.Type == EquipmentType.DamageControl))
+                    {
+                        rParticipant.IsDamageControlConsumed = false;
                         rParticipant.IsDamageControlVisible = true;
+                    }
                 }
         }
         internal void ProcessMVP()
