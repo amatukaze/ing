@@ -302,8 +302,8 @@
   <String Key="PreferenceWindow_VersionInfo">Version</String>
 
   <String Key="ValidationRule_PleaseInputNumber">Please input number</String>
-  <String Key="ValidationRule_NumberLessThanMinimum">Please input number greater than {0}</String>
-  <String Key="ValidationRule_NumberGreaterThanMaximum">Please input number less than {0}</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">Please input number less than {0}</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">Please input number greater than {0}</String>
 
   <String Key="Screenshot_File">Take screenshot to file</String>
   <String Key="Screenshot_Clipboard">Take screenshot to clipboard</String>

@@ -302,8 +302,8 @@
   <String Key="PreferenceWindow_VersionInfo">版本信息</String>
 
   <String Key="ValidationRule_PleaseInputNumber">请输入数字</String>
-  <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
-  <String Key="ValidationRule_NumberGreaterThanMaximum">必须小于等于 {0}</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">必须小于等于 {0}</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">必须大于等于 {0}</String>
 
   <String Key="Screenshot_File">截图到文件</String>
   <String Key="Screenshot_Clipboard">截图到剪贴板</String>

@@ -302,8 +302,8 @@
   <String Key="PreferenceWindow_VersionInfo">バージョン情報</String>
 
   <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
-  <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
-  <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">{0} 以下の数値を入力してください</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以上の数値を入力してください</String>
 
   <String Key="Screenshot_File">ファイルに保存</String>
   <String Key="Screenshot_Clipboard">クリップボードに保存</String>
