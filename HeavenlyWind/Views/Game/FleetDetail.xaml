@@ -86,7 +86,7 @@
                                     <ColumnDefinition SharedSizeGroup="ShipLevel" />
                                     <ColumnDefinition SharedSizeGroup="NextExperience" />
                                     <ColumnDefinition Width="60" />
-                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="30" />
                                     <ColumnDefinition SharedSizeGroup="FuelAndBullet" />
                                     <ColumnDefinition Width="Auto" MinWidth="48" />
                                     <ColumnDefinition />
