@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rbe="clr-namespace:Sakuno.UserInterface.Behaviors;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -13,7 +15,11 @@
     <StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port}" />
-            <TextBox Text="{rb:Preference Network.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0" />
+            <TextBox Text="{rb:Preference Network.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0">
+                <i:Interaction.Behaviors>
+                    <rbe:NumericTextBoxBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
         </StackPanel>
         <CheckBox IsChecked="{rb:Preference Network.EnableForSSL}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_EnableForSSL}" />
@@ -27,7 +33,11 @@
         </CheckBox>
         <StackPanel IsEnabled="{rb:Preference Network.UpstreamProxy.Enabled}" Orientation="Horizontal" Margin="0, 6, 0, 0">
             <TextBox Text="{rb:Preference Network.UpstreamProxy.Host}" Width="120" />
-            <TextBox Text="{rb:Preference Network.UpstreamProxy.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0" />
+            <TextBox Text="{rb:Preference Network.UpstreamProxy.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0">
+                <i:Interaction.Behaviors>
+                    <rbe:NumericTextBoxBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
         </StackPanel>
     </StackPanel>
 </UserControl>
