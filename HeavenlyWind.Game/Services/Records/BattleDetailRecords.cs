@@ -211,7 +211,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 if (rData != null && rData.SupportingFireType != 0)
                 {
                     var rSupportFire = rData.SupportingFire;
-                    var rFleetID = (rSupportFire.Shelling?.FleetID ?? rSupportFire.AerialCombat?.FleetID).Value;
+                    var rFleetID = (rSupportFire.SupportShelling?.FleetID ?? rSupportFire.AerialSupport?.FleetID).Value;
                     ProcessParticipantFleet(rCommandTextBuilder, KanColleGame.Current.Port.Fleets[rFleetID], ParticipantFleetType.SupportFire);
                 }
 

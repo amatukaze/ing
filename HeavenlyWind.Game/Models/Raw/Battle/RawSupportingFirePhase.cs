@@ -5,12 +5,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
     public class RawSupportingFirePhase
     {
         [JsonProperty("api_support_airatack")]
-        public RawsupportAerialCombat AerialCombat { get; set; }
+        public RawAerialSupport AerialSupport  { get; set; }
 
         [JsonProperty("api_support_hourai")]
-        public RawSupportShelling Shelling { get; set; }
+        public RawSupportShelling SupportShelling { get; set; }
 
-        public class RawsupportAerialCombat
+        public class RawAerialSupport
         {
             [JsonProperty("api_deck_id")]
             public int FleetID { get; set; }
