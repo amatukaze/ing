@@ -281,6 +281,7 @@
   <String Key="PreferenceWindow_Notification_Repair">Notify the completion of ship repair</String>
   <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">Warn if advancing with heavily damaged ship</String>
   <String Key="PreferenceWindow_Notification_Sound">Sound</String>
+  <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">Sound (Heavily damaged)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">Slient</String>
   <String Key="PreferenceWindow_Notification_Sound_SystemSound">System Sound</String>
   <String Key="PreferenceWindow_Language">Language</String>

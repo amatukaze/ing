@@ -20,5 +20,10 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         public NotificationSound Sound { get; set; } = NotificationSound.SystemSound;
         [JsonProperty("sound_filename")]
         public string SoundFilename { get; set; }
+
+        [JsonProperty("sound_hd")]
+        public NotificationSound HeavilyDamagedWarningSound { get; set; } = NotificationSound.SystemSound;
+        [JsonProperty("sound_filename_hd")]
+        public string HeavilyDamagedWarningSoundFilename { get; set; }
     }
 }

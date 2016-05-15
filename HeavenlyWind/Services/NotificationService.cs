@@ -115,7 +115,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 if (Preference.Current.Notification.HeavilyDamagedWarning && rBattle.Friend.Any(r => r.State == BattleParticipantState.HeavilyDamaged))
                 {
-                    Show(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
+                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
                     FlashWindow();
                 }
             });
@@ -129,21 +129,21 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
                 {
-                    Show(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
+                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
                     FlashWindow();
                 }
             });
         }
 
-        public void Show(string rpTitle, string rpBody)
+        public void Show(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Current.Notification.Sound, Preference.Current.Notification.SoundFilename);
+        public void ShowHeavilyDamagedWarning(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Current.Notification.HeavilyDamagedWarningSound, Preference.Current.Notification.HeavilyDamagedWarningSoundFilename);
+        void ShowCore(string rpTitle, string rpBody, NotificationSound rpSound, string rpCustomSoundFilename)
         {
-            var rSound = Preference.Current.Notification.Sound;
-
             if (!OS.IsWin8OrLater)
             {
                 r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rpBody, ToolTipIcon.None);
 
-                if (rSound == NotificationSound.SystemSound)
+                if (rpSound == NotificationSound.SystemSound)
                     SystemSounds.Exclamation.Play();
             }
             else
@@ -152,27 +152,27 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     Title = rpTitle,
                     Body = rpBody,
-                    Audio = rSound == NotificationSound.SystemSound ? ToastAudio.Default : ToastAudio.None,
+                    Audio = rpSound == NotificationSound.SystemSound ? ToastAudio.Default : ToastAudio.None,
                 };
 
                 ToastNotificationUtil.Show(rToast);
             }
 
-            if (rSound == NotificationSound.Custom)
-                PlayCustomSound();
+            if (rpSound == NotificationSound.Custom)
+                PlayCustomSound(rpCustomSoundFilename);
         }
-        void PlayCustomSound()
+        void PlayCustomSound(string rpCustomSoundFilename)
         {
-            if (r_CustomSound == null || r_CustomSound.Item1 != Preference.Current.Notification.SoundFilename)
+            if (r_CustomSound == null || r_CustomSound.Item1 != rpCustomSoundFilename)
             {
                 Uri rUri;
-                if (!Uri.TryCreate(Preference.Current.Notification.SoundFilename, UriKind.RelativeOrAbsolute, out rUri))
+                if (!Uri.TryCreate(rpCustomSoundFilename, UriKind.RelativeOrAbsolute, out rUri))
                     return;
 
                 var rMediaPlayer = new MediaPlayer();
                 rMediaPlayer.Open(rUri);
 
-                r_CustomSound = Tuple.Create(Preference.Current.Notification.SoundFilename, rMediaPlayer);
+                r_CustomSound = Tuple.Create(rpCustomSoundFilename, rMediaPlayer);
             }
 
             r_CustomSound.Item2.Stop();
