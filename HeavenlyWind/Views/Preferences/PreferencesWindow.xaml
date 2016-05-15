@@ -33,7 +33,9 @@
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                 <StackPanel Background="{DynamicResource BackgroundBrushKey}" IsItemsHost="True" />
                             </Border>
-                            <ContentPresenter ContentSource="SelectedContent" Grid.Column="2" />
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Column="2">
+                                <ContentPresenter ContentSource="SelectedContent" Margin="2" />
+                            </ScrollViewer>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
