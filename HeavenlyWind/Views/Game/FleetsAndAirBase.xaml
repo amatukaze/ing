@@ -62,8 +62,8 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -77,14 +77,14 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 0, 0, 1" Grid.Column="1" />
-        <ListBox Style="{StaticResource TabStyle}" ItemsSource="{Binding RightTabs}" SelectedValue="{Binding SelectedTab}" Grid.Column="2">
+        <ListBox Style="{StaticResource TabStyle}" ItemsSource="{Binding RightTabs}" SelectedValue="{Binding SelectedTab}" Grid.Column="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" Margin="8, 0" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 0, 0, 1" Grid.Column="2" />
 
         <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="1, 0, 1, 1" Grid.Row="1" Grid.ColumnSpan="3">
             <ContentPresenter Content="{Binding SelectedTab}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" />
