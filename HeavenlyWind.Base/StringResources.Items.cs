@@ -279,6 +279,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Cache_Mode_FullTrust => GetString(nameof(PreferenceWindow_Cache_Mode_FullTrust));
         public string PreferenceWindow_Cache_Mode_VerifyVersion => GetString(nameof(PreferenceWindow_Cache_Mode_VerifyVersion));
         public string PreferenceWindow_Cache_Path => GetString(nameof(PreferenceWindow_Cache_Path));
+        public string PreferenceWindow_Behaviour => GetString(nameof(PreferenceWindow_Behaviour));
+        public string PreferenceWindow_Behaviour_FatigueCeiling => GetString(nameof(PreferenceWindow_Behaviour_FatigueCeiling));
         public string PreferenceWindow_Notification => GetString(nameof(PreferenceWindow_Notification));
         public string PreferenceWindow_Notification_Construction => GetString(nameof(PreferenceWindow_Notification_Construction));
         public string PreferenceWindow_Notification_Expedition => GetString(nameof(PreferenceWindow_Notification_Expedition));

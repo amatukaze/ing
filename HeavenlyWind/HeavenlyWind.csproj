@@ -327,6 +327,9 @@
     <Compile Include="Views\Overviews\ShipOverviewWindow.xaml.cs">
       <DependentUpon>ShipOverviewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Preferences\Behaviour.xaml.cs">
+      <DependentUpon>Behaviour.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Preferences\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
     </Compile>
@@ -849,6 +852,10 @@
     <Page Include="Views\Overviews\ShipOverviewWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Preferences\Behaviour.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Browser.xaml">
       <SubType>Designer</SubType>

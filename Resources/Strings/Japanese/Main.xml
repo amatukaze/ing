@@ -275,6 +275,8 @@
   <String Key="PreferenceWindow_Cache_Mode_FullTrust">ファイルの検証をしない</String>
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">ファイルの検証をする</String>
   <String Key="PreferenceWindow_Cache_Path">パス</String>
+  <String Key="PreferenceWindow_Behaviour">動作</String>
+  <String Key="PreferenceWindow_Behaviour_FatigueCeiling">疲労度上限</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">建造完了を通知する</String>
   <String Key="PreferenceWindow_Notification_Expedition">遠征帰投を通知する</String>

@@ -275,6 +275,8 @@
   <String Key="PreferenceWindow_Cache_Mode_FullTrust">完全信任（不校验文件版本）</String>
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">校验文件版本</String>
   <String Key="PreferenceWindow_Cache_Path">路径</String>
+  <String Key="PreferenceWindow_Behaviour">行为</String>
+  <String Key="PreferenceWindow_Behaviour_FatigueCeiling">疲劳上限</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">在建造完成时通知</String>
   <String Key="PreferenceWindow_Notification_Expedition">在远征归来时通知</String>

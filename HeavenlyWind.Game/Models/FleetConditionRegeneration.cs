@@ -21,8 +21,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 return;
             }
 
+            var rCeiling = Preference.Current.Game.FatigueCeiling;
+
             var rLowestCondition = r_Fleet.Ships.Min(r => r.Condition);
-            if (rLowestCondition >= 49)
+            if (rLowestCondition >= rCeiling)
             {
                 TimeToComplete = null;
                 return;
@@ -30,7 +32,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (r_LowestCondition != rLowestCondition)
             {
-                TimeToComplete = DateTimeOffset.Now.AddMinutes((int)Math.Ceiling((49 - rLowestCondition) / 3.0) * 3);
+                TimeToComplete = DateTimeOffset.Now.AddMinutes((int)Math.Ceiling((rCeiling - rLowestCondition) / 3.0) * 3);
                 r_LowestCondition = rLowestCondition;
             }
         }

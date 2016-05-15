@@ -275,6 +275,8 @@
   <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust (No verification)</String>
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">Verify Version</String>
   <String Key="PreferenceWindow_Cache_Path">Path</String>
+  <String Key="PreferenceWindow_Behaviour">Behaviour</String>
+  <String Key="PreferenceWindow_Behaviour_FatigueCeiling">Max fatigue value</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Notification_Construction">Notify the completion of construction</String>
   <String Key="PreferenceWindow_Notification_Expedition">Notify the return from an expedition</String>
