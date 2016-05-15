@@ -245,7 +245,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (RawData.ExtraEquipment != 0 && r_ExtraEquipmentID != RawData.ExtraEquipment)
             {
                 r_ExtraEquipmentID = RawData.ExtraEquipment;
-                ExtraSlot = new ShipSlot(r_ExtraEquipmentID != -1 ? KanColleGame.Current.Port.Equipment[RawData.ExtraEquipment] : Models.Equipment.Dummy, 0, 0);
+                ExtraSlot = new ShipSlot(r_ExtraEquipmentID != -1 ? KanColleGame.Current.Port.Equipment[RawData.ExtraEquipment] : Equipment.Dummy, 0, 0);
 
                 rUpdateList = true;
             }
@@ -279,6 +279,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             RawData.Equipment = rpEquipmentIDs;
             UpdateSlots();
+        }
+
+        internal void InstallReinforcementExpansion()
+        {
+            r_ExtraEquipmentID = -1;
+            ExtraSlot = new ShipSlot(Equipment.Dummy, 0, 0);
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Info.Name}\", Type = \"{Info.Type.Name}\", Level = {Level}";

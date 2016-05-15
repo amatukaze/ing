@@ -67,6 +67,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             });
 
+            SessionService.Instance.Subscribe("api_req_kaisou/open_exslot", r =>
+            {
+                Ship rShip;
+                if (Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out rShip))
+                    rShip.InstallReinforcementExpansion();
+            });
+
             SessionService.Instance.Subscribe("api_req_kaisou/powerup", r =>
             {
                 var rShipID = int.Parse(r.Parameters["api_id"]);
