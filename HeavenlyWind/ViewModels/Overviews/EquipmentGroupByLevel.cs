@@ -1,4 +1,5 @@
 ﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
     public class EquipmentGroupByLevel : ModelBase
     {
+        EquipmentGroupByMasterID r_Owner;
+
         public EquipmentGroupingKey Key { get; }
 
         ListDictionary<int, EquipmentGroupByFleet> r_Fleets;
@@ -15,12 +18,20 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         public int Count { get; set; }
         public int RemainingCount { get; set; }
 
-        internal EquipmentGroupByLevel(EquipmentGroupingKey rpKey, IEnumerable<Equipment> rpEquipment)
+        internal EquipmentGroupByLevel(EquipmentGroupByMasterID rpOwner, EquipmentGroupingKey rpKey, IEnumerable<Equipment> rpEquipment)
         {
+            r_Owner = rpOwner;
+
             Key = rpKey;
             r_Fleets = new ListDictionary<int, EquipmentGroupByFleet>();
 
-            Count = RemainingCount = rpEquipment.Count();
+            Count = rpEquipment.Count();
+
+            var rUnequipedEquipment = KanColleGame.Current.Port.UnequippedEquipment[(int)r_Owner.Info.Type];
+            if (rUnequipedEquipment == null)
+                RemainingCount = 0;
+            else
+                RemainingCount = rUnequipedEquipment.Count(r => r.Info == r_Owner.Info && r.Level == Key.Level && r.Proficiency == Key.Proficiency);
         }
 
         internal void Update(Ship rpShip)
@@ -32,8 +43,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                 r_Fleets.Add(rFleetID, rFleet = new EquipmentGroupByFleet(rFleetID));
 
             rFleet.Update(rpShip);
-
-            RemainingCount--;
         }
     }
 }
