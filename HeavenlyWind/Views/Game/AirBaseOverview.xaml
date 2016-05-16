@@ -74,8 +74,8 @@
                                                     <rc:EquipmentIcon Type="{Binding Plane.Info.Icon}" VerticalAlignment="Center" />
                                                     <StackPanel Orientation="Horizontal" Margin="0, 4" Grid.Column="2">
                                                         <TextBlock Text="{rb:ExtraStringResource Equipment, Plane.Info.ID, Plane.Info.Name}" />
-                                                        <TextBlock Name="Proficiency" Text="{Binding Plane.ProficiencyText}" Margin="4, 0, 0, 0" />
-                                                        <TextBlock Name="Level" Text="{Binding Plane.LevelText}" Margin="4, 0, 0, 0" />
+                                                        <rc:EquipmentProficiency Proficiency="{Binding Plane.Proficiency}" Margin="4, 0, 0, 0" />
+                                                        <rc:EquipmentLevel Level="{Binding Plane.Level}" Margin="4, 0, 0, 0" />
                                                     </StackPanel>
 
                                                     <TextBlock HorizontalAlignment="Right" Grid.Column="4">
@@ -86,13 +86,6 @@
                                                 <DataTemplate.Triggers>
                                                     <DataTrigger Binding="{Binding State}" Value="Empty">
                                                         <Setter TargetName="Grid" Property="Visibility" Value="Hidden" />
-                                                    </DataTrigger>
-
-                                                    <DataTrigger Binding="{Binding Plane.Level}" Value="0">
-                                                        <Setter TargetName="Level" Property="Visibility" Value="Collapsed" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Plane.Proficiency}" Value="0">
-                                                        <Setter TargetName="Proficiency" Property="Visibility" Value="Collapsed" />
                                                     </DataTrigger>
 
                                                     <DataTrigger Binding="{Binding NeedResupply}" Value="True">

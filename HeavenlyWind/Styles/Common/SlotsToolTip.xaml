@@ -19,8 +19,8 @@
             <rc:EquipmentIcon Type="{Binding Equipment.Info.Icon}" VerticalAlignment="Center" />
             <StackPanel Orientation="Horizontal" Margin="0, 4" Grid.Column="2">
                 <TextBlock Text="{rb:ExtraStringResource Equipment, Equipment.Info.ID, Equipment.Info.Name}" />
-                <TextBlock Name="Proficiency" Text="{Binding Equipment.ProficiencyText}" Margin="4, 0, 0, 0" />
-                <TextBlock Name="Level" Text="{Binding Equipment.LevelText}" Margin="4, 0, 0, 0" />
+                <rc:EquipmentProficiency Proficiency="{Binding Equipment.Proficiency}" Margin="4, 0, 0, 0" />
+                <rc:EquipmentLevel Level="{Binding Equipment.Level}" Margin="4, 0, 0, 0" />
             </StackPanel>
 
             <TextBlock Name="PlaneCount" HorizontalAlignment="Right" Grid.Column="4">
@@ -29,13 +29,6 @@
         </Grid>
 
         <DataTemplate.Triggers>
-            <DataTrigger Binding="{Binding Equipment.Level}" Value="0">
-                <Setter TargetName="Level" Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-            <DataTrigger Binding="{Binding Equipment.Proficiency}" Value="0">
-                <Setter TargetName="Proficiency" Property="Visibility" Value="Collapsed" />
-            </DataTrigger>
-
             <DataTrigger Binding="{Binding Equipment.Info.IsPlane}" Value="False">
                 <Setter TargetName="PlaneCount" Property="Visibility" Value="Collapsed" />
             </DataTrigger>

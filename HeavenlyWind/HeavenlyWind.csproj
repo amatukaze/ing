@@ -115,6 +115,8 @@
     <Compile Include="Controls\ColorIndicator.cs" />
     <Compile Include="Controls\Data.cs" />
     <Compile Include="Controls\EquipmentIcon.cs" />
+    <Compile Include="Controls\EquipmentLevel.cs" />
+    <Compile Include="Controls\EquipmentProficiency.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\LoSFormulas.cs" />
     <Compile Include="Controls\MaterialIcon.cs" />
@@ -658,6 +660,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\AppIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\EquipmentLevel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\EquipmentProficiency.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
