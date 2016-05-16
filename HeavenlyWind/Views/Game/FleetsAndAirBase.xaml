@@ -73,14 +73,14 @@
         <ListBox Style="{StaticResource TabStyle}" ItemsSource="{Binding Fleets}" SelectedValue="{Binding SelectedTab}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Source.ID, StringFormat=/{0}}" Margin="8, 0" />
+                    <TextBlock Text="{Binding Source.ID, StringFormat=/{0}}" Margin="16, 0" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <ListBox Style="{StaticResource TabStyle}" ItemsSource="{Binding RightTabs}" SelectedValue="{Binding SelectedTab}" Grid.Column="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" Margin="8, 0" />
+                    <TextBlock Text="{Binding Name}" Margin="16, 0" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
