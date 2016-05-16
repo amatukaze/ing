@@ -29,11 +29,13 @@
                                     <ControlTemplate.Triggers>
                                         <DataTrigger Binding="{rb:HasFlag Source.State, Unsupplied}" Value="True">
                                             <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleets_Unsupplied}" />
+                                            <Setter TargetName="Text" Property="Foreground" Value="Yellow" />
                                             <Setter TargetName="Border" Property="DataContext" Value="{Binding Source.Resupply}" />
                                             <Setter TargetName="Border" Property="ToolTip" Value="{StaticResource UnsuppliedToolTip}" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{rb:HasFlag Source.State, HeavilyDamaged}" Value="True">
                                             <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleets_HeavilyDamaged}" />
+                                            <Setter TargetName="Text" Property="Foreground" Value="Red" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{rb:HasFlag Source.State, Sortie}" Value="True">
                                             <Setter TargetName="Text" Property="Text" Value="{rb:StringResource Main.Overview_Fleets_Sortie}" />
