@@ -8,53 +8,39 @@
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <ItemsControl ItemsSource="{Binding Groups}" Margin="4">
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <StackPanel Orientation="Horizontal" />
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
+    <ItemsControl ItemsSource="{Binding Groups}" Margin="4" Grid.IsSharedSizeScope="True">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="1, 0, 0, 0" Padding="4, 0">
+                <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Padding="0, 4">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="4" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="4" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition SharedSizeGroup="Option" />
+                            <ColumnDefinition SharedSizeGroup="Squadrons" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="{Binding Source.Name}" />
+                        <TextBlock Text="{Binding Source.ID}" />
+                        <TextBlock Name="Option" Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" Margin="6, 0" Grid.Column="1" />
 
-                        <StackPanel Orientation="Horizontal" Grid.Row="2">
-                            <TextBlock Name="Option" Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" />
-
-                            <TextBlock Margin="4, 0, 0, 0">
-                                <Run Text="{rb:StringResource Main.AirBase_Group_CombatRadius}" />:
-                                <Run Text="{Binding Source.CombatRadius, Mode=OneWay}" />
-                            </TextBlock>
-                        </StackPanel>
-
-                        <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}" Grid.Row="4" Grid.IsSharedSizeScope="True">
+                        <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}" Margin="3, 0, 0, 0" Grid.Column="2">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Name="Border">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition SharedSizeGroup="Name" />
-                                                <ColumnDefinition />
+                                                <ColumnDefinition SharedSizeGroup="PlaneCount" MinWidth="20" />
                                             </Grid.ColumnDefinitions>
 
                                             <rc:EquipmentIcon Type="{Binding Plane.Info.Icon}" />
-                                            <TextBlock Margin="4, 2" Grid.Column="1">
-                                                <Run Text="{rb:ExtraStringResource Equipment, Plane.Info.ID, Plane.Info.Name}" />
-                                                <Run Text="{Binding Plane.ProficiencyText, Mode=OneWay}" />
-                                            </TextBlock>
 
-                                            <TextBlock Name="Count" Text="{Binding Count}" TextAlignment="Center" Margin="3, 0, 0, 0" Grid.Column="2" />
+                                            <TextBlock Name="Count" Text="{Binding Count}" TextAlignment="Center" Margin="3, 0" Grid.Column="1" />
                                         </Grid>
                                     </Border>
 
@@ -70,6 +56,54 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
+                        <Rectangle Fill="Transparent" Margin="3, 0, 0, 0" Grid.Column="2">
+                            <Rectangle.ToolTip>
+                                <ToolTip>
+                                    <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Name="Grid">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="4" />
+                                                        <ColumnDefinition SharedSizeGroup="ToolTipName" />
+                                                        <ColumnDefinition Width="4" />
+                                                        <ColumnDefinition SharedSizeGroup="ToolTipCount" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <rc:EquipmentIcon Type="{Binding Plane.Info.Icon}" VerticalAlignment="Center" />
+                                                    <StackPanel Orientation="Horizontal" Margin="0, 4" Grid.Column="2">
+                                                        <TextBlock Text="{rb:ExtraStringResource Equipment, Plane.Info.ID, Plane.Info.Name}" />
+                                                        <TextBlock Name="Proficiency" Text="{Binding Plane.ProficiencyText}" Margin="4, 0, 0, 0" />
+                                                        <TextBlock Name="Level" Text="{Binding Plane.LevelText}" Margin="4, 0, 0, 0" />
+                                                    </StackPanel>
+
+                                                    <TextBlock HorizontalAlignment="Right" Grid.Column="4">
+                                                        [<Run Name="Count" Text="{Binding Count, Mode=OneWay}" />/<Run Text="{Binding MaxCount, Mode=OneWay}" />]
+                                                    </TextBlock>
+                                                </Grid>
+
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding State}" Value="Empty">
+                                                        <Setter TargetName="Grid" Property="Visibility" Value="Hidden" />
+                                                    </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding Plane.Level}" Value="0">
+                                                        <Setter TargetName="Level" Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Plane.Proficiency}" Value="0">
+                                                        <Setter TargetName="Proficiency" Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding NeedResupply}" Value="True">
+                                                        <Setter TargetName="Count" Property="Foreground" Value="Red" />
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl></ToolTip>
+                            </Rectangle.ToolTip>
+                        </Rectangle>
                     </Grid>
                 </Border>
 
