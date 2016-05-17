@@ -137,6 +137,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             SessionService.Instance.Subscribe("api_req_kousyou/createitem", r =>
             {
                 var rData = r.GetData<RawEquipmentDevelopment>();
+                if (!rData.Success)
+                    return;
+
                 UnequippedEquipment[rData.EquipmentType] = r.Json["api_data"]["api_unsetslot"].Select(rpID => Equipment[(int)rpID]).ToArray();
             });
 
