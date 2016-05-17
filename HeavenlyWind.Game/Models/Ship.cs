@@ -221,33 +221,46 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             var rUpdateList = false;
 
+            if (Slots == null || Slots.Count != RawData.SlotCount)
+                Slots = Enumerable.Range(0, RawData.SlotCount).Select((r, i) => new ShipSlot(null, RawData.PlaneCountInSlot[i], Info.PlaneCountInSlot[i])).ToList().AsReadOnly();
+
             if (r_EquipmentIDs == null || !r_EquipmentIDs.SequenceEqual(RawData.Equipment))
             {
                 r_EquipmentIDs = RawData.Equipment;
-                Slots = RawData.Equipment.Take(RawData.EquipmentCount)
-                    .Zip(RawData.PlaneCountInSlot.Zip(Info.PlaneCountInSlot, (rpCount, rpMaxCount) => new { Count = rpCount, MaxCount = rpMaxCount }),
-                        (rpID, rpPlane) =>
-                        {
-                            Equipment rEquipment;
-                            if (rpID == -1)
-                                rEquipment = Equipment.Dummy;
-                            else if (!KanColleGame.Current.Port.Equipment.TryGetValue(rpID, out rEquipment))
-                                KanColleGame.Current.Port.Equipment.Add(rEquipment = new Equipment(new RawEquipment() { ID = rpID, EquipmentID = -1 }));
 
-                            return new ShipSlot(rEquipment, rpPlane.MaxCount, rpPlane.Count);
-                        }).ToArray().AsReadOnly();
+                for (var i = 0; i < Slots.Count; i++)
+                {
+                    Equipment rEquipment;
+                    var rID = r_EquipmentIDs[i];
+                    if (rID == -1)
+                        rEquipment = Equipment.Dummy;
+                    else if (!KanColleGame.Current.Port.Equipment.TryGetValue(rID, out rEquipment))
+                    {
+                        rEquipment = new Equipment(new RawEquipment() { ID = rID, EquipmentID = -1 });
+                        KanColleGame.Current.Port.Equipment.Add(rEquipment);
+                    }
+
+                    Slots[i].Equipment = rEquipment;
+                }
 
                 rUpdateList = true;
             }
+
             for (var i = 0; i < Slots.Count; i++)
                 Slots[i].PlaneCount = RawData.PlaneCountInSlot[i];
 
-            if (RawData.ExtraEquipment != 0 && r_ExtraEquipmentID != RawData.ExtraEquipment)
+            if (RawData.ExtraEquipment != 0)
             {
-                r_ExtraEquipmentID = RawData.ExtraEquipment;
-                ExtraSlot = new ShipSlot(r_ExtraEquipmentID != -1 ? KanColleGame.Current.Port.Equipment[RawData.ExtraEquipment] : Equipment.Dummy, 0, 0);
+                if (ExtraSlot == null)
+                    ExtraSlot = new ShipSlot(0, 0);
 
-                rUpdateList = true;
+                if (r_ExtraEquipmentID != RawData.ExtraEquipment)
+                {
+                    r_ExtraEquipmentID = RawData.ExtraEquipment;
+                    ExtraSlot.Equipment = r_ExtraEquipmentID == -1 ? Equipment.Dummy : KanColleGame.Current.Port.Equipment[r_ExtraEquipmentID];
+
+                    rUpdateList = true;
+                }
             }
 
             if (rUpdateList)

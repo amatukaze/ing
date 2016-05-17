@@ -47,7 +47,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public int Bullet { get; set; }
 
         [JsonProperty("api_slotnum")]
-        public int EquipmentCount { get; set; }
+        public int SlotCount { get; set; }
 
         [JsonProperty("api_ndock_time")]
         public int RepairTime { get; set; }
