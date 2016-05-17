@@ -16,6 +16,9 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         [JsonProperty("heavily_damaged")]
         public bool HeavilyDamagedWarning { get; set; } = true;
 
+        [JsonProperty("recovery_from_fatigue")]
+        public bool RecoveryFromFatigue { get; set; } = true;
+
         [JsonProperty("sound")]
         public NotificationSound Sound { get; set; } = NotificationSound.SystemSound;
         [JsonProperty("sound_filename")]

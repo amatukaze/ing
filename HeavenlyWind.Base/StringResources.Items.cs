@@ -41,6 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Notification_HeavilyDamagedWarning_Content => GetString(nameof(Notification_HeavilyDamagedWarning_Content));
         public string Notification_AdvanceWarning => GetString(nameof(Notification_AdvanceWarning));
         public string Notification_AdvanceWarning_Content => GetString(nameof(Notification_AdvanceWarning_Content));
+        public string Notification_RecoveryFromFatigue => GetString(nameof(Notification_RecoveryFromFatigue));
+        public string Notification_RecoveryFromFatigue_Content => GetString(nameof(Notification_RecoveryFromFatigue_Content));
 
         public string Result_Failure => GetString(nameof(Result_Failure));
         public string Result_Success => GetString(nameof(Result_Success));
@@ -286,6 +288,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Notification_Expedition => GetString(nameof(PreferenceWindow_Notification_Expedition));
         public string PreferenceWindow_Notification_Repair => GetString(nameof(PreferenceWindow_Notification_Repair));
         public string PreferenceWindow_Notification_HeavilyDamagedWarning => GetString(nameof(PreferenceWindow_Notification_HeavilyDamagedWarning));
+        public string PreferenceWindow_Notification_RecoveryFromFatigue => GetString(nameof(PreferenceWindow_Notification_RecoveryFromFatigue));
         public string PreferenceWindow_Notification_Sound => GetString(nameof(PreferenceWindow_Notification_Sound));
         public string PreferenceWindow_Notification_Sound_HeavilyDamagedWarning => GetString(nameof(PreferenceWindow_Notification_Sound_HeavilyDamagedWarning));
         public string PreferenceWindow_Notification_Sound_Slient => GetString(nameof(PreferenceWindow_Notification_Sound_Slient));

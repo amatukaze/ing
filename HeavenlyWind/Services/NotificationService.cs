@@ -43,11 +43,18 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 rPort.Fleets.FleetsUpdated += rpFleets =>
                 {
                     foreach (var rFleet in rpFleets)
+                    {
                         rFleet.ExpeditionStatus.Returned += (rpFleetName, rpExpeditionName) =>
                         {
                             if (Preference.Current.Notification.Expedition)
                                 Show(StringResources.Instance.Main.Notification_Expedition, string.Format(StringResources.Instance.Main.Notification_Expedition_Content, rpFleetName, rpExpeditionName));
                         };
+                        rFleet.ConditionRegeneration.Recovered += rpFleet =>
+                        {
+                            if (Preference.Current.Notification.RecoveryFromFatigue)
+                                Show(StringResources.Instance.Main.Notification_RecoveryFromFatigue, string.Format(StringResources.Instance.Main.Notification_RecoveryFromFatigue_Content, rpFleet.Name));
+                        };
+                    }
                 };
 
                 var rPortPCEL = PropertyChangedEventListener.FromSource(rPort);

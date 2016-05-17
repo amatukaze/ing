@@ -37,6 +37,8 @@
   <String Key="Notification_HeavilyDamagedWarning_Content">大破した艦娘がいます。</String>
   <String Key="Notification_AdvanceWarning">進撃警告</String>
   <String Key="Notification_AdvanceWarning_Content">大破状態で進撃し、轟沈の恐れがあります。</String>
+  <String Key="Notification_RecoveryFromFatigue">疲労回復完了</String>
+  <String Key="Notification_RecoveryFromFatigue_Content">「{0}」に所属する艦娘の疲労が回復しました。</String>
 
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
@@ -282,6 +284,7 @@
   <String Key="PreferenceWindow_Notification_Expedition">遠征帰投を通知する</String>
   <String Key="PreferenceWindow_Notification_Repair">入渠完了を通知する</String>
   <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">大破艦・大破進撃を通知する</String>
+  <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">疲労回復を通知する</String>
   <String Key="PreferenceWindow_Notification_Sound">サウンド</String>
   <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">サウンド (大破警告)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">なし</String>

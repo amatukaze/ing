@@ -8,6 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         Fleet r_Fleet;
         int r_LowestCondition;
 
+        public event Action<Fleet> Recovered = delegate { };
+
         internal FleetConditionRegeneration(Fleet rpFleet)
         {
             r_Fleet = rpFleet;
@@ -40,6 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         protected override void TimeOut()
         {
             TimeToComplete = null;
+            Recovered(r_Fleet);
         }
     }
 }
