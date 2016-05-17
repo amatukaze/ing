@@ -14,10 +14,11 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Margin="4">
+        <StackPanel Orientation="Horizontal" Margin="4, 2">
             <StackPanel DataContext="{Binding Source}" Orientation="Horizontal">
                 <TextBlock>
-                    <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:<Run Text="{Binding Status.TotalLevel}" />
+                    <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:
+                    <Run Text="{Binding Status.TotalLevel}" />
                 </TextBlock>
 
                 <rc:LoSFormulas ItemsSource="{Binding Status.LoS.Formulas}" Margin="3, 0, 0, 0" />
@@ -71,11 +72,11 @@
             </Border>
         </StackPanel>
 
-        <ScrollViewer DataContext="{Binding Source}" HorizontalScrollBarVisibility="Auto" Margin="0, 4, 0, 0" Grid.Row="1">
-            <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Margin="0, -5, 0, 0" Grid.IsSharedSizeScope="True">
+        <ScrollViewer DataContext="{Binding Source}" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Grid.IsSharedSizeScope="True">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type rgm:Ship}">
-                        <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Padding="3">
+                        <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Padding="2">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
@@ -138,6 +139,10 @@
                         </Border>
 
                         <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                            </DataTrigger>
+
                             <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
                                 <Setter TargetName="Level" Property="Grid.RowSpan" Value="2" />
                                 <Setter TargetName="ExperienceToNextLevel" Property="Visibility" Value="Hidden" />
