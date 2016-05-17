@@ -86,9 +86,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 if (rGameInfo == null)
                     return;
 
-                var rExpeditionOverview = new ExpeditionOverviewViewModel();
-                rGameInfo.TabItems.Add(rExpeditionOverview);
-                rGameInfo.SelectedItem = rExpeditionOverview;
+                var rExpeditionOverview = rGameInfo.TabItems.OfType<ExpeditionOverviewViewModel>().SingleOrDefault() ?? new ExpeditionOverviewViewModel();
+                rGameInfo.AddTabItem(rExpeditionOverview);
             });
 
             ShowShipOverviewWindowCommand = new DelegatedCommand(() => new ShipOverviewWindow().Show());
@@ -107,8 +106,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 if (rGameInfo == null)
                     return;
 
-                rGameInfo.TabItems.Add(r);
-                rGameInfo.SelectedItem = r;
+                rGameInfo.AddTabItem(r);
             });
             ToolPanes = PluginService.Instance.ToolPanes?.Select(r => new ToolViewModel(r, r_OpenToolPaneCommand)).ToList().AsReadOnly();
         }

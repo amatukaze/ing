@@ -41,5 +41,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
             SelectedItem = TabItems.FirstOrDefault();
         }
+
+        public void AddTabItem(object rpItem)
+        {
+            if (!TabItems.Contains(rpItem))
+                TabItems.Add(rpItem);
+
+            SelectedItem = rpItem;
+        }
     }
 }
