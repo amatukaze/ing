@@ -11,7 +11,7 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance rvm:GameInformationViewModel}"
              d:DesignWidth="480" d:DesignHeight="320">
-    <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" TabController="{StaticResource TabController}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}">
+    <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" TabController="{StaticResource TabController}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" ConsolidateOrphanedItems="True" OrphanedItemFilterCallback="{Binding OrphanedItemFilter}">
         <ruic:AdvancedTabControl.ItemTemplate>
             <DataTemplate>
                 <TextBlock Text="{Binding Name}" FontSize="14" />

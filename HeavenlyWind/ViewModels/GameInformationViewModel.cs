@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 }
             }
         }
+
+        public Func<object, bool> OrphanedItemFilter { get; } = r => r is OverviewViewModel || r is SortieViewModel || r is QuestsViewModel;
 
         internal GameInformationViewModel()
         {
