@@ -24,7 +24,9 @@
             <Border Height="4" DockPanel.Dock="Bottom" />
 
             <StackPanel Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right">
-                <ruic:WindowSystemButtons />
+                <ruic:WindowCaptionButton WindowAction="Maximize" />
+                <ruic:WindowCaptionButton WindowAction="Normalize" />
+                <ruic:WindowCaptionButton WindowAction="Close" />
             </StackPanel>
 
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{Binding Title}" />
