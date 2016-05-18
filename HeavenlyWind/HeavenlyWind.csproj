@@ -272,9 +272,6 @@
     <Compile Include="Views\Game\FleetsAndAirBase.xaml.cs">
       <DependentUpon>FleetsAndAirBase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Game\FleetsOverview.xaml.cs">
-      <DependentUpon>FleetsOverview.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Game\Headquarter.xaml.cs">
       <DependentUpon>Headquarter.xaml</DependentUpon>
     </Compile>
@@ -784,10 +781,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\FleetsAndAirBase.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Game\FleetsOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

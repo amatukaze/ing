@@ -58,16 +58,6 @@
 
                 <ListBox Style="{StaticResource MenuListBoxStyle}">
                     <ListBoxItem>
-                        <Button Command="{Binding ShowShipOverviewWindowCommand}">
-                            <TextBlock Text="{rb:StringResource Main.Window_ShipOverview}" />
-                        </Button>
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        <Button Command="{Binding ShowEquipmentOverviewWindowCommand}">
-                            <TextBlock Text="{rb:StringResource Main.Window_EquipmentOverview}" />
-                        </Button>
-                    </ListBoxItem>
-                    <ListBoxItem>
                         <Button Command="{Binding ShowConstructionHistoryCommand}">
                             <TextBlock Text="{rb:StringResource Main.Window_ConstructionHistory}" />
                         </Button>

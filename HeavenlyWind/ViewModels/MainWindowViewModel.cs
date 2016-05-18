@@ -51,9 +51,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public ICommand ShowExpeditionOverviewCommand { get; }
 
-        public ICommand ShowShipOverviewWindowCommand { get; }
-        public ICommand ShowEquipmentOverviewWindowCommand { get; }
-
         public ICommand ShowConstructionHistoryCommand { get; }
         public ICommand ShowDevelopmentHistoryCommand { get; }
         public ICommand ShowSortieHistoryCommand { get; }
@@ -89,9 +86,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 var rExpeditionOverview = rGameInfo.TabItems.OfType<ExpeditionOverviewViewModel>().SingleOrDefault() ?? new ExpeditionOverviewViewModel();
                 rGameInfo.AddTabItem(rExpeditionOverview);
             });
-
-            ShowShipOverviewWindowCommand = new DelegatedCommand(() => new ShipOverviewWindow().Show());
-            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => new EquipmentOverviewWindow().Show());
 
             ShowConstructionHistoryCommand = new DelegatedCommand(() => new ConstructionHistoryWindow().Show());
             ShowDevelopmentHistoryCommand = new DelegatedCommand(() => new DevelopmentHistoryWindow().Show());
