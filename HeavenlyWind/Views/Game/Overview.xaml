@@ -7,6 +7,8 @@
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
+             Visibility="{rb:CollapsedIfNull Admiral.Source}"
+             TextElement.FontSize="14"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="PanelBorderStyle" TargetType="{x:Type Border}">
@@ -19,52 +21,120 @@
             <Setter Property="Padding" Value="8, 6" />
         </Style>
     </UserControl.Resources>
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type UserControl}">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="8" />
+                                    <ColumnDefinition Width="4*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
 
-    <Grid Visibility="{rb:CollapsedIfNull Admiral.Source}" TextElement.FontSize="14">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="8" />
-            <ColumnDefinition Width="4*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+                                <Grid Grid.ColumnSpan="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-        <Grid Grid.ColumnSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="8" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+                                    <Border Style="{StaticResource PanelBorderStyle}">
+                                        <rvg:Headquarter />
+                                    </Border>
 
-            <Border Style="{StaticResource PanelBorderStyle}">
-                <rvg:Headquarter />
-            </Border>
+                                    <StackPanel Margin="0, 0, 0, 8" Grid.Column="2">
+                                        <Button Command="{Binding ShowShipOverviewWindowCommand}">
+                                            <TextBlock Text="{rb:StringResource Main.Overview_ShipOverview}" />
+                                        </Button>
+                                        <Button Command="{Binding ShowEquipmentOverviewWindowCommand}" Margin="0, 4, 0, 0">
+                                            <TextBlock Text="{rb:StringResource Main.Overview_EquipmentOverview}" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
 
-            <StackPanel Margin="0, 0, 0, 8" Grid.Column="2">
-                <Button Command="{Binding ShowShipOverviewWindowCommand}">
-                    <TextBlock Text="{rb:StringResource Main.Overview_ShipOverview}" />
-                </Button>
-                <Button Command="{Binding ShowEquipmentOverviewWindowCommand}" Margin="0, 4, 0, 0">
-                    <TextBlock Text="{rb:StringResource Main.Overview_EquipmentOverview}" />
-                </Button>
-            </StackPanel>
-        </Grid>
+                                <rvg:FleetsAndAirBase Margin="0, 0, 0, 8" Grid.Row="1" Grid.ColumnSpan="3" />
 
-        <rvg:FleetsAndAirBase Margin="0, 0, 0, 8" Grid.Row="1" Grid.ColumnSpan="3" />
+                                <Border Style="{StaticResource PanelBorderStyle}" Grid.Row="2" Grid.RowSpan="2">
+                                    <rvg:ExecutingQuestsOverview />
+                                </Border>
 
-        <Border Style="{StaticResource PanelBorderStyle}" Grid.Row="2" Grid.RowSpan="2">
-            <rvg:ExecutingQuestsOverview />
-        </Border>
+                                <rvg:DockOverview Margin="0, 0, 0, 8" Grid.Column="2" Grid.Row="2" />
 
-        <rvg:DockOverview Margin="0, 0, 0, 8" Grid.Column="2" Grid.Row="2" />
+                                <Border Style="{StaticResource PanelBorderStyle}" Grid.Column="2" Grid.Row="3">
+                                    <rvg:FleetExpeditionOverview />
+                                </Border>
+                            </Grid>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
 
-        <Border Style="{StaticResource PanelBorderStyle}" Grid.Column="2" Grid.Row="3">
-            <rvg:FleetExpeditionOverview />
-        </Border>
-    </Grid>
+            <Style.Triggers>
+                <DataTrigger Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type UserControl}">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="5*" />
+                                            <ColumnDefinition Width="8" />
+                                            <ColumnDefinition Width="250" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition />
+                                                    <ColumnDefinition Width="8" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Border Style="{StaticResource PanelBorderStyle}">
+                                                    <rvg:Headquarter />
+                                                </Border>
+
+                                                <StackPanel Margin="0, 0, 0, 8" Grid.Column="2">
+                                                    <Button Command="{Binding ShowShipOverviewWindowCommand}">
+                                                        <TextBlock Text="{rb:StringResource Main.Overview_ShipOverview}" />
+                                                    </Button>
+                                                    <Button Command="{Binding ShowEquipmentOverviewWindowCommand}" Margin="0, 4, 0, 0">
+                                                        <TextBlock Text="{rb:StringResource Main.Overview_EquipmentOverview}" />
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+
+                                            <rvg:FleetsAndAirBase />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="2">
+                                            <rvg:DockOverview Margin="0, 0, 0, 8" />
+
+                                            <Border Style="{StaticResource PanelBorderStyle}">
+                                                <rvg:FleetExpeditionOverview />
+                                            </Border>
+
+                                            <Border Style="{StaticResource PanelBorderStyle}" >
+                                                <rvg:ExecutingQuestsOverview />
+                                            </Border>
+                                        </StackPanel>
+                                    </Grid>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
 </UserControl>

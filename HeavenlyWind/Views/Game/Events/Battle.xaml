@@ -78,7 +78,7 @@
                                     <TextBlock Text="{rb:StringResource Main.Sortie_LandBaseAerialSupport_Ready}" FontWeight="Bold" Visibility="{Binding IsLandBaseAerialSupportReady, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0, 4, 0, 0" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="7" />
                                 </Grid>
 
-                                <rvgb:EnemyEncounters Margin="0, 8, 0, 0" />
+                                <rvgb:EnemyEncounters Margin="8, 0, 0, 0" />
                             </DockPanel>
 
                             <ControlTemplate.Triggers>
@@ -159,6 +159,10 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition />
                                         </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
                                         <ItemsControl ItemsSource="{Binding Participants.FriendMain}" ItemTemplate="{StaticResource ParticipantTemplate}" />
                                         <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendMain}" Grid.Column="2" />
@@ -168,6 +172,8 @@
 
                                         <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="8" />
                                         <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="10" />
+
+                                        <rvgb:Information Grid.Row="1" Grid.ColumnSpan="11" />
                                     </Grid>
                                 </ControlTemplate>
                             </Setter.Value>
