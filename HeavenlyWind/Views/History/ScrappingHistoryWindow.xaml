@@ -11,30 +11,6 @@
                   Title="{rb:StringResource Main.Window_ScrappingHistory}"
                   Width="800" Height="480"
                   UseLayoutRounding="True">
-    <Window.Resources>
-        <Style x:Key="EquipmentLevel" TargetType="{x:Type Run}">
-            <Setter Property="Text" Value="{Binding Level, StringFormat=★+{0}, Mode=OneWay}" />
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Level}" Value="0">
-                    <Setter Property="Text" Value="" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Level}" Value="10">
-                    <Setter Property="Text" Value="★max" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="EquipmentProficiency" TargetType="{x:Type Run}">
-            <Setter Property="Text" Value="{Binding Proficiency, StringFormat=+{0}, Mode=OneWay}" />
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Proficiency}" Value="0">
-                    <Setter Property="Text" Value="" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -109,21 +85,21 @@
 
                                         <rc:EquipmentIcon Type="{Binding Equipment.Icon}" Visibility="{Binding IsEquipment, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                                        <TextBlock Margin="0, 4" Grid.Column="2">
-                                            <Run Name="Name" Text="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" />
-                                            <Run Name="Level" />
-                                            <Run Style="{StaticResource EquipmentProficiency}" />
-                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                            <TextBlock Margin="0, 4">
+                                                <Run Name="Name" Text="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" />
+                                                <Run Name="Level" />
+                                            </TextBlock>
+
+                                            <rc:EquipmentProficiency Proficiency="{Binding Equipment.Proficiency}" Margin="4, 0, 0, 0" Visibility="{Binding IsEquipment, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            <rc:EquipmentLevel Level="{Binding Equipment.Level}" Margin="4, 0, 0, 0" Visibility="{Binding IsEquipment, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                        </StackPanel>
                                     </Grid>
 
                                     <DataTemplate.Triggers>
                                         <DataTrigger Binding="{Binding IsEquipment}" Value="False">
                                             <Setter TargetName="Level" Property="Text" Value="{Binding Level, StringFormat=Lv.{0}, Mode=OneWay}" />
                                             <Setter TargetName="Level" Property="FontSize" Value="11" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsEquipment}" Value="True">
-                                            <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource Equipment, Equipment.ID, Equipment.Name}" />
-                                            <Setter TargetName="Level" Property="Style" Value="{StaticResource EquipmentLevel}" />
                                         </DataTrigger>
                                     </DataTemplate.Triggers>
                                 </DataTemplate>
