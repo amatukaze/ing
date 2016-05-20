@@ -151,7 +151,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rpBody, ToolTipIcon.None);
 
                 if (rpSound == NotificationSound.SystemSound)
-                    SystemSounds.Exclamation.Play();
+                    NativeMethods.WinMM.PlaySoundW("SystemNotification", IntPtr.Zero, NativeEnums.SND.SND_ALIAS | NativeEnums.SND.SND_ASYNC);
             }
             else
             {
