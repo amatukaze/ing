@@ -1,4 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System;
+using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -16,12 +18,32 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public AirForceSquadronCondition Condition => RawData.Condition;
 
+        IDisposable r_Relocating;
+
         internal protected AirForceSquadron(RawAirForceSquadron rpRawData) : base(rpRawData)
         {
         }
 
         protected override void OnRawDataUpdated()
         {
+            if (State == AirForceSquadronState.Relocating)
+                r_Relocating = Observable.Timer(TimeSpan.FromMinutes(20.0)).Subscribe(delegate
+                {
+                    RawData.State = AirForceSquadronState.Empty;
+                    RawData.EquipmentID = 0;
+
+                    OnPropertyChanged(nameof(State));
+                    OnPropertyChanged(nameof(Plane));
+
+                    r_Relocating.Dispose();
+                    r_Relocating = null;
+                });
+            else if (r_Relocating != null)
+            {
+                r_Relocating.Dispose();
+                r_Relocating = null;
+            }
+
             OnPropertyChanged(nameof(State));
             OnPropertyChanged(nameof(Plane));
             OnPropertyChanged(nameof(Count));
