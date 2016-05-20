@@ -16,14 +16,19 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition SharedSizeGroup="Option" />
+                            <ColumnDefinition SharedSizeGroup="CombatRadius" />
                             <ColumnDefinition SharedSizeGroup="Squadrons" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
                         <TextBlock Text="{Binding Source.ID}" />
-                        <TextBlock Name="Option" Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" Margin="6, 0" Grid.Column="1" />
+                        <TextBlock Name="Option" Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" Margin="4, 0, 0, 0" Grid.Column="1" />
+                        <TextBlock Margin="4, 0, 0, 0" Grid.Column="2">
+                            <Run Text="{rb:StringResource Main.AirBase_Group_CombatRadius}" />:
+                            <Run Text="{Binding Source.CombatRadius, Mode=OneWay}" />
+                        </TextBlock>
 
-                        <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}" Margin="3, 0, 0, 0" Grid.Column="2">
+                        <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}" Margin="6, 0, 0, 0" Grid.Column="3">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal" />
@@ -71,7 +76,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <Rectangle Fill="Transparent" Margin="3, 0, 0, 0" Grid.Column="2">
+                        <Rectangle Fill="Transparent" Margin="3, 0, 0, 0" Grid.Column="3">
                             <Rectangle.ToolTip>
                                 <ToolTip>
                                     <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}">

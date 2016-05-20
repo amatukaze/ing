@@ -60,7 +60,7 @@
                 </TextBlock>
 
                 <Border DataContext="{Binding Resupply}" Background="Transparent" ToolTip="{StaticResource UnsuppliedToolTip}" Margin="6, 0, 0, 0" Visibility="{Binding NeedResupply, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Unsupplied}" />
+                    <TextBlock Text="{rb:StringResource Main.Overview_Fleets_Unsupplied}" Foreground="Yellow" />
                 </Border>
             </StackPanel>
 
