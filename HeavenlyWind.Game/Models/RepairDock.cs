@@ -40,6 +40,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal bool PendingToUpdateMaterials { get; set; }
 
+        public override TimeSpan RemainingTimeToNotify => TimeSpan.FromMinutes(1.0);
+
         public event Action<string> RepairCompleted = delegate { };
 
         internal RepairDock(RawRepairDock rpRawData)
