@@ -16,6 +16,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
         public int RuleVersion { get; }
         public ProgressRule[] ProgressRules { get; }
 
+        internal QuestInfo(int rpID)
+        {
+            ID = rpID;
+            Total = -1;
+        }
         internal QuestInfo(JToken rpJson)
         {
             ID = (int)rpJson["id"];

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using QuestClass = Sakuno.KanColle.Amatsukaze.Game.Models.Quest;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
@@ -51,9 +52,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         void ProcessQuestList(RawQuestList rpData)
         {
+            var rQuests = KanColleGame.Current.Port.Quests.Table;
             if (GetResetTime(QuestType.Daily) > r_LastProcessTime)
             {
-                var rQuests = KanColleGame.Current.Port.Quests.Table;
                 var rOutdatedProgresses = Progresses.Values.Where(r => GetResetTime(!r.Quest.IsDailyReset ? r.ResetType : QuestType.Daily) > r.UpdateTime).ToArray();
                 foreach (var rProgressInfo in rOutdatedProgresses)
                 {
@@ -70,54 +71,59 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (rpData == null || rpData.Quests == null)
                 return;
 
-            foreach (var rQuest in rpData.Quests)
+            foreach (var rRawQuest in rpData.Quests)
             {
-                var rID = rQuest.ID;
+                var rID = rRawQuest.ID;
 
                 QuestInfo rInfo;
-                if (!Infos.TryGetValue(rID, out rInfo))
-                    continue;
-
-                var rTotal = rInfo.Total;
-                int rProgress;
-
                 ProgressInfo rProgressInfo;
-                if (Progresses.TryGetValue(rID, out rProgressInfo))
-                {
-                    rProgress = rProgressInfo.Progress;
-
-                    if (rQuest.State == QuestState.Completed)
-                        rProgress = rTotal;
-                    else
-                        switch (rQuest.Progress)
-                        {
-                            case QuestProgress.Progress50: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom); break;
-                            case QuestProgress.Progress80: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom); break;
-                        }
-
-                    rProgressInfo.Progress = rProgress;
-                    rProgressInfo.State = rQuest.State;
-                }
+                if (!Infos.TryGetValue(rID, out rInfo))
+                    Progresses.TryGetValue(rID, out rProgressInfo);
                 else
                 {
-                    rProgress = 0;
+                    var rTotal = rInfo.Total;
+                    int rProgress;
 
-                    if (rQuest.State == QuestState.Completed)
-                        rProgress = rTotal;
+                    if (Progresses.TryGetValue(rID, out rProgressInfo) && rQuests.ContainsKey(rID))
+                    {
+                        rProgress = rProgressInfo.Progress;
+
+                        if (rRawQuest.State == QuestState.Completed)
+                            rProgress = rTotal;
+                        else
+                            switch (rRawQuest.Progress)
+                            {
+                                case QuestProgress.Progress50: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom); break;
+                                case QuestProgress.Progress80: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom); break;
+                            }
+
+                        rProgressInfo.Progress = rProgress;
+                        rProgressInfo.State = rRawQuest.State;
+                    }
                     else
-                        switch (rQuest.Progress)
-                        {
-                            case QuestProgress.Progress50: rProgress = (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom; break;
-                            case QuestProgress.Progress80: rProgress = (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom; break;
-                        }
+                    {
+                        rProgress = 0;
 
-                    Progresses.Add(rID, rProgressInfo = new ProgressInfo(rID, rQuest.Type, rQuest.State, rProgress));
+                        if (rRawQuest.State == QuestState.Completed)
+                            rProgress = rTotal;
+                        else
+                            switch (rRawQuest.Progress)
+                            {
+                                case QuestProgress.Progress50: rProgress = (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom; break;
+                                case QuestProgress.Progress80: rProgress = (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom; break;
+                            }
+
+                        Progresses.Add(rID, rProgressInfo = new ProgressInfo(rID, rRawQuest.Type, rRawQuest.State, rProgress));
+                    }
+
+                    if (rRawQuest.State == QuestState.Executing)
+                        RecordService.Instance.QuestProgress.InsertRecord(rRawQuest, rProgress);
                 }
 
-                if (rQuest.State == QuestState.Executing)
-                    RecordService.Instance.QuestProgress.InsertRecord(rQuest, rProgress);
-
-                KanColleGame.Current.Port.Quests[rID].RealtimeProgress = rProgressInfo;
+                QuestClass rQuest;
+                if (!rQuests.TryGetValue(rID, out rQuest))
+                    rQuests.Add(rQuest = new QuestClass(rRawQuest));
+                rQuest.RealtimeProgress = rProgressInfo;
             }
 
             r_LastProcessTime = DateTimeOffset.Now.ToOffset(Offset);
