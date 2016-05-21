@@ -9,8 +9,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Control}">
                     <Border>
-                        <TextBlock HorizontalAlignment="Right">
-                            <Run Text="{Binding Progress, Mode=OneWay}" />
+                        <TextBlock Name="Progress" HorizontalAlignment="Right">
+                            <Run Text="{Binding Progress, Mode=OneWay}" Foreground="Yellow" />
                             <Run Name="Separator" Text="/" Foreground="{DynamicResource ForegroundBrushKey}" />
                             <Run Name="Total" Text="{Binding Quest.DisplayTotal, Mode=OneWay}" FontSize="11" Foreground="{DynamicResource ForegroundBrushKey}" />
                         </TextBlock>
@@ -20,6 +20,10 @@
                         <DataTrigger Binding="{Binding Quest.Total}" Value="-1">
                             <Setter TargetName="Separator" Property="Text" Value="" />
                             <Setter TargetName="Total" Property="Text" Value="" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding Quest.ProgressRules}" Value="{x:Null}">
+                            <Setter TargetName="Progress" Property="Opacity" Value=".8" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

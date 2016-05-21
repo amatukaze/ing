@@ -47,7 +47,7 @@
                         </Border>
                     </StackPanel>
 
-                    <Border DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4">
+                    <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4">
                         <Control Style="{StaticResource QuestRealtimeProgress}" />
                     </Border>
 
@@ -114,6 +114,15 @@
                     <Trigger SourceName="RealtimeProgressControllerBorder" Property="IsMouseOver" Value="True">
                         <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
                     </Trigger>
+
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding Source.RealtimeProgress.Quest.ProgressRules}" Value="{x:Null}" />
+                            <Condition Binding="{Binding Source.RealtimeProgress.Progress}" Value="0" />
+                        </MultiDataTrigger.Conditions>
+
+                        <Setter TargetName="RealtimeProgressBorder" Property="Visibility" Value="{Binding Visibility, ElementName=RealtimeProgressControllerBorder}" />
+                    </MultiDataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
         </ResourceDictionary>
