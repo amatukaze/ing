@@ -14,7 +14,7 @@
                 <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Padding="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition SharedSizeGroup="ID" />
                             <ColumnDefinition SharedSizeGroup="Option" />
                             <ColumnDefinition SharedSizeGroup="CombatRadius" />
                             <ColumnDefinition SharedSizeGroup="Squadrons" />
