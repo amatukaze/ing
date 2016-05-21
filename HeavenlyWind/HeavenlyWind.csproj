@@ -268,8 +268,8 @@
     <Compile Include="Views\Game\FleetDetail.xaml.cs">
       <DependentUpon>FleetDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Game\FleetExpeditionOverview.xaml.cs">
-      <DependentUpon>FleetExpeditionOverview.xaml</DependentUpon>
+    <Compile Include="Views\Game\FleetOverview.xaml.cs">
+      <DependentUpon>FleetOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\FleetsAndAirBase.xaml.cs">
       <DependentUpon>FleetsAndAirBase.xaml</DependentUpon>
@@ -782,7 +782,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Game\FleetExpeditionOverview.xaml">
+    <Page Include="Views\Game\FleetOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

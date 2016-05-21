@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.FleetExpeditionOverview"
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.FleetOverview"
              x:ClassModifier="internal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

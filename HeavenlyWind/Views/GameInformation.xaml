@@ -11,6 +11,12 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance rvm:GameInformationViewModel}"
              d:DesignWidth="480" d:DesignHeight="320">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource {x:Type ToolTip}}">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </UserControl.Resources>
+
     <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" TabController="{StaticResource TabController}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" ConsolidateOrphanedItems="True" OrphanedItemFilterCallback="{Binding OrphanedItemFilter}">
         <ruic:AdvancedTabControl.ItemTemplate>
             <DataTemplate>
