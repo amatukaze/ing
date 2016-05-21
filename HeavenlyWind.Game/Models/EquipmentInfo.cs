@@ -74,6 +74,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         #endregion;
 
+        public int CombatRadius => RawData.CombatRadius;
+
         internal EquipmentInfo(RawEquipmentInfo rpRawData) : base(rpRawData) { }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Name}\", Type = [{Type}, {Icon}]";

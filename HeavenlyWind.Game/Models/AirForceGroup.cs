@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using System.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -20,16 +21,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        int r_CombatRadius;
-        public int CombatRadius
+        int r_MinCombatRadius;
+        public int MinCombatRadius
         {
-            get { return r_CombatRadius; }
+            get { return r_MinCombatRadius; }
             set
             {
-                if (r_CombatRadius != value)
+                if (r_MinCombatRadius != value)
                 {
-                    r_CombatRadius = value;
-                    OnPropertyChanged(nameof(CombatRadius));
+                    r_MinCombatRadius = value;
+                    OnPropertyChanged(nameof(MinCombatRadius));
+                }
+            }
+        }
+        int r_MaxCombatRadius;
+        public int MaxCombatRadius
+        {
+            get { return r_MaxCombatRadius; }
+            set
+            {
+                if (r_MaxCombatRadius != value)
+                {
+                    r_MaxCombatRadius = value;
+                    OnPropertyChanged(nameof(MaxCombatRadius));
                 }
             }
         }
@@ -58,10 +72,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         protected override void OnRawDataUpdated()
         {
             Name = RawData.Name;
-            CombatRadius = RawData.CombatRadius;
             Option = RawData.Option;
 
             Squadrons.UpdateRawData(RawData.Squadrons, r => new AirForceSquadron(r), (rpData, rpRawData) => rpData.Update(rpRawData));
+
+            UpdateCombatRadius();
+        }
+
+        internal void UpdateCombatRadius()
+        {
+            var rSquadrons = Squadrons.Values.Where(r => r.State == AirForceSquadronState.Idle);
+            MinCombatRadius = rSquadrons.Min(r => r.Plane.Info.CombatRadius);
+            MaxCombatRadius = rSquadrons.Max(r => r.Plane.Info.CombatRadius);
         }
     }
 }

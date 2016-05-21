@@ -25,7 +25,14 @@
                         <TextBlock Name="Option" Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" Margin="4, 0, 0, 0" Grid.Column="1" />
                         <TextBlock Margin="4, 0, 0, 0" Grid.Column="2">
                             <Run Text="{rb:StringResource Main.AirBase_Group_CombatRadius}" />:
-                            <Run Text="{Binding Source.CombatRadius, Mode=OneWay}" />
+                            <Run Name="CombatRadius">
+                                <Run.Text>
+                                    <MultiBinding StringFormat="{}{0:0.#}-{1:0.#}" Mode="OneWay">
+                                        <Binding Path="Source.MinCombatRadius" />
+                                        <Binding Path="Source.MaxCombatRadius" />
+                                    </MultiBinding>
+                                </Run.Text>
+                            </Run>
                         </TextBlock>
 
                         <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}" Margin="6, 0, 0, 0" Grid.Column="3">
@@ -136,6 +143,17 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Source.Option}" Value="Rest">
                         <Setter TargetName="Option" Property="Foreground" Value="Yellow" />
+                    </DataTrigger>
+
+                    <DataTrigger Value="True">
+                        <DataTrigger.Binding>
+                            <MultiBinding Converter="{StaticResource AreEqualConverter}">
+                                <Binding Path="Source.MinCombatRadius" />
+                                <Binding Path="Source.MaxCombatRadius" />
+                            </MultiBinding>
+                        </DataTrigger.Binding>
+
+                        <Setter TargetName="CombatRadius" Property="Text" Value="{Binding Source.MinCombatRadius, StringFormat=0.#}" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
