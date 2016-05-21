@@ -138,6 +138,7 @@
     <Compile Include="Models\Records\ResourceRecord.cs" />
     <Compile Include="Models\Records\SortieRecord.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
+    <Compile Include="Models\SystemFont.cs" />
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
     <Compile Include="Services\Browser\BrowserHost.cs" />

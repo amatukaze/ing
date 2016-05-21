@@ -270,6 +270,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Network_AllowRequestsFromOtherDevices => GetString(nameof(PreferenceWindow_Network_AllowRequestsFromOtherDevices));
         public string PreferenceWindow_Network_UseUpstreamProxy => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy));
         public string PreferenceWindow_Window => GetString(nameof(PreferenceWindow_Window));
+        public string PreferenceWindow_Window_Font => GetString(nameof(PreferenceWindow_Window_Font));
         public string PreferenceWindow_Window_Layout => GetString(nameof(PreferenceWindow_Window_Layout));
         public string PreferenceWindow_Window_Layout_Landscape => GetString(nameof(PreferenceWindow_Window_Layout_Landscape));
         public string PreferenceWindow_Window_Layout_Portrait => GetString(nameof(PreferenceWindow_Window_Layout_Portrait));

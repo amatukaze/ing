@@ -18,7 +18,23 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_Layout}" FontSize="14" FontWeight="Bold" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_Font}" />
+            <ComboBox ItemsSource="{Binding SystemFonts}" IsSynchronizedWithCurrentItem="True" SelectedValue="{rb:Preference UI.Font}" SelectedValuePath="FontFamily" Width="200" Margin="4, 0, 0, 0">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" FontFamily="{Binding FontFamily}" FontSize="14" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_Layout}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
 
         <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
             <StackPanel.Resources>
