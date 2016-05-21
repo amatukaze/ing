@@ -33,9 +33,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             if (MatchingRuleParser.Version < RuleVersion)
                 return;
 
-            ProgressRules = MatchingRuleParser.Instance.ParseProgressRule((string)rpJson["progress_rule"]);
-            foreach (var rRule in ProgressRules)
-                rRule.Register(this);
+            var rProgressRule = (string)rpJson["progress_rule"];
+            if (rProgressRule != null)
+            {
+                ProgressRules = MatchingRuleParser.Instance.ParseProgressRule(rProgressRule);
+                foreach (var rRule in ProgressRules)
+                    rRule.Register(this);
+            }
         }
     }
 }
