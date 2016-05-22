@@ -39,6 +39,8 @@
   <String Key="Notification_AdvanceWarning_Content">Advancing with your ship heavily damaged may result in being sunk.</String>
   <String Key="Notification_RecoveryFromFatigue">Recovery From Fatigue</String>
   <String Key="Notification_RecoveryFromFatigue_Content">Ship(s) from fleet "{0}" recovered from fatigue.</String>
+  <String Key="Notification_AnchorageRepair">Anchorage Repair</String>
+  <String Key="Notification_AnchorageRepair_Content">Please return to the HQ screen to get ships' HP repaired.</String>
 
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>
@@ -286,6 +288,7 @@
   <String Key="PreferenceWindow_Notification_Repair">Notify the completion of ship repair</String>
   <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">Warn if advancing with heavily damaged ship</String>
   <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">Notify the recovery from fatigue</String>
+  <String Key="PreferenceWindow_Notification_AnchorageRepair">Anchorage Repair Notification</String>
   <String Key="PreferenceWindow_Notification_Sound">Sound</String>
   <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">Sound (Heavily damaged)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">Slient</String>

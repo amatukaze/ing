@@ -39,6 +39,8 @@
   <String Key="Notification_AdvanceWarning_Content">大破状態で進撃し、轟沈の恐れがあります。</String>
   <String Key="Notification_RecoveryFromFatigue">疲労回復完了</String>
   <String Key="Notification_RecoveryFromFatigue_Content">「{0}」に所属する艦娘の疲労が回復しました。</String>
+  <String Key="Notification_AnchorageRepair">泊地修理</String>
+  <String Key="Notification_AnchorageRepair_Content">泊地修理の開始から 20 分が経過したので、母港画面に戻ってください</String>
 
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
@@ -109,7 +111,7 @@
   <String Key="Fleet_Speed_Mixed">混合</String>
   <String Key="Fleet_MoraleRegeneration">疲労回復</String>
 
-  <String Key="Ship_Repairing">入渠中</String>
+  <String Key="Ship_Repairing">修理中</String>
   <String Key="Ship_Evacuated">退避中</String>
   <String Key="Ship_ToolTip_DayBattle">昼戦</String>
   <String Key="Ship_ToolTip_NightBattle">夜戦</String>
@@ -286,6 +288,7 @@
   <String Key="PreferenceWindow_Notification_Repair">入渠完了を通知する</String>
   <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">大破艦・大破進撃を通知する</String>
   <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">疲労回復を通知する</String>
+  <String Key="PreferenceWindow_Notification_AnchorageRepair">泊地修理の開始から 20 分が経過して通知する</String>
   <String Key="PreferenceWindow_Notification_Sound">サウンド</String>
   <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">サウンド (大破警告)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">なし</String>

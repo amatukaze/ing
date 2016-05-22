@@ -61,6 +61,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public FleetResupplyInfo Resupply { get; }
         public FleetExpeditionStatus ExpeditionStatus { get; }
         public FleetConditionRegeneration ConditionRegeneration { get; }
+        public FleetAnchorageRepair AnchorageRepair { get; }
 
         internal Fleet(Port rpPort, RawFleet rpRawData) : base(rpRawData)
         {
@@ -70,6 +71,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Resupply = new FleetResupplyInfo(this);
             ExpeditionStatus = new FleetExpeditionStatus(this);
             ConditionRegeneration = new FleetConditionRegeneration(this);
+            AnchorageRepair = new FleetAnchorageRepair(this);
 
             OnRawDataUpdated();
         }
@@ -109,6 +111,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             else
                 rState |= FleetState.Idle;
 
+            Ship[] rShipsToBeRepaired = null;
             if ((rState & FleetState.Idle) == FleetState.Idle)
             {
                 if (r_Ships.Any(r => r.Fuel.Current < r.Fuel.Maximum || r.Bullet.Current < r.Bullet.Maximum))
@@ -119,7 +122,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 if (r_Ships.Any(r => (r.State & ShipState.HeavilyDamaged) == ShipState.HeavilyDamaged))
                     rState |= FleetState.HeavilyDamaged;
+
+                if (r_Ships.Count > 0 && (ShipType)r_Ships[0].Info.Type.ID == ShipType.RepairShip)
+                {
+                    rShipsToBeRepaired = r_Ships.Take(2 + r_Ships[0].EquipedEquipment.Count(r => r.Info.Type == EquipmentType.ShipRepairFacility))
+                        .Where(r => r.HP.Current != r.HP.Maximum && r.HP.Current / (double)r.HP.Maximum > .5 && !Port.RepairDocks.Values.Any(rpDock => rpDock.Ship == r)).ToArray();
+                    if (rShipsToBeRepaired.Length > 0)
+                        rState |= FleetState.AnchorageRepair;
+                }
             }
+
+            if ((rState & FleetState.AnchorageRepair) == FleetState.AnchorageRepair)
+                AnchorageRepair.Update(rShipsToBeRepaired);
+            else if ((State & FleetState.AnchorageRepair) == FleetState.AnchorageRepair)
+                AnchorageRepair.Stop();
 
             State = rState;
         }

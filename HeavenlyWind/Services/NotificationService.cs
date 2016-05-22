@@ -54,6 +54,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                             if (Preference.Current.Notification.RecoveryFromFatigue)
                                 Show(StringResources.Instance.Main.Notification_RecoveryFromFatigue, string.Format(StringResources.Instance.Main.Notification_RecoveryFromFatigue_Content, rpFleet.Name));
                         };
+                        rFleet.AnchorageRepair.InterruptionNotification += () =>
+                        {
+                            if (Preference.Current.Notification.AnchorageRepair)
+                                Show(StringResources.Instance.Main.Notification_AnchorageRepair, StringResources.Instance.Main.Notification_AnchorageRepair_Content);
+                        };
                     }
                 };
 

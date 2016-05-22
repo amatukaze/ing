@@ -138,6 +138,20 @@
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
+
+                    <DataTrigger Binding="{rb:HasFlag Source.State, AnchorageRepair}" Value="True">
+                        <Setter TargetName="Content" Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <rc:EquipmentIcon Type="RepairFacility" Width="18" Height="18" />
+
+                                        <TextBlock Text="{Binding AnchorageRepair.RemainingTime}" Margin="6, 0, 0, 0" />
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

@@ -19,6 +19,9 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         [JsonProperty("recovery_from_fatigue")]
         public bool RecoveryFromFatigue { get; set; } = true;
 
+        [JsonProperty("anchorage_repair")]
+        public bool AnchorageRepair { get; set; } = true;
+
         [JsonProperty("sound")]
         public NotificationSound Sound { get; set; } = NotificationSound.SystemSound;
         [JsonProperty("sound_filename")]

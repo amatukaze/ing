@@ -39,6 +39,8 @@
   <String Key="Notification_AdvanceWarning_Content">有舰娘处于大破状态，继续进击有被击沉的风险。</String>
   <String Key="Notification_RecoveryFromFatigue">疲劳恢复</String>
   <String Key="Notification_RecoveryFromFatigue_Content">舰队「{0}」中的舰娘已从疲劳中恢复过来。</String>
+  <String Key="Notification_AnchorageRepair">泊地修理</String>
+  <String Key="Notification_AnchorageRepair_Content">从泊地修理开始已过 20 分钟，请返回母港画面。</String>
 
   <String Key="Result_Failure">失败</String>
   <String Key="Result_Success">成功</String>
@@ -286,6 +288,7 @@
   <String Key="PreferenceWindow_Notification_Repair">在入渠结束时通知</String>
   <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">在有大破船以及大破进击时发出警告</String>
   <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">在疲劳恢复时发出通知</String>
+  <String Key="PreferenceWindow_Notification_AnchorageRepair">泊地修理开始 20 分钟后发出通知</String>
   <String Key="PreferenceWindow_Notification_Sound">音效</String>
   <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">音效 (大破警告)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">静音</String>

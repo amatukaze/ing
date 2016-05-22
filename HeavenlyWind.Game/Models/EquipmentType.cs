@@ -31,7 +31,8 @@
         //
         Searchlight = 29,
         SupplyTransportContainer,
-        SubmarineTorpedo = 32,
+        ShipRepairFacility,
+        SubmarineTorpedo,
         //
         AAFireDirector = 36,
         //

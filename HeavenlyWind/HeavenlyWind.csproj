@@ -168,6 +168,7 @@
     <Compile Include="ViewModels\Game\ExpeditionGroupByMapArea.cs" />
     <Compile Include="ViewModels\Game\ExpeditionOverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\ExpeditionViewModel.cs" />
+    <Compile Include="ViewModels\Game\FleetAnchorageRepairViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetConditionRegenerationViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
