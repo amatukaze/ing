@@ -40,10 +40,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 var rShip = KanColleGame.Current.Port.Ships[rShipID];
                 var rOriginalFleet = rShip.OwnerFleet;
-                var rOriginalShip = rFleet.Organize(rIndex, rShip);
                 var rOriginalIndex = rOriginalFleet?.Ships.IndexOf(rShip);
-                if (rOriginalIndex.HasValue)
-                    rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
+                if (rOriginalFleet == rFleet)
+                    rOriginalFleet.Swap(rIndex, rOriginalIndex.Value);
+                else
+                {
+                    var rOriginalShip = rFleet.Organize(rIndex, rShip);
+                    if (rOriginalIndex.HasValue)
+                        rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
+                }
 
                 rFleet.Update();
                 rOriginalFleet?.Update();

@@ -126,7 +126,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         void UpdateShips() => Ships = r_ShipList.AsReadOnly();
 
-        public Ship Organize(int rpIndex, Ship rpShip)
+        internal Ship Organize(int rpIndex, Ship rpShip)
         {
             var rOriginalShip = rpIndex < r_ShipList.Count ? r_ShipList[rpIndex] : null;
 
@@ -155,8 +155,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             return rOriginalShip;
         }
+        internal void Swap(int x, int y)
+        {
+            var rShip = r_ShipList[x];
+            r_ShipList[x] = r_ShipList[y];
+            r_ShipList[y] = rShip;
 
-        public void Remove(int rpIndex)
+            UpdateShips();
+        }
+
+        internal void Remove(int rpIndex)
         {
             var rShip = r_ShipList[rpIndex];
             rShip.OwnerFleet = null;
@@ -166,13 +174,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             UpdateShips();
         }
-        public void Remove(Ship rpShip)
+        internal void Remove(Ship rpShip)
         {
             var rIndex = r_ShipList.IndexOf(rpShip);
             if (rIndex != -1)
                 Remove(rIndex);
         }
-        public void RemoveAllExceptFlagship()
+        internal void RemoveAllExceptFlagship()
         {
             foreach (var rShip in r_ShipList.Skip(1))
                 rShip.OwnerFleet = null;
