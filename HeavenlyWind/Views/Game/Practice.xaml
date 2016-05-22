@@ -65,18 +65,6 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <rvge:Battle Grid.Row="3">
-            <rvge:Battle.Style>
-                <Style TargetType="{x:Type rvge:Battle}">
-                    <Setter Property="Visibility" Value="Visible" />
-
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Battle}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </rvge:Battle.Style>
-        </rvge:Battle>
+        <rvge:Battle Visibility="{rb:CollapsedIfNull Battle}" Grid.Row="3" />
     </Grid>
 </UserControl>
