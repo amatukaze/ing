@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
+using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
@@ -29,6 +30,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                             InsertAdmiralRecord(rPort.Admiral.Experience);
                         }
 
+                        var rShips = new List<Tuple<int, int>>(25);
                         foreach (var rShip in rPort.Ships.Values.Where(r => r.Experience > 0))
                         {
                             int rOldExperience;
@@ -38,8 +40,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                                 r_Ships[rShip.ID] = rShip.Experience;
 
                             if (rOldExperience != rShip.Experience)
-                                InsertShipExperience(rShip.ID, rShip.Experience);
+                                rShips.Add(Tuple.Create(rShip.ID, rShip.Experience));
                         }
+
+                        if (rShips.Count > 0)
+                            InsertShipExperience(rShips);
 
                         rTransaction.Commit();
                     }
@@ -97,15 +102,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
         }
-        void InsertShipExperience(int rpID, int rpExperience)
+        void InsertShipExperience(List<Tuple<int, int>> rpShips)
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT INTO ship_experience(id, time, experience) " +
-                    "VALUES(@id, strftime('%s', 'now'), @experience);";
-                rCommand.Parameters.AddWithValue("@id", rpID);
-                rCommand.Parameters.AddWithValue("@experience", rpExperience);
+                var rBuffer = new StringBuilder(128);
+                for (var i = 0; i < rpShips.Count; i++)
+                {
+                    var rShip = rpShips[i];
+                    rBuffer.Append($"INSERT INTO ship_experience(id, time, experience) VALUES({rShip.Item1}, strftime('%s', 'now'), {rShip.Item2});");
+                }
 
+                rCommand.CommandText = rBuffer.ToString();
                 rCommand.ExecuteNonQuery();
             }
         }
