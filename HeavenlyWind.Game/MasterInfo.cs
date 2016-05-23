@@ -43,5 +43,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                              join rMap in Maps.Values on rArea.ID equals rMap.AreaID
                              select rMap).Count();
         }
+
+        public ExpeditionInfo GetExpeditionFromName(string rpName)
+        {
+            foreach (var rExpedition in Expeditions.Values)
+                if (rExpedition.Name == rpName)
+                    return rExpedition;
+
+            return null;
+        }
     }
 }

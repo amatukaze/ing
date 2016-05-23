@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     var rData = (RawExpeditionResult)r.Data;
 
                     var rFleet = KanColleGame.Current.Port.Fleets[int.Parse(r.Parameters["api_deck_id"])];
-                    var rExpedition = rFleet.ExpeditionStatus.Expedition;
+                    var rExpedition = rFleet.ExpeditionStatus.Expedition ?? KanColleGame.Current.MasterInfo.GetExpeditionFromName(rData.Name);
 
                     InsertRecord(rExpedition.ID, rData);
                     UpdateCount(rExpedition.ID, rData.Ships.Skip(1));
