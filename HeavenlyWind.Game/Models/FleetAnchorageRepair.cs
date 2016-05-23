@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         Fleet r_Fleet;
 
-        internal Tuple<Ship, ClampedValue>[] RepairingShips { get; set; }
+        internal List<Tuple<Ship, ClampedValue>> RepairingShips { get; set; }
 
         public event Action InterruptionNotification = () => { };
 
@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal void Update(IEnumerable<Ship> rpShipsToBeRepaired)
         {
-            var rShips = rpShipsToBeRepaired.Select(r => Tuple.Create(r, r.HP)).ToArray();
+            var rShips = rpShipsToBeRepaired.Select(r => Tuple.Create(r, r.HP)).ToList();
             var rReset = false;
 
             if (RepairingShips == null || !RepairingShips.Select(r => r.Item1).SequenceEqual(rpShipsToBeRepaired))
@@ -32,7 +32,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
             else
             {
-                for (var i = 0; i < RepairingShips.Length; i++)
+                for (var i = 0; i < RepairingShips.Count; i++)
                     if (RepairingShips[i].Item2 != rShips[i].Item2)
                     {
                         rReset = true;
@@ -58,6 +58,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             TimeToComplete = null;
             RepairingShips = null;
+        }
+
+        internal void RemoveShipIfExists(Ship rpShip)
+        {
+            if (RepairingShips == null)
+                return;
+
+            var rIndex = RepairingShips.FindIndex(r => r.Item1 == rpShip);
+            if (rIndex != -1)
+            {
+                rpShip.State &= ~ShipState.RepairingInAnchorage;
+                RepairingShips.RemoveAt(rIndex);
+            }
         }
 
         protected override void TimeOut() => InterruptionNotification();

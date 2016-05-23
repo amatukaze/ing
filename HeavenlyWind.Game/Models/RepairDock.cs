@@ -58,6 +58,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (State == RepairDockState.Repairing)
             {
                 Ship = KanColleGame.Current.Port.Ships[rpRawData.ShipID];
+
+                if ((Ship.State & ShipState.RepairingInAnchorage) == ShipState.RepairingInAnchorage)
+                    Ship.OwnerFleet.AnchorageRepair.RemoveShipIfExists(Ship);
+
                 Ship.OwnerRepairDock = this;
                 Ship.State |= ShipState.Repairing;
                 Ship.OwnerFleet?.Update();
