@@ -24,7 +24,7 @@
 
                         <TextBlock Name="HP" Margin="3, 0, 0, 0">
                             <Run Name="Current" Text="{Binding Current, Mode=OneWay}" />
-                            <Run Name="Damage" Text="{Binding Damage, StringFormat=(-{0}), Mode=OneWay}" FontSize="11" />
+                            <Run Name="Damage" Text="{Binding Damage, StringFormat=(-0);(+0);#, Mode=OneWay}" FontSize="11" />
                         </TextBlock>
                         <TextBlock Name="DamageGivenToOpponent" Text="{Binding DamageGivenToOpponent}" HorizontalAlignment="Right" />
 
