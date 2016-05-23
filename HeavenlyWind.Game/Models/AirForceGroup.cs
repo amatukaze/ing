@@ -82,6 +82,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal void UpdateCombatRadius()
         {
             var rSquadrons = Squadrons.Values.Where(r => r.State == AirForceSquadronState.Idle);
+            if (!rSquadrons.Any())
+                return;
+
             MinCombatRadius = rSquadrons.Min(r => r.Plane.Info.CombatRadius);
             MaxCombatRadius = rSquadrons.Max(r => r.Plane.Info.CombatRadius);
         }
