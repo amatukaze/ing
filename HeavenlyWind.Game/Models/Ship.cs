@@ -54,6 +54,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public Fleet OwnerFleet { get; internal set; }
 
+        RepairDock r_OwnerRepairDock;
+        public RepairDock OwnerRepairDock
+        {
+            get { return r_OwnerRepairDock; }
+            internal set
+            {
+                if (r_OwnerRepairDock != value)
+                {
+                    r_OwnerRepairDock = value;
+                    OnPropertyChanged(nameof(OwnerRepairDock));
+                }
+            }
+        }
+
         ClampedValue r_HP;
         public ClampedValue HP
         {
