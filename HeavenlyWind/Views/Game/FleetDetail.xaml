@@ -115,7 +115,10 @@
                                     </TextBlock>
                                 </Border>
                                 <Border Name="Evacuated" Background="#33B1B1B1" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.RowSpan="2">
-                                    <TextBlock Text="{rb:StringResource Main.Ship_Evacuated}" FontSize="14" HorizontalAlignment="Center" />
+                                    <TextBlock Text="{rb:StringResource Main.Ship_Evacuated}" HorizontalAlignment="Center" />
+                                </Border>
+                                <Border Name="RepairingInAnchorage" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                    <TextBlock Text="{rb:StringResource Main.Ship_RepairingInAnchorage}" HorizontalAlignment="Center" />
                                 </Border>
 
                                 <TextBlock Name="Condition" Text="{Binding Condition}" Margin="3, 0, 0, 0" TextAlignment="Center" Grid.Column="4" Grid.RowSpan="2" />
@@ -162,6 +165,11 @@
                                 <Setter TargetName="Evacuated" Property="Visibility" Value="Visible" />
                                 <Setter TargetName="HP" Property="Opacity" Value=".2" />
                                 <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{rb:HasFlag State, RepairingInAnchorage}" Value="True">
+                                <Setter TargetName="RepairingInAnchorage" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="Condition" Property="Opacity" Value=".2" />
+                                <Setter TargetName="FuelAndBullet" Property="Opacity" Value=".2" />
                             </DataTrigger>
 
                             <DataTrigger Binding="{Binding Condition}" Value="100">

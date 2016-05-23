@@ -112,6 +112,7 @@
   <String Key="Fleet_MoraleRegeneration">Fatigue</String>
 
   <String Key="Ship_Repairing">Repairing</String>
+  <String Key="Ship_RepairingInAnchorage">Repairing</String>
   <String Key="Ship_Evacuated">Evacuated</String>
   <String Key="Ship_ToolTip_DayBattle">Day</String>
   <String Key="Ship_ToolTip_NightBattle">Night</String>

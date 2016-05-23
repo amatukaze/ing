@@ -219,6 +219,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             else
                 State &= ~ShipState.Repairing;
 
+            if ((State & ShipState.Repairing) == 0)
+            {
+                var rShips = OwnerFleet?.AnchorageRepair.RepairingShips;
+                if (rShips != null && rShips.Any(r => r.Item1 == this))
+                    State |= ShipState.RepairingInAnchorage;
+                else
+                    State &= ~ShipState.RepairingInAnchorage;
+            }
+
             if (RawData.ModernizedStatus?.Length >= 5)
                 Status.Update(Info, RawData);
 

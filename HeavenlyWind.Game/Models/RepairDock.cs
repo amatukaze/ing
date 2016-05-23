@@ -60,6 +60,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Ship = KanColleGame.Current.Port.Ships[rpRawData.ShipID];
                 Ship.OwnerRepairDock = this;
                 Ship.State |= ShipState.Repairing;
+                Ship.OwnerFleet?.Update();
 
                 TimeToComplete = DateTimeUtil.UnixEpoch.AddMilliseconds(rpRawData.TimeToComplete);
 

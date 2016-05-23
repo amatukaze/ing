@@ -26,27 +26,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 if (RepairingShips != null)
                     foreach (var rShip in RepairingShips.Select(r => r.Item1).Except(rpShipsToBeRepaired))
-                        rShip.State &= ~ShipState.Repairing;
+                        rShip.State &= ~ShipState.RepairingInAnchorage;
 
                 rReset = true;
             }
             else
             {
                 for (var i = 0; i < RepairingShips.Length; i++)
-                {
-                    RepairingShips[i].Item1.State |= ShipState.Repairing;
                     if (RepairingShips[i].Item2 != rShips[i].Item2)
                     {
                         rReset = true;
                         break;
                     }
-                }
             }
 
             if (rReset)
             {
                 foreach (var rShip in rShips)
-                    rShip.Item1.State |= ShipState.Repairing;
+                    rShip.Item1.State |= ShipState.RepairingInAnchorage;
 
                 RepairingShips = rShips;
                 Reset();
@@ -57,7 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal void Stop()
         {
             foreach (var rShip in RepairingShips)
-                rShip.Item1.State &= ~ShipState.Repairing;
+                rShip.Item1.State &= ~ShipState.RepairingInAnchorage;
 
             TimeToComplete = null;
             RepairingShips = null;
