@@ -47,7 +47,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 {
                     var rOriginalShip = rFleet.Organize(rIndex, rShip);
                     if (rOriginalIndex.HasValue)
+                    {
                         rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
+                        rShip.OwnerFleet = rFleet;
+                    }
                 }
 
                 rFleet.Update();
