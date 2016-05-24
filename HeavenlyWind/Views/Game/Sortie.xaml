@@ -73,6 +73,14 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
+                    <TextBlock Margin="3, 0, 0, 0" Visibility="{Binding HasGauge, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}({0}/{1})">
+                                <Binding Path="HP.Current" />
+                                <Binding Path="HP.Maximum" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
