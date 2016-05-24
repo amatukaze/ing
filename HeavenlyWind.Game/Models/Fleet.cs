@@ -99,7 +99,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Status.Update();
             Resupply.Update();
             ExpeditionStatus.Update(RawData.Expedition);
-            ConditionRegeneration.Update();
 
             var rState = FleetState.None;
             var rSortie = KanColleGame.Current.Sortie;
@@ -131,6 +130,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         rState |= FleetState.AnchorageRepair;
                 }
             }
+
+            if ((rState & FleetState.Sortie) == 0)
+                ConditionRegeneration.Update();
+            else
+                ConditionRegeneration.Reset();
 
             if ((rState & FleetState.AnchorageRepair) == FleetState.AnchorageRepair)
                 AnchorageRepair.Update(rShipsToBeRepaired);

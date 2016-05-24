@@ -39,9 +39,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        internal void Reset() => TimeToComplete = null;
+
         protected override void TimeOut()
         {
-            TimeToComplete = null;
+            Reset();
             Recovered(r_Fleet);
         }
     }
