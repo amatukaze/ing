@@ -42,7 +42,7 @@
                                             <rc:EquipmentLevel Level="{Binding Equipment.Level}" ShowStar="False" />
                                         </StackPanel>
 
-                                        <TextBlock Name="PlaneCount" Text="{Binding PlaneCount}" TextAlignment="Center" Grid.Column="1" Grid.RowSpan="5" />
+                                        <TextBlock Name="PlaneCount" Text="{Binding PlaneCount}" TextAlignment="Center" Grid.Column="1" Grid.RowSpan="4" />
                                     </Grid>
                                 </Border>
 
