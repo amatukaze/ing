@@ -1,11 +1,14 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System.Linq;
+using System.Threading;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class MasterInfo : ModelBase
     {
+        ManualResetEventSlim r_InitializationLock = new ManualResetEventSlim(false);
+
         public IDTable<ShipInfo> Ships { get; } = new IDTable<ShipInfo>();
         public IDTable<ShipTypeInfo> ShipTypes { get; } = new IDTable<ShipTypeInfo>();
 
@@ -42,7 +45,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                              where rArea.IsEventArea
                              join rMap in Maps.Values on rArea.ID equals rMap.AreaID
                              select rMap).Count();
+
+            if (r_InitializationLock != null)
+            {
+                r_InitializationLock.Set();
+                r_InitializationLock = null;
+            }
         }
+
+        public void WaitForInitialization() => r_InitializationLock?.Wait();
 
         public ExpeditionInfo GetExpeditionFromName(string rpName)
         {

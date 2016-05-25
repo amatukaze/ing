@@ -7,6 +7,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.GetMember
     {
         public override void Process(RawRequiredInfo rpData)
         {
+            Game.MasterInfo.WaitForInitialization();
+
             Game.Port.UpdateEquipment(rpData.Equipment);
             Game.Port.UpdateConstructionDocks(rpData.ConstructionDocks);
         }
