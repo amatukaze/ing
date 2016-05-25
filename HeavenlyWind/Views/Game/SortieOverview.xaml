@@ -7,61 +7,65 @@
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
-    <UserControl.Style>
-        <Style TargetType="{x:Type UserControl}">
-            <Setter Property="TextElement.FontSize" Value="14" />
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type UserControl}">
-                        <StackPanel>
-                            <rvg:MapGauges DataContext="{Binding MapGauges}" />
-
-                            <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="0, 8, 0, 0" />
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <Style.Triggers>
-                <MultiDataTrigger>
-                    <MultiDataTrigger.Conditions>
-                        <Condition Binding="{Binding Type}" Value="MapGauge" />
-                        <Condition Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical" />
-                    </MultiDataTrigger.Conditions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Control>
+            <Control.Style>
+                <Style TargetType="{x:Type Control}">
+                    <Setter Property="TextElement.FontSize" Value="14" />
 
                     <Setter Property="Template">
                         <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type UserControl}">
-                                <StackPanel Orientation="Horizontal">
+                            <ControlTemplate TargetType="{x:Type Control}">
+                                <StackPanel>
                                     <rvg:MapGauges DataContext="{Binding MapGauges}" />
 
-                                    <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="8, 0, 0, 0" />
+                                    <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="0, 8, 0, 0" />
                                 </StackPanel>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                </MultiDataTrigger>
 
-                <DataTrigger Binding="{Binding Type}" Value="Sortie">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type UserControl}">
-                                <rvg:Sortie />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Type}" Value="Practice">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type UserControl}">
-                                <rvg:Practice />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Style>
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Type}" Value="MapGauge" />
+                                <Condition Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Control}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <rvg:MapGauges DataContext="{Binding MapGauges}" />
+
+                                            <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="8, 0, 0, 0" />
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+
+                        <DataTrigger Binding="{Binding Type}" Value="Sortie">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Control}">
+                                        <rvg:Sortie />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="Practice">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Control}">
+                                        <rvg:Practice />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Control.Style>
+        </Control>
+    </ScrollViewer>
 </UserControl>
