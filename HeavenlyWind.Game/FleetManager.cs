@@ -53,6 +53,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     }
                 }
 
+                if ((rFleet.State & FleetState.AnchorageRepair) == FleetState.AnchorageRepair)
+                    rFleet.AnchorageRepair.Reset();
+
                 rFleet.Update();
                 rOriginalFleet?.Update();
             });

@@ -111,7 +111,16 @@
                                     <TextBlock Text="{rb:StringResource Main.Ship_Evacuated}" HorizontalAlignment="Center" />
                                 </Border>
                                 <Border Name="RepairingInAnchorage" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                                    <TextBlock Text="{rb:StringResource Main.Ship_RepairingInAnchorage}" HorizontalAlignment="Center" />
+                                    <Border.ToolTip>
+                                        <ToolTip>
+                                            <TextBlock>
+                                                <Run Text="{rb:StringResource Main.Overview_RepairDocks_TimeToComplete, Mode=OneWay}" />
+                                                <Run Text="{Binding AnchorageRepairStatus.TimeToCompleteString, Mode=OneWay}" />
+                                            </TextBlock>
+                                        </ToolTip>
+                                    </Border.ToolTip>
+
+                                    <TextBlock Text="{Binding AnchorageRepairStatus.RemainingTimeString}" HorizontalAlignment="Center" />
                                 </Border>
 
                                 <TextBlock Name="Condition" Text="{Binding Condition}" Margin="3, 0, 0, 0" TextAlignment="Center" Grid.Column="4" Grid.RowSpan="2" />

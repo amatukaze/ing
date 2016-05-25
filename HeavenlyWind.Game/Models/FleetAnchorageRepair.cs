@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 if (RepairingShips != null)
                     foreach (var rShip in RepairingShips.Select(r => r.Item1).Except(rpShipsToBeRepaired))
-                        rShip.State &= ~ShipState.RepairingInAnchorage;
+                        rShip.UpdateAnchorageRepairStatus(false);
 
                 rReset = true;
             }
@@ -43,7 +43,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (rReset)
             {
                 foreach (var rShip in rShips)
-                    rShip.Item1.State |= ShipState.RepairingInAnchorage;
+                {
+                    rShip.Item1.UpdateAnchorageRepairStatus(true);
+                    rShip.Item1.AnchorageRepairStatus.Update();
+                }
 
                 RepairingShips = rShips;
                 Reset();
@@ -54,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal void Stop()
         {
             foreach (var rShip in RepairingShips)
-                rShip.Item1.State &= ~ShipState.RepairingInAnchorage;
+                rShip.Item1.UpdateAnchorageRepairStatus(false);
 
             TimeToComplete = null;
             RepairingShips = null;
@@ -68,7 +71,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rIndex = RepairingShips.FindIndex(r => r.Item1 == rpShip);
             if (rIndex != -1)
             {
-                rpShip.State &= ~ShipState.RepairingInAnchorage;
+                rpShip.UpdateAnchorageRepairStatus(false);
                 RepairingShips.RemoveAt(rIndex);
             }
         }

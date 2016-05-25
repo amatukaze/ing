@@ -233,6 +233,7 @@
     <Compile Include="Models\Raw\RawShipsAndFleets.cs" />
     <Compile Include="Models\Raw\RawSupplyResult.cs" />
     <Compile Include="Models\RepairDock.cs" />
+    <Compile Include="Models\ShipAnchorageRepairStatus.cs" />
     <Compile Include="Models\ShipCombatAbility.cs" />
     <Compile Include="Models\ShipExtensions.cs" />
     <Compile Include="Models\ShipLocking.cs" />
