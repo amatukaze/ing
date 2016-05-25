@@ -87,19 +87,21 @@
 
                                         <StackPanel Orientation="Horizontal" Grid.Column="2">
                                             <TextBlock Margin="0, 4">
-                                                <Run Name="Name" Text="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" />
-                                                <Run Name="Level" />
+                                                <Run Name="Name" Text="{rb:ExtraStringResource Equipment, Equipment.ID, Equipment.Name}" />
+                                                <Run Name="Level" FontSize="11" />
                                             </TextBlock>
 
-                                            <rc:EquipmentProficiency Proficiency="{Binding Equipment.Proficiency}" Margin="4, 0, 0, 0" Visibility="{Binding IsEquipment, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                            <rc:EquipmentLevel Level="{Binding Equipment.Level}" Margin="4, 0, 0, 0" Visibility="{Binding IsEquipment, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                                            <rc:EquipmentProficiency x:Name="EquipmentProficiency" Proficiency="{Binding Proficiency}" Margin="4, 0, 0, 0" />
+                                            <rc:EquipmentLevel x:Name="EquipmentLevel" Level="{Binding Level}" Margin="4, 0, 0, 0" />
                                         </StackPanel>
                                     </Grid>
 
                                     <DataTemplate.Triggers>
                                         <DataTrigger Binding="{Binding IsEquipment}" Value="False">
+                                            <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" />
                                             <Setter TargetName="Level" Property="Text" Value="{Binding Level, StringFormat=Lv.{0}, Mode=OneWay}" />
-                                            <Setter TargetName="Level" Property="FontSize" Value="11" />
+                                            <Setter TargetName="EquipmentProficiency" Property="Visibility" Value="Collapsed" />
+                                            <Setter TargetName="EquipmentLevel" Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </DataTemplate.Triggers>
                                 </DataTemplate>
