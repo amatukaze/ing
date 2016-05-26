@@ -382,7 +382,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                         Equipment rEquipment;
                         if (!Equipment.TryGetValue(rID, out rEquipment))
-                            Equipment.Add(rEquipment = new Equipment(new RawEquipment() { ID = rID, EquipmentID = -1 }));
+                            AddEquipment(rEquipment = new Equipment(new RawEquipment() { ID = rID, EquipmentID = -1 }));
 
                         return rEquipment;
                     }).ToArray();

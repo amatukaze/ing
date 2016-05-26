@@ -270,7 +270,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     else if (!KanColleGame.Current.Port.Equipment.TryGetValue(rID, out rEquipment))
                     {
                         rEquipment = new Equipment(new RawEquipment() { ID = rID, EquipmentID = -1 });
-                        KanColleGame.Current.Port.Equipment.Add(rEquipment);
+                        KanColleGame.Current.Port.AddEquipment(rEquipment);
                     }
 
                     Slots[i].Equipment = rEquipment;
