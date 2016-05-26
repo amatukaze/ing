@@ -8,12 +8,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class Ship : RawDataWrapper<RawShip>, IID, ICombatAbility
     {
+        public const int LevelToMarriage = 99;
+
         public int ID => RawData.ID;
         public ShipInfo Info { get; private set; }
         public int SortNumber => RawData.SortNumber;
 
         public int Level => RawData.Level;
-        public bool IsMarried => Level > 99;
+        public bool IsMarried => Level > LevelToMarriage;
 
         int r_Condition;
         public int Condition
@@ -47,8 +49,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public int Experience => RawData.Experience[0];
         public int ExperienceToNextLevel => RawData.Experience[1];
-        public int ExperienceToMarriage => ExperienceTable.GetShipExperienceToLevel(99, Experience);
-        public int ExperienceToMaxLevel => ExperienceTable.GetShipExperienceToLevel(150, Experience);
+        public int ExperienceToMarriage => ExperienceTable.GetShipExperienceToLevel(LevelToMarriage, Experience);
+        public int ExperienceToMaxLevel => ExperienceTable.GetShipExperienceToLevel(ExperienceTable.Ship.Count, Experience);
 
         public TimeSpan? RepairTime => RawData.RepairTime == 0 ? (TimeSpan?)null : TimeSpan.FromMilliseconds(RawData.RepairTime);
         public int RepairFuelConsumption => RawData.RepairConsumption[0];
