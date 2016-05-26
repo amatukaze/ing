@@ -17,8 +17,13 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             try
             {
-                using (var rReader = new JsonTextReader(File.OpenText(r_FilePath)))
-                    Current = r_Serializer.Deserialize<Preference>(rReader);
+                if (!File.Exists(r_FilePath))
+                {
+                    Current = new Preference();
+                    return;
+                }
+
+                LoadCore(r_FilePath);
             }
             catch (Exception e)
             {
@@ -38,6 +43,11 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (Current == null)
                     Current = new Preference();
             }
+        }
+        static void LoadCore(string rpPath)
+        {
+            using (var rReader = new JsonTextReader(File.OpenText(rpPath)))
+                Current = r_Serializer.Deserialize<Preference>(rReader);
         }
 
         public static void Save()
