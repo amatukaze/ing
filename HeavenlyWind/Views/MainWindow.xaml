@@ -12,7 +12,7 @@
                   xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Product_Name}"
-                  Width="1280" Height="600"
+                  Width="1350" Height="720"
                   WindowPlacementPreference="{StaticResource WindowPlacementPreference}"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.TaskbarItemInfo>
