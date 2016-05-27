@@ -123,7 +123,7 @@ namespace Sakuno.KanColle.Amatsukaze
                     if (rContent.Type == ExtraStringResourceType.AbyssalShip)
                     {
                         rESR.AbyssalShip = rTranslations
-                            .SelectMany(r => r["id"], (rpID, rpTranslation) => new { ID = (int)rpID, Name = (string)rpTranslation["name"] })
+                            .SelectMany(r => r["id"], (rpTranslation, rpID) => new { ID = (int)rpID, Name = (string)rpTranslation["name"] })
                             .ToHybridDictionary(r => r.ID, r => r.Name);
                     }
                     else
