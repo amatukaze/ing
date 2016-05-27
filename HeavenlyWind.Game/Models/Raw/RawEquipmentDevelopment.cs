@@ -13,6 +13,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_material")]
         public int[] Materials { get; set; }
 
+        [JsonProperty("api_type3")]
+        public int EquipmentType { get; set; }
+
         public class RawEquipmentDevelopmentResult
         {
             [JsonProperty("api_id")]

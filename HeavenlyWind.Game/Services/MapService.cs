@@ -51,6 +51,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             return null;
         }
 
+        public int? GetNodeUniqueID(int rpMapID, int rpNodeID)
+        {
+            var rWikiID = GetNodeWikiID(rpMapID, rpNodeID);
+            if (rWikiID == null)
+                return null;
+
+            return r_Nodes[rpMapID].Where(r => r.Value.WikiID == rWikiID).Min(r => r.Key);
+        }
+
         public double? GetAngle(int rpMapID, int rpSourceNode, int rpDestinationNode)
         {
             HybridDictionary<int, Node> rMap;

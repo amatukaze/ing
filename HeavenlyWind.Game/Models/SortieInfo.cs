@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class SortieInfo : ModelBase
     {
-        static SortieInfo r_Current;
+        internal static SortieInfo Current { get; private set; }
 
         public long ID { get; } = (long)DateTimeOffset.Now.ToUnixTime();
 
@@ -21,6 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public MapInfo Map { get; }
 
+        public SortieNodeInfo PreviousNode { get; private set; }
         public SortieNodeInfo Node { get; private set; }
 
         public double? DirectionAngle { get; private set; }
@@ -39,24 +40,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        internal int[] LandBaseAerialSupportRequests { get; set; }
+
         static SortieInfo()
         {
-            SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
-
-            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, r => r_Current?.Explore((RawMapExploration)r.Data));
+            SessionService.Instance.Subscribe("api_port/port", _ => Current = null);
 
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
                 var rData = (RawBattleResult)r.Data;
-
                 if (rData.DroppedShip != null)
-                     r_Current.PendingShipCount++;
+                     Current.PendingShipCount++;
             });
         }
         internal SortieInfo() { }
         internal SortieInfo(Fleet rpFleet, int rpMapID)
         {
-            r_Current = this;
+            Current = this;
 
             Fleet = rpFleet;
             MainShips = Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
@@ -70,14 +70,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Map = KanColleGame.Current.Maps[rpMapID];
         }
 
-        void Explore(RawMapExploration rpData)
+        internal void Explore(RawMapExploration rpData)
         {
+            PreviousNode = Node;
+            if (PreviousNode != null)
+                PreviousNode.Event = null;
+
             DirectionAngle = MapService.Instance.GetAngle(Map.ID, rpData.StartNode ?? Node?.ID ?? 0, rpData.Node);
             OnPropertyChanged(nameof(DirectionAngle));
 
             Node = new SortieNodeInfo(Map, rpData);
-
             OnPropertyChanged(nameof(Node));
+            OnPropertyChanged(nameof(PreviousNode));
         }
     }
 }

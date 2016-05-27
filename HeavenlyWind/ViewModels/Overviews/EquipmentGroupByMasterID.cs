@@ -1,11 +1,12 @@
 ﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentGroupByMasterID
+    public class EquipmentGroupByMasterID : ModelBase
     {
         public EquipmentInfo Info { get; }
         public EquipmentTypeViewModel Type { get; }
@@ -14,7 +15,17 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         public IReadOnlyCollection<EquipmentGroupByLevel> Levels { get; }
 
         public int Count => r_LevelMap.Values.Sum(r => r.Count);
-        public int RemainingCount => r_LevelMap.Values.Sum(r => r.RemainingCount);
+        public int RemainingCount
+        {
+            get
+            {
+                var rUnequippedEquipment = KanColleGame.Current.Port.UnequippedEquipment[(int)Info.Type];
+                if (rUnequippedEquipment == null)
+                    return 0;
+
+                return rUnequippedEquipment.Count(r => r.Info == Info);
+            }
+        }
 
         internal EquipmentGroupByMasterID(EquipmentInfo rpInfo, EquipmentTypeViewModel rpType, IEnumerable<Equipment> rpEquipment)
         {
@@ -22,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             Type = rpType;
 
             foreach (var rGroup in rpEquipment.GroupBy(r => new EquipmentGroupingKey(r.Level, r.Proficiency)))
-                r_LevelMap.Add(rGroup.Key, new EquipmentGroupByLevel(rGroup.Key, rGroup));
+                r_LevelMap.Add(rGroup.Key, new EquipmentGroupByLevel(this, rGroup.Key, rGroup));
             Levels = r_LevelMap.OrderBy(r => r.Key.Level).ThenBy(r => r.Key.Proficiency).Select(r => r.Value).ToArray().AsReadOnly();
         }
 

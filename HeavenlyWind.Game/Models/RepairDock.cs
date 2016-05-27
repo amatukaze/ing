@@ -38,6 +38,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        internal bool PendingToUpdateMaterials { get; set; }
+
+        public override TimeSpan RemainingTimeToNotify => TimeSpan.FromMinutes(1.0);
+
         public event Action<string> RepairCompleted = delegate { };
 
         internal RepairDock(RawRepairDock rpRawData)
@@ -54,13 +58,33 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (State == RepairDockState.Repairing)
             {
                 Ship = KanColleGame.Current.Port.Ships[rpRawData.ShipID];
+
+                if ((Ship.State & ShipState.RepairingInAnchorage) == ShipState.RepairingInAnchorage)
+                    Ship.OwnerFleet.AnchorageRepair.RemoveShipIfExists(Ship);
+
+                Ship.OwnerRepairDock = this;
                 Ship.State |= ShipState.Repairing;
+                Ship.OwnerFleet?.Update();
+
                 TimeToComplete = DateTimeUtil.UnixEpoch.AddMilliseconds(rpRawData.TimeToComplete);
+
+                if (PendingToUpdateMaterials)
+                {
+                    var rMaterials = KanColleGame.Current.Port.Materials;
+
+                    rMaterials.Fuel -= rpRawData.FuelConsumption;
+                    rMaterials.Bullet -= rpRawData.BulletConsumption;
+                    rMaterials.Steel -= rpRawData.SteelConsumption;
+                    rMaterials.Bauxite -= rpRawData.BauxiteConsumption;
+
+                    PendingToUpdateMaterials = false;
+                }
             }
             else
             {
                 if (Ship != null)
                 {
+                    Ship.OwnerRepairDock = null;
                     Ship.Repair(true);
                     Ship = null;
                 }

@@ -11,30 +11,6 @@
                   Title="{rb:StringResource Main.Window_ScrappingHistory}"
                   Width="800" Height="480"
                   UseLayoutRounding="True">
-    <Window.Resources>
-        <Style x:Key="EquipmentLevel" TargetType="{x:Type Run}">
-            <Setter Property="Text" Value="{Binding Level, StringFormat=★+{0}, Mode=OneWay}" />
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Level}" Value="0">
-                    <Setter Property="Text" Value="" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Level}" Value="10">
-                    <Setter Property="Text" Value="★max" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="EquipmentProficiency" TargetType="{x:Type Run}">
-            <Setter Property="Text" Value="{Binding Proficiency, StringFormat=+{0}, Mode=OneWay}" />
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Proficiency}" Value="0">
-                    <Setter Property="Text" Value="" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -109,21 +85,23 @@
 
                                         <rc:EquipmentIcon Type="{Binding Equipment.Icon}" Visibility="{Binding IsEquipment, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                                        <TextBlock Margin="0, 4" Grid.Column="2">
-                                            <Run Name="Name" Text="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" />
-                                            <Run Name="Level" />
-                                            <Run Style="{StaticResource EquipmentProficiency}" />
-                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                            <TextBlock Margin="0, 4">
+                                                <Run Name="Name" Text="{rb:ExtraStringResource Equipment, Equipment.ID, Equipment.Name}" />
+                                                <Run Name="Level" FontSize="11" />
+                                            </TextBlock>
+
+                                            <rc:EquipmentProficiency x:Name="EquipmentProficiency" Proficiency="{Binding Proficiency}" Margin="4, 0, 0, 0" />
+                                            <rc:EquipmentLevel x:Name="EquipmentLevel" Level="{Binding Level}" Margin="4, 0, 0, 0" />
+                                        </StackPanel>
                                     </Grid>
 
                                     <DataTemplate.Triggers>
                                         <DataTrigger Binding="{Binding IsEquipment}" Value="False">
+                                            <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource Ship, Ship.ID, Ship.Name}" />
                                             <Setter TargetName="Level" Property="Text" Value="{Binding Level, StringFormat=Lv.{0}, Mode=OneWay}" />
-                                            <Setter TargetName="Level" Property="FontSize" Value="11" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding IsEquipment}" Value="True">
-                                            <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource Equipment, Equipment.ID, Equipment.Name}" />
-                                            <Setter TargetName="Level" Property="Style" Value="{StaticResource EquipmentLevel}" />
+                                            <Setter TargetName="EquipmentProficiency" Property="Visibility" Value="Collapsed" />
+                                            <Setter TargetName="EquipmentLevel" Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
                                     </DataTemplate.Triggers>
                                 </DataTemplate>

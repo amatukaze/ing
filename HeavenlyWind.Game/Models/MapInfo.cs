@@ -22,6 +22,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        public bool HasGauge => !IsCleared && r_HP.Current > 0;
+
         public bool IsEventMap => RawData.Event != null;
 
         EventMapDifficulty? r_Difficulty;
@@ -38,6 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        public bool TransportEscortOnly => MasterInfo.SortieFleetType == CombinedFleetType.TransportEscort;
         public MapGaugeType? GaugeType => RawData.Event?.GaugeType;
 
         internal MapInfo(RawMapInfo rpRawData) : base(rpRawData)
@@ -62,7 +65,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             OnPropertyChanged(nameof(IsCleared));
             OnPropertyChanged(nameof(IsIncompleted));
+            OnPropertyChanged(nameof(HasGauge));
         }
+
+        internal void UpdateGauge() => OnPropertyChanged(nameof(HasGauge));
 
         public override string ToString() => $"ID = {ID}, Name = \"{MasterInfo.Name}\"";
     }

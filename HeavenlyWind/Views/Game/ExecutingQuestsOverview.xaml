@@ -7,24 +7,96 @@
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <ItemsControl ItemsSource="{Binding ExecutingQuests}">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
-                <Border Background="Transparent" Padding="4">
-                    <Grid DataContext="{Binding Source}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition SharedSizeGroup="Progress" Width="Auto" />
-                        </Grid.ColumnDefinitions>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/QuestRealtimeProgress.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type UserControl}">
+                        <ItemsControl ItemsSource="{Binding ExecutingQuests}" Grid.IsSharedSizeScope="True">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
+                                    <Border Background="Transparent" Padding="4">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="3" />
+                                                <ColumnDefinition SharedSizeGroup="Progress" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="22" />
+                                                <RowDefinition Height="2" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
 
-                        <TextBlock Text="{rb:ExtraStringResource Quest, ID, Name}" TextTrimming="CharacterEllipsis" />
-                        <Border Name="DetailProgressBorder" Background="Transparent" Margin="3, 0, 0, 0" Grid.Column="1">
-                            <ContentControl Name="DetailProgressContent">
-                            </ContentControl>
-                        </Border>
-                    </Grid>
-                </Border>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+                                            <TextBlock Text="{rb:ExtraStringResource Quest, Source.ID, Source.Name}" TextTrimming="CharacterEllipsis" />
+                                            <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="2">
+                                                <Control Style="{StaticResource QuestRealtimeProgress}" />
+                                            </Border>
+
+                                            <Rectangle Name="ControllerTriggerZone" Fill="Transparent" Grid.ColumnSpan="3" Grid.RowSpan="3" />
+                                            <Border Name="RealtimeProgressControllerBorder" HorizontalAlignment="Right" Visibility="Collapsed" Grid.Row="2" Grid.ColumnSpan="3">
+                                                <Control Style="{StaticResource QuestRealtimeProgressController}" />
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <DataTemplate.Triggers>
+                                        <Trigger SourceName="ControllerTriggerZone" Property="AreAnyTouchesOver" Value="True">
+                                            <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
+                                        </Trigger>
+                                        <Trigger SourceName="ControllerTriggerZone" Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
+                                        </Trigger>
+                                        <Trigger SourceName="RealtimeProgressControllerBorder" Property="AreAnyTouchesOver" Value="True">
+                                            <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
+                                        </Trigger>
+                                        <Trigger SourceName="RealtimeProgressControllerBorder" Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
+                                        </Trigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding Source.RealtimeProgress.Quest.ProgressRules}" Value="{x:Null}" />
+                                                <Condition Binding="{Binding Source.RealtimeProgress.Progress}" Value="0" />
+                                            </MultiDataTrigger.Conditions>
+
+                                            <Setter TargetName="RealtimeProgressBorder" Property="Visibility" Value="{Binding Visibility, ElementName=RealtimeProgressControllerBorder}" />
+                                        </MultiDataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ExecutingQuests}" Value="{x:Null}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type UserControl}">
+                                <TextBlock Text="{rb:StringResource Main.Overview_ExecutingQuest_NotLoaded}" HorizontalAlignment="Center" Margin="0, 4" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ExecutingQuests.Count}" Value="0">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type UserControl}">
+                                <TextBlock Text="{rb:StringResource Main.Overview_ExecutingQuest_None}" HorizontalAlignment="Center" Margin="0, 4" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
 </UserControl>

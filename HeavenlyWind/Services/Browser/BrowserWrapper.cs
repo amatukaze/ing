@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -33,8 +34,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         IBrowser r_Browser;
 
         double r_Zoom;
-
-        MemoryMappedFile r_ScreenshotMMF;
 
         static HybridDictionary<string, string> r_LayoutEngineDependencies;
 
@@ -199,38 +198,41 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void InitializeScreenshotMessagesSubscription()
         {
-            r_Messages.Where(r => r.Key == CommunicatorMessages.TakeScreenshot).Subscribe(delegate
+            MemoryMappedFile rScreenshotMMF = null;
+
+            r_Messages.Subscribe(CommunicatorMessages.TakeScreenshot, r =>
             {
                 try
                 {
                     var rScreenshotData = r_Browser.TakeScreenshot();
                     if (rScreenshotData == null || rScreenshotData.BitmapData == null)
                     {
-                        r_Communicator.Write(CommunicatorMessages.ScreenshotFail);
-                        r_ScreenshotMMF = null;
+                        r_Communicator.Write(CommunicatorMessages.ScreenshotFail + ":" + StringResources.Instance.Main.Log_Screenshot_Failed_NoData);
+                        rScreenshotMMF = null;
+                        return;
                     }
 
-                    const string MapName = "HeavenlyWind/ScreenshotTransmission";
-                    var rMemoryMappedFile = MemoryMappedFile.CreateNew(MapName, rScreenshotData.BitmapData.Length, MemoryMappedFileAccess.ReadWrite);
+                    var rMapName = "HeavenlyWind/ScreenshotTransmission/" + r.ToString();
+                    var rMemoryMappedFile = MemoryMappedFile.CreateNew(rMapName, rScreenshotData.BitmapData.Length, MemoryMappedFileAccess.ReadWrite);
                     using (var rStream = rMemoryMappedFile.CreateViewStream())
                         rStream.Write(rScreenshotData.BitmapData, 0, rScreenshotData.BitmapData.Length);
 
-                    r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{MapName};{rScreenshotData.Width};{rScreenshotData.Height};{rScreenshotData.BitCount}");
+                    r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{rMapName};{rScreenshotData.Width};{rScreenshotData.Height};{rScreenshotData.BitCount}");
 
-                    r_ScreenshotMMF = rMemoryMappedFile;
+                    rScreenshotMMF = rMemoryMappedFile;
                 }
                 catch (Exception e)
                 {
-                    r_Communicator.Write(CommunicatorMessages.ScreenshotFail + ":" + e.Message);
-                    r_ScreenshotMMF = null;
+                    r_Communicator.Write($"{CommunicatorMessages.ScreenshotFail}:{r};{e.Message}");
+                    rScreenshotMMF = null;
                 }
             });
-            r_Messages.Where(r => r.Key == CommunicatorMessages.FinishScreenshotTransmission).Subscribe(delegate
+            r_Messages.Subscribe(CommunicatorMessages.FinishScreenshotTransmission, delegate
             {
-                if (r_ScreenshotMMF != null)
+                if (rScreenshotMMF != null)
                 {
-                    r_ScreenshotMMF.Dispose();
-                    r_ScreenshotMMF = null;
+                    rScreenshotMMF.Dispose();
+                    rScreenshotMMF = null;
                 }
             });
         }

@@ -52,7 +52,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
             }
 
             if (r_Info.ShipRequirements != null)
-                ShipRequirements = r_Info.ShipRequirements.All(r => r.Types.All(rpType => rShips.Count(rpShip => rpShip.Info.Type.ID == rpType) >= r.Count));
+                ShipRequirements = r_Info.ShipRequirements.All(r => r.Types.Sum(rpType => rShips.Count(rpShip => rpShip.Info.Type.ID == rpType)) >= r.Count);
 
             Success = FlagshipLevel &&
                 ShipCount &&

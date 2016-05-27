@@ -62,11 +62,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Browser\FlashElementNotFoundException.cs" />
     <Compile Include="Browser\IBrowser.cs" />
     <Compile Include="Browser\IBrowserProvider.cs" />
     <Compile Include="Browser\ScreenshotData.cs" />
     <Compile Include="CollapsedIfNullExtension.cs" />
     <Compile Include="CollapsedIfZeroExtension.cs" />
+    <Compile Include="CurrentDockExtension.cs" />
     <Compile Include="EnumerationExtension.cs" />
     <Compile Include="EnumToStringResourceExtension.cs" />
     <Compile Include="ExtraStringResourceExtension.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Models\CacheMode.cs" />
     <Compile Include="Models\FlashQuality.cs" />
     <Compile Include="Models\FlashRenderMode.cs" />
+    <Compile Include="Models\NotificationSound.cs" />
     <Compile Include="Models\Preferences\BrowserPreference.cs" />
     <Compile Include="Models\Preferences\CachePreference.cs" />
     <Compile Include="Models\Preferences\FlashPreference.cs" />
@@ -93,6 +96,7 @@
     <Compile Include="Models\Preferences\ScreenshotPreference.cs" />
     <Compile Include="Models\Preferences\UpdatePreference.cs" />
     <Compile Include="Models\Preferences\UpstreamProxyPreference.cs" />
+    <Compile Include="Models\Preferences\UserInterfacePreference.cs" />
     <Compile Include="Models\Preferences\WindowPreference.cs" />
     <Compile Include="Models\Preferences\WindowsPreference.cs" />
     <Compile Include="Models\ScreenshotImageFormat.cs" />
@@ -113,6 +117,14 @@
     <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj">
       <Project>{85fe16eb-f999-445c-872e-b8181c67031c}</Project>
       <Name>Sakuno.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj">
+      <Project>{3cd66841-054e-409b-8653-f846216061aa}</Project>
+      <Name>Sakuno.SystemInterop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Sakuno.UserInterface\Sakuno.UserInterface.csproj">
+      <Project>{dba4b269-e3ec-43be-83e6-ee9dedfa21f8}</Project>
+      <Name>Sakuno.UserInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

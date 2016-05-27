@@ -12,5 +12,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         Unsupplied = 1 << 3,
         Repairing = 1 << 4,
         HeavilyDamaged = 1 << 5,
+        AnchorageRepair = 1 << 6,
     }
 }

@@ -3,9 +3,10 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
-    class EnemyShip : IParticipant, ICombatAbility
+    class EnemyShip : ModelBase, IParticipant, ICombatAbility
     {
         public ShipInfo Info { get; }
+        public bool IsAbyssalShip => Info.IsAbyssalShip;
 
         public int Level { get; }
         public IList<ShipSlot> Slots { get; }
@@ -15,6 +16,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public ShipSlot ExtraSlot => null;
 
         public ShipCombatAbility CombatAbility => null;
+        public bool IsDamageControlVisible => false;
+        public bool IsDamageControlConsumed => false;
 
         public EnemyShip(int rpID, int rpLevel, int[] rpEquipment = null)
         {

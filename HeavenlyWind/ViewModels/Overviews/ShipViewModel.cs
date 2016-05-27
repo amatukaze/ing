@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class ShipViewModel
+    public class ShipViewModel : ModelBase
     {
         public Ship Ship { get; }
         public ShipTypeViewModel Type { get; }

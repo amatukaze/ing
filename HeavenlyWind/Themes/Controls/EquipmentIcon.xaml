@@ -130,6 +130,15 @@
             <Trigger Property="Type" Value="Supplies">
                 <Setter Property="Template" Value="{StaticResource SuppliesIcon}" />
             </Trigger>
+            <Trigger Property="Type" Value="SpecialAmphibiousLandingCraft">
+                <Setter Property="Template" Value="{StaticResource SpecialAmphibiousLandingCraftIcon}" />
+            </Trigger>
+            <Trigger Property="Type" Value="LandBasedAttackAircraft">
+                <Setter Property="Template" Value="{StaticResource LandBasedAttackAircraftIcon}" />
+            </Trigger>
+            <Trigger Property="Type" Value="InterceptorFighter">
+                <Setter Property="Template" Value="{StaticResource InterceptorFighterIcon}" />
+            </Trigger>
 
         </Style.Triggers>
     </Style>

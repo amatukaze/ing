@@ -1,9 +1,10 @@
-﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
-using Sakuno.KanColle.Amatsukaze.Game;
+﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
 using Sakuno.KanColle.Amatsukaze.Views.History;
+using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
+using Sakuno.UserInterface;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -44,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public bool IsBrowserAvailable { get; private set; } = true;
 
-        public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => new PreferencesWindow().ShowDialog());
+        public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowUtil.ShowDialog(new PreferencesWindow()));
 
         public ICommand ExpandMenuCommand { get; }
 
@@ -55,7 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         public ICommand ShowSortieHistoryCommand { get; }
         public ICommand ShowExpeditionHistoryCommand { get; }
         public ICommand ShowScrappingHistoryCommand { get; }
-
+        public ICommand ShowResourceHistoryCommand { get; }
 
         ICommand r_OpenToolPaneCommand;
         public IList<ToolViewModel> ToolPanes { get; }
@@ -82,9 +83,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 if (rGameInfo == null)
                     return;
 
-                var rExpeditionOverview = new ExpeditionOverviewViewModel();
-                rGameInfo.TabItems.Add(rExpeditionOverview);
-                rGameInfo.SelectedItem = rExpeditionOverview;
+                var rExpeditionOverview = rGameInfo.TabItems.OfType<ExpeditionOverviewViewModel>().SingleOrDefault() ?? new ExpeditionOverviewViewModel();
+                rGameInfo.AddTabItem(rExpeditionOverview);
             });
 
             ShowConstructionHistoryCommand = new DelegatedCommand(() => new ConstructionHistoryWindow().Show());
@@ -92,6 +92,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             ShowSortieHistoryCommand = new DelegatedCommand(() => new SortieHistoryWindow().Show());
             ShowExpeditionHistoryCommand = new DelegatedCommand(() => new ExpeditionHistoryWindow().Show());
             ShowScrappingHistoryCommand = new DelegatedCommand(() => new ScrappingHistoryWindow().Show());
+            ShowResourceHistoryCommand = new DelegatedCommand(() => new ResourceHistoryWindow().Show());
 
             r_OpenToolPaneCommand = new DelegatedCommand<ToolViewModel>(r =>
             {
@@ -99,8 +100,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 if (rGameInfo == null)
                     return;
 
-                rGameInfo.TabItems.Add(r);
-                rGameInfo.SelectedItem = r;
+                rGameInfo.AddTabItem(r);
             });
             ToolPanes = PluginService.Instance.ToolPanes?.Select(r => new ToolViewModel(r, r_OpenToolPaneCommand)).ToList().AsReadOnly();
         }

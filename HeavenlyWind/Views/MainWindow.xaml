@@ -58,19 +58,34 @@
 
                 <ListBox Style="{StaticResource MenuListBoxStyle}">
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_ConstructionHistory}" Command="{Binding ShowConstructionHistoryCommand}" />
+                        <Button Command="{Binding ShowConstructionHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_ConstructionHistory}" />
+                        </Button>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_DevelopmentHistory}" Command="{Binding ShowDevelopmentHistoryCommand}" />
+                        <Button Command="{Binding ShowDevelopmentHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_DevelopmentHistory}" />
+                        </Button>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_SortieHistory}" Command="{Binding ShowSortieHistoryCommand}" />
+                        <Button Command="{Binding ShowSortieHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_SortieHistory}" />
+                        </Button>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_ExpeditionHistory}" Command="{Binding ShowExpeditionHistoryCommand}" />
+                        <Button Command="{Binding ShowExpeditionHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_ExpeditionHistory}" />
+                        </Button>
                     </ListBoxItem>
                     <ListBoxItem>
-                        <Button Content="{rb:StringResource Main.Window_ScrappingHistory}" Command="{Binding ShowScrappingHistoryCommand}" />
+                        <Button Command="{Binding ShowScrappingHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_ScrappingHistory}" />
+                        </Button>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Button Command="{Binding ShowResourceHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_ResourceHistory}" />
+                        </Button>
                     </ListBoxItem>
                 </ListBox>
             </ruic:DropDownButton>
@@ -111,19 +126,24 @@
                     <rv:GameInformation />
                 </DataTemplate>
 
-                <Style x:Key="ContentStyle" TargetType="{x:Type ContentControl}">
-                    <Setter Property="Content" Value="{Binding Content}" />
+                <rv:Browser x:Key="Browser" />
+                <ContentControl x:Key="Content">
+                    <ContentControl.Style>
+                        <Style TargetType="{x:Type ContentControl}">
+                            <Setter Property="Content" Value="{Binding Content}" />
 
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsGameStarted}" Value="False">
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <TextBlock Text="{rb:StringResource Main.GameInfomation_Waiting}" FontSize="16" HorizontalAlignment="Center" />
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsGameStarted}" Value="False">
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <TextBlock Text="{rb:StringResource Main.GameInfomation_Waiting}" FontSize="16" HorizontalAlignment="Center" />
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ContentControl.Style>
+                </ContentControl>
             </Control.Resources>
             <Control.Style>
                 <Style TargetType="{x:Type Control}">
@@ -140,9 +160,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type Control}">
-                                        <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Grid.Row="1">
-                                            <ContentControl Style="{StaticResource ContentStyle}" />
-                                        </ruic:DockableZone>
+                                        <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Content="{StaticResource Content}" Grid.Row="1" />
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -152,15 +170,27 @@
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type Control}">
                                         <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Grid.Row="1">
-                                            <ruicd:DockGroup Orientation="Horizontal" FirstItemLength="Auto" SecondItemLength="*">
-                                                <ruicd:DockGroup.FirstItem>
-                                                    <rv:Browser />
-                                                </ruicd:DockGroup.FirstItem>
-                                                <ruicd:DockGroup.SecondItem>
-                                                    <ContentControl Style="{StaticResource ContentStyle}" />
-                                                </ruicd:DockGroup.SecondItem>
-                                            </ruicd:DockGroup>
+                                            <ruicd:DockGroup x:Name="DockGroup" Orientation="Horizontal" FirstItem="{StaticResource Browser}" FirstItemLength="Auto" SecondItem="{StaticResource Content}" SecondItemLength="*" />
                                         </ruic:DockableZone>
+
+                                        <ControlTemplate.Triggers>
+                                            <DataTrigger Binding="{rb:CurrentDock}" Value="Right">
+                                                <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource Content}" />
+                                                <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
+                                                <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
+                                                <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{rb:CurrentDock}" Value="Bottom">
+                                                <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource Content}" />
+                                                <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
+                                                <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
+                                                <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical">
+                                                <Setter TargetName="DockGroup" Property="Orientation" Value="Vertical" />
+                                            </DataTrigger>
+                                        </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>

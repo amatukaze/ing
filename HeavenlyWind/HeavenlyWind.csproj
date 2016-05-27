@@ -57,6 +57,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.101.0\lib\net45\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -111,6 +115,8 @@
     <Compile Include="Controls\ColorIndicator.cs" />
     <Compile Include="Controls\Data.cs" />
     <Compile Include="Controls\EquipmentIcon.cs" />
+    <Compile Include="Controls\EquipmentLevel.cs" />
+    <Compile Include="Controls\EquipmentProficiency.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\LoSFormulas.cs" />
     <Compile Include="Controls\MaterialIcon.cs" />
@@ -125,7 +131,14 @@
     <Compile Include="Models\ExpeditionResultPrediction.cs" />
     <Compile Include="Models\FleetLocking.cs" />
     <Compile Include="Models\Power.cs" />
+    <Compile Include="Models\Records\ConstructionRecord.cs" />
+    <Compile Include="Models\Records\DevelopmentRecord.cs" />
+    <Compile Include="Models\Records\ExpeditionRecord.cs" />
+    <Compile Include="Models\Records\FateRecord.cs" />
+    <Compile Include="Models\Records\ResourceRecord.cs" />
+    <Compile Include="Models\Records\SortieRecord.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
+    <Compile Include="Models\SystemFont.cs" />
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
     <Compile Include="Services\Browser\BrowserHost.cs" />
@@ -148,11 +161,14 @@
     <Compile Include="Services\TaskbarProgressService.cs" />
     <Compile Include="Services\UpdateService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
+    <Compile Include="ViewModels\Game\AirBaseViewModel.cs" />
+    <Compile Include="ViewModels\Game\AirForceGroupViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
     <Compile Include="ViewModels\Game\EventMapOverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\ExpeditionGroupByMapArea.cs" />
     <Compile Include="ViewModels\Game\ExpeditionOverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\ExpeditionViewModel.cs" />
+    <Compile Include="ViewModels\Game\FleetAnchorageRepairViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetConditionRegenerationViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetsViewModel.cs" />
@@ -161,6 +177,7 @@
     <Compile Include="ViewModels\Game\MapGaugesViewModel.cs" />
     <Compile Include="ViewModels\Game\MaterialsViewModel.cs" />
     <Compile Include="ViewModels\Game\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\Game\QuestRealtimeProgressViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestsViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestViewModel.cs" />
     <Compile Include="ViewModels\Game\RepairDockViewModel.cs" />
@@ -169,6 +186,7 @@
     <Compile Include="ViewModels\History\ConstructionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -203,6 +221,9 @@
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\AirBaseOverview.xaml.cs">
+      <DependentUpon>AirBaseOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Battle\EnemyEncounters.xaml.cs">
       <DependentUpon>EnemyEncounters.xaml</DependentUpon>
     </Compile>
@@ -215,6 +236,9 @@
     <Compile Include="Views\Game\ConstructionDocks.xaml.cs">
       <DependentUpon>ConstructionDocks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\DockOverview.xaml.cs">
+      <DependentUpon>DockOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\EventMapOverview.xaml.cs">
       <DependentUpon>EventMapOverview.xaml</DependentUpon>
     </Compile>
@@ -223,6 +247,9 @@
     </Compile>
     <Compile Include="Views\Game\Events\Battle.xaml.cs">
       <DependentUpon>Battle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\Landing.xaml.cs">
+      <DependentUpon>Landing.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Events\NothingHappened.xaml.cs">
       <DependentUpon>NothingHappened.xaml</DependentUpon>
@@ -242,17 +269,20 @@
     <Compile Include="Views\Game\FleetDetail.xaml.cs">
       <DependentUpon>FleetDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Game\Fleets.xaml.cs">
-      <DependentUpon>Fleets.xaml</DependentUpon>
+    <Compile Include="Views\Game\FleetOverview.xaml.cs">
+      <DependentUpon>FleetOverview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Game\FleetsOverview.xaml.cs">
-      <DependentUpon>FleetsOverview.xaml</DependentUpon>
+    <Compile Include="Views\Game\FleetsAndAirBase.xaml.cs">
+      <DependentUpon>FleetsAndAirBase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Headquarter.xaml.cs">
       <DependentUpon>Headquarter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\MapGauges.xaml.cs">
       <DependentUpon>MapGauges.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Materials.xaml.cs">
+      <DependentUpon>Materials.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
@@ -281,6 +311,9 @@
     <Compile Include="Views\History\ExpeditionHistoryWindow.xaml.cs">
       <DependentUpon>ExpeditionHistoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\History\ResourceHistoryWindow.xaml.cs">
+      <DependentUpon>ResourceHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\History\ScrappingHistoryWindow.xaml.cs">
       <DependentUpon>ScrappingHistoryWindow.xaml</DependentUpon>
     </Compile>
@@ -295,6 +328,9 @@
     </Compile>
     <Compile Include="Views\Overviews\ShipOverviewWindow.xaml.cs">
       <DependentUpon>ShipOverviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Preferences\Behaviour.xaml.cs">
+      <DependentUpon>Behaviour.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\Browser.xaml.cs">
       <DependentUpon>Browser.xaml</DependentUpon>
@@ -384,6 +420,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Common\AbyssalShipClass.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Common\OverviewTabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Common\QuestRealtimeProgress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -511,6 +555,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Icons\Equipment\InterceptorFighter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Icons\Equipment\LandBasedAttackAircraft.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Icons\Equipment\LandingCraft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -552,6 +604,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Icons\Equipment\Soner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Icons\Equipment\SpecialAmphibiousLandingCraft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -611,6 +667,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Controls\EquipmentLevel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\EquipmentProficiency.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\Indicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -655,6 +719,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\AirBaseOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\Battle\EnemyEncounters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -671,6 +739,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\DockOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\EventMapOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -680,6 +752,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\Events\Battle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\Landing.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -707,11 +783,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Game\Fleets.xaml">
+    <Page Include="Views\Game\FleetOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Game\FleetsOverview.xaml">
+    <Page Include="Views\Game\FleetsAndAirBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -720,6 +796,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\MapGauges.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Materials.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -759,6 +839,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\History\ResourceHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\History\ScrappingHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -778,6 +862,10 @@
     <Page Include="Views\Overviews\ShipOverviewWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Preferences\Behaviour.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Browser.xaml">
       <SubType>Designer</SubType>
@@ -843,6 +931,13 @@
   <PropertyGroup>
     <PreBuildEvent>xcopy /Y /E /I "$(SolutionDir)Resources" "$(TargetDir)Resources"</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

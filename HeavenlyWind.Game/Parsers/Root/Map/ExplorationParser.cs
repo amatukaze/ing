@@ -7,6 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
     {
         public override void Process(RawMapExploration rpData)
         {
+            Game.Sortie.Explore(rpData);
         }
     }
 }

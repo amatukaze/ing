@@ -18,7 +18,7 @@
     </UserControl.Style>
 
     <StackPanel>
-        <TextBlock Text="{rb:StringResource Main.Sortie_EnemyEncounters}" FontSize="14" Margin="4" />
+        <TextBlock Text="{rb:StringResource Main.Sortie_EnemyEncounters}" FontSize="16" Margin="4" />
 
         <ItemsControl ItemsSource="{Binding EnemyEncounters, FallbackValue={x:Null}}">
             <ItemsControl.ItemsPanel>
@@ -50,7 +50,24 @@
 
                             <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Grid.Row="1" />
 
-                            <TextBlock Text="{rb:EnumToStringResource Formation, Battle_Formation}" Grid.Row="2" />
+                            <ItemsControl ItemsSource="{Binding Formations}" Grid.Row="2">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Name="Formation" Text="{rb:EnumToStringResource ., Battle_Formation, StringFormat={} / {0}}" />
+
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                                <Setter TargetName="Formation" Property="Text" Value="{rb:EnumToStringResource ., Battle_Formation}" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </Grid>
                     </Border>
 

@@ -9,7 +9,7 @@
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_ShipOverview}"
-                  Width="1080" Height="600"
+                  Width="1200" Height="720"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
         <ResourceDictionary>
@@ -117,17 +117,17 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="100">
+                            <GridViewColumn Width="100" rc:Data.Content="Name">
                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_Name}" />
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Margin="0, 4" />
+                                        <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 4" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="{Binding ShipLockingColumnWidth}">
+                            <GridViewColumn Width="{Binding ShipLockingColumnWidth}" rc:Data.Content="ShipLocking">
                                 <Path Stretch="Uniform" Fill="{DynamicResource ForegroundBrushKey}" Width="16" Height="16" Data="{StaticResource ShipLockingTagIcon}" />
 
                                 <GridViewColumn.CellTemplate>
@@ -142,7 +142,7 @@
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{rb:ExtraStringResource ShipType, Ship.Info.Type.ID, Ship.Info.Type.Name}" Margin="0, 4" />
+                                        <TextBlock Text="{rb:ExtraStringResource ShipType, Ship.Info.Type.ID, Ship.Info.Type.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 4" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -155,7 +155,8 @@
                                         <TextBlock Margin="0, 4">
                                             <Run Text="Lv." FontSize="10" />
                                             <Run Text="{Binding Ship.Level, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-                                            <Run Text="{Binding Ship.ExperienceToNextLevel, StringFormat=Next:{0}, Mode=OneWay}" FontSize="10" />
+                                            <Run Text="Next:" FontSize="10" />
+                                            <Run Text="{Binding Ship.ExperienceToNextLevel, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" FontSize="10" />
                                         </TextBlock>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -172,7 +173,13 @@
                                             <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=50}" Value="True">
                                                 <Setter TargetName="Condition" Property="Foreground" Value="Yellow" />
                                             </DataTrigger>
+                                            <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=40}" Value="True">
+                                                <Setter TargetName="Condition" Property="Foreground" Value="Gray" />
+                                            </DataTrigger>
                                             <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=30}" Value="True">
+                                                <Setter TargetName="Condition" Property="Foreground" Value="Orange" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=20}" Value="True">
                                                 <Setter TargetName="Condition" Property="Foreground" Value="Red" />
                                             </DataTrigger>
                                         </DataTemplate.Triggers>
@@ -250,6 +257,16 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Ship.Status.LoS}" Margin="0, 4" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Width="75" rc:Data.Content="RepairTime">
+                                <TextBlock Text="{rb:StringResource Main.ShipOverview_RepairTime}" />
+
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Name="RepairTime" Text="{Binding Ship.RepairTime, StringFormat=hh\\:mm\\:ss, TargetNullValue={}}" Margin="0, 4" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

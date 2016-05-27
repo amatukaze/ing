@@ -8,6 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         Fleet r_Fleet;
         int r_LowestCondition;
 
+        public event Action<Fleet> Recovered = delegate { };
+
         internal FleetConditionRegeneration(Fleet rpFleet)
         {
             r_Fleet = rpFleet;
@@ -21,8 +23,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 return;
             }
 
+            var rCeiling = Preference.Current.Game.FatigueCeiling;
+
             var rLowestCondition = r_Fleet.Ships.Min(r => r.Condition);
-            if (rLowestCondition >= 49)
+            if (rLowestCondition >= rCeiling)
             {
                 TimeToComplete = null;
                 return;
@@ -30,14 +34,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (r_LowestCondition != rLowestCondition)
             {
-                TimeToComplete = DateTimeOffset.Now.AddMinutes((int)Math.Ceiling((49 - rLowestCondition) / 3.0) * 3);
+                TimeToComplete = DateTimeOffset.Now.AddMinutes((int)Math.Ceiling((rCeiling - rLowestCondition) / 3.0) * 3);
                 r_LowestCondition = rLowestCondition;
             }
         }
 
+        internal void Reset() => TimeToComplete = null;
+
         protected override void TimeOut()
         {
-            TimeToComplete = null;
+            Reset();
+            Recovered(r_Fleet);
         }
     }
 }

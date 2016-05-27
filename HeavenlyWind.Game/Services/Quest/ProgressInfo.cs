@@ -33,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
                 if (QuestProgressService.GetResetTime(ResetType) > UpdateTime)
                     return;
 
-                var rProgress = Math.Min(value, Quest.Total - Quest.StartFrom);
+                var rProgress = Quest.Total != -1 ? Math.Min(value, Quest.Total - Quest.StartFrom) : value;
                 if (r_Progress != rProgress)
                 {
                     r_Progress = rProgress;
@@ -45,14 +45,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
                 }
             }
         }
-        public int DisplayProgress => Progress - Quest.StartFrom;
+        public int DisplayProgress => Progress + Quest.StartFrom;
 
         public DateTimeOffset UpdateTime { get; internal set; }
 
         internal ProgressInfo(int rpID, QuestType rpResetType, QuestState rpState, int rpProgress) : this(rpID, rpResetType, rpState, rpProgress, DateTimeOffset.Now) { }
         internal ProgressInfo(int rpID, QuestType rpResetType, QuestState rpState, int rpProgress, DateTimeOffset rpUpdateTime)
         {
-            Quest = QuestProgressService.Instance.Infos[rpID];
+            QuestInfo rQuest;
+            if (QuestProgressService.Instance.Infos.TryGetValue(rpID, out rQuest))
+                Quest = rQuest;
+            else
+                Quest = new QuestInfo(rpID);
+
             ResetType = rpResetType;
 
             r_State = rpState;

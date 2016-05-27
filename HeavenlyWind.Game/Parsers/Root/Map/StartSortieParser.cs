@@ -12,9 +12,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
             var rAreaID = int.Parse(Parameters["api_maparea_id"]);
             var rAreaSubID = int.Parse(Parameters["api_mapinfo_no"]);
 
-            Game.Sortie = new SortieInfo(rFleet, rAreaID * 10 + rAreaSubID);
+            var rSortie = new SortieInfo(rFleet, rAreaID * 10 + rAreaSubID);
+            Game.Sortie = rSortie;
 
-            var rMap = Game.Sortie.Map;
+            var rMap = rSortie.Map;
             if (!rMap.IsEventMap)
                 Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Sortie,
                     rFleet.ID, rFleet.Name, rMap.MasterInfo.TranslatedName, rAreaID, rAreaSubID));
@@ -39,6 +40,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
                 Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Sortie_Event,
                     rFleet.ID, rFleet.Name, rMap.MasterInfo.TranslatedName, rAreaSubID, rDifficulty));
             }
+
+            rSortie.Explore(rpData);
         }
     }
 }

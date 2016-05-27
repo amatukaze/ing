@@ -25,19 +25,25 @@
         AAGun = 21,
         //
         DamageControl = 23,
-        //
-        Autogyro = 25,
+        LandingCraft,
+        Autogyro,
         ASAircraft,
         //
         Searchlight = 29,
-        //
-        SubmarineTorpedo = 32,
+        SupplyTransportContainer,
+        ShipRepairFacility,
+        SubmarineTorpedo,
         //
         AAFireDirector = 36,
         //
         LargeCaliberGun2 = 38,
         //
         LargeSoner = 40,
+        //
+        CombatRation = 43,
+        //
+        SeaplaneFighter = 45,
+        SpecialAmphibiousLandingCraft,
         //
     }
 }

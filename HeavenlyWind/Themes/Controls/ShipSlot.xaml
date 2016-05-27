@@ -8,6 +8,8 @@
 
     <Style TargetType="{x:Type rc:ShipSlot}">
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Height" Value="35" />
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type rc:ShipSlot}">
@@ -25,36 +27,26 @@
                                             <ColumnDefinition />
                                             <ColumnDefinition SharedSizeGroup="PlaneCount" MinWidth="20" />
                                         </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
 
-                                        <rc:EquipmentIcon Type="{Binding Equipment.Info.Icon}" />
-                                        <TextBlock Name="Level" Text="{Binding Equipment.Level}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
-                                        <TextBlock Name="Proficiency" Text="{Binding Equipment.Proficiency}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                                        <rc:EquipmentIcon Type="{Binding Equipment.Info.Icon}" Width="22" Height="22" Margin="0, -4, 0, 0" Grid.RowSpan="4" />
 
-                                        <TextBlock Name="PlaneCount" Text="{Binding PlaneCount}" TextAlignment="Center" Grid.Column="1" />
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="2, 1, 0, 0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                            <rc:EquipmentProficiency Proficiency="{Binding Equipment.Proficiency}" />
+                                            <rc:EquipmentLevel Level="{Binding Equipment.Level}" ShowStar="False" />
+                                        </StackPanel>
+
+                                        <TextBlock Name="PlaneCount" Text="{Binding PlaneCount}" TextAlignment="Center" Grid.Column="1" Grid.RowSpan="4" />
                                     </Grid>
                                 </Border>
 
                                 <DataTemplate.Triggers>
-                                    <DataTrigger Binding="{Binding Equipment.Level}" Value="0">
-                                        <Setter TargetName="Level" Property="Visibility" Value="Hidden" />
-                                    </DataTrigger>
-                                    <DataTrigger Binding="{Binding Equipment.Level}" Value="10">
-                                        <Setter TargetName="Level" Property="Text" Value="max" />
-                                    </DataTrigger>
-
-                                    <DataTrigger Binding="{Binding Equipment.Proficiency}" Value="0">
-                                        <Setter TargetName="Proficiency" Property="Visibility" Value="Hidden" />
-                                    </DataTrigger>
-
-                                    <MultiDataTrigger>
-                                        <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Equipment.Level, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=0}" Value="True" />
-                                            <Condition Binding="{Binding Equipment.Proficiency, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=0}" Value="True" />
-                                        </MultiDataTrigger.Conditions>
-
-                                        <Setter TargetName="Level" Property="HorizontalAlignment" Value="Right" />
-                                    </MultiDataTrigger>
-
                                     <DataTrigger Binding="{Binding Equipment.Info.IsPlane}" Value="False">
                                         <Setter TargetName="PlaneCount" Property="Opacity" Value=".25" />
                                     </DataTrigger>

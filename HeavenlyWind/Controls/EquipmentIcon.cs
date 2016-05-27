@@ -6,13 +6,13 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
 {
     public class EquipmentIcon : Control
     {
+        public static readonly DependencyProperty TypeProperty = DependencyProperty.Register(nameof(Type), typeof(EquipmentIconType), typeof(EquipmentIcon),
+            new UIPropertyMetadata(EquipmentIconType.None));
         public EquipmentIconType Type
         {
             get { return (EquipmentIconType)GetValue(TypeProperty); }
             set { SetValue(TypeProperty, value); }
         }
-        public static readonly DependencyProperty TypeProperty = DependencyProperty.Register(nameof(Type), typeof(EquipmentIconType), typeof(EquipmentIcon),
-            new UIPropertyMetadata(EquipmentIconType.None));
 
         static EquipmentIcon()
         {

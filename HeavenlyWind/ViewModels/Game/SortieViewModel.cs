@@ -33,33 +33,46 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public MapGaugesViewModel MapGauges { get; } = new MapGaugesViewModel();
 
         public EventMapOverviewViewModel EventMaps { get; private set; }
-        IDisposable r_EventMapShipLockingSubscription;
 
-        public SortieInfo Info { get; private set; }
+        SortieInfo r_Info;
+        public SortieInfo Info
+        {
+            get { return r_Info; }
+            private set
+            {
+                if (r_Info != value)
+                {
+                    r_Info = value;
+                    OnPropertyChanged(nameof(Info));
+                }
+            }
+        }
 
         internal SortieViewModel()
         {
-            var rGame = KanColleGame.Current;
-
-            PropertyChangedEventListener.FromSource(rGame).Add(nameof(rGame.Sortie), delegate
+            SessionService.Instance.Subscribe("api_req_map/start", delegate
             {
-                var rInfo = rGame.Sortie;
-                if (rInfo == null)
-                    Type = DisplayType.MapGauge;
-                else
-                {
-                    Info = rInfo;
-                    OnPropertyChanged(nameof(Info));
-
-                    Type = rInfo is PracticeInfo ? DisplayType.Practice : DisplayType.Sortie;
-                }
+                Info = SortieInfo.Current;
+                Type = DisplayType.Sortie;
             });
 
-            r_EventMapShipLockingSubscription = SessionService.Instance.Subscribe("api_get_member/require_info", delegate
+            SessionService.Instance.Subscribe("api_req_member/get_practice_enemyinfo", delegate
+            {
+                Info = KanColleGame.Current.Sortie;
+                Type = DisplayType.Practice;
+            });
+
+            SessionService.Instance.Subscribe("api_port/port", _ =>
+            {
+                Info = null;
+                Type = DisplayType.MapGauge;
+            });
+
+            SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
             {
                 ShipLockingService.Instance.Initialize();
 
-                var rMasterInfo = rGame.MasterInfo;
+                var rMasterInfo = KanColleGame.Current.MasterInfo;
                 if (ShipLockingService.Instance.ShipLocking.Count > 0 && rMasterInfo.EventMapCount > 0)
                 {
                     var rEventMaps = from rArea in rMasterInfo.MapAreas.Values
@@ -70,9 +83,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     EventMaps = new EventMapOverviewViewModel(rEventMaps.ToArray());
                     OnPropertyChanged(nameof(EventMaps));
                 }
-
-                r_EventMapShipLockingSubscription.Dispose();
-                r_EventMapShipLockingSubscription = null;
             });
         }
     }

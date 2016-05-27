@@ -17,10 +17,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
 
             Observable = SessionService.Instance.GetProcessSucceededSubject("api_req_mission/result").Select(r =>
             {
+                var rData = (RawExpeditionResult)r.Data;
                 var rFleet = KanColleGame.Current.Port.Fleets[int.Parse(r.Parameters["api_deck_id"])];
-                var rExpedition = rFleet.ExpeditionStatus.Expedition;
+                var rExpedition = rFleet.ExpeditionStatus.Expedition ?? KanColleGame.Current.MasterInfo.GetExpeditionFromName(rData.Name);
 
-                return new { Expedition = rExpedition, Result = ((RawExpeditionResult)r.Data).Result };
+                return new { Expedition = rExpedition, Result = rData.Result };
             }).Where(r => r.Result != ExpeditionResult.Failure && (Expeditions == null || Expeditions.Contains(r.Expedition.ID)));
         }
 

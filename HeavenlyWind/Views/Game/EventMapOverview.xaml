@@ -15,9 +15,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border BorderBrush="Gray" BorderThickness="0, 1, 0, 0">
+    <Border>
         <StackPanel>
-            <TextBlock Text="{rb:StringResource Main.SortieOverview_FleetLockingTable}" FontSize="14" Margin="4" />
+            <TextBlock Text="{rb:StringResource Main.SortieOverview_FleetLockingTable}" FontSize="16" Margin="4" />
 
             <Grid Grid.IsSharedSizeScope="True">
                 <Grid.ColumnDefinitions>

@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
@@ -15,6 +16,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         public bool IsInitialized { get; private set; }
 
+        public bool IsPractice { get; }
+
         public BattleParticipants Participants { get; } = new BattleParticipants();
 
         public BattleStage CurrentStage { get; private set; }
@@ -30,6 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public BattleResult Result { get; } = new BattleResult();
 
         public bool IsSupportFleetReady { get; private set; }
+        public bool IsLandBaseAerialSupportReady { get; }
 
         static BattleInfo()
         {
@@ -60,31 +64,45 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             };
             SessionService.Instance.Subscribe(rSecondStages, r => Current?.ProcessSecondStage(r));
         }
-        internal BattleInfo(BattleType rpBattleType, bool rpIsBossBattle)
+        internal BattleInfo(RawMapExploration rpData)
         {
             Current = this;
 
-            var rSortie = KanColleGame.Current.Sortie;
+            var rSortie = SortieInfo.Current;
             Participants.FriendMain = rSortie.MainShips;
             Participants.FriendEscort = rSortie.EscortShips;
+
+            foreach (FriendShip rShip in rSortie.MainShips)
+                rShip.IsMVP = false;
+            if (rSortie.EscortShips != null)
+                foreach (FriendShip rShip in rSortie.EscortShips)
+                    rShip.IsMVP = false;
 
             CurrentStage = new FakeStage(this);
             OnPropertyChanged(nameof(CurrentStage));
 
-            if (rpBattleType == BattleType.Normal)
+            if ((BattleType)rpData.NodeEventSubType == BattleType.Normal)
             {
                 var rSupportFleets = KanColleGame.Current.Port.Fleets.Table.Values
                     .Where(r => r.ExpeditionStatus.Expedition != null && !r.ExpeditionStatus.Expedition.CanReturn)
                     .Select(r => r.ExpeditionStatus.Expedition)
-                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (!rpIsBossBattle ? 15 : 30));
+                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (rpData.NodeEventType != SortieEventType.BossBattle ? 15 : 30));
 
                 IsSupportFleetReady = rSupportFleets != null;
-                OnPropertyChanged(nameof(IsSupportFleetReady));
+            }
+
+            if (rSortie.LandBaseAerialSupportRequests != null)
+            {
+                var rNodeUniqueID = MapService.Instance.GetNodeUniqueID(rSortie.Map.ID, rpData.Node);
+                if (rNodeUniqueID.HasValue && rSortie.LandBaseAerialSupportRequests.Any(r => r == rNodeUniqueID.Value))
+                    IsLandBaseAerialSupportReady = true;
             }
         }
         internal BattleInfo(Fleet rpParticipantFleet)
         {
             Current = this;
+
+            IsPractice = true;
 
             Participants.FriendMain = rpParticipantFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
         }
@@ -121,17 +139,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             First.Process(rpData);
             First.ProcessMVP();
-            Result.Update(First);
+            Result.Update(First, Second);
 
             IsInitialized = true;
-            IsSupportFleetReady = false;
 
             CurrentStage = First;
             OnPropertyChanged(nameof(First));
             OnPropertyChanged(nameof(CurrentStage));
             OnPropertyChanged(nameof(AerialCombat));
             OnPropertyChanged(nameof(IsInitialized));
-            OnPropertyChanged(nameof(IsSupportFleetReady));
         }
         void SetEnemy(RawBattleBase rpData)
         {
@@ -171,7 +187,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Second.Process(rpData);
             InheritFromPreviousStage(Second);
             Second.ProcessMVP();
-            Result.Update(Second);
+            Result.Update(First, Second);
 
             CurrentStage = Second;
             OnPropertyChanged(nameof(Second));

@@ -6,6 +6,8 @@
     <rbc:InvertBooleanConverter x:Key="InvertBooleanConverter" />
     <rbc:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter" />
 
+    <rbc:AreEqualConverter x:Key="AreEqualConverter" />
+
     <rbc:IsGreaterThanConverter x:Key="IsGreaterThanConverter" />
     <rbc:IsGreaterThanOrEqualToConverter x:Key="IsGreaterThanOrEqualToConverter" />
     <rbc:IsLessThanConverter x:Key="IsLessThanConverter" />
@@ -15,5 +17,7 @@
     <ruic:BooleanToInvisibilityConverter x:Key="BooleanToInvisibilityConverter" />
 
     <rbc:OppositeNumberConverter x:Key="OppositeNumberConverter" />
+
+    <ruic:DockToOrientationConverter x:Key="DockToOrientationConverter" />
 
 </ResourceDictionary>

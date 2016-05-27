@@ -42,10 +42,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rOriginalFleet = rShip.OwnerFleet;
                 var rOriginalShip = rFleet.Organize(rIndex, rShip);
                 var rOriginalIndex = rOriginalFleet?.Ships.IndexOf(rShip);
-                if (rOriginalIndex.HasValue)
-                    rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
+                if (rOriginalFleet == rFleet)
+                    rOriginalFleet.Swap(rIndex, rOriginalIndex.Value);
+                else
+                {
+                    var rOriginalShip = rFleet.Organize(rIndex, rShip);
+                    if (rOriginalIndex.HasValue)
+                    {
+                        rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
+                        rShip.OwnerFleet = rFleet;
+                    }
+                }
+
+                if ((rFleet.State & FleetState.AnchorageRepair) == FleetState.AnchorageRepair)
+                    rFleet.AnchorageRepair.Reset();
 
                 rFleet.Update();
+                rOriginalFleet?.Update();
             });
 
             SessionService.Instance.Subscribe("api_get_member/deck", r => Update(r.GetData<RawFleet[]>()));

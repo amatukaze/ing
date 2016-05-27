@@ -8,12 +8,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class Ship : RawDataWrapper<RawShip>, IID, ICombatAbility
     {
+        public const int LevelToMarriage = 99;
+
         public int ID => RawData.ID;
         public ShipInfo Info { get; private set; }
         public int SortNumber => RawData.SortNumber;
 
         public int Level => RawData.Level;
-        public bool IsMarried => Level > 99;
+        public bool IsMarried => Level > LevelToMarriage;
 
         int r_Condition;
         public int Condition
@@ -47,18 +49,34 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public int Experience => RawData.Experience[0];
         public int ExperienceToNextLevel => RawData.Experience[1];
-        public int ExperienceToMarriage => ExperienceTable.GetShipExperienceToLevel(99, Experience);
-        public int ExperienceToMaxLevel => ExperienceTable.GetShipExperienceToLevel(150, Experience);
+        public int ExperienceToMarriage => ExperienceTable.GetShipExperienceToLevel(LevelToMarriage, Experience);
+        public int ExperienceToMaxLevel => ExperienceTable.GetShipExperienceToLevel(ExperienceTable.Ship.Count, Experience);
 
         public TimeSpan? RepairTime => RawData.RepairTime == 0 ? (TimeSpan?)null : TimeSpan.FromMilliseconds(RawData.RepairTime);
+        public int RepairFuelConsumption => RawData.RepairConsumption[0];
+        public int RepairSteelConsumption => RawData.RepairConsumption[1];
 
         public Fleet OwnerFleet { get; internal set; }
+
+        RepairDock r_OwnerRepairDock;
+        public RepairDock OwnerRepairDock
+        {
+            get { return r_OwnerRepairDock; }
+            internal set
+            {
+                if (r_OwnerRepairDock != value)
+                {
+                    r_OwnerRepairDock = value;
+                    OnPropertyChanged(nameof(OwnerRepairDock));
+                }
+            }
+        }
 
         ClampedValue r_HP;
         public ClampedValue HP
         {
             get { return r_HP; }
-            private set
+            internal set
             {
                 if (r_HP != value)
                 {
@@ -117,6 +135,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ShipStatus Status { get; }
 
         public ShipCombatAbility CombatAbility { get; }
+
+        public bool CanParticipantInAnchorageRepair
+        {
+            get
+            {
+                var rPort = KanColleGame.Current.Port;
+                return HP.Current != HP.Maximum && HP.Current / (double)HP.Maximum > .5 &&
+                    !rPort.RepairDocks.Values.Any(r => r.Ship == this) &&
+                    rPort.Materials.Fuel >= RepairFuelConsumption && rPort.Materials.Steel >= RepairSteelConsumption;
+            }
+        }
+        public ShipAnchorageRepairStatus AnchorageRepairStatus { get; private set; }
 
         #region Equipment
 
@@ -184,6 +214,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     r_EquipmentIDs = null;
 
                 Info = rInfo;
+                OnPropertyChanged(nameof(Info));
             }
 
             HP = new ClampedValue(RawData.HPMaximum, RawData.HPCurrent);
@@ -202,7 +233,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (rPort.RepairDocks.Values.Any(r => r.Ship == this))
                 State |= ShipState.Repairing;
             else
+            {
                 State &= ~ShipState.Repairing;
+
+                var rShips = OwnerFleet?.AnchorageRepair.RepairingShips;
+                UpdateAnchorageRepairStatus(rShips != null && rShips.Any(r => r.Item1 == this));
+            }
 
             if (RawData.ModernizedStatus?.Length >= 5)
                 Status.Update(Info, RawData);
@@ -220,33 +256,46 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             var rUpdateList = false;
 
+            if (Slots == null || Slots.Count != RawData.SlotCount)
+                Slots = Enumerable.Range(0, RawData.SlotCount).Select((r, i) => new ShipSlot(null, RawData.PlaneCountInSlot[i], Info.PlaneCountInSlot[i])).ToList().AsReadOnly();
+
             if (r_EquipmentIDs == null || !r_EquipmentIDs.SequenceEqual(RawData.Equipment))
             {
                 r_EquipmentIDs = RawData.Equipment;
-                Slots = RawData.Equipment.Take(RawData.EquipmentCount)
-                    .Zip(RawData.PlaneCountInSlot.Zip(Info.PlaneCountInSlot, (rpCount, rpMaxCount) => new { Count = rpCount, MaxCount = rpMaxCount }),
-                        (rpID, rpPlane) =>
-                        {
-                            Equipment rEquipment;
-                            if (rpID == -1)
-                                rEquipment = Equipment.Dummy;
-                            else if (!KanColleGame.Current.Port.Equipment.TryGetValue(rpID, out rEquipment))
-                                KanColleGame.Current.Port.Equipment.Add(rEquipment = new Equipment(new RawEquipment() { ID = rpID, EquipmentID = -1 }));
 
-                            return new ShipSlot(rEquipment, rpPlane.MaxCount, rpPlane.Count);
-                        }).ToArray().AsReadOnly();
+                for (var i = 0; i < Slots.Count; i++)
+                {
+                    Equipment rEquipment;
+                    var rID = r_EquipmentIDs[i];
+                    if (rID == -1)
+                        rEquipment = Equipment.Dummy;
+                    else if (!KanColleGame.Current.Port.Equipment.TryGetValue(rID, out rEquipment))
+                    {
+                        rEquipment = new Equipment(new RawEquipment() { ID = rID, EquipmentID = -1 });
+                        KanColleGame.Current.Port.AddEquipment(rEquipment);
+                    }
+
+                    Slots[i].Equipment = rEquipment;
+                }
 
                 rUpdateList = true;
             }
+
             for (var i = 0; i < Slots.Count; i++)
                 Slots[i].PlaneCount = RawData.PlaneCountInSlot[i];
 
-            if (RawData.ExtraEquipment != 0 && r_ExtraEquipmentID != RawData.ExtraEquipment)
+            if (RawData.ExtraEquipment != 0)
             {
-                r_ExtraEquipmentID = RawData.ExtraEquipment;
-                ExtraSlot = new ShipSlot(r_ExtraEquipmentID != -1 ? KanColleGame.Current.Port.Equipment[RawData.ExtraEquipment] : Models.Equipment.Dummy, 0, 0);
+                if (ExtraSlot == null)
+                    ExtraSlot = new ShipSlot(0, 0);
 
-                rUpdateList = true;
+                if (r_ExtraEquipmentID != RawData.ExtraEquipment)
+                {
+                    r_ExtraEquipmentID = RawData.ExtraEquipment;
+                    ExtraSlot.Equipment = r_ExtraEquipmentID == -1 ? Equipment.Dummy : KanColleGame.Current.Port.Equipment[r_ExtraEquipmentID];
+
+                    rUpdateList = true;
+                }
             }
 
             if (rUpdateList)
@@ -278,6 +327,37 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             RawData.Equipment = rpEquipmentIDs;
             UpdateSlots();
+        }
+
+        internal void InstallReinforcementExpansion()
+        {
+            r_ExtraEquipmentID = -1;
+            ExtraSlot = new ShipSlot(Equipment.Dummy, 0, 0);
+        }
+
+        internal void UpdateAnchorageRepairStatus(bool rpRepairing)
+        {
+            if (rpRepairing)
+            {
+                State |= ShipState.RepairingInAnchorage;
+
+                if (AnchorageRepairStatus == null)
+                {
+                    AnchorageRepairStatus = new ShipAnchorageRepairStatus(this);
+                    OnPropertyChanged(nameof(AnchorageRepairStatus));
+                }
+            }
+            else
+            {
+                State &= ~ShipState.RepairingInAnchorage;
+
+                if (AnchorageRepairStatus != null)
+                {
+                    AnchorageRepairStatus.Dispose();
+                    AnchorageRepairStatus = null;
+                    OnPropertyChanged(nameof(AnchorageRepairStatus));
+                }
+            }
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Info.Name}\", Type = \"{Info.Type.Name}\", Level = {Level}";

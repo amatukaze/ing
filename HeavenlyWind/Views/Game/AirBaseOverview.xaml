@@ -1,0 +1,162 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.AirBaseOverview"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+             mc:Ignorable="d"
+             d:DesignWidth="300" d:DesignHeight="300">
+    <ItemsControl ItemsSource="{Binding Groups}" Margin="4" Grid.IsSharedSizeScope="True">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Padding="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition SharedSizeGroup="ID" />
+                            <ColumnDefinition SharedSizeGroup="Option" />
+                            <ColumnDefinition SharedSizeGroup="CombatRadius" />
+                            <ColumnDefinition SharedSizeGroup="Squadrons" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding Source.ID}" />
+                        <TextBlock Name="Option" Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" Margin="4, 0, 0, 0" Grid.Column="1" />
+                        <TextBlock Margin="4, 0, 0, 0" Grid.Column="2">
+                            <Run Text="{rb:StringResource Main.AirBase_Group_CombatRadius}" />:
+                            <Run Name="CombatRadius">
+                                <Run.Text>
+                                    <MultiBinding StringFormat="{}{0:0.#}-{1:0.#}" Mode="OneWay">
+                                        <Binding Path="Source.MinCombatRadius" />
+                                        <Binding Path="Source.MaxCombatRadius" />
+                                    </MultiBinding>
+                                </Run.Text>
+                            </Run>
+                        </TextBlock>
+
+                        <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}" Margin="6, 0, 0, 0" Grid.Column="3">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Name="Border" Height="32">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition SharedSizeGroup="PlaneCount" MinWidth="20" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <rc:EquipmentIcon x:Name="Icon" Type="{Binding Plane.Info.Icon}" Width="22" Height="22" Margin="0, -4, 0, 0" Grid.RowSpan="4" />
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="2, 1, 0, 0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                                <rc:EquipmentProficiency Proficiency="{Binding Plane.Proficiency}" />
+                                                <rc:EquipmentLevel Level="{Binding Plane.Level}" ShowStar="False" />
+                                            </StackPanel>
+
+                                            <TextBlock Name="Count" Text="{Binding Count}" TextAlignment="Center" Margin="3, 0" Grid.Column="1" Grid.RowSpan="5" />
+                                        </Grid>
+                                    </Border>
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding State}" Value="Empty">
+                                            <Setter TargetName="Border" Property="Visibility" Value="Hidden" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding State}" Value="Relocating">
+                                            <Setter TargetName="Icon" Property="Opacity" Value=".5" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding NeedResupply}" Value="True">
+                                            <Setter TargetName="Count" Property="Foreground" Value="Red" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Rectangle Fill="Transparent" Margin="3, 0, 0, 0" Grid.Column="3">
+                            <Rectangle.ToolTip>
+                                <ToolTip>
+                                    <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Name="Grid">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto" />
+                                                        <ColumnDefinition Width="4" />
+                                                        <ColumnDefinition SharedSizeGroup="ToolTipName" />
+                                                        <ColumnDefinition Width="4" />
+                                                        <ColumnDefinition SharedSizeGroup="ToolTipCount" />
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <rc:EquipmentIcon Type="{Binding Plane.Info.Icon}" VerticalAlignment="Center" />
+                                                    <StackPanel Orientation="Horizontal" Margin="0, 4" Grid.Column="2">
+                                                        <TextBlock Text="{rb:ExtraStringResource Equipment, Plane.Info.ID, Plane.Info.Name}" />
+                                                        <rc:EquipmentProficiency Proficiency="{Binding Plane.Proficiency}" Margin="4, 0, 0, 0" />
+                                                        <rc:EquipmentLevel Level="{Binding Plane.Level}" Margin="4, 0, 0, 0" />
+                                                    </StackPanel>
+
+                                                    <TextBlock HorizontalAlignment="Right" Grid.Column="4">
+                                                        [<Run Name="Count" Text="{Binding Count, Mode=OneWay}" />/<Run Text="{Binding MaxCount, Mode=OneWay}" />]
+                                                    </TextBlock>
+                                                </Grid>
+
+                                                <DataTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding State}" Value="Empty">
+                                                        <Setter TargetName="Grid" Property="Visibility" Value="Hidden" />
+                                                    </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding NeedResupply}" Value="True">
+                                                        <Setter TargetName="Count" Property="Foreground" Value="Red" />
+                                                    </DataTrigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl></ToolTip>
+                            </Rectangle.ToolTip>
+                        </Rectangle>
+                    </Grid>
+                </Border>
+
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                        <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding Source.Option}" Value="Sortie">
+                        <Setter TargetName="Option" Property="Foreground" Value="Red" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Source.Option}" Value="AirDefense">
+                        <Setter TargetName="Option" Property="Foreground" Value="Orange" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Source.Option}" Value="Retreat">
+                        <Setter TargetName="Option" Property="Foreground" Value="Gray" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Source.Option}" Value="Rest">
+                        <Setter TargetName="Option" Property="Foreground" Value="Yellow" />
+                    </DataTrigger>
+
+                    <DataTrigger Value="True">
+                        <DataTrigger.Binding>
+                            <MultiBinding Converter="{StaticResource AreEqualConverter}">
+                                <Binding Path="Source.MinCombatRadius" />
+                                <Binding Path="Source.MaxCombatRadius" />
+                            </MultiBinding>
+                        </DataTrigger.Binding>
+
+                        <Setter TargetName="CombatRadius" Property="Text" Value="{Binding Source.MinCombatRadius, StringFormat=0.#}" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>

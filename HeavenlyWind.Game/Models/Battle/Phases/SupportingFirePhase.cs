@@ -14,10 +14,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                 return;
 
             var rEnemy = Stage.Enemy;
-            var rShelling = RawData.Shelling;
-            if (rShelling != null)
+
+            var rAerialSupport = RawData.AerialSupport;
+            if (rAerialSupport != null)
+            {
+                var rStage3 = rAerialSupport.Stage3;
+                if (rStage3 != null)
+                    for (var i = 0; i < rEnemy.Count; i++)
+                        rEnemy[i].Current -= rStage3.EnemyDamage[i + 1];
+            }
+
+            var rSupportShelling = RawData.SupportShelling;
+            if (rSupportShelling != null)
                 for (var i = 0; i < rEnemy.Count; i++)
-                    rEnemy[i].Current -= rShelling.Damage[i + 1];
+                    rEnemy[i].Current -= rSupportShelling.Damage[i + 1];
         }
     }
 }

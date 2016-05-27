@@ -12,28 +12,6 @@
                   Width="1024" Height="600"
                   UseLayoutRounding="True">
     <Window.Resources>
-        <Style x:Key="LevelTextBlockStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="Text" Value="{Binding Key.Level, StringFormat=★+{0}}" />
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Key.Level}" Value="0">
-                    <Setter Property="Text" Value="" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Key.Level}" Value="10">
-                    <Setter Property="Text" Value="★max" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ProficiencyTextBlockStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="Text" Value="{Binding Key.Proficiency, StringFormat=+{0}}" />
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Key.Proficiency}" Value="0">
-                    <Setter Property="Text" Value="" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-
         <Style x:Key="ShipItemsControlStyle" TargetType="{x:Type ItemsControl}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -137,10 +115,10 @@
                         <GridViewColumn Width="650">
                             <DockPanel>
                                 <Border Width="50">
-                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Level}" />
+                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Proficiency}" />
                                 </Border>
                                 <Border Width="50">
-                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Proficiency}" />
+                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Level}" />
                                 </Border>
                                 <Border Width="80">
                                     <TextBlock>
@@ -160,10 +138,10 @@
                                             <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByLevel}">
                                                 <DockPanel>
                                                     <Border Width="50">
-                                                        <TextBlock Style="{StaticResource LevelTextBlockStyle}" Margin="0, 4" />
+                                                        <rc:EquipmentProficiency Proficiency="{Binding Key.Proficiency}" />
                                                     </Border>
                                                     <Border Width="50">
-                                                        <TextBlock Style="{StaticResource ProficiencyTextBlockStyle}" Margin="0, 4" />
+                                                        <rc:EquipmentLevel Level="{Binding Key.Level}" />
                                                     </Border>
                                                     <Border Width="80">
                                                         <TextBlock Margin="0, 4">

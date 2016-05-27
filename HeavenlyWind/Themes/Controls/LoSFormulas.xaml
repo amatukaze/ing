@@ -10,7 +10,7 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrushKey}" />
+        <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
         <Setter Property="Padding" Value="4" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Grid.IsSharedSizeScope" Value="True" />
@@ -31,15 +31,20 @@
 
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{rb:StringResource Fleet_LoS, StringFormat={}{0}:}" />
-                                    <ContentPresenter Content="{TemplateBinding SelectionBoxItem}" IsHitTestVisible="False">
+                                    <ContentPresenter Content="{TemplateBinding SelectionBoxItem}" IsHitTestVisible="False" Margin="3, 0, 0, 0">
                                         <ContentPresenter.ContentTemplate>
                                             <DataTemplate>
-                                                <TextBlock Name="LoS" Text="{Binding Value, StringFormat={}{0:0.#}}" />
+                                                <TextBlock Name="LoS" Text="{Binding Value, StringFormat=0.#}" />
 
                                                 <DataTemplate.Triggers>
-                                                    <DataTrigger Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True">
+                                                    <MultiDataTrigger>
+                                                        <MultiDataTrigger.Conditions>
+                                                            <Condition Binding="{Binding Key.Name}" Value="Formula33" />
+                                                            <Condition Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
+                                                        </MultiDataTrigger.Conditions>
+
                                                         <Setter TargetName="LoS" Property="Foreground" Value="Yellow" />
-                                                    </DataTrigger>
+                                                    </MultiDataTrigger>
                                                 </DataTemplate.Triggers>
                                             </DataTemplate>
                                         </ContentPresenter.ContentTemplate>
@@ -70,7 +75,6 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
-                            <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                             <Setter TargetName="DropDownMarkColumn" Property="MinWidth" Value="13" />
                             <Setter TargetName="ToggleButton" Property="Visibility" Value="Visible" />
                         </Trigger>
@@ -104,7 +108,7 @@
 
                                         <Path Name="CheckMark" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" Width="12" Height="12" Margin="1" Visibility="Hidden" Data="F1 M10.2209,8.946 L17.1875,15.5167 30.9627,1.0440487E-53 34.2877,2.9292 17.5834,22.9585 6.8959,12.271 10.2209,8.946 z" />
                                         <TextBlock Text="{rb:EnumToStringResource Key.Name, Fleet_LoS_Formula}" Grid.Column="2" />
-                                        <TextBlock Name="LoS" Text="{Binding Value, StringFormat={}{0:0.#}}" HorizontalAlignment="Right" Grid.Column="4" />
+                                        <TextBlock Name="LoS" Text="{Binding Value, StringFormat=0.#}" HorizontalAlignment="Right" Grid.Column="4" />
                                     </Grid>
                                 </Border>
 

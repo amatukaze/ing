@@ -7,6 +7,7 @@
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
              mc:Ignorable="d"
+             MinWidth="150"
              d:DesignWidth="300" d:DesignHeight="300">
     <UserControl.Resources>
         <Style x:Key="Map" TargetType="{x:Type Run}">
@@ -20,7 +21,7 @@
         </Style>
 
         <DataTemplate DataType="{x:Type rgm:MapInfo}">
-            <Border Height="30">
+            <Border Name="Border" Height="30">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition SharedSizeGroup="Map" />
@@ -38,23 +39,33 @@
                             <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty}" />
                             <Run Text="{rb:ExtraStringResource Map, MasterInfo.ID, MasterInfo.Name}" />
                         </TextBlock>
-                        <TextBlock Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull GaugeType}" />
+                        <TextBlock Name="GaugeType" Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull GaugeType}" />
                     </StackPanel>
 
                     <TextBlock HorizontalAlignment="Right" Grid.Column="2">
                         <Run Text="{Binding HP.Current, Mode=OneWay}" />
                         <Run Text=" /" Foreground="Gray" />
-                        <Run Text="{Binding HP.Maximum, Mode=OneWay}" Foreground="Gray" FontSize="11" />
+                        <Run Text="{Binding HP.Maximum, Mode=OneWay}" Foreground="Gray" FontSize="12" />
                     </TextBlock>
 
                     <rc:Indicator Maximum="{Binding HP.Maximum}" Value="{Binding HP.Current}" Grid.Column="2" Grid.Row="1" />
                 </Grid>
             </Border>
+
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding HasGauge}" Value="False">
+                    <Setter TargetName="Border" Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding TransportEscortOnly}" Value="True">
+                    <Setter TargetName="GaugeType" Property="Text" Value="{rb:StringResource Main.SortieOverview_MapGauges_Type_TP_Only, StringFormat=({0})}" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
     </UserControl.Resources>
 
     <StackPanel>
-        <TextBlock Text="{rb:StringResource Main.SortieOverview_MapGauges}" FontSize="14" Margin="4" />
+        <TextBlock Text="{rb:StringResource Main.SortieOverview_MapGauges}" FontSize="16" Margin="4" />
 
         <Grid Grid.IsSharedSizeScope="True">
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">

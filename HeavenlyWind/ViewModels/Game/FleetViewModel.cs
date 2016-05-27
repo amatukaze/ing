@@ -11,12 +11,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         public FleetExpeditionStatusViewModel ExpeditionStatus { get; }
         public FleetConditionRegenerationViewModel ConditionRegeneration { get; }
+        public FleetAnchorageRepairViewModel AnchorageRepair { get; }
 
         internal FleetViewModel(Fleet rpFleet)
         {
             Source = rpFleet;
             ExpeditionStatus = new FleetExpeditionStatusViewModel(rpFleet);
             ConditionRegeneration = new FleetConditionRegenerationViewModel(rpFleet.ConditionRegeneration);
+            AnchorageRepair = new FleetAnchorageRepairViewModel(rpFleet.AnchorageRepair);
         }
     }
 }

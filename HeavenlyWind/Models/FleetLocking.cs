@@ -9,6 +9,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models
     {
         ShipLocking r_Source;
 
+        public int ID => r_Source.ID;
+
         public string Name => r_Source.Name;
 
         public string Color => r_Source.Color;

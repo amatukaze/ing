@@ -38,5 +38,8 @@
         FlyingBoat,
         CombatProvisions,
         Supplies,
+        SpecialAmphibiousLandingCraft,
+        LandBasedAttackAircraft,
+        InterceptorFighter,
     }
 }

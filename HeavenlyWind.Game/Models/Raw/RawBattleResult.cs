@@ -72,6 +72,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_escape")]
         public RawEvacuatedShips EvacuatedShips { get; set; }
 
+        [JsonProperty("api_landing_hp")]
+        public RawTransportMissionResult TransportMissionResult { get; set; }
+
         public class RawEnemyInfo
         {
             [JsonProperty("api_level")]
@@ -117,6 +120,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 
             [JsonProperty("api_tow_idx")]
             public int[] EscortShipIndex { get; set; }
+        }
+        public class RawTransportMissionResult
+        {
+            //[JsonProperty("api_now_hp")]
+            //[JsonProperty("api_max_hp")]
+
+            [JsonProperty("api_sub_value")]
+            public int Point { get; set; }
         }
     }
 }

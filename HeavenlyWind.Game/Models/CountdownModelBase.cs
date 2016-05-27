@@ -47,7 +47,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         }
         public CountdownModelBase()
         {
-            r_IntervalSubscription = r_Interval.Subscribe(_ => OnTick());
+            r_IntervalSubscription = r_Interval.Subscribe(_ => OnTickCore());
         }
 
         public void Dispose()
@@ -59,7 +59,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        void OnTick()
+        void OnTickCore()
         {
             if (!TimeToComplete.HasValue)
                 RemainingTime = null;
@@ -71,6 +71,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 RemainingTime = rRemainingTime;
 
+                OnTick();
+
                 if (rRemainingTime <= RemainingTimeToNotify && !IsNotificated)
                 {
                     TimeOut();
@@ -78,6 +80,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
             }
         }
+
+        protected virtual void OnTick() { }
 
         protected abstract void TimeOut();
     }

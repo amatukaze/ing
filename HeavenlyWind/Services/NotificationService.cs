@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.SystemInterop;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,12 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Reactive.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -22,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         NotifyIcon r_NotifyIcon;
 
-        PropertyChangedEventListener r_SortiePCEL;
+        Tuple<string, MediaPlayer> r_CustomSound;
 
         public void Initialize()
         {
@@ -38,11 +43,23 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 rPort.Fleets.FleetsUpdated += rpFleets =>
                 {
                     foreach (var rFleet in rpFleets)
+                    {
                         rFleet.ExpeditionStatus.Returned += (rpFleetName, rpExpeditionName) =>
                         {
                             if (Preference.Current.Notification.Expedition)
                                 Show(StringResources.Instance.Main.Notification_Expedition, string.Format(StringResources.Instance.Main.Notification_Expedition_Content, rpFleetName, rpExpeditionName));
                         };
+                        rFleet.ConditionRegeneration.Recovered += rpFleet =>
+                        {
+                            if (Preference.Current.Notification.RecoveryFromFatigue)
+                                Show(StringResources.Instance.Main.Notification_RecoveryFromFatigue, string.Format(StringResources.Instance.Main.Notification_RecoveryFromFatigue_Content, rpFleet.Name));
+                        };
+                        rFleet.AnchorageRepair.InterruptionNotification += () =>
+                        {
+                            if (Preference.Current.Notification.AnchorageRepair)
+                                Show(StringResources.Instance.Main.Notification_AnchorageRepair, StringResources.Instance.Main.Notification_AnchorageRepair_Content);
+                        };
+                    }
                 };
 
                 var rPortPCEL = PropertyChangedEventListener.FromSource(rPort);
@@ -108,54 +125,83 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 var rBattle = BattleInfo.Current.CurrentStage;
 
-                IEnumerable<BattleParticipantSnapshot> rParticipants = rBattle.FriendMain;
-                if (rBattle.FriendEscort != null)
-                    rParticipants = rParticipants.Concat(rBattle.FriendEscort);
-
-                if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == BattleParticipantState.HeavilyDamaged))
-                    Show(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
+                if (Preference.Current.Notification.HeavilyDamagedWarning && rBattle.Friend.Any(r => r.State == BattleParticipantState.HeavilyDamaged))
+                {
+                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
+                    FlashWindow();
+                }
             });
 
-            rpGamePCEL.Add(nameof(KanColleGame.Current.Sortie), delegate
+            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, delegate
             {
-                var rSortie = KanColleGame.Current.Sortie;
+                var rSortie = SortieInfo.Current;
+                var rParticipants = rSortie.Fleet.Ships.Skip(1);
+                if (rSortie.EscortFleet != null)
+                    rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
-                if (rSortie == null)
+                if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
                 {
-                    r_SortiePCEL?.Dispose();
-                    r_SortiePCEL = null;
-                }
-                else
-                {
-                    r_SortiePCEL = new PropertyChangedEventListener(rSortie);
-                    r_SortiePCEL.Add(nameof(rSortie.Node), delegate
-                    {
-                        var rParticipants = rSortie.Fleet.Ships.Skip(1);
-                        if (rSortie.EscortFleet != null)
-                            rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
-
-                        if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
-                            Show(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
-                    });
+                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
+                    FlashWindow();
                 }
             });
         }
 
-        public void Show(string rpTitle, string rpBody)
+        public void Show(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Current.Notification.Sound, Preference.Current.Notification.SoundFilename);
+        public void ShowHeavilyDamagedWarning(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Current.Notification.HeavilyDamagedWarningSound, Preference.Current.Notification.HeavilyDamagedWarningSoundFilename);
+        void ShowCore(string rpTitle, string rpBody, NotificationSound rpSound, string rpCustomSoundFilename)
         {
             if (!OS.IsWin8OrLater)
+            {
                 r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rpBody, ToolTipIcon.None);
+
+                if (rpSound == NotificationSound.SystemSound)
+                    NativeMethods.WinMM.PlaySoundW("SystemNotification", IntPtr.Zero, NativeEnums.SND.SND_ALIAS | NativeEnums.SND.SND_ASYNC);
+            }
             else
             {
                 var rToast = new ToastContent()
                 {
                     Title = rpTitle,
                     Body = rpBody,
-                    Audio = ToastAudio.Default,
+                    Audio = rpSound == NotificationSound.SystemSound ? ToastAudio.Default : ToastAudio.None,
                 };
 
                 ToastNotificationUtil.Show(rToast);
             }
+
+            if (rpSound == NotificationSound.Custom)
+                PlayCustomSound(rpCustomSoundFilename);
+        }
+        void PlayCustomSound(string rpCustomSoundFilename)
+        {
+            if (r_CustomSound == null || r_CustomSound.Item1 != rpCustomSoundFilename)
+            {
+                Uri rUri;
+                if (!Uri.TryCreate(rpCustomSoundFilename, UriKind.RelativeOrAbsolute, out rUri))
+                    return;
+
+                var rMediaPlayer = new MediaPlayer();
+                rMediaPlayer.Open(rUri);
+
+                r_CustomSound = Tuple.Create(rpCustomSoundFilename, rMediaPlayer);
+            }
+
+            r_CustomSound.Item2.Stop();
+            r_CustomSound.Item2.Play();
+        }
+        void FlashWindow()
+        {
+            var rHandle = DispatcherUtil.UIDispatcher.Invoke(() => new WindowInteropHelper(App.Current.MainWindow).Handle);
+            var rInfo = new NativeStructs.FLASHWINFO()
+            {
+                cbSize = Marshal.SizeOf(typeof(NativeStructs.FLASHWINFO)),
+                hwnd = rHandle,
+                dwFlags = NativeEnums.FLASHW.FLASHW_TRAY | NativeEnums.FLASHW.FLASHW_TIMERNOFG,
+                dwTimeout = 250,
+                uCount = 5,
+            };
+            NativeMethods.User32.FlashWindowEx(ref rInfo);
         }
     }
 }

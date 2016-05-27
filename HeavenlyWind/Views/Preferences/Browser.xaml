@@ -22,7 +22,7 @@
     <StackPanel>
         <StackPanel Margin="0, 0, 0, 8">
             <TextBlock Margin="0, 0, 0, 6">
-                <Run Text="{rb:StringResource Main.PreferenceWindow_Browser_LayoutEngine, Mode=OneWay}" />
+                <Run Text="{rb:StringResource Main.PreferenceWindow_Browser_LayoutEngine, Mode=OneWay}" FontSize="14" FontWeight="Bold" />
                 <Run Text="*" />
             </TextBlock>
             <ComboBox ItemsSource="{Binding InstalledLayoutEngines}" DisplayMemberPath="DisplayName" SelectedValue="{rb:Preference Browser.CurrentLayoutEngine}" SelectedValuePath="Name" />
@@ -40,7 +40,7 @@
 
         <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
 
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash}" />
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash}" FontSize="14" FontWeight="Bold" />
 
         <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash_Quality}" />

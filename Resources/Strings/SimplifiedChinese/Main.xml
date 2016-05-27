@@ -21,7 +21,9 @@
   <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3} {4})」出击</String>
   <String Key="Log_ShipOrItem_Dropped">获得「{0}」</String>
   <String Key="Log_ShipAndItem_Dropped">获得「{0}」和「{1}」</String>
-  <String Key="Log_Screenshot_Failed">截图失败</String>
+  <String Key="Log_Screenshot_Failed">截图失败: {0}</String>
+  <String Key="Log_Screenshot_Failed_FlashElementNotFound">找不到 Flash 元素</String>
+  <String Key="Log_Screenshot_Failed_NoData">浏览器没有返回截图信息</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">已截图到剪贴板: {0}</String>
   <String Key="Log_Screenshot_Succeeded_File">已保存截图: {0}</String>
 
@@ -35,6 +37,10 @@
   <String Key="Notification_HeavilyDamagedWarning_Content">有舰娘处于大破状态。</String>
   <String Key="Notification_AdvanceWarning">大破进击</String>
   <String Key="Notification_AdvanceWarning_Content">有舰娘处于大破状态，继续进击有被击沉的风险。</String>
+  <String Key="Notification_RecoveryFromFatigue">疲劳恢复</String>
+  <String Key="Notification_RecoveryFromFatigue_Content">舰队「{0}」中的舰娘已从疲劳中恢复过来。</String>
+  <String Key="Notification_AnchorageRepair">泊地修理</String>
+  <String Key="Notification_AnchorageRepair_Content">从泊地修理开始已过 20 分钟，请返回母港画面。</String>
 
   <String Key="Result_Failure">失败</String>
   <String Key="Result_Success">成功</String>
@@ -70,6 +76,8 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中坚少佐</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
+  <String Key="Overview_ShipOverview">舰娘一览</String>
+  <String Key="Overview_EquipmentOverview">装备一览</String>
   <String Key="Overview_Fleets">舰队一览</String>
   <String Key="Overview_Fleets_Idle">等待中</String>
   <String Key="Overview_Fleets_Sortie">出击中</String>
@@ -87,9 +95,8 @@
   <String Key="Overview_ConstructionDocks_Completed">完成</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">完成时间</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入的资材</String>
-  <String Key="Overview_ExecutingQuests">执行中的任务</String>
-  <String Key="Overview_EquipmentOverview">装备一览</String>
-  <String Key="Overview_ShipOverview">舰娘一览</String>
+  <String Key="Overview_ExecutingQuest_None">无执行中的任务</String>
+  <String Key="Overview_ExecutingQuest_NotLoaded">未获取执行中的任务</String>
 
   <String Key="Fleet_TotalLevel">总等级</String>
   <String Key="Fleet_LoS">索敌</String>
@@ -97,10 +104,15 @@
   <String Key="Fleet_LoS_Formula_Autumn">2-5(秋)</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5(秋)简易</String>
   <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
-  <String Key="Fleet_AA">对空</String>
+  <String Key="Fleet_FighterPower">制空</String>
+  <String Key="Fleet_Speed">速度</String>
+  <String Key="Fleet_Speed_Slow">低速</String>
+  <String Key="Fleet_Speed_Fast">高速</String>
+  <String Key="Fleet_Speed_Mixed">混速</String>
   <String Key="Fleet_MoraleRegeneration">疲劳回复</String>
 
   <String Key="Ship_Repairing">修理中</String>
+  <String Key="Ship_RepairingInAnchorage">泊地修理中</String>
   <String Key="Ship_Evacuated">退避中</String>
   <String Key="Ship_ToolTip_DayBattle">昼战</String>
   <String Key="Ship_ToolTip_NightBattle">夜战</String>
@@ -127,6 +139,13 @@
   <String Key="Ship_ToolTip_AttackPower_ASW">対潜</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">夜战</String>
 
+  <String Key="AirBase_Group_Option_Standby">待机</String>
+  <String Key="AirBase_Group_Option_Sortie">出击</String>
+  <String Key="AirBase_Group_Option_AirDefense">防空</String>
+  <String Key="AirBase_Group_Option_Retreat">退避</String>
+  <String Key="AirBase_Group_Option_Rest">休息</String>
+  <String Key="AirBase_Group_CombatRadius">行动半径</String>
+
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弹药</String>
   <String Key="Material_Steel">钢材</String>
@@ -135,10 +154,14 @@
   <String Key="Material_Bucket">高速修复材</String>
   <String Key="Material_DevelopmentMaterial">开发资材</String>
   <String Key="Material_ImprovementMaterial">改修资材</String>
+  <String Key="Material_Difference_Type_Day">日</String>
+  <String Key="Material_Difference_Type_Week">周</String>
+  <String Key="Material_Difference_Type_Month">月</String>
 
   <String Key="SortieOverview_MapGauges">海域血量</String>
   <String Key="SortieOverview_MapGauges_Type_HP">击破阶段</String>
   <String Key="SortieOverview_MapGauges_Type_TP">运输阶段</String>
+  <String Key="SortieOverview_MapGauges_Type_TP_Only">仅运输</String>
   <String Key="SortieOverview_FleetLockingTable">贴条表</String>
   <String Key="SortieOverview_FleetLockingTable_CombinedFleet">联合舰队</String>
 
@@ -161,6 +184,7 @@
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">没有看到敌影。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能动分岐</String>
   <String Key="Sortie_SupportFleet_Ready">支援舰队等待中</String>
+  <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空队准备实施空袭</String>
   <String Key="Sortie_EnemyEncounters">可能遭遇的敌方舰队</String>
 
   <String Key="AbyssalShip_Class_Normal" />
@@ -175,16 +199,15 @@
 
   <String Key="Practice_Opponent_Experience">演习经验值</String>
 
-  <String Key="Battle_State_Healthy" />
-  <String Key="Battle_State_LightlyDamaged">小破</String>
-  <String Key="Battle_State_ModeratelyDamaged">中破</String>
-  <String Key="Battle_State_HeavilyDamaged">大破</String>
-  <String Key="Battle_State_Sunk">击沉</String>
-  <String Key="Battle_State_Disordered">混乱</String>
-  <String Key="Battle_State_Damaged">损害</String>
-  <String Key="Battle_State_Destroyed">损坏</String>
-  <String Key="Battle_State_Demolished">破坏</String>
   <String Key="Battle_State_Evacuated">退避</String>
+  <String Key="Battle_State_Ship_LightlyDamaged">小破</String>
+  <String Key="Battle_State_Ship_ModeratelyDamaged">中破</String>
+  <String Key="Battle_State_Ship_HeavilyDamaged">大破</String>
+  <String Key="Battle_State_Ship_Sunk">击沉</String>
+  <String Key="Battle_State_LandBase_LightlyDamaged">混乱</String>
+  <String Key="Battle_State_LandBase_ModeratelyDamaged">损害</String>
+  <String Key="Battle_State_LandBase_HeavilyDamaged">损坏</String>
+  <String Key="Battle_State_LandBase_Sunk">破坏</String>
   <String Key="Battle_Formation_LineAhead">单纵阵</String>
   <String Key="Battle_Formation_DoubleLine">复纵阵</String>
   <String Key="Battle_Formation_Diamond">轮形阵</String>
@@ -206,6 +229,7 @@
   <String Key="Battle_AerialCombatResult_Incapability">航空劣势</String>
   <String Key="Battle_AerialCombatResult_Denial">制空权丧失</String>
 
+  <String Key="Quest_NoData">请打开游戏中的「任務(クエスト)」获取任务信息</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Once" />
   <String Key="Quest_Type_Special1">日</String>
@@ -229,13 +253,14 @@
   <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(仅大成功)</String>
 
   <String Key="Window_Preferences">设置</String>
-  <String Key="Window_EquipmentOverview">装备一览</String>
   <String Key="Window_ShipOverview">舰娘一览</String>
+  <String Key="Window_EquipmentOverview">装备一览</String>
   <String Key="Window_ConstructionHistory">建造历史</String>
   <String Key="Window_DevelopmentHistory">开发历史</String>
   <String Key="Window_SortieHistory">出击历史</String>
   <String Key="Window_ExpeditionHistory">远征历史</String>
   <String Key="Window_ScrappingHistory">解体・废弃历史</String>
+  <String Key="Window_ResourceHistory">资源历史</String>
   <String Key="Window_ClosingConfirmation">要关闭{0}吗？</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
@@ -244,6 +269,7 @@
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">允许来自其它设备的请求 (不推荐：有安全风险)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">使用上游代理</String>
   <String Key="PreferenceWindow_Window">窗口</String>
+  <String Key="PreferenceWindow_Window_Font">字体</String>
   <String Key="PreferenceWindow_Window_Layout">布局</String>
   <String Key="PreferenceWindow_Window_Layout_Landscape">横屏</String>
   <String Key="PreferenceWindow_Window_Layout_Portrait">竖屏</String>
@@ -255,11 +281,19 @@
   <String Key="PreferenceWindow_Cache_Mode_FullTrust">完全信任（不校验文件版本）</String>
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">校验文件版本</String>
   <String Key="PreferenceWindow_Cache_Path">路径</String>
+  <String Key="PreferenceWindow_Behaviour">行为</String>
+  <String Key="PreferenceWindow_Behaviour_FatigueCeiling">疲劳上限</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">在建造完成时通知</String>
   <String Key="PreferenceWindow_Notification_Expedition">在远征归来时通知</String>
   <String Key="PreferenceWindow_Notification_Repair">在入渠结束时通知</String>
   <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">在有大破船以及大破进击时发出警告</String>
+  <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">在疲劳恢复时发出通知</String>
+  <String Key="PreferenceWindow_Notification_AnchorageRepair">泊地修理开始 20 分钟后发出通知</String>
+  <String Key="PreferenceWindow_Notification_Sound">音效</String>
+  <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">音效 (大破警告)</String>
+  <String Key="PreferenceWindow_Notification_Sound_Slient">静音</String>
+  <String Key="PreferenceWindow_Notification_Sound_SystemSound">系统音效</String>
   <String Key="PreferenceWindow_Language">语言</String>
   <String Key="PreferenceWindow_Language_NameTranslation">名字翻译</String>
   <String Key="PreferenceWindow_Browser">浏览器</String>
@@ -276,8 +310,8 @@
   <String Key="PreferenceWindow_VersionInfo">版本信息</String>
 
   <String Key="ValidationRule_PleaseInputNumber">请输入数字</String>
-  <String Key="ValidationRule_NumberLessThanMinimum">必须大于等于 {0}</String>
-  <String Key="ValidationRule_NumberGreaterThanMaximum">必须小于等于 {0}</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">必须小于等于 {0}</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">必须大于等于 {0}</String>
 
   <String Key="Screenshot_File">截图到文件</String>
   <String Key="Screenshot_Clipboard">截图到剪贴板</String>
@@ -303,6 +337,7 @@
   <String Key="ShipOverview_Evasion">回避</String>
   <String Key="ShipOverview_ASW">对潜</String>
   <String Key="ShipOverview_LoS">索敌</String>
+  <String Key="ShipOverview_RepairTime">入渠时间</String>
   <String Key="ShipOverview_Equipment">装备</String>
 
   <String Key="Record_Time">时间</String>
@@ -322,7 +357,7 @@
   <String Key="ExpeditionHistory_Name">远征名</String>
   <String Key="ExpeditionHistory_Result">结果</String>
   <String Key="ExpeditionHistory_Reward">奖励</String>
-  
+
   <String Key="ScrappingHistory_ShipOrEquipment">舰娘・装备</String>
   <String Key="ScrappingHistory_Reason">原因</String>
   <String Key="ScrappingHistory_Reason_ConsumedByModernization">近代化改修</String>

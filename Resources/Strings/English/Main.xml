@@ -22,6 +22,8 @@
   <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
   <String Key="Log_ShipAndItem_Dropped">{0} and {1} dropped</String>
   <String Key="Log_Screenshot_Failed">Fail to save screenshot: {0}</String>
+  <String Key="Log_Screenshot_Failed_FlashElementNotFound">The flash element cannot be found</String>
+  <String Key="Log_Screenshot_Failed_NoData">No screenshot data from the browser</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
   <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
 
@@ -35,6 +37,10 @@
   <String Key="Notification_HeavilyDamagedWarning_Content">You have heavily damaged ship(s).</String>
   <String Key="Notification_AdvanceWarning">Warning</String>
   <String Key="Notification_AdvanceWarning_Content">Advancing with your ship heavily damaged may result in being sunk.</String>
+  <String Key="Notification_RecoveryFromFatigue">Recovery From Fatigue</String>
+  <String Key="Notification_RecoveryFromFatigue_Content">Ship(s) from fleet "{0}" recovered from fatigue.</String>
+  <String Key="Notification_AnchorageRepair">Anchorage Repair</String>
+  <String Key="Notification_AnchorageRepair_Content">Please return to the HQ screen to get ships' HP repaired.</String>
 
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>
@@ -58,8 +64,8 @@
   <String Key="Tab_Tools">Tool</String>
 
   <String Key="Overview_Headquarter">Headquarter</String>
-  <String Key="Overview_Headquarter_Ships">Ships</String>
-  <String Key="Overview_Headquarter_Equipment">Equipment</String>
+  <String Key="Overview_Headquarter_Ships">Ship</String>
+  <String Key="Overview_Headquarter_Equipment">EQPT</String>
   <String Key="Overview_Admiral_Rank_MarshalAdmiral">Marshal Admiral</String>
   <String Key="Overview_Admiral_Rank_Admiral">Admiral</String>
   <String Key="Overview_Admiral_Rank_ViceAdmiral">Vice Admiral</String>
@@ -70,6 +76,8 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">Lieutenant Commander</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">Vice Lieutenant Commander</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">Novice Lieutenant Commander</String>
+  <String Key="Overview_ShipOverview">Ship</String>
+  <String Key="Overview_EquipmentOverview">EQPT</String>
   <String Key="Overview_Fleets">Fleets</String>
   <String Key="Overview_Fleets_Idle">Idle</String>
   <String Key="Overview_Fleets_Sortie">Sortie</String>
@@ -81,26 +89,30 @@
   <String Key="Overview_Fleets_Expedition_HourlyYield">Hourly Yield</String>
   <String Key="Overview_Fleets_Expedition_HourlyYield_GreatSuccess">Hourly Yield (GS)</String>
   <String Key="Overview_Dock_Locked">Locked</String>
-  <String Key="Overview_RepairDocks">Repair docks</String>
+  <String Key="Overview_RepairDocks">Repair</String>
   <String Key="Overview_RepairDocks_TimeToComplete">Completion Time</String>
-  <String Key="Overview_ConstructionDocks">Construction docks</String>
+  <String Key="Overview_ConstructionDocks">Construction</String>
   <String Key="Overview_ConstructionDocks_Completed">Completed</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">Completion Time</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">Material Consumption</String>
-  <String Key="Overview_ExecutingQuests">Executing Quests</String>
-  <String Key="Overview_EquipmentOverview">Equipment Overview</String>
-  <String Key="Overview_ShipOverview">Ship Overview</String>
+  <String Key="Overview_ExecutingQuest_None">No executing quest</String>
+  <String Key="Overview_ExecutingQuest_NotLoaded">Executing quest not loaded</String>
 
-  <String Key="Fleet_TotalLevel">Total Lv.</String>
+  <String Key="Fleet_TotalLevel">Total Lv</String>
   <String Key="Fleet_LoS">LoS</String>
   <String Key="Fleet_LoS_Formula_Old">2-5 Old</String>
   <String Key="Fleet_LoS_Formula_Autumn">2-5 Autumn</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">Autumn Simplified</String>
   <String Key="Fleet_LoS_Formula_Formula33">Formula 33</String>
-  <String Key="Fleet_AA">AA</String>
+  <String Key="Fleet_FighterPower">FP</String>
+  <String Key="Fleet_Speed">Speed</String>
+  <String Key="Fleet_Speed_Slow">Slow</String>
+  <String Key="Fleet_Speed_Fast">Fast</String>
+  <String Key="Fleet_Speed_Mixed">Mixed</String>
   <String Key="Fleet_MoraleRegeneration">Fatigue</String>
 
   <String Key="Ship_Repairing">Repairing</String>
+  <String Key="Ship_RepairingInAnchorage">Repairing</String>
   <String Key="Ship_Evacuated">Evacuated</String>
   <String Key="Ship_ToolTip_DayBattle">Day</String>
   <String Key="Ship_ToolTip_NightBattle">Night</String>
@@ -127,6 +139,13 @@
   <String Key="Ship_ToolTip_AttackPower_ASW">ASW</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">Night</String>
 
+  <String Key="AirBase_Group_Option_Standby">Standby</String>
+  <String Key="AirBase_Group_Option_Sortie">Sortie</String>
+  <String Key="AirBase_Group_Option_AirDefense">Air Defense</String>
+  <String Key="AirBase_Group_Option_Retreat">Retreat</String>
+  <String Key="AirBase_Group_Option_Rest">Rest</String>
+  <String Key="AirBase_Group_CombatRadius">CR</String>
+
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>
   <String Key="Material_Steel">Steel</String>
@@ -135,10 +154,14 @@
   <String Key="Material_Bucket">Bucket</String>
   <String Key="Material_DevelopmentMaterial">Development Material</String>
   <String Key="Material_ImprovementMaterial">Improvement Material</String>
+  <String Key="Material_Difference_Type_Day">D</String>
+  <String Key="Material_Difference_Type_Week">W</String>
+  <String Key="Material_Difference_Type_Month">M</String>
 
   <String Key="SortieOverview_MapGauges">Map Gauges</String>
   <String Key="SortieOverview_MapGauges_Type_HP">Kills Part</String>
   <String Key="SortieOverview_MapGauges_Type_TP">TE Part</String>
+  <String Key="SortieOverview_MapGauges_Type_TP_Only">TE Only</String>
   <String Key="SortieOverview_FleetLockingTable">Fleet Locking Table</String>
   <String Key="SortieOverview_FleetLockingTable_CombinedFleet">Combined Fleet</String>
 
@@ -161,6 +184,7 @@
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
   <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>
   <String Key="Sortie_SupportFleet_Ready">Support Fleet Ready</String>
+  <String Key="Sortie_LandBaseAerialSupport_Ready">Land-base Aerial Support Ready</String>
   <String Key="Sortie_EnemyEncounters">Enemy Encounters</String>
 
   <String Key="AbyssalShip_Class_Normal" />
@@ -175,16 +199,15 @@
 
   <String Key="Practice_Opponent_Experience">PvP XP</String>
 
-  <String Key="Battle_State_Healthy" />
-  <String Key="Battle_State_LightlyDamaged">LGT</String>
-  <String Key="Battle_State_ModeratelyDamaged">MOD</String>
-  <String Key="Battle_State_HeavilyDamaged">HVY</String>
-  <String Key="Battle_State_Sunk">SNK</String>
-  <String Key="Battle_State_Disordered">DORD</String>
-  <String Key="Battle_State_Damaged">DMGE</String>
-  <String Key="Battle_State_Destroyed">DSTR</String>
-  <String Key="Battle_State_Demolished">DEMO</String>
   <String Key="Battle_State_Evacuated">EVA</String>
+  <String Key="Battle_State_Ship_LightlyDamaged">LGT</String>
+  <String Key="Battle_State_Ship_ModeratelyDamaged">MOD</String>
+  <String Key="Battle_State_Ship_HeavilyDamaged">HVY</String>
+  <String Key="Battle_State_Ship_Sunk">SNK</String>
+  <String Key="Battle_State_LandBase_LightlyDamaged">DORD</String>
+  <String Key="Battle_State_LandBase_ModeratelyDamaged">DMGE</String>
+  <String Key="Battle_State_LandBase_HeavilyDamaged">DSTR</String>
+  <String Key="Battle_State_LandBase_Sunk">DEMO</String>
   <String Key="Battle_Formation_LineAhead">Line Ahead</String>
   <String Key="Battle_Formation_DoubleLine">Double Line</String>
   <String Key="Battle_Formation_Diamond">Diamond</String>
@@ -198,7 +221,7 @@
   <String Key="Battle_EngagementForm_HeadOn">Head-on</String>
   <String Key="Battle_EngagementForm_CrossingTheTAdvantage">T Advantage</String>
   <String Key="Battle_EngagementForm_CrossingTheTDisadvantage">T Disadvantage</String>
-  <String Key="Battle_AerialCombat_FighterConbat">FC</String>
+  <String Key="Battle_AerialCombat_FighterCombat">FC</String>
   <String Key="Battle_AerialCombat_AA">AA</String>
   <String Key="Battle_AerialCombatResult_Supremacy">Air Supremacy</String>
   <String Key="Battle_AerialCombatResult_Superiority">Air Superiority</String>
@@ -206,6 +229,7 @@
   <String Key="Battle_AerialCombatResult_Incapability">Air Incapability</String>
   <String Key="Battle_AerialCombatResult_Denial">Air Denial</String>
 
+  <String Key="Quest_NoData">Please open the "Quests" menu in the game to populate the quest list</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Once" />
   <String Key="Quest_Type_Special1">D</String>
@@ -229,13 +253,14 @@
   <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(Great Success Only)</String>
 
   <String Key="Window_Preferences">Setting</String>
-  <String Key="Window_EquipmentOverview">Equipment Overview</String>
   <String Key="Window_ShipOverview">Ship Overview</String>
+  <String Key="Window_EquipmentOverview">Equipment Overview</String>
   <String Key="Window_ConstructionHistory">Construction History</String>
   <String Key="Window_DevelopmentHistory">Development History</String>
   <String Key="Window_SortieHistory">Sortie History</String>
   <String Key="Window_ExpeditionHistory">Expedition History</String>
   <String Key="Window_ScrappingHistory">Scrapping History</String>
+  <String Key="Window_ResourceHistory">Resource History</String>
   <String Key="Window_ClosingConfirmation">Are you sure to close {0}?</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
@@ -244,6 +269,7 @@
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">Allow requests from other devices (WARNING: Security Risk)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
   <String Key="PreferenceWindow_Window">Window</String>
+  <String Key="PreferenceWindow_Window_Font">Font</String>
   <String Key="PreferenceWindow_Window_Layout">Layout</String>
   <String Key="PreferenceWindow_Window_Layout_Landscape">Landscape</String>
   <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait</String>
@@ -255,11 +281,19 @@
   <String Key="PreferenceWindow_Cache_Mode_FullTrust">Full Trust (No verification)</String>
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">Verify Version</String>
   <String Key="PreferenceWindow_Cache_Path">Path</String>
+  <String Key="PreferenceWindow_Behaviour">Behaviour</String>
+  <String Key="PreferenceWindow_Behaviour_FatigueCeiling">Max fatigue value</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Notification_Construction">Notify the completion of construction</String>
   <String Key="PreferenceWindow_Notification_Expedition">Notify the return from an expedition</String>
   <String Key="PreferenceWindow_Notification_Repair">Notify the completion of ship repair</String>
   <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">Warn if advancing with heavily damaged ship</String>
+  <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">Notify the recovery from fatigue</String>
+  <String Key="PreferenceWindow_Notification_AnchorageRepair">Anchorage Repair Notification</String>
+  <String Key="PreferenceWindow_Notification_Sound">Sound</String>
+  <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">Sound (Heavily damaged)</String>
+  <String Key="PreferenceWindow_Notification_Sound_Slient">Slient</String>
+  <String Key="PreferenceWindow_Notification_Sound_SystemSound">System Sound</String>
   <String Key="PreferenceWindow_Language">Language</String>
   <String Key="PreferenceWindow_Language_NameTranslation">Name translation</String>
   <String Key="PreferenceWindow_Browser">Browser</String>
@@ -276,8 +310,8 @@
   <String Key="PreferenceWindow_VersionInfo">Version</String>
 
   <String Key="ValidationRule_PleaseInputNumber">Please input number</String>
-  <String Key="ValidationRule_NumberLessThanMinimum">Please input number greater than {0}</String>
-  <String Key="ValidationRule_NumberGreaterThanMaximum">Please input number less than {0}</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">Please input number less than {0}</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">Please input number greater than {0}</String>
 
   <String Key="Screenshot_File">Take screenshot to file</String>
   <String Key="Screenshot_Clipboard">Take screenshot to clipboard</String>
@@ -303,6 +337,7 @@
   <String Key="ShipOverview_Evasion">Evasion</String>
   <String Key="ShipOverview_ASW">ASW</String>
   <String Key="ShipOverview_LoS">LoS</String>
+  <String Key="ShipOverview_RepairTime">Repair Time</String>
   <String Key="ShipOverview_Equipment">Equipment</String>
 
   <String Key="Record_Time">Time</String>

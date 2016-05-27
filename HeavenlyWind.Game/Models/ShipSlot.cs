@@ -2,7 +2,19 @@
 {
     public class ShipSlot : ModelBase
     {
-        public Equipment Equipment { get; private set; }
+        Equipment r_Equipment;
+        public Equipment Equipment
+        {
+            get { return r_Equipment; }
+            set
+            {
+                if (r_Equipment != value)
+                {
+                    r_Equipment = value;
+                    OnPropertyChanged(nameof(Equipment));
+                }
+            }
+        }
         public bool HasEquipment => Equipment != null && Equipment != Equipment.Dummy;
 
         public int MaxPlaneCount { get; set; }
@@ -23,6 +35,7 @@
         }
         public bool HasLostPlane => r_PlaneCount < MaxPlaneCount;
 
+        internal ShipSlot(int rpMaxPlaneCount, int rpPlaneCount) : this(null, rpMaxPlaneCount, rpPlaneCount) { }
         internal ShipSlot(Equipment rpEquipment, int rpMaxPlaneCount, int rpPlaneCount)
         {
             Equipment = rpEquipment;

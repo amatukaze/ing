@@ -1,8 +1,12 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using Sakuno.KanColle.Amatsukaze.Views.Overviews;
+using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Input;
@@ -62,6 +66,24 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
         }
 
+        public AirBaseViewModel AirBase { get; }
+
+        public IList<ModelBase> RightTabs { get; private set; }
+
+        ModelBase r_SelectedTab;
+        public ModelBase SelectedTab
+        {
+            get { return r_SelectedTab; }
+            internal set
+            {
+                if (r_SelectedTab != value)
+                {
+                    r_SelectedTab = value;
+                    OnPropertyChanged(nameof(SelectedTab));
+                }
+            }
+        }
+
         IReadOnlyCollection<RepairDockViewModel> r_RepairDocks;
         public IReadOnlyCollection<RepairDockViewModel> RepairDocks
         {
@@ -111,30 +133,36 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             var rPort = KanColleGame.Current.Port;
 
             var rPortPCEL = PropertyChangedEventListener.FromSource(rPort);
-            rPortPCEL.Add(nameof(rPort.Ships), delegate
-            {
-                var rCount = rPort.Ships.Count;
-                if (KanColleGame.Current.Sortie != null)
-                    rCount += KanColleGame.Current.Sortie.PendingShipCount;
-
-                ShipCount = rCount;
-            });
+            rPortPCEL.Add(nameof(rPort.Ships), (s, e) => ShipCount = rPort.Ships.Count);
             rPortPCEL.Add(nameof(rPort.Equipment), (s, e) => EquipmentCount = rPort.Equipment.Count);
             rPortPCEL.Add(nameof(rPort.RepairDocks), (s, e) => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
             rPortPCEL.Add(nameof(rPort.ConstructionDocks), (s, e) => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
 
-            ShowShipOverviewWindowCommand = new DelegatedCommand(ShowShipOverviewWindow);
-            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(ShowEquipmentOverviewWindow);
-        }
+            AirBase = new AirBaseViewModel();
 
-        void ShowShipOverviewWindow()
-        {
-            new ShipOverviewWindow().Show();
-        }
-        void ShowEquipmentOverviewWindow()
-        {
-            new EquipmentOverviewWindow().Show();
-        }
+            SessionService.Instance.SubscribeOnce("api_get_member/base_air_corps", delegate
+            {
+                DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() =>
+                {
+                    if (RightTabs == null)
+                    {
+                        RightTabs = new ObservableCollection<ModelBase>();
+                        OnPropertyChanged(nameof(RightTabs));
+                    }
 
+                    RightTabs.Add(AirBase);
+                }));
+            });
+
+            SessionService.Instance.Subscribe("api_req_map/next", delegate
+            {
+                var rSortie = SortieInfo.Current;
+                if (rSortie != null)
+                    ShipCount = rPort.Ships.Count + rSortie.PendingShipCount;
+            });
+
+            ShowShipOverviewWindowCommand = new DelegatedCommand(() => new ShipOverviewWindow().Show());
+            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => new EquipmentOverviewWindow().Show());
+        }
     }
 }

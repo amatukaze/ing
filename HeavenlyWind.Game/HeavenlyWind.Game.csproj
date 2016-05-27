@@ -43,8 +43,8 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.101.0\lib\net45\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -66,6 +66,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AirBase.cs" />
     <Compile Include="ClampedValue.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FleetManager.cs" />
@@ -76,6 +77,11 @@
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
     <Compile Include="Models\AdmiralRank.cs" />
+    <Compile Include="Models\AirForceGroup.cs" />
+    <Compile Include="Models\AirForceGroupOption.cs" />
+    <Compile Include="Models\AirForceSquadron.cs" />
+    <Compile Include="Models\AirForceSquadronCondition.cs" />
+    <Compile Include="Models\AirForceSquadronState.cs" />
     <Compile Include="Models\AttackMode.cs" />
     <Compile Include="Models\BattleType.cs" />
     <Compile Include="Models\Battle\AerialCombat.cs" />
@@ -96,6 +102,7 @@
     <Compile Include="Models\Battle\IParticipant.cs" />
     <Compile Include="Models\Battle\Phases\AerialCombatPhase.cs" />
     <Compile Include="Models\Battle\Phases\BattlePhase.cs" />
+    <Compile Include="Models\Battle\Phases\LandBaseAerialSupportPhase.cs" />
     <Compile Include="Models\Battle\Phases\PhaseRound.cs" />
     <Compile Include="Models\Battle\Phases\ShellingPhase.cs" />
     <Compile Include="Models\Battle\Phases\SupportingFirePhase.cs" />
@@ -137,6 +144,7 @@
     <Compile Include="Models\Events\WhirlpoolEvent.cs" />
     <Compile Include="Models\ExpeditionResult.cs" />
     <Compile Include="Models\Fate.cs" />
+    <Compile Include="Models\FleetAnchorageRepair.cs" />
     <Compile Include="Models\FleetConditionRegeneration.cs" />
     <Compile Include="Models\FleetExpeditionStatus.cs" />
     <Compile Include="Models\ExpeditionInfo.cs" />
@@ -147,6 +155,7 @@
     <Compile Include="Models\FleetLoSFormulaInfo.cs" />
     <Compile Include="Models\FleetLoSStatus.cs" />
     <Compile Include="Models\FleetResupplyInfo.cs" />
+    <Compile Include="Models\FleetSpeed.cs" />
     <Compile Include="Models\FleetState.cs" />
     <Compile Include="Models\FleetStatus.cs" />
     <Compile Include="Models\ICombatAbility.cs" />
@@ -163,6 +172,8 @@
     <Compile Include="Models\MapInfo.cs" />
     <Compile Include="Models\MapMasterInfo.cs" />
     <Compile Include="Models\Materials.cs" />
+    <Compile Include="Models\MaterialsDifference.cs" />
+    <Compile Include="Models\MaterialsDifferenceType.cs" />
     <Compile Include="Models\MaterialType.cs" />
     <Compile Include="Models\Node.cs" />
     <Compile Include="Models\PastEventMapInfo.cs" />
@@ -182,11 +193,16 @@
     <Compile Include="Models\Raw\Battle\RawCombinedFleetNight.cs" />
     <Compile Include="Models\Raw\Battle\RawCombinedFleetNightOnly.cs" />
     <Compile Include="Models\Raw\Battle\RawDay.cs" />
+    <Compile Include="Models\Raw\Battle\RawLandBaseAerialSupport.cs" />
     <Compile Include="Models\Raw\Battle\RawNight.cs" />
     <Compile Include="Models\Raw\Battle\RawNightOnly.cs" />
     <Compile Include="Models\Raw\Battle\RawShellingPhase.cs" />
     <Compile Include="Models\Raw\Battle\RawSupportingFirePhase.cs" />
     <Compile Include="Models\Raw\Battle\RawTorpedoSalvoPhase.cs" />
+    <Compile Include="Models\Raw\RawAirForceGroup.cs" />
+    <Compile Include="Models\Raw\RawAirForceGroupOrganization.cs" />
+    <Compile Include="Models\Raw\RawAirForceSquadron.cs" />
+    <Compile Include="Models\Raw\RawAirForceSquadronResupplyResult.cs" />
     <Compile Include="Models\Raw\RawBasic.cs" />
     <Compile Include="Models\Raw\RawBattleResult.cs" />
     <Compile Include="Models\Raw\RawConstructionDock.cs" />
@@ -196,6 +212,7 @@
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
     <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
+    <Compile Include="Models\Raw\RawExpeditionRecalling.cs" />
     <Compile Include="Models\Raw\RawExpeditionResult.cs" />
     <Compile Include="Models\Raw\RawFleet.cs" />
     <Compile Include="Models\Raw\RawImprovementResult.cs" />
@@ -216,6 +233,7 @@
     <Compile Include="Models\Raw\RawShipsAndFleets.cs" />
     <Compile Include="Models\Raw\RawSupplyResult.cs" />
     <Compile Include="Models\RepairDock.cs" />
+    <Compile Include="Models\ShipAnchorageRepairStatus.cs" />
     <Compile Include="Models\ShipCombatAbility.cs" />
     <Compile Include="Models\ShipExtensions.cs" />
     <Compile Include="Models\ShipLocking.cs" />
@@ -263,14 +281,17 @@
     <Compile Include="Parsers\Root\Battle\PracticeDayBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\PracticeNightBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\PracticeResultParser.cs" />
+    <Compile Include="Parsers\Root\Expedition\RecallingParser.cs" />
     <Compile Include="Parsers\Root\Expedition\ResultParser.cs" />
+    <Compile Include="Parsers\Root\GetMember\AirForceGroupParser.cs" />
     <Compile Include="Parsers\Root\GetMember\BasicParser.cs" />
     <Compile Include="Parsers\Root\GetMember\ConstructionDockParser.cs" />
     <Compile Include="Parsers\Root\GetMember\EquipmentParser.cs" />
     <Compile Include="Parsers\Root\GetMember\MaterialParser.cs" />
     <Compile Include="Parsers\Root\GetMember\MapInformationParser.cs" />
     <Compile Include="Parsers\Root\GetMember\QuestListParser.cs" />
-    <Compile Include="Parsers\Root\GetMember\RequiredInfo.cs" />
+    <Compile Include="Parsers\Root\GetMember\RequiredInfoParser.cs" />
+    <Compile Include="Parsers\Root\Map\LandBaseAerialSupportDesignationParser.cs" />
     <Compile Include="Parsers\Root\Map\ExplorationParser.cs" />
     <Compile Include="Parsers\Root\Map\StartSortieParser.cs" />
     <Compile Include="Parsers\Root\Member\PracticeOpponentsParser.cs" />
@@ -315,20 +336,21 @@
     <Compile Include="Services\Quest\Updaters\Updater.cs" />
     <Compile Include="Services\QuestProgressService.cs" />
     <Compile Include="Services\RecordService.cs" />
-    <Compile Include="Services\Records\BattleDetailRecord.cs" />
-    <Compile Include="Services\Records\BattleRecord.cs" />
-    <Compile Include="Services\Records\ConstructionRecord.cs" />
-    <Compile Include="Services\Records\DevelopmentRecord.cs" />
-    <Compile Include="Services\Records\ExpeditionRecord.cs" />
-    <Compile Include="Services\Records\ExperienceRecord.cs" />
-    <Compile Include="Services\Records\FateRecord.cs" />
-    <Compile Include="Services\Records\QuestProgressRecord.cs" />
-    <Compile Include="Services\Records\RankingPointBonusRecord.cs" />
-    <Compile Include="Services\Records\RecordBase.cs" />
-    <Compile Include="Services\Records\RecordBaseExtension.cs" />
-    <Compile Include="Services\Records\ResourcesRecord.cs" />
-    <Compile Include="Services\Records\ShipsRecord.cs" />
-    <Compile Include="Services\Records\SortieRecord.cs" />
+    <Compile Include="Services\Records\BattleDetailRecords.cs" />
+    <Compile Include="Services\Records\BattleRecords.cs" />
+    <Compile Include="Services\Records\ConstructionRecords.cs" />
+    <Compile Include="Services\Records\DevelopmentRecords.cs" />
+    <Compile Include="Services\Records\ExpeditionRecords.cs" />
+    <Compile Include="Services\Records\ExperienceRecords.cs" />
+    <Compile Include="Services\Records\FateRecords.cs" />
+    <Compile Include="Services\Records\IRecordsGroupProvider.cs" />
+    <Compile Include="Services\Records\QuestProgressRecords.cs" />
+    <Compile Include="Services\Records\RankingPointBonusRecords.cs" />
+    <Compile Include="Services\Records\RecordsGroup.cs" />
+    <Compile Include="Services\Records\RecordsGroupExtensions.cs" />
+    <Compile Include="Services\Records\ResourcesRecords.cs" />
+    <Compile Include="Services\Records\ShipsRecords.cs" />
+    <Compile Include="Services\Records\SortieRecords.cs" />
     <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\ShipLockingService.cs" />
   </ItemGroup>
@@ -346,12 +368,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.99.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.99.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.99.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.99.0\build\net45\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

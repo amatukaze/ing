@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rbm="clr-namespace:Sakuno.KanColle.Amatsukaze.Models;assembly=HeavenlyWind.Base"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <StackPanel>
@@ -22,5 +23,41 @@
         <CheckBox IsChecked="{rb:Preference Notification.HeavilyDamagedWarning}" Margin="0, 12, 0, 0">
             <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_HeavilyDamagedWarning}" />
         </CheckBox>
+
+        <CheckBox IsChecked="{rb:Preference Notification.RecoveryFromFatigue}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_RecoveryFromFatigue}" />
+        </CheckBox>
+
+        <CheckBox IsChecked="{rb:Preference Notification.AnchorageRepair}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_AnchorageRepair}" />
+        </CheckBox>
+
+        <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+
+        <RadioButton GroupName="Sound" IsChecked="{rb:Preference Notification.Sound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Slient}}" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_Slient}" />
+        </RadioButton>
+        <RadioButton GroupName="Sound" IsChecked="{rb:Preference Notification.Sound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.SystemSound}}" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_SystemSound}" />
+        </RadioButton>
+        <DockPanel Margin="0, 6, 0, 0">
+            <RadioButton Name="CustomSound" GroupName="Sound" IsChecked="{rb:Preference Notification.Sound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Custom}}" />
+            <Button Content="..." IsEnabled="{Binding IsChecked, ElementName=CustomSound}" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
+            <TextBox Text="{rb:Preference Notification.SoundFilename}" IsEnabled="{Binding IsChecked, ElementName=CustomSound}" Margin="6, 0, 0, 0" />
+        </DockPanel>
+
+        <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_HeavilyDamagedWarning}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+
+        <RadioButton GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavilyDamagedWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Slient}}" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_Slient}" />
+        </RadioButton>
+        <RadioButton GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavilyDamagedWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.SystemSound}}" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_SystemSound}" />
+        </RadioButton>
+        <DockPanel  Margin="0, 6, 0, 0">
+            <RadioButton Name="CustomSoundHD" GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavilyDamagedWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Custom}}" />
+            <Button Content="..." IsEnabled="{Binding IsChecked, ElementName=CustomSoundHD}" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
+            <TextBox Text="{rb:Preference Notification.HeavilyDamagedWarningSoundFilename}" IsEnabled="{Binding IsChecked, ElementName=CustomSoundHD}" Margin="6, 0, 0, 0" />
+        </DockPanel>
     </StackPanel>
 </UserControl>

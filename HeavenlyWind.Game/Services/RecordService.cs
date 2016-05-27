@@ -1,5 +1,8 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services.Records;
+﻿using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Services.Records;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 
@@ -13,19 +16,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public bool IsReadOnlyMode { get; set; }
 
-        public ResourcesRecord Resources { get; private set; }
-        public ShipsRecord Ships { get; private set; }
-        public ExperienceRecord Experience { get; private set; }
-        public ExpeditionRecord Expedition { get; private set; }
-        public ConstructionRecord Construction { get; private set; }
-        public DevelopmentRecord Development { get; private set; }
-        public SortieRecord Sortie { get; private set; }
-        public BattleRecord Battle { get; private set; }
-        public RankingPointBonusRecord RankingPointBonus { get; private set; }
-        public FateRecord Fate { get; private set; }
+        public ResourcesRecords Resources { get; private set; }
+        public ShipsRecords Ships { get; private set; }
+        public ExperienceRecords Experience { get; private set; }
+        public ExpeditionRecords Expedition { get; private set; }
+        public ConstructionRecords Construction { get; private set; }
+        public DevelopmentRecords Development { get; private set; }
+        public SortieRecords Sortie { get; private set; }
+        public BattleRecords Battle { get; private set; }
+        public RankingPointBonusRecords RankingPointBonus { get; private set; }
+        public FateRecords Fate { get; private set; }
 
-        public QuestProgressRecord QuestProgress { get; private set; }
-        public BattleDetailRecord BattleDetail { get; private set; }
+        public QuestProgressRecords QuestProgress { get; private set; }
+        public BattleDetailRecords BattleDetail { get; private set; }
+
+        HashSet<IRecordsGroupProvider> r_CustomRecordsGroupProviders = new HashSet<IRecordsGroupProvider>();
+        HybridDictionary<string, RecordsGroup> r_CustomRecordsGroups = new HybridDictionary<string, RecordsGroup>();
 
         public bool IsConnected { get; private set; }
 
@@ -39,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (!Directory.Exists("Records"))
                 Directory.CreateDirectory("Records");
 
-            SessionService.Instance.Subscribe("api_get_member/require_info", _ => Connect(KanColleGame.Current.Port.Admiral.ID));
+            SessionService.Instance.Subscribe("api_get_member/require_info", r => Connect(((RawRequiredInfo)r.Data).Admiral.ID));
         }
 
         void Connect(int rpUserID)
@@ -61,6 +67,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             BattleDetail?.Dispose();
             r_Connection?.Dispose();
 
+            foreach (var rCustomGroup in r_CustomRecordsGroups.Values)
+                rCustomGroup.Dispose();
+
             IsConnected = false;
 
             r_UserID = rpUserID;
@@ -78,23 +87,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 CheckVersion();
 
-                Resources = new ResourcesRecord(r_Connection).ConnectAndReturn();
-                Ships = new ShipsRecord(r_Connection).ConnectAndReturn();
-                Experience = new ExperienceRecord(r_Connection).ConnectAndReturn();
-                Expedition = new ExpeditionRecord(r_Connection).ConnectAndReturn();
-                Construction = new ConstructionRecord(r_Connection).ConnectAndReturn();
-                Development = new DevelopmentRecord(r_Connection).ConnectAndReturn();
-                Sortie = new SortieRecord(r_Connection).ConnectAndReturn();
-                Battle = new BattleRecord(r_Connection).ConnectAndReturn();
-                RankingPointBonus = new RankingPointBonusRecord(r_Connection).ConnectAndReturn();
-                Fate = new FateRecord(r_Connection).ConnectAndReturn();
+                Resources = new ResourcesRecords(r_Connection).ConnectAndReturn();
+                Ships = new ShipsRecords(r_Connection).ConnectAndReturn();
+                Experience = new ExperienceRecords(r_Connection).ConnectAndReturn();
+                Expedition = new ExpeditionRecords(r_Connection).ConnectAndReturn();
+                Construction = new ConstructionRecords(r_Connection).ConnectAndReturn();
+                Development = new DevelopmentRecords(r_Connection).ConnectAndReturn();
+                Sortie = new SortieRecords(r_Connection).ConnectAndReturn();
+                Battle = new BattleRecords(r_Connection).ConnectAndReturn();
+                RankingPointBonus = new RankingPointBonusRecords(r_Connection).ConnectAndReturn();
+                Fate = new FateRecords(r_Connection).ConnectAndReturn();
 
-                QuestProgress = new QuestProgressRecord(r_Connection).ConnectAndReturn();
+                QuestProgress = new QuestProgressRecords(r_Connection).ConnectAndReturn();
+
+                foreach (var rProvider in r_CustomRecordsGroupProviders)
+                {
+                    var rGroup = rProvider.Create(r_Connection).ConnectAndReturn();
+                    r_CustomRecordsGroups[rGroup.GroupName] = rGroup;
+                }
 
                 rTransaction.Commit();
             }
 
-            BattleDetail = new BattleDetailRecord(r_Connection, r_UserID).ConnectAndReturn();
+            BattleDetail = new BattleDetailRecords(r_Connection, r_UserID).ConnectAndReturn();
 
             IsConnected = true;
         }
@@ -131,6 +146,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                 rCommand.ExecuteNonQuery();
             }
+        }
+
+        public SQLiteCommand CreateCommand() => r_Connection.CreateCommand();
+
+        public void RegisterRecordsGroupProvider(IRecordsGroupProvider rpProvider) => r_CustomRecordsGroupProviders.Add(rpProvider);
+
+        public RecordsGroup GetCustomRecordsGroup(string rpName)
+        {
+            RecordsGroup rResult;
+            r_CustomRecordsGroups.TryGetValue(rpName, out rResult);
+            return rResult;
         }
     }
 }

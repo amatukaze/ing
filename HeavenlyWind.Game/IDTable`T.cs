@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (r_Dictionary.TryGetValue(rpKey, out rResult))
                     return rResult;
 
-                throw new KeyNotFoundException(rpKey.ToString());
+                throw new KeyNotFoundException($"{rpKey} (T is {typeof(T).Name})");
             }
         }
 

@@ -22,9 +22,12 @@ namespace Sakuno.KanColle.Amatsukaze
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            DispatcherUtil.UIDispatcher = Dispatcher;
+
             Environment.CurrentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            if (!Debugger.IsAttached)
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             base.OnStartup(e);
 

@@ -22,6 +22,8 @@
   <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
   <String Key="Log_ShipAndItem_Dropped">「{0}」や「{1}」がドロップしました</String>
   <String Key="Log_Screenshot_Failed">スクリーンショットの保存に失敗しました: {0}</String>
+  <String Key="Log_Screenshot_Failed_FlashElementNotFound">Flash 要素が見つかりません</String>
+  <String Key="Log_Screenshot_Failed_NoData">ブラウザからのスクリーンショットデータはありません</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
   <String Key="Log_Screenshot_Succeeded_File">スクリーンショットを保存しました: {0}</String>
 
@@ -35,6 +37,10 @@
   <String Key="Notification_HeavilyDamagedWarning_Content">大破した艦娘がいます。</String>
   <String Key="Notification_AdvanceWarning">進撃警告</String>
   <String Key="Notification_AdvanceWarning_Content">大破状態で進撃し、轟沈の恐れがあります。</String>
+  <String Key="Notification_RecoveryFromFatigue">疲労回復完了</String>
+  <String Key="Notification_RecoveryFromFatigue_Content">「{0}」に所属する艦娘の疲労が回復しました。</String>
+  <String Key="Notification_AnchorageRepair">泊地修理</String>
+  <String Key="Notification_AnchorageRepair_Content">泊地修理の開始から 20 分が経過したので、母港画面に戻ってください</String>
 
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
@@ -70,6 +76,8 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中堅少佐</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
+  <String Key="Overview_ShipOverview">艦娘一覧</String>
+  <String Key="Overview_EquipmentOverview">装備一覧</String>
   <String Key="Overview_Fleets">艦隊一覧</String>
   <String Key="Overview_Fleets_Idle">待機中</String>
   <String Key="Overview_Fleets_Sortie">出撃中</String>
@@ -87,9 +95,8 @@
   <String Key="Overview_ConstructionDocks_Completed">完了</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">完了時刻</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
-  <String Key="Overview_ExecutingQuests">遂行中の任務</String>
-  <String Key="Overview_EquipmentOverview">装備一覧</String>
-  <String Key="Overview_ShipOverview">艦娘一覧</String>
+  <String Key="Overview_ExecutingQuest_None">遂行中の任務なし</String>
+  <String Key="Overview_ExecutingQuest_NotLoaded">遂行中の任務未取得</String>
 
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
@@ -97,10 +104,15 @@
   <String Key="Fleet_LoS_Formula_Autumn">2-5式(秋)</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">新秋式簡易</String>
   <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
-  <String Key="Fleet_AA">対空</String>
+  <String Key="Fleet_FighterPower">制空</String>
+  <String Key="Fleet_Speed">速力</String>
+  <String Key="Fleet_Speed_Slow">低速</String>
+  <String Key="Fleet_Speed_Fast">高速</String>
+  <String Key="Fleet_Speed_Mixed">混速</String>
   <String Key="Fleet_MoraleRegeneration">疲労回復</String>
 
-  <String Key="Ship_Repairing">入渠中</String>
+  <String Key="Ship_Repairing">修理中</String>
+  <String Key="Ship_RepairingInAnchorage">泊地修理中</String>
   <String Key="Ship_Evacuated">退避中</String>
   <String Key="Ship_ToolTip_DayBattle">昼戦</String>
   <String Key="Ship_ToolTip_NightBattle">夜戦</String>
@@ -127,6 +139,13 @@
   <String Key="Ship_ToolTip_AttackPower_ASW">対潜</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">夜戦</String>
 
+  <String Key="AirBase_Group_Option_Standby">待機</String>
+  <String Key="AirBase_Group_Option_Sortie">出撃</String>
+  <String Key="AirBase_Group_Option_AirDefense">防空</String>
+  <String Key="AirBase_Group_Option_Retreat">退避</String>
+  <String Key="AirBase_Group_Option_Rest">休憩</String>
+  <String Key="AirBase_Group_CombatRadius">行動半径</String>
+
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弾薬</String>
   <String Key="Material_Steel">鋼材</String>
@@ -135,10 +154,14 @@
   <String Key="Material_Bucket">高速修復材</String>
   <String Key="Material_DevelopmentMaterial">開発資材</String>
   <String Key="Material_ImprovementMaterial">改修資材</String>
+  <String Key="Material_Difference_Type_Day">日</String>
+  <String Key="Material_Difference_Type_Week">週</String>
+  <String Key="Material_Difference_Type_Month">月</String>
 
   <String Key="SortieOverview_MapGauges">マップゲージ</String>
   <String Key="SortieOverview_MapGauges_Type_HP">撃破パート</String>
   <String Key="SortieOverview_MapGauges_Type_TP">輸送パート</String>
+  <String Key="SortieOverview_MapGauges_Type_TP_Only">輸送のみ</String>
   <String Key="SortieOverview_FleetLockingTable">出撃制限</String>
   <String Key="SortieOverview_FleetLockingTable_CombinedFleet">連合艦隊</String>
 
@@ -161,6 +184,7 @@
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能動分岐</String>
   <String Key="Sortie_SupportFleet_Ready">支援艦隊待機中</String>
+  <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空隊は空襲を準備中</String>
   <String Key="Sortie_EnemyEncounters">遭遇できる敵艦隊</String>
 
   <String Key="AbyssalShip_Class_Normal" />
@@ -175,16 +199,15 @@
 
   <String Key="Practice_Opponent_Experience">演習経験値</String>
 
-  <String Key="Battle_State_Healthy" />
-  <String Key="Battle_State_LightlyDamaged">小破</String>
-  <String Key="Battle_State_ModeratelyDamaged">中破</String>
-  <String Key="Battle_State_HeavilyDamaged">大破</String>
-  <String Key="Battle_State_Sunk">撃沈</String>
-  <String Key="Battle_State_Disordered">混乱</String>
-  <String Key="Battle_State_Damaged">損害</String>
-  <String Key="Battle_State_Destroyed">損壊</String>
-  <String Key="Battle_State_Demolished">破壊</String>
   <String Key="Battle_State_Evacuated">退避</String>
+  <String Key="Battle_State_Ship_LightlyDamaged">小破</String>
+  <String Key="Battle_State_Ship_ModeratelyDamaged">中破</String>
+  <String Key="Battle_State_Ship_HeavilyDamaged">大破</String>
+  <String Key="Battle_State_Ship_Sunk">撃沈</String>
+  <String Key="Battle_State_LandBase_LightlyDamaged">混乱</String>
+  <String Key="Battle_State_LandBase_ModeratelyDamaged">損害</String>
+  <String Key="Battle_State_LandBase_HeavilyDamaged">損壊</String>
+  <String Key="Battle_State_LandBase_Sunk">破壊</String>
   <String Key="Battle_Formation_LineAhead">単縦陣</String>
   <String Key="Battle_Formation_DoubleLine">複縦陣</String>
   <String Key="Battle_Formation_Diamond">輪形陣</String>
@@ -206,6 +229,7 @@
   <String Key="Battle_AerialCombatResult_Incapability">航空劣勢</String>
   <String Key="Battle_AerialCombatResult_Denial">制空権喪失</String>
 
+  <String Key="Quest_NoData">ゲーム内で「任務(クエスト)」画面を開いて、任務一覧を取得してください</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Once" />
   <String Key="Quest_Type_Special1">日</String>
@@ -229,13 +253,14 @@
   <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(大成功のみ)</String>
 
   <String Key="Window_Preferences">設定</String>
-  <String Key="Window_EquipmentOverview">装備一覧</String>
   <String Key="Window_ShipOverview">艦娘一覧</String>
+  <String Key="Window_EquipmentOverview">装備一覧</String>
   <String Key="Window_ConstructionHistory">建造歴史</String>
   <String Key="Window_DevelopmentHistory">開発歴史</String>
   <String Key="Window_SortieHistory">出撃歴史</String>
   <String Key="Window_ExpeditionHistory">遠征歴史</String>
   <String Key="Window_ScrappingHistory">解体・廃棄歴史</String>
+  <String Key="Window_ResourceHistory">資材歴史</String>
   <String Key="Window_ClosingConfirmation">{0}を終了しますか？</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
@@ -244,6 +269,7 @@
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">他のデバイスからのリクエストを許可する (非推奨：セキュリティリスク)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
+  <String Key="PreferenceWindow_Window_Font">フォント</String>
   <String Key="PreferenceWindow_Window_Layout">レイアウト</String>
   <String Key="PreferenceWindow_Window_Layout_Landscape">横持ち</String>
   <String Key="PreferenceWindow_Window_Layout_Portrait">縦持ち</String>
@@ -255,11 +281,19 @@
   <String Key="PreferenceWindow_Cache_Mode_FullTrust">ファイルの検証をしない</String>
   <String Key="PreferenceWindow_Cache_Mode_VerifyVersion">ファイルの検証をする</String>
   <String Key="PreferenceWindow_Cache_Path">パス</String>
+  <String Key="PreferenceWindow_Behaviour">動作</String>
+  <String Key="PreferenceWindow_Behaviour_FatigueCeiling">疲労度上限</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">建造完了を通知する</String>
   <String Key="PreferenceWindow_Notification_Expedition">遠征帰投を通知する</String>
   <String Key="PreferenceWindow_Notification_Repair">入渠完了を通知する</String>
   <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">大破艦・大破進撃を通知する</String>
+  <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">疲労回復を通知する</String>
+  <String Key="PreferenceWindow_Notification_AnchorageRepair">泊地修理の開始から 20 分が経過して通知する</String>
+  <String Key="PreferenceWindow_Notification_Sound">サウンド</String>
+  <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">サウンド (大破警告)</String>
+  <String Key="PreferenceWindow_Notification_Sound_Slient">なし</String>
+  <String Key="PreferenceWindow_Notification_Sound_SystemSound">システムサウンド</String>
   <String Key="PreferenceWindow_Language">言語</String>
   <String Key="PreferenceWindow_Language_NameTranslation">名前の翻訳</String>
   <String Key="PreferenceWindow_Browser">ブラウザ</String>
@@ -276,8 +310,8 @@
   <String Key="PreferenceWindow_VersionInfo">バージョン情報</String>
 
   <String Key="ValidationRule_PleaseInputNumber">数値を入力してください</String>
-  <String Key="ValidationRule_NumberLessThanMinimum">{0} 以上の数値を入力してください</String>
-  <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以下の数値を入力してください</String>
+  <String Key="ValidationRule_NumberLessThanMinimum">{0} 以下の数値を入力してください</String>
+  <String Key="ValidationRule_NumberGreaterThanMaximum">{0} 以上の数値を入力してください</String>
 
   <String Key="Screenshot_File">ファイルに保存</String>
   <String Key="Screenshot_Clipboard">クリップボードに保存</String>
@@ -303,6 +337,7 @@
   <String Key="ShipOverview_Evasion">回避</String>
   <String Key="ShipOverview_ASW">対潜</String>
   <String Key="ShipOverview_LoS">索敵</String>
+  <String Key="ShipOverview_RepairTime">入渠時間</String>
   <String Key="ShipOverview_Equipment">装備</String>
 
   <String Key="Record_Time">時間</String>

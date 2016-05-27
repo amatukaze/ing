@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
@@ -42,7 +43,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             }
         }
-        internal SortieInfo OldSortie { get; set; }
+
+        public event Action<SortieInfo> ReturnedFromSortie = delegate { };
 
         KanColleGame()
         {
@@ -57,15 +59,32 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Parameters["api_rank"]);
             });
 
-            SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, _ =>
+            SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
                 var rSortieMap = Sortie.Map;
-                if (rSortieMap.IsCleared || rSortieMap.IsEventMap || Sortie.Node.EventType != SortieEventType.BossBattle)
+                if (!rSortieMap.HasGauge || Sortie.Node.EventType != SortieEventType.BossBattle)
                     return;
 
                 var rBattle = BattleInfo.Current;
-                if (rBattle.CurrentStage.Enemy[0].State == BattleParticipantState.Sunk)
-                    rSortieMap.HP = rSortieMap.HP - 1;
+                var rEnemyFlagship = rBattle.CurrentStage.Enemy[0];
+                if (!rSortieMap.IsEventMap && rEnemyFlagship.State == BattleParticipantState.Sunk)
+                    rSortieMap.HP -= 1;
+                else if (rSortieMap.IsEventMap)
+                {
+                    var rData = r.GetData<RawBattleResult>();
+                    if (rData.TransportMissionResult != null)
+                        rSortieMap.HP -= rData.TransportMissionResult.Point;
+                    else
+                    {
+                        var rCurrentHP = rSortieMap.HP.Current - (rEnemyFlagship.Maximum - rEnemyFlagship.Current);
+                        if (rEnemyFlagship.State == BattleParticipantState.Sunk)
+                            rSortieMap.HP = rSortieMap.HP.Update(Math.Max(rCurrentHP, 0));
+                        else
+                            rSortieMap.HP = rSortieMap.HP.Update(Math.Max(rCurrentHP, 1));
+                    }
+                }
+
+                rSortieMap.UpdateGauge();
             });
             SessionService.Instance.Subscribe("api_req_map/next", r =>
             {
@@ -73,8 +92,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rSortieMap.IsCleared || ((RawMapExploration)r.Data).NodeEventType != SortieEventType.EscortSuccess)
                     return;
 
-                rSortieMap.HP = rSortieMap.HP - 1;
+                rSortieMap.HP -= 1;
+
+                rSortieMap.UpdateGauge();
             });
         }
+
+        internal void RaiseReturnedFromSortie(SortieInfo rpSortie) => ReturnedFromSortie(rpSortie);
     }
 }

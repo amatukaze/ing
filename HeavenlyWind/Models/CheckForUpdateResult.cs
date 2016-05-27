@@ -4,7 +4,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
 {
     public enum CheckForUpdateFileAction { CreateOrOverwrite, Delete, Rename }
 
-    public class CheckForUpdateResult
+    public class CheckForUpdateResult : ModelBase
     {
         [JsonProperty("update")]
         public UpdateInfo Update { get; set; }
@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
         [JsonProperty("files")]
         public File[] Files { get; set; }
 
-        public class UpdateInfo
+        public class UpdateInfo : ModelBase
         {
             [JsonProperty("available")]
             public bool IsAvailable { get; set; }
@@ -25,7 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
             [JsonProperty("link")]
             public string Link { get; set; }
         }
-        public class File
+        public class File : ModelBase
         {
             [JsonProperty("name")]
             public string Name { get; set; }

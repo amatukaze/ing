@@ -1,9 +1,12 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Text.RegularExpressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
@@ -23,10 +26,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public IDTable<Equipment> Equipment { get; } = new IDTable<Equipment>();
 
+        static Regex r_UnequippedEquipmentRegex = new Regex(@"(?<=api_slottype)\d+", RegexOptions.Compiled);
+        public HybridDictionary<int, Equipment[]> UnequippedEquipment { get; } = new HybridDictionary<int, Equipment[]>();
+
         public IDTable<RepairDock> RepairDocks { get; } = new IDTable<RepairDock>();
         public IDTable<ConstructionDock> ConstructionDocks { get; } = new IDTable<ConstructionDock>();
 
         public QuestManager Quests { get; } = new QuestManager();
+
+        public AirBase AirBase { get; } = new AirBase();
 
         internal Port()
         {
@@ -53,13 +61,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rShip in rData.Ships)
                     Ships[rShip.ID].Update(rShip);
                 Fleets.Update(rData.Fleets);
+
+                ProcessUnequippedEquipment(r.Json["api_data"]["api_slot_data"]);
             });
+
+            SessionService.Instance.Subscribe("api_get_member/unsetslot", r => ProcessUnequippedEquipment(r.Json["api_data"]));
+            SessionService.Instance.Subscribe("api_get_member/require_info", r => ProcessUnequippedEquipment(r.Json["api_data"]["api_unsetslot"]));
 
             SessionService.Instance.Subscribe("api_req_kaisou/slot_exchange_index", r =>
             {
                 Ship rShip;
                 if (Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out rShip))
+                {
                     rShip.UpdateEquipmentIDs(r.GetData<RawEquipmentIDs>().EquipmentIDs);
+                    rShip.OwnerFleet?.Update();
+                }
+            });
+
+            SessionService.Instance.Subscribe("api_req_kaisou/open_exslot", r =>
+            {
+                Ship rShip;
+                if (Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out rShip))
+                    rShip.InstallReinforcementExpansion();
             });
 
             SessionService.Instance.Subscribe("api_req_kaisou/powerup", r =>
@@ -109,6 +132,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                     rDock.CompleteConstruction();
                 }
+            });
+
+            SessionService.Instance.Subscribe("api_req_kousyou/createitem", r =>
+            {
+                var rData = r.GetData<RawEquipmentDevelopment>();
+                if (!rData.Success)
+                    return;
+
+                UnequippedEquipment[rData.EquipmentType] = r.Json["api_data"]["api_unsetslot"].Select(rpID => Equipment[(int)rpID]).ToArray();
             });
 
             SessionService.Instance.Subscribe("api_req_kousyou/destroyship", r =>
@@ -194,6 +226,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rFleet in rFleets)
                     rFleet.Update();
             });
+            SessionService.Instance.Subscribe("api_req_air_corps/supply", r =>
+            {
+                var rData = r.GetData<RawAirForceSquadronResupplyResult>();
+
+                Materials.Fuel = rData.Fuel;
+                Materials.Bauxite = rData.Bauxite;
+            });
 
             SessionService.Instance.Subscribe("api_get_member/ndock", r => UpdateRepairDocks(r.GetData<RawRepairDock[]>()));
             SessionService.Instance.Subscribe("api_req_nyukyo/start", r =>
@@ -203,6 +242,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rShip.Repair(rIsInstantRepair);
                 rShip.OwnerFleet?.Update();
 
+                var rDock = RepairDocks[int.Parse(r.Parameters["api_ndock_id"])];
+                rDock.PendingToUpdateMaterials = true;
                 if (rIsInstantRepair)
                     Materials.Bucket--;
             });
@@ -222,13 +263,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rEvacuatedShipID = Fleets[rEvacuatedShipIndex < 6 ? 1 : 2].Ships[rEvacuatedShipIndex % 6].ID;
 
                 var rEscortShipIndex = rData.EvacuatedShips.EscortShipIndex[0] - 1;
-                var rEscortShipID =Fleets[rEscortShipIndex < 6 ? 1 : 2].Ships[rEscortShipIndex % 6].ID;
+                var rEscortShipID = Fleets[rEscortShipIndex < 6 ? 1 : 2].Ships[rEscortShipIndex % 6].ID;
 
                 r_EvacuatedShipIDs = new[] { rEvacuatedShipID, rEscortShipID };
             });
             SessionService.Instance.Subscribe("api_req_combined_battle/goback_port", delegate
             {
-                if (KanColleGame.Current.Sortie == null || r_EvacuatedShipIDs == null || r_EvacuatedShipIDs.Length == 0)
+                if (SortieInfo.Current == null || r_EvacuatedShipIDs == null || r_EvacuatedShipIDs.Length == 0)
                     return;
 
                 EvacuatedShipIDs.Add(r_EvacuatedShipIDs[0]);
@@ -242,6 +283,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rFleet = Fleets[int.Parse(r.Parameters["api_deck_id"])];
                 rFleet.Name = r.Parameters["api_name"];
             });
+
+            SessionService.Instance.Subscribe("api_req_mission/return_instruction", r =>
+            {
+                var rFleet = Fleets[int.Parse(r.Parameters["api_deck_id"])];
+                rFleet.ExpeditionStatus.Update(r.GetData<RawExpeditionRecalling>().Expedition);
+            });
+
+            SessionService.Instance.Subscribe("api_req_air_corps/set_plane", r => Materials.Bauxite = r.GetData<RawAirForceGroupOrganization>().Bauxite);
         }
 
         #region Update
@@ -314,5 +363,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         }
 
         #endregion
+
+        void ProcessUnequippedEquipment(JToken rpJson)
+        {
+            foreach (var rType in rpJson.Select(r => (JProperty)r))
+            {
+                var rMatch = r_UnequippedEquipmentRegex.Match(rType.Name);
+                if (!rMatch.Success)
+                    continue;
+
+                var rTypeID = int.Parse(rMatch.Value);
+                if (rType.Value.Type != JTokenType.Array)
+                    UnequippedEquipment[rTypeID] = null;
+                else
+                    UnequippedEquipment[rTypeID] = rType.Value.Select(r =>
+                    {
+                        var rID = (int)r;
+
+                        Equipment rEquipment;
+                        if (!Equipment.TryGetValue(rID, out rEquipment))
+                            AddEquipment(rEquipment = new Equipment(new RawEquipment() { ID = rID, EquipmentID = -1 }));
+
+                        return rEquipment;
+                    }).ToArray();
+            }
+        }
     }
 }

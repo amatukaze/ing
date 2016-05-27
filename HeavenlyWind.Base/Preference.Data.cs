@@ -49,6 +49,9 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("network")]
         public NetworkPreference Network { get; set; } = new NetworkPreference();
 
+        [JsonProperty("ui")]
+        public UserInterfacePreference UI { get; set; } = new UserInterfacePreference();
+
         [JsonProperty("game")]
         public GamePreference Game { get; set; } = new GamePreference();
 
