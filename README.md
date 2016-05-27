@@ -2,9 +2,10 @@
 =====
 艦これ補助ツール「いんてりじぇんと連装砲くん」（智能型连装炮君 / ING）
 
-### Updated
-**0.1.9.1 (Antimatter)**
- * Fix some bugs
+### Information
+Current version: **0.1.10 (Tiramisu)**
+
+[Changelogs](https://github.com/amatukaze/IntelligentNavalGun/wiki/Changelogs) here
 
 ### Screenshot
 ![Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/01.jpg)
