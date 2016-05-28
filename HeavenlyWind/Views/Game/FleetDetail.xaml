@@ -65,138 +65,136 @@
             </Border>
         </StackPanel>
 
-        <ScrollViewer DataContext="{Binding Source}" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
-            <ItemsControl ItemsSource="{Binding Ships}" VerticalContentAlignment="Center" Grid.IsSharedSizeScope="True">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type rgm:Ship}">
-                        <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Padding="4, 2">
-                            <Grid>
+        <ItemsControl ItemsSource="{Binding Source.Ships}" VerticalContentAlignment="Center" Grid.IsSharedSizeScope="True" Grid.Row="1">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type rgm:Ship}">
+                    <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Padding="4, 2">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="75" SharedSizeGroup="ShipName" />
+                                <ColumnDefinition SharedSizeGroup="ShipLevel" />
+                                <ColumnDefinition SharedSizeGroup="NextExperience" />
+                                <ColumnDefinition SharedSizeGroup="HP" MinWidth="60" />
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition SharedSizeGroup="FuelAndBullet" />
+                                <ColumnDefinition Width="Auto" MinWidth="48" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" Grid.RowSpan="2" />
+
+                            <TextBlock Name="Level" Margin="3, 0, 0, 0" Grid.Column="1">
+                                <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
+                                <Run Text="{Binding Level, Mode=OneWay}" />
+                            </TextBlock>
+                            <TextBlock Name="ExperienceToNextLevel" Foreground="#AAA" Text="{Binding ExperienceToNextLevel, StringFormat=Next:{0}}" FontSize="10" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="1" />
+
+                            <TextBlock Name="HP" TextAlignment="Right" Margin="3, 0, 0, 0" Grid.Column="3">
+                                <Run Text="{Binding HP.Current, Mode=OneWay}" />
+                                <Run Text=" /" Foreground="Gray" />
+                                <Run Text="{Binding HP.Maximum, Mode=OneWay}" FontSize="11" Foreground="{DynamicResource ForegroundBrushKey}" />
+                            </TextBlock>
+                            <rc:ColorIndicator x:Name="HPIndicator" Value="{Binding HP.Current}" Maximum="{Binding HP.Maximum}" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="3" />
+
+                            <Border Name="Repairing" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="2">
+                                <TextBlock HorizontalAlignment="Center">
+                                    <Run Text="{rb:StringResource Main.Ship_Repairing}" />
+                                    #<Run Text="{Binding OwnerRepairDock.ID, Mode=OneWay}" />
+                                </TextBlock>
+                            </Border>
+                            <Border Name="Evacuated" Background="#33B1B1B1" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.RowSpan="2">
+                                <TextBlock Text="{rb:StringResource Main.Ship_Evacuated}" HorizontalAlignment="Center" />
+                            </Border>
+                            <Border Name="RepairingInAnchorage" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                <Border.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock>
+                                            <Run Text="{rb:StringResource Main.Overview_RepairDocks_TimeToComplete, Mode=OneWay}" />
+                                            <Run Text="{Binding AnchorageRepairStatus.TimeToCompleteString, Mode=OneWay}" />
+                                        </TextBlock>
+                                    </ToolTip>
+                                </Border.ToolTip>
+
+                                <TextBlock Text="{Binding AnchorageRepairStatus.RemainingTimeString}" HorizontalAlignment="Center" />
+                            </Border>
+
+                            <TextBlock Name="Condition" Text="{Binding Condition}" Margin="3, 0, 0, 0" TextAlignment="Center" Grid.Column="4" Grid.RowSpan="2" />
+
+                            <Grid Name="FuelAndBullet" Width="50" Margin="3, 2, 0, 2" Grid.Column="5" Grid.RowSpan="2">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition MinWidth="75" SharedSizeGroup="ShipName" />
-                                    <ColumnDefinition SharedSizeGroup="ShipLevel" />
-                                    <ColumnDefinition SharedSizeGroup="NextExperience" />
-                                    <ColumnDefinition Width="60" />
-                                    <ColumnDefinition Width="30" />
-                                    <ColumnDefinition SharedSizeGroup="FuelAndBullet" />
-                                    <ColumnDefinition Width="Auto" MinWidth="48" />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
 
-                                <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" Grid.RowSpan="2" />
-
-                                <TextBlock Name="Level" Margin="3, 0, 0, 0" Grid.Column="1">
-                                    <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />
-                                    <Run Text="{Binding Level, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock Name="ExperienceToNextLevel" Foreground="#AAA" Text="{Binding ExperienceToNextLevel, StringFormat=Next:{0}}" FontSize="10" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="1" />
-
-                                <TextBlock Name="HP" HorizontalAlignment="Right" Margin="3, 0, 0, 0" Grid.Column="3">
-                                    <Run Text="{Binding HP.Current, Mode=OneWay}" />
-                                    <Run Text=" /" Foreground="Gray" />
-                                    <Run Text="{Binding HP.Maximum, Mode=OneWay}" FontSize="11" Foreground="{DynamicResource ForegroundBrushKey}" />
-                                </TextBlock>
-                                <rc:ColorIndicator x:Name="HPIndicator" Value="{Binding HP.Current}" Maximum="{Binding HP.Maximum}" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="3" />
-
-                                <Border Name="Repairing" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="2">
-                                    <TextBlock HorizontalAlignment="Center">
-                                        <Run Text="{rb:StringResource Main.Ship_Repairing}" />
-                                        #<Run Text="{Binding OwnerRepairDock.ID, Mode=OneWay}" />
-                                    </TextBlock>
-                                </Border>
-                                <Border Name="Evacuated" Background="#33B1B1B1" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.RowSpan="2">
-                                    <TextBlock Text="{rb:StringResource Main.Ship_Evacuated}" HorizontalAlignment="Center" />
-                                </Border>
-                                <Border Name="RepairingInAnchorage" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="4" Grid.ColumnSpan="2" Grid.RowSpan="2">
-                                    <Border.ToolTip>
-                                        <ToolTip>
-                                            <TextBlock>
-                                                <Run Text="{rb:StringResource Main.Overview_RepairDocks_TimeToComplete, Mode=OneWay}" />
-                                                <Run Text="{Binding AnchorageRepairStatus.TimeToCompleteString, Mode=OneWay}" />
-                                            </TextBlock>
-                                        </ToolTip>
-                                    </Border.ToolTip>
-
-                                    <TextBlock Text="{Binding AnchorageRepairStatus.RemainingTimeString}" HorizontalAlignment="Center" />
-                                </Border>
-
-                                <TextBlock Name="Condition" Text="{Binding Condition}" Margin="3, 0, 0, 0" TextAlignment="Center" Grid.Column="4" Grid.RowSpan="2" />
-
-                                <Grid Name="FuelAndBullet" Width="50" Margin="3, 2, 0, 2" Grid.Column="5" Grid.RowSpan="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-
-                                    <rc:ColorIndicator Value="{Binding Fuel.Current}" Median="{Binding Fuel.Before}" Maximum="{Binding Info.MaxFuelConsumption}" />
-                                    <rc:ColorIndicator Value="{Binding Bullet.Current}" Median="{Binding Bullet.Before}" Maximum="{Binding Info.MaxBulletConsumption}" Grid.Row="1" />
-                                </Grid>
-
-                                <Border Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2">
-                                    <StackPanel Orientation="Horizontal">
-                                        <rc:ShipSlot DataContext="{Binding Slots}" />
-                                        <Border Name="ExtraSlot" BorderBrush="Gray" BorderThickness="1, 0, 0, 0" Margin="3, 0, 0, 0">
-                                            <rc:EquipmentIcon Type="{Binding ExtraSlot.Equipment.Info.Icon}" />
-                                        </Border>
-                                    </StackPanel>
-                                </Border>
+                                <rc:ColorIndicator Value="{Binding Fuel.Current}" Median="{Binding Fuel.Before}" Maximum="{Binding Info.MaxFuelConsumption}" />
+                                <rc:ColorIndicator Value="{Binding Bullet.Current}" Median="{Binding Bullet.Before}" Maximum="{Binding Info.MaxBulletConsumption}" Grid.Row="1" />
                             </Grid>
-                        </Border>
 
-                        <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
-                                <Setter TargetName="Border" Property="BorderThickness" Value="0" />
-                            </DataTrigger>
+                            <Border Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2">
+                                <StackPanel Orientation="Horizontal">
+                                    <rc:ShipSlot DataContext="{Binding Slots}" />
+                                    <Border Name="ExtraSlot" BorderBrush="Gray" BorderThickness="1, 0, 0, 0" Margin="3, 0, 0, 0">
+                                        <rc:EquipmentIcon Type="{Binding ExtraSlot.Equipment.Info.Icon}" />
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
 
-                            <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
-                                <Setter TargetName="Level" Property="Grid.RowSpan" Value="2" />
-                                <Setter TargetName="ExperienceToNextLevel" Property="Visibility" Value="Hidden" />
-                            </DataTrigger>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                        </DataTrigger>
 
-                            <DataTrigger Binding="{rb:HasFlag State, Repairing}" Value="True">
-                                <Setter TargetName="Repairing" Property="Visibility" Value="Visible" />
-                                <Setter TargetName="HP" Property="Opacity" Value=".2" />
-                                <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
-                                <Setter TargetName="Condition" Property="Opacity" Value=".2" />
-                                <Setter TargetName="FuelAndBullet" Property="Opacity" Value=".2" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{rb:HasFlag State, Evacuated}" Value="True">
-                                <Setter TargetName="Evacuated" Property="Visibility" Value="Visible" />
-                                <Setter TargetName="HP" Property="Opacity" Value=".2" />
-                                <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{rb:HasFlag State, RepairingInAnchorage}" Value="True">
-                                <Setter TargetName="RepairingInAnchorage" Property="Visibility" Value="Visible" />
-                                <Setter TargetName="Condition" Property="Opacity" Value=".2" />
-                                <Setter TargetName="FuelAndBullet" Property="Opacity" Value=".2" />
-                            </DataTrigger>
+                        <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
+                            <Setter TargetName="Level" Property="Grid.RowSpan" Value="2" />
+                            <Setter TargetName="ExperienceToNextLevel" Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
 
-                            <DataTrigger Binding="{Binding Condition}" Value="100">
-                                <Setter TargetName="Condition" Property="FontSize" Value="13" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=50}" Value="True">
-                                <Setter TargetName="Condition" Property="Foreground" Value="Yellow" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=40}" Value="True">
-                                <Setter TargetName="Condition" Property="Foreground" Value="Gray" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=30}" Value="True">
-                                <Setter TargetName="Condition" Property="Foreground" Value="Orange" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=20}" Value="True">
-                                <Setter TargetName="Condition" Property="Foreground" Value="Red" />
-                            </DataTrigger>
+                        <DataTrigger Binding="{rb:HasFlag State, Repairing}" Value="True">
+                            <Setter TargetName="Repairing" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="HP" Property="Opacity" Value=".2" />
+                            <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
+                            <Setter TargetName="Condition" Property="Opacity" Value=".2" />
+                            <Setter TargetName="FuelAndBullet" Property="Opacity" Value=".2" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{rb:HasFlag State, Evacuated}" Value="True">
+                            <Setter TargetName="Evacuated" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="HP" Property="Opacity" Value=".2" />
+                            <Setter TargetName="HPIndicator" Property="Opacity" Value=".2" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{rb:HasFlag State, RepairingInAnchorage}" Value="True">
+                            <Setter TargetName="RepairingInAnchorage" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Condition" Property="Opacity" Value=".2" />
+                            <Setter TargetName="FuelAndBullet" Property="Opacity" Value=".2" />
+                        </DataTrigger>
 
-                            <DataTrigger Binding="{Binding ExtraSlot}" Value="{x:Null}">
-                                <Setter TargetName="ExtraSlot" Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
+                        <DataTrigger Binding="{Binding Condition}" Value="100">
+                            <Setter TargetName="Condition" Property="FontSize" Value="13" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=50}" Value="True">
+                            <Setter TargetName="Condition" Property="Foreground" Value="Yellow" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=40}" Value="True">
+                            <Setter TargetName="Condition" Property="Foreground" Value="Gray" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=30}" Value="True">
+                            <Setter TargetName="Condition" Property="Foreground" Value="Orange" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=20}" Value="True">
+                            <Setter TargetName="Condition" Property="Foreground" Value="Red" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding ExtraSlot}" Value="{x:Null}">
+                            <Setter TargetName="ExtraSlot" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>

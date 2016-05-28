@@ -14,7 +14,6 @@
         <Style x:Key="PanelBorderStyle" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="{DynamicResource HighlightBorderBrushKey}" />
             <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Margin" Value="0, 0, 0, 8" />
         </Style>
         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="FontSize" Value="12" />
@@ -52,7 +51,7 @@
                                         <rvg:Headquarter />
                                     </Border>
 
-                                    <StackPanel Margin="0, 0, 0, 8" Grid.Column="2">
+                                    <StackPanel Grid.Column="2">
                                         <Button Command="{Binding ShowShipOverviewWindowCommand}">
                                             <TextBlock Text="{rb:StringResource Main.Overview_ShipOverview}" />
                                         </Button>
@@ -62,15 +61,15 @@
                                     </StackPanel>
                                 </Grid>
 
-                                <rvg:FleetsAndAirBase Margin="0, 0, 0, 8" Grid.Row="1" Grid.ColumnSpan="3" />
+                                <rvg:FleetsAndAirBase Margin="0, 8, 0, 0" Grid.Row="1" Grid.ColumnSpan="3" />
 
-                                <Border Style="{StaticResource PanelBorderStyle}" Grid.Row="2" Grid.RowSpan="2">
+                                <Border Style="{StaticResource PanelBorderStyle}" Margin="0, 8, 0, 0" Grid.Row="2" Grid.RowSpan="2">
                                     <rvg:ExecutingQuestsOverview />
                                 </Border>
 
-                                <rvg:DockOverview Margin="0, 0, 0, 8" Grid.Column="2" Grid.Row="2" />
+                                <rvg:DockOverview Margin="0, 8, 0, 0" Grid.Column="2" Grid.Row="2" />
 
-                                <Border Style="{StaticResource PanelBorderStyle}" Grid.Column="2" Grid.Row="3">
+                                <Border Style="{StaticResource PanelBorderStyle}" Margin="0, 8, 0, 0" Grid.Column="2" Grid.Row="3">
                                     <rvg:FleetOverview />
                                 </Border>
                             </Grid>
