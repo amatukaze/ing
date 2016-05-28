@@ -180,11 +180,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         byte[] CompressJson(JToken rpJsonToken)
         {
             using (var rMemoryStream = new MemoryStream())
-            using (var rCompressStream = new DeflateStream(rMemoryStream, CompressionMode.Compress))
-            using (var rStreamWriter = new StreamWriter(rCompressStream))
-            using (var rJsonTextWriter = new JsonTextWriter(rStreamWriter))
             {
-                rpJsonToken.WriteTo(rJsonTextWriter);
+                using (var rCompressStream = new DeflateStream(rMemoryStream, CompressionMode.Compress))
+                using (var rStreamWriter = new StreamWriter(rCompressStream))
+                using (var rJsonTextWriter = new JsonTextWriter(rStreamWriter))
+                    rpJsonToken.WriteTo(rJsonTextWriter);
 
                 return rMemoryStream.ToArray();
             }
