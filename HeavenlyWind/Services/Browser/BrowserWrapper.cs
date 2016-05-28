@@ -14,6 +14,7 @@ using System.Reactive.Subjects;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 
@@ -58,6 +59,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public BrowserWrapper(string rpLayoutEngine, int rpHostProcessID)
         {
             r_Container = new ContentControl();
+            r_Container.PreviewKeyDown += (_, e) =>
+            {
+                if (e.Key == Key.System)
+                    e.Handled = true;
+            };
 
             InitializeCommunicator(rpHostProcessID);
 
