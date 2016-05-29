@@ -1,25 +1,25 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 {
     public abstract class ApiParser : ApiParserBase
     {
-        internal override sealed void Process(JObject rpJson)
+        internal override sealed void Process(ApiSession rpSession, JObject rpJson)
         {
-            base.Process(rpJson);
+            base.Process(rpSession, rpJson);
 
             Process();
 
-            OnProcessSucceeded(new ApiData(Api, Parameters, rpJson));
+            OnProcessSucceeded(new ApiData(rpSession, Api, Parameters, rpJson));
         }
         public abstract void Process();
     }
     public abstract class ApiParser<T> : ApiParserBase
     {
-        internal override sealed void Process(JObject rpJson)
+        internal override sealed void Process(ApiSession rpSession, JObject rpJson)
         {
-            base.Process(rpJson);
+            base.Process(rpSession, rpJson);
 
             var rApiData = rpJson["api_data"];
             if (rApiData != null)
@@ -28,7 +28,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
                 Process(rData);
 
-                OnProcessSucceeded(new ApiData(Api, Parameters, rpJson) { Data = rData });
+                OnProcessSucceeded(new ApiData(rpSession, Api, Parameters, rpJson) { Data = rData });
             }
         }
         public abstract void Process(T rpData);

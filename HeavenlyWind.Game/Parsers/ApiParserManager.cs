@@ -20,8 +20,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
         internal Dictionary<string, ApiParserBase> Parsers { get; } = new Dictionary<string, ApiParserBase>();
 
-        Subject<ApiSession> r_SessionSources = new Subject<ApiSession>();
-        public Subject<Tuple<ApiSession, Exception>> ExceptionSources { get; } = new Subject<Tuple<ApiSession, Exception>>();
+        Subject<ApiSession> r_SessionObservable = new Subject<ApiSession>();
+        Subject<Tuple<ApiSession, Exception>> r_ExceptionObservable { get; } = new Subject<Tuple<ApiSession, Exception>>();
 
         ApiParserManager()
         {
@@ -40,33 +40,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                 }
             }
 
-            r_SessionSources.Subscribe(ProcessCore);
-            ExceptionSources.Subscribe(rpData =>
+            r_SessionObservable.Subscribe(ProcessCore);
+
+            r_ExceptionObservable.Subscribe(rpData =>
             {
                 var rSession = rpData.Item1;
                 var rException = rpData.Item2;
 
                 rSession.ErrorMessage = rException.ToString();
 
-                try {
-                    using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
-                    {
-                        rStreamWriter.WriteLine(TokenRegex.Replace(rSession.FullUrl, "***************************"));
-                        rStreamWriter.WriteLine("Request Data:");
-                        rStreamWriter.WriteLine(TokenRegex.Replace(rSession.RequestBodyString, "***************************"));
-                        rStreamWriter.WriteLine();
-                        rStreamWriter.WriteLine("Exception:");
-                        rStreamWriter.WriteLine(rException.ToString());
-                        rStreamWriter.WriteLine();
-                        rStreamWriter.WriteLine("Response Data:");
-                        rStreamWriter.WriteLine(Regex.Unescape(rSession.ResponseBodyString));
-                    }
-                }
-                catch { }
+                HandleException(rSession, rException);
             });
         }
 
-        public void Process(ApiSession rpSession) => r_SessionSources.OnNext(rpSession);
+        public void Process(ApiSession rpSession) => r_SessionObservable.OnNext(rpSession);
+
         void ProcessCore(ApiSession rpSession)
         {
             var rApi = rpSession.DisplayUrl;
@@ -89,7 +77,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                     }
 
                     rParser.Parameters = rParameters;
-                    rParser.Process(JObject.Parse(rContent));
+                    rParser.Process(rpSession, JObject.Parse(rContent));
                     rParser.Parameters = null;
                 }
             }
@@ -100,8 +88,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
             catch (Exception e)
             {
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_ParseException, e.Message));
-                ExceptionSources.OnNext(Tuple.Create(rpSession, e));
+                r_ExceptionObservable.OnNext(Tuple.Create(rpSession, e));
             }
+        }
+
+        internal void HandleException(ApiSession rpSession, Exception rException)
+        {
+            try
+            {
+                using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
+                {
+                    rStreamWriter.WriteLine(TokenRegex.Replace(rpSession.FullUrl, "***************************"));
+                    rStreamWriter.WriteLine("Request Data:");
+                    rStreamWriter.WriteLine(TokenRegex.Replace(rpSession.RequestBodyString, "***************************"));
+                    rStreamWriter.WriteLine();
+                    rStreamWriter.WriteLine("Exception:");
+                    rStreamWriter.WriteLine(rException.ToString());
+                    rStreamWriter.WriteLine();
+                    rStreamWriter.WriteLine("Response Data:");
+                    rStreamWriter.WriteLine(Regex.Unescape(rpSession.ResponseBodyString));
+                }
+            }
+            catch { }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
             r_Records = new ObservableCollection<DevelopmentRecord>();
             Records = new ReadOnlyObservableCollection<DevelopmentRecord>(r_Records);
 
-            r_NewDevelopmentSubscription = SessionService.Instance.GetProcessSucceededSubject("api_req_kousyou/createitem").ObserveOnDispatcher().Subscribe(r =>
+            r_NewDevelopmentSubscription = SessionService.Instance.GetObservable("api_req_kousyou/createitem").ObserveOnDispatcher().Subscribe(r =>
             {
                 var rFuelConsumption = int.Parse(r.Parameters["api_item1"]);
                 var rBulletConsumption = int.Parse(r.Parameters["api_item2"]);
