@@ -1,10 +1,14 @@
 ﻿using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Records;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
@@ -38,6 +42,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         int r_UserID;
         SQLiteConnection r_Connection;
 
+        internal string ExecutingCommandText { get; set; }
+
         RecordService() { }
 
         public void Initialize()
@@ -46,6 +52,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Directory.CreateDirectory("Records");
 
             SessionService.Instance.Subscribe("api_get_member/require_info", r => Connect(((RawRequiredInfo)r.Data).Admiral.ID));
+
+            SQLiteConnection.Changed += (rpConnection, e) =>
+            {
+                if (rpConnection != r_Connection)
+                    return;
+
+                switch(e.EventType)
+                {
+                    case SQLiteConnectionEventType.NewDataReader:
+                        ExecutingCommandText = e.Command.CommandText;
+                        break;
+
+                    case SQLiteConnectionEventType.DisposingDataReader:
+                        ExecutingCommandText = null;
+                        break;
+                }
+            };
         }
 
         void Connect(int rpUserID)
@@ -157,6 +180,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             RecordsGroup rResult;
             r_CustomRecordsGroups.TryGetValue(rpName, out rResult);
             return rResult;
+        }
+
+        internal void HandleException(ApiSession rpSession, Exception rException)
+        {
+            try
+            {
+                using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
+                {
+                    rStreamWriter.WriteLine("Exception:");
+                    rStreamWriter.WriteLine(rException.ToString());
+                    rStreamWriter.WriteLine();
+                    rStreamWriter.WriteLine("SQL:");
+                    rStreamWriter.WriteLine(ExecutingCommandText);
+                    rStreamWriter.WriteLine();
+                    rStreamWriter.WriteLine(ApiParserManager.TokenRegex.Replace(rpSession.FullUrl, "***************************"));
+                    rStreamWriter.WriteLine("Request Data:");
+                    rStreamWriter.WriteLine(ApiParserManager.TokenRegex.Replace(rpSession.RequestBodyString, "***************************"));
+                    rStreamWriter.WriteLine();
+                    rStreamWriter.WriteLine("Response Data:");
+                    rStreamWriter.WriteLine(Regex.Unescape(rpSession.ResponseBodyString));
+                }
+            }
+            catch { }
         }
     }
 }

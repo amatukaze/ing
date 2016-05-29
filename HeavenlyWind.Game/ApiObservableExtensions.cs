@@ -1,5 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
+using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
@@ -16,6 +18,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 try
                 {
                     rpAction(r);
+                }
+                catch (SQLiteException e) when (e.ResultCode == SQLiteErrorCode.Error && !RecordService.Instance.ExecutingCommandText.IsNullOrEmpty())
+                {
+                    RecordService.Instance.HandleException(r.Session, e);
                 }
                 catch (Exception e)
                 {
