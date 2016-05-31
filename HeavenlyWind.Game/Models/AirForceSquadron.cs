@@ -26,8 +26,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         protected override void OnRawDataUpdated()
         {
-            if (State == AirForceSquadronState.Relocating)
-                r_Relocating = Observable.Timer(TimeSpan.FromMinutes(20.0)).Subscribe(delegate
+            if (State == AirForceSquadronState.Relocating && r_Relocating == null)
+                r_Relocating = Observable.Interval(TimeSpan.FromMinutes(20.0)).Subscribe(delegate
                 {
                     RawData.State = AirForceSquadronState.Empty;
                     RawData.EquipmentID = 0;
@@ -38,7 +38,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     r_Relocating.Dispose();
                     r_Relocating = null;
                 });
-            else if (r_Relocating != null)
+
+            if (State != AirForceSquadronState.Relocating && r_Relocating != null)
             {
                 r_Relocating.Dispose();
                 r_Relocating = null;
