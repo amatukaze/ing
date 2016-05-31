@@ -1,31 +1,20 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
-using Sakuno.KanColle.Amatsukaze.Models.Records;
-using System.Collections.Generic;
+﻿using Sakuno.KanColle.Amatsukaze.Models.Records;
+using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
-    class ExpeditionHistoryViewModel : ModelBase
+    class ExpeditionHistoryViewModel : HistoryViewModelBase<ExpeditionRecord>
     {
-        public IList<ExpeditionRecord> Records { get; private set; }
+        protected override string LoadCommandText => "SELECT * FROM expedition ORDER BY time DESC;";
 
-        public async void LoadRecords()
+        protected override ExpeditionRecord CreateRecordFromReader(SQLiteDataReader rpReader) => new ExpeditionRecord(rpReader);
+
+        protected override bool TableFilter(string rpTable) => rpTable == "main.expedition";
+
+        protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
         {
-            using (var rCommand = RecordService.Instance.CreateCommand())
-            {
-                rCommand.CommandText = "SELECT * FROM expedition ORDER BY time DESC;";
-
-                using (var rReader = await rCommand.ExecuteReaderAsync())
-                {
-                    var rRecords = new List<ExpeditionRecord>(rReader.VisibleFieldCount);
-
-                    while (rReader.Read())
-                        rRecords.Add(new ExpeditionRecord(rReader));
-
-                    Records = rRecords;
-                }
-            }
-
-            OnPropertyChanged(nameof(Records));
+            rpCommand.CommandText = "SELECT * FROM expedition WHERE time = @time LIMIT 1;";
+            rpCommand.Parameters.AddWithValue("@time", rpRowID);
         }
     }
 }

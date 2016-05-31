@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         enum ParticipantFleetType { Main, Escort, SupportFire }
 
         public override string GroupName => "battle_detail";
-        public override int Version => 2;
+        public override int Version => 3;
 
         string r_Filename;
         SQLiteConnection r_Connection;
@@ -135,7 +135,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "opponent_rank INTEGER NOT NULL, " +
                     "opponent_comment INTEGER NOT NULL REFERENCES practice_opponent_comment(id), " +
                     "opponent_fleet INTEGER NOT NULL REFERENCES practice_opponent_fleet(id), " +
-                    "rank INTEGER); ";
+                    "rank INTEGER); " +
+
+                "CREATE VIEW IF NOT EXISTS participant_hd_view AS " +
+                    "SELECT participant_heavily_damaged.battle AS battle, group_concat(participant.ship) AS ships FROM participant_heavily_damaged " +
+                    "JOIN participant participant ON participant_heavily_damaged.battle = participant.battle AND participant_heavily_damaged.id = participant.id " +
+                    "GROUP BY participant_heavily_damaged.battle;";
 
                 rCommand.ExecuteNonQuery();
             }

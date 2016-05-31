@@ -6,6 +6,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Services.Records;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -43,6 +44,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         SQLiteConnection r_Connection;
 
         internal string ExecutingCommandText { get; set; }
+
+        public event Action<UpdateEventArgs> Update = delegate { };
 
         RecordService() { }
 
@@ -88,7 +91,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Fate?.Dispose();
             QuestProgress?.Dispose();
             BattleDetail?.Dispose();
-            r_Connection?.Dispose();
+
+            if (r_Connection != null)
+            {
+                r_Connection.Update -= OnDatabaseUpdate;
+
+                r_Connection.Dispose();
+            }
 
             foreach (var rCustomGroup in r_CustomRecordsGroups.Values)
                 rCustomGroup.Dispose();
@@ -133,6 +142,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             }
 
             BattleDetail = new BattleDetailRecords(r_Connection, r_UserID).ConnectAndReturn();
+
+            r_Connection.Update += OnDatabaseUpdate;
 
             IsConnected = true;
         }
@@ -203,6 +214,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 }
             }
             catch { }
+        }
+
+        void OnDatabaseUpdate(object sender, UpdateEventArgs e)
+        {
+            Debug.WriteLine($"RecordService: {e.Event} - {e.Database}.{e.Table} - {e.RowId}");
+
+            Update(e);
         }
     }
 }

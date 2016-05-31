@@ -92,9 +92,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                             "PRIMARY KEY(id, step)) WITHOUT ROWID;" +
 
                         "INSERT INTO sortie_detail(id, step, node, extra_info) " +
-                                "SELECT id, (SELECT COUNT(*) - 1 FROM sortie_detail_old B WHERE B.id = A.id AND B.cell <= A.cell) AS step, cell, extra_info FROM sortie_detail_old A WHERE cell <> -1 " +
-                                "UNION " +
-                                "SELECT id, (SELECT COUNT(*) FROM sortie_detail_old B WHERE B.id = A.id) AS step, cell, extra_info FROM sortie_detail_old A WHERE cell = -1;" +
+                            "SELECT id, (SELECT COUNT(*) - 1 FROM sortie_detail_old B WHERE B.id = A.id AND B.cell <= A.cell) AS step, cell, extra_info FROM sortie_detail_old A WHERE cell <> -1 " +
+                            "UNION " +
+                            "SELECT id, (SELECT COUNT(*) FROM sortie_detail_old B WHERE B.id = A.id) AS step, cell, extra_info FROM sortie_detail_old A WHERE cell = -1;" +
 
                         "DROP TABLE sortie_detail_old;";
 

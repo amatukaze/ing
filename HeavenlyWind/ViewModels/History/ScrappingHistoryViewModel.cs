@@ -1,33 +1,37 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
-using Sakuno.KanColle.Amatsukaze.Models.Records;
-using System.Collections.Generic;
+﻿using Sakuno.KanColle.Amatsukaze.Models.Records;
+using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
-    class ScrappingHistoryViewModel : ModelBase
+    class ScrappingHistoryViewModel : HistoryViewModelBase<FateRecord>
     {
-        public IList<FateRecord> Records { get; private set; }
-
-        public async void LoadRecords()
-        {
-            using (var rCommand = RecordService.Instance.CreateCommand())
-            {
-                rCommand.CommandText = @"SELECT id, ship AS master_id, level, 0 AS proficiency, time, fate, 0 AS is_equipment FROM ship_fate WHERE master_id != -1
+        protected override string LoadCommandText => @"SELECT id, ship AS master_id, level, 0 AS proficiency, time, fate, 0 AS is_equipment FROM ship_fate WHERE ship != -1
 UNION
-SELECT id, equipment AS master_id, level, proficiency, time, fate, 1 AS is_equipment FROM equipment_fate WHERE master_id != -1
+SELECT id, equipment AS master_id, level, proficiency, time, fate, 1 AS is_equipment FROM equipment_fate WHERE equipment != -1
 ORDER BY time DESC;";
 
-                using (var rReader = await rCommand.ExecuteReaderAsync())
-                {
-                    var rRecords = new List<FateRecord>(rReader.VisibleFieldCount);
+        protected override FateRecord CreateRecordFromReader(SQLiteDataReader rpReader) => new FateRecord(rpReader);
 
-                    while (rReader.Read())
-                        rRecords.Add(new FateRecord(rReader));
+        protected override bool TableFilter(string rpTable) => rpTable == "main.ship_fate" || rpTable == "main.equipment_fate";
 
-                    Records = rRecords;
-                }
+        protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
+        {
+            string rCommandText;
+            switch (rpTable)
+            {
+                case "main.ship_fate":
+                    rCommandText = "SELECT id, ship AS master_id, level, 0 AS proficiency, time, fate, 0 AS is_equipment FROM ship_fate WHERE id = @id AND ship != -1 LIMIT 1;";
+                    break;
+
+                case "main.equipment_fate":
+                    rCommandText = "SELECT id, equipment AS master_id, level, proficiency, time, fate, 1 AS is_equipment FROM equipment_fate WHERE id = @id AND equipment != -1 LIMIT 1;";
+                    break;
+
+                default: return;
             }
-            OnPropertyChanged(nameof(Records));
+
+            rpCommand.CommandText = rCommandText;
+            rpCommand.Parameters.AddWithValue("@id", rpRowID);
         }
     }
 }
