@@ -118,7 +118,7 @@
                         <rvge:AviationReconnaissance />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type rgme:EscortSuccessEvent}">
-                        <rvge:Reward />
+                        <rvge:EscortSuccess />
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type rgme:LandingEvent}">
                         <rvge:Landing />
