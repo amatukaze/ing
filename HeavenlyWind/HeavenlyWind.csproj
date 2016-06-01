@@ -186,6 +186,7 @@
     <Compile Include="ViewModels\History\ConstructionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\HistoryViewModelBase.cs" />
     <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
@@ -247,6 +248,9 @@
     </Compile>
     <Compile Include="Views\Game\Events\Battle.xaml.cs">
       <DependentUpon>Battle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\EscortSuccess.xaml.cs">
+      <DependentUpon>EscortSuccess.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Events\Landing.xaml.cs">
       <DependentUpon>Landing.xaml</DependentUpon>
@@ -752,6 +756,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\Events\Battle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\EscortSuccess.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

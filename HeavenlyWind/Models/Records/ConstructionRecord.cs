@@ -41,21 +41,5 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
             if (rEmptyDockCount != DBNull.Value)
                 EmptyDockCount = Convert.ToInt32(rEmptyDockCount);
         }
-        internal ConstructionRecord(ShipInfo rpShip, int rpFuelConsumption, int rpBulletConsumption, int rpSteelConsumption, int rpBauxiteConsumption, int rpDevelopmentMaterialConsumption, ShipInfo rpSecretaryShip, int rpHeadquarterLevel, int? rpEmptyDockCount)
-        {
-            Time = DateTime.Now.ToString();
-            Ship = rpShip;
-
-            FuelConsumption = rpFuelConsumption;
-            BulletConsumption = rpBulletConsumption;
-            SteelConsumption = rpSteelConsumption;
-            BauxiteConsumption = rpBauxiteConsumption;
-            DevelopmentMaterialConsumption = rpDevelopmentMaterialConsumption;
-
-            SecretaryShip = rpSecretaryShip;
-            HeadquarterLevel = rpHeadquarterLevel;
-
-            EmptyDockCount = rpEmptyDockCount;
-        }
     }
 }

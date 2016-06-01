@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Data.Common;
+using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
@@ -31,7 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
         public int ImprovementMaterial { get; }
         public int ImprovementMaterialDifference { get; }
 
-        public ResourceRecord(DbDataReader rpReader)
+        public ResourceRecord(SQLiteDataReader rpReader)
         {
             Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
 

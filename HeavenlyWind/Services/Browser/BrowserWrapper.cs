@@ -51,7 +51,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                 string rPath;
                 if (r_LayoutEngineDependencies != null && r_LayoutEngineDependencies.TryGetValue(rName, out rPath))
-                    return Assembly.LoadFile(Path.Combine(r_BrowsersDirectory.FullName, rPath));
+                {
+                    rPath = Path.Combine(r_BrowsersDirectory.FullName, rPath);
+                    if (File.Exists(rPath))
+                        return Assembly.LoadFile(rPath);
+                    else
+                    {
+                        var rSearchedFiles = r_BrowsersDirectory.GetFiles(Path.GetFileName(rPath), SearchOption.AllDirectories);
+                        if (rSearchedFiles.Length > 0)
+                            return Assembly.LoadFile(rSearchedFiles[0].FullName);
+                        else
+                            throw new FileNotFoundException($"Dependency not found: {rPath}");
+                    }
+                }
 
                 return null;
             };

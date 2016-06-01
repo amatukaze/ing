@@ -1,18 +1,23 @@
 ﻿using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 {
     public class ApiData
     {
+        internal ApiSession Session { get; }
+
         public string Api { get; }
         public IDictionary<string, string> Parameters { get; }
         public JObject Json { get; }
 
         public object Data { get; internal set; }
 
-        internal ApiData(string rpApi, IDictionary<string, string> rpParameters, JObject rpJson)
+        internal ApiData(ApiSession rpSession, string rpApi, IDictionary<string, string> rpParameters, JObject rpJson)
         {
+            Session = rpSession;
+
             Api = rpApi;
             Parameters = rpParameters;
             Json = rpJson;

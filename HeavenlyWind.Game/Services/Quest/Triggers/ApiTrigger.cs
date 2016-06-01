@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
         {
             Api = rpApi;
 
-            Observable = SessionService.Instance.GetProcessSucceededSubject(rpApi);
+            Observable = SessionService.Instance.GetObservable(rpApi);
         }
 
         public override string ToString() => "Api: " + Api;

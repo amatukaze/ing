@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.ViewModels.History;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Views.History
 {
@@ -16,6 +17,13 @@ namespace Sakuno.KanColle.Amatsukaze.Views.History
             DataContext = r_ViewModel = new ResourceHistoryViewModel();
 
             Loaded += (s, e) => r_ViewModel.LoadRecords();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            r_ViewModel?.Dispose();
+
+            base.OnClosed(e);
         }
     }
 }

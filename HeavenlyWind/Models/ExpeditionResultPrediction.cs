@@ -47,8 +47,29 @@ namespace Sakuno.KanColle.Amatsukaze.Models
 
             if (r_Info.DrumRequirement != null)
             {
-                DrumCount = rShips.Count(r => r.Slots.Any(rpSlot => rpSlot.Equipment.Info.Icon == EquipmentIconType.DrumCanister)) >= r_Info.DrumRequirement.CarrierCount;
-                DrumCarrierCount = rShips.Sum(r => r.Slots.Count(rpSlot => rpSlot.Equipment.Info.Icon == EquipmentIconType.DrumCanister)) >= r_Info.DrumRequirement.TotalCount;
+                var rDrumCount = 0;
+                var rDrumCarrierCount = 0;
+
+                foreach (var rShip in rShips)
+                {
+                    var rCarrringWithDrum = false;
+                    foreach (var rEquipment in rShip.EquipedEquipment)
+                    {
+                        if (rEquipment.Info.Type != EquipmentType.SupplyTransportContainer)
+                            continue;
+
+                        rDrumCount++;
+
+                        if (!rCarrringWithDrum)
+                        {
+                            rDrumCarrierCount++;
+                            rCarrringWithDrum = true;
+                        }
+                    }
+                }
+
+                DrumCount = rDrumCount >= r_Info.DrumRequirement.TotalCount;
+                DrumCarrierCount = rDrumCarrierCount >= r_Info.DrumRequirement.CarrierCount;
             }
 
             if (r_Info.ShipRequirements != null)

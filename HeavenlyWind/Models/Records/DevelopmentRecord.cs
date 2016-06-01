@@ -1,7 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System;
-using System.Data.Common;
+using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
         public ShipInfo SecretaryShip { get; }
         public int HeadquarterLevel { get; }
 
-        internal DevelopmentRecord(DbDataReader rpReader)
+        internal DevelopmentRecord(SQLiteDataReader rpReader)
         {
             Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
             var rEquipmentID = rpReader["equipment"];
@@ -33,20 +33,6 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
             SecretaryShip = KanColleGame.Current.MasterInfo.Ships[Convert.ToInt32(rpReader["flagship"])];
             HeadquarterLevel = Convert.ToInt32(rpReader["hq_level"]);
-        }
-        internal DevelopmentRecord(int? rpEquipmentID, int rpFuelConsumption, int rpBulletConsumption, int rpSteelConsumption, int rpBauxiteConsumption, ShipInfo rpSecretaryShip, int rpHeadquarterLevel)
-        {
-            Time = DateTime.Now.ToString();
-            if (rpEquipmentID.HasValue)
-                Equipment = KanColleGame.Current.MasterInfo.Equipment[rpEquipmentID.Value];
-
-            FuelConsumption = rpFuelConsumption;
-            BulletConsumption = rpBulletConsumption;
-            SteelConsumption = rpSteelConsumption;
-            BauxiteConsumption = rpBauxiteConsumption;
-
-            SecretaryShip = rpSecretaryShip;
-            HeadquarterLevel = rpHeadquarterLevel;
         }
     }
 }

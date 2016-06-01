@@ -1,7 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System;
-using System.Data.Common;
+using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         public Fate Fate { get; }
 
-        internal FateRecord(DbDataReader rpReader)
+        internal FateRecord(SQLiteDataReader rpReader)
         {
             Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
 

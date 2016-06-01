@@ -9,5 +9,11 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 
         [JsonProperty("fatigue_ceiling")]
         public int FatigueCeiling { get; set; } = 40;
+
+        [JsonProperty("show_battle_info")]
+        public bool ShowBattleInfo { get; set; } = true;
+
+        [JsonProperty("show_drop")]
+        public bool ShowDrop { get; set; } = true;
     }
 }

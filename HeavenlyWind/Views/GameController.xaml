@@ -82,6 +82,10 @@
             </Border>
         </ruic:SplitButton>
 
+        <ToggleButton IsChecked="{Binding Topmost, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Height="30" Margin="5, 0, 0, 0">
+            <Path Stretch="Uniform" Fill="{DynamicResource ActiveForegroundBrushKey}" HorizontalAlignment="Center" Data="M71.048203,0 L93.770935,10.424871 152.85001,37.529528 171.02817,45.869425 230.10727,72.974085 252.82999,83.398958 238.23517,115.21076 215.51245,104.78589 187.73206,165.33783 188.45349,168.04767 C193.10251,186.74838 194.03778,207.59044 190.93973,229.09215 L190.71091,230.57726 104.44453,190.99945 45.929749,318.5421 27.751572,310.2022 86.266357,182.65956 0,143.08176 0.97650146,141.93968 C15.254585,125.5672 31.663315,112.68233 48.871078,104.00919 L51.395721,102.78861 79.176117,42.236681 56.453384,31.811808 z" />
+        </ToggleButton>
+
         <ruic:DropDownButton PopupAutoClose="False" ShowDropDownMarker="False" Height="30" Margin="5, 0, 0, 0" Padding="4">
             <ruic:DropDownButton.Header>
                 <StackPanel Orientation="Horizontal">

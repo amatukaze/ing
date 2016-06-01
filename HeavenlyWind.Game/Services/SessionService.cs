@@ -24,16 +24,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             return rParser;
         }
 
-        public Subject<ApiData> GetProcessSucceededSubject(string rpApi) => GetParser(rpApi).ProcessSucceeded;
-        public IObservable<ApiData> GetProcessSucceededSubject(string[] rpApis) => rpApis.Select(r => GetParser(r).ProcessSucceeded).Aggregate<IObservable<ApiData>>((x, y) => x.Merge(y));
+        public Subject<ApiData> GetObservable(string rpApi) => GetParser(rpApi).Observable;
+        public IObservable<ApiData> GetObservable(string[] rpApis) => rpApis.Select(GetObservable).Aggregate<IObservable<ApiData>>((x, y) => x.Merge(y));
 
-        public IDisposable Subscribe(string rpApi, Action<ApiData> rpAction) => GetProcessSucceededSubject(rpApi).Subscribe(rpAction);
-        public IDisposable Subscribe(string[] rpApis, Action<ApiData> rpAction) => GetProcessSucceededSubject(rpApis).Subscribe(rpAction);
+        public IDisposable Subscribe(string rpApi, Action<ApiData> rpAction) => GetObservable(rpApi).SubscribeCore(rpAction);
+        public IDisposable Subscribe(string[] rpApis, Action<ApiData> rpAction) => GetObservable(rpApis).SubscribeCore(rpAction);
 
         public void SubscribeOnce(string rpApi, Action<ApiData> rpAction)
         {
             IDisposable rSubscription = null;
-            rSubscription = GetProcessSucceededSubject(rpApi).Subscribe(r =>
+            rSubscription = GetObservable(rpApi).SubscribeCore(r =>
             {
                 rpAction(r);
                 rSubscription.Dispose();
