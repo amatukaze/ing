@@ -8,6 +8,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
     {
         public override void Process(RawBattleResult rpData)
         {
+            if (!Preference.Current.Game.ShowDrop)
+                return;
+
             if (rpData.DroppedShip != null && rpData.DroppedItem != null)
                 Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_ShipAndItem_Dropped,
                     KanColleGame.Current.MasterInfo.Ships[rpData.DroppedShip.ID].TranslatedName, KanColleGame.Current.MasterInfo.Items[rpData.DroppedItem.ID].TranslatedName));

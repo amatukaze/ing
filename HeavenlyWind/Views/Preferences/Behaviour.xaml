@@ -22,5 +22,13 @@
                 </i:Interaction.Behaviors>
             </TextBox>
         </StackPanel>
+
+        <CheckBox IsChecked="{rb:Preference Game.ShowBattleInfo}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Behaviour_ShowBattleInfo}" />
+        </CheckBox>
+
+        <CheckBox IsChecked="{rb:Preference Game.ShowDrop}" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Behaviour_ShowDrop}" />
+        </CheckBox>
     </StackPanel>
 </UserControl>
