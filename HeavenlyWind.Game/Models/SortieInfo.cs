@@ -51,6 +51,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 var rData = (RawBattleResult)r.Data;
                 if (rData.DroppedShip != null)
                      Current.PendingShipCount++;
+
+                var rFriendParticipantSnapshots = BattleInfo.Current?.CurrentStage?.Friend;
+                if (rFriendParticipantSnapshots != null)
+                    foreach (var rSnapshot in rFriendParticipantSnapshots)
+                        ((FriendShip)rSnapshot.Participant).Ship.HP = new ClampedValue(rSnapshot.Maximum, rSnapshot.Current);
             });
         }
         internal SortieInfo() { }
