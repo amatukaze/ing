@@ -21,5 +21,5 @@ Current version: **0.1.10.3 (Tiramisu)**
  * Reactive Extensions
  * Expression Blend SDK
 
-### Lincense
+### License
 The MIT License (MIT)
