@@ -18,23 +18,9 @@
             <ruic:ResizeGrip DockPanel.Dock="Right"/>
 
             <DockPanel Margin="3, 0">
-                <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0" DockPanel.Dock="Right">
-                    <StackPanel.Style>
-                        <Style TargetType="{x:Type StackPanel}">
-                            <Setter Property="Visibility" Value="Collapsed" />
-
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Power.Source}" Value="Battery">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-
+                <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0" Visibility="{Binding Power.IsBatteryPresent, Converter={StaticResource BooleanToVisibilityConverter}}" DockPanel.Dock="Right">
                     <Path Fill="{DynamicResource ActiveForegroundBrushKey}" Stretch="Uniform" Margin="2" Data="M35.009781,64.453026 L105.61525,64.453026 105.61525,255.46832 35.009781,255.46832 z M20.507813,50.097588 L20.507813,269.82375 120.41019,269.82375 120.41019,50.097588 z M39.99025,0 L100.92775,0 100.92775,29.882778 140.918,29.882778 140.918,290.77099 0,290.77099 0,29.882778 39.99025,29.882778 z" />
-                    <TextBlock>
-                        <Run Text="{Binding Power.BatteryRemainingPercentage, Mode=OneWay}" />%
-                    </TextBlock>
+                    <TextBlock Text="{Binding Power.BatteryRemainingPercentage, StringFormat={}{0}%}" />
                 </StackPanel>
 
                 <TextBlock Text="{Binding Message}" TextWrapping="NoWrap">

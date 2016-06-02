@@ -24,7 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         {
             base.OnSourceInitialized(e);
 
-            PowerMonitor.RegisterMonitor(this);
+            PowerManager.RegisterMonitor(this);
         }
 
         protected override void OnClosing(CancelEventArgs e)
