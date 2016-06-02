@@ -66,10 +66,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     case SQLiteConnectionEventType.NewDataReader:
                         ExecutingCommandText = e.Command.CommandText;
                         break;
-
-                    case SQLiteConnectionEventType.DisposingDataReader:
-                        ExecutingCommandText = null;
-                        break;
                 }
             };
         }
