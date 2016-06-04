@@ -51,7 +51,7 @@
                                         <Setter TargetName="PlaneCount" Property="Opacity" Value=".25" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding HasLostPlane}" Value="True">
-                                        <Setter TargetName="PlaneCount" Property="Foreground" Value="Red" />
+                                        <Setter TargetName="PlaneCount" Property="Foreground" Value="Orange" />
                                     </DataTrigger>
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
