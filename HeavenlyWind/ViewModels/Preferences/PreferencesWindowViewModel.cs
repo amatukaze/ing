@@ -15,6 +15,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
 
         public IList<PluginViewModel> LoadedPlugins { get; }
 
+        public bool IsAutoRotationSupported => CurrentDockExtension.IsAutoRotationSupported;
+
         PreferencesWindowViewModel()
         {
             var rSystemFonts = Fonts.SystemFontFamilies.Select(r => new SystemFont(r)).ToList();

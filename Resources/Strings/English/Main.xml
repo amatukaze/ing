@@ -275,6 +275,7 @@
   <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait</String>
   <String Key="PreferenceWindow_Window_Layout_Game">KanColle</String>
   <String Key="PreferenceWindow_Window_Layout_Information">Info</String>
+  <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">Screen auto-rotation is not supported in this device</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
