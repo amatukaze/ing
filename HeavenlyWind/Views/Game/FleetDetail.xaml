@@ -133,6 +133,42 @@
                                 <rc:ColorIndicator Value="{Binding Fuel.Current}" Median="{Binding Fuel.Before}" Maximum="{Binding Info.MaxFuelConsumption}" />
                                 <rc:ColorIndicator Value="{Binding Bullet.Current}" Median="{Binding Bullet.Before}" Maximum="{Binding Info.MaxBulletConsumption}" Grid.Row="1" />
                             </Grid>
+                            <Rectangle Fill="Transparent" Width="50" Margin="3, 0, 0, 0" Grid.Column="5" Grid.RowSpan="2">
+                                <Rectangle.ToolTip>
+                                    <ToolTip>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+
+                                            <rc:MaterialIcon Type="Fuel" />
+                                            <TextBlock TextAlignment="Right" Margin="4, 2" Grid.Column="1">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0}/{1}">
+                                                        <Binding Path="Fuel.Current" />
+                                                        <Binding Path="Info.MaxFuelConsumption" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+
+                                            <rc:MaterialIcon Type="Bullet" Grid.Row="1" />
+                                            <TextBlock TextAlignment="Right" Margin="4, 2" Grid.Column="1" Grid.Row="1">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0}/{1}">
+                                                        <Binding Path="Bullet.Current" />
+                                                        <Binding Path="Info.MaxBulletConsumption" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Grid>
+                                    </ToolTip>
+                                </Rectangle.ToolTip>
+                            </Rectangle>
 
                             <Border Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2">
                                 <StackPanel Orientation="Horizontal">
