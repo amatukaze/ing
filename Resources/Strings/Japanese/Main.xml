@@ -297,6 +297,7 @@
   <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">サウンド (大破警告)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">なし</String>
   <String Key="PreferenceWindow_Notification_Sound_SystemSound">システムサウンド</String>
+  <String Key="PreferenceWindow_Notification_SoundFileType">音声ファイル</String>
   <String Key="PreferenceWindow_Language">言語</String>
   <String Key="PreferenceWindow_Language_NameTranslation">名前の翻訳</String>
   <String Key="PreferenceWindow_Browser">ブラウザ</String>

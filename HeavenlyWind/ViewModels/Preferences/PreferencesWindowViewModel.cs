@@ -23,6 +23,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
 
         public ICommand OpenScreenshotFolderPickerCommand { get; }
 
+        public ICommand OpenCustomSoundFileDialogCommand { get; }
+
         PreferencesWindowViewModel()
         {
             var rSystemFonts = Fonts.SystemFontFamilies.Select(r => new SystemFont(r)).ToList();
@@ -35,6 +37,30 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
             LoadedPlugins = PluginService.Instance.LoadedPlugins.Select(r => new PluginViewModel(r)).ToList().AsReadOnly();
 
             OpenScreenshotFolderPickerCommand = new DelegatedCommand(() => GetFilenameWithCommonFolderPicker(r => Preference.Current.Browser.Screenshot.Destination = r));
+
+            OpenCustomSoundFileDialogCommand = new DelegatedCommand<string>(rpType =>
+            {
+                using (var rDialog = new CommonOpenFileDialog())
+                {
+                    rDialog.FileTypes.Add(new CommonFileDialogFileType(StringResources.Instance.Main.PreferenceWindow_Notification_SoundFileType, "wav;mp3;aac;wma"));
+
+                    if (rDialog.Show() == CommonFileDialogResult.OK)
+                    {
+                        var rFilename = rDialog.Filename;
+
+                        switch (rpType)
+                        {
+                            case "General":
+                                Preference.Current.Notification.SoundFilename = rFilename;
+                                break;
+
+                            case "HeavilyDamaged":
+                                Preference.Current.Notification.HeavilyDamagedWarningSoundFilename = rFilename;
+                                break;
+                        }
+                    }
+                }
+            });
         }
 
         void GetFilenameWithCommonFolderPicker(Action<string> rpContinuation)

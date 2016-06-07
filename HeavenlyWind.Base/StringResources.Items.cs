@@ -301,6 +301,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Notification_Sound_HeavilyDamagedWarning => GetString(nameof(PreferenceWindow_Notification_Sound_HeavilyDamagedWarning));
         public string PreferenceWindow_Notification_Sound_Slient => GetString(nameof(PreferenceWindow_Notification_Sound_Slient));
         public string PreferenceWindow_Notification_Sound_SystemSound => GetString(nameof(PreferenceWindow_Notification_Sound_SystemSound));
+        public string PreferenceWindow_Notification_SoundFileType => GetString(nameof(PreferenceWindow_Notification_SoundFileType));
         public string PreferenceWindow_Language => GetString(nameof(PreferenceWindow_Language));
         public string PreferenceWindow_Language_NameTranslation => GetString(nameof(PreferenceWindow_Language_NameTranslation));
         public string PreferenceWindow_Browser => GetString(nameof(PreferenceWindow_Browser));

@@ -297,6 +297,7 @@
   <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">Sound (Heavily damaged)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">Slient</String>
   <String Key="PreferenceWindow_Notification_Sound_SystemSound">System Sound</String>
+  <String Key="PreferenceWindow_Notification_SoundFileType">Audio file</String>
   <String Key="PreferenceWindow_Language">Language</String>
   <String Key="PreferenceWindow_Language_NameTranslation">Name translation</String>
   <String Key="PreferenceWindow_Browser">Browser</String>
