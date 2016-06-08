@@ -24,7 +24,7 @@
                 <Setter.Value>
                     <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByShip}">
                         <TextBlock Margin="0, 4, 15, 4">
-                            <Run Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" />
+                            <Run Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
                             <Run Text="{Binding Ship.Level, StringFormat=Lv.{0}, Mode=OneWay}" FontSize="11" /><Run Text="{Binding CountDisplayString, Mode=OneWay}" FontSize="11" />
                         </TextBlock>
                     </DataTemplate>
@@ -48,7 +48,12 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_EquipmentOverview}" />
         </DockPanel>
 
-        <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
+        <Grid Margin="8, 0, 8, 8" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
             <Border Margin="0, 0, 0, 8" DockPanel.Dock="Top">
                 <StackPanel>
                     <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="14" Margin="4, 0, 0, 0" />
@@ -74,106 +79,101 @@
                 </StackPanel>
             </Border>
 
-            <ListView ItemsSource="{Binding Equipment}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Width="220">
-                            <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Name}" />
+            <Grid Grid.Row="2">
+                <ListView ItemsSource="{Binding Equipment}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="220">
+                                <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Name}" />
 
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <rc:EquipmentIcon Type="{Binding Info.Icon}" VerticalAlignment="Center" />
-                                        <TextBlock Text="{rb:ExtraStringResource Equipment, Info.ID, Info.Name}" TextTrimming="CharacterEllipsis" Margin="4, 4, 0, 4" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <rc:EquipmentIcon Type="{Binding Info.Icon}" VerticalAlignment="Center" />
+                                            <TextBlock Text="{rb:ExtraStringResource Equipment, Info.ID, Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" TextTrimming="CharacterEllipsis" Margin="4, 4, 0, 4" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
 
-                        <GridViewColumn Width="80">
-                            <TextBlock>
-                                <Run Text="{rb:StringResource Main.EquipmentOverview_TotalCount, Mode=OneWay}" />
-                                <Run Text="{rb:StringResource Main.EquipmentOverview_Remaining, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
-                            </TextBlock>
+                            <GridViewColumn Width="80">
+                                <TextBlock>
+                                    <Run Text="{rb:StringResource Main.EquipmentOverview_TotalCount, Mode=OneWay}" />
+                                    <Run Text="{rb:StringResource Main.EquipmentOverview_Remaining, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
+                                </TextBlock>
 
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Margin="0, 4">
-                                        <Run Text="{Binding Count, Mode=OneWay}" />
-                                        <Run Name="RemainingCount" Text="{Binding RemainingCount, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
-                                    </TextBlock>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="0, 4">
+                                            <Run Text="{Binding Count, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                            <Run Text="{Binding RemainingCount, StringFormat=(0);#;#, Mode=OneWay}" FontSize="11" />
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
 
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding RemainingCount}" Value="0">
-                                            <Setter TargetName="RemainingCount" Property="Text" Value="" />
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+                            <GridViewColumn Width="650">
+                                <DockPanel>
+                                    <Border Width="50">
+                                        <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Proficiency}" />
+                                    </Border>
+                                    <Border Width="50">
+                                        <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Level}" />
+                                    </Border>
+                                    <Border Width="80">
+                                        <TextBlock>
+                                            <Run Text="{rb:StringResource Main.EquipmentOverview_EquippedCount, Mode=OneWay}" />
+                                            <Run Text="{rb:StringResource Main.EquipmentOverview_Remaining, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
+                                        </TextBlock>
+                                    </Border>
+                                    <Border Width="470">
+                                        <TextBlock Text="{rb:StringResource Main.EquipmentOverview_EquippedShip}" />
+                                    </Border>
+                                </DockPanel>
 
-                        <GridViewColumn Width="650">
-                            <DockPanel>
-                                <Border Width="50">
-                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Proficiency}" />
-                                </Border>
-                                <Border Width="50">
-                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_Level}" />
-                                </Border>
-                                <Border Width="80">
-                                    <TextBlock>
-                                        <Run Text="{rb:StringResource Main.EquipmentOverview_EquippedCount, Mode=OneWay}" />
-                                        <Run Text="{rb:StringResource Main.EquipmentOverview_Remaining, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
-                                    </TextBlock>
-                                </Border>
-                                <Border Width="470">
-                                    <TextBlock Text="{rb:StringResource Main.EquipmentOverview_EquippedShip}" />
-                                </Border>
-                            </DockPanel>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Levels}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByLevel}">
+                                                    <DockPanel>
+                                                        <Border Width="50">
+                                                            <rc:EquipmentProficiency Proficiency="{Binding Key.Proficiency}" />
+                                                        </Border>
+                                                        <Border Width="50">
+                                                            <rc:EquipmentLevel Level="{Binding Key.Level}" />
+                                                        </Border>
+                                                        <Border Width="80">
+                                                            <TextBlock Margin="0, 4">
+                                                                <Run Text="{Binding Count, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                                                <Run Text="{Binding RemainingCount, StringFormat=(0);#;#, Mode=OneWay}" FontSize="11" />
+                                                            </TextBlock>
+                                                        </Border>
+                                                        <Border Width="470">
+                                                            <ItemsControl ItemsSource="{Binding Fleets}">
+                                                                <ItemsControl.ItemTemplate>
+                                                                    <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByFleet}">
+                                                                        <ItemsControl Style="{StaticResource ShipItemsControlStyle}" ItemsSource="{Binding Ships}" />
+                                                                    </DataTemplate>
+                                                                </ItemsControl.ItemTemplate>
+                                                            </ItemsControl>
+                                                        </Border>
+                                                    </DockPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
 
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ItemsControl ItemsSource="{Binding Levels}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByLevel}">
-                                                <DockPanel>
-                                                    <Border Width="50">
-                                                        <rc:EquipmentProficiency Proficiency="{Binding Key.Proficiency}" />
-                                                    </Border>
-                                                    <Border Width="50">
-                                                        <rc:EquipmentLevel Level="{Binding Key.Level}" />
-                                                    </Border>
-                                                    <Border Width="80">
-                                                        <TextBlock Margin="0, 4">
-                                                            <Run Text="{Binding Count, Mode=OneWay}" />
-                                                            <Run Name="RemainingCount" Text="{Binding RemainingCount, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
-                                                        </TextBlock>
-                                                    </Border>
-                                                    <Border Width="470">
-                                                        <ItemsControl ItemsSource="{Binding Fleets}">
-                                                            <ItemsControl.ItemTemplate>
-                                                                <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByFleet}">
-                                                                    <ItemsControl Style="{StaticResource ShipItemsControlStyle}" ItemsSource="{Binding Ships}" />
-                                                                </DataTemplate>
-                                                            </ItemsControl.ItemTemplate>
-                                                        </ItemsControl>
-                                                    </Border>
-                                                </DockPanel>
-
-                                                <DataTemplate.Triggers>
-                                                    <DataTrigger Binding="{Binding RemainingCount}" Value="0">
-                                                        <Setter TargetName="RemainingCount" Property="Text" Value="" />
-                                                    </DataTrigger>
-                                                </DataTemplate.Triggers>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </DockPanel>
+            <Grid Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.Row="2">
+                <Rectangle Fill="{DynamicResource ThemeBrushKey}" Opacity=".75" />
+                <TextBlock Text="{rb:StringResource Main.EquipmentOverview_List_Loading}" FontSize="16" TextAlignment="Center" />
+            </Grid>
+        </Grid>
     </Grid>
 </ruic:MetroWindow>

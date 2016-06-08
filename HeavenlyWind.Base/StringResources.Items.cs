@@ -332,6 +332,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string EquipmentOverview_Proficiency => GetString(nameof(EquipmentOverview_Proficiency));
         public string EquipmentOverview_EquippedCount => GetString(nameof(EquipmentOverview_EquippedCount));
         public string EquipmentOverview_EquippedShip => GetString(nameof(EquipmentOverview_EquippedShip));
+        public string EquipmentOverview_List_Loading => GetString(nameof(EquipmentOverview_List_Loading));
 
         public string ShipOverview_Type => GetString(nameof(ShipOverview_Type));
         public string ShipOverview_Name => GetString(nameof(ShipOverview_Name));
@@ -347,6 +348,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ShipOverview_LoS => GetString(nameof(ShipOverview_LoS));
         public string ShipOverview_RepairTime => GetString(nameof(ShipOverview_RepairTime));
         public string ShipOverview_Equipment => GetString(nameof(ShipOverview_Equipment));
+        public string ShipOverview_Filter_ExceptExpeditionShips => GetString(nameof(ShipOverview_Filter_ExceptExpeditionShips));
+        public string ShipOverview_Filter_ExceptSparklingShips => GetString(nameof(ShipOverview_Filter_ExceptSparklingShips));
+        public string ShipOverview_Filter_ExceptLevel1Ships => GetString(nameof(ShipOverview_Filter_ExceptLevel1Ships));
+        public string ShipOverview_List_Loading => GetString(nameof(ShipOverview_List_Loading));
 
         public string Record_Time => GetString(nameof(Record_Time));
         public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));

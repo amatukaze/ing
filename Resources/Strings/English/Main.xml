@@ -328,6 +328,7 @@
   <String Key="EquipmentOverview_Proficiency">Proficiency</String>
   <String Key="EquipmentOverview_EquippedCount">Equipped count</String>
   <String Key="EquipmentOverview_EquippedShip">Equipped ship</String>
+  <String Key="EquipmentOverview_List_Loading">Loading</String>
 
   <String Key="ShipOverview_Type">Type</String>
   <String Key="ShipOverview_Name">Name</String>
@@ -343,6 +344,10 @@
   <String Key="ShipOverview_LoS">LoS</String>
   <String Key="ShipOverview_RepairTime">Repair Time</String>
   <String Key="ShipOverview_Equipment">Equipment</String>
+  <String Key="ShipOverview_Filter_ExceptExpeditionShips">Except expedition ships</String>
+  <String Key="ShipOverview_Filter_ExceptSparklingShips">Except sparkling ships</String>
+  <String Key="ShipOverview_Filter_ExceptLevel1Ships">Except Lv1 ships</String>
+  <String Key="ShipOverview_List_Loading">Loading</String>
 
   <String Key="Record_Time">Time</String>
   <String Key="Record_SecretaryShip">Secretary ship</String>
