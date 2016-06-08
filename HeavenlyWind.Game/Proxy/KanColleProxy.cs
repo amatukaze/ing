@@ -181,7 +181,7 @@ body {
     left: 50%;
     top: -16px;
     margin-left: -450px;
-    z-index: 1;
+    z-index: 255;
 }
 </style></head>");
         }
