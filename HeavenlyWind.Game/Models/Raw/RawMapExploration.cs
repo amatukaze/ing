@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
@@ -45,7 +46,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public WhirlpoolEvent Whirlpool { get; set; }
 
         [JsonProperty("api_itemget")]
-        public RawReward[] Rewards { get; set; }
+        public JToken Rewards { get; set; }
         [JsonProperty("api_get_eo_rate")]
         public int RankingPointBonus { get; set; }
         [JsonProperty("api_itemget_eo_comment")]
