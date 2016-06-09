@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -243,6 +244,17 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 {
                     r_Communicator.Write($"{CommunicatorMessages.ScreenshotFail}:{r};{e.Message}");
                     rScreenshotMMF = null;
+
+                    try
+                    {
+                        using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
+                        {
+                            rStreamWriter.WriteLine("Screenshot error");
+                            rStreamWriter.WriteLine();
+                            rStreamWriter.WriteLine(e.ToString());
+                        }
+                    }
+                    catch { }
                 }
             });
             r_Messages.Subscribe(CommunicatorMessages.FinishScreenshotTransmission, delegate

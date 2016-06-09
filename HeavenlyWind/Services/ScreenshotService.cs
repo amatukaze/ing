@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
@@ -46,6 +47,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             BrowserService.Instance.Communicator.Write(CommunicatorMessages.TakeScreenshot + ":" + rTimestamp.ToString());
 
             var rImage = await rTaskScreenshotTask.Task;
+            if (rImage == null)
+                throw new InvalidOperationException("No image data.");
 
             if (rpProcessAction != null)
                 rImage = rpProcessAction(rImage);
@@ -79,7 +82,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
             catch (Exception e)
             {
-                StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, e.Message);
+                OutputException(e);
             }
         }
         public async void TakePartialScreenshotAndOutput(Int32Rect rpRect, bool rpOutputToClipboard)
@@ -97,7 +100,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
             catch (Exception e)
             {
-                StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, e.Message);
+                OutputException(e);
             }
         }
 
@@ -186,6 +189,22 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
 
             BrowserService.Instance.Communicator.Write(CommunicatorMessages.FinishScreenshotTransmission);
+        }
+
+        static void OutputException(Exception rpException)
+        {
+            StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, rpException.Message);
+
+            try
+            {
+                using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
+                {
+                    rStreamWriter.WriteLine("Screenshot error");
+                    rStreamWriter.WriteLine();
+                    rStreamWriter.WriteLine(rpException.ToString());
+                }
+            }
+            catch { }
         }
     }
 }
