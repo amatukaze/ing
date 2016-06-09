@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 {
                     rpAction(r);
                 }
-                catch (SQLiteException e) when (e.ResultCode == SQLiteErrorCode.Error && !RecordService.Instance.ExecutingCommandText.IsNullOrEmpty())
+                catch (SQLiteException e) when (e.ResultCode == SQLiteErrorCode.Error && RecordService.Instance.HistoryCommandTexts.Count > 0)
                 {
                     RecordService.Instance.HandleException(r.Session, e);
                 }

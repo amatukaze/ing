@@ -43,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         int r_UserID;
         SQLiteConnection r_Connection;
 
-        internal string ExecutingCommandText { get; set; }
+        internal Queue<string> HistoryCommandTexts { get; } = new Queue<string>(6);
 
         public event Action<UpdateEventArgs> Update = delegate { };
 
@@ -64,7 +64,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 switch(e.EventType)
                 {
                     case SQLiteConnectionEventType.NewDataReader:
-                        ExecutingCommandText = e.Command.CommandText;
+                        HistoryCommandTexts.Enqueue(e.Command.CommandText);
+
+                        if (HistoryCommandTexts.Count > 5)
+                            HistoryCommandTexts.Dequeue();
+
                         break;
                 }
             };
@@ -198,9 +202,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     rStreamWriter.WriteLine("Exception:");
                     rStreamWriter.WriteLine(rException.ToString());
                     rStreamWriter.WriteLine();
+
+                    var rCommandTexts = HistoryCommandTexts.ToArray();
                     rStreamWriter.WriteLine("SQL:");
-                    rStreamWriter.WriteLine(ExecutingCommandText);
+                    for (var i = 0; i < rCommandTexts.Length; i++)
+                    {
+                        rStreamWriter.Write(i + 1);
+                        rStreamWriter.WriteLine(rCommandTexts[i]);
+                    }
                     rStreamWriter.WriteLine();
+
                     rStreamWriter.WriteLine(ApiParserManager.TokenRegex.Replace(rpSession.FullUrl, "***************************"));
                     rStreamWriter.WriteLine("Request Data:");
                     rStreamWriter.WriteLine(ApiParserManager.TokenRegex.Replace(rpSession.RequestBodyString, "***************************"));
