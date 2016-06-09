@@ -106,7 +106,7 @@
                                                     </StackPanel>
 
                                                     <TextBlock HorizontalAlignment="Right" Grid.Column="4">
-                                                        [<Run Name="Count" Text="{Binding Count, Mode=OneWay}" />/<Run Text="{Binding MaxCount, Mode=OneWay}" />]
+                                                        <Run Name="Count" Text="{Binding Count, Mode=OneWay}" />/<Run Text="{Binding MaxCount, Mode=OneWay}" />
                                                     </TextBlock>
                                                 </Grid>
 
@@ -116,7 +116,7 @@
                                                     </DataTrigger>
 
                                                     <DataTrigger Binding="{Binding NeedResupply}" Value="True">
-                                                        <Setter TargetName="Count" Property="Foreground" Value="Red" />
+                                                        <Setter TargetName="Count" Property="Foreground" Value="Orange" />
                                                     </DataTrigger>
                                                 </DataTemplate.Triggers>
                                             </DataTemplate>

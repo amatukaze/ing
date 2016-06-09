@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.ViewModels.Overviews;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Views.Overviews
 {
@@ -7,11 +8,20 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Overviews
     /// </summary>
     public partial class EquipmentOverviewWindow
     {
+        EquipmentOverviewViewModel r_ViewModel;
+
         public EquipmentOverviewWindow()
         {
             InitializeComponent();
 
-            DataContext = new EquipmentOverviewViewModel();
+            DataContext = r_ViewModel = new EquipmentOverviewViewModel();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            r_ViewModel?.Dispose();
+
+            base.OnClosed(e);
         }
     }
 }

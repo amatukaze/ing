@@ -24,7 +24,7 @@
             </StackPanel>
 
             <TextBlock Name="PlaneCount" HorizontalAlignment="Right" Grid.Column="4">
-                [<Run Name="CurrentPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
+                <Run Name="CurrentPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />
             </TextBlock>
         </Grid>
 
@@ -36,7 +36,7 @@
                 <Setter TargetName="PlaneCount" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
             <DataTrigger Binding="{Binding HasLostPlane}" Value="True">
-                <Setter TargetName="CurrentPlaneCount" Property="Foreground" Value="Red" />
+                <Setter TargetName="CurrentPlaneCount" Property="Foreground" Value="Orange" />
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>

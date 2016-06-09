@@ -37,11 +37,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (rState != 0)
             {
+                if (Expedition == null)
+                    foreach (var rShip in r_Fleet.Ships)
+                        rShip.State |= ShipState.Expedition;
+
                 Expedition = KanColleGame.Current.MasterInfo.Expeditions[rExpeditionID];
                 TimeToComplete = new DateTimeOffset?(DateTimeUtil.UnixEpoch.AddMilliseconds(rTimeToComplete));
             }
             else
             {
+                if (Expedition != null)
+                    foreach (var rShip in r_Fleet.Ships)
+                        rShip.State &= ~ShipState.Expedition;
+
                 Expedition = null;
                 TimeToComplete = null;
             }

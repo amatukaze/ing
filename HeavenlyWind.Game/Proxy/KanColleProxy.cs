@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
+using System.Linq;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
 
@@ -14,6 +15,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         static Regex r_FlashQualityRegex = new Regex("(\"quality\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Multiline);
         static Regex r_FlashRenderModeRegex = new Regex("(\"wmode\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Multiline);
+
+        static Regex r_SuppressReloadConfirmation = new Regex("(?<=if \\()confirm\\(\"エラーが発生したため、ページ更新します。\"\\)(?=\\) {)");
 
         static KanColleProxy()
         {
@@ -125,8 +128,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 }
 
                 if (rSession.FullUrl == GameConstants.GamePageUrl)
+                {
                     ForceOverrideStylesheet(rpSession);
 
+                    var rSource = rpSession.GetResponseBodyAsString();
+                    rSource = r_SuppressReloadConfirmation.Replace(rSource, "false");
+
+                    rpSession.utilSetResponseBody(rSource);
+                }
+
+                if (rpSession.oResponse.headers.Any(rHeader => rHeader.Name == "Content-Range"))
+                    System.Diagnostics.Debugger.Break();
             }
         }
 
@@ -169,7 +181,7 @@ body {
     left: 50%;
     top: -16px;
     margin-left: -450px;
-    z-index: 1;
+    z-index: 255;
 }
 </style></head>");
         }

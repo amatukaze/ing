@@ -279,6 +279,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Window_Layout_Portrait => GetString(nameof(PreferenceWindow_Window_Layout_Portrait));
         public string PreferenceWindow_Window_Layout_Game => GetString(nameof(PreferenceWindow_Window_Layout_Game));
         public string PreferenceWindow_Window_Layout_Information => GetString(nameof(PreferenceWindow_Window_Layout_Information));
+        public string PreferenceWindow_Window_Layout_AutoRotationNotSupported => GetString(nameof(PreferenceWindow_Window_Layout_AutoRotationNotSupported));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));
@@ -300,6 +301,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Notification_Sound_HeavilyDamagedWarning => GetString(nameof(PreferenceWindow_Notification_Sound_HeavilyDamagedWarning));
         public string PreferenceWindow_Notification_Sound_Slient => GetString(nameof(PreferenceWindow_Notification_Sound_Slient));
         public string PreferenceWindow_Notification_Sound_SystemSound => GetString(nameof(PreferenceWindow_Notification_Sound_SystemSound));
+        public string PreferenceWindow_Notification_SoundFileType => GetString(nameof(PreferenceWindow_Notification_SoundFileType));
         public string PreferenceWindow_Language => GetString(nameof(PreferenceWindow_Language));
         public string PreferenceWindow_Language_NameTranslation => GetString(nameof(PreferenceWindow_Language_NameTranslation));
         public string PreferenceWindow_Browser => GetString(nameof(PreferenceWindow_Browser));
@@ -330,6 +332,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string EquipmentOverview_Proficiency => GetString(nameof(EquipmentOverview_Proficiency));
         public string EquipmentOverview_EquippedCount => GetString(nameof(EquipmentOverview_EquippedCount));
         public string EquipmentOverview_EquippedShip => GetString(nameof(EquipmentOverview_EquippedShip));
+        public string EquipmentOverview_List_Loading => GetString(nameof(EquipmentOverview_List_Loading));
 
         public string ShipOverview_Type => GetString(nameof(ShipOverview_Type));
         public string ShipOverview_Name => GetString(nameof(ShipOverview_Name));
@@ -345,6 +348,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ShipOverview_LoS => GetString(nameof(ShipOverview_LoS));
         public string ShipOverview_RepairTime => GetString(nameof(ShipOverview_RepairTime));
         public string ShipOverview_Equipment => GetString(nameof(ShipOverview_Equipment));
+        public string ShipOverview_Filter_ExceptExpeditionShips => GetString(nameof(ShipOverview_Filter_ExceptExpeditionShips));
+        public string ShipOverview_Filter_ExceptSparklingShips => GetString(nameof(ShipOverview_Filter_ExceptSparklingShips));
+        public string ShipOverview_Filter_ExceptLevel1Ships => GetString(nameof(ShipOverview_Filter_ExceptLevel1Ships));
+        public string ShipOverview_List_Loading => GetString(nameof(ShipOverview_List_Loading));
 
         public string Record_Time => GetString(nameof(Record_Time));
         public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));

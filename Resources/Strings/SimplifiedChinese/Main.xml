@@ -271,10 +271,11 @@
   <String Key="PreferenceWindow_Window">窗口</String>
   <String Key="PreferenceWindow_Window_Font">字体</String>
   <String Key="PreferenceWindow_Window_Layout">布局</String>
-  <String Key="PreferenceWindow_Window_Layout_Landscape">横屏</String>
-  <String Key="PreferenceWindow_Window_Layout_Portrait">竖屏</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">屏幕横向显示</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">屏幕纵向显示</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">信息</String>
+  <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">该设备不支持屏幕自动旋转</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
@@ -296,6 +297,7 @@
   <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">音效 (大破警告)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">静音</String>
   <String Key="PreferenceWindow_Notification_Sound_SystemSound">系统音效</String>
+  <String Key="PreferenceWindow_Notification_SoundFileType">音频文件</String>
   <String Key="PreferenceWindow_Language">语言</String>
   <String Key="PreferenceWindow_Language_NameTranslation">名字翻译</String>
   <String Key="PreferenceWindow_Browser">浏览器</String>
@@ -326,6 +328,7 @@
   <String Key="EquipmentOverview_Proficiency">熟练度</String>
   <String Key="EquipmentOverview_EquippedCount">持有数</String>
   <String Key="EquipmentOverview_EquippedShip">装备的舰娘</String>
+  <String Key="EquipmentOverview_List_Loading">加载中</String>
 
   <String Key="ShipOverview_Type">舰种</String>
   <String Key="ShipOverview_Name">舰名</String>
@@ -341,6 +344,10 @@
   <String Key="ShipOverview_LoS">索敌</String>
   <String Key="ShipOverview_RepairTime">入渠时间</String>
   <String Key="ShipOverview_Equipment">装备</String>
+  <String Key="ShipOverview_Filter_ExceptExpeditionShips">排除远征中的舰娘</String>
+  <String Key="ShipOverview_Filter_ExceptSparklingShips">排除带闪的舰娘</String>
+  <String Key="ShipOverview_Filter_ExceptLevel1Ships">排除 Lv1 的舰娘</String>
+  <String Key="ShipOverview_List_Loading">加载中</String>
 
   <String Key="Record_Time">时间</String>
   <String Key="Record_SecretaryShip">秘书舰</String>

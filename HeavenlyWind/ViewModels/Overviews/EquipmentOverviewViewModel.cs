@@ -3,16 +3,35 @@ using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentOverviewViewModel : WindowViewModel
+    public class EquipmentOverviewViewModel : WindowViewModel, IDisposable
     {
+        Subject<Unit> r_UpdateObservable = new Subject<Unit>();
+        IDisposable r_UpdateSubscription;
+
+        bool r_IsLoading;
+        public bool IsLoading
+        {
+            get { return r_IsLoading; }
+            private set
+            {
+                if (r_IsLoading != value)
+                {
+                    r_IsLoading = value;
+                    OnPropertyChanged(nameof(IsLoading));
+                }
+            }
+        }
+
         Dictionary<EquipmentIconType, EquipmentTypeViewModel> r_TypeMap;
         public IList<EquipmentTypeViewModel> Types { get; }
 
-        bool? r_SelectAllTypes = true;
+        bool? r_SelectAllTypes = false;
         public bool? SelectAllTypes
         {
             get { return r_SelectAllTypes; }
@@ -41,7 +60,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 
-            Task.Run(new Action(UpdateCore));
+            r_UpdateSubscription = r_UpdateObservable.Do(_ => IsLoading = true).Throttle(TimeSpan.FromSeconds(.75)).Subscribe(_ => UpdateCore());
+        }
+
+        public void Dispose()
+        {
+            if (r_UpdateSubscription != null)
+            {
+                r_UpdateSubscription.Dispose();
+                r_UpdateSubscription = null;
+            }
         }
 
         void UpdateSelection()
@@ -56,29 +84,35 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             else
                 r_SelectAllTypes = null;
 
-            UpdateFilterResult();
+            r_UpdateObservable.OnNext(Unit.Default);
             OnPropertyChanged(nameof(SelectAllTypes));
         }
 
         void UpdateCore()
         {
-            var rGame = KanColleGame.Current;
-            var rShips = rGame.Port.Ships.Values;
+            if (r_SelectAllTypes.HasValue && !r_SelectAllTypes.Value)
+                Equipment = null;
+            else
+            {
+                var rGame = KanColleGame.Current;
+                var rShips = rGame.Port.Ships.Values;
 
-            r_EquipmentMap = rGame.Port.Equipment.Values.GroupBy(r => r.Info).OrderBy(r => r.Key.Type).ThenBy(r => r.Key.ID)
-                .ToDictionary(r => r.Key, r => new EquipmentGroupByMasterID(r.Key, r_TypeMap[r.Key.Icon], r));
+                r_EquipmentMap = rGame.Port.Equipment.Values.GroupBy(r => r.Info).Where(r => r_TypeMap[r.Key.Icon].IsSelected).OrderBy(r => r.Key.Type).ThenBy(r => r.Key.ID)
+                    .ToDictionary(r => r.Key, r => new EquipmentGroupByMasterID(r.Key, r_TypeMap[r.Key.Icon], r));
 
-            foreach (var rShip in rShips)
-                foreach (var rEquipment in rShip.EquipedEquipment)
-                    r_EquipmentMap[rEquipment.Info].Update(rShip, new EquipmentGroupingKey(rEquipment.Level, rEquipment.Proficiency));
+                foreach (var rShip in rShips)
+                    foreach (var rEquipment in rShip.EquipedEquipment)
+                    {
+                        EquipmentGroupByMasterID rGroup;
+                        if (r_EquipmentMap.TryGetValue(rEquipment.Info, out rGroup))
+                            rGroup.Update(rShip, new EquipmentGroupingKey(rEquipment.Level, rEquipment.Proficiency));
+                    }
 
-            UpdateFilterResult();
-        }
+                Equipment = r_EquipmentMap.Values.Where(r => r.Type.IsSelected).ToArray().AsReadOnly();
+            }
 
-        void UpdateFilterResult()
-        {
-            Equipment = r_EquipmentMap.Values.Where(r => r.Type.IsSelected).ToArray().AsReadOnly();
             OnPropertyChanged(nameof(Equipment));
+            IsLoading = false;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public IList<IParticipant> Ships { get; private set; }
 
         public int Experience { get; private set; }
-        public int? ExperienceBonus { get; private set; }
+        public int ExperienceSRank { get; private set; }
 
         internal PracticeOpponentInfo(RawPracticeOpponentInfo rpRawData) : base(rpRawData)
         {
@@ -44,11 +44,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rExperience = 500.0 + Math.Sqrt(rExperience - 500.0);
 
             Experience = (int)rExperience;
+            ExperienceSRank = (int)(Experience * 1.2);
+
+            CalcultateExperienceBonusFromCLP();
 
             OnPropertyChanged(nameof(Ships));
             OnPropertyChanged(nameof(Experience));
-
-            CalcultateExperienceBonusFromCLP();
+            OnPropertyChanged(nameof(ExperienceSRank));
         }
 
         void CalcultateExperienceBonusFromCLP()
@@ -121,9 +123,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     rBonus = .175;
             }
 
-            ExperienceBonus = (int)(Experience * rBonus);
-
-            OnPropertyChanged(nameof(ExperienceBonus));
+            var rExperienceBonus = (int)(Experience * rBonus);
+            Experience += rExperienceBonus;
+            ExperienceSRank += rExperienceBonus;
         }
     }
 }

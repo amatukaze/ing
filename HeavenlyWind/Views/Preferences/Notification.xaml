@@ -42,7 +42,7 @@
         </RadioButton>
         <DockPanel Margin="0, 6, 0, 0">
             <RadioButton Name="CustomSound" GroupName="Sound" IsChecked="{rb:Preference Notification.Sound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Custom}}" />
-            <Button Content="..." IsEnabled="{Binding IsChecked, ElementName=CustomSound}" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
+            <Button Content="..." Command="{Binding OpenCustomSoundFileDialogCommand}" CommandParameter="General" IsEnabled="{Binding IsChecked, ElementName=CustomSound}" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
             <TextBox Text="{rb:Preference Notification.SoundFilename}" IsEnabled="{Binding IsChecked, ElementName=CustomSound}" Margin="6, 0, 0, 0" />
         </DockPanel>
 
@@ -56,7 +56,7 @@
         </RadioButton>
         <DockPanel  Margin="0, 6, 0, 0">
             <RadioButton Name="CustomSoundHD" GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavilyDamagedWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Custom}}" />
-            <Button Content="..." IsEnabled="{Binding IsChecked, ElementName=CustomSoundHD}" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
+            <Button Content="..." Command="{Binding OpenCustomSoundFileDialogCommand}" CommandParameter="HeavilyDamaged" IsEnabled="{Binding IsChecked, ElementName=CustomSoundHD}" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
             <TextBox Text="{rb:Preference Notification.HeavilyDamagedWarningSoundFilename}" IsEnabled="{Binding IsChecked, ElementName=CustomSoundHD}" Margin="6, 0, 0, 0" />
         </DockPanel>
     </StackPanel>

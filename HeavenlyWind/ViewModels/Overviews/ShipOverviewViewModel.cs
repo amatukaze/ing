@@ -5,17 +5,36 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class ShipOverviewViewModel : WindowViewModel
+    public class ShipOverviewViewModel : WindowViewModel, IDisposable
     {
+        Subject<Unit> r_UpdateObservable = new Subject<Unit>();
+        IDisposable r_UpdateSubscription;
+
+        bool r_IsLoading;
+        public bool IsLoading
+        {
+            get { return r_IsLoading; }
+            private set
+            {
+                if (r_IsLoading != value)
+                {
+                    r_IsLoading = value;
+                    OnPropertyChanged(nameof(IsLoading));
+                }
+            }
+        }
+
         Dictionary<ShipTypeInfo, ShipTypeViewModel> r_TypeMap;
         public IReadOnlyCollection<ShipTypeViewModel> Types { get; }
 
-        bool? r_SelectAllTypes = true;
+        bool? r_SelectAllTypes = false;
         public bool? SelectAllTypes
         {
             get { return r_SelectAllTypes; }
@@ -44,12 +63,66 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         public int ShipLockingColumnWidth => ShipLockingService.Instance?.ShipLocking?.Count > 0 && KanColleGame.Current.MasterInfo.EventMapCount > 0 ? 30 : 0;
 
+        bool r_ExceptExpeditionShips;
+        public bool ExceptExpeditionShips
+        {
+            get { return r_ExceptExpeditionShips; }
+            set
+            {
+                if(r_ExceptExpeditionShips != value)
+                {
+                    r_ExceptExpeditionShips = value;
+                    OnPropertyChanged(nameof(ExceptExpeditionShips));
+                    r_UpdateObservable.OnNext(Unit.Default);
+                }
+            }
+        }
+
+        bool r_ExceptSparklingShips;
+        public bool ExceptSparklingShips
+        {
+            get { return r_ExceptSparklingShips; }
+            set
+            {
+                if (r_ExceptSparklingShips != value)
+                {
+                    r_ExceptSparklingShips = value;
+                    OnPropertyChanged(nameof(ExceptSparklingShips));
+                    r_UpdateObservable.OnNext(Unit.Default);
+                }
+            }
+        }
+
+        bool r_ExceptLevel1Ships;
+        public bool ExceptLevel1Ships
+        {
+            get { return r_ExceptLevel1Ships; }
+            set
+            {
+                if (r_ExceptLevel1Ships != value)
+                {
+                    r_ExceptLevel1Ships = value;
+                    OnPropertyChanged(nameof(ExceptLevel1Ships));
+                    r_UpdateObservable.OnNext(Unit.Default);
+                }
+            }
+        }
+
         internal ShipOverviewViewModel()
         {
-            r_TypeMap = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 15).ToDictionary(r => r, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
+            r_TypeMap = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 12 && r.ID != 15).ToDictionary(IdentityFunction<ShipTypeInfo>.Instance, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 
-            Task.Run(new Action(UpdateCore));
+            r_UpdateSubscription = r_UpdateObservable.Do(_ => IsLoading = true).Throttle(TimeSpan.FromSeconds(.75)).Subscribe(_ => UpdateCore());
+        }
+
+        public void Dispose()
+        {
+            if (r_UpdateSubscription != null)
+            {
+                r_UpdateSubscription.Dispose();
+                r_UpdateSubscription = null;
+            }
         }
 
         internal void Sort(GridViewColumnHeader rpColumnHeader)
@@ -59,7 +132,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                 return;
 
             r_SortingColumn = rColumn;
-            Task.Run(new Action(UpdateCore));
+            r_UpdateObservable.OnNext(Unit.Default);
         }
 
         void UpdateSelection()
@@ -74,77 +147,87 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             else
                 r_SelectAllTypes = null;
 
-            Task.Run(new Action(UpdateCore));
+            r_UpdateObservable.OnNext(Unit.Default);
             OnPropertyChanged(nameof(SelectAllTypes));
         }
 
         void UpdateCore()
         {
-            r_Ships = KanColleGame.Current.Port.Ships.Values.Select(r =>
+            if (r_SelectAllTypes.HasValue && !r_SelectAllTypes.Value)
+                Ships = null;
+            else
             {
-                ShipViewModel rResult;
-                if (!r_ShipVMs.TryGetValue(r.ID, out rResult))
-                    rResult = new ShipViewModel(r, r_TypeMap[r.Info.Type]);
+                r_Ships = KanColleGame.Current.Port.Ships.Values.Select(r =>
+                {
+                    ShipViewModel rResult;
+                    if (!r_ShipVMs.TryGetValue(r.ID, out rResult))
+                        rResult = new ShipViewModel(r, r_TypeMap[r.Info.Type]);
 
-                return rResult;
-            }).ToArray();
+                    return rResult;
+                }).ToArray();
 
-            var rShips = r_Ships.Where(r => r.Type.IsSelected);
-            switch (r_SortingColumn)
-            {
-                case "ID":
-                    rShips = rShips.OrderBy(r => r.Ship.ID);
-                    break;
+                var rShips = r_Ships.Where(r => r.Type.IsSelected)
+                    .Where(r => !ExceptExpeditionShips || (r.Ship.State & ShipState.Expedition) == 0)
+                    .Where(r => !ExceptSparklingShips || (r.Ship.Condition < 50))
+                    .Where(r => !ExceptLevel1Ships || (r.Ship.Level > 1));
+                switch (r_SortingColumn)
+                {
+                    case "ID":
+                        rShips = rShips.OrderBy(r => r.Ship.ID);
+                        break;
 
-                case "Name":
-                    rShips = rShips.OrderBy(r => r.Ship.Info.Name);
-                    break;
+                    case "Name":
+                        rShips = rShips.OrderBy(r => r.Ship.Info.Name);
+                        break;
 
-                case "ShipLocking":
-                    rShips = rShips.OrderByDescending(r => r.Ship.RawData.LockingTag != 0).ThenBy(r => r.Ship.RawData.LockingTag);
-                    break;
+                    case "ShipLocking":
+                        rShips = rShips.OrderByDescending(r => r.Ship.RawData.LockingTag != 0).ThenBy(r => r.Ship.RawData.LockingTag);
+                        break;
 
-                case "Level":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Level).ThenBy(r => r.Ship.ExperienceToNextLevel);
-                    break;
+                    case "Level":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Level).ThenBy(r => r.Ship.ExperienceToNextLevel);
+                        break;
 
-                case "Condition":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Condition);
-                    break;
+                    case "Condition":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Condition);
+                        break;
 
-                case "Firepower":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Status.FirepowerBase.Current);
-                    break;
-                case "Torpedo":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Status.TorpedoBase.Current);
-                    break;
-                case "AA":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Status.AABase.Current);
-                    break;
-                case "Armor":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Status.ArmorBase.Current);
-                    break;
-                case "Luck":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Status.LuckBase.Current);
-                    break;
+                    case "Firepower":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Status.FirepowerBase.Current);
+                        break;
+                    case "Torpedo":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Status.TorpedoBase.Current);
+                        break;
+                    case "AA":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Status.AABase.Current);
+                        break;
+                    case "Armor":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Status.ArmorBase.Current);
+                        break;
+                    case "Luck":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Status.LuckBase.Current);
+                        break;
 
-                case "Evasion":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Status.Evasion);
-                    break;
-                case "ASW":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Status.ASW);
-                    break;
-                case "LoS":
-                    rShips = rShips.OrderByDescending(r => r.Ship.Status.LoS);
-                    break;
+                    case "Evasion":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Status.Evasion);
+                        break;
+                    case "ASW":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Status.ASW);
+                        break;
+                    case "LoS":
+                        rShips = rShips.OrderByDescending(r => r.Ship.Status.LoS);
+                        break;
 
-                case "RepairTime":
-                    rShips = rShips.OrderByDescending(r => r.Ship.RepairTime);
-                    break;
+                    case "RepairTime":
+                        rShips = rShips.OrderByDescending(r => r.Ship.RepairTime);
+                        break;
+                }
+
+                Ships = rShips.ToArray().AsReadOnly();
             }
 
-            Ships = rShips.ToArray().AsReadOnly();
             OnPropertyChanged(nameof(Ships));
+            IsLoading = false;
         }
     }
 }

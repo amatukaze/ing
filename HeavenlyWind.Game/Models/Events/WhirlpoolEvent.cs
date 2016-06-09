@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
@@ -12,9 +13,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         internal WhirlpoolEvent(RawMapExploration rpData) : base(rpData)
         {
-            var rShips = KanColleGame.Current.Port.Fleets.Table.Values
-                .Where(r => (r.State & FleetState.Sortie) == FleetState.Sortie)
-                .SelectMany(r => r.Ships);
+            var rSortie = SortieInfo.Current;
+            IEnumerable<Ship> rShips = rSortie.Fleet.Ships;
+            if (rSortie.EscortFleet != null)
+                rShips = rShips.Concat(rSortie.EscortFleet.Ships);
+
             var rMaxAmount = (double)rShips.Max(r => LostMaterial == MaterialType.Fuel ? r.Fuel.Current : r.Bullet.Current);
             var rReducedRate = Amount / rMaxAmount;
 

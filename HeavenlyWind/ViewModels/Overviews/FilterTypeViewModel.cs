@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         public Action IsSelectedChangedCallback { get; internal set; }
 
-        bool r_IsSelected = true;
+        bool r_IsSelected;
         public bool IsSelected
         {
             get { return r_IsSelected; }

@@ -4,6 +4,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models
 {
     public class Power : ModelBase
     {
+        public bool IsBatteryPresent => PowerManager.IsBatteryPresent;
+
         PowerSource r_Source;
         public PowerSource Source
         {
@@ -36,8 +38,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models
         {
             if (OS.IsWin7OrLater)
             {
-                PowerMonitor.PowerSourceChanged += r => Source = r;
-                PowerMonitor.BatteryRemainingPercentageChanged += r => BatteryRemainingPercentage = r;
+                PowerManager.PowerSourceChanged += r => Source = r;
+                PowerManager.BatteryRemainingPercentageChanged += r => BatteryRemainingPercentage = r;
             }
         }
     }

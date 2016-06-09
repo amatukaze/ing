@@ -85,6 +85,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     rShip.InstallReinforcementExpansion();
             });
 
+            SessionService.Instance.Subscribe("api_req_kaisou/slot_deprive", r =>
+            {
+                var rData = r.GetData<RawEquipmentRelocationResult>();
+
+                var rDestionationShip = Ships[rData.Ships.Destination.ID];
+                var rOriginShip = Ships[rData.Ships.Origin.ID];
+
+                rDestionationShip.Update(rData.Ships.Destination);
+                rOriginShip.Update(rData.Ships.Origin);
+
+                rDestionationShip.OwnerFleet?.Update();
+                rOriginShip.OwnerFleet?.Update();
+
+                if (rData.UnequippedEquipment != null)
+                    UnequippedEquipment[rData.UnequippedEquipment.Type] = rData.UnequippedEquipment.IDs.Select(rpID => Equipment[rpID]).ToArray();
+            });
+
             SessionService.Instance.Subscribe("api_req_kaisou/powerup", r =>
             {
                 var rShipID = int.Parse(r.Parameters["api_id"]);

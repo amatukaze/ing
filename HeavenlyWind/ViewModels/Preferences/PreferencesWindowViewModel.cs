@@ -1,8 +1,12 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Plugins;
+using Sakuno.SystemInterop.Dialogs;
+using Sakuno.UserInterface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
@@ -15,6 +19,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
 
         public IList<PluginViewModel> LoadedPlugins { get; }
 
+        public bool IsAutoRotationSupported => CurrentDockExtension.IsAutoRotationSupported;
+
+        public ICommand OpenScreenshotFolderPickerCommand { get; }
+
+        public ICommand OpenCustomSoundFileDialogCommand { get; }
+
         PreferencesWindowViewModel()
         {
             var rSystemFonts = Fonts.SystemFontFamilies.Select(r => new SystemFont(r)).ToList();
@@ -25,6 +35,41 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
             SystemFonts = rSystemFonts.AsReadOnly();
 
             LoadedPlugins = PluginService.Instance.LoadedPlugins.Select(r => new PluginViewModel(r)).ToList().AsReadOnly();
+
+            OpenScreenshotFolderPickerCommand = new DelegatedCommand(() => GetFilenameWithCommonFolderPicker(r => Preference.Current.Browser.Screenshot.Destination = r));
+
+            OpenCustomSoundFileDialogCommand = new DelegatedCommand<string>(rpType =>
+            {
+                using (var rDialog = new CommonOpenFileDialog())
+                {
+                    rDialog.FileTypes.Add(new CommonFileDialogFileType(StringResources.Instance.Main.PreferenceWindow_Notification_SoundFileType, "wav;mp3;aac;wma"));
+
+                    if (rDialog.Show() == CommonFileDialogResult.OK)
+                    {
+                        var rFilename = rDialog.Filename;
+
+                        switch (rpType)
+                        {
+                            case "General":
+                                Preference.Current.Notification.SoundFilename = rFilename;
+                                break;
+
+                            case "HeavilyDamaged":
+                                Preference.Current.Notification.HeavilyDamagedWarningSoundFilename = rFilename;
+                                break;
+                        }
+                    }
+                }
+            });
+        }
+
+        void GetFilenameWithCommonFolderPicker(Action<string> rpContinuation)
+        {
+            using (var rFolderPicker = new CommonOpenFileDialog() { FolderPicker = true })
+            {
+                if (rFolderPicker.Show() == CommonFileDialogResult.OK)
+                    rpContinuation(rFolderPicker.Filename);
+            }
         }
     }
 }
