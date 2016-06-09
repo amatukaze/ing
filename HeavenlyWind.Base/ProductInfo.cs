@@ -5,7 +5,7 @@
         public const string AppName = "いんてりじぇんと連装砲くん";
         public const string ProductName = "Intelligent Naval Gun";
 
-        public const string AssemblyVersionString = "0.1.10.4";
+        public const string AssemblyVersionString = "0.1.10.5";
 
         public static string Version => AssemblyVersionString;
         public static string ReleaseCodeName => "Tiramisu";
