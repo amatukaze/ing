@@ -4,13 +4,25 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class CachePreference
+    public class CachePreference : ModelBase
     {
         [JsonProperty("mode")]
         public CacheMode Mode { get; set; }
 
+        string r_Path = "Cache";
         [JsonProperty("path")]
-        public string Path { get; set; } = "Cache";
+        public string Path
+        {
+            get { return r_Path; }
+            set
+            {
+                if (r_Path != value)
+                {
+                    r_Path = value;
+                    OnPropertyChanged(nameof(Path));
+                }
+            }
+        }
 
         public CachePreference()
         {

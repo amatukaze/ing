@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
 
         public bool IsAutoRotationSupported => CurrentDockExtension.IsAutoRotationSupported;
 
-        public ICommand OpenScreenshotFolderPickerCommand { get; }
+        public ICommand OpenFolderPickerCommand { get; }
 
         public ICommand OpenCustomSoundFileDialogCommand { get; }
 
@@ -36,7 +36,27 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
 
             LoadedPlugins = PluginService.Instance.LoadedPlugins.Select(r => new PluginViewModel(r)).ToList().AsReadOnly();
 
-            OpenScreenshotFolderPickerCommand = new DelegatedCommand(() => GetFilenameWithCommonFolderPicker(r => Preference.Current.Browser.Screenshot.Destination = r));
+            OpenFolderPickerCommand = new DelegatedCommand<string>(rpType =>
+            {
+                using (var rFolderPicker = new CommonOpenFileDialog() { FolderPicker = true })
+                {
+                    if (rFolderPicker.Show() == CommonFileDialogResult.OK)
+                    {
+                        var rPath = rFolderPicker.Filename;
+
+                        switch (rpType)
+                        {
+                            case "Cache":
+                                Preference.Current.Cache.Path = rPath;
+                                break;
+
+                            case "Screenshot":
+                                Preference.Current.Browser.Screenshot.Destination = rPath;
+                                break;
+                        }
+                    }
+                }
+            });
 
             OpenCustomSoundFileDialogCommand = new DelegatedCommand<string>(rpType =>
             {
@@ -61,15 +81,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
                     }
                 }
             });
-        }
-
-        void GetFilenameWithCommonFolderPicker(Action<string> rpContinuation)
-        {
-            using (var rFolderPicker = new CommonOpenFileDialog() { FolderPicker = true })
-            {
-                if (rFolderPicker.Show() == CommonFileDialogResult.OK)
-                    rpContinuation(rFolderPicker.Filename);
-            }
         }
     }
 }

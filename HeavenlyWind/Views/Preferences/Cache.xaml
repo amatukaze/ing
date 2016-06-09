@@ -22,7 +22,7 @@
 
         <DockPanel Margin="0, 12, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Cache_Path}" />
-            <Button Content="..." Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
+            <Button Content="..." Command="{Binding OpenFolderPickerCommand}" CommandParameter="Cache" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
             <TextBox Text="{rb:Preference Cache.Path}" Margin="6, 0, 0, 0" />
         </DockPanel>
     </StackPanel>

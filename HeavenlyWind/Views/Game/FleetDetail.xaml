@@ -147,7 +147,7 @@
                                             </Grid.RowDefinitions>
 
                                             <rc:MaterialIcon Type="Fuel" />
-                                            <TextBlock TextAlignment="Right" Margin="4, 2" Grid.Column="1">
+                                            <TextBlock Name="FuelToolTipText" TextAlignment="Right" Margin="4, 2" Grid.Column="1">
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0}/{1}">
                                                         <Binding Path="Fuel.Current" />
@@ -157,7 +157,7 @@
                                             </TextBlock>
 
                                             <rc:MaterialIcon Type="Bullet" Grid.Row="1" />
-                                            <TextBlock TextAlignment="Right" Margin="4, 2" Grid.Column="1" Grid.Row="1">
+                                            <TextBlock Name="BulletToolTipText" TextAlignment="Right" Margin="4, 2" Grid.Column="1" Grid.Row="1">
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0}/{1}">
                                                         <Binding Path="Bullet.Current" />
@@ -223,6 +223,25 @@
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=20}" Value="True">
                             <Setter TargetName="Condition" Property="Foreground" Value="Red" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding IsMarried}" Value="True">
+                            <Setter TargetName="FuelToolTipText" Property="Text">
+                                <Setter.Value>
+                                    <MultiBinding StringFormat="{}{0}/{1}">
+                                        <Binding Path="Fuel.Current" Converter="{StaticResource MultiplyConverter}" ConverterParameter="0.85" />
+                                        <Binding Path="Info.MaxFuelConsumption" Converter="{StaticResource MultiplyConverter}" ConverterParameter="0.85" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="BulletToolTipText" Property="Text">
+                                <Setter.Value>
+                                    <MultiBinding StringFormat="{}{0}/{1}">
+                                        <Binding Path="Bullet.Current" Converter="{StaticResource MultiplyConverter}" ConverterParameter="0.85" />
+                                        <Binding Path="Info.MaxBulletConsumption" Converter="{StaticResource MultiplyConverter}" ConverterParameter="0.85" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding ExtraSlot}" Value="{x:Null}">
