@@ -102,6 +102,7 @@
     <Compile Include="Models\ScreenshotImageFormat.cs" />
     <Compile Include="Models\UpdateChannel.cs" />
     <Compile Include="Models\UpdateNotificationMode.cs" />
+    <Compile Include="MultiplyConverter.cs" />
     <Compile Include="MultiplyExtension.cs" />
     <Compile Include="Preference.cs" />
     <Compile Include="Preference.Data.cs" />
