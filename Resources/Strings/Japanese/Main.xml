@@ -232,8 +232,7 @@
   <String Key="Quest_NoData">ゲーム内で「任務(クエスト)」画面を開いて、任務一覧を取得してください</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Once" />
-  <String Key="Quest_Type_Special1">日</String>
-  <String Key="Quest_Type_Special2">日</String>
+  <String Key="Quest_Type_Special">日</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>
   <String Key="Quest_Type_Monthly">月</String>
@@ -246,6 +245,10 @@
   <String Key="Quest_Category_Modernization">改装</String>
   <String Key="Quest_Category_Sortie2">出撃</String>
   <String Key="Quest_State_Completed">達成</String>
+  <String Key="Quest_Requirement_OperationAGo_Sortie">出撃</String>
+  <String Key="Quest_Requirement_OperationAGo_SRankVictory">S 勝利</String>
+  <String Key="Quest_Requirement_OperationAGo_BossEncounter">ボス</String>
+  <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">ボス勝利</String>
 
   <String Key="ExpeditionOverview_Time">時間</String>
   <String Key="ExpeditionOverview_Consumption">消費</String>

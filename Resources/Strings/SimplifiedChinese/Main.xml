@@ -232,8 +232,7 @@
   <String Key="Quest_NoData">请打开游戏中的「任務(クエスト)」获取任务信息</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Once" />
-  <String Key="Quest_Type_Special1">日</String>
-  <String Key="Quest_Type_Special2">日</String>
+  <String Key="Quest_Type_Special">日</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">周</String>
   <String Key="Quest_Type_Monthly">月</String>
@@ -246,6 +245,10 @@
   <String Key="Quest_Category_Modernization">改装</String>
   <String Key="Quest_Category_Sortie2">出击</String>
   <String Key="Quest_State_Completed">达成</String>
+  <String Key="Quest_Requirement_OperationAGo_Sortie">出击</String>
+  <String Key="Quest_Requirement_OperationAGo_SRankVictory">S 胜</String>
+  <String Key="Quest_Requirement_OperationAGo_BossEncounter">Boss</String>
+  <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">Boss 战胜利</String>
 
   <String Key="ExpeditionOverview_Time">时间</String>
   <String Key="ExpeditionOverview_Consumption">消费</String>

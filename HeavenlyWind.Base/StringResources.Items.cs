@@ -236,8 +236,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_NoData => GetString(nameof(Quest_NoData));
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
         public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
-        public string Quest_Type_Special1 => GetString(nameof(Quest_Type_Special1));
-        public string Quest_Type_Special2 => GetString(nameof(Quest_Type_Special2));
+        public string Quest_Type_Special => GetString(nameof(Quest_Type_Special));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));
         public string Quest_Type_Monthly => GetString(nameof(Quest_Type_Monthly));
@@ -250,6 +249,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Category_Modernization => GetString(nameof(Quest_Category_Modernization));
         public string Quest_Category_Sortie2 => GetString(nameof(Quest_Category_Sortie2));
         public string Quest_State_Completed => GetString(nameof(Quest_State_Completed));
+        public string Quest_Requirement_OperationAGo_Sortie => GetString(nameof(Quest_Requirement_OperationAGo_Sortie));
+        public string Quest_Requirement_OperationAGo_SRankVictory => GetString(nameof(Quest_Requirement_OperationAGo_SRankVictory));
+        public string Quest_Requirement_OperationAGo_BossEncounter => GetString(nameof(Quest_Requirement_OperationAGo_BossEncounter));
+        public string Quest_Requirement_OperationAGo_BossBattleVictory => GetString(nameof(Quest_Requirement_OperationAGo_BossBattleVictory));
 
         public string ExpeditionOverview_Time => GetString(nameof(ExpeditionOverview_Time));
         public string ExpeditionOverview_Consumption => GetString(nameof(ExpeditionOverview_Consumption));

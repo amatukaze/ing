@@ -6,7 +6,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
     public class ProgressInfo : ModelBase
     {
         public QuestInfo Quest { get; }
-        public QuestType ResetType { get; }
+
+        QuestType r_ResetType;
+        public QuestType ResetType
+        {
+            get { return r_ResetType; }
+            internal set
+            {
+                if (r_ResetType != value)
+                {
+                    r_ResetType = value;
+
+                    RecordService.Instance.QuestProgress.UpdateResetType(this);
+                }
+            }
+        }
 
         QuestState r_State;
         public QuestState State
@@ -47,6 +61,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
         }
         public int DisplayProgress => Progress + Quest.StartFrom;
 
+        double r_Percentage;
+        public double Percentage
+        {
+            get { return r_Percentage; }
+            internal set
+            {
+                if (r_Percentage != value)
+                {
+                    r_Percentage = value;
+                    OnPropertyChanged(nameof(Percentage));
+                }
+            }
+        }
+
         public DateTimeOffset UpdateTime { get; internal set; }
 
         internal ProgressInfo(int rpID, QuestType rpResetType, QuestState rpState, int rpProgress) : this(rpID, rpResetType, rpState, rpProgress, DateTimeOffset.Now) { }
@@ -58,7 +86,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             else
                 Quest = new QuestInfo(rpID);
 
-            ResetType = rpResetType;
+            r_ResetType = rpResetType;
 
             r_State = rpState;
             r_Progress = rpProgress;

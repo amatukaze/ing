@@ -232,8 +232,7 @@
   <String Key="Quest_NoData">Please open the "Quests" menu in the game to populate the quest list</String>
   <String Key="Quest_Unknown">?????</String>
   <String Key="Quest_Type_Once" />
-  <String Key="Quest_Type_Special1">D</String>
-  <String Key="Quest_Type_Special2">D</String>
+  <String Key="Quest_Type_Special">D</String>
   <String Key="Quest_Type_Daily">D</String>
   <String Key="Quest_Type_Weekly">W</String>
   <String Key="Quest_Type_Monthly">M</String>
@@ -246,6 +245,10 @@
   <String Key="Quest_Category_Modernization">Modernization</String>
   <String Key="Quest_Category_Sortie2">Sortie</String>
   <String Key="Quest_State_Completed">Completed</String>
+  <String Key="Quest_Requirement_OperationAGo_Sortie">Sortie</String>
+  <String Key="Quest_Requirement_OperationAGo_SRankVictory">S-Rank Victory</String>
+  <String Key="Quest_Requirement_OperationAGo_BossEncounter">Boss Encounter</String>
+  <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">Boss Battle Victory</String>
 
   <String Key="ExpeditionOverview_Time">Time</String>
   <String Key="ExpeditionOverview_Consumption">Consumption</String>

@@ -42,6 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                         r_Infos = new IDTable<ExpeditionInfo2>();
 
                     r_InitializationLock.Set();
+                    r_InitializationLock.Dispose();
                     r_InitializationLock = null;
                 }
             });

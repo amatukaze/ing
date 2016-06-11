@@ -16,6 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         public bool IsInitialized { get; private set; }
 
+        public bool IsBossBattle { get; }
         public bool IsPractice { get; }
 
         public BattleParticipants Participants { get; } = new BattleParticipants();
@@ -81,12 +82,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             CurrentStage = new FakeStage(this);
             OnPropertyChanged(nameof(CurrentStage));
 
+            IsBossBattle = rpData.NodeEventType == SortieEventType.BossBattle;
+
             if ((BattleType)rpData.NodeEventSubType == BattleType.Normal)
             {
                 var rSupportFleets = KanColleGame.Current.Port.Fleets.Table.Values
                     .Where(r => r.ExpeditionStatus.Expedition != null && !r.ExpeditionStatus.Expedition.CanReturn)
                     .Select(r => r.ExpeditionStatus.Expedition)
-                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (rpData.NodeEventType != SortieEventType.BossBattle ? 15 : 30));
+                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (!IsBossBattle ? 15 : 30));
 
                 IsSupportFleetReady = rSupportFleets != null;
             }

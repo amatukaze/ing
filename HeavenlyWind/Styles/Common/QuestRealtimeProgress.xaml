@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:ia="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                     xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
 
     <Style x:Key="QuestRealtimeProgress" TargetType="{x:Type Control}">
@@ -29,6 +30,64 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Quest.ID}" Value="214">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Border Background="Transparent">
+                                <Border.ToolTip>
+                                    <Grid TextElement.FontSize="14">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="4" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_Sortie}" />
+                                        <TextBlock HorizontalAlignment="Right" Grid.Column="2">
+                                            <Run Text="{rb:BitMask Progress, 63, 0}" Foreground="Yellow" />
+                                            <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" />
+                                            <Run Text="36" FontSize="12" Foreground="{DynamicResource ForegroundBrushKey}" />
+                                        </TextBlock>
+
+                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_SRankVictory}" />
+                                        <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1">
+                                            <Run Text="{rb:BitMask Progress, 7, 6}" Foreground="Yellow" />
+                                            <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" />
+                                            <Run Text="6" FontSize="12" Foreground="{DynamicResource ForegroundBrushKey}" />
+                                        </TextBlock>
+
+                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_BossEncounter}" />
+                                        <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2">
+                                            <Run Text="{rb:BitMask Progress, 31, 9}" Foreground="Yellow" />
+                                            <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" />
+                                            <Run Text="24" FontSize="12" Foreground="{DynamicResource ForegroundBrushKey}" />
+                                        </TextBlock>
+
+                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_BossBattleVictory}" />
+                                        <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3">
+                                            <Run Text="{rb:BitMask Progress, 15, 14}" Foreground="Yellow" />
+                                            <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" />
+                                            <Run Text="12" FontSize="12" Foreground="{DynamicResource ForegroundBrushKey}" />
+                                        </TextBlock>
+                                    </Grid>
+                                </Border.ToolTip>
+
+                                <TextBlock Text="{Binding Percentage, StringFormat=P0}" HorizontalAlignment="Right" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <Style x:Key="QuestRealtimeProgressController" TargetType="{x:Type Control}">

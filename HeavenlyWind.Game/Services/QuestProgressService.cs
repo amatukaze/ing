@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using QuestClass = Sakuno.KanColle.Amatsukaze.Game.Models.Quest;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
@@ -21,6 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public IDictionary<int, ProgressInfo> Progresses { get; private set; }
 
         internal Dictionary<int, QuestInfo> Infos { get; set; }
+        ManualResetEventSlim r_InitializationLock = new ManualResetEventSlim(false);
 
         DateTimeOffset r_LastProcessTime;
 
@@ -42,16 +44,47 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                         Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
                     }
+
+                new QuestInfo(214);
+
+                if (r_InitializationLock != null)
+                {
+                    r_InitializationLock.Set();
+                    r_InitializationLock.Dispose();
+                    r_InitializationLock = null;
+                }
             });
 
-            SessionService.Instance.Subscribe("api_get_member/require_info", _ => Progresses = RecordService.Instance.QuestProgress.Reload());
+            SessionService.Instance.Subscribe("api_get_member/require_info", _ =>
+            {
+                if (r_InitializationLock != null)
+                    r_InitializationLock.Wait();
 
-            SessionService.Instance.Subscribe("api_get_member/questlist", r => ProcessQuestList(r.Data as RawQuestList));
+                Progresses = RecordService.Instance.QuestProgress.Reload();
+            });
+
+            SessionService.Instance.Subscribe("api_get_member/questlist", r =>
+            {
+                using (var rTransaction = RecordService.Instance.BeginTransaction())
+                {
+                    ProcessQuestList(r.Data as RawQuestList);
+
+                    rTransaction.Commit();
+                }
+            });
             SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => Progresses.Remove(int.Parse(r.Parameters["api_quest_id"])));
         }
 
         void ProcessQuestList(RawQuestList rpData)
         {
+            if (rpData != null && rpData.Quests != null)
+                foreach (var rRawQuest in rpData.Quests)
+                {
+                    ProgressInfo rProgressInfo;
+                    if (Progresses.TryGetValue(rRawQuest.ID, out rProgressInfo))
+                        rProgressInfo.ResetType = rRawQuest.Type;
+                }
+
             var rQuests = KanColleGame.Current.Port.Quests.Table;
             if (GetResetTime(QuestType.Daily) > r_LastProcessTime)
             {
@@ -62,6 +95,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                     rQuests.Remove(rID);
                     Progresses.Remove(rID);
+                    RecordService.Instance.QuestProgress.DeleteRecord(rID);
                 }
                 var rOutdatedQuests = rQuests.Values.Where(r => GetResetTime(r.Type) > r.CreationTime).ToArray();
                 foreach (var rQuest in rOutdatedQuests)
@@ -90,7 +124,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                         if (rRawQuest.State == QuestState.Completed)
                             rProgress = rTotal;
-                        else
+                        else if (rID != 214)
                             switch (rRawQuest.Progress)
                             {
                                 case QuestProgress.Progress50: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom); break;
@@ -106,7 +140,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                         if (rRawQuest.State == QuestState.Completed)
                             rProgress = rTotal;
-                        else
+                        else if (rID != 214)
                             switch (rRawQuest.Progress)
                             {
                                 case QuestProgress.Progress50: rProgress = (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom; break;
@@ -137,8 +171,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             switch (rpType)
             {
                 case QuestType.Daily:
-                case QuestType.Special1:
-                case QuestType.Special2:
+                case QuestType.Special:
                     rResult = new DateTimeOffset(rCurrentTime.Date, Offset);
                     break;
 
