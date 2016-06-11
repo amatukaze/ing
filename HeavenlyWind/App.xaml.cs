@@ -82,6 +82,8 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             base.OnExit(e);
 
+            NotificationService.Instance.Dispose();
+
             Preference.Save();
         }
 

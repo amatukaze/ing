@@ -10,7 +10,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Media;
 using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -20,7 +19,7 @@ using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    class NotificationService
+    class NotificationService : IDisposable
     {
         const string AppUserModelID = "Sakuno.Amatsukaze";
 
@@ -157,6 +156,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     FlashWindow();
                 }
             });
+        }
+
+        public void Dispose()
+        {
+            if (r_NotifyIcon != null)
+            {
+                r_NotifyIcon.Visible = false;
+                r_NotifyIcon.Dispose();
+                r_NotifyIcon = null;
+            }
         }
 
         public void Show(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Current.Notification.Sound, Preference.Current.Notification.SoundFilename);
