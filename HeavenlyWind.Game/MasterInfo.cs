@@ -49,6 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             if (r_InitializationLock != null)
             {
                 r_InitializationLock.Set();
+                r_InitializationLock.Dispose();
                 r_InitializationLock = null;
             }
         }
