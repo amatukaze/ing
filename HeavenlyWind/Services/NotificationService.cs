@@ -13,6 +13,7 @@ using System.Linq;
 using System.Media;
 using System.Reactive.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -121,13 +122,23 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         void InitializeHeavilyDamagedWarning(PropertyChangedEventListener rpGamePCEL)
         {
+            SessionService.Instance.Subscribe("api_get_member/mapinfo", delegate
+            {
+                var rFleetWithHeavilyDamagedShips = KanColleGame.Current.Port.Fleets.Table.Values.Where(r => (r.State & FleetState.HeavilyDamaged) == FleetState.HeavilyDamaged);
+                if (Preference.Current.Notification.HeavilyDamagedWarning && rFleetWithHeavilyDamagedShips.Any())
+                {
+                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content, rFleetWithHeavilyDamagedShips.SelectMany(r => r.Ships));
+                    FlashWindow();
+                }
+            });
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, delegate
             {
                 var rBattle = BattleInfo.Current.CurrentStage;
 
-                if (Preference.Current.Notification.HeavilyDamagedWarning && rBattle.Friend.Any(r => r.State == BattleParticipantState.HeavilyDamaged))
+                var rHeavilyDamagedShips = rBattle.Friend.Where(r => r.State == BattleParticipantState.HeavilyDamaged).Select(r => ((FriendShip)r.Participant).Ship).ToArray();
+                if (Preference.Current.Notification.HeavilyDamagedWarning && rHeavilyDamagedShips.Length > 0)
                 {
-                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content);
+                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content, rHeavilyDamagedShips);
                     FlashWindow();
                 }
             });
@@ -139,21 +150,38 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 if (rSortie.EscortFleet != null)
                     rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
-                if (Preference.Current.Notification.HeavilyDamagedWarning && rParticipants.Any(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)))
+                var rHeavilyDamagedShips = rParticipants.Where(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)).ToArray();
+                if (Preference.Current.Notification.HeavilyDamagedWarning && rHeavilyDamagedShips.Length > 0)
                 {
-                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content);
+                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content, rHeavilyDamagedShips);
                     FlashWindow();
                 }
             });
         }
 
         public void Show(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Current.Notification.Sound, Preference.Current.Notification.SoundFilename);
-        public void ShowHeavilyDamagedWarning(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Current.Notification.HeavilyDamagedWarningSound, Preference.Current.Notification.HeavilyDamagedWarningSoundFilename);
-        void ShowCore(string rpTitle, string rpBody, NotificationSound rpSound, string rpCustomSoundFilename)
+        public void ShowHeavilyDamagedWarning(string rpTitle, string rpBody, IEnumerable<Ship> rpHeavilyDamagedShips)
+        {
+            var rBuilder = new StringBuilder(64);
+            foreach (var rShip in rpHeavilyDamagedShips)
+            {
+                if (rBuilder.Length > 0)
+                    rBuilder.Append(" / ");
+
+                rBuilder.Append(rShip.Info.TranslatedName).Append(' ').Append("Lv.").Append(rShip.Level);
+            }
+
+            ShowCore(rpTitle, rpBody, Preference.Current.Notification.HeavilyDamagedWarningSound, Preference.Current.Notification.HeavilyDamagedWarningSoundFilename, rBuilder.ToString());
+        }
+        void ShowCore(string rpTitle, string rpBody, NotificationSound rpSound, string rpCustomSoundFilename, string rpSecondLine = null)
         {
             if (!OS.IsWin8OrLater)
             {
-                r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rpBody, ToolTipIcon.None);
+                var rBody = rpBody;
+                if (rpSecondLine != null)
+                    rBody = $"{rBody}{Environment.NewLine}{rpSecondLine}";
+
+                r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rBody, ToolTipIcon.None);
 
                 if (rpSound == NotificationSound.SystemSound)
                     NativeMethods.WinMM.PlaySoundW("SystemNotification", IntPtr.Zero, NativeEnums.SND.SND_ALIAS | NativeEnums.SND.SND_ASYNC);
@@ -164,6 +192,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     Title = rpTitle,
                     Body = rpBody,
+                    BodySecondLine = rpSecondLine,
                     Audio = rpSound == NotificationSound.SystemSound ? ToastAudio.Default : ToastAudio.None,
                 };
 
