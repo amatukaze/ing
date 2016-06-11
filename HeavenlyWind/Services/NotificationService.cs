@@ -126,7 +126,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 var rFleetWithHeavilyDamagedShips = KanColleGame.Current.Port.Fleets.Table.Values.Where(r => (r.State & FleetState.HeavilyDamaged) == FleetState.HeavilyDamaged);
                 if (Preference.Current.Notification.HeavilyDamagedWarning && rFleetWithHeavilyDamagedShips.Any())
                 {
-                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content, rFleetWithHeavilyDamagedShips.SelectMany(r => r.Ships));
+                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content, rFleetWithHeavilyDamagedShips.SelectMany(r => r.Ships).Where(r => (r.State & ShipState.HeavilyDamaged) == ShipState.HeavilyDamaged));
                     FlashWindow();
                 }
             });
