@@ -3,7 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
 {
-    public class QuestInfo
+    public class QuestInfo : ModelBase
     {
         public int ID { get; }
 

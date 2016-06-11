@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using QuestClass = Sakuno.KanColle.Amatsukaze.Game.Models.Quest;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
@@ -21,6 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public IDictionary<int, ProgressInfo> Progresses { get; private set; }
 
         internal Dictionary<int, QuestInfo> Infos { get; set; }
+        ManualResetEventSlim r_InitializationLock = new ManualResetEventSlim(false);
 
         DateTimeOffset r_LastProcessTime;
 
@@ -42,9 +44,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                         Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
                     }
+
+                if (r_InitializationLock != null)
+                {
+                    r_InitializationLock.Set();
+                    r_InitializationLock = null;
+                }
             });
 
-            SessionService.Instance.Subscribe("api_get_member/require_info", _ => Progresses = RecordService.Instance.QuestProgress.Reload());
+            SessionService.Instance.Subscribe("api_get_member/require_info", _ =>
+            {
+                if (r_InitializationLock != null)
+                    r_InitializationLock.Wait();
+
+                Progresses = RecordService.Instance.QuestProgress.Reload();
+            });
 
             SessionService.Instance.Subscribe("api_get_member/questlist", r => ProcessQuestList(r.Data as RawQuestList));
             SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => Progresses.Remove(int.Parse(r.Parameters["api_quest_id"])));
