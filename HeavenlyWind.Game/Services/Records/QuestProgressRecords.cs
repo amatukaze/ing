@@ -83,6 +83,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
+        internal void UpdateResetType(ProgressInfo rpProgress)
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "UPDATE quest SET type = @type WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@id", rpProgress.Quest.ID);
+                rCommand.Parameters.AddWithValue("@type", rpProgress.ResetType);
+
+                rCommand.ExecuteNonQuery();
+            }
+        }
         internal void UpdateState(ProgressInfo rpProgress)
         {
             using (var rCommand = Connection.CreateCommand())

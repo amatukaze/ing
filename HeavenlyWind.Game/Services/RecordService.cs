@@ -183,6 +183,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         }
 
         public SQLiteCommand CreateCommand() => r_Connection.CreateCommand();
+        public SQLiteTransaction BeginTransaction() => r_Connection.BeginTransaction();
 
         public void RegisterRecordsGroupProvider(IRecordsGroupProvider rpProvider) => r_CustomRecordsGroupProviders.Add(rpProvider);
 

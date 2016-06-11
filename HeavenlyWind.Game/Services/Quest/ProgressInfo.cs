@@ -6,7 +6,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
     public class ProgressInfo : ModelBase
     {
         public QuestInfo Quest { get; }
-        public QuestType ResetType { get; }
+
+        QuestType r_ResetType;
+        public QuestType ResetType
+        {
+            get { return r_ResetType; }
+            internal set
+            {
+                if (r_ResetType != value)
+                {
+                    r_ResetType = value;
+
+                    RecordService.Instance.QuestProgress.UpdateResetType(this);
+                }
+            }
+        }
 
         QuestState r_State;
         public QuestState State
@@ -72,7 +86,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             else
                 Quest = new QuestInfo(rpID);
 
-            ResetType = rpResetType;
+            r_ResetType = rpResetType;
 
             r_State = rpState;
             r_Progress = rpProgress;

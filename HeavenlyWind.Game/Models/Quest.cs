@@ -5,7 +5,7 @@ using System;
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public enum QuestCategory { Composition = 1, Sortie, Practice, Expedition, SupplyOrDocking, Arsenal, Modernization, Sortie2 }
-    public enum QuestType { Once = 1, Daily, Weekly, Special1, Special2, Monthly, }
+    public enum QuestType { Daily = 1, Weekly, Monthly, Once, Special }
     public enum QuestState { None = 1, Executing, Completed }
     public enum QuestProgress { None, Progress50, Progress80, }
 

@@ -63,12 +63,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Progresses = RecordService.Instance.QuestProgress.Reload();
             });
 
-            SessionService.Instance.Subscribe("api_get_member/questlist", r => ProcessQuestList(r.Data as RawQuestList));
+            SessionService.Instance.Subscribe("api_get_member/questlist", r =>
+            {
+                using (var rTransaction = RecordService.Instance.BeginTransaction())
+                {
+                    ProcessQuestList(r.Data as RawQuestList);
+
+                    rTransaction.Commit();
+                }
+            });
             SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => Progresses.Remove(int.Parse(r.Parameters["api_quest_id"])));
         }
 
         void ProcessQuestList(RawQuestList rpData)
         {
+            if (rpData != null && rpData.Quests != null)
+                foreach (var rRawQuest in rpData.Quests)
+                {
+                    ProgressInfo rProgressInfo;
+                    if (Progresses.TryGetValue(rRawQuest.ID, out rProgressInfo))
+                        rProgressInfo.ResetType = rRawQuest.Type;
+                }
+
             var rQuests = KanColleGame.Current.Port.Quests.Table;
             if (GetResetTime(QuestType.Daily) > r_LastProcessTime)
             {
@@ -79,6 +95,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                     rQuests.Remove(rID);
                     Progresses.Remove(rID);
+                    RecordService.Instance.QuestProgress.DeleteRecord(rID);
                 }
                 var rOutdatedQuests = rQuests.Values.Where(r => GetResetTime(r.Type) > r.CreationTime).ToArray();
                 foreach (var rQuest in rOutdatedQuests)
@@ -154,8 +171,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             switch (rpType)
             {
                 case QuestType.Daily:
-                case QuestType.Special1:
-                case QuestType.Special2:
+                case QuestType.Special:
                     rResult = new DateTimeOffset(rCurrentTime.Date, Offset);
                     break;
 
