@@ -48,6 +48,10 @@
                                     </Border>
 
                                     <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Source.ID}" Value="214">
+                                            <Setter TargetName="ControllerTriggerZone" Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
                                         <Trigger SourceName="ControllerTriggerZone" Property="AreAnyTouchesOver" Value="True">
                                             <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
                                         </Trigger>
@@ -60,15 +64,6 @@
                                         <Trigger SourceName="RealtimeProgressControllerBorder" Property="IsMouseOver" Value="True">
                                             <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
                                         </Trigger>
-
-                                        <MultiDataTrigger>
-                                            <MultiDataTrigger.Conditions>
-                                                <Condition Binding="{Binding Source.RealtimeProgress.Quest.ProgressRules}" Value="{x:Null}" />
-                                                <Condition Binding="{Binding Source.RealtimeProgress.Progress}" Value="0" />
-                                            </MultiDataTrigger.Conditions>
-
-                                            <Setter TargetName="RealtimeProgressBorder" Property="Visibility" Value="{Binding Visibility, ElementName=RealtimeProgressControllerBorder}" />
-                                        </MultiDataTrigger>
                                     </DataTemplate.Triggers>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

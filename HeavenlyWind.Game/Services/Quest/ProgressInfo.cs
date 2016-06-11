@@ -47,6 +47,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
         }
         public int DisplayProgress => Progress + Quest.StartFrom;
 
+        double r_Percentage;
+        public double Percentage
+        {
+            get { return r_Percentage; }
+            internal set
+            {
+                if (r_Percentage != value)
+                {
+                    r_Percentage = value;
+                    OnPropertyChanged(nameof(Percentage));
+                }
+            }
+        }
+
         public DateTimeOffset UpdateTime { get; internal set; }
 
         internal ProgressInfo(int rpID, QuestType rpResetType, QuestState rpState, int rpProgress) : this(rpID, rpResetType, rpState, rpProgress, DateTimeOffset.Now) { }

@@ -45,6 +45,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                         Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
                     }
 
+                new QuestInfo(214);
+
                 if (r_InitializationLock != null)
                 {
                     r_InitializationLock.Set();
@@ -104,7 +106,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                         if (rRawQuest.State == QuestState.Completed)
                             rProgress = rTotal;
-                        else
+                        else if (rID != 214)
                             switch (rRawQuest.Progress)
                             {
                                 case QuestProgress.Progress50: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom); break;
@@ -120,7 +122,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                         if (rRawQuest.State == QuestState.Completed)
                             rProgress = rTotal;
-                        else
+                        else if (rID != 214)
                             switch (rRawQuest.Progress)
                             {
                                 case QuestProgress.Progress50: rProgress = (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom; break;

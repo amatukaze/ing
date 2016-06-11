@@ -246,6 +246,10 @@
   <String Key="Quest_Category_Modernization">改装</String>
   <String Key="Quest_Category_Sortie2">出撃</String>
   <String Key="Quest_State_Completed">達成</String>
+  <String Key="Quest_Requirement_OperationAGo_Sortie">出撃</String>
+  <String Key="Quest_Requirement_OperationAGo_SRankVictory">S 勝利</String>
+  <String Key="Quest_Requirement_OperationAGo_BossEncounter">ボス</String>
+  <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">ボス勝利</String>
 
   <String Key="ExpeditionOverview_Time">時間</String>
   <String Key="ExpeditionOverview_Consumption">消費</String>
