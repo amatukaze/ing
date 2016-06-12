@@ -313,6 +313,10 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">渲染模式</String>
   <String Key="PreferenceWindow_Screenshot">截图</String>
   <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
+  <String Key="PreferenceWindow_Other">其它</String>
+  <String Key="PreferenceWindow_Other_PanicKey">老板键</String>
+  <String Key="PreferenceWindow_Other_PanicKey_Enabled">启用</String>
+  <String Key="PreferenceWindow_Other_PanicKey_RegisteredByOther">该热键被正其它程序占用</String>
   <String Key="PreferenceWindow_Plugin">插件</String>
   <String Key="PreferenceWindow_VersionInfo">版本信息</String>
 

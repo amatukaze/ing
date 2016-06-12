@@ -75,6 +75,9 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("layout")]
         public LayoutPreference Layout { get; set; } = new LayoutPreference();
 
+        [JsonProperty("other")]
+        public OtherPreference Other { get; set; } = new OtherPreference();
+
         public Preference()
         {
             r_Language = r_ExtraResourceLanguage = StringResources.Instance.GetDefaultLanguage().Directory;

@@ -122,6 +122,7 @@
     <Compile Include="Controls\MaterialIcon.cs" />
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Internal\PanicKeyPreferenceExtension.cs" />
     <Compile Include="Internal\WindowPlacementPreference.cs" />
     <Compile Include="Internal\TabContentTemplateSelector.cs" />
     <Compile Include="Internal\TabDockingController.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
     <Compile Include="Services\ExpeditionService.cs" />
     <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\PanicKeyService.cs" />
     <Compile Include="Services\PluginService.cs" />
     <Compile Include="Services\Plugins\FailureInfo.cs" />
     <Compile Include="Services\Plugins\Plugin.cs" />
@@ -350,6 +352,9 @@
     </Compile>
     <Compile Include="Views\Preferences\Notification.xaml.cs">
       <DependentUpon>Notification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Preferences\Other.xaml.cs">
+      <DependentUpon>Other.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\Plugin.xaml.cs">
       <DependentUpon>Plugin.xaml</DependentUpon>
@@ -892,6 +897,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Notification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Preferences\Other.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

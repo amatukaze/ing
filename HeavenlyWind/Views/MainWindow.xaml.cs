@@ -1,9 +1,11 @@
-﻿using Sakuno.SystemInterop;
+﻿using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.SystemInterop;
 using Sakuno.UserInterface.Controls;
 using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 
 namespace Sakuno.KanColle.Amatsukaze.Views
 {
@@ -24,7 +26,11 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         {
             base.OnSourceInitialized(e);
 
+            var rHandle = new WindowInteropHelper(this).Handle;
+
             PowerManager.RegisterMonitor(this);
+
+            PanicKeyService.Instance.Initialize(rHandle);
         }
 
         protected override void OnClosing(CancelEventArgs e)
