@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
+using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.OSS;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -148,6 +149,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                             }
 
                         Progresses.Add(rID, rProgressInfo = new ProgressInfo(rID, rRawQuest.Type, rRawQuest.State, rProgress));
+                    }
+
+                    if (rID == 214)
+                    {
+                        OSSQuestProgressRule rOSSRule;
+                        if (OSSQuestProgressRule.Maps.TryGetValue(214, out rOSSRule))
+                            ((OperationA)rOSSRule).UpdatePercentage(rProgressInfo);
                     }
 
                     if (rRawQuest.State == QuestState.Executing)
