@@ -274,11 +274,10 @@
   <String Key="PreferenceWindow_Window">窗口</String>
   <String Key="PreferenceWindow_Window_Font">字体</String>
   <String Key="PreferenceWindow_Window_Layout">布局</String>
-  <String Key="PreferenceWindow_Window_Layout_Landscape">屏幕横向显示</String>
-  <String Key="PreferenceWindow_Window_Layout_Portrait">屏幕纵向显示</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">布局模式</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">布局模式 (平板竖持)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">信息</String>
-  <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">该设备不支持屏幕自动旋转</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>

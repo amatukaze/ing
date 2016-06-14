@@ -274,11 +274,10 @@
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
   <String Key="PreferenceWindow_Window_Font">フォント</String>
   <String Key="PreferenceWindow_Window_Layout">レイアウト</String>
-  <String Key="PreferenceWindow_Window_Layout_Landscape">横持ち</String>
-  <String Key="PreferenceWindow_Window_Layout_Portrait">縦持ち</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">レイアウトモード</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">タブレット縦持ち</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">情報</String>
-  <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">画面の自動回転はサポートされていません</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>

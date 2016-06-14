@@ -274,8 +274,8 @@
   <String Key="PreferenceWindow_Window">Window</String>
   <String Key="PreferenceWindow_Window_Font">Font</String>
   <String Key="PreferenceWindow_Window_Layout">Layout</String>
-  <String Key="PreferenceWindow_Window_Layout_Landscape">Landscape</String>
-  <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">Layout mode</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait (Tablet)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">KanColle</String>
   <String Key="PreferenceWindow_Window_Layout_Information">Info</String>
   <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">Screen auto-rotation is not supported in this device</String>
