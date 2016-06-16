@@ -21,10 +21,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
                 catch (SQLiteException e) when (e.ResultCode == SQLiteErrorCode.Error && RecordService.Instance.HistoryCommandTexts.Count > 0)
                 {
+                    Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_ParseException, e.Message));
                     RecordService.Instance.HandleException(r.Session, e);
                 }
                 catch (Exception e)
                 {
+                    Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_ParseException, e.Message));
                     rpExceptionHandler(r, e);
                 }
             });
