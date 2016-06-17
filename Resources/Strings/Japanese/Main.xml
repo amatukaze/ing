@@ -271,6 +271,7 @@
   <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">他のデバイスからのリクエストを許可する (非推奨：セキュリティリスク)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP 接続のみ</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
   <String Key="PreferenceWindow_Window_Font">フォント</String>
   <String Key="PreferenceWindow_Window_Layout">レイアウト</String>

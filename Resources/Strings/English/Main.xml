@@ -271,6 +271,7 @@
   <String Key="PreferenceWindow_Network_EnableForSSL">Use proxy for SSL connections</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">Allow requests from other devices (WARNING: Security Risk)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP Only</String>
   <String Key="PreferenceWindow_Window">Window</String>
   <String Key="PreferenceWindow_Window_Font">Font</String>
   <String Key="PreferenceWindow_Window_Layout">Layout</String>

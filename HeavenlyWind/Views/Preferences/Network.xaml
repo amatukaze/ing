@@ -38,6 +38,10 @@
                     <rbe:NumericTextBoxBehavior />
                 </i:Interaction.Behaviors>
             </TextBox>
+
+            <CheckBox IsChecked="{rb:Preference Network.UpstreamProxy.HttpOnly}" Margin="12, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_UseUpstreamProxy_HttpOnly}" />
+            </CheckBox>
         </StackPanel>
     </StackPanel>
 </UserControl>

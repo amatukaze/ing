@@ -41,8 +41,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         static void FiddlerApplication_BeforeRequest(Session rpSession)
         {
-            if (Preference.Current.Network.UpstreamProxy.Enabled)
-                rpSession["x-OverrideGateway"] = Preference.Current.Network.UpstreamProxy.Address;
+            var rUpstreamProxyPreference = Preference.Current.Network.UpstreamProxy;
+            if (rUpstreamProxyPreference.Enabled && (!rUpstreamProxyPreference.HttpOnly || !rpSession.RequestMethod.OICEquals("CONNECT")))
+                rpSession["x-OverrideGateway"] = rUpstreamProxyPreference.Address;
 
             var rRequest = rpSession.oRequest;
 
