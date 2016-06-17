@@ -177,9 +177,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         }
         internal void Swap(int x, int y)
         {
-            var rShip = r_ShipList[x];
-            r_ShipList[x] = r_ShipList[y];
-            r_ShipList[y] = rShip;
+            if (x < r_ShipList.Count)
+            {
+                var rShip = r_ShipList[x];
+                r_ShipList[x] = r_ShipList[y];
+                r_ShipList[y] = rShip;
+            }
+            else
+            {
+                var rShip = r_ShipList[y];
+                r_ShipList.RemoveAt(y);
+                r_ShipList.Add(rShip);
+            }
 
             UpdateShips();
         }
