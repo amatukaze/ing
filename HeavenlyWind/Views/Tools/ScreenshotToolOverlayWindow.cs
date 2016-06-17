@@ -1,4 +1,6 @@
-﻿using Sakuno.SystemInterop;
+﻿using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.SystemInterop;
+using Sakuno.UserInterface;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +22,12 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Tools
         public void Show(Int32Rect rpRect)
         {
             var rMainWindowHandle = new WindowInteropHelper(App.Current.MainWindow).Handle;
+
+            var rZoom = BrowserService.Instance.GameController.Zoom;
+            rpRect.X = (int)(rpRect.X * rZoom * DpiUtil.ScaleX);
+            rpRect.Y = (int)(rpRect.Y * rZoom * DpiUtil.ScaleY);
+            rpRect.Width = (int)(rpRect.Width * rZoom * DpiUtil.ScaleX);
+            rpRect.Height = (int)(rpRect.Height * rZoom * DpiUtil.ScaleY);
 
             if (r_HwndSource == null)
             {
