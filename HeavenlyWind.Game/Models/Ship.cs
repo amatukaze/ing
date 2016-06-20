@@ -257,7 +257,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rUpdateList = false;
 
             if (Slots == null || Slots.Count != RawData.SlotCount)
-                Slots = Enumerable.Range(0, RawData.SlotCount).Select((r, i) => new ShipSlot(null, RawData.PlaneCountInSlot[i], Info.PlaneCountInSlot[i])).ToList().AsReadOnly();
+                Slots = Enumerable.Range(0, RawData.SlotCount).Select(r => new ShipSlot(Info.PlaneCountInSlot[r], RawData.PlaneCountInSlot[r])).ToList().AsReadOnly();
 
             if (r_EquipmentIDs == null || !r_EquipmentIDs.SequenceEqual(RawData.Equipment))
             {
