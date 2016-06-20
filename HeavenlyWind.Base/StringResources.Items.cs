@@ -406,5 +406,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ScreenshotTool_OutputOption_Clipboard => GetString(nameof(ScreenshotTool_OutputOption_Clipboard));
         public string ScreenshotTool_OutputOption_File => GetString(nameof(ScreenshotTool_OutputOption_File));
 
+        public string UIZoom_ZoomIn => GetString(nameof(UIZoom_ZoomIn));
+        public string UIZoom_ZoomOut => GetString(nameof(UIZoom_ZoomOut));
+
     }
 }

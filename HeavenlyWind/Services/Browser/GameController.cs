@@ -36,7 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public ICommand MuteToggleCommand { get; }
 
         public ICommand SetZoomCommand { get; }
-        public IList<BrowserZoomInfo> SupportedZoomFactors { get; }
+        public IList<BrowserZoomInfo> ZoomFactors { get; }
         public double Zoom
         {
             get { return Preference.Current.Browser.Zoom; }
@@ -77,7 +77,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             }, () => OS.IsWin7OrLater && !r_IsAudioDeviceNotAvailable);
 
             SetZoomCommand = new DelegatedCommand<double>(SetZoom);
-            SupportedZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new BrowserZoomInfo(r, SetZoomCommand)).ToList().AsReadOnly();
+            ZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new BrowserZoomInfo(r, SetZoomCommand)).ToList().AsReadOnly();
 
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }
@@ -124,7 +124,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             Preference.Current.Browser.Zoom = rpZoom;
             OnPropertyChanged(nameof(Zoom));
 
-            foreach (var rInfo in SupportedZoomFactors)
+            foreach (var rInfo in ZoomFactors)
                 rInfo.IsSelected = rInfo.Zoom == rpZoom;
 
             r_Owner.Communicator.Write(CommunicatorMessages.SetZoom + ":" + rpZoom);

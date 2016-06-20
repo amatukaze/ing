@@ -9,6 +9,9 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         [JsonProperty("font")]
         public string Font { get; set; }
 
+        [JsonProperty("zoom")]
+        public double Zoom { get; set; } = 1.0;
+
         public UserInterfacePreference()
         {
             var rCultures = StringResources.GetAncestorsAndSelfCultureNames(CultureInfo.CurrentCulture).ToArray();

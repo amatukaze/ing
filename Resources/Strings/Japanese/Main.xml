@@ -402,4 +402,7 @@
   <String Key="ScreenshotTool_OutputOption_Clipboard">クリップボード</String>
   <String Key="ScreenshotTool_OutputOption_File">ファイル</String>
 
+  <String Key="UIZoom_ZoomIn">拡大表示</String>
+  <String Key="UIZoom_ZoomOut">縮小表示</String>
+
 </Strings>

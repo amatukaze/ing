@@ -4,6 +4,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 {
@@ -13,11 +14,18 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         public bool IsExtracted { get; private set; }
 
+        ScaleTransform r_ScaleTransform;
+
         public BrowserHost(IntPtr rpHandle)
         {
             r_Handle = rpHandle;
 
             BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.InvalidateArrange, _ => InvalidateArrange());
+
+            LayoutTransform = r_ScaleTransform = new ScaleTransform(1.0 / StatusBarService.Instance.UIZoom, 1.0 / StatusBarService.Instance.UIZoom);
+
+            var rPCEL = PropertyChangedEventListener.FromSource(StatusBarService.Instance);
+            rPCEL.Add(nameof(StatusBarService.Instance.UIZoom), (s, e) => r_ScaleTransform.ScaleX = r_ScaleTransform.ScaleY = 1.0 / StatusBarService.Instance.UIZoom);
         }
 
         protected override HandleRef BuildWindowCore(HandleRef rpParentHandle)

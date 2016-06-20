@@ -25,6 +25,9 @@
             <RowDefinition />
             <RowDefinition Height="23" />
         </Grid.RowDefinitions>
+        <Grid.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding UIZoom, Source={x:Static rs:StatusBarService.Instance}}" ScaleY="{Binding UIZoom, Source={x:Static rs:StatusBarService.Instance}}" />
+        </Grid.LayoutTransform>
 
         <DockPanel x:Name="r_CaptionBar" x:FieldModifier="private" ruic:MetroWindow.IsCaptionBar="True">
             <DockPanel.Resources>

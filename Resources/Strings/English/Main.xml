@@ -403,4 +403,7 @@
   <String Key="ScreenshotTool_OutputOption_Clipboard">Clipboard</String>
   <String Key="ScreenshotTool_OutputOption_File">File</String>
 
+  <String Key="UIZoom_ZoomIn">Zoom In</String>
+  <String Key="UIZoom_ZoomOut">Zoom Out</String>
+
 </Strings>

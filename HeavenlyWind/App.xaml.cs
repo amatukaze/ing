@@ -48,7 +48,6 @@ namespace Sakuno.KanColle.Amatsukaze
             }
 
             StringResources.Instance.Initialize();
-            StatusBarService.Instance.Initialize();
             RecordService.Instance.Initialize();
             QuestProgressService.Instance.Initialize();
             MapService.Instance.Initialize();
@@ -59,6 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze
             StringResources.Instance.LoadMainResource(Preference.Current.Language);
             StringResources.Instance.LoadExtraResource(Preference.Current.ExtraResourceLanguage);
 
+            StatusBarService.Instance.Initialize();
             CacheService.Instance.Initialize();
             NotificationService.Instance.Initialize();
 

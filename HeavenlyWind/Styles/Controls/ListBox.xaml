@@ -56,7 +56,7 @@
                 </Setter>
             </Style>
         </Style.Resources>
-        
+
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type ListBoxItem}">

@@ -94,7 +94,7 @@
                 </StackPanel>
             </ruic:DropDownButton.Header>
 
-            <ListBox Style="{StaticResource MenuListBoxStyle}" ItemsSource="{Binding SupportedZoomFactors}" MinWidth="120">
+            <ListBox Style="{StaticResource MenuListBoxStyle}" ItemsSource="{Binding ZoomFactors}" MinWidth="120">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Button Command="{Binding Command}" CommandParameter="{Binding Zoom}">

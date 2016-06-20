@@ -141,6 +141,8 @@
     <Compile Include="Models\Records\SortieRecord.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
     <Compile Include="Models\SystemFont.cs" />
+    <Compile Include="Models\UIZoomInfo.cs" />
+    <Compile Include="Models\ZoomInfo.cs" />
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
     <Compile Include="Services\Browser\BrowserHost.cs" />
