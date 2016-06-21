@@ -208,6 +208,7 @@
   <String Key="Battle_State_LandBase_ModeratelyDamaged">损害</String>
   <String Key="Battle_State_LandBase_HeavilyDamaged">损坏</String>
   <String Key="Battle_State_LandBase_Sunk">破坏</String>
+  <String Key="Battle_Ship_ToHeavyDamage">距离大破</String>
   <String Key="Battle_Formation_LineAhead">单纵阵</String>
   <String Key="Battle_Formation_DoubleLine">复纵阵</String>
   <String Key="Battle_Formation_Diamond">轮形阵</String>

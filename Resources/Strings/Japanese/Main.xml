@@ -208,6 +208,7 @@
   <String Key="Battle_State_LandBase_ModeratelyDamaged">損害</String>
   <String Key="Battle_State_LandBase_HeavilyDamaged">損壊</String>
   <String Key="Battle_State_LandBase_Sunk">破壊</String>
+  <String Key="Battle_Ship_ToHeavyDamage">大破まで</String>
   <String Key="Battle_Formation_LineAhead">単縦陣</String>
   <String Key="Battle_Formation_DoubleLine">複縦陣</String>
   <String Key="Battle_Formation_Diamond">輪形陣</String>

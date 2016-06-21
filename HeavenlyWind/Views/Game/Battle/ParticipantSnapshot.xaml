@@ -11,7 +11,16 @@
     <ItemsControl ItemsSource="{Binding}">
         <ItemsControl.ItemTemplate>
             <DataTemplate DataType="{x:Type rgmb:BattleParticipantSnapshot}">
-                <Border Height="30">
+                <Border Name="Border" Background="Transparent" Height="30">
+                    <Border.ToolTip>
+                        <ToolTip>
+                            <TextBlock>
+                                <Run Text="{rb:StringResource Main.Battle_Ship_ToHeavyDamage}" />:
+                                <Run Text="{Binding ToHeavyDamage, Mode=OneWay}" />
+                            </TextBlock>
+                        </ToolTip>
+                    </Border.ToolTip>
+
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="85" />
@@ -67,6 +76,10 @@
 
                     <DataTrigger Binding="{Binding Participant.Info.IsLandBase}" Value="True">
                         <Setter TargetName="StateText" Property="Text" Value="{rb:EnumToStringResource State, Battle_State_LandBase}" />
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ToHeavyDamage, Converter={StaticResource IsLessThanOrEqualToConverter}, ConverterParameter=0}" Value="True">
+                        <Setter TargetName="Border" Property="ToolTip" Value="{x:Null}" />
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding State}" Value="Healthy">

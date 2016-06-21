@@ -208,6 +208,7 @@
   <String Key="Battle_State_LandBase_ModeratelyDamaged">DMGE</String>
   <String Key="Battle_State_LandBase_HeavilyDamaged">DSTR</String>
   <String Key="Battle_State_LandBase_Sunk">DEMO</String>
+  <String Key="Battle_Ship_ToHeavyDamage">To HD</String>
   <String Key="Battle_Formation_LineAhead">Line Ahead</String>
   <String Key="Battle_Formation_DoubleLine">Double Line</String>
   <String Key="Battle_Formation_Diamond">Diamond</String>

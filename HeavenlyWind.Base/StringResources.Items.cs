@@ -212,6 +212,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_State_LandBase_ModeratelyDamaged => GetString(nameof(Battle_State_LandBase_ModeratelyDamaged));
         public string Battle_State_LandBase_HeavilyDamaged => GetString(nameof(Battle_State_LandBase_HeavilyDamaged));
         public string Battle_State_LandBase_Sunk => GetString(nameof(Battle_State_LandBase_Sunk));
+        public string Battle_Ship_ToHeavyDamage => GetString(nameof(Battle_Ship_ToHeavyDamage));
         public string Battle_Formation_LineAhead => GetString(nameof(Battle_Formation_LineAhead));
         public string Battle_Formation_DoubleLine => GetString(nameof(Battle_Formation_DoubleLine));
         public string Battle_Formation_Diamond => GetString(nameof(Battle_Formation_Diamond));

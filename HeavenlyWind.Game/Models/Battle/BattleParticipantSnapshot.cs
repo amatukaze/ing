@@ -34,6 +34,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             }
         }
 
+        public int ToHeavyDamage => r_Current - Maximum / 4;
+
         public int Damage => Before - Current;
         public int DamageGivenToOpponent { get; internal set; }
         public bool Inaccurate { get; internal set; }
