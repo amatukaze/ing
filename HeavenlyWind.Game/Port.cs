@@ -137,7 +137,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Ships.Add(new Ship(rData.Ship));
                 UpdateShipsCore();
             });
-            SessionService.Instance.Subscribe("api_req_kousyou/createship_speedchage", r =>
+            SessionService.Instance.Subscribe("api_req_kousyou/createship_speedchange", r =>
             {
                 if (r.Parameters["api_highspeed"] == "1")
                 {
