@@ -23,48 +23,19 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
                                     <Border Background="Transparent" Padding="4">
-                                        <Grid>
+                                        <Grid Height="23">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
                                                 <ColumnDefinition Width="3" />
                                                 <ColumnDefinition SharedSizeGroup="Progress" />
                                             </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="22" />
-                                                <RowDefinition Height="2" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
 
                                             <TextBlock Text="{rb:ExtraStringResource Quest, Source.ID, Source.Name}" TextTrimming="CharacterEllipsis" />
                                             <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="2">
                                                 <Control Style="{StaticResource QuestRealtimeProgress}" />
                                             </Border>
-
-                                            <Rectangle Name="ControllerTriggerZone" Fill="Transparent" Grid.ColumnSpan="3" Grid.RowSpan="3" />
-                                            <Border Name="RealtimeProgressControllerBorder" HorizontalAlignment="Right" Visibility="Collapsed" Grid.Row="2" Grid.ColumnSpan="3">
-                                                <Control Style="{StaticResource QuestRealtimeProgressController}" />
-                                            </Border>
                                         </Grid>
                                     </Border>
-
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Source.ID}" Value="214">
-                                            <Setter TargetName="ControllerTriggerZone" Property="Visibility" Value="Collapsed" />
-                                        </DataTrigger>
-
-                                        <Trigger SourceName="ControllerTriggerZone" Property="AreAnyTouchesOver" Value="True">
-                                            <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
-                                        </Trigger>
-                                        <Trigger SourceName="ControllerTriggerZone" Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
-                                        </Trigger>
-                                        <Trigger SourceName="RealtimeProgressControllerBorder" Property="AreAnyTouchesOver" Value="True">
-                                            <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
-                                        </Trigger>
-                                        <Trigger SourceName="RealtimeProgressControllerBorder" Property="IsMouseOver" Value="True">
-                                            <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
-                                        </Trigger>
-                                    </DataTemplate.Triggers>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
