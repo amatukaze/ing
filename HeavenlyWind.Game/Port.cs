@@ -308,6 +308,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             });
 
             SessionService.Instance.Subscribe("api_req_air_corps/set_plane", r => Materials.Bauxite = r.GetData<RawAirForceGroupOrganization>().Bauxite);
+
+            SessionService.Instance.Subscribe("api_req_hensei/lock", r => Ships[int.Parse(r.Parameters["api_ship_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
+            SessionService.Instance.Subscribe("api_req_kaisou/lock", r => Equipment[int.Parse(r.Parameters["api_slotitem_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
         }
 
         #region Update

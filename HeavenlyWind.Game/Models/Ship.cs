@@ -43,7 +43,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        public bool IsLocked => RawData.IsLocked;
+        bool r_IsLocked;
+        public bool IsLocked
+        {
+            get { return r_IsLocked; }
+            internal set
+            {
+                if (r_IsLocked != value)
+                {
+                    r_IsLocked = value;
+                    OnPropertyChanged(nameof(IsLocked));
+                }
+            }
+        }
 
         public ShipLocking LockingTag => ShipLockingService.Instance?.GetLocking(RawData.LockingTag);
 
@@ -247,6 +259,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 UpdateSlots();
 
             CombatAbility.Update();
+
+            IsLocked = RawData.IsLocked;
 
             OnPropertyChanged(nameof(Level));
             OnPropertyChanged(nameof(ExperienceToNextLevel));

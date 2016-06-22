@@ -16,7 +16,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int Level => RawData.Level;
         public string LevelText => Level == 0 ? string.Empty : Level == 10 ? "★max" : "★+" + Level;
 
-        public bool IsLocked => RawData.IsLocked;
+        bool r_IsLocked;
+        public bool IsLocked
+        {
+            get { return r_IsLocked; }
+            internal set
+            {
+                if (r_IsLocked != value)
+                {
+                    r_IsLocked = value;
+                    OnPropertyChanged(nameof(IsLocked));
+                }
+            }
+        }
 
         public int Proficiency => RawData.Proficiency;
         public string ProficiencyText => Proficiency == 0 ? string.Empty : "+" + Proficiency;
@@ -42,6 +54,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal Equipment(RawEquipment rpRawData) : base(rpRawData)
         {
             Info = KanColleGame.Current.MasterInfo.Equipment.GetValueOrDefault(rpRawData.EquipmentID) ?? EquipmentInfo.Dummy;
+
+            IsLocked = RawData.IsLocked;
         }
 
         public static Equipment GetDummy(int rpID)
@@ -64,10 +78,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (Info == null || Info.ID != RawData.EquipmentID)
                 Info = KanColleGame.Current.MasterInfo.Equipment.GetValueOrDefault(RawData.EquipmentID) ?? EquipmentInfo.Dummy;
 
+            IsLocked = RawData.IsLocked;
+
             OnPropertyChanged(nameof(Info));
             OnPropertyChanged(nameof(Level));
             OnPropertyChanged(nameof(LevelText));
-            OnPropertyChanged(nameof(IsLocked));
             OnPropertyChanged(nameof(Proficiency));
             OnPropertyChanged(nameof(ProficiencyText));
         }
