@@ -122,6 +122,7 @@
     <Compile Include="Controls\MaterialIcon.cs" />
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Internal\HeavyDamageLineColorExtension.cs" />
     <Compile Include="Internal\PanicKeyPreferenceExtension.cs" />
     <Compile Include="Internal\ShipOverviewItemIndexExtension.cs" />
     <Compile Include="Internal\WindowPlacementPreference.cs" />
@@ -366,6 +367,9 @@
     </Compile>
     <Compile Include="Views\Preferences\Screenshot.xaml.cs">
       <DependentUpon>Screenshot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Preferences\UI.xaml.cs">
+      <DependentUpon>UI.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\VersionInfo.xaml.cs">
       <DependentUpon>VersionInfo.xaml</DependentUpon>
@@ -915,6 +919,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Screenshot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Preferences\UI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

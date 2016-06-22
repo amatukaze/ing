@@ -280,6 +280,14 @@
   <String Key="PreferenceWindow_Window_Layout_Portrait">布局模式 (平板竖持)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">信息</String>
+  <String Key="PreferenceWindow_UI">UI</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine">大破线</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">禁用</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Default">预设</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_AllRed">预设(全红)</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Custom">自定义</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Width">宽度</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">预览</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>

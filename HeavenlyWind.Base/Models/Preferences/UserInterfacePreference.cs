@@ -12,6 +12,9 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         [JsonProperty("zoom")]
         public double Zoom { get; set; } = 1.0;
 
+        [JsonProperty("hd_line")]
+        public HeavyDamageLinePreference HeavyDamageLine { get; set; } = new HeavyDamageLinePreference();
+
         public UserInterfacePreference()
         {
             var rCultures = StringResources.GetAncestorsAndSelfCultureNames(CultureInfo.CurrentCulture).ToArray();

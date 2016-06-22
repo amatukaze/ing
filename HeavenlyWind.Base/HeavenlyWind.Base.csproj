@@ -86,11 +86,13 @@
     <Compile Include="Models\CacheMode.cs" />
     <Compile Include="Models\FlashQuality.cs" />
     <Compile Include="Models\FlashRenderMode.cs" />
+    <Compile Include="Models\HeavyDamageLineType.cs" />
     <Compile Include="Models\NotificationSound.cs" />
     <Compile Include="Models\Preferences\BrowserPreference.cs" />
     <Compile Include="Models\Preferences\CachePreference.cs" />
     <Compile Include="Models\Preferences\FlashPreference.cs" />
     <Compile Include="Models\Preferences\GamePreference.cs" />
+    <Compile Include="Models\Preferences\HeavyDamageLinePreference.cs" />
     <Compile Include="Models\Preferences\LayoutPreference.cs" />
     <Compile Include="Models\Preferences\NetworkPreference.cs" />
     <Compile Include="Models\Preferences\NotificationPreference.cs" />

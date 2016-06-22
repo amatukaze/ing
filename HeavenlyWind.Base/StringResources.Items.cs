@@ -284,6 +284,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Window_Layout_Portrait => GetString(nameof(PreferenceWindow_Window_Layout_Portrait));
         public string PreferenceWindow_Window_Layout_Game => GetString(nameof(PreferenceWindow_Window_Layout_Game));
         public string PreferenceWindow_Window_Layout_Information => GetString(nameof(PreferenceWindow_Window_Layout_Information));
+        public string PreferenceWindow_UI => GetString(nameof(PreferenceWindow_UI));
+        public string PreferenceWindow_UI_HeavyDamageLine => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine));
+        public string PreferenceWindow_UI_HeavyDamageLine_Type_Hide => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_Hide));
+        public string PreferenceWindow_UI_HeavyDamageLine_Type_Default => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_Default));
+        public string PreferenceWindow_UI_HeavyDamageLine_Type_AllRed => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_AllRed));
+        public string PreferenceWindow_UI_HeavyDamageLine_Type_Custom => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_Custom));
+        public string PreferenceWindow_UI_HeavyDamageLine_Width => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Width));
+        public string PreferenceWindow_UI_HeavyDamageLine_Preview => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Preview));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));

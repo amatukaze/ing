@@ -109,6 +109,14 @@
 
             <TabItem>
                 <TabItem.Header>
+                    <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI}" FontSize="14" />
+                </TabItem.Header>
+
+                <rvp:UI />
+            </TabItem>
+
+            <TabItem>
+                <TabItem.Header>
                     <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Cache}" FontSize="14" />
                 </TabItem.Header>
 

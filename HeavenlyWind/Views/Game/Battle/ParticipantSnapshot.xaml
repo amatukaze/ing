@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+             xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
              xmlns:rgmb="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models.Battle;assembly=HeavenlyWind.Game"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300" >
@@ -23,7 +24,7 @@
 
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="85" />
+                            <ColumnDefinition Width="88" />
                             <ColumnDefinition SharedSizeGroup="State" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -47,7 +48,7 @@
 
                             <rc:ColorIndicator x:Name="HPIndicator" Maximum="{Binding Maximum}" Value="{Binding Current}" Median="{Binding Before}" Grid.ColumnSpan="4" />
 
-                            <Border Name="HeavilyDamageLine" BorderBrush="White" BorderThickness="0, 0, 3, 0" Height="6" />
+                            <Rectangle Name="HeavyDamageLine" Fill="{ri:HeavyDamageLineColor}" Width="{rb:Preference UI.HeavyDamageLine.Width}" Height="6" HorizontalAlignment="Right" />
                         </Grid>
 
                         <Border Name="StateColor" Margin="3, 0, 0, 0" Padding="4, 3, 4, 4" VerticalAlignment="Center" Grid.Column="1" Grid.RowSpan="2">
@@ -83,11 +84,9 @@
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding State}" Value="Healthy">
-                        <Setter TargetName="HeavilyDamageLine" Property="Visibility" Value="Collapsed" />
                         <Setter TargetName="StateText" Property="Text" Value="" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding State}" Value="LightlyDamaged">
-                        <Setter TargetName="HeavilyDamageLine" Property="Visibility" Value="Collapsed" />
                         <Setter TargetName="StateText" Property="Foreground" Value="Black" />
                         <Setter TargetName="StateColor" Property="Background" Value="Yellow" />
                     </DataTrigger>
@@ -96,11 +95,9 @@
                         <Setter TargetName="StateColor" Property="Background" Value="Orange" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding State}" Value="HeavilyDamaged">
-                        <Setter TargetName="HeavilyDamageLine" Property="Visibility" Value="Collapsed" />
                         <Setter TargetName="StateColor" Property="Background" Value="Red" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding State}" Value="Sunk">
-                        <Setter TargetName="HeavilyDamageLine" Property="Visibility" Value="Collapsed" />
                         <Setter TargetName="StateColor" Property="Background" Value="#4DA6DF" />
                     </DataTrigger>
 
@@ -108,7 +105,6 @@
                         <Setter TargetName="HP" Property="Opacity" Value=".3" />
                         <Setter TargetName="DamageGivenToOpponent" Property="Opacity" Value=".3" />
                         <Setter TargetName="HPIndicator" Property="Opacity" Value=".3" />
-                        <Setter TargetName="HeavilyDamageLine" Property="Visibility" Value="Collapsed" />
                         <Setter TargetName="StateText" Property="Text" Value="{rb:StringResource Main.Battle_State_Evacuated}" />
                         <Setter TargetName="StateColor" Property="Background" Value="#B1B1B1" />
                     </DataTrigger>
@@ -118,7 +114,7 @@
                     </DataTrigger>
 
                     <DataTrigger Binding="{Binding Participant.Ship}" Value="{x:Null}">
-                        <Setter TargetName="HeavilyDamageLine" Property="Visibility" Value="Collapsed" />
+                        <Setter TargetName="HeavyDamageLine" Property="Visibility" Value="Collapsed" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
