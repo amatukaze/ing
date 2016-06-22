@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Controls
 {
-    class EquipmentProficiency : Control
+    public class EquipmentProficiency : Control
     {
         public static readonly DependencyProperty ProficiencyProperty = DependencyProperty.Register(nameof(Proficiency), typeof(int), typeof(EquipmentProficiency), new UIPropertyMetadata(0));
         public int Proficiency
