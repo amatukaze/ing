@@ -22,37 +22,7 @@
                 </TextBlock>
 
                 <rc:LoSFormulas ItemsSource="{Binding Status.LoS.Formulas}" Margin="3, 0, 0, 0" />
-
-                <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0">
-                    <TextBlock Text="{rb:StringResource Main.Fleet_FighterPower, StringFormat={}{0}:}" />
-                    <TextBlock Margin="3, 0, 0, 0">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                                <Setter Property="Text">
-                                    <Setter.Value>
-                                        <MultiBinding StringFormat="{}{0:0.#}-{1:0.#}">
-                                            <Binding Path="Status.MinFighterPower" />
-                                            <Binding Path="Status.MaxFighterPower" />
-                                        </MultiBinding>
-                                    </Setter.Value>
-                                </Setter>
-
-                                <Style.Triggers>
-                                    <DataTrigger Value="True">
-                                        <DataTrigger.Binding>
-                                            <MultiBinding Converter="{StaticResource AreEqualConverter}">
-                                                <Binding Path="Status.MinFighterPower" />
-                                                <Binding Path="Status.MaxFighterPower" />
-                                            </MultiBinding>
-                                        </DataTrigger.Binding>
-
-                                        <Setter Property="Text" Value="{Binding Status.MinFighterPower, StringFormat=0.#}" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                </StackPanel>
+                <rc:FighterPower ItemsSource="{Binding Status.FighterPower.Formulas}" Margin="3, 0, 0, 0" />
 
                 <TextBlock Text="{rb:EnumToStringResource Status.Speed, Fleet_Speed}" Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull Status.Speed}" />
             </StackPanel>

@@ -4,11 +4,11 @@ using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Controls
 {
-    class LoSFormulas : ComboBox
+    class FighterPower : ComboBox
     {
-        static LoSFormulas()
+        static FighterPower()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(LoSFormulas), new FrameworkPropertyMetadata(typeof(LoSFormulas)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(FighterPower), new FrameworkPropertyMetadata(typeof(FighterPower)));
         }
 
         protected override void OnItemsSourceChanged(IEnumerable rpOldValue, IEnumerable rpNewValue)
@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             if (rpNewValue == null || Items.Count == 0)
                 return;
 
-            SelectedItem = Items[(int)Preference.Current.Game.MainFleetLoSFormula];
+            SelectedItem = Items[(int)Preference.Current.Game.MainFighterPowerFormula];
         }
     }
 }

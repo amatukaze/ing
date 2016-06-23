@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sakuno.KanColle.Amatsukaze.Models;
+using System;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.LoS

@@ -152,7 +152,7 @@
     <Compile Include="Models\Experience.cs" />
     <Compile Include="Models\ExperienceTable.cs" />
     <Compile Include="Models\Fleet.cs" />
-    <Compile Include="Models\FleetLoSFormula.cs" />
+    <Compile Include="Models\FleetFighterPowerStatus.cs" />
     <Compile Include="Models\FleetLoSFormulaInfo.cs" />
     <Compile Include="Models\FleetLoSStatus.cs" />
     <Compile Include="Models\FleetResupplyInfo.cs" />

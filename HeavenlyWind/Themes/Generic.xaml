@@ -6,6 +6,7 @@
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/EquipmentIcon.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/EquipmentLevel.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/EquipmentProficiency.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/FighterPower.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/Indicator.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/LoSFormulas.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/MaterialIcon.xaml" />

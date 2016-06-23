@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.LoS;
+using Sakuno.KanColle.Amatsukaze.Models;
 using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
@@ -9,7 +10,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public static IList<FleetLoSFormulaInfo> Formulas { get; }
 
         public abstract FleetLoSFormula Name { get; }
-        public int ID => (int)Name;
 
         static FleetLoSFormulaInfo()
         {

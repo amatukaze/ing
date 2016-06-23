@@ -1,4 +1,4 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models
+﻿namespace Sakuno.KanColle.Amatsukaze.Models
 {
     public enum FleetLoSFormula
     {

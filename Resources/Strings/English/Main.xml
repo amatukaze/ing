@@ -105,6 +105,8 @@
   <String Key="Fleet_LoS_Formula_AutumnSimplified">Autumn Simplified</String>
   <String Key="Fleet_LoS_Formula_Formula33">Formula 33</String>
   <String Key="Fleet_FighterPower">FP</String>
+  <String Key="Fleet_FighterPower_Formula_WithoutBonus">Without FP Bonus</String>
+  <String Key="Fleet_FighterPower_Formula_WithBonus">With FP Bonus</String>
   <String Key="Fleet_Speed">Speed</String>
   <String Key="Fleet_Speed_Slow">Slow</String>
   <String Key="Fleet_Speed_Fast">Fast</String>

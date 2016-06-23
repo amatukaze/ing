@@ -109,6 +109,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Fleet_LoS_Formula_AutumnSimplified => GetString(nameof(Fleet_LoS_Formula_AutumnSimplified));
         public string Fleet_LoS_Formula_Formula33 => GetString(nameof(Fleet_LoS_Formula_Formula33));
         public string Fleet_FighterPower => GetString(nameof(Fleet_FighterPower));
+        public string Fleet_FighterPower_Formula_WithoutBonus => GetString(nameof(Fleet_FighterPower_Formula_WithoutBonus));
+        public string Fleet_FighterPower_Formula_WithBonus => GetString(nameof(Fleet_FighterPower_Formula_WithBonus));
         public string Fleet_Speed => GetString(nameof(Fleet_Speed));
         public string Fleet_Speed_Slow => GetString(nameof(Fleet_Speed_Slow));
         public string Fleet_Speed_Fast => GetString(nameof(Fleet_Speed_Fast));

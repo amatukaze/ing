@@ -86,6 +86,8 @@
     <Compile Include="Models\CacheMode.cs" />
     <Compile Include="Models\FlashQuality.cs" />
     <Compile Include="Models\FlashRenderMode.cs" />
+    <Compile Include="Models\FleetFighterPowerFormula.cs" />
+    <Compile Include="Models\FleetLoSFormula.cs" />
     <Compile Include="Models\HeavyDamageLineType.cs" />
     <Compile Include="Models\NotificationSound.cs" />
     <Compile Include="Models\Preferences\BrowserPreference.cs" />

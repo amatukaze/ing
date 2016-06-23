@@ -105,6 +105,8 @@
   <String Key="Fleet_LoS_Formula_AutumnSimplified">新秋式簡易</String>
   <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
   <String Key="Fleet_FighterPower">制空</String>
+  <String Key="Fleet_FighterPower_Formula_WithoutBonus">熟練度ボーナスを無視</String>
+  <String Key="Fleet_FighterPower_Formula_WithBonus">熟練度ボーナスあり</String>
   <String Key="Fleet_Speed">速力</String>
   <String Key="Fleet_Speed_Slow">低速</String>
   <String Key="Fleet_Speed_Fast">高速</String>
