@@ -137,9 +137,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
                     rpSession.utilSetResponseBody(rSource);
                 }
-
-                if (rpSession.oResponse.headers.Any(rHeader => rHeader.Name == "Content-Range"))
-                    System.Diagnostics.Debugger.Break();
             }
         }
 
