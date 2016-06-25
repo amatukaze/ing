@@ -79,7 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (rNames.Contains(rLanguage.CultureName))
                     return rLanguage;
 
-            return r_InstalledLanguages["en"];
+            return rNames.Contains("zh") ? r_InstalledLanguages["zh-Hans"] : r_InstalledLanguages["en"];
         }
         public static IEnumerable<string> GetAncestorsAndSelfCultureNames(CultureInfo rpCultureInfo)
         {
