@@ -57,8 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
             set { r_Address = value; }
         }
 
-        [JsonProperty("http_only")]
         bool r_HttpOnly;
+        [JsonProperty("http_only")]
         public bool HttpOnly
         {
             get { return r_HttpOnly; }
@@ -71,5 +71,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
                 }
             }
         }
+        [JsonProperty("HttpOnly")]
+        public bool OldHttpOnly { set { HttpOnly = value; } }
     }
 }
