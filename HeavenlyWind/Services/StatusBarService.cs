@@ -3,8 +3,13 @@ using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Sockets;
 using System.Reactive.Linq;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
@@ -42,6 +47,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public Power Power { get; } = new Power();
 
+        DateTimeOffset r_Time;
+        long r_InitialTick;
+        public DateTimeOffset CurrentTime { get; private set; }
+
         public IList<UIZoomInfo> UIZoomFactors { get; private set; }
 
         double r_UIZoom;
@@ -74,12 +83,54 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             Logger.LogAdded += r => Message = r.Content;
 
+            Task.Run(new Action(() =>
+            {
+                try
+                {
+                    QueryCurrentTime();
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        while (true)
+                        {
+                            Thread.Sleep(1000);
+
+                            var rCurrentTick = Stopwatch.GetTimestamp();
+
+                            CurrentTime = r_Time.AddSeconds((rCurrentTick - r_InitialTick) / (double)Stopwatch.Frequency);
+                            OnPropertyChanged(nameof(CurrentTime));
+                        }
+                    }, TaskCreationOptions.LongRunning);
+                }
+                catch { }
+            }));
+
             UIZoom = Preference.Current.UI.Zoom;
 
             UISetZoomCommand = new DelegatedCommand<double>(SetZoom);
             UIZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new UIZoomInfo(r, UISetZoomCommand)).ToArray();
             UIZoomInCommand = new DelegatedCommand(() => SetZoom(UIZoom + .05));
             UIZoomOutCommand = new DelegatedCommand(() => SetZoom(UIZoom - .05));
+        }
+
+        async void QueryCurrentTime()
+        {
+            using (var rClient = new UdpClient("pool.ntp.org", 123))
+            {
+                var rData = new byte[48];
+                rData[0] = 0x1B;
+
+                await rClient.SendAsync(rData, rData.Length);
+                rData = (await rClient.ReceiveAsync()).Buffer;
+
+                var rIntegerPart = (ulong)rData[40] << 24 | (ulong)rData[41] << 16 | (ulong)rData[42] << 8 | rData[43];
+                var rFractionPart = (ulong)rData[44] << 24 | (ulong)rData[45] << 16 | (ulong)rData[46] << 8 | rData[47];
+                var rMilliseconds = rIntegerPart * 1000 + (rFractionPart >> 20);
+
+                r_Time = new DateTimeOffset(1900, 1, 1, 0, 0, 0, TimeSpan.Zero).AddMilliseconds(rMilliseconds).ToOffset(TimeSpan.FromHours(9.0));
+
+                r_InitialTick = Stopwatch.GetTimestamp();
+            }
         }
 
         void SetZoom(double rpZoom)

@@ -93,6 +93,11 @@
                     </StackPanel>
                 </ruic:DropDownButton>
 
+                <TextBlock Margin="3, 0, 0, 0" DockPanel.Dock="Right">
+                    <Run Text="JST:" />
+                    <Run Text="{Binding CurrentTime, StringFormat=HH:mm:ss, Mode=OneWay}" />
+                </TextBlock>
+
                 <TextBlock Text="{Binding Message}" TextWrapping="NoWrap">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
