@@ -267,7 +267,9 @@
   <String Key="Window_ExpeditionHistory">远征历史</String>
   <String Key="Window_ScrappingHistory">解体・废弃历史</String>
   <String Key="Window_ResourceHistory">资源历史</String>
-  <String Key="Window_ClosingConfirmation">要关闭{0}吗？</String>
+  <String Key="Window_ClosingConfirmation_Instruction">你想做什么呢？</String>
+  <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
+  <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">端口</String>

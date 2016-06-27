@@ -267,7 +267,9 @@
   <String Key="Window_ExpeditionHistory">Expedition History</String>
   <String Key="Window_ScrappingHistory">Scrapping History</String>
   <String Key="Window_ResourceHistory">Resource History</String>
-  <String Key="Window_ClosingConfirmation">Are you sure to close {0}?</String>
+  <String Key="Window_ClosingConfirmation_Instruction">What do you want to do?</String>
+  <String Key="Window_ClosingConfirmation_Button_Yes">Exit</String>
+  <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Port</String>

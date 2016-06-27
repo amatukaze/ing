@@ -267,7 +267,9 @@
   <String Key="Window_ExpeditionHistory">遠征歴史</String>
   <String Key="Window_ScrappingHistory">解体・廃棄歴史</String>
   <String Key="Window_ResourceHistory">資材歴史</String>
-  <String Key="Window_ClosingConfirmation">{0}を終了しますか？</String>
+  <String Key="Window_ClosingConfirmation_Instruction">何をしたいですか？</String>
+  <String Key="Window_ClosingConfirmation_Button_Yes">終了します</String>
+  <String Key="Window_ClosingConfirmation_Button_No">戻ります</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>

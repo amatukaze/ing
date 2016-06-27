@@ -3,16 +3,16 @@
   <assemblyIdentity
       version="1.0.0.0"
       name="HeavenlyWind"
-      processorArchitecture="*" 
+      processorArchitecture="*"
       type="win32"/>
-  <description>A file manager</description>
+  <description>A KanColle assisant tool</description>
   <dependency>
     <dependentAssembly>
       <assemblyIdentity
           type="win32"
           name="Microsoft.Windows.Common-Controls"
-          version="6.0.0.0" 
-          processorArchitecture="*" 
+          version="6.0.0.0"
+          processorArchitecture="*"
           publicKeyToken="6595b64144ccf1df"
           language="*"
         />

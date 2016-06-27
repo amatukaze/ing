@@ -36,8 +36,22 @@ namespace Sakuno.KanColle.Amatsukaze.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            var rAppName = StringResources.Instance.Main.Product_Name;
-            if (MessageBox.Show(this, string.Format(StringResources.Instance.Main.Window_ClosingConfirmation, rAppName), rAppName, MessageBoxButton.YesNo, MessageBoxImage.Information, MessageBoxResult.No) == MessageBoxResult.No)
+            var rDialog = new TaskDialog()
+            {
+                Caption = StringResources.Instance.Main.Product_Name,
+                Instruction = StringResources.Instance.Main.Window_ClosingConfirmation_Instruction,
+                Icon = TaskDialogIcon.Information,
+                Buttons =
+                {
+                    new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.Window_ClosingConfirmation_Button_Yes),
+                    new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.Window_ClosingConfirmation_Button_No),
+                },
+                DefaultCommonButton = TaskDialogCommonButton.No,
+
+                OwnerWindow = this,
+                ShowAtTheCenterOfOwner = true,
+            };
+            if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.No)
             {
                 e.Cancel = true;
                 return;
