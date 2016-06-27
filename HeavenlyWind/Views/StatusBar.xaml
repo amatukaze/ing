@@ -24,7 +24,7 @@
                     <TextBlock Text="{Binding Power.BatteryRemainingPercentage, StringFormat={}{0}%}" />
                 </StackPanel>
 
-                <ruic:DropDownButton BorderThickness="0" PopupAutoClose="False" ShowDropDownMarker="False" Height="20" Margin="5, 0, 0, 0" Padding="4, 0" DockPanel.Dock="Right">
+                <ruic:DropDownButton BorderThickness="0" PopupAutoClose="False" ShowDropDownMarker="False" PopupVerticalOffset="1" Margin="5, 0, 0, 0" Padding="4, 0" DockPanel.Dock="Right">
                     <ruic:DropDownButton.Style>
                         <Style TargetType="{x:Type ruic:DropDownButton}">
                             <Setter Property="Background" Value="Transparent" />
