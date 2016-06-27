@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
 using Sakuno.KanColle.Amatsukaze.Views.History;
@@ -76,6 +77,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 Content = new GameInformationViewModel();
                 IsGameStarted = true;
             });
+
+            SessionService.Instance.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
+            KanColleGame.Current.ReturnedFromSortie += _ => ThemeManager.Instance.ChangeAccent(Accent.Blue);
 
             ShowExpeditionOverviewCommand = new DelegatedCommand(() =>
             {

@@ -4,6 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.KanColle.Amatsukaze.Views;
+using Sakuno.UserInterface;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -46,6 +47,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
                 return;
             }
+
+            ThemeManager.Instance.Initialize(this, Accent.Blue);
 
             StringResources.Instance.Initialize();
             RecordService.Instance.Initialize();
