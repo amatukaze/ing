@@ -25,13 +25,16 @@
                                     <Border Background="Transparent" Padding="4">
                                         <Grid Height="23">
                                             <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition />
                                                 <ColumnDefinition Width="3" />
                                                 <ColumnDefinition SharedSizeGroup="Progress" />
                                             </Grid.ColumnDefinitions>
 
-                                            <TextBlock Text="{rb:ExtraStringResource Quest, Source.ID, Source.Name}" TextTrimming="CharacterEllipsis" />
-                                            <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="2">
+                                            <Rectangle Fill="{Binding Source.Category, Converter={StaticResource QuestCategoryToBrushConverter}}" Width="10" Height="20" Margin="2, 0" />
+
+                                            <TextBlock Text="{rb:ExtraStringResource Quest, Source.ID, Source.Name}" TextTrimming="CharacterEllipsis" Margin="3, 0, 0, 0" Grid.Column="1" />
+                                            <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="3">
                                                 <Control Style="{StaticResource QuestRealtimeProgress}" />
                                             </Border>
                                         </Grid>

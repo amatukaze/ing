@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                     xmlns:rbc="clr-namespace:Sakuno.Converters;assembly=Sakuno.Base"
-                    xmlns:ruic="clr-namespace:Sakuno.UserInterface.Converters;assembly=Sakuno.UserInterface">
+                    xmlns:ruic="clr-namespace:Sakuno.UserInterface.Converters;assembly=Sakuno.UserInterface"
+                    xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal">
 
     <rbc:InvertBooleanConverter x:Key="InvertBooleanConverter" />
     <rbc:EqualityToBooleanConverter x:Key="EqualityToBooleanConverter" />
@@ -21,5 +22,7 @@
     <rb:MultiplyConverter x:Key="MultiplyConverter" />
 
     <ruic:DockToOrientationConverter x:Key="DockToOrientationConverter" />
+
+    <ri:QuestCategoryToBrushConverter x:Key="QuestCategoryToBrushConverter" />
 
 </ResourceDictionary>
