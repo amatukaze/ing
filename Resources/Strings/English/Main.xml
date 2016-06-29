@@ -116,6 +116,14 @@
   <String Key="Ship_Repairing">Repairing</String>
   <String Key="Ship_RepairingInAnchorage">Repairing</String>
   <String Key="Ship_Evacuated">Evacuated</String>
+  <String Key="Ship_ToolTip_Status_Firepower">Firepower</String>
+  <String Key="Ship_ToolTip_Status_Torpedo">Torpedo</String>
+  <String Key="Ship_ToolTip_Status_AA">AA</String>
+  <String Key="Ship_ToolTip_Status_Armor">Armor</String>
+  <String Key="Ship_ToolTip_Status_Luck">Luck</String>
+  <String Key="Ship_ToolTip_Status_Evasion">Evasion</String>
+  <String Key="Ship_ToolTip_Status_ASW">ASW</String>
+  <String Key="Ship_ToolTip_Status_LoS">LoS</String>
   <String Key="Ship_ToolTip_DayBattle">Day</String>
   <String Key="Ship_ToolTip_NightBattle">Night</String>
   <String Key="Ship_ToolTip_AttackMode">Attack Mode</String>

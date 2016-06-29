@@ -1,5 +1,4 @@
-﻿using System;
-using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -42,12 +41,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             AABase = new ShipModernizationStatus(rpInfo.AAMinimum, rpInfo.AAMaximum, rpData.ModernizedStatus[2]);
             ArmorBase = new ShipModernizationStatus(rpInfo.ArmorMinimum, rpInfo.ArmorMaximum, rpData.ModernizedStatus[3]);
             LuckBase = new ShipModernizationStatus(rpInfo.LuckMinimum, rpInfo.LuckMaximum, rpData.ModernizedStatus[4]);
-
-            OnPropertyChanged(nameof(FirepowerBase));
-            OnPropertyChanged(nameof(TorpedoBase));
-            OnPropertyChanged(nameof(AABase));
-            OnPropertyChanged(nameof(ArmorBase));
-            OnPropertyChanged(nameof(LuckBase));
         }
     }
 }

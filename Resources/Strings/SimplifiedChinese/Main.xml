@@ -116,6 +116,14 @@
   <String Key="Ship_Repairing">修理中</String>
   <String Key="Ship_RepairingInAnchorage">泊地修理中</String>
   <String Key="Ship_Evacuated">退避中</String>
+  <String Key="Ship_ToolTip_Status_Firepower">火力</String>
+  <String Key="Ship_ToolTip_Status_Torpedo">雷装</String>
+  <String Key="Ship_ToolTip_Status_AA">对空</String>
+  <String Key="Ship_ToolTip_Status_Armor">装甲</String>
+  <String Key="Ship_ToolTip_Status_Luck">运</String>
+  <String Key="Ship_ToolTip_Status_Evasion">回避</String>
+  <String Key="Ship_ToolTip_Status_ASW">对潜</String>
+  <String Key="Ship_ToolTip_Status_LoS">索敌</String>
   <String Key="Ship_ToolTip_DayBattle">昼战</String>
   <String Key="Ship_ToolTip_NightBattle">夜战</String>
   <String Key="Ship_ToolTip_AttackMode">攻击形式</String>

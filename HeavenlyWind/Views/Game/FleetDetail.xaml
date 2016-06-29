@@ -56,6 +56,83 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" Grid.RowSpan="2" />
+                            <Rectangle Fill="Transparent" Grid.RowSpan="2">
+                                <Rectangle.ToolTip>
+                                    <ToolTip>
+                                        <ToolTip.Resources>
+                                            <Style x:Key="ModernizationStatusStyle" TargetType="{x:Type Control}">
+                                                <Setter Property="Margin" Value="4, 0, 0, 0" />
+
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type Control}">
+                                                            <TextBlock FontSize="10">
+                                                                (<Run Text="{Binding Current, Mode=OneWay}" />
+                                                                <Run Text="{Binding Maximum, StringFormat=/{0}, Mode=OneWay}" />)
+                                                            </TextBlock>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsMaximum}" Value="True">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type Control}">
+                                                                    <TextBlock Text="(MAX)" FontSize="10" />
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ToolTip.Resources>
+
+                                        <StackPanel DataContext="{Binding Status}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock>
+                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_Firepower}" />:
+                                                    <Run Text="{Binding Firepower, Mode=OneWay}" />
+                                                </TextBlock>
+
+                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding FirepowerBase}" />
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                                <TextBlock>
+                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_Torpedo}" />:
+                                                    <Run Text="{Binding Torpedo, Mode=OneWay}" />
+                                                </TextBlock>
+
+                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding TorpedoBase}" />
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                                <TextBlock>
+                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_AA}" />:
+                                                    <Run Text="{Binding AA, Mode=OneWay}" />
+                                                </TextBlock>
+
+                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding AABase}" />
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                                <TextBlock>
+                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_Armor}" />:
+                                                    <Run Text="{Binding Armor, Mode=OneWay}" />
+                                                </TextBlock>
+
+                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding ArmorBase}" />
+                                            </StackPanel>
+
+                                            <TextBlock Margin="0, 4, 0, 0">
+                                                <Run Text="{rb:StringResource Ship_ToolTip_Status_ASW}" />:
+                                                <Run Text="{Binding ASW, Mode=OneWay}" />
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Rectangle.ToolTip>
+                            </Rectangle>
 
                             <TextBlock Name="Level" Margin="3, 0, 0, 0" Grid.Column="1">
                                 <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="10" />

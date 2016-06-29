@@ -264,6 +264,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             OnPropertyChanged(nameof(Level));
             OnPropertyChanged(nameof(ExperienceToNextLevel));
+            OnPropertyChanged(nameof(Status));
         }
 
         void UpdateSlots()

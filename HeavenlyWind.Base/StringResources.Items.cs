@@ -120,6 +120,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Ship_Repairing => GetString(nameof(Ship_Repairing));
         public string Ship_RepairingInAnchorage => GetString(nameof(Ship_RepairingInAnchorage));
         public string Ship_Evacuated => GetString(nameof(Ship_Evacuated));
+        public string Ship_ToolTip_Status_Firepower => GetString(nameof(Ship_ToolTip_Status_Firepower));
+        public string Ship_ToolTip_Status_Torpedo => GetString(nameof(Ship_ToolTip_Status_Torpedo));
+        public string Ship_ToolTip_Status_AA => GetString(nameof(Ship_ToolTip_Status_AA));
+        public string Ship_ToolTip_Status_Armor => GetString(nameof(Ship_ToolTip_Status_Armor));
+        public string Ship_ToolTip_Status_Luck => GetString(nameof(Ship_ToolTip_Status_Luck));
+        public string Ship_ToolTip_Status_Evasion => GetString(nameof(Ship_ToolTip_Status_Evasion));
+        public string Ship_ToolTip_Status_ASW => GetString(nameof(Ship_ToolTip_Status_ASW));
+        public string Ship_ToolTip_Status_LoS => GetString(nameof(Ship_ToolTip_Status_LoS));
         public string Ship_ToolTip_DayBattle => GetString(nameof(Ship_ToolTip_DayBattle));
         public string Ship_ToolTip_NightBattle => GetString(nameof(Ship_ToolTip_NightBattle));
         public string Ship_ToolTip_AttackMode => GetString(nameof(Ship_ToolTip_AttackMode));
