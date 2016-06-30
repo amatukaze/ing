@@ -28,6 +28,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
         [JsonProperty("api_support_info")]
         public RawSupportingFirePhase SupportingFire { get; set; }
 
+        [JsonProperty("api_opening_taisen_flag")]
+        public bool IsOpeningASWAvailable { get; set; }
+        [JsonProperty("api_opening_taisen")]
+        public RawOpeningASWPhase OpeningASW { get; set; }
+
         [JsonProperty("api_opening_flag")]
         public bool IsOpeningTorpedoSalvoAvailable { get; set; }
         [JsonProperty("api_opening_atack")]

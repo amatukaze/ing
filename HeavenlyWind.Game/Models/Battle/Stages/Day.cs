@@ -7,6 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
         public LandBaseAerialSupportPhase LandBaseAerialSupport { get; protected set; }
         public AerialCombatPhase AerialCombat { get; protected set; }
         public SupportingFirePhase SupportingFire { get; protected set; }
+        public OpeningASWPhase OpeningASW { get; protected set; }
         public TorpedoSalvoPhase OpeningTorpedo { get; protected set; }
 
         public ShellingPhase ShellingFirstRound { get; protected set; }
