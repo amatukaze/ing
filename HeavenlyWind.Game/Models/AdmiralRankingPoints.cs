@@ -3,7 +3,6 @@ using System;
 using System.Data.SQLite;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -66,20 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (rNow >= rFinalizationTime)
                     FinalizeThisMonth();
                 else
-                {
-                    Observable.Return(Unit.Default).Delay(rFinalizationTime).Subscribe(delegate
-                    {
-                        FinalizeThisMonth();
-
-                        ReloadInitialRankingPoints();
-
-                        PreviousUpdateDifference.Reload();
-                        DayDifference.Reload();
-                        MonthDifference.Reload();
-
-                        Update();
-                    });
-                }
+                    Observable.Return(Unit.Default).Delay(rFinalizationTime).Subscribe(_ => FinalizeThisMonth());
 
                 Observable.Return(Unit.Default).Delay(rFinalizationTime.AddHours(2.0)).Subscribe(_ => r_IsFinalized = false);
 
@@ -145,6 +131,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             FinalScore = TotalScore;
             OnPropertyChanged(nameof(FinalScore));
+
+            ExtraOperationBonus = 0;
+            using (var rCommand = RecordService.Instance.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT (coalesce(((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of month', '+1 month', '-9 hour')) - (SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of year', '-9 hour'))), 0) / 50000.0) +" +
+                    "((SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', 'start of month', '-9 hour') AND time < strftime('%s', 'now', 'start of month', '+1 month', '-11 hour')) / 35.0) AS initial, " +
+                    "(SELECT coalesce((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of month', '+1 month', '-11 hour')), (SELECT min(experience) FROM admiral_experience WHERE time >= strftime('%s', 'now', 'start of month', '+1 month', '-11 hour')), @current_exp)) AS admiral_experience;";
+                rCommand.Parameters.AddWithValue("@current_exp", AdmiralExperience);
+
+                using (var rReader = rCommand.ExecuteReader())
+                    if (rReader.Read())
+                    {
+                        Initial = Convert.ToDouble(rReader["initial"]);
+
+                        var rAdmiralExperience = Convert.ToInt32(rReader["admiral_experience"]);
+                        PreviousUpdateDifference.AdmiralExperience = rAdmiralExperience;
+                        DayDifference.AdmiralExperience = rAdmiralExperience;
+                        MonthDifference.AdmiralExperience = rAdmiralExperience;
+                    }
+            }
+
+            Update();
         }
     }
 }

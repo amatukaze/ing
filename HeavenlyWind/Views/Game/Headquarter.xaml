@@ -77,8 +77,8 @@
                             <TextBlock Text="{rb:StringResource Main.Overview_Admiral_TotalRankingPoints}" FontWeight="Bold" Grid.Row="4" />
                             <TextBlock Text="{Binding TotalScore}" FontWeight="Bold" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="4" />
 
-                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_FinalRankingPoints}" FontWeight="Bold" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Row="4" />
-                            <TextBlock Text="{Binding FinalScore}" FontWeight="Bold" HorizontalAlignment="Right" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Column="2" Grid.Row="4" />
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_FinalRankingPoints}" FontWeight="Bold" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Row="5" />
+                            <TextBlock Text="{Binding FinalScore}" FontWeight="Bold" HorizontalAlignment="Right" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Column="2" Grid.Row="5" />
                         </Grid>
                     </ToolTip>
                 </Rectangle.ToolTip>

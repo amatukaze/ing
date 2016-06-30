@@ -10,7 +10,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public AdmiralRankingPointsDifferenceType Type { get; }
 
         int r_AdmiralExperience;
-        public int AdmiralExperience => r_Owner.AdmiralExperience - r_AdmiralExperience;
+        public int AdmiralExperience
+        {
+            get { return r_Owner.AdmiralExperience - r_AdmiralExperience; }
+            internal set { r_AdmiralExperience = value; }
+        }
 
         public double RankingPoints => AdmiralExperience * 7.0 / 10000.0;
 
