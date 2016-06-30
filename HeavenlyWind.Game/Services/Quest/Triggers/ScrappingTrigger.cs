@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
             EquipmentID = rpEquipmentID;
 
             Observable = SessionService.Instance.GetObservable("api_req_kousyou/destroyitem2")
-                .Where(r => EquipmentID == null || r.Parameters["api_slotitem_ids"].Split(',').Select(int.Parse).Contains(EquipmentID.Value));
+                .Where(r => EquipmentID == null || r.Parameters["api_slotitem_ids"].Split(',').Select(rpID => (int)KanColleGame.Current.Port.Equipment[int.Parse(rpID)].Info.Type).Contains(EquipmentID.Value));
         }
 
         public override string ToString() => "Scrapping: " + EquipmentID ?? "Any";
