@@ -76,6 +76,11 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">Lieutenant Commander</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">Vice Lieutenant Commander</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">Novice Lieutenant Commander</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">PU</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_Day">D</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_Month">M</String>
+  <String Key="Overview_Admiral_TotalRankingPoints">Score</String>
+  <String Key="Overview_Admiral_FinalRankingPoints">Final Score</String>
   <String Key="Overview_ShipOverview">Ship</String>
   <String Key="Overview_EquipmentOverview">EQPT</String>
   <String Key="Overview_Fleets">Fleets</String>

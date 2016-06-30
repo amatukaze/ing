@@ -78,6 +78,9 @@
     <Compile Include="Models\AbyssalShipClass.cs" />
     <Compile Include="Models\Admiral.cs" />
     <Compile Include="Models\AdmiralRank.cs" />
+    <Compile Include="Models\AdmiralRankingPoints.cs" />
+    <Compile Include="Models\AdmiralRankingPointsDifference.cs" />
+    <Compile Include="Models\AdmiralRankingPointsDifferenceType.cs" />
     <Compile Include="Models\AirForceGroup.cs" />
     <Compile Include="Models\AirForceGroupOption.cs" />
     <Compile Include="Models\AirForceSquadron.cs" />

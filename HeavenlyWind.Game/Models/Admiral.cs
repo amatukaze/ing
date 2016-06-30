@@ -18,10 +18,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public int ResourceRegenerationLimit => Level * 250 + 750;
 
-        internal Admiral(RawBasic rpRawData) : base(rpRawData) { }
+        public AdmiralRankingPoints RankingPoints { get; }
+
+        internal Admiral(RawBasic rpRawData) : base(rpRawData)
+        {
+            RankingPoints = new AdmiralRankingPoints(this);
+        }
 
         protected override void OnRawDataUpdated()
         {
+            RankingPoints.Update();
+
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Level));
             OnPropertyChanged(nameof(Rank));

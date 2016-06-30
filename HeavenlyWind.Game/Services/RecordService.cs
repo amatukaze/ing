@@ -61,7 +61,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 if (rpConnection != r_Connection)
                     return;
 
-                switch(e.EventType)
+                switch (e.EventType)
                 {
                     case SQLiteConnectionEventType.NewDataReader:
                         HistoryCommandTexts.Enqueue(e.Command.CommandText);

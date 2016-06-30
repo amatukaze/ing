@@ -80,6 +80,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_Admiral_Rank_LieutenantCommander => GetString(nameof(Overview_Admiral_Rank_LieutenantCommander));
         public string Overview_Admiral_Rank_ViceLieutenantCommander => GetString(nameof(Overview_Admiral_Rank_ViceLieutenantCommander));
         public string Overview_Admiral_Rank_NoviceLieutenantCommander => GetString(nameof(Overview_Admiral_Rank_NoviceLieutenantCommander));
+        public string Overview_Admiral_Experience_Difference_Type_PreviousUpdate => GetString(nameof(Overview_Admiral_Experience_Difference_Type_PreviousUpdate));
+        public string Overview_Admiral_Experience_Difference_Type_Day => GetString(nameof(Overview_Admiral_Experience_Difference_Type_Day));
+        public string Overview_Admiral_Experience_Difference_Type_Month => GetString(nameof(Overview_Admiral_Experience_Difference_Type_Month));
+        public string Overview_Admiral_TotalRankingPoints => GetString(nameof(Overview_Admiral_TotalRankingPoints));
+        public string Overview_Admiral_FinalRankingPoints => GetString(nameof(Overview_Admiral_FinalRankingPoints));
         public string Overview_ShipOverview => GetString(nameof(Overview_ShipOverview));
         public string Overview_EquipmentOverview => GetString(nameof(Overview_EquipmentOverview));
         public string Overview_Fleets => GetString(nameof(Overview_Fleets));
