@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public struct ShipModernizationStatus
+    public class ShipModernizationStatus : ModelBase
     {
         public int Minimum { get; internal set; }
         public int Maximum { get; internal set; }
