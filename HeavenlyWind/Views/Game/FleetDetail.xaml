@@ -17,8 +17,8 @@
         <StackPanel Orientation="Horizontal" Margin="4, 2">
             <StackPanel DataContext="{Binding Source}" Orientation="Horizontal">
                 <TextBlock>
-                    <Run Text="{rb:StringResource Main.Fleet_TotalLevel, Mode=OneWay}" />:
-                    <Run Text="{Binding Status.TotalLevel}" />
+                    <Run Text="{rb:StringResource Main.Fleet_TotalLevel}" />:
+                    <Run Text="{Binding Status.TotalLevel, Mode=OneWay}" />
                 </TextBlock>
 
                 <rc:LoSFormulas ItemsSource="{Binding Status.LoS.Formulas}" Margin="3, 0, 0, 0" />

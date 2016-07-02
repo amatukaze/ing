@@ -74,7 +74,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public ModelBase SelectedTab
         {
             get { return r_SelectedTab; }
-            internal set
+            set
             {
                 if (r_SelectedTab != value)
                 {
