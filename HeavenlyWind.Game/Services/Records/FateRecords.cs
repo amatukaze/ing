@@ -73,7 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
         }
-        internal void AddEquipmentFate(IEnumerable<Equipment> rpEquipment, Fate rpFate, ulong rpTimestamp = 0)
+        internal void AddEquipmentFate(IEnumerable<Equipment> rpEquipment, Fate rpFate, long rpTimestamp = 0)
         {
             if (!rpEquipment.Any())
                 return;
@@ -88,7 +88,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        internal void AddShipFate(Ship rpShip, Fate rpFate, ulong rpTimestamp = 0)
+        internal void AddShipFate(Ship rpShip, Fate rpFate, long rpTimestamp = 0)
         {
             using (var rTransaction = Connection.BeginTransaction())
             {
@@ -112,7 +112,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rTransaction.Commit();
             }
         }
-        internal void AddShipFate(IEnumerable<Ship> rpShips, Fate rpFate, ulong rpTimestamp = 0)
+        internal void AddShipFate(IEnumerable<Ship> rpShips, Fate rpFate, long rpTimestamp = 0)
         {
             if (!rpShips.Any())
                 return;
@@ -168,7 +168,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (rSunkShips.Length == 0)
                 return;
 
-            AddShipFate(rSunkShips, Fate.Sunk, (ulong)rBattle.ID);
+            AddShipFate(rSunkShips, Fate.Sunk, rBattle.ID);
         }
     }
 }

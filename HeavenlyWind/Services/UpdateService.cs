@@ -153,7 +153,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                             using (var rWriter = new StreamWriter(rFile.Open(FileMode.Create, FileAccess.Write, FileShare.Read)))
                                 await rWriter.WriteAsync(rFileUpdate.Content);
 
-                            rFile.LastWriteTime = DateTimeUtil.FromUnixTime((ulong)rFileUpdate.Timestamp).LocalDateTime;
+                            rFile.LastWriteTime = DateTimeUtil.FromUnixTime(rFileUpdate.Timestamp).LocalDateTime;
                             break;
 
                         case CheckForUpdateFileAction.Delete:

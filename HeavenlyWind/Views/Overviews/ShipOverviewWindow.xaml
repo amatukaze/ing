@@ -124,7 +124,7 @@
             </Border>
 
             <Border Grid.Row="2">
-                <ListView Name="r_ListView" ItemsSource="{Binding Ships}" ScrollViewer.IsDeferredScrollingEnabled="True">
+                <ListView Name="r_ListView" ItemsSource="{Binding Ships}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Width="35">

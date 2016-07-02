@@ -25,7 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal ConstructionRecord(DbDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
+            Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["time"])).LocalDateTime.ToString();
             Ship = KanColleGame.Current.MasterInfo.Ships[Convert.ToInt32(rpReader["ship"])];
 
             FuelConsumption = Convert.ToInt32(rpReader["fuel"]);

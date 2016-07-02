@@ -57,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
                 BattleType = (BattleType)Convert.ToInt32(rpReader["subtype"]);
 
             if (EventType == SortieEventType.NormalBattle || EventType == SortieEventType.BossBattle)
-                Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["extra_info"])).LocalDateTime.ToString();
+                Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["extra_info"])).LocalDateTime.ToString();
 
             ID = Convert.ToInt64(rpReader["extra_info"]);
 
