@@ -44,6 +44,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     var rResult = rInfo.AA * Math.Sqrt(rSlot.PlaneCount);
                     rFighterPowerWithoutBonus += (int)rResult;
 
+                    if (rInfo.Type == EquipmentType.CarrierBasedFighter)
+                        rResult += rEquipment.Level * .2 * Math.Sqrt(rSlot.PlaneCount);
+
                     if (rSlot.PlaneCount > 0)
                     {
                         var rProficiency = rEquipment.Proficiency;
