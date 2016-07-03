@@ -337,6 +337,8 @@
   <String Key="PreferenceWindow_Browser_Flash">Flash の設定</String>
   <String Key="PreferenceWindow_Browser_Flash_Quality">品質</String>
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
+  <String Key="PreferenceWindow_Browser_Placement_AtBottom">アクションバーを下部に表示する</String>
+  <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">アクションバーをブラウザの隣に表示する</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
   <String Key="PreferenceWindow_Other">その他</String>

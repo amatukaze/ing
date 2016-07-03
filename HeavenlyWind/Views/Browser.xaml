@@ -4,37 +4,58 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:ruib="clr-namespace:Sakuno.UserInterface.Behaviors;assembly=Sakuno.UserInterface"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
              xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
+             xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
              mc:Ignorable="d"
              DataContext="{Binding Source={x:Static rs:BrowserService.Instance}}"
              Visibility="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToInvisibilityConverter}}"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="4" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type UserControl}">
+                        <DockPanel>
+                            <Grid Name="Bar" DockPanel.Dock="Top">
+                                <rv:BrowserNavigator />
+                                <rv:GameController />
+                            </Grid>
 
-        <rv:BrowserNavigator />
-        <rv:GameController />
+                            <Border Name="Border" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 4, 0, 0">
+                                <Grid>
+                                    <Rectangle Fill="Black">
+                                        <Rectangle.Effect>
+                                            <BlurEffect Radius="24" />
+                                        </Rectangle.Effect>
+                                    </Rectangle>
 
-        <Border VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
-            <Grid>
-                <Rectangle Fill="Black">
-                    <Rectangle.Effect>
-                        <BlurEffect Radius="24" />
-                    </Rectangle.Effect>
-                </Rectangle>
+                                    <ContentPresenter Content="{Binding BrowserControl}">
+                                        <i:Interaction.Behaviors>
+                                            <ruib:TaskbarThumbnailBehavior />
+                                        </i:Interaction.Behaviors>
+                                    </ContentPresenter>
+                                </Grid>
+                            </Border>
+                        </DockPanel>
 
-                <ContentPresenter Content="{Binding BrowserControl}">
-                    <i:Interaction.Behaviors>
-                        <ruib:TaskbarThumbnailBehavior />
-                    </i:Interaction.Behaviors>
-                </ContentPresenter>
-            </Grid>
-        </Border>
-    </Grid>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{rb:Preference Browser.ActionBarPlacement}" Value="True">
+                                <Setter TargetName="Bar" Property="DockPanel.Dock" Value="Bottom" />
+                                <Setter TargetName="Border" Property="Margin" Value="0, 0, 0, 4" />
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{rb:Preference Browser.ActionBarStickToBrowser}" Value="True">
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
 </UserControl>

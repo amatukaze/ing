@@ -341,6 +341,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Flash => GetString(nameof(PreferenceWindow_Browser_Flash));
         public string PreferenceWindow_Browser_Flash_Quality => GetString(nameof(PreferenceWindow_Browser_Flash_Quality));
         public string PreferenceWindow_Browser_Flash_RenderMode => GetString(nameof(PreferenceWindow_Browser_Flash_RenderMode));
+        public string PreferenceWindow_Browser_Placement_AtBottom => GetString(nameof(PreferenceWindow_Browser_Placement_AtBottom));
+        public string PreferenceWindow_Browser_Placement_StickToBrowser => GetString(nameof(PreferenceWindow_Browser_Placement_StickToBrowser));
         public string PreferenceWindow_Screenshot => GetString(nameof(PreferenceWindow_Screenshot));
         public string PreferenceWindow_Screenshot_Folder => GetString(nameof(PreferenceWindow_Screenshot_Folder));
         public string PreferenceWindow_Other => GetString(nameof(PreferenceWindow_Other));

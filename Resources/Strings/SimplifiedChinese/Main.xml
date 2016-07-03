@@ -337,6 +337,8 @@
   <String Key="PreferenceWindow_Browser_Flash">Flash 设置</String>
   <String Key="PreferenceWindow_Browser_Flash_Quality">画质</String>
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">渲染模式</String>
+  <String Key="PreferenceWindow_Browser_Placement_AtBottom">工具栏显示在底部</String>
+  <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">工具栏粘附在浏览器旁</String>
   <String Key="PreferenceWindow_Screenshot">截图</String>
   <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
   <String Key="PreferenceWindow_Other">其它</String>

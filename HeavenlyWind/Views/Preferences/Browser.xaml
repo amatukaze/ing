@@ -51,5 +51,13 @@
             <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:FlashRenderMode}}" SelectedValue="{rb:Preference Browser.Flash.RenderMode}" Margin="6, 0, 0, 0" />
         </StackPanel>
 
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <CheckBox IsChecked="{rb:Preference Browser.ActionBarPlacement}" Margin="0, 0, 0, 6">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Placement_AtBottom}" />
+        </CheckBox>
+        <CheckBox IsChecked="{rb:Preference Browser.ActionBarStickToBrowser}" Margin="0, 0, 0, 6">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Placement_StickToBrowser}" />
+        </CheckBox>
     </StackPanel>
 </UserControl>

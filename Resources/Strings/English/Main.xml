@@ -338,6 +338,8 @@
   <String Key="PreferenceWindow_Browser_Flash">Flash Settings</String>
   <String Key="PreferenceWindow_Browser_Flash_Quality">Quality</String>
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">Render Mode</String>
+  <String Key="PreferenceWindow_Browser_Placement_AtBottom">Show action bar at the bottom</String>
+  <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">Stick to the browser</String>
   <String Key="PreferenceWindow_Screenshot">Screenshot</String>
   <String Key="PreferenceWindow_Screenshot_Folder">Destination</String>
   <String Key="PreferenceWindow_Other">MISC.</String>
