@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Sockets;
 using System.Reactive.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -49,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         DateTimeOffset r_Time;
         long r_InitialTick;
-        public DateTimeOffset CurrentTime { get; private set; }
+        public DateTimeOffset? CurrentTime { get; private set; }
 
         public IList<UIZoomInfo> UIZoomFactors { get; private set; }
 
@@ -83,26 +82,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             Logger.LogAdded += r => Message = r.Content;
 
-            Task.Run(new Action(() =>
+            Task.Run(new Action(async () =>
             {
-                try
-                {
-                    QueryCurrentTime();
+                var rServers = new[] { "pool.ntp.org", "cn.ntp.org.cn" };
 
-                    Task.Factory.StartNew(() =>
+                foreach (var rSuccess in rServers.Select(QueryCurrentTime))
+                    if (await rSuccess)
                     {
-                        while (true)
-                        {
-                            Thread.Sleep(1000);
-
-                            var rCurrentTick = Stopwatch.GetTimestamp();
-
-                            CurrentTime = r_Time.AddSeconds((rCurrentTick - r_InitialTick) / (double)Stopwatch.Frequency);
-                            OnPropertyChanged(nameof(CurrentTime));
-                        }
-                    }, TaskCreationOptions.LongRunning);
-                }
-                catch { }
+                        StartTimer();
+                        return;
+                    }
             }));
 
             UIZoom = Preference.Current.UI.Zoom;
@@ -113,24 +102,51 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             UIZoomOutCommand = new DelegatedCommand(() => SetZoom(UIZoom - .05));
         }
 
-        async void QueryCurrentTime()
+        async Task<bool> QueryCurrentTime(string rpHostname)
         {
-            using (var rClient = new UdpClient("pool.ntp.org", 123))
+            try
             {
-                var rData = new byte[48];
-                rData[0] = 0x1B;
+                using (var rClient = new UdpClient(rpHostname, 123))
+                {
+                    rClient.Client.SendTimeout = 5000;
+                    rClient.Client.ReceiveTimeout = 5000;
 
-                await rClient.SendAsync(rData, rData.Length);
-                rData = (await rClient.ReceiveAsync()).Buffer;
+                    var rData = new byte[48];
+                    rData[0] = 0x1B;
 
-                var rIntegerPart = (ulong)rData[40] << 24 | (ulong)rData[41] << 16 | (ulong)rData[42] << 8 | rData[43];
-                var rFractionPart = (ulong)rData[44] << 24 | (ulong)rData[45] << 16 | (ulong)rData[46] << 8 | rData[47];
-                var rMilliseconds = rIntegerPart * 1000 + (rFractionPart >> 20);
+                    await rClient.SendAsync(rData, rData.Length);
+                    rData = (await rClient.ReceiveAsync()).Buffer;
 
-                r_Time = new DateTimeOffset(1900, 1, 1, 0, 0, 0, TimeSpan.Zero).AddMilliseconds(rMilliseconds).ToOffset(TimeSpan.FromHours(9.0));
+                    var rIntegerPart = (ulong)rData[40] << 24 | (ulong)rData[41] << 16 | (ulong)rData[42] << 8 | rData[43];
+                    var rFractionPart = (ulong)rData[44] << 24 | (ulong)rData[45] << 16 | (ulong)rData[46] << 8 | rData[47];
+                    var rMilliseconds = rIntegerPart * 1000 + (rFractionPart >> 20);
 
-                r_InitialTick = Stopwatch.GetTimestamp();
+                    r_Time = new DateTimeOffset(1900, 1, 1, 0, 0, 0, TimeSpan.Zero).AddMilliseconds(rMilliseconds).ToOffset(TimeSpan.FromHours(9.0));
+
+                    r_InitialTick = Stopwatch.GetTimestamp();
+
+                    return true;
+                }
             }
+            catch
+            {
+                return false;
+            }
+        }
+        void StartTimer()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(1000);
+
+                    var rCurrentTick = Stopwatch.GetTimestamp();
+
+                    CurrentTime = r_Time.AddSeconds((rCurrentTick - r_InitialTick) / (double)Stopwatch.Frequency);
+                    OnPropertyChanged(nameof(CurrentTime));
+                }
+            }, TaskCreationOptions.LongRunning);
         }
 
         void SetZoom(double rpZoom)
