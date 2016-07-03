@@ -3,7 +3,6 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
 using Sakuno.KanColle.Amatsukaze.Views.History;
-using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using Sakuno.UserInterface;
 using System.Collections.Generic;
@@ -46,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public bool IsBrowserAvailable { get; private set; } = true;
 
-        public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowUtil.ShowDialog(new PreferencesWindow()));
+        public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowService.Instance.Show<PreferencesWindow>());
 
         public ICommand ExpandMenuCommand { get; }
 
@@ -91,12 +90,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 rGameInfo.AddTabItem(rExpeditionOverview);
             });
 
-            ShowConstructionHistoryCommand = new DelegatedCommand(() => new ConstructionHistoryWindow().Show());
-            ShowDevelopmentHistoryCommand = new DelegatedCommand(() => new DevelopmentHistoryWindow().Show());
-            ShowSortieHistoryCommand = new DelegatedCommand(() => new SortieHistoryWindow().Show());
-            ShowExpeditionHistoryCommand = new DelegatedCommand(() => new ExpeditionHistoryWindow().Show());
-            ShowScrappingHistoryCommand = new DelegatedCommand(() => new ScrappingHistoryWindow().Show());
-            ShowResourceHistoryCommand = new DelegatedCommand(() => new ResourceHistoryWindow().Show());
+            ShowConstructionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ConstructionHistoryWindow>());
+            ShowDevelopmentHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<DevelopmentHistoryWindow>());
+            ShowSortieHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<SortieHistoryWindow>());
+            ShowExpeditionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ExpeditionHistoryWindow>());
+            ShowScrappingHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ScrappingHistoryWindow>());
+            ShowResourceHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ResourceHistoryWindow>());
 
             r_OpenToolPaneCommand = new DelegatedCommand<ToolViewModel>(r =>
             {

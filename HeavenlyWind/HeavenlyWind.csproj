@@ -168,6 +168,7 @@
     <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="Services\TaskbarProgressService.cs" />
     <Compile Include="Services\UpdateService.cs" />
+    <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\AirBaseViewModel.cs" />
     <Compile Include="ViewModels\Game\AirForceGroupViewModel.cs" />

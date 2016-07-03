@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using Sakuno.UserInterface;
@@ -161,8 +162,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     ShipCount = rPort.Ships.Count + rSortie.PendingShipCount;
             });
 
-            ShowShipOverviewWindowCommand = new DelegatedCommand(() => new ShipOverviewWindow().Show());
-            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => new EquipmentOverviewWindow().Show());
+            ShowShipOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<ShipOverviewWindow>());
+            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<EquipmentOverviewWindow>());
         }
     }
 }
