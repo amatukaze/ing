@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Models.Preferences;
 
 namespace Sakuno.KanColle.Amatsukaze
@@ -10,77 +9,48 @@ namespace Sakuno.KanColle.Amatsukaze
         [JsonProperty("version")]
         public string Version { get; } = ProductInfo.AssemblyVersionString;
 
-        string r_Language;
         [JsonProperty("language")]
-        public string Language
-        {
-            get { return r_Language; }
-            set
-            {
-                if (r_Language != value)
-                {
-                    r_Language = value;
-                    StringResources.Instance.LoadMainResource(value);
-                }
-            }
-        }
+        public Property<string> Language { get; private set; } = new Property<string>(StringResources.Instance.GetDefaultLanguage().Directory);
 
-        string r_ExtraResourceLanguage;
         [JsonProperty("language_extra")]
-        public string ExtraResourceLanguage
-        {
-            get { return r_ExtraResourceLanguage; }
-            set
-            {
-                if (r_ExtraResourceLanguage != value)
-                {
-                    r_ExtraResourceLanguage = value;
-                    StringResources.Instance.LoadExtraResource(value);
-                }
-            }
-        }
+        public Property<string> ExtraResourceLanguage { get; private set; } = new Property<string>(StringResources.Instance.GetDefaultLanguage().Directory);
 
         [JsonProperty("firstrun")]
         public bool FirstRun { get; set; } = true;
 
         [JsonProperty("update")]
-        public UpdatePreference Update { get; set; } = new UpdatePreference();
+        public UpdatePreference Update { get; private set; } = new UpdatePreference();
 
         [JsonProperty("network")]
-        public NetworkPreference Network { get; set; } = new NetworkPreference();
+        public NetworkPreference Network { get; private set; } = new NetworkPreference();
 
         [JsonProperty("ui")]
-        public UserInterfacePreference UI { get; set; } = new UserInterfacePreference();
+        public UserInterfacePreference UI { get; private set; } = new UserInterfacePreference();
 
         [JsonProperty("game")]
-        public GamePreference Game { get; set; } = new GamePreference();
+        public GamePreference Game { get; private set; } = new GamePreference();
 
         [JsonProperty("cache")]
-        public CachePreference Cache { get; set; } = new CachePreference();
+        public CachePreference Cache { get; private set; } = new CachePreference();
 
         [JsonProperty("browser")]
-        public BrowserPreference Browser { get; set; } = new BrowserPreference();
+        public BrowserPreference Browser { get; private set; } = new BrowserPreference();
 
         [JsonProperty("notification")]
-        public NotificationPreference Notification { get; set; } = new NotificationPreference();
+        public NotificationPreference Notification { get; private set; } = new NotificationPreference();
 
         WindowsPreference r_Windows;
         [JsonProperty("windows")]
         public WindowsPreference Windows
         {
             get { return r_Windows ?? (r_Windows = new WindowsPreference()); }
-            set { r_Windows = value; }
+            private set { r_Windows = value; }
         }
 
         [JsonProperty("layout")]
-        public LayoutPreference Layout { get; set; } = new LayoutPreference();
+        public LayoutPreference Layout { get; private set; } = new LayoutPreference();
 
         [JsonProperty("other")]
-        public OtherPreference Other { get; set; } = new OtherPreference();
-
-        public Preference()
-        {
-            r_Language = r_ExtraResourceLanguage = StringResources.Instance.GetDefaultLanguage().Directory;
-        }
+        public OtherPreference Other { get; private set; } = new OtherPreference();
     }
 }

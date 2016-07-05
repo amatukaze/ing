@@ -2,35 +2,23 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class PanicKeyPreference : ModelBase
+    public class PanicKeyPreference
     {
-        bool r_Enabled;
         [JsonProperty("enabled")]
-        public bool Enabled
-        {
-            get { return r_Enabled; }
-            set
-            {
-                if (r_Enabled != value)
-                {
-                    r_Enabled = value;
-                    OnPropertyChanged(nameof(Enabled));
-                }
-            }
-        }
+        public Property<bool> Enabled { get; private set; } = new Property<bool>();
 
         [JsonProperty("modifier_keys")]
-        public int ModifierKeys { get; set; }
+        public Property<int> ModifierKeys { get; private set; } = new Property<int>();
 
         [JsonProperty("key")]
-        public int Key { get; set; }
+        public Property<int> Key { get; private set; } = new Property<int>();
 
         public void UpdateKey(int rpModiferKeys, int rpKey)
         {
-            ModifierKeys = rpModiferKeys;
-            Key = rpKey;
+            ModifierKeys.Value = rpModiferKeys;
+            Key.SetDirectly(rpKey);
 
-            OnPropertyChanged(nameof(Key));
+            Key.NotifyUpdate();
         }
     }
 }

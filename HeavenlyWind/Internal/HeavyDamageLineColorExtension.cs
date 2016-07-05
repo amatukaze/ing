@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
             {
                 Mode = BindingMode.OneWay,
                 Converter = CoreConverter.Instance,
-                Bindings = { new Binding(nameof(rSource.Type)) { Source = rSource } },
+                Bindings = { new Binding(nameof(rSource.Type.Value)) { Source = rSource.Type } },
             };
 
             if (!r_State.HasValue)

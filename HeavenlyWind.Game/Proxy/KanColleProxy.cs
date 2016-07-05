@@ -43,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         {
             var rUpstreamProxyPreference = Preference.Current.Network.UpstreamProxy;
             if (rUpstreamProxyPreference.Enabled && (!rUpstreamProxyPreference.HttpOnly || !rpSession.RequestMethod.OICEquals("CONNECT")))
-                rpSession["x-OverrideGateway"] = rUpstreamProxyPreference.Address;
+                rpSession["x-OverrideGateway"] = $"{rUpstreamProxyPreference.Host.Value}:{rUpstreamProxyPreference.Port.Value}";
 
             var rRequest = rpSession.oRequest;
 

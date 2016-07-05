@@ -121,7 +121,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void SetZoom(double rpZoom)
         {
-            Preference.Current.Browser.Zoom = rpZoom;
+            Preference.Current.Browser.Zoom.Value = rpZoom;
             OnPropertyChanged(nameof(Zoom));
 
             foreach (var rInfo in ZoomFactors)

@@ -128,7 +128,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             string rExtension;
             BitmapEncoder rEncoder;
-            switch (rPreference.ImageFormat)
+            switch (rPreference.ImageFormat.Value)
             {
                 case ScreenshotImageFormat.Png:
                     rExtension = "png";
@@ -145,7 +145,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     rEncoder = new BmpBitmapEncoder();
                     break;
 
-                default: throw new InvalidEnumArgumentException(nameof(rPreference.ImageFormat), (int)rPreference.ImageFormat, typeof(ScreenshotImageFormat));
+                default: throw new InvalidEnumArgumentException(nameof(rPreference.ImageFormat), (int)rPreference.ImageFormat.Value, typeof(ScreenshotImageFormat));
             }
 
             var rPath = Path.Combine(rPreference.Destination, string.Format(rPreference.FilenameFormat, DateTime.Now, rExtension));

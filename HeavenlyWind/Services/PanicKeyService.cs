@@ -41,9 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             r_HotKeyID = NativeMethods.Kernel32.GlobalAddAtomW("Test");
 
-            var rPCEL = PropertyChangedEventListener.FromSource(Preference.Current.Other.PanicKey);
-            rPCEL.Add(nameof(Preference.Current.Other.PanicKey.Enabled), (s, e) => UpdateHotKey());
-            rPCEL.Add(nameof(Preference.Current.Other.PanicKey.Key), (s, e) => UpdateHotKey());
+            Preference.Current.Other.PanicKey.Enabled.Subscribe(_ => UpdateHotKey());
+            Preference.Current.Other.PanicKey.Key.Subscribe(_ => UpdateHotKey());
 
             UpdateHotKey();
 
@@ -85,7 +84,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
         NativeEnums.ModifierKeys GetModifierKeys()
         {
-            var rResult = (NativeEnums.ModifierKeys)Preference.Current.Other.PanicKey.ModifierKeys;
+            var rResult = (NativeEnums.ModifierKeys)Preference.Current.Other.PanicKey.ModifierKeys.Value;
             if (OS.IsWin7OrLater)
                 rResult |= NativeEnums.ModifierKeys.MOD_NOREPEAT;
 

@@ -5,31 +5,31 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
     public class NotificationPreference
     {
         [JsonProperty("expedition")]
-        public bool Expedition { get; set; } = true;
+        public Property<bool> Expedition { get; private set; } = new Property<bool>(true);
 
         [JsonProperty("repair")]
-        public bool Repair { get; set; } = true;
+        public Property<bool> Repair { get; private set; } = new Property<bool>(true);
 
         [JsonProperty("construction")]
-        public bool Construction { get; set; } = true;
+        public Property<bool> Construction { get; private set; } = new Property<bool>(true);
 
         [JsonProperty("heavily_damaged")]
-        public bool HeavilyDamagedWarning { get; set; } = true;
+        public Property<bool> HeavilyDamagedWarning { get; private set; } = new Property<bool>(true);
 
         [JsonProperty("recovery_from_fatigue")]
-        public bool RecoveryFromFatigue { get; set; } = true;
+        public Property<bool> RecoveryFromFatigue { get; private set; } = new Property<bool>(true);
 
         [JsonProperty("anchorage_repair")]
-        public bool AnchorageRepair { get; set; } = true;
+        public Property<bool> AnchorageRepair { get; private set; } = new Property<bool>(true);
 
         [JsonProperty("sound")]
-        public NotificationSound Sound { get; set; } = NotificationSound.SystemSound;
+        public Property<NotificationSound> Sound { get; private set; } = new Property<NotificationSound>(NotificationSound.SystemSound);
         [JsonProperty("sound_filename")]
-        public string SoundFilename { get; set; }
+        public Property<string> SoundFilename { get; private set; } = new Property<string>();
 
         [JsonProperty("sound_hd")]
-        public NotificationSound HeavilyDamagedWarningSound { get; set; } = NotificationSound.SystemSound;
+        public Property<NotificationSound> HeavilyDamagedWarningSound { get; private set; } = new Property<NotificationSound>(NotificationSound.SystemSound);
         [JsonProperty("sound_filename_hd")]
-        public string HeavilyDamagedWarningSoundFilename { get; set; }
+        public Property<string> HeavilyDamagedWarningSoundFilename { get; private set; } = new Property<string>();
     }
 }

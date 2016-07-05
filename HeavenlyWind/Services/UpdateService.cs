@@ -84,7 +84,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 Info = rResult.Update;
 
                 if (Info.IsAvailable)
-                    switch (Preference.Current.Update.NotificationMode)
+                    switch (Preference.Current.Update.NotificationMode.Value)
                     {
                         case UpdateNotificationMode.Disabled:
                             Info.IsAvailable = false;
@@ -180,7 +180,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             if (Info == null)
                 return;
 
-            Preference.Current.Update.NotificationMode = rpMode;
+            Preference.Current.Update.NotificationMode.Value = rpMode;
             Info.IsAvailable = false;
             OnPropertyChanged(nameof(Info));
         }

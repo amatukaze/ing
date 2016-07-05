@@ -13,8 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
         public override object ProvideValue(IServiceProvider rpServiceProvider)
         {
             var rResult = new MultiBinding() { Mode = BindingMode.OneWay, Converter = CoreConverter.Instance };
-            rResult.Bindings.Add(new Binding("Other.PanicKey.ModifierKeys") { Source = Preference.Current });
-            rResult.Bindings.Add(new Binding("Other.PanicKey.Key") { Source = Preference.Current });
+            rResult.Bindings.Add(new Binding("ModifierKeys.Value") { Source = Preference.Current.Other.PanicKey });
+            rResult.Bindings.Add(new Binding("Key.Value") { Source = Preference.Current.Other.PanicKey });
 
             return rResult.ProvideValue(rpServiceProvider);
         }

@@ -58,6 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze
             EnemyEncounterService.Instance.Initialize();
 
             Preference.Load();
+            StringResources.Instance.SubscribLanguageChanged();
             StringResources.Instance.LoadMainResource(Preference.Current.Language);
             StringResources.Instance.LoadExtraResource(Preference.Current.ExtraResourceLanguage);
 

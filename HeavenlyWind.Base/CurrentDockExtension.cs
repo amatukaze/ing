@@ -33,8 +33,8 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             var rResult = new MultiBinding() { Mode = BindingMode.OneWay, Converter = CoreConverter.Instance };
             rResult.Bindings.Add(new Binding() { Path = new PropertyPath(MetroWindow.ScreenOrientationProperty), RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(MetroWindow), 1) });
-            rResult.Bindings.Add(new Binding("Layout.LandscapeDock") { Source = Preference.Current });
-            rResult.Bindings.Add(new Binding("Layout.PortraitDock") { Source = Preference.Current });
+            rResult.Bindings.Add(new Binding("LandscapeDock.Value") { Source = Preference.Current.Layout });
+            rResult.Bindings.Add(new Binding("PortraitDock.Value") { Source = Preference.Current.Layout });
             rResult.Bindings.Add(new Binding() { RelativeSource = RelativeSource.Self });
 
             if (Converter != null)

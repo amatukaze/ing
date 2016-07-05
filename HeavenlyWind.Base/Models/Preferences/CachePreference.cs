@@ -4,33 +4,21 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class CachePreference : ModelBase
+    public class CachePreference
     {
         [JsonProperty("mode")]
-        public CacheMode Mode { get; set; }
+        public Property<CacheMode> Mode { get; private set; } = new Property<CacheMode>();
 
-        string r_Path = "Cache";
         [JsonProperty("path")]
-        public string Path
-        {
-            get { return r_Path; }
-            set
-            {
-                if (r_Path != value)
-                {
-                    r_Path = value;
-                    OnPropertyChanged(nameof(Path));
-                }
-            }
-        }
+        public Property<string> Path { get; private set; } = new Property<string>("Cache");
 
         public CachePreference()
         {
             var rDirectory = new DirectoryInfo(Path);
             if (rDirectory.Exists && rDirectory.EnumerateFiles("*.swf", SearchOption.AllDirectories).Any())
-                Mode = CacheMode.FullTrust;
+                Mode.Value = CacheMode.FullTrust;
             else
-                Mode = CacheMode.Disabled;
+                Mode.Value = CacheMode.Disabled;
         }
     }
 }

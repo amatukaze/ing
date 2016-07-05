@@ -63,7 +63,8 @@ namespace Sakuno.KanColle.Amatsukaze
             if (File.Exists(r_FilePath))
                 File.Move(r_FilePath, rBackup);
 
-            using (var rJsonWriter = new JsonTextWriter(new StreamWriter(r_FilePath, false, new UTF8Encoding(true))))
+            using (var rWriter = new StreamWriter(r_FilePath, false, new UTF8Encoding(true)))
+            using (var rJsonWriter = new JsonTextWriter(rWriter))
                 r_Serializer.Serialize(rJsonWriter, Current);
         }
     }

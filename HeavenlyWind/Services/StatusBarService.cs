@@ -157,7 +157,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             UpdateZoomSelection(rpZoom);
 
             UIZoom = rpZoom;
-            Preference.Current.UI.Zoom = rpZoom;
+            Preference.Current.UI.Zoom.Value = rpZoom;
         }
         void UpdateZoomSelection(double rpZoom)
         {
