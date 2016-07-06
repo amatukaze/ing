@@ -125,6 +125,15 @@
                                                 <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding ArmorBase}" />
                                             </StackPanel>
 
+                                            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                                <TextBlock>
+                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_Luck}" />:
+                                                    <Run Text="{Binding Luck, Mode=OneWay}" />
+                                                </TextBlock>
+
+                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding LuckBase}" />
+                                            </StackPanel>
+
                                             <TextBlock Margin="0, 4, 0, 0">
                                                 <Run Text="{rb:StringResource Ship_ToolTip_Status_ASW}" />:
                                                 <Run Text="{Binding ASW, Mode=OneWay}" />
