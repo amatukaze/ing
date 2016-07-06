@@ -51,6 +51,10 @@
   <String Key="Update_Notification_Ignore">Ignore</String>
   <String Key="Update_Notification_IgnoreOptionalUpdate">Ignore optional update</String>
   <String Key="Update_Notification_AlwaysIgnore">Always ignore</String>
+  
+  <String Key="UnhandledExceptionDialog_Instruction">Oops!</String>
+  <String Key="UnhandledExceptionDialog_Content">An unhandled exception occurred.</String>
+  <String Key="UnhandledExceptionDialog_Footer">The detail has been saved to {0}.</String>
 
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
 

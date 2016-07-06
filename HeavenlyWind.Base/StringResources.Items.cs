@@ -56,6 +56,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Update_Notification_IgnoreOptionalUpdate => GetString(nameof(Update_Notification_IgnoreOptionalUpdate));
         public string Update_Notification_AlwaysIgnore => GetString(nameof(Update_Notification_AlwaysIgnore));
 
+        public string UnhandledExceptionDialog_Instruction => GetString(nameof(UnhandledExceptionDialog_Instruction));
+        public string UnhandledExceptionDialog_Content => GetString(nameof(UnhandledExceptionDialog_Content));
+        public string UnhandledExceptionDialog_Footer => GetString(nameof(UnhandledExceptionDialog_Footer));
+
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 
         public string Browser_Navigator_ResizeBrowserToFitGame => GetString(nameof(Browser_Navigator_ResizeBrowserToFitGame));

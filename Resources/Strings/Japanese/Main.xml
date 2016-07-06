@@ -51,6 +51,10 @@
   <String Key="Update_Notification_Ignore">無視する</String>
   <String Key="Update_Notification_IgnoreOptionalUpdate">重要でない更新を無視する</String>
   <String Key="Update_Notification_AlwaysIgnore">常に無視する</String>
+  
+  <String Key="UnhandledExceptionDialog_Instruction">しまった！</String>
+  <String Key="UnhandledExceptionDialog_Content">予期しないエラーが発生しました。</String>
+  <String Key="UnhandledExceptionDialog_Footer">エラーのログは {0} に保存されました。</String>
 
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 

@@ -4,13 +4,16 @@ using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.KanColle.Amatsukaze.Views;
+using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
@@ -28,7 +31,10 @@ namespace Sakuno.KanColle.Amatsukaze
             Environment.CurrentDirectory = Path.GetDirectoryName(GetType().Assembly.Location);
 
             if (!Debugger.IsAttached)
+            {
+                DispatcherUnhandledException += App_DispatcherUnhandledException;
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            }
 
             base.OnStartup(e);
 
@@ -91,10 +97,56 @@ namespace Sakuno.KanColle.Amatsukaze
             Preference.Save();
         }
 
+        void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+
+            ShowUnhandledExceptionDialog(e.Exception);
+        }
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(e.ExceptionObject.ToString(), ProductInfo.AppName, MessageBoxButton.OK, MessageBoxImage.Error);
+            ShowUnhandledExceptionDialog((Exception)e.ExceptionObject);
         }
 
+        void ShowUnhandledExceptionDialog(Exception rpException)
+        {
+            var rLogFilename = Logger.GetNewExceptionLogFilename();
+            try
+            {
+                using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
+                {
+                    rStreamWriter.WriteLine("Unhandled Exception:");
+                    rStreamWriter.WriteLine();
+                    rStreamWriter.WriteLine(rpException.ToString());
+                    rStreamWriter.WriteLine();
+                }
+            }
+            catch
+            {
+                rLogFilename = null;
+            }
+
+            var rDialog = new TaskDialog()
+            {
+                Caption = StringResources.Instance.Main.Product_Name,
+                Instruction = StringResources.Instance.Main.UnhandledExceptionDialog_Instruction,
+                Icon = TaskDialogIcon.Error,
+                Content = StringResources.Instance.Main.UnhandledExceptionDialog_Content,
+
+                Detail = rpException.ToString(),
+                ShowDetailAtTheBottom = true,
+
+                OwnerWindow = MainWindow,
+                ShowAtTheCenterOfOwner = true,
+            };
+
+            if (rLogFilename != null)
+            {
+                rDialog.FooterIcon = TaskDialogIcon.Information;
+                rDialog.Footer = string.Format(StringResources.Instance.Main.UnhandledExceptionDialog_Footer, rLogFilename);
+            }
+
+            rDialog.Show();
+        }
     }
 }
