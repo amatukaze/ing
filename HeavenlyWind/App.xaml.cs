@@ -142,8 +142,15 @@ namespace Sakuno.KanColle.Amatsukaze
 
             if (rLogFilename != null)
             {
+                rDialog.EnableHyperlinks = true;
                 rDialog.FooterIcon = TaskDialogIcon.Information;
-                rDialog.Footer = string.Format(StringResources.Instance.Main.UnhandledExceptionDialog_Footer, rLogFilename);
+                rDialog.Footer = string.Format(StringResources.Instance.Main.UnhandledExceptionDialog_Footer, $"<a href=\"{rLogFilename}\">{rLogFilename}</a>");
+
+                rDialog.HyperlinkClicked += delegate
+                {
+                    if (File.Exists(rLogFilename))
+                        Process.Start(rLogFilename);
+                }; ;
             }
 
             rDialog.Show();
