@@ -3,9 +3,10 @@ using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 {
-    class BrowserVolume : ModelBase, IDisposable
+    class BrowserAudioSession : ModelBase, IDisposable
     {
-        VolumeSession r_Session;
+        AudioSession r_Session;
+        int r_BrowserProcess;
 
         int r_Volume;
         public int Volume
@@ -38,25 +39,30 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             }
         }
 
-        public BrowserVolume(VolumeSession rpSession)
+        public BrowserAudioSession(AudioSession rpSession)
         {
             r_Session = rpSession;
+            r_BrowserProcess = r_Session.ProcessID;
 
             r_IsMute = r_Session.IsMute;
             r_Volume = r_Session.Volume;
 
-            r_Session.VolumeChanged += r =>
-            {
-                r_IsMute = r.IsMute;
-                r_Volume = r.Volume;
+            r_Session.VolumeChanged += Session_VolumeChanged;
+        }
 
-                OnPropertyChanged(nameof(IsMute));
-                OnPropertyChanged(nameof(Volume));
-            };
+        void Session_VolumeChanged(object sender, AudioSessionVolumeChangedEventArgs e)
+        {
+            r_IsMute = e.IsMute;
+            r_Volume = e.Volume;
+
+            OnPropertyChanged(nameof(IsMute));
+            OnPropertyChanged(nameof(Volume));
         }
 
         public void Dispose()
         {
+            r_Session.VolumeChanged -= Session_VolumeChanged;
+
             r_Session.Dispose();
             r_Session = null;
         }

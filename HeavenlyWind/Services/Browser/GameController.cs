@@ -15,16 +15,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         BrowserService r_Owner;
 
         bool r_IsAudioDeviceNotAvailable;
-        BrowserVolume r_Volume;
-        public BrowserVolume Volume
+        BrowserAudioSession r_AudioSession;
+        public BrowserAudioSession AudioSession
         {
-            get { return r_Volume; }
+            get { return r_AudioSession; }
             private set
             {
-                if (r_Volume != value)
+                if (r_AudioSession != value)
                 {
-                    r_Volume = value;
-                    OnPropertyChanged(nameof(Volume));
+                    r_AudioSession = value;
+                    OnPropertyChanged(nameof(AudioSession));
                 }
             }
         }
@@ -60,10 +60,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             if (OS.IsWin7OrLater && !rpOwner.NoInstalledLayoutEngines)
                 try
                 {
-                    foreach (var rSession in VolumeManager.Instance.EnumerateSessions())
-                        rSession.Dispose();
-
-                    VolumeManager.Instance.NewSession += VolumeManager_NewSession;
+                    AudioManager.Instance.StartSessionNotification();
+                    AudioManager.Instance.NewSession += AudioManager_NewSession;
                 }
                 catch (Exception)
                 {
@@ -72,8 +70,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             MuteToggleCommand = new DelegatedCommand(() =>
             {
-                if (Volume != null)
-                    Volume.IsMute = !Volume.IsMute;
+                if (AudioSession != null)
+                    AudioSession.IsMute = !AudioSession.IsMute;
             }, () => OS.IsWin7OrLater && !r_IsAudioDeviceNotAvailable);
 
             SetZoomCommand = new DelegatedCommand<double>(SetZoom);
@@ -82,13 +80,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }
 
-        void VolumeManager_NewSession(VolumeSession rpSession)
+        void AudioManager_NewSession(object sender, AudioSessionCreatedEventArgs e)
         {
-            if (rpSession.DisplayName.OICEquals(@"@%SystemRoot%\System32\AudioSrv.Dll,-202"))
+            if (e.Session.IsSystemSoundsSession)
                 return;
 
             var rHostProcessID = Process.GetCurrentProcess().Id;
-            int? rProcessID = rpSession.ProcessID;
+            int? rProcessID = e.Session.ProcessID;
 
             var rIsBrowserProcess = false;
 
@@ -105,7 +103,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                             break;
                         }
                     }
-                    catch (ManagementException e) when (e.ErrorCode == ManagementStatus.NotFound)
+                    catch (ManagementException rException) when (rException.ErrorCode == ManagementStatus.NotFound)
                     {
                         rProcessID = null;
                     }
@@ -113,10 +111,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             if (!rIsBrowserProcess)
                 return;
 
-            Volume?.Dispose();
-            Volume = new BrowserVolume(rpSession);
+            e.Release = false;
 
-            VolumeManager.Instance.NewSession -= VolumeManager_NewSession;
+            AudioSession?.Dispose();
+            AudioSession = new BrowserAudioSession(e.Session);
+
+            AudioManager.Instance.NewSession -= AudioManager_NewSession;
+            AudioManager.Instance.StopSessionNotification();
         }
 
         void SetZoom(double rpZoom)

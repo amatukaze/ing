@@ -149,7 +149,7 @@
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
     <Compile Include="Services\Browser\BrowserHost.cs" />
-    <Compile Include="Services\Browser\BrowserVolume.cs" />
+    <Compile Include="Services\Browser\BrowserAudioSession.cs" />
     <Compile Include="Services\Browser\BrowserWrapper.cs" />
     <Compile Include="Services\Browser\BrowserZoomInfo.cs" />
     <Compile Include="Services\Browser\CommunicatorMessageExtensions.cs" />
