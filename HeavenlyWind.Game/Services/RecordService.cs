@@ -209,6 +209,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     for (var i = 0; i < rCommandTexts.Length; i++)
                     {
                         rStreamWriter.Write(i + 1);
+                        rStreamWriter.WriteLine(':');
                         rStreamWriter.WriteLine(rCommandTexts[i]);
                     }
                     rStreamWriter.WriteLine();

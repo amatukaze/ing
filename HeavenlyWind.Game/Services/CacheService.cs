@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -26,6 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public void Initialize()
         {
             r_Connection = new SQLiteConnection(@"Data Source=Data\Cache.db; Page Size=8192").OpenAndReturn();
+            r_Connection.Update += (s, e) => Debug.WriteLine($"CacheService: {e.Event} - {e.Table} - {e.RowId}");
 
             using (var rCommand = r_Connection.CreateCommand())
             {
