@@ -32,7 +32,27 @@ namespace Sakuno.KanColle.Amatsukaze
             if (!rLogDirectory.Exists)
                 rLogDirectory.Create();
 
-            r_Writer = new StreamWriter(Path.Combine(rLogDirectory.FullName, DateTime.Now.ToString("yyyy-MM-dd") + ".log"), true, new UTF8Encoding(true));
+            var rOccupied = true;
+            var rID = 1;
+            do
+            {
+                try
+                {
+                    string rFilename;
+                    if (rID == 1)
+                        rFilename = DateTime.Now.ToString("yyyy-MM-dd") + ".log";
+                    else
+                        rFilename = $"{DateTime.Now:yyyy-MM-dd}_{rID}.log";
+
+                    r_Writer = new StreamWriter(Path.Combine(rLogDirectory.FullName, rFilename), true, new UTF8Encoding(true));
+
+                    rOccupied = false;
+                }
+                catch (IOException)
+                {
+                    rID++;
+                }
+            } while (rOccupied);
 
             r_Queue = new ConcurrentQueue<LogItem>();
 

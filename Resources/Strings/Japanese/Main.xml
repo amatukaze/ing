@@ -42,6 +42,8 @@
   <String Key="Notification_AnchorageRepair">泊地修理</String>
   <String Key="Notification_AnchorageRepair_Content">泊地修理の開始から 20 分が経過したので、母港画面に戻ってください</String>
 
+  <String Key="MessageDialog_AudioSessionDisconnected">オーディオデバイスが抜かれたので、音量を設定に失敗しました。</String>
+
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>

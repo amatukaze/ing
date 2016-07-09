@@ -42,6 +42,10 @@
   <String Key="Notification_AnchorageRepair">Anchorage Repair</String>
   <String Key="Notification_AnchorageRepair_Content">Please return to the HQ screen to get ships' HP repaired.</String>
 
+  <String Key="MessageDialog_AudioSessionDisconnected">Audio device has been unplugged, which results in failing to mute/unmute.
+  
+The current version can't handle this problem. To mute/unmute, please do it with sound mixer.</String>
+
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>
   <String Key="Result_GreatSuccess">Great success</String>

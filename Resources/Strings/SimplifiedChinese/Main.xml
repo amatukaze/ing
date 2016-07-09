@@ -42,6 +42,10 @@
   <String Key="Notification_AnchorageRepair">泊地修理</String>
   <String Key="Notification_AnchorageRepair_Content">从泊地修理开始已过 20 分钟，请返回母港画面。</String>
 
+  <String Key="MessageDialog_AudioSessionDisconnected">音频设备有变动，导致无法设置静音。
+
+当前版本还无法解决该问题。如果要设置静音，请使用系统的音量合成器。请见谅。</String>
+
   <String Key="Result_Failure">失败</String>
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>

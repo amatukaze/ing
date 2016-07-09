@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
+using System.Runtime.InteropServices;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Browser
@@ -71,7 +72,23 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             MuteToggleCommand = new DelegatedCommand(() =>
             {
                 if (AudioSession != null)
-                    AudioSession.IsMute = !AudioSession.IsMute;
+                    try
+                    {
+                        AudioSession.IsMute = !AudioSession.IsMute;
+                    }
+                    catch (COMException e) when (e.ErrorCode == 0x8889004)
+                    {
+                        new TaskDialog()
+                        {
+                            Caption = StringResources.Instance.Main.Product_Name,
+                            Instruction = StringResources.Instance.Main.UnhandledExceptionDialog_Instruction,
+                            Icon = TaskDialogIcon.Error,
+                            Content = StringResources.Instance.Main.MessageDialog_AudioSessionDisconnected,
+
+                            OwnerWindow = App.Current.MainWindow,
+                            ShowAtTheCenterOfOwner = true,
+                        }.Show();
+                    }
             }, () => OS.IsWin7OrLater && !r_IsAudioDeviceNotAvailable);
 
             SetZoomCommand = new DelegatedCommand<double>(SetZoom);

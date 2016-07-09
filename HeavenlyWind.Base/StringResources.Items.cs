@@ -46,6 +46,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Notification_AnchorageRepair => GetString(nameof(Notification_AnchorageRepair));
         public string Notification_AnchorageRepair_Content => GetString(nameof(Notification_AnchorageRepair_Content));
 
+        public string MessageDialog_AudioSessionDisconnected => GetString(nameof(MessageDialog_AudioSessionDisconnected));
+
         public string Result_Failure => GetString(nameof(Result_Failure));
         public string Result_Success => GetString(nameof(Result_Success));
         public string Result_GreatSuccess => GetString(nameof(Result_GreatSuccess));
