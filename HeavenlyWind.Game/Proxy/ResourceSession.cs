@@ -5,6 +5,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
     public class ResourceSession : NetworkSession
     {
+        public override NetworkSessionType Type => NetworkSessionType.Resource;
+
         static Regex r_VersionRegex = new Regex(@"(?<=\?version=).+?(?=(?:$|&))", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         string r_DisplayUrl;

@@ -442,4 +442,12 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="UIZoom_ZoomIn">Zoom In</String>
   <String Key="UIZoom_ZoomOut">Zoom Out</String>
 
+  <String Key="SessionTool_Title">Session Tool</String>
+  <String Key="SessionTool_Clear">Clear</String>
+  <String Key="SessionTool_Option_AutoScroll">Auto scroll</String>
+  <String Key="SessionTool_Option_StartRecordingOnAppStartup">Start recording on app startup</String>
+  <String Key="SessionTool_Method">Method</String>
+  <String Key="SessionTool_Status">Status</String>
+  <String Key="SessionTool_URLOrAPI">URL / API</String>
+
 </Strings>

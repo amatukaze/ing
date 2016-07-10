@@ -441,4 +441,12 @@
   <String Key="UIZoom_ZoomIn">放大</String>
   <String Key="UIZoom_ZoomOut">缩小</String>
 
+  <String Key="SessionTool_Title">会话工具</String>
+  <String Key="SessionTool_Clear">清空</String>
+  <String Key="SessionTool_Option_AutoScroll">自动滚动</String>
+  <String Key="SessionTool_Option_StartRecordingOnAppStartup">在程序启动时记录会话</String>
+  <String Key="SessionTool_Method">方法</String>
+  <String Key="SessionTool_Status">状态码</String>
+  <String Key="SessionTool_URLOrAPI">URL・API</String>
+
 </Strings>

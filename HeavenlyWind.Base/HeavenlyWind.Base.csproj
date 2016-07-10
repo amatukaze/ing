@@ -106,6 +106,7 @@
     <Compile Include="Models\Preferences\Property`T.cs" />
     <Compile Include="Models\Preferences\PropertyValueChangedEventArgs.cs" />
     <Compile Include="Models\Preferences\ScreenshotPreference.cs" />
+    <Compile Include="Models\Preferences\SessionToolPreference.cs" />
     <Compile Include="Models\Preferences\UIFontProperty.cs" />
     <Compile Include="Models\Preferences\UpdatePreference.cs" />
     <Compile Include="Models\Preferences\UpstreamProxyPreference.cs" />

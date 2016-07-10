@@ -2,8 +2,10 @@
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Tools;
 using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
+using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.UserInterface;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,10 +47,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public bool IsBrowserAvailable { get; private set; } = true;
 
+        SessionToolViewModel r_SessionTool = new SessionToolViewModel();
+
         public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowService.Instance.Show<PreferencesWindow>());
 
         public ICommand ExpandMenuCommand { get; }
 
+        public ICommand ShowSessionToolCommand { get; }
         public ICommand ShowExpeditionOverviewCommand { get; }
 
         public ICommand ShowConstructionHistoryCommand { get; }
@@ -80,6 +85,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             SessionService.Instance.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
             KanColleGame.Current.ReturnedFromSortie += _ => ThemeManager.Instance.ChangeAccent(Accent.Blue);
 
+            ShowSessionToolCommand = new DelegatedCommand(() => WindowService.Instance.Show<SessionToolWindow>(r_SessionTool));
             ShowExpeditionOverviewCommand = new DelegatedCommand(() =>
             {
                 var rGameInfo = Content as GameInformationViewModel;

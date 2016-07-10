@@ -310,6 +310,7 @@
     <Compile Include="Proxy\KanColleProxy.cs" />
     <Compile Include="Proxy\NetworkSession.cs" />
     <Compile Include="Proxy\ResourceSession.cs" />
+    <Compile Include="Proxy\SessionHeader.cs" />
     <Compile Include="QuestManager.cs" />
     <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\EnemyEncounterService.cs" />

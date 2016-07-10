@@ -6,5 +6,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
     {
         [JsonProperty("panic_key")]
         public PanicKeyPreference PanicKey { get; private set; } = new PanicKeyPreference();
+
+        [JsonProperty("session_tool")]
+        public SessionToolPreference SessionTool { get; private set; } = new SessionToolPreference();
     }
 }

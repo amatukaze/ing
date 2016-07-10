@@ -439,4 +439,12 @@
   <String Key="UIZoom_ZoomIn">拡大表示</String>
   <String Key="UIZoom_ZoomOut">縮小表示</String>
 
+  <String Key="SessionTool_Title">セーションツール</String>
+  <String Key="SessionTool_Clear">クリア</String>
+  <String Key="SessionTool_Option_AutoScroll">自動スクロール</String>
+  <String Key="SessionTool_Option_StartRecordingOnAppStartup">アプリの起動時に記録を開始</String>
+  <String Key="SessionTool_Method">メソッド</String>
+  <String Key="SessionTool_Status">ステータス</String>
+  <String Key="SessionTool_URLOrAPI">URL・API</String>
+
 </Strings>

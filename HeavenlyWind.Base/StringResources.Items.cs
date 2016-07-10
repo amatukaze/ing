@@ -443,5 +443,13 @@ namespace Sakuno.KanColle.Amatsukaze
         public string UIZoom_ZoomIn => GetString(nameof(UIZoom_ZoomIn));
         public string UIZoom_ZoomOut => GetString(nameof(UIZoom_ZoomOut));
 
+        public string SessionTool_Title => GetString(nameof(SessionTool_Title));
+        public string SessionTool_Clear => GetString(nameof(SessionTool_Clear));
+        public string SessionTool_Option_AutoScroll => GetString(nameof(SessionTool_Option_AutoScroll));
+        public string SessionTool_Option_StartRecordingOnAppStartup => GetString(nameof(SessionTool_Option_StartRecordingOnAppStartup));
+        public string SessionTool_Method => GetString(nameof(SessionTool_Method));
+        public string SessionTool_Status => GetString(nameof(SessionTool_Status));
+        public string SessionTool_URLOrAPI => GetString(nameof(SessionTool_URLOrAPI));
+
     }
 }

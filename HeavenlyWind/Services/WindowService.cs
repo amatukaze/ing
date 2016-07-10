@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         WindowService() { }
 
-        public void Show<T>() where T : Window, new()
+        public void Show<T>(object rpDataContext = null) where T : Window, new()
         {
             var rWindow = App.Current.Windows.OfType<T>().SingleOrDefault();
             if (rWindow == null)
@@ -17,6 +17,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 rWindow = new T();
                 rWindow.Show();
             }
+
+            if (rpDataContext != null)
+                rWindow.DataContext = rpDataContext;
 
             rWindow.Activate();
 

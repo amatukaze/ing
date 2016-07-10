@@ -213,6 +213,8 @@
     <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="ViewModels\Tools\SessionToolViewModel.cs" />
+    <Compile Include="ViewModels\Tools\SessionViewModel.cs" />
     <Compile Include="ViewModels\ToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\OverviewScreenshotToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\ScreenshotToolPreviewViewModel.cs" />
@@ -391,6 +393,9 @@
       <DependentUpon>ScreenshotTool.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tools\ScreenshotToolOverlayWindow.cs" />
+    <Compile Include="Views\Tools\SessionToolWindow.xaml.cs">
+      <DependentUpon>SessionToolWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UpdateNotification.xaml.cs">
       <DependentUpon>UpdateNotification.xaml</DependentUpon>
     </Compile>
@@ -950,6 +955,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Tools\ScreenshotTool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tools\SessionToolWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
