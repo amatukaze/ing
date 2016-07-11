@@ -7,5 +7,6 @@
         Scrapped,
         ConsumedByImprovement,
         Sunk,
+        ConsumedInBattle,
     }
 }

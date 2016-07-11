@@ -29,5 +29,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
 
         [JsonProperty("api_eParam")]
         public int[][] EnemyBaseStatus { get; set; }
+
+        [JsonProperty("api_combat_ration")]
+        public int[] ShipsToConsumeCombatRation { get; set; }
+        [JsonProperty("api_combat_ration_combined")]
+        public int[] EscortShipsToConsumeCombatRation { get; set; }
     }
 }

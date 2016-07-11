@@ -417,6 +417,7 @@
   <String Key="ScrappingHistory_Reason_Scrapped">装备废弃</String>
   <String Key="ScrappingHistory_Reason_ConsumedByImprovement">装备改修</String>
   <String Key="ScrappingHistory_Reason_Sunk">沉没</String>
+  <String Key="ScrappingHistory_Reason_ConsumedInBattle">战斗</String>
 
   <String Key="Tool_ExpeditionOverview">远征一览</String>
 

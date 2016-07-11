@@ -415,6 +415,7 @@
   <String Key="ScrappingHistory_Reason_Scrapped">装備の廃棄</String>
   <String Key="ScrappingHistory_Reason_ConsumedByImprovement">装備改修</String>
   <String Key="ScrappingHistory_Reason_Sunk">沈没</String>
+  <String Key="ScrappingHistory_Reason_ConsumedInBattle">戦闘</String>
 
   <String Key="Tool_ExpeditionOverview">遠征一覧</String>
   

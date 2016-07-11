@@ -419,6 +419,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ScrappingHistory_Reason_Scrapped => GetString(nameof(ScrappingHistory_Reason_Scrapped));
         public string ScrappingHistory_Reason_ConsumedByImprovement => GetString(nameof(ScrappingHistory_Reason_ConsumedByImprovement));
         public string ScrappingHistory_Reason_Sunk => GetString(nameof(ScrappingHistory_Reason_Sunk));
+        public string ScrappingHistory_Reason_ConsumedInBattle => GetString(nameof(ScrappingHistory_Reason_ConsumedInBattle));
 
         public string Tool_ExpeditionOverview => GetString(nameof(Tool_ExpeditionOverview));
 

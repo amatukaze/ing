@@ -418,6 +418,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="ScrappingHistory_Reason_Scrapped">Scrapped</String>
   <String Key="ScrappingHistory_Reason_ConsumedByImprovement">Consumed by improvement</String>
   <String Key="ScrappingHistory_Reason_Sunk">Sunk</String>
+  <String Key="ScrappingHistory_Reason_ConsumedInBattle">Battle</String>
 
   <String Key="Tool_ExpeditionOverview">Expedition Overview</String>
 
