@@ -361,7 +361,7 @@
     <Compile Include="Services\Records\FateRecords.cs" />
     <Compile Include="Services\Records\IRecordsGroupProvider.cs" />
     <Compile Include="Services\Records\QuestProgressRecords.cs" />
-    <Compile Include="Services\Records\RankingPointBonusRecords.cs" />
+    <Compile Include="Services\Records\RankingPointsRecords.cs" />
     <Compile Include="Services\Records\RecordsGroup.cs" />
     <Compile Include="Services\Records\RecordsGroupExtensions.cs" />
     <Compile Include="Services\Records\ResourcesRecords.cs" />
