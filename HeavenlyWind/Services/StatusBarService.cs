@@ -108,14 +108,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 using (var rClient = new UdpClient(rpHostname, 123))
                 {
-                    rClient.Client.SendTimeout = 5000;
-                    rClient.Client.ReceiveTimeout = 5000;
-
                     var rData = new byte[48];
                     rData[0] = 0x1B;
 
                     await rClient.SendAsync(rData, rData.Length);
-                    rData = (await rClient.ReceiveAsync()).Buffer;
+
+                    var rResult = await Task.WhenAny(rClient.ReceiveAsync(), Task.Delay(5000)) as Task<UdpReceiveResult>;
+                    if (rResult == null)
+                        return false;
+
+                    rData = (await rResult).Buffer;
 
                     var rIntegerPart = (ulong)rData[40] << 24 | (ulong)rData[41] << 16 | (ulong)rData[42] << 8 | rData[43];
                     var rFractionPart = (ulong)rData[44] << 24 | (ulong)rData[45] << 16 | (ulong)rData[46] << 8 | rData[47];
