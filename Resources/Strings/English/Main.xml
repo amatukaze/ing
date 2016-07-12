@@ -108,8 +108,8 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Overview_ConstructionDocks_Completed">Completed</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">Completion Time</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">Material Consumption</String>
-  <String Key="Overview_ExecutingQuest_None">No executing quest</String>
-  <String Key="Overview_ExecutingQuest_NotLoaded">Executing quest not loaded</String>
+  <String Key="Overview_ActiveQuest_None">No active quest</String>
+  <String Key="Overview_ActiveQuest_NotLoaded">Active quests not loaded</String>
 
   <String Key="Fleet_TotalLevel">Total Lv</String>
   <String Key="Fleet_LoS">LoS</String>
@@ -255,11 +255,13 @@ The current version can't handle this problem. To mute/unmute, please do it with
 
   <String Key="Quest_NoData">Please open the "Quests" menu in the game to populate the quest list</String>
   <String Key="Quest_Unknown">?????</String>
-  <String Key="Quest_Type_Once" />
-  <String Key="Quest_Type_Special">D</String>
-  <String Key="Quest_Type_Daily">D</String>
-  <String Key="Quest_Type_Weekly">W</String>
-  <String Key="Quest_Type_Monthly">M</String>
+  <String Key="Quest_Type_Active">Active</String>
+  <String Key="Quest_Type_Daily">Daily</String>
+  <String Key="Quest_Type_Weekly">Weekly</String>
+  <String Key="Quest_Type_Monthly">Monthly</String>
+  <String Key="Quest_Type_Once">Once</String>
+  <String Key="Quest_Type_Others">Others</String>
+  <String Key="Quest_Type_All">All</String>
   <String Key="Quest_Category_Composition">Composition</String>
   <String Key="Quest_Category_Sortie">Sortie</String>
   <String Key="Quest_Category_Practice">Practice</String>

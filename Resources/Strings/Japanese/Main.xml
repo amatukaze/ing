@@ -106,8 +106,8 @@
   <String Key="Overview_ConstructionDocks_Completed">完了</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">完了時刻</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
-  <String Key="Overview_ExecutingQuest_None">遂行中の任務なし</String>
-  <String Key="Overview_ExecutingQuest_NotLoaded">遂行中の任務未取得</String>
+  <String Key="Overview_ActiveQuest_None">遂行中の任務なし</String>
+  <String Key="Overview_ActiveQuest_NotLoaded">遂行中の任務未取得</String>
 
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
@@ -253,11 +253,13 @@
 
   <String Key="Quest_NoData">ゲーム内で「任務(クエスト)」画面を開いて、任務一覧を取得してください</String>
   <String Key="Quest_Unknown">?????</String>
-  <String Key="Quest_Type_Once" />
-  <String Key="Quest_Type_Special">日</String>
+  <String Key="Quest_Type_Active">遂行中</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>
   <String Key="Quest_Type_Monthly">月</String>
+  <String Key="Quest_Type_Once">単発</String>
+  <String Key="Quest_Type_Others">他</String>
+  <String Key="Quest_Type_All">すべて</String>
   <String Key="Quest_Category_Composition">編成</String>
   <String Key="Quest_Category_Sortie">出撃</String>
   <String Key="Quest_Category_Practice">演習</String>

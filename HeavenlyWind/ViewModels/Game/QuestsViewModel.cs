@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using System;
 using System.Collections.Generic;
@@ -16,58 +17,68 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             protected set { throw new NotImplementedException(); }
         }
 
-        bool r_IsLoaded;
-        public bool IsLoaded
-        {
-            get { return r_IsLoaded; }
-            private set
-            {
-                if (r_IsLoaded != value)
-                {
-                    r_IsLoaded = value;
-                    OnPropertyChanged(nameof(IsLoaded));
-                }
-            }
-        }
+        GameInformationViewModel r_Owner;
 
-        IReadOnlyCollection<QuestViewModel> r_Executing;
-        public IReadOnlyCollection<QuestViewModel> Executing
-        {
-            get { return r_Executing; }
-            private set
-            {
-                if (r_Executing != value)
-                {
-                    r_Executing = value;
-                    OnPropertyChanged(nameof(Executing));
-                }
-            }
-        }
-        IReadOnlyCollection<QuestViewModel> r_Unexecuted;
-        public IReadOnlyCollection<QuestViewModel> Unexecuted
-        {
-            get { return r_Unexecuted; }
-            private set
-            {
-                if (r_Unexecuted != value)
-                {
-                    r_Unexecuted = value;
-                    OnPropertyChanged(nameof(Unexecuted));
-                }
-            }
-        }
+        public bool IsLoaded { get; private set; }
 
-        internal QuestsViewModel(GameInformationViewModel rpParent)
+        IDTable<QuestViewModel> r_Quests = new IDTable<QuestViewModel>();
+
+        public IList<QuestViewModel> All { get; private set; }
+        public IList<QuestViewModel> Active { get; private set; }
+
+        public IList<QuestViewModel> Daily { get; private set; }
+        public IList<QuestViewModel> Weekly { get; private set; }
+        public IList<QuestViewModel> Monthly { get; private set; }
+        public IList<QuestViewModel> Once { get; private set; }
+        public IList<QuestViewModel> Others { get; private set; }
+
+        internal QuestsViewModel(GameInformationViewModel rpOwner)
         {
+            r_Owner = rpOwner;
+
             var rQuestManager = KanColleGame.Current.Port.Quests;
 
-            Executing = rpParent.Overview.ExecutingQuests = rQuestManager.Executing?.Select(r => new QuestViewModel(r)).ToList();
-            Unexecuted = rQuestManager.Unexecuted?.Select(r => new QuestViewModel(r)).ToList();
-
             var rQuestManagerPCEL = PropertyChangedEventListener.FromSource(rQuestManager);
-            rQuestManagerPCEL.Add(nameof(rQuestManager.IsLoaded), (s, e) => IsLoaded = true);
-            rQuestManagerPCEL.Add(nameof(rQuestManager.Executing), (s, e) => Executing = rpParent.Overview.ExecutingQuests = rQuestManager.Executing.Select(r => new QuestViewModel(r)).ToList());
-            rQuestManagerPCEL.Add(nameof(rQuestManager.Unexecuted), (s, e) => Unexecuted = rQuestManager.Unexecuted.Select(r => new QuestViewModel(r)).ToList());
+            rQuestManagerPCEL.Add(nameof(rQuestManager.IsLoaded), delegate
+            {
+                IsLoaded = true;
+                OnPropertyChanged(nameof(IsLoaded));
+            });
+
+            rQuestManagerPCEL.Add(nameof(rQuestManager.Active), (s, e) => UpdateActiveQuests());
+            UpdateActiveQuests();
+        }
+
+        void UpdateActiveQuests()
+        {
+            if (r_Quests.UpdateRawData(KanColleGame.Current.Port.Quests.Table.Values, r => new QuestViewModel(r), delegate { }))
+            {
+                All = r_Quests.Values.ToArray();
+                OnPropertyChanged(nameof(All));
+
+                var rQuestGroups = All.ToLookup(r => r.Source.Type);
+
+                Daily = rQuestGroups[QuestType.Daily].ToArray();
+                Weekly = rQuestGroups[QuestType.Weekly].ToArray();
+                Monthly = rQuestGroups[QuestType.Monthly].ToArray();
+                Once = rQuestGroups[QuestType.Once].ToArray();
+                Others = rQuestGroups[QuestType.Special].ToArray();
+
+                OnPropertyChanged(nameof(Daily));
+                OnPropertyChanged(nameof(Weekly));
+                OnPropertyChanged(nameof(Monthly));
+                OnPropertyChanged(nameof(Once));
+                OnPropertyChanged(nameof(Others));
+            }
+
+            var rActiveQuests = KanColleGame.Current.Port.Quests.Active;
+            if (rActiveQuests != null)
+            {
+                Active = rActiveQuests.Where(r => r != Quest.Dummy).Select(r => r_Quests[r.ID]).ToArray();
+                r_Owner.Overview.ActiveQuests = Active;
+
+                OnPropertyChanged(nameof(Active));
+            }
         }
     }
 }

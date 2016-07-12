@@ -3,11 +3,11 @@
 namespace Sakuno.KanColle.Amatsukaze.Views.Game
 {
     /// <summary>
-    /// ExecutingQuestsOverview.xaml の相互作用ロジック
+    /// ActiveQuestsOverview.xaml の相互作用ロジック
     /// </summary>
-    public partial class ExecutingQuestsOverview : UserControl
+    partial class ActiveQuestsOverview
     {
-        public ExecutingQuestsOverview()
+        public ActiveQuestsOverview()
         {
             InitializeComponent();
         }

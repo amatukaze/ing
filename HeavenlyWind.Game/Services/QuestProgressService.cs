@@ -158,7 +158,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                             ((OperationA)rOSSRule).UpdatePercentage(rProgressInfo);
                     }
 
-                    if (rRawQuest.State == QuestState.Executing)
+                    if (rRawQuest.State == QuestState.Active)
                         RecordService.Instance.QuestProgress.InsertRecord(rRawQuest, rProgress);
                 }
 

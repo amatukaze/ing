@@ -110,8 +110,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_ConstructionDocks_Completed => GetString(nameof(Overview_ConstructionDocks_Completed));
         public string Overview_ConstructionDocks_TimeToComplete => GetString(nameof(Overview_ConstructionDocks_TimeToComplete));
         public string Overview_ConstructionDocks_MaterialConsumption => GetString(nameof(Overview_ConstructionDocks_MaterialConsumption));
-        public string Overview_ExecutingQuest_None => GetString(nameof(Overview_ExecutingQuest_None));
-        public string Overview_ExecutingQuest_NotLoaded => GetString(nameof(Overview_ExecutingQuest_NotLoaded));
+        public string Overview_ActiveQuest_None => GetString(nameof(Overview_ActiveQuest_None));
+        public string Overview_ActiveQuest_NotLoaded => GetString(nameof(Overview_ActiveQuest_NotLoaded));
 
         public string Fleet_TotalLevel => GetString(nameof(Fleet_TotalLevel));
         public string Fleet_LoS => GetString(nameof(Fleet_LoS));
@@ -257,11 +257,13 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Quest_NoData => GetString(nameof(Quest_NoData));
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
-        public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
-        public string Quest_Type_Special => GetString(nameof(Quest_Type_Special));
+        public string Quest_Type_Active => GetString(nameof(Quest_Type_Active));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));
         public string Quest_Type_Monthly => GetString(nameof(Quest_Type_Monthly));
+        public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
+        public string Quest_Type_Others => GetString(nameof(Quest_Type_Others));
+        public string Quest_Type_All => GetString(nameof(Quest_Type_All));
         public string Quest_Category_Composition => GetString(nameof(Quest_Category_Composition));
         public string Quest_Category_Sortie => GetString(nameof(Quest_Category_Sortie));
         public string Quest_Category_Practice => GetString(nameof(Quest_Category_Practice));

@@ -2,13 +2,12 @@
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class QuestViewModel : ModelBase
+    public class QuestViewModel : RawDataWrapper<Quest>, IID
     {
-        public Quest Source { get; }
+        public Quest Source => RawData;
 
-        internal QuestViewModel(Quest rpQuest)
-        {
-            Source = rpQuest;
-        }
+        public int ID => RawData.ID;
+
+        internal QuestViewModel(Quest rpQuest) : base(rpQuest) { }
     }
 }

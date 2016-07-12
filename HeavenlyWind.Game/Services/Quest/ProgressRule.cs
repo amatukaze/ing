@@ -31,7 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
                     return;
 
                 ProgressInfo rProgressInfo;
-                if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Executing)
+                if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Active)
                     return;
 
                 Updater.Invoke(rProgressInfo);

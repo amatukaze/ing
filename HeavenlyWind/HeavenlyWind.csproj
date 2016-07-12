@@ -232,6 +232,9 @@
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\ActiveQuestsOverview.xaml.cs">
+      <DependentUpon>ActiveQuestsOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\AirBaseOverview.xaml.cs">
       <DependentUpon>AirBaseOverview.xaml</DependentUpon>
     </Compile>
@@ -273,9 +276,6 @@
     </Compile>
     <Compile Include="Views\Game\Events\Whirlpool.xaml.cs">
       <DependentUpon>Whirlpool.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Game\ExecutingQuestsOverview.xaml.cs">
-      <DependentUpon>ExecutingQuestsOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\ExpeditionOverview.xaml.cs">
       <DependentUpon>ExpeditionOverview.xaml</DependentUpon>
@@ -746,6 +746,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\ActiveQuestsOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\AirBaseOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -799,10 +803,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\Events\Whirlpool.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Game\ExecutingQuestsOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

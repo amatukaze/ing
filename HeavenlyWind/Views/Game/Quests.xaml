@@ -11,70 +11,57 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/OverviewTabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/QuestRealtimeProgress.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
-                <Border Background="Transparent">
-                    <Grid Height="23">
+                <Border Background="Transparent" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Margin="4, -1, 4, 0" Padding="0, 8">
+                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition SharedSizeGroup="Type" MinWidth="12" />
-                            <ColumnDefinition SharedSizeGroup="Group" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="4" />
                             <ColumnDefinition />
-                            <ColumnDefinition Width="3" />
+                            <ColumnDefinition Width="4" />
                             <ColumnDefinition SharedSizeGroup="Progress" />
                         </Grid.ColumnDefinitions>
-                        <Grid.ToolTip>
-                            <ToolTip>
-                                <TextBlock Text="{Binding Source.Description}" />
-                            </ToolTip>
-                        </Grid.ToolTip>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="4" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
 
-                        <TextBlock Text="{rb:EnumToStringResource Source.Type, Quest_Type}"  TextAlignment="Center" />
-                        <TextBlock Name="Category" Text="{rb:EnumToStringResource Source.Category, Quest_Category}" Foreground="Black" Margin="3, 0, 0, 0" Grid.Column="1" />
+                        <Rectangle Fill="{Binding Source.Category, Converter={StaticResource QuestCategoryToBrushConverter}}" Width="10" />
 
-                        <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0" Grid.Column="2">
-                            <TextBlock Text="{rb:ExtraStringResource Quest, Source.ID, Source.Name}" TextTrimming="CharacterEllipsis" />
-                            <Border Name="ProgressBorder" Background="Green" Margin="3, 0, 0, 0" Padding="4, 2" Visibility="Collapsed">
-                                <TextBlock Name="Progress" Foreground="White" />
-                            </Border>
-                            <Border Name="CanCompletedBorder" Background="Yellow" Margin="3, 0, 0, 0" Padding="4, 2" Visibility="Collapsed">
-                                <TextBlock Foreground="Black" />
+                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                            <TextBlock Text="{rb:ExtraStringResource Quest, Source.ID, Source.Name}" FontSize="16" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
+
+                            <Border Name="ProgressBorder" Background="Green" Margin="3, 0, 0, 0" Padding="8, 0" Visibility="Collapsed">
+                                <TextBlock Name="Progress" Text="0%" Foreground="White" />
                             </Border>
                         </StackPanel>
 
-                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4">
+                        <StackPanel DataContext="{Binding Source}" Orientation="Horizontal" Grid.Column="2" Grid.Row="2">
+                            <rc:MaterialIcon Type="Fuel" Visibility="{rb:CollapsedIfZero FuelReward}" />
+                            <TextBlock Text="{Binding FuelReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero FuelReward}" />
+
+                            <rc:MaterialIcon Type="Bullet" Visibility="{rb:CollapsedIfZero BulletReward}" />
+                            <TextBlock Text="{Binding BulletReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero BulletReward}" />
+
+                            <rc:MaterialIcon Type="Steel" Visibility="{rb:CollapsedIfZero SteelReward}" />
+                            <TextBlock Text="{Binding SteelReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero SteelReward}" />
+
+                            <rc:MaterialIcon Type="Bauxite" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
+                            <TextBlock Text="{Binding BauxiteReward}" Margin="4, 0, 0, 0" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
+                        </StackPanel>
+
+                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4" Grid.RowSpan="3">
                             <Control Style="{StaticResource QuestRealtimeProgress}" />
                         </Border>
                     </Grid>
                 </Border>
 
                 <DataTemplate.Triggers>
-                    <DataTrigger Binding="{Binding Source.Category}" Value="Composition">
-                        <Setter TargetName="Category" Property="Foreground" Value="#43C769" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Source.Category}" Value="Sortie">
-                        <Setter TargetName="Category" Property="Foreground" Value="#EC6063" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Source.Category}" Value="Practice">
-                        <Setter TargetName="Category" Property="Foreground" Value="#93CE67" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Source.Category}" Value="Expedition">
-                        <Setter TargetName="Category" Property="Foreground" Value="#4EBBD4" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Source.Category}" Value="SupplyOrDocking">
-                        <Setter TargetName="Category" Property="Foreground" Value="#DEC772" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Source.Category}" Value="Arsenal">
-                        <Setter TargetName="Category" Property="Foreground" Value="#BA8F79" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Source.Category}" Value="Modernization">
-                        <Setter TargetName="Category" Property="Foreground" Value="#CAA6DD" />
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding Source.Category}" Value="Sortie2">
-                        <Setter TargetName="Category" Property="Foreground" Value="#EC6063" />
-                    </DataTrigger>
-
                     <DataTrigger Binding="{Binding Source.Progress}" Value="Progress50">
                         <Setter TargetName="Progress" Property="Text" Value="50%" />
                         <Setter TargetName="ProgressBorder" Property="Background" Value="#FF4F9C3A" />
@@ -101,19 +88,67 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Control}">
-                        <ScrollViewer PanningMode="VerticalOnly">
-                            <StackPanel Grid.IsSharedSizeScope="True">
-                                <ListBox ItemsSource="{Binding Executing}" />
+                        <TabControl Name="TabControl">
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="{rb:StringResource Main.Quest_Type_Active}" TextAlignment="Center" MinWidth="40" Margin="4, 2" />
+                                </TabItem.Header>
 
-                                <Rectangle Name="Separator" Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="0, 5" />
+                                <ItemsControl Style="{StaticResource VirtualizingItemsControl}" ItemsSource="{Binding Active}" />
+                            </TabItem>
 
-                                <ListBox ItemsSource="{Binding Unexecuted}" />
-                            </StackPanel>
-                        </ScrollViewer>
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="{rb:StringResource Main.Quest_Type_Daily}" Foreground="#72C2FF" TextAlignment="Center" MinWidth="40" Margin="4, 2" />
+                                </TabItem.Header>
+
+                                <ItemsControl Style="{StaticResource VirtualizingItemsControl}" ItemsSource="{Binding Daily}" />
+                            </TabItem>
+
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="{rb:StringResource Main.Quest_Type_Weekly}" Foreground="#8CE3EA" TextAlignment="Center" MinWidth="40" Margin="4, 2" />
+                                </TabItem.Header>
+
+                                <ItemsControl Style="{StaticResource VirtualizingItemsControl}" ItemsSource="{Binding Weekly}" />
+                            </TabItem>
+
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="{rb:StringResource Main.Quest_Type_Monthly}" Foreground="#BBE579" TextAlignment="Center" MinWidth="40" Margin="4, 2" />
+                                </TabItem.Header>
+
+                                <ItemsControl Style="{StaticResource VirtualizingItemsControl}" ItemsSource="{Binding Monthly}" />
+                            </TabItem>
+
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="{rb:StringResource Main.Quest_Type_Once}" Foreground="#EFDB58" TextAlignment="Center" MinWidth="40" Margin="4, 2" />
+                                </TabItem.Header>
+
+                                <ItemsControl Style="{StaticResource VirtualizingItemsControl}" ItemsSource="{Binding Once}" />
+                            </TabItem>
+
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="{rb:StringResource Main.Quest_Type_Others}" Foreground="#EBA369" TextAlignment="Center" MinWidth="40" Margin="4, 2" />
+                                </TabItem.Header>
+
+                                <ItemsControl Style="{StaticResource VirtualizingItemsControl}" ItemsSource="{Binding Others}" />
+                            </TabItem>
+
+                            <TabItem>
+                                <TabItem.Header>
+                                    <TextBlock Text="{rb:StringResource Main.Quest_Type_All}" TextAlignment="Center" MinWidth="40" Margin="4, 2" />
+                                </TabItem.Header>
+
+                                <ItemsControl Style="{StaticResource VirtualizingItemsControl}" ItemsSource="{Binding All}" />
+                            </TabItem>
+                        </TabControl>
 
                         <ControlTemplate.Triggers>
-                            <DataTrigger Binding="{Binding Executing.Count}" Value="0">
-                                <Setter TargetName="Separator" Property="Visibility" Value="Collapsed" />
+                            <DataTrigger Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical">
+                                <Setter TargetName="TabControl" Property="TabStripPlacement" Value="Left" />
                             </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

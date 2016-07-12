@@ -112,16 +112,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
         }
 
-        IReadOnlyCollection<QuestViewModel> r_ExecutingQuests;
-        public IReadOnlyCollection<QuestViewModel> ExecutingQuests
+        IList<QuestViewModel> r_ActiveQuests;
+        public IList<QuestViewModel> ActiveQuests
         {
-            get { return r_ExecutingQuests; }
+            get { return r_ActiveQuests; }
             internal set
             {
-                if (r_ExecutingQuests != value)
+                if (r_ActiveQuests != value)
                 {
-                    r_ExecutingQuests = value;
-                    OnPropertyChanged(nameof(ExecutingQuests));
+                    r_ActiveQuests = value;
+                    OnPropertyChanged(nameof(ActiveQuests));
                 }
             }
         }

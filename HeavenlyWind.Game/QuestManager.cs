@@ -22,19 +22,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             }
         }
-        int r_ExecutingCount;
-        public int ExecutingCount
-        {
-            get { return r_ExecutingCount; }
-            internal set
-            {
-                if (r_ExecutingCount != value)
-                {
-                    r_ExecutingCount = value;
-                    OnPropertyChanged(nameof(ExecutingCount));
-                }
-            }
-        }
+
+        public int ActiveQuestCount { get; internal set; }
 
         bool r_IsLoaded;
         public bool IsLoaded
@@ -54,32 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public Quest this[int rpID] => Table[rpID];
 
-        IReadOnlyCollection<Quest> r_Executing;
-        public IReadOnlyCollection<Quest> Executing
-        {
-            get { return r_Executing; }
-            private set
-            {
-                if (r_Executing != value)
-                {
-                    r_Executing = value;
-                    OnPropertyChanged(nameof(Executing));
-                }
-            }
-        }
-        IReadOnlyCollection<Quest> r_Unexecuted;
-        public IReadOnlyCollection<Quest> Unexecuted
-        {
-            get { return r_Unexecuted; }
-            private set
-            {
-                if (r_Unexecuted != value)
-                {
-                    r_Unexecuted = value;
-                    OnPropertyChanged(nameof(Unexecuted));
-                }
-            }
-        }
+        public IList<Quest> Active { get; private set; }
 
         internal QuestManager()
         {
@@ -100,14 +64,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal void UpdateQuestList()
         {
-            var rQuests = Table.Values.OrderBy(r => r.ID).ToLookup(r => r.State != QuestState.None);
+            var rActive = Table.Values.OrderBy(r => r.ID).Where(r => r.State != QuestState.None).ToList();
+            if (rActive.Count < ActiveQuestCount)
+                rActive.AddRange(Enumerable.Repeat(Quest.Dummy, ActiveQuestCount - rActive.Count));
 
-            var rExecuting = rQuests[true].ToList();
-            if (rExecuting.Count < ExecutingCount)
-                rExecuting.AddRange(Enumerable.Repeat(Quest.Dummy, ExecutingCount - rExecuting.Count));
-
-            Executing = rExecuting;
-            Unexecuted = rQuests[false].ToList();
+            Active = rActive;
+            OnPropertyChanged(nameof(Active));
         }
     }
 }

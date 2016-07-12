@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.OSS
             SessionService.Instance.Subscribe("api_req_map/start", r =>
             {
                 ProgressInfo rProgressInfo;
-                if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Executing)
+                if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Active)
                     return;
 
                 var rBits = new BitVector32(rProgressInfo.Progress);

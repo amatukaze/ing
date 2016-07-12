@@ -17,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.OSS
             SessionService.Instance.Subscribe(rBattleResultApis, r =>
             {
                 ProgressInfo rProgressInfo;
-                if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Executing)
+                if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Active)
                     return;
 
                 Process(rProgressInfo, BattleInfo.Current, r.GetData<RawBattleResult>());

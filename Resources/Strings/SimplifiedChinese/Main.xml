@@ -108,8 +108,8 @@
   <String Key="Overview_ConstructionDocks_Completed">完成</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">完成时间</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入的资材</String>
-  <String Key="Overview_ExecutingQuest_None">无执行中的任务</String>
-  <String Key="Overview_ExecutingQuest_NotLoaded">未获取执行中的任务</String>
+  <String Key="Overview_ActiveQuest_None">无执行中的任务</String>
+  <String Key="Overview_ActiveQuest_NotLoaded">未获取执行中的任务</String>
 
   <String Key="Fleet_TotalLevel">总等级</String>
   <String Key="Fleet_LoS">索敌</String>
@@ -255,11 +255,13 @@
 
   <String Key="Quest_NoData">请打开游戏中的「任務(クエスト)」获取任务信息</String>
   <String Key="Quest_Unknown">?????</String>
-  <String Key="Quest_Type_Once" />
-  <String Key="Quest_Type_Special">日</String>
-  <String Key="Quest_Type_Daily">日</String>
-  <String Key="Quest_Type_Weekly">周</String>
-  <String Key="Quest_Type_Monthly">月</String>
+  <String Key="Quest_Type_Active">进行中</String>
+  <String Key="Quest_Type_Daily">日常</String>
+  <String Key="Quest_Type_Weekly">周常</String>
+  <String Key="Quest_Type_Monthly">月常</String>
+  <String Key="Quest_Type_Once">单次</String>
+  <String Key="Quest_Type_Others">其它</String>
+  <String Key="Quest_Type_All">所有</String>
   <String Key="Quest_Category_Composition">编成</String>
   <String Key="Quest_Category_Sortie">出击</String>
   <String Key="Quest_Category_Practice">演习</String>
