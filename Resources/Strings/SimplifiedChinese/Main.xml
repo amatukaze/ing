@@ -60,6 +60,17 @@
   <String Key="UnhandledExceptionDialog_Content">遇到了一些无法处理的错误。</String>
   <String Key="UnhandledExceptionDialog_Footer">该错误的详细内容已保存到 {0}。</String>
 
+  <String Key="InitializationPage_Initializing">正在初始化</String>
+  <String Key="InitializationPage_Header">遇到些问题</String>
+  <String Key="InitializationPage_Solution">对策</String>
+  <String Key="InitializationPage_PortIsOccupied">端口被以下的程序占用</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">结束该进程</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">更换端口</String>
+  <String Key="InitializationPage_UpstreamProxy">上游代理未开启</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">是不是忘记了开启代理？</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">是不是端口错了？</String>
+  <String Key="InitializationPage_Retry">重试</String>
+
   <String Key="GameInfomation_Waiting">等待游戏启动</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">调整浏览器大小以适应游戏</String>

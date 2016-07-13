@@ -146,6 +146,12 @@
 
         <ContentControl Content="{Binding Page}" Grid.Row="1">
             <Control.Resources>
+                <DataTemplate DataType="{x:Type rvm:InitializationPageViewModel}">
+                    <rv:InitializationPage />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type rvm:GameInformationViewModel}">
+                    <rv:GamePage />
+                </DataTemplate>
             </Control.Resources>
         </ContentControl>
 

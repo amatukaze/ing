@@ -60,6 +60,17 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="UnhandledExceptionDialog_Content">An unhandled exception occurred.</String>
   <String Key="UnhandledExceptionDialog_Footer">The detail has been saved to {0}.</String>
 
+  <String Key="InitializationPage_Initializing">Initializing...</String>
+  <String Key="InitializationPage_Header">There's some problem...</String>
+  <String Key="InitializationPage_Solution">Solution</String>
+  <String Key="InitializationPage_PortIsOccupied">The port is occupied by the other program</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">Terminate this process</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">Change the port number</String>
+  <String Key="InitializationPage_UpstreamProxy">Upstream proxy is unavailable</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">Forgot to start the program which provides the upstream proxy?</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">Wrong port number?</String>
+  <String Key="InitializationPage_Retry">Retry</String>
+
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">Resize browser to fit game</String>

@@ -1,0 +1,109 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.InitializationPage"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             mc:Ignorable="d"
+             FontSize="14"
+             d:DesignWidth="300" d:DesignHeight="300">
+    <UserControl.Style>
+        <Style TargetType="{x:Type UserControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type UserControl}">
+                        <Border Padding="8" MinWidth="480" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel>
+                                <TextBlock Text="{rb:StringResource Main.InitializationPage_Header}" FontSize="22" FontWeight="Bold" />
+
+                                <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Margin="0, 8, 0, 0" Padding="0, 4, 0, 0" Visibility="{Binding IsPortAvailable, Converter={StaticResource BooleanToInvisibilityConverter}}">
+                                    <StackPanel>
+                                        <TextBlock Text="{rb:StringResource Main.InitializationPage_PortIsOccupied}" FontSize="16" FontWeight="Bold" />
+
+                                        <Grid DataContext="{Binding ProcessThatOccupyingPort}" Margin="0, 6, 0, 0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="4" />
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Image Source="{Binding Icon}" Grid.RowSpan="2" />
+
+                                            <TextBlock Margin="0, 2, 0, 0" Grid.Column="2">
+                                                <Run Text="{Binding Name, Mode=OneWay}" />
+                                                (<Run Text="{Binding ID, Mode=OneWay}" />)
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding Description}" Grid.Column="2" Grid.Row="1" />
+                                        </Grid>
+
+                                        <TextBlock Text="{rb:StringResource Main.InitializationPage_Solution}" FontWeight="Bold" Margin="0, 6, 0, 0" />
+                                        <TextBlock Margin="0, 4, 0, 0">
+                                            <Run Text="•" />
+                                            <Run Text="{rb:StringResource Main.InitializationPage_PortIsOccupied_Solution_KillProcess}" />
+                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                            <TextBlock Margin="0, 4, 0, 0">
+                                                <Run Text="•" />
+                                                <Run Text="{rb:StringResource Main.InitializationPage_PortIsOccupied_Solution_ChangePort}" />
+                                            </TextBlock>
+
+                                            <TextBox Text="{rb:Preference Network.Port}" Width="75" Margin="4, 0, 0, 0" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Margin="0, 8, 0, 0" Padding="0, 4, 0, 0" Visibility="{Binding IsUpstreamProxyAvailable, Converter={StaticResource BooleanToInvisibilityConverter}}">
+                                    <StackPanel>
+                                        <TextBlock Text="{rb:StringResource Main.InitializationPage_UpstreamProxy}" FontSize="16" FontWeight="Bold" />
+
+                                        <TextBlock Text="{rb:StringResource Main.InitializationPage_Solution}" FontWeight="Bold" Margin="0, 6, 0, 0" />
+                                        <TextBlock Margin="0, 4, 0, 0">
+                                            <Run Text="•" />
+                                            <Run Text="{rb:StringResource Main.InitializationPage_UpstreamProxy_Solution_NotStarted}" />
+                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                            <TextBlock Margin="0, 4, 0, 0">
+                                                <Run Text="•" />
+                                                <Run Text="{rb:StringResource Main.InitializationPage_UpstreamProxy_Solution_WrongPort}" />
+                                            </TextBlock>
+
+                                            <TextBox Text="{rb:Preference Network.UpstreamProxy.Port}" Width="75" Margin="4, 0, 0, 0" />
+
+                                            <CheckBox IsChecked="{rb:Preference Network.UpstreamProxy.HttpOnly}" Margin="12, 0, 0, 0">
+                                                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_UseUpstreamProxy_HttpOnly}" />
+                                            </CheckBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <Button Command="{Binding StartCommand}" Margin="0, 12, 0, 0" Padding="16, 8" HorizontalAlignment="Right">
+                                    <TextBlock Text="{rb:StringResource Main.InitializationPage_Retry}" />
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Step}" Value="None">
+                    <Setter Property="Template" Value="{x:Null}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Step}" Value="Initializing">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type UserControl}">
+                                <TextBlock Text="{rb:StringResource Main.InitializationPage_Initializing}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+</UserControl>

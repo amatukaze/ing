@@ -58,6 +58,17 @@
   <String Key="UnhandledExceptionDialog_Content">予期しないエラーが発生しました。</String>
   <String Key="UnhandledExceptionDialog_Footer">エラーのログは {0} に保存されました。</String>
 
+  <String Key="InitializationPage_Initializing">初期化しています</String>
+  <String Key="InitializationPage_Header">問題があります</String>
+  <String Key="InitializationPage_Solution">解決策</String>
+  <String Key="InitializationPage_PortIsOccupied">待ち受けポートが他のアプリで使用されています</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">このプロセスを終了します</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">ポートを変更します</String>
+  <String Key="InitializationPage_UpstreamProxy">上流プロキシが利用できません</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">アプリを開くのは忘れましたか？</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">ポート番号が間違ってませんか？</String>
+  <String Key="InitializationPage_Retry">再試行</String>
+
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">ブラウザをフィット</String>

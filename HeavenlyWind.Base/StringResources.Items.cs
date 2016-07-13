@@ -62,6 +62,17 @@ namespace Sakuno.KanColle.Amatsukaze
         public string UnhandledExceptionDialog_Content => GetString(nameof(UnhandledExceptionDialog_Content));
         public string UnhandledExceptionDialog_Footer => GetString(nameof(UnhandledExceptionDialog_Footer));
 
+        public string InitializationPage_Initializing => GetString(nameof(InitializationPage_Initializing));
+        public string InitializationPage_Header => GetString(nameof(InitializationPage_Header));
+        public string InitializationPage_Solution => GetString(nameof(InitializationPage_Solution));
+        public string InitializationPage_PortIsOccupied => GetString(nameof(InitializationPage_PortIsOccupied));
+        public string InitializationPage_PortIsOccupied_Solution_KillProcess => GetString(nameof(InitializationPage_PortIsOccupied_Solution_KillProcess));
+        public string InitializationPage_PortIsOccupied_Solution_ChangePort => GetString(nameof(InitializationPage_PortIsOccupied_Solution_ChangePort));
+        public string InitializationPage_UpstreamProxy => GetString(nameof(InitializationPage_UpstreamProxy));
+        public string InitializationPage_UpstreamProxy_Solution_NotStarted => GetString(nameof(InitializationPage_UpstreamProxy_Solution_NotStarted));
+        public string InitializationPage_UpstreamProxy_Solution_WrongPort => GetString(nameof(InitializationPage_UpstreamProxy_Solution_WrongPort));
+        public string InitializationPage_Retry => GetString(nameof(InitializationPage_Retry));
+
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 
         public string Browser_Navigator_ResizeBrowserToFitGame => GetString(nameof(Browser_Navigator_ResizeBrowserToFitGame));
