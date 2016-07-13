@@ -15,37 +15,24 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
     public class MainWindowViewModel : WindowViewModel
     {
-        ModelBase r_Content;
-        public ModelBase Content
+        ModelBase r_Page;
+        public ModelBase Page
         {
-            get { return r_Content; }
+            get { return r_Page; }
             internal set
             {
-                if (r_Content != value)
+                if (r_Page != value)
                 {
-                    r_Content = value;
-                    OnPropertyChanged(nameof(Content));
+                    r_Page = value;
+                    OnPropertyChanged(nameof(Page));
                 }
             }
         }
 
-        bool r_IsGameStarted;
-        public bool IsGameStarted
-        {
-            get { return r_IsGameStarted; }
-            private set
-            {
-                if (r_IsGameStarted != value)
-                {
-                    r_IsGameStarted = value;
-                    OnPropertyChanged(nameof(IsGameStarted));
-                }
-            }
-        }
+        public GameInformationViewModel GameInformation { get; }
+        public bool IsGameStarted { get; private set; }
 
         public UpdateService UpdateService => UpdateService.Instance;
-
-        public bool IsBrowserAvailable { get; private set; } = true;
 
         SessionToolViewModel r_SessionTool = new SessionToolViewModel();
 
@@ -68,18 +55,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         internal MainWindowViewModel()
         {
-            var rBrowserServicePCEL = PropertyChangedEventListener.FromSource(BrowserService.Instance);
-            rBrowserServicePCEL.Add(nameof(BrowserService.Instance.NoInstalledLayoutEngines), delegate
-            {
-                IsBrowserAvailable = false;
-                OnPropertyChanged(nameof(IsBrowserAvailable));
-            });
+            r_Page = new InitializationPageViewModel(this);
+            GameInformation = new GameInformationViewModel(this);
 
-            var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
-            rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
+            SessionService.Instance.SubscribeOnce("api_start2", delegate
             {
-                Content = new GameInformationViewModel();
                 IsGameStarted = true;
+                OnPropertyChanged(nameof(IsGameStarted));
             });
 
             SessionService.Instance.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
@@ -88,12 +70,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             ShowSessionToolCommand = new DelegatedCommand(() => WindowService.Instance.Show<SessionToolWindow>(r_SessionTool));
             ShowExpeditionOverviewCommand = new DelegatedCommand(() =>
             {
-                var rGameInfo = Content as GameInformationViewModel;
-                if (rGameInfo == null)
-                    return;
-
-                var rExpeditionOverview = rGameInfo.TabItems.OfType<ExpeditionOverviewViewModel>().SingleOrDefault() ?? new ExpeditionOverviewViewModel();
-                rGameInfo.AddTabItem(rExpeditionOverview);
+                var rExpeditionOverview = GameInformation.TabItems.OfType<ExpeditionOverviewViewModel>().SingleOrDefault() ?? new ExpeditionOverviewViewModel();
+                GameInformation.AddTabItem(rExpeditionOverview);
             });
 
             ShowConstructionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ConstructionHistoryWindow>());
@@ -103,14 +81,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             ShowScrappingHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ScrappingHistoryWindow>());
             ShowResourceHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ResourceHistoryWindow>());
 
-            r_OpenToolPaneCommand = new DelegatedCommand<ToolViewModel>(r =>
-            {
-                var rGameInfo = Content as GameInformationViewModel;
-                if (rGameInfo == null)
-                    return;
-
-                rGameInfo.AddTabItem(r);
-            });
+            r_OpenToolPaneCommand = new DelegatedCommand<ToolViewModel>(GameInformation.AddTabItem);
             ToolPanes = PluginService.Instance.ToolPanes?.Select(r => new ToolViewModel(r, r_OpenToolPaneCommand)).ToList().AsReadOnly();
         }
     }

@@ -8,6 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
     public class GameInformationViewModel : ModelBase
     {
+        public MainWindowViewModel Owner { get; }
+
         public OverviewViewModel Overview { get; }
         public FleetsViewModel Fleets { get; }
         public SortieViewModel Sortie { get; }
@@ -31,8 +33,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public Func<object, bool> OrphanedItemFilter { get; } = r => r is OverviewViewModel || r is SortieViewModel || r is QuestsViewModel;
 
-        internal GameInformationViewModel()
+        internal GameInformationViewModel(MainWindowViewModel rpOwner)
         {
+            Owner = rpOwner;
+
             Fleets = new FleetsViewModel(this);
 
             TabItems = new ObservableCollection<object>()

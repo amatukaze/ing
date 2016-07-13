@@ -232,6 +232,9 @@
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\ActiveQuestsOverview.xaml.cs">
       <DependentUpon>ActiveQuestsOverview.xaml</DependentUpon>
     </Compile>
@@ -743,6 +746,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GameInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GamePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

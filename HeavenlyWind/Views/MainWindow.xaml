@@ -132,7 +132,7 @@
                 </StackPanel>
             </ruic:DropDownButton>
 
-            <ToggleButton IsChecked="{Binding Topmost, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding IsBrowserAvailable, Converter={StaticResource BooleanToInvisibilityConverter}}" WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right">
+            <ToggleButton IsChecked="{Binding Topmost, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToVisibilityConverter}}" WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right">
                 <Path Stretch="Uniform" Fill="{DynamicResource ActiveForegroundBrushKey}" HorizontalAlignment="Center" Data="M71.048203,0 L93.770935,10.424871 152.85001,37.529528 171.02817,45.869425 230.10727,72.974085 252.82999,83.398958 238.23517,115.21076 215.51245,104.78589 187.73206,165.33783 188.45349,168.04767 C193.10251,186.74838 194.03778,207.59044 190.93973,229.09215 L190.71091,230.57726 104.44453,190.99945 45.929749,318.5421 27.751572,310.2022 86.266357,182.65956 0,143.08176 0.97650146,141.93968 C15.254585,125.5672 31.663315,112.68233 48.871078,104.00919 L51.395721,102.78861 79.176117,42.236681 56.453384,31.811808 z" />
             </ToggleButton>
 
@@ -144,85 +144,10 @@
             </StackPanel>
         </DockPanel>
 
-        <Control Grid.Row="1">
+        <ContentControl Content="{Binding Page}" Grid.Row="1">
             <Control.Resources>
-                <DataTemplate DataType="{x:Type rvm:GameInformationViewModel}">
-                    <rv:GameInformation />
-                </DataTemplate>
-
-                <rv:Browser x:Key="Browser" />
-                <ContentControl x:Key="Content">
-                    <ContentControl.Style>
-                        <Style TargetType="{x:Type ContentControl}">
-                            <Setter Property="Content" Value="{Binding Content}" />
-
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsGameStarted}" Value="False">
-                                    <Setter Property="Content">
-                                        <Setter.Value>
-                                            <TextBlock Text="{rb:StringResource Main.GameInfomation_Waiting}" FontSize="16" HorizontalAlignment="Center" />
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
             </Control.Resources>
-            <Control.Style>
-                <Style TargetType="{x:Type Control}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Control}">
-                                <rv:Browser />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsBrowserAvailable}" Value="False">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Control}">
-                                        <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Content="{StaticResource Content}" Grid.Row="1" />
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsResizedToFitGame, Source={x:Static rs:BrowserService.Instance}}" Value="True">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type Control}">
-                                        <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Grid.Row="1">
-                                            <ruicd:DockGroup x:Name="DockGroup" Orientation="Horizontal" FirstItem="{StaticResource Browser}" FirstItemLength="Auto" SecondItem="{StaticResource Content}" SecondItemLength="*" />
-                                        </ruic:DockableZone>
-
-                                        <ControlTemplate.Triggers>
-                                            <DataTrigger Binding="{rb:CurrentDock}" Value="Right">
-                                                <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource Content}" />
-                                                <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
-                                                <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
-                                                <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{rb:CurrentDock}" Value="Bottom">
-                                                <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource Content}" />
-                                                <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
-                                                <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
-                                                <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical">
-                                                <Setter TargetName="DockGroup" Property="Orientation" Value="Vertical" />
-                                            </DataTrigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Control.Style>
-        </Control>
+        </ContentControl>
 
         <rv:StatusBar x:Name="r_StatusBar" x:FieldModifier="private" Background="{DynamicResource AccentBrushKey}" Grid.Row="2" />
 
