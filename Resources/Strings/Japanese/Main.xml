@@ -75,6 +75,8 @@
   <String Key="Browser_RestartConfirmation_Instruction">何をしたいですか？</String>
   <String Key="Browser_RestartConfirmation_Button_Refresh">再読み込みします</String>
   <String Key="Browser_RestartConfirmation_Button_Stay">留まります</String>
+  <String Key="Browser_Zoom_ZoomIn">拡大表示</String>
+  <String Key="Browser_Zoom_ZoomOut">縮小表示</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>

@@ -77,6 +77,8 @@
   <String Key="Browser_RestartConfirmation_Instruction">你想做什么呢？</String>
   <String Key="Browser_RestartConfirmation_Button_Refresh">刷新</String>
   <String Key="Browser_RestartConfirmation_Button_Stay">返回游戏</String>
+  <String Key="Browser_Zoom_ZoomIn">放大</String>
+  <String Key="Browser_Zoom_ZoomOut">缩小</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">舰队</String>

@@ -37,6 +37,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public ICommand MuteToggleCommand { get; }
 
         public ICommand SetZoomCommand { get; }
+        public ICommand ZoomInCommand { get; private set; }
+        public ICommand ZoomOutCommand { get; private set; }
         public IList<BrowserZoomInfo> ZoomFactors { get; }
         public double Zoom
         {
@@ -92,7 +94,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             }, () => OS.IsWin7OrLater && !r_IsAudioDeviceNotAvailable);
 
             SetZoomCommand = new DelegatedCommand<double>(SetZoom);
-            ZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new BrowserZoomInfo(r, SetZoomCommand)).ToList().AsReadOnly();
+            ZoomInCommand = new DelegatedCommand(() => SetZoom(Zoom + .05));
+            ZoomOutCommand = new DelegatedCommand(() => SetZoom(Zoom - .05));
+            ZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0 }.Select(r => new BrowserZoomInfo(r, SetZoomCommand)).ToList().AsReadOnly();
 
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }

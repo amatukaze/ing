@@ -94,21 +94,54 @@
                 </StackPanel>
             </ruic:DropDownButton.Header>
 
-            <ListBox Style="{StaticResource MenuListBoxStyle}" ItemsSource="{Binding ZoomFactors}" MinWidth="120">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Button Command="{Binding Command}" CommandParameter="{Binding Zoom}">
-                            <TextBlock Name="Zoom" Text="{Binding Zoom, StringFormat=P0}" />
-                        </Button>
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Background" Value="Transparent" />
 
-                        <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
-                                <Setter TargetName="Zoom" Property="FontWeight" Value="Bold" />
-                            </DataTrigger>
-                        </DataTemplate.Triggers>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}" Padding="16, 8">
+                                        <ContentPresenter />
+                                    </Border>
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="{DynamicResource ActiveBackgroundBrushKey}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </StackPanel.Resources>
+
+                <ListBox Style="{StaticResource MenuListBoxStyle}" ItemsSource="{Binding ZoomFactors}" MinWidth="120">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding Command}" CommandParameter="{Binding Zoom}">
+                                <TextBlock Name="Zoom" Text="{Binding Zoom, StringFormat=P0}" />
+                            </Button>
+
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                    <Setter TargetName="Zoom" Property="FontWeight" Value="Bold" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="2" />
+
+                <Button Command="{Binding ZoomInCommand}">
+                    <TextBlock Text="{rb:StringResource Main.Browser_Zoom_ZoomIn}" />
+                </Button>
+                <Button Command="{Binding ZoomOutCommand}">
+                    <TextBlock Text="{rb:StringResource Main.Browser_Zoom_ZoomOut}" />
+                </Button>
+            </StackPanel>
         </ruic:DropDownButton>
 
         <Button Command="{Binding RestartGameCommand}" Height="30" Margin="5, 0, 0, 0" Padding="4">
