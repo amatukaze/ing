@@ -405,6 +405,11 @@
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">排除 Lv1 的舰娘</String>
   <String Key="ShipOverview_List_Loading">加载中</String>
 
+  <String Key="Export_CSV">导出为 CSV 文件</String>
+  <String Key="Export_CSV_FileType">CSV 文件</String>
+  <String Key="Export_CSV_Message">成功导出记录。</String>
+  <String Key="Export_CSV_Message_OpenFile">打开文件</String>
+
   <String Key="Record_Time">时间</String>
   <String Key="Record_SecretaryShip">秘书舰</String>
 
@@ -431,6 +436,8 @@
   <String Key="ScrappingHistory_Reason_ConsumedByImprovement">装备改修</String>
   <String Key="ScrappingHistory_Reason_Sunk">沉没</String>
   <String Key="ScrappingHistory_Reason_ConsumedInBattle">战斗</String>
+  
+  <String Key="ResourceHistory_Diff">差异</String>
 
   <String Key="Tool_ExpeditionOverview">远征一览</String>
 

@@ -407,6 +407,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ShipOverview_Filter_ExceptLevel1Ships => GetString(nameof(ShipOverview_Filter_ExceptLevel1Ships));
         public string ShipOverview_List_Loading => GetString(nameof(ShipOverview_List_Loading));
 
+        public string Export_CSV => GetString(nameof(Export_CSV));
+        public string Export_CSV_FileType => GetString(nameof(Export_CSV_FileType));
+        public string Export_CSV_Message => GetString(nameof(Export_CSV_Message));
+        public string Export_CSV_Message_OpenFile => GetString(nameof(Export_CSV_Message_OpenFile));
+
         public string Record_Time => GetString(nameof(Record_Time));
         public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));
 
@@ -433,6 +438,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ScrappingHistory_Reason_ConsumedByImprovement => GetString(nameof(ScrappingHistory_Reason_ConsumedByImprovement));
         public string ScrappingHistory_Reason_Sunk => GetString(nameof(ScrappingHistory_Reason_Sunk));
         public string ScrappingHistory_Reason_ConsumedInBattle => GetString(nameof(ScrappingHistory_Reason_ConsumedInBattle));
+
+        public string ResourceHistory_Diff => GetString(nameof(ResourceHistory_Diff));
 
         public string Tool_ExpeditionOverview => GetString(nameof(Tool_ExpeditionOverview));
 

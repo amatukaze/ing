@@ -1,8 +1,15 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.SystemInterop;
+using Sakuno.SystemInterop.Dialogs;
+using Sakuno.UserInterface;
 using System;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
@@ -16,12 +23,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         protected T LastInsertRecord { get; private set; }
 
+        public ICommand ExportAsCsvFileCommand { get; }
+
         public HistoryViewModelBase()
         {
             r_Records = new ObservableCollection<T>();
             Records = new ReadOnlyObservableCollection<T>(r_Records);
 
             RecordService.Instance.Update += Record_Update;
+
+            ExportAsCsvFileCommand = new DelegatedCommand(ExportAsCsvFile);
         }
 
         public void Dispose() => RecordService.Instance.Update -= Record_Update;
@@ -101,5 +112,40 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
         protected virtual void OnRecordUpdate(string rpTable, long rpRowID) { }
 
         protected abstract void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID);
+
+        public void ExportAsCsvFile()
+        {
+            using (var rDialog = new CommonSaveFileDialog())
+            {
+                rDialog.FileTypes.Add(new CommonFileDialogFileType(StringResources.Instance.Main.Export_CSV_FileType, "csv"));
+                rDialog.DefaultExtension = "csv";
+
+                if (rDialog.Show(WindowUtil.GetTopWindow()) != CommonFileDialogResult.OK)
+                    return;
+
+                var rFilename = rDialog.Filename;
+
+                using (var rWriter = new StreamWriter(File.Open(rFilename, FileMode.Create), Encoding.Default))
+                    ExportAsCsvFileCore(rWriter);
+
+                var rButton = new TaskDialogButton(StringResources.Instance.Main.Export_CSV_Message_OpenFile);
+                var rResult = new TaskDialog()
+                {
+                    Caption = StringResources.Instance.Main.Product_Name,
+                    Icon = TaskDialogIcon.Information,
+                    Instruction = StringResources.Instance.Main.Export_CSV_Message,
+                    CommonButtons = TaskDialogCommonButtons.OK,
+                    Buttons = { rButton },
+
+                    OwnerWindow = WindowUtil.GetTopWindow(),
+                    ShowAtTheCenterOfOwner = true,
+                }.Show();
+
+                if (rResult.SelectedButton == rButton)
+                    Process.Start(rFilename);
+            }
+        }
+
+        protected virtual void ExportAsCsvFileCore(StreamWriter rpWriter) { }
     }
 }

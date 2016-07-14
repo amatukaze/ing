@@ -1,6 +1,8 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models.Records;
 using System.Data.SQLite;
+using System.IO;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
@@ -51,6 +53,47 @@ WHERE battle.id = @id";
                 using (var rReader = rCommand.ExecuteReader())
                     if (rReader.Read())
                         LastInsertRecord.Update(rReader);
+            }
+        }
+
+        protected override void ExportAsCsvFileCore(StreamWriter rpWriter)
+        {
+            var rSR = StringResources.Instance.Main;
+
+            rpWriter.Write(rSR.Record_Time);
+            rpWriter.Write(',');
+            rpWriter.Write(rSR.SortieHistory_Area);
+            rpWriter.Write(',');
+            rpWriter.Write(rSR.SortieHistory_Node);
+            rpWriter.Write(',');
+            rpWriter.Write(rSR.SortieHistory_Node);
+            rpWriter.Write("_Wiki,");
+            rpWriter.Write(rSR.SortieHistory_Type);
+            rpWriter.Write(',');
+            rpWriter.Write(rSR.SortieHistory_BattleRank);
+            rpWriter.Write(',');
+            rpWriter.WriteLine(rSR.SortieHistory_DroppedShip);
+
+            foreach (var rRecord in Records)
+            {
+                rpWriter.Write(rRecord.Time);
+                rpWriter.Write(',');
+                rpWriter.Write(rRecord.Map.ID);
+                rpWriter.Write(',');
+                rpWriter.Write(rRecord.Node);
+                rpWriter.Write(',');
+                rpWriter.Write(rRecord.NodeWikiID);
+                rpWriter.Write(',');
+
+                if (rRecord.EventType == SortieEventType.NormalBattle)
+                    rpWriter.Write(StringResources.Instance.Main.GetString("Sortie_BattleType_" + rRecord.BattleType));
+                else
+                    rpWriter.Write(StringResources.Instance.Main.GetString("Sortie_Event_" + rRecord.EventType));
+
+                rpWriter.Write(',');
+                rpWriter.Write(rRecord.BattleRank);
+                rpWriter.Write(',');
+                rpWriter.WriteLine(rRecord.DroppedShip?.Name);
             }
         }
     }
