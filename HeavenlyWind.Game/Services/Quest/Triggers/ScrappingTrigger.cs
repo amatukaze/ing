@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
@@ -12,7 +13,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
             EquipmentID = rpEquipmentID;
 
             Observable = SessionService.Instance.GetObservable("api_req_kousyou/destroyitem2")
-                .Where(r => EquipmentID == null || r.Parameters["api_slotitem_ids"].Split(',').Select(rpID => (int)KanColleGame.Current.Port.Equipment[int.Parse(rpID)].Info.Type).Contains(EquipmentID.Value));
+                .Where(r => EquipmentID == null || r.Parameters["api_slotitem_ids"].Split(',').Select(rpID => GetEquipmentType(int.Parse(rpID))).Contains(EquipmentID.Value));
+        }
+
+        int GetEquipmentType(int rpID)
+        {
+            using (var rCommand = RecordService.Instance.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT equipment FROM equipment_fate WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@id", rpID);
+
+                return (int)KanColleGame.Current.MasterInfo.Equipment[Convert.ToInt32(rCommand.ExecuteScalar())].Type;
+            }
         }
 
         public override string ToString() => "Scrapping: " + EquipmentID ?? "Any";
