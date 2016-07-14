@@ -35,13 +35,6 @@ namespace Sakuno.KanColle.Amatsukaze.Views
             PanicKeyService.Instance.Initialize(rHandle);
         }
 
-        protected override void OnContentRendered(EventArgs e)
-        {
-            base.OnContentRendered(e);
-
-            ((InitializationPageViewModel)App.Root.Page).Start();
-        }
-
         protected override void OnClosing(CancelEventArgs e)
         {
             var rDialog = new TaskDialog()
