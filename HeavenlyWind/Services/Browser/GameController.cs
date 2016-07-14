@@ -152,7 +152,24 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void RestartGame()
         {
-            r_Owner.Navigator.Refresh();
+            var rDialog = new TaskDialog()
+            {
+                Caption = StringResources.Instance.Main.Product_Name,
+                Instruction = StringResources.Instance.Main.Browser_RestartConfirmation_Instruction,
+                Icon = TaskDialogIcon.Information,
+                Buttons =
+                {
+                    new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.Browser_RestartConfirmation_Button_Refresh),
+                    new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.Browser_RestartConfirmation_Button_Stay),
+                },
+                DefaultCommonButton = TaskDialogCommonButton.No,
+
+                OwnerWindow = App.Current.MainWindow,
+                ShowAtTheCenterOfOwner = true,
+            };
+
+            if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.Yes)
+                r_Owner.Navigator.Refresh();
         }
 
     }

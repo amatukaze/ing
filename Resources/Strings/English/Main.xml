@@ -74,6 +74,9 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">Resize browser to fit game</String>
+  <String Key="Browser_RestartConfirmation_Instruction">What do you want to do?</String>
+  <String Key="Browser_RestartConfirmation_Button_Refresh">Refresh</String>
+  <String Key="Browser_RestartConfirmation_Button_Stay">Stay</String>
 
   <String Key="Tab_Overview">Overview</String>
   <String Key="Tab_Fleets">Fleet</String>

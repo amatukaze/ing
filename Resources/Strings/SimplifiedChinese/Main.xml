@@ -74,6 +74,9 @@
   <String Key="GameInfomation_Waiting">等待游戏启动</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">调整浏览器大小以适应游戏</String>
+  <String Key="Browser_RestartConfirmation_Instruction">你想做什么呢？</String>
+  <String Key="Browser_RestartConfirmation_Button_Refresh">刷新</String>
+  <String Key="Browser_RestartConfirmation_Button_Stay">返回游戏</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">舰队</String>
