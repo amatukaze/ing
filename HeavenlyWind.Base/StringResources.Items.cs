@@ -46,6 +46,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Notification_AnchorageRepair => GetString(nameof(Notification_AnchorageRepair));
         public string Notification_AnchorageRepair_Content => GetString(nameof(Notification_AnchorageRepair_Content));
 
+        public string MessageDialog_AudioSessionDisconnected => GetString(nameof(MessageDialog_AudioSessionDisconnected));
+
         public string Result_Failure => GetString(nameof(Result_Failure));
         public string Result_Success => GetString(nameof(Result_Success));
         public string Result_GreatSuccess => GetString(nameof(Result_GreatSuccess));
@@ -56,9 +58,25 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Update_Notification_IgnoreOptionalUpdate => GetString(nameof(Update_Notification_IgnoreOptionalUpdate));
         public string Update_Notification_AlwaysIgnore => GetString(nameof(Update_Notification_AlwaysIgnore));
 
+        public string InitializationPage_Initializing => GetString(nameof(InitializationPage_Initializing));
+        public string InitializationPage_Header => GetString(nameof(InitializationPage_Header));
+        public string InitializationPage_Solution => GetString(nameof(InitializationPage_Solution));
+        public string InitializationPage_PortIsOccupied => GetString(nameof(InitializationPage_PortIsOccupied));
+        public string InitializationPage_PortIsOccupied_Solution_KillProcess => GetString(nameof(InitializationPage_PortIsOccupied_Solution_KillProcess));
+        public string InitializationPage_PortIsOccupied_Solution_ChangePort => GetString(nameof(InitializationPage_PortIsOccupied_Solution_ChangePort));
+        public string InitializationPage_UpstreamProxy => GetString(nameof(InitializationPage_UpstreamProxy));
+        public string InitializationPage_UpstreamProxy_Solution_NotStarted => GetString(nameof(InitializationPage_UpstreamProxy_Solution_NotStarted));
+        public string InitializationPage_UpstreamProxy_Solution_WrongPort => GetString(nameof(InitializationPage_UpstreamProxy_Solution_WrongPort));
+        public string InitializationPage_Retry => GetString(nameof(InitializationPage_Retry));
+
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 
         public string Browser_Navigator_ResizeBrowserToFitGame => GetString(nameof(Browser_Navigator_ResizeBrowserToFitGame));
+        public string Browser_RestartConfirmation_Instruction => GetString(nameof(Browser_RestartConfirmation_Instruction));
+        public string Browser_RestartConfirmation_Button_Refresh => GetString(nameof(Browser_RestartConfirmation_Button_Refresh));
+        public string Browser_RestartConfirmation_Button_Stay => GetString(nameof(Browser_RestartConfirmation_Button_Stay));
+        public string Browser_Zoom_ZoomIn => GetString(nameof(Browser_Zoom_ZoomIn));
+        public string Browser_Zoom_ZoomOut => GetString(nameof(Browser_Zoom_ZoomOut));
 
         public string Tab_Overview => GetString(nameof(Tab_Overview));
         public string Tab_Fleets => GetString(nameof(Tab_Fleets));
@@ -80,6 +98,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_Admiral_Rank_LieutenantCommander => GetString(nameof(Overview_Admiral_Rank_LieutenantCommander));
         public string Overview_Admiral_Rank_ViceLieutenantCommander => GetString(nameof(Overview_Admiral_Rank_ViceLieutenantCommander));
         public string Overview_Admiral_Rank_NoviceLieutenantCommander => GetString(nameof(Overview_Admiral_Rank_NoviceLieutenantCommander));
+        public string Overview_Admiral_Experience_Difference_Type_PreviousUpdate => GetString(nameof(Overview_Admiral_Experience_Difference_Type_PreviousUpdate));
+        public string Overview_Admiral_Experience_Difference_Type_Day => GetString(nameof(Overview_Admiral_Experience_Difference_Type_Day));
+        public string Overview_Admiral_Experience_Difference_Type_Month => GetString(nameof(Overview_Admiral_Experience_Difference_Type_Month));
+        public string Overview_Admiral_TotalRankingPoints => GetString(nameof(Overview_Admiral_TotalRankingPoints));
+        public string Overview_Admiral_FinalRankingPoints => GetString(nameof(Overview_Admiral_FinalRankingPoints));
         public string Overview_ShipOverview => GetString(nameof(Overview_ShipOverview));
         public string Overview_EquipmentOverview => GetString(nameof(Overview_EquipmentOverview));
         public string Overview_Fleets => GetString(nameof(Overview_Fleets));
@@ -99,8 +122,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Overview_ConstructionDocks_Completed => GetString(nameof(Overview_ConstructionDocks_Completed));
         public string Overview_ConstructionDocks_TimeToComplete => GetString(nameof(Overview_ConstructionDocks_TimeToComplete));
         public string Overview_ConstructionDocks_MaterialConsumption => GetString(nameof(Overview_ConstructionDocks_MaterialConsumption));
-        public string Overview_ExecutingQuest_None => GetString(nameof(Overview_ExecutingQuest_None));
-        public string Overview_ExecutingQuest_NotLoaded => GetString(nameof(Overview_ExecutingQuest_NotLoaded));
+        public string Overview_ActiveQuest_None => GetString(nameof(Overview_ActiveQuest_None));
+        public string Overview_ActiveQuest_NotLoaded => GetString(nameof(Overview_ActiveQuest_NotLoaded));
 
         public string Fleet_TotalLevel => GetString(nameof(Fleet_TotalLevel));
         public string Fleet_LoS => GetString(nameof(Fleet_LoS));
@@ -109,6 +132,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Fleet_LoS_Formula_AutumnSimplified => GetString(nameof(Fleet_LoS_Formula_AutumnSimplified));
         public string Fleet_LoS_Formula_Formula33 => GetString(nameof(Fleet_LoS_Formula_Formula33));
         public string Fleet_FighterPower => GetString(nameof(Fleet_FighterPower));
+        public string Fleet_FighterPower_Formula_WithoutBonus => GetString(nameof(Fleet_FighterPower_Formula_WithoutBonus));
+        public string Fleet_FighterPower_Formula_WithBonus => GetString(nameof(Fleet_FighterPower_Formula_WithBonus));
         public string Fleet_Speed => GetString(nameof(Fleet_Speed));
         public string Fleet_Speed_Slow => GetString(nameof(Fleet_Speed_Slow));
         public string Fleet_Speed_Fast => GetString(nameof(Fleet_Speed_Fast));
@@ -118,6 +143,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Ship_Repairing => GetString(nameof(Ship_Repairing));
         public string Ship_RepairingInAnchorage => GetString(nameof(Ship_RepairingInAnchorage));
         public string Ship_Evacuated => GetString(nameof(Ship_Evacuated));
+        public string Ship_ToolTip_Status_Firepower => GetString(nameof(Ship_ToolTip_Status_Firepower));
+        public string Ship_ToolTip_Status_Torpedo => GetString(nameof(Ship_ToolTip_Status_Torpedo));
+        public string Ship_ToolTip_Status_AA => GetString(nameof(Ship_ToolTip_Status_AA));
+        public string Ship_ToolTip_Status_Armor => GetString(nameof(Ship_ToolTip_Status_Armor));
+        public string Ship_ToolTip_Status_Luck => GetString(nameof(Ship_ToolTip_Status_Luck));
+        public string Ship_ToolTip_Status_Evasion => GetString(nameof(Ship_ToolTip_Status_Evasion));
+        public string Ship_ToolTip_Status_ASW => GetString(nameof(Ship_ToolTip_Status_ASW));
+        public string Ship_ToolTip_Status_LoS => GetString(nameof(Ship_ToolTip_Status_LoS));
         public string Ship_ToolTip_DayBattle => GetString(nameof(Ship_ToolTip_DayBattle));
         public string Ship_ToolTip_NightBattle => GetString(nameof(Ship_ToolTip_NightBattle));
         public string Ship_ToolTip_AttackMode => GetString(nameof(Ship_ToolTip_AttackMode));
@@ -212,6 +245,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_State_LandBase_ModeratelyDamaged => GetString(nameof(Battle_State_LandBase_ModeratelyDamaged));
         public string Battle_State_LandBase_HeavilyDamaged => GetString(nameof(Battle_State_LandBase_HeavilyDamaged));
         public string Battle_State_LandBase_Sunk => GetString(nameof(Battle_State_LandBase_Sunk));
+        public string Battle_Ship_ToHeavyDamage => GetString(nameof(Battle_Ship_ToHeavyDamage));
         public string Battle_Formation_LineAhead => GetString(nameof(Battle_Formation_LineAhead));
         public string Battle_Formation_DoubleLine => GetString(nameof(Battle_Formation_DoubleLine));
         public string Battle_Formation_Diamond => GetString(nameof(Battle_Formation_Diamond));
@@ -235,11 +269,13 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string Quest_NoData => GetString(nameof(Quest_NoData));
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));
-        public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
-        public string Quest_Type_Special => GetString(nameof(Quest_Type_Special));
+        public string Quest_Type_Active => GetString(nameof(Quest_Type_Active));
         public string Quest_Type_Daily => GetString(nameof(Quest_Type_Daily));
         public string Quest_Type_Weekly => GetString(nameof(Quest_Type_Weekly));
         public string Quest_Type_Monthly => GetString(nameof(Quest_Type_Monthly));
+        public string Quest_Type_Once => GetString(nameof(Quest_Type_Once));
+        public string Quest_Type_Others => GetString(nameof(Quest_Type_Others));
+        public string Quest_Type_All => GetString(nameof(Quest_Type_All));
         public string Quest_Category_Composition => GetString(nameof(Quest_Category_Composition));
         public string Quest_Category_Sortie => GetString(nameof(Quest_Category_Sortie));
         public string Quest_Category_Practice => GetString(nameof(Quest_Category_Practice));
@@ -268,13 +304,16 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Window_ExpeditionHistory => GetString(nameof(Window_ExpeditionHistory));
         public string Window_ScrappingHistory => GetString(nameof(Window_ScrappingHistory));
         public string Window_ResourceHistory => GetString(nameof(Window_ResourceHistory));
-        public string Window_ClosingConfirmation => GetString(nameof(Window_ClosingConfirmation));
+        public string Window_ClosingConfirmation_Instruction => GetString(nameof(Window_ClosingConfirmation_Instruction));
+        public string Window_ClosingConfirmation_Button_Yes => GetString(nameof(Window_ClosingConfirmation_Button_Yes));
+        public string Window_ClosingConfirmation_Button_No => GetString(nameof(Window_ClosingConfirmation_Button_No));
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
         public string PreferenceWindow_Network_Port => GetString(nameof(PreferenceWindow_Network_Port));
         public string PreferenceWindow_Network_EnableForSSL => GetString(nameof(PreferenceWindow_Network_EnableForSSL));
         public string PreferenceWindow_Network_AllowRequestsFromOtherDevices => GetString(nameof(PreferenceWindow_Network_AllowRequestsFromOtherDevices));
         public string PreferenceWindow_Network_UseUpstreamProxy => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy));
+        public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly));
         public string PreferenceWindow_Window => GetString(nameof(PreferenceWindow_Window));
         public string PreferenceWindow_Window_Font => GetString(nameof(PreferenceWindow_Window_Font));
         public string PreferenceWindow_Window_Layout => GetString(nameof(PreferenceWindow_Window_Layout));
@@ -282,7 +321,16 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Window_Layout_Portrait => GetString(nameof(PreferenceWindow_Window_Layout_Portrait));
         public string PreferenceWindow_Window_Layout_Game => GetString(nameof(PreferenceWindow_Window_Layout_Game));
         public string PreferenceWindow_Window_Layout_Information => GetString(nameof(PreferenceWindow_Window_Layout_Information));
-        public string PreferenceWindow_Window_Layout_AutoRotationNotSupported => GetString(nameof(PreferenceWindow_Window_Layout_AutoRotationNotSupported));
+        public string PreferenceWindow_UI => GetString(nameof(PreferenceWindow_UI));
+        public string PreferenceWindow_UI_HeavyDamageLine => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine));
+        public string PreferenceWindow_UI_HeavyDamageLine_Type_Hide => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_Hide));
+        public string PreferenceWindow_UI_HeavyDamageLine_Type_Default => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_Default));
+        public string PreferenceWindow_UI_HeavyDamageLine_Type_AllRed => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_AllRed));
+        public string PreferenceWindow_UI_HeavyDamageLine_Type_Custom => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_Custom));
+        public string PreferenceWindow_UI_HeavyDamageLine_Width => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Width));
+        public string PreferenceWindow_UI_HeavyDamageLine_Preview => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Preview));
+        public string PreferenceWindow_UI_MaterialIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons));
+        public string PreferenceWindow_UI_MaterialIcons_UseGameIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons_UseGameIcons));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));
@@ -315,8 +363,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Flash => GetString(nameof(PreferenceWindow_Browser_Flash));
         public string PreferenceWindow_Browser_Flash_Quality => GetString(nameof(PreferenceWindow_Browser_Flash_Quality));
         public string PreferenceWindow_Browser_Flash_RenderMode => GetString(nameof(PreferenceWindow_Browser_Flash_RenderMode));
+        public string PreferenceWindow_Browser_Placement_AtBottom => GetString(nameof(PreferenceWindow_Browser_Placement_AtBottom));
+        public string PreferenceWindow_Browser_Placement_StickToBrowser => GetString(nameof(PreferenceWindow_Browser_Placement_StickToBrowser));
         public string PreferenceWindow_Screenshot => GetString(nameof(PreferenceWindow_Screenshot));
         public string PreferenceWindow_Screenshot_Folder => GetString(nameof(PreferenceWindow_Screenshot_Folder));
+        public string PreferenceWindow_Other => GetString(nameof(PreferenceWindow_Other));
+        public string PreferenceWindow_Other_PanicKey => GetString(nameof(PreferenceWindow_Other_PanicKey));
+        public string PreferenceWindow_Other_PanicKey_Enabled => GetString(nameof(PreferenceWindow_Other_PanicKey_Enabled));
+        public string PreferenceWindow_Other_PanicKey_RegisteredByOther => GetString(nameof(PreferenceWindow_Other_PanicKey_RegisteredByOther));
         public string PreferenceWindow_Plugin => GetString(nameof(PreferenceWindow_Plugin));
         public string PreferenceWindow_VersionInfo => GetString(nameof(PreferenceWindow_VersionInfo));
 
@@ -356,6 +410,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ShipOverview_Filter_ExceptLevel1Ships => GetString(nameof(ShipOverview_Filter_ExceptLevel1Ships));
         public string ShipOverview_List_Loading => GetString(nameof(ShipOverview_List_Loading));
 
+        public string Export_CSV => GetString(nameof(Export_CSV));
+        public string Export_CSV_FileType => GetString(nameof(Export_CSV_FileType));
+        public string Export_CSV_Message => GetString(nameof(Export_CSV_Message));
+        public string Export_CSV_Message_OpenFile => GetString(nameof(Export_CSV_Message_OpenFile));
+
         public string Record_Time => GetString(nameof(Record_Time));
         public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));
 
@@ -381,6 +440,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ScrappingHistory_Reason_Scrapped => GetString(nameof(ScrappingHistory_Reason_Scrapped));
         public string ScrappingHistory_Reason_ConsumedByImprovement => GetString(nameof(ScrappingHistory_Reason_ConsumedByImprovement));
         public string ScrappingHistory_Reason_Sunk => GetString(nameof(ScrappingHistory_Reason_Sunk));
+        public string ScrappingHistory_Reason_ConsumedInBattle => GetString(nameof(ScrappingHistory_Reason_ConsumedInBattle));
+
+        public string ResourceHistory_Diff => GetString(nameof(ResourceHistory_Diff));
 
         public string Tool_ExpeditionOverview => GetString(nameof(Tool_ExpeditionOverview));
 
@@ -401,6 +463,17 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ScreenshotTool_OutputOption => GetString(nameof(ScreenshotTool_OutputOption));
         public string ScreenshotTool_OutputOption_Clipboard => GetString(nameof(ScreenshotTool_OutputOption_Clipboard));
         public string ScreenshotTool_OutputOption_File => GetString(nameof(ScreenshotTool_OutputOption_File));
+
+        public string UIZoom_ZoomIn => GetString(nameof(UIZoom_ZoomIn));
+        public string UIZoom_ZoomOut => GetString(nameof(UIZoom_ZoomOut));
+
+        public string SessionTool_Title => GetString(nameof(SessionTool_Title));
+        public string SessionTool_Clear => GetString(nameof(SessionTool_Clear));
+        public string SessionTool_Option_AutoScroll => GetString(nameof(SessionTool_Option_AutoScroll));
+        public string SessionTool_Option_StartRecordingOnAppStartup => GetString(nameof(SessionTool_Option_StartRecordingOnAppStartup));
+        public string SessionTool_Method => GetString(nameof(SessionTool_Method));
+        public string SessionTool_Status => GetString(nameof(SessionTool_Status));
+        public string SessionTool_URLOrAPI => GetString(nameof(SessionTool_URLOrAPI));
 
     }
 }

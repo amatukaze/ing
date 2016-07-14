@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Controls
 {
-    class EquipmentLevel : Control
+    public class EquipmentLevel : Control
     {
         public static readonly DependencyProperty LevelProperty = DependencyProperty.Register(nameof(Level), typeof(int), typeof(EquipmentLevel), new UIPropertyMetadata(0));
         public int Level

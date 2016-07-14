@@ -4,10 +4,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
     public class ApiSession : NetworkSession
     {
-        string r_DisplayUrl;
-        public override string DisplayUrl => r_DisplayUrl;
+        public override NetworkSessionType Type => NetworkSessionType.API;
 
-        public string ResponseBodyString { get; internal set; }
+        string r_API;
+        public override string DisplayUrl => r_API;
 
         internal ApiSession(string rpFullUrl) : base(rpFullUrl)
         {
@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             if (rPosition == -1)
                 throw new ArgumentException(nameof(rpFullUrl));
 
-            r_DisplayUrl = rpFullUrl.Substring(rPosition + 8);
+            r_API = rpFullUrl.Substring(rPosition + 8);
         }
     }
 }

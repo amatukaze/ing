@@ -41,8 +41,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         static void FiddlerApplication_BeforeRequest(Session rpSession)
         {
-            if (Preference.Current.Network.UpstreamProxy.Enabled)
-                rpSession["x-OverrideGateway"] = Preference.Current.Network.UpstreamProxy.Address;
+            var rUpstreamProxyPreference = Preference.Current.Network.UpstreamProxy;
+            if (rUpstreamProxyPreference.Enabled && (!rUpstreamProxyPreference.HttpOnly || !rpSession.RequestMethod.OICEquals("CONNECT")))
+                rpSession["x-OverrideGateway"] = $"{rUpstreamProxyPreference.Host.Value}:{rUpstreamProxyPreference.Port.Value}";
 
             var rRequest = rpSession.oRequest;
 
@@ -58,10 +59,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 rSession = new NetworkSession(rFullUrl);
 
             rSession.RequestBodyString = Uri.UnescapeDataString(rpSession.GetRequestBodyAsString());
+            rSession.Method = rpSession.RequestMethod;
 
             rpSession.Tag = rSession;
-
-            SessionSubject.OnNext(rSession);
 
             if (rFullUrl == GameConstants.GamePageUrl || rPath == "/gadget/js/kcs_flash.js")
                 rpSession.bBufferResponse = true;
@@ -69,6 +69,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             var rResourceSession = rSession as ResourceSession;
             if (rResourceSession != null)
                 CacheService.Instance.ProcessRequest(rResourceSession, rpSession);
+
+            rSession.RequestHeaders = rpSession.RequestHeaders.Select(r => new SessionHeader(r.Name, r.Value)).ToArray();
+
+            SessionSubject.OnNext(rSession);
         }
 
         static void FiddlerApplication_OnReadResponseBuffer(object sender, RawReadEventArgs e)
@@ -96,7 +100,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 var rApiSession = rSession as ApiSession;
                 if (rApiSession != null)
                 {
-                    rApiSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
+                    rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
                     ApiParserManager.Instance.Process(rApiSession);
                 }
 
@@ -137,8 +141,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                     rpSession.utilSetResponseBody(rSource);
                 }
 
-                if (rpSession.oResponse.headers.Any(rHeader => rHeader.Name == "Content-Range"))
-                    System.Diagnostics.Debugger.Break();
+                rSession.StatusCode = rpSession.responseCode;
+                rSession.ResponseHeaders = rpSession.ResponseHeaders.Select(r => new SessionHeader(r.Name, r.Value)).ToArray();
             }
         }
 

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
     <AssemblyName>HeavenlyWind</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Properties\HeavenlyWind.exe.manifest</ApplicationManifest>
@@ -43,11 +45,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net46\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sakuno.Toast, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -57,8 +59,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.101.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.101.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.102.0\lib\net46\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
@@ -85,7 +87,7 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net46\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -117,11 +119,17 @@
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\EquipmentLevel.cs" />
     <Compile Include="Controls\EquipmentProficiency.cs" />
+    <Compile Include="Controls\FighterPower.cs" />
     <Compile Include="Controls\Indicator.cs" />
     <Compile Include="Controls\LoSFormulas.cs" />
     <Compile Include="Controls\MaterialIcon.cs" />
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Internal\HeavyDamageLineColorExtension.cs" />
+    <Compile Include="Internal\PanicKeyPreferenceExtension.cs" />
+    <Compile Include="Internal\QuestCategoryToBrushConverter.cs" />
+    <Compile Include="Internal\ShipOverviewItemIndexExtension.cs" />
+    <Compile Include="Internal\UnhandledExceptionDialogStringResources.cs" />
     <Compile Include="Internal\WindowPlacementPreference.cs" />
     <Compile Include="Internal\TabContentTemplateSelector.cs" />
     <Compile Include="Internal\TabDockingController.cs" />
@@ -130,7 +138,9 @@
     <Compile Include="Models\ExpeditionInfo2.cs" />
     <Compile Include="Models\ExpeditionResultPrediction.cs" />
     <Compile Include="Models\FleetLocking.cs" />
+    <Compile Include="Models\InitializationStep.cs" />
     <Compile Include="Models\Power.cs" />
+    <Compile Include="Models\ProcessInfo.cs" />
     <Compile Include="Models\Records\ConstructionRecord.cs" />
     <Compile Include="Models\Records\DevelopmentRecord.cs" />
     <Compile Include="Models\Records\ExpeditionRecord.cs" />
@@ -139,10 +149,12 @@
     <Compile Include="Models\Records\SortieRecord.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
     <Compile Include="Models\SystemFont.cs" />
+    <Compile Include="Models\UIZoomInfo.cs" />
+    <Compile Include="Models\ZoomInfo.cs" />
     <Compile Include="Services\BrowserService.cs" />
     <Compile Include="Services\Browser\BrowserNavigator.cs" />
     <Compile Include="Services\Browser\BrowserHost.cs" />
-    <Compile Include="Services\Browser\BrowserVolume.cs" />
+    <Compile Include="Services\Browser\BrowserAudioSession.cs" />
     <Compile Include="Services\Browser\BrowserWrapper.cs" />
     <Compile Include="Services\Browser\BrowserZoomInfo.cs" />
     <Compile Include="Services\Browser\CommunicatorMessageExtensions.cs" />
@@ -153,6 +165,7 @@
     <Compile Include="Services\Browser\MemoryMappedFileCommunicator.cs" />
     <Compile Include="Services\ExpeditionService.cs" />
     <Compile Include="Services\NotificationService.cs" />
+    <Compile Include="Services\PanicKeyService.cs" />
     <Compile Include="Services\PluginService.cs" />
     <Compile Include="Services\Plugins\FailureInfo.cs" />
     <Compile Include="Services\Plugins\Plugin.cs" />
@@ -160,6 +173,7 @@
     <Compile Include="Services\StatusBarService.cs" />
     <Compile Include="Services\TaskbarProgressService.cs" />
     <Compile Include="Services\UpdateService.cs" />
+    <Compile Include="Services\WindowService.cs" />
     <Compile Include="ViewModels\GameInformationViewModel.cs" />
     <Compile Include="ViewModels\Game\AirBaseViewModel.cs" />
     <Compile Include="ViewModels\Game\AirForceGroupViewModel.cs" />
@@ -177,7 +191,6 @@
     <Compile Include="ViewModels\Game\MapGaugesViewModel.cs" />
     <Compile Include="ViewModels\Game\MaterialsViewModel.cs" />
     <Compile Include="ViewModels\Game\OverviewViewModel.cs" />
-    <Compile Include="ViewModels\Game\QuestRealtimeProgressViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestsViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestViewModel.cs" />
     <Compile Include="ViewModels\Game\RepairDockViewModel.cs" />
@@ -190,6 +203,7 @@
     <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
+    <Compile Include="ViewModels\InitializationPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByFleet.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByMasterID.cs" />
@@ -205,6 +219,8 @@
     <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="ViewModels\Tools\SessionToolViewModel.cs" />
+    <Compile Include="ViewModels\Tools\SessionViewModel.cs" />
     <Compile Include="ViewModels\ToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\OverviewScreenshotToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\ScreenshotToolPreviewViewModel.cs" />
@@ -221,6 +237,12 @@
     </Compile>
     <Compile Include="Views\GameInformation.xaml.cs">
       <DependentUpon>GameInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\ActiveQuestsOverview.xaml.cs">
+      <DependentUpon>ActiveQuestsOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\AirBaseOverview.xaml.cs">
       <DependentUpon>AirBaseOverview.xaml</DependentUpon>
@@ -263,9 +285,6 @@
     </Compile>
     <Compile Include="Views\Game\Events\Whirlpool.xaml.cs">
       <DependentUpon>Whirlpool.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Game\ExecutingQuestsOverview.xaml.cs">
-      <DependentUpon>ExecutingQuestsOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\ExpeditionOverview.xaml.cs">
       <DependentUpon>ExpeditionOverview.xaml</DependentUpon>
@@ -324,6 +343,9 @@
     <Compile Include="Views\History\SortieHistoryWindow.xaml.cs">
       <DependentUpon>SortieHistoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\InitializationPage.xaml.cs">
+      <DependentUpon>InitializationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -351,6 +373,9 @@
     <Compile Include="Views\Preferences\Notification.xaml.cs">
       <DependentUpon>Notification.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Preferences\Other.xaml.cs">
+      <DependentUpon>Other.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Preferences\Plugin.xaml.cs">
       <DependentUpon>Plugin.xaml</DependentUpon>
     </Compile>
@@ -359,6 +384,9 @@
     </Compile>
     <Compile Include="Views\Preferences\Screenshot.xaml.cs">
       <DependentUpon>Screenshot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Preferences\UI.xaml.cs">
+      <DependentUpon>UI.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Preferences\VersionInfo.xaml.cs">
       <DependentUpon>VersionInfo.xaml</DependentUpon>
@@ -377,6 +405,9 @@
       <DependentUpon>ScreenshotTool.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tools\ScreenshotToolOverlayWindow.cs" />
+    <Compile Include="Views\Tools\SessionToolWindow.xaml.cs">
+      <DependentUpon>SessionToolWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UpdateNotification.xaml.cs">
       <DependentUpon>UpdateNotification.xaml</DependentUpon>
     </Compile>
@@ -679,6 +710,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Controls\FighterPower.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\Indicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -720,6 +755,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GameInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\ActiveQuestsOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -776,10 +819,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\Events\Whirlpool.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Game\ExecutingQuestsOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -859,6 +898,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\InitializationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -895,6 +938,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Preferences\Other.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Preferences\Plugin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -904,6 +951,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Screenshot.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Preferences\UI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -927,6 +978,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Tools\SessionToolWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UpdateNotification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -937,14 +992,15 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy /Y /E /I "$(SolutionDir)Resources" "$(TargetDir)Resources"</PreBuildEvent>
+    <PreBuildEvent>IF NOT EXIST "$(SolutionDir)Resources" exit
+xcopy /Y /E /I "$(SolutionDir)Resources" "$(TargetDir)Resources"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.101.0\build\net45\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.102.0\build\net46\System.Data.SQLite.Core.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.9">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.11">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -42,6 +42,8 @@
   <String Key="Notification_AnchorageRepair">泊地修理</String>
   <String Key="Notification_AnchorageRepair_Content">泊地修理の開始から 20 分が経過したので、母港画面に戻ってください</String>
 
+  <String Key="MessageDialog_AudioSessionDisconnected">オーディオデバイスが抜かれたので、音量を設定に失敗しました。</String>
+
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>
@@ -52,9 +54,25 @@
   <String Key="Update_Notification_IgnoreOptionalUpdate">重要でない更新を無視する</String>
   <String Key="Update_Notification_AlwaysIgnore">常に無視する</String>
 
+  <String Key="InitializationPage_Initializing">初期化しています</String>
+  <String Key="InitializationPage_Header">問題があります</String>
+  <String Key="InitializationPage_Solution">解決策</String>
+  <String Key="InitializationPage_PortIsOccupied">待ち受けポートが他のアプリで使用されています</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">このプロセスを終了します</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">ポートを変更します</String>
+  <String Key="InitializationPage_UpstreamProxy">上流プロキシが利用できません</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">アプリを開くのは忘れましたか？</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">ポート番号が間違ってませんか？</String>
+  <String Key="InitializationPage_Retry">再試行</String>
+
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">ブラウザをフィット</String>
+  <String Key="Browser_RestartConfirmation_Instruction">何をしたいですか？</String>
+  <String Key="Browser_RestartConfirmation_Button_Refresh">再読み込みします</String>
+  <String Key="Browser_RestartConfirmation_Button_Stay">留まります</String>
+  <String Key="Browser_Zoom_ZoomIn">拡大表示</String>
+  <String Key="Browser_Zoom_ZoomOut">縮小表示</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">艦隊</String>
@@ -76,6 +94,11 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中堅少佐</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">前回の更新</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_Day">日</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_Month">月</String>
+  <String Key="Overview_Admiral_TotalRankingPoints">合計戦果</String>
+  <String Key="Overview_Admiral_FinalRankingPoints">前月の戦果</String>
   <String Key="Overview_ShipOverview">艦娘一覧</String>
   <String Key="Overview_EquipmentOverview">装備一覧</String>
   <String Key="Overview_Fleets">艦隊一覧</String>
@@ -95,8 +118,8 @@
   <String Key="Overview_ConstructionDocks_Completed">完了</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">完了時刻</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入した資材</String>
-  <String Key="Overview_ExecutingQuest_None">遂行中の任務なし</String>
-  <String Key="Overview_ExecutingQuest_NotLoaded">遂行中の任務未取得</String>
+  <String Key="Overview_ActiveQuest_None">遂行中の任務なし</String>
+  <String Key="Overview_ActiveQuest_NotLoaded">遂行中の任務未取得</String>
 
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
@@ -105,6 +128,8 @@
   <String Key="Fleet_LoS_Formula_AutumnSimplified">新秋式簡易</String>
   <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
   <String Key="Fleet_FighterPower">制空</String>
+  <String Key="Fleet_FighterPower_Formula_WithoutBonus">熟練度ボーナスを無視</String>
+  <String Key="Fleet_FighterPower_Formula_WithBonus">熟練度ボーナスあり</String>
   <String Key="Fleet_Speed">速力</String>
   <String Key="Fleet_Speed_Slow">低速</String>
   <String Key="Fleet_Speed_Fast">高速</String>
@@ -114,6 +139,14 @@
   <String Key="Ship_Repairing">修理中</String>
   <String Key="Ship_RepairingInAnchorage">泊地修理中</String>
   <String Key="Ship_Evacuated">退避中</String>
+  <String Key="Ship_ToolTip_Status_Firepower">火力</String>
+  <String Key="Ship_ToolTip_Status_Torpedo">雷装</String>
+  <String Key="Ship_ToolTip_Status_AA">対空</String>
+  <String Key="Ship_ToolTip_Status_Armor">装甲</String>
+  <String Key="Ship_ToolTip_Status_Luck">運</String>
+  <String Key="Ship_ToolTip_Status_Evasion">回避</String>
+  <String Key="Ship_ToolTip_Status_ASW">対潜</String>
+  <String Key="Ship_ToolTip_Status_LoS">索敵</String>
   <String Key="Ship_ToolTip_DayBattle">昼戦</String>
   <String Key="Ship_ToolTip_NightBattle">夜戦</String>
   <String Key="Ship_ToolTip_AttackMode">攻撃種別</String>
@@ -208,6 +241,7 @@
   <String Key="Battle_State_LandBase_ModeratelyDamaged">損害</String>
   <String Key="Battle_State_LandBase_HeavilyDamaged">損壊</String>
   <String Key="Battle_State_LandBase_Sunk">破壊</String>
+  <String Key="Battle_Ship_ToHeavyDamage">大破まで</String>
   <String Key="Battle_Formation_LineAhead">単縦陣</String>
   <String Key="Battle_Formation_DoubleLine">複縦陣</String>
   <String Key="Battle_Formation_Diamond">輪形陣</String>
@@ -231,11 +265,13 @@
 
   <String Key="Quest_NoData">ゲーム内で「任務(クエスト)」画面を開いて、任務一覧を取得してください</String>
   <String Key="Quest_Unknown">?????</String>
-  <String Key="Quest_Type_Once" />
-  <String Key="Quest_Type_Special">日</String>
+  <String Key="Quest_Type_Active">遂行中</String>
   <String Key="Quest_Type_Daily">日</String>
   <String Key="Quest_Type_Weekly">週</String>
   <String Key="Quest_Type_Monthly">月</String>
+  <String Key="Quest_Type_Once">単発</String>
+  <String Key="Quest_Type_Others">他</String>
+  <String Key="Quest_Type_All">すべて</String>
   <String Key="Quest_Category_Composition">編成</String>
   <String Key="Quest_Category_Sortie">出撃</String>
   <String Key="Quest_Category_Practice">演習</String>
@@ -264,21 +300,33 @@
   <String Key="Window_ExpeditionHistory">遠征歴史</String>
   <String Key="Window_ScrappingHistory">解体・廃棄歴史</String>
   <String Key="Window_ResourceHistory">資材歴史</String>
-  <String Key="Window_ClosingConfirmation">{0}を終了しますか？</String>
+  <String Key="Window_ClosingConfirmation_Instruction">何をしたいですか？</String>
+  <String Key="Window_ClosingConfirmation_Button_Yes">終了します</String>
+  <String Key="Window_ClosingConfirmation_Button_No">戻ります</String>
 
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">他のデバイスからのリクエストを許可する (非推奨：セキュリティリスク)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP 接続のみ</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
   <String Key="PreferenceWindow_Window_Font">フォント</String>
   <String Key="PreferenceWindow_Window_Layout">レイアウト</String>
-  <String Key="PreferenceWindow_Window_Layout_Landscape">横持ち</String>
-  <String Key="PreferenceWindow_Window_Layout_Portrait">縦持ち</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">レイアウトモード</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">タブレット縦持ち</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">情報</String>
-  <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">画面の自動回転はサポートされていません</String>
+  <String Key="PreferenceWindow_UI">UI</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine">大破線</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">非表示</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Default">既定</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_AllRed">既定 (赤い)</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Custom">カスタム</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Width">線幅</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">プレビュー</String>
+  <String Key="PreferenceWindow_UI_MaterialIcons">資材アイコン</String>
+  <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">ゲームのようなアイコンを使用します</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>
@@ -311,8 +359,14 @@
   <String Key="PreferenceWindow_Browser_Flash">Flash の設定</String>
   <String Key="PreferenceWindow_Browser_Flash_Quality">品質</String>
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
+  <String Key="PreferenceWindow_Browser_Placement_AtBottom">アクションバーを下部に表示する</String>
+  <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">アクションバーをブラウザの隣に表示する</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
+  <String Key="PreferenceWindow_Other">その他</String>
+  <String Key="PreferenceWindow_Other_PanicKey">ボスが来た</String>
+  <String Key="PreferenceWindow_Other_PanicKey_Enabled">有効</String>
+  <String Key="PreferenceWindow_Other_PanicKey_RegisteredByOther">他プログラムがこのキーを使用しています</String>
   <String Key="PreferenceWindow_Plugin">プラグイン</String>
   <String Key="PreferenceWindow_VersionInfo">バージョン情報</String>
 
@@ -352,6 +406,11 @@
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">Lv1 の艦娘を除く</String>
   <String Key="ShipOverview_List_Loading">一覧を生成しています</String>
 
+  <String Key="Export_CSV">CSV に出力</String>
+  <String Key="Export_CSV_FileType">CSV ファイル</String>
+  <String Key="Export_CSV_Message">記録は成功に出力されました。</String>
+  <String Key="Export_CSV_Message_OpenFile">ファイルを開く</String>
+
   <String Key="Record_Time">時間</String>
   <String Key="Record_SecretaryShip">秘書艦</String>
 
@@ -377,6 +436,9 @@
   <String Key="ScrappingHistory_Reason_Scrapped">装備の廃棄</String>
   <String Key="ScrappingHistory_Reason_ConsumedByImprovement">装備改修</String>
   <String Key="ScrappingHistory_Reason_Sunk">沈没</String>
+  <String Key="ScrappingHistory_Reason_ConsumedInBattle">戦闘</String>
+  
+  <String Key="ResourceHistory_Diff">差異</String>
 
   <String Key="Tool_ExpeditionOverview">遠征一覧</String>
   
@@ -397,5 +459,16 @@
   <String Key="ScreenshotTool_OutputOption">保存先:</String>
   <String Key="ScreenshotTool_OutputOption_Clipboard">クリップボード</String>
   <String Key="ScreenshotTool_OutputOption_File">ファイル</String>
+
+  <String Key="UIZoom_ZoomIn">拡大表示</String>
+  <String Key="UIZoom_ZoomOut">縮小表示</String>
+
+  <String Key="SessionTool_Title">セーションツール</String>
+  <String Key="SessionTool_Clear">クリア</String>
+  <String Key="SessionTool_Option_AutoScroll">自動スクロール</String>
+  <String Key="SessionTool_Option_StartRecordingOnAppStartup">アプリの起動時に記録を開始</String>
+  <String Key="SessionTool_Method">メソッド</String>
+  <String Key="SessionTool_Status">ステータス</String>
+  <String Key="SessionTool_URLOrAPI">URL・API</String>
 
 </Strings>

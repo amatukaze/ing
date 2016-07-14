@@ -24,7 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         public bool IsSelected
         {
             get { return r_IsSelected; }
-            internal set
+            set
             {
                 if (r_IsSelected != value)
                 {

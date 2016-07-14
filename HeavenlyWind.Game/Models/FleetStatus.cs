@@ -5,9 +5,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class FleetStatus : ModelBase
     {
-        static int[] r_FighterFPBouns = { 0, 0, 2, 5, 9, 14, 14, 22 };
-        static int[] r_SeaplaneBomberFPBouns = { 0, 0, 1, 1, 1, 3, 3, 6 };
-
         Fleet r_Fleet;
 
         int r_TotalLevel;
@@ -24,32 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        double r_MinFighterPower;
-        public double MinFighterPower
-        {
-            get { return r_MinFighterPower; }
-            private set
-            {
-                if (r_MinFighterPower != value)
-                {
-                    r_MinFighterPower = value;
-                    OnPropertyChanged(nameof(MinFighterPower));
-                }
-            }
-        }
-        double r_MaxFighterPower;
-        public double MaxFighterPower
-        {
-            get { return r_MaxFighterPower; }
-            private set
-            {
-                if (r_MaxFighterPower != value)
-                {
-                    r_MaxFighterPower = value;
-                    OnPropertyChanged(nameof(MaxFighterPower));
-                }
-            }
-        }
+        public FleetFighterPowerStatus FighterPower { get; }
 
         public FleetLoSStatus LoS { get; }
 
@@ -84,6 +56,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal FleetStatus(Fleet rpOwner)
         {
             r_Fleet = rpOwner;
+
+            FighterPower = new FleetFighterPowerStatus(rpOwner);
             LoS = new FleetLoSStatus(rpOwner);
         }
 
@@ -91,8 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             TotalLevel = r_Fleet.Ships.Sum(r => r.Level);
 
-            MinFighterPower = CalculateFighterPower(r => r == 0 ? .0 : (r - 1) * 15.0 + 10.0);
-            MaxFighterPower = CalculateFighterPower(r => r == 9 ? .0 : (r - 1) * 15.0 + 24.0);
+            FighterPower.Update();
 
             LoS.Update();
 
@@ -100,43 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             CalculateTransportPoint();
         }
-
-        double CalculateFighterPower(Func<int, double> rpInternalBouns) =>
-            r_Fleet.Ships.ExceptEvacuated().Sum(rpShip =>
-                rpShip.Slots.Where(r => r.HasEquipment).Sum(rpSlot =>
-                {
-                    var rEquipment = rpSlot.Equipment;
-                    var rInfo = rEquipment.Info;
-
-                    if (!rInfo.CanParticipateInFighterCombat)
-                        return .0;
-                    else
-                    {
-                        var rResult = rInfo.AA * Math.Sqrt(rpSlot.PlaneCount);
-
-                        if (rpSlot.PlaneCount > 0)
-                        {
-                            var rProficiency = rEquipment.Proficiency;
-
-                            switch (rInfo.Type)
-                            {
-                                case EquipmentType.CarrierBasedFighter:
-                                case EquipmentType.SeaplaneFighter:
-                                    rResult += r_FighterFPBouns[rProficiency];
-                                    break;
-
-                                case EquipmentType.SeaplaneBomber:
-                                    rResult += r_SeaplaneBomberFPBouns[rProficiency];
-                                    break;
-                            }
-
-                            rResult += Math.Sqrt(rpInternalBouns(rProficiency) / 10.0);
-                        }
-
-                        return rResult;
-                    }
-                }));
-
+        
         void UpdateFleetSpeed()
         {
             if (r_Fleet.Ships.Count == 0)

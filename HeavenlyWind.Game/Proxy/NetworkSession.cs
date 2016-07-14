@@ -1,9 +1,16 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
+﻿using System;
+
+namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
+    public enum NetworkSessionType { Normal, Resource, API }
     public enum NetworkSessionState { Requested, Responsed, Cached, LoadedFromCache, Error }
 
     public class NetworkSession : ModelBase
     {
+        public virtual NetworkSessionType Type => NetworkSessionType.Normal;
+
+        public DateTimeOffset Time { get; } = DateTimeOffset.Now;
+
         public string FullUrl { get; }
         public virtual string DisplayUrl => FullUrl;
 
@@ -17,6 +24,8 @@
                 OnPropertyChanged(nameof(State));
             }
         }
+
+        public string Method { get; internal set; }
 
         public string RequestBodyString { get; internal set; }
 
@@ -49,6 +58,35 @@
             {
                 r_StatusCode = value;
                 OnPropertyChanged(nameof(StatusCode));
+            }
+        }
+
+        string r_ResponseBodyString;
+        public string ResponseBodyString
+        {
+            get { return r_ResponseBodyString; }
+            internal set
+            {
+                if (r_ResponseBodyString != value)
+                {
+                    r_ResponseBodyString = value;
+                    OnPropertyChanged(nameof(ResponseBodyString));
+                }
+            }
+        }
+
+        public SessionHeader[] RequestHeaders { get; internal set; }
+        SessionHeader[] r_ResponseHeaders;
+        public SessionHeader[] ResponseHeaders
+        {
+            get { return r_ResponseHeaders; }
+            internal set
+            {
+                if (r_ResponseHeaders != value)
+                {
+                    r_ResponseHeaders = value;
+                    OnPropertyChanged(nameof(ResponseHeaders));
+                }
             }
         }
 

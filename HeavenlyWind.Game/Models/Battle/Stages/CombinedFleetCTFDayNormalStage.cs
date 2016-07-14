@@ -14,6 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             LandBaseAerialSupport,
             AerialCombat,
             SupportingFire,
+            OpeningASW,
             OpeningTorpedo,
 
             ShellingFirstRound,
@@ -30,6 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             LandBaseAerialSupport = new LandBaseAerialSupportPhase(this, rRawData.LandBaseAerialSupport);
             AerialCombat = new AerialCombatPhase(this, rRawData.AerialCombat);
             SupportingFire = new SupportingFirePhase(this, rRawData.SupportingFire);
+            OpeningASW = new OpeningASWPhase(this, rRawData.OpeningASW, true);
             OpeningTorpedo = new TorpedoSalvoPhase(this, rRawData.OpeningTorpedoSalvo, true);
 
             ShellingFirstRound = new ShellingPhase(this, rRawData.ShellingFirstRound, true);

@@ -18,10 +18,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public JToken QuestsJson { get; set; }
 
         [JsonProperty("api_exec_count")]
-        public int ExecutingCount { get; set; }
+        public int ActiveCount { get; set; }
 
-        [JsonProperty("api_exec_type")]
-        public int ExecutingType { get; set; }
+        //[JsonProperty("api_exec_type")]
 
         [JsonIgnore]
         public RawQuest[] Quests { get; internal set; }

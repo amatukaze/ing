@@ -5,15 +5,15 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
     public class NetworkPreference
     {
         [JsonProperty("port")]
-        public int Port { get; set; } = 15820;
+        public Property<int> Port { get; private set; } = new Property<int>(15820);
 
         [JsonProperty("enableforssl")]
-        public bool EnableForSSL { get; set; } = false;
+        public Property<bool> EnableForSSL { get; private set; } = new Property<bool>();
 
         [JsonProperty("allowremoterequests")]
-        public bool AllowRequestsFromOtherDevices { get; set; } = false;
+        public Property<bool> AllowRequestsFromOtherDevices { get; private set; } = new Property<bool>();
 
         [JsonProperty("upstreamproxy")]
-        public UpstreamProxyPreference UpstreamProxy { get; set; } = new UpstreamProxyPreference();
+        public UpstreamProxyPreference UpstreamProxy { get; private set; } = new UpstreamProxyPreference();
     }
 }

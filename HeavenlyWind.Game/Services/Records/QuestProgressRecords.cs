@@ -49,11 +49,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         var rResetType = (QuestType)Convert.ToInt32(rReader["type"]);
                         var rState = (QuestState)Convert.ToInt32(rReader["state"]);
                         var rProgress = Convert.ToInt32(rReader["progress"]);
-                        var rUpdateTime = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rReader["update_time"]));
+                        var rUpdateTime = DateTimeUtil.FromUnixTime(Convert.ToInt64(rReader["update_time"]));
 
                         ProgressInfo rInfo;
                         if (!r_Progresses.TryGetValue(rID, out rInfo))
-                            r_Progresses.Add(rID, rInfo = new ProgressInfo(rID, rResetType, rState, rProgress, rUpdateTime));
+                            r_Progresses.Add(rID, new ProgressInfo(rID, rResetType, rState, rProgress, rUpdateTime));
                         else
                         {
                             rInfo.State = rState;

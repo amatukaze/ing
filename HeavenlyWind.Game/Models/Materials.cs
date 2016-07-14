@@ -140,9 +140,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     WeekDifference.Reload();
                     MonthDifference.Reload();
 
-                    OnPropertyChanged(nameof(DayDifference));
-                    OnPropertyChanged(nameof(WeekDifference));
-                    OnPropertyChanged(nameof(MonthDifference));
+                    UpdateCore();
                 });
             });
         }

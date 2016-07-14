@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.9">
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.11">
 
   <String Key="Product_Name">智能型连装炮君</String>
 
@@ -42,6 +42,10 @@
   <String Key="Notification_AnchorageRepair">泊地修理</String>
   <String Key="Notification_AnchorageRepair_Content">从泊地修理开始已过 20 分钟，请返回母港画面。</String>
 
+  <String Key="MessageDialog_AudioSessionDisconnected">音频设备有变动，导致无法设置静音。
+
+当前版本还无法解决该问题。如果要设置静音，请使用系统的音量合成器。请见谅。</String>
+
   <String Key="Result_Failure">失败</String>
   <String Key="Result_Success">成功</String>
   <String Key="Result_GreatSuccess">大成功</String>
@@ -52,9 +56,25 @@
   <String Key="Update_Notification_IgnoreOptionalUpdate">忽略小版本更新</String>
   <String Key="Update_Notification_AlwaysIgnore">总是忽略</String>
 
+  <String Key="InitializationPage_Initializing">正在初始化</String>
+  <String Key="InitializationPage_Header">遇到些问题</String>
+  <String Key="InitializationPage_Solution">对策</String>
+  <String Key="InitializationPage_PortIsOccupied">端口被以下的程序占用</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">结束该进程</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">更换端口</String>
+  <String Key="InitializationPage_UpstreamProxy">上游代理未开启</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">是不是忘记了开启代理？</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">是不是端口错了？</String>
+  <String Key="InitializationPage_Retry">重试</String>
+
   <String Key="GameInfomation_Waiting">等待游戏启动</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">调整浏览器大小以适应游戏</String>
+  <String Key="Browser_RestartConfirmation_Instruction">你想做什么呢？</String>
+  <String Key="Browser_RestartConfirmation_Button_Refresh">刷新</String>
+  <String Key="Browser_RestartConfirmation_Button_Stay">返回游戏</String>
+  <String Key="Browser_Zoom_ZoomIn">放大</String>
+  <String Key="Browser_Zoom_ZoomOut">缩小</String>
 
   <String Key="Tab_Overview">概要</String>
   <String Key="Tab_Fleets">舰队</String>
@@ -76,6 +96,11 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中坚少佐</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">上次更新</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_Day">日</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_Month">月</String>
+  <String Key="Overview_Admiral_TotalRankingPoints">总战果</String>
+  <String Key="Overview_Admiral_FinalRankingPoints">上月战果</String>
   <String Key="Overview_ShipOverview">舰娘一览</String>
   <String Key="Overview_EquipmentOverview">装备一览</String>
   <String Key="Overview_Fleets">舰队一览</String>
@@ -95,8 +120,8 @@
   <String Key="Overview_ConstructionDocks_Completed">完成</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">完成时间</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">投入的资材</String>
-  <String Key="Overview_ExecutingQuest_None">无执行中的任务</String>
-  <String Key="Overview_ExecutingQuest_NotLoaded">未获取执行中的任务</String>
+  <String Key="Overview_ActiveQuest_None">无执行中的任务</String>
+  <String Key="Overview_ActiveQuest_NotLoaded">未获取执行中的任务</String>
 
   <String Key="Fleet_TotalLevel">总等级</String>
   <String Key="Fleet_LoS">索敌</String>
@@ -105,6 +130,8 @@
   <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5(秋)简易</String>
   <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
   <String Key="Fleet_FighterPower">制空</String>
+  <String Key="Fleet_FighterPower_Formula_WithoutBonus">忽略熟练度奖励</String>
+  <String Key="Fleet_FighterPower_Formula_WithBonus">有熟练度奖励</String>
   <String Key="Fleet_Speed">速度</String>
   <String Key="Fleet_Speed_Slow">低速</String>
   <String Key="Fleet_Speed_Fast">高速</String>
@@ -114,6 +141,14 @@
   <String Key="Ship_Repairing">修理中</String>
   <String Key="Ship_RepairingInAnchorage">泊地修理中</String>
   <String Key="Ship_Evacuated">退避中</String>
+  <String Key="Ship_ToolTip_Status_Firepower">火力</String>
+  <String Key="Ship_ToolTip_Status_Torpedo">雷装</String>
+  <String Key="Ship_ToolTip_Status_AA">对空</String>
+  <String Key="Ship_ToolTip_Status_Armor">装甲</String>
+  <String Key="Ship_ToolTip_Status_Luck">运</String>
+  <String Key="Ship_ToolTip_Status_Evasion">回避</String>
+  <String Key="Ship_ToolTip_Status_ASW">对潜</String>
+  <String Key="Ship_ToolTip_Status_LoS">索敌</String>
   <String Key="Ship_ToolTip_DayBattle">昼战</String>
   <String Key="Ship_ToolTip_NightBattle">夜战</String>
   <String Key="Ship_ToolTip_AttackMode">攻击形式</String>
@@ -208,6 +243,7 @@
   <String Key="Battle_State_LandBase_ModeratelyDamaged">损害</String>
   <String Key="Battle_State_LandBase_HeavilyDamaged">损坏</String>
   <String Key="Battle_State_LandBase_Sunk">破坏</String>
+  <String Key="Battle_Ship_ToHeavyDamage">距离大破</String>
   <String Key="Battle_Formation_LineAhead">单纵阵</String>
   <String Key="Battle_Formation_DoubleLine">复纵阵</String>
   <String Key="Battle_Formation_Diamond">轮形阵</String>
@@ -231,11 +267,13 @@
 
   <String Key="Quest_NoData">请打开游戏中的「任務(クエスト)」获取任务信息</String>
   <String Key="Quest_Unknown">?????</String>
-  <String Key="Quest_Type_Once" />
-  <String Key="Quest_Type_Special">日</String>
-  <String Key="Quest_Type_Daily">日</String>
-  <String Key="Quest_Type_Weekly">周</String>
-  <String Key="Quest_Type_Monthly">月</String>
+  <String Key="Quest_Type_Active">进行中</String>
+  <String Key="Quest_Type_Daily">日常</String>
+  <String Key="Quest_Type_Weekly">周常</String>
+  <String Key="Quest_Type_Monthly">月常</String>
+  <String Key="Quest_Type_Once">单次</String>
+  <String Key="Quest_Type_Others">其它</String>
+  <String Key="Quest_Type_All">所有</String>
   <String Key="Quest_Category_Composition">编成</String>
   <String Key="Quest_Category_Sortie">出击</String>
   <String Key="Quest_Category_Practice">演习</String>
@@ -264,21 +302,33 @@
   <String Key="Window_ExpeditionHistory">远征历史</String>
   <String Key="Window_ScrappingHistory">解体・废弃历史</String>
   <String Key="Window_ResourceHistory">资源历史</String>
-  <String Key="Window_ClosingConfirmation">要关闭{0}吗？</String>
+  <String Key="Window_ClosingConfirmation_Instruction">你想做什么呢？</String>
+  <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
+  <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">端口</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">对 SSL 连接也使用代理</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">允许来自其它设备的请求 (不推荐：有安全风险)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">使用上游代理</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">仅 HTTP 请求使用</String>
   <String Key="PreferenceWindow_Window">窗口</String>
   <String Key="PreferenceWindow_Window_Font">字体</String>
   <String Key="PreferenceWindow_Window_Layout">布局</String>
-  <String Key="PreferenceWindow_Window_Layout_Landscape">屏幕横向显示</String>
-  <String Key="PreferenceWindow_Window_Layout_Portrait">屏幕纵向显示</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">布局模式</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">布局模式 (平板竖持)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">信息</String>
-  <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">该设备不支持屏幕自动旋转</String>
+  <String Key="PreferenceWindow_UI">UI</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine">大破线</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">禁用</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Default">预设</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_AllRed">预设(全红)</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Custom">自定义</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Width">宽度</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">预览</String>
+  <String Key="PreferenceWindow_UI_MaterialIcons">资材图标</String>
+  <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">使用游戏的图标</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
@@ -311,8 +361,14 @@
   <String Key="PreferenceWindow_Browser_Flash">Flash 设置</String>
   <String Key="PreferenceWindow_Browser_Flash_Quality">画质</String>
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">渲染模式</String>
+  <String Key="PreferenceWindow_Browser_Placement_AtBottom">工具栏显示在底部</String>
+  <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">工具栏粘附在浏览器旁</String>
   <String Key="PreferenceWindow_Screenshot">截图</String>
   <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
+  <String Key="PreferenceWindow_Other">其它</String>
+  <String Key="PreferenceWindow_Other_PanicKey">老板键</String>
+  <String Key="PreferenceWindow_Other_PanicKey_Enabled">启用</String>
+  <String Key="PreferenceWindow_Other_PanicKey_RegisteredByOther">该热键被正其它程序占用</String>
   <String Key="PreferenceWindow_Plugin">插件</String>
   <String Key="PreferenceWindow_VersionInfo">版本信息</String>
 
@@ -352,6 +408,11 @@
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">排除 Lv1 的舰娘</String>
   <String Key="ShipOverview_List_Loading">加载中</String>
 
+  <String Key="Export_CSV">导出为 CSV 文件</String>
+  <String Key="Export_CSV_FileType">CSV 文件</String>
+  <String Key="Export_CSV_Message">成功导出记录。</String>
+  <String Key="Export_CSV_Message_OpenFile">打开文件</String>
+
   <String Key="Record_Time">时间</String>
   <String Key="Record_SecretaryShip">秘书舰</String>
 
@@ -377,6 +438,9 @@
   <String Key="ScrappingHistory_Reason_Scrapped">装备废弃</String>
   <String Key="ScrappingHistory_Reason_ConsumedByImprovement">装备改修</String>
   <String Key="ScrappingHistory_Reason_Sunk">沉没</String>
+  <String Key="ScrappingHistory_Reason_ConsumedInBattle">战斗</String>
+  
+  <String Key="ResourceHistory_Diff">差异</String>
 
   <String Key="Tool_ExpeditionOverview">远征一览</String>
 
@@ -397,5 +461,16 @@
   <String Key="ScreenshotTool_OutputOption">保存到:</String>
   <String Key="ScreenshotTool_OutputOption_Clipboard">剪贴板</String>
   <String Key="ScreenshotTool_OutputOption_File">文件</String>
+
+  <String Key="UIZoom_ZoomIn">放大</String>
+  <String Key="UIZoom_ZoomOut">缩小</String>
+
+  <String Key="SessionTool_Title">会话工具</String>
+  <String Key="SessionTool_Clear">清空</String>
+  <String Key="SessionTool_Option_AutoScroll">自动滚动</String>
+  <String Key="SessionTool_Option_StartRecordingOnAppStartup">在程序启动时记录会话</String>
+  <String Key="SessionTool_Method">方法</String>
+  <String Key="SessionTool_Status">状态码</String>
+  <String Key="SessionTool_URLOrAPI">URL・API</String>
 
 </Strings>

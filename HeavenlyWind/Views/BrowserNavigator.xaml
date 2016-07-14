@@ -41,6 +41,11 @@
                 <ListBoxItem>
                     <Button Content="{rb:StringResource Main.Browser_Navigator_ResizeBrowserToFitGame}" Command="{Binding ResizeBrowserToFitGameCommand}" />
                 </ListBoxItem>
+                <ListBoxItem>
+                    <Button Command="{Binding ShowSessionToolCommand}">
+                        <TextBlock Text="{rb:StringResource Main.SessionTool_Title}" />
+                    </Button>
+                </ListBoxItem>
             </ListBox>
         </ruic:DropDownButton>
 

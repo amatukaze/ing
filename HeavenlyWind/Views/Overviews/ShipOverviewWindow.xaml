@@ -7,6 +7,7 @@
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   xmlns:rvmo="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Overviews"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                  xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_ShipOverview}"
                   Width="1200" Height="720"
@@ -126,6 +127,16 @@
                 <ListView Name="r_ListView" ItemsSource="{Binding Ships}">
                     <ListView.View>
                         <GridView>
+                            <GridViewColumn Width="35">
+                                <TextBlock Text="#" />
+
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{ri:ShipOverviewItemIndex}" Margin="0, 4" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
                             <GridViewColumn Width="55" rc:Data.Content="ID">
                                 <TextBlock Text="ID" />
 

@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
             Count = rpEquipment.Count();
 
-            var rUnequipedEquipment = KanColleGame.Current.Port.UnequippedEquipment[(int)r_Owner.Info.Type];
+            var rUnequipedEquipment = KanColleGame.Current.Port.UnequippedEquipment[r_Owner.Info.Type];
             if (rUnequipedEquipment == null)
                 RemainingCount = 0;
             else

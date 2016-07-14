@@ -17,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public PreferenceExtension(string rpPath)
         {
-            r_Path = rpPath;
+            r_Path = rpPath + ".Value";
         }
 
         public override object ProvideValue(IServiceProvider rpServiceProvider)

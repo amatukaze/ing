@@ -1,5 +1,4 @@
-﻿using System;
-using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -33,21 +32,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal ShipStatus(Ship rpShip)
         {
             r_Ship = rpShip;
+
+            FirepowerBase = new ShipModernizationStatus();
+            TorpedoBase = new ShipModernizationStatus();
+            AABase = new ShipModernizationStatus();
+            ArmorBase = new ShipModernizationStatus();
+            LuckBase = new ShipModernizationStatus();
         }
 
         internal void Update(ShipInfo rpInfo, RawShip rpData)
         {
-            FirepowerBase = new ShipModernizationStatus(rpInfo.FirepowerMinimum, rpInfo.FirepowerMaximum, rpData.ModernizedStatus[0]);
-            TorpedoBase = new ShipModernizationStatus(rpInfo.TorpedoMinimum, rpInfo.TorpedoMaximum, rpData.ModernizedStatus[1]);
-            AABase = new ShipModernizationStatus(rpInfo.AAMinimum, rpInfo.AAMaximum, rpData.ModernizedStatus[2]);
-            ArmorBase = new ShipModernizationStatus(rpInfo.ArmorMinimum, rpInfo.ArmorMaximum, rpData.ModernizedStatus[3]);
-            LuckBase = new ShipModernizationStatus(rpInfo.LuckMinimum, rpInfo.LuckMaximum, rpData.ModernizedStatus[4]);
+            FirepowerBase.Update(rpInfo.FirepowerMinimum, rpInfo.FirepowerMaximum, rpData.ModernizedStatus[0]);
+            TorpedoBase.Update(rpInfo.TorpedoMinimum, rpInfo.TorpedoMaximum, rpData.ModernizedStatus[1]);
+            AABase.Update(rpInfo.AAMinimum, rpInfo.AAMaximum, rpData.ModernizedStatus[2]);
+            ArmorBase.Update(rpInfo.ArmorMinimum, rpInfo.ArmorMaximum, rpData.ModernizedStatus[3]);
+            LuckBase.Update(rpInfo.LuckMinimum, rpInfo.LuckMaximum, rpData.ModernizedStatus[4]);
 
-            OnPropertyChanged(nameof(FirepowerBase));
-            OnPropertyChanged(nameof(TorpedoBase));
-            OnPropertyChanged(nameof(AABase));
-            OnPropertyChanged(nameof(ArmorBase));
-            OnPropertyChanged(nameof(LuckBase));
+            OnPropertyChanged(nameof(Firepower));
+            OnPropertyChanged(nameof(Torpedo));
+            OnPropertyChanged(nameof(AA));
+            OnPropertyChanged(nameof(Armor));
+            OnPropertyChanged(nameof(Evasion));
+            OnPropertyChanged(nameof(LoS));
+            OnPropertyChanged(nameof(ASW));
+            OnPropertyChanged(nameof(Luck));
         }
     }
 }

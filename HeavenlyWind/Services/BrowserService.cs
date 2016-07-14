@@ -42,6 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
 
         Process r_BrowserProcess;
+        public int? BrowserProcessID => r_BrowserProcess?.Id;
 
         public BrowserHost BrowserControl { get; private set; }
         public BrowserNavigator Navigator { get; private set; }

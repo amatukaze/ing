@@ -2,22 +2,13 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class ScreenshotPreference : ModelBase
+    public class ScreenshotPreference
     {
-        string r_Destination = "Screenshot";
         [JsonProperty("destination")]
-        public string Destination
-        {
-            get { return r_Destination; }
-            set
-            {
-                r_Destination = value;
-                OnPropertyChanged(nameof(Destination));
-            }
-        }
+        public Property<string> Destination { get; private set; } = new Property<string>("Screenshot");
         [JsonProperty("filenameformat")]
-        public string FilenameFormat { get; set; } = "ing_{0:yyyyMMdd-HHmmss-ff}.{1}";
+        public Property<string> FilenameFormat { get; private set; } = new Property<string>("ing_{0:yyyyMMdd-HHmmss-ff}.{1}");
         [JsonProperty("imageformat")]
-        public ScreenshotImageFormat ImageFormat { get; set; } = ScreenshotImageFormat.Png;
+        public Property<ScreenshotImageFormat> ImageFormat { get; private set; } = new Property<ScreenshotImageFormat>(ScreenshotImageFormat.Png);
     }
 }

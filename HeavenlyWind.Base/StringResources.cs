@@ -22,6 +22,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public bool IsLoaded { get; private set; }
 
+        bool r_IsSubscribed;
+
         StringResourcesItems r_Main;
         public StringResourcesItems Main
         {
@@ -64,10 +66,21 @@ namespace Sakuno.KanColle.Amatsukaze
             r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rpDirectory.Name, rCultureName, rDisplayName));
         }
 
+        public void SubscribLanguageChanged()
+        {
+            if (!r_IsSubscribed)
+            {
+                Preference.Current.Language.Subscribe(LoadMainResource);
+                Preference.Current.ExtraResourceLanguage.Subscribe(LoadExtraResource);
+
+                r_IsSubscribed = true;
+            }
+        }
+
         public void LoadMainResource(string rpLanguage)
         {
             if (!InstalledLanguages.Any(r => r.Directory == rpLanguage))
-                Preference.Current.Language = GetDefaultLanguage().Directory;
+                Preference.Current.Language.Value = GetDefaultLanguage().Directory;
 
             LoadMainResourceCore(rpLanguage);
         }
@@ -79,7 +92,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (rNames.Contains(rLanguage.CultureName))
                     return rLanguage;
 
-            return r_InstalledLanguages["en"];
+            return rNames.Contains("zh") ? r_InstalledLanguages["zh-Hans"] : r_InstalledLanguages["en"];
         }
         public static IEnumerable<string> GetAncestorsAndSelfCultureNames(CultureInfo rpCultureInfo)
         {

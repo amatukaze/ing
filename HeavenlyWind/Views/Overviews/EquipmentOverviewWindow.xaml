@@ -80,7 +80,7 @@
             </Border>
 
             <Grid Grid.Row="2">
-                <ListView ItemsSource="{Binding Equipment}">
+                <ListView ItemsSource="{Binding Equipment}" VirtualizingPanel.ScrollUnit="Pixel">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Width="220">

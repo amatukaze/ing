@@ -47,11 +47,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
                         switch (rpType)
                         {
                             case "Cache":
-                                Preference.Current.Cache.Path = rPath;
+                                Preference.Current.Cache.Path.Value = rPath;
                                 break;
 
                             case "Screenshot":
-                                Preference.Current.Browser.Screenshot.Destination = rPath;
+                                Preference.Current.Browser.Screenshot.Destination.Value = rPath;
                                 break;
                         }
                     }
@@ -71,11 +71,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
                         switch (rpType)
                         {
                             case "General":
-                                Preference.Current.Notification.SoundFilename = rFilename;
+                                Preference.Current.Notification.SoundFilename.Value = rFilename;
                                 break;
 
                             case "HeavilyDamaged":
-                                Preference.Current.Notification.HeavilyDamagedWarningSoundFilename = rFilename;
+                                Preference.Current.Notification.HeavilyDamagedWarningSoundFilename.Value = rFilename;
                                 break;
                         }
                     }

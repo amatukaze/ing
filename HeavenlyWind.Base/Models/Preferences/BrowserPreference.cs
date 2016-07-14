@@ -5,18 +5,24 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
     public class BrowserPreference
     {
         [JsonProperty("zoom")]
-        public double Zoom { get; set; } = 1.0;
+        public Property<double> Zoom { get; private set; } = new Property<double>(1.0);
 
         [JsonProperty("homepage")]
-        public string Homepage { get; set; } = "http://www.dmm.com/netgame/social/application/-/detail/=/app_id=854854/";
+        public Property<string> Homepage { get; private set; } = new Property<string>("http://www.dmm.com/netgame/social/application/-/detail/=/app_id=854854/");
 
         [JsonProperty("layoutengine")]
-        public string CurrentLayoutEngine { get; set; } = "trident";
+        public Property<string> CurrentLayoutEngine { get; private set; } = new Property<string>("trident");
 
         [JsonProperty("flash")]
-        public FlashPreference Flash { get; set; } = new FlashPreference();
+        public FlashPreference Flash { get; private set; } = new FlashPreference();
 
         [JsonProperty("screenshot")]
-        public ScreenshotPreference Screenshot { get; set; } = new ScreenshotPreference();
+        public ScreenshotPreference Screenshot { get; private set; } = new ScreenshotPreference();
+
+        [JsonProperty("action_bar_placement")]
+        public Property<bool> ActionBarPlacement { get; private set; } = new Property<bool>();
+
+        [JsonProperty("action_bar_stick_to_browser")]
+        public Property<bool> ActionBarStickToBrowser { get; private set; } = new Property<bool>();
     }
 }

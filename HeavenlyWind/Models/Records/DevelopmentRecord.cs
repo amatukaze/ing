@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal DevelopmentRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
+            Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["time"])).LocalDateTime.ToString();
             var rEquipmentID = rpReader["equipment"];
             if (rEquipmentID != DBNull.Value)
                 Equipment = KanColleGame.Current.MasterInfo.Equipment[Convert.ToInt32(rEquipmentID)];

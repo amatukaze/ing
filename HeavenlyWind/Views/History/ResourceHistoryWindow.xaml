@@ -27,6 +27,10 @@
         </DockPanel>
 
         <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
+            <Button Command="{Binding ExportAsCsvFileCommand}" Margin="0, 0, 0, 8" HorizontalAlignment="Left" DockPanel.Dock="Top">
+                <TextBlock Text="{rb:StringResource Main.Export_CSV}" />
+            </Button>
+
             <ListView ItemsSource="{Binding Records}">
                 <ListView.View>
                     <GridView>

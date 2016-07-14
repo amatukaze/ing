@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
     <AssemblyName>HeavenlyWind.Base</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -79,6 +79,7 @@
     <Compile Include="GameConstants.cs" />
     <Compile Include="HasFlagExtension.cs" />
     <Compile Include="IntegerRangeValidationRule.cs" />
+    <Compile Include="Internal\PreferencePropertyJsonConverter.cs" />
     <Compile Include="LanguageInfo.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="Logger.cs" />
@@ -86,15 +87,27 @@
     <Compile Include="Models\CacheMode.cs" />
     <Compile Include="Models\FlashQuality.cs" />
     <Compile Include="Models\FlashRenderMode.cs" />
+    <Compile Include="Models\FleetFighterPowerFormula.cs" />
+    <Compile Include="Models\FleetLoSFormula.cs" />
+    <Compile Include="Models\HeavyDamageLineType.cs" />
     <Compile Include="Models\NotificationSound.cs" />
     <Compile Include="Models\Preferences\BrowserPreference.cs" />
     <Compile Include="Models\Preferences\CachePreference.cs" />
     <Compile Include="Models\Preferences\FlashPreference.cs" />
     <Compile Include="Models\Preferences\GamePreference.cs" />
+    <Compile Include="Models\Preferences\HeavyDamageLinePreference.cs" />
+    <Compile Include="Models\Preferences\HeavyDamageLineWidthProperty.cs" />
     <Compile Include="Models\Preferences\LayoutPreference.cs" />
     <Compile Include="Models\Preferences\NetworkPreference.cs" />
     <Compile Include="Models\Preferences\NotificationPreference.cs" />
+    <Compile Include="Models\Preferences\OtherPreference.cs" />
+    <Compile Include="Models\Preferences\PanicKeyPreference.cs" />
+    <Compile Include="Models\Preferences\Property.cs" />
+    <Compile Include="Models\Preferences\Property`T.cs" />
+    <Compile Include="Models\Preferences\PropertyValueChangedEventArgs.cs" />
     <Compile Include="Models\Preferences\ScreenshotPreference.cs" />
+    <Compile Include="Models\Preferences\SessionToolPreference.cs" />
+    <Compile Include="Models\Preferences\UIFontProperty.cs" />
     <Compile Include="Models\Preferences\UpdatePreference.cs" />
     <Compile Include="Models\Preferences\UpstreamProxyPreference.cs" />
     <Compile Include="Models\Preferences\UserInterfacePreference.cs" />

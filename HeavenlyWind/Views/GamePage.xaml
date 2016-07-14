@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.GamePage"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+             xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+             xmlns:ruicd="clr-namespace:Sakuno.UserInterface.Controls.Docking;assembly=Sakuno.UserInterface"
+             xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
+             xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
+             mc:Ignorable="d"
+             d:DesignWidth="300" d:DesignHeight="300">
+    <UserControl.Resources>
+        <rv:Browser x:Key="Browser" />
+
+        <Control x:Key="GameInformation">
+            <Control.Style>
+                <Style TargetType="{x:Type Control}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Control}">
+                                <rv:GameInformation />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Owner.IsGameStarted}" Value="False">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Control}">
+                                        <TextBlock Text="{rb:StringResource Main.GameInfomation_Waiting}" FontSize="16" HorizontalAlignment="Center" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Control.Style>
+        </Control>
+    </UserControl.Resources>
+    <UserControl.Style>
+        <Style TargetType="{x:Type Control}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}}" Value="False">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Control}">
+                                <rv:Browser />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}}" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Control}">
+                                <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Content="{StaticResource GameInformation}" Grid.Row="1" />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsResizedToFitGame, Source={x:Static rs:BrowserService.Instance}}" Value="True">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Control}">
+                                <ruic:DockableZone DockingController="{StaticResource TabDockingController}" Grid.Row="1">
+                                    <ruicd:DockGroup x:Name="DockGroup" Orientation="Horizontal" FirstItem="{StaticResource Browser}" FirstItemLength="Auto" SecondItem="{StaticResource GameInformation}" SecondItemLength="*" />
+                                </ruic:DockableZone>
+
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{rb:CurrentDock}" Value="Right">
+                                        <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource GameInformation}" />
+                                        <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
+                                        <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
+                                        <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{rb:CurrentDock}" Value="Bottom">
+                                        <Setter TargetName="DockGroup" Property="FirstItem" Value="{StaticResource GameInformation}" />
+                                        <Setter TargetName="DockGroup" Property="FirstItemLength" Value="*" />
+                                        <Setter TargetName="DockGroup" Property="SecondItem" Value="{StaticResource Browser}" />
+                                        <Setter TargetName="DockGroup" Property="SecondItemLength" Value="Auto" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical">
+                                        <Setter TargetName="DockGroup" Property="Orientation" Value="Vertical" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
+</UserControl>

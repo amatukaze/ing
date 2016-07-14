@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
+using System.Linq;
 using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
@@ -34,6 +35,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             }
         }
 
+        public int ToHeavyDamage => r_Current - Maximum / 4;
+
         public int Damage => Before - Current;
         public int DamageGivenToOpponent { get; internal set; }
         public bool Inaccurate { get; internal set; }
@@ -67,14 +70,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             if (rParticipant == null || r_Current > 0 || BattleInfo.Current.IsPractice)
                 return;
 
-            EquipmentInfo rDamageControl = null;
+            Equipment rDamageControl = null;
 
-            var rEquipmentInExtraSlot = rParticipant.ExtraSlot?.Equipment?.Info;
-            if (rEquipmentInExtraSlot?.Type == EquipmentType.DamageControl)
+            var rEquipmentInExtraSlot = rParticipant.ExtraSlot?.Equipment;
+            if (rEquipmentInExtraSlot?.Info.Type == EquipmentType.DamageControl)
                 rDamageControl = rEquipmentInExtraSlot;
 
             if (rDamageControl == null)
-                rDamageControl = rParticipant.EquipedEquipment.FirstOrDefault(r => r.Info.Type == EquipmentType.DamageControl)?.Info;
+                rDamageControl = rParticipant.EquipedEquipment.FirstOrDefault(r => r.Info.Type == EquipmentType.DamageControl);
 
             if (rDamageControl != null)
             {
@@ -90,6 +93,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 }
 
                 rParticipant.IsDamageControlConsumed = true;
+
+                RecordService.Instance.Fate.AddEquipmentFate(rDamageControl, Fate.ConsumedInBattle);
             }
         }
 

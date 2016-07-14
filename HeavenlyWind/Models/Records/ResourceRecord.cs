@@ -33,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         public ResourceRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
+            Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["time"])).LocalDateTime.ToString();
 
             Fuel = Convert.ToInt32(rpReader["fuel"]);
             FuelDifference = Convert.ToInt32(rpReader["fuel_diff"]);

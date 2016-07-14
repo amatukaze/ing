@@ -22,16 +22,68 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <StackPanel DataContext="{Binding Admiral.Source}" Orientation="Horizontal" Margin="4, 2" Grid.ColumnSpan="3">
+        <Grid DataContext="{Binding Admiral.Source}" Margin="4, 2" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
             <TextBlock Text="{Binding Name}" Margin="0, 0, 8, 0" />
-            <TextBlock>
+
+            <TextBlock Grid.Column="1">
                 <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
                 <Run Text="{Binding Level, Mode=OneWay}" />
                 [<Run Text="{rb:EnumToStringResource Rank, Overview_Admiral_Rank}" />]
                 <Run Text="Next:" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
                 <Run Text="{Binding ExperienceToNextLevel, Mode=OneWay}" />
             </TextBlock>
-        </StackPanel>
+            <Rectangle Fill="Transparent" Grid.Column="1">
+                <Rectangle.ToolTip>
+                    <ToolTip>
+                        <Grid DataContext="{Binding RankingPoints}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition SharedSizeGroup="Type" />
+                                <ColumnDefinition Width="8" />
+                                <ColumnDefinition SharedSizeGroup="Difference" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition Height="6" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_PreviousUpdate}" />
+                            <TextBlock HorizontalAlignment="Right" Grid.Column="2">
+                                <Run Text="{Binding PreviousUpdateDifference.AdmiralExperience, StringFormat=+0;-0;0, Mode=OneWay}" />
+                                <Run Text="{Binding PreviousUpdateDifference.RankingPoints, StringFormat=(0.#), Mode=OneWay}" />
+                            </TextBlock>
+
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Day}" Grid.Row="1" />
+                            <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1">
+                                <Run Text="{Binding DayDifference.AdmiralExperience, StringFormat=+0;-0;0, Mode=OneWay}" />
+                                <Run Text="{Binding DayDifference.RankingPoints, StringFormat=(0.#), Mode=OneWay}" />
+                            </TextBlock>
+
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Month}" Grid.Row="2" />
+                            <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2">
+                                <Run Text="{Binding MonthDifference.AdmiralExperience, StringFormat=+0;-0;0, Mode=OneWay}" />
+                                <Run Text="{Binding MonthDifference.RankingPoints, StringFormat=(0.#), Mode=OneWay}" />
+                            </TextBlock>
+
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_TotalRankingPoints}" FontWeight="Bold" Grid.Row="4" />
+                            <TextBlock Text="{Binding TotalScore}" FontWeight="Bold" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="4" />
+
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_FinalRankingPoints}" FontWeight="Bold" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Row="5" />
+                            <TextBlock Text="{Binding FinalScore}" FontWeight="Bold" HorizontalAlignment="Right" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Column="2" Grid.Row="5" />
+                        </Grid>
+                    </ToolTip>
+                </Rectangle.ToolTip>
+            </Rectangle>
+        </Grid>
 
         <TextBlock Padding="4, 2" Grid.Row="2">
             <Run Text="{rb:StringResource Main.Overview_Headquarter_Ships, Mode=OneWay}" />:

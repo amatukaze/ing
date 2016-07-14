@@ -58,21 +58,21 @@
                                             <Run Text="36" FontSize="12" Foreground="{DynamicResource ForegroundBrushKey}" />
                                         </TextBlock>
 
-                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_SRankVictory}" />
+                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_SRankVictory}" Grid.Row="1" />
                                         <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1">
                                             <Run Text="{rb:BitMask Progress, 7, 6}" Foreground="Yellow" />
                                             <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" />
                                             <Run Text="6" FontSize="12" Foreground="{DynamicResource ForegroundBrushKey}" />
                                         </TextBlock>
 
-                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_BossEncounter}" />
+                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_BossEncounter}" Grid.Row="2" />
                                         <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2">
                                             <Run Text="{rb:BitMask Progress, 31, 9}" Foreground="Yellow" />
                                             <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" />
                                             <Run Text="24" FontSize="12" Foreground="{DynamicResource ForegroundBrushKey}" />
                                         </TextBlock>
 
-                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_BossBattleVictory}" />
+                                        <TextBlock Text="{rb:StringResource Main.Quest_Requirement_OperationAGo_BossBattleVictory}" Grid.Row="3" />
                                         <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3">
                                             <Run Text="{rb:BitMask Progress, 15, 14}" Foreground="Yellow" />
                                             <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" />

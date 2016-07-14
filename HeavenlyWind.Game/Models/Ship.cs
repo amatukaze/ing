@@ -43,7 +43,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        public bool IsLocked => RawData.IsLocked;
+        bool r_IsLocked;
+        public bool IsLocked
+        {
+            get { return r_IsLocked; }
+            internal set
+            {
+                if (r_IsLocked != value)
+                {
+                    r_IsLocked = value;
+                    OnPropertyChanged(nameof(IsLocked));
+                }
+            }
+        }
 
         public ShipLocking LockingTag => ShipLockingService.Instance?.GetLocking(RawData.LockingTag);
 
@@ -248,8 +260,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             CombatAbility.Update();
 
+            IsLocked = RawData.IsLocked;
+
             OnPropertyChanged(nameof(Level));
             OnPropertyChanged(nameof(ExperienceToNextLevel));
+            OnPropertyChanged(nameof(Status));
         }
 
         void UpdateSlots()
@@ -257,7 +272,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rUpdateList = false;
 
             if (Slots == null || Slots.Count != RawData.SlotCount)
-                Slots = Enumerable.Range(0, RawData.SlotCount).Select((r, i) => new ShipSlot(null, RawData.PlaneCountInSlot[i], Info.PlaneCountInSlot[i])).ToList().AsReadOnly();
+                Slots = Enumerable.Range(0, RawData.SlotCount).Select(r => new ShipSlot(Info.PlaneCountInSlot[r], RawData.PlaneCountInSlot[r])).ToList().AsReadOnly();
 
             if (r_EquipmentIDs == null || !r_EquipmentIDs.SequenceEqual(RawData.Equipment))
             {

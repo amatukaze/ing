@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public enum QuestCategory { Composition = 1, Sortie, Practice, Expedition, SupplyOrDocking, Arsenal, Modernization, Sortie2 }
     public enum QuestType { Daily = 1, Weekly, Monthly, Once, Special }
-    public enum QuestState { None = 1, Executing, Completed }
+    public enum QuestState { None = 1, Active, Completed }
     public enum QuestProgress { None, Progress50, Progress80, }
 
     public class Quest : RawDataWrapper<RawQuest>, IID, ITranslatedName
@@ -19,6 +19,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public string TranslatedName => StringResources.Instance.Extra?.GetQuestName(ID) ?? Name;
         public string Description => RawData.Description;
 
+        public int FuelReward => RawData.RewardMaterials[0];
+        public int BulletReward => RawData.RewardMaterials[1];
+        public int SteelReward => RawData.RewardMaterials[2];
+        public int BauxiteReward => RawData.RewardMaterials[3];
+
         public QuestCategory Category => RawData.Category;
         public QuestType Type => RawData.Type;
         public QuestState State => RawData.State;
@@ -26,19 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal DateTimeOffset CreationTime { get; } = DateTimeOffset.Now;
 
-        ProgressInfo r_RealtimeProgress;
-        public ProgressInfo RealtimeProgress
-        {
-            get { return r_RealtimeProgress; }
-            internal set
-            {
-                if (r_RealtimeProgress != value)
-                {
-                    r_RealtimeProgress = value;
-                    OnPropertyChanged(nameof(RealtimeProgress));
-                }
-            }
-        }
+        public ProgressInfo RealtimeProgress { get; internal set; }
 
         internal Quest(RawQuest rpRawData) : base(rpRawData) { }
 

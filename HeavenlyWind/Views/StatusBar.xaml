@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
              mc:Ignorable="d"
@@ -18,10 +19,84 @@
             <ruic:ResizeGrip DockPanel.Dock="Right"/>
 
             <DockPanel Margin="3, 0">
+                <TextBlock Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull CurrentTime}" DockPanel.Dock="Right">
+                    <Run Text="JST:" />
+                    <Run Text="{Binding CurrentTime, StringFormat=HH:mm:ss, Mode=OneWay}" />
+                </TextBlock>
+
                 <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0" Visibility="{Binding Power.IsBatteryPresent, Converter={StaticResource BooleanToVisibilityConverter}}" DockPanel.Dock="Right">
                     <Path Fill="{DynamicResource ActiveForegroundBrushKey}" Stretch="Uniform" Margin="2" Data="M35.009781,64.453026 L105.61525,64.453026 105.61525,255.46832 35.009781,255.46832 z M20.507813,50.097588 L20.507813,269.82375 120.41019,269.82375 120.41019,50.097588 z M39.99025,0 L100.92775,0 100.92775,29.882778 140.918,29.882778 140.918,290.77099 0,290.77099 0,29.882778 39.99025,29.882778 z" />
                     <TextBlock Text="{Binding Power.BatteryRemainingPercentage, StringFormat={}{0}%}" />
                 </StackPanel>
+
+                <ruic:DropDownButton BorderThickness="0" PopupAutoClose="False" ShowDropDownMarker="False" PopupVerticalOffset="1" Margin="5, 0, 0, 0" Padding="4, 0" DockPanel.Dock="Right">
+                    <ruic:DropDownButton.Style>
+                        <Style TargetType="{x:Type ruic:DropDownButton}">
+                            <Setter Property="Background" Value="Transparent" />
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#40FFFFFF" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ruic:DropDownButton.Style>
+                    <ruic:DropDownButton.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Path Stretch="Fill" Fill="{DynamicResource ActiveForegroundBrushKey}" Width="16" Height="16" Data="M104.46785,22.852232 C98.738756,22.860838 93.051485,23.239569 89.537455,23.985228 64.855799,29.222551 44.877947,43.622969 33.093569,64.671064 8.7868118,108.08537 28.577024,162.78128 75.283785,181.27579 83.806391,184.65048 98.63254,187.23462 106.28639,186.67941 107.76689,186.57202 111.07167,186.32878 113.63036,186.13887 119.41904,185.70924 128.71668,183.39836 135.24393,180.76692 161.5575,170.15875 180.58289,146.56703 185.57587,118.35472 186.8262,111.28984 186.80742,98.51428&#xD;&#xA;185.53571,91.035421 179.81395,57.386 153.63187,30.723513 119.64923,23.940023 115.96788,23.205164 110.19695,22.843634 104.46785,22.852232 z M100.7017,0.50330734 C102.84497,0.4895916 105.17205,0.51896477 107.76052,0.58345222 125.93491,1.0362282 135.7722,3.4267998 151.44875,11.200174 180.57292,25.641699 201.03769,52.462049 207.40022,84.52812 209.96155,97.43672 209.66319,115.03569 206.66117,128.12237 203.42534,142.22825 195.71623,158.63843 187.74376,168.39136 185.63161,170.9752 185.63161,170.9752 197.85083,183.19208 210.07006,195.40893 210.07006,195.40893 213.01277,193.91765 216.38539,192.20851 219.59934,192.02144&#xD;&#xA;222.80052,193.34791 224.34493,193.98787 236.40251,205.63809 262.26097,231.47519 297.40871,266.59387 299.49748,268.79901 299.49748,270.78601 299.49748,272.73248 298.49419,273.89364 286.18315,286.19555 272.86885,299.5 272.86885,299.5 269.57259,299.5 266.27635,299.5 266.27635,299.5 229.41904,262.56259 199.63605,232.71484 192.41959,225.17882 191.82105,223.29967 190.84711,220.24183 191.43077,215.59724 193.08006,213.28102 194.38585,211.44725&#xD;&#xA;194.38585,211.44725 182.18903,199.23881 175.48078,192.52418 169.71622,187.13611 169.37889,187.26533 169.04157,187.39454 166.69141,188.9884 164.15633,190.80725 155.4614,197.04556 141.80219,203.23869 130.32115,206.14819 116.70577,209.59859 98.082247,210.10565 84.471163,207.39657 58.185205,202.16478 34.986361,187.16664 19.216692,165.20933 14.505785,158.64998 7.703352,145.12176 5.1901493,137.31431 1.6701889,126.3793 0.90057564,121.44359 0.57668114,107.72713&#xD;&#xA;0.24999809,93.892408 0.90468407,87.539709 3.7551594,76.885122 13.09421,41.977285 41.974752,13.096739 76.882593,3.7576866 85.578432,1.4312458 91.414232,0.5627327 100.7017,0.50330734 z" />
+                            <TextBlock Text="{Binding UIZoom, StringFormat=P0}" Margin="2, 0, 0, 0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </ruic:DropDownButton.Header>
+
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="Background" Value="Transparent" />
+
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}" Padding="16, 8">
+                                                <ContentPresenter />
+                                            </Border>
+
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="{DynamicResource ActiveBackgroundBrushKey}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <ListBox Style="{StaticResource MenuListBoxStyle}" ItemsSource="{Binding UIZoomFactors}" MinWidth="120">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding Command}" CommandParameter="{Binding Zoom}">
+                                        <TextBlock Name="UIZoom" Text="{Binding Zoom, StringFormat=P0}" />
+                                    </Button>
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                            <Setter TargetName="UIZoom" Property="FontWeight" Value="Bold" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+
+                        <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="2" />
+
+                        <Button Command="{Binding UIZoomInCommand}">
+                            <TextBlock Text="{rb:StringResource Main.UIZoom_ZoomIn}" />
+                        </Button>
+                        <Button Command="{Binding UIZoomOutCommand}">
+                            <TextBlock Text="{rb:StringResource Main.UIZoom_ZoomOut}" />
+                        </Button>
+                    </StackPanel>
+                </ruic:DropDownButton>
 
                 <TextBlock Text="{Binding Message}" TextWrapping="NoWrap">
                     <TextBlock.Style>

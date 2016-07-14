@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using Sakuno.UserInterface;
@@ -74,7 +75,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public ModelBase SelectedTab
         {
             get { return r_SelectedTab; }
-            internal set
+            set
             {
                 if (r_SelectedTab != value)
                 {
@@ -111,16 +112,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
         }
 
-        IReadOnlyCollection<QuestViewModel> r_ExecutingQuests;
-        public IReadOnlyCollection<QuestViewModel> ExecutingQuests
+        IList<QuestViewModel> r_ActiveQuests;
+        public IList<QuestViewModel> ActiveQuests
         {
-            get { return r_ExecutingQuests; }
+            get { return r_ActiveQuests; }
             internal set
             {
-                if (r_ExecutingQuests != value)
+                if (r_ActiveQuests != value)
                 {
-                    r_ExecutingQuests = value;
-                    OnPropertyChanged(nameof(ExecutingQuests));
+                    r_ActiveQuests = value;
+                    OnPropertyChanged(nameof(ActiveQuests));
                 }
             }
         }
@@ -161,8 +162,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     ShipCount = rPort.Ships.Count + rSortie.PendingShipCount;
             });
 
-            ShowShipOverviewWindowCommand = new DelegatedCommand(() => new ShipOverviewWindow().Show());
-            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => new EquipmentOverviewWindow().Show());
+            ShowShipOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<ShipOverviewWindow>());
+            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<EquipmentOverviewWindow>());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal FateRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
+            var rFirstStages = new[]
+            {
+                "api_req_sortie/battle",
+                "api_req_battle_midnight/sp_midnight",
+                "api_req_sortie/airbattle",
+                "api_req_sortie/ld_airbattle",
+                "api_req_combined_battle/airbattle",
+                "api_req_combined_battle/battle",
+                "api_req_combined_battle/battle_water",
+                "api_req_combined_battle/sp_midnight",
+                "api_req_combined_battle/ld_airbattle",
+
+                "api_req_battle_midnight/battle",
+                "api_req_combined_battle/midnight_battle",
+            };
+            DisposableObjects.Add(SessionService.Instance.Subscribe(rFirstStages, ProcessBattle));
+
             var rBattleResultApis = new[]
             {
                 "api_req_sortie/battleresult",
@@ -73,7 +91,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
         }
-        internal void AddEquipmentFate(IEnumerable<Equipment> rpEquipment, Fate rpFate, ulong rpTimestamp = 0)
+        internal void AddEquipmentFate(IEnumerable<Equipment> rpEquipment, Fate rpFate, long rpTimestamp = 0)
         {
             if (!rpEquipment.Any())
                 return;
@@ -88,7 +106,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        internal void AddShipFate(Ship rpShip, Fate rpFate, ulong rpTimestamp = 0)
+        internal void AddShipFate(Ship rpShip, Fate rpFate, long rpTimestamp = 0)
         {
             using (var rTransaction = Connection.BeginTransaction())
             {
@@ -112,7 +130,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rTransaction.Commit();
             }
         }
-        internal void AddShipFate(IEnumerable<Ship> rpShips, Fate rpFate, ulong rpTimestamp = 0)
+        internal void AddShipFate(IEnumerable<Ship> rpShips, Fate rpFate, long rpTimestamp = 0)
         {
             if (!rpShips.Any())
                 return;
@@ -159,6 +177,36 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
+        void ProcessBattle(ApiData rpData)
+        {
+            var rData = rpData.GetData<RawBattleBase>();
+
+            if (rData.ShipsToConsumeCombatRation != null)
+                ProcessCombatRation(rData.ShipsToConsumeCombatRation);
+            if (rData.EscortShipsToConsumeCombatRation != null)
+                ProcessCombatRation(rData.EscortShipsToConsumeCombatRation);
+        }
+        void ProcessCombatRation(int[] rpShipIDs)
+        {
+            var rShips = KanColleGame.Current.Port.Ships;
+
+            foreach (var rID in rpShipIDs)
+            {
+                var rShip = rShips[rID];
+                Equipment rCombatRation = null;
+
+                var rEquipmentInExtraSlot = rShip.ExtraSlot?.Equipment;
+                if (rEquipmentInExtraSlot?.Info.Type == EquipmentType.CombatRation)
+                    rCombatRation = rEquipmentInExtraSlot;
+
+                if (rCombatRation == null)
+                    rCombatRation = rShip.EquipedEquipment.FirstOrDefault(r => r.Info.Type == EquipmentType.CombatRation);
+
+                if (rCombatRation != null)
+                    AddEquipmentFate(rCombatRation, Fate.ConsumedInBattle);
+            }
+        }
+
         void ProcessBattleResult(ApiData rpData)
         {
             var rBattle = BattleInfo.Current;
@@ -168,7 +216,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (rSunkShips.Length == 0)
                 return;
 
-            AddShipFate(rSunkShips, Fate.Sunk, (ulong)rBattle.ID);
+            AddShipFate(rSunkShips, Fate.Sunk, rBattle.ID);
         }
     }
 }

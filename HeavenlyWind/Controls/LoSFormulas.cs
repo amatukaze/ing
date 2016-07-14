@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             if (rpNewValue == null || Items.Count == 0)
                 return;
 
-            SelectedItem = Items[Preference.Current.Game.MainFleetLoSFormula];
+            SelectedItem = Items[(int)Preference.Current.Game.MainFleetLoSFormula.Value];
         }
     }
 }

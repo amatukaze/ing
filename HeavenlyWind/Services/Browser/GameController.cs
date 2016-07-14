@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Views.Tools;
+﻿using Sakuno.KanColle.Amatsukaze.Internal;
+using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
+using System.Runtime.InteropServices;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Browser
@@ -15,16 +17,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         BrowserService r_Owner;
 
         bool r_IsAudioDeviceNotAvailable;
-        BrowserVolume r_Volume;
-        public BrowserVolume Volume
+        BrowserAudioSession r_AudioSession;
+        public BrowserAudioSession AudioSession
         {
-            get { return r_Volume; }
+            get { return r_AudioSession; }
             private set
             {
-                if (r_Volume != value)
+                if (r_AudioSession != value)
                 {
-                    r_Volume = value;
-                    OnPropertyChanged(nameof(Volume));
+                    r_AudioSession = value;
+                    OnPropertyChanged(nameof(AudioSession));
                 }
             }
         }
@@ -36,7 +38,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public ICommand MuteToggleCommand { get; }
 
         public ICommand SetZoomCommand { get; }
-        public IList<BrowserZoomInfo> SupportedZoomFactors { get; }
+        public ICommand ZoomInCommand { get; private set; }
+        public ICommand ZoomOutCommand { get; private set; }
+        public IList<BrowserZoomInfo> ZoomFactors { get; }
         public double Zoom
         {
             get { return Preference.Current.Browser.Zoom; }
@@ -60,10 +64,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             if (OS.IsWin7OrLater && !rpOwner.NoInstalledLayoutEngines)
                 try
                 {
-                    foreach (var rSession in VolumeManager.Instance.EnumerateSessions())
-                        rSession.Dispose();
-
-                    VolumeManager.Instance.NewSession += VolumeManager_NewSession;
+                    AudioManager.Instance.StartSessionNotification();
+                    AudioManager.Instance.NewSession += AudioManager_NewSession;
                 }
                 catch (Exception)
                 {
@@ -72,23 +74,41 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             MuteToggleCommand = new DelegatedCommand(() =>
             {
-                if (Volume != null)
-                    Volume.IsMute = !Volume.IsMute;
+                if (AudioSession != null)
+                    try
+                    {
+                        AudioSession.IsMute = !AudioSession.IsMute;
+                    }
+                    catch (COMException e) when (e.ErrorCode == 0x8889004)
+                    {
+                        new TaskDialog()
+                        {
+                            Caption = StringResources.Instance.Main.Product_Name,
+                            Instruction = UnhandledExceptionDialogStringResources.Instruction,
+                            Icon = TaskDialogIcon.Error,
+                            Content = StringResources.Instance.Main.MessageDialog_AudioSessionDisconnected,
+
+                            OwnerWindow = App.Current.MainWindow,
+                            ShowAtTheCenterOfOwner = true,
+                        }.Show();
+                    }
             }, () => OS.IsWin7OrLater && !r_IsAudioDeviceNotAvailable);
 
             SetZoomCommand = new DelegatedCommand<double>(SetZoom);
-            SupportedZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new BrowserZoomInfo(r, SetZoomCommand)).ToList().AsReadOnly();
+            ZoomInCommand = new DelegatedCommand(() => SetZoom(Zoom + .05));
+            ZoomOutCommand = new DelegatedCommand(() => SetZoom(Zoom - .05));
+            ZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0 }.Select(r => new BrowserZoomInfo(r, SetZoomCommand)).ToList().AsReadOnly();
 
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }
 
-        void VolumeManager_NewSession(VolumeSession rpSession)
+        void AudioManager_NewSession(object sender, AudioSessionCreatedEventArgs e)
         {
-            if (rpSession.DisplayName.OICEquals(@"@%SystemRoot%\System32\AudioSrv.Dll,-202"))
+            if (e.Session.IsSystemSoundsSession)
                 return;
 
             var rHostProcessID = Process.GetCurrentProcess().Id;
-            int? rProcessID = rpSession.ProcessID;
+            int? rProcessID = e.Session.ProcessID;
 
             var rIsBrowserProcess = false;
 
@@ -105,7 +125,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                             break;
                         }
                     }
-                    catch (ManagementException e) when (e.ErrorCode == ManagementStatus.NotFound)
+                    catch (ManagementException rException) when (rException.ErrorCode == ManagementStatus.NotFound)
                     {
                         rProcessID = null;
                     }
@@ -113,18 +133,21 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             if (!rIsBrowserProcess)
                 return;
 
-            Volume?.Dispose();
-            Volume = new BrowserVolume(rpSession);
+            e.Release = false;
 
-            VolumeManager.Instance.NewSession -= VolumeManager_NewSession;
+            AudioSession?.Dispose();
+            AudioSession = new BrowserAudioSession(e.Session);
+
+            AudioManager.Instance.NewSession -= AudioManager_NewSession;
+            AudioManager.Instance.StopSessionNotification();
         }
 
         void SetZoom(double rpZoom)
         {
-            Preference.Current.Browser.Zoom = rpZoom;
+            Preference.Current.Browser.Zoom.Value = rpZoom;
             OnPropertyChanged(nameof(Zoom));
 
-            foreach (var rInfo in SupportedZoomFactors)
+            foreach (var rInfo in ZoomFactors)
                 rInfo.IsSelected = rInfo.Zoom == rpZoom;
 
             r_Owner.Communicator.Write(CommunicatorMessages.SetZoom + ":" + rpZoom);
@@ -134,7 +157,24 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void RestartGame()
         {
-            r_Owner.Navigator.Refresh();
+            var rDialog = new TaskDialog()
+            {
+                Caption = StringResources.Instance.Main.Product_Name,
+                Instruction = StringResources.Instance.Main.Browser_RestartConfirmation_Instruction,
+                Icon = TaskDialogIcon.Information,
+                Buttons =
+                {
+                    new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.Browser_RestartConfirmation_Button_Refresh),
+                    new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.Browser_RestartConfirmation_Button_Stay),
+                },
+                DefaultCommonButton = TaskDialogCommonButton.No,
+
+                OwnerWindow = App.Current.MainWindow,
+                ShowAtTheCenterOfOwner = true,
+            };
+
+            if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.Yes)
+                r_Owner.Navigator.Refresh();
         }
 
     }

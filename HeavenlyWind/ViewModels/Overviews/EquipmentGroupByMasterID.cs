@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         {
             get
             {
-                var rUnequippedEquipment = KanColleGame.Current.Port.UnequippedEquipment[(int)Info.Type];
+                var rUnequippedEquipment = KanColleGame.Current.Port.UnequippedEquipment[Info.Type];
                 if (rUnequippedEquipment == null)
                     return 0;
 

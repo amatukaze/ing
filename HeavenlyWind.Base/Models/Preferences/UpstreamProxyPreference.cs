@@ -5,20 +5,15 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
     public class UpstreamProxyPreference
     {
         [JsonProperty("enabled")]
-        public bool Enabled { get; set; } = false;
+        public Property<bool> Enabled { get; private set; } = new Property<bool>();
 
         [JsonProperty("host")]
-        public string Host { get; set; } = "127.0.0.1";
+        public Property<string> Host { get; private set; } = new Property<string>("127.0.0.1");
 
         [JsonProperty("port")]
-        public int Port { get; set; } = 0;
+        public Property<int> Port { get; private set; } = new Property<int>();
 
-        string r_Address;
-        [JsonIgnore]
-        public string Address
-        {
-            get { return r_Address ?? (Address = $"{Host}:{Port}"); }
-            set { r_Address = value; }
-        }
+        [JsonProperty("http_only")]
+        public Property<bool> HttpOnly { get; private set; } = new Property<bool>();
     }
 }

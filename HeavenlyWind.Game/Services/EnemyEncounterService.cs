@@ -6,6 +6,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -25,6 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
             {
                 r_Connection = new SQLiteConnection(@"Data Source=Data\AbyssalFleets.db; Page Size=8192").OpenAndReturn();
+                r_Connection.Update += (s, e) => Debug.WriteLine($"EnemyEncounterService: {e.Event} - {e.Table} - {e.RowId}");
 
                 using (var rCommand = r_Connection.CreateCommand())
                 {

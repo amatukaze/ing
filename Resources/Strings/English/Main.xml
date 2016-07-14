@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.9">
+<Strings CultureName="en" Name="English" Version="0.1.11">
 
   <String Key="Product_Name">Intelligent Naval Gun</String>
 
@@ -42,6 +42,10 @@
   <String Key="Notification_AnchorageRepair">Anchorage Repair</String>
   <String Key="Notification_AnchorageRepair_Content">Please return to the HQ screen to get ships' HP repaired.</String>
 
+  <String Key="MessageDialog_AudioSessionDisconnected">Audio device has been unplugged, which results in failing to mute/unmute.
+  
+The current version can't handle this problem. To mute/unmute, please do it with sound mixer.</String>
+
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>
   <String Key="Result_GreatSuccess">Great success</String>
@@ -52,9 +56,25 @@
   <String Key="Update_Notification_IgnoreOptionalUpdate">Ignore optional update</String>
   <String Key="Update_Notification_AlwaysIgnore">Always ignore</String>
 
+  <String Key="InitializationPage_Initializing">Initializing...</String>
+  <String Key="InitializationPage_Header">There's some problem...</String>
+  <String Key="InitializationPage_Solution">Solution</String>
+  <String Key="InitializationPage_PortIsOccupied">The port is occupied by the other program</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">Terminate this process</String>
+  <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">Change the port number</String>
+  <String Key="InitializationPage_UpstreamProxy">Upstream proxy is unavailable</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">Forgot to start the program which provides the upstream proxy?</String>
+  <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">Wrong port number?</String>
+  <String Key="InitializationPage_Retry">Retry</String>
+
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">Resize browser to fit game</String>
+  <String Key="Browser_RestartConfirmation_Instruction">What do you want to do?</String>
+  <String Key="Browser_RestartConfirmation_Button_Refresh">Refresh</String>
+  <String Key="Browser_RestartConfirmation_Button_Stay">Stay</String>
+  <String Key="Browser_Zoom_ZoomIn">Zoom In</String>
+  <String Key="Browser_Zoom_ZoomOut">Zoom Out</String>
 
   <String Key="Tab_Overview">Overview</String>
   <String Key="Tab_Fleets">Fleet</String>
@@ -76,6 +96,11 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">Lieutenant Commander</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">Vice Lieutenant Commander</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">Novice Lieutenant Commander</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">PU</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_Day">D</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_Month">M</String>
+  <String Key="Overview_Admiral_TotalRankingPoints">Score</String>
+  <String Key="Overview_Admiral_FinalRankingPoints">Final Score</String>
   <String Key="Overview_ShipOverview">Ship</String>
   <String Key="Overview_EquipmentOverview">EQPT</String>
   <String Key="Overview_Fleets">Fleets</String>
@@ -95,8 +120,8 @@
   <String Key="Overview_ConstructionDocks_Completed">Completed</String>
   <String Key="Overview_ConstructionDocks_TimeToComplete">Completion Time</String>
   <String Key="Overview_ConstructionDocks_MaterialConsumption">Material Consumption</String>
-  <String Key="Overview_ExecutingQuest_None">No executing quest</String>
-  <String Key="Overview_ExecutingQuest_NotLoaded">Executing quest not loaded</String>
+  <String Key="Overview_ActiveQuest_None">No active quest</String>
+  <String Key="Overview_ActiveQuest_NotLoaded">Active quests not loaded</String>
 
   <String Key="Fleet_TotalLevel">Total Lv</String>
   <String Key="Fleet_LoS">LoS</String>
@@ -105,6 +130,8 @@
   <String Key="Fleet_LoS_Formula_AutumnSimplified">Autumn Simplified</String>
   <String Key="Fleet_LoS_Formula_Formula33">Formula 33</String>
   <String Key="Fleet_FighterPower">FP</String>
+  <String Key="Fleet_FighterPower_Formula_WithoutBonus">Without FP Bonus</String>
+  <String Key="Fleet_FighterPower_Formula_WithBonus">With FP Bonus</String>
   <String Key="Fleet_Speed">Speed</String>
   <String Key="Fleet_Speed_Slow">Slow</String>
   <String Key="Fleet_Speed_Fast">Fast</String>
@@ -114,6 +141,14 @@
   <String Key="Ship_Repairing">Repairing</String>
   <String Key="Ship_RepairingInAnchorage">Repairing</String>
   <String Key="Ship_Evacuated">Evacuated</String>
+  <String Key="Ship_ToolTip_Status_Firepower">Firepower</String>
+  <String Key="Ship_ToolTip_Status_Torpedo">Torpedo</String>
+  <String Key="Ship_ToolTip_Status_AA">AA</String>
+  <String Key="Ship_ToolTip_Status_Armor">Armor</String>
+  <String Key="Ship_ToolTip_Status_Luck">Luck</String>
+  <String Key="Ship_ToolTip_Status_Evasion">Evasion</String>
+  <String Key="Ship_ToolTip_Status_ASW">ASW</String>
+  <String Key="Ship_ToolTip_Status_LoS">LoS</String>
   <String Key="Ship_ToolTip_DayBattle">Day</String>
   <String Key="Ship_ToolTip_NightBattle">Night</String>
   <String Key="Ship_ToolTip_AttackMode">Attack Mode</String>
@@ -208,6 +243,7 @@
   <String Key="Battle_State_LandBase_ModeratelyDamaged">DMGE</String>
   <String Key="Battle_State_LandBase_HeavilyDamaged">DSTR</String>
   <String Key="Battle_State_LandBase_Sunk">DEMO</String>
+  <String Key="Battle_Ship_ToHeavyDamage">To HD</String>
   <String Key="Battle_Formation_LineAhead">Line Ahead</String>
   <String Key="Battle_Formation_DoubleLine">Double Line</String>
   <String Key="Battle_Formation_Diamond">Diamond</String>
@@ -231,11 +267,13 @@
 
   <String Key="Quest_NoData">Please open the "Quests" menu in the game to populate the quest list</String>
   <String Key="Quest_Unknown">?????</String>
-  <String Key="Quest_Type_Once" />
-  <String Key="Quest_Type_Special">D</String>
-  <String Key="Quest_Type_Daily">D</String>
-  <String Key="Quest_Type_Weekly">W</String>
-  <String Key="Quest_Type_Monthly">M</String>
+  <String Key="Quest_Type_Active">Active</String>
+  <String Key="Quest_Type_Daily">Daily</String>
+  <String Key="Quest_Type_Weekly">Weekly</String>
+  <String Key="Quest_Type_Monthly">Monthly</String>
+  <String Key="Quest_Type_Once">Once</String>
+  <String Key="Quest_Type_Others">Others</String>
+  <String Key="Quest_Type_All">All</String>
   <String Key="Quest_Category_Composition">Composition</String>
   <String Key="Quest_Category_Sortie">Sortie</String>
   <String Key="Quest_Category_Practice">Practice</String>
@@ -264,21 +302,34 @@
   <String Key="Window_ExpeditionHistory">Expedition History</String>
   <String Key="Window_ScrappingHistory">Scrapping History</String>
   <String Key="Window_ResourceHistory">Resource History</String>
-  <String Key="Window_ClosingConfirmation">Are you sure to close {0}?</String>
+  <String Key="Window_ClosingConfirmation_Instruction">What do you want to do?</String>
+  <String Key="Window_ClosingConfirmation_Button_Yes">Exit</String>
+  <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Port</String>
   <String Key="PreferenceWindow_Network_EnableForSSL">Use proxy for SSL connections</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">Allow requests from other devices (WARNING: Security Risk)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP Only</String>
   <String Key="PreferenceWindow_Window">Window</String>
   <String Key="PreferenceWindow_Window_Font">Font</String>
   <String Key="PreferenceWindow_Window_Layout">Layout</String>
-  <String Key="PreferenceWindow_Window_Layout_Landscape">Landscape</String>
-  <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait</String>
+  <String Key="PreferenceWindow_Window_Layout_Landscape">Layout mode</String>
+  <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait (Tablet)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">KanColle</String>
   <String Key="PreferenceWindow_Window_Layout_Information">Info</String>
   <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">Screen auto-rotation is not supported in this device</String>
+  <String Key="PreferenceWindow_UI">UI</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine">Heavy Damage Line</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">Disable</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Default">Default</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_AllRed">Default (Red)</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Custom">Custom</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Width">Width</String>
+  <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">Preview</String>
+  <String Key="PreferenceWindow_UI_MaterialIcons">Material icons</String>
+  <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">Use in-game icons</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
@@ -311,8 +362,14 @@
   <String Key="PreferenceWindow_Browser_Flash">Flash Settings</String>
   <String Key="PreferenceWindow_Browser_Flash_Quality">Quality</String>
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">Render Mode</String>
+  <String Key="PreferenceWindow_Browser_Placement_AtBottom">Show action bar at the bottom</String>
+  <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">Stick to the browser</String>
   <String Key="PreferenceWindow_Screenshot">Screenshot</String>
   <String Key="PreferenceWindow_Screenshot_Folder">Destination</String>
+  <String Key="PreferenceWindow_Other">MISC.</String>
+  <String Key="PreferenceWindow_Other_PanicKey">Panic Key</String>
+  <String Key="PreferenceWindow_Other_PanicKey_Enabled">Enable</String>
+  <String Key="PreferenceWindow_Other_PanicKey_RegisteredByOther">The hot key is in use by other program</String>
   <String Key="PreferenceWindow_Plugin">Plugin</String>
   <String Key="PreferenceWindow_VersionInfo">Version</String>
 
@@ -352,6 +409,11 @@
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">Except Lv1 ships</String>
   <String Key="ShipOverview_List_Loading">Loading</String>
 
+  <String Key="Export_CSV">Export as CSV file</String>
+  <String Key="Export_CSV_FileType">CSV File</String>
+  <String Key="Export_CSV_Message">The records are exported successfully.</String>
+  <String Key="Export_CSV_Message_OpenFile">Open file</String>
+
   <String Key="Record_Time">Time</String>
   <String Key="Record_SecretaryShip">Secretary ship</String>
 
@@ -377,6 +439,9 @@
   <String Key="ScrappingHistory_Reason_Scrapped">Scrapped</String>
   <String Key="ScrappingHistory_Reason_ConsumedByImprovement">Consumed by improvement</String>
   <String Key="ScrappingHistory_Reason_Sunk">Sunk</String>
+  <String Key="ScrappingHistory_Reason_ConsumedInBattle">Battle</String>
+  
+  <String Key="ResourceHistory_Diff">Diff</String>
 
   <String Key="Tool_ExpeditionOverview">Expedition Overview</String>
 
@@ -397,5 +462,16 @@
   <String Key="ScreenshotTool_OutputOption">Output To:</String>
   <String Key="ScreenshotTool_OutputOption_Clipboard">Clipboard</String>
   <String Key="ScreenshotTool_OutputOption_File">File</String>
+
+  <String Key="UIZoom_ZoomIn">Zoom In</String>
+  <String Key="UIZoom_ZoomOut">Zoom Out</String>
+
+  <String Key="SessionTool_Title">Session Tool</String>
+  <String Key="SessionTool_Clear">Clear</String>
+  <String Key="SessionTool_Option_AutoScroll">Auto scroll</String>
+  <String Key="SessionTool_Option_StartRecordingOnAppStartup">Start recording on app startup</String>
+  <String Key="SessionTool_Method">Method</String>
+  <String Key="SessionTool_Status">Status</String>
+  <String Key="SessionTool_URLOrAPI">URL / API</String>
 
 </Strings>

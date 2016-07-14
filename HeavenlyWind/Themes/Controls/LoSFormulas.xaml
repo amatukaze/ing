@@ -16,7 +16,7 @@
         <Setter Property="Grid.IsSharedSizeScope" Value="True" />
 
         <Setter Property="SelectedValue" Value="{rb:Preference Game.MainFleetLoSFormula}" />
-        <Setter Property="SelectedValuePath" Value="Key.ID" />
+        <Setter Property="SelectedValuePath" Value="Key" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -39,7 +39,7 @@
                                                 <DataTemplate.Triggers>
                                                     <MultiDataTrigger>
                                                         <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding Key.Name}" Value="Formula33" />
+                                                            <Condition Binding="{Binding Key}" Value="Formula33" />
                                                             <Condition Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
                                                         </MultiDataTrigger.Conditions>
 
@@ -107,7 +107,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Path Name="CheckMark" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" Width="12" Height="12" Margin="1" Visibility="Hidden" Data="F1 M10.2209,8.946 L17.1875,15.5167 30.9627,1.0440487E-53 34.2877,2.9292 17.5834,22.9585 6.8959,12.271 10.2209,8.946 z" />
-                                        <TextBlock Text="{rb:EnumToStringResource Key.Name, Fleet_LoS_Formula}" Grid.Column="2" />
+                                        <TextBlock Text="{rb:EnumToStringResource Key, Fleet_LoS_Formula}" Grid.Column="2" />
                                         <TextBlock Name="LoS" Text="{Binding Value, StringFormat=0.#}" HorizontalAlignment="Right" Grid.Column="4" />
                                     </Grid>
                                 </Border>
@@ -119,7 +119,7 @@
 
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Key.Name}" Value="Formula33" />
+                                            <Condition Binding="{Binding Key}" Value="Formula33" />
                                             <Condition Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
                                         </MultiDataTrigger.Conditions>
 

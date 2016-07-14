@@ -1,8 +1,6 @@
 ﻿using Sakuno.UserInterface.Controls;
 using Sakuno.SystemInterop;
 using System.Windows;
-using System.Windows.Interop;
-using System.Runtime.InteropServices;
 using Sakuno.KanColle.Amatsukaze.Models.Preferences;
 
 namespace Sakuno.KanColle.Amatsukaze.Internal
@@ -23,15 +21,15 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
             switch (rPlacement.State)
             {
                 case WindowState.Normal:
-                    rResult.showCmd = NativeConstants.ShowCommands.SW_SHOWNORMAL;
+                    rResult.showCmd = NativeConstants.ShowCommand.SW_SHOWNORMAL;
                     break;
 
                 case WindowState.Minimized:
-                    rResult.showCmd = NativeConstants.ShowCommands.SW_SHOWMINIMIZED;
+                    rResult.showCmd = NativeConstants.ShowCommand.SW_SHOWMINIMIZED;
                     break;
 
                 case WindowState.Maximized:
-                    rResult.showCmd = NativeConstants.ShowCommands.SW_SHOWMAXIMIZED;
+                    rResult.showCmd = NativeConstants.ShowCommand.SW_SHOWMAXIMIZED;
                     break;
             }
 

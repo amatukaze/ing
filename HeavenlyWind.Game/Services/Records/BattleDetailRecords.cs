@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
@@ -20,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         enum ParticipantFleetType { Main, Escort, SupportFire }
 
         public override string GroupName => "battle_detail";
-        public override int Version => 3;
+        public override int Version => 4;
 
         string r_Filename;
         SQLiteConnection r_Connection;
@@ -180,6 +181,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     rTransaction.Commit();
                 }
             }
+            if (rpOldVersion < 4)
+            {
+                using (var rCommand = r_Connection.CreateCommand())
+                {
+                    var rEquipmentIDs = string.Join(", ", KanColleGame.Current.MasterInfo.Equipment.Values.Where(r => r.IsPlane).Select(r => r.ID));
+                    rCommand.CommandText = $"UPDATE participant_slot SET level = level << 4 WHERE equipment IN ({rEquipmentIDs}) AND level < 10;";
+                    rCommand.ExecuteNonQuery();
+                }
+            }
         }
 
         byte[] CompressJson(JToken rpJsonToken)
@@ -331,7 +341,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             var rFleetID = (int)rpType;
 
             rpCommandTextBuilder.Append($"INSERT OR IGNORE INTO battle_detail.participant_fleet_name(id, name) VALUES({rpFleet.RawData.NameID ?? -rpFleet.ID}, '{rpFleet.Name}');");
-            rpCommandTextBuilder.Append($"INSERT INTO battle_detail.participant_fleet(battle, id, name) VALUES(@battle_id, {rFleetID}, {rpFleet.RawData.NameID});");
+            rpCommandTextBuilder.Append($"INSERT INTO battle_detail.participant_fleet(battle, id, name) VALUES(@battle_id, {rFleetID}, {rpFleet.RawData.NameID ?? -rpFleet.ID});");
 
             for (var i = 0; i < rpFleet.Ships.Count; i++)
             {
@@ -347,8 +357,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     if (!rSlot.HasEquipment)
                         break;
 
-                    var rLevel = Math.Max(rSlot.Equipment.Level, rSlot.Equipment.Proficiency);
-                    rpCommandTextBuilder.Append($"INSERT INTO battle_detail.participant_slot(battle, participant, id, equipment, level, plane_count) VALUES(@battle_id, {rID}, {j}, {rSlot.Equipment.Info.ID}, {rLevel}, {rSlot.PlaneCount});");
+                    var rLevelAndProficiency = rSlot.Equipment.Level + (rSlot.Equipment.Proficiency << 4);
+                    rpCommandTextBuilder.Append($"INSERT INTO battle_detail.participant_slot(battle, participant, id, equipment, level, plane_count) VALUES(@battle_id, {rID}, {j}, {rSlot.Equipment.Info.ID}, {rLevelAndProficiency}, {rSlot.PlaneCount});");
                 }
 
                 if (rShip.ExtraSlot != null)

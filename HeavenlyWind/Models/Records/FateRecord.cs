@@ -22,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal FateRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(Convert.ToUInt64(rpReader["time"])).LocalDateTime.ToString();
+            Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["time"])).LocalDateTime.ToString();
 
             var rMasterInfo = KanColleGame.Current.MasterInfo;
             var rMasterID = Convert.ToInt32(rpReader["master_id"]);

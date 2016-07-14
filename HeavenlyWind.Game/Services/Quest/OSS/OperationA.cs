@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.OSS
             SessionService.Instance.Subscribe("api_req_map/start", r =>
             {
                 ProgressInfo rProgressInfo;
-                if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Executing)
+                if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Active)
                     return;
 
                 var rBits = new BitVector32(rProgressInfo.Progress);
@@ -44,24 +44,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.OSS
 
             if (rpResult.Rank >= BattleRank.S)
                 rBits[r_Sections[1]] = Math.Min(rBits[r_Sections[1]] + 1, 6);
+
             if (rpBattle.IsBossBattle)
+            {
                 rBits[r_Sections[2]] = Math.Min(rBits[r_Sections[2]] + 1, 24);
-            if (rpBattle.IsBossBattle && rpResult.Rank >= BattleRank.B)
-                rBits[r_Sections[3]] = Math.Min(rBits[r_Sections[3]] + 1, 12);
+
+                if (rpResult.Rank >= BattleRank.B)
+                    rBits[r_Sections[3]] = Math.Min(rBits[r_Sections[3]] + 1, 12);
+            }
 
             rpProgress.Progress = rBits.Data;
             UpdatePercentage(rpProgress, rBits);
         }
 
-        void UpdatePercentage(ProgressInfo rpProgress, BitVector32 rpBits)
+        internal void UpdatePercentage(ProgressInfo rpProgress) => UpdatePercentage(rpProgress, new BitVector32(rpProgress.Progress));
+        internal void UpdatePercentage(ProgressInfo rpProgress, BitVector32 rpBits)
         {
-            var rPercent = 0.0;
-            rPercent += Math.Min(rpBits[r_Sections[0]] / (double)36, 1.0);
-            rPercent += Math.Min(rpBits[r_Sections[1]] / (double)6, 1.0);
-            rPercent += Math.Min(rpBits[r_Sections[2]] / (double)24, 1.0);
-            rPercent += Math.Min(rpBits[r_Sections[3]] / (double)12, 1.0);
+            var rPercent = .0;
 
-            rpProgress.Percentage = rPercent;
+            rPercent += Math.Min(rpBits[r_Sections[0]] / 36.0, 1.0);
+            rPercent += Math.Min(rpBits[r_Sections[1]] / 6.0, 1.0);
+            rPercent += Math.Min(rpBits[r_Sections[2]] / 24.0, 1.0);
+            rPercent += Math.Min(rpBits[r_Sections[3]] / 12.0, 1.0);
+
+            rpProgress.Percentage = rPercent * .25;
         }
     }
 }
