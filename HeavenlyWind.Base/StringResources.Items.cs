@@ -328,6 +328,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_UI_HeavyDamageLine_Type_Custom => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_Custom));
         public string PreferenceWindow_UI_HeavyDamageLine_Width => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Width));
         public string PreferenceWindow_UI_HeavyDamageLine_Preview => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Preview));
+        public string PreferenceWindow_UI_MaterialIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons));
+        public string PreferenceWindow_UI_MaterialIcons_UseGameIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons_UseGameIcons));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));

@@ -80,5 +80,21 @@
                 <Rectangle Fill="{ri:HeavyDamageLineColor HeavilyDamaged}" Width="{rb:Preference UI.HeavyDamageLine.Width}" Height="6" HorizontalAlignment="Right" Grid.Row="6" />
             </Grid>
         </Grid>
+
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_MaterialIcons}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+
+        <CheckBox IsChecked="{rb:Preference UI.UseGameMaterialIcons}" Margin="0, 8, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_MaterialIcons_UseGameIcons}" />
+        </CheckBox>
+        <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
+            <rc:MaterialIcon Type="Fuel" />
+            <rc:MaterialIcon Type="Bullet" />
+            <rc:MaterialIcon Type="Steel" />
+            <rc:MaterialIcon Type="Bauxite" />
+            <rc:MaterialIcon Type="DevelopmentMaterial" />
+            <rc:MaterialIcon Type="Bucket" />
+            <rc:MaterialIcon Type="InstantConstruction" />
+            <rc:MaterialIcon Type="ImprovementMaterial" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

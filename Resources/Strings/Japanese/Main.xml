@@ -324,6 +324,8 @@
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Custom">カスタム</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Width">線幅</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">プレビュー</String>
+  <String Key="PreferenceWindow_UI_MaterialIcons">資材アイコン</String>
+  <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">ゲームのようなアイコンを使用します</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>

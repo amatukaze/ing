@@ -12,5 +12,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 
         [JsonProperty("hd_line")]
         public HeavyDamageLinePreference HeavyDamageLine { get; private set; } = new HeavyDamageLinePreference();
+
+        [JsonProperty("use_game_material_icons")]
+        public Property<bool> UseGameMaterialIcons { get; private set; } = new Property<bool>();
     }
 }
