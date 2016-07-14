@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Views.Tools;
+﻿using Sakuno.KanColle.Amatsukaze.Internal;
+using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
 using System;
@@ -83,7 +84,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                         new TaskDialog()
                         {
                             Caption = StringResources.Instance.Main.Product_Name,
-                            Instruction = StringResources.Instance.Main.UnhandledExceptionDialog_Instruction,
+                            Instruction = UnhandledExceptionDialogStringResources.Instruction,
                             Icon = TaskDialogIcon.Error,
                             Content = StringResources.Instance.Main.MessageDialog_AudioSessionDisconnected,
 

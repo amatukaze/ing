@@ -129,6 +129,7 @@
     <Compile Include="Internal\PanicKeyPreferenceExtension.cs" />
     <Compile Include="Internal\QuestCategoryToBrushConverter.cs" />
     <Compile Include="Internal\ShipOverviewItemIndexExtension.cs" />
+    <Compile Include="Internal\UnhandledExceptionDialogStringResources.cs" />
     <Compile Include="Internal\WindowPlacementPreference.cs" />
     <Compile Include="Internal\TabContentTemplateSelector.cs" />
     <Compile Include="Internal\TabDockingController.cs" />

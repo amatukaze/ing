@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
@@ -127,9 +128,9 @@ namespace Sakuno.KanColle.Amatsukaze
             var rDialog = new TaskDialog()
             {
                 Caption = StringResources.Instance.Main.Product_Name,
-                Instruction = StringResources.Instance.Main.UnhandledExceptionDialog_Instruction,
+                Instruction = UnhandledExceptionDialogStringResources.Instruction,
                 Icon = TaskDialogIcon.Error,
-                Content = StringResources.Instance.Main.UnhandledExceptionDialog_Content,
+                Content = UnhandledExceptionDialogStringResources.Content,
 
                 Detail = rpException.ToString(),
                 ShowDetailAtTheBottom = true,
@@ -142,7 +143,7 @@ namespace Sakuno.KanColle.Amatsukaze
             {
                 rDialog.EnableHyperlinks = true;
                 rDialog.FooterIcon = TaskDialogIcon.Information;
-                rDialog.Footer = string.Format(StringResources.Instance.Main.UnhandledExceptionDialog_Footer, $"<a href=\"{rLogFilename}\">{rLogFilename}</a>");
+                rDialog.Footer = string.Format(UnhandledExceptionDialogStringResources.Footer, $"<a href=\"{rLogFilename}\">{rLogFilename}</a>");
 
                 rDialog.HyperlinkClicked += delegate
                 {

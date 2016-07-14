@@ -58,10 +58,6 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Update_Notification_IgnoreOptionalUpdate => GetString(nameof(Update_Notification_IgnoreOptionalUpdate));
         public string Update_Notification_AlwaysIgnore => GetString(nameof(Update_Notification_AlwaysIgnore));
 
-        public string UnhandledExceptionDialog_Instruction => GetString(nameof(UnhandledExceptionDialog_Instruction));
-        public string UnhandledExceptionDialog_Content => GetString(nameof(UnhandledExceptionDialog_Content));
-        public string UnhandledExceptionDialog_Footer => GetString(nameof(UnhandledExceptionDialog_Footer));
-
         public string InitializationPage_Initializing => GetString(nameof(InitializationPage_Initializing));
         public string InitializationPage_Header => GetString(nameof(InitializationPage_Header));
         public string InitializationPage_Solution => GetString(nameof(InitializationPage_Solution));

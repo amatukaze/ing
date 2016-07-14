@@ -55,10 +55,6 @@
   <String Key="Update_Notification_Ignore">忽略</String>
   <String Key="Update_Notification_IgnoreOptionalUpdate">忽略小版本更新</String>
   <String Key="Update_Notification_AlwaysIgnore">总是忽略</String>
-  
-  <String Key="UnhandledExceptionDialog_Instruction">哎呀！</String>
-  <String Key="UnhandledExceptionDialog_Content">遇到了一些无法处理的错误。</String>
-  <String Key="UnhandledExceptionDialog_Footer">该错误的详细内容已保存到 {0}。</String>
 
   <String Key="InitializationPage_Initializing">正在初始化</String>
   <String Key="InitializationPage_Header">遇到些问题</String>
