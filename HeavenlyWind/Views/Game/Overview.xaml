@@ -113,17 +113,17 @@
                                                 </StackPanel>
                                             </Grid>
 
-                                            <rvg:FleetsAndAirBase />
+                                            <rvg:FleetsAndAirBase Margin="0, 8, 0, 0" />
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="2">
-                                            <rvg:DockOverview Margin="0, 0, 0, 8" />
+                                            <rvg:DockOverview />
 
-                                            <Border Style="{StaticResource PanelBorderStyle}">
+                                            <Border Style="{StaticResource PanelBorderStyle}" Margin="0, 8, 0, 0">
                                                 <rvg:FleetOverview />
                                             </Border>
 
-                                            <Border Style="{StaticResource PanelBorderStyle}" >
+                                            <Border Style="{StaticResource PanelBorderStyle}" Margin="0, 0, 0, 8">
                                                 <rvg:ActiveQuestsOverview />
                                             </Border>
                                         </StackPanel>
