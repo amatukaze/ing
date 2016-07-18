@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Services;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Views
@@ -7,14 +8,29 @@ namespace Sakuno.KanColle.Amatsukaze.Views
     /// <summary>
     /// Browser.xaml の相互作用ロジック
     /// </summary>
-    public partial class Browser : UserControl
+    partial class Browser
     {
+        public static Browser Instance { get; private set; }
+
+        UIElement r_Bar;
+
         public Browser()
         {
+            Instance = this;
+
             if (!DesignerProperties.GetIsInDesignMode(this))
                 BrowserService.Instance.Initialize();
 
             InitializeComponent();
         }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            r_Bar = Template.FindName("Bar", this) as UIElement;
+        }
+
+        public Size GetBarSize() => r_Bar.DesiredSize;
     }
 }

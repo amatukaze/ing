@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
@@ -67,6 +68,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public ICommand ClearCacheCommand { get; }
         public ICommand ClearCacheAndCookieCommand { get; }
+
+        public event EventHandler<Size> Resized = delegate { };
 
         BrowserService()
         {
@@ -173,6 +176,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             IsResizedToFitGame = true;
             OnPropertyChanged(nameof(IsResizedToFitGame));
+
+            Resized(this, BrowserControl.DesiredSize);
         }
     }
 }

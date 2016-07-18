@@ -1,6 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Services;
-using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.SystemInterop;
+using Sakuno.UserInterface;
 using Sakuno.UserInterface.Controls;
 using System;
 using System.ComponentModel;
@@ -22,6 +22,14 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            if (!BrowserService.Instance.NoInstalledLayoutEngines)
+            {
+                BrowserService.Instance.Resized += (s, e) => Dispatcher.BeginInvoke(new Action(UpdateSize));
+
+                Preference.Current.Layout.LandscapeDock.Subscribe(OnDockChanged);
+                Preference.Current.Layout.PortraitDock.Subscribe(OnDockChanged);
+            }
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -59,6 +67,42 @@ namespace Sakuno.KanColle.Amatsukaze.Views
             }
 
             base.OnClosing(e);
+        }
+
+        void UpdateSize()
+        {
+            var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
+            var rBrowserWidth = GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
+            var rBrowserHeight = GameConstants.GameHeight * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX + Browser.Instance.GetBarSize().Height;
+
+            MinWidth = rBrowserWidth;
+            MinHeight = rBrowserHeight + r_CaptionBar.ActualHeight + r_StatusBar.ActualHeight;
+        }
+
+        void OnDockChanged(Dock rpDock)
+        {
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
+                var rWidth = GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
+                var rHeight = GameConstants.GameHeight * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX + Browser.Instance.GetBarSize().Height;
+
+                switch (rpDock)
+                {
+                    case Dock.Left:
+                    case Dock.Right:
+                        rWidth += 400;
+                        break;
+
+                    case Dock.Top:
+                    case Dock.Bottom:
+                        rHeight += 400;
+                        break;
+                }
+
+                Width = rWidth;
+                Height = rHeight;
+            }));
         }
     }
 }

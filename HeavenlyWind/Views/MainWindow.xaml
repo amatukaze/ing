@@ -144,7 +144,7 @@
             </StackPanel>
         </DockPanel>
 
-        <ContentControl Content="{Binding Page}" Grid.Row="1">
+        <ContentControl x:Name="r_Page" x:FieldModifier="private" Content="{Binding Page}" Grid.Row="1">
             <Control.Resources>
                 <DataTemplate DataType="{x:Type rvm:InitializationPageViewModel}">
                     <rv:InitializationPage />
