@@ -219,6 +219,7 @@
     <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
+    <Compile Include="ViewModels\ToolsViewModel.cs" />
     <Compile Include="ViewModels\Tools\SessionToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\SessionViewModel.cs" />
     <Compile Include="ViewModels\ToolViewModel.cs" />
@@ -401,6 +402,9 @@
     <Compile Include="Views\TabWindow.xaml.cs">
       <DependentUpon>TabWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ToolCenter.xaml.cs">
+      <DependentUpon>ToolCenter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Tools\ScreenshotTool.xaml.cs">
       <DependentUpon>ScreenshotTool.xaml</DependentUpon>
     </Compile>
@@ -436,14 +440,14 @@
       <Project>{9263590f-63a1-4586-b478-a12d7d67b622}</Project>
       <Name>HeavenlyWind.Game</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj"> 
-      <Project>{85fe16eb-f999-445c-872e-b8181c67031c}</Project> 
-      <Name>Sakuno.Base</Name> 
-    </ProjectReference> 
-    <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj"> 
-      <Project>{3cd66841-054e-409b-8653-f846216061aa}</Project> 
-      <Name>Sakuno.SystemInterop</Name> 
-    </ProjectReference> 
+    <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj">
+      <Project>{85fe16eb-f999-445c-872e-b8181c67031c}</Project>
+      <Name>Sakuno.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj">
+      <Project>{3cd66841-054e-409b-8653-f846216061aa}</Project>
+      <Name>Sakuno.SystemInterop</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Library\Sakuno.UserInterface\Sakuno.UserInterface.csproj">
       <Project>{dba4b269-e3ec-43be-83e6-ee9dedfa21f8}</Project>
       <Name>Sakuno.UserInterface</Name>
@@ -971,6 +975,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TabWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ToolCenter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

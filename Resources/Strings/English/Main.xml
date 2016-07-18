@@ -79,9 +79,9 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Tab_Overview">Overview</String>
   <String Key="Tab_Fleets">Fleet</String>
   <String Key="Tab_Sortie">Sortie</String>
-  <String Key="Tab_Quests">Quest</String>
+  <String Key="Tab_Quests">Quests</String>
   <String Key="Tab_ExpeditionOverview">Expedition</String>
-  <String Key="Tab_Tools">Tool</String>
+  <String Key="Tab_Tools">Tools</String>
 
   <String Key="Overview_Headquarter">Headquarter</String>
   <String Key="Overview_Headquarter_Ships">Ship</String>

@@ -72,7 +72,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public ICommand RefreshCommand { get; }
 
         public ICommand ResizeBrowserToFitGameCommand { get; }
-        public ICommand ShowSessionToolCommand => App.Root.ShowSessionToolCommand;
+        public ICommand ShowSessionToolCommand => App.Root.GameInformation.Tools.ShowSessionToolCommand;
 
         public BrowserNavigator(BrowserService rpOwner)
         {

@@ -15,6 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         public FleetsViewModel Fleets { get; }
         public SortieViewModel Sortie { get; }
         public QuestsViewModel Quests { get; }
+        public ToolsViewModel Tools { get; }
 
         public IList<object> TabItems { get; }
 
@@ -47,6 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 (Overview = new OverviewViewModel()),
                 (Sortie = new SortieViewModel()),
                 (Quests = new QuestsViewModel(this)),
+                (Tools = new ToolsViewModel(this)),
             };
 
             SelectedItem = TabItems.FirstOrDefault();
