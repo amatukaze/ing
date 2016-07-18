@@ -44,11 +44,11 @@
 
         <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash_Quality}" />
-            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:FlashQuality}}" SelectedValue="{rb:Preference Browser.Flash.Quality}" Margin="6, 0, 0, 0" />
+            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:FlashQuality}}" SelectedValue="{rb:Preference Browser.Flash.Quality}" Width="120" Margin="6, 0, 0, 0" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash_RenderMode}" />
-            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:FlashRenderMode}}" SelectedValue="{rb:Preference Browser.Flash.RenderMode}" Margin="6, 0, 0, 0" />
+            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:FlashRenderMode}}" SelectedValue="{rb:Preference Browser.Flash.RenderMode}" Width="120" Margin="6, 0, 0, 0" />
         </StackPanel>
 
         <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />

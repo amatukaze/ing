@@ -45,86 +45,84 @@
         </Style>
     </UserControl.Resources>
 
-    <ScrollViewer TextElement.FontSize="14">
-        <Grid DataContext="{Binding Info}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="8" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+    <Grid DataContext="{Binding Info}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="8" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-            <StackPanel>
-                <StackPanel DataContext="{Binding Map}" Orientation="Horizontal">
-                    <TextBlock>
-                        <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, TargetNullValue={x:Null}}" />
-                        (<Run Text="{rb:ExtraStringResource Map, MasterInfo.ID, MasterInfo.Name}" />)
-                    </TextBlock>
-                    <TextBlock Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Visibility" Value="{rb:CollapsedIfNull GaugeType}" />
+        <StackPanel>
+            <StackPanel DataContext="{Binding Map}" Orientation="Horizontal">
+                <TextBlock>
+                    <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, TargetNullValue={x:Null}}" />
+                    (<Run Text="{rb:ExtraStringResource Map, MasterInfo.ID, MasterInfo.Name}" />)
+                </TextBlock>
+                <TextBlock Text="{rb:EnumToStringResource GaugeType, SortieOverview_MapGauges_Type, StringFormat=({0})}" FontWeight="Bold" Margin="3, 0, 0, 0">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Visibility" Value="{rb:CollapsedIfNull GaugeType}" />
 
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding TransportEscortOnly}" Value="True">
-                                        <Setter Property="Visibility" Value="Collapsed" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <TextBlock Margin="3, 0, 0, 0" Visibility="{Binding HasGauge, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}({0}/{1})">
-                                <Binding Path="HP.Current" />
-                                <Binding Path="HP.Maximum" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                    <Border Padding="2" Width="18" Height="18" Margin="0, 0, 4, 0" Visibility="{rb:CollapsedIfNull DirectionAngle}">
-                        <Path Data="M0,0 L300,150 0,300 65,150 z" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" RenderTransformOrigin=".5, .5">
-                            <Path.RenderTransform>
-                                <RotateTransform Angle="{Binding DirectionAngle, TargetNullValue=0}" CenterX=".5" CenterY=".5" />
-                            </Path.RenderTransform>
-                        </Path>
-                    </Border>
-
-                    <TextBlock VerticalAlignment="Center">
-                        <Run Text="{rb:StringResource Main.Sortie_Node, Mode=OneWay}" />:
-                        <Run Style="{StaticResource NodeID}" DataContext="{Binding Node}" />
-                        <Run Style="{StaticResource EventType}" />
-                    </TextBlock>
-                </StackPanel>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding TransportEscortOnly}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock Margin="3, 0, 0, 0" Visibility="{Binding HasGauge, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}({0}/{1})">
+                            <Binding Path="HP.Current" />
+                            <Binding Path="HP.Maximum" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
             </StackPanel>
 
-            <ContentControl Content="{Binding Node.Event}" VerticalContentAlignment="Top" Grid.Row="2">
-                <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type rgme:RewardEvent}">
-                        <rvge:Reward />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type rgme:WhirlpoolEvent}">
-                        <rvge:Whirlpool />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type rgme:BattleEvent}">
-                        <rvge:Battle />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type rgme:NothingHappenedEvent}">
-                        <rvge:NothingHappened />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type rgme:AviationReconnaissanceEvent}">
-                        <rvge:AviationReconnaissance />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type rgme:EscortSuccessEvent}">
-                        <rvge:EscortSuccess />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type rgme:LandingEvent}">
-                        <rvge:Landing />
-                    </DataTemplate>
-                </ContentControl.Resources>
-            </ContentControl>
-        </Grid>
-    </ScrollViewer>
+            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                <Border Padding="2" Width="18" Height="18" Margin="0, 0, 4, 0" Visibility="{rb:CollapsedIfNull DirectionAngle}">
+                    <Path Data="M0,0 L300,150 0,300 65,150 z" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" RenderTransformOrigin=".5, .5">
+                        <Path.RenderTransform>
+                            <RotateTransform Angle="{Binding DirectionAngle, TargetNullValue=0}" CenterX=".5" CenterY=".5" />
+                        </Path.RenderTransform>
+                    </Path>
+                </Border>
+
+                <TextBlock VerticalAlignment="Center">
+                    <Run Text="{rb:StringResource Main.Sortie_Node, Mode=OneWay}" />:
+                    <Run Style="{StaticResource NodeID}" DataContext="{Binding Node}" />
+                    <Run Style="{StaticResource EventType}" />
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+
+        <ContentControl Content="{Binding Node.Event}" VerticalContentAlignment="Top" Grid.Row="2">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type rgme:RewardEvent}">
+                    <rvge:Reward />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type rgme:WhirlpoolEvent}">
+                    <rvge:Whirlpool />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type rgme:BattleEvent}">
+                    <rvge:Battle />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type rgme:NothingHappenedEvent}">
+                    <rvge:NothingHappened />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type rgme:AviationReconnaissanceEvent}">
+                    <rvge:AviationReconnaissance />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type rgme:EscortSuccessEvent}">
+                    <rvge:EscortSuccess />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type rgme:LandingEvent}">
+                    <rvge:Landing />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
 </UserControl>

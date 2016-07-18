@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
+﻿using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Game;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,6 +34,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public Func<object, bool> OrphanedItemFilter { get; } = r => r is OverviewViewModel || r is SortieViewModel || r is QuestsViewModel;
 
+        public bool IsBrowserAvailable { get; private set; }
+
         internal GameInformationViewModel(MainWindowViewModel rpOwner)
         {
             Owner = rpOwner;
@@ -47,6 +50,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             };
 
             SelectedItem = TabItems.FirstOrDefault();
+
+            IsBrowserAvailable = !BrowserService.Instance.NoInstalledLayoutEngines;
+            PropertyChangedEventListener.FromSource(BrowserService.Instance).Add(nameof(BrowserService.Instance.NoInstalledLayoutEngines), delegate
+            {
+                IsBrowserAvailable = !BrowserService.Instance.NoInstalledLayoutEngines;
+                OnPropertyChanged(nameof(IsBrowserAvailable));
+            });
         }
 
         public void AddTabItem(object rpItem)
