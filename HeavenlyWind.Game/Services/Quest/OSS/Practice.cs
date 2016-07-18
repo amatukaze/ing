@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.OSS
                 if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Active)
                     return;
 
-                if (r.GetData<RawBattleResult>().Rank >= BattleRank.B)
+                if (rpQuest.ID == 303 || r.GetData<RawBattleResult>().Rank >= BattleRank.B)
                     rProgressInfo.Progress++;
             });
         }
