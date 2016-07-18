@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.ToolCenter"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             mc:Ignorable="d"
+             d:DesignWidth="300" d:DesignHeight="300">
+    <ScrollViewer>
+        <StackPanel MinWidth="200" HorizontalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Margin" Value="8" />
+                    <Setter Property="Padding" Value="16, 8" />
+                </Style>
+            </StackPanel.Resources>
+
+            <ItemsControl>
+                <Button Command="{Binding ShowSessionToolCommand}">
+                    <TextBlock Text="{rb:StringResource Main.SessionTool_Title}" />
+                </Button>
+                <Button Command="{Binding ShowExpeditionOverviewCommand}">
+                    <TextBlock Text="{rb:StringResource Main.Tool_ExpeditionOverview}" />
+                </Button>
+            </ItemsControl>
+
+            <ItemsControl ItemsSource="{Binding ToolPanes}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding OpenCommand}" CommandParameter="{Binding}">
+                            <TextBlock Text="{Binding Name}" />
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

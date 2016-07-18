@@ -9,6 +9,7 @@
              xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
              mc:Ignorable="d"
+             FontSize="14"
              d:DataContext="{d:DesignInstance rvm:GameInformationViewModel}"
              d:DesignWidth="480" d:DesignHeight="320">
     <UserControl.Resources>

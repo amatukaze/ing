@@ -6,6 +6,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class RankingPointsRecords : RecordsGroup
     {
+        static int[] r_Modifier = { 7, 5, 7, 2, 7, 3, 1, 6, 9, 9 };
+
         public override string GroupName => "ranking_point";
         public override int Version => 2;
 
@@ -13,12 +15,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_ranking/getlist", rpData =>
             {
-                var rMyData = rpData.Json["api_data"]["api_list"].SingleOrDefault(r => (int)r["api_member_id"] == KanColleGame.Current.Port.Admiral.ID);
+                if (rpData.Parameters.ContainsKey("api_pageno"))
+                    return;
+
+                var rAdmiral = KanColleGame.Current.Port.Admiral;
+                var rMyData = rpData.Json["api_data"]["api_list"].SingleOrDefault(r => (string)r["api_nickname"] == rAdmiral.Name && (string)r["api_comment"] == rAdmiral.Comment);
                 if (rMyData == null)
                     return;
 
                 var rPosition = (int)rMyData["api_no"];
-                var rScore = (int)rMyData["api_rate"];
+                var rScore = (int)rMyData["api_rate"] / rPosition / r_Modifier[rAdmiral.ID % 10];
 
                 InsertRankingPoints(rPosition, rScore);
             }));

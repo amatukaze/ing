@@ -43,17 +43,16 @@
     </UserControl.Resources>
     <UserControl.Style>
         <Style TargetType="{x:Type Control}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Control}">
+                        <rv:Browser />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
             <Style.Triggers>
-                <DataTrigger Binding="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}}" Value="False">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Control}">
-                                <rv:Browser />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}}" Value="True">
+                <DataTrigger Binding="{Binding IsBrowserAvailable}" Value="False">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Control}">

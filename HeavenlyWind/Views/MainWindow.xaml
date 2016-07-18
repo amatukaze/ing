@@ -90,47 +90,6 @@
                     </ListBoxItem>
                 </ListBox>
             </ruic:DropDownButton>
-            <ruic:DropDownButton Visibility="{Binding IsGameStarted, Converter={StaticResource BooleanToVisibilityConverter}}" WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right">
-                <ruic:DropDownButton.Style>
-                    <Style TargetType="{x:Type ruic:DropDownButton}" BasedOn="{StaticResource {x:Type ruic:DropDownButton}}">
-                        <Setter Property="Visibility" Value="Collapsed" />
-
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsResizedToFitGame, Source={x:Static rs:BrowserService.Instance}}" Value="True">
-                                <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsGameStarted}" Value="True">
-                                <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ruic:DropDownButton.Style>
-                <ruic:DropDownButton.Header>
-                    <Path Stretch="Fill" Fill="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 1" Data="M16.810076,171.62987 L150.1676,171.62987 C283.19916,171.62987 283.53415,171.63309 287.21796,173.01154 291.68924,174.68446 296.09955,178.78706 298.35584,183.37233 299.75128,186.20819 300,187.67711 300,193.0824 300,198.38373 299.74018,199.97861 298.44971,202.59851 296.47101,206.61566 292.41596,210.67072 288.39881,212.64941 L285.25141,214.19971 150.83798,214.32263 C38.147692,214.42569 16.019655,214.29639 13.919065,213.52264 5.1260471,210.28378 1.9073486E-06,202.73438 0,193.02325 1.9073486E-06,183.82283 5.1092453,176.00771 13.071825,173.02853 z M283.49906,85.810059 L287.20493,87.196609 C291.68979,88.874603 296.09668,92.971161 298.35584,97.562256 299.75128,100.39813 300,101.86705 300,107.27232 300,112.57365 299.74018,114.16853 298.44971,116.78844 296.47101,120.8056 292.41596,124.86066 288.39881,126.83936 L285.25141,128.38965 150.83798,128.51257 C38.147692,128.61563 16.019655,128.48634 13.919065,127.7126 4.65905,124.30173 -0.38676262,116.39778 0.10803986,106.07852 0.50680923,97.7621 4.680254,91.279404 11.936399,87.705307 L15.083799,86.155014 149.29143,85.982544 z M283.49906,0 L287.20493,1.3865509 C291.68979,3.0645523 296.09668,7.1611099 298.35584,11.752205 299.75128,14.588081 300,16.056999 300,21.462273 300,26.763603 299.74018,28.358482 298.44971,30.978386 296.47101,34.995544 292.41596,39.050598 288.39881,41.029297 L285.25141,42.57959 150.83798,42.702515 C36.552076,42.807022 16.039324,42.683746 13.85177,41.87925 7.9541454,39.710304 2.3190632,33.71946 0.68422508,27.880386 -0.54804993,23.479134 0.041261673,15.755226 1.8999557,11.946159 3.8555508,7.9385147 7.9094486,3.8787766 11.936399,1.8952484 L15.083799,0.34495544 149.29143,0.17248535 z" />
-                </ruic:DropDownButton.Header>
-
-                <StackPanel>
-                    <StackPanel.Resources>
-                        <DataTemplate DataType="{x:Type rvm:ToolViewModel}">
-                            <Button Command="{Binding OpenCommand}" CommandParameter="{Binding}">
-                                <TextBlock Text="{Binding Name}" />
-                            </Button>
-                        </DataTemplate>
-                    </StackPanel.Resources>
-
-                    <ListBox Style="{StaticResource MenuListBoxStyle}">
-                        <ListBoxItem>
-                            <Button Command="{Binding ShowSessionToolCommand}">
-                                <TextBlock Text="{rb:StringResource Main.SessionTool_Title}" />
-                            </Button>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <Button Content="{rb:StringResource Main.Tool_ExpeditionOverview}" Command="{Binding ShowExpeditionOverviewCommand}" />
-                        </ListBoxItem>
-                    </ListBox>
-                    <ListBox Style="{StaticResource MenuListBoxStyle}" ItemsSource="{Binding ToolPanes}" />
-                </StackPanel>
-            </ruic:DropDownButton>
 
             <ToggleButton IsChecked="{Binding Topmost, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" Visibility="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToVisibilityConverter}}" WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right">
                 <Path Stretch="Uniform" Fill="{DynamicResource ActiveForegroundBrushKey}" HorizontalAlignment="Center" Data="M71.048203,0 L93.770935,10.424871 152.85001,37.529528 171.02817,45.869425 230.10727,72.974085 252.82999,83.398958 238.23517,115.21076 215.51245,104.78589 187.73206,165.33783 188.45349,168.04767 C193.10251,186.74838 194.03778,207.59044 190.93973,229.09215 L190.71091,230.57726 104.44453,190.99945 45.929749,318.5421 27.751572,310.2022 86.266357,182.65956 0,143.08176 0.97650146,141.93968 C15.254585,125.5672 31.663315,112.68233 48.871078,104.00919 L51.395721,102.78861 79.176117,42.236681 56.453384,31.811808 z" />
@@ -144,7 +103,7 @@
             </StackPanel>
         </DockPanel>
 
-        <ContentControl Content="{Binding Page}" Grid.Row="1">
+        <ContentControl x:Name="r_Page" x:FieldModifier="private" Content="{Binding Page}" Grid.Row="1">
             <Control.Resources>
                 <DataTemplate DataType="{x:Type rvm:InitializationPageViewModel}">
                     <rv:InitializationPage />

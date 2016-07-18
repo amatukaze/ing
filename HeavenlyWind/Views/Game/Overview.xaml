@@ -52,10 +52,10 @@
                                     </Border>
 
                                     <StackPanel Grid.Column="2">
-                                        <Button Command="{Binding ShowShipOverviewWindowCommand}">
+                                        <Button Command="{Binding ShowShipOverviewWindowCommand}" Padding="12, 8">
                                             <TextBlock Text="{rb:StringResource Main.Overview_ShipOverview}" />
                                         </Button>
-                                        <Button Command="{Binding ShowEquipmentOverviewWindowCommand}" Margin="0, 4, 0, 0">
+                                        <Button Command="{Binding ShowEquipmentOverviewWindowCommand}" Margin="0, 4, 0, 0" Padding="12, 8">
                                             <TextBlock Text="{rb:StringResource Main.Overview_EquipmentOverview}" />
                                         </Button>
                                     </StackPanel>
@@ -123,7 +123,7 @@
                                                 <rvg:FleetOverview />
                                             </Border>
 
-                                            <Border Style="{StaticResource PanelBorderStyle}" Margin="0, 0, 0, 8">
+                                            <Border Style="{StaticResource PanelBorderStyle}" Margin="0, 8, 0, 0">
                                                 <rvg:ActiveQuestsOverview />
                                             </Border>
                                         </StackPanel>

@@ -11,7 +11,7 @@
                   mc:Ignorable="d"
                   DataContext="{Binding Source={x:Static rvmp:PreferencesWindowViewModel.Instance}}"
                   Title="{rb:StringResource Main.Window_Preferences}"
-                  Width="640" Height="320"
+                  Width="800" Height="480"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
         <Style TargetType="{x:Type TabControl}">
@@ -24,14 +24,16 @@
                     <ControlTemplate TargetType="{x:Type TabControl}">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" MaxWidth="120" />
+                                <ColumnDefinition Width="Auto" MaxWidth="150" />
                                 <ColumnDefinition Width="8" />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                                <StackPanel Background="{DynamicResource BackgroundBrushKey}" IsItemsHost="True" />
+                                <ScrollViewer>
+                                    <StackPanel Background="{DynamicResource BackgroundBrushKey}" IsItemsHost="True" />
+                                </ScrollViewer>
                             </Border>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Grid.Column="2">
                                 <ContentPresenter ContentSource="SelectedContent" Margin="2" />

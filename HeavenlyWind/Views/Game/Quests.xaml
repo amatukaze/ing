@@ -55,7 +55,7 @@
                             <TextBlock Text="{Binding BauxiteReward}" Margin="4, 0, 0, 0" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
                         </StackPanel>
 
-                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4" Grid.RowSpan="3">
+                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" HorizontalAlignment="Right" Visibility="{rb:CollapsedIfNull}" Grid.Column="4" Grid.RowSpan="3">
                             <Control Style="{StaticResource QuestRealtimeProgress}" />
                         </Border>
                     </Grid>
