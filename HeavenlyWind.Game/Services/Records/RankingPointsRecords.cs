@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class RankingPointsRecords : RecordsGroup
     {
-        static int[] r_Modifier = { 7, 5, 7, 2, 7, 3, 1, 6, 9, 9 };
+        static int[] r_Modifier = { 2, 5, 7, 2, 7, 3, 1, 6, 9, 9 };
 
         public override string GroupName => "ranking_point";
         public override int Version => 2;
