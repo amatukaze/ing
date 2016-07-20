@@ -54,6 +54,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 IsLoaded = true;
                 OnPropertyChanged(nameof(IsLoaded));
             });
+            SessionService.Instance.Subscribe("api_req_quest/stop", r =>
+            {
+                var rQuestID = int.Parse(r.Parameters["api_quest_id"]);
+                Table[rQuestID].RawData.State = QuestState.None;
+            });
             SessionService.Instance.Subscribe("api_req_quest/clearitemget", r =>
             {
                 var rQuestID = int.Parse(r.Parameters["api_quest_id"]);

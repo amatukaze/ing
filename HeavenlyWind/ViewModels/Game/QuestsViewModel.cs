@@ -22,6 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public bool IsLoaded { get; private set; }
 
         IDTable<QuestViewModel> r_Quests = new IDTable<QuestViewModel>();
+        QuestViewModel r_Dummy = new QuestViewModel(Quest.Dummy);
 
         public IList<QuestViewModel> All { get; private set; }
         public IList<QuestViewModel> Active { get; private set; }
@@ -74,7 +75,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             var rActiveQuests = KanColleGame.Current.Port.Quests.Active;
             if (rActiveQuests != null)
             {
-                Active = rActiveQuests.Where(r => r != Quest.Dummy).Select(r => r_Quests[r.ID]).ToArray();
+                Active = rActiveQuests.Select(r => r != Quest.Dummy ? r_Quests[r.ID] : r_Dummy).ToArray();
                 r_Owner.Overview.ActiveQuests = Active;
 
                 OnPropertyChanged(nameof(Active));
