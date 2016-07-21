@@ -17,13 +17,13 @@ namespace Sakuno.KanColle.Amatsukaze
         }
 
         public override object ProvideValue(IServiceProvider rpServiceProvider) =>
-            new Binding(r_Path) { Converter = NullToVisibilityConverter.Instance }.ProvideValue(rpServiceProvider);
+            new Binding(r_Path) { Converter = NullToVisibilityConverter.Instance, FallbackValue = EnumUtil.GetBoxed(Visibility.Collapsed) }.ProvideValue(rpServiceProvider);
 
         class NullToVisibilityConverter : IValueConverter
         {
             public static NullToVisibilityConverter Instance { get; } = new NullToVisibilityConverter();
 
-            public object Convert(object rpValue, Type rpTargetType, object rpParameter, CultureInfo rpCulture) => rpValue == null ? Visibility.Collapsed : Visibility.Visible;
+            public object Convert(object rpValue, Type rpTargetType, object rpParameter, CultureInfo rpCulture) => rpValue == null ? EnumUtil.GetBoxed(Visibility.Collapsed) : EnumUtil.GetBoxed(Visibility.Visible);
 
             public object ConvertBack(object rpValue, Type rpTargetType, object rpParameter, CultureInfo rpCulture)
             {
