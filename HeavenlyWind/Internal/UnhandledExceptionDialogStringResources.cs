@@ -4,6 +4,24 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
 {
     static class UnhandledExceptionDialogStringResources
     {
+        public static string ProductName
+        {
+            get
+            {
+                switch (CultureInfo.CurrentUICulture.Name)
+                {
+                    case "ja-JP":
+                        return "いんてりじぇんと連装砲くん";
+
+                    case "zh-CN":
+                        return "智能型连装炮君";
+
+                    default:
+                        return "Intelligent Naval Gun";
+                }
+            }
+        }
+
         public static string Instruction
         {
             get

@@ -129,7 +129,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             var rDialog = new TaskDialog()
             {
-                Caption = StringResources.Instance.Main.Product_Name,
+                Caption = UnhandledExceptionDialogStringResources.ProductName,
                 Instruction = UnhandledExceptionDialogStringResources.Instruction,
                 Icon = TaskDialogIcon.Error,
                 Content = UnhandledExceptionDialogStringResources.Content,
