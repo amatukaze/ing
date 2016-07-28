@@ -22,14 +22,6 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         public MainWindow()
         {
             InitializeComponent();
-
-            if (!BrowserService.Instance.NoInstalledLayoutEngines)
-            {
-                BrowserService.Instance.Resized += (s, e) => Dispatcher.BeginInvoke(new Action(UpdateSize));
-
-                Preference.Current.Layout.LandscapeDock.Subscribe(OnDockChanged);
-                Preference.Current.Layout.PortraitDock.Subscribe(OnDockChanged);
-            }
         }
 
         protected override void OnSourceInitialized(EventArgs e)
@@ -67,6 +59,17 @@ namespace Sakuno.KanColle.Amatsukaze.Views
             }
 
             base.OnClosing(e);
+        }
+
+        internal void SubscribeBrowserPreferenceChanged()
+        {
+            if (!BrowserService.Instance.NoInstalledLayoutEngines)
+            {
+                BrowserService.Instance.Resized += (s, e) => Dispatcher.BeginInvoke(new Action(UpdateSize));
+
+                Preference.Current.Layout.LandscapeDock.Subscribe(OnDockChanged);
+                Preference.Current.Layout.PortraitDock.Subscribe(OnDockChanged);
+            }
         }
 
         void UpdateSize()
