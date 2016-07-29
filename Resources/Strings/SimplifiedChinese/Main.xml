@@ -13,10 +13,10 @@
   <String Key="Log_Exception_API_Failed">API「{0}」返回错误代码：{1} </String>
   <String Key="Log_Exception_API_ParseException">解析 API 时发生错误: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">保存缓存文件失败: {0}</String>
-  <String Key="Log_ExpeditionResult">/{0}「{1}」从远征「{2}:{3}」归来。(结果:{4})</String>
-  <String Key="Log_StartConstruction">开始建造「{0}」。(投入的资材:{1}/{2}/{3}/{4}-{5})</String>
-  <String Key="Log_Development_Success">「{0}」开发成功。(投入的资材:{1}/{2}/{3}/{4})</String>
-  <String Key="Log_Development_Failure">开发失败。(投入的资材:{0}/{1}/{2}/{3})</String>
+  <String Key="Log_ExpeditionResult">/{0}「{1}」从远征「{2}:{3}」归来。(结果: [b]{4}[/b])</String>
+  <String Key="Log_StartConstruction">开始建造「{0}」。(投入的资材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
+  <String Key="Log_Development_Success">「{0}」开发成功。(投入的资材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_Development_Failure">开发失败。(投入的资材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}「{1}」向「{2} ({3}-{4})」出击</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3} {4})」出击</String>
   <String Key="Log_ShipOrItem_Dropped">获得「{0}」</String>
