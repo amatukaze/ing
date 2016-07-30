@@ -1,69 +1,36 @@
-﻿using Newtonsoft.Json;
-using Sakuno.Collections;
+﻿using Sakuno.Collections;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class WindowsPreference
     {
-        ListDictionary<string, WindowPreference> r_Landscape;
-        [JsonIgnore]
-        public IDictionary<string, WindowPreference> Landscape
-        {
-            get
-            {
-                if (r_Landscape == null)
-                    r_Landscape = new ListDictionary<string, WindowPreference>(StringComparer.OrdinalIgnoreCase);
-                return r_Landscape;
-            }
-        }
-        [JsonProperty("landscape")]
-        public WindowPreference[] LandscapeArray
-        {
-            get { return r_Landscape?.Values.ToArray(); }
-            set
-            {
-                if (value == null || value.Length == 0)
-                    r_Landscape = null;
-                else
-                {
-                    r_Landscape = new ListDictionary<string, WindowPreference>();
+        Property<WindowPreference[]> Placements { get; } = new Property<WindowPreference[]>("main.windows");
 
-                    foreach (var rPreference in value)
-                        r_Landscape.Add(rPreference.Name, rPreference);
-                }
-            }
+        ListDictionary<string, WindowPreference> r_Placements = new ListDictionary<string, WindowPreference>(StringComparer.OrdinalIgnoreCase);
+
+        internal WindowsPreference()
+        {
+            Placements.Reloaded += delegate
+            {
+                if (Placements.Value != null)
+                    foreach (var rPlacement in Placements.Value)
+                        r_Placements.Add(rPlacement.Name, rPlacement);
+            };
         }
 
-        ListDictionary<string, WindowPreference> r_Portrait;
-        [JsonIgnore]
-        public IDictionary<string, WindowPreference> Portrait
+        public WindowPreference LoadPlacement(string rpName)
         {
-            get
-            {
-                if (r_Portrait == null)
-                    r_Portrait = new ListDictionary<string, WindowPreference>(StringComparer.OrdinalIgnoreCase);
-                return r_Portrait;
-            }
+            WindowPreference rResult;
+            r_Placements.TryGetValue(rpName, out rResult);
+            return rResult;
         }
-        [JsonProperty("portrait")]
-        public WindowPreference[] PortraitArray
+        public void SavePlacement(WindowPreference rpPlacement)
         {
-            get { return r_Portrait?.Values.ToArray(); }
-            set
-            {
-                if (value == null || value.Length == 0)
-                    r_Portrait = null;
-                else
-                {
-                    r_Portrait = new ListDictionary<string, WindowPreference>();
+            r_Placements[rpPlacement.Name] = rpPlacement;
 
-                    foreach (var rPreference in value)
-                        r_Portrait.Add(rPreference.Name, rPreference);
-                }
-            }
+            Placements.Value = r_Placements.Values.ToArray();
         }
     }
 }

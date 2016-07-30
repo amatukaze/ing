@@ -15,8 +15,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public static CacheService Instance { get; } = new CacheService();
 
-        public CacheMode CurrentMode => Preference.Current.Cache.Mode;
-        public string CacheDirectory => Preference.Current.Cache.Path;
+        public CacheMode CurrentMode => Preference.Instance.Cache.Mode;
+        public string CacheDirectory => Preference.Instance.Cache.Path;
 
         static object r_ThreadSyncObject = new object();
 

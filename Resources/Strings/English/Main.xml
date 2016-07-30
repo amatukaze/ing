@@ -33,8 +33,8 @@
   <String Key="Notification_Repair_Content">Repairs on {0} have been completed.</String>
   <String Key="Notification_Construction">Construction Completed</String>
   <String Key="Notification_Construction_Content">Construction of {0} has been completed.</String>
-  <String Key="Notification_HeavilyDamagedWarning">Warning</String>
-  <String Key="Notification_HeavilyDamagedWarning_Content">You have heavily damaged ship(s).</String>
+  <String Key="Notification_HeavyDamageWarning">Warning</String>
+  <String Key="Notification_HeavyDamageWarning_Content">You have heavily damaged ship(s).</String>
   <String Key="Notification_AdvanceWarning">Warning</String>
   <String Key="Notification_AdvanceWarning_Content">Advancing with your ship heavily damaged may result in being sunk.</String>
   <String Key="Notification_RecoveryFromFatigue">Recovery From Fatigue</String>
@@ -308,7 +308,6 @@ The current version can't handle this problem. To mute/unmute, please do it with
 
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Port</String>
-  <String Key="PreferenceWindow_Network_EnableForSSL">Use proxy for SSL connections</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">Allow requests from other devices (WARNING: Security Risk)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP Only</String>
@@ -344,11 +343,11 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Notification_Construction">Notify the completion of construction</String>
   <String Key="PreferenceWindow_Notification_Expedition">Notify the return from an expedition</String>
   <String Key="PreferenceWindow_Notification_Repair">Notify the completion of ship repair</String>
-  <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">Warn if advancing with heavily damaged ship</String>
+  <String Key="PreferenceWindow_Notification_HeavyDamageWarning">Warn if advancing with heavily damaged ship</String>
   <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">Notify the recovery from fatigue</String>
   <String Key="PreferenceWindow_Notification_AnchorageRepair">Anchorage Repair Notification</String>
   <String Key="PreferenceWindow_Notification_Sound">Sound</String>
-  <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">Sound (Heavily damaged)</String>
+  <String Key="PreferenceWindow_Notification_Sound_HeavyDamageWarning">Sound (Heavily damaged)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">Slient</String>
   <String Key="PreferenceWindow_Notification_Sound_SystemSound">System Sound</String>
   <String Key="PreferenceWindow_Notification_SoundFileType">Audio file</String>

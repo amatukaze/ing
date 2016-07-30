@@ -99,7 +99,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     }
             }));
 
-            UIZoom = Preference.Current.UI.Zoom;
+            UIZoom = Preference.Instance.UI.Zoom;
 
             UISetZoomCommand = new DelegatedCommand<double>(SetZoom);
             UIZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new UIZoomInfo(r, UISetZoomCommand)).ToArray();
@@ -166,7 +166,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             UpdateZoomSelection(rpZoom);
 
             UIZoom = rpZoom;
-            Preference.Current.UI.Zoom.Value = rpZoom;
+            Preference.Instance.UI.Zoom.Value = rpZoom;
         }
         void UpdateZoomSelection(double rpZoom)
         {

@@ -1,19 +1,18 @@
-﻿using Newtonsoft.Json;
+﻿using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class UserInterfacePreference
     {
-        [JsonProperty("font")]
-        public Property<string> Font { get; private set; } = new UIFontProperty();
+        public Property<string> Font { get; } = new UIFontProperty();
 
-        [JsonProperty("zoom")]
-        public Property<double> Zoom { get; private set; } = new Property<double>(1.0);
+        public Property<Dock> LandscapeDock { get; } = new Property<Dock>("ui.layout.lanscape", Dock.Left);
+        public Property<Dock> PortraitDock { get; } = new Property<Dock>("ui.layout.portrait", Dock.Top);
 
-        [JsonProperty("hd_line")]
-        public HeavyDamageLinePreference HeavyDamageLine { get; private set; } = new HeavyDamageLinePreference();
+        public Property<double> Zoom { get; } = new Property<double>("ui.zoom", 1.0);
 
-        [JsonProperty("use_game_material_icons")]
-        public Property<bool> UseGameMaterialIcons { get; private set; } = new Property<bool>();
+        public HeavyDamageLinePreference HeavyDamageLine { get; } = new HeavyDamageLinePreference();
+
+        public Property<bool> UseGameMaterialIcons { get; } = new Property<bool>("ui.use_game_material_icons");
     }
 }

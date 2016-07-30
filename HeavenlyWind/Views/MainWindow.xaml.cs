@@ -67,14 +67,14 @@ namespace Sakuno.KanColle.Amatsukaze.Views
             {
                 BrowserService.Instance.Resized += (s, e) => Dispatcher.BeginInvoke(new Action(UpdateSize));
 
-                Preference.Current.Layout.LandscapeDock.Subscribe(OnDockChanged);
-                Preference.Current.Layout.PortraitDock.Subscribe(OnDockChanged);
+                Preference.Instance.UI.LandscapeDock.Subscribe(OnDockChanged);
+                Preference.Instance.UI.PortraitDock.Subscribe(OnDockChanged);
             }
         }
 
         void UpdateSize()
         {
-            var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
+            var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
             var rBrowserWidth = GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
             var rBrowserHeight = GameConstants.GameHeight * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX + Browser.Instance.GetBarSize().Height;
 
@@ -86,7 +86,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         {
             Dispatcher.BeginInvoke(new Action(() =>
             {
-                var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
+                var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
                 var rWidth = GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
                 var rHeight = GameConstants.GameHeight * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX + Browser.Instance.GetBarSize().Height;
 

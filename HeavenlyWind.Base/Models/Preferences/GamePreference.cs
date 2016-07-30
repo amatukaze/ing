@@ -1,22 +1,15 @@
-﻿using Newtonsoft.Json;
-
-namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
+﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class GamePreference
     {
-        [JsonProperty("main_los_formula")]
-        public Property<FleetLoSFormula> MainFleetLoSFormula { get; private set; } = new Property<FleetLoSFormula>(FleetLoSFormula.Formula33);
+        public Property<FleetLoSFormula> MainFleetLoSFormula { get; } = new Property<FleetLoSFormula>("game.formula.los", FleetLoSFormula.Formula33);
 
-        [JsonProperty("main_fp_formula")]
-        public Property<FleetFighterPowerFormula> MainFighterPowerFormula { get; private set; } = new Property<FleetFighterPowerFormula>(FleetFighterPowerFormula.WithBonus);
+        public Property<FleetFighterPowerFormula> MainFighterPowerFormula { get; } = new Property<FleetFighterPowerFormula>("game.formula.fighter_power", FleetFighterPowerFormula.WithBonus);
 
-        [JsonProperty("fatigue_ceiling")]
-        public Property<int> FatigueCeiling { get; private set; } = new Property<int>(40);
+        public Property<int> FatigueCeiling { get; } = new Property<int>("game.fatigue_ceiling", 40);
 
-        [JsonProperty("show_battle_info")]
-        public Property<bool> ShowBattleInfo { get; private set; } = new Property<bool>(true);
+        public Property<bool> ShowBattleInfo { get; } = new Property<bool>("game.sortie.show_battle_info", true);
 
-        [JsonProperty("show_drop")]
-        public Property<bool> ShowDrop { get; private set; } = new Property<bool>(true);
+        public Property<bool> ShowDrop { get; } = new Property<bool>("game.sortie.show_drop", true);
     }
 }

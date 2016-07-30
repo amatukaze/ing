@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             if (IsExtracted)
             {
-                var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
+                var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
 
                 rWidth = Math.Min(rWidth, GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX);
                 rHeight = Math.Min(rHeight, GameConstants.GameHeight * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY);
@@ -68,7 +68,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             if (IsExtracted)
             {
-                var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
+                var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
 
                 rWidth = Math.Min(rWidth, GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX);
                 rHeight = Math.Min(rHeight, GameConstants.GameHeight * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY);

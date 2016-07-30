@@ -3,7 +3,6 @@ using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Plugins;
 using Sakuno.SystemInterop.Dialogs;
 using Sakuno.UserInterface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -28,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
         PreferencesWindowViewModel()
         {
             var rSystemFonts = Fonts.SystemFontFamilies.Select(r => new SystemFont(r)).ToList();
-            var rCurrentFont = Preference.Current.UI.Font;
+            var rCurrentFont = Preference.Instance.UI.Font;
             if (!rSystemFonts.Any(r => r.FontFamily.Source == rCurrentFont))
                 rSystemFonts.Insert(0, new SystemFont(rCurrentFont));
 
@@ -47,11 +46,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
                         switch (rpType)
                         {
                             case "Cache":
-                                Preference.Current.Cache.Path.Value = rPath;
+                                Preference.Instance.Cache.Path.Value = rPath;
                                 break;
 
                             case "Screenshot":
-                                Preference.Current.Browser.Screenshot.Destination.Value = rPath;
+                                Preference.Instance.Browser.Screenshot.Path.Value = rPath;
                                 break;
                         }
                     }
@@ -71,11 +70,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
                         switch (rpType)
                         {
                             case "General":
-                                Preference.Current.Notification.SoundFilename.Value = rFilename;
+                                Preference.Instance.Notification.SoundFilename.Value = rFilename;
                                 break;
 
-                            case "HeavilyDamaged":
-                                Preference.Current.Notification.HeavilyDamagedWarningSoundFilename.Value = rFilename;
+                            case "HeavyDamage":
+                                Preference.Instance.Notification.HeavyDamageWarningSoundFilename.Value = rFilename;
                                 break;
                         }
                     }

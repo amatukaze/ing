@@ -1,71 +1,126 @@
 ﻿using Newtonsoft.Json;
-using System;
+using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Internal;
+using Sakuno.KanColle.Amatsukaze.Models.Preferences;
+using System.Collections.Generic;
+using System.Data.SQLite;
+using System.Diagnostics;
 using System.IO;
-using System.Text;
+using System.Linq;
+using System.Reflection;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
     public partial class Preference
     {
-        const string r_FilePath = @"Preferences\Preference.json";
+        public static Preference Instance { get; } = new Preference();
+        public static Preference Current => Instance;
 
-        public static Preference Current { get; private set; }
+        internal SQLiteConnection Connection { get; private set; }
 
-        static JsonSerializer r_Serializer = new JsonSerializer() { Formatting = Formatting.Indented };
-
-        public static void Load()
+        static Preference()
         {
-            try
-            {
-                if (!File.Exists(r_FilePath))
-                {
-                    Current = new Preference();
-                    return;
-                }
-
-                LoadCore(r_FilePath);
-            }
-            catch (Exception e)
-            {
-                try
-                {
-                    using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
-                    {
-                        rStreamWriter.WriteLine("Loading preference file error.");
-                        rStreamWriter.WriteLine();
-                        rStreamWriter.WriteLine(e.ToString());
-                    }
-                }
-                catch { }
-            }
-            finally
-            {
-                if (Current == null)
-                    Current = new Preference();
-            }
-        }
-        static void LoadCore(string rpPath)
-        {
-            using (var rReader = new JsonTextReader(File.OpenText(rpPath)))
-                Current = r_Serializer.Deserialize<Preference>(rReader);
+            var rDirectory = new DirectoryInfo(@"Roaming\Preferences");
+            if (!rDirectory.Exists)
+                rDirectory.Create();
         }
 
-        public static void Save()
+        public void Initialize()
         {
-            const string rFolder = "Preferences";
+            Connection = new SQLiteConnection(@"Data Source=Roaming\Preferences\Main.db; Page Size=8192").OpenAndReturn();
 
-            if (!Directory.Exists(rFolder))
-                Directory.CreateDirectory(rFolder);
+            using (var rTransaction = Connection.BeginTransaction())
+            {
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
+                        "INSERT OR IGNORE INTO metadata(key, value) VALUES('version', 1); " +
 
-            const string rBackup = r_FilePath + ".bak";
-            if (File.Exists(rBackup))
-                File.Delete(rBackup);
-            if (File.Exists(r_FilePath))
-                File.Move(r_FilePath, rBackup);
+                        "CREATE TABLE IF NOT EXISTS preference(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
+                        "INSERT OR REPLACE INTO preference(key, value) VALUES('main.version', @version);";
+                    rCommand.Parameters.AddWithValue("@version", ProductInfo.AssemblyVersionString);
 
-            using (var rWriter = new StreamWriter(r_FilePath, false, new UTF8Encoding(true)))
-            using (var rJsonWriter = new JsonTextWriter(rWriter))
-                r_Serializer.Serialize(rJsonWriter, Current);
+                    rCommand.ExecuteNonQuery();
+                }
+
+                rTransaction.Commit();
+            }
+
+            Connection.Update += (s, e) => Debug.WriteLine($"Preference: {e.Event} - {e.Table} - {e.RowId}");
+        }
+
+        public void Reload()
+        {
+            using (var rTransaction = Connection.BeginTransaction())
+            {
+                MigrateFromPreviousVersion();
+
+                var rReloadedProperties = new List<Property>(Property.Instances.Count);
+
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "SELECT key, value FROM preference;";
+
+                    using (var rReader = rCommand.ExecuteReader())
+                        while (rReader.Read())
+                        {
+                            Property rProperty;
+                            if (Property.Instances.TryGetValue((string)rReader["key"], out rProperty))
+                            {
+                                rProperty.Reload(rReader["value"]);
+
+                                rReloadedProperties.Add(rProperty);
+                            }
+                        }
+                }
+
+                var r = Property.Instances.Values.Except(rReloadedProperties).ToArray();
+                foreach (var rProperty in Property.Instances.Values.Except(rReloadedProperties))
+                    rProperty.Save();
+
+                rTransaction.Commit();
+            }
+        }
+
+        void MigrateFromPreviousVersion()
+        {
+            var rFile = new FileInfo(@"Preferences\Preference.json");
+            if (!rFile.Exists)
+                return;
+
+            using (var rReader = new JsonTextReader(rFile.OpenText()))
+            {
+                var rSerializer = new JsonSerializer();
+                var rOldPreference = rSerializer.Deserialize<OldPreference>(rReader);
+
+                LoadFromOldPreference(rOldPreference);
+            }
+
+            rFile.Directory.Delete(true);
+        }
+        void LoadFromOldPreference(object rpObject)
+        {
+            foreach (var rOldProperty in rpObject.GetType().GetTypeInfo().DeclaredProperties)
+            {
+                if (!rOldProperty.IsDefined(typeof(OldPreferenceMappingAttribute)) && rOldProperty.PropertyType != typeof(JToken))
+                {
+                    LoadFromOldPreference(rOldProperty.GetValue(rpObject));
+
+                    continue;
+                }
+
+                var rMapping = rOldProperty.GetCustomAttribute<OldPreferenceMappingAttribute>();
+
+                Property rProperty;
+                if (!Property.Instances.TryGetValue(rMapping.Key, out rProperty))
+                    continue;
+
+                if (rProperty.Key != "main.windows")
+                    rProperty.SetValue(rOldProperty.GetValue(rpObject));
+                else
+                    rProperty.SetValue(((JToken)rOldProperty.GetValue(rpObject)).ToObject<WindowPreference[]>());
+            }
         }
     }
 }

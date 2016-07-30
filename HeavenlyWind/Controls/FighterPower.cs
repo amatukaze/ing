@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             if (rpNewValue == null || Items.Count == 0)
                 return;
 
-            SelectedItem = Items[(int)Preference.Current.Game.MainFighterPowerFormula.Value];
+            SelectedItem = Items[(int)Preference.Instance.Game.MainFighterPowerFormula.Value];
         }
     }
 }

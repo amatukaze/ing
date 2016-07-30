@@ -43,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public IList<BrowserZoomInfo> ZoomFactors { get; }
         public double Zoom
         {
-            get { return Preference.Current.Browser.Zoom; }
+            get { return Preference.Instance.Browser.Zoom; }
             set
             {
                 if (Zoom != value)
@@ -144,7 +144,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void SetZoom(double rpZoom)
         {
-            Preference.Current.Browser.Zoom.Value = rpZoom;
+            Preference.Instance.Browser.Zoom.Value = rpZoom;
             OnPropertyChanged(nameof(Zoom));
 
             foreach (var rInfo in ZoomFactors)

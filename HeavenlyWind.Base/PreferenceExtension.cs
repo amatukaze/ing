@@ -22,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public override object ProvideValue(IServiceProvider rpServiceProvider)
         {
-            var rBinding = new Binding(r_Path) { Source = Preference.Current, Mode = BindingMode.TwoWay, Converter = Converter, ConverterParameter = ConverterParameter, UpdateSourceTrigger = UpdateSourceTrigger };
+            var rBinding = new Binding(r_Path) { Source = Preference.Instance, Mode = BindingMode.TwoWay, Converter = Converter, ConverterParameter = ConverterParameter, UpdateSourceTrigger = UpdateSourceTrigger };
             if (ValidationRule != null)
                 rBinding.ValidationRules.Add(ValidationRule);
 

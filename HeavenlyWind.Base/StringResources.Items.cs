@@ -37,8 +37,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Notification_Repair_Content => GetString(nameof(Notification_Repair_Content));
         public string Notification_Construction => GetString(nameof(Notification_Construction));
         public string Notification_Construction_Content => GetString(nameof(Notification_Construction_Content));
-        public string Notification_HeavilyDamagedWarning => GetString(nameof(Notification_HeavilyDamagedWarning));
-        public string Notification_HeavilyDamagedWarning_Content => GetString(nameof(Notification_HeavilyDamagedWarning_Content));
+        public string Notification_HeavyDamageWarning => GetString(nameof(Notification_HeavyDamageWarning));
+        public string Notification_HeavyDamageWarning_Content => GetString(nameof(Notification_HeavyDamageWarning_Content));
         public string Notification_AdvanceWarning => GetString(nameof(Notification_AdvanceWarning));
         public string Notification_AdvanceWarning_Content => GetString(nameof(Notification_AdvanceWarning_Content));
         public string Notification_RecoveryFromFatigue => GetString(nameof(Notification_RecoveryFromFatigue));
@@ -310,7 +310,6 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
         public string PreferenceWindow_Network_Port => GetString(nameof(PreferenceWindow_Network_Port));
-        public string PreferenceWindow_Network_EnableForSSL => GetString(nameof(PreferenceWindow_Network_EnableForSSL));
         public string PreferenceWindow_Network_AllowRequestsFromOtherDevices => GetString(nameof(PreferenceWindow_Network_AllowRequestsFromOtherDevices));
         public string PreferenceWindow_Network_UseUpstreamProxy => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy));
         public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly));
@@ -345,11 +344,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Notification_Construction => GetString(nameof(PreferenceWindow_Notification_Construction));
         public string PreferenceWindow_Notification_Expedition => GetString(nameof(PreferenceWindow_Notification_Expedition));
         public string PreferenceWindow_Notification_Repair => GetString(nameof(PreferenceWindow_Notification_Repair));
-        public string PreferenceWindow_Notification_HeavilyDamagedWarning => GetString(nameof(PreferenceWindow_Notification_HeavilyDamagedWarning));
+        public string PreferenceWindow_Notification_HeavyDamageWarning => GetString(nameof(PreferenceWindow_Notification_HeavyDamageWarning));
         public string PreferenceWindow_Notification_RecoveryFromFatigue => GetString(nameof(PreferenceWindow_Notification_RecoveryFromFatigue));
         public string PreferenceWindow_Notification_AnchorageRepair => GetString(nameof(PreferenceWindow_Notification_AnchorageRepair));
         public string PreferenceWindow_Notification_Sound => GetString(nameof(PreferenceWindow_Notification_Sound));
-        public string PreferenceWindow_Notification_Sound_HeavilyDamagedWarning => GetString(nameof(PreferenceWindow_Notification_Sound_HeavilyDamagedWarning));
+        public string PreferenceWindow_Notification_Sound_HeavyDamageWarning => GetString(nameof(PreferenceWindow_Notification_Sound_HeavyDamageWarning));
         public string PreferenceWindow_Notification_Sound_Slient => GetString(nameof(PreferenceWindow_Notification_Sound_Slient));
         public string PreferenceWindow_Notification_Sound_SystemSound => GetString(nameof(PreferenceWindow_Notification_Sound_SystemSound));
         public string PreferenceWindow_Notification_SoundFileType => GetString(nameof(PreferenceWindow_Notification_SoundFileType));

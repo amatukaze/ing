@@ -33,8 +33,8 @@
   <String Key="Notification_Repair_Content">「{0}」修理完毕。</String>
   <String Key="Notification_Construction">建造完成</String>
   <String Key="Notification_Construction_Content">已完成「{0}」的建造。</String>
-  <String Key="Notification_HeavilyDamagedWarning">大破警告</String>
-  <String Key="Notification_HeavilyDamagedWarning_Content">有舰娘处于大破状态。</String>
+  <String Key="Notification_HeavyDamageWarning">大破警告</String>
+  <String Key="Notification_HeavyDamageWarning_Content">有舰娘处于大破状态。</String>
   <String Key="Notification_AdvanceWarning">大破进击</String>
   <String Key="Notification_AdvanceWarning_Content">有舰娘处于大破状态，继续进击有被击沉的风险。</String>
   <String Key="Notification_RecoveryFromFatigue">疲劳恢复</String>
@@ -308,7 +308,6 @@
 
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">端口</String>
-  <String Key="PreferenceWindow_Network_EnableForSSL">对 SSL 连接也使用代理</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">允许来自其它设备的请求 (不推荐：有安全风险)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">使用上游代理</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">仅 HTTP 请求使用</String>
@@ -343,11 +342,11 @@
   <String Key="PreferenceWindow_Notification_Construction">在建造完成时通知</String>
   <String Key="PreferenceWindow_Notification_Expedition">在远征归来时通知</String>
   <String Key="PreferenceWindow_Notification_Repair">在入渠结束时通知</String>
-  <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">在有大破船以及大破进击时发出警告</String>
+  <String Key="PreferenceWindow_Notification_HeavyDamageWarning">在有大破船以及大破进击时发出警告</String>
   <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">在疲劳恢复时发出通知</String>
   <String Key="PreferenceWindow_Notification_AnchorageRepair">泊地修理开始 20 分钟后发出通知</String>
   <String Key="PreferenceWindow_Notification_Sound">音效</String>
-  <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">音效 (大破警告)</String>
+  <String Key="PreferenceWindow_Notification_Sound_HeavyDamageWarning">音效 (大破警告)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">静音</String>
   <String Key="PreferenceWindow_Notification_Sound_SystemSound">系统音效</String>
   <String Key="PreferenceWindow_Notification_SoundFileType">音频文件</String>

@@ -41,8 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             r_HotKeyID = NativeMethods.Kernel32.GlobalAddAtomW("Test");
 
-            Preference.Current.Other.PanicKey.Enabled.Subscribe(_ => UpdateHotKey());
-            Preference.Current.Other.PanicKey.Key.Subscribe(_ => UpdateHotKey());
+            Preference.Instance.Other.PanicKey.Enabled.Subscribe(_ => UpdateHotKey());
+            Preference.Instance.Other.PanicKey.Key.Subscribe(_ => UpdateHotKey());
 
             UpdateHotKey();
 
@@ -53,7 +53,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             IsHotKeyRegisteredByOther = false;
 
-            var rPreference = Preference.Current.Other.PanicKey;
+            var rPreference = Preference.Instance.Other.PanicKey;
             if (!rPreference.Enabled)
             {
                 if (IsHotKeyRegistered)
@@ -80,11 +80,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             Debug.Write("PanicKeyService: ");
             Debug.WriteIf(IsHotKeyRegistered, "Registered - ");
             Debug.WriteIf(IsHotKeyRegisteredByOther, "Registered by other - ");
-            Debug.WriteLine(GetModifierKeysString(Preference.Current.Other.PanicKey.ModifierKeys) + KeyInterop.KeyFromVirtualKey(rPreference.Key));
+            Debug.WriteLine(GetModifierKeysString(Preference.Instance.Other.PanicKey.ModifierKeys) + KeyInterop.KeyFromVirtualKey(rPreference.Key));
         }
         NativeEnums.ModifierKeys GetModifierKeys()
         {
-            var rResult = (NativeEnums.ModifierKeys)Preference.Current.Other.PanicKey.ModifierKeys.Value;
+            var rResult = (NativeEnums.ModifierKeys)Preference.Instance.Other.PanicKey.ModifierKeys.Value;
             if (OS.IsWin7OrLater)
                 rResult |= NativeEnums.ModifierKeys.MOD_NOREPEAT;
 
@@ -232,7 +232,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 var rModifierKeys = NativeUtils.LoWord(rpLParam);
                 var rKey = NativeUtils.HiWord(rpLParam);
 
-                if (Preference.Current.Other.PanicKey.ModifierKeys == rModifierKeys && Preference.Current.Other.PanicKey.Key == rKey)
+                if (Preference.Instance.Other.PanicKey.ModifierKeys == rModifierKeys && Preference.Instance.Other.PanicKey.Key == rKey)
                 {
                     var rCurrentProcessID = (uint)Process.GetCurrentProcess().Id;
 

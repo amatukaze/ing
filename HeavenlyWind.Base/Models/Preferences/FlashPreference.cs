@@ -1,13 +1,9 @@
-﻿using Newtonsoft.Json;
-
-namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
+﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class FlashPreference
     {
-        [JsonProperty("quality")]
-        public Property<FlashQuality> Quality { get; private set; } = new Property<FlashQuality>(FlashQuality.Default);
+        public Property<FlashQuality> Quality { get; } = new Property<FlashQuality>("browser.flash.quality", FlashQuality.Default);
 
-        [JsonProperty("rendermode")]
-        public Property<FlashRenderMode> RenderMode { get; private set; } = new Property<FlashRenderMode>(FlashRenderMode.Default);
+        public Property<FlashRenderMode> RenderMode { get; } = new Property<FlashRenderMode>("browser.flash.render_mode", FlashRenderMode.Default);
     }
 }

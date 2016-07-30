@@ -1,19 +1,27 @@
 ﻿using System;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    class Property
+    public abstract class Property : ModelBase
     {
-        public static readonly ConcurrentDictionary<Type, Property> Cache = new ConcurrentDictionary<Type, Property>();
+        internal static Dictionary<string, Property> Instances { get; } = new Dictionary<string, Property>(StringComparer.OrdinalIgnoreCase);
 
-        public Delegate Getter { get; }
-        public Delegate Setter { get; }
+        public string Key { get; }
 
-        public Property(Delegate rpGetter, Delegate rpSetter)
+        public event Action Reloaded;
+
+        internal Property(string rpKey)
         {
-            Getter = rpGetter;
-            Setter = rpSetter;
+            Key = rpKey;
         }
+
+        internal abstract void Reload(object rpValue);
+
+        public abstract void Save();
+
+        internal abstract void SetValue(object rpValue);
+
+        protected void OnPropertyReloaded() => Reloaded?.Invoke();
     }
 }

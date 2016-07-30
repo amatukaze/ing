@@ -43,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 
         public SessionToolViewModel()
         {
-            if (Preference.Current.Other.SessionTool.StartRecordingOnAppStartup)
+            if (Preference.Instance.Other.SessionTool.StartRecordingOnAppStartup)
                 r_IsRecording = true;
 
             ClearCommand = new DelegatedCommand(() => Sessions.Clear());

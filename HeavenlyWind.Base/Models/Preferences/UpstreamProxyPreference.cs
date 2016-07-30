@@ -1,19 +1,13 @@
-﻿using Newtonsoft.Json;
-
-namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
+﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class UpstreamProxyPreference
     {
-        [JsonProperty("enabled")]
-        public Property<bool> Enabled { get; private set; } = new Property<bool>();
+        public Property<bool> Enabled { get; } = new Property<bool>("network.upstream_proxy.enabled");
 
-        [JsonProperty("host")]
-        public Property<string> Host { get; private set; } = new Property<string>("127.0.0.1");
+        public Property<string> Host { get; } = new Property<string>("network.upstream_proxy.host", "127.0.0.1");
 
-        [JsonProperty("port")]
-        public Property<int> Port { get; private set; } = new Property<int>();
+        public Property<int> Port { get; } = new Property<int>("network.upstream_proxy.port");
 
-        [JsonProperty("http_only")]
-        public Property<bool> HttpOnly { get; private set; } = new Property<bool>();
+        public Property<bool> HttpOnly { get; } = new Property<bool>("network.upstream_proxy.http_only");
     }
 }

@@ -95,7 +95,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 var rStartInfo = new ProcessStartInfo()
                 {
                     FileName = typeof(BrowserService).Assembly.Location,
-                    Arguments = $"browser {Preference.Current.Browser.CurrentLayoutEngine} {HostProcessID}",
+                    Arguments = $"browser {Preference.Instance.Browser.CurrentLayoutEngine} {HostProcessID}",
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                 };
@@ -103,14 +103,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 r_BrowserProcess.BeginOutputReadLine();
                 r_BrowserProcess.OutputDataReceived += (s, e) => Trace.WriteLine(e.Data);
 
-                Messages.Subscribe(CommunicatorMessages.Ready, _ => Communicator.Write(CommunicatorMessages.SetPort + ":" + Preference.Current.Network.Port));
+                Messages.Subscribe(CommunicatorMessages.Ready, _ => Communicator.Write(CommunicatorMessages.SetPort + ":" + Preference.Instance.Network.Port));
                 Messages.SubscribeOnDispatcher(CommunicatorMessages.Attach, rpHandle => Attach((IntPtr)int.Parse(rpHandle)));
 
                 r_Initialized = true;
 
                 Messages.Subscribe(CommunicatorMessages.LoadCompleted, delegate
                 {
-                    var rZoom = DpiUtil.ScaleX + Preference.Current.Browser.Zoom - 1.0;
+                    var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
                     Communicator.Write(CommunicatorMessages.SetZoom + ":" + rZoom);
                 });
                 Messages.Subscribe(CommunicatorMessages.LoadGamePageCompleted, _ => ResizeBrowserToFitGame());
@@ -161,7 +161,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             BrowserControl = new BrowserHost(rpHandle);
             OnPropertyChanged(nameof(BrowserControl));
 
-            Navigator.Navigate(Preference.Current.Browser.Homepage);
+            Navigator.Navigate(Preference.Instance.Browser.Homepage);
         }
 
         internal void ResizeBrowserToFitGame()

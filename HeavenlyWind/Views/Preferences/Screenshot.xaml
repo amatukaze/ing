@@ -11,7 +11,7 @@
         <DockPanel>
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Screenshot_Folder}" />
             <Button Content="..." Command="{Binding OpenFolderPickerCommand}" CommandParameter="Screenshot" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
-            <TextBox Text="{rb:Preference Browser.Screenshot.Destination, UpdateSourceTrigger=PropertyChanged}" Margin="6, 0, 0, 0" />
+            <TextBox Text="{rb:Preference Browser.Screenshot.Path, UpdateSourceTrigger=PropertyChanged}" Margin="6, 0, 0, 0" />
         </DockPanel>
 
         <StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">

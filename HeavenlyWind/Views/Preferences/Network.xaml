@@ -21,9 +21,6 @@
                 </i:Interaction.Behaviors>
             </TextBox>
         </StackPanel>
-        <CheckBox IsChecked="{rb:Preference Network.EnableForSSL}" Margin="0, 6, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_EnableForSSL}" />
-        </CheckBox>
         <CheckBox IsChecked="{rb:Preference Network.AllowRequestsFromOtherDevices}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource PreferenceWindow_Network_AllowRequestsFromOtherDevices}" />
         </CheckBox>

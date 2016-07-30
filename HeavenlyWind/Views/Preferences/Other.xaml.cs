@@ -40,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Preferences
             r_OldKey = rKey;
             r_OldModifierKeys = Keyboard.Modifiers;
 
-            Preference.Current.Other.PanicKey.UpdateKey((int)Keyboard.Modifiers, KeyInterop.VirtualKeyFromKey(rKey));
+            Preference.Instance.Other.PanicKey.UpdateKey((int)Keyboard.Modifiers, KeyInterop.VirtualKeyFromKey(rKey));
         }
     }
 }

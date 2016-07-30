@@ -64,10 +64,11 @@ namespace Sakuno.KanColle.Amatsukaze
             ExpeditionService.Instance.Initialize();
             EnemyEncounterService.Instance.Initialize();
 
-            Preference.Load();
+            Preference.Instance.Initialize();
+            Preference.Instance.Reload();
             StringResources.Instance.SubscribLanguageChanged();
-            StringResources.Instance.LoadMainResource(Preference.Current.Language);
-            StringResources.Instance.LoadExtraResource(Preference.Current.ExtraResourceLanguage);
+            StringResources.Instance.LoadMainResource(Preference.Instance.Language);
+            StringResources.Instance.LoadExtraResource(Preference.Instance.ExtraResourceLanguage);
 
             StatusBarService.Instance.Initialize();
             CacheService.Instance.Initialize();
@@ -94,8 +95,6 @@ namespace Sakuno.KanColle.Amatsukaze
             base.OnExit(e);
 
             NotificationService.Instance.Dispose();
-
-            Preference.Save();
         }
 
         void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

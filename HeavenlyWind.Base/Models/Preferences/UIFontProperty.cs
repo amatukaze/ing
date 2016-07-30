@@ -5,7 +5,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     class UIFontProperty : Property<string>
     {
-        public UIFontProperty() : base(GetDefaultFont()) { }
+        public UIFontProperty() : base("ui.font", GetDefaultFont()) { }
+
         static string GetDefaultFont()
         {
             var rCultures = StringResources.GetAncestorsAndSelfCultureNames(CultureInfo.CurrentCulture).ToArray();

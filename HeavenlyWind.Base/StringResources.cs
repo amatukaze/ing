@@ -70,8 +70,8 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             if (!r_IsSubscribed)
             {
-                Preference.Current.Language.Subscribe(LoadMainResource);
-                Preference.Current.ExtraResourceLanguage.Subscribe(LoadExtraResource);
+                Preference.Instance.Language.Subscribe(LoadMainResource);
+                Preference.Instance.ExtraResourceLanguage.Subscribe(LoadExtraResource);
 
                 r_IsSubscribed = true;
             }
@@ -80,7 +80,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public void LoadMainResource(string rpLanguage)
         {
             if (!InstalledLanguages.Any(r => r.Directory == rpLanguage))
-                Preference.Current.Language.Value = GetDefaultLanguage().Directory;
+                Preference.Instance.Language.Value = GetDefaultLanguage().Directory;
 
             LoadMainResourceCore(rpLanguage);
         }

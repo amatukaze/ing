@@ -31,17 +31,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         public static void Start()
         {
             var rStartupFlags = FiddlerCoreStartupFlags.ChainToUpstreamGateway;
-            if (Preference.Current.Network.EnableForSSL)
-                rStartupFlags |= FiddlerCoreStartupFlags.DecryptSSL;
-            if (Preference.Current.Network.AllowRequestsFromOtherDevices)
+            if (Preference.Instance.Network.AllowRequestsFromOtherDevices)
                 rStartupFlags |= FiddlerCoreStartupFlags.AllowRemoteClients;
 
-            FiddlerApplication.Startup(Preference.Current.Network.Port, rStartupFlags);
+            FiddlerApplication.Startup(Preference.Instance.Network.Port, rStartupFlags);
         }
 
         static void FiddlerApplication_BeforeRequest(Session rpSession)
         {
-            var rUpstreamProxyPreference = Preference.Current.Network.UpstreamProxy;
+            var rUpstreamProxyPreference = Preference.Instance.Network.UpstreamProxy;
             if (rUpstreamProxyPreference.Enabled && (!rUpstreamProxyPreference.HttpOnly || !rpSession.RequestMethod.OICEquals("CONNECT")))
                 rpSession["x-OverrideGateway"] = $"{rUpstreamProxyPreference.Host.Value}:{rUpstreamProxyPreference.Port.Value}";
 
@@ -113,14 +111,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                     var rScript = rpSession.GetResponseBodyAsString();
                     var rModified = false;
 
-                    var rQuality = Preference.Current.Browser.Flash.Quality;
+                    var rQuality = Preference.Instance.Browser.Flash.Quality;
                     if (rQuality != FlashQuality.Default)
                     {
                         rScript = r_FlashQualityRegex.Replace(rScript, $"$1{rQuality}$2");
                         rModified = true;
                     }
 
-                    var rRenderMode = Preference.Current.Browser.Flash.RenderMode;
+                    var rRenderMode = Preference.Instance.Browser.Flash.RenderMode;
                     if (rRenderMode != FlashRenderMode.Default)
                     {
                         rScript = r_FlashRenderModeRegex.Replace(rScript, $"$1{rRenderMode}$2");
