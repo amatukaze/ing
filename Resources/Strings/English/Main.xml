@@ -28,7 +28,7 @@
   <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
 
   <String Key="Notification_Expedition">Expedition Completed</String>
-  <String Key="Notification_Expedition_Content">"{0}" has returned from expedition {1}.</String>
+  <String Key="Notification_Expedition_Content">"{0}" has returned from {1}.</String>
   <String Key="Notification_Repair">Repairs Completed</String>
   <String Key="Notification_Repair_Content">Repairs on {0} have been completed.</String>
   <String Key="Notification_Construction">Construction Completed</String>
