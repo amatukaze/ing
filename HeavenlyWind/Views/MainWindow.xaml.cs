@@ -1,4 +1,6 @@
-﻿using Sakuno.KanColle.Amatsukaze.Services;
+﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Models;
+using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
 using Sakuno.UserInterface.Controls;
@@ -37,25 +39,29 @@ namespace Sakuno.KanColle.Amatsukaze.Views
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            var rDialog = new TaskDialog()
+            var rMode = Preference.Instance.Browser.RefreshConfirmationMode.Value;
+            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie != null))
             {
-                Caption = StringResources.Instance.Main.Product_Name,
-                Instruction = StringResources.Instance.Main.Window_ClosingConfirmation_Instruction,
-                Icon = TaskDialogIcon.Information,
-                Buttons =
+                var rDialog = new TaskDialog()
                 {
-                    new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.Window_ClosingConfirmation_Button_Yes),
-                    new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.Window_ClosingConfirmation_Button_No),
-                },
-                DefaultCommonButton = TaskDialogCommonButton.No,
+                    Caption = StringResources.Instance.Main.Product_Name,
+                    Instruction = StringResources.Instance.Main.Window_ClosingConfirmation_Instruction,
+                    Icon = TaskDialogIcon.Information,
+                    Buttons =
+                    {
+                        new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.Window_ClosingConfirmation_Button_Yes),
+                        new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.Window_ClosingConfirmation_Button_No),
+                    },
+                    DefaultCommonButton = TaskDialogCommonButton.No,
 
-                OwnerWindow = this,
-                ShowAtTheCenterOfOwner = true,
-            };
-            if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.No)
-            {
-                e.Cancel = true;
-                return;
+                    OwnerWindow = this,
+                    ShowAtTheCenterOfOwner = true,
+                };
+                if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
             }
 
             base.OnClosing(e);

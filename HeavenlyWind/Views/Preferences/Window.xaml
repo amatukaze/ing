@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rbm="clr-namespace:Sakuno.KanColle.Amatsukaze.Models;assembly=HeavenlyWind.Base"
              mc:Ignorable="d"
              d:DesignWidth="640" d:DesignHeight="300">
     <UserControl.Resources>
@@ -18,6 +19,19 @@
     </UserControl.Resources>
 
     <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_CloseConfirmation}" />
+            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:ConfirmationMode}}" SelectedValue="{rb:Preference UI.CloseConfirmationMode}" Width="150" Margin="6, 0, 0, 0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{rb:EnumToStringResource ., PreferenceWindow_Window_CloseConfirmation}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
         <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_Layout}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
 
         <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">

@@ -310,6 +310,10 @@
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP 接続のみ</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation">アプリ終了時の確認動作</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">確認しない</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_DuringSortie">出撃の時に確認する</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Always">常に確認する</String>
   <String Key="PreferenceWindow_Window_Font">フォント</String>
   <String Key="PreferenceWindow_Window_Layout">レイアウト</String>
   <String Key="PreferenceWindow_Window_Layout_Landscape">レイアウトモード</String>
@@ -360,6 +364,10 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">アクションバーを下部に表示する</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">アクションバーをブラウザの隣に表示する</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation">ブラウザを再読み込み時の確認動作</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Disabled">確認しない</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_DuringSortie">出撃の時に確認する</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Always">常に確認する</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
   <String Key="PreferenceWindow_Other">その他</String>

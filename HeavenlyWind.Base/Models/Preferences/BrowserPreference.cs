@@ -15,5 +15,7 @@
         public Property<bool> ActionBarPlacement { get; } = new Property<bool>("browser.action_bar.placement");
 
         public Property<bool> ActionBarStickToBrowser { get; } = new Property<bool>("browser.action_bar.stick_to_browser");
+
+        public Property<ConfirmationMode> RefreshConfirmationMode { get; } = new Property<ConfirmationMode>("browser.refresh_confirmation", ConfirmationMode.DuringSortie);
     }
 }

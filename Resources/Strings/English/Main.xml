@@ -312,6 +312,10 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP Only</String>
   <String Key="PreferenceWindow_Window">Window</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation">Close confirmation</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">Disabled</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_DuringSortie">Show during a sortie</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Always">Always show</String>
   <String Key="PreferenceWindow_Window_Font">Font</String>
   <String Key="PreferenceWindow_Window_Layout">Layout</String>
   <String Key="PreferenceWindow_Window_Layout_Landscape">Layout mode</String>
@@ -363,6 +367,10 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">Render Mode</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">Show action bar at the bottom</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">Stick to the browser</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation">Refresh confirmation</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Disabled">Disabled</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_DuringSortie">Show during a sortie</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Always">Always show</String>
   <String Key="PreferenceWindow_Screenshot">Screenshot</String>
   <String Key="PreferenceWindow_Screenshot_Folder">Destination</String>
   <String Key="PreferenceWindow_Other">MISC.</String>

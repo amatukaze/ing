@@ -314,6 +314,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Network_UseUpstreamProxy => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy));
         public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly));
         public string PreferenceWindow_Window => GetString(nameof(PreferenceWindow_Window));
+        public string PreferenceWindow_Window_CloseConfirmation => GetString(nameof(PreferenceWindow_Window_CloseConfirmation));
+        public string PreferenceWindow_Window_CloseConfirmation_Disabled => GetString(nameof(PreferenceWindow_Window_CloseConfirmation_Disabled));
+        public string PreferenceWindow_Window_CloseConfirmation_DuringSortie => GetString(nameof(PreferenceWindow_Window_CloseConfirmation_DuringSortie));
+        public string PreferenceWindow_Window_CloseConfirmation_Always => GetString(nameof(PreferenceWindow_Window_CloseConfirmation_Always));
         public string PreferenceWindow_Window_Font => GetString(nameof(PreferenceWindow_Window_Font));
         public string PreferenceWindow_Window_Layout => GetString(nameof(PreferenceWindow_Window_Layout));
         public string PreferenceWindow_Window_Layout_Landscape => GetString(nameof(PreferenceWindow_Window_Layout_Landscape));
@@ -364,6 +368,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Flash_RenderMode => GetString(nameof(PreferenceWindow_Browser_Flash_RenderMode));
         public string PreferenceWindow_Browser_Placement_AtBottom => GetString(nameof(PreferenceWindow_Browser_Placement_AtBottom));
         public string PreferenceWindow_Browser_Placement_StickToBrowser => GetString(nameof(PreferenceWindow_Browser_Placement_StickToBrowser));
+        public string PreferenceWindow_Browser_RefreshConfirmation => GetString(nameof(PreferenceWindow_Browser_RefreshConfirmation));
+        public string PreferenceWindow_Browser_RefreshConfirmation_Disabled => GetString(nameof(PreferenceWindow_Browser_RefreshConfirmation_Disabled));
+        public string PreferenceWindow_Browser_RefreshConfirmation_DuringSortie => GetString(nameof(PreferenceWindow_Browser_RefreshConfirmation_DuringSortie));
+        public string PreferenceWindow_Browser_RefreshConfirmation_Always => GetString(nameof(PreferenceWindow_Browser_RefreshConfirmation_Always));
         public string PreferenceWindow_Screenshot => GetString(nameof(PreferenceWindow_Screenshot));
         public string PreferenceWindow_Screenshot_Folder => GetString(nameof(PreferenceWindow_Screenshot_Folder));
         public string PreferenceWindow_Other => GetString(nameof(PreferenceWindow_Other));

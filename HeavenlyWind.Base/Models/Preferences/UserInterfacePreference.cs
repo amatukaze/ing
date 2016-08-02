@@ -6,6 +6,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
     {
         public Property<string> Font { get; } = new UIFontProperty();
 
+        public Property<ConfirmationMode> CloseConfirmationMode { get; } = new Property<ConfirmationMode>("ui.close_confirmation", ConfirmationMode.DuringSortie);
+
         public Property<Dock> LandscapeDock { get; } = new Property<Dock>("ui.layout.lanscape", Dock.Left);
         public Property<Dock> PortraitDock { get; } = new Property<Dock>("ui.layout.portrait", Dock.Top);
 

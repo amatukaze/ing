@@ -312,6 +312,10 @@
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">使用上游代理</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">仅 HTTP 请求使用</String>
   <String Key="PreferenceWindow_Window">窗口</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation">退出确认</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">禁用</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_DuringSortie">仅出击时询问</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Always">总是询问</String>
   <String Key="PreferenceWindow_Window_Font">字体</String>
   <String Key="PreferenceWindow_Window_Layout">布局</String>
   <String Key="PreferenceWindow_Window_Layout_Landscape">布局模式</String>
@@ -362,6 +366,10 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">渲染模式</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">工具栏显示在底部</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">工具栏粘附在浏览器旁</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation">刷新询问</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Disabled">禁用</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_DuringSortie">仅出击时询问</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Always">总是询问</String>
   <String Key="PreferenceWindow_Screenshot">截图</String>
   <String Key="PreferenceWindow_Screenshot_Folder">截图文件夹</String>
   <String Key="PreferenceWindow_Other">其它</String>
