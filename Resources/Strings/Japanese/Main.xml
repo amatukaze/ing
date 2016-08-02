@@ -306,9 +306,19 @@
 
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
+  <String Key="PreferenceWindow_Network_Port_Customization">待ち受けポート設定</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Instruction">ちょっと待ってください</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Content">これはブラウザからのデータを受信するために使用される	
+ローカルプロキシのポートです。</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_Yes">設定します</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_No">設定しません</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">他のデバイスからのリクエストを許可する (非推奨：セキュリティリスク)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP 接続のみ</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Instruction">ちょっと待ってください</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">この上流プロキシが HTTPS 接続を受信しないことを確信しますか？</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">はい</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">いいえ</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">アプリ終了時の確認動作</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">確認しない</String>

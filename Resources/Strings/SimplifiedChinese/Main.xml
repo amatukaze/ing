@@ -307,10 +307,21 @@
   <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
 
   <String Key="PreferenceWindow_Network">网络</String>
-  <String Key="PreferenceWindow_Network_Port">端口</String>
+  <String Key="PreferenceWindow_Network_Port">本地代理端口</String>
+  <String Key="PreferenceWindow_Network_Port_Customization">指定本地代理端口</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Instruction">真的要修改吗？</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Content">该端口属于用于接收来自浏览器的数据包的本地代理。除非遇到端口被占用等情况，一般不建议修改该端口值。
+
+如果你需要设定浏览器的代理，请设置下面的「上游代理」。</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_Yes">真的要修改</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_No">好吧，不改了</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">允许来自其它设备的请求 (不推荐：有安全风险)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">使用上游代理</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">仅 HTTP 请求使用</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Instruction">等等</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">在勾选这个之前，请确认所用的上游代理是否不允许 HTTPS 连接</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">是的</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">不是</String>
   <String Key="PreferenceWindow_Window">窗口</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">退出确认</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">禁用</String>

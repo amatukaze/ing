@@ -307,10 +307,19 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
-  <String Key="PreferenceWindow_Network_Port">Port</String>
+  <String Key="PreferenceWindow_Network_Port">Local proxy port</String>
+  <String Key="PreferenceWindow_Network_Port_Customization">Set local proxy port</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Instruction">Do you want to modify this port?</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Content">This is the port of the local proxy used to receive data from the browser. Unless it's occupied, it's not recommended to modify it.</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_Yes">Yes, I do</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_No">No, I don't</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">Allow requests from other devices (WARNING: Security Risk)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP Only</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Instruction">Hold it!</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">Are you sure that this upstream proxy refuse HTTPS connections?</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">Yes</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">No</String>
   <String Key="PreferenceWindow_Window">Window</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">Close confirmation</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">Disabled</String>

@@ -310,9 +310,18 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
         public string PreferenceWindow_Network_Port => GetString(nameof(PreferenceWindow_Network_Port));
+        public string PreferenceWindow_Network_Port_Customization => GetString(nameof(PreferenceWindow_Network_Port_Customization));
+        public string PreferenceWindow_Network_Port_Customization_Dialog_Instruction => GetString(nameof(PreferenceWindow_Network_Port_Customization_Dialog_Instruction));
+        public string PreferenceWindow_Network_Port_Customization_Dialog_Content => GetString(nameof(PreferenceWindow_Network_Port_Customization_Dialog_Content));
+        public string PreferenceWindow_Network_Port_Customization_Dialog_Button_Yes => GetString(nameof(PreferenceWindow_Network_Port_Customization_Dialog_Button_Yes));
+        public string PreferenceWindow_Network_Port_Customization_Dialog_Button_No => GetString(nameof(PreferenceWindow_Network_Port_Customization_Dialog_Button_No));
         public string PreferenceWindow_Network_AllowRequestsFromOtherDevices => GetString(nameof(PreferenceWindow_Network_AllowRequestsFromOtherDevices));
         public string PreferenceWindow_Network_UseUpstreamProxy => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy));
         public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly));
+        public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Instruction => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Instruction));
+        public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content));
+        public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes));
+        public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No));
         public string PreferenceWindow_Window => GetString(nameof(PreferenceWindow_Window));
         public string PreferenceWindow_Window_CloseConfirmation => GetString(nameof(PreferenceWindow_Window_CloseConfirmation));
         public string PreferenceWindow_Window_CloseConfirmation_Disabled => GetString(nameof(PreferenceWindow_Window_CloseConfirmation_Disabled));
