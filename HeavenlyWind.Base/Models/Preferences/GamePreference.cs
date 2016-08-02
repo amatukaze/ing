@@ -11,5 +11,8 @@
         public Property<bool> ShowBattleInfo { get; } = new Property<bool>("game.sortie.show_battle_info", true);
 
         public Property<bool> ShowDrop { get; } = new Property<bool>("game.sortie.show_drop", true);
+
+        public Property<int[]> SelectedShipTypes { get; } = new Property<int[]>("game.overview.ship_types");
+        public Property<int[]> SelectedEquipmentTypes { get; } = new Property<int[]>("game.overview.equipment_types");
     }
 }

@@ -60,7 +60,18 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 
+            var rSelectedTypes = Preference.Instance.Game.SelectedEquipmentTypes.Value;
+            if (rSelectedTypes != null)
+                foreach (var rID in rSelectedTypes)
+                {
+                    EquipmentTypeViewModel rTypeVM;
+                    if (r_TypeMap.TryGetValue((EquipmentIconType)rID, out rTypeVM))
+                        rTypeVM.SetIsSelectedWithoutCallback(true);
+                }
+
             r_UpdateSubscription = r_UpdateObservable.Do(_ => IsLoading = true).Throttle(TimeSpan.FromSeconds(.75)).Subscribe(_ => UpdateCore());
+
+            UpdateSelectionCore();
         }
 
         public void Dispose()
@@ -74,6 +85,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         void UpdateSelection()
         {
+            UpdateSelectionCore();
+
+            Preference.Instance.Game.SelectedEquipmentTypes.Value = Types.Where(r => r.IsSelected).Select(r => (int)r.Type).ToArray();
+        }
+        void UpdateSelectionCore()
+        {
             var rTypeCount = Types.Count;
             var rSelectedCount = Types.Count(r => r.IsSelected);
 
@@ -84,8 +101,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             else
                 r_SelectAllTypes = null;
 
-            r_UpdateObservable.OnNext(Unit.Default);
             OnPropertyChanged(nameof(SelectAllTypes));
+
+            r_UpdateObservable.OnNext(Unit.Default);
         }
 
         void UpdateCore()
