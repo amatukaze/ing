@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.11">
+<Strings CultureName="en" Name="English" Version="0.1.11.4">
 
   <String Key="Product_Name">Intelligent Naval Gun</String>
 
@@ -13,14 +13,14 @@
   <String Key="Log_Exception_API_Failed">Error code from API「{0}」: {1}</String>
   <String Key="Log_Exception_API_ParseException">Error occured when parsing API: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">Failed to save file: {0}</String>
-  <String Key="Log_ExpeditionResult">/{0}"{1}" has returned from expedition {2}:{3}.(Result:{4})</String>
-  <String Key="Log_StartConstruction">Start construction of {0} (Material Consumption:{1}/{2}/{3}/{4}-{5})</String>
-  <String Key="Log_Development_Success">{0} was successfully developed.(Material Consumption:{1}/{2}/{3}/{4})</String>
-  <String Key="Log_Development_Failure">Development failed. (Material Consumption:{0}/{1}/{2}/{3})</String>
+  <String Key="Log_ExpeditionResult">/{0}"{1}" has returned from expedition {2}:{3}.(Result: [b]{4}[/b])</String>
+  <String Key="Log_StartConstruction">Start construction of {0} (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
+  <String Key="Log_Development_Success">{0} was successfully developed.(Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_Development_Failure">Development failed. (Material Consumption: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})</String>
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
-  <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
-  <String Key="Log_ShipAndItem_Dropped">{0} and {1} dropped</String>
+  <String Key="Log_ShipOrItem_Dropped">[b]{0}[/b] dropped</String>
+  <String Key="Log_ShipAndItem_Dropped">[b]{0}[/b] and [b]{1}[/b] dropped</String>
   <String Key="Log_Screenshot_Failed">Fail to save screenshot: {0}</String>
   <String Key="Log_Screenshot_Failed_FlashElementNotFound">The flash element cannot be found</String>
   <String Key="Log_Screenshot_Failed_NoData">No screenshot data from the browser</String>
@@ -28,13 +28,13 @@
   <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
 
   <String Key="Notification_Expedition">Expedition Completed</String>
-  <String Key="Notification_Expedition_Content">"{0}" has returned from expedition {1}.</String>
+  <String Key="Notification_Expedition_Content">"{0}" has returned from {1}.</String>
   <String Key="Notification_Repair">Repairs Completed</String>
   <String Key="Notification_Repair_Content">Repairs on {0} have been completed.</String>
   <String Key="Notification_Construction">Construction Completed</String>
   <String Key="Notification_Construction_Content">Construction of {0} has been completed.</String>
-  <String Key="Notification_HeavilyDamagedWarning">Warning</String>
-  <String Key="Notification_HeavilyDamagedWarning_Content">You have heavily damaged ship(s).</String>
+  <String Key="Notification_HeavyDamageWarning">Warning</String>
+  <String Key="Notification_HeavyDamageWarning_Content">You have heavily damaged ship(s).</String>
   <String Key="Notification_AdvanceWarning">Warning</String>
   <String Key="Notification_AdvanceWarning_Content">Advancing with your ship heavily damaged may result in being sunk.</String>
   <String Key="Notification_RecoveryFromFatigue">Recovery From Fatigue</String>
@@ -307,12 +307,24 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
 
   <String Key="PreferenceWindow_Network">Network</String>
-  <String Key="PreferenceWindow_Network_Port">Port</String>
-  <String Key="PreferenceWindow_Network_EnableForSSL">Use proxy for SSL connections</String>
+  <String Key="PreferenceWindow_Network_Port">Local proxy port</String>
+  <String Key="PreferenceWindow_Network_Port_Customization">Set local proxy port</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Instruction">Do you want to modify this port?</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Content">This is the port of the local proxy used to receive data from the browser. Unless it's occupied, it's not recommended to modify it.</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_Yes">Yes, I do</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_No">No, I don't</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">Allow requests from other devices (WARNING: Security Risk)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">Use upstream proxy</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP Only</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Instruction">Hold it!</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">Are you sure that this upstream proxy refuse HTTPS connections?</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">Yes</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">No</String>
   <String Key="PreferenceWindow_Window">Window</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation">Close confirmation</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">Disabled</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_DuringSortie">Show during a sortie</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Always">Always show</String>
   <String Key="PreferenceWindow_Window_Font">Font</String>
   <String Key="PreferenceWindow_Window_Layout">Layout</String>
   <String Key="PreferenceWindow_Window_Layout_Landscape">Layout mode</String>
@@ -344,11 +356,11 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Notification_Construction">Notify the completion of construction</String>
   <String Key="PreferenceWindow_Notification_Expedition">Notify the return from an expedition</String>
   <String Key="PreferenceWindow_Notification_Repair">Notify the completion of ship repair</String>
-  <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">Warn if advancing with heavily damaged ship</String>
+  <String Key="PreferenceWindow_Notification_HeavyDamageWarning">Warn if advancing with heavily damaged ship</String>
   <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">Notify the recovery from fatigue</String>
   <String Key="PreferenceWindow_Notification_AnchorageRepair">Anchorage Repair Notification</String>
   <String Key="PreferenceWindow_Notification_Sound">Sound</String>
-  <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">Sound (Heavily damaged)</String>
+  <String Key="PreferenceWindow_Notification_Sound_HeavyDamageWarning">Sound (Heavily damaged)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">Slient</String>
   <String Key="PreferenceWindow_Notification_Sound_SystemSound">System Sound</String>
   <String Key="PreferenceWindow_Notification_SoundFileType">Audio file</String>
@@ -364,6 +376,10 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">Render Mode</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">Show action bar at the bottom</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">Stick to the browser</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation">Refresh confirmation</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Disabled">Disabled</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_DuringSortie">Show during a sortie</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Always">Always show</String>
   <String Key="PreferenceWindow_Screenshot">Screenshot</String>
   <String Key="PreferenceWindow_Screenshot_Folder">Destination</String>
   <String Key="PreferenceWindow_Other">MISC.</String>

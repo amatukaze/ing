@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:rbm="clr-namespace:Sakuno.KanColle.Amatsukaze.Models;assembly=HeavenlyWind.Base"
              mc:Ignorable="d"
              d:DesignWidth="640" d:DesignHeight="300">
     <UserControl.Resources>
@@ -19,20 +20,17 @@
 
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_Font}" />
-            <ComboBox ItemsSource="{Binding SystemFonts}" IsSynchronizedWithCurrentItem="True" SelectedValue="{rb:Preference UI.Font}" SelectedValuePath="FontFamily" Width="200" Margin="4, 0, 0, 0">
-                <ComboBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel />
-                    </ItemsPanelTemplate>
-                </ComboBox.ItemsPanel>
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_CloseConfirmation}" />
+            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:ConfirmationMode}}" SelectedValue="{rb:Preference UI.CloseConfirmationMode}" Width="150" Margin="6, 0, 0, 0">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Name}" FontFamily="{Binding FontFamily}" FontSize="14" />
+                        <TextBlock Text="{rb:EnumToStringResource ., PreferenceWindow_Window_CloseConfirmation}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
+
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
 
         <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_Layout}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
 
@@ -103,10 +101,10 @@
 
                         <Control Style="{StaticResource GameStyle}" Grid.Column="1" Grid.Row="1" />
 
-                        <RadioButton IsChecked="{rb:Preference Layout.LandscapeDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Bottom}}" Grid.Column="1" />
-                        <RadioButton IsChecked="{rb:Preference Layout.LandscapeDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Right}}" Grid.Row="1" />
-                        <RadioButton IsChecked="{rb:Preference Layout.LandscapeDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Left}}" Grid.Column="2" Grid.Row="1" />
-                        <RadioButton IsChecked="{rb:Preference Layout.LandscapeDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Top}}" Grid.Column="1" Grid.Row="2" />
+                        <RadioButton IsChecked="{rb:Preference UI.LandscapeDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Bottom}}" Grid.Column="1" />
+                        <RadioButton IsChecked="{rb:Preference UI.LandscapeDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Right}}" Grid.Row="1" />
+                        <RadioButton IsChecked="{rb:Preference UI.LandscapeDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Left}}" Grid.Column="2" Grid.Row="1" />
+                        <RadioButton IsChecked="{rb:Preference UI.LandscapeDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Top}}" Grid.Column="1" Grid.Row="2" />
                     </Grid>
                 </Grid>
             </Border>
@@ -136,10 +134,10 @@
 
                         <Control Style="{StaticResource GameStyle}" Grid.Column="1" Grid.Row="1" />
 
-                        <RadioButton IsChecked="{rb:Preference Layout.PortraitDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Bottom}}" Grid.Column="1" />
-                        <RadioButton IsChecked="{rb:Preference Layout.PortraitDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Right}}" Grid.Row="1" />
-                        <RadioButton IsChecked="{rb:Preference Layout.PortraitDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Left}}" Grid.Column="2" Grid.Row="1" />
-                        <RadioButton IsChecked="{rb:Preference Layout.PortraitDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Top}}" Grid.Column="1" Grid.Row="2" />
+                        <RadioButton IsChecked="{rb:Preference UI.PortraitDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Bottom}}" Grid.Column="1" />
+                        <RadioButton IsChecked="{rb:Preference UI.PortraitDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Right}}" Grid.Row="1" />
+                        <RadioButton IsChecked="{rb:Preference UI.PortraitDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Left}}" Grid.Column="2" Grid.Row="1" />
+                        <RadioButton IsChecked="{rb:Preference UI.PortraitDock, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static Dock.Top}}" Grid.Column="1" Grid.Row="2" />
                     </Grid>
                 </Grid>
             </Border>

@@ -1,13 +1,9 @@
-﻿using Newtonsoft.Json;
-
-namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
+﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class HeavyDamageLinePreference
     {
-        [JsonProperty("color")]
-        public Property<HeavyDamageLineType> Type { get; private set; } = new Property<HeavyDamageLineType>(HeavyDamageLineType.Default);
+        public Property<HeavyDamageLineType> Type { get; } = new Property<HeavyDamageLineType>("ui.hd_line.color", HeavyDamageLineType.Default);
 
-        [JsonProperty("width")]
-        public Property<int> Width { get; private set; } = new HeavyDamageLineWidthProperty();
+        public Property<int> Width { get; } = new HeavyDamageLineWidthProperty();
     }
 }

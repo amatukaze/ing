@@ -1,4 +1,6 @@
-﻿using Sakuno.KanColle.Amatsukaze.Internal;
+﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Internal;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
@@ -43,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public IList<BrowserZoomInfo> ZoomFactors { get; }
         public double Zoom
         {
-            get { return Preference.Current.Browser.Zoom; }
+            get { return Preference.Instance.Browser.Zoom; }
             set
             {
                 if (Zoom != value)
@@ -144,7 +146,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void SetZoom(double rpZoom)
         {
-            Preference.Current.Browser.Zoom.Value = rpZoom;
+            Preference.Instance.Browser.Zoom.Value = rpZoom;
             OnPropertyChanged(nameof(Zoom));
 
             foreach (var rInfo in ZoomFactors)
@@ -157,25 +159,30 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void RestartGame()
         {
-            var rDialog = new TaskDialog()
+            var rMode = Preference.Instance.Browser.RefreshConfirmationMode.Value;
+            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie != null))
             {
-                Caption = StringResources.Instance.Main.Product_Name,
-                Instruction = StringResources.Instance.Main.Browser_RestartConfirmation_Instruction,
-                Icon = TaskDialogIcon.Information,
-                Buttons =
+                var rDialog = new TaskDialog()
                 {
-                    new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.Browser_RestartConfirmation_Button_Refresh),
-                    new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.Browser_RestartConfirmation_Button_Stay),
-                },
-                DefaultCommonButton = TaskDialogCommonButton.No,
+                    Caption = StringResources.Instance.Main.Product_Name,
+                    Instruction = StringResources.Instance.Main.Browser_RestartConfirmation_Instruction,
+                    Icon = TaskDialogIcon.Information,
+                    Buttons =
+                    {
+                        new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.Browser_RestartConfirmation_Button_Refresh),
+                        new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.Browser_RestartConfirmation_Button_Stay),
+                    },
+                    DefaultCommonButton = TaskDialogCommonButton.No,
 
-                OwnerWindow = App.Current.MainWindow,
-                ShowAtTheCenterOfOwner = true,
-            };
+                    OwnerWindow = App.Current.MainWindow,
+                    ShowAtTheCenterOfOwner = true,
+                };
 
-            if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.Yes)
-                r_Owner.Navigator.Refresh();
+                if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.No)
+                    return;
+            }
+
+            r_Owner.Navigator.Refresh();
         }
-
     }
 }

@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
 
         public override object ProvideValue(IServiceProvider rpServiceProvider)
         {
-            var rSource = Preference.Current.UI.HeavyDamageLine;
+            var rSource = Preference.Instance.UI.HeavyDamageLine;
             var rResult = new MultiBinding()
             {
                 Mode = BindingMode.OneWay,

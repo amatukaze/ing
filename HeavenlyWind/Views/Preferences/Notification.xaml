@@ -20,8 +20,8 @@
             <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Repair}" />
         </CheckBox>
 
-        <CheckBox IsChecked="{rb:Preference Notification.HeavilyDamagedWarning}" Margin="0, 12, 0, 0">
-            <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_HeavilyDamagedWarning}" />
+        <CheckBox IsChecked="{rb:Preference Notification.HeavyDamageWarning}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_HeavyDamageWarning}" />
         </CheckBox>
 
         <CheckBox IsChecked="{rb:Preference Notification.RecoveryFromFatigue}" Margin="0, 12, 0, 0">
@@ -46,18 +46,18 @@
             <TextBox Text="{rb:Preference Notification.SoundFilename}" IsEnabled="{Binding IsChecked, ElementName=CustomSound}" Margin="6, 0, 0, 0" />
         </DockPanel>
 
-        <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_HeavilyDamagedWarning}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+        <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_HeavyDamageWarning}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
 
-        <RadioButton GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavilyDamagedWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Slient}}" Margin="0, 6, 0, 0">
+        <RadioButton GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavyDamageWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Slient}}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_Slient}" />
         </RadioButton>
-        <RadioButton GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavilyDamagedWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.SystemSound}}" Margin="0, 6, 0, 0">
+        <RadioButton GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavyDamageWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.SystemSound}}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource PreferenceWindow_Notification_Sound_SystemSound}" />
         </RadioButton>
         <DockPanel  Margin="0, 6, 0, 0">
-            <RadioButton Name="CustomSoundHD" GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavilyDamagedWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Custom}}" />
-            <Button Content="..." Command="{Binding OpenCustomSoundFileDialogCommand}" CommandParameter="HeavilyDamaged" IsEnabled="{Binding IsChecked, ElementName=CustomSoundHD}" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
-            <TextBox Text="{rb:Preference Notification.HeavilyDamagedWarningSoundFilename}" IsEnabled="{Binding IsChecked, ElementName=CustomSoundHD}" Margin="6, 0, 0, 0" />
+            <RadioButton Name="CustomSoundHD" GroupName="SoundHD" IsChecked="{rb:Preference Notification.HeavyDamageWarningSound, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:NotificationSound.Custom}}" />
+            <Button Content="..." Command="{Binding OpenCustomSoundFileDialogCommand}" CommandParameter="HeavyDamage" IsEnabled="{Binding IsChecked, ElementName=CustomSoundHD}" Margin="6, 0, 0, 0" DockPanel.Dock="Right" />
+            <TextBox Text="{rb:Preference Notification.HeavyDamageWarningSoundFilename}" IsEnabled="{Binding IsChecked, ElementName=CustomSoundHD}" Margin="6, 0, 0, 0" />
         </DockPanel>
     </StackPanel>
 </UserControl>

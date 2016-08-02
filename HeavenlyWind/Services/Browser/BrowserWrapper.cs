@@ -196,19 +196,20 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         void LoadBrowser(string rpLayoutEngine)
         {
             if (!r_BrowsersDirectory.Exists)
-                throw new Exception();
+                throw new DirectoryNotFoundException(r_BrowsersDirectory.FullName);
 
             foreach (var rFile in r_BrowsersDirectory.EnumerateFiles("*.dll", SearchOption.AllDirectories))
                 FileSystem.Unblock(rFile.FullName);
 
-            var rInfo = r_BrowsersDirectory.EnumerateFiles("*.json").Select(r =>
+            var rInfos = r_BrowsersDirectory.EnumerateFiles("*.json").Select(r =>
             {
                 using (var rReader = new JsonTextReader(File.OpenText(r.FullName)))
                     return JObject.Load(rReader).ToObject<LayoutEngineInfo>();
-            }).SingleOrDefault(r => r.Name == rpLayoutEngine);
+            }).ToArray();
+            var rInfo = rInfos.SingleOrDefault(r => r.Name == rpLayoutEngine);
 
             if (rInfo == null)
-                throw new Exception();
+                throw new Exception($"Assigned layout engine not found.{Environment.NewLine}Current layout engine: {rpLayoutEngine}{Environment.NewLine}Installed layout engine(s):{Environment.NewLine}{rInfos.Select(r => r.Name).Join(Environment.NewLine)}");
 
             if (rInfo.Dependencies != null)
                 r_LayoutEngineDependencies = rInfo.Dependencies.ToHybridDictionary(r => r.AssemblyName, r => r.Path);
@@ -217,7 +218,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             var rType = rAssembly.GetTypes().Where(r => r.GetInterface(typeof(IBrowserProvider).FullName) != null).FirstOrDefault();
 
             if (rType == null)
-                throw new Exception();
+                throw new Exception($"IBrowserProvider not found in {rAssembly.FullName}.");
 
             r_BrowserProvider = (IBrowserProvider)rAssembly.CreateInstance(rType.FullName);
         }

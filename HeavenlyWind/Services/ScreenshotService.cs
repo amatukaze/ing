@@ -124,7 +124,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
         public void OutputAsFile(BitmapSource rpImage)
         {
-            var rPreference = Preference.Current.Browser.Screenshot;
+            var rPreference = Preference.Instance.Browser.Screenshot;
 
             string rExtension;
             BitmapEncoder rEncoder;
@@ -148,7 +148,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 default: throw new InvalidEnumArgumentException(nameof(rPreference.ImageFormat), (int)rPreference.ImageFormat.Value, typeof(ScreenshotImageFormat));
             }
 
-            var rPath = Path.Combine(rPreference.Destination, string.Format(rPreference.FilenameFormat, DateTime.Now, rExtension));
+            var rPath = Path.Combine(rPreference.Path, string.Format(rPreference.FilenameFormat, DateTime.Now, rExtension));
             var rDirectory = Path.GetDirectoryName(rPath);
             if (!Directory.Exists(rDirectory))
                 Directory.CreateDirectory(rDirectory);

@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
     {
         public BrowserZoomInfo(double rpZoom, ICommand rpCommand) : base(rpZoom, rpCommand)
         {
-            r_IsSelected = Preference.Current.Browser.Zoom == rpZoom;
+            r_IsSelected = Preference.Instance.Browser.Zoom == rpZoom;
         }
     }
 }

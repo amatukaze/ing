@@ -39,6 +39,11 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.102.0\lib\net45\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
@@ -79,12 +84,14 @@
     <Compile Include="GameConstants.cs" />
     <Compile Include="HasFlagExtension.cs" />
     <Compile Include="IntegerRangeValidationRule.cs" />
-    <Compile Include="Internal\PreferencePropertyJsonConverter.cs" />
+    <Compile Include="Internal\OldPreference.cs" />
+    <Compile Include="Internal\OldPreferenceMappingAttribute.cs" />
     <Compile Include="LanguageInfo.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LoggingLevel.cs" />
     <Compile Include="Models\CacheMode.cs" />
+    <Compile Include="Models\ConfirmationMode.cs" />
     <Compile Include="Models\FlashQuality.cs" />
     <Compile Include="Models\FlashRenderMode.cs" />
     <Compile Include="Models\FleetFighterPowerFormula.cs" />
@@ -97,7 +104,6 @@
     <Compile Include="Models\Preferences\GamePreference.cs" />
     <Compile Include="Models\Preferences\HeavyDamageLinePreference.cs" />
     <Compile Include="Models\Preferences\HeavyDamageLineWidthProperty.cs" />
-    <Compile Include="Models\Preferences\LayoutPreference.cs" />
     <Compile Include="Models\Preferences\NetworkPreference.cs" />
     <Compile Include="Models\Preferences\NotificationPreference.cs" />
     <Compile Include="Models\Preferences\OtherPreference.cs" />
@@ -146,6 +152,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

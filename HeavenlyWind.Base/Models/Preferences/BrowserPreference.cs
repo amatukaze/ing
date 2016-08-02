@@ -1,28 +1,21 @@
-﻿using Newtonsoft.Json;
-
-namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
+﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class BrowserPreference
     {
-        [JsonProperty("zoom")]
-        public Property<double> Zoom { get; private set; } = new Property<double>(1.0);
+        public Property<double> Zoom { get; } = new Property<double>("browser.zoom", 1.0);
 
-        [JsonProperty("homepage")]
-        public Property<string> Homepage { get; private set; } = new Property<string>("http://www.dmm.com/netgame/social/application/-/detail/=/app_id=854854/");
+        public Property<string> Homepage { get; } = new Property<string>("browser.homepage", "http://www.dmm.com/netgame/social/application/-/detail/=/app_id=854854/");
 
-        [JsonProperty("layoutengine")]
-        public Property<string> CurrentLayoutEngine { get; private set; } = new Property<string>("trident");
+        public Property<string> CurrentLayoutEngine { get; } = new Property<string>("browser.layout_engine", "trident");
 
-        [JsonProperty("flash")]
-        public FlashPreference Flash { get; private set; } = new FlashPreference();
+        public FlashPreference Flash { get; } = new FlashPreference();
 
-        [JsonProperty("screenshot")]
-        public ScreenshotPreference Screenshot { get; private set; } = new ScreenshotPreference();
+        public ScreenshotPreference Screenshot { get; } = new ScreenshotPreference();
 
-        [JsonProperty("action_bar_placement")]
-        public Property<bool> ActionBarPlacement { get; private set; } = new Property<bool>();
+        public Property<bool> ActionBarPlacement { get; } = new Property<bool>("browser.action_bar.placement");
 
-        [JsonProperty("action_bar_stick_to_browser")]
-        public Property<bool> ActionBarStickToBrowser { get; private set; } = new Property<bool>();
+        public Property<bool> ActionBarStickToBrowser { get; } = new Property<bool>("browser.action_bar.stick_to_browser");
+
+        public Property<ConfirmationMode> RefreshConfirmationMode { get; } = new Property<ConfirmationMode>("browser.refresh_confirmation", ConfirmationMode.DuringSortie);
     }
 }

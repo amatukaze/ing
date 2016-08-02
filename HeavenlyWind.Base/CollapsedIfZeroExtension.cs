@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze
         }
 
         public override object ProvideValue(IServiceProvider rpServiceProvider) =>
-            new Binding(r_Path) { Converter = IsEqualToZeroToVisibilityConverter.Instance }.ProvideValue(rpServiceProvider);
+            new Binding(r_Path) { Converter = IsEqualToZeroToVisibilityConverter.Instance, FallbackValue = EnumUtil.GetBoxed(Visibility.Collapsed) }.ProvideValue(rpServiceProvider);
 
         class IsEqualToZeroToVisibilityConverter : IValueConverter
         {
@@ -28,9 +28,9 @@ namespace Sakuno.KanColle.Amatsukaze
             public object Convert(object rpValue, Type rpTargetType, object rpParameter, CultureInfo rpCulture)
             {
                 if (rpValue is double)
-                    return (double)rpValue == .0 ? Visibility.Collapsed : Visibility.Visible;
+                    return (double)rpValue == .0 ? EnumUtil.GetBoxed(Visibility.Collapsed) : EnumUtil.GetBoxed(Visibility.Visible);
                 else
-                    return ConvertClass.ToInt32(rpValue) == 0 ? Visibility.Collapsed : Visibility.Visible;
+                    return ConvertClass.ToInt32(rpValue) == 0 ? EnumUtil.GetBoxed(Visibility.Collapsed) : EnumUtil.GetBoxed(Visibility.Visible);
             }
 
             public object ConvertBack(object rpValue, Type rpTargetType, object rpParameter, CultureInfo rpCulture)

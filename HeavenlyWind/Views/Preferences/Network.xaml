@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Preferences.Network"
+             x:ClassModifier="internal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,7 +14,10 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <CheckBox Name="EnablePortCustomization" Checked="EnablePortCustomization_Checked">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port_Customization}" />
+        </CheckBox>
+        <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=EnablePortCustomization}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port}" />
             <TextBox Text="{rb:Preference Network.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0">
                 <i:Interaction.Behaviors>
@@ -21,9 +25,6 @@
                 </i:Interaction.Behaviors>
             </TextBox>
         </StackPanel>
-        <CheckBox IsChecked="{rb:Preference Network.EnableForSSL}" Margin="0, 6, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_EnableForSSL}" />
-        </CheckBox>
         <CheckBox IsChecked="{rb:Preference Network.AllowRequestsFromOtherDevices}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource PreferenceWindow_Network_AllowRequestsFromOtherDevices}" />
         </CheckBox>
@@ -39,7 +40,7 @@
                 </i:Interaction.Behaviors>
             </TextBox>
 
-            <CheckBox IsChecked="{rb:Preference Network.UpstreamProxy.HttpOnly}" Margin="12, 0, 0, 0">
+            <CheckBox Name="HttpOnly" IsChecked="{rb:Preference Network.UpstreamProxy.HttpOnly}" Margin="12, 0, 0, 0" Checked="HttpOnly_Checked">
                 <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_UseUpstreamProxy_HttpOnly}" />
             </CheckBox>
         </StackPanel>

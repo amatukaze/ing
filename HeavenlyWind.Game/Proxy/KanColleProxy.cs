@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
@@ -18,6 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         static Regex r_SuppressReloadConfirmation = new Regex("(?<=if \\()confirm\\(\"エラーが発生したため、ページ更新します。\"\\)(?=\\) {)");
 
+        static string[] r_BlockingList;
+
         static KanColleProxy()
         {
             FiddlerApplication.BeforeRequest += FiddlerApplication_BeforeRequest;
@@ -26,22 +29,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             FiddlerApplication.BeforeResponse += FiddlerApplication_BeforeResponse;
             FiddlerApplication.BeforeReturningError += FiddlerApplication_BeforeReturningError;
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;
+
+            if (File.Exists(@"Data\BlockingList.lst"))
+                r_BlockingList = File.ReadAllLines(@"Data\BlockingList.lst");
+            else
+                r_BlockingList = ArrayUtil.Empty<string>();
         }
 
         public static void Start()
         {
             var rStartupFlags = FiddlerCoreStartupFlags.ChainToUpstreamGateway;
-            if (Preference.Current.Network.EnableForSSL)
-                rStartupFlags |= FiddlerCoreStartupFlags.DecryptSSL;
-            if (Preference.Current.Network.AllowRequestsFromOtherDevices)
+            if (Preference.Instance.Network.AllowRequestsFromOtherDevices)
                 rStartupFlags |= FiddlerCoreStartupFlags.AllowRemoteClients;
 
-            FiddlerApplication.Startup(Preference.Current.Network.Port, rStartupFlags);
+            FiddlerApplication.Startup(Preference.Instance.Network.Port, rStartupFlags);
         }
 
         static void FiddlerApplication_BeforeRequest(Session rpSession)
         {
-            var rUpstreamProxyPreference = Preference.Current.Network.UpstreamProxy;
+            if (r_BlockingList.Any(rpSession.uriContains))
+            {
+                rpSession.utilCreateResponseAndBypassServer();
+                return;
+            }
+
+            var rUpstreamProxyPreference = Preference.Instance.Network.UpstreamProxy;
             if (rUpstreamProxyPreference.Enabled && (!rUpstreamProxyPreference.HttpOnly || !rpSession.RequestMethod.OICEquals("CONNECT")))
                 rpSession["x-OverrideGateway"] = $"{rUpstreamProxyPreference.Host.Value}:{rUpstreamProxyPreference.Port.Value}";
 
@@ -113,14 +125,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                     var rScript = rpSession.GetResponseBodyAsString();
                     var rModified = false;
 
-                    var rQuality = Preference.Current.Browser.Flash.Quality;
+                    var rQuality = Preference.Instance.Browser.Flash.Quality;
                     if (rQuality != FlashQuality.Default)
                     {
                         rScript = r_FlashQualityRegex.Replace(rScript, $"$1{rQuality}$2");
                         rModified = true;
                     }
 
-                    var rRenderMode = Preference.Current.Browser.Flash.RenderMode;
+                    var rRenderMode = Preference.Instance.Browser.Flash.RenderMode;
                     if (rRenderMode != FlashRenderMode.Default)
                     {
                         rScript = r_FlashRenderModeRegex.Replace(rScript, $"$1{rRenderMode}$2");

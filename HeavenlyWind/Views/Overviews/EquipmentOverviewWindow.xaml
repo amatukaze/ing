@@ -10,6 +10,7 @@
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_EquipmentOverview}"
                   Width="1024" Height="600"
+                  WindowPlacementPreference="{StaticResource WindowPlacementPreference}"
                   UseLayoutRounding="True">
     <Window.Resources>
         <Style x:Key="ShipItemsControlStyle" TargetType="{x:Type ItemsControl}">

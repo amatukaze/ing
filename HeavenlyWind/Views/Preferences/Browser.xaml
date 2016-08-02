@@ -59,5 +59,18 @@
         <CheckBox IsChecked="{rb:Preference Browser.ActionBarStickToBrowser}" Margin="0, 0, 0, 6">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Placement_StickToBrowser}" />
         </CheckBox>
+
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_RefreshConfirmation}" />
+            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:ConfirmationMode}}" SelectedValue="{rb:Preference Browser.RefreshConfirmationMode}" Width="150" Margin="6, 0, 0, 0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{rb:EnumToStringResource ., PreferenceWindow_Browser_RefreshConfirmation}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
     </StackPanel>
 </UserControl>

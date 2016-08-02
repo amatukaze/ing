@@ -63,8 +63,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         unsafe void CheckProxyPort()
         {
-            var rPort = Preference.Current.Network.Port;
-            var rUpstreamProxy = Preference.Current.Network.UpstreamProxy;
+            var rPort = Preference.Instance.Network.Port;
+            var rUpstreamProxy = Preference.Instance.Network.UpstreamProxy;
 
             var rIsPortAvailable = true;
             var rIsUpstreamProxyAvailable = false;

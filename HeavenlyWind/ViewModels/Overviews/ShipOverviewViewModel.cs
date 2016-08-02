@@ -113,7 +113,19 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             r_TypeMap = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 12 && r.ID != 15).ToDictionary(IdentityFunction<ShipTypeInfo>.Instance, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
             Types = r_TypeMap.Values.ToArray().AsReadOnly();
 
+            var rSelectedTypes = Preference.Instance.Game.SelectedShipTypes.Value;
+            if (rSelectedTypes != null)
+                foreach (var rID in rSelectedTypes)
+                {
+                    ShipTypeInfo rShipType;
+                    ShipTypeViewModel rTypeVM;
+                    if (KanColleGame.Current.MasterInfo.ShipTypes.TryGetValue(rID, out rShipType) && r_TypeMap.TryGetValue(rShipType, out rTypeVM))
+                        rTypeVM.SetIsSelectedWithoutCallback(true);
+                }
+
             r_UpdateSubscription = r_UpdateObservable.Do(_ => IsLoading = true).Throttle(TimeSpan.FromSeconds(.75)).Subscribe(_ => UpdateCore());
+
+            UpdateSelectionCore();
         }
 
         public void Dispose()
@@ -137,6 +149,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         void UpdateSelection()
         {
+            UpdateSelectionCore();
+
+            Preference.Instance.Game.SelectedShipTypes.Value = Types.Where(r => r.IsSelected).Select(r => r.ID).ToArray();
+        }
+        void UpdateSelectionCore()
+        {
             var rTypeCount = Types.Count;
             var rSelectedCount = Types.Count(r => r.IsSelected);
 
@@ -147,8 +165,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             else
                 r_SelectAllTypes = null;
 
-            r_UpdateObservable.OnNext(Unit.Default);
             OnPropertyChanged(nameof(SelectAllTypes));
+
+            r_UpdateObservable.OnNext(Unit.Default);
         }
 
         void UpdateCore()

@@ -14,6 +14,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Expedition
 
             var rLogContent = string.Format(StringResources.Instance.Main.Log_ExpeditionResult,
                 rFleet.ID, rFleet.Name, rExpedition.ID, rExpedition.TranslatedName, GetStringFromExpeditionResult(rpData.Result));
+
+            var rBucketCount = 0;
+            if (rpData.RewardItems[0] == 1)
+                rBucketCount = rpData.Item1.Count;
+            else if (rpData.RewardItems[0] == 1)
+                rBucketCount = rpData.Item2.Count;
+
+            if (rBucketCount > 0)
+                rLogContent += " [icon]bucket[/icon]" + rBucketCount;
+
             Logger.Write(LoggingLevel.Info, rLogContent);
         }
 

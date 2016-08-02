@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -163,8 +164,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         #region Equipment
 
         int[] r_EquipmentIDs;
-        ReadOnlyCollection<ShipSlot> r_Slots;
-        public ReadOnlyCollection<ShipSlot> Slots
+        IList<ShipSlot> r_Slots;
+        public IList<ShipSlot> Slots
         {
             get { return r_Slots; }
             private set
@@ -191,8 +192,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        ReadOnlyCollection<Equipment> r_EquipedEquipment;
-        public ReadOnlyCollection<Equipment> EquipedEquipment
+        IList<Equipment> r_EquipedEquipment;
+        public IList<Equipment> EquipedEquipment
         {
             get { return r_EquipedEquipment; }
             private set
@@ -223,7 +224,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             else
             {
                 if (Info?.ID != RawData.ShipID)
+                {
                     r_EquipmentIDs = null;
+                    r_Slots = null;
+                }
 
                 Info = rInfo;
                 OnPropertyChanged(nameof(Info));
@@ -272,7 +276,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rUpdateList = false;
 
             if (Slots == null || Slots.Count != RawData.SlotCount)
-                Slots = Enumerable.Range(0, RawData.SlotCount).Select(r => new ShipSlot(Info.PlaneCountInSlot[r], RawData.PlaneCountInSlot[r])).ToList().AsReadOnly();
+                Slots = Enumerable.Range(0, RawData.SlotCount).Select(r => new ShipSlot(Info.PlaneCountInSlot[r], RawData.PlaneCountInSlot[r])).ToArray();
 
             if (r_EquipmentIDs == null || !r_EquipmentIDs.SequenceEqual(RawData.Equipment))
             {
@@ -319,7 +323,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (ExtraSlot != null && ExtraSlot.HasEquipment)
                     rList = rList.Concat(new[] { ExtraSlot.Equipment });
 
-                EquipedEquipment = rList.ToArray().AsReadOnly();
+                EquipedEquipment = rList.ToArray();
                 rUpdateList = false;
             }
         }

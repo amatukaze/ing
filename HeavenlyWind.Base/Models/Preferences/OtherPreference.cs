@@ -1,13 +1,9 @@
-﻿using Newtonsoft.Json;
-
-namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
+﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class OtherPreference
     {
-        [JsonProperty("panic_key")]
-        public PanicKeyPreference PanicKey { get; private set; } = new PanicKeyPreference();
+        public PanicKeyPreference PanicKey { get; } = new PanicKeyPreference();
 
-        [JsonProperty("session_tool")]
-        public SessionToolPreference SessionTool { get; private set; } = new SessionToolPreference();
+        public SessionToolPreference SessionTool { get; } = new SessionToolPreference();
     }
 }

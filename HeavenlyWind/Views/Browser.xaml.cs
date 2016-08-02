@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Services;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Views
 {
@@ -19,7 +18,11 @@ namespace Sakuno.KanColle.Amatsukaze.Views
             Instance = this;
 
             if (!DesignerProperties.GetIsInDesignMode(this))
+            {
                 BrowserService.Instance.Initialize();
+
+                ((MainWindow)App.Current.MainWindow).SubscribeBrowserPreferenceChanged();
+            }
 
             InitializeComponent();
         }

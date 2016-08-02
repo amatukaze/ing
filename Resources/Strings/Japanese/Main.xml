@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.11">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.11.4">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -13,14 +13,14 @@
   <String Key="Log_Exception_API_Failed">API「{0}」のエラーコードを受信しました: {1}</String>
   <String Key="Log_Exception_API_ParseException">API の解析中にエラーが発生しました: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">ファイルの保存に失敗しました: {0}</String>
-  <String Key="Log_ExpeditionResult">/{0}「{1}」が遠征「{2}:{3}」から帰投しました。(結果:{4})</String>
-  <String Key="Log_StartConstruction">「{0}」の建造を開始しました。(投入した資材:{1}/{2}/{3}/{4}-{5})</String>
-  <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材:{1}/{2}/{3}/{4})</String>
-  <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材:{0}/{1}/{2}/{3})</String>
+  <String Key="Log_ExpeditionResult">/{0}「{1}」が遠征「{2}:{3}」から帰投しました。(結果: [b]{4}[/b])</String>
+  <String Key="Log_StartConstruction">「{0}」の建造を開始しました。(投入した資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
+  <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
-  <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
-  <String Key="Log_ShipAndItem_Dropped">「{0}」や「{1}」がドロップしました</String>
+  <String Key="Log_ShipOrItem_Dropped">「[b]{0}[/b]」がドロップしました</String>
+  <String Key="Log_ShipAndItem_Dropped">「[b]{0}[/b]」や「[b]{0}[/b]」がドロップしました</String>
   <String Key="Log_Screenshot_Failed">スクリーンショットの保存に失敗しました: {0}</String>
   <String Key="Log_Screenshot_Failed_FlashElementNotFound">Flash 要素が見つかりません</String>
   <String Key="Log_Screenshot_Failed_NoData">ブラウザからのスクリーンショットデータはありません</String>
@@ -33,8 +33,8 @@
   <String Key="Notification_Repair_Content">「{0}」の修理が完了しました。</String>
   <String Key="Notification_Construction">建造完了</String>
   <String Key="Notification_Construction_Content">「{0}」の建造が完了しました。</String>
-  <String Key="Notification_HeavilyDamagedWarning">大破警告</String>
-  <String Key="Notification_HeavilyDamagedWarning_Content">大破した艦娘がいます。</String>
+  <String Key="Notification_HeavyDamageWarning">大破警告</String>
+  <String Key="Notification_HeavyDamageWarning_Content">大破した艦娘がいます。</String>
   <String Key="Notification_AdvanceWarning">進撃警告</String>
   <String Key="Notification_AdvanceWarning_Content">大破状態で進撃し、轟沈の恐れがあります。</String>
   <String Key="Notification_RecoveryFromFatigue">疲労回復完了</String>
@@ -306,11 +306,24 @@
 
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
-  <String Key="PreferenceWindow_Network_EnableForSSL">SSL 接続時もプロキシを使用する</String>
+  <String Key="PreferenceWindow_Network_Port_Customization">待ち受けポート設定</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Instruction">ちょっと待ってください</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Content">これはブラウザからのデータを受信するために使用される	
+ローカルプロキシのポートです。</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_Yes">設定します</String>
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_No">設定しません</String>
   <String Key="PreferenceWindow_Network_AllowRequestsFromOtherDevices">他のデバイスからのリクエストを許可する (非推奨：セキュリティリスク)</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy">上流プロキシを使用する</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly">HTTP 接続のみ</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Instruction">ちょっと待ってください</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">この上流プロキシが HTTPS 接続を受信しないことを確信しますか？</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">はい</String>
+  <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">いいえ</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation">アプリ終了時の確認動作</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">確認しない</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_DuringSortie">出撃の時に確認する</String>
+  <String Key="PreferenceWindow_Window_CloseConfirmation_Always">常に確認する</String>
   <String Key="PreferenceWindow_Window_Font">フォント</String>
   <String Key="PreferenceWindow_Window_Layout">レイアウト</String>
   <String Key="PreferenceWindow_Window_Layout_Landscape">レイアウトモード</String>
@@ -341,11 +354,11 @@
   <String Key="PreferenceWindow_Notification_Construction">建造完了を通知する</String>
   <String Key="PreferenceWindow_Notification_Expedition">遠征帰投を通知する</String>
   <String Key="PreferenceWindow_Notification_Repair">入渠完了を通知する</String>
-  <String Key="PreferenceWindow_Notification_HeavilyDamagedWarning">大破艦・大破進撃を通知する</String>
+  <String Key="PreferenceWindow_Notification_HeavyDamageWarning">大破艦・大破進撃を通知する</String>
   <String Key="PreferenceWindow_Notification_RecoveryFromFatigue">疲労回復を通知する</String>
   <String Key="PreferenceWindow_Notification_AnchorageRepair">泊地修理の開始から 20 分が経過して通知する</String>
   <String Key="PreferenceWindow_Notification_Sound">サウンド</String>
-  <String Key="PreferenceWindow_Notification_Sound_HeavilyDamagedWarning">サウンド (大破警告)</String>
+  <String Key="PreferenceWindow_Notification_Sound_HeavyDamageWarning">サウンド (大破警告)</String>
   <String Key="PreferenceWindow_Notification_Sound_Slient">なし</String>
   <String Key="PreferenceWindow_Notification_Sound_SystemSound">システムサウンド</String>
   <String Key="PreferenceWindow_Notification_SoundFileType">音声ファイル</String>
@@ -361,6 +374,10 @@
   <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">アクションバーを下部に表示する</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">アクションバーをブラウザの隣に表示する</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation">ブラウザを再読み込み時の確認動作</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Disabled">確認しない</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_DuringSortie">出撃の時に確認する</String>
+  <String Key="PreferenceWindow_Browser_RefreshConfirmation_Always">常に確認する</String>
   <String Key="PreferenceWindow_Screenshot">スクリーンショット</String>
   <String Key="PreferenceWindow_Screenshot_Folder">保存先</String>
   <String Key="PreferenceWindow_Other">その他</String>

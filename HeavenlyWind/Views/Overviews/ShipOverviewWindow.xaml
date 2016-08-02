@@ -11,6 +11,7 @@
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_ShipOverview}"
                   Width="1200" Height="720"
+                  WindowPlacementPreference="{StaticResource WindowPlacementPreference}"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
         <ResourceDictionary>

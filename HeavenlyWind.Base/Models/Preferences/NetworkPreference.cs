@@ -1,19 +1,11 @@
-﻿using Newtonsoft.Json;
-
-namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
+﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class NetworkPreference
     {
-        [JsonProperty("port")]
-        public Property<int> Port { get; private set; } = new Property<int>(15820);
+        public Property<int> Port { get; } = new Property<int>("network.port", 15820);
 
-        [JsonProperty("enableforssl")]
-        public Property<bool> EnableForSSL { get; private set; } = new Property<bool>();
+        public Property<bool> AllowRequestsFromOtherDevices { get; } = new Property<bool>("network.allow_remote_requests");
 
-        [JsonProperty("allowremoterequests")]
-        public Property<bool> AllowRequestsFromOtherDevices { get; private set; } = new Property<bool>();
-
-        [JsonProperty("upstreamproxy")]
-        public UpstreamProxyPreference UpstreamProxy { get; private set; } = new UpstreamProxyPreference();
+        public UpstreamProxyPreference UpstreamProxy { get; } = new UpstreamProxyPreference();
     }
 }

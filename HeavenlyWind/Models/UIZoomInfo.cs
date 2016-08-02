@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
     {
         public UIZoomInfo(double rpZoom, ICommand rpCommand) : base(rpZoom, rpCommand)
         {
-            r_IsSelected = Preference.Current.UI.Zoom == rpZoom;
+            r_IsSelected = Preference.Instance.UI.Zoom == rpZoom;
         }
     }
 }

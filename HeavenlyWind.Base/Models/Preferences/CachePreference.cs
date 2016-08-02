@@ -1,24 +1,9 @@
-﻿using Newtonsoft.Json;
-using System.IO;
-using System.Linq;
-
-namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
+﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class CachePreference
     {
-        [JsonProperty("mode")]
-        public Property<CacheMode> Mode { get; private set; } = new Property<CacheMode>();
+        public Property<CacheMode> Mode { get; } = new Property<CacheMode>("cache.mode");
 
-        [JsonProperty("path")]
-        public Property<string> Path { get; private set; } = new Property<string>("Cache");
-
-        public CachePreference()
-        {
-            var rDirectory = new DirectoryInfo(Path);
-            if (rDirectory.Exists && rDirectory.EnumerateFiles("*.swf", SearchOption.AllDirectories).Any())
-                Mode.Value = CacheMode.FullTrust;
-            else
-                Mode.Value = CacheMode.Disabled;
-        }
+        public Property<string> Path { get; } = new Property<string>("cache.path", "Cache");
     }
 }

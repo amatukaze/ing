@@ -9,8 +9,8 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
     {
         public NativeStructs.WINDOWPLACEMENT? Load(Window rpWindow)
         {
-            WindowPreference rPlacement;
-            if (!Preference.Current.Windows.Landscape.TryGetValue(rpWindow.GetType().FullName, out rPlacement))
+            var rPlacement = Preference.Instance.Windows.LoadPlacement(rpWindow.GetType().FullName);
+            if (rPlacement == null)
                 return null;
 
             var rResult = new NativeStructs.WINDOWPLACEMENT()
@@ -41,6 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
             var rPreference = new WindowPreference()
             {
                 Name = rpWindow.GetType().FullName,
+
                 Left = rpData.rcNormalPosition.Left,
                 Top = rpData.rcNormalPosition.Top,
                 Width = rpData.rcNormalPosition.Right - rpData.rcNormalPosition.Left,
@@ -48,7 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
                 State = rpWindow.WindowState,
             };
 
-            Preference.Current.Windows.Landscape[rPreference.Name] = rPreference;
+            Preference.Instance.Windows.SavePlacement(rPreference);
         }
     }
 }

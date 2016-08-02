@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json;
-
-namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
+﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public class PanicKeyPreference
     {
-        [JsonProperty("enabled")]
-        public Property<bool> Enabled { get; private set; } = new Property<bool>();
+        public Property<bool> Enabled { get; } = new Property<bool>("other.panic_key.enabled");
 
-        [JsonProperty("modifier_keys")]
-        public Property<int> ModifierKeys { get; private set; } = new Property<int>();
+        public Property<int> ModifierKeys { get; } = new Property<int>("other.panic_key.modifier_keys");
 
-        [JsonProperty("key")]
-        public Property<int> Key { get; private set; } = new Property<int>();
+        public Property<int> Key { get; } = new Property<int>("other.panic_key.key");
 
         public void UpdateKey(int rpModiferKeys, int rpKey)
         {

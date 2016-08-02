@@ -46,17 +46,17 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     {
                         rFleet.ExpeditionStatus.Returned += (rpFleetName, rpExpeditionName) =>
                         {
-                            if (Preference.Current.Notification.Expedition)
+                            if (Preference.Instance.Notification.Expedition)
                                 Show(StringResources.Instance.Main.Notification_Expedition, string.Format(StringResources.Instance.Main.Notification_Expedition_Content, rpFleetName, rpExpeditionName));
                         };
                         rFleet.ConditionRegeneration.Recovered += rpFleet =>
                         {
-                            if (Preference.Current.Notification.RecoveryFromFatigue)
+                            if (Preference.Instance.Notification.RecoveryFromFatigue)
                                 Show(StringResources.Instance.Main.Notification_RecoveryFromFatigue, string.Format(StringResources.Instance.Main.Notification_RecoveryFromFatigue_Content, rpFleet.Name));
                         };
                         rFleet.AnchorageRepair.InterruptionNotification += () =>
                         {
-                            if (Preference.Current.Notification.AnchorageRepair)
+                            if (Preference.Instance.Notification.AnchorageRepair)
                                 Show(StringResources.Instance.Main.Notification_AnchorageRepair, StringResources.Instance.Main.Notification_AnchorageRepair_Content);
                         };
                     }
@@ -68,7 +68,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     foreach (var rConstructionDock in rPort.ConstructionDocks.Values)
                         rConstructionDock.ConstructionCompleted += rpShipName =>
                         {
-                            if (Preference.Current.Notification.Construction)
+                            if (Preference.Instance.Notification.Construction)
                                 Show(StringResources.Instance.Main.Notification_Construction, string.Format(StringResources.Instance.Main.Notification_Construction_Content, rpShipName));
                         };
                 });
@@ -77,13 +77,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     foreach (var rRepairDock in rPort.RepairDocks.Values)
                         rRepairDock.RepairCompleted += rpShipName =>
                         {
-                            if (Preference.Current.Notification.Repair)
+                            if (Preference.Instance.Notification.Repair)
                                 Show(StringResources.Instance.Main.Notification_Repair, string.Format(StringResources.Instance.Main.Notification_Repair_Content, rpShipName));
                         };
                 });
             });
 
-            InitializeHeavilyDamagedWarning(rGamePCEL);
+            InitializeHeavyDamageWarning(rGamePCEL);
         }
         static void InstallShortcut()
         {
@@ -119,14 +119,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 };
         }
 
-        void InitializeHeavilyDamagedWarning(PropertyChangedEventListener rpGamePCEL)
+        void InitializeHeavyDamageWarning(PropertyChangedEventListener rpGamePCEL)
         {
             SessionService.Instance.Subscribe("api_get_member/mapinfo", delegate
             {
                 var rFleetWithHeavilyDamagedShips = KanColleGame.Current.Port.Fleets.Table.Values.Where(r => (r.State & FleetState.HeavilyDamaged) == FleetState.HeavilyDamaged);
-                if (Preference.Current.Notification.HeavilyDamagedWarning && rFleetWithHeavilyDamagedShips.Any())
+                if (Preference.Instance.Notification.HeavyDamageWarning && rFleetWithHeavilyDamagedShips.Any())
                 {
-                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content, rFleetWithHeavilyDamagedShips.SelectMany(r => r.Ships).Where(r => (r.State & ShipState.HeavilyDamaged) == ShipState.HeavilyDamaged));
+                    ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_HeavyDamageWarning, StringResources.Instance.Main.Notification_HeavyDamageWarning_Content, rFleetWithHeavilyDamagedShips.SelectMany(r => r.Ships).Where(r => (r.State & ShipState.HeavilyDamaged) == ShipState.HeavilyDamaged));
                     FlashWindow();
                 }
             });
@@ -135,9 +135,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 var rBattle = BattleInfo.Current.CurrentStage;
 
                 var rHeavilyDamagedShips = rBattle.Friend.Where(r => r.State == BattleParticipantState.HeavilyDamaged).Select(r => ((FriendShip)r.Participant).Ship).ToArray();
-                if (Preference.Current.Notification.HeavilyDamagedWarning && rHeavilyDamagedShips.Length > 0)
+                if (Preference.Instance.Notification.HeavyDamageWarning && rHeavilyDamagedShips.Length > 0)
                 {
-                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_HeavilyDamagedWarning, StringResources.Instance.Main.Notification_HeavilyDamagedWarning_Content, rHeavilyDamagedShips);
+                    ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_HeavyDamageWarning, StringResources.Instance.Main.Notification_HeavyDamageWarning_Content, rHeavilyDamagedShips);
                     FlashWindow();
                 }
             });
@@ -150,9 +150,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
                 var rHeavilyDamagedShips = rParticipants.Where(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)).ToArray();
-                if (Preference.Current.Notification.HeavilyDamagedWarning && rHeavilyDamagedShips.Length > 0)
+                if (Preference.Instance.Notification.HeavyDamageWarning && rHeavilyDamagedShips.Length > 0)
                 {
-                    ShowHeavilyDamagedWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content, rHeavilyDamagedShips);
+                    ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content, rHeavilyDamagedShips);
                     FlashWindow();
                 }
             });
@@ -168,8 +168,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
         }
 
-        public void Show(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Current.Notification.Sound, Preference.Current.Notification.SoundFilename);
-        public void ShowHeavilyDamagedWarning(string rpTitle, string rpBody, IEnumerable<Ship> rpHeavilyDamagedShips)
+        public void Show(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Instance.Notification.Sound, Preference.Instance.Notification.SoundFilename);
+        public void ShowHeavyDamageWarning(string rpTitle, string rpBody, IEnumerable<Ship> rpHeavilyDamagedShips)
         {
             var rBuilder = new StringBuilder(64);
             foreach (var rShip in rpHeavilyDamagedShips)
@@ -180,7 +180,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 rBuilder.Append(rShip.Info.TranslatedName).Append(' ').Append("Lv.").Append(rShip.Level);
             }
 
-            ShowCore(rpTitle, rpBody, Preference.Current.Notification.HeavilyDamagedWarningSound, Preference.Current.Notification.HeavilyDamagedWarningSoundFilename, rBuilder.ToString());
+            ShowCore(rpTitle, rpBody, Preference.Instance.Notification.HeavyDamageWarningSound, Preference.Instance.Notification.HeavyDamageWarningSoundFilename, rBuilder.ToString());
         }
         void ShowCore(string rpTitle, string rpBody, NotificationSound rpSound, string rpCustomSoundFilename, string rpSecondLine = null)
         {

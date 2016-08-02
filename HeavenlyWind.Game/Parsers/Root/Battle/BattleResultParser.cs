@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
     {
         public override void Process(RawBattleResult rpData)
         {
-            if (!Preference.Current.Game.ShowDrop)
+            if (!Preference.Instance.Game.ShowDrop)
                 return;
 
             if (rpData.DroppedShip != null && rpData.DroppedItem != null)

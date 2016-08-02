@@ -1,5 +1,8 @@
-﻿using Sakuno.KanColle.Amatsukaze.Models;
+﻿using Sakuno.KanColle.Amatsukaze.Controls;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +12,8 @@ using System.Net.Sockets;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
@@ -94,12 +99,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     }
             }));
 
-            UIZoom = Preference.Current.UI.Zoom;
+            UIZoom = Preference.Instance.UI.Zoom;
 
             UISetZoomCommand = new DelegatedCommand<double>(SetZoom);
             UIZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new UIZoomInfo(r, UISetZoomCommand)).ToArray();
             UIZoomInCommand = new DelegatedCommand(() => SetZoom(UIZoom + .05));
             UIZoomOutCommand = new DelegatedCommand(() => SetZoom(UIZoom - .05));
+
+            RegisterCustomBBCodeTag();
         }
 
         async Task<bool> QueryCurrentTime(string rpHostname)
@@ -159,12 +166,46 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             UpdateZoomSelection(rpZoom);
 
             UIZoom = rpZoom;
-            Preference.Current.UI.Zoom.Value = rpZoom;
+            Preference.Instance.UI.Zoom.Value = rpZoom;
         }
         void UpdateZoomSelection(double rpZoom)
         {
             foreach (var rInfo in UIZoomFactors)
                 rInfo.IsSelected = rInfo.Zoom == rpZoom;
+        }
+
+        void RegisterCustomBBCodeTag()
+        {
+            BBCodeBlock.AddCustomTag("icon", rpInline =>
+            {
+                var rSpan = rpInline as Span;
+                if (rSpan == null || rSpan.Inlines.Count != 1)
+                    return null;
+
+                var rRun = rSpan.Inlines.FirstInline as Run;
+                if (rRun == null)
+                    return null;
+
+                var rMaterial = rRun.Text;
+                if (rMaterial.OICEquals("fuel"))
+                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Fuel }) { BaselineAlignment = BaselineAlignment.Center };
+                if (rMaterial.OICEquals("bullet"))
+                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Bullet }) { BaselineAlignment = BaselineAlignment.Center };
+                if (rMaterial.OICEquals("steel"))
+                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Steel }) { BaselineAlignment = BaselineAlignment.Center };
+                if (rMaterial.OICEquals("bauxite"))
+                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Bauxite }) { BaselineAlignment = BaselineAlignment.Center };
+                if (rMaterial.OICEquals("ic"))
+                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.InstantConstruction }) { BaselineAlignment = BaselineAlignment.Center };
+                if (rMaterial.OICEquals("bucket"))
+                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Bucket }) { BaselineAlignment = BaselineAlignment.Center };
+                if (rMaterial.OICEquals("dm"))
+                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.DevelopmentMaterial }) { BaselineAlignment = BaselineAlignment.Center };
+                if (rMaterial.OICEquals("im"))
+                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.ImprovementMaterial }) { BaselineAlignment = BaselineAlignment.Center };
+
+                return null;
+            });
         }
     }
 }

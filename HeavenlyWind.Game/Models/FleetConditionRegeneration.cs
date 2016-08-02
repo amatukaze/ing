@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 return;
             }
 
-            var rCeiling = Preference.Current.Game.FatigueCeiling;
+            var rCeiling = Preference.Instance.Game.FatigueCeiling;
 
             var rLowestCondition = r_Fleet.Ships.Min(r => r.Condition);
             if (rLowestCondition >= rCeiling)
