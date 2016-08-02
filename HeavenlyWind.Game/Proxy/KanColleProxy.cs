@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
+using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
@@ -18,6 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         static Regex r_SuppressReloadConfirmation = new Regex("(?<=if \\()confirm\\(\"エラーが発生したため、ページ更新します。\"\\)(?=\\) {)");
 
+        static string[] r_BlockingList;
+
         static KanColleProxy()
         {
             FiddlerApplication.BeforeRequest += FiddlerApplication_BeforeRequest;
@@ -26,6 +29,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             FiddlerApplication.BeforeResponse += FiddlerApplication_BeforeResponse;
             FiddlerApplication.BeforeReturningError += FiddlerApplication_BeforeReturningError;
             FiddlerApplication.AfterSessionComplete += FiddlerApplication_AfterSessionComplete;
+
+            if (File.Exists(@"Data\BlockingList.lst"))
+                r_BlockingList = File.ReadAllLines(@"Data\BlockingList.lst");
+            else
+                r_BlockingList = ArrayUtil.Empty<string>();
         }
 
         public static void Start()
@@ -39,6 +47,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         static void FiddlerApplication_BeforeRequest(Session rpSession)
         {
+            if (r_BlockingList.Any(rpSession.uriContains))
+            {
+                rpSession.utilCreateResponseAndBypassServer();
+                return;
+            }
+
             var rUpstreamProxyPreference = Preference.Instance.Network.UpstreamProxy;
             if (rUpstreamProxyPreference.Enabled && (!rUpstreamProxyPreference.HttpOnly || !rpSession.RequestMethod.OICEquals("CONNECT")))
                 rpSession["x-OverrideGateway"] = $"{rUpstreamProxyPreference.Host.Value}:{rUpstreamProxyPreference.Port.Value}";
