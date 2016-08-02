@@ -17,7 +17,7 @@
         }
         public bool HasEquipment => Equipment != null && Equipment != Equipment.Dummy;
 
-        public int MaxPlaneCount { get; set; }
+        public int MaxPlaneCount { get; internal set; }
 
         int r_PlaneCount;
         public int PlaneCount
