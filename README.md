@@ -3,7 +3,7 @@
 艦これ補助ツール「いんてりじぇんと連装砲くん」（智能型连装炮君 / ING）
 
 ### Information
-Current version: **0.1.11.3 (Kraken)**
+Current version: **0.1.11.4 (Kraken)**
 
 [Changelogs](https://github.com/amatukaze/IntelligentNavalGun/wiki/Changelogs) here
 
