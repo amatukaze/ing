@@ -69,8 +69,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Preferences
                 OwnerWindow = WindowUtil.GetTopWindow(),
                 ShowAtTheCenterOfOwner = true,
             };
-
-            if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.No)
+            if (rDialog.ShowAndDispose().ClickedCommonButton == TaskDialogCommonButton.No)
                 HttpOnly.IsChecked = false;
         }
     }

@@ -139,8 +139,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
                     OwnerWindow = WindowUtil.GetTopWindow(),
                     ShowAtTheCenterOfOwner = true,
-                }.Show();
-
+                }.ShowAndDispose();
                 if (rResult.SelectedButton == rButton)
                     Process.Start(rFilename);
             }

@@ -178,7 +178,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                     ShowAtTheCenterOfOwner = true,
                 };
 
-                if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.No)
+                if (rDialog.ShowAndDispose().ClickedCommonButton == TaskDialogCommonButton.No)
                     return;
             }
 

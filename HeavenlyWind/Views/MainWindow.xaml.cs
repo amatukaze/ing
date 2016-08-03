@@ -57,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
                     OwnerWindow = this,
                     ShowAtTheCenterOfOwner = true,
                 };
-                if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.No)
+                if (rDialog.ShowAndDispose().ClickedCommonButton == TaskDialogCommonButton.No)
                 {
                     e.Cancel = true;
                     return;

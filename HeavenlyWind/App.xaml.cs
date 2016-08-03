@@ -153,7 +153,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 }; ;
             }
 
-            rDialog.Show();
+            rDialog.ShowAndDispose();
         }
     }
 }

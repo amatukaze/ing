@@ -68,6 +68,8 @@
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">ブラウザをフィット</String>
+  <String Key="Browser_Navigator_SetCookie">クッキーを設定する</String>
+  <String Key="Browser_Navigator_SetCookie_Instruction">クッキーを設定に成功しました。</String>
   <String Key="Browser_RestartConfirmation_Instruction">何をしたいですか？</String>
   <String Key="Browser_RestartConfirmation_Button_Refresh">再読み込みします</String>
   <String Key="Browser_RestartConfirmation_Button_Stay">留まります</String>

@@ -72,6 +72,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 
         public string Browser_Navigator_ResizeBrowserToFitGame => GetString(nameof(Browser_Navigator_ResizeBrowserToFitGame));
+        public string Browser_Navigator_SetCookie => GetString(nameof(Browser_Navigator_SetCookie));
+        public string Browser_Navigator_SetCookie_Instruction => GetString(nameof(Browser_Navigator_SetCookie_Instruction));
         public string Browser_RestartConfirmation_Instruction => GetString(nameof(Browser_RestartConfirmation_Instruction));
         public string Browser_RestartConfirmation_Button_Refresh => GetString(nameof(Browser_RestartConfirmation_Button_Refresh));
         public string Browser_RestartConfirmation_Button_Stay => GetString(nameof(Browser_RestartConfirmation_Button_Stay));

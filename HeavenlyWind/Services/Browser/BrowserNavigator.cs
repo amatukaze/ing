@@ -1,4 +1,5 @@
-﻿using Sakuno.UserInterface;
+﻿using Sakuno.SystemInterop;
+using Sakuno.UserInterface;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -72,6 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public ICommand RefreshCommand { get; }
 
         public ICommand ResizeBrowserToFitGameCommand { get; }
+        public ICommand SetCookieCommand { get; }
         public ICommand ShowSessionToolCommand => App.Root.GameInformation.Tools.ShowSessionToolCommand;
 
         public BrowserNavigator(BrowserService rpOwner)
@@ -93,6 +95,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             GoForwardCommand = new DelegatedCommand(GoForward);
             NavigateCommand = new DelegatedCommand(Navigate);
             RefreshCommand = new DelegatedCommand(Refresh);
+
+            SetCookieCommand = new DelegatedCommand(SetCookie);
 
             ResizeBrowserToFitGameCommand = new DelegatedCommand(ResizeBrowserToFitGame);
         }
@@ -117,5 +121,29 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         }
 
         public void ResizeBrowserToFitGame() => r_Owner.ResizeBrowserToFitGame();
+
+        void SetCookie()
+        {
+            var rYear = DateTime.Now.AddYears(4).ToString("yyyy");
+            var rScript = $"javascript:void(eval(\"document.cookie = 'ckcy=1;expires=Sun, 09 Feb {rYear} 09:00:09 GMT;domain=osapi.dmm.com;path=/'; document.cookie = 'ckcy=1;expires=Sun, 09 Feb  {rYear} 09:00:09 GMT;domain=203.104.209.7;path=/'; document.cookie = 'ckcy=1;expires=Sun, 09 Feb  {rYear} 09:00:09 GMT;domain=www.dmm.com;path=/netgame/';\")); location.href = \"{Url}\";";
+
+            Uri rUri;
+            if (!Uri.TryCreate(rScript, UriKind.Absolute, out rUri))
+                return;
+
+            r_Owner.Communicator.Write(CommunicatorMessages.Navigate + ":" + rUri.ToString());
+
+            var rDialog = new TaskDialog()
+            {
+                Caption = StringResources.Instance.Main.Product_Name,
+                Instruction = StringResources.Instance.Main.Browser_Navigator_SetCookie_Instruction,
+                Icon = TaskDialogIcon.Information,
+
+                OwnerWindow = App.Current.MainWindow,
+                ShowAtTheCenterOfOwner = true,
+            };
+
+            rDialog.ShowAndDispose();
+        }
     }
 }
