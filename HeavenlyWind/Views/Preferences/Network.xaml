@@ -14,7 +14,7 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <CheckBox Name="EnablePortCustomization" Checked="EnablePortCustomization_Checked">
+        <CheckBox Name="EnablePortCustomization">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port_Customization}" />
         </CheckBox>
         <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=EnablePortCustomization}" Margin="0, 6, 0, 0">
@@ -40,7 +40,7 @@
                 </i:Interaction.Behaviors>
             </TextBox>
 
-            <CheckBox Name="HttpOnly" IsChecked="{rb:Preference Network.UpstreamProxy.HttpOnly}" Margin="12, 0, 0, 0" Checked="HttpOnly_Checked">
+            <CheckBox Name="HttpOnly" IsChecked="{rb:Preference Network.UpstreamProxy.HttpOnly}" Margin="12, 0, 0, 0">
                 <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_UseUpstreamProxy_HttpOnly}" />
             </CheckBox>
         </StackPanel>

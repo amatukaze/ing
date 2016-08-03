@@ -12,6 +12,14 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Preferences
         public Network()
         {
             InitializeComponent();
+
+            Loaded += Network_Loaded;
+        }
+
+        void Network_Loaded(object sender, RoutedEventArgs e)
+        {
+            EnablePortCustomization.Checked += EnablePortCustomization_Checked;
+            HttpOnly.Checked += HttpOnly_Checked;
         }
 
         void EnablePortCustomization_Checked(object sender, RoutedEventArgs e)
