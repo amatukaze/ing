@@ -18,11 +18,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Expedition
             var rBucketCount = 0;
             if (rpData.RewardItems[0] == 1)
                 rBucketCount = rpData.Item1.Count;
-            else if (rpData.RewardItems[0] == 1)
+            else if (rpData.RewardItems[1] == 1)
                 rBucketCount = rpData.Item2.Count;
 
             if (rBucketCount > 0)
-                rLogContent += " [icon]bucket[/icon]" + rBucketCount;
+                rLogContent += " [icon]bucket[/icon] " + rBucketCount;
 
             Logger.Write(LoggingLevel.Info, rLogContent);
         }
