@@ -30,6 +30,12 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Screenshot_Failed_NoData => GetString(nameof(Log_Screenshot_Failed_NoData));
         public string Log_Screenshot_Succeeded_Clipboard => GetString(nameof(Log_Screenshot_Succeeded_Clipboard));
         public string Log_Screenshot_Succeeded_File => GetString(nameof(Log_Screenshot_Succeeded_File));
+        public string Log_Modernization_Success => GetString(nameof(Log_Modernization_Success));
+        public string Log_Modernization_Failure => GetString(nameof(Log_Modernization_Failure));
+        public string Log_EquipmentImprovement_Ready => GetString(nameof(Log_EquipmentImprovement_Ready));
+        public string Log_EquipmentImprovement_Success => GetString(nameof(Log_EquipmentImprovement_Success));
+        public string Log_EquipmentImprovement_Upgrade => GetString(nameof(Log_EquipmentImprovement_Upgrade));
+        public string Log_EquipmentImprovement_Failure => GetString(nameof(Log_EquipmentImprovement_Failure));
 
         public string Notification_Expedition => GetString(nameof(Notification_Expedition));
         public string Notification_Expedition_Content => GetString(nameof(Notification_Expedition_Content));

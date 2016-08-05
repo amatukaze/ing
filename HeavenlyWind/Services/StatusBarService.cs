@@ -186,26 +186,49 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 if (rRun == null)
                     return null;
 
-                var rMaterial = rRun.Text;
-                if (rMaterial.OICEquals("fuel"))
-                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Fuel }) { BaselineAlignment = BaselineAlignment.Center };
-                if (rMaterial.OICEquals("bullet"))
-                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Bullet }) { BaselineAlignment = BaselineAlignment.Center };
-                if (rMaterial.OICEquals("steel"))
-                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Steel }) { BaselineAlignment = BaselineAlignment.Center };
-                if (rMaterial.OICEquals("bauxite"))
-                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Bauxite }) { BaselineAlignment = BaselineAlignment.Center };
-                if (rMaterial.OICEquals("ic"))
-                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.InstantConstruction }) { BaselineAlignment = BaselineAlignment.Center };
-                if (rMaterial.OICEquals("bucket"))
-                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.Bucket }) { BaselineAlignment = BaselineAlignment.Center };
-                if (rMaterial.OICEquals("dm"))
-                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.DevelopmentMaterial }) { BaselineAlignment = BaselineAlignment.Center };
-                if (rMaterial.OICEquals("im"))
-                    return new InlineUIContainer(new MaterialIcon() { Type = MaterialType.ImprovementMaterial }) { BaselineAlignment = BaselineAlignment.Center };
+                var rIcon = rRun.Text;
+                if (rIcon.OICEquals("fuel"))
+                    return GetUIContainer(new MaterialIcon() { Type = MaterialType.Fuel });
+                if (rIcon.OICEquals("bullet"))
+                    return GetUIContainer(new MaterialIcon() { Type = MaterialType.Bullet });
+                if (rIcon.OICEquals("steel"))
+                    return GetUIContainer(new MaterialIcon() { Type = MaterialType.Steel });
+                if (rIcon.OICEquals("bauxite"))
+                    return GetUIContainer(new MaterialIcon() { Type = MaterialType.Bauxite });
+                if (rIcon.OICEquals("ic"))
+                    return GetUIContainer(new MaterialIcon() { Type = MaterialType.InstantConstruction });
+                if (rIcon.OICEquals("bucket"))
+                    return GetUIContainer(new MaterialIcon() { Type = MaterialType.Bucket });
+                if (rIcon.OICEquals("dm"))
+                    return GetUIContainer(new MaterialIcon() { Type = MaterialType.DevelopmentMaterial });
+                if (rIcon.OICEquals("im"))
+                    return GetUIContainer(new MaterialIcon() { Type = MaterialType.ImprovementMaterial });
+
+                if (rIcon.OICEquals("firepower"))
+                    return GetUIContainer(new CommonPropertyIcon() { Type = CommonProperty.Firepower });
+                if (rIcon.OICEquals("torpedo"))
+                    return GetUIContainer(new CommonPropertyIcon() { Type = CommonProperty.Torpedo });
+                if (rIcon.OICEquals("aa"))
+                    return GetUIContainer(new CommonPropertyIcon() { Type = CommonProperty.AA });
+                if (rIcon.OICEquals("armor"))
+                    return GetUIContainer(new CommonPropertyIcon() { Type = CommonProperty.Armor });
+                if (rIcon.OICEquals("luck"))
+                    return GetUIContainer(new CommonPropertyIcon() { Type = CommonProperty.Luck });
 
                 return null;
             });
+        }
+
+        InlineUIContainer GetUIContainer(UIElement rpElement)
+        {
+            var rElement = rpElement as FrameworkElement;
+            if (rElement != null)
+            {
+                rElement.MaxWidth = 16;
+                rElement.MaxHeight = 16;
+            }
+
+            return new InlineUIContainer(rpElement) { BaselineAlignment = BaselineAlignment.Center };
         }
     }
 }

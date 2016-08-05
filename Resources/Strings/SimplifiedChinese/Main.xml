@@ -26,6 +26,8 @@
   <String Key="Log_Screenshot_Failed_NoData">浏览器没有返回截图信息</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">已截图到剪贴板: {0}</String>
   <String Key="Log_Screenshot_Succeeded_File">已保存截图: {0}</String>
+  <String Key="Log_Modernization_Success">[b]{0}[/b] 的近代化改修成功了。</String>
+  <String Key="Log_Modernization_Failure">[b]{0}[/b] 的近代化改修失败了</String>
 
   <String Key="Notification_Expedition">远征结束</String>
   <String Key="Notification_Expedition_Content">「{0}」从远征「{1}」归来。</String>

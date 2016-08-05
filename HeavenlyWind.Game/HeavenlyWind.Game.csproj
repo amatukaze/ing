@@ -127,6 +127,7 @@
     <Compile Include="Models\Battle\Stages\NightOnlyStage.cs" />
     <Compile Include="Models\ConstructionDock.cs" />
     <Compile Include="Models\CombinedFleetType.cs" />
+    <Compile Include="Models\CommonProperty.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />
     <Compile Include="Models\CutInType.cs" />
     <Compile Include="Models\EnemyFleet.cs" />
@@ -302,7 +303,7 @@
     <Compile Include="Parsers\Root\Map\ExplorationParser.cs" />
     <Compile Include="Parsers\Root\Map\StartSortieParser.cs" />
     <Compile Include="Parsers\Root\Member\PracticeOpponentsParser.cs" />
-    <Compile Include="Parsers\Root\Upgrading\ModernizationParser.cs" />
+    <Compile Include="Parsers\Root\Upgrade\ModernizationParser.cs" />
     <Compile Include="Parsers\Root\PortParser.cs" />
     <Compile Include="Port.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

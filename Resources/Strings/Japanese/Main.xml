@@ -26,6 +26,8 @@
   <String Key="Log_Screenshot_Failed_NoData">ブラウザからのスクリーンショットデータはありません</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
   <String Key="Log_Screenshot_Succeeded_File">スクリーンショットを保存しました: {0}</String>
+  <String Key="Log_Modernization_Success">[b]{0}[/b] の近代化改修に成功しました。</String>
+  <String Key="Log_Modernization_Failure">[b]{0}[/b] の近代化改修に失敗しました</String>
 
   <String Key="Notification_Expedition">遠征完了</String>
   <String Key="Notification_Expedition_Content">「{0}」が遠征「{1}」から帰投しました。</String>
