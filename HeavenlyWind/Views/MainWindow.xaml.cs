@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.SystemInterop;
@@ -40,7 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         protected override void OnClosing(CancelEventArgs e)
         {
             var rMode = Preference.Instance.Browser.RefreshConfirmationMode.Value;
-            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie != null))
+            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo && !(KanColleGame.Current.Sortie is PracticeInfo)))
             {
                 var rDialog = new TaskDialog()
                 {
