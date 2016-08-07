@@ -36,9 +36,26 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 {
                     r_ShipCount = value;
                     OnPropertyChanged(nameof(ShipCount));
+
+                    if (Admiral.Source != null)
+                        ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
                 }
             }
         }
+        bool r_ShowShipCountWarning;
+        public bool ShowShipCountWarning
+        {
+            get { return r_ShowShipCountWarning; }
+            set
+            {
+                if (r_ShowShipCountWarning != value)
+                {
+                    r_ShowShipCountWarning = value;
+                    OnPropertyChanged(nameof(ShowShipCountWarning));
+                }
+            }
+        }
+
         int r_EquipmentCount;
         public int EquipmentCount
         {
@@ -49,6 +66,22 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 {
                     r_EquipmentCount = value;
                     OnPropertyChanged(nameof(EquipmentCount));
+
+                    if (Admiral.Source != null)
+                        ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 20;
+                }
+            }
+        }
+        bool r_ShowEquipmentCountWarning;
+        public bool ShowEquipmentCountWarning
+        {
+            get { return r_ShowEquipmentCountWarning; }
+            set
+            {
+                if (r_ShowEquipmentCountWarning != value)
+                {
+                    r_ShowEquipmentCountWarning = value;
+                    OnPropertyChanged(nameof(ShowEquipmentCountWarning));
                 }
             }
         }
@@ -138,6 +171,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             rPortPCEL.Add(nameof(rPort.Equipment), (s, e) => EquipmentCount = rPort.Equipment.Count);
             rPortPCEL.Add(nameof(rPort.RepairDocks), (s, e) => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
             rPortPCEL.Add(nameof(rPort.ConstructionDocks), (s, e) => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
+            rPortPCEL.Add(nameof(rPort.Admiral), delegate
+            {
+                ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
+                ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 20;
+            });
 
             AirBase = new AirBaseViewModel();
 
