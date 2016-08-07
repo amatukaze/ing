@@ -28,6 +28,10 @@
   <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
   <String Key="Log_Modernization_Success">Succeeded to modernize [b]{0}[/b].</String>
   <String Key="Log_Modernization_Failure">Failed to modernize [b]{0}[/b]</String>
+  <String Key="Log_EquipmentImprovement_Ready">Ready to improve [b]{0}[/b] {1} (ID={2})</String>
+  <String Key="Log_EquipmentImprovement_Success">[b]{0}[/b] has been successfully improved to {1}</String>
+  <String Key="Log_EquipmentImprovement_Upgrade">The equipment has upgraded to [b]{0}[/b] {1}</String>
+  <String Key="Log_EquipmentImprovement_Failure">Failed to improve [b]{0}[/b] {1}</String>
 
   <String Key="Notification_Expedition">Expedition Completed</String>
   <String Key="Notification_Expedition_Content">"{0}" has returned from {1}.</String>

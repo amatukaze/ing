@@ -235,15 +235,33 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Materials.Bauxite += rMaterials[3];
             });
 
+            SessionService.Instance.Subscribe("api_req_kousyou/remodel_slotlist_detail", r =>
+            {
+                var rID = r.Parameters["api_slot_id"];
+                var rEquipment = Equipment[int.Parse(rID)];
+
+                Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_EquipmentImprovement_Ready, rEquipment.Info.TranslatedName, rEquipment.LevelText, rID));
+            });
             SessionService.Instance.Subscribe("api_req_kousyou/remodel_slot", r =>
             {
                 var rData = (RawImprovementResult)r.Data;
+                var rEquipment = Equipment[int.Parse(r.Parameters["api_slot_id"])];
 
                 Materials.Update(rData.Materials);
 
-                Equipment rEquipment;
-                if (rData.Success && Equipment.TryGetValue(rData.ImprovedEquipment.ID, out rEquipment))
+                if (!rData.Success)
+                    Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_EquipmentImprovement_Failure, rEquipment.Info.TranslatedName, rEquipment.LevelText));
+                else
+                {
+                    var rUpgraded = rEquipment.Info.ID != rData.ImprovedEquipment.EquipmentID;
+
                     rEquipment.Update(rData.ImprovedEquipment);
+
+                    if (!rUpgraded)
+                        Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_EquipmentImprovement_Success, rEquipment.Info.TranslatedName, rEquipment.LevelText));
+                    else
+                        Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_EquipmentImprovement_Upgrade, rEquipment.Info.TranslatedName, rEquipment.LevelText));
+                }
 
                 if (rData.ConsumedEquipmentID != null)
                 {

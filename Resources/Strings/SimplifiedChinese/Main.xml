@@ -28,6 +28,10 @@
   <String Key="Log_Screenshot_Succeeded_File">已保存截图: {0}</String>
   <String Key="Log_Modernization_Success">[b]{0}[/b] 的近代化改修成功了。</String>
   <String Key="Log_Modernization_Failure">[b]{0}[/b] 的近代化改修失败了</String>
+  <String Key="Log_EquipmentImprovement_Ready">准备改修 [b]{0}[/b] {1} (ID={2})</String>
+  <String Key="Log_EquipmentImprovement_Success">[b]{0}[/b] 被改修到 {1}</String>
+  <String Key="Log_EquipmentImprovement_Upgrade">装备已升级为 [b]{0}[/b] {1}</String>
+  <String Key="Log_EquipmentImprovement_Failure">[b]{0}[/b] {1} 的改修失败了</String>
 
   <String Key="Notification_Expedition">远征结束</String>
   <String Key="Notification_Expedition_Content">「{0}」从远征「{1}」归来。</String>
