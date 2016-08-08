@@ -55,7 +55,7 @@
                             <TextBlock Text="{Binding BauxiteReward}" Margin="4, 0, 0, 0" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
                         </StackPanel>
 
-                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" HorizontalAlignment="Right" Visibility="{rb:CollapsedIfNull}" Grid.Column="4" Grid.RowSpan="3">
+                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4" Grid.RowSpan="3">
                             <Control Style="{StaticResource QuestRealtimeProgress}" />
                         </Border>
                     </Grid>
@@ -88,7 +88,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Control}">
-                        <TabControl Name="TabControl">
+                        <TabControl Name="TabControl" Grid.IsSharedSizeScope="True">
                             <TabItem>
                                 <TabItem.Header>
                                     <TextBlock Text="{rb:StringResource Main.Quest_Type_Active}" TextAlignment="Center" MinWidth="40" Margin="4, 2" />
