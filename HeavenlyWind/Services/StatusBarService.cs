@@ -33,8 +33,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     r_Message = rMessage;
                     OnPropertyChanged(nameof(Message));
-                    IsMessageObsolete = false;
                 }
+                IsMessageObsolete = false;
             }
         }
 
