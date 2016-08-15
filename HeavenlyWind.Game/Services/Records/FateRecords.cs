@@ -84,8 +84,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.CommandText = "INSERT OR IGNORE INTO equipment_fate(id, equipment, level, proficiency, time, fate) VALUES(@id, @equipment, @level, @proficiency, strftime('%s', 'now'), @fate);";
                 rCommand.Parameters.AddWithValue("@id", rpEquipment.ID);
                 rCommand.Parameters.AddWithValue("@equipment", rpEquipment.Info.ID);
-                rCommand.Parameters.AddWithValue("@level", rpEquipment.Level == 0);
-                rCommand.Parameters.AddWithValue("@proficiency", rpEquipment.Proficiency == 0);
+                rCommand.Parameters.AddWithValue("@level", rpEquipment.Level);
+                rCommand.Parameters.AddWithValue("@proficiency", rpEquipment.Proficiency);
                 rCommand.Parameters.AddWithValue("@fate", (int)rpFate);
 
                 rCommand.ExecuteNonQuery();
