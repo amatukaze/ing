@@ -76,7 +76,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                         rSortieMap.HP -= rData.TransportMissionResult.Point;
                     else
                     {
-                        var rCurrentHP = rSortieMap.HP.Current - (rEnemyFlagship.Maximum - rEnemyFlagship.Current);
+                        var rCurrentHP = rSortieMap.HP.Current - (rEnemyFlagship.Maximum - Math.Max(rEnemyFlagship.Current, 0));
                         if (rEnemyFlagship.State == BattleParticipantState.Sunk)
                             rSortieMap.HP = rSortieMap.HP.Update(Math.Max(rCurrentHP, 0));
                         else
