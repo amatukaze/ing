@@ -23,6 +23,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             protected set { throw new NotImplementedException(); }
         }
 
+        bool r_IsAdmiralInitialized;
+
         public AdmiralViewModel Admiral { get; } = new AdmiralViewModel();
         public MaterialsViewModel Materials { get; } = new MaterialsViewModel();
 
@@ -173,8 +175,17 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             rPortPCEL.Add(nameof(rPort.ConstructionDocks), (s, e) => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
             rPortPCEL.Add(nameof(rPort.Admiral), delegate
             {
-                ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
-                ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 20;
+                if (!r_IsAdmiralInitialized)
+                {
+                    var rAdmiral = rPort.Admiral;
+                    var rAdmiralPCEL = PropertyChangedEventListener.FromSource(rAdmiral);
+                    rAdmiralPCEL.Add(nameof(rAdmiral.MaxShipCount), (s, e) => CheckShipCapacity());
+                    rAdmiralPCEL.Add(nameof(rAdmiral.MaxEquipmentCount), (s, e) => CheckEquipmentCapacity());
+
+                    r_IsAdmiralInitialized = true;
+                }
+
+                CheckCapacity();
             });
 
             AirBase = new AirBaseViewModel();
@@ -202,6 +213,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             ShowShipOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<ShipOverviewWindow>());
             ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<EquipmentOverviewWindow>());
+        }
+
+        void CheckShipCapacity() => ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
+        void CheckEquipmentCapacity() =>ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 20;
+        void CheckCapacity()
+        {
+            CheckShipCapacity();
+            CheckEquipmentCapacity();
         }
     }
 }
