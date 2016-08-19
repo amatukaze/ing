@@ -96,7 +96,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         {
             using (var rCommand = Preference.Instance.Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT OR REPLACE INTO preference(key, value) VALUES(@key, @value);";
+                rCommand.CommandText = "INSERT OR REPLACE INTO preference.preference(key, value) VALUES(@key, @value);";
                 rCommand.Parameters.AddWithValue("@key", Key);
 
                 object rValue;

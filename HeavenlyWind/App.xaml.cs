@@ -57,6 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
             ThemeManager.Instance.Initialize(this, Accent.Blue);
 
+            CoreDatabase.Initialize();
+
             StringResources.Instance.Initialize();
             RecordService.Instance.Initialize();
             QuestProgressService.Instance.Initialize();

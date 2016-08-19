@@ -4,7 +4,6 @@ using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Models.Preferences;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -27,11 +26,10 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public void Initialize()
         {
-            Connection = new SQLiteConnection(@"Data Source=Roaming\Preferences\Main.db; Page Size=8192").OpenAndReturn();
-
-            using (var rTransaction = Connection.BeginTransaction())
+            using (var rConnection = new SQLiteConnection(@"Data Source=Roaming\Preferences\Main.db; Page Size=8192").OpenAndReturn())
+            using (var rTransaction = rConnection.BeginTransaction())
             {
-                using (var rCommand = Connection.CreateCommand())
+                using (var rCommand = rConnection.CreateCommand())
                 {
                     rCommand.CommandText =
                         "CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
@@ -47,7 +45,14 @@ namespace Sakuno.KanColle.Amatsukaze
                 rTransaction.Commit();
             }
 
-            Connection.Update += (s, e) => Debug.WriteLine($"Preference: {e.Event} - {e.Table} - {e.RowId}");
+            Connection = CoreDatabase.Connection;
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "ATTACH @filename AS preference;";
+                rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Roaming\Preferences\Main.db").FullName);
+
+                rCommand.ExecuteNonQuery();
+            }
         }
 
         public void Reload()
@@ -60,7 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
                 using (var rCommand = Connection.CreateCommand())
                 {
-                    rCommand.CommandText = "SELECT key, value FROM preference;";
+                    rCommand.CommandText = "SELECT key, value FROM preference.preference;";
 
                     using (var rReader = rCommand.ExecuteReader())
                         while (rReader.Read())

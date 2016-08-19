@@ -1,12 +1,11 @@
-﻿using Sakuno.Collections;
-using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -25,10 +24,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         {
             SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
             {
-                r_Connection = new SQLiteConnection(@"Data Source=Data\AbyssalFleets.db; Page Size=8192").OpenAndReturn();
-                r_Connection.Update += (s, e) => Debug.WriteLine($"EnemyEncounterService: {e.Event} - {e.Table} - {e.RowId}");
-
-                using (var rCommand = r_Connection.CreateCommand())
+                using (var rConnection = new SQLiteConnection(@"Data Source=Data\AbyssalFleets.db; Page Size=8192").OpenAndReturn())
+                using (var rCommand = rConnection.CreateCommand())
                 {
                     rCommand.CommandText =
                         "CREATE TABLE IF NOT EXISTS composition(" +
@@ -45,6 +42,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                             "composition INTEGER NOT NULL REFERENCES composition(id), " +
                             "synced INTEGER NOT NULL, " +
                             "PRIMARY KEY(map, node, difficulty, formation, composition)) WITHOUT ROWID;";
+
+                    rCommand.ExecuteNonQuery();
+                }
+
+                r_Connection = CoreDatabase.Connection;
+                using (var rCommand = r_Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "ATTACH @filename AS abyssal;";
+                    rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\AbyssalFleets.db").FullName);
 
                     rCommand.ExecuteNonQuery();
                 }
@@ -96,7 +102,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 {
                     var rBuilder = new StringBuilder(256);
 
-                    rBuilder.Append("INSERT OR IGNORE INTO composition(id, position, ship) VALUES");
+                    rBuilder.Append("INSERT OR IGNORE INTO abyssal.composition(id, position, ship) VALUES");
                     for (var i = 0; i < rEnemies.Length; i++)
                     {
                         rBuilder.Append($"({rCompositionID}, {i}, {rEnemies[i]})");
@@ -105,7 +111,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     }
                     rBuilder.Append(';');
 
-                    rBuilder.Append("INSERT OR IGNORE INTO fleet(map, node, difficulty, formation, composition, synced) VALUES(@map, @node, @difficulty, @formation, @composition, 0);");
+                    rBuilder.Append("INSERT OR IGNORE INTO abyssal.fleet(map, node, difficulty, formation, composition, synced) VALUES(@map, @node, @difficulty, @formation, @composition, 0);");
 
                     rCommand.CommandText = rBuilder.ToString();
                     rCommand.Parameters.AddWithValue("@map", rSortie.Map.ID);
@@ -127,7 +133,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
             using (var rCommand = r_Connection.CreateCommand())
             {
-                rCommand.CommandText = "SELECT composition.id AS id, group_concat(ship) AS ships, formation FROM fleet JOIN composition ON fleet.composition = composition.id WHERE map = @map AND node = @node AND difficulty = @difficulty GROUP BY id, formation;";
+                rCommand.CommandText = "SELECT composition.id AS id, group_concat(ship) AS ships, formation FROM abyssal.fleet JOIN abyssal.composition ON fleet.composition = composition.id WHERE map = @map AND node = @node AND difficulty = @difficulty GROUP BY id, formation;";
                 rCommand.Parameters.AddWithValue("@map", rpMap);
                 rCommand.Parameters.AddWithValue("@node", rpNode);
                 rCommand.Parameters.AddWithValue("@difficulty", (int?)rpDifficulty ?? 0);
