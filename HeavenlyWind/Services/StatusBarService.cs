@@ -89,7 +89,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             Task.Run(new Action(async () =>
             {
-                var rServers = new[] { "pool.ntp.org", "cn.ntp.org.cn" };
+                var rServers = new[] { "jp.pool.ntp.org", "pool.ntp.org", "us.pool.ntp.org", "cn.pool.ntp.org", "jp.ntp.org.cn", "us.ntp.org.cn", "cn.ntp.org.cn" };
 
                 foreach (var rSuccess in rServers.Select(QueryCurrentTime))
                     if (await rSuccess)
