@@ -1,22 +1,13 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using Sakuno.KanColle.Amatsukaze.Views.Game;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    [ViewInfo(typeof(FleetsAndAirBase))]
-    public class FleetsViewModel : TabItemViewModel
+    public class FleetsViewModel : ModelBase
     {
-        public override string Name
-        {
-            get { return StringResources.Instance.Main.Tab_Fleets; }
-            protected set { throw new NotImplementedException(); }
-        }
-
         GameInformationViewModel r_Parent;
 
         IReadOnlyList<FleetViewModel> r_Fleets;

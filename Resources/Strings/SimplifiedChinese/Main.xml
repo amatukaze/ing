@@ -85,7 +85,7 @@
   <String Key="Browser_Zoom_ZoomOut">缩小</String>
 
   <String Key="Tab_Overview">概要</String>
-  <String Key="Tab_Fleets">舰队</String>
+  <String Key="Tab_Maps">海域</String>
   <String Key="Tab_Sortie">出击</String>
   <String Key="Tab_Quests">任务</String>
   <String Key="Tab_ExpeditionOverview">远征一览</String>

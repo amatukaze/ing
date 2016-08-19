@@ -190,6 +190,7 @@
     <Compile Include="ViewModels\Game\FleetViewModel.cs" />
     <Compile Include="ViewModels\Game\AdmiralViewModel.cs" />
     <Compile Include="ViewModels\Game\MapGaugesViewModel.cs" />
+    <Compile Include="ViewModels\Game\MapsViewModel.cs" />
     <Compile Include="ViewModels\Game\MaterialsViewModel.cs" />
     <Compile Include="ViewModels\Game\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestsViewModel.cs" />
@@ -305,6 +306,9 @@
     </Compile>
     <Compile Include="Views\Game\MapGauges.xaml.cs">
       <DependentUpon>MapGauges.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Maps.xaml.cs">
+      <DependentUpon>Maps.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Materials.xaml.cs">
       <DependentUpon>Materials.xaml</DependentUpon>
@@ -852,6 +856,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\MapGauges.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Maps.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

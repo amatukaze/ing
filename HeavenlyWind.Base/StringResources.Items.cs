@@ -87,7 +87,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Browser_Zoom_ZoomOut => GetString(nameof(Browser_Zoom_ZoomOut));
 
         public string Tab_Overview => GetString(nameof(Tab_Overview));
-        public string Tab_Fleets => GetString(nameof(Tab_Fleets));
+        public string Tab_Maps => GetString(nameof(Tab_Maps));
         public string Tab_Sortie => GetString(nameof(Tab_Sortie));
         public string Tab_Quests => GetString(nameof(Tab_Quests));
         public string Tab_ExpeditionOverview => GetString(nameof(Tab_ExpeditionOverview));

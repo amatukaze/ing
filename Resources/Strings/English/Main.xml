@@ -85,7 +85,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Browser_Zoom_ZoomOut">Zoom Out</String>
 
   <String Key="Tab_Overview">Overview</String>
-  <String Key="Tab_Fleets">Fleet</String>
+  <String Key="Tab_Maps">Maps</String>
   <String Key="Tab_Sortie">Sortie</String>
   <String Key="Tab_Quests">Quests</String>
   <String Key="Tab_ExpeditionOverview">Expedition</String>
