@@ -39,11 +39,14 @@
         LargeCaliberGun2 = 38,
         //
         LargeSoner = 40,
+        LargeFlyingBoat,
         //
         CombatRation = 43,
         //
         SeaplaneFighter = 45,
         SpecialAmphibiousLandingCraft,
+        //
+        InterceptorFighter = 48,
         //
     }
 }
