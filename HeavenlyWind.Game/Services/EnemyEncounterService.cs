@@ -156,7 +156,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     }
             }
 
-            return rFleets.Values.ToList();
+            return rFleets.Values.ToArray();
         }
     }
 }

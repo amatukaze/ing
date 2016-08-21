@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
     {
         public ShellingPhase Shelling { get; protected set; }
 
-        public override IList<BattlePhase> Phases => new List<BattlePhase>() { Shelling }.AsReadOnly();
+        public override IList<BattlePhase> Phases => new BattlePhase[] { Shelling };
 
         internal protected Night(BattleInfo rpOwner) : base(rpOwner) { }
     }

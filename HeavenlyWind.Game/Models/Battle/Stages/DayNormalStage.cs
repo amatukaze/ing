@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
     {
         public override BattleStageType Type => BattleStageType.Day;
 
-        public override IList<BattlePhase> Phases => new List<BattlePhase>()
+        public override IList<BattlePhase> Phases => new BattlePhase[]
         {
             LandBaseAerialSupport,
             AerialCombat,
@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             ShellingSecondRound,
 
             ClosingTorpedo,
-        }.AsReadOnly();
+        };
 
         internal protected DayNormalStage(BattleInfo rpOwner, ApiData rpData) : base(rpOwner)
         {

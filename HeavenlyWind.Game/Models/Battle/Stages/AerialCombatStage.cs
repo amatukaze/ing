@@ -12,11 +12,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
         public AerialCombatPhase AerialCombatFirstRound { get; protected set; }
         public AerialCombatPhase AerialCombatSecondRound { get; protected set; }
 
-        public override IList<BattlePhase> Phases => new List<BattlePhase>()
+        public override IList<BattlePhase> Phases => new BattlePhase[]
         {
             AerialCombatFirstRound,
             AerialCombatSecondRound,
-        }.AsReadOnly();
+        };
 
         internal protected AerialCombatStage(BattleInfo rpOwner, ApiData rpData) : base(rpOwner)
         {

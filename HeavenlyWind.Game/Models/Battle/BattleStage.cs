@@ -30,34 +30,38 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         internal void Process(ApiData rpData)
         {
             var rData = rpData.Data as RawBattleBase;
+            var rCombinedFleetData = rData as IRawCombinedFleet;
 
-            FriendAndEnemy = rData.CurrentHPs.Zip(rData.MaximumHPs,
-                (rpCurrent, rpMaximum) => rpMaximum != -1 ? new BattleParticipantSnapshot(rpMaximum, rpCurrent) : null).Skip(1).ToArray();
+            FriendAndEnemy = new BattleParticipantSnapshot[rCombinedFleetData == null ? 12 : 18];
 
-            FriendMain = FriendAndEnemy.Take(6).TakeWhile(r => r != null).ToList().AsReadOnly();
+            for (var i = 1; i < rData.CurrentHPs.Length; i++)
+                if (rData.MaximumHPs[i] != -1)
+                    FriendAndEnemy[i - 1] = new BattleParticipantSnapshot(rData.MaximumHPs[i], rData.CurrentHPs[i]);
+
+            FriendMain = FriendAndEnemy.Take(6).TakeWhile(r => r != null).ToArray();
             for (var i = 0; i < FriendMain.Count; i++)
                 FriendMain[i].Participant = Owner.Participants.FriendMain[i];
 
-            Enemy = FriendAndEnemy.Skip(6).TakeWhile(r => r != null).ToList().AsReadOnly();
+            Enemy = FriendAndEnemy.Skip(6).TakeWhile(r => r != null).ToArray();
             for (var i = 0; i < Enemy.Count; i++)
                 Enemy[i].Participant = Owner.Participants.Enemy[i];
 
-            var rCombinedFleetData = rData as IRawCombinedFleet;
             if (rCombinedFleetData != null)
             {
                 FriendEscort = rCombinedFleetData.EscortFleetCurrentHPs.Zip(rCombinedFleetData.EscortFleetMaximumHPs,
-                    (rpCurrent, rpMaximum) => rpMaximum != -1 ? new BattleParticipantSnapshot(rpMaximum, rpCurrent) : null).Skip(1).ToList().AsReadOnly();
+                    (rpCurrent, rpMaximum) => rpMaximum != -1 ? new BattleParticipantSnapshot(rpMaximum, rpCurrent) : null).Skip(1).ToArray();
 
-                for (var i = 0; i < FriendMain.Count; i++)
+                for (var i = 0; i < FriendEscort.Count; i++)
+                {
                     FriendEscort[i].Participant = Owner.Participants.FriendEscort[i];
-
-                FriendAndEnemy = Enumerable.Concat(FriendAndEnemy, FriendEscort).ToArray();
+                    FriendAndEnemy[i + 12] = FriendEscort[i];
+                }
             }
 
             if (FriendEscort == null)
                 Friend = FriendMain;
             else
-                Friend = FriendMain.Concat(FriendEscort).ToList().AsReadOnly();
+                Friend = FriendMain.Concat(FriendEscort).ToArray();
 
             foreach (var rPhase in Phases)
                 rPhase.Process();
