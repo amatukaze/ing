@@ -7,20 +7,9 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Preferences
     /// </summary>
     public partial class PreferencesWindow
     {
-        public static PreferencesWindow Instance { get; private set; }
-
         public PreferencesWindow()
         {
-            Instance = this;
-
             InitializeComponent();
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            Instance = null;
-
-            base.OnClosed(e);
         }
     }
 }
