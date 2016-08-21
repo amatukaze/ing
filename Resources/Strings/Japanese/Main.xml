@@ -338,6 +338,7 @@
   <String Key="PreferenceWindow_Window_Layout_Portrait">タブレット縦持ち</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">情報</String>
+  <String Key="PreferenceWindow_Window_Layout_LockTabs">タブをロックする</String>
   <String Key="PreferenceWindow_UI">UI</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine">大破線</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">非表示</String>

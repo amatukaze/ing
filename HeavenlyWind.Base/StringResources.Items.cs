@@ -341,6 +341,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Window_Layout_Portrait => GetString(nameof(PreferenceWindow_Window_Layout_Portrait));
         public string PreferenceWindow_Window_Layout_Game => GetString(nameof(PreferenceWindow_Window_Layout_Game));
         public string PreferenceWindow_Window_Layout_Information => GetString(nameof(PreferenceWindow_Window_Layout_Information));
+        public string PreferenceWindow_Window_Layout_LockTabs => GetString(nameof(PreferenceWindow_Window_Layout_LockTabs));
         public string PreferenceWindow_UI => GetString(nameof(PreferenceWindow_UI));
         public string PreferenceWindow_UI_HeavyDamageLine => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine));
         public string PreferenceWindow_UI_HeavyDamageLine_Type_Hide => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_Hide));

@@ -339,7 +339,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait (Tablet)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">KanColle</String>
   <String Key="PreferenceWindow_Window_Layout_Information">Info</String>
-  <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">Screen auto-rotation is not supported in this device</String>
+  <String Key="PreferenceWindow_Window_Layout_LockTabs">Lock tabs</String>
   <String Key="PreferenceWindow_UI">UI</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine">Heavy Damage Line</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">Disable</String>

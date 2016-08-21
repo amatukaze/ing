@@ -18,7 +18,7 @@
         </Style>
     </UserControl.Resources>
 
-    <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" TabController="{StaticResource TabController}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" ConsolidateOrphanedItems="True" OrphanedItemFilterCallback="{Binding OrphanedItemFilter}">
+    <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" TabController="{StaticResource TabController}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" ConsolidateOrphanedItems="True" LockLayout="True" OrphanedItemFilterCallback="{Binding OrphanedItemFilter}">
         <ruic:AdvancedTabControl.ItemTemplate>
             <DataTemplate>
                 <TextBlock Text="{Binding Name}" FontSize="14" />

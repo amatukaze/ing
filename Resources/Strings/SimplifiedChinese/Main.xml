@@ -341,6 +341,7 @@
   <String Key="PreferenceWindow_Window_Layout_Portrait">布局模式 (平板竖持)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">信息</String>
+  <String Key="PreferenceWindow_Window_Layout_LockTabs">锁定布局</String>
   <String Key="PreferenceWindow_UI">UI</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine">大破线</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">禁用</String>
