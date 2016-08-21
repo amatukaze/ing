@@ -23,6 +23,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             protected set { throw new NotImplementedException(); }
         }
 
+        bool r_IsAdmiralInitialized;
+
         public AdmiralViewModel Admiral { get; } = new AdmiralViewModel();
         public MaterialsViewModel Materials { get; } = new MaterialsViewModel();
 
@@ -36,9 +38,26 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 {
                     r_ShipCount = value;
                     OnPropertyChanged(nameof(ShipCount));
+
+                    if (Admiral.Source != null)
+                        ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
                 }
             }
         }
+        bool r_ShowShipCountWarning;
+        public bool ShowShipCountWarning
+        {
+            get { return r_ShowShipCountWarning; }
+            set
+            {
+                if (r_ShowShipCountWarning != value)
+                {
+                    r_ShowShipCountWarning = value;
+                    OnPropertyChanged(nameof(ShowShipCountWarning));
+                }
+            }
+        }
+
         int r_EquipmentCount;
         public int EquipmentCount
         {
@@ -49,6 +68,22 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 {
                     r_EquipmentCount = value;
                     OnPropertyChanged(nameof(EquipmentCount));
+
+                    if (Admiral.Source != null)
+                        ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 20;
+                }
+            }
+        }
+        bool r_ShowEquipmentCountWarning;
+        public bool ShowEquipmentCountWarning
+        {
+            get { return r_ShowEquipmentCountWarning; }
+            set
+            {
+                if (r_ShowEquipmentCountWarning != value)
+                {
+                    r_ShowEquipmentCountWarning = value;
+                    OnPropertyChanged(nameof(ShowEquipmentCountWarning));
                 }
             }
         }
@@ -138,6 +173,20 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             rPortPCEL.Add(nameof(rPort.Equipment), (s, e) => EquipmentCount = rPort.Equipment.Count);
             rPortPCEL.Add(nameof(rPort.RepairDocks), (s, e) => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
             rPortPCEL.Add(nameof(rPort.ConstructionDocks), (s, e) => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
+            rPortPCEL.Add(nameof(rPort.Admiral), delegate
+            {
+                if (!r_IsAdmiralInitialized)
+                {
+                    var rAdmiral = rPort.Admiral;
+                    var rAdmiralPCEL = PropertyChangedEventListener.FromSource(rAdmiral);
+                    rAdmiralPCEL.Add(nameof(rAdmiral.MaxShipCount), (s, e) => CheckShipCapacity());
+                    rAdmiralPCEL.Add(nameof(rAdmiral.MaxEquipmentCount), (s, e) => CheckEquipmentCapacity());
+
+                    r_IsAdmiralInitialized = true;
+                }
+
+                CheckCapacity();
+            });
 
             AirBase = new AirBaseViewModel();
 
@@ -164,6 +213,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             ShowShipOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<ShipOverviewWindow>());
             ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<EquipmentOverviewWindow>());
+        }
+
+        void CheckShipCapacity() => ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
+        void CheckEquipmentCapacity() =>ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 20;
+        void CheckCapacity()
+        {
+            CheckShipCapacity();
+            CheckEquipmentCapacity();
         }
     }
 }

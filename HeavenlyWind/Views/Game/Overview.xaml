@@ -25,7 +25,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type UserControl}">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" ScrollViewer.PanningMode="None">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="5*" />

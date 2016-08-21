@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Views.Tools;
@@ -160,7 +161,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         void RestartGame()
         {
             var rMode = Preference.Instance.Browser.RefreshConfirmationMode.Value;
-            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie != null))
+            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo && !(KanColleGame.Current.Sortie is PracticeInfo)))
             {
                 var rDialog = new TaskDialog()
                 {
@@ -178,7 +179,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                     ShowAtTheCenterOfOwner = true,
                 };
 
-                if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.No)
+                if (rDialog.ShowAndDispose().ClickedCommonButton == TaskDialogCommonButton.No)
                     return;
             }
 

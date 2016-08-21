@@ -64,12 +64,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Current = this;
 
             Fleet = rpFleet;
-            MainShips = Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+            MainShips = Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
 
             if (KanColleGame.Current.Port.Fleets.CombinedFleetType != 0 && rpFleet.ID == 1)
             {
                 EscortFleet = KanColleGame.Current.Port.Fleets[2];
-                EscortShips = EscortFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>().AsReadOnly();
+                EscortShips = EscortFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
             }
 
             Map = KanColleGame.Current.Maps[rpMapID];

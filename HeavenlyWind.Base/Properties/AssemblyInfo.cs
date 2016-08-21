@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
@@ -30,3 +31,6 @@ using System.Runtime.InteropServices;
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(ProductInfo.AssemblyVersionString)]
+
+[assembly: InternalsVisibleTo("HeavenlyWind")]
+[assembly: InternalsVisibleTo("HeavenlyWind.Game")]

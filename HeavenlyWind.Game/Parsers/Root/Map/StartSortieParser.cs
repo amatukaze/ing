@@ -21,6 +21,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
                     rFleet.ID, rFleet.Name, rMap.MasterInfo.TranslatedName, rAreaID, rAreaSubID));
             else
             {
+                if (rMap.HP.Current == 9999 && rMap.HP.Maximum == 9999)
+                    rMap.HP = new ClampedValue(rpData.EventMap.Maximum, rpData.EventMap.Current);
+
                 var rDifficulty = string.Empty;
                 switch (rMap.Difficulty.Value)
                 {

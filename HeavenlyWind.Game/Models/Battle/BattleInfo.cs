@@ -160,7 +160,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 var rEquipment = rpData.EnemyEquipment[i];
 
                 return new EnemyShip(r, rLevel, rEquipment);
-            }).ToList<IParticipant>().AsReadOnly();
+            }).ToArray<IParticipant>();
         }
         void SetFormationAndEngagementForm(ApiData rpData)
         {

@@ -11,6 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         public Property<Dock> LandscapeDock { get; } = new Property<Dock>("ui.layout.lanscape", Dock.Left);
         public Property<Dock> PortraitDock { get; } = new Property<Dock>("ui.layout.portrait", Dock.Top);
 
+        public Property<bool> LockTabs { get; } = new Property<bool>("ui.layout.lock_tabs", false);
+
         public Property<double> Zoom { get; } = new Property<double>("ui.zoom", 1.0);
 
         public HeavyDamageLinePreference HeavyDamageLine { get; } = new HeavyDamageLinePreference();

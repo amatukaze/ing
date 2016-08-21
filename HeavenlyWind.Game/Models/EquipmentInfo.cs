@@ -27,6 +27,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int Evasion => RawData.Evasion;
         public int LoS => RawData.LoS;
 
+        public int AntiBomber => Type == EquipmentType.InterceptorFighter ? Accuracy : 0;
+        public int Interception => Type == EquipmentType.InterceptorFighter ? Evasion : 0;
+
         #endregion
 
         #region Type

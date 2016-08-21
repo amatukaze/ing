@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.11.4">
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.12">
 
   <String Key="Product_Name">智能型连装炮君</String>
 
@@ -26,6 +26,12 @@
   <String Key="Log_Screenshot_Failed_NoData">浏览器没有返回截图信息</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">已截图到剪贴板: {0}</String>
   <String Key="Log_Screenshot_Succeeded_File">已保存截图: {0}</String>
+  <String Key="Log_Modernization_Success">「[b]{0}[/b]」的近代化改修成功了。</String>
+  <String Key="Log_Modernization_Failure">「[b]{0}[/b]」的近代化改修失败了</String>
+  <String Key="Log_EquipmentImprovement_Ready">准备改修 [b]{0}[/b] {1} (ID={2})</String>
+  <String Key="Log_EquipmentImprovement_Success">「[b]{0}[/b]」被改修到 {1}</String>
+  <String Key="Log_EquipmentImprovement_Upgrade">装备已升级为「[b]{0}[/b] {1}」</String>
+  <String Key="Log_EquipmentImprovement_Failure">「[b]{0}[/b] {1}」的改修失败了</String>
 
   <String Key="Notification_Expedition">远征结束</String>
   <String Key="Notification_Expedition_Content">「{0}」从远征「{1}」归来。</String>
@@ -70,6 +76,8 @@
   <String Key="GameInfomation_Waiting">等待游戏启动</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">调整浏览器大小以适应游戏</String>
+  <String Key="Browser_Navigator_SetCookie">修改 Cookie</String>
+  <String Key="Browser_Navigator_SetCookie_Instruction">已成功修改 Cookie。</String>
   <String Key="Browser_RestartConfirmation_Instruction">你想做什么呢？</String>
   <String Key="Browser_RestartConfirmation_Button_Refresh">刷新</String>
   <String Key="Browser_RestartConfirmation_Button_Stay">返回游戏</String>
@@ -77,7 +85,7 @@
   <String Key="Browser_Zoom_ZoomOut">缩小</String>
 
   <String Key="Tab_Overview">概要</String>
-  <String Key="Tab_Fleets">舰队</String>
+  <String Key="Tab_Maps">海域</String>
   <String Key="Tab_Sortie">出击</String>
   <String Key="Tab_Quests">任务</String>
   <String Key="Tab_ExpeditionOverview">远征一览</String>
@@ -333,6 +341,7 @@
   <String Key="PreferenceWindow_Window_Layout_Portrait">布局模式 (平板竖持)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">信息</String>
+  <String Key="PreferenceWindow_Window_Layout_LockTabs">锁定布局</String>
   <String Key="PreferenceWindow_UI">UI</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine">大破线</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">禁用</String>

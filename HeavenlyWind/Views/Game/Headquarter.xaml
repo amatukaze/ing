@@ -87,12 +87,32 @@
 
         <TextBlock Padding="4, 2" Grid.Row="2">
             <Run Text="{rb:StringResource Main.Overview_Headquarter_Ships, Mode=OneWay}" />:
-            <Run Text="{Binding ShipCount, Mode=OneWay}" />
+            <Run Text="{Binding ShipCount, Mode=OneWay}">
+                <Run.Style>
+                    <Style TargetType="{x:Type Run}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShowShipCountWarning}" Value="True">
+                                <Setter Property="Foreground" Value="Orange" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Run.Style>
+            </Run>
             <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" /><Run Text="{Binding Admiral.Source.MaxShipCount, Mode=OneWay}" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
         </TextBlock>
         <TextBlock Padding="4, 2" Grid.Row="4">
             <Run Text="{rb:StringResource Main.Overview_Headquarter_Equipment, Mode=OneWay}" />:
-            <Run Text="{Binding EquipmentCount, Mode=OneWay}" />
+            <Run Text="{Binding EquipmentCount, Mode=OneWay}">
+                <Run.Style>
+                    <Style TargetType="{x:Type Run}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ShowEquipmentCountWarning}" Value="True">
+                                <Setter Property="Foreground" Value="Orange" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Run.Style>
+            </Run>
             <Run Text="/" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" /><Run Text="{Binding Admiral.Source.MaxEquipmentCount, Mode=OneWay}" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
         </TextBlock>
 

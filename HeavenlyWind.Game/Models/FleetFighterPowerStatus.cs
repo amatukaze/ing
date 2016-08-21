@@ -44,8 +44,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     var rResult = rInfo.AA * Math.Sqrt(rSlot.PlaneCount);
                     rFighterPowerWithoutBonus += (int)rResult;
 
-                    if (rInfo.Type == EquipmentType.CarrierBasedFighter)
-                        rResult += rEquipment.Level * .2 * Math.Sqrt(rSlot.PlaneCount);
+                    switch (rInfo.Type)
+                    {
+                        case EquipmentType.CarrierBasedFighter:
+                            rResult += rEquipment.Level * .2 * Math.Sqrt(rSlot.PlaneCount);
+                            break;
+                        case EquipmentType.CarrierBasedDiveBomber:
+                            rResult += rEquipment.Level * .25 * Math.Sqrt(rSlot.PlaneCount);
+                            break;
+                    }
 
                     if (rSlot.PlaneCount > 0)
                     {

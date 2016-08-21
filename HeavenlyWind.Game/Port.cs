@@ -110,10 +110,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rShipID = int.Parse(r.Parameters["api_id"]);
                 var rData = r.GetData<RawModernizationResult>();
 
-                Ship rModernizedShip;
-                if (Ships.TryGetValue(rShipID, out rModernizedShip))
-                    rModernizedShip.Update(rData.Ship);
-
                 var rConsumedShips = r.Parameters["api_id_items"].Split(',').Select(rpID => Ships[int.Parse(rpID)]).ToArray();
                 var rConsumedEquipment = rConsumedShips.SelectMany(rpShip => rpShip.EquipedEquipment).ToArray();
 
@@ -129,6 +125,45 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 UpdateShipsCore();
                 OnPropertyChanged(nameof(Equipment));
                 Fleets.Update(rData.Fleets);
+
+                Ship rModernizedShip;
+                if (Ships.TryGetValue(rShipID, out rModernizedShip))
+                {
+                    if (!rData.Success)
+                        Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Modernization_Failure, rModernizedShip.Info.TranslatedName));
+                    else
+                    {
+                        var rOriginal = rModernizedShip.RawData;
+                        var rNow = rData.Ship;
+
+                        var rFirepowerDiff = rNow.Firepower[0] - rOriginal.Firepower[0];
+                        var rTorpedoDiff = rNow.Torpedo[0] - rOriginal.Torpedo[0];
+                        var rAADiff = rNow.AA[0] - rOriginal.AA[0];
+                        var rArmorDiff = rNow.Armor[0] - rOriginal.Armor[0];
+                        var rLuckDiff = rNow.Luck[0] - rOriginal.Luck[0];
+
+                        var rDifferences = new List<string>(5);
+
+                        if (rFirepowerDiff > 0)
+                            rDifferences.Add("[icon]firepower[/icon] +" + rFirepowerDiff);
+                        if (rTorpedoDiff > 0)
+                            rDifferences.Add("[icon]torpedo[/icon] +" + rTorpedoDiff);
+                        if (rAADiff > 0)
+                            rDifferences.Add("[icon]aa[/icon] +" + rAADiff);
+                        if (rArmorDiff > 0)
+                            rDifferences.Add("[icon]armor[/icon] +" + rArmorDiff);
+                        if (rLuckDiff > 0)
+                            rDifferences.Add("[icon]luck[/icon] +" + rLuckDiff);
+
+                        var rMessage = StringResources.Instance.Main.Log_Modernization_Success;
+                        if (rDifferences.Count > 0)
+                            rMessage += " (" + rDifferences.Join(" ") + ")";
+
+                        Logger.Write(LoggingLevel.Info, string.Format(rMessage, rModernizedShip.Info.TranslatedName));
+                    }
+
+                    rModernizedShip.Update(rData.Ship);
+                }
             });
 
             SessionService.Instance.Subscribe("api_req_kousyou/createship", r => ConstructionDocks[int.Parse(r.Parameters["api_kdock_id"])].IsConstructionStarted = true);
@@ -200,15 +235,33 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Materials.Bauxite += rMaterials[3];
             });
 
+            SessionService.Instance.Subscribe("api_req_kousyou/remodel_slotlist_detail", r =>
+            {
+                var rID = r.Parameters["api_slot_id"];
+                var rEquipment = Equipment[int.Parse(rID)];
+
+                Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_EquipmentImprovement_Ready, rEquipment.Info.TranslatedName, rEquipment.LevelText, rID));
+            });
             SessionService.Instance.Subscribe("api_req_kousyou/remodel_slot", r =>
             {
                 var rData = (RawImprovementResult)r.Data;
+                var rEquipment = Equipment[int.Parse(r.Parameters["api_slot_id"])];
 
                 Materials.Update(rData.Materials);
 
-                Equipment rEquipment;
-                if (rData.Success && Equipment.TryGetValue(rData.ImprovedEquipment.ID, out rEquipment))
+                if (!rData.Success)
+                    Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_EquipmentImprovement_Failure, rEquipment.Info.TranslatedName, rEquipment.LevelText));
+                else
+                {
+                    var rUpgraded = rEquipment.Info.ID != rData.ImprovedEquipment.EquipmentID;
+
                     rEquipment.Update(rData.ImprovedEquipment);
+
+                    if (!rUpgraded)
+                        Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_EquipmentImprovement_Success, rEquipment.Info.TranslatedName, rEquipment.LevelText));
+                    else
+                        Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_EquipmentImprovement_Upgrade, rEquipment.Info.TranslatedName, rEquipment.LevelText));
+                }
 
                 if (rData.ConsumedEquipmentID != null)
                 {

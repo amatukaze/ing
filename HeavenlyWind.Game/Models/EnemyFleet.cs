@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal EnemyFleet(IEnumerable<int> rpShips)
         {
-            Ships = rpShips.Select(r => KanColleGame.Current.MasterInfo.Ships[r]).ToList();
+            Ships = rpShips.Select(r => KanColleGame.Current.MasterInfo.Ships[r]).ToArray();
         }
     }
 }

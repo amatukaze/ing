@@ -57,6 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             {
                 var rMap = Maps[int.Parse(r.Parameters["api_maparea_id"]) * 10 + int.Parse(r.Parameters["api_map_no"])];
                 rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Parameters["api_rank"]);
+                rMap.HP = new ClampedValue(9999, 9999);
             });
 
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
@@ -76,7 +77,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                         rSortieMap.HP -= rData.TransportMissionResult.Point;
                     else
                     {
-                        var rCurrentHP = rSortieMap.HP.Current - (rEnemyFlagship.Maximum - rEnemyFlagship.Current);
+                        var rCurrentHP = rSortieMap.HP.Current - (rEnemyFlagship.Maximum - Math.Max(rEnemyFlagship.Current, 0));
                         if (rEnemyFlagship.State == BattleParticipantState.Sunk)
                             rSortieMap.HP = rSortieMap.HP.Update(Math.Max(rCurrentHP, 0));
                         else

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.11.4">
+<Strings CultureName="en" Name="English" Version="0.1.12">
 
   <String Key="Product_Name">Intelligent Naval Gun</String>
 
@@ -13,9 +13,9 @@
   <String Key="Log_Exception_API_Failed">Error code from API「{0}」: {1}</String>
   <String Key="Log_Exception_API_ParseException">Error occured when parsing API: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">Failed to save file: {0}</String>
-  <String Key="Log_ExpeditionResult">/{0}"{1}" has returned from expedition {2}:{3}.(Result: [b]{4}[/b])</String>
-  <String Key="Log_StartConstruction">Start construction of {0} (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
-  <String Key="Log_Development_Success">{0} was successfully developed.(Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_ExpeditionResult">/{0}"{1}" has returned from expedition {2}:{3}. (Result: [b]{4}[/b])</String>
+  <String Key="Log_StartConstruction">Start construction of {0}. (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
+  <String Key="Log_Development_Success">{0} was successfully developed. (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
   <String Key="Log_Development_Failure">Development failed. (Material Consumption: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})</String>
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
@@ -26,6 +26,12 @@
   <String Key="Log_Screenshot_Failed_NoData">No screenshot data from the browser</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
   <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
+  <String Key="Log_Modernization_Success">Succeeded to modernize [b]{0}[/b].</String>
+  <String Key="Log_Modernization_Failure">Failed to modernize [b]{0}[/b]</String>
+  <String Key="Log_EquipmentImprovement_Ready">Ready to improve [b]{0}[/b] {1} (ID={2})</String>
+  <String Key="Log_EquipmentImprovement_Success">[b]{0}[/b] has been successfully improved to {1}</String>
+  <String Key="Log_EquipmentImprovement_Upgrade">The equipment has upgraded to [b]{0}[/b] {1}</String>
+  <String Key="Log_EquipmentImprovement_Failure">Failed to improve [b]{0}[/b] {1}</String>
 
   <String Key="Notification_Expedition">Expedition Completed</String>
   <String Key="Notification_Expedition_Content">"{0}" has returned from {1}.</String>
@@ -70,6 +76,8 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">Resize browser to fit game</String>
+  <String Key="Browser_Navigator_SetCookie">Set cookie</String>
+  <String Key="Browser_Navigator_SetCookie_Instruction">Cookie has been set successfully.</String>
   <String Key="Browser_RestartConfirmation_Instruction">What do you want to do?</String>
   <String Key="Browser_RestartConfirmation_Button_Refresh">Refresh</String>
   <String Key="Browser_RestartConfirmation_Button_Stay">Stay</String>
@@ -77,7 +85,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Browser_Zoom_ZoomOut">Zoom Out</String>
 
   <String Key="Tab_Overview">Overview</String>
-  <String Key="Tab_Fleets">Fleet</String>
+  <String Key="Tab_Maps">Maps</String>
   <String Key="Tab_Sortie">Sortie</String>
   <String Key="Tab_Quests">Quests</String>
   <String Key="Tab_ExpeditionOverview">Expedition</String>
@@ -331,7 +339,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait (Tablet)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">KanColle</String>
   <String Key="PreferenceWindow_Window_Layout_Information">Info</String>
-  <String Key="PreferenceWindow_Window_Layout_AutoRotationNotSupported">Screen auto-rotation is not supported in this device</String>
+  <String Key="PreferenceWindow_Window_Layout_LockTabs">Lock tabs</String>
   <String Key="PreferenceWindow_UI">UI</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine">Heavy Damage Line</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">Disable</String>

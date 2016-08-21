@@ -18,8 +18,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 return new BattleParticipantSnapshot(rHP.Maximum, rHP.Current) { Participant = r };
             };
 
-            FriendMain = rpOwner.Participants.FriendMain.Select(rSelector).ToList().AsReadOnly();
-            FriendEscort = rpOwner.Participants.FriendEscort?.Select(rSelector).ToList().AsReadOnly();
+            FriendMain = rpOwner.Participants.FriendMain.Select(rSelector).ToArray();
+            FriendEscort = rpOwner.Participants.FriendEscort?.Select(rSelector).ToArray();
         }
     }
 }

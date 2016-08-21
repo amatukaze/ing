@@ -30,6 +30,12 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Screenshot_Failed_NoData => GetString(nameof(Log_Screenshot_Failed_NoData));
         public string Log_Screenshot_Succeeded_Clipboard => GetString(nameof(Log_Screenshot_Succeeded_Clipboard));
         public string Log_Screenshot_Succeeded_File => GetString(nameof(Log_Screenshot_Succeeded_File));
+        public string Log_Modernization_Success => GetString(nameof(Log_Modernization_Success));
+        public string Log_Modernization_Failure => GetString(nameof(Log_Modernization_Failure));
+        public string Log_EquipmentImprovement_Ready => GetString(nameof(Log_EquipmentImprovement_Ready));
+        public string Log_EquipmentImprovement_Success => GetString(nameof(Log_EquipmentImprovement_Success));
+        public string Log_EquipmentImprovement_Upgrade => GetString(nameof(Log_EquipmentImprovement_Upgrade));
+        public string Log_EquipmentImprovement_Failure => GetString(nameof(Log_EquipmentImprovement_Failure));
 
         public string Notification_Expedition => GetString(nameof(Notification_Expedition));
         public string Notification_Expedition_Content => GetString(nameof(Notification_Expedition_Content));
@@ -72,6 +78,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 
         public string Browser_Navigator_ResizeBrowserToFitGame => GetString(nameof(Browser_Navigator_ResizeBrowserToFitGame));
+        public string Browser_Navigator_SetCookie => GetString(nameof(Browser_Navigator_SetCookie));
+        public string Browser_Navigator_SetCookie_Instruction => GetString(nameof(Browser_Navigator_SetCookie_Instruction));
         public string Browser_RestartConfirmation_Instruction => GetString(nameof(Browser_RestartConfirmation_Instruction));
         public string Browser_RestartConfirmation_Button_Refresh => GetString(nameof(Browser_RestartConfirmation_Button_Refresh));
         public string Browser_RestartConfirmation_Button_Stay => GetString(nameof(Browser_RestartConfirmation_Button_Stay));
@@ -79,7 +87,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Browser_Zoom_ZoomOut => GetString(nameof(Browser_Zoom_ZoomOut));
 
         public string Tab_Overview => GetString(nameof(Tab_Overview));
-        public string Tab_Fleets => GetString(nameof(Tab_Fleets));
+        public string Tab_Maps => GetString(nameof(Tab_Maps));
         public string Tab_Sortie => GetString(nameof(Tab_Sortie));
         public string Tab_Quests => GetString(nameof(Tab_Quests));
         public string Tab_ExpeditionOverview => GetString(nameof(Tab_ExpeditionOverview));
@@ -333,6 +341,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Window_Layout_Portrait => GetString(nameof(PreferenceWindow_Window_Layout_Portrait));
         public string PreferenceWindow_Window_Layout_Game => GetString(nameof(PreferenceWindow_Window_Layout_Game));
         public string PreferenceWindow_Window_Layout_Information => GetString(nameof(PreferenceWindow_Window_Layout_Information));
+        public string PreferenceWindow_Window_Layout_LockTabs => GetString(nameof(PreferenceWindow_Window_Layout_LockTabs));
         public string PreferenceWindow_UI => GetString(nameof(PreferenceWindow_UI));
         public string PreferenceWindow_UI_HeavyDamageLine => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine));
         public string PreferenceWindow_UI_HeavyDamageLine_Type_Hide => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Type_Hide));

@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models.Records;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
@@ -73,6 +74,8 @@ WHERE battle.id = @id";
             rpWriter.Write(rSR.SortieHistory_BattleRank);
             rpWriter.Write(',');
             rpWriter.WriteLine(rSR.SortieHistory_DroppedShip);
+            rpWriter.Write(',');
+            rpWriter.WriteLine(rSR.SortieHistory_HeavilyDamagedShip);
 
             foreach (var rRecord in Records)
             {
@@ -94,6 +97,8 @@ WHERE battle.id = @id";
                 rpWriter.Write(rRecord.BattleRank);
                 rpWriter.Write(',');
                 rpWriter.WriteLine(rRecord.DroppedShip?.Name);
+                rpWriter.Write(',');
+                rpWriter.WriteLine(rRecord.HeavilyDamagedShips == null || rRecord.HeavilyDamagedShips.Count == 0 ? string.Empty : rRecord.HeavilyDamagedShips.Select(r => r.TranslatedName).Join(", "));
             }
         }
     }

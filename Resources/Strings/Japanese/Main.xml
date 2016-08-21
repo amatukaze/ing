@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.11.4">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.12">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -26,6 +26,12 @@
   <String Key="Log_Screenshot_Failed_NoData">ブラウザからのスクリーンショットデータはありません</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
   <String Key="Log_Screenshot_Succeeded_File">スクリーンショットを保存しました: {0}</String>
+  <String Key="Log_Modernization_Success">「[b]{0}[/b]」の近代化改修に成功しました。</String>
+  <String Key="Log_Modernization_Failure">「[b]{0}[/b]」の近代化改修に失敗しました</String>
+  <String Key="Log_EquipmentImprovement_Ready">「[b]{0}[/b] {1}」(ID={2}) の改修を準備します</String>
+  <String Key="Log_EquipmentImprovement_Success">「[b]{0}[/b] {1}」の改修に成功しました</String>
+  <String Key="Log_EquipmentImprovement_Upgrade">「[b]{0}[/b] {1}」に装備が改修更新されました</String>
+  <String Key="Log_EquipmentImprovement_Failure">「[b]{0}[/b] {1}」の改修に失敗しました</String>
 
   <String Key="Notification_Expedition">遠征完了</String>
   <String Key="Notification_Expedition_Content">「{0}」が遠征「{1}」から帰投しました。</String>
@@ -68,6 +74,8 @@
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
   <String Key="Browser_Navigator_ResizeBrowserToFitGame">ブラウザをフィット</String>
+  <String Key="Browser_Navigator_SetCookie">クッキーを設定する</String>
+  <String Key="Browser_Navigator_SetCookie_Instruction">クッキーを設定に成功しました。</String>
   <String Key="Browser_RestartConfirmation_Instruction">何をしたいですか？</String>
   <String Key="Browser_RestartConfirmation_Button_Refresh">再読み込みします</String>
   <String Key="Browser_RestartConfirmation_Button_Stay">留まります</String>
@@ -75,7 +83,7 @@
   <String Key="Browser_Zoom_ZoomOut">縮小表示</String>
 
   <String Key="Tab_Overview">概要</String>
-  <String Key="Tab_Fleets">艦隊</String>
+  <String Key="Tab_Maps">海域</String>
   <String Key="Tab_Sortie">出撃</String>
   <String Key="Tab_Quests">任務</String>
   <String Key="Tab_ExpeditionOverview">遠征一覧</String>
@@ -330,6 +338,7 @@
   <String Key="PreferenceWindow_Window_Layout_Portrait">タブレット縦持ち</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">情報</String>
+  <String Key="PreferenceWindow_Window_Layout_LockTabs">タブをロックする</String>
   <String Key="PreferenceWindow_UI">UI</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine">大破線</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">非表示</String>

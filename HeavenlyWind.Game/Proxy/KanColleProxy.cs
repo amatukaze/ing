@@ -14,8 +14,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
     {
         public static Subject<NetworkSession> SessionSubject { get; } = new Subject<NetworkSession>();
 
-        static Regex r_FlashQualityRegex = new Regex("(\"quality\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Multiline);
-        static Regex r_FlashRenderModeRegex = new Regex("(\"wmode\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Multiline);
+        static Regex r_RemoveGoogleAnalyticsRegex = new Regex(@"gapush\(.+?\);", RegexOptions.Singleline);
+
+        static Regex r_FlashQualityRegex = new Regex("(\"quality\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Singleline);
+        static Regex r_FlashRenderModeRegex = new Regex("(\"wmode\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Singleline);
 
         static Regex r_SuppressReloadConfirmation = new Regex("(?<=if \\()confirm\\(\"エラーが発生したため、ページ更新します。\"\\)(?=\\) {)");
 
@@ -75,7 +77,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             rpSession.Tag = rSession;
 
-            if (rFullUrl == GameConstants.GamePageUrl || rPath == "/gadget/js/kcs_flash.js")
+            if (rFullUrl.OICEquals(GameConstants.GamePageUrl) || rFullUrl.OICEquals("http://www.dmm.com/netgame_s/kancolle/") || rPath.OICEquals("/gadget/js/kcs_flash.js"))
                 rpSession.bBufferResponse = true;
 
             var rResourceSession = rSession as ResourceSession;
@@ -120,7 +122,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 if (rResourceSession != null)
                     CacheService.Instance.ProcessResponse(rResourceSession, rpSession);
 
-                if (rpSession.PathAndQuery == "/gadget/js/kcs_flash.js")
+                if (rpSession.PathAndQuery.OICEquals("/gadget/js/kcs_flash.js"))
                 {
                     var rScript = rpSession.GetResponseBodyAsString();
                     var rModified = false;
@@ -143,7 +145,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                         rpSession.utilSetResponseBody(rScript);
                 }
 
-                if (rSession.FullUrl == GameConstants.GamePageUrl)
+                if (rSession.FullUrl.OICEquals("http://www.dmm.com/netgame_s/kancolle/"))
+                {
+                    var rSource = rpSession.GetResponseBodyAsString();
+                    rSource = r_RemoveGoogleAnalyticsRegex.Replace(rSource, string.Empty);
+
+                    rpSession.utilSetResponseBody(rSource);
+                }
+
+                if (rSession.FullUrl.OICEquals(GameConstants.GamePageUrl))
                 {
                     ForceOverrideStylesheet(rpSession);
 

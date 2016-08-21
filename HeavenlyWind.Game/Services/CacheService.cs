@@ -3,7 +3,6 @@ using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
 using System.Data.SQLite;
-using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -26,15 +25,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            r_Connection = new SQLiteConnection(@"Data Source=Data\Cache.db; Page Size=8192").OpenAndReturn();
-            r_Connection.Update += (s, e) => Debug.WriteLine($"CacheService: {e.Event} - {e.Table} - {e.RowId}");
-
-            using (var rCommand = r_Connection.CreateCommand())
+            using (var rConnection = new SQLiteConnection(@"Data Source=Data\Cache.db; Page Size=8192").OpenAndReturn())
+            using (var rCommand = rConnection.CreateCommand())
             {
                 rCommand.CommandText = "CREATE TABLE IF NOT EXISTS file(" +
                     "name TEXT PRIMARY KEY NOT NULL, " +
                     "version TEXT, " +
                     "timestamp INTEGER NOT NULL) WITHOUT ROWID;";
+
+                rCommand.ExecuteNonQuery();
+            }
+
+            r_Connection = CoreDatabase.Connection;
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "ATTACH @filename AS cache;";
+                rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\Cache.db").FullName);
 
                 rCommand.ExecuteNonQuery();
             }
@@ -100,7 +106,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         {
             using (var rCommand = r_Connection.CreateCommand())
             {
-                rCommand.CommandText = "SELECT (CASE WHEN version IS NOT NULL THEN version ELSE '' END) = @version AND timestamp = @timestamp FROM file WHERE name = @name;";
+                rCommand.CommandText = "SELECT (CASE WHEN version IS NOT NULL THEN version ELSE '' END) = @version AND timestamp = @timestamp FROM cache.file WHERE name = @name;";
                 rCommand.Parameters.AddWithValue("@name", rpResourceSession.Path);
                 rCommand.Parameters.AddWithValue("@version", rpResourceSession.CacheVersion ?? string.Empty);
                 rCommand.Parameters.AddWithValue("@timestamp", rpTimestamp.ToUnixTime());
@@ -154,6 +160,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 lock (r_ThreadSyncObject)
                 {
+                    var rLastModified = rpSession.oResponse["Last-Modified"];
+                    if (rLastModified.IsNullOrEmpty())
+                        return;
+
                     var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
                     if (!Directory.Exists(rDirectoryName))
                         Directory.CreateDirectory(rDirectoryName);
@@ -164,7 +174,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                     rpSession.SaveResponseBody(rFile.FullName);
 
-                    var rTimestamp = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
+                    var rTimestamp = Convert.ToDateTime(rLastModified);
                     rFile.LastWriteTime = rTimestamp;
 
                     rpResourceSession.State = NetworkSessionState.Cached;
@@ -183,9 +193,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             using (var rCommand = r_Connection.CreateCommand())
             {
                 if (rpReplace)
-                    rCommand.CommandText = "REPLACE INTO file(name, version, timestamp) VALUES(@name, @version, @timestamp);";
+                    rCommand.CommandText = "REPLACE INTO cache.file(name, version, timestamp) VALUES(@name, @version, @timestamp);";
                 else
-                    rCommand.CommandText = "INSERT OR IGNORE INTO file(name, version, timestamp) VALUES(@name, @version, @timestamp);";
+                    rCommand.CommandText = "INSERT OR IGNORE INTO cache.file(name, version, timestamp) VALUES(@name, @version, @timestamp);";
 
                 rCommand.Parameters.AddWithValue("@name", rpResourceSession.Path);
                 rCommand.Parameters.AddWithValue("@version", rpResourceSession.CacheVersion);

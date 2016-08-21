@@ -142,5 +142,11 @@
                 </Grid>
             </Border>
         </StackPanel>
+
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 12" />
+
+        <CheckBox IsChecked="{rb:Preference UI.LockTabs}">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Window_Layout_LockTabs}" />
+        </CheckBox>
     </StackPanel>
 </UserControl>

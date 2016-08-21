@@ -9,6 +9,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {
     public class SessionToolViewModel : ModelBase
     {
+        static readonly object r_ThreadLockSync = new object();
+
         public ObservableCollection<SessionViewModel> Sessions { get; } = new ObservableCollection<SessionViewModel>();
 
         bool r_IsRecording;
@@ -53,10 +55,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
                 if (!r_IsRecording || r.DisplayUrl.OICContains("ShimakazeGo"))
                     return;
 
-                Sessions.Add(new SessionViewModel(r));
+                lock (r_ThreadLockSync)
+                {
+                    Sessions.Add(new SessionViewModel(r));
 
-                if (Sessions.Count > 50)
-                    Sessions.RemoveAt(0);
+                    if (Sessions.Count > 50)
+                        Sessions.RemoveAt(0);
+                }
             });
         }
     }

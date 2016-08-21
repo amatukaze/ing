@@ -17,6 +17,7 @@
                             <ColumnDefinition SharedSizeGroup="ID" />
                             <ColumnDefinition SharedSizeGroup="Option" />
                             <ColumnDefinition SharedSizeGroup="CombatRadius" />
+                            <ColumnDefinition SharedSizeGroup="FighterPower" />
                             <ColumnDefinition SharedSizeGroup="Squadrons" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
@@ -25,17 +26,14 @@
                         <TextBlock Name="Option" Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" Margin="4, 0, 0, 0" Grid.Column="1" />
                         <TextBlock Margin="4, 0, 0, 0" Grid.Column="2">
                             <Run Text="{rb:StringResource Main.AirBase_Group_CombatRadius}" />:
-                            <Run Name="CombatRadius">
-                                <Run.Text>
-                                    <MultiBinding StringFormat="{}{0:0.#}-{1:0.#}" Mode="OneWay">
-                                        <Binding Path="Source.MinCombatRadius" />
-                                        <Binding Path="Source.MaxCombatRadius" />
-                                    </MultiBinding>
-                                </Run.Text>
-                            </Run>
+                            <Run Text="{Binding Source.CombatRadius, StringFormat=0.#, Mode=OneWay}" />
+                        </TextBlock>
+                        <TextBlock Margin="4, 0, 0, 0" Grid.Column="3">
+                            <Run Text="{rb:StringResource Main.Fleet_FighterPower}" />:
+                            <Run Text="{Binding Source.FighterPower, Mode=OneWay}" />
                         </TextBlock>
 
-                        <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}" Margin="6, 0, 0, 0" Grid.Column="3">
+                        <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}" Margin="6, 0, 0, 0" Grid.Column="4">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <StackPanel Orientation="Horizontal" />
@@ -83,7 +81,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <Rectangle Fill="Transparent" Margin="3, 0, 0, 0" Grid.Column="3">
+                        <Rectangle Fill="Transparent" Margin="3, 0, 0, 0" Grid.Column="4">
                             <Rectangle.ToolTip>
                                 <ToolTip>
                                     <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}">
@@ -143,17 +141,6 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Source.Option}" Value="Rest">
                         <Setter TargetName="Option" Property="Foreground" Value="Yellow" />
-                    </DataTrigger>
-
-                    <DataTrigger Value="True">
-                        <DataTrigger.Binding>
-                            <MultiBinding Converter="{StaticResource AreEqualConverter}">
-                                <Binding Path="Source.MinCombatRadius" />
-                                <Binding Path="Source.MaxCombatRadius" />
-                            </MultiBinding>
-                        </DataTrigger.Binding>
-
-                        <Setter TargetName="CombatRadius" Property="Text" Value="{Binding Source.MinCombatRadius, StringFormat=0.#}" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>

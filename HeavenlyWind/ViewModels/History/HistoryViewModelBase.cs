@@ -25,6 +25,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         public ICommand ExportAsCsvFileCommand { get; }
 
+        bool r_IsDisposed;
+
         public HistoryViewModelBase()
         {
             r_Records = new ObservableCollection<T>();
@@ -35,7 +37,17 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
             ExportAsCsvFileCommand = new DelegatedCommand(ExportAsCsvFile);
         }
 
-        public void Dispose() => RecordService.Instance.Update -= Record_Update;
+        public void Dispose()
+        {
+            if (r_IsDisposed)
+                return;
+
+            r_Records.Clear();
+
+            RecordService.Instance.Update -= Record_Update;
+
+            r_IsDisposed = true;
+        }
 
         protected abstract T CreateRecordFromReader(SQLiteDataReader rpReader);
 
@@ -139,8 +151,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
                     OwnerWindow = WindowUtil.GetTopWindow(),
                     ShowAtTheCenterOfOwner = true,
-                }.Show();
-
+                }.ShowAndDispose();
                 if (rResult.SelectedButton == rButton)
                     Process.Start(rFilename);
             }

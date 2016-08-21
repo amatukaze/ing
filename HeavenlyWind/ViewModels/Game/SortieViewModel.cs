@@ -3,15 +3,13 @@ using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using System;
-using System.Linq;
-using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
     [ViewInfo(typeof(SortieOverview))]
     public class SortieViewModel : TabItemViewModel
     {
-        public enum DisplayType { MapGauge, Sortie, Practice }
+        public enum DisplayType { None, Sortie, Practice }
 
         public override string Name
         {
@@ -29,10 +27,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 OnPropertyChanged(nameof(Type));
             }
         }
-
-        public MapGaugesViewModel MapGauges { get; } = new MapGaugesViewModel();
-
-        public EventMapOverviewViewModel EventMaps { get; private set; }
 
         SortieInfo r_Info;
         public SortieInfo Info
@@ -65,24 +59,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             SessionService.Instance.Subscribe("api_port/port", _ =>
             {
                 Info = null;
-                Type = DisplayType.MapGauge;
-            });
-
-            SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
-            {
-                ShipLockingService.Instance.Initialize();
-
-                var rMasterInfo = KanColleGame.Current.MasterInfo;
-                if (ShipLockingService.Instance.ShipLocking.Count > 0 && rMasterInfo.EventMapCount > 0)
-                {
-                    var rEventMaps = from rArea in rMasterInfo.MapAreas.Values
-                                     where rArea.IsEventArea
-                                     join rMap in rMasterInfo.Maps.Values on rArea.ID equals rMap.AreaID
-                                     select rMap;
-
-                    EventMaps = new EventMapOverviewViewModel(rEventMaps.ToArray());
-                    OnPropertyChanged(nameof(EventMaps));
-                }
+                Type = DisplayType.None;
             });
         }
     }

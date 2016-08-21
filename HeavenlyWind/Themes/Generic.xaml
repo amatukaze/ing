@@ -3,6 +3,7 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/AppIcon.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/CommonPropertyIcon.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/EquipmentIcon.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/EquipmentLevel.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Themes/Controls/EquipmentProficiency.xaml" />
