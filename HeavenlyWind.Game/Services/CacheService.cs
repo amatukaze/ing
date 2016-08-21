@@ -160,6 +160,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 lock (r_ThreadSyncObject)
                 {
+                    var rLastModified = rpSession.oResponse["Last-Modified"];
+                    if (rLastModified.IsNullOrEmpty())
+                        return;
+
                     var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
                     if (!Directory.Exists(rDirectoryName))
                         Directory.CreateDirectory(rDirectoryName);
@@ -170,7 +174,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
                     rpSession.SaveResponseBody(rFile.FullName);
 
-                    var rTimestamp = Convert.ToDateTime(rpSession.oResponse["Last-Modified"]);
+                    var rTimestamp = Convert.ToDateTime(rLastModified);
                     rFile.LastWriteTime = rTimestamp;
 
                     rpResourceSession.State = NetworkSessionState.Cached;
