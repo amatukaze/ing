@@ -59,7 +59,6 @@ namespace Sakuno.KanColle.Amatsukaze
 
             CoreDatabase.Initialize();
 
-            StringResources.Instance.Initialize();
             RecordService.Instance.Initialize();
             QuestProgressService.Instance.Initialize();
             MapService.Instance.Initialize();
@@ -68,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             Preference.Instance.Initialize();
             Preference.Instance.Reload();
-            StringResources.Instance.SubscribLanguageChanged();
+            StringResources.Instance.Initialize();
             StringResources.Instance.LoadMainResource(Preference.Instance.Language);
             StringResources.Instance.LoadExtraResource(Preference.Instance.ExtraResourceLanguage);
 
