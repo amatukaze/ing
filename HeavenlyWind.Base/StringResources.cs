@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.Collections;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -16,16 +15,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public static StringResources Instance { get; } = new StringResources();
 
         ListDictionary<string, LanguageInfo> r_InstalledLanguages;
-        public IList<LanguageInfo> InstalledLanguages { get; } = new LanguageInfo[]
-        {
-            new LanguageInfo("Japanese", "ja-JP", "日本語"),
-            new LanguageInfo("SimplifiedChinese", "zh-Hans", "简体中文"),
-            new LanguageInfo("English", "en", "English"),
-        };
+        public IList<LanguageInfo> InstalledLanguages { get; private set; }
 
         public bool IsLoaded { get; private set; }
-
-        bool r_IsSubscribed;
 
         StringResourcesItems r_Main;
         public StringResourcesItems Main
@@ -43,6 +35,17 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public ExtraStringResources Extra { get; private set; }
 
+        StringResources()
+        {
+            r_InstalledLanguages = new ListDictionary<string, LanguageInfo>()
+            {
+                { "Japanese", new LanguageInfo("Japanese", "ja-JP", "日本語") },
+                { "SimplifiedChinese", new LanguageInfo("SimplifiedChinese", "zh-Hans", "简体中文") },
+                { "English", new LanguageInfo("English", "en", "English") },
+            };
+            InstalledLanguages = r_InstalledLanguages.Values.ToArray();
+        }
+
         public void Initialize()
         {
             Preference.Instance.Language.Subscribe(LoadMainResource);
@@ -51,7 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public void LoadMainResource(string rpLanguage)
         {
-            if (!InstalledLanguages.Any(r => r.Directory == rpLanguage))
+            if (!r_InstalledLanguages.ContainsKey(rpLanguage))
             {
                 Preference.Instance.Language.Value = GetDefaultLanguage().Directory;
                 return;
@@ -67,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (rNames.Contains(rLanguage.CultureName))
                     return rLanguage;
 
-            return rNames.Contains("zh") ? r_InstalledLanguages["zh-Hans"] : r_InstalledLanguages["en"];
+            return rNames.Contains("zh") ? r_InstalledLanguages["SimplifiedChinese"] : r_InstalledLanguages["English"];
         }
         public static IEnumerable<string> GetAncestorsAndSelfCultureNames(CultureInfo rpCultureInfo)
         {
