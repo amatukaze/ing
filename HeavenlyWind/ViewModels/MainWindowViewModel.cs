@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public UpdateService UpdateService => UpdateService.Instance;
 
-        public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowService.Instance.Show<PreferencesWindow>());
+        public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowService.Instance.Show<PreferencesWindow>(rpClearDataContextOnWindowClosed: false));
 
         public ICommand ExpandMenuCommand { get; }
 

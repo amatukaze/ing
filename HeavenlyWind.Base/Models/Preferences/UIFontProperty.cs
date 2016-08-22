@@ -5,6 +5,13 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     class UIFontProperty : Property<string>
     {
+        public override string Value
+        {
+            get { return !base.Value.IsNullOrEmpty() ? base.Value : GetDefaultFont(); }
+
+            set { base.Value = value; }
+        }
+
         public UIFontProperty() : base("ui.font", GetDefaultFont()) { }
 
         static string GetDefaultFont()

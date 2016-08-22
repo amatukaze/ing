@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 
         T r_OldValue;
         T r_Value;
-        public T Value
+        public virtual T Value
         {
             get { return r_Value; }
             set
