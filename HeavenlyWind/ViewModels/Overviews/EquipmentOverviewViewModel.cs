@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         }
 
         Dictionary<EquipmentIconType, EquipmentTypeViewModel> r_TypeMap;
-        public IList<EquipmentTypeViewModel> Types { get; }
+        public IList<EquipmentTypeViewModel> Types { get; private set; }
 
         bool? r_SelectAllTypes = false;
         public bool? SelectAllTypes
@@ -53,12 +53,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         }
 
         Dictionary<EquipmentInfo, EquipmentGroupByMasterID> r_EquipmentMap;
-        public IReadOnlyList<EquipmentGroupByMasterID> Equipment { get; private set; }
+        public IList<EquipmentGroupByMasterID> Equipment { get; private set; }
 
         internal EquipmentOverviewViewModel()
         {
             r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
-            Types = r_TypeMap.Values.ToArray().AsReadOnly();
+            Types = r_TypeMap.Values.ToArray();
 
             var rSelectedTypes = Preference.Instance.Game.SelectedEquipmentTypes.Value;
             if (rSelectedTypes != null)
@@ -76,6 +76,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         public void Dispose()
         {
+            r_TypeMap.Clear();
+            Types = null;
+            r_EquipmentMap.Clear();
+            Equipment = null;
+
             if (r_UpdateSubscription != null)
             {
                 r_UpdateSubscription.Dispose();
@@ -126,7 +131,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                             rGroup.Update(rShip, new EquipmentGroupingKey(rEquipment.Level, rEquipment.Proficiency));
                     }
 
-                Equipment = r_EquipmentMap.Values.Where(r => r.Type.IsSelected).ToArray().AsReadOnly();
+                Equipment = r_EquipmentMap.Values.Where(r => r.Type.IsSelected).ToArray();
             }
 
             OnPropertyChanged(nameof(Equipment));

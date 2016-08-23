@@ -32,7 +32,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         }
 
         Dictionary<ShipTypeInfo, ShipTypeViewModel> r_TypeMap;
-        public IReadOnlyCollection<ShipTypeViewModel> Types { get; }
+        public IList<ShipTypeViewModel> Types { get; private set; }
 
         bool? r_SelectAllTypes = false;
         public bool? SelectAllTypes
@@ -57,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         Dictionary<int, ShipViewModel> r_ShipVMs = new Dictionary<int, ShipViewModel>(100);
         ShipViewModel[] r_Ships;
-        public IReadOnlyCollection<ShipViewModel> Ships { get; private set; }
+        public IList<ShipViewModel> Ships { get; private set; }
 
         string r_SortingColumn;
 
@@ -111,7 +111,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         internal ShipOverviewViewModel()
         {
             r_TypeMap = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 12 && r.ID != 15).ToDictionary(IdentityFunction<ShipTypeInfo>.Instance, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
-            Types = r_TypeMap.Values.ToArray().AsReadOnly();
+            Types = r_TypeMap.Values.ToArray();
 
             var rSelectedTypes = Preference.Instance.Game.SelectedShipTypes.Value;
             if (rSelectedTypes != null)
@@ -130,6 +130,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         public void Dispose()
         {
+            r_TypeMap.Clear();
+            Types = null;
+            r_ShipVMs.Clear();
+            r_Ships = null;
+            Ships = null;
+
             if (r_UpdateSubscription != null)
             {
                 r_UpdateSubscription.Dispose();
@@ -242,7 +248,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                         break;
                 }
 
-                Ships = rShips.ToArray().AsReadOnly();
+                Ships = rShips.ToArray();
             }
 
             OnPropertyChanged(nameof(Ships));
