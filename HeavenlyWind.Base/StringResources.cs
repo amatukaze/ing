@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.Collections;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -15,14 +14,10 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         public static StringResources Instance { get; } = new StringResources();
 
-        DirectoryInfo r_StringResourceDirectory;
-
         ListDictionary<string, LanguageInfo> r_InstalledLanguages;
         public IList<LanguageInfo> InstalledLanguages { get; private set; }
 
         public bool IsLoaded { get; private set; }
-
-        bool r_IsSubscribed;
 
         StringResourcesItems r_Main;
         public StringResourcesItems Main
@@ -40,47 +35,30 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public ExtraStringResources Extra { get; private set; }
 
+        StringResources()
+        {
+            r_InstalledLanguages = new ListDictionary<string, LanguageInfo>()
+            {
+                { "Japanese", new LanguageInfo("Japanese", "ja-JP", "日本語") },
+                { "SimplifiedChinese", new LanguageInfo("SimplifiedChinese", "zh-Hans", "简体中文") },
+                { "English", new LanguageInfo("English", "en", "English") },
+            };
+            InstalledLanguages = r_InstalledLanguages.Values.ToArray();
+        }
+
         public void Initialize()
         {
-            r_InstalledLanguages = new ListDictionary<string, LanguageInfo>(StringComparer.InvariantCultureIgnoreCase);
-
-            var rRootDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-
-            r_StringResourceDirectory = new DirectoryInfo(Path.Combine(rRootDirectory, "Resources", "Strings"));
-            if (r_StringResourceDirectory.Exists)
-                foreach (var rLanguageDirectory in r_StringResourceDirectory.EnumerateDirectories())
-                    InitializeMainResource(rLanguageDirectory);
-
-            InstalledLanguages = r_InstalledLanguages.Values.ToList().AsReadOnly();
-        }
-        void InitializeMainResource(DirectoryInfo rpDirectory)
-        {
-            var rResourceFile = Path.Combine(rpDirectory.FullName, "Main.xml");
-            if (!File.Exists(rResourceFile))
-                return;
-
-            var rRoot = XDocument.Load(rResourceFile).Root;
-            var rCultureName = rRoot.Attribute("CultureName").Value;
-            var rDisplayName = rRoot.Attribute("Name").Value;
-
-            r_InstalledLanguages.Add(rCultureName, new LanguageInfo(rpDirectory.Name, rCultureName, rDisplayName));
-        }
-
-        public void SubscribLanguageChanged()
-        {
-            if (!r_IsSubscribed)
-            {
-                Preference.Instance.Language.Subscribe(LoadMainResource);
-                Preference.Instance.ExtraResourceLanguage.Subscribe(LoadExtraResource);
-
-                r_IsSubscribed = true;
-            }
+            Preference.Instance.Language.Subscribe(LoadMainResource);
+            Preference.Instance.ExtraResourceLanguage.Subscribe(LoadExtraResource);
         }
 
         public void LoadMainResource(string rpLanguage)
         {
-            if (!InstalledLanguages.Any(r => r.Directory == rpLanguage))
+            if (!r_InstalledLanguages.ContainsKey(rpLanguage))
+            {
                 Preference.Instance.Language.Value = GetDefaultLanguage().Directory;
+                return;
+            }
 
             LoadMainResourceCore(rpLanguage);
         }
@@ -92,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (rNames.Contains(rLanguage.CultureName))
                     return rLanguage;
 
-            return rNames.Contains("zh") ? r_InstalledLanguages["zh-Hans"] : r_InstalledLanguages["en"];
+            return rNames.Contains("zh") ? r_InstalledLanguages["SimplifiedChinese"] : r_InstalledLanguages["English"];
         }
         public static IEnumerable<string> GetAncestorsAndSelfCultureNames(CultureInfo rpCultureInfo)
         {
@@ -105,12 +83,13 @@ namespace Sakuno.KanColle.Amatsukaze
 
         void LoadMainResourceCore(string rpLanguageName)
         {
-            var rMainResourceFile = Path.Combine(r_StringResourceDirectory.FullName, rpLanguageName, "Main.xml");
-            if (!File.Exists(rMainResourceFile))
-                throw new Exception();
-
-            Main = new StringResourcesItems(XDocument.Load(rMainResourceFile).Root.Descendants("String").ToDictionary(r => r.Attribute("Key").Value, r => r.Value));
-            IsLoaded = true;
+            var rAssembly = Assembly.GetExecutingAssembly();
+            using (var rStream = rAssembly.GetManifestResourceStream($"Sakuno.KanColle.Amatsukaze.Resources.Strings.{Preference.Current.Language}.xml"))
+            using (var rReader = new StreamReader(rStream))
+            {
+                Main = new StringResourcesItems(XDocument.Load(rReader).Root.Descendants("String").ToDictionary(r => r.Attribute("Key").Value, r => r.Value));
+                IsLoaded = true;
+            }
         }
 
         public void LoadExtraResource(string rpLanguageName)
@@ -193,7 +172,9 @@ namespace Sakuno.KanColle.Amatsukaze
             if (rpLanguageName.IsNullOrEmpty())
                 return null;
 
-            var rFile = new FileInfo(Path.Combine(r_StringResourceDirectory.FullName, rpLanguageName, "Extra.json"));
+            var rStringResourceDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Resources", "Strings");
+
+            var rFile = new FileInfo(Path.Combine(rStringResourceDirectory, rpLanguageName, "Extra.json"));
             if (!rFile.Exists)
                 return null;
 
@@ -206,7 +187,7 @@ namespace Sakuno.KanColle.Amatsukaze
                     if (rContent.ShareWith.IsNullOrEmpty())
                         rContent.File = new FileInfo(Path.Combine(rFile.Directory.FullName, rContent.Type + ".json"));
                     else
-                        rContent.File = new FileInfo(Path.Combine(r_StringResourceDirectory.FullName, rContent.ShareWith, rContent.Type + ".json"));
+                        rContent.File = new FileInfo(Path.Combine(rStringResourceDirectory, rContent.ShareWith, rContent.Type + ".json"));
 
                 return rInfo;
             }

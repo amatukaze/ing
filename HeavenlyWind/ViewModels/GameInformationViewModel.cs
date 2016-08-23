@@ -13,7 +13,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public OverviewViewModel Overview { get; }
         public FleetsViewModel Fleets { get; }
-        public MapsViewModel Maps { get; }
         public SortieViewModel Sortie { get; }
         public QuestsViewModel Quests { get; }
         public ToolsViewModel Tools { get; }
@@ -34,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             }
         }
 
-        public Func<object, bool> OrphanedItemFilter { get; } = r => r is OverviewViewModel || r is MapsViewModel || r is SortieViewModel || r is QuestsViewModel;
+        public Func<object, bool> OrphanedItemFilter { get; } = r => r is OverviewViewModel || r is SortieViewModel || r is QuestsViewModel;
 
         public bool IsBrowserAvailable { get; private set; }
 
@@ -47,7 +46,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             TabItems = new ObservableCollection<object>()
             {
                 (Overview = new OverviewViewModel()),
-                (Maps = new MapsViewModel()),
                 (Sortie = new SortieViewModel()),
                 (Quests = new QuestsViewModel(this)),
                 (Tools = new ToolsViewModel(this)),

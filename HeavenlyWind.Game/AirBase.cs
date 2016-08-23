@@ -35,7 +35,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rData = r.GetData<RawAirForceGroupOrganization>();
                 foreach (var rSquadron in rData.Squadrons)
                     rGroup.Squadrons[rSquadron.ID].Update(rSquadron);
+
                 rGroup.CombatRadius = rData.CombatRadius;
+                rGroup.UpdateFighterPower();
             });
 
             SessionService.Instance.Subscribe("api_req_air_corps/supply", r =>

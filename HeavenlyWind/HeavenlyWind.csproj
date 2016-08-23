@@ -190,7 +190,6 @@
     <Compile Include="ViewModels\Game\FleetViewModel.cs" />
     <Compile Include="ViewModels\Game\AdmiralViewModel.cs" />
     <Compile Include="ViewModels\Game\MapGaugesViewModel.cs" />
-    <Compile Include="ViewModels\Game\MapsViewModel.cs" />
     <Compile Include="ViewModels\Game\MaterialsViewModel.cs" />
     <Compile Include="ViewModels\Game\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestsViewModel.cs" />
@@ -306,9 +305,6 @@
     </Compile>
     <Compile Include="Views\Game\MapGauges.xaml.cs">
       <DependentUpon>MapGauges.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Game\Maps.xaml.cs">
-      <DependentUpon>Maps.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Materials.xaml.cs">
       <DependentUpon>Materials.xaml</DependentUpon>
@@ -859,10 +855,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Game\Maps.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Game\Materials.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1013,7 +1005,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>IF NOT EXIST "$(SolutionDir)Resources" exit
+    <PreBuildEvent>IF NOT EXIST "$(SolutionDir)Resources" exit 
 xcopy /Y /E /I "$(SolutionDir)Resources" "$(TargetDir)Resources"</PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets')" />

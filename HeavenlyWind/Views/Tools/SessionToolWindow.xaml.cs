@@ -20,6 +20,9 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Tools
             var rListView = (ListView)sender;
             rListView.ItemContainerGenerator.ItemsChanged += (_, rpArgs) =>
             {
+                if (DataContext == null)
+                    return;
+
                 var rViewModel = (SessionToolViewModel)DataContext;
                 if (rViewModel.AutoScroll && rpArgs.Action == NotifyCollectionChangedAction.Add)
                 {
