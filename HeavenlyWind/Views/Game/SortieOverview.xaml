@@ -14,7 +14,76 @@
                 <Style TargetType="{x:Type Control}">
                     <Setter Property="TextElement.FontSize" Value="14" />
 
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Control}">
+                                <StackPanel>
+                                    <rvg:MapGauges DataContext="{Binding MapGauges}" />
+
+                                    <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="0, 8, 0, 0" />
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
                     <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Type}" Value="MapGauge" />
+                                <Condition Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Control}">
+                                        <StackPanel>
+                                            <rvg:MapGauges DataContext="{Binding MapGauges}" />
+
+                                            <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="0, 8, 0, 0" />
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Type}" Value="Sortie" />
+                                <Condition Binding="{rb:Preference Game.ShowBattleInfo}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Control}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <rvg:MapGauges DataContext="{Binding MapGauges}" />
+
+                                            <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="8, 0, 0, 0" />
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding Type}" Value="Sortie" />
+                                <Condition Binding="{rb:Preference Game.ShowBattleInfo}" Value="False" />
+                                <Condition Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Control}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <rvg:MapGauges DataContext="{Binding MapGauges}" />
+
+                                            <rvg:EventMapOverview DataContext="{Binding EventMaps}" Margin="8, 0, 0, 0" />
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
+
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding Type}" Value="Sortie" />
