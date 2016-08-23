@@ -49,7 +49,7 @@
   <String Key="Notification_AnchorageRepair_Content">Please return to the HQ screen to get ships' HP repaired.</String>
 
   <String Key="MessageDialog_AudioSessionDisconnected">Audio device has been unplugged, which results in failing to mute/unmute.
-  
+
 The current version can't handle this problem. To mute/unmute, please do it with sound mixer.</String>
 
   <String Key="Result_Failure">Failure</String>
@@ -339,7 +339,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Window_Layout_Portrait">Portrait (Tablet)</String>
   <String Key="PreferenceWindow_Window_Layout_Game">KanColle</String>
   <String Key="PreferenceWindow_Window_Layout_Information">Info</String>
-  <String Key="PreferenceWindow_Window_Layout_LockTabs">Lock tabs</String>
+  <String Key="PreferenceWindow_Window_Layout_LockTabs">Lock tabs and the size of main window</String>
   <String Key="PreferenceWindow_UI">UI</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine">Heavy Damage Line</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">Disable</String>
@@ -455,7 +455,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="ExpeditionHistory_Name">Expedition</String>
   <String Key="ExpeditionHistory_Result">Result</String>
   <String Key="ExpeditionHistory_Reward">Reward</String>
-  
+
   <String Key="ScrappingHistory_ShipOrEquipment">Ship/Equipment</String>
   <String Key="ScrappingHistory_Reason">Reason</String>
   <String Key="ScrappingHistory_Reason_ConsumedByModernization">Consumed by modernization</String>
@@ -464,7 +464,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="ScrappingHistory_Reason_ConsumedByImprovement">Consumed by improvement</String>
   <String Key="ScrappingHistory_Reason_Sunk">Sunk</String>
   <String Key="ScrappingHistory_Reason_ConsumedInBattle">Battle</String>
-  
+
   <String Key="ResourceHistory_Diff">Diff</String>
 
   <String Key="Tool_ExpeditionOverview">Expedition Overview</String>

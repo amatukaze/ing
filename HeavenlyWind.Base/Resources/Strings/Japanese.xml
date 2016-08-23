@@ -316,7 +316,7 @@
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_Port_Customization">待ち受けポート設定</String>
   <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Instruction">ちょっと待ってください</String>
-  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Content">これはブラウザからのデータを受信するために使用される	
+  <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Content">これはブラウザからのデータを受信するために使用される
 ローカルプロキシのポートです。</String>
   <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_Yes">設定します</String>
   <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Button_No">設定しません</String>
@@ -338,7 +338,7 @@
   <String Key="PreferenceWindow_Window_Layout_Portrait">タブレット縦持ち</String>
   <String Key="PreferenceWindow_Window_Layout_Game">艦これ</String>
   <String Key="PreferenceWindow_Window_Layout_Information">情報</String>
-  <String Key="PreferenceWindow_Window_Layout_LockTabs">タブをロックする</String>
+  <String Key="PreferenceWindow_Window_Layout_LockTabs">タブやウィンドウサイズをロックする</String>
   <String Key="PreferenceWindow_UI">UI</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine">大破線</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Type_Hide">非表示</String>
@@ -454,7 +454,7 @@
   <String Key="ExpeditionHistory_Name">遠征名</String>
   <String Key="ExpeditionHistory_Result">結果</String>
   <String Key="ExpeditionHistory_Reward">アイテム</String>
-  
+
   <String Key="ScrappingHistory_ShipOrEquipment">艦娘・装備</String>
   <String Key="ScrappingHistory_Reason">原因</String>
   <String Key="ScrappingHistory_Reason_ConsumedByModernization">近代化改修</String>
@@ -463,11 +463,11 @@
   <String Key="ScrappingHistory_Reason_ConsumedByImprovement">装備改修</String>
   <String Key="ScrappingHistory_Reason_Sunk">沈没</String>
   <String Key="ScrappingHistory_Reason_ConsumedInBattle">戦闘</String>
-  
+
   <String Key="ResourceHistory_Diff">差異</String>
 
   <String Key="Tool_ExpeditionOverview">遠征一覧</String>
-  
+
   <String Key="ScreenshotTool_Title">スクリーンショットツール</String>
   <String Key="ScreenshotTool_General">通常</String>
   <String Key="ScreenshotTool_General_All">全体</String>

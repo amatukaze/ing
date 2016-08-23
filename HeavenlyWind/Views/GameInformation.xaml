@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
              xmlns:rvm="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
@@ -18,7 +19,7 @@
         </Style>
     </UserControl.Resources>
 
-    <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" TabController="{StaticResource TabController}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" ConsolidateOrphanedItems="True" LockLayout="True" OrphanedItemFilterCallback="{Binding OrphanedItemFilter}">
+    <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" TabController="{StaticResource TabController}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" ConsolidateOrphanedItems="True" LockLayout="{rb:Preference UI.LockTabs}" OrphanedItemFilterCallback="{Binding OrphanedItemFilter}">
         <ruic:AdvancedTabControl.ItemTemplate>
             <DataTemplate>
                 <TextBlock Text="{Binding Name}" FontSize="14" />
