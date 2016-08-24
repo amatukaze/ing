@@ -68,6 +68,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     case EquipmentType.CarrierBasedTorpedoBomber:
                     case EquipmentType.SeaplaneBomber:
                     case EquipmentType.SeaplaneFighter:
+                    case EquipmentType.LandBasedAttackAircraft:
+                    case EquipmentType.InterceptorFighter:
                         return true;
 
                     default: return false;
