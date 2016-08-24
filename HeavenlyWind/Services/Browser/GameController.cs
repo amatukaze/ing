@@ -160,7 +160,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void RestartGame()
         {
-            var rMode = Preference.Instance.Browser.RefreshConfirmationMode.Value;
+            var rMode = Preference.Instance.UI.CloseConfirmationMode.Value;
             if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo && !(KanColleGame.Current.Sortie is PracticeInfo)))
             {
                 var rDialog = new TaskDialog()
