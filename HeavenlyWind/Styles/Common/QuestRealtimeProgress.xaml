@@ -42,15 +42,6 @@
                             <Setter TargetName="Progress" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="Completed" Property="Visibility" Value="Visible" />
                         </DataTrigger>
-                        <MultiDataTrigger>
-                            <MultiDataTrigger.Conditions>
-                                <Condition Binding="{Binding Quest.ID}" Value="214" />
-                                <Condition Binding="{Binding Percentage}" Value="1" />
-                            </MultiDataTrigger.Conditions>
-
-                            <Setter TargetName="Progress" Property="Visibility" Value="Collapsed" />
-                            <Setter TargetName="Completed" Property="Visibility" Value="Visible" />
-                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -106,8 +97,14 @@
                                     </Grid>
                                 </Border.ToolTip>
 
-                                <TextBlock Text="{Binding Percentage, StringFormat=P0}" HorizontalAlignment="Right" />
+                                <TextBlock Name="Progress" Text="{Binding Percentage, StringFormat=P0}" HorizontalAlignment="Right" />
                             </Border>
+
+                            <ControlTemplate.Triggers>
+                                <DataTrigger  Binding="{Binding Percentage}" Value="1">
+                                    <Setter TargetName="Progress" Property="Text" Value="{rb:StringResource Main.Quest_State_Completed}" />
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
