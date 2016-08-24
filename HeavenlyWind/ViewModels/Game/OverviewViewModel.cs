@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     OnPropertyChanged(nameof(EquipmentCount));
 
                     if (Admiral.Source != null)
-                        ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 20;
+                        ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 17;
                 }
             }
         }
