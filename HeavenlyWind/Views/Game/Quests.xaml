@@ -28,6 +28,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="4" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="4" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
@@ -41,21 +43,56 @@
                             </Border>
                         </StackPanel>
 
-                        <StackPanel DataContext="{Binding Source}" Orientation="Horizontal" Grid.Column="2" Grid.Row="2">
-                            <rc:MaterialIcon Type="Fuel" Visibility="{rb:CollapsedIfZero FuelReward}" />
-                            <TextBlock Text="{Binding FuelReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero FuelReward}" />
+                        <TextBlock Text="{rb:ExtraStringResource QuestDescription, Source.ID, Source.Description}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2" />
 
-                            <rc:MaterialIcon Type="Bullet" Visibility="{rb:CollapsedIfZero BulletReward}" />
-                            <TextBlock Text="{Binding BulletReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero BulletReward}" />
+                        <WrapPanel DataContext="{Binding Source}" Grid.Column="2" Grid.Row="4">
+                            <StackPanel Orientation="Horizontal">
+                                <rc:MaterialIcon Type="Fuel" Visibility="{rb:CollapsedIfZero FuelReward}" />
+                                <TextBlock Text="{Binding FuelReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero FuelReward}" />
 
-                            <rc:MaterialIcon Type="Steel" Visibility="{rb:CollapsedIfZero SteelReward}" />
-                            <TextBlock Text="{Binding SteelReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero SteelReward}" />
+                                <rc:MaterialIcon Type="Bullet" Visibility="{rb:CollapsedIfZero BulletReward}" />
+                                <TextBlock Text="{Binding BulletReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero BulletReward}" />
 
-                            <rc:MaterialIcon Type="Bauxite" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
-                            <TextBlock Text="{Binding BauxiteReward}" Margin="4, 0, 0, 0" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
-                        </StackPanel>
+                                <rc:MaterialIcon Type="Steel" Visibility="{rb:CollapsedIfZero SteelReward}" />
+                                <TextBlock Text="{Binding SteelReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero SteelReward}" />
 
-                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4" Grid.RowSpan="3">
+                                <rc:MaterialIcon Type="Bauxite" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
+                                <TextBlock Text="{Binding BauxiteReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
+
+                                <rc:MaterialIcon Type="InstantConstruction" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.InstantConstruction}" />
+                                <TextBlock Text="{Binding Extra.ExtraRewards.Materials.InstantConstruction}" Margin="4, 0" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.InstantConstruction}" />
+
+                                <rc:MaterialIcon Type="Bucket" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.Bucket}" />
+                                <TextBlock Text="{Binding Extra.ExtraRewards.Materials.Bucket}" Margin="4, 0" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.Bucket}" />
+
+                                <rc:MaterialIcon Type="DevelopmentMaterial" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.DevelopmentMaterial}" />
+                                <TextBlock Text="{Binding Extra.ExtraRewards.Materials.DevelopmentMaterial}" Margin="4, 0" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.DevelopmentMaterial}" />
+
+                                <rc:MaterialIcon Type="ImprovementMaterial" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.ImprovementMaterial}" />
+                                <TextBlock Text="{Binding Extra.ExtraRewards.Materials.ImprovementMaterial}" Margin="4, 0, 0, 0" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.ImprovementMaterial}" />
+                            </StackPanel>
+
+                            <ItemsControl ItemsSource="{Binding Extra.ExtraRewards.Equipment}" Margin="0, 4, 0, 0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <rc:EquipmentIcon Type="{Binding Info.Icon}" />
+                                            <TextBlock Margin="4, 0">
+                                                <Run Text="{rb:ExtraStringResource Equipment, Info.ID, Info.Name}" />
+                                                x<Run Text="{Binding Count, Mode=OneWay}" />
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </WrapPanel>
+
+                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4" Grid.RowSpan="5">
                             <Control Style="{StaticResource QuestRealtimeProgress}" />
                         </Border>
                     </Grid>

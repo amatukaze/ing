@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 {
@@ -17,8 +18,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 
         [JsonProperty("api_title")]
         public string Name { get; set; }
+
+        string r_Description;
         [JsonProperty("api_detail")]
-        public string Description { get; set; }
+        public string Description
+        {
+            get { return r_Description; }
+            set { r_Description = value.Replace("<br>", Environment.NewLine); }
+        }
 
         [JsonProperty("api_get_material")]
         public int[] RewardMaterials { get; set; }

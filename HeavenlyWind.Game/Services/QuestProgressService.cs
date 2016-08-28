@@ -46,8 +46,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                         Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
                     }
 
-                new QuestInfo(214);
-
                 if (r_InitializationLock != null)
                 {
                     r_InitializationLock.Set();
@@ -165,7 +163,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 QuestClass rQuest;
                 if (!rQuests.TryGetValue(rID, out rQuest))
                     rQuests.Add(rQuest = new QuestClass(rRawQuest));
+
                 rQuest.RealtimeProgress = rProgressInfo;
+                rQuest.Extra = rInfo;
             }
 
             r_LastProcessTime = DateTimeOffset.Now.ToOffset(Offset);

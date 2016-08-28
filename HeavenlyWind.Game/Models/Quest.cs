@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
 using System;
 
@@ -19,10 +20,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public string TranslatedName => StringResources.Instance.Extra?.GetQuestName(ID) ?? Name;
         public string Description => RawData.Description;
 
-        public int FuelReward => RawData.RewardMaterials[0];
-        public int BulletReward => RawData.RewardMaterials[1];
-        public int SteelReward => RawData.RewardMaterials[2];
-        public int BauxiteReward => RawData.RewardMaterials[3];
+        public int FuelReward => RawData.RewardMaterials != null ? RawData.RewardMaterials[0] : 0;
+        public int BulletReward => RawData.RewardMaterials != null ? RawData.RewardMaterials[1] : 0;
+        public int SteelReward => RawData.RewardMaterials != null ? RawData.RewardMaterials[2] : 0;
+        public int BauxiteReward => RawData.RewardMaterials != null ? RawData.RewardMaterials[3] : 0;
 
         public QuestCategory Category => RawData.Category;
         public QuestType Type => RawData.Type;
@@ -32,6 +33,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal DateTimeOffset CreationTime { get; } = DateTimeOffset.Now;
 
         public ProgressInfo RealtimeProgress { get; internal set; }
+
+        QuestInfo r_Extra;
+        public QuestInfo Extra
+        {
+            get { return r_Extra; }
+            internal set
+            {
+                if (r_Extra != value)
+                {
+                    r_Extra = value;
+                    OnPropertyChanged(nameof(Extra));
+                }
+            }
+        }
 
         internal Quest(RawQuest rpRawData) : base(rpRawData) { }
 
