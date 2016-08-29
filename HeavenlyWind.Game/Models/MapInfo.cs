@@ -11,18 +11,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public bool IsCleared => RawData.IsCleared;
         public bool IsIncompleted => RawData.IsIncompleted;
 
-        ClampedValue r_HP;
-        public ClampedValue HP
-        {
-            get { return r_HP; }
-            internal set
-            {
-                r_HP = value;
-                OnPropertyChanged(nameof(HP));
-            }
-        }
+        public ClampedValue HP { get; }
 
-        public bool HasGauge => !IsCleared && r_HP.Current > 0;
+        public bool HasGauge => !IsCleared && HP != null && HP.Current > 0;
 
         public bool IsEventMap => RawData.Event != null;
 
@@ -45,6 +36,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal MapInfo(RawMapInfo rpRawData) : base(rpRawData)
         {
+            if (rpRawData.Event != null || rpRawData.DefeatedCount.HasValue)
+                HP = new ClampedValue(9999, 9999);
+
             OnRawDataUpdated();
         }
 
@@ -55,11 +49,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 var rMaximum = MasterInfo.RequiredDefeatCount.Value;
                 var rCurrent = rMaximum - RawData.DefeatedCount.Value;
 
-                HP = new ClampedValue(rMaximum, rCurrent);
+                HP.Set(rMaximum, rCurrent);
             }
             else if (RawData.Event != null)
             {
-                HP = new ClampedValue(RawData.Event.HPMaximum, RawData.Event.HPCurrent);
+                HP.Set(RawData.Event.HPMaximum, RawData.Event.HPCurrent);
                 Difficulty = RawData.Event.SelectedDifficulty;
             }
 

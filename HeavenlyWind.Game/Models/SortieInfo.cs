@@ -55,7 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 var rFriendParticipantSnapshots = BattleInfo.Current?.CurrentStage?.Friend;
                 if (rFriendParticipantSnapshots != null)
                     foreach (var rSnapshot in rFriendParticipantSnapshots)
-                        ((FriendShip)rSnapshot.Participant).Ship.HP = new ClampedValue(rSnapshot.Maximum, rSnapshot.Current);
+                        ((FriendShip)rSnapshot.Participant).Ship.HP.Set(rSnapshot.Maximum, rSnapshot.Current);
             });
         }
         internal SortieInfo() { }

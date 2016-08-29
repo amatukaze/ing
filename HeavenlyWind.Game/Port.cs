@@ -287,8 +287,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rShipSupplyResult in rData.Ships)
                 {
                     var rShip = Ships[rShipSupplyResult.ID];
-                    rShip.Fuel = rShip.Fuel.Update(rShipSupplyResult.Fuel);
-                    rShip.Bullet = rShip.Bullet.Update(rShipSupplyResult.Bullet);
+                    rShip.Fuel.Current = rShipSupplyResult.Fuel;
+                    rShip.Bullet.Current = rShipSupplyResult.Bullet;
 
                     if (rShip.OwnerFleet != null)
                         rFleets.Add(rShip.OwnerFleet);

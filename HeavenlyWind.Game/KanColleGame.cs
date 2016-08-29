@@ -57,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             {
                 var rMap = Maps[int.Parse(r.Parameters["api_maparea_id"]) * 10 + int.Parse(r.Parameters["api_map_no"])];
                 rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Parameters["api_rank"]);
-                rMap.HP = new ClampedValue(9999, 9999);
+                rMap.HP.Set(9999, 9999);
             });
 
             SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
@@ -69,19 +69,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rBattle = BattleInfo.Current;
                 var rEnemyFlagship = rBattle.CurrentStage.Enemy[0];
                 if (!rSortieMap.IsEventMap && rEnemyFlagship.State == BattleParticipantState.Sunk)
-                    rSortieMap.HP -= 1;
+                    rSortieMap.HP.Current--;
                 else if (rSortieMap.IsEventMap)
                 {
                     var rData = r.GetData<RawBattleResult>();
                     if (rData.TransportMissionResult != null)
-                        rSortieMap.HP -= rData.TransportMissionResult.Point;
+                        rSortieMap.HP.Current -= rData.TransportMissionResult.Point;
                     else
                     {
                         var rCurrentHP = rSortieMap.HP.Current - (rEnemyFlagship.Maximum - Math.Max(rEnemyFlagship.Current, 0));
                         if (rEnemyFlagship.State == BattleParticipantState.Sunk)
-                            rSortieMap.HP = rSortieMap.HP.Update(Math.Max(rCurrentHP, 0));
+                            rSortieMap.HP.Current = Math.Max(rCurrentHP, 0);
                         else
-                            rSortieMap.HP = rSortieMap.HP.Update(Math.Max(rCurrentHP, 1));
+                            rSortieMap.HP.Current = Math.Max(rCurrentHP, 1);
                     }
                 }
 
@@ -93,7 +93,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rSortieMap.IsCleared || ((RawMapExploration)r.Data).NodeEventType != SortieEventType.EscortSuccess)
                     return;
 
-                rSortieMap.HP -= 1;
+                rSortieMap.HP.Current--;
 
                 rSortieMap.UpdateGauge();
             });

@@ -2,7 +2,6 @@
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
@@ -85,51 +84,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        ClampedValue r_HP;
-        public ClampedValue HP
-        {
-            get { return r_HP; }
-            internal set
-            {
-                if (r_HP != value)
-                {
-                    r_HP = value;
-                    OnPropertyChanged(nameof(HP));
+        public ClampedValue HP { get; private set; }
 
-                    if (r_HP.Current / (double)r_HP.Maximum <= .25)
-                        State |= ShipState.HeavilyDamaged;
-                    else
-                        State &= ~ShipState.HeavilyDamaged;
-                }
-            }
-        }
-
-        ClampedValue r_Fuel;
-        public ClampedValue Fuel
-        {
-            get { return r_Fuel; }
-            internal set
-            {
-                if (r_Fuel != value)
-                {
-                    r_Fuel = value;
-                    OnPropertyChanged(nameof(Fuel));
-                }
-            }
-        }
-        ClampedValue r_Bullet;
-        public ClampedValue Bullet
-        {
-            get { return r_Bullet; }
-            internal set
-            {
-                if (r_Bullet != value)
-                {
-                    r_Bullet = value;
-                    OnPropertyChanged(nameof(Bullet));
-                }
-            }
-        }
+        public ClampedValue Fuel { get; private set; }
+        public ClampedValue Bullet { get; private set; }
 
         ShipState r_State;
         public ShipState State
@@ -210,6 +168,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal Ship(RawShip rpRawData) : base(rpRawData)
         {
+            HP = new ClampedValue(1, 1);
+            Fuel = new ClampedValue(1, 1);
+            Bullet = new ClampedValue(1, 1);
+
+            HP.Subscribe(nameof(HP.Current), delegate
+            {
+                if (HP.Current / (double)HP.Maximum <= .25)
+                    State |= ShipState.HeavilyDamaged;
+                else
+                    State &= ~ShipState.HeavilyDamaged;
+            });
+
             Status = new ShipStatus(this);
             CombatAbility = new ShipCombatAbility(this);
 
@@ -233,9 +203,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 OnPropertyChanged(nameof(Info));
             }
 
-            HP = new ClampedValue(RawData.HPMaximum, RawData.HPCurrent);
-            Fuel = new ClampedValue(Info.MaxFuelConsumption, RawData.Fuel);
-            Bullet = new ClampedValue(Info.MaxBulletConsumption, RawData.Bullet);
+            HP.Set(RawData.HPMaximum, RawData.HPCurrent);
+            Fuel.Set(Info.MaxFuelConsumption, RawData.Fuel);
+            Bullet.Set(Info.MaxBulletConsumption, RawData.Bullet);
 
             Condition = RawData.Condition;
 
@@ -336,7 +306,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 State &= ~ShipState.Repairing;
 
-                HP = HP.Update(HP.Maximum);
+                HP.Current = HP.Maximum;
                 if (Condition < 40)
                     Condition = 40;
             }
