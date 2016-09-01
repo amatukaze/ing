@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         Fleet r_Fleet;
 
-        internal List<Tuple<Ship, ClampedValue>> RepairingShips { get; set; }
+        internal List<Tuple<Ship, int>> RepairingShips { get; set; }
 
         public event Action InterruptionNotification = () => { };
 
@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal void Update(IEnumerable<Ship> rpShipsToBeRepaired)
         {
-            var rShips = rpShipsToBeRepaired.Select(r => Tuple.Create(r, r.HP)).ToList();
+            var rShips = rpShipsToBeRepaired.Select(r => Tuple.Create(r, r.HP.Current)).ToList();
             var rReset = false;
 
             if (RepairingShips == null || !RepairingShips.Select(r => r.Item1).SequenceEqual(rpShipsToBeRepaired))
