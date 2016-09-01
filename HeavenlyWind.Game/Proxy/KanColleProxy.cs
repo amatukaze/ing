@@ -23,6 +23,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         static string[] r_BlockingList;
 
+        static string r_UpstreamProxy;
+
         static KanColleProxy()
         {
             FiddlerApplication.BeforeRequest += FiddlerApplication_BeforeRequest;
@@ -36,6 +38,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 r_BlockingList = File.ReadAllLines(@"Data\BlockingList.lst");
             else
                 r_BlockingList = ArrayUtil.Empty<string>();
+
+            Preference.Instance.Network.UpstreamProxy.Enabled.Subscribe(_ => UpdateUpstreamProxy());
+            Preference.Instance.Network.UpstreamProxy.Host.Subscribe(_ => UpdateUpstreamProxy());
+            Preference.Instance.Network.UpstreamProxy.Port.Subscribe(_ => UpdateUpstreamProxy());
+            UpdateUpstreamProxy();
         }
 
         public static void Start()
@@ -55,9 +62,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 return;
             }
 
-            var rUpstreamProxyPreference = Preference.Instance.Network.UpstreamProxy;
-            if (rUpstreamProxyPreference.Enabled && (!rUpstreamProxyPreference.HttpOnly || !rpSession.RequestMethod.OICEquals("CONNECT")))
-                rpSession["x-OverrideGateway"] = $"{rUpstreamProxyPreference.Host.Value}:{rUpstreamProxyPreference.Port.Value}";
+            if (!r_UpstreamProxy.IsNullOrEmpty())
+                rpSession["x-OverrideGateway"] = r_UpstreamProxy;
 
             var rRequest = rpSession.oRequest;
 
@@ -187,6 +193,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             var rResourceSession = rSession as ResourceSession;
             if (rResourceSession != null)
                 CacheService.Instance.ProcessOnCompletion(rResourceSession, rpSession);
+        }
+
+        static void UpdateUpstreamProxy()
+        {
+            var rUpstreamProxyPreference = Preference.Instance.Network.UpstreamProxy;
+            if (rUpstreamProxyPreference.Enabled)
+                r_UpstreamProxy = rUpstreamProxyPreference.Host.Value + ":" + rUpstreamProxyPreference.Port.Value;
+            else
+                r_UpstreamProxy = null;
         }
 
         static void ForceOverrideStylesheet(Session rpSession)
