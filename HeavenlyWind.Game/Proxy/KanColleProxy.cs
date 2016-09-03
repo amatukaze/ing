@@ -2,11 +2,14 @@
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
+using Sakuno.SystemInterop;
+using Sakuno.SystemInterop.Net;
 using System;
 using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
@@ -24,6 +27,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         static string[] r_BlockingList;
 
         static string r_UpstreamProxy;
+
+        static ManualResetEventSlim r_TrafficBarrier;
 
         static KanColleProxy()
         {
@@ -43,6 +48,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             Preference.Instance.Network.UpstreamProxy.Host.Subscribe(_ => UpdateUpstreamProxy());
             Preference.Instance.Network.UpstreamProxy.Port.Subscribe(_ => UpdateUpstreamProxy());
             UpdateUpstreamProxy();
+
+            r_TrafficBarrier = new ManualResetEventSlim(NetworkListManager.IsConnectedToInternet);
+            NetworkListManager.ConnectivityChanged += delegate
+            {
+                if (NetworkListManager.IsConnectedToInternet)
+                    r_TrafficBarrier.Set();
+                else
+                    r_TrafficBarrier.Reset();
+            };
         }
 
         public static void Start()
@@ -93,6 +107,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             rSession.RequestHeaders = rpSession.RequestHeaders.Select(r => new SessionHeader(r.Name, r.Value)).ToArray();
 
             SessionSubject.OnNext(rSession);
+
+            if (!rpSession.bHasResponse)
+                r_TrafficBarrier.Wait();
         }
 
         static void FiddlerApplication_OnReadResponseBuffer(object sender, RawReadEventArgs e)

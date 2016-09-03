@@ -381,6 +381,10 @@
       <Project>{85fe16eb-f999-445c-872e-b8181c67031c}</Project>
       <Name>Sakuno.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj">
+      <Project>{3cd66841-054e-409b-8653-f846216061aa}</Project>
+      <Name>Sakuno.SystemInterop</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
