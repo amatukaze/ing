@@ -132,7 +132,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         {
             r_TypeMap.Clear();
             Types = null;
-            r_ShipVMs.Clear();
+            r_ShipVMs?.Clear();
             r_Ships = null;
             Ships = null;
 
