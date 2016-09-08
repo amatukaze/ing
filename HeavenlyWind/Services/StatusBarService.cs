@@ -1,4 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Controls;
+using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.UserInterface;
@@ -18,7 +20,7 @@ using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    public class StatusBarService : ModelBase
+    public class StatusBarService : ModelBase, IStatusBarService
     {
         public static StatusBarService Instance { get; } = new StatusBarService();
 
@@ -81,6 +83,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 .Select(r => r.EventArgs.PropertyName);
             rPropertyChangedSource.Where(r => r == nameof(IsMessageObsolete)).Select(_ => IsMessageObsolete).Where(r => !r)
                 .Throttle(TimeSpan.FromSeconds(30.0)).Subscribe(_ => IsMessageObsolete = true);
+
+            ServiceManager.Register<IStatusBarService>(this);
         }
 
         public void Initialize()

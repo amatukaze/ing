@@ -1,8 +1,9 @@
 ﻿using Fiddler;
+using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
-using Sakuno.SystemInterop;
 using Sakuno.SystemInterop.Net;
 using System;
 using System.IO;
@@ -57,6 +58,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 else
                     r_TrafficBarrier.Reset();
             };
+
+            ServiceManager.Register<INetworkAvailabilityService>(new NetworkAvailabilityService());
         }
 
         public static void Start()
@@ -244,5 +247,9 @@ body {
 </style></head>");
         }
 
+        class NetworkAvailabilityService : INetworkAvailabilityService
+        {
+            public void EnsureNetwork() => r_TrafficBarrier.Wait();
+        }
     }
 }

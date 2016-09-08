@@ -13,13 +13,13 @@ namespace Sakuno.KanColle.Amatsukaze.Extensibility
 
         public string Guid { get; }
 
-        public PluginExportAttribute(string rpName, string rpAuthor, string rpVersion, string rpGuid) : base(typeof(IPlugin))
+        public PluginExportAttribute(string name, string author, string version, string guid) : base(typeof(IPlugin))
         {
-            Name = rpName;
-            Author = rpAuthor;
-            Version = rpVersion;
+            Name = name;
+            Author = author;
+            Version = version;
 
-            Guid = rpGuid;
+            Guid = guid;
         }
     }
 }

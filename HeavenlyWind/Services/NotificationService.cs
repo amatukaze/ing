@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.SystemInterop;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,14 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using System.Windows.Interop;
 using System.Windows.Media;
+using Sakuno.KanColle.Amatsukaze.Extensibility;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    class NotificationService : IDisposable
+    class NotificationService : IDisposable, INotificationService
     {
         const string AppUserModelID = "Sakuno.Amatsukaze";
 
@@ -28,6 +28,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         NotifyIcon r_NotifyIcon;
 
         Tuple<string, MediaPlayer> r_CustomSound;
+
+        NotificationService()
+        {
+            ServiceManager.Register<INotificationService>(this);
+        }
 
         public void Initialize()
         {
@@ -228,18 +233,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             r_CustomSound.Item2.Stop();
             r_CustomSound.Item2.Play();
         }
-        void FlashWindow()
-        {
-            var rHandle = DispatcherUtil.UIDispatcher.Invoke(() => new WindowInteropHelper(App.Current.MainWindow).Handle);
-            var rInfo = new NativeStructs.FLASHWINFO()
-            {
-                cbSize = Marshal.SizeOf(typeof(NativeStructs.FLASHWINFO)),
-                hwnd = rHandle,
-                dwFlags = NativeEnums.FLASHW.FLASHW_TRAY | NativeEnums.FLASHW.FLASHW_TIMERNOFG,
-                dwTimeout = 250,
-                uCount = 5,
-            };
-            NativeMethods.User32.FlashWindowEx(ref rInfo);
-        }
+        void FlashWindow() => ServiceManager.GetService<IMainWindowService>().Flash(5, 250);
     }
 }

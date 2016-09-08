@@ -377,6 +377,10 @@
       <Project>{eeb0bea3-8d40-47c3-aeef-ba7774d721ca}</Project>
       <Name>HeavenlyWind.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HeavenlyWind.Extensibility\HeavenlyWind.Extensibility.csproj">
+      <Project>{2541487F-D8DB-4CA5-9B41-DF6243B259B7}</Project>
+      <Name>HeavenlyWind.Extensibility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj">
       <Project>{85fe16eb-f999-445c-872e-b8181c67031c}</Project>
       <Name>Sakuno.Base</Name>

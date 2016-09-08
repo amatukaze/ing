@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.UserInterface;
 using System;
@@ -15,7 +17,7 @@ using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    class BrowserService : ModelBase
+    class BrowserService : ModelBase, IBrowserService
     {
         public static BrowserService Instance { get; } = new BrowserService();
 
@@ -46,6 +48,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         public int? BrowserProcessID => r_BrowserProcess?.Id;
 
         public BrowserHost BrowserControl { get; private set; }
+        public IntPtr Handle => BrowserControl != null ? BrowserControl.BrowserHandle : IntPtr.Zero;
+
         public BrowserNavigator Navigator { get; private set; }
 
         bool r_IsNavigatorVisible;
@@ -69,7 +73,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         public ICommand ClearCacheCommand { get; }
         public ICommand ClearCacheAndCookieCommand { get; }
 
-        public event EventHandler<Size> Resized = delegate { };
+        public event Action Attached;
+        public event EventHandler<Size> Resized;
+        public event Action ResizedToFitGame;
 
         BrowserService()
         {
@@ -162,6 +168,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             OnPropertyChanged(nameof(BrowserControl));
 
             Navigator.Navigate(Preference.Instance.Browser.Homepage);
+
+            Attached?.Invoke();
+
+            BrowserControl.SizeChanged += (s, e) => Resized?.Invoke(this, e.NewSize);
         }
 
         internal void ResizeBrowserToFitGame()
@@ -172,12 +182,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
             IsNavigatorVisible = false;
 
-            BrowserControl.Dispatcher.BeginInvoke(new Action(BrowserControl.ResizeBrowserToFitGame));
+            BrowserControl.Dispatcher.Invoke(new Action(BrowserControl.ResizeBrowserToFitGame));
 
             IsResizedToFitGame = true;
             OnPropertyChanged(nameof(IsResizedToFitGame));
 
-            Resized(this, BrowserControl.DesiredSize);
+            BrowserControl.Dispatcher.Invoke(new Action(() => Resized?.Invoke(this, BrowserControl.DesiredSize)));
+
+            ResizedToFitGame?.Invoke();
         }
     }
 }
