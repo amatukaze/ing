@@ -352,6 +352,7 @@
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">预览</String>
   <String Key="PreferenceWindow_UI_MaterialIcons">资材图标</String>
   <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">使用游戏的图标</String>
+  <String Key="PreferenceWindow_UI_ShowFatigueInSortie">在出击时显示舰娘的疲劳值</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>

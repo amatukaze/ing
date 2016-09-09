@@ -349,6 +349,7 @@
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">プレビュー</String>
   <String Key="PreferenceWindow_UI_MaterialIcons">資材アイコン</String>
   <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">ゲームのようなアイコンを使用します</String>
+  <String Key="PreferenceWindow_UI_ShowFatigueInSortie">出撃情報で疲労度を表示する</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>

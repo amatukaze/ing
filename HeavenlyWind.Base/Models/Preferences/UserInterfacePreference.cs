@@ -18,5 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         public HeavyDamageLinePreference HeavyDamageLine { get; } = new HeavyDamageLinePreference();
 
         public Property<bool> UseGameMaterialIcons { get; } = new Property<bool>("ui.use_game_material_icons");
+
+        public Property<bool> ShowFatigueInSortie { get; } = new Property<bool>("ui.show_fatigue_in_sortie");
     }
 }

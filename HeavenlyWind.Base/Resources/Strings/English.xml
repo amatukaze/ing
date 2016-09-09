@@ -350,6 +350,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">Preview</String>
   <String Key="PreferenceWindow_UI_MaterialIcons">Material icons</String>
   <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">Use in-game icons</String>
+  <String Key="PreferenceWindow_UI_ShowFatigueInSortie">Show fatigue in Sortie</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
