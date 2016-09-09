@@ -135,6 +135,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     {
                         var rOriginal = rModernizedShip.RawData;
                         var rNow = rData.Ship;
+                        var rInfo = rModernizedShip.Info;
 
                         var rFirepowerDiff = rNow.Firepower[0] - rOriginal.Firepower[0];
                         var rTorpedoDiff = rNow.Torpedo[0] - rOriginal.Torpedo[0];
@@ -145,15 +146,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                         var rDifferences = new List<string>(5);
 
                         if (rFirepowerDiff > 0)
-                            rDifferences.Add("[icon]firepower[/icon] +" + rFirepowerDiff);
+                            if (rNow.Firepower[0] != rInfo.FirepowerMaximum)
+                                rDifferences.Add($"[icon]firepower[/icon] {rOriginal.Firepower[0]}[b]+{rFirepowerDiff}[/b]/{rInfo.FirepowerMaximum}");
+                            else
+                                rDifferences.Add("[icon]firepower[/icon] MAX");
                         if (rTorpedoDiff > 0)
-                            rDifferences.Add("[icon]torpedo[/icon] +" + rTorpedoDiff);
+                            if (rNow.Torpedo[0] != rInfo.TorpedoMaximum)
+                                rDifferences.Add($"[icon]torpedo[/icon] {rOriginal.Torpedo[0]}[b]+{rTorpedoDiff}[/b]/{rInfo.TorpedoMaximum}");
+                            else
+                                rDifferences.Add("[icon]torpedo[/icon] MAX");
                         if (rAADiff > 0)
-                            rDifferences.Add("[icon]aa[/icon] +" + rAADiff);
+                            if (rNow.AA[0] != rInfo.AAMaximum)
+                                rDifferences.Add($"[icon]aa[/icon] {rOriginal.AA[0]}[b]+{rAADiff}[/b]/{rInfo.AAMaximum}");
+                            else
+                                rDifferences.Add("[icon]aa[/icon] MAX");
                         if (rArmorDiff > 0)
-                            rDifferences.Add("[icon]armor[/icon] +" + rArmorDiff);
+                            if (rNow.Armor[0] != rInfo.ArmorMaximum)
+                                rDifferences.Add($"[icon]armor[/icon] {rOriginal.Armor[0]}[b]+{rArmorDiff}[/b]/{rInfo.ArmorMaximum}");
+                            else
+                                rDifferences.Add("[icon]armor[/icon] MAX");
                         if (rLuckDiff > 0)
-                            rDifferences.Add("[icon]luck[/icon] +" + rLuckDiff);
+                            if (rNow.Luck[0] != rInfo.LuckMaximum)
+                                rDifferences.Add($"[icon]luck[/icon] {rOriginal.Luck[0]}[b]+{rLuckDiff}[/b]/{rInfo.LuckMaximum}");
+                            else
+                                rDifferences.Add("[icon]luck[/icon] MAX");
 
                         var rMessage = StringResources.Instance.Main.Log_Modernization_Success;
                         if (rDifferences.Count > 0)

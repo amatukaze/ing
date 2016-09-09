@@ -26,8 +26,8 @@
   <String Key="Log_Screenshot_Failed_NoData">No screenshot data from the browser</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
   <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
-  <String Key="Log_Modernization_Success">Succeeded to modernize [b]{0}[/b].</String>
-  <String Key="Log_Modernization_Failure">Failed to modernize [b]{0}[/b]</String>
+  <String Key="Log_Modernization_Success">Succeeded to modernize {0}.</String>
+  <String Key="Log_Modernization_Failure">Failed to modernize {0}</String>
   <String Key="Log_EquipmentImprovement_Ready">Ready to improve [b]{0}[/b] {1} (ID={2})</String>
   <String Key="Log_EquipmentImprovement_Success">[b]{0}[/b] has been successfully improved to {1}</String>
   <String Key="Log_EquipmentImprovement_Upgrade">The equipment has upgraded to [b]{0}[/b] {1}</String>

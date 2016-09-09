@@ -26,8 +26,8 @@
   <String Key="Log_Screenshot_Failed_NoData">ブラウザからのスクリーンショットデータはありません</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
   <String Key="Log_Screenshot_Succeeded_File">スクリーンショットを保存しました: {0}</String>
-  <String Key="Log_Modernization_Success">「[b]{0}[/b]」の近代化改修に成功しました。</String>
-  <String Key="Log_Modernization_Failure">「[b]{0}[/b]」の近代化改修に失敗しました</String>
+  <String Key="Log_Modernization_Success">「{0}」の近代化改修に成功しました。</String>
+  <String Key="Log_Modernization_Failure">「{0}」の近代化改修に失敗しました</String>
   <String Key="Log_EquipmentImprovement_Ready">「[b]{0}[/b] {1}」(ID={2}) の改修を準備します</String>
   <String Key="Log_EquipmentImprovement_Success">「[b]{0}[/b] {1}」の改修に成功しました</String>
   <String Key="Log_EquipmentImprovement_Upgrade">「[b]{0}[/b] {1}」に装備が改修更新されました</String>
