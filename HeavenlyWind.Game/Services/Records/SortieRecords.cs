@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         enum ReturnReason { DeadEnd, Retreat, RetreatWithHeavilyDamagedShip, Unexpected }
 
         public override string GroupName => "sortie";
-        public override int Version => 2;
+        public override int Version => 3;
 
         long? r_CurrentSortieID;
         bool r_IsDeadEnd;
@@ -55,7 +55,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                 "CREATE TABLE IF NOT EXISTS sortie(" +
                     "id INTEGER PRIMARY KEY NOT NULL, " +
-                    "map INTEGER NOT NULL REFERENCES sortie_map(id));" +
+                    "map INTEGER NOT NULL REFERENCES sortie_map(id), " +
+                    "difficulty INTEGER);" +
 
                 "CREATE TABLE IF NOT EXISTS sortie_node(" +
                     "map INTEGER NOT NULL REFERENCES sortie_map(id), " +
@@ -100,6 +101,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                     rCommand.ExecuteNonQuery();
                 }
+
+            if (rpOldVersion < 3)
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "ALTER TABLE sortie ADD COLUMN difficulty INTEGER;" +
+                        "UPDATE sortie SET difficulty = (SELECT node - (node + 2) / 3 * 3 + 3 FROM sortie_detail WHERE id = sortie.id) WHERE (SELECT is_event_map FROM sortie_map WHERE id = sortie.map) = 1;" +
+                        "UPDATE sortie_detail SET node = (node + 2) / 3 WHERE (SELECT is_event_map FROM sortie_map WHERE id = (SELECT map FROM sortie WHERE id = sortie_detail.id)) AND node <> -1; ";
+
+                    rCommand.ExecuteNonQuery();
+                }
         }
 
         protected override void Load() => InsertReturnReason(ReturnReason.Unexpected);
@@ -114,11 +126,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 using (var rCommand = Connection.CreateCommand())
                 {
-                    rCommand.CommandText = "INSERT OR IGNORE INTO sortie_map(id, is_event_map) VALUES(@map_id, @is_event_map);" +
-                        "INSERT INTO sortie(id, map) VALUES(@sortie_id, @map_id);";
+                    rCommand.CommandText =
+                        "INSERT OR IGNORE INTO sortie_map(id, is_event_map) VALUES(@map_id, @is_event_map);" +
+                        "INSERT INTO sortie(id, map, difficulty) VALUES(@sortie_id, @map_id, @difficulty);";
                     rCommand.Parameters.AddWithValue("@map_id", rMap.ID);
                     rCommand.Parameters.AddWithValue("@sortie_id", rSortie.ID);
                     rCommand.Parameters.AddWithValue("@is_event_map", rMap.IsEventMap);
+                    rCommand.Parameters.AddWithValue("@difficulty", rMap.Difficulty);
 
                     rCommand.ExecuteNonQuery();
                 }

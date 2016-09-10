@@ -9,10 +9,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
     class SortieHistoryViewModel : HistoryViewModelBase<SortieRecord>
     {
-        protected override string LoadCommandText => @"SELECT sortie.id AS id, sortie.map AS map, CASE is_event_map WHEN 0 THEN 0 ELSE sortie_detail.node - (sortie_detail.node + 2) / 3 * 3 + 3 END AS difficulty, step, CASE is_event_map WHEN 0 THEN node ELSE (node + 2) / 3 END AS node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM sortie
+        protected override string LoadCommandText => @"SELECT sortie.id AS id, sortie.map AS map, difficulty, step, node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM sortie
 JOIN sortie_map ON sortie.map = sortie_map.id
 JOIN sortie_detail ON sortie.id = sortie_detail.id
-JOIN sortie_node ON sortie.map = sortie_node.map AND CASE sortie_map.is_event_map WHEN 0 THEN sortie_detail.node ELSE (sortie_detail.node + 2) / 3 END = sortie_node.id
+JOIN sortie_node ON sortie.map = sortie_node.map AND sortie_detail.node = sortie_node.id
 JOIN battle ON extra_info = battle.id
 LEFT JOIN battle_dropped_item ON battle.id = battle_dropped_item.id
 LEFT JOIN battle_detail.battle battle_detail ON extra_info = battle_detail.id
@@ -25,10 +25,10 @@ ORDER BY id DESC, step DESC;";
 
         protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
         {
-            rpCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, CASE is_event_map WHEN 0 THEN 0 ELSE sortie_detail.node - (sortie_detail.node + 2) / 3 * 3 + 3 END AS difficulty, step, CASE is_event_map WHEN 0 THEN node ELSE (node + 2) / 3 END AS node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM sortie
+            rpCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, difficulty, step, node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM sortie
 JOIN sortie_map ON sortie.map = sortie_map.id
 JOIN sortie_detail ON sortie.id = sortie_detail.id
-JOIN sortie_node ON sortie.map = sortie_node.map AND CASE sortie_map.is_event_map WHEN 0 THEN sortie_detail.node ELSE (sortie_detail.node + 2) / 3 END = sortie_node.id
+JOIN sortie_node ON sortie.map = sortie_node.map AND sortie_detail.node = sortie_node.id
 JOIN battle ON extra_info = battle.id
 LEFT JOIN battle_dropped_item ON battle.id = battle_dropped_item.id
 LEFT JOIN battle_detail.battle battle_detail ON extra_info = battle_detail.id
