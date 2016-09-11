@@ -6,11 +6,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
     [Api("api_req_map/start")]
     class StartSortieParser : ApiParser<RawMapExploration>
     {
-        public override void Process(RawMapExploration rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawMapExploration rpData)
         {
-            var rFleet = Game.Port.Fleets[int.Parse(Parameters["api_deck_id"])];
-            var rAreaID = int.Parse(Parameters["api_maparea_id"]);
-            var rAreaSubID = int.Parse(Parameters["api_mapinfo_no"]);
+            var rFleet = Game.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
+            var rAreaID = int.Parse(rpInfo.Parameters["api_maparea_id"]);
+            var rAreaSubID = int.Parse(rpInfo.Parameters["api_mapinfo_no"]);
 
             var rSortie = new SortieInfo(rFleet, rAreaID * 10 + rAreaSubID);
             Game.Sortie = rSortie;

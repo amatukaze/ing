@@ -22,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
+            ApiService.SubscribeOnce("api_get_member/require_info", delegate
             {
                 using (var rConnection = new SQLiteConnection(@"Data Source=Data\AbyssalFleets.db; Page Size=8192").OpenAndReturn())
                 using (var rCommand = rConnection.CreateCommand())
@@ -68,13 +68,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 "api_req_combined_battle/sp_midnight",
                 "api_req_combined_battle/ld_airbattle",
             };
-            SessionService.Instance.Subscribe(rBattleApis, ProcessAbyssalFleet);
+            ApiService.Subscribe(rBattleApis, ProcessAbyssalFleet);
         }
 
-        void ProcessAbyssalFleet(ApiData rpData)
+        void ProcessAbyssalFleet(ApiInfo rpInfo)
         {
-            var rData = rpData.Data as RawBattleBase;
-            var rFormation = rpData.Data as IRawFormationAndEngagementForm;
+            var rData = rpInfo.Data as RawBattleBase;
+            var rFormation = rpInfo.Data as IRawFormationAndEngagementForm;
             if (rData == null || rFormation == null)
                 return;
 

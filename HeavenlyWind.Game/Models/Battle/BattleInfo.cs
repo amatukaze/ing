@@ -38,7 +38,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         static BattleInfo()
         {
-            SessionService.Instance.Subscribe("api_port/port", _ => Current = null);
+            ApiService.Subscribe("api_port/port", _ => Current = null);
 
             var rFirstStages = new[]
             {
@@ -54,7 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
                 "api_req_practice/battle",
             };
-            SessionService.Instance.Subscribe(rFirstStages, r => Current?.ProcessFirstStage(r));
+            ApiService.Subscribe(rFirstStages, r => Current?.ProcessFirstStage(r));
 
             var rSecondStages = new[]
             {
@@ -63,7 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
                 "api_req_practice/midnight_battle",
             };
-            SessionService.Instance.Subscribe(rSecondStages, r => Current?.ProcessSecondStage(r));
+            ApiService.Subscribe(rSecondStages, r => Current?.ProcessSecondStage(r));
         }
         internal BattleInfo(RawMapExploration rpData)
         {
@@ -110,37 +110,37 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Participants.FriendMain = rpParticipantFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
         }
 
-        void ProcessFirstStage(ApiData rpData)
+        void ProcessFirstStage(ApiInfo rpInfo)
         {
-            SetEnemy((RawBattleBase)rpData.Data);
-            SetFormationAndEngagementForm(rpData);
+            SetEnemy((RawBattleBase)rpInfo.Data);
+            SetFormationAndEngagementForm(rpInfo);
 
-            switch (rpData.Api)
+            switch (rpInfo.Api)
             {
                 case "api_req_sortie/battle":
                 case "api_req_practice/battle":
-                    First = new DayNormalStage(this, rpData);
+                    First = new DayNormalStage(this, rpInfo);
                     break;
 
-                case "api_req_battle_midnight/sp_midnight": First = new NightOnlyStage(this, rpData); break;
+                case "api_req_battle_midnight/sp_midnight": First = new NightOnlyStage(this, rpInfo); break;
 
                 case "api_req_sortie/airbattle":
                 case "api_req_combined_battle/airbattle":
-                    First = new AerialCombatStage(this, rpData);
+                    First = new AerialCombatStage(this, rpInfo);
                     break;
 
                 case "api_req_sortie/ld_airbattle":
                 case "api_req_combined_battle/ld_airbattle":
-                    First = new AerialAttackStage(this, rpData);
+                    First = new AerialAttackStage(this, rpInfo);
                     break;
 
-                case "api_req_combined_battle/battle": First = new CombinedFleetCTFDayNormalStage(this, rpData); break;
-                case "api_req_combined_battle/battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpData); break;
+                case "api_req_combined_battle/battle": First = new CombinedFleetCTFDayNormalStage(this, rpInfo); break;
+                case "api_req_combined_battle/battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpInfo); break;
 
-                case "api_req_combined_battle/sp_midnight": First = new CombinedFleetNightOnlyStage(this, rpData); break;
+                case "api_req_combined_battle/sp_midnight": First = new CombinedFleetNightOnlyStage(this, rpInfo); break;
             }
 
-            First.Process(rpData);
+            First.Process(rpInfo);
             First.ProcessMVP();
             Result.Update(First, Second);
 
@@ -162,9 +162,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 return new EnemyShip(r, rLevel, rEquipment);
             }).ToArray<IParticipant>();
         }
-        void SetFormationAndEngagementForm(ApiData rpData)
+        void SetFormationAndEngagementForm(ApiInfo rpInfo)
         {
-            var rFormationRawData = rpData.Data as IRawFormationAndEngagementForm;
+            var rFormationRawData = rpInfo.Data as IRawFormationAndEngagementForm;
 
             FriendFormation = (Formation)rFormationRawData.FormationAndEngagementForm[0];
             EnemyFormation = (Formation)rFormationRawData.FormationAndEngagementForm[1];
@@ -175,19 +175,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             OnPropertyChanged(nameof(EngagementForm));
         }
 
-        void ProcessSecondStage(ApiData rpData)
+        void ProcessSecondStage(ApiInfo rpInfo)
         {
-            switch (rpData.Api)
+            switch (rpInfo.Api)
             {
                 case "api_req_battle_midnight/battle":
                 case "api_req_practice/midnight_battle":
-                    Second = new NightNormalStage(this, rpData);
+                    Second = new NightNormalStage(this, rpInfo);
                     break;
 
-                case "api_req_combined_battle/midnight_battle": Second = new CombinedFleetNightNormalStage(this, rpData); break;
+                case "api_req_combined_battle/midnight_battle": Second = new CombinedFleetNightNormalStage(this, rpInfo); break;
             }
 
-            Second.Process(rpData);
+            Second.Process(rpInfo);
             InheritFromPreviousStage(Second);
             Second.ProcessMVP();
             Result.Update(First, Second);

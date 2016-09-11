@@ -31,7 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             r_Owner = rpAdmiral;
             r_AdmiralID = rpAdmiral.ID;
 
-            SessionService.Instance.SubscribeOnce("api_port/port", delegate
+            ApiService.SubscribeOnce("api_port/port", delegate
             {
                 ReloadInitialRankingPoints();
 

@@ -1,11 +1,12 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+﻿using System;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root
 {
     [Api("api_start2")]
     class ApiStartParser : ApiParser<RawMasterInfo>
     {
-        public override void Process(RawMasterInfo rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawMasterInfo rpData)
         {
             Game.MasterInfo.Update(rpData);
             Game.IsStarted = true;

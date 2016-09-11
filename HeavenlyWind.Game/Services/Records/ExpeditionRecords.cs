@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal ExpeditionRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_mission/result", r =>
+            DisposableObjects.Add(ApiService.Subscribe("api_req_mission/result", r =>
             {
                 using (var rTransaction = Connection.BeginTransaction())
                 {

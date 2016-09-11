@@ -45,13 +45,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             GameInformation = new GameInformationViewModel(this);
             r_Page = GameInformation;
 
-            SessionService.Instance.SubscribeOnce("api_start2", delegate
+            ApiService.SubscribeOnce("api_start2", delegate
             {
                 IsGameStarted = true;
                 OnPropertyChanged(nameof(IsGameStarted));
             });
 
-            SessionService.Instance.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
+            ApiService.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
             KanColleGame.Current.ReturnedFromSortie += _ => ThemeManager.Instance.ChangeAccent(Accent.Blue);
 
             ShowConstructionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ConstructionHistoryWindow>());

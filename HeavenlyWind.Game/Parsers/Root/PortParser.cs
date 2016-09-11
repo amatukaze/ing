@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root
     [Api("api_port/port")]
     class PortParser : ApiParser<RawPort>
     {
-        public override void Process(RawPort rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawPort rpData)
         {
             Game.MasterInfo.WaitForInitialization();
 

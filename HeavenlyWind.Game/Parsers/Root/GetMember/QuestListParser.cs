@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.GetMember
     [Api("api_get_member/questlist")]
     class QuestListParser : ApiParser<RawQuestList>
     {
-        public override void Process(RawQuestList rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawQuestList rpData)
         {
             if (rpData.QuestsJson.Type != JTokenType.Array)
                 return;

@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal AirBase()
         {
-            SessionService.Instance.Subscribe("api_req_air_corps/set_action", r =>
+            ApiService.Subscribe("api_req_air_corps/set_action", r =>
             {
                 var rGroups = r.Parameters["api_base_id"].Split(',').Select(rpID => Table[int.Parse(rpID)]).ToArray();
                 var rOptions = r.Parameters["api_action_kind"].Split(',').Select(rpOption => (AirForceGroupOption)int.Parse(rpOption)).ToArray();
@@ -22,13 +22,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     rGroups[i].Option = rOptions[i];
             });
 
-            SessionService.Instance.Subscribe("api_req_air_corps/change_name", r =>
+            ApiService.Subscribe("api_req_air_corps/change_name", r =>
             {
                 var rGroup = Table[int.Parse(r.Parameters["api_base_id"])];
                 rGroup.Name = r.Parameters["api_name"];
             });
 
-            SessionService.Instance.Subscribe("api_req_air_corps/set_plane", r =>
+            ApiService.Subscribe("api_req_air_corps/set_plane", r =>
             {
                 var rGroup = Table[int.Parse(r.Parameters["api_base_id"])];
 
@@ -40,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rGroup.UpdateFighterPower();
             });
 
-            SessionService.Instance.Subscribe("api_req_air_corps/supply", r =>
+            ApiService.Subscribe("api_req_air_corps/supply", r =>
             {
                 var rGroup = Table[int.Parse(r.Parameters["api_base_id"])];
 

@@ -22,10 +22,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal SortieRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_map/start", StartSortie));
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_map/next", _ => InsertExplorationRecord(SortieInfo.Current)));
+            DisposableObjects.Add(ApiService.Subscribe("api_req_map/start", StartSortie));
+            DisposableObjects.Add(ApiService.Subscribe("api_req_map/next", _ => InsertExplorationRecord(SortieInfo.Current)));
 
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_start2", _ => ProcessReturn(ReturnReason.Unexpected)));
+            DisposableObjects.Add(ApiService.Subscribe("api_start2", _ => ProcessReturn(ReturnReason.Unexpected)));
             DisposableObjects.Add(Observable.FromEvent<SortieInfo>(r => KanColleGame.Current.ReturnedFromSortie += r, r => KanColleGame.Current.ReturnedFromSortie -= r).Subscribe(r =>
             {
                 ReturnReason rType;
@@ -116,7 +116,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         protected override void Load() => InsertReturnReason(ReturnReason.Unexpected);
 
-        void StartSortie(ApiData rpData)
+        void StartSortie(ApiInfo rpInfo)
         {
             var rSortie = SortieInfo.Current;
             var rMap = rSortie.Map;

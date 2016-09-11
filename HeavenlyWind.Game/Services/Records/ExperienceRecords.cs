@@ -17,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal ExperienceRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", _ =>
+            DisposableObjects.Add(ApiService.Subscribe("api_port/port", _ =>
             {
                 var rPort = KanColleGame.Current.Port;
 

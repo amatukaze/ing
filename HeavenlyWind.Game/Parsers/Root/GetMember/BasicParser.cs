@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.GetMember
     [Api("api_get_member/basic")]
     class BasicParser : ApiParser<RawBasic>
     {
-        public override void Process(RawBasic rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawBasic rpData)
         {
             Game.Port.UpdateAdmiral(rpData);
         }

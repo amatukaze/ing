@@ -7,9 +7,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Expedition
     [Api("api_req_mission/result")]
     class ResultParser : ApiParser<RawExpeditionResult>
     {
-        public override void Process(RawExpeditionResult rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawExpeditionResult rpData)
         {
-            var rFleet = Game.Port.Fleets[int.Parse(Parameters["api_deck_id"])];
+            var rFleet = Game.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
             var rExpedition = rFleet.ExpeditionStatus.Expedition;
 
             var rLogContent = string.Format(StringResources.Instance.Main.Log_ExpeditionResult,

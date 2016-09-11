@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
             if (rpExpeditions?.Length != 0)
                 Expeditions = new HashSet<int>(rpExpeditions);
 
-            Observable = SessionService.Instance.GetObservable("api_req_mission/result").Select(r =>
+            Observable = ApiService.GetObservable("api_req_mission/result").Select(r =>
             {
                 var rData = (RawExpeditionResult)r.Data;
                 var rFleet = KanColleGame.Current.Port.Fleets[int.Parse(r.Parameters["api_deck_id"])];

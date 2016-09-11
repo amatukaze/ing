@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         static PracticeInfo()
         {
-            SessionService.Instance.Subscribe("api_port/port", _ => r_Current = null);
+            ApiService.Subscribe("api_port/port", _ => r_Current = null);
         }
         internal PracticeInfo(RawPracticeOpponentInfo rpRawData)
         {

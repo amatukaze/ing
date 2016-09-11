@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Upgrade
     [Api("api_req_kaisou/powerup")]
     class ModernizationParser : ApiParser<RawModernizationResult>
     {
-        public override void Process(RawModernizationResult rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawModernizationResult rpData)
         {
         }
     }

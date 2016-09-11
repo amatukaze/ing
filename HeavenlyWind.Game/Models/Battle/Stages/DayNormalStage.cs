@@ -23,9 +23,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             ClosingTorpedo,
         };
 
-        internal protected DayNormalStage(BattleInfo rpOwner, ApiData rpData) : base(rpOwner)
+        internal protected DayNormalStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
         {
-            var rRawData = rpData.Data as RawDay;
+            var rRawData = rpInfo.Data as RawDay;
 
             LandBaseAerialSupport = new LandBaseAerialSupportPhase(this, rRawData.LandBaseAerialSupport);
             AerialCombat = new AerialCombatPhase(this, rRawData.AerialCombat);

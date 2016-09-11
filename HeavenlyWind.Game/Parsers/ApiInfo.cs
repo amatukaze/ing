@@ -1,12 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
+using System;
 using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 {
-    public class ApiData
+    public class ApiInfo
     {
         internal ApiSession Session { get; }
+
+        public long Timestamp { get; }
 
         public string Api { get; }
         public IDictionary<string, string> Parameters { get; }
@@ -14,9 +17,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
         public object Data { get; internal set; }
 
-        internal ApiData(ApiSession rpSession, string rpApi, IDictionary<string, string> rpParameters, JObject rpJson)
+        internal ApiInfo(ApiSession rpSession, string rpApi, IDictionary<string, string> rpParameters, JObject rpJson)
         {
             Session = rpSession;
+
+            Timestamp = DateTimeOffset.Now.ToUnixTime();
 
             Api = rpApi;
             Parameters = rpParameters;
@@ -30,7 +35,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                 return rResult;
 
             var rData = Json["api_data"];
-            return rData != null ? rData.ToObject<T>() : null;
+            if (rData != null)
+                Data = rData.ToObject<T>();
+
+            return Data as T;
         }
     }
 }

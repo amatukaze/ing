@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            SessionService.Instance.Subscribe("api_get_member/require_info", delegate
+            ApiService.Subscribe("api_get_member/require_info", delegate
             {
                 var rDataFile = new FileInfo(DataFilename);
                 if (!rDataFile.Exists)

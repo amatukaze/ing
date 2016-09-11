@@ -45,8 +45,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_combined_battle/sp_midnight",
                 "api_req_combined_battle/ld_airbattle",
             };
-            DisposableObjects.Add(SessionService.Instance.Subscribe(rSortieFirstStageApis, ProcessSortieFirstStage));
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_practice/battle", ProcessPracticeFirstStage));
+            DisposableObjects.Add(ApiService.Subscribe(rSortieFirstStageApis, ProcessSortieFirstStage));
+            DisposableObjects.Add(ApiService.Subscribe("api_req_practice/battle", ProcessPracticeFirstStage));
 
             var rSecondStageApis = new[]
             {
@@ -55,7 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_combined_battle/midnight_battle",
                 "api_req_practice/midnight_battle",
             };
-            DisposableObjects.Add(SessionService.Instance.Subscribe(rSecondStageApis, ProcessSecondStage));
+            DisposableObjects.Add(ApiService.Subscribe(rSecondStageApis, ProcessSecondStage));
 
             var rBattleResultApis = new[]
             {
@@ -63,7 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_combined_battle/battleresult",
                 "api_req_practice/battle_result",
             };
-            DisposableObjects.Add(SessionService.Instance.Subscribe(rBattleResultApis, ProcessResult));
+            DisposableObjects.Add(ApiService.Subscribe(rBattleResultApis, ProcessResult));
         }
 
         protected override void CreateTable()
@@ -205,7 +205,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void ProcessSortieFirstStage(ApiData rpData)
+        void ProcessSortieFirstStage(ApiInfo rpInfo)
         {
             var rSortie = SortieInfo.Current;
             r_CurrentBattleID = BattleInfo.Current.ID;
@@ -216,13 +216,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 var rCommandTextBuilder = new StringBuilder(1024);
                 rCommandTextBuilder.Append("INSERT INTO battle_detail.battle(id, first) VALUES(@battle_id, @first);");
                 rCommand.Parameters.AddWithValue("@battle_id", r_CurrentBattleID.Value);
-                rCommand.Parameters.AddWithValue("@first", CompressJson(rpData.Json["api_data"]));
+                rCommand.Parameters.AddWithValue("@first", CompressJson(rpInfo.Json["api_data"]));
 
                 ProcessParticipantFleet(rCommandTextBuilder, rSortie.Fleet, ParticipantFleetType.Main);
                 if (rSortie.EscortFleet != null)
                     ProcessParticipantFleet(rCommandTextBuilder, rSortie.EscortFleet, ParticipantFleetType.Escort);
 
-                var rData = rpData.Data as RawDay;
+                var rData = rpInfo.Data as RawDay;
                 if (rData != null && rData.SupportingFireType != 0)
                 {
                     var rSupportFire = rData.SupportingFire;
@@ -236,9 +236,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rTransaction.Commit();
             }
         }
-        void ProcessPracticeFirstStage(ApiData rpData)
+        void ProcessPracticeFirstStage(ApiInfo rpInfo)
         {
-            var rParticipantFleet = KanColleGame.Current.Port.Fleets[int.Parse(rpData.Parameters["api_deck_id"])];
+            var rParticipantFleet = KanColleGame.Current.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
             var rPractice = (PracticeInfo)KanColleGame.Current.Sortie;
             var rOpponent = rPractice.Opponent;
             r_CurrentBattleID = rPractice.Battle.ID;
@@ -262,7 +262,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.Parameters.AddWithValue("@opponent_experience", rOpponent.RawData.Experience[0]);
                 rCommand.Parameters.AddWithValue("@opponent_rank", (int)rOpponent.Rank);
                 rCommand.Parameters.AddWithValue("@battle_id", r_CurrentBattleID.Value);
-                rCommand.Parameters.AddWithValue("@first", CompressJson(rpData.Json["api_data"]));
+                rCommand.Parameters.AddWithValue("@first", CompressJson(rpInfo.Json["api_data"]));
 
                 ProcessParticipantFleet(rCommandTextBuilder, rParticipantFleet, ParticipantFleetType.Main);
 
@@ -272,7 +272,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rTransaction.Commit();
             }
         }
-        void ProcessSecondStage(ApiData rpData)
+        void ProcessSecondStage(ApiInfo rpInfo)
         {
             if (!r_CurrentBattleID.HasValue)
                 return;
@@ -281,12 +281,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 rCommand.CommandText = "UPDATE battle_detail.battle SET second = @second WHERE id = @id;";
                 rCommand.Parameters.AddWithValue("@id", r_CurrentBattleID.Value);
-                rCommand.Parameters.AddWithValue("@second", CompressJson(rpData.Json["api_data"]));
+                rCommand.Parameters.AddWithValue("@second", CompressJson(rpInfo.Json["api_data"]));
 
                 rCommand.ExecuteNonQuery();
             }
         }
-        void ProcessResult(ApiData rpData)
+        void ProcessResult(ApiInfo rpInfo)
         {
             if (!r_CurrentBattleID.HasValue)
                 return;
@@ -297,12 +297,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 {
                     rCommand.CommandText = "UPDATE battle_detail.battle SET result = @result WHERE id = @id;";
                     rCommand.Parameters.AddWithValue("@id", r_CurrentBattleID.Value);
-                    rCommand.Parameters.AddWithValue("@result", CompressJson(rpData.Json["api_data"]));
+                    rCommand.Parameters.AddWithValue("@result", CompressJson(rpInfo.Json["api_data"]));
 
-                    if (rpData.Api == "api_req_practice/battle_result")
+                    if (rpInfo.Api == "api_req_practice/battle_result")
                     {
                         rCommand.CommandText += "UPDATE battle_detail.practice SET rank = @rank WHERE id = @id;";
-                        rCommand.Parameters.AddWithValue("@rank", (int)((RawBattleResult)rpData.Data).Rank);
+                        rCommand.Parameters.AddWithValue("@rank", (int)((RawBattleResult)rpInfo.Data).Rank);
                     }
 
                     rCommand.ExecuteNonQuery();

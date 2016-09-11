@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
     [Api("api_req_combined_battle/battleresult")]
     class BattleResultParser : ApiParser<RawBattleResult>
     {
-        public override void Process(RawBattleResult rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawBattleResult rpData)
         {
             if (!Preference.Instance.Game.ShowDrop)
                 return;

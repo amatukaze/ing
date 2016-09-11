@@ -28,14 +28,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_battle_midnight/battle",
                 "api_req_combined_battle/midnight_battle",
             };
-            DisposableObjects.Add(SessionService.Instance.Subscribe(rBattleApis, Process));
+            DisposableObjects.Add(ApiService.Subscribe(rBattleApis, Process));
 
             var rBattleResultApis = new[]
             {
                 "api_req_sortie/battleresult",
                 "api_req_combined_battle/battleresult",
             };
-            DisposableObjects.Add(SessionService.Instance.Subscribe(rBattleResultApis, r => ProcessResult((RawBattleResult)r.Data)));
+            DisposableObjects.Add(ApiService.Subscribe(rBattleResultApis, r => ProcessResult((RawBattleResult)r.Data)));
         }
 
         protected override void CreateTable()
@@ -67,9 +67,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void Process(ApiData rpData)
+        void Process(ApiInfo rpInfo)
         {
-            if (rpData.Api != "api_req_battle_midnight/battle" && rpData.Api != "api_req_combined_battle/midnight_battle")
+            if (rpInfo.Api != "api_req_battle_midnight/battle" && rpInfo.Api != "api_req_combined_battle/midnight_battle")
                 UpdateCount();
         }
         void UpdateCount()

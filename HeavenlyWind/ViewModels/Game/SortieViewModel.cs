@@ -50,25 +50,25 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         internal SortieViewModel()
         {
-            SessionService.Instance.Subscribe("api_req_map/start", delegate
+            ApiService.Subscribe("api_req_map/start", delegate
             {
                 Info = SortieInfo.Current;
                 Type = DisplayType.Sortie;
             });
 
-            SessionService.Instance.Subscribe("api_req_member/get_practice_enemyinfo", delegate
+            ApiService.Subscribe("api_req_member/get_practice_enemyinfo", delegate
             {
                 Info = KanColleGame.Current.Sortie;
                 Type = DisplayType.Practice;
             });
 
-            SessionService.Instance.Subscribe("api_port/port", _ =>
+            ApiService.Subscribe("api_port/port", _ =>
             {
                 Info = null;
                 Type = DisplayType.MapGauge;
             });
 
-            SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
+            ApiService.SubscribeOnce("api_get_member/require_info", delegate
             {
                 ShipLockingService.Instance.Initialize();
 

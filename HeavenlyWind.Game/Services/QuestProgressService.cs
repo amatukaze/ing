@@ -33,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            SessionService.Instance.SubscribeOnce("api_start2", delegate
+            ApiService.SubscribeOnce("api_start2", delegate
             {
                 var rDataFile = new FileInfo(DataFilename);
                 if (!rDataFile.Exists)
@@ -54,7 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 }
             });
 
-            SessionService.Instance.Subscribe("api_get_member/require_info", _ =>
+            ApiService.Subscribe("api_get_member/require_info", _ =>
             {
                 if (r_InitializationLock != null)
                     r_InitializationLock.Wait();
@@ -62,7 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Progresses = RecordService.Instance.QuestProgress.Reload();
             });
 
-            SessionService.Instance.Subscribe("api_get_member/questlist", r =>
+            ApiService.Subscribe("api_get_member/questlist", r =>
             {
                 using (var rTransaction = RecordService.Instance.BeginTransaction())
                 {
@@ -71,7 +71,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     rTransaction.Commit();
                 }
             });
-            SessionService.Instance.Subscribe("api_req_quest/clearitemget", r => Progresses.Remove(int.Parse(r.Parameters["api_quest_id"])));
+            ApiService.Subscribe("api_req_quest/clearitemget", r => Progresses.Remove(int.Parse(r.Parameters["api_quest_id"])));
         }
 
         void ProcessQuestList(RawQuestList rpData)

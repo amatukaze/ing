@@ -3,9 +3,9 @@
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Expedition
 {
     [Api("api_req_mission/return_instruction")]
-    public class RecallingParser : ApiParser<RawExpeditionRecalling>
+    class RecallingParser : ApiParser<RawExpeditionRecalling>
     {
-        public override void Process(RawExpeditionRecalling rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawExpeditionRecalling rpData)
         {
         }
     }

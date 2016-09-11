@@ -44,9 +44,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         static SortieInfo()
         {
-            SessionService.Instance.Subscribe("api_port/port", _ => Current = null);
+            ApiService.Subscribe("api_port/port", _ => Current = null);
 
-            SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
+            ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
                 var rData = (RawBattleResult)r.Data;
                 if (rData.DroppedShip != null)

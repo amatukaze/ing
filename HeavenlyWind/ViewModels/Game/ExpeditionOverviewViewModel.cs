@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             if (KanColleGame.Current.Port.Ships.Count > 0)
                 Initialize();
             else
-                SessionService.Instance.SubscribeOnce("api_port/port", _ => Initialize());
+                ApiService.SubscribeOnce("api_port/port", _ => Initialize());
         }
 
         void Initialize()

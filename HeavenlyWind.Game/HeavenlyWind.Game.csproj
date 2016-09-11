@@ -67,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirBase.cs" />
-    <Compile Include="ApiObservableExtensions.cs" />
     <Compile Include="ClampedValue.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FleetManager.cs" />
@@ -264,11 +263,11 @@
     <Compile Include="Models\SortieInfo.cs" />
     <Compile Include="Models\SortieNodeInfo.cs" />
     <Compile Include="Parsers\ApiAttribute.cs" />
-    <Compile Include="Parsers\ApiData.cs" />
-    <Compile Include="Parsers\ApiFailedException.cs" />
+    <Compile Include="Parsers\ApiInfo.cs" />
     <Compile Include="Parsers\ApiParser.cs" />
     <Compile Include="Parsers\ApiParserBase.cs" />
     <Compile Include="Parsers\ApiParserManager.cs" />
+    <Compile Include="Parsers\ApiSubscription.cs" />
     <Compile Include="Parsers\DefaultApiParser.cs" />
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
     <Compile Include="Parsers\Root\Arsenal\ConstructionResultParser.cs" />
@@ -313,6 +312,7 @@
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="Proxy\SessionHeader.cs" />
     <Compile Include="QuestManager.cs" />
+    <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\EnemyEncounterService.cs" />
@@ -363,13 +363,11 @@
     <Compile Include="Services\Records\FateRecords.cs" />
     <Compile Include="Services\Records\IRecordsGroupProvider.cs" />
     <Compile Include="Services\Records\QuestProgressRecords.cs" />
-    <Compile Include="Services\Records\RankingPointsRecords.cs" />
     <Compile Include="Services\Records\RecordsGroup.cs" />
     <Compile Include="Services\Records\RecordsGroupExtensions.cs" />
     <Compile Include="Services\Records\ResourcesRecords.cs" />
     <Compile Include="Services\Records\ShipsRecords.cs" />
     <Compile Include="Services\Records\SortieRecords.cs" />
-    <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\ShipLockingService.cs" />
   </ItemGroup>
   <ItemGroup>

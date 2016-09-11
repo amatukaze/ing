@@ -8,9 +8,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
     {
         public override BattleStageType Type => BattleStageType.Night;
 
-        internal protected NightOnlyStage(BattleInfo rpOwner, ApiData rpData) : base(rpOwner)
+        internal protected NightOnlyStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
         {
-            var rRawData = rpData.Data as RawNightOnly;
+            var rRawData = rpInfo.Data as RawNightOnly;
 
             Shelling = new ShellingPhase(this, rRawData.Shelling);
         }

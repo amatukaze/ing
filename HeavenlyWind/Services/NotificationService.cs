@@ -126,7 +126,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         void InitializeHeavyDamageWarning(PropertyChangedEventListener rpGamePCEL)
         {
-            SessionService.Instance.Subscribe("api_get_member/mapinfo", delegate
+            ApiService.Subscribe("api_get_member/mapinfo", delegate
             {
                 var rFleetWithHeavilyDamagedShips = KanColleGame.Current.Port.Fleets.Table.Values.Where(r => (r.State & FleetState.HeavilyDamaged) == FleetState.HeavilyDamaged);
                 if (Preference.Instance.Notification.HeavyDamageWarning && rFleetWithHeavilyDamagedShips.Any())
@@ -135,7 +135,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     FlashWindow();
                 }
             });
-            SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, delegate
+            ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, delegate
             {
                 var rBattle = BattleInfo.Current.CurrentStage;
 
@@ -147,7 +147,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 }
             });
 
-            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, delegate
+            ApiService.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, delegate
             {
                 var rSortie = SortieInfo.Current;
                 var rParticipants = rSortie.Fleet.Ships.Skip(1);

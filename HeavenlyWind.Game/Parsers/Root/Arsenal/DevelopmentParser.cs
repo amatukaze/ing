@@ -6,12 +6,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
     [Api("api_req_kousyou/createitem")]
     class DevelopmentParser : ApiParser<RawEquipmentDevelopment>
     {
-        public override void Process(RawEquipmentDevelopment rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawEquipmentDevelopment rpData)
         {
-            var rFuelConsumption = int.Parse(Parameters["api_item1"]);
-            var rBulletConsumption = int.Parse(Parameters["api_item2"]);
-            var rSteelConsumption = int.Parse(Parameters["api_item3"]);
-            var rBauxiteConsumption = int.Parse(Parameters["api_item4"]);
+            var rFuelConsumption = int.Parse(rpInfo.Parameters["api_item1"]);
+            var rBulletConsumption = int.Parse(rpInfo.Parameters["api_item2"]);
+            var rSteelConsumption = int.Parse(rpInfo.Parameters["api_item3"]);
+            var rBauxiteConsumption = int.Parse(rpInfo.Parameters["api_item4"]);
 
             Game.Port.Materials.Update(rpData.Materials);
 

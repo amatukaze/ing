@@ -48,19 +48,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         KanColleGame()
         {
-            SessionService.Instance.Subscribe("api_get_member/mapinfo", rpApiData =>
+            ApiService.Subscribe("api_get_member/mapinfo", rpApiData =>
             {
                 if (Maps.UpdateRawData(rpApiData.GetData<RawMapInfo[]>(), r => new MapInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                     OnPropertyChanged(nameof(Maps));
             });
-            SessionService.Instance.Subscribe("api_req_map/select_eventmap_rank", r =>
+            ApiService.Subscribe("api_req_map/select_eventmap_rank", r =>
             {
                 var rMap = Maps[int.Parse(r.Parameters["api_maparea_id"]) * 10 + int.Parse(r.Parameters["api_map_no"])];
                 rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Parameters["api_rank"]);
                 rMap.HP.Set(9999, 9999);
             });
 
-            SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
+            ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
                 var rSortieMap = Sortie.Map;
                 if (!rSortieMap.HasGauge || Sortie.Node.EventType != SortieEventType.BossBattle)
@@ -87,7 +87,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 rSortieMap.UpdateGauge();
             });
-            SessionService.Instance.Subscribe("api_req_map/next", r =>
+            ApiService.Subscribe("api_req_map/next", r =>
             {
                 var rSortieMap = Sortie.Map;
                 if (rSortieMap.IsCleared || ((RawMapExploration)r.Data).NodeEventType != SortieEventType.EscortSuccess)

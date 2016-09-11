@@ -8,12 +8,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
 
     class PracticeDayBattleParser : DayNormalBattleParser
     {
-        public override void Process(RawDay rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawDay rpData)
         {
             var rPracticeInfo = Game.Sortie as PracticeInfo;
             if (rPracticeInfo != null)
             {
-                var rParticipantFleet = Game.Port.Fleets[int.Parse(Parameters["api_deck_id"])];
+                var rParticipantFleet = Game.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
 
                 rPracticeInfo.Battle = new BattleInfo(rParticipantFleet);
             }

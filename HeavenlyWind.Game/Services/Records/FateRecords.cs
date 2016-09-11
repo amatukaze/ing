@@ -32,16 +32,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_battle_midnight/battle",
                 "api_req_combined_battle/midnight_battle",
             };
-            DisposableObjects.Add(SessionService.Instance.Subscribe(rFirstStages, ProcessBattle));
+            DisposableObjects.Add(ApiService.Subscribe(rFirstStages, ProcessBattle));
 
             var rBattleResultApis = new[]
             {
                 "api_req_sortie/battleresult",
                 "api_req_combined_battle/battleresult",
             };
-            DisposableObjects.Add(SessionService.Instance.Subscribe(rBattleResultApis, ProcessBattleResult));
+            DisposableObjects.Add(ApiService.Subscribe(rBattleResultApis, ProcessBattleResult));
 
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", delegate
+            DisposableObjects.Add(ApiService.Subscribe("api_port/port", delegate
             {
                 if (r_SunkShips.Count == 0)
                     return;
@@ -177,9 +177,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void ProcessBattle(ApiData rpData)
+        void ProcessBattle(ApiInfo rpInfo)
         {
-            var rData = rpData.GetData<RawBattleBase>();
+            var rData = rpInfo.GetData<RawBattleBase>();
 
             if (rData.ShipsToConsumeCombatRation != null)
                 ProcessCombatRation(rData.ShipsToConsumeCombatRation);
@@ -207,7 +207,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void ProcessBattleResult(ApiData rpData)
+        void ProcessBattleResult(ApiInfo rpInfo)
         {
             var rBattle = BattleInfo.Current;
             var rCurrentStage = rBattle.CurrentStage;

@@ -141,7 +141,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 if (rApiSession != null)
                 {
                     rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
-                    ApiParserManager.Instance.Process(rApiSession);
+                    ApiParserManager.Process(rApiSession);
                 }
 
                 var rResourceSession = rSession as ResourceSession;
