@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                             InsertAdmiralRecord(rPort.Admiral.Experience);
                         }
 
-                        var rShips = new List<Tuple<int, int>>(25);
+                        var rShips = new List<Ship>(25);
                         foreach (var rShip in rPort.Ships.Values.Where(r => r.Experience > 0))
                         {
                             int rOldExperience;
@@ -40,7 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                                 r_Ships[rShip.ID] = rShip.Experience;
 
                             if (rOldExperience != rShip.Experience)
-                                rShips.Add(Tuple.Create(rShip.ID, rShip.Experience));
+                                rShips.Add(rShip);
                         }
 
                         if (rShips.Count > 0)
@@ -55,15 +56,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS admiral_experience(" +
-                    "time INTEGER PRIMARY KEY NOT NULL, " +
-                    "experience INTEGER NOT NULL);" +
+                rCommand.CommandText =
+                    "CREATE TABLE IF NOT EXISTS admiral_experience(" +
+                        "time INTEGER PRIMARY KEY NOT NULL, " +
+                        "experience INTEGER NOT NULL);" +
 
                     "CREATE TABLE IF NOT EXISTS ship_experience(" +
-                    "id INTEGER NOT NULL, " +
-                    "time INTEGER NOT NULL, " +
-                    "experience INTEGER NOT NULL, " +
-                    "PRIMARY KEY(id, time)) WITHOUT ROWID;";
+                        "id INTEGER NOT NULL, " +
+                        "time INTEGER NOT NULL, " +
+                        "experience INTEGER NOT NULL, " +
+                        "PRIMARY KEY(id, time)) WITHOUT ROWID;";
 
                 rCommand.ExecuteNonQuery();
             }
@@ -102,18 +104,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
         }
-        void InsertShipExperience(List<Tuple<int, int>> rpShips)
+        void InsertShipExperience(List<Ship> rpShips)
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                var rBuffer = new StringBuilder(128);
+                var rBuilder = new StringBuilder(128);
+
+                rBuilder.Append("INSERT INTO ship_experience(id, time, experience) VALUES");
                 for (var i = 0; i < rpShips.Count; i++)
                 {
-                    var rShip = rpShips[i];
-                    rBuffer.Append($"INSERT INTO ship_experience(id, time, experience) VALUES({rShip.Item1}, strftime('%s', 'now'), {rShip.Item2});");
-                }
+                    if (i > 0)
+                        rBuilder.Append(", ");
 
-                rCommand.CommandText = rBuffer.ToString();
+                    var rShip = rpShips[i];
+                    rBuilder.Append($"({rShip.ID}, strftime('%s', 'now'), {rShip.Experience})");
+                }
+                rBuilder.Append(';');
+
+                rCommand.CommandText = rBuilder.ToString();
                 rCommand.ExecuteNonQuery();
             }
         }

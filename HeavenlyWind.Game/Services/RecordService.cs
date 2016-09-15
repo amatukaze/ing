@@ -113,6 +113,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     rSourceConnection.BackupDatabase(r_Connection, "main", "main", -1, null, 0);
                 }
 
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "PRAGMA foreign_keys = ON;";
+
+                rCommand.ExecuteNonQuery();
+            }
+
             using (var rTransaction = r_Connection.BeginTransaction())
             {
                 CheckVersion();

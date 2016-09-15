@@ -76,7 +76,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        protected override void UpgradeFromOldVersion(int rpOldVersion)
+        protected override void UpgradeFromOldVersionPreprocessStep(int rpOldVersion)
         {
             if (rpOldVersion == 1)
                 using (var rCommand = Connection.CreateCommand())

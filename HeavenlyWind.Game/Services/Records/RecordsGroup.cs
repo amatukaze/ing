@@ -22,14 +22,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        protected RecordsGroup(SQLiteConnection rpConnection)
+        protected RecordsGroup(SQLiteConnection connection)
         {
-            Connection = rpConnection;
+            Connection = connection;
         }
 
         internal void Connect()
         {
             CheckVersion();
+
             Load();
         }
         void CheckVersion()
@@ -37,21 +38,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             int rVersion;
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "SELECT value FROM versions WHERE key = @group;";
+                rCommand.CommandText = "SELECT coalesce(value, '0') FROM versions WHERE key = @group;";
                 rCommand.Parameters.AddWithValue("@group", GroupName);
 
                 rVersion = Convert.ToInt32(rCommand.ExecuteScalar());
             }
 
-            if (rVersion == 0)
-                InitializeTableVersion();
-            else if (rVersion != Version)
-            {
-                UpgradeFromOldVersion(rVersion);
-                UpdateVersion(rVersion);
-            }
+            if (rVersion != 0 && rVersion != Version)
+                UpgradeFromOldVersionPreprocessStep(rVersion);
 
             CreateTable();
+
+            if (rVersion != 0 && rVersion != Version)
+                UpgradeFromOldVersionPostprocessStep(rVersion);
+
+            UpdateVersion(rVersion);
         }
         void InitializeTableVersion()
         {
@@ -66,12 +67,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         }
         protected abstract void CreateTable();
 
-        protected virtual void UpgradeFromOldVersion(int rpOldVersion) { }
+        protected virtual void UpgradeFromOldVersionPreprocessStep(int oldVersion) { }
+        protected virtual void UpgradeFromOldVersionPostprocessStep(int oldVersion) { }
+
         void UpdateVersion(int rpVersion)
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "UPDATE versions SET value = @version WHERE key = @group;";
+                rCommand.CommandText = "INSERT OR REPLACE INTO versions(key, value) VALUES(@group, @version);";
                 rCommand.Parameters.AddWithValue("@group", GroupName);
                 rCommand.Parameters.AddWithValue("@version", Version.ToString());
 

@@ -36,28 +36,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 rCommand.CommandText =
                     "CREATE TABLE IF NOT EXISTS expedition(" +
-                    "time INTEGER PRIMARY KEY, " +
-                    "expedition INTEGER, " +
-                    "result INTEGER, " +
-                    "fuel INTEGER, " +
-                    "bullet INTEGER, " +
-                    "steel INTEGER, " +
-                    "bauxite INTEGER, " +
-                    "item1 INTEGER, " +
-                    "item1_count INTEGER, " +
-                    "item2 INTEGER, " +
-                    "item2_count INTEGER);" +
+                        "time INTEGER PRIMARY KEY, " +
+                        "expedition INTEGER, " +
+                        "result INTEGER, " +
+                        "fuel INTEGER, " +
+                        "bullet INTEGER, " +
+                        "steel INTEGER, " +
+                        "bauxite INTEGER, " +
+                        "item1 INTEGER, " +
+                        "item1_count INTEGER, " +
+                        "item2 INTEGER, " +
+                        "item2_count INTEGER);" +
 
                     "CREATE TABLE IF NOT EXISTS expedition_count(" +
-                    "ship INTEGER NOT NULL, " +
-                    "expedition INTEGER NOT NULL, " +
-                    "count INTEGER NOT NULL DEFAULT 0, " +
-                    "PRIMARY KEY(ship, expedition)) WITHOUT ROWID;";
+                        "ship INTEGER NOT NULL, " +
+                        "expedition INTEGER NOT NULL, " +
+                        "count INTEGER NOT NULL DEFAULT 0, " +
+                        "PRIMARY KEY(ship, expedition)) WITHOUT ROWID;";
 
                 rCommand.ExecuteNonQuery();
             }
         }
-        protected override void UpgradeFromOldVersion(int rpOldVersion)
+        protected override void UpgradeFromOldVersionPreprocessStep(int rpOldVersion)
         {
             if (rpOldVersion < 2)
             {
