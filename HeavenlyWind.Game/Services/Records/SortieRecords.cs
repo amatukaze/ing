@@ -11,38 +11,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class SortieRecords : RecordsGroup
     {
-        const int RETURN_NODE_ID = -1;
         enum ReturnReason { DeadEnd, Retreat, RetreatWithHeavilyDamagedShip, Unexpected }
 
         public override string GroupName => "sortie";
-        public override int Version => 3;
+        public override int Version => 4;
 
-        long? r_CurrentSortieID;
-        bool r_IsDeadEnd;
+        ReturnReason? r_ReturnReason;
 
         internal SortieRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
             DisposableObjects.Add(ApiService.Subscribe("api_req_map/start", StartSortie));
             DisposableObjects.Add(ApiService.Subscribe("api_req_map/next", _ => InsertExplorationRecord(SortieInfo.Current)));
 
-            DisposableObjects.Add(ApiService.Subscribe("api_start2", _ => ProcessReturn(ReturnReason.Unexpected)));
-            DisposableObjects.Add(Observable.FromEvent<SortieInfo>(r => KanColleGame.Current.ReturnedFromSortie += r, r => KanColleGame.Current.ReturnedFromSortie -= r).Subscribe(r =>
-            {
-                ReturnReason rType;
-
-                if (r_IsDeadEnd)
-                    rType = ReturnReason.DeadEnd;
-                else
-                {
-                    IEnumerable<Ship> rShips = r.Fleet.Ships;
-                    if (r.EscortFleet != null)
-                        rShips = rShips.Concat(r.EscortFleet.Ships);
-
-                    rType = rShips.Any(rpShip => rpShip.State.HasFlag(ShipState.HeavilyDamaged)) ? ReturnReason.RetreatWithHeavilyDamagedShip : ReturnReason.Retreat;
-                }
-
-                ProcessReturn(rType);
-            }));
+            KanColleGame.Current.ReturnedFromSortie += OnReturnedFromSortie;
         }
 
         protected override void CreateTable()
@@ -56,7 +37,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "CREATE TABLE IF NOT EXISTS sortie(" +
                     "id INTEGER PRIMARY KEY NOT NULL, " +
                     "map INTEGER NOT NULL REFERENCES sortie_map(id), " +
-                    "difficulty INTEGER);" +
+                    "difficulty INTEGER, " +
+                    "return_time INTEGER, " +
+                    "return_reason INTEGER);" +
 
                 "CREATE TABLE IF NOT EXISTS sortie_node(" +
                     "map INTEGER NOT NULL REFERENCES sortie_map(id), " +
@@ -112,15 +95,39 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                     rCommand.ExecuteNonQuery();
                 }
+
+            if (rpOldVersion < 4)
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "ALTER TABLE sortie ADD COLUMN return_time INTEGER; " +
+                        "ALTER TABLE sortie ADD COLUMN return_reason INTEGER; " +
+                        "UPDATE sortie SET return_reason = (SELECT extra_info FROM sortie_detail WHERE id = sortie.id AND node = -1); " +
+                        "DELETE FROM sortie_detail WHERE node = -1;";
+
+                    rCommand.ExecuteNonQuery();
+                }
         }
 
-        protected override void Load() => InsertReturnReason(ReturnReason.Unexpected);
+        protected override void Load()
+        {
+            if (InsertReturnReason(ReturnReason.Unexpected))
+                ApiService.SubscribeOnce("api_port/port", r => SetReturnTime(r.Timestamp));
+        }
+
+        public override void Dispose()
+        {
+            KanColleGame.Current.ReturnedFromSortie -= OnReturnedFromSortie;
+
+            base.Dispose();
+        }
 
         void StartSortie(ApiInfo rpInfo)
         {
+            r_ReturnReason = null;
+
             var rSortie = SortieInfo.Current;
             var rMap = rSortie.Map;
-            r_CurrentSortieID = rSortie.ID;
 
             using (var rTransaction = Connection.BeginTransaction())
             {
@@ -154,7 +161,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rTransaction.Commit();
             }
 
-            r_IsDeadEnd = rpSortie.Node.IsDeadEnd;
+            if (rpSortie.Node.IsDeadEnd)
+                r_ReturnReason = ReturnReason.DeadEnd;
         }
         void InsertNodeInfo(int rpMapID, SortieNodeInfo rpNode)
         {
@@ -182,40 +190,47 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void InsertReturnReason(ReturnReason rpReason)
+        void OnReturnedFromSortie(SortieInfo rpSortie)
         {
-            long rID;
-            int rStep;
-
-            using (var rCommand = Connection.CreateCommand())
+            if (!r_ReturnReason.HasValue)
             {
-                rCommand.CommandText = "SELECT id, step, node FROM sortie_detail WHERE id = (SELECT MAX(id) FROM sortie) ORDER BY step DESC LIMIT 1;";
-                using (var rReader = rCommand.ExecuteReader())
-                {
-                    if (!rReader.Read() || Convert.ToInt32(rReader["node"]) == RETURN_NODE_ID)
-                        return;
+                IEnumerable<Ship> rShips = rpSortie.Fleet.Ships;
+                if (rpSortie.EscortFleet != null)
+                    rShips = rShips.Concat(rpSortie.EscortFleet.Ships);
 
-                    rID = Convert.ToInt64(rReader["id"]);
-                    rStep = Convert.ToInt32(rReader["step"]) + 1;
-                }
+                r_ReturnReason = rShips.Any(rpShip => (rpShip.State & ShipState.HeavilyDamaged) != 0) ? ReturnReason.RetreatWithHeavilyDamagedShip : ReturnReason.Retreat;
             }
+
+            using (var rTransaction = Connection.BeginTransaction())
+            {
+                InsertReturnReason(r_ReturnReason.Value);
+                SetReturnTime(rpSortie.ReturnTime);
+
+                rTransaction.Commit();
+            }
+        }
+
+        bool InsertReturnReason(ReturnReason rpReason)
+        {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT INTO sortie_detail(id, step, node, extra_info) VALUES(@id, @step, -1, @return_reason);";
-                rCommand.Parameters.AddWithValue("@id", rID);
-                rCommand.Parameters.AddWithValue("@step", rStep);
+                rCommand.CommandText = "UPDATE sortie SET return_reason = @return_reason WHERE id = (SELECT MAX(id) FROM sortie) AND return_reason IS NULL;";
                 rCommand.Parameters.AddWithValue("@return_reason", (int)rpReason);
 
                 rCommand.ExecuteNonQuery();
             }
-        }
-        void ProcessReturn(ReturnReason rpType)
-        {
-            if (r_CurrentSortieID.HasValue)
-            {
-                InsertReturnReason(rpType);
 
-                r_CurrentSortieID = null;
+            return Connection.Changes == 1;
+        }
+
+        void SetReturnTime(long rpTimestamp)
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "UPDATE sortie SET return_time = @return_time WHERE id = (SELECT MAX(id) FROM sortie);";
+                rCommand.Parameters.AddWithValue("@return_time", rpTimestamp);
+
+                rCommand.ExecuteNonQuery();
             }
         }
     }

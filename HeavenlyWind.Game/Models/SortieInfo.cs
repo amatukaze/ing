@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         internal static SortieInfo Current { get; private set; }
 
-        public long ID { get; } = (long)DateTimeOffset.Now.ToUnixTime();
+        public long ID { get; }
 
         public Fleet Fleet { get; }
         public Fleet EscortFleet { get; }
@@ -42,6 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal int[] LandBaseAerialSupportRequests { get; set; }
 
+        internal long ReturnTime { get; set; }
+
         static SortieInfo()
         {
             ApiService.Subscribe("api_port/port", _ => Current = null);
@@ -59,8 +60,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             });
         }
         internal SortieInfo() { }
-        internal SortieInfo(Fleet rpFleet, int rpMapID)
+        internal SortieInfo(long rpID, Fleet rpFleet, int rpMapID)
         {
+            ID = rpID;
+
             Current = this;
 
             Fleet = rpFleet;

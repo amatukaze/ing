@@ -23,7 +23,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     var rExpedition = rFleet.ExpeditionStatus.Expedition ?? KanColleGame.Current.MasterInfo.GetExpeditionFromName(rData.Name);
 
                     InsertRecord(rExpedition.ID, rData);
-                    UpdateCount(rExpedition.ID, rData.Ships.Skip(1));
 
                     rTransaction.Commit();
                 }
@@ -36,9 +35,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 rCommand.CommandText =
                     "CREATE TABLE IF NOT EXISTS expedition(" +
-                        "time INTEGER PRIMARY KEY, " +
-                        "expedition INTEGER, " +
-                        "result INTEGER, " +
+                        "time INTEGER NOT NULL PRIMARY KEY, " +
+                        "expedition INTEGER NOT NULL, " +
+                        "result INTEGER NOT NULL, " +
                         "fuel INTEGER, " +
                         "bullet INTEGER, " +
                         "steel INTEGER, " +
@@ -115,19 +114,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 return null;
 
             return rpItemID <= 0 ? rpFlag : rpItemID;
-        }
-        internal void UpdateCount(int rpExpedition, IEnumerable<int> rpShips)
-        {
-            foreach (var rShip in rpShips)
-                using (var rCommand = Connection.CreateCommand())
-                {
-                    rCommand.CommandText = "INSERT OR IGNORE INTO expedition_count(ship, expedition) VALUES(@ship, @expedition);" +
-                        "UPDATE expedition_count SET count = count + 1 WHERE ship = @ship AND expedition = @expedition;";
-                    rCommand.Parameters.AddWithValue("@ship", rShip);
-                    rCommand.Parameters.AddWithValue("@expedition", rpExpedition);
-
-                    rCommand.ExecuteNonQuery();
-                }
         }
     }
 }

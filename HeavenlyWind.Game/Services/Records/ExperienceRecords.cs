@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal ExperienceRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(ApiService.Subscribe("api_port/port", _ =>
+            DisposableObjects.Add(ApiService.Subscribe("api_port/port", r =>
             {
                 var rPort = KanColleGame.Current.Port;
 
@@ -28,11 +28,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         if (r_Admiral != rPort.Admiral.Experience)
                         {
                             r_Admiral = rPort.Admiral.Experience;
-                            InsertAdmiralRecord(rPort.Admiral.Experience);
+                            InsertAdmiralRecord(r.Timestamp, rPort.Admiral.Experience);
                         }
 
                         var rShips = new List<Ship>(25);
-                        foreach (var rShip in rPort.Ships.Values.Where(r => r.Experience > 0))
+                        foreach (var rShip in rPort.Ships.Values.Where(rpShip => rpShip.Experience > 0))
                         {
                             int rOldExperience;
                             if (!r_Ships.TryGetValue(rShip.ID, out rOldExperience))
@@ -45,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         }
 
                         if (rShips.Count > 0)
-                            InsertShipExperience(rShips);
+                            InsertShipExperience(r.Timestamp, rShips);
 
                         rTransaction.Commit();
                     }
@@ -93,18 +93,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void InsertAdmiralRecord(int rpExperience)
+        void InsertAdmiralRecord(long rpTimestamp, int rpExperience)
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT INTO admiral_experience(time, experience) " +
-                    "VALUES(strftime('%s', 'now'), @experience);";
+                rCommand.CommandText = "INSERT INTO admiral_experience(time, experience) VALUES(@time, @experience);";
+                rCommand.Parameters.AddWithValue("@time", rpTimestamp);
                 rCommand.Parameters.AddWithValue("@experience", rpExperience);
 
                 rCommand.ExecuteNonQuery();
             }
         }
-        void InsertShipExperience(List<Ship> rpShips)
+        void InsertShipExperience(long rpTimestamp, List<Ship> rpShips)
         {
             using (var rCommand = Connection.CreateCommand())
             {
@@ -117,7 +117,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         rBuilder.Append(", ");
 
                     var rShip = rpShips[i];
-                    rBuilder.Append($"({rShip.ID}, strftime('%s', 'now'), {rShip.Experience})");
+                    rBuilder.Append($"({rShip.ID}, {rpTimestamp}, {rShip.Experience})");
                 }
                 rBuilder.Append(';');
 

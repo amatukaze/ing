@@ -84,7 +84,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         protected virtual void Load() { }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (r_DisposableObjects != null)
             {

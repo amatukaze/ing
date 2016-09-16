@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
             var rAreaID = int.Parse(rpInfo.Parameters["api_maparea_id"]);
             var rAreaSubID = int.Parse(rpInfo.Parameters["api_mapinfo_no"]);
 
-            var rSortie = new SortieInfo(rFleet, rAreaID * 10 + rAreaSubID);
+            var rSortie = new SortieInfo(rpInfo.Timestamp, rFleet, rAreaID * 10 + rAreaSubID);
             Game.Sortie = rSortie;
 
             var rMap = rSortie.Map;
