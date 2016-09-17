@@ -127,6 +127,8 @@
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
     <Compile Include="Internal\HeavyDamageLineColorExtension.cs" />
+    <Compile Include="Internal\ItemsFilter.cs" />
+    <Compile Include="Internal\ItemsView.cs" />
     <Compile Include="Internal\PanicKeyPreferenceExtension.cs" />
     <Compile Include="Internal\QuestCategoryToBrushConverter.cs" />
     <Compile Include="Internal\ShipOverviewItemIndexExtension.cs" />
