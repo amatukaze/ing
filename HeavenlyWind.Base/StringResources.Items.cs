@@ -32,6 +32,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Screenshot_Succeeded_File => GetString(nameof(Log_Screenshot_Succeeded_File));
         public string Log_Modernization_Success => GetString(nameof(Log_Modernization_Success));
         public string Log_Modernization_Failure => GetString(nameof(Log_Modernization_Failure));
+        public string Log_Modernization_Separator_Type1 => GetString(nameof(Log_Modernization_Separator_Type1));
+        public string Log_Modernization_Separator_Type2 => GetString(nameof(Log_Modernization_Separator_Type2));
+        public string Log_Modernization_Remainder => GetString(nameof(Log_Modernization_Remainder));
         public string Log_EquipmentImprovement_Ready => GetString(nameof(Log_EquipmentImprovement_Ready));
         public string Log_EquipmentImprovement_Success => GetString(nameof(Log_EquipmentImprovement_Success));
         public string Log_EquipmentImprovement_Upgrade => GetString(nameof(Log_EquipmentImprovement_Upgrade));
@@ -352,6 +355,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_UI_MaterialIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons));
         public string PreferenceWindow_UI_MaterialIcons_UseGameIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons_UseGameIcons));
         public string PreferenceWindow_UI_ShowFatigueInSortie => GetString(nameof(PreferenceWindow_UI_ShowFatigueInSortie));
+        public string PreferenceWindow_UI_UseTextInModernizationMessage => GetString(nameof(PreferenceWindow_UI_UseTextInModernizationMessage));
+        public string PreferenceWindow_UI_ModernizationMessagePreview_Icon => GetString(nameof(PreferenceWindow_UI_ModernizationMessagePreview_Icon));
+        public string PreferenceWindow_UI_ModernizationMessagePreview_Text => GetString(nameof(PreferenceWindow_UI_ModernizationMessagePreview_Text));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));

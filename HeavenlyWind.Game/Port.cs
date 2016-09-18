@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
@@ -135,45 +136,95 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                         var rNow = rData.Ship;
                         var rInfo = rModernizedShip.Info;
 
-                        var rFirepowerDiff = rNow.Firepower[0] - rOriginal.Firepower[0];
-                        var rTorpedoDiff = rNow.Torpedo[0] - rOriginal.Torpedo[0];
-                        var rAADiff = rNow.AA[0] - rOriginal.AA[0];
-                        var rArmorDiff = rNow.Armor[0] - rOriginal.Armor[0];
+                        var rFirepowerDiff = rNow.ModernizedStatus[0] - rOriginal.ModernizedStatus[0];
+                        var rTorpedoDiff = rNow.ModernizedStatus[1] - rOriginal.ModernizedStatus[1];
+                        var rAADiff = rNow.ModernizedStatus[2] - rOriginal.ModernizedStatus[2];
+                        var rArmorDiff = rNow.ModernizedStatus[3] - rOriginal.ModernizedStatus[3];
                         var rLuckDiff = rNow.Luck[0] - rOriginal.Luck[0];
 
-                        var rDifferences = new List<string>(5);
+                        var rFirepowerRemain = rInfo.FirepowerMaximum - rInfo.FirepowerMinimum - rNow.ModernizedStatus[0];
+                        var rTorpedoRemain = rInfo.TorpedoMaximum - rInfo.TorpedoMinimum - rNow.ModernizedStatus[1];
+                        var rAARemain = rInfo.AAMaximum - rInfo.AAMinimum - rNow.ModernizedStatus[2];
+                        var rArmorRemain = rInfo.ArmorMaximum - rInfo.ArmorMinimum - rNow.ModernizedStatus[3];
+                        var rLuckRemain = rNow.Luck[1] - rNow.Luck[0];
+
+                        var rMaximumStatuses = new List<string>(5);
+                        var rNotMaximumStatuses = new List<string>(5);
+
+                        var rUseText = Preference.Instance.UI.UseTextInModernizationMessage.Value;
 
                         if (rFirepowerDiff > 0)
-                            if (rNow.Firepower[0] != rInfo.FirepowerMaximum)
-                                rDifferences.Add($"[icon]firepower[/icon] {rOriginal.Firepower[0]}[b]+{rFirepowerDiff}[/b]/{rInfo.FirepowerMaximum}");
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Firepower : "[icon]firepower[/icon]";
+
+                            if (rFirepowerRemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rFirepowerRemain}");
                             else
-                                rDifferences.Add("[icon]firepower[/icon] MAX");
+                                rMaximumStatuses.Add(rHeader + " MAX");
+                        }
+
                         if (rTorpedoDiff > 0)
-                            if (rNow.Torpedo[0] != rInfo.TorpedoMaximum)
-                                rDifferences.Add($"[icon]torpedo[/icon] {rOriginal.Torpedo[0]}[b]+{rTorpedoDiff}[/b]/{rInfo.TorpedoMaximum}");
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Torpedo : "[icon]torpedo[/icon]";
+
+                            if (rTorpedoRemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rTorpedoRemain}");
                             else
-                                rDifferences.Add("[icon]torpedo[/icon] MAX");
+                                rMaximumStatuses.Add(rHeader + " MAX");
+                        }
+
                         if (rAADiff > 0)
-                            if (rNow.AA[0] != rInfo.AAMaximum)
-                                rDifferences.Add($"[icon]aa[/icon] {rOriginal.AA[0]}[b]+{rAADiff}[/b]/{rInfo.AAMaximum}");
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_AA : "[icon]aa[/icon]";
+
+                            if (rAARemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rAARemain}");
                             else
-                                rDifferences.Add("[icon]aa[/icon] MAX");
+                                rMaximumStatuses.Add(rHeader + " MAX");
+                        }
+
                         if (rArmorDiff > 0)
-                            if (rNow.Armor[0] != rInfo.ArmorMaximum)
-                                rDifferences.Add($"[icon]armor[/icon] {rOriginal.Armor[0]}[b]+{rArmorDiff}[/b]/{rInfo.ArmorMaximum}");
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Armor : "[icon]armor[/icon]";
+
+                            if (rArmorRemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rArmorRemain}");
                             else
-                                rDifferences.Add("[icon]armor[/icon] MAX");
+                                rMaximumStatuses.Add(rHeader + " MAX");
+                        }
+
                         if (rLuckDiff > 0)
-                            if (rNow.Luck[0] != rInfo.LuckMaximum)
-                                rDifferences.Add($"[icon]luck[/icon] {rOriginal.Luck[0]}[b]+{rLuckDiff}[/b]/{rInfo.LuckMaximum}");
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Luck : "[icon]luck[/icon]";
+
+                            if (rLuckRemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rLuckRemain}");
                             else
-                                rDifferences.Add("[icon]luck[/icon] MAX");
+                                rMaximumStatuses.Add(rHeader +" MAX");
+                        }
 
-                        var rMessage = StringResources.Instance.Main.Log_Modernization_Success;
-                        if (rDifferences.Count > 0)
-                            rMessage += " (" + rDifferences.Join(" ") + ")";
+                        var rBuilder = new StringBuilder(128);
+                        rBuilder.AppendFormat(StringResources.Instance.Main.Log_Modernization_Success, rModernizedShip.Info.TranslatedName);
 
-                        Logger.Write(LoggingLevel.Info, string.Format(rMessage, rModernizedShip.Info.TranslatedName));
+                        rBuilder.Append(" (");
+
+                        var rSeparator = Preference.Instance.UI.UseTextInModernizationMessage.Value ? StringResources.Instance.Main.Log_Modernization_Separator_Type1 : " ";
+
+                        if (rMaximumStatuses.Count > 0)
+                            rBuilder.Append(rMaximumStatuses.Join(rSeparator));
+
+                        if (rMaximumStatuses.Count > 0 && rNotMaximumStatuses.Count > 0)
+                            rBuilder.Append(StringResources.Instance.Main.Log_Modernization_Separator_Type2);
+
+                        if (rNotMaximumStatuses.Count > 0)
+                        {
+                            rBuilder.Append(StringResources.Instance.Main.Log_Modernization_Remainder);
+                            rBuilder.Append(rNotMaximumStatuses.Join(rSeparator));
+                        }
+
+                        rBuilder.Append(')');
+
+                        Logger.Write(LoggingLevel.Info, rBuilder.ToString());
                     }
 
                     rModernizedShip.Update(rData.Ship);

@@ -9,6 +9,7 @@
              xmlns:rbe="clr-namespace:Sakuno.UserInterface.Behaviors;assembly=Sakuno.UserInterface"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
+             xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <StackPanel>
@@ -116,5 +117,22 @@
         <CheckBox IsChecked="{rb:Preference UI.ShowFatigueInSortie}" Margin="0, 12, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ShowFatigueInSortie}" />
         </CheckBox>
+
+        <CheckBox IsChecked="{rb:Preference UI.UseTextInModernizationMessage}" Margin="0, 8, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_UseTextInModernizationMessage}" />
+        </CheckBox>
+        <ruic:BBCodeBlock Margin="0, 6, 0, 0">
+            <ruic:BBCodeBlock.Style>
+                <Style TargetType="{x:Type ruic:BBCodeBlock}">
+                    <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessagePreview_Icon}" />
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{rb:Preference UI.UseTextInModernizationMessage}" Value="True">
+                            <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessagePreview_Text}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ruic:BBCodeBlock.Style>
+        </ruic:BBCodeBlock>
     </StackPanel>
 </UserControl>

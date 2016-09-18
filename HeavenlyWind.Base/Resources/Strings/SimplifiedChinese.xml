@@ -28,6 +28,9 @@
   <String Key="Log_Screenshot_Succeeded_File">已保存截图: {0}</String>
   <String Key="Log_Modernization_Success">「{0}」的近代化改修成功了。</String>
   <String Key="Log_Modernization_Failure">「{0}」的近代化改修失败了</String>
+  <String Key="Log_Modernization_Separator_Type1">、</String>
+  <String Key="Log_Modernization_Separator_Type2">。 </String>
+  <String Key="Log_Modernization_Remainder">距离 MAX 还有: </String>
   <String Key="Log_EquipmentImprovement_Ready">准备改修 [b]{0}[/b] {1} (ID={2})</String>
   <String Key="Log_EquipmentImprovement_Success">「[b]{0}[/b]」被改修到 {1}</String>
   <String Key="Log_EquipmentImprovement_Upgrade">装备已升级为「[b]{0}[/b] {1}」</String>
@@ -353,6 +356,9 @@
   <String Key="PreferenceWindow_UI_MaterialIcons">资材图标</String>
   <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">使用游戏的图标</String>
   <String Key="PreferenceWindow_UI_ShowFatigueInSortie">在出击时显示舰娘的疲劳值</String>
+  <String Key="PreferenceWindow_UI_UseTextInModernizationMessage">在近代化改修信息里使用文字而不是图标</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Icon">「天津風改」的近代化改修成功了。([icon]torpedo[/icon] MAX、[icon]armor[/icon] MAX。 距离 MAX 还有: [icon]firepower[/icon] 1、[icon]luck[/icon] 50)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Text">「天津風改」的近代化改修成功了。(雷装 MAX、装甲 MAX。 距离 MAX 还有: 火力 1、运 50)</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>

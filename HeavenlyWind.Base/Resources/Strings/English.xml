@@ -28,6 +28,9 @@
   <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
   <String Key="Log_Modernization_Success">Succeeded to modernize {0}.</String>
   <String Key="Log_Modernization_Failure">Failed to modernize {0}</String>
+  <String Key="Log_Modernization_Separator_Type1">, </String>
+  <String Key="Log_Modernization_Separator_Type2">; </String>
+  <String Key="Log_Modernization_Remainder">To MAX: </String>
   <String Key="Log_EquipmentImprovement_Ready">Ready to improve [b]{0}[/b] {1} (ID={2})</String>
   <String Key="Log_EquipmentImprovement_Success">[b]{0}[/b] has been successfully improved to {1}</String>
   <String Key="Log_EquipmentImprovement_Upgrade">The equipment has upgraded to [b]{0}[/b] {1}</String>
@@ -351,6 +354,9 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_UI_MaterialIcons">Material icons</String>
   <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">Use in-game icons</String>
   <String Key="PreferenceWindow_UI_ShowFatigueInSortie">Show fatigue in Sortie</String>
+  <String Key="PreferenceWindow_UI_UseTextInModernizationMessage">Use text in modernization message instead of icons</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Icon">Succeeded to modernize Amatsukaze Kai.([icon]torpedo[/icon] MAX, [icon]armor[/icon] MAX; To MAX: [icon]firepower[/icon] 1, [icon]luck[/icon] 50)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Text">Succeeded to modernize Amatsukaze Kai.(Torpedo MAX, Armor MAX; To MAX: Firepower 1, Luck 50)</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
