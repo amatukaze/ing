@@ -126,12 +126,14 @@
     <Compile Include="Controls\MaterialIcon.cs" />
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Internal\FilterKeyCollection.cs" />
+    <Compile Include="Internal\GenericDataTemplateSelector.cs" />
     <Compile Include="Internal\HeavyDamageLineColorExtension.cs" />
+    <Compile Include="Internal\ItemIndexExtension.cs" />
     <Compile Include="Internal\ItemsFilter.cs" />
     <Compile Include="Internal\ItemsView.cs" />
     <Compile Include="Internal\PanicKeyPreferenceExtension.cs" />
     <Compile Include="Internal\QuestCategoryToBrushConverter.cs" />
-    <Compile Include="Internal\ShipOverviewItemIndexExtension.cs" />
     <Compile Include="Internal\UnhandledExceptionDialogStringResources.cs" />
     <Compile Include="Internal\WindowPlacementPreference.cs" />
     <Compile Include="Internal\TabContentTemplateSelector.cs" />
@@ -202,12 +204,14 @@
     <Compile Include="ViewModels\History\ConstructionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\HistoryRecordsView.cs" />
     <Compile Include="ViewModels\History\HistoryViewModelBase.cs" />
     <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
     <Compile Include="ViewModels\InitializationPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentCollectionView.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByFleet.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByMasterID.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByLevel.cs" />
@@ -216,6 +220,7 @@
     <Compile Include="ViewModels\Overviews\EquipmentOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\ShipCollectionView.cs" />
     <Compile Include="ViewModels\Overviews\ShipOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
@@ -702,6 +707,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Icons\Tick.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TemplateSelectors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

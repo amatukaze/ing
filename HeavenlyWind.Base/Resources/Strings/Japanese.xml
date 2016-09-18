@@ -439,11 +439,12 @@
   <String Key="Export_CSV_Message_OpenFile">ファイルを開く</String>
 
   <String Key="Record_Time">時間</String>
+  <String Key="Record_Equipment">装備</String>
   <String Key="Record_SecretaryShip">秘書艦</String>
+  <String Key="Record_Filter_SuccessOnly">成功のみ</String>
 
   <String Key="ConstructionHistory_Ship">艦娘</String>
-
-  <String Key="DevelopmentHistory_Equipment">装備</String>
+  <String Key="ConstructionHistory_LSCOnly">大型艦建造</String>
 
   <String Key="SortieHistory_Area">海域</String>
   <String Key="SortieHistory_Node">セル</String>
@@ -452,7 +453,7 @@
   <String Key="SortieHistory_DroppedShip">ドロップ</String>
   <String Key="SortieHistory_HeavilyDamagedShip">大破した艦娘</String>
 
-  <String Key="ExpeditionHistory_Name">遠征名</String>
+  <String Key="ExpeditionHistory_Expedition">遠征</String>
   <String Key="ExpeditionHistory_Result">結果</String>
   <String Key="ExpeditionHistory_Reward">アイテム</String>
 

@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Converters.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/TemplateSelectors.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <ri:WindowPlacementPreference x:Key="WindowPlacementPreference" />

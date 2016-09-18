@@ -6,10 +6,11 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                  xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_ConstructionHistory}"
-                  Width="800" Height="480"
+                  Width="1024" Height="600"
                   UseLayoutRounding="True">
     <Grid>
         <Grid.RowDefinitions>
@@ -26,8 +27,28 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_ConstructionHistory}" />
         </DockPanel>
 
-        <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
-            <ListView ItemsSource="{Binding Records}">
+        <Grid Margin="8, 0, 8, 8" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Margin="0, 0, 0, 8">
+                <StackPanel>
+                    <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="14" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                        <CheckBox IsChecked="{Binding LSCOnly}">
+                            <TextBlock Text="{rb:StringResource Main.ConstructionHistory_LSCOnly}" />
+                        </CheckBox>
+
+                        <TextBlock Text="{rb:StringResource Main.ConstructionHistory_Ship}" Margin="8, 0, 0, 0" />
+                        <ComboBox ItemsSource="{Binding Ships}" ItemTemplateSelector="{StaticResource ShipDataTemplateSelector}" SelectedValue="{Binding SelectedShip}" Width="150" Height="24" Margin="4, 0, 0, 0" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <ListView ItemsSource="{Binding Records}" Grid.Row="1">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
                         <Style.Triggers>
@@ -42,6 +63,16 @@
                 </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
+                        <GridViewColumn Width="50">
+                            <TextBlock Text="#" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{ri:ItemIndex}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                         <GridViewColumn Width="150">
                             <TextBlock Text="{rb:StringResource Main.Record_Time}" />
 
@@ -52,7 +83,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="75">
+                        <GridViewColumn Width="150">
                             <TextBlock Text="{rb:StringResource Main.ConstructionHistory_Ship}" />
 
                             <GridViewColumn.CellTemplate>
@@ -63,7 +94,7 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.Material_Fuel}" />
+                            <rc:MaterialIcon Type="Fuel" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -72,7 +103,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bullet}" />
+                            <rc:MaterialIcon Type="Bullet" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -81,7 +112,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.Material_Steel}" />
+                            <rc:MaterialIcon Type="Steel" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -90,7 +121,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bauxite}" />
+                            <rc:MaterialIcon Type="Bauxite" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -99,7 +130,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.Material_DevelopmentMaterial}" />
+                            <rc:MaterialIcon Type="DevelopmentMaterial" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -108,7 +139,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="65">
+                        <GridViewColumn Width="150">
                             <TextBlock Text="{rb:StringResource Main.Record_SecretaryShip}" />
 
                             <GridViewColumn.CellTemplate>
@@ -132,7 +163,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        </DockPanel>
+        </Grid>
     </Grid>
 
 </ruic:MetroWindow>

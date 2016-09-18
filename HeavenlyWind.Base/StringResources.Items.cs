@@ -441,11 +441,12 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Export_CSV_Message_OpenFile => GetString(nameof(Export_CSV_Message_OpenFile));
 
         public string Record_Time => GetString(nameof(Record_Time));
+        public string Record_Equipment => GetString(nameof(Record_Equipment));
         public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));
+        public string Record_Filter_SuccessOnly => GetString(nameof(Record_Filter_SuccessOnly));
 
         public string ConstructionHistory_Ship => GetString(nameof(ConstructionHistory_Ship));
-
-        public string DevelopmentHistory_Equipment => GetString(nameof(DevelopmentHistory_Equipment));
+        public string ConstructionHistory_LSCOnly => GetString(nameof(ConstructionHistory_LSCOnly));
 
         public string SortieHistory_Area => GetString(nameof(SortieHistory_Area));
         public string SortieHistory_Node => GetString(nameof(SortieHistory_Node));
@@ -454,7 +455,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieHistory_DroppedShip => GetString(nameof(SortieHistory_DroppedShip));
         public string SortieHistory_HeavilyDamagedShip => GetString(nameof(SortieHistory_HeavilyDamagedShip));
 
-        public string ExpeditionHistory_Name => GetString(nameof(ExpeditionHistory_Name));
+        public string ExpeditionHistory_Expedition => GetString(nameof(ExpeditionHistory_Expedition));
         public string ExpeditionHistory_Result => GetString(nameof(ExpeditionHistory_Result));
         public string ExpeditionHistory_Reward => GetString(nameof(ExpeditionHistory_Reward));
 

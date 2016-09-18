@@ -440,11 +440,12 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Export_CSV_Message_OpenFile">Open file</String>
 
   <String Key="Record_Time">Time</String>
+  <String Key="Record_Equipment">Equipment</String>
   <String Key="Record_SecretaryShip">Secretary ship</String>
+  <String Key="Record_Filter_SuccessOnly">Successful</String>
 
   <String Key="ConstructionHistory_Ship">Ship</String>
-
-  <String Key="DevelopmentHistory_Equipment">Equipment</String>
+  <String Key="ConstructionHistory_LSCOnly">LSC</String>
 
   <String Key="SortieHistory_Area">Area</String>
   <String Key="SortieHistory_Node">Node</String>
@@ -453,7 +454,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="SortieHistory_DroppedShip">Dropped Ship</String>
   <String Key="SortieHistory_HeavilyDamagedShip">Heavily Damaged</String>
 
-  <String Key="ExpeditionHistory_Name">Expedition</String>
+  <String Key="ExpeditionHistory_Expedition">Expedition</String>
   <String Key="ExpeditionHistory_Result">Result</String>
   <String Key="ExpeditionHistory_Reward">Reward</String>
 

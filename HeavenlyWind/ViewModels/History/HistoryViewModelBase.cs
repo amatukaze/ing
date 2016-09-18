@@ -3,51 +3,48 @@ using Sakuno.SystemInterop;
 using Sakuno.SystemInterop.Dialogs;
 using Sakuno.UserInterface;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
-    abstract class HistoryViewModelBase<T> : ModelBase, IDisposable where T : ModelBase
+    abstract class HistoryViewModelBase<T> : DisposableModelBase where T : ModelBase
     {
-        ObservableCollection<T> r_Records;
-        protected ObservableCollection<T> InternalRecords => r_Records;
-        public ReadOnlyObservableCollection<T> Records { get; }
+        static Dispatcher r_Dispatcher = DispatcherUtil.UIDispatcher;
+
+        HistoryRecordsView<T> r_Records;
+        protected HistoryRecordsView<T> InternalRecords => r_Records;
+        public IList<T> Records => r_Records;
 
         protected abstract string LoadCommandText { get; }
 
-        protected T LastInsertRecord { get; private set; }
+        protected T LastInsertedRecord { get; private set; }
 
         public ICommand ExportAsCsvFileCommand { get; }
 
-        bool r_IsDisposed;
-
-        public HistoryViewModelBase()
+        protected HistoryViewModelBase()
         {
-            r_Records = new ObservableCollection<T>();
-            Records = new ReadOnlyObservableCollection<T>(r_Records);
+            r_Records = new HistoryRecordsView<T>(this);
 
             RecordService.Instance.Update += Record_Update;
 
             ExportAsCsvFileCommand = new DelegatedCommand(ExportAsCsvFile);
         }
 
-        public void Dispose()
+        protected override void DisposeManagedResources()
         {
-            if (r_IsDisposed)
-                return;
-
-            r_Records.Clear();
+            r_Records.Dispose();
 
             RecordService.Instance.Update -= Record_Update;
-
-            r_IsDisposed = true;
         }
+
+        protected SQLiteCommand CreateCommand() => RecordService.Instance.CreateCommand();
 
         protected abstract T CreateRecordFromReader(SQLiteDataReader rpReader);
 
@@ -55,25 +52,30 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
         {
             Task.Run(() =>
             {
-                using (var rCommand = RecordService.Instance.CreateCommand())
+                using (var rCommand = CreateCommand())
                 {
                     rCommand.CommandText = LoadCommandText;
 
                     using (var rReader = rCommand.ExecuteReader())
-                        while (rReader.Read())
-                        {
-                            var rRecord = CreateRecordFromReader(rReader);
-                            DispatcherUtil.UIDispatcher.BeginInvoke(new Action<T>(r_Records.Add), rRecord);
-                        }
-
-                    DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() =>
                     {
-                        if (r_Records.Count > 0)
-                            LastInsertRecord = r_Records[0];
-                    }));
+                        var rRecords = new List<T>(rReader.VisibleFieldCount);
+                        while (rReader.Read())
+                            rRecords.Add(CreateRecordFromReader(rReader));
+
+                        r_Records.Load(rRecords);
+                    }
+
+                    LastInsertedRecord = r_Records.LastRecord;
                 }
+
+                OnInitialized();
             });
         }
+        public virtual void OnInitialized() { }
+
+        public void Refresh() => Task.Run((Action)r_Records.Refresh);
+
+        public virtual bool Filter(T rpItem) => true;
 
         protected abstract bool TableFilter(string rpTable);
 
@@ -105,7 +107,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         protected virtual void OnRecordInsert(string rpTable, long rpRowID)
         {
-            using (var rCommand = RecordService.Instance.CreateCommand())
+            using (var rCommand = CreateCommand())
             {
                 PrepareCommandOnRecordInsert(rCommand, rpTable, rpRowID);
 
@@ -115,8 +117,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
                 using (var rReader = rCommand.ExecuteReader())
                     if (rReader.Read())
                     {
-                        LastInsertRecord = CreateRecordFromReader(rReader);
-                        DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() => r_Records.Insert(0, LastInsertRecord)));
+                        LastInsertedRecord = CreateRecordFromReader(rReader);
+                        r_Records.Add(LastInsertedRecord);
                     }
             }
         }

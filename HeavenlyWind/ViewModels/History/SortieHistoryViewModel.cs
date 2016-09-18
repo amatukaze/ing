@@ -39,7 +39,7 @@ WHERE battle.id = @id";
 
         protected override void OnRecordUpdate(string rpTable, long rpRowID)
         {
-            if (LastInsertRecord == null || LastInsertRecord.ID != rpRowID)
+            if (LastInsertedRecord == null || LastInsertedRecord.ID != rpRowID)
                 return;
 
             using (var rCommand = RecordService.Instance.CreateCommand())
@@ -53,7 +53,7 @@ WHERE battle.id = @id";
 
                 using (var rReader = rCommand.ExecuteReader())
                     if (rReader.Read())
-                        LastInsertRecord.Update(rReader);
+                        LastInsertedRecord.Update(rReader);
             }
         }
 

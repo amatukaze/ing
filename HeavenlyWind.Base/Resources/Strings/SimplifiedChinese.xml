@@ -442,11 +442,12 @@
   <String Key="Export_CSV_Message_OpenFile">打开文件</String>
 
   <String Key="Record_Time">时间</String>
+  <String Key="Record_Equipment">装备</String>
   <String Key="Record_SecretaryShip">秘书舰</String>
+  <String Key="Record_Filter_SuccessOnly">仅成功的</String>
 
   <String Key="ConstructionHistory_Ship">舰娘</String>
-
-  <String Key="DevelopmentHistory_Equipment">装备</String>
+  <String Key="ConstructionHistory_LSCOnly">大建</String>
 
   <String Key="SortieHistory_Area">海域</String>
   <String Key="SortieHistory_Node">场所</String>
@@ -455,7 +456,7 @@
   <String Key="SortieHistory_DroppedShip">船掉落</String>
   <String Key="SortieHistory_HeavilyDamagedShip">大破的舰娘</String>
 
-  <String Key="ExpeditionHistory_Name">远征名</String>
+  <String Key="ExpeditionHistory_Expedition">远征</String>
   <String Key="ExpeditionHistory_Result">结果</String>
   <String Key="ExpeditionHistory_Reward">奖励</String>
 
