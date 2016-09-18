@@ -11,13 +11,17 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
 
         T r_AllKey;
 
+        DelegatedComparer<T> r_Comparer;
+
         List<T> r_Keys = new List<T>();
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-        public FilterKeyCollection(T rpAllKey)
+        public FilterKeyCollection(T rpAllKey, Func<T, T, int> rpComparer)
         {
             r_AllKey = rpAllKey;
+
+            r_Comparer = new DelegatedComparer<T>(rpComparer);
 
             r_Keys.Add(r_AllKey);
         }
@@ -26,13 +30,13 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
         {
             r_Keys.Add(rpKey);
 
-            OnCollectionReset();
+            Refresh();
         }
         public void AddRange(IEnumerable<T> rpKeys)
         {
             r_Keys.AddRange(rpKeys);
 
-            OnCollectionReset();
+            Refresh();
         }
 
         public void AddIfAbsent(T rpKey)
@@ -47,10 +51,22 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
             r_Keys.Add(rpKey);
         }
 
+        public void Update(IEnumerable<T> rpKeys)
+        {
+            r_Keys.Clear();
+            r_Keys.Add(r_AllKey);
+            r_Keys.AddRange(rpKeys);
+
+            Refresh();
+        }
+
         public IEnumerator<T> GetEnumerator() => r_Keys.GetEnumerator();
 
-        void OnCollectionReset()
+        void Refresh()
         {
+            if (r_Keys.Count > 2)
+                r_Keys.Sort(1, r_Keys.Count - 1, r_Comparer);
+
             DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() => CollectionChanged?.Invoke(this, r_ResetEventArgs)));
         }
 

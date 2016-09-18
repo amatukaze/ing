@@ -11,8 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
     {
         protected override string LoadCommandText => "SELECT * FROM development ORDER BY time DESC;";
 
-        public FilterKeyCollection<EquipmentInfo> Equipment { get; } = new FilterKeyCollection<EquipmentInfo>(EquipmentInfo.Dummy);
-        public FilterKeyCollection<ShipInfo> SecretaryShips { get; } = new FilterKeyCollection<ShipInfo>(ShipInfo.Dummy);
+        public FilterKeyCollection<EquipmentInfo> Equipment { get; } = new FilterKeyCollection<EquipmentInfo>(EquipmentInfo.Dummy, (x, y) => x.ID - y.ID);
+        public FilterKeyCollection<ShipInfo> SecretaryShips { get; } = new FilterKeyCollection<ShipInfo>(ShipInfo.Dummy, (x, y) => x.ID - y.ID);
 
         bool r_SuccessfulRecordsOnly;
         public bool SuccessfulRecordsOnly

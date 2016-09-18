@@ -7,6 +7,8 @@
                   xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                  xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
+                  xmlns:rvmh="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.History"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_SortieHistory}"
                   Width="1024" Height="600"
@@ -26,14 +28,69 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_SortieHistory}" />
         </DockPanel>
 
-        <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
-            <Button Command="{Binding ExportAsCsvFileCommand}" Margin="0, 0, 0, 8" HorizontalAlignment="Left" DockPanel.Dock="Top">
-                <TextBlock Text="{rb:StringResource Main.Export_CSV}" />
-            </Button>
 
-            <ListView ItemsSource="{Binding Records}">
+        <Grid Margin="8, 0, 8, 8" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <DockPanel Margin="0, 0, 0, 8">
+                <Button Command="{Binding ExportAsCsvFileCommand}" DockPanel.Dock="Right">
+                    <TextBlock Text="{rb:StringResource Main.Export_CSV}" />
+                </Button>
+
+                <StackPanel>
+                    <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="14" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                        <TextBlock Text="{rb:StringResource Main.SortieHistory_Area}" />
+                        <ComboBox ItemsSource="{Binding Maps}" ItemTemplateSelector="{StaticResource MapDataTemplateSelector}" SelectedValue="{Binding SelectedMap}" MinWidth="150" Height="24" Margin="4, 0, 0, 0" />
+
+                        <TextBlock Text="{rb:StringResource Main.SortieHistory_Node}" Margin="8, 0, 0, 0" />
+                        <ComboBox ItemsSource="{Binding Nodes}" ItemTemplateSelector="{StaticResource NodeDataTemplateSelector}" SelectedValue="{Binding SelectedNode}" Width="65" Height="24" Margin="4, 0, 0, 0">
+                            <ComboBox.Style>
+                                <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedMap}" Value="{x:Static rvmh:SortieMapFilterKey.All}">
+                                            <Setter Property="IsEnabled" Value="False" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ComboBox.Style>
+                        </ComboBox>
+
+                        <TextBlock Text="{rb:StringResource Main.SortieHistory_BattleRank}" Margin="8, 0, 0, 0" />
+
+                        <CheckBox IsChecked="{Binding SRank}" Margin="4, 0, 0, 0">
+                            <TextBlock Text="S / SS" />
+                        </CheckBox>
+                        <CheckBox IsChecked="{Binding ARank}" Margin="4, 0, 0, 0">
+                            <TextBlock Text="A" />
+                        </CheckBox>
+                        <CheckBox IsChecked="{Binding BRank}" Margin="4, 0, 0, 0">
+                            <TextBlock Text="B" />
+                        </CheckBox>
+                        <CheckBox IsChecked="{Binding OtherRank}" Margin="4, 0, 0, 0">
+                            <TextBlock Text="X" />
+                        </CheckBox>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+
+            <ListView ItemsSource="{Binding Records}" Grid.Row="1">
                 <ListView.View>
                     <GridView>
+                        <GridViewColumn Width="50">
+                            <TextBlock Text="#" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{ri:ItemIndex}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                         <GridViewColumn Width="170">
                             <TextBlock Text="{rb:StringResource Main.Record_Time}" />
 
@@ -44,29 +101,8 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="170">
+                        <GridViewColumn Width="170" CellTemplate="{StaticResource SortieMapDataTemplate}">
                             <TextBlock Text="{rb:StringResource Main.SortieHistory_Area}" />
-
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <DataTemplate.Resources>
-                                        <Style x:Key="Map" TargetType="{x:Type Run}">
-                                            <Setter Property="Text" Value="{Binding Map.AreaID, StringFormat={}{0}-, Mode=OneWay}" />
-
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsEventMap}" Value="True">
-                                                    <Setter Property="Text" Value="E" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </DataTemplate.Resources>
-
-                                    <TextBlock Margin="0, 4">
-                                        <Run Text="{rb:ExtraStringResource Map, Map.ID, Map.Name}" />
-                                        (<Run Style="{StaticResource Map}" /><Run Text="{Binding Map.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource EventMapDifficulty, Map_Difficulty, TargetNullValue={x:Null}}" />)
-                                    </TextBlock>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
                         <GridViewColumn Width="65">
@@ -158,7 +194,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        </DockPanel>
+        </Grid>
     </Grid>
 
 </ruic:MetroWindow>

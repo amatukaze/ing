@@ -209,6 +209,7 @@
     <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\SortieMapFilterKey.cs" />
     <Compile Include="ViewModels\InitializationPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentCollectionView.cs" />
