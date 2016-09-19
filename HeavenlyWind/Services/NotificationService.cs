@@ -1,9 +1,10 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game;
+﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
+using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
-using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.SystemInterop;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,10 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Media;
-using Sakuno.KanColle.Amatsukaze.Extensibility;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    class NotificationService : IDisposable, INotificationService
+    class NotificationService : ModelBase, IDisposable, INotificationService
     {
         const string AppUserModelID = "Sakuno.Amatsukaze";
 
@@ -28,6 +28,20 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         NotifyIcon r_NotifyIcon;
 
         Tuple<string, MediaPlayer> r_CustomSound;
+
+        bool r_IsBlinking = true;
+        public bool IsBlinking
+        {
+            get { return r_IsBlinking; }
+            private set
+            {
+                if (r_IsBlinking != value)
+                {
+                    r_IsBlinking = value;
+                    OnPropertyChanged(nameof(IsBlinking));
+                }
+            }
+        }
 
         NotificationService()
         {
@@ -144,9 +158,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_HeavyDamageWarning, StringResources.Instance.Main.Notification_HeavyDamageWarning_Content, rHeavilyDamagedShips);
                     FlashWindow();
+
+                    IsBlinking = true;
                 }
             });
 
+            ApiService.Subscribe("api_port/port", _ => IsBlinking = false);
             ApiService.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, delegate
             {
                 var rSortie = SortieInfo.Current;
@@ -159,6 +176,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content, rHeavilyDamagedShips);
                     FlashWindow();
+
+                    IsBlinking = true;
                 }
             });
         }
