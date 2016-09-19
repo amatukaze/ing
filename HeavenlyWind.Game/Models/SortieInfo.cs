@@ -78,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Map = KanColleGame.Current.Maps[rpMapID];
         }
 
-        internal void Explore(RawMapExploration rpData)
+        internal void Explore(long rpTimestamp, RawMapExploration rpData)
         {
             PreviousNode = Node;
             if (PreviousNode != null)
@@ -87,7 +87,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             DirectionAngle = MapService.Instance.GetAngle(Map.ID, rpData.StartNode ?? Node?.ID ?? 0, rpData.Node);
             OnPropertyChanged(nameof(DirectionAngle));
 
-            Node = new SortieNodeInfo(Map, rpData);
+            Node = new SortieNodeInfo(rpTimestamp, Map, rpData);
             OnPropertyChanged(nameof(Node));
             OnPropertyChanged(nameof(PreviousNode));
         }

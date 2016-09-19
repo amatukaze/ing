@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
             {
                 var rParticipantFleet = Game.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
 
-                rPracticeInfo.Battle = new BattleInfo(rParticipantFleet);
+                rPracticeInfo.Battle = new BattleInfo(rpInfo.Timestamp, rParticipantFleet);
             }
         }
     }

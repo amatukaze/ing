@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
     {
         internal static BattleInfo Current { get; private set; }
 
-        public long ID { get; } = (long)DateTimeUtil.ToUnixTime(DateTimeOffset.Now);
+        public long ID { get; }
 
         public bool IsInitialized { get; private set; }
 
@@ -65,9 +65,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             };
             ApiService.Subscribe(rSecondStages, r => Current?.ProcessSecondStage(r));
         }
-        internal BattleInfo(RawMapExploration rpData)
+        internal BattleInfo(long rpTimestamp, RawMapExploration rpData)
         {
             Current = this;
+
+            ID = rpTimestamp;
 
             var rSortie = SortieInfo.Current;
             Participants.FriendMain = rSortie.MainShips;
@@ -101,9 +103,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     IsLandBaseAerialSupportReady = true;
             }
         }
-        internal BattleInfo(Fleet rpParticipantFleet)
+        internal BattleInfo(long rpTimestamp, Fleet rpParticipantFleet)
         {
             Current = this;
+
+            ID = rpTimestamp;
 
             IsPractice = true;
 

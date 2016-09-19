@@ -367,6 +367,7 @@
     <Compile Include="Services\Records\RecordsGroupExtensions.cs" />
     <Compile Include="Services\Records\ResourcesRecords.cs" />
     <Compile Include="Services\Records\ShipsRecords.cs" />
+    <Compile Include="Services\Records\SortieConsumptionRecords.cs" />
     <Compile Include="Services\Records\SortieRecords.cs" />
     <Compile Include="Services\ShipLockingService.cs" />
   </ItemGroup>

@@ -11,9 +11,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         public IList<EnemyFleet> EnemyEncounters { get; }
 
-        internal BattleEvent(MapInfo rpMap, RawMapExploration rpData, string rpNodeWikiID) : base(rpData)
+        internal BattleEvent(long rpTimestamp, MapInfo rpMap, RawMapExploration rpData, string rpNodeWikiID) : base(rpData)
         {
-            Battle = new BattleInfo(rpData);
+            Battle = new BattleInfo(rpTimestamp, rpData);
 
             int rNodeID;
             if (rpNodeWikiID.IsNullOrEmpty())

@@ -44,7 +44,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
                     rFleet.ID, rFleet.Name, rMap.MasterInfo.TranslatedName, rAreaSubID, rDifficulty));
             }
 
-            rSortie.Explore(rpData);
+            rSortie.Explore(rpInfo.Timestamp, rpData);
         }
     }
 }

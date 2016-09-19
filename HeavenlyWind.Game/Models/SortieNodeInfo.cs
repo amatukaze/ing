@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public bool IsDeadEnd { get; }
 
-        internal SortieNodeInfo(MapInfo rpMap, RawMapExploration rpData)
+        internal SortieNodeInfo(long rpTimestamp, MapInfo rpMap, RawMapExploration rpData)
         {
             ID = rpData.Node;
 
@@ -49,7 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 case SortieEventType.NormalBattle:
                 case SortieEventType.BossBattle:
-                    Event = new BattleEvent(rpMap, rpData, WikiID);
+                    Event = new BattleEvent(rpTimestamp, rpMap, rpData, WikiID);
                     break;
 
                 case SortieEventType.NothingHappened:
