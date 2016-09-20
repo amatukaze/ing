@@ -159,7 +159,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_HeavyDamageWarning, StringResources.Instance.Main.Notification_HeavyDamageWarning_Content, rHeavilyDamagedShips);
                     FlashWindow();
 
-                    IsBlinking = true;
+                    IsBlinking = !SortieInfo.Current.Node.IsDeadEnd;
                 }
             });
 
