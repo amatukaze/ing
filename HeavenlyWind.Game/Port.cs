@@ -151,7 +151,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                         var rMaximumStatuses = new List<string>(5);
                         var rNotMaximumStatuses = new List<string>(5);
 
-                        var rUseText = Preference.Instance.UI.UseTextInModernizationMessage.Value;
+                        var rUseText = !Preference.Instance.UI.UseGameIconsInModernizationMessage.Value;
 
                         if (rFirepowerDiff > 0)
                         {
@@ -208,7 +208,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                         rBuilder.Append(" (");
 
-                        var rSeparator = Preference.Instance.UI.UseTextInModernizationMessage.Value ? StringResources.Instance.Main.Log_Modernization_Separator_Type1 : " ";
+                        var rSeparator = !Preference.Instance.UI.UseGameIconsInModernizationMessage.Value ? StringResources.Instance.Main.Log_Modernization_Separator_Type1 : " ";
 
                         if (rMaximumStatuses.Count > 0)
                             rBuilder.Append(rMaximumStatuses.Join(rSeparator));

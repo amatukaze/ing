@@ -356,7 +356,7 @@
   <String Key="PreferenceWindow_UI_MaterialIcons">资材图标</String>
   <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">使用游戏的图标</String>
   <String Key="PreferenceWindow_UI_ShowFatigueInSortie">在出击时显示舰娘的疲劳值</String>
-  <String Key="PreferenceWindow_UI_UseTextInModernizationMessage">在近代化改修信息里使用文字而不是图标</String>
+  <String Key="PreferenceWindow_UI_UseGameIconsInModernizationMessage">在近代化改修信息里使用游戏的图标</String>
   <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Icon">「天津風改」的近代化改修成功了。([icon]torpedo[/icon] MAX、[icon]armor[/icon] MAX。 距离 MAX 还有: [icon]firepower[/icon] 1、[icon]luck[/icon] 50)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Text">「天津風改」的近代化改修成功了。(雷装 MAX、装甲 MAX。 距离 MAX 还有: 火力 1、运 50)</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
