@@ -147,6 +147,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             else if (rpFilename.EndsWith(".js", StringComparison.OrdinalIgnoreCase))
                 rpSession.oResponse["Content-Type"] = "application/x-javascript";
 
+            rpSession.responseCode = 200;
+
             rpResourceSession.State = NetworkSessionState.LoadedFromCache;
         }
 

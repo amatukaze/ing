@@ -89,7 +89,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     rParticipants = rParticipants.Concat(rSortie.EscortShips);
 
                 var rBuilder = new StringBuilder(128);
-                rBuilder.Append("INSERT INTO sortie_consumption_detail(id) VALUES (@id); ");
+                rBuilder.Append("INSERT INTO sortie_consumption(id) VALUES (@id); ");
                 rBuilder.Append("INSERT INTO sortie_participant_ship(id, ship_id, ship, type) VALUES");
 
                 var rCount = 0;

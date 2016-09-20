@@ -84,7 +84,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
             set { throw new NotSupportedException(); }
         }
         int IList.Add(object rpValue) { throw new NotSupportedException(); }
-        bool IList.Contains(object rpValue) { throw new NotSupportedException(); }
+        bool IList.Contains(object rpValue) => r_Keys.Contains((T)rpValue);
         void IList.Clear() { throw new NotSupportedException(); }
         int IList.IndexOf(object rpValue) => r_Keys.IndexOf((T)rpValue);
         void IList.Insert(int rpIndex, object rpValue) { throw new NotSupportedException(); }

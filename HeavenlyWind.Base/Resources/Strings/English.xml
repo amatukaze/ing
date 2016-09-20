@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.12.2">
+<Strings CultureName="en" Name="English" Version="0.1.12.3">
 
   <String Key="Product_Name">Intelligent Naval Gun</String>
 
@@ -354,7 +354,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_UI_MaterialIcons">Material icons</String>
   <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">Use in-game icons</String>
   <String Key="PreferenceWindow_UI_ShowFatigueInSortie">Show fatigue in Sortie</String>
-  <String Key="PreferenceWindow_UI_UseTextInModernizationMessage">Use text in modernization message instead of icons</String>
+  <String Key="PreferenceWindow_UI_UseGameIconsInModernizationMessage">Use in-game icons in modernization message</String>
   <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Icon">Succeeded to modernize Amatsukaze Kai.([icon]torpedo[/icon] MAX, [icon]armor[/icon] MAX; To MAX: [icon]firepower[/icon] 1, [icon]luck[/icon] 50)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Text">Succeeded to modernize Amatsukaze Kai.(Torpedo MAX, Armor MAX; To MAX: Firepower 1, Luck 50)</String>
   <String Key="PreferenceWindow_Cache">Cache</String>

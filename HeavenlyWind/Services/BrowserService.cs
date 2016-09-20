@@ -114,11 +114,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 r_Initialized = true;
 
-                Messages.Subscribe(CommunicatorMessages.LoadCompleted, delegate
-                {
-                    var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
-                    Communicator.Write(CommunicatorMessages.SetZoom + ":" + rZoom);
-                });
+                Messages.Subscribe(CommunicatorMessages.LoadCompleted, _ => Communicator.Write(CommunicatorMessages.SetZoom + ":" + Preference.Instance.Browser.Zoom));
                 Messages.Subscribe(CommunicatorMessages.LoadGamePageCompleted, _ => ResizeBrowserToFitGame());
 
                 Navigator = new BrowserNavigator(this);

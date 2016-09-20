@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
             set { throw new NotSupportedException(); }
         }
         int IList.Add(object rpValue) { throw new NotSupportedException(); }
-        bool IList.Contains(object rpValue) { throw new NotSupportedException(); }
+        bool IList.Contains(object rpValue) => r_View.Contains((T)rpValue);
         void IList.Clear() { throw new NotSupportedException(); }
         int IList.IndexOf(object rpValue) => r_View.IndexOf((T)rpValue);
         void IList.Insert(int rpIndex, object rpValue) { throw new NotSupportedException(); }
@@ -78,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
         void IList.RemoveAt(int rpIndex) { throw new NotSupportedException(); }
         void ICollection.CopyTo(Array rpArray, int rpIndex) { throw new NotSupportedException(); }
         void ICollection<T>.Add(T rpValue) { throw new NotSupportedException(); }
-        bool ICollection<T>.Contains(T rpValue) { throw new NotSupportedException(); }
+        bool ICollection<T>.Contains(T rpValue) => r_View.Contains(rpValue);
         void ICollection<T>.Clear() { throw new NotSupportedException(); }
         int IList<T>.IndexOf(T rpValue) => r_View.IndexOf(rpValue);
         void IList<T>.Insert(int rpIndex, T rpValue) { throw new NotSupportedException(); }

@@ -47,8 +47,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             BrowserService.Instance.Communicator.Write(CommunicatorMessages.TakeScreenshot + ":" + rTimestamp.ToString());
 
             var rImage = await rTaskScreenshotTask.Task;
-            if (rImage == null)
-                throw new InvalidOperationException("No image data.");
 
             if (rpProcessAction != null)
                 rImage = rpProcessAction(rImage);
@@ -110,10 +108,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             var rTimestamp = long.Parse(rParameters[0]);
             var rMessage = rParameters[1];
 
-            r_TaskScreenshotTasks[rTimestamp].TrySetResult(null);
+            r_TaskScreenshotTasks[rTimestamp].TrySetException(new InvalidOperationException(rMessage));
             r_TaskScreenshotTasks.Remove(rTimestamp);
-
-            StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Failed, rMessage);
         }
 
         public void OutputToClipboard(BitmapSource rpImage)

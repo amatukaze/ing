@@ -118,8 +118,8 @@
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ShowFatigueInSortie}" />
         </CheckBox>
 
-        <CheckBox IsChecked="{rb:Preference UI.UseTextInModernizationMessage}" Margin="0, 8, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_UseTextInModernizationMessage}" />
+        <CheckBox IsChecked="{rb:Preference UI.UseGameIconsInModernizationMessage}" Margin="0, 8, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_UseGameIconsInModernizationMessage}" />
         </CheckBox>
         <ruic:BBCodeBlock Margin="0, 6, 0, 0">
             <ruic:BBCodeBlock.Style>
@@ -127,7 +127,7 @@
                     <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessagePreview_Icon}" />
 
                     <Style.Triggers>
-                        <DataTrigger Binding="{rb:Preference UI.UseTextInModernizationMessage}" Value="True">
+                        <DataTrigger Binding="{rb:Preference UI.UseGameIconsInModernizationMessage}" Value="False">
                             <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessagePreview_Text}" />
                         </DataTrigger>
                     </Style.Triggers>

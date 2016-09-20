@@ -355,7 +355,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_UI_MaterialIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons));
         public string PreferenceWindow_UI_MaterialIcons_UseGameIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons_UseGameIcons));
         public string PreferenceWindow_UI_ShowFatigueInSortie => GetString(nameof(PreferenceWindow_UI_ShowFatigueInSortie));
-        public string PreferenceWindow_UI_UseTextInModernizationMessage => GetString(nameof(PreferenceWindow_UI_UseTextInModernizationMessage));
+        public string PreferenceWindow_UI_UseGameIconsInModernizationMessage => GetString(nameof(PreferenceWindow_UI_UseGameIconsInModernizationMessage));
         public string PreferenceWindow_UI_ModernizationMessagePreview_Icon => GetString(nameof(PreferenceWindow_UI_ModernizationMessagePreview_Icon));
         public string PreferenceWindow_UI_ModernizationMessagePreview_Text => GetString(nameof(PreferenceWindow_UI_ModernizationMessagePreview_Text));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
