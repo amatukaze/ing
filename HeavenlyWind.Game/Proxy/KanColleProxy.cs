@@ -6,6 +6,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.SystemInterop.Net;
 using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
@@ -19,6 +20,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         public static Subject<NetworkSession> SessionSubject { get; } = new Subject<NetworkSession>();
 
         static Regex r_RemoveGoogleAnalyticsRegex = new Regex(@"gapush\(.+?\);", RegexOptions.Singleline);
+        static Regex r_UserIDRegex { get; } = new Regex(@"(?:(?<=api_world%2Fget_id%2F)|(?<=api_world\\/get_id\\/)|(?<=api_auth_member\\/dmmlogin\\/))\d+");
+        static Regex r_TokenResponseRegex { get; } = new Regex(@"(?<=\\""api_token\\"":\\"")\w+");
 
         static Regex r_FlashQualityRegex = new Regex("(\"quality\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Singleline);
         static Regex r_FlashRenderModeRegex = new Regex("(\"wmode\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Singleline);
@@ -30,6 +33,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         static string r_UpstreamProxy;
 
         static ManualResetEventSlim r_TrafficBarrier;
+
+        static SQLiteConnection r_Connection;
 
         static KanColleProxy()
         {
@@ -60,6 +65,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             };
 
             ServiceManager.Register<INetworkAvailabilityService>(new NetworkAvailabilityService());
+
+            using (var rConnection = new SQLiteConnection(@"Data Source=Data\AntiBlankScreen.db; Page Size=8192").OpenAndReturn())
+            using (var rCommand = rConnection.CreateCommand())
+            {
+                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS history(" +
+                    "time INTEGER PRIMARY KEY NOT NULL, " +
+                    "url TEXT NULL, " +
+                    "body TEXT NULL);";
+
+                rCommand.ExecuteNonQuery();
+            }
+
+            r_Connection = CoreDatabase.Connection;
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "ATTACH @filename AS anti_blank_screen;";
+                rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\AntiBlankScreen.db").FullName);
+
+                rCommand.ExecuteNonQuery();
+            }
         }
 
         public static void Start()
@@ -136,6 +161,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             {
                 if (rSession.State == NetworkSessionState.Requested)
                     rSession.State = NetworkSessionState.Responsed;
+
+                if (rSession.FullUrl.OICStartsWith("http://osapi.dmm.com/gadgets/makeRequest"))
+                    using (var rCommand = r_Connection.CreateCommand())
+                    {
+                        rCommand.CommandText = "INSERT INTO anti_blank_screen.history(time, url, body) VALUES(strftime('%s', 'now'), @url, @body);";
+                        rCommand.Parameters.AddWithValue("@url", r_UserIDRegex.Replace(rSession.FullUrl, "******"));
+
+                        var rBody = rpSession.GetResponseBodyAsString();
+                        rBody = r_UserIDRegex.Replace(rBody, "******");
+                        rBody = r_TokenResponseRegex.Replace(rBody, "******");
+                        rCommand.Parameters.AddWithValue("@body", r_UserIDRegex.Replace(rBody, "******"));
+
+                        rCommand.ExecuteNonQuery();
+                    }
 
                 var rApiSession = rSession as ApiSession;
                 if (rApiSession != null)
