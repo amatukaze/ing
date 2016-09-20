@@ -8,6 +8,7 @@
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
+                  xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_DevelopmentHistory}"
                   Width="1024" Height="600"
@@ -38,12 +39,24 @@
                     <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="14" />
 
                     <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                        <CheckBox IsChecked="{Binding SuccessfulRecordsOnly}">
-                            <TextBlock Text="{rb:StringResource Main.Record_Filter_SuccessOnly}" />
-                        </CheckBox>
-
-                        <TextBlock Text="{rb:StringResource Main.Record_Equipment}" Margin="8, 0, 0, 0" />
+                        <TextBlock Text="{rb:StringResource Main.Record_Equipment}" />
                         <ComboBox ItemsSource="{Binding Equipment}" ItemTemplateSelector="{StaticResource EquipmentDataTemplateSelector}" SelectedValue="{Binding SelectedEquipment}" Width="200" Height="24" Margin="4, 0, 0, 0" />
+
+                        <CheckBox IsChecked="{Binding SuccessfulRecordsOnly}" Margin="8, 0, 0, 0">
+                            <TextBlock Text="{rb:StringResource Main.Record_Filter_SuccessOnly}" />
+
+                            <CheckBox.Style>
+                                <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource {x:Type CheckBox}}">
+                                    <Setter Property="IsEnabled" Value="False" />
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedEquipment}" Value="{x:Static rgm:EquipmentInfo.Dummy}">
+                                            <Setter Property="IsEnabled" Value="True" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </CheckBox.Style>
+                        </CheckBox>
 
                         <TextBlock Text="{rb:StringResource Main.Record_SecretaryShip}" Margin="8, 0, 0, 0" />
                         <ComboBox ItemsSource="{Binding SecretaryShips}" ItemTemplateSelector="{StaticResource ShipDataTemplateSelector}" SelectedValue="{Binding SelectedSecretaryShip}" Width="150" Height="24" Margin="4, 0, 0, 0" />
