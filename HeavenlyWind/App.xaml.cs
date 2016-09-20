@@ -61,6 +61,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
             CoreDatabase.Initialize();
 
+            DataService.Instance.EnsureDirectory();
+
             RecordService.Instance.Initialize();
             QuestProgressService.Instance.Initialize();
             MapService.Instance.Initialize();
