@@ -165,7 +165,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 if (rSession.FullUrl.OICStartsWith("http://osapi.dmm.com/gadgets/makeRequest"))
                     using (var rCommand = r_Connection.CreateCommand())
                     {
-                        rCommand.CommandText = "INSERT INTO anti_blank_screen.history(time, url, body) VALUES(strftime('%s', 'now'), @url, @body);";
+                        rCommand.CommandText = "INSERT INTO anti_blank_screen.history(time, url, body) VALUES(@time, @url, @body);";
+                        rCommand.Parameters.AddWithValue("@time", DateTimeOffset.Now.Ticks);
                         rCommand.Parameters.AddWithValue("@url", r_UserIDRegex.Replace(rSession.FullUrl, "******"));
 
                         var rBody = rpSession.GetResponseBodyAsString();
