@@ -59,8 +59,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.102.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.103\lib\net45\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
@@ -126,10 +126,14 @@
     <Compile Include="Controls\MaterialIcon.cs" />
     <Compile Include="Controls\ShipLockingTag.cs" />
     <Compile Include="Controls\ShipSlot.cs" />
+    <Compile Include="Internal\FilterKeyCollection.cs" />
+    <Compile Include="Internal\GenericDataTemplateSelector.cs" />
     <Compile Include="Internal\HeavyDamageLineColorExtension.cs" />
+    <Compile Include="Internal\ItemIndexExtension.cs" />
+    <Compile Include="Internal\ItemsFilter.cs" />
+    <Compile Include="Internal\ItemsView.cs" />
     <Compile Include="Internal\PanicKeyPreferenceExtension.cs" />
     <Compile Include="Internal\QuestCategoryToBrushConverter.cs" />
-    <Compile Include="Internal\ShipOverviewItemIndexExtension.cs" />
     <Compile Include="Internal\UnhandledExceptionDialogStringResources.cs" />
     <Compile Include="Internal\WindowPlacementPreference.cs" />
     <Compile Include="Internal\TabContentTemplateSelector.cs" />
@@ -200,12 +204,15 @@
     <Compile Include="ViewModels\History\ConstructionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\HistoryRecordsView.cs" />
     <Compile Include="ViewModels\History\HistoryViewModelBase.cs" />
     <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\SortieMapFilterKey.cs" />
     <Compile Include="ViewModels\InitializationPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\EquipmentCollectionView.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByFleet.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByMasterID.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupByLevel.cs" />
@@ -214,6 +221,7 @@
     <Compile Include="ViewModels\Overviews\EquipmentOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
+    <Compile Include="ViewModels\Overviews\ShipCollectionView.cs" />
     <Compile Include="ViewModels\Overviews\ShipOverviewViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
@@ -703,6 +711,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\TemplateSelectors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Accents\BlinkingBrown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Controls\AppIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1008,12 +1024,12 @@
     <PreBuildEvent>IF NOT EXIST "$(SolutionDir)Resources" exit 
 xcopy /Y /E /I "$(SolutionDir)Resources" "$(TargetDir)Resources"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

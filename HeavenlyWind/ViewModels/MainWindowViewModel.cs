@@ -4,6 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using Sakuno.UserInterface;
+using System;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
@@ -29,6 +30,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public UpdateService UpdateService => UpdateService.Instance;
 
+        Accent r_BlinkingBrownAccent;
+
         public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowService.Instance.Show<PreferencesWindow>(rpClearDataContextOnWindowClosed: false));
 
         public ICommand ExpandMenuCommand { get; }
@@ -45,14 +48,23 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             GameInformation = new GameInformationViewModel(this);
             r_Page = GameInformation;
 
-            SessionService.Instance.SubscribeOnce("api_start2", delegate
+            ApiService.SubscribeOnce("api_start2", delegate
             {
                 IsGameStarted = true;
                 OnPropertyChanged(nameof(IsGameStarted));
             });
 
-            SessionService.Instance.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
+            ApiService.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
             KanColleGame.Current.ReturnedFromSortie += _ => ThemeManager.Instance.ChangeAccent(Accent.Blue);
+
+            r_BlinkingBrownAccent = new Accent("BlinkingBrown", new Uri("pack://application:,,,/HeavenlyWind;component/Themes/Accents/BlinkingBrown.xaml"));
+
+            PropertyChangedEventListener.FromSource(NotificationService.Instance)
+                .Add(nameof(NotificationService.Instance.IsBlinking), delegate
+                {
+                    if (NotificationService.Instance.IsBlinking)
+                        ThemeManager.Instance.ChangeAccent(r_BlinkingBrownAccent);
+                });
 
             ShowConstructionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ConstructionHistoryWindow>());
             ShowDevelopmentHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<DevelopmentHistoryWindow>());

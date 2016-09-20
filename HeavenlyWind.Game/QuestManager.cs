@@ -47,19 +47,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal QuestManager()
         {
-            SessionService.Instance.Subscribe("api_get_member/questlist", _ =>
+            ApiService.Subscribe("api_get_member/questlist", _ =>
             {
                 UpdateQuestList();
 
                 IsLoaded = true;
                 OnPropertyChanged(nameof(IsLoaded));
             });
-            SessionService.Instance.Subscribe("api_req_quest/stop", r =>
+            ApiService.Subscribe("api_req_quest/stop", r =>
             {
                 var rQuestID = int.Parse(r.Parameters["api_quest_id"]);
                 Table[rQuestID].RawData.State = QuestState.None;
             });
-            SessionService.Instance.Subscribe("api_req_quest/clearitemget", r =>
+            ApiService.Subscribe("api_req_quest/clearitemget", r =>
             {
                 var rQuestID = int.Parse(r.Parameters["api_quest_id"]);
                 Table.Remove(rQuestID);

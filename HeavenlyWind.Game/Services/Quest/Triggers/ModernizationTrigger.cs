@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
     {
         public ModernizationTrigger()
         {
-            Observable = SessionService.Instance.GetObservable("api_req_kaisou/powerup")
+            Observable = ApiService.GetObservable("api_req_kaisou/powerup")
                 .Where(r => ((RawModernizationResult)r.Data).Success);
         }
 

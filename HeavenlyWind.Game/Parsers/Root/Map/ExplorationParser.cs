@@ -5,9 +5,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
     [Api("api_req_map/next")]
     class ExplorationParser : ApiParser<RawMapExploration>
     {
-        public override void Process(RawMapExploration rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawMapExploration rpData)
         {
-            Game.Sortie.Explore(rpData);
+            Game.Sortie.Explore(rpInfo.Timestamp, rpData);
         }
     }
 }

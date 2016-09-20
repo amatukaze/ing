@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
@@ -41,12 +42,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal Port()
         {
-            SessionService.Instance.Subscribe("api_get_member/ship2", r =>
+            ApiService.Subscribe("api_get_member/ship2", r =>
             {
                 UpdateShips(r.Json["api_data"].ToObject<RawShip[]>());
                 Fleets.Update(r.Json["api_data_deck"].ToObject<RawFleet[]>());
             });
-            SessionService.Instance.Subscribe("api_get_member/ship_deck", r =>
+            ApiService.Subscribe("api_get_member/ship_deck", r =>
             {
                 var rData = r.GetData<RawShipsAndFleets>();
 
@@ -58,7 +59,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 OnPropertyChanged(nameof(Ships));
             });
-            SessionService.Instance.Subscribe("api_get_member/ship3", r =>
+            ApiService.Subscribe("api_get_member/ship3", r =>
             {
                 var rData = r.GetData<RawShipsAndFleets>();
                 foreach (var rShip in rData.Ships)
@@ -68,10 +69,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 ProcessUnequippedEquipment(r.Json["api_data"]["api_slot_data"]);
             });
 
-            SessionService.Instance.Subscribe("api_get_member/unsetslot", r => ProcessUnequippedEquipment(r.Json["api_data"]));
-            SessionService.Instance.Subscribe("api_get_member/require_info", r => ProcessUnequippedEquipment(r.Json["api_data"]["api_unsetslot"]));
+            ApiService.Subscribe("api_get_member/unsetslot", r => ProcessUnequippedEquipment(r.Json["api_data"]));
+            ApiService.Subscribe("api_get_member/require_info", r => ProcessUnequippedEquipment(r.Json["api_data"]["api_unsetslot"]));
 
-            SessionService.Instance.Subscribe("api_req_kaisou/slot_exchange_index", r =>
+            ApiService.Subscribe("api_req_kaisou/slot_exchange_index", r =>
             {
                 Ship rShip;
                 if (Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out rShip))
@@ -81,14 +82,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             });
 
-            SessionService.Instance.Subscribe("api_req_kaisou/open_exslot", r =>
+            ApiService.Subscribe("api_req_kaisou/open_exslot", r =>
             {
                 Ship rShip;
                 if (Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out rShip))
                     rShip.InstallReinforcementExpansion();
             });
 
-            SessionService.Instance.Subscribe("api_req_kaisou/slot_deprive", r =>
+            ApiService.Subscribe("api_req_kaisou/slot_deprive", r =>
             {
                 var rData = r.GetData<RawEquipmentRelocationResult>();
 
@@ -105,7 +106,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     UnequippedEquipment[(EquipmentType)rData.UnequippedEquipment.Type] = rData.UnequippedEquipment.IDs.Select(rpID => Equipment[rpID]).ToArray();
             });
 
-            SessionService.Instance.Subscribe("api_req_kaisou/powerup", r =>
+            ApiService.Subscribe("api_req_kaisou/powerup", r =>
             {
                 var rShipID = int.Parse(r.Parameters["api_id"]);
                 var rData = r.GetData<RawModernizationResult>();
@@ -120,8 +121,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 RemoveEquipmentFromUnequippedList(rConsumedEquipment);
 
-                RecordService.Instance?.Fate?.AddShipFate(rConsumedShips, Fate.ConsumedByModernization);
-
                 UpdateShipsCore();
                 OnPropertyChanged(nameof(Equipment));
                 Fleets.Update(rData.Fleets);
@@ -135,39 +134,105 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     {
                         var rOriginal = rModernizedShip.RawData;
                         var rNow = rData.Ship;
+                        var rInfo = rModernizedShip.Info;
 
-                        var rFirepowerDiff = rNow.Firepower[0] - rOriginal.Firepower[0];
-                        var rTorpedoDiff = rNow.Torpedo[0] - rOriginal.Torpedo[0];
-                        var rAADiff = rNow.AA[0] - rOriginal.AA[0];
-                        var rArmorDiff = rNow.Armor[0] - rOriginal.Armor[0];
+                        var rFirepowerDiff = rNow.ModernizedStatus[0] - rOriginal.ModernizedStatus[0];
+                        var rTorpedoDiff = rNow.ModernizedStatus[1] - rOriginal.ModernizedStatus[1];
+                        var rAADiff = rNow.ModernizedStatus[2] - rOriginal.ModernizedStatus[2];
+                        var rArmorDiff = rNow.ModernizedStatus[3] - rOriginal.ModernizedStatus[3];
                         var rLuckDiff = rNow.Luck[0] - rOriginal.Luck[0];
 
-                        var rDifferences = new List<string>(5);
+                        var rFirepowerRemain = rInfo.FirepowerMaximum - rInfo.FirepowerMinimum - rNow.ModernizedStatus[0];
+                        var rTorpedoRemain = rInfo.TorpedoMaximum - rInfo.TorpedoMinimum - rNow.ModernizedStatus[1];
+                        var rAARemain = rInfo.AAMaximum - rInfo.AAMinimum - rNow.ModernizedStatus[2];
+                        var rArmorRemain = rInfo.ArmorMaximum - rInfo.ArmorMinimum - rNow.ModernizedStatus[3];
+                        var rLuckRemain = rNow.Luck[1] - rNow.Luck[0];
+
+                        var rMaximumStatuses = new List<string>(5);
+                        var rNotMaximumStatuses = new List<string>(5);
+
+                        var rUseText = Preference.Instance.UI.UseTextInModernizationMessage.Value;
 
                         if (rFirepowerDiff > 0)
-                            rDifferences.Add("[icon]firepower[/icon] +" + rFirepowerDiff);
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Firepower : "[icon]firepower[/icon]";
+
+                            if (rFirepowerRemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rFirepowerRemain}");
+                            else
+                                rMaximumStatuses.Add(rHeader + " MAX");
+                        }
+
                         if (rTorpedoDiff > 0)
-                            rDifferences.Add("[icon]torpedo[/icon] +" + rTorpedoDiff);
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Torpedo : "[icon]torpedo[/icon]";
+
+                            if (rTorpedoRemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rTorpedoRemain}");
+                            else
+                                rMaximumStatuses.Add(rHeader + " MAX");
+                        }
+
                         if (rAADiff > 0)
-                            rDifferences.Add("[icon]aa[/icon] +" + rAADiff);
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_AA : "[icon]aa[/icon]";
+
+                            if (rAARemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rAARemain}");
+                            else
+                                rMaximumStatuses.Add(rHeader + " MAX");
+                        }
+
                         if (rArmorDiff > 0)
-                            rDifferences.Add("[icon]armor[/icon] +" + rArmorDiff);
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Armor : "[icon]armor[/icon]";
+
+                            if (rArmorRemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rArmorRemain}");
+                            else
+                                rMaximumStatuses.Add(rHeader + " MAX");
+                        }
+
                         if (rLuckDiff > 0)
-                            rDifferences.Add("[icon]luck[/icon] +" + rLuckDiff);
+                        {
+                            var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Luck : "[icon]luck[/icon]";
 
-                        var rMessage = StringResources.Instance.Main.Log_Modernization_Success;
-                        if (rDifferences.Count > 0)
-                            rMessage += " (" + rDifferences.Join(" ") + ")";
+                            if (rLuckRemain > 0)
+                                rNotMaximumStatuses.Add($"{rHeader} {rLuckRemain}");
+                            else
+                                rMaximumStatuses.Add(rHeader +" MAX");
+                        }
 
-                        Logger.Write(LoggingLevel.Info, string.Format(rMessage, rModernizedShip.Info.TranslatedName));
+                        var rBuilder = new StringBuilder(128);
+                        rBuilder.AppendFormat(StringResources.Instance.Main.Log_Modernization_Success, rModernizedShip.Info.TranslatedName);
+
+                        rBuilder.Append(" (");
+
+                        var rSeparator = Preference.Instance.UI.UseTextInModernizationMessage.Value ? StringResources.Instance.Main.Log_Modernization_Separator_Type1 : " ";
+
+                        if (rMaximumStatuses.Count > 0)
+                            rBuilder.Append(rMaximumStatuses.Join(rSeparator));
+
+                        if (rMaximumStatuses.Count > 0 && rNotMaximumStatuses.Count > 0)
+                            rBuilder.Append(StringResources.Instance.Main.Log_Modernization_Separator_Type2);
+
+                        if (rNotMaximumStatuses.Count > 0)
+                        {
+                            rBuilder.Append(StringResources.Instance.Main.Log_Modernization_Remainder);
+                            rBuilder.Append(rNotMaximumStatuses.Join(rSeparator));
+                        }
+
+                        rBuilder.Append(')');
+
+                        Logger.Write(LoggingLevel.Info, rBuilder.ToString());
                     }
 
                     rModernizedShip.Update(rData.Ship);
                 }
             });
 
-            SessionService.Instance.Subscribe("api_req_kousyou/createship", r => ConstructionDocks[int.Parse(r.Parameters["api_kdock_id"])].IsConstructionStarted = true);
-            SessionService.Instance.Subscribe("api_req_kousyou/getship", r =>
+            ApiService.Subscribe("api_req_kousyou/createship", r => ConstructionDocks[int.Parse(r.Parameters["api_kdock_id"])].IsConstructionStarted = true);
+            ApiService.Subscribe("api_req_kousyou/getship", r =>
             {
                 var rData = r.GetData<RawConstructionResult>();
 
@@ -177,7 +242,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Ships.Add(new Ship(rData.Ship));
                 UpdateShipsCore();
             });
-            SessionService.Instance.Subscribe("api_req_kousyou/createship_speedchange", r =>
+            ApiService.Subscribe("api_req_kousyou/createship_speedchange", r =>
             {
                 if (r.Parameters["api_highspeed"] == "1")
                 {
@@ -191,7 +256,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             });
 
-            SessionService.Instance.Subscribe("api_req_kousyou/createitem", r =>
+            ApiService.Subscribe("api_req_kousyou/createitem", r =>
             {
                 var rData = r.GetData<RawEquipmentDevelopment>();
                 if (!rData.Success)
@@ -200,13 +265,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 UnequippedEquipment[(EquipmentType)rData.EquipmentType] = r.Json["api_data"]["api_unsetslot"].Select(rpID => Equipment[(int)rpID]).ToArray();
             });
 
-            SessionService.Instance.Subscribe("api_req_kousyou/destroyship", r =>
+            ApiService.Subscribe("api_req_kousyou/destroyship", r =>
             {
                 Materials.Update(r.Json["api_data"]["api_material"].ToObject<int[]>());
 
                 var rShip = Ships[int.Parse(r.Parameters["api_ship_id"])];
-
-                RecordService.Instance?.Fate?.AddShipFate(rShip, Fate.Dismantled);
 
                 foreach (var rEquipment in rShip.EquipedEquipment)
                     Equipment.Remove(rEquipment);
@@ -218,11 +281,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Ships.Remove(rShip);
                 UpdateShipsCore();
             });
-            SessionService.Instance.Subscribe("api_req_kousyou/destroyitem2", r =>
+            ApiService.Subscribe("api_req_kousyou/destroyitem2", r =>
             {
                 var rEquipmentIDs = r.Parameters["api_slotitem_ids"].Split(',').Select(int.Parse);
-
-                RecordService.Instance?.Fate?.AddEquipmentFate(rEquipmentIDs.Select(rpID => Equipment[rpID]), Fate.Scrapped);
 
                 foreach (var rEquipmentID in rEquipmentIDs)
                     Equipment.Remove(rEquipmentID);
@@ -235,14 +296,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Materials.Bauxite += rMaterials[3];
             });
 
-            SessionService.Instance.Subscribe("api_req_kousyou/remodel_slotlist_detail", r =>
+            ApiService.Subscribe("api_req_kousyou/remodel_slotlist_detail", r =>
             {
                 var rID = r.Parameters["api_slot_id"];
                 var rEquipment = Equipment[int.Parse(rID)];
 
                 Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_EquipmentImprovement_Ready, rEquipment.Info.TranslatedName, rEquipment.LevelText, rID));
             });
-            SessionService.Instance.Subscribe("api_req_kousyou/remodel_slot", r =>
+            ApiService.Subscribe("api_req_kousyou/remodel_slot", r =>
             {
                 var rData = (RawImprovementResult)r.Data;
                 var rEquipment = Equipment[int.Parse(r.Parameters["api_slot_id"])];
@@ -267,8 +328,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 {
                     var rConsumedEquipment = rData.ConsumedEquipmentID.Select(rpID => Equipment[rpID]).ToArray();
 
-                    RecordService.Instance?.Fate?.AddEquipmentFate(rConsumedEquipment, Fate.ConsumedByImprovement);
-
                     foreach (var rEquipmentID in rData.ConsumedEquipmentID)
                         Equipment.Remove(rEquipmentID);
                     OnPropertyChanged(nameof(Equipment));
@@ -277,7 +336,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             });
 
-            SessionService.Instance.Subscribe("api_req_hokyu/charge", r =>
+            ApiService.Subscribe("api_req_hokyu/charge", r =>
             {
                 var rData = r.GetData<RawSupplyResult>();
                 var rFleets = new HashSet<Fleet>();
@@ -287,8 +346,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rShipSupplyResult in rData.Ships)
                 {
                     var rShip = Ships[rShipSupplyResult.ID];
-                    rShip.Fuel = rShip.Fuel.Update(rShipSupplyResult.Fuel);
-                    rShip.Bullet = rShip.Bullet.Update(rShipSupplyResult.Bullet);
+                    rShip.Fuel.Current = rShipSupplyResult.Fuel;
+                    rShip.Bullet.Current = rShipSupplyResult.Bullet;
 
                     if (rShip.OwnerFleet != null)
                         rFleets.Add(rShip.OwnerFleet);
@@ -307,7 +366,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rFleet in rFleets)
                     rFleet.Update();
             });
-            SessionService.Instance.Subscribe("api_req_air_corps/supply", r =>
+            ApiService.Subscribe("api_req_air_corps/supply", r =>
             {
                 var rData = r.GetData<RawAirForceSquadronResupplyResult>();
 
@@ -315,8 +374,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Materials.Bauxite = rData.Bauxite;
             });
 
-            SessionService.Instance.Subscribe("api_get_member/ndock", r => UpdateRepairDocks(r.GetData<RawRepairDock[]>()));
-            SessionService.Instance.Subscribe("api_req_nyukyo/start", r =>
+            ApiService.Subscribe("api_get_member/ndock", r => UpdateRepairDocks(r.GetData<RawRepairDock[]>()));
+            ApiService.Subscribe("api_req_nyukyo/start", r =>
             {
                 var rShip = Ships[int.Parse(r.Parameters["api_ship_id"])];
                 var rIsInstantRepair = r.Parameters["api_highspeed"] == "1";
@@ -328,13 +387,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (rIsInstantRepair)
                     Materials.Bucket--;
             });
-            SessionService.Instance.Subscribe("api_req_nyukyo/speedchange", r =>
+            ApiService.Subscribe("api_req_nyukyo/speedchange", r =>
             {
                 Materials.Bucket--;
                 RepairDocks[int.Parse(r.Parameters["api_ndock_id"])].CompleteRepair();
             });
 
-            SessionService.Instance.Subscribe("api_req_combined_battle/battleresult", r =>
+            ApiService.Subscribe("api_req_combined_battle/battleresult", r =>
             {
                 var rData = (RawBattleResult)r.Data;
                 if (!rData.HasEvacuatedShip)
@@ -348,7 +407,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 r_EvacuatedShipIDs = new[] { rEvacuatedShipID, rEscortShipID };
             });
-            SessionService.Instance.Subscribe("api_req_combined_battle/goback_port", delegate
+            ApiService.Subscribe("api_req_combined_battle/goback_port", delegate
             {
                 if (SortieInfo.Current == null || r_EvacuatedShipIDs == null || r_EvacuatedShipIDs.Length == 0)
                     return;
@@ -356,25 +415,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 EvacuatedShipIDs.Add(r_EvacuatedShipIDs[0]);
                 EvacuatedShipIDs.Add(r_EvacuatedShipIDs[1]);
             });
-            SessionService.Instance.Subscribe("api_get_member/ship_deck", _ => r_EvacuatedShipIDs = null);
-            SessionService.Instance.Subscribe("api_port/port", _ => EvacuatedShipIDs.Clear());
+            ApiService.Subscribe("api_get_member/ship_deck", _ => r_EvacuatedShipIDs = null);
+            ApiService.Subscribe("api_port/port", _ => EvacuatedShipIDs.Clear());
 
-            SessionService.Instance.Subscribe("api_req_member/updatedeckname", r =>
+            ApiService.Subscribe("api_req_member/updatedeckname", r =>
             {
                 var rFleet = Fleets[int.Parse(r.Parameters["api_deck_id"])];
                 rFleet.Name = r.Parameters["api_name"];
             });
 
-            SessionService.Instance.Subscribe("api_req_mission/return_instruction", r =>
+            ApiService.Subscribe("api_req_mission/return_instruction", r =>
             {
                 var rFleet = Fleets[int.Parse(r.Parameters["api_deck_id"])];
                 rFleet.ExpeditionStatus.Update(r.GetData<RawExpeditionRecalling>().Expedition);
             });
 
-            SessionService.Instance.Subscribe("api_req_air_corps/set_plane", r => Materials.Bauxite = r.GetData<RawAirForceGroupOrganization>().Bauxite);
+            ApiService.Subscribe("api_req_air_corps/set_plane", r => Materials.Bauxite = r.GetData<RawAirForceGroupOrganization>().Bauxite);
 
-            SessionService.Instance.Subscribe("api_req_hensei/lock", r => Ships[int.Parse(r.Parameters["api_ship_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
-            SessionService.Instance.Subscribe("api_req_kaisou/lock", r => Equipment[int.Parse(r.Parameters["api_slotitem_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
+            ApiService.Subscribe("api_req_hensei/lock", r => Ships[int.Parse(r.Parameters["api_ship_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
+            ApiService.Subscribe("api_req_kaisou/lock", r => Equipment[int.Parse(r.Parameters["api_slotitem_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
         }
 
         #region Update

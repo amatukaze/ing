@@ -32,6 +32,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_Screenshot_Succeeded_File => GetString(nameof(Log_Screenshot_Succeeded_File));
         public string Log_Modernization_Success => GetString(nameof(Log_Modernization_Success));
         public string Log_Modernization_Failure => GetString(nameof(Log_Modernization_Failure));
+        public string Log_Modernization_Separator_Type1 => GetString(nameof(Log_Modernization_Separator_Type1));
+        public string Log_Modernization_Separator_Type2 => GetString(nameof(Log_Modernization_Separator_Type2));
+        public string Log_Modernization_Remainder => GetString(nameof(Log_Modernization_Remainder));
         public string Log_EquipmentImprovement_Ready => GetString(nameof(Log_EquipmentImprovement_Ready));
         public string Log_EquipmentImprovement_Success => GetString(nameof(Log_EquipmentImprovement_Success));
         public string Log_EquipmentImprovement_Upgrade => GetString(nameof(Log_EquipmentImprovement_Upgrade));
@@ -351,6 +354,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_UI_HeavyDamageLine_Preview => GetString(nameof(PreferenceWindow_UI_HeavyDamageLine_Preview));
         public string PreferenceWindow_UI_MaterialIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons));
         public string PreferenceWindow_UI_MaterialIcons_UseGameIcons => GetString(nameof(PreferenceWindow_UI_MaterialIcons_UseGameIcons));
+        public string PreferenceWindow_UI_ShowFatigueInSortie => GetString(nameof(PreferenceWindow_UI_ShowFatigueInSortie));
+        public string PreferenceWindow_UI_UseTextInModernizationMessage => GetString(nameof(PreferenceWindow_UI_UseTextInModernizationMessage));
+        public string PreferenceWindow_UI_ModernizationMessagePreview_Icon => GetString(nameof(PreferenceWindow_UI_ModernizationMessagePreview_Icon));
+        public string PreferenceWindow_UI_ModernizationMessagePreview_Text => GetString(nameof(PreferenceWindow_UI_ModernizationMessagePreview_Text));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));
@@ -440,11 +447,12 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Export_CSV_Message_OpenFile => GetString(nameof(Export_CSV_Message_OpenFile));
 
         public string Record_Time => GetString(nameof(Record_Time));
+        public string Record_Equipment => GetString(nameof(Record_Equipment));
         public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));
+        public string Record_Filter_SuccessOnly => GetString(nameof(Record_Filter_SuccessOnly));
 
         public string ConstructionHistory_Ship => GetString(nameof(ConstructionHistory_Ship));
-
-        public string DevelopmentHistory_Equipment => GetString(nameof(DevelopmentHistory_Equipment));
+        public string ConstructionHistory_LSCOnly => GetString(nameof(ConstructionHistory_LSCOnly));
 
         public string SortieHistory_Area => GetString(nameof(SortieHistory_Area));
         public string SortieHistory_Node => GetString(nameof(SortieHistory_Node));
@@ -453,7 +461,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieHistory_DroppedShip => GetString(nameof(SortieHistory_DroppedShip));
         public string SortieHistory_HeavilyDamagedShip => GetString(nameof(SortieHistory_HeavilyDamagedShip));
 
-        public string ExpeditionHistory_Name => GetString(nameof(ExpeditionHistory_Name));
+        public string ExpeditionHistory_Expedition => GetString(nameof(ExpeditionHistory_Expedition));
         public string ExpeditionHistory_Result => GetString(nameof(ExpeditionHistory_Result));
         public string ExpeditionHistory_Reward => GetString(nameof(ExpeditionHistory_Reward));
 

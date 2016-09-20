@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.OSS
     {
         public override void Register(QuestInfo rpQuest)
         {
-            SessionService.Instance.Subscribe("api_req_practice/battle_result", r =>
+            ApiService.Subscribe("api_req_practice/battle_result", r =>
             {
                 ProgressInfo rProgressInfo;
                 if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Active)

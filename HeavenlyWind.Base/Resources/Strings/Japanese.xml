@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.12.1">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.12.2">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -26,8 +26,11 @@
   <String Key="Log_Screenshot_Failed_NoData">ブラウザからのスクリーンショットデータはありません</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">スクリーンショットをクリップボードに保存しました</String>
   <String Key="Log_Screenshot_Succeeded_File">スクリーンショットを保存しました: {0}</String>
-  <String Key="Log_Modernization_Success">「[b]{0}[/b]」の近代化改修に成功しました。</String>
-  <String Key="Log_Modernization_Failure">「[b]{0}[/b]」の近代化改修に失敗しました</String>
+  <String Key="Log_Modernization_Success">「{0}」の近代化改修に成功しました。</String>
+  <String Key="Log_Modernization_Failure">「{0}」の近代化改修に失敗しました</String>
+  <String Key="Log_Modernization_Separator_Type1">、</String>
+  <String Key="Log_Modernization_Separator_Type2">。 </String>
+  <String Key="Log_Modernization_Remainder">MAX まで: </String>
   <String Key="Log_EquipmentImprovement_Ready">「[b]{0}[/b] {1}」(ID={2}) の改修を準備します</String>
   <String Key="Log_EquipmentImprovement_Success">「[b]{0}[/b] {1}」の改修に成功しました</String>
   <String Key="Log_EquipmentImprovement_Upgrade">「[b]{0}[/b] {1}」に装備が改修更新されました</String>
@@ -348,7 +351,11 @@
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Width">線幅</String>
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">プレビュー</String>
   <String Key="PreferenceWindow_UI_MaterialIcons">資材アイコン</String>
-  <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">ゲームのようなアイコンを使用します</String>
+  <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">ゲームのようなアイコンを使用する</String>
+  <String Key="PreferenceWindow_UI_ShowFatigueInSortie">出撃情報で疲労度を表示する</String>
+  <String Key="PreferenceWindow_UI_UseTextInModernizationMessage">近代化改修のメッセージにアイコンの代わりにテキストを使用する</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Icon">「天津風改」の近代化改修に成功しました。([icon]torpedo[/icon] MAX、[icon]armor[/icon] MAX。MAX まで: [icon]firepower[/icon] 1、[icon]luck[/icon] 50)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Text">「天津風改」の近代化改修に成功しました。(雷装 MAX、装甲 MAX。MAX まで: 火力 1、運 50)</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>
@@ -438,11 +445,12 @@
   <String Key="Export_CSV_Message_OpenFile">ファイルを開く</String>
 
   <String Key="Record_Time">時間</String>
+  <String Key="Record_Equipment">装備</String>
   <String Key="Record_SecretaryShip">秘書艦</String>
+  <String Key="Record_Filter_SuccessOnly">成功のみ</String>
 
   <String Key="ConstructionHistory_Ship">艦娘</String>
-
-  <String Key="DevelopmentHistory_Equipment">装備</String>
+  <String Key="ConstructionHistory_LSCOnly">大型艦建造</String>
 
   <String Key="SortieHistory_Area">海域</String>
   <String Key="SortieHistory_Node">セル</String>
@@ -451,7 +459,7 @@
   <String Key="SortieHistory_DroppedShip">ドロップ</String>
   <String Key="SortieHistory_HeavilyDamagedShip">大破した艦娘</String>
 
-  <String Key="ExpeditionHistory_Name">遠征名</String>
+  <String Key="ExpeditionHistory_Expedition">遠征</String>
   <String Key="ExpeditionHistory_Result">結果</String>
   <String Key="ExpeditionHistory_Reward">アイテム</String>
 

@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         internal static SortieInfo Current { get; private set; }
 
-        public long ID { get; } = (long)DateTimeOffset.Now.ToUnixTime();
+        public long ID { get; }
 
         public Fleet Fleet { get; }
         public Fleet EscortFleet { get; }
@@ -42,11 +41,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal int[] LandBaseAerialSupportRequests { get; set; }
 
+        internal long ReturnTime { get; set; }
+
         static SortieInfo()
         {
-            SessionService.Instance.Subscribe("api_port/port", _ => Current = null);
+            ApiService.Subscribe("api_port/port", _ => Current = null);
 
-            SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
+            ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
                 var rData = (RawBattleResult)r.Data;
                 if (rData.DroppedShip != null)
@@ -55,12 +56,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 var rFriendParticipantSnapshots = BattleInfo.Current?.CurrentStage?.Friend;
                 if (rFriendParticipantSnapshots != null)
                     foreach (var rSnapshot in rFriendParticipantSnapshots)
-                        ((FriendShip)rSnapshot.Participant).Ship.HP = new ClampedValue(rSnapshot.Maximum, rSnapshot.Current);
+                        ((FriendShip)rSnapshot.Participant).Ship.HP.Set(rSnapshot.Maximum, rSnapshot.Current);
             });
         }
         internal SortieInfo() { }
-        internal SortieInfo(Fleet rpFleet, int rpMapID)
+        internal SortieInfo(long rpID, Fleet rpFleet, int rpMapID)
         {
+            ID = rpID;
+
             Current = this;
 
             Fleet = rpFleet;
@@ -75,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Map = KanColleGame.Current.Maps[rpMapID];
         }
 
-        internal void Explore(RawMapExploration rpData)
+        internal void Explore(long rpTimestamp, RawMapExploration rpData)
         {
             PreviousNode = Node;
             if (PreviousNode != null)
@@ -84,7 +87,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             DirectionAngle = MapService.Instance.GetAngle(Map.ID, rpData.StartNode ?? Node?.ID ?? 0, rpData.Node);
             OnPropertyChanged(nameof(DirectionAngle));
 
-            Node = new SortieNodeInfo(Map, rpData);
+            Node = new SortieNodeInfo(rpTimestamp, Map, rpData);
             OnPropertyChanged(nameof(Node));
             OnPropertyChanged(nameof(PreviousNode));
         }

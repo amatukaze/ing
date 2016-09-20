@@ -78,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         {
             r_TypeMap.Clear();
             Types = null;
-            r_EquipmentMap.Clear();
+            r_EquipmentMap?.Clear();
             Equipment = null;
 
             if (r_UpdateSubscription != null)

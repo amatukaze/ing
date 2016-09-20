@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.12.1">
+<Strings CultureName="en" Name="English" Version="0.1.12.2">
 
   <String Key="Product_Name">Intelligent Naval Gun</String>
 
@@ -26,8 +26,11 @@
   <String Key="Log_Screenshot_Failed_NoData">No screenshot data from the browser</String>
   <String Key="Log_Screenshot_Succeeded_Clipboard">Screenshot was saved to clipboard</String>
   <String Key="Log_Screenshot_Succeeded_File">Screenshot was saved: {0}</String>
-  <String Key="Log_Modernization_Success">Succeeded to modernize [b]{0}[/b].</String>
-  <String Key="Log_Modernization_Failure">Failed to modernize [b]{0}[/b]</String>
+  <String Key="Log_Modernization_Success">Succeeded to modernize {0}.</String>
+  <String Key="Log_Modernization_Failure">Failed to modernize {0}</String>
+  <String Key="Log_Modernization_Separator_Type1">, </String>
+  <String Key="Log_Modernization_Separator_Type2">; </String>
+  <String Key="Log_Modernization_Remainder">To MAX: </String>
   <String Key="Log_EquipmentImprovement_Ready">Ready to improve [b]{0}[/b] {1} (ID={2})</String>
   <String Key="Log_EquipmentImprovement_Success">[b]{0}[/b] has been successfully improved to {1}</String>
   <String Key="Log_EquipmentImprovement_Upgrade">The equipment has upgraded to [b]{0}[/b] {1}</String>
@@ -350,6 +353,10 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_UI_HeavyDamageLine_Preview">Preview</String>
   <String Key="PreferenceWindow_UI_MaterialIcons">Material icons</String>
   <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">Use in-game icons</String>
+  <String Key="PreferenceWindow_UI_ShowFatigueInSortie">Show fatigue in Sortie</String>
+  <String Key="PreferenceWindow_UI_UseTextInModernizationMessage">Use text in modernization message instead of icons</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Icon">Succeeded to modernize Amatsukaze Kai.([icon]torpedo[/icon] MAX, [icon]armor[/icon] MAX; To MAX: [icon]firepower[/icon] 1, [icon]luck[/icon] 50)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Text">Succeeded to modernize Amatsukaze Kai.(Torpedo MAX, Armor MAX; To MAX: Firepower 1, Luck 50)</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
@@ -439,11 +446,12 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Export_CSV_Message_OpenFile">Open file</String>
 
   <String Key="Record_Time">Time</String>
+  <String Key="Record_Equipment">Equipment</String>
   <String Key="Record_SecretaryShip">Secretary ship</String>
+  <String Key="Record_Filter_SuccessOnly">Successful</String>
 
   <String Key="ConstructionHistory_Ship">Ship</String>
-
-  <String Key="DevelopmentHistory_Equipment">Equipment</String>
+  <String Key="ConstructionHistory_LSCOnly">LSC</String>
 
   <String Key="SortieHistory_Area">Area</String>
   <String Key="SortieHistory_Node">Node</String>
@@ -452,7 +460,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="SortieHistory_DroppedShip">Dropped Ship</String>
   <String Key="SortieHistory_HeavilyDamagedShip">Heavily Damaged</String>
 
-  <String Key="ExpeditionHistory_Name">Expedition</String>
+  <String Key="ExpeditionHistory_Expedition">Expedition</String>
   <String Key="ExpeditionHistory_Result">Result</String>
   <String Key="ExpeditionHistory_Reward">Reward</String>
 

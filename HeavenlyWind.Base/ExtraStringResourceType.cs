@@ -9,6 +9,7 @@
         Item,
         Expedition,
         Quest,
+        QuestDescription,
         Area,
         Map,
         ShipLocking,

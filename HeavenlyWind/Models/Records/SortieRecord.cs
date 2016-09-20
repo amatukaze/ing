@@ -43,10 +43,12 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
             var rMapID = Convert.ToInt32(rpReader["map"]);
             Map = MapService.Instance.GetMasterInfo(rMapID);
 
-            var rEventMapDifficulty = (EventMapDifficultyEnum)Convert.ToInt32(rpReader["difficulty"]);
-            IsEventMap = rEventMapDifficulty != EventMapDifficultyEnum.None;
-            if (IsEventMap)
-                EventMapDifficulty = rEventMapDifficulty;
+            var rEventMapDifficulty = rpReader["difficulty"];
+            if (rEventMapDifficulty != DBNull.Value)
+            {
+                IsEventMap = true;
+                EventMapDifficulty = (EventMapDifficultyEnum)Convert.ToInt32(rEventMapDifficulty);
+            }
 
             Step = Convert.ToInt32(rpReader["step"]);
             Node = Convert.ToInt32(rpReader["node"]);

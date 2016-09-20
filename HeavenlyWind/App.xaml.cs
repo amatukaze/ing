@@ -1,4 +1,6 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
+﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
+using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Services;
@@ -59,6 +61,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
             CoreDatabase.Initialize();
 
+            DataService.Instance.EnsureDirectory();
+
             RecordService.Instance.Initialize();
             QuestProgressService.Instance.Initialize();
             MapService.Instance.Initialize();
@@ -74,6 +78,8 @@ namespace Sakuno.KanColle.Amatsukaze
             StatusBarService.Instance.Initialize();
             CacheService.Instance.Initialize();
             NotificationService.Instance.Initialize();
+
+            ServiceManager.Register<IBrowserService>(BrowserService.Instance);
 
             PluginService.Instance.Initialize();
 

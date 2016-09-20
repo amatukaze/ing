@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
@@ -9,5 +10,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         DataService() { }
 
         public string GetDataDirectory() => Path.Combine(Path.GetDirectoryName(typeof(DataService).Assembly.Location), "Data");
+
+        public void EnsureDirectory()
+        {
+            var rDirectory = new DirectoryInfo(GetDataDirectory());
+            if (!rDirectory.Exists)
+                rDirectory.Create();
+        }
     }
 }

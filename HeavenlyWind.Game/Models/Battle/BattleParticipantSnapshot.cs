@@ -93,8 +93,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 }
 
                 rParticipant.IsDamageControlConsumed = true;
-
-                RecordService.Instance.Fate.AddEquipmentFate(rDamageControl, Fate.ConsumedInBattle);
             }
         }
 

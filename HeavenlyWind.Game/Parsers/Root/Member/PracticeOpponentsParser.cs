@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Member
     [Api("api_req_member/get_practice_enemyinfo")]
     class PracticeOpponentsParser : ApiParser<RawPracticeOpponentInfo>
     {
-        public override void Process(RawPracticeOpponentInfo rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawPracticeOpponentInfo rpData)
         {
             var rPracticeInfo = Game.Sortie as PracticeInfo;
             if (rPracticeInfo != null)

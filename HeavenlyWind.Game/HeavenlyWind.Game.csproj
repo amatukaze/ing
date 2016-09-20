@@ -43,8 +43,8 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.102.0\lib\net45\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.103\lib\net45\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -67,7 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirBase.cs" />
-    <Compile Include="ApiObservableExtensions.cs" />
     <Compile Include="ClampedValue.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FleetManager.cs" />
@@ -264,11 +263,11 @@
     <Compile Include="Models\SortieInfo.cs" />
     <Compile Include="Models\SortieNodeInfo.cs" />
     <Compile Include="Parsers\ApiAttribute.cs" />
-    <Compile Include="Parsers\ApiData.cs" />
-    <Compile Include="Parsers\ApiFailedException.cs" />
+    <Compile Include="Parsers\ApiInfo.cs" />
     <Compile Include="Parsers\ApiParser.cs" />
     <Compile Include="Parsers\ApiParserBase.cs" />
     <Compile Include="Parsers\ApiParserManager.cs" />
+    <Compile Include="Parsers\ApiSubscription.cs" />
     <Compile Include="Parsers\DefaultApiParser.cs" />
     <Compile Include="Parsers\Root\ApiStartParser.cs" />
     <Compile Include="Parsers\Root\Arsenal\ConstructionResultParser.cs" />
@@ -313,6 +312,7 @@
     <Compile Include="Proxy\ResourceSession.cs" />
     <Compile Include="Proxy\SessionHeader.cs" />
     <Compile Include="QuestManager.cs" />
+    <Compile Include="Services\ApiService.cs" />
     <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\EnemyEncounterService.cs" />
@@ -363,13 +363,12 @@
     <Compile Include="Services\Records\FateRecords.cs" />
     <Compile Include="Services\Records\IRecordsGroupProvider.cs" />
     <Compile Include="Services\Records\QuestProgressRecords.cs" />
-    <Compile Include="Services\Records\RankingPointsRecords.cs" />
     <Compile Include="Services\Records\RecordsGroup.cs" />
     <Compile Include="Services\Records\RecordsGroupExtensions.cs" />
     <Compile Include="Services\Records\ResourcesRecords.cs" />
     <Compile Include="Services\Records\ShipsRecords.cs" />
+    <Compile Include="Services\Records\SortieConsumptionRecords.cs" />
     <Compile Include="Services\Records\SortieRecords.cs" />
-    <Compile Include="Services\SessionService.cs" />
     <Compile Include="Services\ShipLockingService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -377,21 +376,29 @@
       <Project>{eeb0bea3-8d40-47c3-aeef-ba7774d721ca}</Project>
       <Name>HeavenlyWind.Base</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HeavenlyWind.Extensibility\HeavenlyWind.Extensibility.csproj">
+      <Project>{2541487F-D8DB-4CA5-9B41-DF6243B259B7}</Project>
+      <Name>HeavenlyWind.Extensibility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj">
       <Project>{85fe16eb-f999-445c-872e-b8181c67031c}</Project>
       <Name>Sakuno.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj">
+      <Project>{3cd66841-054e-409b-8653-f846216061aa}</Project>
+      <Name>Sakuno.SystemInterop</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets')" />
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.102.0\build\net45\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

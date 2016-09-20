@@ -126,7 +126,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal Materials()
         {
-            SessionService.Instance.SubscribeOnce("api_port/port", delegate
+            ApiService.SubscribeOnce("api_port/port", delegate
             {
                 DayDifference = new MaterialsDifference(this, MaterialsDifferenceType.Day);
                 WeekDifference = new MaterialsDifference(this, MaterialsDifferenceType.Week);

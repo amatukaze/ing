@@ -15,8 +15,9 @@
         <DataTemplate x:Key="ParticipantTemplate">
             <Border Name="Border" Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Height="30" Grid.IsSharedSizeScope="True">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock DataContext="{Binding Info}">
-                        <Run Name="Name" Text="{rb:ExtraStringResource Ship, ID, Name}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                    <TextBlock>
+                        <Run Name="Name" Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" /><Run DataContext="{Binding Info}" Style="{StaticResource AbyssalShipClass}" />
+                        <Run Name="Condition" Text="{Binding Ship.Condition, StringFormat= (0), Mode=OneWay}" />
                     </TextBlock>
 
                     <rc:EquipmentIcon x:Name="DamageControl" Type="DamageControl" Width="16" Height="16" Margin="4, 0, 0, 0" Visibility="{Binding IsDamageControlVisible, FallbackValue=Collapsed, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -25,7 +26,28 @@
 
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding IsAbyssalShip}" Value="True">
-                    <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource AbyssalShip, ID, NameWithoutAbyssalShipClass}" />
+                    <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource AbyssalShip, Info.ID, Info.NameWithoutAbyssalShipClass}" />
+                    <Setter TargetName="Condition" Property="Text" Value="" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{rb:Preference UI.ShowFatigueInSortie}" Value="False">
+                    <Setter TargetName="Condition" Property="Text" Value="" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Ship.Condition}" Value="100">
+                    <Setter TargetName="Condition" Property="FontSize" Value="13" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=50}" Value="True">
+                    <Setter TargetName="Condition" Property="Foreground" Value="Yellow" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=40}" Value="True">
+                    <Setter TargetName="Condition" Property="Foreground" Value="Gray" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=30}" Value="True">
+                    <Setter TargetName="Condition" Property="Foreground" Value="Orange" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Ship.Condition, Converter={StaticResource IsLessThanConverter}, ConverterParameter=20}" Value="True">
+                    <Setter TargetName="Condition" Property="Foreground" Value="Red" />
                 </DataTrigger>
 
                 <DataTrigger Binding="{Binding IsMVP}" Value="True">

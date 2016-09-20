@@ -7,6 +7,7 @@
                   xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                  xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_ExpeditionHistory}"
                   Width="1024" Height="600"
@@ -26,10 +27,40 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_ExpeditionHistory}" />
         </DockPanel>
 
-        <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
-            <ListView ItemsSource="{Binding Records}">
+        <Grid Margin="8, 0, 8, 8" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Margin="0, 0, 0, 8">
+                <StackPanel>
+                    <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="14" />
+
+                    <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                        <CheckBox IsChecked="{Binding SuccessfulRecordsOnly}">
+                            <TextBlock Text="{rb:StringResource Main.Record_Filter_SuccessOnly}" />
+                        </CheckBox>
+
+                        <TextBlock Text="{rb:StringResource Main.ExpeditionHistory_Expedition}" Margin="8, 0, 0, 0" />
+                        <ComboBox ItemsSource="{Binding Expeditions}" ItemTemplateSelector="{StaticResource ExpeditionDataTemplateSelector}" SelectedValue="{Binding SelectedExpedition}" Width="150" Height="24" Margin="4, 0, 0, 0" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <ListView ItemsSource="{Binding Records}" Grid.Row="1">
                 <ListView.View>
                     <GridView>
+                        <GridViewColumn Width="50">
+                            <TextBlock Text="#" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{ri:ItemIndex}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                         <GridViewColumn Width="150">
                             <TextBlock Text="{rb:StringResource Main.Record_Time}" />
 
@@ -41,7 +72,7 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="135">
-                            <TextBlock Text="{rb:StringResource Main.ExpeditionHistory_Name}" />
+                            <TextBlock Text="{rb:StringResource Main.ExpeditionHistory_Expedition}" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -60,7 +91,7 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.Material_Fuel}" />
+                            <rc:MaterialIcon Type="Fuel" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -69,7 +100,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bullet}" />
+                            <rc:MaterialIcon Type="Bullet" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -78,7 +109,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.Material_Steel}" />
+                            <rc:MaterialIcon Type="Steel" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -87,7 +118,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bauxite}" />
+                            <rc:MaterialIcon Type="Bauxite" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -96,7 +127,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="320">
+                        <GridViewColumn Width="300">
                             <TextBlock Text="{rb:StringResource Main.ExpeditionHistory_Reward}" />
 
                             <GridViewColumn.CellTemplate>
@@ -126,7 +157,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        </DockPanel>
+        </Grid>
     </Grid>
 
 </ruic:MetroWindow>

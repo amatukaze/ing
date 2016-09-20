@@ -5,25 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reactive.Subjects;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 {
-    public sealed class ApiParserManager
+    public static class ApiParserManager
     {
-        public static ApiParserManager Instance { get; } = new ApiParserManager();
-
         public static Regex TokenRegex { get; } = new Regex(@"(?<=api_token=)\w+");
 
-        internal Dictionary<string, ApiParserBase> Parsers { get; } = new Dictionary<string, ApiParserBase>();
+        static Dictionary<string, ApiParserBase> r_Parsers = new Dictionary<string, ApiParserBase>(StringComparer.OrdinalIgnoreCase);
 
-        Subject<ApiSession> r_SessionObservable = new Subject<ApiSession>();
-        Subject<Tuple<ApiSession, Exception>> r_ExceptionObservable { get; } = new Subject<Tuple<ApiSession, Exception>>();
-
-        ApiParserManager()
+        static ApiParserManager()
         {
             var rAssembly = Assembly.GetExecutingAssembly();
 
@@ -36,29 +31,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                     var rParser = (ApiParserBase)Activator.CreateInstance(rType);
                     rParser.Api = rAttribute.Name;
 
-                    Parsers.Add(rAttribute.Name, rParser);
+                    r_Parsers.Add(rAttribute.Name, rParser);
                 }
             }
-
-            r_SessionObservable.Subscribe(ProcessCore);
-
-            r_ExceptionObservable.Subscribe(rpData =>
-            {
-                var rSession = rpData.Item1;
-                var rException = rpData.Item2;
-
-                rSession.ErrorMessage = rException.ToString();
-
-                HandleException(rSession, rException);
-            });
         }
 
-        public void Process(ApiSession rpSession) => r_SessionObservable.OnNext(rpSession);
+        internal static ApiParserBase GetParser(string rpApi)
+        {
+            ApiParserBase rParser;
+            if (!r_Parsers.TryGetValue(rpApi, out rParser))
+                r_Parsers.Add(rpApi, rParser = new DefaultApiParser());
 
-        void ProcessCore(ApiSession rpSession)
+            return rParser;
+        }
+
+        public static void Process(ApiSession rpSession) => Task.Run(() => ProcessCore(rpSession));
+        static void ProcessCore(ApiSession rpSession)
         {
             var rApi = rpSession.DisplayUrl;
-            var rRequest = rpSession.RequestBodyString;
+            var rRequest = Uri.UnescapeDataString(rpSession.RequestBodyString);
             var rResponse = rpSession.ResponseBodyString;
 
             try
@@ -66,33 +57,40 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                 var rContent = rResponse.Replace("svdata=", string.Empty);
 
                 ApiParserBase rParser;
-                if (!rContent.IsNullOrEmpty() && rContent.StartsWith("{") && Parsers.TryGetValue(rApi, out rParser))
+                if (!rContent.IsNullOrEmpty() && rContent.StartsWith("{") && r_Parsers.TryGetValue(rApi, out rParser))
                 {
                     ListDictionary<string, string> rParameters = null;
                     if (!rRequest.IsNullOrEmpty() && rRequest.Contains('&'))
                     {
                         rParameters = new ListDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                         foreach (var rParameter in rRequest.Split('&').Where(r => r.Length > 0).Select(r => r.Split('=')))
-                            rParameters.Add(Uri.UnescapeDataString(rParameter[0]), Uri.UnescapeDataString(rParameter[1]));
+                            rParameters.Add(rParameter[0], rParameter[1]);
                     }
 
-                    rParser.Parameters = rParameters;
-                    rParser.Process(rpSession, JObject.Parse(rContent));
-                    rParser.Parameters = null;
+                    var rJson = JObject.Parse(rContent);
+
+                    var rResultCode = (int)rJson["api_result"];
+                    if (rResultCode != 1)
+                    {
+                        Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_Failed, rApi, rResultCode));
+                        return;
+                    }
+
+                    var rData = new ApiInfo(rpSession, rApi, rParameters, rJson);
+
+                    rParser.Process(rData);
                 }
-            }
-            catch (ApiFailedException e)
-            {
-                Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_Failed, rApi, e.ResultCode));
             }
             catch (Exception e)
             {
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_ParseException, e.Message));
-                r_ExceptionObservable.OnNext(Tuple.Create(rpSession, e));
+
+                rpSession.ErrorMessage = e.ToString();
+                HandleException(rpSession, e);
             }
         }
 
-        internal void HandleException(ApiSession rpSession, Exception rException)
+        internal static void HandleException(ApiSession rpSession, Exception rException)
         {
             try
             {

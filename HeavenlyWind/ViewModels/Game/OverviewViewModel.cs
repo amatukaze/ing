@@ -40,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     OnPropertyChanged(nameof(ShipCount));
 
                     if (Admiral.Source != null)
-                        ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
+                        CheckShipCapacity();
                 }
             }
         }
@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     OnPropertyChanged(nameof(EquipmentCount));
 
                     if (Admiral.Source != null)
-                        ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 20;
+                        CheckEquipmentCapacity();
                 }
             }
         }
@@ -190,7 +190,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             AirBase = new AirBaseViewModel();
 
-            SessionService.Instance.SubscribeOnce("api_get_member/base_air_corps", delegate
+            ApiService.SubscribeOnce("api_get_member/base_air_corps", delegate
             {
                 DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() =>
                 {
@@ -204,7 +204,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 }));
             });
 
-            SessionService.Instance.Subscribe("api_req_map/next", delegate
+            ApiService.Subscribe("api_req_map/next", delegate
             {
                 var rSortie = SortieInfo.Current;
                 if (rSortie != null)
@@ -216,7 +216,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         }
 
         void CheckShipCapacity() => ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
-        void CheckEquipmentCapacity() =>ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 20;
+        void CheckEquipmentCapacity() =>ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 17;
         void CheckCapacity()
         {
             CheckShipCapacity();

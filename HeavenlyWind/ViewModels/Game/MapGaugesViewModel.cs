@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         internal MapGaugesViewModel()
         {
-            SessionService.Instance.Subscribe("api_get_member/mapinfo", _ => Process());
+            ApiService.Subscribe("api_get_member/mapinfo", _ => Process());
         }
 
         void Process()

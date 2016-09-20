@@ -1,12 +1,17 @@
 ﻿using Fiddler;
+using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
+using Sakuno.SystemInterop.Net;
 using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
@@ -15,6 +20,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         public static Subject<NetworkSession> SessionSubject { get; } = new Subject<NetworkSession>();
 
         static Regex r_RemoveGoogleAnalyticsRegex = new Regex(@"gapush\(.+?\);", RegexOptions.Singleline);
+        static Regex r_UserIDRegex { get; } = new Regex(@"(?:(?<=api_world%2Fget_id%2F)|(?<=api_world\\/get_id\\/)|(?<=api_auth_member\\/dmmlogin\\/))\d+");
+        static Regex r_TokenResponseRegex { get; } = new Regex(@"(?<=\\""api_token\\"":\\"")\w+");
 
         static Regex r_FlashQualityRegex = new Regex("(\"quality\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Singleline);
         static Regex r_FlashRenderModeRegex = new Regex("(\"wmode\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Singleline);
@@ -22,6 +29,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         static Regex r_SuppressReloadConfirmation = new Regex("(?<=if \\()confirm\\(\"エラーが発生したため、ページ更新します。\"\\)(?=\\) {)");
 
         static string[] r_BlockingList;
+
+        static string r_UpstreamProxy;
+
+        static ManualResetEventSlim r_TrafficBarrier;
+
+        static SQLiteConnection r_Connection;
 
         static KanColleProxy()
         {
@@ -36,6 +49,42 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 r_BlockingList = File.ReadAllLines(@"Data\BlockingList.lst");
             else
                 r_BlockingList = ArrayUtil.Empty<string>();
+
+            Preference.Instance.Network.UpstreamProxy.Enabled.Subscribe(_ => UpdateUpstreamProxy());
+            Preference.Instance.Network.UpstreamProxy.Host.Subscribe(_ => UpdateUpstreamProxy());
+            Preference.Instance.Network.UpstreamProxy.Port.Subscribe(_ => UpdateUpstreamProxy());
+            UpdateUpstreamProxy();
+
+            r_TrafficBarrier = new ManualResetEventSlim(NetworkListManager.IsConnectedToInternet);
+            NetworkListManager.ConnectivityChanged += delegate
+            {
+                if (NetworkListManager.IsConnectedToInternet)
+                    r_TrafficBarrier.Set();
+                else
+                    r_TrafficBarrier.Reset();
+            };
+
+            ServiceManager.Register<INetworkAvailabilityService>(new NetworkAvailabilityService());
+
+            using (var rConnection = new SQLiteConnection(@"Data Source=Data\AntiBlankScreen.db; Page Size=8192").OpenAndReturn())
+            using (var rCommand = rConnection.CreateCommand())
+            {
+                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS history(" +
+                    "time INTEGER PRIMARY KEY NOT NULL, " +
+                    "url TEXT NULL, " +
+                    "body TEXT NULL);";
+
+                rCommand.ExecuteNonQuery();
+            }
+
+            r_Connection = CoreDatabase.Connection;
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "ATTACH @filename AS anti_blank_screen;";
+                rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\AntiBlankScreen.db").FullName);
+
+                rCommand.ExecuteNonQuery();
+            }
         }
 
         public static void Start()
@@ -55,9 +104,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 return;
             }
 
-            var rUpstreamProxyPreference = Preference.Instance.Network.UpstreamProxy;
-            if (rUpstreamProxyPreference.Enabled && (!rUpstreamProxyPreference.HttpOnly || !rpSession.RequestMethod.OICEquals("CONNECT")))
-                rpSession["x-OverrideGateway"] = $"{rUpstreamProxyPreference.Host.Value}:{rUpstreamProxyPreference.Port.Value}";
+            if (!r_UpstreamProxy.IsNullOrEmpty())
+                rpSession["x-OverrideGateway"] = r_UpstreamProxy;
 
             var rRequest = rpSession.oRequest;
 
@@ -87,6 +135,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             rSession.RequestHeaders = rpSession.RequestHeaders.Select(r => new SessionHeader(r.Name, r.Value)).ToArray();
 
             SessionSubject.OnNext(rSession);
+
+            if (!rpSession.bHasResponse)
+                r_TrafficBarrier.Wait();
         }
 
         static void FiddlerApplication_OnReadResponseBuffer(object sender, RawReadEventArgs e)
@@ -111,11 +162,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 if (rSession.State == NetworkSessionState.Requested)
                     rSession.State = NetworkSessionState.Responsed;
 
+                if (rSession.FullUrl.OICStartsWith("http://osapi.dmm.com/gadgets/makeRequest"))
+                    using (var rCommand = r_Connection.CreateCommand())
+                    {
+                        rCommand.CommandText = "INSERT INTO anti_blank_screen.history(time, url, body) VALUES(strftime('%s', 'now'), @url, @body);";
+                        rCommand.Parameters.AddWithValue("@url", r_UserIDRegex.Replace(rSession.FullUrl, "******"));
+
+                        var rBody = rpSession.GetResponseBodyAsString();
+                        rBody = r_UserIDRegex.Replace(rBody, "******");
+                        rBody = r_TokenResponseRegex.Replace(rBody, "******");
+                        rCommand.Parameters.AddWithValue("@body", r_UserIDRegex.Replace(rBody, "******"));
+
+                        rCommand.ExecuteNonQuery();
+                    }
+
                 var rApiSession = rSession as ApiSession;
                 if (rApiSession != null)
                 {
                     rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
-                    ApiParserManager.Instance.Process(rApiSession);
+                    ApiParserManager.Process(rApiSession);
                 }
 
                 var rResourceSession = rSession as ResourceSession;
@@ -189,6 +254,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 CacheService.Instance.ProcessOnCompletion(rResourceSession, rpSession);
         }
 
+        static void UpdateUpstreamProxy()
+        {
+            var rUpstreamProxyPreference = Preference.Instance.Network.UpstreamProxy;
+            if (rUpstreamProxyPreference.Enabled)
+                r_UpstreamProxy = rUpstreamProxyPreference.Host.Value + ":" + rUpstreamProxyPreference.Port.Value;
+            else
+                r_UpstreamProxy = null;
+        }
+
         static void ForceOverrideStylesheet(Session rpSession)
         {
             rpSession.utilDecodeResponse();
@@ -212,5 +286,9 @@ body {
 </style></head>");
         }
 
+        class NetworkAvailabilityService : INetworkAvailabilityService
+        {
+            public void EnsureNetwork() => r_TrafficBarrier.Wait();
+        }
     }
 }

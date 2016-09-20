@@ -1,36 +1,31 @@
-﻿using Newtonsoft.Json.Linq;
-using Sakuno.KanColle.Amatsukaze.Game.Proxy;
-
-namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
+﻿namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 {
-    public abstract class ApiParser : ApiParserBase
+    abstract class ApiParser : ApiParserBase
     {
-        internal override sealed void Process(ApiSession rpSession, JObject rpJson)
+        internal override sealed void Process(ApiInfo rpInfo)
         {
-            base.Process(rpSession, rpJson);
-
-            Process();
-
-            OnProcessSucceeded(new ApiData(rpSession, Api, Parameters, rpJson));
+            OnBeforeProcessStarted(rpInfo);
+            ProcessCore(rpInfo);
+            OnAfterProcessCompleted(rpInfo);
         }
-        public abstract void Process();
+        public abstract void ProcessCore(ApiInfo rpInfo);
     }
-    public abstract class ApiParser<T> : ApiParserBase
+    abstract class ApiParser<T> : ApiParserBase
     {
-        internal override sealed void Process(ApiSession rpSession, JObject rpJson)
+        internal override sealed void Process(ApiInfo rpInfo)
         {
-            base.Process(rpSession, rpJson);
-
-            var rApiData = rpJson["api_data"];
-            if (rApiData != null)
+            var rCoreDataJson = rpInfo.Json["api_data"];
+            if (rCoreDataJson != null)
             {
-                var rData = rApiData.ToObject<T>();
+                var rCoreData = rCoreDataJson.ToObject<T>();
 
-                Process(rData);
+                rpInfo.Data = rCoreData;
 
-                OnProcessSucceeded(new ApiData(rpSession, Api, Parameters, rpJson) { Data = rData });
+                OnBeforeProcessStarted(rpInfo);
+                ProcessCore(rpInfo, rCoreData);
+                OnAfterProcessCompleted(rpInfo);
             }
         }
-        public abstract void Process(T rpData);
+        public abstract void ProcessCore(ApiInfo rpInfo, T rpData);
     }
 }

@@ -13,9 +13,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 
         public override IList<BattlePhase> Phases => new BattlePhase[] { AerialAttack };
 
-        internal protected AerialAttackStage(BattleInfo rpOwner, ApiData rpData) : base(rpOwner)
+        internal protected AerialAttackStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
         {
-            var rRawData = rpData.Data as IAerialCombat;
+            var rRawData = rpInfo.Data as IAerialCombat;
 
             AerialAttack = new AerialCombatPhase(this, rRawData.AerialCombat, PhaseRound.First);
         }

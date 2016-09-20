@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
@@ -17,6 +18,36 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal FateRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
+            DisposableObjects.Add(ApiService.SubscribeOnlyOnBeforeProcessStarted("api_req_kaisou/powerup", r =>
+            {
+                var rConsumedShips = r.Parameters["api_id_items"].Split(',').Select(rpID => KanColleGame.Current.Port.Ships[int.Parse(rpID)]).ToArray();
+                var rConsumedEquipment = rConsumedShips.SelectMany(rpShip => rpShip.EquipedEquipment).ToArray();
+
+                AddShipFate(rConsumedShips, Fate.ConsumedByModernization);
+            }));
+            DisposableObjects.Add(ApiService.SubscribeOnlyOnBeforeProcessStarted("api_req_kousyou/destroyship", r =>
+            {
+                var rShip = KanColleGame.Current.Port.Ships[int.Parse(r.Parameters["api_ship_id"])];
+
+                AddShipFate(rShip, Fate.Dismantled);
+            }));
+            DisposableObjects.Add(ApiService.SubscribeOnlyOnBeforeProcessStarted("api_req_kousyou/destroyitem2", r =>
+            {
+                var rEquipmentIDs = r.Parameters["api_slotitem_ids"].Split(',').Select(int.Parse);
+
+                AddEquipmentFate(rEquipmentIDs.Select(rpID => KanColleGame.Current.Port.Equipment[rpID]), Fate.Scrapped);
+            }));
+            DisposableObjects.Add(ApiService.SubscribeOnlyOnBeforeProcessStarted("api_req_kousyou/remodel_slot", r =>
+            {
+                var rData = (RawImprovementResult)r.Data;
+                if (rData.ConsumedEquipmentID != null)
+                {
+                    var rConsumedEquipment = rData.ConsumedEquipmentID.Select(rpID => KanColleGame.Current.Port.Equipment[rpID]).ToArray();
+
+                    RecordService.Instance?.Fate?.AddEquipmentFate(rConsumedEquipment, Fate.ConsumedByImprovement);
+                }
+            }));
+
             var rFirstStages = new[]
             {
                 "api_req_sortie/battle",
@@ -32,16 +63,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_battle_midnight/battle",
                 "api_req_combined_battle/midnight_battle",
             };
-            DisposableObjects.Add(SessionService.Instance.Subscribe(rFirstStages, ProcessBattle));
+            DisposableObjects.Add(ApiService.Subscribe(rFirstStages, ProcessBattle));
 
             var rBattleResultApis = new[]
             {
                 "api_req_sortie/battleresult",
                 "api_req_combined_battle/battleresult",
             };
-            DisposableObjects.Add(SessionService.Instance.Subscribe(rBattleResultApis, ProcessBattleResult));
+            DisposableObjects.Add(ApiService.Subscribe(rBattleResultApis, ProcessBattleResult));
 
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", delegate
+            DisposableObjects.Add(ApiService.Subscribe("api_port/port", delegate
             {
                 if (r_SunkShips.Count == 0)
                     return;
@@ -77,7 +108,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        internal void AddEquipmentFate(Equipment rpEquipment, Fate rpFate)
+        void AddEquipmentFate(Equipment rpEquipment, Fate rpFate)
         {
             using (var rCommand = Connection.CreateCommand())
             {
@@ -91,7 +122,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.ExecuteNonQuery();
             }
         }
-        internal void AddEquipmentFate(IEnumerable<Equipment> rpEquipment, Fate rpFate, long rpTimestamp = 0)
+        void AddEquipmentFate(IEnumerable<Equipment> rpEquipment, Fate rpFate, long rpTimestamp = 0)
         {
             if (!rpEquipment.Any())
                 return;
@@ -106,7 +137,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        internal void AddShipFate(Ship rpShip, Fate rpFate, long rpTimestamp = 0)
+        void AddShipFate(Ship rpShip, Fate rpFate, long rpTimestamp = 0)
         {
             using (var rTransaction = Connection.BeginTransaction())
             {
@@ -130,7 +161,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rTransaction.Commit();
             }
         }
-        internal void AddShipFate(IEnumerable<Ship> rpShips, Fate rpFate, long rpTimestamp = 0)
+        void AddShipFate(IEnumerable<Ship> rpShips, Fate rpFate, long rpTimestamp = 0)
         {
             if (!rpShips.Any())
                 return;
@@ -177,9 +208,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void ProcessBattle(ApiData rpData)
+        void ProcessBattle(ApiInfo rpInfo)
         {
-            var rData = rpData.GetData<RawBattleBase>();
+            var rData = rpInfo.GetData<RawBattleBase>();
 
             if (rData.ShipsToConsumeCombatRation != null)
                 ProcessCombatRation(rData.ShipsToConsumeCombatRation);
@@ -207,7 +238,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void ProcessBattleResult(ApiData rpData)
+        void ProcessBattleResult(ApiInfo rpInfo)
         {
             var rBattle = BattleInfo.Current;
             var rCurrentStage = rBattle.CurrentStage;

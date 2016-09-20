@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal ResourcesRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_port/port", _ =>
+            DisposableObjects.Add(ApiService.Subscribe("api_port/port", r =>
             {
                 var rMaterials = KanColleGame.Current.Port.Materials;
 
@@ -43,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     r_DevelopmentMaterial = rMaterials.DevelopmentMaterial;
                     r_ImprovementMaterial = rMaterials.ImprovementMaterial;
 
-                    InsertRecord();
+                    InsertRecord(r.Timestamp);
                 }
             }));
         }
@@ -87,12 +87,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void InsertRecord()
+        void InsertRecord(long rpTimestamp)
         {
             using (var rCommand = Connection.CreateCommand())
             {
                 rCommand.CommandText = "INSERT INTO resources(time, fuel, bullet, steel, bauxite, instant_construction, bucket, development_material, improvement_material) " +
-                    "VALUES(strftime('%s', 'now'), @fuel, @bullet, @steel, @bauxite, @instant_construction, @bucket, @development_material, @improvement_material);";
+                    "VALUES(@time, @fuel, @bullet, @steel, @bauxite, @instant_construction, @bucket, @development_material, @improvement_material);";
+                rCommand.Parameters.AddWithValue("@time", rpTimestamp);
                 rCommand.Parameters.AddWithValue("@fuel", r_Fuel);
                 rCommand.Parameters.AddWithValue("@bullet", r_Bullet);
                 rCommand.Parameters.AddWithValue("@steel", r_Steel);

@@ -1,14 +1,14 @@
 ﻿using Sakuno.KanColle.Amatsukaze.ViewModels.Overviews;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Views.Overviews
 {
     /// <summary>
     /// ShipOverViewWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class ShipOverviewWindow
+    partial class ShipOverviewWindow
     {
         ShipOverviewViewModel r_ViewModel;
 

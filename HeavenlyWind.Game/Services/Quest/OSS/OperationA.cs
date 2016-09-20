@@ -24,7 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.OSS
         {
             base.Register(rpQuest);
 
-            SessionService.Instance.Subscribe("api_req_map/start", r =>
+            ApiService.Subscribe("api_req_map/start", r =>
             {
                 ProgressInfo rProgressInfo;
                 if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Active)

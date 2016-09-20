@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers
         {
             EquipmentID = rpEquipmentID;
 
-            Observable = SessionService.Instance.GetObservable("api_req_kousyou/destroyitem2")
+            Observable = ApiService.GetObservable("api_req_kousyou/destroyitem2")
                 .Where(r => EquipmentID == null || r.Parameters["api_slotitem_ids"].Split(',').Select(rpID => GetEquipmentType(int.Parse(rpID))).Contains(EquipmentID.Value));
         }
 

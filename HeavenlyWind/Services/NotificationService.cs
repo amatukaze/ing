@@ -1,4 +1,6 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game;
+﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
+using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
@@ -11,15 +13,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    class NotificationService : IDisposable
+    class NotificationService : ModelBase, IDisposable, INotificationService
     {
         const string AppUserModelID = "Sakuno.Amatsukaze";
 
@@ -28,6 +28,25 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         NotifyIcon r_NotifyIcon;
 
         Tuple<string, MediaPlayer> r_CustomSound;
+
+        bool r_IsBlinking = true;
+        public bool IsBlinking
+        {
+            get { return r_IsBlinking; }
+            private set
+            {
+                if (r_IsBlinking != value)
+                {
+                    r_IsBlinking = value;
+                    OnPropertyChanged(nameof(IsBlinking));
+                }
+            }
+        }
+
+        NotificationService()
+        {
+            ServiceManager.Register<INotificationService>(this);
+        }
 
         public void Initialize()
         {
@@ -121,7 +140,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         void InitializeHeavyDamageWarning(PropertyChangedEventListener rpGamePCEL)
         {
-            SessionService.Instance.Subscribe("api_get_member/mapinfo", delegate
+            ApiService.Subscribe("api_get_member/mapinfo", delegate
             {
                 var rFleetWithHeavilyDamagedShips = KanColleGame.Current.Port.Fleets.Table.Values.Where(r => (r.State & FleetState.HeavilyDamaged) == FleetState.HeavilyDamaged);
                 if (Preference.Instance.Notification.HeavyDamageWarning && rFleetWithHeavilyDamagedShips.Any())
@@ -130,7 +149,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     FlashWindow();
                 }
             });
-            SessionService.Instance.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, delegate
+            ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, delegate
             {
                 var rBattle = BattleInfo.Current.CurrentStage;
 
@@ -139,10 +158,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_HeavyDamageWarning, StringResources.Instance.Main.Notification_HeavyDamageWarning_Content, rHeavilyDamagedShips);
                     FlashWindow();
+
+                    IsBlinking = true;
                 }
             });
 
-            SessionService.Instance.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, delegate
+            ApiService.Subscribe("api_port/port", _ => IsBlinking = false);
+            ApiService.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, delegate
             {
                 var rSortie = SortieInfo.Current;
                 var rParticipants = rSortie.Fleet.Ships.Skip(1);
@@ -154,6 +176,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content, rHeavilyDamagedShips);
                     FlashWindow();
+
+                    IsBlinking = true;
                 }
             });
         }
@@ -228,18 +252,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             r_CustomSound.Item2.Stop();
             r_CustomSound.Item2.Play();
         }
-        void FlashWindow()
-        {
-            var rHandle = DispatcherUtil.UIDispatcher.Invoke(() => new WindowInteropHelper(App.Current.MainWindow).Handle);
-            var rInfo = new NativeStructs.FLASHWINFO()
-            {
-                cbSize = Marshal.SizeOf(typeof(NativeStructs.FLASHWINFO)),
-                hwnd = rHandle,
-                dwFlags = NativeEnums.FLASHW.FLASHW_TRAY | NativeEnums.FLASHW.FLASHW_TIMERNOFG,
-                dwTimeout = 250,
-                uCount = 5,
-            };
-            NativeMethods.User32.FlashWindowEx(ref rInfo);
-        }
+        void FlashWindow() => ServiceManager.GetService<IMainWindowService>().Flash(5, 250);
     }
 }

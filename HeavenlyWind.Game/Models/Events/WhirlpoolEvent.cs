@@ -23,9 +23,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
             foreach (var rShip in rShips)
                 if (LostMaterial == MaterialType.Fuel)
-                    rShip.Fuel = rShip.Fuel.Update(rShip.Fuel.Current - (int)(rShip.Fuel.Current * rReducedRate));
+                    rShip.Fuel.Current = rShip.Fuel.Current - (int)(rShip.Fuel.Current * rReducedRate);
                 else
-                    rShip.Bullet = rShip.Bullet.Update(rShip.Bullet.Current - (int)(rShip.Bullet.Current * rReducedRate));
+                    rShip.Bullet.Current = rShip.Bullet.Current - (int)(rShip.Bullet.Current * rReducedRate);
         }
     }
 }

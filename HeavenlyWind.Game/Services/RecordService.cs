@@ -29,11 +29,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public DevelopmentRecords Development { get; private set; }
         public SortieRecords Sortie { get; private set; }
         public BattleRecords Battle { get; private set; }
-        public RankingPointsRecords RankingPoints { get; private set; }
         public FateRecords Fate { get; private set; }
 
         public QuestProgressRecords QuestProgress { get; private set; }
         public BattleDetailRecords BattleDetail { get; private set; }
+
+        SortieConsumptionRecords r_SortieConsumption;
 
         HashSet<IRecordsGroupProvider> r_CustomRecordsGroupProviders = new HashSet<IRecordsGroupProvider>();
         HybridDictionary<string, RecordsGroup> r_CustomRecordsGroups = new HybridDictionary<string, RecordsGroup>();
@@ -54,7 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (!Directory.Exists("Records"))
                 Directory.CreateDirectory("Records");
 
-            SessionService.Instance.Subscribe("api_get_member/require_info", r => Connect(((RawRequiredInfo)r.Data).Admiral.ID));
+            ApiService.Subscribe("api_get_member/require_info", r => Connect(((RawRequiredInfo)r.Data).Admiral.ID));
 
             SQLiteConnection.Changed += (rpConnection, e) =>
             {
@@ -87,8 +88,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Development?.Dispose();
             Sortie?.Dispose();
             Battle?.Dispose();
-            RankingPoints?.Dispose();
             Fate?.Dispose();
+            r_SortieConsumption?.Dispose();
             QuestProgress?.Dispose();
             BattleDetail?.Dispose();
 
@@ -115,6 +116,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     rSourceConnection.BackupDatabase(r_Connection, "main", "main", -1, null, 0);
                 }
 
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "PRAGMA foreign_keys = ON;";
+
+                rCommand.ExecuteNonQuery();
+            }
+
             using (var rTransaction = r_Connection.BeginTransaction())
             {
                 CheckVersion();
@@ -127,8 +135,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Development = new DevelopmentRecords(r_Connection).ConnectAndReturn();
                 Sortie = new SortieRecords(r_Connection).ConnectAndReturn();
                 Battle = new BattleRecords(r_Connection).ConnectAndReturn();
-                RankingPoints = new RankingPointsRecords(r_Connection).ConnectAndReturn();
                 Fate = new FateRecords(r_Connection).ConnectAndReturn();
+                r_SortieConsumption = new Records.SortieConsumptionRecords(r_Connection).ConnectAndReturn();
 
                 QuestProgress = new QuestProgressRecords(r_Connection).ConnectAndReturn();
 

@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal DevelopmentRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(SessionService.Instance.Subscribe("api_req_kousyou/createitem", r =>
+            DisposableObjects.Add(ApiService.Subscribe("api_req_kousyou/createitem", r =>
             {
                 var rFuelConsumption = int.Parse(r.Parameters["api_item1"]);
                 var rBulletConsumption = int.Parse(r.Parameters["api_item2"]);

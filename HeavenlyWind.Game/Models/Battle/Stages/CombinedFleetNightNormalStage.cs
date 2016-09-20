@@ -6,9 +6,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 {
     class CombinedFleetNightNormalStage : CombinedFleetNight
     {
-        internal protected CombinedFleetNightNormalStage(BattleInfo rpOwner, ApiData rpData) : base(rpOwner)
+        internal protected CombinedFleetNightNormalStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
         {
-            var rRawData = rpData.Data as RawCombinedFleetNight;
+            var rRawData = rpInfo.Data as RawCombinedFleetNight;
 
             Shelling = new ShellingPhase(this, rRawData.Shelling, true);
         }

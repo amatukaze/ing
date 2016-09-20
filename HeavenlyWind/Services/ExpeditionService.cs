@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public void Initialize()
         {
-            SessionService.Instance.SubscribeOnce("api_get_member/require_info", delegate
+            ApiService.SubscribeOnce("api_get_member/require_info", delegate
             {
                 try
                 {

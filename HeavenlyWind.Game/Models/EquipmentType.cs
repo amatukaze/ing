@@ -45,8 +45,8 @@
         //
         SeaplaneFighter = 45,
         SpecialAmphibiousLandingCraft,
-        //
-        InterceptorFighter = 48,
+        LandBasedAttackAircraft,
+        InterceptorFighter,
         //
     }
 }

@@ -53,6 +53,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int? RemodelingMinimumLevel => RawData.RemodelingMinimumLevel == 0 ? (int?)null : RawData.RemodelingMinimumLevel;
         public ShipInfo ShipAfterRemodeling => RawData.ShipIDAfterRemodel == 0 ? null : KanColleGame.Current.MasterInfo.Ships[RawData.ShipIDAfterRemodel];
 
+        public int RemodelingFuelConsumption => RawData.RemodelingFuelConsumption;
+        public int RemodelingBulletConsumption => RawData.RemodelingBulletConsumption;
+
         public bool IsLandBase => Speed == ShipSpeed.None;
 
         public bool IsAbyssalShip => ID > 500;

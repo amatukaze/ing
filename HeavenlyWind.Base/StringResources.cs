@@ -148,6 +148,10 @@ namespace Sakuno.KanColle.Amatsukaze
                                 rESR.Quests = rNames;
                                 break;
 
+                            case ExtraStringResourceType.QuestDescription:
+                                rESR.QuestDescriptions = rNames;
+                                break;
+
                             case ExtraStringResourceType.Area:
                                 rESR.Areas = rNames;
                                 break;

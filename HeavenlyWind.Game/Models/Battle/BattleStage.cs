@@ -27,9 +27,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Owner = rpOwner;
         }
 
-        internal void Process(ApiData rpData)
+        internal void Process(ApiInfo rpInfo)
         {
-            var rData = rpData.Data as RawBattleBase;
+            var rData = rpInfo.Data as RawBattleBase;
             var rCombinedFleetData = rData as IRawCombinedFleet;
 
             FriendAndEnemy = new BattleParticipantSnapshot[rCombinedFleetData == null ? 12 : 18];

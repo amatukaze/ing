@@ -67,8 +67,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             if (OS.IsWin7OrLater && !rpOwner.NoInstalledLayoutEngines)
                 try
                 {
-                    AudioManager.Instance.StartSessionNotification();
-                    AudioManager.Instance.NewSession += AudioManager_NewSession;
+                    AudioManager.StartSessionNotification();
+                    AudioManager.NewSession += AudioManager_NewSession;
                 }
                 catch (Exception)
                 {
@@ -105,7 +105,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }
 
-        void AudioManager_NewSession(object sender, AudioSessionCreatedEventArgs e)
+        void AudioManager_NewSession(AudioSessionCreatedEventArgs e)
         {
             if (e.Session.IsSystemSoundsSession)
                 return;
@@ -141,8 +141,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             AudioSession?.Dispose();
             AudioSession = new BrowserAudioSession(e.Session);
 
-            AudioManager.Instance.NewSession -= AudioManager_NewSession;
-            AudioManager.Instance.StopSessionNotification();
+            AudioManager.NewSession -= AudioManager_NewSession;
+            AudioManager.StopSessionNotification();
         }
 
         void SetZoom(double rpZoom)
@@ -160,7 +160,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void RestartGame()
         {
-            var rMode = Preference.Instance.Browser.RefreshConfirmationMode.Value;
+            var rMode = Preference.Instance.UI.CloseConfirmationMode.Value;
             if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo && !(KanColleGame.Current.Sortie is PracticeInfo)))
             {
                 var rDialog = new TaskDialog()

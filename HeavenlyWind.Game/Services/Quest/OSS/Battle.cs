@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.OSS
                 "api_req_sortie/battleresult",
                 "api_req_combined_battle/battleresult",
             };
-            SessionService.Instance.Subscribe(rBattleResultApis, r =>
+            ApiService.Subscribe(rBattleResultApis, r =>
             {
                 ProgressInfo rProgressInfo;
                 if (!QuestProgressService.Instance.Progresses.TryGetValue(rpQuest.ID, out rProgressInfo) || rProgressInfo.State != QuestState.Active)

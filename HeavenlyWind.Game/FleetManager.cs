@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal FleetManager()
         {
-            SessionService.Instance.Subscribe("api_req_hensei/change", r =>
+            ApiService.Subscribe("api_req_hensei/change", r =>
             {
                 var rFleet = Table[int.Parse(r.Parameters["api_id"])];
 
@@ -60,8 +60,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rOriginalFleet?.Update();
             });
 
-            SessionService.Instance.Subscribe("api_get_member/deck", r => Update(r.GetData<RawFleet[]>()));
-            SessionService.Instance.Subscribe("api_req_hensei/preset_select", r =>
+            ApiService.Subscribe("api_get_member/deck", r => Update(r.GetData<RawFleet[]>()));
+            ApiService.Subscribe("api_req_hensei/preset_select", r =>
             {
                 var rFleet = Table[int.Parse(r.Parameters["api_deck_id"])];
                 foreach (var rShip in rFleet.Ships)
@@ -69,7 +69,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rFleet.Update(r.GetData<RawFleet>());
             });
 
-            SessionService.Instance.Subscribe("api_req_map/start", _ => Update());
+            ApiService.Subscribe("api_req_map/start", _ => Update());
 
         }
 

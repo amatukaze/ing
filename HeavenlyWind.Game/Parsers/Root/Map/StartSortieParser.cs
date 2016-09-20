@@ -6,13 +6,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
     [Api("api_req_map/start")]
     class StartSortieParser : ApiParser<RawMapExploration>
     {
-        public override void Process(RawMapExploration rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawMapExploration rpData)
         {
-            var rFleet = Game.Port.Fleets[int.Parse(Parameters["api_deck_id"])];
-            var rAreaID = int.Parse(Parameters["api_maparea_id"]);
-            var rAreaSubID = int.Parse(Parameters["api_mapinfo_no"]);
+            var rFleet = Game.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
+            var rAreaID = int.Parse(rpInfo.Parameters["api_maparea_id"]);
+            var rAreaSubID = int.Parse(rpInfo.Parameters["api_mapinfo_no"]);
 
-            var rSortie = new SortieInfo(rFleet, rAreaID * 10 + rAreaSubID);
+            var rSortie = new SortieInfo(rpInfo.Timestamp, rFleet, rAreaID * 10 + rAreaSubID);
             Game.Sortie = rSortie;
 
             var rMap = rSortie.Map;
@@ -22,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
             else
             {
                 if (rMap.HP.Current == 9999 && rMap.HP.Maximum == 9999)
-                    rMap.HP = new ClampedValue(rpData.EventMap.Maximum, rpData.EventMap.Current);
+                    rMap.HP.Set(rpData.EventMap.Maximum, rpData.EventMap.Current);
 
                 var rDifficulty = string.Empty;
                 switch (rMap.Difficulty.Value)
@@ -44,7 +44,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
                     rFleet.ID, rFleet.Name, rMap.MasterInfo.TranslatedName, rAreaSubID, rDifficulty));
             }
 
-            rSortie.Explore(rpData);
+            rSortie.Explore(rpInfo.Timestamp, rpData);
         }
     }
 }

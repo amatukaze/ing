@@ -11,6 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
     class BrowserHost : HwndHost
     {
         IntPtr r_Handle;
+        public IntPtr BrowserHandle => r_Handle;
 
         public bool IsExtracted { get; private set; }
 

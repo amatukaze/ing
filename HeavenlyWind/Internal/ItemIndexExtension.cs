@@ -7,7 +7,7 @@ using System.Windows.Markup;
 
 namespace Sakuno.KanColle.Amatsukaze.Internal
 {
-    class ShipOverviewItemIndexExtension : MarkupExtension
+    class ItemIndexExtension : MarkupExtension
     {
         public override object ProvideValue(IServiceProvider rpServiceProvider)
         {
