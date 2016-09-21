@@ -55,36 +55,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             Preference.Instance.Network.UpstreamProxy.Port.Subscribe(_ => UpdateUpstreamProxy());
             UpdateUpstreamProxy();
 
-            r_TrafficBarrier = new ManualResetEventSlim(NetworkListManager.IsConnectedToInternet);
-            NetworkListManager.ConnectivityChanged += delegate
-            {
-                if (NetworkListManager.IsConnectedToInternet)
-                    r_TrafficBarrier.Set();
-                else
-                    r_TrafficBarrier.Reset();
-            };
-
-            ServiceManager.Register<INetworkAvailabilityService>(new NetworkAvailabilityService());
-
-            using (var rConnection = new SQLiteConnection(@"Data Source=Data\AntiBlankScreen.db; Page Size=8192").OpenAndReturn())
-            using (var rCommand = rConnection.CreateCommand())
-            {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS history(" +
-                    "time INTEGER PRIMARY KEY NOT NULL, " +
-                    "url TEXT NULL, " +
-                    "body TEXT NULL);";
-
-                rCommand.ExecuteNonQuery();
-            }
-
-            r_Connection = CoreDatabase.Connection;
-            using (var rCommand = r_Connection.CreateCommand())
-            {
-                rCommand.CommandText = "ATTACH @filename AS anti_blank_screen;";
-                rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\AntiBlankScreen.db").FullName);
-
-                rCommand.ExecuteNonQuery();
-            }
+            InitializeTrafficBarrier();
+            InitializeAntiBlankScreenDataCollector();
         }
 
         public static void Start()
@@ -287,9 +259,52 @@ body {
 </style></head>");
         }
 
+        static void InitializeTrafficBarrier()
+        {
+            try
+            {
+                r_TrafficBarrier = new ManualResetEventSlim(NetworkListManager.IsConnectedToInternet);
+                NetworkListManager.ConnectivityChanged += delegate
+                {
+                    if (NetworkListManager.IsConnectedToInternet)
+                        r_TrafficBarrier.Set();
+                    else
+                        r_TrafficBarrier.Reset();
+                };
+            }
+            catch
+            {
+            }
+
+            ServiceManager.Register<INetworkAvailabilityService>(new NetworkAvailabilityService());
+        }
+
+        static void InitializeAntiBlankScreenDataCollector()
+        {
+            using (var rConnection = new SQLiteConnection(@"Data Source=Data\AntiBlankScreen.db; Page Size=8192").OpenAndReturn())
+            using (var rCommand = rConnection.CreateCommand())
+            {
+                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS history(" +
+                    "time INTEGER PRIMARY KEY NOT NULL, " +
+                    "url TEXT NULL, " +
+                    "body TEXT NULL);";
+
+                rCommand.ExecuteNonQuery();
+            }
+
+            r_Connection = CoreDatabase.Connection;
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText = "ATTACH @filename AS anti_blank_screen;";
+                rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\AntiBlankScreen.db").FullName);
+
+                rCommand.ExecuteNonQuery();
+            }
+        }
+
         class NetworkAvailabilityService : INetworkAvailabilityService
         {
-            public void EnsureNetwork() => r_TrafficBarrier.Wait();
+            public void EnsureNetwork() => r_TrafficBarrier?.Wait();
         }
     }
 }
