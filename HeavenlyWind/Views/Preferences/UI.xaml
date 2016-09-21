@@ -118,18 +118,50 @@
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ShowFatigueInSortie}" />
         </CheckBox>
 
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+
         <CheckBox IsChecked="{rb:Preference UI.UseGameIconsInModernizationMessage}" Margin="0, 8, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_UseGameIconsInModernizationMessage}" />
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage_UseGameIcons}" />
         </CheckBox>
-        <ruic:BBCodeBlock Margin="0, 6, 0, 0">
+        <CheckBox IsChecked="{rb:Preference UI.ShowStatusGrowthInModernizationMessage}" Margin="0, 8, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage_ShowStatusGrowth}" />
+        </CheckBox>
+        <ruic:BBCodeBlock Margin="0, 8, 0, 0">
             <ruic:BBCodeBlock.Style>
                 <Style TargetType="{x:Type ruic:BBCodeBlock}">
-                    <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessagePreview_Icon}" />
-
                     <Style.Triggers>
-                        <DataTrigger Binding="{rb:Preference UI.UseGameIconsInModernizationMessage}" Value="False">
-                            <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessagePreview_Text}" />
-                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{rb:Preference UI.UseGameIconsInModernizationMessage}" Value="False" />
+                                <Condition Binding="{rb:Preference UI.ShowStatusGrowthInModernizationMessage}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1}" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{rb:Preference UI.UseGameIconsInModernizationMessage}" Value="False" />
+                                <Condition Binding="{rb:Preference UI.ShowStatusGrowthInModernizationMessage}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2}" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{rb:Preference UI.UseGameIconsInModernizationMessage}" Value="True" />
+                                <Condition Binding="{rb:Preference UI.ShowStatusGrowthInModernizationMessage}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T1}" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                            <Condition Binding="{rb:Preference UI.UseGameIconsInModernizationMessage}" Value="True" />
+                            <Condition Binding="{rb:Preference UI.ShowStatusGrowthInModernizationMessage}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter Property="BBCode" Value="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2}" />
+                        </MultiDataTrigger>
                     </Style.Triggers>
                 </Style>
             </ruic:BBCodeBlock.Style>

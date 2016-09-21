@@ -95,6 +95,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                             ShowAtTheCenterOfOwner = true,
                         }.Show();
                     }
+                    catch (COMException e) when (e.ErrorCode != 0x8889004)
+                    {
+                        new TaskDialog()
+                        {
+                            Caption = StringResources.Instance.Main.Product_Name,
+                            Instruction = UnhandledExceptionDialogStringResources.Instruction,
+                            Icon = TaskDialogIcon.Error,
+                            Content = e.ErrorCode.ToString(),
+
+                            OwnerWindow = App.Current.MainWindow,
+                            ShowAtTheCenterOfOwner = true,
+                        }.Show();
+                    }
             }, () => OS.IsWin7OrLater && !r_IsAudioDeviceNotAvailable);
 
             SetZoomCommand = new DelegatedCommand<double>(SetZoom);
@@ -111,29 +124,27 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 return;
 
             var rHostProcessID = Process.GetCurrentProcess().Id;
-            int? rProcessID = e.Session.ProcessID;
+            var rProcessID = e.Session.ProcessID;
 
-            var rIsBrowserProcess = false;
+            var rSnapshot = NativeMethods.Kernel32.CreateToolhelp32Snapshot(NativeEnums.TH32CS.TH32CS_SNAPPROCESS, 0);
+            var rEntry = new NativeStructs.PROCESSENTRY32() { dwSize = Marshal.SizeOf(typeof(NativeStructs.PROCESSENTRY32)) };
 
-            while (rProcessID.HasValue)
-                using (var rManagementObject = new ManagementObject($"Win32_Process.Handle='{rProcessID.Value}'"))
-                    try
-                    {
-                        rManagementObject.Get();
-                        rProcessID = Convert.ToInt32(rManagementObject["ParentProcessId"]);
+            var rIsCurrentProcess = false;
+            var rIsMatch = false;
 
-                        if (rProcessID == rHostProcessID)
-                        {
-                            rIsBrowserProcess = true;
-                            break;
-                        }
-                    }
-                    catch (ManagementException rException) when (rException.ErrorCode == ManagementStatus.NotFound)
-                    {
-                        rProcessID = null;
-                    }
+            if (NativeMethods.Kernel32.Process32First(rSnapshot, ref rEntry))
+                do
+                {
+                    if (rEntry.th32ParentProcessID == rHostProcessID)
+                        rIsCurrentProcess = true;
 
-            if (!rIsBrowserProcess)
+                    if (rEntry.th32ProcessID == rProcessID)
+                        rIsMatch = true;
+                } while (!rIsMatch && NativeMethods.Kernel32.Process32Next(rSnapshot, ref rEntry));
+
+            NativeMethods.Kernel32.CloseHandle(rSnapshot);
+
+            if (!rIsCurrentProcess || !rIsMatch)
                 return;
 
             e.Release = false;

@@ -152,13 +152,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                         var rNotMaximumStatuses = new List<string>(5);
 
                         var rUseText = !Preference.Instance.UI.UseGameIconsInModernizationMessage.Value;
+                        var rShowStatusGrowth = Preference.Instance.UI.ShowStatusGrowthInModernizationMessage.Value;
 
                         if (rFirepowerDiff > 0)
                         {
                             var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Firepower : "[icon]firepower[/icon]";
 
                             if (rFirepowerRemain > 0)
-                                rNotMaximumStatuses.Add($"{rHeader} {rFirepowerRemain}");
+                                rNotMaximumStatuses.Add(rShowStatusGrowth ? $"{rHeader} +{rFirepowerDiff}" : $"{rHeader} {rFirepowerRemain}");
                             else
                                 rMaximumStatuses.Add(rHeader + " MAX");
                         }
@@ -168,7 +169,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                             var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Torpedo : "[icon]torpedo[/icon]";
 
                             if (rTorpedoRemain > 0)
-                                rNotMaximumStatuses.Add($"{rHeader} {rTorpedoRemain}");
+                                rNotMaximumStatuses.Add(rShowStatusGrowth ? $"{rHeader} +{rTorpedoDiff}" : $"{rHeader} {rTorpedoRemain}");
                             else
                                 rMaximumStatuses.Add(rHeader + " MAX");
                         }
@@ -178,7 +179,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                             var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_AA : "[icon]aa[/icon]";
 
                             if (rAARemain > 0)
-                                rNotMaximumStatuses.Add($"{rHeader} {rAARemain}");
+                                rNotMaximumStatuses.Add(rShowStatusGrowth ? $"{rHeader} +{rAADiff}" : $"{rHeader} {rAARemain}");
                             else
                                 rMaximumStatuses.Add(rHeader + " MAX");
                         }
@@ -188,7 +189,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                             var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Armor : "[icon]armor[/icon]";
 
                             if (rArmorRemain > 0)
-                                rNotMaximumStatuses.Add($"{rHeader} {rArmorRemain}");
+                                rNotMaximumStatuses.Add(rShowStatusGrowth ? $"{rHeader} +{rArmorDiff}" : $"{rHeader} {rArmorRemain}");
                             else
                                 rMaximumStatuses.Add(rHeader + " MAX");
                         }
@@ -198,7 +199,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                             var rHeader = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_Luck : "[icon]luck[/icon]";
 
                             if (rLuckRemain > 0)
-                                rNotMaximumStatuses.Add($"{rHeader} {rLuckRemain}");
+                                rNotMaximumStatuses.Add(rShowStatusGrowth ? $"{rHeader} +{rLuckDiff}" : $"{rHeader} {rLuckRemain}");
                             else
                                 rMaximumStatuses.Add(rHeader +" MAX");
                         }
@@ -218,7 +219,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                         if (rNotMaximumStatuses.Count > 0)
                         {
-                            rBuilder.Append(StringResources.Instance.Main.Log_Modernization_Remainder);
+                            if (!rShowStatusGrowth)
+                                rBuilder.Append(StringResources.Instance.Main.Log_Modernization_Remainder);
+
                             rBuilder.Append(rNotMaximumStatuses.Join(rSeparator));
                         }
 

@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -158,16 +159,18 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             Communicator.StartReader();
         }
 
-        void Attach(IntPtr rpHandle)
+        async void Attach(IntPtr rpHandle)
         {
             BrowserControl = new BrowserHost(rpHandle);
             OnPropertyChanged(nameof(BrowserControl));
 
-            Navigator.Navigate(Preference.Instance.Browser.Homepage);
-
             Attached?.Invoke();
 
             BrowserControl.SizeChanged += (s, e) => Resized?.Invoke(this, e.NewSize);
+
+            await Task.Delay(2000);
+
+            Navigator.Navigate(Preference.Instance.Browser.Homepage);
         }
 
         internal void ResizeBrowserToFitGame()

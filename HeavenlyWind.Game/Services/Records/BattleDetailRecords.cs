@@ -30,8 +30,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal BattleDetailRecords(SQLiteConnection rpConnection, int rpUserID) : base(rpConnection)
         {
-            r_Filename = new FileInfo($"Records\\{rpUserID}_Battle.db").FullName;
-            r_Connection = new SQLiteConnection($@"Data Source={r_Filename};Page Size=8192").OpenAndReturn();
+            r_Filename = new FileInfo(Path.Combine(RecordService.Instance.RecordDirectory.FullName, rpUserID + "_Battle.db")).FullName;
+            r_Connection = new SQLiteConnection($@"Data Source={r_Filename}; Page Size=8192").OpenAndReturn();
 
             var rSortieFirstStageApis = new[]
             {

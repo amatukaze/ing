@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using BclVersion = System.Version;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
@@ -18,6 +20,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public const int Version = 1;
 
         public static RecordService Instance { get; } = new RecordService();
+
+        internal DirectoryInfo RecordDirectory { get; }
+
+        Regex r_VersionRegex = new Regex(@"^(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?$");
+        DirectoryInfo r_OriginalRecordDirectory;
 
         public bool IsReadOnlyMode { get; set; }
 
@@ -34,6 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public QuestProgressRecords QuestProgress { get; private set; }
         public BattleDetailRecords BattleDetail { get; private set; }
 
+        RankingPointsRecords r_RankingPoints;
         SortieConsumptionRecords r_SortieConsumption;
 
         HashSet<IRecordsGroupProvider> r_CustomRecordsGroupProviders = new HashSet<IRecordsGroupProvider>();
@@ -48,13 +56,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public event Action<UpdateEventArgs> Update = delegate { };
 
-        RecordService() { }
+        RecordService()
+        {
+            var rPath = Path.Combine("Records", ProductInfo.AssemblyVersionString);
+            RecordDirectory = new DirectoryInfo(rPath);
+            if (!RecordDirectory.Exists)
+                RecordDirectory.Create();
+
+            r_OriginalRecordDirectory = RecordDirectory.Parent;
+        }
 
         public void Initialize()
         {
-            if (!Directory.Exists("Records"))
-                Directory.CreateDirectory("Records");
-
             ApiService.Subscribe("api_get_member/require_info", r => Connect(((RawRequiredInfo)r.Data).Admiral.ID));
 
             SQLiteConnection.Changed += (rpConnection, e) =>
@@ -80,39 +93,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (r_UserID == rpUserID)
                 return;
 
-            Resources?.Dispose();
-            Ships?.Dispose();
-            Experience?.Dispose();
-            Expedition?.Dispose();
-            Construction?.Dispose();
-            Development?.Dispose();
-            Sortie?.Dispose();
-            Battle?.Dispose();
-            Fate?.Dispose();
-            r_SortieConsumption?.Dispose();
-            QuestProgress?.Dispose();
-            BattleDetail?.Dispose();
-
-            if (r_Connection != null)
-            {
-                r_Connection.Update -= OnDatabaseUpdate;
-
-                r_Connection.Dispose();
-            }
-
-            foreach (var rCustomGroup in r_CustomRecordsGroups.Values)
-                rCustomGroup.Dispose();
-
-            IsConnected = false;
+            Disconnect();
 
             r_UserID = rpUserID;
 
-            r_Connection = new SQLiteConnection($@"Data Source=Records\{r_UserID}.db;Page Size=8192").OpenAndReturn();
+            var rFilename = r_UserID + ".db";
+            var rDatabaseFile = new FileInfo(Path.Combine(RecordDirectory.FullName, rFilename));
+
+            if (!rDatabaseFile.Exists)
+                TryMigrateFromOldVersion(rFilename, rDatabaseFile);
+
+            r_Connection = new SQLiteConnection($@"Data Source={rDatabaseFile.FullName}; Page Size=8192").OpenAndReturn();
 
             if (IsReadOnlyMode)
                 using (var rSourceConnection = r_Connection)
                 {
-                    r_Connection = new SQLiteConnection("Data Source=:memory:;Page Size=8192").OpenAndReturn();
+                    r_Connection = new SQLiteConnection("Data Source=:memory:; Page Size=8192").OpenAndReturn();
                     rSourceConnection.BackupDatabase(r_Connection, "main", "main", -1, null, 0);
                 }
 
@@ -136,7 +132,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Sortie = new SortieRecords(r_Connection).ConnectAndReturn();
                 Battle = new BattleRecords(r_Connection).ConnectAndReturn();
                 Fate = new FateRecords(r_Connection).ConnectAndReturn();
-                r_SortieConsumption = new Records.SortieConsumptionRecords(r_Connection).ConnectAndReturn();
+                r_RankingPoints = new RankingPointsRecords(r_Connection).ConnectAndReturn();
+                r_SortieConsumption = new SortieConsumptionRecords(r_Connection).ConnectAndReturn();
 
                 QuestProgress = new QuestProgressRecords(r_Connection).ConnectAndReturn();
 
@@ -200,6 +197,80 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             RecordsGroup rResult;
             r_CustomRecordsGroups.TryGetValue(rpName, out rResult);
             return rResult;
+        }
+
+        void Disconnect()
+        {
+            Resources?.Dispose();
+            Ships?.Dispose();
+            Experience?.Dispose();
+            Expedition?.Dispose();
+            Construction?.Dispose();
+            Development?.Dispose();
+            Sortie?.Dispose();
+            Battle?.Dispose();
+            Fate?.Dispose();
+            r_RankingPoints?.Dispose();
+            r_SortieConsumption?.Dispose();
+            QuestProgress?.Dispose();
+            BattleDetail?.Dispose();
+
+            if (r_Connection != null)
+            {
+                r_Connection.Update -= OnDatabaseUpdate;
+
+                r_Connection.Dispose();
+            }
+
+            foreach (var rCustomGroup in r_CustomRecordsGroups.Values)
+                rCustomGroup.Dispose();
+
+            IsConnected = false;
+        }
+
+        void TryMigrateFromOldVersion(string rpFilename, FileInfo rpDatabaseFile)
+        {
+            FileInfo rOriginalDatabaseFile, rOriginalBattleDetailDatabaseFile;
+
+            var rBattleDetailFilename = r_UserID + "_Battle.db";
+            var rBattleDetailDatabaseFile = new FileInfo(Path.Combine(RecordDirectory.FullName, rBattleDetailFilename));
+
+            var rDirectories = from rDirectory in RecordDirectory.Parent.EnumerateDirectories()
+                               where rDirectory.Name != ProductInfo.AssemblyVersionString && r_VersionRegex.IsMatch(rDirectory.Name)
+                               orderby BclVersion.Parse(rDirectory.Name) descending
+                               select rDirectory;
+            foreach (var rDirectory in rDirectories)
+            {
+                rOriginalDatabaseFile = new FileInfo(Path.Combine(rDirectory.FullName, rpFilename));
+                if (!rOriginalDatabaseFile.Exists)
+                    continue;
+
+                Move(rOriginalDatabaseFile, rpDatabaseFile);
+
+                rOriginalBattleDetailDatabaseFile = new FileInfo(Path.Combine(rDirectory.FullName, rBattleDetailFilename));
+                Move(rOriginalBattleDetailDatabaseFile, rBattleDetailDatabaseFile);
+
+                if (!rDirectory.EnumerateFileSystemInfos().Any())
+                    rDirectory.Delete();
+
+                return;
+            }
+
+            rOriginalDatabaseFile = new FileInfo($@"Records\{r_UserID}.db");
+            Move(rOriginalDatabaseFile, rpDatabaseFile);
+
+            rOriginalBattleDetailDatabaseFile = new FileInfo($@"Records\{r_UserID}_Battle.db");
+            Move(rOriginalBattleDetailDatabaseFile, rBattleDetailDatabaseFile);
+        }
+        void Move(FileInfo rpSource, FileInfo rpDestination)
+        {
+            if (!rpSource.Exists)
+                return;
+
+            if (rpDestination.Exists)
+                rpDestination.Delete();
+
+            rpSource.MoveTo(rpDestination.FullName);
         }
 
         internal void HandleException(ApiSession rpSession, Exception rException)

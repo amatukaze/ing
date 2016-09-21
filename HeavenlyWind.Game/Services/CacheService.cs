@@ -136,7 +136,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             rpSession.oResponse["Cache-Control"] = "max-age=18000, public";
             rpSession.oResponse["Date"] = DateTime.Now.ToString("R");
 
-            if (rpFilename.EndsWith(".swf", StringComparison.OrdinalIgnoreCase) && !rpFilename.Contains("mainD2.swf"))
+            if (rpFilename.EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
                 rpSession.oResponse["Content-Type"] = "application/x-shockwave-flash";
             else if (rpFilename.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
                 rpSession.oResponse["Content-Type"] = "audio/mpeg";
