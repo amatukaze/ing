@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using BclVersion = System.Version;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
@@ -21,6 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         internal DirectoryInfo RecordDirectory { get; }
 
+        Regex r_VersionRegex = new Regex(@"^(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?$");
         DirectoryInfo r_OriginalRecordDirectory;
 
         public bool IsReadOnlyMode { get; set; }
@@ -94,9 +97,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
             r_UserID = rpUserID;
 
-            var rDatabaseFile = new FileInfo(Path.Combine(RecordDirectory.FullName, r_UserID + ".db"));
+            var rFilename = r_UserID + ".db";
+            var rDatabaseFile = new FileInfo(Path.Combine(RecordDirectory.FullName, rFilename));
 
-            TryMigrateFromOldVersion(rpUserID, rDatabaseFile);
+            if (!rDatabaseFile.Exists)
+                TryMigrateFromOldVersion(rFilename, rDatabaseFile);
 
             r_Connection = new SQLiteConnection($@"Data Source={rDatabaseFile.FullName}; Page Size=8192").OpenAndReturn();
 
@@ -223,26 +228,49 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             IsConnected = false;
         }
 
-        void TryMigrateFromOldVersion(int rpUserID, FileInfo rpDatabaseFile)
+        void TryMigrateFromOldVersion(string rpFilename, FileInfo rpDatabaseFile)
         {
-            var rOriginalDatabaseFile = new FileInfo($@"Records\{r_UserID}.db");
-            if (rOriginalDatabaseFile.Exists)
-            {
-                if (rpDatabaseFile.Exists)
-                    rpDatabaseFile.Delete();
+            FileInfo rOriginalDatabaseFile, rOriginalBattleDetailDatabaseFile;
 
-                rOriginalDatabaseFile.MoveTo(rpDatabaseFile.FullName);
+            var rBattleDetailFilename = r_UserID + "_Battle.db";
+            var rBattleDetailDatabaseFile = new FileInfo(Path.Combine(RecordDirectory.FullName, rBattleDetailFilename));
+
+            var rDirectories = from rDirectory in RecordDirectory.Parent.EnumerateDirectories()
+                               where rDirectory.Name != ProductInfo.AssemblyVersionString && r_VersionRegex.IsMatch(rDirectory.Name)
+                               orderby BclVersion.Parse(rDirectory.Name) descending
+                               select rDirectory;
+            foreach (var rDirectory in rDirectories)
+            {
+                rOriginalDatabaseFile = new FileInfo(Path.Combine(rDirectory.FullName, rpFilename));
+                if (!rOriginalDatabaseFile.Exists)
+                    continue;
+
+                Move(rOriginalDatabaseFile, rpDatabaseFile);
+
+                rOriginalBattleDetailDatabaseFile = new FileInfo(Path.Combine(rDirectory.FullName, rBattleDetailFilename));
+                Move(rOriginalBattleDetailDatabaseFile, rBattleDetailDatabaseFile);
+
+                if (!rDirectory.EnumerateFileSystemInfos().Any())
+                    rDirectory.Delete();
+
+                return;
             }
 
-            var rBattleDetailDatabaseFile = new FileInfo(Path.Combine(RecordDirectory.FullName, rpUserID + "_Battle.db"));
-            var rOriginalBattleDetailDatabaseFile = new FileInfo($@"Records\{r_UserID}_Battle.db");
-            if (rOriginalBattleDetailDatabaseFile.Exists)
-            {
-                if (rBattleDetailDatabaseFile.Exists)
-                    rBattleDetailDatabaseFile.Delete();
+            rOriginalDatabaseFile = new FileInfo($@"Records\{r_UserID}.db");
+            Move(rOriginalDatabaseFile, rpDatabaseFile);
 
-                rOriginalBattleDetailDatabaseFile.MoveTo(rBattleDetailDatabaseFile.FullName);
-            }
+            rOriginalBattleDetailDatabaseFile = new FileInfo($@"Records\{r_UserID}_Battle.db");
+            Move(rOriginalBattleDetailDatabaseFile, rBattleDetailDatabaseFile);
+        }
+        void Move(FileInfo rpSource, FileInfo rpDestination)
+        {
+            if (!rpSource.Exists)
+                return;
+
+            if (rpDestination.Exists)
+                rpDestination.Delete();
+
+            rpSource.MoveTo(rpDestination.FullName);
         }
 
         internal void HandleException(ApiSession rpSession, Exception rException)
