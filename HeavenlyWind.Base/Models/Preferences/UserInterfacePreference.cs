@@ -21,6 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 
         public Property<bool> ShowFatigueInSortie { get; } = new Property<bool>("ui.show_fatigue_in_sortie");
 
-        public Property<bool> UseGameIconsInModernizationMessage { get; } = new Property<bool>("ui.use_game_icons_in_modernization_message");
+        public Property<bool> UseGameIconsInModernizationMessage { get; } = new Property<bool>("ui.modernization_message_use_game_icons");
+        public Property<bool> ShowStatusGrowthInModernizationMessage { get; } = new Property<bool>("ui.modernization_message_show_status_growth");
     }
 }

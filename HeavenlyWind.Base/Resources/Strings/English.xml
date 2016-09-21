@@ -354,9 +354,13 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_UI_MaterialIcons">Material icons</String>
   <String Key="PreferenceWindow_UI_MaterialIcons_UseGameIcons">Use in-game icons</String>
   <String Key="PreferenceWindow_UI_ShowFatigueInSortie">Show fatigue in Sortie</String>
-  <String Key="PreferenceWindow_UI_UseGameIconsInModernizationMessage">Use in-game icons in modernization message</String>
-  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Icon">Succeeded to modernize Amatsukaze Kai.([icon]torpedo[/icon] MAX, [icon]armor[/icon] MAX; To MAX: [icon]firepower[/icon] 1, [icon]luck[/icon] 50)</String>
-  <String Key="PreferenceWindow_UI_ModernizationMessagePreview_Text">Succeeded to modernize Amatsukaze Kai.(Torpedo MAX, Armor MAX; To MAX: Firepower 1, Luck 50)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessage">Modernization Message</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessage_UseGameIcons">Use in-game icons</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessage_ShowStatusGrowth">Show status growth instead</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T1">Succeeded to modernize Amatsukaze Kai. ([icon]torpedo[/icon] MAX, [icon]armor[/icon] MAX; To MAX: [icon]firepower[/icon] 1, [icon]luck[/icon] 50)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1">Succeeded to modernize Amatsukaze Kai. (Torpedo MAX, Armor MAX; To MAX: Firepower 1, Luck 50)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2">Succeeded to modernize Amatsukaze Kai. ([icon]torpedo[/icon] MAX, [icon]armor[/icon] MAX; [icon]firepower[/icon] +1, [icon]luck[/icon] +1)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2">Succeeded to modernize Amatsukaze Kai. (Torpedo MAX, Armor MAX; Firepower +1, Luck +1)</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
