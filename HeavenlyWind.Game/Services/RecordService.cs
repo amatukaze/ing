@@ -34,6 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public QuestProgressRecords QuestProgress { get; private set; }
         public BattleDetailRecords BattleDetail { get; private set; }
 
+        RankingPointsRecords r_RankingPoints;
         SortieConsumptionRecords r_SortieConsumption;
 
         HashSet<IRecordsGroupProvider> r_CustomRecordsGroupProviders = new HashSet<IRecordsGroupProvider>();
@@ -89,6 +90,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             Sortie?.Dispose();
             Battle?.Dispose();
             Fate?.Dispose();
+            r_RankingPoints?.Dispose();
             r_SortieConsumption?.Dispose();
             QuestProgress?.Dispose();
             BattleDetail?.Dispose();
@@ -136,7 +138,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 Sortie = new SortieRecords(r_Connection).ConnectAndReturn();
                 Battle = new BattleRecords(r_Connection).ConnectAndReturn();
                 Fate = new FateRecords(r_Connection).ConnectAndReturn();
-                r_SortieConsumption = new Records.SortieConsumptionRecords(r_Connection).ConnectAndReturn();
+                r_RankingPoints = new RankingPointsRecords(r_Connection).ConnectAndReturn();
+                r_SortieConsumption = new SortieConsumptionRecords(r_Connection).ConnectAndReturn();
 
                 QuestProgress = new QuestProgressRecords(r_Connection).ConnectAndReturn();
 
