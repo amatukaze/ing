@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Management;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 
@@ -120,31 +119,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void AudioManager_NewSession(AudioSessionCreatedEventArgs e)
         {
-            if (e.Session.IsSystemSoundsSession)
-                return;
-
-            var rHostProcessID = Process.GetCurrentProcess().Id;
-            var rProcessID = e.Session.ProcessID;
-
-            var rSnapshot = NativeMethods.Kernel32.CreateToolhelp32Snapshot(NativeEnums.TH32CS.TH32CS_SNAPPROCESS, 0);
-            var rEntry = new NativeStructs.PROCESSENTRY32() { dwSize = Marshal.SizeOf(typeof(NativeStructs.PROCESSENTRY32)) };
-
-            var rIsCurrentProcess = false;
-            var rIsMatch = false;
-
-            if (NativeMethods.Kernel32.Process32First(rSnapshot, ref rEntry))
-                do
-                {
-                    if (rEntry.th32ParentProcessID == rHostProcessID)
-                        rIsCurrentProcess = true;
-
-                    if (rEntry.th32ProcessID == rProcessID)
-                        rIsMatch = true;
-                } while (!rIsMatch && NativeMethods.Kernel32.Process32Next(rSnapshot, ref rEntry));
-
-            NativeMethods.Kernel32.CloseHandle(rSnapshot);
-
-            if (!rIsCurrentProcess || !rIsMatch)
+            if (e.Session.IsSystemSoundsSession || !IsDescendantOfHost(e.Session.ProcessID))
                 return;
 
             e.Release = false;
@@ -154,6 +129,32 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             AudioManager.NewSession -= AudioManager_NewSession;
             AudioManager.StopSessionNotification();
+        }
+        bool IsDescendantOfHost(int rpProcessID)
+        {
+            var rHostProcessID = Process.GetCurrentProcess().Id;
+
+            var rSnapshot = NativeMethods.Kernel32.CreateToolhelp32Snapshot(NativeEnums.TH32CS.TH32CS_SNAPPROCESS, 0);
+            var rEntry = new NativeStructs.PROCESSENTRY32() { dwSize = Marshal.SizeOf(typeof(NativeStructs.PROCESSENTRY32)) };
+
+            var rMap = new Dictionary<int, int>(32);
+
+            if (NativeMethods.Kernel32.Process32First(rSnapshot, ref rEntry))
+                do
+                {
+                    rMap.Add(rEntry.th32ProcessID, rEntry.th32ParentProcessID);
+                } while (NativeMethods.Kernel32.Process32Next(rSnapshot, ref rEntry));
+
+            NativeMethods.Kernel32.CloseHandle(rSnapshot);
+
+            do
+            {
+                if (rpProcessID == 0 || !rMap.TryGetValue(rpProcessID, out rpProcessID))
+                    return false;
+
+                if (rpProcessID == rHostProcessID)
+                    return true;
+            } while (true);
         }
 
         void SetZoom(double rpZoom)
