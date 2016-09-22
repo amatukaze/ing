@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         enum ReturnReason { DeadEnd, Retreat, RetreatWithHeavilyDamagedShip, Unexpected }
 
         public override string GroupName => "sortie";
-        public override int Version => 4;
+        public override int Version => 5;
 
         ReturnReason? r_ReturnReason;
 
@@ -34,12 +34,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "id INTEGER PRIMARY KEY NOT NULL, " +
                     "is_event_map BOOLEAN NOT NULL);" +
 
+                "CREATE TABLE IF NOT EXISTS sortie_map_hp(" +
+                    "id INTEGER PRIMARY KEY NOT NULL, " +
+                    "difficulty INTEGER NOT NULL, " +
+                    "hp INTEGER NOT NULL);" +
+
                 "CREATE TABLE IF NOT EXISTS sortie(" +
                     "id INTEGER PRIMARY KEY NOT NULL, " +
                     "map INTEGER NOT NULL REFERENCES sortie_map(id), " +
                     "difficulty INTEGER, " +
                     "return_time INTEGER, " +
-                    "return_reason INTEGER);" +
+                    "return_reason INTEGER, " +
+                    "map_hp INTEGER);" +
 
                 "CREATE TABLE IF NOT EXISTS sortie_node(" +
                     "map INTEGER NOT NULL REFERENCES sortie_map(id), " +
@@ -107,6 +113,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                     rCommand.ExecuteNonQuery();
                 }
+
+            if (rpOldVersion < 5)
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "ALTER TABLE sortie ADD COLUMN map_hp INTEGER;";
+
+                    rCommand.ExecuteNonQuery();
+                }
         }
 
         protected override void Load()
@@ -135,11 +149,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 {
                     rCommand.CommandText =
                         "INSERT OR IGNORE INTO sortie_map(id, is_event_map) VALUES(@map_id, @is_event_map);" +
-                        "INSERT INTO sortie(id, map, difficulty) VALUES(@sortie_id, @map_id, @difficulty);";
+                        "INSERT INTO sortie(id, map, difficulty, map_hp) VALUES(@sortie_id, @map_id, @difficulty, @map_hp);";
                     rCommand.Parameters.AddWithValue("@map_id", rMap.ID);
                     rCommand.Parameters.AddWithValue("@sortie_id", rSortie.ID);
                     rCommand.Parameters.AddWithValue("@is_event_map", rMap.IsEventMap);
                     rCommand.Parameters.AddWithValue("@difficulty", rMap.Difficulty);
+                    rCommand.Parameters.AddWithValue("@map_hp", rMap.HasGauge ? rMap.HP.Current : (int?)null);
+
+                    if (rMap.HasGauge)
+                    {
+                        rCommand.CommandText += "INSERT OR IGNORE INTO sortie_map_hp(id, difficulty, hp) VALUES(@map_id, coalesce(@difficulty, 0), @map_max_hp);";
+
+                        rCommand.Parameters.AddWithValue("@map_max_hp", rMap.HP.Maximum);
+                    }
 
                     rCommand.ExecuteNonQuery();
                 }
