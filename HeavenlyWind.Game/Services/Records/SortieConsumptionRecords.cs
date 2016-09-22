@@ -254,6 +254,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         foreach (var rReward in ((RewardEvent)rEvent).Rewards)
                             if (rReward.TypeID == 4)
                                 rRewards.Add(GetRewardString(rReward.ID, rReward.Quantity));
+
+                        if (rRewards.Count == 0)
+                            return;
+
                         break;
 
                     case SortieEventType.EscortSuccess:
