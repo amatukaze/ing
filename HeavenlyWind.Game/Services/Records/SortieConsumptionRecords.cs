@@ -206,7 +206,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 rCommand.CommandText =
                     "INSERT OR IGNORE INTO sortie_consumption_detail(id, type) VALUES((SELECT max(id) FROM sortie_participant_ship WHERE ship_id = @ship_id AND type = 0), 1);" +
-                    "UPDATE sortie_consumption_detail SET bucket = coalesce(bucket, 0) + 1 WHERE id = (SELECT max(id) FROM sortie_participant_ship WHERE ship_id = @ship_id AND type = 0) AND type = 1;" +
+                    "UPDATE sortie_consumption_detail SET bucket = coalesce(bucket, 0) + 1 WHERE id = (SELECT max(id) FROM sortie_participant_ship WHERE ship_id = @ship_id AND type = 0) AND type = 1;";
                 rCommand.Parameters.AddWithValue("@ship_id", rDock.Ship.ID);
 
                 rCommand.ExecuteNonQuery();
