@@ -245,30 +245,44 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             using (var rTransaction = Connection.BeginTransaction())
             using (var rCommand = Connection.CreateCommand())
             {
-                var rRewards = new List<string>();
+                IList<string> rSetters = null;
 
                 switch (rNode.EventType)
                 {
                     case SortieEventType.Reward:
                     case SortieEventType.AviationReconnaissance:
-                        foreach (var rReward in ((RewardEvent)rEvent).Rewards)
-                            if (rReward.TypeID == 4)
-                                rRewards.Add(GetRewardString(rReward.ID, rReward.Quantity));
-
-                        if (rRewards.Count == 0)
+                        var rRewards = ((RewardEvent)rEvent).Rewards;
+                        if (rRewards == null || rRewards.Count == 0)
                             return;
 
+                        foreach (var rReward in rRewards)
+                        {
+                            var rSetter = GetRewardSetter(rReward.ID, rReward.Quantity);
+                            if (rSetter == null)
+                                continue;
+
+                            if (rSetters == null)
+                                rSetters = new List<string>();
+
+                            rSetters.Add(rSetter);
+                        }
                         break;
 
                     case SortieEventType.EscortSuccess:
-                        rRewards.Add(GetRewardString(rEvent.ID, rEvent.Quantity));
+                        rSetters = new[] { GetRewardSetter(rEvent.ID, rEvent.Quantity) };
                         break;
+
+                    default:
+                        return;
                 }
+
+                if (rSetters == null || rSetters.Count == 0)
+                    return;
 
                 rCommand.CommandText =
                     "INSERT OR IGNORE INTO sortie_reward(id) VALUES(@id);" +
                     "UPDATE sortie_reward SET " +
-                        rRewards.Join(", ") +
+                        rSetters.Join(", ") +
                         " WHERE id = @id;";
                 rCommand.Parameters.AddWithValue("@id", SortieInfo.Current.ID);
 
@@ -277,7 +291,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rTransaction.Commit();
             }
         }
-        string GetRewardString(MaterialType rpType, int rpQuantity)
+        string GetRewardSetter(MaterialType rpType, int rpQuantity)
         {
             switch (rpType)
             {
@@ -296,7 +310,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 case MaterialType.Bucket:
                     return "bucket = coalesce(bucket, 0) + " + rpQuantity;
 
-                default: throw new InvalidOperationException();
+                default:
+                    return null;
             }
         }
 
