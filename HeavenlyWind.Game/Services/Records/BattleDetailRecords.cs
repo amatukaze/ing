@@ -33,6 +33,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             r_Filename = new FileInfo(Path.Combine(RecordService.Instance.RecordDirectory.FullName, rpUserID + "_Battle.db")).FullName;
             r_Connection = new SQLiteConnection($@"Data Source={r_Filename}; Page Size=8192").OpenAndReturn();
 
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText =
+                    "PRAGMA journal_mode = WAL; " +
+                    "PRAGMA foreign_keys = ON;";
+
+                rCommand.ExecuteNonQuery();
+            }
+
             var rSortieFirstStageApis = new[]
             {
                 "api_req_sortie/battle",
