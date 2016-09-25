@@ -38,6 +38,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public AirBase AirBase { get; } = new AirBase();
 
+        public IDictionary<int, int> Items { get; } = new HybridDictionary<int, int>();
+
         public event Action<IDictionary<EquipmentType, Equipment[]>> UnequippedEquipmentUpdated = delegate { };
 
         internal Port()
@@ -437,6 +439,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
             ApiService.Subscribe("api_req_hensei/lock", r => Ships[int.Parse(r.Parameters["api_ship_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
             ApiService.Subscribe("api_req_kaisou/lock", r => Equipment[int.Parse(r.Parameters["api_slotitem_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
+
+            ApiService.Subscribe("api_get_member/useitem", r => UpdateItemCount((JArray)r.Json["api_data"]));
         }
 
         #region Update
@@ -547,6 +551,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             foreach (var rEquipment in rpEquipment)
                 UnequippedEquipment[rEquipment.Info.Type] = UnequippedEquipment[rEquipment.Info.Type].Where(r => r != rEquipment).ToArray();
             UpdateUnequippedEquipment();
+        }
+
+        internal void UpdateItemCount(JArray rpItems)
+        {
+            foreach (var rItem in rpItems)
+            {
+                var rID = (int)rItem["api_id"];
+                var rCount = (int)rItem["api_count"];
+
+                Items[rID] = rCount;
+            }
         }
     }
 }
