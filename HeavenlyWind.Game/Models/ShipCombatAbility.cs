@@ -388,14 +388,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         double GetHealthModifier()
         {
-            var rRatio = r_Ship.HP.Current / (double)r_Ship.HP.Maximum;
+            switch (r_Ship.DamageState)
+            {
+                case ShipDamageState.ModeratelyDamaged:
+                    return .7;
 
-            if (rRatio < .25)
-                return .4;
-            else if (rRatio < .5)
-                return .7;
-            else
-                return 1.0;
+                case ShipDamageState.HeavilyDamaged:
+                    return .4;
+
+                default:
+                    return 1.0;
+            }
         }
 
         double GetDayBattleAttackPowerBonusFromImprovedEquipment()

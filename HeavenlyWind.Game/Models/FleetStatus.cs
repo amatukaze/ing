@@ -73,7 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             CalculateTransportPoint();
         }
-        
+
         void UpdateFleetSpeed()
         {
             if (r_Fleet.Ships.Count == 0)
@@ -110,7 +110,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             foreach (var rShip in r_Fleet.Ships)
             {
-                if (rShip.HP.Current / (double)rShip.HP.Maximum <= .25 || rShip.State == ShipState.Evacuated)
+                if (rShip.DamageState >= ShipDamageState.HeavilyDamaged || rShip.State == ShipState.Evacuated)
                     continue;
 
                 switch ((ShipType)rShip.Info.Type.ID)

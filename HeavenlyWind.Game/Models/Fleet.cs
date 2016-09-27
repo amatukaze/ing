@@ -102,8 +102,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             var rState = FleetState.None;
             var rSortie = KanColleGame.Current.Sortie;
-            if (rSortie?.Fleet == this ||
-                Port.Fleets.CombinedFleetType != CombinedFleetType.None && rSortie?.Fleet.ID == 1 && ID == 2)
+            if (rSortie?.Fleet == this || Port.Fleets.CombinedFleetType != CombinedFleetType.None && rSortie?.Fleet.ID == 1 && ID == 2)
                 rState |= FleetState.Sortie;
             else if (ExpeditionStatus.Expedition != null)
                 rState |= FleetState.Expedition;
@@ -111,7 +110,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rState |= FleetState.Idle;
 
             Ship[] rShipsToBeRepaired = null;
-            if ((rState & FleetState.Idle) == FleetState.Idle)
+            if ((rState & FleetState.Idle) != 0)
             {
                 if (r_Ships.Any(r => r.Fuel.Current < r.Fuel.Maximum || r.Bullet.Current < r.Bullet.Maximum))
                     rState |= FleetState.Unsupplied;
@@ -119,13 +118,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (r_Ships.Any(r => Port.RepairDocks.Values.Any(rpDock => rpDock.Ship == r)))
                     rState |= FleetState.Repairing;
 
-                if (r_Ships.Any(r => (r.State & ShipState.HeavilyDamaged) == ShipState.HeavilyDamaged))
+                if (r_Ships.Any(r => (r.State & ShipState.HeavilyDamaged) != 0))
                     rState |= FleetState.HeavilyDamaged;
 
                 if (r_Ships.Count > 0 && (ShipType)r_Ships[0].Info.Type.ID == ShipType.RepairShip)
                 {
                     rShipsToBeRepaired = r_Ships.Take(2 + r_Ships[0].EquipedEquipment.Count(r => r.Info.Type == EquipmentType.ShipRepairFacility))
-                        .Where(r => r.HP.Current != r.HP.Maximum && r.HP.Current / (double)r.HP.Maximum > .5 && !Port.RepairDocks.Values.Any(rpDock => rpDock.Ship == r)).ToArray();
+                        .Where(r => r.DamageState != ShipDamageState.FullyHealthy && r.DamageState < ShipDamageState.ModeratelyDamaged && !Port.RepairDocks.Values.Any(rpDock => rpDock.Ship == r)).ToArray();
                     if (rShipsToBeRepaired.Length > 0)
                         rState |= FleetState.AnchorageRepair;
                 }
@@ -136,9 +135,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             else
                 ConditionRegeneration.Reset();
 
-            if ((rState & FleetState.AnchorageRepair) == FleetState.AnchorageRepair)
+            if ((rState & FleetState.AnchorageRepair) != 0)
                 AnchorageRepair.Update(rShipsToBeRepaired);
-            else if ((State & FleetState.AnchorageRepair) == FleetState.AnchorageRepair)
+            else if ((State & FleetState.AnchorageRepair) != 0)
                 AnchorageRepair.Stop();
 
             State = rState;
