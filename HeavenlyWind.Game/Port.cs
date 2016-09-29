@@ -555,6 +555,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal void UpdateItemCount(JArray rpItems)
         {
+            if (rpItems == null)
+                return;
+
             foreach (var rItem in rpItems)
             {
                 var rID = (int)rItem["api_id"];
