@@ -311,6 +311,7 @@
   <String Key="Window_ExpeditionHistory">遠征歴史</String>
   <String Key="Window_ScrappingHistory">解体・廃棄歴史</String>
   <String Key="Window_ResourceHistory">資材歴史</String>
+  <String Key="Window_SortieConsumptionHistory">出撃消費歴史</String>
   <String Key="Window_ClosingConfirmation_Instruction">何をしたいですか？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">終了します</String>
   <String Key="Window_ClosingConfirmation_Button_No">戻ります</String>
@@ -451,6 +452,7 @@
   <String Key="Record_Time">時間</String>
   <String Key="Record_Equipment">装備</String>
   <String Key="Record_SecretaryShip">秘書艦</String>
+  <String Key="Record_RankingPoints">戦果</String>
   <String Key="Record_Filter_SuccessOnly">成功のみ</String>
 
   <String Key="ConstructionHistory_Ship">艦娘</String>

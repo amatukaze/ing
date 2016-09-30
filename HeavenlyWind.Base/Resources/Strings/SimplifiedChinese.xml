@@ -313,6 +313,7 @@
   <String Key="Window_ExpeditionHistory">远征历史</String>
   <String Key="Window_ScrappingHistory">解体・废弃历史</String>
   <String Key="Window_ResourceHistory">资源历史</String>
+  <String Key="Window_SortieConsumptionHistory">出击消耗历史</String>
   <String Key="Window_ClosingConfirmation_Instruction">你想做什么呢？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
   <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
@@ -454,6 +455,7 @@
   <String Key="Record_Time">时间</String>
   <String Key="Record_Equipment">装备</String>
   <String Key="Record_SecretaryShip">秘书舰</String>
+  <String Key="Record_RankingPoints">战果</String>
   <String Key="Record_Filter_SuccessOnly">仅成功的</String>
 
   <String Key="ConstructionHistory_Ship">舰娘</String>

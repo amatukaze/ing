@@ -314,6 +314,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Window_ExpeditionHistory => GetString(nameof(Window_ExpeditionHistory));
         public string Window_ScrappingHistory => GetString(nameof(Window_ScrappingHistory));
         public string Window_ResourceHistory => GetString(nameof(Window_ResourceHistory));
+        public string Window_SortieConsumptionHistory => GetString(nameof(Window_SortieConsumptionHistory));
         public string Window_ClosingConfirmation_Instruction => GetString(nameof(Window_ClosingConfirmation_Instruction));
         public string Window_ClosingConfirmation_Button_Yes => GetString(nameof(Window_ClosingConfirmation_Button_Yes));
         public string Window_ClosingConfirmation_Button_No => GetString(nameof(Window_ClosingConfirmation_Button_No));
@@ -453,6 +454,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Record_Time => GetString(nameof(Record_Time));
         public string Record_Equipment => GetString(nameof(Record_Equipment));
         public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));
+        public string Record_RankingPoints => GetString(nameof(Record_RankingPoints));
         public string Record_Filter_SuccessOnly => GetString(nameof(Record_Filter_SuccessOnly));
 
         public string ConstructionHistory_Ship => GetString(nameof(ConstructionHistory_Ship));

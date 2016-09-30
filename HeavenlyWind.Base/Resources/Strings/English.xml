@@ -313,6 +313,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Window_ExpeditionHistory">Expedition History</String>
   <String Key="Window_ScrappingHistory">Scrapping History</String>
   <String Key="Window_ResourceHistory">Resource History</String>
+  <String Key="Window_SortieConsumptionHistory">Sortie Cosumption History</String>
   <String Key="Window_ClosingConfirmation_Instruction">What do you want to do?</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">Exit</String>
   <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
@@ -452,6 +453,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Record_Time">Time</String>
   <String Key="Record_Equipment">Equipment</String>
   <String Key="Record_SecretaryShip">Secretary ship</String>
+  <String Key="Record_RankingPoints">Points</String>
   <String Key="Record_Filter_SuccessOnly">Successful</String>
 
   <String Key="ConstructionHistory_Ship">Ship</String>

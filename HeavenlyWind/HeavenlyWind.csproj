@@ -150,6 +150,7 @@
     <Compile Include="Models\Records\ExpeditionRecord.cs" />
     <Compile Include="Models\Records\FateRecord.cs" />
     <Compile Include="Models\Records\ResourceRecord.cs" />
+    <Compile Include="Models\Records\SortieConsumptionRecord.cs" />
     <Compile Include="Models\Records\SortieRecord.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
     <Compile Include="Models\SystemFont.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="ViewModels\History\HistoryViewModelBase.cs" />
     <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\SortieConsumptionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieMapFilterKey.cs" />
     <Compile Include="ViewModels\InitializationPageViewModel.cs" />
@@ -348,6 +350,9 @@
     </Compile>
     <Compile Include="Views\History\ScrappingHistoryWindow.xaml.cs">
       <DependentUpon>ScrappingHistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\History\SortieConsumptionHistoryWindow.xaml.cs">
+      <DependentUpon>SortieConsumptionHistoryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\History\SortieHistoryWindow.xaml.cs">
       <DependentUpon>SortieHistoryWindow.xaml</DependentUpon>
@@ -915,6 +920,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\History\ScrappingHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\History\SortieConsumptionHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

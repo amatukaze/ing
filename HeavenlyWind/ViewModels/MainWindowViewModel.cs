@@ -42,6 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         public ICommand ShowExpeditionHistoryCommand { get; }
         public ICommand ShowScrappingHistoryCommand { get; }
         public ICommand ShowResourceHistoryCommand { get; }
+        public ICommand ShowSortieConsumptionHistoryCommand { get; }
 
         internal MainWindowViewModel()
         {
@@ -72,6 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             ShowExpeditionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ExpeditionHistoryWindow>());
             ShowScrappingHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ScrappingHistoryWindow>());
             ShowResourceHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ResourceHistoryWindow>());
+            ShowSortieConsumptionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<SortieConsumptionHistoryWindow>());
         }
     }
 }

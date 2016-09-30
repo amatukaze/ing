@@ -1,0 +1,124 @@
+﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.History.SortieConsumptionHistoryWindow"
+                  x:ClassModifier="internal"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+                  xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                  xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
+                  xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                  mc:Ignorable="d"
+                  Title="{rb:StringResource Main.Window_SortieConsumptionHistory}"
+                  Width="1024" Height="600"
+                  UseLayoutRounding="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <DockPanel ruic:MetroWindow.IsCaptionBar="True">
+            <Border Height="4" DockPanel.Dock="Bottom" />
+
+            <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
+
+            <rc:AppIcon />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_SortieConsumptionHistory}" />
+        </DockPanel>
+
+        <Grid Margin="8, 0, 8, 8" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <ListView ItemsSource="{Binding Records}" Grid.Row="1">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="50">
+                            <TextBlock Text="#" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{ri:ItemIndex}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="150">
+                            <TextBlock Text="{rb:StringResource Main.Record_Time}" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Time}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="170" CellTemplate="{StaticResource SortieMapDataTemplate}">
+                            <TextBlock Text="{rb:StringResource Main.SortieHistory_Area}" />
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="65">
+                            <rc:MaterialIcon Type="Fuel" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Fuel}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Fuel}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="65">
+                            <rc:MaterialIcon Type="Bullet" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bullet}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Bullet}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="65">
+                            <rc:MaterialIcon Type="Steel" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Steel}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Steel}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="65">
+                            <rc:MaterialIcon Type="Bauxite" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bauxite}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Bauxite}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="65">
+                            <rc:MaterialIcon Type="Bucket" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Bucket}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Bucket}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="100">
+                            <TextBlock Text="{rb:StringResource Main.Record_RankingPoints}" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding RankingPoint, StringFormat=0.##}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+
+</ruic:MetroWindow>
