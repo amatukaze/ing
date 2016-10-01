@@ -173,20 +173,23 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             Navigator.Navigate(Preference.Instance.Browser.Homepage);
         }
 
-        internal void ResizeBrowserToFitGame()
+        internal async void ResizeBrowserToFitGame()
         {
             if (BrowserControl == null)
                 return;
 
+            var rDispatcher = BrowserControl.Dispatcher;
+
             Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
             IsNavigatorVisible = false;
 
-            BrowserControl.Dispatcher.Invoke(new Action(BrowserControl.ResizeBrowserToFitGame));
+            await rDispatcher.InvokeAsync(BrowserControl.ResizeBrowserToFitGame);
 
             IsResizedToFitGame = true;
             OnPropertyChanged(nameof(IsResizedToFitGame));
 
-            BrowserControl.Dispatcher.Invoke(new Action(() => Resized?.Invoke(this, BrowserControl.DesiredSize)));
+            var rDesiredSize = await rDispatcher.InvokeAsync(() => BrowserControl.DesiredSize);
+            Resized?.Invoke(this, rDesiredSize);
 
             ResizedToFitGame?.Invoke();
         }
