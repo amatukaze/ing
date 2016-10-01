@@ -149,12 +149,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             do
             {
-                if (rpProcessID == 0 || !rMap.TryGetValue(rpProcessID, out rpProcessID))
+                var rProcessID = rpProcessID;
+
+                if (rProcessID == 0 || !rMap.TryGetValue(rProcessID, out rpProcessID))
                     return false;
 
-                if (rpProcessID == rHostProcessID)
-                    return true;
-            } while (true);
+                rMap.Remove(rProcessID);
+
+            } while (rpProcessID != rHostProcessID);
+
+            return true;
         }
 
         void SetZoom(double rpZoom)
