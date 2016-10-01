@@ -63,13 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             OnPropertyChanged(nameof(Current));
         }
 
-        public bool Equals(ClampedValue rpOther)
-        {
-            if (ReferenceEquals(rpOther, null))
-                return false;
-
-            return Current == rpOther.Current && Before == rpOther.Before && Maximum == rpOther.Maximum;
-        }
+        public bool Equals(ClampedValue rpOther) => rpOther == this;
         public override bool Equals(object rpObject)
         {
             var rObject = rpObject as ClampedValue;
@@ -80,8 +74,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         }
         public override int GetHashCode() => (Maximum * 401) ^ (Before * 19) ^ Current;
 
-        public static bool operator ==(ClampedValue x, ClampedValue y) => x.Equals(y);
-        public static bool operator !=(ClampedValue x, ClampedValue y) => !x.Equals(y);
+        public static bool operator ==(ClampedValue x, ClampedValue y)
+        {
+            if (ReferenceEquals(x, y))
+                return true;
+
+            if (((object)x) == null || ((object)y) == null)
+                return false;
+
+            return x.Current == y.Current && x.Before == y.Before && x.Maximum == y.Maximum;
+        }
+        public static bool operator !=(ClampedValue x, ClampedValue y) => !(x == y);
 
         public override string ToString() => $"{(Before == Current ? string.Empty : Before + "->")}{Current}/{Maximum}";
     }

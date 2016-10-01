@@ -50,10 +50,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 var rCurrent = rMaximum - RawData.DefeatedCount.Value;
 
                 HP.Set(rMaximum, rCurrent);
+                HP.Before = HP.Current;
             }
             else if (RawData.Event != null)
             {
                 HP.Set(RawData.Event.HPMaximum, RawData.Event.HPCurrent);
+                HP.Before = HP.Current;
                 Difficulty = RawData.Event.SelectedDifficulty;
             }
 
