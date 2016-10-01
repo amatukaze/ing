@@ -192,7 +192,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             ApiService.SubscribeOnce("api_get_member/base_air_corps", delegate
             {
-                DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() =>
+                DispatcherUtil.UIDispatcher.InvokeAsync(() =>
                 {
                     if (RightTabs == null)
                     {
@@ -201,7 +201,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     }
 
                     RightTabs.Add(AirBase);
-                }));
+                });
             });
 
             ApiService.Subscribe("api_req_map/next", delegate

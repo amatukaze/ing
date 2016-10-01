@@ -90,7 +90,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         {
             if (!BrowserService.Instance.NoInstalledLayoutEngines)
             {
-                BrowserService.Instance.Resized += (s, e) => Dispatcher.BeginInvoke(new Action(UpdateSize));
+                BrowserService.Instance.Resized += (s, e) => Dispatcher.Invoke(UpdateSize);
 
                 Preference.Instance.UI.LandscapeDock.Subscribe(OnDockChanged);
                 Preference.Instance.UI.PortraitDock.Subscribe(OnDockChanged);
@@ -109,7 +109,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
 
         void OnDockChanged(Dock rpDock)
         {
-            Dispatcher.BeginInvoke(new Action(() =>
+            Dispatcher.InvokeAsync(() =>
             {
                 var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
                 var rWidth = GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
@@ -130,7 +130,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
 
                 Width = rWidth;
                 Height = rHeight;
-            }));
+            });
         }
 
         void IMainWindowService.Flash(int rpCount, int rpTimeout)

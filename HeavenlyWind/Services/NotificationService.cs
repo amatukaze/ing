@@ -233,7 +233,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
 
             if (rpSound == NotificationSound.Custom)
-                DispatcherUtil.UIDispatcher.BeginInvoke(new Action<string>(PlayCustomSound), rpCustomSoundFilename);
+                DispatcherUtil.UIDispatcher.InvokeAsync(() => PlayCustomSound(rpCustomSoundFilename));
         }
         void PlayCustomSound(string rpCustomSoundFilename)
         {

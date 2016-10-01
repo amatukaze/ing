@@ -171,7 +171,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             r_Owner.Communicator.Write(CommunicatorMessages.SetZoom + ":" + rpZoom);
             r_Owner.Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
-            r_Owner.BrowserControl.Dispatcher.BeginInvoke(new Action(r_Owner.BrowserControl.ResizeBrowserToFitGame));
+            r_Owner.BrowserControl.Dispatcher.InvokeAsync(r_Owner.BrowserControl.ResizeBrowserToFitGame);
         }
 
         void RestartGame()
