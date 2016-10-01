@@ -17,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
     public class RecordService
     {
-        public const int Version = 1;
+        public const int Version = 2;
 
         public static RecordService Instance { get; } = new RecordService();
 
@@ -160,33 +160,63 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             int rVersion;
             using (var rCommand = r_Connection.CreateCommand())
             {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY NOT NULL, value TEXT) WITHOUT ROWID;" +
+                rCommand.CommandText =
+                    "CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
                     "SELECT value FROM metadata WHERE key = 'version';";
 
                 rVersion = Convert.ToInt32(rCommand.ExecuteScalar());
             }
 
-            var rLastestVersion = true;
-            if (rVersion != 0)
-                rLastestVersion = rVersion == Version;
-            else
-                InitializeDatabase();
+            var rLastestVersion = rVersion == 0 || rVersion == Version;
 
             if (!rLastestVersion)
-            {
+                UpgradeFromOldVersionPreprocessStep(rVersion);
 
-            }
+            InitializeDatabase();
+
+            if (!rLastestVersion)
+                UpgradeFromOldVersionPostprocessStep(rVersion);
+        }
+        void UpgradeFromOldVersionPreprocessStep(int rpOldVersion)
+        {
+            if (rpOldVersion < 2)
+                using (var rCommand = r_Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "DROP TABLE IF EXISTS metadata; " +
+                        "CREATE TABLE metadata(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
+
+                        "ALTER TABLE versions RENAME TO versions_old;";
+
+                    rCommand.ExecuteNonQuery();
+                }
         }
         void InitializeDatabase()
         {
             using (var rCommand = r_Connection.CreateCommand())
             {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS versions(key TEXT PRIMARY KEY NOT NULL, value TEXT) WITHOUT ROWID;" +
-                    "INSERT INTO metadata(key, value) VALUES('version', @version);";
+                rCommand.CommandText =
+                    "CREATE TABLE IF NOT EXISTS versions(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
+                    "CREATE TABLE IF NOT EXISTS common(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
+
+                    "INSERT OR REPLACE INTO metadata(key, value) VALUES('version', @version);";
                 rCommand.Parameters.AddWithValue("@version", Version.ToString());
 
                 rCommand.ExecuteNonQuery();
             }
+        }
+        void UpgradeFromOldVersionPostprocessStep(int rpOldVersion)
+        {
+            if (rpOldVersion < 2)
+                using (var rCommand = r_Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "INSERT INTO versions SELECT key, value FROM versions_old; " +
+                        "DROP TABLE versions_old;";
+                    rCommand.Parameters.AddWithValue("@version", Version.ToString());
+
+                    rCommand.ExecuteNonQuery();
+                }
         }
 
         public SQLiteCommand CreateCommand() => r_Connection.CreateCommand();
