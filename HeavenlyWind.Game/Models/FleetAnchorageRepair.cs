@@ -11,6 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         ListDictionary<Ship, int> r_Snapshots;
 
+        public IEnumerable<Ship> RepairingShips => r_Snapshots == null ? ArrayUtil.Empty<Ship>() : r_Snapshots.Keys;
+
         public event Action InterruptionNotification;
 
         internal FleetAnchorageRepair(Fleet rpFleet)
