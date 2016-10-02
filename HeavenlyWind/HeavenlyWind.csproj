@@ -152,6 +152,7 @@
     <Compile Include="Models\Records\ResourceRecord.cs" />
     <Compile Include="Models\Records\SortieConsumptionRecord.cs" />
     <Compile Include="Models\Records\SortieRecord.cs" />
+    <Compile Include="Models\Records\SortieRecordBase.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
     <Compile Include="Models\SystemFont.cs" />
     <Compile Include="Models\UIZoomInfo.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieConsumptionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\SortieHistoryViewModelBase.cs" />
     <Compile Include="ViewModels\History\SortieMapFilterKey.cs" />
     <Compile Include="ViewModels\InitializationPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

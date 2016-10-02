@@ -1,18 +1,17 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game;
-using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Models.Records;
-using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
-    class SortieHistoryViewModel : HistoryViewModelBase<SortieRecord>
+    class SortieHistoryViewModel : SortieHistoryViewModelBase<SortieRecord>
     {
         protected override string LoadCommandText => @"SELECT sortie.id AS id, sortie.map AS map, difficulty, step, node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM sortie
 JOIN sortie_map ON sortie.map = sortie_map.id
@@ -24,30 +23,9 @@ LEFT JOIN battle_detail.battle battle_detail ON extra_info = battle_detail.id
 LEFT JOIN battle_detail.participant_hd_view participant_hd ON extra_info = participant_hd.battle
 ORDER BY id DESC, step DESC;";
 
-        public FilterKeyCollection<SortieMapFilterKey> Maps { get; } = new FilterKeyCollection<SortieMapFilterKey>(SortieMapFilterKey.All, SortieMapFilterKey.Comparer);
+        protected override string LoadMapsCommandText => "SELECT DISTINCT map, difficulty FROM sortie ORDER BY map, difficulty;";
+
         public FilterKeyCollection<string> Nodes { get; } = new FilterKeyCollection<string>(string.Empty, string.Compare);
-
-        SortieMapFilterKey r_Map = SortieMapFilterKey.All;
-        public SortieMapFilterKey SelectedMap
-        {
-            get { return r_Map; }
-            set
-            {
-                if (r_Map != value)
-                {
-                    r_Map = value;
-                    OnPropertyChanged(nameof(SelectedMap));
-
-                    if (r_Map != SortieMapFilterKey.All)
-                        UpdateNodes();
-
-                    r_Node = string.Empty;
-                    OnPropertyChanged(nameof(SelectedNode));
-
-                    Refresh();
-                }
-            }
-        }
 
         string r_Node = string.Empty;
         public string SelectedNode
@@ -129,36 +107,6 @@ ORDER BY id DESC, step DESC;";
             }
         }
 
-        public override void OnInitialized()
-        {
-            var rMasterInfo = KanColleGame.Current.MasterInfo;
-
-            using (var rCommand = CreateCommand())
-            {
-                rCommand.CommandText = "SELECT DISTINCT map, difficulty FROM sortie ORDER BY map, difficulty;";
-                using (var rReader = rCommand.ExecuteReader())
-                {
-                    var rMaps = new List<SortieMapFilterKey>(rReader.VisibleFieldCount);
-
-                    while (rReader.Read())
-                    {
-                        var rMap = Convert.ToInt32(rReader["map"]);
-
-                        EventMapDifficulty rDifficulty;
-                        var rDifficultyData = rReader["difficulty"];
-                        if (rDifficultyData == DBNull.Value)
-                            rDifficulty = EventMapDifficulty.None;
-                        else
-                            rDifficulty = (EventMapDifficulty)Convert.ToInt32(rDifficultyData);
-
-                        rMaps.Add(new SortieMapFilterKey(MapService.Instance.GetMasterInfo(rMap), rDifficulty));
-                    }
-
-                    Maps.AddRange(rMaps);
-                }
-            }
-        }
-
         public override bool Filter(SortieRecord rpItem)
         {
             var rResult = r_Map == SortieMapFilterKey.All ||
@@ -187,6 +135,14 @@ ORDER BY id DESC, step DESC;";
             return rResult;
         }
 
+        protected override void OnSelectedMapChanged()
+        {
+            if (r_Map != SortieMapFilterKey.All)
+                UpdateNodes();
+
+            r_Node = string.Empty;
+            OnPropertyChanged(nameof(SelectedNode));
+        }
         void UpdateNodes()
         {
             var rMap = r_Map.Map;
@@ -219,20 +175,6 @@ WHERE sortie_map.id = @map AND (difficulty IS NULL OR difficulty = @difficulty) 
         protected override SortieRecord CreateRecordFromReader(SQLiteDataReader rpReader) => new SortieRecord(rpReader);
 
         protected override bool TableFilter(string rpTable) => rpTable == "main.battle";
-
-        protected override void OnRecordInsert(string rpTable, long rpRowID)
-        {
-            base.OnRecordInsert(rpTable, rpRowID);
-
-            var rMap = LastInsertedRecord.Map;
-            var rDifficulty = LastInsertedRecord.EventMapDifficulty.GetValueOrDefault();
-
-            foreach (var rKey in Maps)
-                if (rMap == rKey.Map && rDifficulty == rKey.EventMapDifficulty)
-                    return;
-
-            Maps.Add(new SortieMapFilterKey(LastInsertedRecord.Map, rDifficulty));
-        }
 
         protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
         {

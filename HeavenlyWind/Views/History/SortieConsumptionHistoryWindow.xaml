@@ -33,6 +33,15 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
+            <StackPanel>
+                <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="14" />
+
+                <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                    <TextBlock Text="{rb:StringResource Main.SortieHistory_Area}" />
+                    <ComboBox ItemsSource="{Binding Maps}" ItemTemplateSelector="{StaticResource MapDataTemplateSelector}" SelectedValue="{Binding SelectedMap}" MinWidth="150" Height="24" Margin="4, 0, 0, 0" />
+                </StackPanel>
+            </StackPanel>
+
             <ListView ItemsSource="{Binding Records}" Grid.Row="1">
                 <ListView.View>
                     <GridView>

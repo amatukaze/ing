@@ -1,24 +1,18 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    using Game;
-    using System.Data.SQLite;
-    using EventMapDifficultyEnum = EventMapDifficulty;
-
-    class SortieRecord : ModelBase
+    class SortieRecord : SortieRecordBase
     {
         internal long ID { get; }
         public long SortieID { get; }
-
-        public IMapMasterInfo Map { get; }
-        public bool IsEventMap { get; }
-        public EventMapDifficultyEnum? EventMapDifficulty { get; }
 
         public int Step { get; }
         public int Node { get; }
@@ -36,23 +30,13 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         public IList<ShipInfo> HeavilyDamagedShips { get; private set; }
 
-        internal SortieRecord(SQLiteDataReader rpReader)
+        internal SortieRecord(SQLiteDataReader rpReader) : base(rpReader)
         {
             SortieID = Convert.ToInt64(rpReader["id"]);
 
-            var rMapID = Convert.ToInt32(rpReader["map"]);
-            Map = MapService.Instance.GetMasterInfo(rMapID);
-
-            var rEventMapDifficulty = rpReader["difficulty"];
-            if (rEventMapDifficulty != DBNull.Value)
-            {
-                IsEventMap = true;
-                EventMapDifficulty = (EventMapDifficultyEnum)Convert.ToInt32(rEventMapDifficulty);
-            }
-
             Step = Convert.ToInt32(rpReader["step"]);
             Node = Convert.ToInt32(rpReader["node"]);
-            NodeWikiID = MapService.Instance.GetNodeWikiID(rMapID, Node);
+            NodeWikiID = MapService.Instance.GetNodeWikiID(Map.ID, Node);
 
             EventType = (SortieEventType)Convert.ToInt32(rpReader["type"]);
             if (EventType == SortieEventType.NormalBattle)

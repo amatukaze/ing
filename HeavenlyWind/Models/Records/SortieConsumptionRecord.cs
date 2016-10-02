@@ -1,18 +1,11 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
-using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System;
+﻿using System;
 using System.Data.SQLite;
-using EventMapDifficultyEnum = Sakuno.KanColle.Amatsukaze.Game.Models.EventMapDifficulty;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    class SortieConsumptionRecord : ModelBase
+    class SortieConsumptionRecord : SortieRecordBase
     {
         public string Time { get; }
-
-        public IMapMasterInfo Map { get; }
-        public bool IsEventMap { get; }
-        public EventMapDifficultyEnum? EventMapDifficulty { get; }
 
         public int Fuel { get; }
         public int Bullet { get; }
@@ -22,19 +15,9 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         public double RankingPoint { get; }
 
-        internal SortieConsumptionRecord(SQLiteDataReader rpReader)
+        internal SortieConsumptionRecord(SQLiteDataReader rpReader) : base(rpReader)
         {
             Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["id"])).LocalDateTime.ToString();
-
-            var rMapID = Convert.ToInt32(rpReader["map"]);
-            Map = MapService.Instance.GetMasterInfo(rMapID);
-
-            var rEventMapDifficulty = rpReader["difficulty"];
-            if (rEventMapDifficulty != DBNull.Value)
-            {
-                IsEventMap = true;
-                EventMapDifficulty = (EventMapDifficultyEnum)Convert.ToInt32(rEventMapDifficulty);
-            }
 
             Fuel = Convert.ToInt32(rpReader["fuel"]);
             Bullet = Convert.ToInt32(rpReader["bullet"]);
@@ -42,7 +25,9 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
             Bauxite = Convert.ToInt32(rpReader["bauxite"]);
             Bucket = Convert.ToInt32(rpReader["bucket"]);
 
-            RankingPoint = (double)rpReader["ranking_point"];
+            var rRankingPoint = rpReader["ranking_point"];
+            if (rRankingPoint != DBNull.Value)
+                RankingPoint = Convert.ToDouble(rRankingPoint);
         }
     }
 }

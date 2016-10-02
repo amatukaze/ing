@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
         protected override void DisposeManagedResources()
         {
             r_Owner = null;
-            r_Records.Clear();
+            r_Records?.Clear();
 
             base.DisposeManagedResources();
         }
