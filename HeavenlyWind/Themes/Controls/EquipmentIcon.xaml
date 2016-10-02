@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -9,7 +10,8 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Width" Value="24" />
         <Setter Property="Height" Value="24" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="CacheMode" Value="{StaticResource BitmapCache}" />
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type rc:EquipmentIcon}">
