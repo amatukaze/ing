@@ -23,6 +23,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             DisposableObjects.Add(ApiService.Subscribe("api_req_map/start", StartSortie));
             DisposableObjects.Add(ApiService.Subscribe("api_req_map/next", _ => InsertExplorationRecord(SortieInfo.Current)));
 
+            DisposableObjects.Add(ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, RecordMapHP));
+
             KanColleGame.Current.ReturnedFromSortie += OnReturnedFromSortie;
         }
 
@@ -180,6 +182,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 InsertNodeInfo(rpSortie.Map.ID, rNode);
                 InsertRecord(rpSortie.ID, rNode.InternalID, (rNode.Event as IExtraInfo)?.GetExtraInfo());
 
+                if (!rpSortie.Map.IsCleared && rNode.EventType == SortieEventType.EscortSuccess)
+                    ProcessEscortSuccess(rpSortie);
+
                 rTransaction.Commit();
             }
 
@@ -207,6 +212,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.Parameters.AddWithValue("@id", rpSortieID);
                 rCommand.Parameters.AddWithValue("@node", rpNode);
                 rCommand.Parameters.AddWithValue("@extra_info", rpExtraInfo);
+
+                rCommand.ExecuteNonQuery();
+            }
+        }
+
+        void RecordMapHP(ApiInfo rpInfo)
+        {
+            var rSortie = SortieInfo.Current;
+            var rSortieMap = rSortie.Map;
+            if (!rSortieMap.HasGauge || rSortie.Node.EventType != SortieEventType.BossBattle)
+                return;
+
+            SetSortieMapHP(rSortie.ID, rSortieMap.HP.Current);
+        }
+        void ProcessEscortSuccess(SortieInfo rpSortie) => SetSortieMapHP(rpSortie.ID, rpSortie.Map.HP.Current);
+        void SetSortieMapHP(long rpID, int rpMapHP)
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText = "UPDATE sortie SET map_hp = @map_hp WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@id", rpID);
+                rCommand.Parameters.AddWithValue("@map_hp", rpMapHP);
 
                 rCommand.ExecuteNonQuery();
             }
