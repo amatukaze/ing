@@ -25,4 +25,6 @@
 
     <ri:QuestCategoryToBrushConverter x:Key="QuestCategoryToBrushConverter" />
 
+    <ruic:TreeListViewItemLevelToIndentConverter x:Key="TreeListViewItemLevelToIndentConverter" />
+
 </ResourceDictionary>
