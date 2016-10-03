@@ -13,14 +13,14 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         public SortieRecordBase(SQLiteDataReader rpReader)
         {
-            var rMapID = Convert.ToInt32(rpReader["map"]);
+            var rMapID = rpReader.GetInt32("map");
             Map = MapService.Instance.GetMasterInfo(rMapID);
 
-            var rEventMapDifficulty = rpReader["difficulty"];
-            if (rEventMapDifficulty != DBNull.Value)
+            var rEventMapDifficulty = rpReader.GetInt32Optional("difficulty");
+            if (rEventMapDifficulty.HasValue)
             {
                 IsEventMap = true;
-                EventMapDifficulty = (EventMapDifficulty)Convert.ToInt32(rEventMapDifficulty);
+                EventMapDifficulty = (EventMapDifficulty)rEventMapDifficulty.Value;
             }
         }
     }

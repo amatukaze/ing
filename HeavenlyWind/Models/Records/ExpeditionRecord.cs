@@ -25,39 +25,39 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal ExpeditionRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["time"])).LocalDateTime.ToString();
+            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("time")).LocalDateTime.ToString();
 
             ExpeditionInfo rExpedition;
-            if (KanColleGame.Current.MasterInfo.Expeditions.TryGetValue(Convert.ToInt32(rpReader["expedition"]), out rExpedition))
+            if (KanColleGame.Current.MasterInfo.Expeditions.TryGetValue(rpReader.GetInt32("expedition"), out rExpedition))
                 Expedition = rExpedition;
             else
                 Expedition = ExpeditionInfo.Dummy;
 
-            Result = (ExpeditionResult)Convert.ToInt32(rpReader["result"]);
+            Result = (ExpeditionResult)rpReader.GetInt32("result");
 
             if (Result == ExpeditionResult.Failure)
                 return;
 
-            Fuel = Convert.ToInt32(rpReader["fuel"]);
-            Bullet = Convert.ToInt32(rpReader["bullet"]);
-            Steel = Convert.ToInt32(rpReader["steel"]);
-            Bauxite = Convert.ToInt32(rpReader["bauxite"]);
+            Fuel = rpReader.GetInt32("fuel");
+            Bullet = rpReader.GetInt32("bullet");
+            Steel = rpReader.GetInt32("steel");
+            Bauxite = rpReader.GetInt32("bauxite");
 
-            var rItem1 = rpReader["item1"];
-            if (rItem1 != DBNull.Value)
+            var rItem1 = rpReader.GetInt32Optional("item1");
+            if (rItem1.HasValue)
             {
-                var rItem1ID = Convert.ToInt32(rItem1);
+                var rItem1ID = rItem1.Value;
                 if (rItem1ID != -1)
                     Item1 = KanColleGame.Current.MasterInfo.Items[rItem1ID];
-                Item1Count = Convert.ToInt32(rpReader["item1_count"]);
+                Item1Count = rpReader.GetInt32("item1_count");
             }
-            var rItem2 = rpReader["item2"];
-            if (rItem2 != DBNull.Value)
+            var rItem2 = rpReader.GetInt32Optional("item2");
+            if (rItem2.HasValue)
             {
-                var rItem2ID = Convert.ToInt32(rItem2);
+                var rItem2ID = rItem2.Value;
                 if (rItem2ID != -1)
                     Item2 = KanColleGame.Current.MasterInfo.Items[rItem2ID];
-                Item2Count = Convert.ToInt32(rpReader["item2_count"]);
+                Item2Count = rpReader.GetInt32("item2_count");
             }
         }
     }

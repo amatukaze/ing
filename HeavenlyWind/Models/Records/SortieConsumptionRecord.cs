@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sakuno.KanColle.Amatsukaze.Game;
+using System;
 using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
@@ -13,21 +14,19 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
         public int Bauxite { get; }
         public int Bucket { get; }
 
-        public double RankingPoint { get; }
+        public double? RankingPoint { get; }
 
         internal SortieConsumptionRecord(SQLiteDataReader rpReader) : base(rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["id"])).LocalDateTime.ToString();
+            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("id")).LocalDateTime.ToString();
 
-            Fuel = Convert.ToInt32(rpReader["fuel"]);
-            Bullet = Convert.ToInt32(rpReader["bullet"]);
-            Steel = Convert.ToInt32(rpReader["steel"]);
-            Bauxite = Convert.ToInt32(rpReader["bauxite"]);
-            Bucket = Convert.ToInt32(rpReader["bucket"]);
+            Fuel = rpReader.GetInt32("fuel");
+            Bullet = rpReader.GetInt32("bullet");
+            Steel = rpReader.GetInt32("steel");
+            Bauxite = rpReader.GetInt32("bauxite");
+            Bucket = rpReader.GetInt32("bucket");
 
-            var rRankingPoint = rpReader["ranking_point"];
-            if (rRankingPoint != DBNull.Value)
-                RankingPoint = Convert.ToDouble(rRankingPoint);
+            RankingPoint = rpReader.GetDoubleOptional("ranking_point");
         }
     }
 }

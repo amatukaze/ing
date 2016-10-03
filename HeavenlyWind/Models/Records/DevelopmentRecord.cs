@@ -21,18 +21,18 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal DevelopmentRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["time"])).LocalDateTime.ToString();
-            var rEquipmentID = rpReader["equipment"];
-            if (rEquipmentID != DBNull.Value)
-                Equipment = KanColleGame.Current.MasterInfo.Equipment[Convert.ToInt32(rEquipmentID)];
+            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("time")).LocalDateTime.ToString();
+            var rEquipmentID = rpReader.GetInt32Optional("equipment");
+            if (rEquipmentID.HasValue)
+                Equipment = KanColleGame.Current.MasterInfo.Equipment[rEquipmentID.Value];
 
-            FuelConsumption = Convert.ToInt32(rpReader["fuel"]);
-            BulletConsumption = Convert.ToInt32(rpReader["bullet"]);
-            SteelConsumption = Convert.ToInt32(rpReader["steel"]);
-            BauxiteConsumption = Convert.ToInt32(rpReader["bauxite"]);
+            FuelConsumption = rpReader.GetInt32("fuel");
+            BulletConsumption = rpReader.GetInt32("bullet");
+            SteelConsumption = rpReader.GetInt32("steel");
+            BauxiteConsumption = rpReader.GetInt32("bauxite");
 
-            SecretaryShip = KanColleGame.Current.MasterInfo.Ships[Convert.ToInt32(rpReader["flagship"])];
-            HeadquarterLevel = Convert.ToInt32(rpReader["hq_level"]);
+            SecretaryShip = KanColleGame.Current.MasterInfo.Ships[rpReader.GetInt32("flagship")];
+            HeadquarterLevel = rpReader.GetInt32("hq_level");
         }
     }
 }
