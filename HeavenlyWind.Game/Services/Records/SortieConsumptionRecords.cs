@@ -319,7 +319,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     if (rCount > 0)
                         rBuilder.Append(", ");
 
-                    rBuilder.Append($"((SELECT max(id) FROM sortie_participant_ship WHERE ship_id = {rSnapshot.ShipID}), 1)");
+                    rBuilder.Append($"((SELECT max(id) FROM sortie_participant_ship WHERE ship_id = {rSnapshot.ShipID}), 4)");
 
                     rCount++;
                 }
@@ -336,7 +336,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     var rFuelConsumption = Math.Ceiling(rSnapshot.FuelConsumption * rRate);
                     var rSteelConsumption = Math.Ceiling(rSnapshot.SteelConsumption * rRate);
 
-                    rBuilder.Append($"UPDATE sortie_consumption_detail SET fuel = ifnull(fuel, 0) + {rFuelConsumption}, steel = ifnull(steel, 0) + {rSteelConsumption} WHERE id = (SELECT max(id) FROM sortie_participant_ship WHERE ship_id = {rSnapshot.ShipID}) AND type = 1; ");
+                    rBuilder.Append($"UPDATE sortie_consumption_detail SET fuel = ifnull(fuel, 0) + {rFuelConsumption}, steel = ifnull(steel, 0) + {rSteelConsumption} WHERE id = (SELECT max(id) FROM sortie_participant_ship WHERE ship_id = {rSnapshot.ShipID}) AND type = 4; ");
 
                     var rShip = rSnapshot.Ship;
                     if (rShip.HP.Current < rShip.HP.Maximum)
