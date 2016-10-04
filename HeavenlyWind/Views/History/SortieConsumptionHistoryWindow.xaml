@@ -70,6 +70,20 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="65">
+                            <TextBlock Text="HP" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock DataContext="{Binding MapHP}" Visibility="{rb:CollapsedIfNull}">
+                                        <Run Text="{Binding Current, Mode=OneWay}" FontWeight="Bold" />
+                                        <Run Text="/" />
+                                        <Run Text="{Binding Maximum, Mode=OneWay}" />
+                                    </TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="65">
                             <rc:MaterialIcon Type="Fuel" />
 
                             <GridViewColumn.CellTemplate>
