@@ -108,7 +108,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             SessionSubject.OnNext(rSession);
 
-            if (!rpSession.bHasResponse)
+            if (!rpSession.bHasResponse && r_TrafficBarrier != null)
                 r_TrafficBarrier.Wait();
         }
 
