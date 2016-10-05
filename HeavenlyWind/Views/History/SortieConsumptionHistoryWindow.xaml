@@ -11,6 +11,7 @@
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_SortieConsumptionHistory}"
                   Width="1024" Height="600"
+                  FontSize="14"
                   UseLayoutRounding="True">
     <Grid>
         <Grid.RowDefinitions>
@@ -30,11 +31,12 @@
         <Grid Margin="8, 0, 8, 8" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="3" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
             <StackPanel>
-                <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="14" />
+                <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="16" />
 
                 <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
                     <TextBlock Text="{rb:StringResource Main.SortieHistory_Area}" />
@@ -42,7 +44,7 @@
                 </StackPanel>
             </StackPanel>
 
-            <ListView ItemsSource="{Binding Records}" Grid.Row="1">
+            <ListView ItemsSource="{Binding Records}" Grid.Row="2">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="50">

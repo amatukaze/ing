@@ -10,6 +10,7 @@
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_EquipmentOverview}"
                   Width="1024" Height="600"
+                  FontSize="14"
                   WindowPlacementPreference="{StaticResource WindowPlacementPreference}"
                   UseLayoutRounding="True">
     <Window.Resources>
@@ -57,7 +58,7 @@
 
             <Border Margin="0, 0, 0, 8" DockPanel.Dock="Top">
                 <StackPanel>
-                    <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="14" Margin="4, 0, 0, 0" />
+                    <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="16" Margin="4, 0, 0, 0" />
 
                     <CheckBox IsChecked="{Binding SelectAllTypes}" Margin="4, 4, 4, 2">
                         <TextBlock Text="{rb:StringResource Main.Feature_Filter_All}" />
