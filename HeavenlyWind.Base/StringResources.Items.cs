@@ -315,6 +315,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Window_ScrappingHistory => GetString(nameof(Window_ScrappingHistory));
         public string Window_ResourceHistory => GetString(nameof(Window_ResourceHistory));
         public string Window_SortieConsumptionHistory => GetString(nameof(Window_SortieConsumptionHistory));
+        public string Window_SortieStatistic => GetString(nameof(Window_SortieStatistic));
         public string Window_ClosingConfirmation_Instruction => GetString(nameof(Window_ClosingConfirmation_Instruction));
         public string Window_ClosingConfirmation_Button_Yes => GetString(nameof(Window_ClosingConfirmation_Button_Yes));
         public string Window_ClosingConfirmation_Button_No => GetString(nameof(Window_ClosingConfirmation_Button_No));
@@ -512,6 +513,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SessionTool_Method => GetString(nameof(SessionTool_Method));
         public string SessionTool_Status => GetString(nameof(SessionTool_Status));
         public string SessionTool_URLOrAPI => GetString(nameof(SessionTool_URLOrAPI));
+
+        public string SortieStatistic_TimeSpan_Today => GetString(nameof(SortieStatistic_TimeSpan_Today));
+        public string SortieStatistic_TimeSpan_ThisWeek => GetString(nameof(SortieStatistic_TimeSpan_ThisWeek));
+        public string SortieStatistic_TimeSpan_ThisMonth => GetString(nameof(SortieStatistic_TimeSpan_ThisMonth));
+        public string SortieStatistic_TimeSpan_LastWeek => GetString(nameof(SortieStatistic_TimeSpan_LastWeek));
+        public string SortieStatistic_TimeSpan_LastMonth => GetString(nameof(SortieStatistic_TimeSpan_LastMonth));
+        public string SortieStatistic_Count => GetString(nameof(SortieStatistic_Count));
+        public string SortieStatistic_RankingPoints => GetString(nameof(SortieStatistic_RankingPoints));
 
     }
 }

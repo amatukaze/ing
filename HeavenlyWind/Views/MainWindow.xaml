@@ -93,6 +93,11 @@
                             <TextBlock Text="{rb:StringResource Main.Window_SortieConsumptionHistory}" />
                         </Button>
                     </ListBoxItem>
+                    <ListBoxItem>
+                        <Button Command="{Binding ShowSortieStatisticCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_SortieStatistic}" />
+                        </Button>
+                    </ListBoxItem>
                 </ListBox>
             </ruic:DropDownButton>
 

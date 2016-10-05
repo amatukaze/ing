@@ -312,6 +312,7 @@
   <String Key="Window_ScrappingHistory">解体・廃棄歴史</String>
   <String Key="Window_ResourceHistory">資材歴史</String>
   <String Key="Window_SortieConsumptionHistory">出撃消費歴史</String>
+  <String Key="Window_SortieStatistic">出撃統計</String>
   <String Key="Window_ClosingConfirmation_Instruction">何をしたいですか？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">終了します</String>
   <String Key="Window_ClosingConfirmation_Button_No">戻ります</String>
@@ -510,5 +511,13 @@
   <String Key="SessionTool_Method">メソッド</String>
   <String Key="SessionTool_Status">ステータス</String>
   <String Key="SessionTool_URLOrAPI">URL・API</String>
+
+  <String Key="SortieStatistic_TimeSpan_Today">今日</String>
+  <String Key="SortieStatistic_TimeSpan_ThisWeek">今週</String>
+  <String Key="SortieStatistic_TimeSpan_ThisMonth">今月</String>
+  <String Key="SortieStatistic_TimeSpan_LastWeek">先週</String>
+  <String Key="SortieStatistic_TimeSpan_LastMonth">先月</String>
+  <String Key="SortieStatistic_Count">回数</String>
+  <String Key="SortieStatistic_RankingPoints">戦果</String>
 
 </Strings>

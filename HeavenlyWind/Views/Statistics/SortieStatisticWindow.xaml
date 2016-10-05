@@ -1,0 +1,210 @@
+﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.Statistics.SortieStatisticWindow"
+                  x:ClassModifier="internal"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+                  xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                  xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
+                  xmlns:rui="clr-namespace:Sakuno.UserInterface;assembly=Sakuno.UserInterface"
+                  xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                  xmlns:rms="clr-namespace:Sakuno.KanColle.Amatsukaze.Models.Statistics"
+                  xmlns:rvms="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Statistics"
+                  mc:Ignorable="d"
+                  Title="{rb:StringResource Main.Window_SortieStatistic}"
+                  FontSize="14"
+                  Width="1024" Height="600"
+                  UseLayoutRounding="True">
+    <Window.Resources>
+        <rui:GenericDataTemplateSelector x:Key="FirstColumnDataTemplateSelector" Default="{StaticResource SortieMapDataTemplate}">
+            <rui:DataTemplateSelection DataType="{x:Type rms:SortieStatisticTotalItem}">
+                <DataTemplate>
+                    <TextBlock Text="ALL" />
+                </DataTemplate>
+            </rui:DataTemplateSelection>
+        </rui:GenericDataTemplateSelector>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <DockPanel ruic:MetroWindow.IsCaptionBar="True">
+            <Border Height="4" DockPanel.Dock="Bottom" />
+
+            <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
+
+            <rc:AppIcon />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_SortieStatistic}" />
+        </DockPanel>
+
+        <Grid Margin="8, 0, 8, 8" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="8" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>
+                    <Run Text="{rb:StringResource Main.Record_Time, Mode=OneWay}" />:
+                </TextBlock>
+
+                <ListBox ItemsSource="{Binding TimeSpans}" SelectedValue="{Binding SelectedTimeSpan}" Margin="4, 0, 0, 0">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{rb:EnumToStringResource Type, SortieStatistic_TimeSpan}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+            </StackPanel>
+
+            <ListView Foreground="{DynamicResource ActiveForegroundBrushKey}" ItemsSource="{Binding SelectedTimeSpan.Maps}" Grid.Row="2">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="200" CellTemplateSelector="{StaticResource FirstColumnDataTemplateSelector}">
+                            <TextBlock Text="{rb:StringResource Main.SortieHistory_Area}" />
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="65">
+                            <TextBlock Text="{rb:StringResource Main.SortieStatistic_Count}" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Count}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="80">
+                            <rc:MaterialIcon Type="Fuel" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Name="Consumption" Text="{Binding FuelConsumption}" Margin="0, 4" Visibility="{rb:CollapsedIfZero FuelConsumption}" />
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding FuelConsumption, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
+                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="80">
+                            <rc:MaterialIcon Type="Bullet" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Name="Consumption" Text="{Binding BulletConsumption}" Margin="0, 4" Visibility="{rb:CollapsedIfZero BulletConsumption}" />
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding BulletConsumption, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
+                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="80">
+                            <rc:MaterialIcon Type="Steel" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Name="Consumption" Text="{Binding SteelConsumption}" Margin="0, 4" Visibility="{rb:CollapsedIfZero SteelConsumption}" />
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding SteelConsumption, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
+                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="80">
+                            <rc:MaterialIcon Type="Bauxite" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Name="Consumption" Text="{Binding BauxiteConsumption}" Margin="0, 4" Visibility="{rb:CollapsedIfZero BauxiteConsumption}" />
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding BauxiteConsumption, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
+                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="65">
+                            <rc:MaterialIcon Type="Bucket" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding BucketConsumption}" Margin="0, 4" Visibility="{rb:CollapsedIfZero BucketConsumption}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="65">
+                            <TextBlock Text="{rb:StringResource Main.SortieStatistic_RankingPoints}" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding RankingPoint, StringFormat=0.##}" Margin="0, 4" Visibility="{rb:CollapsedIfZero RankingPoint}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Width="65">
+                            <TextBlock Text="S / SS" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding SRankCount}" Margin="0, 4" Visibility="{rb:CollapsedIfZero SRankCount}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="60">
+                            <TextBlock Text="A" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ARankCount}" Margin="0, 4" Visibility="{rb:CollapsedIfZero ARankCount}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="60">
+                            <TextBlock Text="B" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding BRankCount}" Margin="0, 4" Visibility="{rb:CollapsedIfZero BRankCount}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="75">
+                            <TextBlock Text="C / D / E / ?" FontSize="12" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FailureRankCount}" Margin="0, 4" Visibility="{rb:CollapsedIfZero FailureRankCount}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+
+</ruic:MetroWindow>

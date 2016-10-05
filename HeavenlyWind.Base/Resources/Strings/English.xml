@@ -314,6 +314,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Window_ScrappingHistory">Scrapping History</String>
   <String Key="Window_ResourceHistory">Resource History</String>
   <String Key="Window_SortieConsumptionHistory">Sortie Cosumption History</String>
+  <String Key="Window_SortieStatistic">Sortie Statistic</String>
   <String Key="Window_ClosingConfirmation_Instruction">What do you want to do?</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">Exit</String>
   <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
@@ -511,5 +512,13 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="SessionTool_Method">Method</String>
   <String Key="SessionTool_Status">Status</String>
   <String Key="SessionTool_URLOrAPI">URL / API</String>
+
+  <String Key="SortieStatistic_TimeSpan_Today">Today</String>
+  <String Key="SortieStatistic_TimeSpan_ThisWeek">This week</String>
+  <String Key="SortieStatistic_TimeSpan_ThisMonth">This month</String>
+  <String Key="SortieStatistic_TimeSpan_LastWeek">Last week</String>
+  <String Key="SortieStatistic_TimeSpan_LastMonth">Last month</String>
+  <String Key="SortieStatistic_Count">Count</String>
+  <String Key="SortieStatistic_RankingPoints">Points</String>
 
 </Strings>

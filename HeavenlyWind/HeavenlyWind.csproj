@@ -154,6 +154,10 @@
     <Compile Include="Models\Records\SortieRecord.cs" />
     <Compile Include="Models\Records\SortieRecordBase.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
+    <Compile Include="Models\Statistics\SortieStatisticData.cs" />
+    <Compile Include="Models\Statistics\SortieStatisticMapItem.cs" />
+    <Compile Include="Models\Statistics\SortieStatisticTimeSpanType.cs" />
+    <Compile Include="Models\Statistics\SortieStatisticTotalItem.cs" />
     <Compile Include="Models\SystemFont.cs" />
     <Compile Include="Models\UIZoomInfo.cs" />
     <Compile Include="Models\ZoomInfo.cs" />
@@ -230,6 +234,8 @@
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
     <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
+    <Compile Include="ViewModels\Statistics\SortieStatisticTimeSpanGroupViewModel.cs" />
+    <Compile Include="ViewModels\Statistics\SortieStatisticViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\ToolsViewModel.cs" />
     <Compile Include="ViewModels\Tools\SessionToolViewModel.cs" />
@@ -409,6 +415,9 @@
     </Compile>
     <Compile Include="Views\Preferences\Window.xaml.cs">
       <DependentUpon>Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics\SortieStatisticWindow.xaml.cs">
+      <DependentUpon>SortieStatisticWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
@@ -998,6 +1007,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics\SortieStatisticWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

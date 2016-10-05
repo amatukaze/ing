@@ -314,6 +314,7 @@
   <String Key="Window_ScrappingHistory">解体・废弃历史</String>
   <String Key="Window_ResourceHistory">资源历史</String>
   <String Key="Window_SortieConsumptionHistory">出击消耗历史</String>
+  <String Key="Window_SortieStatistic">出击统计</String>
   <String Key="Window_ClosingConfirmation_Instruction">你想做什么呢？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
   <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
@@ -513,5 +514,13 @@
   <String Key="SessionTool_Method">方法</String>
   <String Key="SessionTool_Status">状态码</String>
   <String Key="SessionTool_URLOrAPI">URL・API</String>
+
+  <String Key="SortieStatistic_TimeSpan_Today">今天</String>
+  <String Key="SortieStatistic_TimeSpan_ThisWeek">本周</String>
+  <String Key="SortieStatistic_TimeSpan_ThisMonth">本月</String>
+  <String Key="SortieStatistic_TimeSpan_LastWeek">上周</String>
+  <String Key="SortieStatistic_TimeSpan_LastMonth">上个月</String>
+  <String Key="SortieStatistic_Count">次数</String>
+  <String Key="SortieStatistic_RankingPoints">战果</String>
 
 </Strings>
