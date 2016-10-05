@@ -3,9 +3,9 @@
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
 {
     [Api("api_get_member/mapinfo")]
-    class GetInformationParser : ApiParser<RawMapInfo[]>
+    class GetInformationParser : ApiParser<RawSortieMapInfo>
     {
-        public override void ProcessCore(ApiInfo rpInfo, RawMapInfo[] rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawSortieMapInfo rpData)
         {
         }
     }

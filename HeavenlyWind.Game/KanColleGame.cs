@@ -50,7 +50,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             ApiService.Subscribe("api_get_member/mapinfo", rpApiData =>
             {
-                if (Maps.UpdateRawData(rpApiData.GetData<RawMapInfo[]>(), r => new MapInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
+                if (Maps.UpdateRawData(rpApiData.GetData<RawSortieMapInfo>().Maps, r => new MapInfo(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                     OnPropertyChanged(nameof(Maps));
             });
             ApiService.Subscribe("api_req_map/select_eventmap_rank", r =>
