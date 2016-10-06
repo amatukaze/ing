@@ -34,7 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         void UpdateExpeditionYield()
         {
-            if (r_Source.Expedition == null)
+            if (r_Source.Expedition == null || !r_Source.Expedition.CanReturn)
                 Yield = null;
             else
             {
