@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class AirBase : ModelBase
     {
-        public IDTable<AirForceGroup> Table { get; private set; }
+        public IDTable<AirForceGroup> Table { get; } = new IDTable<AirForceGroup>();
 
         public AirForceGroup this[int rpID] => Table[rpID];
 
@@ -54,8 +54,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         internal void UpdateGroups(RawAirForceGroup[] rpGroups)
         {
-            if (Table == null)
-                Table = new IDTable<AirForceGroup>();
+            if (rpGroups == null)
+                return;
 
             if (Table.UpdateRawData(rpGroups, r => new AirForceGroup(r), (rpData, rpRawData) => rpData.Update(rpRawData)))
                 OnPropertyChanged(nameof(Table));
