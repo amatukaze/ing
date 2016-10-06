@@ -221,7 +221,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             var rSortie = SortieInfo.Current;
             var rSortieMap = rSortie.Map;
-            if (!rSortieMap.HasGauge || rSortie.Node.EventType != SortieEventType.BossBattle)
+            if (rSortieMap.HP == null || rSortie.Node.EventType != SortieEventType.BossBattle)
                 return;
 
             SetSortieMapHP(rSortie.ID, rSortieMap.HP.Current);
@@ -233,7 +233,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             {
                 rCommand.CommandText = "UPDATE sortie SET map_hp = @map_hp WHERE id = @id;";
                 rCommand.Parameters.AddWithValue("@id", rpID);
-                rCommand.Parameters.AddWithValue("@map_hp", rpMapHP);
+                rCommand.Parameters.AddWithValue("@map_hp", rpMapHP > 0 ? (int?)rpMapHP : null);
 
                 rCommand.ExecuteNonQuery();
             }
