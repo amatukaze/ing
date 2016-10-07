@@ -150,7 +150,13 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding BucketConsumption}" Margin="0, 4" Visibility="{rb:CollapsedIfZero BucketConsumption}" />
+                                    <TextBlock Name="Consumption" Text="{Binding BucketConsumption}" Margin="0, 4" Visibility="{rb:CollapsedIfZero BucketConsumption}" />
+
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding BucketConsumption, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
+                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
