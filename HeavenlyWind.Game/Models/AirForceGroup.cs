@@ -63,6 +63,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_Option = value;
                     OnPropertyChanged(nameof(Option));
+
+                    UpdateFighterPower();
                 }
             }
         }
@@ -88,7 +90,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal void UpdateFighterPower()
         {
-            var rFighterPower = 0;
+            var rFighterPower = .0;
+
+            EquipmentInfo rReconnaissancePlane = null;
 
             foreach (var rSquadron in Squadrons.Values)
             {
@@ -98,11 +102,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 var rPlane = rSquadron.Plane;
                 var rInfo = rPlane.Info;
 
+                switch (rInfo.Type)
+                {
+                    case EquipmentType.CarrierBasedRecon:
+                    case EquipmentType.ReconSeaplane:
+                    case EquipmentType.LargeFlyingBoat:
+                        if (rReconnaissancePlane == null || rReconnaissancePlane.LoS < rInfo.LoS || rReconnaissancePlane.Type > rInfo.Type)
+                            rReconnaissancePlane = rInfo;
+                        break;
+                }
+
                 if (!rInfo.CanParticipateInFighterCombat)
                     continue;
 
-                var rResult = (rInfo.AA + rInfo.Interception * 1.5) * Math.Sqrt(rSquadron.Count);
-                rFighterPower += (int)rResult;
+                double rResult;
+
+                if (r_Option == AirForceGroupOption.AirDefense)
+                    rResult = rInfo.AA + rInfo.Interception + rInfo.AntiBomber * 2.0;
+                else
+                    rResult = rInfo.AA + rInfo.Interception * 1.5;
+
+                rResult *= Math.Sqrt(rSquadron.Count);
 
                 switch (rInfo.Type)
                 {
@@ -133,10 +153,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                     rResult += Math.Sqrt(r_InternalFPBonus[rProficiency] / 10.0);
                 }
-                rFighterPower += (int)rResult;
+
+                rFighterPower += rResult;
             }
 
-            FighterPower = rFighterPower;
+            if (rReconnaissancePlane != null)
+                switch (rReconnaissancePlane.Type)
+                {
+                    case EquipmentType.CarrierBasedRecon:
+                        if (rReconnaissancePlane.LoS < 8)
+                            rFighterPower *= 1.2;
+                        else if (rReconnaissancePlane.LoS > 8)
+                            rFighterPower *= 1.3;
+                        break;
+
+                    default:
+                        if (rReconnaissancePlane.LoS < 8)
+                            rFighterPower *= 1.1;
+                        else if (rReconnaissancePlane.LoS == 8)
+                            rFighterPower *= 1.13;
+                        else
+                            rFighterPower *= 1.16;
+                        break;
+                }
+
+            FighterPower = (int)rFighterPower;
         }
     }
 }
