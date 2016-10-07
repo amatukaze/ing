@@ -4,10 +4,5 @@
     {
         int[] EscortFleetCurrentHPs { get; set; }
         int[] EscortFleetMaximumHPs { get; set; }
-
-        int[][] FriendEscortBaseStatus { get; set; }
-
-        int[] MainFleetEscapedShipIndex { get; set; }
-        int[] EscortFleetEscapedShipIndex { get; set; }
     }
 }

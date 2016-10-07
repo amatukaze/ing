@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
+using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 {
@@ -31,15 +32,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         void ProcessStage3(RawLandBaseAerialSupport rpRawData)
         {
-            var rStage3 = rpRawData.Stage3;
-            if (rStage3 == null)
+            ProcessStage3Core(Stage.EnemyMain, rpRawData.Stage3);
+            ProcessStage3Core(Stage.EnemyEscort, rpRawData.Stage3CombinedFleet);
+        }
+        void ProcessStage3Core(IList<BattleParticipantSnapshot> rpParticipants, RawAerialCombatPhase.RawStage3 rpStage)
+        {
+            if (rpStage == null)
                 return;
 
-            var rParticipants = Stage.Enemy;
-            var rEnemyDamages = rStage3.EnemyDamage;
-            for (var i = 0; i < rParticipants.Count; i++)
+            var rParticipants = Stage.EnemyMain;
+            var rEnemyDamages = rpStage.EnemyDamage;
+
+            for (var i = 0; i < rpParticipants.Count; i++)
             {
-                var rParticipant = rParticipants[i];
+                var rParticipant = rpParticipants[i];
                 if (rParticipant != null)
                     rParticipant.Current -= rEnemyDamages[i + 1];
             }

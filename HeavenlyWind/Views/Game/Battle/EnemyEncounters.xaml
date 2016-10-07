@@ -16,6 +16,15 @@
             </Style.Triggers>
         </Style>
     </UserControl.Style>
+    <UserControl.Resources>
+        <DataTemplate x:Key="AbyssalShip">
+            <Border Name="Border" MinWidth="75" Height="30">
+                <TextBlock>
+                    <Run Text="{rb:ExtraStringResource AbyssalShip, ID, NameWithoutAbyssalShipClass}" /><Run Style="{StaticResource AbyssalShipClass}" />
+                </TextBlock>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
 
     <StackPanel>
         <TextBlock Text="{rb:StringResource Main.Sortie_EnemyEncounters}" FontSize="16" Margin="4" />
@@ -30,27 +39,22 @@
                 <DataTemplate>
                     <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="1, 0, 0, 0">
                         <Grid Name="Content" Margin="4, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition SharedSizeGroup="Ships" />
                                 <RowDefinition Height="8" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
 
-                            <ItemsControl ItemsSource="{Binding Ships}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Name="Border" MinWidth="75" Height="30">
-                                            <TextBlock>
-                                                <Run Text="{rb:ExtraStringResource AbyssalShip, ID, NameWithoutAbyssalShipClass}" /><Run Style="{StaticResource AbyssalShipClass}" />
-                                            </TextBlock>
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                            <ItemsControl Name="EscortShips" ItemsSource="{Binding EscortShips}" ItemTemplate="{StaticResource AbyssalShip}" Margin="0, 0, 4, 0" />
+                            <ItemsControl ItemsSource="{Binding MainShips}" ItemTemplate="{StaticResource AbyssalShip}" Grid.Column="1" />
 
-                            <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Grid.Row="1" />
+                            <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Grid.Row="1" Grid.ColumnSpan="2" />
 
-                            <ItemsControl ItemsSource="{Binding Formations}" Grid.Row="2">
+                            <ItemsControl ItemsSource="{Binding Formations}" Grid.Row="2" Grid.ColumnSpan="2">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal" />
@@ -76,6 +80,10 @@
                             <Setter TargetName="Border" Property="BorderThickness" Value="0" />
                             <Setter TargetName="Border" Property="Margin" Value="0" />
                             <Setter TargetName="Content" Property="Margin" Value="0, 0, 4, 0" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding EscortShips}" Value="{x:Null}">
+                            <Setter TargetName="EscortShips" Property="Margin" Value="0" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>

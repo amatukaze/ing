@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
-using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;

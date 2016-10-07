@@ -51,6 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 "api_req_combined_battle/battle_water",
                 "api_req_combined_battle/sp_midnight",
                 "api_req_combined_battle/ld_airbattle",
+                "api_req_combined_battle/ec_battle",
 
                 "api_req_practice/battle",
             };
@@ -60,6 +61,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             {
                 "api_req_battle_midnight/battle",
                 "api_req_combined_battle/midnight_battle",
+                "api_req_combined_battle/midnight_battle",
+                "api_req_combined_battle/ec_midnight_battle",
 
                 "api_req_practice/midnight_battle",
             };
@@ -142,6 +145,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 case "api_req_combined_battle/battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpInfo); break;
 
                 case "api_req_combined_battle/sp_midnight": First = new CombinedFleetNightOnlyStage(this, rpInfo); break;
+
+                case "api_req_combined_battle/ec_battle": First = new EnemyCombinedFleetDay(this, rpInfo); break;
             }
 
             First.Process(rpInfo);
@@ -158,10 +163,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         }
         void SetEnemy(RawBattleBase rpData)
         {
-            Participants.Enemy = rpData.EnemyShipTypeIDs.Skip(1).TakeWhile(r => r != -1).Select((r, i) =>
+            Participants.EnemyMain = rpData.EnemyShipTypeIDs.Skip(1).TakeWhile(r => r != -1).Select((r, i) =>
             {
                 var rLevel = rpData.EnemyShipLevels[i + 1];
                 var rEquipment = rpData.EnemyEquipment[i];
+
+                return new EnemyShip(r, rLevel, rEquipment);
+            }).ToArray<IParticipant>();
+
+            var rEnemyCombinedFleetData = rpData as IRawEnemyCombinedFleet;
+            if (rEnemyCombinedFleetData == null)
+                return;
+
+            Participants.EnemyEscort = rEnemyCombinedFleetData.EnemyEscortShipTypeIDs.Skip(1).TakeWhile(r => r != -1).Select((r, i) =>
+            {
+                var rLevel = rEnemyCombinedFleetData.EnemyEscortShipLevels[i + 1];
+                var rEquipment = rEnemyCombinedFleetData.EnemyEscortShipEquipment[i];
 
                 return new EnemyShip(r, rLevel, rEquipment);
             }).ToArray<IParticipant>();
@@ -189,6 +206,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     break;
 
                 case "api_req_combined_battle/midnight_battle": Second = new CombinedFleetNightNormalStage(this, rpInfo); break;
+
+                case "api_req_combined_battle/ec_midnight_battle": Second = new EnemyCombinedFleetNight(this, rpInfo); break;
             }
 
             Second.Process(rpInfo);

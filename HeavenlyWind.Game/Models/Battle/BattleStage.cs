@@ -19,6 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public IList<BattleParticipantSnapshot> FriendEscort { get; protected set; }
 
         public IList<BattleParticipantSnapshot> Enemy { get; protected set; }
+        public IList<BattleParticipantSnapshot> EnemyMain { get; protected set; }
+        public IList<BattleParticipantSnapshot> EnemyEscort { get; protected set; }
 
         internal BattleParticipantSnapshot[] FriendAndEnemy { get; private set; }
 
@@ -32,7 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             var rData = rpInfo.Data as RawBattleBase;
             var rCombinedFleetData = rData as IRawCombinedFleet;
 
-            FriendAndEnemy = new BattleParticipantSnapshot[rCombinedFleetData == null ? 12 : 18];
+            FriendAndEnemy = new BattleParticipantSnapshot[rCombinedFleetData == null ? 12 : 24];
 
             for (var i = 1; i < rData.CurrentHPs.Length; i++)
                 if (rData.MaximumHPs[i] != -1)
@@ -42,19 +44,35 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             for (var i = 0; i < FriendMain.Count; i++)
                 FriendMain[i].Participant = Owner.Participants.FriendMain[i];
 
-            Enemy = FriendAndEnemy.Skip(6).TakeWhile(r => r != null).ToArray();
-            for (var i = 0; i < Enemy.Count; i++)
-                Enemy[i].Participant = Owner.Participants.Enemy[i];
+            EnemyMain = FriendAndEnemy.Skip(6).TakeWhile(r => r != null).ToArray();
+            for (var i = 0; i < EnemyMain.Count; i++)
+                EnemyMain[i].Participant = Owner.Participants.EnemyMain[i];
 
             if (rCombinedFleetData != null)
             {
-                FriendEscort = rCombinedFleetData.EscortFleetCurrentHPs.Zip(rCombinedFleetData.EscortFleetMaximumHPs,
+                var rFriendAndEnemyEscort = rCombinedFleetData.EscortFleetCurrentHPs.Zip(rCombinedFleetData.EscortFleetMaximumHPs,
                     (rpCurrent, rpMaximum) => rpMaximum != -1 ? new BattleParticipantSnapshot(rpMaximum, rpCurrent) : null).Skip(1).ToArray();
 
-                for (var i = 0; i < FriendEscort.Count; i++)
+                if (rFriendAndEnemyEscort[0] != null)
                 {
-                    FriendEscort[i].Participant = Owner.Participants.FriendEscort[i];
-                    FriendAndEnemy[i + 12] = FriendEscort[i];
+                    FriendEscort = rFriendAndEnemyEscort.Take(6).ToArray();
+
+                    for (var i = 0; i < FriendEscort.Count; i++)
+                    {
+                        FriendEscort[i].Participant = Owner.Participants.FriendEscort[i];
+                        FriendAndEnemy[i + 12] = FriendEscort[i];
+                    }
+                }
+
+                if (rFriendAndEnemyEscort.Length > 6)
+                {
+                    EnemyEscort = rFriendAndEnemyEscort.Skip(6).ToArray();
+
+                    for (var i = 0; i < EnemyEscort.Count; i++)
+                    {
+                        EnemyEscort[i].Participant = Owner.Participants.EnemyEscort[i];
+                        FriendAndEnemy[i + 18] = EnemyEscort[i];
+                    }
                 }
             }
 
@@ -62,6 +80,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 Friend = FriendMain;
             else
                 Friend = FriendMain.Concat(FriendEscort).ToArray();
+
+            if (EnemyEscort == null)
+                Enemy = EnemyMain;
+            else
+                Enemy = EnemyMain.Concat(EnemyEscort).ToArray();
 
             foreach (var rPhase in Phases)
                 rPhase.Process();

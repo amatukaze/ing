@@ -121,6 +121,8 @@
     <Compile Include="Models\Battle\Stages\CombinedFleetSTFDayNormalStage.cs" />
     <Compile Include="Models\Battle\Stages\Day.cs" />
     <Compile Include="Models\Battle\Stages\DayNormalStage.cs" />
+    <Compile Include="Models\Battle\Stages\EnemyCombinedFleetDay.cs" />
+    <Compile Include="Models\Battle\Stages\EnemyCombinedFleetNight.cs" />
     <Compile Include="Models\Battle\Stages\Night.cs" />
     <Compile Include="Models\Battle\Stages\NightNormalStage.cs" />
     <Compile Include="Models\Battle\Stages\NightOnlyStage.cs" />
@@ -187,6 +189,7 @@
     <Compile Include="Models\Quest.cs" />
     <Compile Include="Models\Raw\Battle\IAerialCombat.cs" />
     <Compile Include="Models\Raw\Battle\IRawCombinedFleet.cs" />
+    <Compile Include="Models\Raw\Battle\IRawEnemyCombinedFleet.cs" />
     <Compile Include="Models\Raw\Battle\IRawFormationAndEngagementForm.cs" />
     <Compile Include="Models\Raw\Battle\RawAerialAttack.cs" />
     <Compile Include="Models\Raw\Battle\RawAerialCombat.cs" />
@@ -195,9 +198,13 @@
     <Compile Include="Models\Raw\Battle\RawCombinedFleetAerialAttack.cs" />
     <Compile Include="Models\Raw\Battle\RawCombinedFleetAerialCombat.cs" />
     <Compile Include="Models\Raw\Battle\RawCombinedFleetDay.cs" />
+    <Compile Include="Models\Raw\Battle\RawCombinedFleetDayBase.cs" />
     <Compile Include="Models\Raw\Battle\RawCombinedFleetNight.cs" />
+    <Compile Include="Models\Raw\Battle\RawCombinedFleetNightBase.cs" />
     <Compile Include="Models\Raw\Battle\RawCombinedFleetNightOnly.cs" />
     <Compile Include="Models\Raw\Battle\RawDay.cs" />
+    <Compile Include="Models\Raw\Battle\RawEnemyCombinedFleetDay.cs" />
+    <Compile Include="Models\Raw\Battle\RawEnemyCombinedFleetNight.cs" />
     <Compile Include="Models\Raw\Battle\RawLandBaseAerialSupport.cs" />
     <Compile Include="Models\Raw\Battle\RawNight.cs" />
     <Compile Include="Models\Raw\Battle\RawNightOnly.cs" />
@@ -285,6 +292,8 @@
     <Compile Include="Parsers\Root\Battle\CombinedFleetNightOnlyBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\CombinedFleetSTFDayBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\DayNormalBattleParser.cs" />
+    <Compile Include="Parsers\Root\Battle\EnemyCombinedFleetDayBattleParser.cs" />
+    <Compile Include="Parsers\Root\Battle\EnemyCombinedFleetNightBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\NightNormalBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\NightOnlyBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\PracticeDayBattleParser.cs" />

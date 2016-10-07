@@ -151,9 +151,18 @@
 
                                     <rvgb:Information Grid.Row="2" Grid.ColumnSpan="7" />
 
-                                    <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" />
-                                    <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="2" Grid.Row="4" />
+                                    <ItemsControl ItemsSource="{Binding Participants.EnemyEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" />
+                                    <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.EnemyEscort}" Grid.Column="2" Grid.Row="4" />
+                                    <ItemsControl Name="EnemyMainParticipants" ItemsSource="{Binding Participants.EnemyMain}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Row="4" Grid.Column="4"  />
+                                    <rvgb:ParticipantSnapshot x:Name="EnemyMainParticipantSnapshots" DataContext="{Binding CurrentStage.EnemyMain}" Grid.Column="6" Grid.Row="4" />
                                 </Grid>
+
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Battle.Participants.EnemyEscort}" Value="{x:Null}">
+                                        <Setter TargetName="EnemyMainParticipants" Property="Grid.Column" Value="0" />
+                                        <Setter TargetName="EnemyMainParticipantSnapshots" Property="Grid.Column" Value="2" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -180,6 +189,10 @@
                                         <ColumnDefinition Width="Auto" MinWidth="75" />
                                         <ColumnDefinition Width="8" />
                                         <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="Auto" MinWidth="75" />
+                                        <ColumnDefinition Width="8" />
+                                        <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
@@ -193,11 +206,21 @@
                                     <ItemsControl ItemsSource="{Binding Participants.FriendEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="4" />
                                     <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.FriendEscort}" Grid.Column="6" />
 
-                                    <ItemsControl ItemsSource="{Binding Participants.Enemy}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="8" />
-                                    <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.Enemy}" Grid.Column="10" />
+                                    <ItemsControl ItemsSource="{Binding Participants.EnemyEscort}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="8" />
+                                    <rvgb:ParticipantSnapshot DataContext="{Binding CurrentStage.EnemyEscort}" Grid.Column="10" />
 
-                                    <rvgb:Information Grid.Row="1" Grid.ColumnSpan="11" />
+                                    <ItemsControl Name="EnemyMainParticipants" ItemsSource="{Binding Participants.EnemyMain}" ItemTemplate="{StaticResource ParticipantTemplate}" Grid.Column="12" />
+                                    <rvgb:ParticipantSnapshot x:Name="EnemyMainParticipantSnapshots" DataContext="{Binding CurrentStage.EnemyMain}" Grid.Column="14" />
+
+                                    <rvgb:Information Grid.Row="1" Grid.ColumnSpan="15" />
                                 </Grid>
+
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Battle.Participants.EnemyEscort}" Value="{x:Null}">
+                                        <Setter TargetName="EnemyMainParticipants" Property="Grid.Column" Value="8" />
+                                        <Setter TargetName="EnemyMainParticipantSnapshots" Property="Grid.Column" Value="10" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
