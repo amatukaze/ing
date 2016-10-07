@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
         List<T> r_Records;
         protected override IEnumerable<T> Source => r_Records;
 
-        public T LastRecord => r_Records.Last();
+        public T LastRecord => r_Records.Count > 0 ? r_Records.Last() : null;
 
         public HistoryRecordsView(HistoryViewModelBase<T> rpOwner)
         {
