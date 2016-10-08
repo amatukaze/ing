@@ -516,6 +516,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="SortieStatistic_TimeSpan_Today">Today</String>
   <String Key="SortieStatistic_TimeSpan_ThisWeek">This week</String>
   <String Key="SortieStatistic_TimeSpan_ThisMonth">This month</String>
+  <String Key="SortieStatistic_TimeSpan_Yesterday">Yesterday</String>
   <String Key="SortieStatistic_TimeSpan_LastWeek">Last week</String>
   <String Key="SortieStatistic_TimeSpan_LastMonth">Last month</String>
   <String Key="SortieStatistic_Count">Count</String>

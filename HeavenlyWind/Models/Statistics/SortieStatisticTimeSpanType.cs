@@ -5,6 +5,7 @@
         Today,
         ThisWeek,
         ThisMonth,
+        Yesterday,
         LastWeek,
         LastMonth,
     }

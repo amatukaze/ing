@@ -518,6 +518,7 @@
   <String Key="SortieStatistic_TimeSpan_Today">今天</String>
   <String Key="SortieStatistic_TimeSpan_ThisWeek">本周</String>
   <String Key="SortieStatistic_TimeSpan_ThisMonth">本月</String>
+  <String Key="SortieStatistic_TimeSpan_Yesterday">昨天</String>
   <String Key="SortieStatistic_TimeSpan_LastWeek">上周</String>
   <String Key="SortieStatistic_TimeSpan_LastMonth">上个月</String>
   <String Key="SortieStatistic_Count">次数</String>

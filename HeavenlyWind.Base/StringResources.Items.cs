@@ -517,6 +517,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieStatistic_TimeSpan_Today => GetString(nameof(SortieStatistic_TimeSpan_Today));
         public string SortieStatistic_TimeSpan_ThisWeek => GetString(nameof(SortieStatistic_TimeSpan_ThisWeek));
         public string SortieStatistic_TimeSpan_ThisMonth => GetString(nameof(SortieStatistic_TimeSpan_ThisMonth));
+        public string SortieStatistic_TimeSpan_Yesterday => GetString(nameof(SortieStatistic_TimeSpan_Yesterday));
         public string SortieStatistic_TimeSpan_LastWeek => GetString(nameof(SortieStatistic_TimeSpan_LastWeek));
         public string SortieStatistic_TimeSpan_LastMonth => GetString(nameof(SortieStatistic_TimeSpan_LastMonth));
         public string SortieStatistic_Count => GetString(nameof(SortieStatistic_Count));

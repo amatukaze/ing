@@ -28,7 +28,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 
         public SortieStatisticViewModel()
         {
-            TimeSpans = Enumerable.Range(0, 5).Select(r => new SortieStatisticTimeSpanGroupViewModel((SortieStatisticTimeSpanType)r)).ToArray();
+            TimeSpans = Enumerable.Range(0, 6).Select(r => new SortieStatisticTimeSpanGroupViewModel((SortieStatisticTimeSpanType)r)).ToArray();
             r_SelectedTimeSpan = TimeSpans[0];
         }
 
@@ -56,9 +56,11 @@ FROM (
     UNION ALL
     SELECT 2, strftime('%s', 'now', 'localtime', 'start of month', 'utc'), strftime('%s', 'now')
     UNION ALL
-    SELECT 3, strftime('%s', 'now', 'localtime', 'weekday 0', '-13 days', 'start of day', 'utc'), strftime('%s', 'now', 'localtime', 'weekday 0', '-6 days', 'start of day', 'utc')
+    SELECT 3 AS type, strftime('%s', 'now', 'localtime', 'start of day', '-1 days', 'utc') AS start, strftime('%s', 'now', 'localtime', 'start of day', 'utc') AS end
     UNION ALL
-    SELECT 4, strftime('%s', 'now', 'localtime', 'start of month', '-1 month', 'utc'), strftime('%s', 'now', 'localtime', 'start of month', 'utc')
+    SELECT 4, strftime('%s', 'now', 'localtime', 'weekday 0', '-13 days', 'start of day', 'utc'), strftime('%s', 'now', 'localtime', 'weekday 0', '-6 days', 'start of day', 'utc')
+    UNION ALL
+    SELECT 5, strftime('%s', 'now', 'localtime', 'start of month', '-1 month', 'utc'), strftime('%s', 'now', 'localtime', 'start of month', 'utc')
 ) timespan
 CROSS JOIN (SELECT DISTINCT map AS id, difficulty FROM sortie ORDER BY id, difficulty) sortie_map
 JOIN (
