@@ -50,6 +50,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 rGroup.UpdateFighterPower();
             });
+
+            ApiService.Subscribe("api_req_air_corps/expand_base", r =>
+            {
+                var rRawGroups = r.GetData<RawAirForceGroup[]>();
+
+                foreach (var rRawGroup in rRawGroups)
+                {
+                    AirForceGroup rGroup;
+                    if (!Table.TryGetValue(rRawGroup.ID, out rGroup))
+                        Table.Add(new AirForceGroup(rRawGroup));
+                    else
+                        rGroup.Update(rRawGroup);
+                }
+            });
         }
 
         internal void UpdateGroups(RawAirForceGroup[] rpGroups)
