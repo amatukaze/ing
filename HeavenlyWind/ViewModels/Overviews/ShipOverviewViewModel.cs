@@ -108,6 +108,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             }
         }
 
+        IDisposable r_HomeportSubscription;
+
         internal ShipOverviewViewModel()
         {
             TypeMaps = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 12 && r.ID != 15).ToDictionary(IdentityFunction<ShipTypeInfo>.Instance, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
@@ -134,6 +136,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                 .Subscribe();
 
             UpdateSelectionCore();
+
+            r_HomeportSubscription = ApiService.Subscribe("api_port/port", _ => Refresh());
         }
 
         public void Dispose()
@@ -146,6 +150,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             {
                 r_UpdateSubscription.Dispose();
                 r_UpdateSubscription = null;
+            }
+
+            if (r_HomeportSubscription != null)
+            {
+                r_HomeportSubscription.Dispose();
+                r_HomeportSubscription = null;
             }
         }
 

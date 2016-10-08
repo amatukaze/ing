@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         Dictionary<EquipmentInfo, EquipmentGroupByMasterID> r_EquipmentMap;
         public IList<EquipmentGroupByMasterID> Equipment { get; private set; }
 
+        IDisposable r_HomeportSubscription;
+
         internal EquipmentOverviewViewModel()
         {
             r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
@@ -72,6 +75,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             r_UpdateSubscription = r_UpdateObservable.Do(_ => IsLoading = true).Throttle(TimeSpan.FromSeconds(.75)).Subscribe(_ => UpdateCore());
 
             UpdateSelectionCore();
+
+            r_HomeportSubscription = ApiService.Subscribe("api_port/port", _ => Refresh());
         }
 
         public void Dispose()
@@ -85,6 +90,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             {
                 r_UpdateSubscription.Dispose();
                 r_UpdateSubscription = null;
+            }
+
+            if (r_HomeportSubscription != null)
+            {
+                r_HomeportSubscription.Dispose();
+                r_HomeportSubscription = null;
             }
         }
 
@@ -108,7 +119,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
             OnPropertyChanged(nameof(SelectAllTypes));
 
-            r_UpdateObservable.OnNext(Unit.Default);
+            Refresh();
         }
 
         void UpdateCore()
@@ -137,5 +148,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             OnPropertyChanged(nameof(Equipment));
             IsLoading = false;
         }
+
+        void Refresh() => r_UpdateObservable.OnNext(Unit.Default);
     }
 }
