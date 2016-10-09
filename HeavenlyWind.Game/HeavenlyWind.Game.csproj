@@ -328,6 +328,7 @@
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\EnemyEncounterService.cs" />
     <Compile Include="Services\MapService.cs" />
+    <Compile Include="Services\Quest\ExtraRewardsInfo.cs" />
     <Compile Include="Services\Quest\Functions\ConstantFunction.cs" />
     <Compile Include="Services\Quest\Functions\Function.cs" />
     <Compile Include="Services\Quest\OSS\Battle.cs" />

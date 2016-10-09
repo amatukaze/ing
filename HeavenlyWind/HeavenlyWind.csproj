@@ -145,6 +145,7 @@
     <Compile Include="Models\InitializationStep.cs" />
     <Compile Include="Models\Power.cs" />
     <Compile Include="Models\ProcessInfo.cs" />
+    <Compile Include="Models\QuestReward.cs" />
     <Compile Include="Models\Records\ConstructionRecord.cs" />
     <Compile Include="Models\Records\DevelopmentRecord.cs" />
     <Compile Include="Models\Records\ExpeditionRecord.cs" />
@@ -153,6 +154,9 @@
     <Compile Include="Models\Records\SortieConsumptionRecord.cs" />
     <Compile Include="Models\Records\SortieRecord.cs" />
     <Compile Include="Models\Records\SortieRecordBase.cs" />
+    <Compile Include="Models\Rewards\QuestEquipmentReward.cs" />
+    <Compile Include="Models\Rewards\QuestItemReward.cs" />
+    <Compile Include="Models\Rewards\QuestMaterialReward.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
     <Compile Include="Models\Statistics\SortieStatisticData.cs" />
     <Compile Include="Models\Statistics\SortieStatisticMapItem.cs" />
