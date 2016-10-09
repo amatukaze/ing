@@ -166,7 +166,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="175">
+                        <GridViewColumn Width="160">
                             <TextBlock Text="{rb:StringResource Main.SortieHistory_HeavilyDamagedShip}" />
 
                             <GridViewColumn.CellTemplate>
@@ -193,7 +193,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="175">
+                        <GridViewColumn Width="150">
                             <TextBlock Text="MVP" />
 
                             <GridViewColumn.CellTemplate>

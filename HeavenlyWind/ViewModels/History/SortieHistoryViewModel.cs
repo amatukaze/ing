@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
     class SortieHistoryViewModel : SortieHistoryViewModelBase<SortieRecord>
     {
-        protected override string LoadCommandText => @"SELECT sortie.id AS id, sortie.map AS map, difficulty, step, node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM sortie
+        protected override string LoadCommandText => @"SELECT sortie.id AS id, sortie.map AS map, difficulty, step, node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged, mvp, mvp_escort FROM sortie
 JOIN sortie_map ON sortie.map = sortie_map.id
 JOIN sortie_detail ON sortie.id = sortie_detail.id
 JOIN sortie_node ON sortie.map = sortie_node.map AND sortie_detail.node = sortie_node.id
