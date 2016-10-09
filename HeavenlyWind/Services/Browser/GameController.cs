@@ -36,6 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public ICommand TakeScreenshotToFileCommand { get; }
         public ICommand TakeScreenshotToClipboardCommand { get; }
         public ICommand OpenScreenshotToolCommand { get; }
+        public ICommand OpenScreenshotFolderCommand { get; }
 
         public ICommand MuteToggleCommand { get; }
 
@@ -62,6 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             TakeScreenshotToFileCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
             TakeScreenshotToClipboardCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: true));
             OpenScreenshotToolCommand = new DelegatedCommand(ScreenshotTool.Open);
+            OpenScreenshotFolderCommand = new DelegatedCommand(() => Process.Start(Preference.Instance.Browser.Screenshot.Path));
 
             if (OS.IsWin7OrLater && !rpOwner.NoInstalledLayoutEngines)
                 try

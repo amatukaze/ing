@@ -418,6 +418,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Screenshot_File">Take screenshot to file</String>
   <String Key="Screenshot_Clipboard">Take screenshot to clipboard</String>
   <String Key="Screenshot_Tool">Screenshot Tool</String>
+  <String Key="Screenshot_OpenFolder">Open screenshot folder</String>
 
   <String Key="EquipmentOverview_Name">Name</String>
   <String Key="EquipmentOverview_TotalCount">Total</String>

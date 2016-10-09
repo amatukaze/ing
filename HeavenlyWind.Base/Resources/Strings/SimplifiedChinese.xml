@@ -420,6 +420,7 @@
   <String Key="Screenshot_File">截图到文件</String>
   <String Key="Screenshot_Clipboard">截图到剪贴板</String>
   <String Key="Screenshot_Tool">截图工具</String>
+  <String Key="Screenshot_OpenFolder">打开截图文件夹</String>
 
   <String Key="EquipmentOverview_Name">装备名</String>
   <String Key="EquipmentOverview_TotalCount">总数</String>

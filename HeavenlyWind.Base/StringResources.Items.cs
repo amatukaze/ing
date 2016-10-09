@@ -419,6 +419,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Screenshot_File => GetString(nameof(Screenshot_File));
         public string Screenshot_Clipboard => GetString(nameof(Screenshot_Clipboard));
         public string Screenshot_Tool => GetString(nameof(Screenshot_Tool));
+        public string Screenshot_OpenFolder => GetString(nameof(Screenshot_OpenFolder));
 
         public string EquipmentOverview_Name => GetString(nameof(EquipmentOverview_Name));
         public string EquipmentOverview_TotalCount => GetString(nameof(EquipmentOverview_TotalCount));

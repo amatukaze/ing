@@ -417,6 +417,7 @@
   <String Key="Screenshot_File">ファイルに保存</String>
   <String Key="Screenshot_Clipboard">クリップボードに保存</String>
   <String Key="Screenshot_Tool">スクリーンショットツール</String>
+  <String Key="Screenshot_OpenFolder">保存フォルダを開く</String>
 
   <String Key="EquipmentOverview_Name">装備名</String>
   <String Key="EquipmentOverview_TotalCount">合計</String>
