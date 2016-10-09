@@ -13,7 +13,6 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
-using System.Windows.Shell;
 
 namespace Sakuno.KanColle.Amatsukaze.Views
 {
@@ -43,15 +42,6 @@ namespace Sakuno.KanColle.Amatsukaze.Views
             PowerManager.RegisterMonitor(this);
 
             PanicKeyService.Instance.Initialize(r_Handle);
-
-            Preference.Instance.UI.LockTabs.Subscribe(rpIsLocked =>
-            {
-                ResizeMode = rpIsLocked ? ResizeMode.CanMinimize : ResizeMode.CanResize;
-
-                var rChrome = WindowChrome.GetWindowChrome(this);
-                WindowChrome.SetWindowChrome(this, null);
-                WindowChrome.SetWindowChrome(this, rChrome);
-            }, true);
 
             ServiceManager.Register<IMainWindowService>(this);
         }
