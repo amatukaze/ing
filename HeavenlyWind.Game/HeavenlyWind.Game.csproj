@@ -84,6 +84,7 @@
     <Compile Include="Models\AirForceGroupOption.cs" />
     <Compile Include="Models\AirForceSquadron.cs" />
     <Compile Include="Models\AirForceSquadronCondition.cs" />
+    <Compile Include="Models\AirForceSquadronRelocationCountdown.cs" />
     <Compile Include="Models\AirForceSquadronState.cs" />
     <Compile Include="Models\AttackMode.cs" />
     <Compile Include="Models\BattleType.cs" />

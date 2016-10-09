@@ -192,6 +192,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string AirBase_Group_Option_Retreat => GetString(nameof(AirBase_Group_Option_Retreat));
         public string AirBase_Group_Option_Rest => GetString(nameof(AirBase_Group_Option_Rest));
         public string AirBase_Group_CombatRadius => GetString(nameof(AirBase_Group_CombatRadius));
+        public string AirBase_Group_Relocating => GetString(nameof(AirBase_Group_Relocating));
 
         public string Material_Fuel => GetString(nameof(Material_Fuel));
         public string Material_Bullet => GetString(nameof(Material_Bullet));

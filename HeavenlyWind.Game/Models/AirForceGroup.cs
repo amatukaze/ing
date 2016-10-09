@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -71,6 +72,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public IDTable<AirForceSquadron> Squadrons { get; } = new IDTable<AirForceSquadron>();
 
+        public AirForceSquadronRelocationCountdown Relocation { get; private set; }
+
         internal protected AirForceGroup(RawAirForceGroup rpRawData) : base(rpRawData)
         {
             OnRawDataUpdated();
@@ -81,7 +84,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Name = RawData.Name;
             Option = RawData.Option;
 
-            Squadrons.UpdateRawData(RawData.Squadrons, r => new AirForceSquadron(r), (rpData, rpRawData) => rpData.Update(rpRawData));
+            Squadrons.UpdateRawData(RawData.Squadrons, r => new AirForceSquadron(this, r), (rpData, rpRawData) => rpData.Update(rpRawData));
 
             CombatRadius = RawData.CombatRadius;
 
@@ -157,7 +160,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rFighterPower += rResult;
             }
 
-            if (rReconnaissancePlane != null)
+            if (rReconnaissancePlane != null && r_Option == AirForceGroupOption.AirDefense)
                 switch (rReconnaissancePlane.Type)
                 {
                     case EquipmentType.CarrierBasedRecon:
@@ -178,6 +181,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
 
             FighterPower = (int)rFighterPower;
+        }
+
+        internal void UpdateRelocationCountdown()
+        {
+            AirForceSquadronRelocationCountdown rResult = null;
+
+            foreach (var rSquadron in Squadrons.Values)
+            {
+                if (rSquadron.State != AirForceSquadronState.Relocating || !rSquadron.Relocation.TimeToComplete.HasValue)
+                    continue;
+
+                if (rResult == null || rResult.TimeToComplete.Value < rSquadron.Relocation.TimeToComplete.Value)
+                    rResult = rSquadron.Relocation;
+            }
+
+            Relocation = rResult;
+            OnPropertyChanged(nameof(Relocation));
         }
     }
 }

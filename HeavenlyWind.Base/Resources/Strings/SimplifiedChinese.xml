@@ -191,6 +191,7 @@
   <String Key="AirBase_Group_Option_Retreat">退避</String>
   <String Key="AirBase_Group_Option_Rest">休息</String>
   <String Key="AirBase_Group_CombatRadius">行动半径</String>
+  <String Key="AirBase_Group_Relocating">配置转换中</String>
 
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弹药</String>

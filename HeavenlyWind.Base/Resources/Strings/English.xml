@@ -191,6 +191,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="AirBase_Group_Option_Retreat">Retreat</String>
   <String Key="AirBase_Group_Option_Rest">Rest</String>
   <String Key="AirBase_Group_CombatRadius">CR</String>
+  <String Key="AirBase_Group_Relocating">Relocating</String>
 
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>
