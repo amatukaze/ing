@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     {
         public override string GroupName => "battle";
 
-        public override int Version => 3;
+        public override int Version => 4;
 
         internal BattleRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
@@ -29,6 +29,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                     rCommand.ExecuteNonQuery();
                 }
+
+            if (rpOldVersion < 4)
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "ALTER TABLE battle ADD COLUMN mvp INTEGER; " +
+                        "ALTER TABLE battle ADD COLUMN mvp_escort INTEGER;";
+
+                    rCommand.ExecuteNonQuery();
+                }
         }
         protected override void CreateTable()
         {
@@ -38,7 +48,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "CREATE TABLE IF NOT EXISTS battle(" +
                         "id INTEGER PRIMARY KEY, " +
                         "rank INTEGER, " +
-                        "dropped_ship INTEGER);" +
+                        "dropped_ship INTEGER, " +
+                        "mvp INTEGER, " +
+                        "mvp_escort INTEGER);" +
 
                     "CREATE TABLE IF NOT EXISTS battle_dropped_item(" +
                         "id INTEGER PRIMARY KEY NOT NULL REFERENCES battle(id), " +
@@ -56,11 +68,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         void ProcessResult(RawBattleResult rpData)
         {
+            var rBattle = BattleInfo.Current;
+
             using (var rTransaction = Connection.BeginTransaction())
             using (var rCommand = Connection.CreateCommand())
             {
                 rCommand.CommandText = "INSERT INTO battle(id, rank, dropped_ship) VALUES(@id, @rank, @dropped_ship);";
-                rCommand.Parameters.AddWithValue("@id", BattleInfo.Current.ID);
+                rCommand.Parameters.AddWithValue("@id", rBattle.ID);
                 rCommand.Parameters.AddWithValue("@rank", (int)rpData.Rank);
                 rCommand.Parameters.AddWithValue("@dropped_ship", rpData.DroppedShip?.ID);
 
@@ -68,6 +82,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 {
                     rCommand.CommandText += " INSERT INTO battle_dropped_item(id, item) VALUES(@id, @item);";
                     rCommand.Parameters.AddWithValue("@item", rpData.DroppedItem.ID);
+                }
+
+                if (rpData.MvpShipIndex != -1)
+                {
+                    rCommand.CommandText += " UPDATE battle SET mvp = @mvp WHERE id = @id;";
+                    rCommand.Parameters.AddWithValue("@mvp", rBattle.Participants.FriendMain[rpData.MvpShipIndex - 1].Info.ID);
+                }
+
+                if (rpData.EscortFleetMvpShipIndex.HasValue && rpData.EscortFleetMvpShipIndex.Value != -1)
+                {
+                    rCommand.CommandText += " UPDATE battle SET mvp_escort = @mvp_escort WHERE id = @id;";
+                    rCommand.Parameters.AddWithValue("@mvp_escort", rBattle.Participants.FriendEscort[rpData.EscortFleetMvpShipIndex.Value - 1].Info.ID);
                 }
 
                 rCommand.ExecuteNonQuery();

@@ -15,6 +15,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 
         [JsonProperty("api_mvp")]
         public int MvpShipIndex { get; set; }
+        [JsonProperty("api_mvp_combined")]
+        public int? EscortFleetMvpShipIndex { get; set; }
 
         [JsonProperty("api_member_lv")]
         public int HeadquarterLevel { get; set; }

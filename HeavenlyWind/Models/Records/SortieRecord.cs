@@ -30,6 +30,9 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         public IList<ShipInfo> HeavilyDamagedShips { get; private set; }
 
+        public ShipInfo MvpShip { get; private set; }
+        public ShipInfo EscortFleetMvpShip { get; private set; }
+
         internal SortieRecord(SQLiteDataReader rpReader) : base(rpReader)
         {
             SortieID = rpReader.GetInt64("id");
@@ -65,6 +68,14 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
             var rHeavilyDamagedShipIDs = rpReader.GetString("heavily_damaged");
             if (rHeavilyDamagedShipIDs != null)
                 HeavilyDamagedShips = rHeavilyDamagedShipIDs.Split(',').Select(r => KanColleGame.Current.MasterInfo.Ships[int.Parse(r)]).ToList();
+
+            var rMvpShip = rpReader.GetInt32Optional("mvp");
+            if (rMvpShip.HasValue)
+                MvpShip = KanColleGame.Current.MasterInfo.Ships[rMvpShip.Value];
+
+            var rEscortFleetMvpShip = rpReader.GetInt32Optional("mvp_escort");
+            if (rEscortFleetMvpShip.HasValue)
+                EscortFleetMvpShip = KanColleGame.Current.MasterInfo.Ships[rEscortFleetMvpShip.Value];
 
             OnPropertyChanged(string.Empty);
         }

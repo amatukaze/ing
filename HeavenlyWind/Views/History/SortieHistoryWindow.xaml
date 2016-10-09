@@ -193,6 +193,19 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
+                        <GridViewColumn Width="175">
+                            <TextBlock Text="MVP" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{rb:ExtraStringResource Ship, MvpShip.ID, MvpShip.Name}" />
+                                        <TextBlock Text="{rb:ExtraStringResource Ship, EscortFleetMvpShip.ID, EscortFleetMvpShip.Name, StringFormat={}\, {0}}" Visibility="{rb:CollapsedIfNull EscortFleetMvpShip}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
                     </GridView>
                 </ListView.View>
             </ListView>
