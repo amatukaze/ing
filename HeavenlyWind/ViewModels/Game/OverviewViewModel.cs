@@ -193,7 +193,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             AirBase = new AirBaseViewModel();
 
             r_AirBasePCEL = PropertyChangedEventListener.FromSource(rPort.AirBase);
-            r_AirBasePCEL.Add(nameof(rPort.AirBase.Table), delegate
+            r_AirBasePCEL.Add(nameof(rPort.AirBase.AllGroups), delegate
             {
                 if (rPort.AirBase.Table.Count == 0)
                     return;
