@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         Tuple<string, MediaPlayer> r_CustomSound;
 
-        bool r_IsBlinking = true;
+        bool r_IsBlinking;
         public bool IsBlinking
         {
             get { return r_IsBlinking; }

@@ -45,6 +45,17 @@
                     <Setter Property="Height" Value="26" />
                 </Style>
             </DockPanel.Resources>
+            <DockPanel.Style>
+                <Style TargetType="{x:Type DockPanel}">
+                    <Setter Property="Background" Value="Transparent" />
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsBlinking, Source={x:Static rs:NotificationService.Instance}}" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource AccentBrushKey}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Style>
 
             <Border Height="4" DockPanel.Dock="Bottom" />
 
