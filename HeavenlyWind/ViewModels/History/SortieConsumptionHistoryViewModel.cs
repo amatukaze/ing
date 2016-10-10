@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
     ifnull(sum(sortie_consumption_detail.steel), 0) - ifnull(sortie_reward.steel, 0) AS steel,
     ifnull(sum(sortie_consumption_detail.bauxite), 0) - ifnull(sortie_reward.bauxite, 0) AS bauxite,
     ifnull(sum(sortie_consumption_detail.bucket), 0) AS bucket,
-    ((SELECT experience FROM admiral_experience WHERE time = (SELECT min(time) FROM admiral_experience WHERE time >= sortie.return_time)) - (SELECT experience FROM admiral_experience WHERE time = (SELECT max(time) FROM admiral_experience WHERE time <= sortie.id))) * 7.0 / 10000 AS ranking_point
+    ((SELECT experience FROM admiral_experience WHERE time = (SELECT min(time) FROM admiral_experience WHERE time >= sortie.return_time)) - (SELECT experience FROM admiral_experience WHERE time = (SELECT max(time) FROM admiral_experience WHERE time <= sortie.id))) * 7.0 / 10000 + ifnull((SELECT point FROM ranking_point_bonus WHERE sortie = sortie.id), 0) AS ranking_point
 FROM sortie_consumption
 JOIN sortie ON sortie.id = sortie_consumption.id
 LEFT JOIN sortie_map_hp ON sortie_map_hp.id = sortie.map AND sortie_map_hp.difficulty = ifnull(sortie.difficulty, 0)
