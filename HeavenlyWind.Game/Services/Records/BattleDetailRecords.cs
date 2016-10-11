@@ -175,7 +175,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             if (rpOldVersion == 1)
             {
-                using (var rTransaction = r_Connection.BeginTransaction())
                 using (var rCommand = r_Connection.CreateCommand())
                 {
                     rCommand.CommandText =
@@ -188,8 +187,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         "DROP TABLE participant_old;";
 
                     rCommand.ExecuteNonQuery();
-
-                    rTransaction.Commit();
                 }
             }
             if (rpOldVersion < 4)
