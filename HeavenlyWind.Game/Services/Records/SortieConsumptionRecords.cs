@@ -121,6 +121,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             var rSortie = SortieInfo.Current;
 
+            var rSupportFleets = KanColleGame.Current.Port.Fleets.Table.Values
+                .Where(r =>
+                {
+                    var rExpedition = r.ExpeditionStatus.Expedition;
+
+                    return rExpedition != null && !rExpedition.CanReturn && rExpedition.MapArea.ID == SortieInfo.Current.Map.MasterInfo.AreaID;
+                }).ToArray();
+
             using (var rTransaction = Connection.BeginTransaction())
             using (var rCommand = Connection.CreateCommand())
             {
@@ -142,6 +150,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                     rCount++;
                 }
+
+                if (rSupportFleets.Length > 0)
+                    foreach (var rShip in rSupportFleets.SelectMany(r => r.Ships))
+                        rBuilder.Append($", (@id, {rShip.ID}, {rShip.Info.ID}, 1)");
+
                 rBuilder.Append(';');
 
                 rCommand.CommandText = rBuilder.ToString();

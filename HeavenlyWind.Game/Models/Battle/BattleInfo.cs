@@ -94,7 +94,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 var rSupportFleets = KanColleGame.Current.Port.Fleets.Table.Values
                     .Where(r => r.ExpeditionStatus.Expedition != null && !r.ExpeditionStatus.Expedition.CanReturn)
                     .Select(r => r.ExpeditionStatus.Expedition)
-                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.ID / 10 && r.Time == (!IsBossBattle ? 15 : 30));
+                    .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.MasterInfo.AreaID && r.Time == (!IsBossBattle ? 15 : 30));
 
                 IsSupportFleetReady = rSupportFleets != null;
             }
