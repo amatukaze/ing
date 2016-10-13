@@ -1,9 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {

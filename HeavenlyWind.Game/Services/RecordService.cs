@@ -29,7 +29,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public bool IsReadOnlyMode { get; set; }
 
         public ResourcesRecords Resources { get; private set; }
-        public ShipsRecords Ships { get; private set; }
         public ExperienceRecords Experience { get; private set; }
         public ExpeditionRecords Expedition { get; private set; }
         public ConstructionRecords Construction { get; private set; }
@@ -126,7 +125,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 CheckVersion();
 
                 Resources = new ResourcesRecords(r_Connection).ConnectAndReturn();
-                Ships = new ShipsRecords(r_Connection).ConnectAndReturn();
                 Experience = new ExperienceRecords(r_Connection).ConnectAndReturn();
                 Expedition = new ExpeditionRecords(r_Connection).ConnectAndReturn();
                 Construction = new ConstructionRecords(r_Connection).ConnectAndReturn();
@@ -234,7 +232,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         void Disconnect()
         {
             Resources?.Dispose();
-            Ships?.Dispose();
             Experience?.Dispose();
             Expedition?.Dispose();
             Construction?.Dispose();
