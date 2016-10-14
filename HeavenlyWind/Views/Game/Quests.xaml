@@ -6,6 +6,7 @@
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              xmlns:rui="clr-namespace:Sakuno.UserInterface;assembly=Sakuno.UserInterface"
+             xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
              xmlns:rmr="clr-namespace:Sakuno.KanColle.Amatsukaze.Models.Rewards"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              mc:Ignorable="d"
@@ -76,7 +77,7 @@
                             </Border>
                         </StackPanel>
 
-                        <TextBlock Text="{rb:ExtraStringResource QuestDescription, Source.ID, Source.Description}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2" />
+                        <ruic:BBCodeBlock BBCode="{rb:ExtraStringResource QuestDescription, Source.ID, Source.Description}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2" />
 
                         <ItemsControl ItemsSource="{Binding Rewards}" ItemTemplateSelector="{StaticResource RewardTemplateSelector}" Grid.Column="2" Grid.Row="4">
                             <ItemsControl.ItemsPanel>
