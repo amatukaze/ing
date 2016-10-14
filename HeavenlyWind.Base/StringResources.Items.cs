@@ -227,6 +227,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_BattleType_Normal => GetString(nameof(Sortie_BattleType_Normal));
         public string Sortie_BattleType_NightOnly => GetString(nameof(Sortie_BattleType_NightOnly));
         public string Sortie_BattleType_AerialCombat => GetString(nameof(Sortie_BattleType_AerialCombat));
+        public string Sortie_BattleType_EnemyCombinedFleet => GetString(nameof(Sortie_BattleType_EnemyCombinedFleet));
         public string Sortie_BattleType_AerialAttack => GetString(nameof(Sortie_BattleType_AerialAttack));
         public string Sortie_NothingHappened_Imagination => GetString(nameof(Sortie_NothingHappened_Imagination));
         public string Sortie_NothingHappened_NoSighOfTheEnemy => GetString(nameof(Sortie_NothingHappened_NoSighOfTheEnemy));

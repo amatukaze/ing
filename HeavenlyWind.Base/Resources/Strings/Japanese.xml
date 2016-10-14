@@ -224,6 +224,7 @@
   <String Key="Sortie_BattleType_Normal">通常戦闘</String>
   <String Key="Sortie_BattleType_NightOnly">開幕夜戦</String>
   <String Key="Sortie_BattleType_AerialCombat">航空戦</String>
+  <String Key="Sortie_BattleType_EnemyCombinedFleet">敵連合艦隊戦</String>
   <String Key="Sortie_BattleType_AerialAttack">空襲戦</String>
   <String Key="Sortie_NothingHappened_Imagination">気のせいだった。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>

@@ -226,6 +226,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Sortie_BattleType_Normal">Normal Battle</String>
   <String Key="Sortie_BattleType_NightOnly">Night Battle</String>
   <String Key="Sortie_BattleType_AerialCombat">Aerial Combat</String>
+  <String Key="Sortie_BattleType_EnemyCombinedFleet">ACF Battle</String>
   <String Key="Sortie_BattleType_AerialAttack">Aerial Attack</String>
   <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>

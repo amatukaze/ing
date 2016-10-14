@@ -7,6 +7,7 @@
         NightOnly,
         NightFirst,
         AerialCombat,
-        AerialAttack = 6,
+        EnemyCombinedFleet,
+        AerialAttack,
     }
 }
