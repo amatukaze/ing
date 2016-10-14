@@ -101,55 +101,57 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 var rID = rRawQuest.ID;
 
                 QuestInfo rInfo;
-                ProgressInfo rProgressInfo;
+                ProgressInfo rProgressInfo = null;
                 if (!Infos.TryGetValue(rID, out rInfo))
                     Progresses.TryGetValue(rID, out rProgressInfo);
                 else
                 {
                     var rTotal = rInfo.Total;
-                    int rProgress;
-
-                    if (Progresses.TryGetValue(rID, out rProgressInfo) && rQuests.ContainsKey(rID))
+                    if (rTotal > 0)
                     {
-                        rProgress = rProgressInfo.Progress;
+                        int rProgress;
+                        if (Progresses.TryGetValue(rID, out rProgressInfo) && rQuests.ContainsKey(rID))
+                        {
+                            rProgress = rProgressInfo.Progress;
 
-                        if (rRawQuest.State == QuestState.Completed)
-                            rProgress = rTotal;
-                        else if (rID != 214)
-                            switch (rRawQuest.Progress)
-                            {
-                                case QuestProgress.Progress50: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom); break;
-                                case QuestProgress.Progress80: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom); break;
-                            }
+                            if (rRawQuest.State == QuestState.Completed)
+                                rProgress = rTotal;
+                            else if (rID != 214)
+                                switch (rRawQuest.Progress)
+                                {
+                                    case QuestProgress.Progress50: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom); break;
+                                    case QuestProgress.Progress80: rProgress = Math.Max(rProgress, (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom); break;
+                                }
 
-                        rProgressInfo.Progress = rProgress;
-                        rProgressInfo.State = rRawQuest.State;
+                            rProgressInfo.Progress = rProgress;
+                            rProgressInfo.State = rRawQuest.State;
+                        }
+                        else
+                        {
+                            rProgress = 0;
+
+                            if (rRawQuest.State == QuestState.Completed)
+                                rProgress = rTotal;
+                            else if (rID != 214)
+                                switch (rRawQuest.Progress)
+                                {
+                                    case QuestProgress.Progress50: rProgress = (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom; break;
+                                    case QuestProgress.Progress80: rProgress = (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom; break;
+                                }
+
+                            Progresses.Add(rID, rProgressInfo = new ProgressInfo(rID, rRawQuest.Type, rRawQuest.State, rProgress));
+                        }
+
+                        if (rID == 214)
+                        {
+                            OSSQuestProgressRule rOSSRule;
+                            if (OSSQuestProgressRule.Maps.TryGetValue(214, out rOSSRule))
+                                ((OperationA)rOSSRule).UpdatePercentage(rProgressInfo);
+                        }
+
+                        if (rRawQuest.State == QuestState.Active)
+                            RecordService.Instance.QuestProgress.InsertRecord(rRawQuest, rProgress);
                     }
-                    else
-                    {
-                        rProgress = 0;
-
-                        if (rRawQuest.State == QuestState.Completed)
-                            rProgress = rTotal;
-                        else if (rID != 214)
-                            switch (rRawQuest.Progress)
-                            {
-                                case QuestProgress.Progress50: rProgress = (int)Math.Ceiling(rTotal * 0.5) - rInfo.StartFrom; break;
-                                case QuestProgress.Progress80: rProgress = (int)Math.Ceiling(rTotal * 0.8) - rInfo.StartFrom; break;
-                            }
-
-                        Progresses.Add(rID, rProgressInfo = new ProgressInfo(rID, rRawQuest.Type, rRawQuest.State, rProgress));
-                    }
-
-                    if (rID == 214)
-                    {
-                        OSSQuestProgressRule rOSSRule;
-                        if (OSSQuestProgressRule.Maps.TryGetValue(214, out rOSSRule))
-                            ((OperationA)rOSSRule).UpdatePercentage(rProgressInfo);
-                    }
-
-                    if (rRawQuest.State == QuestState.Active)
-                        RecordService.Instance.QuestProgress.InsertRecord(rRawQuest, rProgress);
                 }
 
                 QuestClass rQuest;

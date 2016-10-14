@@ -39,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             if (rReward != null)
                 Rewards = rReward.ToObject<ExtraRewardsInfo>();
 
-            Total = (int?)rpJson["total"] ?? 1;
+            Total = (int?)rpJson["total"] ?? -1;
             StartFrom = (int?)rpJson["start_from"] ?? 0;
 
             IsDailyReset = (bool?)rpJson["daily_reset"] ?? false;
