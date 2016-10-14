@@ -50,7 +50,7 @@
                             </Grid.RowDefinitions>
 
                             <ItemsControl Name="EscortShips" ItemsSource="{Binding EscortShips}" ItemTemplate="{StaticResource AbyssalShip}" Margin="0, 0, 4, 0" />
-                            <ItemsControl ItemsSource="{Binding MainShips}" ItemTemplate="{StaticResource AbyssalShip}" Grid.Column="1" />
+                            <ItemsControl Name="MainShips" ItemsSource="{Binding MainShips}" ItemTemplate="{StaticResource AbyssalShip}" Grid.Column="1" />
 
                             <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Grid.Row="1" Grid.ColumnSpan="2" />
 
@@ -83,7 +83,8 @@
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding EscortShips}" Value="{x:Null}">
-                            <Setter TargetName="EscortShips" Property="Margin" Value="0" />
+                            <Setter TargetName="EscortShips" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="MainShips" Property="Grid.Column" Value="0" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
