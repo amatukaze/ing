@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System.Data.SQLite;
+using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
@@ -70,37 +71,32 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             var rBattle = BattleInfo.Current;
 
-            using (var rTransaction = Connection.BeginTransaction())
-            using (var rCommand = Connection.CreateCommand())
+            var rCommand = Connection.CreateCommand();
+
+            rCommand.CommandText = "INSERT INTO battle(id, rank, dropped_ship) VALUES(@id, @rank, @dropped_ship);";
+            rCommand.Parameters.AddWithValue("@id", rBattle.ID);
+            rCommand.Parameters.AddWithValue("@rank", (int)rpData.Rank);
+            rCommand.Parameters.AddWithValue("@dropped_ship", rpData.DroppedShip?.ID);
+
+            if (rpData.DroppedItem != null)
             {
-                rCommand.CommandText = "INSERT INTO battle(id, rank, dropped_ship) VALUES(@id, @rank, @dropped_ship);";
-                rCommand.Parameters.AddWithValue("@id", rBattle.ID);
-                rCommand.Parameters.AddWithValue("@rank", (int)rpData.Rank);
-                rCommand.Parameters.AddWithValue("@dropped_ship", rpData.DroppedShip?.ID);
-
-                if (rpData.DroppedItem != null)
-                {
-                    rCommand.CommandText += " INSERT INTO battle_dropped_item(id, item) VALUES(@id, @item);";
-                    rCommand.Parameters.AddWithValue("@item", rpData.DroppedItem.ID);
-                }
-
-                if (rpData.MvpShipIndex != -1)
-                {
-                    rCommand.CommandText += " UPDATE battle SET mvp = @mvp WHERE id = @id;";
-                    rCommand.Parameters.AddWithValue("@mvp", rBattle.Participants.FriendMain[rpData.MvpShipIndex - 1].Info.ID);
-                }
-
-                if (rpData.EscortFleetMvpShipIndex.HasValue && rpData.EscortFleetMvpShipIndex.Value != -1)
-                {
-                    rCommand.CommandText += " UPDATE battle SET mvp_escort = @mvp_escort WHERE id = @id;";
-                    rCommand.Parameters.AddWithValue("@mvp_escort", rBattle.Participants.FriendEscort[rpData.EscortFleetMvpShipIndex.Value - 1].Info.ID);
-                }
-
-                rCommand.ExecuteNonQuery();
-
-                rTransaction.Commit();
+                rCommand.CommandText += " INSERT INTO battle_dropped_item(id, item) VALUES(@id, @item);";
+                rCommand.Parameters.AddWithValue("@item", rpData.DroppedItem.ID);
             }
-        }
 
+            if (rpData.MvpShipIndex != -1)
+            {
+                rCommand.CommandText += " UPDATE battle SET mvp = @mvp WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@mvp", rBattle.Participants.FriendMain[rpData.MvpShipIndex - 1].Info.ID);
+            }
+
+            if (rpData.EscortFleetMvpShipIndex.HasValue && rpData.EscortFleetMvpShipIndex.Value != -1)
+            {
+                rCommand.CommandText += " UPDATE battle SET mvp_escort = @mvp_escort WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@mvp_escort", rBattle.Participants.FriendEscort[rpData.EscortFleetMvpShipIndex.Value - 1].Info.ID);
+            }
+
+            rCommand.PostToTransactionQueue();
+        }
     }
 }

@@ -4,6 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Records;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
@@ -11,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using BclVersion = System.Version;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
@@ -51,6 +53,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         int r_UserID;
         SQLiteConnection r_Connection;
 
+        BlockingCollection<TransactionQueueContext> r_TransactionQueue = new BlockingCollection<TransactionQueueContext>();
+
         internal Queue<string> HistoryCommandTexts { get; } = new Queue<string>(6);
 
         public event Action<UpdateEventArgs> Update = delegate { };
@@ -63,6 +67,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 RecordDirectory.Create();
 
             r_OriginalRecordDirectory = RecordDirectory.Parent;
+
+            Task.Factory.StartNew(ProcessTransactionQueue, TaskCreationOptions.LongRunning);
         }
 
         public void Initialize()
@@ -218,7 +224,43 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         }
 
         public SQLiteCommand CreateCommand() => r_Connection.CreateCommand();
-        public SQLiteTransaction BeginTransaction() => r_Connection.BeginTransaction();
+
+        public void PostTransaction(SQLiteCommand rpCommand)
+        {
+            if (rpCommand.Connection == null || rpCommand.Connection != r_Connection)
+                return;
+
+            var rContext = new TransactionQueueContext(rpCommand);
+
+            r_TransactionQueue.Add(rContext);
+
+            rContext.TaskCompletionSource.Task.Wait();
+        }
+        void ProcessTransactionQueue()
+        {
+            foreach (var rContext in r_TransactionQueue.GetConsumingEnumerable())
+            {
+                var rTransaction = r_Connection.BeginTransaction();
+
+                try
+                {
+                    rContext.Command.ExecuteNonQuery();
+
+                    rTransaction.Commit();
+
+                    rContext.TaskCompletionSource.SetResult(true);
+                }
+                catch (Exception e)
+                {
+                    rContext.TaskCompletionSource.SetException(e);
+                }
+                finally
+                {
+                    rTransaction.Dispose();
+                    rContext.Command.Dispose();
+                }
+            }
+        }
 
         public void RegisterRecordsGroupProvider(IRecordsGroupProvider rpProvider) => r_CustomRecordsGroupProviders.Add(rpProvider);
 

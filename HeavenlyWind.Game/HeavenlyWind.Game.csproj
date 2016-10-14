@@ -382,7 +382,9 @@
     <Compile Include="Services\Records\ResourcesRecords.cs" />
     <Compile Include="Services\Records\SortieConsumptionRecords.cs" />
     <Compile Include="Services\Records\SortieRecords.cs" />
+    <Compile Include="Services\Records\TransactionQueueContext.cs" />
     <Compile Include="Services\ShipLockingService.cs" />
+    <Compile Include="Services\SQLiteCommandExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HeavenlyWind.Base\HeavenlyWind.Base.csproj">

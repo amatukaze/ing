@@ -144,30 +144,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             var rSortie = SortieInfo.Current;
             var rMap = rSortie.Map;
 
-            using (var rTransaction = Connection.BeginTransaction())
+            using (var rCommand = Connection.CreateCommand())
             {
-                using (var rCommand = Connection.CreateCommand())
+                rCommand.CommandText =
+                    "INSERT OR IGNORE INTO sortie_map(id, is_event_map) VALUES(@map_id, @is_event_map);" +
+                    "INSERT INTO sortie(id, map, difficulty, map_hp) VALUES(@sortie_id, @map_id, @difficulty, @map_hp);";
+                rCommand.Parameters.AddWithValue("@map_id", rMap.ID);
+                rCommand.Parameters.AddWithValue("@sortie_id", rSortie.ID);
+                rCommand.Parameters.AddWithValue("@is_event_map", rMap.IsEventMap);
+                rCommand.Parameters.AddWithValue("@difficulty", rMap.Difficulty);
+                rCommand.Parameters.AddWithValue("@map_hp", rMap.HasGauge ? rMap.HP.Current : (int?)null);
+
+                if (rMap.HasGauge)
                 {
-                    rCommand.CommandText =
-                        "INSERT OR IGNORE INTO sortie_map(id, is_event_map) VALUES(@map_id, @is_event_map);" +
-                        "INSERT INTO sortie(id, map, difficulty, map_hp) VALUES(@sortie_id, @map_id, @difficulty, @map_hp);";
-                    rCommand.Parameters.AddWithValue("@map_id", rMap.ID);
-                    rCommand.Parameters.AddWithValue("@sortie_id", rSortie.ID);
-                    rCommand.Parameters.AddWithValue("@is_event_map", rMap.IsEventMap);
-                    rCommand.Parameters.AddWithValue("@difficulty", rMap.Difficulty);
-                    rCommand.Parameters.AddWithValue("@map_hp", rMap.HasGauge ? rMap.HP.Current : (int?)null);
+                    rCommand.CommandText += "INSERT OR IGNORE INTO sortie_map_hp(id, difficulty, hp) VALUES(@map_id, coalesce(@difficulty, 0), @map_max_hp);";
 
-                    if (rMap.HasGauge)
-                    {
-                        rCommand.CommandText += "INSERT OR IGNORE INTO sortie_map_hp(id, difficulty, hp) VALUES(@map_id, coalesce(@difficulty, 0), @map_max_hp);";
-
-                        rCommand.Parameters.AddWithValue("@map_max_hp", rMap.HP.Maximum);
-                    }
-
-                    rCommand.ExecuteNonQuery();
+                    rCommand.Parameters.AddWithValue("@map_max_hp", rMap.HP.Maximum);
                 }
 
-                rTransaction.Commit();
+                rCommand.ExecuteNonQuery();
             }
 
             InsertExplorationRecord(rSortie);
@@ -175,45 +170,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         void InsertExplorationRecord(SortieInfo rpSortie)
         {
             var rNode = rpSortie.Node;
-
-            using (var rTransaction = Connection.BeginTransaction())
-            {
-                InsertNodeInfo(rpSortie.Map.ID, rNode);
-                InsertRecord(rpSortie.ID, rNode.InternalID, (rNode.Event as IExtraInfo)?.GetExtraInfo());
-
-                if (!rpSortie.Map.IsCleared && rNode.EventType == SortieEventType.EscortSuccess)
-                    ProcessEscortSuccess(rpSortie);
-
-                rTransaction.Commit();
-            }
-
-            if (rpSortie.Node.IsDeadEnd)
+            if (rNode.IsDeadEnd)
                 r_ReturnReason = ReturnReason.DeadEnd;
-        }
-        void InsertNodeInfo(int rpMapID, SortieNodeInfo rpNode)
-        {
-            using (var rCommand = Connection.CreateCommand())
-            {
-                rCommand.CommandText = "INSERT OR IGNORE INTO sortie_node(map, id, type, subtype) VALUES(@map, @id, @type, @subtype);";
-                rCommand.Parameters.AddWithValue("@map", rpMapID);
-                rCommand.Parameters.AddWithValue("@id", rpNode.ID);
-                rCommand.Parameters.AddWithValue("@type", (int)rpNode.EventType);
-                rCommand.Parameters.AddWithValue("@subtype", rpNode.EventSubType);
 
-                rCommand.ExecuteNonQuery();
-            }
-        }
-        void InsertRecord(long rpSortieID, int rpNode, long? rpExtraInfo = null)
-        {
-            using (var rCommand = Connection.CreateCommand())
-            {
-                rCommand.CommandText = "INSERT INTO sortie_detail(id, step, node, extra_info) VALUES(@id, (SELECT coalesce(max(step), 0) + 1 FROM sortie_detail WHERE id = @id), @node, @extra_info);";
-                rCommand.Parameters.AddWithValue("@id", rpSortieID);
-                rCommand.Parameters.AddWithValue("@node", rpNode);
-                rCommand.Parameters.AddWithValue("@extra_info", rpExtraInfo);
+            var rCommand = Connection.CreateCommand();
 
-                rCommand.ExecuteNonQuery();
+            rCommand.CommandText =
+                "INSERT OR IGNORE INTO sortie_node(map, id, type, subtype) VALUES(@map, @node_id, @type, @subtype);" +
+                "INSERT INTO sortie_detail(id, step, node, extra_info) VALUES(@id, (SELECT ifnull(max(step), 0) + 1 FROM sortie_detail WHERE id = @id), @node_id, @extra_info);";
+            rCommand.Parameters.AddWithValue("@map", rpSortie.Map.ID);
+            rCommand.Parameters.AddWithValue("@node_id", rNode.ID);
+            rCommand.Parameters.AddWithValue("@type", (int)rNode.EventType);
+            rCommand.Parameters.AddWithValue("@subtype", rNode.EventSubType);
+            rCommand.Parameters.AddWithValue("@id", rpSortie.ID);
+            rCommand.Parameters.AddWithValue("@extra_info", (rNode.Event as IExtraInfo)?.GetExtraInfo());
+
+            if (!rpSortie.Map.IsCleared && rNode.EventType == SortieEventType.EscortSuccess)
+            {
+                var rHP = rpSortie.Map.HP.Current;
+
+                rCommand.CommandText += "UPDATE sortie SET map_hp = @map_hp WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@map_hp", rHP > 0 ? (int?)rHP : null);
             }
+
+            rCommand.PostToTransactionQueue();
         }
 
         void RecordMapHP(ApiInfo rpInfo)
@@ -223,16 +203,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (rSortieMap.HP == null || rSortie.Node.EventType != SortieEventType.BossBattle)
                 return;
 
-            SetSortieMapHP(rSortie.ID, rSortieMap.HP.Current);
-        }
-        void ProcessEscortSuccess(SortieInfo rpSortie) => SetSortieMapHP(rpSortie.ID, rpSortie.Map.HP.Current);
-        void SetSortieMapHP(long rpID, int rpMapHP)
-        {
+            var rHP = rSortieMap.HP.Current;
+
             using (var rCommand = Connection.CreateCommand())
             {
                 rCommand.CommandText = "UPDATE sortie SET map_hp = @map_hp WHERE id = @id;";
-                rCommand.Parameters.AddWithValue("@id", rpID);
-                rCommand.Parameters.AddWithValue("@map_hp", rpMapHP > 0 ? (int?)rpMapHP : null);
+                rCommand.Parameters.AddWithValue("@id", rSortie.ID);
+                rCommand.Parameters.AddWithValue("@map_hp", rHP > 0 ? (int?)rHP : null);
 
                 rCommand.ExecuteNonQuery();
             }
