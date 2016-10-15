@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     public class ExpeditionRecords : RecordsGroup
     {
         public override string GroupName => "expedition";
-        public override int Version => 2;
+        public override int Version => 3;
 
         internal ExpeditionRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
@@ -45,7 +45,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         protected override void UpgradeFromOldVersionPreprocessStep(int rpOldVersion)
         {
             if (rpOldVersion < 2)
-            {
                 using (var rCommand = Connection.CreateCommand())
                 {
                     rCommand.CommandText = "SELECT expedition FROM expedition WHERE item1 = -1 OR item2 = -1 GROUP BY expedition;";
@@ -68,7 +67,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                             }
                         }
                 }
-            }
+
+            if (rpOldVersion < 3)
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "UPDATE expedition SET expedition = substr(expedition, 6, instr(expedition, ',') - 6) WHERE typeof(expedition) = 'text';";
+
+                    rCommand.ExecuteNonQuery();
+                }
         }
 
         void ProcessResult(ApiInfo rpInfo)
@@ -84,7 +90,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     "VALUES(@time, @result, @expedition, @fuel, @bullet, @steel, @bauxite, @item1, @item1_count, @item2, @item2_count);";
                 rCommand.Parameters.AddWithValue("@time", rpInfo.Timestamp);
                 rCommand.Parameters.AddWithValue("@result", (int)rData.Result);
-                rCommand.Parameters.AddWithValue("@expedition", rExpedition);
+                rCommand.Parameters.AddWithValue("@expedition", rExpedition.ID);
                 rCommand.Parameters.AddWithValue("@fuel", rMaterials != null ? rMaterials[0] : (int?)null);
                 rCommand.Parameters.AddWithValue("@bullet", rMaterials != null ? rMaterials[1] : (int?)null);
                 rCommand.Parameters.AddWithValue("@steel", rMaterials != null ? rMaterials[2] : (int?)null);
