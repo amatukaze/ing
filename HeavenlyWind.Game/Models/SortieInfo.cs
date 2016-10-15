@@ -39,6 +39,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        public AirForceGroup[] AirForceGroups { get; }
+
         internal int[] LandBaseAerialSupportRequests { get; set; }
 
         internal long ReturnTime { get; set; }
@@ -69,13 +71,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Fleet = rpFleet;
             MainShips = Fleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
 
-            if (KanColleGame.Current.Port.Fleets.CombinedFleetType != 0 && rpFleet.ID == 1)
+            var rPort = KanColleGame.Current.Port;
+
+            if (rPort.Fleets.CombinedFleetType != 0 && rpFleet.ID == 1)
             {
-                EscortFleet = KanColleGame.Current.Port.Fleets[2];
+                EscortFleet = rPort.Fleets[2];
                 EscortShips = EscortFleet.Ships.Select(r => new FriendShip(r)).ToList<IParticipant>();
             }
 
             Map = KanColleGame.Current.Maps[rpMapID];
+
+            if (Map.AvailableAirBaseGroupCount > 0)
+            {
+                var rAllGroups = rPort.AirBase.Table[Map.MasterInfo.AreaID].Values;
+
+                AirForceGroups = rAllGroups.Take(Map.AvailableAirBaseGroupCount).Where(r => r.Option == AirForceGroupOption.Sortie)
+                    .Concat(rAllGroups.Where(r => r.Option == AirForceGroupOption.AirDefense))
+                    .ToArray();
+            }
         }
 
         internal void Explore(long rpTimestamp, RawMapExploration rpData)

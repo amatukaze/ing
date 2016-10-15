@@ -43,6 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 rGroup.CombatRadius = rData.CombatRadius;
                 rGroup.UpdateFighterPower();
+                rGroup.UpdateLBASConsumption();
             });
 
             ApiService.Subscribe("api_req_air_corps/supply", r =>
@@ -55,6 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     rGroup.Squadrons[rSquadron.ID].Update(rSquadron);
 
                 rGroup.UpdateFighterPower();
+                rGroup.UpdateLBASConsumption();
             });
 
             ApiService.Subscribe("api_req_air_corps/expand_base", r =>

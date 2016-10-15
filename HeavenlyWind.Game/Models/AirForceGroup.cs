@@ -1,6 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System;
-using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -66,9 +65,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     OnPropertyChanged(nameof(Option));
 
                     UpdateFighterPower();
+                    UpdateLBASConsumption();
                 }
             }
         }
+
+        public int LBASFuelConsumption { get; private set; }
+        public int LBASBulletConsumption { get; private set; }
 
         public IDTable<AirForceSquadron> Squadrons { get; } = new IDTable<AirForceSquadron>();
 
@@ -89,6 +92,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             CombatRadius = RawData.CombatRadius;
 
             UpdateFighterPower();
+            UpdateLBASConsumption();
         }
 
         internal void UpdateFighterPower()
@@ -198,6 +202,58 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Relocation = rResult;
             OnPropertyChanged(nameof(Relocation));
+        }
+
+        internal void UpdateLBASConsumption()
+        {
+            var rFuelConsumption = 0;
+            var rBulletConsumption = 0;
+
+            if (r_Option == AirForceGroupOption.Sortie)
+                foreach (var rSquadron in Squadrons.Values)
+                {
+                    if (rSquadron.State != AirForceSquadronState.Idle)
+                        continue;
+
+                    var rIcon = rSquadron.Plane.Info.Icon;
+                    var rPlaneCount = rSquadron.Count;
+
+                    if (rPlaneCount == rSquadron.MaxCount)
+                    {
+                        switch (rIcon)
+                        {
+                            case EquipmentIconType.LandBasedAttackAircraft:
+                                rFuelConsumption += 27;
+                                rBulletConsumption += 12;
+                                break;
+
+                            case EquipmentIconType.CarrierBasedRecon:
+                                rFuelConsumption += 4;
+                                rBulletConsumption += 3;
+                                break;
+
+                            default:
+                                rFuelConsumption += 18;
+                                rBulletConsumption += 11;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        rBulletConsumption += (int)(rPlaneCount * 2 / 3.0);
+
+                        if (rIcon == EquipmentIconType.LandBasedAttackAircraft)
+                            rFuelConsumption += (int)(rPlaneCount * 1.5);
+                        else
+                            rFuelConsumption += rPlaneCount;
+                    }
+                }
+
+            LBASFuelConsumption = rFuelConsumption;
+            LBASBulletConsumption = rBulletConsumption;
+
+            OnPropertyChanged(nameof(LBASFuelConsumption));
+            OnPropertyChanged(nameof(LBASBulletConsumption));
         }
     }
 }
