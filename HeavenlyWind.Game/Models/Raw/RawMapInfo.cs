@@ -18,6 +18,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_defeat_count")]
         public int? DefeatedCount { get; set; }
 
+        [JsonProperty("api_air_base_decks")]
+        public int AvailableAirBaseGroupCount { get; set; }
+
         public class RawEventMap
         {
             [JsonProperty("api_now_maphp")]

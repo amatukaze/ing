@@ -227,7 +227,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void PostTransaction(SQLiteCommand rpCommand)
         {
-            if (rpCommand.Connection == null || rpCommand.Connection != r_Connection)
+            if (rpCommand.Connection == null || rpCommand.Connection != r_Connection || rpCommand.CommandText.IsNullOrEmpty())
                 return;
 
             var rContext = new TransactionQueueContext(rpCommand);
