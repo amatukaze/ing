@@ -70,7 +70,10 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Equipment.Rarity, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=3}" Value="True">
+                            <DataTrigger Binding="{Binding Equipment.Rarity}" Value="1">
+                                <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Equipment.Rarity, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=2}" Value="True">
                                 <Setter Property="Foreground" Value="Yellow" />
                             </DataTrigger>
                         </Style.Triggers>

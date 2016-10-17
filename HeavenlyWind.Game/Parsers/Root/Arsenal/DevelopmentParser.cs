@@ -21,10 +21,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
                     rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             else
             {
-                Game.Port.AddEquipment(new Equipment(new RawEquipment() { ID = rpData.Result.ID, EquipmentID = rpData.Result.EquipmentID }));
+                var rEquipment = new Equipment(new RawEquipment() { ID = rpData.Result.ID, EquipmentID = rpData.Result.EquipmentID });
+                Game.Port.AddEquipment(rEquipment);
 
-                rLogContent = string.Format(StringResources.Instance.Main.Log_Development_Success,
-                    Game.MasterInfo.Equipment[rpData.Result.EquipmentID].TranslatedName, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
+                var rInfo = rEquipment.Info;
+                var rMessage = rInfo.Rarity > 0 ? StringResources.Instance.Main.Log_Development_Success_Rare : StringResources.Instance.Main.Log_Development_Success;
+
+                rLogContent = string.Format(rMessage, rInfo.TranslatedName, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             }
 
             Logger.Write(LoggingLevel.Info, rLogContent);
