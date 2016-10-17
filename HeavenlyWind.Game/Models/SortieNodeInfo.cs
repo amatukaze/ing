@@ -1,14 +1,12 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class SortieNodeInfo : ModelBase
     {
         public int ID { get; }
-        internal int InternalID { get; }
 
         public string WikiID { get; }
 
@@ -23,14 +21,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             ID = rpData.Node;
 
-            var rDifficulty = rpMap.Difficulty;
-            if (!rDifficulty.HasValue)
-                InternalID = ID;
-            else
-            {
-                var rDifficultyCount = Enum.GetNames(typeof(EventMapDifficulty)).Length - 1;
-                InternalID = ID * rDifficultyCount + (int)rDifficulty.Value - 3;
-            }
 
             WikiID = MapService.Instance.GetNodeWikiID(rpMap.ID, ID);
 
