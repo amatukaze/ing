@@ -216,7 +216,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Sortie_Node">Node</String>
   <String Key="Sortie_Event_Unknown">Unknown</String>
   <String Key="Sortie_Event_Reward">Reward</String>
-  <String Key="Sortie_Event_Whirlpool">Whirlpool</String>
+  <String Key="Sortie_Event_Whirlpool">Maelstrom</String>
   <String Key="Sortie_Event_NormalBattle">Normal Battle</String>
   <String Key="Sortie_Event_BossBattle">Boss Battle</String>
   <String Key="Sortie_Event_NothingHappened">No Battle</String>
@@ -224,6 +224,8 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Sortie_Event_EscortSuccess">Escort Success</String>
   <String Key="Sortie_Event_Landing">Landing</String>
   <String Key="Sortie_Event_AerialAttack">Aerial Attack</String>
+  <String Key="Sortie_Whirlpool_Message">The fleet has dropped {0} {1} ({2:P0})</String>
+  <String Key="Sortie_Whirlpool_Message_CombinedFleet">1st fleet has dropped {0} {1} ({2:P0})</String>
   <String Key="Sortie_BattleType_Normal">Normal Battle</String>
   <String Key="Sortie_BattleType_NightOnly">Night Battle</String>
   <String Key="Sortie_BattleType_AerialCombat">Aerial Combat</String>

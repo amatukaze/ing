@@ -222,6 +222,8 @@
   <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
   <String Key="Sortie_Event_Landing">揚陸</String>
   <String Key="Sortie_Event_AerialAttack">空襲戦</String>
+  <String Key="Sortie_Whirlpool_Message">艦隊が {0} {1} ({2:P0}) を喪失しました</String>
+  <String Key="Sortie_Whirlpool_Message_CombinedFleet">第一艦隊が {0} {1} ({2:P0}) を喪失しました</String>
   <String Key="Sortie_BattleType_Normal">通常戦闘</String>
   <String Key="Sortie_BattleType_NightOnly">開幕夜戦</String>
   <String Key="Sortie_BattleType_AerialCombat">航空戦</String>

@@ -9,23 +9,35 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
         public MaterialType LostMaterial => RawData.Whirlpool.MaterialType;
         public int Amount => RawData.Whirlpool.Amount;
 
-        public bool HasReduceLossesWithRadar => RawData.Whirlpool.HasReduceLossesWithRadar;
+        public string Message { get; }
 
-        internal WhirlpoolEvent(RawMapExploration rpData) : base(rpData)
+        internal WhirlpoolEvent(IEnumerable<Ship> rpShips, Fleet rpEscortFleet, RawMapExploration rpData) : base(rpData)
         {
-            var rSortie = SortieInfo.Current;
-            IEnumerable<Ship> rShips = rSortie.Fleet.Ships;
-            if (rSortie.EscortFleet != null)
-                rShips = rShips.Concat(rSortie.EscortFleet.Ships);
-
-            var rMaxAmount = (double)rShips.Max(r => LostMaterial == MaterialType.Fuel ? r.Fuel.Current : r.Bullet.Current);
+            var rMaxAmount = (double)rpShips.Max(r => LostMaterial == MaterialType.Fuel ? r.Fuel.Current : r.Bullet.Current);
             var rReducedRate = Amount / rMaxAmount;
 
-            foreach (var rShip in rShips)
+            var rTotalAmount = 0;
+
+            foreach (var rShip in rpShips)
+            {
+                int rReducedAmount;
+
                 if (LostMaterial == MaterialType.Fuel)
-                    rShip.Fuel.Current = rShip.Fuel.Current - (int)(rShip.Fuel.Current * rReducedRate);
+                {
+                    rReducedAmount = (int)(rShip.Fuel.Current * rReducedRate);
+                    rShip.Fuel.Current -= rReducedAmount;
+                }
                 else
-                    rShip.Bullet.Current = rShip.Bullet.Current - (int)(rShip.Bullet.Current * rReducedRate);
+                {
+                    rReducedAmount = (int)(rShip.Bullet.Current * rReducedRate);
+                    rShip.Bullet.Current -= rReducedAmount;
+                }
+
+                rTotalAmount += rReducedAmount;
+            }
+
+            var rMessage = rpEscortFleet == null ? StringResources.Instance.Main.Sortie_Whirlpool_Message : StringResources.Instance.Main.Sortie_Whirlpool_Message_CombinedFleet;
+            Message = string.Format(rMessage, LostMaterial == MaterialType.Fuel ? "[icon]fuel[/icon]" : "[icon]bullet[/icon]", rTotalAmount, rReducedRate);
         }
     }
 }

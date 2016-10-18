@@ -100,7 +100,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             DirectionAngle = MapService.Instance.GetAngle(Map.ID, rpData.StartNode ?? Node?.ID ?? 0, rpData.Node);
             OnPropertyChanged(nameof(DirectionAngle));
 
-            Node = new SortieNodeInfo(rpTimestamp, Map, rpData);
+            Node = new SortieNodeInfo(this, rpTimestamp, rpData);
             OnPropertyChanged(nameof(Node));
             OnPropertyChanged(nameof(PreviousNode));
         }
