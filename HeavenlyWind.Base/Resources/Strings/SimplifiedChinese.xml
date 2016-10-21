@@ -20,8 +20,8 @@
   <String Key="Log_Development_Failure">开发失败。(投入的资材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}「{1}」向「{2} ({3}-{4})」出击</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3} {4})」出击</String>
-  <String Key="Log_ShipOrItem_Dropped">获得「[b]{0}[/b]」</String>
-  <String Key="Log_ShipAndItem_Dropped">获得「[b]{0}[/b]」和「[b]{1}[/b]」</String>
+  <String Key="Log_ShipOrItem_Dropped">获得「{0}」</String>
+  <String Key="Log_ShipAndItem_Dropped">获得「{0}」和「[b]{1}[/b]」</String>
   <String Key="Log_Screenshot_Failed">截图失败: {0}</String>
   <String Key="Log_Screenshot_Failed_FlashElementNotFound">找不到 Flash 元素</String>
   <String Key="Log_Screenshot_Failed_NoData">浏览器没有返回截图信息</String>

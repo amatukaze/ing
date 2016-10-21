@@ -20,8 +20,8 @@
   <String Key="Log_Development_Failure">Development failed. (Material Consumption: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})</String>
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
-  <String Key="Log_ShipOrItem_Dropped">[b]{0}[/b] dropped</String>
-  <String Key="Log_ShipAndItem_Dropped">[b]{0}[/b] and [b]{1}[/b] dropped</String>
+  <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
+  <String Key="Log_ShipAndItem_Dropped">{0} and [b]{1}[/b] dropped</String>
   <String Key="Log_Screenshot_Failed">Fail to save screenshot: {0}</String>
   <String Key="Log_Screenshot_Failed_FlashElementNotFound">The flash element cannot be found</String>
   <String Key="Log_Screenshot_Failed_NoData">No screenshot data from the browser</String>

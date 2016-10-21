@@ -20,8 +20,8 @@
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
-  <String Key="Log_ShipOrItem_Dropped">「[b]{0}[/b]」がドロップしました</String>
-  <String Key="Log_ShipAndItem_Dropped">「[b]{0}[/b]」や「[b]{0}[/b]」がドロップしました</String>
+  <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
+  <String Key="Log_ShipAndItem_Dropped">「{0}」や「[b]{1}[/b]」がドロップしました</String>
   <String Key="Log_Screenshot_Failed">スクリーンショットの保存に失敗しました: {0}</String>
   <String Key="Log_Screenshot_Failed_FlashElementNotFound">Flash 要素が見つかりません</String>
   <String Key="Log_Screenshot_Failed_NoData">ブラウザからのスクリーンショットデータはありません</String>

@@ -11,12 +11,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
             if (!Preference.Instance.Game.ShowDrop)
                 return;
 
-            if (rpData.DroppedShip != null && rpData.DroppedItem != null)
+            var rMasterInfo = KanColleGame.Current.MasterInfo;
+
+            string rDroppedShip = null;
+            if (rpData.DroppedShip != null)
+            {
+                var rShip = rMasterInfo.Ships[rpData.DroppedShip.ID];
+
+                if (rShip.Rarity < 4)
+                    rDroppedShip = rShip.TranslatedName;
+                else if (rShip.Rarity < 7)
+                    rDroppedShip = "[b]" + rShip.TranslatedName + "[/b]";
+                else
+                    rDroppedShip = "[b][color=yellow]" + rShip.TranslatedName + "[/color][/b]";
+            }
+
+            if (rDroppedShip == null && rpData.DroppedItem == null)
+                return;
+
+            if (rDroppedShip != null && rpData.DroppedItem != null)
                 Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_ShipAndItem_Dropped,
-                    KanColleGame.Current.MasterInfo.Ships[rpData.DroppedShip.ID].TranslatedName, KanColleGame.Current.MasterInfo.Items[rpData.DroppedItem.ID].TranslatedName));
-            else if (rpData.DroppedShip != null || rpData.DroppedItem != null)
+                    rDroppedShip, rMasterInfo.Items[rpData.DroppedItem.ID].TranslatedName));
+            else
                 Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_ShipOrItem_Dropped,
-                    rpData.DroppedShip != null ? KanColleGame.Current.MasterInfo.Ships[rpData.DroppedShip.ID].TranslatedName : KanColleGame.Current.MasterInfo.Items[rpData.DroppedItem.ID].TranslatedName));
+                    rpData.DroppedShip != null ? rDroppedShip : rMasterInfo.Items[rpData.DroppedItem.ID].TranslatedName));
         }
     }
 }
