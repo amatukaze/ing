@@ -166,6 +166,7 @@
     <Compile Include="Models\FleetSpeed.cs" />
     <Compile Include="Models\FleetState.cs" />
     <Compile Include="Models\FleetStatus.cs" />
+    <Compile Include="Models\FurnitureInfo.cs" />
     <Compile Include="Models\ICombatAbility.cs" />
     <Compile Include="Models\IID.cs" />
     <Compile Include="Models\IMapMasterInfo.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Models\Raw\RawExpeditionRecalling.cs" />
     <Compile Include="Models\Raw\RawExpeditionResult.cs" />
     <Compile Include="Models\Raw\RawFleet.cs" />
+    <Compile Include="Models\Raw\RawFurnitureInfo.cs" />
     <Compile Include="Models\Raw\RawImprovementResult.cs" />
     <Compile Include="Models\Raw\RawItemInfo.cs" />
     <Compile Include="Models\Raw\RawMapAreaInfo.cs" />

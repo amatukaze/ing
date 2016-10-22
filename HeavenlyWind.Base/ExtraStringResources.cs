@@ -10,6 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public HybridDictionary<int, string> ShipTypes { get; internal set; }
         public HybridDictionary<int, string> AbyssalShip { get; internal set; }
         public HybridDictionary<int, string> Equipment { get; internal set; }
+        public HybridDictionary<int, string> Furnitures { get; internal set; }
         public HybridDictionary<int, string> Items { get; internal set; }
         public HybridDictionary<int, string> Expeditions { get; internal set; }
         public HybridDictionary<int, string> Quests { get; internal set; }
@@ -35,6 +36,9 @@ namespace Sakuno.KanColle.Amatsukaze
 
                 case ExtraStringResourceType.Equipment:
                     return Equipment;
+
+                case ExtraStringResourceType.Furniture:
+                    return Furnitures;
 
                 case ExtraStringResourceType.Item:
                     return Items;
@@ -75,6 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string GetShipTypeName(int rpID) => GetName(ShipTypes, rpID);
         public string GetAbyssalShip(int rpID) => GetName(AbyssalShip, rpID);
         public string GetEquipmentName(int rpID) => GetName(Equipment, rpID);
+        public string GetFurnitureName(int rpID) => GetName(Furnitures, rpID);
         public string GetItemName(int rpID) => GetName(Items, rpID);
         public string GetExpeditionName(int rpID) => GetName(Expeditions, rpID);
         public string GetQuestName(int rpID) => GetName(Quests, rpID);
