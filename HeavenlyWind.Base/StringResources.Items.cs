@@ -304,6 +304,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Requirement_OperationAGo_SRankVictory => GetString(nameof(Quest_Requirement_OperationAGo_SRankVictory));
         public string Quest_Requirement_OperationAGo_BossEncounter => GetString(nameof(Quest_Requirement_OperationAGo_BossEncounter));
         public string Quest_Requirement_OperationAGo_BossBattleVictory => GetString(nameof(Quest_Requirement_OperationAGo_BossBattleVictory));
+        public string Quest_RewardSelection => GetString(nameof(Quest_RewardSelection));
 
         public string ExpeditionOverview_Time => GetString(nameof(ExpeditionOverview_Time));
         public string ExpeditionOverview_Consumption => GetString(nameof(ExpeditionOverview_Consumption));

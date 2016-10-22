@@ -8,10 +8,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
         public MaterialsReward Materials { get; internal set; }
 
         [JsonProperty("equipment")]
-        public EquipmentReward[] Equipment { get; internal set; }
+        public Reward[] Equipment { get; internal set; }
 
         [JsonProperty("items")]
-        public ItemReward[] Items { get; internal set; }
+        public Reward[] Items { get; internal set; }
+
+        [JsonProperty("furnitures")]
+        public Reward[] Furnitures { get; internal set; }
 
         public class MaterialsReward : ModelBase
         {
@@ -27,15 +30,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             [JsonProperty("im")]
             public int ImprovementMaterial { get; internal set; }
         }
-        public class EquipmentReward : ModelBase
-        {
-            [JsonProperty("id")]
-            public int ID { get; internal set; }
-
-            [JsonProperty("count")]
-            public int Count { get; internal set; }
-        }
-        public class ItemReward : ModelBase
+        public class Reward : ModelBase
         {
             [JsonProperty("id")]
             public int ID { get; internal set; }

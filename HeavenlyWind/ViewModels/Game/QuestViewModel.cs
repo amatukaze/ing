@@ -13,6 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public int ID => RawData.ID;
 
         public IList<QuestReward> Rewards { get; }
+        public IList<QuestReward> RewardSelections { get; }
 
         internal QuestViewModel(Quest rpQuest) : base(rpQuest)
         {
@@ -27,28 +28,59 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             if (Source.BauxiteReward > 0)
                 rRewards.Add(new QuestMaterialReward(MaterialType.Bauxite, Source.BauxiteReward));
 
-            if (rpQuest.Extra != null && rpQuest.Extra.Rewards != null)
+            if (rpQuest.Extra != null)
             {
                 var rExtraRewards = rpQuest.Extra.Rewards;
-
-                var rMaterials = rExtraRewards.Materials;
-                if (rMaterials != null)
+                if (rExtraRewards != null)
                 {
-                    if (rMaterials.InstantConstruction > 0)
-                        rRewards.Add(new QuestMaterialReward(MaterialType.InstantConstruction, rMaterials.InstantConstruction));
-                    if (rMaterials.Bucket > 0)
-                        rRewards.Add(new QuestMaterialReward(MaterialType.Bucket, rMaterials.Bucket));
-                    if (rMaterials.DevelopmentMaterial > 0)
-                        rRewards.Add(new QuestMaterialReward(MaterialType.DevelopmentMaterial, rMaterials.DevelopmentMaterial));
-                    if (rMaterials.ImprovementMaterial > 0)
-                        rRewards.Add(new QuestMaterialReward(MaterialType.ImprovementMaterial, rMaterials.ImprovementMaterial));
+                    var rMaterials = rExtraRewards.Materials;
+                    if (rMaterials != null)
+                    {
+                        if (rMaterials.InstantConstruction > 0)
+                            rRewards.Add(new QuestMaterialReward(MaterialType.InstantConstruction, rMaterials.InstantConstruction));
+                        if (rMaterials.Bucket > 0)
+                            rRewards.Add(new QuestMaterialReward(MaterialType.Bucket, rMaterials.Bucket));
+                        if (rMaterials.DevelopmentMaterial > 0)
+                            rRewards.Add(new QuestMaterialReward(MaterialType.DevelopmentMaterial, rMaterials.DevelopmentMaterial));
+                        if (rMaterials.ImprovementMaterial > 0)
+                            rRewards.Add(new QuestMaterialReward(MaterialType.ImprovementMaterial, rMaterials.ImprovementMaterial));
+                    }
+
+                    if (rExtraRewards.Equipment != null)
+                        rRewards.AddRange(rExtraRewards.Equipment.Select(r => new QuestEquipmentReward(r.ID, r.Count)));
+
+                    if (rExtraRewards.Items != null)
+                        rRewards.AddRange(rExtraRewards.Items.Select(r => new QuestItemReward(r.ID, r.Count)));
+
+                    if (rExtraRewards.Furnitures != null)
+                        rRewards.AddRange(rExtraRewards.Furnitures.Select(r => new QuestFurnitureReward(r.ID, r.Count)));
                 }
 
-                if (rExtraRewards.Equipment != null)
-                    rRewards.AddRange(rExtraRewards.Equipment.Select(r => new QuestEquipmentReward(r.ID, r.Count)));
+                var rExtraRewardSelections = rpQuest.Extra.RewardSelections;
+                if (rExtraRewardSelections != null)
+                {
+                    RewardSelections = rExtraRewardSelections.Select(r =>
+                    {
+                        QuestReward rResult = null;
 
-                if (rExtraRewards.Items != null)
-                    rRewards.AddRange(rExtraRewards.Items.Select(r => new QuestItemReward(r.ID, r.Count)));
+                        switch (r.Type)
+                        {
+                            case 1:
+                                rResult = new QuestItemReward(r.ID, r.Count);
+                                break;
+
+                            case 3:
+                                rResult = new QuestEquipmentReward(r.ID, r.Count);
+                                break;
+
+                            case 4:
+                                rResult = new QuestFurnitureReward(r.ID, r.Count);
+                                break;
+                        }
+
+                        return rResult;
+                    }).ToArray();
+                }
             }
 
             Rewards = rRewards;

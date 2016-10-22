@@ -9,6 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
         public int ID { get; }
 
         public ExtraRewardsInfo Rewards { get; }
+        public ExtraRewardSelection[] RewardSelections { get; }
 
         public int Total { get; }
         public int StartFrom { get; }
@@ -38,6 +39,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest
             var rReward = rpJson["reward"];
             if (rReward != null)
                 Rewards = rReward.ToObject<ExtraRewardsInfo>();
+
+            var rRewardSelections = rpJson["reward_selection"];
+            if (rRewardSelections != null)
+                RewardSelections = rRewardSelections.ToObject<ExtraRewardSelection[]>();
 
             Total = (int?)rpJson["total"] ?? -1;
             StartFrom = (int?)rpJson["start_from"] ?? 0;

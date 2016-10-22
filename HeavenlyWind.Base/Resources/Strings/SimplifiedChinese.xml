@@ -303,6 +303,7 @@
   <String Key="Quest_Requirement_OperationAGo_SRankVictory">S 胜</String>
   <String Key="Quest_Requirement_OperationAGo_BossEncounter">Boss</String>
   <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">Boss 战胜利</String>
+  <String Key="Quest_RewardSelection">单选</String>
 
   <String Key="ExpeditionOverview_Time">时间</String>
   <String Key="ExpeditionOverview_Consumption">消费</String>

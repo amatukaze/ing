@@ -155,6 +155,7 @@
     <Compile Include="Models\Records\SortieRecord.cs" />
     <Compile Include="Models\Records\SortieRecordBase.cs" />
     <Compile Include="Models\Rewards\QuestEquipmentReward.cs" />
+    <Compile Include="Models\Rewards\QuestFurnitureReward.cs" />
     <Compile Include="Models\Rewards\QuestItemReward.cs" />
     <Compile Include="Models\Rewards\QuestMaterialReward.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
