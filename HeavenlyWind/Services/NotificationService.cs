@@ -25,6 +25,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public static NotificationService Instance { get; } = new NotificationService();
 
+        bool r_IsToastNotificationUnavailable;
+
         NotifyIcon r_NotifyIcon;
 
         Tuple<string, MediaPlayer> r_CustomSound;
@@ -50,10 +52,18 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public void Initialize()
         {
-            if (OS.IsWin8OrLater)
-                InstallShortcut();
-            else
+            if (!OS.IsWin8OrLater)
                 InitializeNotifyIcon();
+            else
+                try
+                {
+                    InstallShortcut();
+                }
+                catch
+                {
+                    r_IsToastNotificationUnavailable = true;
+                    InitializeNotifyIcon();
+                }
 
             var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
             rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
@@ -208,7 +218,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
         void ShowCore(string rpTitle, string rpBody, NotificationSound rpSound, string rpCustomSoundFilename, string rpSecondLine = null)
         {
-            if (!OS.IsWin8OrLater)
+            if (!OS.IsWin8OrLater || r_IsToastNotificationUnavailable)
             {
                 var rBody = rpBody;
                 if (rpSecondLine != null)
