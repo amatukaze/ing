@@ -122,6 +122,9 @@
                         <CheckBox IsChecked="{Binding ExceptLevel1Ships}" Margin="4, 2">
                             <TextBlock Text="{rb:StringResource Main.ShipOverview_Filter_ExceptLevel1Ships}" />
                         </CheckBox>
+                        <CheckBox IsChecked="{Binding ExceptMaxModernizationShips}" Margin="4, 2">
+                            <TextBlock Text="{rb:StringResource Main.ShipOverview_Filter_ExceptMaxModernizationShips}" />
+                        </CheckBox>
                     </WrapPanel>
                 </StackPanel>
             </Border>

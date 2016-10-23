@@ -452,6 +452,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ShipOverview_Filter_ExceptExpeditionShips => GetString(nameof(ShipOverview_Filter_ExceptExpeditionShips));
         public string ShipOverview_Filter_ExceptSparklingShips => GetString(nameof(ShipOverview_Filter_ExceptSparklingShips));
         public string ShipOverview_Filter_ExceptLevel1Ships => GetString(nameof(ShipOverview_Filter_ExceptLevel1Ships));
+        public string ShipOverview_Filter_ExceptMaxModernizationShips => GetString(nameof(ShipOverview_Filter_ExceptMaxModernizationShips));
         public string ShipOverview_List_Loading => GetString(nameof(ShipOverview_List_Loading));
 
         public string Export_CSV => GetString(nameof(Export_CSV));

@@ -14,5 +14,10 @@
 
         public Property<int[]> SelectedShipTypes { get; } = new Property<int[]>("game.overview.ship_types");
         public Property<int[]> SelectedEquipmentTypes { get; } = new Property<int[]>("game.overview.equipment_types");
+
+        public Property<bool> ShipOverview_ExceptExpeditionShips { get; } = new Property<bool>("game.overview.ship.filter.except.expedition");
+        public Property<bool> ShipOverview_ExceptSparklingShips { get; } = new Property<bool>("game.overview.ship.filter.except.sparkling");
+        public Property<bool> ShipOverview_ExceptLevel1Ships { get; } = new Property<bool>("game.overview.ship.filter.except.lv1");
+        public Property<bool> ShipOverview_ExceptMaxModernizationShips { get; } = new Property<bool>("game.overview.ship.filter.except.maxmodernization");
     }
 }

@@ -29,7 +29,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             rpItem.Type.IsSelected &&
             (!r_Owner.ExceptExpeditionShips || (rpItem.Ship.State & ShipState.Expedition) == 0) &&
             (!r_Owner.ExceptSparklingShips || (rpItem.Ship.Condition < 50)) &&
-            (!r_Owner.ExceptLevel1Ships || (rpItem.Ship.Level > 1));
+            (!r_Owner.ExceptLevel1Ships || (rpItem.Ship.Level > 1)) &&
+            (!r_Owner.ExceptMaxModernizationShips || !rpItem.Ship.Status.IsMaximum);
 
         protected override IEnumerable<ShipViewModel> Sort(IEnumerable<ShipViewModel> rpItems)
         {

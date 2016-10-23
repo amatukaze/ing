@@ -451,6 +451,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="ShipOverview_Filter_ExceptExpeditionShips">Except expedition ships</String>
   <String Key="ShipOverview_Filter_ExceptSparklingShips">Except sparkling ships</String>
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">Except Lv1 ships</String>
+  <String Key="ShipOverview_Filter_ExceptMaxModernizationShips">Except maximum modernization ships</String>
   <String Key="ShipOverview_List_Loading">Loading</String>
 
   <String Key="Export_CSV">Export as CSV file</String>
