@@ -56,7 +56,7 @@ FROM (
     UNION ALL
     SELECT 2, strftime('%s', 'now', 'localtime', 'start of month', 'utc'), strftime('%s', 'now')
     UNION ALL
-    SELECT 3 AS type, strftime('%s', 'now', 'localtime', 'start of day', '-1 days', 'utc') AS start, strftime('%s', 'now', 'localtime', 'start of day', 'utc') AS end
+    SELECT 3, strftime('%s', 'now', 'localtime', 'start of day', '-1 days', 'utc'), strftime('%s', 'now', 'localtime', 'start of day', 'utc')
     UNION ALL
     SELECT 4, strftime('%s', 'now', 'localtime', 'weekday 0', '-13 days', 'start of day', 'utc'), strftime('%s', 'now', 'localtime', 'weekday 0', '-6 days', 'start of day', 'utc')
     UNION ALL
@@ -76,10 +76,10 @@ JOIN (
     JOIN sortie USING(id)
     JOIN (
         SELECT sortie_detail.id,
-            COUNT(CASE WHEN rank = 5 THEN sortie_detail.id END) AS s_rank,
-            COUNT(CASE WHEN rank = 4 THEN sortie_detail.id END) AS a_rank,
-            COUNT(CASE WHEN rank = 3 THEN sortie_detail.id END) AS b_rank,
-            COUNT(CASE WHEN rank NOT IN (3, 4, 5) THEN sortie_detail.id END) AS failure_rank
+            count(CASE WHEN rank = 5 THEN sortie_detail.id END) AS s_rank,
+            count(CASE WHEN rank = 4 THEN sortie_detail.id END) AS a_rank,
+            count(CASE WHEN rank = 3 THEN sortie_detail.id END) AS b_rank,
+            count(CASE WHEN rank NOT IN (3, 4, 5) THEN sortie_detail.id END) AS failure_rank
         FROM sortie_detail
         JOIN battle ON battle.id = sortie_detail.extra_info
         GROUP BY sortie_detail.id
