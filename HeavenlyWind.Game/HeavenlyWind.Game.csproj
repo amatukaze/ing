@@ -342,6 +342,7 @@
     <Compile Include="Services\Quest\OSS\OSSQuestProgressRule.cs" />
     <Compile Include="Services\Quest\OSS\Practice.cs" />
     <Compile Include="Services\Quest\OSS\QuestAttribute.cs" />
+    <Compile Include="Services\Quest\OSS\Scrapping.cs" />
     <Compile Include="Services\Quest\OSS\SinkTarget.cs" />
     <Compile Include="Services\Quest\Parsers\ApiTriggerParserBuilder.cs" />
     <Compile Include="Services\Quest\Parsers\DictionaryExtensions.cs" />
