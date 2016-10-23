@@ -1,5 +1,4 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
 using System;
 

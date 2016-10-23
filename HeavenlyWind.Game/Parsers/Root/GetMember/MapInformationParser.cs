@@ -7,6 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
     {
         public override void ProcessCore(ApiInfo rpInfo, RawSortieMapInfo rpData)
         {
+            Game.Port.AirBase.UpdateGroups(rpData.AirForceGroups);
         }
     }
 }

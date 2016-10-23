@@ -1,6 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <ControlTemplate x:Key="FirepowerIcon">
         <Path Fill="{TemplateBinding Foreground}" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M205.66406,0.5 L231.66409,19.000001 171.66425,79.999999 190.1642,83.499999 242.66406,28.499997 264.664,49.499999 215.66406,96.499999 230.74097,145.5 215.164,145.5 215.164,211 25.16423,211 25.16423,145.5 0.5,145.5 0.66898751,145.0956 C5.9087353,132.55646 29.861879,75.234656 29.861879,75.234656 L30.088673,74.999999 136.16437,74.999999 z" />
@@ -23,7 +26,7 @@
         <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
         <Setter Property="Width" Value="20" />
         <Setter Property="Height" Value="20" />
-        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="CacheMode" Value="{StaticResource BitmapCache}" />
 
         <Style.Triggers>
             <Trigger Property="Type" Value="Firepower">

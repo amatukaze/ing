@@ -1,24 +1,18 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    using Game;
-    using System.Data.SQLite;
-    using EventMapDifficultyEnum = EventMapDifficulty;
-
-    class SortieRecord : ModelBase
+    class SortieRecord : SortieRecordBase
     {
         internal long ID { get; }
         public long SortieID { get; }
-
-        public IMapMasterInfo Map { get; }
-        public bool IsEventMap { get; }
-        public EventMapDifficultyEnum? EventMapDifficulty { get; }
 
         public int Step { get; }
         public int Node { get; }
@@ -36,61 +30,54 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         public IList<ShipInfo> HeavilyDamagedShips { get; private set; }
 
-        internal SortieRecord(SQLiteDataReader rpReader)
+        public ShipInfo MvpShip { get; private set; }
+        public ShipInfo EscortFleetMvpShip { get; private set; }
+
+        internal SortieRecord(SQLiteDataReader rpReader) : base(rpReader)
         {
-            SortieID = Convert.ToInt64(rpReader["id"]);
+            SortieID = rpReader.GetInt64("id");
 
-            var rMapID = Convert.ToInt32(rpReader["map"]);
-            Map = MapService.Instance.GetMasterInfo(rMapID);
+            Step = rpReader.GetInt32("step");
+            Node = rpReader.GetInt32("node");
+            NodeWikiID = MapService.Instance.GetNodeWikiID(Map.ID, Node);
 
-            var rEventMapDifficulty = rpReader["difficulty"];
-            if (rEventMapDifficulty != DBNull.Value)
-            {
-                IsEventMap = true;
-                EventMapDifficulty = (EventMapDifficultyEnum)Convert.ToInt32(rEventMapDifficulty);
-            }
-
-            Step = Convert.ToInt32(rpReader["step"]);
-            Node = Convert.ToInt32(rpReader["node"]);
-            NodeWikiID = MapService.Instance.GetNodeWikiID(rMapID, Node);
-
-            EventType = (SortieEventType)Convert.ToInt32(rpReader["type"]);
+            EventType = (SortieEventType)rpReader.GetInt32("type");
             if (EventType == SortieEventType.NormalBattle)
-                BattleType = (BattleType)Convert.ToInt32(rpReader["subtype"]);
+                BattleType = (BattleType)rpReader.GetInt32("subtype");
 
             if (EventType == SortieEventType.NormalBattle || EventType == SortieEventType.BossBattle)
-                Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["extra_info"])).LocalDateTime.ToString();
+                Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("extra_info")).LocalDateTime.ToString();
 
-            ID = Convert.ToInt64(rpReader["extra_info"]);
+            ID = rpReader.GetInt64("extra_info");
 
             Update(rpReader);
         }
 
         internal void Update(SQLiteDataReader rpReader)
         {
-            var rBattleRank = rpReader["rank"];
-            if (rBattleRank != DBNull.Value)
-            {
-                BattleRank = (BattleRank)Convert.ToInt32(rBattleRank);
-                OnPropertyChanged(nameof(BattleRank));
-            }
+            var rBattleRank = rpReader.GetInt32Optional("rank");
+            if (rBattleRank.HasValue)
+                BattleRank = (BattleRank)rBattleRank.Value;
 
-            var rDroppedShip = rpReader["dropped_ship"];
-            if (rDroppedShip != DBNull.Value)
-            {
-                DroppedShip = KanColleGame.Current.MasterInfo.Ships[Convert.ToInt32(rDroppedShip)];
-                OnPropertyChanged(nameof(DroppedShip));
-            }
+            var rDroppedShip = rpReader.GetInt32Optional("dropped_ship");
+            if (rDroppedShip.HasValue)
+                DroppedShip = KanColleGame.Current.MasterInfo.Ships[rDroppedShip.Value];
 
-            IsBattleDetailAvailable = Convert.ToBoolean(rpReader["battle_detail"]);
-            OnPropertyChanged(nameof(IsBattleDetailAvailable));
+            IsBattleDetailAvailable = rpReader.GetBoolean("battle_detail");
 
-            var rHeavilyDamagedShipIDs = rpReader["heavily_damaged"];
-            if (rHeavilyDamagedShipIDs != DBNull.Value)
-            {
-                HeavilyDamagedShips = ((string)rpReader["heavily_damaged"]).Split(',').Select(r => KanColleGame.Current.MasterInfo.Ships[int.Parse(r)]).ToList();
-                OnPropertyChanged(nameof(HeavilyDamagedShips));
-            }
+            var rHeavilyDamagedShipIDs = rpReader.GetString("heavily_damaged");
+            if (rHeavilyDamagedShipIDs != null)
+                HeavilyDamagedShips = rHeavilyDamagedShipIDs.Split(',').Select(r => KanColleGame.Current.MasterInfo.Ships[int.Parse(r)]).ToList();
+
+            var rMvpShip = rpReader.GetInt32Optional("mvp");
+            if (rMvpShip.HasValue)
+                MvpShip = KanColleGame.Current.MasterInfo.Ships[rMvpShip.Value];
+
+            var rEscortFleetMvpShip = rpReader.GetInt32Optional("mvp_escort");
+            if (rEscortFleetMvpShip.HasValue)
+                EscortFleetMvpShip = KanColleGame.Current.MasterInfo.Ships[rEscortFleetMvpShip.Value];
+
+            OnPropertyChanged(string.Empty);
         }
     }
 }

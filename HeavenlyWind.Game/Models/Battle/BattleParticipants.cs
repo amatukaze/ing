@@ -7,14 +7,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public IList<IParticipant> FriendMain { get; internal set; }
         public IList<IParticipant> FriendEscort { get; internal set; }
 
-        IList<IParticipant> r_Enemy;
-        public IList<IParticipant> Enemy
+        IList<IParticipant> r_EnemyMain;
+        public IList<IParticipant> EnemyMain
         {
-            get { return r_Enemy; }
+            get { return r_EnemyMain; }
             internal set
             {
-                r_Enemy = value;
-                OnPropertyChanged(nameof(Enemy));
+                r_EnemyMain = value;
+                OnPropertyChanged(nameof(EnemyMain));
+            }
+        }
+
+        IList<IParticipant> r_EnemyEscort;
+        public IList<IParticipant> EnemyEscort
+        {
+            get { return r_EnemyEscort; }
+            internal set
+            {
+                r_EnemyEscort = value;
+                OnPropertyChanged(nameof(EnemyEscort));
             }
         }
     }

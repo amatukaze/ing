@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sakuno.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,47 +9,36 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         Fleet r_Fleet;
 
-        internal List<Tuple<Ship, int>> RepairingShips { get; set; }
+        ListDictionary<Ship, int> r_Snapshots;
 
-        public event Action InterruptionNotification = () => { };
+        public IEnumerable<Ship> RepairingShips => r_Snapshots == null ? ArrayUtil.Empty<Ship>() : r_Snapshots.Keys;
+
+        public event Action InterruptionNotification;
 
         internal FleetAnchorageRepair(Fleet rpFleet)
         {
             r_Fleet = rpFleet;
         }
 
-        internal void Update(IEnumerable<Ship> rpShipsToBeRepaired)
+        internal void Update(IEnumerable<Ship> rpShips)
         {
-            var rShips = rpShipsToBeRepaired.Select(r => Tuple.Create(r, r.HP.Current)).ToList();
-            var rReset = false;
+            var rSnapshots = new ListDictionary<Ship, int>();
+            foreach (var rShip in rpShips)
+                rSnapshots.Add(rShip, rShip.HP.Current);
 
-            if (RepairingShips == null || !RepairingShips.Select(r => r.Item1).SequenceEqual(rpShipsToBeRepaired))
+            if (r_Snapshots == null || !r_Snapshots.Keys.SequenceEqual(rpShips) || !r_Snapshots.Values.SequenceEqual(rpShips.Select(r => r.HP.Current)))
             {
-                if (RepairingShips != null)
-                    foreach (var rShip in RepairingShips.Select(r => r.Item1).Except(rpShipsToBeRepaired))
+                if (r_Snapshots != null)
+                    foreach (var rShip in r_Snapshots.Keys.Except(rpShips))
                         rShip.UpdateAnchorageRepairStatus(false);
 
-                rReset = true;
-            }
-            else
-            {
-                for (var i = 0; i < RepairingShips.Count; i++)
-                    if (RepairingShips[i].Item2 != rShips[i].Item2)
-                    {
-                        rReset = true;
-                        break;
-                    }
-            }
-
-            if (rReset)
-            {
-                foreach (var rShip in rShips)
+                foreach (var rShip in rSnapshots.Keys)
                 {
-                    rShip.Item1.UpdateAnchorageRepairStatus(true);
-                    rShip.Item1.AnchorageRepairStatus.Update();
+                    rShip.UpdateAnchorageRepairStatus(true);
+                    rShip.AnchorageRepairStatus.Update();
                 }
 
-                RepairingShips = rShips;
+                r_Snapshots = rSnapshots;
                 Reset();
             }
         }
@@ -56,26 +46,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal void Reset() => TimeToComplete = DateTimeOffset.Now.AddMinutes(20.0);
         internal void Stop()
         {
-            foreach (var rShip in RepairingShips)
-                rShip.Item1.UpdateAnchorageRepairStatus(false);
+            foreach (var rShip in r_Snapshots.Keys)
+                rShip.UpdateAnchorageRepairStatus(false);
 
             TimeToComplete = null;
-            RepairingShips = null;
+            r_Snapshots = null;
         }
 
+        internal bool IsBeingAnchorageRepair(Ship rpShip) => r_Snapshots != null && r_Snapshots.ContainsKey(rpShip);
         internal void RemoveShipIfExists(Ship rpShip)
         {
-            if (RepairingShips == null)
+            if (r_Snapshots == null)
                 return;
 
-            var rIndex = RepairingShips.FindIndex(r => r.Item1 == rpShip);
-            if (rIndex != -1)
-            {
-                rpShip.UpdateAnchorageRepairStatus(false);
-                RepairingShips.RemoveAt(rIndex);
-            }
+            r_Snapshots.Remove(rpShip);
+            rpShip.UpdateAnchorageRepairStatus(false);
         }
 
-        protected override void TimeOut() => InterruptionNotification();
+        protected override void TimeOut() => InterruptionNotification?.Invoke();
     }
 }

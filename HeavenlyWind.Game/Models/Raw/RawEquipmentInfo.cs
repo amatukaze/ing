@@ -65,6 +65,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         //[JsonProperty("api_usebull")]
         //public string UseBullet { get; set; }
 
+        [JsonProperty("api_cost")]
+        public int DeploymentBauxiteConsumption { get; set; }
+
         [JsonProperty("api_distance")]
         public int CombatRadius { get; set; }
     }

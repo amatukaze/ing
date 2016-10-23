@@ -20,6 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_ExpeditionResult => GetString(nameof(Log_ExpeditionResult));
         public string Log_StartConstruction => GetString(nameof(Log_StartConstruction));
         public string Log_Development_Success => GetString(nameof(Log_Development_Success));
+        public string Log_Development_Success_Rare => GetString(nameof(Log_Development_Success_Rare));
         public string Log_Development_Failure => GetString(nameof(Log_Development_Failure));
         public string Log_Sortie => GetString(nameof(Log_Sortie));
         public string Log_Sortie_Event => GetString(nameof(Log_Sortie_Event));
@@ -192,6 +193,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string AirBase_Group_Option_Retreat => GetString(nameof(AirBase_Group_Option_Retreat));
         public string AirBase_Group_Option_Rest => GetString(nameof(AirBase_Group_Option_Rest));
         public string AirBase_Group_CombatRadius => GetString(nameof(AirBase_Group_CombatRadius));
+        public string AirBase_Group_Relocating => GetString(nameof(AirBase_Group_Relocating));
 
         public string Material_Fuel => GetString(nameof(Material_Fuel));
         public string Material_Bullet => GetString(nameof(Material_Bullet));
@@ -223,9 +225,12 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_Event_EscortSuccess => GetString(nameof(Sortie_Event_EscortSuccess));
         public string Sortie_Event_Landing => GetString(nameof(Sortie_Event_Landing));
         public string Sortie_Event_AerialAttack => GetString(nameof(Sortie_Event_AerialAttack));
+        public string Sortie_Whirlpool_Message => GetString(nameof(Sortie_Whirlpool_Message));
+        public string Sortie_Whirlpool_Message_CombinedFleet => GetString(nameof(Sortie_Whirlpool_Message_CombinedFleet));
         public string Sortie_BattleType_Normal => GetString(nameof(Sortie_BattleType_Normal));
         public string Sortie_BattleType_NightOnly => GetString(nameof(Sortie_BattleType_NightOnly));
         public string Sortie_BattleType_AerialCombat => GetString(nameof(Sortie_BattleType_AerialCombat));
+        public string Sortie_BattleType_EnemyCombinedFleet => GetString(nameof(Sortie_BattleType_EnemyCombinedFleet));
         public string Sortie_BattleType_AerialAttack => GetString(nameof(Sortie_BattleType_AerialAttack));
         public string Sortie_NothingHappened_Imagination => GetString(nameof(Sortie_NothingHappened_Imagination));
         public string Sortie_NothingHappened_NoSighOfTheEnemy => GetString(nameof(Sortie_NothingHappened_NoSighOfTheEnemy));
@@ -299,6 +304,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Requirement_OperationAGo_SRankVictory => GetString(nameof(Quest_Requirement_OperationAGo_SRankVictory));
         public string Quest_Requirement_OperationAGo_BossEncounter => GetString(nameof(Quest_Requirement_OperationAGo_BossEncounter));
         public string Quest_Requirement_OperationAGo_BossBattleVictory => GetString(nameof(Quest_Requirement_OperationAGo_BossBattleVictory));
+        public string Quest_RewardSelection => GetString(nameof(Quest_RewardSelection));
 
         public string ExpeditionOverview_Time => GetString(nameof(ExpeditionOverview_Time));
         public string ExpeditionOverview_Consumption => GetString(nameof(ExpeditionOverview_Consumption));
@@ -314,6 +320,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Window_ExpeditionHistory => GetString(nameof(Window_ExpeditionHistory));
         public string Window_ScrappingHistory => GetString(nameof(Window_ScrappingHistory));
         public string Window_ResourceHistory => GetString(nameof(Window_ResourceHistory));
+        public string Window_SortieConsumptionHistory => GetString(nameof(Window_SortieConsumptionHistory));
+        public string Window_SortieStatistic => GetString(nameof(Window_SortieStatistic));
         public string Window_ClosingConfirmation_Instruction => GetString(nameof(Window_ClosingConfirmation_Instruction));
         public string Window_ClosingConfirmation_Button_Yes => GetString(nameof(Window_ClosingConfirmation_Button_Yes));
         public string Window_ClosingConfirmation_Button_No => GetString(nameof(Window_ClosingConfirmation_Button_No));
@@ -416,6 +424,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Screenshot_File => GetString(nameof(Screenshot_File));
         public string Screenshot_Clipboard => GetString(nameof(Screenshot_Clipboard));
         public string Screenshot_Tool => GetString(nameof(Screenshot_Tool));
+        public string Screenshot_OpenFolder => GetString(nameof(Screenshot_OpenFolder));
 
         public string EquipmentOverview_Name => GetString(nameof(EquipmentOverview_Name));
         public string EquipmentOverview_TotalCount => GetString(nameof(EquipmentOverview_TotalCount));
@@ -443,6 +452,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ShipOverview_Filter_ExceptExpeditionShips => GetString(nameof(ShipOverview_Filter_ExceptExpeditionShips));
         public string ShipOverview_Filter_ExceptSparklingShips => GetString(nameof(ShipOverview_Filter_ExceptSparklingShips));
         public string ShipOverview_Filter_ExceptLevel1Ships => GetString(nameof(ShipOverview_Filter_ExceptLevel1Ships));
+        public string ShipOverview_Filter_ExceptMaxModernizationShips => GetString(nameof(ShipOverview_Filter_ExceptMaxModernizationShips));
         public string ShipOverview_List_Loading => GetString(nameof(ShipOverview_List_Loading));
 
         public string Export_CSV => GetString(nameof(Export_CSV));
@@ -453,6 +463,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Record_Time => GetString(nameof(Record_Time));
         public string Record_Equipment => GetString(nameof(Record_Equipment));
         public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));
+        public string Record_RankingPoints => GetString(nameof(Record_RankingPoints));
         public string Record_Filter_SuccessOnly => GetString(nameof(Record_Filter_SuccessOnly));
 
         public string ConstructionHistory_Ship => GetString(nameof(ConstructionHistory_Ship));
@@ -510,6 +521,15 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SessionTool_Method => GetString(nameof(SessionTool_Method));
         public string SessionTool_Status => GetString(nameof(SessionTool_Status));
         public string SessionTool_URLOrAPI => GetString(nameof(SessionTool_URLOrAPI));
+
+        public string SortieStatistic_TimeSpan_Today => GetString(nameof(SortieStatistic_TimeSpan_Today));
+        public string SortieStatistic_TimeSpan_ThisWeek => GetString(nameof(SortieStatistic_TimeSpan_ThisWeek));
+        public string SortieStatistic_TimeSpan_ThisMonth => GetString(nameof(SortieStatistic_TimeSpan_ThisMonth));
+        public string SortieStatistic_TimeSpan_Yesterday => GetString(nameof(SortieStatistic_TimeSpan_Yesterday));
+        public string SortieStatistic_TimeSpan_LastWeek => GetString(nameof(SortieStatistic_TimeSpan_LastWeek));
+        public string SortieStatistic_TimeSpan_LastMonth => GetString(nameof(SortieStatistic_TimeSpan_LastMonth));
+        public string SortieStatistic_Count => GetString(nameof(SortieStatistic_Count));
+        public string SortieStatistic_RankingPoints => GetString(nameof(SortieStatistic_RankingPoints));
 
     }
 }

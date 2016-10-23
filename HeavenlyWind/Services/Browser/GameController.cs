@@ -36,6 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public ICommand TakeScreenshotToFileCommand { get; }
         public ICommand TakeScreenshotToClipboardCommand { get; }
         public ICommand OpenScreenshotToolCommand { get; }
+        public ICommand OpenScreenshotFolderCommand { get; }
 
         public ICommand MuteToggleCommand { get; }
 
@@ -62,6 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             TakeScreenshotToFileCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
             TakeScreenshotToClipboardCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: true));
             OpenScreenshotToolCommand = new DelegatedCommand(ScreenshotTool.Open);
+            OpenScreenshotFolderCommand = new DelegatedCommand(() => Process.Start(Preference.Instance.Browser.Screenshot.Path));
 
             if (OS.IsWin7OrLater && !rpOwner.NoInstalledLayoutEngines)
                 try
@@ -171,12 +173,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             r_Owner.Communicator.Write(CommunicatorMessages.SetZoom + ":" + rpZoom);
             r_Owner.Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
-            r_Owner.BrowserControl.Dispatcher.BeginInvoke(new Action(r_Owner.BrowserControl.ResizeBrowserToFitGame));
+            r_Owner.BrowserControl.Dispatcher.InvokeAsync(r_Owner.BrowserControl.ResizeBrowserToFitGame);
         }
 
         void RestartGame()
         {
-            var rMode = Preference.Instance.UI.CloseConfirmationMode.Value;
+            var rMode = Preference.Instance.Browser.RefreshConfirmationMode.Value;
             if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo && !(KanColleGame.Current.Sortie is PracticeInfo)))
             {
                 var rDialog = new TaskDialog()

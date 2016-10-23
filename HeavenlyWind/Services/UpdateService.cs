@@ -67,7 +67,20 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             try
             {
-                await CheckForUpdateCore();
+                for (var i = 1; i <= 4; i++)
+                    try
+                    {
+                        await CheckForUpdateCore();
+
+                        return;
+                    }
+                    catch (WebException)
+                    {
+                        if (i == 4)
+                            throw;
+
+                        await Task.Delay(i * 4000);
+                    }
             }
             catch (Exception e)
             {
@@ -101,6 +114,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                                 Info.IsAvailable = false;
                             break;
                     }
+
                 OnPropertyChanged(nameof(Info));
 
                 await ProcessFiles(rResult);

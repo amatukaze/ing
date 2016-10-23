@@ -22,20 +22,20 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal FateRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["time"])).LocalDateTime.ToString();
+            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("time")).LocalDateTime.ToString();
 
             var rMasterInfo = KanColleGame.Current.MasterInfo;
-            var rMasterID = Convert.ToInt32(rpReader["master_id"]);
-            IsEquipment = Convert.ToBoolean(rpReader["is_equipment"]);
+            var rMasterID = rpReader.GetInt32("master_id");
+            IsEquipment = rpReader.GetBoolean("is_equipment");
             if (!IsEquipment)
                 Ship = rMasterInfo.Ships[rMasterID];
             else
                 Equipment = rMasterInfo.Equipment[rMasterID];
 
-            Level = Convert.ToInt32(rpReader["level"]);
-            Proficiency = Convert.ToInt32(rpReader["proficiency"]);
+            Level = rpReader.GetInt32("level");
+            Proficiency = rpReader.GetInt32("proficiency");
 
-            Fate = (Fate)Convert.ToInt32(rpReader["fate"]);
+            Fate = (Fate)rpReader.GetInt32("fate");
         }
     }
 }

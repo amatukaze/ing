@@ -66,22 +66,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (!rSortieMap.HasGauge || Sortie.Node.EventType != SortieEventType.BossBattle)
                     return;
 
+                var rHP = rSortieMap.HP;
+                rHP.Before = rHP.Current;
+
                 var rBattle = BattleInfo.Current;
                 var rEnemyFlagship = rBattle.CurrentStage.Enemy[0];
                 if (!rSortieMap.IsEventMap && rEnemyFlagship.State == BattleParticipantState.Sunk)
-                    rSortieMap.HP.Current--;
+                    rHP.Current--;
                 else if (rSortieMap.IsEventMap)
                 {
                     var rData = r.GetData<RawBattleResult>();
                     if (rData.TransportMissionResult != null)
-                        rSortieMap.HP.Current -= rData.TransportMissionResult.Point;
+                        rHP.Current -= rData.TransportMissionResult.Point;
                     else
                     {
-                        var rCurrentHP = rSortieMap.HP.Current - (rEnemyFlagship.Maximum - Math.Max(rEnemyFlagship.Current, 0));
+                        var rCurrentHP = rHP.Current - (rEnemyFlagship.Maximum - Math.Max(rEnemyFlagship.Current, 0));
                         if (rEnemyFlagship.State == BattleParticipantState.Sunk)
-                            rSortieMap.HP.Current = Math.Max(rCurrentHP, 0);
+                            rHP.Current = Math.Max(rCurrentHP, 0);
                         else
-                            rSortieMap.HP.Current = Math.Max(rCurrentHP, 1);
+                            rHP.Current = Math.Max(rCurrentHP, 1);
                     }
                 }
 

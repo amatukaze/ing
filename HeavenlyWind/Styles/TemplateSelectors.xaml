@@ -56,7 +56,7 @@
 
         <TextBlock>
             <Run Style="{StaticResource Map}" /><Run Text="{Binding Map.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource EventMapDifficulty, Map_Difficulty, TargetNullValue={x:Null}}" />
-            <Run Text="{rb:ExtraStringResource Map, Map.ID, Map.Name}" />
+            (<Run Text="{rb:ExtraStringResource Map, Map.ID, Map.Name}" />)
         </TextBlock>
     </DataTemplate>
 

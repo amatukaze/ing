@@ -67,6 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 "api_req_combined_battle/battle_water",
                 "api_req_combined_battle/sp_midnight",
                 "api_req_combined_battle/ld_airbattle",
+                "api_req_combined_battle/ec_battle",
             };
             ApiService.Subscribe(rBattleApis, ProcessAbyssalFleet);
         }
@@ -79,6 +80,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 return;
 
             var rEnemies = rData.EnemyShipTypeIDs.Where(r => r != -1).ToArray();
+
+            var rEnemyCombinedFleet = rData as IRawEnemyCombinedFleet;
+            if (rEnemyCombinedFleet != null)
+                rEnemies = rData.EnemyShipTypeIDs.Skip(1).Concat(rEnemyCombinedFleet.EnemyEscortShipTypeIDs.Where(r => r != -1)).ToArray();
+
             var rBytes = new byte[rEnemies.Length * sizeof(int)];
             Buffer.BlockCopy(rEnemies, 0, rBytes, 0, rBytes.Length);
 
@@ -105,6 +111,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     rBuilder.Append("INSERT OR IGNORE INTO abyssal.composition(id, position, ship) VALUES");
                     for (var i = 0; i < rEnemies.Length; i++)
                     {
+                        if (rEnemies[i] == -1)
+                            continue;
+
                         rBuilder.Append($"({rCompositionID}, {i}, {rEnemies[i]})");
                         if (i < rEnemies.Length - 1)
                             rBuilder.Append(',');
@@ -147,7 +156,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                         if (!rFleets.TryGetValue(rID, out rFleet))
                         {
                             var rShips = (string)rReader["ships"];
-                            var rShipIDs = rShips.Split(',').Select(int.Parse);
+                            var rShipIDs = rShips.Split(',');
+
                             rFleets.Add(rID, rFleet = new EnemyFleet(rShipIDs));
                         }
 

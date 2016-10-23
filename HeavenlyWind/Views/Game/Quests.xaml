@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+             xmlns:rui="clr-namespace:Sakuno.UserInterface;assembly=Sakuno.UserInterface"
+             xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+             xmlns:rmr="clr-namespace:Sakuno.KanColle.Amatsukaze.Models.Rewards"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -14,6 +17,45 @@
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/OverviewTabControl.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/QuestRealtimeProgress.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <rui:GenericDataTemplateSelector x:Key="RewardTemplateSelector">
+                <rui:DataTemplateSelection DataType="{x:Type rmr:QuestMaterialReward}">
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <rc:MaterialIcon Type="{Binding Type}" />
+                            <TextBlock Text="{Binding Quantity}" Margin="4, 0, 0, 0" />
+                        </StackPanel>
+                    </DataTemplate>
+                </rui:DataTemplateSelection>
+                <rui:DataTemplateSelection DataType="{x:Type rmr:QuestEquipmentReward}">
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <rc:EquipmentIcon Type="{Binding Equipment.Icon}" Width="20" Height="20" />
+
+                            <TextBlock Margin="4, 0, 0, 0">
+                                <Run Text="{rb:ExtraStringResource Equipment, Equipment.ID, Equipment.Name}" />
+                                x<Run Text="{Binding Quantity, Mode=OneWay}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </rui:DataTemplateSelection>
+                <rui:DataTemplateSelection DataType="{x:Type rmr:QuestItemReward}">
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{rb:ExtraStringResource Item, Item.ID, Item.Name}" />
+                            x<Run Text="{Binding Quantity, Mode=OneWay}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </rui:DataTemplateSelection>
+                <rui:DataTemplateSelection DataType="{x:Type rmr:QuestFurnitureReward}">
+                    <DataTemplate>
+                        <TextBlock>
+                            <Run Text="{rb:ExtraStringResource Furniture, Furniture.ID, Furniture.Name}" />
+                            x<Run Text="{Binding Quantity, Mode=OneWay}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </rui:DataTemplateSelection>
+            </rui:GenericDataTemplateSelector>
 
             <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
                 <Border Background="Transparent" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Margin="4, -1, 4, 0" Padding="0, 8">
@@ -30,6 +72,7 @@
                             <RowDefinition Height="4" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="4" />
+                            <RowDefinition Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
@@ -43,56 +86,40 @@
                             </Border>
                         </StackPanel>
 
-                        <TextBlock Text="{rb:ExtraStringResource QuestDescription, Source.ID, Source.Description}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2" />
+                        <ruic:BBCodeBlock BBCode="{rb:ExtraStringResource QuestDescription, Source.ID, Source.Description}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2" />
 
-                        <WrapPanel DataContext="{Binding Source}" Grid.Column="2" Grid.Row="4">
-                            <StackPanel Orientation="Horizontal">
-                                <rc:MaterialIcon Type="Fuel" Visibility="{rb:CollapsedIfZero FuelReward}" />
-                                <TextBlock Text="{Binding FuelReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero FuelReward}" />
+                        <ItemsControl ItemsSource="{Binding Rewards}" ItemTemplateSelector="{StaticResource RewardTemplateSelector}" Grid.Column="2" Grid.Row="4">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type ContentPresenter}">
+                                    <Setter Property="Margin" Value="4" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                        </ItemsControl>
 
-                                <rc:MaterialIcon Type="Bullet" Visibility="{rb:CollapsedIfZero BulletReward}" />
-                                <TextBlock Text="{Binding BulletReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero BulletReward}" />
-
-                                <rc:MaterialIcon Type="Steel" Visibility="{rb:CollapsedIfZero SteelReward}" />
-                                <TextBlock Text="{Binding SteelReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero SteelReward}" />
-
-                                <rc:MaterialIcon Type="Bauxite" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
-                                <TextBlock Text="{Binding BauxiteReward}" Margin="4, 0" Visibility="{rb:CollapsedIfZero BauxiteReward}" />
-
-                                <rc:MaterialIcon Type="InstantConstruction" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.InstantConstruction}" />
-                                <TextBlock Text="{Binding Extra.ExtraRewards.Materials.InstantConstruction}" Margin="4, 0" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.InstantConstruction}" />
-
-                                <rc:MaterialIcon Type="Bucket" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.Bucket}" />
-                                <TextBlock Text="{Binding Extra.ExtraRewards.Materials.Bucket}" Margin="4, 0" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.Bucket}" />
-
-                                <rc:MaterialIcon Type="DevelopmentMaterial" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.DevelopmentMaterial}" />
-                                <TextBlock Text="{Binding Extra.ExtraRewards.Materials.DevelopmentMaterial}" Margin="4, 0" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.DevelopmentMaterial}" />
-
-                                <rc:MaterialIcon Type="ImprovementMaterial" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.ImprovementMaterial}" />
-                                <TextBlock Text="{Binding Extra.ExtraRewards.Materials.ImprovementMaterial}" Margin="4, 0, 0, 0" Visibility="{rb:CollapsedIfZero Extra.ExtraRewards.Materials.ImprovementMaterial}" />
-                            </StackPanel>
-
-                            <ItemsControl ItemsSource="{Binding Extra.ExtraRewards.Equipment}" Margin="0, 4, 0, 0">
+                        <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0" Visibility="{rb:CollapsedIfNull RewardSelections}" Grid.Column="2" Grid.Row="5">
+                            <TextBlock>
+                                <Run Text="{rb:StringResource Main.Quest_RewardSelection}" />:
+                            </TextBlock>
+                            <ItemsControl ItemsSource="{Binding RewardSelections}" ItemTemplateSelector="{StaticResource RewardTemplateSelector}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal" />
+                                        <WrapPanel />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <rc:EquipmentIcon Type="{Binding Info.Icon}" />
-                                            <TextBlock Margin="4, 0">
-                                                <Run Text="{rb:ExtraStringResource Equipment, Info.ID, Info.Name}" />
-                                                x<Run Text="{Binding Count, Mode=OneWay}" />
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ContentPresenter}">
+                                        <Setter Property="Margin" Value="4" />
+                                    </Style>
+                                </ItemsControl.ItemContainerStyle>
                             </ItemsControl>
-                        </WrapPanel>
+                        </StackPanel>
 
-                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4" Grid.RowSpan="5">
+                        <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4">
                             <Control Style="{StaticResource QuestRealtimeProgress}" />
                         </Border>
                     </Grid>

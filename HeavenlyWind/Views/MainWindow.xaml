@@ -45,6 +45,17 @@
                     <Setter Property="Height" Value="26" />
                 </Style>
             </DockPanel.Resources>
+            <DockPanel.Style>
+                <Style TargetType="{x:Type DockPanel}">
+                    <Setter Property="Background" Value="Transparent" />
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsBlinking, Source={x:Static rs:NotificationService.Instance}}" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource AccentBrushKey}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DockPanel.Style>
 
             <Border Height="4" DockPanel.Dock="Bottom" />
 
@@ -86,6 +97,16 @@
                     <ListBoxItem>
                         <Button Command="{Binding ShowResourceHistoryCommand}">
                             <TextBlock Text="{rb:StringResource Main.Window_ResourceHistory}" />
+                        </Button>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Button Command="{Binding ShowSortieConsumptionHistoryCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_SortieConsumptionHistory}" />
+                        </Button>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <Button Command="{Binding ShowSortieStatisticCommand}">
+                            <TextBlock Text="{rb:StringResource Main.Window_SortieStatistic}" />
                         </Button>
                     </ListBoxItem>
                 </ListBox>

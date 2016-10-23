@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
-using System;
-using System.Data.Common;
+using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
@@ -23,23 +22,21 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
         public bool IsLargeShipConstruction => FuelConsumption >= 1000 && BulletConsumption >= 1000 && SteelConsumption >= 1000 & BauxiteConsumption >= 1000;
         public int? EmptyDockCount { get; }
 
-        internal ConstructionRecord(DbDataReader rpReader)
+        internal ConstructionRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(Convert.ToInt64(rpReader["time"])).LocalDateTime.ToString();
-            Ship = KanColleGame.Current.MasterInfo.Ships[Convert.ToInt32(rpReader["ship"])];
+            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("time")).LocalDateTime.ToString();
+            Ship = KanColleGame.Current.MasterInfo.Ships[rpReader.GetInt32("ship")];
 
-            FuelConsumption = Convert.ToInt32(rpReader["fuel"]);
-            BulletConsumption = Convert.ToInt32(rpReader["bullet"]);
-            SteelConsumption = Convert.ToInt32(rpReader["steel"]);
-            BauxiteConsumption = Convert.ToInt32(rpReader["bauxite"]);
-            DevelopmentMaterialConsumption = Convert.ToInt32(rpReader["dev_material"]);
+            FuelConsumption = rpReader.GetInt32("fuel");
+            BulletConsumption = rpReader.GetInt32("bullet");
+            SteelConsumption = rpReader.GetInt32("steel");
+            BauxiteConsumption = rpReader.GetInt32("bauxite");
+            DevelopmentMaterialConsumption = rpReader.GetInt32("dev_material");
 
-            SecretaryShip = KanColleGame.Current.MasterInfo.Ships[Convert.ToInt32(rpReader["flagship"])];
-            HeadquarterLevel = Convert.ToInt32(rpReader["hq_level"]);
+            SecretaryShip = KanColleGame.Current.MasterInfo.Ships[rpReader.GetInt32("flagship")];
+            HeadquarterLevel = rpReader.GetInt32("hq_level");
 
-            var rEmptyDockCount = rpReader["empty_dock"];
-            if (rEmptyDockCount != DBNull.Value)
-                EmptyDockCount = Convert.ToInt32(rEmptyDockCount);
+            EmptyDockCount = rpReader.GetInt32Optional("empty_dock");
         }
     }
 }

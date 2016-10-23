@@ -13,7 +13,6 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
-using System.Windows.Shell;
 
 namespace Sakuno.KanColle.Amatsukaze.Views
 {
@@ -44,21 +43,12 @@ namespace Sakuno.KanColle.Amatsukaze.Views
 
             PanicKeyService.Instance.Initialize(r_Handle);
 
-            Preference.Instance.UI.LockTabs.Subscribe(rpIsLocked =>
-            {
-                ResizeMode = rpIsLocked ? ResizeMode.CanMinimize : ResizeMode.CanResize;
-
-                var rChrome = WindowChrome.GetWindowChrome(this);
-                WindowChrome.SetWindowChrome(this, null);
-                WindowChrome.SetWindowChrome(this, rChrome);
-            }, true);
-
             ServiceManager.Register<IMainWindowService>(this);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            var rMode = Preference.Instance.Browser.RefreshConfirmationMode.Value;
+            var rMode = Preference.Instance.UI.CloseConfirmationMode.Value;
             if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo && !(KanColleGame.Current.Sortie is PracticeInfo)))
             {
                 var rDialog = new TaskDialog()
@@ -90,7 +80,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         {
             if (!BrowserService.Instance.NoInstalledLayoutEngines)
             {
-                BrowserService.Instance.Resized += (s, e) => Dispatcher.BeginInvoke(new Action(UpdateSize));
+                BrowserService.Instance.Resized += (s, e) => Dispatcher.Invoke(UpdateSize);
 
                 Preference.Instance.UI.LandscapeDock.Subscribe(OnDockChanged);
                 Preference.Instance.UI.PortraitDock.Subscribe(OnDockChanged);
@@ -109,7 +99,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
 
         void OnDockChanged(Dock rpDock)
         {
-            Dispatcher.BeginInvoke(new Action(() =>
+            Dispatcher.InvokeAsync(() =>
             {
                 var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
                 var rWidth = GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
@@ -130,7 +120,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
 
                 Width = rWidth;
                 Height = rHeight;
-            }));
+            });
         }
 
         void IMainWindowService.Flash(int rpCount, int rpTimeout)

@@ -55,7 +55,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             Preference.Instance.Network.UpstreamProxy.Port.Subscribe(_ => UpdateUpstreamProxy());
             UpdateUpstreamProxy();
 
-            InitializeTrafficBarrier();
             InitializeAntiBlankScreenDataCollector();
         }
 

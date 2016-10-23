@@ -81,6 +81,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                     rParser.Process(rData);
                 }
             }
+            catch (AggregateException e) when (e.InnerExceptions.Count == 1)
+            {
+                Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_ParseException, e.InnerExceptions[0].Message));
+
+                rpSession.ErrorMessage = e.ToString();
+                HandleException(rpSession, e);
+            }
             catch (Exception e)
             {
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_ParseException, e.Message));

@@ -145,13 +145,24 @@
     <Compile Include="Models\InitializationStep.cs" />
     <Compile Include="Models\Power.cs" />
     <Compile Include="Models\ProcessInfo.cs" />
+    <Compile Include="Models\QuestReward.cs" />
     <Compile Include="Models\Records\ConstructionRecord.cs" />
     <Compile Include="Models\Records\DevelopmentRecord.cs" />
     <Compile Include="Models\Records\ExpeditionRecord.cs" />
     <Compile Include="Models\Records\FateRecord.cs" />
     <Compile Include="Models\Records\ResourceRecord.cs" />
+    <Compile Include="Models\Records\SortieConsumptionRecord.cs" />
     <Compile Include="Models\Records\SortieRecord.cs" />
+    <Compile Include="Models\Records\SortieRecordBase.cs" />
+    <Compile Include="Models\Rewards\QuestEquipmentReward.cs" />
+    <Compile Include="Models\Rewards\QuestFurnitureReward.cs" />
+    <Compile Include="Models\Rewards\QuestItemReward.cs" />
+    <Compile Include="Models\Rewards\QuestMaterialReward.cs" />
     <Compile Include="Models\ScreenshotRegion.cs" />
+    <Compile Include="Models\Statistics\SortieStatisticData.cs" />
+    <Compile Include="Models\Statistics\SortieStatisticMapItem.cs" />
+    <Compile Include="Models\Statistics\SortieStatisticTimeSpanType.cs" />
+    <Compile Include="Models\Statistics\SortieStatisticTotalItem.cs" />
     <Compile Include="Models\SystemFont.cs" />
     <Compile Include="Models\UIZoomInfo.cs" />
     <Compile Include="Models\ZoomInfo.cs" />
@@ -207,7 +218,9 @@
     <Compile Include="ViewModels\History\HistoryViewModelBase.cs" />
     <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\SortieConsumptionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
+    <Compile Include="ViewModels\History\SortieHistoryViewModelBase.cs" />
     <Compile Include="ViewModels\History\SortieMapFilterKey.cs" />
     <Compile Include="ViewModels\InitializationPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -226,6 +239,8 @@
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
     <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
+    <Compile Include="ViewModels\Statistics\SortieStatisticTimeSpanGroupViewModel.cs" />
+    <Compile Include="ViewModels\Statistics\SortieStatisticViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\ToolsViewModel.cs" />
     <Compile Include="ViewModels\Tools\SessionToolViewModel.cs" />
@@ -349,6 +364,9 @@
     <Compile Include="Views\History\ScrappingHistoryWindow.xaml.cs">
       <DependentUpon>ScrappingHistoryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\History\SortieConsumptionHistoryWindow.xaml.cs">
+      <DependentUpon>SortieConsumptionHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\History\SortieHistoryWindow.xaml.cs">
       <DependentUpon>SortieHistoryWindow.xaml</DependentUpon>
     </Compile>
@@ -402,6 +420,9 @@
     </Compile>
     <Compile Include="Views\Preferences\Window.xaml.cs">
       <DependentUpon>Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics\SortieStatisticWindow.xaml.cs">
+      <DependentUpon>SortieStatisticWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StatusBar.xaml.cs">
       <DependentUpon>StatusBar.xaml</DependentUpon>
@@ -918,6 +939,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\History\SortieConsumptionHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\History\SortieHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -987,6 +1012,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistics\SortieStatisticWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

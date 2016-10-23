@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public abstract class CountdownModelBase : ModelBase, IDisposable
+    public abstract class CountdownModelBase : DisposableModelBase
     {
-        static IConnectableObservable<long> r_Interval;
-        static IDisposable r_IntervalSubscription;
-
         DateTimeOffset? r_TimeToComplete;
         public DateTimeOffset? TimeToComplete
         {
@@ -40,26 +36,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public virtual TimeSpan RemainingTimeToNotify => TimeSpan.Zero;
         public bool IsNotificated { get; protected set; }
 
+        static event Action<long> Tick = delegate { };
+
         static CountdownModelBase()
         {
-            r_Interval = Observable.Interval(TimeSpan.FromSeconds(1.0)).Publish();
-            r_Interval.Connect();
+            Observable.Interval(TimeSpan.FromSeconds(1.0)).Subscribe(r => Tick?.Invoke(r));
         }
         public CountdownModelBase()
         {
-            r_IntervalSubscription = r_Interval.Subscribe(_ => OnTickCore());
+            Tick += OnTickCore;
         }
 
-        public void Dispose()
+        protected override void DisposeManagedResources()
         {
-            if (r_IntervalSubscription != null)
-            {
-                r_IntervalSubscription.Dispose();
-                r_IntervalSubscription = null;
-            }
+            Tick -= OnTickCore;
         }
 
-        void OnTickCore()
+        void OnTickCore(long rpTick)
         {
             if (!TimeToComplete.HasValue)
                 RemainingTime = null;

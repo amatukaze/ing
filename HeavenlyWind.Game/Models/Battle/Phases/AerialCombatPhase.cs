@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
@@ -76,10 +77,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
             var rParticipants = Stage.FriendAndEnemy;
 
-            var rEnemyDamages = rStage3.EnemyDamage.Skip(1);
-            var rDamages = Enumerable.Concat(rStage3.FriendDamage.Skip(1), rEnemyDamages).ToArray();
+            var rFriendMainDamages = rStage3.FriendDamage.Skip(1);
+            var rEnemyMainDamages = rStage3.EnemyDamage.Skip(1);
+            var rDamages = Enumerable.Concat(rFriendMainDamages, rEnemyMainDamages).ToArray();
+
+            IEnumerable<int> rEnemyEscortDamages = null;
             if (RawData.Stage3CombinedFleet != null)
-                rDamages = Enumerable.Concat(rDamages, RawData.Stage3CombinedFleet.FriendDamage.Skip(1)).ToArray();
+            {
+                var rFriendEscortDamages = RawData.Stage3CombinedFleet.FriendDamage.Skip(1);
+                var rEscortDamages = Enumerable.Concat(rDamages, rFriendEscortDamages);
+
+                if (RawData.Stage3CombinedFleet.EnemyDamage != null)
+                {
+                    rEnemyEscortDamages = RawData.Stage3CombinedFleet.EnemyDamage.Skip(1);
+
+                    rEscortDamages = rEscortDamages.Concat(rEnemyEscortDamages);
+                }
+
+                rDamages = rEscortDamages.ToArray();
+            }
+
+            var rEnemyDamages = rEnemyMainDamages;
+            if (rEnemyEscortDamages != null)
+                rEnemyDamages = rEnemyMainDamages.Concat(rEnemyEscortDamages).ToArray();
 
             if (rDamages.All(r => r == 0))
                 return;

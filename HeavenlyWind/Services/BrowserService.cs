@@ -25,7 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         internal MemoryMappedFileCommunicator Communicator { get; private set; }
         internal IConnectableObservable<KeyValuePair<string, string>> Messages { get; private set; }
 
-        public IReadOnlyCollection<LayoutEngineInfo> InstalledLayoutEngines { get; private set; }
+        public IList<LayoutEngineInfo> InstalledLayoutEngines { get; private set; }
 
         public int HostProcessID => Process.GetCurrentProcess().Id;
 
@@ -135,10 +135,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     using (var rReader = new JsonTextReader(File.OpenText(r.FullName)))
                         return JObject.Load(rReader).ToObject<LayoutEngineInfo>();
                 });
-                InstalledLayoutEngines = new ReadOnlyCollection<LayoutEngineInfo>(rInstalledLayoutEngines.ToList());
+                InstalledLayoutEngines = rInstalledLayoutEngines.ToList();
 
                 if (InstalledLayoutEngines.Count == 0)
                     return false;
+
+                var rSelectedLayoutEngine = Preference.Instance.Browser.CurrentLayoutEngine.Value;
+                if (InstalledLayoutEngines.FirstOrDefault(r => r.Name == rSelectedLayoutEngine) == null)
+                    Preference.Instance.Browser.CurrentLayoutEngine.Value = InstalledLayoutEngines[0].Name;
             }
             catch
             {

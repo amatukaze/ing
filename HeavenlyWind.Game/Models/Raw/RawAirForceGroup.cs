@@ -4,6 +4,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 {
     public class RawAirForceGroup : IID
     {
+        [JsonProperty("api_area_id")]
+        public int AreaID { get; set; }
+
         [JsonProperty("api_rid")]
         public int ID { get; set; }
 

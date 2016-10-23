@@ -16,11 +16,12 @@
   <String Key="Log_ExpeditionResult">/{0}「{1}」从远征「{2}:{3}」归来。(结果: [b]{4}[/b])</String>
   <String Key="Log_StartConstruction">开始建造「{0}」。(投入的资材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
   <String Key="Log_Development_Success">「{0}」开发成功。(投入的资材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_Development_Success_Rare">「[b]{0}[/b]」开发成功。(投入的资材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
   <String Key="Log_Development_Failure">开发失败。(投入的资材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}「{1}」向「{2} ({3}-{4})」出击</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3} {4})」出击</String>
-  <String Key="Log_ShipOrItem_Dropped">获得「[b]{0}[/b]」</String>
-  <String Key="Log_ShipAndItem_Dropped">获得「[b]{0}[/b]」和「[b]{1}[/b]」</String>
+  <String Key="Log_ShipOrItem_Dropped">获得「{0}」</String>
+  <String Key="Log_ShipAndItem_Dropped">获得「{0}」和「[b]{1}[/b]」</String>
   <String Key="Log_Screenshot_Failed">截图失败: {0}</String>
   <String Key="Log_Screenshot_Failed_FlashElementNotFound">找不到 Flash 元素</String>
   <String Key="Log_Screenshot_Failed_NoData">浏览器没有返回截图信息</String>
@@ -191,6 +192,7 @@
   <String Key="AirBase_Group_Option_Retreat">退避</String>
   <String Key="AirBase_Group_Option_Rest">休息</String>
   <String Key="AirBase_Group_CombatRadius">行动半径</String>
+  <String Key="AirBase_Group_Relocating">配置转换中</String>
 
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弹药</String>
@@ -222,9 +224,12 @@
   <String Key="Sortie_Event_EscortSuccess">护送成功</String>
   <String Key="Sortie_Event_Landing">登陆</String>
   <String Key="Sortie_Event_AerialAttack">空袭战</String>
+  <String Key="Sortie_Whirlpool_Message">舰队损失了 {0} {1} (占比 {2:P0})</String>
+  <String Key="Sortie_Whirlpool_Message_CombinedFleet">第一舰队损失了 {0} {1} (占比 {2:P0})</String>
   <String Key="Sortie_BattleType_Normal">普通战斗</String>
   <String Key="Sortie_BattleType_NightOnly">开幕夜战</String>
-  <String Key="Sortie_BattleType_AerialCombat">航空戦</String>
+  <String Key="Sortie_BattleType_AerialCombat">航空战</String>
+  <String Key="Sortie_BattleType_EnemyCombinedFleet">深海联合舰队战</String>
   <String Key="Sortie_BattleType_AerialAttack">空袭战</String>
   <String Key="Sortie_NothingHappened_Imagination">也许是错觉吧。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">没有看到敌影。</String>
@@ -298,6 +303,7 @@
   <String Key="Quest_Requirement_OperationAGo_SRankVictory">S 胜</String>
   <String Key="Quest_Requirement_OperationAGo_BossEncounter">Boss</String>
   <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">Boss 战胜利</String>
+  <String Key="Quest_RewardSelection">单选</String>
 
   <String Key="ExpeditionOverview_Time">时间</String>
   <String Key="ExpeditionOverview_Consumption">消费</String>
@@ -313,6 +319,8 @@
   <String Key="Window_ExpeditionHistory">远征历史</String>
   <String Key="Window_ScrappingHistory">解体・废弃历史</String>
   <String Key="Window_ResourceHistory">资源历史</String>
+  <String Key="Window_SortieConsumptionHistory">出击消耗历史</String>
+  <String Key="Window_SortieStatistic">出击统计</String>
   <String Key="Window_ClosingConfirmation_Instruction">你想做什么呢？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
   <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
@@ -417,6 +425,7 @@
   <String Key="Screenshot_File">截图到文件</String>
   <String Key="Screenshot_Clipboard">截图到剪贴板</String>
   <String Key="Screenshot_Tool">截图工具</String>
+  <String Key="Screenshot_OpenFolder">打开截图文件夹</String>
 
   <String Key="EquipmentOverview_Name">装备名</String>
   <String Key="EquipmentOverview_TotalCount">总数</String>
@@ -444,6 +453,7 @@
   <String Key="ShipOverview_Filter_ExceptExpeditionShips">排除远征中的舰娘</String>
   <String Key="ShipOverview_Filter_ExceptSparklingShips">排除带闪的舰娘</String>
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">排除 Lv1 的舰娘</String>
+  <String Key="ShipOverview_Filter_ExceptMaxModernizationShips">排除近代化改修 MAX 的舰娘</String>
   <String Key="ShipOverview_List_Loading">加载中</String>
 
   <String Key="Export_CSV">导出为 CSV 文件</String>
@@ -454,6 +464,7 @@
   <String Key="Record_Time">时间</String>
   <String Key="Record_Equipment">装备</String>
   <String Key="Record_SecretaryShip">秘书舰</String>
+  <String Key="Record_RankingPoints">战果</String>
   <String Key="Record_Filter_SuccessOnly">仅成功的</String>
 
   <String Key="ConstructionHistory_Ship">舰娘</String>
@@ -511,5 +522,14 @@
   <String Key="SessionTool_Method">方法</String>
   <String Key="SessionTool_Status">状态码</String>
   <String Key="SessionTool_URLOrAPI">URL・API</String>
+
+  <String Key="SortieStatistic_TimeSpan_Today">今天</String>
+  <String Key="SortieStatistic_TimeSpan_ThisWeek">本周</String>
+  <String Key="SortieStatistic_TimeSpan_ThisMonth">本月</String>
+  <String Key="SortieStatistic_TimeSpan_Yesterday">昨天</String>
+  <String Key="SortieStatistic_TimeSpan_LastWeek">上周</String>
+  <String Key="SortieStatistic_TimeSpan_LastMonth">上个月</String>
+  <String Key="SortieStatistic_Count">次数</String>
+  <String Key="SortieStatistic_RankingPoints">战果</String>
 
 </Strings>

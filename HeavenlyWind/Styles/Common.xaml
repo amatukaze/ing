@@ -8,4 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/TabContent.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
+
+    <BitmapCache x:Key="BitmapCache" EnableClearType="False" RenderAtScale="1.5" />
+
 </ResourceDictionary>

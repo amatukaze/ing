@@ -60,7 +60,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         public int ShipLockingColumnWidth => ShipLockingService.Instance?.ShipLocking?.Count > 0 && KanColleGame.Current.MasterInfo.EventMapCount > 0 ? 30 : 0;
 
-        bool r_ExceptExpeditionShips;
+        bool r_ExceptExpeditionShips = Preference.Instance.Game.ShipOverview_ExceptExpeditionShips;
         public bool ExceptExpeditionShips
         {
             get { return r_ExceptExpeditionShips; }
@@ -71,12 +71,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                     r_ExceptExpeditionShips = value;
                     OnPropertyChanged(nameof(ExceptExpeditionShips));
 
+                    Preference.Instance.Game.ShipOverview_ExceptExpeditionShips.Value = value;
+
                     Refresh();
                 }
             }
         }
 
-        bool r_ExceptSparklingShips;
+        bool r_ExceptSparklingShips = Preference.Instance.Game.ShipOverview_ExceptSparklingShips;
         public bool ExceptSparklingShips
         {
             get { return r_ExceptSparklingShips; }
@@ -87,12 +89,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                     r_ExceptSparklingShips = value;
                     OnPropertyChanged(nameof(ExceptSparklingShips));
 
+                    Preference.Instance.Game.ShipOverview_ExceptSparklingShips.Value = value;
+
                     Refresh();
                 }
             }
         }
 
-        bool r_ExceptLevel1Ships;
+        bool r_ExceptLevel1Ships = Preference.Instance.Game.ShipOverview_ExceptLevel1Ships;
         public bool ExceptLevel1Ships
         {
             get { return r_ExceptLevel1Ships; }
@@ -103,10 +107,32 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                     r_ExceptLevel1Ships = value;
                     OnPropertyChanged(nameof(ExceptLevel1Ships));
 
+                    Preference.Instance.Game.ShipOverview_ExceptLevel1Ships.Value = value;
+
                     Refresh();
                 }
             }
         }
+
+        bool r_ExceptMaxModernizationShips = Preference.Instance.Game.ShipOverview_ExceptMaxModernizationShips;
+        public bool ExceptMaxModernizationShips
+        {
+            get { return r_ExceptMaxModernizationShips; }
+            set
+            {
+                if (r_ExceptMaxModernizationShips != value)
+                {
+                    r_ExceptMaxModernizationShips = value;
+                    OnPropertyChanged(nameof(ExceptMaxModernizationShips));
+
+                    Preference.Instance.Game.ShipOverview_ExceptMaxModernizationShips.Value = value;
+
+                    Refresh();
+                }
+            }
+        }
+
+        IDisposable r_HomeportSubscription;
 
         internal ShipOverviewViewModel()
         {
@@ -134,6 +160,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                 .Subscribe();
 
             UpdateSelectionCore();
+
+            r_HomeportSubscription = ApiService.Subscribe("api_port/port", _ => Refresh());
         }
 
         public void Dispose()
@@ -146,6 +174,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             {
                 r_UpdateSubscription.Dispose();
                 r_UpdateSubscription = null;
+            }
+
+            if (r_HomeportSubscription != null)
+            {
+                r_HomeportSubscription.Dispose();
+                r_HomeportSubscription = null;
             }
         }
 

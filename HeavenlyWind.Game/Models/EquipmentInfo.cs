@@ -79,6 +79,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         #endregion;
 
+        public int DeploymentBauxiteConsumption => RawData.DeploymentBauxiteConsumption;
+
         public int CombatRadius => RawData.CombatRadius;
 
         internal EquipmentInfo(RawEquipmentInfo rpRawData) : base(rpRawData) { }

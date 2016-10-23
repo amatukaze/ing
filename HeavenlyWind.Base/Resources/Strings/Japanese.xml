@@ -16,11 +16,12 @@
   <String Key="Log_ExpeditionResult">/{0}「{1}」が遠征「{2}:{3}」から帰投しました。(結果: [b]{4}[/b])</String>
   <String Key="Log_StartConstruction">「{0}」の建造を開始しました。(投入した資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
   <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_Development_Success_Rare">「[b]{0}[/b]」の開発に成功しました。(投入した資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
-  <String Key="Log_ShipOrItem_Dropped">「[b]{0}[/b]」がドロップしました</String>
-  <String Key="Log_ShipAndItem_Dropped">「[b]{0}[/b]」や「[b]{0}[/b]」がドロップしました</String>
+  <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
+  <String Key="Log_ShipAndItem_Dropped">「{0}」や「[b]{1}[/b]」がドロップしました</String>
   <String Key="Log_Screenshot_Failed">スクリーンショットの保存に失敗しました: {0}</String>
   <String Key="Log_Screenshot_Failed_FlashElementNotFound">Flash 要素が見つかりません</String>
   <String Key="Log_Screenshot_Failed_NoData">ブラウザからのスクリーンショットデータはありません</String>
@@ -189,6 +190,7 @@
   <String Key="AirBase_Group_Option_Retreat">退避</String>
   <String Key="AirBase_Group_Option_Rest">休憩</String>
   <String Key="AirBase_Group_CombatRadius">行動半径</String>
+  <String Key="AirBase_Group_Relocating">配置転換中</String>
 
   <String Key="Material_Fuel">燃料</String>
   <String Key="Material_Bullet">弾薬</String>
@@ -220,9 +222,12 @@
   <String Key="Sortie_Event_EscortSuccess">護衛成功</String>
   <String Key="Sortie_Event_Landing">揚陸</String>
   <String Key="Sortie_Event_AerialAttack">空襲戦</String>
+  <String Key="Sortie_Whirlpool_Message">艦隊が {0} {1} ({2:P0}) を喪失しました</String>
+  <String Key="Sortie_Whirlpool_Message_CombinedFleet">第一艦隊が {0} {1} ({2:P0}) を喪失しました</String>
   <String Key="Sortie_BattleType_Normal">通常戦闘</String>
   <String Key="Sortie_BattleType_NightOnly">開幕夜戦</String>
   <String Key="Sortie_BattleType_AerialCombat">航空戦</String>
+  <String Key="Sortie_BattleType_EnemyCombinedFleet">敵連合艦隊戦</String>
   <String Key="Sortie_BattleType_AerialAttack">空襲戦</String>
   <String Key="Sortie_NothingHappened_Imagination">気のせいだった。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
@@ -296,6 +301,7 @@
   <String Key="Quest_Requirement_OperationAGo_SRankVictory">S 勝利</String>
   <String Key="Quest_Requirement_OperationAGo_BossEncounter">ボス</String>
   <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">ボス勝利</String>
+  <String Key="Quest_RewardSelection">下記のいずれか一つ</String>
 
   <String Key="ExpeditionOverview_Time">時間</String>
   <String Key="ExpeditionOverview_Consumption">消費</String>
@@ -311,6 +317,8 @@
   <String Key="Window_ExpeditionHistory">遠征歴史</String>
   <String Key="Window_ScrappingHistory">解体・廃棄歴史</String>
   <String Key="Window_ResourceHistory">資材歴史</String>
+  <String Key="Window_SortieConsumptionHistory">出撃消費歴史</String>
+  <String Key="Window_SortieStatistic">出撃統計</String>
   <String Key="Window_ClosingConfirmation_Instruction">何をしたいですか？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">終了します</String>
   <String Key="Window_ClosingConfirmation_Button_No">戻ります</String>
@@ -414,6 +422,7 @@
   <String Key="Screenshot_File">ファイルに保存</String>
   <String Key="Screenshot_Clipboard">クリップボードに保存</String>
   <String Key="Screenshot_Tool">スクリーンショットツール</String>
+  <String Key="Screenshot_OpenFolder">保存フォルダを開く</String>
 
   <String Key="EquipmentOverview_Name">装備名</String>
   <String Key="EquipmentOverview_TotalCount">合計</String>
@@ -441,6 +450,7 @@
   <String Key="ShipOverview_Filter_ExceptExpeditionShips">遠征中の艦娘を除く</String>
   <String Key="ShipOverview_Filter_ExceptSparklingShips">キラ付きの艦娘を除く</String>
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">Lv1 の艦娘を除く</String>
+  <String Key="ShipOverview_Filter_ExceptMaxModernizationShips">改修が完了した艦娘を除く</String>
   <String Key="ShipOverview_List_Loading">一覧を生成しています</String>
 
   <String Key="Export_CSV">CSV に出力</String>
@@ -451,6 +461,7 @@
   <String Key="Record_Time">時間</String>
   <String Key="Record_Equipment">装備</String>
   <String Key="Record_SecretaryShip">秘書艦</String>
+  <String Key="Record_RankingPoints">戦果</String>
   <String Key="Record_Filter_SuccessOnly">成功のみ</String>
 
   <String Key="ConstructionHistory_Ship">艦娘</String>
@@ -508,5 +519,14 @@
   <String Key="SessionTool_Method">メソッド</String>
   <String Key="SessionTool_Status">ステータス</String>
   <String Key="SessionTool_URLOrAPI">URL・API</String>
+
+  <String Key="SortieStatistic_TimeSpan_Today">今日</String>
+  <String Key="SortieStatistic_TimeSpan_ThisWeek">今週</String>
+  <String Key="SortieStatistic_TimeSpan_ThisMonth">今月</String>
+  <String Key="SortieStatistic_TimeSpan_Yesterday">昨日</String>
+  <String Key="SortieStatistic_TimeSpan_LastWeek">先週</String>
+  <String Key="SortieStatistic_TimeSpan_LastMonth">先月</String>
+  <String Key="SortieStatistic_Count">回数</String>
+  <String Key="SortieStatistic_RankingPoints">戦果</String>
 
 </Strings>

@@ -4,6 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Records;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Diagnostics;
@@ -11,13 +12,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using BclVersion = System.Version;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
     public class RecordService
     {
-        public const int Version = 1;
+        public const int Version = 2;
 
         public static RecordService Instance { get; } = new RecordService();
 
@@ -29,7 +31,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         public bool IsReadOnlyMode { get; set; }
 
         public ResourcesRecords Resources { get; private set; }
-        public ShipsRecords Ships { get; private set; }
         public ExperienceRecords Experience { get; private set; }
         public ExpeditionRecords Expedition { get; private set; }
         public ConstructionRecords Construction { get; private set; }
@@ -52,6 +53,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         int r_UserID;
         SQLiteConnection r_Connection;
 
+        BlockingCollection<TransactionQueueContext> r_TransactionQueue = new BlockingCollection<TransactionQueueContext>();
+
         internal Queue<string> HistoryCommandTexts { get; } = new Queue<string>(6);
 
         public event Action<UpdateEventArgs> Update = delegate { };
@@ -64,6 +67,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 RecordDirectory.Create();
 
             r_OriginalRecordDirectory = RecordDirectory.Parent;
+
+            Task.Factory.StartNew(ProcessTransactionQueue, TaskCreationOptions.LongRunning);
         }
 
         public void Initialize()
@@ -114,7 +119,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
             using (var rCommand = r_Connection.CreateCommand())
             {
-                rCommand.CommandText = "PRAGMA foreign_keys = ON;";
+                rCommand.CommandText =
+                    "PRAGMA journal_mode = WAL; " +
+                    "PRAGMA foreign_keys = ON;";
 
                 rCommand.ExecuteNonQuery();
             }
@@ -124,7 +131,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 CheckVersion();
 
                 Resources = new ResourcesRecords(r_Connection).ConnectAndReturn();
-                Ships = new ShipsRecords(r_Connection).ConnectAndReturn();
                 Experience = new ExperienceRecords(r_Connection).ConnectAndReturn();
                 Expedition = new ExpeditionRecords(r_Connection).ConnectAndReturn();
                 Construction = new ConstructionRecords(r_Connection).ConnectAndReturn();
@@ -158,37 +164,103 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             int rVersion;
             using (var rCommand = r_Connection.CreateCommand())
             {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY NOT NULL, value TEXT) WITHOUT ROWID;" +
+                rCommand.CommandText =
+                    "CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
                     "SELECT value FROM metadata WHERE key = 'version';";
 
                 rVersion = Convert.ToInt32(rCommand.ExecuteScalar());
             }
 
-            var rLastestVersion = true;
-            if (rVersion != 0)
-                rLastestVersion = rVersion == Version;
-            else
-                InitializeDatabase();
+            var rLastestVersion = rVersion == 0 || rVersion == Version;
 
             if (!rLastestVersion)
-            {
+                UpgradeFromOldVersionPreprocessStep(rVersion);
 
-            }
+            InitializeDatabase();
+
+            if (!rLastestVersion)
+                UpgradeFromOldVersionPostprocessStep(rVersion);
+        }
+        void UpgradeFromOldVersionPreprocessStep(int rpOldVersion)
+        {
+            if (rpOldVersion < 2)
+                using (var rCommand = r_Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "DROP TABLE IF EXISTS metadata; " +
+                        "CREATE TABLE metadata(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
+
+                        "ALTER TABLE versions RENAME TO versions_old;";
+
+                    rCommand.ExecuteNonQuery();
+                }
         }
         void InitializeDatabase()
         {
             using (var rCommand = r_Connection.CreateCommand())
             {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS versions(key TEXT PRIMARY KEY NOT NULL, value TEXT) WITHOUT ROWID;" +
-                    "INSERT INTO metadata(key, value) VALUES('version', @version);";
+                rCommand.CommandText =
+                    "CREATE TABLE IF NOT EXISTS versions(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
+                    "CREATE TABLE IF NOT EXISTS common(key TEXT PRIMARY KEY NOT NULL, value) WITHOUT ROWID; " +
+
+                    "INSERT OR REPLACE INTO metadata(key, value) VALUES('version', @version);";
                 rCommand.Parameters.AddWithValue("@version", Version.ToString());
 
                 rCommand.ExecuteNonQuery();
             }
         }
+        void UpgradeFromOldVersionPostprocessStep(int rpOldVersion)
+        {
+            if (rpOldVersion < 2)
+                using (var rCommand = r_Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "INSERT INTO versions SELECT key, value FROM versions_old; " +
+                        "DROP TABLE versions_old;";
+                    rCommand.Parameters.AddWithValue("@version", Version.ToString());
+
+                    rCommand.ExecuteNonQuery();
+                }
+        }
 
         public SQLiteCommand CreateCommand() => r_Connection.CreateCommand();
-        public SQLiteTransaction BeginTransaction() => r_Connection.BeginTransaction();
+
+        public void PostTransaction(SQLiteCommand rpCommand)
+        {
+            if (rpCommand.Connection == null || rpCommand.Connection != r_Connection || rpCommand.CommandText.IsNullOrEmpty())
+                return;
+
+            var rContext = new TransactionQueueContext(rpCommand);
+
+            r_TransactionQueue.Add(rContext);
+
+            rContext.TaskCompletionSource.Task.Wait();
+        }
+        void ProcessTransactionQueue()
+        {
+            foreach (var rContext in r_TransactionQueue.GetConsumingEnumerable())
+            {
+                var rTransaction = r_Connection.BeginTransaction();
+
+                try
+                {
+                    rContext.Command.ExecuteNonQuery();
+
+                    rTransaction.Commit();
+
+                    rContext.TaskCompletionSource.SetResult(true);
+                }
+                catch (Exception e)
+                {
+                    rContext.TaskCompletionSource.SetException(e);
+                }
+                finally
+                {
+                    rTransaction.Dispose();
+                    rContext.Command.Dispose();
+                }
+            }
+        }
 
         public void RegisterRecordsGroupProvider(IRecordsGroupProvider rpProvider) => r_CustomRecordsGroupProviders.Add(rpProvider);
 
@@ -202,7 +274,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         void Disconnect()
         {
             Resources?.Dispose();
-            Ships?.Dispose();
             Experience?.Dispose();
             Expedition?.Dispose();
             Construction?.Dispose();

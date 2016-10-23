@@ -10,6 +10,7 @@
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_ResourceHistory}"
                   Width="1024" Height="600"
+                  FontSize="14"
                   UseLayoutRounding="True">
     <Grid>
         <Grid.RowDefinitions>

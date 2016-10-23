@@ -24,6 +24,10 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type rvmg:QuestViewModel}">
                                     <Border Background="Transparent" Padding="4">
+                                        <Border.ToolTip>
+                                            <TextBlock Text="{rb:ExtraStringResource QuestDescription, Source.ID, Source.Description}" TextWrapping="Wrap" MaxWidth="480" Grid.Column="2" Grid.Row="2" />
+                                        </Border.ToolTip>
+
                                         <Grid Height="23">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />

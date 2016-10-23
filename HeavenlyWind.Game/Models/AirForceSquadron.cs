@@ -1,11 +1,11 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using System;
-using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class AirForceSquadron : RawDataWrapper<RawAirForceSquadron>, IID
     {
+        AirForceGroup r_Group;
+
         public int ID => RawData.ID;
 
         public AirForceSquadronState State => RawData.State;
@@ -18,39 +18,33 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public AirForceSquadronCondition Condition => RawData.Condition;
 
-        IDisposable r_Relocating;
+        public AirForceSquadronRelocationCountdown Relocation { get; }
 
-        internal protected AirForceSquadron(RawAirForceSquadron rpRawData) : base(rpRawData)
+        internal protected AirForceSquadron(AirForceGroup rpGroup, RawAirForceSquadron rpRawData) : base(rpRawData)
         {
+            r_Group = rpGroup;
+
+            Relocation = new AirForceSquadronRelocationCountdown(rpGroup, this);
         }
 
         protected override void OnRawDataUpdated()
         {
-            if (State == AirForceSquadronState.Relocating && r_Relocating == null)
-                r_Relocating = Observable.Interval(TimeSpan.FromMinutes(12.0)).Subscribe(delegate
-                {
-                    RawData.State = AirForceSquadronState.Empty;
-                    RawData.EquipmentID = 0;
+            if (State == AirForceSquadronState.Relocating && !Relocation.TimeToComplete.HasValue)
+                Relocation.Start();
+            else if (State != AirForceSquadronState.Relocating && Relocation.TimeToComplete.HasValue)
+                Relocation.Reset();
 
-                    OnPropertyChanged(nameof(State));
-                    OnPropertyChanged(nameof(Plane));
+            OnPropertyChanged(string.Empty);
+        }
 
-                    r_Relocating.Dispose();
-                    r_Relocating = null;
-                });
+        internal void RelocationComplete()
+        {
+            RawData.State = AirForceSquadronState.Empty;
+            RawData.EquipmentID = 0;
 
-            if (State != AirForceSquadronState.Relocating && r_Relocating != null)
-            {
-                r_Relocating.Dispose();
-                r_Relocating = null;
-            }
+            OnPropertyChanged(string.Empty);
 
-            OnPropertyChanged(nameof(State));
-            OnPropertyChanged(nameof(Plane));
-            OnPropertyChanged(nameof(Count));
-            OnPropertyChanged(nameof(MaxCount));
-            OnPropertyChanged(nameof(NeedResupply));
-            OnPropertyChanged(nameof(Condition));
+            r_Group.UpdateRelocationCountdown();
         }
     }
 }

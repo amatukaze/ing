@@ -1,32 +1,18 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
     public class ExpeditionRecords : RecordsGroup
     {
         public override string GroupName => "expedition";
-        public override int Version => 2;
+        public override int Version => 3;
 
         internal ExpeditionRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(ApiService.Subscribe("api_req_mission/result", r =>
-            {
-                using (var rTransaction = Connection.BeginTransaction())
-                {
-                    var rData = (RawExpeditionResult)r.Data;
-
-                    var rFleet = KanColleGame.Current.Port.Fleets[int.Parse(r.Parameters["api_deck_id"])];
-                    var rExpedition = rFleet.ExpeditionStatus.Expedition ?? KanColleGame.Current.MasterInfo.GetExpeditionFromName(rData.Name);
-
-                    InsertRecord(rExpedition.ID, rData);
-
-                    rTransaction.Commit();
-                }
-            }));
+            DisposableObjects.Add(ApiService.Subscribe("api_req_mission/result", ProcessResult));
         }
 
         protected override void CreateTable()
@@ -59,7 +45,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         protected override void UpgradeFromOldVersionPreprocessStep(int rpOldVersion)
         {
             if (rpOldVersion < 2)
-            {
                 using (var rCommand = Connection.CreateCommand())
                 {
                     rCommand.CommandText = "SELECT expedition FROM expedition WHERE item1 = -1 OR item2 = -1 GROUP BY expedition;";
@@ -82,28 +67,39 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                             }
                         }
                 }
-            }
+
+            if (rpOldVersion < 3)
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText = "UPDATE expedition SET expedition = substr(expedition, 6, instr(expedition, ',') - 6) WHERE typeof(expedition) = 'text';";
+
+                    rCommand.ExecuteNonQuery();
+                }
         }
 
-        internal void InsertRecord(int rpExpedition, RawExpeditionResult rpData)
+        void ProcessResult(ApiInfo rpInfo)
         {
+            var rData = (RawExpeditionResult)rpInfo.Data;
+            var rFleet = KanColleGame.Current.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
+            var rExpedition = rFleet.ExpeditionStatus.Expedition ?? KanColleGame.Current.MasterInfo.GetExpeditionFromName(rData.Name);
+            var rMaterials = rData.Result != 0 ? rData.Materials.ToObject<int[]>() : null;
+
             using (var rCommand = Connection.CreateCommand())
             {
-                var rMaterials = rpData.Result != 0 ? rpData.Materials.ToObject<int[]>() : null;
-
                 rCommand.CommandText = "INSERT INTO expedition(time, result, expedition, fuel, bullet, steel, bauxite, item1, item1_count, item2, item2_count) " +
-                    "VALUES(strftime('%s', 'now'), @result, @expedition, @fuel, @bullet, @steel, @bauxite, @item1, @item1_count, @item2, @item2_count);";
-                rCommand.Parameters.AddWithValue("@result", (int)rpData.Result);
-                rCommand.Parameters.AddWithValue("@expedition", rpExpedition);
+                    "VALUES(@time, @result, @expedition, @fuel, @bullet, @steel, @bauxite, @item1, @item1_count, @item2, @item2_count);";
+                rCommand.Parameters.AddWithValue("@time", rpInfo.Timestamp);
+                rCommand.Parameters.AddWithValue("@result", (int)rData.Result);
+                rCommand.Parameters.AddWithValue("@expedition", rExpedition.ID);
                 rCommand.Parameters.AddWithValue("@fuel", rMaterials != null ? rMaterials[0] : (int?)null);
                 rCommand.Parameters.AddWithValue("@bullet", rMaterials != null ? rMaterials[1] : (int?)null);
                 rCommand.Parameters.AddWithValue("@steel", rMaterials != null ? rMaterials[2] : (int?)null);
                 rCommand.Parameters.AddWithValue("@bauxite", rMaterials != null ? rMaterials[3] : (int?)null);
 
-                rCommand.Parameters.AddWithValue("@item1", GetItemID(rpData.RewardItems[0], rpData.Item1?.ID));
-                rCommand.Parameters.AddWithValue("@item1_count", rpData.Item1 != null ? rpData.Item1.Count : (int?)null);
-                rCommand.Parameters.AddWithValue("@item2", GetItemID(rpData.RewardItems[1], rpData.Item2?.ID));
-                rCommand.Parameters.AddWithValue("@item2_count", rpData.Item2 != null ? rpData.Item2.Count : (int?)null);
+                rCommand.Parameters.AddWithValue("@item1", GetItemID(rData.RewardItems[0], rData.Item1?.ID));
+                rCommand.Parameters.AddWithValue("@item1_count", rData.Item1 != null ? rData.Item1.Count : (int?)null);
+                rCommand.Parameters.AddWithValue("@item2", GetItemID(rData.RewardItems[1], rData.Item2?.ID));
+                rCommand.Parameters.AddWithValue("@item2_count", rData.Item2 != null ? rData.Item2.Count : (int?)null);
 
                 rCommand.ExecuteNonQuery();
             }

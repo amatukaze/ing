@@ -1,8 +1,7 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
-using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System.Data.SQLite;
+using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
@@ -10,26 +9,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     {
         public override string GroupName => "battle";
 
-        public override int Version => 2;
+        public override int Version => 4;
 
         internal BattleRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            var rBattleApis = new[]
-            {
-                "api_req_sortie/battle",
-                "api_req_battle_midnight/sp_midnight",
-                "api_req_sortie/airbattle",
-                "api_req_sortie/ld_airbattle",
-                "api_req_combined_battle/airbattle",
-                "api_req_combined_battle/battle",
-                "api_req_combined_battle/battle_water",
-                "api_req_combined_battle/sp_midnight",
-                "api_req_combined_battle/ld_airbattle",
-                "api_req_battle_midnight/battle",
-                "api_req_combined_battle/midnight_battle",
-            };
-            DisposableObjects.Add(ApiService.Subscribe(rBattleApis, Process));
-
             var rBattleResultApis = new[]
             {
                 "api_req_sortie/battleresult",
@@ -38,82 +21,82 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             DisposableObjects.Add(ApiService.Subscribe(rBattleResultApis, r => ProcessResult((RawBattleResult)r.Data)));
         }
 
-        protected override void CreateTable()
+        protected override void UpgradeFromOldVersionPreprocessStep(int rpOldVersion)
         {
-            using (var rCommand = Connection.CreateCommand())
-            {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS battle_count(" +
-                    "map INTEGER NOT NULL, " +
-                    "cell INTEGER NOT NULL, " +
-                    "count INTEGER NOT NULL DEFAULT 0, " +
-                    "PRIMARY KEY(map, cell)) WITHOUT ROWID;" +
-
-                "CREATE TABLE IF NOT EXISTS battle(" +
-                    "id INTEGER PRIMARY KEY, " +
-                    "rank INTEGER, " +
-                    "dropped_ship INTEGER);" +
-
-                "CREATE TABLE IF NOT EXISTS battle_dropped_item(" +
-                    "id INTEGER PRIMARY KEY NOT NULL REFERENCES battle(id), " +
-                    "item INTEGER NOT NULL);" +
-
-                "CREATE TABLE IF NOT EXISTS battle_participant(" +
-                    "battle INTEGER NOT NULL REFERENCES battle(id), " +
-                    "ship INTEGER NOT NULL, " +
-                    "level INTEGER NOT NULL, " +
-                    "PRIMARY KEY(battle, ship)) WITHOUT ROWID;";
-
-                rCommand.ExecuteNonQuery();
-            }
-        }
-
-        void Process(ApiInfo rpInfo)
-        {
-            if (rpInfo.Api != "api_req_battle_midnight/battle" && rpInfo.Api != "api_req_combined_battle/midnight_battle")
-                UpdateCount();
-        }
-        void UpdateCount()
-        {
-            var rSortieInfo = SortieInfo.Current;
-            var rMap = rSortieInfo.Map.ID;
-            var rNode = rSortieInfo.Node.InternalID;
-
-            using (var rTransaction = Connection.BeginTransaction())
-            {
+            if (rpOldVersion < 3)
                 using (var rCommand = Connection.CreateCommand())
                 {
-                    rCommand.CommandText = "INSERT OR IGNORE INTO battle_count(map, cell) VALUES(@map, @cell);" +
-                        "UPDATE battle_count SET count = count + 1 WHERE map = @map AND cell = @cell;" +
-                        "INSERT INTO battle(id) VALUES(@id);";
-                    rCommand.Parameters.AddWithValue("@map", rMap);
-                    rCommand.Parameters.AddWithValue("@cell", rNode);
-                    rCommand.Parameters.AddWithValue("@id", BattleInfo.Current.ID);
+                    rCommand.CommandText = "DROP TABLE IF EXISTS battle_count;";
 
                     rCommand.ExecuteNonQuery();
                 }
 
-                rTransaction.Commit();
+            if (rpOldVersion < 4)
+                using (var rCommand = Connection.CreateCommand())
+                {
+                    rCommand.CommandText =
+                        "ALTER TABLE battle ADD COLUMN mvp INTEGER; " +
+                        "ALTER TABLE battle ADD COLUMN mvp_escort INTEGER;";
+
+                    rCommand.ExecuteNonQuery();
+                }
+        }
+        protected override void CreateTable()
+        {
+            using (var rCommand = Connection.CreateCommand())
+            {
+                rCommand.CommandText =
+                    "CREATE TABLE IF NOT EXISTS battle(" +
+                        "id INTEGER PRIMARY KEY, " +
+                        "rank INTEGER, " +
+                        "dropped_ship INTEGER, " +
+                        "mvp INTEGER, " +
+                        "mvp_escort INTEGER);" +
+
+                    "CREATE TABLE IF NOT EXISTS battle_dropped_item(" +
+                        "id INTEGER PRIMARY KEY NOT NULL REFERENCES battle(id), " +
+                        "item INTEGER NOT NULL);" +
+
+                    "CREATE TABLE IF NOT EXISTS battle_participant(" +
+                        "battle INTEGER NOT NULL REFERENCES battle(id), " +
+                        "ship INTEGER NOT NULL, " +
+                        "level INTEGER NOT NULL, " +
+                        "PRIMARY KEY(battle, ship)) WITHOUT ROWID;";
+
+                rCommand.ExecuteNonQuery();
             }
         }
 
         void ProcessResult(RawBattleResult rpData)
         {
-            using (var rCommand = Connection.CreateCommand())
+            var rBattle = BattleInfo.Current;
+
+            var rCommand = Connection.CreateCommand();
+
+            rCommand.CommandText = "INSERT INTO battle(id, rank, dropped_ship) VALUES(@id, @rank, @dropped_ship);";
+            rCommand.Parameters.AddWithValue("@id", rBattle.ID);
+            rCommand.Parameters.AddWithValue("@rank", (int)rpData.Rank);
+            rCommand.Parameters.AddWithValue("@dropped_ship", rpData.DroppedShip?.ID);
+
+            if (rpData.DroppedItem != null)
             {
-                rCommand.CommandText = "UPDATE battle SET rank = @rank, dropped_ship = @dropped_ship WHERE id = @id;";
-                rCommand.Parameters.AddWithValue("@id", BattleInfo.Current.ID);
-                rCommand.Parameters.AddWithValue("@rank", (int)rpData.Rank);
-                rCommand.Parameters.AddWithValue("@dropped_ship", rpData.DroppedShip?.ID);
-
-                if (rpData.DroppedItem != null)
-                {
-                    rCommand.CommandText += "INSERT INTO battle_dropped_item(id, item) VALUES(@id, @item);";
-                    rCommand.Parameters.AddWithValue("@item", rpData.DroppedItem.ID);
-                }
-
-                rCommand.ExecuteNonQuery();
+                rCommand.CommandText += " INSERT INTO battle_dropped_item(id, item) VALUES(@id, @item);";
+                rCommand.Parameters.AddWithValue("@item", rpData.DroppedItem.ID);
             }
-        }
 
+            if (rpData.MvpShipIndex != -1)
+            {
+                rCommand.CommandText += " UPDATE battle SET mvp = @mvp WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@mvp", rBattle.Participants.FriendMain[rpData.MvpShipIndex - 1].Info.ID);
+            }
+
+            if (rpData.EscortFleetMvpShipIndex.HasValue && rpData.EscortFleetMvpShipIndex.Value != -1)
+            {
+                rCommand.CommandText += " UPDATE battle SET mvp_escort = @mvp_escort WHERE id = @id;";
+                rCommand.Parameters.AddWithValue("@mvp_escort", rBattle.Participants.FriendEscort[rpData.EscortFleetMvpShipIndex.Value - 1].Info.ID);
+            }
+
+            rCommand.PostToTransactionQueue();
+        }
     }
 }

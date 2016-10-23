@@ -19,6 +19,7 @@
                             <ColumnDefinition SharedSizeGroup="CombatRadius" />
                             <ColumnDefinition SharedSizeGroup="FighterPower" />
                             <ColumnDefinition SharedSizeGroup="Squadrons" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
@@ -72,6 +73,7 @@
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding State}" Value="Relocating">
                                             <Setter TargetName="Icon" Property="Opacity" Value=".5" />
+                                            <Setter TargetName="Count" Property="Text" Value="" />
                                         </DataTrigger>
 
                                         <DataTrigger Binding="{Binding NeedResupply}" Value="True">
@@ -97,20 +99,29 @@
                                                     </Grid.ColumnDefinitions>
 
                                                     <rc:EquipmentIcon Type="{Binding Plane.Info.Icon}" VerticalAlignment="Center" />
-                                                    <StackPanel Orientation="Horizontal" Margin="0, 4" Grid.Column="2">
+                                                    <StackPanel Name="Info" Orientation="Horizontal" Margin="0, 4" Grid.Column="2">
                                                         <TextBlock Text="{rb:ExtraStringResource Equipment, Plane.Info.ID, Plane.Info.Name}" />
                                                         <rc:EquipmentProficiency Proficiency="{Binding Plane.Proficiency}" Margin="4, 0, 0, 0" />
                                                         <rc:EquipmentLevel Level="{Binding Plane.Level}" Margin="4, 0, 0, 0" />
                                                     </StackPanel>
 
-                                                    <TextBlock HorizontalAlignment="Right" Grid.Column="4">
+                                                    <TextBlock Name="CountTextBlock" HorizontalAlignment="Right" Grid.Column="4">
                                                         <Run Name="Count" Text="{Binding Count, Mode=OneWay}" />/<Run Text="{Binding MaxCount, Mode=OneWay}" />
                                                     </TextBlock>
+
+                                                    <Border Name="RelocationCountdown" Background="#332CC7C8" Visibility="Collapsed" Grid.Column="2" Grid.ColumnSpan="3">
+                                                        <TextBlock Text="{Binding Relocation.RemainingTime, StringFormat=mm\\:ss}" TextAlignment="Center" />
+                                                    </Border>
                                                 </Grid>
 
                                                 <DataTemplate.Triggers>
                                                     <DataTrigger Binding="{Binding State}" Value="Empty">
                                                         <Setter TargetName="Grid" Property="Visibility" Value="Hidden" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding State}" Value="Relocating">
+                                                        <Setter TargetName="RelocationCountdown" Property="Visibility" Value="Visible" />
+                                                        <Setter TargetName="Info" Property="Opacity" Value=".2" />
+                                                        <Setter TargetName="CountTextBlock" Property="Opacity" Value=".2" />
                                                     </DataTrigger>
 
                                                     <DataTrigger Binding="{Binding NeedResupply}" Value="True">
@@ -119,9 +130,17 @@
                                                 </DataTemplate.Triggers>
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
-                                    </ItemsControl></ToolTip>
+                                    </ItemsControl>
+                                </ToolTip>
                             </Rectangle.ToolTip>
                         </Rectangle>
+
+                        <Border Background="#332CC7C8" Margin="4, 0, 0, 0" Padding="4, 0" Visibility="{rb:CollapsedIfNull Source.Relocation}" Grid.Column="5">
+                            <TextBlock>
+                                <Run Text="配置転換中" />:
+                                <Run Text="{Binding Source.Relocation.RemainingTime, StringFormat=mm\\:ss, Mode=OneWay}" />
+                            </TextBlock>
+                        </Border>
                     </Grid>
                 </Border>
 

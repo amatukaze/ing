@@ -88,6 +88,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 
             [JsonProperty("api_getcount")]
             public int Quantity { get; set; }
+
+            [JsonIgnore]
+            public string Name => TypeID != 4 ? GetItemName() : string.Empty;
+
+            string GetItemName()
+            {
+                ItemInfo rItem;
+                if (KanColleGame.Current.MasterInfo.Items.TryGetValue((int)ID, out rItem))
+                    return rItem.TranslatedName;
+                else
+                    return StringResources.Instance.Main.Sortie_Event_Unknown;
+            }
         }
         public class RawNodeSelection
         {

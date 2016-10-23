@@ -67,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
             if (r_Keys.Count > 2)
                 r_Keys.Sort(1, r_Keys.Count - 1, r_Comparer);
 
-            DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() => CollectionChanged?.Invoke(this, r_ResetEventArgs)));
+            DispatcherUtil.UIDispatcher.InvokeAsync(() => CollectionChanged?.Invoke(this, r_ResetEventArgs));
         }
 
         #region

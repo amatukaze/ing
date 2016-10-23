@@ -136,6 +136,10 @@ namespace Sakuno.KanColle.Amatsukaze
                                 rESR.Equipment = rNames;
                                 break;
 
+                            case ExtraStringResourceType.Furniture:
+                                rESR.Furnitures = rNames;
+                                break;
+
                             case ExtraStringResourceType.Item:
                                 rESR.Items = rNames;
                                 break;

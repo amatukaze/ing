@@ -8,6 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class Ship : RawDataWrapper<RawShip>, IID, ICombatAbility
     {
+        static Port r_Port = KanColleGame.Current.Port;
+
         public const int LevelToMarriage = 99;
 
         public int ID => RawData.ID;
@@ -27,19 +29,32 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 {
                     r_Condition = value;
                     OnPropertyChanged(nameof(Condition));
-                    OnPropertyChanged(nameof(ConditionType));
+
+                    if (r_Condition >= 50)
+                        ConditionType = ShipConditionType.HighMorale;
+                    else if (r_Condition >= 40)
+                        ConditionType = ShipConditionType.Normal;
+                    else if (r_Condition >= 30)
+                        ConditionType = ShipConditionType.SightlyTired;
+                    else if (r_Condition >= 20)
+                        ConditionType = ShipConditionType.ModerateTired;
+                    else
+                        ConditionType = ShipConditionType.SeriouslyTired;
                 }
             }
         }
+
+        ShipConditionType r_ConditionType;
         public ShipConditionType ConditionType
         {
-            get
+            get { return r_ConditionType; }
+            private set
             {
-                if (Condition >= 50) return ShipConditionType.HighMorale;
-                if (Condition >= 40) return ShipConditionType.Normal;
-                if (Condition >= 30) return ShipConditionType.SightlyTired;
-                if (Condition >= 20) return ShipConditionType.ModerateTired;
-                return ShipConditionType.SeriouslyTired;
+                if (r_ConditionType != value)
+                {
+                    r_ConditionType = value;
+                    OnPropertyChanged(nameof(ConditionType));
+                }
             }
         }
 
@@ -84,10 +99,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        public ClampedValue HP { get; private set; }
+        public ClampedValue HP { get; }
 
-        public ClampedValue Fuel { get; private set; }
-        public ClampedValue Bullet { get; private set; }
+        ShipDamageState r_DamageState;
+        public ShipDamageState DamageState
+        {
+            get { return r_DamageState; }
+            private set
+            {
+                if (r_DamageState != value)
+                {
+                    r_DamageState = value;
+                    OnPropertyChanged(nameof(DamageState));
+                }
+            }
+        }
+
+        public ClampedValue Fuel { get; }
+        public ClampedValue Bullet { get; }
 
         ShipState r_State;
         public ShipState State
@@ -107,17 +136,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public ShipCombatAbility CombatAbility { get; }
 
-        public bool CanParticipantInAnchorageRepair
+        public bool CanParticipantInAnchorageRepair =>
+            r_DamageState != ShipDamageState.FullyHealthy && r_DamageState < ShipDamageState.ModeratelyDamaged &&
+            !r_Port.RepairDocks.Values.Any(r => r.Ship == this) &&
+            r_Port.Materials.Fuel >= RepairFuelConsumption && r_Port.Materials.Steel >= RepairSteelConsumption;
+
+        ShipAnchorageRepairStatus r_AnchorageRepairStatus;
+        public ShipAnchorageRepairStatus AnchorageRepairStatus
         {
-            get
+            get { return r_AnchorageRepairStatus; }
+            private set
             {
-                var rPort = KanColleGame.Current.Port;
-                return HP.Current != HP.Maximum && HP.Current / (double)HP.Maximum > .5 &&
-                    !rPort.RepairDocks.Values.Any(r => r.Ship == this) &&
-                    rPort.Materials.Fuel >= RepairFuelConsumption && rPort.Materials.Steel >= RepairSteelConsumption;
+                if (r_AnchorageRepairStatus != value)
+                {
+                    r_AnchorageRepairStatus = value;
+                    OnPropertyChanged(nameof(AnchorageRepairStatus));
+                }
             }
         }
-        public ShipAnchorageRepairStatus AnchorageRepairStatus { get; private set; }
 
         #region Equipment
 
@@ -174,10 +210,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             HP.Subscribe(nameof(HP.Current), delegate
             {
-                if (HP.Current / (double)HP.Maximum <= .25)
+                var rRate = HP.Current / (double)HP.Maximum;
+
+                if (rRate <= .25)
+                {
                     State |= ShipState.HeavilyDamaged;
+                    DamageState = ShipDamageState.HeavilyDamaged;
+                }
                 else
+                {
                     State &= ~ShipState.HeavilyDamaged;
+
+                    if (rRate <= .5)
+                        DamageState = ShipDamageState.ModeratelyDamaged;
+                    else if (rRate <= .75)
+                        DamageState = ShipDamageState.LightlyDamaged;
+                    else if (rRate < 1.0)
+                        DamageState = ShipDamageState.Healthy;
+                    else
+                        DamageState = ShipDamageState.FullyHealthy;
+                }
             });
 
             Status = new ShipStatus(this);
@@ -209,21 +261,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Condition = RawData.Condition;
 
-            var rPort = KanColleGame.Current.Port;
-
-            if (KanColleGame.Current.Sortie != null && rPort.EvacuatedShipIDs.Contains(ID))
+            if (KanColleGame.Current.Sortie != null && r_Port.EvacuatedShipIDs.Contains(ID))
                 State |= ShipState.Evacuated;
             else
                 State &= ~ShipState.Evacuated;
 
-            if (rPort.RepairDocks.Values.Any(r => r.Ship == this))
+            if (r_Port.RepairDocks.Values.Any(r => r.Ship == this))
                 State |= ShipState.Repairing;
             else
             {
                 State &= ~ShipState.Repairing;
 
-                var rShips = OwnerFleet?.AnchorageRepair.RepairingShips;
-                UpdateAnchorageRepairStatus(rShips != null && rShips.Any(r => r.Item1 == this));
+                UpdateAnchorageRepairStatus(OwnerFleet?.AnchorageRepair?.IsBeingAnchorageRepair(this));
             }
 
             if (RawData.ModernizedStatus?.Length >= 5)
@@ -258,10 +307,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     var rID = r_EquipmentIDs[i];
                     if (rID == -1)
                         rEquipment = Equipment.Dummy;
-                    else if (!KanColleGame.Current.Port.Equipment.TryGetValue(rID, out rEquipment))
+                    else if (!r_Port.Equipment.TryGetValue(rID, out rEquipment))
                     {
                         rEquipment = new Equipment(new RawEquipment() { ID = rID, EquipmentID = -1 });
-                        KanColleGame.Current.Port.AddEquipment(rEquipment);
+                        r_Port.AddEquipment(rEquipment);
                     }
 
                     Slots[i].Equipment = rEquipment;
@@ -281,7 +330,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (r_ExtraEquipmentID != RawData.ExtraEquipment)
                 {
                     r_ExtraEquipmentID = RawData.ExtraEquipment;
-                    ExtraSlot.Equipment = r_ExtraEquipmentID == -1 ? Equipment.Dummy : KanColleGame.Current.Port.Equipment[r_ExtraEquipmentID];
+                    ExtraSlot.Equipment = r_ExtraEquipmentID == -1 ? Equipment.Dummy : r_Port.Equipment[r_ExtraEquipmentID];
 
                     rUpdateList = true;
                 }
@@ -307,6 +356,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 State &= ~ShipState.Repairing;
 
                 HP.Current = HP.Maximum;
+
                 if (Condition < 40)
                     Condition = 40;
             }
@@ -324,28 +374,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             ExtraSlot = new ShipSlot(Equipment.Dummy, 0, 0);
         }
 
-        internal void UpdateAnchorageRepairStatus(bool rpRepairing)
+        internal void UpdateAnchorageRepairStatus(bool? rpRepairing)
         {
-            if (rpRepairing)
+            if (rpRepairing.GetValueOrDefault())
             {
                 State |= ShipState.RepairingInAnchorage;
 
                 if (AnchorageRepairStatus == null)
-                {
                     AnchorageRepairStatus = new ShipAnchorageRepairStatus(this);
-                    OnPropertyChanged(nameof(AnchorageRepairStatus));
-                }
             }
             else
             {
                 State &= ~ShipState.RepairingInAnchorage;
 
-                if (AnchorageRepairStatus != null)
-                {
-                    AnchorageRepairStatus.Dispose();
-                    AnchorageRepairStatus = null;
-                    OnPropertyChanged(nameof(AnchorageRepairStatus));
-                }
+                AnchorageRepairStatus?.Dispose();
+                AnchorageRepairStatus = null;
             }
         }
 

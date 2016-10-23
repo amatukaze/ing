@@ -33,6 +33,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             r_Filename = new FileInfo(Path.Combine(RecordService.Instance.RecordDirectory.FullName, rpUserID + "_Battle.db")).FullName;
             r_Connection = new SQLiteConnection($@"Data Source={r_Filename}; Page Size=8192").OpenAndReturn();
 
+            using (var rCommand = r_Connection.CreateCommand())
+            {
+                rCommand.CommandText =
+                    "PRAGMA journal_mode = WAL; " +
+                    "PRAGMA foreign_keys = ON;";
+
+                rCommand.ExecuteNonQuery();
+            }
+
             var rSortieFirstStageApis = new[]
             {
                 "api_req_sortie/battle",
@@ -44,6 +53,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_combined_battle/battle_water",
                 "api_req_combined_battle/sp_midnight",
                 "api_req_combined_battle/ld_airbattle",
+                "api_req_combined_battle/ec_battle",
             };
             DisposableObjects.Add(ApiService.Subscribe(rSortieFirstStageApis, ProcessSortieFirstStage));
             DisposableObjects.Add(ApiService.Subscribe("api_req_practice/battle", ProcessPracticeFirstStage));
@@ -53,6 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_practice/midnight_battle",
                 "api_req_battle_midnight/battle",
                 "api_req_combined_battle/midnight_battle",
+                "api_req_combined_battle/ec_midnight_battle",
                 "api_req_practice/midnight_battle",
             };
             DisposableObjects.Add(ApiService.Subscribe(rSecondStageApis, ProcessSecondStage));
@@ -164,7 +175,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             if (rpOldVersion == 1)
             {
-                using (var rTransaction = r_Connection.BeginTransaction())
                 using (var rCommand = r_Connection.CreateCommand())
                 {
                     rCommand.CommandText =
@@ -177,8 +187,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         "DROP TABLE participant_old;";
 
                     rCommand.ExecuteNonQuery();
-
-                    rTransaction.Commit();
                 }
             }
             if (rpOldVersion < 4)

@@ -47,6 +47,9 @@
                 <ListBoxItem>
                     <Button Content="{rb:StringResource Main.Screenshot_Tool}" Command="{Binding OpenScreenshotToolCommand}" />
                 </ListBoxItem>
+                <ListBoxItem>
+                    <Button Content="{rb:StringResource Main.Screenshot_OpenFolder}" Command="{Binding OpenScreenshotFolderCommand}" />
+                </ListBoxItem>
             </ListBox>
         </ruic:SplitButton>
 

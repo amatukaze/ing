@@ -34,6 +34,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public bool TransportEscortOnly => MasterInfo.SortieFleetType == CombinedFleetType.TransportEscort;
         public MapGaugeType? GaugeType => RawData.Event?.GaugeType;
 
+        public int AvailableAirBaseGroupCount => RawData.AvailableAirBaseGroupCount;
+
         internal MapInfo(RawMapInfo rpRawData) : base(rpRawData)
         {
             if (rpRawData.Event != null || rpRawData.DefeatedCount.HasValue)

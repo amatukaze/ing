@@ -1,14 +1,14 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class SortieNodeInfo : ModelBase
     {
+        SortieInfo r_Owner;
+
         public int ID { get; }
-        internal int InternalID { get; }
 
         public string WikiID { get; }
 
@@ -19,20 +19,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public bool IsDeadEnd { get; }
 
-        internal SortieNodeInfo(long rpTimestamp, MapInfo rpMap, RawMapExploration rpData)
+        internal SortieNodeInfo(SortieInfo rpOwner, long rpTimestamp, RawMapExploration rpData)
         {
+            r_Owner = rpOwner;
+
             ID = rpData.Node;
 
-            var rDifficulty = rpMap.Difficulty;
-            if (!rDifficulty.HasValue)
-                InternalID = ID;
-            else
-            {
-                var rDifficultyCount = Enum.GetNames(typeof(EventMapDifficulty)).Length - 1;
-                InternalID = ID * rDifficultyCount + (int)rDifficulty.Value - 3;
-            }
+            var rMap = r_Owner.Map;
 
-            WikiID = MapService.Instance.GetNodeWikiID(rpMap.ID, ID);
+            WikiID = MapService.Instance.GetNodeWikiID(rMap.ID, ID);
 
             EventType = rpData.NodeEventType;
             EventSubType = rpData.NodeEventSubType;
@@ -44,16 +39,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     break;
 
                 case SortieEventType.Whirlpool:
-                    Event = new WhirlpoolEvent(rpData);
+                    Event = new WhirlpoolEvent(r_Owner.Fleet.Ships, r_Owner.EscortFleet, rpData);
                     break;
 
                 case SortieEventType.NormalBattle:
                 case SortieEventType.BossBattle:
-                    Event = new BattleEvent(rpTimestamp, rpMap, rpData, WikiID);
+                    Event = new BattleEvent(rpTimestamp, rMap, rpData, WikiID);
                     break;
 
                 case SortieEventType.NothingHappened:
-                    Event = new NothingHappenedEvent(rpMap, rpData);
+                    Event = new NothingHappenedEvent(rMap, rpData);
                     break;
 
                 case SortieEventType.AviationReconnaissance:

@@ -16,11 +16,12 @@
   <String Key="Log_ExpeditionResult">/{0}"{1}" has returned from expedition {2}:{3}. (Result: [b]{4}[/b])</String>
   <String Key="Log_StartConstruction">Start construction of {0}. (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
   <String Key="Log_Development_Success">{0} was successfully developed. (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_Development_Success_Rare">[b]{0}[/b] was successfully developed. (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
   <String Key="Log_Development_Failure">Development failed. (Material Consumption: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})</String>
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
-  <String Key="Log_ShipOrItem_Dropped">[b]{0}[/b] dropped</String>
-  <String Key="Log_ShipAndItem_Dropped">[b]{0}[/b] and [b]{1}[/b] dropped</String>
+  <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
+  <String Key="Log_ShipAndItem_Dropped">{0} and [b]{1}[/b] dropped</String>
   <String Key="Log_Screenshot_Failed">Fail to save screenshot: {0}</String>
   <String Key="Log_Screenshot_Failed_FlashElementNotFound">The flash element cannot be found</String>
   <String Key="Log_Screenshot_Failed_NoData">No screenshot data from the browser</String>
@@ -191,6 +192,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="AirBase_Group_Option_Retreat">Retreat</String>
   <String Key="AirBase_Group_Option_Rest">Rest</String>
   <String Key="AirBase_Group_CombatRadius">CR</String>
+  <String Key="AirBase_Group_Relocating">Relocating</String>
 
   <String Key="Material_Fuel">Fuel</String>
   <String Key="Material_Bullet">Bullet</String>
@@ -214,7 +216,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Sortie_Node">Node</String>
   <String Key="Sortie_Event_Unknown">Unknown</String>
   <String Key="Sortie_Event_Reward">Reward</String>
-  <String Key="Sortie_Event_Whirlpool">Whirlpool</String>
+  <String Key="Sortie_Event_Whirlpool">Maelstrom</String>
   <String Key="Sortie_Event_NormalBattle">Normal Battle</String>
   <String Key="Sortie_Event_BossBattle">Boss Battle</String>
   <String Key="Sortie_Event_NothingHappened">No Battle</String>
@@ -222,9 +224,12 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Sortie_Event_EscortSuccess">Escort Success</String>
   <String Key="Sortie_Event_Landing">Landing</String>
   <String Key="Sortie_Event_AerialAttack">Aerial Attack</String>
+  <String Key="Sortie_Whirlpool_Message">The fleet has dropped {0} {1} ({2:P0})</String>
+  <String Key="Sortie_Whirlpool_Message_CombinedFleet">1st fleet has dropped {0} {1} ({2:P0})</String>
   <String Key="Sortie_BattleType_Normal">Normal Battle</String>
   <String Key="Sortie_BattleType_NightOnly">Night Battle</String>
   <String Key="Sortie_BattleType_AerialCombat">Aerial Combat</String>
+  <String Key="Sortie_BattleType_EnemyCombinedFleet">ACF Battle</String>
   <String Key="Sortie_BattleType_AerialAttack">Aerial Attack</String>
   <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
@@ -298,6 +303,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Quest_Requirement_OperationAGo_SRankVictory">S-Rank Victory</String>
   <String Key="Quest_Requirement_OperationAGo_BossEncounter">Boss Encounter</String>
   <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">Boss Battle Victory</String>
+  <String Key="Quest_RewardSelection">One of the following</String>
 
   <String Key="ExpeditionOverview_Time">Time</String>
   <String Key="ExpeditionOverview_Consumption">Consumption</String>
@@ -313,6 +319,8 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Window_ExpeditionHistory">Expedition History</String>
   <String Key="Window_ScrappingHistory">Scrapping History</String>
   <String Key="Window_ResourceHistory">Resource History</String>
+  <String Key="Window_SortieConsumptionHistory">Sortie Cosumption History</String>
+  <String Key="Window_SortieStatistic">Sortie Statistic</String>
   <String Key="Window_ClosingConfirmation_Instruction">What do you want to do?</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">Exit</String>
   <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
@@ -415,6 +423,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Screenshot_File">Take screenshot to file</String>
   <String Key="Screenshot_Clipboard">Take screenshot to clipboard</String>
   <String Key="Screenshot_Tool">Screenshot Tool</String>
+  <String Key="Screenshot_OpenFolder">Open screenshot folder</String>
 
   <String Key="EquipmentOverview_Name">Name</String>
   <String Key="EquipmentOverview_TotalCount">Total</String>
@@ -442,6 +451,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="ShipOverview_Filter_ExceptExpeditionShips">Except expedition ships</String>
   <String Key="ShipOverview_Filter_ExceptSparklingShips">Except sparkling ships</String>
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">Except Lv1 ships</String>
+  <String Key="ShipOverview_Filter_ExceptMaxModernizationShips">Except maximum modernization ships</String>
   <String Key="ShipOverview_List_Loading">Loading</String>
 
   <String Key="Export_CSV">Export as CSV file</String>
@@ -452,6 +462,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Record_Time">Time</String>
   <String Key="Record_Equipment">Equipment</String>
   <String Key="Record_SecretaryShip">Secretary ship</String>
+  <String Key="Record_RankingPoints">Points</String>
   <String Key="Record_Filter_SuccessOnly">Successful</String>
 
   <String Key="ConstructionHistory_Ship">Ship</String>
@@ -509,5 +520,14 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="SessionTool_Method">Method</String>
   <String Key="SessionTool_Status">Status</String>
   <String Key="SessionTool_URLOrAPI">URL / API</String>
+
+  <String Key="SortieStatistic_TimeSpan_Today">Today</String>
+  <String Key="SortieStatistic_TimeSpan_ThisWeek">This week</String>
+  <String Key="SortieStatistic_TimeSpan_ThisMonth">This month</String>
+  <String Key="SortieStatistic_TimeSpan_Yesterday">Yesterday</String>
+  <String Key="SortieStatistic_TimeSpan_LastWeek">Last week</String>
+  <String Key="SortieStatistic_TimeSpan_LastMonth">Last month</String>
+  <String Key="SortieStatistic_Count">Count</String>
+  <String Key="SortieStatistic_RankingPoints">Points</String>
 
 </Strings>

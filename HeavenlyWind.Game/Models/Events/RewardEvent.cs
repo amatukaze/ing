@@ -14,6 +14,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         internal RewardEvent(RawMapExploration rpData) : base(rpData)
         {
+            if (RawData.Rewards == null)
+                return;
+
             switch (RawData.Rewards.Type)
             {
                 case JTokenType.Array:

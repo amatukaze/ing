@@ -104,6 +104,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         public AirBaseViewModel AirBase { get; }
 
+        PropertyChangedEventListener r_AirBasePCEL;
+
         public IList<ModelBase> RightTabs { get; private set; }
 
         ModelBase r_SelectedTab;
@@ -190,9 +192,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             AirBase = new AirBaseViewModel();
 
-            ApiService.SubscribeOnce("api_get_member/base_air_corps", delegate
+            r_AirBasePCEL = PropertyChangedEventListener.FromSource(rPort.AirBase);
+            r_AirBasePCEL.Add(nameof(rPort.AirBase.AllGroups), delegate
             {
-                DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() =>
+                if (rPort.AirBase.Table.Count == 0)
+                    return;
+
+                DispatcherUtil.UIDispatcher.InvokeAsync(() =>
                 {
                     if (RightTabs == null)
                     {
@@ -201,7 +207,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                     }
 
                     RightTabs.Add(AirBase);
-                }));
+                });
+
+                r_AirBasePCEL.Dispose();
+                r_AirBasePCEL = null;
             });
 
             ApiService.Subscribe("api_req_map/next", delegate

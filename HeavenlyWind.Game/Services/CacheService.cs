@@ -28,10 +28,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             using (var rConnection = new SQLiteConnection(@"Data Source=Data\Cache.db; Page Size=8192").OpenAndReturn())
             using (var rCommand = rConnection.CreateCommand())
             {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS file(" +
-                    "name TEXT PRIMARY KEY NOT NULL, " +
-                    "version TEXT, " +
-                    "timestamp INTEGER NOT NULL) WITHOUT ROWID;";
+                rCommand.CommandText =
+                    "PRAGMA journal_mode = WAL; " +
+
+                    "CREATE TABLE IF NOT EXISTS file(" +
+                        "name TEXT PRIMARY KEY NOT NULL, " +
+                        "version TEXT, " +
+                        "timestamp INTEGER NOT NULL) WITHOUT ROWID;";
 
                 rCommand.ExecuteNonQuery();
             }
@@ -63,10 +66,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 var rTimestamp = new DateTimeOffset(File.GetLastWriteTime(rFilename));
 
-                if (rpResourceSession.Path.OICContains("mainD2.swf") || !CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
+                if (rpResourceSession.Path.OICContains("mainD2.swf") || rpResourceSession.Path.OICContains(".js") || !CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
                 {
                     rpSession.oRequest["If-Modified-Since"] = rTimestamp.ToString("R");
                     rpSession.bBufferResponse = true;
+
                     return;
                 }
             }

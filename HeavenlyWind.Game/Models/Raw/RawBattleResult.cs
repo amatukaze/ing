@@ -5,8 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 {
     public class RawBattleResult
     {
-        [JsonProperty("api_ship_id")]
-        public int[] ShipIDs { get; set; }
+        //[JsonProperty("api_ship_id")]
 
         [JsonProperty("api_win_rank")]
         public BattleRank Rank { get; set; }
@@ -16,6 +15,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 
         [JsonProperty("api_mvp")]
         public int MvpShipIndex { get; set; }
+        [JsonProperty("api_mvp_combined")]
+        public int? EscortFleetMvpShipIndex { get; set; }
 
         [JsonProperty("api_member_lv")]
         public int HeadquarterLevel { get; set; }

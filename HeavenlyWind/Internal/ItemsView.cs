@@ -47,7 +47,7 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
 
         protected void OnCollectionReset()
         {
-            DispatcherUtil.UIDispatcher.BeginInvoke(new Action(() => CollectionChanged?.Invoke(this, r_ResetEventArgs)));
+            DispatcherUtil.UIDispatcher.InvokeAsync(() => CollectionChanged?.Invoke(this, r_ResetEventArgs));
         }
 
         #region

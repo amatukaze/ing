@@ -6,6 +6,7 @@
         ShipType,
         AbyssalShip,
         Equipment,
+        Furniture,
         Item,
         Expedition,
         Quest,

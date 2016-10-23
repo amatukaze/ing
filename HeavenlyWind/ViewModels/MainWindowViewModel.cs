@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
+using Sakuno.KanColle.Amatsukaze.Views.Statistics;
 using Sakuno.UserInterface;
 using System;
 using System.Windows.Input;
@@ -42,6 +43,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         public ICommand ShowExpeditionHistoryCommand { get; }
         public ICommand ShowScrappingHistoryCommand { get; }
         public ICommand ShowResourceHistoryCommand { get; }
+        public ICommand ShowSortieConsumptionHistoryCommand { get; }
+        public ICommand ShowSortieStatisticCommand { get; }
 
         internal MainWindowViewModel()
         {
@@ -72,6 +75,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             ShowExpeditionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ExpeditionHistoryWindow>());
             ShowScrappingHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ScrappingHistoryWindow>());
             ShowResourceHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ResourceHistoryWindow>());
+            ShowSortieConsumptionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<SortieConsumptionHistoryWindow>());
+            ShowSortieStatisticCommand = new DelegatedCommand(() => WindowService.Instance.Show<SortieStatisticWindow>());
         }
     }
 }
