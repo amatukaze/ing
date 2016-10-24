@@ -120,7 +120,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 {
                     rCommand.CommandText = "ALTER TABLE sortie ADD COLUMN map_hp INTEGER;";
 
-                    rCommand.ExecuteNonQuery();
+                    try
+                    {
+                        rCommand.ExecuteNonQuery();
+                    }
+                    catch { }
                 }
         }
 

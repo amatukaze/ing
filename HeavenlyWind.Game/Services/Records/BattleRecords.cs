@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System.Data.SQLite;
-using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
@@ -38,7 +37,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         "ALTER TABLE battle ADD COLUMN mvp INTEGER; " +
                         "ALTER TABLE battle ADD COLUMN mvp_escort INTEGER;";
 
-                    rCommand.ExecuteNonQuery();
+                    try
+                    {
+                        rCommand.ExecuteNonQuery();
+                    }
+                    catch { }
                 }
         }
         protected override void CreateTable()
