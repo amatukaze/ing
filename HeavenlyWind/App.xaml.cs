@@ -27,6 +27,8 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         public static MainWindowViewModel Root { get; private set; }
 
+        IntPtr r_MainWindowHandle;
+
         protected override void OnStartup(StartupEventArgs e)
         {
             DispatcherUtil.UIDispatcher = Dispatcher;
@@ -37,6 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze
             {
                 DispatcherUnhandledException += App_DispatcherUnhandledException;
                 AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+                TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
             }
 
             base.OnStartup(e);
@@ -92,7 +95,10 @@ namespace Sakuno.KanColle.Amatsukaze
             if (e.Args.Any(r => r.OICEquals("--background")))
                 return;
 
-            MainWindow = new MainWindow();
+            var rMainWindow = new MainWindow();
+            r_MainWindowHandle = rMainWindow.Handle;
+
+            MainWindow = rMainWindow;
             MainWindow.DataContext = Root = new MainWindowViewModel();
             MainWindow.Show();
         }
@@ -113,6 +119,12 @@ namespace Sakuno.KanColle.Amatsukaze
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             ShowUnhandledExceptionDialog((Exception)e.ExceptionObject);
+        }
+        void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            e.SetObserved();
+
+            ShowUnhandledExceptionDialog(e.Exception);
         }
 
         void ShowUnhandledExceptionDialog(Exception rpException)
@@ -143,7 +155,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 Detail = rpException.ToString(),
                 ShowDetailAtTheBottom = true,
 
-                OwnerWindow = MainWindow,
+                OwnerWindowHandle = r_MainWindowHandle,
                 ShowAtTheCenterOfOwner = true,
             };
 
@@ -157,7 +169,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 {
                     if (File.Exists(rLogFilename))
                         Process.Start(rLogFilename);
-                }; ;
+                };
             }
 
             rDialog.ShowAndDispose();
