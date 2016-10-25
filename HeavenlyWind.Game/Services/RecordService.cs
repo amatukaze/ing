@@ -107,6 +107,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
             if (!rDatabaseFile.Exists)
                 TryMigrateFromOldVersion(rFilename, rDatabaseFile);
+            else
+            {
+                var rSharedMemoryFile = new FileInfo(Path.Combine(RecordDirectory.FullName, r_UserID + ".db-shm"));
+                var rWALFile = new FileInfo(Path.Combine(RecordDirectory.FullName, r_UserID + ".db-wal"));
+
+                var rDatabaseLastFileWriteTime = rDatabaseFile.LastWriteTimeUtc;
+                var rCleanup = (rSharedMemoryFile.Exists && rSharedMemoryFile.LastWriteTimeUtc < rDatabaseLastFileWriteTime) ||
+                    (rWALFile.Exists && rWALFile.LastWriteTimeUtc < rDatabaseLastFileWriteTime);
+
+                if (rCleanup)
+                {
+                    if (rSharedMemoryFile.Exists)
+                        rSharedMemoryFile.Delete();
+
+                    if (rWALFile.Exists)
+                        rWALFile.Delete();
+                }
+            }
 
             r_Connection = new SQLiteConnection($@"Data Source={rDatabaseFile.FullName}; Page Size=8192").OpenAndReturn();
 

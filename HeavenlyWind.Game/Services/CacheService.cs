@@ -25,6 +25,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
+            CleanupOutdatedJournal();
+
             using (var rConnection = new SQLiteConnection(@"Data Source=Data\Cache.db; Page Size=8192").OpenAndReturn())
             using (var rCommand = rConnection.CreateCommand())
             {
@@ -46,6 +48,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\Cache.db").FullName);
 
                 rCommand.ExecuteNonQuery();
+            }
+        }
+        void CleanupOutdatedJournal()
+        {
+            var rDatabaseFile = new FileInfo(@"Data\Cache.db");
+            var rSharedMemoryFile = new FileInfo(@"Data\Cache.db-shm");
+            var rWALFile = new FileInfo(@"Data\Cache.db-wal");
+
+            var rDatabaseLastFileWriteTime = rDatabaseFile.LastWriteTimeUtc;
+            var rCleanup = (rSharedMemoryFile.Exists && rSharedMemoryFile.LastWriteTimeUtc < rDatabaseLastFileWriteTime) ||
+                (rWALFile.Exists && rWALFile.LastWriteTimeUtc < rDatabaseLastFileWriteTime);
+
+            if (rCleanup)
+            {
+                if (rSharedMemoryFile.Exists)
+                    rSharedMemoryFile.Delete();
+
+                if (rWALFile.Exists)
+                    rWALFile.Delete();
             }
         }
 
