@@ -129,8 +129,8 @@ namespace Sakuno.KanColle.Amatsukaze.Views
                 cbSize = Marshal.SizeOf(typeof(NativeStructs.FLASHWINFO)),
                 hwnd = Handle,
                 dwFlags = NativeEnums.FLASHW.FLASHW_TRAY | NativeEnums.FLASHW.FLASHW_TIMERNOFG,
-                uCount = (uint)rpCount,
-                dwTimeout = (uint)rpTimeout,
+                uCount = rpCount,
+                dwTimeout = rpTimeout,
             };
             NativeMethods.User32.FlashWindowEx(ref rInfo);
         }
