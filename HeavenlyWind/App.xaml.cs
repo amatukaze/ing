@@ -165,11 +165,20 @@ namespace Sakuno.KanColle.Amatsukaze
                 rDialog.FooterIcon = TaskDialogIcon.Information;
                 rDialog.Footer = string.Format(UnhandledExceptionDialogStringResources.Footer, $"<a href=\"{rLogFilename}\">{rLogFilename}</a>");
 
-                rDialog.HyperlinkClicked += delegate
+                EventHandler<string> rHyperlinkClicked = null;
+                rHyperlinkClicked = delegate
                 {
                     if (File.Exists(rLogFilename))
                         Process.Start(rLogFilename);
                 };
+                EventHandler rClosed = null;
+                rClosed = delegate
+                {
+                    rDialog.HyperlinkClicked -= rHyperlinkClicked;
+                    rDialog.Closed -= rClosed;
+                };
+                rDialog.HyperlinkClicked += rHyperlinkClicked;
+                rDialog.Closed += rClosed;
             }
 
             rDialog.ShowAndDispose();
