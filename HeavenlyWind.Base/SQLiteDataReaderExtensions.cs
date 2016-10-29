@@ -41,6 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             return (double)rResult;
         }
+
         public static bool? GetBooleanOptional(this SQLiteDataReader rpReader, string rpColumn)
         {
             var rResult = rpReader[rpColumn];
@@ -71,6 +72,43 @@ namespace Sakuno.KanColle.Amatsukaze
         public static double? GetDoubleOptional(this SQLiteDataReader rpReader, string rpColumn)
         {
             var rResult = rpReader[rpColumn];
+
+            if (rResult == DBNull.Value)
+                return null;
+
+            return (double)rResult;
+        }
+
+        public static bool? GetBooleanOptional(this SQLiteDataReader rpReader, int rpOrdinal)
+        {
+            var rResult = rpReader[rpOrdinal];
+
+            if (rResult == DBNull.Value)
+                return null;
+
+            return Convert.ToBoolean(rResult);
+        }
+        public static int? GetInt32Optional(this SQLiteDataReader rpReader, int rpOrdinal)
+        {
+            var rResult = rpReader[rpOrdinal];
+
+            if (rResult == DBNull.Value)
+                return null;
+
+            return Convert.ToInt32(rResult);
+        }
+        public static long? GetInt64Optional(this SQLiteDataReader rpReader, int rpOrdinal)
+        {
+            var rResult = rpReader[rpOrdinal];
+
+            if (rResult == DBNull.Value)
+                return null;
+
+            return (long)rResult;
+        }
+        public static double? GetDoubleOptional(this SQLiteDataReader rpReader, int rpOrdinal)
+        {
+            var rResult = rpReader[rpOrdinal];
 
             if (rResult == DBNull.Value)
                 return null;
