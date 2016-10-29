@@ -271,6 +271,9 @@
     <Compile Include="Views\Game\AirBaseOverview.xaml.cs">
       <DependentUpon>AirBaseOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Game\Events\EnemyAerialRaid.xaml.cs">
+      <DependentUpon>EnemyAerialRaid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Game\Battle\EnemyEncounters.xaml.cs">
       <DependentUpon>EnemyEncounters.xaml</DependentUpon>
     </Compile>
@@ -812,6 +815,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\AirBaseOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Game\Events\EnemyAerialRaid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

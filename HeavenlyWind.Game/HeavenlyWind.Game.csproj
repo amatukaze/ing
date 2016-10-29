@@ -132,6 +132,7 @@
     <Compile Include="Models\CommonProperty.cs" />
     <Compile Include="Models\CountdownModelBase.cs" />
     <Compile Include="Models\CutInType.cs" />
+    <Compile Include="Models\EnemyAerialRaid.cs" />
     <Compile Include="Models\EnemyFleet.cs" />
     <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\EquipmentIconType.cs" />

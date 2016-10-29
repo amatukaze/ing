@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -18,6 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public SortieEvent Event { get; internal set; }
 
         public bool IsDeadEnd { get; }
+
+        public EnemyAerialRaid EnemyAerialRaid { get; }
 
         internal SortieNodeInfo(SortieInfo rpOwner, long rpTimestamp, RawMapExploration rpData)
         {
@@ -66,6 +69,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
 
             IsDeadEnd = rpData.NextRouteCount == 0;
+
+            if (rpData.EnemyAerialRaid != null)
+                try
+                {
+                    EnemyAerialRaid = new EnemyAerialRaid(rpData.EnemyAerialRaid);
+
+                    var rBattleEvent = Event as BattleEvent;
+                    if (rBattleEvent != null)
+                    {
+                        rBattleEvent.EnemyAerialRaid = EnemyAerialRaid;
+                        EnemyAerialRaid = null;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_ParseException, e.Message));
+                }
         }
     }
 }

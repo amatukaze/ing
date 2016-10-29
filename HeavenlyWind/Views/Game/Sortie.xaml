@@ -50,6 +50,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="8" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -124,5 +125,7 @@
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
+
+        <rvge:EnemyAerialRaid DataContext="{Binding Node.EnemyAerialRaid}" Grid.Row="3" />
     </Grid>
 </UserControl>
