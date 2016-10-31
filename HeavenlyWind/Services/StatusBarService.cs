@@ -95,12 +95,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 var rServers = new[] { "jp.pool.ntp.org", "pool.ntp.org", "us.pool.ntp.org", "cn.pool.ntp.org", "jp.ntp.org.cn", "us.ntp.org.cn", "cn.ntp.org.cn" };
 
+                var rRetryCount = 0;
+
                 foreach (var rSuccess in rServers.Select(QueryCurrentTime))
+                {
+                    await Task.Delay(rRetryCount * 2000);
+                    rRetryCount++;
+
                     if (await rSuccess)
                     {
                         StartTimer();
                         return;
                     }
+                }
             }));
 
             UIZoom = Preference.Instance.UI.Zoom;
@@ -124,7 +131,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                     await rClient.SendAsync(rData, rData.Length);
 
-                    var rResult = await Task.WhenAny(rClient.ReceiveAsync(), Task.Delay(5000)) as Task<UdpReceiveResult>;
+                    var rReceiveTask = rClient.ReceiveAsync();
+
+                    rReceiveTask.ContinueWith(r => r.Exception?.Handle(_ => true), TaskContinuationOptions.OnlyOnFaulted).Forget();
+
+                    var rResult = await Task.WhenAny(rReceiveTask, Task.Delay(5000)) as Task<UdpReceiveResult>;
                     if (rResult == null)
                         return false;
 
