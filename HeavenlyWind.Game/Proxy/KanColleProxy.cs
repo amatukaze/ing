@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
@@ -84,12 +85,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             var rPath = rpSession.PathAndQuery;
 
             NetworkSession rSession;
+            ApiSession rApiSession = null;
+
             if (rPath.StartsWith("/kcsapi/"))
-                rSession = new ApiSession(rFullUrl);
+                rSession = rApiSession = new ApiSession(rFullUrl);
             else if (rPath.StartsWith("/kcs/") || rPath.StartsWith("/gadget/"))
                 rSession = new ResourceSession(rFullUrl, rPath);
             else
                 rSession = new NetworkSession(rFullUrl);
+
+            if (rApiSession != null && RequestFilterService.Instance.IsBlocked(rApiSession))
+            {
+                rSession.State = NetworkSessionState.Blocked;
+                rpSession.utilCreateResponseAndBypassServer();
+                return;
+            }
 
             rSession.RequestBodyString = Uri.UnescapeDataString(rpSession.GetRequestBodyAsString());
             rSession.Method = rpSession.RequestMethod;
@@ -304,6 +314,22 @@ body {
         class NetworkAvailabilityService : INetworkAvailabilityService
         {
             public void EnsureNetwork() => r_TrafficBarrier?.Wait();
+        }
+
+        class RequestFilterService : IRequestFilterService
+        {
+            public static RequestFilterService Instance { get; } = new RequestFilterService();
+
+            event Func<string, IDictionary<string, string>, bool> Filter;
+
+            RequestFilterService()
+            {
+                ServiceManager.Register<IRequestFilterService>(this);
+            }
+
+            public void Register(Func<string, IDictionary<string, string>, bool> filter) => Filter += filter;
+
+            public bool IsBlocked(ApiSession rpSession) => Filter == null ? false : Filter(rpSession.DisplayUrl, rpSession.Parameters);
         }
     }
 }

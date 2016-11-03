@@ -51,6 +51,7 @@
     <Compile Include="Services\IMainWindowService.cs" />
     <Compile Include="Services\INetworkAvailabilityService.cs" />
     <Compile Include="Services\INotificationService.cs" />
+    <Compile Include="Services\IRequestFilterService.cs" />
     <Compile Include="Services\IStatusBarService.cs" />
     <Compile Include="ToolViewMode.cs" />
   </ItemGroup>

@@ -3,7 +3,7 @@
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
     public enum NetworkSessionType { Normal, Resource, API }
-    public enum NetworkSessionState { Requested, Responsed, Cached, LoadedFromCache, Error }
+    public enum NetworkSessionState { Requested, Responsed, Cached, LoadedFromCache, Error, Blocked }
 
     public class NetworkSession : ModelBase
     {
@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         public string Method { get; internal set; }
 
-        public string RequestBodyString { get; internal set; }
+        public virtual string RequestBodyString { get; internal set; }
 
         int? r_ContentLength;
         public int? ContentLength

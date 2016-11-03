@@ -107,6 +107,9 @@
                             <DataTrigger Binding="{Binding Source.State}" Value="Error">
                                 <Setter Property="Foreground" Value="Orange" />
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding Source.State}" Value="Blocked">
+                                <Setter Property="Foreground" Value="Red" />
+                            </DataTrigger>
 
                             <DataTrigger Binding="{Binding Source.State}" Value="Cached">
                                 <Setter Property="Foreground" Value="Yellow" />
