@@ -52,8 +52,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_enemy_info")]
         public RawEnemyInfo EnemyInfo { get; set; }
 
-        [JsonProperty("api_first_clear")]
-        public bool IsFirstClear { get; set; }
+        //[JsonProperty("api_first_clear")]
+
+        [JsonProperty("api_mapcell_incentive")]
+        public bool IsAviationReconnaissanceRewardConfirmed { get; set; }
 
         [JsonProperty("api_get_flag")]
         public bool[] IsDropped { get; set; }
