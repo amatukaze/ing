@@ -135,11 +135,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                     rReceiveTask.ContinueWith(r => r.Exception?.Handle(_ => true), TaskContinuationOptions.OnlyOnFaulted).Forget();
 
-                    var rResult = await Task.WhenAny(rReceiveTask, Task.Delay(5000)) as Task<UdpReceiveResult>;
-                    if (rResult == null)
+                    if (await Task.WhenAny(rReceiveTask, Task.Delay(5000)) != rReceiveTask)
                         return false;
 
-                    rData = (await rResult).Buffer;
+                    rData = (await rReceiveTask).Buffer;
 
                     var rIntegerPart = (ulong)rData[40] << 24 | (ulong)rData[41] << 16 | (ulong)rData[42] << 8 | rData[43];
                     var rFractionPart = (ulong)rData[44] << 24 | (ulong)rData[45] << 16 | (ulong)rData[46] << 8 | rData[47];
