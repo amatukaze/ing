@@ -75,16 +75,117 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             {
                 var rExpedition = rpFleet.ExpeditionStatus.Expedition;
 
-                var rLandingCraftCount = rpFleet.Ships.SelectMany(r => r.Slots).Select(r => r.Equipment.Info.Icon).Count(r => r == EquipmentIconType.LandingCraft);
-                var rRate = 1.0 + rLandingCraftCount * .05;
+                var rFuelConsumption = 0;
+                var rBulletConsumption = 0;
 
-                var rFuel = rpInfo.RewardResources.Fuel * rRate;
-                var rBullet = rpInfo.RewardResources.Bullet * rRate;
-                var rSteel = rpInfo.RewardResources.Steel * rRate;
-                var rBauxite = rpInfo.RewardResources.Bauxite * rRate;
+                var rLandingCraftCount = 0;
+                var rLandingCraftLevel = 0;
+                var rLandingCraftBonusRate = 1.0;
 
-                var rFuelConsumption = (int)rpFleet.Ships.Sum(r => r.Info.MaxFuelConsumption * rExpedition.FuelConsumption * (r.IsMarried ? .85 : 1.0));
-                var rBulletConsumption = (int)rpFleet.Ships.Sum(r => r.Info.MaxBulletConsumption * rExpedition.BulletConsumption * (r.IsMarried ? .85 : 1.0));
+                var rTDLCCount = 0;
+                var rDLCCount = 0;
+
+                foreach (var rShip in rpFleet.Ships)
+                {
+                    var rFactor = rShip.IsMarried ? .85 : 1.0;
+                    rFuelConsumption += (int)(rShip.Info.MaxFuelConsumption * rExpedition.FuelConsumption * rFactor);
+                    rBulletConsumption += (int)(rShip.Info.MaxBulletConsumption * rExpedition.BulletConsumption * rFactor);
+
+                    if (rShip.Info.ID == 487)
+                        rLandingCraftBonusRate += .05;
+
+                    foreach (var rSlot in rShip.Slots)
+                    {
+                        switch (rSlot.Equipment.ID)
+                        {
+                            case 68:
+                                rLandingCraftBonusRate += .05;
+                                rDLCCount++;
+                                break;
+
+                            case 166:
+                                rLandingCraftBonusRate += .02;
+                                break;
+
+                            case 167:
+                                rLandingCraftBonusRate += .01;
+                                break;
+
+                            case 193:
+                                rLandingCraftBonusRate += .05;
+                                rTDLCCount++;
+                                break;
+
+                            default:
+                                continue;
+                        }
+
+                        rLandingCraftCount++;
+                        rLandingCraftLevel += rSlot.Equipment.Level;
+                    }
+                }
+
+                rLandingCraftBonusRate = Math.Min(rLandingCraftBonusRate, 1.2);
+
+                if (rLandingCraftCount > 0)
+                    rLandingCraftBonusRate += rLandingCraftBonusRate * (rLandingCraftLevel / (double)rLandingCraftCount) * .01;
+
+                switch (rTDLCCount)
+                {
+                    case 0:
+                    case 1:
+                    case 2:
+                        rLandingCraftBonusRate += rTDLCCount * .02;
+                        break;
+
+                    case 3:
+                        switch (rDLCCount)
+                        {
+                            case 0:
+                            case 1:
+                                rLandingCraftBonusRate += .05;
+                                break;
+
+                            case 2:
+                                rLandingCraftBonusRate += .052;
+                                break;
+
+                            default:
+                                rLandingCraftBonusRate += .054;
+                                break;
+                        }
+                        break;
+
+                    default:
+                        switch (rDLCCount)
+                        {
+                            case 0:
+                                rLandingCraftBonusRate += .054;
+                                break;
+
+                            case 1:
+                                rLandingCraftBonusRate += .056;
+                                break;
+
+                            case 2:
+                                rLandingCraftBonusRate += .058;
+                                break;
+
+                            case 3:
+                                rLandingCraftBonusRate += .059;
+                                break;
+
+                            default:
+                                rLandingCraftBonusRate += .06;
+                                break;
+                        }
+                        break;
+                }
+
+                var rFuel = rpInfo.RewardResources.Fuel * rLandingCraftBonusRate;
+                var rBullet = rpInfo.RewardResources.Bullet * rLandingCraftBonusRate;
+                var rSteel = rpInfo.RewardResources.Steel * rLandingCraftBonusRate;
+                var rBauxite = rpInfo.RewardResources.Bauxite * rLandingCraftBonusRate;
 
                 Fuel = (int)rFuel - rFuelConsumption;
                 Bullet = (int)rBullet - rBulletConsumption;
