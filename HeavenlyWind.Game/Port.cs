@@ -387,8 +387,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rShip.Repair(rIsInstantRepair);
                 rShip.OwnerFleet?.Update();
 
-                var rDock = RepairDocks[int.Parse(r.Parameters["api_ndock_id"])];
-                rDock.PendingToUpdateMaterials = true;
+                Materials.Fuel -= rShip.RepairFuelConsumption;
+                Materials.Steel -= rShip.RepairSteelConsumption;
                 if (rIsInstantRepair)
                     Materials.Bucket--;
             });
