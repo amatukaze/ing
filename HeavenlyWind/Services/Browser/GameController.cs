@@ -44,15 +44,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public ICommand ZoomInCommand { get; private set; }
         public ICommand ZoomOutCommand { get; private set; }
         public IList<BrowserZoomInfo> ZoomFactors { get; }
-        public double Zoom
-        {
-            get { return Preference.Instance.Browser.Zoom; }
-            set
-            {
-                if (Zoom != value)
-                    SetZoom(value);
-            }
-        }
 
         public ICommand RestartGameCommand { get; }
 
@@ -112,9 +103,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             }, () => OS.IsWin7OrLater && !r_IsAudioDeviceNotAvailable);
 
             SetZoomCommand = new DelegatedCommand<double>(SetZoom);
-            ZoomInCommand = new DelegatedCommand(() => SetZoom(Zoom + .05));
-            ZoomOutCommand = new DelegatedCommand(() => SetZoom(Zoom - .05));
-            ZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0 }.Select(r => new BrowserZoomInfo(r, SetZoomCommand)).ToList().AsReadOnly();
+            ZoomInCommand = new DelegatedCommand(() => SetZoom(Preference.Instance.Browser.Zoom.Value + .05));
+            ZoomOutCommand = new DelegatedCommand(() => SetZoom(Preference.Instance.Browser.Zoom.Value - .05));
+
+            ZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0 }.Select(r => new BrowserZoomInfo(r, SetZoomCommand)).ToArray();
 
             RestartGameCommand = new DelegatedCommand(RestartGame);
         }
@@ -165,11 +157,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         void SetZoom(double rpZoom)
         {
-            Preference.Instance.Browser.Zoom.Value = rpZoom;
-            OnPropertyChanged(nameof(Zoom));
+            rpZoom = Math.Round(rpZoom, 2);
+
+            if (rpZoom < .25)
+                return;
 
             foreach (var rInfo in ZoomFactors)
                 rInfo.IsSelected = rInfo.Zoom == rpZoom;
+
+            Preference.Instance.Browser.Zoom.Value = rpZoom;
 
             r_Owner.Communicator.Write(CommunicatorMessages.SetZoom + ":" + rpZoom);
             r_Owner.Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);

@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Tools
         {
             var rMainWindowHandle = new WindowInteropHelper(App.Current.MainWindow).Handle;
 
-            var rZoom = BrowserService.Instance.GameController.Zoom;
+            var rZoom = Preference.Instance.Browser.Zoom.Value;
             rpRect.X = (int)(rpRect.X * rZoom * DpiUtil.ScaleX);
             rpRect.Y = (int)(rpRect.Y * rZoom * DpiUtil.ScaleY);
             rpRect.Width = (int)(rpRect.Width * rZoom * DpiUtil.ScaleX);

@@ -19,6 +19,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
         public ValidationRule ValidationRule { get; set; }
 
+        public string StringFormat { get; set; }
+
         public PreferenceExtension(string rpPath)
         {
             r_Path = rpPath + ".Value";
@@ -29,7 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze
             if (DesignerProperties.GetIsInDesignMode(r_DesignModeDetector))
                 return DependencyProperty.UnsetValue;
 
-            var rBinding = new Binding(r_Path) { Source = Preference.Instance, Mode = BindingMode.TwoWay, Converter = Converter, ConverterParameter = ConverterParameter, UpdateSourceTrigger = UpdateSourceTrigger };
+            var rBinding = new Binding(r_Path) { Source = Preference.Instance, Mode = BindingMode.TwoWay, Converter = Converter, ConverterParameter = ConverterParameter, UpdateSourceTrigger = UpdateSourceTrigger, StringFormat = StringFormat };
             if (ValidationRule != null)
                 rBinding.ValidationRules.Add(ValidationRule);
 

@@ -16,7 +16,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -57,26 +56,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         long r_InitialTick;
         public DateTimeOffset? CurrentTime { get; private set; }
 
-        public IList<UIZoomInfo> UIZoomFactors { get; private set; }
-
-        double r_UIZoom;
-        public double UIZoom
-        {
-            get { return r_UIZoom; }
-            set
-            {
-                if (r_UIZoom != value)
-                {
-                    r_UIZoom = value;
-                    OnPropertyChanged(nameof(UIZoom));
-                }
-            }
-        }
-
-        public ICommand UISetZoomCommand { get; private set; }
-        public ICommand UIZoomInCommand { get; private set; }
-        public ICommand UIZoomOutCommand { get; private set; }
-
         StatusBarService()
         {
             var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(this, nameof(PropertyChanged))
@@ -109,13 +88,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     }
                 }
             }));
-
-            UIZoom = Preference.Instance.UI.Zoom;
-
-            UISetZoomCommand = new DelegatedCommand<double>(SetZoom);
-            UIZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new UIZoomInfo(r, UISetZoomCommand)).ToArray();
-            UIZoomInCommand = new DelegatedCommand(() => SetZoom(UIZoom + .05));
-            UIZoomOutCommand = new DelegatedCommand(() => SetZoom(UIZoom - .05));
 
             RegisterCustomBBCodeTag();
         }
@@ -170,22 +142,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     OnPropertyChanged(nameof(CurrentTime));
                 }
             }, TaskCreationOptions.LongRunning);
-        }
-
-        void SetZoom(double rpZoom)
-        {
-            if (rpZoom < .25)
-                return;
-
-            UpdateZoomSelection(rpZoom);
-
-            UIZoom = rpZoom;
-            Preference.Instance.UI.Zoom.Value = rpZoom;
-        }
-        void UpdateZoomSelection(double rpZoom)
-        {
-            foreach (var rInfo in UIZoomFactors)
-                rInfo.IsSelected = rInfo.Zoom == rpZoom;
         }
 
         void RegisterCustomBBCodeTag()
