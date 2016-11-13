@@ -649,15 +649,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (rIsForfeited == DBNull.Value || Convert.ToBoolean(rIsForfeited))
                 return;
 
-            rCommand.CommandText =
-                "INSERT OR IGNORE INTO sortie_reward(id) VALUES((SELECT max(id) FROM sortie)); " +
-                "UPDATE sortie_reward SET fuel = nullif(ifnull(fuel, 0) + ifnull((SELECT fuel FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
-                    "bullet = nullif(ifnull(bullet, 0) + ifnull((SELECT bullet FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
-                    "steel = nullif(ifnull(steel, 0) + ifnull((SELECT steel FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
-                    "bauxite = nullif(ifnull(bauxite, 0) + ifnull((SELECT bauxite FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
-                    "bucket = nullif(ifnull(bucket, 0) + ifnull((SELECT bucket FROM sortie_reward_pending WHERE type = 0), 0), 0) WHERE id = (SELECT max(id) FROM sortie); " +
-                "DELETE FROM sortie_reward_pending WHERE type = 0; " +
-                "INSERT OR REPLACE INTO common(key, value) VALUES('is_reward_forfeited', 1);";
+            rCommand.CommandText = "INSERT OR REPLACE INTO common(key, value) VALUES('is_reward_forfeited', 1);";
+
+            if (rIsForfeited != null)
+                rCommand.CommandText =
+                    "INSERT OR IGNORE INTO sortie_reward(id) VALUES((SELECT max(id) FROM sortie)); " +
+                    "UPDATE sortie_reward SET fuel = nullif(ifnull(fuel, 0) + ifnull((SELECT fuel FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
+                        "bullet = nullif(ifnull(bullet, 0) + ifnull((SELECT bullet FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
+                        "steel = nullif(ifnull(steel, 0) + ifnull((SELECT steel FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
+                        "bauxite = nullif(ifnull(bauxite, 0) + ifnull((SELECT bauxite FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
+                        "bucket = nullif(ifnull(bucket, 0) + ifnull((SELECT bucket FROM sortie_reward_pending WHERE type = 0), 0), 0) WHERE id = (SELECT max(id) FROM sortie); " +
+                    "DELETE FROM sortie_reward_pending WHERE type = 0; " + rCommand.CommandText;
 
             rCommand.PostToTransactionQueue();
         }
