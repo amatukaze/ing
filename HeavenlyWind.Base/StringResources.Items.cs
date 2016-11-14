@@ -93,7 +93,6 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Tab_Overview => GetString(nameof(Tab_Overview));
         public string Tab_Sortie => GetString(nameof(Tab_Sortie));
         public string Tab_Quests => GetString(nameof(Tab_Quests));
-        public string Tab_ExpeditionOverview => GetString(nameof(Tab_ExpeditionOverview));
         public string Tab_Tools => GetString(nameof(Tab_Tools));
 
         public string Overview_Headquarter => GetString(nameof(Overview_Headquarter));
@@ -308,11 +307,6 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Quest_Requirement_OperationAGo_BossBattleVictory => GetString(nameof(Quest_Requirement_OperationAGo_BossBattleVictory));
         public string Quest_RewardSelection => GetString(nameof(Quest_RewardSelection));
 
-        public string ExpeditionOverview_Time => GetString(nameof(ExpeditionOverview_Time));
-        public string ExpeditionOverview_Consumption => GetString(nameof(ExpeditionOverview_Consumption));
-        public string ExpeditionOverview_Rewards => GetString(nameof(ExpeditionOverview_Rewards));
-        public string ExpeditionOverview_Rewards_GreatSuccessOnly => GetString(nameof(ExpeditionOverview_Rewards_GreatSuccessOnly));
-
         public string Window_Preferences => GetString(nameof(Window_Preferences));
         public string Window_ShipOverview => GetString(nameof(Window_ShipOverview));
         public string Window_EquipmentOverview => GetString(nameof(Window_EquipmentOverview));
@@ -492,8 +486,6 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ScrappingHistory_Reason_ConsumedInBattle => GetString(nameof(ScrappingHistory_Reason_ConsumedInBattle));
 
         public string ResourceHistory_Diff => GetString(nameof(ResourceHistory_Diff));
-
-        public string Tool_ExpeditionOverview => GetString(nameof(Tool_ExpeditionOverview));
 
         public string ScreenshotTool_Title => GetString(nameof(ScreenshotTool_Title));
         public string ScreenshotTool_General => GetString(nameof(ScreenshotTool_General));

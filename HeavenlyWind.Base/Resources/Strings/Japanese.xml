@@ -90,7 +90,6 @@
   <String Key="Tab_Maps">海域</String>
   <String Key="Tab_Sortie">出撃</String>
   <String Key="Tab_Quests">任務</String>
-  <String Key="Tab_ExpeditionOverview">遠征一覧</String>
   <String Key="Tab_Tools">ツール</String>
 
   <String Key="Overview_Headquarter">司令部</String>
@@ -305,11 +304,6 @@
   <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">ボス勝利</String>
   <String Key="Quest_RewardSelection">下記のいずれか一つ</String>
 
-  <String Key="ExpeditionOverview_Time">時間</String>
-  <String Key="ExpeditionOverview_Consumption">消費</String>
-  <String Key="ExpeditionOverview_Rewards">ボーナス</String>
-  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(大成功のみ)</String>
-
   <String Key="Window_Preferences">設定</String>
   <String Key="Window_ShipOverview">艦娘一覧</String>
   <String Key="Window_EquipmentOverview">装備一覧</String>
@@ -490,8 +484,6 @@
   <String Key="ScrappingHistory_Reason_ConsumedInBattle">戦闘</String>
 
   <String Key="ResourceHistory_Diff">差異</String>
-
-  <String Key="Tool_ExpeditionOverview">遠征一覧</String>
 
   <String Key="ScreenshotTool_Title">スクリーンショットツール</String>
   <String Key="ScreenshotTool_General">通常</String>

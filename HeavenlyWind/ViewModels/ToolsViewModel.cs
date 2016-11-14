@@ -24,7 +24,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         SessionToolViewModel r_SessionTool = new SessionToolViewModel();
 
         public ICommand ShowSessionToolCommand { get; }
-        public ICommand ShowExpeditionOverviewCommand { get; }
 
         ICommand r_OpenToolPaneCommand;
         public IList<ToolViewModel> ToolPanes { get; }
@@ -34,11 +33,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             r_Owner = rpOwner;
 
             ShowSessionToolCommand = new DelegatedCommand(() => WindowService.Instance.Show<SessionToolWindow>(r_SessionTool));
-            ShowExpeditionOverviewCommand = new DelegatedCommand(() =>
-            {
-                var rExpeditionOverview = r_Owner.TabItems.OfType<ExpeditionOverviewViewModel>().SingleOrDefault() ?? new ExpeditionOverviewViewModel();
-                r_Owner.AddTabItem(rExpeditionOverview);
-            });
 
             r_OpenToolPaneCommand = new DelegatedCommand<ToolViewModel>(r_Owner.AddTabItem);
             ToolPanes = PluginService.Instance.ToolPanes?.Select(r => new ToolViewModel(r, r_OpenToolPaneCommand)).ToList().AsReadOnly();

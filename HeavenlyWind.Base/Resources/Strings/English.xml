@@ -92,7 +92,6 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Tab_Maps">Maps</String>
   <String Key="Tab_Sortie">Sortie</String>
   <String Key="Tab_Quests">Quests</String>
-  <String Key="Tab_ExpeditionOverview">Expedition</String>
   <String Key="Tab_Tools">Tools</String>
 
   <String Key="Overview_Headquarter">Headquarter</String>
@@ -307,11 +306,6 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">Boss Battle Victory</String>
   <String Key="Quest_RewardSelection">One of the following</String>
 
-  <String Key="ExpeditionOverview_Time">Time</String>
-  <String Key="ExpeditionOverview_Consumption">Consumption</String>
-  <String Key="ExpeditionOverview_Rewards">Rewards</String>
-  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(Great Success Only)</String>
-
   <String Key="Window_Preferences">Setting</String>
   <String Key="Window_ShipOverview">Ship Overview</String>
   <String Key="Window_EquipmentOverview">Equipment Overview</String>
@@ -491,8 +485,6 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="ScrappingHistory_Reason_ConsumedInBattle">Battle</String>
 
   <String Key="ResourceHistory_Diff">Diff</String>
-
-  <String Key="Tool_ExpeditionOverview">Expedition Overview</String>
 
   <String Key="ScreenshotTool_Title">Screenshot Tool</String>
   <String Key="ScreenshotTool_General">General</String>

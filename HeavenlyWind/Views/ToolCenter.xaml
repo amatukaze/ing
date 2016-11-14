@@ -20,9 +20,6 @@
                 <Button Command="{Binding ShowSessionToolCommand}">
                     <TextBlock Text="{rb:StringResource Main.SessionTool_Title}" />
                 </Button>
-                <Button Command="{Binding ShowExpeditionOverviewCommand}">
-                    <TextBlock Text="{rb:StringResource Main.Tool_ExpeditionOverview}" />
-                </Button>
             </ItemsControl>
 
             <ItemsControl ItemsSource="{Binding ToolPanes}">
