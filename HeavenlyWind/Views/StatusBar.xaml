@@ -26,9 +26,31 @@
                     <Run Text="{Binding CurrentTime, StringFormat=HH:mm:ss, Mode=OneWay}" />
                 </TextBlock>
 
-                <StackPanel Orientation="Horizontal" Margin="3, 0, 0, 0" Visibility="{Binding Power.IsBatteryPresent, Converter={StaticResource BooleanToVisibilityConverter}}" DockPanel.Dock="Right">
-                    <Path Fill="{DynamicResource ActiveForegroundBrushKey}" Stretch="Uniform" Margin="2" Data="M35.009781,64.453026 L105.61525,64.453026 105.61525,255.46832 35.009781,255.46832 z M20.507813,50.097588 L20.507813,269.82375 120.41019,269.82375 120.41019,50.097588 z M39.99025,0 L100.92775,0 100.92775,29.882778 140.918,29.882778 140.918,290.77099 0,290.77099 0,29.882778 39.99025,29.882778 z" />
-                    <TextBlock Text="{Binding Power.BatteryRemainingPercentage, StringFormat={}{0}%}" />
+                <StackPanel DataContext="{Binding Power}" Orientation="Horizontal" Margin="3, 0, 0, 0" Visibility="{Binding IsBatteryPresent, Converter={StaticResource BooleanToVisibilityConverter}}" DockPanel.Dock="Right">
+                    <Grid MinWidth="10">
+                        <Path Fill="{DynamicResource ActiveForegroundBrushKey}" Stretch="Uniform" Margin="2">
+                            <Path.Style>
+                                <Style TargetType="{x:Type Path}">
+                                    <Setter Property="Data" Value="M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z" />
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding BatteryRemainingPercentage, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=.25}" Value="True">
+                                            <Setter Property="Data" Value="M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z M6,45 L6,53 L26,53 L26,37 z" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding BatteryRemainingPercentage, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=.5}" Value="True">
+                                            <Setter Property="Data" Value="M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z M6,45 L6,53 L26,53 L26,37 z M6,31 L6,43 L26,35 L26,23 z" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding BatteryRemainingPercentage, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=.75}" Value="True">
+                                            <Setter Property="Data" Value="M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z M6,45 L6,53 L26,53 L26,37 z M6,31 L6,43 L26,35 L26,23 z M6,13 L6,29 L26,21 L26,13 z" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                        <Path Fill="{DynamicResource ActiveForegroundBrushKey}" Stroke="{DynamicResource AccentBrushKey}" StrokeThickness="1" Stretch="Uniform" Width="12" Height="12" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-2, 0, 0, 0" Visibility="{Binding IsOnExternalPower, Converter={StaticResource BooleanToVisibilityConverter}}" Data="F1 M40,38 L40,48 L36,48 L36,38 L34,38 C32.3431,38 31,36.6569 31,35 L31,28 L34,28 L34,24 L37,24 L37,28 L39,28 L39,24 L42,24 L42,28 L45,28 L45,35 C45,36.6569 43.6568,38 42,38 L40,38 z" />
+                    </Grid>
+
+                    <TextBlock Text="{Binding BatteryRemainingPercentage, StringFormat=P0}" Margin="2, 0" />
                 </StackPanel>
 
                 <ruic:BBCodeBlock BBCode="{Binding Message}" TextWrapping="NoWrap">

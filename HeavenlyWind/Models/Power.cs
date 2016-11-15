@@ -17,11 +17,13 @@ namespace Sakuno.KanColle.Amatsukaze.Models
                     r_Source = value;
                     OnPropertyChanged(nameof(Source));
                 }
+
+                IsOnExternalPower = value == PowerSource.AC;
             }
         }
 
-        int r_BatteryRemainingPercentage;
-        public int BatteryRemainingPercentage
+        double r_BatteryRemainingPercentage;
+        public double BatteryRemainingPercentage
         {
             get { return r_BatteryRemainingPercentage; }
             private set
@@ -34,13 +36,24 @@ namespace Sakuno.KanColle.Amatsukaze.Models
             }
         }
 
+        bool r_IsOnExternalPower;
+        public bool IsOnExternalPower
+        {
+            get { return r_IsOnExternalPower; }
+            private set
+            {
+                if (r_IsOnExternalPower != value)
+                {
+                    r_IsOnExternalPower = value;
+                    OnPropertyChanged(nameof(IsOnExternalPower));
+                }
+            }
+        }
+
         internal Power()
         {
-            if (OS.IsWin7OrLater)
-            {
-                PowerManager.PowerSourceChanged += r => Source = r;
-                PowerManager.BatteryRemainingPercentageChanged += r => BatteryRemainingPercentage = r;
-            }
+            PowerManager.PowerSourceChanged += r => Source = r;
+            PowerManager.BatteryRemainingPercentageChanged += r => BatteryRemainingPercentage = r / 100.0;
         }
     }
 }
