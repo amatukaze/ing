@@ -74,7 +74,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         public ICommand ResizeBrowserToFitGameCommand { get; }
         public ICommand SetCookieCommand { get; }
-        public ICommand ShowSessionToolCommand => App.Root.GameInformation.Tools.ShowSessionToolCommand;
 
         public BrowserNavigator(BrowserService rpOwner)
         {

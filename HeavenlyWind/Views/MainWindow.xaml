@@ -93,6 +93,10 @@
                 </ListBox>
             </ruic:DropDownButton>
 
+            <ruic:WindowCaptionButton Command="{Binding ShowSessionToolCommand}" WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right">
+                <Path Stretch="Uniform" Fill="{DynamicResource ActiveForegroundBrushKey}" Margin="5" Data="M120,17.1429 L300,17.1429 L300,205.714 L180,205.714 L180,231.429 L214.286,231.429 L222.857,257.143 L102.857,257.143 L111.429,231.429 L145.714,231.429 L145.714,205.714 L77.1429,205.714 L77.1429,171.429 L257.143,171.429 L257.143,51.4286 L120,51.4286 z M0,8.57143 L25.7143,8.57143 L25.7143,94.2857 L85.7143,94.2857 L85.7143,8.57143 L111.429,8.57143 L111.429,128.571 L85.7143,128.571 L68.5714,145.714 L68.5714,231.429 L42.8571,231.429 L42.8571,145.714 L25.7143,128.571 L0,128.571 z M42.8571,0 L68.5714,0 L68.5714,77.1429 L42.8571,77.1429 z" />
+            </ruic:WindowCaptionButton>
+
             <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Width="1" Margin="2" DockPanel.Dock="Right" />
 
             <ruic:DropDownButton Style="{StaticResource TitleBarDropDownButtonStyle}" PopupAutoClose="False" Width="Auto" WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right">

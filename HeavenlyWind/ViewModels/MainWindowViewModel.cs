@@ -2,9 +2,11 @@
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Tools;
 using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using Sakuno.KanColle.Amatsukaze.Views.Statistics;
+using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
@@ -40,6 +42,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowService.Instance.Show<PreferencesWindow>(rpClearDataContextOnWindowClosed: false));
 
+        SessionToolViewModel r_SessionTool = new SessionToolViewModel();
+
+        public ICommand ShowSessionToolCommand { get; }
+
         public ICommand ExpandMenuCommand { get; }
 
         public ICommand UISetZoomCommand { get; private set; }
@@ -65,6 +71,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 IsGameStarted = true;
                 OnPropertyChanged(nameof(IsGameStarted));
             });
+
+            ShowSessionToolCommand = new DelegatedCommand(() => WindowService.Instance.Show<SessionToolWindow>(r_SessionTool));
 
             ApiService.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
             KanColleGame.Current.ReturnedFromSortie += _ => ThemeManager.Instance.ChangeAccent(Accent.Blue);

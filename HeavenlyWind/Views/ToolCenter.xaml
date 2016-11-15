@@ -16,12 +16,6 @@
                 </Style>
             </StackPanel.Resources>
 
-            <ItemsControl>
-                <Button Command="{Binding ShowSessionToolCommand}">
-                    <TextBlock Text="{rb:StringResource Main.SessionTool_Title}" />
-                </Button>
-            </ItemsControl>
-
             <ItemsControl ItemsSource="{Binding ToolPanes}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
