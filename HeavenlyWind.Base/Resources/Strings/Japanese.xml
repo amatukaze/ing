@@ -364,6 +364,10 @@
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1">「天津風改」の近代化改修に成功しました。(雷装 MAX、装甲 MAX。 MAX まで: 火力 1、運 50)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2">「天津風改」の近代化改修に成功しました。([icon]torpedo[/icon] MAX、[icon]armor[/icon] MAX。 [icon]firepower[/icon] +1、[icon]luck[/icon] +1)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2">「天津風改」の近代化改修に成功しました。(雷装 MAX、装甲 MAX。 火力 +1、運 +1)</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo">ステータスバーでの出撃情報</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">無効</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">左側に表示する</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">右側に表示する</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>
@@ -522,5 +526,7 @@
   <String Key="SortieStatistic_TimeSpan_LastMonth">先月</String>
   <String Key="SortieStatistic_Count">回数</String>
   <String Key="SortieStatistic_RankingPoints">戦果</String>
+
+  <String Key="SortieMap_UnderConstruction">出撃地図未実装</String>
 
 </Strings>

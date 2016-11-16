@@ -121,6 +121,7 @@
     <Compile Include="Models\Preferences\WindowPreference.cs" />
     <Compile Include="Models\Preferences\WindowsPreference.cs" />
     <Compile Include="Models\ScreenshotImageFormat.cs" />
+    <Compile Include="Models\StatusBarSortieInfoPlacement.cs" />
     <Compile Include="Models\UpdateChannel.cs" />
     <Compile Include="Models\UpdateNotificationMode.cs" />
     <Compile Include="MultiplyConverter.cs" />

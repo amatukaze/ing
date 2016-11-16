@@ -365,6 +365,11 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1">Succeeded to modernize Amatsukaze Kai. (Torpedo MAX, Armor MAX; To MAX: Firepower 1, Luck 50)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2">Succeeded to modernize Amatsukaze Kai. ([icon]torpedo[/icon] MAX, [icon]armor[/icon] MAX; [icon]firepower[/icon] +1, [icon]luck[/icon] +1)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2">Succeeded to modernize Amatsukaze Kai. (Torpedo MAX, Armor MAX; Firepower +1, Luck +1)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessage">Modernization Message</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo">Sortie info in the status bar</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">Hidden</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">Left side</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">Right side</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
@@ -523,5 +528,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="SortieStatistic_TimeSpan_LastMonth">Last month</String>
   <String Key="SortieStatistic_Count">Count</String>
   <String Key="SortieStatistic_RankingPoints">Points</String>
+
+  <String Key="SortieMap_UnderConstruction">The map is under construction</String>
 
 </Strings>

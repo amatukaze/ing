@@ -11,6 +11,35 @@
              DataContext="{Binding Source={x:Static rs:StatusBarService.Instance}}"
              FontSize="13"
              d:DesignWidth="800" d:DesignHeight="23">
+    <UserControl.Resources>
+        <Style x:Key="StatusBarDropDownButtonStyle" TargetType="{x:Type ruic:DropDownButton}" BasedOn="{StaticResource FlatDropDownButtonStyle}">
+            <Setter Property="ShowDropDownMarker" Value="False" />
+
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True" />
+                        <Condition Property="IsPopupOpened" Value="False" />
+                    </MultiTrigger.Conditions>
+
+                    <Setter Property="Background" Value="#40FFFFFF" />
+                    <Setter Property="BorderBrush" Value="#40FFFFFF" />
+                    <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                </MultiTrigger>
+                <Trigger Property="IsPopupOpened" Value="True">
+                    <Setter Property="Background" Value="#40FFFFFF" />
+                    <Setter Property="BorderBrush" Value="#40FFFFFF" />
+                    <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource InactiveBackgroundBrushKey}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource InactiveBorderBrushKey}" />
+                    <Setter Property="Foreground" Value="{DynamicResource InactiveForegroundBrushKey}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -52,6 +81,70 @@
 
                     <TextBlock Text="{Binding BatteryRemainingPercentage, StringFormat=P0}" Margin="2, 0" />
                 </StackPanel>
+
+                <ruic:DropDownButton DataContext="{Binding Sortie}">
+                    <ruic:DropDownButton.Style>
+                        <Style TargetType="{x:Type ruic:DropDownButton}" BasedOn="{StaticResource StatusBarDropDownButtonStyle}">
+                            <Setter Property="Visibility" Value="{rb:CollapsedIfNull}" />
+                            <Setter Property="DockPanel.Dock" Value="Right" />
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{rb:Preference UI.StatusBarSortieInfo}" Value="Hidden">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{rb:Preference UI.StatusBarSortieInfo}" Value="Left">
+                                    <Setter Property="DockPanel.Dock" Value="Left" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ruic:DropDownButton.Style>
+                    <ruic:DropDownButton.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel.Resources>
+                                <Style x:Key="Map" TargetType="{x:Type Run}">
+                                    <Setter Property="Text" Value="{Binding MasterInfo.AreaID, StringFormat={}{0}-, Mode=OneWay}" />
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsEventMap}" Value="True">
+                                            <Setter Property="Text" Value="E" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Resources>
+
+                            <TextBlock>
+                                <Run Text="{rb:StringResource Main.Overview_Fleets_Sortie}" />:
+                            </TextBlock>
+                            <TextBlock DataContext="{Binding Map}" Margin="4, 0, 0, 0">
+                                <Run Style="{StaticResource Map}" /><Run Text="{Binding MasterInfo.AreaSubID, Mode=OneWay}" /><Run Text="{rb:EnumToStringResource Difficulty, Map_Difficulty, TargetNullValue={x:Null}}" />
+                            </TextBlock>
+
+                            <Border Margin="8, 0, 0, 0" Padding="2" Visibility="{rb:CollapsedIfNull DirectionAngle}">
+                                <Path Data="M0,0 L300,150 0,300 65,150 z" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" RenderTransformOrigin=".5, .5">
+                                    <Path.RenderTransform>
+                                        <RotateTransform Angle="{Binding DirectionAngle, TargetNullValue=0}" CenterX=".5" CenterY=".5" />
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Border>
+
+                            <TextBlock DataContext="{Binding Node}" Margin="4, 0, 0, 0">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                        <Setter Property="Text" Value="{Binding WikiID, Mode=OneWay}" />
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding WikiID}" Value="{x:Null}">
+                                                <Setter Property="Text" Value="{Binding ID, Mode=OneWay}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </StackPanel>
+                    </ruic:DropDownButton.Header>
+
+                    <TextBlock Text="{rb:StringResource Main.SortieMap_UnderConstruction}" FontWeight="Bold" Margin="16, 8" />
+                </ruic:DropDownButton>
 
                 <ruic:BBCodeBlock BBCode="{Binding Message}" TextWrapping="NoWrap">
                     <TextBlock.Style>

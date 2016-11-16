@@ -367,6 +367,10 @@
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1">「天津風改」的近代化改修成功了。(雷装 MAX、装甲 MAX。 距离 MAX 还有: 火力 1、运 50)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2">「天津風改」的近代化改修成功了。([icon]torpedo[/icon] MAX、[icon]armor[/icon] MAX。 [icon]firepower[/icon] +1、[icon]luck[/icon] +1)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2">「天津風改」的近代化改修成功了。(雷装 MAX、装甲 MAX。火力 +1、运 +1)</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo">状态栏上的出击信息</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">隐藏</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">显示在左侧</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">显示在右侧</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
@@ -525,5 +529,7 @@
   <String Key="SortieStatistic_TimeSpan_LastMonth">上个月</String>
   <String Key="SortieStatistic_Count">次数</String>
   <String Key="SortieStatistic_RankingPoints">战果</String>
+
+  <String Key="SortieMap_UnderConstruction">地图功能仍未实现</String>
 
 </Strings>

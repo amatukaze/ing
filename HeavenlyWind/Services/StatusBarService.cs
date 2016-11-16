@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.UserInterface;
 using Sakuno.UserInterface.Controls;
@@ -56,6 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         long r_InitialTick;
         public DateTimeOffset? CurrentTime { get; private set; }
 
+        public SortieInfo Sortie => SortieInfo.Current;
+
         StatusBarService()
         {
             var rPropertyChangedSource = Observable.FromEventPattern<PropertyChangedEventArgs>(this, nameof(PropertyChanged))
@@ -64,6 +67,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 .Throttle(TimeSpan.FromSeconds(30.0)).Subscribe(_ => IsMessageObsolete = true);
 
             ServiceManager.Register<IStatusBarService>(this);
+
+            ApiService.Subscribe("api_port/port", _ => OnPropertyChanged(nameof(Sortie)));
+            ApiService.Subscribe("api_req_map/start", _ => OnPropertyChanged(nameof(Sortie)));
         }
 
         public void Initialize()

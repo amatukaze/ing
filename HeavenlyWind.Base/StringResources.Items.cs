@@ -366,6 +366,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1 => GetString(nameof(PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1));
         public string PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2 => GetString(nameof(PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2));
         public string PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2 => GetString(nameof(PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2));
+        public string PreferenceWindow_UI_StatusBarSortieInfo => GetString(nameof(PreferenceWindow_UI_StatusBarSortieInfo));
+        public string PreferenceWindow_UI_StatusBarSortieInfo_Hidden => GetString(nameof(PreferenceWindow_UI_StatusBarSortieInfo_Hidden));
+        public string PreferenceWindow_UI_StatusBarSortieInfo_Left => GetString(nameof(PreferenceWindow_UI_StatusBarSortieInfo_Left));
+        public string PreferenceWindow_UI_StatusBarSortieInfo_Right => GetString(nameof(PreferenceWindow_UI_StatusBarSortieInfo_Right));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));
@@ -524,6 +528,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieStatistic_TimeSpan_LastMonth => GetString(nameof(SortieStatistic_TimeSpan_LastMonth));
         public string SortieStatistic_Count => GetString(nameof(SortieStatistic_Count));
         public string SortieStatistic_RankingPoints => GetString(nameof(SortieStatistic_RankingPoints));
+
+        public string SortieMap_UnderConstruction => GetString(nameof(SortieMap_UnderConstruction));
 
     }
 }
