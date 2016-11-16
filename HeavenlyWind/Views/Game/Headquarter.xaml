@@ -32,11 +32,21 @@
             <TextBlock Text="{Binding Name}" Margin="0, 0, 8, 0" />
 
             <TextBlock Grid.Column="1">
+                <TextBlock.Resources>
+                    <Style x:Key="ExperienceToNextLevel" TargetType="{x:Type Run}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
+                                <Setter Property="Text" Value="" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Resources>
+
                 <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
                 <Run Text="{Binding Level, Mode=OneWay}" />
                 [<Run Text="{rb:EnumToStringResource Rank, Overview_Admiral_Rank}" />]
-                <Run Text="Next:" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
-                <Run Text="{Binding ExperienceToNextLevel, Mode=OneWay}" />
+                <Run Style="{StaticResource ExperienceToNextLevel}" Text="Next:" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
+                <Run Style="{StaticResource ExperienceToNextLevel}" Text="{Binding ExperienceToNextLevel, Mode=OneWay}" />
             </TextBlock>
             <Rectangle Fill="Transparent" Grid.Column="1">
                 <Rectangle.ToolTip>
