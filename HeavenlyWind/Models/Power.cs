@@ -4,7 +4,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models
 {
     public class Power : ModelBase
     {
-        public bool IsBatteryPresent => PowerManager.IsBatteryPresent;
+        public bool IsBatteryPresent { get; }
 
         PowerSource r_Source;
         public PowerSource Source
@@ -50,10 +50,30 @@ namespace Sakuno.KanColle.Amatsukaze.Models
             }
         }
 
+        bool r_IsCharging;
+        public bool IsCharging
+        {
+            get { return r_IsCharging; }
+            private set
+            {
+                if (r_IsCharging != value)
+                {
+                    r_IsCharging = value;
+                    OnPropertyChanged(nameof(IsCharging));
+                }
+            }
+        }
+
         internal Power()
         {
+            var rState = PowerManager.GetSystemBatteryState();
+
+            IsBatteryPresent = rState.BatteryPresent;
+            IsCharging = rState.Charging;
+
             PowerManager.PowerSourceChanged += r => Source = r;
             PowerManager.BatteryRemainingPercentageChanged += r => BatteryRemainingPercentage = r / 100.0;
+            PowerManager.BatteryChargeStatusChanged += r => IsCharging = r;
         }
     }
 }

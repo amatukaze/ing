@@ -38,6 +38,11 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <StreamGeometry x:Key="BatteryLifeCriticalLevel">M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z</StreamGeometry>
+        <StreamGeometry x:Key="BatteryLifeLowLevel">M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z M6,45 L6,53 L26,53 L26,37 z</StreamGeometry>
+        <StreamGeometry x:Key="BatteryLifeMediumLevel">M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z M6,45 L6,53 L26,53 L26,37 z M6,31 L6,43 L26,35 L26,23 z</StreamGeometry>
+        <StreamGeometry x:Key="BatteryLifeHighLevel">M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z M6,45 L6,53 L26,53 L26,37 z M6,31 L6,43 L26,35 L26,23 z M6,13 L6,29 L26,21 L26,13 z</StreamGeometry>
     </UserControl.Resources>
 
     <Grid>
@@ -60,17 +65,50 @@
                         <Path Fill="{DynamicResource ActiveForegroundBrushKey}" Stretch="Uniform" Margin="2">
                             <Path.Style>
                                 <Style TargetType="{x:Type Path}">
-                                    <Setter Property="Data" Value="M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z" />
+                                    <Setter Property="Data" Value="{StaticResource BatteryLifeCriticalLevel}" />
 
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding BatteryRemainingPercentage, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=.25}" Value="True">
-                                            <Setter Property="Data" Value="M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z M6,45 L6,53 L26,53 L26,37 z" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding BatteryRemainingPercentage, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=.5}" Value="True">
-                                            <Setter Property="Data" Value="M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z M6,45 L6,53 L26,53 L26,37 z M6,31 L6,43 L26,35 L26,23 z" />
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding BatteryRemainingPercentage, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=.75}" Value="True">
-                                            <Setter Property="Data" Value="M4,11 L4,55 L28,55 L28,11 z M10,0 L22,0 L22,5 L32,5 L32,60 L0,60 L0,5 L10,5 z M6,45 L6,53 L26,53 L26,37 z M6,31 L6,43 L26,35 L26,23 z M6,13 L6,29 L26,21 L26,13 z" />
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsCharging}" Value="False" />
+                                                <Condition Binding="{Binding BatteryRemainingPercentage, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=.25}" Value="True" />
+                                            </MultiDataTrigger.Conditions>
+
+                                            <Setter Property="Data" Value="{StaticResource BatteryLifeLowLevel}" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsCharging}" Value="False" />
+                                                <Condition Binding="{Binding BatteryRemainingPercentage, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=.5}" Value="True" />
+                                            </MultiDataTrigger.Conditions>
+
+                                            <Setter Property="Data" Value="{StaticResource BatteryLifeMediumLevel}" />
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding IsCharging}" Value="False" />
+                                                <Condition Binding="{Binding BatteryRemainingPercentage, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=.75}" Value="True" />
+                                            </MultiDataTrigger.Conditions>
+
+                                            <Setter Property="Data" Value="{StaticResource BatteryLifeHighLevel}" />
+                                        </MultiDataTrigger>
+
+                                        <DataTrigger Binding="{Binding IsCharging}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard Name="Sparking">
+                                                    <Storyboard RepeatBehavior="Forever">
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Data" Duration="0:0:4">
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource BatteryLifeCriticalLevel}" />
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:1" Value="{StaticResource BatteryLifeLowLevel}" />
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:2" Value="{StaticResource BatteryLifeMediumLevel}" />
+                                                            <DiscreteObjectKeyFrame KeyTime="0:0:3" Value="{StaticResource BatteryLifeHighLevel}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <StopStoryboard BeginStoryboardName="Sparking" />
+                                            </DataTrigger.ExitActions>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
