@@ -164,12 +164,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 var rBattle = BattleInfo.Current.CurrentStage;
 
                 var rHeavilyDamagedShips = rBattle.Friend.Where(r => r.State == BattleParticipantState.HeavilyDamaged).Select(r => ((FriendShip)r.Participant).Ship).ToArray();
-                if (Preference.Instance.Notification.HeavyDamageWarning && rHeavilyDamagedShips.Length > 0)
+                if (rHeavilyDamagedShips.Length > 0)
                 {
-                    ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_HeavyDamageWarning, StringResources.Instance.Main.Notification_HeavyDamageWarning_Content, rHeavilyDamagedShips);
+                    if (Preference.Instance.Notification.HeavyDamageWarning)
+                        ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_HeavyDamageWarning, StringResources.Instance.Main.Notification_HeavyDamageWarning_Content, rHeavilyDamagedShips);
+
                     FlashWindow();
 
-                    IsBlinking = !SortieInfo.Current.Node.IsDeadEnd;
+                    if (!Preference.Instance.Game.DisableHeavyDamageBlinkingWarning)
+                        IsBlinking = !SortieInfo.Current.Node.IsDeadEnd;
                 }
             });
 
@@ -182,12 +185,15 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
                 var rHeavilyDamagedShips = rParticipants.Where(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)).ToArray();
-                if (Preference.Instance.Notification.HeavyDamageWarning && rHeavilyDamagedShips.Length > 0)
+                if (rHeavilyDamagedShips.Length > 0)
                 {
-                    ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content, rHeavilyDamagedShips);
+                    if (Preference.Instance.Notification.HeavyDamageWarning)
+                        ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content, rHeavilyDamagedShips);
+
                     FlashWindow();
 
-                    IsBlinking = true;
+                    if (!Preference.Instance.Game.DisableHeavyDamageBlinkingWarning)
+                        IsBlinking = true;
                 }
             });
         }

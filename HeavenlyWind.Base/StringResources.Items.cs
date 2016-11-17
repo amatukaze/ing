@@ -380,6 +380,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Behaviour_FatigueCeiling => GetString(nameof(PreferenceWindow_Behaviour_FatigueCeiling));
         public string PreferenceWindow_Behaviour_ShowBattleInfo => GetString(nameof(PreferenceWindow_Behaviour_ShowBattleInfo));
         public string PreferenceWindow_Behaviour_ShowDrop => GetString(nameof(PreferenceWindow_Behaviour_ShowDrop));
+        public string PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning => GetString(nameof(PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning));
         public string PreferenceWindow_Notification => GetString(nameof(PreferenceWindow_Notification));
         public string PreferenceWindow_Notification_Construction => GetString(nameof(PreferenceWindow_Notification_Construction));
         public string PreferenceWindow_Notification_Expedition => GetString(nameof(PreferenceWindow_Notification_Expedition));

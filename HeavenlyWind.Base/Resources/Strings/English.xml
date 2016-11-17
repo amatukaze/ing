@@ -380,6 +380,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Behaviour_FatigueCeiling">Max fatigue value</String>
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">Show battle info</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">Show drop</String>
+  <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">Disable heavy damage blink warning</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Notification_Construction">Notify the completion of construction</String>
   <String Key="PreferenceWindow_Notification_Expedition">Notify the return from an expedition</String>

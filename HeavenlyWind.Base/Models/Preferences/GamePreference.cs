@@ -19,5 +19,7 @@
         public Property<bool> ShipOverview_ExceptSparklingShips { get; } = new Property<bool>("game.overview.ship.filter.except.sparkling");
         public Property<bool> ShipOverview_ExceptLevel1Ships { get; } = new Property<bool>("game.overview.ship.filter.except.lv1");
         public Property<bool> ShipOverview_ExceptMaxModernizationShips { get; } = new Property<bool>("game.overview.ship.filter.except.maxmodernization");
+
+        public Property<bool> DisableHeavyDamageBlinkingWarning { get; } = new Property<bool>("game.disable_heavy_damage_blinking_warning");
     }
 }

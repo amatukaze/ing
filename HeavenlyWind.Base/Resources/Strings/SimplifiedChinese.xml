@@ -381,6 +381,7 @@
   <String Key="PreferenceWindow_Behaviour_FatigueCeiling">疲劳上限</String>
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">显示战斗信息(剧透)</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">显示掉落</String>
+  <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">禁用大破闪烁警告</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">在建造完成时通知</String>
   <String Key="PreferenceWindow_Notification_Expedition">在远征归来时通知</String>
