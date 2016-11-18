@@ -10,7 +10,7 @@
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_CheckForUpdate_Exception">检查更新时发生错误: {0}</String>
-  <String Key="Log_Exception_API_Failed">API「{0}」返回错误代码：{1} </String>
+  <String Key="Log_Exception_API_Failed">猫了！ (API: {0}；代号: {1})</String>
   <String Key="Log_Exception_API_ParseException">解析 API 时发生错误: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">保存缓存文件失败: {0}</String>
   <String Key="Log_ExpeditionResult">/{0}「{1}」从远征「{2}:{3}」归来。(结果: [b]{4}[/b])</String>
@@ -115,7 +115,7 @@
   <String Key="Overview_ShipOverview">舰娘一览</String>
   <String Key="Overview_EquipmentOverview">装备一览</String>
   <String Key="Overview_Fleets">舰队一览</String>
-  <String Key="Overview_Fleets_Idle">等待中</String>
+  <String Key="Overview_Fleets_Idle">待机中</String>
   <String Key="Overview_Fleets_Sortie">出击中</String>
   <String Key="Overview_Fleets_Unsupplied">未补给</String>
   <String Key="Overview_Fleets_HeavilyDamaged">有大破船</String>

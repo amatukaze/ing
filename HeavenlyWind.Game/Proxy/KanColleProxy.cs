@@ -293,10 +293,9 @@ body {
             using (var rConnection = new SQLiteConnection(@"Data Source=Data\AntiBlankScreen.db; Page Size=8192").OpenAndReturn())
             using (var rCommand = rConnection.CreateCommand())
             {
-                rCommand.CommandText = "CREATE TABLE IF NOT EXISTS history(" +
-                    "time INTEGER PRIMARY KEY NOT NULL, " +
-                    "url TEXT NULL, " +
-                    "body TEXT NULL);";
+                rCommand.CommandText =
+                    "CREATE TABLE IF NOT EXISTS history(time INTEGER PRIMARY KEY NOT NULL, url TEXT NULL, body TEXT NULL); " +
+                    "DELETE FROM history WHERE (time / 10000000 - 62135596800) < strftime('%s', 'now', '-3 day');";
 
                 rCommand.ExecuteNonQuery();
             }
