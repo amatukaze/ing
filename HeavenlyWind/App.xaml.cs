@@ -85,6 +85,7 @@ namespace Sakuno.KanColle.Amatsukaze
             ServiceManager.Register<IBrowserService>(BrowserService.Instance);
 
             PluginService.Instance.Initialize();
+            Preference.Instance.Reload();
 
             KanColleProxy.Start();
 

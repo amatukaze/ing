@@ -85,8 +85,6 @@
     <Compile Include="GameConstants.cs" />
     <Compile Include="HasFlagExtension.cs" />
     <Compile Include="IntegerRangeValidationRule.cs" />
-    <Compile Include="Internal\OldPreference.cs" />
-    <Compile Include="Internal\OldPreferenceMappingAttribute.cs" />
     <Compile Include="LanguageInfo.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="Logger.cs" />
