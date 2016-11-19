@@ -235,7 +235,8 @@
   <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空隊は空襲を準備中</String>
   <String Key="Sortie_EnemyEncounters">遭遇できる敵艦隊</String>
   <String Key="Sortie_EnemyAerialRaid">敵空襲</String>
-  <String Key="Sortie_EnemyAerialRaid_Message">[icon]fuel[/icon] または [icon]bauxite[/icon] が [binding]Amount[/binding] 減少しました</String>
+  <String Key="Sortie_EnemyAerialRaid_Message">[icon]fuel[/icon] または [icon]bauxite[/icon] が [binding]Amount[/binding] 喪失しました</String>
+  <String Key="Sortie_EnemyAerialRaid_Message_NoDamage">空襲による基地の損害はありません</String>
 
   <String Key="AbyssalShip_Class_Normal" />
   <String Key="AbyssalShip_Class_Elite">elite</String>

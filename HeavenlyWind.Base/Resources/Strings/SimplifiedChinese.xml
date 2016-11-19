@@ -238,6 +238,7 @@
   <String Key="Sortie_EnemyEncounters">可能遭遇的敌方舰队</String>
   <String Key="Sortie_EnemyAerialRaid">敵空襲</String>
   <String Key="Sortie_EnemyAerialRaid_Message">[icon]fuel[/icon] 或 [icon]bauxite[/icon] 损失了 [binding]Amount[/binding]</String>
+  <String Key="Sortie_EnemyAerialRaid_Message_NoDamage">没有受到任何损失</String>
 
   <String Key="AbyssalShip_Class_Normal" />
   <String Key="AbyssalShip_Class_Elite">elite</String>

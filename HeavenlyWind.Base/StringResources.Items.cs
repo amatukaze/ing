@@ -239,6 +239,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Sortie_EnemyEncounters => GetString(nameof(Sortie_EnemyEncounters));
         public string Sortie_EnemyAerialRaid => GetString(nameof(Sortie_EnemyAerialRaid));
         public string Sortie_EnemyAerialRaid_Message => GetString(nameof(Sortie_EnemyAerialRaid_Message));
+        public string Sortie_EnemyAerialRaid_Message_NoDamage => GetString(nameof(Sortie_EnemyAerialRaid_Message_NoDamage));
 
         public string AbyssalShip_Class_Normal => GetString(nameof(AbyssalShip_Class_Normal));
         public string AbyssalShip_Class_Elite => GetString(nameof(AbyssalShip_Class_Elite));

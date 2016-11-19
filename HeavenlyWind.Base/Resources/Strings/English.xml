@@ -238,6 +238,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Sortie_EnemyEncounters">Enemy Encounters</String>
   <String Key="Sortie_EnemyAerialRaid">Enemy Aerial Raid</String>
   <String Key="Sortie_EnemyAerialRaid_Message">[icon]fuel[/icon] or [icon]bauxite[/icon] has been lost [binding]Amount[/binding]</String>
+  <String Key="Sortie_EnemyAerialRaid_Message_NoDamage">No damage to the land-base</String>
 
   <String Key="AbyssalShip_Class_Normal" />
   <String Key="AbyssalShip_Class_Elite"> elite</String>

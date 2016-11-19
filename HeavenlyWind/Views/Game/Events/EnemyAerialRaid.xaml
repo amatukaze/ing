@@ -19,9 +19,15 @@
                                 <StackPanel>
                                     <TextBlock Text="{rb:StringResource Main.Sortie_EnemyAerialRaid}" FontWeight="Bold" TextAlignment="Center" />
 
-                                    <ruic:BBCodeBlock BBCode="{rb:StringResource Main.Sortie_EnemyAerialRaid_Message}" TextAlignment="Center" Margin="4, 2" />
+                                    <ruic:BBCodeBlock x:Name="Message" BBCode="{rb:StringResource Main.Sortie_EnemyAerialRaid_Message}" TextAlignment="Center" Margin="4, 2" />
                                 </StackPanel>
                             </Border>
+
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Amount}" Value="0">
+                                    <Setter TargetName="Message" Property="BBCode" Value="{rb:StringResource Main.Sortie_EnemyAerialRaid_Message_NoDamage}" />
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
