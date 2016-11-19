@@ -169,6 +169,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 if (rResourceSession != null)
                     CacheService.Instance.ProcessResponse(rResourceSession, rpSession);
 
+                if (rResourceSession == null && rApiSession == null)
+                    rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
+
                 if (rpSession.PathAndQuery.OICEquals("/gadget/js/kcs_flash.js"))
                 {
                     var rScript = rpSession.GetResponseBodyAsString();

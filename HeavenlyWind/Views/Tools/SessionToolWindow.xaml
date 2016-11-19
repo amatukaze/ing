@@ -10,7 +10,7 @@
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.SessionTool_Title}"
-                  Width="800" Height="600"
+                  Width="900" Height="600" MinWidth="640"
                   WindowPlacementPreference="{StaticResource WindowPlacementPreference}"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
@@ -49,6 +49,11 @@
         </DockPanel>
 
         <Grid Margin="8" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="640" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
@@ -86,7 +91,7 @@
                 </CheckBox>
             </StackPanel>
 
-            <ListView ItemsSource="{Binding Sessions}" Margin="0, 4, 0, 0" Loaded="ListView_Loaded" Grid.Row="1">
+            <ListView Name="Sessions" ItemsSource="{Binding Sessions}" Margin="0, 4, 4, 0" Loaded="ListView_Loaded" Grid.Row="1">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
                         <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
@@ -151,7 +156,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="500">
+                        <GridViewColumn Width="450">
                             <TextBlock Text="{rb:StringResource Main.SessionTool_URLOrAPI}" />
 
                             <GridViewColumn.CellTemplate>
@@ -169,6 +174,37 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+
+            <GridSplitter DataContext="{Binding SelectedValue.Source, ElementName=Sessions}" Width="4" HorizontalAlignment="Center" Visibility="{rb:CollapsedIfNull}" Grid.Column="1" Grid.RowSpan="2" />
+
+            <Grid DataContext="{Binding SelectedValue.Source, ElementName=Sessions}" MinWidth="150" Visibility="{rb:CollapsedIfNull}" Grid.Column="2" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="4" />
+                    <RowDefinition Height="4*" />
+                </Grid.RowDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                        <Setter Property="TextWrapping" Value="Wrap" />
+                        <Setter Property="IsReadOnly" Value="True" />
+                        <Setter Property="VerticalContentAlignment" Value="Top" />
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+                    </Style>
+                </Grid.Resources>
+
+                <DockPanel>
+                    <TextBlock Text="Request" FontSize="14" FontWeight="Bold" Margin="0, 2" DockPanel.Dock="Top" />
+                    <TextBox Text="{Binding RequestBodyString, Mode=OneWay}" />
+                </DockPanel>
+
+                <GridSplitter Height="4" VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Row="1" />
+
+                <DockPanel Grid.Row="2">
+                    <TextBlock Text="Response" FontSize="14" FontWeight="Bold" Margin="0, 2" DockPanel.Dock="Top" />
+                    <TextBox Text="{Binding ResponseBodyString, Mode=OneWay}" Grid.Row="4" />
+                </DockPanel>
+            </Grid>
         </Grid>
 
         <ruic:ResizeGrip Grid.Row="1" />
