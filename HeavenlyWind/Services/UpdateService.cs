@@ -131,6 +131,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 client = new
                 {
                     version = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                    beta = true,
                 },
                 files = r_FilesToBeChecked.Select(r =>
                 {

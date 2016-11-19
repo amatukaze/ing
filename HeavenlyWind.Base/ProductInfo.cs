@@ -5,7 +5,7 @@
         public const string AppName = "いんてりじぇんと連装砲くん";
         public const string ProductName = "Intelligent Naval Gun";
 
-        public const string AssemblyVersionString = "0.1.13";
+        public const string AssemblyVersionString = "0.1.14";
 
         public static string Version => AssemblyVersionString;
         public static string ReleaseCodeName => "Kimisaki";
