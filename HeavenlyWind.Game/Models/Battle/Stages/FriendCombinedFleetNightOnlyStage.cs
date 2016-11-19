@@ -4,9 +4,9 @@ using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 {
-    class CombinedFleetNightOnlyStage : CombinedFleetNight
+    class FriendCombinedFleetNightOnlyStage : CombinedFleetNight
     {
-        internal protected CombinedFleetNightOnlyStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
+        internal protected FriendCombinedFleetNightOnlyStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
         {
             var rRawData = rpInfo.Data as RawCombinedFleetNightOnly;
 

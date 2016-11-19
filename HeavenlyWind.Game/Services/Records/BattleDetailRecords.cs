@@ -54,6 +54,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_combined_battle/sp_midnight",
                 "api_req_combined_battle/ld_airbattle",
                 "api_req_combined_battle/ec_battle",
+                "api_req_combined_battle/each_battle",
+                "api_req_combined_battle/each_battle_water",
             };
             DisposableObjects.Add(ApiService.Subscribe(rSortieFirstStageApis, ProcessSortieFirstStage));
             DisposableObjects.Add(ApiService.Subscribe("api_req_practice/battle", ProcessPracticeFirstStage));

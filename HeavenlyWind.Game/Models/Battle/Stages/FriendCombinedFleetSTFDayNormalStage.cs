@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 {
-    class CombinedFleetCTFDayNormalStage : CombinedFleetDay
+    class FriendCombinedFleetSTFDayNormalStage : CombinedFleetDay
     {
         public override BattleStageType Type => BattleStageType.Day;
 
@@ -18,15 +18,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             OpeningTorpedo,
 
             ShellingFirstRound,
-            ClosingTorpedo,
-
             ShellingSecondRound,
+
             ShellingThirdRound,
+
+            ClosingTorpedo,
         };
 
-        internal protected CombinedFleetCTFDayNormalStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
+        internal protected FriendCombinedFleetSTFDayNormalStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
         {
-            var rRawData = rpInfo.Data as RawEnemyCombinedFleetDay;
+            var rRawData = rpInfo.Data as RawCombinedFleetDay;
 
             LandBaseAerialSupport = new LandBaseAerialSupportPhase(this, rRawData.LandBaseAerialSupport);
             AerialCombat = new AerialCombatPhase(this, rRawData.AerialCombat);
@@ -34,11 +35,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             OpeningASW = new OpeningASWPhase(this, rRawData.OpeningASW, true);
             OpeningTorpedo = new TorpedoSalvoPhase(this, rRawData.OpeningTorpedoSalvo, true);
 
-            ShellingFirstRound = new ShellingPhase(this, rRawData.ShellingFirstRound, true, true);
-            ClosingTorpedo = new TorpedoSalvoPhase(this, rRawData.ClosingTorpedoSalvo, true);
-
+            ShellingFirstRound = new ShellingPhase(this, rRawData.ShellingFirstRound);
             ShellingSecondRound = new ShellingPhase(this, rRawData.ShellingSecondRound);
-            ShellingThirdRound = new ShellingPhase(this, rRawData.ShellingThirdRound);
+
+            ShellingThirdRound = new ShellingPhase(this, rRawData.ShellingThirdRound, true);
+
+            ClosingTorpedo = new TorpedoSalvoPhase(this, rRawData.ClosingTorpedoSalvo, true);
         }
     }
 }

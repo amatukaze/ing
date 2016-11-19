@@ -8,6 +8,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
         bool r_IsFriendEscortFleet;
         bool r_IsEnemyEscortFleet;
 
+        public int[] ParticipantingFleet { get; set; }
+
         internal ShellingPhase(BattleStage rpStage, RawShellingPhase rpRawData, bool rpIsFriendEscortFleet = false, bool rpIsEnemyEscortFleet = false) : base(rpStage, rpRawData)
         {
             r_IsFriendEscortFleet = rpIsFriendEscortFleet;
@@ -16,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         int GetIndex(int rpPosition)
         {
-            if ((r_IsFriendEscortFleet && rpPosition <= 6) || (r_IsEnemyEscortFleet && rpPosition > 6))
+            if ((r_IsFriendEscortFleet && rpPosition <= 6) || (r_IsEnemyEscortFleet && rpPosition > 6) || (ParticipantingFleet != null && ParticipantingFleet[1] == 2 && rpPosition > 6))
                 return rpPosition + 12 - 1;
 
             return rpPosition - 1;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 {
-    class CombinedFleetCTFDayNormalStage : CombinedFleetDay
+    class FriendCombinedFleetCTFDayNormalStage : CombinedFleetDay
     {
         public override BattleStageType Type => BattleStageType.Day;
 
@@ -24,9 +24,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             ShellingThirdRound,
         };
 
-        internal protected CombinedFleetCTFDayNormalStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
+        internal protected FriendCombinedFleetCTFDayNormalStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
         {
-            var rRawData = rpInfo.Data as RawEnemyCombinedFleetDay;
+            var rRawData = rpInfo.Data as RawCombinedFleetDay;
 
             LandBaseAerialSupport = new LandBaseAerialSupportPhase(this, rRawData.LandBaseAerialSupport);
             AerialCombat = new AerialCombatPhase(this, rRawData.AerialCombat);
@@ -34,7 +34,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             OpeningASW = new OpeningASWPhase(this, rRawData.OpeningASW, true);
             OpeningTorpedo = new TorpedoSalvoPhase(this, rRawData.OpeningTorpedoSalvo, true);
 
-            ShellingFirstRound = new ShellingPhase(this, rRawData.ShellingFirstRound, true, true);
+            ShellingFirstRound = new ShellingPhase(this, rRawData.ShellingFirstRound, true);
             ClosingTorpedo = new TorpedoSalvoPhase(this, rRawData.ClosingTorpedoSalvo, true);
 
             ShellingSecondRound = new ShellingPhase(this, rRawData.ShellingSecondRound);
