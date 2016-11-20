@@ -215,7 +215,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 case "api_req_combined_battle/ec_midnight_battle": Second = new EnemyCombinedFleetNight(this, rpInfo); break;
             }
 
-            Second.Process(rpInfo);
+            Second.Process(rpInfo, First);
             InheritFromPreviousStage(Second);
             Second.ProcessMVP();
             Result.Update(First, Second);

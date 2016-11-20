@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Owner = rpOwner;
         }
 
-        internal void Process(ApiInfo rpInfo)
+        internal void Process(ApiInfo rpInfo, BattleStage rpFirstStage = null)
         {
             var rData = rpInfo.Data as RawBattleBase;
             var rCombinedFleetData = rData as IRawCombinedFleet;
@@ -50,8 +50,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             if (rCombinedFleetData != null)
             {
-                var rFriendAndEnemyEscort = rCombinedFleetData.EscortFleetCurrentHPs.Zip(rCombinedFleetData.EscortFleetMaximumHPs,
-                    (rpCurrent, rpMaximum) => rpMaximum != -1 ? new BattleParticipantSnapshot(rpMaximum, rpCurrent) : null).Skip(1).ToArray();
+                BattleParticipantSnapshot[] rFriendAndEnemyEscort;
+
+                if (rpFirstStage == null)
+                    rFriendAndEnemyEscort = rCombinedFleetData.EscortFleetCurrentHPs.Zip(rCombinedFleetData.EscortFleetMaximumHPs,
+                        (rpCurrent, rpMaximum) => rpMaximum != -1 ? new BattleParticipantSnapshot(rpMaximum, rpCurrent) : null).Skip(1).ToArray();
+                else
+                    rFriendAndEnemyEscort = rpFirstStage.FriendEscort.Concat(rpFirstStage.EnemyEscort).Select(r => r != null ? new BattleParticipantSnapshot(r.Maximum, r.Current) : null).ToArray();
 
                 if (rFriendAndEnemyEscort[0] != null)
                 {
