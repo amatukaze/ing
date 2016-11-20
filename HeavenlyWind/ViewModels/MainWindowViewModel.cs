@@ -63,8 +63,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         internal MainWindowViewModel()
         {
+            r_Page = new InitializationPageViewModel(this);
             GameInformation = new GameInformationViewModel(this);
-            r_Page = GameInformation;
 
             ApiService.SubscribeOnce("api_start2", delegate
             {

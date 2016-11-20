@@ -72,10 +72,14 @@
   <String Key="InitializationPage_PortIsOccupied">端口被以下的程序占用</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">结束该进程</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">更换端口</String>
+  <String Key="InitializationPage_ConnectionCycle">胡乱设置端口</String>
+  <String Key="InitializationPage_ConnectionCycle_Content">你是不是无视警告，把本地代理端口也设置成上游代理的端口？如果这样强行继续下去，工具是无法接收到任何数据！</String>
+  <String Key="InitializationPage_ConnectionCycle_Solution_DisablePortCustomization">禁用自定义本地代理端口</String>
   <String Key="InitializationPage_UpstreamProxy">上游代理未开启</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">是不是忘记了开启代理？</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">是不是端口错了？</String>
   <String Key="InitializationPage_Retry">重试</String>
+  <String Key="InitializationPage_Skip">跳过</String>
 
   <String Key="GameInfomation_Waiting">等待游戏启动</String>
 
@@ -324,7 +328,7 @@
 
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">本地代理端口</String>
-  <String Key="PreferenceWindow_Network_Port_Customization">指定本地代理端口</String>
+  <String Key="PreferenceWindow_Network_Port_Customization">自定义本地代理端口</String>
   <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Instruction">真的要修改吗？</String>
   <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Content">该端口属于用于接收来自浏览器的数据包的本地代理。除非遇到端口被占用等情况，一般不建议修改该端口值。
 

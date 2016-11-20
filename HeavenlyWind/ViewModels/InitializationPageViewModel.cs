@@ -30,46 +30,58 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         }
 
         public bool IsPortAvailable { get; private set; } = true;
+        public bool IsConnectionCycle { get; private set; }
         public bool IsUpstreamProxyAvailable { get; private set; }
 
         public ProcessInfo ProcessThatOccupyingPort { get; private set; }
 
-        public ICommand StartCommand { get; }
+        public ICommand RetryCommand { get; }
+        public ICommand SkipCommand { get; }
 
         public InitializationPageViewModel(MainWindowViewModel rpOwner)
         {
             r_Owner = rpOwner;
 
-            StartCommand = new DelegatedCommand(Start);
+            RetryCommand = new DelegatedCommand(CheckProxyPort);
+            SkipCommand = new DelegatedCommand(Start);
         }
 
-        public async void Start()
+        public async void CheckProxyPort()
         {
             Step = InitializationStep.Initializing;
 
-            await Task.Run(new Action(CheckProxyPort));
+            await Task.Run((Action)CheckProxyPortCore);
 
-            if (IsPortAvailable && IsUpstreamProxyAvailable)
+            if (IsPortAvailable && !IsConnectionCycle)
             {
-                KanColleProxy.Start();
-                r_Owner.Page = r_Owner.GameInformation;
-
-                Step = InitializationStep.None;
+                Start();
                 return;
             }
 
             Step = InitializationStep.Error;
         }
 
-        unsafe void CheckProxyPort()
+        void Start()
         {
-            var rPort = Preference.Instance.Network.Port;
+            KanColleProxy.Start();
+            r_Owner.Page = r_Owner.GameInformation;
+
+            Step = InitializationStep.None;
+        }
+
+        unsafe void CheckProxyPortCore()
+        {
+            var rPort = Preference.Instance.Network.Port.Default;
+            if (Preference.Instance.Network.PortCustomization)
+                rPort = Preference.Instance.Network.Port.Value;
             var rUpstreamProxy = Preference.Instance.Network.UpstreamProxy;
 
             var rIsPortAvailable = true;
             var rIsUpstreamProxyAvailable = false;
 
-            if (!rUpstreamProxy.Enabled || rUpstreamProxy.Host != "127.0.0.1")
+            if (rUpstreamProxy.Enabled && (rUpstreamProxy.Host == "127.0.0.1" || rUpstreamProxy.Host =="localhost"))
+                IsConnectionCycle = rPort == rUpstreamProxy.Port.Value;
+            else
                 rIsUpstreamProxyAvailable = true;
 
             var rBufferSize = 0;
@@ -108,11 +120,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 ProcessThatOccupyingPort = null;
 
             IsPortAvailable = rIsPortAvailable;
-            IsUpstreamProxyAvailable = rIsUpstreamProxyAvailable;
+            IsUpstreamProxyAvailable = IsConnectionCycle || rIsUpstreamProxyAvailable;
 
-            OnPropertyChanged(nameof(IsPortAvailable));
-            OnPropertyChanged(nameof(IsUpstreamProxyAvailable));
-            OnPropertyChanged(nameof(ProcessThatOccupyingPort));
+            OnPropertyChanged(string.Empty);
         }
     }
 }

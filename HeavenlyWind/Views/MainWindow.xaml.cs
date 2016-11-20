@@ -4,6 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
 using Sakuno.UserInterface.Controls;
@@ -43,6 +44,13 @@ namespace Sakuno.KanColle.Amatsukaze.Views
             PanicKeyService.Instance.Initialize(Handle);
 
             ServiceManager.Register<IMainWindowService>(this);
+        }
+
+        protected override void OnContentRendered(EventArgs e)
+        {
+            base.OnContentRendered(e);
+
+            ((InitializationPageViewModel)App.Root.Page).CheckProxyPort();
         }
 
         protected override void OnClosing(CancelEventArgs e)

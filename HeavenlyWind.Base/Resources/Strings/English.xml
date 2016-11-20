@@ -72,10 +72,14 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="InitializationPage_PortIsOccupied">The port is occupied by the other program</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">Terminate this process</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">Change the port number</String>
+  <String Key="InitializationPage_ConnectionCycle">The port is set casually</String>
+  <String Key="InitializationPage_ConnectionCycle_Content">Did you ignore the warning and kept setting it the same as the one of upstream proxy?</String>
+  <String Key="InitializationPage_ConnectionCycle_Solution_DisablePortCustomization">Disable port customization</String>
   <String Key="InitializationPage_UpstreamProxy">Upstream proxy is unavailable</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">Forgot to start the program which provides the upstream proxy?</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">Wrong port number?</String>
   <String Key="InitializationPage_Retry">Retry</String>
+  <String Key="InitializationPage_Skip">Skip</String>
 
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
 

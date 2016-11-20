@@ -74,10 +74,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string InitializationPage_PortIsOccupied => GetString(nameof(InitializationPage_PortIsOccupied));
         public string InitializationPage_PortIsOccupied_Solution_KillProcess => GetString(nameof(InitializationPage_PortIsOccupied_Solution_KillProcess));
         public string InitializationPage_PortIsOccupied_Solution_ChangePort => GetString(nameof(InitializationPage_PortIsOccupied_Solution_ChangePort));
+        public string InitializationPage_ConnectionCycle => GetString(nameof(InitializationPage_ConnectionCycle));
+        public string InitializationPage_ConnectionCycle_Content => GetString(nameof(InitializationPage_ConnectionCycle_Content));
+        public string InitializationPage_ConnectionCycle_Solution_DisablePortCustomization => GetString(nameof(InitializationPage_ConnectionCycle_Solution_DisablePortCustomization));
         public string InitializationPage_UpstreamProxy => GetString(nameof(InitializationPage_UpstreamProxy));
         public string InitializationPage_UpstreamProxy_Solution_NotStarted => GetString(nameof(InitializationPage_UpstreamProxy_Solution_NotStarted));
         public string InitializationPage_UpstreamProxy_Solution_WrongPort => GetString(nameof(InitializationPage_UpstreamProxy_Solution_WrongPort));
         public string InitializationPage_Retry => GetString(nameof(InitializationPage_Retry));
+        public string InitializationPage_Skip => GetString(nameof(InitializationPage_Skip));
 
         public string GameInfomation_Waiting => GetString(nameof(GameInfomation_Waiting));
 

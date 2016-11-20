@@ -87,8 +87,6 @@ namespace Sakuno.KanColle.Amatsukaze
             PluginService.Instance.Initialize();
             Preference.Instance.Reload();
 
-            KanColleProxy.Start();
-
             ShutdownMode = ShutdownMode.OnMainWindowClose;
 
             Task.Factory.StartNew(UpdateService.Instance.CheckForUpdate);

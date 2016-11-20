@@ -65,7 +65,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             if (Preference.Instance.Network.AllowRequestsFromOtherDevices)
                 rStartupFlags |= FiddlerCoreStartupFlags.AllowRemoteClients;
 
-            FiddlerApplication.Startup(Preference.Instance.Network.Port, rStartupFlags);
+            var rPort = Preference.Instance.Network.Port.Default;
+            if (Preference.Instance.Network.PortCustomization)
+                rPort = Preference.Instance.Network.Port.Value;
+            FiddlerApplication.Startup(rPort, rStartupFlags);
         }
 
         static void FiddlerApplication_BeforeRequest(Session rpSession)

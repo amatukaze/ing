@@ -70,10 +70,14 @@
   <String Key="InitializationPage_PortIsOccupied">待ち受けポートが他のアプリで使用されています</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">このプロセスを終了します</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">ポートを変更します</String>
+  <String Key="InitializationPage_ConnectionCycle">待ち受けポートがかってに設定されました</String>
+  <String Key="InitializationPage_ConnectionCycle_Content">あなたは警告を無視して、待ち受けポートを上流プロキシのポートと同じことに設定しますか？</String>
+  <String Key="InitializationPage_ConnectionCycle_Solution_DisablePortCustomization">待ち受けポートのカスタマイズを無効にします</String>
   <String Key="InitializationPage_UpstreamProxy">上流プロキシが利用できません</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">アプリを開くのは忘れましたか？</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">ポート番号が間違ってませんか？</String>
   <String Key="InitializationPage_Retry">再試行</String>
+  <String Key="InitializationPage_Skip">スキップ</String>
 
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
