@@ -6,6 +6,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.SystemInterop;
+using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -184,8 +185,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 if (rSortie.EscortFleet != null)
                     rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
-                var rHeavilyDamagedShips = rParticipants.Where(r => r.State == ShipState.HeavilyDamaged && !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)).ToArray();
-                if (rHeavilyDamagedShips.Length > 0)
+                var rHeavilyDamagedShips = rParticipants.Where(r => (r.State & ShipState.HeavilyDamaged) != 0 && (r.State & ShipState.Evacuated) == 0 &&
+                    !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)).ToArray();
+                if (rHeavilyDamagedShips.Length == 0)
+                    ThemeManager.Instance.ChangeAccent(Accent.Brown);
+                else
                 {
                     if (Preference.Instance.Notification.HeavyDamageWarning)
                         ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_AdvanceWarning, StringResources.Instance.Main.Notification_AdvanceWarning_Content, rHeavilyDamagedShips);

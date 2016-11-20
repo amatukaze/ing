@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
@@ -76,6 +77,15 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
             ApiService.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
             KanColleGame.Current.ReturnedFromSortie += _ => ThemeManager.Instance.ChangeAccent(Accent.Blue);
+
+            Preference.Instance.Game.DisableHeavyDamageBlinkingWarning.Subscribe(rpValue =>
+            {
+                if (SortieInfo.Current == null)
+                    return;
+
+                if (!rpValue)
+                    ThemeManager.Instance.ChangeAccent(Accent.Brown);
+            });
 
             r_BlinkingBrownAccent = new Accent("BlinkingBrown", new Uri("pack://application:,,,/HeavenlyWind;component/Themes/Accents/BlinkingBrown.xaml"));
 
