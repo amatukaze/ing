@@ -52,7 +52,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="640" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -175,9 +175,9 @@
                 </ListView.View>
             </ListView>
 
-            <GridSplitter DataContext="{Binding SelectedValue.Source, ElementName=Sessions}" Width="4" HorizontalAlignment="Center" Visibility="{rb:CollapsedIfNull}" Grid.Column="1" Grid.RowSpan="2" />
+            <GridSplitter DataContext="{Binding SelectedValue.Source, ElementName=Sessions}" Width="8" HorizontalAlignment="Center" Grid.Column="1" Grid.RowSpan="2" />
 
-            <Grid DataContext="{Binding SelectedValue.Source, ElementName=Sessions}" MinWidth="150" Visibility="{rb:CollapsedIfNull}" Grid.Column="2" Grid.RowSpan="2">
+            <Grid DataContext="{Binding SelectedValue.Source, ElementName=Sessions}" MinWidth="150" Grid.Column="2" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="4" />
