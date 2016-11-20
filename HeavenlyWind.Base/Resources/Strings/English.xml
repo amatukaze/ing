@@ -375,6 +375,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">Hidden</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">Left side</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">Right side</String>
+  <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">Exchange position of repair docks and fleet overview</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>

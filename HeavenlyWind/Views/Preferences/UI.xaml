@@ -178,5 +178,9 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </StackPanel>
+
+        <CheckBox IsChecked="{rb:Preference UI.SwapPositionOfRepairDocksAndFleetOverviews}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview}" />
+        </CheckBox>
     </StackPanel>
 </UserControl>

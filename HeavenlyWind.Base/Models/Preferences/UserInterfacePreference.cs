@@ -25,5 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         public Property<bool> ShowStatusGrowthInModernizationMessage { get; } = new Property<bool>("ui.modernization_message_show_status_growth");
 
         public Property<StatusBarSortieInfoPlacement> StatusBarSortieInfo { get; } = new Property<StatusBarSortieInfoPlacement>("ui.startusbar.sortie_info_placement", StatusBarSortieInfoPlacement.Right);
+
+        public Property<bool> SwapPositionOfRepairDocksAndFleetOverviews { get; } = new Property<bool>("ui.exchange_repair_fleets");
     }
 }

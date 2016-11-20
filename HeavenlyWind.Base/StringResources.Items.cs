@@ -375,6 +375,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_UI_StatusBarSortieInfo_Hidden => GetString(nameof(PreferenceWindow_UI_StatusBarSortieInfo_Hidden));
         public string PreferenceWindow_UI_StatusBarSortieInfo_Left => GetString(nameof(PreferenceWindow_UI_StatusBarSortieInfo_Left));
         public string PreferenceWindow_UI_StatusBarSortieInfo_Right => GetString(nameof(PreferenceWindow_UI_StatusBarSortieInfo_Right));
+        public string PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview => GetString(nameof(PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));

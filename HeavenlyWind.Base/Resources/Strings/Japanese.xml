@@ -373,6 +373,7 @@
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">無効</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">左側に表示する</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">右側に表示する</String>
+  <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">入渠や艦隊一覧の位置をスワップする</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>

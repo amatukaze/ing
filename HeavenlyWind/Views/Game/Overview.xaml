@@ -67,13 +67,33 @@
                                     <rvg:ActiveQuestsOverview />
                                 </Border>
 
-                                <rvg:DockOverview Margin="0, 8, 0, 0" Grid.Column="2" Grid.Row="2" />
-
-                                <Border Style="{StaticResource PanelBorderStyle}" Margin="0, 8, 0, 0" Grid.Column="2" Grid.Row="3">
-                                    <rvg:FleetOverview />
-                                </Border>
+                                <ContentControl Name="Overview1" Margin="0, 8, 0, 0" Grid.Column="2" Grid.Row="2">
+                                    <rvg:DockOverview />
+                                </ContentControl>
+                                <ContentControl Name="Overview2" Margin="0, 8, 0, 0" Grid.Column="2" Grid.Row="3">
+                                    <Border Style="{StaticResource PanelBorderStyle}">
+                                        <rvg:FleetOverview />
+                                    </Border>
+                                </ContentControl>
                             </Grid>
                         </ScrollViewer>
+
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{rb:Preference UI.SwapPositionOfRepairDocksAndFleetOverviews}" Value="True">
+                                <Setter TargetName="Overview1" Property="Content">
+                                    <Setter.Value>
+                                        <Border Style="{StaticResource PanelBorderStyle}">
+                                            <rvg:FleetOverview />
+                                        </Border>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="Overview2" Property="Content">
+                                    <Setter.Value>
+                                        <rvg:DockOverview />
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -117,11 +137,14 @@
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="2">
-                                            <rvg:DockOverview />
-
-                                            <Border Style="{StaticResource PanelBorderStyle}" Margin="0, 8, 0, 0">
-                                                <rvg:FleetOverview />
-                                            </Border>
+                                            <ContentControl Name="Overview1">
+                                                <rvg:DockOverview />
+                                            </ContentControl>
+                                            <ContentControl Name="Overview2" Margin="0, 8, 0, 0">
+                                                <Border Style="{StaticResource PanelBorderStyle}">
+                                                    <rvg:FleetOverview />
+                                                </Border>
+                                            </ContentControl>
 
                                             <Border Style="{StaticResource PanelBorderStyle}" Margin="0, 8, 0, 0">
                                                 <rvg:ActiveQuestsOverview />
@@ -129,6 +152,23 @@
                                         </StackPanel>
                                     </Grid>
                                 </ScrollViewer>
+
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{rb:Preference UI.SwapPositionOfRepairDocksAndFleetOverviews}" Value="True">
+                                        <Setter TargetName="Overview1" Property="Content">
+                                            <Setter.Value>
+                                                <Border Style="{StaticResource PanelBorderStyle}">
+                                                    <rvg:FleetOverview />
+                                                </Border>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter TargetName="Overview2" Property="Content">
+                                            <Setter.Value>
+                                                <rvg:DockOverview />
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

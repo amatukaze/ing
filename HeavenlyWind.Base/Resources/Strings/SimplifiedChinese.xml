@@ -376,6 +376,7 @@
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">隐藏</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">显示在左侧</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">显示在右侧</String>
+  <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">交换修理渠和舰队一览的位置</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
