@@ -14,12 +14,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         }
 
         public object View => r_Tool.View;
+        public IToolPaneScrollBarVisibilities ScrollBarVisibilities { get; }
 
         public ICommand OpenCommand { get; }
 
         internal ToolViewModel(IToolPane rpTool, ICommand rpOpenCommand)
         {
             r_Tool = rpTool;
+            ScrollBarVisibilities = rpTool as IToolPaneScrollBarVisibilities;
 
             OpenCommand = rpOpenCommand;
         }

@@ -25,9 +25,12 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
                 r_ViewTypeMap.Add(rType, new DataTemplate(rType) { VisualTree = new FrameworkElementFactory(rViewInfo.ViewType) });
             }
 
-            var rContentPresenter = new FrameworkElementFactory(typeof(ContentPresenter));
-            rContentPresenter.SetBinding(ContentPresenter.ContentProperty, new Binding(nameof(ToolViewModel.View)));
-            r_ViewTypeMap.Add(typeof(ToolViewModel), new DataTemplate(typeof(ToolViewModel)) { VisualTree = rContentPresenter });
+            var rScrollViewer = new FrameworkElementFactory(typeof(ScrollViewer));
+            rScrollViewer.SetBinding(ContentControl.ContentProperty, new Binding(nameof(ToolViewModel.View)));
+            rScrollViewer.SetBinding(ScrollViewer.VerticalScrollBarVisibilityProperty, new Binding("ScrollBarVisibilities.VerticalScrollBarVisibility") { TargetNullValue = ScrollBarVisibility.Auto, FallbackValue = ScrollBarVisibility.Auto });
+            rScrollViewer.SetBinding(ScrollViewer.HorizontalScrollBarVisibilityProperty, new Binding("ScrollBarVisibilities.HorizontalScrollBarVisibility") { TargetNullValue = ScrollBarVisibility.Disabled, FallbackValue = ScrollBarVisibility.Disabled });
+
+            r_ViewTypeMap.Add(typeof(ToolViewModel), new DataTemplate(typeof(ToolViewModel)) { VisualTree = rScrollViewer });
         }
 
         public override DataTemplate SelectTemplate(object rpItem, DependencyObject rpContainer)
