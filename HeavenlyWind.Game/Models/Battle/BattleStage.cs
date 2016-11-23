@@ -56,7 +56,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     rFriendAndEnemyEscort = rCombinedFleetData.EscortFleetCurrentHPs.Zip(rCombinedFleetData.EscortFleetMaximumHPs,
                         (rpCurrent, rpMaximum) => rpMaximum != -1 ? new BattleParticipantSnapshot(rpMaximum, rpCurrent) : null).Skip(1).ToArray();
                 else
-                    rFriendAndEnemyEscort = rpFirstStage.FriendEscort.Concat(rpFirstStage.EnemyEscort).Select(r => r != null ? new BattleParticipantSnapshot(r.Maximum, r.Current) : null).ToArray();
+                {
+                    IEnumerable<BattleParticipantSnapshot> rFriendEscort = rpFirstStage.FriendEscort;
+                    if (rFriendEscort == null)
+                        rFriendEscort = Enumerable.Repeat<BattleParticipantSnapshot>(null, 6);
+
+                    rFriendAndEnemyEscort = rFriendEscort.Concat(rpFirstStage.EnemyEscort).Select(r => r != null ? new BattleParticipantSnapshot(r.Maximum, r.Current) : null).ToArray();
+                }
 
                 if (rFriendAndEnemyEscort[0] != null)
                 {
