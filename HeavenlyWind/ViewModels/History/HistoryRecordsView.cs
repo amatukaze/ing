@@ -35,7 +35,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         public void Add(T rpRecord)
         {
-            r_Records.Add(rpRecord);
+            r_Records.Insert(0, rpRecord);
 
             Refresh();
         }
