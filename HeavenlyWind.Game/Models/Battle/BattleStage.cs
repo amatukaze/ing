@@ -61,7 +61,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     if (rFriendEscort == null)
                         rFriendEscort = Enumerable.Repeat<BattleParticipantSnapshot>(null, 6);
 
-                    rFriendAndEnemyEscort = rFriendEscort.Concat(rpFirstStage.EnemyEscort).Select(r => r != null ? new BattleParticipantSnapshot(r.Maximum, r.Current) : null).ToArray();
+                    IEnumerable<BattleParticipantSnapshot> rEnemyEscort = rpFirstStage.EnemyEscort;
+                    if (rEnemyEscort == null)
+                        rEnemyEscort = Enumerable.Repeat<BattleParticipantSnapshot>(null, 6);
+
+                    rFriendAndEnemyEscort = rFriendEscort.Concat(rEnemyEscort).Select(r => r != null ? new BattleParticipantSnapshot(r.Maximum, r.Current) : null).ToArray();
                 }
 
                 if (rFriendAndEnemyEscort[0] != null)
