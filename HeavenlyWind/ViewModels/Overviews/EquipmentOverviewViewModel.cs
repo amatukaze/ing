@@ -1,12 +1,14 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
@@ -58,9 +60,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         IDisposable r_HomeportSubscription;
 
+        public ICommand SelectThisTypeOnlyCommand { get; }
+
         internal EquipmentOverviewViewModel()
         {
-            r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
+            SelectThisTypeOnlyCommand = new DelegatedCommand<EquipmentTypeViewModel>(SelectThisTypeOnly);
+
+            r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection, SelectThisTypeOnlyCommand = SelectThisTypeOnlyCommand });
             Types = r_TypeMap.Values.ToArray();
 
             var rSelectedTypes = Preference.Instance.Game.SelectedEquipmentTypes.Value;
@@ -122,6 +128,14 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             Refresh();
         }
 
+        void SelectThisTypeOnly(EquipmentTypeViewModel rpType)
+        {
+            foreach (var rType in Types)
+                rType.SetIsSelectedWithoutCallback(rType == rpType);
+
+            UpdateSelection();
+        }
+
         void UpdateCore()
         {
             if (r_SelectAllTypes.HasValue && !r_SelectAllTypes.Value)
@@ -142,7 +156,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                             rGroup.Update(rShip, new EquipmentGroupingKey(rEquipment.Level, rEquipment.Proficiency));
                     }
 
-                Equipment = r_EquipmentMap.Values.Where(r => r.Type.IsSelected).ToArray();
+                Equipment = r_EquipmentMap.Values.Where(r => r.Type.IsSelected).OrderBy(r => r.Info.Icon).ToArray();
             }
 
             OnPropertyChanged(nameof(Equipment));

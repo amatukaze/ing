@@ -3,6 +3,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                   xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                   xmlns:rvmo="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Overviews"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
@@ -72,9 +73,16 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsSelected}" Margin="4, 2">
-                                    <rc:EquipmentIcon Type="{Binding Type}" Width="20" Height="20" />
-                                </CheckBox>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding IsSelected}" Margin="4, 2" />
+                                    <rc:EquipmentIcon Type="{Binding Type}" Width="20" Height="20">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseUp">
+                                                <i:InvokeCommandAction Command="{Binding SelectThisTypeOnlyCommand}" CommandParameter="{Binding}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </rc:EquipmentIcon>
+                                </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
