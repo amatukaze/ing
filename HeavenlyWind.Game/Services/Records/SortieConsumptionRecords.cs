@@ -717,7 +717,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 return;
 
             var rData = rpInfo.GetData<RawAirForceGroupOrganization>();
-            if (rData.Squadrons.Length > 1)
+            if (!rData.Bauxite.HasValue)
                 return;
 
             var rPlane = Port.Equipment[rPlaneID].Info;

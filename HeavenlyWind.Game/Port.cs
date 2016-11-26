@@ -445,7 +445,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Materials.Bullet -= rAirForceGroups.Sum(r => r.LBASBulletConsumption);
             });
 
-            ApiService.Subscribe("api_req_air_corps/set_plane", r => Materials.Bauxite = r.GetData<RawAirForceGroupOrganization>().Bauxite);
+            ApiService.Subscribe("api_req_air_corps/set_plane", r =>
+            {
+                var rData = r.GetData<RawAirForceGroupOrganization>();
+                if (!rData.Bauxite.HasValue)
+                    return;
+
+                Materials.Bauxite = rData.Bauxite.Value;
+            });
 
             ApiService.Subscribe("api_req_hensei/lock", r => Ships[int.Parse(r.Parameters["api_ship_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
             ApiService.Subscribe("api_req_kaisou/lock", r => Equipment[int.Parse(r.Parameters["api_slotitem_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
