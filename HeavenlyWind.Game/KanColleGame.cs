@@ -43,6 +43,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             }
         }
+        PracticeInfo r_Practice;
+        public PracticeInfo Practice
+        {
+            get { return r_Practice; }
+            internal set
+            {
+                if (r_Practice != value)
+                {
+                    r_Practice = value;
+                    OnPropertyChanged(nameof(Practice));
+                }
+            }
+        }
 
         public event Action<SortieInfo> ReturnedFromSortie = delegate { };
 

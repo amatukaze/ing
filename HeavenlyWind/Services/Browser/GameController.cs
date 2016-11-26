@@ -175,7 +175,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         void RestartGame()
         {
             var rMode = Preference.Instance.Browser.RefreshConfirmationMode.Value;
-            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo && !(KanColleGame.Current.Sortie is PracticeInfo)))
+            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo))
             {
                 var rDialog = new TaskDialog()
                 {

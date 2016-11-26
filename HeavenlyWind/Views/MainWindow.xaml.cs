@@ -56,7 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         protected override void OnClosing(CancelEventArgs e)
         {
             var rMode = Preference.Instance.UI.CloseConfirmationMode.Value;
-            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo && !(KanColleGame.Current.Sortie is PracticeInfo)))
+            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo))
             {
                 var rDialog = new TaskDialog()
                 {

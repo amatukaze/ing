@@ -1,5 +1,4 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
-using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
@@ -10,13 +9,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
     {
         public override void ProcessCore(ApiInfo rpInfo, RawDay rpData)
         {
-            var rPracticeInfo = Game.Sortie as PracticeInfo;
-            if (rPracticeInfo != null)
-            {
-                var rParticipantFleet = Game.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
+            if (Game.Practice == null)
+                return;
 
-                rPracticeInfo.Battle = new BattleInfo(rpInfo.Timestamp, rParticipantFleet);
-            }
+            var rParticipantFleet = Game.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
+
+            Game.Practice.Battle = new BattleInfo(rpInfo.Timestamp, rParticipantFleet);
         }
     }
 }

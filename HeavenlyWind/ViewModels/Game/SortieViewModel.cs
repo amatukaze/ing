@@ -34,8 +34,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         public EventMapOverviewViewModel EventMaps { get; private set; }
 
-        SortieInfo r_Info;
-        public SortieInfo Info
+        ModelBase r_Info;
+        public ModelBase Info
         {
             get { return r_Info; }
             private set
@@ -58,7 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             ApiService.Subscribe("api_req_member/get_practice_enemyinfo", delegate
             {
-                Info = KanColleGame.Current.Sortie;
+                Info = KanColleGame.Current.Practice;
                 Type = DisplayType.Practice;
             });
 
