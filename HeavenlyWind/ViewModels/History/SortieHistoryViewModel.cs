@@ -110,7 +110,7 @@ ORDER BY id DESC, step DESC;";
         public override bool Filter(SortieRecord rpItem)
         {
             var rResult = r_Map == SortieMapFilterKey.All ||
-                (rpItem.Map == r_Map.Map && (!r_Map.IsEventMap || rpItem.EventMapDifficulty == r_Map.EventMapDifficulty) && (r_Node == string.Empty || rpItem.NodeWikiID == r_Node));
+                (rpItem.Map == r_Map.Map && (!r_Map.IsEventMap || rpItem.EventMapDifficulty == r_Map.EventMapDifficulty) && (r_Node == string.Empty || rpItem.NodeWikiID == r_Node || rpItem.Node.ToString() == r_Node));
 
             switch (rpItem.BattleRank)
             {
