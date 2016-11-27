@@ -37,40 +37,79 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             switch (SortingColumn)
             {
                 case "ID":
-                    return rpItems.OrderBy(r => r.Ship.ID);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.ID);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.ID);
 
                 case "Name":
-                    return rpItems.OrderBy(r => r.Ship.Info.Name);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Info.Name);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Info.Name);
 
                 case "ShipLocking":
                     return rpItems.OrderByDescending(r => r.Ship.RawData.LockingTag != 0).ThenBy(r => r.Ship.RawData.LockingTag);
 
                 case "Level":
-                    return rpItems.OrderByDescending(r => r.Ship.Level).ThenBy(r => r.Ship.SortNumber).ThenBy(r => r.Ship.ID);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Level).ThenBy(r => r.Ship.SortNumber).ThenBy(r => r.Ship.ID);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Level).ThenBy(r => r.Ship.SortNumber).ThenBy(r => r.Ship.ID);
 
                 case "Condition":
-                    return rpItems.OrderByDescending(r => r.Ship.Condition);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Condition);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Condition);
 
                 case "Firepower":
-                    return rpItems.OrderByDescending(r => r.Ship.Status.FirepowerBase.Current);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Status.FirepowerBase.Current);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Status.FirepowerBase.Current);
                 case "Torpedo":
-                    return rpItems.OrderByDescending(r => r.Ship.Status.TorpedoBase.Current);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Status.TorpedoBase.Current);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Status.TorpedoBase.Current);
                 case "AA":
-                    return rpItems.OrderByDescending(r => r.Ship.Status.AABase.Current);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Status.AABase.Current);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Status.AABase.Current);
                 case "Armor":
-                    return rpItems.OrderByDescending(r => r.Ship.Status.ArmorBase.Current);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Status.ArmorBase.Current);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Status.ArmorBase.Current);
                 case "Luck":
-                    return rpItems.OrderByDescending(r => r.Ship.Status.LuckBase.Current);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Status.LuckBase.Current);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Status.LuckBase.Current);
 
                 case "Evasion":
-                    return rpItems.OrderByDescending(r => r.Ship.Status.Evasion);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Status.Evasion);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Status.Evasion);
                 case "ASW":
-                    return rpItems.OrderByDescending(r => r.Ship.Status.ASW);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Status.ASW);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Status.Evasion);
                 case "LoS":
-                    return rpItems.OrderByDescending(r => r.Ship.Status.LoS);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.Status.LoS);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.Status.Evasion);
 
                 case "RepairTime":
-                    return rpItems.OrderByDescending(r => r.Ship.RepairTime);
+                    if (!r_Owner.IsOppositeOrder)
+                        return rpItems.OrderByDescending(r => r.Ship.RepairTime);
+                    else
+                        return rpItems.OrderBy(r => r.Ship.RepairTime);
 
                 default:
                     return rpItems;
