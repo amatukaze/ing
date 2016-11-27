@@ -6,6 +6,7 @@
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/AbyssalShipClass.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/SlotsToolTip.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/TabContent.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common/TabItem.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 

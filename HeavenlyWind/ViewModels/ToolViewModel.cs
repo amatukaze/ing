@@ -13,6 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             protected set { }
         }
 
+        public override bool IsClosable => true;
+
         public object View => r_Tool.View;
         public IToolPaneScrollBarVisibilities ScrollBarVisibilities { get; }
 
