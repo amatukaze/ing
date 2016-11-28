@@ -1,12 +1,12 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
-using System;
 using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    class SortieConsumptionRecord : SortieRecordBase
+    class SortieConsumptionRecord : SortieRecordBase, IRecordID
     {
-        public string Time { get; }
+        public long ID { get; set; }
+        public string Time => DateTimeUtil.FromUnixTime(ID).LocalDateTime.ToString();
 
         public ClampedValue MapHP { get; }
 
@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal SortieConsumptionRecord(SQLiteDataReader rpReader) : base(rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("id")).LocalDateTime.ToString();
+            ID = rpReader.GetInt64("time");
 
             var rMapMaxHP = rpReader.GetInt32Optional("map_max_hp");
             if (rMapMaxHP.HasValue)

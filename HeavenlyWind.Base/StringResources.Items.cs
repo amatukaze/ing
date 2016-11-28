@@ -497,6 +497,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ScrappingHistory_Reason_ConsumedInBattle => GetString(nameof(ScrappingHistory_Reason_ConsumedInBattle));
 
         public string ResourceHistory_Diff => GetString(nameof(ResourceHistory_Diff));
+        public string ResourceHistory_Type => GetString(nameof(ResourceHistory_Type));
+        public string ResourceHistory_Type_Detail => GetString(nameof(ResourceHistory_Type_Detail));
+        public string ResourceHistory_Type_Day => GetString(nameof(ResourceHistory_Type_Day));
+        public string ResourceHistory_Type_Weekly => GetString(nameof(ResourceHistory_Type_Weekly));
+        public string ResourceHistory_Type_Monthly => GetString(nameof(ResourceHistory_Type_Monthly));
 
         public string ScreenshotTool_Title => GetString(nameof(ScreenshotTool_Title));
         public string ScreenshotTool_General => GetString(nameof(ScreenshotTool_General));

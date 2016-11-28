@@ -19,6 +19,9 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
 
         public void Refresh()
         {
+            if (Source == null)
+                return;
+
             BeforeRefresh();
 
             var rItems = Source.Where(Filter);

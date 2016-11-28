@@ -27,12 +27,39 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_ResourceHistory}" />
         </DockPanel>
 
-        <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
-            <Button Command="{Binding ExportAsCsvFileCommand}" Margin="0, 0, 0, 8" HorizontalAlignment="Left" DockPanel.Dock="Top">
-                <TextBlock Text="{rb:StringResource Main.Export_CSV}" />
-            </Button>
+        <Grid Margin="8, 0, 8, 8" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="8" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-            <ListView ItemsSource="{Binding Records}">
+            <DockPanel>
+                <Button Command="{Binding ExportAsCsvFileCommand}" HorizontalAlignment="Left" DockPanel.Dock="Right">
+                    <TextBlock Text="{rb:StringResource Main.Export_CSV}" />
+                </Button>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>
+                        <Run Text="{rb:StringResource Main.Record_Time, Mode=OneWay}" />:
+                    </TextBlock>
+
+                    <ListBox ItemsSource="{Binding Types}" SelectedValue="{Binding SelectedType}" Margin="4, 0, 0, 0">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{rb:EnumToStringResource Type, ResourceHistory_Type}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </DockPanel>
+
+            <ListView ItemsSource="{Binding Records}" Grid.Row="2">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="150">
@@ -46,7 +73,7 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="100">
-                            <TextBlock Text="{rb:StringResource Main.Material_Fuel}" />
+                            <rc:MaterialIcon Type="Fuel" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -58,7 +85,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="100">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bullet}" />
+                            <rc:MaterialIcon Type="Bullet" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -70,7 +97,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="100">
-                            <TextBlock Text="{rb:StringResource Main.Material_Steel}" />
+                            <rc:MaterialIcon Type="Steel" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -82,7 +109,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="100">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bauxite}" />
+                            <rc:MaterialIcon Type="Bauxite" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -94,7 +121,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="80">
-                            <TextBlock Text="{rb:StringResource Main.Material_InstantConstruction}" />
+                            <rc:MaterialIcon Type="InstantConstruction" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -106,7 +133,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="80">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bucket}" />
+                            <rc:MaterialIcon Type="Bucket" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -118,7 +145,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="80">
-                            <TextBlock Text="{rb:StringResource Main.Material_DevelopmentMaterial}" />
+                            <rc:MaterialIcon Type="DevelopmentMaterial" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -130,7 +157,7 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="80">
-                            <TextBlock Text="{rb:StringResource Main.Material_ImprovementMaterial}" />
+                            <rc:MaterialIcon Type="ImprovementMaterial" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -144,7 +171,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        </DockPanel>
+        </Grid>
     </Grid>
 
 </ruic:MetroWindow>

@@ -150,6 +150,7 @@
     <Compile Include="Models\Records\DevelopmentRecord.cs" />
     <Compile Include="Models\Records\ExpeditionRecord.cs" />
     <Compile Include="Models\Records\FateRecord.cs" />
+    <Compile Include="Models\Records\IRecordID.cs" />
     <Compile Include="Models\Records\ResourceRecord.cs" />
     <Compile Include="Models\Records\SortieConsumptionRecord.cs" />
     <Compile Include="Models\Records\SortieRecord.cs" />
@@ -213,6 +214,8 @@
     <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\HistoryRecordsView.cs" />
     <Compile Include="ViewModels\History\HistoryViewModelBase.cs" />
+    <Compile Include="ViewModels\History\ResourceHistoryType.cs" />
+    <Compile Include="ViewModels\History\ResourceHistoryTypeKey.cs" />
     <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieConsumptionHistoryViewModel.cs" />

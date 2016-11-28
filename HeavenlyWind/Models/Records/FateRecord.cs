@@ -1,15 +1,13 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
-using System;
 using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    class FateRecord : ModelBase
+    class FateRecord : ModelBase, IRecordID
     {
-        public string Time { get; }
-
-        public int ID { get; }
+        public long ID { get; set; }
+        public string Time => DateTimeUtil.FromUnixTime(ID).LocalDateTime.ToString();
 
         public bool IsEquipment { get; }
         public ShipInfo Ship { get; }
@@ -22,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal FateRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("time")).LocalDateTime.ToString();
+            ID = rpReader.GetInt64("time");
 
             var rMasterInfo = KanColleGame.Current.MasterInfo;
             var rMasterID = rpReader.GetInt32("master_id");

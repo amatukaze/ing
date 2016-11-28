@@ -1,10 +1,11 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Internal;
 using System.Linq;
 using System.Collections.Generic;
+using Sakuno.KanColle.Amatsukaze.Models.Records;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
-    class HistoryRecordsView<T> : ItemsView<T> where T : ModelBase
+    class HistoryRecordsView<T> : ItemsView<T> where T : ModelBase, IRecordID
     {
         HistoryViewModelBase<T> r_Owner;
 
@@ -35,11 +36,19 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         public void Add(T rpRecord)
         {
-            r_Records.Insert(0, rpRecord);
+            r_Records.Add(rpRecord);
+
+            Refresh();
+        }
+
+        public void Clear()
+        {
+            r_Records?.Clear();
 
             Refresh();
         }
 
         protected override bool Filter(T rpItem) => r_Owner.Filter(rpItem);
+        protected override IEnumerable<T> Sort(IEnumerable<T> rpItems) => rpItems.OrderByDescending(r => r.ID);
     }
 }

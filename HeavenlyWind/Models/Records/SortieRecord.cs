@@ -2,16 +2,15 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    class SortieRecord : SortieRecordBase
+    class SortieRecord : SortieRecordBase, IRecordID
     {
-        internal long ID { get; }
+        public long ID { get; }
         public long SortieID { get; }
 
         public int Step { get; }

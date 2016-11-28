@@ -498,6 +498,11 @@
   <String Key="ScrappingHistory_Reason_ConsumedInBattle">战斗</String>
 
   <String Key="ResourceHistory_Diff">差异</String>
+  <String Key="ResourceHistory_Type">类型</String>
+  <String Key="ResourceHistory_Type_Detail">详细</String>
+  <String Key="ResourceHistory_Type_Daily">毎日</String>
+  <String Key="ResourceHistory_Type_Weekly">毎周</String>
+  <String Key="ResourceHistory_Type_Monthly">毎月</String>
 
   <String Key="ScreenshotTool_Title">截图工具</String>
   <String Key="ScreenshotTool_General">一般</String>

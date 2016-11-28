@@ -1,43 +1,86 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models.Records;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
     class ResourceHistoryViewModel : HistoryViewModelBase<ResourceRecord>
     {
-        protected override string LoadCommandText => @"SELECT x.time,
-    x.fuel, coalesce(x.fuel - y.fuel, 0) AS fuel_diff,
-    x.bullet, coalesce(x.bullet - y.bullet, 0) AS bullet_diff,
-    x.steel, coalesce(x.steel - y.steel, 0) AS steel_diff,
-    x.bauxite, coalesce(x.bauxite - y.bauxite, 0) AS bauxite_diff,
-    x.instant_construction, coalesce(x.instant_construction - y.instant_construction, 0) AS instant_construction_diff,
-    x.bucket, coalesce(x.bucket - y.bucket, 0) AS bucket_diff,
-    x.development_material, coalesce(x.development_material - y.development_material, 0) AS development_material_diff,
-    x.improvement_material, coalesce(x.improvement_material - y.improvement_material, 0) AS improvement_material_diff
-FROM resources x
-LEFT JOIN resources y ON y.time = (SELECT max(time) FROM resources z WHERE z.time < x.time)
-ORDER BY x.time DESC;";
+        public IList<ResourceHistoryTypeKey> Types { get; }
 
-        protected override ResourceRecord CreateRecordFromReader(SQLiteDataReader rpReader) => new ResourceRecord(rpReader);
+        ResourceHistoryTypeKey r_Type;
+        public ResourceHistoryTypeKey SelectedType
+        {
+            get { return r_Type; }
+            set
+            {
+                if (r_Type != value)
+                {
+                    r_Type = value;
+                    OnPropertyChanged(nameof(SelectedType));
+
+                    r_Type.Update();
+
+                    LoadRecords();
+                }
+            }
+        }
+
+        protected override string LoadCommandText => $"SELECT * FROM resources {r_Type.Clause};";
+
+        public ResourceHistoryViewModel()
+        {
+            Types = Enumerable.Range(0, 4).Select(r => new ResourceHistoryTypeKey((ResourceHistoryType)r)).ToArray();
+            r_Type = Types[1];
+            r_Type.Update();
+        }
+
+        protected override ResourceRecord CreateRecordFromReader(SQLiteDataReader rpReader)
+        {
+            var rResult = new ResourceRecord(rpReader);
+
+            if (LastInsertedRecord != null)
+                rResult.Previous = LastInsertedRecord;
+
+            return rResult;
+        }
 
         protected override bool TableFilter(string rpTable) => rpTable == "main.resources";
 
         protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
         {
-            rpCommand.CommandText = @"SELECT x.time,
-    x.fuel, coalesce(x.fuel - y.fuel, 0) AS fuel_diff,
-    x.bullet, coalesce(x.bullet - y.bullet, 0) AS bullet_diff,
-    x.steel, coalesce(x.steel - y.steel, 0) AS steel_diff,
-    x.bauxite, coalesce(x.bauxite - y.bauxite, 0) AS bauxite_diff,
-    x.instant_construction, coalesce(x.instant_construction - y.instant_construction, 0) AS instant_construction_diff,
-    x.bucket, coalesce(x.bucket - y.bucket, 0) AS bucket_diff,
-    x.development_material, coalesce(x.development_material - y.development_material, 0) AS development_material_diff,
-    x.improvement_material, coalesce(x.improvement_material - y.improvement_material, 0) AS improvement_material_diff
-FROM resources x
-LEFT JOIN resources y ON y.time = (SELECT max(time) FROM resources z WHERE z.time < @time)
-WHERE x.time = @time;";
+            rpCommand.CommandText = "SELECT * FROM resources WHERE time = @time;";
             rpCommand.Parameters.AddWithValue("@time", rpRowID);
+        }
+        protected override bool BeforeNewRecordInserting(SQLiteDataReader rpReader)
+        {
+            if (r_Type.Type == ResourceHistoryType.Detail)
+                return true;
+
+            var rTime = rpReader.GetInt64("time");
+
+            if (rTime >= r_Type.Maximum)
+            {
+                r_Type.Update();
+
+                return true;
+            }
+
+            LastInsertedRecord.ID = rTime;
+            LastInsertedRecord.Fuel = rpReader.GetInt32("fuel");
+            LastInsertedRecord.Bullet = rpReader.GetInt32("bullet");
+            LastInsertedRecord.Steel = rpReader.GetInt32("steel");
+            LastInsertedRecord.Bauxite = rpReader.GetInt32("bauxite");
+            LastInsertedRecord.InstantConstruction = rpReader.GetInt32("instant_construction");
+            LastInsertedRecord.Bucket = rpReader.GetInt32("bucket");
+            LastInsertedRecord.DevelopmentMaterial = rpReader.GetInt32("development_material");
+            LastInsertedRecord.ImprovementMaterial = rpReader.GetInt32("improvement_material");
+
+            LastInsertedRecord.Update();
+
+            return false;
         }
 
         protected override void ExportAsCsvFileCore(StreamWriter rpWriter)

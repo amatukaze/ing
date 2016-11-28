@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
-    abstract class SortieHistoryViewModelBase<T> : HistoryViewModelBase<T> where T : SortieRecordBase
+    abstract class SortieHistoryViewModelBase<T> : HistoryViewModelBase<T> where T : SortieRecordBase, IRecordID
     {
         public FilterKeyCollection<SortieMapFilterKey> Maps { get; } = new FilterKeyCollection<SortieMapFilterKey>(SortieMapFilterKey.All, SortieMapFilterKey.Comparer);
 

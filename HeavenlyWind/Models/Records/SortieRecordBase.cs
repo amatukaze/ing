@@ -1,6 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System;
 using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records

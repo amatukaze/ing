@@ -1,63 +1,52 @@
-﻿using System;
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    class ResourceRecord : ModelBase
+    class ResourceRecord : ModelBase, IRecordID
     {
-        public string Time { get; }
+        public long ID { get; set; }
+        public string Time => DateTimeUtil.FromUnixTime(ID).LocalDateTime.ToString();
 
-        public int Fuel { get; }
-        public int FuelDifference { get; }
+        public ResourceRecord Previous { get; set; }
 
-        public int Bullet { get; }
-        public int BulletDifference { get; }
+        public int Fuel { get; set; }
+        public int FuelDifference => Previous != null ? Fuel - Previous.Fuel : 0;
 
-        public int Steel { get; }
-        public int SteelDifference { get; }
+        public int Bullet { get; set; }
+        public int BulletDifference => Previous != null ? Bullet - Previous.Bullet : 0;
 
-        public int Bauxite { get; }
-        public int BauxiteDifference { get; }
+        public int Steel { get; set; }
+        public int SteelDifference => Previous != null ? Steel - Previous.Steel : 0;
 
-        public int InstantConstruction { get; }
-        public int InstantConstructionDifference { get; }
+        public int Bauxite { get; set; }
+        public int BauxiteDifference => Previous != null ? Bauxite - Previous.Bauxite : 0;
 
-        public int Bucket { get; }
-        public int BucketDifference { get; }
+        public int InstantConstruction { get; set; }
+        public int InstantConstructionDifference => Previous != null ? InstantConstruction - Previous.InstantConstruction : 0;
 
-        public int DevelopmentMaterial { get; }
-        public int DevelopmentMaterialDifference { get; }
+        public int Bucket { get; set; }
+        public int BucketDifference => Previous != null ? Bucket - Previous.Bucket : 0;
 
-        public int ImprovementMaterial { get; }
-        public int ImprovementMaterialDifference { get; }
+        public int DevelopmentMaterial { get; set; }
+        public int DevelopmentMaterialDifference => Previous != null ? DevelopmentMaterial - Previous.DevelopmentMaterial : 0;
+
+        public int ImprovementMaterial { get; set; }
+        public int ImprovementMaterialDifference => Previous != null ? ImprovementMaterial - Previous.ImprovementMaterial : 0;
 
         public ResourceRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("time")).LocalDateTime.ToString();
+            ID = rpReader.GetInt64("time");
 
             Fuel = rpReader.GetInt32("fuel");
-            FuelDifference = rpReader.GetInt32("fuel_diff");
-
             Bullet = rpReader.GetInt32("bullet");
-            BulletDifference = rpReader.GetInt32("bullet_diff");
-
             Steel = rpReader.GetInt32("steel");
-            SteelDifference = rpReader.GetInt32("steel_diff");
-
             Bauxite = rpReader.GetInt32("bauxite");
-            BauxiteDifference = rpReader.GetInt32("bauxite_diff");
-
             InstantConstruction = rpReader.GetInt32("instant_construction");
-            InstantConstructionDifference = rpReader.GetInt32("instant_construction_diff");
-
             Bucket = rpReader.GetInt32("bucket");
-            BucketDifference = rpReader.GetInt32("bucket_diff");
-
             DevelopmentMaterial = rpReader.GetInt32("development_material");
-            DevelopmentMaterialDifference = rpReader.GetInt32("development_material_diff");
-
             ImprovementMaterial = rpReader.GetInt32("improvement_material");
-            ImprovementMaterialDifference = rpReader.GetInt32("improvement_material_diff");
         }
+
+        public void Update() => OnPropertyChanged(string.Empty);
     }
 }
