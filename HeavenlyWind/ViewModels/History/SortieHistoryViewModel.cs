@@ -196,7 +196,7 @@ WHERE battle.id = @id";
 
             using (var rCommand = CreateCommand())
             {
-                rCommand.CommandText = @"SELECT rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM battle
+                rCommand.CommandText = @"SELECT rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged, mvp, mvp_escort  FROM battle
 LEFT JOIN battle_dropped_item ON battle.id = battle_dropped_item.id
 LEFT JOIN battle_detail.battle battle_detail ON battle.id = battle_detail.id
 LEFT JOIN battle_detail.participant_hd_view participant_hd ON battle.id = participant_hd.battle
