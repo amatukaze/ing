@@ -538,6 +538,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieStatistic_TimeSpan_Yesterday => GetString(nameof(SortieStatistic_TimeSpan_Yesterday));
         public string SortieStatistic_TimeSpan_LastWeek => GetString(nameof(SortieStatistic_TimeSpan_LastWeek));
         public string SortieStatistic_TimeSpan_LastMonth => GetString(nameof(SortieStatistic_TimeSpan_LastMonth));
+        public string SortieStatistic_TimeSpan_Custom => GetString(nameof(SortieStatistic_TimeSpan_Custom));
+        public string SortieStatistic_CustomTimeSpan_Start => GetString(nameof(SortieStatistic_CustomTimeSpan_Start));
+        public string SortieStatistic_CustomTimeSpan_End => GetString(nameof(SortieStatistic_CustomTimeSpan_End));
         public string SortieStatistic_Count => GetString(nameof(SortieStatistic_Count));
         public string SortieStatistic_RankingPoints => GetString(nameof(SortieStatistic_RankingPoints));
 

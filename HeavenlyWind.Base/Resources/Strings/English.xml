@@ -538,6 +538,9 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="SortieStatistic_TimeSpan_Yesterday">Yesterday</String>
   <String Key="SortieStatistic_TimeSpan_LastWeek">Last week</String>
   <String Key="SortieStatistic_TimeSpan_LastMonth">Last month</String>
+  <String Key="SortieStatistic_TimeSpan_Custom">Custom</String>
+  <String Key="SortieStatistic_CustomTimeSpan_Start">Start</String>
+  <String Key="SortieStatistic_CustomTimeSpan_End">End</String>
   <String Key="SortieStatistic_Count">Count</String>
   <String Key="SortieStatistic_RankingPoints">Points</String>
 

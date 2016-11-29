@@ -1,14 +1,16 @@
-﻿using Sakuno.KanColle.Amatsukaze.Models.Statistics;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Models.Statistics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 {
     class SortieStatisticViewModel : DisposableModelBase
     {
         public IList<SortieStatisticTimeSpanGroupViewModel> TimeSpans { get; private set; }
+
+        public SortieStatisticCustomTimeSpanGroupViewModel CustomTimeSpan { get; }
 
         SortieStatisticTimeSpanGroupViewModel r_SelectedTimeSpan;
         public SortieStatisticTimeSpanGroupViewModel SelectedTimeSpan
@@ -24,8 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
                     r_SelectedTimeSpan = value;
                     OnPropertyChanged(nameof(SelectedTimeSpan));
 
-                    if (r_SelectedTimeSpan != null)
-                        Load();
+                    r_SelectedTimeSpan?.Reload();
                 }
             }
         }
@@ -34,11 +35,19 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
         {
             IEnumerable<SortieStatisticTimeSpanGroupViewModel> rTimeSpans = Enumerable.Range(0, 6).Select(r => new SortieStatisticDefaultTimeSpanGroupViewModel((SortieStatisticTimeSpanType)r));
 
-            TimeSpans = rTimeSpans.ToArray();
+            CustomTimeSpan = new SortieStatisticCustomTimeSpanGroupViewModel();
+
+            TimeSpans = rTimeSpans.Concat(new[] { CustomTimeSpan }).ToArray();
             r_SelectedTimeSpan = TimeSpans[0];
+
+            using (var rCommand = RecordService.Instance.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT min(id) FROM sortie_consumption;";
+                CustomTimeSpan.MinDisplayDateStart = DateTimeUtil.FromUnixTime((long)rCommand.ExecuteScalar()).ToOffset(DateTimeOffset.Now.Offset).DateTime.Date;
+            }
         }
 
-        public void Load() => Task.Run((Action)r_SelectedTimeSpan.Reload);
+        public void Load() => r_SelectedTimeSpan.Reload();
 
         protected override void DisposeManagedResources()
         {

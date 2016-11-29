@@ -1,7 +1,9 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models.Statistics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 {
@@ -72,11 +74,15 @@ GROUP BY sortie_map.id, sortie_map.difficulty;";
             Type = rpType;
         }
 
-        public void Reload()
+        public void Reload() => Task.Run((Action)ReloadCore);
+        void ReloadCore()
         {
+            if (TimeSpanStart.IsNullOrEmpty() || TimeSpanEnd.IsNullOrEmpty())
+                return;
+
             using (var rCommand = RecordService.Instance.CreateCommand())
             {
-                rCommand.CommandText = string.Format(CommandTextBase, r_TimeSpanStart, r_TimeSpanEnd);
+                rCommand.CommandText = string.Format(CommandTextBase, TimeSpanStart, TimeSpanEnd);
 
                 using (var rReader = rCommand.ExecuteReader())
                 {
