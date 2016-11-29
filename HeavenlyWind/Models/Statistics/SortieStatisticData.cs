@@ -5,8 +5,6 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Statistics
 {
     class SortieStatisticData : SortieRecordBase
     {
-        public SortieStatisticTimeSpanType Type { get; }
-
         public int Count { get; }
 
         public int FuelConsumption { get; }
@@ -24,8 +22,6 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Statistics
 
         public SortieStatisticData(SQLiteDataReader rpReader) : base(rpReader)
         {
-            Type = (SortieStatisticTimeSpanType)rpReader.GetInt32("type");
-
             Count = rpReader.GetInt32("count");
 
             FuelConsumption = rpReader.GetInt32("fuel_consumption");

@@ -239,6 +239,7 @@
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
     <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
+    <Compile Include="ViewModels\Statistics\SortieStatisticDefaultTimeSpanGroupViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticTimeSpanGroupViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
