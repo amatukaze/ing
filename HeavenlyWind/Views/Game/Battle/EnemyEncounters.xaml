@@ -54,24 +54,31 @@
 
                             <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Grid.Row="1" Grid.ColumnSpan="2" />
 
-                            <ItemsControl ItemsSource="{Binding Formations}" Grid.Row="2" Grid.ColumnSpan="2">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal" />
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Name="Formation" Text="{rb:EnumToStringResource ., Battle_Formation, StringFormat={} / {0}}" />
+                            <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+                                <ItemsControl ItemsSource="{Binding Formations}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Name="Formation" Text="{rb:EnumToStringResource ., Battle_Formation, StringFormat={} / {0}}" />
 
-                                        <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
-                                                <Setter TargetName="Formation" Property="Text" Value="{rb:EnumToStringResource ., Battle_Formation}" />
-                                            </DataTrigger>
-                                        </DataTemplate.Triggers>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
+                                            <DataTemplate.Triggers>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                                    <Setter TargetName="Formation" Property="Text" Value="{rb:EnumToStringResource ., Battle_Formation}" />
+                                                </DataTrigger>
+                                            </DataTemplate.Triggers>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <TextBlock Visibility="{rb:CollapsedIfZero FighterPower}">
+                                    <Run Text="{rb:StringResource Main.Fleet_FighterPower}" />:
+                                    <Run Text="{Binding FighterPower, Mode=OneWay}" />
+                                </TextBlock>
+                            </StackPanel>
                         </Grid>
                     </Border>
 

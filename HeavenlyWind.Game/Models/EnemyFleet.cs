@@ -11,6 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public List<Formation> Formations { get; } = new List<Formation>();
 
+        public int FighterPower { get; }
+
         internal EnemyFleet(string[] rpShips)
         {
             var rShips = rpShips.Select(int.Parse);
@@ -20,8 +22,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             else
             {
                 MainShips = rShips.Take(6).Where(r => r != -1).Select(r => KanColleGame.Current.MasterInfo.Ships[r]).ToArray();
-                EscortShips = rShips.Skip(6).Select(r => KanColleGame.Current.MasterInfo.Ships[r]).ToArray(); ;
+                EscortShips = rShips.Skip(6).Select(r => KanColleGame.Current.MasterInfo.Ships[r]).ToArray();
             }
+
+            if (EnemyShip.FighterPowers != null)
+                foreach (var rShip in rShips)
+                {
+                    int rFighterPower;
+                    if (EnemyShip.FighterPowers.TryGetValue(rShip, out rFighterPower))
+                        FighterPower += rFighterPower;
+                }
         }
     }
 }

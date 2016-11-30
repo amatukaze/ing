@@ -24,7 +24,7 @@
             </StackPanel>
 
             <TextBlock Name="PlaneCount" HorizontalAlignment="Right" Grid.Column="4">
-                <Run Name="CurrentPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" />/<Run Text="{Binding MaxPlaneCount, Mode=OneWay}" />
+                [<Run Name="CurrentPlaneCount" Text="{Binding PlaneCount, Mode=OneWay}" /><Run Name="Sepearator" Text="/" /><Run Name="MaxPlaneCount" Text="{Binding MaxPlaneCount, Mode=OneWay}" />]
             </TextBlock>
         </Grid>
 
@@ -32,11 +32,24 @@
             <DataTrigger Binding="{Binding Equipment.Info.IsPlane}" Value="False">
                 <Setter TargetName="PlaneCount" Property="Visibility" Value="Collapsed" />
             </DataTrigger>
-            <DataTrigger Binding="{Binding MaxPlaneCount}" Value="0">
-                <Setter TargetName="PlaneCount" Property="Visibility" Value="Collapsed" />
+            <DataTrigger Binding="{Binding MaxPlaneCount}" Value="-1">
+                <Setter TargetName="Sepearator" Property="Text" Value="" />
+                <Setter TargetName="CurrentPlaneCount" Property="Text" Value="" />
+                <Setter TargetName="MaxPlaneCount" Property="Text" Value="?" />
             </DataTrigger>
             <DataTrigger Binding="{Binding HasLostPlane}" Value="True">
                 <Setter TargetName="CurrentPlaneCount" Property="Foreground" Value="Orange" />
+            </DataTrigger>
+            <DataTrigger Value="True">
+                <DataTrigger.Binding>
+                    <MultiBinding Converter="{StaticResource AreEqualConverter}">
+                        <Binding Path="PlaneCount" />
+                        <Binding Path="MaxPlaneCount" />
+                    </MultiBinding>
+                </DataTrigger.Binding>
+
+                <Setter TargetName="Sepearator" Property="Text" Value="" />
+                <Setter TargetName="CurrentPlaneCount" Property="Text" Value="" />
             </DataTrigger>
         </DataTemplate.Triggers>
     </DataTemplate>
