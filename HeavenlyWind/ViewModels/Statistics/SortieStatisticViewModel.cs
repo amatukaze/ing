@@ -112,8 +112,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 
         void SelectThisMapOnly(SortieStatisticMapViewModel rpMap)
         {
-            foreach (var rMap in Maps)
-                rMap.SetIsSelectedWithoutCallback(rMap == rpMap);
+            if (rpMap.IsSelected)
+                rpMap.IsSelected = false;
+            else
+                foreach (var rMap in Maps)
+                    rMap.SetIsSelectedWithoutCallback(rMap == rpMap);
 
             UpdateSelection();
         }
