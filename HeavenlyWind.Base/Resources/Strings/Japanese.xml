@@ -500,6 +500,7 @@
   <String Key="ResourceHistory_Type_Daily">毎日</String>
   <String Key="ResourceHistory_Type_Weekly">毎週</String>
   <String Key="ResourceHistory_Type_Monthly">毎月</String>
+  <String Key="ResourceHistory_Week_Format">第 {0} 週</String>
 
   <String Key="ScreenshotTool_Title">スクリーンショットツール</String>
   <String Key="ScreenshotTool_General">通常</String>

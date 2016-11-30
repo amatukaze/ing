@@ -39,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         protected override ResourceRecord CreateRecordFromReader(SQLiteDataReader rpReader)
         {
-            var rResult = new ResourceRecord(rpReader);
+            var rResult = r_Type.RecordConstructor(rpReader);
 
             if (LastInsertedRecord != null)
                 rResult.Previous = LastInsertedRecord;

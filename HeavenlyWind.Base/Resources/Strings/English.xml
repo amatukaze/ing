@@ -502,6 +502,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="ResourceHistory_Type_Daily">Day</String>
   <String Key="ResourceHistory_Type_Weekly">Week</String>
   <String Key="ResourceHistory_Type_Monthly">Month</String>
+  <String Key="ResourceHistory_Week_Format">Week {0}</String>
 
   <String Key="ScreenshotTool_Title">Screenshot Tool</String>
   <String Key="ScreenshotTool_General">General</String>

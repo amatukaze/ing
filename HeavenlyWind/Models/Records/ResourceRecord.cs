@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
     class ResourceRecord : ModelBase, IRecordID
     {
         public long ID { get; set; }
-        public string Time => DateTimeUtil.FromUnixTime(ID).LocalDateTime.ToString();
+        public virtual string Time => DateTimeUtil.FromUnixTime(ID).LocalDateTime.ToString();
 
         public ResourceRecord Previous { get; set; }
 

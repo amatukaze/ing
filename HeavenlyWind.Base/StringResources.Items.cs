@@ -502,6 +502,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ResourceHistory_Type_Day => GetString(nameof(ResourceHistory_Type_Day));
         public string ResourceHistory_Type_Weekly => GetString(nameof(ResourceHistory_Type_Weekly));
         public string ResourceHistory_Type_Monthly => GetString(nameof(ResourceHistory_Type_Monthly));
+        public string ResourceHistory_Week_Format => GetString(nameof(ResourceHistory_Week_Format));
 
         public string ScreenshotTool_Title => GetString(nameof(ScreenshotTool_Title));
         public string ScreenshotTool_General => GetString(nameof(ScreenshotTool_General));
