@@ -42,7 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
                 case ResourceHistoryType.Weekly:
                     rNow = DateTime.Now;
-                    Maximum = new DateTimeOffset(rNow.AddDays((1 - (int)rNow.DayOfWeek + 7) % 7).AddDays(7.0).Date).ToUnixTime();
+                    Maximum = new DateTimeOffset(rNow.AddDays(-(rNow.DayOfWeek - DayOfWeek.Monday + 7) % 7).AddDays(7.0).Date).ToUnixTime();
                     break;
 
                 case ResourceHistoryType.Monthly:
