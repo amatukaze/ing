@@ -82,9 +82,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                         await Task.Delay(i * 4000);
                     }
             }
-            catch (Exception e)
+            catch
             {
-                Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_CheckForUpdate_Exception, e.Message));
+                //Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_CheckForUpdate_Exception, e.Message));
             }
         }
         async Task CheckForUpdateCore()
