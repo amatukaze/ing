@@ -1,8 +1,10 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models.Statistics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
@@ -21,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
     sum(statistic.a_rank) AS a_rank_count,
     sum(statistic.b_rank) AS b_rank_count,
     sum(statistic.failure_rank) AS failure_rank_count
-FROM (SELECT DISTINCT map AS id, difficulty FROM sortie ORDER BY id, difficulty) sortie_map
+FROM ({0}) sortie_map
 JOIN (
     SELECT id, map, difficulty,
         ifnull(sum(sortie_consumption_detail.fuel), 0) - ifnull(sortie_reward.fuel, 0) AS fuel,
@@ -47,8 +49,10 @@ JOIN (
     LEFT JOIN sortie_reward USING(id)
     GROUP BY id
     ORDER BY id DESC
-) statistic ON map = sortie_map.id AND statistic.difficulty IS sortie_map.difficulty AND statistic.id >= {0} AND statistic.id < {1}
+) statistic ON map = sortie_map.id AND statistic.difficulty IS sortie_map.difficulty AND statistic.id >= {1} AND statistic.id < {2}
 GROUP BY sortie_map.id, sortie_map.difficulty;";
+
+        SortieStatisticViewModel r_Owner;
 
         public SortieStatisticTimeSpanType Type { get; }
 
@@ -69,8 +73,10 @@ GROUP BY sortie_map.id, sortie_map.difficulty;";
             }
         }
 
-        protected SortieStatisticTimeSpanGroupViewModel(SortieStatisticTimeSpanType rpType)
+        protected SortieStatisticTimeSpanGroupViewModel(SortieStatisticViewModel rpOwner, SortieStatisticTimeSpanType rpType)
         {
+            r_Owner = rpOwner;
+
             Type = rpType;
         }
 
@@ -82,7 +88,34 @@ GROUP BY sortie_map.id, sortie_map.difficulty;";
 
             using (var rCommand = RecordService.Instance.CreateCommand())
             {
-                rCommand.CommandText = string.Format(CommandTextBase, TimeSpanStart, TimeSpanEnd);
+                var rBuilder = new StringBuilder(256);
+                foreach (var rMap in r_Owner.Maps)
+                {
+                    if (!rMap.IsSelected)
+                        continue;
+
+                    if (rBuilder.Length > 0)
+                        rBuilder.AppendLine("UNION");
+
+                    rBuilder.Append("SELECT ");
+                    rBuilder.Append(rMap.Map.ID);
+                    rBuilder.Append(" AS id, ");
+                    if (!rMap.EventMapDifficulty.HasValue || rMap.EventMapDifficulty.Value == EventMapDifficulty.None)
+                        rBuilder.Append("NULL");
+                    else
+                        rBuilder.Append((int)rMap.EventMapDifficulty.Value);
+                    rBuilder.AppendLine(" AS difficulty");
+                }
+
+                if (rBuilder.Length == 0)
+                {
+                    Maps = new[] { new SortieStatisticTotalItem(Enumerable.Empty<SortieStatisticData>()) };
+                    OnPropertyChanged(string.Empty);
+
+                    return;
+                }
+
+                rCommand.CommandText = string.Format(CommandTextBase, rBuilder, TimeSpanStart, TimeSpanEnd);
 
                 using (var rReader = rCommand.ExecuteReader())
                 {

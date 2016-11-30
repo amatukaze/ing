@@ -241,6 +241,7 @@
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticCustomTimeSpanGroupViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticDefaultTimeSpanGroupViewModel.cs" />
+    <Compile Include="ViewModels\Statistics\SortieStatisticMapViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticTimeSpanGroupViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />

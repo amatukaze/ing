@@ -42,7 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
             }
         }
 
-        public SortieStatisticCustomTimeSpanGroupViewModel() : base(SortieStatisticTimeSpanType.Custom)
+        public SortieStatisticCustomTimeSpanGroupViewModel(SortieStatisticViewModel rpOwner) : base(rpOwner, SortieStatisticTimeSpanType.Custom)
         {
             var rNow = new DateTimeOffset(DateTime.Now.AddDays(1.0).Date.AddSeconds(-1.0));
 

@@ -4,7 +4,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 {
     class SortieStatisticDefaultTimeSpanGroupViewModel : SortieStatisticTimeSpanGroupViewModel
     {
-        public SortieStatisticDefaultTimeSpanGroupViewModel(SortieStatisticTimeSpanType rpType) : base(rpType)
+        public SortieStatisticDefaultTimeSpanGroupViewModel(SortieStatisticViewModel rpOwner, SortieStatisticTimeSpanType rpType) : base(rpOwner, rpType)
         {
             switch (rpType)
             {

@@ -112,6 +112,50 @@
                         <TextBlock Text="{Binding SelectedDate, ElementName=TimeSpanEndCalender, StringFormat=d}" Margin="4, 0, 0, 0" />
                     </DockPanel>
                 </StackPanel>
+
+                <ruic:DropDownButton ShowDropDownMarker="False" PopupAutoClose="False" Margin="16, 0, 0, 0">
+                    <ruic:DropDownButton.Header>
+                        <TextBlock Text="{rb:StringResource Main.SortieStatistic_MapFilter}" />
+                    </ruic:DropDownButton.Header>
+                    <ruic:DropDownButton.Style>
+                        <Style TargetType="{x:Type ruic:DropDownButton}" BasedOn="{StaticResource {x:Type ruic:DropDownButton}}">
+                            <Setter Property="Background" Value="{DynamicResource AccentBrushKey}" />
+                            <Setter Property="BorderThickness" Value="0" />
+
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsPopupOpened, RelativeSource={RelativeSource Self}}" Value="False" />
+                                        <Condition Binding="{Binding IsAllMapsSelected}" Value="True" />
+                                    </MultiDataTrigger.Conditions>
+
+                                    <Setter Property="Background" Value="Transparent" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ruic:DropDownButton.Style>
+
+                    <Border Padding="8" MinWidth="200" MaxHeight="400">
+                        <DockPanel>
+                            <CheckBox IsChecked="{Binding IsAllMapsSelected}" Margin="4" DockPanel.Dock="Top">
+                                <TextBlock Text="ALL" Margin="16, 4" />
+                            </CheckBox>
+
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                <ItemsControl ItemsSource="{Binding Maps}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel>
+                                                <CheckBox IsChecked="{Binding IsSelected}" Margin="4" />
+                                                <Button Style="{StaticResource MenuListBoxButtonStyle}" Content="{Binding}" ContentTemplate="{StaticResource SortieMapDataTemplate}" Command="{Binding SelectThisMapOnlyCommand}" CommandParameter="{Binding}" />
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </DockPanel>
+                    </Border>
+                </ruic:DropDownButton>
             </StackPanel>
 
             <ListView Foreground="{DynamicResource ActiveForegroundBrushKey}" ItemsSource="{Binding SelectedTimeSpan.Maps}" Grid.Row="2">
