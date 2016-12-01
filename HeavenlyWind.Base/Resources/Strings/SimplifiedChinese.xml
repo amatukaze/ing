@@ -543,7 +543,7 @@
   <String Key="SortieStatistic_TimeSpan_Custom">自定义</String>
   <String Key="SortieStatistic_CustomTimeSpan_Start">开始</String>
   <String Key="SortieStatistic_CustomTimeSpan_End">结束</String>
-  <String Key="SortieStatistic_MapFilter">海域过滤</String>
+  <String Key="SortieStatistic_PastAreas">过往的活动海域</String>
   <String Key="SortieStatistic_Count">次数</String>
   <String Key="SortieStatistic_RankingPoints">战果</String>
 

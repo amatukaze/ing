@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
     sum(statistic.a_rank) AS a_rank_count,
     sum(statistic.b_rank) AS b_rank_count,
     sum(statistic.failure_rank) AS failure_rank_count
-FROM ({0}) sortie_map
+FROM (SELECT DISTINCT map AS id, difficulty FROM sortie WHERE map / 10 IN ({0}) ORDER BY id, difficulty) sortie_map
 JOIN (
     SELECT id, map, difficulty,
         ifnull(sum(sortie_consumption_detail.fuel), 0) - ifnull(sortie_reward.fuel, 0) AS fuel,
@@ -89,22 +89,21 @@ GROUP BY sortie_map.id, sortie_map.difficulty;";
             using (var rCommand = RecordService.Instance.CreateCommand())
             {
                 var rBuilder = new StringBuilder(256);
-                foreach (var rMap in r_Owner.Maps)
+                foreach (var rArea in r_Owner.Areas)
                 {
-                    if (!rMap.IsSelected)
+                    if (!rArea.IsSelected)
+                        continue;
+
+                    if (rArea.Area == null && r_Owner.PastAreas == null)
                         continue;
 
                     if (rBuilder.Length > 0)
-                        rBuilder.AppendLine("UNION");
+                        rBuilder.Append(", ");
 
-                    rBuilder.Append("SELECT ");
-                    rBuilder.Append(rMap.Map.ID);
-                    rBuilder.Append(" AS id, ");
-                    if (!rMap.EventMapDifficulty.HasValue || rMap.EventMapDifficulty.Value == EventMapDifficulty.None)
-                        rBuilder.Append("NULL");
+                    if (rArea.Area != null)
+                        rBuilder.Append(rArea.Area.ID);
                     else
-                        rBuilder.Append((int)rMap.EventMapDifficulty.Value);
-                    rBuilder.AppendLine(" AS difficulty");
+                        rBuilder.Append(r_Owner.PastAreas);
                 }
 
                 if (rBuilder.Length == 0)
