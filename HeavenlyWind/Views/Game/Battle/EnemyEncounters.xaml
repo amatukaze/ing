@@ -74,7 +74,7 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
 
-                                <TextBlock Visibility="{rb:CollapsedIfZero FighterPower}">
+                                <TextBlock Margin="0, 4, 0, 0" Visibility="{rb:CollapsedIfZero FighterPower}">
                                     <Run Text="{rb:StringResource Main.Fleet_FighterPower}" />:
                                     <Run Text="{Binding FighterPower, Mode=OneWay}" />
                                 </TextBlock>
