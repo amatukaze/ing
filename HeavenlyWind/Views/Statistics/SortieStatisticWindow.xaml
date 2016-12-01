@@ -86,7 +86,7 @@
                         <Run Text="{rb:StringResource Main.SortieStatistic_CustomTimeSpan_Start}" />:
                     </TextBlock>
                     <DockPanel Width="120" Margin="4, 0, 0, 0">
-                        <ruic:DropDownButton Style="{StaticResource FlatDropDownButtonStyle}" ShowDropDownMarker="False" PopupAutoClose="False" DockPanel.Dock="Right">
+                        <ruic:DropDownButton Style="{StaticResource FlatDropDownButtonStyle}" ShowDropDownMarker="False" PopupAutoClose="False" IsPopupOpened="{Binding CustomTimeSpan.IsDateStartCalendarOpened}" DockPanel.Dock="Right">
                             <ruic:DropDownButton.Header>
                                 <Path Stretch="Uniform" Fill="{DynamicResource ActiveForegroundBrushKey}" Width="20" Height="20" Data="{StaticResource CalenderDaySelection}" />
                             </ruic:DropDownButton.Header>
@@ -101,7 +101,7 @@
                         <Run Text="{rb:StringResource Main.SortieStatistic_CustomTimeSpan_End}" />:
                     </TextBlock>
                     <DockPanel Width="120" Margin="4, 0, 0, 0">
-                        <ruic:DropDownButton Style="{StaticResource FlatDropDownButtonStyle}" ShowDropDownMarker="False" PopupAutoClose="False" DockPanel.Dock="Right">
+                        <ruic:DropDownButton Style="{StaticResource FlatDropDownButtonStyle}" ShowDropDownMarker="False" PopupAutoClose="False" IsPopupOpened="{Binding CustomTimeSpan.IsDateEndCalendarOpened}" DockPanel.Dock="Right">
                             <ruic:DropDownButton.Header>
                                 <Path Stretch="Uniform" Fill="{DynamicResource ActiveForegroundBrushKey}" Width="20" Height="20" Data="{StaticResource CalenderDaySelection}" />
                             </ruic:DropDownButton.Header>

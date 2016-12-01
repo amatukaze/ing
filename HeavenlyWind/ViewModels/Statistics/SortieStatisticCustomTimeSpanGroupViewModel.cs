@@ -1,5 +1,4 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
-using Sakuno.KanColle.Amatsukaze.Models.Statistics;
+﻿using Sakuno.KanColle.Amatsukaze.Models.Statistics;
 using System;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
@@ -19,6 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
                     r_SelectedDateStart = value.AddDays(1.0).Date.AddSeconds(-1.0);
                     OnPropertyChanged(nameof(SelectedDateStart));
 
+                    IsDateStartCalendarOpened = false;
                     TimeSpanStart = new DateTimeOffset(r_SelectedDateStart).ToUnixTime().ToString();
                     Reload();
                 }
@@ -36,8 +36,37 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
                     r_SelectedDateEnd = value.AddDays(1.0).Date.AddSeconds(-1.0);
                     OnPropertyChanged(nameof(SelectedDateEnd));
 
+                    IsDateEndCalendarOpened = false;
                     TimeSpanEnd = new DateTimeOffset(r_SelectedDateEnd).ToUnixTime().ToString();
                     Reload();
+                }
+            }
+        }
+
+        bool r_IsDateStartCalendarOpened;
+        public bool IsDateStartCalendarOpened
+        {
+            get { return r_IsDateStartCalendarOpened; }
+            set
+            {
+                if (r_IsDateStartCalendarOpened != value)
+                {
+                    r_IsDateStartCalendarOpened = value;
+                    OnPropertyChanged(nameof(IsDateStartCalendarOpened));
+                }
+            }
+        }
+
+        bool r_IsDateEndCalendarOpened;
+        public bool IsDateEndCalendarOpened
+        {
+            get { return r_IsDateEndCalendarOpened; }
+            set
+            {
+                if (r_IsDateEndCalendarOpened != value)
+                {
+                    r_IsDateEndCalendarOpened = value;
+                    OnPropertyChanged(nameof(IsDateEndCalendarOpened));
                 }
             }
         }
