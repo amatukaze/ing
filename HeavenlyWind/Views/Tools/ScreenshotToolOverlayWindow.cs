@@ -1,4 +1,6 @@
-﻿using Sakuno.KanColle.Amatsukaze.Services;
+﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
+using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
 using System;
@@ -23,12 +25,6 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Tools
         {
             var rMainWindowHandle = new WindowInteropHelper(App.Current.MainWindow).Handle;
 
-            var rZoom = Preference.Instance.Browser.Zoom.Value;
-            rpRect.X = (int)(rpRect.X * rZoom);
-            rpRect.Y = (int)(rpRect.Y * rZoom);
-            rpRect.Width = (int)(rpRect.Width * rZoom);
-            rpRect.Height = (int)(rpRect.Height * rZoom);
-
             if (r_HwndSource == null)
             {
                 var rParam = new HwndSourceParameters(nameof(ScreenshotToolOverlayWindow))
@@ -46,10 +42,17 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Tools
                 r_HwndSource = new HwndSource(rParam) { SizeToContent = SizeToContent.Manual, RootVisual = this };
             }
 
-            var rBrowserWindowHandle = NativeMethods.User32.GetWindow(rMainWindowHandle, NativeConstants.GetWindow.GW_CHILD);
+            var rBrowserWindowHandle = ServiceManager.GetService<IBrowserService>().Handle;
 
             NativeStructs.RECT rBrowserWindowRect;
             NativeMethods.User32.GetWindowRect(rBrowserWindowHandle, out rBrowserWindowRect);
+
+            var rHorizontalRatio = rBrowserWindowRect.Width / GameConstants.GameWidth;
+            var rVerticalRatio = rBrowserWindowRect.Height / GameConstants.GameHeight;
+            rpRect.X = (int)(rpRect.X * rHorizontalRatio);
+            rpRect.Y = (int)(rpRect.Y * rVerticalRatio);
+            rpRect.Width = (int)(rpRect.Width * rHorizontalRatio);
+            rpRect.Height = (int)(rpRect.Height * rVerticalRatio);
 
             NativeMethods.User32.SetWindowPos(r_HwndSource.Handle, IntPtr.Zero, rBrowserWindowRect.Left + rpRect.X, rBrowserWindowRect.Top + rpRect.Y, rpRect.Width, rpRect.Height, NativeEnums.SetWindowPosition.SWP_NOZORDER | NativeEnums.SetWindowPosition.SWP_NOACTIVATE | NativeEnums.SetWindowPosition.SWP_SHOWWINDOW);
         }

@@ -1,14 +1,11 @@
-﻿using Sakuno.Collections;
+﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
-using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.SystemInterop;
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.IO.MemoryMappedFiles;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
@@ -19,57 +16,59 @@ namespace Sakuno.KanColle.Amatsukaze.Services
     {
         public static ScreenshotService Instance { get; } = new ScreenshotService();
 
-        ListDictionary<long, TaskCompletionSource<BitmapSource>> r_TaskScreenshotTasks = new ListDictionary<long, TaskCompletionSource<BitmapSource>>();
-
-        ScreenshotService()
+        public BitmapSource TakeScreenshot(Func<BitmapSource, BitmapSource> rpProcessAction = null)
         {
-            var rMessages = BrowserService.Instance.Communicator.GetMessageObservable();
-            rMessages.Subscribe(CommunicatorMessages.ScreenshotFail, ScreenshotFailed);
-            rMessages.Subscribe(CommunicatorMessages.StartScreenshotTransmission, rpParameter =>
-            {
-                var rParameters = rpParameter.Split(';');
-                if (rParameters.Length < 4)
-                    return;
+            var rBrowserWindow = ServiceManager.GetService<IBrowserService>().Handle;
 
-                var rMapName = rParameters[0];
-                var rWidth = int.Parse(rParameters[1]);
-                var rHeight = int.Parse(rParameters[2]);
-                var rBitCount = int.Parse(rParameters[3]);
-                GetScreenshot(rMapName, rWidth, rHeight, rBitCount);
-            });
-        }
+            NativeStructs.RECT rRect;
+            NativeMethods.User32.GetWindowRect(rBrowserWindow, out rRect);
 
-        public async Task<BitmapSource> TakeScreenshot(Func<BitmapSource, BitmapSource> rpProcessAction = null)
-        {
-            var rTimestamp = DateTimeOffset.Now.Ticks;
-            var rTaskScreenshotTask = new TaskCompletionSource<BitmapSource>();
-            r_TaskScreenshotTasks.Add(rTimestamp, rTaskScreenshotTask);
-            BrowserService.Instance.Communicator.Write(CommunicatorMessages.TakeScreenshot + ":" + rTimestamp.ToString());
+            var rScreen = NativeMethods.User32.GetDC(rBrowserWindow);
+            var rDC = NativeMethods.Gdi32.CreateCompatibleDC(rScreen);
+            var rBitmap = NativeMethods.Gdi32.CreateCompatibleBitmap(rScreen, rRect.Width, rRect.Height);
+            var rOldObject = NativeMethods.Gdi32.SelectObject(rDC, rBitmap);
 
-            var rImage = await rTaskScreenshotTask.Task;
+            NativeMethods.Gdi32.BitBlt(rDC, 0, 0, rRect.Width, rRect.Height, rScreen, 0, 0, NativeConstants.RasterOperation.SRCCOPY);
+
+            var rImage = Imaging.CreateBitmapSourceFromHBitmap(rBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+
+            NativeMethods.Gdi32.SelectObject(rDC, rOldObject);
+            NativeMethods.Gdi32.DeleteObject(rBitmap);
+            NativeMethods.Gdi32.DeleteDC(rDC);
+            NativeMethods.User32.ReleaseDC(IntPtr.Zero, rScreen);
 
             if (rpProcessAction != null)
                 rImage = rpProcessAction(rImage);
 
-            rTaskScreenshotTask = null;
-
             return rImage;
         }
-        public Task<BitmapSource> TakePartialScreenshot(Int32Rect rpRect)
+        public BitmapSource TakePartialScreenshot(Int32Rect rpRect)
         {
             return TakeScreenshot(r =>
             {
+                var rBrowserWindowHandle = ServiceManager.GetService<IBrowserService>().Handle;
+
+                NativeStructs.RECT rBrowserWindowRect;
+                NativeMethods.User32.GetWindowRect(rBrowserWindowHandle, out rBrowserWindowRect);
+
+                var rHorizontalRatio = rBrowserWindowRect.Width / GameConstants.GameWidth;
+                var rVerticalRatio = rBrowserWindowRect.Height / GameConstants.GameHeight;
+                rpRect.X = (int)(rpRect.X * rHorizontalRatio);
+                rpRect.Y = (int)(rpRect.Y * rVerticalRatio);
+                rpRect.Width = (int)(rpRect.Width * rHorizontalRatio);
+                rpRect.Height = (int)(rpRect.Height * rVerticalRatio);
+
                 var rResult = new CroppedBitmap(r, rpRect);
                 rResult.Freeze();
 
                 return rResult;
             });
         }
-        public async void TakeScreenshotAndOutput(Func<BitmapSource, BitmapSource> rpProcessAction = null, bool rpOutputToClipboard = true)
+        public void TakeScreenshotAndOutput(Func<BitmapSource, BitmapSource> rpProcessAction = null, bool rpOutputToClipboard = true)
         {
             try
             {
-                var rImage = await TakeScreenshot(rpProcessAction);
+                var rImage = TakeScreenshot(rpProcessAction);
                 if (rImage == null)
                     return;
 
@@ -83,11 +82,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 OutputException(e);
             }
         }
-        public async void TakePartialScreenshotAndOutput(Int32Rect rpRect, bool rpOutputToClipboard)
+        public void TakePartialScreenshotAndOutput(Int32Rect rpRect, bool rpOutputToClipboard)
         {
             try
             {
-                var rImage = await TakePartialScreenshot(rpRect);
+                var rImage = TakePartialScreenshot(rpRect);
                 if (rImage == null)
                     return;
 
@@ -100,16 +99,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 OutputException(e);
             }
-        }
-
-        void ScreenshotFailed(string rpParameter)
-        {
-            var rParameters = rpParameter.Split(';');
-            var rTimestamp = long.Parse(rParameters[0]);
-            var rMessage = rParameters[1];
-
-            r_TaskScreenshotTasks[rTimestamp].TrySetException(new InvalidOperationException(rMessage));
-            r_TaskScreenshotTasks.Remove(rTimestamp);
         }
 
         public void OutputToClipboard(BitmapSource rpImage)
@@ -156,35 +145,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             }
 
             StatusBarService.Instance.Message = string.Format(StringResources.Instance.Main.Log_Screenshot_Succeeded_File, Path.GetFileName(rPath));
-        }
-
-        void GetScreenshot(string rpMapName, int rpWidth, int rpHeight, int rpBitCount)
-        {
-            var rTimestamp = long.Parse(rpMapName.Substring(rpMapName.LastIndexOf('/') + 1));
-            var rHeight = Math.Abs(rpHeight);
-
-            using (var rMap = MemoryMappedFile.CreateOrOpen(rpMapName, rpWidth * rHeight * 3, MemoryMappedFileAccess.ReadWrite))
-            {
-                var rInfo = new NativeStructs.BITMAPINFO();
-                rInfo.bmiHeader.biSize = Marshal.SizeOf(typeof(NativeStructs.BITMAPINFOHEADER));
-                rInfo.bmiHeader.biWidth = rpWidth;
-                rInfo.bmiHeader.biHeight = rpHeight;
-                rInfo.bmiHeader.biBitCount = (ushort)rpBitCount;
-                rInfo.bmiHeader.biPlanes = 1;
-
-                IntPtr rBits;
-                var rHBitmap = NativeMethods.Gdi32.CreateDIBSection(IntPtr.Zero, ref rInfo, 0, out rBits, rMap.SafeMemoryMappedFileHandle.DangerousGetHandle(), 0);
-                if (rHBitmap == IntPtr.Zero)
-                    throw new InvalidOperationException();
-
-                var rImage = Imaging.CreateBitmapSourceFromHBitmap(rHBitmap, IntPtr.Zero, new Int32Rect(0, 0, rpWidth, rHeight), BitmapSizeOptions.FromEmptyOptions());
-                rImage.Freeze();
-                r_TaskScreenshotTasks[rTimestamp].SetResult(rImage);
-
-                NativeMethods.Gdi32.DeleteObject(rHBitmap);
-            }
-
-            BrowserService.Instance.Communicator.Write(CommunicatorMessages.FinishScreenshotTransmission);
         }
 
         static void OutputException(Exception rpException)
