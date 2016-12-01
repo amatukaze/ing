@@ -20,7 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal SortieConsumptionRecord(SQLiteDataReader rpReader) : base(rpReader)
         {
-            ID = rpReader.GetInt64("time");
+            ID = rpReader.GetInt64("id");
 
             var rMapMaxHP = rpReader.GetInt32Optional("map_max_hp");
             if (rMapMaxHP.HasValue)
