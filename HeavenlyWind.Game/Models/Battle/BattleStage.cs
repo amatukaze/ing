@@ -70,7 +70,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
                 if (rFriendAndEnemyEscort[0] != null)
                 {
-                    FriendEscort = rFriendAndEnemyEscort.Take(6).ToArray();
+                    FriendEscort = rFriendAndEnemyEscort.Take(6).TakeWhile(r => r != null).ToArray();
 
                     for (var i = 0; i < FriendEscort.Count; i++)
                     {
@@ -79,7 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     }
                 }
 
-                if (rFriendAndEnemyEscort.Length > 6)
+                if ((rpFirstStage == null && rFriendAndEnemyEscort.Length > 6) || (rpFirstStage != null && rpFirstStage.EnemyEscort != null))
                 {
                     EnemyEscort = rFriendAndEnemyEscort.Skip(6).ToArray();
 
