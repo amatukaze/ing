@@ -8,7 +8,7 @@
         public const string AssemblyVersionString = "0.1.14";
 
         public static string Version => AssemblyVersionString;
-        public static string ReleaseCodeName => "Kimisaki";
+        public static string ReleaseCodeName => "Pokkle";
 
         public const string UserAgent = "ING/" + AssemblyVersionString;
     }
