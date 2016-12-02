@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
     {
         public override string Name
         {
-            get { return "A"; }
+            get { return "A.B."; }
             protected set { throw new NotImplementedException(); }
         }
 
