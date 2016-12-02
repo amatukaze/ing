@@ -3,7 +3,7 @@
 艦これ補助ツール「いんてりじぇんと連装砲くん」（智能型连装炮君 / ING）
 
 ### Information
-Current version: **0.1.13 (Kimisaki)**
+Current version: **0.1.14 (Pokkle)**
 
 [Changelogs](https://github.com/amatukaze/IntelligentNavalGun/wiki/Changelogs) here
 
