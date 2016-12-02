@@ -52,6 +52,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 "api_req_combined_battle/sp_midnight",
                 "api_req_combined_battle/ld_airbattle",
                 "api_req_combined_battle/ec_battle",
+                "api_req_combined_battle/each_battle",
+                "api_req_combined_battle/each_battle_water",
 
                 "api_req_practice/battle",
             };
@@ -141,12 +143,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     First = new AerialAttackStage(this, rpInfo);
                     break;
 
-                case "api_req_combined_battle/battle": First = new CombinedFleetCTFDayNormalStage(this, rpInfo); break;
-                case "api_req_combined_battle/battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpInfo); break;
+                case "api_req_combined_battle/battle": First = new FriendCombinedFleetCTFDayNormalStage(this, rpInfo); break;
+                case "api_req_combined_battle/battle_water": First = new FriendCombinedFleetSTFDayNormalStage(this, rpInfo); break;
 
-                case "api_req_combined_battle/sp_midnight": First = new CombinedFleetNightOnlyStage(this, rpInfo); break;
+                case "api_req_combined_battle/sp_midnight": First = new FriendCombinedFleetNightOnlyStage(this, rpInfo); break;
 
                 case "api_req_combined_battle/ec_battle": First = new EnemyCombinedFleetDay(this, rpInfo); break;
+
+                case "api_req_combined_battle/each_battle": First = new CombinedFleetCTFDayNormalStage(this, rpInfo); break;
+                case "api_req_combined_battle/each_battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpInfo);break;
             }
 
             First.Process(rpInfo);
@@ -205,12 +210,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     Second = new NightNormalStage(this, rpInfo);
                     break;
 
-                case "api_req_combined_battle/midnight_battle": Second = new CombinedFleetNightNormalStage(this, rpInfo); break;
+                case "api_req_combined_battle/midnight_battle": Second = new FriendCombinedFleetNightNormalStage(this, rpInfo); break;
 
                 case "api_req_combined_battle/ec_midnight_battle": Second = new EnemyCombinedFleetNight(this, rpInfo); break;
             }
 
-            Second.Process(rpInfo);
+            Second.Process(rpInfo, First);
             InheritFromPreviousStage(Second);
             Second.ProcessMVP();
             Result.Update(First, Second);

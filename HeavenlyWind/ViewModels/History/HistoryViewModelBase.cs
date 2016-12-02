@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Models.Records;
 using Sakuno.SystemInterop;
 using Sakuno.SystemInterop.Dialogs;
 using Sakuno.UserInterface;
@@ -14,7 +15,7 @@ using System.Windows.Threading;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
-    abstract class HistoryViewModelBase<T> : DisposableModelBase where T : ModelBase
+    abstract class HistoryViewModelBase<T> : DisposableModelBase where T : ModelBase, IRecordID
     {
         static Dispatcher r_Dispatcher = DispatcherUtil.UIDispatcher;
 
@@ -56,16 +57,20 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
                 {
                     rCommand.CommandText = LoadCommandText;
 
+                    LastInsertedRecord = null;
+                    r_Records.Clear();
+
                     using (var rReader = rCommand.ExecuteReader())
                     {
                         var rRecords = new List<T>(rReader.VisibleFieldCount);
                         while (rReader.Read())
-                            rRecords.Add(CreateRecordFromReader(rReader));
+                        {
+                            LastInsertedRecord = CreateRecordFromReader(rReader);
+                            rRecords.Add(LastInsertedRecord);
+                        }
 
                         r_Records.Load(rRecords);
                     }
-
-                    LastInsertedRecord = r_Records.LastRecord;
                 }
 
                 OnInitialized();
@@ -117,6 +122,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
                 using (var rReader = rCommand.ExecuteReader())
                     if (rReader.Read())
                     {
+                        if (!BeforeNewRecordInserting(rReader))
+                            return;
+
                         LastInsertedRecord = CreateRecordFromReader(rReader);
                         r_Records.Add(LastInsertedRecord);
                     }
@@ -126,6 +134,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
         protected virtual void OnRecordUpdate(string rpTable, long rpRowID) { }
 
         protected abstract void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID);
+        protected virtual bool BeforeNewRecordInserting(SQLiteDataReader rpReader) => true;
 
         public void ExportAsCsvFile()
         {

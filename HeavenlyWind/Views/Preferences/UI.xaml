@@ -166,5 +166,21 @@
                 </Style>
             </ruic:BBCodeBlock.Style>
         </ruic:BBCodeBlock>
+
+        <StackPanel Orientation="Horizontal" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_StatusBarSortieInfo}" />
+
+            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:StatusBarSortieInfoPlacement}}" SelectedValue="{rb:Preference UI.StatusBarSortieInfo}" Margin="6, 0, 0, 0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{rb:EnumToStringResource ., PreferenceWindow_UI_StatusBarSortieInfo}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+
+        <CheckBox IsChecked="{rb:Preference UI.SwapPositionOfRepairDocksAndFleetOverviews}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview}" />
+        </CheckBox>
     </StackPanel>
 </UserControl>

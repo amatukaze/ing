@@ -8,5 +8,6 @@
         Yesterday,
         LastWeek,
         LastMonth,
+        Custom,
     }
 }

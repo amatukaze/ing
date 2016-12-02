@@ -36,7 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             using (var rCommand = r_Connection.CreateCommand())
             {
                 rCommand.CommandText =
-                    "PRAGMA journal_mode = WAL; " +
+                    "PRAGMA journal_mode = DELETE; " +
                     "PRAGMA foreign_keys = ON;";
 
                 rCommand.ExecuteNonQuery();
@@ -54,6 +54,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_combined_battle/sp_midnight",
                 "api_req_combined_battle/ld_airbattle",
                 "api_req_combined_battle/ec_battle",
+                "api_req_combined_battle/each_battle",
+                "api_req_combined_battle/each_battle_water",
             };
             DisposableObjects.Add(ApiService.Subscribe(rSortieFirstStageApis, ProcessSortieFirstStage));
             DisposableObjects.Add(ApiService.Subscribe("api_req_practice/battle", ProcessPracticeFirstStage));
@@ -247,7 +249,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         void ProcessPracticeFirstStage(ApiInfo rpInfo)
         {
             var rParticipantFleet = KanColleGame.Current.Port.Fleets[int.Parse(rpInfo.Parameters["api_deck_id"])];
-            var rPractice = (PracticeInfo)KanColleGame.Current.Sortie;
+            var rPractice = KanColleGame.Current.Practice;
             var rOpponent = rPractice.Opponent;
             r_CurrentBattleID = rPractice.Battle.ID;
 

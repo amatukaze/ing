@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             using (var rCommand = rConnection.CreateCommand())
             {
                 rCommand.CommandText =
-                    "PRAGMA journal_mode = WAL; " +
+                    "PRAGMA journal_mode = DELETE; " +
 
                     "CREATE TABLE IF NOT EXISTS file(" +
                         "name TEXT PRIMARY KEY NOT NULL, " +

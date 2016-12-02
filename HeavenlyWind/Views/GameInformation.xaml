@@ -19,11 +19,5 @@
         </Style>
     </UserControl.Resources>
 
-    <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" TabController="{StaticResource TabController}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" ConsolidateOrphanedItems="True" LockLayout="{rb:Preference UI.LockTabs}" OrphanedItemFilterCallback="{Binding OrphanedItemFilter}">
-        <ruic:AdvancedTabControl.ItemTemplate>
-            <DataTemplate>
-                <TextBlock Text="{Binding Name}" FontSize="14" />
-            </DataTemplate>
-        </ruic:AdvancedTabControl.ItemTemplate>
-    </ruic:AdvancedTabControl>
+    <ruic:AdvancedTabControl ItemsSource="{Binding TabItems}" TabController="{StaticResource TabController}" SelectedValue="{Binding SelectedItem}" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" ConsolidateOrphanedItems="True" LockLayout="{rb:Preference UI.LockTabs}" OrphanedItemFilterCallback="{Binding OrphanedItemFilter}" />
 </UserControl>

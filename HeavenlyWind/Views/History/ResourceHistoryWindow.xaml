@@ -12,6 +12,19 @@
                   Width="1024" Height="600"
                   FontSize="14"
                   UseLayoutRounding="True">
+    <ruic:MetroWindow.Resources>
+        <Style x:Key="MaterialDifferenceStyle" TargetType="{x:Type Run}">
+            <Setter Property="Text" Value="{Binding StringFormat=(↑0);(↓0);#, Mode=OneWay}" />
+            <Setter Property="FontSize" Value="10" />
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Converter={StaticResource IsGreaterThanConverter}, ConverterParameter=0}" Value="True">
+                    <Setter Property="Foreground" Value="Yellow" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ruic:MetroWindow.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -27,12 +40,39 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_ResourceHistory}" />
         </DockPanel>
 
-        <DockPanel Margin="8, 0, 8, 8" Grid.Row="1">
-            <Button Command="{Binding ExportAsCsvFileCommand}" Margin="0, 0, 0, 8" HorizontalAlignment="Left" DockPanel.Dock="Top">
-                <TextBlock Text="{rb:StringResource Main.Export_CSV}" />
-            </Button>
+        <Grid Margin="8, 0, 8, 8" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="8" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-            <ListView ItemsSource="{Binding Records}">
+            <DockPanel>
+                <Button Command="{Binding ExportAsCsvFileCommand}" HorizontalAlignment="Left" DockPanel.Dock="Right">
+                    <TextBlock Text="{rb:StringResource Main.Export_CSV}" />
+                </Button>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>
+                        <Run Text="{rb:StringResource Main.Record_Time, Mode=OneWay}" />:
+                    </TextBlock>
+
+                    <ListBox ItemsSource="{Binding Types}" SelectedValue="{Binding SelectedType}" Margin="4, 0, 0, 0">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{rb:EnumToStringResource Type, ResourceHistory_Type}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </DockPanel>
+
+            <ListView ItemsSource="{Binding Records}" Grid.Row="2">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="150">
@@ -45,98 +85,98 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="100">
-                            <TextBlock Text="{rb:StringResource Main.Material_Fuel}" />
+                        <GridViewColumn Width="120">
+                            <rc:MaterialIcon Type="Fuel" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="0, 4">
 	                                    <Run Text="{Binding Fuel, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-	                                    <Run Text="{Binding FuelDifference, StringFormat=(+0);(-0);#, Mode=OneWay}" FontSize="10" />
+	                                    <Run DataContext="{Binding FuelDifference}" Style="{StaticResource MaterialDifferenceStyle}" />
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="100">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bullet}" />
+                        <GridViewColumn Width="120">
+                            <rc:MaterialIcon Type="Bullet" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="0, 4">
 	                                    <Run Text="{Binding Bullet, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-	                                    <Run Text="{Binding BulletDifference, StringFormat=(+0);(-0);#, Mode=OneWay}" FontSize="10" />
+	                                    <Run DataContext="{Binding BulletDifference}" Style="{StaticResource MaterialDifferenceStyle}" />
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="100">
-                            <TextBlock Text="{rb:StringResource Main.Material_Steel}" />
+                        <GridViewColumn Width="120">
+                            <rc:MaterialIcon Type="Steel" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="0, 4">
 	                                    <Run Text="{Binding Steel, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-	                                    <Run Text="{Binding SteelDifference, StringFormat=(+0);(-0);#, Mode=OneWay}" FontSize="10" />
+	                                    <Run DataContext="{Binding SteelDifference}" Style="{StaticResource MaterialDifferenceStyle}" />
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="100">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bauxite}" />
+                        <GridViewColumn Width="120">
+                            <rc:MaterialIcon Type="Bauxite" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="0, 4">
 	                                    <Run Text="{Binding Bauxite, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-	                                    <Run Text="{Binding BauxiteDifference, StringFormat=(+0);(-0);#, Mode=OneWay}" FontSize="10" />
+	                                    <Run DataContext="{Binding BauxiteDifference}" Style="{StaticResource MaterialDifferenceStyle}" />
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="80">
-                            <TextBlock Text="{rb:StringResource Main.Material_InstantConstruction}" />
+                        <GridViewColumn Width="85">
+                            <rc:MaterialIcon Type="InstantConstruction" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="0, 4">
 	                                    <Run Text="{Binding InstantConstruction, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-	                                    <Run Text="{Binding InstantConstructionDifference, StringFormat=(+0);(-0);#, Mode=OneWay}" FontSize="10" />
+	                                    <Run DataContext="{Binding InstantConstructionDifference}" Style="{StaticResource MaterialDifferenceStyle}" />
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="80">
-                            <TextBlock Text="{rb:StringResource Main.Material_Bucket}" />
+                        <GridViewColumn Width="85">
+                            <rc:MaterialIcon Type="Bucket" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="0, 4">
 	                                    <Run Text="{Binding Bucket, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-	                                    <Run Text="{Binding BucketDifference, StringFormat=(+0);(-0);#, Mode=OneWay}" FontSize="10" />
+	                                    <Run DataContext="{Binding BucketDifference}" Style="{StaticResource MaterialDifferenceStyle}" />
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="80">
-                            <TextBlock Text="{rb:StringResource Main.Material_DevelopmentMaterial}" />
+                        <GridViewColumn Width="85">
+                            <rc:MaterialIcon Type="DevelopmentMaterial" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="0, 4">
 	                                    <Run Text="{Binding DevelopmentMaterial, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-	                                    <Run Text="{Binding DevelopmentMaterialDifference, StringFormat=(+0);(-0);#, Mode=OneWay}" FontSize="10" />
+	                                    <Run DataContext="{Binding DevelopmentMaterialDifference}" Style="{StaticResource MaterialDifferenceStyle}" />
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Width="80">
-                            <TextBlock Text="{rb:StringResource Main.Material_ImprovementMaterial}" />
+                        <GridViewColumn Width="85">
+                            <rc:MaterialIcon Type="ImprovementMaterial" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Margin="0, 4">
 	                                    <Run Text="{Binding ImprovementMaterial, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-	                                    <Run Text="{Binding ImprovementMaterialDifference, StringFormat=(+0);(-0);#, Mode=OneWay}" FontSize="10" />
+	                                    <Run DataContext="{Binding ImprovementMaterialDifference}" Style="{StaticResource MaterialDifferenceStyle}" />
                                     </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
@@ -144,7 +184,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-        </DockPanel>
+        </Grid>
     </Grid>
 
 </ruic:MetroWindow>

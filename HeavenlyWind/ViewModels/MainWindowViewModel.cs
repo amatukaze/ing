@@ -1,11 +1,17 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
+using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
+using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Tools;
 using Sakuno.KanColle.Amatsukaze.Views.History;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using Sakuno.KanColle.Amatsukaze.Views.Statistics;
+using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.UserInterface;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
@@ -33,9 +39,19 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         Accent r_BlinkingBrownAccent;
 
+        public IList<UIZoomInfo> UIZoomFactors { get; private set; }
+
         public ICommand ShowPreferencesWindowCommand { get; } = new DelegatedCommand(() => WindowService.Instance.Show<PreferencesWindow>(rpClearDataContextOnWindowClosed: false));
 
+        SessionToolViewModel r_SessionTool = new SessionToolViewModel();
+
+        public ICommand ShowSessionToolCommand { get; }
+
         public ICommand ExpandMenuCommand { get; }
+
+        public ICommand UISetZoomCommand { get; private set; }
+        public ICommand UIZoomInCommand { get; private set; }
+        public ICommand UIZoomOutCommand { get; private set; }
 
         public ICommand ShowConstructionHistoryCommand { get; }
         public ICommand ShowDevelopmentHistoryCommand { get; }
@@ -48,8 +64,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         internal MainWindowViewModel()
         {
+            r_Page = new InitializationPageViewModel(this);
             GameInformation = new GameInformationViewModel(this);
-            r_Page = GameInformation;
 
             ApiService.SubscribeOnce("api_start2", delegate
             {
@@ -57,8 +73,19 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                 OnPropertyChanged(nameof(IsGameStarted));
             });
 
+            ShowSessionToolCommand = new DelegatedCommand(() => WindowService.Instance.Show<SessionToolWindow>(r_SessionTool));
+
             ApiService.Subscribe("api_req_map/start", _ => ThemeManager.Instance.ChangeAccent(Accent.Brown));
             KanColleGame.Current.ReturnedFromSortie += _ => ThemeManager.Instance.ChangeAccent(Accent.Blue);
+
+            Preference.Instance.Game.DisableHeavyDamageBlinkingWarning.Subscribe(rpValue =>
+            {
+                if (SortieInfo.Current == null)
+                    return;
+
+                if (!rpValue)
+                    ThemeManager.Instance.ChangeAccent(Accent.Brown);
+            });
 
             r_BlinkingBrownAccent = new Accent("BlinkingBrown", new Uri("pack://application:,,,/HeavenlyWind;component/Themes/Accents/BlinkingBrown.xaml"));
 
@@ -69,6 +96,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
                         ThemeManager.Instance.ChangeAccent(r_BlinkingBrownAccent);
                 });
 
+            UISetZoomCommand = new DelegatedCommand<double>(SetZoom);
+            UIZoomInCommand = new DelegatedCommand(() => SetZoom(Preference.Instance.UI.Zoom.Value + .05));
+            UIZoomOutCommand = new DelegatedCommand(() => SetZoom(Preference.Instance.UI.Zoom.Value - .05));
+
+            UIZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new UIZoomInfo(r, UISetZoomCommand)).ToArray();
+
             ShowConstructionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ConstructionHistoryWindow>());
             ShowDevelopmentHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<DevelopmentHistoryWindow>());
             ShowSortieHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<SortieHistoryWindow>());
@@ -77,6 +110,19 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             ShowResourceHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<ResourceHistoryWindow>());
             ShowSortieConsumptionHistoryCommand = new DelegatedCommand(() => WindowService.Instance.Show<SortieConsumptionHistoryWindow>());
             ShowSortieStatisticCommand = new DelegatedCommand(() => WindowService.Instance.Show<SortieStatisticWindow>());
+        }
+
+        void SetZoom(double rpZoom)
+        {
+            rpZoom = Math.Round(rpZoom, 2);
+
+            if (rpZoom < .25)
+                return;
+
+            foreach (var rInfo in UIZoomFactors)
+                rInfo.IsSelected = rInfo.Zoom == rpZoom;
+
+            Preference.Instance.UI.Zoom.Value = rpZoom;
         }
     }
 }

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
@@ -110,7 +109,7 @@ ORDER BY id DESC, step DESC;";
         public override bool Filter(SortieRecord rpItem)
         {
             var rResult = r_Map == SortieMapFilterKey.All ||
-                (rpItem.Map == r_Map.Map && (!r_Map.IsEventMap || rpItem.EventMapDifficulty == r_Map.EventMapDifficulty) && (r_Node == string.Empty || rpItem.NodeWikiID == r_Node));
+                (rpItem.Map == r_Map.Map && (!r_Map.IsEventMap || rpItem.EventMapDifficulty == r_Map.EventMapDifficulty) && (r_Node == string.Empty || rpItem.NodeWikiID == r_Node || rpItem.Node.ToString() == r_Node));
 
             switch (rpItem.BattleRank)
             {
@@ -178,7 +177,7 @@ WHERE sortie_map.id = @map AND (difficulty IS NULL OR difficulty = @difficulty) 
 
         protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
         {
-            rpCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, difficulty, step, node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM sortie
+            rpCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, difficulty, step, node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged, mvp, mvp_escort FROM sortie
 JOIN sortie_map ON sortie.map = sortie_map.id
 JOIN sortie_detail ON sortie.id = sortie_detail.id
 JOIN sortie_node ON sortie.map = sortie_node.map AND sortie_detail.node = sortie_node.id
@@ -197,7 +196,7 @@ WHERE battle.id = @id";
 
             using (var rCommand = CreateCommand())
             {
-                rCommand.CommandText = @"SELECT rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged FROM battle
+                rCommand.CommandText = @"SELECT rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged, mvp, mvp_escort  FROM battle
 LEFT JOIN battle_dropped_item ON battle.id = battle_dropped_item.id
 LEFT JOIN battle_detail.battle battle_detail ON battle.id = battle_detail.id
 LEFT JOIN battle_detail.participant_hd_view participant_hd ON battle.id = participant_hd.battle

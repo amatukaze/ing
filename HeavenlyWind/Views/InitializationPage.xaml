@@ -57,6 +57,30 @@
                                     </StackPanel>
                                 </Border>
 
+                                <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Margin="0, 8, 0, 0" Padding="0, 4, 0, 0" Visibility="{Binding IsConnectionCycle, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <StackPanel>
+                                        <TextBlock Text="{rb:StringResource Main.InitializationPage_ConnectionCycle}" FontSize="16" FontWeight="Bold" />
+                                        <TextBlock Text="{rb:StringResource Main.InitializationPage_ConnectionCycle_Content}" TextWrapping="Wrap" Margin="0, 4, 0, 0" />
+
+                                        <TextBlock Text="{rb:StringResource Main.InitializationPage_Solution}" FontWeight="Bold" Margin="0, 6, 0, 0" />
+                                        <TextBlock Margin="0, 4, 0, 0">
+                                            <Run Text="•" />
+                                            <Run Text="{rb:StringResource Main.InitializationPage_ConnectionCycle_Solution_DisablePortCustomization}" />
+                                        </TextBlock>
+                                        <TextBlock Margin="0, 4, 0, 0">
+                                            <Run Text="•" />
+                                            <Run Text="{rb:StringResource Main.InitializationPage_PortIsOccupied_Solution_ChangePort}" />
+                                        </TextBlock>
+
+                                        <StackPanel Orientation="Horizontal" Margin="8, 8, 0, 0">
+                                            <CheckBox IsChecked="{rb:Preference Network.PortCustomization}">
+                                                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port_Customization}" />
+                                            </CheckBox>
+                                            <TextBox Text="{rb:Preference Network.Port}" IsEnabled="{rb:Preference Network.PortCustomization}" Width="75" Margin="8, 0, 0, 0" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
                                 <Border BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0" Margin="0, 8, 0, 0" Padding="0, 4, 0, 0" Visibility="{Binding IsUpstreamProxyAvailable, Converter={StaticResource BooleanToInvisibilityConverter}}">
                                     <StackPanel>
                                         <TextBlock Text="{rb:StringResource Main.InitializationPage_UpstreamProxy}" FontSize="16" FontWeight="Bold" />
@@ -81,9 +105,15 @@
                                     </StackPanel>
                                 </Border>
 
-                                <Button Command="{Binding StartCommand}" Margin="0, 12, 0, 0" Padding="16, 8" HorizontalAlignment="Right">
-                                    <TextBlock Text="{rb:StringResource Main.InitializationPage_Retry}" />
-                                </Button>
+                                <DockPanel Margin="0, 12, 0, 0" LastChildFill="False">
+                                    <Button Command="{Binding RetryCommand}" Padding="16, 8" DockPanel.Dock="Right">
+                                        <TextBlock Text="{rb:StringResource Main.InitializationPage_Retry}" />
+                                    </Button>
+
+                                    <Button Command="{Binding SkipCommand}" Margin="0, 0, 8, 0" Padding="16, 8" DockPanel.Dock="Right">
+                                        <TextBlock Text="{rb:StringResource Main.InitializationPage_Skip}" />
+                                    </Button>
+                                </DockPanel>
                             </StackPanel>
                         </Border>
                     </ControlTemplate>

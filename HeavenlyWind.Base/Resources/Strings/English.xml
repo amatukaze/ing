@@ -10,7 +10,7 @@
 
   <String Key="Log_Welcome">Ready</String>
   <String Key="Log_CheckForUpdate_Exception">Error occured when checking for update: {0}</String>
-  <String Key="Log_Exception_API_Failed">Error code from API「{0}」: {1}</String>
+  <String Key="Log_Exception_API_Failed">ERROR CAT! (API: {0}, Code: {1})</String>
   <String Key="Log_Exception_API_ParseException">Error occured when parsing API: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">Failed to save file: {0}</String>
   <String Key="Log_ExpeditionResult">/{0}"{1}" has returned from expedition {2}:{3}. (Result: [b]{4}[/b])</String>
@@ -72,10 +72,14 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="InitializationPage_PortIsOccupied">The port is occupied by the other program</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">Terminate this process</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">Change the port number</String>
+  <String Key="InitializationPage_ConnectionCycle">The port is set casually</String>
+  <String Key="InitializationPage_ConnectionCycle_Content">Did you ignore the warning and kept setting it the same as the one of upstream proxy?</String>
+  <String Key="InitializationPage_ConnectionCycle_Solution_DisablePortCustomization">Disable port customization</String>
   <String Key="InitializationPage_UpstreamProxy">Upstream proxy is unavailable</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">Forgot to start the program which provides the upstream proxy?</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">Wrong port number?</String>
   <String Key="InitializationPage_Retry">Retry</String>
+  <String Key="InitializationPage_Skip">Skip</String>
 
   <String Key="GameInfomation_Waiting">Waiting for KanColle to start</String>
 
@@ -92,7 +96,6 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Tab_Maps">Maps</String>
   <String Key="Tab_Sortie">Sortie</String>
   <String Key="Tab_Quests">Quests</String>
-  <String Key="Tab_ExpeditionOverview">Expedition</String>
   <String Key="Tab_Tools">Tools</String>
 
   <String Key="Overview_Headquarter">Headquarter</String>
@@ -237,6 +240,9 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Sortie_SupportFleet_Ready">Support Fleet Ready</String>
   <String Key="Sortie_LandBaseAerialSupport_Ready">Land-base Aerial Support Ready</String>
   <String Key="Sortie_EnemyEncounters">Enemy Encounters</String>
+  <String Key="Sortie_EnemyAerialRaid">Enemy Aerial Raid</String>
+  <String Key="Sortie_EnemyAerialRaid_Message">[icon]fuel[/icon] or [icon]bauxite[/icon] has been lost [binding]Amount[/binding]</String>
+  <String Key="Sortie_EnemyAerialRaid_Message_NoDamage">No damage to the land-base</String>
 
   <String Key="AbyssalShip_Class_Normal" />
   <String Key="AbyssalShip_Class_Elite"> elite</String>
@@ -305,11 +311,6 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">Boss Battle Victory</String>
   <String Key="Quest_RewardSelection">One of the following</String>
 
-  <String Key="ExpeditionOverview_Time">Time</String>
-  <String Key="ExpeditionOverview_Consumption">Consumption</String>
-  <String Key="ExpeditionOverview_Rewards">Rewards</String>
-  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(Great Success Only)</String>
-
   <String Key="Window_Preferences">Setting</String>
   <String Key="Window_ShipOverview">Ship Overview</String>
   <String Key="Window_EquipmentOverview">Equipment Overview</String>
@@ -369,6 +370,12 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1">Succeeded to modernize Amatsukaze Kai. (Torpedo MAX, Armor MAX; To MAX: Firepower 1, Luck 50)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2">Succeeded to modernize Amatsukaze Kai. ([icon]torpedo[/icon] MAX, [icon]armor[/icon] MAX; [icon]firepower[/icon] +1, [icon]luck[/icon] +1)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2">Succeeded to modernize Amatsukaze Kai. (Torpedo MAX, Armor MAX; Firepower +1, Luck +1)</String>
+  <String Key="PreferenceWindow_UI_ModernizationMessage">Modernization Message</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo">Sortie info in the status bar</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">Hidden</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">Left side</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">Right side</String>
+  <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">Exchange position of repair docks and fleet overview</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
@@ -379,6 +386,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Behaviour_FatigueCeiling">Max fatigue value</String>
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">Show battle info</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">Show drop</String>
+  <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">Disable heavy damage blink warning</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Notification_Construction">Notify the completion of construction</String>
   <String Key="PreferenceWindow_Notification_Expedition">Notify the return from an expedition</String>
@@ -489,8 +497,12 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="ScrappingHistory_Reason_ConsumedInBattle">Battle</String>
 
   <String Key="ResourceHistory_Diff">Diff</String>
-
-  <String Key="Tool_ExpeditionOverview">Expedition Overview</String>
+  <String Key="ResourceHistory_Type">Type</String>
+  <String Key="ResourceHistory_Type_Detail">Detail</String>
+  <String Key="ResourceHistory_Type_Daily">Day</String>
+  <String Key="ResourceHistory_Type_Weekly">Week</String>
+  <String Key="ResourceHistory_Type_Monthly">Month</String>
+  <String Key="ResourceHistory_Week_Format">Week {0}</String>
 
   <String Key="ScreenshotTool_Title">Screenshot Tool</String>
   <String Key="ScreenshotTool_General">General</String>
@@ -527,7 +539,13 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="SortieStatistic_TimeSpan_Yesterday">Yesterday</String>
   <String Key="SortieStatistic_TimeSpan_LastWeek">Last week</String>
   <String Key="SortieStatistic_TimeSpan_LastMonth">Last month</String>
+  <String Key="SortieStatistic_TimeSpan_Custom">Custom</String>
+  <String Key="SortieStatistic_CustomTimeSpan_Start">Start</String>
+  <String Key="SortieStatistic_CustomTimeSpan_End">End</String>
+  <String Key="SortieStatistic_PastAreas">Past event areas</String>
   <String Key="SortieStatistic_Count">Count</String>
   <String Key="SortieStatistic_RankingPoints">Points</String>
+
+  <String Key="SortieMap_UnderConstruction">The map is under construction</String>
 
 </Strings>

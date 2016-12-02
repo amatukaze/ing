@@ -1,13 +1,13 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
-using System;
 using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    class DevelopmentRecord : ModelBase
+    class DevelopmentRecord : ModelBase, IRecordID
     {
-        public string Time { get; }
+        public long ID { get; set; }
+        public string Time => DateTimeUtil.FromUnixTime(ID).LocalDateTime.ToString();
 
         public EquipmentInfo Equipment { get; }
 
@@ -21,7 +21,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal DevelopmentRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("time")).LocalDateTime.ToString();
+            ID = rpReader.GetInt64("time");
+
             var rEquipmentID = rpReader.GetInt32Optional("equipment");
             if (rEquipmentID.HasValue)
                 Equipment = KanColleGame.Current.MasterInfo.Equipment[rEquipmentID.Value];

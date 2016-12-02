@@ -121,7 +121,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             {
                 var rFirepowers = rFriendAttackers.Select(r =>
                 {
-                    var rShip = ((FriendShip)rParticipants[r - 1].Participant).Ship;
+                    var rShip = ((FriendShip)Stage.Friend[r - 1].Participant).Ship;
+
                     return rShip.Slots.Where(rpSlot => rpSlot.HasEquipment).Sum(rpSlot =>
                     {
                         var rEquipmentInfo = rpSlot.Equipment.Info;

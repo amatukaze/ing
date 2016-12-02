@@ -68,6 +68,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 "api_req_combined_battle/sp_midnight",
                 "api_req_combined_battle/ld_airbattle",
                 "api_req_combined_battle/ec_battle",
+                "api_req_combined_battle/each_battle",
+                "api_req_combined_battle/each_battle_water",
             };
             ApiService.Subscribe(rBattleApis, ProcessAbyssalFleet);
         }

@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 {
     class DevelopmentHistoryViewModel : HistoryViewModelBase<DevelopmentRecord>
     {
-        protected override string LoadCommandText => "SELECT * FROM development ORDER BY time DESC;";
+        protected override string LoadCommandText => "SELECT * FROM development;";
 
         public FilterKeyCollection<EquipmentInfo> Equipment { get; } = new FilterKeyCollection<EquipmentInfo>(EquipmentInfo.Dummy, (x, y) => x.ID - y.ID);
         public FilterKeyCollection<ShipInfo> SecretaryShips { get; } = new FilterKeyCollection<ShipInfo>(ShipInfo.Dummy, (x, y) => x.ID - y.ID);

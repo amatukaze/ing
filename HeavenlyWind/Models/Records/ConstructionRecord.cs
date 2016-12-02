@@ -4,9 +4,10 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    class ConstructionRecord : ModelBase
+    class ConstructionRecord : ModelBase, IRecordID
     {
-        public string Time { get; }
+        public long ID { get; set; }
+        public string Time => DateTimeUtil.FromUnixTime(ID).LocalDateTime.ToString();
 
         public ShipInfo Ship { get; }
 
@@ -24,7 +25,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal ConstructionRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("time")).LocalDateTime.ToString();
+            ID = rpReader.GetInt64("time");
+
             Ship = KanColleGame.Current.MasterInfo.Ships[rpReader.GetInt32("ship")];
 
             FuelConsumption = rpReader.GetInt32("fuel");

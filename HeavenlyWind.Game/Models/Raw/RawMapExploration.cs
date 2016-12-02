@@ -58,6 +58,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_airsearch")]
         public RawAviationReconnaissance AviationReconnaissance { get; set; }
 
+        [JsonProperty("api_destruction_battle")]
+        public JToken EnemyAerialRaid { get; set; }
+
         public class RawEventMap
         {
             [JsonProperty("api_now_maphp")]

@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Owner = rpOwner;
         }
 
-        internal void Process(ApiInfo rpInfo)
+        internal void Process(ApiInfo rpInfo, BattleStage rpFirstStage = null)
         {
             var rData = rpInfo.Data as RawBattleBase;
             var rCombinedFleetData = rData as IRawCombinedFleet;
@@ -50,12 +50,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             if (rCombinedFleetData != null)
             {
-                var rFriendAndEnemyEscort = rCombinedFleetData.EscortFleetCurrentHPs.Zip(rCombinedFleetData.EscortFleetMaximumHPs,
-                    (rpCurrent, rpMaximum) => rpMaximum != -1 ? new BattleParticipantSnapshot(rpMaximum, rpCurrent) : null).Skip(1).ToArray();
+                BattleParticipantSnapshot[] rFriendAndEnemyEscort;
+
+                if (rpFirstStage == null)
+                    rFriendAndEnemyEscort = rCombinedFleetData.EscortFleetCurrentHPs.Zip(rCombinedFleetData.EscortFleetMaximumHPs,
+                        (rpCurrent, rpMaximum) => rpMaximum != -1 ? new BattleParticipantSnapshot(rpMaximum, rpCurrent) : null).Skip(1).ToArray();
+                else
+                {
+                    IEnumerable<BattleParticipantSnapshot> rFriendEscort = rpFirstStage.FriendEscort;
+                    if (rFriendEscort == null)
+                        rFriendEscort = Enumerable.Repeat<BattleParticipantSnapshot>(null, 6);
+
+                    IEnumerable<BattleParticipantSnapshot> rEnemyEscort = rpFirstStage.EnemyEscort;
+                    if (rEnemyEscort == null)
+                        rEnemyEscort = Enumerable.Repeat<BattleParticipantSnapshot>(null, 6);
+
+                    rFriendAndEnemyEscort = rFriendEscort.Concat(rEnemyEscort).Select(r => r != null ? new BattleParticipantSnapshot(r.Maximum, r.Current) : null).ToArray();
+                }
 
                 if (rFriendAndEnemyEscort[0] != null)
                 {
-                    FriendEscort = rFriendAndEnemyEscort.Take(6).ToArray();
+                    FriendEscort = rFriendAndEnemyEscort.Take(6).TakeWhile(r => r != null).ToArray();
 
                     for (var i = 0; i < FriendEscort.Count; i++)
                     {
@@ -64,7 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     }
                 }
 
-                if (rFriendAndEnemyEscort.Length > 6)
+                if ((rpFirstStage == null && rFriendAndEnemyEscort.Length > 6) || (rpFirstStage != null && rpFirstStage.EnemyEscort != null))
                 {
                     EnemyEscort = rFriendAndEnemyEscort.Skip(6).ToArray();
 

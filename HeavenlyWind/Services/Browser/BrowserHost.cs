@@ -23,10 +23,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.InvalidateArrange, _ => InvalidateArrange());
 
-            LayoutTransform = r_ScaleTransform = new ScaleTransform(1.0 / StatusBarService.Instance.UIZoom, 1.0 / StatusBarService.Instance.UIZoom);
+            var rUIZoom = Preference.Instance.UI.Zoom.Value;
+            LayoutTransform = r_ScaleTransform = new ScaleTransform(1.0 / rUIZoom, 1.0 / rUIZoom);
 
-            var rPCEL = PropertyChangedEventListener.FromSource(StatusBarService.Instance);
-            rPCEL.Add(nameof(StatusBarService.Instance.UIZoom), (s, e) => r_ScaleTransform.ScaleX = r_ScaleTransform.ScaleY = 1.0 / StatusBarService.Instance.UIZoom);
+            Preference.Instance.UI.Zoom.Subscribe(r => r_ScaleTransform.ScaleX = r_ScaleTransform.ScaleY = 1.0 / r);
         }
 
         protected override HandleRef BuildWindowCore(HandleRef rpParentHandle)

@@ -6,7 +6,6 @@ using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -197,5 +196,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             ResizedToFitGame?.Invoke();
         }
+
+        public IDisposable RegisterMessageObserver(string rpMessage, Action<string> rpObserver) =>
+            Messages.Where(r => r.Key == rpMessage).Subscribe(r => rpObserver(r.Value));
     }
 }

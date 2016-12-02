@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using System;
 using System.Collections.Generic;
@@ -49,7 +48,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
         static void ProcessCore(ApiSession rpSession)
         {
             var rApi = rpSession.DisplayUrl;
-            var rRequest = Uri.UnescapeDataString(rpSession.RequestBodyString);
             var rResponse = rpSession.ResponseBodyString;
 
             try
@@ -59,14 +57,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                 ApiParserBase rParser;
                 if (!rContent.IsNullOrEmpty() && rContent.StartsWith("{") && r_Parsers.TryGetValue(rApi, out rParser))
                 {
-                    ListDictionary<string, string> rParameters = null;
-                    if (!rRequest.IsNullOrEmpty() && rRequest.Contains('&'))
-                    {
-                        rParameters = new ListDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                        foreach (var rParameter in rRequest.Split('&').Where(r => r.Length > 0).Select(r => r.Split('=')))
-                            rParameters.Add(rParameter[0], rParameter[1]);
-                    }
-
                     var rJson = JObject.Parse(rContent);
 
                     var rResultCode = (int)rJson["api_result"];
@@ -76,7 +66,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
                         return;
                     }
 
-                    var rData = new ApiInfo(rpSession, rApi, rParameters, rJson);
+                    var rData = new ApiInfo(rpSession, rApi, rpSession.Parameters, rJson);
 
                     rParser.Process(rData);
                 }

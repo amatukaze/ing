@@ -1,12 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Sakuno.KanColle.Amatsukaze.Internal;
-using Sakuno.KanColle.Amatsukaze.Models.Preferences;
+﻿using Sakuno.KanColle.Amatsukaze.Models.Preferences;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
@@ -59,8 +55,6 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             using (var rTransaction = Connection.BeginTransaction())
             {
-                MigrateFromPreviousVersion();
-
                 var rReloadedProperties = new List<Property>(Property.Instances.Count);
 
                 using (var rCommand = Connection.CreateCommand())
@@ -85,46 +79,8 @@ namespace Sakuno.KanColle.Amatsukaze
                     rProperty.Save();
 
                 rTransaction.Commit();
-            }
-        }
 
-        void MigrateFromPreviousVersion()
-        {
-            var rFile = new FileInfo(@"Preferences\Preference.json");
-            if (!rFile.Exists)
-                return;
-
-            using (var rReader = new JsonTextReader(rFile.OpenText()))
-            {
-                var rSerializer = new JsonSerializer();
-                var rOldPreference = rSerializer.Deserialize<OldPreference>(rReader);
-
-                LoadFromOldPreference(rOldPreference);
-            }
-
-            rFile.Directory.Delete(true);
-        }
-        void LoadFromOldPreference(object rpObject)
-        {
-            foreach (var rOldProperty in rpObject.GetType().GetTypeInfo().DeclaredProperties)
-            {
-                if (!rOldProperty.IsDefined(typeof(OldPreferenceMappingAttribute)) && rOldProperty.PropertyType != typeof(JToken))
-                {
-                    LoadFromOldPreference(rOldProperty.GetValue(rpObject));
-
-                    continue;
-                }
-
-                var rMapping = rOldProperty.GetCustomAttribute<OldPreferenceMappingAttribute>();
-
-                Property rProperty;
-                if (!Property.Instances.TryGetValue(rMapping.Key, out rProperty))
-                    continue;
-
-                if (rProperty.Key != "main.windows")
-                    rProperty.SetValue(rOldProperty.GetValue(rpObject));
-                else
-                    rProperty.SetValue(((JToken)rOldProperty.GetValue(rpObject)).ToObject<WindowPreference[]>());
+                Property.Instances.Clear();
             }
         }
     }

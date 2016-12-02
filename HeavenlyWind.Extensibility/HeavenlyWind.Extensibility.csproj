@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -44,6 +45,7 @@
     <Compile Include="IPreference.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="IToolPane.cs" />
+    <Compile Include="IToolPaneScrollBarVisibilities.cs" />
     <Compile Include="PluginExportAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceManager.cs" />
@@ -51,6 +53,7 @@
     <Compile Include="Services\IMainWindowService.cs" />
     <Compile Include="Services\INetworkAvailabilityService.cs" />
     <Compile Include="Services\INotificationService.cs" />
+    <Compile Include="Services\IRequestFilterService.cs" />
     <Compile Include="Services\IStatusBarService.cs" />
     <Compile Include="ToolViewMode.cs" />
   </ItemGroup>

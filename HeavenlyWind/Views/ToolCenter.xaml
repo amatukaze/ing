@@ -8,32 +8,14 @@
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <ScrollViewer>
-        <StackPanel MinWidth="200" HorizontalAlignment="Center">
-            <StackPanel.Resources>
-                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-                    <Setter Property="Margin" Value="8" />
-                    <Setter Property="Padding" Value="16, 8" />
-                </Style>
-            </StackPanel.Resources>
-
-            <ItemsControl>
-                <Button Command="{Binding ShowSessionToolCommand}">
-                    <TextBlock Text="{rb:StringResource Main.SessionTool_Title}" />
-                </Button>
-                <Button Command="{Binding ShowExpeditionOverviewCommand}">
-                    <TextBlock Text="{rb:StringResource Main.Tool_ExpeditionOverview}" />
-                </Button>
-            </ItemsControl>
-
-            <ItemsControl ItemsSource="{Binding ToolPanes}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Command="{Binding OpenCommand}" CommandParameter="{Binding}">
-                            <TextBlock Text="{Binding Name}" />
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+        <ItemsControl ItemsSource="{Binding ToolPanes}" MinWidth="200" HorizontalAlignment="Center">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Command="{Binding OpenCommand}" CommandParameter="{Binding}" Margin="8" Padding="16, 8">
+                        <TextBlock Text="{Binding Name}" />
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </ScrollViewer>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Controls
@@ -65,13 +66,13 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
         void SetMedianIndicatorLength(int rpValue)
         {
             if (r_MedianIndicator != null && Maximum != 0)
-                r_MedianIndicator.Width = rpValue / (double)Maximum * r_Track.ActualWidth;
+                r_MedianIndicator.Width = Math.Max(rpValue, 0) / (double)Maximum * r_Track.ActualWidth;
         }
 
         void SetIndicatorLength(int rpValue)
         {
             if (r_Track != null && r_Indicator != null && Maximum != 0)
-                r_Indicator.Width = rpValue / (double)Maximum * r_Track.ActualWidth;
+                r_Indicator.Width = Math.Max(rpValue, 0) / (double)Maximum * r_Track.ActualWidth;
         }
     }
 }

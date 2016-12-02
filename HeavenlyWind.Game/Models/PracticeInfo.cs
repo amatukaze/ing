@@ -4,7 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public class PracticeInfo : SortieInfo
+    public class PracticeInfo : ModelBase
     {
         static PracticeInfo r_Current;
 

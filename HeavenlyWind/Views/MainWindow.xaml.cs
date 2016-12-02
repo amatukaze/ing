@@ -4,6 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
 using Sakuno.UserInterface.Controls;
@@ -19,10 +20,9 @@ namespace Sakuno.KanColle.Amatsukaze.Views
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : MetroWindow, IMainWindowService
+    partial class MainWindow : MetroWindow, IMainWindowService
     {
-        IntPtr r_Handle;
-        IntPtr IMainWindowService.Handle => r_Handle;
+        public IntPtr Handle { get; private set; }
 
         static MainWindow()
         {
@@ -37,19 +37,26 @@ namespace Sakuno.KanColle.Amatsukaze.Views
         {
             base.OnSourceInitialized(e);
 
-            r_Handle = new WindowInteropHelper(this).Handle;
+            Handle = new WindowInteropHelper(this).Handle;
 
             PowerManager.RegisterMonitor(this);
 
-            PanicKeyService.Instance.Initialize(r_Handle);
+            PanicKeyService.Instance.Initialize(Handle);
 
             ServiceManager.Register<IMainWindowService>(this);
+        }
+
+        protected override void OnContentRendered(EventArgs e)
+        {
+            base.OnContentRendered(e);
+
+            ((InitializationPageViewModel)App.Root.Page).CheckProxyPort();
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             var rMode = Preference.Instance.UI.CloseConfirmationMode.Value;
-            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo && !(KanColleGame.Current.Sortie is PracticeInfo)))
+            if (rMode == ConfirmationMode.Always || (rMode == ConfirmationMode.DuringSortie && KanColleGame.Current.Sortie is SortieInfo))
             {
                 var rDialog = new TaskDialog()
                 {
@@ -128,10 +135,10 @@ namespace Sakuno.KanColle.Amatsukaze.Views
             var rInfo = new NativeStructs.FLASHWINFO()
             {
                 cbSize = Marshal.SizeOf(typeof(NativeStructs.FLASHWINFO)),
-                hwnd = r_Handle,
+                hwnd = Handle,
                 dwFlags = NativeEnums.FLASHW.FLASHW_TRAY | NativeEnums.FLASHW.FLASHW_TIMERNOFG,
-                uCount = (uint)rpCount,
-                dwTimeout = (uint)rpTimeout,
+                uCount = rpCount,
+                dwTimeout = rpTimeout,
             };
             NativeMethods.User32.FlashWindowEx(ref rInfo);
         }

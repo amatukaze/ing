@@ -90,6 +90,8 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
             }
 
             OnPropertyReloaded();
+
+            OnPropertyChanged(nameof(Value));
         }
 
         public override void Save()

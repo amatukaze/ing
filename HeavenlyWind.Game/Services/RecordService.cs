@@ -120,7 +120,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             using (var rCommand = r_Connection.CreateCommand())
             {
                 rCommand.CommandText =
-                    "PRAGMA journal_mode = WAL; " +
+                    "PRAGMA journal_mode = DELETE; " +
                     "PRAGMA foreign_keys = ON;";
 
                 rCommand.ExecuteNonQuery();

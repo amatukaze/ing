@@ -11,6 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 
         public IList<EnemyFleet> EnemyEncounters { get; }
 
+        public EnemyAerialRaid EnemyAerialRaid { get; internal set; }
+
         internal BattleEvent(long rpTimestamp, MapInfo rpMap, RawMapExploration rpData, string rpNodeWikiID) : base(rpData)
         {
             Battle = new BattleInfo(rpTimestamp, rpData);

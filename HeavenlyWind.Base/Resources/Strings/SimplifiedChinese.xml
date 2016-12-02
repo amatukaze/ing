@@ -10,7 +10,7 @@
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_CheckForUpdate_Exception">检查更新时发生错误: {0}</String>
-  <String Key="Log_Exception_API_Failed">API「{0}」返回错误代码：{1} </String>
+  <String Key="Log_Exception_API_Failed">猫了！ (API: {0}；代号: {1})</String>
   <String Key="Log_Exception_API_ParseException">解析 API 时发生错误: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">保存缓存文件失败: {0}</String>
   <String Key="Log_ExpeditionResult">/{0}「{1}」从远征「{2}:{3}」归来。(结果: [b]{4}[/b])</String>
@@ -72,10 +72,14 @@
   <String Key="InitializationPage_PortIsOccupied">端口被以下的程序占用</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">结束该进程</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">更换端口</String>
+  <String Key="InitializationPage_ConnectionCycle">胡乱设置端口</String>
+  <String Key="InitializationPage_ConnectionCycle_Content">你是不是无视警告，把本地代理端口也设置成上游代理的端口？如果这样强行继续下去，工具是无法接收到任何数据！</String>
+  <String Key="InitializationPage_ConnectionCycle_Solution_DisablePortCustomization">禁用自定义本地代理端口</String>
   <String Key="InitializationPage_UpstreamProxy">上游代理未开启</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">是不是忘记了开启代理？</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">是不是端口错了？</String>
   <String Key="InitializationPage_Retry">重试</String>
+  <String Key="InitializationPage_Skip">跳过</String>
 
   <String Key="GameInfomation_Waiting">等待游戏启动</String>
 
@@ -92,7 +96,6 @@
   <String Key="Tab_Maps">海域</String>
   <String Key="Tab_Sortie">出击</String>
   <String Key="Tab_Quests">任务</String>
-  <String Key="Tab_ExpeditionOverview">远征一览</String>
   <String Key="Tab_Tools">工具</String>
 
   <String Key="Overview_Headquarter">司令部</String>
@@ -116,7 +119,7 @@
   <String Key="Overview_ShipOverview">舰娘一览</String>
   <String Key="Overview_EquipmentOverview">装备一览</String>
   <String Key="Overview_Fleets">舰队一览</String>
-  <String Key="Overview_Fleets_Idle">等待中</String>
+  <String Key="Overview_Fleets_Idle">待机中</String>
   <String Key="Overview_Fleets_Sortie">出击中</String>
   <String Key="Overview_Fleets_Unsupplied">未补给</String>
   <String Key="Overview_Fleets_HeavilyDamaged">有大破船</String>
@@ -237,6 +240,9 @@
   <String Key="Sortie_SupportFleet_Ready">支援舰队等待中</String>
   <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空队准备实施空袭</String>
   <String Key="Sortie_EnemyEncounters">可能遭遇的敌方舰队</String>
+  <String Key="Sortie_EnemyAerialRaid">敵空襲</String>
+  <String Key="Sortie_EnemyAerialRaid_Message">[icon]fuel[/icon] 或 [icon]bauxite[/icon] 损失了 [binding]Amount[/binding]</String>
+  <String Key="Sortie_EnemyAerialRaid_Message_NoDamage">没有受到任何损失</String>
 
   <String Key="AbyssalShip_Class_Normal" />
   <String Key="AbyssalShip_Class_Elite">elite</String>
@@ -305,11 +311,6 @@
   <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">Boss 战胜利</String>
   <String Key="Quest_RewardSelection">单选</String>
 
-  <String Key="ExpeditionOverview_Time">时间</String>
-  <String Key="ExpeditionOverview_Consumption">消费</String>
-  <String Key="ExpeditionOverview_Rewards">奖励</String>
-  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(仅大成功)</String>
-
   <String Key="Window_Preferences">设置</String>
   <String Key="Window_ShipOverview">舰娘一览</String>
   <String Key="Window_EquipmentOverview">装备一览</String>
@@ -327,7 +328,7 @@
 
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">本地代理端口</String>
-  <String Key="PreferenceWindow_Network_Port_Customization">指定本地代理端口</String>
+  <String Key="PreferenceWindow_Network_Port_Customization">自定义本地代理端口</String>
   <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Instruction">真的要修改吗？</String>
   <String Key="PreferenceWindow_Network_Port_Customization_Dialog_Content">该端口属于用于接收来自浏览器的数据包的本地代理。除非遇到端口被占用等情况，一般不建议修改该端口值。
 
@@ -371,6 +372,11 @@
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1">「天津風改」的近代化改修成功了。(雷装 MAX、装甲 MAX。 距离 MAX 还有: 火力 1、运 50)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2">「天津風改」的近代化改修成功了。([icon]torpedo[/icon] MAX、[icon]armor[/icon] MAX。 [icon]firepower[/icon] +1、[icon]luck[/icon] +1)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2">「天津風改」的近代化改修成功了。(雷装 MAX、装甲 MAX。火力 +1、运 +1)</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo">状态栏上的出击信息</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">隐藏</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">显示在左侧</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">显示在右侧</String>
+  <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">交换修理渠和舰队一览的位置</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
@@ -381,6 +387,7 @@
   <String Key="PreferenceWindow_Behaviour_FatigueCeiling">疲劳上限</String>
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">显示战斗信息(剧透)</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">显示掉落</String>
+  <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">禁用大破闪烁警告</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">在建造完成时通知</String>
   <String Key="PreferenceWindow_Notification_Expedition">在远征归来时通知</String>
@@ -491,8 +498,12 @@
   <String Key="ScrappingHistory_Reason_ConsumedInBattle">战斗</String>
 
   <String Key="ResourceHistory_Diff">差异</String>
-
-  <String Key="Tool_ExpeditionOverview">远征一览</String>
+  <String Key="ResourceHistory_Type">类型</String>
+  <String Key="ResourceHistory_Type_Detail">详细</String>
+  <String Key="ResourceHistory_Type_Daily">毎日</String>
+  <String Key="ResourceHistory_Type_Weekly">毎周</String>
+  <String Key="ResourceHistory_Type_Monthly">毎月</String>
+  <String Key="ResourceHistory_Week_Format">第 {0} 周</String>
 
   <String Key="ScreenshotTool_Title">截图工具</String>
   <String Key="ScreenshotTool_General">一般</String>
@@ -529,7 +540,13 @@
   <String Key="SortieStatistic_TimeSpan_Yesterday">昨天</String>
   <String Key="SortieStatistic_TimeSpan_LastWeek">上周</String>
   <String Key="SortieStatistic_TimeSpan_LastMonth">上个月</String>
+  <String Key="SortieStatistic_TimeSpan_Custom">自定义</String>
+  <String Key="SortieStatistic_CustomTimeSpan_Start">开始</String>
+  <String Key="SortieStatistic_CustomTimeSpan_End">结束</String>
+  <String Key="SortieStatistic_PastAreas">过往的活动海域</String>
   <String Key="SortieStatistic_Count">次数</String>
   <String Key="SortieStatistic_RankingPoints">战果</String>
+
+  <String Key="SortieMap_UnderConstruction">地图功能仍未实现</String>
 
 </Strings>

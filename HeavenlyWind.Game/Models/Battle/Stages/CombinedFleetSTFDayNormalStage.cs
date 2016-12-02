@@ -27,20 +27,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 
         internal protected CombinedFleetSTFDayNormalStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
         {
-            var rRawData = rpInfo.Data as RawCombinedFleetDay;
+            var rRawData = rpInfo.Data as RawEnemyCombinedFleetDay;
 
             LandBaseAerialSupport = new LandBaseAerialSupportPhase(this, rRawData.LandBaseAerialSupport);
             AerialCombat = new AerialCombatPhase(this, rRawData.AerialCombat);
             SupportingFire = new SupportingFirePhase(this, rRawData.SupportingFire);
             OpeningASW = new OpeningASWPhase(this, rRawData.OpeningASW, true);
-            OpeningTorpedo = new TorpedoSalvoPhase(this, rRawData.OpeningTorpedoSalvo, true);
+            OpeningTorpedo = new TorpedoSalvoPhase(this, rRawData.OpeningTorpedoSalvo, true, true);
 
             ShellingFirstRound = new ShellingPhase(this, rRawData.ShellingFirstRound);
             ShellingSecondRound = new ShellingPhase(this, rRawData.ShellingSecondRound);
 
-            ShellingThirdRound = new ShellingPhase(this, rRawData.ShellingThirdRound, true);
+            ShellingThirdRound = new ShellingPhase(this, rRawData.ShellingThirdRound, true, true);
 
-            ClosingTorpedo = new TorpedoSalvoPhase(this, rRawData.ClosingTorpedoSalvo, true);
+            ClosingTorpedo = new TorpedoSalvoPhase(this, rRawData.ClosingTorpedoSalvo, true, true);
         }
     }
 }

@@ -45,48 +45,48 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Expression.Interaction.3.0.40218.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Sakuno.Toast, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sakuno.Toast.1.0.0.0\lib\net45\Sakuno.Toast.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Sakuno.Toast.1.0.0.0\lib\net45\Sakuno.Toast.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.103.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.103\lib\net45\System.Data.SQLite.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\System.Data.SQLite.Core.1.0.103\lib\net45\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Reactive.Windows.Threading, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-XAML.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Rx-XAML.2.2.5\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Interaction.3.0.40218.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>$(SolutionDir)packages\Expression.Interaction.3.0.40218.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
@@ -150,6 +150,7 @@
     <Compile Include="Models\Records\DevelopmentRecord.cs" />
     <Compile Include="Models\Records\ExpeditionRecord.cs" />
     <Compile Include="Models\Records\FateRecord.cs" />
+    <Compile Include="Models\Records\IRecordID.cs" />
     <Compile Include="Models\Records\ResourceRecord.cs" />
     <Compile Include="Models\Records\SortieConsumptionRecord.cs" />
     <Compile Include="Models\Records\SortieRecord.cs" />
@@ -194,9 +195,6 @@
     <Compile Include="ViewModels\Game\AirForceGroupViewModel.cs" />
     <Compile Include="ViewModels\Game\ConstructionDockViewModel.cs" />
     <Compile Include="ViewModels\Game\EventMapOverviewViewModel.cs" />
-    <Compile Include="ViewModels\Game\ExpeditionGroupByMapArea.cs" />
-    <Compile Include="ViewModels\Game\ExpeditionOverviewViewModel.cs" />
-    <Compile Include="ViewModels\Game\ExpeditionViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetAnchorageRepairViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetConditionRegenerationViewModel.cs" />
     <Compile Include="ViewModels\Game\FleetExpeditionStatusViewModel.cs" />
@@ -216,6 +214,8 @@
     <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\HistoryRecordsView.cs" />
     <Compile Include="ViewModels\History\HistoryViewModelBase.cs" />
+    <Compile Include="ViewModels\History\ResourceHistoryType.cs" />
+    <Compile Include="ViewModels\History\ResourceHistoryTypeKey.cs" />
     <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
     <Compile Include="ViewModels\History\SortieConsumptionHistoryViewModel.cs" />
@@ -239,6 +239,9 @@
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
     <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
+    <Compile Include="ViewModels\Statistics\SortieStatisticAreaViewModel.cs" />
+    <Compile Include="ViewModels\Statistics\SortieStatisticCustomTimeSpanGroupViewModel.cs" />
+    <Compile Include="ViewModels\Statistics\SortieStatisticDefaultTimeSpanGroupViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticTimeSpanGroupViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
@@ -270,6 +273,9 @@
     </Compile>
     <Compile Include="Views\Game\AirBaseOverview.xaml.cs">
       <DependentUpon>AirBaseOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Game\Events\EnemyAerialRaid.xaml.cs">
+      <DependentUpon>EnemyAerialRaid.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\Battle\EnemyEncounters.xaml.cs">
       <DependentUpon>EnemyEncounters.xaml</DependentUpon>
@@ -309,9 +315,6 @@
     </Compile>
     <Compile Include="Views\Game\Events\Whirlpool.xaml.cs">
       <DependentUpon>Whirlpool.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Game\ExpeditionOverview.xaml.cs">
-      <DependentUpon>ExpeditionOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Game\FleetDetail.xaml.cs">
       <DependentUpon>FleetDetail.xaml</DependentUpon>
@@ -504,6 +507,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Common\TabContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Common\TabItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -815,6 +822,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Game\Events\EnemyAerialRaid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Game\Battle\EnemyEncounters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -864,10 +875,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Game\Events\Whirlpool.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Game\ExpeditionOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1052,12 +1059,12 @@
     <PreBuildEvent>IF NOT EXIST "$(SolutionDir)Resources" exit 
 xcopy /D /Y /E /I "$(SolutionDir)Resources" "$(TargetDir)Resources"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" />
+  <Import Project="$(SolutionDir)packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('$(SolutionDir)packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('$(SolutionDir)packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)packages\System.Data.SQLite.Core.1.0.103\build\net45\System.Data.SQLite.Core.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

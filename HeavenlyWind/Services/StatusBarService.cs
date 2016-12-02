@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.UserInterface;
 using Sakuno.UserInterface.Controls;
@@ -16,7 +17,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -57,25 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         long r_InitialTick;
         public DateTimeOffset? CurrentTime { get; private set; }
 
-        public IList<UIZoomInfo> UIZoomFactors { get; private set; }
-
-        double r_UIZoom;
-        public double UIZoom
-        {
-            get { return r_UIZoom; }
-            set
-            {
-                if (r_UIZoom != value)
-                {
-                    r_UIZoom = value;
-                    OnPropertyChanged(nameof(UIZoom));
-                }
-            }
-        }
-
-        public ICommand UISetZoomCommand { get; private set; }
-        public ICommand UIZoomInCommand { get; private set; }
-        public ICommand UIZoomOutCommand { get; private set; }
+        public SortieInfo Sortie => SortieInfo.Current;
 
         StatusBarService()
         {
@@ -85,6 +67,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 .Throttle(TimeSpan.FromSeconds(30.0)).Subscribe(_ => IsMessageObsolete = true);
 
             ServiceManager.Register<IStatusBarService>(this);
+
+            ApiService.Subscribe("api_port/port", _ => OnPropertyChanged(nameof(Sortie)));
+            ApiService.Subscribe("api_req_map/start", _ => OnPropertyChanged(nameof(Sortie)));
         }
 
         public void Initialize()
@@ -95,20 +80,20 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 var rServers = new[] { "jp.pool.ntp.org", "pool.ntp.org", "us.pool.ntp.org", "cn.pool.ntp.org", "jp.ntp.org.cn", "us.ntp.org.cn", "cn.ntp.org.cn" };
 
+                var rRetryCount = 0;
+
                 foreach (var rSuccess in rServers.Select(QueryCurrentTime))
+                {
+                    await Task.Delay(rRetryCount * 2000);
+                    rRetryCount++;
+
                     if (await rSuccess)
                     {
                         StartTimer();
                         return;
                     }
+                }
             }));
-
-            UIZoom = Preference.Instance.UI.Zoom;
-
-            UISetZoomCommand = new DelegatedCommand<double>(SetZoom);
-            UIZoomFactors = new[] { .25, .5, .75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0 }.Select(r => new UIZoomInfo(r, UISetZoomCommand)).ToArray();
-            UIZoomInCommand = new DelegatedCommand(() => SetZoom(UIZoom + .05));
-            UIZoomOutCommand = new DelegatedCommand(() => SetZoom(UIZoom - .05));
 
             RegisterCustomBBCodeTag();
         }
@@ -124,11 +109,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                     await rClient.SendAsync(rData, rData.Length);
 
-                    var rResult = await Task.WhenAny(rClient.ReceiveAsync(), Task.Delay(5000)) as Task<UdpReceiveResult>;
-                    if (rResult == null)
+                    var rReceiveTask = rClient.ReceiveAsync();
+
+                    rReceiveTask.ContinueWith(r => r.Exception?.Handle(_ => true), TaskContinuationOptions.OnlyOnFaulted).Forget();
+
+                    if (await Task.WhenAny(rReceiveTask, Task.Delay(5000)) != rReceiveTask)
                         return false;
 
-                    rData = (await rResult).Buffer;
+                    rData = (await rReceiveTask).Buffer;
 
                     var rIntegerPart = (ulong)rData[40] << 24 | (ulong)rData[41] << 16 | (ulong)rData[42] << 8 | rData[43];
                     var rFractionPart = (ulong)rData[44] << 24 | (ulong)rData[45] << 16 | (ulong)rData[46] << 8 | rData[47];
@@ -160,22 +148,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     OnPropertyChanged(nameof(CurrentTime));
                 }
             }, TaskCreationOptions.LongRunning);
-        }
-
-        void SetZoom(double rpZoom)
-        {
-            if (rpZoom < .25)
-                return;
-
-            UpdateZoomSelection(rpZoom);
-
-            UIZoom = rpZoom;
-            Preference.Instance.UI.Zoom.Value = rpZoom;
-        }
-        void UpdateZoomSelection(double rpZoom)
-        {
-            foreach (var rInfo in UIZoomFactors)
-                rInfo.IsSelected = rInfo.Zoom == rpZoom;
         }
 
         void RegisterCustomBBCodeTag()

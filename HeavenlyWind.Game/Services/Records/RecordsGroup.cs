@@ -74,7 +74,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         {
             using (var rCommand = Connection.CreateCommand())
             {
-                rCommand.CommandText = "INSERT OR REPLACE INTO versions(key, value) VALUES(@group, @version);";
+                rCommand.CommandText =
+                    "INSERT OR IGNORE INTO versions(key, value) VALUES(@group, @version); " +
+                    "UPDATE versions SET value = @version WHERE key = @group AND cast(value AS INT) < @version;";
                 rCommand.Parameters.AddWithValue("@group", GroupName);
                 rCommand.Parameters.AddWithValue("@version", Version.ToString());
 

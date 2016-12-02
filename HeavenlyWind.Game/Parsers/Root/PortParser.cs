@@ -11,12 +11,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root
             Game.MasterInfo.WaitForInitialization();
 
             var rSortie = Game.Sortie;
-            if (rSortie != null && !(rSortie is PracticeInfo))
+            if (rSortie != null)
             {
                 rSortie.ReturnTime = rpInfo.Timestamp;
                 Game.RaiseReturnedFromSortie(rSortie);
+                Game.Sortie = null;
             }
-            Game.Sortie = null;
+
+            Game.Practice = null;
 
             Game.Port.UpdateAdmiral(rpData.Basic);
             Game.Port.UpdatePort(rpData);

@@ -10,7 +10,7 @@
 
   <String Key="Log_Welcome">提督が鎮守府に着任しました。これより艦隊の指揮に入ります！</String>
   <String Key="Log_CheckForUpdate_Exception">更新の確認中にエラーが発生しました: {0}</String>
-  <String Key="Log_Exception_API_Failed">API「{0}」のエラーコードを受信しました: {1}</String>
+  <String Key="Log_Exception_API_Failed">ネコった！ (API: {0}、コード: {1})</String>
   <String Key="Log_Exception_API_ParseException">API の解析中にエラーが発生しました: {0}</String>
   <String Key="Log_Exception_Cache_FailedToSaveFile">ファイルの保存に失敗しました: {0}</String>
   <String Key="Log_ExpeditionResult">/{0}「{1}」が遠征「{2}:{3}」から帰投しました。(結果: [b]{4}[/b])</String>
@@ -70,10 +70,14 @@
   <String Key="InitializationPage_PortIsOccupied">待ち受けポートが他のアプリで使用されています</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_KillProcess">このプロセスを終了します</String>
   <String Key="InitializationPage_PortIsOccupied_Solution_ChangePort">ポートを変更します</String>
+  <String Key="InitializationPage_ConnectionCycle">待ち受けポートがかってに設定されました</String>
+  <String Key="InitializationPage_ConnectionCycle_Content">あなたは警告を無視して、待ち受けポートを上流プロキシのポートと同じことに設定しますか？</String>
+  <String Key="InitializationPage_ConnectionCycle_Solution_DisablePortCustomization">待ち受けポートのカスタマイズを無効にします</String>
   <String Key="InitializationPage_UpstreamProxy">上流プロキシが利用できません</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_NotStarted">アプリを開くのは忘れましたか？</String>
   <String Key="InitializationPage_UpstreamProxy_Solution_WrongPort">ポート番号が間違ってませんか？</String>
   <String Key="InitializationPage_Retry">再試行</String>
+  <String Key="InitializationPage_Skip">スキップ</String>
 
   <String Key="GameInfomation_Waiting">艦これの起動を待っています</String>
 
@@ -90,7 +94,6 @@
   <String Key="Tab_Maps">海域</String>
   <String Key="Tab_Sortie">出撃</String>
   <String Key="Tab_Quests">任務</String>
-  <String Key="Tab_ExpeditionOverview">遠征一覧</String>
   <String Key="Tab_Tools">ツール</String>
 
   <String Key="Overview_Headquarter">司令部</String>
@@ -235,6 +238,9 @@
   <String Key="Sortie_SupportFleet_Ready">支援艦隊待機中</String>
   <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空隊は空襲を準備中</String>
   <String Key="Sortie_EnemyEncounters">遭遇できる敵艦隊</String>
+  <String Key="Sortie_EnemyAerialRaid">敵空襲</String>
+  <String Key="Sortie_EnemyAerialRaid_Message">[icon]fuel[/icon] または [icon]bauxite[/icon] が [binding]Amount[/binding] 喪失しました</String>
+  <String Key="Sortie_EnemyAerialRaid_Message_NoDamage">空襲による基地の損害はありません</String>
 
   <String Key="AbyssalShip_Class_Normal" />
   <String Key="AbyssalShip_Class_Elite">elite</String>
@@ -303,11 +309,6 @@
   <String Key="Quest_Requirement_OperationAGo_BossBattleVictory">ボス勝利</String>
   <String Key="Quest_RewardSelection">下記のいずれか一つ</String>
 
-  <String Key="ExpeditionOverview_Time">時間</String>
-  <String Key="ExpeditionOverview_Consumption">消費</String>
-  <String Key="ExpeditionOverview_Rewards">ボーナス</String>
-  <String Key="ExpeditionOverview_Rewards_GreatSuccessOnly">(大成功のみ)</String>
-
   <String Key="Window_Preferences">設定</String>
   <String Key="Window_ShipOverview">艦娘一覧</String>
   <String Key="Window_EquipmentOverview">装備一覧</String>
@@ -368,6 +369,11 @@
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1">「天津風改」の近代化改修に成功しました。(雷装 MAX、装甲 MAX。 MAX まで: 火力 1、運 50)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2">「天津風改」の近代化改修に成功しました。([icon]torpedo[/icon] MAX、[icon]armor[/icon] MAX。 [icon]firepower[/icon] +1、[icon]luck[/icon] +1)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2">「天津風改」の近代化改修に成功しました。(雷装 MAX、装甲 MAX。 火力 +1、運 +1)</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo">ステータスバーでの出撃情報</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">無効</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">左側に表示する</String>
+  <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">右側に表示する</String>
+  <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">入渠や艦隊一覧の位置をスワップする</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>
@@ -378,6 +384,7 @@
   <String Key="PreferenceWindow_Behaviour_FatigueCeiling">疲労度上限</String>
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">戦闘情報を表示する</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">ドロップを表示する</String>
+  <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">大破点滅警告を無効にする</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">建造完了を通知する</String>
   <String Key="PreferenceWindow_Notification_Expedition">遠征帰投を通知する</String>
@@ -488,8 +495,12 @@
   <String Key="ScrappingHistory_Reason_ConsumedInBattle">戦闘</String>
 
   <String Key="ResourceHistory_Diff">差異</String>
-
-  <String Key="Tool_ExpeditionOverview">遠征一覧</String>
+  <String Key="ResourceHistory_Type">タイプ</String>
+  <String Key="ResourceHistory_Type_Detail">詳細</String>
+  <String Key="ResourceHistory_Type_Daily">毎日</String>
+  <String Key="ResourceHistory_Type_Weekly">毎週</String>
+  <String Key="ResourceHistory_Type_Monthly">毎月</String>
+  <String Key="ResourceHistory_Week_Format">第 {0} 週</String>
 
   <String Key="ScreenshotTool_Title">スクリーンショットツール</String>
   <String Key="ScreenshotTool_General">通常</String>
@@ -526,7 +537,13 @@
   <String Key="SortieStatistic_TimeSpan_Yesterday">昨日</String>
   <String Key="SortieStatistic_TimeSpan_LastWeek">先週</String>
   <String Key="SortieStatistic_TimeSpan_LastMonth">先月</String>
+  <String Key="SortieStatistic_TimeSpan_Custom">カスタム</String>
+  <String Key="SortieStatistic_CustomTimeSpan_Start">開始</String>
+  <String Key="SortieStatistic_CustomTimeSpan_End">終了</String>
+  <String Key="SortieStatistic_PastAreas">過去のイベント</String>
   <String Key="SortieStatistic_Count">回数</String>
   <String Key="SortieStatistic_RankingPoints">戦果</String>
+
+  <String Key="SortieMap_UnderConstruction">出撃地図未実装</String>
 
 </Strings>

@@ -7,8 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
     {
         protected override string LoadCommandText => @"SELECT id, ship AS master_id, level, 0 AS proficiency, time, fate, 0 AS is_equipment FROM ship_fate WHERE ship != -1
 UNION
-SELECT id, equipment AS master_id, level, proficiency, time, fate, 1 AS is_equipment FROM equipment_fate WHERE equipment != -1
-ORDER BY time DESC;";
+SELECT id, equipment AS master_id, level, proficiency, time, fate, 1 AS is_equipment FROM equipment_fate WHERE equipment != -1;";
 
         protected override FateRecord CreateRecordFromReader(SQLiteDataReader rpReader) => new FateRecord(rpReader);
 

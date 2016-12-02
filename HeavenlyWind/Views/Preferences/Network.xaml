@@ -14,7 +14,7 @@
     </UserControl.Resources>
 
     <StackPanel>
-        <CheckBox Name="EnablePortCustomization">
+        <CheckBox Name="EnablePortCustomization" IsChecked="{rb:Preference Network.PortCustomization}">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port_Customization}" />
         </CheckBox>
         <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=EnablePortCustomization}" Margin="0, 6, 0, 0">

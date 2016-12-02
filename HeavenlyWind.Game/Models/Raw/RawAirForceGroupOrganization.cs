@@ -11,6 +11,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public RawAirForceSquadron[] Squadrons { get; set; }
 
         [JsonProperty("api_after_bauxite")]
-        public int Bauxite { get; set; }
+        public int? Bauxite { get; set; }
     }
 }

@@ -8,6 +8,7 @@
              xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
              xmlns:rgme="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models.Events;assembly=HeavenlyWind.Game"
              xmlns:rvgb="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game.Battle"
+             xmlns:rvge="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game.Events"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance rgme:BattleEvent}"
              d:DesignWidth="300" d:DesignHeight="300">
@@ -100,6 +101,8 @@
                                 <TextBlock Text="{rb:StringResource Main.Sortie_LandBaseAerialSupport_Ready}" FontWeight="Bold" Visibility="{Binding IsLandBaseAerialSupportReady, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0, 4, 0, 0" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="7" />
                             </Grid>
 
+                            <rvge:EnemyAerialRaid x:Name="EnemyAerialRaid" DataContext="{Binding EnemyAerialRaid}" Visibility="{rb:CollapsedIfNull}" Margin="0, 4, 0, 0" DockPanel.Dock="Top" />
+
                             <rvgb:EnemyEncounters x:Name="EnemyEncounters" Margin="0, 8, 0, 0" />
                         </DockPanel>
 
@@ -107,6 +110,7 @@
                             <DataTrigger Binding="{rb:CurrentDock Converter={StaticResource DockToOrientationConverter}}" Value="Vertical">
                                 <Setter TargetName="Grid" Property="DockPanel.Dock" Value="Left" />
                                 <Setter TargetName="EnemyEncounters" Property="Margin" Value="8, 0, 0, 0" />
+                                <Setter TargetName="EnemyAerialRaid" Property="Visibility" Value="Collapsed" />
                             </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

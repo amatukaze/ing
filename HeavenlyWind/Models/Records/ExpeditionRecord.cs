@@ -1,13 +1,13 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
-using System;
 using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Records
 {
-    class ExpeditionRecord : ModelBase
+    class ExpeditionRecord : ModelBase, IRecordID
     {
-        public string Time { get; }
+        public long ID { get; set; }
+        public string Time => DateTimeUtil.FromUnixTime(ID).LocalDateTime.ToString();
 
         public ExpeditionInfo Expedition { get; }
 
@@ -25,7 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         internal ExpeditionRecord(SQLiteDataReader rpReader)
         {
-            Time = DateTimeUtil.FromUnixTime(rpReader.GetInt64("time")).LocalDateTime.ToString();
+            ID = rpReader.GetInt64("time");
 
             ExpeditionInfo rExpedition;
             if (KanColleGame.Current.MasterInfo.Expeditions.TryGetValue(rpReader.GetInt32("expedition"), out rExpedition))

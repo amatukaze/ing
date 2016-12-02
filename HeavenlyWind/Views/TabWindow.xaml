@@ -33,13 +33,7 @@
         </DockPanel>
 
         <ruic:DockableZone x:Name="DockableZone" Grid.Row="1">
-            <ruic:AdvancedTabControl x:Name="TabControl" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}">
-                <ruic:AdvancedTabControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type rvm:TabItemViewModel}">
-                        <TextBlock Text="{Binding Name}" FontSize="14" />
-                    </DataTemplate>
-                </ruic:AdvancedTabControl.ItemTemplate>
-            </ruic:AdvancedTabControl>
+            <ruic:AdvancedTabControl x:Name="TabControl" ContentTemplateSelector="{StaticResource TabContentTemplateSelector}" />
         </ruic:DockableZone>
 
         <ruic:ResizeGrip Grid.Row="1" />

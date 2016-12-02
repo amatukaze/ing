@@ -134,6 +134,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         IDisposable r_HomeportSubscription;
 
+        public bool IsOppositeOrder { get; set; }
+
         internal ShipOverviewViewModel()
         {
             TypeMaps = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 12 && r.ID != 15).ToDictionary(IdentityFunction<ShipTypeInfo>.Instance, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
@@ -189,7 +191,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             if (rColumn == null)
                 return;
 
-            r_Ships.SortingColumn = rColumn;
+            if (r_Ships.SortingColumn == rColumn)
+                IsOppositeOrder = !IsOppositeOrder;
+            else
+            {
+                r_Ships.SortingColumn = rColumn;
+                IsOppositeOrder = false;
+            }
 
             Refresh();
         }

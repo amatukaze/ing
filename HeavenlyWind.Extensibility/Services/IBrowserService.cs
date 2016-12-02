@@ -10,5 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Extensibility.Services
         event Action Attached;
         event EventHandler<Size> Resized;
         event Action ResizedToFitGame;
+
+        IDisposable RegisterMessageObserver(string message, Action<string> observer);
     }
 }

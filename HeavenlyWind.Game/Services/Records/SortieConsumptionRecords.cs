@@ -48,6 +48,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             DisposableObjects.Add(ApiService.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, Exploration));
 
+            DisposableObjects.Add(ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, ProcessBattleResult));
+            DisposableObjects.Add(ApiService.Subscribe("api_port/port", CommitReward));
+            DisposableObjects.Add(ApiService.Subscribe("api_start2", ForfeitReward));
+
             DisposableObjects.Add(ApiService.Subscribe("api_req_practice/battle", StartPractice));
 
             DisposableObjects.Add(ApiService.Subscribe("api_req_mission/result", ExpeditionResult));
@@ -105,6 +109,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         "bullet INTEGER, " +
                         "steel INTEGER, " +
                         "bauxite INTEGER, " +
+                        "bucket INTEGER); " +
+
+                    "CREATE TEMPORARY TABLE IF NOT EXISTS sortie_reward_pending(" +
+                        "type INTEGER PRIMARY KEY NOT NULL, " +
+                        "fuel INTEGER, " +
+                        "bullet INTEGER, " +
+                        "steel INTEGER, " +
+                        "bauxite INTEGER, " +
                         "bucket INTEGER); ";
 
                 rCommand.ExecuteNonQuery();
@@ -139,6 +151,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         void StartSortie(ApiInfo rpData)
         {
             var rBuilder = new StringBuilder(512);
+            rBuilder.AppendLine("DELETE FROM sortie_reward_pending;");
             rBuilder.AppendLine("INSERT INTO sortie_consumption(id) VALUES (@id);");
             rBuilder.Append("INSERT INTO sortie_participant_ship(id, ship_id, ship, type) VALUES");
 
@@ -332,8 +345,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         void ResetAnchorageRepairSnapshots(ApiInfo rpInfo)
         {
             var rBuilder = new StringBuilder(128);
-            rBuilder.Append("DELETE FROM anchorage_repair; ");
-            rBuilder.Append("DELETE FROM common WHERE key = 'anchorage_repair_start_time'; ");
+            rBuilder.AppendLine("DELETE FROM anchorage_repair; ");
+            rBuilder.AppendLine("DELETE FROM common WHERE key = 'anchorage_repair_start_time'; ");
 
             r_AnchorageRepairSnapshots.Clear();
 
@@ -358,9 +371,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                     rBuilder.Append($"({rShip.ID}, {rShip.HP.Current}, {rShip.RepairTime.Value.TotalMinutes}, {rShip.RepairFuelConsumption}, {rShip.RepairSteelConsumption})");
                 }
-                rBuilder.Append(';');
+                rBuilder.AppendLine(";");
 
-                rBuilder.Append($"INSERT OR REPLACE INTO common(key, value) VALUES('anchorage_repair_start_time', {r_AnchorageRepairStartTime});");
+                rBuilder.AppendLine($"INSERT OR REPLACE INTO common(key, value) VALUES('anchorage_repair_start_time', {r_AnchorageRepairStartTime});");
             }
 
             var rCommand = Connection.CreateCommand();
@@ -389,7 +402,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                 rBuilder.Append($"((SELECT max(id) FROM sortie_participant_ship WHERE ship_id = {rSnapshot.ShipID}), 4)");
             }
-            rBuilder.Append("; ");
+            rBuilder.AppendLine(";");
 
             var rRemovedIDs = new List<int>();
 
@@ -402,7 +415,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 var rFuelConsumption = Math.Ceiling(rSnapshot.FuelConsumption * rRate);
                 var rSteelConsumption = Math.Ceiling(rSnapshot.SteelConsumption * rRate);
 
-                rBuilder.Append($"UPDATE sortie_consumption_detail SET fuel = ifnull(fuel, 0) + {rFuelConsumption}, steel = ifnull(steel, 0) + {rSteelConsumption} WHERE id = (SELECT max(id) FROM sortie_participant_ship WHERE ship_id = {rSnapshot.ShipID}) AND type = 4; ");
+                rBuilder.AppendLine($"UPDATE sortie_consumption_detail SET fuel = ifnull(fuel, 0) + {rFuelConsumption}, steel = ifnull(steel, 0) + {rSteelConsumption} WHERE id = (SELECT max(id) FROM sortie_participant_ship WHERE ship_id = {rSnapshot.ShipID}) AND type = 4; ");
 
                 var rShip = rSnapshot.Ship;
                 if (rShip.HP.Current < rShip.HP.Maximum)
@@ -415,19 +428,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
 
             if (rRemovedIDs.Count > 0)
-                rBuilder.Append("DELETE FROM anchorage_repair WHERE ship IN (" + string.Join(", ", rRemovedIDs) + "); ");
+                rBuilder.AppendLine("DELETE FROM anchorage_repair WHERE ship IN (" + string.Join(", ", rRemovedIDs) + "); ");
 
             if (r_AnchorageRepairSnapshots.Count == 0)
             {
                 r_AnchorageRepairStartTime = 0;
-                rBuilder.Append("DELETE FROM common WHERE key = 'anchorage_repair_start_time';");
+                rBuilder.AppendLine("DELETE FROM common WHERE key = 'anchorage_repair_start_time';");
             }
             else
             {
                 r_AnchorageRepairStartTime = rpInfo.Timestamp;
-                rBuilder.Append($"INSERT OR REPLACE INTO common(key, value) VALUES('anchorage_repair_start_time', {r_AnchorageRepairStartTime});");
+                rBuilder.AppendLine($"INSERT OR REPLACE INTO common(key, value) VALUES('anchorage_repair_start_time', {r_AnchorageRepairStartTime});");
 
-                rBuilder.Append("INSERT OR REPLACE INTO anchorage_repair(ship, hp, repair_time, fuel_consumption, steel_consumption) VALUES");
+                rBuilder.AppendLine("INSERT OR REPLACE INTO anchorage_repair(ship, hp, repair_time, fuel_consumption, steel_consumption) VALUES");
 
                 rFirst = true;
                 foreach (var rSnapshot in r_AnchorageRepairSnapshots.Values)
@@ -439,7 +452,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
                     rBuilder.Append($"({rSnapshot.ShipID}, {rSnapshot.HP}, {rSnapshot.RepairTime}, {rSnapshot.FuelConsumption}, {rSnapshot.SteelConsumption})");
                 }
-                rBuilder.Append(';');
+                rBuilder.AppendLine(";");
             }
 
             var rCommand = Connection.CreateCommand();
@@ -503,75 +516,158 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         void Exploration(ApiInfo rpInfo)
         {
+            var rCommand = Connection.CreateCommand();
+            rCommand.CommandText = "INSERT OR REPLACE INTO common(key, value) VALUES('is_reward_forfeited', @forfeited);";
+            rCommand.Parameters.AddWithValue("@id", SortieInfo.Current.ID);
+
             var rNode = SortieInfo.Current.Node;
+            rCommand.Parameters.AddWithValue("@forfeited", !rNode.IsDeadEnd);
+
             var rEvent = rNode.Event as RewardEventBase;
-            if (rEvent == null)
-                return;
+            if (rEvent != null)
+                ProcessReward(rCommand, rNode, rEvent);
 
-            IList<string> rSetters = null;
+            rCommand.PostToTransactionQueue();
+        }
+        void ProcessReward(SQLiteCommand rpCommand, SortieNodeInfo rpNode, RewardEventBase rpEvent)
+        {
+            StringBuilder rBuilder = null;
 
-            switch (rNode.EventType)
+            switch (rpNode.EventType)
             {
                 case SortieEventType.Reward:
-                case SortieEventType.AviationReconnaissance:
-                    var rRewards = ((RewardEvent)rEvent).Rewards;
+                    var rRewards = ((RewardEvent)rpEvent).Rewards;
                     if (rRewards == null || rRewards.Count == 0)
                         return;
 
                     foreach (var rReward in rRewards)
                     {
-                        var rSetter = GetRewardSetter(rReward.ID, rReward.Quantity);
-                        if (rSetter == null)
+                        if (!IsRewardValid(rReward.ID))
                             continue;
 
-                        if (rSetters == null)
-                            rSetters = new List<string>();
+                        if (rBuilder == null)
+                        {
+                            rBuilder = new StringBuilder(256);
+                            rBuilder.AppendLine("INSERT OR IGNORE INTO sortie_reward_pending(type) VALUES(0);");
+                        }
 
-                        rSetters.Add(rSetter);
+                        var rSetter = GetRewardSetter(rReward.ID, rReward.Quantity);
+
+                        rBuilder.Append("UPDATE sortie_reward_pending SET ");
+                        rBuilder.Append(rSetter);
+                        rBuilder.AppendLine(" WHERE type = 0;");
                     }
                     break;
 
-                case SortieEventType.EscortSuccess:
-                    rSetters = new[] { GetRewardSetter(rEvent.ID, rEvent.Quantity) };
+                case SortieEventType.AviationReconnaissance:
+                    if (((AviationReconnaissanceEvent)rpEvent).Result == AviationReconnaissanceResult.Failure || !IsRewardValid(rpEvent.ID))
+                        return;
+
+                    rBuilder = new StringBuilder(256);
+                    rBuilder.AppendLine("INSERT OR IGNORE INTO sortie_reward_pending(type) VALUES(1);");
+                    rBuilder.Append("UPDATE sortie_reward_pending SET ");
+                    rBuilder.Append(GetRewardSetter(rpEvent.ID, rpEvent.Quantity));
+                    rBuilder.AppendLine(" WHERE type = 1;");
                     break;
 
-                default:
-                    return;
+                case SortieEventType.EscortSuccess:
+                    if (!IsRewardValid(rpEvent.ID))
+                        return;
+
+                    rBuilder = new StringBuilder(256);
+                    rBuilder.AppendLine("INSERT OR IGNORE INTO sortie_reward(id) VALUES(@id);");
+                    rBuilder.Append("UPDATE sortie_reward SET ");
+                    rBuilder.Append(GetRewardSetter(rpEvent.ID, rpEvent.Quantity));
+                    rBuilder.AppendLine(" WHERE id = @id;");
+                    break;
+
+                default: return;
             }
 
-            if (rSetters == null || rSetters.Count == 0)
+            if (rBuilder == null)
                 return;
 
-            var rCommand = Connection.CreateCommand();
-            rCommand.CommandText =
-                "INSERT OR IGNORE INTO sortie_reward(id) VALUES(@id); " +
-                "UPDATE sortie_reward SET " + rSetters.Join(", ") + " WHERE id = @id;";
-            rCommand.Parameters.AddWithValue("@id", SortieInfo.Current.ID);
-
-            rCommand.PostToTransactionQueue();
+            rpCommand.CommandText += rBuilder.ToString();
         }
+        bool IsRewardValid(MaterialType rpType) =>
+            rpType == MaterialType.Fuel ||
+            rpType == MaterialType.Bullet ||
+            rpType == MaterialType.Steel ||
+            rpType == MaterialType.Bauxite ||
+            rpType == MaterialType.Bucket;
         string GetRewardSetter(MaterialType rpType, int rpQuantity)
         {
             switch (rpType)
             {
                 case MaterialType.Fuel:
-                    return "fuel = coalesce(fuel, 0) + " + rpQuantity;
+                    return "fuel = ifnull(fuel, 0) + " + rpQuantity;
 
                 case MaterialType.Bullet:
-                    return "bullet = coalesce(bullet, 0) + " + rpQuantity;
+                    return "bullet = ifnull(bullet, 0) + " + rpQuantity;
 
                 case MaterialType.Steel:
-                    return "steel = coalesce(steel, 0) + " + rpQuantity;
+                    return "steel = ifnull(steel, 0) + " + rpQuantity;
 
                 case MaterialType.Bauxite:
-                    return "bauxite = coalesce(bauxite, 0) + " + rpQuantity;
+                    return "bauxite = ifnull(bauxite, 0) + " + rpQuantity;
 
                 case MaterialType.Bucket:
-                    return "bucket = coalesce(bucket, 0) + " + rpQuantity;
-
-                default:
-                    return null;
+                    return "bucket = ifnull(bucket, 0) + " + rpQuantity;
             }
+
+            throw new ArgumentException(nameof(rpType));
+        }
+
+        void ProcessBattleResult(ApiInfo rpInfo)
+        {
+            var rData = rpInfo.GetData<RawBattleResult>();
+
+            var rCommand = RecordService.Instance.CreateCommand();
+            rCommand.CommandText = "INSERT OR REPLACE INTO common(key, value) VALUES('is_reward_forfeited', (SELECT ifnull((SELECT fuel IS NULL AND bullet IS NULL AND steel IS NULL AND bauxite IS NULL AND bucket IS NULL FROM sortie_reward_pending WHERE type = 0), 1)));";
+
+            if (rData.IsAviationReconnaissanceRewardConfirmed)
+            {
+                rCommand.CommandText +=
+                    "INSERT OR IGNORE INTO sortie_reward(id) VALUES(@id); " +
+                    "UPDATE sortie_reward SET fuel = nullif(ifnull(fuel, 0) + ifnull((SELECT fuel FROM sortie_reward_pending WHERE type = 1), 0), 0), " +
+                        "bullet = nullif(ifnull(bullet, 0) + ifnull((SELECT bullet FROM sortie_reward_pending WHERE type = 1), 0), 0), " +
+                        "steel = nullif(ifnull(steel, 0) + ifnull((SELECT steel FROM sortie_reward_pending WHERE type = 1), 0), 0), " +
+                        "bauxite = nullif(ifnull(bauxite, 0) + ifnull((SELECT bauxite FROM sortie_reward_pending WHERE type = 1), 0), 0), " +
+                        "bucket = nullif(ifnull(bucket, 0) + ifnull((SELECT bucket FROM sortie_reward_pending WHERE type = 1), 0), 0) WHERE id = @id; " +
+                    "DELETE FROM sortie_reward_pending WHERE type = 1;";
+                rCommand.Parameters.AddWithValue("@id", SortieInfo.Current.ID);
+            }
+
+            rCommand.PostToTransactionQueue();
+        }
+        void CommitReward(ApiInfo rpInfo)
+        {
+            var rCommand = RecordService.Instance.CreateCommand();
+            rCommand.CommandText = "SELECT value FROM common WHERE key = 'is_reward_forfeited';";
+
+            var rIsForfeited = rCommand.ExecuteScalar();
+            if (rIsForfeited == DBNull.Value || Convert.ToBoolean(rIsForfeited))
+                return;
+
+            rCommand.CommandText = "INSERT OR REPLACE INTO common(key, value) VALUES('is_reward_forfeited', 1);";
+
+            if (rIsForfeited != null)
+                rCommand.CommandText =
+                    "INSERT OR IGNORE INTO sortie_reward(id) VALUES((SELECT max(id) FROM sortie)); " +
+                    "UPDATE sortie_reward SET fuel = nullif(ifnull(fuel, 0) + ifnull((SELECT fuel FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
+                        "bullet = nullif(ifnull(bullet, 0) + ifnull((SELECT bullet FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
+                        "steel = nullif(ifnull(steel, 0) + ifnull((SELECT steel FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
+                        "bauxite = nullif(ifnull(bauxite, 0) + ifnull((SELECT bauxite FROM sortie_reward_pending WHERE type = 0), 0), 0), " +
+                        "bucket = nullif(ifnull(bucket, 0) + ifnull((SELECT bucket FROM sortie_reward_pending WHERE type = 0), 0), 0) WHERE id = (SELECT max(id) FROM sortie); " +
+                    "DELETE FROM sortie_reward_pending WHERE type = 0; " + rCommand.CommandText;
+
+            rCommand.PostToTransactionQueue();
+        }
+        void ForfeitReward(ApiInfo rpInfo)
+        {
+            var rCommand = RecordService.Instance.CreateCommand();
+            rCommand.CommandText = "INSERT OR REPLACE INTO common(key, value) VALUES('is_reward_forfeited', 1);";
+            rCommand.ExecuteNonQuery();
         }
 
         void StartPractice(ApiInfo rpInfo)
@@ -621,7 +717,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 return;
 
             var rData = rpInfo.GetData<RawAirForceGroupOrganization>();
-            if (rData.Squadrons.Length > 1)
+            if (!rData.Bauxite.HasValue)
                 return;
 
             var rPlane = Port.Equipment[rPlaneID].Info;
