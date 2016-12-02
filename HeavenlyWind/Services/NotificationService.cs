@@ -164,7 +164,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 var rBattle = BattleInfo.Current.CurrentStage;
 
-                var rHeavilyDamagedShips = rBattle.Friend.Where(r => r.State == BattleParticipantState.HeavilyDamaged).Select(r => ((FriendShip)r.Participant).Ship).ToArray();
+                var rHeavilyDamagedShips = rBattle.Friend.Where(r => !r.IsEvacuated && r.State == BattleParticipantState.HeavilyDamaged).Select(r => ((FriendShip)r.Participant).Ship).ToArray();
                 if (rHeavilyDamagedShips.Length > 0)
                 {
                     if (Preference.Instance.Notification.HeavyDamageWarning)
