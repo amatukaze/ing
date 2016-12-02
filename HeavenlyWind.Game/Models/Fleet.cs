@@ -118,7 +118,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (r_Ships.Any(r => Port.RepairDocks.Values.Any(rpDock => rpDock.Ship == r)))
                     rState |= FleetState.Repairing;
 
-                if (r_Ships.Any(r => (r.State & ShipState.HeavilyDamaged) != 0))
+                if ((rState & FleetState.Repairing) == 0 && r_Ships.Any(r => (r.State & ShipState.HeavilyDamaged) != 0))
                     rState |= FleetState.HeavilyDamaged;
 
                 if (r_Ships.Count > 0 && (ShipType)r_Ships[0].Info.Type.ID == ShipType.RepairShip)
