@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Reactive.Linq;
+using Sakuno.UserInterface.Commands;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {

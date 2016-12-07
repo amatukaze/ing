@@ -9,6 +9,7 @@ using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using Sakuno.KanColle.Amatsukaze.Views.Statistics;
 using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;

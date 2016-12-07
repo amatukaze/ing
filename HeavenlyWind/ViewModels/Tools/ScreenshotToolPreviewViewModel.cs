@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 

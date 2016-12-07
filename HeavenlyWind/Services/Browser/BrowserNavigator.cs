@@ -1,5 +1,6 @@
 ﻿using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Input;

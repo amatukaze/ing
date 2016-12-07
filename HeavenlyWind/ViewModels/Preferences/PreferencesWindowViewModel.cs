@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Plugins;
 using Sakuno.SystemInterop.Dialogs;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;

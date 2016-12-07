@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Models.Records;
 using Sakuno.SystemInterop;
 using Sakuno.SystemInterop.Dialogs;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;

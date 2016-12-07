@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
-             xmlns:rbe="clr-namespace:Sakuno.UserInterface.Behaviors;assembly=Sakuno.UserInterface"
+             xmlns:ruii="clr-namespace:Sakuno.UserInterface.Interactivity;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <UserControl.Resources>
@@ -18,7 +18,7 @@
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Behaviour_FatigueCeiling}" />
             <TextBox Text="{rb:Preference Game.FatigueCeiling, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource FatigueCeilingRangeValidationRule}}" Width="60" Margin="4, 0, 0, 0">
                 <i:Interaction.Behaviors>
-                    <rbe:NumericTextBoxBehavior />
+                    <ruii:NumericTextBoxBehavior />
                 </i:Interaction.Behaviors>
             </TextBox>
         </StackPanel>

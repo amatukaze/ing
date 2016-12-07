@@ -4,6 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

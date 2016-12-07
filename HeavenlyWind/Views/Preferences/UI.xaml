@@ -6,10 +6,10 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rbm="clr-namespace:Sakuno.KanColle.Amatsukaze.Models;assembly=HeavenlyWind.Base"
-             xmlns:rbe="clr-namespace:Sakuno.UserInterface.Behaviors;assembly=Sakuno.UserInterface"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
              xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+             xmlns:ruii="clr-namespace:Sakuno.UserInterface.Interactivity;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <StackPanel>
@@ -59,7 +59,7 @@
                     <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_HeavyDamageLine_Width}" />
                     <TextBox Text="{rb:Preference UI.HeavyDamageLine.Width, UpdateSourceTrigger=PropertyChanged}" Width="60" Margin="6, 0, 0, 0">
                         <i:Interaction.Behaviors>
-                            <rbe:NumericTextBoxBehavior />
+                            <ruii:NumericTextBoxBehavior />
                         </i:Interaction.Behaviors>
                     </TextBox>
                 </StackPanel>
