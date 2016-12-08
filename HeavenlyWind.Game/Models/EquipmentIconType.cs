@@ -41,5 +41,7 @@
         SpecialAmphibiousLandingCraft,
         LandBasedAttackAircraft,
         InterceptorFighter,
+        JetFighterBomberKikkaKai,
+        JetFighterBomberKeiunKai,
     }
 }

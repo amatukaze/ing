@@ -634,6 +634,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\Icons\Equipment\JetFighterBomberKeiunKai.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Icons\Equipment\JetFighterBomberKikkaKai.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Icons\Equipment\LandBasedAttackAircraft.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

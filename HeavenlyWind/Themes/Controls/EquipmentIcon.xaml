@@ -141,6 +141,12 @@
             <Trigger Property="Type" Value="InterceptorFighter">
                 <Setter Property="Template" Value="{StaticResource InterceptorFighterIcon}" />
             </Trigger>
+            <Trigger Property="Type" Value="JetFighterBomberKikkaKai">
+                <Setter Property="Template" Value="{StaticResource JetFighterBomberKikkaKaiIcon}" />
+            </Trigger>
+            <Trigger Property="Type" Value="JetFighterBomberKeiunKai">
+                <Setter Property="Template" Value="{StaticResource JetFighterBomberKeiunKaiIcon}" />
+            </Trigger>
 
         </Style.Triggers>
     </Style>
