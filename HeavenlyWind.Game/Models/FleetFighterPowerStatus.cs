@@ -41,16 +41,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     if (!rInfo.CanParticipateInFighterCombat)
                         continue;
 
-                    var rResult = rInfo.AA * Math.Sqrt(rSlot.PlaneCount);
+                    var rSquareRootOfPlaneCount = Math.Sqrt(rSlot.PlaneCount);
+                    var rResult = rInfo.AA * rSquareRootOfPlaneCount;
+
                     rFighterPowerWithoutBonus += (int)rResult;
 
                     switch (rInfo.Type)
                     {
                         case EquipmentType.CarrierBasedFighter:
-                            rResult += rEquipment.Level * .2 * Math.Sqrt(rSlot.PlaneCount);
+                            rResult += rEquipment.Level * .2 * rSquareRootOfPlaneCount;
                             break;
+
                         case EquipmentType.CarrierBasedDiveBomber:
-                            rResult += rEquipment.Level * .25 * Math.Sqrt(rSlot.PlaneCount);
+                            rResult += rEquipment.Level * .25 * rSquareRootOfPlaneCount;
                             break;
                     }
 
@@ -62,6 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         {
                             case EquipmentType.CarrierBasedFighter:
                             case EquipmentType.SeaplaneFighter:
+                            case EquipmentType.JetPoweredFighter:
                                 rResult += r_FighterFPBouns[rProficiency];
                                 break;
 
@@ -70,7 +74,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                                 break;
                         }
 
-                        rResult += Math.Sqrt(r_InternalFPBonus[rProficiency] / 10.0);
+                        rResult += Math.Sqrt(r_InternalFPBonus[rProficiency] * .1);
                     }
                     rFighterPower += (int)rResult;
                 }
