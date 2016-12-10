@@ -249,9 +249,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         }
         void ProcessAirForceGroupSortieConsumption(StringBuilder rpBuilder, SQLiteParameterCollection rpParameters, AirForceGroup[] rpGroups)
         {
+            var rFuelConsumption = 0;
+            var rBulletConsumption = 0;
+
+            foreach (var rGroup in rpGroups)
+            {
+                rFuelConsumption += rGroup.LBASFuelConsumption;
+                rBulletConsumption += rGroup.LBASBulletConsumption;
+            }
+
+            if (rFuelConsumption == 0 && rBulletConsumption == 0)
+                return;
+
             rpBuilder.AppendLine("INSERT OR IGNORE INTO sortie_consumption_detail(id, type, fuel, bullet) VALUES(@id, 4, @afgs_fuel, @afgs_bullet);");
-            rpParameters.AddWithValue("@afgs_fuel", rpGroups.Sum(r => r.LBASFuelConsumption));
-            rpParameters.AddWithValue("@afgs_bullet", rpGroups.Sum(r => r.LBASBulletConsumption));
+            rpParameters.AddWithValue("@afgs_fuel", rFuelConsumption);
+            rpParameters.AddWithValue("@afgs_bullet", rBulletConsumption);
         }
 
         void BeforeSupply(ApiInfo rpInfo)

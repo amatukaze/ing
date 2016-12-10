@@ -236,6 +236,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                                 rBulletConsumption += 3;
                                 break;
 
+                            case EquipmentIconType.JetFighterBomberKeiunKai:
+                            case EquipmentIconType.JetFighterBomberKikkaKai:
+                                rFuelConsumption += 15;
+                                rBulletConsumption += 8;
+                                break;
+
                             default:
                                 rFuelConsumption += 18;
                                 rBulletConsumption += 11;
@@ -244,10 +250,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     }
                     else
                     {
-                        rBulletConsumption += (int)(rPlaneCount * 2 / 3.0);
+                        rBulletConsumption += rPlaneCount * 2 / 3;
 
                         if (rIcon == EquipmentIconType.LandBasedAttackAircraft)
-                            rFuelConsumption += (int)(rPlaneCount * 1.5);
+                            rFuelConsumption += rPlaneCount * 2 / 3;
                         else
                             rFuelConsumption += rPlaneCount;
                     }
