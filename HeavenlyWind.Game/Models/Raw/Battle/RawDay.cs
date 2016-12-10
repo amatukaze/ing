@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
 {
@@ -15,6 +17,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
 
         [JsonProperty("api_formation")]
         public int[] FormationAndEngagementForm { get; set; }
+
+        [JsonProperty("api_air_base_injection")]
+        public JToken RawLandBaseJetAircraftAerialSupport { get; set; }
+
+        public RawAerialCombatPhase[] LandBaseJetAircraftAerialSupport
+        {
+            get
+            {
+                if (RawLandBaseJetAircraftAerialSupport == null)
+                    return null;
+
+                switch (RawLandBaseJetAircraftAerialSupport.Type)
+                {
+                    case JTokenType.Object: return new[] { RawLandBaseJetAircraftAerialSupport.ToObject<RawAerialCombatPhase>() };
+                    case JTokenType.Array: return RawLandBaseJetAircraftAerialSupport.ToObject<RawAerialCombatPhase[]>();
+
+                    default: throw new FormatException();
+                }
+            }
+        }
+
+        [JsonProperty("api_injection_kouku")]
+        public RawAerialCombatPhase JetAircraftAerialCombat { get; set; }
 
         [JsonProperty("api_air_base_attack")]
         public RawLandBaseAerialSupport[] LandBaseAerialSupport { get; set; }

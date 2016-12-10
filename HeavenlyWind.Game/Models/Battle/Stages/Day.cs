@@ -4,6 +4,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 {
     abstract class Day : BattleStage
     {
+        public LandBaseJetAircraftAerialSupport LandBaseJetAircraftAerialSupport { get; protected set; }
+        public AerialCombatPhase JetAircraftAerialCombat { get; protected set; }
         public LandBaseAerialSupportPhase LandBaseAerialSupport { get; protected set; }
         public AerialCombatPhase AerialCombat { get; protected set; }
         public SupportingFirePhase SupportingFire { get; protected set; }

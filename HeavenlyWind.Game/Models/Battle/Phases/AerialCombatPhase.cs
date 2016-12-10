@@ -16,6 +16,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         internal protected override void Process()
         {
+            if (RawData == null)
+                return;
+
             var rInfo = Stage.Owner.AerialCombat;
 
             ProcessStage1(rInfo);

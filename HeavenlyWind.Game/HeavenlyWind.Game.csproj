@@ -107,6 +107,7 @@
     <Compile Include="Models\Battle\Phases\AerialCombatPhase.cs" />
     <Compile Include="Models\Battle\Phases\BattlePhase.cs" />
     <Compile Include="Models\Battle\Phases\LandBaseAerialSupportPhase.cs" />
+    <Compile Include="Models\Battle\Phases\LandBaseJetAircraftAerialSupport.cs" />
     <Compile Include="Models\Battle\Phases\OpeningASWPhase.cs" />
     <Compile Include="Models\Battle\Phases\PhaseRound.cs" />
     <Compile Include="Models\Battle\Phases\ShellingPhase.cs" />
