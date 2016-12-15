@@ -40,6 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Log_EquipmentImprovement_Success => GetString(nameof(Log_EquipmentImprovement_Success));
         public string Log_EquipmentImprovement_Upgrade => GetString(nameof(Log_EquipmentImprovement_Upgrade));
         public string Log_EquipmentImprovement_Failure => GetString(nameof(Log_EquipmentImprovement_Failure));
+        public string Log_Proxy_AutoRetry => GetString(nameof(Log_Proxy_AutoRetry));
 
         public string Notification_Expedition => GetString(nameof(Notification_Expedition));
         public string Notification_Expedition_Content => GetString(nameof(Notification_Expedition_Content));
@@ -57,6 +58,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Notification_AnchorageRepair_Content => GetString(nameof(Notification_AnchorageRepair_Content));
 
         public string MessageDialog_AudioSessionDisconnected => GetString(nameof(MessageDialog_AudioSessionDisconnected));
+        public string MessageDialog_Proxy_AutoRetry => GetString(nameof(MessageDialog_Proxy_AutoRetry));
+        public string MessageDialog_Proxy_AutoRetry_Message => GetString(nameof(MessageDialog_Proxy_AutoRetry_Message));
+        public string MessageDialog_Proxy_AutoRetry_Message2 => GetString(nameof(MessageDialog_Proxy_AutoRetry_Message2));
+        public string MessageDialog_Proxy_AutoRetry_Button_Continue => GetString(nameof(MessageDialog_Proxy_AutoRetry_Button_Continue));
+        public string MessageDialog_Proxy_AutoRetry_Button_Abort => GetString(nameof(MessageDialog_Proxy_AutoRetry_Button_Abort));
 
         public string Result_Failure => GetString(nameof(Result_Failure));
         public string Result_Success => GetString(nameof(Result_Success));
@@ -341,6 +347,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content));
         public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes));
         public string PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No => GetString(nameof(PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No));
+        public string PreferenceWindow_Network_AutoRetry => GetString(nameof(PreferenceWindow_Network_AutoRetry));
+        public string PreferenceWindow_Network_AutoRetry_Count => GetString(nameof(PreferenceWindow_Network_AutoRetry_Count));
+        public string PreferenceWindow_Network_AutoRetry_Confirmation => GetString(nameof(PreferenceWindow_Network_AutoRetry_Confirmation));
         public string PreferenceWindow_Window => GetString(nameof(PreferenceWindow_Window));
         public string PreferenceWindow_Window_CloseConfirmation => GetString(nameof(PreferenceWindow_Window_CloseConfirmation));
         public string PreferenceWindow_Window_CloseConfirmation_Disabled => GetString(nameof(PreferenceWindow_Window_CloseConfirmation_Disabled));

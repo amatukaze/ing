@@ -36,6 +36,7 @@
   <String Key="Log_EquipmentImprovement_Success">「[b]{0}[/b] {1}」の改修に成功しました</String>
   <String Key="Log_EquipmentImprovement_Upgrade">「[b]{0}[/b] {1}」に装備が改修更新されました</String>
   <String Key="Log_EquipmentImprovement_Failure">「[b]{0}[/b] {1}」の改修に失敗しました</String>
+  <String Key="Log_Proxy_AutoRetry">API {1} の再試行中。再試行の回数: {0}</String>
 
   <String Key="Notification_Expedition">遠征完了</String>
   <String Key="Notification_Expedition_Content">「{0}」が遠征「{1}」から帰投しました。</String>
@@ -53,6 +54,11 @@
   <String Key="Notification_AnchorageRepair_Content">泊地修理の開始から 20 分が経過したので、母港画面に戻ってください</String>
 
   <String Key="MessageDialog_AudioSessionDisconnected">オーディオデバイスが抜かれたので、音量を設定に失敗しました。</String>
+  <String Key="MessageDialog_Proxy_AutoRetry">しまった！</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message">API {0} の再試行の回数が設定する数値を超しました。</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message2">API {0} の再試行が再び失敗しました！</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Continue">続ける</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Abort">中止する</String>
 
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
@@ -339,6 +345,9 @@
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">この上流プロキシが HTTPS 接続を受信しないことを確信しますか？</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">はい</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">いいえ</String>
+  <String Key="PreferenceWindow_Network_AutoRetry">サーバエラー（HTTP 5xx エラー）の時に再試行する</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Count">再試行回数</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">超したの時に確認する</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">アプリ終了時の確認動作</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">確認しない</String>

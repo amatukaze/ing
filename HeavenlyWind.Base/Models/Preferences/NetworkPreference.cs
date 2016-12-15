@@ -8,5 +8,9 @@
         public Property<bool> AllowRequestsFromOtherDevices { get; } = new Property<bool>("network.allow_remote_requests");
 
         public UpstreamProxyPreference UpstreamProxy { get; } = new UpstreamProxyPreference();
+
+        public Property<bool> AutoRetry { get; } = new Property<bool>("network.auto_retry.enabled");
+        public Property<int> AutoRetryCount { get; } = new Property<int>("network.auto_retry.count", 3);
+        public Property<bool> AutoRetryConfirmation { get; } = new Property<bool>("network.auto_retry.confirmation");
     }
 }

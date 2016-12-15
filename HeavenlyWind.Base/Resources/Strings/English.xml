@@ -36,6 +36,7 @@
   <String Key="Log_EquipmentImprovement_Success">[b]{0}[/b] has been successfully improved to {1}</String>
   <String Key="Log_EquipmentImprovement_Upgrade">The equipment has upgraded to [b]{0}[/b] {1}</String>
   <String Key="Log_EquipmentImprovement_Failure">Failed to improve [b]{0}[/b] {1}</String>
+  <String Key="Log_Proxy_AutoRetry">Retrying request (API: {1}, Retry count: {0})</String>
 
   <String Key="Notification_Expedition">Expedition Completed</String>
   <String Key="Notification_Expedition_Content">"{0}" has returned from {1}.</String>
@@ -55,6 +56,11 @@
   <String Key="MessageDialog_AudioSessionDisconnected">Audio device has been unplugged, which results in failing to mute/unmute.
 
 The current version can't handle this problem. To mute/unmute, please do it with sound mixer.</String>
+  <String Key="MessageDialog_Proxy_AutoRetry">Oops!</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message">The retry count of API {0} has reached the number you set.</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message2">The retry of API {0} failed again!</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Continue">Continue</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Abort">Abort</String>
 
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>
@@ -340,6 +346,9 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">Are you sure that this upstream proxy refuse HTTPS connections?</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">Yes</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">No</String>
+  <String Key="PreferenceWindow_Network_AutoRetry">Auto retry if the server returns a 5xx error</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Count">Max retry count</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">Confirm when reaching this count</String>
   <String Key="PreferenceWindow_Window">Window</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">Close confirmation</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">Disabled</String>

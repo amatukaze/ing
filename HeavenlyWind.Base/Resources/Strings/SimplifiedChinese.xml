@@ -36,6 +36,7 @@
   <String Key="Log_EquipmentImprovement_Success">「[b]{0}[/b]」被改修到 {1}</String>
   <String Key="Log_EquipmentImprovement_Upgrade">装备已升级为「[b]{0}[/b] {1}」</String>
   <String Key="Log_EquipmentImprovement_Failure">「[b]{0}[/b] {1}」的改修失败了</String>
+  <String Key="Log_Proxy_AutoRetry">进行第 {0} 次网络请求的重试 (API: {1})</String>
 
   <String Key="Notification_Expedition">远征结束</String>
   <String Key="Notification_Expedition_Content">「{0}」从远征「{1}」归来。</String>
@@ -55,6 +56,11 @@
   <String Key="MessageDialog_AudioSessionDisconnected">音频设备有变动，导致无法设置静音。
 
 当前版本还无法解决该问题。如果要设置静音，请使用系统的音量合成器。请见谅。</String>
+  <String Key="MessageDialog_Proxy_AutoRetry">哎呀！</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message">重试 API {0} 的次数已超过了所设定的数值。</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message2">重试 API {0} 又失败了！</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Continue">继续</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Abort">放弃</String>
 
   <String Key="Result_Failure">失败</String>
   <String Key="Result_Success">成功</String>
@@ -342,6 +348,9 @@
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">在勾选这个之前，请确认所用的上游代理是否不允许 HTTPS 连接</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">是的</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">不是</String>
+  <String Key="PreferenceWindow_Network_AutoRetry">遇到服务器错误时自动重连（即请求收到 HTTP 5XX 的状态码时）</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Count">重试次数</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">达到该数值时时询问</String>
   <String Key="PreferenceWindow_Window">窗口</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">退出确认</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">禁用</String>

@@ -11,6 +11,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <rb:IntegerRangeValidationRule x:Key="PortRangeValidationRule" Minimum="0" Maximum="65535" />
+        <rb:IntegerRangeValidationRule x:Key="RetryCountValidationRule" Minimum="0" />
     </UserControl.Resources>
 
     <StackPanel>
@@ -42,6 +43,22 @@
 
             <CheckBox Name="HttpOnly" IsChecked="{rb:Preference Network.UpstreamProxy.HttpOnly}" Margin="12, 0, 0, 0">
                 <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_UseUpstreamProxy_HttpOnly}" />
+            </CheckBox>
+        </StackPanel>
+
+        <CheckBox IsChecked="{rb:Preference Network.AutoRetry}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_AutoRetry}" />
+        </CheckBox>
+        <StackPanel IsEnabled="{rb:Preference Network.AutoRetry}" Orientation="Horizontal" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_AutoRetry_Count}" />
+            <TextBox Text="{rb:Preference Network.AutoRetryCount, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource RetryCountValidationRule}}" Width="60" Margin="6, 0, 0, 0">
+                <i:Interaction.Behaviors>
+                    <ruii:NumericTextBoxBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
+
+            <CheckBox IsChecked="{rb:Preference Network.AutoRetryConfirmation}" Margin="12, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_AutoRetry_Confirmation}" />
             </CheckBox>
         </StackPanel>
     </StackPanel>
