@@ -1,15 +1,13 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
-using Sakuno.UserInterface;
-using Sakuno.UserInterface.Commands;
+using Sakuno.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
@@ -61,13 +59,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         IDisposable r_HomeportSubscription;
 
-        public ICommand SelectThisTypeOnlyCommand { get; }
-
         internal EquipmentOverviewViewModel()
         {
-            SelectThisTypeOnlyCommand = new DelegatedCommand<EquipmentTypeViewModel>(SelectThisTypeOnly);
-
-            r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection, SelectThisTypeOnlyCommand = SelectThisTypeOnlyCommand });
+            r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r));
             Types = r_TypeMap.Values.ToArray();
 
             var rSelectedTypes = Preference.Instance.Game.SelectedEquipmentTypes.Value;
@@ -106,7 +100,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             }
         }
 
-        void UpdateSelection()
+        public void UpdateSelection()
         {
             UpdateSelectionCore();
 
@@ -129,7 +123,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             Refresh();
         }
 
-        void SelectThisTypeOnly(EquipmentTypeViewModel rpType)
+        public void Filter(EquipmentTypeViewModel rpType)
         {
             foreach (var rType in Types)
                 rType.SetIsSelectedWithoutCallback(rType == rpType);
@@ -146,7 +140,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                 var rGame = KanColleGame.Current;
                 var rShips = rGame.Port.Ships.Values;
 
-                r_EquipmentMap = rGame.Port.Equipment.Values.GroupBy(r => r.Info).Where(r => r_TypeMap[r.Key.Icon].IsSelected).OrderBy(r => r.Key.Type).ThenBy(r => r.Key.ID)
+                r_EquipmentMap = rGame.Port.Equipment.Values.GroupBy(r => r.Info).Where(r => r_TypeMap.GetValueOrDefault(r.Key.Icon)?.IsSelected ?? false).OrderBy(r => r.Key.Type).ThenBy(r => r.Key.ID)
                     .ToDictionary(r => r.Key, r => new EquipmentGroupByMasterID(r.Key, r_TypeMap[r.Key.Icon], r));
 
                 foreach (var rShip in rShips)
