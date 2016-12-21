@@ -26,7 +26,6 @@
         <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
         <Setter Property="Width" Value="20" />
         <Setter Property="Height" Value="20" />
-        <Setter Property="CacheMode" Value="{StaticResource BitmapCache}" />
 
         <Style.Triggers>
             <Trigger Property="Type" Value="Firepower">

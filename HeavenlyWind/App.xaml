@@ -16,7 +16,6 @@
             </ResourceDictionary.MergedDictionaries>
 
             <ri:WindowPlacementPreference x:Key="WindowPlacementPreference" />
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

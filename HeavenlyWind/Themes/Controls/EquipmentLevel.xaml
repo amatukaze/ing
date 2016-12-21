@@ -6,8 +6,6 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type rc:EquipmentLevel}">
-        <Setter Property="CacheMode" Value="{StaticResource BitmapCache}" />
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type rc:EquipmentLevel}">
