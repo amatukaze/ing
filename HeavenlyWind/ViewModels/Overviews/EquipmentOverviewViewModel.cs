@@ -11,7 +11,7 @@ using System.Reactive.Subjects;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentOverviewViewModel : WindowViewModel, IDisposable
+    class EquipmentOverviewViewModel : WindowViewModel, IDisposable
     {
         Subject<Unit> r_UpdateObservable = new Subject<Unit>();
         IDisposable r_UpdateSubscription;
@@ -30,8 +30,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             }
         }
 
-        Dictionary<EquipmentIconType, EquipmentTypeViewModel> r_TypeMap;
-        public IList<EquipmentTypeViewModel> Types { get; private set; }
+        Dictionary<EquipmentIconType, FilterTypeViewModel<EquipmentIconType>> r_TypeMap;
+        public IList<FilterTypeViewModel<EquipmentIconType>> Types { get; private set; }
 
         bool? r_SelectAllTypes = false;
         public bool? SelectAllTypes
@@ -45,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                     if (r_SelectAllTypes.HasValue)
                     {
                         foreach (var rType in Types)
-                            rType.SetIsSelectedWithoutCallback(r_SelectAllTypes.Value);
+                            rType.IsSelected = r_SelectAllTypes.Value;
 
                         UpdateSelection();
                         OnPropertyChanged(nameof(SelectAllTypes));
@@ -61,16 +61,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         internal EquipmentOverviewViewModel()
         {
-            r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new EquipmentTypeViewModel(r));
+            r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new FilterTypeViewModel<EquipmentIconType>(r));
             Types = r_TypeMap.Values.ToArray();
 
             var rSelectedTypes = Preference.Instance.Game.SelectedEquipmentTypes.Value;
             if (rSelectedTypes != null)
                 foreach (var rID in rSelectedTypes)
                 {
-                    EquipmentTypeViewModel rTypeVM;
+                    FilterTypeViewModel<EquipmentIconType> rTypeVM;
                     if (r_TypeMap.TryGetValue((EquipmentIconType)rID, out rTypeVM))
-                        rTypeVM.SetIsSelectedWithoutCallback(true);
+                        rTypeVM.IsSelected = true;
                 }
 
             r_UpdateSubscription = r_UpdateObservable.Do(_ => IsLoading = true).Throttle(TimeSpan.FromSeconds(.75)).Subscribe(_ => UpdateCore());
@@ -123,10 +123,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             Refresh();
         }
 
-        public void Filter(EquipmentTypeViewModel rpType)
+        public void Filter(FilterTypeViewModel<EquipmentIconType> rpType)
         {
             foreach (var rType in Types)
-                rType.SetIsSelectedWithoutCallback(rType == rpType);
+                rType.IsSelected = rType == rpType;
 
             UpdateSelection();
         }

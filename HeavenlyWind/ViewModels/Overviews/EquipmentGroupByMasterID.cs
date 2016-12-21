@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentGroupByMasterID : ModelBase
+    class EquipmentGroupByMasterID : ModelBase
     {
         public EquipmentInfo Info { get; }
-        public EquipmentTypeViewModel Type { get; }
+        public FilterTypeViewModel<EquipmentIconType> Type { get; }
 
         ListDictionary<EquipmentGroupingKey, EquipmentGroupByLevel> r_LevelMap = new ListDictionary<EquipmentGroupingKey, EquipmentGroupByLevel>();
         public IReadOnlyCollection<EquipmentGroupByLevel> Levels { get; }
@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             }
         }
 
-        internal EquipmentGroupByMasterID(EquipmentInfo rpInfo, EquipmentTypeViewModel rpType, IEnumerable<Equipment> rpEquipment)
+        internal EquipmentGroupByMasterID(EquipmentInfo rpInfo, FilterTypeViewModel<EquipmentIconType> rpType, IEnumerable<Equipment> rpEquipment)
         {
             Info = rpInfo;
             Type = rpType;

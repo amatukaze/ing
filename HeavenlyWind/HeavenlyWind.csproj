@@ -231,11 +231,9 @@
     <Compile Include="ViewModels\Overviews\EquipmentGroupByShip.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentGroupingKey.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentOverviewViewModel.cs" />
-    <Compile Include="ViewModels\Overviews\EquipmentTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\FilterTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipCollectionView.cs" />
     <Compile Include="ViewModels\Overviews\ShipOverviewViewModel.cs" />
-    <Compile Include="ViewModels\Overviews\ShipTypeViewModel.cs" />
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
     <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />

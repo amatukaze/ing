@@ -31,8 +31,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             }
         }
 
-        public Dictionary<ShipTypeInfo, ShipTypeViewModel> TypeMaps { get; }
-        public IList<ShipTypeViewModel> Types { get; private set; }
+        public Dictionary<ShipTypeInfo, FilterTypeViewModel<ShipTypeInfo>> TypeMaps { get; }
+        public IList<FilterTypeViewModel<ShipTypeInfo>> Types { get; private set; }
 
         bool? r_SelectAllTypes = false;
         public bool? SelectAllTypes
@@ -46,7 +46,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                     if (r_SelectAllTypes.HasValue)
                     {
                         foreach (var rType in Types)
-                            rType.SetIsSelectedWithoutCallback(r_SelectAllTypes.Value);
+                            rType.IsSelected = r_SelectAllTypes.Value;
 
                         UpdateSelection();
                         OnPropertyChanged(nameof(SelectAllTypes));
@@ -138,7 +138,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         internal ShipOverviewViewModel()
         {
-            TypeMaps = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 12 && r.ID != 15).ToDictionary(IdentityFunction<ShipTypeInfo>.Instance, r => new ShipTypeViewModel(r) { IsSelectedChangedCallback = UpdateSelection });
+            TypeMaps = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 12 && r.ID != 15).ToDictionary(IdentityFunction<ShipTypeInfo>.Instance, r => new FilterTypeViewModel<ShipTypeInfo>(r));
             Types = TypeMaps.Values.ToArray();
 
             r_Ships = new ShipCollectionView(this);
@@ -149,9 +149,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                 foreach (var rID in rSelectedTypes)
                 {
                     ShipTypeInfo rShipType;
-                    ShipTypeViewModel rTypeVM;
+                    FilterTypeViewModel<ShipTypeInfo> rTypeVM;
                     if (KanColleGame.Current.MasterInfo.ShipTypes.TryGetValue(rID, out rShipType) && TypeMaps.TryGetValue(rShipType, out rTypeVM))
-                        rTypeVM.SetIsSelectedWithoutCallback(true);
+                        rTypeVM.IsSelected = true;
                 }
 
             r_UpdateSubscription = r_UpdateObservable
@@ -202,11 +202,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
             Refresh();
         }
 
-        void UpdateSelection()
+        public void UpdateSelection()
         {
             UpdateSelectionCore();
 
-            Preference.Instance.Game.SelectedShipTypes.Value = Types.Where(r => r.IsSelected).Select(r => r.ID).ToArray();
+            Preference.Instance.Game.SelectedShipTypes.Value = Types.Where(r => r.IsSelected).Select(r => r.Type.ID).ToArray();
         }
         void UpdateSelectionCore()
         {
