@@ -1,10 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
-using Sakuno.UserInterface;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using System.Reactive.Linq;
-using Sakuno.UserInterface.Commands;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {
@@ -42,14 +39,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
             }
         }
 
-        public ICommand ClearCommand { get; }
-
         public SessionToolViewModel()
         {
             if (Preference.Instance.Other.SessionTool.StartRecordingOnAppStartup)
                 r_IsRecording = true;
-
-            ClearCommand = new DelegatedCommand(() => Sessions.Clear());
 
             KanColleProxy.SessionSubject.ObserveOnDispatcher().Subscribe(r =>
             {

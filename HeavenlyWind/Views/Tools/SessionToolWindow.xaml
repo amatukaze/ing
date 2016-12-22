@@ -8,6 +8,8 @@
                   xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                  xmlns:ruico="clr-namespace:Sakuno.UserInterface.Commands;assembly=Sakuno.UserInterface"
+                  xmlns:ruioo="clr-namespace:Sakuno.UserInterface.ObjectOperations;assembly=Sakuno.UserInterface"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.SessionTool_Title}"
                   Width="900" Height="600" MinWidth="640"
@@ -76,7 +78,13 @@
                     </Ellipse>
                 </ToggleButton>
 
-                <Button Command="{Binding ClearCommand}" Margin="4, 0, 0, 0">
+                <Button Margin="4, 0, 0, 0">
+                    <Button.Command>
+                        <ruico:ObjectOperationCommand>
+                            <ruioo:InvokeMethod Target="{Binding Sessions}" Method="Clear" />
+                        </ruico:ObjectOperationCommand>
+                    </Button.Command>
+
                     <StackPanel Orientation="Horizontal">
                         <Path Data="{StaticResource CrossPathData}" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" Width="14" Height="14" />
                         <TextBlock Text="{rb:StringResource Main.SessionTool_Clear}" Margin="2, 0, 0, 0" />

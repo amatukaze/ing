@@ -9,6 +9,8 @@
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
                   xmlns:rvmh="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.History"
+                  xmlns:ruico="clr-namespace:Sakuno.UserInterface.Commands;assembly=Sakuno.UserInterface"
+                  xmlns:ruioo="clr-namespace:Sakuno.UserInterface.ObjectOperations;assembly=Sakuno.UserInterface"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_SortieHistory}"
                   Width="1024" Height="600"
@@ -29,7 +31,6 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_SortieHistory}" />
         </DockPanel>
 
-
         <Grid Margin="8, 0, 8, 8" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -38,7 +39,13 @@
             </Grid.RowDefinitions>
 
             <DockPanel Margin="0, 0, 0, 8">
-                <Button Command="{Binding ExportAsCsvFileCommand}" DockPanel.Dock="Right">
+                <Button DockPanel.Dock="Right">
+                    <Button.Command>
+                        <ruico:ObjectOperationCommand>
+                            <ruioo:InvokeMethod Method="ExportAsCsvFile" />
+                        </ruico:ObjectOperationCommand>
+                    </Button.Command>
+
                     <TextBlock Text="{rb:StringResource Main.Export_CSV}" />
                 </Button>
 

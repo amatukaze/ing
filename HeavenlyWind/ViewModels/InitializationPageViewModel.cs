@@ -1,12 +1,9 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.SystemInterop;
-using Sakuno.UserInterface;
-using Sakuno.UserInterface.Commands;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
@@ -36,15 +33,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public ProcessInfo ProcessThatOccupyingPort { get; private set; }
 
-        public ICommand RetryCommand { get; }
-        public ICommand SkipCommand { get; }
-
         public InitializationPageViewModel(MainWindowViewModel rpOwner)
         {
             r_Owner = rpOwner;
-
-            RetryCommand = new DelegatedCommand(CheckProxyPort);
-            SkipCommand = new DelegatedCommand(Start);
         }
 
         public async void CheckProxyPort()
