@@ -2,11 +2,9 @@
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
-using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
-using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;

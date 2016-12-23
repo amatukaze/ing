@@ -59,6 +59,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
             }
         }
+
+        public bool IsJetPoweredAircraft
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case EquipmentType.JetPoweredFighter:
+                    case EquipmentType.JetPoweredFighterBomber:
+                    case EquipmentType.JetPoweredAttackAircraft:
+                    case EquipmentType.JetPoweredRecon:
+                        return true;
+
+                    default: return false;
+                }
+            }
+        }
+
         public bool CanParticipateInFighterCombat
         {
             get
