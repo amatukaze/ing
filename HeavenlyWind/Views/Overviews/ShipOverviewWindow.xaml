@@ -172,7 +172,19 @@
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 4" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 4" />
+
+                                            <Border Name="ExpeditionState" Background="#9F9AE9" Margin="4, 0, 0, 0" Visibility="Collapsed">
+                                                <TextBlock Text="{rb:StringResource Main.ShipOverview_OnExpedition}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="4, 2" />
+                                            </Border>
+                                        </StackPanel>
+
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{rb:HasFlag Ship.State, Expedition}" Value="True">
+                                                <Setter TargetName="ExpeditionState" Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

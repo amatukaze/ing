@@ -468,6 +468,7 @@
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">Lv1 の艦娘を除く</String>
   <String Key="ShipOverview_Filter_ExceptMaxModernizationShips">改修が完了した艦娘を除く</String>
   <String Key="ShipOverview_List_Loading">一覧を生成しています</String>
+  <String Key="ShipOverview_OnExpedition">遠</String>
 
   <String Key="Export_CSV">CSV に出力</String>
   <String Key="Export_CSV_FileType">CSV ファイル</String>

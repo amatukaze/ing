@@ -470,6 +470,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string ShipOverview_Filter_ExceptLevel1Ships => GetString(nameof(ShipOverview_Filter_ExceptLevel1Ships));
         public string ShipOverview_Filter_ExceptMaxModernizationShips => GetString(nameof(ShipOverview_Filter_ExceptMaxModernizationShips));
         public string ShipOverview_List_Loading => GetString(nameof(ShipOverview_List_Loading));
+        public string ShipOverview_OnExpedition => GetString(nameof(ShipOverview_OnExpedition));
 
         public string Export_CSV => GetString(nameof(Export_CSV));
         public string Export_CSV_FileType => GetString(nameof(Export_CSV_FileType));

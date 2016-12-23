@@ -471,6 +471,7 @@
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">排除 Lv1 的舰娘</String>
   <String Key="ShipOverview_Filter_ExceptMaxModernizationShips">排除近代化改修 MAX 的舰娘</String>
   <String Key="ShipOverview_List_Loading">加载中</String>
+  <String Key="ShipOverview_OnExpedition">远</String>
 
   <String Key="Export_CSV">导出为 CSV 文件</String>
   <String Key="Export_CSV_FileType">CSV 文件</String>
