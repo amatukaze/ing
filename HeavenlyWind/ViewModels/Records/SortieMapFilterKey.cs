@@ -1,6 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
     class SortieMapFilterKey : ModelBase
     {

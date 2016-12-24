@@ -1,7 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models.Records;
 using System.Data.SQLite;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
     class SortieConsumptionHistoryViewModel : SortieHistoryViewModelBase<SortieConsumptionRecord>
     {
@@ -17,6 +17,7 @@ JOIN sortie ON sortie.id = sortie_consumption.id
 LEFT JOIN sortie_map_hp ON sortie_map_hp.id = sortie.map AND sortie_map_hp.difficulty = ifnull(sortie.difficulty, 0)
 LEFT JOIN sortie_consumption_detail USING(id)
 LEFT JOIN sortie_reward USING(id)
+WHERE sortie.id >= {0} AND sortie.id < {1}
 GROUP BY sortie.id
 ORDER BY sortie.id DESC;";
 

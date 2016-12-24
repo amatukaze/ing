@@ -1,7 +1,7 @@
 ﻿using System;
-using Sakuno.KanColle.Amatsukaze.ViewModels.History;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Records;
 
-namespace Sakuno.KanColle.Amatsukaze.Views.History
+namespace Sakuno.KanColle.Amatsukaze.Views.Records
 {
     /// <summary>
     /// DevelopmentHistoryWindow.xaml の相互作用ロジック

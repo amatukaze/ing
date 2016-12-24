@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Records.TimeSpanSelector"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+             mc:Ignorable="d"
+             d:DesignWidth="300" d:DesignHeight="300">
+    <StackPanel Orientation="Horizontal">
+        <TextBlock>
+            <Run Text="{rb:StringResource Main.Record_Time, Mode=OneWay}" />:
+        </TextBlock>
+
+        <ListBox ItemsSource="{Binding TimeSpans}" SelectedValue="{Binding SelectedTimeSpan}" Margin="4, 0, 0, 0">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{rb:EnumToStringResource Type, Record_TimeSpan}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Orientation="Horizontal" Margin="4, 0, 0, 0">
+            <StackPanel.Style>
+                <Style TargetType="{x:Type StackPanel}">
+                    <Setter Property="Visibility" Value="Collapsed" />
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedTimeSpan.Type}" Value="Custom">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <StackPanel.Resources>
+                <StreamGeometry x:Key="CalenderDaySelection">M217.5,217.502 L262.5,217.502 L262.5,255.002 L217.5,255.002 z M157.5,217.502 L202.499,217.502 L202.499,255.002 L157.5,255.002 z M97.4998,217.502 L142.5,217.502 L142.5,255.002 L97.4998,255.002 z M37.5,217.502 L82.4997,217.502 L82.4997,255.002 L37.5,255.002 z M105,172.501 L105,195.001 L135,195.001 L135,172.501 z M217.5,165.002 L262.5,165.002 L262.5,202.502 L217.5,202.502 z M157.5,165.002 L202.499,165.002 L202.499,202.502 L157.5,202.502 z M97.4998,165.002 L142.5,165.002 L142.5,202.502 L97.4998,202.502 z M37.5,165.002 L82.4997,165.002 L82.4997,202.502 L37.5,202.502 z M217.5,112.503 L262.5,112.503 L262.5,150.003 L217.5,150.003 z M157.5,112.503 L202.499,112.503 L202.499,150.003 L157.5,150.003 z M97.4998,112.503 L142.5,112.503 L142.5,150.003 L97.4998,150.003 z M22.4998,97.5021 L22.4998,270.003 L277.499,270.003 L277.499,97.5021 z M228.749,15.0024 C222.537,15.0024 217.5,20.0387 217.5,26.2523 L217.5,48.7522 C217.5,54.9651 222.537,60.0021 228.749,60.0021 L236.249,60.0021 C242.463,60.0021 247.5,54.9651 247.5,48.7522 L247.5,26.2523 C247.5,20.0387 242.463,15.0024 236.249,15.0024 z M63.7501,15.0016 C57.5364,15.0016 52.5001,20.0387 52.5001,26.2516 L52.5001,48.7522 C52.5001,54.9651 57.5364,60.0021 63.7501,60.0021 L71.2498,60.0021 C77.4634,60.0021 82.4997,54.9651 82.4997,48.7522 L82.4997,26.2516 C82.4997,20.0387 77.4634,15.0016 71.2498,15.0016 z M217.5,0 L247.5,0 C255.784,1E-06 262.5,6.71531 262.5,15.0001 L262.5,37.5015 L300,37.5015 L300,292.503 L0,292.503 L0,37.5015 L37.5,37.5015 L37.5,15.0016 C37.5007,6.71681 44.2161,0.001503 52.5001,0.001502 L82.4997,0.001502 C90.7838,0.001503 97.4991,6.71681 97.4998,15.0001 L97.4998,37.5015 L202.5,37.5015 L202.499,15.0001 C202.499,6.71531 209.215,1E-06 217.5,0 z</StreamGeometry>
+            </StackPanel.Resources>
+
+            <TextBlock>
+                <Run Text="{rb:StringResource Main.Record_CustomTimeSpan_Start}" />:
+            </TextBlock>
+            <DockPanel Width="120" Margin="4, 0, 0, 0">
+                <ruic:DropDownButton Style="{StaticResource FlatDropDownButtonStyle}" ShowDropDownMarker="False" PopupAutoClose="False" IsPopupOpened="{Binding CustomTimeSpan.IsDateStartCalendarOpened}" DockPanel.Dock="Right">
+                    <ruic:DropDownButton.Header>
+                        <Path Stretch="Uniform" Fill="{DynamicResource ActiveForegroundBrushKey}" Width="20" Height="20" Data="{StaticResource CalenderDaySelection}" />
+                    </ruic:DropDownButton.Header>
+
+                    <Calendar Name="TimeSpanStartCalender" SelectedDate="{Binding CustomTimeSpan.SelectedDateStart}" DisplayDateStart="{Binding CustomTimeSpan.MinDisplayDateStart}" DisplayDateEnd="{Binding CustomTimeSpan.SelectedDateEnd}" Margin="0, -3" />
+                </ruic:DropDownButton>
+
+                <TextBlock Text="{Binding SelectedDate, ElementName=TimeSpanStartCalender, StringFormat=d}" Margin="4, 0, 0, 0" />
+            </DockPanel>
+
+            <TextBlock Margin="4, 0, 0, 0">
+                <Run Text="{rb:StringResource Main.Record_CustomTimeSpan_End}" />:
+            </TextBlock>
+            <DockPanel Width="120" Margin="4, 0, 0, 0">
+                <ruic:DropDownButton Style="{StaticResource FlatDropDownButtonStyle}" ShowDropDownMarker="False" PopupAutoClose="False" IsPopupOpened="{Binding CustomTimeSpan.IsDateEndCalendarOpened}" DockPanel.Dock="Right">
+                    <ruic:DropDownButton.Header>
+                        <Path Stretch="Uniform" Fill="{DynamicResource ActiveForegroundBrushKey}" Width="20" Height="20" Data="{StaticResource CalenderDaySelection}" />
+                    </ruic:DropDownButton.Header>
+
+                    <Calendar Name="TimeSpanEndCalender" SelectedDate="{Binding CustomTimeSpan.SelectedDateEnd}" DisplayDateStart="{Binding CustomTimeSpan.SelectedDateStart}" Margin="0, -3" />
+                </ruic:DropDownButton>
+
+                <TextBlock Text="{Binding SelectedDate, ElementName=TimeSpanEndCalender, StringFormat=d}" Margin="4, 0, 0, 0" />
+            </DockPanel>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

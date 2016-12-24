@@ -1,4 +1,4 @@
-﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.History.ScrappingHistoryWindow"
+﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.Records.ScrappingHistoryWindow"
                   x:ClassModifier="internal"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

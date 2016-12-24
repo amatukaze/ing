@@ -483,6 +483,13 @@
   <String Key="Record_SecretaryShip">秘书舰</String>
   <String Key="Record_RankingPoints">战果</String>
   <String Key="Record_Filter_SuccessOnly">仅成功的</String>
+  <String Key="Record_TimeSpan_All">所有</String>
+  <String Key="Record_TimeSpan_Recent24Hours">过去 24 小时</String>
+  <String Key="Record_TimeSpan_Recent3Days">过去三天</String>
+  <String Key="Record_TimeSpan_Recent7Days">过去一周</String>
+  <String Key="Record_TimeSpan_Custom">自定义</String>
+  <String Key="Record_CustomTimeSpan_Start">开始</String>
+  <String Key="Record_CustomTimeSpan_End">结束</String>
 
   <String Key="ConstructionHistory_Ship">舰娘</String>
   <String Key="ConstructionHistory_LSCOnly">大建</String>

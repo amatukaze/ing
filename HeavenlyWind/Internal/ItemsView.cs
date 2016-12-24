@@ -48,10 +48,8 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
             OnCollectionReset();
         }
 
-        protected void OnCollectionReset()
-        {
+        protected void OnCollectionReset() =>
             DispatcherUtil.UIDispatcher.InvokeAsync(() => CollectionChanged?.Invoke(this, r_ResetEventArgs));
-        }
 
         #region
 

@@ -2,14 +2,15 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Models.Records;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives;
 using System.Collections.Generic;
 using System.Data.SQLite;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
-    class DevelopmentHistoryViewModel : HistoryViewModelBase<DevelopmentRecord>
+    class DevelopmentHistoryViewModel : HistoryViewModelWithTimeFilter<DevelopmentRecord>
     {
-        protected override string LoadCommandText => "SELECT * FROM development;";
+        protected override string LoadCommandText => "SELECT * FROM development WHERE time >= {0} AND time < {1};";
 
         public FilterKeyCollection<EquipmentInfo> Equipment { get; } = new FilterKeyCollection<EquipmentInfo>(EquipmentInfo.Dummy, (x, y) => x.ID - y.ID);
         public FilterKeyCollection<ShipInfo> SecretaryShips { get; } = new FilterKeyCollection<ShipInfo>(ShipInfo.Dummy, (x, y) => x.ID - y.ID);
@@ -111,6 +112,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
         {
+            if (SelectedTimeSpan.Type == TimeSpanType.Custom && !IsInTimeSpan(rpRowID))
+                return;
+
             rpCommand.CommandText = "SELECT * FROM development WHERE time = @time LIMIT 1;";
             rpCommand.Parameters.AddWithValue("@time", rpRowID);
         }

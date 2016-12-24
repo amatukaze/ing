@@ -1,15 +1,17 @@
-﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.History.SortieConsumptionHistoryWindow"
+﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.Records.DevelopmentHistoryWindow"
                   x:ClassModifier="internal"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                   xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+                  xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
                   xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
-                  xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                  xmlns:rgm="clr-namespace:Sakuno.KanColle.Amatsukaze.Game.Models;assembly=HeavenlyWind.Game"
+                  xmlns:rvr="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Records"
                   mc:Ignorable="d"
-                  Title="{rb:StringResource Main.Window_SortieConsumptionHistory}"
+                  Title="{rb:StringResource Main.Window_DevelopmentHistory}"
                   Width="1024" Height="600"
                   FontSize="14"
                   UseLayoutRounding="True">
@@ -25,7 +27,7 @@
             <ruic:WindowSystemButtons WindowChrome.IsHitTestVisibleInChrome="True" DockPanel.Dock="Right" />
 
             <rc:AppIcon />
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_SortieConsumptionHistory}" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_DevelopmentHistory}" />
         </DockPanel>
 
         <Grid Margin="8, 0, 8, 8" Grid.Row="1">
@@ -35,16 +37,49 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <StackPanel>
+            <StackPanel Margin="0, 0, 0, 8">
                 <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="16" />
 
+                <rvr:TimeSpanSelector Margin="0, 4, 0, 0" />
+
                 <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                    <TextBlock Text="{rb:StringResource Main.SortieHistory_Area}" />
-                    <ComboBox ItemsSource="{Binding Maps}" ItemTemplateSelector="{StaticResource MapDataTemplateSelector}" SelectedValue="{Binding SelectedMap}" MinWidth="150" Height="24" Margin="4, 0, 0, 0" />
+                    <TextBlock Text="{rb:StringResource Main.Record_Equipment}" />
+                    <ComboBox ItemsSource="{Binding Equipment}" ItemTemplateSelector="{StaticResource EquipmentDataTemplateSelector}" SelectedValue="{Binding SelectedEquipment}" Width="200" Height="24" Margin="4, 0, 0, 0" />
+
+                    <CheckBox IsChecked="{Binding SuccessfulRecordsOnly}" Margin="8, 0, 0, 0">
+                        <TextBlock Text="{rb:StringResource Main.Record_Filter_SuccessOnly}" />
+
+                        <CheckBox.Style>
+                            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource {x:Type CheckBox}}">
+                                <Setter Property="IsEnabled" Value="False" />
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedEquipment}" Value="{x:Static rgm:EquipmentInfo.Dummy}">
+                                        <Setter Property="IsEnabled" Value="True" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </CheckBox.Style>
+                    </CheckBox>
+
+                    <TextBlock Text="{rb:StringResource Main.Record_SecretaryShip}" Margin="8, 0, 0, 0" />
+                    <ComboBox ItemsSource="{Binding SecretaryShips}" ItemTemplateSelector="{StaticResource ShipDataTemplateSelector}" SelectedValue="{Binding SelectedSecretaryShip}" Width="150" Height="24" Margin="4, 0, 0, 0" />
                 </StackPanel>
             </StackPanel>
 
             <ListView ItemsSource="{Binding Records}" Grid.Row="2">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Equipment.Rarity}" Value="1">
+                                <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Equipment.Rarity, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=2}" Value="True">
+                                <Setter Property="Foreground" Value="Yellow" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="50">
@@ -67,20 +102,15 @@
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
 
-                        <GridViewColumn Width="170" CellTemplate="{StaticResource SortieMapDataTemplate}">
-                            <TextBlock Text="{rb:StringResource Main.SortieHistory_Area}" />
-                        </GridViewColumn>
-
-                        <GridViewColumn Width="65">
-                            <TextBlock Text="HP" />
+                        <GridViewColumn Width="220">
+                            <TextBlock Text="{rb:StringResource Main.Record_Equipment}" />
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock DataContext="{Binding MapHP}" Visibility="{rb:CollapsedIfNull}">
-                                        <Run Text="{Binding Current, Mode=OneWay}" FontWeight="Bold" />
-                                        <Run Text="/" />
-                                        <Run Text="{Binding Maximum, Mode=OneWay}" />
-                                    </TextBlock>
+                                    <DockPanel>
+                                        <rc:EquipmentIcon Type="{Binding Equipment.Icon}" VerticalAlignment="Center" />
+                                        <TextBlock Text="{rb:ExtraStringResource Equipment, Equipment.ID, Equipment.Name}" TextTrimming="CharacterEllipsis" Margin="4, 4, 0, 4" />
+                                    </DockPanel>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -90,13 +120,7 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Name="Consumption" Text="{Binding Fuel}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Fuel}" />
-
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Fuel, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
-                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
+                                    <TextBlock Text="{Binding FuelConsumption}" Margin="0, 4" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -105,13 +129,7 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Name="Consumption" Text="{Binding Bullet}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Bullet}" />
-
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Bullet, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
-                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
+                                    <TextBlock Text="{Binding BulletConsumption}" Margin="0, 4" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -120,13 +138,7 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Name="Consumption" Text="{Binding Steel}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Steel}" />
-
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Steel, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
-                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
+                                    <TextBlock Text="{Binding SteelConsumption}" Margin="0, 4" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -135,38 +147,29 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Name="Consumption" Text="{Binding Bauxite}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Bauxite}" />
+                                    <TextBlock Text="{Binding BauxiteConsumption}" Margin="0, 4" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Bauxite, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
-                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
+                        <GridViewColumn Width="150">
+                            <TextBlock Text="{rb:StringResource Main.Record_SecretaryShip}" />
+
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{rb:ExtraStringResource Ship, SecretaryShip.ID, SecretaryShip.Name}" Margin="0, 4" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Width="65">
-                            <rc:MaterialIcon Type="Bucket" />
+                            <TextBlock>
+                                <Run Text="{rb:StringResource Main.Overview_Headquarter, Mode=OneWay}" />
+                                Lv.
+                            </TextBlock>
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Name="Consumption" Text="{Binding Bucket}" Margin="0, 4" Visibility="{rb:CollapsedIfZero Bucket}" />
-
-                                    <DataTemplate.Triggers>
-                                        <DataTrigger Binding="{Binding Bucket, Converter={StaticResource IsLessThanConverter}, ConverterParameter=0}" Value="True">
-                                            <Setter TargetName="Consumption" Property="Foreground" Value="Yellow" />
-                                        </DataTrigger>
-                                    </DataTemplate.Triggers>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-
-                        <GridViewColumn Width="100">
-                            <TextBlock Text="{rb:StringResource Main.Record_RankingPoints}" />
-
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding RankingPoint, StringFormat=0.##}" Margin="0, 4" />
+                                    <TextBlock Text="{Binding HeadquarterLevel}" Margin="0, 4" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

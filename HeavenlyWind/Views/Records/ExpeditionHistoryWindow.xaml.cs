@@ -1,7 +1,7 @@
-﻿using Sakuno.KanColle.Amatsukaze.ViewModels.History;
+﻿using Sakuno.KanColle.Amatsukaze.ViewModels.Records;
 using System;
 
-namespace Sakuno.KanColle.Amatsukaze.Views.History
+namespace Sakuno.KanColle.Amatsukaze.Views.Records
 {
     /// <summary>
     /// ExpeditionHistoryWindow.xaml の相互作用ロジック

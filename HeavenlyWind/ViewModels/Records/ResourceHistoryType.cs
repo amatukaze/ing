@@ -1,4 +1,4 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+﻿namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
     enum ResourceHistoryType
     {

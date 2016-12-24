@@ -1,12 +1,13 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models.Records;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
-    class ResourceHistoryViewModel : HistoryViewModelBase<ResourceRecord>
+    class ResourceHistoryViewModel : HistoryViewModel<ResourceRecord>
     {
         public IList<ResourceHistoryTypeKey> Types { get; }
 

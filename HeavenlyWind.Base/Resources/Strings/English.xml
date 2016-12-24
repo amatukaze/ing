@@ -481,6 +481,13 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Record_SecretaryShip">Secretary ship</String>
   <String Key="Record_RankingPoints">Points</String>
   <String Key="Record_Filter_SuccessOnly">Successful</String>
+  <String Key="Record_TimeSpan_All">All</String>
+  <String Key="Record_TimeSpan_Recent24Hours">Last 24h</String>
+  <String Key="Record_TimeSpan_Recent3Days">Last 3d</String>
+  <String Key="Record_TimeSpan_Recent7Days">Last 7d</String>
+  <String Key="Record_TimeSpan_Custom">Custom</String>
+  <String Key="Record_CustomTimeSpan_Start">Start</String>
+  <String Key="Record_CustomTimeSpan_End">End</String>
 
   <String Key="ConstructionHistory_Ship">Ship</String>
   <String Key="ConstructionHistory_LSCOnly">LSC</String>

@@ -3,12 +3,13 @@ using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Models.Records;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives;
 using System;
 using System.Collections.Generic;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
-    abstract class SortieHistoryViewModelBase<T> : HistoryViewModelBase<T> where T : SortieRecordBase, IRecordID
+    abstract class SortieHistoryViewModelBase<T> : HistoryViewModelWithTimeFilter<T> where T : SortieRecordBase, IRecordID
     {
         public FilterKeyCollection<SortieMapFilterKey> Maps { get; } = new FilterKeyCollection<SortieMapFilterKey>(SortieMapFilterKey.All, SortieMapFilterKey.Comparer);
 

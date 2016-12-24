@@ -2,14 +2,15 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Models.Records;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives;
 using System.Collections.Generic;
 using System.Data.SQLite;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
-    class ConstructionHistoryViewModel : HistoryViewModelBase<ConstructionRecord>
+    class ConstructionHistoryViewModel : HistoryViewModelWithTimeFilter<ConstructionRecord>
     {
-        protected override string LoadCommandText => "SELECT * FROM construction;";
+        protected override string LoadCommandText => "SELECT * FROM construction WHERE time >= {0} AND time < {1};";
 
         public FilterKeyCollection<ShipInfo> Ships { get; } = new FilterKeyCollection<ShipInfo>(ShipInfo.Dummy, (x, y) => x.ID - y.ID);
 
@@ -81,6 +82,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
         {
+            if (SelectedTimeSpan.Type == TimeSpanType.Custom && !IsInTimeSpan(rpRowID))
+                return;
+
             rpCommand.CommandText = "SELECT * FROM construction WHERE time = @time LIMIT 1;";
             rpCommand.Parameters.AddWithValue("@time", rpRowID);
         }

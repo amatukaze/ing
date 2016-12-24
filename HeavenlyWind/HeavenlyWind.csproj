@@ -209,19 +209,6 @@
     <Compile Include="ViewModels\Game\RepairDockViewModel.cs" />
     <Compile Include="ViewModels\Game\ShipViewModel.cs" />
     <Compile Include="ViewModels\Game\SortieViewModel.cs" />
-    <Compile Include="ViewModels\History\ConstructionHistoryViewModel.cs" />
-    <Compile Include="ViewModels\History\DevelopmentHistoryViewModel.cs" />
-    <Compile Include="ViewModels\History\ExpeditionHistoryViewModel.cs" />
-    <Compile Include="ViewModels\History\HistoryRecordsView.cs" />
-    <Compile Include="ViewModels\History\HistoryViewModelBase.cs" />
-    <Compile Include="ViewModels\History\ResourceHistoryType.cs" />
-    <Compile Include="ViewModels\History\ResourceHistoryTypeKey.cs" />
-    <Compile Include="ViewModels\History\ResourceHistoryViewModel.cs" />
-    <Compile Include="ViewModels\History\ScrappingHistoryViewModel.cs" />
-    <Compile Include="ViewModels\History\SortieConsumptionHistoryViewModel.cs" />
-    <Compile Include="ViewModels\History\SortieHistoryViewModel.cs" />
-    <Compile Include="ViewModels\History\SortieHistoryViewModelBase.cs" />
-    <Compile Include="ViewModels\History\SortieMapFilterKey.cs" />
     <Compile Include="ViewModels\InitializationPageViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Overviews\EquipmentCollectionView.cs" />
@@ -237,6 +224,24 @@
     <Compile Include="ViewModels\Overviews\ShipViewModel.cs" />
     <Compile Include="ViewModels\Plugins\PluginViewModel.cs" />
     <Compile Include="ViewModels\Preferences\PreferencesWindowViewModel.cs" />
+    <Compile Include="ViewModels\Records\ConstructionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Records\DevelopmentHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Records\ExpeditionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Records\Primitives\CustomTimeSpanViewModel.cs" />
+    <Compile Include="ViewModels\Records\Primitives\GeneralTimeSpanViewModel.cs" />
+    <Compile Include="ViewModels\Records\Primitives\HistoryRecordsView.cs" />
+    <Compile Include="ViewModels\Records\Primitives\HistoryViewModel.cs" />
+    <Compile Include="ViewModels\Records\Primitives\HistoryViewModelWithTimeFilter.cs" />
+    <Compile Include="ViewModels\Records\Primitives\TimeSpanType.cs" />
+    <Compile Include="ViewModels\Records\Primitives\TimeSpanViewModel.cs" />
+    <Compile Include="ViewModels\Records\ResourceHistoryType.cs" />
+    <Compile Include="ViewModels\Records\ResourceHistoryTypeKey.cs" />
+    <Compile Include="ViewModels\Records\ResourceHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Records\ScrappingHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Records\SortieConsumptionHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Records\SortieHistoryViewModel.cs" />
+    <Compile Include="ViewModels\Records\SortieHistoryViewModelBase.cs" />
+    <Compile Include="ViewModels\Records\SortieMapFilterKey.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticAreaViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticCustomTimeSpanGroupViewModel.cs" />
     <Compile Include="ViewModels\Statistics\SortieStatisticDefaultTimeSpanGroupViewModel.cs" />
@@ -350,26 +355,29 @@
     <Compile Include="Views\Game\SortieOverview.xaml.cs">
       <DependentUpon>SortieOverview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\History\ConstructionHistoryWindow.xaml.cs">
+    <Compile Include="Views\Records\ConstructionHistoryWindow.xaml.cs">
       <DependentUpon>ConstructionHistoryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\History\DevelopmentHistoryWindow.xaml.cs">
+    <Compile Include="Views\Records\DevelopmentHistoryWindow.xaml.cs">
       <DependentUpon>DevelopmentHistoryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\History\ExpeditionHistoryWindow.xaml.cs">
+    <Compile Include="Views\Records\ExpeditionHistoryWindow.xaml.cs">
       <DependentUpon>ExpeditionHistoryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\History\ResourceHistoryWindow.xaml.cs">
+    <Compile Include="Views\Records\ResourceHistoryWindow.xaml.cs">
       <DependentUpon>ResourceHistoryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\History\ScrappingHistoryWindow.xaml.cs">
+    <Compile Include="Views\Records\ScrappingHistoryWindow.xaml.cs">
       <DependentUpon>ScrappingHistoryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\History\SortieConsumptionHistoryWindow.xaml.cs">
+    <Compile Include="Views\Records\SortieConsumptionHistoryWindow.xaml.cs">
       <DependentUpon>SortieConsumptionHistoryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\History\SortieHistoryWindow.xaml.cs">
+    <Compile Include="Views\Records\SortieHistoryWindow.xaml.cs">
       <DependentUpon>SortieHistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Records\TimeSpanSelector.xaml.cs">
+      <DependentUpon>TimeSpanSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InitializationPage.xaml.cs">
       <DependentUpon>InitializationPage.xaml</DependentUpon>
@@ -932,34 +940,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\History\ConstructionHistoryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\History\DevelopmentHistoryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\History\ExpeditionHistoryWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\History\ResourceHistoryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\History\ScrappingHistoryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\History\SortieConsumptionHistoryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\History\SortieHistoryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\InitializationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1025,6 +1005,38 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Preferences\Window.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Records\ConstructionHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Records\DevelopmentHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Records\ExpeditionHistoryWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Records\ResourceHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Records\ScrappingHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Records\SortieConsumptionHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Records\SortieHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Records\TimeSpanSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

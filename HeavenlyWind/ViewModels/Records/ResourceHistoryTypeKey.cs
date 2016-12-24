@@ -3,7 +3,7 @@ using System;
 using System.Data.SQLite;
 using System.Globalization;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
     class ResourceHistoryTypeKey : ModelBase
     {

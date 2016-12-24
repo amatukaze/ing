@@ -1,9 +1,10 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models.Records;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives;
 using System.Data.SQLite;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
-    class ScrappingHistoryViewModel : HistoryViewModelBase<FateRecord>
+    class ScrappingHistoryViewModel : HistoryViewModel<FateRecord>
     {
         protected override string LoadCommandText => @"SELECT id, ship AS master_id, level, 0 AS proficiency, time, fate, 0 AS is_equipment FROM ship_fate WHERE ship != -1
 UNION

@@ -4,7 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Tools;
-using Sakuno.KanColle.Amatsukaze.Views.History;
+using Sakuno.KanColle.Amatsukaze.Views.Records;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using Sakuno.KanColle.Amatsukaze.Views.Statistics;
 using Sakuno.KanColle.Amatsukaze.Views.Tools;

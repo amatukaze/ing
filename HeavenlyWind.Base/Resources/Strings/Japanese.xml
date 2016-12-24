@@ -480,6 +480,13 @@
   <String Key="Record_SecretaryShip">秘書艦</String>
   <String Key="Record_RankingPoints">戦果</String>
   <String Key="Record_Filter_SuccessOnly">成功のみ</String>
+  <String Key="Record_TimeSpan_All">すべて</String>
+  <String Key="Record_TimeSpan_Recent24Hours">直近 24 時間</String>
+  <String Key="Record_TimeSpan_Recent3Days">直近三日間</String>
+  <String Key="Record_TimeSpan_Recent7Days">直近一週間</String>
+  <String Key="Record_TimeSpan_Custom">カスタム</String>
+  <String Key="Record_CustomTimeSpan_Start">開始</String>
+  <String Key="Record_CustomTimeSpan_End">終了</String>
 
   <String Key="ConstructionHistory_Ship">艦娘</String>
   <String Key="ConstructionHistory_LSCOnly">大型艦建造</String>

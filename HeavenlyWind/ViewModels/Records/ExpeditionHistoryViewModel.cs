@@ -2,14 +2,15 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Models.Records;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives;
 using System.Collections.Generic;
 using System.Data.SQLite;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
-    class ExpeditionHistoryViewModel : HistoryViewModelBase<ExpeditionRecord>
+    class ExpeditionHistoryViewModel : HistoryViewModelWithTimeFilter<ExpeditionRecord>
     {
-        protected override string LoadCommandText => "SELECT * FROM expedition;";
+        protected override string LoadCommandText => "SELECT * FROM expedition WHERE time >= {0} AND time < {1};";
 
         public FilterKeyCollection<ExpeditionInfo> Expeditions { get; } = new FilterKeyCollection<ExpeditionInfo>(ExpeditionInfo.Dummy, (x, y) => x.ID - y.ID);
 
@@ -85,6 +86,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
 
         protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
         {
+            if (SelectedTimeSpan.Type == TimeSpanType.Custom && !IsInTimeSpan(rpRowID))
+                return;
+
             rpCommand.CommandText = "SELECT * FROM expedition WHERE time = @time LIMIT 1;";
             rpCommand.Parameters.AddWithValue("@time", rpRowID);
         }

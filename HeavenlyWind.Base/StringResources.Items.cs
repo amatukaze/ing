@@ -482,6 +482,13 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Record_SecretaryShip => GetString(nameof(Record_SecretaryShip));
         public string Record_RankingPoints => GetString(nameof(Record_RankingPoints));
         public string Record_Filter_SuccessOnly => GetString(nameof(Record_Filter_SuccessOnly));
+        public string Record_TimeSpan_All => GetString(nameof(Record_TimeSpan_All));
+        public string Record_TimeSpan_Recent24Hours => GetString(nameof(Record_TimeSpan_Recent24Hours));
+        public string Record_TimeSpan_Recent3Days => GetString(nameof(Record_TimeSpan_Recent3Days));
+        public string Record_TimeSpan_Recent7Days => GetString(nameof(Record_TimeSpan_Recent7Days));
+        public string Record_TimeSpan_Custom => GetString(nameof(Record_TimeSpan_Custom));
+        public string Record_CustomTimeSpan_Start => GetString(nameof(Record_CustomTimeSpan_Start));
+        public string Record_CustomTimeSpan_End => GetString(nameof(Record_CustomTimeSpan_End));
 
         public string ConstructionHistory_Ship => GetString(nameof(ConstructionHistory_Ship));
         public string ConstructionHistory_LSCOnly => GetString(nameof(ConstructionHistory_LSCOnly));

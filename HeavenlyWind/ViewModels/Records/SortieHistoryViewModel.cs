@@ -3,12 +3,13 @@ using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Models.Records;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.History
+namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 {
     class SortieHistoryViewModel : SortieHistoryViewModelBase<SortieRecord>
     {
@@ -20,6 +21,7 @@ JOIN battle ON extra_info = battle.id
 LEFT JOIN battle_dropped_item ON battle.id = battle_dropped_item.id
 LEFT JOIN battle_detail.battle battle_detail ON extra_info = battle_detail.id
 LEFT JOIN battle_detail.participant_hd_view participant_hd ON extra_info = participant_hd.battle
+WHERE sortie.id >= {0} AND sortie.id < {1}
 ORDER BY id DESC, step DESC;";
 
         protected override string LoadMapsCommandText => "SELECT DISTINCT map, difficulty FROM sortie ORDER BY map, difficulty;";
@@ -177,6 +179,9 @@ WHERE sortie_map.id = @map AND (difficulty IS NULL OR difficulty = @difficulty) 
 
         protected override void PrepareCommandOnRecordInsert(SQLiteCommand rpCommand, string rpTable, long rpRowID)
         {
+            if (SelectedTimeSpan.Type == TimeSpanType.Custom && !IsInTimeSpan(rpRowID))
+                return;
+
             rpCommand.CommandText = @"SELECT sortie.id AS id, sortie.map AS map, difficulty, step, node, type, subtype, extra_info, rank, dropped_ship, battle_dropped_item.item as dropped_item, battle_detail.first IS NOT NULL AS battle_detail, participant_hd.ships AS heavily_damaged, mvp, mvp_escort FROM sortie
 JOIN sortie_map ON sortie.map = sortie_map.id
 JOIN sortie_detail ON sortie.id = sortie_detail.id
