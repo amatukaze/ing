@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
-    public abstract class ToolViewModel : TabItemViewModel
+    public class ToolViewModel : TabItemViewModel
     {
         IToolPane r_Tool;
 
@@ -22,20 +22,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
         internal ToolViewModel(IToolPane rpTool)
         {
             r_Tool = rpTool;
-        }
-    }
-
-    class ToolWithoutScrollBarViewModel : ToolViewModel
-    {
-        public ToolWithoutScrollBarViewModel(IToolPane rpTool) : base(rpTool) { }
-    }
-    class ToolWithScrollBarViewModel : ToolViewModel
-    {
-        public IToolPaneScrollBarVisibilities ScrollBarVisibilities { get; }
-
-        internal ToolWithScrollBarViewModel(IToolPane rpTool, IToolPaneScrollBarVisibilities rpVisibilities) : base(rpTool)
-        {
-            ScrollBarVisibilities = rpVisibilities;
         }
     }
 }

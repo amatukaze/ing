@@ -45,7 +45,6 @@
     <Compile Include="IPreference.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="IToolPane.cs" />
-    <Compile Include="IToolPaneScrollBarVisibilities.cs" />
     <Compile Include="PluginExportAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceManager.cs" />
