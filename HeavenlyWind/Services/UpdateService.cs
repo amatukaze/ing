@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.SystemInterop;
-using Sakuno.UserInterface;
 using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
@@ -43,22 +42,23 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             var rRootPath = Path.GetDirectoryName(GetType().Assembly.Location);
             var rRootPathLength = rRootPath.Length + 1;
 
-            IEnumerable<string> rDataFiles;
+            var rDataFiles = new List<string>(32);
             var rDataDirectory = new DirectoryInfo(Path.Combine(rRootPath, "Data"));
             if (rDataDirectory.Exists)
-                rDataFiles = rDataDirectory.EnumerateFiles("*").Select(r => r.FullName.Substring(rRootPathLength));
+                rDataFiles.AddRange(rDataDirectory.EnumerateFiles("*").Select(r => r.FullName.Substring(rRootPathLength)));
             else
-                rDataFiles = new string[]
+                rDataFiles.AddRange(new[]
                 {
                     QuestProgressService.DataFilename,
                     MapService.DataFilename,
                     ShipLockingService.DataFilename,
-                };
+                });
 
             var rSRDirectory = new DirectoryInfo(Path.Combine(rRootPath, "Resources", "Strings"));
-            var rSRFiles = rSRDirectory.EnumerateFiles("*", SearchOption.AllDirectories).Select(r => r.FullName.Substring(rRootPathLength));
+            if (rSRDirectory.Exists)
+                rDataFiles.AddRange(rSRDirectory.EnumerateFiles("*", SearchOption.AllDirectories).Select(r => r.FullName.Substring(rRootPathLength)));
 
-            r_FilesToBeChecked = rDataFiles.Concat(rSRFiles).ToArray();
+            r_FilesToBeChecked = rDataFiles.ToArray();
         }
 
         internal async void CheckForUpdate()
