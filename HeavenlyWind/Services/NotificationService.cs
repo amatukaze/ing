@@ -163,6 +163,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, delegate
             {
                 var rBattle = BattleInfo.Current.CurrentStage;
+                if (rBattle.Friend == null)
+                    return;
 
                 var rHeavilyDamagedShips = rBattle.Friend.Where(r => !r.IsEvacuated && r.State == BattleParticipantState.HeavilyDamaged).Select(r => ((FriendShip)r.Participant).Ship).ToArray();
                 if (rHeavilyDamagedShips.Length > 0)
