@@ -16,7 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     class SortieConsumptionRecords : RecordsGroup
     {
         public override string GroupName => "sortie_consumption";
-        public override int Version => 3;
+        public override int Version => 4;
 
         Port Port = KanColleGame.Current.Port;
 
@@ -120,6 +120,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         "[group] INTEGER NOT NULL, " +
                         "bauxite INTEGER NOT NULL, " +
                         "PRIMARY KEY(area, [group])); " +
+
+                    "CREATE TABLE IF NOT EXISTS enemy_aerial_raid(damage INTEGER NOT NULL); " +
 
                     "CREATE TABLE IF NOT EXISTS sortie_reward(" +
                         "id INTEGER PRIMARY KEY NOT NULL REFERENCES sortie_consumption(id) ON DELETE CASCADE ON UPDATE CASCADE, " +
@@ -546,6 +548,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (rEvent != null)
                 ProcessReward(rCommand, rNode, rEvent);
 
+            var rEnemyAerialRaid = rNode.EnemyAerialRaid ?? (rNode.Event as BattleEvent)?.EnemyAerialRaid;
+            if (rEnemyAerialRaid != null)
+                ProcessEnemyAerialRaid(rCommand, rEnemyAerialRaid);
+
             rCommand.PostToTransactionQueue();
         }
         void ProcessReward(SQLiteCommand rpCommand, SortieNodeInfo rpNode, RewardEventBase rpEvent)
@@ -635,6 +641,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
 
             throw new ArgumentException(nameof(rpType));
+        }
+        void ProcessEnemyAerialRaid(SQLiteCommand rpCommand, EnemyAerialRaid rpData)
+        {
+            rpCommand.CommandText += "INSERT INTO enemy_aerial_raid(damage) VALUES(@enemy_aerial_raid_damage);";
+            rpCommand.Parameters.AddWithValue("@enemy_aerial_raid_damage", rpData.Amount);
         }
 
         void ProcessBattleResult(ApiInfo rpInfo)
