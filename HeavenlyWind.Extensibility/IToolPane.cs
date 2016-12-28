@@ -1,9 +1,11 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Extensibility
+﻿using System;
+
+namespace Sakuno.KanColle.Amatsukaze.Extensibility
 {
     public interface IToolPane
     {
         string Name { get; }
 
-        object View { get; }
+        Lazy<object> View { get; }
     }
 }
