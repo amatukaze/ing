@@ -16,7 +16,7 @@ using System.Windows.Input;
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
     [ViewInfo(typeof(Overview))]
-    public class OverviewViewModel : TabItemViewModel
+    class OverviewViewModel : TabItemViewModel
     {
         public override string Name
         {

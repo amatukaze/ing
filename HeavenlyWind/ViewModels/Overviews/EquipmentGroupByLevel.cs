@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentGroupByLevel : ModelBase
+    class EquipmentGroupByLevel : ModelBase
     {
         EquipmentGroupByMasterID r_Owner;
 

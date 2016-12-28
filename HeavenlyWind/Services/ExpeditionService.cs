@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    public class ExpeditionService
+    class ExpeditionService
     {
         public const string DataFilename = @"Data\expeditions.json";
 

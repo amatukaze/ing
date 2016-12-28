@@ -17,7 +17,7 @@ using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    public class UpdateService : ModelBase
+    class UpdateService : ModelBase
     {
         public static UpdateService Instance { get; } = new UpdateService();
 

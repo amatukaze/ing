@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Documents;
 
 namespace Sakuno.KanColle.Amatsukaze.Views.Preferences
@@ -8,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Preferences
     /// <summary>
     /// VersionInfo.xaml の相互作用ロジック
     /// </summary>
-    public partial class VersionInfo : UserControl
+    partial class VersionInfo
     {
         public VersionInfo()
         {

@@ -6,7 +6,7 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class FleetConditionRegenerationViewModel : ModelBase
+    class FleetConditionRegenerationViewModel : ModelBase
     {
         FleetConditionRegeneration r_Source;
 

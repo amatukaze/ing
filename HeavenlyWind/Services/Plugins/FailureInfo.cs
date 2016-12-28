@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Plugins
 {
-    public class FailureInfo
+    class FailureInfo
     {
         public string Filename { get; }
         public IPluginMetadata Metadata { get; }

@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
 {
-    public class PreferencesWindowViewModel : WindowViewModel
+    class PreferencesWindowViewModel : WindowViewModel
     {
         public static PreferencesWindowViewModel Instance { get; } = new PreferencesWindowViewModel();
 

@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentGroupByShip : ModelBase
+    class EquipmentGroupByShip : ModelBase
     {
         public Ship Ship { get; }
         public int Count { get; internal set; }

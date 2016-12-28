@@ -1,6 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
-using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Services;
@@ -23,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze
     /// <summary>
     /// App.xaml の相互作用ロジック
     /// </summary>
-    public partial class App : Application
+    partial class App
     {
         public static MainWindowViewModel Root { get; private set; }
 

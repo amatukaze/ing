@@ -9,7 +9,7 @@ using System.Reactive.Linq;
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
     [ViewInfo(typeof(SortieOverview))]
-    public class SortieViewModel : TabItemViewModel
+    class SortieViewModel : TabItemViewModel
     {
         public enum DisplayType { MapGauge, Sortie, Practice }
 

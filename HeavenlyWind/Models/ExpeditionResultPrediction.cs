@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Models
 {
-    public class ExpeditionResultPrediction : ModelBase
+    class ExpeditionResultPrediction : ModelBase
     {
         ExpeditionInfo2 r_Info;
         Fleet r_Fleet;

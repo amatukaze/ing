@@ -17,7 +17,7 @@ using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
-    public class MainWindowViewModel : WindowViewModel
+    class MainWindowViewModel : WindowViewModel
     {
         ModelBase r_Page;
         public ModelBase Page

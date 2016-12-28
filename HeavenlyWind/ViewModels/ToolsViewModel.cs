@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
     [ViewInfo(typeof(ToolCenter))]
-    public class ToolsViewModel : TabItemViewModel
+    class ToolsViewModel : TabItemViewModel
     {
         public override string Name
         {

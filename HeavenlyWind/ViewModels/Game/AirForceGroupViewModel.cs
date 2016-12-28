@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class AirForceGroupViewModel : ModelBase
+    class AirForceGroupViewModel : ModelBase
     {
         public AirForceGroup Source { get; }
 

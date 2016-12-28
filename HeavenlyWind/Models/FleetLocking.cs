@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Models
 {
-    public class FleetLocking : ModelBase
+    class FleetLocking : ModelBase
     {
         ShipLocking r_Source;
 

@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Models
 {
-    public class EventMap : ModelBase
+    class EventMap : ModelBase
     {
         public int ID { get; }
 

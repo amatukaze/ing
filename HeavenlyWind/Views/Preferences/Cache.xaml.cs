@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Preferences
     /// <summary>
     /// Cache.xaml の相互作用ロジック
     /// </summary>
-    public partial class Cache : UserControl
+    partial class Cache
     {
         public Cache()
         {

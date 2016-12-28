@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public class EquipmentGroupByFleet : ModelBase
+    class EquipmentGroupByFleet : ModelBase
     {
         public int FleetID { get; }
 

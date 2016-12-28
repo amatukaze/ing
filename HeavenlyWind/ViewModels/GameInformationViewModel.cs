@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
-    public class GameInformationViewModel : ModelBase
+    class GameInformationViewModel : ModelBase
     {
         public MainWindowViewModel Owner { get; }
 

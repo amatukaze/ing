@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class ShipViewModel : ModelBase
+    class ShipViewModel : ModelBase
     {
         public Ship Source { get; }
 

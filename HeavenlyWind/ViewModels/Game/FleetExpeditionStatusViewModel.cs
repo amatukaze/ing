@@ -8,7 +8,7 @@ using Sakuno.KanColle.Amatsukaze.Models;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class FleetExpeditionStatusViewModel : ModelBase
+    class FleetExpeditionStatusViewModel : ModelBase
     {
         Fleet r_Fleet;
         FleetExpeditionStatus r_Source;

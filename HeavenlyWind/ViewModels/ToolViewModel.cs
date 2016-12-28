@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
-    public class ToolViewModel : TabItemViewModel
+    class ToolViewModel : TabItemViewModel
     {
         IToolPane r_Tool;
 

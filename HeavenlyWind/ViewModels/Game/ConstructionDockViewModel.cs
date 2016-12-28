@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class ConstructionDockViewModel : ModelBase
+    class ConstructionDockViewModel : ModelBase
     {
         ConstructionDock r_Source;
 

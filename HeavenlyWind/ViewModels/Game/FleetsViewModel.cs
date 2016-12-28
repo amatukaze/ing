@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class FleetsViewModel : ModelBase
+    class FleetsViewModel : ModelBase
     {
         GameInformationViewModel r_Parent;
 

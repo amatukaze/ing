@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {
-    public class SessionToolViewModel : ModelBase
+    class SessionToolViewModel : ModelBase
     {
         static readonly object r_ThreadLockSync = new object();
 

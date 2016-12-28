@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    public class PluginService
+    class PluginService
     {
         public static PluginService Instance { get; } = new PluginService();
 

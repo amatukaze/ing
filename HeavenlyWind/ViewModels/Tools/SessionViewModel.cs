@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {
-    public class SessionViewModel : ModelBase
+    class SessionViewModel : ModelBase
     {
         public NetworkSession Source { get; }
 

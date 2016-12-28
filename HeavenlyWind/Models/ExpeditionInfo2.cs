@@ -3,7 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Models;
 
 namespace Sakuno.KanColle.Amatsukaze.Models
 {
-    public class ExpeditionInfo2 : ModelBase, IID
+    class ExpeditionInfo2 : ModelBase, IID
     {
         [JsonProperty("id")]
         public int ID { get; internal set; }

@@ -3,7 +3,7 @@ using System.Windows.Markup;
 
 namespace Sakuno.KanColle.Amatsukaze.Models
 {
-    public class SystemFont : ModelBase
+    class SystemFont : ModelBase
     {
         public FontFamily FontFamily { get; }
         public string Name { get; }

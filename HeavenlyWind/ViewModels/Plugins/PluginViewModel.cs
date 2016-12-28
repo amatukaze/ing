@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Plugins
 {
-    public class PluginViewModel : ModelBase
+    class PluginViewModel : ModelBase
     {
         Plugin r_Plugin;
 

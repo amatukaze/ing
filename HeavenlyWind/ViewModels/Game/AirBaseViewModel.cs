@@ -7,7 +7,7 @@ using System.Linq;
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
     [ViewInfo(typeof(AirBaseOverview))]
-    public class AirBaseViewModel : TabItemViewModel
+    class AirBaseViewModel : TabItemViewModel
     {
         public override string Name
         {
