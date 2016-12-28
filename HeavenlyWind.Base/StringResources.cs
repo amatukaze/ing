@@ -85,7 +85,7 @@ namespace Sakuno.KanColle.Amatsukaze
         void LoadMainResourceCore(string rpLanguageName)
         {
             var rAssembly = Assembly.GetExecutingAssembly();
-            using (var rStream = rAssembly.GetManifestResourceStream($"Sakuno.KanColle.Amatsukaze.Resources.Strings.{Preference.Current.Language}.xml"))
+            using (var rStream = rAssembly.GetManifestResourceStream($"Sakuno.KanColle.Amatsukaze.Resources.Strings.{Preference.Instance.Language}.xml"))
             using (var rReader = new StreamReader(rStream))
             {
                 Main = new StringResourcesItems(XDocument.Load(rReader).Root.Descendants("String").ToDictionary(r => r.Attribute("Key").Value, r => r.Value));

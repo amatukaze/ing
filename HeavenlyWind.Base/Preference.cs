@@ -11,7 +11,6 @@ namespace Sakuno.KanColle.Amatsukaze
     public partial class Preference
     {
         public static Preference Instance { get; } = new Preference();
-        public static Preference Current => Instance;
 
         internal SQLiteConnection Connection { get; private set; }
 
