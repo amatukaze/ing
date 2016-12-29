@@ -1,7 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -29,8 +27,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         int[] r_ShipIDs;
         List<Ship> r_ShipList;
-        ReadOnlyCollection<Ship> r_Ships;
-        public ReadOnlyCollection<Ship> Ships
+        IList<Ship> r_Ships;
+        public IList<Ship> Ships
         {
             get { return r_Ships; }
             private set

@@ -16,7 +16,7 @@
         <Setter Property="Grid.IsSharedSizeScope" Value="True" />
 
         <Setter Property="SelectedValue" Value="{rb:Preference Game.MainFleetLoSFormula}" />
-        <Setter Property="SelectedValuePath" Value="Key" />
+        <Setter Property="SelectedValuePath" Value="Formula" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -34,13 +34,13 @@
                                     <ContentPresenter Content="{TemplateBinding SelectionBoxItem}" IsHitTestVisible="False" Margin="3, 0, 0, 0">
                                         <ContentPresenter.ContentTemplate>
                                             <DataTemplate>
-                                                <TextBlock Name="LoS" Text="{Binding Value, StringFormat=0.#}" />
+                                                <TextBlock Name="LoS" Text="{Binding LoS, StringFormat=0.#}" />
 
                                                 <DataTemplate.Triggers>
                                                     <MultiDataTrigger>
                                                         <MultiDataTrigger.Conditions>
-                                                            <Condition Binding="{Binding Key}" Value="Formula33" />
-                                                            <Condition Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
+                                                            <Condition Binding="{Binding Formula}" Value="Formula33" />
+                                                            <Condition Binding="{Binding LoS, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
                                                         </MultiDataTrigger.Conditions>
 
                                                         <Setter TargetName="LoS" Property="Foreground" Value="Yellow" />
@@ -107,8 +107,13 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Path Name="CheckMark" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" Width="12" Height="12" Margin="1" Visibility="Hidden" Data="F1 M10.2209,8.946 L17.1875,15.5167 30.9627,1.0440487E-53 34.2877,2.9292 17.5834,22.9585 6.8959,12.271 10.2209,8.946 z" />
-                                        <TextBlock Text="{rb:EnumToStringResource Key, Fleet_LoS_Formula}" Grid.Column="2" />
-                                        <TextBlock Name="LoS" Text="{Binding Value, StringFormat=0.#}" HorizontalAlignment="Right" Grid.Column="4" />
+                                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                            <TextBlock Name="FormulaName" Text="{rb:EnumToStringResource Formula, Fleet_LoS_Formula}" />
+                                            <TextBlock Name="NodeFactor" Visibility="Collapsed">
+                                                (C<Run BaselineAlignment="Subscript">n</Run>=<Run Name="NodeFactorValue" />)
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Name="LoS" Text="{Binding LoS, StringFormat=0.#}" HorizontalAlignment="Right" Grid.Column="4" />
                                     </Grid>
                                 </Border>
 
@@ -119,12 +124,23 @@
 
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
-                                            <Condition Binding="{Binding Key}" Value="Formula33" />
-                                            <Condition Binding="{Binding Value, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
+                                            <Condition Binding="{Binding Formula}" Value="Formula33" />
+                                            <Condition Binding="{Binding LoS, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
                                         </MultiDataTrigger.Conditions>
 
                                         <Setter TargetName="LoS" Property="Foreground" Value="Yellow" />
                                     </MultiDataTrigger>
+
+                                    <DataTrigger Binding="{Binding Formula}" Value="Formula33Cn4">
+                                        <Setter TargetName="FormulaName" Property="Text" Value="{rb:StringResource Main.Fleet_LoS_Formula_Formula33}" />
+                                        <Setter TargetName="NodeFactor" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="NodeFactorValue" Property="Text" Value="4" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Formula}" Value="Formula33Cn3">
+                                        <Setter TargetName="FormulaName" Property="Text" Value="{rb:StringResource Main.Fleet_LoS_Formula_Formula33}" />
+                                        <Setter TargetName="NodeFactor" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="NodeFactorValue" Property="Text" Value="3" />
+                                    </DataTrigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>

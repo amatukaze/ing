@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -23,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public FleetFighterPowerStatus FighterPower { get; }
 
-        public FleetLoSStatus LoS { get; }
+        public FleetLoSStatus[] LoS { get; }
 
         FleetSpeed? r_Speed;
         public FleetSpeed? Speed
@@ -58,7 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             r_Fleet = rpOwner;
 
             FighterPower = new FleetFighterPowerStatus(rpOwner);
-            LoS = new FleetLoSStatus(rpOwner);
+
+            LoS = FleetLoSFormulaInfo.Formulas.Select(r => new FleetLoSStatus(rpOwner, r)).ToArray();
         }
 
         internal void Update()
@@ -67,7 +67,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             FighterPower.Update();
 
-            LoS.Update();
+            foreach (var rLoS in LoS)
+                rLoS.Update();
 
             UpdateFleetSpeed();
 

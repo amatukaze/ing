@@ -6,21 +6,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public abstract class FleetLoSFormulaInfo
     {
-        static List<FleetLoSFormulaInfo> r_Formulas;
         public static IList<FleetLoSFormulaInfo> Formulas { get; }
 
         public abstract FleetLoSFormula Name { get; }
 
         static FleetLoSFormulaInfo()
         {
-            r_Formulas = new List<FleetLoSFormulaInfo>()
+            Formulas = new FleetLoSFormulaInfo[]
             {
                 new OldFormula(),
                 new AutumnFormula(),
                 new AutumnSimplifiedFormula(),
-                new Formula33(),
+                new Formula33(FleetLoSFormula.Formula33),
+                new Formula33(FleetLoSFormula.Formula33Cn3),
+                new Formula33(FleetLoSFormula.Formula33Cn4),
             };
-            Formulas = r_Formulas.AsReadOnly();
         }
 
         public double Calculate(Fleet rpFleet)

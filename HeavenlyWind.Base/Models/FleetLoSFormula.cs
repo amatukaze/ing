@@ -6,5 +6,7 @@
         Autumn,
         AutumnSimplified,
         Formula33,
+        Formula33Cn4,
+        Formula33Cn3,
     }
 }

@@ -1,29 +1,26 @@
-﻿using Sakuno.Collections;
-using Sakuno.KanColle.Amatsukaze.Models;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Sakuno.KanColle.Amatsukaze.Models;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public class FleetLoSStatus : ModelBase
     {
         Fleet r_Fleet;
+        FleetLoSFormulaInfo r_Formula;
 
-        public IDictionary<FleetLoSFormula, double> Formulas { get; private set; }
+        public FleetLoSFormula Formula => r_Formula.Name;
 
-        internal FleetLoSStatus(Fleet rpFleet)
+        public double LoS { get; private set; }
+
+        internal FleetLoSStatus(Fleet rpFleet, FleetLoSFormulaInfo rpFormula)
         {
             r_Fleet = rpFleet;
+            r_Formula = rpFormula;
         }
 
         internal void Update()
         {
-            var rResult = new ListDictionary<FleetLoSFormula, double>();
-            foreach (var rFormula in FleetLoSFormulaInfo.Formulas)
-                rResult.Add(rFormula.Name, rFormula.Calculate(r_Fleet));
-
-            Formulas = rResult;
-            OnPropertyChanged(nameof(Formulas));
+            LoS = r_Formula.Calculate(r_Fleet);
+            OnPropertyChanged(nameof(LoS));
         }
     }
 }
