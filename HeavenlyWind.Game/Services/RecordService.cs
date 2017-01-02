@@ -30,20 +30,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public bool IsReadOnlyMode { get; set; }
 
-        public ResourcesRecords Resources { get; private set; }
-        public ExperienceRecords Experience { get; private set; }
-        public ExpeditionRecords Expedition { get; private set; }
-        public ConstructionRecords Construction { get; private set; }
-        public DevelopmentRecords Development { get; private set; }
-        public SortieRecords Sortie { get; private set; }
-        public BattleRecords Battle { get; private set; }
-        public FateRecords Fate { get; private set; }
-
-        public QuestProgressRecords QuestProgress { get; private set; }
-        public BattleDetailRecords BattleDetail { get; private set; }
+        ResourcesRecords r_Resources;
+        ExperienceRecords r_Experience;
+        ExpeditionRecords r_Expedition;
+        ConstructionRecords r_Construction;
+        DevelopmentRecords r_Development;
+        SortieRecords r_Sortie;
+        BattleRecords r_Battle;
+        FateRecords r_Fate;
+        BattleDetailRecords r_BattleDetail;
 
         RankingPointsRecords r_RankingPoints;
         SortieConsumptionRecords r_SortieConsumption;
+
+        public QuestProgressRecords QuestProgress { get; private set; }
 
         HashSet<IRecordsGroupProvider> r_CustomRecordsGroupProviders = new HashSet<IRecordsGroupProvider>();
         HybridDictionary<string, RecordsGroup> r_CustomRecordsGroups = new HybridDictionary<string, RecordsGroup>();
@@ -130,14 +130,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 CheckVersion();
 
-                Resources = new ResourcesRecords(r_Connection).ConnectAndReturn();
-                Experience = new ExperienceRecords(r_Connection).ConnectAndReturn();
-                Expedition = new ExpeditionRecords(r_Connection).ConnectAndReturn();
-                Construction = new ConstructionRecords(r_Connection).ConnectAndReturn();
-                Development = new DevelopmentRecords(r_Connection).ConnectAndReturn();
-                Sortie = new SortieRecords(r_Connection).ConnectAndReturn();
-                Battle = new BattleRecords(r_Connection).ConnectAndReturn();
-                Fate = new FateRecords(r_Connection).ConnectAndReturn();
+                r_Resources = new ResourcesRecords(r_Connection).ConnectAndReturn();
+                r_Experience = new ExperienceRecords(r_Connection).ConnectAndReturn();
+                r_Expedition = new ExpeditionRecords(r_Connection).ConnectAndReturn();
+                r_Construction = new ConstructionRecords(r_Connection).ConnectAndReturn();
+                r_Development = new DevelopmentRecords(r_Connection).ConnectAndReturn();
+                r_Sortie = new SortieRecords(r_Connection).ConnectAndReturn();
+                r_Battle = new BattleRecords(r_Connection).ConnectAndReturn();
+                r_Fate = new FateRecords(r_Connection).ConnectAndReturn();
                 r_RankingPoints = new RankingPointsRecords(r_Connection).ConnectAndReturn();
                 r_SortieConsumption = new SortieConsumptionRecords(r_Connection).ConnectAndReturn();
 
@@ -152,7 +152,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 rTransaction.Commit();
             }
 
-            BattleDetail = new BattleDetailRecords(r_Connection, r_UserID).ConnectAndReturn();
+            r_BattleDetail = new BattleDetailRecords(r_Connection, r_UserID).ConnectAndReturn();
 
             r_Connection.Update += OnDatabaseUpdate;
 
@@ -273,18 +273,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         void Disconnect()
         {
-            Resources?.Dispose();
-            Experience?.Dispose();
-            Expedition?.Dispose();
-            Construction?.Dispose();
-            Development?.Dispose();
-            Sortie?.Dispose();
-            Battle?.Dispose();
-            Fate?.Dispose();
+            r_Resources?.Dispose();
+            r_Experience?.Dispose();
+            r_Expedition?.Dispose();
+            r_Construction?.Dispose();
+            r_Development?.Dispose();
+            r_Sortie?.Dispose();
+            r_Battle?.Dispose();
+            r_Fate?.Dispose();
             r_RankingPoints?.Dispose();
             r_SortieConsumption?.Dispose();
+            r_BattleDetail?.Dispose();
+
             QuestProgress?.Dispose();
-            BattleDetail?.Dispose();
 
             if (r_Connection != null)
             {

@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class FateRecords : RecordsGroup
+    class FateRecords : RecordsGroup
     {
         public override string GroupName => "fate";
 
@@ -40,12 +40,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             DisposableObjects.Add(ApiService.SubscribeOnlyOnBeforeProcessStarted("api_req_kousyou/remodel_slot", r =>
             {
                 var rData = (RawImprovementResult)r.Data;
-                if (rData.ConsumedEquipmentID != null)
-                {
-                    var rConsumedEquipment = rData.ConsumedEquipmentID.Select(rpID => KanColleGame.Current.Port.Equipment[rpID]).ToArray();
+                if (rData.ConsumedEquipmentID == null)
+                    return;
 
-                    RecordService.Instance?.Fate?.AddEquipmentFate(rConsumedEquipment, Fate.ConsumedByImprovement);
-                }
+                var rConsumedEquipment = rData.ConsumedEquipmentID.Select(rpID => KanColleGame.Current.Port.Equipment[rpID]).ToArray();
+
+                AddEquipmentFate(rConsumedEquipment, Fate.ConsumedByImprovement);
             }));
 
             var rFirstStages = new[]

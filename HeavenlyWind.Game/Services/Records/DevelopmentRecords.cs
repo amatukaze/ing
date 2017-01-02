@@ -3,7 +3,7 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class DevelopmentRecords : RecordsGroup
+    class DevelopmentRecords : RecordsGroup
     {
         public override string GroupName => "development";
 

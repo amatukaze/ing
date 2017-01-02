@@ -8,7 +8,7 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class SortieRecords : RecordsGroup
+    class SortieRecords : RecordsGroup
     {
         enum ReturnReason { DeadEnd, Retreat, RetreatWithHeavilyDamagedShip, Unexpected }
 

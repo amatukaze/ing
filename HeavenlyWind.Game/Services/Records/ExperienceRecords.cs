@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class ExperienceRecords : RecordsGroup
+    class ExperienceRecords : RecordsGroup
     {
         public override string GroupName => "experience";
 

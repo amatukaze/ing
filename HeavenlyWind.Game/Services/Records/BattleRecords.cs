@@ -4,7 +4,7 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class BattleRecords : RecordsGroup
+    class BattleRecords : RecordsGroup
     {
         public override string GroupName => "battle";
 
