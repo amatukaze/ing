@@ -153,7 +153,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             ApiService.Subscribe("api_get_member/mapinfo", delegate
             {
-                var rFleetWithHeavilyDamagedShips = KanColleGame.Current.Port.Fleets.Table.Values.Where(r => (r.State & FleetState.HeavilyDamaged) == FleetState.HeavilyDamaged);
+                var rFleetWithHeavilyDamagedShips = KanColleGame.Current.Port.Fleets.Where(r => (r.State & FleetState.HeavilyDamaged) == FleetState.HeavilyDamaged);
                 if (Preference.Instance.Notification.HeavyDamageWarning && rFleetWithHeavilyDamagedShips.Any())
                 {
                     ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_HeavyDamageWarning, StringResources.Instance.Main.Notification_HeavyDamageWarning_Content, rFleetWithHeavilyDamagedShips.SelectMany(r => r.Ships).Where(r => (r.State & ShipState.HeavilyDamaged) == ShipState.HeavilyDamaged));

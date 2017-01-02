@@ -214,13 +214,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         }
         void ProcessSupportFleets(StringBuilder rpBuilder)
         {
-            var rSupportFleets = Port.Fleets.Table.Values
-                .Where(r =>
-                {
-                    var rExpedition = r.ExpeditionStatus.Expedition;
+            var rSupportFleets = Port.Fleets.Where(r =>
+            {
+                var rExpedition = r.ExpeditionStatus.Expedition;
 
-                    return rExpedition != null && !rExpedition.CanReturn && rExpedition.MapArea.ID == SortieInfo.Current.Map.MasterInfo.AreaID;
-                }).ToArray();
+                return rExpedition != null && !rExpedition.CanReturn && rExpedition.MapArea.ID == SortieInfo.Current.Map.MasterInfo.AreaID;
+            }).ToArray();
 
             if (rSupportFleets.Length > 0)
                 foreach (var rShip in rSupportFleets.SelectMany(r => r.Ships))
@@ -371,7 +370,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             r_AnchorageRepairSnapshots.Clear();
 
-            var rShips = Port.Fleets.Table.Values.SelectMany(r => r.AnchorageRepair.RepairingShips).ToArray();
+            var rShips = Port.Fleets.SelectMany(r => r.AnchorageRepair.RepairingShips).ToArray();
             if (rShips.Length == 0)
                 r_AnchorageRepairStartTime = 0;
             else
@@ -485,7 +484,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (r_AnchorageRepairSnapshotsInitialized)
                 return;
 
-            var rRepairingShips = Port.Fleets.Table.Values.SelectMany(r => r.AnchorageRepair.RepairingShips);
+            var rRepairingShips = Port.Fleets.SelectMany(r => r.AnchorageRepair.RepairingShips);
             var rAbsentShipIDs = r_AnchorageRepairSnapshots.Keys.Except(rRepairingShips.Select(r => r.ID)).Where(r =>
             {
                 Ship rShip;

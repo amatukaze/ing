@@ -3,16 +3,18 @@ using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Collections;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
-    public class FleetManager : ModelBase
+    public class FleetManager : ModelBase, IEnumerable<Fleet>
     {
-        public IDTable<Fleet> Table { get; } = new IDTable<Fleet>();
+        public IList<Fleet> Items { get; private set; }
 
         public CombinedFleetType CombinedFleetType { get; internal set; }
 
-        public Fleet this[int rpID] => Table[rpID];
+        public Fleet this[int rpID] => Items[rpID - 1];
 
         public event Action<IEnumerable<Fleet>> FleetsUpdated = delegate { };
 
@@ -20,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             ApiService.Subscribe("api_req_hensei/change", r =>
             {
-                var rFleet = Table[int.Parse(r.Parameters["api_id"])];
+                var rFleet = this[int.Parse(r.Parameters["api_id"])];
 
                 var rIndex = int.Parse(r.Parameters["api_ship_idx"]);
                 if (rIndex == -1)
@@ -63,19 +65,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             ApiService.Subscribe("api_get_member/deck", r => Update(r.GetData<RawFleet[]>()));
             ApiService.Subscribe("api_req_hensei/preset_select", r =>
             {
-                var rFleet = Table[int.Parse(r.Parameters["api_deck_id"])];
+                var rFleet = this[int.Parse(r.Parameters["api_deck_id"])];
                 foreach (var rShip in rFleet.Ships)
                     rShip.OwnerFleet = null;
                 rFleet.Update(r.GetData<RawFleet>());
             });
 
             ApiService.Subscribe("api_req_map/start", _ => Update());
-
         }
 
         internal void Update()
         {
-            foreach (var rFleet in Table.Values)
+            foreach (var rFleet in Items)
                 rFleet.Update();
         }
         internal void Update(RawPort rpPort)
@@ -86,8 +87,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         }
         internal void Update(RawFleet[] rpFleets)
         {
-            if (Table.UpdateRawData(rpFleets, r => new Fleet(KanColleGame.Current.Port, r), (rpData, rpRawData) => rpData.Update(rpRawData)))
-                FleetsUpdated(Table.Values);
+            if (Items?.Count == rpFleets.Length)
+                foreach (var rFleet in rpFleets)
+                    this[rFleet.ID].Update(rFleet);
+            else
+            {
+                Items = rpFleets.Select(r => new Fleet(KanColleGame.Current.Port, r)).ToArray();
+                FleetsUpdated(Items);
+            }
         }
+
+        public IEnumerator<Fleet> GetEnumerator()
+        {
+            if (Items == null)
+                throw new InvalidOperationException();
+
+            return Items.GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

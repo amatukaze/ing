@@ -93,7 +93,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             if ((BattleType)rpData.NodeEventSubType == BattleType.Normal)
             {
-                var rSupportFleets = KanColleGame.Current.Port.Fleets.Table.Values
+                var rSupportFleets = KanColleGame.Current.Port.Fleets
                     .Where(r => r.ExpeditionStatus.Expedition != null && !r.ExpeditionStatus.Expedition.CanReturn)
                     .Select(r => r.ExpeditionStatus.Expedition)
                     .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.MasterInfo.AreaID && r.Time == (!IsBossBattle ? 15 : 30));
