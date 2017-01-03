@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+using System;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
@@ -21,7 +22,16 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             get
             {
                 if (r_View == null)
-                    View = r_Tool.View.Value;
+                {
+                    try
+                    {
+                        View = r_Tool.View.Value;
+                    }
+                    catch (Exception e)
+                    {
+                        View = e;
+                    }
+                }
 
                 return r_View;
             }
