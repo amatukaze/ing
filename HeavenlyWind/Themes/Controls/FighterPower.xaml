@@ -53,8 +53,18 @@
                         </Border>
 
                         <Popup Name="PART_Popup" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Placement="Bottom" Focusable="False" FocusVisualStyle="{x:Null}" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                            <Border Background="{DynamicResource BackgroundBrushKey}" Grid.IsSharedSizeScope="True">
-                                <ItemsPresenter />
+                            <Border Background="Transparent" Margin="0, 0, 9, 9">
+                                <Grid>
+                                    <Rectangle Fill="{DynamicResource ThemeBrushKey}">
+                                        <Rectangle.Effect>
+                                            <DropShadowEffect Direction="315" Color="#71000000" BlurRadius="8" />
+                                        </Rectangle.Effect>
+                                    </Rectangle>
+
+                                    <Border Background="{DynamicResource BackgroundBrushKey}" Grid.IsSharedSizeScope="True">
+                                        <ItemsPresenter />
+                                    </Border>
+                                </Grid>
                             </Border>
                         </Popup>
                     </Grid>
