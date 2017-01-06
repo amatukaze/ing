@@ -144,6 +144,10 @@
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
+
+            <Style x:Key="VirtualizingItemsControl" TargetType="{x:Type ItemsControl}" BasedOn="{StaticResource VirtualizingItemsControl}">
+                <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Standard" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.Style>
