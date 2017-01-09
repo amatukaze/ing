@@ -97,8 +97,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             using (var rCommand = RecordService.Instance.CreateCommand())
             {
-                rCommand.CommandText = "SELECT (coalesce(((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of month', '-9 hour')) - (SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+9 hour', 'start of year', '-9 hour'))), 0) / 50000.0) + " +
-                    "((SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', 'start of month', '-1 month', '-9 hour') AND time < strftime('%s', 'now', 'start of month', '-11 hour')) / 35.0) AS initial, " +
+                rCommand.CommandText = "SELECT CASE strftime('%m', 'now', '+9 hours') WHEN '01' THEN 0 ELSE (coalesce(((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of month', '-9 hour')) - (SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+9 hour', 'start of year', '-9 hour'))), 0) / 50000.0) + " +
+                    "((SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', 'start of month', '-1 month', '-9 hour') AND time < strftime('%s', 'now', 'start of month', '-11 hour')) / 35.0) END AS initial, " +
                     "(SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', 'start of month', '-9 hour') AND time < strftime('%s', 'now', 'start of month', '+1 month', '-11 hour')) AS eo_bonus;";
 
                 using (var rReader = rCommand.ExecuteReader())
