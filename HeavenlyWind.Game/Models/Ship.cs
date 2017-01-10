@@ -118,6 +118,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ClampedValue Fuel { get; }
         public ClampedValue Bullet { get; }
 
+        ShipSpeed r_Speed;
+        public ShipSpeed Speed
+        {
+            get { return r_Speed; }
+            internal set
+            {
+                if (r_Speed != value)
+                {
+                    r_Speed = value;
+                    OnPropertyChanged(nameof(Speed));
+                }
+            }
+        }
+
         ShipState r_State;
         public ShipState State
         {
@@ -258,6 +272,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             HP.Set(RawData.HPMaximum, RawData.HPCurrent);
             Fuel.Set(Info.MaxFuelConsumption, RawData.Fuel);
             Bullet.Set(Info.MaxBulletConsumption, RawData.Bullet);
+
+            Speed = RawData.Speed;
 
             Condition = RawData.Condition;
 

@@ -81,27 +81,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Speed = null;
             else
             {
-                var rSlowShip = 0;
-                var rFastShip = 0;
+                FleetSpeed rResult = 0;
 
                 foreach (var rShip in r_Fleet.Ships)
-                    switch (rShip.Info.Speed)
+                    switch (rShip.Speed)
                     {
                         case ShipSpeed.Slow:
-                            rSlowShip++;
+                            rResult |= FleetSpeed.Slow;
                             break;
 
                         case ShipSpeed.Fast:
-                            rFastShip++;
+                            rResult |= FleetSpeed.Fast;
                             break;
                     }
 
-                if (rSlowShip > 0 && rFastShip == 0)
-                    Speed = FleetSpeed.Slow;
-                else if (rFastShip > 0 && rSlowShip == 0)
-                    Speed = FleetSpeed.Fast;
-                else
-                    Speed = FleetSpeed.Mixed;
+                Speed = rResult;
             }
         }
 
