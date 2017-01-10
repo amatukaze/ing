@@ -88,6 +88,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 foreach (var rShip in rpFleet.Ships)
                 {
                     var rFactor = rShip.IsMarried ? .85 : 1.0;
+
                     rFuelConsumption += (int)(rShip.Info.MaxFuelConsumption * rExpedition.FuelConsumption * rFactor);
                     rBulletConsumption += (int)(rShip.Info.MaxBulletConsumption * rExpedition.BulletConsumption * rFactor);
 
@@ -96,7 +97,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
                     foreach (var rSlot in rShip.Slots)
                     {
-                        switch (rSlot.Equipment.ID)
+                        switch (rSlot.Equipment.Info.ID)
                         {
                             case 68:
                                 rLandingCraftBonusRate += .05;
@@ -128,7 +129,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 rLandingCraftBonusRate = Math.Min(rLandingCraftBonusRate, 1.2);
 
                 if (rLandingCraftCount > 0)
-                    rLandingCraftBonusRate += rLandingCraftBonusRate * (rLandingCraftLevel / (double)rLandingCraftCount) * .01;
+                    rLandingCraftBonusRate += rLandingCraftBonusRate * rLandingCraftLevel * .01 / rLandingCraftCount;
 
                 switch (rTDLCCount)
                 {
