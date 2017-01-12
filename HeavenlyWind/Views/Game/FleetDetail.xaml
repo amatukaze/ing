@@ -156,6 +156,16 @@
                                 <Run Text="{Binding HP.Maximum, Mode=OneWay}" FontSize="11" Foreground="{DynamicResource ForegroundBrushKey}" />
                             </TextBlock>
                             <rc:ColorIndicator x:Name="HPIndicator" Value="{Binding HP.Current}" Maximum="{Binding HP.Maximum}" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="3" />
+                            <Rectangle Name="RepairTimeToolTip" Fill="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull RepairTime}" Grid.Column="3" Grid.RowSpan="2">
+                                <Rectangle.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock Margin="4, 2">
+                                            <Run Text="{rb:StringResource Main.Ship_ToolTip_RepairTime, Mode=OneWay}" />:
+                                            <Run Text="{Binding RepairTime, StringFormat=hh\\:mm\\:ss, Mode=OneWay}" />
+                                        </TextBlock>
+                                    </ToolTip>
+                                </Rectangle.ToolTip>
+                            </Rectangle>
 
                             <Border Name="Repairing" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="2">
                                 <TextBlock HorizontalAlignment="Center">

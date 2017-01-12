@@ -195,6 +195,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Ship_ToolTip_AttackPower_Torpedo => GetString(nameof(Ship_ToolTip_AttackPower_Torpedo));
         public string Ship_ToolTip_AttackPower_ASW => GetString(nameof(Ship_ToolTip_AttackPower_ASW));
         public string Ship_ToolTip_AttackPower_NightBattle => GetString(nameof(Ship_ToolTip_AttackPower_NightBattle));
+        public string Ship_ToolTip_RepairTime => GetString(nameof(Ship_ToolTip_RepairTime));
 
         public string AirBase_Group_Option_Standby => GetString(nameof(AirBase_Group_Option_Standby));
         public string AirBase_Group_Option_Sortie => GetString(nameof(AirBase_Group_Option_Sortie));

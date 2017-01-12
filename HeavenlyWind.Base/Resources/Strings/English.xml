@@ -194,6 +194,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Ship_ToolTip_AttackPower_Torpedo">Torpedo</String>
   <String Key="Ship_ToolTip_AttackPower_ASW">ASW</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">Night</String>
+  <String Key="Ship_ToolTip_RepairTime">Repair Time</String>
 
   <String Key="AirBase_Group_Option_Standby">Standby</String>
   <String Key="AirBase_Group_Option_Sortie">Sortie</String>

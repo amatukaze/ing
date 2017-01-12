@@ -192,6 +192,7 @@
   <String Key="Ship_ToolTip_AttackPower_Torpedo">雷撃</String>
   <String Key="Ship_ToolTip_AttackPower_ASW">対潜</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">夜戦</String>
+  <String Key="Ship_ToolTip_RepairTime">入渠時間</String>
 
   <String Key="AirBase_Group_Option_Standby">待機</String>
   <String Key="AirBase_Group_Option_Sortie">出撃</String>
