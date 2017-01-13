@@ -146,10 +146,18 @@
 
   <String Key="Fleet_TotalLevel">总等级</String>
   <String Key="Fleet_LoS">索敌</String>
-  <String Key="Fleet_LoS_Formula_Old">2-5(旧)</String>
-  <String Key="Fleet_LoS_Formula_Autumn">2-5(秋)</String>
-  <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5(秋)简易</String>
-  <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
+  <String Key="Fleet_LoS_Formula_Old">2-5 (旧)</String>
+  <String Key="Fleet_LoS_Formula_Autumn">2-5 (秋)</String>
+  <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5 (秋)简易</String>
+  <String Key="Fleet_LoS_Formula_Formula33">判定式 (33)</String>
+  <String Key="Fleet_LoS_Note">参考</String>
+  <String Key="Fleet_LoS_Note_Content">2-5 (Boss 前) [b]33[/b] (C[sub]n[/sub]=1)
+3-5 (G) [b]28[/b] (C[sub]n[/sub]=4)
+6-1 (E) [b]16[/b] (C[sub]n[/sub]=4)
+6-1 (F) [b]25[/b] (C[sub]n[/sub]=4)
+6-2 (F) [b]50[/b] (C[sub]n[/sub]=3)
+6-2 (H) [b]40[/b] (C[sub]n[/sub]=3)
+6-3 (H) [b]38[/b] (C[sub]n[/sub]=3)</String>
   <String Key="Fleet_FighterPower">制空</String>
   <String Key="Fleet_FighterPower_Formula_WithoutBonus">忽略熟练度奖励</String>
   <String Key="Fleet_FighterPower_Formula_WithBonus">有熟练度奖励</String>
