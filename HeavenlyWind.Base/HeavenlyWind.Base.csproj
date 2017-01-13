@@ -81,6 +81,9 @@
     <Compile Include="CollapsedIfZeroExtension.cs" />
     <Compile Include="CoreDatabase.cs" />
     <Compile Include="CurrentDockExtension.cs" />
+    <Compile Include="DataStore.cs" />
+    <Compile Include="DataStoreItem.cs" />
+    <Compile Include="DataStoreRetrieveOption.cs" />
     <Compile Include="EnumerationExtension.cs" />
     <Compile Include="EnumToStringResourceExtension.cs" />
     <Compile Include="ExtraStringResourceExtension.cs" />
