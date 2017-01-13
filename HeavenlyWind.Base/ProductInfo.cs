@@ -1,4 +1,6 @@
-﻿namespace Sakuno.KanColle.Amatsukaze
+﻿using System.IO;
+
+namespace Sakuno.KanColle.Amatsukaze
 {
     public static class ProductInfo
     {
@@ -11,5 +13,7 @@
         public static string ReleaseCodeName => "Pokkle";
 
         public const string UserAgent = "ING/" + AssemblyVersionString;
+
+        public static string RootDirectory { get; } = Path.GetDirectoryName(typeof(ProductInfo).Assembly.Location);
     }
 }

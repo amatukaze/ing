@@ -10,7 +10,10 @@ namespace Sakuno.KanColle.Amatsukaze
         public static void Initialize()
         {
             Connection = new SQLiteConnection("Data Source=:memory:").OpenAndReturn();
-            Connection.Update += (s, e) => Debug.WriteLine($"Core: {e.Event} - {e.Table} - {e.RowId}");
+
+            LogDatabaseUpdate();
         }
+        [Conditional("DEBUG")]
+        static void LogDatabaseUpdate() => Connection.Update += (s, e) => Debug.WriteLine($"Core: {e.Event} - {e.Table} - {e.RowId}");
     }
 }
