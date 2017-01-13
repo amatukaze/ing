@@ -33,6 +33,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public IEnumerable<Plugin> LoadedPlugins => r_LoadedPlugins.Values;
 
+        public IList<FailureInfo> Failures => r_Failures;
+
         public IEnumerable<IToolPane> ToolPanes => Cache<IToolPane>.Contents?.AsReadOnly();
 
         PluginService() { }

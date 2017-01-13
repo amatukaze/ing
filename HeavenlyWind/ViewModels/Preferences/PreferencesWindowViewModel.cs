@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.Services.Plugins;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Plugins;
 using Sakuno.SystemInterop.Dialogs;
 using Sakuno.UserInterface;
@@ -18,6 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
         public IList<SystemFont> SystemFonts { get; }
 
         public IList<PluginViewModel> LoadedPlugins { get; }
+        public IList<FailureInfo> PluginFailureInfos { get; }
 
         public bool IsAutoRotationSupported => CurrentDockExtension.IsAutoRotationSupported;
 
@@ -34,7 +36,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
 
             SystemFonts = rSystemFonts.AsReadOnly();
 
-            LoadedPlugins = PluginService.Instance.LoadedPlugins.Select(r => new PluginViewModel(r)).ToList().AsReadOnly();
+            LoadedPlugins = PluginService.Instance.LoadedPlugins.Select(r => new PluginViewModel(r)).ToArray().AsReadOnly();
+            PluginFailureInfos = PluginService.Instance.Failures;
 
             OpenFolderPickerCommand = new DelegatedCommand<string>(rpType =>
             {

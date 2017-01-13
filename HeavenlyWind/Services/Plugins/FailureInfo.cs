@@ -1,13 +1,18 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Plugins
 {
-    class FailureInfo
+    class FailureInfo : ModelBase
     {
         public string Filename { get; }
         public IPluginMetadata Metadata { get; }
+
+        public string Name => Metadata?.Name ?? Path.GetFileName(Filename);
+        public string Version => Metadata?.Version;
+        public string Author => Metadata?.Author;
 
         public string ExceptionContent { get; }
 
