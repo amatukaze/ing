@@ -46,6 +46,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 rSubscription.Dispose();
             });
         }
+        public static void SubscribeOnceOnlyOnBeforeProcessStarted(string api, Action<ApiInfo> action)
+        {
+            IDisposable rSubscription = null;
+            rSubscription = new SingleApiBeforeProcessStartedSubscription(api, r =>
+            {
+                action(r);
+                rSubscription.Dispose();
+            });
+        }
 
         internal static IObservable<ApiInfo> GetObservable(string api) =>
             r_ApiObservables.GetOrAdd(api, rpApi =>

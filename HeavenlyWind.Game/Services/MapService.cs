@@ -11,31 +11,30 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
     public class MapService
     {
-        public const string DataFilename = @"Data\nodes.json";
-
         public static MapService Instance { get; } = new MapService();
 
-        Dictionary<int, HybridDictionary<int, Node>> r_Nodes;
+        IDictionary<int, HybridDictionary<int, Node>> r_Nodes;
 
         HybridDictionary<int, PastEventMapInfo> r_PastEventMaps = new HybridDictionary<int, PastEventMapInfo>();
 
         MapService() { }
 
-        public void Initialize()
+        internal void Initialize()
         {
             ApiService.Subscribe("api_get_member/require_info", delegate
             {
-                var rDataFile = new FileInfo(DataFilename);
-                if (!rDataFile.Exists)
-                    r_Nodes = new Dictionary<int, HybridDictionary<int, Node>>();
+                byte[] rContent;
+                if (!DataStore.TryGet("map_node", out rContent))
+                    r_Nodes = new ListDictionary<int, HybridDictionary<int, Node>>();
                 else
-                    using (var rReader = new JsonTextReader(rDataFile.OpenText()))
-                    {
-                        var rData = JObject.Load(rReader);
+                {
+                    var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
+                    var rData = JObject.Load(rReader);
 
-                        r_Nodes = rData.Properties().ToDictionary(r => int.Parse(r.Name), r =>
-                            r.Value.Select(rpNode => rpNode.ToObject<Node>()).ToHybridDictionary(rpNode => rpNode.ID));
-                    }
+                    r_Nodes = rData.Properties().ToDictionary(
+                        r => int.Parse(r.Name),
+                        r => r.Value.Select(rpNode => rpNode.ToObject<Node>()).ToHybridDictionary(rpNode => rpNode.ID));
+                }
             });
         }
 

@@ -73,7 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 ShipLockingService.Instance.Initialize();
 
                 var rMasterInfo = KanColleGame.Current.MasterInfo;
-                if (ShipLockingService.Instance.ShipLocking.Count > 0 && rMasterInfo.EventMapCount > 0)
+                if (ShipLockingService.Instance.ShipLocking?.Count > 0 && rMasterInfo.EventMapCount > 0)
                 {
                     var rEventMaps = from rArea in rMasterInfo.MapAreas.Values
                                      where rArea.IsEventArea

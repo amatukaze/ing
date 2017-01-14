@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Quest;
@@ -15,14 +16,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
     public class QuestProgressService
     {
-        public const string DataFilename = @"Data\Quests.json";
         static TimeSpan Offset = TimeSpan.FromHours(4.0);
 
         public static QuestProgressService Instance { get; } = new QuestProgressService();
 
         public IDictionary<int, ProgressInfo> Progresses { get; private set; }
 
-        internal Dictionary<int, QuestInfo> Infos { get; set; }
+        internal IDictionary<int, QuestInfo> Infos { get; set; }
         ManualResetEventSlim r_InitializationLock = new ManualResetEventSlim(false);
 
         DateTimeOffset r_LastProcessTime;
@@ -33,18 +33,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
-            ApiService.SubscribeOnce("api_start2", delegate
+            ApiService.SubscribeOnceOnlyOnBeforeProcessStarted("api_get_member/require_info", delegate
             {
-                var rDataFile = new FileInfo(DataFilename);
-                if (!rDataFile.Exists)
-                    Infos = new Dictionary<int, QuestInfo>();
+                byte[] rContent;
+                if (!DataStore.TryGet("quest", out rContent))
+                    Infos = new ListDictionary<int, QuestInfo>();
                 else
-                    using (var rReader = new JsonTextReader(rDataFile.OpenText()))
-                    {
-                        var rData = JArray.Load(rReader);
+                {
+                    var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
+                    var rData = JArray.Load(rReader);
 
-                        Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
-                    }
+                    Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
+                }
 
                 if (r_InitializationLock != null)
                 {
@@ -54,7 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 }
             });
 
-            ApiService.Subscribe("api_get_member/require_info", _ =>
+            ApiService.Subscribe("api_get_member/require_info", delegate
             {
                 if (r_InitializationLock != null)
                     r_InitializationLock.Wait();
