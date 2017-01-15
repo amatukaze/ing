@@ -8,6 +8,12 @@
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Hyperlink}">
+            <Setter Property="Foreground" Value="#FF7AC0C0" />
+        </Style>
+    </UserControl.Resources>
+
     <StackPanel>
         <TextBlock Text="{rb:StringResource Main.Product_Name}" FontSize="22" />
 
@@ -22,6 +28,16 @@
         <TextBlock Margin="0, 4, 0, 0">
             Author / Devloper:
             Kodama Sakuno
+        </TextBlock>
+
+        <TextBlock Margin="0, 4, 0, 0">
+            Special thanks:
+            <Hyperlink NavigateUri="http://bbs.nga.cn/nuke.php?func=ucp&amp;uid=34899044">norhricken</Hyperlink>
+        </TextBlock>
+
+        <TextBlock Margin="0, 4, 0, 0">
+            Traditional Chinese localization (~ 0.1.14):
+            <Hyperlink NavigateUri="https://github.com/Vik1n9">Vik1n9</Hyperlink>
         </TextBlock>
 
         <TextBlock Margin="0, 4, 0, 0">
