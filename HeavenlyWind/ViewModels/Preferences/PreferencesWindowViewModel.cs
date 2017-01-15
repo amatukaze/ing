@@ -3,9 +3,9 @@ using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Plugins;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Plugins;
 using Sakuno.SystemInterop.Dialogs;
-using Sakuno.UserInterface;
 using Sakuno.UserInterface.Commands;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -84,6 +84,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
                     }
                 }
             });
+        }
+
+        public void OpenInternetOptionConnectionDialog()
+        {
+            Process.Start("rundll32", "inetcpl.cpl LaunchConnectionDialog");
         }
     }
 }

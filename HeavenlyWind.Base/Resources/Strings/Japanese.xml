@@ -357,6 +357,7 @@
   <String Key="PreferenceWindow_Network_AutoRetry">サーバエラー（HTTP 5xx エラー）の時に再試行する</String>
   <String Key="PreferenceWindow_Network_AutoRetry_Count">再試行回数</String>
   <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">超したの時に確認する</String>
+  <String Key="PreferenceWindow_Network_OpenInternetOptionConnectionDialog">IE のインターネット接続の設定</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">アプリ終了時の確認動作</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">確認しない</String>

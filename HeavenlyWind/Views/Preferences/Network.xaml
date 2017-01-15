@@ -6,7 +6,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:ruico="clr-namespace:Sakuno.UserInterface.Commands;assembly=Sakuno.UserInterface"
              xmlns:ruii="clr-namespace:Sakuno.UserInterface.Interactivity;assembly=Sakuno.UserInterface"
+             xmlns:ruioo="clr-namespace:Sakuno.UserInterface.ObjectOperations;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -50,5 +52,15 @@
                 <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_AutoRetry_Confirmation}" />
             </CheckBox>
         </StackPanel>
+
+        <Button MinWidth="250" HorizontalAlignment="Left" Margin="0, 12, 0, 0">
+            <Button.Command>
+                <ruico:ObjectOperationCommand>
+                    <ruioo:InvokeMethod Method="OpenInternetOptionConnectionDialog" />
+                </ruico:ObjectOperationCommand>
+            </Button.Command>
+
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_OpenInternetOptionConnectionDialog}" Margin="4, 2" />
+        </Button>
     </StackPanel>
 </UserControl>

@@ -360,6 +360,7 @@
   <String Key="PreferenceWindow_Network_AutoRetry">遇到服务器错误时自动重连（即请求收到 HTTP 5XX 的状态码时）</String>
   <String Key="PreferenceWindow_Network_AutoRetry_Count">重试次数</String>
   <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">达到该数值时时询问</String>
+  <String Key="PreferenceWindow_Network_OpenInternetOptionConnectionDialog">打开 IE 的网络连接设置</String>
   <String Key="PreferenceWindow_Window">窗口</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">退出确认</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">禁用</String>

@@ -353,6 +353,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Network_AutoRetry => GetString(nameof(PreferenceWindow_Network_AutoRetry));
         public string PreferenceWindow_Network_AutoRetry_Count => GetString(nameof(PreferenceWindow_Network_AutoRetry_Count));
         public string PreferenceWindow_Network_AutoRetry_Confirmation => GetString(nameof(PreferenceWindow_Network_AutoRetry_Confirmation));
+        public string PreferenceWindow_Network_OpenInternetOptionConnectionDialog => GetString(nameof(PreferenceWindow_Network_OpenInternetOptionConnectionDialog));
         public string PreferenceWindow_Window => GetString(nameof(PreferenceWindow_Window));
         public string PreferenceWindow_Window_CloseConfirmation => GetString(nameof(PreferenceWindow_Window_CloseConfirmation));
         public string PreferenceWindow_Window_CloseConfirmation_Disabled => GetString(nameof(PreferenceWindow_Window_CloseConfirmation_Disabled));

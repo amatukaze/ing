@@ -358,6 +358,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Network_AutoRetry">Auto retry if the server returns a 5xx error</String>
   <String Key="PreferenceWindow_Network_AutoRetry_Count">Max retry count</String>
   <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">Confirm when reaching this count</String>
+  <String Key="PreferenceWindow_Network_OpenInternetOptionConnectionDialog">Open connection setting of IE</String>
   <String Key="PreferenceWindow_Window">Window</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">Close confirmation</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">Disabled</String>
