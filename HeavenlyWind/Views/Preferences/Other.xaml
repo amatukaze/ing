@@ -4,13 +4,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:ruii="clr-namespace:Sakuno.UserInterface.Interactivity;assembly=Sakuno.UserInterface"
              xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
+    <UserControl.Resources>
+        <rb:IntegerRangeValidationRule x:Key="PortRangeValidationRule" Minimum="0" Maximum="65535" />
+    </UserControl.Resources>
+
     <StackPanel>
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Other_PanicKey}" FontSize="14" FontWeight="Bold" />
+        <CheckBox Name="EnablePortCustomization" IsChecked="{rb:Preference Network.PortCustomization}">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port_Customization}" />
+        </CheckBox>
+        <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=EnablePortCustomization}" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port}" />
+            <TextBox Text="{rb:Preference Network.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0">
+                <i:Interaction.Behaviors>
+                    <ruii:NumericTextBoxBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
+        </StackPanel>
+
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Other_PanicKey}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
         <CheckBox Name="IsPanicKeyEnabledCheckBox" IsChecked="{rb:Preference Other.PanicKey.Enabled}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Other_PanicKey_Enabled}" />
         </CheckBox>
