@@ -89,7 +89,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
 
-            Task.Factory.StartNew(UpdateService.Instance.CheckForUpdate);
+            Task.Run((Action)UpdateService.Instance.CheckForUpdate);
 
             if (e.Args.Any(r => r.OICEquals("--background")))
                 return;
