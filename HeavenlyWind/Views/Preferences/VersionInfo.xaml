@@ -41,6 +41,13 @@
         </TextBlock>
 
         <TextBlock Margin="0, 4, 0, 0">
+            Project Homepage (Chinese):
+            <Hyperlink NavigateUri="http://heavenlywind.cc">
+                <Run Text="http://heavenlywind.cc" />
+            </Hyperlink>
+        </TextBlock>
+
+        <TextBlock Margin="0, 4, 0, 0">
             Source Code:
             <Hyperlink NavigateUri="https://github.com/amatukaze/IntelligentNavalGun">
                 <Run Text="https://github.com/amatukaze/IntelligentNavalGun" />
