@@ -11,6 +11,6 @@
 
         public Property<bool> AutoRetry { get; } = new Property<bool>("network.auto_retry.enabled");
         public Property<int> AutoRetryCount { get; } = new Property<int>("network.auto_retry.count", 3);
-        public Property<bool> AutoRetryConfirmation { get; } = new Property<bool>("network.auto_retry.confirmation");
+        public Property<bool> AutoRetryConfirmation { get; } = new Property<bool>("network.auto_retry.confirmation", true);
     }
 }
