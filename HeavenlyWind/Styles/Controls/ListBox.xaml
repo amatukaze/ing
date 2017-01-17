@@ -43,11 +43,12 @@
 
     <Style x:Key="MenuListBoxButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Padding" Value="16, 8" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" Padding="16, 8">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
                         <ContentPresenter />
                     </Border>
 

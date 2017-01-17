@@ -149,7 +149,22 @@
   <String Key="Fleet_LoS_Formula_Old">2-5(舊)</String>
   <String Key="Fleet_LoS_Formula_Autumn">2-5(秋)</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5(秋)簡易</String>
-  <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
+  <String Key="Fleet_LoS_Note">判定式 (33) 索敵要求速查</String>
+  <String Key="Fleet_LoS_Note_25">至少 [b]33[/b] 確保進 Boss 点</String>
+  <String Key="Fleet_LoS_Note_35">在下路 G 点至少 [b]28[/b] 確保進 Boss 点
+
+註: C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_61">去往 F 点需要至少 [b]16[/b]，而 Boss 点需要至少 [b]25[/b]
+
+註: C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_62">F->I(下路): 至少 [b]50[/b]
+H->K(Boss): 至少 [b]40[/b]
+F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
+
+註: C[sub]n[/sub]=3</String>
+  <String Key="Fleet_LoS_Note_63">需要至少 [b]38[/b] 確保進 Boss 点
+
+註: C[sub]n[/sub]=3</String>
   <String Key="Fleet_FighterPower">制空</String>
   <String Key="Fleet_FighterPower_Formula_WithoutBonus">忽略熟練度獎勵</String>
   <String Key="Fleet_FighterPower_Formula_WithBonus">有熟練度獎勵</String>
