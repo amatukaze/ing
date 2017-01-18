@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
                     xmlns:rbm="clr-namespace:Sakuno.KanColle.Amatsukaze.Models;assembly=HeavenlyWind.Base"
-                    xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
+                    xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                    xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface">
 
     <Style TargetType="{x:Type rc:FighterPower}">
         <Setter Property="Background" Value="Transparent" />
@@ -19,113 +20,71 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type rc:FighterPower}">
-                    <Grid SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                        <Border Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition Name="DropDownMarkColumn" Width="0" />
-                                </Grid.ColumnDefinitions>
+                    <ruic:DropDownButton Style="{DynamicResource FlatDropDownButtonStyle}" ShowDropDownMarker="{TemplateBinding IsMouseOver}" PopupAutoClose="False">
+                        <ruic:DropDownButton.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{rb:StringResource Main.Fleet_FighterPower, StringFormat={}{0}:}" />
+                                <ContentPresenter Content="{TemplateBinding SelectedItem}" Margin="4, 0, 0, 0">
+                                    <ContentPresenter.ContentTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Value}" />
+                                        </DataTemplate>
+                                    </ContentPresenter.ContentTemplate>
+                                </ContentPresenter>
+                            </StackPanel>
+                        </ruic:DropDownButton.Header>
 
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{rb:StringResource Main.Fleet_FighterPower, StringFormat={}{0}:}" />
-                                    <ContentPresenter Content="{TemplateBinding SelectionBoxItem}" IsHitTestVisible="False" Margin="3, 0, 0, 0">
-                                        <ContentPresenter.ContentTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Value}" />
-                                            </DataTemplate>
-                                        </ContentPresenter.ContentTemplate>
-                                    </ContentPresenter>
-                                </StackPanel>
-
-                                <ToggleButton Name="ToggleButton" OverridesDefaultStyle="True" Foreground="{DynamicResource ActiveForegroundBrushKey}" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" Focusable="False" IsTabStop="False" Visibility="Collapsed" Grid.ColumnSpan="2">
-                                    <ToggleButton.Template>
-                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                            <Border Background="Transparent">
-                                                <Border HorizontalAlignment="Right" Width="11">
-                                                    <Path Fill="{TemplateBinding Foreground}" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M0,0 L3.5,4 7,0 z" />
-                                                </Border>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </ToggleButton.Template>
-                                </ToggleButton>
-                            </Grid>
+                        <Border Background="{DynamicResource BackgroundBrushKey}">
+                            <ItemsPresenter />
                         </Border>
-
-                        <Popup Name="PART_Popup" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Placement="Bottom" Focusable="False" FocusVisualStyle="{x:Null}" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                            <Border Background="Transparent" Margin="0, 0, 9, 9">
-                                <Grid>
-                                    <Rectangle Fill="{DynamicResource ThemeBrushKey}">
-                                        <Rectangle.Effect>
-                                            <DropShadowEffect Direction="315" Color="#71000000" BlurRadius="8" />
-                                        </Rectangle.Effect>
-                                    </Rectangle>
-
-                                    <Border Background="{DynamicResource BackgroundBrushKey}" Grid.IsSharedSizeScope="True">
-                                        <ItemsPresenter />
-                                    </Border>
-                                </Grid>
-                            </Border>
-                        </Popup>
-                    </Grid>
-
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
-                            <Setter TargetName="DropDownMarkColumn" Property="MinWidth" Value="13" />
-                            <Setter TargetName="ToggleButton" Property="Visibility" Value="Visible" />
-                        </Trigger>
-                        <Trigger Property="IsDropDownOpen" Value="True">
-                            <Setter Property="BorderBrush" Value="{DynamicResource BackgroundBrushKey}" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+                    </ruic:DropDownButton>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
-                <Style TargetType="{x:Type ComboBoxItem}">
-                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Background" Value="Transparent" />
-                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Padding" Value="6, 4" />
 
                     <Setter Property="Template">
                         <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                 <Border Background="{TemplateBinding Background}" Padding="6, 4" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition Width="8" />
-                                            <ColumnDefinition SharedSizeGroup="Formula" />
-                                            <ColumnDefinition Width="8" />
                                             <ColumnDefinition SharedSizeGroup="LoS" />
                                         </Grid.ColumnDefinitions>
 
-                                        <Path Name="CheckMark" Fill="{DynamicResource ForegroundBrushKey}" Stretch="Uniform" Width="12" Height="12" Margin="1" Visibility="Hidden" Data="F1 M10.2209,8.946 L17.1875,15.5167 30.9627,1.0440487E-53 34.2877,2.9292 17.5834,22.9585 6.8959,12.271 10.2209,8.946 z" />
-                                        <TextBlock Text="{rb:EnumToStringResource Key, Fleet_FighterPower_Formula}" Grid.Column="2" />
-                                        <TextBlock Text="{Binding Value}" HorizontalAlignment="Right" Grid.Column="4" />
+                                        <TextBlock Text="{rb:EnumToStringResource Key, Fleet_FighterPower_Formula}" />
+                                        <TextBlock Text="{Binding Value}" HorizontalAlignment="Right" Grid.Column="2" />
                                     </Grid>
                                 </Border>
-
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
 
                     <Style.Triggers>
-                        <Trigger Property="IsHighlighted" Value="True">
-                            <Setter Property="Background" Value="{DynamicResource HighlightBackgroundBrushKey}" />
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource ActiveBackgroundBrushKey}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource AccentBrushKey}" />
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </Setter.Value>
         </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>
