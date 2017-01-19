@@ -1,48 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/SmallCaliberGun.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/MediumCaliberGun.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/LargeCaliberGun.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/SecondaryGun.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Torpedo.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/CarrierBasedFighter.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/CarrierBasedDiveBomber.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/CarrierBasedTorpedoBomber.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/CarrierBasedRecon.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Seaplane.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Rader.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/AAShell.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/APShell.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/DamageControl.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/AAGun.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/HighAngleGun.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/ASW.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Soner.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Engine.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/LandingCraft.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Autogyro.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/ASAircraft.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/ExtraArmor.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Searchlight.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/DrumCanister.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/RepairFacility.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Flare.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/CommandFacility.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/MaintenanceTeam.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/AAFireDirector.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/AntiGroundArtillery.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/SurfaceShipPersonnel.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/FlyingBoat.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/CombatProvisions.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/Supplies.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/SpecialAmphibiousLandingCraft.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/LandBasedAttackAircraft.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/InterceptorFighter.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/JetFighterBomberKikkaKai.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Equipment/JetFighterBomberKeiunKai.xaml" />
-
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Fuel.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Bullet.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Steel.xaml" />
@@ -51,6 +9,5 @@
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Bucket.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/InstantConstruction.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/ImprovementMaterial.xaml" />
-
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

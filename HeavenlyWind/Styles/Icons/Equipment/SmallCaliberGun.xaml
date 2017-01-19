@@ -1,9 +1,0 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
-
-    <ControlTemplate x:Key="SmallCaliberGunIcon" TargetType="{x:Type rc:EquipmentIcon}">
-        <Path Fill="#FFD25959" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Center" Data="M252,111 L235.5,158.5 164.5,211 118.5,179 69.5,212.5 C69.5,212.5 55.5,213 62,203.5 68.5,194 107.50031,170.49973 107.50031,170.49973 L94.000336,160.49977 46.000438,192.49962 C46.000438,192.49962 35.849121,195.5049 38.000456,183.99966 L85.000113,155.49979 85.000113,129.99991 112.00009,110 114.50009,98.500061 C114.50009,98.500061 160.00006,71.000189 191.50004,79.000152 z" />
-    </ControlTemplate>
-
-</ResourceDictionary>
