@@ -235,7 +235,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                     return;
 
                 var rApiSession = rSession as ApiSession;
-                if (rApiSession != null && rpSession["X-RetryNumber"].IsNullOrEmpty() && (rpSession.responseCode >= 500 && rpSession.responseCode < 600))
+                if (rApiSession != null && rpSession["X-RetryCount"].IsNullOrEmpty() && (rpSession.responseCode >= 500 && rpSession.responseCode < 600))
                     Retry(rApiSession, rpSession);
             }
         }
