@@ -120,6 +120,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 client = new
                 {
                     version = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                    fw = OS.DotNetFrameworkReleaseNumber,
                 },
 
                 data = GetOfficialDataStoreItem().Select(r => new
