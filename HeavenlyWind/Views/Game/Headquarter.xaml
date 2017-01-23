@@ -42,6 +42,9 @@
                             <Setter Property="Text" Value="Next:" />
 
                             <Style.Triggers>
+                                <DataTrigger Binding="{Binding Level}" Value="120">
+                                    <Setter Property="Text" Value="Remain:" />
+                                </DataTrigger>
                                 <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
                                     <Setter Property="Text" Value="" />
                                 </DataTrigger>
