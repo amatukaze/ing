@@ -91,6 +91,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                             break;
 
                         case ShipSpeed.Fast:
+                        case ShipSpeed.FastPlus:
+                        case ShipSpeed.UltraFast:
                             rResult |= FleetSpeed.Fast;
                             break;
                     }
