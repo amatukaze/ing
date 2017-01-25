@@ -32,18 +32,6 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="EventType" TargetType="{x:Type Run}">
-            <Setter Property="Text" Value="{rb:EnumToStringResource Node.EventType, Sortie_Event}" />
-
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Node.Event}" Value="{x:Null}">
-                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
-                </DataTrigger>
-                <DataTrigger Binding="{Binding Node.EventType}" Value="NormalBattle">
-                    <Setter Property="Text" Value="{rb:EnumToStringResource Node.BattleType, Sortie_BattleType}" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
     </UserControl.Resources>
 
     <Grid DataContext="{Binding Info}">
@@ -93,10 +81,52 @@
                     </Path>
                 </Border>
 
-                <TextBlock VerticalAlignment="Center">
+                <TextBlock VerticalAlignment="Center" Margin="0, 0, 4, 0">
                     <Run Text="{rb:StringResource Main.Sortie_Node, Mode=OneWay}" />:
                     <Run Style="{StaticResource NodeID}" DataContext="{Binding Node}" />
-                    <Run Style="{StaticResource EventType}" />
+                </TextBlock>
+
+                <Path Stretch="Uniform" Fill="#CF2121" Stroke="#A00000" StrokeThickness="1" Opacity="0" Width="0" Height="20" Data="M85,85 C85,85 50,50 50,0 50,0 0,35 25,145 25,145 -42,290 150,290 342,290 275,145 275,145 275,145 300,35 250,0 250,0 252,45 215,85 215,85 188,65 150,65 112,65 85,85 85,85 z M65,125 C65,125 55,200 125,165 z M235,125 C235,125 245,200 175,165 z">
+                    <Path.Style>
+                        <Style TargetType="{x:Type Path}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Node.EventType}" Value="BossBattle">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard Name="ExpansionAnimation">
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:.4" />
+                                                <DoubleAnimation Storyboard.TargetProperty="Width" To="20" Duration="0:0:.4" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <StopStoryboard BeginStoryboardName="ExpansionAnimation" />
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Path.Style>
+                </Path>
+
+                <TextBlock VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Text" Value="{rb:EnumToStringResource Node.EventType, Sortie_Event}" />
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Node.Event}" Value="{x:Null}">
+                                    <Setter Property="Text" Value="{rb:StringResource Main.Sortie_Event_Unknown, Mode=OneWay}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Node.EventType}" Value="NormalBattle">
+                                    <Setter Property="Text" Value="{rb:EnumToStringResource Node.BattleType, Sortie_BattleType}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Node.EventType}" Value="BossBattle">
+                                    <Setter Property="Foreground" Value="Orange" />
+                                    <Setter Property="Margin" Value="2, 0, 0, 0" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
                 </TextBlock>
             </StackPanel>
         </StackPanel>
