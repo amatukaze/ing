@@ -240,9 +240,23 @@
                             <Border Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2">
                                 <StackPanel Orientation="Horizontal">
                                     <rc:ShipSlot DataContext="{Binding Slots}" />
-                                    <Border Name="ExtraSlot" BorderBrush="Gray" BorderThickness="1, 0, 0, 0" Margin="3, 0, 0, 0">
-                                        <rc:EquipmentIcon Type="{Binding ExtraSlot.Equipment.Info.Icon}" />
-                                    </Border>
+                                    <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Width="1" Margin="2, 0" Visibility="{rb:CollapsedIfNull ExtraSlot}" />
+                                    <Grid DataContext="{Binding ExtraSlot}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <rc:EquipmentIcon Type="{Binding Equipment.Info.Icon}" Width="22" Height="22" Margin="0, -4, 0, 0" Grid.RowSpan="4" />
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="2, 1, 0, 0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                            <rc:EquipmentProficiency Proficiency="{Binding Equipment.Proficiency}" />
+                                            <rc:EquipmentLevel Level="{Binding Equipment.Level}" ShowStar="False" />
+                                        </StackPanel>
+                                    </Grid>
                                 </StackPanel>
                             </Border>
                         </Grid>
@@ -309,10 +323,6 @@
                                     </MultiBinding>
                                 </Setter.Value>
                             </Setter>
-                        </DataTrigger>
-
-                        <DataTrigger Binding="{Binding ExtraSlot}" Value="{x:Null}">
-                            <Setter TargetName="ExtraSlot" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>
