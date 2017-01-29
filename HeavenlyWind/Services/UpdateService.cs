@@ -121,6 +121,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 {
                     version = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
                     fw = OS.DotNetFrameworkReleaseNumber,
+                    beta = 1,
                 },
 
                 data = GetOfficialDataStoreItem().Select(r => new
