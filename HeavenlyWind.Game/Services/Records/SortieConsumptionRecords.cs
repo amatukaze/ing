@@ -802,19 +802,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         void ProcessJetPoweredAircraftConsumption(ApiInfo rpInfo)
         {
             var rData = rpInfo.Data as RawDay;
-            if (rData == null || (rData.JetAircraftAerialCombat == null && rData.LandBaseJetAircraftAerialSupport == null))
+            if (rData == null)
+                return;
+
+            var rIsLBJAASAvailable = rData.LandBaseJetAircraftAerialSupport != null;
+
+            var rFriendAttackers = rData.JetAircraftAerialCombat?.Attackers[0];
+            var rIsJAACAvailable = rFriendAttackers != null && rFriendAttackers.Length > 0 && rFriendAttackers[0] != -1;
+
+            if (!rIsLBJAASAvailable && !rIsJAACAvailable)
                 return;
 
             var rSortie = SortieInfo.Current;
-
-            var rBuilder = new StringBuilder(384);
+            var rID = rSortie != null ? rSortie.ID : rpInfo.Timestamp;
 
             var rCommand = Connection.CreateCommand();
-            rCommand.Parameters.AddWithValue("@id", rSortie.ID);
+            rCommand.Parameters.AddWithValue("@id", rID);
 
-            if (rData.JetAircraftAerialCombat != null)
+            var rBuilder = new StringBuilder(384);
+            if (rIsJAACAvailable)
             {
-                var rJetAircrafts = from rShip in rSortie.Fleet.Ships
+                var rJetAircrafts = from rShip in (rSortie?.Fleet ?? Port.Fleets[0]).Ships
                                     from rSlot in rShip.Slots
                                     where rSlot.HasEquipment && rSlot.Equipment.Info.IsJetPoweredAircraft
                                     select rSlot;
@@ -825,7 +833,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.Parameters.AddWithValue("@jaac_steel", rSteelConsumption);
             }
 
-            if (rData.LandBaseJetAircraftAerialSupport != null)
+            if (rIsLBJAASAvailable)
             {
                 var rJetAircrafts = from rGroup in rSortie.AirForceGroups
                                     where rGroup.Option == AirForceGroupOption.Sortie
