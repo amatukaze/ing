@@ -17,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives
                     r_SelectedDateStart = value.Date;
 
                     IsDateStartCalendarOpened = false;
-                    TimeSpanStart = new DateTimeOffset(r_SelectedDateStart, DateTimeOffset.Now.Offset).ToUnixTime().ToString();
+                    TimeSpanStart = r_SelectedDateStart.AsOffset().ToUnixTime().ToString();
 
                     OnPropertyChanged(nameof(SelectedDateStart));
                 }
@@ -35,7 +35,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives
                     r_SelectedDateEnd = value.Date;
 
                     IsDateEndCalendarOpened = false;
-                    TimeSpanEnd = new DateTimeOffset(r_SelectedDateEnd.AddDays(1.0), DateTimeOffset.Now.Offset).ToUnixTime().ToString();
+                    TimeSpanEnd = r_SelectedDateEnd.AddDays(1.0).AsOffset().ToUnixTime().ToString();
 
                     OnPropertyChanged(nameof(SelectedDateEnd));
                 }

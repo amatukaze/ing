@@ -44,22 +44,18 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
 
         public void Update()
         {
-            DateTime rNow;
-
             switch (Type)
             {
                 case ResourceHistoryType.Daily:
-                    Maximum = new DateTimeOffset(DateTime.Now.AddDays(1.0).Date).ToUnixTime();
+                    Maximum = DateTime.Now.Tomorrow().AsOffset().ToUnixTime();
                     break;
 
                 case ResourceHistoryType.Weekly:
-                    rNow = DateTime.Now;
-                    Maximum = new DateTimeOffset(rNow.AddDays(-(rNow.DayOfWeek - DayOfWeek.Monday + 7) % 7).AddDays(7.0).Date).ToUnixTime();
+                    Maximum = DateTime.Now.NextMonday().AsOffset().ToUnixTime();
                     break;
 
                 case ResourceHistoryType.Monthly:
-                    rNow = DateTime.Now;
-                    Maximum = new DateTimeOffset(new DateTime(rNow.Year, rNow.Month, 1).AddMonths(1)).ToUnixTime();
+                    Maximum = DateTime.Now.StartOfNextMonth().AsOffset().ToUnixTime();
                     break;
             }
         }
@@ -78,15 +74,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
             {
                 get
                 {
-                    var rMonday = DateTimeUtil.FromUnixTime(ID).LocalDateTime.Date;
-                    rMonday = rMonday.AddDays(-(rMonday.DayOfWeek - DayOfWeek.Monday + 7) % 7);
-
-                    var rMonth = rMonday.Month;
-
-                    var rFirstMonday = new DateTime(rMonday.Year, rMonday.Month, 1);
-                    rFirstMonday = rFirstMonday.AddDays(-(rFirstMonday.DayOfWeek - DayOfWeek.Monday + 7) % 7);
-
-                    if (rFirstMonday.Month != rMonth)
+                    var rMonday = DateTimeUtil.FromUnixTime(ID).LocalDateTime.Date.LastMonday();
+                    var rFirstMonday = rMonday.StartOfLastMonth().LastMonday();
+                    if (rFirstMonday.Month != rMonday.Month)
                         rFirstMonday = rFirstMonday.AddDays(7.0);
 
                     var rCurrentWeek = r_Calendar.GetWeekOfYear(rMonday, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);

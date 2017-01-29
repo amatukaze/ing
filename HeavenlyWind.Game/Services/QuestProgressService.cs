@@ -16,8 +16,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 {
     public class QuestProgressService
     {
-        static TimeSpan Offset = TimeSpan.FromHours(4.0);
-
         public static QuestProgressService Instance { get; } = new QuestProgressService();
 
         public IDictionary<int, ProgressInfo> Progresses { get; private set; }
@@ -79,7 +77,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             var rQuests = KanColleGame.Current.Port.Quests.Table;
             if (GetResetTime(QuestType.Daily) > r_LastProcessTime)
             {
-                var rOutdatedProgresses = Progresses.Values.Where(r => GetResetTime(!r.Quest.IsDailyReset ? r.ResetType : QuestType.Daily) > r.UpdateTime).ToArray();
+                var rResetTimes = new DateTimeOffset[5 + 1];
+
+                rResetTimes[0] = rResetTimes[4] = DateTimeOffset.MinValue;
+                rResetTimes[1] = rResetTimes[5] = GetResetTime(QuestType.Daily);
+                rResetTimes[2] = GetResetTime(QuestType.Weekly);
+                rResetTimes[3] = GetResetTime(QuestType.Monthly);
+
+                var rOutdatedProgresses = Progresses.Values.Where(r => rResetTimes[(int)(!r.Quest.IsDailyReset ? r.ResetType : QuestType.Daily)] > r.UpdateTime).ToArray();
                 foreach (var rProgressInfo in rOutdatedProgresses)
                 {
                     var rID = rProgressInfo.Quest.ID;
@@ -88,7 +93,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     Progresses.Remove(rID);
                     RecordService.Instance.QuestProgress.DeleteRecord(rID);
                 }
-                var rOutdatedQuests = rQuests.Values.Where(r => GetResetTime(r.Type) > r.CreationTime).ToArray();
+
+                var rOutdatedQuests = rQuests.Values.Where(r => rResetTimes[(int)r.Type] > r.CreationTime).ToArray();
                 foreach (var rQuest in rOutdatedQuests)
                     rQuests.Remove(rQuest);
             }
@@ -162,35 +168,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 rQuest.Extra = rInfo;
             }
 
-            r_LastProcessTime = DateTimeOffset.Now.ToOffset(Offset);
+            r_LastProcessTime = DateTimeOffset.Now.ToOffset(TimeSpan.FromHours(4.0));
         }
 
         internal static DateTimeOffset GetResetTime(QuestType rpType)
         {
-            var rCurrentTime = DateTimeOffset.Now.ToOffset(Offset);
-            var rResult = DateTimeOffset.MinValue;
+            var rNow = DateTimeOffset.Now.ToOffset(TimeSpan.FromHours(4.0));
 
             switch (rpType)
             {
                 case QuestType.Daily:
                 case QuestType.Special:
-                    rResult = new DateTimeOffset(rCurrentTime.Date, Offset);
-                    break;
+                    return rNow.DateAsOffset();
 
                 case QuestType.Weekly:
-                    var rDelta = rCurrentTime.DayOfWeek - DayOfWeek.Monday;
-                    if (rDelta < 0)
-                        rDelta += 7;
-
-                    rResult = new DateTimeOffset(rCurrentTime.AddDays(-rDelta).Date, Offset);
-                    break;
+                    return rNow.LastMonday();
 
                 case QuestType.Monthly:
-                    rResult = new DateTimeOffset(rCurrentTime.Year, rCurrentTime.Month, 1, 0, 0, 0, Offset);
-                    break;
-            }
+                    return rNow.StartOfLastMonth();
 
-            return rResult;
+                default:
+                    return DateTimeOffset.MinValue;
+            }
         }
     }
 }

@@ -41,7 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 Update();
 
-                var rRankUpdateTime = new DateTimeOffset(DateTimeOffset.Now.Date, TimeSpan.FromHours(6.0));
+                var rNow = DateTimeOffset.Now;
+                var rRankUpdateTime = new DateTimeOffset(rNow.Date, TimeSpan.FromHours(6.0));
                 var rDayTimeSpan = TimeSpan.FromDays(1.0);
                 Observable.Timer(rRankUpdateTime.AddDays(1.0), rDayTimeSpan).Subscribe(delegate
                 {
@@ -54,14 +55,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rRankUpdateTime += TimeSpan.FromHours(12.0);
                 if (DateTimeOffset.Now > rRankUpdateTime)
                     rRankUpdateTime += rDayTimeSpan;
+
                 Observable.Timer(rRankUpdateTime, rDayTimeSpan).Subscribe(delegate
                 {
                     PreviousUpdateDifference.Reload();
                     OnPropertyChanged(nameof(PreviousUpdateDifference));
                 });
 
-                var rNow = DateTimeOffset.Now;
-                var rFinalizationTime = new DateTimeOffset(rNow.Year, rNow.Month, 1, 0, 0, 0, TimeSpan.FromHours(9.0)).AddMonths(1).AddHours(-2.0);
+                var rFinalizationTime = rNow.ToOffset(TimeSpan.FromHours(9.0)).StartOfNextMonth().AddHours(-2.0);
                 if (rNow >= rFinalizationTime)
                     FinalizeThisMonth();
                 else

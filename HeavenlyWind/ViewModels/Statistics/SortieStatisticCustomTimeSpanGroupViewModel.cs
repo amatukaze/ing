@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
                     OnPropertyChanged(nameof(SelectedDateStart));
 
                     IsDateStartCalendarOpened = false;
-                    TimeSpanStart = new DateTimeOffset(r_SelectedDateStart, DateTimeOffset.Now.Offset).ToUnixTime().ToString();
+                    TimeSpanStart = r_SelectedDateStart.AsOffset().ToUnixTime().ToString();
                     Reload();
                 }
             }
@@ -37,7 +37,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
                     OnPropertyChanged(nameof(SelectedDateEnd));
 
                     IsDateEndCalendarOpened = false;
-                    TimeSpanEnd = new DateTimeOffset(r_SelectedDateEnd.AddDays(1.0), DateTimeOffset.Now.Offset).ToUnixTime().ToString();
+                    TimeSpanEnd = r_SelectedDateEnd.AddDays(1.0).AsOffset().ToUnixTime().ToString();
                     Reload();
                 }
             }
@@ -73,7 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 
         public SortieStatisticCustomTimeSpanGroupViewModel(SortieStatisticViewModel rpOwner) : base(rpOwner, SortieStatisticTimeSpanType.Custom)
         {
-            var rNow = new DateTimeOffset(DateTime.Now.AddDays(1.0).Date.AddSeconds(-1.0));
+            var rNow = DateTime.Now.Tomorrow().AddSeconds(-1.0).AsOffset();
 
             r_SelectedDateStart = r_SelectedDateEnd = rNow.DateTime;
             TimeSpanStart = TimeSpanEnd = rNow.ToUnixTime().ToString();
