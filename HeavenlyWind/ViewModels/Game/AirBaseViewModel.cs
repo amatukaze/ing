@@ -32,8 +32,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         internal AirBaseViewModel()
         {
             var rAirBase = KanColleGame.Current.Port.AirBase;
-            var rPCEL = new PropertyChangedEventListener(rAirBase);
-            rPCEL.Add(nameof(rAirBase.AllGroups), (s, e) => Groups = rAirBase.AllGroups.Select(r => new AirForceGroupViewModel(r)).ToList());
+            var rPCEL = PropertyChangedEventListener.FromSource(rAirBase);
+            rPCEL.Add(nameof(rAirBase.AllGroups), (s, e) => Groups = rAirBase.AllGroups.Select(r => new AirForceGroupViewModel(r)).ToArray());
         }
     }
 }
