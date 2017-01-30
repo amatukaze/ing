@@ -218,33 +218,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal Ship(RawShip rpRawData) : base(rpRawData)
         {
-            HP = new ClampedValue(1, 1);
+            HP = new ShipHP(this, 1, 1);
             Fuel = new ClampedValue(1, 1);
             Bullet = new ClampedValue(1, 1);
-
-            HP.Subscribe(nameof(HP.Current), delegate
-            {
-                var rRate = HP.Current / (double)HP.Maximum;
-
-                if (rRate <= .25)
-                {
-                    State |= ShipState.HeavilyDamaged;
-                    DamageState = ShipDamageState.HeavilyDamaged;
-                }
-                else
-                {
-                    State &= ~ShipState.HeavilyDamaged;
-
-                    if (rRate <= .5)
-                        DamageState = ShipDamageState.ModeratelyDamaged;
-                    else if (rRate <= .75)
-                        DamageState = ShipDamageState.LightlyDamaged;
-                    else if (rRate < 1.0)
-                        DamageState = ShipDamageState.Healthy;
-                    else
-                        DamageState = ShipDamageState.FullyHealthy;
-                }
-            });
 
             Status = new ShipStatus(this);
             CombatAbility = new ShipCombatAbility(this);
@@ -409,5 +385,41 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Info.Name}\", Type = \"{Info.Type.Name}\", Level = {Level}";
+
+        class ShipHP : ClampedValue
+        {
+            Ship r_Owner;
+
+            public ShipHP(Ship rpOwner, int rpMaximum, int rpCurrent) : base(rpMaximum, rpCurrent)
+            {
+                r_Owner = rpOwner;
+            }
+
+            public override void Set(int rpMaximum, int rpCurrent)
+            {
+                base.Set(rpMaximum, rpCurrent);
+
+                var rRate = Current / (double)Maximum;
+
+                if (rRate <= .25)
+                {
+                    r_Owner.State |= ShipState.HeavilyDamaged;
+                    r_Owner.DamageState = ShipDamageState.HeavilyDamaged;
+                }
+                else
+                {
+                    r_Owner.State &= ~ShipState.HeavilyDamaged;
+
+                    if (rRate <= .5)
+                        r_Owner.DamageState = ShipDamageState.ModeratelyDamaged;
+                    else if (rRate <= .75)
+                        r_Owner.DamageState = ShipDamageState.LightlyDamaged;
+                    else if (rRate < 1.0)
+                        r_Owner.DamageState = ShipDamageState.Healthy;
+                    else
+                        r_Owner.DamageState = ShipDamageState.FullyHealthy;
+                }
+            }
+        }
     }
 }

@@ -54,13 +54,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             Current = rpCurrent;
         }
 
-        public void Set(int rpMaximum, int rpCurrent)
+        public virtual void Set(int rpMaximum, int rpCurrent)
         {
-            r_Maximum = rpMaximum;
-            r_Current = rpCurrent;
-
-            OnPropertyChanged(nameof(Maximum));
-            OnPropertyChanged(nameof(Current));
+            Maximum = rpMaximum;
+            Current = rpCurrent;
         }
 
         public bool Equals(ClampedValue rpOther) => rpOther == this;
