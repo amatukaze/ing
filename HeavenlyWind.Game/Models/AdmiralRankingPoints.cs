@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
 using System.Data.SQLite;
-using System.Reactive;
 using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
@@ -24,7 +23,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         bool r_IsFinalized;
 
-        public int? FinalScore { get; private set; }
+        int? r_FinalScore;
+        public int? FinalScore
+        {
+            get { return r_FinalScore; }
+            private set
+            {
+                if (r_FinalScore != value)
+                {
+                    r_FinalScore = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         internal AdmiralRankingPoints(Admiral rpAdmiral)
         {
@@ -42,8 +53,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Update();
 
                 var rNow = DateTimeOffset.Now;
-                var rRankUpdateTime = new DateTimeOffset(rNow.Date, TimeSpan.FromHours(6.0));
+                var rRankUpdateTime = rNow.ToOffset(TimeSpan.FromHours(7.0)).DateAsOffset();
                 var rDayTimeSpan = TimeSpan.FromDays(1.0);
+
                 Observable.Timer(rRankUpdateTime.AddDays(1.0), rDayTimeSpan).Subscribe(delegate
                 {
                     PreviousUpdateDifference.Reload();
@@ -62,13 +74,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     OnPropertyChanged(nameof(PreviousUpdateDifference));
                 });
 
-                var rFinalizationTime = rNow.ToOffset(TimeSpan.FromHours(9.0)).StartOfNextMonth().AddHours(-2.0);
-                if (rNow >= rFinalizationTime)
-                    FinalizeThisMonth();
-                else
-                    Observable.Return(Unit.Default).Delay(rFinalizationTime).Subscribe(_ => FinalizeThisMonth());
-
-                Observable.Return(Unit.Default).Delay(rFinalizationTime.AddHours(2.0)).Subscribe(_ => r_IsFinalized = false);
+                var rFinalizationTime = rNow.ToOffset(TimeSpan.FromHours(9.0)).StartOfNextMonth();
+                Observable.Timer(rFinalizationTime).Subscribe(_ => r_IsFinalized = false);
+                Observable.Timer(rFinalizationTime.AddHours(8.0)).Subscribe(_ => FinalScore = null);
+                Observable.Timer(rFinalizationTime.AddHours(-2.0)).Subscribe(_ => FinalizeThisMonth());
 
                 RecordService.Instance.Update += RecordService_Update;
             });
@@ -87,26 +96,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 r_AdmiralID = r_Owner.ID;
             }
 
-            OnPropertyChanged(nameof(PreviousUpdateDifference));
-            OnPropertyChanged(nameof(DayDifference));
-            OnPropertyChanged(nameof(MonthDifference));
-
-            OnPropertyChanged(nameof(TotalScore));
+            OnPropertyChanged(string.Empty);
         }
 
         void ReloadInitialRankingPoints()
         {
             using (var rCommand = RecordService.Instance.CreateCommand())
             {
-                rCommand.CommandText = "SELECT CASE strftime('%m', 'now', '+9 hours') WHEN '01' THEN 0 ELSE (coalesce(((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of month', '-9 hour')) - (SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+9 hour', 'start of year', '-9 hour'))), 0) / 50000.0) + " +
-                    "((SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', 'start of month', '-1 month', '-9 hour') AND time < strftime('%s', 'now', 'start of month', '-11 hour')) / 35.0) END AS initial, " +
-                    "(SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', 'start of month', '-9 hour') AND time < strftime('%s', 'now', 'start of month', '+1 month', '-11 hour')) AS eo_bonus;";
+                rCommand.CommandText = "SELECT CASE strftime('%m', 'now', '+11 hours') == '01' WHEN 1 THEN 0 ELSE (coalesce(((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+9 hour', 'start of month', '-9 hour')) - (SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+9 hour', 'start of year', '-9 hour'))), 0) / 50000.0) + ((SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', '+11 hour', 'start of month', '-1 month', '-11 hour') AND time < strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour')) / 35.0) END AS initial, " +
+                    "CASE CAST(strftime('%s', 'now') AS INTEGER) > CAST(strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour') AS INTEGER) WHEN 1 THEN 0 ELSE (SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', '+9 hour', 'start of month', '-9 hour') AND time < strftime('%s', 'now', '+11 hour', 'start of month', '+1 month', '-11 hour')) END AS eo_bonus;";
 
                 using (var rReader = rCommand.ExecuteReader())
                     if (rReader.Read())
                     {
-                        Initial = Convert.ToDouble(rReader["initial"]);
-                        ExtraOperationBonus = Convert.ToInt32(rReader["eo_bonus"]);
+                        Initial = rReader.GetDouble("initial");
+                        ExtraOperationBonus = rReader.GetInt32("eo_bonus");
                     }
             }
         }
@@ -130,30 +134,33 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             r_IsFinalized = true;
 
-            FinalScore = TotalScore;
-            OnPropertyChanged(nameof(FinalScore));
-
             ExtraOperationBonus = 0;
+
             using (var rCommand = RecordService.Instance.CreateCommand())
             {
-                rCommand.CommandText = "SELECT (coalesce(((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of month', '+1 month', '-9 hour')) - (SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of year', '-9 hour'))), 0) / 50000.0) +" +
-                    "((SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', 'start of month', '-9 hour') AND time < strftime('%s', 'now', 'start of month', '+1 month', '-11 hour')) / 35.0) AS initial, " +
-                    "(SELECT coalesce((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of month', '+1 month', '-11 hour')), (SELECT min(experience) FROM admiral_experience WHERE time >= strftime('%s', 'now', 'start of month', '+1 month', '-11 hour')), @current_exp)) AS admiral_experience;";
+                rCommand.CommandText = "SELECT CASE strftime('%m', 'now', '+11 hours') == '01' WHEN 1 THEN 0 ELSE (coalesce(((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour')) - (SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+9 hour', 'start of year', '-9 hour'))), 0) / 50000.0) + " +
+                    "((SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', '+9 hour', 'start of month', '-9 hour') AND time < strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour')) / 35.0) END AS initial, " +
+                    "(SELECT coalesce((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour')), (SELECT min(experience) FROM admiral_experience WHERE time >= strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour')), @current_exp)) AS admiral_experience, " +
+                    "(CASE strftime('%m', 'now', '+11 hours') == '02' WHEN 1 THEN 0 ELSE (coalesce(((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+9 hour', 'start of month', '-9 hour')) - (SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+9 hour', 'start of year', '-9 hour'))), 0) / 50000.0) END + " +
+                    "(SELECT coalesce(sum(point), 0) FROM ranking_point_bonus WHERE time >= strftime('%s', 'now', '+9 hour', 'start of month', '-9 hour') AND time < strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour')) + " +
+                    "(coalesce((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour')), (SELECT min(experience) FROM admiral_experience WHERE time >= strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour')), @current_exp) - coalesce((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', '+11 hour', 'start of month', '-1 month', '-11 hour')), (SELECT min(experience) FROM admiral_experience WHERE time >= strftime('%s', 'now', '+11 hour', 'start of month', '-1 month', '-11 hour')), 0)) * 7.0 / 10000.0) AS final_score;";
                 rCommand.Parameters.AddWithValue("@current_exp", AdmiralExperience);
 
                 using (var rReader = rCommand.ExecuteReader())
                     if (rReader.Read())
                     {
-                        Initial = Convert.ToDouble(rReader["initial"]);
+                        Initial = rReader.GetDouble("initial");
 
-                        var rAdmiralExperience = Convert.ToInt32(rReader["admiral_experience"]);
+                        var rAdmiralExperience = rReader.GetInt32("admiral_experience");
                         PreviousUpdateDifference.AdmiralExperience = rAdmiralExperience;
                         DayDifference.AdmiralExperience = rAdmiralExperience;
                         MonthDifference.AdmiralExperience = rAdmiralExperience;
+
+                        FinalScore = (int)rReader.GetDouble("final_score");
                     }
             }
 
-            Update();
+            OnPropertyChanged(string.Empty);
         }
     }
 }

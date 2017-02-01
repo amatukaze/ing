@@ -115,7 +115,7 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中堅少佐</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
-  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">前回の更新</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">前回の集計</String>
   <String Key="Overview_Admiral_Experience_Difference_Type_Day">日</String>
   <String Key="Overview_Admiral_Experience_Difference_Type_Month">月</String>
   <String Key="Overview_Admiral_TotalRankingPoints">合計戦果</String>
