@@ -5,6 +5,9 @@
         public Stage Stage1 { get; internal set; }
         public Stage Stage2 { get; internal set; }
 
+        public AntiAirCutIn AntiAirCutIn { get; internal set; }
+        public AntiAirCutIn SecondAntiAirCutIn { get; internal set; }
+
         public AerialCombatResult Result { get; internal set; }
 
         public class Stage : ModelBase

@@ -95,6 +95,7 @@
     <Compile Include="Models\BattleType.cs" />
     <Compile Include="Models\Battle\AerialCombat.cs" />
     <Compile Include="Models\Battle\AerialCombatResult.cs" />
+    <Compile Include="Models\Battle\AntiAirCutIn.cs" />
     <Compile Include="Models\Battle\BattleInfo.cs" />
     <Compile Include="Models\Battle\BattleParticipants.cs" />
     <Compile Include="Models\Battle\BattleParticipantSnapshot.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\Raw\Battle\RawAerialAttack.cs" />
     <Compile Include="Models\Raw\Battle\RawAerialCombat.cs" />
     <Compile Include="Models\Raw\Battle\RawAerialCombatPhase.cs" />
+    <Compile Include="Models\Raw\Battle\RawAntiAirCutIn.cs" />
     <Compile Include="Models\Raw\Battle\RawBattleBase.cs" />
     <Compile Include="Models\Raw\Battle\RawCombinedFleetAerialAttack.cs" />
     <Compile Include="Models\Raw\Battle\RawCombinedFleetAerialCombat.cs" />
