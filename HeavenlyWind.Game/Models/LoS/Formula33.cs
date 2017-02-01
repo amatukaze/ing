@@ -59,15 +59,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.LoS
                         switch (rInfo.Type)
                         {
                             case EquipmentType.ReconSeaplane:
-                                rLoS += rLevel * 1.2;
+                                rLoS += Math.Sqrt(rLevel) * 1.2;
                                 break;
 
                             case EquipmentType.SmallRadar:
-                                rLoS += rLevel * 1.25;
+                                rLoS += Math.Sqrt(rLevel) * 1.25;
                                 break;
 
                             case EquipmentType.LargeRadar:
-                                rLoS += rLevel * 1.4;
+                                rLoS += Math.Sqrt(rLevel) * 1.4;
                                 break;
                         }
 
