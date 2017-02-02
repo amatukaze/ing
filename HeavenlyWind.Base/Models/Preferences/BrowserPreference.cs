@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class BrowserPreference
+    public class BrowserPreference : ModelBase
     {
         public Property<double> Zoom { get; } = new Property<double>("browser.zoom", 1.0);
 

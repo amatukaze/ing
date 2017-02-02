@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class FlashPreference
+    public class FlashPreference : ModelBase
     {
         public Property<FlashQuality> Quality { get; } = new Property<FlashQuality>("browser.flash.quality", FlashQuality.Default);
 

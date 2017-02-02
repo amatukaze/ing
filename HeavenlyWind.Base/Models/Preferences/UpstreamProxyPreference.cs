@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class UpstreamProxyPreference
+    public class UpstreamProxyPreference : ModelBase
     {
         public Property<bool> Enabled { get; } = new Property<bool>("network.upstream_proxy.enabled");
 

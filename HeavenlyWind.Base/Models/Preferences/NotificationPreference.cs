@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class NotificationPreference
+    public class NotificationPreference : ModelBase
     {
         public Property<bool> Expedition { get; } = new Property<bool>("notification.expedition", true);
 

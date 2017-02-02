@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class WindowPreference
+    public class WindowPreference : ModelBase
     {
         [JsonProperty("name")]
         public string Name { get; set; }

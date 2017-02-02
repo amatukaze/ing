@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class NetworkPreference
+    public class NetworkPreference : ModelBase
     {
         public Property<bool> PortCustomization { get; } = new Property<bool>("network.port.customization", false);
         public Property<int> Port { get; } = new Property<int>("network.port", 15820);

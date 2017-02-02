@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class UserInterfacePreference
+    public class UserInterfacePreference : ModelBase
     {
         public Property<string> Font { get; } = new UIFontProperty();
 

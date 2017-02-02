@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
-    public partial class Preference
+    public partial class Preference : ModelBase
     {
         public static Preference Instance { get; } = new Preference();
 
