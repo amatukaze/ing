@@ -187,9 +187,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 if (rSortie.EscortFleet != null)
                     rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
+                var rNode = rSortie.Node;
                 var rHeavilyDamagedShips = rParticipants.Where(r => (r.State & ShipState.HeavilyDamaged) != 0 && (r.State & ShipState.Evacuated) == 0 &&
                     !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)).ToArray();
-                if (rHeavilyDamagedShips.Length == 0)
+                if (rHeavilyDamagedShips.Length == 0 || (rNode.IsDeadEnd && rNode.EventType != SortieEventType.NormalBattle && rNode.EventType != SortieEventType.BossBattle))
                     ThemeManager.Instance.ChangeAccent(Accent.Brown);
                 else
                 {
