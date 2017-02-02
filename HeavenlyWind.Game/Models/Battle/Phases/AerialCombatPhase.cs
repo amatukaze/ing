@@ -57,7 +57,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                 return;
 
             if (Round == PhaseRound.First)
-            {
                 rpInfo.Stage2 = new AerialCombat.Stage()
                 {
                     FriendPlaneCount = rStage2.FriendPlaneCount,
@@ -66,17 +65,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                     EnemyPlaneCount = rStage2.EnemyPlaneCount,
                     EnemyPlaneRemaningCount = rStage2.EnemyPlaneCount - rStage2.EnemyPlaneLostCount,
                 };
-
-                if (rStage2.AntiAirCutIn != null)
-                    rpInfo.AntiAirCutIn = new AntiAirCutIn(Stage, rStage2.AntiAirCutIn);
-            }
             else
             {
                 rpInfo.Stage2.FriendPlaneRemaningCount -= rStage2.FriendPlaneLostCount;
                 rpInfo.Stage2.EnemyPlaneRemaningCount -= rStage2.EnemyPlaneLostCount;
+            }
 
-                if (rStage2.AntiAirCutIn != null)
-                    rpInfo.SecondAntiAirCutIn = new AntiAirCutIn(Stage, rStage2.AntiAirCutIn);
+            if (rStage2.AntiAirCutIn != null)
+            {
+                var rTriggerer = Stage.Friend[rStage2.AntiAirCutIn.TriggererIndex].Participant as FriendShip;
+                if (rTriggerer != null)
+                    rTriggerer.AntiAirCutIn = new AntiAirCutIn(rStage2.AntiAirCutIn);
             }
         }
 

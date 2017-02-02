@@ -26,6 +26,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public bool IsDamageControlVisible => false;
         public bool IsDamageControlConsumed => false;
 
+        public AntiAirCutIn AntiAirCutIn => null;
+
         static EnemyShip()
         {
             byte[] rContent;
