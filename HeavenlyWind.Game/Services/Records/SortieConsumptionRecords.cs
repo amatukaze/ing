@@ -407,7 +407,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             var rSnapshots = r_AnchorageRepairSnapshots.Values.Where(r => r.Ship.HP.Current > r.HP).ToArray();
             if (rSnapshots.Length == 0)
+            {
+                var rOriginalTimeToComplete = DateTimeUtil.FromUnixTime(r_AnchorageRepairStartTime + 20 * 60);
+
+                foreach (var rFleet in Port.Fleets)
+                {
+                    if ((rFleet.State & FleetState.AnchorageRepair) == 0 || rFleet.AnchorageRepair.TimeToComplete.Value <= rOriginalTimeToComplete)
+                        continue;
+
+                    rFleet.AnchorageRepair.Offset(rFleet.AnchorageRepair.TimeToComplete.Value - rOriginalTimeToComplete);
+                }
+
                 return;
+            }
 
             var rBuilder = new StringBuilder(512);
             rBuilder.Append("INSERT OR IGNORE INTO sortie_consumption_detail(id, type) VALUES");

@@ -43,6 +43,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             TimeToComplete = DateTimeOffset.Now + rRepairTime;
         }
 
+        internal void Offset(TimeSpan rpTimeSpan) => TimeToComplete -= rpTimeSpan;
+
         protected override void OnTick()
         {
             OnPropertyChanged(nameof(TimeToCompleteString));
