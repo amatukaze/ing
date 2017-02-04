@@ -76,7 +76,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="23" />
         </Grid.RowDefinitions>
 
         <DockPanel ruic:MetroWindow.IsCaptionBar="True">
@@ -368,6 +367,5 @@
                 <TextBlock Text="{rb:StringResource Main.ShipOverview_List_Loading}" FontSize="16" TextAlignment="Center" />
             </Grid>
         </Grid>
-
     </Grid>
 </ruic:MetroWindow>

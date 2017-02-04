@@ -30,7 +30,9 @@
             </ComboBox>
         </StackPanel>
 
-        <Grid Margin="0, 12, 0, 0">
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="20" />
@@ -99,7 +101,9 @@
             </Grid>
         </Grid>
 
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_MaterialIcons}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_MaterialIcons}" FontSize="14" FontWeight="Bold" />
 
         <CheckBox IsChecked="{rb:Preference UI.UseGameMaterialIcons}" Margin="0, 8, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_MaterialIcons_UseGameIcons}" />
@@ -115,11 +119,9 @@
             <rc:MaterialIcon Type="ImprovementMaterial" />
         </StackPanel>
 
-        <CheckBox IsChecked="{rb:Preference UI.ShowFatigueInSortie}" Margin="0, 12, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ShowFatigueInSortie}" />
-        </CheckBox>
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
 
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage}" FontSize="14" FontWeight="Bold" />
 
         <CheckBox IsChecked="{rb:Preference UI.UseGameIconsInModernizationMessage}" Margin="0, 8, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage_UseGameIcons}" />
@@ -168,7 +170,9 @@
             </ruic:BBCodeBlock.Style>
         </ruic:BBCodeBlock>
 
-        <StackPanel Orientation="Horizontal" Margin="0, 12, 0, 0">
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <StackPanel Orientation="Horizontal">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_StatusBarSortieInfo}" />
 
             <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:StatusBarSortieInfoPlacement}}" SelectedValue="{rb:Preference UI.StatusBarSortieInfo}" Margin="6, 0, 0, 0">
@@ -182,6 +186,10 @@
 
         <CheckBox IsChecked="{rb:Preference UI.SwapPositionOfRepairDocksAndFleetOverviews}" Margin="0, 12, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview}" />
+        </CheckBox>
+
+        <CheckBox IsChecked="{rb:Preference UI.ShowFatigueInSortie}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ShowFatigueInSortie}" />
         </CheckBox>
     </StackPanel>
 </UserControl>
