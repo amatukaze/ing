@@ -72,8 +72,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             var rRootPathLength = rRootPath.Length + 1;
 
-            foreach (var rFilename in rResourcesDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
-                yield return rFilename.FullName.Substring(rRootPathLength);
+            foreach (var rFile in rResourcesDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
+            {
+                var rExtension = rFile.Extension;
+                if (rExtension.OICEndsWith("json") || rExtension.OICEndsWith("xml"))
+                    yield return rFile.FullName.Substring(rRootPathLength);
+            }
         }
         void CheckForUpdateCore(string[] rpFileList)
         {
