@@ -348,6 +348,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="Window_ClosingConfirmation_Button_Yes">終了します</String>
   <String Key="Window_ClosingConfirmation_Button_No">戻ります</String>
 
+  <String Key="PreferenceWindow_DefaultValue">既定値を使用</String>
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_Port_Customization">待ち受けポート設定</String>
@@ -430,6 +431,8 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="PreferenceWindow_Browser">ブラウザ</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">レイアウトエンジン</String>
   <String Key="PreferenceWindow_Browser_Homepage">ホームページ</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_Introduction">ゲーム HP</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage">ログインページ</String>
   <String Key="PreferenceWindow_Browser_ClearCache">キャッシュの削除</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">キャッシュとクッキーの削除</String>
   <String Key="PreferenceWindow_Browser_Flash">Flash の設定</String>

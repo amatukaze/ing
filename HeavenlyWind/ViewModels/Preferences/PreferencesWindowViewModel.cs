@@ -86,9 +86,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
             });
         }
 
-        public void OpenInternetOptionConnectionDialog()
-        {
-            Process.Start("rundll32", "inetcpl.cpl LaunchConnectionDialog");
-        }
+        public void OpenInternetOptionConnectionDialog() => Process.Start("rundll32", "inetcpl.cpl LaunchConnectionDialog");
     }
 }

@@ -349,6 +349,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
   <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
 
+  <String Key="PreferenceWindow_DefaultValue">使用默认值</String>
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">本地代理端口</String>
   <String Key="PreferenceWindow_Network_Port_Customization">自定义本地代理端口</String>
@@ -432,6 +433,8 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Browser">浏览器</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">排版引擎</String>
   <String Key="PreferenceWindow_Browser_Homepage">首页</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_Introduction">游戏主页</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage">登录页面</String>
   <String Key="PreferenceWindow_Browser_ClearCache">删除缓存文件</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">删除缓存文件和 Cookie</String>
   <String Key="PreferenceWindow_Browser_Flash">Flash 设置</String>

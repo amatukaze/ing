@@ -340,6 +340,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Window_ClosingConfirmation_Button_Yes => GetString(nameof(Window_ClosingConfirmation_Button_Yes));
         public string Window_ClosingConfirmation_Button_No => GetString(nameof(Window_ClosingConfirmation_Button_No));
 
+        public string PreferenceWindow_DefaultValue => GetString(nameof(PreferenceWindow_DefaultValue));
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
         public string PreferenceWindow_Network_Port => GetString(nameof(PreferenceWindow_Network_Port));
         public string PreferenceWindow_Network_Port_Customization => GetString(nameof(PreferenceWindow_Network_Port_Customization));
@@ -421,6 +422,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser => GetString(nameof(PreferenceWindow_Browser));
         public string PreferenceWindow_Browser_LayoutEngine => GetString(nameof(PreferenceWindow_Browser_LayoutEngine));
         public string PreferenceWindow_Browser_Homepage => GetString(nameof(PreferenceWindow_Browser_Homepage));
+        public string PreferenceWindow_Browser_Homepage_DefaultValue_Introduction => GetString(nameof(PreferenceWindow_Browser_Homepage_DefaultValue_Introduction));
+        public string PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage => GetString(nameof(PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage));
         public string PreferenceWindow_Browser_ClearCache => GetString(nameof(PreferenceWindow_Browser_ClearCache));
         public string PreferenceWindow_Browser_ClearCacheAndCookie => GetString(nameof(PreferenceWindow_Browser_ClearCacheAndCookie));
         public string PreferenceWindow_Browser_Flash => GetString(nameof(PreferenceWindow_Browser_Flash));

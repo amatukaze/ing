@@ -200,5 +200,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public IDisposable RegisterMessageObserver(string rpMessage, Action<string> rpObserver) =>
             Messages.Where(r => r.Key == rpMessage).Subscribe(r => rpObserver(r.Value));
+
+        public void SetDefaultHomepage(string rpUrl) => Preference.Instance.Browser.Homepage.Value = rpUrl;
     }
 }

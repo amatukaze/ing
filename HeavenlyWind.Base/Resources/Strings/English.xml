@@ -350,6 +350,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">Exit</String>
   <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
 
+  <String Key="PreferenceWindow_DefaultValue">Default Value</String>
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Local proxy port</String>
   <String Key="PreferenceWindow_Network_Port_Customization">Set local proxy port</String>
@@ -431,6 +432,8 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="PreferenceWindow_Browser">Browser</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">Layout Engine</String>
   <String Key="PreferenceWindow_Browser_Homepage">Homepage</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_Introduction">Introduction page</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage">Login page</String>
   <String Key="PreferenceWindow_Browser_ClearCache">Clear cache</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">Clear cache and cookie</String>
   <String Key="PreferenceWindow_Browser_Flash">Flash Settings</String>
