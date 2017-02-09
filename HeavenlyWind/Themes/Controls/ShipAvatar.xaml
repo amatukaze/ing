@@ -1,21 +1,64 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
-                    xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
+                    xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                    xmlns:rui="clr-namespace:Sakuno.UserInterface;assembly=Sakuno.UserInterface">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Converters.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type rc:ShipAvatar}">
+        <Setter Property="Shape" Value="{rb:Preference UI.Avatar.Shape}" />
         <Setter Property="Width" Value="36" />
         <Setter Property="Height" Value="36" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type rc:ShipAvatar}">
-                    <Border Background="Transparent">
+                    <Border Name="Border" Background="Transparent">
                         <Rectangle Fill="{TemplateBinding Brush}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="Shape" Value="RoundedSquare">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type rc:ShipAvatar}">
+                            <Rectangle Fill="{TemplateBinding Brush}" RadiusX="6" RadiusY="6" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Shape" Value="Circle">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type rc:ShipAvatar}">
+                            <Ellipse Fill="{TemplateBinding Brush}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Brush, RelativeSource={RelativeSource Self}}" Value="{x:Null}" />
+                    <Condition Binding="{Binding ID, RelativeSource={RelativeSource Self}, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter={rui:Integer 0}}" Value="True" />
+                </MultiDataTrigger.Conditions>
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type rc:ShipAvatar}">
+                            <Viewbox>
+                                <TextBlock Text="?" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </MultiDataTrigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

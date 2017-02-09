@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sakuno.KanColle.Amatsukaze.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
@@ -10,6 +11,14 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
 {
     public class ShipAvatar : Control
     {
+        public static readonly DependencyProperty ShapeProperty = DependencyProperty.Register("Shape", typeof(AvatarShape), typeof(ShipAvatar),
+            new UIPropertyMetadata());
+        public AvatarShape Shape
+        {
+            get { return (AvatarShape)GetValue(ShapeProperty); }
+            set { SetValue(ShapeProperty, value); }
+        }
+
         public static readonly DependencyProperty IDProperty = DependencyProperty.Register(nameof(ID), typeof(int), typeof(ShipAvatar),
             new UIPropertyMetadata(Int32Util.Zero, (s, e) => ((ShipAvatar)s).OnShipChanged((int)e.NewValue)));
 

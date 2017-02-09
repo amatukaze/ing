@@ -405,6 +405,13 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">顯示在左側</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">顯示在右側</String>
   <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">交換修理渠和艦隊一覽的位置</String>
+  <String Key="PreferenceWindow_UI_Avartar">艦娘頭像 (實驗性功能)</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled">在這些地方使用</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_FleetDetail">艦隊概要</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_BattleInfo">戰鬥訊息 (劇透)</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_ShipOverview">艦娘一覽</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_EquipmentOverview">裝備一覽</String>
+  <String Key="PreferenceWindow_UI_Avartar_Shape">形狀</String>
   <String Key="PreferenceWindow_Cache">緩存</String>
   <String Key="PreferenceWindow_Cache_Mode">緩存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
@@ -413,7 +420,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Cache_Path">路徑</String>
   <String Key="PreferenceWindow_Behaviour">行為</String>
   <String Key="PreferenceWindow_Behaviour_FatigueCeiling">疲勞上限</String>
-  <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">顯示戰鬥訊息(劇透)</String>
+  <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">顯示戰鬥訊息 (劇透)</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">顯示掉落</String>
   <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">禁用大破閃爍警告</String>
   <String Key="PreferenceWindow_Notification">通知</String>

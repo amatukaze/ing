@@ -27,5 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
         public Property<StatusBarSortieInfoPlacement> StatusBarSortieInfo { get; } = new Property<StatusBarSortieInfoPlacement>("ui.startusbar.sortie_info_placement", StatusBarSortieInfoPlacement.Right);
 
         public Property<bool> SwapPositionOfRepairDocksAndFleetOverviews { get; } = new Property<bool>("ui.exchange_repair_fleets");
+
+        public AvatarPreference Avatar { get; } = new AvatarPreference();
     }
 }

@@ -396,6 +396,13 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_UI_StatusBarSortieInfo_Left => GetString(nameof(PreferenceWindow_UI_StatusBarSortieInfo_Left));
         public string PreferenceWindow_UI_StatusBarSortieInfo_Right => GetString(nameof(PreferenceWindow_UI_StatusBarSortieInfo_Right));
         public string PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview => GetString(nameof(PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview));
+        public string PreferenceWindow_UI_Avartar => GetString(nameof(PreferenceWindow_UI_Avartar));
+        public string PreferenceWindow_UI_Avartar_Enabled => GetString(nameof(PreferenceWindow_UI_Avartar_Enabled));
+        public string PreferenceWindow_UI_Avartar_Enabled_FleetDetail => GetString(nameof(PreferenceWindow_UI_Avartar_Enabled_FleetDetail));
+        public string PreferenceWindow_UI_Avartar_Enabled_BattleInfo => GetString(nameof(PreferenceWindow_UI_Avartar_Enabled_BattleInfo));
+        public string PreferenceWindow_UI_Avartar_Enabled_ShipOverview => GetString(nameof(PreferenceWindow_UI_Avartar_Enabled_ShipOverview));
+        public string PreferenceWindow_UI_Avartar_Enabled_EquipmentOverview => GetString(nameof(PreferenceWindow_UI_Avartar_Enabled_EquipmentOverview));
+        public string PreferenceWindow_UI_Avartar_Shape => GetString(nameof(PreferenceWindow_UI_Avartar_Shape));
         public string PreferenceWindow_Cache => GetString(nameof(PreferenceWindow_Cache));
         public string PreferenceWindow_Cache_Mode => GetString(nameof(PreferenceWindow_Cache_Mode));
         public string PreferenceWindow_Cache_Mode_Disabled => GetString(nameof(PreferenceWindow_Cache_Mode_Disabled));

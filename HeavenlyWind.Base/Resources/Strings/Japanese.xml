@@ -405,6 +405,13 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">左側に表示する</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">右側に表示する</String>
   <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">入渠や艦隊一覧の位置をスワップする</String>
+  <String Key="PreferenceWindow_UI_Avartar">艦娘の画像 (試験運用機能)</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled">使用する箇所</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_FleetDetail">艦隊概要</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_BattleInfo">戦闘情報</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_ShipOverview">艦娘一覧</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_EquipmentOverview">装備一覧</String>
+  <String Key="PreferenceWindow_UI_Avartar_Shape">形切り抜き</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>

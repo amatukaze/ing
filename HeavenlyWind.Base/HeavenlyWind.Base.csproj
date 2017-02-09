@@ -97,6 +97,7 @@
     <Compile Include="LogItem.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LoggingLevel.cs" />
+    <Compile Include="Models\AvatarShape.cs" />
     <Compile Include="Models\CacheMode.cs" />
     <Compile Include="Models\ConfirmationMode.cs" />
     <Compile Include="Models\FlashQuality.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Models\FleetLoSFormula.cs" />
     <Compile Include="Models\HeavyDamageLineType.cs" />
     <Compile Include="Models\NotificationSound.cs" />
+    <Compile Include="Models\Preferences\AvatarPreference.cs" />
     <Compile Include="Models\Preferences\BrowserPreference.cs" />
     <Compile Include="Models\Preferences\CachePreference.cs" />
     <Compile Include="Models\Preferences\FlashPreference.cs" />

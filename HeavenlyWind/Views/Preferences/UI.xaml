@@ -172,6 +172,52 @@
 
         <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
 
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar}" FontSize="14" FontWeight="Bold" />
+
+        <StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled}" />
+
+            <ToggleButton Style="{StaticResource FlatToggleButtonStyle}" IsChecked="{rb:Preference UI.Avatar.EnabledInFleetDetail}" Margin="12, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled_FleetDetail}" />
+            </ToggleButton>
+            <ToggleButton Style="{StaticResource FlatToggleButtonStyle}" IsChecked="{rb:Preference UI.Avatar.EnabledInBattleInfo}" Margin="6, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled_BattleInfo}" />
+            </ToggleButton>
+            <ToggleButton Style="{StaticResource FlatToggleButtonStyle}" IsChecked="{rb:Preference UI.Avatar.EnabledInShipOverview}" Margin="6, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled_ShipOverview}" />
+            </ToggleButton>
+            <ToggleButton Style="{StaticResource FlatToggleButtonStyle}" IsChecked="{rb:Preference UI.Avatar.EnabledInEquipmentOverview}" Margin="6, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled_EquipmentOverview}" />
+            </ToggleButton>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource FlatToggleButtonStyle}">
+                    <Setter Property="Width" Value="32" />
+                    <Setter Property="Height" Value="24" />
+                </Style>
+                <Style x:Key="Shape" TargetType="{x:Type Shape}">
+                    <Setter Property="Fill" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Height" Value="16" />
+                </Style>
+            </StackPanel.Resources>
+
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Shape}" />
+
+            <ToggleButton IsChecked="{rb:Preference UI.Avatar.Shape, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:AvatarShape.Square}}" Margin="12, 0, 0, 0">
+                <Rectangle Style="{StaticResource Shape}" />
+            </ToggleButton>
+            <ToggleButton IsChecked="{rb:Preference UI.Avatar.Shape, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:AvatarShape.RoundedSquare}}" Margin="6, 0, 0, 0">
+                <Rectangle Style="{StaticResource Shape}" RadiusX="6" RadiusY="6" />
+            </ToggleButton>
+            <ToggleButton IsChecked="{rb:Preference UI.Avatar.Shape, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:AvatarShape.Circle}}" Margin="6, 0, 0, 0">
+                <Ellipse Style="{StaticResource Shape}" />
+            </ToggleButton>
+        </StackPanel>
+
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_StatusBarSortieInfo}" />
 
