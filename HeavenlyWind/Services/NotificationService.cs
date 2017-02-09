@@ -14,7 +14,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -218,7 +217,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         public void Show(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Instance.Notification.Sound, Preference.Instance.Notification.SoundFilename);
         public void ShowHeavyDamageWarning(string rpTitle, string rpBody, IEnumerable<Ship> rpHeavilyDamagedShips)
         {
-            var rBuilder = new StringBuilder(64);
+            var rBuilder = StringBuilderCache.Acquire();
             foreach (var rShip in rpHeavilyDamagedShips)
             {
                 if (rBuilder.Length > 0)
@@ -227,7 +226,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 rBuilder.Append(rShip.Info.TranslatedName).Append(' ').Append("Lv.").Append(rShip.Level);
             }
 
-            ShowCore(rpTitle, rpBody, Preference.Instance.Notification.HeavyDamageWarningSound, Preference.Instance.Notification.HeavyDamageWarningSoundFilename, rBuilder.ToString());
+            ShowCore(rpTitle, rpBody, Preference.Instance.Notification.HeavyDamageWarningSound, Preference.Instance.Notification.HeavyDamageWarningSoundFilename, rBuilder.GetStringAndRelease());
         }
         void ShowCore(string rpTitle, string rpBody, NotificationSound rpSound, string rpCustomSoundFilename, string rpSecondLine = null)
         {
@@ -235,7 +234,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 var rBody = rpBody;
                 if (rpSecondLine != null)
-                    rBody = $"{rBody}{Environment.NewLine}{rpSecondLine}";
+                    rBody = rBody + Environment.NewLine + rpSecondLine;
 
                 r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rBody, ToolTipIcon.None);
 

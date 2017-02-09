@@ -1,6 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System;
-using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -106,12 +105,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public override string ToString()
         {
-            var rBuilder = new StringBuilder(32);
-            rBuilder.Append($"ID = {ID}, State = {State}");
-            if (State == RepairDockState.Repairing)
-                rBuilder.Append($", Ship = \"{Ship.Info.Name}\", TimeToComplete = \"{TimeToComplete.Value}\"");
+            var rBuilder = StringBuilderCache.Acquire();
+            rBuilder.Append("ID = ").Append(ID).Append(", State = ").Append(State);
 
-            return rBuilder.ToString();
+            if (State == RepairDockState.Repairing)
+                rBuilder.Append(", Ship = \"").Append(Ship.Info.TranslatedName).Append('\"').Append(", TimeToComplete = \"").Append(TimeToComplete.Value).Append('\"'); ;
+
+            return rBuilder.GetStringAndRelease();
         }
     }
 }

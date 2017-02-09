@@ -39,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             r_Handle = rpHandle;
 
-            r_HotKeyID = NativeMethods.Kernel32.GlobalAddAtomW("Test");
+            r_HotKeyID = NativeMethods.Kernel32.GlobalAddAtomW("ING-PanicKey");
 
             Preference.Instance.Other.PanicKey.Enabled.Subscribe(_ => UpdateHotKey());
             Preference.Instance.Other.PanicKey.Key.Subscribe(_ => UpdateHotKey());
@@ -93,16 +93,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public static string GetModifierKeysString(int rpModifierKeys)
         {
-            var rBuilder = new StringBuilder(8);
+            var rBuilder = StringBuilderCache.Acquire();
 
             GetModifierKeysString(rpModifierKeys, rBuilder);
 
-            return rBuilder.ToString();
+            return rBuilder.GetStringAndRelease();
         }
         public static void GetModifierKeysString(int rpModifierKeys, StringBuilder rpBuilder)
         {
-            var rBuilder = new StringBuilder(8);
-
             if ((rpModifierKeys & (int)ModifierKeys.Windows) != 0)
                 rpBuilder.Append("Win + ");
             if ((rpModifierKeys & (int)ModifierKeys.Control) != 0)
@@ -115,11 +113,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public static string GetKeyString(Key rpKey)
         {
-            var rBuilder = new StringBuilder(8);
+            var rBuilder = StringBuilderCache.Acquire();
 
             GetKeyString(rpKey, rBuilder);
 
-            return rBuilder.ToString();
+            return rBuilder.GetStringAndRelease();
         }
         public static void GetKeyString(Key rpKey, StringBuilder rpBuilder)
         {
