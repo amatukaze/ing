@@ -300,6 +300,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_AerialCombatResult_Parity => GetString(nameof(Battle_AerialCombatResult_Parity));
         public string Battle_AerialCombatResult_Incapability => GetString(nameof(Battle_AerialCombatResult_Incapability));
         public string Battle_AerialCombatResult_Denial => GetString(nameof(Battle_AerialCombatResult_Denial));
+        public string Battle_AntiAirCutIn_ShowdownCount => GetString(nameof(Battle_AntiAirCutIn_ShowdownCount));
+        public string Battle_AntiAirCutIn_ShowdownCount_Unit => GetString(nameof(Battle_AntiAirCutIn_ShowdownCount_Unit));
 
         public string Quest_NoData => GetString(nameof(Quest_NoData));
         public string Quest_Unknown => GetString(nameof(Quest_Unknown));

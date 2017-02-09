@@ -310,6 +310,8 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="Battle_AerialCombatResult_Parity">Air Parity</String>
   <String Key="Battle_AerialCombatResult_Incapability">Air Incapability</String>
   <String Key="Battle_AerialCombatResult_Denial">Air Denial</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount">#Shot down (at least)</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount_Unit">Slot</String>
 
   <String Key="Quest_NoData">Please open the "Quests" menu in the game to populate the quest list</String>
   <String Key="Quest_Unknown">?????</String>

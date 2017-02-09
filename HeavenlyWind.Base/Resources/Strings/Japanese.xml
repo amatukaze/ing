@@ -308,6 +308,8 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="Battle_AerialCombatResult_Parity">制空均衡</String>
   <String Key="Battle_AerialCombatResult_Incapability">航空劣勢</String>
   <String Key="Battle_AerialCombatResult_Denial">制空権喪失</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount">最低撃墜数</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount_Unit">スロット</String>
 
   <String Key="Quest_NoData">ゲーム内で「任務(クエスト)」画面を開いて、任務一覧を取得してください</String>
   <String Key="Quest_Unknown">?????</String>

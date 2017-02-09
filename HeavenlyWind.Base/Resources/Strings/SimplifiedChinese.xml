@@ -309,6 +309,8 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Battle_AerialCombatResult_Parity">制空均衡</String>
   <String Key="Battle_AerialCombatResult_Incapability">航空劣势</String>
   <String Key="Battle_AerialCombatResult_Denial">制空权丧失</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount">最少击落数</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount_Unit">格</String>
 
   <String Key="Quest_NoData">请打开游戏中的「任務(クエスト)」获取任务信息</String>
   <String Key="Quest_Unknown">?????</String>

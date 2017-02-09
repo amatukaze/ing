@@ -27,6 +27,11 @@
                             <StackPanel>
                                 <TextBlock>
                                     CI #<Run Text="{Binding TypeID, Mode=OneWay}" />
+                                    <LineBreak />
+                                    <Run Text="{rb:StringResource Main.Battle_AntiAirCutIn_ShowdownCount}" />:
+                                    <Run Name="ShotdownCount" Text="{Binding ShotdownCount, Mode=OneWay}" FontWeight="Bold" />
+                                    <Run Text="/" FontSize="12" BaselineAlignment="Bottom" />
+                                    <Run Text="{rb:StringResource Main.Battle_AntiAirCutIn_ShowdownCount_Unit}" FontSize="12" BaselineAlignment="Bottom" />
                                 </TextBlock>
                                 <ItemsControl ItemsSource="{Binding UsedEquipment}" Margin="-2, 4, 0, 0">
                                     <ItemsControl.ItemsPanel>
@@ -51,6 +56,10 @@
                 <DataTrigger Binding="{Binding IsAbyssalShip}" Value="True">
                     <Setter TargetName="Name" Property="Text" Value="{rb:ExtraStringResource AbyssalShip, Info.ID, Info.NameWithoutAbyssalShipClass}" />
                     <Setter TargetName="Condition" Property="Text" Value="" />
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding AntiAirCutIn.ShotdownCount}" Value="{x:Null}">
+                    <Setter TargetName="ShotdownCount" Property="Text" Value="???" />
                 </DataTrigger>
 
                 <DataTrigger Binding="{rb:Preference UI.ShowFatigueInSortie}" Value="False">

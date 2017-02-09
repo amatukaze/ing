@@ -175,6 +175,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             if (DataStore.TryGet("abyssal_ship_plane", DataStoreRetrieveOption.ExcludeContent, out rItem))
                 yield return rItem;
+
+            if (DataStore.TryGet("anti_air_cut_in", DataStoreRetrieveOption.ExcludeContent, out rItem))
+                yield return rItem;
         }
         void ProcessFiles(CheckForUpdateResult rpResult)
         {
