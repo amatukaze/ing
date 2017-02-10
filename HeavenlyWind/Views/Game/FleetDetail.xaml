@@ -244,7 +244,11 @@
                                 </Rectangle.ToolTip>
                             </Rectangle>
 
-                            <Border Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2">
+                            <Border Background="Transparent" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2">
+                                <Border.ToolTip>
+                                    <Control Template="{StaticResource SlotsToolTipContent}" />
+                                </Border.ToolTip>
+
                                 <StackPanel Orientation="Horizontal">
                                     <rc:ShipSlot DataContext="{Binding Slots}" />
                                     <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Width="1" Margin="2, 0" Visibility="{rb:CollapsedIfNull ExtraSlot}" />

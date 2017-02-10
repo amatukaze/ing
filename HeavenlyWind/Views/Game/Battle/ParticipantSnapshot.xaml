@@ -13,7 +13,7 @@
     <ItemsControl ItemsSource="{Binding}">
         <ItemsControl.ItemTemplate>
             <DataTemplate DataType="{x:Type rgmb:BattleParticipantSnapshot}">
-                <Border Name="Border" Background="Transparent" Height="30">
+                <Border Name="Border" Background="Transparent" Height="32">
                     <Border.ToolTip>
                         <ToolTip>
                             <TextBlock>
