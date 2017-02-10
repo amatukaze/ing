@@ -482,7 +482,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="EquipmentOverview_List_Loading">Loading</String>
 
   <String Key="ShipOverview_Type">Type</String>
-  <String Key="ShipOverview_Name">Name</String>
+  <String Key="ShipOverview_Ship">Ship</String>
   <String Key="ShipOverview_Level">Level</String>
   <String Key="ShipOverview_Condition">Cond.</String>
   <String Key="ShipOverview_Firepower">Firepower</String>

@@ -483,7 +483,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="EquipmentOverview_List_Loading">加载中</String>
 
   <String Key="ShipOverview_Type">舰种</String>
-  <String Key="ShipOverview_Name">舰名</String>
+  <String Key="ShipOverview_Ship">舰娘</String>
   <String Key="ShipOverview_Level">等级</String>
   <String Key="ShipOverview_Condition">Cond.</String>
   <String Key="ShipOverview_Firepower">火力</String>

@@ -472,7 +472,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string EquipmentOverview_List_Loading => GetString(nameof(EquipmentOverview_List_Loading));
 
         public string ShipOverview_Type => GetString(nameof(ShipOverview_Type));
-        public string ShipOverview_Name => GetString(nameof(ShipOverview_Name));
+        public string ShipOverview_Ship => GetString(nameof(ShipOverview_Ship));
         public string ShipOverview_Level => GetString(nameof(ShipOverview_Level));
         public string ShipOverview_Condition => GetString(nameof(ShipOverview_Condition));
         public string ShipOverview_Firepower => GetString(nameof(ShipOverview_Firepower));

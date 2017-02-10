@@ -481,7 +481,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="EquipmentOverview_List_Loading">一覧を生成しています</String>
 
   <String Key="ShipOverview_Type">艦種</String>
-  <String Key="ShipOverview_Name">艦名</String>
+  <String Key="ShipOverview_Ship">艦娘</String>
   <String Key="ShipOverview_Level">レベル</String>
   <String Key="ShipOverview_Condition">Cond.</String>
   <String Key="ShipOverview_Firepower">火力</String>

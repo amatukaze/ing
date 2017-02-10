@@ -166,13 +166,18 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Width="100" rc:Data.Content="Name">
-                                <TextBlock Text="{rb:StringResource Main.ShipOverview_Name}" />
+                            <GridViewColumn Width="Auto" rc:Data.Content="Name">
+                                <TextBlock Text="{rb:StringResource Main.ShipOverview_Ship}" />
 
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 4" />
+                                            <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 4" Visibility="{rb:Preference UI.Avatar.EnabledInShipOverview, Converter={StaticResource BooleanToInvisibilityConverter}}" />
+                                            <rc:ShipAvatar ID="{Binding Ship.Info.ID}" Margin="2, 0" Visibility="{rb:Preference UI.Avatar.EnabledInShipOverview, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                                <rc:ShipAvatar.ToolTip>
+                                                    <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                                </rc:ShipAvatar.ToolTip>
+                                            </rc:ShipAvatar>
 
                                             <Border Name="ExpeditionState" Background="#9F9AE9" Margin="4, 0, 0, 0" Visibility="Collapsed">
                                                 <TextBlock Text="{rb:StringResource Main.ShipOverview_OnExpedition}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="4, 2" />
