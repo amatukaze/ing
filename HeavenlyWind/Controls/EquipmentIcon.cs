@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.Controls
 {
@@ -41,6 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             rTextBlock.SetValue(TextBlock.TextProperty, "?");
             rTextBlock.SetValue(VerticalAlignmentProperty, VerticalAlignment.Center);
             rTextBlock.SetValue(HorizontalAlignmentProperty, HorizontalAlignment.Center);
+            rTextBlock.SetValue(TextOptions.TextFormattingModeProperty, TextFormattingMode.Ideal);
 
             var rViewBox = new FrameworkElementFactory(typeof(Viewbox));
             rViewBox.AppendChild(rTextBlock);

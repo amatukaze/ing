@@ -166,8 +166,6 @@
     <EmbeddedResource Include="Resources\Strings\English.xml" />
     <EmbeddedResource Include="Resources\Strings\Japanese.xml" />
     <EmbeddedResource Include="Resources\Strings\SimplifiedChinese.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\Strings\TraditionalChinese.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
