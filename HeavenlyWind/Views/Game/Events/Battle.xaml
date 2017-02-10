@@ -25,6 +25,7 @@
                 </Border.ToolTip>
 
                 <StackPanel Orientation="Horizontal">
+                    <Path Name="MVPMedal" Stretch="Uniform" Fill="#E1E13C" Width="16" Height="16" Margin="0, 0, 2, 0" Visibility="Hidden" Data="M 130.97312 349.65162 c -4.43964 -3.24635 -4.44035 -4.45175 -0.0201 -34.39989 l 4.5807 -31.03569 -20.7827 -20.89122 C 94.068011 242.53386 90.187315 234.87095 97.33644 228.9377 c 1.852503 -1.53744 16.23021 -4.74573 31.95046 -7.12953 l 28.58228 -4.33418 8.71638 -17.30842 c 6.5605 -13.02742 7.78836 -17.30843 4.96429 -17.30843 -2.06365 0 -4.97537 -2.28572 -6.47049 -5.07937 -3.80297 -7.10591 0.78632 -14.6905 9.52284 -15.73813 5.29489 -0.63493 0.98319 -2.88072 -17.81883 -9.28111 -13.64217 -4.64392 -26.49931 -10.13887 -28.57143 -12.21099 -5.74173 -5.74173 -5.54197 -102.854703 0.22344 -108.620102 5.97731 -5.97731 123.18368 -5.97731 129.16099 0 5.76541 5.765399 5.96516 102.878372 0.22349 108.620102 -2.07212 2.07212 -14.92927 7.56707 -28.57143 12.21099 -18.80203 6.40039 -23.11372 8.64618 -17.81883 9.28111 8.73646 1.04763 13.32574 8.63222 9.52278 15.73813 -1.49512 2.79365 -4.40684 5.07937 -6.47049 5.07937 -2.82407 0 -1.59622 4.28101 4.96428 17.30843 l 8.71639 17.30842 28.58227 4.33418 c 15.72026 2.3838 30.09796 5.59209 31.95048 7.12953 7.1503 5.93424 3.26814 13.59643 -17.43124 34.40391 l -20.79941 20.90801 4.29147 28.70865 c 5.34169 35.73419 5.39127 34.21094 -1.22871 37.75382 -4.74861 2.54139 -9.36849 1.05557 -33.05242 -10.63017 l -27.53223 -13.58451 -26.66065 13.25923 c -14.66336 7.29257 -27.57133 13.25923 -28.68439 13.25923 -1.11306 0 -4.09413 -1.51391 -6.62461 -3.36425 z" />
                     <rc:ShipAvatar x:Name="Avatar" ID="{Binding Info.ID}" Width="30" Height="30" Visibility="{rb:Preference UI.Avatar.EnabledInBattleInfo, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <TextBlock Name="Name" Visibility="{rb:Preference UI.Avatar.EnabledInBattleInfo, Converter={StaticResource BooleanToInvisibilityConverter}}">
                         <Run Name="NameText" Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" /><Run DataContext="{Binding Info}" Style="{StaticResource AbyssalShipClass}" />
@@ -90,6 +91,7 @@
                 </DataTrigger>
 
                 <DataTrigger Binding="{Binding IsMVP}" Value="True">
+                    <Setter TargetName="MVPMedal" Property="Visibility" Value="Visible" />
                     <Setter TargetName="NameText" Property="Foreground" Value="Yellow" />
                 </DataTrigger>
 
