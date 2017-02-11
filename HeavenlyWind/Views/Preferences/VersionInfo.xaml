@@ -21,6 +21,7 @@
             <Run Text="Version" FontSize="18" />
             <Run Text="{Binding Source={x:Static rb:ProductInfo.Version}, Mode=OneWay}" FontSize="18" />
             <Run Text="{Binding Source={x:Static rb:ProductInfo.ReleaseCodeName}, StringFormat=({0}), Mode=OneWay}" FontSize="14" />
+            <Run Text="{Binding Source={x:Static rb:ProductInfo.ReleaseDate}, StringFormat=({0}), Mode=OneWay}" FontSize="14" />
         </TextBlock>
 
         <Rectangle Fill="{DynamicResource HighlightBorderBrushKey}" Height="1" Margin="4, 8, 4, 0" />

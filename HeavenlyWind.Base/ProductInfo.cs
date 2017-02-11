@@ -10,7 +10,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public const string AssemblyVersionString = "0.1.15";
 
         public static string Version => AssemblyVersionString;
-        public static string ReleaseCodeName => "Braindrive (Beta)";
+        public static string ReleaseCodeName => "Braindrive";
+        public static string ReleaseDate => "2017.02.11";
 
         public const string UserAgent = "ING/" + AssemblyVersionString;
 
