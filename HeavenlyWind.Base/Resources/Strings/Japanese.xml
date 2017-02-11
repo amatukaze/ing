@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.15">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.15.1">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -269,6 +269,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="Sortie_NothingHappened_Imagination">気のせいだった。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能動分岐</String>
+  <String Key="Sortie_NothingHappened_CalmSea">穏やかな海です。</String>
   <String Key="Sortie_SupportFleet_Ready">支援艦隊待機中</String>
   <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空隊が空襲を準備中</String>
   <String Key="Sortie_EnemyEncounters">遭遇できる敵艦隊</String>

@@ -7,7 +7,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
     {
         public override void ProcessCore(ApiInfo rpInfo, RawMapExploration rpData)
         {
-            Game.Sortie.Explore(rpInfo.Timestamp, rpData);
+            var rSortie = Game.Sortie;
+            rSortie.Explore(rpInfo.Timestamp, rpData);
+
+            if (rSortie.Node.IsDeadEnd && rSortie.Map.HasGauge)
+                rSortie.Map.HP.Current = rpData.EventMap.Current;
         }
     }
 }

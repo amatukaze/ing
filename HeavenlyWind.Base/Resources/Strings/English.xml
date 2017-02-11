@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.15">
+<Strings CultureName="en" Name="English" Version="0.1.15.1">
 
   <String Key="Product_Name">Intelligent Naval Gun</String>
 
@@ -271,6 +271,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
   <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>
+  <String Key="Sortie_NothingHappened_CalmSea">The sea is calm.</String>
   <String Key="Sortie_SupportFleet_Ready">Support Fleet Ready</String>
   <String Key="Sortie_LandBaseAerialSupport_Ready">Land-base Aerial Support Ready</String>
   <String Key="Sortie_EnemyEncounters">Enemy Encounters</String>

@@ -6,14 +6,24 @@
         <Setter Property="FontFamily" Value="{rb:Preference UI.Font}" />
         <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+
+        <Style.Triggers>
+            <DataTrigger Binding="{rb:Preference UI.Zoom}" Value="1.0">
+                <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
     <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
 
     <Style x:Key="BaseRunStyle" TargetType="{x:Type Run}">
         <Setter Property="FontFamily" Value="{rb:Preference UI.Font}" />
         <Setter Property="FontWeight" Value="Normal" />
-        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+
+        <Style.Triggers>
+            <DataTrigger Binding="{rb:Preference UI.Zoom}" Value="1.0">
+                <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
     <Style TargetType="{x:Type Run}" BasedOn="{StaticResource BaseRunStyle}" />
 

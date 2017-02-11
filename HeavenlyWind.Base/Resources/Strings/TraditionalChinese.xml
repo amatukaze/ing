@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hant" Name="正體中文" Version="0.1.15">
+<Strings CultureName="zh-Hant" Name="正體中文" Version="0.1.15.1">
 
   <String Key="Product_Name">智能型連裝砲君</String>
 
@@ -268,6 +268,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Sortie_NothingHappened_Imagination">也許是錯覺吧。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">沒有看到敵影。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">可動分歧</String>
+  <String Key="Sortie_NothingHappened_CalmSea">海面風平浪靜。</String>
   <String Key="Sortie_SupportFleet_Ready">支援艦隊等待中</String>
   <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空隊準備實施空襲</String>
   <String Key="Sortie_EnemyEncounters">可能遭遇的敵方艦隊</String>
