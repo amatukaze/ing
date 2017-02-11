@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
 {
-    public enum NothingHappenedMessage { Imagination, NoSighOfTheEnemy, ManualSelection }
+    public enum NothingHappenedMessage { Imagination, NoSighOfTheEnemy, ManualSelection, CalmSea }
 
     public class NothingHappenedEvent : SortieEvent
     {
