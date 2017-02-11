@@ -132,6 +132,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        Range r_Range;
+        public Range Range
+        {
+            get { return r_Range; }
+            internal set
+            {
+                if (r_Range != value)
+                {
+                    r_Range = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         ShipState r_State;
         public ShipState State
         {
@@ -250,6 +264,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             Bullet.Set(Info.MaxBulletConsumption, RawData.Bullet);
 
             Speed = RawData.Speed;
+            Range = RawData.Range;
 
             Condition = RawData.Condition;
 

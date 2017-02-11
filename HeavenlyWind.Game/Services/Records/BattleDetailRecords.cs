@@ -356,7 +356,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 var rID = rFleetID * 6 + i;
 
                 rpCommandTextBuilder.Append("INSERT INTO battle_detail.participant(battle, id, ship, level, condition, fuel, bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) ");
-                rpCommandTextBuilder.Append($"VALUES(@battle_id, {rID}, {rShip.Info.ID}, {rShip.Level}, {rShip.Condition}, {rShip.Fuel.Current}, {rShip.Bullet.Current}, {rShip.Status.FirepowerBase.Current}, {rShip.Status.TorpedoBase.Current}, {rShip.Status.AABase.Current}, {rShip.Status.ArmorBase.Current}, {rShip.Status.Evasion}, {rShip.Status.ASW}, {rShip.Status.LoS}, {rShip.Status.Luck}, {rShip.RawData.Range});");
+                rpCommandTextBuilder.Append($"VALUES(@battle_id, {rID}, {rShip.Info.ID}, {rShip.Level}, {rShip.Condition}, {rShip.Fuel.Current}, {rShip.Bullet.Current}, {rShip.Status.FirepowerBase.Current}, {rShip.Status.TorpedoBase.Current}, {rShip.Status.AABase.Current}, {rShip.Status.ArmorBase.Current}, {rShip.Status.Evasion}, {rShip.Status.ASW}, {rShip.Status.LoS}, {rShip.Status.Luck}, {(int)rShip.Range});");
 
                 for (var j = 0; j < rShip.Slots.Count; j++)
                 {

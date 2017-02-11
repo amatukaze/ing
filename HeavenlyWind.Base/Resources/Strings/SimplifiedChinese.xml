@@ -186,6 +186,8 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Ship_ToolTip_Status_Evasion">回避</String>
   <String Key="Ship_ToolTip_Status_ASW">对潜</String>
   <String Key="Ship_ToolTip_Status_LoS">索敌</String>
+  <String Key="Ship_ToolTip_Status_Speed">速力</String>
+  <String Key="Ship_ToolTip_Status_Range">射程</String>
   <String Key="Ship_ToolTip_DayBattle">昼战</String>
   <String Key="Ship_ToolTip_NightBattle">夜战</String>
   <String Key="Ship_ToolTip_AttackMode">攻击形式</String>
@@ -211,6 +213,14 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Ship_ToolTip_AttackPower_ASW">対潜</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">夜战</String>
   <String Key="Ship_ToolTip_RepairTime">修理时间</String>
+  <String Key="Ship_Speed_Slow">低速</String>
+  <String Key="Ship_Speed_Fast">高速</String>
+  <String Key="Ship_Speed_FastPlus">高速+</String>
+  <String Key="Ship_Speed_UltraFast">最速</String>
+  <String Key="Ship_Range_Short">短</String>
+  <String Key="Ship_Range_Medium">中</String>
+  <String Key="Ship_Range_Long">长</String>
+  <String Key="Ship_Range_VeryLong">超长</String>
 
   <String Key="AirBase_Group_Option_Standby">待机</String>
   <String Key="AirBase_Group_Option_Sortie">出击</String>

@@ -146,6 +146,16 @@
                                                     <Run Text="{Binding ASW, Mode=OneWay}" />
                                                 </TextBlock>
                                             </StackPanel>
+
+                                            <TextBlock Margin="0, 4, 0, 0">
+                                                <Run Text="{rb:StringResource Ship_ToolTip_Status_Speed}" />:
+                                                <Run Text="{rb:EnumToStringResource Speed, Ship_Speed}" />
+                                            </TextBlock>
+
+                                            <TextBlock Margin="0, 4, 0, 0">
+                                                <Run Text="{rb:StringResource Ship_ToolTip_Status_Range}" />:
+                                                <Run Text="{rb:EnumToStringResource Range, Ship_Range}" />
+                                            </TextBlock>
                                         </StackPanel>
                                     </ToolTip>
                                 </Rectangle.ToolTip>

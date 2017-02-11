@@ -199,6 +199,7 @@
     <Compile Include="Models\PracticeInfo.cs" />
     <Compile Include="Models\PracticeOpponentInfo.cs" />
     <Compile Include="Models\Quest.cs" />
+    <Compile Include="Models\Range.cs" />
     <Compile Include="Models\Raw\Battle\IAerialCombat.cs" />
     <Compile Include="Models\Raw\Battle\IRawCombinedFleet.cs" />
     <Compile Include="Models\Raw\Battle\IRawEnemyCombinedFleet.cs" />

@@ -177,6 +177,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Ship_ToolTip_Status_Evasion => GetString(nameof(Ship_ToolTip_Status_Evasion));
         public string Ship_ToolTip_Status_ASW => GetString(nameof(Ship_ToolTip_Status_ASW));
         public string Ship_ToolTip_Status_LoS => GetString(nameof(Ship_ToolTip_Status_LoS));
+        public string Ship_ToolTip_Status_Speed => GetString(nameof(Ship_ToolTip_Status_Speed));
+        public string Ship_ToolTip_Status_Range => GetString(nameof(Ship_ToolTip_Status_Range));
         public string Ship_ToolTip_DayBattle => GetString(nameof(Ship_ToolTip_DayBattle));
         public string Ship_ToolTip_NightBattle => GetString(nameof(Ship_ToolTip_NightBattle));
         public string Ship_ToolTip_AttackMode => GetString(nameof(Ship_ToolTip_AttackMode));
@@ -202,6 +204,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Ship_ToolTip_AttackPower_ASW => GetString(nameof(Ship_ToolTip_AttackPower_ASW));
         public string Ship_ToolTip_AttackPower_NightBattle => GetString(nameof(Ship_ToolTip_AttackPower_NightBattle));
         public string Ship_ToolTip_RepairTime => GetString(nameof(Ship_ToolTip_RepairTime));
+        public string Ship_ToolTip_Speed_Slow => GetString(nameof(Ship_ToolTip_Speed_Slow));
+        public string Ship_ToolTip_Speed_Fast => GetString(nameof(Ship_ToolTip_Speed_Fast));
+        public string Ship_ToolTip_Speed_FastPlus => GetString(nameof(Ship_ToolTip_Speed_FastPlus));
+        public string Ship_ToolTip_Speed_UltraFast => GetString(nameof(Ship_ToolTip_Speed_UltraFast));
+        public string Ship_ToolTip_Range_Short => GetString(nameof(Ship_ToolTip_Range_Short));
+        public string Ship_ToolTip_Range_Medium => GetString(nameof(Ship_ToolTip_Range_Medium));
+        public string Ship_ToolTip_Range_Long => GetString(nameof(Ship_ToolTip_Range_Long));
+        public string Ship_ToolTip_Range_VeryLong => GetString(nameof(Ship_ToolTip_Range_VeryLong));
 
         public string AirBase_Group_Option_Standby => GetString(nameof(AirBase_Group_Option_Standby));
         public string AirBase_Group_Option_Sortie => GetString(nameof(AirBase_Group_Option_Sortie));
