@@ -81,10 +81,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             Participants.FriendEscort = rSortie.EscortShips;
 
             foreach (FriendShip rShip in rSortie.MainShips)
-                rShip.IsMVP = false;
+                rShip.Reset();
             if (rSortie.EscortShips != null)
                 foreach (FriendShip rShip in rSortie.EscortShips)
-                    rShip.IsMVP = false;
+                    rShip.Reset();
 
             CurrentStage = new FakeStage(this);
             OnPropertyChanged(nameof(CurrentStage));
@@ -93,7 +93,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             if ((BattleType)rpData.NodeEventSubType == BattleType.Normal)
             {
-                var rSupportFleets = KanColleGame.Current.Port.Fleets.Table.Values
+                var rSupportFleets = KanColleGame.Current.Port.Fleets
                     .Where(r => r.ExpeditionStatus.Expedition != null && !r.ExpeditionStatus.Expedition.CanReturn)
                     .Select(r => r.ExpeditionStatus.Expedition)
                     .SingleOrDefault(r => r.MapArea.ID == rSortie.Map.MasterInfo.AreaID && r.Time == (!IsBossBattle ? 15 : 30));
@@ -151,7 +151,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 case "api_req_combined_battle/ec_battle": First = new EnemyCombinedFleetDay(this, rpInfo); break;
 
                 case "api_req_combined_battle/each_battle": First = new CombinedFleetCTFDayNormalStage(this, rpInfo); break;
-                case "api_req_combined_battle/each_battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpInfo);break;
+                case "api_req_combined_battle/each_battle_water": First = new CombinedFleetSTFDayNormalStage(this, rpInfo); break;
             }
 
             First.Process(rpInfo);

@@ -15,11 +15,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
             {
                 if (r_SelectedDateStart != value)
                 {
-                    r_SelectedDateStart = value.AddDays(1.0).Date.AddSeconds(-1.0);
+                    r_SelectedDateStart = value.Date;
                     OnPropertyChanged(nameof(SelectedDateStart));
 
                     IsDateStartCalendarOpened = false;
-                    TimeSpanStart = new DateTimeOffset(r_SelectedDateStart).ToUnixTime().ToString();
+                    TimeSpanStart = r_SelectedDateStart.AsOffset().ToUnixTime().ToString();
                     Reload();
                 }
             }
@@ -33,11 +33,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
             {
                 if (r_SelectedDateEnd != value)
                 {
-                    r_SelectedDateEnd = value.AddDays(1.0).Date.AddSeconds(-1.0);
+                    r_SelectedDateEnd = value.Date;
                     OnPropertyChanged(nameof(SelectedDateEnd));
 
                     IsDateEndCalendarOpened = false;
-                    TimeSpanEnd = new DateTimeOffset(r_SelectedDateEnd).ToUnixTime().ToString();
+                    TimeSpanEnd = r_SelectedDateEnd.AddDays(1.0).AsOffset().ToUnixTime().ToString();
                     Reload();
                 }
             }
@@ -73,7 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 
         public SortieStatisticCustomTimeSpanGroupViewModel(SortieStatisticViewModel rpOwner) : base(rpOwner, SortieStatisticTimeSpanType.Custom)
         {
-            var rNow = new DateTimeOffset(DateTime.Now.AddDays(1.0).Date.AddSeconds(-1.0));
+            var rNow = DateTime.Now.Tomorrow().AddSeconds(-1.0).AsOffset();
 
             r_SelectedDateStart = r_SelectedDateEnd = rNow.DateTime;
             TimeSpanStart = TimeSpanEnd = rNow.ToUnixTime().ToString();

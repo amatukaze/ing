@@ -2,6 +2,7 @@
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -85,26 +86,39 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (rpPath.IsNullOrEmpty())
                 return null;
 
-            var rFilename = CacheDirectory + rpPath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            var rPath = rpPath.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+            var rFinalFilename = CacheDirectory + rPath;
             if (rpPath.OICContains("mainD2.swf"))
             {
-                ropFilename = rFilename;
+                ropFilename = rFinalFilename;
                 return false;
             }
 
-            var rFilenameForceToLoad = r_ExtensionRegex.Replace(rFilename, ".hack$0");
-            if (File.Exists(rFilenameForceToLoad))
-            {
-                ropFilename = rFilenameForceToLoad;
-                return true;
-            }
+            foreach (var rModFile in GetModFilenames(rpPath, rFinalFilename))
+                if (File.Exists(rModFile))
+                {
+                    ropFilename = rModFile;
+                    return true;
+                }
 
-            ropFilename = rFilename;
+            ropFilename = rFinalFilename;
 
-            if (File.Exists(rFilename))
+            if (File.Exists(rFinalFilename))
                 return CurrentMode == CacheMode.FullTrust;
 
             return null;
+        }
+        IEnumerable<string> GetModFilenames(string rpPath, string rpFinalFilename)
+        {
+            if (rpPath.OICStartsWith("/kcs/resources/swf/ships/"))
+            {
+                var rFilename = Path.Combine("Mods", "Ships", Path.GetFileName(rpFinalFilename));
+
+                yield return r_ExtensionRegex.Replace(rFilename, ".hack$0");
+                yield return rFilename;
+            }
+
+            yield return r_ExtensionRegex.Replace(rpFinalFilename, ".hack$0");
         }
         bool CheckFileVersionAndTimestamp(ResourceSession rpResourceSession, DateTimeOffset rpTimestamp)
         {

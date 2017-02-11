@@ -1,42 +1,90 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models;
 using System;
-using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.LoS
 {
     class Formula33 : FleetLoSFormulaInfo
     {
-        public override FleetLoSFormula Name => FleetLoSFormula.Formula33;
+        public override FleetLoSFormula Name { get; }
+
+        int r_NodeFactor;
+
+        public Formula33(FleetLoSFormula rpType)
+        {
+            Name = rpType;
+
+            switch (rpType)
+            {
+                case FleetLoSFormula.Formula33:
+                    r_NodeFactor = 1;
+                    break;
+
+                case FleetLoSFormula.Formula33Cn4:
+                    r_NodeFactor = 4;
+                    break;
+
+                case FleetLoSFormula.Formula33Cn3:
+                    r_NodeFactor = 3;
+                    break;
+            }
+        }
 
         protected override double CalculateCore(Fleet rpFleet)
         {
             var rShipLoS = .0;
-            var rShipCount = 0;
             var rEquipmentLoS = .0;
+            var rEmptyShipSlotBonus = 12;
 
-            foreach (var rShip in rpFleet.Ships.ExceptEvacuated())
+            foreach (var rShip in rpFleet.Ships)
             {
-                var rShipLoSBase = rShip.Status.LoS;
-                rShipCount++;
+                if ((rShip.State & ShipState.Evacuated) != 0)
+                    continue;
 
-                foreach (var rSlot in rShip.Slots.Where(r => r.HasEquipment))
+                rEmptyShipSlotBonus -= 2;
+
+                var rShipLoSBase = rShip.Status.LoS;
+
+                foreach (var rSlot in rShip.Slots)
                 {
+                    if (!rSlot.HasEquipment)
+                        continue;
+
                     var rInfo = rSlot.Equipment.Info;
                     var rLoS = (double)rInfo.LoS;
+
                     rShipLoSBase -= rInfo.LoS;
+
+                    var rLevel = rSlot.Equipment.Level;
+                    if (rLevel > 0)
+                        switch (rInfo.Type)
+                        {
+                            case EquipmentType.ReconSeaplane:
+                                rLoS += Math.Sqrt(rLevel) * 1.2;
+                                break;
+
+                            case EquipmentType.SmallRadar:
+                                rLoS += Math.Sqrt(rLevel) * 1.25;
+                                break;
+
+                            case EquipmentType.LargeRadar:
+                                rLoS += Math.Sqrt(rLevel) * 1.4;
+                                break;
+                        }
 
                     switch (rInfo.Type)
                     {
                         case EquipmentType.CarrierBasedTorpedoBomber:
+                        case EquipmentType.JetPoweredAttackAircraft:
                             rEquipmentLoS += rLoS * .8;
                             break;
 
                         case EquipmentType.CarrierBasedRecon:
+                        case EquipmentType.JetPoweredRecon:
                             rEquipmentLoS += rLoS;
                             break;
 
                         case EquipmentType.ReconSeaplane:
-                            rEquipmentLoS += (rLoS + Math.Sqrt(rSlot.Equipment.Level) * 1.2) * 1.2;
+                            rEquipmentLoS += rLoS * 1.2;
                             break;
 
                         case EquipmentType.SeaplaneBomber:
@@ -44,8 +92,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.LoS
                             break;
 
                         case EquipmentType.SmallRadar:
+                            rEquipmentLoS += rLoS * .6;
+                            break;
+
                         case EquipmentType.LargeRadar:
-                            rEquipmentLoS += (rLoS + Math.Sqrt(rSlot.Equipment.Level) * 1.25) * .6;
+                            rEquipmentLoS += rLoS * .6;
                             break;
 
                         default:
@@ -58,9 +109,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.LoS
             }
 
             var rAdmiralLoS = Math.Ceiling(rpFleet.Port.Admiral.Level * .4);
-            var rEmptyShipslotBonus = (6 - rShipCount) * 2;
 
-            return rShipLoS + rEquipmentLoS - rAdmiralLoS + rEmptyShipslotBonus;
+            return rShipLoS + rEquipmentLoS * r_NodeFactor - rAdmiralLoS + rEmptyShipSlotBonus;
         }
     }
 }

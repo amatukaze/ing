@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.SystemInterop;
-using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,11 +16,9 @@ using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    public class UpdateService : ModelBase
+    class UpdateService : ModelBase
     {
         public static UpdateService Instance { get; } = new UpdateService();
-
-        string[] r_FilesToBeChecked;
 
         public CheckForUpdateResult.UpdateInfo Info { get; private set; }
 
@@ -31,46 +28,24 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         UpdateService()
         {
-            InitializeFilesToBeChecked();
-
             DownloadCommand = new DelegatedCommand(() => Process.Start(Info?.Link));
 
             HideNotificationCommand = new DelegatedCommand<UpdateNotificationMode>(HideNotification);
         }
-        void InitializeFilesToBeChecked()
+
+        internal void CheckForUpdate()
         {
-            var rRootPath = Path.GetDirectoryName(GetType().Assembly.Location);
-            var rRootPathLength = rRootPath.Length + 1;
-
-            IEnumerable<string> rDataFiles;
-            var rDataDirectory = new DirectoryInfo(Path.Combine(rRootPath, "Data"));
-            if (rDataDirectory.Exists)
-                rDataFiles = rDataDirectory.EnumerateFiles("*").Select(r => r.FullName.Substring(rRootPathLength));
-            else
-                rDataFiles = new string[]
-                {
-                    QuestProgressService.DataFilename,
-                    MapService.DataFilename,
-                    ShipLockingService.DataFilename,
-                };
-
-            var rSRDirectory = new DirectoryInfo(Path.Combine(rRootPath, "Resources", "Strings"));
-            var rSRFiles = rSRDirectory.EnumerateFiles("*", SearchOption.AllDirectories).Select(r => r.FullName.Substring(rRootPathLength));
-
-            r_FilesToBeChecked = rDataFiles.Concat(rSRFiles).ToArray();
-        }
-
-        internal async void CheckForUpdate()
-        {
-            if (Environment.GetCommandLineArgs().Any(r => r.OICEquals("--no-check-update")) || !NetworkInterface.GetIsNetworkAvailable())
+            if (Environment.GetCommandLineArgs().Any(r => r.OICEquals("--no-check-for-update")) || !NetworkInterface.GetIsNetworkAvailable())
                 return;
+
+            var rFilesToBeChecked = GetFileList().ToArray();
 
             try
             {
                 for (var i = 1; i <= 4; i++)
                     try
                     {
-                        await CheckForUpdateCore();
+                        CheckForUpdateCore(rFilesToBeChecked);
 
                         return;
                     }
@@ -79,19 +54,37 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                         if (i == 4)
                             throw;
 
-                        await Task.Delay(i * 4000);
+                        Task.Delay(i * 4000).Wait();
                     }
             }
-            catch
+            catch (Exception e)
             {
-                //Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_CheckForUpdate_Exception, e.Message));
+                Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_CheckForUpdate_Exception, e.Message));
             }
         }
-        async Task CheckForUpdateCore()
+        IEnumerable<string> GetFileList()
         {
-            using (var rResponse = await CreateRequest().GetResponseAsync())
-            using (var rReader = new JsonTextReader(new StreamReader(rResponse.GetResponseStream())))
+            var rRootPath = ProductInfo.RootDirectory;
+
+            var rResourcesDirectory = new DirectoryInfo(Path.Combine(rRootPath, "Resources"));
+            if (!rResourcesDirectory.Exists)
+                yield break;
+
+            var rRootPathLength = rRootPath.Length + 1;
+
+            foreach (var rFile in rResourcesDirectory.EnumerateFiles("*", SearchOption.AllDirectories))
             {
+                var rExtension = rFile.Extension;
+                if (rExtension.OICEndsWith("json") || rExtension.OICEndsWith("xml"))
+                    yield return rFile.FullName.Substring(rRootPathLength);
+            }
+        }
+        void CheckForUpdateCore(string[] rpFileList)
+        {
+            using (var rResponse = CreateRequest(rpFileList).GetResponse())
+            using (var rStream = rResponse.GetResponseStream())
+            {
+                var rReader = new JsonTextReader(new StreamReader(rStream));
                 var rResult = JObject.Load(rReader).ToObject<CheckForUpdateResult>();
 
                 Info = rResult.Update;
@@ -117,12 +110,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 OnPropertyChanged(nameof(Info));
 
-                await ProcessFiles(rResult);
+                ProcessFiles(rResult);
             }
         }
-        HttpWebRequest CreateRequest()
+        HttpWebRequest CreateRequest(string[] rpFileList)
         {
-            var rRequest = WebRequest.CreateHttp("https://api.sakuno.moe/ing/check_for_update");
+            var rRequest = WebRequest.CreateHttp("http://heavenlywind.cc/api/check_for_update");
             rRequest.UserAgent = ProductInfo.UserAgent;
             rRequest.Method = "POST";
 
@@ -131,9 +124,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 client = new
                 {
                     version = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                    beta = true,
+                    fw = OS.DotNetFrameworkReleaseNumber,
                 },
-                files = r_FilesToBeChecked.Select(r =>
+
+                data = GetOfficialDataStoreItem().Select(r => new
+                {
+                    name = r.Name,
+                    timestamp = r.Timestamp?.ToUnixTime(),
+                }).ToArray(),
+
+                files = rpFileList.Select(r =>
                 {
                     var rFile = new FileInfo(r);
 
@@ -145,15 +145,40 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 }).ToArray(),
             };
 
-            using (var rRequestWriter = new StreamWriter(rRequest.GetRequestStream()))
+            using (var rStream = rRequest.GetRequestStream())
             {
-                rRequestWriter.Write(JsonConvert.SerializeObject(rData));
-                rRequestWriter.Flush();
+                var rSerializer = new JsonSerializer();
+                var rWriter = new JsonTextWriter(new StreamWriter(rStream));
+
+                rSerializer.Serialize(rWriter, rData);
+                rWriter.Flush();
             }
 
             return rRequest;
         }
-        async Task ProcessFiles(CheckForUpdateResult rpResult)
+        IEnumerable<DataStoreItem> GetOfficialDataStoreItem()
+        {
+            DataStoreItem rItem;
+
+            if (DataStore.TryGet("map_node", DataStoreRetrieveOption.ExcludeContent, out rItem))
+                yield return rItem;
+
+            if (DataStore.TryGet("quest", DataStoreRetrieveOption.ExcludeContent, out rItem))
+                yield return rItem;
+
+            if (DataStore.TryGet("expedition", DataStoreRetrieveOption.ExcludeContent, out rItem))
+                yield return rItem;
+
+            if (DataStore.TryGet("ship_locking", DataStoreRetrieveOption.ExcludeContent, out rItem))
+                yield return rItem;
+
+            if (DataStore.TryGet("abyssal_ship_plane", DataStoreRetrieveOption.ExcludeContent, out rItem))
+                yield return rItem;
+
+            if (DataStore.TryGet("anti_air_cut_in", DataStoreRetrieveOption.ExcludeContent, out rItem))
+                yield return rItem;
+        }
+        void ProcessFiles(CheckForUpdateResult rpResult)
         {
             if (rpResult.Files != null)
                 foreach (var rFileUpdate in rpResult.Files)
@@ -166,7 +191,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                             EnsureDirectory(rFile);
 
                             using (var rWriter = new StreamWriter(rFile.Open(FileMode.Create, FileAccess.Write, FileShare.Read)))
-                                await rWriter.WriteAsync(rFileUpdate.Content);
+                                rWriter.Write(rFileUpdate.Content);
 
                             rFile.LastWriteTime = DateTimeUtil.FromUnixTime(rFileUpdate.Timestamp).LocalDateTime;
                             break;
@@ -182,6 +207,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                             break;
                     }
                 }
+
+            if (rpResult.Data != null)
+                foreach (var rData in rpResult.Data)
+                    if (rData.Content != null)
+                        DataStore.Set(rData.Name, rData.Content, rData.Timestamp);
+                    else
+                        DataStore.Delete(rData.Name);
         }
         void EnsureDirectory(FileInfo rpFile)
         {

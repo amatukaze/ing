@@ -2,11 +2,9 @@
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
-using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
-using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -16,7 +14,7 @@ using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class BattleDetailRecords : RecordsGroup
+    class BattleDetailRecords : RecordsGroup
     {
         enum ParticipantFleetType { Main, Escort, SupportFire }
 
@@ -204,15 +202,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         byte[] CompressJson(JToken rpJsonToken)
         {
-            using (var rMemoryStream = new MemoryStream())
-            {
-                using (var rCompressStream = new DeflateStream(rMemoryStream, CompressionMode.Compress))
-                using (var rStreamWriter = new StreamWriter(rCompressStream))
-                using (var rJsonTextWriter = new JsonTextWriter(rStreamWriter))
-                    rpJsonToken.WriteTo(rJsonTextWriter);
+            var rMemoryStream = new MemoryStream();
 
-                return rMemoryStream.ToArray();
-            }
+            using (var rCompressStream = new DeflateStream(rMemoryStream, CompressionMode.Compress))
+            using (var rStreamWriter = new StreamWriter(rCompressStream))
+            using (var rJsonTextWriter = new JsonTextWriter(rStreamWriter))
+                rpJsonToken.WriteTo(rJsonTextWriter);
+
+            return rMemoryStream.ToArray();
         }
 
         void ProcessSortieFirstStage(ApiInfo rpInfo)
@@ -359,7 +356,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 var rID = rFleetID * 6 + i;
 
                 rpCommandTextBuilder.Append("INSERT INTO battle_detail.participant(battle, id, ship, level, condition, fuel, bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) ");
-                rpCommandTextBuilder.Append($"VALUES(@battle_id, {rID}, {rShip.Info.ID}, {rShip.Level}, {rShip.Condition}, {rShip.Fuel.Current}, {rShip.Bullet.Current}, {rShip.Status.FirepowerBase.Current}, {rShip.Status.TorpedoBase.Current}, {rShip.Status.AABase.Current}, {rShip.Status.ArmorBase.Current}, {rShip.Status.Evasion}, {rShip.Status.ASW}, {rShip.Status.LoS}, {rShip.Status.Luck}, {rShip.RawData.Range});");
+                rpCommandTextBuilder.Append($"VALUES(@battle_id, {rID}, {rShip.Info.ID}, {rShip.Level}, {rShip.Condition}, {rShip.Fuel.Current}, {rShip.Bullet.Current}, {rShip.Status.FirepowerBase.Current}, {rShip.Status.TorpedoBase.Current}, {rShip.Status.AABase.Current}, {rShip.Status.ArmorBase.Current}, {rShip.Status.Evasion}, {rShip.Status.ASW}, {rShip.Status.LoS}, {rShip.Status.Luck}, {(int)rShip.Range});");
 
                 for (var j = 0; j < rShip.Slots.Count; j++)
                 {

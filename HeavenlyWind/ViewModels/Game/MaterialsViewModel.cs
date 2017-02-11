@@ -3,7 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Models;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class MaterialsViewModel : ModelBase
+    class MaterialsViewModel : ModelBase
     {
         public Materials Source => KanColleGame.Current.Port.Materials;
 

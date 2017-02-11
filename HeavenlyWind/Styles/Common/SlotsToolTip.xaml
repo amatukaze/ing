@@ -54,7 +54,7 @@
         </DataTemplate.Triggers>
     </DataTemplate>
 
-    <ToolTip x:Key="SlotsToolTip" x:Shared="False">
+    <ControlTemplate x:Key="SlotsToolTipContent" TargetType="{x:Type Control}">
         <StackPanel>
             <ItemsControl ItemsSource="{Binding Slots}" ItemTemplate="{StaticResource SlotsList}" />
 
@@ -136,6 +136,6 @@
                 </Control.Style>
             </Control>
         </StackPanel>
-    </ToolTip>
+    </ControlTemplate>
 
 </ResourceDictionary>

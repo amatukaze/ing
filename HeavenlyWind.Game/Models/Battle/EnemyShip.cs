@@ -8,7 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
     class EnemyShip : ModelBase, IParticipant, ICombatAbility
     {
-        static Dictionary<int, int[]> r_PlaneCount;
+        static IDictionary<int, int[]> r_PlaneCount;
 
         internal static IDictionary<int, int> FighterPowers { get; }
 
@@ -26,17 +26,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         public bool IsDamageControlVisible => false;
         public bool IsDamageControlConsumed => false;
 
+        public AntiAirCutIn AntiAirCutIn => null;
+
         static EnemyShip()
         {
-            var rFile = new FileInfo(@"Data\AbyssalShipPlane.json");
-            if (rFile.Exists)
-                using (var rStream = rFile.OpenRead())
-                {
-                    var rJson = JArray.Load(new JsonTextReader(new StreamReader(rStream)));
+            byte[] rContent;
+            if (!DataStore.TryGet("abyssal_ship_plane", out rContent))
+                return;
 
-                    r_PlaneCount = rJson.ToDictionary(r => (int)r["id"], r => r["plane_count"].ToObject<int[]>());
-                    FighterPowers = rJson.ToDictionary(r => (int)r["id"], r => (int)r["fighter_power"]);
-                }
+            var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
+            var rData = JArray.Load(rReader);
+
+            r_PlaneCount = rData.ToDictionary(r => (int)r["id"], r => r["plane_count"].ToObject<int[]>());
+            FighterPowers = rData.ToDictionary(r => (int)r["id"], r => (int)r["fighter_power"]);
         }
         public EnemyShip(int rpID, int rpLevel, int[] rpEquipment = null)
         {

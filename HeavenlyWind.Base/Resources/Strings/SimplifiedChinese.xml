@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.12.3">
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.15">
 
   <String Key="Product_Name">智能型连装炮君</String>
 
@@ -36,6 +36,7 @@
   <String Key="Log_EquipmentImprovement_Success">「[b]{0}[/b]」被改修到 {1}</String>
   <String Key="Log_EquipmentImprovement_Upgrade">装备已升级为「[b]{0}[/b] {1}」</String>
   <String Key="Log_EquipmentImprovement_Failure">「[b]{0}[/b] {1}」的改修失败了</String>
+  <String Key="Log_Proxy_AutoRetry">进行第 {0} 次网络请求的重试 (API: {1})</String>
 
   <String Key="Notification_Expedition">远征结束</String>
   <String Key="Notification_Expedition_Content">「{0}」从远征「{1}」归来。</String>
@@ -55,6 +56,11 @@
   <String Key="MessageDialog_AudioSessionDisconnected">音频设备有变动，导致无法设置静音。
 
 当前版本还无法解决该问题。如果要设置静音，请使用系统的音量合成器。请见谅。</String>
+  <String Key="MessageDialog_Proxy_AutoRetry">哎呀！</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message">重试 API {0} 的次数已超过了所设定的数值。</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message2">重试 API {0} 又失败了！</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Continue">继续</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Abort">放弃</String>
 
   <String Key="Result_Failure">失败</String>
   <String Key="Result_Success">成功</String>
@@ -111,7 +117,7 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中坚少佐</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
-  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">上次更新</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">上次结算</String>
   <String Key="Overview_Admiral_Experience_Difference_Type_Day">日</String>
   <String Key="Overview_Admiral_Experience_Difference_Type_Month">月</String>
   <String Key="Overview_Admiral_TotalRankingPoints">总战果</String>
@@ -140,10 +146,26 @@
 
   <String Key="Fleet_TotalLevel">总等级</String>
   <String Key="Fleet_LoS">索敌</String>
-  <String Key="Fleet_LoS_Formula_Old">2-5(旧)</String>
-  <String Key="Fleet_LoS_Formula_Autumn">2-5(秋)</String>
-  <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5(秋)简易</String>
-  <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
+  <String Key="Fleet_LoS_Formula_Old">2-5 (旧)</String>
+  <String Key="Fleet_LoS_Formula_Autumn">2-5 (秋)</String>
+  <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5 (秋)简易</String>
+  <String Key="Fleet_LoS_Formula_Formula33">判定式 (33)</String>
+  <String Key="Fleet_LoS_Note">判定式 (33) 索敌要求速查</String>
+  <String Key="Fleet_LoS_Note_25">至少 [b]33[/b] 确保进 Boss 点</String>
+  <String Key="Fleet_LoS_Note_35">在下路 G 点至少 [b]28[/b] 确保进 Boss 点
+
+注: C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_61">去往 F 点需要至少 [b]16[/b]，而 Boss 点需要至少 [b]25[/b]
+
+注: C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_62">F->I(下路): 至少 [b]50[/b]
+H->K(Boss): 至少 [b]40[/b]
+F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
+
+注: C[sub]n[/sub]=3</String>
+  <String Key="Fleet_LoS_Note_63">需要至少 [b]38[/b] 确保进 Boss 点
+
+注: C[sub]n[/sub]=3</String>
   <String Key="Fleet_FighterPower">制空</String>
   <String Key="Fleet_FighterPower_Formula_WithoutBonus">忽略熟练度奖励</String>
   <String Key="Fleet_FighterPower_Formula_WithBonus">有熟练度奖励</String>
@@ -164,6 +186,8 @@
   <String Key="Ship_ToolTip_Status_Evasion">回避</String>
   <String Key="Ship_ToolTip_Status_ASW">对潜</String>
   <String Key="Ship_ToolTip_Status_LoS">索敌</String>
+  <String Key="Ship_ToolTip_Status_Speed">速力</String>
+  <String Key="Ship_ToolTip_Status_Range">射程</String>
   <String Key="Ship_ToolTip_DayBattle">昼战</String>
   <String Key="Ship_ToolTip_NightBattle">夜战</String>
   <String Key="Ship_ToolTip_AttackMode">攻击形式</String>
@@ -188,6 +212,15 @@
   <String Key="Ship_ToolTip_AttackPower_Torpedo">雷击</String>
   <String Key="Ship_ToolTip_AttackPower_ASW">対潜</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">夜战</String>
+  <String Key="Ship_ToolTip_RepairTime">修理时间</String>
+  <String Key="Ship_Speed_Slow">低速</String>
+  <String Key="Ship_Speed_Fast">高速</String>
+  <String Key="Ship_Speed_FastPlus">高速+</String>
+  <String Key="Ship_Speed_UltraFast">最速</String>
+  <String Key="Ship_Range_Short">短</String>
+  <String Key="Ship_Range_Medium">中</String>
+  <String Key="Ship_Range_Long">长</String>
+  <String Key="Ship_Range_VeryLong">超长</String>
 
   <String Key="AirBase_Group_Option_Standby">待机</String>
   <String Key="AirBase_Group_Option_Sortie">出击</String>
@@ -286,6 +319,8 @@
   <String Key="Battle_AerialCombatResult_Parity">制空均衡</String>
   <String Key="Battle_AerialCombatResult_Incapability">航空劣势</String>
   <String Key="Battle_AerialCombatResult_Denial">制空权丧失</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount">最少击落数</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount_Unit">格</String>
 
   <String Key="Quest_NoData">请打开游戏中的「任務(クエスト)」获取任务信息</String>
   <String Key="Quest_Unknown">?????</String>
@@ -326,6 +361,7 @@
   <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
   <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
 
+  <String Key="PreferenceWindow_DefaultValue">使用默认值</String>
   <String Key="PreferenceWindow_Network">网络</String>
   <String Key="PreferenceWindow_Network_Port">本地代理端口</String>
   <String Key="PreferenceWindow_Network_Port_Customization">自定义本地代理端口</String>
@@ -342,6 +378,10 @@
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">在勾选这个之前，请确认所用的上游代理是否不允许 HTTPS 连接</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">是的</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">不是</String>
+  <String Key="PreferenceWindow_Network_AutoRetry">遇到服务器错误时自动重连（即请求收到 HTTP 5XX 的状态码时）</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Count">重试次数</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">达到该数值时时询问</String>
+  <String Key="PreferenceWindow_Network_OpenInternetOptionConnectionDialog">打开 IE 的网络连接设置</String>
   <String Key="PreferenceWindow_Window">窗口</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">退出确认</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">禁用</String>
@@ -377,6 +417,13 @@
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">显示在左侧</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">显示在右侧</String>
   <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">交换修理渠和舰队一览的位置</String>
+  <String Key="PreferenceWindow_UI_Avartar">舰娘头像 (实验性功能)</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled">在这些地方使用</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_FleetDetail">舰队概要</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_BattleInfo">战斗信息 (剧透)</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_ShipOverview">舰娘一览</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_EquipmentOverview">装备一览</String>
+  <String Key="PreferenceWindow_UI_Avartar_Shape">形状</String>
   <String Key="PreferenceWindow_Cache">缓存</String>
   <String Key="PreferenceWindow_Cache_Mode">缓存模式</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">禁用</String>
@@ -385,7 +432,7 @@
   <String Key="PreferenceWindow_Cache_Path">路径</String>
   <String Key="PreferenceWindow_Behaviour">行为</String>
   <String Key="PreferenceWindow_Behaviour_FatigueCeiling">疲劳上限</String>
-  <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">显示战斗信息(剧透)</String>
+  <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">显示战斗信息 (剧透)</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">显示掉落</String>
   <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">禁用大破闪烁警告</String>
   <String Key="PreferenceWindow_Notification">通知</String>
@@ -405,6 +452,8 @@
   <String Key="PreferenceWindow_Browser">浏览器</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">排版引擎</String>
   <String Key="PreferenceWindow_Browser_Homepage">首页</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_Introduction">游戏主页</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage">登录页面</String>
   <String Key="PreferenceWindow_Browser_ClearCache">删除缓存文件</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">删除缓存文件和 Cookie</String>
   <String Key="PreferenceWindow_Browser_Flash">Flash 设置</String>
@@ -444,7 +493,7 @@
   <String Key="EquipmentOverview_List_Loading">加载中</String>
 
   <String Key="ShipOverview_Type">舰种</String>
-  <String Key="ShipOverview_Name">舰名</String>
+  <String Key="ShipOverview_Ship">舰娘</String>
   <String Key="ShipOverview_Level">等级</String>
   <String Key="ShipOverview_Condition">Cond.</String>
   <String Key="ShipOverview_Firepower">火力</String>
@@ -462,6 +511,7 @@
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">排除 Lv1 的舰娘</String>
   <String Key="ShipOverview_Filter_ExceptMaxModernizationShips">排除近代化改修 MAX 的舰娘</String>
   <String Key="ShipOverview_List_Loading">加载中</String>
+  <String Key="ShipOverview_OnExpedition">远</String>
 
   <String Key="Export_CSV">导出为 CSV 文件</String>
   <String Key="Export_CSV_FileType">CSV 文件</String>
@@ -473,6 +523,13 @@
   <String Key="Record_SecretaryShip">秘书舰</String>
   <String Key="Record_RankingPoints">战果</String>
   <String Key="Record_Filter_SuccessOnly">仅成功的</String>
+  <String Key="Record_TimeSpan_All">所有</String>
+  <String Key="Record_TimeSpan_Recent24Hours">过去 24 小时</String>
+  <String Key="Record_TimeSpan_Recent3Days">过去三天</String>
+  <String Key="Record_TimeSpan_Recent7Days">过去一周</String>
+  <String Key="Record_TimeSpan_Custom">自定义</String>
+  <String Key="Record_CustomTimeSpan_Start">开始</String>
+  <String Key="Record_CustomTimeSpan_End">结束</String>
 
   <String Key="ConstructionHistory_Ship">舰娘</String>
   <String Key="ConstructionHistory_LSCOnly">大建</String>

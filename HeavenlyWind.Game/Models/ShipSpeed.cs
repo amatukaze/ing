@@ -5,5 +5,7 @@
         None,
         Slow = 5,
         Fast = 10,
+        FastPlus = 15,
+        UltraFast = 20,
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class FleetsViewModel : ModelBase
+    class FleetsViewModel : ModelBase
     {
         GameInformationViewModel r_Parent;
 
@@ -61,7 +61,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         void UpdateFleets(IEnumerable<Fleet> rpFleets)
         {
-            Fleets = KanColleGame.Current.Port.Fleets.Table.Values.Select(r => new FleetViewModel(r)).ToList();
+            Fleets = KanColleGame.Current.Port.Fleets.Select(r => new FleetViewModel(r)).ToArray();
             SelectedFleet = Fleets.FirstOrDefault();
 
             r_Parent.Overview.Fleets = Fleets;

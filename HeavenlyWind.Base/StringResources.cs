@@ -41,6 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze
             {
                 { "Japanese", new LanguageInfo("Japanese", "ja-JP", "日本語") },
                 { "SimplifiedChinese", new LanguageInfo("SimplifiedChinese", "zh-Hans", "简体中文") },
+                { "TraditionalChinese", new LanguageInfo("TraditionalChinese", "zh-Hant", "正體中文") },
                 { "English", new LanguageInfo("English", "en", "English") },
             };
             InstalledLanguages = r_InstalledLanguages.Values.ToArray();
@@ -70,7 +71,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (rNames.Contains(rLanguage.CultureName))
                     return rLanguage;
 
-            return rNames.Contains("zh") ? r_InstalledLanguages["SimplifiedChinese"] : r_InstalledLanguages["English"];
+            return r_InstalledLanguages["English"];
         }
         public static IEnumerable<string> GetAncestorsAndSelfCultureNames(CultureInfo rpCultureInfo)
         {
@@ -84,7 +85,7 @@ namespace Sakuno.KanColle.Amatsukaze
         void LoadMainResourceCore(string rpLanguageName)
         {
             var rAssembly = Assembly.GetExecutingAssembly();
-            using (var rStream = rAssembly.GetManifestResourceStream($"Sakuno.KanColle.Amatsukaze.Resources.Strings.{Preference.Current.Language}.xml"))
+            using (var rStream = rAssembly.GetManifestResourceStream($"Sakuno.KanColle.Amatsukaze.Resources.Strings.{Preference.Instance.Language}.xml"))
             using (var rReader = new StreamReader(rStream))
             {
                 Main = new StringResourcesItems(XDocument.Load(rReader).Root.Descendants("String").ToDictionary(r => r.Attribute("Key").Value, r => r.Value));

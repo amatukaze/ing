@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Controls
 {
-    class LoSFormulas : ComboBox
+    class LoSFormulas : ListBox
     {
         static LoSFormulas()
         {

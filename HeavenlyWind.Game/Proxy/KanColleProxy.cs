@@ -4,15 +4,17 @@ using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
+using Sakuno.SystemInterop;
 using Sakuno.SystemInterop.Net;
 using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
@@ -228,6 +230,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             {
                 rSession.State = NetworkSessionState.Error;
                 rSession.ErrorMessage = rpSession.GetResponseBodyAsString();
+
+                if (!Preference.Instance.Network.AutoRetry.Value)
+                    return;
+
+                var rApiSession = rSession as ApiSession;
+                if (rApiSession != null && rpSession["X-RetryCount"].IsNullOrEmpty() && (rpSession.responseCode >= 500 && rpSession.responseCode < 600))
+                    Retry(rApiSession, rpSession);
             }
         }
 
@@ -313,6 +322,71 @@ body {
                 rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\AntiBlankScreen.db").FullName);
 
                 rCommand.ExecuteNonQuery();
+            }
+        }
+
+        static void Retry(ApiSession rpSession, Session rpFiddlerSession)
+        {
+            TaskDialog rDialog = null;
+
+            var rMaxAutoRetryCount = Preference.Instance.Network.AutoRetryCount.Value;
+            var rErrorMessage = rpSession.ErrorMessage;
+
+            try
+            {
+                for (var i = 1; ; i++)
+                {
+                    if (i > rMaxAutoRetryCount)
+                    {
+                        if (!Preference.Instance.Network.AutoRetryConfirmation.Value)
+                            return;
+
+                        if (rDialog == null)
+                            rDialog = new TaskDialog()
+                            {
+                                OwnerWindowHandle = ServiceManager.GetService<IMainWindowService>().Handle,
+
+                                Instruction = StringResources.Instance.Main.MessageDialog_Proxy_AutoRetry,
+                                Content = string.Format(StringResources.Instance.Main.MessageDialog_Proxy_AutoRetry_Message, rpSession.DisplayUrl),
+
+                                Buttons =
+                                {
+                                    new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.MessageDialog_Proxy_AutoRetry_Button_Continue),
+                                    new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.MessageDialog_Proxy_AutoRetry_Button_Abort),
+                                },
+                                ButtonStyle = TaskDialogButtonStyle.CommandLink,
+                            };
+
+                        if (i == rMaxAutoRetryCount + 2)
+                            rDialog.Content = string.Format(StringResources.Instance.Main.MessageDialog_Proxy_AutoRetry_Message2, rpSession.DisplayUrl);
+
+                        rDialog.Detail = rErrorMessage;
+
+                        if (rDialog.Show().ClickedCommonButton == TaskDialogCommonButton.No)
+                            return;
+                    }
+
+                    var rStringDictionary = new StringDictionary();
+                    rStringDictionary.Add("X-RetryCount", i.ToString());
+
+                    Logger.Write(LoggingLevel.Info, string.Format(StringResources.Instance.Main.Log_Proxy_AutoRetry, i.ToString(), rpSession.DisplayUrl));
+
+                    var rNewSession = FiddlerApplication.oProxy.SendRequestAndWait(rpFiddlerSession.oRequest.headers, rpFiddlerSession.requestBodyBytes, rStringDictionary, null);
+                    if (rNewSession.responseCode != 200)
+                        rErrorMessage = rNewSession.GetResponseBodyAsString();
+                    else
+                    {
+                        rpFiddlerSession.oResponse.headers = rNewSession.oResponse.headers;
+                        rpFiddlerSession.responseBodyBytes = rNewSession.responseBodyBytes;
+                        rpFiddlerSession.oResponse.headers["Connection"] = "close";
+
+                        return;
+                    }
+                }
+            }
+            finally
+            {
+                rDialog?.Dispose();
             }
         }
 

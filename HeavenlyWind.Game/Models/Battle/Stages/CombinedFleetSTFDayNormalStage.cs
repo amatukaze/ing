@@ -11,6 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 
         public override IList<BattlePhase> Phases => new BattlePhase[]
         {
+            LandBaseJetAircraftAerialSupport,
+            JetAircraftAerialCombat,
             LandBaseAerialSupport,
             AerialCombat,
             SupportingFire,
@@ -29,6 +31,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
         {
             var rRawData = rpInfo.Data as RawEnemyCombinedFleetDay;
 
+            LandBaseJetAircraftAerialSupport = new LandBaseJetAircraftAerialSupport(this, rRawData.LandBaseJetAircraftAerialSupport);
+            JetAircraftAerialCombat = new AerialCombatPhase(this, rRawData.JetAircraftAerialCombat);
             LandBaseAerialSupport = new LandBaseAerialSupportPhase(this, rRawData.LandBaseAerialSupport);
             AerialCombat = new AerialCombatPhase(this, rRawData.AerialCombat);
             SupportingFire = new SupportingFirePhase(this, rRawData.SupportingFire);

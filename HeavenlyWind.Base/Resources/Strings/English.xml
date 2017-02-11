@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.12.3">
+<Strings CultureName="en" Name="English" Version="0.1.15">
 
   <String Key="Product_Name">Intelligent Naval Gun</String>
 
@@ -36,6 +36,7 @@
   <String Key="Log_EquipmentImprovement_Success">[b]{0}[/b] has been successfully improved to {1}</String>
   <String Key="Log_EquipmentImprovement_Upgrade">The equipment has upgraded to [b]{0}[/b] {1}</String>
   <String Key="Log_EquipmentImprovement_Failure">Failed to improve [b]{0}[/b] {1}</String>
+  <String Key="Log_Proxy_AutoRetry">Retrying request (API: {1}, Retry count: {0})</String>
 
   <String Key="Notification_Expedition">Expedition Completed</String>
   <String Key="Notification_Expedition_Content">"{0}" has returned from {1}.</String>
@@ -55,6 +56,11 @@
   <String Key="MessageDialog_AudioSessionDisconnected">Audio device has been unplugged, which results in failing to mute/unmute.
 
 The current version can't handle this problem. To mute/unmute, please do it with sound mixer.</String>
+  <String Key="MessageDialog_Proxy_AutoRetry">Oops!</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message">The retry count of API {0} has reached the number you set.</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message2">The retry of API {0} failed again!</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Continue">Continue</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Abort">Abort</String>
 
   <String Key="Result_Failure">Failure</String>
   <String Key="Result_Success">Success</String>
@@ -144,6 +150,23 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Fleet_LoS_Formula_Autumn">2-5 Autumn</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">Autumn Simplified</String>
   <String Key="Fleet_LoS_Formula_Formula33">Formula 33</String>
+  <String Key="Fleet_LoS_Note">Note</String>
+  <String Key="Fleet_LoS_Note_25">Boss entry: At least [b]33[/b]</String>
+  <String Key="Fleet_LoS_Note_35">G->Boss: At least [b]28[/b]
+
+PS: C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_61">E->F: At least [b]16[/b]
+F->K(Boss): At least [b]25[/b]
+
+PS: C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_62">F->I: At least [b]50[/b]
+H->K(Boss): At least [b]40[/b]
+F->H->K(Boss): At least [b]40[/b] but less than [b]43[/b]
+
+PS: C[sub]n[/sub]=3</String>
+  <String Key="Fleet_LoS_Note_63">Boss entry: At least [b]38[/b]
+
+PS: C[sub]n[/sub]=3</String>
   <String Key="Fleet_FighterPower">FP</String>
   <String Key="Fleet_FighterPower_Formula_WithoutBonus">Without FP Bonus</String>
   <String Key="Fleet_FighterPower_Formula_WithBonus">With FP Bonus</String>
@@ -164,6 +187,8 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Ship_ToolTip_Status_Evasion">Evasion</String>
   <String Key="Ship_ToolTip_Status_ASW">ASW</String>
   <String Key="Ship_ToolTip_Status_LoS">LoS</String>
+  <String Key="Ship_ToolTip_Status_Speed">Speed</String>
+  <String Key="Ship_ToolTip_Status_Range">Range</String>
   <String Key="Ship_ToolTip_DayBattle">Day</String>
   <String Key="Ship_ToolTip_NightBattle">Night</String>
   <String Key="Ship_ToolTip_AttackMode">Attack Mode</String>
@@ -188,6 +213,15 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Ship_ToolTip_AttackPower_Torpedo">Torpedo</String>
   <String Key="Ship_ToolTip_AttackPower_ASW">ASW</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">Night</String>
+  <String Key="Ship_ToolTip_RepairTime">Repair Time</String>
+  <String Key="Ship_Speed_Slow">Slow</String>
+  <String Key="Ship_Speed_Fast">Fast</String>
+  <String Key="Ship_Speed_FastPlus">Fast+</String>
+  <String Key="Ship_Speed_UltraFast">Ultra Fast</String>
+  <String Key="Ship_Range_Short">Short</String>
+  <String Key="Ship_Range_Medium">Medium</String>
+  <String Key="Ship_Range_Long">Long</String>
+  <String Key="Ship_Range_VeryLong">Very long</String>
 
   <String Key="AirBase_Group_Option_Standby">Standby</String>
   <String Key="AirBase_Group_Option_Sortie">Sortie</String>
@@ -286,6 +320,8 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Battle_AerialCombatResult_Parity">Air Parity</String>
   <String Key="Battle_AerialCombatResult_Incapability">Air Incapability</String>
   <String Key="Battle_AerialCombatResult_Denial">Air Denial</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount">#Shot down (at least)</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount_Unit">Slot</String>
 
   <String Key="Quest_NoData">Please open the "Quests" menu in the game to populate the quest list</String>
   <String Key="Quest_Unknown">?????</String>
@@ -326,6 +362,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Window_ClosingConfirmation_Button_Yes">Exit</String>
   <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
 
+  <String Key="PreferenceWindow_DefaultValue">Default Value</String>
   <String Key="PreferenceWindow_Network">Network</String>
   <String Key="PreferenceWindow_Network_Port">Local proxy port</String>
   <String Key="PreferenceWindow_Network_Port_Customization">Set local proxy port</String>
@@ -340,6 +377,10 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">Are you sure that this upstream proxy refuse HTTPS connections?</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">Yes</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">No</String>
+  <String Key="PreferenceWindow_Network_AutoRetry">Auto retry if the server returns a 5xx error</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Count">Max retry count</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">Confirm when reaching this count</String>
+  <String Key="PreferenceWindow_Network_OpenInternetOptionConnectionDialog">Open connection setting of IE</String>
   <String Key="PreferenceWindow_Window">Window</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">Close confirmation</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">Disabled</String>
@@ -370,12 +411,18 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T1">Succeeded to modernize Amatsukaze Kai. (Torpedo MAX, Armor MAX; To MAX: Firepower 1, Luck 50)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Icon_T2">Succeeded to modernize Amatsukaze Kai. ([icon]torpedo[/icon] MAX, [icon]armor[/icon] MAX; [icon]firepower[/icon] +1, [icon]luck[/icon] +1)</String>
   <String Key="PreferenceWindow_UI_ModernizationMessage_Preview_Text_T2">Succeeded to modernize Amatsukaze Kai. (Torpedo MAX, Armor MAX; Firepower +1, Luck +1)</String>
-  <String Key="PreferenceWindow_UI_ModernizationMessage">Modernization Message</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo">Sortie info in the status bar</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Hidden">Hidden</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">Left side</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">Right side</String>
   <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">Exchange position of repair docks and fleet overview</String>
+  <String Key="PreferenceWindow_UI_Avartar">Ship avatar (Experimental feature)</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled">Use avatar in</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_FleetDetail">Fleet detail</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_BattleInfo">Battle info</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_ShipOverview">Ship overview</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_EquipmentOverview">Equipment overview</String>
+  <String Key="PreferenceWindow_UI_Avartar_Shape">Shape</String>
   <String Key="PreferenceWindow_Cache">Cache</String>
   <String Key="PreferenceWindow_Cache_Mode">Cache Mode</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">Disabled</String>
@@ -404,6 +451,8 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="PreferenceWindow_Browser">Browser</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">Layout Engine</String>
   <String Key="PreferenceWindow_Browser_Homepage">Homepage</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_Introduction">Introduction page</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage">Login page</String>
   <String Key="PreferenceWindow_Browser_ClearCache">Clear cache</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">Clear cache and cookie</String>
   <String Key="PreferenceWindow_Browser_Flash">Flash Settings</String>
@@ -443,7 +492,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="EquipmentOverview_List_Loading">Loading</String>
 
   <String Key="ShipOverview_Type">Type</String>
-  <String Key="ShipOverview_Name">Name</String>
+  <String Key="ShipOverview_Ship">Ship</String>
   <String Key="ShipOverview_Level">Level</String>
   <String Key="ShipOverview_Condition">Cond.</String>
   <String Key="ShipOverview_Firepower">Firepower</String>
@@ -461,6 +510,7 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">Except Lv1 ships</String>
   <String Key="ShipOverview_Filter_ExceptMaxModernizationShips">Except maximum modernization ships</String>
   <String Key="ShipOverview_List_Loading">Loading</String>
+  <String Key="ShipOverview_OnExpedition">Exp</String>
 
   <String Key="Export_CSV">Export as CSV file</String>
   <String Key="Export_CSV_FileType">CSV File</String>
@@ -472,6 +522,13 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Record_SecretaryShip">Secretary ship</String>
   <String Key="Record_RankingPoints">Points</String>
   <String Key="Record_Filter_SuccessOnly">Successful</String>
+  <String Key="Record_TimeSpan_All">All</String>
+  <String Key="Record_TimeSpan_Recent24Hours">Last 24h</String>
+  <String Key="Record_TimeSpan_Recent3Days">Last 3d</String>
+  <String Key="Record_TimeSpan_Recent7Days">Last 7d</String>
+  <String Key="Record_TimeSpan_Custom">Custom</String>
+  <String Key="Record_CustomTimeSpan_Start">Start</String>
+  <String Key="Record_CustomTimeSpan_End">End</String>
 
   <String Key="ConstructionHistory_Ship">Ship</String>
   <String Key="ConstructionHistory_LSCOnly">LSC</String>

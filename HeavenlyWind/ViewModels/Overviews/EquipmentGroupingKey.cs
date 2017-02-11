@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 {
-    public struct EquipmentGroupingKey : IEquatable<EquipmentGroupingKey>
+    struct EquipmentGroupingKey : IEquatable<EquipmentGroupingKey>
     {
         public int Level { get; }
         public int Proficiency { get; }

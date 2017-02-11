@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class EventMapOverviewViewModel : ModelBase
+    class EventMapOverviewViewModel : ModelBase
     {
         public IList<EventMap> EventMaps { get; }
 

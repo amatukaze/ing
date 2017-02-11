@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class GamePreference
+    public class GamePreference : ModelBase
     {
         public Property<FleetLoSFormula> MainFleetLoSFormula { get; } = new Property<FleetLoSFormula>("game.formula.los", FleetLoSFormula.Formula33);
 

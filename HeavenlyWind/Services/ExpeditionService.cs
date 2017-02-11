@@ -9,10 +9,8 @@ using System.Threading;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    public class ExpeditionService
+    class ExpeditionService
     {
-        public const string DataFilename = @"Data\expeditions.json";
-
         public static ExpeditionService Instance { get; } = new ExpeditionService();
 
         ManualResetEventSlim r_InitializationLock = new ManualResetEventSlim(false);
@@ -27,20 +25,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 try
                 {
-                    var rDataFile = new FileInfo(DataFilename);
-                    if (rDataFile.Exists)
-                        using (var rReader = new JsonTextReader(rDataFile.OpenText()))
-                        {
-                            var rData = JArray.Load(rReader);
+                    byte[] rContent;
+                    if (!DataStore.TryGet("expedition", out rContent))
+                        r_Infos = new IDTable<ExpeditionInfo2>();
+                    else
+                    {
+                        var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
+                        var rData = JArray.Load(rReader);
 
-                            r_Infos = rData.Select(r => r.ToObject<ExpeditionInfo2>()).ToIDTable();
-                        }
+                        r_Infos = rData.Select(r => r.ToObject<ExpeditionInfo2>()).ToIDTable();
+                    }
                 }
                 finally
                 {
-                    if (r_Infos == null)
-                        r_Infos = new IDTable<ExpeditionInfo2>();
-
                     r_InitializationLock.Set();
                     r_InitializationLock.Dispose();
                     r_InitializationLock = null;
@@ -52,11 +49,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public bool ContainsInfo(int rpID) => r_Infos.ContainsKey(rpID);
 
-        public ExpeditionInfo2 GetInfo(int rpID)
-        {
-            ExpeditionInfo2 rInfo;
-            r_Infos.TryGetValue(rpID, out rInfo);
-            return rInfo;
-        }
+        public ExpeditionInfo2 GetInfo(int rpID) => r_Infos.GetValueOrDefault(rpID);
     }
 }

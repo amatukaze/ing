@@ -4,7 +4,7 @@ using System.Windows.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.Controls
 {
-    class FighterPower : ComboBox
+    class FighterPower : ListBox
     {
         static FighterPower()
         {

@@ -134,7 +134,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
                 UpdateCore();
 
-                Observable.Timer(new DateTimeOffset(DateTime.Now.Date.AddDays(1.0)), TimeSpan.FromDays(1.0)).Subscribe(delegate
+                Observable.Timer(new DateTimeOffset(DateTime.Now.Tomorrow()), TimeSpan.FromDays(1.0)).Subscribe(delegate
                 {
                     DayDifference.Reload();
                     WeekDifference.Reload();

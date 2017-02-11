@@ -24,8 +24,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_maxhp")]
         public int HPMaximum { get; set; }
 
+        [JsonProperty("api_soku")]
+        public ShipSpeed Speed { get; set; }
+
         [JsonProperty("api_leng")]
-        public int Range { get; set; }
+        public Range Range { get; set; }
 
         [JsonProperty("api_slot")]
         public int[] Equipment { get; set; }

@@ -28,20 +28,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         }
         internal void Reload()
         {
+            const string DailyUpdateTime = "CAST(strftime('%s', 'now', '+7 hour', 'start of day', '-7 hour') AS INTEGER)";
+            const string MonthlyUpdateTime = "CAST(strftime('%s', 'now', '+9 hour', 'start of month', '-9 hour') AS INTEGER)";
+
             using (var rCommand = RecordService.Instance.CreateCommand())
             {
                 switch (Type)
                 {
                     case AdmiralRankingPointsDifferenceType.PreviousUpdate:
-                        rCommand.CommandText = "SELECT coalesce((SELECT max(experience) FROM admiral_experience WHERE time < (CASE (strftime('%H', 'now') + 7) / 12 WHEN 1 THEN strftime('%s', 'now', 'start of day', '+5 hour') ELSE strftime('%s', 'now', 'start of day', '-7 hour') END)), (SELECT min(experience) FROM admiral_experience WHERE time >= (CASE (strftime('%H', 'now') + 7) / 12 WHEN 1 THEN strftime('%s', 'now', 'start of day', '+5 hour') ELSE strftime('%s', 'now', 'start of day', '-7 hour') END)), @current_exp);";
+                        const string PreviousAggregateTime = "(CASE CAST(strftime('%H', 'now', '+7 hour') AS INTEGER) / 12 WHEN 1 THEN CAST(strftime('%s', 'now', '-5 hour', 'start of day', '+5 hour') AS INTEGER) ELSE " + DailyUpdateTime + " END)";
+                        const string PreviousAggregate = "max(" + PreviousAggregateTime + ", " + MonthlyUpdateTime + ")";
+                        rCommand.CommandText = "SELECT coalesce((SELECT max(experience) FROM admiral_experience WHERE time < " + PreviousAggregate + "), (SELECT min(experience) FROM admiral_experience WHERE time >= " + PreviousAggregate + "), @current_exp);";
                         break;
 
                     case AdmiralRankingPointsDifferenceType.Day:
-                        rCommand.CommandText = "SELECT coalesce((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of day', '-7 hour')), (SELECT min(experience) FROM admiral_experience WHERE time >= strftime('%s', 'now', 'start of day', '-7 hour')), @current_exp);";
+                        const string Daily = "max(" + DailyUpdateTime + ", " + MonthlyUpdateTime + ")";
+                        rCommand.CommandText = "SELECT coalesce((SELECT max(experience) FROM admiral_experience WHERE time < " + Daily + "), (SELECT min(experience) FROM admiral_experience WHERE time >= " + Daily + "), @current_exp);";
                         break;
 
                     case AdmiralRankingPointsDifferenceType.Month:
-                        rCommand.CommandText = "SELECT coalesce((SELECT max(experience) FROM admiral_experience WHERE time < strftime('%s', 'now', 'start of month', '-11 hour')), (SELECT min(experience) FROM admiral_experience WHERE time >= strftime('%s', 'now', 'start of month', '-11 hour')), @current_exp);";
+                        rCommand.CommandText = "SELECT coalesce((SELECT max(experience) FROM admiral_experience WHERE time < " + MonthlyUpdateTime + "), (SELECT min(experience) FROM admiral_experience WHERE time >= " + MonthlyUpdateTime + "), @current_exp);";
                         break;
                 }
                 rCommand.Parameters.AddWithValue("@current_exp", r_Owner.AdmiralExperience);

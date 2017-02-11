@@ -16,6 +16,10 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
                     case "zh-CN":
                         return "智能型连装炮君";
 
+                    case "zh-HK":
+                    case "zh-TW":
+                        return "智能型連裝砲君";
+
                     default:
                         return "Intelligent Naval Gun";
                 }
@@ -32,6 +36,8 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
                         return "しまった！";
 
                     case "zh-CN":
+                    case "zh-HK":
+                    case "zh-TW":
                         return "哎呀！";
 
                     default:
@@ -52,6 +58,10 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
                     case "zh-CN":
                         return "遇到了一些无法处理的错误。";
 
+                    case "zh-HK":
+                    case "zh-TW":
+                        return "遇到了一些無法處理的錯誤。";
+
                     default:
                         return "An unhandled exception occurred.";
                 }
@@ -69,6 +79,10 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
 
                     case "zh-CN":
                         return "该错误的详细内容已保存到 {0}。";
+
+                    case "zh-HK":
+                    case "zh-TW":
+                        return "該錯誤的詳細內容已保存到 {0}。";
 
                     default:
                         return "The detail has been saved to {0}.";

@@ -3,6 +3,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
     class SortieConsumptionRecords : RecordsGroup
     {
         public override string GroupName => "sortie_consumption";
-        public override int Version => 3;
+        public override int Version => 4;
 
         Port Port = KanColleGame.Current.Port;
 
         enum ShipParticipantType { Sortie, SupportFire, NormalExpedition, Practice }
-        enum ConsumptionType { Supply, Repair, Remodel, AirBasePlaneDeployment, AirForceGroupSortie, AirForceSquadronSupply, EnemyRaid }
+        enum ConsumptionType { Supply, Repair, Remodel, AirBasePlaneDeployment, AirForceGroupSortie, AirForceSquadronSupply, EnemyRaid, JetAircraftAerialCombat, LandBaseJetAircraftAerialSupport }
 
         ListDictionary<int, SupplySnapshot> r_SupplySnapshots = new ListDictionary<int, SupplySnapshot>();
 
@@ -58,6 +59,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             DisposableObjects.Add(ApiService.Subscribe("api_req_air_corps/set_plane", AirBasePlaneDeployment));
             DisposableObjects.Add(ApiService.Subscribe("api_req_air_corps/supply", BeforeAirForceSquadronSupply, AfterAirForceSquadronSupply));
+
+            var rBattleApis = new[]
+            {
+                "api_req_sortie/battle",
+                "api_req_sortie/airbattle",
+                "api_req_sortie/ld_airbattle",
+                "api_req_combined_battle/airbattle",
+                "api_req_combined_battle/battle",
+                "api_req_combined_battle/battle_water",
+                "api_req_combined_battle/sp_midnight",
+                "api_req_combined_battle/ld_airbattle",
+                "api_req_combined_battle/ec_battle",
+                "api_req_combined_battle/each_battle",
+                "api_req_combined_battle/each_battle_water",
+                "api_req_practice/battle",
+            };
+            DisposableObjects.Add(ApiService.Subscribe(rBattleApis, ProcessJetPoweredAircraftConsumption));
         }
 
         protected override void CreateTable()
@@ -102,6 +120,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         "[group] INTEGER NOT NULL, " +
                         "bauxite INTEGER NOT NULL, " +
                         "PRIMARY KEY(area, [group])); " +
+
+                    "CREATE TABLE IF NOT EXISTS enemy_aerial_raid(damage INTEGER NOT NULL); " +
 
                     "CREATE TABLE IF NOT EXISTS sortie_reward(" +
                         "id INTEGER PRIMARY KEY NOT NULL REFERENCES sortie_consumption(id) ON DELETE CASCADE ON UPDATE CASCADE, " +
@@ -163,8 +183,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             rBuilder.AppendLine(";");
 
-            if (rSortie.Map.AvailableAirBaseGroupCount > 0)
-                ProcessLBASConsumption(rBuilder, rCommand.Parameters, rSortie);
+            if (rSortie.AirForceGroups?.Length > 0)
+            {
+                ProcessAirBaseSquadronParticipants(rBuilder, rSortie.AirForceGroups);
+                ProcessAirBasePlaneDeploymentConsumption(rBuilder, rCommand.Parameters, rSortie.Map, rSortie.AirForceGroups);
+                ProcessAirForceGroupSortieConsumption(rBuilder, rCommand.Parameters, rSortie.AirForceGroups);
+            }
 
             rCommand.CommandText = rBuilder.ToString();
             rCommand.Parameters.AddWithValue("@id", rSortie.ID);
@@ -190,32 +214,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         }
         void ProcessSupportFleets(StringBuilder rpBuilder)
         {
-            var rSupportFleets = Port.Fleets.Table.Values
-                .Where(r =>
-                {
-                    var rExpedition = r.ExpeditionStatus.Expedition;
+            var rSupportFleets = Port.Fleets.Where(r =>
+            {
+                var rExpedition = r.ExpeditionStatus.Expedition;
 
-                    return rExpedition != null && !rExpedition.CanReturn && rExpedition.MapArea.ID == SortieInfo.Current.Map.MasterInfo.AreaID;
-                }).ToArray();
+                return rExpedition != null && !rExpedition.CanReturn && rExpedition.MapArea.ID == SortieInfo.Current.Map.MasterInfo.AreaID;
+            }).ToArray();
 
             if (rSupportFleets.Length > 0)
                 foreach (var rShip in rSupportFleets.SelectMany(r => r.Ships))
                     rpBuilder.Append($", (@id, {rShip.ID}, {rShip.Info.ID}, 1)");
-        }
-        void ProcessLBASConsumption(StringBuilder rpBuilder, SQLiteParameterCollection rpParameters, SortieInfo rpSortie)
-        {
-            var rMap = rpSortie.Map;
-            var rAllGroups = Port.AirBase.Table[rMap.MasterInfo.AreaID].Values;
-            var rGroups = rAllGroups.Take(rMap.AvailableAirBaseGroupCount).Where(r => r.Option == AirForceGroupOption.Sortie)
-                .Concat(rAllGroups.Where(r => r.Option == AirForceGroupOption.AirDefense))
-                .ToArray();
-
-            if (rGroups.Length == 0)
-                return;
-
-            ProcessAirBaseSquadronParticipants(rpBuilder, rGroups);
-            ProcessAirBasePlaneDeploymentConsumption(rpBuilder, rpParameters, rMap, rGroups);
-            ProcessAirForceGroupSortieConsumption(rpBuilder, rpParameters, rGroups);
         }
         void ProcessAirBaseSquadronParticipants(StringBuilder rpBuilder, AirForceGroup[] rpGroups)
         {
@@ -249,9 +257,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         }
         void ProcessAirForceGroupSortieConsumption(StringBuilder rpBuilder, SQLiteParameterCollection rpParameters, AirForceGroup[] rpGroups)
         {
+            var rFuelConsumption = 0;
+            var rBulletConsumption = 0;
+
+            foreach (var rGroup in rpGroups)
+            {
+                rFuelConsumption += rGroup.LBASFuelConsumption;
+                rBulletConsumption += rGroup.LBASBulletConsumption;
+            }
+
+            if (rFuelConsumption == 0 && rBulletConsumption == 0)
+                return;
+
             rpBuilder.AppendLine("INSERT OR IGNORE INTO sortie_consumption_detail(id, type, fuel, bullet) VALUES(@id, 4, @afgs_fuel, @afgs_bullet);");
-            rpParameters.AddWithValue("@afgs_fuel", rpGroups.Sum(r => r.LBASFuelConsumption));
-            rpParameters.AddWithValue("@afgs_bullet", rpGroups.Sum(r => r.LBASBulletConsumption));
+            rpParameters.AddWithValue("@afgs_fuel", rFuelConsumption);
+            rpParameters.AddWithValue("@afgs_bullet", rBulletConsumption);
         }
 
         void BeforeSupply(ApiInfo rpInfo)
@@ -350,7 +370,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             r_AnchorageRepairSnapshots.Clear();
 
-            var rShips = Port.Fleets.Table.Values.SelectMany(r => r.AnchorageRepair.RepairingShips).ToArray();
+            var rShips = Port.Fleets.SelectMany(r => r.AnchorageRepair.RepairingShips).ToArray();
             if (rShips.Length == 0)
                 r_AnchorageRepairStartTime = 0;
             else
@@ -387,7 +407,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             var rSnapshots = r_AnchorageRepairSnapshots.Values.Where(r => r.Ship.HP.Current > r.HP).ToArray();
             if (rSnapshots.Length == 0)
+            {
+                var rOriginalTimeToComplete = DateTimeUtil.FromUnixTime(r_AnchorageRepairStartTime + 20 * 60);
+
+                foreach (var rFleet in Port.Fleets)
+                {
+                    if ((rFleet.State & FleetState.AnchorageRepair) == 0 || rFleet.AnchorageRepair.TimeToComplete.Value <= rOriginalTimeToComplete)
+                        continue;
+
+                    rFleet.AnchorageRepair.Offset(rFleet.AnchorageRepair.TimeToComplete.Value - rOriginalTimeToComplete);
+                }
+
                 return;
+            }
 
             var rBuilder = new StringBuilder(512);
             rBuilder.Append("INSERT OR IGNORE INTO sortie_consumption_detail(id, type) VALUES");
@@ -464,7 +496,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (r_AnchorageRepairSnapshotsInitialized)
                 return;
 
-            var rRepairingShips = Port.Fleets.Table.Values.SelectMany(r => r.AnchorageRepair.RepairingShips);
+            var rRepairingShips = Port.Fleets.SelectMany(r => r.AnchorageRepair.RepairingShips);
             var rAbsentShipIDs = r_AnchorageRepairSnapshots.Keys.Except(rRepairingShips.Select(r => r.ID)).Where(r =>
             {
                 Ship rShip;
@@ -526,6 +558,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             var rEvent = rNode.Event as RewardEventBase;
             if (rEvent != null)
                 ProcessReward(rCommand, rNode, rEvent);
+
+            var rEnemyAerialRaid = rNode.EnemyAerialRaid ?? (rNode.Event as BattleEvent)?.EnemyAerialRaid;
+            if (rEnemyAerialRaid != null)
+                ProcessEnemyAerialRaid(rCommand, rEnemyAerialRaid);
 
             rCommand.PostToTransactionQueue();
         }
@@ -616,6 +652,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
 
             throw new ArgumentException(nameof(rpType));
+        }
+        void ProcessEnemyAerialRaid(SQLiteCommand rpCommand, EnemyAerialRaid rpData)
+        {
+            rpCommand.CommandText += "INSERT INTO enemy_aerial_raid(damage) VALUES(@enemy_aerial_raid_damage);";
+            rpCommand.Parameters.AddWithValue("@enemy_aerial_raid_damage", rpData.Amount);
         }
 
         void ProcessBattleResult(ApiInfo rpInfo)
@@ -767,6 +808,58 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             r_SupplyingGroup = null;
             r_SupplyingSquadrons = null;
 
+            rCommand.PostToTransactionQueue();
+        }
+
+        void ProcessJetPoweredAircraftConsumption(ApiInfo rpInfo)
+        {
+            var rData = rpInfo.Data as RawDay;
+            if (rData == null)
+                return;
+
+            var rIsLBJAASAvailable = rData.LandBaseJetAircraftAerialSupport != null;
+
+            var rFriendAttackers = rData.JetAircraftAerialCombat?.Attackers[0];
+            var rIsJAACAvailable = rFriendAttackers != null && rFriendAttackers.Length > 0 && rFriendAttackers[0] != -1;
+
+            if (!rIsLBJAASAvailable && !rIsJAACAvailable)
+                return;
+
+            var rSortie = SortieInfo.Current;
+            var rID = rSortie != null ? rSortie.ID : rpInfo.Timestamp;
+
+            var rCommand = Connection.CreateCommand();
+            rCommand.Parameters.AddWithValue("@id", rID);
+
+            var rBuilder = new StringBuilder(384);
+            if (rIsJAACAvailable)
+            {
+                var rJetAircrafts = from rShip in (rSortie?.Fleet ?? Port.Fleets[0]).Ships
+                                    from rSlot in rShip.Slots
+                                    where rSlot.HasEquipment && rSlot.Equipment.Info.IsJetPoweredAircraft
+                                    select rSlot;
+                var rSteelConsumption = rJetAircrafts.Sum(r => Math.Round(r.PlaneCount * r.Equipment.Info.DeploymentBauxiteConsumption * .2));
+
+                rBuilder.AppendLine("INSERT OR IGNORE INTO sortie_consumption_detail(id, type) VALUES(@id, 7);");
+                rBuilder.AppendLine("UPDATE sortie_consumption_detail SET steel = ifnull(steel, 0) + @jaac_steel WHERE id = @id AND type = 7;");
+                rCommand.Parameters.AddWithValue("@jaac_steel", rSteelConsumption);
+            }
+
+            if (rIsLBJAASAvailable)
+            {
+                var rJetAircrafts = from rGroup in rSortie.AirForceGroups
+                                    where rGroup.Option == AirForceGroupOption.Sortie
+                                    from rSquadron in rGroup.Squadrons.Values
+                                    where rSquadron.State == AirForceSquadronState.Idle && rSquadron.Plane.Info.IsJetPoweredAircraft
+                                    select rSquadron;
+                var rSteelConsumption = rJetAircrafts.Sum(r => Math.Round(r.Count * r.Plane.Info.DeploymentBauxiteConsumption * .2));
+
+                rBuilder.AppendLine("INSERT OR IGNORE INTO sortie_consumption_detail(id, type) VALUES(@id, 8);");
+                rBuilder.AppendLine("UPDATE sortie_consumption_detail SET steel = ifnull(steel, 0) + @lbjaas_steel WHERE id = @id AND type = 8;");
+                rCommand.Parameters.AddWithValue("@lbjaas_steel", rSteelConsumption);
+            }
+
+            rCommand.CommandText = rBuilder.ToString();
             rCommand.PostToTransactionQueue();
         }
 

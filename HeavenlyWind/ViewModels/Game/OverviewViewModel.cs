@@ -5,6 +5,7 @@ using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using Sakuno.KanColle.Amatsukaze.Views.Overviews;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ using System.Windows.Input;
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
     [ViewInfo(typeof(Overview))]
-    public class OverviewViewModel : TabItemViewModel
+    class OverviewViewModel : TabItemViewModel
     {
         public override string Name
         {

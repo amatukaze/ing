@@ -1,0 +1,42 @@
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
+{
+    public class AntiAirCutIn : ModelBase
+    {
+        static Dictionary<int, int> r_ShotdownCount;
+
+        public int TypeID { get; }
+
+        public int? ShotdownCount { get; }
+
+        public EquipmentInfo[] UsedEquipment { get; }
+
+        static AntiAirCutIn()
+        {
+            byte[] rContent;
+            if (DataStore.TryGet("anti_air_cut_in", out rContent))
+            {
+                var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
+                var rData = JArray.Load(rReader);
+
+                r_ShotdownCount = rData.ToDictionary(r => (int)r["id"], r => (int)r["shotdown"]);
+            }
+        }
+        internal AntiAirCutIn(RawAntiAirCutIn rpData)
+        {
+            TypeID = rpData.TypeID;
+
+            UsedEquipment = rpData.EquipmentIDs.Select(r => KanColleGame.Current.MasterInfo.Equipment[r]).ToArray();
+
+            int rShotdownCount;
+            if (r_ShotdownCount.TryGetValue(TypeID, out rShotdownCount))
+                ShotdownCount = rShotdownCount;
+        }
+    }
+}

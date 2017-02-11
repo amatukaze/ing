@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace Sakuno.KanColle.Amatsukaze.Views.Game
+﻿namespace Sakuno.KanColle.Amatsukaze.Views.Game
 {
     /// <summary>
     /// EventMapOverview.xaml の相互作用ロジック
     /// </summary>
-    public partial class EventMapOverview : UserControl
+    partial class EventMapOverview
     {
         public EventMapOverview()
         {

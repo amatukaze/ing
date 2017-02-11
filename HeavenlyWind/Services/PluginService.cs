@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    public class PluginService
+    class PluginService
     {
         public static PluginService Instance { get; } = new PluginService();
 
@@ -32,6 +32,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         IEnumerable<Lazy<IPreference, IPluginMetadata>> r_Preferences = null;
 
         public IEnumerable<Plugin> LoadedPlugins => r_LoadedPlugins.Values;
+
+        public IList<FailureInfo> Failures => r_Failures;
 
         public IEnumerable<IToolPane> ToolPanes => Cache<IToolPane>.Contents?.AsReadOnly();
 

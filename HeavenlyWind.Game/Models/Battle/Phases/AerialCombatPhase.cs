@@ -16,6 +16,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         internal protected override void Process()
         {
+            if (RawData == null)
+                return;
+
             var rInfo = Stage.Owner.AerialCombat;
 
             ProcessStage1(rInfo);
@@ -26,46 +29,53 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
         void ProcessStage1(AerialCombat rpInfo)
         {
             var rStage1 = RawData.Stage1;
-            if (rStage1 != null)
-            {
-                rpInfo.Result = rStage1.Result;
+            if (rStage1 == null)
+                return;
 
-                if (Round == PhaseRound.First)
-                    rpInfo.Stage1 = new AerialCombat.Stage()
-                    {
-                        FriendPlaneCount = rStage1.FriendPlaneCount,
-                        FriendPlaneRemaningCount = rStage1.FriendPlaneCount - rStage1.FriendPlaneLostCount,
+            rpInfo.Result = rStage1.Result;
 
-                        EnemyPlaneCount = rStage1.EnemyPlaneCount,
-                        EnemyPlaneRemaningCount = rStage1.EnemyPlaneCount - rStage1.EnemyPlaneLostCount,
-                    };
-                else
+            if (Round == PhaseRound.First)
+                rpInfo.Stage1 = new AerialCombat.Stage()
                 {
-                    rpInfo.Stage1.FriendPlaneRemaningCount -= rStage1.FriendPlaneLostCount;
-                    rpInfo.Stage1.EnemyPlaneRemaningCount -= rStage1.EnemyPlaneLostCount;
-                }
+                    FriendPlaneCount = rStage1.FriendPlaneCount,
+                    FriendPlaneRemaningCount = rStage1.FriendPlaneCount - rStage1.FriendPlaneLostCount,
+
+                    EnemyPlaneCount = rStage1.EnemyPlaneCount,
+                    EnemyPlaneRemaningCount = rStage1.EnemyPlaneCount - rStage1.EnemyPlaneLostCount,
+                };
+            else
+            {
+                rpInfo.Stage1.FriendPlaneRemaningCount -= rStage1.FriendPlaneLostCount;
+                rpInfo.Stage1.EnemyPlaneRemaningCount -= rStage1.EnemyPlaneLostCount;
             }
         }
 
         void ProcessStage2(AerialCombat rpInfo)
         {
             var rStage2 = RawData.Stage2;
-            if (rStage2 != null)
-            {
-                if (Round == PhaseRound.First)
-                    rpInfo.Stage2 = new AerialCombat.Stage()
-                    {
-                        FriendPlaneCount = rStage2.FriendPlaneCount,
-                        FriendPlaneRemaningCount = rStage2.FriendPlaneCount - rStage2.FriendPlaneLostCount,
+            if (rStage2 == null)
+                return;
 
-                        EnemyPlaneCount = rStage2.EnemyPlaneCount,
-                        EnemyPlaneRemaningCount = rStage2.EnemyPlaneCount - rStage2.EnemyPlaneLostCount,
-                    };
-                else
+            if (Round == PhaseRound.First)
+                rpInfo.Stage2 = new AerialCombat.Stage()
                 {
-                    rpInfo.Stage2.FriendPlaneRemaningCount -= rStage2.FriendPlaneLostCount;
-                    rpInfo.Stage2.EnemyPlaneRemaningCount -= rStage2.EnemyPlaneLostCount;
-                }
+                    FriendPlaneCount = rStage2.FriendPlaneCount,
+                    FriendPlaneRemaningCount = rStage2.FriendPlaneCount - rStage2.FriendPlaneLostCount,
+
+                    EnemyPlaneCount = rStage2.EnemyPlaneCount,
+                    EnemyPlaneRemaningCount = rStage2.EnemyPlaneCount - rStage2.EnemyPlaneLostCount,
+                };
+            else
+            {
+                rpInfo.Stage2.FriendPlaneRemaningCount -= rStage2.FriendPlaneLostCount;
+                rpInfo.Stage2.EnemyPlaneRemaningCount -= rStage2.EnemyPlaneLostCount;
+            }
+
+            if (rStage2.AntiAirCutIn != null)
+            {
+                var rTriggerer = Stage.Friend[rStage2.AntiAirCutIn.TriggererIndex].Participant as FriendShip;
+                if (rTriggerer != null)
+                    rTriggerer.AntiAirCutIn = new AntiAirCutIn(rStage2.AntiAirCutIn);
             }
         }
 

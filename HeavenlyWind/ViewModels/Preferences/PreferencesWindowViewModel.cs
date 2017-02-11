@@ -1,22 +1,25 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.Services.Plugins;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Plugins;
 using Sakuno.SystemInterop.Dialogs;
-using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
 {
-    public class PreferencesWindowViewModel : WindowViewModel
+    class PreferencesWindowViewModel : WindowViewModel
     {
         public static PreferencesWindowViewModel Instance { get; } = new PreferencesWindowViewModel();
 
         public IList<SystemFont> SystemFonts { get; }
 
         public IList<PluginViewModel> LoadedPlugins { get; }
+        public IList<FailureInfo> PluginFailureInfos { get; }
 
         public bool IsAutoRotationSupported => CurrentDockExtension.IsAutoRotationSupported;
 
@@ -33,7 +36,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
 
             SystemFonts = rSystemFonts.AsReadOnly();
 
-            LoadedPlugins = PluginService.Instance.LoadedPlugins.Select(r => new PluginViewModel(r)).ToList().AsReadOnly();
+            LoadedPlugins = PluginService.Instance.LoadedPlugins.Select(r => new PluginViewModel(r)).ToArray().AsReadOnly();
+            PluginFailureInfos = PluginService.Instance.Failures;
 
             OpenFolderPickerCommand = new DelegatedCommand<string>(rpType =>
             {
@@ -81,5 +85,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Preferences
                 }
             });
         }
+
+        public void OpenInternetOptionConnectionDialog() => Process.Start("rundll32", "inetcpl.cpl LaunchConnectionDialog");
     }
 }

@@ -6,10 +6,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
-             xmlns:ruib="clr-namespace:Sakuno.UserInterface.Behaviors;assembly=Sakuno.UserInterface"
              xmlns:rs="clr-namespace:Sakuno.KanColle.Amatsukaze.Services"
              xmlns:rv="clr-namespace:Sakuno.KanColle.Amatsukaze.Views"
              xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
+             xmlns:ruii="clr-namespace:Sakuno.UserInterface.Interactivity;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              DataContext="{Binding Source={x:Static rs:BrowserService.Instance}}"
              Visibility="{Binding NoInstalledLayoutEngines, Source={x:Static rs:BrowserService.Instance}, Converter={StaticResource BooleanToInvisibilityConverter}}"
@@ -35,7 +35,7 @@
 
                                     <ContentPresenter Content="{Binding BrowserControl}">
                                         <i:Interaction.Behaviors>
-                                            <ruib:TaskbarThumbnailBehavior />
+                                            <ruii:TaskbarThumbnailBehavior />
                                         </i:Interaction.Behaviors>
                                     </ContentPresenter>
                                 </Grid>

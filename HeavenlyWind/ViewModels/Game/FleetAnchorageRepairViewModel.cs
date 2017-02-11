@@ -6,7 +6,7 @@ using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class FleetAnchorageRepairViewModel : ModelBase
+    class FleetAnchorageRepairViewModel : ModelBase
     {
         FleetAnchorageRepair r_Source;
 

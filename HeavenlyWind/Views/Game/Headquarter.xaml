@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.Headquarter"
+             x:ClassModifier="internal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -32,21 +33,38 @@
             <TextBlock Text="{Binding Name}" Margin="0, 0, 8, 0" />
 
             <TextBlock Grid.Column="1">
-                <TextBlock.Resources>
-                    <Style x:Key="ExperienceToNextLevel" TargetType="{x:Type Run}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
-                                <Setter Property="Text" Value="" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Resources>
-
                 <Run Text="Lv." Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
                 <Run Text="{Binding Level, Mode=OneWay}" />
                 [<Run Text="{rb:EnumToStringResource Rank, Overview_Admiral_Rank}" />]
-                <Run Style="{StaticResource ExperienceToNextLevel}" Text="Next:" Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12" />
-                <Run Style="{StaticResource ExperienceToNextLevel}" Text="{Binding ExperienceToNextLevel, Mode=OneWay}" />
+                <Run Foreground="{DynamicResource ForegroundBrushKey}" FontSize="12">
+                    <Run.Style>
+                        <Style TargetType="{x:Type Run}">
+                            <Setter Property="Text" Value="Next:" />
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Level}" Value="120">
+                                    <Setter Property="Text" Value="Remain:" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
+                                    <Setter Property="Text" Value="" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Run.Style>
+                </Run>
+                <Run>
+                    <Run.Style>
+                        <Style TargetType="{x:Type Run}">
+                            <Setter Property="Text" Value="{Binding ExperienceToNextLevel, Mode=OneWay}" />
+
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">
+                                    <Setter Property="Text" Value="" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Run.Style>
+                </Run>
             </TextBlock>
             <Rectangle Fill="Transparent" Grid.Column="1">
                 <Rectangle.ToolTip>
@@ -58,37 +76,41 @@
                                 <ColumnDefinition SharedSizeGroup="Difference" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition />
-                                <RowDefinition Height="6" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
+                            <Grid.Resources>
+                                <Style x:Key="Difference" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Setter Property="Visibility" Value="{Binding IsFinalized, Converter={StaticResource BooleanToInvisibilityConverter}}" />
+                                </Style>
+                            </Grid.Resources>
 
-                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_PreviousUpdate}" />
-                            <TextBlock HorizontalAlignment="Right" Grid.Column="2">
+                            <TextBlock Style="{StaticResource Difference}" Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_PreviousUpdate}" />
+                            <TextBlock Style="{StaticResource Difference}" HorizontalAlignment="Right" Grid.Column="2">
                                 <Run Text="{Binding PreviousUpdateDifference.AdmiralExperience, StringFormat=+0;-0;0, Mode=OneWay}" />
                                 <Run Text="{Binding PreviousUpdateDifference.RankingPoints, StringFormat=(0.#), Mode=OneWay}" />
                             </TextBlock>
 
-                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Day}" Grid.Row="1" />
-                            <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1">
+                            <TextBlock Style="{StaticResource Difference}" Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Day}" Grid.Row="1" />
+                            <TextBlock Style="{StaticResource Difference}" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1">
                                 <Run Text="{Binding DayDifference.AdmiralExperience, StringFormat=+0;-0;0, Mode=OneWay}" />
                                 <Run Text="{Binding DayDifference.RankingPoints, StringFormat=(0.#), Mode=OneWay}" />
                             </TextBlock>
 
-                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Month}" Grid.Row="2" />
-                            <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="2">
+                            <TextBlock Style="{StaticResource Difference}" Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Month}" Margin="0, 0, 0, 4" Grid.Row="2" />
+                            <TextBlock Style="{StaticResource Difference}" HorizontalAlignment="Right" Margin="0, 0, 0, 4" Grid.Column="2" Grid.Row="2">
                                 <Run Text="{Binding MonthDifference.AdmiralExperience, StringFormat=+0;-0;0, Mode=OneWay}" />
                                 <Run Text="{Binding MonthDifference.RankingPoints, StringFormat=(0.#), Mode=OneWay}" />
                             </TextBlock>
 
-                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_TotalRankingPoints}" FontWeight="Bold" Grid.Row="4" />
-                            <TextBlock Text="{Binding TotalScore}" FontWeight="Bold" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="4" />
+                            <TextBlock Style="{StaticResource Difference}" Text="{rb:StringResource Main.Overview_Admiral_TotalRankingPoints}" FontWeight="Bold" Grid.Row="3" />
+                            <TextBlock Style="{StaticResource Difference}" Text="{Binding TotalScore}" FontWeight="Bold" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3" />
 
-                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_FinalRankingPoints}" FontWeight="Bold" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Row="5" />
-                            <TextBlock Text="{Binding FinalScore}" FontWeight="Bold" HorizontalAlignment="Right" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Column="2" Grid.Row="5" />
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_FinalRankingPoints}" FontWeight="Bold" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Row="4" />
+                            <TextBlock Text="{Binding FinalScore}" FontWeight="Bold" HorizontalAlignment="Right" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Column="2" Grid.Row="4" />
                         </Grid>
                     </ToolTip>
                 </Rectangle.ToolTip>

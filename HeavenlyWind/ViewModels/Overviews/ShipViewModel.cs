@@ -1,5 +1,4 @@
-﻿using System;
-using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
@@ -8,23 +7,23 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
     {
         public Ship Ship { get; }
 
-        public ShipTypeViewModel Type { get; private set; }
+        public FilterTypeViewModel<ShipTypeInfo> Type { get; private set; }
 
         int IID.ID => Ship.ID;
 
-        public ShipViewModel(Ship rpShip, ShipTypeViewModel rpType)
+        public ShipViewModel(Ship rpShip, FilterTypeViewModel<ShipTypeInfo> rpType)
         {
             Ship = rpShip;
             Type = rpType;
         }
 
-        public void UpdateType(IDictionary<ShipTypeInfo, ShipTypeViewModel> rpTypes)
+        public void UpdateType(IDictionary<ShipTypeInfo, FilterTypeViewModel<ShipTypeInfo>> rpTypes)
         {
-            if (Ship.Info.Type.ID != Type.ID)
-            {
-                Type = rpTypes[Ship.Info.Type];
-                OnPropertyChanged(nameof(Type));
-            }
+            if (Ship.Info.Type.ID == Type.Type.ID)
+                return;
+
+            Type = rpTypes[Ship.Info.Type];
+            OnPropertyChanged(nameof(Type));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Game.FleetDetail"
+             x:ClassModifier="internal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -21,7 +22,7 @@
                     <Run Text="{Binding Status.TotalLevel, Mode=OneWay}" />
                 </TextBlock>
 
-                <rc:LoSFormulas ItemsSource="{Binding Status.LoS.Formulas}" Margin="3, 0, 0, 0" />
+                <rc:LoSFormulas ItemsSource="{Binding Status.LoS}" Margin="3, 0, 0, 0" />
                 <rc:FighterPower ItemsSource="{Binding Status.FighterPower.Formulas}" Margin="3, 0, 0, 0" />
 
                 <TextBlock Text="{rb:EnumToStringResource Status.Speed, Fleet_Speed}" Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull Status.Speed}" />
@@ -45,7 +46,7 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition MinWidth="75" SharedSizeGroup="ShipName" />
+                                <ColumnDefinition SharedSizeGroup="ShipName" />
                                 <ColumnDefinition SharedSizeGroup="ShipLevel" />
                                 <ColumnDefinition SharedSizeGroup="NextExperience" />
                                 <ColumnDefinition SharedSizeGroup="HP" MinWidth="60" />
@@ -55,13 +56,16 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" Grid.RowSpan="2" />
+                            <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" MinWidth="75" Visibility="{rb:Preference UI.Avatar.EnabledInFleetDetail, Converter={StaticResource BooleanToInvisibilityConverter}}" Grid.RowSpan="2" />
+                            <rc:ShipAvatar ID="{Binding Info.ID}" Visibility="{rb:Preference UI.Avatar.EnabledInFleetDetail, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" />
+
                             <Rectangle Fill="Transparent" Grid.RowSpan="2">
                                 <Rectangle.ToolTip>
-                                    <ToolTip>
+                                    <ToolTip Name="ToolTip">
                                         <ToolTip.Resources>
                                             <Style x:Key="ModernizationStatusStyle" TargetType="{x:Type Control}">
                                                 <Setter Property="Margin" Value="4, 0, 0, 0" />
+                                                <Setter Property="VerticalAlignment" Value="Center" />
 
                                                 <Setter Property="Template">
                                                     <Setter.Value>
@@ -88,55 +92,69 @@
                                             </Style>
                                         </ToolTip.Resources>
 
-                                        <StackPanel DataContext="{Binding Status}">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock>
-                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_Firepower}" />:
-                                                    <Run Text="{Binding Firepower, Mode=OneWay}" />
+                                        <StackPanel>
+                                            <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" FontSize="16" Margin="0, 0, 0, 6" Visibility="{rb:Preference UI.Avatar.EnabledInFleetDetail, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                                            <StackPanel DataContext="{Binding Status}">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock>
+                                                        <Run Text="{rb:StringResource Ship_ToolTip_Status_Firepower}" />:
+                                                        <Run Text="{Binding Firepower, Mode=OneWay}" />
+                                                    </TextBlock>
+
+                                                    <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding FirepowerBase}" />
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                                    <TextBlock>
+                                                        <Run Text="{rb:StringResource Ship_ToolTip_Status_Torpedo}" />:
+                                                        <Run Text="{Binding Torpedo, Mode=OneWay}" />
+                                                    </TextBlock>
+
+                                                    <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding TorpedoBase}" />
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                                    <TextBlock>
+                                                        <Run Text="{rb:StringResource Ship_ToolTip_Status_AA}" />:
+                                                        <Run Text="{Binding AA, Mode=OneWay}" />
+                                                    </TextBlock>
+
+                                                    <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding AABase}" />
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                                    <TextBlock>
+                                                        <Run Text="{rb:StringResource Ship_ToolTip_Status_Armor}" />:
+                                                        <Run Text="{Binding Armor, Mode=OneWay}" />
+                                                    </TextBlock>
+
+                                                    <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding ArmorBase}" />
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
+                                                    <TextBlock>
+                                                        <Run Text="{rb:StringResource Ship_ToolTip_Status_Luck}" />:
+                                                        <Run Text="{Binding Luck, Mode=OneWay}" />
+                                                    </TextBlock>
+
+                                                    <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding LuckBase}" />
+                                                </StackPanel>
+
+                                                <TextBlock Margin="0, 4, 0, 0">
+                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_ASW}" />:
+                                                    <Run Text="{Binding ASW, Mode=OneWay}" />
                                                 </TextBlock>
-
-                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding FirepowerBase}" />
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                                                <TextBlock>
-                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_Torpedo}" />:
-                                                    <Run Text="{Binding Torpedo, Mode=OneWay}" />
-                                                </TextBlock>
-
-                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding TorpedoBase}" />
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                                                <TextBlock>
-                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_AA}" />:
-                                                    <Run Text="{Binding AA, Mode=OneWay}" />
-                                                </TextBlock>
-
-                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding AABase}" />
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                                                <TextBlock>
-                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_Armor}" />:
-                                                    <Run Text="{Binding Armor, Mode=OneWay}" />
-                                                </TextBlock>
-
-                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding ArmorBase}" />
-                                            </StackPanel>
-
-                                            <StackPanel Orientation="Horizontal" Margin="0, 4, 0, 0">
-                                                <TextBlock>
-                                                    <Run Text="{rb:StringResource Ship_ToolTip_Status_Luck}" />:
-                                                    <Run Text="{Binding Luck, Mode=OneWay}" />
-                                                </TextBlock>
-
-                                                <Control Style="{StaticResource ModernizationStatusStyle}" DataContext="{Binding LuckBase}" />
                                             </StackPanel>
 
                                             <TextBlock Margin="0, 4, 0, 0">
-                                                <Run Text="{rb:StringResource Ship_ToolTip_Status_ASW}" />:
-                                                <Run Text="{Binding ASW, Mode=OneWay}" />
+                                                <Run Text="{rb:StringResource Ship_ToolTip_Status_Speed}" />:
+                                                <Run Text="{rb:EnumToStringResource Speed, Ship_Speed}" />
+                                            </TextBlock>
+
+                                            <TextBlock Margin="0, 4, 0, 0">
+                                                <Run Text="{rb:StringResource Ship_ToolTip_Status_Range}" />:
+                                                <Run Text="{rb:EnumToStringResource Range, Ship_Range}" />
                                             </TextBlock>
                                         </StackPanel>
                                     </ToolTip>
@@ -155,6 +173,16 @@
                                 <Run Text="{Binding HP.Maximum, Mode=OneWay}" FontSize="11" Foreground="{DynamicResource ForegroundBrushKey}" />
                             </TextBlock>
                             <rc:ColorIndicator x:Name="HPIndicator" Value="{Binding HP.Current}" Maximum="{Binding HP.Maximum}" Margin="3, 0, 0, 0" Grid.Row="1" Grid.Column="3" />
+                            <Rectangle Name="RepairTimeToolTip" Fill="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull RepairTime}" Grid.Column="3" Grid.RowSpan="2">
+                                <Rectangle.ToolTip>
+                                    <ToolTip>
+                                        <TextBlock Margin="4, 2">
+                                            <Run Text="{rb:StringResource Main.Ship_ToolTip_RepairTime, Mode=OneWay}" />:
+                                            <Run Text="{Binding RepairTime, StringFormat=hh\\:mm\\:ss, Mode=OneWay}" />
+                                        </TextBlock>
+                                    </ToolTip>
+                                </Rectangle.ToolTip>
+                            </Rectangle>
 
                             <Border Name="Repairing" Background="#332CC7C8" Visibility="Collapsed" Margin="3, 0, 0, 0" Grid.Column="3" Grid.ColumnSpan="3" Grid.RowSpan="2">
                                 <TextBlock HorizontalAlignment="Center">
@@ -226,12 +254,30 @@
                                 </Rectangle.ToolTip>
                             </Rectangle>
 
-                            <Border Background="Transparent" ToolTip="{StaticResource SlotsToolTip}" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2">
+                            <Border Background="Transparent" Margin="3, 0, 0, 0" Grid.Column="6" Grid.RowSpan="2">
+                                <Border.ToolTip>
+                                    <Control Template="{StaticResource SlotsToolTipContent}" />
+                                </Border.ToolTip>
+
                                 <StackPanel Orientation="Horizontal">
                                     <rc:ShipSlot DataContext="{Binding Slots}" />
-                                    <Border Name="ExtraSlot" BorderBrush="Gray" BorderThickness="1, 0, 0, 0" Margin="3, 0, 0, 0">
-                                        <rc:EquipmentIcon Type="{Binding ExtraSlot.Equipment.Info.Icon}" />
-                                    </Border>
+                                    <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Width="1" Margin="2, 0" Visibility="{rb:CollapsedIfNull ExtraSlot}" />
+                                    <Grid DataContext="{Binding ExtraSlot}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+
+                                        <rc:EquipmentIcon Type="{Binding Equipment.Info.Icon}" Width="22" Height="22" Margin="0, -4, 0, 0" Grid.RowSpan="4" />
+
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="2, 1, 0, 0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                            <rc:EquipmentProficiency Proficiency="{Binding Equipment.Proficiency}" />
+                                            <rc:EquipmentLevel Level="{Binding Equipment.Level}" ShowStar="False" />
+                                        </StackPanel>
+                                    </Grid>
                                 </StackPanel>
                             </Border>
                         </Grid>
@@ -298,10 +344,6 @@
                                     </MultiBinding>
                                 </Setter.Value>
                             </Setter>
-                        </DataTrigger>
-
-                        <DataTrigger Binding="{Binding ExtraSlot}" Value="{x:Null}">
-                            <Setter TargetName="ExtraSlot" Property="Visibility" Value="Collapsed" />
                         </DataTrigger>
                     </DataTemplate.Triggers>
                 </DataTemplate>

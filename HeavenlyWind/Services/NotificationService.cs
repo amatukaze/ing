@@ -14,7 +14,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -153,7 +152,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             ApiService.Subscribe("api_get_member/mapinfo", delegate
             {
-                var rFleetWithHeavilyDamagedShips = KanColleGame.Current.Port.Fleets.Table.Values.Where(r => (r.State & FleetState.HeavilyDamaged) == FleetState.HeavilyDamaged);
+                var rFleetWithHeavilyDamagedShips = KanColleGame.Current.Port.Fleets.Where(r => (r.State & FleetState.HeavilyDamaged) == FleetState.HeavilyDamaged);
                 if (Preference.Instance.Notification.HeavyDamageWarning && rFleetWithHeavilyDamagedShips.Any())
                 {
                     ShowHeavyDamageWarning(StringResources.Instance.Main.Notification_HeavyDamageWarning, StringResources.Instance.Main.Notification_HeavyDamageWarning_Content, rFleetWithHeavilyDamagedShips.SelectMany(r => r.Ships).Where(r => (r.State & ShipState.HeavilyDamaged) == ShipState.HeavilyDamaged));
@@ -163,6 +162,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, delegate
             {
                 var rBattle = BattleInfo.Current.CurrentStage;
+                if (rBattle.Friend == null)
+                    return;
 
                 var rHeavilyDamagedShips = rBattle.Friend.Where(r => !r.IsEvacuated && r.State == BattleParticipantState.HeavilyDamaged).Select(r => ((FriendShip)r.Participant).Ship).ToArray();
                 if (rHeavilyDamagedShips.Length > 0)
@@ -185,9 +186,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 if (rSortie.EscortFleet != null)
                     rParticipants = rParticipants.Concat(rSortie.EscortFleet.Ships.Skip(1));
 
+                var rNode = rSortie.Node;
                 var rHeavilyDamagedShips = rParticipants.Where(r => (r.State & ShipState.HeavilyDamaged) != 0 && (r.State & ShipState.Evacuated) == 0 &&
                     !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)).ToArray();
-                if (rHeavilyDamagedShips.Length == 0)
+                if (rHeavilyDamagedShips.Length == 0 || (rNode.IsDeadEnd && rNode.EventType != SortieEventType.NormalBattle && rNode.EventType != SortieEventType.BossBattle))
                     ThemeManager.Instance.ChangeAccent(Accent.Brown);
                 else
                 {
@@ -215,7 +217,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         public void Show(string rpTitle, string rpBody) => ShowCore(rpTitle, rpBody, Preference.Instance.Notification.Sound, Preference.Instance.Notification.SoundFilename);
         public void ShowHeavyDamageWarning(string rpTitle, string rpBody, IEnumerable<Ship> rpHeavilyDamagedShips)
         {
-            var rBuilder = new StringBuilder(64);
+            var rBuilder = StringBuilderCache.Acquire();
             foreach (var rShip in rpHeavilyDamagedShips)
             {
                 if (rBuilder.Length > 0)
@@ -224,7 +226,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 rBuilder.Append(rShip.Info.TranslatedName).Append(' ').Append("Lv.").Append(rShip.Level);
             }
 
-            ShowCore(rpTitle, rpBody, Preference.Instance.Notification.HeavyDamageWarningSound, Preference.Instance.Notification.HeavyDamageWarningSoundFilename, rBuilder.ToString());
+            ShowCore(rpTitle, rpBody, Preference.Instance.Notification.HeavyDamageWarningSound, Preference.Instance.Notification.HeavyDamageWarningSoundFilename, rBuilder.GetStringAndRelease());
         }
         void ShowCore(string rpTitle, string rpBody, NotificationSound rpSound, string rpCustomSoundFilename, string rpSecondLine = null)
         {
@@ -232,7 +234,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             {
                 var rBody = rpBody;
                 if (rpSecondLine != null)
-                    rBody = $"{rBody}{Environment.NewLine}{rpSecondLine}";
+                    rBody = rBody + Environment.NewLine + rpSecondLine;
 
                 r_NotifyIcon.ShowBalloonTip(1000, rpTitle, rBody, ToolTipIcon.None);
 

@@ -6,26 +6,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
-             xmlns:rbe="clr-namespace:Sakuno.UserInterface.Behaviors;assembly=Sakuno.UserInterface"
+             xmlns:ruico="clr-namespace:Sakuno.UserInterface.Commands;assembly=Sakuno.UserInterface"
+             xmlns:ruii="clr-namespace:Sakuno.UserInterface.Interactivity;assembly=Sakuno.UserInterface"
+             xmlns:ruioo="clr-namespace:Sakuno.UserInterface.ObjectOperations;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <rb:IntegerRangeValidationRule x:Key="PortRangeValidationRule" Minimum="0" Maximum="65535" />
+        <rb:IntegerRangeValidationRule x:Key="RetryCountValidationRule" Minimum="0" />
     </UserControl.Resources>
 
     <StackPanel>
-        <CheckBox Name="EnablePortCustomization" IsChecked="{rb:Preference Network.PortCustomization}">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port_Customization}" />
-        </CheckBox>
-        <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsChecked, ElementName=EnablePortCustomization}" Margin="0, 6, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_Port}" />
-            <TextBox Text="{rb:Preference Network.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0">
-                <i:Interaction.Behaviors>
-                    <rbe:NumericTextBoxBehavior />
-                </i:Interaction.Behaviors>
-            </TextBox>
-        </StackPanel>
-        <CheckBox IsChecked="{rb:Preference Network.AllowRequestsFromOtherDevices}" Margin="0, 6, 0, 0">
+        <CheckBox IsChecked="{rb:Preference Network.AllowRequestsFromOtherDevices}">
             <TextBlock Text="{rb:StringResource PreferenceWindow_Network_AllowRequestsFromOtherDevices}" />
         </CheckBox>
 
@@ -36,7 +28,7 @@
             <TextBox Text="{rb:Preference Network.UpstreamProxy.Host}" Width="120" />
             <TextBox Text="{rb:Preference Network.UpstreamProxy.Port, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource PortRangeValidationRule}}" Width="60" Margin="6, 0, 0, 0">
                 <i:Interaction.Behaviors>
-                    <rbe:NumericTextBoxBehavior />
+                    <ruii:NumericTextBoxBehavior />
                 </i:Interaction.Behaviors>
             </TextBox>
 
@@ -44,5 +36,31 @@
                 <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_UseUpstreamProxy_HttpOnly}" />
             </CheckBox>
         </StackPanel>
+
+        <CheckBox IsChecked="{rb:Preference Network.AutoRetry}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_AutoRetry}" />
+        </CheckBox>
+        <StackPanel IsEnabled="{rb:Preference Network.AutoRetry}" Orientation="Horizontal" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_AutoRetry_Count}" />
+            <TextBox Text="{rb:Preference Network.AutoRetryCount, UpdateSourceTrigger=PropertyChanged, ValidationRule={StaticResource RetryCountValidationRule}}" Width="60" Margin="6, 0, 0, 0">
+                <i:Interaction.Behaviors>
+                    <ruii:NumericTextBoxBehavior />
+                </i:Interaction.Behaviors>
+            </TextBox>
+
+            <CheckBox IsChecked="{rb:Preference Network.AutoRetryConfirmation}" Margin="12, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_AutoRetry_Confirmation}" />
+            </CheckBox>
+        </StackPanel>
+
+        <Button MinWidth="250" HorizontalAlignment="Left" Margin="0, 12, 0, 0">
+            <Button.Command>
+                <ruico:ObjectOperationCommand>
+                    <ruioo:InvokeMethod Method="OpenInternetOptionConnectionDialog" />
+                </ruico:ObjectOperationCommand>
+            </Button.Command>
+
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_OpenInternetOptionConnectionDialog}" Margin="4, 2" />
+        </Button>
     </StackPanel>
 </UserControl>

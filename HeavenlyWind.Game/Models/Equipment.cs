@@ -1,6 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -37,7 +36,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             get
             {
-                var rBuilder = new StringBuilder();
+                var rBuilder = StringBuilderCache.Acquire();
 
                 rBuilder.Append(Info.TranslatedName);
 
@@ -47,7 +46,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 if (Level > 0)
                     rBuilder.Append(' ').Append(LevelText);
 
-                return rBuilder.ToString();
+                return rBuilder.GetStringAndRelease();
             }
         }
 

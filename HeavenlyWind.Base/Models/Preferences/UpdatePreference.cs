@@ -2,7 +2,7 @@
 {
     using UpdateChannelEnum = UpdateChannel;
 
-    public class UpdatePreference
+    public class UpdatePreference : ModelBase
     {
         public Property<UpdateNotificationMode> NotificationMode { get; } = new Property<UpdateNotificationMode>("update.notification", UpdateNotificationMode.AlwaysShow);
 

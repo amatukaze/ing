@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.12.3">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.15">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -36,6 +36,7 @@
   <String Key="Log_EquipmentImprovement_Success">「[b]{0}[/b] {1}」の改修に成功しました</String>
   <String Key="Log_EquipmentImprovement_Upgrade">「[b]{0}[/b] {1}」に装備が改修更新されました</String>
   <String Key="Log_EquipmentImprovement_Failure">「[b]{0}[/b] {1}」の改修に失敗しました</String>
+  <String Key="Log_Proxy_AutoRetry">API {1} の再試行中。再試行の回数: {0}</String>
 
   <String Key="Notification_Expedition">遠征完了</String>
   <String Key="Notification_Expedition_Content">「{0}」が遠征「{1}」から帰投しました。</String>
@@ -53,6 +54,11 @@
   <String Key="Notification_AnchorageRepair_Content">泊地修理の開始から 20 分が経過したので、母港画面に戻ってください</String>
 
   <String Key="MessageDialog_AudioSessionDisconnected">オーディオデバイスが抜かれたので、音量を設定に失敗しました。</String>
+  <String Key="MessageDialog_Proxy_AutoRetry">しまった！</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message">API {0} の再試行の回数が設定する数値を超しました。</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Message2">API {0} の再試行が再び失敗しました！</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Continue">続ける</String>
+  <String Key="MessageDialog_Proxy_AutoRetry_Button_Abort">中止する</String>
 
   <String Key="Result_Failure">失敗</String>
   <String Key="Result_Success">成功</String>
@@ -109,7 +115,7 @@
   <String Key="Overview_Admiral_Rank_LieutenantCommander">少佐</String>
   <String Key="Overview_Admiral_Rank_ViceLieutenantCommander">中堅少佐</String>
   <String Key="Overview_Admiral_Rank_NoviceLieutenantCommander">新米少佐</String>
-  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">前回の更新</String>
+  <String Key="Overview_Admiral_Experience_Difference_Type_PreviousUpdate">前回の集計</String>
   <String Key="Overview_Admiral_Experience_Difference_Type_Day">日</String>
   <String Key="Overview_Admiral_Experience_Difference_Type_Month">月</String>
   <String Key="Overview_Admiral_TotalRankingPoints">合計戦果</String>
@@ -138,10 +144,27 @@
 
   <String Key="Fleet_TotalLevel">Lv合計</String>
   <String Key="Fleet_LoS">索敵</String>
-  <String Key="Fleet_LoS_Formula_Old">2-5式(旧)</String>
-  <String Key="Fleet_LoS_Formula_Autumn">2-5式(秋)</String>
+  <String Key="Fleet_LoS_Formula_Old">2-5 式(旧)</String>
+  <String Key="Fleet_LoS_Formula_Autumn">2-5 式(秋)</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">新秋式簡易</String>
-  <String Key="Fleet_LoS_Formula_Formula33">判定式(33)</String>
+  <String Key="Fleet_LoS_Formula_Formula33">判定式 (33)</String>
+  <String Key="Fleet_LoS_Note">判定式 (33) の備考</String>
+  <String Key="Fleet_LoS_Note_25">ボスへ: [b]33[/b] 以上</String>
+  <String Key="Fleet_LoS_Note_35">G->K(ボス): [b]28[/b] 以上
+
+※ C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_61">Fへ: [b]16[/b] 以上
+F->K(ボス): [b]25[/b] 以上
+
+※ C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_62">F->I: [b]50[/b] 以上
+H->K(Boss): [b]40[/b] 以上
+F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
+
+※ C[sub]n[/sub]=3</String>
+  <String Key="Fleet_LoS_Note_63">ボスへ: [b]38[/b] 以上
+
+※ C[sub]n[/sub]=3</String>
   <String Key="Fleet_FighterPower">制空</String>
   <String Key="Fleet_FighterPower_Formula_WithoutBonus">熟練度ボーナスを無視</String>
   <String Key="Fleet_FighterPower_Formula_WithBonus">熟練度ボーナスあり</String>
@@ -162,6 +185,8 @@
   <String Key="Ship_ToolTip_Status_Evasion">回避</String>
   <String Key="Ship_ToolTip_Status_ASW">対潜</String>
   <String Key="Ship_ToolTip_Status_LoS">索敵</String>
+  <String Key="Ship_ToolTip_Status_Speed">速力</String>
+  <String Key="Ship_ToolTip_Status_Range">射程</String>
   <String Key="Ship_ToolTip_DayBattle">昼戦</String>
   <String Key="Ship_ToolTip_NightBattle">夜戦</String>
   <String Key="Ship_ToolTip_AttackMode">攻撃種別</String>
@@ -186,6 +211,15 @@
   <String Key="Ship_ToolTip_AttackPower_Torpedo">雷撃</String>
   <String Key="Ship_ToolTip_AttackPower_ASW">対潜</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">夜戦</String>
+  <String Key="Ship_ToolTip_RepairTime">入渠時間</String>
+  <String Key="Ship_Speed_Slow">低速</String>
+  <String Key="Ship_Speed_Fast">高速</String>
+  <String Key="Ship_Speed_FastPlus">高速+</String>
+  <String Key="Ship_Speed_UltraFast">最速</String>
+  <String Key="Ship_Range_Short">短</String>
+  <String Key="Ship_Range_Medium">中</String>
+  <String Key="Ship_Range_Long">長</String>
+  <String Key="Ship_Range_VeryLong">超長</String>
 
   <String Key="AirBase_Group_Option_Standby">待機</String>
   <String Key="AirBase_Group_Option_Sortie">出撃</String>
@@ -236,7 +270,7 @@
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">敵影を見ず。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">能動分岐</String>
   <String Key="Sortie_SupportFleet_Ready">支援艦隊待機中</String>
-  <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空隊は空襲を準備中</String>
+  <String Key="Sortie_LandBaseAerialSupport_Ready">基地航空隊が空襲を準備中</String>
   <String Key="Sortie_EnemyEncounters">遭遇できる敵艦隊</String>
   <String Key="Sortie_EnemyAerialRaid">敵空襲</String>
   <String Key="Sortie_EnemyAerialRaid_Message">[icon]fuel[/icon] または [icon]bauxite[/icon] が [binding]Amount[/binding] 喪失しました</String>
@@ -284,6 +318,8 @@
   <String Key="Battle_AerialCombatResult_Parity">制空均衡</String>
   <String Key="Battle_AerialCombatResult_Incapability">航空劣勢</String>
   <String Key="Battle_AerialCombatResult_Denial">制空権喪失</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount">最低撃墜数</String>
+  <String Key="Battle_AntiAirCutIn_ShowdownCount_Unit">スロット</String>
 
   <String Key="Quest_NoData">ゲーム内で「任務(クエスト)」画面を開いて、任務一覧を取得してください</String>
   <String Key="Quest_Unknown">?????</String>
@@ -324,6 +360,7 @@
   <String Key="Window_ClosingConfirmation_Button_Yes">終了します</String>
   <String Key="Window_ClosingConfirmation_Button_No">戻ります</String>
 
+  <String Key="PreferenceWindow_DefaultValue">既定値を使用</String>
   <String Key="PreferenceWindow_Network">通信</String>
   <String Key="PreferenceWindow_Network_Port">待ち受けポート</String>
   <String Key="PreferenceWindow_Network_Port_Customization">待ち受けポート設定</String>
@@ -339,6 +376,10 @@
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Content">この上流プロキシが HTTPS 接続を受信しないことを確信しますか？</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_Yes">はい</String>
   <String Key="PreferenceWindow_Network_UseUpstreamProxy_HttpOnly_Dialog_Button_No">いいえ</String>
+  <String Key="PreferenceWindow_Network_AutoRetry">サーバエラー（HTTP 5xx エラー）の時に再試行する</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Count">再試行回数</String>
+  <String Key="PreferenceWindow_Network_AutoRetry_Confirmation">超したの時に確認する</String>
+  <String Key="PreferenceWindow_Network_OpenInternetOptionConnectionDialog">IE のインターネット接続の設定</String>
   <String Key="PreferenceWindow_Window">ウィンドウ</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation">アプリ終了時の確認動作</String>
   <String Key="PreferenceWindow_Window_CloseConfirmation_Disabled">確認しない</String>
@@ -374,6 +415,13 @@
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Left">左側に表示する</String>
   <String Key="PreferenceWindow_UI_StatusBarSortieInfo_Right">右側に表示する</String>
   <String Key="PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview">入渠や艦隊一覧の位置をスワップする</String>
+  <String Key="PreferenceWindow_UI_Avartar">艦娘の画像 (試験運用機能)</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled">使用する箇所</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_FleetDetail">艦隊概要</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_BattleInfo">戦闘情報</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_ShipOverview">艦娘一覧</String>
+  <String Key="PreferenceWindow_UI_Avartar_Enabled_EquipmentOverview">装備一覧</String>
+  <String Key="PreferenceWindow_UI_Avartar_Shape">形切り抜き</String>
   <String Key="PreferenceWindow_Cache">キャッシュ</String>
   <String Key="PreferenceWindow_Cache_Mode">キャッシュモード</String>
   <String Key="PreferenceWindow_Cache_Mode_Disabled">無効</String>
@@ -402,6 +450,8 @@
   <String Key="PreferenceWindow_Browser">ブラウザ</String>
   <String Key="PreferenceWindow_Browser_LayoutEngine">レイアウトエンジン</String>
   <String Key="PreferenceWindow_Browser_Homepage">ホームページ</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_Introduction">ゲーム HP</String>
+  <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage">ログインページ</String>
   <String Key="PreferenceWindow_Browser_ClearCache">キャッシュの削除</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">キャッシュとクッキーの削除</String>
   <String Key="PreferenceWindow_Browser_Flash">Flash の設定</String>
@@ -441,7 +491,7 @@
   <String Key="EquipmentOverview_List_Loading">一覧を生成しています</String>
 
   <String Key="ShipOverview_Type">艦種</String>
-  <String Key="ShipOverview_Name">艦名</String>
+  <String Key="ShipOverview_Ship">艦娘</String>
   <String Key="ShipOverview_Level">レベル</String>
   <String Key="ShipOverview_Condition">Cond.</String>
   <String Key="ShipOverview_Firepower">火力</String>
@@ -459,6 +509,7 @@
   <String Key="ShipOverview_Filter_ExceptLevel1Ships">Lv1 の艦娘を除く</String>
   <String Key="ShipOverview_Filter_ExceptMaxModernizationShips">改修が完了した艦娘を除く</String>
   <String Key="ShipOverview_List_Loading">一覧を生成しています</String>
+  <String Key="ShipOverview_OnExpedition">遠</String>
 
   <String Key="Export_CSV">CSV に出力</String>
   <String Key="Export_CSV_FileType">CSV ファイル</String>
@@ -470,6 +521,13 @@
   <String Key="Record_SecretaryShip">秘書艦</String>
   <String Key="Record_RankingPoints">戦果</String>
   <String Key="Record_Filter_SuccessOnly">成功のみ</String>
+  <String Key="Record_TimeSpan_All">すべて</String>
+  <String Key="Record_TimeSpan_Recent24Hours">直近 24 時間</String>
+  <String Key="Record_TimeSpan_Recent3Days">直近三日間</String>
+  <String Key="Record_TimeSpan_Recent7Days">直近一週間</String>
+  <String Key="Record_TimeSpan_Custom">カスタム</String>
+  <String Key="Record_CustomTimeSpan_Start">開始</String>
+  <String Key="Record_CustomTimeSpan_End">終了</String>
 
   <String Key="ConstructionHistory_Ship">艦娘</String>
   <String Key="ConstructionHistory_LSCOnly">大型艦建造</String>

@@ -4,10 +4,8 @@ using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
-using Sakuno.UserInterface;
 using Sakuno.UserInterface.Controls;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -33,7 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 var rMessage = value.Replace(Environment.NewLine, " ");
                 if (r_Message != rMessage)
                 {
-                    r_Message = rMessage;
+                    r_Message = value.Replace(Environment.NewLine, " ");
                     OnPropertyChanged(nameof(Message));
                 }
                 IsMessageObsolete = false;
@@ -70,6 +68,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             ApiService.Subscribe("api_port/port", _ => OnPropertyChanged(nameof(Sortie)));
             ApiService.Subscribe("api_req_map/start", _ => OnPropertyChanged(nameof(Sortie)));
+            ApiService.Subscribe("api_req_map/next", _ => Message = string.Empty);
         }
 
         public void Initialize()

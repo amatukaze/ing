@@ -22,8 +22,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             get { return r_IsMVP; }
             internal set
             {
-                r_IsMVP = value;
-                OnPropertyChanged(nameof(IsMVP));
+                if (r_IsMVP != value)
+                {
+                    r_IsMVP = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -51,9 +54,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             }
         }
 
+        AntiAirCutIn r_AntiAirCutIn;
+        public AntiAirCutIn AntiAirCutIn
+        {
+            get { return r_AntiAirCutIn; }
+            internal set
+            {
+                if (r_AntiAirCutIn != value)
+                {
+                    r_AntiAirCutIn = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public FriendShip(Ship rpShip)
         {
             Ship = rpShip;
+        }
+
+        public void Reset()
+        {
+            IsMVP = false;
+            AntiAirCutIn = null;
         }
     }
 }

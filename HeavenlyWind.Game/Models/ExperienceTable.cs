@@ -295,6 +295,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public static int GetAdmiralExperienceToNextLevel(int rpCurrentLevel, int rpCurrentExperience)
         {
+            if (rpCurrentLevel == 120)
+                return 180000000 - rpCurrentExperience;
+
             Experience rExperience;
             if (Admiral.TryGetValue(rpCurrentLevel + 1, out rExperience))
                 return rExperience.Total - rpCurrentExperience;

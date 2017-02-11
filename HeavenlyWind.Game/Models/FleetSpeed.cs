@@ -2,7 +2,7 @@
 {
     public enum FleetSpeed
     {
-        Slow,
+        Slow = 1,
         Fast,
         Mixed,
     }

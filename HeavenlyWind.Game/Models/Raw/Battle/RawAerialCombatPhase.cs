@@ -48,6 +48,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
             public int EnemyPlaneCount { get; set; }
             [JsonProperty("api_e_lostcount")]
             public int EnemyPlaneLostCount { get; set; }
+
+            [JsonProperty("api_air_fire")]
+            public RawAntiAirCutIn AntiAirCutIn { get; set; }
         }
         public class RawStage3
         {

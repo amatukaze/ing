@@ -4,6 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -199,5 +200,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public IDisposable RegisterMessageObserver(string rpMessage, Action<string> rpObserver) =>
             Messages.Where(r => r.Key == rpMessage).Subscribe(r => rpObserver(r.Value));
+
+        public void SetDefaultHomepage(string rpUrl) => Preference.Instance.Browser.Homepage.Value = rpUrl;
     }
 }

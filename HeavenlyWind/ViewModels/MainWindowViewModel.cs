@@ -4,11 +4,12 @@ using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Tools;
-using Sakuno.KanColle.Amatsukaze.Views.History;
+using Sakuno.KanColle.Amatsukaze.Views.Records;
 using Sakuno.KanColle.Amatsukaze.Views.Preferences;
 using Sakuno.KanColle.Amatsukaze.Views.Statistics;
 using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.UserInterface;
+using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
-    public class MainWindowViewModel : WindowViewModel
+    class MainWindowViewModel : WindowViewModel
     {
         ModelBase r_Page;
         public ModelBase Page

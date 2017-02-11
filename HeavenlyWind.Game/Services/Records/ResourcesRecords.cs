@@ -3,7 +3,7 @@ using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 {
-    public class ResourcesRecords : RecordsGroup
+    class ResourcesRecords : RecordsGroup
     {
         public override string GroupName => "resources";
 
@@ -18,7 +18,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         internal ResourcesRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {
-            DisposableObjects.Add(ApiService.Subscribe("api_port/port", r =>
+            var rApis = new[]
+            {
+                "api_port/port",
+                "api_req_map/start",
+            };
+            DisposableObjects.Add(ApiService.Subscribe(rApis, r =>
             {
                 var rMaterials = KanColleGame.Current.Port.Materials;
 

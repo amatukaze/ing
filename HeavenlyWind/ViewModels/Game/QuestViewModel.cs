@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
-    public class QuestViewModel : RawDataWrapper<Quest>, IID
+    class QuestViewModel : RawDataWrapper<Quest>, IID
     {
         public Quest Source => RawData;
 

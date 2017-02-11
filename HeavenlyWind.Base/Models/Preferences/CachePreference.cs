@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class CachePreference
+    public class CachePreference : ModelBase
     {
         public Property<CacheMode> Mode { get; } = new Property<CacheMode>("cache.mode");
 

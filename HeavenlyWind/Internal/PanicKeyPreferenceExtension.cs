@@ -1,7 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Services;
 using System;
 using System.Globalization;
-using System.Text;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -25,12 +24,12 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
 
             public object Convert(object[] rpValues, Type rpTargetType, object rpParameter, CultureInfo rpCulture)
             {
-                var rBuilder = new StringBuilder(32);
+                var rBuilder = StringBuilderCache.Acquire();
 
                 PanicKeyService.GetModifierKeysString((int)rpValues[0], rBuilder);
                 PanicKeyService.GetKeyString(KeyInterop.KeyFromVirtualKey((int)rpValues[1]), rBuilder);
 
-                return rBuilder.ToString();
+                return rBuilder.GetStringAndRelease();
             }
 
             public object[] ConvertBack(object rpValue, Type[] rpTargetType, object rpParameter, CultureInfo rpCulture)

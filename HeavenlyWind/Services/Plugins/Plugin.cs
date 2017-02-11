@@ -3,7 +3,7 @@ using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Plugins
 {
-    public class Plugin
+    class Plugin
     {
         IPluginMetadata r_Metadata;
 

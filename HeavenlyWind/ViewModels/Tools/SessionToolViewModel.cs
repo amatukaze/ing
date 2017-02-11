@@ -1,13 +1,11 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
-using Sakuno.UserInterface;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using System.Reactive.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {
-    public class SessionToolViewModel : ModelBase
+    class SessionToolViewModel : ModelBase
     {
         static readonly object r_ThreadLockSync = new object();
 
@@ -41,14 +39,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
             }
         }
 
-        public ICommand ClearCommand { get; }
-
         public SessionToolViewModel()
         {
             if (Preference.Instance.Other.SessionTool.StartRecordingOnAppStartup)
                 r_IsRecording = true;
-
-            ClearCommand = new DelegatedCommand(() => Sessions.Clear());
 
             KanColleProxy.SessionSubject.ObserveOnDispatcher().Subscribe(r =>
             {

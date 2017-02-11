@@ -9,7 +9,7 @@ using System.Reactive.Linq;
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
     [ViewInfo(typeof(Quests))]
-    public class QuestsViewModel : TabItemViewModel
+    class QuestsViewModel : TabItemViewModel
     {
         public override string Name
         {

@@ -11,7 +11,6 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Width" Value="20" />
         <Setter Property="Height" Value="20" />
-        <Setter Property="CacheMode" Value="{StaticResource BitmapCache}" />
 
         <Setter Property="Template">
             <Setter.Value>

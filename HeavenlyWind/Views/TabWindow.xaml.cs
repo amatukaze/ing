@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Views
     /// <summary>
     /// TabWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class TabWindow
+    partial class TabWindow
     {
         public TabWindow()
         {

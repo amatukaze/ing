@@ -1,5 +1,4 @@
 ﻿using Sakuno.KanColle.Amatsukaze.ViewModels.Overviews;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -26,13 +25,6 @@ namespace Sakuno.KanColle.Amatsukaze.Views.Overviews
 
                 r_ViewModel.Sort(rColumnHeader);
             }));
-        }
-
-        protected override void OnClosed(EventArgs e)
-        {
-            r_ViewModel?.Dispose();
-
-            base.OnClosed(e);
         }
     }
 }

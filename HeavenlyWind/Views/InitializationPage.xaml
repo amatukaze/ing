@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             xmlns:ruico="clr-namespace:Sakuno.UserInterface.Commands;assembly=Sakuno.UserInterface"
+             xmlns:ruioo="clr-namespace:Sakuno.UserInterface.ObjectOperations;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              FontSize="14"
              d:DesignWidth="300" d:DesignHeight="300">
@@ -106,11 +108,23 @@
                                 </Border>
 
                                 <DockPanel Margin="0, 12, 0, 0" LastChildFill="False">
-                                    <Button Command="{Binding RetryCommand}" Padding="16, 8" DockPanel.Dock="Right">
+                                    <Button Padding="16, 8" DockPanel.Dock="Right">
+                                        <Button.Command>
+                                            <ruico:ObjectOperationCommand>
+                                                <ruioo:InvokeMethod Method="CheckProxyPort" />
+                                            </ruico:ObjectOperationCommand>
+                                        </Button.Command>
+
                                         <TextBlock Text="{rb:StringResource Main.InitializationPage_Retry}" />
                                     </Button>
 
-                                    <Button Command="{Binding SkipCommand}" Margin="0, 0, 8, 0" Padding="16, 8" DockPanel.Dock="Right">
+                                    <Button Margin="0, 0, 8, 0" Padding="16, 8" DockPanel.Dock="Right">
+                                        <Button.Command>
+                                            <ruico:ObjectOperationCommand>
+                                                <ruioo:InvokeMethod Method="Start" />
+                                            </ruico:ObjectOperationCommand>
+                                        </Button.Command>
+
                                         <TextBlock Text="{rb:StringResource Main.InitializationPage_Skip}" />
                                     </Button>
                                 </DockPanel>

@@ -1,4 +1,5 @@
 ﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.Overviews.EquipmentOverviewWindow"
+                  x:ClassModifier="internal"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,35 +9,99 @@
                   xmlns:rvmo="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Overviews"
                   xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
+                  xmlns:ruii="clr-namespace:Sakuno.UserInterface.Interactivity;assembly=Sakuno.UserInterface"
+                  xmlns:ruioo="clr-namespace:Sakuno.UserInterface.ObjectOperations;assembly=Sakuno.UserInterface"
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Window_EquipmentOverview}"
                   Width="1024" Height="600"
                   FontSize="14"
                   WindowPlacementPreference="{StaticResource WindowPlacementPreference}"
                   UseLayoutRounding="True">
+    <Window.DataContext>
+        <rvmo:EquipmentOverviewViewModel />
+    </Window.DataContext>
     <Window.Resources>
         <Style x:Key="ShipItemsControlStyle" TargetType="{x:Type ItemsControl}">
-            <Setter Property="Template">
+            <Setter Property="ItemsPanel">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ItemsControl}">
-                        <WrapPanel IsItemsHost="True" Margin="0, 0, 0, 0" />
-                    </ControlTemplate>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
                 </Setter.Value>
             </Setter>
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByShip}">
-                        <TextBlock Margin="0, 4, 15, 4">
-                            <Run Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-                            <Run Text="{Binding Ship.Level, StringFormat=Lv.{0}, Mode=OneWay}" FontSize="11" /><Run Text="{Binding CountDisplayString, Mode=OneWay}" FontSize="11" />
-                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="0, 4, 15, 4">
+                            <TextBlock>
+                                <Run Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                <Run Text="{Binding Ship.Level, StringFormat=Lv.{0}, Mode=OneWay}" FontSize="11" />
+                            </TextBlock>
+                            <Border Name="Count" Background="{DynamicResource BackgroundBrushKey}" CornerRadius="4" Margin="2, 0, 0, 0">
+                                <TextBlock Margin="4, 2">
+                                    <Run Text="x " FontSize="11" /><Run Text="{Binding Count, Mode=OneWay}" FontSize="12" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                </TextBlock>
+                            </Border>
+                        </StackPanel>
+
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Count}" Value="1">
+                                <Setter TargetName="Count" Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{rb:Preference UI.Avatar.EnabledInEquipmentOverview}" Value="True">
+                    <Setter Property="ItemTemplate">
+                        <Setter.Value>
+                            <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByShip}">
+                                <Border MinWidth="60" Padding="0, 2">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <rc:ShipAvatar ID="{Binding Ship.Info.ID}">
+                                            <rc:ShipAvatar.ToolTip>
+                                                <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" />
+                                            </rc:ShipAvatar.ToolTip>
+                                        </rc:ShipAvatar>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+                                            <TextBlock>
+                                                <Run Text="Lv." FontSize="11" /><Run Text="{Binding Ship.Level, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" FontSize="12" />
+                                            </TextBlock>
+                                            <Border Name="Count" Background="{DynamicResource BackgroundBrushKey}" CornerRadius="4" Margin="2, 0, 0, 0" Padding="4, 0">
+                                                <TextBlock>
+                                                    <Run Text="x " FontSize="11" /><Run Text="{Binding Count, Mode=OneWay}" FontSize="12" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                                </TextBlock>
+                                            </Border>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Count}" Value="1">
+                                        <Setter TargetName="Count" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <ruii:DisposeDataContextAction />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 
-    <Grid>
+    <Grid Name="Root">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -74,11 +139,19 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding IsSelected}" Margin="4, 2" />
+                                    <CheckBox IsChecked="{Binding IsSelected}" Margin="4, 2">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <ruii:InvokeMethodAction Target="{Binding DataContext, ElementName=Root}" Method="UpdateSelection" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </CheckBox>
                                     <rc:EquipmentIcon Type="{Binding Type}" Width="20" Height="20">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseUp">
-                                                <i:InvokeCommandAction Command="{Binding SelectThisTypeOnlyCommand}" CommandParameter="{Binding}" />
+                                                <ruii:InvokeMethodAction Target="{Binding DataContext, ElementName=Root}" Method="Filter">
+                                                    <ruioo:MethodParameter Value="{Binding}" />
+                                                </ruii:InvokeMethodAction>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </rc:EquipmentIcon>

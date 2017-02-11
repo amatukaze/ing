@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.ExceptionView"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
+             mc:Ignorable="d"
+             d:DesignWidth="300" d:DesignHeight="300">
+    <DockPanel>
+        <TextBlock Text="{rb:StringResource Main.InitializationPage_Header}" FontSize="22" FontWeight="Bold" DockPanel.Dock="Top" />
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <TextBox Text="{Binding Exception, Mode=OneWay}" Background="Transparent" BorderThickness="0" IsReadOnly="True" TextWrapping="Wrap" Margin="0, 12, 0, 0" />
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

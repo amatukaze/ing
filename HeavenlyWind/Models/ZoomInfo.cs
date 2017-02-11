@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Models
 {
-    public abstract class ZoomInfo : ModelBase
+    abstract class ZoomInfo : ModelBase
     {
         public double Zoom { get; }
 

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class WindowsPreference
+    public class WindowsPreference : ModelBase
     {
         Property<WindowPreference[]> Placements { get; } = new Property<WindowPreference[]>("main.windows");
 

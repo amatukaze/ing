@@ -51,12 +51,32 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     case EquipmentIconType.Autogyro:
                     case EquipmentIconType.ASAircraft:
                     case EquipmentIconType.FlyingBoat:
+                    case EquipmentIconType.JetFighterBomberKikkaKai:
+                    case EquipmentIconType.JetFighterBomberKeiunKai:
                         return true;
 
                     default: return false;
                 }
             }
         }
+
+        public bool IsJetPoweredAircraft
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case EquipmentType.JetPoweredFighter:
+                    case EquipmentType.JetPoweredFighterBomber:
+                    case EquipmentType.JetPoweredAttackAircraft:
+                    case EquipmentType.JetPoweredRecon:
+                        return true;
+
+                    default: return false;
+                }
+            }
+        }
+
         public bool CanParticipateInFighterCombat
         {
             get
@@ -70,6 +90,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     case EquipmentType.SeaplaneFighter:
                     case EquipmentType.LandBasedAttackAircraft:
                     case EquipmentType.InterceptorFighter:
+                    case EquipmentType.JetPoweredFighter:
+                    case EquipmentType.JetPoweredFighterBomber:
+                    case EquipmentType.JetPoweredAttackAircraft:
+                    case EquipmentType.JetPoweredRecon:
                         return true;
 
                     default: return false;

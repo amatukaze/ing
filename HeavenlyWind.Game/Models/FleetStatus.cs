@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -23,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public FleetFighterPowerStatus FighterPower { get; }
 
-        public FleetLoSStatus LoS { get; }
+        public FleetLoSStatus[] LoS { get; }
 
         FleetSpeed? r_Speed;
         public FleetSpeed? Speed
@@ -58,7 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             r_Fleet = rpOwner;
 
             FighterPower = new FleetFighterPowerStatus(rpOwner);
-            LoS = new FleetLoSStatus(rpOwner);
+
+            LoS = FleetLoSFormulaInfo.Formulas.Select(r => new FleetLoSStatus(rpOwner, r)).ToArray();
         }
 
         internal void Update()
@@ -67,7 +67,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             FighterPower.Update();
 
-            LoS.Update();
+            foreach (var rLoS in LoS)
+                rLoS.Update();
 
             UpdateFleetSpeed();
 
@@ -80,27 +81,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 Speed = null;
             else
             {
-                var rSlowShip = 0;
-                var rFastShip = 0;
+                FleetSpeed rResult = 0;
 
                 foreach (var rShip in r_Fleet.Ships)
-                    switch (rShip.Info.Speed)
+                    switch (rShip.Speed)
                     {
                         case ShipSpeed.Slow:
-                            rSlowShip++;
+                            rResult |= FleetSpeed.Slow;
                             break;
 
                         case ShipSpeed.Fast:
-                            rFastShip++;
+                        case ShipSpeed.FastPlus:
+                        case ShipSpeed.UltraFast:
+                            rResult |= FleetSpeed.Fast;
                             break;
                     }
 
-                if (rSlowShip > 0 && rFastShip == 0)
-                    Speed = FleetSpeed.Slow;
-                else if (rFastShip > 0 && rSlowShip == 0)
-                    Speed = FleetSpeed.Fast;
-                else
-                    Speed = FleetSpeed.Mixed;
+                Speed = rResult;
             }
         }
 

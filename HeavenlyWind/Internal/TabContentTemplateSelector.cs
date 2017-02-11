@@ -1,5 +1,6 @@
 ﻿using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
+using Sakuno.KanColle.Amatsukaze.Views;
 using System;
 using System.Reflection;
 using System.Windows;
@@ -27,14 +28,9 @@ namespace Sakuno.KanColle.Amatsukaze.Internal
 
             var rContentPresenter = new FrameworkElementFactory(typeof(ContentPresenter));
             rContentPresenter.SetBinding(ContentControl.ContentProperty, new Binding(nameof(ToolViewModel.View)));
-            r_ViewTypeMap.Add(typeof(ToolWithoutScrollBarViewModel), new DataTemplate(typeof(ToolWithoutScrollBarViewModel)) { VisualTree = rContentPresenter });
+            r_ViewTypeMap.Add(typeof(ToolViewModel), new DataTemplate(typeof(ToolViewModel)) { VisualTree = rContentPresenter });
 
-            var rScrollViewer = new FrameworkElementFactory(typeof(ScrollViewer));
-            rScrollViewer.SetBinding(ContentControl.ContentProperty, new Binding(nameof(ToolViewModel.View)));
-            rScrollViewer.SetBinding(ScrollViewer.VerticalScrollBarVisibilityProperty, new Binding("ScrollBarVisibilities.VerticalScrollBarVisibility") { TargetNullValue = ScrollBarVisibility.Auto, FallbackValue = ScrollBarVisibility.Auto });
-            rScrollViewer.SetBinding(ScrollViewer.HorizontalScrollBarVisibilityProperty, new Binding("ScrollBarVisibilities.HorizontalScrollBarVisibility") { TargetNullValue = ScrollBarVisibility.Disabled, FallbackValue = ScrollBarVisibility.Disabled });
-
-            r_ViewTypeMap.Add(typeof(ToolWithScrollBarViewModel), new DataTemplate(typeof(ToolWithScrollBarViewModel)) { VisualTree = rScrollViewer });
+            r_ViewTypeMap.Add(typeof(Exception), new DataTemplate(typeof(Exception)) { VisualTree = new FrameworkElementFactory(typeof(ExceptionView)) });
         }
 
         public override DataTemplate SelectTemplate(object rpItem, DependencyObject rpContainer)

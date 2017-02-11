@@ -1,9 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -29,8 +26,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         int[] r_ShipIDs;
         List<Ship> r_ShipList;
-        ReadOnlyCollection<Ship> r_Ships;
-        public ReadOnlyCollection<Ship> Ships
+        IList<Ship> r_Ships;
+        public IList<Ship> Ships
         {
             get { return r_Ships; }
             private set
@@ -221,14 +218,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public override string ToString()
         {
-            var rBuilder = new StringBuilder(64);
+            var rBuilder = StringBuilderCache.Acquire();
 
             rBuilder.Append($"ID = {ID}, Name = \"{Name}\", Ship");
             if (Ships.Count > 1)
                 rBuilder.Append('s');
-            rBuilder.Append(" = ").Append(Ships.Select(r => $"\"{r.Info.Name}\"").Join(", "));
+            rBuilder.Append(" = ");
 
-            return rBuilder.ToString();
+            for (var i = 0; i < Ships.Count; i++)
+            {
+                if (i > 0)
+                    rBuilder.Append(", ");
+
+                rBuilder.Append('\"').Append(Ships[i].Info.Name).Append('\"');
+            }
+
+            return rBuilder.GetStringAndRelease();
         }
     }
 }

@@ -63,6 +63,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             rpShip.UpdateAnchorageRepairStatus(false);
         }
 
+        internal void Offset(TimeSpan rpTimeSpan)
+        {
+            foreach (var rShip in r_Snapshots.Keys)
+                rShip.AnchorageRepairStatus.Offset(rpTimeSpan);
+
+            TimeToComplete -= rpTimeSpan;
+        }
+
         protected override void TimeOut() => InterruptionNotification?.Invoke();
     }
 }

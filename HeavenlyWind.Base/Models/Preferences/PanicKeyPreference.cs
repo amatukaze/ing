@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
-    public class PanicKeyPreference
+    public class PanicKeyPreference : ModelBase
     {
         public Property<bool> Enabled { get; } = new Property<bool>("other.panic_key.enabled");
 

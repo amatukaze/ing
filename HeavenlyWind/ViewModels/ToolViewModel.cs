@@ -1,9 +1,10 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+using System;
 using System.Windows.Input;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
-    public abstract class ToolViewModel : TabItemViewModel
+    class ToolViewModel : TabItemViewModel
     {
         IToolPane r_Tool;
 
@@ -15,27 +16,40 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
 
         public override bool IsClosable => true;
 
-        public object View => r_Tool.View;
+        object r_View;
+        public object View
+        {
+            get
+            {
+                if (r_View == null)
+                {
+                    try
+                    {
+                        View = r_Tool.View.Value;
+                    }
+                    catch (Exception e)
+                    {
+                        View = e;
+                    }
+                }
+
+                return r_View;
+            }
+            private set
+            {
+                if (r_View != value)
+                {
+                    r_View = value;
+                    OnPropertyChanged(nameof(View));
+                }
+            }
+        }
 
         public ICommand OpenCommand { get; internal set; }
 
         internal ToolViewModel(IToolPane rpTool)
         {
             r_Tool = rpTool;
-        }
-    }
-
-    class ToolWithoutScrollBarViewModel : ToolViewModel
-    {
-        public ToolWithoutScrollBarViewModel(IToolPane rpTool) : base(rpTool) { }
-    }
-    class ToolWithScrollBarViewModel : ToolViewModel
-    {
-        public IToolPaneScrollBarVisibilities ScrollBarVisibilities { get; }
-
-        internal ToolWithScrollBarViewModel(IToolPane rpTool, IToolPaneScrollBarVisibilities rpVisibilities) : base(rpTool)
-        {
-            ScrollBarVisibilities = rpVisibilities;
         }
     }
 }

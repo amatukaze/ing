@@ -3,21 +3,19 @@
                     xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Common.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type rc:EquipmentIcon}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Width" Value="24" />
         <Setter Property="Height" Value="24" />
-        <Setter Property="CacheMode" Value="{StaticResource BitmapCache}" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type rc:EquipmentIcon}">
-                    <Viewbox>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">?</TextBlock>
-                    </Viewbox>
+                    <Border Background="{TemplateBinding Background}">
+                        <Control Name="PART_Content" />
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -26,122 +24,6 @@
             <Trigger Property="Type" Value="None">
                 <Setter Property="Visibility" Value="Hidden" />
             </Trigger>
-
-            <Trigger Property="Type" Value="SmallCaliberGun">
-                <Setter Property="Template" Value="{StaticResource SmallCaliberGunIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="MediumCaliberGun">
-                <Setter Property="Template" Value="{StaticResource MediumCaliberGunIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="LargeCaliberGun">
-                <Setter Property="Template" Value="{StaticResource LargeCaliberGunIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="SecondaryGun">
-                <Setter Property="Template" Value="{StaticResource SecondaryGunIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="Torpedo">
-                <Setter Property="Template" Value="{StaticResource TorpedoIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="CarrierBasedFighter">
-                <Setter Property="Template" Value="{StaticResource CarrierBasedFighterIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="CarrierBasedDiveBomber">
-                <Setter Property="Template" Value="{StaticResource CarrierBasedDiveBomberIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="CarrierBasedTorpedoBomber">
-                <Setter Property="Template" Value="{StaticResource CarrierBasedTorpedoBomberIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="CarrierBasedRecon">
-                <Setter Property="Template" Value="{StaticResource CarrierBasedReconIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="Seaplane">
-                <Setter Property="Template" Value="{StaticResource SeaplaneIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="Rader">
-                <Setter Property="Template" Value="{StaticResource RaderIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="AAShell">
-                <Setter Property="Template" Value="{StaticResource AAShellIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="APShell">
-                <Setter Property="Template" Value="{StaticResource APShellIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="DamageControl">
-                <Setter Property="Template" Value="{StaticResource DamageControlIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="AAGun">
-                <Setter Property="Template" Value="{StaticResource AAGunIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="HighAngleGun">
-                <Setter Property="Template" Value="{StaticResource HighAngleGunIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="ASW">
-                <Setter Property="Template" Value="{StaticResource ASWIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="Soner">
-                <Setter Property="Template" Value="{StaticResource SonerIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="Engine">
-                <Setter Property="Template" Value="{StaticResource EngineIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="LandingCraft">
-                <Setter Property="Template" Value="{StaticResource LandingCraftIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="Autogyro">
-                <Setter Property="Template" Value="{StaticResource AutogyroIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="ASAircraft">
-                <Setter Property="Template" Value="{StaticResource ASAircraftIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="ExtraArmor">
-                <Setter Property="Template" Value="{StaticResource ExtraArmorIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="Searchlight">
-                <Setter Property="Template" Value="{StaticResource SearchlightIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="DrumCanister">
-                <Setter Property="Template" Value="{StaticResource DrumCanisterIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="RepairFacility">
-                <Setter Property="Template" Value="{StaticResource RepairFacilityIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="Flare">
-                <Setter Property="Template" Value="{StaticResource FlareIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="CommandFacility">
-                <Setter Property="Template" Value="{StaticResource CommandFacilityIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="MaintenanceTeam">
-                <Setter Property="Template" Value="{StaticResource MaintenanceTeamIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="AAFireDirector">
-                <Setter Property="Template" Value="{StaticResource AAFireDirectorIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="AntiGroundArtillery">
-                <Setter Property="Template" Value="{StaticResource AntiGroundArtilleryIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="SurfaceShipPersonnel">
-                <Setter Property="Template" Value="{StaticResource SurfaceShipPersonnelIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="FlyingBoat">
-                <Setter Property="Template" Value="{StaticResource FlyingBoatIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="CombatProvisions">
-                <Setter Property="Template" Value="{StaticResource CombatProvisionsIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="Supplies">
-                <Setter Property="Template" Value="{StaticResource SuppliesIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="SpecialAmphibiousLandingCraft">
-                <Setter Property="Template" Value="{StaticResource SpecialAmphibiousLandingCraftIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="LandBasedAttackAircraft">
-                <Setter Property="Template" Value="{StaticResource LandBasedAttackAircraftIcon}" />
-            </Trigger>
-            <Trigger Property="Type" Value="InterceptorFighter">
-                <Setter Property="Template" Value="{StaticResource InterceptorFighterIcon}" />
-            </Trigger>
-
         </Style.Triggers>
     </Style>
 

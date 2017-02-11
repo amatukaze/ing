@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="Sakuno.KanColle.Amatsukaze.Views.Preferences.UI"
+             x:ClassModifier="internal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,10 +7,10 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rbm="clr-namespace:Sakuno.KanColle.Amatsukaze.Models;assembly=HeavenlyWind.Base"
-             xmlns:rbe="clr-namespace:Sakuno.UserInterface.Behaviors;assembly=Sakuno.UserInterface"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              xmlns:ri="clr-namespace:Sakuno.KanColle.Amatsukaze.Internal"
              xmlns:ruic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+             xmlns:ruii="clr-namespace:Sakuno.UserInterface.Interactivity;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              d:DesignWidth="300" d:DesignHeight="300">
     <StackPanel>
@@ -29,7 +30,9 @@
             </ComboBox>
         </StackPanel>
 
-        <Grid Margin="0, 12, 0, 0">
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="20" />
@@ -59,7 +62,7 @@
                     <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_HeavyDamageLine_Width}" />
                     <TextBox Text="{rb:Preference UI.HeavyDamageLine.Width, UpdateSourceTrigger=PropertyChanged}" Width="60" Margin="6, 0, 0, 0">
                         <i:Interaction.Behaviors>
-                            <rbe:NumericTextBoxBehavior />
+                            <ruii:NumericTextBoxBehavior />
                         </i:Interaction.Behaviors>
                     </TextBox>
                 </StackPanel>
@@ -98,7 +101,9 @@
             </Grid>
         </Grid>
 
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_MaterialIcons}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_MaterialIcons}" FontSize="14" FontWeight="Bold" />
 
         <CheckBox IsChecked="{rb:Preference UI.UseGameMaterialIcons}" Margin="0, 8, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_MaterialIcons_UseGameIcons}" />
@@ -114,11 +119,9 @@
             <rc:MaterialIcon Type="ImprovementMaterial" />
         </StackPanel>
 
-        <CheckBox IsChecked="{rb:Preference UI.ShowFatigueInSortie}" Margin="0, 12, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ShowFatigueInSortie}" />
-        </CheckBox>
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
 
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage}" FontSize="14" FontWeight="Bold" Margin="0, 12, 0, 0" />
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage}" FontSize="14" FontWeight="Bold" />
 
         <CheckBox IsChecked="{rb:Preference UI.UseGameIconsInModernizationMessage}" Margin="0, 8, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ModernizationMessage_UseGameIcons}" />
@@ -167,7 +170,55 @@
             </ruic:BBCodeBlock.Style>
         </ruic:BBCodeBlock>
 
-        <StackPanel Orientation="Horizontal" Margin="0, 12, 0, 0">
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar}" FontSize="14" FontWeight="Bold" />
+
+        <StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled}" />
+
+            <ToggleButton Style="{StaticResource FlatToggleButtonStyle}" IsChecked="{rb:Preference UI.Avatar.EnabledInFleetDetail}" Margin="12, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled_FleetDetail}" />
+            </ToggleButton>
+            <ToggleButton Style="{StaticResource FlatToggleButtonStyle}" IsChecked="{rb:Preference UI.Avatar.EnabledInBattleInfo}" Margin="6, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled_BattleInfo}" />
+            </ToggleButton>
+            <ToggleButton Style="{StaticResource FlatToggleButtonStyle}" IsChecked="{rb:Preference UI.Avatar.EnabledInShipOverview}" Margin="6, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled_ShipOverview}" />
+            </ToggleButton>
+            <ToggleButton Style="{StaticResource FlatToggleButtonStyle}" IsChecked="{rb:Preference UI.Avatar.EnabledInEquipmentOverview}" Margin="6, 0, 0, 0">
+                <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Enabled_EquipmentOverview}" />
+            </ToggleButton>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="0, 8, 0, 0">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource FlatToggleButtonStyle}">
+                    <Setter Property="Width" Value="32" />
+                    <Setter Property="Height" Value="24" />
+                </Style>
+                <Style x:Key="Shape" TargetType="{x:Type Shape}">
+                    <Setter Property="Fill" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                    <Setter Property="Width" Value="16" />
+                    <Setter Property="Height" Value="16" />
+                </Style>
+            </StackPanel.Resources>
+
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_Avartar_Shape}" />
+
+            <ToggleButton IsChecked="{rb:Preference UI.Avatar.Shape, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:AvatarShape.Square}}" Margin="12, 0, 0, 0">
+                <Rectangle Style="{StaticResource Shape}" />
+            </ToggleButton>
+            <ToggleButton IsChecked="{rb:Preference UI.Avatar.Shape, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:AvatarShape.RoundedSquare}}" Margin="6, 0, 0, 0">
+                <Rectangle Style="{StaticResource Shape}" RadiusX="6" RadiusY="6" />
+            </ToggleButton>
+            <ToggleButton IsChecked="{rb:Preference UI.Avatar.Shape, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={x:Static rbm:AvatarShape.Circle}}" Margin="6, 0, 0, 0">
+                <Ellipse Style="{StaticResource Shape}" />
+            </ToggleButton>
+        </StackPanel>
+
+        <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
+
+        <StackPanel Orientation="Horizontal">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_StatusBarSortieInfo}" />
 
             <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:StatusBarSortieInfoPlacement}}" SelectedValue="{rb:Preference UI.StatusBarSortieInfo}" Margin="6, 0, 0, 0">
@@ -181,6 +232,10 @@
 
         <CheckBox IsChecked="{rb:Preference UI.SwapPositionOfRepairDocksAndFleetOverviews}" Margin="0, 12, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_SwapPositionOfRepairDocksAndFleetOverview}" />
+        </CheckBox>
+
+        <CheckBox IsChecked="{rb:Preference UI.ShowFatigueInSortie}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_UI_ShowFatigueInSortie}" />
         </CheckBox>
     </StackPanel>
 </UserControl>

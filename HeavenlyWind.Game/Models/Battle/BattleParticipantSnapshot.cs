@@ -1,6 +1,4 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
@@ -16,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
                 var rFriendShip = value as FriendShip;
                 if (rFriendShip != null)
-                    IsEvacuated = rFriendShip.Ship.State.HasFlag(ShipState.Evacuated);
+                    IsEvacuated = (rFriendShip.Ship.State & ShipState.Evacuated) != 0;
 
                 r_PreviousState = GetState(Current);
             }
@@ -98,20 +96,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         public override string ToString()
         {
-            var rBuilder = new StringBuilder(32);
+            var rBuilder = StringBuilderCache.Acquire();
 
             if (Participant != null)
-                rBuilder.Append($"{Participant.Info.TranslatedName} Lv.{Participant.Level}: ");
+                rBuilder.Append(Participant.Info.TranslatedName).Append(" Lv.").Append(Participant.Level).Append(": ");
 
             rBuilder.Append(Before);
             if (Before != Current)
                 rBuilder.Append("->").Append(Current);
 
-            rBuilder.Append('/').Append(Maximum);
+            rBuilder.Append('/').Append(Maximum).Append(' ').Append(State);
 
-            rBuilder.Append(' ').Append(State);
-
-            return rBuilder.ToString();
+            return rBuilder.GetStringAndRelease();
         }
     }
 }

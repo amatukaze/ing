@@ -1,6 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
-using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.KanColle.Amatsukaze.Services;
@@ -23,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze
     /// <summary>
     /// App.xaml の相互作用ロジック
     /// </summary>
-    public partial class App : Application
+    partial class App
     {
         public static MainWindowViewModel Root { get; private set; }
 
@@ -63,6 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze
             ThemeManager.Instance.Initialize(this, Accent.Blue);
 
             CoreDatabase.Initialize();
+            DataStore.Initialize();
 
             DataService.Instance.EnsureDirectory();
 
@@ -89,7 +89,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
 
-            Task.Factory.StartNew(UpdateService.Instance.CheckForUpdate);
+            Task.Run((Action)UpdateService.Instance.CheckForUpdate);
 
             if (e.Args.Any(r => r.OICEquals("--background")))
                 return;

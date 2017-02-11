@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Models
 {
-    public abstract class QuestReward : ModelBase
+    abstract class QuestReward : ModelBase
     {
         public int Quantity { get; protected set; }
 
