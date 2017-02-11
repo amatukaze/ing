@@ -37,7 +37,9 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             private set { SetValue(BrushPropertyKey, value); }
         }
 
-        static string r_RootDirectory = Path.Combine(ProductInfo.RootDirectory, "Resources", "Avatars", "Ships") + "\\";
+        static string r_DefaultRootDirectory = Path.Combine(ProductInfo.RootDirectory, "Resources", "Avatars", "Ships") + "\\";
+        static string r_ModRootDirectory = Path.Combine(ProductInfo.RootDirectory, "Mods", "ShipAvatars") + "\\";
+
         static Dictionary<int, WeakReference<ImageBrush>> r_CachedAvatars = new Dictionary<int, WeakReference<ImageBrush>>();
 
         static ShipAvatar()
@@ -47,7 +49,14 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
 
         void OnShipChanged(int rpID)
         {
-            if (rpID == 0 || !File.Exists(r_RootDirectory + rpID + "_n.png"))
+            if (rpID == 0)
+            {
+                Brush = null;
+                return;
+            }
+
+            var rIsModAvailable = File.Exists(r_ModRootDirectory + rpID + "_n.png");
+            if (!rIsModAvailable && !File.Exists(r_DefaultRootDirectory + rpID + "_n.png"))
             {
                 Brush = null;
                 return;
@@ -64,7 +73,11 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
                 return;
             }
 
-            var rImage = BitmapFrame.Create(new Uri("pack://siteoforigin:,,,/Resources/Avatars/Ships/" + rpID + "_n.png"));
+            BitmapSource rImage;
+            if (!rIsModAvailable)
+                rImage = BitmapFrame.Create(new Uri("pack://siteoforigin:,,,/Resources/Avatars/Ships/" + rpID + "_n.png"));
+            else
+                rImage = BitmapFrame.Create(new Uri("pack://siteoforigin:,,,/Mods/ShipAvatars/" + rpID + "_n.png"));
             rImage.Freeze();
 
             rBrush = new ImageBrush(rImage);
