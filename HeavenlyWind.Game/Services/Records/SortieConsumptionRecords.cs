@@ -53,6 +53,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             DisposableObjects.Add(ApiService.Subscribe("api_port/port", CommitReward));
             DisposableObjects.Add(ApiService.Subscribe("api_start2", ForfeitReward));
 
+            DisposableObjects.Add(ApiService.Subscribe("api_port/port", ProcessLossesFromEnemyAerialRaid));
+
             DisposableObjects.Add(ApiService.Subscribe("api_req_practice/battle", StartPractice));
 
             DisposableObjects.Add(ApiService.Subscribe("api_req_mission/result", ExpeditionResult));
@@ -709,6 +711,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             var rCommand = RecordService.Instance.CreateCommand();
             rCommand.CommandText = "INSERT OR REPLACE INTO common(key, value) VALUES('is_reward_forfeited', 1);";
             rCommand.ExecuteNonQuery();
+        }
+
+        void ProcessLossesFromEnemyAerialRaid(ApiInfo rpInfo)
+        {
+            using (var rCommand = RecordService.Instance.CreateCommand())
+            {
+                rCommand.CommandText = "DELETE FROM enemy_aerial_raid;";
+                rCommand.ExecuteNonQuery();
+            }
         }
 
         void StartPractice(ApiInfo rpInfo)
