@@ -81,7 +81,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
                 if ((rpFirstStage == null && rFriendAndEnemyEscort.Length > 6) || (rpFirstStage != null && rpFirstStage.EnemyEscort != null))
                 {
-                    EnemyEscort = rFriendAndEnemyEscort.Skip(6).ToArray();
+                    EnemyEscort = rFriendAndEnemyEscort.Skip(6).TakeWhile(r => r != null).ToArray();
 
                     for (var i = 0; i < EnemyEscort.Count; i++)
                     {
