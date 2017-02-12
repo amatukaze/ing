@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
             var rSortie = Game.Sortie;
             rSortie.Explore(rpInfo.Timestamp, rpData);
 
-            if (rSortie.Node.IsDeadEnd && rSortie.Map.HasGauge)
+            if (rSortie.Node.IsDeadEnd && rSortie.Map.HasGauge && rpData.EventMap != null)
                 rSortie.Map.HP.Current = rpData.EventMap.Current;
         }
     }
