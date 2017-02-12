@@ -1,16 +1,25 @@
 ﻿using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 {
     public class OpeningASWPhase : BattlePhase<RawOpeningASWPhase>
     {
-        bool r_IsEscortFleet;
+        bool r_IsFriendEscortFleet;
+        bool r_IsEnemyEscortFleet;
 
-        internal OpeningASWPhase(BattleStage rpStage, RawOpeningASWPhase rpRawData, bool rpIsEscortFleet = false) : base(rpStage, rpRawData)
+        internal OpeningASWPhase(BattleStage rpStage, RawOpeningASWPhase rpRawData, bool rpIsFriendEscortFleet = false, bool rpIsEnemyEscortFleet = false) : base(rpStage, rpRawData)
         {
-            r_IsEscortFleet = rpIsEscortFleet;
+            r_IsFriendEscortFleet = rpIsFriendEscortFleet;
+            r_IsEnemyEscortFleet = rpIsEnemyEscortFleet;
+        }
+
+        int GetIndex(int rpPosition)
+        {
+            if ((r_IsFriendEscortFleet && rpPosition <= 6) || (r_IsEnemyEscortFleet && rpPosition > 6))
+                return rpPosition + 12 - 1;
+
+            return rpPosition - 1;
         }
 
         protected internal override void Process()
@@ -18,23 +27,46 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             if (RawData == null)
                 return;
 
-            Func<int, int> rIndex = r => r_IsEscortFleet && r <= 6 ? r + 12 - 1 : r - 1;
-
             var rParticipants = Stage.FriendAndEnemy;
             var rAttackers = RawData.Attackers;
+            var rIsEnemyAttacker = RawData.IsEnemyAttacker;
             for (var i = 1; i < rAttackers.Length; i++)
             {
                 var rDefenders = ((JArray)RawData.Defenders[i]).ToObject<int[]>();
                 var rDamages = ((JArray)RawData.Damages[i]).ToObject<int[]>();
 
-                for (var j = 0; j < rDefenders.Length; j++)
-                {
-                    if (rDefenders[j] == -1)
-                        continue;
+                if (rIsEnemyAttacker == null)
+                    for (var j = 0; j < rDefenders.Length; j++)
+                    {
+                        if (rDefenders[j] == -1)
+                            continue;
 
-                    var rDamage = rDamages[j];
-                    rParticipants[rIndex(rDefenders[j])].Current -= rDamage;
-                    rParticipants[rIndex(rAttackers[i])].DamageGivenToOpponent += rDamage;
+                        var rDamage = rDamages[j];
+                        rParticipants[GetIndex(rDefenders[j])].Current -= rDamage;
+                        rParticipants[GetIndex(rAttackers[i])].DamageGivenToOpponent += rDamage;
+                    }
+                else
+                {
+                    var rIsEnemy = rIsEnemyAttacker[i] == 1;
+
+                    for (var j = 0; j < rDefenders.Length; j++)
+                    {
+                        if (rDefenders[j] == -1)
+                            continue;
+
+                        var rDamage = rDamages[j];
+
+                        if (!rIsEnemy)
+                        {
+                            Stage.Enemy[rDefenders[j] - 1].Current -= rDamage;
+                            Stage.Friend[rAttackers[i] - 1].DamageGivenToOpponent += rDamage;
+                        }
+                        else
+                        {
+                            Stage.Friend[rDefenders[j] - 1].Current -= rDamage;
+                            Stage.Enemy[rAttackers[i] - 1].DamageGivenToOpponent += rDamage;
+                        }
+                    }
                 }
             }
         }
