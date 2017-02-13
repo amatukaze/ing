@@ -93,6 +93,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
             {
                 using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
                 {
+                    rStreamWriter.WriteLine("Version:");
+                    rStreamWriter.WriteLine(ProductInfo.Version);
+                    rStreamWriter.WriteLine();
                     rStreamWriter.WriteLine(TokenRegex.Replace(rpSession.FullUrl, "***************************"));
                     rStreamWriter.WriteLine("Request Data:");
                     rStreamWriter.WriteLine(TokenRegex.Replace(rpSession.RequestBodyString, "***************************"));

@@ -133,6 +133,9 @@ namespace Sakuno.KanColle.Amatsukaze
             {
                 using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
                 {
+                    rStreamWriter.WriteLine("Version:");
+                    rStreamWriter.WriteLine(ProductInfo.Version);
+                    rStreamWriter.WriteLine();
                     rStreamWriter.WriteLine("Unhandled Exception:");
                     rStreamWriter.WriteLine();
                     rStreamWriter.WriteLine(rpException.ToString());
