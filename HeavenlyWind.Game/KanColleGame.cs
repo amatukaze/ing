@@ -70,7 +70,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             {
                 var rMap = Maps[int.Parse(r.Parameters["api_maparea_id"]) * 10 + int.Parse(r.Parameters["api_map_no"])];
                 rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Parameters["api_rank"]);
-                rMap.HP.Set(9999, 9999);
+
+                var rMaxHP = r.GetData<RawEventMapDifficultySelectionResult>().MaxHP ?? 9999;
+                rMap.HP.Set(rMaxHP, rMaxHP);
             });
 
             ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
