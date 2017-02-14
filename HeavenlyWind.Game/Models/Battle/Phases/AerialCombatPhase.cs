@@ -140,6 +140,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                         {
                             case EquipmentType.CarrierBasedDiveBomber:
                             case EquipmentType.SeaplaneBomber:
+                            case EquipmentType.JetPoweredFighterBomber:
                                 return rEquipmentInfo.DiveBomberAttack * Math.Sqrt(rpSlot.PlaneCount) + 25;
 
                             case EquipmentType.CarrierBasedTorpedoBomber:
