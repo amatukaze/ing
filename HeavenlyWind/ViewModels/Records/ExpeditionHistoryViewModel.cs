@@ -64,7 +64,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
                             rExpeditions.Add(rExpedition);
                     }
 
-                    Expeditions.AddRange(rExpeditions);
+                    Expeditions.Update(rExpeditions);
                 }
             }
         }

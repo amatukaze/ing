@@ -59,7 +59,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
                         rMaps.Add(new SortieMapFilterKey(MapService.Instance.GetMasterInfo(rMap), rDifficulty));
                     }
 
-                    Maps.AddRange(rMaps);
+                    Maps.Update(rMaps);
                 }
             }
         }
