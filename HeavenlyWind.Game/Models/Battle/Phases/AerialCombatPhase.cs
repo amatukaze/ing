@@ -85,82 +85,112 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             if (rStage3 == null)
                 return;
 
-            var rParticipants = Stage.FriendAndEnemy;
+            var rTotalEnemyDamages = 0;
 
-            var rFriendMainDamages = rStage3.FriendDamage.Skip(1);
-            var rEnemyMainDamages = rStage3.EnemyDamage.Skip(1);
-            var rDamages = Enumerable.Concat(rFriendMainDamages, rEnemyMainDamages).ToArray();
-
-            IEnumerable<int> rEnemyEscortDamages = null;
-            if (RawData.Stage3CombinedFleet != null)
+            var rDamages = new int[24];
+            for (var i = 0; i < 6; i++)
             {
-                var rFriendEscortDamages = RawData.Stage3CombinedFleet.FriendDamage.Skip(1);
-                var rEscortDamages = Enumerable.Concat(rDamages, rFriendEscortDamages);
+                rDamages[i] = rStage3.FriendDamage[i + 1];
 
-                if (RawData.Stage3CombinedFleet.EnemyDamage != null)
-                {
-                    rEnemyEscortDamages = RawData.Stage3CombinedFleet.EnemyDamage.Skip(1);
-
-                    rEscortDamages = rEscortDamages.Concat(rEnemyEscortDamages);
-                }
-
-                rDamages = rEscortDamages.ToArray();
+                var rEnemyDamage = rStage3.EnemyDamage[i + 1];
+                rDamages[i + 6] = rEnemyDamage;
+                rTotalEnemyDamages += rEnemyDamage;
             }
 
-            var rEnemyDamages = rEnemyMainDamages;
-            if (rEnemyEscortDamages != null)
-                rEnemyDamages = rEnemyMainDamages.Concat(rEnemyEscortDamages).ToArray();
+            var rCount = 12;
 
-            if (rDamages.All(r => r == 0))
+            var rCombinedFleet = RawData.Stage3CombinedFleet;
+            if (rCombinedFleet != null)
+            {
+                for (var i = 0; i < 6; i++)
+                    rDamages[i + 12] = rCombinedFleet.FriendDamage[i + 1];
+
+                rCount += 6;
+
+                var rEnemyCombinedFleetDamages = rCombinedFleet.EnemyDamage;
+                if (rEnemyCombinedFleetDamages != null)
+                {
+                    for (var i = 0; i < 6; i++)
+                    {
+                        var rDamage = rEnemyCombinedFleetDamages[i + 1];
+                        rDamages[i + 18] = rDamage;
+                        rTotalEnemyDamages += rDamage;
+                    }
+
+                    rCount += 6;
+                }
+            }
+
+            var rIsAllZero = true;
+
+            for (var i = 0; i < rCount; i++)
+                if (rDamages[i] != 0)
+                {
+                    rIsAllZero = false;
+                    break;
+                }
+
+            if (rIsAllZero)
                 return;
 
-            for (var i = 0; i < rDamages.Length; i++)
+            var rParticipants = Stage.FriendAndEnemy;
+            for (var i = 0; i < rCount; i++)
             {
                 var rParticipant = rParticipants[i];
                 if (rParticipant != null)
                     rParticipant.Current -= rDamages[i];
             }
 
-            if (rEnemyDamages.All(r => r == 0))
+            if (rTotalEnemyDamages == 0)
                 return;
 
             var rFriendAttackers = RawData.Attackers[0];
             if (rFriendAttackers.Length == 1 && rFriendAttackers[0] != -1)
-                rParticipants[rFriendAttackers[0] - 1].DamageGivenToOpponent += rEnemyDamages.Sum();
+                rParticipants[rFriendAttackers[0] - 1].DamageGivenToOpponent += rTotalEnemyDamages;
             else if (rFriendAttackers.Length > 1)
             {
-                var rFirepowers = rFriendAttackers.Select(r =>
-                {
-                    var rShip = ((FriendShip)Stage.Friend[r - 1].Participant).Ship;
+                var rFirepowers = new double[rFriendAttackers.Length];
+                var rTotalFirepower = .0;
 
-                    return rShip.Slots.Where(rpSlot => rpSlot.HasEquipment).Sum(rpSlot =>
+                for (var i = 0; i < rFriendAttackers.Length;i++)
+                {
+                    var rAttacker = rFriendAttackers[i];
+                    var rShip = ((FriendShip)Stage.Friend[rAttacker - 1].Participant).Ship;
+
+                    var rFirepower = .0;
+
+                    foreach (var rSlot in rShip.Slots)
                     {
-                        var rEquipmentInfo = rpSlot.Equipment.Info;
-                        switch (rEquipmentInfo.Type)
+                        if (!rSlot.HasEquipment)
+                            continue;
+
+                        var rInfo = rSlot.Equipment.Info;
+                        switch (rInfo.Type)
                         {
                             case EquipmentType.CarrierBasedDiveBomber:
                             case EquipmentType.SeaplaneBomber:
                             case EquipmentType.JetPoweredFighterBomber:
-                                return rEquipmentInfo.DiveBomberAttack * Math.Sqrt(rpSlot.PlaneCount) + 25;
+                                rFirepower += rInfo.DiveBomberAttack * Math.Sqrt(rSlot.PlaneCount) + 25.0;
+                                break;
 
                             case EquipmentType.CarrierBasedTorpedoBomber:
-                                return 1.15 * (rEquipmentInfo.Torpedo * Math.Sqrt(rpSlot.PlaneCount) + 25);
-
-                            default: return 0;
+                            case EquipmentType.JetPoweredAttackAircraft:
+                                rFirepower += (rInfo.Torpedo * Math.Sqrt(rSlot.PlaneCount) + 25.0) * 1.15;
+                                break;
                         }
-                    });
-                }).ToArray();
+                    }
 
-                var rTotalDamages = rEnemyDamages.Sum();
-                var rTotalFirepowers = rFirepowers.Sum();
+                    rFirepowers[i] = rFirepower;
+                    rTotalFirepower += rFirepower;
+                }
 
-                if (rTotalDamages == 0)
+                if (rTotalFirepower == 0)
                     return;
 
                 for (var i = 0; i < rFriendAttackers.Length; i++)
                 {
                     var rParticipant = rParticipants[rFriendAttackers[i] - 1];
-                    rParticipant.DamageGivenToOpponent += (int)Math.Round(rTotalDamages * rFirepowers[i] / rTotalFirepowers);
+                    rParticipant.DamageGivenToOpponent += (int)Math.Round(rTotalEnemyDamages * rFirepowers[i] / rTotalFirepower);
                     rParticipant.Inaccurate = true;
                 }
             }
