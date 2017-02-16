@@ -57,8 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rRawShip in rData.Ships)
                     Ships[rRawShip.ID].Update(rRawShip);
 
-                var rRawFleet = rData.Fleets[0];
-                Fleets[rRawFleet.ID].Update(rRawFleet);
+                foreach (var rRawFleet in rData.Fleets)
+                    Fleets[rRawFleet.ID].Update(rRawFleet);
 
                 OnPropertyChanged(nameof(Ships));
             });
