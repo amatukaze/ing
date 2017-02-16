@@ -43,7 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         BattleParticipantState r_PreviousState;
         public BattleParticipantState State => GetState(Current);
-        public bool IsStateChanged => State != r_PreviousState;
+        public bool IsStateChanged => IsEvacuated || State != r_PreviousState;
 
         internal BattleParticipantSnapshot(int rpMaximum, int rpCurrent)
         {
@@ -92,6 +92,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
                 rParticipant.IsDamageControlConsumed = true;
             }
+        }
+
+        public void Evacuate()
+        {
+            IsEvacuated = true;
+
+            var rShip = ((FriendShip)Participant).Ship;
+            rShip.State |= ShipState.Evacuated;
+
+            OnPropertyChanged(nameof(IsEvacuated));
+            OnPropertyChanged(nameof(IsStateChanged));
         }
 
         public override string ToString()

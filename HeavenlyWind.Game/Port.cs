@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System;
@@ -21,7 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public HashSet<int> ShipIDs { get; private set; }
         public IDTable<Ship> Ships { get; } = new IDTable<Ship>();
 
-        int[] r_EvacuatedShipIDs;
+        BattleParticipantSnapshot[] r_EvacuatedShips;
         internal HashSet<int> EvacuatedShipIDs { get; } = new HashSet<int>();
 
         public FleetManager Fleets { get; } = new FleetManager();
@@ -404,23 +405,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (!rData.HasEvacuatedShip)
                     return;
 
+                var rParticipants = BattleInfo.Current.CurrentStage.Friend;
+
                 var rEvacuatedShipIndex = rData.EvacuatedShips.EvacuatedShipIndex[0] - 1;
-                var rEvacuatedShipID = Fleets[rEvacuatedShipIndex < 6 ? 1 : 2].Ships[rEvacuatedShipIndex % 6].ID;
+                var rEvacuatedShip = rParticipants[rEvacuatedShipIndex];
 
                 var rEscortShipIndex = rData.EvacuatedShips.EscortShipIndex[0] - 1;
-                var rEscortShipID = Fleets[rEscortShipIndex < 6 ? 1 : 2].Ships[rEscortShipIndex % 6].ID;
+                var rEscortShip = rParticipants[rEscortShipIndex];
 
-                r_EvacuatedShipIDs = new[] { rEvacuatedShipID, rEscortShipID };
+                r_EvacuatedShips = new[] { rEvacuatedShip, rEscortShip };
             });
             ApiService.Subscribe("api_req_combined_battle/goback_port", delegate
             {
-                if (SortieInfo.Current == null || r_EvacuatedShipIDs == null || r_EvacuatedShipIDs.Length == 0)
+                if (SortieInfo.Current == null || r_EvacuatedShips == null || r_EvacuatedShips.Length == 0)
                     return;
 
-                EvacuatedShipIDs.Add(r_EvacuatedShipIDs[0]);
-                EvacuatedShipIDs.Add(r_EvacuatedShipIDs[1]);
+                foreach (var rEvacuatedShip in r_EvacuatedShips)
+                {
+                    rEvacuatedShip.Evacuate();
+
+                    EvacuatedShipIDs.Add(((FriendShip)rEvacuatedShip.Participant).Ship.ID);
+                }
             });
-            ApiService.Subscribe("api_get_member/ship_deck", _ => r_EvacuatedShipIDs = null);
+            ApiService.Subscribe("api_get_member/ship_deck", _ => r_EvacuatedShips = null);
             ApiService.Subscribe("api_port/port", _ => EvacuatedShipIDs.Clear());
 
             ApiService.Subscribe("api_req_member/updatedeckname", r =>
