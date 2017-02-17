@@ -37,7 +37,7 @@
         </TextBlock>
 
         <TextBlock Margin="0, 4, 0, 0">
-            Traditional Chinese localization (~ 0.1.14):
+            Traditional Chinese localization:
             <Hyperlink NavigateUri="https://github.com/Vik1n9">Vik1n9</Hyperlink>
         </TextBlock>
 
