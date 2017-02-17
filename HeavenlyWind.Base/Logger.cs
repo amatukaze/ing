@@ -11,6 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze
 {
     public class Logger
     {
+        static DirectoryInfo r_ExceptionLogDirectory;
         static Tuple<string, Regex> r_ExceptionLogFilenameRegex;
 
         static StreamWriter r_Writer;
@@ -26,6 +27,10 @@ namespace Sakuno.KanColle.Amatsukaze
             var rLogDirectory = new DirectoryInfo(Path.Combine(rCurrentDirectory, "Logs"));
             if (!rLogDirectory.Exists)
                 rLogDirectory.Create();
+
+            r_ExceptionLogDirectory = new DirectoryInfo(Path.Combine(rCurrentDirectory, "Logs", "Exceptions"));
+            if (!r_ExceptionLogDirectory.Exists)
+                r_ExceptionLogDirectory.Create();
 
             var rStream = File.Open(Path.Combine(rLogDirectory.FullName, DateTime.Now.ToString("yyyy-MM-dd") + ".log"), FileMode.Append, FileAccess.Write, FileShare.Write);
             r_Writer = new StreamWriter(rStream, new UTF8Encoding(true));
@@ -49,11 +54,6 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public static string GetNewExceptionLogFilename()
         {
-            var rCurrentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var rExceptionLogDirectory = new DirectoryInfo(Path.Combine(rCurrentDirectory, "Logs", "Exceptions"));
-            if (!rExceptionLogDirectory.Exists)
-                rExceptionLogDirectory.Create();
-
             var rPrefix = DateTime.Now.ToString("yyMMdd");
             Regex rRegex;
             if (r_ExceptionLogFilenameRegex != null && r_ExceptionLogFilenameRegex.Item1 == rPrefix)
@@ -62,11 +62,13 @@ namespace Sakuno.KanColle.Amatsukaze
                 r_ExceptionLogFilenameRegex = Tuple.Create(rPrefix, rRegex = new Regex(rPrefix + @"_(\d+)\.log$", RegexOptions.IgnoreCase));
 
             var rIndex = 0;
-            var rSavedLogs = rExceptionLogDirectory.GetFiles(rPrefix + "_*.log");
-            if (rSavedLogs.Any())
+            var rSavedLogs = r_ExceptionLogDirectory.GetFiles(rPrefix + "_*.log");
+            if (rSavedLogs.Length > 0)
                 rIndex = rSavedLogs.Max(r => int.Parse(rRegex.Match(r.FullName).Groups[1].Value));
 
-            return Path.Combine(rExceptionLogDirectory.FullName, $"{rPrefix}_{rIndex + 1}.log");
+            rIndex++;
+
+            return Path.Combine(r_ExceptionLogDirectory.FullName, rPrefix + "_" + rIndex + ".log");
         }
     }
 }

@@ -104,7 +104,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             if (rSortie.LandBaseAerialSupportRequests != null)
             {
                 var rNodeUniqueID = MapService.Instance.GetNodeUniqueID(rSortie.Map.ID, rpData.Node);
-                if (rNodeUniqueID.HasValue && rSortie.LandBaseAerialSupportRequests.Any(r => r == rNodeUniqueID.Value))
+                if (rNodeUniqueID.HasValue && Array.IndexOf(rSortie.LandBaseAerialSupportRequests, rNodeUniqueID.Value) != -1)
                     IsLandBaseAerialSupportReady = true;
             }
         }

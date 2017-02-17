@@ -7,6 +7,7 @@
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rc="clr-namespace:Sakuno.KanColle.Amatsukaze.Controls"
              mc:Ignorable="d"
+             Name="Container"
              d:DesignWidth="300" d:DesignHeight="300">
     <Border DataContext="{Binding Materials.Source}">
         <Grid Grid.IsSharedSizeScope="True">
@@ -29,6 +30,23 @@
                 </Style>
                 <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource {x:Type ToolTip}}">
                     <Setter Property="TextElement.FontSize" Value="14" />
+                </Style>
+
+                <Style x:Key="ResourceTextBlockStyle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Setter Property="Text" Value="{Binding}" />
+
+                    <Style.Triggers>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource IsLessThanConverter}">
+                                    <Binding />
+                                    <Binding Path="RegenerationLimit" ElementName="Container" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+
+                            <Setter Property="Foreground" Value="SkyBlue" />
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </Grid.Resources>
 
@@ -58,7 +76,7 @@
                 </DockPanel.ToolTip>
 
                 <rc:MaterialIcon Type="Fuel" />
-                <TextBlock Text="{Binding Fuel}" Margin="4, 2" />
+                <TextBlock Style="{StaticResource ResourceTextBlockStyle}" DataContext="{Binding Fuel}" Margin="4, 2" />
             </DockPanel>
             <DockPanel Grid.Row="1">
                 <DockPanel.ToolTip>
@@ -86,7 +104,7 @@
                 </DockPanel.ToolTip>
 
                 <rc:MaterialIcon Type="Bullet" />
-                <TextBlock Text="{Binding Bullet}" Margin="4, 2" />
+                <TextBlock Style="{StaticResource ResourceTextBlockStyle}" DataContext="{Binding Bullet}" Margin="4, 2" />
             </DockPanel>
             <DockPanel Grid.Column="1">
                 <DockPanel.ToolTip>
@@ -114,7 +132,7 @@
                 </DockPanel.ToolTip>
 
                 <rc:MaterialIcon Type="Steel" />
-                <TextBlock Text="{Binding Steel}" Margin="4, 2" />
+                <TextBlock Style="{StaticResource ResourceTextBlockStyle}" DataContext="{Binding Steel}" Margin="4, 2" />
             </DockPanel>
             <DockPanel Grid.Column="1" Grid.Row="1">
                 <DockPanel.ToolTip>
@@ -142,7 +160,7 @@
                 </DockPanel.ToolTip>
 
                 <rc:MaterialIcon Type="Bauxite" />
-                <TextBlock Text="{Binding Bauxite}" Margin="4, 2" />
+                <TextBlock Style="{StaticResource ResourceTextBlockStyle}" DataContext="{Binding Bauxite}" Margin="4, 2" />
             </DockPanel>
 
             <DockPanel Grid.Column="2">

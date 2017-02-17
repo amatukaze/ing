@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 {
     public class AntiAirCutIn : ModelBase
     {
-        static Dictionary<int, int> r_ShotdownCount;
+        static IDictionary<int, int> r_ShotdownCount;
 
         public int TypeID { get; }
 
@@ -19,14 +20,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         static AntiAirCutIn()
         {
-            byte[] rContent;
-            if (DataStore.TryGet("anti_air_cut_in", out rContent))
+            DataStore.Updated += rpName =>
             {
-                var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
-                var rData = JArray.Load(rReader);
+                if (rpName == "anti_air_cut_in")
+                    Reload();
+            };
 
-                r_ShotdownCount = rData.ToDictionary(r => (int)r["id"], r => (int)r["shotdown"]);
-            }
+            Reload();
         }
         internal AntiAirCutIn(RawAntiAirCutIn rpData)
         {
@@ -37,6 +37,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             int rShotdownCount;
             if (r_ShotdownCount.TryGetValue(TypeID, out rShotdownCount))
                 ShotdownCount = rShotdownCount;
+        }
+
+        static void Reload()
+        {
+            byte[] rContent;
+            if (!DataStore.TryGet("anti_air_cut_in", out rContent))
+            {
+                r_ShotdownCount = new ListDictionary<int, int>();
+                return;
+            }
+
+            var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
+            var rData = JArray.Load(rReader);
+
+            r_ShotdownCount = rData.ToDictionary(r => (int)r["id"], r => (int)r["shotdown"]);
         }
     }
 }

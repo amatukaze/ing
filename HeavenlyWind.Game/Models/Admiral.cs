@@ -37,6 +37,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             OnPropertyChanged(nameof(MaxShipCount));
             OnPropertyChanged(nameof(MaxEquipmentCount));
+
+            OnPropertyChanged(nameof(ResourceRegenerationLimit));
         }
 
         public override string ToString() => $"ID = {ID}, Name = \"{Name}\", Level = {Level}";

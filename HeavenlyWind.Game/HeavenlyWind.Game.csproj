@@ -239,6 +239,7 @@
     <Compile Include="Models\Raw\RawEquipmentInfo.cs" />
     <Compile Include="Models\Raw\RawEquipmentRelocationResult.cs" />
     <Compile Include="Models\Raw\RawEquipmentTypeInfo.cs" />
+    <Compile Include="Models\Raw\RawEventMapDifficultySelectionResult.cs" />
     <Compile Include="Models\Raw\RawExpeditionInfo.cs" />
     <Compile Include="Models\Raw\RawExpeditionRecalling.cs" />
     <Compile Include="Models\Raw\RawExpeditionResult.cs" />

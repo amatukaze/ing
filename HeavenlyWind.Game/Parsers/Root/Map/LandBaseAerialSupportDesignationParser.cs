@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
@@ -12,7 +13,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Map
             if (rSortie == null)
                 return;
 
-            rSortie.LandBaseAerialSupportRequests = rpInfo.Parameters.Where(r => r.Key.StartsWith("api_strike_point_")).SelectMany(r => r.Value.Split(',').Select(int.Parse)).Distinct().ToArray();
+            var rRequests = rpInfo.Parameters
+                .Where(r => r.Key.StartsWith("api_strike_point_"))
+                .SelectMany(r => r.Value.Split(',').Select(int.Parse))
+                .Distinct().ToArray();
+
+            var rMap = rSortie.Map.ID;
+
+            for (var i = 0; i < rRequests.Length; i++)
+            {
+                var rNodeUniqueID = MapService.Instance.GetNodeUniqueID(rMap, rRequests[i]);
+                if (!rNodeUniqueID.HasValue)
+                    continue;
+
+                rRequests[i] = rNodeUniqueID.Value;
+            }
+
+            rSortie.LandBaseAerialSupportRequests = rRequests;
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
                     while (rReader.Read())
                         rShips.Add(rMasterInfo.Ships[rReader.GetInt32(0)]);
 
-                    Ships.AddRange(rShips);
+                    Ships.Update(rShips);
                 }
             }
         }

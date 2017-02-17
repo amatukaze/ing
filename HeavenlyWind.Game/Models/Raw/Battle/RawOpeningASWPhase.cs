@@ -4,6 +4,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
 {
     public class RawOpeningASWPhase
     {
+        [JsonProperty("api_at_eflag")]
+        public int[] IsEnemyAttacker { get; set; }
+
         [JsonProperty("api_at_list")]
         public int[] Attackers { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -81,7 +82,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
                 if ((rpFirstStage == null && rFriendAndEnemyEscort.Length > 6) || (rpFirstStage != null && rpFirstStage.EnemyEscort != null))
                 {
-                    EnemyEscort = rFriendAndEnemyEscort.Skip(6).ToArray();
+                    EnemyEscort = rFriendAndEnemyEscort.Skip(6).TakeWhile(r => r != null).ToArray();
 
                     for (var i = 0; i < EnemyEscort.Count; i++)
                     {
@@ -102,7 +103,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 Enemy = EnemyMain.Concat(EnemyEscort).ToArray();
 
             foreach (var rPhase in Phases)
-                rPhase.Process();
+                try
+                {
+                    rPhase.Process();
+                }
+                catch (Exception e)
+                {
+                    Logger.Write(LoggingLevel.Error, e.Message);
+                    ApiParserManager.HandleException(rpInfo.Session, e);
+                }
 
             if (!Owner.IsPractice)
                 foreach (var rSnapshot in Friend)

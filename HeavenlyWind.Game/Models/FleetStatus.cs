@@ -107,7 +107,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             foreach (var rShip in r_Fleet.Ships)
             {
-                if (rShip.DamageState >= ShipDamageState.HeavilyDamaged || rShip.State == ShipState.Evacuated)
+                if (rShip.DamageState >= ShipDamageState.HeavilyDamaged || (rShip.State & ShipState.Evacuated) != 0)
                     continue;
 
                 switch ((ShipType)rShip.Info.Type.ID)

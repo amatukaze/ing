@@ -77,7 +77,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
                     while (rReader.Read())
                         rEquipment.Add(rMasterInfo.Equipment[rReader.GetInt32(0)]);
 
-                    Equipment.AddRange(rEquipment);
+                    Equipment.Update(rEquipment);
                 }
 
                 rCommand.CommandText = "SELECT DISTINCT flagship FROM development WHERE equipment IS NOT NULL ORDER BY flagship;";
@@ -88,7 +88,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
                     while (rReader.Read())
                         rSecretaryShips.Add(rMasterInfo.Ships[rReader.GetInt32(0)]);
 
-                    SecretaryShips.AddRange(rSecretaryShips);
+                    SecretaryShips.Update(rSecretaryShips);
                 }
             }
         }

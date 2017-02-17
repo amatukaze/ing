@@ -173,13 +173,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                     FlashWindow();
 
-                    if (!Preference.Instance.Game.DisableHeavyDamageBlinkingWarning)
-                        IsBlinking = !SortieInfo.Current.Node.IsDeadEnd;
+                    IsBlinking = !Preference.Instance.Game.DisableHeavyDamageBlinkingWarning && !SortieInfo.Current.Node.IsDeadEnd;
                 }
             });
 
             ApiService.Subscribe("api_port/port", _ => IsBlinking = false);
-            ApiService.Subscribe(new[] { "api_req_map/start", "api_req_map/next" }, delegate
+            ApiService.Subscribe(new[] { "api_req_map/start", "api_req_map/next", "api_req_combined_battle/goback_port" }, delegate
             {
                 var rSortie = SortieInfo.Current;
                 var rParticipants = rSortie.Fleet.Ships.Skip(1);
@@ -190,7 +189,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 var rHeavilyDamagedShips = rParticipants.Where(r => (r.State & ShipState.HeavilyDamaged) != 0 && (r.State & ShipState.Evacuated) == 0 &&
                     !r.EquipedEquipment.Any(rpEquipment => rpEquipment.Info.Type == EquipmentType.DamageControl)).ToArray();
                 if (rHeavilyDamagedShips.Length == 0 || (rNode.IsDeadEnd && rNode.EventType != SortieEventType.NormalBattle && rNode.EventType != SortieEventType.BossBattle))
+                {
                     ThemeManager.Instance.ChangeAccent(Accent.Brown);
+                    IsBlinking = false;
+                }
                 else
                 {
                     if (Preference.Instance.Notification.HeavyDamageWarning)
@@ -198,8 +200,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                     FlashWindow();
 
-                    if (!Preference.Instance.Game.DisableHeavyDamageBlinkingWarning)
-                        IsBlinking = true;
+                    IsBlinking = !Preference.Instance.Game.DisableHeavyDamageBlinkingWarning;
                 }
             });
         }

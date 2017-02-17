@@ -13,5 +13,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         Repairing = 1 << 4,
         HeavilyDamaged = 1 << 5,
         AnchorageRepair = 1 << 6,
+        HighMorale = 1 << 7,
+        ModerateTired = 1 << 8,
+        SeriouslyTired = 1 << 9,
     }
 }
