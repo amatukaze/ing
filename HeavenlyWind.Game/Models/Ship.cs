@@ -362,7 +362,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 State &= ~ShipState.Repairing;
 
-                HP.Current = HP.Maximum;
+                HP.Set(HP.Maximum, HP.Maximum);
 
                 if (Condition < 40)
                     Condition = 40;
@@ -415,7 +415,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 base.Set(rpMaximum, rpCurrent);
 
                 var rRate = Current / (double)Maximum;
-
                 if (rRate <= .25)
                 {
                     r_Owner.State |= ShipState.HeavilyDamaged;
