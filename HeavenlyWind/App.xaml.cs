@@ -12,6 +12,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -89,7 +90,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
             ShutdownMode = ShutdownMode.OnMainWindowClose;
 
-            Task.Run((Action)UpdateService.Instance.CheckForUpdate);
+            if (!Environment.GetCommandLineArgs().Any(r => r.OICEquals("--no-check-for-update")))
+                Observable.Timer(TimeSpan.Zero, TimeSpan.FromHours(4.0)).Subscribe(_ => UpdateService.Instance.CheckForUpdate());
 
             if (e.Args.Any(r => r.OICEquals("--background")))
                 return;

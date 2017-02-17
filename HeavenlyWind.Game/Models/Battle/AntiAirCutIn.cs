@@ -20,6 +20,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         static AntiAirCutIn()
         {
+            DataStore.Updated += rpName =>
+            {
+                if (rpName == "anti_air_cut_in")
+                    Reload();
+            };
+
+            Reload();
+        }
+        internal AntiAirCutIn(RawAntiAirCutIn rpData)
+        {
+            TypeID = rpData.TypeID;
+
+            UsedEquipment = rpData.EquipmentIDs.Select(r => KanColleGame.Current.MasterInfo.Equipment[r]).ToArray();
+
+            int rShotdownCount;
+            if (r_ShotdownCount.TryGetValue(TypeID, out rShotdownCount))
+                ShotdownCount = rShotdownCount;
+        }
+
+        static void Reload()
+        {
             byte[] rContent;
             if (!DataStore.TryGet("anti_air_cut_in", out rContent))
             {
@@ -31,16 +52,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             var rData = JArray.Load(rReader);
 
             r_ShotdownCount = rData.ToDictionary(r => (int)r["id"], r => (int)r["shotdown"]);
-        }
-        internal AntiAirCutIn(RawAntiAirCutIn rpData)
-        {
-            TypeID = rpData.TypeID;
-
-            UsedEquipment = rpData.EquipmentIDs.Select(r => KanColleGame.Current.MasterInfo.Equipment[r]).ToArray();
-
-            int rShotdownCount;
-            if (r_ShotdownCount.TryGetValue(TypeID, out rShotdownCount))
-                ShotdownCount = rShotdownCount;
         }
     }
 }

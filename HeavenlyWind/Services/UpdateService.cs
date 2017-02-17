@@ -35,7 +35,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         internal void CheckForUpdate()
         {
-            if (Environment.GetCommandLineArgs().Any(r => r.OICEquals("--no-check-for-update")) || !NetworkInterface.GetIsNetworkAvailable())
+            if (!NetworkInterface.GetIsNetworkAvailable())
                 return;
 
             var rFilesToBeChecked = GetFileList().ToArray();

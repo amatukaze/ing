@@ -9,6 +9,8 @@ namespace Sakuno.KanColle.Amatsukaze
     {
         static SQLiteConnection r_Connection;
 
+        public static event Action<string> Updated;
+
         internal static void Initialize()
         {
             var rDirectory = new DirectoryInfo(Path.Combine(ProductInfo.RootDirectory, "Local"));
@@ -98,6 +100,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
                 rCommand.ExecuteNonQuery();
             }
+
+            Updated?.Invoke(name);
         }
         public static void Set(string name, string text, long? timestamp = null)
         {
@@ -113,6 +117,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
                 rCommand.ExecuteNonQuery();
             }
+
+            Updated?.Invoke(name);
         }
 
         public static void Delete(string name)

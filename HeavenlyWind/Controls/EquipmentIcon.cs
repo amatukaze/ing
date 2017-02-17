@@ -35,6 +35,12 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
 
             if (!DesignerProperties.GetIsInDesignMode(new DependencyObject()))
                 LoadTemplates();
+
+            DataStore.Updated += rpName =>
+            {
+                if (rpName == "equipment_icon")
+                    LoadTemplates();
+            };
         }
         static void CreateDefaultTemplate()
         {

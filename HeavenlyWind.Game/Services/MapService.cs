@@ -23,19 +23,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         {
             ApiService.Subscribe("api_get_member/require_info", delegate
             {
-                byte[] rContent;
-                if (!DataStore.TryGet("map_node", out rContent))
-                    r_Nodes = new ListDictionary<int, HybridDictionary<int, Node>>();
-                else
+                DataStore.Updated += rpName =>
                 {
-                    var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
-                    var rData = JObject.Load(rReader);
+                    if (rpName == "map_node")
+                        Reload();
+                };
 
-                    r_Nodes = rData.Properties().ToDictionary(
-                        r => int.Parse(r.Name),
-                        r => r.Value.Select(rpNode => rpNode.ToObject<Node>()).ToHybridDictionary(rpNode => rpNode.ID));
-                }
+                Reload();
             });
+        }
+        void Reload()
+        {
+            byte[] rContent;
+            if (!DataStore.TryGet("map_node", out rContent))
+                r_Nodes = new ListDictionary<int, HybridDictionary<int, Node>>();
+            else
+            {
+                var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
+                var rData = JObject.Load(rReader);
+
+                r_Nodes = rData.Properties().ToDictionary(
+                    r => int.Parse(r.Name),
+                    r => r.Value.Select(rpNode => rpNode.ToObject<Node>()).ToHybridDictionary(rpNode => rpNode.ID));
+            }
         }
 
         public bool ContainsMap(int rpMapID) => r_Nodes.ContainsKey(rpMapID);
