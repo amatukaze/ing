@@ -137,6 +137,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             else if ((State & FleetState.AnchorageRepair) != 0)
                 AnchorageRepair.Stop();
 
+            var rConditionType = ShipConditionType.HighMorale;
+            foreach (var rShip in Ships)
+                if (rConditionType < rShip.ConditionType)
+                    rConditionType = rShip.ConditionType;
+
+            switch (rConditionType)
+            {
+                case ShipConditionType.HighMorale:
+                    rState |= FleetState.HighMorale;
+                    break;
+                case ShipConditionType.ModerateTired:
+                    rState |= FleetState.ModerateTired;
+                    break;
+                case ShipConditionType.SeriouslyTired:
+                    rState |= FleetState.SeriouslyTired;
+                    break;
+            }
+
             State = rState;
         }
 
