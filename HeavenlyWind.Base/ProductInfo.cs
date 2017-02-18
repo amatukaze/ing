@@ -7,11 +7,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public const string AppName = "いんてりじぇんと連装砲くん";
         public const string ProductName = "Intelligent Naval Gun";
 
-        public const string AssemblyVersionString = "0.1.15.2";
+        public const string AssemblyVersionString = "0.1.15.3";
 
         public static string Version => AssemblyVersionString;
         public static string ReleaseCodeName => "Braindrive";
-        public static string ReleaseDate => "2017.02.12";
+        public static string ReleaseDate => "2017.02.18";
 
         public const string UserAgent = "ING/" + AssemblyVersionString;
 
