@@ -39,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             DataStore.Updated += rpName =>
             {
                 if (rpName == "equipment_icon")
-                    LoadTemplates();
+                    DispatcherUtil.UIDispatcher.InvokeAsync(LoadTemplates);
             };
         }
         static void CreateDefaultTemplate()
@@ -59,28 +59,31 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
         {
             byte[] rContent;
             if (!DataStore.TryGet("equipment_icon", out rContent))
-                r_Templates = new Dictionary<int, ControlTemplate>();
-            else
             {
-                var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
-                var rData = JObject.Load(rReader);
+                if (r_Templates == null)
+                    r_Templates = new Dictionary<int, ControlTemplate>();
 
-                var rSharedResources = new ResourceDictionary();
-
-                foreach (var rResource in ((JObject)rData["shared"]).Properties())
-                    rSharedResources.Add(rResource.Name, XamlReader.Parse((string)rResource.Value));
-
-                r_Templates = ((JObject)rData["type"]).Properties().ToDictionary(
-                    r => int.Parse(r.Name),
-                    r =>
-                    {
-                        var rXaml = "<ControlTemplate xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">" + (string)r.Value + "</ControlTemplate>";
-                        var rResult = (ControlTemplate)XamlReader.Parse(rXaml);
-                        rResult.Resources = rSharedResources;
-
-                        return rResult;
-                    });
+                return;
             }
+
+            var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
+            var rData = JObject.Load(rReader);
+
+            var rSharedResources = new ResourceDictionary();
+
+            foreach (var rResource in ((JObject)rData["shared"]).Properties())
+                rSharedResources.Add(rResource.Name, XamlReader.Parse((string)rResource.Value));
+
+            r_Templates = ((JObject)rData["type"]).Properties().ToDictionary(
+                r => int.Parse(r.Name),
+                r =>
+                {
+                    var rXaml = "<ControlTemplate xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\">" + (string)r.Value + "</ControlTemplate>";
+                    var rResult = (ControlTemplate)XamlReader.Parse(rXaml);
+                    rResult.Resources = rSharedResources;
+
+                    return rResult;
+                });
         }
 
         public override void OnApplyTemplate()

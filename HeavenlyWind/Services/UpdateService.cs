@@ -177,6 +177,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             if (DataStore.TryGet("anti_air_cut_in", DataStoreRetrieveOption.ExcludeContent, out rItem))
                 yield return rItem;
+
+            if (DataStore.TryGet("equipment_icon", DataStoreRetrieveOption.ExcludeContent, out rItem))
+                yield return rItem;
         }
         void ProcessFiles(CheckForUpdateResult rpResult)
         {
