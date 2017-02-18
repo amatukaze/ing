@@ -61,16 +61,38 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
                         var rDamage = rDamages[j];
 
+                        var rDefenderIndex = rDefenders[j] - 1;
+                        var rAttackerIndex = rAttackers[i] - 1;
+
+                        BattleParticipantSnapshot rDefender, rAttacker;
+
                         if (!rIsEnemy)
                         {
-                            Stage.Enemy[rDefenders[j] - 1].Current -= rDamage;
-                            Stage.Friend[rAttackers[i] - 1].DamageGivenToOpponent += rDamage;
+                            if (rDefenderIndex < 6)
+                                rDefender = Stage.EnemyMain[rDefenderIndex];
+                            else
+                                rDefender = Stage.EnemyEscort[rDefenderIndex - 6];
+
+                            if (rAttackerIndex < 6)
+                                rAttacker = Stage.FriendMain[rAttackerIndex];
+                            else
+                                rAttacker = Stage.FriendEscort[rAttackerIndex - 6];
                         }
                         else
                         {
-                            Stage.Friend[rDefenders[j] - 1].Current -= rDamage;
-                            Stage.Enemy[rAttackers[i] - 1].DamageGivenToOpponent += rDamage;
+                            if (rDefenderIndex < 6)
+                                rDefender = Stage.FriendMain[rDefenderIndex];
+                            else
+                                rDefender = Stage.FriendEscort[rDefenderIndex - 6];
+
+                            if (rAttackerIndex < 6)
+                                rAttacker = Stage.EnemyMain[rAttackerIndex];
+                            else
+                                rAttacker = Stage.EnemyEscort[rAttackerIndex - 6];
                         }
+
+                        rDefender.Current -= rDamage;
+                        rAttacker.DamageGivenToOpponent += rDamage;
                     }
                 }
             }
