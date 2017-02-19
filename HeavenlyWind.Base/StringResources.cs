@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.Collections;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -88,7 +89,11 @@ namespace Sakuno.KanColle.Amatsukaze
             using (var rStream = rAssembly.GetManifestResourceStream($"Sakuno.KanColle.Amatsukaze.Resources.Strings.{Preference.Instance.Language}.xml"))
             using (var rReader = new StreamReader(rStream))
             {
-                Main = new StringResourcesItems(XDocument.Load(rReader).Root.Descendants("String").ToDictionary(r => r.Attribute("Key").Value, r => r.Value));
+                var rDictionary = new SortedList<string, string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var rElement in XDocument.Load(rReader).Root.Descendants("String"))
+                    rDictionary[rElement.Attribute("Key").Value] = rElement.Value;
+
+                Main = new StringResourcesItems(rDictionary);
                 IsLoaded = true;
             }
         }
@@ -205,9 +210,9 @@ namespace Sakuno.KanColle.Amatsukaze
 
     public partial class StringResourcesItems : ModelBase
     {
-        Dictionary<string, string> r_Items;
+        SortedList<string, string> r_Items;
 
-        internal StringResourcesItems(Dictionary<string, string> rpItems)
+        internal StringResourcesItems(SortedList<string, string> rpItems)
         {
             r_Items = rpItems;
         }
@@ -216,7 +221,7 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             string rResult;
             if (!r_Items.TryGetValue(rpKey, out rResult))
-                rResult = rpKey;
+                return rpKey;
 
             return rResult;
         }

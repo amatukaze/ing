@@ -3,12 +3,13 @@ using Sakuno.KanColle.Amatsukaze.Game.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class IDTable<T> : IReadOnlyDictionary<int, T> where T : IID
     {
-        HybridDictionary<int, T> r_Dictionary;
+        SortedList<int, T> r_Dictionary;
 
         public int Count => r_Dictionary.Count;
 
@@ -27,8 +28,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public IEnumerable<int> Keys => r_Dictionary.Keys;
         public IEnumerable<T> Values => r_Dictionary.Values;
 
-        public IDTable() : this(new HybridDictionary<int, T>()) { }
-        public IDTable(HybridDictionary<int, T> rpSource)
+        public IDTable() : this(new SortedList<int, T>()) { }
+        public IDTable(SortedList<int, T> rpSource)
         {
             r_Dictionary = rpSource;
         }
@@ -78,12 +79,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     }
                 }
 
-            if (rRemovedIDs != null)
+            if (rRemovedIDs != null && rRemovedIDs.Count > 0)
+            {
                 foreach (var rID in rRemovedIDs)
-                {
                     Remove(rID);
-                    rResult = true;
-                }
+
+                rResult = true;
+            }
 
             return rResult;
         }
