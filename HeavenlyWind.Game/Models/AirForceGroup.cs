@@ -220,43 +220,38 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         continue;
 
                     var rIcon = rSquadron.Plane.Info.Icon;
-                    var rPlaneCount = rSquadron.Count;
 
-                    if (rPlaneCount == rSquadron.MaxCount)
+                    var rCurrentFuelConsumption = 0;
+                    var rCurrentBulletConsumption = 0;
+
+                    switch (rIcon)
                     {
-                        switch (rIcon)
-                        {
-                            case EquipmentIconType.LandBasedAttackAircraft:
-                                rFuelConsumption += 27;
-                                rBulletConsumption += 12;
-                                break;
+                        case EquipmentIconType.LandBasedAttackAircraft:
+                            rCurrentFuelConsumption = 27;
+                            rCurrentBulletConsumption = 12;
+                            break;
 
-                            case EquipmentIconType.CarrierBasedRecon:
-                                rFuelConsumption += 4;
-                                rBulletConsumption += 3;
-                                break;
+                        case EquipmentIconType.CarrierBasedRecon:
+                            rCurrentFuelConsumption = 4;
+                            rCurrentBulletConsumption = 3;
+                            break;
 
-                            case EquipmentIconType.JetFighterBomberKeiunKai:
-                            case EquipmentIconType.JetFighterBomberKikkaKai:
-                                rFuelConsumption += 15;
-                                rBulletConsumption += 8;
-                                break;
+                        case EquipmentIconType.JetFighterBomberKeiunKai:
+                        case EquipmentIconType.JetFighterBomberKikkaKai:
+                            rCurrentFuelConsumption += 15;
+                            rCurrentBulletConsumption = 8;
+                            break;
 
-                            default:
-                                rFuelConsumption += 18;
-                                rBulletConsumption += 11;
-                                break;
-                        }
+                        default:
+                            rCurrentFuelConsumption = 18;
+                            rCurrentBulletConsumption = 11;
+                            break;
                     }
-                    else
-                    {
-                        rBulletConsumption += rPlaneCount * 2 / 3;
 
-                        if (rIcon == EquipmentIconType.LandBasedAttackAircraft)
-                            rFuelConsumption += rPlaneCount * 2 / 3;
-                        else
-                            rFuelConsumption += rPlaneCount;
-                    }
+                    var rRate = rSquadron.Count / (double)rSquadron.MaxCount;
+
+                    rFuelConsumption += (int)Math.Round(rCurrentFuelConsumption * rRate);
+                    rBulletConsumption += (int)Math.Round(rCurrentBulletConsumption * rRate);
                 }
 
             LBASFuelConsumption = rFuelConsumption;
