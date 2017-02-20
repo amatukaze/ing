@@ -81,6 +81,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         break;
 
                     case EquipmentType.Torpedo:
+                    case EquipmentType.SubmarineTorpedo:
                         rTorpedoCount++;
                         break;
 
