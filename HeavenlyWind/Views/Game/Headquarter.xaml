@@ -82,32 +82,27 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
-                            <Grid.Resources>
-                                <Style x:Key="Difference" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
-                                    <Setter Property="Visibility" Value="{Binding IsFinalized, Converter={StaticResource BooleanToInvisibilityConverter}}" />
-                                </Style>
-                            </Grid.Resources>
 
-                            <TextBlock Style="{StaticResource Difference}" Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_PreviousUpdate}" />
-                            <TextBlock Style="{StaticResource Difference}" HorizontalAlignment="Right" Grid.Column="2">
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_PreviousUpdate}" />
+                            <TextBlock HorizontalAlignment="Right" Grid.Column="2">
                                 <Run Text="{Binding PreviousUpdateDifference.AdmiralExperience, StringFormat=+0;-0;0, Mode=OneWay}" />
                                 <Run Text="{Binding PreviousUpdateDifference.RankingPoints, StringFormat=(0.#), Mode=OneWay}" />
                             </TextBlock>
 
-                            <TextBlock Style="{StaticResource Difference}" Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Day}" Grid.Row="1" />
-                            <TextBlock Style="{StaticResource Difference}" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1">
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Day}" Grid.Row="1" />
+                            <TextBlock HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1">
                                 <Run Text="{Binding DayDifference.AdmiralExperience, StringFormat=+0;-0;0, Mode=OneWay}" />
                                 <Run Text="{Binding DayDifference.RankingPoints, StringFormat=(0.#), Mode=OneWay}" />
                             </TextBlock>
 
-                            <TextBlock Style="{StaticResource Difference}" Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Month}" Margin="0, 0, 0, 4" Grid.Row="2" />
-                            <TextBlock Style="{StaticResource Difference}" HorizontalAlignment="Right" Margin="0, 0, 0, 4" Grid.Column="2" Grid.Row="2">
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_Experience_Difference_Type_Month}" Margin="0, 0, 0, 4" Grid.Row="2" />
+                            <TextBlock HorizontalAlignment="Right" Margin="0, 0, 0, 4" Grid.Column="2" Grid.Row="2">
                                 <Run Text="{Binding MonthDifference.AdmiralExperience, StringFormat=+0;-0;0, Mode=OneWay}" />
                                 <Run Text="{Binding MonthDifference.RankingPoints, StringFormat=(0.#), Mode=OneWay}" />
                             </TextBlock>
 
-                            <TextBlock Style="{StaticResource Difference}" Text="{rb:StringResource Main.Overview_Admiral_TotalRankingPoints}" FontWeight="Bold" Grid.Row="3" />
-                            <TextBlock Style="{StaticResource Difference}" Text="{Binding TotalScore}" FontWeight="Bold" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3" />
+                            <TextBlock Text="{rb:StringResource Main.Overview_Admiral_TotalRankingPoints}" FontWeight="Bold" Grid.Row="3" />
+                            <TextBlock Text="{Binding TotalScore}" FontWeight="Bold" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="3" />
 
                             <TextBlock Text="{rb:StringResource Main.Overview_Admiral_FinalRankingPoints}" FontWeight="Bold" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Row="4" />
                             <TextBlock Text="{Binding FinalScore}" FontWeight="Bold" HorizontalAlignment="Right" Visibility="{rb:CollapsedIfNull FinalScore}" Grid.Column="2" Grid.Row="4" />
