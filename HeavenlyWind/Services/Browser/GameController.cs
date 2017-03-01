@@ -9,6 +9,7 @@ using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
@@ -55,7 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             TakeScreenshotToFileCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
             TakeScreenshotToClipboardCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: true));
             OpenScreenshotToolCommand = new DelegatedCommand(ScreenshotTool.Open);
-            OpenScreenshotFolderCommand = new DelegatedCommand(() => Process.Start(Preference.Instance.Browser.Screenshot.Path));
+            OpenScreenshotFolderCommand = new DelegatedCommand(() => Process.Start(Path.GetFullPath(Preference.Instance.Browser.Screenshot.Path)));
 
             if (OS.IsWin7OrLater && !rpOwner.NoInstalledLayoutEngines)
                 try
