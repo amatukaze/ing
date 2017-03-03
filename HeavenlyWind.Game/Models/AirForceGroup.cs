@@ -251,7 +251,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     var rRate = rSquadron.Count / (double)rSquadron.MaxCount;
 
                     rFuelConsumption += (int)Math.Round(rCurrentFuelConsumption * rRate);
-                    rBulletConsumption += (int)Math.Round(rCurrentBulletConsumption * rRate);
+
+                    if (rIcon == EquipmentIconType.LandBasedAttackAircraft)
+                        rBulletConsumption += (int)Math.Round(rCurrentBulletConsumption * rRate);
+                    else
+                        rBulletConsumption += (int)Math.Ceiling(rCurrentBulletConsumption * rRate);
                 }
 
             LBASFuelConsumption = rFuelConsumption;
