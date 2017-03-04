@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Extensibility
 {
     public static class ServiceManager
     {
-        static Dictionary<string, object> r_Services = new Dictionary<string, object>();
+        static SortedList<string, object> r_Services = new SortedList<string, object>(StringComparer.OrdinalIgnoreCase);
 
         public static void Register<T>(object service) where T : class
         {

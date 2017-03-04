@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         public override string GroupName => "experience";
 
         int r_Admiral;
-        Dictionary<int, int> r_Ships = new Dictionary<int, int>(100);
+        SortedList<int, int> r_Ships = new SortedList<int, int>(100);
 
         internal ExperienceRecords(SQLiteConnection rpConnection) : base(rpConnection)
         {

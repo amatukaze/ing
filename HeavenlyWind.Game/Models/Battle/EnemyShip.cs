@@ -37,8 +37,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
             var rData = JArray.Load(rReader);
 
-            r_PlaneCount = rData.ToDictionary(r => (int)r["id"], r => r["plane_count"].ToObject<int[]>());
-            FighterPowers = rData.ToDictionary(r => (int)r["id"], r => (int)r["fighter_power"]);
+            r_PlaneCount = rData.ToSortedList(r => (int)r["id"], r => r["plane_count"].ToObject<int[]>());
+            FighterPowers = rData.ToSortedList(r => (int)r["id"], r => (int)r["fighter_power"]);
         }
         public EnemyShip(int rpID, int rpLevel, int[] rpEquipment = null)
         {

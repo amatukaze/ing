@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
             var rData = JArray.Load(rReader);
 
-            r_ShotdownCount = rData.ToDictionary(r => (int)r["id"], r => (int)r["shotdown"]);
+            r_ShotdownCount = rData.ToSortedList(r => (int)r["id"], r => (int)r["shotdown"]);
         }
     }
 }

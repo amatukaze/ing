@@ -140,7 +140,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public IList<EnemyFleet> GetEncounters(int rpMap, int rpNode, EventMapDifficulty? rpDifficulty)
         {
-            var rFleets = new Dictionary<long, EnemyFleet>();
+            var rFleets = new SortedList<long, EnemyFleet>();
 
             using (var rCommand = r_Connection.CreateCommand())
             {

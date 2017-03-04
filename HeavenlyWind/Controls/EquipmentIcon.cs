@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
         }
 
         static ControlTemplate r_DefaultTemplate;
-        static Dictionary<int, ControlTemplate> r_Templates;
+        static SortedList<int, ControlTemplate> r_Templates;
 
         FrameworkElement r_Content;
 
@@ -61,7 +61,7 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             if (!DataStore.TryGet("equipment_icon", out rContent))
             {
                 if (r_Templates == null)
-                    r_Templates = new Dictionary<int, ControlTemplate>();
+                    r_Templates = new SortedList<int, ControlTemplate>();
 
                 return;
             }
@@ -74,7 +74,7 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             foreach (var rResource in ((JObject)rData["shared"]).Properties())
                 rSharedResources.Add(rResource.Name, XamlReader.Parse((string)rResource.Value));
 
-            r_Templates = ((JObject)rData["type"]).Properties().ToDictionary(
+            r_Templates = ((JObject)rData["type"]).Properties().ToSortedList(
                 r => int.Parse(r.Name),
                 r =>
                 {

@@ -30,7 +30,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public IDTable<Equipment> Equipment { get; } = new IDTable<Equipment>();
 
         static Regex r_UnequippedEquipmentRegex = new Regex(@"(?<=api_slottype)\d+", RegexOptions.Compiled);
-        public IDictionary<EquipmentType, Equipment[]> UnequippedEquipment { get; } = new Dictionary<EquipmentType, Equipment[]>();
+        public IDictionary<EquipmentType, Equipment[]> UnequippedEquipment { get; } = new SortedList<EquipmentType, Equipment[]>();
 
         public IDTable<RepairDock> RepairDocks { get; } = new IDTable<RepairDock>();
         public IDTable<ConstructionDock> ConstructionDocks { get; } = new IDTable<ConstructionDock>();

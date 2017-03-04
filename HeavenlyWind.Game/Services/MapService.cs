@@ -42,7 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
                 var rData = JObject.Load(rReader);
 
-                r_Nodes = rData.Properties().ToDictionary(
+                r_Nodes = rData.Properties().ToSortedList(
                     r => int.Parse(r.Name),
                     r => r.Value.Select(rpNode => rpNode.ToObject<Node>()).ToHybridDictionary(rpNode => rpNode.ID));
             }
