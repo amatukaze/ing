@@ -70,6 +70,13 @@
                     <Setter TargetName="Condition" Property="Text" Value="" />
                 </DataTrigger>
 
+                <DataTrigger Binding="{Binding State}" Value="ModeratelyDamaged">
+                    <Setter TargetName="Avatar" Property="IsDamaged" Value="True" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding State}" Value="HeavilyDamaged">
+                    <Setter TargetName="Avatar" Property="IsDamaged" Value="True" />
+                </DataTrigger>
+
                 <DataTrigger Binding="{Binding AntiAirCutIn.ShotdownCount}" Value="{x:Null}">
                     <Setter TargetName="ShotdownCount" Property="Text" Value="???" />
                 </DataTrigger>

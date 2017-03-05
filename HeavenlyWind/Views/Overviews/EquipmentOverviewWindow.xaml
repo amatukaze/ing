@@ -65,7 +65,7 @@
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
 
-                                        <rc:ShipAvatar ID="{Binding Ship.Info.ID}">
+                                        <rc:ShipAvatar x:Name="Avatar" ID="{Binding Ship.Info.ID}">
                                             <rc:ShipAvatar.ToolTip>
                                                 <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" />
                                             </rc:ShipAvatar.ToolTip>
@@ -86,6 +86,13 @@
                                 <DataTemplate.Triggers>
                                     <DataTrigger Binding="{Binding Count}" Value="1">
                                         <Setter TargetName="Count" Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding Ship.DamageState}" Value="ModeratelyDamaged">
+                                        <Setter TargetName="Avatar" Property="IsDamaged" Value="True" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Ship.DamageState}" Value="HeavilyDamaged">
+                                        <Setter TargetName="Avatar" Property="IsDamaged" Value="True" />
                                     </DataTrigger>
                                 </DataTemplate.Triggers>
                             </DataTemplate>

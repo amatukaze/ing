@@ -68,6 +68,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             }
         }
 
+        BattleParticipantState? r_State;
+        public BattleParticipantState? State
+        {
+            get { return r_State; }
+            internal set
+            {
+                if (r_State != value)
+                {
+                    r_State = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public FriendShip(Ship rpShip)
         {
             Ship = rpShip;
@@ -77,6 +91,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         {
             IsMVP = false;
             AntiAirCutIn = null;
+            State = null;
         }
     }
 }

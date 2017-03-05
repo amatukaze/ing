@@ -28,6 +28,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         public AntiAirCutIn AntiAirCutIn => null;
 
+        public BattleParticipantState? State => null;
+
         static EnemyShip()
         {
             byte[] rContent;

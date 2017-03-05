@@ -155,7 +155,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             }
 
             First.Process(rpInfo);
-            First.ProcessMVP();
+            First.Postprocess();
             Result.Update(First, Second);
 
             IsInitialized = true;
@@ -217,7 +217,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             Second.Process(rpInfo, First);
             InheritFromPreviousStage(Second);
-            Second.ProcessMVP();
+            Second.Postprocess();
             Result.Update(First, Second);
 
             CurrentStage = Second;
