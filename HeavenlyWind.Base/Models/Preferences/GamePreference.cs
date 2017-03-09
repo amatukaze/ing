@@ -21,5 +21,7 @@
         public Property<bool> ShipOverview_ExceptMaxModernizationShips { get; } = new Property<bool>("game.overview.ship.filter.except.maxmodernization");
 
         public Property<bool> DisableHeavyDamageBlinkingWarning { get; } = new Property<bool>("game.disable_heavy_damage_blinking_warning");
+
+        public Property<bool> SortieStatistic_8amJstOrigin { get; } = new Property<bool>("game.sortie_statistic.8am_jst_origin");
     }
 }

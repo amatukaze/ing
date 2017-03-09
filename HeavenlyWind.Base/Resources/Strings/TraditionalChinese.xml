@@ -434,6 +434,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">顯示戰鬥訊息 (劇透)</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">顯示掉落</String>
   <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">禁用大破閃爍警告</String>
+  <String Key="PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin">以日本時間上午 8 時作爲出擊統計每日起點</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">在建造完成時通知</String>
   <String Key="PreferenceWindow_Notification_Expedition">在遠征歸來時通知</String>

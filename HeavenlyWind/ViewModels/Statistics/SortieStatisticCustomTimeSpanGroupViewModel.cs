@@ -19,7 +19,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
                     OnPropertyChanged(nameof(SelectedDateStart));
 
                     IsDateStartCalendarOpened = false;
-                    TimeSpanStart = r_SelectedDateStart.AsOffset().ToUnixTime().ToString();
+
+                    if (!Preference.Instance.Game.SortieStatistic_8amJstOrigin.Value)
+                        TimeSpanStart = r_SelectedDateStart.AsOffset().ToUnixTime().ToString();
+                    else
+                        TimeSpanStart = new DateTimeOffset(r_SelectedDateStart, TimeSpan.FromHours(9.0)).AddHours(8.0).ToUnixTime().ToString();
+
                     Reload();
                 }
             }
@@ -37,7 +42,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
                     OnPropertyChanged(nameof(SelectedDateEnd));
 
                     IsDateEndCalendarOpened = false;
-                    TimeSpanEnd = r_SelectedDateEnd.AddDays(1.0).AsOffset().ToUnixTime().ToString();
+
+                    if (!Preference.Instance.Game.SortieStatistic_8amJstOrigin.Value)
+                        TimeSpanEnd = r_SelectedDateEnd.AsOffset().ToUnixTime().ToString();
+                    else
+                        TimeSpanEnd = new DateTimeOffset(r_SelectedDateEnd, TimeSpan.FromHours(9.0)).AddHours(32.0).ToUnixTime().ToString();
+
                     Reload();
                 }
             }

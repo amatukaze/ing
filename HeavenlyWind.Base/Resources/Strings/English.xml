@@ -435,6 +435,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">Show battle info</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">Show drop</String>
   <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">Disable heavy damage blink warning</String>
+  <String Key="PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin">Use 8am JST as the day origin in sortie statistic</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Notification_Construction">Notify the completion of construction</String>
   <String Key="PreferenceWindow_Notification_Expedition">Notify the return from an expedition</String>

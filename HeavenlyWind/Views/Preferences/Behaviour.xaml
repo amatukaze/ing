@@ -34,5 +34,9 @@
         <CheckBox IsChecked="{rb:Preference Game.DisableHeavyDamageBlinkingWarning}" Margin="0, 12, 0, 0">
             <TextBlock Text="{rb:StringResource PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning}" />
         </CheckBox>
+
+        <CheckBox IsChecked="{rb:Preference Game.SortieStatistic_8amJstOrigin}" Margin="0, 12, 0, 0">
+            <TextBlock Text="{rb:StringResource PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin}" />
+        </CheckBox>
     </StackPanel>
 </UserControl>

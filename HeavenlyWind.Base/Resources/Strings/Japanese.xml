@@ -434,6 +434,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">戦闘情報を表示する</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">ドロップを表示する</String>
   <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">大破点滅警告を無効にする</String>
+  <String Key="PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin">出撃統計が午前 8 時を起点と設定する</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">建造完了を通知する</String>
   <String Key="PreferenceWindow_Notification_Expedition">遠征帰投を通知する</String>
