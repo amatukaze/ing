@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public AirForceSquadronState State => RawData.State;
 
-        public Equipment Plane => RawData.EquipmentID != 0 ? KanColleGame.Current.Port.Equipment[RawData.EquipmentID] : null;
+        public Equipment Plane => KanColleGame.Current.Port.Equipment.GetValueOrDefault(RawData.EquipmentID) ?? Equipment.Dummy;
 
         public int Count => RawData.Count;
         public int MaxCount => RawData.MaxCount;
