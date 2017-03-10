@@ -149,6 +149,7 @@
   <String Key="Fleet_LoS_Formula_Old">2-5(舊)</String>
   <String Key="Fleet_LoS_Formula_Autumn">2-5(秋)</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5(秋)簡易</String>
+  <String Key="Fleet_LoS_Formula_Formula33">判定式 (33)</String>
   <String Key="Fleet_LoS_Note">判定式 (33) 索敵要求速查</String>
   <String Key="Fleet_LoS_Note_25">至少 [b]33[/b] 確保進 Boss 点</String>
   <String Key="Fleet_LoS_Note_35">在下路 G 点至少 [b]28[/b] 確保進 Boss 点
@@ -211,6 +212,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Ship_ToolTip_AttackPower_Torpedo">雷擊</String>
   <String Key="Ship_ToolTip_AttackPower_ASW">對潛</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">夜戰</String>
+  <String Key="Ship_ToolTip_RepairTime">修理時間</String>
   <String Key="Ship_Speed_Slow">低速</String>
   <String Key="Ship_Speed_Fast">高速</String>
   <String Key="Ship_Speed_FastPlus">高速+</String>
