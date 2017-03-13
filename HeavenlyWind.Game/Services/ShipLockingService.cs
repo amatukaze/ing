@@ -27,7 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public ShipLocking GetLocking(int rpID)
         {
-            if (ShipLocking == null || rpID < 0 || rpID > ShipLocking.Count)
+            if (ShipLocking == null || rpID <= 0 || rpID > ShipLocking.Count)
                 return null;
 
             return ShipLocking[rpID - 1];
