@@ -8,6 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Statistics
         IEnumerable<SortieStatisticData> r_Items;
 
         public int Count => r_Items.Sum(r => r.Count);
+        public int BossBattleCount => r_Items.Sum(r => r.BossBattleCount);
 
         public int FuelConsumption => r_Items.Sum(r => r.FuelConsumption);
         public int BulletConsumption => r_Items.Sum(r => r.BulletConsumption);
@@ -21,6 +22,11 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Statistics
         public int ARankCount => r_Items.Sum(r => r.ARankCount);
         public int BRankCount => r_Items.Sum(r => r.BRankCount);
         public int FailureRankCount => r_Items.Sum(r => r.FailureRankCount);
+
+        public int BossSRankCount => r_Items.Sum(r => r.BossSRankCount);
+        public int BossARankCount => r_Items.Sum(r => r.BossARankCount);
+        public int BossBRankCount => r_Items.Sum(r => r.BossBRankCount);
+        public int BossFailureRankCount => r_Items.Sum(r => r.BossFailureRankCount);
 
         public SortieStatisticTotalItem(IEnumerable<SortieStatisticData> rpItems)
         {

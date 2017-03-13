@@ -1,5 +1,4 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
-using Sakuno.KanColle.Amatsukaze.Game.Services;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models.Statistics;
 using System;
 using System.Collections.Generic;
@@ -11,46 +10,48 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 {
     abstract class SortieStatisticTimeSpanGroupViewModel : ModelBase
     {
-        const string CommandTextBase = @"SELECT sortie_map.id AS map, sortie_map.difficulty,
-    count(*) AS count,
-    sum(statistic.fuel) AS fuel_consumption,
-    sum(statistic.bullet) AS bullet_consumption,
-    sum(statistic.steel) AS steel_consumption,
-    sum(statistic.bauxite) AS bauxite_consumption,
-    sum(statistic.bucket) AS bucket_consumption,
-    sum(statistic.ranking_point) AS ranking_point,
-    sum(statistic.s_rank) AS s_rank_count,
-    sum(statistic.a_rank) AS a_rank_count,
-    sum(statistic.b_rank) AS b_rank_count,
-    sum(statistic.failure_rank) AS failure_rank_count
-FROM (SELECT DISTINCT map AS id, difficulty FROM sortie WHERE map / 10 IN ({0}) ORDER BY id, difficulty) sortie_map
+        const string CommandTextBase = @"SELECT * FROM (
+    SELECT sortie.map, sortie.difficulty,
+        ifnull(sum(consumption.fuel), 0) - ifnull(sum(reward.fuel), 0) AS fuel,
+        ifnull(sum(consumption.bullet), 0) - ifnull(sum(reward.bullet), 0) AS bullet,
+        ifnull(sum(consumption.steel), 0) - ifnull(sum(reward.steel), 0) AS steel,
+        ifnull(sum(consumption.bauxite), 0) - ifnull(sum(reward.bauxite), 0) AS bauxite,
+        ifnull(sum(consumption.bucket), 0) - ifnull(sum(reward.bucket), 0) AS bucket,
+        sum(b.experience - a.experience) * 7.0 / 10000 AS ranking_point
+    FROM sortie
+    LEFT JOIN sortie_consumption_detail consumption USING (id)
+    LEFT JOIN sortie_reward reward ON reward.id = sortie.id AND consumption.type = (SELECT min(type) FROM sortie_consumption_detail WHERE id = sortie.id)
+    LEFT JOIN admiral_experience a ON a.time = (SELECT max(time) FROM admiral_experience WHERE time <= sortie.id) AND consumption.type = (SELECT min(type) FROM sortie_consumption_detail WHERE id = sortie.id)
+    LEFT JOIN admiral_experience b ON b.time = (SELECT min(time) FROM admiral_experience WHERE time >= sortie.return_time) AND sortie.return_time AND consumption.type = (SELECT min(type) FROM sortie_consumption_detail WHERE id = sortie.id)
+    WHERE sortie.id >= {0} AND sortie.id < {1} AND sortie.map / 10 IN ({2})
+    GROUP BY sortie.map, sortie.difficulty
+) consumption
 JOIN (
-    SELECT id, map, difficulty,
-        ifnull(sum(sortie_consumption_detail.fuel), 0) - ifnull(sortie_reward.fuel, 0) AS fuel,
-        ifnull(sum(sortie_consumption_detail.bullet), 0) - ifnull(sortie_reward.bullet, 0) AS bullet,
-        ifnull(sum(sortie_consumption_detail.steel), 0) - ifnull(sortie_reward.steel, 0) AS steel,
-        ifnull(sum(sortie_consumption_detail.bauxite), 0) - ifnull(sortie_reward.bauxite, 0) AS bauxite,
-        ifnull(sum(sortie_consumption_detail.bucket), 0) AS bucket,
-        ((SELECT experience FROM admiral_experience WHERE time = (SELECT min(time) FROM admiral_experience WHERE time >= sortie.return_time)) - (SELECT experience FROM admiral_experience WHERE time = (SELECT max(time) FROM admiral_experience WHERE time <= sortie.id))) * 7.0 / 10000 + ifnull((SELECT point FROM ranking_point_bonus WHERE sortie = sortie.id), 0) AS ranking_point,
-        s_rank, a_rank, b_rank, failure_rank
-    FROM sortie_consumption
-    JOIN sortie USING(id)
-    JOIN (
-        SELECT sortie_detail.id,
-            count(CASE WHEN rank = 5 THEN sortie_detail.id END) AS s_rank,
-            count(CASE WHEN rank = 4 THEN sortie_detail.id END) AS a_rank,
-            count(CASE WHEN rank = 3 THEN sortie_detail.id END) AS b_rank,
-            count(CASE WHEN rank NOT IN (3, 4, 5) THEN sortie_detail.id END) AS failure_rank
-        FROM sortie_detail
-        JOIN battle ON battle.id = sortie_detail.extra_info
-        GROUP BY sortie_detail.id
-    ) USING(id)
-    LEFT JOIN sortie_consumption_detail USING(id)
-    LEFT JOIN sortie_reward USING(id)
-    GROUP BY id
-    ORDER BY id DESC
-) statistic ON map = sortie_map.id AND statistic.difficulty IS sortie_map.difficulty AND statistic.id >= {1} AND statistic.id < {2}
-GROUP BY sortie_map.id, sortie_map.difficulty;";
+    SELECT sortie.map, sortie.difficulty,
+        count(DISTINCT sortie.id) AS count,
+        count(sortie_detail.extra_info) AS battle_count,
+        count(CASE WHEN sortie_node.type = 5 THEN sortie_detail.extra_info END) AS battle_boss_count,
+        count(battle_s.id) AS S,
+        count(battle_a.id) AS A,
+        count(battle_b.id) AS B,
+        count(sortie_detail.extra_info) - count(battle_s.id) - count(battle_a.id) - count(battle_b.id) AS F,
+        count(battle_boss_s.id) AS S_boss,
+        count(battle_boss_a.id) AS A_boss,
+        count(battle_boss_b.id) AS B_boss,
+        count(CASE WHEN sortie_node.type = 5 THEN sortie_detail.extra_info END) - count(battle_boss_s.id) - count(battle_boss_a.id) - count(battle_boss_b.id) AS F_boss
+    FROM sortie
+    JOIN sortie_detail USING (id)
+    JOIN sortie_node ON sortie_node.map = sortie.map AND sortie_node.id = sortie_detail.node
+    LEFT JOIN battle battle_s ON battle_s.id = sortie_detail.extra_info AND battle_s.rank = 5
+    LEFT JOIN battle battle_a ON battle_a.id = sortie_detail.extra_info AND battle_a.rank = 4
+    LEFT JOIN battle battle_b ON battle_b.id = sortie_detail.extra_info AND battle_b.rank = 3
+    LEFT JOIN battle battle_boss ON battle_boss.id = sortie_detail.extra_info AND sortie_node.type = 5
+    LEFT JOIN battle battle_boss_s ON battle_boss_s.id = sortie_detail.extra_info AND sortie_node.type = 5 AND battle_boss_s.rank = 5
+    LEFT JOIN battle battle_boss_a ON battle_boss_a.id = sortie_detail.extra_info AND sortie_node.type = 5 AND battle_boss_a.rank = 4
+    LEFT JOIN battle battle_boss_b ON battle_boss_b.id = sortie_detail.extra_info AND sortie_node.type = 5 AND battle_boss_b.rank = 3
+    WHERE sortie.id >= {0} AND sortie.id < {1} AND sortie.map / 10 IN ({2})
+    GROUP BY sortie.map, sortie.difficulty
+) battle ON battle.map = consumption.map AND battle.difficulty IS consumption.difficulty;";
 
         SortieStatisticViewModel r_Owner;
 
@@ -114,7 +115,7 @@ GROUP BY sortie_map.id, sortie_map.difficulty;";
                     return;
                 }
 
-                rCommand.CommandText = string.Format(CommandTextBase, rBuilder, TimeSpanStart, TimeSpanEnd);
+                rCommand.CommandText = string.Format(CommandTextBase, TimeSpanStart, TimeSpanEnd, rBuilder);
 
                 using (var rReader = rCommand.ExecuteReader())
                 {

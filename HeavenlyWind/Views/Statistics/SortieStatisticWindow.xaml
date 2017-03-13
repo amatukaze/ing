@@ -155,7 +155,10 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding Count}" Margin="0, 4" />
+                                    <TextBlock Margin="0, 4">
+                                        <Run Text="{Binding Count, Mode=OneWay}" />
+                                        <Run Text="{Binding BossBattleCount, Mode=OneWay, StringFormat=(0);(0);#}" FontSize="12" />
+                                    </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -251,7 +254,10 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding SRankCount}" Margin="0, 4" Visibility="{rb:CollapsedIfZero SRankCount}" />
+                                    <TextBlock Margin="0, 4">
+                                        <Run Text="{Binding SRankCount, Mode=OneWay, StringFormat=0;0;#}" />
+                                        <Run Text="{Binding BossSRankCount, Mode=OneWay, StringFormat=(0);(0);#}" FontSize="12" />
+                                    </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -260,7 +266,10 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding ARankCount}" Margin="0, 4" Visibility="{rb:CollapsedIfZero ARankCount}" />
+                                    <TextBlock Margin="0, 4">
+                                        <Run Text="{Binding ARankCount, Mode=OneWay, StringFormat=0;0;#}" />
+                                        <Run Text="{Binding BossARankCount, Mode=OneWay, StringFormat=(0);(0);#}" FontSize="12" />
+                                    </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -269,7 +278,10 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding BRankCount}" Margin="0, 4" Visibility="{rb:CollapsedIfZero BRankCount}" />
+                                    <TextBlock Margin="0, 4">
+                                        <Run Text="{Binding BRankCount, Mode=OneWay, StringFormat=0;0;#}" />
+                                        <Run Text="{Binding BossBRankCount, Mode=OneWay, StringFormat=(0);(0);#}" FontSize="12" />
+                                    </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -278,7 +290,10 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding FailureRankCount}" Margin="0, 4" Visibility="{rb:CollapsedIfZero FailureRankCount}" />
+                                    <TextBlock Margin="0, 4">
+                                        <Run Text="{Binding FailureRankCount, Mode=OneWay, StringFormat=0;0;#}" />
+                                        <Run Text="{Binding BossFailureRankCount, Mode=OneWay, StringFormat=(0);(0);#}" FontSize="12" />
+                                    </TextBlock>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
