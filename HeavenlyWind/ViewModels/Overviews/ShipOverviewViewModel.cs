@@ -136,7 +136,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         public bool IsOppositeOrder { get; set; }
 
-        internal ShipOverviewViewModel()
+        public ShipOverviewViewModel()
         {
             TypeMaps = KanColleGame.Current.MasterInfo.ShipTypes.Values.Where(r => r.ID != 12 && r.ID != 15).ToDictionary(IdentityFunction<ShipTypeInfo>.Instance, r => new FilterTypeViewModel<ShipTypeInfo>(r));
             Types = TypeMaps.Values.ToArray();
