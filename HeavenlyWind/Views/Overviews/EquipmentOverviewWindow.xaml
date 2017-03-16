@@ -216,7 +216,7 @@
                                             <Run Text="{rb:StringResource Main.EquipmentOverview_Remaining, StringFormat=({0}), Mode=OneWay}" FontSize="11" />
                                         </TextBlock>
                                     </Border>
-                                    <Border Width="470">
+                                    <Border>
                                         <TextBlock Text="{rb:StringResource Main.EquipmentOverview_EquippedShip}" />
                                     </Border>
                                 </DockPanel>
@@ -226,29 +226,37 @@
                                         <ItemsControl ItemsSource="{Binding Levels}">
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByLevel}">
-                                                    <DockPanel>
-                                                        <Border Width="50">
-                                                            <rc:EquipmentProficiency Proficiency="{Binding Key.Proficiency}" />
-                                                        </Border>
-                                                        <Border Width="50">
-                                                            <rc:EquipmentLevel Level="{Binding Key.Level}" />
-                                                        </Border>
-                                                        <Border Width="80">
-                                                            <TextBlock Margin="0, 4">
-                                                                <Run Text="{Binding Count, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
-                                                                <Run Text="{Binding RemainingCount, StringFormat=(0);#;#, Mode=OneWay}" FontSize="11" />
-                                                            </TextBlock>
-                                                        </Border>
-                                                        <Border Width="470">
-                                                            <ItemsControl ItemsSource="{Binding Fleets}">
-                                                                <ItemsControl.ItemTemplate>
-                                                                    <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByFleet}">
-                                                                        <ItemsControl Style="{StaticResource ShipItemsControlStyle}" ItemsSource="{Binding Ships}" />
-                                                                    </DataTemplate>
-                                                                </ItemsControl.ItemTemplate>
-                                                            </ItemsControl>
-                                                        </Border>
-                                                    </DockPanel>
+                                                    <Border Name="Border" BorderBrush="{DynamicResource HighlightBorderBrushKey}" BorderThickness="0, 1, 0, 0">
+                                                        <DockPanel>
+                                                            <Border Width="50">
+                                                                <rc:EquipmentProficiency Proficiency="{Binding Key.Proficiency}" />
+                                                            </Border>
+                                                            <Border Width="50">
+                                                                <rc:EquipmentLevel Level="{Binding Key.Level}" />
+                                                            </Border>
+                                                            <Border Width="80">
+                                                                <TextBlock Margin="0, 4">
+                                                                    <Run Text="{Binding Count, Mode=OneWay}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
+                                                                    <Run Text="{Binding RemainingCount, StringFormat=(0);#;#, Mode=OneWay}" FontSize="11" />
+                                                                </TextBlock>
+                                                            </Border>
+                                                            <Border>
+                                                                <ItemsControl ItemsSource="{Binding Fleets}">
+                                                                    <ItemsControl.ItemTemplate>
+                                                                        <DataTemplate DataType="{x:Type rvmo:EquipmentGroupByFleet}">
+                                                                            <ItemsControl Style="{StaticResource ShipItemsControlStyle}" ItemsSource="{Binding Ships}" />
+                                                                        </DataTemplate>
+                                                                    </ItemsControl.ItemTemplate>
+                                                                </ItemsControl>
+                                                            </Border>
+                                                        </DockPanel>
+                                                    </Border>
+
+                                                    <DataTemplate.Triggers>
+                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
+                                                            <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                                                        </DataTrigger>
+                                                    </DataTemplate.Triggers>
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
