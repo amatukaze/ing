@@ -255,7 +255,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rResult *= GetHealthModifier();
                 rResult += GetAttackPowerBonusFromLightCruiserFitGun();
 
-                rResult = GetAttackPowerAfterCaps(rResult, 150.0);
+                rResult = GetAttackPowerAfterCaps(rResult, 180.0);
 
                 rResult *= GetArtillerySpottingModifier();
 
