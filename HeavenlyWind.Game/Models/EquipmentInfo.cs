@@ -53,6 +53,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     case EquipmentIconType.FlyingBoat:
                     case EquipmentIconType.JetFighterBomberKikkaKai:
                     case EquipmentIconType.JetFighterBomberKeiunKai:
+                    case EquipmentIconType.SeaplaneFighter:
                         return true;
 
                     default: return false;
