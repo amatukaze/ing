@@ -87,7 +87,7 @@
                             </Border>
                         </StackPanel>
 
-                        <ruic:BBCodeBlock BBCode="{rb:ExtraStringResource QuestDescription, Source.ID, Source.Description}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2" />
+                        <TextBlock Text="{rb:ExtraStringResource QuestDescription, Source.ID, Source.Description}" TextWrapping="Wrap" Grid.Column="2" Grid.Row="2" />
 
                         <ItemsControl ItemsSource="{Binding Rewards}" ItemTemplateSelector="{StaticResource RewardTemplateSelector}" Grid.Column="2" Grid.Row="4">
                             <ItemsControl.ItemsPanel>
@@ -144,10 +144,6 @@
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
-
-            <Style x:Key="VirtualizingItemsControl" TargetType="{x:Type ItemsControl}" BasedOn="{StaticResource VirtualizingItemsControl}">
-                <Setter Property="VirtualizingPanel.VirtualizationMode" Value="Standard" />
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.Style>
