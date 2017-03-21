@@ -23,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records
             {
                 if (r_Map != value)
                 {
-                    r_Map = value;
+                    r_Map = value ?? SortieMapFilterKey.All;
                     OnPropertyChanged(nameof(SelectedMap));
 
                     OnSelectedMapChanged();
