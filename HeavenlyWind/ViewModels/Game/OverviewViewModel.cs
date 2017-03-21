@@ -2,8 +2,10 @@
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.ViewModels.Tools;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using Sakuno.KanColle.Amatsukaze.Views.Overviews;
+using Sakuno.KanColle.Amatsukaze.Views.Tools;
 using Sakuno.UserInterface;
 using Sakuno.UserInterface.Commands;
 using System;
@@ -232,5 +234,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             CheckShipCapacity();
             CheckEquipmentCapacity();
         }
+
+        public void ShareComposition() =>
+            WindowService.Instance.Show<CompositionSharingWindow>(new CompositionSharingViewModel());
     }
 }

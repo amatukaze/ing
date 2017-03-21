@@ -251,6 +251,7 @@
     <Compile Include="ViewModels\Statistics\SortieStatisticViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\ToolsViewModel.cs" />
+    <Compile Include="ViewModels\Tools\CompositionSharingViewModel.cs" />
     <Compile Include="ViewModels\Tools\SessionToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\SessionViewModel.cs" />
     <Compile Include="ViewModels\ToolViewModel.cs" />
@@ -447,6 +448,9 @@
     </Compile>
     <Compile Include="Views\ToolCenter.xaml.cs">
       <DependentUpon>ToolCenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tools\CompositionSharingWindow.xaml.cs">
+      <DependentUpon>CompositionSharingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tools\ScreenshotTool.xaml.cs">
       <DependentUpon>ScreenshotTool.xaml</DependentUpon>
@@ -902,6 +906,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ToolCenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tools\CompositionSharingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -359,6 +359,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Window_ClosingConfirmation_Instruction">你想做什麼呢？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
   <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
+  <String Key="Window_CompositionSharing">配置分享</String>
 
   <String Key="PreferenceWindow_DefaultValue">使用預設值</String>
   <String Key="PreferenceWindow_Network">網路</String>
@@ -605,5 +606,15 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="SortieStatistic_RankingPoints">戰果</String>
 
   <String Key="SortieMap_UnderConstruction">地圖功能仍未實現</String>
+
+  <String Key="CompositionSharing_Instruction">請選擇要分享的艦隊</String>
+  <String Key="CompositionSharing_Note">※ 僅支持[url=http://kancolle-calc.net/deckbuilder.html][b]艦載機厨[/b][/url]和[url=http://fleet.moe/][b]誰在呼叫艦隊[/b][/url]通用代碼的相互導入導出</String>
+  <String Key="CompositionSharing_TakeScreenshot">截圖</String>
+  <String Key="CompositionSharing_TakeScreenshot_Clipboard_Message">截圖已複製到剪貼簿。</String>
+  <String Key="CompositionSharing_TakeScreenshot_File_Message">截圖已保存。</String>
+  <String Key="CompositionSharing_GenerateCode">生成代碼</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard">僅複製到剪貼簿</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard_Message">代碼已複製到剪貼簿。</String>
+  <String Key="CompositionSharing_GenerateCode_AutoOpenBrowser">自動打開瀏覽器</String>
 
 </Strings>
