@@ -56,6 +56,30 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ShipAvatar), new FrameworkPropertyMetadata(typeof(ShipAvatar)));
         }
+        public ShipAvatar()
+        {
+            Loaded += ShipAvatar_Loaded;
+            Unloaded += ShipAvatar_Unloaded;
+        }
+
+
+        void ShipAvatar_Loaded(object sender, RoutedEventArgs e)
+        {
+            Loaded -= ShipAvatar_Loaded;
+            DataStore.Updated += DataStore_Updated;
+        }
+        void ShipAvatar_Unloaded(object sender, RoutedEventArgs e)
+        {
+            DataStore.Updated -= DataStore_Updated;
+            Unloaded -= ShipAvatar_Unloaded;
+        }
+        void DataStore_Updated(string rpName)
+        {
+            if (rpName != "ship_avatar")
+                return;
+
+            UpdateAvatar();
+        }
 
         void UpdateAvatar()
         {
@@ -94,7 +118,7 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
         }
         void LoadAvatar(string rpUri, WeakReference<ImageBrush> rpWeakReference)
         {
-            var rImage = BitmapFrame.Create(new Uri(rpUri));
+            var rImage = BitmapFrame.Create(new Uri(rpUri), BitmapCreateOptions.IgnoreImageCache, BitmapCacheOption.OnLoad);
             rImage.Freeze();
 
             var rBrush = new ImageBrush(rImage);
