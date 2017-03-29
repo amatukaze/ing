@@ -19,7 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             var rDataStorePath = Path.Combine(rDirectory.FullName, "DataStore.db");
 
-            using (var rConnection = new SQLiteConnection($@"Data Source={rDataStorePath}; Page Size=8192").OpenAndReturn())
+            using (var rConnection = new SQLiteConnection($@"Data Source={rDataStorePath}; Page Size=8192", true).OpenAndReturn())
             using (var rTransaction = rConnection.BeginTransaction())
             using (var rCommand = rConnection.CreateCommand())
             {

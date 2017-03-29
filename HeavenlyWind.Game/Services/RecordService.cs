@@ -108,7 +108,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (!rDatabaseFile.Exists)
                 TryMigrateFromOldVersion(rFilename, rDatabaseFile);
 
-            r_Connection = new SQLiteConnection($@"Data Source={rDatabaseFile.FullName}; Page Size=8192").OpenAndReturn();
+            r_Connection = new SQLiteConnection($@"Data Source={rDatabaseFile.FullName}; Page Size=8192", true).OpenAndReturn();
 
             if (IsReadOnlyMode)
                 using (var rSourceConnection = r_Connection)
