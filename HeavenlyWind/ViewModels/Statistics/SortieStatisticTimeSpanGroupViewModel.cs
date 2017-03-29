@@ -17,12 +17,13 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
         ifnull(sum(consumption.steel), 0) - ifnull(sum(reward.steel), 0) AS steel,
         ifnull(sum(consumption.bauxite), 0) - ifnull(sum(reward.bauxite), 0) AS bauxite,
         ifnull(sum(consumption.bucket), 0) - ifnull(sum(reward.bucket), 0) AS bucket,
-        sum(b.experience - a.experience) * 7.0 / 10000 AS ranking_point
+        sum(b.experience - a.experience) * 7.0 / 10000 + ifnull(ranking_point_bonus.point, 0) AS ranking_point
     FROM sortie
     LEFT JOIN sortie_consumption_detail consumption USING (id)
     LEFT JOIN sortie_reward reward ON reward.id = sortie.id AND consumption.type = (SELECT min(type) FROM sortie_consumption_detail WHERE id = sortie.id)
     LEFT JOIN admiral_experience a ON a.time = (SELECT max(time) FROM admiral_experience WHERE time <= sortie.id) AND consumption.type = (SELECT min(type) FROM sortie_consumption_detail WHERE id = sortie.id)
     LEFT JOIN admiral_experience b ON b.time = (SELECT min(time) FROM admiral_experience WHERE time >= sortie.return_time) AND sortie.return_time AND consumption.type = (SELECT min(type) FROM sortie_consumption_detail WHERE id = sortie.id)
+    LEFT JOIN ranking_point_bonus ON ranking_point_bonus.sortie = sortie.id
     WHERE sortie.id >= {0} AND sortie.id < {1} AND sortie.map / 10 IN ({2})
     GROUP BY sortie.map, sortie.difficulty
 ) consumption
