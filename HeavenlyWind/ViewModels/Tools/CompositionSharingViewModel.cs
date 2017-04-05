@@ -114,7 +114,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
                 return;
             }
 
-            Clipboard.SetText(rText);
+            Clipboard.SetDataObject(rText);
 
             var rDialog = new TaskDialog()
             {
