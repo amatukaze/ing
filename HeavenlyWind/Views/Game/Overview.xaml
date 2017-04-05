@@ -7,6 +7,7 @@
              xmlns:rb="clr-namespace:Sakuno.KanColle.Amatsukaze;assembly=HeavenlyWind.Base"
              xmlns:rvmg="clr-namespace:Sakuno.KanColle.Amatsukaze.ViewModels.Game"
              xmlns:rvg="clr-namespace:Sakuno.KanColle.Amatsukaze.Views.Game"
+             xmlns:ruico="clr-namespace:Sakuno.UserInterface.Commands;assembly=Sakuno.UserInterface"
              mc:Ignorable="d"
              Visibility="{rb:CollapsedIfNull Admiral.Source}"
              TextElement.FontSize="14"
@@ -53,10 +54,10 @@
                                     </Border>
 
                                     <StackPanel Grid.Column="2">
-                                        <Button Command="{Binding ShowShipOverviewWindowCommand}" Padding="12, 8">
+                                        <Button Command="{ruico:InvokeMethod ShowShipOverviewWindow}" Padding="12, 8">
                                             <TextBlock Text="{rb:StringResource Main.Overview_ShipOverview}" />
                                         </Button>
-                                        <Button Command="{Binding ShowEquipmentOverviewWindowCommand}" Margin="0, 4, 0, 0" Padding="12, 8">
+                                        <Button Command="{ruico:InvokeMethod ShowEquipmentOverviewWindow}" Margin="0, 4, 0, 0" Padding="12, 8">
                                             <TextBlock Text="{rb:StringResource Main.Overview_EquipmentOverview}" />
                                         </Button>
                                     </StackPanel>

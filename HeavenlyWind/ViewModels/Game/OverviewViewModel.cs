@@ -166,9 +166,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
         }
 
-        public ICommand ShowShipOverviewWindowCommand { get; }
-        public ICommand ShowEquipmentOverviewWindowCommand { get; }
-
         internal OverviewViewModel()
         {
             var rPort = KanColleGame.Current.Port;
@@ -222,9 +219,6 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 if (rSortie != null)
                     ShipCount = rPort.Ships.Count + rSortie.PendingShipCount;
             });
-
-            ShowShipOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<ShipOverviewWindow>());
-            ShowEquipmentOverviewWindowCommand = new DelegatedCommand(() => WindowService.Instance.Show<EquipmentOverviewWindow>());
         }
 
         void CheckShipCapacity() => ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
@@ -234,6 +228,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             CheckShipCapacity();
             CheckEquipmentCapacity();
         }
+
+        public void ShowShipOverviewWindow() => WindowService.Instance.Show<ShipOverviewWindow>();
+        public void ShowEquipmentOverviewWindow() => WindowService.Instance.Show<EquipmentOverviewWindow>();
 
         public void ShareComposition() =>
             WindowService.Instance.Show<CompositionSharingWindow>(new CompositionSharingViewModel());

@@ -87,17 +87,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             using (var rCommand2 = rConnection.CreateCommand())
             using (var rCommand3 = rConnection.CreateCommand())
             {
-                rCommand.CommandText = "SELECT id FROM composition WHERE position = 0;";
+                rCommand.CommandText = "SELECT id FROM composition WHERE position = 0 AND ship < 1500;";
                 rCommand2.CommandText = "INSERT OR IGNORE INTO composition(id, position, ship) VALUES(@id, @position, @ship);";
                 rCommand3.CommandText =
                     "UPDATE fleet SET composition = @new WHERE composition = @old; " +
                     "DELETE FROM composition WHERE id = @old;";
 
-                var rOldCompositionIds = new List<long>();
+                List<long> rOldCompositionIds;
 
                 using (var rReader = rCommand.ExecuteReader())
-                    while (rReader.Read())
+                {
+                    if (!rReader.Read())
+                        return;
+
+                    rOldCompositionIds = new List<long>();
+
+                    do
+                    {
                         rOldCompositionIds.Add(rReader.GetInt64(0));
+                    } while (rReader.Read());
+                }
 
                 rCommand.CommandText = "SELECT ship + 1000 FROM composition WHERE id = @id ORDER BY position;";
 
