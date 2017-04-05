@@ -264,6 +264,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 rRequest.UserAgent = ProductInfo.UserAgent;
 
                 var rPath = Path.Combine(ProductInfo.RootDirectory, "Resources", "Avatars", "Ships") + "\\";
+                var rDirectory = new DirectoryInfo(rPath);
+                if (!rDirectory.Exists)
+                    rDirectory.Create();
+
                 var rFiles = Directory.EnumerateFiles(rPath, "*.png").ToArray();
                 if (rFiles.Length == 0)
                     rRequest.Method = "GET";
