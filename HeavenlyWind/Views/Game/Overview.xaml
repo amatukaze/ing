@@ -126,10 +126,10 @@
                                                 </Border>
 
                                                 <StackPanel Margin="0, 0, 0, 8" Grid.Column="2">
-                                                    <Button Command="{Binding ShowShipOverviewWindowCommand}">
+                                                    <Button Command="{ruico:InvokeMethod ShowShipOverviewWindow}">
                                                         <TextBlock Text="{rb:StringResource Main.Overview_ShipOverview}" />
                                                     </Button>
-                                                    <Button Command="{Binding ShowEquipmentOverviewWindowCommand}" Margin="0, 4, 0, 0">
+                                                    <Button Command="{ruico:InvokeMethod ShowEquipmentOverviewWindow}" Margin="0, 4, 0, 0">
                                                         <TextBlock Text="{rb:StringResource Main.Overview_EquipmentOverview}" />
                                                     </Button>
                                                 </StackPanel>
