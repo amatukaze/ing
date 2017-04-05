@@ -2,14 +2,18 @@
 =====
 艦これ補助ツール「いんてりじぇんと連装砲くん」（智能型连装炮君 / ING）
 
-### Information
-Current version: **0.1.14 (Pokkle)**
-
-[Changelogs](https://github.com/amatukaze/IntelligentNavalGun/wiki/Changelogs) here
+### Updated
+**0.1.8 (Lavender)**
+ * Screenshot Tool
+ * Expedition yield prediction
+ * Expedition overview table
+ * Record heavily damaged ships in sortie history
 
 ### Screenshot
-![Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/ing/001.jpg)
-![Battle Information](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/ing/002.jpg)
+![Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/01.jpg)
+![Battle Information](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/02.jpg)
+![Ships Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/03.png)
+![Equipments Overview](https://raw.githubusercontent.com/KodamaSakuno/kodamasakuno.github.io/master/images/kci/04.png)
 
 ### Third-party Libraries
 
@@ -19,5 +23,5 @@ Current version: **0.1.14 (Pokkle)**
  * Reactive Extensions
  * Expression Blend SDK
 
-### License
+### Lincense
 The MIT License (MIT)

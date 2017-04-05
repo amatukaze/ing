@@ -173,7 +173,7 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" Margin="0, 4" Visibility="{rb:Preference UI.Avatar.EnabledInShipOverview, Converter={StaticResource BooleanToInvisibilityConverter}}" />
-                                            <rc:ShipAvatar ID="{Binding Ship.Info.ID}" Margin="2, 0" Visibility="{rb:Preference UI.Avatar.EnabledInShipOverview, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <rc:ShipAvatar x:Name="Avatar" ID="{Binding Ship.Info.ID}" Margin="2, 0" Visibility="{rb:Preference UI.Avatar.EnabledInShipOverview, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                 <rc:ShipAvatar.ToolTip>
                                                     <TextBlock Text="{rb:ExtraStringResource Ship, Ship.Info.ID, Ship.Info.Name}" Foreground="{DynamicResource ActiveForegroundBrushKey}" />
                                                 </rc:ShipAvatar.ToolTip>
@@ -187,6 +187,13 @@
                                         <DataTemplate.Triggers>
                                             <DataTrigger Binding="{rb:HasFlag Ship.State, Expedition}" Value="True">
                                                 <Setter TargetName="ExpeditionState" Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding Ship.DamageState}" Value="ModeratelyDamaged">
+                                                <Setter TargetName="Avatar" Property="IsDamaged" Value="True" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding Ship.DamageState}" Value="HeavilyDamaged">
+                                                <Setter TargetName="Avatar" Property="IsDamaged" Value="True" />
                                             </DataTrigger>
                                         </DataTemplate.Triggers>
                                     </DataTemplate>

@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Preferences
 {
     public abstract class Property : ModelBase
     {
-        internal static Dictionary<string, Property> Instances { get; } = new Dictionary<string, Property>(StringComparer.OrdinalIgnoreCase);
+        internal static SortedList<string, Property> Instances { get; } = new SortedList<string, Property>(StringComparer.OrdinalIgnoreCase);
 
         public string Key { get; }
 

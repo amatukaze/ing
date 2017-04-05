@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.15.1">
+<Strings CultureName="zh-Hans" Name="简体中文" Version="0.1.15.4">
 
   <String Key="Product_Name">智能型连装炮君</String>
 
@@ -361,6 +361,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Window_ClosingConfirmation_Instruction">你想做什么呢？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
   <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
+  <String Key="Window_CompositionSharing">配置分享</String>
 
   <String Key="PreferenceWindow_DefaultValue">使用默认值</String>
   <String Key="PreferenceWindow_Network">网络</String>
@@ -436,6 +437,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">显示战斗信息 (剧透)</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">显示掉落</String>
   <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">禁用大破闪烁警告</String>
+  <String Key="PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin">以日本时间上午 8 时作为出击统计每日的起点</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">在建造完成时通知</String>
   <String Key="PreferenceWindow_Notification_Expedition">在远征归来时通知</String>
@@ -606,5 +608,15 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="SortieStatistic_RankingPoints">战果</String>
 
   <String Key="SortieMap_UnderConstruction">地图功能仍未实现</String>
+
+  <String Key="CompositionSharing_Instruction">请选择要分享的舰队</String>
+  <String Key="CompositionSharing_Note">※ 仅支持[url=http://kancolle-calc.net/deckbuilder.html][b]舰载机厨[/b][/url]和[url=http://fleet.moe/][b]谁在呼叫舰队[/b][/url]通用代码的相互导入导出</String>
+  <String Key="CompositionSharing_TakeScreenshot">截图</String>
+  <String Key="CompositionSharing_TakeScreenshot_Clipboard_Message">截图已复制到剪贴板。</String>
+  <String Key="CompositionSharing_TakeScreenshot_File_Message">截图已保存。</String>
+  <String Key="CompositionSharing_GenerateCode">生成代码</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard">仅复制到剪贴板</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard_Message">代码已复制到剪贴板。</String>
+  <String Key="CompositionSharing_GenerateCode_AutoOpenBrowser">自动打开浏览器</String>
 
 </Strings>

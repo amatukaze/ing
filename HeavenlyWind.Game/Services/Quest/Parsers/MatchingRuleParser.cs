@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Triggers;
 using Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Updaters;
+using System;
 using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
@@ -12,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Quest.Parsers
 
         public static MatchingRuleParser Instance { get; } = new MatchingRuleParser();
 
-        static Dictionary<string, ProgressRule[]> r_CachedProgressRules = new Dictionary<string, ProgressRule[]>();
+        static SortedList<string, ProgressRule[]> r_CachedProgressRules = new SortedList<string, ProgressRule[]>(StringComparer.OrdinalIgnoreCase);
 
         static Parser<Trigger> Trigger { get; } = from rTriggerName in Identifier
                                                   from rTrigger in TriggerClass.GetParser(rTriggerName)

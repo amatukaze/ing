@@ -352,6 +352,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Window_ClosingConfirmation_Instruction => GetString(nameof(Window_ClosingConfirmation_Instruction));
         public string Window_ClosingConfirmation_Button_Yes => GetString(nameof(Window_ClosingConfirmation_Button_Yes));
         public string Window_ClosingConfirmation_Button_No => GetString(nameof(Window_ClosingConfirmation_Button_No));
+        public string Window_CompositionSharing => GetString(nameof(Window_CompositionSharing));
 
         public string PreferenceWindow_DefaultValue => GetString(nameof(PreferenceWindow_DefaultValue));
         public string PreferenceWindow_Network => GetString(nameof(PreferenceWindow_Network));
@@ -425,6 +426,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Behaviour_ShowBattleInfo => GetString(nameof(PreferenceWindow_Behaviour_ShowBattleInfo));
         public string PreferenceWindow_Behaviour_ShowDrop => GetString(nameof(PreferenceWindow_Behaviour_ShowDrop));
         public string PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning => GetString(nameof(PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning));
+        public string PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin => GetString(nameof(PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin));
         public string PreferenceWindow_Notification => GetString(nameof(PreferenceWindow_Notification));
         public string PreferenceWindow_Notification_Construction => GetString(nameof(PreferenceWindow_Notification_Construction));
         public string PreferenceWindow_Notification_Expedition => GetString(nameof(PreferenceWindow_Notification_Expedition));
@@ -595,6 +597,16 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieStatistic_RankingPoints => GetString(nameof(SortieStatistic_RankingPoints));
 
         public string SortieMap_UnderConstruction => GetString(nameof(SortieMap_UnderConstruction));
+
+        public string CompositionSharing_Instruction => GetString(nameof(CompositionSharing_Instruction));
+        public string CompositionSharing_Note => GetString(nameof(CompositionSharing_Note));
+        public string CompositionSharing_TakeScreenshot => GetString(nameof(CompositionSharing_TakeScreenshot));
+        public string CompositionSharing_TakeScreenshot_Clipboard_Message => GetString(nameof(CompositionSharing_TakeScreenshot_Clipboard_Message));
+        public string CompositionSharing_TakeScreenshot_File_Message => GetString(nameof(CompositionSharing_TakeScreenshot_File_Message));
+        public string CompositionSharing_GenerateCode => GetString(nameof(CompositionSharing_GenerateCode));
+        public string CompositionSharing_GenerateCode_CopyToClipboard => GetString(nameof(CompositionSharing_GenerateCode_CopyToClipboard));
+        public string CompositionSharing_GenerateCode_CopyToClipboard_Message => GetString(nameof(CompositionSharing_GenerateCode_CopyToClipboard_Message));
+        public string CompositionSharing_GenerateCode_AutoOpenBrowser => GetString(nameof(CompositionSharing_GenerateCode_AutoOpenBrowser));
 
     }
 }

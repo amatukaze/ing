@@ -11,6 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Statistics
         public EventMapDifficulty? EventMapDifficulty => r_Data.EventMapDifficulty;
 
         public int Count => r_Data.Count;
+        public int BossBattleCount => r_Data.BossBattleCount;
 
         public int FuelConsumption => r_Data.FuelConsumption;
         public int BulletConsumption => r_Data.BulletConsumption;
@@ -24,6 +25,11 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Statistics
         public int ARankCount => r_Data.ARankCount;
         public int BRankCount => r_Data.BRankCount;
         public int FailureRankCount => r_Data.FailureRankCount;
+
+        public int BossSRankCount => r_Data.BossSRankCount;
+        public int BossARankCount => r_Data.BossARankCount;
+        public int BossBRankCount => r_Data.BossBRankCount;
+        public int BossFailureRankCount => r_Data.BossFailureRankCount;
 
         public SortieStatisticMapItem(SortieStatisticData rpData)
         {

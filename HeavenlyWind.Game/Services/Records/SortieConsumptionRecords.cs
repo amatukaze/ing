@@ -235,6 +235,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             foreach (var rGroup in rpGroups)
                 foreach (var rSquadron in rGroup.Squadrons.Values)
                 {
+                    if (rSquadron.State != AirForceSquadronState.Idle)
+                        continue;
+
                     if (rFirst)
                         rFirst = false;
                     else

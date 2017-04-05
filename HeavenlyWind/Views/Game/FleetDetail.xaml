@@ -57,7 +57,7 @@
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Text="{rb:ExtraStringResource Ship, Info.ID, Info.Name}" MinWidth="75" Visibility="{rb:Preference UI.Avatar.EnabledInFleetDetail, Converter={StaticResource BooleanToInvisibilityConverter}}" Grid.RowSpan="2" />
-                            <rc:ShipAvatar ID="{Binding Info.ID}" Visibility="{rb:Preference UI.Avatar.EnabledInFleetDetail, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" />
+                            <rc:ShipAvatar x:Name="Avatar" ID="{Binding Info.ID}" Visibility="{rb:Preference UI.Avatar.EnabledInFleetDetail, Converter={StaticResource BooleanToVisibilityConverter}}" Grid.RowSpan="2" />
 
                             <Rectangle Fill="Transparent" Grid.RowSpan="2">
                                 <Rectangle.ToolTip>
@@ -286,6 +286,13 @@
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource PreviousData}}" Value="{x:Null}">
                             <Setter TargetName="Border" Property="BorderThickness" Value="0" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding DamageState}" Value="ModeratelyDamaged">
+                            <Setter TargetName="Avatar" Property="IsDamaged" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DamageState}" Value="HeavilyDamaged">
+                            <Setter TargetName="Avatar" Property="IsDamaged" Value="True" />
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding ExperienceToNextLevel}" Value="0">

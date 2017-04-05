@@ -59,7 +59,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         IDisposable r_HomeportSubscription;
 
-        internal EquipmentOverviewViewModel()
+        public EquipmentOverviewViewModel()
         {
             r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new FilterTypeViewModel<EquipmentIconType>(r));
             Types = r_TypeMap.Values.ToArray();

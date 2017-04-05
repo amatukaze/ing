@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="en" Name="English" Version="0.1.15.1">
+<Strings CultureName="en" Name="English" Version="0.1.15.4">
 
   <String Key="Product_Name">Intelligent Naval Gun</String>
 
@@ -362,6 +362,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="Window_ClosingConfirmation_Instruction">What do you want to do?</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">Exit</String>
   <String Key="Window_ClosingConfirmation_Button_No">Don't Exit</String>
+  <String Key="Window_CompositionSharing">Composition Sharing</String>
 
   <String Key="PreferenceWindow_DefaultValue">Default Value</String>
   <String Key="PreferenceWindow_Network">Network</String>
@@ -435,6 +436,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">Show battle info</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">Show drop</String>
   <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">Disable heavy damage blink warning</String>
+  <String Key="PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin">Use 8am JST as the day origin in sortie statistic</String>
   <String Key="PreferenceWindow_Notification">Notification</String>
   <String Key="PreferenceWindow_Notification_Construction">Notify the completion of construction</String>
   <String Key="PreferenceWindow_Notification_Expedition">Notify the return from an expedition</String>
@@ -605,5 +607,15 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="SortieStatistic_RankingPoints">Points</String>
 
   <String Key="SortieMap_UnderConstruction">The map is under construction</String>
+
+  <String Key="CompositionSharing_Instruction">Choose the fleet(s) which you want to share.</String>
+  <String Key="CompositionSharing_Note">Only support the composition code of [url=http://kancolle-calc.net/deckbuilder.html][b]kancolle-calc.net[/b][/url] and [url=http://fleet.moe/][b]WhoCallsTheFleet[/b][/url]</String>
+  <String Key="CompositionSharing_TakeScreenshot">Take a screenshot</String>
+  <String Key="CompositionSharing_TakeScreenshot_Clipboard_Message">The screenshot has been copied.</String>
+  <String Key="CompositionSharing_TakeScreenshot_File_Message">The screenshot has been saved.</String>
+  <String Key="CompositionSharing_GenerateCode">Generate code</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard">Copy to clipboard</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard_Message">The code has been copied.</String>
+  <String Key="CompositionSharing_GenerateCode_AutoOpenBrowser">Open the browser automatically</String>
 
 </Strings>

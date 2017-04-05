@@ -22,6 +22,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public void Initialize()
         {
+            FuckTanaka();
+
             ApiService.SubscribeOnce("api_get_member/require_info", delegate
             {
                 using (var rConnection = new SQLiteConnection(@"Data Source=Data\AbyssalFleets.db; Page Size=8192").OpenAndReturn())
@@ -72,6 +74,80 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 "api_req_combined_battle/each_battle_water",
             };
             ApiService.Subscribe(rBattleApis, ProcessAbyssalFleet);
+        }
+
+        void FuckTanaka()
+        {
+            if (!File.Exists(@"Data\AbyssalFleets.db"))
+                return;
+
+            using (var rConnection = new SQLiteConnection(@"Data Source=Data\AbyssalFleets.db; Page Size=8192").OpenAndReturn())
+            using (var rTransaction = rConnection.BeginTransaction())
+            using (var rCommand = rConnection.CreateCommand())
+            using (var rCommand2 = rConnection.CreateCommand())
+            using (var rCommand3 = rConnection.CreateCommand())
+            {
+                rCommand.CommandText = "SELECT id FROM composition WHERE position = 0 AND ship < 1500;";
+                rCommand2.CommandText = "INSERT OR IGNORE INTO composition(id, position, ship) VALUES(@id, @position, @ship);";
+                rCommand3.CommandText =
+                    "UPDATE fleet SET composition = @new WHERE composition = @old; " +
+                    "DELETE FROM composition WHERE id = @old;";
+
+                List<long> rOldCompositionIds;
+
+                using (var rReader = rCommand.ExecuteReader())
+                {
+                    if (!rReader.Read())
+                        return;
+
+                    rOldCompositionIds = new List<long>();
+
+                    do
+                    {
+                        rOldCompositionIds.Add(rReader.GetInt64(0));
+                    } while (rReader.Read());
+                }
+
+                rCommand.CommandText = "SELECT ship + 1000 FROM composition WHERE id = @id ORDER BY position;";
+
+                var rShipIds = new List<int>(12);
+
+                foreach (var rOldCompositionId in rOldCompositionIds)
+                {
+                    rCommand.Parameters.AddWithValue("@id", rOldCompositionId);
+
+                    rShipIds.Clear();
+                    using (var rReader = rCommand.ExecuteReader())
+                        while (rReader.Read())
+                            rShipIds.Add(rReader.GetInt32(0));
+
+                    var rEnemies = rShipIds.ToArray();
+                    var rBytes = new byte[rEnemies.Length * sizeof(int)];
+                    Buffer.BlockCopy(rEnemies, 0, rBytes, 0, rBytes.Length);
+
+                    long rNewCompositionId;
+                    using (var rSHA1 = SHA1.Create())
+                    {
+                        var rHash = rSHA1.ComputeHash(rBytes);
+                        rNewCompositionId = BitConverter.ToInt64(rHash, 0);
+                    }
+
+                    rCommand2.Parameters.AddWithValue("@id", rNewCompositionId);
+                    for (var i = 0; i < rEnemies.Length; i++)
+                    {
+                        rCommand2.Parameters.AddWithValue("@position", i);
+                        rCommand2.Parameters.AddWithValue("@ship", rShipIds[i]);
+
+                        rCommand2.ExecuteNonQuery();
+                    }
+
+                    rCommand3.Parameters.AddWithValue("@old", rOldCompositionId);
+                    rCommand3.Parameters.AddWithValue("@new", rNewCompositionId);
+                    rCommand3.ExecuteNonQuery();
+                }
+
+                rTransaction.Commit();
+            }
         }
 
         void ProcessAbyssalFleet(ApiInfo rpInfo)
@@ -140,7 +216,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         public IList<EnemyFleet> GetEncounters(int rpMap, int rpNode, EventMapDifficulty? rpDifficulty)
         {
-            var rFleets = new Dictionary<long, EnemyFleet>();
+            var rFleets = new SortedList<long, EnemyFleet>();
 
             using (var rCommand = r_Connection.CreateCommand())
             {

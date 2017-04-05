@@ -124,10 +124,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     }
                 }
         }
-        internal void ProcessMVP()
+        internal void Postprocess()
         {
             foreach (var rSnapshot in Friend)
-                ((FriendShip)rSnapshot.Participant).IsMVP = false;
+            {
+                var rParticipant = (FriendShip)rSnapshot.Participant;
+
+                rParticipant.IsMVP = false;
+                rParticipant.State = rSnapshot.State;
+            }
 
             var rMaxDamage = FriendMain.Max(r => r.DamageGivenToOpponent);
             ((FriendShip)FriendMain.First(r => r.DamageGivenToOpponent == rMaxDamage).Participant).IsMVP = true;

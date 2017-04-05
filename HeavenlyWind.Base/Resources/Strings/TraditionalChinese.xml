@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="zh-Hant" Name="正體中文" Version="0.1.15.1">
+<Strings CultureName="zh-Hant" Name="正體中文" Version="0.1.15.4">
 
   <String Key="Product_Name">智能型連裝砲君</String>
 
@@ -149,6 +149,7 @@
   <String Key="Fleet_LoS_Formula_Old">2-5(舊)</String>
   <String Key="Fleet_LoS_Formula_Autumn">2-5(秋)</String>
   <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5(秋)簡易</String>
+  <String Key="Fleet_LoS_Formula_Formula33">判定式 (33)</String>
   <String Key="Fleet_LoS_Note">判定式 (33) 索敵要求速查</String>
   <String Key="Fleet_LoS_Note_25">至少 [b]33[/b] 確保進 Boss 点</String>
   <String Key="Fleet_LoS_Note_35">在下路 G 点至少 [b]28[/b] 確保進 Boss 点
@@ -211,6 +212,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Ship_ToolTip_AttackPower_Torpedo">雷擊</String>
   <String Key="Ship_ToolTip_AttackPower_ASW">對潛</String>
   <String Key="Ship_ToolTip_AttackPower_NightBattle">夜戰</String>
+  <String Key="Ship_ToolTip_RepairTime">修理時間</String>
   <String Key="Ship_Speed_Slow">低速</String>
   <String Key="Ship_Speed_Fast">高速</String>
   <String Key="Ship_Speed_FastPlus">高速+</String>
@@ -359,6 +361,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Window_ClosingConfirmation_Instruction">你想做什麼呢？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">退出</String>
   <String Key="Window_ClosingConfirmation_Button_No">不退出</String>
+  <String Key="Window_CompositionSharing">配置分享</String>
 
   <String Key="PreferenceWindow_DefaultValue">使用預設值</String>
   <String Key="PreferenceWindow_Network">網路</String>
@@ -434,6 +437,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">顯示戰鬥訊息 (劇透)</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">顯示掉落</String>
   <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">禁用大破閃爍警告</String>
+  <String Key="PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin">以日本時間上午 8 時作爲出擊統計每日起點</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">在建造完成時通知</String>
   <String Key="PreferenceWindow_Notification_Expedition">在遠征歸來時通知</String>
@@ -604,5 +608,15 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="SortieStatistic_RankingPoints">戰果</String>
 
   <String Key="SortieMap_UnderConstruction">地圖功能仍未實現</String>
+
+  <String Key="CompositionSharing_Instruction">請選擇要分享的艦隊</String>
+  <String Key="CompositionSharing_Note">※ 僅支持[url=http://kancolle-calc.net/deckbuilder.html][b]艦載機厨[/b][/url]和[url=http://fleet.moe/][b]誰在呼叫艦隊[/b][/url]通用代碼的相互導入導出</String>
+  <String Key="CompositionSharing_TakeScreenshot">截圖</String>
+  <String Key="CompositionSharing_TakeScreenshot_Clipboard_Message">截圖已複製到剪貼簿。</String>
+  <String Key="CompositionSharing_TakeScreenshot_File_Message">截圖已保存。</String>
+  <String Key="CompositionSharing_GenerateCode">生成代碼</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard">僅複製到剪貼簿</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard_Message">代碼已複製到剪貼簿。</String>
+  <String Key="CompositionSharing_GenerateCode_AutoOpenBrowser">自動打開瀏覽器</String>
 
 </Strings>

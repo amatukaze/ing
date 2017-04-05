@@ -9,6 +9,7 @@ using Sakuno.UserInterface.Commands;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
@@ -55,7 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             TakeScreenshotToFileCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: false));
             TakeScreenshotToClipboardCommand = new DelegatedCommand(() => ScreenshotService.Instance.TakeScreenshotAndOutput(rpOutputToClipboard: true));
             OpenScreenshotToolCommand = new DelegatedCommand(ScreenshotTool.Open);
-            OpenScreenshotFolderCommand = new DelegatedCommand(() => Process.Start(Preference.Instance.Browser.Screenshot.Path));
+            OpenScreenshotFolderCommand = new DelegatedCommand(() => Process.Start(Path.GetFullPath(Preference.Instance.Browser.Screenshot.Path)));
 
             if (OS.IsWin7OrLater && !rpOwner.NoInstalledLayoutEngines)
                 try
@@ -132,7 +133,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             var rSnapshot = NativeMethods.Kernel32.CreateToolhelp32Snapshot(NativeEnums.TH32CS.TH32CS_SNAPPROCESS, 0);
             var rEntry = new NativeStructs.PROCESSENTRY32() { dwSize = Marshal.SizeOf(typeof(NativeStructs.PROCESSENTRY32)) };
 
-            var rMap = new Dictionary<int, int>(32);
+            var rMap = new SortedList<int, int>(64);
 
             if (NativeMethods.Kernel32.Process32First(rSnapshot, ref rEntry))
                 do

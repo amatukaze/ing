@@ -295,6 +295,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             OnPropertyChanged(nameof(Level));
             OnPropertyChanged(nameof(ExperienceToNextLevel));
             OnPropertyChanged(nameof(Status));
+            OnPropertyChanged(nameof(RepairTime));
         }
 
         void UpdateSlots()

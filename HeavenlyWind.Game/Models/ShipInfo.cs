@@ -58,7 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public bool IsLandBase => Speed == ShipSpeed.None;
 
-        public bool IsAbyssalShip => ID > 500;
+        public bool IsAbyssalShip => ID > 1500;
         public AbyssalShipClass? AbyssalShipClass { get; }
 
         public string NameWithClass => !IsAbyssalShip ? Name : Name + NameReading;

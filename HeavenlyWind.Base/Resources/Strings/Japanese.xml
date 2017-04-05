@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Strings CultureName="ja-JP" Name="日本語" Version="0.1.15.1">
+<Strings CultureName="ja-JP" Name="日本語" Version="0.1.15.4">
 
   <String Key="Product_Name">いんてりじぇんと連装砲くん</String>
 
@@ -360,6 +360,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="Window_ClosingConfirmation_Instruction">何をしたいですか？</String>
   <String Key="Window_ClosingConfirmation_Button_Yes">終了します</String>
   <String Key="Window_ClosingConfirmation_Button_No">戻ります</String>
+  <String Key="Window_CompositionSharing">編成共有</String>
 
   <String Key="PreferenceWindow_DefaultValue">既定値を使用</String>
   <String Key="PreferenceWindow_Network">通信</String>
@@ -434,6 +435,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="PreferenceWindow_Behaviour_ShowBattleInfo">戦闘情報を表示する</String>
   <String Key="PreferenceWindow_Behaviour_ShowDrop">ドロップを表示する</String>
   <String Key="PreferenceWindow_Behaviour_DisableHeavyDamageBlinkingWarning">大破点滅警告を無効にする</String>
+  <String Key="PreferenceWindow_Behaviour_SortieStatistic_8amJstOrigin">出撃統計が午前 8 時を起点と設定する</String>
   <String Key="PreferenceWindow_Notification">通知</String>
   <String Key="PreferenceWindow_Notification_Construction">建造完了を通知する</String>
   <String Key="PreferenceWindow_Notification_Expedition">遠征帰投を通知する</String>
@@ -604,5 +606,15 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="SortieStatistic_RankingPoints">戦果</String>
 
   <String Key="SortieMap_UnderConstruction">出撃地図未実装</String>
+
+  <String Key="CompositionSharing_Instruction">共有したい艦隊を選びます</String>
+  <String Key="CompositionSharing_Note">※ 今は[url=http://kancolle-calc.net/deckbuilder.html][b]艦載機厨さん[/b][/url]のデッキビルダーのコピーに対応します</String>
+  <String Key="CompositionSharing_TakeScreenshot">スクリーンショットをする</String>
+  <String Key="CompositionSharing_TakeScreenshot_Clipboard_Message">スクリーンショットがクリップボードに保存しました。</String>
+  <String Key="CompositionSharing_TakeScreenshot_File_Message">スクリーンショットがファイルに保存しました。</String>
+  <String Key="CompositionSharing_GenerateCode">コードを生成</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard">クリップボードに保存</String>
+  <String Key="CompositionSharing_GenerateCode_CopyToClipboard_Message">コードがクリップボードに保存しました。</String>
+  <String Key="CompositionSharing_GenerateCode_AutoOpenBrowser">デッキビルダーに入力</String>
 
 </Strings>

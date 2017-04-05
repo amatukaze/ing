@@ -43,5 +43,8 @@
         InterceptorFighter,
         JetFighterBomberKikkaKai,
         JetFighterBomberKeiunKai,
+        TransportMaterial,
+        WaterproofTelescope,
+        SeaplaneFighter,
     }
 }

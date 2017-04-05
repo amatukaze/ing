@@ -128,7 +128,8 @@ namespace Sakuno.KanColle.Amatsukaze
             ShowUnhandledExceptionDialog(e.Exception);
         }
 
-        void ShowUnhandledExceptionDialog(Exception rpException)
+        void ShowUnhandledExceptionDialog(Exception rpException) => Task.Run(() => ShowUnhandledExceptionDialogCore(rpException)).Wait();
+        void ShowUnhandledExceptionDialogCore(Exception rpException)
         {
             var rLogFilename = Logger.GetNewExceptionLogFilename();
             try

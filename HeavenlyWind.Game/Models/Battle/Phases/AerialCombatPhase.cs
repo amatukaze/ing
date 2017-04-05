@@ -189,6 +189,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
                 for (var i = 0; i < rFriendAttackers.Length; i++)
                 {
+                    if (rFirepowers[i] == 0)
+                        continue;
+
                     var rParticipant = rParticipants[rFriendAttackers[i] - 1];
                     rParticipant.DamageGivenToOpponent += (int)Math.Round(rTotalEnemyDamages * rFirepowers[i] / rTotalFirepower);
                     rParticipant.Inaccurate = true;

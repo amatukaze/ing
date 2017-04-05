@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal void Reload()
         {
             const string DailyUpdateTime = "CAST(strftime('%s', 'now', '+7 hour', 'start of day', '-7 hour') AS INTEGER)";
-            const string MonthlyUpdateTime = "CAST(strftime('%s', 'now', '+9 hour', 'start of month', '-9 hour') AS INTEGER)";
+            const string MonthlyUpdateTime = "CAST(strftime('%s', 'now', '+11 hour', 'start of month', '-11 hour') AS INTEGER)";
 
             using (var rCommand = RecordService.Instance.CreateCommand())
             {

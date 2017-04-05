@@ -48,9 +48,8 @@
       <HintPath>$(SolutionDir)packages\Expression.Interaction.3.0.40218.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>$(SolutionDir)packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Sakuno.Toast, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>$(SolutionDir)packages\Sakuno.Toast.1.0.0.0\lib\net45\Sakuno.Toast.dll</HintPath>
@@ -251,6 +250,7 @@
     <Compile Include="ViewModels\Statistics\SortieStatisticViewModel.cs" />
     <Compile Include="ViewModels\TabItemViewModel.cs" />
     <Compile Include="ViewModels\ToolsViewModel.cs" />
+    <Compile Include="ViewModels\Tools\CompositionSharingViewModel.cs" />
     <Compile Include="ViewModels\Tools\SessionToolViewModel.cs" />
     <Compile Include="ViewModels\Tools\SessionViewModel.cs" />
     <Compile Include="ViewModels\ToolViewModel.cs" />
@@ -447,6 +447,9 @@
     </Compile>
     <Compile Include="Views\ToolCenter.xaml.cs">
       <DependentUpon>ToolCenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tools\CompositionSharingWindow.xaml.cs">
+      <DependentUpon>CompositionSharingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tools\ScreenshotTool.xaml.cs">
       <DependentUpon>ScreenshotTool.xaml</DependentUpon>
@@ -902,6 +905,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ToolCenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tools\CompositionSharingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

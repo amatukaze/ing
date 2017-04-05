@@ -4,6 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Models.Statistics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 {
@@ -58,12 +59,24 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
                 rCommand.CommandText = "SELECT min(id) FROM sortie_consumption;";
                 CustomTimeSpan.MinDisplayDateStart = DateTimeUtil.FromUnixTime((long)rCommand.ExecuteScalar()).ToOffset(DateTimeOffset.Now.Offset).DateTime.Date;
             }
+
+            RecordService.Instance.Update += Record_Update;
         }
 
         public void Load() => r_SelectedTimeSpan.Reload();
 
+        void Record_Update(UpdateEventArgs e)
+        {
+            if (e.Database != "main" || (e.Table != "sortie" && e.Table != "battle"))
+                return;
+
+            Load();
+        }
+
         protected override void DisposeManagedResources()
         {
+            RecordService.Instance.Update -= Record_Update;
+
             SelectedTimeSpan = null;
             TimeSpans = null;
         }

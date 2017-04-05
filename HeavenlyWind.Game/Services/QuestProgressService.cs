@@ -41,7 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     var rReader = new JsonTextReader(new StreamReader(new MemoryStream(rContent)));
                     var rData = JArray.Load(rReader);
 
-                    Infos = rData.Select(r => new QuestInfo(r)).ToDictionary(r => r.ID);
+                    Infos = rData.Select(r => new QuestInfo(r)).ToSortedList(r => r.ID);
                 }
 
                 if (r_InitializationLock != null)

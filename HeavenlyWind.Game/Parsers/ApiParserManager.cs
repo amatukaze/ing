@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
     {
         public static Regex TokenRegex { get; } = new Regex(@"(?<=api_token=)\w+");
 
-        static Dictionary<string, ApiParserBase> r_Parsers = new Dictionary<string, ApiParserBase>(StringComparer.OrdinalIgnoreCase);
+        static SortedList<string, ApiParserBase> r_Parsers = new SortedList<string, ApiParserBase>(StringComparer.OrdinalIgnoreCase);
 
         static ApiParserManager()
         {
