@@ -71,7 +71,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rMap = Maps[int.Parse(r.Parameters["api_maparea_id"]) * 10 + int.Parse(r.Parameters["api_map_no"])];
                 rMap.Difficulty = (EventMapDifficulty)int.Parse(r.Parameters["api_rank"]);
 
-                var rMaxHP = r.GetData<RawEventMapDifficultySelectionResult>().MaxHP ?? 9999;
+                var rMaxHP = r.GetData<RawEventMapDifficultySelectionResult>()?.MaxHP ?? 9999;
                 rMap.HP.Set(rMaxHP, rMaxHP);
             });
 
