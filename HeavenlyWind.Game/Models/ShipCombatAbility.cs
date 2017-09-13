@@ -339,6 +339,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             var rSonerCount = 0;
             var rDepthChargerCount = 0;
+            var rDepthChargerThrowerCount = 0;
 
             var rASWBase = r_Ship.Status.ASW;
             var rResult = .0;
@@ -355,7 +356,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         break;
 
                     case EquipmentType.DepthCharge:
-                        rDepthChargerCount++;
+                        switch (rEquipment.Info.ID)
+                        {
+                            case 226:
+                            case 227:
+                                rDepthChargerCount++;
+                                break;
+
+                            default:
+                                rDepthChargerThrowerCount++;
+                                break;
+                        }
                         rResult += rEquipment.Info.ASW;
                         break;
 
@@ -379,8 +390,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             rResult *= GetHealthModifier();
 
-            if (rSonerCount > 0 && rDepthChargerCount > 0)
-                rResult *= 1.15;
+            if (rSonerCount == 0)
+            {
+                if (rDepthChargerCount > 0 && rDepthChargerThrowerCount > 0)
+                    rResult *= 1.1;
+            }
+            else
+            {
+                if (rDepthChargerCount > 0 && rDepthChargerThrowerCount > 0)
+                    rResult *= 1.4375;
+                else if (rDepthChargerCount > 0 || rDepthChargerThrowerCount > 0)
+                    rResult *= 1.15;
+            }
 
             GetAttackPowerAfterCaps(rResult, 100.0);
 
