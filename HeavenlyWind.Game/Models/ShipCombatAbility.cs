@@ -273,7 +273,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rResult = Math.Floor((rStatus.Firepower + rStatus.Torpedo + Math.Floor(Math.Max(r_Ship.EquipedEquipment.Sum(r => r.Info.DiveBomberAttack), 0) * 1.3) + GetDayBattleAttackPowerBonusFromImprovedEquipment()) * 1.5) + 55;
             rResult *= GetHealthModifier();
 
-            rResult = GetAttackPowerAfterCaps(rResult, 150.0);
+            rResult = GetAttackPowerAfterCaps(rResult, 180.0);
 
             DayBattleCarrierShellingPower = (int)rResult;
         }
