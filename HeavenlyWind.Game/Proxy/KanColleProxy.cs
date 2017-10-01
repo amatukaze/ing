@@ -111,7 +111,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             rpSession.Tag = rSession;
 
-            if (rFullUrl.OICEquals(GameConstants.GamePageUrl) || rFullUrl.OICEquals("http://www.dmm.com/netgame_s/kancolle/") || rPath.OICEquals("/gadget/js/kcs_flash.js"))
+            if (rFullUrl.OICEquals(GameConstants.GamePageUrl) || rFullUrl.OICEquals("http://www.dmm.com/netgame_s/kancolle/") || rFullUrl.OICEquals("http://games.dmm.com/detail/kancolle/") || rPath.OICEquals("/gadget/js/kcs_flash.js"))
                 rpSession.bBufferResponse = true;
 
             var rResourceSession = rSession as ResourceSession;
@@ -200,7 +200,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                         rpSession.utilSetResponseBody(rScript);
                 }
 
-                if (rSession.FullUrl.OICEquals("http://www.dmm.com/netgame_s/kancolle/"))
+                if (rSession.FullUrl.OICEquals("http://www.dmm.com/netgame_s/kancolle/") || rSession.FullUrl.OICEquals("http://games.dmm.com/detail/kancolle/"))
                 {
                     var rSource = rpSession.GetResponseBodyAsString();
                     rSource = r_RemoveGoogleAnalyticsRegex.Replace(rSource, string.Empty);
