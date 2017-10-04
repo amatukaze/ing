@@ -46,5 +46,8 @@
         TransportMaterial,
         WaterproofTelescope,
         SeaplaneFighter,
+        LandBasedFighter,
+        NightFighter,
+        NightTorpedoBomber,
     }
 }
