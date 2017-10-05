@@ -321,7 +321,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 { 152, new Experience(152, 4777000, 222000) },
                 { 153, new Experience(153, 4999000, 231000) },
                 { 154, new Experience(154, 5230000, 240000) },
-                { 155, new Experience(155, 5470000, 0) },
+                { 155, new Experience(155, 5470000, 250000) },
+                { 156, new Experience(146, 5720000, 60000) },
+                { 157, new Experience(147, 5780000, 80000) },
+                { 158, new Experience(148, 5860000, 110000) },
+                { 159, new Experience(149, 5970000, 150000) },
+                { 160, new Experience(150, 6120000, 200000) },
+                { 161, new Experience(151, 6320000, 260000) },
+                { 162, new Experience(152, 6580000, 330000) },
+                { 163, new Experience(153, 6910000, 410000) },
+                { 164, new Experience(154, 7320000, 500000) },
+                { 165, new Experience(155, 7820000, 0) },
             });
         }
 
