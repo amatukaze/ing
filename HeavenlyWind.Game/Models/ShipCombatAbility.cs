@@ -195,18 +195,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 case ShipType.LightAircraftCarrier:
                 case ShipType.AircraftCarrier:
                 case ShipType.ArmoredAircraftCarrier:
-                    NightBattleAttackMode = AttackMode.None;
-                    break;
+                    // Graf Zeppelin(改) / Graf Zeppelin(-Kai)
+                    if (r_Ship.Info.ID == 353 || r_Ship.Info.ID == 432)
+                        NightBattleAttackMode = AttackMode.SingleAttack;
+                    else
+                        NightBattleAttackMode = AttackMode.None;
+
+                    return;
 
                 case ShipType.Submarine:
                 case ShipType.SubmarineAircraftCarrier:
                     NightBattleAttackMode = AttackMode.Torpedo;
                     break;
             }
-
-            // Graf Zeppelin(改) / Graf Zeppelin(-Kai)
-            if (r_Ship.Info.ID == 353 || r_Ship.Info.ID == 432)
-                NightBattleAttackMode = AttackMode.SingleAttack;
 
             if (NightBattleAttackMode == AttackMode.None)
                 NightBattleAttackMode = AttackMode.SingleAttack;

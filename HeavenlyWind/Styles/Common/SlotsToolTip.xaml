@@ -97,17 +97,19 @@
                                             <Run Text="{Binding ASWAttackPower, Mode=OneWay}" />
                                         </TextBlock>
 
-                                        <TextBlock Text="{rb:StringResource Ship_ToolTip_NightBattle}" FontSize="14" Margin="0, 8, 0, 0" />
-                                        <TextBlock Margin="0, 4, 0, 0">
-                                            <Run Text="{rb:StringResource Ship_ToolTip_AttackMode}" />:
-                                            <Run Text="{rb:EnumToStringResource NightBattleAttackMode, Ship_ToolTip_AttackMode}" />
-                                            <Run Name="NightBattleCutInType" Text="{rb:EnumToStringResource NightBattleCutInType, Ship_ToolTip_CutInType, StringFormat=({0})}" FontWeight="Bold" />
-                                        </TextBlock>
+                                        <StackPanel Name="NightBattleGroup" Margin="0, 8, 0, 0">
+                                            <TextBlock Text="{rb:StringResource Ship_ToolTip_NightBattle}" FontSize="14" />
+                                            <TextBlock Margin="0, 4, 0, 0">
+                                                <Run Text="{rb:StringResource Ship_ToolTip_AttackMode}" />:
+                                                <Run Text="{rb:EnumToStringResource NightBattleAttackMode, Ship_ToolTip_AttackMode}" />
+                                                <Run Name="NightBattleCutInType" Text="{rb:EnumToStringResource NightBattleCutInType, Ship_ToolTip_CutInType, StringFormat=({0})}" FontWeight="Bold" />
+                                            </TextBlock>
 
-                                        <TextBlock Name="NightBattle" Margin="0, 4, 0, 0">
-                                            <Run Text="{rb:StringResource Ship_ToolTip_AttackPower_NightBattle}" />:
-                                            <Run Text="{Binding NightBattleAttackPower, Mode=OneWay}" />
-                                        </TextBlock>
+                                            <TextBlock Name="NightBattle" Margin="0, 4, 0, 0">
+                                                <Run Text="{rb:StringResource Ship_ToolTip_AttackPower_NightBattle}" />:
+                                                <Run Text="{Binding NightBattleAttackPower, Mode=OneWay}" />
+                                            </TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
 
                                     <ControlTemplate.Triggers>
@@ -125,6 +127,9 @@
                                             <Setter TargetName="Torpedo" Property="Visibility" Value="Collapsed" />
                                         </DataTrigger>
 
+                                        <DataTrigger Binding="{Binding NightBattleAttackMode}" Value="None">
+                                            <Setter TargetName="NightBattleGroup" Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
                                         <DataTrigger Binding="{Binding NightBattleCutInType}" Value="None">
                                             <Setter TargetName="NightBattleCutInType" Property="Text" Value="" />
                                         </DataTrigger>
