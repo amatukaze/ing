@@ -143,8 +143,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 case ShipType.LightAircraftCarrier:
                 case ShipType.AircraftCarrier:
                 case ShipType.ArmoredAircraftCarrier:
-                    DayBattleAttackMode = AttackMode.AerialStrike;
-                    break;
+                    if (r_Ship.Slots.Any(r => (r.Equipment.Info.Type == EquipmentType.CarrierBasedTorpedoBomber || r.Equipment.Info.Type == EquipmentType.CarrierBasedDiveBomber) && r.PlaneCount > 0))
+                        DayBattleAttackMode = AttackMode.AerialStrike;
+
+                    if (r_Ship.DamageState == ShipDamageState.HeavilyDamaged || (r_Ship.DamageState == ShipDamageState.ModeratelyDamaged && r_Ship.Info.Type.ID != (int)ShipType.ArmoredAircraftCarrier))
+                        DayBattleAttackMode = AttackMode.None;
+
+                    return;
 
                 case ShipType.Submarine:
                 case ShipType.SubmarineAircraftCarrier:
