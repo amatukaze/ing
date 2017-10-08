@@ -211,6 +211,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                                 NightBattleAttackMode = AttackMode.SingleAttack;
                             break;
 
+                        case 515:
+                        case 393:
+                            if (r_Ship.EquipedEquipment.Any(r => r.Info.ID == 242 || r.Info.ID == 243 || r.Info.ID == 244))
+                                NightBattleAttackMode = AttackMode.SingleAttack;
+                            break;
+
                         case 545:
                             NightBattleAttackMode = AttackMode.AerialStrike;
                             break;
