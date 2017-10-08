@@ -169,32 +169,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             NightBattleAttackMode = AttackMode.None;
             NightBattleCutInType = CutInType.None;
 
-            if (rpTorpedoCount >= 2)
-            {
-                NightBattleAttackMode = AttackMode.CutIn;
-                NightBattleCutInType = CutInType.DoubleTorpedo;
-            }
-            else if (rpMainGunCount >= 3)
-            {
-                NightBattleAttackMode = AttackMode.CutIn;
-                NightBattleCutInType = CutInType.TripleMainGun;
-            }
-            else if (rpMainGunCount == 2 && rpSecondaryGunCount > 0)
-            {
-                NightBattleAttackMode = AttackMode.CutIn;
-                NightBattleCutInType = CutInType.DoubleMainGunAndSecondaryGun;
-            }
-            else if (rpMainGunCount >= 1 && rpTorpedoCount >= 1)
-            {
-                NightBattleAttackMode = AttackMode.CutIn;
-                NightBattleCutInType = CutInType.Mixed;
-            }
-            else if ((rpMainGunCount == 2 && rpSecondaryGunCount == 0 && rpTorpedoCount == 0) || (rpMainGunCount == 1 && rpSecondaryGunCount >= 1) || (rpSecondaryGunCount >= 2 && rpTorpedoCount <= 1))
-            {
-                NightBattleAttackMode = AttackMode.DoubleAttack;
-                NightBattleCutInType = CutInType.None;
-            }
-
             switch ((ShipType)r_Ship.Info.Type.ID)
             {
                 case ShipType.LightAircraftCarrier:
@@ -205,6 +179,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         case 353:
                         case 432:
                         case 529:
+                        case 433:
                             if (r_Ship.EquipedEquipment.Count(r => r.Info.Type == EquipmentType.SecondaryGun) >= 2)
                                 NightBattleAttackMode = AttackMode.DoubleAttack;
                             else
@@ -230,6 +205,34 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 case ShipType.Submarine:
                 case ShipType.SubmarineAircraftCarrier:
                     NightBattleAttackMode = AttackMode.Torpedo;
+                    break;
+
+                default:
+                    if (rpTorpedoCount >= 2)
+                    {
+                        NightBattleAttackMode = AttackMode.CutIn;
+                        NightBattleCutInType = CutInType.DoubleTorpedo;
+                    }
+                    else if (rpMainGunCount >= 3)
+                    {
+                        NightBattleAttackMode = AttackMode.CutIn;
+                        NightBattleCutInType = CutInType.TripleMainGun;
+                    }
+                    else if (rpMainGunCount == 2 && rpSecondaryGunCount > 0)
+                    {
+                        NightBattleAttackMode = AttackMode.CutIn;
+                        NightBattleCutInType = CutInType.DoubleMainGunAndSecondaryGun;
+                    }
+                    else if (rpMainGunCount >= 1 && rpTorpedoCount >= 1)
+                    {
+                        NightBattleAttackMode = AttackMode.CutIn;
+                        NightBattleCutInType = CutInType.Mixed;
+                    }
+                    else if ((rpMainGunCount == 2 && rpSecondaryGunCount == 0 && rpTorpedoCount == 0) || (rpMainGunCount == 1 && rpSecondaryGunCount >= 1) || (rpSecondaryGunCount >= 2 && rpTorpedoCount <= 1))
+                    {
+                        NightBattleAttackMode = AttackMode.DoubleAttack;
+                        NightBattleCutInType = CutInType.None;
+                    }
                     break;
             }
 
