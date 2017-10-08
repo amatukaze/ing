@@ -139,6 +139,9 @@
                                         <DataTrigger Binding="{Binding NightBattleCutInType}" Value="None">
                                             <Setter TargetName="NightBattleCutInType" Property="Text" Value="" />
                                         </DataTrigger>
+                                        <DataTrigger Binding="{Binding NightBattleAttackMode}" Value="AerialStrike">
+                                            <Setter TargetName="NightBattle" Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
                             </Setter.Value>
