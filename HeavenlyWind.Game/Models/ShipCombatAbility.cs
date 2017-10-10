@@ -143,8 +143,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 case ShipType.LightAircraftCarrier:
                 case ShipType.AircraftCarrier:
                 case ShipType.ArmoredAircraftCarrier:
-                    DayBattleAttackMode = AttackMode.AerialStrike;
-                    break;
+                    if (r_Ship.Slots.Any(r => (r.Equipment.Info.Type == EquipmentType.CarrierBasedTorpedoBomber || r.Equipment.Info.Type == EquipmentType.CarrierBasedDiveBomber) && r.PlaneCount > 0))
+                        DayBattleAttackMode = AttackMode.AerialStrike;
+
+                    if (r_Ship.DamageState == ShipDamageState.HeavilyDamaged || (r_Ship.DamageState == ShipDamageState.ModeratelyDamaged && r_Ship.Info.Type.ID != (int)ShipType.ArmoredAircraftCarrier))
+                        DayBattleAttackMode = AttackMode.None;
+
+                    return;
 
                 case ShipType.Submarine:
                 case ShipType.SubmarineAircraftCarrier:
@@ -164,49 +169,72 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             NightBattleAttackMode = AttackMode.None;
             NightBattleCutInType = CutInType.None;
 
-            if (rpTorpedoCount >= 2)
-            {
-                NightBattleAttackMode = AttackMode.CutIn;
-                NightBattleCutInType = CutInType.DoubleTorpedo;
-            }
-            else if (rpMainGunCount >= 3)
-            {
-                NightBattleAttackMode = AttackMode.CutIn;
-                NightBattleCutInType = CutInType.TripleMainGun;
-            }
-            else if (rpMainGunCount == 2 && rpSecondaryGunCount > 0)
-            {
-                NightBattleAttackMode = AttackMode.CutIn;
-                NightBattleCutInType = CutInType.DoubleMainGunAndSecondaryGun;
-            }
-            else if (rpMainGunCount >= 1 && rpTorpedoCount >= 1)
-            {
-                NightBattleAttackMode = AttackMode.CutIn;
-                NightBattleCutInType = CutInType.Mixed;
-            }
-            else if ((rpMainGunCount == 2 && rpSecondaryGunCount == 0 && rpTorpedoCount == 0) || (rpMainGunCount == 1 && rpSecondaryGunCount >= 1) || (rpSecondaryGunCount >= 2 && rpTorpedoCount <= 1))
-            {
-                NightBattleAttackMode = AttackMode.DoubleAttack;
-                NightBattleCutInType = CutInType.None;
-            }
-
             switch ((ShipType)r_Ship.Info.Type.ID)
             {
                 case ShipType.LightAircraftCarrier:
                 case ShipType.AircraftCarrier:
                 case ShipType.ArmoredAircraftCarrier:
-                    NightBattleAttackMode = AttackMode.None;
-                    break;
+                    switch (r_Ship.Info.ID)
+                    {
+                        case 353:
+                        case 432:
+                        case 529:
+                        case 433:
+                            if (r_Ship.EquipedEquipment.Count(r => r.Info.Type == EquipmentType.SecondaryGun) >= 2)
+                                NightBattleAttackMode = AttackMode.DoubleAttack;
+                            else
+                                NightBattleAttackMode = AttackMode.SingleAttack;
+                            break;
+
+                        case 515:
+                        case 393:
+                            if (r_Ship.EquipedEquipment.Any(r => r.Info.ID == 242 || r.Info.ID == 243 || r.Info.ID == 244))
+                                NightBattleAttackMode = AttackMode.SingleAttack;
+                            break;
+
+                        case 545:
+                            NightBattleAttackMode = AttackMode.AerialStrike;
+                            break;
+                    }
+
+                    if (r_Ship.EquipedEquipment.Any(r => r.Info.ID == 258 || r.Info.ID == 259))
+                        NightBattleAttackMode = AttackMode.AerialStrike;
+
+                    return;
 
                 case ShipType.Submarine:
                 case ShipType.SubmarineAircraftCarrier:
                     NightBattleAttackMode = AttackMode.Torpedo;
                     break;
-            }
 
-            // Graf Zeppelin(改) / Graf Zeppelin(-Kai)
-            if (r_Ship.Info.ID == 353 || r_Ship.Info.ID == 432)
-                NightBattleAttackMode = AttackMode.SingleAttack;
+                default:
+                    if (rpTorpedoCount >= 2)
+                    {
+                        NightBattleAttackMode = AttackMode.CutIn;
+                        NightBattleCutInType = CutInType.DoubleTorpedo;
+                    }
+                    else if (rpMainGunCount >= 3)
+                    {
+                        NightBattleAttackMode = AttackMode.CutIn;
+                        NightBattleCutInType = CutInType.TripleMainGun;
+                    }
+                    else if (rpMainGunCount == 2 && rpSecondaryGunCount > 0)
+                    {
+                        NightBattleAttackMode = AttackMode.CutIn;
+                        NightBattleCutInType = CutInType.DoubleMainGunAndSecondaryGun;
+                    }
+                    else if (rpMainGunCount >= 1 && rpTorpedoCount >= 1)
+                    {
+                        NightBattleAttackMode = AttackMode.CutIn;
+                        NightBattleCutInType = CutInType.Mixed;
+                    }
+                    else if ((rpMainGunCount == 2 && rpSecondaryGunCount == 0 && rpTorpedoCount == 0) || (rpMainGunCount == 1 && rpSecondaryGunCount >= 1) || (rpSecondaryGunCount >= 2 && rpTorpedoCount <= 1))
+                    {
+                        NightBattleAttackMode = AttackMode.DoubleAttack;
+                        NightBattleCutInType = CutInType.None;
+                    }
+                    break;
+            }
 
             if (NightBattleAttackMode == AttackMode.None)
                 NightBattleAttackMode = AttackMode.SingleAttack;
@@ -273,7 +301,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rResult = Math.Floor((rStatus.Firepower + rStatus.Torpedo + Math.Floor(Math.Max(r_Ship.EquipedEquipment.Sum(r => r.Info.DiveBomberAttack), 0) * 1.3) + GetDayBattleAttackPowerBonusFromImprovedEquipment()) * 1.5) + 55;
             rResult *= GetHealthModifier();
 
-            rResult = GetAttackPowerAfterCaps(rResult, 150.0);
+            rResult = GetAttackPowerAfterCaps(rResult, 180.0);
 
             DayBattleCarrierShellingPower = (int)rResult;
         }
@@ -311,6 +339,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             switch ((ShipType)r_Ship.Info.Type.ID)
             {
+                case ShipType.EscortShip:
                 case ShipType.Destroyer:
                 case ShipType.LightCruiser:
                 case ShipType.TorpedoCruiser:
@@ -339,6 +368,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             var rSonerCount = 0;
             var rDepthChargerCount = 0;
+            var rDepthChargerThrowerCount = 0;
 
             var rASWBase = r_Ship.Status.ASW;
             var rResult = .0;
@@ -355,7 +385,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         break;
 
                     case EquipmentType.DepthCharge:
-                        rDepthChargerCount++;
+                        switch (rEquipment.Info.ID)
+                        {
+                            case 226:
+                            case 227:
+                                rDepthChargerCount++;
+                                break;
+
+                            default:
+                                rDepthChargerThrowerCount++;
+                                break;
+                        }
                         rResult += rEquipment.Info.ASW;
                         break;
 
@@ -379,8 +419,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             rResult *= GetHealthModifier();
 
-            if (rSonerCount > 0 && rDepthChargerCount > 0)
-                rResult *= 1.15;
+            if (rSonerCount == 0)
+            {
+                if (rDepthChargerCount > 0 && rDepthChargerThrowerCount > 0)
+                    rResult *= 1.1;
+            }
+            else
+            {
+                if (rDepthChargerCount > 0 && rDepthChargerThrowerCount > 0)
+                    rResult *= 1.4375;
+                else if (rDepthChargerCount > 0 || rDepthChargerThrowerCount > 0)
+                    rResult *= 1.15;
+            }
 
             GetAttackPowerAfterCaps(rResult, 100.0);
 

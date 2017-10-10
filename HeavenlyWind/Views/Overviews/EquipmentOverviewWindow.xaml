@@ -101,6 +101,26 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <DataTemplate x:Key="TypeTemplate">
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <CheckBox IsChecked="{Binding IsSelected}" Margin="4, 2">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ruii:InvokeMethodAction Target="{Binding DataContext, ElementName=Root}" Method="UpdateSelection" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </CheckBox>
+                <rc:EquipmentIcon Type="{Binding Type}" Width="22" Height="22">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseUp">
+                            <ruii:InvokeMethodAction Target="{Binding DataContext, ElementName=Root}" Method="Filter">
+                                <ruioo:MethodParameter Value="{Binding}" />
+                            </ruii:InvokeMethodAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </rc:EquipmentIcon>
+            </StackPanel>
+        </DataTemplate>
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
@@ -131,41 +151,27 @@
 
             <Border Margin="0, 0, 0, 8" DockPanel.Dock="Top">
                 <StackPanel>
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type ItemsControl}">
+                            <Setter Property="ItemsPanel">
+                                <Setter.Value>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel />
+                                    </ItemsPanelTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </StackPanel.Resources>
+
                     <TextBlock Text="{rb:StringResource Main.Feature_Filter}" FontSize="16" Margin="4, 0, 0, 0" />
 
-                    <CheckBox IsChecked="{Binding SelectAllTypes}" Margin="4, 4, 4, 2">
+                    <CheckBox IsChecked="{Binding SelectAllTypes}" Margin="6, 4, 4, 2">
                         <TextBlock Text="{rb:StringResource Main.Feature_Filter_All}" />
                     </CheckBox>
 
-                    <ItemsControl ItemsSource="{Binding Types}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <CheckBox IsChecked="{Binding IsSelected}" Margin="4, 2">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="Click">
-                                                <ruii:InvokeMethodAction Target="{Binding DataContext, ElementName=Root}" Method="UpdateSelection" />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </CheckBox>
-                                    <rc:EquipmentIcon Type="{Binding Type}" Width="20" Height="20">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseUp">
-                                                <ruii:InvokeMethodAction Target="{Binding DataContext, ElementName=Root}" Method="Filter">
-                                                    <ruioo:MethodParameter Value="{Binding}" />
-                                                </ruii:InvokeMethodAction>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </rc:EquipmentIcon>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding ArtilleryTypes}" ItemTemplate="{StaticResource TypeTemplate}" />
+                    <ItemsControl ItemsSource="{Binding OtherTypes}" ItemTemplate="{StaticResource TypeTemplate}" />
+                    <ItemsControl ItemsSource="{Binding AircraftTypes}" ItemTemplate="{StaticResource TypeTemplate}" />
                 </StackPanel>
             </Border>
 

@@ -201,6 +201,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             if (DataStore.TryGet("ship_avatar", DataStoreRetrieveOption.ExcludeContent, out rItem))
                 yield return rItem;
+
+            if (DataStore.TryGet("ship_experience", DataStoreRetrieveOption.ExcludeContent, out rItem))
+                yield return rItem;
         }
         void ProcessFiles(CheckForUpdateResult rpResult)
         {

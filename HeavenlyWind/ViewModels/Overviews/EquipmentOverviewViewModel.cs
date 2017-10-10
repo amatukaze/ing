@@ -31,7 +31,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         }
 
         Dictionary<EquipmentIconType, FilterTypeViewModel<EquipmentIconType>> r_TypeMap;
-        public IList<FilterTypeViewModel<EquipmentIconType>> Types { get; private set; }
+        FilterTypeViewModel<EquipmentIconType>[] _types;
+
+        public IList<FilterTypeViewModel<EquipmentIconType>> ArtilleryTypes { get; private set; }
+        public IList<FilterTypeViewModel<EquipmentIconType>> OtherTypes { get; private set; }
+        public IList<FilterTypeViewModel<EquipmentIconType>> AircraftTypes { get; private set; }
 
         bool? r_SelectAllTypes = false;
         public bool? SelectAllTypes
@@ -44,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                     r_SelectAllTypes = value;
                     if (r_SelectAllTypes.HasValue)
                     {
-                        foreach (var rType in Types)
+                        foreach (var rType in _types)
                             rType.IsSelected = r_SelectAllTypes.Value;
 
                         UpdateSelection();
@@ -59,10 +63,62 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         IDisposable r_HomeportSubscription;
 
+        static IComparer<EquipmentIconType> _typeComparer;
+
+        static EquipmentOverviewViewModel()
+        {
+            _typeComparer = new DelegatedComparer<EquipmentIconType>((x, y) =>
+            {
+                if (x == EquipmentIconType.SpecialAmphibiousLandingCraft && y > EquipmentIconType.LandingCraft)
+                    return -1;
+                if (y == EquipmentIconType.SpecialAmphibiousLandingCraft && x > EquipmentIconType.LandingCraft)
+                    return 1;
+
+                return x - y;
+            });
+        }
         public EquipmentOverviewViewModel()
         {
             r_TypeMap = KanColleGame.Current.MasterInfo.Equipment.Values.Select(r => r.Icon).Distinct().ToDictionary(IdentityFunction<EquipmentIconType>.Instance, r => new FilterTypeViewModel<EquipmentIconType>(r));
-            Types = r_TypeMap.Values.ToArray();
+            _types = r_TypeMap.Values.ToArray();
+
+            ArtilleryTypes = new[]
+            {
+                r_TypeMap[EquipmentIconType.SmallCaliberGun],
+                r_TypeMap[EquipmentIconType.HighAngleGun],
+                r_TypeMap[EquipmentIconType.MediumCaliberGun],
+                r_TypeMap[EquipmentIconType.LargeCaliberGun],
+                r_TypeMap[EquipmentIconType.SecondaryGun],
+                r_TypeMap[EquipmentIconType.Torpedo],
+                r_TypeMap[EquipmentIconType.AAGun],
+                r_TypeMap[EquipmentIconType.AAShell],
+                r_TypeMap[EquipmentIconType.APShell],
+                r_TypeMap[EquipmentIconType.Soner],
+                r_TypeMap[EquipmentIconType.ASW],
+                r_TypeMap[EquipmentIconType.AAFireDirector],
+                r_TypeMap[EquipmentIconType.AntiGroundArtillery],
+            };
+            AircraftTypes = new[]
+            {
+                r_TypeMap[EquipmentIconType.CarrierBasedFighter],
+                r_TypeMap[EquipmentIconType.CarrierBasedDiveBomber],
+                r_TypeMap[EquipmentIconType.CarrierBasedTorpedoBomber],
+                r_TypeMap[EquipmentIconType.CarrierBasedRecon],
+                r_TypeMap[EquipmentIconType.JetFighterBomberKeiunKai],
+                r_TypeMap[EquipmentIconType.JetFighterBomberKikkaKai],
+                r_TypeMap[EquipmentIconType.NightFighter],
+                r_TypeMap[EquipmentIconType.NightTorpedoBomber],
+                r_TypeMap[EquipmentIconType.LandBasedFighter],
+                r_TypeMap[EquipmentIconType.InterceptorFighter],
+                r_TypeMap[EquipmentIconType.LandBasedAttackAircraft],
+                r_TypeMap[EquipmentIconType.Seaplane],
+                r_TypeMap[EquipmentIconType.SeaplaneFighter],
+                r_TypeMap[EquipmentIconType.FlyingBoat],
+                r_TypeMap[EquipmentIconType.Autogyro],
+                r_TypeMap[EquipmentIconType.ASAircraft],
+            };
+
+            OtherTypes = _types.Except(ArtilleryTypes.Concat(AircraftTypes)).OrderBy(r => r.Type, _typeComparer).ToArray();
 
             var rSelectedTypes = Preference.Instance.Game.SelectedEquipmentTypes.Value;
             if (rSelectedTypes != null)
@@ -83,7 +139,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         public void Dispose()
         {
             r_TypeMap.Clear();
-            Types = null;
+            _types = null;
             r_EquipmentMap?.Clear();
             Equipment = null;
 
@@ -104,12 +160,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
         {
             UpdateSelectionCore();
 
-            Preference.Instance.Game.SelectedEquipmentTypes.Value = Types.Where(r => r.IsSelected).Select(r => (int)r.Type).ToArray();
+            Preference.Instance.Game.SelectedEquipmentTypes.Value = _types.Where(r => r.IsSelected).Select(r => (int)r.Type).ToArray();
         }
         void UpdateSelectionCore()
         {
-            var rTypeCount = Types.Count;
-            var rSelectedCount = Types.Count(r => r.IsSelected);
+            var rTypeCount = _types.Length;
+            var rSelectedCount = _types.Count(r => r.IsSelected);
 
             if (rSelectedCount == 0)
                 r_SelectAllTypes = false;
@@ -125,7 +181,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
 
         public void Filter(FilterTypeViewModel<EquipmentIconType> rpType)
         {
-            foreach (var rType in Types)
+            foreach (var rType in _types)
                 rType.IsSelected = rType == rpType;
 
             UpdateSelection();
