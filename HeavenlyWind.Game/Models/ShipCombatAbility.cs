@@ -339,6 +339,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             switch ((ShipType)r_Ship.Info.Type.ID)
             {
+                case ShipType.EscortShip:
                 case ShipType.Destroyer:
                 case ShipType.LightCruiser:
                 case ShipType.TorpedoCruiser:
