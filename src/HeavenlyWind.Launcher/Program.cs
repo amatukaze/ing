@@ -10,6 +10,7 @@ namespace HeavenlyWind
     {
         static void Main(string[] args)
         {
+            _defaultConsoleColor = Console.ForegroundColor;
         }
     }
 }
