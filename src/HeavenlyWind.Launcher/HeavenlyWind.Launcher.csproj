@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyInfo.cs" />
     <Compile Include="DependencyLoadingInfo.cs" />
     <Compile Include="ManifestUtil.cs" />
     <Compile Include="Program.cs" />

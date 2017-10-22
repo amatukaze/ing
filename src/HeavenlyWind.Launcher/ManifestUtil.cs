@@ -100,7 +100,7 @@ namespace HeavenlyWind
             return element.Value;
         }
 
-        public static IEnumerable<string> EnumerateDependencies(this XDocument manifest)
+        public static IEnumerable<DependencyInfo> EnumerateDependencies(this XDocument manifest)
         {
             var namespaceManager = GetNamespaceManager(manifest);
             var node = manifest.Root.XPathSelectElement("/nuspec:package/nuspec:metadata/nuspec:dependencies", namespaceManager);
@@ -112,7 +112,7 @@ namespace HeavenlyWind
                 return null;
 
             if (firstChildNode.Name.LocalName == "dependency")
-                return node.Elements().Select(r => r.Attribute("id").Value);
+                return node.Elements().Select(r => new DependencyInfo(r));
 
             var groups = new SortedList<string, XElement>(9, StringComparer.OrdinalIgnoreCase);
 
@@ -124,7 +124,7 @@ namespace HeavenlyWind
                     if (dependencies.FirstNode == null)
                         return null;
                     else
-                        return dependencies.Elements().Select(r => r.Attribute("id").Value);
+                        return dependencies.Elements().Select(r => new DependencyInfo(r));
 
             throw new InvalidOperationException();
         }

@@ -104,20 +104,24 @@ namespace HeavenlyWind
             PrintLine("Checking dependencies:");
 
             var allSuccess = true;
+            var checkedDependencies = new HashSet<DependencyInfo>(new DependencyInfo.Comparer());
+            var missingDependencies = new List<DependencyInfo>();
 
-            foreach (var dependency in EnsureDependencies(foundationManifest))
+            foreach (var info in EnsureDependencies(foundationManifest, checkedDependencies))
             {
                 Print(" - ");
-                Print(dependency.Name);
+                Print(info.Dependency.Name);
                 Print(' ');
 
-                if (dependency.StatusCode < StatusCode.Failed)
+                if (info.StatusCode < StatusCode.Failed)
                 {
-                    PrintLine(statusNames[(int)dependency.StatusCode], ConsoleColor.Yellow);
+                    PrintLine(statusNames[(int)info.StatusCode], ConsoleColor.Yellow);
                     continue;
                 }
 
-                PrintLine(statusNames[(int)dependency.StatusCode], ConsoleColor.Red);
+                missingDependencies.Add(info.Dependency);
+
+                PrintLine(statusNames[(int)info.StatusCode], ConsoleColor.Red);
 
                 allSuccess = false;
             }
@@ -129,19 +133,22 @@ namespace HeavenlyWind
             else
                 yield return StatusCode.Failed;
         }
-        static IEnumerable<DependencyLoadingInfo> EnsureDependencies(XDocument manifest)
+        static IEnumerable<DependencyLoadingInfo> EnsureDependencies(XDocument manifest, HashSet<DependencyInfo> checkedDependencies)
         {
             var dependencies = manifest.EnumerateDependencies();
             if (dependencies == null)
                 return null;
 
-            return EnsureDependenciesCore(dependencies);
+            return EnsureDependenciesCore(dependencies, checkedDependencies);
         }
-        static IEnumerable<DependencyLoadingInfo> EnsureDependenciesCore(IEnumerable<string> dependencies)
+        static IEnumerable<DependencyLoadingInfo> EnsureDependenciesCore(IEnumerable<DependencyInfo> dependencies, HashSet<DependencyInfo> checkedDependencies)
         {
             foreach (var dependency in dependencies)
             {
-                var dependencyManifestFilename = Path.Combine(_moduleDirectory, dependency, ModuleManifestFilename);
+                if (!checkedDependencies.Add(dependency))
+                    continue;
+
+                var dependencyManifestFilename = Path.Combine(_moduleDirectory, dependency.Name, ModuleManifestFilename);
                 if (!File.Exists(dependencyManifestFilename))
                 {
                     yield return new DependencyLoadingInfo(dependency, StatusCode.ManifestNotFound);
@@ -161,15 +168,15 @@ namespace HeavenlyWind
                     continue;
                 }
 
-                if (dependencyManifest.GetId() != dependency)
+                if (dependencyManifest.GetId() != dependency.Name)
                 {
                     yield return new DependencyLoadingInfo(dependency, StatusCode.ManifestMismatch);
                     continue;
                 }
 
-                if (dependency != LauncherPackageName)
+                if (dependency.Name != LauncherPackageName)
                 {
-                    var dependencyCodebaseFilename = Path.Combine(_moduleDirectory, dependency, dependency + ClassLibraryExtensionName);
+                    var dependencyCodebaseFilename = Path.Combine(_moduleDirectory, dependency.Name, dependency.Name + ClassLibraryExtensionName);
                     if (!File.Exists(dependencyCodebaseFilename))
                     {
                         yield return new DependencyLoadingInfo(dependency, StatusCode.CodebaseNotFound);
@@ -179,7 +186,7 @@ namespace HeavenlyWind
 
                 yield return new DependencyLoadingInfo(dependency, StatusCode.Ok);
 
-                var subDependencies = EnsureDependencies(dependencyManifest);
+                var subDependencies = EnsureDependencies(dependencyManifest, checkedDependencies);
                 if (subDependencies != null)
                     foreach (var subDependency in subDependencies)
                         yield return subDependency;

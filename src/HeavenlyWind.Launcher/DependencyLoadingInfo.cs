@@ -1,13 +1,18 @@
-﻿namespace HeavenlyWind
+﻿using System.Diagnostics;
+
+namespace HeavenlyWind
 {
+    [DebuggerDisplay("{Dependency}: {StatusCode}")]
     struct DependencyLoadingInfo
     {
-        public string Name { get; }
+        public DependencyInfo Dependency { get; }
+
         public StatusCode StatusCode { get; }
 
-        public DependencyLoadingInfo(string name, StatusCode statusCode)
+        public DependencyLoadingInfo(DependencyInfo dependency, StatusCode statusCode)
         {
-            Name = name;
+            Dependency = dependency;
+
             StatusCode = statusCode;
         }
     }
