@@ -9,6 +9,7 @@ namespace HeavenlyWind
     static partial class Program
     {
         const string ModulesDirectoryName = "Modules";
+        const string StagingModulesDirectoryName = "Staging";
 
         const string FoundationPackageName = "HeavenlyWind.Foundation";
         const string LauncherPackageName = "HeavenlyWind.Launcher";
@@ -23,6 +24,9 @@ namespace HeavenlyWind
 
         static string _currentDirectory;
         static string _moduleDirectory;
+        static string _stagingModulesDirectory;
+
+        static Action _nextStepOnFailure;
 
         static void Main(string[] args)
         {
@@ -31,6 +35,7 @@ namespace HeavenlyWind
             var currentAssembly = Assembly.GetEntryAssembly();
             _currentDirectory = Path.GetDirectoryName(currentAssembly.Location);
             _moduleDirectory = Path.Combine(_currentDirectory, ModulesDirectoryName);
+            _stagingModulesDirectory = Path.Combine(_currentDirectory, StagingModulesDirectoryName);
 
             var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 
@@ -54,15 +59,18 @@ namespace HeavenlyWind
                 PrintLine(statusNames[(int)result], ConsoleColor.Red);
                 PrintLine();
 
+                if (_nextStepOnFailure != null)
+                {
+                    var stagingDirectory = new DirectoryInfo(_stagingModulesDirectory);
+                    if (!stagingDirectory.Exists)
+                        stagingDirectory.Create();
+
+                    _nextStepOnFailure();
+                }
                 return;
             }
 
-            var bootstrapFilename = Path.Combine(_moduleDirectory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
-            var bootstrapAssembly = Assembly.LoadFile(bootstrapFilename);
-            var bootstrapType = bootstrapAssembly.GetType(BootstrapTypeName);
-            var startupMethod = bootstrapType.GetMethod(BootstrapStartupMethodName, BindingFlags.Public | BindingFlags.Static);
-
-            startupMethod.Invoke(null, null);
+            StartupNormally();
         }
 
         static string[] GetStatusNames()
@@ -78,6 +86,8 @@ namespace HeavenlyWind
 
         static IEnumerable<StatusCode> EnsureFoundationModules(string[] statusNames)
         {
+            _nextStepOnFailure = DownloadLastestFoundation;
+
             Print("Searching for foundation manifest");
 
             var foundationManifestFilename = Path.Combine(_moduleDirectory, FoundationPackageName, ModuleManifestFilename);
@@ -100,6 +110,8 @@ namespace HeavenlyWind
                 yield return StatusCode.Success;
             else
                 yield return StatusCode.Failed;
+
+            _nextStepOnFailure = null;
 
             PrintLine("Checking dependencies:");
 
@@ -131,7 +143,10 @@ namespace HeavenlyWind
             if (allSuccess)
                 yield return StatusCode.Success;
             else
+            {
+                _nextStepOnFailure = () => DownloadMissingDependencies(missingDependencies);
                 yield return StatusCode.Failed;
+            }
         }
         static IEnumerable<DependencyLoadingInfo> EnsureDependencies(XDocument manifest, HashSet<DependencyInfo> checkedDependencies)
         {
@@ -191,6 +206,25 @@ namespace HeavenlyWind
                     foreach (var subDependency in subDependencies)
                         yield return subDependency;
             }
+        }
+
+        static void StartupNormally()
+        {
+            var bootstrapFilename = Path.Combine(_moduleDirectory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
+            var bootstrapAssembly = Assembly.LoadFile(bootstrapFilename);
+            var bootstrapType = bootstrapAssembly.GetType(BootstrapTypeName);
+            var startupMethod = bootstrapType.GetMethod(BootstrapStartupMethodName, BindingFlags.Public | BindingFlags.Static);
+
+            startupMethod.Invoke(null, null);
+        }
+
+        static void DownloadLastestFoundation()
+        {
+
+        }
+
+        static void DownloadMissingDependencies(IList<DependencyInfo> dependencies)
+        {
         }
     }
 }
