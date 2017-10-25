@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace HeavenlyWind
@@ -225,6 +229,68 @@ namespace HeavenlyWind
 
         static void DownloadMissingDependencies(IList<DependencyInfo> dependencies)
         {
+            PrintLine("Download missing dependencies:");
+
+            var tasks = dependencies.Select(DownloadMissingDependency).ToArray();
+
+            try
+            {
+                Task.WaitAll(tasks);
+            }
+            catch (AggregateException)
+            {
+            }
+
+            for (var i = 0; i < tasks.Length; i++)
+            {
+                Print(" - ");
+                Print(dependencies[i].ToString());
+                Print(' ');
+
+                if (tasks[i].Status == TaskStatus.RanToCompletion)
+                    PrintLine("[Success]", ConsoleColor.Yellow);
+                else
+                {
+                    var exception = tasks[i].Exception.InnerException;
+
+                    PrintLine("[Failed]", ConsoleColor.Red);
+                    Print("      ");
+                    PrintLine(exception.Message);
+                }
+            }
+        }
+        static async Task DownloadMissingDependency(DependencyInfo dependency)
+        {
+            const string FilenameFormat = "{0}.{1}.nupkg";
+            const string Format = "https://api.nuget.org/v3-flatcontainer/{0}/{1}/" + FilenameFormat;
+
+            var request = WebRequest.CreateHttp(string.Format(Format, dependency.Name, dependency.Version));
+
+            using (var md5 = new MD5CryptoServiceProvider())
+            using (var response = await request.GetResponseAsync())
+            {
+                var responseStream = response.GetResponseStream();
+                var filename = Path.Combine(_stagingModulesDirectory, string.Format(FilenameFormat, dependency.Name, dependency.Version));
+                var file = new FileInfo(filename);
+                var tempFilename = filename + ".tmp";
+
+                using (var fileStream = File.Create(tempFilename))
+                using (var cryptoStream = new CryptoStream(fileStream, md5, CryptoStreamMode.Write))
+                {
+                    const int BufferSize = 8192;
+
+                    var buffer = new byte[BufferSize];
+                    var count = 0;
+
+                    while ((count = await responseStream.ReadAsync(buffer, 0, BufferSize)) > 0)
+                        cryptoStream.Write(buffer, 0, count);
+                }
+
+                if (file.Exists)
+                    file.Delete();
+
+                File.Move(tempFilename, filename);
+            }
         }
     }
 }
