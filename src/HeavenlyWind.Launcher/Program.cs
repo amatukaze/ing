@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -30,7 +31,7 @@ namespace HeavenlyWind
         static string _moduleDirectory;
         static string _stagingModulesDirectory;
 
-        static Action _nextStepOnFailure;
+        static Func<bool> _nextStepOnFailure;
 
         static void Main(string[] args)
         {
@@ -69,8 +70,32 @@ namespace HeavenlyWind
                     if (!stagingDirectory.Exists)
                         stagingDirectory.Create();
 
-                    _nextStepOnFailure();
+                    var success = false;
+
+                    do
+                    {
+                        success = _nextStepOnFailure();
+
+                        PrintLine();
+
+                        if (!success)
+                        {
+                            PrintLine("There's something wrong with the downloading.");
+                            PrintLine("Press the keyboard to retry.");
+
+                            Console.ReadKey();
+
+                            PrintLine();
+                        }
+                    } while (!success);
+
+                    PrintLine("Restart in 3s...");
+
+                    Task.Delay(3000).Wait();
+
+                    Process.Start(currentAssembly.Location);
                 }
+
                 return;
             }
 
@@ -222,16 +247,18 @@ namespace HeavenlyWind
             startupMethod.Invoke(null, null);
         }
 
-        static void DownloadLastestFoundation()
+        static bool DownloadLastestFoundation()
         {
-
+            return true;
         }
 
-        static void DownloadMissingDependencies(IList<DependencyInfo> dependencies)
+        static bool DownloadMissingDependencies(IList<DependencyInfo> dependencies)
         {
             PrintLine("Download missing dependencies:");
 
             var tasks = dependencies.Select(DownloadMissingDependency).ToArray();
+
+            var result = true;
 
             try
             {
@@ -239,6 +266,7 @@ namespace HeavenlyWind
             }
             catch (AggregateException)
             {
+                result = false;
             }
 
             for (var i = 0; i < tasks.Length; i++)
@@ -258,6 +286,8 @@ namespace HeavenlyWind
                     PrintLine(exception.Message);
                 }
             }
+
+            return result;
         }
         static async Task DownloadMissingDependency(DependencyInfo dependency)
         {
