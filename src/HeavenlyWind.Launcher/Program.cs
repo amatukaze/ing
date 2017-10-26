@@ -31,6 +31,8 @@ namespace HeavenlyWind
         static string _moduleDirectory;
         static string _stagingModulesDirectory;
 
+        static string[] _statusNames;
+
         static Func<bool> _nextStepOnFailure;
 
         static void Main(string[] args)
@@ -49,19 +51,19 @@ namespace HeavenlyWind
 
             PrintLine();
 
-            var statusNames = GetStatusNames();
+            _statusNames = GetStatusNames();
 
-            foreach (var result in EnsureFoundationModules(statusNames))
+            foreach (var result in EnsureFoundationModules())
             {
                 Print(' ');
 
                 if (result < StatusCode.Failed)
                 {
-                    PrintLine(statusNames[(int)result], ConsoleColor.Yellow);
+                    PrintLine(_statusNames[(int)result], ConsoleColor.Yellow);
                     continue;
                 }
 
-                PrintLine(statusNames[(int)result], ConsoleColor.Red);
+                PrintLine(_statusNames[(int)result], ConsoleColor.Red);
                 PrintLine();
 
                 if (_nextStepOnFailure != null)
@@ -113,7 +115,7 @@ namespace HeavenlyWind
             return result;
         }
 
-        static IEnumerable<StatusCode> EnsureFoundationModules(string[] statusNames)
+        static IEnumerable<StatusCode> EnsureFoundationModules()
         {
             _nextStepOnFailure = DownloadLastestFoundation;
 
@@ -156,13 +158,13 @@ namespace HeavenlyWind
 
                 if (info.StatusCode < StatusCode.Failed)
                 {
-                    PrintLine(statusNames[(int)info.StatusCode], ConsoleColor.Yellow);
+                    PrintLine(_statusNames[(int)info.StatusCode], ConsoleColor.Yellow);
                     continue;
                 }
 
                 missingDependencies.Add(info.Dependency);
 
-                PrintLine(statusNames[(int)info.StatusCode], ConsoleColor.Red);
+                PrintLine(_statusNames[(int)info.StatusCode], ConsoleColor.Red);
 
                 allSuccess = false;
             }
