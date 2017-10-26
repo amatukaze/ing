@@ -45,9 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependencyInfo.cs" />
     <Compile Include="DependencyLoadingInfo.cs" />
     <Compile Include="ManifestUtil.cs" />
+    <Compile Include="PackageInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.Output.cs">
       <DependentUpon>Program.cs</DependentUpon>

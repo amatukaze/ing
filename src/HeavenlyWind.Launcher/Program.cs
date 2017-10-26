@@ -147,8 +147,8 @@ namespace HeavenlyWind
             PrintLine("Checking dependencies:");
 
             var allSuccess = true;
-            var checkedDependencies = new HashSet<DependencyInfo>(new DependencyInfo.Comparer());
-            var missingDependencies = new List<DependencyInfo>();
+            var checkedDependencies = new HashSet<PackageInfo>(new PackageInfo.Comparer());
+            var missingDependencies = new List<PackageInfo>();
 
             foreach (var info in EnsureDependencies(foundationManifest, checkedDependencies))
             {
@@ -175,11 +175,11 @@ namespace HeavenlyWind
                 yield return StatusCode.Success;
             else
             {
-                _nextStepOnFailure = () => DownloadMissingDependencies(missingDependencies);
+                _nextStepOnFailure = () => DownloadPackages("Download missing dependencies:", missingDependencies);
                 yield return StatusCode.Failed;
             }
         }
-        static IEnumerable<DependencyLoadingInfo> EnsureDependencies(XDocument manifest, HashSet<DependencyInfo> checkedDependencies)
+        static IEnumerable<DependencyLoadingInfo> EnsureDependencies(XDocument manifest, HashSet<PackageInfo> checkedDependencies)
         {
             var dependencies = manifest.EnumerateDependencies();
             if (dependencies == null)
@@ -187,7 +187,7 @@ namespace HeavenlyWind
 
             return EnsureDependenciesCore(dependencies, checkedDependencies);
         }
-        static IEnumerable<DependencyLoadingInfo> EnsureDependenciesCore(IEnumerable<DependencyInfo> dependencies, HashSet<DependencyInfo> checkedDependencies)
+        static IEnumerable<DependencyLoadingInfo> EnsureDependenciesCore(IEnumerable<PackageInfo> dependencies, HashSet<PackageInfo> checkedDependencies)
         {
             foreach (var dependency in dependencies)
             {
@@ -251,14 +251,33 @@ namespace HeavenlyWind
 
         static bool DownloadLastestFoundation()
         {
-            return true;
+            PrintLine("Get foundation package infos:");
+
+            var request = WebRequest.CreateHttp("http://heavenlywind.cc/api/foundation/lastest");
+            var packages = new List<PackageInfo>();
+
+            using (var response = request.GetResponse())
+            {
+                var responseStream = response.GetResponseStream();
+                var reader = new StreamReader(responseStream);
+
+                while (!reader.EndOfStream)
+                {
+                    var name = reader.ReadLine();
+                    var version = reader.ReadLine();
+
+                    packages.Add(new PackageInfo(name, version));
+                }
+            }
+
+            return DownloadPackages("Download foundation:", packages);
         }
 
-        static bool DownloadMissingDependencies(IList<DependencyInfo> dependencies)
+        static bool DownloadPackages(string task, IList<PackageInfo> packages)
         {
-            PrintLine("Download missing dependencies:");
+            PrintLine(task);
 
-            var tasks = dependencies.Select(DownloadMissingDependency).ToArray();
+            var tasks = packages.Select(DownloadPackage).ToArray();
 
             var result = true;
 
@@ -274,7 +293,7 @@ namespace HeavenlyWind
             for (var i = 0; i < tasks.Length; i++)
             {
                 Print(" - ");
-                Print(dependencies[i].ToString());
+                Print(packages[i].ToString());
                 Print(' ');
 
                 if (tasks[i].Status == TaskStatus.RanToCompletion)
@@ -291,18 +310,18 @@ namespace HeavenlyWind
 
             return result;
         }
-        static async Task DownloadMissingDependency(DependencyInfo dependency)
+        static async Task DownloadPackage(PackageInfo package)
         {
             const string FilenameFormat = "{0}.{1}.nupkg";
             const string Format = "https://api.nuget.org/v3-flatcontainer/{0}/{1}/" + FilenameFormat;
 
-            var request = WebRequest.CreateHttp(string.Format(Format, dependency.Name, dependency.Version));
+            var request = WebRequest.CreateHttp(string.Format(Format, package.Name, package.Version));
 
             using (var md5 = new MD5CryptoServiceProvider())
             using (var response = await request.GetResponseAsync())
             {
                 var responseStream = response.GetResponseStream();
-                var filename = Path.Combine(_stagingModulesDirectory, string.Format(FilenameFormat, dependency.Name, dependency.Version));
+                var filename = Path.Combine(_stagingModulesDirectory, string.Format(FilenameFormat, package.Name, package.Version));
                 var file = new FileInfo(filename);
                 var tempFilename = filename + ".tmp";
 
