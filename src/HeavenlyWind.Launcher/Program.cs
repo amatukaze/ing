@@ -355,35 +355,36 @@ namespace HeavenlyWind
 
         static void ExtractPackages()
         {
-            PrintLine("Extracting staging packages:");
-
-            var lockingFilename = Path.Combine(_stagingPackagesDirectory, ".lock");
-
-            using (File.Open(lockingFilename, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            var stagingPackagesDirectory = new DirectoryInfo(_stagingPackagesDirectory);
+            var files = stagingPackagesDirectory.EnumerateFiles("*.nupkg");
+            if (files.Any())
             {
-                var stagingPackagesDirectory = new DirectoryInfo(_stagingPackagesDirectory);
-                var files = stagingPackagesDirectory.EnumerateFiles("*.nupkg");
+                PrintLine("Extracting staging packages:");
 
-                foreach (var file in files)
-                {
-                    var info = ExtractPackage(file);
+                var lockingFilename = Path.Combine(_stagingPackagesDirectory, ".lock");
 
-                    Print(" - ");
-                    Print(info.Filename);
-                    Print(' ');
-
-                    if (info.Exception == null)
-                        PrintLine("[Success]", ConsoleColor.Yellow);
-                    else
+                using (File.Open(lockingFilename, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                    foreach (var file in files)
                     {
-                        PrintLine("[Failed]", ConsoleColor.Red);
-                        Print("      ");
-                        PrintLine(info.Exception.Message);
+                        var info = ExtractPackage(file);
+
+                        Print(" - ");
+                        Print(info.Filename);
+                        Print(' ');
+
+                        if (info.Exception == null)
+                            PrintLine("[Success]", ConsoleColor.Yellow);
+                        else
+                        {
+                            PrintLine("[Failed]", ConsoleColor.Red);
+                            Print("      ");
+                            PrintLine(info.Exception.Message);
+                        }
                     }
-                }
+
+                File.Delete(lockingFilename);
             }
 
-            File.Delete(lockingFilename);
             Directory.Delete(_stagingPackagesDirectory, true);
         }
         static PackageExtractionInfo ExtractPackage(FileInfo file)
