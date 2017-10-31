@@ -395,6 +395,7 @@ namespace HeavenlyWind
         static PackageExtractionInfo ExtractPackage(FileInfo file)
         {
             const string ManifestRelationshipType = "http://schemas.microsoft.com/packaging/2010/07/manifest";
+            const int SupportedTargetFrameworkCount = 9;
 
             try
             {
@@ -410,7 +411,7 @@ namespace HeavenlyWind
 
                     var relationshipUri = relationship.TargetUri.OriginalString;
 
-                    var libParts = new List<PackagePart>[5];
+                    var libParts = new List<PackagePart>[SupportedTargetFrameworkCount];
 
                     foreach (var part in package.GetParts())
                     {
@@ -433,6 +434,14 @@ namespace HeavenlyWind
                             libTargetFrameworkIndex = 3;
                         else if (uri.StartsWith("/lib/net40", StringComparison.OrdinalIgnoreCase))
                             libTargetFrameworkIndex = 4;
+                        else if (uri.StartsWith("/lib/netstandard1.3", StringComparison.OrdinalIgnoreCase))
+                            libTargetFrameworkIndex = 5;
+                        else if (uri.StartsWith("/lib/netstandard1.2", StringComparison.OrdinalIgnoreCase))
+                            libTargetFrameworkIndex = 6;
+                        else if (uri.StartsWith("/lib/netstandard1.1", StringComparison.OrdinalIgnoreCase))
+                            libTargetFrameworkIndex = 7;
+                        else if (uri.StartsWith("/lib/netstandard1.0", StringComparison.OrdinalIgnoreCase))
+                            libTargetFrameworkIndex = 8;
                         else if (uri.StartsWith("/lib", StringComparison.OrdinalIgnoreCase))
                             continue;
 
