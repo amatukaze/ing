@@ -260,9 +260,14 @@ namespace HeavenlyWind
 
         static bool DownloadLastestFoundation()
         {
+            const string Url = "https://heavenlywind.cc/api/foundation/lastest?launcher=";
+
             PrintLine("Get foundation package infos:");
 
-            var request = WebRequest.CreateHttp("http://heavenlywind.cc/api/foundation/lastest");
+            var currentAssembly = Assembly.GetEntryAssembly();
+            var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+
+            var request = WebRequest.CreateHttp(Url + versionAttribute.InformationalVersion);
             var packages = new List<PackageInfo>();
 
             using (var response = request.GetResponse())
