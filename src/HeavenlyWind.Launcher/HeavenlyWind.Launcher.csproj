@@ -62,6 +62,7 @@
     <None Include="app.config" />
     <None Include="app.manifest" />
     <EmbeddedResource Include="nuspec.xsd" />
+    <None Include="HeavenlyWind.Launcher.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

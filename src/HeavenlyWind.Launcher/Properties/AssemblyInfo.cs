@@ -12,4 +12,4 @@ using System.Runtime.InteropServices;
 [assembly: Guid("96e968eb-417e-40dc-a9ef-f83d12733ff7")]
 
 [assembly: AssemblyVersion("0.1")]
-[assembly: AssemblyInformationalVersion("0.1-blueprint")]
+[assembly: AssemblyInformationalVersion("0.1.0-blueprint")]
