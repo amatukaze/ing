@@ -43,11 +43,14 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyLoadingInfo.cs" />
     <Compile Include="ManifestUtil.cs" />
+    <Compile Include="PackageExtractionInfo.cs" />
     <Compile Include="PackageInfo.cs" />
+    <Compile Include="PackageUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.Output.cs">
       <DependentUpon>Program.cs</DependentUpon>
