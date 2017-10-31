@@ -34,6 +34,8 @@ namespace HeavenlyWind
 
         static Func<bool> _nextStepOnFailure;
 
+        static SortedList<string, Assembly> _unreslovedAssemblies;
+
         static void Main(string[] args)
         {
             _defaultConsoleColor = Console.ForegroundColor;
@@ -159,6 +161,8 @@ namespace HeavenlyWind
             var checkedDependencies = new HashSet<PackageInfo>(new PackageInfo.Comparer());
             var missingDependencies = new List<PackageInfo>();
 
+            _unreslovedAssemblies = new SortedList<string, Assembly>(StringComparer.OrdinalIgnoreCase);
+
             foreach (var info in EnsureDependencies(foundationManifest, checkedDependencies))
             {
                 Print(" - ");
@@ -237,6 +241,8 @@ namespace HeavenlyWind
                         yield return new DependencyLoadingInfo(dependency, StatusCode.CodebaseNotFound);
                         continue;
                     }
+
+                    _unreslovedAssemblies.Add(dependency.Name, Assembly.LoadFile(dependencyCodebaseFilename));
                 }
 
                 yield return new DependencyLoadingInfo(dependency, StatusCode.Ok);
@@ -250,12 +256,35 @@ namespace HeavenlyWind
 
         static void StartupNormally()
         {
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+
             var bootstrapFilename = Path.Combine(_moduleDirectory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
             var bootstrapAssembly = Assembly.LoadFile(bootstrapFilename);
             var bootstrapType = bootstrapAssembly.GetType(BootstrapTypeName);
             var startupMethod = bootstrapType.GetMethod(BootstrapStartupMethodName, BindingFlags.Public | BindingFlags.Static);
 
             startupMethod.Invoke(null, null);
+        }
+
+        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            var result = default(Assembly);
+            var name = args.Name.Remove(args.Name.IndexOf(','));
+            var index = _unreslovedAssemblies.IndexOfKey(name);
+
+            if (index >= 0)
+            {
+                result = _unreslovedAssemblies.Values[index];
+                _unreslovedAssemblies.RemoveAt(index);
+
+                if (_unreslovedAssemblies.Count == 0)
+                {
+                    AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
+                    _unreslovedAssemblies = null;
+                }
+            }
+
+            return result;
         }
 
         static bool DownloadLastestFoundation()
