@@ -39,6 +39,10 @@ namespace HeavenlyWind
             _defaultConsoleColor = Console.ForegroundColor;
 
             var currentAssembly = Assembly.GetEntryAssembly();
+            var oldLauncher = new FileInfo(currentAssembly.Location + ".old");
+            if (oldLauncher.Exists)
+                oldLauncher.Delete();
+
             _currentDirectory = Path.GetDirectoryName(currentAssembly.Location);
             _moduleDirectory = Path.Combine(_currentDirectory, ModulesDirectoryName);
             _stagingPackagesDirectory = Path.Combine(_currentDirectory, StagingPackagesDirectoryName);
@@ -453,6 +457,9 @@ namespace HeavenlyWind
 
                             break;
                         }
+
+                    if (identifier == LauncherPackageName)
+                        ReplaceMyself(directory);
                 }
 
                 return new PackageExtractionInfo(file.Name);
@@ -462,6 +469,25 @@ namespace HeavenlyWind
                 return new PackageExtractionInfo(file.Name, e);
             }
         }
+        static void ReplaceMyself(string directory)
+        {
+            var launcherFilename = Assembly.GetEntryAssembly().Location;
+            var toolsDirectory = Path.Combine(directory, "tools");
+
+            File.Move(launcherFilename, launcherFilename + ".old");
+            File.Move(Path.Combine(toolsDirectory, "HeavenlyWind.exe"), launcherFilename);
+
+            var configFilename = Path.Combine(toolsDirectory, "HeavenlyWind.exe.config");
+            var currentConfigFilename = launcherFilename + ".config";
+            var currentConfigFile = new FileInfo(currentConfigFilename);
+            if (currentConfigFile.Exists)
+                currentConfigFile.Delete();
+
+            File.Move(configFilename, currentConfigFilename);
+
+            Directory.Delete(toolsDirectory);
+        }
+
         static void ExtractPackagePart(PackagePart part, string moduleDirectory, string filename)
         {
             var filepath = Path.Combine(moduleDirectory, filename);
