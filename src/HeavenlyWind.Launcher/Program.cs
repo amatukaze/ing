@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.IO.Packaging;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -430,6 +432,7 @@ namespace HeavenlyWind
             {
                 using (var stream = file.OpenRead())
                 {
+                    var archive = new ZipArchive(stream);
                     var package = Package.Open(stream);
                     var identifier = package.PackageProperties.Identifier;
                     var directory = Path.Combine(_moduleDirectory, identifier);
@@ -438,65 +441,65 @@ namespace HeavenlyWind
                     if (relationship == null)
                         throw new Exception("Manifest not found");
 
-                    var relationshipUri = relationship.TargetUri.OriginalString;
+                    var relationshipUri = relationship.TargetUri.OriginalString.Substring(1);
 
-                    var libParts = new List<PackagePart>[SupportedTargetFrameworkCount];
+                    var libPartInfos = new List<PackagePartInfo>[SupportedTargetFrameworkCount];
 
                     foreach (var part in package.GetParts())
                     {
-                        var uri = part.Uri.OriginalString;
+                        var uri = part.Uri.OriginalString.Substring(1);
 
-                        if (uri.StartsWith("/_rels/", StringComparison.OrdinalIgnoreCase))
+                        if (uri.StartsWith("_rels/", StringComparison.OrdinalIgnoreCase))
                             continue;
-                        else if (uri.StartsWith("/package/", StringComparison.OrdinalIgnoreCase))
-                            continue;
-
-                        var libTargetFrameworkIndex = -1;
-
-                        if (uri.StartsWith("/lib/net46", StringComparison.OrdinalIgnoreCase))
-                            libTargetFrameworkIndex = 0;
-                        else if (uri.StartsWith("/lib/net452", StringComparison.OrdinalIgnoreCase))
-                            libTargetFrameworkIndex = 1;
-                        else if (uri.StartsWith("/lib/net451", StringComparison.OrdinalIgnoreCase))
-                            libTargetFrameworkIndex = 2;
-                        else if (uri.StartsWith("/lib/net45", StringComparison.OrdinalIgnoreCase))
-                            libTargetFrameworkIndex = 3;
-                        else if (uri.StartsWith("/lib/net40", StringComparison.OrdinalIgnoreCase))
-                            libTargetFrameworkIndex = 4;
-                        else if (uri.StartsWith("/lib/netstandard1.3", StringComparison.OrdinalIgnoreCase))
-                            libTargetFrameworkIndex = 5;
-                        else if (uri.StartsWith("/lib/netstandard1.2", StringComparison.OrdinalIgnoreCase))
-                            libTargetFrameworkIndex = 6;
-                        else if (uri.StartsWith("/lib/netstandard1.1", StringComparison.OrdinalIgnoreCase))
-                            libTargetFrameworkIndex = 7;
-                        else if (uri.StartsWith("/lib/netstandard1.0", StringComparison.OrdinalIgnoreCase))
-                            libTargetFrameworkIndex = 8;
-                        else if (uri.StartsWith("/lib", StringComparison.OrdinalIgnoreCase))
+                        else if (uri.StartsWith("package/", StringComparison.OrdinalIgnoreCase))
                             continue;
 
-                        if (libTargetFrameworkIndex != -1)
+                        if (uri.StartsWith("lib", StringComparison.OrdinalIgnoreCase))
                         {
-                            var parts = libParts[libTargetFrameworkIndex];
-                            if (parts == null)
-                                libParts[libTargetFrameworkIndex] = parts = new List<PackagePart>();
+                            var libTargetFrameworkIndex = -1;
 
-                            parts.Add(part);
+                            if (IsPrefix(uri, "net46"))
+                                libTargetFrameworkIndex = 0;
+                            else if (IsPrefix(uri, "net452"))
+                                libTargetFrameworkIndex = 1;
+                            else if (IsPrefix(uri, "net451"))
+                                libTargetFrameworkIndex = 2;
+                            else if (IsPrefix(uri, "net45"))
+                                libTargetFrameworkIndex = 3;
+                            else if (IsPrefix(uri, "net40"))
+                                libTargetFrameworkIndex = 4;
+                            else if (IsPrefix(uri, "netstandard1.3"))
+                                libTargetFrameworkIndex = 5;
+                            else if (IsPrefix(uri, "netstandard1.2"))
+                                libTargetFrameworkIndex = 6;
+                            else if (IsPrefix(uri, "netstandard1.1"))
+                                libTargetFrameworkIndex = 7;
+                            else if (IsPrefix(uri, "netstandard1.0"))
+                                libTargetFrameworkIndex = 8;
+                            else
+                                continue;
+
+                            var parts = libPartInfos[libTargetFrameworkIndex];
+                            if (parts == null)
+                                libPartInfos[libTargetFrameworkIndex] = parts = new List<PackagePartInfo>();
+
+                            parts.Add(new PackagePartInfo(uri, part, archive.GetEntry(uri)));
                             continue;
                         }
 
                         var filename = PackageUtil.GetFilenameExceptLibDirectory(uri, relationshipUri);
 
-                        ExtractPackagePart(part, directory, filename);
+                        ExtractPackagePart(new PackagePartInfo(uri, part, archive.GetEntry(uri)), directory, filename);
                     }
 
-                    foreach (var parts in libParts)
-                        if (parts != null)
+                    foreach (var partInfos in libPartInfos)
+                        if (partInfos != null)
                         {
-                            foreach (var part in parts)
+                            foreach (var info in partInfos)
                             {
-                                var filename = PackageUtil.GetFilenameInLibDirectory(part.Uri.OriginalString);
+                                var filename = PackageUtil.GetFilenameInLibDirectory(info.Name);
 
-                                ExtractPackagePart(part, directory, filename);
+                                ExtractPackagePart(info, directory, filename);
                             }
 
                             break;
@@ -513,6 +516,14 @@ namespace HeavenlyWind
                 return new PackageExtractionInfo(file.Name, e);
             }
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        static bool IsPrefix(string uri, string prefix)
+        {
+            const int LibPrefixLength = 4;
+
+            return uri.IndexOf(prefix, LibPrefixLength, StringComparison.OrdinalIgnoreCase) == LibPrefixLength;
+        }
+
         static void ReplaceMyself(string directory)
         {
             var launcherFilename = Assembly.GetEntryAssembly().Location;
@@ -532,7 +543,7 @@ namespace HeavenlyWind
             Directory.Delete(toolsDirectory);
         }
 
-        static void ExtractPackagePart(PackagePart part, string moduleDirectory, string filename)
+        static void ExtractPackagePart(PackagePartInfo info, string moduleDirectory, string filename)
         {
             var filepath = Path.Combine(moduleDirectory, filename);
             var directory = new DirectoryInfo( Path.GetDirectoryName(filepath));
@@ -540,8 +551,10 @@ namespace HeavenlyWind
                 directory.Create();
 
             using (var output = File.Create(filepath))
-            using (var partStream = part.GetStream())
+            using (var partStream = info.Part.GetStream())
                 partStream.CopyTo(output);
+
+            File.SetLastWriteTime(filepath, info.Entry.LastWriteTime.LocalDateTime);
         }
     }
 }

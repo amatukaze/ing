@@ -9,7 +9,7 @@
             if (uri == relationship)
                 return ModuleManifestFilename;
 
-            return uri.Substring(1).Replace('/', '\\');
+            return uri.Replace('/', '\\');
         }
 
         public static string GetFilenameInLibDirectory(string uri) => uri.Substring(uri.LastIndexOf('/') + 1);

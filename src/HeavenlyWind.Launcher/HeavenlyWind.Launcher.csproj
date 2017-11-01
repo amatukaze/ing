@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +51,7 @@
     <Compile Include="ManifestUtil.cs" />
     <Compile Include="PackageExtractionInfo.cs" />
     <Compile Include="PackageInfo.cs" />
+    <Compile Include="PackagePartInfo.cs" />
     <Compile Include="PackageUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.Output.cs">
