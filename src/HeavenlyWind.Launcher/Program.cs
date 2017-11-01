@@ -23,9 +23,6 @@ namespace HeavenlyWind
         const string LauncherPackageName = "HeavenlyWind.Launcher";
         const string BootstrapPackageName = "HeavenlyWind.Bootstrap";
 
-        const string BootstrapTypeName = "HeavenlyWind.Bootstrap.Bootstraper";
-        const string BootstrapStartupMethodName = "Startup";
-
         const string ClassLibraryExtensionName = ".dll";
 
         static string _currentDirectory;
@@ -37,6 +34,7 @@ namespace HeavenlyWind
         static Func<bool> _nextStepOnFailure;
 
         static SortedList<string, Assembly> _unreslovedAssemblies;
+        static string[] _packagesUsedByFoundation;
 
         static void Main(string[] args)
         {
@@ -114,7 +112,7 @@ namespace HeavenlyWind
                 return;
             }
 
-            StartupNormally();
+            StartupNormally(args);
         }
 
         static string[] GetStatusNames()
@@ -183,6 +181,8 @@ namespace HeavenlyWind
 
                 allSuccess = false;
             }
+
+            _packagesUsedByFoundation = _unreslovedAssemblies.Keys.ToArray();
 
             Print("Ready to boot");
 
@@ -256,16 +256,29 @@ namespace HeavenlyWind
             }
         }
 
-        static void StartupNormally()
+        static void StartupNormally(string[] args)
         {
+            const string BootstrapTypeName = "HeavenlyWind.Bootstrap.Bootstraper";
+            const string BootstrapStartupMethodName = "Startup";
+
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
             var bootstrapFilename = Path.Combine(_moduleDirectory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
             var bootstrapAssembly = Assembly.LoadFile(bootstrapFilename);
             var bootstrapType = bootstrapAssembly.GetType(BootstrapTypeName);
-            var startupMethod = bootstrapType.GetMethod(BootstrapStartupMethodName, BindingFlags.Public | BindingFlags.Static);
+            var parameterTypes = new[] { typeof(IDictionary<string, object>) };
+            var startupMethod = bootstrapType.GetMethod(BootstrapStartupMethodName, parameterTypes);
 
-            startupMethod.Invoke(null, null);
+            var arguments = new SortedList<string, object>(StringComparer.OrdinalIgnoreCase)
+            {
+                ["CommandLine"] = args,
+                ["ModuleDirectory"] = _moduleDirectory,
+                ["PackagesUsedByFoundation"] = _packagesUsedByFoundation,
+            };
+
+            ManifestUtil.AddToArguments(arguments);
+
+            startupMethod.Invoke(null, new[] { arguments });
         }
 
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)

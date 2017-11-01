@@ -99,6 +99,24 @@ namespace HeavenlyWind
 
             return element.Value;
         }
+        public static string GetVersion(this XDocument manifest)
+        {
+            var namespaceManager = GetNamespaceManager(manifest);
+            var element = manifest.Root.XPathSelectElement("/nuspec:package/nuspec:metadata/nuspec:version", namespaceManager);
+
+            return element.Value;
+        }
+        public static bool IsModulePackage(this XDocument manifest)
+        {
+            var namespaceManager = GetNamespaceManager(manifest);
+            var element = manifest.Root.XPathSelectElement("/nuspec:package/nuspec:metadata/nuspec:tags", namespaceManager);
+            if (element == null || element.Value == string.Empty)
+                return false;
+
+            var tags = new HashSet<string>(element.Value.Split(' '), StringComparer.OrdinalIgnoreCase);
+
+            return tags.Contains("KanColle") && tags.Contains("ING");
+        }
 
         public static IEnumerable<PackageInfo> EnumerateDependencies(this XDocument manifest)
         {
@@ -136,6 +154,15 @@ namespace HeavenlyWind
             result.AddNamespace("nuspec", schemaNamespace);
 
             return result;
+        }
+
+        public static void AddToArguments(IDictionary<string, object> args)
+        {
+            args["LoadManifestFunc"] = new Func<string, XDocument>(Load);
+            args["ValidateManifestSchemaFunc"] = new Func<XDocument, bool>(ValidateSchema);
+            args["GetManifestIdFunc"] = new Func<XDocument, string>(GetId);
+            args["GetManifestVersionFunc"] = new Func<XDocument, string>(GetVersion);
+            args["IsModulePackageFunc"] = new Func<XDocument, bool>(IsModulePackage);
         }
     }
 }
