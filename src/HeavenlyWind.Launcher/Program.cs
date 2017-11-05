@@ -16,7 +16,7 @@ namespace HeavenlyWind
 {
     static partial class Program
     {
-        const string ModulesDirectoryName = "Modules";
+        const string PackagesDirectoryName = "Packages";
         const string StagingPackagesDirectoryName = "Staging";
 
         const string FoundationPackageName = "HeavenlyWind.Foundation";
@@ -26,7 +26,7 @@ namespace HeavenlyWind
         const string ClassLibraryExtensionName = ".dll";
 
         static string _currentDirectory;
-        static string _moduleDirectory;
+        static string _packageDirectory;
         static string _stagingPackagesDirectory;
 
         static string[] _statusNames;
@@ -46,7 +46,7 @@ namespace HeavenlyWind
                 oldLauncher.Delete();
 
             _currentDirectory = Path.GetDirectoryName(currentAssembly.Location);
-            _moduleDirectory = Path.Combine(_currentDirectory, ModulesDirectoryName);
+            _packageDirectory = Path.Combine(_currentDirectory, PackagesDirectoryName);
             _stagingPackagesDirectory = Path.Combine(_currentDirectory, StagingPackagesDirectoryName);
 
             var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
@@ -132,7 +132,7 @@ namespace HeavenlyWind
 
             Print("Searching for foundation manifest");
 
-            var foundationManifestFilename = Path.Combine(_moduleDirectory, FoundationPackageName, PackageUtil.ModuleManifestFilename);
+            var foundationManifestFilename = Path.Combine(_packageDirectory, FoundationPackageName, PackageUtil.PackageManifestFilename);
             if (File.Exists(foundationManifestFilename))
                 yield return StatusCode.Found;
             else
@@ -209,7 +209,7 @@ namespace HeavenlyWind
                 if (!checkedDependencies.Add(dependency))
                     continue;
 
-                var dependencyManifestFilename = Path.Combine(_moduleDirectory, dependency.Id, PackageUtil.ModuleManifestFilename);
+                var dependencyManifestFilename = Path.Combine(_packageDirectory, dependency.Id, PackageUtil.PackageManifestFilename);
                 if (!File.Exists(dependencyManifestFilename))
                 {
                     yield return new DependencyLoadingInfo(dependency, StatusCode.ManifestNotFound);
@@ -237,7 +237,7 @@ namespace HeavenlyWind
 
                 if (dependency.Id != LauncherPackageName)
                 {
-                    var dependencyCodebaseFilename = Path.Combine(_moduleDirectory, dependency.Id, dependency.Id + ClassLibraryExtensionName);
+                    var dependencyCodebaseFilename = Path.Combine(_packageDirectory, dependency.Id, dependency.Id + ClassLibraryExtensionName);
                     if (!File.Exists(dependencyCodebaseFilename))
                     {
                         yield return new DependencyLoadingInfo(dependency, StatusCode.CodebaseNotFound);
@@ -263,7 +263,7 @@ namespace HeavenlyWind
 
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-            var bootstrapFilename = Path.Combine(_moduleDirectory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
+            var bootstrapFilename = Path.Combine(_packageDirectory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
             var bootstrapAssembly = Assembly.LoadFile(bootstrapFilename);
             var bootstrapType = bootstrapAssembly.GetType(BootstrapTypeName);
             var parameterTypes = new[] { typeof(IDictionary<string, object>) };
@@ -272,7 +272,7 @@ namespace HeavenlyWind
             var arguments = new SortedList<string, object>(StringComparer.OrdinalIgnoreCase)
             {
                 ["CommandLine"] = args,
-                ["ModuleDirectory"] = _moduleDirectory,
+                ["PackageDirectory"] = _packageDirectory,
                 ["StagingPackageDirectory"] = _stagingPackagesDirectory,
                 ["PackagesUsedByFoundation"] = _packagesUsedByFoundation,
                 ["DownloadPackageFunc"] = new Func<string, string, Task>(DownloadPackage),
@@ -450,7 +450,7 @@ namespace HeavenlyWind
                     var archive = new ZipArchive(stream);
                     var package = Package.Open(stream);
                     var identifier = package.PackageProperties.Identifier;
-                    var directory = Path.Combine(_moduleDirectory, identifier);
+                    var directory = Path.Combine(_packageDirectory, identifier);
                     var relationship = package.GetRelationshipsByType(ManifestRelationshipType).SingleOrDefault();
 
                     if (relationship == null)
@@ -558,9 +558,9 @@ namespace HeavenlyWind
             Directory.Delete(toolsDirectory);
         }
 
-        static void ExtractPackagePart(PackagePartInfo info, string moduleDirectory, string filename)
+        static void ExtractPackagePart(PackagePartInfo info, string packageDirectory, string filename)
         {
-            var filepath = Path.Combine(moduleDirectory, filename);
+            var filepath = Path.Combine(packageDirectory, filename);
             var directory = new DirectoryInfo( Path.GetDirectoryName(filepath));
             if (!directory.Exists)
                 directory.Create();
