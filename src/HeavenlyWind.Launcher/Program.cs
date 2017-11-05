@@ -59,10 +59,7 @@ namespace HeavenlyWind
             _statusNames = GetStatusNames();
 
             if (Directory.Exists(_stagingPackagesDirectory))
-            {
                 ExtractPackages();
-                PrintLine();
-            }
 
             foreach (var result in EnsureFoundationModules())
             {
@@ -93,7 +90,6 @@ namespace HeavenlyWind
 
                         if (!success)
                         {
-                            PrintLine("There's something wrong with the downloading.");
                             PrintLine("Press the keyboard to retry.");
 
                             Console.ReadKey();
@@ -434,6 +430,8 @@ namespace HeavenlyWind
                     }
 
                 File.Delete(lockingFilename);
+
+                PrintLine();
             }
 
             Directory.Delete(_stagingPackagesDirectory, true);
