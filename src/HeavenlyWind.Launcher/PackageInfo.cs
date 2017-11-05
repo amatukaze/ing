@@ -6,33 +6,33 @@ namespace HeavenlyWind
 {
     struct PackageInfo : IEquatable<PackageInfo>
     {
-        public string Name { get; }
+        public string Id { get; }
         public string Version { get; }
 
         public PackageInfo(XElement dependency)
         {
-            Name = dependency.Attribute("id").Value;
+            Id = dependency.Attribute("id").Value;
             Version = dependency.Attribute("version").Value;
         }
-        public PackageInfo(string name, string version)
+        public PackageInfo(string id, string version)
         {
-            Name = name;
+            Id = id;
             Version = version;
         }
 
         public bool Equals(PackageInfo other) =>
-            Name.Equals(other.Name, StringComparison.OrdinalIgnoreCase) &&
+            Id.Equals(other.Id, StringComparison.OrdinalIgnoreCase) &&
             Version.Equals(other.Version, StringComparison.OrdinalIgnoreCase);
 
-        public override string ToString() => Name + " " + Version;
+        public override string ToString() => Id + " " + Version;
 
         public class Comparer : IEqualityComparer<PackageInfo>
         {
             public bool Equals(PackageInfo x, PackageInfo y) =>
-                x.Name.Equals(y.Name, StringComparison.OrdinalIgnoreCase) &&
+                x.Id.Equals(y.Id, StringComparison.OrdinalIgnoreCase) &&
                 x.Version.Equals(y.Version, StringComparison.OrdinalIgnoreCase);
 
-            public int GetHashCode(PackageInfo obj) => obj.Name.GetHashCode();
+            public int GetHashCode(PackageInfo obj) => obj.Id.GetHashCode();
         }
     }
 }

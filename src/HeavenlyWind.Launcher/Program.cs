@@ -166,7 +166,7 @@ namespace HeavenlyWind
             foreach (var info in EnsureDependencies(foundationManifest, checkedDependencies))
             {
                 Print(" - ");
-                Print(info.Dependency.Name);
+                Print(info.Dependency.Id);
                 Print(' ');
 
                 if (info.StatusCode < StatusCode.Failed)
@@ -209,7 +209,7 @@ namespace HeavenlyWind
                 if (!checkedDependencies.Add(dependency))
                     continue;
 
-                var dependencyManifestFilename = Path.Combine(_moduleDirectory, dependency.Name, PackageUtil.ModuleManifestFilename);
+                var dependencyManifestFilename = Path.Combine(_moduleDirectory, dependency.Id, PackageUtil.ModuleManifestFilename);
                 if (!File.Exists(dependencyManifestFilename))
                 {
                     yield return new DependencyLoadingInfo(dependency, StatusCode.ManifestNotFound);
@@ -229,22 +229,22 @@ namespace HeavenlyWind
                     continue;
                 }
 
-                if (dependencyManifest.GetId() != dependency.Name)
+                if (dependencyManifest.GetId() != dependency.Id)
                 {
                     yield return new DependencyLoadingInfo(dependency, StatusCode.ManifestMismatch);
                     continue;
                 }
 
-                if (dependency.Name != LauncherPackageName)
+                if (dependency.Id != LauncherPackageName)
                 {
-                    var dependencyCodebaseFilename = Path.Combine(_moduleDirectory, dependency.Name, dependency.Name + ClassLibraryExtensionName);
+                    var dependencyCodebaseFilename = Path.Combine(_moduleDirectory, dependency.Id, dependency.Id + ClassLibraryExtensionName);
                     if (!File.Exists(dependencyCodebaseFilename))
                     {
                         yield return new DependencyLoadingInfo(dependency, StatusCode.CodebaseNotFound);
                         continue;
                     }
 
-                    _unreslovedAssemblies.Add(dependency.Name, Assembly.LoadFile(dependencyCodebaseFilename));
+                    _unreslovedAssemblies.Add(dependency.Id, Assembly.LoadFile(dependencyCodebaseFilename));
                 }
 
                 yield return new DependencyLoadingInfo(dependency, StatusCode.Ok);
@@ -273,7 +273,9 @@ namespace HeavenlyWind
             {
                 ["CommandLine"] = args,
                 ["ModuleDirectory"] = _moduleDirectory,
+                ["StagingPackageDirectory"] = _stagingPackagesDirectory,
                 ["PackagesUsedByFoundation"] = _packagesUsedByFoundation,
+                ["DownloadPackageFunc"] = new Func<string, string, Task>(DownloadPackage),
             };
 
             ManifestUtil.AddToArguments(arguments);
@@ -321,10 +323,10 @@ namespace HeavenlyWind
 
                 while (!reader.EndOfStream)
                 {
-                    var name = reader.ReadLine();
+                    var id = reader.ReadLine();
                     var version = reader.ReadLine();
 
-                    packages.Add(new PackageInfo(name, version));
+                    packages.Add(new PackageInfo(id, version));
                 }
             }
 
@@ -335,7 +337,7 @@ namespace HeavenlyWind
         {
             PrintLine(task);
 
-            var tasks = packages.Select(DownloadPackage).ToArray();
+            var tasks = packages.Select(r => DownloadPackage(r.Id, r.Version)).ToArray();
 
             var result = true;
 
@@ -368,18 +370,18 @@ namespace HeavenlyWind
 
             return result;
         }
-        static async Task DownloadPackage(PackageInfo package)
+        static async Task DownloadPackage(string id, string version)
         {
             const string FilenameFormat = "{0}.{1}.nupkg";
             const string Format = "https://api.nuget.org/v3-flatcontainer/{0}/{1}/" + FilenameFormat;
 
-            var request = WebRequest.CreateHttp(string.Format(Format, package.Name, package.Version));
+            var request = WebRequest.CreateHttp(string.Format(Format, id, version));
 
             using (var md5 = new MD5CryptoServiceProvider())
             using (var response = await request.GetResponseAsync())
             {
                 var responseStream = response.GetResponseStream();
-                var filename = Path.Combine(_stagingPackagesDirectory, string.Format(FilenameFormat, package.Name, package.Version));
+                var filename = Path.Combine(_stagingPackagesDirectory, string.Format(FilenameFormat, id, version));
                 var file = new FileInfo(filename);
                 var tempFilename = filename + ".tmp";
 
