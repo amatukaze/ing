@@ -33,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         static Func<bool> _nextStepOnFailure;
 
-        static SortedList<string, Assembly> _unreslovedAssemblies;
+        static SortedList<string, Assembly> _dependencyAssemblies;
         static string[] _packagesUsedByFoundation;
 
         static void Main(string[] args)
@@ -157,7 +157,7 @@ namespace Sakuno.KanColle.Amatsukaze
             var checkedDependencies = new HashSet<PackageInfo>(new PackageInfo.Comparer());
             var missingDependencies = new List<PackageInfo>();
 
-            _unreslovedAssemblies = new SortedList<string, Assembly>(StringComparer.OrdinalIgnoreCase);
+            _dependencyAssemblies = new SortedList<string, Assembly>(StringComparer.OrdinalIgnoreCase);
 
             foreach (var info in EnsureDependencies(foundationManifest, checkedDependencies))
             {
@@ -178,7 +178,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 allSuccess = false;
             }
 
-            _packagesUsedByFoundation = _unreslovedAssemblies.Keys.ToArray();
+            _packagesUsedByFoundation = _dependencyAssemblies.Keys.ToArray();
 
             Print("Ready to boot");
 
@@ -240,7 +240,7 @@ namespace Sakuno.KanColle.Amatsukaze
                         continue;
                     }
 
-                    _unreslovedAssemblies.Add(dependency.Id, Assembly.LoadFile(dependencyCodebaseFilename));
+                    _dependencyAssemblies.Add(dependency.Id, Assembly.LoadFile(dependencyCodebaseFilename));
                 }
 
                 yield return new DependencyLoadingInfo(dependency, StatusCode.Ok);
@@ -272,6 +272,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 ["StagingPackageDirectory"] = _stagingPackagesDirectory,
                 ["PackagesUsedByFoundation"] = _packagesUsedByFoundation,
                 ["DownloadPackageFunc"] = new Func<string, string, Task>(DownloadPackage),
+                ["DependencyAssemblies"] = _dependencyAssemblies,
             };
 
             ManifestUtil.AddToArguments(arguments);
@@ -283,21 +284,9 @@ namespace Sakuno.KanColle.Amatsukaze
 
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
-            var result = default(Assembly);
             var name = args.Name.Remove(args.Name.IndexOf(','));
-            var index = _unreslovedAssemblies.IndexOfKey(name);
 
-            if (index >= 0)
-            {
-                result = _unreslovedAssemblies.Values[index];
-                _unreslovedAssemblies.RemoveAt(index);
-
-                if (_unreslovedAssemblies.Count == 0)
-                {
-                    AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomain_AssemblyResolve;
-                    _unreslovedAssemblies = null;
-                }
-            }
+            _dependencyAssemblies.TryGetValue(name, out var result);
 
             return result;
         }
