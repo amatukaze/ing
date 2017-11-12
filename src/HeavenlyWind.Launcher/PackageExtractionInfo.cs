@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HeavenlyWind
+namespace Sakuno.KanColle.Amatsukaze
 {
     struct PackageExtractionInfo
     {

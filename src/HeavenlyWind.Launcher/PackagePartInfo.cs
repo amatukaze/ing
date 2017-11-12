@@ -1,7 +1,7 @@
 ﻿using System.IO.Compression;
 using System.IO.Packaging;
 
-namespace HeavenlyWind
+namespace Sakuno.KanColle.Amatsukaze
 {
     struct PackagePartInfo
     {

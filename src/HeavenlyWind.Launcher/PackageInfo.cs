@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace HeavenlyWind
+namespace Sakuno.KanColle.Amatsukaze
 {
     struct PackageInfo : IEquatable<PackageInfo>
     {

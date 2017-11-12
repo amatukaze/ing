@@ -1,4 +1,4 @@
-﻿namespace HeavenlyWind
+﻿namespace Sakuno.KanColle.Amatsukaze
 {
     static class PackageUtil
     {

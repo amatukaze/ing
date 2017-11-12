@@ -9,11 +9,11 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
 
-namespace HeavenlyWind
+namespace Sakuno.KanColle.Amatsukaze
 {
     static class ManifestUtil
     {
-        const string ManifestSchameResourceName = "HeavenlyWind.nuspec.xsd";
+        const string ManifestSchameResourceName = "Sakuno.KanColle.Amatsukaze.nuspec.xsd";
 
         static XmlReaderSettings _readerSettings = new XmlReaderSettings()
         {

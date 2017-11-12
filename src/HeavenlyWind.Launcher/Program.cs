@@ -12,7 +12,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace HeavenlyWind
+namespace Sakuno.KanColle.Amatsukaze
 {
     static partial class Program
     {
@@ -254,7 +254,7 @@ namespace HeavenlyWind
 
         static void StartupNormally(string[] args)
         {
-            const string BootstrapTypeName = "HeavenlyWind.Bootstrap.Bootstraper";
+            const string BootstrapTypeName = "Sakuno.KanColle.Amatsukaze.Bootstrap.Bootstraper";
             const string BootstrapStartupMethodName = "Startup";
 
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;

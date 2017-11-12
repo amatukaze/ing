@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace HeavenlyWind
+namespace Sakuno.KanColle.Amatsukaze
 {
     [DebuggerDisplay("{Dependency}: {StatusCode}")]
     struct DependencyLoadingInfo
