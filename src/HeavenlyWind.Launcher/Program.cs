@@ -276,7 +276,9 @@ namespace Sakuno.KanColle.Amatsukaze
 
             ManifestUtil.AddToArguments(arguments);
 
-            startupMethod.Invoke(null, new[] { arguments });
+            var @delegate = (Action<IDictionary<string, object>>)Delegate.CreateDelegate(typeof(Action<IDictionary<string, object>>), startupMethod);
+
+            @delegate(arguments);
         }
 
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
