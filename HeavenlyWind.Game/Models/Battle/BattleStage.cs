@@ -35,7 +35,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             var rData = rpInfo.Data as RawBattleBase;
             var rCombinedFleetData = rData as IRawCombinedFleet;
 
-            FriendAndEnemy = new BattleParticipantSnapshot[rCombinedFleetData == null ? 12 : 24];
+            FriendAndEnemy = new BattleParticipantSnapshot[rCombinedFleetData == null ? 14 : 28];
 
             FriendMain = new BattleParticipantSnapshot[rData.FriendCurrentHPs.Length];
             for (var i = 0; i < rData.FriendCurrentHPs.Length; i++)
@@ -56,7 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                     Participant = Owner.Participants.EnemyMain[i],
                 };
 
-                FriendAndEnemy[i + 6] = EnemyMain[i];
+                FriendAndEnemy[i + 7] = EnemyMain[i];
             }
 
             if (rCombinedFleetData != null)

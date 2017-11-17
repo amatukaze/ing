@@ -87,14 +87,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
             var rTotalEnemyDamages = 0;
 
-            var rDamages = new int[24];
-            for (var i = 0; i < 6; i++)
+            var rDamages = new int[28];
+            for (var i = 0; i < 7; i++)
             {
-                rDamages[i] = rStage3.FriendDamage[i + 1];
+                if (i < rStage3.FriendDamage.Length)
+                    rDamages[i] = rStage3.FriendDamage[i];
 
-                var rEnemyDamage = rStage3.EnemyDamage[i + 1];
-                rDamages[i + 6] = rEnemyDamage;
-                rTotalEnemyDamages += rEnemyDamage;
+                if (i < rStage3.EnemyDamage.Length)
+                {
+                    var rEnemyDamage = rStage3.EnemyDamage[i];
+                    rDamages[i + 7] = rEnemyDamage;
+                    rTotalEnemyDamages += rEnemyDamage;
+                }
             }
 
             var rCount = 12;
