@@ -18,13 +18,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         int GetIndex(int rpPosition)
         {
-            if ((r_IsFriendEscortFleet && rpPosition <= 6) || (r_IsEnemyEscortFleet && rpPosition > 6))
-                return rpPosition + 12 - 1;
+            if ((r_IsFriendEscortFleet && rpPosition < 6) || (r_IsEnemyEscortFleet && rpPosition > 6))
+                return rpPosition + 12;
 
-            if (ParticipantingFleet != null && ((ParticipantingFleet[0] == 2 && rpPosition <= 6) || (ParticipantingFleet[1] == 2 && rpPosition > 6)))
-                return rpPosition + 12 - 1;
+            if (ParticipantingFleet != null && ((ParticipantingFleet[0] == 2 && rpPosition < 6) || (ParticipantingFleet[1] == 2 && rpPosition > 6)))
+                return rpPosition + 12;
 
-            return rpPosition - 1;
+            return rpPosition;
         }
 
         internal protected override void Process()
@@ -35,7 +35,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             var rParticipants = Stage.FriendAndEnemy;
             var rAttackers = RawData.Attackers;
             var rIsEnemyAttacker = RawData.IsEnemyAttacker;
-            for (var i = 1; i < rAttackers.Length; i++)
+            for (var i = 0; i < rAttackers.Length; i++)
             {
                 var rDefenders = ((JArray)RawData.Defenders[i]).ToObject<int[]>();
                 var rDamages = ((JArray)RawData.Damages[i]).ToObject<int[]>();
@@ -61,8 +61,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
                         var rDamage = rDamages[j];
 
-                        var rDefenderIndex = rDefenders[j] - 1;
-                        var rAttackerIndex = rAttackers[i] - 1;
+                        var rDefenderIndex = rDefenders[j];
+                        var rAttackerIndex = rAttackers[i];
 
                         BattleParticipantSnapshot rDefender, rAttacker;
 
