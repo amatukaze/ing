@@ -6,17 +6,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
     {
         public abstract int FleetID { get; set; }
 
-        [JsonProperty("api_nowhps")]
-        public int[] CurrentHPs { get; set; }
+        [JsonProperty("api_f_nowhps")]
+        public int[] FriendCurrentHPs { get; set; }
+        [JsonProperty("api_f_maxhps")]
+        public int[] FriendMaximumHPs { get; set; }
+
+        [JsonProperty("api_e_nowhps")]
+        public int[] EnemyCurrentHPs { get; set; }
+        [JsonProperty("api_e_maxhps")]
+        public int[] EnemyMaximumHPs { get; set; }
 
         [JsonProperty("api_ship_ke")]
         public int[] EnemyShipTypeIDs { get; set; }
 
         [JsonProperty("api_ship_lv")]
         public int[] EnemyShipLevels { get; set; }
-
-        [JsonProperty("api_maxhps")]
-        public int[] MaximumHPs { get; set; }
 
         [JsonProperty("api_eSlot")]
         public int[][] EnemyEquipment { get; set; }

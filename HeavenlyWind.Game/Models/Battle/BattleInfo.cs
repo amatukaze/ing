@@ -168,9 +168,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
         }
         void SetEnemy(RawBattleBase rpData)
         {
-            Participants.EnemyMain = rpData.EnemyShipTypeIDs.Skip(1).TakeWhile(r => r != -1).Select((r, i) =>
+            Participants.EnemyMain = rpData.EnemyShipTypeIDs.Select((r, i) =>
             {
-                var rLevel = rpData.EnemyShipLevels[i + 1];
+                var rLevel = rpData.EnemyShipLevels[i];
                 var rEquipment = rpData.EnemyEquipment[i];
 
                 return new EnemyShip(r, rLevel, rEquipment);
