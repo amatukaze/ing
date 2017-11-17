@@ -149,8 +149,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                 return;
 
             var rFriendAttackers = RawData.Attackers[0];
-            if (rFriendAttackers.Length == 1 && rFriendAttackers[0] != -1)
-                rParticipants[rFriendAttackers[0] - 1].DamageGivenToOpponent += rTotalEnemyDamages;
+            if (rFriendAttackers.Length == 1)
+                rParticipants[rFriendAttackers[0]].DamageGivenToOpponent += rTotalEnemyDamages;
             else if (rFriendAttackers.Length > 1)
             {
                 var rFirepowers = new double[rFriendAttackers.Length];
@@ -196,7 +196,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                     if (rFirepowers[i] == 0)
                         continue;
 
-                    var rParticipant = rParticipants[rFriendAttackers[i] - 1];
+                    var rParticipant = rParticipants[rFriendAttackers[i]];
                     rParticipant.DamageGivenToOpponent += (int)Math.Round(rTotalEnemyDamages * rFirepowers[i] / rTotalFirepower);
                     rParticipant.Inaccurate = true;
                 }
