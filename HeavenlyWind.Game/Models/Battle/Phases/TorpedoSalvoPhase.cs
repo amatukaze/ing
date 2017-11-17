@@ -16,8 +16,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         int GetIndex(int rpPosition)
         {
-            if (r_IsFriendEscortFleet && !r_IsEnemyEscortFleet && rpPosition < 6)
-                return rpPosition + 12;
+            if (r_IsFriendEscortFleet && !r_IsEnemyEscortFleet && rpPosition < 7)
+                return rpPosition + 14;
 
             return rpPosition;
         }
@@ -29,12 +29,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
             var rParticipants = Stage.FriendAndEnemy;
 
-            var rFriendDamages = RawData.FriendDamage.Skip(1);
-            var rFriendMainDamages = rFriendDamages.Take(6);
-            var rFriendEscortDamages = rFriendDamages.Skip(6);
-            var rEnemyDamages = RawData.EnemyDamage.Skip(1);
-            var rEnemyMainDamages = rEnemyDamages.Take(6);
-            var rEnemyEscortDamages = rEnemyDamages.Skip(6);
+            var rFriendDamages = RawData.FriendDamage;
+            var rFriendMainDamages = rFriendDamages.Take(7);
+            var rFriendEscortDamages = rFriendDamages.Skip(7);
+            var rEnemyDamages = RawData.EnemyDamage;
+            var rEnemyMainDamages = rEnemyDamages.Take(7);
+            var rEnemyEscortDamages = rEnemyDamages.Skip(7);
             var rDamages = Enumerable.Concat(rFriendMainDamages, rEnemyMainDamages).Concat(Enumerable.Concat(rFriendEscortDamages, rEnemyEscortDamages)).ToArray();
             for (var i = 0; i < rDamages.Length; i++)
             {
@@ -43,12 +43,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                     rParticipant.Current -= rDamages[i];
             }
 
-            var rFriendDamagesGivenToOpponent = RawData.FriendDamageGivenToOpponent.Skip(1);
-            var rFriendMainDamagesGivenToOpponent = rFriendDamagesGivenToOpponent.Take(6);
-            var rFriendEscortDamagesGivenToOpponent = rFriendDamagesGivenToOpponent.Skip(6);
-            var rEnemyDamagesGivenToOpponent = RawData.EnemyDamageGivenToOpponent.Skip(1);
-            var rEnemyMainDamagesGivenToOpponent = rEnemyDamagesGivenToOpponent.Take(6);
-            var rEnemyEscortDamagesGivenToOpponent = rEnemyDamagesGivenToOpponent.Skip(6);
+            var rFriendDamagesGivenToOpponent = RawData.FriendDamageGivenToOpponent;
+            var rFriendMainDamagesGivenToOpponent = rFriendDamagesGivenToOpponent.Take(7);
+            var rFriendEscortDamagesGivenToOpponent = rFriendDamagesGivenToOpponent.Skip(7);
+            var rEnemyDamagesGivenToOpponent = RawData.EnemyDamageGivenToOpponent;
+            var rEnemyMainDamagesGivenToOpponent = rEnemyDamagesGivenToOpponent.Take(7);
+            var rEnemyEscortDamagesGivenToOpponent = rEnemyDamagesGivenToOpponent.Skip(7);
             var rDamagesGivenToOpponent = Enumerable.Concat(rFriendMainDamagesGivenToOpponent, rEnemyMainDamagesGivenToOpponent).Concat(Enumerable.Concat(rFriendEscortDamagesGivenToOpponent, rEnemyEscortDamagesGivenToOpponent)).ToArray();
             for (var i = 0; i < rDamagesGivenToOpponent.Length; i++)
             {

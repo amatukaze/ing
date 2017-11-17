@@ -16,10 +16,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         int GetIndex(int rpPosition)
         {
-            if ((r_IsFriendEscortFleet && rpPosition <= 6) || (r_IsEnemyEscortFleet && rpPosition > 6))
-                return rpPosition + 12 - 1;
+            if ((r_IsFriendEscortFleet && rpPosition < 6) || (r_IsEnemyEscortFleet && rpPosition >= 6))
+                return rpPosition + 12;
 
-            return rpPosition - 1;
+            return rpPosition;
         }
 
         protected internal override void Process()
@@ -30,7 +30,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             var rParticipants = Stage.FriendAndEnemy;
             var rAttackers = RawData.Attackers;
             var rIsEnemyAttacker = RawData.IsEnemyAttacker;
-            for (var i = 1; i < rAttackers.Length; i++)
+            for (var i = 0; i < rAttackers.Length; i++)
             {
                 var rDefenders = ((JArray)RawData.Defenders[i]).ToObject<int[]>();
                 var rDamages = ((JArray)RawData.Damages[i]).ToObject<int[]>();
@@ -58,13 +58,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
                         if (!rIsEnemy)
                         {
-                            Stage.Enemy[rDefenders[j] - 1].Current -= rDamage;
-                            Stage.Friend[rAttackers[i] - 1].DamageGivenToOpponent += rDamage;
+                            Stage.Enemy[rDefenders[j]].Current -= rDamage;
+                            Stage.Friend[rAttackers[i]].DamageGivenToOpponent += rDamage;
                         }
                         else
                         {
-                            Stage.Friend[rDefenders[j] - 1].Current -= rDamage;
-                            Stage.Enemy[rAttackers[i] - 1].DamageGivenToOpponent += rDamage;
+                            Stage.Friend[rDefenders[j]].Current -= rDamage;
+                            Stage.Enemy[rAttackers[i]].DamageGivenToOpponent += rDamage;
                         }
                     }
                 }
