@@ -18,10 +18,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         int GetIndex(int rpPosition)
         {
-            if ((r_IsFriendEscortFleet && rpPosition < 6) || (r_IsEnemyEscortFleet && rpPosition > 6))
+            if ((r_IsFriendEscortFleet && rpPosition < 6) || (r_IsEnemyEscortFleet && rpPosition >= 6))
                 return rpPosition + 12;
 
-            if (ParticipantingFleet != null && ((ParticipantingFleet[0] == 2 && rpPosition < 6) || (ParticipantingFleet[1] == 2 && rpPosition > 6)))
+            if (ParticipantingFleet != null && ((ParticipantingFleet[0] == 2 && rpPosition < 6) || (ParticipantingFleet[1] == 2 && rpPosition >= 6)))
                 return rpPosition + 12;
 
             return rpPosition;

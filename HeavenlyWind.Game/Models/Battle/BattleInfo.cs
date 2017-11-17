@@ -180,9 +180,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             if (rEnemyCombinedFleetData == null)
                 return;
 
-            Participants.EnemyEscort = rEnemyCombinedFleetData.EnemyEscortShipTypeIDs.Skip(1).TakeWhile(r => r != -1).Select((r, i) =>
+            Participants.EnemyEscort = rEnemyCombinedFleetData.EnemyEscortShipTypeIDs.Select((r, i) =>
             {
-                var rLevel = rEnemyCombinedFleetData.EnemyEscortShipLevels[i + 1];
+                var rLevel = rEnemyCombinedFleetData.EnemyEscortShipLevels[i];
                 var rEquipment = rEnemyCombinedFleetData.EnemyEscortShipEquipment[i];
 
                 return new EnemyShip(r, rLevel, rEquipment);
