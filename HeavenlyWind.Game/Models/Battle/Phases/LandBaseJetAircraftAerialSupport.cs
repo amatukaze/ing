@@ -35,7 +35,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             {
                 var rParticipant = rpParticipants[i];
                 if (rParticipant != null)
-                    rParticipant.Current -= rEnemyDamages[i + 1];
+                    rParticipant.Current -= rEnemyDamages[i];
             }
         }
     }
