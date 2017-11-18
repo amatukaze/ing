@@ -66,29 +66,32 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
                         BattleParticipantSnapshot rDefender, rAttacker;
 
+                        var enemyMainCount = Stage.EnemyMain.Count;
+                        var friendMainCount = Stage.FriendMain.Count;
+
                         if (!rIsEnemy)
                         {
-                            if (rDefenderIndex < 6)
+                            if (rDefenderIndex <= enemyMainCount)
                                 rDefender = Stage.EnemyMain[rDefenderIndex];
                             else
-                                rDefender = Stage.EnemyEscort[rDefenderIndex - 6];
+                                rDefender = Stage.EnemyEscort[rDefenderIndex - enemyMainCount];
 
-                            if (rAttackerIndex < 6)
+                            if (rAttackerIndex <= friendMainCount)
                                 rAttacker = Stage.FriendMain[rAttackerIndex];
                             else
-                                rAttacker = Stage.FriendEscort[rAttackerIndex - 6];
+                                rAttacker = Stage.FriendEscort[rAttackerIndex - friendMainCount];
                         }
                         else
                         {
-                            if (rDefenderIndex < 6)
+                            if (rDefenderIndex <= friendMainCount)
                                 rDefender = Stage.FriendMain[rDefenderIndex];
                             else
-                                rDefender = Stage.FriendEscort[rDefenderIndex - 6];
+                                rDefender = Stage.FriendEscort[rDefenderIndex - friendMainCount];
 
-                            if (rAttackerIndex < 6)
+                            if (rAttackerIndex <= enemyMainCount)
                                 rAttacker = Stage.EnemyMain[rAttackerIndex];
                             else
-                                rAttacker = Stage.EnemyEscort[rAttackerIndex - 6];
+                                rAttacker = Stage.EnemyEscort[rAttackerIndex - enemyMainCount];
                         }
 
                         rDefender.Current -= rDamage;
