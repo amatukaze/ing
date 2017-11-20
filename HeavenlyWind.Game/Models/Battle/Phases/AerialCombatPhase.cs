@@ -101,7 +101,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                 }
             }
 
-            var rCount = 12;
+            var rCount = 14;
 
             var rCombinedFleet = RawData.Stage3CombinedFleet;
             if (rCombinedFleet != null)
