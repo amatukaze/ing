@@ -2,7 +2,7 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
 {
-    public class RawCombinedFleetDay : RawCombinedFleetDayBase, IRawCombinedFleet
+    public class RawCombinedFleetDay : RawCombinedFleetDayBase
     {
         [JsonProperty("api_fParam")]
         public int[][] FriendEscortBaseStatus { get; set; }

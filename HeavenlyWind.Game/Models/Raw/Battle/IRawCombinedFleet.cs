@@ -2,7 +2,9 @@
 {
     public interface IRawCombinedFleet
     {
-        int[] EscortFleetCurrentHPs { get; set; }
-        int[] EscortFleetMaximumHPs { get; set; }
+        int[] FriendEscortCurrentHPs { get; set; }
+        int[] FriendEscortMaximumHPs { get; set; }
+        int[] EnemyEscortCurrentHPs { get; set; }
+        int[] EnemyEscortMaximumHPs { get; set; }
     }
 }

@@ -71,24 +71,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
                         if (!rIsEnemy)
                         {
-                            if (rDefenderIndex <= enemyMainCount)
+                            if (rDefenderIndex < enemyMainCount)
                                 rDefender = Stage.EnemyMain[rDefenderIndex];
                             else
                                 rDefender = Stage.EnemyEscort[rDefenderIndex - enemyMainCount];
 
-                            if (rAttackerIndex <= friendMainCount)
+                            if (rAttackerIndex < friendMainCount)
                                 rAttacker = Stage.FriendMain[rAttackerIndex];
                             else
                                 rAttacker = Stage.FriendEscort[rAttackerIndex - friendMainCount];
                         }
                         else
                         {
-                            if (rDefenderIndex <= friendMainCount)
+                            if (rDefenderIndex < friendMainCount)
                                 rDefender = Stage.FriendMain[rDefenderIndex];
                             else
                                 rDefender = Stage.FriendEscort[rDefenderIndex - friendMainCount];
 
-                            if (rAttackerIndex <= enemyMainCount)
+                            if (rAttackerIndex < enemyMainCount)
                                 rAttacker = Stage.EnemyMain[rAttackerIndex];
                             else
                                 rAttacker = Stage.EnemyEscort[rAttackerIndex - enemyMainCount];

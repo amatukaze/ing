@@ -106,22 +106,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             var rCombinedFleet = RawData.Stage3CombinedFleet;
             if (rCombinedFleet != null)
             {
-                for (var i = 0; i < 6; i++)
-                    rDamages[i + 12] = rCombinedFleet.FriendDamage[i + 1];
+                for (var i = 0; i < rCombinedFleet.FriendDamage.Length; i++)
+                    rDamages[i + 14] = rCombinedFleet.FriendDamage[i];
 
-                rCount += 6;
+                rCount += 7;
 
                 var rEnemyCombinedFleetDamages = rCombinedFleet.EnemyDamage;
                 if (rEnemyCombinedFleetDamages != null)
                 {
-                    for (var i = 0; i < 6; i++)
+                    for (var i = 0; i < rEnemyCombinedFleetDamages.Length; i++)
                     {
-                        var rDamage = rEnemyCombinedFleetDamages[i + 1];
-                        rDamages[i + 18] = rDamage;
+                        var rDamage = rEnemyCombinedFleetDamages[i];
+                        rDamages[i + 21] = rDamage;
                         rTotalEnemyDamages += rDamage;
                     }
 
-                    rCount += 6;
+                    rCount += 7;
                 }
             }
 
