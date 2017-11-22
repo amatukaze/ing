@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
             var rParticipants = Stage.FriendAndEnemy;
 
-            var count = Stage.FriendMain.Count == 7 ? 7 : 6;
+            var count = RawData.FriendDamage.Length == 7 ? 7 : 6;
 
             var rFriendDamages = RawData.FriendDamage;
             var rFriendMainDamages = rFriendDamages.Take(count);
