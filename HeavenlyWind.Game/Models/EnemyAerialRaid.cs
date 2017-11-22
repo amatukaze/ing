@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             if (rStage3 == null || rStage3.Type == JTokenType.Null)
                 return;
 
-            var rDamages = rStage3["api_fdam"].ToObject<int[]>().Skip(1).Sum();
+            var rDamages = rStage3["api_fdam"].ToObject<int[]>().Sum();
 
             Amount = (int)Math.Round(rDamages * .9 + .1);
         }
