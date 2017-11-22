@@ -157,11 +157,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             if (rData == null || rFormation == null)
                 return;
 
-            var rEnemies = rData.EnemyShipTypeIDs.Where(r => r != -1).ToArray();
+            var rEnemies = rData.EnemyShipTypeIDs.ToArray();
 
             var rEnemyCombinedFleet = rData as IRawEnemyCombinedFleet;
             if (rEnemyCombinedFleet != null)
-                rEnemies = rData.EnemyShipTypeIDs.Skip(1).Concat(rEnemyCombinedFleet.EnemyEscortShipTypeIDs.Where(r => r != -1)).ToArray();
+                rEnemies = rData.EnemyShipTypeIDs.Concat(rEnemyCombinedFleet.EnemyEscortShipTypeIDs).ToArray();
 
             var rBytes = new byte[rEnemies.Length * sizeof(int)];
             Buffer.BlockCopy(rEnemies, 0, rBytes, 0, rBytes.Length);
