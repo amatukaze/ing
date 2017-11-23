@@ -191,14 +191,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                 if (rTotalFirepower == 0)
                     return;
 
+                var friendMainCount = Stage.FriendMain.Count;
+
                 for (var i = 0; i < rFriendAttackers.Length; i++)
                 {
                     if (rFirepowers[i] == 0)
                         continue;
 
-                    var rParticipant = rParticipants[rFriendAttackers[i] - 1];
-                    rParticipant.DamageGivenToOpponent += (int)Math.Round(rTotalEnemyDamages * rFirepowers[i] / rTotalFirepower);
-                    rParticipant.Inaccurate = true;
+                    var index = rFriendAttackers[i] - 1;
+
+                    BattleParticipantSnapshot participant;
+
+                    if (index < friendMainCount)
+                        participant = Stage.FriendMain[index];
+                    else
+                        participant = Stage.FriendEscort[index - 6];
+
+                    participant.DamageGivenToOpponent += (int)Math.Round(rTotalEnemyDamages * rFirepowers[i] / rTotalFirepower);
+                    participant.Inaccurate = true;
                 }
             }
         }
