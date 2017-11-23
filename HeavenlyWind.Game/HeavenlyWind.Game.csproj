@@ -204,6 +204,7 @@
     <Compile Include="Models\Raw\Battle\IRawCombinedFleet.cs" />
     <Compile Include="Models\Raw\Battle\IRawEnemyCombinedFleet.cs" />
     <Compile Include="Models\Raw\Battle\IRawFormationAndEngagementForm.cs" />
+    <Compile Include="Models\Raw\Battle\ISupportingFire.cs" />
     <Compile Include="Models\Raw\Battle\RawAerialAttack.cs" />
     <Compile Include="Models\Raw\Battle\RawAerialCombat.cs" />
     <Compile Include="Models\Raw\Battle\RawAerialCombatPhase.cs" />

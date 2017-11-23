@@ -4,7 +4,7 @@ using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
 {
-    public class RawDay : RawBattleBase, IRawFormationAndEngagementForm
+    public class RawDay : RawBattleBase, IRawFormationAndEngagementForm, ISupportingFire
     {
         [JsonProperty("api_dock_id")]
         public override int FleetID { get; set; }
