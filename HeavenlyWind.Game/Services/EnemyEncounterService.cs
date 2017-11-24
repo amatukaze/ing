@@ -175,10 +175,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
             int rNodeID;
             var rSortie = SortieInfo.Current;
-            if (rSortie.Node.WikiID.IsNullOrEmpty())
+            var wikiId = rSortie.Node.WikiID;
+            if (wikiId.IsNullOrEmpty())
                 rNodeID = rSortie.Node.ID << 16;
-            else
+            else if (wikiId.Length == 1)
                 rNodeID = rSortie.Node.WikiID[0] - 'A';
+            else
+            {
+                rNodeID = 0;
+
+                foreach (var c in wikiId)
+                {
+                    rNodeID = (byte)c;
+                    rNodeID <<= 4;
+                }
+            }
 
             using (var rTransaction = r_Connection.BeginTransaction())
             {

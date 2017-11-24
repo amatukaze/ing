@@ -20,8 +20,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Events
             int rNodeID;
             if (rpNodeWikiID.IsNullOrEmpty())
                 rNodeID = rpData.Node << 16;
-            else
+            else if (rpNodeWikiID.Length == 1)
                 rNodeID = rpNodeWikiID[0] - 'A';
+            else
+            {
+                rNodeID = 0;
+
+                foreach (var c in rpNodeWikiID)
+                {
+                    rNodeID = (byte)c;
+                    rNodeID <<= 4;
+                }
+            }
+
             EnemyEncounters = EnemyEncounterService.Instance.GetEncounters(rpMap.ID, rNodeID, rpMap.Difficulty);
         }
 
