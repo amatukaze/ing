@@ -178,7 +178,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             });
 
             ApiService.Subscribe("api_port/port", _ => IsBlinking = false);
-            ApiService.Subscribe(new[] { "api_req_map/start", "api_req_map/next", "api_req_combined_battle/goback_port" }, delegate
+            ApiService.Subscribe(new[] { "api_req_map/start", "api_req_map/next", "api_req_sortie/goback_port", "api_req_combined_battle/goback_port" }, delegate
             {
                 var rSortie = SortieInfo.Current;
                 var rParticipants = rSortie.Fleet.Ships.Skip(1);

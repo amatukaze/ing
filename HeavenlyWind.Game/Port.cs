@@ -399,7 +399,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 RepairDocks[int.Parse(r.Parameters["api_ndock_id"])].CompleteRepair();
             });
 
-            ApiService.Subscribe("api_req_combined_battle/battleresult", r =>
+            ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, r =>
             {
                 var rData = (RawBattleResult)r.Data;
                 if (!rData.HasEvacuatedShip)
@@ -410,12 +410,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var rEvacuatedShipIndex = rData.EvacuatedShips.EvacuatedShipIndex[0] - 1;
                 var rEvacuatedShip = rParticipants[rEvacuatedShipIndex];
 
-                var rEscortShipIndex = rData.EvacuatedShips.EscortShipIndex[0] - 1;
-                var rEscortShip = rParticipants[rEscortShipIndex];
+                if (rData.EvacuatedShips.EscortShipIndex == null)
+                    r_EvacuatedShips = new[] { rEvacuatedShip };
+                else
+                {
+                    var rEscortShipIndex = rData.EvacuatedShips.EscortShipIndex[0] - 1;
+                    var rEscortShip = rParticipants[rEscortShipIndex];
 
-                r_EvacuatedShips = new[] { rEvacuatedShip, rEscortShip };
+                    r_EvacuatedShips = new[] { rEvacuatedShip, rEscortShip };
+                }
             });
-            ApiService.Subscribe("api_req_combined_battle/goback_port", delegate
+            ApiService.Subscribe(new[] { "api_req_sortie/goback_port", "api_req_combined_battle/goback_port" }, delegate
             {
                 if (SortieInfo.Current == null || r_EvacuatedShips == null || r_EvacuatedShips.Length == 0)
                     return;
