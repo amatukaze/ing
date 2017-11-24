@@ -346,13 +346,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (rUpdateList)
             {
-                var rList = Slots.Where(r => r.HasEquipment).Select(r => r.Equipment);
-                if (ExtraSlot != null && ExtraSlot.HasEquipment)
-                    rList = rList.Concat(new[] { ExtraSlot.Equipment });
-
-                EquipedEquipment = rList.ToArray();
+                UpdateEquipedEquipment();
                 rUpdateList = false;
             }
+        }
+        internal void UpdateEquipedEquipment()
+        {
+            var rList = Slots.Where(r => r.HasEquipment).Select(r => r.Equipment);
+            if (ExtraSlot != null && ExtraSlot.HasEquipment)
+                rList = rList.Concat(new[] { ExtraSlot.Equipment });
+
+            EquipedEquipment = rList.ToArray();
         }
 
         internal void Repair(bool rpInstantRepair)

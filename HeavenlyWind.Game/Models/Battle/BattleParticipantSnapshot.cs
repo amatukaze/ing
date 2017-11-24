@@ -72,14 +72,22 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             var rEquipmentInExtraSlot = rParticipant.ExtraSlot?.Equipment;
             if (rEquipmentInExtraSlot?.Info.Type == EquipmentType.DamageControl)
+            {
                 rDamageControl = rEquipmentInExtraSlot;
+                rParticipant.ExtraSlot.Equipment = null;
+            }
 
             if (rDamageControl == null)
-                rDamageControl = rParticipant.EquipedEquipment.FirstOrDefault(r => r.Info.Type == EquipmentType.DamageControl);
+                foreach (var slot in rParticipant.Slots)
+                    if (slot.Equipment.Info.Type == EquipmentType.DamageControl)
+                    {
+                        rDamageControl = slot.Equipment;
+                        slot.Equipment = null;
+                    }
 
             if (rDamageControl != null)
             {
-                switch (rDamageControl.ID)
+                switch (rDamageControl.Info.ID)
                 {
                     case 42:
                         r_Current = (int)(Maximum * .2);
@@ -90,6 +98,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                         break;
                 }
 
+                rParticipant.Ship.UpdateEquipedEquipment();
                 rParticipant.IsDamageControlConsumed = true;
             }
         }
