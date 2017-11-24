@@ -64,7 +64,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 if (rCombinedFleetData.FriendEscortCurrentHPs != null)
                 {
                     FriendEscort = new BattleParticipantSnapshot[rCombinedFleetData.FriendEscortCurrentHPs.Length];
-                    for (var i = 0; i < rData.FriendCurrentHPs.Length; i++)
+                    for (var i = 0; i < rCombinedFleetData.FriendEscortCurrentHPs.Length; i++)
                     {
                         FriendEscort[i] = new BattleParticipantSnapshot(rCombinedFleetData.FriendEscortMaximumHPs[i], rCombinedFleetData.FriendEscortCurrentHPs[i])
                         {
@@ -78,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 if (rCombinedFleetData.EnemyEscortCurrentHPs != null)
                 {
                     EnemyEscort = new BattleParticipantSnapshot[rCombinedFleetData.EnemyEscortCurrentHPs.Length];
-                    for (var i = 0; i < rData.FriendCurrentHPs.Length; i++)
+                    for (var i = 0; i < rCombinedFleetData.EnemyEscortCurrentHPs.Length; i++)
                     {
                         EnemyEscort[i] = new BattleParticipantSnapshot(rCombinedFleetData.EnemyEscortMaximumHPs[i], rCombinedFleetData.EnemyEscortCurrentHPs[i])
                         {
@@ -88,17 +88,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                         FriendAndEnemy[i + 21] = EnemyEscort[i];
                     }
                 }
-
-                //if ((rpFirstStage == null && rFriendAndEnemyEscort.Length > 6) || (rpFirstStage != null && rpFirstStage.EnemyEscort != null))
-                //{
-                //    EnemyEscort = rFriendAndEnemyEscort.Skip(6).TakeWhile(r => r != null).ToArray();
-
-                //    for (var i = 0; i < EnemyEscort.Count; i++)
-                //    {
-                //        EnemyEscort[i].Participant = Owner.Participants.EnemyEscort[i];
-                //        FriendAndEnemy[i + 18] = EnemyEscort[i];
-                //    }
-                //}
             }
 
             if (FriendEscort == null)

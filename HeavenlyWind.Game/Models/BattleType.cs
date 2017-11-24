@@ -9,5 +9,6 @@
         AerialCombat,
         EnemyCombinedFleet,
         AerialAttack,
+        NightToDay,
     }
 }

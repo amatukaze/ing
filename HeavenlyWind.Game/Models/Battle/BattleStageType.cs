@@ -6,7 +6,7 @@
         Day,
         Night,
         NightOnly,
-        DayAfterNight,
+        NightToDay,
         AerialCombat,
         AerialAttack,
     }

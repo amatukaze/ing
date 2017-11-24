@@ -125,17 +125,19 @@
     <Compile Include="Models\Battle\Stages\CombinedFleetDay.cs" />
     <Compile Include="Models\Battle\Stages\CombinedFleetNight.cs" />
     <Compile Include="Models\Battle\Stages\CombinedFleetSTFDayNormalStage.cs" />
+    <Compile Include="Models\Battle\Stages\EnemyCombinedFleetNightToDayStage.cs" />
     <Compile Include="Models\Battle\Stages\FriendCombinedFleetCTFDayNormalStage.cs" />
     <Compile Include="Models\Battle\Stages\FriendCombinedFleetNightNormalStage.cs" />
     <Compile Include="Models\Battle\Stages\FriendCombinedFleetNightOnlyStage.cs" />
     <Compile Include="Models\Battle\Stages\FriendCombinedFleetSTFDayNormalStage.cs" />
     <Compile Include="Models\Battle\Stages\Day.cs" />
     <Compile Include="Models\Battle\Stages\DayNormalStage.cs" />
-    <Compile Include="Models\Battle\Stages\EnemyCombinedFleetDay.cs" />
-    <Compile Include="Models\Battle\Stages\EnemyCombinedFleetNight.cs" />
+    <Compile Include="Models\Battle\Stages\EnemyCombinedFleetDayStage.cs" />
+    <Compile Include="Models\Battle\Stages\EnemyCombinedFleetNightStage.cs" />
     <Compile Include="Models\Battle\Stages\Night.cs" />
     <Compile Include="Models\Battle\Stages\NightNormalStage.cs" />
     <Compile Include="Models\Battle\Stages\NightOnlyStage.cs" />
+    <Compile Include="Models\Battle\Stages\NightToDayStage.cs" />
     <Compile Include="Models\ConstructionDock.cs" />
     <Compile Include="Models\CombinedFleetType.cs" />
     <Compile Include="Models\CommonProperty.cs" />
@@ -223,6 +225,8 @@
     <Compile Include="Models\Raw\Battle\RawLandBaseAerialSupport.cs" />
     <Compile Include="Models\Raw\Battle\RawNight.cs" />
     <Compile Include="Models\Raw\Battle\RawNightOnly.cs" />
+    <Compile Include="Models\Raw\Battle\RawEnemyCombinedFleetNightToDay.cs" />
+    <Compile Include="Models\Raw\Battle\RawNightToDay.cs" />
     <Compile Include="Models\Raw\Battle\RawOpeningASWPhase.cs" />
     <Compile Include="Models\Raw\Battle\RawShellingPhase.cs" />
     <Compile Include="Models\Raw\Battle\RawSupportingFirePhase.cs" />
@@ -304,6 +308,7 @@
     <Compile Include="Parsers\Root\Battle\BattleResultParser.cs" />
     <Compile Include="Parsers\Root\Battle\CombinedFleetCTFDayBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\CombinedFleetSTFDayBattleParser.cs" />
+    <Compile Include="Parsers\Root\Battle\EnemyCombinedFleetNightToDayBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\FriendCombinedFleetAerialAttackParser.cs" />
     <Compile Include="Parsers\Root\Battle\FriendCombinedFleetAerialCombatParser.cs" />
     <Compile Include="Parsers\Root\Battle\FriendCombinedFleetCTFDayBattleParser.cs" />
@@ -315,6 +320,7 @@
     <Compile Include="Parsers\Root\Battle\EnemyCombinedFleetNightBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\NightNormalBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\NightOnlyBattleParser.cs" />
+    <Compile Include="Parsers\Root\Battle\NightToDayBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\PracticeDayBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\PracticeNightBattleParser.cs" />
     <Compile Include="Parsers\Root\Battle\PracticeResultParser.cs" />
