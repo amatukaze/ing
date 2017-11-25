@@ -100,7 +100,10 @@
 
                                                     <rc:EquipmentIcon Type="{Binding Plane.Info.Icon}" VerticalAlignment="Center" />
                                                     <StackPanel Name="Info" Orientation="Horizontal" Margin="0, 4" Grid.Column="2">
-                                                        <TextBlock Text="{rb:ExtraStringResource Equipment, Plane.Info.ID, Plane.Info.Name}" />
+                                                        <TextBlock>
+                                                            <Run Text="{rb:ExtraStringResource Equipment, Plane.Info.ID, Plane.Info.Name}" />
+                                                            <Run Text="{Binding Plane.Info.CombatRadius, StringFormat=(r{0}), Mode=OneWay}" FontSize="12" Foreground="#41D2FF" />
+                                                        </TextBlock>
                                                         <rc:EquipmentProficiency Proficiency="{Binding Plane.Proficiency}" Margin="4, 0, 0, 0" />
                                                         <rc:EquipmentLevel Level="{Binding Plane.Level}" Margin="4, 0, 0, 0" />
                                                     </StackPanel>
