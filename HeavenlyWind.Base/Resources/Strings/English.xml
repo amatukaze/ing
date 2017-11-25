@@ -306,6 +306,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="Battle_Formation_Diamond">Diamond</String>
   <String Key="Battle_Formation_Echolon">Echolon</String>
   <String Key="Battle_Formation_LineAbreast">Line Abreast</String>
+  <String Key="Battle_Formation_Cruising">Cruising</String>
   <String Key="Battle_Formation_CruisingFormation1">CF 1st</String>
   <String Key="Battle_Formation_CruisingFormation2">CF 2nd</String>
   <String Key="Battle_Formation_CruisingFormation3">CF 3rd</String>

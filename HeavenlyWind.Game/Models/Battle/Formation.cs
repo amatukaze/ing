@@ -7,6 +7,7 @@
         Diamond,
         Echolon,
         LineAbreast,
+        Cruising,
         CruisingFormation1 = 11,
         CruisingFormation2,
         CruisingFormation3,

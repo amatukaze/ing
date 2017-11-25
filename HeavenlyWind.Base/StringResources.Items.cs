@@ -296,6 +296,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Battle_Formation_Diamond => GetString(nameof(Battle_Formation_Diamond));
         public string Battle_Formation_Echolon => GetString(nameof(Battle_Formation_Echolon));
         public string Battle_Formation_LineAbreast => GetString(nameof(Battle_Formation_LineAbreast));
+        public string Battle_Formation_Cruising => GetString(nameof(Battle_Formation_Cruising));
         public string Battle_Formation_CruisingFormation1 => GetString(nameof(Battle_Formation_CruisingFormation1));
         public string Battle_Formation_CruisingFormation2 => GetString(nameof(Battle_Formation_CruisingFormation2));
         public string Battle_Formation_CruisingFormation3 => GetString(nameof(Battle_Formation_CruisingFormation3));

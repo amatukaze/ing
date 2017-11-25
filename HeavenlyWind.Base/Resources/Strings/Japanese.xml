@@ -304,6 +304,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="Battle_Formation_Diamond">輪形陣</String>
   <String Key="Battle_Formation_Echolon">梯形陣</String>
   <String Key="Battle_Formation_LineAbreast">単横陣</String>
+  <String Key="Battle_Formation_Cruising">警戒陣</String>
   <String Key="Battle_Formation_CruisingFormation1">第一警戒航行序列</String>
   <String Key="Battle_Formation_CruisingFormation2">第二警戒航行序列</String>
   <String Key="Battle_Formation_CruisingFormation3">第三警戒航行序列</String>

@@ -305,6 +305,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Battle_Formation_Diamond">轮形阵</String>
   <String Key="Battle_Formation_Echolon">梯形阵</String>
   <String Key="Battle_Formation_LineAbreast">单横阵</String>
+  <String Key="Battle_Formation_Cruising">警戒阵</String>
   <String Key="Battle_Formation_CruisingFormation1">第一警戒航行序列</String>
   <String Key="Battle_Formation_CruisingFormation2">第二警戒航行序列</String>
   <String Key="Battle_Formation_CruisingFormation3">第三警戒航行序列</String>
