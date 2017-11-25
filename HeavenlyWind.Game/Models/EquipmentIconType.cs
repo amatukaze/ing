@@ -49,5 +49,6 @@
         LandBasedFighter,
         NightFighter,
         NightTorpedoBomber,
+        LandBasedPatrolAircraft,
     }
 }

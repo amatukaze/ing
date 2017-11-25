@@ -111,6 +111,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Overviews
                 r_TypeMap[EquipmentIconType.LandBasedFighter],
                 r_TypeMap[EquipmentIconType.InterceptorFighter],
                 r_TypeMap[EquipmentIconType.LandBasedAttackAircraft],
+                r_TypeMap[EquipmentIconType.LandBasedPatrolAircraft],
                 r_TypeMap[EquipmentIconType.Seaplane],
                 r_TypeMap[EquipmentIconType.SeaplaneFighter],
                 r_TypeMap[EquipmentIconType.FlyingBoat],
