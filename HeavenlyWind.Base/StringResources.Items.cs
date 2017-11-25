@@ -165,6 +165,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Fleet_Speed_Fast => GetString(nameof(Fleet_Speed_Fast));
         public string Fleet_Speed_Mixed => GetString(nameof(Fleet_Speed_Mixed));
         public string Fleet_MoraleRegeneration => GetString(nameof(Fleet_MoraleRegeneration));
+        public string Fleet_Share => GetString(nameof(Fleet_Share));
 
         public string Ship_Repairing => GetString(nameof(Ship_Repairing));
         public string Ship_RepairingInAnchorage => GetString(nameof(Ship_RepairingInAnchorage));

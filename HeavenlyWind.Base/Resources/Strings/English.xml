@@ -175,6 +175,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="Fleet_Speed_Fast">Fast</String>
   <String Key="Fleet_Speed_Mixed">Mixed</String>
   <String Key="Fleet_MoraleRegeneration">Fatigue</String>
+  <String Key="Fleet_Share">Share</String>
 
   <String Key="Ship_Repairing">Repairing</String>
   <String Key="Ship_RepairingInAnchorage">Repairing</String>
