@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.IO.Packaging;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+using PackageContainer = System.IO.Packaging.Package;
 
 namespace Sakuno.KanColle.Amatsukaze
 {
@@ -23,18 +22,13 @@ namespace Sakuno.KanColle.Amatsukaze
         const string LauncherPackageName = "HeavenlyWind.Launcher";
         const string BootstrapPackageName = "HeavenlyWind.Bootstrap";
 
-        const string ClassLibraryExtensionName = ".dll";
-
         static string _currentDirectory;
-        static string _packageDirectory;
         static string _stagingPackagesDirectory;
 
-        static string[] _statusNames;
+        static IDictionary<string, Package> _installedPackages;
+        static ISet<PackageInfo> _absentPackages;
 
         static Func<bool> _nextStepOnFailure;
-
-        static SortedList<string, Assembly> _dependencyAssemblies;
-        static string[] _packagesUsedByFoundation;
 
         static void Main(string[] args)
         {
@@ -46,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 oldLauncher.Delete();
 
             _currentDirectory = Path.GetDirectoryName(currentAssembly.Location);
-            _packageDirectory = Path.Combine(_currentDirectory, PackagesDirectoryName);
+            Package.Directory = Path.Combine(_currentDirectory, PackagesDirectoryName);
             _stagingPackagesDirectory = Path.Combine(_currentDirectory, StagingPackagesDirectoryName);
 
             var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
@@ -56,210 +50,160 @@ namespace Sakuno.KanColle.Amatsukaze
 
             PrintLine();
 
-            _statusNames = GetStatusNames();
-
-            if (Directory.Exists(_stagingPackagesDirectory))
+            var stagingDirectory = new DirectoryInfo(_stagingPackagesDirectory);
+            if (stagingDirectory.Exists)
                 ExtractPackages();
 
-            foreach (var result in EnsureFoundationModules())
+            LoadInstalledPackages();
+
+            try
             {
-                Print(' ');
+                SelfTest();
+            }
+            catch (SelfTestException)
+            {
+                if (!stagingDirectory.Exists)
+                    stagingDirectory.Create();
 
-                if (result < StatusCode.Failed)
-                {
-                    PrintLine(_statusNames[(int)result], ConsoleColor.Yellow);
-                    continue;
-                }
+                if (_absentPackages == null || _absentPackages.Count == 0)
+                    _nextStepOnFailure = DownloadLastestFoundation;
+                else
+                    _nextStepOnFailure = DownloadDependencies;
 
-                PrintLine(_statusNames[(int)result], ConsoleColor.Red);
                 PrintLine();
 
-                if (_nextStepOnFailure != null)
+                var success = false;
+
+                do
                 {
-                    var stagingDirectory = new DirectoryInfo(_stagingPackagesDirectory);
-                    if (!stagingDirectory.Exists)
-                        stagingDirectory.Create();
+                    success = _nextStepOnFailure();
 
-                    var success = false;
+                    PrintLine();
 
-                    do
+                    if (!success)
                     {
-                        success = _nextStepOnFailure();
+                        PrintLine("Press the keyboard to retry.");
+
+                        Console.ReadKey();
 
                         PrintLine();
+                    }
+                } while (!success);
 
-                        if (!success)
-                        {
-                            PrintLine("Press the keyboard to retry.");
+                PrintLine("Restart in 3s...");
 
-                            Console.ReadKey();
+                Task.Delay(3000).Wait();
 
-                            PrintLine();
-                        }
-                    } while (!success);
-
-                    PrintLine("Restart in 3s...");
-
-                    Task.Delay(3000).Wait();
-
-                    Process.Start(currentAssembly.Location);
-                }
+                Process.Start(currentAssembly.Location);
 
                 return;
             }
 
-            StartupNormally(args);
+            PrintLine("Building module graph...");
+
+            var graph = new Graph(_installedPackages.Values);
+
+            graph.Build(_installedPackages);
+
+            var modules = graph.GenerateSortedModuleList();
+            if (modules == null)
+            {
+                PrintLine("Circular dependency detected. Failed to boot.");
+
+                Console.ReadKey();
+                return;
+            }
+
+            PrintLine();
+            PrintLine("Ready to boot");
+
+            StartupNormally(args, modules);
         }
 
-        static string[] GetStatusNames()
+        static void LoadInstalledPackages()
         {
-            var values = (StatusCode[])Enum.GetValues(typeof(StatusCode));
-            var result = new string[values.Length];
+            _installedPackages = new Dictionary<string, Package>(StringComparer.OrdinalIgnoreCase);
 
-            for (var i = 0; i < values.Length; i++)
-                result[i] = "[" + values[i].ToString() + "]";
+            foreach (var packageDirectory in Directory.EnumerateDirectories(Package.Directory))
+            {
+                var manifestFilename = Path.Combine(packageDirectory, PackageUtil.PackageManifestFilename);
+                if (!File.Exists(manifestFilename))
+                    continue;
 
-            return result;
+                var manifest = ManifestUtil.Load(manifestFilename);
+                if (manifest == null)
+                    continue;
+
+                if (!manifest.ValidateSchema())
+                    continue;
+
+                var info = new Package(manifest);
+
+                _installedPackages[info.Id] = info;
+            }
         }
 
-        static IEnumerable<StatusCode> EnsureFoundationModules()
+        static void SelfTest()
         {
-            _nextStepOnFailure = DownloadLastestFoundation;
+            Print("Testing foundation manifest ");
 
-            Print("Searching for foundation manifest");
+            if (!_installedPackages.TryGetValue(FoundationPackageName, out var foundationPackage))
+            {
+                PrintLine("[NotFound]", ConsoleColor.Red);
+                throw new SelfTestException();
+            }
 
-            var foundationManifestFilename = Path.Combine(_packageDirectory, FoundationPackageName, PackageUtil.PackageManifestFilename);
-            if (File.Exists(foundationManifestFilename))
-                yield return StatusCode.Found;
-            else
-                yield return StatusCode.ManifestNotFound;
+            PrintLine("[OK]", ConsoleColor.Yellow);
 
-            Print("Loading foundation manifest");
+            PrintLine("Testing foundation dependencies:");
 
-            var foundationManifest = ManifestUtil.Load(foundationManifestFilename);
-            if (foundationManifest != null)
-                yield return StatusCode.Success;
-            else
-                yield return StatusCode.ManifestBadFormat;
-
-            Print("Verifying foundation manifest");
-
-            if (foundationManifest.ValidateSchema())
-                yield return StatusCode.Success;
-            else
-                yield return StatusCode.Failed;
-
-            _nextStepOnFailure = null;
-
-            PrintLine("Checking dependencies:");
-
-            var allSuccess = true;
-            var checkedDependencies = new HashSet<PackageInfo>(new PackageInfo.Comparer());
-            var missingDependencies = new List<PackageInfo>();
-
-            _dependencyAssemblies = new SortedList<string, Assembly>(StringComparer.OrdinalIgnoreCase);
-
-            foreach (var info in EnsureDependencies(foundationManifest, checkedDependencies))
+            foreach (var dependency in EnumerateDependencies(foundationPackage))
             {
                 Print(" - ");
-                Print(info.Dependency.Id);
+                Print(dependency.Id);
                 Print(' ');
 
-                if (info.StatusCode < StatusCode.Failed)
+                if (dependency.Id != LauncherPackageName && dependency.Assembly == null)
                 {
-                    PrintLine(_statusNames[(int)info.StatusCode], ConsoleColor.Yellow);
-                    continue;
+                    PrintLine("[CodebaseNotFound]", ConsoleColor.Red);
+                    throw new SelfTestException();
                 }
 
-                missingDependencies.Add(info.Dependency);
-
-                PrintLine(_statusNames[(int)info.StatusCode], ConsoleColor.Red);
-
-                allSuccess = false;
-            }
-
-            _packagesUsedByFoundation = _dependencyAssemblies.Keys.ToArray();
-
-            Print("Ready to boot");
-
-            if (allSuccess)
-                yield return StatusCode.Success;
-            else
-            {
-                _nextStepOnFailure = () => DownloadPackages("Download missing dependencies:", missingDependencies);
-                yield return StatusCode.Failed;
+                PrintLine("[OK]", ConsoleColor.Yellow);
             }
         }
-        static IEnumerable<DependencyLoadingInfo> EnsureDependencies(XDocument manifest, HashSet<PackageInfo> checkedDependencies)
+        static IEnumerable<Package> EnumerateDependencies(Package package)
         {
-            var dependencies = manifest.EnumerateDependencies();
-            if (dependencies == null)
-                return null;
+            if (package.Dependencies == null || package.Dependencies.Count == 0)
+                yield break;
 
-            return EnsureDependenciesCore(dependencies, checkedDependencies);
-        }
-        static IEnumerable<DependencyLoadingInfo> EnsureDependenciesCore(IEnumerable<PackageInfo> dependencies, HashSet<PackageInfo> checkedDependencies)
-        {
-            foreach (var dependency in dependencies)
+            foreach (var dependencyInfo in package.Dependencies)
             {
-                if (!checkedDependencies.Add(dependency))
-                    continue;
-
-                var dependencyManifestFilename = Path.Combine(_packageDirectory, dependency.Id, PackageUtil.PackageManifestFilename);
-                if (!File.Exists(dependencyManifestFilename))
+                if (!_installedPackages.TryGetValue(dependencyInfo.Id, out var dependencyPackage))
                 {
-                    yield return new DependencyLoadingInfo(dependency, StatusCode.ManifestNotFound);
-                    continue;
-                }
+                    if (_absentPackages == null)
+                        _absentPackages = new HashSet<PackageInfo>(PackageInfo.Comparer.Instance);
 
-                var dependencyManifest = ManifestUtil.Load(dependencyManifestFilename);
-                if (dependencyManifest == null)
-                {
-                    yield return new DependencyLoadingInfo(dependency, StatusCode.ManifestBadFormat);
+                    _absentPackages.Add(new PackageInfo(dependencyInfo.Id, dependencyInfo.Version));
                     continue;
                 }
 
-                if (!dependencyManifest.ValidateSchema())
-                {
-                    yield return new DependencyLoadingInfo(dependency, StatusCode.ManifestBadFormat);
-                    continue;
-                }
+                yield return dependencyPackage;
 
-                if (dependencyManifest.GetId() != dependency.Id)
-                {
-                    yield return new DependencyLoadingInfo(dependency, StatusCode.ManifestMismatch);
-                    continue;
-                }
-
-                if (dependency.Id != LauncherPackageName)
-                {
-                    var dependencyCodebaseFilename = Path.Combine(_packageDirectory, dependency.Id, dependency.Id + ClassLibraryExtensionName);
-                    if (!File.Exists(dependencyCodebaseFilename))
-                    {
-                        yield return new DependencyLoadingInfo(dependency, StatusCode.CodebaseNotFound);
-                        continue;
-                    }
-
-                    _dependencyAssemblies.Add(dependency.Id, Assembly.LoadFile(dependencyCodebaseFilename));
-                }
-
-                yield return new DependencyLoadingInfo(dependency, StatusCode.Ok);
-
-                var subDependencies = EnsureDependencies(dependencyManifest, checkedDependencies);
-                if (subDependencies != null)
-                    foreach (var subDependency in subDependencies)
-                        yield return subDependency;
+                foreach (var subDependency in EnumerateDependencies(dependencyPackage))
+                    yield return subDependency;
             }
         }
 
-        static void StartupNormally(string[] args)
+        static void StartupNormally(string[] args, string[] modules)
         {
             const string BootstrapTypeName = "Sakuno.KanColle.Amatsukaze.Bootstrap.Bootstraper";
             const string BootstrapStartupMethodName = "Startup";
+            const string ClassLibraryExtensionName = ".dll";
 
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-            var bootstrapFilename = Path.Combine(_packageDirectory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
+            var bootstrapFilename = Path.Combine(Package.Directory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
             var bootstrapAssembly = Assembly.LoadFile(bootstrapFilename);
             var bootstrapType = bootstrapAssembly.GetType(BootstrapTypeName);
             var parameterTypes = new[] { typeof(IDictionary<string, object>) };
@@ -268,14 +212,12 @@ namespace Sakuno.KanColle.Amatsukaze
             var arguments = new SortedList<string, object>(StringComparer.OrdinalIgnoreCase)
             {
                 ["CommandLine"] = args,
-                ["PackageDirectory"] = _packageDirectory,
+                ["PackageDirectory"] = Package.Directory,
                 ["StagingPackageDirectory"] = _stagingPackagesDirectory,
-                ["PackagesUsedByFoundation"] = _packagesUsedByFoundation,
-                ["DownloadPackageFunc"] = new Func<string, string, Task>(DownloadPackage),
-                ["DependencyAssemblies"] = _dependencyAssemblies,
+                ["ModuleAssemblies"] = _installedPackages.Values.Where(r => r.IsModulePackage && r.Assembly != null)
+                    .ToDictionary(r => r.Id, r => r.Assembly, StringComparer.OrdinalIgnoreCase),
+                ["Modules"] = modules,
             };
-
-            ManifestUtil.AddToArguments(arguments);
 
             var @delegate = (Action<IDictionary<string, object>>)Delegate.CreateDelegate(typeof(Action<IDictionary<string, object>>), startupMethod);
 
@@ -286,16 +228,17 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             var name = args.Name.Remove(args.Name.IndexOf(','));
 
-            _dependencyAssemblies.TryGetValue(name, out var result);
+            if (!_installedPackages.TryGetValue(name, out var info))
+                return null;
 
-            return result;
+            return info.Assembly;
         }
 
         static bool DownloadLastestFoundation()
         {
             const string Url = "https://heavenlywind.cc/api/foundation/lastest?launcher=";
 
-            PrintLine("Get foundation package infos:");
+            PrintLine("Get foundation package infos...");
 
             var currentAssembly = Assembly.GetEntryAssembly();
             var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
@@ -319,6 +262,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             return DownloadPackages("Download foundation:", packages);
         }
+        static bool DownloadDependencies() => DownloadPackages("Download missing dependencies:", _absentPackages.ToArray());
 
         static bool DownloadPackages(string task, IList<PackageInfo> packages)
         {
@@ -437,9 +381,9 @@ namespace Sakuno.KanColle.Amatsukaze
                 using (var stream = file.OpenRead())
                 {
                     var archive = new ZipArchive(stream);
-                    var package = Package.Open(stream);
+                    var package = PackageContainer.Open(stream);
                     var identifier = package.PackageProperties.Identifier;
-                    var directory = Path.Combine(_packageDirectory, identifier);
+                    var directory = Path.Combine(Package.Directory, identifier);
                     var relationship = package.GetRelationshipsByType(ManifestRelationshipType).SingleOrDefault();
 
                     if (relationship == null)
@@ -550,7 +494,7 @@ namespace Sakuno.KanColle.Amatsukaze
         static void ExtractPackagePart(PackagePartInfo info, string packageDirectory, string filename)
         {
             var filepath = Path.Combine(packageDirectory, filename);
-            var directory = new DirectoryInfo( Path.GetDirectoryName(filepath));
+            var directory = new DirectoryInfo(Path.GetDirectoryName(filepath));
             if (!directory.Exists)
                 directory.Create();
 

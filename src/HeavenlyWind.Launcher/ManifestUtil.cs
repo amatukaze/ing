@@ -168,15 +168,5 @@ namespace Sakuno.KanColle.Amatsukaze
 
             return result;
         }
-
-        public static void AddToArguments(IDictionary<string, object> args)
-        {
-            args["LoadManifestFunc"] = new Func<string, XDocument>(Load);
-            args["ValidateManifestSchemaFunc"] = new Func<XDocument, bool>(ValidateSchema);
-            args["GetManifestIdFunc"] = new Func<XDocument, string>(GetId);
-            args["GetManifestVersionFunc"] = new Func<XDocument, string>(GetVersion);
-            args["IsModulePackageFunc"] = new Func<XDocument, bool>(IsModulePackage);
-            args["EnumerateDependencies"] = new Func<XDocument, IEnumerable<KeyValuePair<string, string>>>(EnumerateDependenciesInBootstrap);
-        }
     }
 }

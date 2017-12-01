@@ -28,6 +28,10 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public class Comparer : IEqualityComparer<PackageInfo>
         {
+            public static Comparer Instance { get; } = new Comparer();
+
+            Comparer() { }
+
             public bool Equals(PackageInfo x, PackageInfo y) =>
                 x.Id.Equals(y.Id, StringComparison.OrdinalIgnoreCase) &&
                 x.Version.Equals(y.Version, StringComparison.OrdinalIgnoreCase);
