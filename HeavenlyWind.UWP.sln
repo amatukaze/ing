@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP.Launcher", "src\HeavenlyWind.UWP.Launcher\HeavenlyWind.UWP.Launcher.csproj", "{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -40,18 +38,6 @@ Global
 		{872A67E9-1A02-45CB-8948-0AA25BC71974}.Release|x86.ActiveCfg = Release|x86
 		{872A67E9-1A02-45CB-8948-0AA25BC71974}.Release|x86.Build.0 = Release|x86
 		{872A67E9-1A02-45CB-8948-0AA25BC71974}.Release|x86.Deploy.0 = Release|x86
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Debug|ARM.Build.0 = Debug|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Debug|x64.Build.0 = Debug|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Debug|x86.Build.0 = Debug|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Release|ARM.ActiveCfg = Release|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Release|ARM.Build.0 = Release|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Release|x64.ActiveCfg = Release|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Release|x64.Build.0 = Release|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Release|x86.ActiveCfg = Release|Any CPU
-		{44DCD729-4BD4-4C5F-AB45-5B59DAC3B658}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
