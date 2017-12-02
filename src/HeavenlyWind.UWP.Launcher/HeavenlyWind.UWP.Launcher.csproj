@@ -4,6 +4,12 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net461</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <Company>Kodama Sakuno</Company>
+    <Authors>Kodama Sakuno</Authors>
+    <Description>Launcher for UWP package of Intelligent Naval Gun</Description>
+    <Product>HeavenlyWind.UWP.Launcher</Product>
+    <RepositoryUrl>https://github.com/amatukaze/HeavenlyWind.UWP.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
 </Project>
