@@ -182,7 +182,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (!_installedPackages.TryGetValue(dependencyInfo.Id, out var dependencyPackage))
                 {
                     if (_absentPackages == null)
-                        _absentPackages = new HashSet<PackageInfo>(PackageInfo.Comparer.Instance);
+                        _absentPackages = new HashSet<PackageInfo>();
 
                     _absentPackages.Add(new PackageInfo(dependencyInfo.Id, dependencyInfo.Version));
                     continue;

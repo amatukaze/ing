@@ -24,19 +24,8 @@ namespace Sakuno.KanColle.Amatsukaze
             Id.Equals(other.Id, StringComparison.OrdinalIgnoreCase) &&
             Version.Equals(other.Version, StringComparison.OrdinalIgnoreCase);
 
+        public override int GetHashCode() => Id.ToLowerInvariant().GetHashCode();
+
         public override string ToString() => Id + " " + Version;
-
-        public class Comparer : IEqualityComparer<PackageInfo>
-        {
-            public static Comparer Instance { get; } = new Comparer();
-
-            Comparer() { }
-
-            public bool Equals(PackageInfo x, PackageInfo y) =>
-                x.Id.Equals(y.Id, StringComparison.OrdinalIgnoreCase) &&
-                x.Version.Equals(y.Version, StringComparison.OrdinalIgnoreCase);
-
-            public int GetHashCode(PackageInfo obj) => obj.Id.GetHashCode();
-        }
     }
 }
