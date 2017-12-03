@@ -31,6 +31,10 @@ namespace Sakuno.KanColle.Amatsukaze
             ".NETFramework4.5.1",
             ".NETFramework4.5",
             ".NETFramework4.0",
+            ".NETStandard1.3",
+            ".NETStandard1.2",
+            ".NETStandard1.1",
+            ".NETStandard1.0",
         };
 
         public static XDocument Load(string filename)
