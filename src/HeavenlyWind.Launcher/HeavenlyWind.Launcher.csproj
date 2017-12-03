@@ -4,9 +4,10 @@
     <TargetFramework>net46</TargetFramework>
     <OutputType>Exe</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.1</LangVersion>
     <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
     <AssemblyName>HeavenlyWind</AssemblyName>
-    <OutputPath>..\..\artifacts\$(Configuration)\</OutputPath>
+    <OutputPath>$(SolutionDir)artifacts\$(Configuration)\</OutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <PackageId>HeavenlyWind.Launcher</PackageId>
     <Version>0.1.0-blueprint</Version>
