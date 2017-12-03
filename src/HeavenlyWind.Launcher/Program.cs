@@ -50,10 +50,10 @@ namespace Sakuno.KanColle.Amatsukaze
 
             PrintLine();
 
-            var stagingDirectory = new DirectoryInfo(_stagingPackagesDirectory);
-            if (stagingDirectory.Exists)
+            if (Directory.Exists(_stagingPackagesDirectory))
                 ExtractPackages();
 
+            Directory.CreateDirectory(Package.Directory);
             LoadInstalledPackages();
 
             try
@@ -62,8 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze
             }
             catch (SelfTestException)
             {
-                if (!stagingDirectory.Exists)
-                    stagingDirectory.Create();
+                Directory.CreateDirectory(_stagingPackagesDirectory);
 
                 if (_absentPackages == null || _absentPackages.Count == 0)
                     _nextStepOnFailure = DownloadLastestFoundation;
