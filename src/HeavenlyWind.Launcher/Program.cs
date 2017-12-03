@@ -475,11 +475,11 @@ namespace Sakuno.KanColle.Amatsukaze
 
             var configFilename = Path.Combine(toolsDirectory, "HeavenlyWind.exe.config");
             var currentConfigFilename = launcherFilename + ".config";
-            var currentConfigFile = new FileInfo(currentConfigFilename);
-            if (currentConfigFile.Exists)
-                currentConfigFile.Delete();
+            if (File.Exists(currentConfigFilename))
+                File.Delete(currentConfigFilename);
 
-            File.Move(configFilename, currentConfigFilename);
+            if (File.Exists(configFilename))
+                File.Move(configFilename, currentConfigFilename);
 
             Directory.Delete(toolsDirectory);
         }
