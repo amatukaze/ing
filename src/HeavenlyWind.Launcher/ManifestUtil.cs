@@ -123,11 +123,11 @@ namespace Sakuno.KanColle.Amatsukaze
             var namespaceManager = GetNamespaceManager(manifest);
             var node = manifest.Root.XPathSelectElement("/nuspec:package/nuspec:metadata/nuspec:dependencies", namespaceManager);
             if (node == null)
-                return null;
+                return Array.Empty<PackageInfo>();
 
-            var firstChildNode = (XElement)node.FirstNode;
+            var firstChildNode = node.FirstNode as XElement;
             if (firstChildNode == null)
-                return null;
+                return Array.Empty<PackageInfo>();
 
             if (firstChildNode.Name.LocalName == "dependency")
                 return node.Elements().Select(r => new PackageInfo(r));
@@ -140,7 +140,7 @@ namespace Sakuno.KanColle.Amatsukaze
             foreach (var targetFramework in _targetFrameworks)
                 if (groups.TryGetValue(targetFramework, out var dependencies))
                     if (dependencies.FirstNode == null)
-                        return null;
+                        return Array.Empty<PackageInfo>();
                     else
                         return dependencies.Elements().Select(r => new PackageInfo(r));
 

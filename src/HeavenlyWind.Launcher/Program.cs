@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze
         static string _stagingPackagesDirectory;
 
         static IDictionary<string, Package> _installedPackages;
-        static ISet<PackageInfo> _absentPackages;
+        static ISet<PackageInfo> _absentPackages = new HashSet<PackageInfo>();
 
         static Func<bool> _nextStepOnFailure;
 
@@ -64,7 +64,7 @@ namespace Sakuno.KanColle.Amatsukaze
             {
                 Directory.CreateDirectory(_stagingPackagesDirectory);
 
-                if (_absentPackages == null || _absentPackages.Count == 0)
+                if (_absentPackages.Count == 0)
                     _nextStepOnFailure = DownloadLastestFoundation;
                 else
                     _nextStepOnFailure = DownloadDependencies;
@@ -173,16 +173,10 @@ namespace Sakuno.KanColle.Amatsukaze
         }
         static IEnumerable<Package> EnumerateDependencies(Package package)
         {
-            if (package.Dependencies == null || package.Dependencies.Count == 0)
-                yield break;
-
             foreach (var dependencyInfo in package.Dependencies)
             {
                 if (!_installedPackages.TryGetValue(dependencyInfo.Id, out var dependencyPackage))
                 {
-                    if (_absentPackages == null)
-                        _absentPackages = new HashSet<PackageInfo>();
-
                     _absentPackages.Add(new PackageInfo(dependencyInfo.Id, dependencyInfo.Version));
                     continue;
                 }

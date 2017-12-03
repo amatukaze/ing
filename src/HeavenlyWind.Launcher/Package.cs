@@ -28,7 +28,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             IsModulePackage = manifest.IsModulePackage();
 
-            Dependencies = manifest.EnumerateDependencies()?.ToArray();
+            Dependencies = manifest.EnumerateDependencies().ToArray();
 
             _assembly = new Lazy<Assembly>(LoadAssembly);
         }
