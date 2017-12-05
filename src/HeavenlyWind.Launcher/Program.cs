@@ -29,6 +29,8 @@ namespace Sakuno.KanColle.Amatsukaze
         static IDictionary<string, Package> _installedPackages;
         static ISet<PackageInfo> _absentPackages = new HashSet<PackageInfo>();
 
+        static bool needRestart;
+
         static void Main(string[] args)
         {
             _defaultConsoleColor = Console.ForegroundColor;
@@ -72,6 +74,11 @@ namespace Sakuno.KanColle.Amatsukaze
                     PrintLine();
                 }
 
+                needRestart = true;
+            }
+
+            if (needRestart)
+            {
                 PrintLine("Restart in 3s...");
 
                 Task.Delay(3000).Wait();
@@ -468,6 +475,7 @@ namespace Sakuno.KanColle.Amatsukaze
             }
 
             Directory.Delete(toolsDirectory);
+            needRestart = true;
         }
 
         static void StealConfig(string directory)
@@ -483,6 +491,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (File.Exists(currentConfigFilename))
                     File.Delete(currentConfigFilename);
                 File.Move(configFilename, currentConfigFilename);
+                needRestart = true;
             }
         }
 
