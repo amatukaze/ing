@@ -365,10 +365,28 @@ namespace Sakuno.KanColle.Amatsukaze
 
             Directory.Delete(_stagingPackagesDirectory, true);
         }
+        static string[] SupportedTFM =
+        {
+            "net461",
+            "net46",
+            "net452",
+            "net451",
+            "net45",
+            "net40",
+            "net35",
+            "net20",
+            "netstandard2.0",
+            "netstandard1.6",
+            "netstandard1.5",
+            "netstandard1.4",
+            "netstandard1.3",
+            "netstandard1.2",
+            "netstandard1.1",
+            "netstandard1.0",
+        };
         static PackageExtractionInfo ExtractPackage(FileInfo file)
         {
             const string ManifestRelationshipType = "http://schemas.microsoft.com/packaging/2010/07/manifest";
-            const int SupportedTargetFrameworkCount = 9;
 
             try
             {
@@ -385,7 +403,8 @@ namespace Sakuno.KanColle.Amatsukaze
 
                     var relationshipUri = relationship.TargetUri.OriginalString.Substring(1);
 
-                    var libPartInfos = new List<PackagePartInfo>[SupportedTargetFrameworkCount];
+                    int selectedTFMIndex = SupportedTFM.Length;
+                    var selectedLibPartInfos = new List<PackagePartInfo>();
 
                     foreach (var part in package.GetParts())
                     {
@@ -398,34 +417,19 @@ namespace Sakuno.KanColle.Amatsukaze
 
                         if (uri.StartsWith("lib", StringComparison.OrdinalIgnoreCase))
                         {
-                            var libTargetFrameworkIndex = -1;
+                            int partTFMIndex;
+                            for (partTFMIndex = 0; partTFMIndex < SupportedTFM.Length; partTFMIndex++)
+                                if (IsPrefix(uri, SupportedTFM[partTFMIndex]))
+                                    break;
 
-                            if (IsPrefix(uri, "net46"))
-                                libTargetFrameworkIndex = 0;
-                            else if (IsPrefix(uri, "net452"))
-                                libTargetFrameworkIndex = 1;
-                            else if (IsPrefix(uri, "net451"))
-                                libTargetFrameworkIndex = 2;
-                            else if (IsPrefix(uri, "net45"))
-                                libTargetFrameworkIndex = 3;
-                            else if (IsPrefix(uri, "net40"))
-                                libTargetFrameworkIndex = 4;
-                            else if (IsPrefix(uri, "netstandard1.3"))
-                                libTargetFrameworkIndex = 5;
-                            else if (IsPrefix(uri, "netstandard1.2"))
-                                libTargetFrameworkIndex = 6;
-                            else if (IsPrefix(uri, "netstandard1.1"))
-                                libTargetFrameworkIndex = 7;
-                            else if (IsPrefix(uri, "netstandard1.0"))
-                                libTargetFrameworkIndex = 8;
-                            else
+                            if (partTFMIndex < selectedTFMIndex)
+                            {
+                                selectedTFMIndex = partTFMIndex;
+                                selectedLibPartInfos.Clear();
+                            }
+                            else if (partTFMIndex > selectedTFMIndex || partTFMIndex == SupportedTFM.Length)
                                 continue;
-
-                            var parts = libPartInfos[libTargetFrameworkIndex];
-                            if (parts == null)
-                                libPartInfos[libTargetFrameworkIndex] = parts = new List<PackagePartInfo>();
-
-                            parts.Add(new PackagePartInfo(uri, part, archive.GetEntry(uri)));
+                            selectedLibPartInfos.Add(new PackagePartInfo(uri, part, archive.GetEntry(uri)));
                             continue;
                         }
 
@@ -434,18 +438,12 @@ namespace Sakuno.KanColle.Amatsukaze
                         ExtractPackagePart(new PackagePartInfo(uri, part, archive.GetEntry(uri)), directory, filename);
                     }
 
-                    foreach (var partInfos in libPartInfos)
-                        if (partInfos != null)
-                        {
-                            foreach (var info in partInfos)
-                            {
-                                var filename = PackageUtil.GetFilenameInLibDirectory(info.Name);
+                    foreach (var info in selectedLibPartInfos)
+                    {
+                        var filename = PackageUtil.GetFilenameInLibDirectory(info.Name);
 
-                                ExtractPackagePart(info, directory, filename);
-                            }
-
-                            break;
-                        }
+                        ExtractPackagePart(info, directory, filename);
+                    }
 
                     if (identifier == LauncherPackageName)
                         ReplaceMyself(directory);
