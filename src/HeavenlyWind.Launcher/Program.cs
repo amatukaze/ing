@@ -29,8 +29,6 @@ namespace Sakuno.KanColle.Amatsukaze
         static IDictionary<string, Package> _installedPackages;
         static ISet<PackageInfo> _absentPackages = new HashSet<PackageInfo>();
 
-        static Func<bool> _nextStepOnFailure;
-
         static void Main(string[] args)
         {
             _defaultConsoleColor = Console.ForegroundColor;
@@ -57,38 +55,22 @@ namespace Sakuno.KanColle.Amatsukaze
             Directory.CreateDirectory(Package.Directory);
             LoadInstalledPackages();
 
-            try
-            {
-                SelfTest();
-            }
-            catch (SelfTestException)
+            if (!SelfTest())
             {
                 Directory.CreateDirectory(_stagingPackagesDirectory);
 
-                if (_absentPackages.Count == 0)
-                    _nextStepOnFailure = DownloadLastestFoundation;
-                else
-                    _nextStepOnFailure = DownloadDependencies;
-
                 PrintLine();
 
-                var success = false;
-
-                do
+                while (!(_absentPackages.Count == 0 ?
+                    DownloadLastestFoundation() :
+                    DownloadDependencies()))
                 {
-                    success = _nextStepOnFailure();
+                    PrintLine("Press the keyboard to retry.");
+
+                    Console.ReadKey();
 
                     PrintLine();
-
-                    if (!success)
-                    {
-                        PrintLine("Press the keyboard to retry.");
-
-                        Console.ReadKey();
-
-                        PrintLine();
-                    }
-                } while (!success);
+                }
 
                 PrintLine("Restart in 3s...");
 
@@ -143,14 +125,14 @@ namespace Sakuno.KanColle.Amatsukaze
             }
         }
 
-        static void SelfTest()
+        static bool SelfTest()
         {
             Print("Testing foundation manifest ");
 
             if (!_installedPackages.TryGetValue(FoundationPackageName, out var foundationPackage))
             {
                 PrintLine("[NotFound]", ConsoleColor.Red);
-                throw new SelfTestException();
+                return false;
             }
 
             PrintLine("[OK]", ConsoleColor.Yellow);
@@ -166,11 +148,12 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (dependency.Id != LauncherPackageName && dependency.Assembly == null)
                 {
                     PrintLine("[CodebaseNotFound]", ConsoleColor.Red);
-                    throw new SelfTestException();
+                    return false;
                 }
 
                 PrintLine("[OK]", ConsoleColor.Yellow);
             }
+            return true;
         }
         static IEnumerable<Package> EnumerateDependencies(Package package)
         {
