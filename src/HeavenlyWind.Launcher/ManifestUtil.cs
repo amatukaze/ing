@@ -26,6 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         static string[] _targetFrameworks = new[]
         {
+            ".NETFramework4.6.1",
             ".NETFramework4.6",
             ".NETFramework4.5.2",
             ".NETFramework4.5.1",
