@@ -150,19 +150,6 @@ namespace Sakuno.KanColle.Amatsukaze
 
             throw new InvalidOperationException();
         }
-        static IEnumerable<KeyValuePair<string, string>> EnumerateDependenciesInBootstrap(XDocument manifest)
-        {
-            var dependencies = manifest.EnumerateDependencies();
-            if (dependencies == null)
-                return null;
-
-            return EnumerateDependenciesInBootstrapCore(dependencies);
-        }
-        static IEnumerable<KeyValuePair<string, string>> EnumerateDependenciesInBootstrapCore(IEnumerable<PackageInfo> dependencies)
-        {
-            foreach (var dependency in dependencies)
-                yield return new KeyValuePair<string, string>(dependency.Id, dependency.Version);
-        }
 
         static XmlNamespaceManager GetNamespaceManager(XDocument manifest) => _namespaceManagers.GetOrAdd(GetSchemaNamespace(manifest), CreateNamespaceManager);
         static XmlNamespaceManager CreateNamespaceManager(string schemaNamespace)
