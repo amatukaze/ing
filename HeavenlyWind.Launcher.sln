@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1EB0B222-718A-457E-95CE-4C67CE7D6616}"
 	ProjectSection(SolutionItems) = preProject
@@ -10,11 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Launcher", "src\HeavenlyWind.Launcher\HeavenlyWind.Launcher.csproj", "{96E968EB-417E-40DC-A9EF-F83D12733FF7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.BclShimSet.Fake", "src\HeavenlyWind.BclShimSet.Fake\HeavenlyWind.BclShimSet.Fake.csproj", "{8235D718-EFD7-45EE-96CC-0D0D63788BA0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakeLib", "src\FakeLib\FakeLib.csproj", "{13523AB7-0096-4985-95AA-F26B37BEB85C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shim", "Shim", "{697EB448-FE96-45F4-AAB7-781757F7D55A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeLib", "src\FakeLib\FakeLib.csproj", "{13523AB7-0096-4985-95AA-F26B37BEB85C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +22,6 @@ Global
 		{96E968EB-417E-40DC-A9EF-F83D12733FF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96E968EB-417E-40DC-A9EF-F83D12733FF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96E968EB-417E-40DC-A9EF-F83D12733FF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8235D718-EFD7-45EE-96CC-0D0D63788BA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8235D718-EFD7-45EE-96CC-0D0D63788BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8235D718-EFD7-45EE-96CC-0D0D63788BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8235D718-EFD7-45EE-96CC-0D0D63788BA0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{13523AB7-0096-4985-95AA-F26B37BEB85C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13523AB7-0096-4985-95AA-F26B37BEB85C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13523AB7-0096-4985-95AA-F26B37BEB85C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,10 +29,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{8235D718-EFD7-45EE-96CC-0D0D63788BA0} = {697EB448-FE96-45F4-AAB7-781757F7D55A}
-		{13523AB7-0096-4985-95AA-F26B37BEB85C} = {697EB448-FE96-45F4-AAB7-781757F7D55A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4537E0BB-2617-49E5-B9BC-9B5EC2CE0732}

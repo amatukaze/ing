@@ -9,17 +9,13 @@
     <AssemblyName>HeavenlyWind</AssemblyName>
     <OutputPath>$(SolutionDir)artifacts\$(Configuration)\</OutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <PackageId>HeavenlyWind.Launcher</PackageId>
     <Version>0.1.0-blueprint</Version>
     <Authors>Kodama Sakuno</Authors>
     <Description>The launcher of Intelligent Naval Gun</Description>
     <Product>Intelligent Naval Gun</Product>
     <Company>Kodama Sakuno</Company>
     <Copyright>Copyright © 2017 Kodama Sakuno</Copyright>
-    <IsTool>true</IsTool>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/amatukaze/HeavenlyWind.Launcher/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/amatukaze/HeavenlyWind.Launcher</PackageProjectUrl>
+    <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +25,12 @@
 
   <ItemGroup>
     <EmbeddedResource Include="nuspec.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FakeLib\FakeLib.csproj">
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

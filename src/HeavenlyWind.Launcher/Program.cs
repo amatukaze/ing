@@ -21,7 +21,6 @@ namespace Sakuno.KanColle.Amatsukaze
         const string FoundationPackageName = "HeavenlyWind.Foundation";
         const string LauncherPackageName = "HeavenlyWind.Launcher";
         const string BootstrapPackageName = "HeavenlyWind.Bootstrap";
-        const string ShimPackageName = "HeavenlyWind.BclShimSet";
 
         static string _currentDirectory;
         static string _stagingPackagesDirectory;
@@ -437,9 +436,6 @@ namespace Sakuno.KanColle.Amatsukaze
 
                     if (identifier == LauncherPackageName)
                         ReplaceMyself(directory);
-
-                    if (identifier == ShimPackageName)
-                        StealConfig(directory);
                 }
 
                 return new PackageExtractionInfo(file.Name);
@@ -467,32 +463,15 @@ namespace Sakuno.KanColle.Amatsukaze
 
             var configFilename = Path.Combine(toolsDirectory, "HeavenlyWind.exe.config");
             var currentConfigFilename = launcherFilename + ".config";
+
+            if (File.Exists(currentConfigFilename))
+                File.Delete(currentConfigFilename);
+
             if (File.Exists(configFilename))
-            {
-                if (File.Exists(currentConfigFilename))
-                    File.Delete(currentConfigFilename);
                 File.Move(configFilename, currentConfigFilename);
-            }
 
             Directory.Delete(toolsDirectory);
             needRestart = true;
-        }
-
-        static void StealConfig(string directory)
-        {
-            var launcherFilename = Assembly.GetEntryAssembly().Location;
-            var libDirectory = Path.Combine(directory, "lib", "net461");
-
-            var configFilename = Path.Combine(libDirectory, "HeavenlyWind.exe.config");
-            var currentConfigFilename = launcherFilename + ".config";
-
-            if (File.Exists(configFilename))
-            {
-                if (File.Exists(currentConfigFilename))
-                    File.Delete(currentConfigFilename);
-                File.Move(configFilename, currentConfigFilename);
-                needRestart = true;
-            }
         }
 
         static void ExtractPackagePart(PackagePartInfo info, string packageDirectory, string filename)
