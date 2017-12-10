@@ -6,7 +6,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using PackageContainer = System.IO.Packaging.Package;
@@ -392,46 +391,18 @@ namespace Sakuno.KanColle.Amatsukaze
 
                     var relationshipUri = relationship.TargetUri.OriginalString.Substring(1);
 
-                    int selectedTFMIndex = SupportedTFM.Length;
-                    var selectedLibPartInfos = new List<PackagePartInfo>();
-
                     foreach (var part in package.GetParts())
                     {
                         var uri = part.Uri.OriginalString.Substring(1);
 
-                        if (uri.StartsWith("_rels/", StringComparison.OrdinalIgnoreCase))
-                            continue;
-                        else if (uri.StartsWith("package/", StringComparison.OrdinalIgnoreCase))
+                        if (uri.StartsWith("_rels/", StringComparison.OrdinalIgnoreCase) ||
+                            uri.StartsWith("package/", StringComparison.OrdinalIgnoreCase) ||
+                            uri.StartsWith("package/", StringComparison.OrdinalIgnoreCase))
                             continue;
 
-                        if (uri.StartsWith("lib", StringComparison.OrdinalIgnoreCase))
-                        {
-                            int partTFMIndex;
-                            for (partTFMIndex = 0; partTFMIndex < SupportedTFM.Length; partTFMIndex++)
-                                if (IsPrefix(uri, SupportedTFM[partTFMIndex]))
-                                    break;
-
-                            if (partTFMIndex < selectedTFMIndex)
-                            {
-                                selectedTFMIndex = partTFMIndex;
-                                selectedLibPartInfos.Clear();
-                            }
-                            else if (partTFMIndex > selectedTFMIndex || partTFMIndex == SupportedTFM.Length)
-                                continue;
-                            selectedLibPartInfos.Add(new PackagePartInfo(uri, part, archive.GetEntry(uri)));
-                            continue;
-                        }
-
-                        var filename = PackageUtil.GetFilenameExceptLibDirectory(uri, relationshipUri);
+                        var filename = PackageUtil.GetFilename(uri, relationshipUri);
 
                         ExtractPackagePart(new PackagePartInfo(uri, part, archive.GetEntry(uri)), directory, filename);
-                    }
-
-                    foreach (var info in selectedLibPartInfos)
-                    {
-                        var filename = PackageUtil.GetFilenameInLibDirectory(info.Name);
-
-                        ExtractPackagePart(info, directory, filename);
                     }
 
                     if (identifier == LauncherPackageName)
@@ -444,13 +415,6 @@ namespace Sakuno.KanColle.Amatsukaze
             {
                 return new PackageExtractionInfo(file.Name, e);
             }
-        }
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        static bool IsPrefix(string uri, string prefix)
-        {
-            const int LibPrefixLength = 4;
-
-            return uri.IndexOf(prefix, LibPrefixLength, StringComparison.OrdinalIgnoreCase) == LibPrefixLength;
         }
 
         static void ReplaceMyself(string directory)
