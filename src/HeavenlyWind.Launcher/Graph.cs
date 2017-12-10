@@ -17,9 +17,6 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             foreach (var node in _nodeMap.Values)
             {
-                if (node.Package.Dependencies == null || node.Package.Dependencies.Count == 0)
-                    continue;
-
                 foreach (var dependency in node.Package.Dependencies)
                 {
                     var dependencyPackage = map[dependency.Id];

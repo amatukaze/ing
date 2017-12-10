@@ -39,7 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 oldLauncher.Delete();
 
             _currentDirectory = Path.GetDirectoryName(currentAssembly.Location);
-            Package.Directory = Path.Combine(_currentDirectory, PackagesDirectoryName);
+            Package.BaseDirectory = Path.Combine(_currentDirectory, PackagesDirectoryName);
             _stagingPackagesDirectory = Path.Combine(_currentDirectory, StagingPackagesDirectoryName);
 
             var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
@@ -52,7 +52,7 @@ namespace Sakuno.KanColle.Amatsukaze
             if (Directory.Exists(_stagingPackagesDirectory))
                 ExtractPackages();
 
-            Directory.CreateDirectory(Package.Directory);
+            Directory.CreateDirectory(Package.BaseDirectory);
             LoadInstalledPackages();
 
             if (!SelfTest())
@@ -111,7 +111,7 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             _installedPackages = new Dictionary<string, Package>(StringComparer.OrdinalIgnoreCase);
 
-            foreach (var packageDirectory in Directory.EnumerateDirectories(Package.Directory))
+            foreach (var packageDirectory in Directory.EnumerateDirectories(Package.BaseDirectory))
             {
                 var manifestFilename = Path.Combine(packageDirectory, PackageUtil.PackageManifestFilename);
                 if (!File.Exists(manifestFilename))
@@ -185,7 +185,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-            var bootstrapFilename = Path.Combine(Package.Directory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
+            var bootstrapFilename = Path.Combine(Package.BaseDirectory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
             var bootstrapAssembly = Assembly.LoadFile(bootstrapFilename);
             var bootstrapType = bootstrapAssembly.GetType(BootstrapTypeName);
             var parameterTypes = new[] { typeof(IDictionary<string, object>) };
@@ -194,7 +194,7 @@ namespace Sakuno.KanColle.Amatsukaze
             var arguments = new SortedList<string, object>(StringComparer.OrdinalIgnoreCase)
             {
                 ["CommandLine"] = args,
-                ["PackageDirectory"] = Package.Directory,
+                ["PackageDirectory"] = Package.BaseDirectory,
                 ["StagingPackageDirectory"] = _stagingPackagesDirectory,
                 ["ModuleAssemblies"] = _installedPackages.Values.Where(r => r.IsModulePackage && r.Assembly != null)
                     .ToDictionary(r => r.Id, r => r.Assembly, StringComparer.OrdinalIgnoreCase),
@@ -353,25 +353,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             Directory.Delete(_stagingPackagesDirectory, true);
         }
-        static string[] SupportedTFM =
-        {
-            "net461",
-            "net46",
-            "net452",
-            "net451",
-            "net45",
-            "net40",
-            "net35",
-            "net20",
-            "netstandard2.0",
-            "netstandard1.6",
-            "netstandard1.5",
-            "netstandard1.4",
-            "netstandard1.3",
-            "netstandard1.2",
-            "netstandard1.1",
-            "netstandard1.0",
-        };
+
         static PackageExtractionInfo ExtractPackage(FileInfo file)
         {
             const string ManifestRelationshipType = "http://schemas.microsoft.com/packaging/2010/07/manifest";
@@ -383,7 +365,7 @@ namespace Sakuno.KanColle.Amatsukaze
                     var archive = new ZipArchive(stream);
                     var package = PackageContainer.Open(stream);
                     var identifier = package.PackageProperties.Identifier;
-                    var directory = Path.Combine(Package.Directory, identifier);
+                    var directory = Path.Combine(Package.BaseDirectory, identifier);
                     var relationship = package.GetRelationshipsByType(ManifestRelationshipType).SingleOrDefault();
 
                     if (relationship == null)
