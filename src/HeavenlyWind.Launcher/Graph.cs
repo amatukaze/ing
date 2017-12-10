@@ -9,7 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public Graph(IEnumerable<Package> packages)
         {
-            _nodeMap = packages.Where(r => r.IsModulePackage && r.Assembly != null)
+            _nodeMap = packages.Where(r => r.IsModulePackage && r.MainAssembly != null)
                 .Select(r => new GraphNode(r)).ToDictionary(r => r.Package);
         }
 

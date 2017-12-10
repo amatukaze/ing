@@ -26,6 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         static IDictionary<string, Package> _installedPackages;
         static ISet<PackageInfo> _absentPackages = new HashSet<PackageInfo>();
+        static readonly IDictionary<string, PackageAssembly> _installedAssemblies = new Dictionary<string, PackageAssembly>(StringComparer.OrdinalIgnoreCase);
 
         static bool needRestart;
 
@@ -101,6 +102,26 @@ namespace Sakuno.KanColle.Amatsukaze
                 return;
             }
 
+            foreach (var package in _installedPackages.Values)
+            {
+                if (package.Id == LauncherPackageName) continue;
+                foreach (var assembly in package.Assemblies)
+                {
+                    if (_installedAssemblies.TryGetValue(assembly.AssemblyName, out var installed))
+                    {
+                        Print("Dependency conflict: ");
+                        PrintLine(assembly.AssemblyName);
+                        Print(assembly.Package);
+                        Print(" | ");
+                        PrintLine(installed.Package);
+
+                        Console.ReadKey();
+                        return;
+                    }
+                    _installedAssemblies.Add(assembly.AssemblyName, assembly);
+                }
+            }
+
             PrintLine();
             PrintLine("Ready to boot");
 
@@ -150,7 +171,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 Print(dependency.Id);
                 Print(' ');
 
-                if (dependency.Id != LauncherPackageName && dependency.Assembly == null)
+                if (dependency.SelectedTFM == null)
                 {
                     PrintLine("[CodebaseNotFound]", ConsoleColor.Red);
                     return false;
@@ -181,12 +202,10 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             const string BootstrapTypeName = "Sakuno.KanColle.Amatsukaze.Bootstrap.Bootstraper";
             const string BootstrapStartupMethodName = "Startup";
-            const string ClassLibraryExtensionName = ".dll";
 
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-            var bootstrapFilename = Path.Combine(Package.BaseDirectory, BootstrapPackageName, BootstrapPackageName + ClassLibraryExtensionName);
-            var bootstrapAssembly = Assembly.LoadFile(bootstrapFilename);
+            var bootstrapAssembly = _installedPackages[BootstrapPackageName].MainAssembly.Assembly;
             var bootstrapType = bootstrapAssembly.GetType(BootstrapTypeName);
             var parameterTypes = new[] { typeof(IDictionary<string, object>) };
             var startupMethod = bootstrapType.GetMethod(BootstrapStartupMethodName, parameterTypes);
@@ -196,12 +215,12 @@ namespace Sakuno.KanColle.Amatsukaze
                 ["CommandLine"] = args,
                 ["PackageDirectory"] = Package.BaseDirectory,
                 ["StagingPackageDirectory"] = _stagingPackagesDirectory,
-                ["ModuleAssemblies"] = _installedPackages.Values.Where(r => r.IsModulePackage && r.Assembly != null)
-                    .ToDictionary(r => r.Id, r => r.Assembly, StringComparer.OrdinalIgnoreCase),
+                ["ModuleAssemblies"] = _installedPackages.Values.Where(r => r.IsModulePackage && r.MainAssembly != null)
+                    .ToDictionary(r => r.Id, r => r.MainAssembly.Assembly, StringComparer.OrdinalIgnoreCase),
                 ["Modules"] = modules,
             };
 
-            var @delegate = (Action<IDictionary<string, object>>)Delegate.CreateDelegate(typeof(Action<IDictionary<string, object>>), startupMethod);
+            var @delegate = (Action<IDictionary<string, object>>)startupMethod.CreateDelegate(typeof(Action<IDictionary<string, object>>));
 
             @delegate(arguments);
         }
@@ -210,7 +229,7 @@ namespace Sakuno.KanColle.Amatsukaze
         {
             var name = args.Name.Remove(args.Name.IndexOf(','));
 
-            if (!_installedPackages.TryGetValue(name, out var info))
+            if (!_installedAssemblies.TryGetValue(name, out var info))
                 return null;
 
             return info.Assembly;

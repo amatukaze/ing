@@ -22,8 +22,10 @@ namespace Sakuno.KanColle.Amatsukaze
 
         private readonly string selectedTFMFolder;
 
-        Lazy<Assembly> _assembly;
-        public Assembly Assembly => _assembly.Value;
+        public PackageAssembly MainAssembly { get; }
+
+        private List<PackageAssembly> _assemblies = new List<PackageAssembly>();
+        public IEnumerable<PackageAssembly> Assemblies => _assemblies;
 
         static string[] supportedTFMs =
         {
@@ -66,18 +68,20 @@ namespace Sakuno.KanColle.Amatsukaze
                 }
             }
 
-            _assembly = new Lazy<Assembly>(LoadAssembly);
-        }
+            if (selectedTFMFolder != null)
+                foreach (var file in Directory.EnumerateFiles(selectedTFMFolder))
+                {
+                    try
+                    {
+                        var name = AssemblyName.GetAssemblyName(file);
+                        var packageAssembly = new PackageAssembly(name.Name, Id, file);
+                        _assemblies.Add(packageAssembly);
 
-        Assembly LoadAssembly()
-        {
-            const string ClassLibraryExtensionName = ".dll";
-
-            var filename = Path.Combine(BaseDirectory, Id, Id + ClassLibraryExtensionName);
-            if (!File.Exists(filename))
-                return null;
-
-            return Assembly.LoadFile(filename);
+                        if (string.Equals(name.Name, Id, StringComparison.OrdinalIgnoreCase))
+                            MainAssembly = packageAssembly;
+                    }
+                    catch { }
+                }
         }
 
         public override string ToString() => Id;
