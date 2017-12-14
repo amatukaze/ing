@@ -171,7 +171,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 Print(dependency.Id);
                 Print(' ');
 
-                if (dependency.SelectedTFM == null)
+                if (dependency.Id != LauncherPackageName && dependency.SelectedTFM == null)
                 {
                     PrintLine("[CodebaseNotFound]", ConsoleColor.Red);
                     return false;
