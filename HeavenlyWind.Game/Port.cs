@@ -275,16 +275,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             {
                 Materials.Update(r.Json["api_data"]["api_material"].ToObject<int[]>());
 
-                var rShip = Ships[int.Parse(r.Parameters["api_ship_id"])];
+                var scrapEquipment = r.Parameters["api_slot_dest_flag"] == "1";
 
-                foreach (var rEquipment in rShip.EquipedEquipment)
-                    Equipment.Remove(rEquipment);
-                OnPropertyChanged(nameof(Equipment));
+                foreach (var shipId in r.Parameters["api_ship_id"].Split(',').Select(int.Parse))
+                {
+                    var rShip = Ships[shipId];
 
-                RemoveEquipmentFromUnequippedList(rShip.EquipedEquipment);
+                    if (scrapEquipment)
+                    {
+                        foreach (var rEquipment in rShip.EquipedEquipment)
+                            Equipment.Remove(rEquipment);
+                        OnPropertyChanged(nameof(Equipment));
 
-                rShip.OwnerFleet?.Remove(rShip);
-                Ships.Remove(rShip);
+                        RemoveEquipmentFromUnequippedList(rShip.EquipedEquipment);
+                    }
+
+                    rShip.OwnerFleet?.Remove(rShip);
+                    Ships.Remove(rShip);
+                }
+
                 UpdateShipsCore();
             });
             ApiService.Subscribe("api_req_kousyou/destroyitem2", r =>

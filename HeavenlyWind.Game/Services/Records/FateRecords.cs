@@ -27,9 +27,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }));
             DisposableObjects.Add(ApiService.SubscribeOnlyOnBeforeProcessStarted("api_req_kousyou/destroyship", r =>
             {
-                var rShip = KanColleGame.Current.Port.Ships[int.Parse(r.Parameters["api_ship_id"])];
+                var scrapEquipment = r.Parameters["api_slot_dest_flag"] == "1";
 
-                AddShipFate(rShip, Fate.Dismantled);
+                foreach (var shipId in r.Parameters["api_ship_id"].Split(',').Select(int.Parse))
+                {
+                    var rShip = KanColleGame.Current.Port.Ships[shipId];
+
+                    AddShipFate(rShip, Fate.Dismantled, scrapEquipment: scrapEquipment);
+                }
             }));
             DisposableObjects.Add(ApiService.SubscribeOnlyOnBeforeProcessStarted("api_req_kousyou/destroyitem2", r =>
             {
@@ -139,7 +144,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void AddShipFate(Ship rpShip, Fate rpFate, long rpTimestamp = 0)
+        void AddShipFate(Ship rpShip, Fate rpFate, long rpTimestamp = 0, bool scrapEquipment = true)
         {
             using (var rTransaction = Connection.BeginTransaction())
             {
@@ -157,7 +162,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                     rCommand.ExecuteNonQuery();
                 }
 
-                if (rpShip.EquipedEquipment.Count > 0)
+                if (scrapEquipment && rpShip.EquipedEquipment.Count > 0)
                     AddEquipmentFate(rpShip.EquipedEquipment, rpFate, rTimestamp);
 
                 rTransaction.Commit();
