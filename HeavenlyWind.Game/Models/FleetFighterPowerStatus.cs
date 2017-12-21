@@ -49,6 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     switch (rInfo.Type)
                     {
                         case EquipmentType.CarrierBasedFighter:
+                        case EquipmentType.SeaplaneFighter:
                             rResult += rEquipment.Level * .2 * rSquareRootOfPlaneCount;
                             break;
 
