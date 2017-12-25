@@ -29,7 +29,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         internal protected override void Process()
         {
-            if (RawData == null)
+            if (RawData == null || RawData.Attackers == null)
                 return;
 
             var rParticipants = Stage.FriendAndEnemy;
