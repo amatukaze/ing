@@ -75,27 +75,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
             PreviewBoxWidth = 78 * rpColumn + 2;
             PreviewBoxHeight = 61 * rpRow + 2;
 
-            if (Previews == null)
-                Previews = Enumerable.Range(0, rpColumn * rpRow).Select(r => new ScreenshotToolPreviewViewModel(this)).ToList();
-            else
-            {
-                var rPreviews = new List<ScreenshotToolPreviewViewModel>(rpColumn * rpRow);
-
-                var rColumn = Math.Min(r_Column, rpColumn);
-                var rRow = Math.Min(r_Row, rpRow);
-                for (var i = 0; i < rpColumn; i++)
-                    for (var j = 0; j < rpRow; j++)
-                        if (i < rColumn && j < rRow)
-                            rPreviews.Add(Previews[i * rColumn + j]);
-                        else
-                            rPreviews.Add(new ScreenshotToolPreviewViewModel(this));
-
-                Previews = rPreviews;
-                OnPropertyChanged(nameof(Previews));
-            }
+            Previews = Enumerable.Range(0, rpColumn * rpRow).Select(r => new ScreenshotToolPreviewViewModel(this)).ToList();
 
             r_Column = rpColumn;
             r_Row = rpRow;
+            OnPropertyChanged(nameof(Previews));
             OnPropertyChanged(nameof(Column));
             OnPropertyChanged(nameof(Row));
             OnPropertyChanged(nameof(PreviewBoxWidth));
