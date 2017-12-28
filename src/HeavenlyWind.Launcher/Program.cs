@@ -442,9 +442,8 @@ namespace Sakuno.KanColle.Amatsukaze
         static void ExtractPackagePart(PackagePartInfo info, string packageDirectory, string filename)
         {
             var filepath = Path.Combine(packageDirectory, filename);
-            var directory = new DirectoryInfo(Path.GetDirectoryName(filepath));
-            if (!directory.Exists)
-                directory.Create();
+
+            Directory.CreateDirectory(Path.GetDirectoryName(filepath));
 
             using (var output = File.Create(filepath))
             using (var partStream = info.Part.GetStream())
