@@ -93,7 +93,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
             IsBossBattle = rpData.NodeEventType == SortieEventType.BossBattle;
 
-            if ((BattleType)rpData.NodeEventSubType == BattleType.Normal)
+            var battleType = (BattleType)rpData.NodeEventSubType;
+            if (battleType == BattleType.Normal || battleType == BattleType.NightOnly || battleType == BattleType.EnemyCombinedFleet)
             {
                 var rSupportFleets = KanColleGame.Current.Port.Fleets
                     .Where(r => r.ExpeditionStatus.Expedition != null && !r.ExpeditionStatus.Expedition.CanReturn)
