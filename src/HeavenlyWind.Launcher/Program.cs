@@ -218,6 +218,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 ["ModuleAssemblies"] = _installedPackages.Values.Where(r => r.IsModulePackage && r.MainAssembly != null)
                     .ToDictionary(r => r.Id, r => r.MainAssembly.Assembly, StringComparer.OrdinalIgnoreCase),
                 ["Modules"] = modules,
+                ["PackageVersions"] = _installedPackages.Values.ToDictionary(r => r.Id, r => r.Version, StringComparer.OrdinalIgnoreCase),
             };
 
             var @delegate = (Action<IDictionary<string, object>>)startupMethod.CreateDelegate(typeof(Action<IDictionary<string, object>>));
