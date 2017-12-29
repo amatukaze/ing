@@ -36,7 +36,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             }
 
             for (var i = 0; i < Stage.Enemy.Count; i++)
-                Stage.Enemy[i].Current -= RawData.EnemyDamage[i];
+            {
+                var participant = Stage.Enemy[i];
+
+                participant.Current -= RawData.EnemyDamage[i];
+                participant.DamageGivenToOpponent += RawData.EnemyDamageGivenToOpponent[i];
+            }
         }
     }
 }
