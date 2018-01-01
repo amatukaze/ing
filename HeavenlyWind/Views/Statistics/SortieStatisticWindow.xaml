@@ -151,7 +151,10 @@
                         </GridViewColumn>
 
                         <GridViewColumn Width="65">
-                            <TextBlock Text="{rb:StringResource Main.SortieStatistic_Count}" />
+                            <TextBlock>
+                                <Run Text="{rb:StringResource Main.SortieStatistic_Count}" />
+                                <Run Text="(" FontSize="12" /><Run Text="{rb:StringResource Main.SortieStatistic_Boss}" FontSize="12" /><Run Text=")" FontSize="12" />
+                            </TextBlock>
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

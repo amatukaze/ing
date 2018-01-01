@@ -596,6 +596,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string SortieStatistic_CustomTimeSpan_End => GetString(nameof(SortieStatistic_CustomTimeSpan_End));
         public string SortieStatistic_PastAreas => GetString(nameof(SortieStatistic_PastAreas));
         public string SortieStatistic_Count => GetString(nameof(SortieStatistic_Count));
+        public string SortieStatistic_Boss => GetString(nameof(SortieStatistic_Boss));
         public string SortieStatistic_RankingPoints => GetString(nameof(SortieStatistic_RankingPoints));
 
         public string SortieMap_UnderConstruction => GetString(nameof(SortieMap_UnderConstruction));

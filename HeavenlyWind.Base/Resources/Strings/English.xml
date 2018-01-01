@@ -606,6 +606,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="SortieStatistic_CustomTimeSpan_End">End</String>
   <String Key="SortieStatistic_PastAreas">Past event areas</String>
   <String Key="SortieStatistic_Count">Count</String>
+  <String Key="SortieStatistic_Boss">Boss</String>
   <String Key="SortieStatistic_RankingPoints">Points</String>
 
   <String Key="SortieMap_UnderConstruction">The map is under construction</String>

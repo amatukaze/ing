@@ -607,6 +607,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="SortieStatistic_CustomTimeSpan_End">結束</String>
   <String Key="SortieStatistic_PastAreas">過往的活動海域</String>
   <String Key="SortieStatistic_Count">次數</String>
+  <String Key="SortieStatistic_Boss">Boss</String>
   <String Key="SortieStatistic_RankingPoints">戰果</String>
 
   <String Key="SortieMap_UnderConstruction">地圖功能仍未實現</String>
