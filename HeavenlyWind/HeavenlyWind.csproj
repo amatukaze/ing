@@ -206,6 +206,7 @@
     <Compile Include="ViewModels\Game\MapGaugesViewModel.cs" />
     <Compile Include="ViewModels\Game\MaterialsViewModel.cs" />
     <Compile Include="ViewModels\Game\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\Game\QuestRealtimeProgressViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestsViewModel.cs" />
     <Compile Include="ViewModels\Game\QuestViewModel.cs" />
     <Compile Include="ViewModels\Game\RepairDockViewModel.cs" />

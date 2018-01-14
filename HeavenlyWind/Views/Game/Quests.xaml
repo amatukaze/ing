@@ -122,6 +122,11 @@
                         <Border Name="RealtimeProgressBorder" DataContext="{Binding Source.RealtimeProgress}" Background="Transparent" Margin="3, 0, 0, 0" Visibility="{rb:CollapsedIfNull}" Grid.Column="4">
                             <Control Style="{StaticResource QuestRealtimeProgress}" />
                         </Border>
+
+                        <Rectangle Name="ControllerTriggerZone" Fill="Transparent" Grid.ColumnSpan="5" Grid.RowSpan="3" />
+                        <Border Name="RealtimeProgressControllerBorder" HorizontalAlignment="Right" Visibility="Collapsed" Grid.Row="2" Grid.ColumnSpan="5">
+                            <Control Style="{StaticResource QuestRealtimeProgressController}" />
+                        </Border>
                     </Grid>
                 </Border>
 
@@ -136,11 +141,31 @@
                         <Setter TargetName="ProgressBorder" Property="Visibility" Value="Visible" />
                     </DataTrigger>
 
+                    <DataTrigger Binding="{Binding Source.State}" Value="None">
+                        <Setter TargetName="ControllerTriggerZone" Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
                     <DataTrigger Binding="{Binding Source.State}" Value="Completed">
                         <Setter TargetName="Progress" Property="Text" Value="{rb:StringResource Main.Quest_State_Completed}" />
                         <Setter TargetName="ProgressBorder" Property="Background" Value="Purple" />
                         <Setter TargetName="ProgressBorder" Property="Visibility" Value="Visible" />
                     </DataTrigger>
+
+                    <DataTrigger Binding="{Binding Source.ID}" Value="214">
+                        <Setter TargetName="ControllerTriggerZone" Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+
+                    <Trigger SourceName="ControllerTriggerZone" Property="AreAnyTouchesOver" Value="True">
+                        <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
+                    </Trigger>
+                    <Trigger SourceName="ControllerTriggerZone" Property="IsMouseOver" Value="True">
+                        <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
+                    </Trigger>
+                    <Trigger SourceName="RealtimeProgressControllerBorder" Property="AreAnyTouchesOver" Value="True">
+                        <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
+                    </Trigger>
+                    <Trigger SourceName="RealtimeProgressControllerBorder" Property="IsMouseOver" Value="True">
+                        <Setter TargetName="RealtimeProgressControllerBorder" Property="Visibility" Value="Visible" />
+                    </Trigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
         </ResourceDictionary>

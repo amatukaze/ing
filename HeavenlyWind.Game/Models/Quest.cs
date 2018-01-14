@@ -31,7 +31,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal DateTimeOffset CreationTime { get; } = DateTimeOffset.Now;
 
-        public ProgressInfo RealtimeProgress { get; internal set; }
+        ProgressInfo r_RealtimeProgress;
+        public ProgressInfo RealtimeProgress
+        {
+            get { return r_RealtimeProgress; }
+            internal set
+            {
+                if (r_RealtimeProgress != value)
+                {
+                    r_RealtimeProgress = value;
+                    OnPropertyChanged(nameof(RealtimeProgress));
+                }
+            }
+        }
 
         QuestInfo r_Extra;
         public QuestInfo Extra

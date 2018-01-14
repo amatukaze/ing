@@ -15,6 +15,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         public IList<QuestReward> Rewards { get; }
         public IList<QuestReward> RewardSelections { get; }
 
+        public QuestRealtimeProgressViewModel RealtimeProgress { get; }
+
         internal QuestViewModel(Quest rpQuest) : base(rpQuest)
         {
             var rRewards = new List<QuestReward>();
@@ -84,6 +86,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             }
 
             Rewards = rRewards;
+
+            RealtimeProgress = new QuestRealtimeProgressViewModel(rpQuest);
         }
     }
 }
