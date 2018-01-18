@@ -37,31 +37,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public EquipmentType Type => RawData.Type != null ? (EquipmentType)RawData.Type[2] : 0;
         public EquipmentIconType Icon => RawData.Type != null ? (EquipmentIconType)RawData.Type[3] : 0;
 
-        public bool IsPlane
-        {
-            get
-            {
-                switch (Icon)
-                {
-                    case EquipmentIconType.CarrierBasedFighter:
-                    case EquipmentIconType.CarrierBasedDiveBomber:
-                    case EquipmentIconType.CarrierBasedTorpedoBomber:
-                    case EquipmentIconType.CarrierBasedRecon:
-                    case EquipmentIconType.Seaplane:
-                    case EquipmentIconType.Autogyro:
-                    case EquipmentIconType.ASAircraft:
-                    case EquipmentIconType.FlyingBoat:
-                    case EquipmentIconType.JetFighterBomberKikkaKai:
-                    case EquipmentIconType.JetFighterBomberKeiunKai:
-                    case EquipmentIconType.SeaplaneFighter:
-                    case EquipmentIconType.NightFighter:
-                    case EquipmentIconType.NightTorpedoBomber:
-                        return true;
-
-                    default: return false;
-                }
-            }
-        }
+        public bool IsPlane => RawData.Type != null ? RawData.Type[4] != 0 : false;
 
         public bool IsJetPoweredAircraft
         {
