@@ -20,8 +20,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HeavenlyWind.Standard" Version="0.1.0-blueprint" />
     <PackageReference Include="Sakuno.Base" Version="0.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.Standard\HeavenlyWind.Standard.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
