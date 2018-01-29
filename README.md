@@ -1,7 +1,2 @@
-# HeavenlyWind.Launcher
-
-The launcher of Intelligent Naval Gun.
-
-## Licence
-
-[MIT License (MIT)](./LICENSE.md)
+# HeavenlyWind.Desktop
+Windows desktop platform parts of ING

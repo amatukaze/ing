@@ -1,21 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
     <OutputType>Exe</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.1</LangVersion>
     <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
     <AssemblyName>HeavenlyWind</AssemblyName>
-    <OutputPath>$(SolutionDir)artifacts\$(Configuration)\</OutputPath>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Version>0.1.0-blueprint</Version>
-    <Authors>Kodama Sakuno</Authors>
     <Description>The launcher of Intelligent Naval Gun</Description>
-    <Product>Intelligent Naval Gun</Product>
-    <Company>Kodama Sakuno</Company>
-    <Copyright>Copyright © 2017 Kodama Sakuno</Copyright>
     <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
