@@ -13,6 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
         static IDictionary<string, object> _args;
         static IDictionary<string, Assembly> _moduleAssemblies;
         static IDictionary<string, string> _packageVersions;
+        static IPackageService _packageService;
 
         static IList<IModule> _modules;
         static IDictionary<string, ModuleInfo> _moduleInfos;
@@ -26,6 +27,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 
             _moduleAssemblies = (IDictionary<string, Assembly>)args["ModuleAssemblies"];
             _packageVersions = (IDictionary<string, string>)args["PackageVersions"];
+            _packageService = (IPackageService)args["PackageService"];
 
             var currentAssembly = typeof(Bootstraper).Assembly;
             var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
@@ -98,9 +100,8 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 
             containerBuilder.Register(_ => new Resolver(_container)).SingleInstance().As<IResolver>();
 
-            containerBuilder.RegisterInstance(new CommonDirectoryService(_args)).SingleInstance().As<ICommonDirectoryService>();
             containerBuilder.RegisterInstance(new ModuleList(_moduleInfos)).SingleInstance().As<IModuleList>();
-            containerBuilder.RegisterType<PackageService>().SingleInstance().As<IPackageService>();
+            containerBuilder.RegisterInstance(_packageService).SingleInstance().As<IPackageService>();
 
             containerBuilder.RegisterType<App>().SingleInstance();
 
