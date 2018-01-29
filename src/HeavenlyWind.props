@@ -1,0 +1,25 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.1</LangVersion>
+    <OutputPath>$(SolutionDir)artifacts\$(Configuration)\$(AssemblyName)\</OutputPath>
+    <Authors>Kodama Sakuno</Authors>
+    <Product>Intelligent Naval Gun</Product>
+    <Company>Kodama Sakuno</Company>
+    <Copyright>Copyright © 2017 Kodama Sakuno</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/amatukaze/HeavenlyWind.Infrastructure/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/amatukaze/HeavenlyWind.Infrastructure</PackageProjectUrl>
+    <PackageTags>KanColle;ING</PackageTags>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="powershell -ExecutionPolicy Unrestricted -File $(SolutionDir)scripts\Execute-PostBuildEvent.ps1 -SolutionDir $(SolutionDir) -ProjectPath $(ProjectPath) -Configuration $(ConfigurationName) -TargetDir $(TargetDir) -TargetPath $(TargetPath)" />
+  </Target>
+
+  <Target Name="PostPack" AfterTargets="Pack">
+    <Exec Command="powershell -ExecutionPolicy Unrestricted -File $(SolutionDir)scripts\Execute-PostPackEvent.ps1 -SolutionDir $(SolutionDir) -PackageId $(PackageId) -PackageVersion $(PackageVersion) -PackageOutputPath $(PackageOutputPath)" />
+  </Target>
+
+</Project>

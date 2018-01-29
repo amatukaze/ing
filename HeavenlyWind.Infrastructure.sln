@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C29D66F9-D2E7-4C82-84CE-7A56EEBBA684}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		src\HeavenlyWind.props = src\HeavenlyWind.props
 		README.md = README.md
 	EndProjectSection
 EndProject

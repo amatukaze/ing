@@ -1,22 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.1</LangVersion>
     <RootNamespace>Sakuno.KanColle.Amatsukaze.Services.DateTime</RootNamespace>
     <AssemblyName>HeavenlyWind.Core.DateTime</AssemblyName>
-    <OutputPath>$(SolutionDir)artifacts\$(Configuration)\</OutputPath>
     <PackageId>HeavenlyWind.Core.DateTime</PackageId>
     <Version>0.1.0-blueprint</Version>
-    <Authors>Kodama Sakuno</Authors>
     <Description>Date and time service for ING</Description>
-    <Product>Intelligent Naval Gun</Product>
-    <Company>Kodama Sakuno</Company>
-    <Copyright>Copyright © 2017 Kodama Sakuno</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageTags>KanColle;ING</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,14 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HeavenlyWind.Standard\HeavenlyWind.Standard.csproj" />
+    <ProjectReference Include="$(SolutionDir)src\HeavenlyWind.Standard\HeavenlyWind.Standard.csproj" />
   </ItemGroup>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="powershell -ExecutionPolicy Unrestricted -File $(SolutionDir)scripts\Execute-PostBuildEvent.ps1 -SolutionDir $(SolutionDir) -ProjectName $(ProjectName) -ProjectPath $(ProjectPath) -Configuration $(ConfigurationName) -TargetDir $(TargetDir) -TargetPath $(TargetPath)" />
-  </Target>
-  <Target Name="PostPack" AfterTargets="Pack">
-    <Exec Command="powershell -ExecutionPolicy Unrestricted -File $(SolutionDir)scripts\Execute-PostPackEvent.ps1 -SolutionDir $(SolutionDir) -PackageId $(PackageId) -PackageVersion $(PackageVersion) -PackageOutputPath $(PackageOutputPath)" />
-  </Target>
 
 </Project>
