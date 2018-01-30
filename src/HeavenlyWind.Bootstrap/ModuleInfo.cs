@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 {
-    class ModuleInfo : IPackage
+    class ModuleInfo
     {
         public string Id { get; private set; }
 

@@ -1,7 +1,7 @@
-﻿using Sakuno.KanColle.Amatsukaze.Composition;
-using Sakuno.KanColle.Amatsukaze.Providers.Package;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Sakuno.KanColle.Amatsukaze.Composition;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
@@ -9,11 +9,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
     {
         IReadOnlyList<IPackage> Modules { get; }
 
-        IPackageProvider SelectedProvider { get; set; }
-        IPackageProvider DefaultProvider { get; }
+        bool CanUpdate { get; }
 
-        Task<string> GetLastestVersionAsync(string packageId);
-
-        Task<IPackage> FetchAndStageAsync(string packageId, string version);
+        Task<IPackage> StageAsync(PackageMetadata metadata, Stream stream);
     }
 }

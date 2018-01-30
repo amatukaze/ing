@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Services;
+﻿using Sakuno.KanColle.Amatsukaze.Providers.Package;
+using Sakuno.KanColle.Amatsukaze.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,10 +9,12 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
     class App
     {
         IPackageService _packageService;
+        IPackageProvider _packageProvider;
 
-        public App(IPackageService packageService)
+        public App(IPackageService packageService, IPackageProvider packageProvider)
         {
             _packageService = packageService;
+            _packageProvider = packageProvider;
         }
 
         public void Run()
@@ -42,7 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
         {
             Console.WriteLine("Checking for module updates...");
 
-            var tasks = _packageService.Modules.Select(r => _packageService.GetLastestVersionAsync(r.Id)).ToArray();
+            var tasks = _packageService.Modules.Select(r => _packageProvider.GetLastestVersionAsync(r.Id)).ToArray();
 
             Task.WaitAll(tasks);
 
