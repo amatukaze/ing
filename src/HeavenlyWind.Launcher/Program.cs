@@ -19,7 +19,6 @@ namespace Sakuno.KanColle.Amatsukaze
 
         const string FoundationPackageName = "HeavenlyWind.Foundation";
         const string LauncherPackageName = "HeavenlyWind.Launcher";
-        const string BootstrapPackageName = "HeavenlyWind.Bootstrap";
 
         static string _currentDirectory;
         static string _stagingPackagesDirectory;
@@ -200,30 +199,18 @@ namespace Sakuno.KanColle.Amatsukaze
 
         static void StartupNormally(string[] args, string[] modules)
         {
-            const string BootstrapTypeName = "Sakuno.KanColle.Amatsukaze.Bootstrap.Bootstraper";
-            const string BootstrapStartupMethodName = "Startup";
-
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-            var bootstrapAssembly = _installedPackages[BootstrapPackageName].MainAssembly.Assembly;
-            var bootstrapType = bootstrapAssembly.GetType(BootstrapTypeName);
-            var parameterTypes = new[] { typeof(IDictionary<string, object>) };
-            var startupMethod = bootstrapType.GetMethod(BootstrapStartupMethodName, parameterTypes);
+            var modulePackages = _installedPackages.Values.Where(r => r.IsModulePackage && r.MainAssembly != null).ToArray();
 
             var arguments = new SortedList<string, object>(StringComparer.OrdinalIgnoreCase)
             {
                 ["CommandLine"] = args,
-                ["PackageDirectory"] = Package.BaseDirectory,
-                ["StagingPackageDirectory"] = _stagingPackagesDirectory,
-                ["ModuleAssemblies"] = _installedPackages.Values.Where(r => r.IsModulePackage && r.MainAssembly != null)
-                    .ToDictionary(r => r.Id, r => r.MainAssembly.Assembly, StringComparer.OrdinalIgnoreCase),
-                ["Modules"] = modules,
-                ["PackageVersions"] = _installedPackages.Values.ToDictionary(r => r.Id, r => r.Version, StringComparer.OrdinalIgnoreCase),
+                ["ModuleAssemblies"] = modulePackages.ToDictionary(r => r.Id, r => r.MainAssembly.Assembly, StringComparer.OrdinalIgnoreCase),
+                ["PackageVersions"] = modulePackages.ToDictionary(r => r.Id, r => r.Version, StringComparer.OrdinalIgnoreCase),
             };
 
-            var @delegate = (Action<IDictionary<string, object>>)startupMethod.CreateDelegate(typeof(Action<IDictionary<string, object>>));
-
-            @delegate(arguments);
+            BootstrapperLoader.Startup(arguments);
         }
 
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)

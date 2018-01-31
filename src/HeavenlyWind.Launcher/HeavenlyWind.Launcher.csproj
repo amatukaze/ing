@@ -24,9 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FakeLib\FakeLib.csproj">
-      <Private>false</Private>
-    </ProjectReference>
+    <PackageReference Include="HeavenlyWind.Bootstrap" Version="0.1.0-blueprint" />
   </ItemGroup>
 
 </Project>

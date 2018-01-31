@@ -13,8 +13,10 @@
     <tags>KanColle ING</tags>
   </metadata>
   <files>
-    <file src="..\artifacts\$Configuration$\net461\*.dll" target="lib\net461" />
-    <file src="..\artifacts\$Configuration$\net461\HeavenlyWind.exe" target="tools" />
-    <file src="..\artifacts\$Configuration$\net461\HeavenlyWind.exe.config" target="tools" />
+    <file src="..\artifacts\$Configuration$\HeavenlyWind.Launcher\net461\netstandard.dll" target="lib\net461" />
+    <file src="..\artifacts\$Configuration$\HeavenlyWind.Launcher\net461\Microsoft.Win32.Primitives.dll" target="lib\net461" />
+    <file src="..\artifacts\$Configuration$\HeavenlyWind.Launcher\net461\System.*.dll" target="lib\net461" />
+    <file src="..\artifacts\$Configuration$\HeavenlyWind.Launcher\net461\HeavenlyWind.exe" target="tools" />
+    <file src="..\artifacts\$Configuration$\HeavenlyWind.Launcher\net461\HeavenlyWind.exe.config" target="tools" />
   </files>
 </package>
