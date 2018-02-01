@@ -1,8 +1,7 @@
-﻿using Sakuno.KanColle.Amatsukaze.Providers.Package;
-using Sakuno.KanColle.Amatsukaze.Services;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Sakuno.KanColle.Amatsukaze.Services;
 
 namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 {
@@ -30,12 +29,12 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
         {
             Console.WriteLine("Installed modules:");
 
-            foreach (var module in _packageService.Modules)
+            foreach (var package in _packageService.InstalledPackages)
             {
                 Console.Write(" - ");
-                Console.Write(module.Id);
+                Console.Write(package.Id);
                 Console.Write(' ');
-                Console.WriteLine(module.Version);
+                Console.WriteLine(package.Version);
             }
 
             Console.WriteLine();
@@ -45,7 +44,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
         {
             Console.WriteLine("Checking for module updates...");
 
-            var tasks = _packageService.Modules.Select(r => _packageProvider.GetLastestVersionAsync(r.Id)).ToArray();
+            var tasks = _packageService.InstalledPackages.Select(r => _packageProvider.GetLastestVersionAsync(r.Id)).ToArray();
 
             Task.WaitAll(tasks);
 
@@ -53,10 +52,10 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 
             for (var i = 0; i < tasks.Length; i++)
             {
-                var module = _packageService.Modules[i];
+                var package = _packageService.InstalledPackages[i];
                 var lastestVersion = tasks[i].Result;
 
-                if (module.Version != lastestVersion)
+                if (package.Version != lastestVersion)
                 {
                     if (!isAvailable)
                     {
@@ -66,7 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
                     }
 
                     Console.Write(" - ");
-                    Console.Write(module.Id);
+                    Console.Write(package.Id);
                     Console.Write(' ');
                     Console.WriteLine(lastestVersion);
                 }

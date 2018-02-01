@@ -9,8 +9,6 @@ namespace Sakuno.KanColle.Amatsukaze.Composition
         string Version { get; }
         string Description { get; }
 
-        int TargetStandardVersion { get; }
-
-        IEnumerable<string> DependsOn { get; }
+        IReadOnlyDictionary<string, string> DependsOn { get; }
     }
 }
