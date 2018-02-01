@@ -8,7 +8,7 @@
     <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
     <AssemblyName>HeavenlyWind</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <Version>0.1.0-blueprint</Version>
+    <Version>0.1.0-blueprint2</Version>
     <Description>The launcher of Intelligent Naval Gun</Description>
     <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HeavenlyWind.Bootstrap" Version="0.1.0-blueprint" />
+    <PackageReference Include="HeavenlyWind.Bootstrap" Version="0.1.0-blueprint2" />
   </ItemGroup>
 
 </Project>

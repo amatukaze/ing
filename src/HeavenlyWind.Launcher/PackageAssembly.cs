@@ -11,15 +11,14 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Package { get; }
 
         private readonly string filename;
-        private readonly Lazy<Assembly> assembly;
-        public Assembly Assembly => assembly.Value;
+        public Lazy<Assembly> LazyAssembly { get; }
 
         public PackageAssembly(string assemblyName, string package, string filename)
         {
             AssemblyName = assemblyName;
             Package = package;
             this.filename = filename;
-            assembly = new Lazy<Assembly>(LoadAssembly);
+            LazyAssembly = new Lazy<Assembly>(LoadAssembly);
         }
 
         public Assembly LoadAssembly() => File.Exists(filename) ? Assembly.LoadFile(filename) : null;

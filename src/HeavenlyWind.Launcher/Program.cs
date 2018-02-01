@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze
         const string LauncherPackageName = "HeavenlyWind.Launcher";
 
         static string _currentDirectory;
-        static string _stagingPackagesDirectory;
+        public static string StagingPackagesDirectory;
 
         static IDictionary<string, Package> _installedPackages;
         static ISet<PackageInfo> _absentPackages = new HashSet<PackageInfo>();
@@ -40,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             _currentDirectory = Path.GetDirectoryName(currentAssembly.Location);
             Package.BaseDirectory = Path.Combine(_currentDirectory, PackagesDirectoryName);
-            _stagingPackagesDirectory = Path.Combine(_currentDirectory, StagingPackagesDirectoryName);
+            StagingPackagesDirectory = Path.Combine(_currentDirectory, StagingPackagesDirectoryName);
 
             var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 
@@ -49,7 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             PrintLine();
 
-            if (Directory.Exists(_stagingPackagesDirectory))
+            if (Directory.Exists(StagingPackagesDirectory))
                 ExtractPackages();
 
             Directory.CreateDirectory(Package.BaseDirectory);
@@ -57,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
             if (!SelfTest())
             {
-                Directory.CreateDirectory(_stagingPackagesDirectory);
+                Directory.CreateDirectory(StagingPackagesDirectory);
 
                 PrintLine();
 
@@ -124,7 +124,9 @@ namespace Sakuno.KanColle.Amatsukaze
             PrintLine();
             PrintLine("Ready to boot");
 
-            StartupNormally(args, modules);
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+
+            StartupNormally(args);
         }
 
         static void LoadInstalledPackages()
@@ -197,21 +199,7 @@ namespace Sakuno.KanColle.Amatsukaze
             }
         }
 
-        static void StartupNormally(string[] args, string[] modules)
-        {
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-
-            var modulePackages = _installedPackages.Values.Where(r => r.IsModulePackage && r.MainAssembly != null).ToArray();
-
-            var arguments = new SortedList<string, object>(StringComparer.OrdinalIgnoreCase)
-            {
-                ["CommandLine"] = args,
-                ["ModuleAssemblies"] = modulePackages.ToDictionary(r => r.Id, r => r.MainAssembly.Assembly, StringComparer.OrdinalIgnoreCase),
-                ["PackageVersions"] = modulePackages.ToDictionary(r => r.Id, r => r.Version, StringComparer.OrdinalIgnoreCase),
-            };
-
-            BootstrapperLoader.Startup(arguments);
-        }
+        static void StartupNormally(string[] args) => BootstrapperLoader.Startup(args, _installedPackages.Values);
 
         static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
@@ -220,7 +208,7 @@ namespace Sakuno.KanColle.Amatsukaze
             if (!_installedAssemblies.TryGetValue(name, out var info))
                 return null;
 
-            return info.Assembly;
+            return info.LazyAssembly.Value;
         }
 
         static bool DownloadLastestFoundation()
@@ -301,7 +289,7 @@ namespace Sakuno.KanColle.Amatsukaze
             using (var response = await request.GetResponseAsync())
             {
                 var responseStream = response.GetResponseStream();
-                var filename = Path.Combine(_stagingPackagesDirectory, string.Format(FilenameFormat, id, version));
+                var filename = Path.Combine(StagingPackagesDirectory, string.Format(FilenameFormat, id, version));
                 var file = new FileInfo(filename);
                 var tempFilename = filename + ".tmp";
 
@@ -326,13 +314,13 @@ namespace Sakuno.KanColle.Amatsukaze
 
         static void ExtractPackages()
         {
-            var stagingPackagesDirectory = new DirectoryInfo(_stagingPackagesDirectory);
+            var stagingPackagesDirectory = new DirectoryInfo(StagingPackagesDirectory);
             var files = stagingPackagesDirectory.EnumerateFiles("*.nupkg");
             if (files.Any())
             {
                 PrintLine("Extracting staging packages:");
 
-                var lockingFilename = Path.Combine(_stagingPackagesDirectory, ".lock");
+                var lockingFilename = Path.Combine(StagingPackagesDirectory, ".lock");
 
                 using (File.Open(lockingFilename, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
                     foreach (var file in files)
@@ -358,7 +346,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 PrintLine();
             }
 
-            Directory.Delete(_stagingPackagesDirectory, true);
+            Directory.Delete(StagingPackagesDirectory, true);
         }
 
         static PackageExtractionInfo ExtractPackage(FileInfo file)
