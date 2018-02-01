@@ -1,19 +1,16 @@
-﻿using Autofac;
-using Sakuno.KanColle.Amatsukaze.Composition;
-using Sakuno.KanColle.Amatsukaze.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Autofac;
+using Sakuno.KanColle.Amatsukaze.Composition;
 
 namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 {
     public static class Bootstraper
     {
-        static IDictionary<string, object> _args;
-        static IDictionary<string, Assembly> _moduleAssemblies;
-        static IDictionary<string, string> _packageVersions;
-        static IPackageService _packageService;
+        static IEnumerable<PackageStartupInfo> _packages;
+        static IPackageStorage _storage;
 
         static IList<IModule> _modules;
         static IDictionary<string, ModuleInfo> _moduleInfos;
@@ -21,13 +18,10 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
         static IContainer _container;
         static IResolver _resolver;
 
-        public static void Startup(IDictionary<string, object> args)
+        public static void Startup(string[] commandLine, IEnumerable<PackageStartupInfo> packages, IPackageStorage storage)
         {
-            _args = args;
-
-            _moduleAssemblies = (IDictionary<string, Assembly>)args["ModuleAssemblies"];
-            _packageVersions = (IDictionary<string, string>)args["PackageVersions"];
-            _packageService = (IPackageService)args["PackageService"];
+            _packages = packages;
+            _storage = storage;
 
             var currentAssembly = typeof(Bootstraper).Assembly;
             var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
@@ -60,20 +54,21 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
         {
             _moduleInfos = new Dictionary<string, ModuleInfo>(StringComparer.OrdinalIgnoreCase);
 
-            foreach (var item in _moduleAssemblies)
+            foreach (var item in _packages)
             {
-                var packageId = item.Key;
+                if (item.Module == null) continue;
+                var packageId = item.Id;
 
                 var isDuplicate = false;
 
-                foreach (var moduleType in item.Value.GetTypes().Where(r => r.IsConcrete() && r.IsAssignableTo<IModule>()))
+                foreach (var moduleType in item.Module.Value.GetTypes().Where(r => r.IsConcrete() && r.IsAssignableTo<IModule>()))
                 {
                     if (isDuplicate)
                         continue;
 
                     isDuplicate = true;
 
-                    var info = ModuleInfo.Create(packageId, _packageVersions[packageId], moduleType);
+                    var info = ModuleInfo.Create(packageId, item.Version, moduleType);
 
                     _moduleInfos.Add(packageId, info);
                 }
@@ -101,7 +96,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
             containerBuilder.Register(_ => new Resolver(_container)).SingleInstance().As<IResolver>();
 
             containerBuilder.RegisterInstance(new ModuleList(_moduleInfos)).SingleInstance().As<IModuleList>();
-            containerBuilder.RegisterInstance(_packageService).SingleInstance().As<IPackageService>();
+            //containerBuilder.RegisterInstance(_packageService).SingleInstance().As<IPackageService>();
 
             containerBuilder.RegisterType<App>().SingleInstance();
 

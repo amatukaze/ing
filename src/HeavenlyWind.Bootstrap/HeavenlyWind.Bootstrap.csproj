@@ -8,7 +8,7 @@
     <RootNamespace>Sakuno.KanColle.Amatsukaze.Bootstrap</RootNamespace>
     <AssemblyName>HeavenlyWind.Bootstrap</AssemblyName>
     <PackageId>HeavenlyWind.Bootstrap</PackageId>
-    <Version>0.1.0-blueprint</Version>
+    <Version>0.1.0-blueprint2</Version>
     <Description>The bootstrap of core part of Intelligent Naval Gun</Description>
   </PropertyGroup>
 
