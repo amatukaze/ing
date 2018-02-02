@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Sakuno.KanColle.Amatsukaze.Composition;
+using Sakuno.KanColle.Amatsukaze.Services;
 
 namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 {
@@ -96,7 +97,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
             containerBuilder.Register(_ => new Resolver(_container)).SingleInstance().As<IResolver>();
 
             containerBuilder.RegisterInstance(new ModuleList(_moduleInfos)).SingleInstance().As<IModuleList>();
-            //containerBuilder.RegisterInstance(_packageService).SingleInstance().As<IPackageService>();
+            containerBuilder.RegisterInstance(new PackageService(_packages, _storage)).SingleInstance().As<IPackageService>();
 
             containerBuilder.RegisterType<App>().SingleInstance();
 

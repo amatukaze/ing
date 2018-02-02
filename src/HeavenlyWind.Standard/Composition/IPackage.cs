@@ -15,6 +15,6 @@ namespace Sakuno.KanColle.Amatsukaze.Composition
         bool RemoveRequired { get; set; }
         IReadOnlyDictionary<string, string> Dependencies { get; }
 
-        IModuleMetadata Metadata { get; }
+        ModuleMetadata Metadata { get; }
     }
 }

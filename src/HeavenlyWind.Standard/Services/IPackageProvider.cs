@@ -7,11 +7,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 {
     public interface IPackageProvider
     {
-        IReadOnlyList<IModuleMetadata> AvaiablePackages { get; }
+        IReadOnlyList<ModuleMetadata> AvaiablePackages { get; }
 
         Task<string> GetLastestVersionAsync(string packageId);
 
-        Task<IModuleMetadata> GetMetadataAsync(string id, string version);
+        Task<ModuleMetadata> GetMetadataAsync(string id, string version);
 
         Task<Stream> FetchAsync(string id, string version);
     }
