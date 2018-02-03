@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public bool IsCleared => RawData.IsCleared;
         public bool IsIncompleted => RawData.IsIncompleted;
 
-        public ClampedValue HP { get; }
+        public ClampedValue HP { get; private set; }
 
         public bool HasGauge => !IsCleared && HP != null && HP.Current > 0;
 
@@ -51,7 +51,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 var rMaximum = MasterInfo.RequiredDefeatCount.Value;
                 var rCurrent = rMaximum - RawData.DefeatedCount.Value;
 
-                HP.Set(rMaximum, rCurrent);
+                if (HP != null)
+                    HP.Set(rMaximum, rCurrent);
+                else
+                {
+                    HP = new ClampedValue(rMaximum, rCurrent);
+                    OnPropertyChanged(nameof(HP));
+                }
                 HP.Before = HP.Current;
             }
             else if (RawData.Event != null)
