@@ -1,10 +1,13 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game;
+﻿using Sakuno.KanColle.Amatsukaze.Collections;
+using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Views.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Windows.Data;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 {
@@ -21,8 +24,10 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         public bool IsLoaded { get; private set; }
 
-        IDTable<QuestViewModel> r_Quests = new IDTable<QuestViewModel>();
         QuestViewModel r_Dummy = new QuestViewModel(Quest.Dummy);
+
+        ProjectionCollection<Quest, QuestViewModel> _quests;
+        ProjectionCollection<Quest, QuestViewModel> _activeQuests;
 
         public IList<QuestViewModel> All { get; private set; }
         public IList<QuestViewModel> Active { get; private set; }
@@ -37,6 +42,12 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
         {
             r_Owner = rpOwner;
 
+            _quests = new ProjectionCollection<Quest, QuestViewModel>(KanColleGame.Current.Port.Quests.Table, r => new QuestViewModel(r));
+            _activeQuests = new ProjectionCollection<Quest, QuestViewModel>(KanColleGame.Current.Port.Quests.Active, r => new QuestViewModel(r));
+
+            BindingOperations.EnableCollectionSynchronization(_quests, new object());
+            BindingOperations.EnableCollectionSynchronization(_activeQuests, new object());
+
             var rQuestManager = KanColleGame.Current.Port.Quests;
 
             var rQuestManagerPCEL = PropertyChangedEventListener.FromSource(rQuestManager);
@@ -46,40 +57,31 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 OnPropertyChanged(nameof(IsLoaded));
             });
 
-            rQuestManagerPCEL.Add(nameof(rQuestManager.Active), (s, e) => UpdateActiveQuests());
-            UpdateActiveQuests();
+            ApiService.Subscribe("api_get_member/questlist", _ => UpdateQuestTypes());
         }
 
-        void UpdateActiveQuests()
+        void UpdateQuestTypes()
         {
-            if (r_Quests.UpdateRawData(KanColleGame.Current.Port.Quests.Table.Values, r => new QuestViewModel(r), delegate { }))
-            {
-                All = r_Quests.Values.ToArray();
-                OnPropertyChanged(nameof(All));
+            var rQuestGroups = _quests.OrderBy(r => r.ID).ToLookup(r => r.Source.Type);
 
-                var rQuestGroups = All.ToLookup(r => r.Source.Type);
+            All = _quests.ToArray();
+            Daily = rQuestGroups[QuestType.Daily].ToArray();
+            Weekly = rQuestGroups[QuestType.Weekly].ToArray();
+            Monthly = rQuestGroups[QuestType.Monthly].ToArray();
+            Once = rQuestGroups[QuestType.Once].ToArray();
+            Others = rQuestGroups[QuestType.Special].ToArray();
 
-                Daily = rQuestGroups[QuestType.Daily].ToArray();
-                Weekly = rQuestGroups[QuestType.Weekly].ToArray();
-                Monthly = rQuestGroups[QuestType.Monthly].ToArray();
-                Once = rQuestGroups[QuestType.Once].ToArray();
-                Others = rQuestGroups[QuestType.Special].ToArray();
+            OnPropertyChanged(nameof(All));
+            OnPropertyChanged(nameof(Daily));
+            OnPropertyChanged(nameof(Weekly));
+            OnPropertyChanged(nameof(Monthly));
+            OnPropertyChanged(nameof(Once));
+            OnPropertyChanged(nameof(Others));
 
-                OnPropertyChanged(nameof(Daily));
-                OnPropertyChanged(nameof(Weekly));
-                OnPropertyChanged(nameof(Monthly));
-                OnPropertyChanged(nameof(Once));
-                OnPropertyChanged(nameof(Others));
-            }
+            Active = _activeQuests.ToArray();
+            OnPropertyChanged(nameof(Active));
 
-            var rActiveQuests = KanColleGame.Current.Port.Quests.Active;
-            if (rActiveQuests != null)
-            {
-                Active = rActiveQuests.Select(r => r != Quest.Dummy ? r_Quests[r.ID] : r_Dummy).ToArray();
-                r_Owner.Overview.ActiveQuests = Active;
-
-                OnPropertyChanged(nameof(Active));
-            }
+            r_Owner.Overview.ActiveQuests = Active;
         }
     }
 }

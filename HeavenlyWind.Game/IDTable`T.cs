@@ -16,8 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             get
             {
-                T rResult;
-                if (r_Dictionary.TryGetValue(rpKey, out rResult))
+                if (r_Dictionary.TryGetValue(rpKey, out var rResult))
                     return rResult;
 
                 throw new KeyNotFoundException($"{rpKey} (T is {typeof(T).Name})");
@@ -43,13 +42,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         }
         internal void Remove(int rpID)
         {
-            T rItem;
-            if (!r_Dictionary.TryGetValue(rpID, out rItem))
+            if (!r_Dictionary.TryGetValue(rpID, out var rItem))
                 return;
+
+            var index = r_Dictionary.IndexOfKey(rpID);
 
             r_Dictionary.Remove(rpID);
 
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, rItem, rpID));
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, rItem, index));
         }
         internal void Remove(T rpData)
         {
@@ -73,8 +73,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public T GetValueOrDefault(int rpKey)
         {
-            T rResult;
-            r_Dictionary.TryGetValue(rpKey, out rResult);
+            r_Dictionary.TryGetValue(rpKey, out var rResult);
             return rResult;
         }
 
@@ -98,8 +97,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     if (rRemovedIDs != null)
                         rRemovedIDs.Remove(rRawData.ID);
 
-                    T rData;
-                    if (rpUpdate != null && r_Dictionary.TryGetValue(rRawData.ID, out rData))
+                    if (rpUpdate != null && r_Dictionary.TryGetValue(rRawData.ID, out var rData))
                         rpUpdate(rData, rRawData);
                     else
                     {

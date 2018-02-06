@@ -79,6 +79,9 @@
     <Compile Include="Browser\ScreenshotData.cs" />
     <Compile Include="CollapsedIfNullExtension.cs" />
     <Compile Include="CollapsedIfZeroExtension.cs" />
+    <Compile Include="Collections\DelegatedProjector.cs" />
+    <Compile Include="Collections\IProjector`TSource`TDestination.cs" />
+    <Compile Include="Collections\ProjectionCollection`TSource`TDestination.cs" />
     <Compile Include="CoreDatabase.cs" />
     <Compile Include="CurrentDockExtension.cs" />
     <Compile Include="DataStore.cs" />

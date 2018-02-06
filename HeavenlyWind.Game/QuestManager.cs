@@ -1,6 +1,7 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 
@@ -44,16 +45,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public Quest this[int rpID] => Table[rpID];
 
-        public IList<Quest> Active { get; private set; }
-
-        ManualResetEventSlim r_UpdateLock = new ManualResetEventSlim(true);
+        ObservableCollection<Quest> _activeQuests;
+        public IReadOnlyList<Quest> Active { get; }
 
         internal QuestManager()
         {
+            _activeQuests = new ObservableCollection<Quest>();
+            Active = new ReadOnlyObservableCollection<Quest>(_activeQuests);
+
             ApiService.Subscribe("api_get_member/questlist", _ =>
             {
-                r_UpdateLock.Wait();
-
                 UpdateQuestList();
 
                 IsLoaded = true;
@@ -61,33 +62,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             });
             ApiService.Subscribe("api_req_quest/stop", r =>
             {
-                r_UpdateLock.Reset();
-
                 var rQuestID = int.Parse(r.Parameters["api_quest_id"]);
                 Table[rQuestID].RawData.State = QuestState.None;
-
-                r_UpdateLock.Set();
             });
             ApiService.Subscribe("api_req_quest/clearitemget", r =>
             {
-                r_UpdateLock.Reset();
-
                 var rQuestID = int.Parse(r.Parameters["api_quest_id"]);
                 Table.Remove(rQuestID);
                 TotalCount--;
-
-                r_UpdateLock.Set();
             });
         }
 
         internal void UpdateQuestList()
         {
-            var rActive = Table.Values.OrderBy(r => r.ID).Where(r => r.State != QuestState.None).ToList();
-            if (rActive.Count < ActiveQuestCount)
-                rActive.AddRange(Enumerable.Repeat(Quest.Dummy, ActiveQuestCount - rActive.Count));
+            _activeQuests.Clear();
 
-            Active = rActive;
-            OnPropertyChanged(nameof(Active));
+            foreach (var activeQuest in Table.Values.OrderBy(r => r.ID).Where(r => r.State != QuestState.None))
+                _activeQuests.Add(activeQuest);
+
+            var count = _activeQuests.Count;
+
+            if (count < ActiveQuestCount)
+                for (var i = 0; i < ActiveQuestCount - count; i++)
+                    _activeQuests.Add(Quest.Dummy);
         }
     }
 }
