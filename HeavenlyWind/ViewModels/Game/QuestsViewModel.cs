@@ -62,7 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         void UpdateQuestTypes()
         {
-            var rQuestGroups = _quests.OrderBy(r => r.ID).ToLookup(r => r.Source.Type);
+            var rQuestGroups = _quests.ToLookup(r => r.Source.Type);
 
             All = _quests.ToArray();
             Daily = rQuestGroups[QuestType.Daily].ToArray();

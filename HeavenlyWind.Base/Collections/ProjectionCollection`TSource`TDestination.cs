@@ -62,8 +62,8 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
                             var newSourceItem = (TSource)e.NewItems[i];
                             var newItem = _projector.Project(newSourceItem);
 
-                            _sourceSnapshot.Add(newSourceItem);
-                            _destination.Add(newItem);
+                            _sourceSnapshot.Insert(e.NewStartingIndex + i, newSourceItem);
+                            _destination.Insert(e.NewStartingIndex + i, newItem);
 
                             newItems[i] = newItem;
                         }
