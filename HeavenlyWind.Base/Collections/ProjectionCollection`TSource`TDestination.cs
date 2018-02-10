@@ -80,6 +80,7 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
                             var oldItemIndex = _sourceSnapshot.IndexOf(oldSourceItem);
 
                             oldItems[i] = _destination[oldItemIndex];
+                            _sourceSnapshot.RemoveAt(oldItemIndex);
                             _destination.RemoveAt(oldItemIndex);
                         }
                     }
