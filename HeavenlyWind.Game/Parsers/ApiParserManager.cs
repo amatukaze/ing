@@ -44,8 +44,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
             return rParser;
         }
 
-        public static void Process(ApiSession rpSession) => Task.Run(() => ProcessCore(rpSession));
-        static void ProcessCore(ApiSession rpSession)
+        public static void Process(ApiSession rpSession)
         {
             var rApi = rpSession.DisplayUrl;
             var rResponse = rpSession.ResponseBodyString;

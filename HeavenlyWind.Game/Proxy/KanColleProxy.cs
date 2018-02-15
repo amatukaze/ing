@@ -163,19 +163,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                         rCommand.ExecuteNonQuery();
                     }
 
-                var rApiSession = rSession as ApiSession;
-                if (rApiSession != null)
-                {
-                    rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
-                    ApiParserManager.Process(rApiSession);
-                }
-
                 var rResourceSession = rSession as ResourceSession;
                 if (rResourceSession != null)
                     CacheService.Instance.ProcessResponse(rResourceSession, rpSession);
-
-                if (rResourceSession == null && rApiSession == null)
-                    rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
 
                 if (rpSession.PathAndQuery.OICEquals("/gadget/js/kcs_flash.js"))
                 {
@@ -243,12 +233,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         static void FiddlerApplication_AfterSessionComplete(Session rpSession)
         {
             var rSession = rpSession.Tag as NetworkSession;
-            if (rSession != null)
-                rSession.StatusCode = rpSession.responseCode;
+            if (rSession == null)
+                return;
 
-            var rResourceSession = rSession as ResourceSession;
-            if (rResourceSession != null)
-                CacheService.Instance.ProcessOnCompletion(rResourceSession, rpSession);
+            rSession.StatusCode = rpSession.responseCode;
+
+            switch (rSession)
+            {
+                case ApiSession api:
+                    rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
+                    ApiParserManager.Process(api);
+                    break;
+
+                case ResourceSession resource:
+                    CacheService.Instance.ProcessOnCompletion(resource, rpSession);
+                    break;
+
+                default:
+                    rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
+                    break;
+            }
         }
 
         static void UpdateUpstreamProxy()
