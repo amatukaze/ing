@@ -194,34 +194,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             }
 
             using (var rTransaction = r_Connection.BeginTransaction())
+            using (var rCommand = r_Connection.CreateCommand())
             {
-                using (var rCommand = r_Connection.CreateCommand())
+                rCommand.CommandText = "INSERT OR IGNORE INTO abyssal.composition(id, position, ship) VALUES(@composition, @position, @ship);";
+
+                rCommand.Parameters.AddWithValue("@composition", rCompositionID);
+
+                for (var i = 0; i < rEnemies.Length; i++)
                 {
-                    var rBuilder = new StringBuilder(256);
+                    if (rEnemies[i] == -1)
+                        continue;
 
-                    rBuilder.Append("INSERT OR IGNORE INTO abyssal.composition(id, position, ship) VALUES");
-                    for (var i = 0; i < rEnemies.Length; i++)
-                    {
-                        if (rEnemies[i] == -1)
-                            continue;
-
-                        rBuilder.Append($"({rCompositionID}, {i}, {rEnemies[i]})");
-                        if (i < rEnemies.Length - 1)
-                            rBuilder.Append(',');
-                    }
-                    rBuilder.Append(';');
-
-                    rBuilder.Append("INSERT OR IGNORE INTO abyssal.fleet(map, node, difficulty, formation, composition, synced) VALUES(@map, @node, @difficulty, @formation, @composition, 0);");
-
-                    rCommand.CommandText = rBuilder.ToString();
-                    rCommand.Parameters.AddWithValue("@map", rSortie.Map.ID);
-                    rCommand.Parameters.AddWithValue("@node", rNodeID);
-                    rCommand.Parameters.AddWithValue("@difficulty", (int?)rSortie.Map.Difficulty ?? 0);
-                    rCommand.Parameters.AddWithValue("@formation", rFormation.FormationAndEngagementForm[1]);
-                    rCommand.Parameters.AddWithValue("@composition", rCompositionID);
-
+                    rCommand.Parameters.AddWithValue("@position", i);
+                    rCommand.Parameters.AddWithValue("@ship", rEnemies[i]);
                     rCommand.ExecuteNonQuery();
                 }
+
+                rCommand.CommandText = "INSERT OR IGNORE INTO abyssal.fleet(map, node, difficulty, formation, composition, synced) VALUES(@map, @node, @difficulty, @formation, @composition, 0);";
+                rCommand.Parameters.AddWithValue("@map", rSortie.Map.ID);
+                rCommand.Parameters.AddWithValue("@node", rNodeID);
+                rCommand.Parameters.AddWithValue("@difficulty", (int?)rSortie.Map.Difficulty ?? 0);
+                rCommand.Parameters.AddWithValue("@formation", rFormation.FormationAndEngagementForm[1]);
+
+                rCommand.ExecuteNonQuery();
 
                 rTransaction.Commit();
             }

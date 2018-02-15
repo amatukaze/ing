@@ -174,49 +174,48 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         void StartSortie(ApiInfo rpData)
         {
-            var rBuilder = new StringBuilder(512);
-            rBuilder.AppendLine("DELETE FROM sortie_reward_pending;");
-            rBuilder.AppendLine("INSERT INTO sortie_consumption(id) VALUES (@id);");
-            rBuilder.Append("INSERT INTO sortie_participant_ship(id, ship_id, ship, type) VALUES");
-
             var rSortie = SortieInfo.Current;
-            var rCommand = Connection.CreateCommand();
 
-            ProcessParticipants(rBuilder, rSortie);
-            ProcessSupportFleets(rBuilder);
-
-            rBuilder.AppendLine(";");
-
-            if (rSortie.AirForceGroups?.Length > 0)
+            using (var transaction = Connection.BeginTransaction())
+            using (var command = Connection.CreateCommand())
             {
-                ProcessAirBaseSquadronParticipants(rBuilder, rSortie.AirForceGroups);
-                ProcessAirBasePlaneDeploymentConsumption(rBuilder, rCommand.Parameters, rSortie.Map, rSortie.AirForceGroups);
-                ProcessAirForceGroupSortieConsumption(rBuilder, rCommand.Parameters, rSortie.AirForceGroups);
+                command.CommandText =
+                    "DELETE FROM sortie_reward_pending;" +
+                    "INSERT INTO sortie_consumption(id) VALUES (@id);";
+                command.Parameters.AddWithValue("@id", rSortie.ID);
+                command.ExecuteNonQuery();
+
+                command.CommandText = "INSERT INTO sortie_participant_ship(id, ship_id, ship, type) VALUES(@id, @pid, @psid, @ptype);";
+
+                ProcessParticipants(command, rSortie);
+                ProcessSupportFleets(command);
+
+                if (rSortie.AirForceGroups?.Length > 0)
+                {
+                    ProcessAirBaseSquadronParticipants(command, rSortie.AirForceGroups);
+                    ProcessAirBasePlaneDeploymentConsumption(command, rSortie.Map, rSortie.AirForceGroups);
+                    ProcessAirForceGroupSortieConsumption(command, rSortie.AirForceGroups);
+                }
+
+                transaction.Commit();
             }
-
-            rCommand.CommandText = rBuilder.ToString();
-            rCommand.Parameters.AddWithValue("@id", rSortie.ID);
-
-            rCommand.PostToTransactionQueue();
         }
-        void ProcessParticipants(StringBuilder rpBuilder, SortieInfo rpSortie)
+        void ProcessParticipants(SQLiteCommand command, SortieInfo rpSortie)
         {
             IEnumerable<IParticipant> rParticipants = rpSortie.MainShips;
             if (rpSortie.EscortShips != null)
                 rParticipants = rParticipants.Concat(rpSortie.EscortShips);
 
-            var rFirst = true;
+            command.Parameters.AddWithValue("@ptype", 0);
+
             foreach (FriendShip rParticipant in rParticipants)
             {
-                if (rFirst)
-                    rFirst = false;
-                else
-                    rpBuilder.Append(", ");
-
-                rpBuilder.Append($"(@id, {rParticipant.Ship.ID}, {rParticipant.Info.ID}, 0)");
+                command.Parameters.AddWithValue("@pid", rParticipant.Ship.ID);
+                command.Parameters.AddWithValue("@psid", rParticipant.Info.ID);
+                command.ExecuteNonQuery();
             }
         }
-        void ProcessSupportFleets(StringBuilder rpBuilder)
+        void ProcessSupportFleets(SQLiteCommand command)
         {
             var rSupportFleets = Port.Fleets.Where(r =>
             {
@@ -226,43 +225,46 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }).ToArray();
 
             if (rSupportFleets.Length > 0)
-                foreach (var rShip in rSupportFleets.SelectMany(r => r.Ships))
-                    rpBuilder.Append($", (@id, {rShip.ID}, {rShip.Info.ID}, 1)");
-        }
-        void ProcessAirBaseSquadronParticipants(StringBuilder rpBuilder, AirForceGroup[] rpGroups)
-        {
-            rpBuilder.Append("INSERT INTO sortie_participant_airbase(id, [group], plane_id, plane) VALUES");
+            {
+                command.Parameters.AddWithValue("@ptype", 1);
 
-            var rFirst = true;
+                foreach (var rShip in rSupportFleets.SelectMany(r => r.Ships))
+                {
+                    command.Parameters.AddWithValue("@pid", rShip.ID);
+                    command.Parameters.AddWithValue("@psid", rShip.Info.ID);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        void ProcessAirBaseSquadronParticipants(SQLiteCommand command, AirForceGroup[] rpGroups)
+        {
+            command.CommandText = "INSERT INTO sortie_participant_airbase(id, [group], plane_id, plane) VALUES(@id, @gid, @spid, @speid);";
+
             foreach (var rGroup in rpGroups)
                 foreach (var rSquadron in rGroup.Squadrons.Values)
                 {
                     if (rSquadron.State != AirForceSquadronState.Idle)
                         continue;
 
-                    if (rFirst)
-                        rFirst = false;
-                    else
-                        rpBuilder.Append(", ");
-
-                    rpBuilder.Append($"(@id, {rGroup.ID}, {rSquadron.Plane.ID}, {rSquadron.Plane.Info.ID})");
+                    command.Parameters.AddWithValue("@gid", rGroup.ID);
+                    command.Parameters.AddWithValue("@spid", rSquadron.Plane.ID);
+                    command.Parameters.AddWithValue("@speid", rSquadron.Plane.Info.ID);
+                    command.ExecuteNonQuery();
                 }
-
-            rpBuilder.AppendLine(";");
         }
 
-        void ProcessAirBasePlaneDeploymentConsumption(StringBuilder rpBuilder, SQLiteParameterCollection rpParameters, MapInfo rpMap, AirForceGroup[] rpGroups)
+        void ProcessAirBasePlaneDeploymentConsumption(SQLiteCommand command, MapInfo rpMap, AirForceGroup[] rpGroups)
         {
             var rStatement = string.Join(", ", rpGroups.Select(r => r.ID));
 
-            rpBuilder.AppendFormat("INSERT OR IGNORE INTO sortie_consumption_detail(id, type, bauxite) VALUES(@id, 3, (SELECT sum(bauxite) FROM airbase_plane_deployment_consumption WHERE area = @area AND [group] IN ({0})));{1}" +
+            command.CommandText = string.Format("INSERT OR IGNORE INTO sortie_consumption_detail(id, type, bauxite) VALUES(@id, 3, (SELECT sum(bauxite) FROM airbase_plane_deployment_consumption WHERE area = @area AND [group] IN ({0})));{1}" +
                 "DELETE FROM sortie_consumption_detail WHERE id = @id AND type = 3 AND bauxite IS NULL;{1}" +
                 "DELETE FROM airbase_plane_deployment_consumption WHERE area = @area AND [group] IN ({0});", rStatement, Environment.NewLine);
-            rpBuilder.AppendLine();
-            rpParameters.AddWithValue("@area", rpMap.MasterInfo.AreaID);
-            rpParameters.AddWithValue("@group", rpMap.AvailableAirBaseGroupCount);
+            command.Parameters.AddWithValue("@area", rpMap.MasterInfo.AreaID);
+            command.Parameters.AddWithValue("@group", rpMap.AvailableAirBaseGroupCount);
+            command.ExecuteNonQuery();
         }
-        void ProcessAirForceGroupSortieConsumption(StringBuilder rpBuilder, SQLiteParameterCollection rpParameters, AirForceGroup[] rpGroups)
+        void ProcessAirForceGroupSortieConsumption(SQLiteCommand command, AirForceGroup[] rpGroups)
         {
             var rFuelConsumption = 0;
             var rBulletConsumption = 0;
@@ -276,9 +278,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             if (rFuelConsumption == 0 && rBulletConsumption == 0)
                 return;
 
-            rpBuilder.AppendLine("INSERT OR IGNORE INTO sortie_consumption_detail(id, type, fuel, bullet) VALUES(@id, 4, @afgs_fuel, @afgs_bullet);");
-            rpParameters.AddWithValue("@afgs_fuel", rFuelConsumption);
-            rpParameters.AddWithValue("@afgs_bullet", rBulletConsumption);
+            command.CommandText = "INSERT OR IGNORE INTO sortie_consumption_detail(id, type, fuel, bullet) VALUES(@id, 4, @afgs_fuel, @afgs_bullet);";
+            command.Parameters.AddWithValue("@afgs_fuel", rFuelConsumption);
+            command.Parameters.AddWithValue("@afgs_bullet", rBulletConsumption);
         }
 
         void BeforeSupply(ApiInfo rpInfo)

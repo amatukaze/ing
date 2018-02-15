@@ -223,25 +223,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             using (var rTransaction = Connection.BeginTransaction())
             using (var rCommand = Connection.CreateCommand())
             {
-                var rCommandTextBuilder = new StringBuilder(1024);
-                rCommandTextBuilder.Append("INSERT INTO battle_detail.battle(id, first) VALUES(@battle_id, @first);");
+                rCommand.CommandText = "INSERT INTO battle_detail.battle(id, first) VALUES(@battle_id, @first);";
                 rCommand.Parameters.AddWithValue("@battle_id", r_CurrentBattleID.Value);
                 rCommand.Parameters.AddWithValue("@first", CompressJson(rpInfo.Json["api_data"]));
 
-                ProcessParticipantFleet(rCommandTextBuilder, rSortie.Fleet, ParticipantFleetType.Main);
+                rCommand.ExecuteNonQuery();
+
+                ProcessParticipantFleet(rCommand, rSortie.Fleet, ParticipantFleetType.Main);
                 if (rSortie.EscortFleet != null)
-                    ProcessParticipantFleet(rCommandTextBuilder, rSortie.EscortFleet, ParticipantFleetType.Escort);
+                    ProcessParticipantFleet(rCommand, rSortie.EscortFleet, ParticipantFleetType.Escort);
 
                 var rData = rpInfo.Data as RawDay;
                 if (rData != null && rData.SupportingFireType != 0)
                 {
                     var rSupportFire = rData.SupportingFire;
                     var rFleetID = (rSupportFire.SupportShelling?.FleetID ?? rSupportFire.AerialSupport?.FleetID).Value;
-                    ProcessParticipantFleet(rCommandTextBuilder, KanColleGame.Current.Port.Fleets[rFleetID], ParticipantFleetType.SupportFire);
+                    ProcessParticipantFleet(rCommand, KanColleGame.Current.Port.Fleets[rFleetID], ParticipantFleetType.SupportFire);
                 }
-
-                rCommand.CommandText = rCommandTextBuilder.ToString();
-                rCommand.ExecuteNonQuery();
 
                 rTransaction.Commit();
             }
@@ -256,12 +254,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             using (var rTransaction = Connection.BeginTransaction())
             using (var rCommand = Connection.CreateCommand())
             {
-                var rCommandTextBuilder = new StringBuilder(1024);
-                rCommandTextBuilder.Append("INSERT OR IGNORE INTO practice_opponent(id, name) VALUES(@opponent_id, @opponent_name);" +
+                rCommand.CommandText = "INSERT OR IGNORE INTO practice_opponent(id, name) VALUES(@opponent_id, @opponent_name);" +
                     "INSERT OR IGNORE INTO practice_opponent_comment(id, comment) VALUES(@opponent_comment_id, @opponent_coment);" +
                     "INSERT OR IGNORE INTO practice_opponent_fleet(id, name) VALUES(@opponent_fleet_name_id, @opponent_fleet_name);" +
                     "INSERT INTO practice(id, opponent, opponent_level, opponent_experience, opponent_rank, opponent_comment, opponent_fleet) VALUES(@battle_id, @opponent_id, @opponent_level, @opponent_experience, @opponent_rank, @opponent_comment_id, @opponent_fleet_name_id);" +
-                    "INSERT INTO battle_detail.battle(id, first) VALUES(@battle_id, @first);");
+                    "INSERT INTO battle_detail.battle(id, first) VALUES(@battle_id, @first);";
                 rCommand.Parameters.AddWithValue("@opponent_id", rOpponent.RawData.ID);
                 rCommand.Parameters.AddWithValue("@opponent_name", rOpponent.Name);
                 rCommand.Parameters.AddWithValue("@opponent_comment_id", rOpponent.RawData.CommentID ?? -1);
@@ -273,11 +270,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 rCommand.Parameters.AddWithValue("@opponent_rank", (int)rOpponent.Rank);
                 rCommand.Parameters.AddWithValue("@battle_id", r_CurrentBattleID.Value);
                 rCommand.Parameters.AddWithValue("@first", CompressJson(rpInfo.Json["api_data"]));
-
-                ProcessParticipantFleet(rCommandTextBuilder, rParticipantFleet, ParticipantFleetType.Main);
-
-                rCommand.CommandText = rCommandTextBuilder.ToString();
                 rCommand.ExecuteNonQuery();
+
+                ProcessParticipantFleet(rCommand, rParticipantFleet, ParticipantFleetType.Main);
 
                 rTransaction.Commit();
             }
@@ -346,20 +341,43 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             }
         }
 
-        void ProcessParticipantFleet(StringBuilder rpCommandTextBuilder, Fleet rpFleet, ParticipantFleetType rpType)
+        void ProcessParticipantFleet(SQLiteCommand command, Fleet rpFleet, ParticipantFleetType rpType)
         {
             var rFleetID = (int)rpType;
 
-            rpCommandTextBuilder.Append($"INSERT OR IGNORE INTO battle_detail.participant_fleet_name(id, name) VALUES({rpFleet.RawData.NameID ?? -rpFleet.ID}, '{rpFleet.Name}');");
-            rpCommandTextBuilder.Append($"INSERT INTO battle_detail.participant_fleet(battle, id, name) VALUES(@battle_id, {rFleetID}, {rpFleet.RawData.NameID ?? -rpFleet.ID});");
+            command.CommandText =
+                "INSERT OR IGNORE INTO battle_detail.participant_fleet_name(id, name) VALUES(@pf_id, @pf_name);" +
+                "INSERT INTO battle_detail.participant_fleet(battle, id, name) VALUES(@battle_id, @fid, @pf_id);";
+            command.Parameters.AddWithValue("@pf_id", rpFleet.RawData.NameID ?? -rpFleet.ID);
+            command.Parameters.AddWithValue("@pf_name", rpFleet.Name);
+            command.Parameters.AddWithValue("@fid", rFleetID);
+            command.ExecuteNonQuery();
 
             for (var i = 0; i < rpFleet.Ships.Count; i++)
             {
                 var rShip = rpFleet.Ships[i];
                 var rID = rFleetID * 6 + i;
 
-                rpCommandTextBuilder.Append("INSERT INTO battle_detail.participant(battle, id, ship, level, condition, fuel, bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) ");
-                rpCommandTextBuilder.Append($"VALUES(@battle_id, {rID}, {rShip.Info.ID}, {rShip.Level}, {rShip.Condition}, {rShip.Fuel.Current}, {rShip.Bullet.Current}, {rShip.Status.FirepowerBase.Current}, {rShip.Status.TorpedoBase.Current}, {rShip.Status.AABase.Current}, {rShip.Status.ArmorBase.Current}, {rShip.Status.Evasion}, {rShip.Status.ASW}, {rShip.Status.LoS}, {rShip.Status.Luck}, {(int)rShip.Range});");
+                command.CommandText =
+                    "INSERT INTO battle_detail.participant(battle, id, ship, level, condition, fuel, bullet, firepower, torpedo, aa, armor, evasion, asw, los, luck, range) " +
+                        "VALUES(@battle_id, @sid, @siid, @slv, @sc, @sfuel, @sbullet, @sfirepower, @storpedo, @saa, @sarmor, @sevasion, @sasw, @slos, @sluck, @srange);";
+
+                command.Parameters.AddWithValue("@sid", rID);
+                command.Parameters.AddWithValue("@siid", rShip.Info.ID);
+                command.Parameters.AddWithValue("@slv", rShip.Level);
+                command.Parameters.AddWithValue("@sc", rShip.Condition);
+                command.Parameters.AddWithValue("@sfuel", rShip.Fuel.Current);
+                command.Parameters.AddWithValue("@sbullet", rShip.Bullet.Current);
+                command.Parameters.AddWithValue("@sfirepower", rShip.Status.FirepowerBase.Current);
+                command.Parameters.AddWithValue("@storpedo", rShip.Status.TorpedoBase.Current);
+                command.Parameters.AddWithValue("@saa", rShip.Status.AABase.Current);
+                command.Parameters.AddWithValue("@sarmor", rShip.Status.ArmorBase.Current);
+                command.Parameters.AddWithValue("@sevasion", rShip.Status.Evasion);
+                command.Parameters.AddWithValue("@sasw", rShip.Status.ASW);
+                command.Parameters.AddWithValue("@slos", rShip.Status.LoS);
+                command.Parameters.AddWithValue("@sluck", rShip.Status.Luck);
+                command.Parameters.AddWithValue("@srange", rShip.Range);
+                command.ExecuteNonQuery();
 
                 for (var j = 0; j < rShip.Slots.Count; j++)
                 {
@@ -368,11 +386,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                         break;
 
                     var rLevelAndProficiency = rSlot.Equipment.Level + (rSlot.Equipment.Proficiency << 4);
-                    rpCommandTextBuilder.Append($"INSERT INTO battle_detail.participant_slot(battle, participant, id, equipment, level, plane_count) VALUES(@battle_id, {rID}, {j}, {rSlot.Equipment.Info.ID}, {rLevelAndProficiency}, {rSlot.PlaneCount});");
+                    command.CommandText = "INSERT INTO battle_detail.participant_slot(battle, participant, id, equipment, level, plane_count) VALUES(@battle_id, @sid, @eid, @eeid, @elp, @epc);";
+                    command.Parameters.AddWithValue("@eid", j);
+                    command.Parameters.AddWithValue("@eeid", rSlot.Equipment.Info.ID);
+                    command.Parameters.AddWithValue("@elp", rLevelAndProficiency);
+                    command.Parameters.AddWithValue("@epc", rSlot.PlaneCount);
+                    command.ExecuteNonQuery();
                 }
 
                 if (rShip.ExtraSlot != null)
-                    rpCommandTextBuilder.Append($"INSERT INTO battle_detail.participant_slot(battle, participant, id, equipment, level, plane_count) VALUES(@battle_id, {rID}, -1, {rShip.ExtraSlot.Equipment.Info.ID}, 0, 0);");
+                {
+                    command.CommandText = "INSERT INTO battle_detail.participant_slot(battle, participant, id, equipment, level, plane_count) VALUES(@battle_id, @sid, -1, @exslot, 0, 0);";
+                    command.Parameters.AddWithValue("@exslot", rShip.ExtraSlot.Equipment.Info.ID);
+                    command.ExecuteNonQuery();
+                }
             }
         }
     }

@@ -99,23 +99,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
         }
         void InsertShipExperience(long rpTimestamp, List<Ship> rpShips)
         {
-            using (var rCommand = Connection.CreateCommand())
+            using (var transaction = Connection.BeginTransaction())
+            using (var command = Connection.CreateCommand())
             {
-                var rBuilder = new StringBuilder(128);
+                command.CommandText = "INSERT INTO ship_experience(id, time, experience) VALUES(@id, @timestamp, @exp);";
 
-                rBuilder.Append("INSERT INTO ship_experience(id, time, experience) VALUES");
-                for (var i = 0; i < rpShips.Count; i++)
+                foreach (var ship in rpShips)
                 {
-                    if (i > 0)
-                        rBuilder.Append(", ");
-
-                    var rShip = rpShips[i];
-                    rBuilder.Append($"({rShip.ID}, {rpTimestamp}, {rShip.Experience})");
+                    command.Parameters.AddWithValue("@id", ship.ID);
+                    command.Parameters.AddWithValue("@timestamp", rpTimestamp);
+                    command.Parameters.AddWithValue("@exp", ship.Experience);
+                    command.ExecuteNonQuery();
                 }
-                rBuilder.Append(';');
 
-                rCommand.CommandText = rBuilder.ToString();
-                rCommand.ExecuteNonQuery();
+                transaction.Commit();
             }
         }
     }
