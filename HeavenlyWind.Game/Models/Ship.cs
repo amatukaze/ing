@@ -83,7 +83,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int RepairFuelConsumption => RawData.RepairConsumption[0];
         public int RepairSteelConsumption => RawData.RepairConsumption[1];
 
-        public Fleet OwnerFleet { get; internal set; }
+        public Fleet OwnerFleet
+        {
+            get
+            {
+                foreach (var fleet in KanColleGame.Current.Port.Fleets)
+                    if (fleet.Ships.Contains(this))
+                        return fleet;
+
+                return null;
+            }
+        }
 
         RepairDock r_OwnerRepairDock;
         public RepairDock OwnerRepairDock

@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public class FleetManager : ModelBase, IEnumerable<Fleet>
     {
-        public IList<Fleet> Items { get; private set; }
+        public IList<Fleet> Items { get; private set; } = new Fleet[0];
 
         public CombinedFleetType CombinedFleetType { get; internal set; }
 
@@ -49,10 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 {
                     var rOriginalShip = rFleet.Organize(rIndex, rShip);
                     if (rOriginalIndex.HasValue)
-                    {
                         rOriginalFleet.Organize(rOriginalIndex.Value, rOriginalShip);
-                        rShip.OwnerFleet = rFleet;
-                    }
                 }
 
                 if ((rFleet.State & FleetState.AnchorageRepair) == FleetState.AnchorageRepair)
@@ -66,8 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             ApiService.Subscribe("api_req_hensei/preset_select", r =>
             {
                 var rFleet = this[int.Parse(r.Parameters["api_deck_id"])];
-                foreach (var rShip in rFleet.Ships)
-                    rShip.OwnerFleet = null;
+
                 rFleet.Update(r.GetData<RawFleet>());
             });
 

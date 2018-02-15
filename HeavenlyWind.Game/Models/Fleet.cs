@@ -82,9 +82,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 r_ShipIDs = RawData.Ships;
                 r_ShipList = RawData.Ships.TakeWhile(r => r != -1).Select(r => Port.Ships[r]).ToList();
 
-                foreach (var rShip in r_ShipList)
-                    rShip.OwnerFleet = this;
-
                 UpdateShips();
             }
 
@@ -180,11 +177,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 r_ShipIDs = r_ShipList.Select(r => r.ID).ToArray();
             }
 
-            if (rpShip != null)
-                rpShip.OwnerFleet = this;
-            if (rOriginalShip != null)
-                rOriginalShip.OwnerFleet = null;
-
             UpdateShips();
 
             return rOriginalShip;
@@ -209,9 +201,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal void Remove(int rpIndex)
         {
-            var rShip = r_ShipList[rpIndex];
-            rShip.OwnerFleet = null;
-
             r_ShipList.RemoveAt(rpIndex);
             r_ShipIDs = r_ShipList.Select(r => r.ID).ToArray();
 
@@ -225,9 +214,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         }
         internal void RemoveAllExceptFlagship()
         {
-            foreach (var rShip in r_ShipList.Skip(1))
-                rShip.OwnerFleet = null;
-
             r_ShipIDs = r_ShipIDs.Take(1).ToArray();
             r_ShipList.RemoveRange(1, r_ShipList.Count - 1);
 
