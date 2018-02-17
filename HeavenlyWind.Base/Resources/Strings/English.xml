@@ -286,6 +286,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="AbyssalShip_Class_LateModel"> Late model</String>
 
   <String Key="Map_Difficulty_None" />
+  <String Key="Map_Difficulty_Casual">Casual</String>
   <String Key="Map_Difficulty_Easy">Easy</String>
   <String Key="Map_Difficulty_Normal">Medium</String>
   <String Key="Map_Difficulty_Hard">Hard</String>

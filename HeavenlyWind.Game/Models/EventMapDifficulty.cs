@@ -3,6 +3,7 @@
     public enum EventMapDifficulty
     {
         None,
+        Casual,
         Easy,
         Normal,
         Hard,

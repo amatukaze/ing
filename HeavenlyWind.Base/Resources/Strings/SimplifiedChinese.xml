@@ -285,6 +285,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="AbyssalShip_Class_LateModel">後期型</String>
 
   <String Key="Map_Difficulty_None" />
+  <String Key="Map_Difficulty_Casual">丁</String>
   <String Key="Map_Difficulty_Easy">丙</String>
   <String Key="Map_Difficulty_Normal">乙</String>
   <String Key="Map_Difficulty_Hard">甲</String>

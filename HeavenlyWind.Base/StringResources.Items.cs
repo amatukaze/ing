@@ -276,6 +276,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string AbyssalShip_Class_LateModel => GetString(nameof(AbyssalShip_Class_LateModel));
 
         public string Map_Difficulty_None => GetString(nameof(Map_Difficulty_None));
+        public string Map_Difficulty_Casual => GetString(nameof(Map_Difficulty_Casual));
         public string Map_Difficulty_Easy => GetString(nameof(Map_Difficulty_Easy));
         public string Map_Difficulty_Normal => GetString(nameof(Map_Difficulty_Normal));
         public string Map_Difficulty_Hard => GetString(nameof(Map_Difficulty_Hard));
