@@ -281,6 +281,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             command.CommandText = "INSERT OR IGNORE INTO sortie_consumption_detail(id, type, fuel, bullet) VALUES(@id, 4, @afgs_fuel, @afgs_bullet);";
             command.Parameters.AddWithValue("@afgs_fuel", rFuelConsumption);
             command.Parameters.AddWithValue("@afgs_bullet", rBulletConsumption);
+            command.ExecuteNonQuery();
         }
 
         void BeforeSupply(ApiInfo rpInfo)
