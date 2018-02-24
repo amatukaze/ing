@@ -9,6 +9,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
     {
         public override BattleStageType Type => BattleStageType.NightToDay;
 
+        public NpcSupportingFirePhase NpcSupportingFire { get; protected set; }
+
         public SupportingFirePhase NightSupportingFire { get; protected set; }
 
         public ShellingPhase NightShellingFirstRound { get; protected set; }
@@ -16,6 +18,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 
         public override IList<BattlePhase> Phases => new BattlePhase[]
         {
+            NpcSupportingFire,
+
             NightSupportingFire,
 
             NightShellingFirstRound,
@@ -37,6 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
         internal protected EnemyCombinedFleetNightToDayStage(BattleInfo rpOwner, ApiInfo rpInfo) : base(rpOwner)
         {
             var rRawData = rpInfo.Data as RawEnemyCombinedFleetNightToDay;
+
+            NpcSupportingFire = new NpcSupportingFirePhase(this, rRawData.NpcSupportingFire?.Shelling);
 
             NightSupportingFire = new SupportingFirePhase(this, rRawData.NightSupportingFire);
 
