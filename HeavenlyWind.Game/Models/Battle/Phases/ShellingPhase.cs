@@ -1,5 +1,6 @@
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
+using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 {
@@ -66,8 +67,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
                         BattleParticipantSnapshot rDefender, rAttacker;
 
-                        var enemyMainCount = Stage.EnemyMain.Count;
-                        var friendMainCount = Stage.FriendMain.Count;
+                        var enemyMainCount = Math.Max(Stage.EnemyMain.Count, 6);
+                        var friendMainCount = Math.Max(Stage.FriendMain.Count, 6);
 
                         if (!rIsEnemy)
                         {
