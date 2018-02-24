@@ -1,25 +1,11 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
-using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 {
     class TorpedoSalvoPhase : BattlePhase<RawTorpedoSalvoPhase>
     {
-        bool r_IsFriendEscortFleet;
-        bool r_IsEnemyEscortFleet;
-
-        internal TorpedoSalvoPhase(BattleStage rpStage, RawTorpedoSalvoPhase rpRawData, bool rpIsFriendEscortFleet = false, bool rpIsEnemyEscortFleet = false) : base(rpStage, rpRawData)
+        internal TorpedoSalvoPhase(BattleStage rpStage, RawTorpedoSalvoPhase rpRawData) : base(rpStage, rpRawData)
         {
-            r_IsFriendEscortFleet = rpIsFriendEscortFleet;
-            r_IsEnemyEscortFleet = rpIsEnemyEscortFleet;
-        }
-
-        int GetIndex(int rpPosition)
-        {
-            if (r_IsFriendEscortFleet && !r_IsEnemyEscortFleet && rpPosition < 6)
-                return rpPosition + 12;
-
-            return rpPosition;
         }
 
         protected internal override void Process()

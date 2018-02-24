@@ -35,11 +35,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             LandBaseAerialSupport = new LandBaseAerialSupportPhase(this, rRawData.LandBaseAerialSupport);
             AerialCombat = new AerialCombatPhase(this, rRawData.AerialCombat);
             SupportingFire = new SupportingFirePhase(this, rRawData.SupportingFire);
-            OpeningASW = new OpeningASWPhase(this, rRawData.OpeningASW, true, true);
-            OpeningTorpedo = new TorpedoSalvoPhase(this, rRawData.OpeningTorpedoSalvo, true, true);
+            OpeningASW = new ShellingPhase(this, rRawData.OpeningASW);
+            OpeningTorpedo = new TorpedoSalvoPhase(this, rRawData.OpeningTorpedoSalvo);
 
-            ShellingFirstRound = new ShellingPhase(this, rRawData.ShellingFirstRound, true, true);
-            ClosingTorpedo = new TorpedoSalvoPhase(this, rRawData.ClosingTorpedoSalvo, true, true);
+            ShellingFirstRound = new ShellingPhase(this, rRawData.ShellingFirstRound);
+            ClosingTorpedo = new TorpedoSalvoPhase(this, rRawData.ClosingTorpedoSalvo);
 
             ShellingSecondRound = new ShellingPhase(this, rRawData.ShellingSecondRound);
             ShellingThirdRound = new ShellingPhase(this, rRawData.ShellingThirdRound);

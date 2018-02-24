@@ -114,7 +114,6 @@
     <Compile Include="Models\Battle\Phases\BattlePhase.cs" />
     <Compile Include="Models\Battle\Phases\LandBaseAerialSupportPhase.cs" />
     <Compile Include="Models\Battle\Phases\LandBaseJetAircraftAerialSupport.cs" />
-    <Compile Include="Models\Battle\Phases\OpeningASWPhase.cs" />
     <Compile Include="Models\Battle\Phases\PhaseRound.cs" />
     <Compile Include="Models\Battle\Phases\ShellingPhase.cs" />
     <Compile Include="Models\Battle\Phases\SupportingFirePhase.cs" />
@@ -227,7 +226,6 @@
     <Compile Include="Models\Raw\Battle\RawNightOnly.cs" />
     <Compile Include="Models\Raw\Battle\RawEnemyCombinedFleetNightToDay.cs" />
     <Compile Include="Models\Raw\Battle\RawNightToDay.cs" />
-    <Compile Include="Models\Raw\Battle\RawOpeningASWPhase.cs" />
     <Compile Include="Models\Raw\Battle\RawShellingPhase.cs" />
     <Compile Include="Models\Raw\Battle\RawSupportingFirePhase.cs" />
     <Compile Include="Models\Raw\Battle\RawTorpedoSalvoPhase.cs" />

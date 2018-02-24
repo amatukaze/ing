@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
         {
             var rRawData = rpInfo.Data as RawCombinedFleetNight;
 
-            Shelling = new ShellingPhase(this, rRawData.Shelling, true);
+            Shelling = new ShellingPhase(this, rRawData.Shelling);
         }
     }
 }
