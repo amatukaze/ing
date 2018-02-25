@@ -16,7 +16,6 @@
                   Width="800" Height="600"
                   WindowStartupLocation="CenterOwner"
                   SizeToContent="Height"
-                  ResizeMode="NoResize"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>
         <ResourceDictionary>
@@ -60,6 +59,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="23" />
         </Grid.RowDefinitions>
 
         <DockPanel ruic:MetroWindow.IsCaptionBar="True">
@@ -74,7 +74,7 @@
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{rb:StringResource Main.Window_CompositionSharing}" />
         </DockPanel>
 
-        <Grid Margin="8" Grid.Row="1">
+        <Grid Margin="8" Grid.Row="1" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
@@ -113,7 +113,7 @@
                                     <TextBlock Text="{rb:EnumToStringResource Status.Speed, Fleet_Speed}" Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull Status.Speed}" />
                                 </StackPanel>
 
-                                <ItemsControl ItemsSource="{Binding Source.Ships}" Margin="0, 4, 0, 0">
+                                <ItemsControl Name="Ships" ItemsSource="{Binding Source.Ships}" Margin="0, 4, 0, 0">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <UniformGrid Columns="3" Rows="2" />
@@ -151,6 +151,18 @@
                                 </ItemsControl>
                             </DockPanel>
                         </Border>
+
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding Source.Ships.Count}" Value="7">
+                                <Setter TargetName="Ships" Property="ItemsPanel">
+                                    <Setter.Value>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="3" Rows="3" />
+                                        </ItemsPanelTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
                     </DataTemplate>
                 </TabControl.ContentTemplate>
             </TabControl>
@@ -202,5 +214,7 @@
 
             <ruic:BBCodeBlock BBCode="{rb:StringResource Main.CompositionSharing_Note}" Margin="0, 4, 0, 0" Grid.Row="3" />
         </Grid>
+
+        <ruic:ResizeGrip Grid.Row="2" />
     </Grid>
 </ruic:MetroWindow>
