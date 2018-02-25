@@ -73,13 +73,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
             if (rStage2.AntiAirCutIn != null)
             {
-                var index = rStage2.AntiAirCutIn.TriggererIndex;
-                if (Stage.FriendMain.Count < 6)
-                    index += 6 - Stage.FriendMain.Count;
+                BattleParticipantSnapshot participant;
 
-                var rTriggerer = Stage.Friend[index].Participant as FriendShip;
-                if (rTriggerer != null)
-                    rTriggerer.AntiAirCutIn = new AntiAirCutIn(rStage2.AntiAirCutIn);
+                var index = rStage2.AntiAirCutIn.TriggererIndex;
+                var friendMainCount = Math.Max(Stage.FriendMain.Count, 6);
+
+                if (index < friendMainCount)
+                    participant = Stage.FriendMain[index];
+                else
+                    participant = Stage.FriendEscort[index - friendMainCount];
+
+                if (participant.Participant is FriendShip triggerer)
+                    triggerer.AntiAirCutIn = new AntiAirCutIn(rStage2.AntiAirCutIn);
             }
         }
 
