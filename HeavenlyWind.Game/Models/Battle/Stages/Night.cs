@@ -5,15 +5,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
 {
     abstract class Night : BattleStage
     {
-        public NpcSupportingFirePhase NpcSupportingFire { get; protected set; }
         public ShellingPhase Shelling { get; protected set; }
 
-        public override IList<BattlePhase> Phases => new BattlePhase[]
-        {
-            NpcSupportingFire,
-
-            Shelling,
-        };
+        public override IList<BattlePhase> Phases => new BattlePhase[] { Shelling };
 
         internal protected Night(BattleInfo rpOwner) : base(rpOwner) { }
     }

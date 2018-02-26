@@ -10,7 +10,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
         {
             var rRawData = rpInfo.Data as RawCombinedFleetNight;
 
-            NpcSupportingFire = new NpcSupportingFirePhase(this, rRawData.NpcSupportingFire?.Shelling);
             Shelling = new ShellingPhase(this, rRawData.Shelling);
         }
     }
