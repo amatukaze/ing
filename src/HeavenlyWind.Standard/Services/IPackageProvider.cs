@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 {
     public interface IPackageProvider
     {
-        IReadOnlyList<ModuleMetadata> AvaiablePackages { get; }
+        Task<IReadOnlyList<ModuleMetadata>> SearchPackagesAsync(int page);
 
         Task<string> GetLastestVersionAsync(string packageId);
 
