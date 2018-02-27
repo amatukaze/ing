@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -13,7 +12,22 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
     {
         private HttpClient client = new HttpClient();
         private IJsonService jsonService;
-        public Task<IReadOnlyList<ModuleMetadata>> SearchPackagesAsync(int page) => throw new NotImplementedException();
+        private const int PackagesPerPage = 20;
+
+        public async Task<IReadOnlyList<ModuleMetadata>> SearchPackagesAsync(int page)
+        {
+            var api = await client.GetStreamAsync($"https://api-v2v3search-0.nuget.org/query?q=HeavenlyWind&skip={page * PackagesPerPage}&take={PackagesPerPage}&prerelease=false&semVerLevel=2.0.0");
+            var json = await jsonService.ParseAsync(api);
+            int count = json.SelectValue<int>("totalHits");
+
+            var result = new ModuleMetadata[count];
+            for (int i = 0; i < count; i++)
+                result[i] = await GetMetadataAsync(json.SelectValue<string>($"data[{i}].id"),
+                                                   json.SelectValue<string>($"data[{i}].version"));
+
+            return result;
+        }
+
         public async Task<string> GetLastestVersionAsync(string packageId)
         {
             var api = await client.GetStreamAsync($"https://api.nuget.org/v3-flatcontainer/{packageId.ToLowerInvariant()}/index.json");
