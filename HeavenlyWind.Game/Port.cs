@@ -414,19 +414,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (!rData.HasEvacuatedShip)
                     return;
 
-                var rParticipants = BattleInfo.Current.CurrentStage.Friend;
+                var currentStage = BattleInfo.Current.CurrentStage;
 
-                var rEvacuatedShipIndex = rData.EvacuatedShips.EvacuatedShipIndex[0] - 1;
-                var rEvacuatedShip = rParticipants[rEvacuatedShipIndex];
+                BattleParticipantSnapshot evacuatedShip;
+                var evacuatedShipIndex = rData.EvacuatedShips.EvacuatedShipIndex[0] - 1;
+                if (evacuatedShipIndex < 6 || currentStage.FriendEscort == null)
+                    evacuatedShip = currentStage.FriendMain[evacuatedShipIndex];
+                else
+                    evacuatedShip = currentStage.FriendEscort[evacuatedShipIndex - 6];
 
                 if (rData.EvacuatedShips.EscortShipIndex == null)
-                    r_EvacuatedShips = new[] { rEvacuatedShip };
+                    r_EvacuatedShips = new[] { evacuatedShip };
                 else
                 {
-                    var rEscortShipIndex = rData.EvacuatedShips.EscortShipIndex[0] - 1;
-                    var rEscortShip = rParticipants[rEscortShipIndex];
+                    BattleParticipantSnapshot escortShip;
+                    var escortShipIndex = rData.EvacuatedShips.EscortShipIndex[0] - 1;
+                    if (escortShipIndex < 6)
+                        escortShip = currentStage.FriendMain[escortShipIndex];
+                    else
+                        escortShip = currentStage.FriendEscort[escortShipIndex - 6];
 
-                    r_EvacuatedShips = new[] { rEvacuatedShip, rEscortShip };
+                    r_EvacuatedShips = new[] { evacuatedShip, escortShip };
                 }
             });
             ApiService.Subscribe(new[] { "api_req_sortie/goback_port", "api_req_combined_battle/goback_port" }, delegate
