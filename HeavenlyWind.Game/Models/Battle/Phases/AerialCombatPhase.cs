@@ -94,84 +94,70 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             if (rStage3 == null)
                 return;
 
-            var rTotalEnemyDamages = 0;
+            var totalEnemyDamage = 0;
 
-            var rDamages = new int[28];
-            for (var i = 0; i < 7; i++)
-            {
-                if (i < rStage3.FriendDamage.Length)
-                    rDamages[i] = rStage3.FriendDamage[i];
+            var friendDamage = rStage3.FriendDamage;
+            if (friendDamage != null)
+                for (var i = 0; i < Stage.FriendMain.Count; i++)
+                    Stage.FriendMain[i].Current -= friendDamage[i];
 
-                if (i < rStage3.EnemyDamage.Length)
+            var enemyDamage = rStage3.EnemyDamage;
+            if (enemyDamage != null)
+                for (var i = 0; i < Stage.EnemyMain.Count; i++)
                 {
-                    var rEnemyDamage = rStage3.EnemyDamage[i];
-                    rDamages[i + 7] = rEnemyDamage;
-                    rTotalEnemyDamages += rEnemyDamage;
-                }
-            }
+                    var damage = rStage3.EnemyDamage[i];
 
-            var rCount = 14;
-
-            var rCombinedFleet = RawData.Stage3CombinedFleet;
-            if (rCombinedFleet != null)
-            {
-                var rFriendCombinedFleetDamages = rCombinedFleet.FriendDamage;
-                if (rFriendCombinedFleetDamages != null)
-                {
-                    for (var i = 0; i < rFriendCombinedFleetDamages.Length; i++)
-                        rDamages[i + 14] = rFriendCombinedFleetDamages[i];
-
-                    rCount += 7;
+                    Stage.EnemyMain[i].Current -= damage;
+                    totalEnemyDamage += damage;
                 }
 
-                var rEnemyCombinedFleetDamages = rCombinedFleet.EnemyDamage;
-                if (rEnemyCombinedFleetDamages != null)
-                {
-                    for (var i = 0; i < rEnemyCombinedFleetDamages.Length; i++)
+            var combinedFleet = RawData.Stage3CombinedFleet;
+            if (combinedFleet != null)
+            {
+                var friendCombinedFleetDamages = combinedFleet.FriendDamage;
+                if (friendCombinedFleetDamages != null)
+                    for (var i = 0; i < Stage.FriendEscort.Count; i++)
+                        Stage.FriendEscort[i].Current -= friendCombinedFleetDamages[i];
+
+                var enemyCombinedFleetDamages = combinedFleet.EnemyDamage;
+                if (enemyCombinedFleetDamages != null)
+                    for (var i = 0; i < Stage.EnemyEscort.Count; i++)
                     {
-                        var rDamage = rEnemyCombinedFleetDamages[i];
-                        rDamages[i + 21] = rDamage;
-                        rTotalEnemyDamages += rDamage;
+                        var damage = enemyCombinedFleetDamages[i];
+
+                        Stage.EnemyEscort[i].Current -= damage;
+                        totalEnemyDamage += damage;
                     }
-
-                    rCount += 7;
-                }
             }
 
-            var rIsAllZero = true;
-
-            for (var i = 0; i < rCount; i++)
-                if (rDamages[i] != 0)
-                {
-                    rIsAllZero = false;
-                    break;
-                }
-
-            if (rIsAllZero)
+            if (totalEnemyDamage == 0)
                 return;
 
-            var rParticipants = Stage.FriendAndEnemy;
-            for (var i = 0; i < rCount; i++)
+            var friendMainCount = Math.Max(Stage.FriendMain.Count, 6);
+
+            var friendAttackers = RawData.Attackers[0];
+            if (friendAttackers.Length == 1)
             {
-                var rParticipant = rParticipants[i];
-                if (rParticipant != null)
-                    rParticipant.Current -= rDamages[i];
+                var index = friendAttackers[0] - 1;
+
+                BattleParticipantSnapshot participant = null;
+
+                if (index < Stage.FriendMain.Count)
+                    participant = Stage.FriendMain[index];
+                else if (index >= friendMainCount)
+                    participant = Stage.FriendEscort[index - friendMainCount];
+
+                if (participant != null)
+                    participant.DamageGivenToOpponent += totalEnemyDamage;
             }
-
-            if (rTotalEnemyDamages == 0)
-                return;
-
-            var rFriendAttackers = RawData.Attackers[0];
-            if (rFriendAttackers.Length == 1)
-                rParticipants[rFriendAttackers[0] - 1].DamageGivenToOpponent += rTotalEnemyDamages;
-            else if (rFriendAttackers.Length > 1)
+            else if (friendAttackers.Length > 1)
             {
-                var rFirepowers = new double[rFriendAttackers.Length];
+                var rFirepowers = new double[friendAttackers.Length];
                 var rTotalFirepower = .0;
 
-                for (var i = 0; i < rFriendAttackers.Length;i++)
+                for (var i = 0; i < friendAttackers.Length; i++)
                 {
-                    var rAttacker = rFriendAttackers[i];
+                    var rAttacker = friendAttackers[i];
                     var rShip = ((FriendShip)Stage.Friend[rAttacker - 1].Participant).Ship;
 
                     var rFirepower = .0;
@@ -204,23 +190,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
                 if (rTotalFirepower == 0)
                     return;
 
-                var friendMainCount = Stage.FriendMain.Count;
-
-                for (var i = 0; i < rFriendAttackers.Length; i++)
+                for (var i = 0; i < friendAttackers.Length; i++)
                 {
                     if (rFirepowers[i] == 0)
                         continue;
 
-                    var index = rFriendAttackers[i] - 1;
+                    var index = friendAttackers[i] - 1;
 
                     BattleParticipantSnapshot participant;
 
                     if (index < friendMainCount)
                         participant = Stage.FriendMain[index];
                     else
-                        participant = Stage.FriendEscort[index - 6];
+                        participant = Stage.FriendEscort[index - friendMainCount];
 
-                    participant.DamageGivenToOpponent += (int)Math.Round(rTotalEnemyDamages * rFirepowers[i] / rTotalFirepower);
+                    participant.DamageGivenToOpponent += (int)Math.Round(totalEnemyDamage * rFirepowers[i] / rTotalFirepower);
                     participant.Inaccurate = true;
                 }
             }

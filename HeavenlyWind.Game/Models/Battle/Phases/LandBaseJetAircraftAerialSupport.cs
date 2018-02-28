@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
+using System;
 using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
@@ -28,14 +29,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
             if (rpStage == null)
                 return;
 
-            var rParticipants = Stage.EnemyMain;
-            var rEnemyDamages = rpStage.EnemyDamage;
+            var enemyMainCount = Math.Max(Stage.EnemyMain.Count, 6);
 
-            for (var i = 0; i < rpParticipants.Count; i++)
+            for (var i = 0; i < Stage.Enemy.Count; i++)
             {
-                var rParticipant = rpParticipants[i];
-                if (rParticipant != null)
-                    rParticipant.Current -= rEnemyDamages[i];
+                BattleParticipantSnapshot participant;
+
+                if (i < Stage.EnemyMain.Count)
+                    participant = Stage.EnemyMain[i];
+                else if (i >= enemyMainCount)
+                    participant = Stage.EnemyEscort[i - enemyMainCount];
+                else
+                    continue;
+
+                participant.Current -= rpStage.EnemyDamage[i];
             }
         }
     }
