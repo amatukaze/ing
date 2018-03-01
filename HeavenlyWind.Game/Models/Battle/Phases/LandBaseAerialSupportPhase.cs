@@ -1,6 +1,4 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
-using System;
-using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 {
@@ -33,29 +31,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Phases
 
         void ProcessStage3(RawLandBaseAerialSupport rpRawData)
         {
-            ProcessStage3Core(Stage.EnemyMain, rpRawData.Stage3);
-            ProcessStage3Core(Stage.EnemyEscort, rpRawData.Stage3CombinedFleet);
-        }
-        void ProcessStage3Core(IList<BattleParticipantSnapshot> rpParticipants, RawAerialCombatPhase.RawStage3 rpStage)
-        {
-            if (rpStage == null)
+            var stage3 = rpRawData.Stage3;
+            if (stage3 == null)
                 return;
 
-            var enemyMainCount = Math.Max(Stage.EnemyMain.Count, 6);
+            var enemyDamage = stage3.EnemyDamage;
+            if (enemyDamage != null)
+                for (var i = 0; i < Stage.EnemyMain.Count; i++)
+                {
+                    var damage = stage3.EnemyDamage[i];
 
-            for (var i = 0; i < Stage.Enemy.Count; i++)
-            {
-                BattleParticipantSnapshot participant;
+                    Stage.EnemyMain[i].Current -= damage;
+                }
 
-                if (i < Stage.EnemyMain.Count)
-                    participant = Stage.EnemyMain[i];
-                else if (i >= enemyMainCount)
-                    participant = Stage.EnemyEscort[i - enemyMainCount];
-                else
-                    continue;
+            var enemyCombinedFleetDamages = rpRawData.Stage3CombinedFleet?.EnemyDamage;
+            if (enemyCombinedFleetDamages != null)
+                for (var i = 0; i < Stage.EnemyEscort.Count; i++)
+                {
+                    var damage = enemyCombinedFleetDamages[i];
 
-                participant.Current -= rpStage.EnemyDamage[i];
-            }
+                    Stage.EnemyEscort[i].Current -= damage;
+                }
         }
     }
 }
