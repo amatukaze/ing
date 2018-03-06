@@ -3,7 +3,6 @@ using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.DateTime
 {
-    [ModuleTargetStandardVersion(StandardInformation.TargetVersion)]
     class Module : IModule, IExposableModule
     {
         public void Expose(IBuilder builder)

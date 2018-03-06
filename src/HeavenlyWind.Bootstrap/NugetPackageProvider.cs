@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -13,6 +14,8 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
         private HttpClient client = new HttpClient();
         private IJsonService jsonService;
         private const int PackagesPerPage = 20;
+
+        public string[] SupportedTargetFrameworks { get; set; }
 
         public async Task<IReadOnlyList<ModuleMetadata>> SearchPackagesAsync(int page)
         {
@@ -42,6 +45,16 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
             return version;
         }
 
+        private class NugetDependency
+        {
+            public string id { get; set; }
+            public string range { get; set; }
+        }
+        private class NugetDependencyGroup
+        {
+            public NugetDependency[] dependencies { get; set; }
+            public string targetFramework { get; set; }
+        }
         public async Task<ModuleMetadata> GetMetadataAsync(string id, string version)
         {
             var api = await client.GetStreamAsync($"https://api.nuget.org/v3/registration3/{id.ToLowerInvariant()}/{version.ToLowerInvariant()}.json");
@@ -51,13 +64,48 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
             if (entry == null) return null;
             var catalog = await client.GetStreamAsync(entry);
             var metajson = await jsonService.ParseAsync(catalog);
+
+            var deps = metajson.SelectValue<NugetDependencyGroup[]>("dependencygroups");
+            NugetDependencyGroup selected = null;
+            foreach (string tfm in SupportedTargetFrameworks)
+            {
+                selected = deps.FirstOrDefault(g => g.targetFramework.Equals(tfm, StringComparison.OrdinalIgnoreCase));
+                if (selected != null) break;
+            }
+            var dependencies = selected?.dependencies ?? Array.Empty<NugetDependency>();
+
             return new ModuleMetadata
             (
                 id,
                 metajson.SelectValue<string>("authors"),
                 version,
                 metajson.SelectValue<string>("description"),
-                null //TODO: implement
+                dependencies.ToDictionary
+                (
+                    d => d.id,
+                    d =>
+                    {
+                        int start = 0, length = 0;
+                        string r = d.range;
+                        for (int i = 0; i < r.Length; i++)
+                        {
+                            if (r[i] >= '0' && r[i] <= '9')
+                            {
+                                start = i;
+                                break;
+                            }
+                        }
+                        for (int i = 0; start + i < r.Length; i++)
+                        {
+                            if (r[start + i] == ',')
+                            {
+                                length = i;
+                                break;
+                            }
+                        }
+                        return r.Substring(start, length);
+                    }
+                )
             );
         }
 

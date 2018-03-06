@@ -69,7 +69,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 
                     isDuplicate = true;
 
-                    var info = ModuleInfo.Create(packageId, item.Version, moduleType);
+                    var info = new ModuleInfo(packageId, item.Version, item.Dependencies.Keys, moduleType);
 
                     _moduleInfos.Add(packageId, info);
                 }

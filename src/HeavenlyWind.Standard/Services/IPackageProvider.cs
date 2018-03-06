@@ -7,6 +7,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 {
     public interface IPackageProvider
     {
+        string[] SupportedTargetFrameworks { get; set; }
+
         Task<IReadOnlyList<ModuleMetadata>> SearchPackagesAsync(int page);
 
         Task<string> GetLastestVersionAsync(string packageId);

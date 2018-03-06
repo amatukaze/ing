@@ -2,7 +2,6 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Json
 {
-    [ModuleTargetStandardVersion(StandardInformation.TargetVersion)]
     class Module : IModule, IExposableModule
     {
         public void Expose(IBuilder builder)
