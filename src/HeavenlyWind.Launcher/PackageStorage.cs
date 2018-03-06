@@ -6,6 +6,10 @@ namespace Sakuno.KanColle.Amatsukaze
 {
     public class PackageStorage : IPackageStorage
     {
+        public PackageStorage(string[] supportedTargetFrameworks) => SupportedTargetFrameworks = supportedTargetFrameworks;
+
+        public string[] SupportedTargetFrameworks { get; }
+
         public async Task StageAsync(string id, string version, Stream stream)
         {
             string folder = Path.Combine(Program.StagingPackagesDirectory, id);

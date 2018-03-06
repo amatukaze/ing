@@ -24,7 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze
         static ConcurrentDictionary<string, XmlSchemaSet> _schemas = new ConcurrentDictionary<string, XmlSchemaSet>(StringComparer.OrdinalIgnoreCase);
         static ConcurrentDictionary<string, XmlNamespaceManager> _namespaceManagers = new ConcurrentDictionary<string, XmlNamespaceManager>(StringComparer.OrdinalIgnoreCase);
 
-        static string[] _targetFrameworks = new[]
+        public static string[] TargetFrameworks = new[]
         {
             ".NETFramework4.6.1",
             ".NETFramework4.6",
@@ -148,7 +148,7 @@ namespace Sakuno.KanColle.Amatsukaze
             foreach (var group in node.Elements())
                 groups[group.Attribute("targetFramework")?.Value ?? string.Empty] = group;
 
-            foreach (var targetFramework in _targetFrameworks)
+            foreach (var targetFramework in TargetFrameworks)
                 if (groups.TryGetValue(targetFramework, out var dependencies))
                     if (dependencies.FirstNode == null)
                         return Array.Empty<PackageInfo>();

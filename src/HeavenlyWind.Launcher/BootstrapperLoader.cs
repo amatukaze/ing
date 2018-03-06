@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 Version = p.Version,
                 Module = p.IsModulePackage ? p.MainAssembly.LazyAssembly : null,
                 Dependencies = p.Dependencies.ToDictionary(d => d.Id, d => d.Version, StringComparer.OrdinalIgnoreCase)
-            }), new PackageStorage());
+            }), new PackageStorage(ManifestUtil.TargetFrameworks));
         }
     }
 }
