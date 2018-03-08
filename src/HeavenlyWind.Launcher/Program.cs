@@ -28,10 +28,17 @@ namespace Sakuno.KanColle.Amatsukaze
         static readonly IDictionary<string, PackageAssembly> _installedAssemblies = new Dictionary<string, PackageAssembly>(StringComparer.OrdinalIgnoreCase);
 
         static bool needRestart;
+        static bool localDebug;
 
         static void Main(string[] args)
         {
             _defaultConsoleColor = Console.ForegroundColor;
+
+            if (args.Length > 0 && args[0].Equals("--localdebug", StringComparison.OrdinalIgnoreCase))
+            {
+                PrintLine("Running in local debug mode", ConsoleColor.Magenta);
+                localDebug = true;
+            }
 
             var currentAssembly = Assembly.GetEntryAssembly();
             var oldLauncher = new FileInfo(currentAssembly.Location + ".old");
@@ -81,7 +88,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
                 Task.Delay(3000).Wait();
 
-                Process.Start(currentAssembly.Location);
+                Process.Start(currentAssembly.Location, localDebug ? "--localdebug" : string.Empty);
 
                 return;
             }
@@ -213,27 +220,41 @@ namespace Sakuno.KanColle.Amatsukaze
 
         static bool DownloadLastestFoundation()
         {
-            const string Url = "https://heavenlywind.cc/api/foundation/lastest?launcher=";
-
-            PrintLine("Get foundation package infos...");
-
-            var currentAssembly = Assembly.GetEntryAssembly();
-            var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
-
-            var request = WebRequest.CreateHttp(Url + versionAttribute.InformationalVersion);
             var packages = new List<PackageInfo>();
 
-            using (var response = request.GetResponse())
+            if (localDebug)
             {
-                var responseStream = response.GetResponseStream();
-                var reader = new StreamReader(responseStream);
+                packages.Add(new PackageInfo("HeavenlyWind.Foundation", "0.1.0-blueprint2"));
+                packages.Add(new PackageInfo("HeavenlyWind.Launcher", "0.1.0-blueprint2"));
+                packages.Add(new PackageInfo("HeavenlyWind.Bootstrap", "0.1.0-blueprint2"));
+                packages.Add(new PackageInfo("HeavenlyWind.Standard", "0.1.0-blueprint"));
+                packages.Add(new PackageInfo("Sakuno.Base", "0.3.1"));
+                packages.Add(new PackageInfo("Newtonsoft.Json", "11.0.1"));
+                packages.Add(new PackageInfo("Autofac", "4.6.2"));
+            }
+            else
+            {
+                const string Url = "https://heavenlywind.cc/api/foundation/lastest?launcher=";
 
-                while (!reader.EndOfStream)
+                PrintLine("Get foundation package infos...");
+
+                var currentAssembly = Assembly.GetEntryAssembly();
+                var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+
+                var request = WebRequest.CreateHttp(Url + versionAttribute.InformationalVersion);
+
+                using (var response = request.GetResponse())
                 {
-                    var id = reader.ReadLine();
-                    var version = reader.ReadLine();
+                    var responseStream = response.GetResponseStream();
+                    var reader = new StreamReader(responseStream);
 
-                    packages.Add(new PackageInfo(id, version));
+                    while (!reader.EndOfStream)
+                    {
+                        var id = reader.ReadLine();
+                        var version = reader.ReadLine();
+
+                        packages.Add(new PackageInfo(id, version));
+                    }
                 }
             }
 
@@ -280,18 +301,26 @@ namespace Sakuno.KanColle.Amatsukaze
         }
         static async Task DownloadPackage(string id, string version)
         {
-            const string FilenameFormat = "{0}.{1}.nupkg";
-            const string Format = "https://api.nuget.org/v3-flatcontainer/{0}/{1}/" + FilenameFormat;
+            string destFile = Path.Combine(StagingPackagesDirectory, $"{id}.{version}.nupkg");
+            if (localDebug)
+            {
+                string localPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                    ".nuget", "packages", id, version, $"{id}.{version}.nupkg");
+                if (File.Exists(localPath))
+                {
+                    File.Copy(localPath, destFile);
+                    return;
+                }
+            }
 
-            var request = WebRequest.CreateHttp(string.Format(Format, id, version));
+            var request = WebRequest.CreateHttp($"https://api.nuget.org/v3-flatcontainer/{id}/{version}/{id}.{version}.nupkg");
 
             using (var md5 = new MD5CryptoServiceProvider())
             using (var response = await request.GetResponseAsync())
             {
                 var responseStream = response.GetResponseStream();
-                var filename = Path.Combine(StagingPackagesDirectory, string.Format(FilenameFormat, id, version));
-                var file = new FileInfo(filename);
-                var tempFilename = filename + ".tmp";
+                var file = new FileInfo(destFile);
+                var tempFilename = destFile + ".tmp";
 
                 using (var fileStream = File.Create(tempFilename))
                 using (var cryptoStream = new CryptoStream(fileStream, md5, CryptoStreamMode.Write))
@@ -308,7 +337,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 if (file.Exists)
                     file.Delete();
 
-                File.Move(tempFilename, filename);
+                File.Move(tempFilename, destFile);
             }
         }
 

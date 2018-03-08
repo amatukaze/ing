@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze
             {
                 Id = p.Id,
                 Version = p.Version,
-                Module = p.IsModulePackage ? p.MainAssembly.LazyAssembly : null,
+                Module = p.IsModulePackage ? p.MainAssembly?.LazyAssembly : null,
                 Dependencies = p.Dependencies.ToDictionary(d => d.Id, d => d.Version, StringComparer.OrdinalIgnoreCase)
             }), new PackageStorage(ManifestUtil.TargetFrameworks));
         }
