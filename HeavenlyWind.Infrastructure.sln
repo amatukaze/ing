@@ -16,6 +16,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Core.DateTime"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Standard", "src\HeavenlyWind.Standard\HeavenlyWind.Standard.csproj", "{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DebugEntry", "src\DebugEntry\DebugEntry.csproj", "{449903A2-AF35-493D-A658-DF62FFC36C30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{449903A2-AF35-493D-A658-DF62FFC36C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{449903A2-AF35-493D-A658-DF62FFC36C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{449903A2-AF35-493D-A658-DF62FFC36C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{449903A2-AF35-493D-A658-DF62FFC36C30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
