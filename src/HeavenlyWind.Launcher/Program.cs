@@ -30,6 +30,7 @@ namespace Sakuno.KanColle.Amatsukaze
         static bool needRestart;
         static bool localDebug;
 
+        [STAThread]
         static void Main(string[] args)
         {
             _defaultConsoleColor = Console.ForegroundColor;
