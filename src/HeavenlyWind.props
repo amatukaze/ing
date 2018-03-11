@@ -1,8 +1,8 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <LangVersion>7.1</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <OutputPath>$(SolutionDir)artifacts\$(Configuration)\$(AssemblyName)\</OutputPath>
     <Authors>Kodama Sakuno</Authors>
     <Product>Intelligent Naval Gun</Product>
