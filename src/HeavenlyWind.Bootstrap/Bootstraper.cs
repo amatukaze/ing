@@ -5,6 +5,7 @@ using System.Reflection;
 using Autofac;
 using Sakuno.KanColle.Amatsukaze.Composition;
 using Sakuno.KanColle.Amatsukaze.Services;
+using Sakuno.KanColle.Amatsukaze.Shell;
 
 namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 {
@@ -48,7 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
             ComposeModules();
             InitializeModules();
 
-            _resolver.Resolve<App>().Run();
+            _resolver.Resolve<IShell>().Run();
         }
 
         static void ImportModuleTypes()
@@ -98,8 +99,6 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 
             containerBuilder.RegisterInstance(new ModuleList(_moduleInfos)).SingleInstance().As<IModuleList>();
             containerBuilder.RegisterInstance(new PackageService(_packages, _storage)).SingleInstance().As<IPackageService>();
-
-            containerBuilder.RegisterType<App>().SingleInstance();
 
             _container = containerBuilder.Build();
         }
