@@ -1,0 +1,16 @@
+<Project>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <VisualStudioVersion>15.0</VisualStudioVersion>
+    <MinimumVisualStudioVersion>15</MinimumVisualStudioVersion>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <LangVersion>7.2</LangVersion>
+    <OutputPath>$(SolutionDir)artifacts\$(Platform)\$(Configuration)\$(AssemblyName)\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(SolutionDir)src\SharedAssemblyInfo.cs" />
+  </ItemGroup>
+</Project>
