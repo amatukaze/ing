@@ -35,6 +35,9 @@
     <PackageReference Include="HeavenlyWind.Standard">
       <Version>0.1.0-blueprint</Version>
     </PackageReference>
+    <PackageReference Include="HeavenlyWind.ViewModels.Foundation">
+      <Version>0.1.0-blueprint</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>
     </PackageReference>

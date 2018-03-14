@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml;
+﻿using Sakuno.KanColle.Amatsukaze.ViewModels;
+using Windows.UI.Xaml;
 
 namespace Sakuno.KanColle.Amatsukaze.Shell
 {
@@ -6,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Shell
     {
         public void Run()
         {
-            Window.Current.Content = new MainPage();
+            Window.Current.Content = new MainPage(new MainWindowVM());
             Window.Current.Activate();
         }
     }
