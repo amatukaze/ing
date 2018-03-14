@@ -2,6 +2,6 @@
 {
     public interface IBuilder
     {
-        void RegisterService<TImpl, TService>() where TImpl : class;
+        void RegisterService<TImpl, TService>() where TImpl : class, TService;
     }
 }

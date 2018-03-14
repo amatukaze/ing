@@ -95,10 +95,10 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 
             builder.Complete();
 
-            containerBuilder.Register(_ => new Resolver(_container)).SingleInstance().As<IResolver>();
+            containerBuilder.Register(_ => new Resolver(_container)).As<IResolver>().SingleInstance();
 
-            containerBuilder.RegisterInstance(new ModuleList(_moduleInfos)).SingleInstance().As<IModuleList>();
-            containerBuilder.RegisterInstance(new PackageService(_packages, _storage)).SingleInstance().As<IPackageService>();
+            containerBuilder.RegisterInstance(new ModuleList(_moduleInfos)).As<IModuleList>().SingleInstance();
+            containerBuilder.RegisterInstance(new PackageService(_packages, _storage)).As<IPackageService>().SingleInstance();
 
             _container = containerBuilder.Build();
         }

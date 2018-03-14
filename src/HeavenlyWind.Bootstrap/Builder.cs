@@ -15,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 
         public void Complete() => _builder = null;
 
-        public void RegisterService<TImpl, TService>() where TImpl : class
+        public void RegisterService<TImpl, TService>() where TImpl : class, TService
         {
             if (_builder == null)
                 throw new InvalidOperationException("Cannot register because the composition has finished.");
