@@ -7,7 +7,7 @@
     <ProjectGuid>{872A67E9-1A02-45CB-8948-0AA25BC71974}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HeavenlyWind.UWP</RootNamespace>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.UWP</RootNamespace>
     <AssemblyName>HeavenlyWind.UWP</AssemblyName>
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>

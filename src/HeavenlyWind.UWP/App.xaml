@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="HeavenlyWind.UWP.App"
+    x:Class="Sakuno.KanColle.Amatsukaze.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:HeavenlyWind.UWP"
+    xmlns:local="using:Sakuno.KanColle.Amatsukaze.UWP"
     RequestedTheme="Light">
 
 </Application>
