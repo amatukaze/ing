@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Sakuno.KanColle.Amatsukaze.Composition;
 
 namespace Sakuno.KanColle.Amatsukaze.Bootstrap
@@ -14,5 +15,6 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 
         public T Resolve<T>() where T : class =>
             _container.Resolve<T>();
+        public object Resolve(Type type) => _container.Resolve(type);
     }
 }
