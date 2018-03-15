@@ -10,7 +10,7 @@
     <Copyright>Copyright © 2017-2018 Kodama Sakuno</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseUrl>https://github.com/amatukaze/HeavenlyWind.Views/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/amatukaze/HeavenlyViews.Infrastructure</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/amatukaze/HeavenlyWind.Views</PackageProjectUrl>
     <PackageTags>KanColle;ING</PackageTags>
   </PropertyGroup>
 

@@ -1,0 +1,9 @@
+<Project Sdk="MSBuild.Sdk.Extras/1.2.2">
+
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+
+</Project>
