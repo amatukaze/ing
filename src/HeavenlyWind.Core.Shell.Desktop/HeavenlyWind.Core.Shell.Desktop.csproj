@@ -3,6 +3,8 @@
   <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
 
   <PropertyGroup>
+    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
+    <EnableDefaultItems>false</EnableDefaultItems>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <RootNamespace>Sakuno.KanColle.Amatsukaze.Shell</RootNamespace>
@@ -20,7 +22,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.1">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="HeavenlyWind.Standard" Version="0.1.0-blueprint" />
+    <PackageReference Include="HeavenlyWind.ViewModels.Foundation" Version="0.1.0-blueprint" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="**\*.cs" Exclude="$(BaseIntermediateOutputPath)\**" />
+    <Page Include="**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+    <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+  <Target Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
+    <PropertyGroup>
+      <BuildingProject>false</BuildingProject>
+    </PropertyGroup>
+  </Target>
 
 </Project>

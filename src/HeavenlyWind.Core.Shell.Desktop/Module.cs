@@ -1,5 +1,4 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Composition;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Shell
 {
