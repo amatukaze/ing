@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.IO;
+using Sakuno.KanColle.Amatsukaze.Messaging;
 
 namespace Sakuno.KanColle.Amatsukaze.Services
 {
-    public interface ITextStreamProvider
+    public interface ITextStreamProvider : IProducer<KeyValuePair<string, Stream>>
     {
-        event Action<string, TextReader> Received;
     }
 }
