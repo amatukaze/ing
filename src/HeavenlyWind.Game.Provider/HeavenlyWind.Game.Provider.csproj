@@ -8,11 +8,15 @@
     <RootNamespace>Sakuno.KanColle.Amatsukaze.Game</RootNamespace>
     <AssemblyName>HeavenlyWind.Game.Provider</AssemblyName>
     <Version>0.1.0-blueprint</Version>
-    <Description>Common game models of Intelligent Naval Gun</Description>
+    <Description>Game api parser of Intelligent Naval Gun</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.Game.Models\HeavenlyWind.Game.Models.csproj" />
   </ItemGroup>
 
 </Project>

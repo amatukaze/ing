@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.Game.Models</RootNamespace>
+    <AssemblyName>HeavenlyWind.Game.Models</AssemblyName>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Common game models of Intelligent Naval Gun</Description>
+  </PropertyGroup>
+
+</Project>

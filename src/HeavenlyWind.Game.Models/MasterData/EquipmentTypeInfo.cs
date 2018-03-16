@@ -1,4 +1,4 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Knowledge;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Knowledge;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
