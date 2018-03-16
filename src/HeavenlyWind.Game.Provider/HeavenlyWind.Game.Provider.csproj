@@ -11,4 +11,8 @@
     <Description>Common game models of Intelligent Naval Gun</Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+  </ItemGroup>
+
 </Project>
