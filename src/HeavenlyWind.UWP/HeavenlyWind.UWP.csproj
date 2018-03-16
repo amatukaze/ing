@@ -4,13 +4,18 @@
   <PropertyGroup>
     <ProjectGuid>{872A67E9-1A02-45CB-8948-0AA25BC71974}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
+    <OutputPath>$(SolutionDir)artifacts\Appx\$(Platform)\$(Configuration)\</OutputPath>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sakuno.KanColle.Amatsukaze.UWP</RootNamespace>
     <AssemblyName>HeavenlyWind.UWP</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxPackageDir>$(SolutionDir)artifacts\AppxPackages\</AppxPackageDir>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateKeyFile>HeavenlyWind.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <NoWarn>;2008</NoWarn>
@@ -84,6 +89,9 @@
       <Project>{847ac9b7-78e5-44c6-a789-efc81a258be1}</Project>
       <Name>HeavenlyWind.UWP.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HeavenlyWind.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
