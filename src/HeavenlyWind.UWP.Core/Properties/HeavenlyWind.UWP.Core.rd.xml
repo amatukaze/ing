@@ -25,7 +25,7 @@
     https://go.microsoft.com/fwlink/?LinkID=391919
 -->
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
-  <Library Name="HeavenlyWind.UWP.Shell">
+  <Library Name="HeavenlyWind.UWP.Core">
 
   	<!--在此处为库添加指令-->
 

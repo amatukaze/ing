@@ -80,9 +80,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HeavenlyWind.UWP.Shell\HeavenlyWind.UWP.Shell.csproj">
+    <ProjectReference Include="..\HeavenlyWind.UWP.Core\HeavenlyWind.UWP.Core.csproj">
       <Project>{847ac9b7-78e5-44c6-a789-efc81a258be1}</Project>
-      <Name>HeavenlyWind.UWP.Shell</Name>
+      <Name>HeavenlyWind.UWP.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

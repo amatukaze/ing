@@ -6,9 +6,8 @@
     <ProjectGuid>{847AC9B7-78E5-44C6-A789-EFC81A258BE1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sakuno.KanColle.Amatsukaze.Shell</RootNamespace>
-    <AssemblyName>HeavenlyWind.UWP.Shell</AssemblyName>
-    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.UWP</RootNamespace>
+    <AssemblyName>HeavenlyWind.UWP.Core</AssemblyName>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -20,16 +19,16 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="LocalizationService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shell.cs" />
-    <EmbeddedResource Include="Properties\HeavenlyWind.UWP.Shell.rd.xml" />
+    <EmbeddedResource Include="Properties\HeavenlyWind.UWP.Core.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HeavenlyWind.Standard">

@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
     {
         static string[] assemblyNames =
         {
-            "HeavenlyWind.UWP.Shell",
+            "HeavenlyWind.UWP.Core",
         };
         public static void Launch()
         {
