@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Game", "src\HeavenlyWind.Game\HeavenlyWind.Game.csproj", "{05EB7B5D-CC39-4D62-8D11-EF3EAA99DD91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Game.Provider", "src\HeavenlyWind.Game.Provider\HeavenlyWind.Game.Provider.csproj", "{05EB7B5D-CC39-4D62-8D11-EF3EAA99DD91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
