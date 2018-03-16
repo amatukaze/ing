@@ -1,6 +1,6 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Sakuno.KanColle.Amatsukaze.Composition;
-using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 {
@@ -21,6 +21,22 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
                 throw new InvalidOperationException("Cannot register because the composition has finished.");
 
             _builder.RegisterType<TImpl>().As<TService>().SingleInstance();
+        }
+
+        public void RegisterType<T>() where T : class
+        {
+            if (_builder == null)
+                throw new InvalidOperationException("Cannot register because the composition has finished.");
+
+            _builder.RegisterType<T>().SingleInstance();
+        }
+
+        public void RegisterInstance<T>(T instance) where T : class
+        {
+            if (_builder == null)
+                throw new InvalidOperationException("Cannot register because the composition has finished.");
+
+            _builder.RegisterInstance(instance).As<T>().SingleInstance();
         }
     }
 }
