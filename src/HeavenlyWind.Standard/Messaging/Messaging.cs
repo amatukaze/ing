@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.ExceptionServices;
 
 namespace Sakuno.KanColle.Amatsukaze.Messaging
 {
@@ -7,41 +8,94 @@ namespace Sakuno.KanColle.Amatsukaze.Messaging
         event Action<T> Received;
     }
 
-    public interface IReceiver<in T>
+    internal abstract class Chainer<TInput, TOutput>
+        : IProducer<TOutput>
     {
-        void Send(T arg);
+        private IProducer<TInput> upstream;
+
+        public Chainer(IProducer<TInput> upstream)
+            => this.upstream = upstream
+            ?? throw new ArgumentNullException(nameof(upstream));
+
+        private Action<TOutput> downstreams;
+        public event Action<TOutput> Received
+        {
+            add
+            {
+                if ((downstreams += value) != null)
+                    upstream.Received += Send;
+            }
+            remove
+            {
+                if ((downstreams -= value) == null)
+                    upstream.Received -= Send;
+            }
+        }
+
+        public abstract void Send(TInput arg);
+
+        protected void SendToDownstream(TOutput value)
+        {
+            var temp = downstreams;
+            if (temp == null) return;
+            var list = temp.GetInvocationList();
+            if (list.Length == 1)
+                temp(value);
+            else
+            {
+                Exception exception = null;
+                foreach (Action<TOutput> invo in list)
+                {
+                    try
+                    {
+                        invo(value);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (exception == null)
+                            exception = ex;
+                        else
+                            exception = new AggregateException(exception, ex);
+                    }
+                }
+                if (exception is AggregateException agg)
+                    throw agg.Flatten();
+                else if (exception != null)
+                {
+                    var di = ExceptionDispatchInfo.Capture(exception);
+                    di.Throw();
+                }
+            }
+        }
     }
 
-    public class Chainer<TInput, TOutput>
-        : IReceiver<TInput>, IProducer<TOutput>
+    internal class Transformer<TInput, TOutput>
+        : Chainer<TInput, TOutput>
     {
         private Func<TInput, TOutput> converter;
 
-        public Chainer(Func<TInput, TOutput> converter)
+        public Transformer(IProducer<TInput> upstream, Func<TInput, TOutput> converter)
+            : base(upstream)
             => this.converter = converter
             ?? throw new ArgumentNullException(nameof(converter));
 
-        public event Action<TOutput> Received;
-
-        public void Send(TInput arg) => Received?.Invoke(converter(arg));
+        public override void Send(TInput arg) => SendToDownstream(converter(arg));
     }
 
-    public class Conditioner<T>
-        : IReceiver<T>, IProducer<T>
+    internal class Conditioner<T>
+        : Chainer<T, T>
     {
         private Predicate<T> predicate;
 
-        public Conditioner(Predicate<T> predicate)
+        public Conditioner(IProducer<T> upstream, Predicate<T> predicate)
+            : base(upstream)
             => this.predicate = predicate
             ?? throw new ArgumentNullException(nameof(predicate));
 
-        public event Action<T> Received;
-
-        public void Send(T arg)
+        public override void Send(T arg)
         {
-            var temp = Received;
-            if (temp != null && predicate(arg))
-                temp(arg);
+            if (predicate(arg))
+                SendToDownstream(arg);
         }
     }
 }
