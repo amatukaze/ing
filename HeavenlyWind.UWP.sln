@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP", "src\HeavenlyWind.UWP\HeavenlyWind.UWP.csproj", "{872A67E9-1A02-45CB-8948-0AA25BC71974}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP.Core", "src\HeavenlyWind.UWP.Core\HeavenlyWind.UWP.Core.csproj", "{847AC9B7-78E5-44C6-A789-EFC81A258BE1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -54,24 +52,6 @@ Global
 		{872A67E9-1A02-45CB-8948-0AA25BC71974}.Release|x86.ActiveCfg = Release|x86
 		{872A67E9-1A02-45CB-8948-0AA25BC71974}.Release|x86.Build.0 = Release|x86
 		{872A67E9-1A02-45CB-8948-0AA25BC71974}.Release|x86.Deploy.0 = Release|x86
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Debug|ARM.Build.0 = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Debug|x64.Build.0 = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Debug|x86.Build.0 = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.DebugNative|ARM.ActiveCfg = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.DebugNative|ARM.Build.0 = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.DebugNative|x64.ActiveCfg = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.DebugNative|x64.Build.0 = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.DebugNative|x86.ActiveCfg = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.DebugNative|x86.Build.0 = Debug|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Release|ARM.ActiveCfg = Release|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Release|ARM.Build.0 = Release|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Release|x64.ActiveCfg = Release|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Release|x64.Build.0 = Release|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Release|x86.ActiveCfg = Release|Any CPU
-		{847AC9B7-78E5-44C6-A789-EFC81A258BE1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

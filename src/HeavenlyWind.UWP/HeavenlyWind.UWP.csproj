@@ -53,7 +53,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Launcher.cs" />
+    <Compile Include="LocalizationService.cs" />
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shell.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -80,15 +86,18 @@
     <PackageReference Include="HeavenlyWind.Bootstrap">
       <Version>0.1.0-blueprint2</Version>
     </PackageReference>
+    <PackageReference Include="HeavenlyWind.ViewModels.Foundation">
+      <Version>0.1.0-blueprint</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.8</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HeavenlyWind.UWP.Core\HeavenlyWind.UWP.Core.csproj">
-      <Project>{847ac9b7-78e5-44c6-a789-efc81a258be1}</Project>
-      <Name>HeavenlyWind.UWP.Core</Name>
-    </ProjectReference>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="HeavenlyWind.UWP_TemporaryKey.pfx" />

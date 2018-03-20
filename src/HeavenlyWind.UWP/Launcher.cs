@@ -10,14 +10,13 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
     {
         static string[] assemblyNames =
         {
-            "HeavenlyWind.UWP.Core",
         };
         public static void Launch()
         {
             var emptyDictionary = new Dictionary<string, string>();
 
             Bootstraper.Startup(Array.Empty<string>(),
-                assemblyNames.Select(Assembly.Load)
+                assemblyNames.Select(Assembly.Load).Prepend(Assembly.GetExecutingAssembly())
                     .Select(asm => new PackageStartupInfo
                     {
                         Id = asm.GetName().Name,
