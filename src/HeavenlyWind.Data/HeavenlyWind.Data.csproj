@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.Data</RootNamespace>
+    <AssemblyName>HeavenlyWind.Data</AssemblyName>
+    <Version>0.1.0-blueprint</Version>
+    <Description>The data storage standard of core part of Intelligent Naval Gun</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)src\HeavenlyWind.Standard\HeavenlyWind.Standard.csproj" />
+  </ItemGroup>
+
+</Project>
