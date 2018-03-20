@@ -10,6 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
     {
         static string[] assemblyNames =
         {
+            "HeavenlyWind.UWP.Data",
         };
         public static void Launch()
         {

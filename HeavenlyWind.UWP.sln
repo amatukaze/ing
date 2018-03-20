@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP", "src\HeavenlyWind.UWP\HeavenlyWind.UWP.csproj", "{872A67E9-1A02-45CB-8948-0AA25BC71974}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP.Data", "src\HeavenlyWind.UWP.Data\HeavenlyWind.UWP.Data.csproj", "{9F2DE7A3-B59D-4234-B886-A1E23FE03775}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -52,6 +54,24 @@ Global
 		{872A67E9-1A02-45CB-8948-0AA25BC71974}.Release|x86.ActiveCfg = Release|x86
 		{872A67E9-1A02-45CB-8948-0AA25BC71974}.Release|x86.Build.0 = Release|x86
 		{872A67E9-1A02-45CB-8948-0AA25BC71974}.Release|x86.Deploy.0 = Release|x86
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Debug|ARM.Build.0 = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Debug|x64.Build.0 = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Debug|x86.Build.0 = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.DebugNative|ARM.ActiveCfg = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.DebugNative|ARM.Build.0 = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.DebugNative|x64.ActiveCfg = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.DebugNative|x64.Build.0 = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.DebugNative|x86.ActiveCfg = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.DebugNative|x86.Build.0 = Debug|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Release|ARM.ActiveCfg = Release|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Release|ARM.Build.0 = Release|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Release|x64.ActiveCfg = Release|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Release|x64.Build.0 = Release|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Release|x86.ActiveCfg = Release|Any CPU
+		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

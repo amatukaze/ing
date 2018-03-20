@@ -89,9 +89,6 @@
     <PackageReference Include="HeavenlyWind.ViewModels.Foundation">
       <Version>0.1.0-blueprint</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.0.8</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainPage.xaml">
@@ -101,6 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="HeavenlyWind.UWP_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.UWP.Data\HeavenlyWind.UWP.Data.csproj">
+      <Project>{9f2de7a3-b59d-4234-b886-a1e23fe03775}</Project>
+      <Name>HeavenlyWind.UWP.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
