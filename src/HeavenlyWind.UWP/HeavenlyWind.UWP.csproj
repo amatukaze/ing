@@ -52,7 +52,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Launcher.cs" />
     <Compile Include="LocalizationService.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -84,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HeavenlyWind.Bootstrap">
-      <Version>0.1.0-blueprint2</Version>
+      <Version>0.1.0-blueprint3</Version>
     </PackageReference>
     <PackageReference Include="HeavenlyWind.ViewModels.Foundation">
       <Version>0.1.0-blueprint</Version>

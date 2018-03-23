@@ -1,4 +1,9 @@
-﻿using Windows.ApplicationModel;
+﻿using Sakuno.KanColle.Amatsukaze.Bootstrap;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 
@@ -26,8 +31,31 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
         /// <param name="e">有关启动请求和过程的详细信息。</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            if (!Bootstraper.IsInitialized)
+            {
+                var assemblyNames = new[]
+                {
+                    "HeavenlyWind.Data",
+                    "HeavenlyWind.UWP.Data",
+                };
+
+                var emptyDictionary = new Dictionary<string, string>();
+
+                Bootstraper.Initialize(Array.Empty<string>(),
+                    assemblyNames.Select(Assembly.Load).Prepend(Assembly.GetExecutingAssembly())
+                        .Select(asm => new PackageStartupInfo
+                        {
+                            Id = asm.GetName().Name,
+                            Version = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+                                ?? asm.GetName().Version.ToString(),
+                            Dependencies = emptyDictionary,
+                            Module = new Lazy<Assembly>(asm)
+                        }).ToArray(),
+                    null);
+            }
+
             if (e.PrelaunchActivated == false)
-                Launcher.Launch();
+                Bootstraper.Startup();
         }
 
         /// <summary>
