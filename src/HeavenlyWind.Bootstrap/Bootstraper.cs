@@ -20,8 +20,14 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
         static IContainer _container;
         static IResolver _resolver;
 
-        public static void Startup(string[] commandLine, IEnumerable<PackageStartupInfo> packages, IPackageStorage storage)
+        public static bool IsInitialized { get; private set; }
+
+        public static void Initialize(string[] commandLine, IEnumerable<PackageStartupInfo> packages, IPackageStorage storage)
         {
+            if (IsInitialized)
+                throw new InvalidOperationException("Bootstrapper can only be initialized once.");
+            IsInitialized = true;
+
             _packages = packages;
             _storage = storage;
 
@@ -48,7 +54,10 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
             ImportModuleTypes();
             ComposeModules();
             InitializeModules();
+        }
 
+        public static void Startup()
+        {
             _resolver.Resolve<IShell>().Run();
         }
 
