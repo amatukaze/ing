@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HeavenlyWind.Bootstrap" Version="0.1.0-blueprint2" />
+    <PackageReference Include="HeavenlyWind.Bootstrap" Version="0.1.0-blueprint3" />
   </ItemGroup>
 
 </Project>
