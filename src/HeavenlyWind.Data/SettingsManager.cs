@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Data
         private Dictionary<string, SettingItemBase> items = new Dictionary<string, SettingItemBase>();
         public ISettingItem<T> Register<T>(string name, T defaultValue = default)
         {
-            lock(items)
+            lock (items)
             {
                 if (items.ContainsKey(name))
                     throw new InvalidOperationException("One setting name can be registered only once.");

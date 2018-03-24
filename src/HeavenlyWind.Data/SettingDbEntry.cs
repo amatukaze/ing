@@ -2,7 +2,7 @@
 {
     internal class SettingDbEntry
     {
-        public string Id;
-        public string Value;
+        public string Id { get; set; }
+        public string Value { get; set; }
     }
 }

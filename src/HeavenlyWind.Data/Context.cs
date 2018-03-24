@@ -14,5 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Data
 
             DataService.Configure(optionsBuilder);
         }
+
+        protected Context() => Database.Migrate();
     }
 }
