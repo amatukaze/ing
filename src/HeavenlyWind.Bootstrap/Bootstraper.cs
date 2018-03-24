@@ -114,7 +114,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
 
         static void InitializeModules()
         {
-            _resolver = _container.Resolve<IResolver>();
+            StaticResolver.Instance = _resolver = _container.Resolve<IResolver>();
 
             foreach (var module in _modules)
                 module.Initialize(_resolver);
