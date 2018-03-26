@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Data
 {
     internal class SettingsManager : Context, ISettingsManager
     {
-        public DbSet<SettingDbEntry> Entries { get; set; }
+        public DbSet<SettingDbEntry> SettingEntries { get; set; }
         private Dictionary<string, SettingItemBase> items = new Dictionary<string, SettingItemBase>();
         public ISettingItem<T> Register<T>(string name, T defaultValue = default)
         {

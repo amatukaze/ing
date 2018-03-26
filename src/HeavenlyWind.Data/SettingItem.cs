@@ -12,11 +12,11 @@ namespace Sakuno.KanColle.Amatsukaze.Data
             {
                 case TypeCode.String:
                 case TypeCode.Int32:
-                case TypeCode.Double:
+                case TypeCode.Single:
                 case TypeCode.Boolean:
                     break;
                 default:
-                    throw new NotSupportedException($"{nameof(SettingItem<T>)} only supports int, bool, string, double, and int underlying enums. Using type {typeof(T)}");
+                    throw new NotSupportedException($"{nameof(SettingItem<T>)} only supports int, bool, string, float, and int underlying enums. Using type {typeof(T)}");
             }
         }
 
@@ -30,8 +30,8 @@ namespace Sakuno.KanColle.Amatsukaze.Data
                     return (string)(object)value;
                 case TypeCode.Int32:
                     return ((int)(object)value).ToString(CultureInfo.InvariantCulture);
-                case TypeCode.Double:
-                    return ((double)(object)value).ToString(CultureInfo.InvariantCulture);
+                case TypeCode.Single:
+                    return ((float)(object)value).ToString(CultureInfo.InvariantCulture);
                 case TypeCode.Boolean:
                     return ((bool)(object)value).ToString(CultureInfo.InvariantCulture);
                 default:
@@ -47,8 +47,8 @@ namespace Sakuno.KanColle.Amatsukaze.Data
                     return (T)(object)value;
                 case TypeCode.Int32:
                     return (T)(object)int.Parse(value, CultureInfo.InvariantCulture);
-                case TypeCode.Double:
-                    return (T)(object)double.Parse(value, CultureInfo.InvariantCulture);
+                case TypeCode.Single:
+                    return (T)(object)float.Parse(value, CultureInfo.InvariantCulture);
                 case TypeCode.Boolean:
                     return (T)(object)bool.Parse(value);
                 default:

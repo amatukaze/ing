@@ -10,8 +10,8 @@ namespace Sakuno.KanColle.Amatsukaze.Data
         protected SettingItemBase(SettingsManager manager,string key, string defaultValue)
         {
             this.manager = manager;
-            entry = manager.Entries.Find(key)
-                ?? manager.Entries.Add(new SettingDbEntry
+            entry = manager.SettingEntries.Find(key)
+                ?? manager.SettingEntries.Add(new SettingDbEntry
                 {
                     Id = key,
                     Value = defaultValue
