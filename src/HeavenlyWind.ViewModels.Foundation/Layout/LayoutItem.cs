@@ -1,8 +1,7 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
 {
-    public sealed class LayoutItem : ILayoutElement
+    public sealed class LayoutItem : LayoutBase
     {
-        public string Id { get; set; }
-        public string Title { get; set; }
+        private protected override string TypeName => "Item";
     }
 }
