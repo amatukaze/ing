@@ -11,9 +11,11 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
     public sealed partial class MainPage : Page
     {
         private MainWindowVM ViewModel { get; }
-        public MainPage(MainWindowVM viewModel)
+        private readonly Shell shell;
+        internal MainPage(MainWindowVM viewModel, Shell shell)
         {
             ViewModel = viewModel;
+            this.shell = shell;
             this.InitializeComponent();
         }
     }
