@@ -7,8 +7,8 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
     public sealed class RelativeLayout : LayoutBase
     {
         private protected override string TypeName => "Relative";
-        public ICollection<LayoutBase> Children { get; } = new List<LayoutBase>();
-        public ICollection<RelativeRelation> Relations { get; } = new List<RelativeRelation>();
+        public IList<LayoutBase> Children { get; } = new List<LayoutBase>();
+        public IList<RelativeRelation> Relations { get; } = new List<RelativeRelation>();
 
         internal override void FromXml(XmlElement xml)
         {
@@ -75,7 +75,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
         LeftOf,
         RightOf,
         Above,
-        Bottom,
+        Below,
         AlignLeft,
         AlignRight,
         AlignTop,

@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
 {
     public sealed class LayoutRoot
     {
-        public ICollection<LayoutBase> Entries { get; } = new List<LayoutBase>();
+        public IList<LayoutBase> Entries { get; } = new List<LayoutBase>();
 
         public XmlDocument ToXml()
         {

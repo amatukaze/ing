@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
     public class TabLayout : LayoutBase
     {
         private protected override string TypeName => "Tab";
-        public ICollection<LayoutBase> Children { get; } = new List<LayoutBase>();
+        public IList<LayoutBase> Children { get; } = new List<LayoutBase>();
 
         internal override void FromXml(XmlElement xml)
         {
