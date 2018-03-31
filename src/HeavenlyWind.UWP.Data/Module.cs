@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Data
         }
         public void Initialize(IResolver resolver)
         {
-            service.Initialize();
+            service.InitializeAsync().Wait();
         }
     }
 }
