@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
-using Sakuno.KanColle.Amatsukaze.Composition;
+﻿using Sakuno.KanColle.Amatsukaze.Composition;
+using Sakuno.KanColle.Amatsukaze.Data;
 using Sakuno.KanColle.Amatsukaze.Shell;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Layout;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
 using Windows.ApplicationModel.Core;
-using Windows.Storage;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -19,26 +19,27 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
 {
     internal class Shell : IShell
     {
+        private IDataService dataService;
+        public Shell(IDataService dataService) => this.dataService = dataService;
+
         public async void Run()
         {
             started = true;
 
-            StorageFile layoutFile = null;
+            XmlDocument layoutDocument = new XmlDocument();
             try
             {
-                layoutFile = await ApplicationData.Current.RoamingFolder.GetFileAsync("layout.xml");
+                using (var file = await dataService.ReadFile("layout.xml"))
+                    layoutDocument.Load(file);
             }
             catch (FileNotFoundException)
             {
                 // load default
             }
 
-            if (layoutFile != null)
+            if (layoutDocument.DocumentElement != null)
             {
-                XmlDocument xml = new XmlDocument();
-                using (var stream = await layoutFile.OpenStreamForReadAsync())
-                    xml.Load(stream);
-                Layout = new LayoutRoot().FromXml(xml);
+                Layout = new LayoutRoot().FromXml(layoutDocument);
             }
             else
             {

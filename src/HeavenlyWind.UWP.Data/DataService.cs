@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.KanColle.Amatsukaze.Data;
@@ -9,17 +10,17 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Data
 {
     internal class DataService : IDataService
     {
-        private StorageFile dataFile;
+        StorageFolder dataRoot;
+        private StorageFile dbFile;
         internal void Initialize()
         {
-            if (dataFile != null) return;
+            if (dbFile != null) return;
             InitializeAsync().Wait();
         }
 
         private async Task InitializeAsync()
         {
             StorageItemAccessList futureList = StorageApplicationPermissions.FutureAccessList;
-            StorageFolder dataRoot = null;
 
             foreach (var entry in futureList.Entries)
                 if (entry.Metadata == "data")
@@ -29,15 +30,18 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Data
                 }
             if (dataRoot == null)
                 dataRoot = ApplicationData.Current.RoamingFolder;
-            dataFile = await dataRoot.CreateFileAsync("ing.db", CreationCollisionOption.OpenIfExists);
+            dbFile = await dataRoot.CreateFileAsync("ing.db", CreationCollisionOption.OpenIfExists);
         }
 
-        public void Configure(DbContextOptionsBuilder builder)
+        public void ConfigureDbContext(DbContextOptionsBuilder builder)
         {
-            if (dataFile == null)
+            if (dbFile == null)
                 throw new InvalidOperationException("Data service not initialized.");
 
-            builder.UseSqlite("Data Source=" + dataFile.Path);
+            builder.UseSqlite("Data Source=" + dbFile.Path);
         }
+
+        public Task<Stream> ReadFile(string filename) => dataRoot.OpenStreamForReadAsync(filename);
+        public Task<Stream> WriteFile(string filename) => dataRoot.OpenStreamForWriteAsync(filename, CreationCollisionOption.ReplaceExisting);
     }
 }
