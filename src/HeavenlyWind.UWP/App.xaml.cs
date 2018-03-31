@@ -6,6 +6,7 @@ using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.KanColle.Amatsukaze.UWP
 {
@@ -55,7 +56,12 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             }
 
             if (e.PrelaunchActivated == false)
-                Bootstraper.Startup();
+            {
+                var initialScreen = new Grid();
+                initialScreen.Loaded += (_, __) => Bootstraper.Startup();
+                Window.Current.Content = initialScreen;
+                Window.Current.Activate();
+            }
         }
 
         /// <summary>

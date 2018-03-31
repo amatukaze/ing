@@ -50,7 +50,6 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
 
             Window.Current.Content = main = new MainPage(new MainWindowVM(), this);
             Rearrange();
-            Window.Current.Activate();
         }
 
         internal readonly Dictionary<string, ViewDescriptor> Views = new Dictionary<string, ViewDescriptor>();
