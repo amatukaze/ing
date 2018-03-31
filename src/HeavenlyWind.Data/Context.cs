@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Data
             if (DataService == null)
                 throw new InvalidOperationException("Data service not initialized.");
 
-            DataService.Configure(optionsBuilder);
+            DataService.ConfigureDbContext(optionsBuilder);
         }
 
         protected Context() => Database.Migrate();
