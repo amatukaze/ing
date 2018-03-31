@@ -4,7 +4,7 @@ namespace Sakuno.KanColle.Amatsukaze.Composition
 {
     public sealed class ViewDescriptor
     {
-        public ViewDescriptor(Type viewType, Type viewModelType, string id, bool isFixedSize, bool singleWindowRecommended)
+        public ViewDescriptor(Type viewType, string id, bool isFixedSize, bool singleWindowRecommended)
         {
             ViewType = viewType;
             Id = id;
