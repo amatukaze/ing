@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.Services.Listener</RootNamespace>
+    <AssemblyName>HeavenlyWind.Core.Listener</AssemblyName>
+    <PackageId>HeavenlyWind.Core.Listener</PackageId>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Game listener for ING</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nekomimi" Version="0.1.0-blueprint" />
+  </ItemGroup>
+
+</Project>

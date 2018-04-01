@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Core.Listener", "src\HeavenlyWind.Core.Listener\HeavenlyWind.Core.Listener.csproj", "{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Game.Provider", "src\HeavenlyWind.Game.Provider\HeavenlyWind.Game.Provider.csproj", "{05EB7B5D-CC39-4D62-8D11-EF3EAA99DD91}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Game.Models", "src\HeavenlyWind.Game.Models\HeavenlyWind.Game.Models.csproj", "{2DB243BB-D99C-4D5C-AAA9-98104CC7EFA0}"
@@ -20,6 +22,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}.Release|Any CPU.Build.0 = Release|Any CPU
 		{05EB7B5D-CC39-4D62-8D11-EF3EAA99DD91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{05EB7B5D-CC39-4D62-8D11-EF3EAA99DD91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05EB7B5D-CC39-4D62-8D11-EF3EAA99DD91}.Release|Any CPU.ActiveCfg = Release|Any CPU
