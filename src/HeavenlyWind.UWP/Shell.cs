@@ -1,5 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Composition;
-using Sakuno.KanColle.Amatsukaze.Data;
+﻿using Sakuno.KanColle.Amatsukaze.Data;
+using Sakuno.KanColle.Amatsukaze.Settings;
 using Sakuno.KanColle.Amatsukaze.Shell;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Layout;
@@ -39,12 +39,12 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
 
             if (layoutDocument.DocumentElement != null)
             {
-                Layout = new LayoutRoot().FromXml(layoutDocument);
+                layout = new LayoutRoot().FromXml(layoutDocument);
             }
             else
             {
-                Layout = new LayoutRoot();
-                Layout.Entries.Add(new RelativeLayout());
+                layout = new LayoutRoot();
+                layout.Entries.Add(new RelativeLayout());
                 // load browser only
             }
 
@@ -52,15 +52,22 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             Rearrange();
         }
 
-        internal readonly Dictionary<string, ViewDescriptor> Views = new Dictionary<string, ViewDescriptor>();
-        internal LayoutRoot Layout;
+        private readonly Dictionary<string, (Type ViewType, bool IsFixedSize, bool SingleWindowRecommended)> views = new Dictionary<string, (Type, bool, bool)>();
+        private readonly List<(Type ViewType, SettingCategory Category)> settingViews = new List<(Type, SettingCategory)>();
+        private LayoutRoot layout;
         private bool started;
         private MainPage main;
 
-        public void RegisterView(ViewDescriptor descriptor)
+        public void RegisterView(Type viewType, string id, bool isFixedSize = true, bool singleWindowRecommended = false)
         {
             if (started) throw new InvalidOperationException("Shell already started.");
-            Views.Add(descriptor.Id, descriptor);
+            views.Add(id, (viewType, isFixedSize, singleWindowRecommended));
+        }
+
+        public void RegisterSettingView(Type viewType, SettingCategory category = SettingCategory.Misc)
+        {
+            if (started) throw new InvalidOperationException("Shell already started.");
+            settingViews.Add((viewType, category));
         }
 
         internal void Rearrange()
@@ -71,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
 
             main.MainContent.Content = null;
             main.ViewSwitcher.Children.Clear();
-            foreach (var entry in Layout.Entries)
+            foreach (var entry in layout.Entries)
             {
                 if (main.MainContent.Content == null)
                     main.MainContent.Content = BuildLayout(entry);
