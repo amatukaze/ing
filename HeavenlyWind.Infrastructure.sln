@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Bootstrap", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Core.DateTime", "src\HeavenlyWind.Core.DateTime\HeavenlyWind.Core.DateTime.csproj", "{6BBBE871-BEB9-47CF-BBF9-28DB9B64729A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Core.CommonSettings", "src\HeavenlyWind.Core.CommonSettings\HeavenlyWind.Core.CommonSettings.csproj", "{04A06327-2D86-4A59-8F5C-188D5027516E}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Standard", "src\HeavenlyWind.Standard\HeavenlyWind.Standard.csproj", "{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Data", "src\HeavenlyWind.Data\HeavenlyWind.Data.csproj", "{AB6EC829-12AC-4B7C-A348-5C7620C96EB5}"
@@ -34,6 +36,10 @@ Global
 		{6BBBE871-BEB9-47CF-BBF9-28DB9B64729A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BBBE871-BEB9-47CF-BBF9-28DB9B64729A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BBBE871-BEB9-47CF-BBF9-28DB9B64729A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A06327-2D86-4A59-8F5C-188D5027516E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A06327-2D86-4A59-8F5C-188D5027516E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A06327-2D86-4A59-8F5C-188D5027516E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A06327-2D86-4A59-8F5C-188D5027516E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
