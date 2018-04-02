@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -33,11 +32,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             return jSerializer.Deserialize<T>(new JsonTextReader(new StreamReader(stream)));
         }
 
-        public IProducer<T> RegisterRaw<T>(string api) => provider
+        public IProducer<ParsedMessage<T>> RegisterRaw<T>(string api) => provider
             .Where(arg => arg.Key.Equals(api, StringComparison.Ordinal))
-            .Select(arg => Convert<T>(arg.Value));
+            .Select(arg => new ParsedMessage<T>
+            (
+                arg.Key,
+                arg.TimeStamp,
+                Convert<T>(arg.Stream)
+            ));
 
-        public IProducer<KeyValuePair<string, JToken>> RegisterAny() => provider
-            .Select(arg => new KeyValuePair<string, JToken>(arg.Key, Convert<JToken>(arg.Value)));
+        public IProducer<ParsedMessage<JToken>> RegisterAny() => provider
+            .Select(arg => new ParsedMessage<JToken>
+            (
+                arg.Key,
+                arg.TimeStamp,
+                Convert<JToken>(arg.Stream)
+            ));
     }
 }

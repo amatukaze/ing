@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using Sakuno.Nekomimi;
 
 namespace Sakuno.KanColle.Amatsukaze.Services.Listener
 {
     internal class NekomimiProvider : ITextStreamProvider
     {
-        public event Action<KeyValuePair<string, Stream>> Received;
+        public event Action<TextMessage> Received;
         private readonly ProxyServer server;
-        public NekomimiProvider(ProxyServer server)
+        private readonly IDateTimeService dateTime;
+
+        public NekomimiProvider(ProxyServer server, IDateTimeService dateTime)
         {
             this.server = server;
+            this.dateTime = dateTime;
             server.AfterResponse += Server_AfterResponse;
         }
 
@@ -20,9 +21,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Listener
             var response = session.GetResponseBodyStream();
             if (session.LocalPath.StartsWith("/kcsapi/"))
             {
-                Received?.Invoke(new KeyValuePair<string, Stream>
+                Received?.Invoke(new TextMessage
                 (
                     session.LocalPath.Substring(8),// /kcsapi/
+                    dateTime.Now,
                     new SkippingStream(response, 7)// svdata=
                 ));
             }
