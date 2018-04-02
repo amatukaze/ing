@@ -12,9 +12,24 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock FontSize="16"
-                   Margin="20,4,0,4"
-                   Text="Intelligent Naval Gun"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="16"
+                       Margin="20,4,0,4"
+                       Text="Intelligent Naval Gun"/>
+            <Rectangle Fill="Transparent"
+                       x:Name="DraggableTitle"/>
+            <Button HorizontalAlignment="Right"
+                    Grid.Column="1"
+                    Margin="0,0,180,0"
+                    Style="{ThemeResource ButtonRevealStyle}"
+                    Tapped="{x:Bind Shell.ShowSettingsView}">
+                <SymbolIcon Symbol="Setting"/>
+            </Button>
+        </Grid>
         <ContentControl x:Name="MainContent" x:FieldModifier="Internal"
                         Grid.Row="1"/>
         <StackPanel x:Name="ViewSwitcher" x:FieldModifier="Internal"

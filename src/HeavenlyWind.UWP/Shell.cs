@@ -55,7 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                     await view.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
                         ApplicationView.GetForCurrentView().TitleBar.ButtonForegroundColor = sender.GetColorValue(UIColorType.Foreground));
             };
-            Window.Current.Content = main = new MainView(new MainWindowVM());
+            Window.Current.Content = main = new MainView(new MainWindowVM(), this);
             Rearrange();
         }
 
@@ -84,6 +84,32 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             var titlebar = ApplicationView.GetForCurrentView().TitleBar;
             titlebar.ButtonBackgroundColor = Colors.Transparent;
             titlebar.ButtonForegroundColor = new UISettings().GetColorValue(UIColorType.Foreground);
+        }
+
+        private int settingsViewId = 0;
+        internal async void ShowSettingsView()
+        {
+            if (settingsViewId == 0)
+            {
+                var coreView = CoreApplication.CreateNewView();
+                await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+                {
+                    var view = ApplicationView.GetForCurrentView();
+                    settingsViewId = view.Id;
+
+                    SetupTransparencity();
+                    Window.Current.Content = new SettingsView(settingViews);
+
+                    view.Consolidated += (_, __) =>
+                    {
+                        settingsViewId = 0;
+                        Window.Current.Content = null;
+                    };
+
+                    Window.Current.Activate();
+                });
+            }
+            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(settingsViewId);
         }
 
         internal void Rearrange()
