@@ -144,7 +144,6 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                                 Content = BuildLayout(le)
                             };
                             view.Consolidated += (_, __) => Window.Current.Content = null;
-                            view.Title = le.Title;
 
                             Window.Current.Activate();
                         });
@@ -230,12 +229,18 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                     }
                     return panel;
                 case LayoutItem item:
+                    if (!views.TryGetValue(item.Id, out var descriptor))
+                        return null;
+                    var view = (FrameworkElement)Activator.CreateInstance(descriptor.ViewType);
                     return new Border
                     {
                         Margin = new Thickness(2),
                         Padding = new Thickness(2),
                         BorderThickness = new Thickness(2),
-                        BorderBrush = borderBrush
+                        BorderBrush = borderBrush,
+                        HorizontalAlignment = view.HorizontalAlignment,
+                        VerticalAlignment = view.VerticalAlignment,
+                        Child = view
                     };
                 default:
                     return null;
