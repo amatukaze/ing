@@ -1,10 +1,11 @@
-﻿using Sakuno.KanColle.Amatsukaze.Bootstrap;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Sakuno.KanColle.Amatsukaze.Bootstrap;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -59,6 +60,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             {
                 var initialScreen = new Grid();
                 initialScreen.Loaded += (_, __) => Bootstraper.Startup();
+                CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;
                 Window.Current.Content = initialScreen;
                 Window.Current.Activate();
             }

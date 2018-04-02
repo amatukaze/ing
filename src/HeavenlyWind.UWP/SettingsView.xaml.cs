@@ -5,18 +5,15 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Sakuno.KanColle.Amatsukaze.Settings;
 using Windows.UI.Xaml.Controls;
 
-//https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
-
 namespace Sakuno.KanColle.Amatsukaze.UWP
 {
-
     internal class SettingsPageModel
     {
         public string Title; //TODO:localize
         public object[] Content;
     }
 
-    public sealed partial class SettingsView : UserControl
+    public sealed partial class SettingsView : Page
     {
         private SettingsPageModel[] Pages;
         public SettingsView(List<(Type ViewType, SettingCategory Category)> entries)

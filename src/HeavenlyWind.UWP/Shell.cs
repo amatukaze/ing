@@ -48,7 +48,14 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                 // load browser only
             }
 
-            Window.Current.Content = main = new MainPage(new MainWindowVM(), this);
+            SetupTransparencity();
+            new UISettings().ColorValuesChanged += async (sender, _) =>
+            {
+                foreach (var view in CoreApplication.Views)
+                    await view.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+                        ApplicationView.GetForCurrentView().TitleBar.ButtonForegroundColor = sender.GetColorValue(UIColorType.Foreground));
+            };
+            Window.Current.Content = main = new MainView(new MainWindowVM());
             Rearrange();
         }
 
@@ -56,7 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
         private readonly List<(Type ViewType, SettingCategory Category)> settingViews = new List<(Type, SettingCategory)>();
         private LayoutRoot layout;
         private bool started;
-        private MainPage main;
+        private MainView main;
 
         public void RegisterView(Type viewType, string id, bool isFixedSize = true, bool singleWindowRecommended = false)
         {
@@ -68,6 +75,15 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
         {
             if (started) throw new InvalidOperationException("Shell already started.");
             settingViews.Add((viewType, category));
+        }
+
+        private void SetupTransparencity()
+        {
+            var coreView = CoreApplication.GetCurrentView();
+            coreView.TitleBar.ExtendViewIntoTitleBar = true;
+            var titlebar = ApplicationView.GetForCurrentView().TitleBar;
+            titlebar.ButtonBackgroundColor = Colors.Transparent;
+            titlebar.ButtonForegroundColor = new UISettings().GetColorValue(UIColorType.Foreground);
         }
 
         internal void Rearrange()
@@ -96,10 +112,13 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                             var view = ApplicationView.GetForCurrentView();
                             coreViewId = view.Id;
 
-                            Window.Current.Content = BuildLayout(le);
+                            SetupTransparencity();
+                            Window.Current.Content = new SubView
+                            {
+                                Content = BuildLayout(le)
+                            };
                             view.Consolidated += (_, __) => Window.Current.Content = null;
                             view.Title = le.Title;
-                            var titleBar = view.TitleBar;
 
                             Window.Current.Activate();
                         });
