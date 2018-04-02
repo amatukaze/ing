@@ -117,6 +117,10 @@
       <Project>{9f2de7a3-b59d-4234-b886-a1e23fe03775}</Project>
       <Name>HeavenlyWind.UWP.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HeavenlyWind.UWP.Views.Settings\HeavenlyWind.UWP.Views.Settings.csproj">
+      <Project>{e5d369e8-b344-410c-8d1a-c87e9c621c80}</Project>
+      <Name>HeavenlyWind.UWP.Views.Settings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

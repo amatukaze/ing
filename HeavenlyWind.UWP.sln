@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP", "src\Hea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP.Data", "src\HeavenlyWind.UWP.Data\HeavenlyWind.UWP.Data.csproj", "{9F2DE7A3-B59D-4234-B886-A1E23FE03775}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP.Views.Settings", "src\HeavenlyWind.UWP.Views.Settings\HeavenlyWind.UWP.Views.Settings.csproj", "{E5D369E8-B344-410C-8D1A-C87E9C621C80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -72,6 +74,24 @@ Global
 		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Release|x64.Build.0 = Release|Any CPU
 		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Release|x86.ActiveCfg = Release|Any CPU
 		{9F2DE7A3-B59D-4234-B886-A1E23FE03775}.Release|x86.Build.0 = Release|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Debug|ARM.Build.0 = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Debug|x64.Build.0 = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Debug|x86.Build.0 = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.DebugNative|ARM.ActiveCfg = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.DebugNative|ARM.Build.0 = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.DebugNative|x64.ActiveCfg = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.DebugNative|x64.Build.0 = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.DebugNative|x86.ActiveCfg = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.DebugNative|x86.Build.0 = Debug|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Release|ARM.Build.0 = Release|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Release|x64.ActiveCfg = Release|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Release|x64.Build.0 = Release|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Release|x86.ActiveCfg = Release|Any CPU
+		{E5D369E8-B344-410C-8D1A-C87E9C621C80}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
