@@ -37,8 +37,10 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             {
                 var assemblyNames = new[]
                 {
+                    "HeavenlyWind.Core.CommonSettings",
                     "HeavenlyWind.Data",
                     "HeavenlyWind.UWP.Data",
+                    "HeavenlyWind.UWP.Views.Settings",
                 };
 
                 var emptyDictionary = new Dictionary<string, string>();
