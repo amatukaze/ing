@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.KanColle.Amatsukaze.Data;
@@ -9,23 +8,10 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Data
 {
     internal class DataService : IDataService
     {
-        private StorageFolder dataRoot;
-        private StorageFile dbFile;
-
-        internal async Task InitializeAsync()
-        {
-            if (dataRoot != null) return;
-            dataRoot = ApplicationData.Current.RoamingFolder;
-            dbFile = await dataRoot.CreateFileAsync("ing.db", CreationCollisionOption.OpenIfExists);
-        }
+        private readonly StorageFolder dataRoot = ApplicationData.Current.RoamingFolder;
 
         public void ConfigureDbContext(DbContextOptionsBuilder builder)
-        {
-            if (dbFile == null)
-                throw new InvalidOperationException("Data service not initialized.");
-
-            builder.UseSqlite("Data Source=" + dbFile.Path);
-        }
+            => builder.UseSqlite("Data Source=" + Path.Combine(dataRoot.Path, "ing.db"));
 
         public Task<Stream> ReadFile(string filename)
             => dataRoot.OpenStreamForReadAsync(filename);

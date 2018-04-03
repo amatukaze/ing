@@ -5,14 +5,10 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Data
 {
     internal class Module : IExposableModule
     {
-        private DataService service = new DataService();
         public void Expose(IBuilder builder)
         {
-            builder.RegisterInstance<IDataService>(service);
+            builder.RegisterService<DataService, IDataService>();
         }
-        public void Initialize(IResolver resolver)
-        {
-            service.InitializeAsync().Wait();
-        }
+        public void Initialize(IResolver resolver) { }
     }
 }
