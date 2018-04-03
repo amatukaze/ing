@@ -1,12 +1,13 @@
-﻿using Sakuno.KanColle.Amatsukaze.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using Sakuno.KanColle.Amatsukaze.Data;
+using Sakuno.KanColle.Amatsukaze.Services;
 using Sakuno.KanColle.Amatsukaze.Settings;
 using Sakuno.KanColle.Amatsukaze.Shell;
 using Sakuno.KanColle.Amatsukaze.ViewModels;
 using Sakuno.KanColle.Amatsukaze.ViewModels.Layout;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.Core;
@@ -19,8 +20,13 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
 {
     internal class Shell : IShell
     {
-        private IDataService dataService;
-        public Shell(IDataService dataService) => this.dataService = dataService;
+        private readonly IDataService dataService;
+        private readonly ITextStreamProvider gameProvider;
+        public Shell(IDataService dataService, ITextStreamProvider gameProvider)
+        {
+            this.dataService = dataService;
+            this.gameProvider = gameProvider;
+        }
 
         public async void Run()
         {
@@ -57,6 +63,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             };
             Window.Current.Content = main = new MainView(new MainWindowVM(), this);
             Rearrange();
+            gameProvider.Enabled = true;
         }
 
         private readonly Dictionary<string, (Type ViewType, bool IsFixedSize, bool SingleWindowRecommended)> views = new Dictionary<string, (Type, bool, bool)>();

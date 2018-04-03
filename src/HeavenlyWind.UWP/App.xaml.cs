@@ -38,7 +38,10 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                 var assemblyNames = new[]
                 {
                     "HeavenlyWind.Core.CommonSettings",
+                    "HeavenlyWind.Core.DateTime",
+                    "HeavenlyWind.Core.Listener",
                     "HeavenlyWind.Data",
+                    "HeavenlyWind.Game.Provider",
                     "HeavenlyWind.UWP.Data",
                     "HeavenlyWind.UWP.Views.Settings",
                 };

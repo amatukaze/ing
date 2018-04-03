@@ -14,5 +14,7 @@
         <TextBox Header="Proxy port"
                  IsEnabled="{x:Bind Instance.UseUpstream.Value, Mode=OneWay}"
                  Text="{x:Bind Instance.UpstreamPort.Value, Mode=TwoWay}"/>
+        <TextBox Header="Listening port"
+                 Text="{x:Bind Instance.ListeningPort.Value, Mode=TwoWay}"/>
     </StackPanel>
 </UserControl>

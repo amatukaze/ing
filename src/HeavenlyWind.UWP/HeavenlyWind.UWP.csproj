@@ -91,6 +91,15 @@
     <PackageReference Include="HeavenlyWind.Bootstrap">
       <Version>0.1.0-blueprint3</Version>
     </PackageReference>
+    <PackageReference Include="HeavenlyWind.Core.DateTime">
+      <Version>0.1.0-blueprint</Version>
+    </PackageReference>
+    <PackageReference Include="HeavenlyWind.Core.Listener">
+      <Version>0.1.0-blueprint</Version>
+    </PackageReference>
+    <PackageReference Include="HeavenlyWind.Game.Provider">
+      <Version>0.1.0-blueprint</Version>
+    </PackageReference>
     <PackageReference Include="HeavenlyWind.ViewModels.Foundation">
       <Version>0.1.0-blueprint</Version>
     </PackageReference>
