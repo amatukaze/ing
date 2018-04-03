@@ -28,7 +28,7 @@ namespace Sakuno.KanColle.Amatsukaze.Bootstrap
             if (_builder == null)
                 throw new InvalidOperationException("Cannot register because the composition has finished.");
 
-            _builder.RegisterType<T>().SingleInstance();
+            _builder.RegisterType<T>().AsSelf().SingleInstance();
         }
 
         public void RegisterInstance<T>(T instance) where T : class
