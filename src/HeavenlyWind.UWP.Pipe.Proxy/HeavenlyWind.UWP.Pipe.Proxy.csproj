@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <LangVersion>7.2</LangVersion>
+    <OutputPath>$(SolutionDir)artifacts\$(Configuration)\$(AssemblyName)\</OutputPath>
+    <Authors>Kodama Sakuno</Authors>
+    <Product>Intelligent Naval Gun</Product>
+    <Company>Kodama Sakuno</Company>
+    <Copyright>Copyright © 2018 Huo Yaoyuan</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
+    <OutputType>WinExe</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.UWP.Pipe</RootNamespace>
+    <AssemblyName>HeavenlyWind.UWP.Pipe.Proxy</AssemblyName>
+    <Version>1.0.0</Version>
+    <StartupObject>Sakuno.KanColle.Amatsukaze.UWP.Pipe.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <Import Project="..\HeavenlyWind.UWP.Pipe.Shared\HeavenlyWind.UWP.Pipe.Shared.projitems" Label="Shared" />
+
+</Project>
