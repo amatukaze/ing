@@ -1,10 +1,36 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.UWP.Pipe
+﻿using System;
+using System.Drawing;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Forms;
+using Application = System.Windows.Application;
+
+namespace Sakuno.KanColle.Amatsukaze.UWP.Pipe
 {
     static class Program
     {
+        public static NotifyIcon Notify;
+        static Worker worker;
+        [STAThread]
         static void Main(string[] args)
         {
-
+            Notify = new NotifyIcon
+            {
+                Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("Sakuno.KanColle.Amatsukaze.UWP.Pipe.app.ico")),
+                Text = "ING UWP Proxy",
+                Visible = true
+            };
+            Notify.Click += ShowWindow;
+            worker = new Worker();
+            ShowWindow(null, null);
+            new Application
+            {
+                ShutdownMode = ShutdownMode.OnExplicitShutdown
+            }.Run();
+        }
+        static void ShowWindow(object sender, object e)
+        {
+            new MainWindow { DataContext = worker }.Show();
         }
     }
 }
