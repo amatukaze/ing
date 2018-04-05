@@ -94,9 +94,6 @@
     <PackageReference Include="HeavenlyWind.Core.DateTime">
       <Version>0.1.0-blueprint</Version>
     </PackageReference>
-    <PackageReference Include="HeavenlyWind.Core.Listener">
-      <Version>0.1.0-blueprint</Version>
-    </PackageReference>
     <PackageReference Include="HeavenlyWind.Game.Provider">
       <Version>0.1.0-blueprint</Version>
     </PackageReference>
@@ -122,6 +119,10 @@
     <None Include="HeavenlyWind.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.UWP.Bridge.Listener\HeavenlyWind.UWP.Bridge.Listener.csproj">
+      <Project>{e38f80d6-2e82-4716-b47d-c15e54aec590}</Project>
+      <Name>HeavenlyWind.UWP.Bridge.Listener</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HeavenlyWind.UWP.Data\HeavenlyWind.UWP.Data.csproj">
       <Project>{9f2de7a3-b59d-4234-b886-a1e23fe03775}</Project>
       <Name>HeavenlyWind.UWP.Data</Name>

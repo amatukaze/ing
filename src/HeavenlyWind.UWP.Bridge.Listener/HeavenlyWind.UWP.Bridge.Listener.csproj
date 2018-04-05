@@ -26,6 +26,7 @@
     </Compile>
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider.cs" />
     <EmbeddedResource Include="Properties\HeavenlyWind.UWP.Bridge.Listener.rd.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
