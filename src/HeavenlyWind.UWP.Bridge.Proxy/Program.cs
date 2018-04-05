@@ -10,7 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
     static class Program
     {
         public static NotifyIcon Notify;
-        static Worker worker;
+        public static Worker Worker;
         [STAThread]
         static void Main(string[] args)
         {
@@ -24,9 +24,9 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            worker = new Worker();
+            Worker = new Worker();
             ShowWindow(null, null);
-            worker.Start();
+            Worker.Start();
             new Application
             {
                 ShutdownMode = ShutdownMode.OnExplicitShutdown
@@ -40,7 +40,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
 
         static void ShowWindow(object sender, object e)
         {
-            new MainWindow { DataContext = worker }.Show();
+            new MainWindow { DataContext = Worker }.Show();
         }
     }
 }

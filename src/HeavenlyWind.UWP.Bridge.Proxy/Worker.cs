@@ -10,17 +10,10 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
     class Worker : INotifyPropertyChanged
     {
         public string Version => Constants.Version;
-        private int _port = 15551;
-        public int Port
-        {
-            get => _port;
-            set
-            {
-                IsListening = false;
-                _port = value;
-                IsListening = true;
-            }
-        }
+        public int Port { get; set; } = 15551;
+        public string Upstream { get; set; } = "localhost";
+        public int UpstreamPort { get; set; } = 8099;
+        public bool UseUpstream { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private bool _listening;
@@ -80,6 +73,16 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
             sysListener.Prefixes.Add(Constants.HttpHost);
             sysListener.Start();
             RunReverseHandler();
+        }
+
+        public void Update()
+        {
+            IsListening = false;
+            if (UseUpstream)
+                server.UpstreamProxy = new Proxy(Upstream, Port);
+            else
+                server.UpstreamProxy = null;
+            IsListening = true;
         }
 
         private async void RunReverseHandler()

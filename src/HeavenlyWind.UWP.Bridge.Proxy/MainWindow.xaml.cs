@@ -13,14 +13,21 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
             InitializeComponent();
         }
 
-        private void UpdatePort(object sender, RoutedEventArgs args)
+        private void Update(object sender, RoutedEventArgs args)
         {
+            useUpstream.GetBindingExpression(CheckBox.IsCheckedProperty).UpdateSource();
+            upstream.GetBindingExpression(TextBox.TextProperty).UpdateSource();
             port.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            listening.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            Program.Worker.Update();
         }
 
-        private void CancelPort(object sender, RoutedEventArgs args)
+        private void Cancel(object sender, RoutedEventArgs args)
         {
+            useUpstream.GetBindingExpression(CheckBox.IsCheckedProperty).UpdateTarget();
+            upstream.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
             port.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
+            listening.GetBindingExpression(TextBox.TextProperty).UpdateTarget();
         }
 
         private void Exit(object sender, RoutedEventArgs args)

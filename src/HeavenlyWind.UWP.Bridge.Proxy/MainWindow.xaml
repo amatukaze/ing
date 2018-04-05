@@ -8,13 +8,26 @@
         FontSize="16"
         Title="ING UWP Proxy">
     <StackPanel Orientation="Vertical" Margin="20">
+        <CheckBox x:Name="useUpstream"
+                  Margin="4" Content="Use Upstream"
+                  IsChecked="{Binding UseUpstream, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
         <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Upstream" Margin="4"/>
+            <TextBox x:Name="upstream"
+                     Text="{Binding Upstream, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
+                     Margin="4" Width="100"/>
             <TextBlock Text="Port" Margin="4"/>
             <TextBox x:Name="port"
+                     Text="{Binding UpstreamPort, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
+                     Margin="4" Width="100"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Listening" Margin="4"/>
+            <TextBox x:Name="listening"
                      Text="{Binding Port, Mode=TwoWay, UpdateSourceTrigger=Explicit}"
                      Margin="4" Width="100"/>
-            <Button Content="Update" Margin="4" Click="UpdatePort"/>
-            <Button Content="Cancel" Margin="4" Click="CancelPort"/>
+            <Button Content="Update" Margin="4" Click="Update"/>
+            <Button Content="Cancel" Margin="4" Click="Cancel"/>
             <Button Content="Exit" Margin="4" Click="Exit"/>
         </StackPanel>
         <ContentControl Content="{Binding}">
