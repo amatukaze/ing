@@ -15,10 +15,10 @@
     <EnableDefaultItems>false</EnableDefaultItems>
     <OutputType>WinExe</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <RootNamespace>Sakuno.KanColle.Amatsukaze.UWP.Pipe</RootNamespace>
-    <AssemblyName>HeavenlyWind.UWP.Pipe.Proxy</AssemblyName>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.UWP.Bridge</RootNamespace>
+    <AssemblyName>HeavenlyWind.UWP.Bridge.Proxy</AssemblyName>
     <Version>1.0.0</Version>
-    <StartupObject>Sakuno.KanColle.Amatsukaze.UWP.Pipe.Program</StartupObject>
+    <StartupObject>Sakuno.KanColle.Amatsukaze.UWP.Bridge.Program</StartupObject>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
 
@@ -47,6 +47,9 @@
     <Compile Include="**\*.cs" Exclude="$(BaseIntermediateOutputPath)\**" />
     <Page Include="**\*.xaml" SubType="Designer" Generator="MSBuild:Compile" />
     <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
+    <Compile Include="..\Bridge.SharedConstants.cs">
+      <Link>Bridge.SharedConstants.cs</Link>
+    </Compile>
   </ItemGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
@@ -56,7 +59,5 @@
       <BuildingProject>false</BuildingProject>
     </PropertyGroup>
   </Target>
-
-  <Import Project="..\HeavenlyWind.UWP.Pipe.Shared\HeavenlyWind.UWP.Pipe.Shared.projitems" Label="Shared" />
 
 </Project>

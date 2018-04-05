@@ -16,19 +16,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP.Data", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP.Views.Settings", "src\HeavenlyWind.UWP.Views.Settings\HeavenlyWind.UWP.Views.Settings.csproj", "{E5D369E8-B344-410C-8D1A-C87E9C621C80}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipe", "Pipe", "{B540A9B0-CAFD-434C-BAA1-7CE09D7FF45D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bridge", "Bridge", "{B540A9B0-CAFD-434C-BAA1-7CE09D7FF45D}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "HeavenlyWind.UWP.Pipe.Shared", "src\HeavenlyWind.UWP.Pipe.Shared\HeavenlyWind.UWP.Pipe.Shared.shproj", "{573044D7-D341-4B44-9FBA-46D332B360BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.UWP.Bridge.Proxy", "src\HeavenlyWind.UWP.Bridge.Proxy\HeavenlyWind.UWP.Bridge.Proxy.csproj", "{54D66FB9-FD17-440C-8E2C-18079FF0189F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.UWP.Pipe.Proxy", "src\HeavenlyWind.UWP.Pipe.Proxy\HeavenlyWind.UWP.Pipe.Proxy.csproj", "{54D66FB9-FD17-440C-8E2C-18079FF0189F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP.Pipe.Listener", "src\HeavenlyWind.UWP.Pipe.Listener\HeavenlyWind.UWP.Pipe.Listener.csproj", "{E38F80D6-2E82-4716-B47D-C15E54AEC590}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HeavenlyWind.UWP.Bridge.Listener", "src\HeavenlyWind.UWP.Bridge.Listener\HeavenlyWind.UWP.Bridge.Listener.csproj", "{E38F80D6-2E82-4716-B47D-C15E54AEC590}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\HeavenlyWind.UWP.Pipe.Shared\HeavenlyWind.UWP.Pipe.Shared.projitems*{573044d7-d341-4b44-9fba-46d332b360ba}*SharedItemsImports = 13
-		src\HeavenlyWind.UWP.Pipe.Shared\HeavenlyWind.UWP.Pipe.Shared.projitems*{e38f80d6-2e82-4716-b47d-c15e54aec590}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
@@ -145,7 +139,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{573044D7-D341-4B44-9FBA-46D332B360BA} = {B540A9B0-CAFD-434C-BAA1-7CE09D7FF45D}
 		{54D66FB9-FD17-440C-8E2C-18079FF0189F} = {B540A9B0-CAFD-434C-BAA1-7CE09D7FF45D}
 		{E38F80D6-2E82-4716-B47D-C15E54AEC590} = {B540A9B0-CAFD-434C-BAA1-7CE09D7FF45D}
 	EndGlobalSection

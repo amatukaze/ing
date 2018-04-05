@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Sakuno.KanColle.Amatsukaze.UWP.Pipe
+namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑

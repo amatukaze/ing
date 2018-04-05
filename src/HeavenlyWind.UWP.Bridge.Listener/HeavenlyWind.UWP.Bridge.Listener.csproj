@@ -6,8 +6,8 @@
     <ProjectGuid>{E38F80D6-2E82-4716-B47D-C15E54AEC590}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sakuno.KanColle.Amatsukaze.UWP.Pipe</RootNamespace>
-    <AssemblyName>HeavenlyWind.UWP.Pipe.Listener</AssemblyName>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.UWP.Bridge</RootNamespace>
+    <AssemblyName>HeavenlyWind.UWP.Bridge.Listener</AssemblyName>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -21,11 +21,13 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Bridge.SharedConstants.cs">
+      <Link>Bridge.SharedConstants.cs</Link>
+    </Compile>
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\HeavenlyWind.UWP.Pipe.Listener.rd.xml" />
+    <EmbeddedResource Include="Properties\HeavenlyWind.UWP.Bridge.Listener.rd.xml" />
   </ItemGroup>
-  <Import Project="..\HeavenlyWind.UWP.Pipe.Shared\HeavenlyWind.UWP.Pipe.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

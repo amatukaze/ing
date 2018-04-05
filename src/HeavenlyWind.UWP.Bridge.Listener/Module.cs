@@ -1,6 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Composition;
 
-namespace Sakuno.KanColle.Amatsukaze.UWP.Pipe
+namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
 {
     internal class Module : IExposableModule
     {

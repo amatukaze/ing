@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Sakuno.Nekomimi;
 
-namespace Sakuno.KanColle.Amatsukaze.UWP.Pipe
+namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
 {
     class Worker : INotifyPropertyChanged
     {

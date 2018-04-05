@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Forms;
 using Application = System.Windows.Application;
 
-namespace Sakuno.KanColle.Amatsukaze.UWP.Pipe
+namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Pipe
         {
             Notify = new NotifyIcon
             {
-                Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("Sakuno.KanColle.Amatsukaze.UWP.Pipe.app.ico")),
+                Icon = new Icon(Assembly.GetExecutingAssembly().GetManifestResourceStream("Sakuno.KanColle.Amatsukaze.UWP.Bridge.app.ico")),
                 Text = "ING UWP Proxy",
                 Visible = true
             };
