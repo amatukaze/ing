@@ -6,10 +6,24 @@ using Windows.Web.Http;
 
 namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
 {
-    internal class Provider : ITextStreamProvider
+    internal class Provider : BindableObject, ITextStreamProvider
     {
         private readonly IDateTimeService dateTimeService;
         public Provider(IDateTimeService dateTimeService) => this.dateTimeService = dateTimeService;
+
+        private bool _connected;
+        public bool IsConnected
+        {
+            get => _connected;
+            set
+            {
+                if (_connected != value)
+                {
+                    _connected = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
 
         private bool _enable;
         public bool Enabled
@@ -47,6 +61,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                     MemoryStream mms;
                     using (var stream = (await client.GetInputStreamAsync(new Uri(Constants.HttpHost))).AsStreamForRead())
                     {
+                        IsConnected = true;
                         var reader = new StreamReader(stream);
                         host = await reader.ReadLineAsync();
                         if (string.IsNullOrEmpty(host)) continue;
@@ -61,7 +76,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                 }
                 catch
                 {
-                    //
+                    IsConnected = false;
                 }
             }
         }
