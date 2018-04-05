@@ -45,5 +45,9 @@
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>
+        <TextBlock Margin="4">
+            <Run Text="Bridge Version"/>
+            <Run Text="{Binding Version, Mode=OneTime}"/>
+        </TextBlock>
     </StackPanel>
 </Window>

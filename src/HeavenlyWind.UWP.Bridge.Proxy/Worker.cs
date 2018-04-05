@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
+using System.Net;
 using Sakuno.Nekomimi;
 
 namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
 {
     class Worker : INotifyPropertyChanged
     {
+        public string Version => Constants.Version;
         private int _port = 15551;
         public int Port
         {
@@ -37,9 +39,29 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
         public bool IsConnected { get; private set; }
 
         private ProxyServer server = new ProxyServer();
-        public Worker()
+        private HttpListener sysListener = new HttpListener();
+        public void Start()
         {
             IsListening = true;
+            sysListener.Prefixes.Add(Constants.HttpHost);
+            sysListener.Start();
+            RunReverseHandler();
+        }
+
+        private async void RunReverseHandler()
+        {
+            while (sysListener.IsListening)
+            {
+                var context = await sysListener.GetContextAsync();
+                using (var response = context.Response)
+                {
+                    response.SendChunked = true;
+                    using (var stream = response.OutputStream)
+                    {
+
+                    }
+                }
+            }
         }
     }
 }

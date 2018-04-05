@@ -23,6 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
             Notify.Click += ShowWindow;
             worker = new Worker();
             ShowWindow(null, null);
+            worker.Start();
             new Application
             {
                 ShutdownMode = ShutdownMode.OnExplicitShutdown
