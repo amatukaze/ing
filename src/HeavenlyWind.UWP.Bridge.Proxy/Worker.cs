@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.IO;
 using System.Net;
 using Sakuno.Nekomimi;
 
@@ -76,10 +77,32 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                 var context = await sysListener.GetContextAsync();
                 using (var response = context.Response)
                 {
+                    IsConnected = true;
                     response.SendChunked = true;
                     using (var stream = response.OutputStream)
                     {
+                        var writer = new StreamWriter(stream);
+                        Session session = null;
+                        try
+                        {
+                            session = sessionCache.Take();
+                        }
+                        catch (Exception e)
+                        {
+                            System.Windows.MessageBox.Show(e.Message);
+                        }
 
+                        if (session == null)
+                        {
+                            await writer.WriteLineAsync();
+                        }
+                        else
+                        {
+                            await writer.WriteLineAsync(session.Host);
+                            await writer.WriteLineAsync(session.LocalPath);
+                            await writer.WriteLineAsync(session.GetRequestBodyAsString());
+                            await session.GetResponseBodyStream().CopyToAsync(stream);
+                        }
                     }
                 }
             }
