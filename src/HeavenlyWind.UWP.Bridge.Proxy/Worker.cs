@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Concurrent;
+using System.ComponentModel;
 using System.Net;
 using Sakuno.Nekomimi;
 
@@ -36,13 +38,32 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsListening)));
             }
         }
-        public bool IsConnected { get; private set; }
+        private bool _isConnected;
+        public bool IsConnected
+        {
+            get => _isConnected;
+            private set
+            {
+                _isConnected = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsConnected)));
+            }
+        }
 
         private ProxyServer server = new ProxyServer();
         private HttpListener sysListener = new HttpListener();
+        private BlockingCollection<Session> sessionCache = new BlockingCollection<Session>(10);
         public void Start()
         {
             IsListening = true;
+            server.AfterResponse += session =>
+            {
+                if (!session.IsHTTPS && session.LocalPath.StartsWith("/kcsapi"))
+                    while (!sessionCache.TryAdd(session))
+                    {
+                        IsConnected = false;
+                        sessionCache.TryTake(out _, TimeSpan.FromMilliseconds(100));
+                    }
+            };
             sysListener.Prefixes.Add(Constants.HttpHost);
             sysListener.Start();
             RunReverseHandler();
