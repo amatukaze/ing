@@ -49,5 +49,6 @@
             <Run Text="Bridge Version"/>
             <Run Text="{Binding Version, Mode=OneTime}"/>
         </TextBlock>
+        <TextBlock Margin="4" Foreground="DarkOrange" Text="{Binding Error}"/>
     </StackPanel>
 </Window>

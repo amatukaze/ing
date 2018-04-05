@@ -50,7 +50,18 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
             }
         }
 
-        private ProxyServer server = new ProxyServer();
+        private string _error;
+        public string Error
+        {
+            get => _error;
+            private set
+            {
+                _error = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Error)));
+            }
+        }
+
+        private ProxyServer server = new ProxyServer { AutoDecompress = true };
         private HttpListener sysListener = new HttpListener();
         private BlockingCollection<Session> sessionCache = new BlockingCollection<Session>(10);
         public void Start()
@@ -65,6 +76,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                         sessionCache.TryTake(out _, TimeSpan.FromMilliseconds(100));
                     }
             };
+            server.SessionFailed += (session, e) => Error = e.ToString();
             sysListener.Prefixes.Add(Constants.HttpHost);
             sysListener.Start();
             RunReverseHandler();

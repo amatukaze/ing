@@ -21,6 +21,9 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                 Visible = true
             };
             Notify.Click += ShowWindow;
+
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
             worker = new Worker();
             ShowWindow(null, null);
             worker.Start();
@@ -29,6 +32,12 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                 ShutdownMode = ShutdownMode.OnExplicitShutdown
             }.Run();
         }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            System.IO.File.AppendAllLines("error.log", new[] { e.ExceptionObject.ToString() });
+        }
+
         static void ShowWindow(object sender, object e)
         {
             new MainWindow { DataContext = worker }.Show();
