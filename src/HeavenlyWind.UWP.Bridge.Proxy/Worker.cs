@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
     {
         public string Version => Constants.Version;
         public int Port { get; set; } = 15551;
-        public string Upstream { get; set; } = "localhost";
+        public string Upstream { get; set; } = "127.0.0.1";
         public int UpstreamPort { get; set; } = 8099;
         public bool UseUpstream { get; set; }
 
@@ -54,7 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
             }
         }
 
-        private ProxyServer server = new ProxyServer { AutoDecompress = true };
+        private ProxyServer server = new ProxyServer();
         private HttpListener sysListener = new HttpListener();
         private BlockingCollection<Session> sessionCache = new BlockingCollection<Session>(10);
         public void Start()
@@ -62,7 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
             IsListening = true;
             server.AfterResponse += session =>
             {
-                if (!session.IsHTTPS && session.LocalPath.StartsWith("/kcsapi"))
+                if (!session.IsHTTPS && session.Request.RequestUri.LocalPath.StartsWith("/kcsapi"))
                     while (!sessionCache.TryAdd(session))
                     {
                         IsConnected = false;
@@ -79,7 +79,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
         {
             IsListening = false;
             if (UseUpstream)
-                server.UpstreamProxy = new Proxy(Upstream, Port);
+                server.UpstreamProxy = new Proxy($"http://{Upstream}:{UpstreamPort}");
             else
                 server.UpstreamProxy = null;
             IsListening = true;
@@ -113,10 +113,12 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                         }
                         else
                         {
-                            await writer.WriteLineAsync(session.Host);
-                            await writer.WriteLineAsync(session.LocalPath);
-                            await writer.WriteLineAsync(session.GetRequestBodyAsString());
-                            await session.GetResponseBodyStream().CopyToAsync(stream);
+                            await writer.WriteLineAsync(session.Request.RequestUri.Host);
+                            await writer.WriteLineAsync(session.Request.RequestUri.LocalPath);
+                            await writer.WriteLineAsync(session.Response.Headers.Date?.ToUnixTimeMilliseconds().ToString());
+                            await writer.WriteLineAsync(session.Request.Content != null ?
+                                await session.Request.Content.ReadAsStringAsync() : string.Empty);
+                            await (await session.Response.Content.ReadAsStreamAsync()).CopyToAsync(stream);
                         }
                     }
                 }
