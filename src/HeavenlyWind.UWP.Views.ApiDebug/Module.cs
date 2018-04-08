@@ -8,6 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Views.ApiDebug
         public void Initialize(IResolver resolver)
         {
             var shell = resolver.Resolve<IShell>();
+            shell.RegisterView(typeof(ApiDebugView), "ApiDebug", false, true);
         }
     }
 }

@@ -31,7 +31,9 @@
             </Button>
         </Grid>
         <ContentControl x:Name="MainContent" x:FieldModifier="Internal"
-                        Grid.Row="1"/>
+                        Grid.Row="1"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"/>
         <StackPanel x:Name="ViewSwitcher" x:FieldModifier="Internal"
                     Orientation="Horizontal"
                     Grid.Row="2"/>

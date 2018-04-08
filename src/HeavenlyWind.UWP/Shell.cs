@@ -50,7 +50,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             else
             {
                 layout = new LayoutRoot();
-                layout.Entries.Add(new RelativeLayout());
+                layout.Entries.Add(new LayoutItem { Id = "ApiDebug" });
                 // load browser only
             }
 
