@@ -127,6 +127,10 @@
       <Project>{9f2de7a3-b59d-4234-b886-a1e23fe03775}</Project>
       <Name>HeavenlyWind.UWP.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\HeavenlyWind.UWP.Views.ApiDebug\HeavenlyWind.UWP.Views.ApiDebug.csproj">
+      <Project>{185f9a4d-07de-4c67-aa3a-e0b837c23036}</Project>
+      <Name>HeavenlyWind.UWP.Views.ApiDebug</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HeavenlyWind.UWP.Views.Settings\HeavenlyWind.UWP.Views.Settings.csproj">
       <Project>{e5d369e8-b344-410c-8d1a-c87e9c621c80}</Project>
       <Name>HeavenlyWind.UWP.Views.Settings</Name>

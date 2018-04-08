@@ -43,6 +43,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                     "HeavenlyWind.Game.Provider",
                     "HeavenlyWind.UWP.Bridge.Listener",
                     "HeavenlyWind.UWP.Data",
+                    "HeavenlyWind.UWP.Views.ApiDebug",
                     "HeavenlyWind.UWP.Views.Settings",
                 };
 
