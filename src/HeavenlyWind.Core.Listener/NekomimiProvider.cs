@@ -52,26 +52,24 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Listener
 
         private void UpdateUpstream(object sender, object e)
         {
+            server.Stop();
             if (setting.UseUpstream.Value)
-                server.UpstreamProxy = new Proxy
-                (
-                    setting.Upstream.Value,
-                    setting.UpstreamPort.Value
-                );
+                server.UpstreamProxy = new Proxy($"http://{setting.Upstream.Value}:{setting.UpstreamPort.Value}");
             else
                 server.UpstreamProxy = null;
+            server.Start(setting.ListeningPort.Value);
         }
 
         private void Server_AfterResponse(Session session)
         {
-            var response = session.GetResponseBodyStream();
-            if (session.LocalPath.StartsWith("/kcsapi/"))
+            var localPath = session.Request.RequestUri.LocalPath;
+            if (localPath.StartsWith("/kcsapi/"))
             {
                 Received?.Invoke(new TextMessage
                 (
-                    session.LocalPath.Substring(8),// /kcsapi/
-                    dateTime.Now,
-                    new SkippingStream(response, 7)// svdata=
+                    localPath.Substring(8),// /kcsapi/
+                    session.Response.Headers.Date ?? DateTimeOffset.UtcNow,
+                    new SkippingStream(session.Response.Content.ReadAsStreamAsync().Result, 7)// svdata=
                 ));
             }
         }

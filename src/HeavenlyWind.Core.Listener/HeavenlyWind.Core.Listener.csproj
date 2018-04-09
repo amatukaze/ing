@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="HeavenlyWind.Core.CommonSettings" Version="0.1.0-blueprint" />
-    <PackageReference Include="Nekomimi" Version="0.1.0-blueprint" />
+    <PackageReference Include="Nekomimi" Version="0.2.0-preview-180408" />
   </ItemGroup>
 
 </Project>
