@@ -57,7 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
             {
                 try
                 {
-                    string host, path, request;
+                    string host, path, request, response;
                     MemoryStream mms;
                     DateTimeOffset timeStamp;
                     using (var stream = (await client.GetInputStreamAsync(new Uri(Constants.HttpHost))).AsStreamForRead())
@@ -69,10 +69,12 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                         path = await reader.ReadLineAsync();
                         timeStamp = DateTimeOffset.FromUnixTimeMilliseconds(long.Parse(await reader.ReadLineAsync()));
                         request = await reader.ReadLineAsync();
-                        var svdataBuffer = new byte[7];
-                        await stream.ReadAsync(svdataBuffer, 0, 7);
+                        response = (await reader.ReadToEndAsync()).Substring(7);
                         mms = new MemoryStream();
-                        await stream.CopyToAsync(mms);
+                        var w = new StreamWriter(mms);
+                        w.WriteLine(response);
+                        w.Flush();
+                        mms.Seek(0, SeekOrigin.Begin);
                     }
                     Received?.Invoke(new TextMessage(path, timeStamp, mms));
                 }

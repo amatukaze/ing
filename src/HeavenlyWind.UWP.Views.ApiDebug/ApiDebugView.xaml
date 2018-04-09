@@ -34,7 +34,7 @@
                    Text="{x:Bind ((local:Message)SessionList.SelectedValue).TimeStamp.LocalDateTime.ToString(), Mode=OneWay}"/>
         <Pivot Grid.Column="2" Grid.Row="1">
             <PivotItem Header="Response">
-                <TextBlock Text="{x:Bind ((local:Message)SessionList.SelectedValue).Body, Mode=OneWay}"/>
+                <TextBlock Text="{x:Bind ((local:Message)SessionList.SelectedValue).Body.ToString(), Mode=OneWay}"/>
             </PivotItem>
         </Pivot>
     </Grid>

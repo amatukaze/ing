@@ -97,21 +97,28 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
         {
             while (sysListener.IsListening)
             {
-                var context = await sysListener.GetContextAsync();
-                using (var response = context.Response)
+                try
                 {
-                    IsConnected = true;
-                    using (var stream = response.OutputStream)
+                    var context = await sysListener.GetContextAsync();
+                    using (var response = context.Response)
                     {
-                        var writer = new StreamWriter(stream);
-                        var session = sessionCache.Take();
-                        await writer.WriteLineAsync(session.Host);
-                        await writer.WriteLineAsync(session.Path);
-                        await writer.WriteLineAsync(session.TimeStamp.ToUnixTimeMilliseconds().ToString());
-                        await writer.WriteAsync(session.Request);
-                        await writer.WriteAsync(session.Response);
-                        await writer.FlushAsync();
+                        IsConnected = true;
+                        using (var stream = response.OutputStream)
+                        {
+                            var writer = new StreamWriter(stream);
+                            var session = sessionCache.Take();
+                            await writer.WriteLineAsync(session.Host);
+                            await writer.WriteLineAsync(session.Path);
+                            await writer.WriteLineAsync(session.TimeStamp.ToUnixTimeMilliseconds().ToString());
+                            await writer.WriteLineAsync(session.Request);
+                            await writer.WriteLineAsync(session.Response);
+                            await writer.FlushAsync();
+                        }
                     }
+                }
+                catch
+                {
+                    IsConnected = false;
                 }
             }
         }
