@@ -120,6 +120,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                                 await session.Request.Content.ReadAsStringAsync() : string.Empty);
                             await (await session.Response.Content.ReadAsStreamAsync()).CopyToAsync(stream);
                         }
+                        await writer.FlushAsync();
                     }
                 }
             }
