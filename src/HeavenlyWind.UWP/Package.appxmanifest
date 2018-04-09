@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="35357c2d-2c04-423b-b7ff-9457f85d18ac" Publisher="CN=Meow" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="35357c2d-2c04-423b-b7ff-9457f85d18ac" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="13853.IntelligentNavalGun" Publisher="CN=67414353-22A7-4FCC-A6F2-0DA81481C2AF" Version="0.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="d8288b22-d4a4-49f1-b3a9-f338eb54490b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>HeavenlyWind.UWP</DisplayName>
-    <PublisherDisplayName>Meow</PublisherDisplayName>
+    <DisplayName>IntelligentNavalGun</DisplayName>
+    <PublisherDisplayName>Meowtrix</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -16,14 +16,13 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Sakuno.KanColle.Amatsukaze.UWP.App">
       <uap:VisualElements DisplayName="Intelligent Naval Gun" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="The UWP package of Intelligent Naval Gun" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
   <Capabilities>
-    <Capability Name="internetClientServer" />
-    <Capability Name="privateNetworkClientServer" />
+    <Capability Name="internetClient" />
   </Capabilities>
 </Package>
