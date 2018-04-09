@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using Sakuno.Nekomimi;
 
 namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
@@ -56,14 +57,21 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
 
         private ProxyServer server = new ProxyServer();
         private HttpListener sysListener = new HttpListener();
-        private BlockingCollection<Session> sessionCache = new BlockingCollection<Session>(10);
+        private BlockingCollection<(string Host, string Path, DateTimeOffset TimeStamp, string Request, string Response)> sessionCache
+            = new BlockingCollection<(string, string, DateTimeOffset, string, string)>(10);
+        private Task<string> emptyStringTask = Task.FromResult(string.Empty);
         public void Start()
         {
             IsListening = true;
             server.AfterResponse += session =>
             {
                 if (!session.IsHTTPS && session.Request.RequestUri.LocalPath.StartsWith("/kcsapi"))
-                    while (!sessionCache.TryAdd(session))
+                    while (!sessionCache.TryAdd(
+                        (session.Request.RequestUri.Host,
+                        session.Request.RequestUri.LocalPath,
+                        session.Response.Headers.Date ?? DateTimeOffset.UtcNow,
+                        session.Request.Content?.ReadAsStringAsync().Result ?? string.Empty,
+                        session.Response.Content?.ReadAsStringAsync().Result ?? string.Empty)))
                     {
                         IsConnected = false;
                         sessionCache.TryTake(out _, TimeSpan.FromMilliseconds(100));
@@ -93,33 +101,15 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                 using (var response = context.Response)
                 {
                     IsConnected = true;
-                    response.SendChunked = true;
                     using (var stream = response.OutputStream)
                     {
                         var writer = new StreamWriter(stream);
-                        Session session = null;
-                        try
-                        {
-                            session = sessionCache.Take();
-                        }
-                        catch (Exception e)
-                        {
-                            System.Windows.MessageBox.Show(e.Message);
-                        }
-
-                        if (session == null)
-                        {
-                            await writer.WriteLineAsync();
-                        }
-                        else
-                        {
-                            await writer.WriteLineAsync(session.Request.RequestUri.Host);
-                            await writer.WriteLineAsync(session.Request.RequestUri.LocalPath);
-                            await writer.WriteLineAsync(session.Response.Headers.Date?.ToUnixTimeMilliseconds().ToString());
-                            await writer.WriteLineAsync(session.Request.Content != null ?
-                                await session.Request.Content.ReadAsStringAsync() : string.Empty);
-                            await (await session.Response.Content.ReadAsStreamAsync()).CopyToAsync(stream);
-                        }
+                        var session = sessionCache.Take();
+                        await writer.WriteLineAsync(session.Host);
+                        await writer.WriteLineAsync(session.Path);
+                        await writer.WriteLineAsync(session.TimeStamp.ToUnixTimeMilliseconds().ToString());
+                        await writer.WriteAsync(session.Request);
+                        await writer.WriteAsync(session.Response);
                         await writer.FlushAsync();
                     }
                 }
