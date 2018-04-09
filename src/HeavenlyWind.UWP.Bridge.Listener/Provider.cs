@@ -66,7 +66,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                         var reader = new StreamReader(stream);
                         host = await reader.ReadLineAsync();
                         if (string.IsNullOrEmpty(host)) continue;
-                        path = await reader.ReadLineAsync();
+                        path = (await reader.ReadLineAsync()).Substring(8);
                         timeStamp = DateTimeOffset.FromUnixTimeMilliseconds(long.Parse(await reader.ReadLineAsync()));
                         request = await reader.ReadLineAsync();
                         response = (await reader.ReadToEndAsync()).Substring(7);
