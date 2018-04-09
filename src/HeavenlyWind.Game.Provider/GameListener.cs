@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Messaging;
@@ -38,6 +39,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             (
                 arg.Key,
                 arg.TimeStamp,
+                HttpUtility.ParseQueryString(arg.Request),
                 Convert<T>(arg.Stream)
             ));
 
@@ -46,6 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             (
                 arg.Key,
                 arg.TimeStamp,
+                HttpUtility.ParseQueryString(arg.Request),
                 Convert<JToken>(arg.Stream)
             ));
     }
