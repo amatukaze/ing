@@ -3,6 +3,7 @@ using System.IO;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Raw;
 using Sakuno.KanColle.Amatsukaze.Messaging;
 using Sakuno.KanColle.Amatsukaze.Services;
 
@@ -20,6 +21,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             this.provider = provider;
             jSerializer.Error += JsonError;
+
+            MasterDataUpdated = RegisterRaw<RawMasterData>("api_start2")
+                .Select(ParseMasterData);
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
@@ -40,8 +44,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 arg.Key,
                 arg.TimeStamp,
                 HttpUtility.ParseQueryString(arg.Request),
-                Convert<T>(arg.Stream)
-            ));
+                Convert<SvData<T>>(arg.Stream)
+            ))
+            .Where(m => m.IsSuccess);
+
+        public IProducer<SvData> RegisterFail() => provider
+            .Select(arg => Convert<SvData>(arg.Stream))
+            .Where(v => v.api_result != 1);
 
         public IProducer<ParsedMessage<JToken>> RegisterAny() => provider
             .Select(arg => new ParsedMessage<JToken>
@@ -49,7 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 arg.Key,
                 arg.TimeStamp,
                 HttpUtility.ParseQueryString(arg.Request),
-                Convert<JToken>(arg.Stream)
+                Convert<SvData<JToken>>(arg.Stream)
             ));
     }
 }
