@@ -8,7 +8,11 @@
     <RootNamespace>Sakuno.KanColle.Amatsukaze.Game.Models</RootNamespace>
     <AssemblyName>HeavenlyWind.Game.Models</AssemblyName>
     <Version>0.1.0-blueprint</Version>
-    <Description>Common game models of Intelligent Naval Gun</Description>
+    <Description>Calculated and bindable game models of Intelligent Naval Gun</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.Game.Provider\HeavenlyWind.Game.Provider.csproj" />
+  </ItemGroup>
 
 </Project>

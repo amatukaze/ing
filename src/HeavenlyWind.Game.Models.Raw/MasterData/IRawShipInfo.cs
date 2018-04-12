@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData.Raw
+namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
     public interface IRawShipInfo
     {

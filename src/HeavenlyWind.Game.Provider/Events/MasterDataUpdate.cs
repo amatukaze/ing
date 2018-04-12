@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Events
 {

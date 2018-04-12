@@ -9,6 +9,7 @@
     <AssemblyName>HeavenlyWind.Game.Provider</AssemblyName>
     <Version>0.1.0-blueprint</Version>
     <Description>Game api parser of Intelligent Naval Gun</Description>
+    <NoWarn>CS0649</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HeavenlyWind.Game.Models\HeavenlyWind.Game.Models.csproj" />
+    <ProjectReference Include="..\HeavenlyWind.Game.Models.Raw\HeavenlyWind.Game.Models.Raw.csproj" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
-using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
 {
