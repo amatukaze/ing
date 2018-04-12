@@ -22,6 +22,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         int RewardItem2Id { get; }
         int RewardItem2Count { get; }
 
-        bool CanCancel { get; }
+        bool CanRecall { get; }
     }
 }

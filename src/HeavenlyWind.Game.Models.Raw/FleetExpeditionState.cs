@@ -5,6 +5,6 @@
         None = 0,
         InMission = 1,
         Completed = 2,
-        Aborted = 3,
+        Recalled = 3,
     }
 }

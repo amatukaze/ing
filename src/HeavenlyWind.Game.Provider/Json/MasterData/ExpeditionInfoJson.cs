@@ -37,6 +37,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int RewardItem2Count => api_win_item2.ElementAtOrDefault(1);
 
         [JsonProperty("api_return_flag")]
-        public bool CanCancel { get; set; }
+        public bool CanRecall { get; set; }
     }
 }

@@ -21,15 +21,42 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         int UpgradeTo { get; }
         Materials UpgradeConsumption { get; }
 
+        /// <summary>
+        /// 耐久
+        /// </summary>
         ShipMordenizationStatus HP { get; }
+        /// <summary>
+        /// 装甲
+        /// </summary>
         ShipMordenizationStatus Armor { get; }
+        /// <summary>
+        /// 火力
+        /// </summary>
         ShipMordenizationStatus Firepower { get; }
+        /// <summary>
+        /// 雷装
+        /// </summary>
         ShipMordenizationStatus Torpedo { get; }
+        /// <summary>
+        /// 対空
+        /// </summary>
         ShipMordenizationStatus AntiAir { get; }
+        /// <summary>
+        /// 対潜
+        /// </summary>
         ShipMordenizationStatus AntiSubmarine { get; }
+        /// <summary>
+        /// 運
+        /// </summary>
         ShipMordenizationStatus Luck { get; }
 
+        /// <summary>
+        /// 速力
+        /// </summary>
         ShipSpeed Speed { get; }
+        /// <summary>
+        /// 射程
+        /// </summary>
         FireRange FireRange { get; }
         int SlotCount { get; }
         IReadOnlyList<int> Aircraft { get; }

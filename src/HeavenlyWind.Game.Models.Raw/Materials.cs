@@ -4,13 +4,37 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
     public struct Materials : IEquatable<Materials>
     {
+        /// <summary>
+        /// 燃料
+        /// </summary>
         public int Fuel;
+        /// <summary>
+        /// 弾薬
+        /// </summary>
         public int Bullet;
+        /// <summary>
+        /// 鋼材
+        /// </summary>
         public int Steel;
+        /// <summary>
+        /// ボーキサイト
+        /// </summary>
         public int Bauxite;
+        /// <summary>
+        /// 高速建造材
+        /// </summary>
         public int InstantBuild;
+        /// <summary>
+        /// 高速修復材
+        /// </summary>
         public int InstantRepair;
+        /// <summary>
+        /// 開発資材
+        /// </summary>
         public int Development;
+        /// <summary>
+        /// 改修資材
+        /// </summary>
         public int Improvement;
 
         public static Materials operator +(Materials left, Materials right)
