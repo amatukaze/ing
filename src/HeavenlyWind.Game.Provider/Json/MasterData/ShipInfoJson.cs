@@ -39,6 +39,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
             Steel = api_afterfuel
         };
 
+        public IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption { get; set; } = Array.Empty<ItemRecord>();
+
         private static ShipMordenizationStatus MordenizeFromArray(int[] array)
             => new ShipMordenizationStatus(array.ElementAtOrDefault(0), array.ElementAtOrDefault(1), 0);
 

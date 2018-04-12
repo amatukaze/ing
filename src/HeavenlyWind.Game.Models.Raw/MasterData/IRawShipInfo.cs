@@ -20,6 +20,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         int UpgradeLevel { get; }
         int UpgradeTo { get; }
         Materials UpgradeConsumption { get; }
+        IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption { get; }
 
         /// <summary>
         /// 耐久

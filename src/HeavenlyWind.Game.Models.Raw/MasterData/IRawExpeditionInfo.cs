@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
@@ -17,10 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         double FuelConsumption { get; }
         double BulletConsumption { get; }
 
-        int RewardItem1Id { get; }
-        int RewardItem1Count { get; }
-        int RewardItem2Id { get; }
-        int RewardItem2Count { get; }
+        IReadOnlyList<ItemRecord> RewardItems { get; }
 
         bool CanRecall { get; }
     }
