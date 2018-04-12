@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData.Raw;
@@ -20,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int TypeId => api_type.ElementAtOrDefault(2);
         public int IconId => api_type.ElementAtOrDefault(3);
 
-        public int[] ExtraSlotAcceptingShips { get; set; } = Array.Empty<int>();
+        public IReadOnlyCollection<int> ExtraSlotAcceptingShips { get; set; } = Array.Empty<int>();
 
         [JsonProperty("api_houg")]
         public int Firepower { get; set; }

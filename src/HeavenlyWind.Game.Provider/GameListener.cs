@@ -4,6 +4,7 @@ using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Json;
+using Sakuno.KanColle.Amatsukaze.Game.Json.MasterData;
 using Sakuno.KanColle.Amatsukaze.Messaging;
 using Sakuno.KanColle.Amatsukaze.Services;
 
@@ -22,7 +23,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             this.provider = provider;
             jSerializer.Error += JsonError;
 
-            MasterDataUpdated = RegisterRaw<RawMasterData>("api_start2")
+            MasterDataUpdated = RegisterRaw<MasterDataJson>("api_start2")
                 .Select(ParseMasterData);
         }
 

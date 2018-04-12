@@ -1,4 +1,6 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData.Raw
+﻿using System.Collections.Generic;
+
+namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData.Raw
 {
     public interface IRawEquipmentInfo
     {
@@ -8,7 +10,7 @@
 
         int TypeId { get; }
         int IconId { get; }
-        int[] ExtraSlotAcceptingShips { get; }
+        IReadOnlyCollection<int> ExtraSlotAcceptingShips { get; }
 
         /// <summary>
         /// 火力
