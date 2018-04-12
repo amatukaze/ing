@@ -17,5 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         int? RequiredDefeatCount { get; }
 
         IReadOnlyCollection<FleetType> AvailableFleetTypes { get; }
+
+        IRawMapBgmInfo BgmInfo { get; }
     }
 }

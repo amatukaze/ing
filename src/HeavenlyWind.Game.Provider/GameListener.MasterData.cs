@@ -26,6 +26,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     e.ExtraSlotAcceptingShips = i.api_ship_ids;
             }
 
+            foreach (var m in res.api_mst_mapinfo)
+                m.BgmInfo = res.api_mst_mapbgm.Find(x => x.Id == m.Id);
+
             return new MasterDataUpdate
             {
                 ShipInfos = res.api_mst_ship,
@@ -36,7 +39,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 UseItems = res.api_mst_useitem,
                 MapAreas = res.api_mst_maparea,
                 Maps = res.api_mst_mapinfo,
-                MapBgms = res.api_mst_mapbgm,
                 Expeditions = res.api_mst_mission,
                 Bgms = res.api_mst_bgm
             };

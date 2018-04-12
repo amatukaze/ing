@@ -13,7 +13,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Events
         public IReadOnlyCollection<IRawUseItem> UseItems { get; internal set; }
         public IReadOnlyCollection<IRawMapArea> MapAreas { get; internal set; }
         public IReadOnlyCollection<IRawMapInfo> Maps { get; internal set; }
-        public IReadOnlyCollection<IRawMapBgmInfo> MapBgms { get; internal set; }
         public IReadOnlyCollection<IRawExpeditionInfo> Expeditions { get; internal set; }
         public IReadOnlyCollection<IRawBgmInfo> Bgms { get; internal set; }
     }

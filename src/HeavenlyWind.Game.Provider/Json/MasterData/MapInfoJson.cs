@@ -50,5 +50,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
                 return list;
             }
         }
+
+        public IRawMapBgmInfo BgmInfo { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public UseItemJson[] api_mst_useitem;
         public MapAreaJson[] api_mst_maparea;
         public MapInfoJson[] api_mst_mapinfo;
-        public MapBgmInfoJson[] api_mst_mapbgm;
+        public List<MapBgmInfoJson> api_mst_mapbgm;
         public ExpeditionInfoJson[] api_mst_mission;
         public ShipUpgradeJson[] api_mst_shipupgrade;
         public BgmInfoJson[] api_mst_bgm;

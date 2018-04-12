@@ -7,10 +7,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
     {
         [JsonProperty("api_id")]
         public int Id { get; set; }
-        [JsonProperty("api_maparea_id")]
-        public int MapAreaId { get; set; }
-        [JsonProperty("api_no")]
-        public int CategoryNo { get; set; }
 
         [JsonProperty("api_moving_bgm")]
         public int MapBgmId { get; set; }
