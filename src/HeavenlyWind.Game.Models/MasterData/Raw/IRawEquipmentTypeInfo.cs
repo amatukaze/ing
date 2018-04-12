@@ -4,5 +4,7 @@
     {
         int Id { get; }
         string Name { get; }
+
+        bool AvailableInExtraSlot { get; }
     }
 }

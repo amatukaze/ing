@@ -1,14 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Web;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Sakuno.KanColle.Amatsukaze.Game.Events;
-using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Json.MasterData;
 using Sakuno.KanColle.Amatsukaze.Messaging;
-using Sakuno.KanColle.Amatsukaze.Services;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
@@ -18,7 +10,36 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         private MasterDataUpdate ParseMasterData(ParsedMessage<MasterDataJson> raw)
         {
+            var res = raw.Response;
 
+            foreach (int id in res.api_mst_equip_exslot)
+            {
+                var type = res.api_mst_slotitem_equiptype.Find(x => x.Id == id);
+                if (type != null)
+                    type.AvailableInExtraSlot = true;
+            }
+
+            foreach (var i in res.api_mst_equip_exslot_ship)
+            {
+                var e = res.api_mst_slotitem.Find(x => x.Id == i.api_slotitem_id);
+                if (e != null)
+                    e.ExtraSlotAcceptingShips = i.api_ship_ids;
+            }
+
+            return new MasterDataUpdate
+            {
+                ShipInfos = res.api_mst_ship,
+                ShipTypes = res.api_mst_stype,
+                EquipmentInfos = res.api_mst_slotitem,
+                EquipmentTypes = res.api_mst_slotitem_equiptype,
+                FurnitureInfos = res.api_mst_furniture,
+                UseItems = res.api_mst_useitem,
+                MapAreas = res.api_mst_maparea,
+                Maps = res.api_mst_mapinfo,
+                MapBgms = res.api_mst_mapbgm,
+                Expeditions = res.api_mst_mission,
+                Bgms = res.api_mst_bgm
+            };
         }
     }
 }

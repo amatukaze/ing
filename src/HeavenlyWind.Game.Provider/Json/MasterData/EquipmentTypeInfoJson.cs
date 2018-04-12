@@ -9,5 +9,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int Id { get; set; }
         [JsonProperty("api_name")]
         public string Name { get; set; }
+
+        public bool AvailableInExtraSlot { get; set; }
     }
 }
