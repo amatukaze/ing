@@ -3,7 +3,7 @@ using System.IO;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Sakuno.KanColle.Amatsukaze.Game.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Json;
 using Sakuno.KanColle.Amatsukaze.Messaging;
 using Sakuno.KanColle.Amatsukaze.Services;
 

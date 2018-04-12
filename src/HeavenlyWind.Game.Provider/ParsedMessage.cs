@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
-using Sakuno.KanColle.Amatsukaze.Game.Raw;
+using Sakuno.KanColle.Amatsukaze.Game.Json;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
