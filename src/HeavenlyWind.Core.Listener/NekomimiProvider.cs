@@ -69,6 +69,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Listener
                 (
                     localPath.Substring(8),// /kcsapi/
                     session.Response.Headers.Date ?? DateTimeOffset.UtcNow,
+                    session.Request.Content.ReadAsStringAsync().Result,
                     new SkippingStream(session.Response.Content.ReadAsStreamAsync().Result, 7)// svdata=
                 ));
             }
