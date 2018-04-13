@@ -42,26 +42,23 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
 
         public IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption { get; set; } = Array.Empty<ItemRecord>();
 
-        private static ShipMordenizationStatus MordenizeFromArray(int[] array)
-            => new ShipMordenizationStatus(array.ElementAtOrDefault(0), array.ElementAtOrDefault(1), 0);
+        [JsonProperty("api_taik"), JsonConverter(typeof(ShipMordenizationConverter))]
+        public ShipMordenizationStatus HP { get; set; }
 
-        public int[] api_taik;
-        public ShipMordenizationStatus HP => MordenizeFromArray(api_taik);
+        [JsonProperty("api_souk"), JsonConverter(typeof(ShipMordenizationConverter))]
+        public ShipMordenizationStatus Armor { get; set; }
 
-        public int[] api_souk;
-        public ShipMordenizationStatus Armor => MordenizeFromArray(api_souk);
+        [JsonProperty("api_houg"), JsonConverter(typeof(ShipMordenizationConverter))]
+        public ShipMordenizationStatus Firepower { get; set; }
 
-        public int[] api_houg;
-        public ShipMordenizationStatus Firepower => MordenizeFromArray(api_houg);
+        [JsonProperty("api_raig"), JsonConverter(typeof(ShipMordenizationConverter))]
+        public ShipMordenizationStatus Torpedo { get; set; }
 
-        public int[] api_raig;
-        public ShipMordenizationStatus Torpedo => MordenizeFromArray(api_raig);
+        [JsonProperty("api_tyku"), JsonConverter(typeof(ShipMordenizationConverter))]
+        public ShipMordenizationStatus AntiAir { get; set; }
 
-        public int[] api_tyku;
-        public ShipMordenizationStatus AntiAir => MordenizeFromArray(api_tyku);
-
-        public int[] api_luck;
-        public ShipMordenizationStatus Luck => MordenizeFromArray(api_luck);
+        [JsonProperty("api_luck"), JsonConverter(typeof(ShipMordenizationConverter))]
+        public ShipMordenizationStatus Luck { get; set; }
 
         [JsonProperty("api_soku")]
         public ShipSpeed Speed { get; set; }
@@ -76,14 +73,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int api_buildtime;
         public TimeSpan ConstructionTime => TimeSpan.FromMinutes(api_buildtime);
 
-        public int[] api_broken;
-        public Materials DismantleAcquirement => new Materials
-        {
-            Fuel = api_broken.ElementAtOrDefault(0),
-            Bullet = api_broken.ElementAtOrDefault(1),
-            Steel = api_broken.ElementAtOrDefault(2),
-            Bauxite = api_broken.ElementAtOrDefault(3)
-        };
+        [JsonProperty("api_broken"), JsonConverter(typeof(MaterialsConverter))]
+        public Materials DismantleAcquirement { get; set; }
 
         [JsonProperty("api_powup")]
         public IReadOnlyList<int> PowerupWorth { get; set; }

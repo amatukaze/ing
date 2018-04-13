@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
+using Sakuno.KanColle.Amatsukaze.Game.Json.Converters;
 using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
@@ -19,11 +19,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         [JsonProperty("api_kcnt")]
         public int BuildOutlineId { get; set; }
 
-        public SortedList<int, bool> api_equip_type;
-        public IReadOnlyList<int> AvailableEquipmentTypes
-            => api_equip_type
-            .Where(x => x.Value)
-            .Select(x => x.Key)
-            .ToList();
+        [JsonProperty("api_equip_type"), JsonConverter(typeof(BoolDictionaryConverter))]
+        public IReadOnlyList<int> AvailableEquipmentTypes { get; set; }
     }
 }

@@ -32,21 +32,21 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         [JsonProperty("api_use_bull")]
         public double BulletConsumption { get; set; }
 
-        public int[] api_win_item1;
-        public int[] api_win_item2;
+        [JsonProperty("api_win_item1"), JsonConverter(typeof(ItemRecordConverter))]
+        public ItemRecord RewardItem1;
+
+        [JsonProperty("api_win_item2"), JsonConverter(typeof(ItemRecordConverter))]
+        public ItemRecord RewardItem2;
+
         public IReadOnlyList<ItemRecord> RewardItems
         {
             get
             {
-                if (api_win_item1.ElementAtOrDefault(0) == 0)
+                if (RewardItem1.ItemId == 0)
                     return Array.Empty<ItemRecord>();
-                if (api_win_item2.ElementAtOrDefault(0) == 0)
-                    return new[] { new ItemRecord { ItemId = api_win_item1.ElementAtOrDefault(0), Count = api_win_item1.ElementAtOrDefault(1) } };
-                return new[]
-                {
-                    new ItemRecord { ItemId = api_win_item1.ElementAtOrDefault(0), Count = api_win_item1.ElementAtOrDefault(1) },
-                    new ItemRecord { ItemId = api_win_item2.ElementAtOrDefault(0), Count = api_win_item2.ElementAtOrDefault(1) }
-                };
+                if (RewardItem2.ItemId == 0)
+                    return new[] { RewardItem1 };
+                return new[] { RewardItem1, RewardItem2 };
             }
         }
 

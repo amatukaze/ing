@@ -61,14 +61,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int api_cost;
         public Materials DeploymentConsumption => new Materials { Bauxite = api_cost };
 
-        public int[] api_broken;
-        public Materials DismantleAcquirement => new Materials
-        {
-            Fuel = api_broken.ElementAtOrDefault(0),
-            Bullet = api_broken.ElementAtOrDefault(1),
-            Steel = api_broken.ElementAtOrDefault(2),
-            Bauxite = api_broken.ElementAtOrDefault(3)
-        };
+        [JsonProperty("api_broken"), JsonConverter(typeof(MaterialsConverter))]
+        public Materials DismantleAcquirement { get; set; }
 
         [JsonProperty("api_rare")]
         public int Rarity { get; set; }
