@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using Sakuno.KanColle.Amatsukaze.Game.Json.Converters;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData;
 
@@ -20,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int StarDifficulty { get; set; }
         [JsonProperty("api_opetext")]
         public string OperationName { get; set; }
-        [JsonProperty("api_infotext", ItemConverterType = typeof(HtmlNewLineEater))]
+        [JsonProperty("api_infotext"), JsonConverter(typeof(HtmlNewLineEater))]
         public string Description { get; set; }
 
         [JsonProperty("api_item")]

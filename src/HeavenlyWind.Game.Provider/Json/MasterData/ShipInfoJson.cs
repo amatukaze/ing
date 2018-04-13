@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Sakuno.KanColle.Amatsukaze.Game.Json.Converters;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData;
 
@@ -16,7 +17,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public string Name { get; set; }
         public string api_yomi;
         public string Phonetic => IsAbyssal ? string.Empty : api_yomi;
-        [JsonProperty("api_getmes", ItemConverterType = typeof(HtmlNewLineEater))]
+        [JsonProperty("api_getmes"), JsonConverter(typeof(HtmlNewLineEater))]
         public string Introduction { get; set; }
 
         public bool IsAbyssal => Id > 1500;

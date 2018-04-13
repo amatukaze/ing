@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Sakuno.KanColle.Amatsukaze.Game.Json.Converters;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData;
 
@@ -14,7 +15,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         [JsonProperty("api_name")]
         public string Name { get; set; }
 
-        [JsonProperty("api_info", ItemConverterType = typeof(HtmlNewLineEater))]
+        [JsonProperty("api_info"), JsonConverter(typeof(HtmlNewLineEater))]
         public string Description { get; set; }
 
         public int[] api_type;

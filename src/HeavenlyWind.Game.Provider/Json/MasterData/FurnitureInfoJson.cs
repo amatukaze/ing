@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Sakuno.KanColle.Amatsukaze.Game.Json.Converters;
 using Sakuno.KanColle.Amatsukaze.Game.Models.MasterData;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
@@ -13,7 +14,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int CategoryNo { get; set; }
         [JsonProperty("api_title")]
         public string Name { get; set; }
-        [JsonProperty("api_description", ItemConverterType = typeof(HtmlNewLineEater))]
+        [JsonProperty("api_description"), JsonConverter(typeof(HtmlNewLineEater))]
         public string Description { get; set; }
 
         [JsonProperty("api_rarity")]
