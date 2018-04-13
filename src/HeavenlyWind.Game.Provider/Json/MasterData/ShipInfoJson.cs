@@ -59,9 +59,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int[] api_tyku;
         public ShipMordenizationStatus AntiAir => MordenizeFromArray(api_tyku);
 
-        public int[] api_tais;
-        public ShipMordenizationStatus AntiSubmarine => MordenizeFromArray(api_tais);
-
         public int[] api_luck;
         public ShipMordenizationStatus Luck => MordenizeFromArray(api_luck);
 
@@ -87,7 +84,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
             Bauxite = api_broken.ElementAtOrDefault(3)
         };
 
-        [JsonProperty("api_powerup")]
+        [JsonProperty("api_powup")]
         public IReadOnlyList<int> PowerupWorth { get; set; }
 
         [JsonProperty("api_fuel_max")]

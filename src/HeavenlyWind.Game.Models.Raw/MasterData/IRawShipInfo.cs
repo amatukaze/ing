@@ -43,10 +43,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         /// </summary>
         ShipMordenizationStatus AntiAir { get; }
         /// <summary>
-        /// 対潜
-        /// </summary>
-        ShipMordenizationStatus AntiSubmarine { get; }
-        /// <summary>
         /// 運
         /// </summary>
         ShipMordenizationStatus Luck { get; }
