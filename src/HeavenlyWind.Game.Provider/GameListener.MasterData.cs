@@ -35,6 +35,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             foreach (var s in res.api_mst_ship)
             {
                 var u = res.api_mst_shipupgrade.Find(x => x.api_current_ship_id == s.Id);
+                if (u == null) continue;
+
                 var l = new List<ItemRecord>(3);
                 if (u.api_drawing_count != 0)
                     l.Add(new ItemRecord { ItemId = (int)KnownUseItem.Blueprint, Count = u.api_drawing_count });
