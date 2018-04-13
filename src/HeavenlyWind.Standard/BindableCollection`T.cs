@@ -8,57 +8,73 @@ namespace Sakuno.KanColle.Amatsukaze
 {
     public sealed class BindableCollection<T> : Collection<T>, IBindableCollection<T>, IList<T>
     {
-#if WINDOWS_UWP
-        private List<(SynchronizationContext syncContext, PropertyChangedEventHandler handler)>
-            pHandlers = new List<(SynchronizationContext, PropertyChangedEventHandler)>();
+        #region PropertyChange
+        private List<(SynchronizationContext syncContext, PropertyChangedEventHandler handler)> pHandlers;
+        private PropertyChangedEventHandler pHandler;
+
+        public BindableCollection()
+        {
+            if (BindableObject.ThreadSafeEnabled)
+                pHandlers = new List<(SynchronizationContext, PropertyChangedEventHandler)>();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged
         {
             add
             {
-                lock (pHandlers)
-                    pHandlers.Add((SynchronizationContext.Current, value));
+                if (BindableObject.ThreadSafeEnabled)
+                    lock (pHandlers)
+                        pHandlers.Add((SynchronizationContext.Current, value));
+                else
+                    pHandler += value;
             }
             remove
             {
-                lock (pHandlers)
-                    for (int i = 0; i < pHandlers.Count; i++)
-                        if (pHandlers[i].handler == value)
-                            pHandlers.RemoveAt(i--);
+                if (BindableObject.ThreadSafeEnabled)
+                {
+                    lock (pHandlers)
+                        for (int i = 0; i < pHandlers.Count; i++)
+                            if (pHandlers[i].handler == value)
+                                pHandlers.RemoveAt(i--);
+                }
+                else
+                    pHandler -= value;
             }
         }
-        private void NotifyPropertyChanged(string propertyName = null)
+
+        private void NotifyPropertyChanged(string propertyName)
         {
             var arg = new PropertyChangedEventArgs(propertyName);
-            lock (pHandlers)
-                foreach (var (syncContext, handler) in pHandlers)
-                    syncContext.Post(o => handler(this, arg), null);
+            if (BindableObject.ThreadSafeEnabled)
+                lock (pHandlers)
+                    foreach (var (syncContext, handler) in pHandlers)
+                        syncContext.Post(o => handler(this, arg), null);
+            else
+                pHandler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-#else
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-#endif
+        #endregion
 
         private List<(SynchronizationContext syncContext, NotifyCollectionChangedEventHandler handler)>
-            collectionHandlers = new List<(SynchronizationContext, NotifyCollectionChangedEventHandler)>();
+            cHandlers = new List<(SynchronizationContext, NotifyCollectionChangedEventHandler)>();
         public event NotifyCollectionChangedEventHandler CollectionChanged
         {
             add
             {
-                lock (collectionHandlers)
-                    collectionHandlers.Add((SynchronizationContext.Current, value));
+                lock (cHandlers)
+                    cHandlers.Add((SynchronizationContext.Current, value));
             }
             remove
             {
-                lock (collectionHandlers)
-                    for (int i = 0; i < collectionHandlers.Count; i++)
-                        if (collectionHandlers[i].handler == value)
-                            collectionHandlers.RemoveAt(i--);
+                lock (cHandlers)
+                    for (int i = 0; i < cHandlers.Count; i++)
+                        if (cHandlers[i].handler == value)
+                            cHandlers.RemoveAt(i--);
             }
         }
         private void NotifyCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
-            lock (collectionHandlers)
-                foreach (var (context, handler) in collectionHandlers)
+            lock (cHandlers)
+                foreach (var (context, handler) in cHandlers)
                     context.Post(o => handler(this, e), null);
         }
 

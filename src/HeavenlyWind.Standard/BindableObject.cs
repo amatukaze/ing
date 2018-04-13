@@ -7,35 +7,51 @@ namespace Sakuno.KanColle.Amatsukaze
 {
     public abstract class BindableObject : IBindable
     {
-#if WINDOWS_UWP
-        private List<(SynchronizationContext syncContext, PropertyChangedEventHandler handler)>
-            handlers = new List<(SynchronizationContext, PropertyChangedEventHandler)>();
+        public static bool ThreadSafeEnabled { get; set; }
+
+        private List<(SynchronizationContext syncContext, PropertyChangedEventHandler handler)> handlers;
+        private PropertyChangedEventHandler handler;
+
+        protected BindableObject()
+        {
+            if (ThreadSafeEnabled)
+                handlers = new List<(SynchronizationContext, PropertyChangedEventHandler)>();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged
         {
             add
             {
-                lock (handlers)
-                    handlers.Add((SynchronizationContext.Current, value));
+                if (ThreadSafeEnabled)
+                    lock (handlers)
+                        handlers.Add((SynchronizationContext.Current, value));
+                else
+                    handler += value;
             }
             remove
             {
-                lock (handlers)
-                    for (int i = 0; i < handlers.Count; i++)
-                        if (handlers[i].handler == value)
-                            handlers.RemoveAt(i--);
+                if (ThreadSafeEnabled)
+                {
+                    lock (handlers)
+                        for (int i = 0; i < handlers.Count; i++)
+                            if (handlers[i].handler == value)
+                                handlers.RemoveAt(i--);
+                }
+                else
+                    handler -= value;
             }
         }
+
         protected void NotifyPropertyChanged([CallerMemberName]string propertyName = null)
         {
             var arg = new PropertyChangedEventArgs(propertyName);
-            lock (handlers)
-                foreach (var (syncContext, handler) in handlers)
-                    syncContext.Post(o => handler(this, arg), null);
+            if (ThreadSafeEnabled)
+                lock (handlers)
+                    foreach (var (syncContext, handler) in handlers)
+                        syncContext.Post(o => handler(this, arg), null);
+            else
+                handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-#else
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void NotifyPropertyChanged([CallerMemberName]string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-#endif
 
         protected void Set<T>(ref T field, T value, [CallerMemberName]string propertyName = null)
         {
