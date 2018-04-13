@@ -43,11 +43,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int AntiSubmarine { get; set; }
 
         public int api_houm;
-        public int apu_houk;
+        public int api_houk;
         public int Accuracy => TypeId != 48 ? api_houm : 0;
-        public int Evasion => TypeId != 48 ? apu_houk : 0;
+        public int Evasion => TypeId != 48 ? api_houk : 0;
         public int AntiBomber => TypeId == 48 ? api_houm : 0;
-        public int Interception => TypeId == 48 ? apu_houk : 0;
+        public int Interception => TypeId == 48 ? api_houk : 0;
 
         [JsonProperty("api_saku")]
         public int LightOfSight { get; set; }

@@ -57,6 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         FireRange FireRange { get; }
         int SlotCount { get; }
         IReadOnlyList<int> Aircraft { get; }
+        int Rarity { get; }
 
         TimeSpan ConstructionTime { get; }
         Materials DismantleAcquirement { get; }

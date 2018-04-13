@@ -4,6 +4,7 @@ using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sakuno.KanColle.Amatsukaze.Game.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Knowledge;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Test
 {
@@ -48,6 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Test
             Assert.AreEqual(mutsuki.ConstructionTime, TimeSpan.FromMinutes(18));
             Assert.AreEqual(mutsuki.DismantleAcquirement.Fuel, 1);
             CollectionAssert.AreEqual(mutsuki.PowerupWorth.ToArray(), new[] { 1, 1, 0, 0 });
+            Assert.AreEqual(mutsuki.Rarity, 3);
 
             var fuso = parseResult.ShipInfos.Single(x => x.Id == 26);
             CollectionAssert.AreEqual(fuso.Aircraft.ToArray(), new[] { 3, 3, 3, 3, 0 });
@@ -88,6 +90,48 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Test
             foreach (var s in parseResult.ShipInfos)
                 if (!s.IsAbyssal)
                     Assert.IsFalse(s.Introduction.Contains("<br>"));
+        }
+        [TestMethod]
+        public void TestEquipmentFieldMap()
+        {
+            var _127 = parseResult.EquipmentInfos.Single(x => x.Id == 91);
+            Assert.AreEqual(_127.TypeId, 1);
+            Assert.AreEqual(_127.IconId, 16);
+            Assert.AreEqual(_127.Accuracy, 1);
+            Assert.AreEqual(_127.Evasion, 1);
+
+            var raiden = parseResult.EquipmentInfos.Single(x => x.Id == 175);
+            Assert.AreEqual(raiden.Accuracy, 0);
+            Assert.AreEqual(raiden.Evasion, 0);
+            Assert.AreEqual(raiden.AntiBomber, 5);
+            Assert.AreEqual(raiden.Interception, 2);
+        }
+        [TestMethod]
+        public void TestExtraProperty()
+        {
+            var gun = parseResult.EquipmentTypes.Single(x => x.Id == 1);
+            Assert.IsFalse(gun.AvailableInExtraSlot);
+            var armor = parseResult.EquipmentTypes.Single(x => x.Id == 16);
+            Assert.IsTrue(armor.AvailableInExtraSlot);
+
+            var _12 = parseResult.EquipmentInfos.First();
+            Assert.AreEqual(_12.ExtraSlotAcceptingShips.Count, 0);
+            var _8 = parseResult.EquipmentInfos.Single(x => x.Id == 66);
+            Assert.AreNotEqual(_8.ExtraSlotAcceptingShips.Count, 0);
+
+            foreach (var m in parseResult.Maps)
+                Assert.IsNotNull(m.BgmInfo);
+
+            var musashi = parseResult.ShipInfos.Single(x => x.Id == 148);
+            Assert.AreEqual(musashi.UpgradeTo, 546);
+            foreach (var r in musashi.UpgradeSpecialConsumption)
+            {
+                if (r.ItemId == (int)KnownUseItem.Blueprint)
+                    Assert.AreEqual(r.Count, 3);
+                else if (r.ItemId == (int)KnownUseItem.ActionReport)
+                    Assert.AreEqual(r.Count, 1);
+                else Assert.Fail();
+            }
         }
     }
 }

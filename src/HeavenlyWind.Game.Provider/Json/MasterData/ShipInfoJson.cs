@@ -69,6 +69,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int SlotCount { get; set; }
         [JsonProperty("api_maxeq")]
         public IReadOnlyList<int> Aircraft { get; set; }
+        [JsonProperty("api_backs")]
+        public int Rarity { get; set; }
 
         public int api_buildtime;
         public TimeSpan ConstructionTime => TimeSpan.FromMinutes(api_buildtime);
