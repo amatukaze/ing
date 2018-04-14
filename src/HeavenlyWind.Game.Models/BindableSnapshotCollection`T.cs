@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
-    public class BindableSnapshotCollection<T> : IDisposable
+    public partial class BindableSnapshotCollection<T> : IDisposable
+        where T : class
     {
         private readonly IUpdationSource source;
         private T[] snapshot;

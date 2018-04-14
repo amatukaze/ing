@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\HeavenlyWind.Game.Models\HeavenlyWind.Game.Models.csproj" />
     <ProjectReference Include="..\..\src\HeavenlyWind.Game.Provider\HeavenlyWind.Game.Provider.csproj" />
   </ItemGroup>
 
