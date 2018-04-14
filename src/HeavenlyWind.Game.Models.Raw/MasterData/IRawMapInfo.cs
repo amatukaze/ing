@@ -2,9 +2,8 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
-    public interface IRawMapInfo
+    public interface IRawMapInfo : IIdentifiable
     {
-        int Id { get; }
         int MapAreaId { get; }
         int CategoryNo { get; }
 

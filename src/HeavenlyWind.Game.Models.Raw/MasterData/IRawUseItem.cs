@@ -1,8 +1,7 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
-    public interface IRawUseItem
+    public interface IRawUseItem : IIdentifiable
     {
-        int Id { get; }
         string Name { get; }
     }
 }

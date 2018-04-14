@@ -2,9 +2,8 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
-    public interface IRawEquipmentInfo
+    public interface IRawEquipmentInfo : IIdentifiable
     {
-        int Id { get; }
         string Name { get; }
         string Description { get; }
 

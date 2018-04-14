@@ -1,8 +1,7 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
-    public interface IRawFurnitureInfo
+    public interface IRawFurnitureInfo : IIdentifiable
     {
-        int Id { get; }
         int Type { get; }
         int CategoryNo { get; }
         string Name { get; }

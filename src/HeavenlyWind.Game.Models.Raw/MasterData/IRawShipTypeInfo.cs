@@ -2,9 +2,8 @@
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
-    public interface IRawShipTypeInfo
+    public interface IRawShipTypeInfo : IIdentifiable
     {
-        int Id { get; }
         int SortNo { get; }
         string Name { get; }
 

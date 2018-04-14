@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
-    public interface IRawShipInfo
+    public interface IRawShipInfo : IIdentifiable
     {
-        int Id { get; }
         int SortNo { get; }
         string Name { get; }
         string Phonetic { get; }

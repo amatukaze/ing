@@ -5,7 +5,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <RootNamespace>Sakuno.KanColle.Amatsukaze.Game.Models</RootNamespace>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.Game</RootNamespace>
     <AssemblyName>HeavenlyWind.Game.Models</AssemblyName>
     <Version>0.1.0-blueprint</Version>
     <Description>Calculated and bindable game models of Intelligent Naval Gun</Description>

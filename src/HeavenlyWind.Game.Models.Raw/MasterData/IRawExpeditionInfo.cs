@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
-    public interface IRawExpeditionInfo
+    public interface IRawExpeditionInfo : IIdentifiable
     {
-        int Id { get; }
         string DisplayId { get; }
         int MapAreaId { get; }
 
