@@ -68,7 +68,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 var node = queue.Dequeue();
                 if (node.X < source.Length)
                 {
-                    var action = new EditAction { IsAdd = false, OriginalIndex = node.X };
+                    var action = new EditAction { IsAdd = false, OriginalIndex = node.X, Item = source[node.X] };
                     int l = GetLongestMatch(source.Slice(node.X + 1), target.Slice(node.Y));
                     var newNode = new LinkNode(node.X + 1 + l, node.Y + l, action, node);
                     if (newNode.X == source.Length && newNode.Y == target.Length)
