@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public new T this[int id] => TryGetValue(id, out var item) ? item : null;
 
-        public void BatchUpdate(IEnumerable<TRaw> source, bool removal)
+        public void BatchUpdate(IEnumerable<TRaw> source, bool removal = true)
         {
             if (removal)
             {
