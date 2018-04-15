@@ -4,11 +4,13 @@
         where TRaw : IIdentifiable<int>
     {
         public int Id { get; }
+        protected ITableProvider Owner { get; }
         internal bool UpdateFlag;
 
-        protected Calculated(TRaw raw)
+        protected Calculated(TRaw raw, ITableProvider owner)
         {
             Id = raw.Id;
+            Owner = owner;
             Update(raw);
         }
 

@@ -6,23 +6,27 @@ using System.Linq.Expressions;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
-    public class IDTable<T, TRaw> : KeyedCollection<int, T>, IUpdationSource
+    public class IdTable<T, TRaw> : KeyedCollection<int, T>, ITable<T>
         where T : Calculated<TRaw>
         where TRaw : IIdentifiable
     {
         protected override int GetKeyForItem(T item) => item.Id;
 
         public event Action Updated;
-        public event Action<IDTable<T, TRaw>> BatchUpdated;
-        private static readonly Func<TRaw, T> creation;
+        public event Action<IdTable<T, TRaw>> BatchUpdated;
+        private static readonly Func<TRaw, ITableProvider, T> creation;
 
-        static IDTable()
+        static IdTable()
         {
             var arg = Expression.Parameter(typeof(TRaw));
-            var ctor = typeof(T).GetConstructor(new[] { typeof(TRaw) });
+            var argOwner = Expression.Parameter(typeof(ITableProvider));
+            var ctor = typeof(T).GetConstructor(new[] { typeof(TRaw), typeof(ITableProvider) });
             var call = Expression.New(ctor, arg);
-            creation = Expression.Lambda<Func<TRaw, T>>(call, arg).Compile();
+            creation = Expression.Lambda<Func<TRaw, ITableProvider, T>>(call, arg, argOwner).Compile();
         }
+
+        private readonly ITableProvider owner;
+        public IdTable(ITableProvider owner) => this.owner = owner;
 
         public new T this[int id] => TryGetValue(id, out var item) ? item : null;
 
@@ -38,7 +42,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     }
                     else
                     {
-                        item = creation(raw);
+                        item = creation(raw, owner);
                         item.UpdateFlag = true;
                         Add(item);
                     }
@@ -54,7 +58,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     if (TryGetValue(raw.Id, out var item))
                         item.Update(raw);
                     else
-                        Add(creation(raw));
+                        Add(creation(raw, owner));
             }
             BatchUpdated?.Invoke(this);
             Updated?.Invoke();
