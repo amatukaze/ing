@@ -24,6 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            BindableObject.ThreadSafeEnabled = true;
         }
 
         /// <summary>

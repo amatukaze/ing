@@ -76,7 +76,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
                         w.Flush();
                         mms.Seek(0, SeekOrigin.Begin);
                     }
-                    Received?.Invoke(new TextMessage(path, timeStamp, mms));
+                    Received?.Invoke(new TextMessage(path, timeStamp, request, mms));
                 }
                 catch
                 {
