@@ -14,21 +14,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         public event Action Updated;
         public event Action<IdTable<T, TRaw>> BatchUpdated;
-        private static readonly Func<TRaw, ITableProvider, T> creation;
+        private static readonly Func<int, ITableProvider, T> creation;
 
         static IdTable()
         {
-            var arg = Expression.Parameter(typeof(TRaw));
+            var arg = Expression.Parameter(typeof(int));
             var argOwner = Expression.Parameter(typeof(ITableProvider));
-            var ctor = typeof(T).GetConstructor(new[] { typeof(TRaw), typeof(ITableProvider) });
+            var ctor = typeof(T).GetConstructor(new[] { typeof(int), typeof(ITableProvider) });
             var call = Expression.New(ctor, arg);
-            creation = Expression.Lambda<Func<TRaw, ITableProvider, T>>(call, arg, argOwner).Compile();
+            creation = Expression.Lambda<Func<int, ITableProvider, T>>(call, arg, argOwner).Compile();
         }
 
         private readonly ITableProvider owner;
         public IdTable(ITableProvider owner) => this.owner = owner;
 
         public new T this[int id] => TryGetValue(id, out var item) ? item : null;
+
+        public T TryGetOrDummy(int id)
+        {
+            if (TryGetValue(id, out var item))
+                return item;
+
+            item = creation(id, owner);
+            Add(item);
+            return item;
+        }
 
         public void BatchUpdate(IEnumerable<TRaw> source, bool removal = true)
         {
@@ -42,7 +52,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     }
                     else
                     {
-                        item = creation(raw, owner);
+                        item = creation(raw.Id, owner);
+                        item.Update(raw);
                         item.UpdateFlag = true;
                         Add(item);
                     }
@@ -58,7 +69,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                     if (TryGetValue(raw.Id, out var item))
                         item.Update(raw);
                     else
-                        Add(creation(raw, owner));
+                    {
+                        item = creation(raw.Id, owner);
+                        item.Update(raw);
+                        Add(item);
+                    }
             }
             BatchUpdated?.Invoke(this);
             Updated?.Invoke();

@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
     public class EquipmentTypeInfo : Calculated<IRawEquipmentTypeInfo>
     {
-        internal EquipmentTypeInfo(IRawEquipmentTypeInfo raw, ITableProvider owner) : base(raw, owner) { }
+        internal EquipmentTypeInfo(int id, ITableProvider owner) : base(id, owner) { }
 
         public override void Update(IRawEquipmentTypeInfo raw) => throw new NotImplementedException();
     }

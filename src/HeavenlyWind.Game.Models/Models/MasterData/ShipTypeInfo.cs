@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
     public class ShipTypeInfo : Calculated<IRawShipTypeInfo>
     {
-        internal ShipTypeInfo(IRawShipTypeInfo raw, ITableProvider owner) : base(raw, owner) { }
+        internal ShipTypeInfo(int id, ITableProvider owner) : base(id, owner) { }
 
         public override void Update(IRawShipTypeInfo raw) => throw new NotImplementedException();
     }
