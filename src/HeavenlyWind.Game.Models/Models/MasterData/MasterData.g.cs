@@ -6,55 +6,647 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
+using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
     public partial class ShipInfo : Calculated<IRawShipInfo>
     {
         internal ShipInfo(int id, ITableProvider owner) : base(id, owner) { }
 
-        public override void Update(IRawShipInfo raw) => UpdateCore(raw);
+        private int _sortNo;
+        public int SortNo
+        {
+            get => _sortNo;
+            private set => Set(ref _sortNo, value);
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value);
+        }
+
+        private string _phonetic;
+        public string Phonetic
+        {
+            get => _phonetic;
+            private set => Set(ref _phonetic, value);
+        }
+
+        private string _introduction;
+        public string Introduction
+        {
+            get => _introduction;
+            private set => Set(ref _introduction, value);
+        }
+
+        private ShipTypeInfo _type;
+        public ShipTypeInfo Type
+        {
+            get => _type;
+            private set => Set(ref _type, value);
+        }
+
+        private int _classId;
+        public int ClassId
+        {
+            get => _classId;
+            private set => Set(ref _classId, value);
+        }
+
+        private ShipMordenizationStatus _hP;
+        public ShipMordenizationStatus HP
+        {
+            get => _hP;
+            private set => Set(ref _hP, value);
+        }
+
+        private ShipMordenizationStatus _armor;
+        public ShipMordenizationStatus Armor
+        {
+            get => _armor;
+            private set => Set(ref _armor, value);
+        }
+
+        private ShipMordenizationStatus _firepower;
+        public ShipMordenizationStatus Firepower
+        {
+            get => _firepower;
+            private set => Set(ref _firepower, value);
+        }
+
+        private ShipMordenizationStatus _torpedo;
+        public ShipMordenizationStatus Torpedo
+        {
+            get => _torpedo;
+            private set => Set(ref _torpedo, value);
+        }
+
+        private ShipMordenizationStatus _antiAir;
+        public ShipMordenizationStatus AntiAir
+        {
+            get => _antiAir;
+            private set => Set(ref _antiAir, value);
+        }
+
+        private ShipMordenizationStatus _luck;
+        public ShipMordenizationStatus Luck
+        {
+            get => _luck;
+            private set => Set(ref _luck, value);
+        }
+
+        private ShipSpeed _speed;
+        public ShipSpeed Speed
+        {
+            get => _speed;
+            private set => Set(ref _speed, value);
+        }
+
+        private FireRange _fireRange;
+        public FireRange FireRange
+        {
+            get => _fireRange;
+            private set => Set(ref _fireRange, value);
+        }
+
+        private int _rarity;
+        public int Rarity
+        {
+            get => _rarity;
+            private set => Set(ref _rarity, value);
+        }
+
+        private Materials _dismantleAcquirement;
+        public Materials DismantleAcquirement
+        {
+            get => _dismantleAcquirement;
+            private set => Set(ref _dismantleAcquirement, value);
+        }
+
+        private TimeSpan _constructionTime;
+        public TimeSpan ConstructionTime
+        {
+            get => _constructionTime;
+            private set => Set(ref _constructionTime, value);
+        }
+
+        private IReadOnlyList<int> _powerupWorth;
+        public IReadOnlyList<int> PowerupWorth
+        {
+            get => _powerupWorth;
+            private set => Set(ref _powerupWorth, value);
+        }
+
+        private int _fuelConsumption;
+        public int FuelConsumption
+        {
+            get => _fuelConsumption;
+            private set => Set(ref _fuelConsumption, value);
+        }
+
+        private int _bulletConsumption;
+        public int BulletConsumption
+        {
+            get => _bulletConsumption;
+            private set => Set(ref _bulletConsumption, value);
+        }
+
+        public override void Update(IRawShipInfo raw)
+        {
+            SortNo = raw.SortNo;
+            Name = raw.Name;
+            Phonetic = raw.Phonetic;
+            Introduction = raw.Introduction;
+            ClassId = raw.ClassId;
+            HP = raw.HP;
+            Armor = raw.Armor;
+            Firepower = raw.Firepower;
+            Torpedo = raw.Torpedo;
+            AntiAir = raw.AntiAir;
+            Luck = raw.Luck;
+            Speed = raw.Speed;
+            FireRange = raw.FireRange;
+            Rarity = raw.Rarity;
+            DismantleAcquirement = raw.DismantleAcquirement;
+            ConstructionTime = raw.ConstructionTime;
+            PowerupWorth = raw.PowerupWorth;
+            FuelConsumption = raw.FuelConsumption;
+            BulletConsumption = raw.BulletConsumption;
+            UpdateCore(raw);
+        }
         partial void UpdateCore(IRawShipInfo raw);
     }
     public partial class ShipTypeInfo : Calculated<IRawShipTypeInfo>
     {
         internal ShipTypeInfo(int id, ITableProvider owner) : base(id, owner) { }
 
-        public override void Update(IRawShipTypeInfo raw) => UpdateCore(raw);
+        private int _sortNo;
+        public int SortNo
+        {
+            get => _sortNo;
+            private set => Set(ref _sortNo, value);
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value);
+        }
+
+        private int _repairTimeRatio;
+        public int RepairTimeRatio
+        {
+            get => _repairTimeRatio;
+            private set => Set(ref _repairTimeRatio, value);
+        }
+
+        private int _buildOutlineId;
+        public int BuildOutlineId
+        {
+            get => _buildOutlineId;
+            private set => Set(ref _buildOutlineId, value);
+        }
+
+        private IReadOnlyCollection<EquipmentTypeInfo> _availableEquipmentTypes;
+        public IReadOnlyCollection<EquipmentTypeInfo> AvailableEquipmentTypes
+        {
+            get => _availableEquipmentTypes;
+            private set => Set(ref _availableEquipmentTypes, value);
+        }
+
+        public override void Update(IRawShipTypeInfo raw)
+        {
+            SortNo = raw.SortNo;
+            Name = raw.Name;
+            RepairTimeRatio = raw.RepairTimeRatio;
+            BuildOutlineId = raw.BuildOutlineId;
+            UpdateCore(raw);
+        }
         partial void UpdateCore(IRawShipTypeInfo raw);
     }
     public partial class EquipmentTypeInfo : Calculated<IRawEquipmentTypeInfo>
     {
         internal EquipmentTypeInfo(int id, ITableProvider owner) : base(id, owner) { }
 
-        public override void Update(IRawEquipmentTypeInfo raw) => UpdateCore(raw);
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value);
+        }
+
+        private bool _availableInExtraSlot;
+        public bool AvailableInExtraSlot
+        {
+            get => _availableInExtraSlot;
+            private set => Set(ref _availableInExtraSlot, value);
+        }
+
+        public override void Update(IRawEquipmentTypeInfo raw)
+        {
+            Name = raw.Name;
+            AvailableInExtraSlot = raw.AvailableInExtraSlot;
+            UpdateCore(raw);
+        }
         partial void UpdateCore(IRawEquipmentTypeInfo raw);
     }
     public partial class EquipmentInfo : Calculated<IRawEquipmentInfo>
     {
         internal EquipmentInfo(int id, ITableProvider owner) : base(id, owner) { }
 
-        public override void Update(IRawEquipmentInfo raw) => UpdateCore(raw);
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value);
+        }
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            private set => Set(ref _description, value);
+        }
+
+        private EquipmentTypeInfo _type;
+        public EquipmentTypeInfo Type
+        {
+            get => _type;
+            private set => Set(ref _type, value);
+        }
+
+        private int _iconId;
+        public int IconId
+        {
+            get => _iconId;
+            private set => Set(ref _iconId, value);
+        }
+
+        private IReadOnlyCollection<ShipInfo> _extraSlotAcceptingShips;
+        public IReadOnlyCollection<ShipInfo> ExtraSlotAcceptingShips
+        {
+            get => _extraSlotAcceptingShips;
+            private set => Set(ref _extraSlotAcceptingShips, value);
+        }
+
+        private int _firepower;
+        public int Firepower
+        {
+            get => _firepower;
+            private set => Set(ref _firepower, value);
+        }
+
+        private int _torpedo;
+        public int Torpedo
+        {
+            get => _torpedo;
+            private set => Set(ref _torpedo, value);
+        }
+
+        private int _antiAir;
+        public int AntiAir
+        {
+            get => _antiAir;
+            private set => Set(ref _antiAir, value);
+        }
+
+        private int _armor;
+        public int Armor
+        {
+            get => _armor;
+            private set => Set(ref _armor, value);
+        }
+
+        private int _diveBomberAttack;
+        public int DiveBomberAttack
+        {
+            get => _diveBomberAttack;
+            private set => Set(ref _diveBomberAttack, value);
+        }
+
+        private int _antiSubmarine;
+        public int AntiSubmarine
+        {
+            get => _antiSubmarine;
+            private set => Set(ref _antiSubmarine, value);
+        }
+
+        private int _accuracy;
+        public int Accuracy
+        {
+            get => _accuracy;
+            private set => Set(ref _accuracy, value);
+        }
+
+        private int _evasion;
+        public int Evasion
+        {
+            get => _evasion;
+            private set => Set(ref _evasion, value);
+        }
+
+        private int _antiBomber;
+        public int AntiBomber
+        {
+            get => _antiBomber;
+            private set => Set(ref _antiBomber, value);
+        }
+
+        private int _interception;
+        public int Interception
+        {
+            get => _interception;
+            private set => Set(ref _interception, value);
+        }
+
+        private int _lightOfSight;
+        public int LightOfSight
+        {
+            get => _lightOfSight;
+            private set => Set(ref _lightOfSight, value);
+        }
+
+        private FireRange _fireRange;
+        public FireRange FireRange
+        {
+            get => _fireRange;
+            private set => Set(ref _fireRange, value);
+        }
+
+        private int _flightRadius;
+        public int FlightRadius
+        {
+            get => _flightRadius;
+            private set => Set(ref _flightRadius, value);
+        }
+
+        private Materials _deploymentConsumption;
+        public Materials DeploymentConsumption
+        {
+            get => _deploymentConsumption;
+            private set => Set(ref _deploymentConsumption, value);
+        }
+
+        private Materials _dismantleAcquirement;
+        public Materials DismantleAcquirement
+        {
+            get => _dismantleAcquirement;
+            private set => Set(ref _dismantleAcquirement, value);
+        }
+
+        private int _rarity;
+        public int Rarity
+        {
+            get => _rarity;
+            private set => Set(ref _rarity, value);
+        }
+
+        public override void Update(IRawEquipmentInfo raw)
+        {
+            Name = raw.Name;
+            Description = raw.Description;
+            IconId = raw.IconId;
+            Firepower = raw.Firepower;
+            Torpedo = raw.Torpedo;
+            AntiAir = raw.AntiAir;
+            Armor = raw.Armor;
+            DiveBomberAttack = raw.DiveBomberAttack;
+            AntiSubmarine = raw.AntiSubmarine;
+            Accuracy = raw.Accuracy;
+            Evasion = raw.Evasion;
+            AntiBomber = raw.AntiBomber;
+            Interception = raw.Interception;
+            LightOfSight = raw.LightOfSight;
+            FireRange = raw.FireRange;
+            FlightRadius = raw.FlightRadius;
+            DeploymentConsumption = raw.DeploymentConsumption;
+            DismantleAcquirement = raw.DismantleAcquirement;
+            Rarity = raw.Rarity;
+            UpdateCore(raw);
+        }
         partial void UpdateCore(IRawEquipmentInfo raw);
+    }
+    public partial class UseItemInfo : Calculated<IRawUseItem>
+    {
+        internal UseItemInfo(int id, ITableProvider owner) : base(id, owner) { }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value);
+        }
+
+        public override void Update(IRawUseItem raw)
+        {
+            Name = raw.Name;
+            UpdateCore(raw);
+        }
+        partial void UpdateCore(IRawUseItem raw);
     }
     public partial class MapAreaInfo : Calculated<IRawMapArea>
     {
         internal MapAreaInfo(int id, ITableProvider owner) : base(id, owner) { }
 
-        public override void Update(IRawMapArea raw) => UpdateCore(raw);
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value);
+        }
+
+        private bool _isEvent;
+        public bool IsEvent
+        {
+            get => _isEvent;
+            private set => Set(ref _isEvent, value);
+        }
+
+        public override void Update(IRawMapArea raw)
+        {
+            Name = raw.Name;
+            IsEvent = raw.IsEvent;
+            UpdateCore(raw);
+        }
         partial void UpdateCore(IRawMapArea raw);
     }
     public partial class MapInfo : Calculated<IRawMapInfo>
     {
         internal MapInfo(int id, ITableProvider owner) : base(id, owner) { }
 
-        public override void Update(IRawMapInfo raw) => UpdateCore(raw);
+        private MapAreaInfo _mapArea;
+        public MapAreaInfo MapArea
+        {
+            get => _mapArea;
+            private set => Set(ref _mapArea, value);
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value);
+        }
+
+        private int _starDifficulty;
+        public int StarDifficulty
+        {
+            get => _starDifficulty;
+            private set => Set(ref _starDifficulty, value);
+        }
+
+        private string _operationName;
+        public string OperationName
+        {
+            get => _operationName;
+            private set => Set(ref _operationName, value);
+        }
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            private set => Set(ref _description, value);
+        }
+
+        private IReadOnlyCollection<UseItemInfo> _itemAcquirements;
+        public IReadOnlyCollection<UseItemInfo> ItemAcquirements
+        {
+            get => _itemAcquirements;
+            private set => Set(ref _itemAcquirements, value);
+        }
+
+        private int? _requiredDefeatCount;
+        public int? RequiredDefeatCount
+        {
+            get => _requiredDefeatCount;
+            private set => Set(ref _requiredDefeatCount, value);
+        }
+
+        private IReadOnlyCollection<FleetType> _availableFleetTypes;
+        public IReadOnlyCollection<FleetType> AvailableFleetTypes
+        {
+            get => _availableFleetTypes;
+            private set => Set(ref _availableFleetTypes, value);
+        }
+
+        private IRawMapBgmInfo _bgmInfo;
+        public IRawMapBgmInfo BgmInfo
+        {
+            get => _bgmInfo;
+            private set => Set(ref _bgmInfo, value);
+        }
+
+        public override void Update(IRawMapInfo raw)
+        {
+            Name = raw.Name;
+            StarDifficulty = raw.StarDifficulty;
+            OperationName = raw.OperationName;
+            Description = raw.Description;
+            RequiredDefeatCount = raw.RequiredDefeatCount;
+            AvailableFleetTypes = raw.AvailableFleetTypes;
+            BgmInfo = raw.BgmInfo;
+            UpdateCore(raw);
+        }
         partial void UpdateCore(IRawMapInfo raw);
     }
     public partial class ExpeditionInfo : Calculated<IRawExpeditionInfo>
     {
         internal ExpeditionInfo(int id, ITableProvider owner) : base(id, owner) { }
 
-        public override void Update(IRawExpeditionInfo raw) => UpdateCore(raw);
+        private string _displayId;
+        public string DisplayId
+        {
+            get => _displayId;
+            private set => Set(ref _displayId, value);
+        }
+
+        private MapAreaInfo _mapArea;
+        public MapAreaInfo MapArea
+        {
+            get => _mapArea;
+            private set => Set(ref _mapArea, value);
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value);
+        }
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            private set => Set(ref _description, value);
+        }
+
+        private TimeSpan _duration;
+        public TimeSpan Duration
+        {
+            get => _duration;
+            private set => Set(ref _duration, value);
+        }
+
+        private int _requiredShipCount;
+        public int RequiredShipCount
+        {
+            get => _requiredShipCount;
+            private set => Set(ref _requiredShipCount, value);
+        }
+
+        private int _difficulty;
+        public int Difficulty
+        {
+            get => _difficulty;
+            private set => Set(ref _difficulty, value);
+        }
+
+        private double _fuelConsumption;
+        public double FuelConsumption
+        {
+            get => _fuelConsumption;
+            private set => Set(ref _fuelConsumption, value);
+        }
+
+        private double _bulletConsumption;
+        public double BulletConsumption
+        {
+            get => _bulletConsumption;
+            private set => Set(ref _bulletConsumption, value);
+        }
+
+        private IReadOnlyList<ItemRecord> _rewardItems;
+        public IReadOnlyList<ItemRecord> RewardItems
+        {
+            get => _rewardItems;
+            private set => Set(ref _rewardItems, value);
+        }
+
+        private bool _canRecall;
+        public bool CanRecall
+        {
+            get => _canRecall;
+            private set => Set(ref _canRecall, value);
+        }
+
+        public override void Update(IRawExpeditionInfo raw)
+        {
+            DisplayId = raw.DisplayId;
+            Name = raw.Name;
+            Description = raw.Description;
+            Duration = raw.Duration;
+            RequiredShipCount = raw.RequiredShipCount;
+            Difficulty = raw.Difficulty;
+            FuelConsumption = raw.FuelConsumption;
+            BulletConsumption = raw.BulletConsumption;
+            RewardItems = raw.RewardItems;
+            CanRecall = raw.CanRecall;
+            UpdateCore(raw);
+        }
         partial void UpdateCore(IRawExpeditionInfo raw);
     }
 }

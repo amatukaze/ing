@@ -12,6 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             _shipTypes = new IdTable<ShipTypeInfo, IRawShipTypeInfo>(this);
             _equipmentTypes = new IdTable<EquipmentTypeInfo, IRawEquipmentTypeInfo>(this);
             _equipmentInfos = new IdTable<EquipmentInfo, IRawEquipmentInfo>(this);
+            _useItems = new IdTable<UseItemInfo, IRawUseItem>(this);
             _mapAreas = new IdTable<MapAreaInfo, IRawMapArea>(this);
             _mapInfos = new IdTable<MapInfo, IRawMapInfo>(this);
             _expeditions = new IdTable<ExpeditionInfo, IRawExpeditionInfo>(this);
@@ -25,6 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             _shipInfos.BatchUpdate(obj.ShipInfos);
             _equipmentTypes.BatchUpdate(obj.EquipmentTypes);
             _equipmentInfos.BatchUpdate(obj.EquipmentInfos);
+            _useItems.BatchUpdate(obj.UseItems);
             _mapAreas.BatchUpdate(obj.MapAreas);
             _mapInfos.BatchUpdate(obj.Maps);
             _expeditions.BatchUpdate(obj.Expeditions);
@@ -41,6 +43,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         private readonly IdTable<EquipmentInfo, IRawEquipmentInfo> _equipmentInfos;
         public ITable<EquipmentInfo> EquipmentInfos => _equipmentInfos;
+
+        private readonly IdTable<UseItemInfo, IRawUseItem> _useItems;
+        public ITable<UseItemInfo> UseItems => _useItems;
 
         private readonly IdTable<MapAreaInfo, IRawMapArea> _mapAreas;
         public ITable<MapAreaInfo> MapAreas => _mapAreas;
@@ -66,6 +71,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             if (type == typeof(EquipmentInfo))
                 return (ITable<T>)EquipmentInfos;
+
+            if (type == typeof(UseItemInfo))
+                return (ITable<T>)UseItems;
 
             if (type == typeof(MapAreaInfo))
                 return (ITable<T>)MapAreas;

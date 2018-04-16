@@ -1,15 +1,87 @@
 ﻿Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 ShipInfo:IRawShipInfo
+int SortNo -
+string Name -
+string Phonetic -
+string Introduction -
+ShipTypeInfo Type
+int ClassId -
+ShipMordenizationStatus HP -
+ShipMordenizationStatus Armor -
+ShipMordenizationStatus Firepower -
+ShipMordenizationStatus Torpedo -
+ShipMordenizationStatus AntiAir -
+ShipMordenizationStatus Luck -
+ShipSpeed Speed -
+FireRange FireRange -
+int Rarity -
+Materials DismantleAcquirement -
+TimeSpan ConstructionTime -
+IReadOnlyList<int> PowerupWorth -
+int FuelConsumption -
+int BulletConsumption -
 
 ShipTypeInfo:IRawShipTypeInfo
+int SortNo -
+string Name -
+int RepairTimeRatio -
+int BuildOutlineId -
+IReadOnlyCollection<EquipmentTypeInfo> AvailableEquipmentTypes
 
 EquipmentTypeInfo:IRawEquipmentTypeInfo
+string Name -
+bool AvailableInExtraSlot -
 
 EquipmentInfo:IRawEquipmentInfo
+string Name -
+string Description -
+EquipmentTypeInfo Type
+int IconId -
+IReadOnlyCollection<ShipInfo> ExtraSlotAcceptingShips
+int Firepower -
+int Torpedo -
+int AntiAir -
+int Armor -
+int DiveBomberAttack -
+int AntiSubmarine -
+int Accuracy -
+int Evasion -
+int AntiBomber -
+int Interception -
+int LightOfSight -
+FireRange FireRange -
+int FlightRadius -
+Materials DeploymentConsumption -
+Materials DismantleAcquirement -
+int Rarity -
+
+UseItemInfo:IRawUseItem
+string Name -
 
 MapAreaInfo:IRawMapArea
+string Name -
+bool IsEvent -
 
 MapInfo:IRawMapInfo
+MapAreaInfo MapArea
+string Name -
+int StarDifficulty -
+string OperationName -
+string Description -
+IReadOnlyCollection<UseItemInfo> ItemAcquirements
+int? RequiredDefeatCount -
+IReadOnlyCollection<FleetType> AvailableFleetTypes -
+IRawMapBgmInfo BgmInfo -
 
 ExpeditionInfo:IRawExpeditionInfo
-
+string DisplayId -
+MapAreaInfo MapArea
+string Name -
+string Description -
+TimeSpan Duration -
+int RequiredShipCount -
+int Difficulty -
+double FuelConsumption -
+double BulletConsumption -
+IReadOnlyList<ItemRecord> RewardItems -
+bool CanRecall -
