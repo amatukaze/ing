@@ -1,0 +1,15 @@
+﻿Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
+ShipInfo:IRawShipInfo
+
+ShipTypeInfo:IRawShipTypeInfo
+
+EquipmentTypeInfo:IRawEquipmentTypeInfo
+
+EquipmentInfo:IRawEquipmentInfo
+
+MapAreaInfo:IRawMapArea
+
+MapInfo:IRawMapInfo
+
+ExpeditionInfo:IRawExpeditionInfo
+

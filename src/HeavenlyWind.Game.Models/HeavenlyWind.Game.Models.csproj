@@ -12,6 +12,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Scaffold Include="Models\MasterData\MasterData.txt">
+      <Generator>MSBuild:UpdateScaffold</Generator>
+    </Scaffold>
+    <Compile Update="Models\MasterData\MasterData.g.cs">
+      <DependentUpon>Models\MasterData\MasterData.txt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HeavenlyWind.Game.Provider\HeavenlyWind.Game.Provider.csproj" />
   </ItemGroup>
 
