@@ -15,4 +15,6 @@
     <ProjectReference Include="..\HeavenlyWind.Game.Provider\HeavenlyWind.Game.Provider.csproj" />
   </ItemGroup>
 
+  <Import Project="Generator.targets" />
+
 </Project>

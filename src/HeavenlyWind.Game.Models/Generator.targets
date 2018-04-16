@@ -1,0 +1,17 @@
+<Project>
+  <UsingTask TaskName="CalculatedScaffold" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <Inputs ParameterType="System.String[]" Required="True" />
+    </ParameterGroup>
+    <Task>
+      <Code Type="Fragment" Language="cs"><![CDATA[
+foreach (string i in Inputs)
+    Log.LogWarning(i);
+      ]]></Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="UpdateScaffold" Inputs="$(MSBuildProjectFile);@(Scaffold)" Outputs="@(Scaffold->'%(RelativeDir)%(Filename).g.cs')" BeforeTargets="BeforeBuild">
+    <CalculatedScaffold Inputs="@(Scaffold)" />
+  </Target>
+</Project>
