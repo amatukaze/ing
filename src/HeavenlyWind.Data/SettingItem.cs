@@ -61,5 +61,9 @@ namespace Sakuno.KanColle.Amatsukaze.Data
             get => Convert(Value);
             set => Value = Convert(value);
         }
+
+        public event Action<T> ValueChanged;
+
+        protected override void OnValueChanged(string value) => ValueChanged?.Invoke(Convert(value));
     }
 }

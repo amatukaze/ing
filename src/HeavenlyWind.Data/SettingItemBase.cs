@@ -27,9 +27,12 @@ namespace Sakuno.KanColle.Amatsukaze.Data
                 {
                     entry.Value = value;
                     manager.SaveChanges();
+                    OnValueChanged(value);
                     NotifyPropertyChanged();
                 }
             }
         }
+
+        protected abstract void OnValueChanged(string value);
     }
 }
