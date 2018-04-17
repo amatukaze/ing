@@ -12,7 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
     public partial class ShipInfo : Calculated<IRawShipInfo>
     {
-        internal ShipInfo(int id, ITableProvider owner) : base(id, owner)
+        public ShipInfo(int id, ITableProvider owner) : base(id, owner)
         {
             shipTypeInfos = owner.GetTable<ShipTypeInfo>();
             shipInfos = owner.GetTable<ShipInfo>();
@@ -242,7 +242,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     }
     public partial class ShipTypeInfo : Calculated<IRawShipTypeInfo>
     {
-        internal ShipTypeInfo(int id, ITableProvider owner) : base(id, owner)
+        public ShipTypeInfo(int id, ITableProvider owner) : base(id, owner)
         {
             equipmentTypeInfos = owner.GetTable<EquipmentTypeInfo>();
         }
@@ -292,7 +292,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     }
     public partial class EquipmentTypeInfo : Calculated<IRawEquipmentTypeInfo>
     {
-        internal EquipmentTypeInfo(int id, ITableProvider owner) : base(id, owner)
+        public EquipmentTypeInfo(int id, ITableProvider owner) : base(id, owner)
         {
         }
 
@@ -320,7 +320,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     }
     public partial class EquipmentInfo : Calculated<IRawEquipmentInfo>
     {
-        internal EquipmentInfo(int id, ITableProvider owner) : base(id, owner)
+        public EquipmentInfo(int id, ITableProvider owner) : base(id, owner)
         {
             equipmentTypeInfos = owner.GetTable<EquipmentTypeInfo>();
             shipInfos = owner.GetTable<ShipInfo>();
@@ -500,7 +500,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     }
     public partial class UseItemInfo : Calculated<IRawUseItem>
     {
-        internal UseItemInfo(int id, ITableProvider owner) : base(id, owner)
+        public UseItemInfo(int id, ITableProvider owner) : base(id, owner)
         {
         }
 
@@ -520,7 +520,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     }
     public partial class MapAreaInfo : Calculated<IRawMapArea>
     {
-        internal MapAreaInfo(int id, ITableProvider owner) : base(id, owner)
+        public MapAreaInfo(int id, ITableProvider owner) : base(id, owner)
         {
         }
 
@@ -548,7 +548,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     }
     public partial class MapInfo : Calculated<IRawMapInfo>
     {
-        internal MapInfo(int id, ITableProvider owner) : base(id, owner)
+        public MapInfo(int id, ITableProvider owner) : base(id, owner)
         {
             mapAreaInfos = owner.GetTable<MapAreaInfo>();
             useItemInfos = owner.GetTable<UseItemInfo>();
@@ -632,7 +632,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     }
     public partial class ExpeditionInfo : Calculated<IRawExpeditionInfo>
     {
-        internal ExpeditionInfo(int id, ITableProvider owner) : base(id, owner)
+        public ExpeditionInfo(int id, ITableProvider owner) : base(id, owner)
         {
             mapAreaInfos = owner.GetTable<MapAreaInfo>();
         }

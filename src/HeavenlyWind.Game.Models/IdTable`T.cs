@@ -18,11 +18,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
         static IdTable()
         {
-            var arg = Expression.Parameter(typeof(int));
+            var argId = Expression.Parameter(typeof(int));
             var argOwner = Expression.Parameter(typeof(ITableProvider));
             var ctor = typeof(T).GetConstructor(new[] { typeof(int), typeof(ITableProvider) });
-            var call = Expression.New(ctor, arg);
-            creation = Expression.Lambda<Func<int, ITableProvider, T>>(call, arg, argOwner).Compile();
+            var call = Expression.New(ctor, argId, argOwner);
+            creation = Expression.Lambda<Func<int, ITableProvider, T>>(call, argId, argOwner).Compile();
         }
 
         private readonly ITableProvider owner;

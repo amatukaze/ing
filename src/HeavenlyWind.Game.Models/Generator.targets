@@ -57,7 +57,7 @@ foreach (var infile in Inputs)
             }
             output.WriteLine("    public partial class " + cls[0] + " : Calculated<" + cls[1] + ">");
             output.WriteLine("    {");
-            output.WriteLine("        internal " + cls[0] + "(int id, ITableProvider owner) : base(id, owner)");
+            output.WriteLine("        public " + cls[0] + "(int id, ITableProvider owner) : base(id, owner)");
             output.WriteLine("        {");
             foreach (var t in tables)
             {
