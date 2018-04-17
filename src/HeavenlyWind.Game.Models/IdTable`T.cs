@@ -26,7 +26,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         }
 
         private readonly ITableProvider owner;
-        public IdTable(ITableProvider owner) => this.owner = owner;
+        public IdTable(ITableProvider owner)
+        {
+            this.owner = owner;
+            DefaultView = new BindableSnapshotCollection<T>(this, this.OrderBy(x => x.Id));
+        }
 
         public new T this[int id] => TryGetValue(id, out var item) ? item : null;
 
@@ -39,6 +43,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             Add(item);
             return item;
         }
+
+        public IBindableCollection<T> DefaultView { get; }
 
         public void BatchUpdate(IEnumerable<TRaw> source, bool removal = true)
         {

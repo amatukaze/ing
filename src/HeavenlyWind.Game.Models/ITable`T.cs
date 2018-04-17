@@ -6,5 +6,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game
     {
         T this[int id] { get; }
         T TryGetOrDummy(int id);
+        IBindableCollection<T> DefaultView { get; }
     }
 }
