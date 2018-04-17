@@ -51,6 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             {
                 layout = new LayoutRoot();
                 layout.Entries.Add(new LayoutItem { Id = "ApiDebug" });
+                layout.Entries.Add(new LayoutItem { Id = "MasterData", Title = "MasterData" });
                 // load browser only
             }
 
@@ -161,7 +162,6 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             }
         }
 
-        private Brush borderBrush = new SolidColorBrush(Colors.Gray);
         private UIElement BuildLayout(LayoutBase layout)
         {
             switch (layout)
@@ -244,7 +244,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                         Margin = new Thickness(2),
                         Padding = new Thickness(2),
                         BorderThickness = new Thickness(2),
-                        BorderBrush = borderBrush,
+                        BorderBrush = new SolidColorBrush(Colors.Gray),
                         HorizontalAlignment = view.HorizontalAlignment,
                         VerticalAlignment = view.VerticalAlignment,
                         Child = view

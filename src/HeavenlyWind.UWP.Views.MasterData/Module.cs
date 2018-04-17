@@ -8,6 +8,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Views.MasterData
         public void Initialize(IResolver resolver)
         {
             var shell = resolver.Resolve<IShell>();
+            shell.RegisterView(typeof(MasterDataView), "MasterData", false, true);
         }
     }
 }

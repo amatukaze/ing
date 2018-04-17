@@ -41,6 +41,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                     "HeavenlyWind.Core.CommonSettings",
                     "HeavenlyWind.Core.DateTime",
                     "HeavenlyWind.Data",
+                    "HeavenlyWind.Game.Models",
                     "HeavenlyWind.Game.Provider",
                     "HeavenlyWind.UWP.Bridge.Listener",
                     "HeavenlyWind.UWP.Data",
