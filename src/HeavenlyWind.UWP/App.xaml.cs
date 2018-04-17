@@ -45,6 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                     "HeavenlyWind.UWP.Bridge.Listener",
                     "HeavenlyWind.UWP.Data",
                     "HeavenlyWind.UWP.Views.ApiDebug",
+                    "HeavenlyWind.UWP.Views.MasterData",
                     "HeavenlyWind.UWP.Views.Settings",
                 };
 
