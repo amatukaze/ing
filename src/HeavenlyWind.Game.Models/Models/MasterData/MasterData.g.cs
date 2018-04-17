@@ -162,8 +162,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             private set => Set(ref _aircraft, value);
         }
 
-        private int _totalAircraft;
-        public int TotalAircraft
+        private int? _totalAircraft;
+        public int? TotalAircraft
         {
             get => _totalAircraft;
             private set => Set(ref _totalAircraft, value);

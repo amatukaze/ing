@@ -22,7 +22,7 @@ p:ShipSpeed Speed -
 p:FireRange FireRange -
 p:int SlotCount -
 p:IReadOnlyList<int> Aircraft -
-p:int TotalAircraft
+p:int? TotalAircraft
 p:int Rarity -
 p:Materials DismantleAcquirement -
 p:TimeSpan ConstructionTime -
