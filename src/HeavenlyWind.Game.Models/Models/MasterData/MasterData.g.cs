@@ -6,11 +6,21 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
+using System;
+using System.Collections.Generic;
+namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
     public partial class ShipInfo : Calculated<IRawShipInfo>
     {
-        internal ShipInfo(int id, ITableProvider owner) : base(id, owner) { }
+        internal ShipInfo(int id, ITableProvider owner) : base(id, owner)
+        {
+            shipTypeInfos = owner.GetTable<ShipTypeInfo>();
+            shipInfos = owner.GetTable<ShipInfo>();
+        }
+
+        private readonly ITable<ShipTypeInfo> shipTypeInfos;
+
+        private readonly ITable<ShipInfo> shipInfos;
 
         private int _sortNo;
         public int SortNo
@@ -52,6 +62,34 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
         {
             get => _classId;
             private set => Set(ref _classId, value);
+        }
+
+        private bool _canUpgrade;
+        public bool CanUpgrade
+        {
+            get => _canUpgrade;
+            private set => Set(ref _canUpgrade, value);
+        }
+
+        private ShipInfo _upgradeTo;
+        public ShipInfo UpgradeTo
+        {
+            get => _upgradeTo;
+            private set => Set(ref _upgradeTo, value);
+        }
+
+        private Materials _upgradeConsumption;
+        public Materials UpgradeConsumption
+        {
+            get => _upgradeConsumption;
+            private set => Set(ref _upgradeConsumption, value);
+        }
+
+        private IReadOnlyCollection<ItemRecord> _upgradeSpecialConsumption;
+        public IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption
+        {
+            get => _upgradeSpecialConsumption;
+            private set => Set(ref _upgradeSpecialConsumption, value);
         }
 
         private ShipMordenizationStatus _hP;
@@ -110,6 +148,27 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
             private set => Set(ref _fireRange, value);
         }
 
+        private int _slotCount;
+        public int SlotCount
+        {
+            get => _slotCount;
+            private set => Set(ref _slotCount, value);
+        }
+
+        private IReadOnlyList<int> _aircraft;
+        public IReadOnlyList<int> Aircraft
+        {
+            get => _aircraft;
+            private set => Set(ref _aircraft, value);
+        }
+
+        private int _totalAircraft;
+        public int TotalAircraft
+        {
+            get => _totalAircraft;
+            private set => Set(ref _totalAircraft, value);
+        }
+
         private int _rarity;
         public int Rarity
         {
@@ -159,6 +218,8 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
             Phonetic = raw.Phonetic;
             Introduction = raw.Introduction;
             ClassId = raw.ClassId;
+            UpgradeConsumption = raw.UpgradeConsumption;
+            UpgradeSpecialConsumption = raw.UpgradeSpecialConsumption;
             HP = raw.HP;
             Armor = raw.Armor;
             Firepower = raw.Firepower;
@@ -167,6 +228,8 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
             Luck = raw.Luck;
             Speed = raw.Speed;
             FireRange = raw.FireRange;
+            SlotCount = raw.SlotCount;
+            Aircraft = raw.Aircraft;
             Rarity = raw.Rarity;
             DismantleAcquirement = raw.DismantleAcquirement;
             ConstructionTime = raw.ConstructionTime;
@@ -179,7 +242,12 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
     }
     public partial class ShipTypeInfo : Calculated<IRawShipTypeInfo>
     {
-        internal ShipTypeInfo(int id, ITableProvider owner) : base(id, owner) { }
+        internal ShipTypeInfo(int id, ITableProvider owner) : base(id, owner)
+        {
+            equipmentTypeInfos = owner.GetTable<EquipmentTypeInfo>();
+        }
+
+        private readonly ITable<EquipmentTypeInfo> equipmentTypeInfos;
 
         private int _sortNo;
         public int SortNo
@@ -228,7 +296,9 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
     }
     public partial class EquipmentTypeInfo : Calculated<IRawEquipmentTypeInfo>
     {
-        internal EquipmentTypeInfo(int id, ITableProvider owner) : base(id, owner) { }
+        internal EquipmentTypeInfo(int id, ITableProvider owner) : base(id, owner)
+        {
+        }
 
         private string _name;
         public string Name
@@ -254,7 +324,15 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
     }
     public partial class EquipmentInfo : Calculated<IRawEquipmentInfo>
     {
-        internal EquipmentInfo(int id, ITableProvider owner) : base(id, owner) { }
+        internal EquipmentInfo(int id, ITableProvider owner) : base(id, owner)
+        {
+            equipmentTypeInfos = owner.GetTable<EquipmentTypeInfo>();
+            shipInfos = owner.GetTable<ShipInfo>();
+        }
+
+        private readonly ITable<EquipmentTypeInfo> equipmentTypeInfos;
+
+        private readonly ITable<ShipInfo> shipInfos;
 
         private string _name;
         public string Name
@@ -430,7 +508,9 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
     }
     public partial class UseItemInfo : Calculated<IRawUseItem>
     {
-        internal UseItemInfo(int id, ITableProvider owner) : base(id, owner) { }
+        internal UseItemInfo(int id, ITableProvider owner) : base(id, owner)
+        {
+        }
 
         private string _name;
         public string Name
@@ -448,7 +528,9 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
     }
     public partial class MapAreaInfo : Calculated<IRawMapArea>
     {
-        internal MapAreaInfo(int id, ITableProvider owner) : base(id, owner) { }
+        internal MapAreaInfo(int id, ITableProvider owner) : base(id, owner)
+        {
+        }
 
         private string _name;
         public string Name
@@ -474,7 +556,15 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
     }
     public partial class MapInfo : Calculated<IRawMapInfo>
     {
-        internal MapInfo(int id, ITableProvider owner) : base(id, owner) { }
+        internal MapInfo(int id, ITableProvider owner) : base(id, owner)
+        {
+            mapAreaInfos = owner.GetTable<MapAreaInfo>();
+            useItemInfos = owner.GetTable<UseItemInfo>();
+        }
+
+        private readonly ITable<MapAreaInfo> mapAreaInfos;
+
+        private readonly ITable<UseItemInfo> useItemInfos;
 
         private MapAreaInfo _mapArea;
         public MapAreaInfo MapArea
@@ -554,7 +644,12 @@ using System;using System.Collections.Generic;namespace Sakuno.KanColle.Amatsuka
     }
     public partial class ExpeditionInfo : Calculated<IRawExpeditionInfo>
     {
-        internal ExpeditionInfo(int id, ITableProvider owner) : base(id, owner) { }
+        internal ExpeditionInfo(int id, ITableProvider owner) : base(id, owner)
+        {
+            mapAreaInfos = owner.GetTable<MapAreaInfo>();
+        }
+
+        private readonly ITable<MapAreaInfo> mapAreaInfos;
 
         private string _displayId;
         public string DisplayId

@@ -20,6 +20,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.MasterData
         public int BuildOutlineId { get; set; }
 
         [JsonProperty("api_equip_type"), JsonConverter(typeof(BoolDictionaryConverter))]
-        public IReadOnlyList<int> AvailableEquipmentTypes { get; set; }
+        public IReadOnlyCollection<int> AvailableEquipmentTypes { get; set; }
     }
 }

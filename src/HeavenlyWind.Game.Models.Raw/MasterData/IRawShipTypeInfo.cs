@@ -9,6 +9,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 
         int RepairTimeRatio { get; }
         int BuildOutlineId { get; }
-        IReadOnlyList<int> AvailableEquipmentTypes { get; }
+        IReadOnlyCollection<int> AvailableEquipmentTypes { get; }
     }
 }

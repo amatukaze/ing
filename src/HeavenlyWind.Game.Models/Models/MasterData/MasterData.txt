@@ -1,87 +1,103 @@
 ﻿Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 ShipInfo:IRawShipInfo
-int SortNo -
-string Name -
-string Phonetic -
-string Introduction -
-ShipTypeInfo Type
-int ClassId -
-ShipMordenizationStatus HP -
-ShipMordenizationStatus Armor -
-ShipMordenizationStatus Firepower -
-ShipMordenizationStatus Torpedo -
-ShipMordenizationStatus AntiAir -
-ShipMordenizationStatus Luck -
-ShipSpeed Speed -
-FireRange FireRange -
-int Rarity -
-Materials DismantleAcquirement -
-TimeSpan ConstructionTime -
-IReadOnlyList<int> PowerupWorth -
-int FuelConsumption -
-int BulletConsumption -
+t:ShipTypeInfo
+t:ShipInfo
+p:int SortNo -
+p:string Name -
+p:string Phonetic -
+p:string Introduction -
+p:ShipTypeInfo Type
+p:int ClassId -
+p:bool CanUpgrade
+p:ShipInfo UpgradeTo
+p:Materials UpgradeConsumption -
+p:IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption -
+p:ShipMordenizationStatus HP -
+p:ShipMordenizationStatus Armor -
+p:ShipMordenizationStatus Firepower -
+p:ShipMordenizationStatus Torpedo -
+p:ShipMordenizationStatus AntiAir -
+p:ShipMordenizationStatus Luck -
+p:ShipSpeed Speed -
+p:FireRange FireRange -
+p:int SlotCount -
+p:IReadOnlyList<int> Aircraft -
+p:int TotalAircraft
+p:int Rarity -
+p:Materials DismantleAcquirement -
+p:TimeSpan ConstructionTime -
+p:IReadOnlyList<int> PowerupWorth -
+p:int FuelConsumption -
+p:int BulletConsumption -
 
 ShipTypeInfo:IRawShipTypeInfo
-int SortNo -
-string Name -
-int RepairTimeRatio -
-int BuildOutlineId -
-IReadOnlyCollection<EquipmentTypeInfo> AvailableEquipmentTypes
+t:EquipmentTypeInfo
+p:int SortNo -
+p:string Name -
+p:int RepairTimeRatio -
+p:int BuildOutlineId -
+p:IReadOnlyCollection<EquipmentTypeInfo> AvailableEquipmentTypes
 
 EquipmentTypeInfo:IRawEquipmentTypeInfo
-string Name -
-bool AvailableInExtraSlot -
+p:string Name -
+p:bool AvailableInExtraSlot -
 
 EquipmentInfo:IRawEquipmentInfo
-string Name -
-string Description -
-EquipmentTypeInfo Type
-int IconId -
-IReadOnlyCollection<ShipInfo> ExtraSlotAcceptingShips
-int Firepower -
-int Torpedo -
-int AntiAir -
-int Armor -
-int DiveBomberAttack -
-int AntiSubmarine -
-int Accuracy -
-int Evasion -
-int AntiBomber -
-int Interception -
-int LightOfSight -
-FireRange FireRange -
-int FlightRadius -
-Materials DeploymentConsumption -
-Materials DismantleAcquirement -
-int Rarity -
+t:EquipmentTypeInfo
+t:ShipInfo
+p:string Name -
+p:string Description -
+p:EquipmentTypeInfo Type
+p:int IconId -
+p:IReadOnlyCollection<ShipInfo> ExtraSlotAcceptingShips
+p:int Firepower -
+p:int Torpedo -
+p:int AntiAir -
+p:int Armor -
+p:int DiveBomberAttack -
+p:int AntiSubmarine -
+p:int Accuracy -
+p:int Evasion -
+p:int AntiBomber -
+p:int Interception -
+p:int LightOfSight -
+p:FireRange FireRange -
+p:int FlightRadius -
+p:Materials DeploymentConsumption -
+p:Materials DismantleAcquirement -
+p:int Rarity -
 
 UseItemInfo:IRawUseItem
-string Name -
+p:string Name -
 
 MapAreaInfo:IRawMapArea
-string Name -
-bool IsEvent -
+p:string Name -
+p:bool IsEvent -
 
 MapInfo:IRawMapInfo
-MapAreaInfo MapArea
-string Name -
-int StarDifficulty -
-string OperationName -
-string Description -
-IReadOnlyCollection<UseItemInfo> ItemAcquirements
-int? RequiredDefeatCount -
-IReadOnlyCollection<FleetType> AvailableFleetTypes -
-IRawMapBgmInfo BgmInfo -
+t:MapAreaInfo
+t:UseItemInfo
+p:MapAreaInfo MapArea
+p:string Name -
+p:int StarDifficulty -
+p:string OperationName -
+p:string Description -
+p:IReadOnlyCollection<UseItemInfo> ItemAcquirements
+p:int? RequiredDefeatCount -
+p:IReadOnlyCollection<FleetType> AvailableFleetTypes -
+p:IRawMapBgmInfo BgmInfo -
 
 ExpeditionInfo:IRawExpeditionInfo
-string DisplayId -
-MapAreaInfo MapArea
-string Name -
-string Description -
-TimeSpan Duration -
-int RequiredShipCount -
-int Difficulty -
-double FuelConsumption -
-double BulletConsumption -
-IReadOnlyList<ItemRecord> RewardItems -
-bool CanRecall -
+t:MapAreaInfo
+p:string DisplayId -
+p:MapAreaInfo MapArea
+p:string Name -
+p:string Description -
+p:TimeSpan Duration -
+p:int RequiredShipCount -
+p:int Difficulty -
+p:double FuelConsumption -
+p:double BulletConsumption -
+p:IReadOnlyList<ItemRecord> RewardItems -
+p:bool CanRecall -
+

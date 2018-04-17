@@ -25,8 +25,8 @@ foreach (var infile in Inputs)
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------");
-        output.Write("using System;");
-        output.Write("using System.Collections.Generic;");
+        output.WriteLine("using System;");
+        output.WriteLine("using System.Collections.Generic;");
         var ns = input.ReadLine();
         output.Write("namespace ");
         output.WriteLine(ns);
@@ -34,14 +34,42 @@ foreach (var infile in Inputs)
         while (!input.EndOfStream)
         {
             var cls = input.ReadLine().Split(':');
-            output.WriteLine("    public partial class " + cls[0] + " : Calculated<" + cls[1] + ">");
-            output.WriteLine("    {");
-            output.WriteLine("        internal " + cls[0] + "(int id, ITableProvider owner) : base(id, owner) { }");
-            var dummyList = new List<string>();
+            var props = new List<string>();
+            var tables = new List<string>();
             while (true)
             {
                 var line = input.ReadLine();
-                if (string.IsNullOrWhiteSpace(line)) break;
+                int p = line.IndexOf(':');
+                if (p < 0) break;
+                switch (line.Substring(0, p))
+                {
+                    case "p":
+                        props.Add(line.Substring(p + 1));
+                        break;
+                    case "t":
+                        tables.Add(line.Substring(p + 1));
+                        break;
+                }
+            }
+            output.WriteLine("    public partial class " + cls[0] + " : Calculated<" + cls[1] + ">");
+            output.WriteLine("    {");
+            output.WriteLine("        internal " + cls[0] + "(int id, ITableProvider owner) : base(id, owner)");
+            output.WriteLine("        {");
+            foreach (var t in tables)
+            {
+                string fieldName = char.ToLowerInvariant(t[0]) + t.Substring(1) + "s";
+                output.WriteLine("            " + fieldName + " = owner.GetTable<" + t + ">();");
+            }
+            output.WriteLine("        }");
+            foreach (var t in tables)
+            {
+                string fieldName = char.ToLowerInvariant(t[0]) + t.Substring(1) + "s";
+                output.WriteLine();
+                output.WriteLine("        private readonly ITable<" + t + "> " + fieldName + ";");
+            }
+            var dummyList = new List<string>();
+            foreach (var line in props)
+            {
                 var prop = line.Split(' ');
                 string propName = prop[1];
                 string propType = prop[0];
