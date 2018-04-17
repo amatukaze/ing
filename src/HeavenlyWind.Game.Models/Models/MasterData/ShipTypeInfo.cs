@@ -6,7 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     {
         partial void UpdateCore(IRawShipTypeInfo raw)
         {
-            AvailableEquipmentTypes = raw.AvailableEquipmentTypes.Select(x => equipmentTypeInfos.TryGetOrDummy(x)).ToArray();
+            availableEquipmentTypes.Query = raw.AvailableEquipmentTypes.Select(equipmentTypeInfos.TryGetOrDummy);
         }
     }
 }

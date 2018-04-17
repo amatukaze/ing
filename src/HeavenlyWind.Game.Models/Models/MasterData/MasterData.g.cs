@@ -277,13 +277,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             private set => Set(ref _buildOutlineId, value);
         }
 
-        private IReadOnlyCollection<EquipmentTypeInfo> _availableEquipmentTypes;
-        public IReadOnlyCollection<EquipmentTypeInfo> AvailableEquipmentTypes
-        {
-            get => _availableEquipmentTypes;
-            private set => Set(ref _availableEquipmentTypes, value);
-        }
-
         public override void Update(IRawShipTypeInfo raw)
         {
             SortNo = raw.SortNo;
@@ -293,6 +286,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawShipTypeInfo raw);
+
+        private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
+        public IBindableCollection<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
     }
     public partial class EquipmentTypeInfo : Calculated<IRawEquipmentTypeInfo>
     {
@@ -360,13 +356,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         {
             get => _iconId;
             private set => Set(ref _iconId, value);
-        }
-
-        private IReadOnlyCollection<ShipInfo> _extraSlotAcceptingShips;
-        public IReadOnlyCollection<ShipInfo> ExtraSlotAcceptingShips
-        {
-            get => _extraSlotAcceptingShips;
-            private set => Set(ref _extraSlotAcceptingShips, value);
         }
 
         private int _firepower;
@@ -505,6 +494,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawEquipmentInfo raw);
+
+        private readonly BindableSnapshotCollection<ShipInfo> extraSlotAcceptingShips = new BindableSnapshotCollection<ShipInfo>();
+        public IBindableCollection<ShipInfo> ExtraSlotAcceptingShips => extraSlotAcceptingShips;
     }
     public partial class UseItemInfo : Calculated<IRawUseItem>
     {
@@ -601,13 +593,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             private set => Set(ref _description, value);
         }
 
-        private IReadOnlyCollection<UseItemInfo> _itemAcquirements;
-        public IReadOnlyCollection<UseItemInfo> ItemAcquirements
-        {
-            get => _itemAcquirements;
-            private set => Set(ref _itemAcquirements, value);
-        }
-
         private int? _requiredDefeatCount;
         public int? RequiredDefeatCount
         {
@@ -641,6 +626,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawMapInfo raw);
+
+        private readonly BindableSnapshotCollection<UseItemInfo> itemAcquirements = new BindableSnapshotCollection<UseItemInfo>();
+        public IBindableCollection<UseItemInfo> ItemAcquirements => itemAcquirements;
     }
     public partial class ExpeditionInfo : Calculated<IRawExpeditionInfo>
     {

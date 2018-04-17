@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
     partial class BindableSnapshotCollection<T>
-        where T : class
     {
         public struct EditAction
         {
@@ -39,7 +38,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             {
                 int i;
                 for (i = 0; i < _source.Length && i < _target.Length; i++)
-                    if (!ReferenceEquals(_source[i], _target[i]))
+                    if (!EqualityComparer<T>.Default.Equals(_source[i], _target[i]))
                         break;
                 return i;
             }

@@ -9,7 +9,6 @@ using System.Threading;
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
     public partial class BindableSnapshotCollection<T> : IDisposable, IBindableCollection<T>
-        where T : class
     {
         private readonly IUpdationSource source;
         private T[] snapshot;
@@ -25,6 +24,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             }
         }
 
+        public BindableSnapshotCollection()
+        {
+            snapshot = Array.Empty<T>();
+        }
+
         public BindableSnapshotCollection(IUpdationSource source, IEnumerable<T> query)
         {
             this.source = source ?? throw new ArgumentNullException(nameof(source));
@@ -37,7 +41,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             source.Updated += Refresh;
         }
 
-        public void Dispose() => source.Updated -= Refresh;
+        public void Dispose()
+        {
+            if (source != null)
+                source.Updated -= Refresh;
+        }
 
         #region PropertyChange
         private List<(SynchronizationContext syncContext, PropertyChangedEventHandler handler)> pHandlers;
@@ -173,7 +181,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         {
             T v = (T)value;
             for (int i = 0; i < snapshot.Length; i++)
-                if (snapshot[i] == v) return i;
+                if (EqualityComparer<T>.Default.Equals(snapshot[i], v)) return i;
             return -1;
         }
         void IList.Insert(int index, object value) => throw new NotSupportedException();

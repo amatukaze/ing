@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         partial void UpdateCore(IRawMapInfo raw)
         {
             MapArea = mapAreaInfos[raw.MapAreaId];
-            ItemAcquirements = raw.ItemAcquirements.Select(x => useItemInfos.TryGetOrDummy(x)).ToArray();
+            itemAcquirements.Query = raw.ItemAcquirements.Select(useItemInfos.TryGetOrDummy);
         }
     }
 }

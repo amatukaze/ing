@@ -36,6 +36,7 @@ foreach (var infile in Inputs)
             var cls = input.ReadLine().Split(':');
             var props = new List<string>();
             var tables = new List<string>();
+            var bindables = new List<string>();
             while (true)
             {
                 var line = input.ReadLine();
@@ -48,6 +49,9 @@ foreach (var infile in Inputs)
                         break;
                     case "t":
                         tables.Add(line.Substring(p + 1));
+                        break;
+                    case "b":
+                        bindables.Add(line.Substring(p + 1));
                         break;
                 }
             }
@@ -92,6 +96,16 @@ foreach (var infile in Inputs)
             output.WriteLine("            UpdateCore(raw);");
             output.WriteLine("        }");
             output.WriteLine("        partial void UpdateCore(" + cls[1] + " raw);");
+            foreach (var b in bindables)
+            {
+                var prop = b.Split(' ');
+                string name = prop[1];
+                string type = prop[0];
+                string field = char.ToLowerInvariant(name[0]) + name.Substring(1);
+                output.WriteLine();
+                output.WriteLine("        private readonly BindableSnapshotCollection<" + type + "> " + field + " = new BindableSnapshotCollection<" + type + ">();");
+                output.WriteLine("        public IBindableCollection<" + type +"> " + name + " => " + field + ";");
+            }
             output.WriteLine("    }");
         }
         output.WriteLine("}");

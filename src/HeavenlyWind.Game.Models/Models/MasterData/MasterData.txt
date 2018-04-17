@@ -36,7 +36,7 @@ p:int SortNo -
 p:string Name -
 p:int RepairTimeRatio -
 p:int BuildOutlineId -
-p:IReadOnlyCollection<EquipmentTypeInfo> AvailableEquipmentTypes
+b:EquipmentTypeInfo AvailableEquipmentTypes
 
 EquipmentTypeInfo:IRawEquipmentTypeInfo
 p:string Name -
@@ -49,7 +49,7 @@ p:string Name -
 p:string Description -
 p:EquipmentTypeInfo Type
 p:int IconId -
-p:IReadOnlyCollection<ShipInfo> ExtraSlotAcceptingShips
+b:ShipInfo ExtraSlotAcceptingShips
 p:int Firepower -
 p:int Torpedo -
 p:int AntiAir -
@@ -82,7 +82,7 @@ p:string Name -
 p:int StarDifficulty -
 p:string OperationName -
 p:string Description -
-p:IReadOnlyCollection<UseItemInfo> ItemAcquirements
+b:UseItemInfo ItemAcquirements
 p:int? RequiredDefeatCount -
 p:IReadOnlyCollection<FleetType> AvailableFleetTypes -
 p:IRawMapBgmInfo BgmInfo -
