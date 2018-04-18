@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.Converters
     {
         protected override int RequiredCount => 4;
 
-        protected override Materials ConvertValue(ReadOnlySpan<int> array)
+        protected override Materials ConvertValue(int[] array)
             => new Materials
             {
                 Fuel = array[0],

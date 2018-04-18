@@ -32,13 +32,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Count = previous.Count + 1;
             }
         }
-        public static EditAction[] SequenceDiffer(ReadOnlySpan<T> source, ReadOnlySpan<T> target)
+        public static EditAction[] SequenceDiffer(T[] source, T[] target)
         {
-            int GetLongestMatch(ReadOnlySpan<T> _source, ReadOnlySpan<T> _target)
+            int GetLongestMatch(ArraySegment<T> _source, ArraySegment<T> _target)
             {
                 int i;
-                for (i = 0; i < _source.Length && i < _target.Length; i++)
-                    if (!EqualityComparer<T>.Default.Equals(_source[i], _target[i]))
+                for (i = 0; i < _source.Count && i < _target.Count; i++)
+                    if (!EqualityComparer<T>.Default.Equals(_source.Array[_source.Offset + i], _target.Array[_target.Offset + i]))
                         break;
                 return i;
             }
@@ -55,7 +55,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 return result;
             }
 
-            int start = GetLongestMatch(source, target);
+            int start = GetLongestMatch(new ArraySegment<T>(source), new ArraySegment<T>(target));
             if (start == source.Length && start == target.Length)
                 return Array.Empty<EditAction>();
 
@@ -68,7 +68,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (node.X < source.Length)
                 {
                     var action = new EditAction { IsAdd = false, OriginalIndex = node.X, Item = source[node.X] };
-                    int l = GetLongestMatch(source.Slice(node.X + 1), target.Slice(node.Y));
+                    int l = GetLongestMatch(new ArraySegment<T>(source, node.X + 1, source.Length - node.X - 1), new ArraySegment<T>(target, node.Y, target.Length - node.Y));
                     var newNode = new LinkNode(node.X + 1 + l, node.Y + l, action, node);
                     if (newNode.X == source.Length && newNode.Y == target.Length)
                         return BuildResult(newNode);
@@ -78,7 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (node.Y < target.Length)
                 {
                     var action = new EditAction { IsAdd = true, OriginalIndex = node.X, Item = target[node.Y] };
-                    int l = GetLongestMatch(source.Slice(node.X), target.Slice(node.Y + 1));
+                    int l = GetLongestMatch(new ArraySegment<T>(source, node.X, source.Length - node.X), new ArraySegment<T>(target, node.Y + 1, target.Length - node.Y - 1));
                     var newNode = new LinkNode(node.X + l, node.Y + 1 + l, action, node);
                     if (newNode.X == source.Length && newNode.Y == target.Length)
                         return BuildResult(newNode);

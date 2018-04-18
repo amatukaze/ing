@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.Converters
     {
         protected override int RequiredCount => 2;
 
-        protected override ShipMordenizationStatus ConvertValue(ReadOnlySpan<int> array)
+        protected override ShipMordenizationStatus ConvertValue(int[] array)
             => new ShipMordenizationStatus(array[0], array[1], 0);
     }
 }

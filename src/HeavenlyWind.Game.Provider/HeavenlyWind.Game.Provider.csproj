@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="System.Memory" Version="4.5.0-preview2-26406-04" />
   </ItemGroup>
 
   <ItemGroup>

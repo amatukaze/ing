@@ -7,7 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.Converters
     {
         protected override int RequiredCount => 2;
 
-        protected override ItemRecord ConvertValue(ReadOnlySpan<int> array)
+        protected override ItemRecord ConvertValue(int[] array)
             => new ItemRecord
             {
                 ItemId = array[0],
