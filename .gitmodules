@@ -1,0 +1,3 @@
+[submodule "HeavenlyWind.Localization"]
+	path = HeavenlyWind.Localization
+	url = https://github.com/amatukaze/HeavenlyWind.Localization.git

@@ -19,7 +19,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="16"
                        Margin="20,4,0,4"
-                       Text="Intelligent Naval Gun"/>
+                       x:Uid="AppTitle"/>
             <Rectangle Fill="Transparent"
                        x:Name="DraggableTitle"/>
             <Button HorizontalAlignment="Right"

@@ -129,6 +129,17 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <None Include="$(SolutionDir)HeavenlyWind.Localization\locales\*.json">
+      <Link>Strings\Raw\%(Filename)</Link>
+    </None>
+    <None Include="$(SolutionDir)HeavenlyWind.Localization\fieldmap.json">
+      <Link>Strings\fieldmap.json</Link>
+    </None>
+    <PRIResource Include="$(SolutionDir)HeavenlyWind.Localization\artifacts\resw\**\*.resw">
+      <Link>Strings\%(RecursiveDir)%(Filename)</Link>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="HeavenlyWind.Bootstrap">
       <Version>0.1.0-blueprint3</Version>
     </PackageReference>
@@ -179,7 +190,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

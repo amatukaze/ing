@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <TextBlock FontSize="16"
                    Margin="20,4,0,4"
-                   Text="Settings"/>
+                   x:Uid="SettingsTitle"/>
         <Pivot ItemsSource="{x:Bind Pages}"
                Grid.Row="1">
             <Pivot.HeaderTemplate>

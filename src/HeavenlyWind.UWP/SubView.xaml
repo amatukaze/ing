@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <TextBlock FontSize="16"
                    Margin="20,4,0,4"
-                   Text="Intelligent Naval Gun"/>
+                   x:Uid="AppTitle"/>
         <ContentControl x:Name="ActualContent"
                         Grid.Row="1"
                         HorizontalContentAlignment="Stretch"
