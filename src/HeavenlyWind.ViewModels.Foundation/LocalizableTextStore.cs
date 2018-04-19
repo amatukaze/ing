@@ -25,7 +25,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             }
         }
 
-        public LocalizableText GetText(string category, string id)
-            => stored.GetOrAdd((category, id), key => new LocalizableText { Text = localizationService.GetLocalized(key.category, key.id) });
+        public LocalizableText GetText(string category, string id, string fallback = "")
+            => stored.GetOrAdd((category, id), key => new LocalizableText(fallback) { Text = localizationService.GetLocalized(key.category, key.id) });
     }
 }
