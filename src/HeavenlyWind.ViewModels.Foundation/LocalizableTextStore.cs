@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Sakuno.KanColle.Amatsukaze.Services;
+﻿using Sakuno.KanColle.Amatsukaze.Services;
+using System.Collections.Concurrent;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels
 {
@@ -14,37 +12,20 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             localizationService.CultureChanged += CultureChanged;
         }
 
-        private Dictionary<(string, string), WeakReference<LocalizableText>> stored
-            = new Dictionary<(string, string), WeakReference<LocalizableText>>();
+        private ConcurrentDictionary<(string category, string id), LocalizableText> stored
+            = new ConcurrentDictionary<(string, string), LocalizableText>();
 
         private void CultureChanged()
         {
-            lock (stored)
-                foreach (var key in stored.Keys.ToArray())
-                {
-                    var wr = stored[key];
-                    if (wr.TryGetTarget(out var text))
-                    {
-                        (string category, string id) = key;
-                        text.Text = localizationService.GetLocalized(category, id);
-                    }
-                    else
-                        stored.Remove(key);
-                }
+            foreach (var entry in stored)
+            {
+                var text = entry.Value;
+                (string category, string id) = entry.Key;
+                text.Text = localizationService.GetLocalized(category, id);
+            }
         }
 
         public LocalizableText GetText(string category, string id)
-        {
-            lock (stored)
-            {
-                if (stored.TryGetValue((category, id), out var wr)
-                    && wr.TryGetTarget(out var text))
-                    return text;
-
-                var newText = new LocalizableText { Text = localizationService.GetLocalized(category, id) };
-                stored[(category, id)] = new WeakReference<LocalizableText>(newText);
-                return newText;
-            }
-        }
+            => stored.GetOrAdd((category, id), key => new LocalizableText { Text = localizationService.GetLocalized(key.category, key.id) });
     }
 }
