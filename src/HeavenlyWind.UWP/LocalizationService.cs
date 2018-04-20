@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Sakuno.KanColle.Amatsukaze.Services;
+using System;
 using System.Globalization;
-using Sakuno.KanColle.Amatsukaze.Services;
-using Windows.ApplicationModel.Resources;
+using Windows.ApplicationModel.Resources.Core;
 
 namespace Sakuno.KanColle.Amatsukaze.UWP
 {
     internal class LocalizationService : ILocalizationService
     {
-        private ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView();
+        private readonly ResourceMap resourceMap = ResourceManager.Current.MainResourceMap;
+        private readonly ResourceContext resourceContext = new ResourceContext();
 
         public CultureInfo CurrentCulture
         {
@@ -16,13 +17,15 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             {
                 CultureInfo.DefaultThreadCurrentCulture = value;
                 CultureInfo.DefaultThreadCurrentUICulture = value;
-                Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = value.ToString();
+                string cultureName = value?.ToString() ?? string.Empty;
+                Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = cultureName;
+                resourceContext.Languages = new[] { cultureName };
                 CultureChanged?.Invoke();
             }
         }
 
         public event Action CultureChanged;
 
-        public string GetLocalized(string category, string id) => resourceLoader.GetString(category + "/" + id);
+        public string GetLocalized(string category, string id) => resourceMap.GetValue($"/{category}/{id}", resourceContext).ValueAsString;
     }
 }

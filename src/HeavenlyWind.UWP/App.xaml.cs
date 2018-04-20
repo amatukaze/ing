@@ -48,6 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                     "HeavenlyWind.UWP.Views.ApiDebug",
                     "HeavenlyWind.UWP.Views.MasterData",
                     "HeavenlyWind.UWP.Views.Settings",
+                    "HeavenlyWind.ViewModels.Foundation",
                 };
 
                 var emptyDictionary = new Dictionary<string, string>();
