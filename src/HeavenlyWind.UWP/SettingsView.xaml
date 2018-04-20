@@ -19,7 +19,7 @@
                Grid.Row="1">
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="local:SettingsPageModel">
-                    <PivotHeaderItem Content="{x:Bind Title.Text, Mode=OneWay}"/>
+                    <PivotHeaderItem Content="{x:Bind Title}"/>
                 </DataTemplate>
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>
