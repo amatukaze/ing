@@ -3,9 +3,9 @@ ShipInfo:IRawShipInfo
 t:ShipTypeInfo
 t:ShipInfo
 p:int SortNo -
-l:Name ShipName
+l:Name ShipName -
 p:string Phonetic -
-l:Introduction ShipIntro
+l:Introduction ShipIntro -
 p:ShipTypeInfo Type
 p:int ClassId -
 p:bool CanUpgrade
@@ -33,20 +33,20 @@ p:int BulletConsumption -
 ShipTypeInfo:IRawShipTypeInfo
 t:EquipmentTypeInfo
 p:int SortNo -
-l:Name ShipType
+l:Name ShipType u
 p:int RepairTimeRatio -
 p:int BuildOutlineId -
 b:EquipmentTypeInfo AvailableEquipmentTypes
 
 EquipmentTypeInfo:IRawEquipmentTypeInfo
-l:Name EquipType
+l:Name EquipType -
 p:bool AvailableInExtraSlot -
 
 EquipmentInfo:IRawEquipmentInfo
 t:EquipmentTypeInfo
 t:ShipInfo
-l:Name EquipName
-l:Description EquipDesc
+l:Name EquipName -
+l:Description EquipDesc -
 p:EquipmentTypeInfo Type
 p:int IconId -
 b:ShipInfo ExtraSlotAcceptingShips
@@ -68,20 +68,20 @@ p:Materials DismantleAcquirement -
 p:int Rarity -
 
 UseItemInfo:IRawUseItem
-l:Name UseItem
+l:Name UseItem -
 
 MapAreaInfo:IRawMapArea
-l:Name MapArea
+l:Name MapArea -
 p:bool IsEvent -
 
 MapInfo:IRawMapInfo
 t:MapAreaInfo
 t:UseItemInfo
 p:MapAreaInfo MapArea
-l:Name MapName
+l:Name MapName -
 p:int StarDifficulty -
-l:OperationName MapOperation
-l:Description MapDescription
+l:OperationName MapOperation -
+l:Description MapDescription -
 b:UseItemInfo ItemAcquirements
 p:int? RequiredDefeatCount -
 p:IReadOnlyCollection<FleetType> AvailableFleetTypes -
@@ -91,8 +91,8 @@ ExpeditionInfo:IRawExpeditionInfo
 t:MapAreaInfo
 p:string DisplayId -
 p:MapAreaInfo MapArea
-l:Name ExpeditionName
-l:Description ExpeditionDesc
+l:Name ExpeditionName -
+l:Description ExpeditionDesc -
 p:TimeSpan Duration -
 p:int RequiredShipCount -
 p:int Difficulty -
