@@ -7,6 +7,7 @@ namespace Sakuno.KanColle.Amatsukaze.Settings
         public void Expose(IBuilder builder)
         {
             builder.RegisterType<ProxySetting>();
+            builder.RegisterType<LocaleSetting>();
         }
 
         public void Initialize(IResolver resolver) { }
