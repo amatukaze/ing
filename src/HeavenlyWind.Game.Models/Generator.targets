@@ -27,6 +27,7 @@ foreach (var infile in Inputs)
 //------------------------------------------------------------------------------");
         output.WriteLine("using System;");
         output.WriteLine("using System.Collections.Generic;");
+        output.WriteLine("using Sakuno.KanColle.Amatsukaze.ViewModels;");
         var ns = input.ReadLine();
         output.Write("namespace ");
         output.WriteLine(ns);
@@ -37,6 +38,7 @@ foreach (var infile in Inputs)
             var props = new List<string>();
             var tables = new List<string>();
             var bindables = new List<string>();
+            var localizables = new List<string>();
             while (true)
             {
                 var line = input.ReadLine();
@@ -53,6 +55,9 @@ foreach (var infile in Inputs)
                     case "b":
                         bindables.Add(line.Substring(p + 1));
                         break;
+                    case "l":
+                        localizables.Add(line.Substring(p + 1));
+                        break;
                 }
             }
             output.WriteLine("    public partial class " + cls[0] + " : Calculated<" + cls[1] + ">");
@@ -64,6 +69,7 @@ foreach (var infile in Inputs)
                 string fieldName = char.ToLowerInvariant(t[0]) + t.Substring(1) + "s";
                 output.WriteLine("            " + fieldName + " = owner.GetTable<" + t + ">();");
             }
+            output.WriteLine("            CreateDummy();");
             output.WriteLine("        }");
             foreach (var t in tables)
             {
@@ -72,6 +78,32 @@ foreach (var infile in Inputs)
                 output.WriteLine("        private readonly ITable<" + t + "> " + fieldName + ";");
             }
             var dummyList = new List<string>();
+            foreach (var l in localizables)
+            {
+                var prop = l.Split(' ');
+                output.WriteLine();
+                string propName = prop[0];
+                string category = prop[1];
+                dummyList.Add(propName);
+                string fieldName = "_" + char.ToLowerInvariant(propName[0]) + propName.Substring(1);
+                output.WriteLine();
+                output.WriteLine("        private string " + fieldName + ";");
+                output.WriteLine("        public string " + propName);
+                output.WriteLine("        {");
+                output.WriteLine("            get => " + fieldName + ";");
+                output.WriteLine("            private set");
+                output.WriteLine("            {");
+                output.WriteLine("                if (" + fieldName + " != value)");
+                output.WriteLine("                {");
+                output.WriteLine("                    " + fieldName + " = value;");
+                output.WriteLine("                    NotifyPropertyChanged();");
+                output.WriteLine("                    Localized" + propName + " = Module.Localize.GetText(\"" + category + "\", Id.ToString(), value);");
+                output.WriteLine("                    NotifyPropertyChanged(nameof(Localized" + propName + "));");
+                output.WriteLine("                }");
+                output.WriteLine("            }");
+                output.WriteLine("        }");
+                output.WriteLine("        public LocalizableText " + "Localized" + propName + " { get; private set; }");
+            }
             foreach (var line in props)
             {
                 var prop = line.Split(' ');
@@ -96,6 +128,7 @@ foreach (var infile in Inputs)
             output.WriteLine("            UpdateCore(raw);");
             output.WriteLine("        }");
             output.WriteLine("        partial void UpdateCore(" + cls[1] + " raw);");
+            output.WriteLine("        partial void CreateDummy();");
             foreach (var b in bindables)
             {
                 var prop = b.Split(' ');

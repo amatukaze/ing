@@ -12,6 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HeavenlyWind.ViewModels.Foundation" Version="0.1.0-blueprint" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Scaffold Include="Models\MasterData\MasterData.txt">
       <Generator>MSBuild:UpdateScaffold</Generator>
     </Scaffold>

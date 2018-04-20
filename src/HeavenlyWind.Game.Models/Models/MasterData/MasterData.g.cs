@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+using Sakuno.KanColle.Amatsukaze.ViewModels;
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
     public partial class ShipInfo : Calculated<IRawShipInfo>
@@ -16,11 +17,48 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         {
             shipTypeInfos = owner.GetTable<ShipTypeInfo>();
             shipInfos = owner.GetTable<ShipInfo>();
+            CreateDummy();
         }
 
         private readonly ITable<ShipTypeInfo> shipTypeInfos;
 
         private readonly ITable<ShipInfo> shipInfos;
+
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    NotifyPropertyChanged();
+                    LocalizedName = Module.Localize.GetText("ShipName", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedName));
+                }
+            }
+        }
+        public LocalizableText LocalizedName { get; private set; }
+
+
+        private string _introduction;
+        public string Introduction
+        {
+            get => _introduction;
+            private set
+            {
+                if (_introduction != value)
+                {
+                    _introduction = value;
+                    NotifyPropertyChanged();
+                    LocalizedIntroduction = Module.Localize.GetText("ShipIntro", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedIntroduction));
+                }
+            }
+        }
+        public LocalizableText LocalizedIntroduction { get; private set; }
 
         private int _sortNo;
         public int SortNo
@@ -29,25 +67,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             private set => Set(ref _sortNo, value);
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            private set => Set(ref _name, value);
-        }
-
         private string _phonetic;
         public string Phonetic
         {
             get => _phonetic;
             private set => Set(ref _phonetic, value);
-        }
-
-        private string _introduction;
-        public string Introduction
-        {
-            get => _introduction;
-            private set => Set(ref _introduction, value);
         }
 
         private ShipTypeInfo _type;
@@ -213,10 +237,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 
         public override void Update(IRawShipInfo raw)
         {
-            SortNo = raw.SortNo;
             Name = raw.Name;
-            Phonetic = raw.Phonetic;
             Introduction = raw.Introduction;
+            SortNo = raw.SortNo;
+            Phonetic = raw.Phonetic;
             ClassId = raw.ClassId;
             UpgradeConsumption = raw.UpgradeConsumption;
             UpgradeSpecialConsumption = raw.UpgradeSpecialConsumption;
@@ -239,28 +263,41 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawShipInfo raw);
+        partial void CreateDummy();
     }
     public partial class ShipTypeInfo : Calculated<IRawShipTypeInfo>
     {
         public ShipTypeInfo(int id, ITableProvider owner) : base(id, owner)
         {
             equipmentTypeInfos = owner.GetTable<EquipmentTypeInfo>();
+            CreateDummy();
         }
 
         private readonly ITable<EquipmentTypeInfo> equipmentTypeInfos;
+
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    NotifyPropertyChanged();
+                    LocalizedName = Module.Localize.GetText("ShipType", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedName));
+                }
+            }
+        }
+        public LocalizableText LocalizedName { get; private set; }
 
         private int _sortNo;
         public int SortNo
         {
             get => _sortNo;
             private set => Set(ref _sortNo, value);
-        }
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            private set => Set(ref _name, value);
         }
 
         private int _repairTimeRatio;
@@ -279,13 +316,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 
         public override void Update(IRawShipTypeInfo raw)
         {
-            SortNo = raw.SortNo;
             Name = raw.Name;
+            SortNo = raw.SortNo;
             RepairTimeRatio = raw.RepairTimeRatio;
             BuildOutlineId = raw.BuildOutlineId;
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawShipTypeInfo raw);
+        partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
         public IBindableCollection<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
@@ -294,14 +332,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     {
         public EquipmentTypeInfo(int id, ITableProvider owner) : base(id, owner)
         {
+            CreateDummy();
         }
+
 
         private string _name;
         public string Name
         {
             get => _name;
-            private set => Set(ref _name, value);
+            private set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    NotifyPropertyChanged();
+                    LocalizedName = Module.Localize.GetText("EquipType", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedName));
+                }
+            }
         }
+        public LocalizableText LocalizedName { get; private set; }
 
         private bool _availableInExtraSlot;
         public bool AvailableInExtraSlot
@@ -317,6 +367,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawEquipmentTypeInfo raw);
+        partial void CreateDummy();
     }
     public partial class EquipmentInfo : Calculated<IRawEquipmentInfo>
     {
@@ -324,25 +375,48 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         {
             equipmentTypeInfos = owner.GetTable<EquipmentTypeInfo>();
             shipInfos = owner.GetTable<ShipInfo>();
+            CreateDummy();
         }
 
         private readonly ITable<EquipmentTypeInfo> equipmentTypeInfos;
 
         private readonly ITable<ShipInfo> shipInfos;
 
+
         private string _name;
         public string Name
         {
             get => _name;
-            private set => Set(ref _name, value);
+            private set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    NotifyPropertyChanged();
+                    LocalizedName = Module.Localize.GetText("EquipName", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedName));
+                }
+            }
         }
+        public LocalizableText LocalizedName { get; private set; }
+
 
         private string _description;
         public string Description
         {
             get => _description;
-            private set => Set(ref _description, value);
+            private set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    NotifyPropertyChanged();
+                    LocalizedDescription = Module.Localize.GetText("EquipDesc", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedDescription));
+                }
+            }
         }
+        public LocalizableText LocalizedDescription { get; private set; }
 
         private EquipmentTypeInfo _type;
         public EquipmentTypeInfo Type
@@ -494,6 +568,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawEquipmentInfo raw);
+        partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<ShipInfo> extraSlotAcceptingShips = new BindableSnapshotCollection<ShipInfo>();
         public IBindableCollection<ShipInfo> ExtraSlotAcceptingShips => extraSlotAcceptingShips;
@@ -502,14 +577,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     {
         public UseItemInfo(int id, ITableProvider owner) : base(id, owner)
         {
+            CreateDummy();
         }
+
 
         private string _name;
         public string Name
         {
             get => _name;
-            private set => Set(ref _name, value);
+            private set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    NotifyPropertyChanged();
+                    LocalizedName = Module.Localize.GetText("UseItem", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedName));
+                }
+            }
         }
+        public LocalizableText LocalizedName { get; private set; }
 
         public override void Update(IRawUseItem raw)
         {
@@ -517,19 +604,32 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawUseItem raw);
+        partial void CreateDummy();
     }
     public partial class MapAreaInfo : Calculated<IRawMapArea>
     {
         public MapAreaInfo(int id, ITableProvider owner) : base(id, owner)
         {
+            CreateDummy();
         }
+
 
         private string _name;
         public string Name
         {
             get => _name;
-            private set => Set(ref _name, value);
+            private set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    NotifyPropertyChanged();
+                    LocalizedName = Module.Localize.GetText("MapArea", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedName));
+                }
+            }
         }
+        public LocalizableText LocalizedName { get; private set; }
 
         private bool _isEvent;
         public bool IsEvent
@@ -545,6 +645,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawMapArea raw);
+        partial void CreateDummy();
     }
     public partial class MapInfo : Calculated<IRawMapInfo>
     {
@@ -552,11 +653,66 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         {
             mapAreaInfos = owner.GetTable<MapAreaInfo>();
             useItemInfos = owner.GetTable<UseItemInfo>();
+            CreateDummy();
         }
 
         private readonly ITable<MapAreaInfo> mapAreaInfos;
 
         private readonly ITable<UseItemInfo> useItemInfos;
+
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    NotifyPropertyChanged();
+                    LocalizedName = Module.Localize.GetText("MapName", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedName));
+                }
+            }
+        }
+        public LocalizableText LocalizedName { get; private set; }
+
+
+        private string _operationName;
+        public string OperationName
+        {
+            get => _operationName;
+            private set
+            {
+                if (_operationName != value)
+                {
+                    _operationName = value;
+                    NotifyPropertyChanged();
+                    LocalizedOperationName = Module.Localize.GetText("MapOperation", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedOperationName));
+                }
+            }
+        }
+        public LocalizableText LocalizedOperationName { get; private set; }
+
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            private set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    NotifyPropertyChanged();
+                    LocalizedDescription = Module.Localize.GetText("MapDescription", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedDescription));
+                }
+            }
+        }
+        public LocalizableText LocalizedDescription { get; private set; }
 
         private MapAreaInfo _mapArea;
         public MapAreaInfo MapArea
@@ -565,32 +721,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             private set => Set(ref _mapArea, value);
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            private set => Set(ref _name, value);
-        }
-
         private int _starDifficulty;
         public int StarDifficulty
         {
             get => _starDifficulty;
             private set => Set(ref _starDifficulty, value);
-        }
-
-        private string _operationName;
-        public string OperationName
-        {
-            get => _operationName;
-            private set => Set(ref _operationName, value);
-        }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            private set => Set(ref _description, value);
         }
 
         private int? _requiredDefeatCount;
@@ -617,15 +752,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         public override void Update(IRawMapInfo raw)
         {
             Name = raw.Name;
-            StarDifficulty = raw.StarDifficulty;
             OperationName = raw.OperationName;
             Description = raw.Description;
+            StarDifficulty = raw.StarDifficulty;
             RequiredDefeatCount = raw.RequiredDefeatCount;
             AvailableFleetTypes = raw.AvailableFleetTypes;
             BgmInfo = raw.BgmInfo;
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawMapInfo raw);
+        partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<UseItemInfo> itemAcquirements = new BindableSnapshotCollection<UseItemInfo>();
         public IBindableCollection<UseItemInfo> ItemAcquirements => itemAcquirements;
@@ -635,9 +771,46 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         public ExpeditionInfo(int id, ITableProvider owner) : base(id, owner)
         {
             mapAreaInfos = owner.GetTable<MapAreaInfo>();
+            CreateDummy();
         }
 
         private readonly ITable<MapAreaInfo> mapAreaInfos;
+
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    NotifyPropertyChanged();
+                    LocalizedName = Module.Localize.GetText("ExpeditionName", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedName));
+                }
+            }
+        }
+        public LocalizableText LocalizedName { get; private set; }
+
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            private set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    NotifyPropertyChanged();
+                    LocalizedDescription = Module.Localize.GetText("ExpeditionDesc", Id.ToString(), value);
+                    NotifyPropertyChanged(nameof(LocalizedDescription));
+                }
+            }
+        }
+        public LocalizableText LocalizedDescription { get; private set; }
 
         private string _displayId;
         public string DisplayId
@@ -651,20 +824,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
         {
             get => _mapArea;
             private set => Set(ref _mapArea, value);
-        }
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            private set => Set(ref _name, value);
-        }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            private set => Set(ref _description, value);
         }
 
         private TimeSpan _duration;
@@ -718,9 +877,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 
         public override void Update(IRawExpeditionInfo raw)
         {
-            DisplayId = raw.DisplayId;
             Name = raw.Name;
             Description = raw.Description;
+            DisplayId = raw.DisplayId;
             Duration = raw.Duration;
             RequiredShipCount = raw.RequiredShipCount;
             Difficulty = raw.Difficulty;
@@ -731,5 +890,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawExpeditionInfo raw);
+        partial void CreateDummy();
     }
 }
