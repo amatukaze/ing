@@ -22,10 +22,17 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
     {
         private readonly IDataService dataService;
         private readonly ITextStreamProvider gameProvider;
-        public Shell(IDataService dataService, ITextStreamProvider gameProvider)
+        private readonly string userFont, contentFont;
+
+        public Shell(IDataService dataService, ITextStreamProvider gameProvider, LocaleSetting localeSetting)
         {
             this.dataService = dataService;
             this.gameProvider = gameProvider;
+
+            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = localeSetting.Language.Value;
+
+            userFont = localeSetting.UserLanguageFont.Value;
+            contentFont = localeSetting.ContentLanguageFont.Value;
         }
 
         public async void Run()
@@ -55,7 +62,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                 // load browser only
             }
 
-            SetupTransparencity();
+            InitializeThread();
             new UISettings().ColorValuesChanged += async (sender, _) =>
             {
                 foreach (var view in CoreApplication.Views)
@@ -85,8 +92,12 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             settingViews.Add((viewType, category));
         }
 
-        private void SetupTransparencity()
+        private void InitializeThread()
         {
+            var res = Application.Current.Resources;
+            if (userFont != null)
+                res["UserLanguageFont"] = new FontFamily(userFont);
+
             var coreView = CoreApplication.GetCurrentView();
             coreView.TitleBar.ExtendViewIntoTitleBar = true;
             var titlebar = ApplicationView.GetForCurrentView().TitleBar;
@@ -105,7 +116,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                     var view = ApplicationView.GetForCurrentView();
                     settingsViewId = view.Id;
 
-                    SetupTransparencity();
+                    InitializeThread();
                     Window.Current.Content = new SettingsView(settingViews);
 
                     view.Consolidated += (_, __) =>
@@ -146,7 +157,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                             var view = ApplicationView.GetForCurrentView();
                             coreViewId = view.Id;
 
-                            SetupTransparencity();
+                            InitializeThread();
                             Window.Current.Content = new SubView
                             {
                                 Content = BuildLayout(le)
