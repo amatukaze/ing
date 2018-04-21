@@ -9,7 +9,6 @@ namespace Sakuno.KanColle.Amatsukaze.UWP.Views.Settings
         public void Initialize(IResolver resolver)
         {
             var shell = resolver.Resolve<IShell>();
-            //shell.RegisterSettingView(typeof(ProxySettingView), SettingCategory.Network);
             shell.RegisterSettingView(typeof(LocaleSettingView), SettingCategory.Appearance);
         }
     }
