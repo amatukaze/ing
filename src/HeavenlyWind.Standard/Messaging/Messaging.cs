@@ -8,35 +8,12 @@ namespace Sakuno.KanColle.Amatsukaze.Messaging
         event Action<T> Received;
     }
 
-    internal abstract class Chainer<TInput, TOutput>
-        : IProducer<TOutput>
+    internal abstract class Sender<T>
     {
-        private IProducer<TInput> upstream;
-
-        public Chainer(IProducer<TInput> upstream)
-            => this.upstream = upstream
-            ?? throw new ArgumentNullException(nameof(upstream));
-
-        private Action<TOutput> downstreams;
-        public event Action<TOutput> Received
+        protected Action<T> Downstreams;
+        protected void SendToDownstream(T value)
         {
-            add
-            {
-                if ((downstreams += value) != null)
-                    upstream.Received += Send;
-            }
-            remove
-            {
-                if ((downstreams -= value) == null)
-                    upstream.Received -= Send;
-            }
-        }
-
-        public abstract void Send(TInput arg);
-
-        protected void SendToDownstream(TOutput value)
-        {
-            var temp = downstreams;
+            var temp = Downstreams;
             if (temp == null) return;
             var list = temp.GetInvocationList();
             if (list.Length == 1)
@@ -44,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Messaging
             else
             {
                 Exception exception = null;
-                foreach (Action<TOutput> invo in list)
+                foreach (Action<T> invo in list)
                 {
                     try
                     {
@@ -67,6 +44,32 @@ namespace Sakuno.KanColle.Amatsukaze.Messaging
                 }
             }
         }
+    }
+
+    internal abstract class Chainer<TInput, TOutput>
+        : Sender<TOutput>, IProducer<TOutput>
+    {
+        private IProducer<TInput> upstream;
+
+        public Chainer(IProducer<TInput> upstream)
+            => this.upstream = upstream
+            ?? throw new ArgumentNullException(nameof(upstream));
+
+        public event Action<TOutput> Received
+        {
+            add
+            {
+                if ((Downstreams += value) != null)
+                    upstream.Received += Send;
+            }
+            remove
+            {
+                if ((Downstreams -= value) == null)
+                    upstream.Received -= Send;
+            }
+        }
+
+        public abstract void Send(TInput arg);
     }
 
     internal class Transformer<TInput, TOutput>
@@ -96,6 +99,31 @@ namespace Sakuno.KanColle.Amatsukaze.Messaging
         {
             if (predicate(arg))
                 SendToDownstream(arg);
+        }
+    }
+
+    internal class Combiner<T> : Sender<T>, IProducer<T>
+    {
+        private readonly IProducer<T>[] upstreams;
+
+        public Combiner(params IProducer<T>[] upstreams)
+            => this.upstreams = upstreams
+            ?? throw new ArgumentNullException(nameof(upstreams));
+
+        public event Action<T> Received
+        {
+            add
+            {
+                if ((Downstreams += value) != null)
+                    foreach (var u in upstreams)
+                        u.Received += SendToDownstream;
+            }
+            remove
+            {
+                if ((Downstreams -= value) == null)
+                    foreach (var u in upstreams)
+                        u.Received -= SendToDownstream;
+            }
         }
     }
 }
