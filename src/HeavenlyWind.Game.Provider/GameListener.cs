@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using Newtonsoft.Json;
@@ -25,6 +26,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
             MasterDataUpdated = RegisterRaw<MasterDataJson>("api_start2")
                 .Select(ParseMasterData);
+
+            var requireInfo = RegisterRaw<GameStartupInfoJson>("api_get_member/require_info");
+            AllEquipmentUpdated = requireInfo.Select(x => x.Response.api_slot_item)
+                .CombineWith(RegisterRaw<EquipmentJson[]>("api_get_member/slot_item").Select(x => x.Response));
+            BuildingDockUpdated = requireInfo.Select(x => x.Response.api_kdock)
+                .CombineWith(RegisterRaw<BuildingDockJson[]>("api_get_member/kdock").Select(x => x.Response));
+            UseItemUpdated = requireInfo.Select(x => x.Response.api_useitem)
+                .CombineWith(RegisterRaw<UseItemCountJson[]>("api_get_member/useitem").Select(x => x.Response));
+            FreeEquipmentUpdated = requireInfo.Select(x => x.Response.api_unsetslot)
+                .CombineWith(RegisterRaw<Dictionary<string, int[]>>("api_get_member/unsetslot").Select(x => x.Response));
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
