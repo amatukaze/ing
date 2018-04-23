@@ -25,9 +25,15 @@ foreach (var infile in Inputs)
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------");
-        output.WriteLine("using System;");
-        output.WriteLine("using System.Collections.Generic;");
         var ns = input.ReadLine();
+        while (true)
+        {
+            var line = input.ReadLine();
+            if (string.IsNullOrEmpty(line))
+                break;
+            output.WriteLine("using " + line + ";");
+        }
+        output.WriteLine();
         output.Write("namespace ");
         output.WriteLine(ns);
         output.WriteLine("{");

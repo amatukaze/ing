@@ -22,6 +22,12 @@
     <Compile Update="Models\MasterData\MasterData.g.cs">
       <DependentUpon>Models\MasterData\MasterData.txt</DependentUpon>
     </Compile>
+    <Scaffold Include="Models\GameObject.txt">
+      <Generator>MSBuild:UpdateScaffold</Generator>
+    </Scaffold>
+    <Compile Update="Models\GameObject.g.cs">
+      <DependentUpon>Models\GameObject.txt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

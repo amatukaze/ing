@@ -1,4 +1,7 @@
 ﻿Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
+System
+System.Collections.Generic
+
 ShipInfo:IRawShipInfo
 t:ShipTypeInfo
 t:ShipInfo

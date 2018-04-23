@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 using System;
 using System.Collections.Generic;
+
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
 {
     public partial class ShipInfo : Calculated<IRawShipInfo>

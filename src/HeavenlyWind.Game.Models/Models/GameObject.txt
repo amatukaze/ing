@@ -1,0 +1,24 @@
+﻿Sakuno.KanColle.Amatsukaze.Game.Models
+System
+Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
+
+Equipment:IRawEquipment
+t:EquipmentInfo
+p:EquipmentInfo Info
+p:bool IsLocked -
+p:int ImprovementLevel -
+p:int AirProficiency -
+
+BuildingDock:IRawBuildingDock
+t:ShipInfo
+p:DateTimeOffset CompletionTime -
+p:BuildingDockState State -
+p:Materials Consumption -
+p:ShipInfo BuiltShip
+p:bool IsLSC -
+
+UseItemCount:IRawUseItemCount
+t:UseItemInfo
+p:UseItemInfo Item
+p:int Count -
+

@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public interface IRawEquipment:IIdentifiable
+    public interface IRawEquipment : IIdentifiable
     {
         int EquipmentInfoId { get; }
         bool IsLocked { get; }
