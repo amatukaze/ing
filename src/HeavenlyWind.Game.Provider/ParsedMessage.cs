@@ -4,7 +4,7 @@ using Sakuno.KanColle.Amatsukaze.Game.Json;
 
 namespace Sakuno.KanColle.Amatsukaze.Game
 {
-    public sealed class ParsedMessage<T>
+    public sealed class ParsedMessage<T> : ITimedMessage<T>
     {
         public ParsedMessage(string name, DateTimeOffset timeStamp, NameValueCollection request, SvData<T> response)
         {
@@ -20,5 +20,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public NameValueCollection Request { get; }
         public bool IsSuccess { get; }
         public T Response { get; }
+
+        T ITimedMessage<T>.Message => Response;
+
+        public ITimedMessage<TNew> SelectResponse<TNew>(Func<T, TNew> func)
+            => new TimedMessage<TNew>(TimeStamp, func(Response));
+
+        public ITimedMessage<TNew> SelectRequestAndResponse<TNew>(Func<NameValueCollection, T, TNew> func)
+            => new TimedMessage<TNew>(TimeStamp, func(Request, Response));
     }
 }

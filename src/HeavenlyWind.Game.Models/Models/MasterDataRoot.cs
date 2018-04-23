@@ -20,16 +20,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             listener.MasterDataUpdated.Received += OnMasterDataUpdated;
         }
 
-        private void OnMasterDataUpdated(MasterDataUpdate obj)
+        private void OnMasterDataUpdated(ITimedMessage<MasterDataUpdate> obj)
         {
-            _shipTypes.BatchUpdate(obj.ShipTypes);
-            _shipInfos.BatchUpdate(obj.ShipInfos);
-            _equipmentTypes.BatchUpdate(obj.EquipmentTypes);
-            _equipmentInfos.BatchUpdate(obj.EquipmentInfos);
-            _useItems.BatchUpdate(obj.UseItems);
-            _mapAreas.BatchUpdate(obj.MapAreas);
-            _mapInfos.BatchUpdate(obj.Maps);
-            _expeditions.BatchUpdate(obj.Expeditions);
+            var message = obj.Message;
+            _shipTypes.BatchUpdate(message.ShipTypes);
+            _shipInfos.BatchUpdate(message.ShipInfos);
+            _equipmentTypes.BatchUpdate(message.EquipmentTypes);
+            _equipmentInfos.BatchUpdate(message.EquipmentInfos);
+            _useItems.BatchUpdate(message.UseItems);
+            _mapAreas.BatchUpdate(message.MapAreas);
+            _mapInfos.BatchUpdate(message.Maps);
+            _expeditions.BatchUpdate(message.Expeditions);
         }
 
         private readonly IdTable<ShipInfo, IRawShipInfo> _shipInfos;

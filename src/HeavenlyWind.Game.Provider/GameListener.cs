@@ -25,17 +25,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             jSerializer.Error += JsonError;
 
             MasterDataUpdated = RegisterRaw<MasterDataJson>("api_start2")
-                .Select(ParseMasterData);
+                .Select(x => x.SelectResponse(ParseMasterData));
 
             var requireInfo = RegisterRaw<GameStartupInfoJson>("api_get_member/require_info");
-            AllEquipmentUpdated = requireInfo.Select(x => x.Response.api_slot_item)
-                .CombineWith(RegisterRaw<EquipmentJson[]>("api_get_member/slot_item").Select(x => x.Response));
-            BuildingDockUpdated = requireInfo.Select(x => x.Response.api_kdock)
-                .CombineWith(RegisterRaw<BuildingDockJson[]>("api_get_member/kdock").Select(x => x.Response));
-            UseItemUpdated = requireInfo.Select(x => x.Response.api_useitem)
-                .CombineWith(RegisterRaw<UseItemCountJson[]>("api_get_member/useitem").Select(x => x.Response));
-            FreeEquipmentUpdated = requireInfo.Select(x => x.Response.api_unsetslot)
-                .CombineWith(RegisterRaw<Dictionary<string, int[]>>("api_get_member/unsetslot").Select(x => x.Response));
+            AllEquipmentUpdated = requireInfo.Select(x => x.SelectResponse(r => r.api_slot_item))
+                .CombineWith<ITimedMessage<IReadOnlyCollection<EquipmentJson>>>(RegisterRaw<EquipmentJson[]>("api_get_member/slot_item"));
+            BuildingDockUpdated = requireInfo.Select(x => x.SelectResponse(r => r.api_kdock))
+                .CombineWith<ITimedMessage<IReadOnlyCollection<BuildingDockJson>>>(RegisterRaw<BuildingDockJson[]>("api_get_member/kdock"));
+            UseItemUpdated = requireInfo.Select(x => x.SelectResponse(r => r.api_useitem))
+                .CombineWith<ITimedMessage<IReadOnlyCollection<UseItemCountJson>>>(RegisterRaw<UseItemCountJson[]>("api_get_member/useitem"));
+            FreeEquipmentUpdated = requireInfo.Select(x => x.SelectResponse(r => r.api_unsetslot))
+                .CombineWith(RegisterRaw<Dictionary<string, int[]>>("api_get_member/unsetslot"));
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)

@@ -18,7 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Test
             var provider = new UnitTestProvider();
             var gameListener = new GameListener(provider);
 
-            gameListener.MasterDataUpdated.Received += u => parseResult = u;
+            gameListener.MasterDataUpdated.Received += u => parseResult = u.Message;
 
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(typeof(MasterDataTest), "Data.masterdata.json"))

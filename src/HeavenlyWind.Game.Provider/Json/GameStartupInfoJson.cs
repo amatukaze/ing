@@ -7,6 +7,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json
         public EquipmentJson[] api_slot_item;
         public BuildingDockJson[] api_kdock;
         public UseItemCountJson[] api_useitem;
-        public IDictionary<string, int[]> api_unsetslot;
+        public Dictionary<string, int[]> api_unsetslot;
     }
 }

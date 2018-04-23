@@ -9,32 +9,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 {
     partial class GameListener
     {
-        public IProducer<MasterDataUpdate> MasterDataUpdated;
+        public IProducer<ITimedMessage<MasterDataUpdate>> MasterDataUpdated;
 
-        private MasterDataUpdate ParseMasterData(ParsedMessage<MasterDataJson> raw)
+        private MasterDataUpdate ParseMasterData(MasterDataJson raw)
         {
-            var res = raw.Response;
 
-            foreach (int id in res.api_mst_equip_exslot)
+            foreach (int id in raw.api_mst_equip_exslot)
             {
-                var type = res.api_mst_slotitem_equiptype.Find(x => x.Id == id);
+                var type = raw.api_mst_slotitem_equiptype.Find(x => x.Id == id);
                 if (type != null)
                     type.AvailableInExtraSlot = true;
             }
 
-            foreach (var i in res.api_mst_equip_exslot_ship)
+            foreach (var i in raw.api_mst_equip_exslot_ship)
             {
-                var e = res.api_mst_slotitem.Find(x => x.Id == i.api_slotitem_id);
+                var e = raw.api_mst_slotitem.Find(x => x.Id == i.api_slotitem_id);
                 if (e != null)
                     e.ExtraSlotAcceptingShips = i.api_ship_ids;
             }
 
-            foreach (var m in res.api_mst_mapinfo)
-                m.BgmInfo = res.api_mst_mapbgm.Find(x => x.Id == m.Id);
+            foreach (var m in raw.api_mst_mapinfo)
+                m.BgmInfo = raw.api_mst_mapbgm.Find(x => x.Id == m.Id);
 
-            foreach (var s in res.api_mst_ship)
+            foreach (var s in raw.api_mst_ship)
             {
-                var u = res.api_mst_shipupgrade.Find(x => x.api_current_ship_id == s.Id);
+                var u = raw.api_mst_shipupgrade.Find(x => x.api_current_ship_id == s.Id);
                 if (u == null) continue;
 
                 var l = new List<ItemRecord>(3);
@@ -49,16 +48,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
             return new MasterDataUpdate
             {
-                ShipInfos = res.api_mst_ship,
-                ShipTypes = res.api_mst_stype,
-                EquipmentInfos = res.api_mst_slotitem,
-                EquipmentTypes = res.api_mst_slotitem_equiptype,
-                FurnitureInfos = res.api_mst_furniture,
-                UseItems = res.api_mst_useitem,
-                MapAreas = res.api_mst_maparea,
-                Maps = res.api_mst_mapinfo,
-                Expeditions = res.api_mst_mission,
-                Bgms = res.api_mst_bgm
+                ShipInfos = raw.api_mst_ship,
+                ShipTypes = raw.api_mst_stype,
+                EquipmentInfos = raw.api_mst_slotitem,
+                EquipmentTypes = raw.api_mst_slotitem_equiptype,
+                FurnitureInfos = raw.api_mst_furniture,
+                UseItems = raw.api_mst_useitem,
+                MapAreas = raw.api_mst_maparea,
+                Maps = raw.api_mst_mapinfo,
+                Expeditions = raw.api_mst_mission,
+                Bgms = raw.api_mst_bgm
             };
         }
     }
