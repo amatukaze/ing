@@ -4,6 +4,7 @@ using System.IO;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Json;
 using Sakuno.KanColle.Amatsukaze.Game.Json.MasterData;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
@@ -41,8 +42,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             var homeport = RegisterRaw<HomeportJson>("api_port/port");
             AdmiralUpdated = homeport.Select(x => x.SelectResponse(r => r.api_basic))
                 .CombineWith<ITimedMessage<IRawAdmiral>>(RegisterRaw<AdmiralRecordJson>("api_get_member/record"));
-            MaterialsUpdated = homeport.Select(x => x.SelectResponse(r => ParseMaterials(r.api_material)))
-                .CombineWith(RegisterRaw<MaterialJson[]>("api_get_member/material").Select(x => x.SelectResponse(ParseMaterials)));
+            MaterialsUpdated = homeport.Select(x => x.SelectResponse(r => new MaterialUpdates(r.api_material)))
+                .CombineWith(RegisterRaw<MaterialJson[]>("api_get_member/material").Select(x => x.SelectResponse(r => new MaterialUpdates(r))));
             HomeportUpdated = homeport.Select(x => x.SelectResponse(ParseHomeport));
         }
 
