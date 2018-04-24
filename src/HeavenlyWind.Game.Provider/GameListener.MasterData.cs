@@ -11,7 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
     {
         public IProducer<ITimedMessage<MasterDataUpdate>> MasterDataUpdated;
 
-        private MasterDataUpdate ParseMasterData(MasterDataJson raw)
+        private static MasterDataUpdate ParseMasterData(MasterDataJson raw)
         {
 
             foreach (int id in raw.api_mst_equip_exslot)

@@ -1,5 +1,4 @@
-﻿using System;
-using Sakuno.KanColle.Amatsukaze.Game.Models;
+﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Json.Converters
 {
@@ -8,6 +7,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Json.Converters
         protected override int RequiredCount => 2;
 
         protected override ShipMordenizationStatus ConvertValue(int[] array)
-            => new ShipMordenizationStatus(array[0], array[1], 0);
+            => new ShipMordenizationStatus
+            {
+                Min = array[0],
+                Max = array[1]
+            };
     }
 }
