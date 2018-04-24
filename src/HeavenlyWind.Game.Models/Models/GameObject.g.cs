@@ -15,11 +15,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         public Equipment(int id, ITableProvider owner) : base(id, owner)
         {
-            equipmentInfos = owner.GetTable<EquipmentInfo>();
+            equipmentInfoTable = owner.GetTable<EquipmentInfo>();
             CreateDummy();
         }
 
-        private readonly ITable<EquipmentInfo> equipmentInfos;
+        private readonly ITable<EquipmentInfo> equipmentInfoTable;
 
         private EquipmentInfo _info;
         public EquipmentInfo Info
@@ -63,11 +63,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         public BuildingDock(int id, ITableProvider owner) : base(id, owner)
         {
-            shipInfos = owner.GetTable<ShipInfo>();
+            shipInfoTable = owner.GetTable<ShipInfo>();
             CreateDummy();
         }
 
-        private readonly ITable<ShipInfo> shipInfos;
+        private readonly ITable<ShipInfo> shipInfoTable;
 
         private DateTimeOffset _completionTime;
         public DateTimeOffset CompletionTime
@@ -119,11 +119,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     {
         public UseItemCount(int id, ITableProvider owner) : base(id, owner)
         {
-            useItemInfos = owner.GetTable<UseItemInfo>();
+            useItemInfoTable = owner.GetTable<UseItemInfo>();
             CreateDummy();
         }
 
-        private readonly ITable<UseItemInfo> useItemInfos;
+        private readonly ITable<UseItemInfo> useItemInfoTable;
 
         private UseItemInfo _item;
         public UseItemInfo Item

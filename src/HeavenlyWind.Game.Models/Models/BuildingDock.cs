@@ -4,7 +4,7 @@
     {
         partial void UpdateCore(IRawBuildingDock raw)
         {
-            BuiltShip = shipInfos[raw.BuiltShipId];
+            BuiltShip = shipInfoTable[raw.BuiltShipId];
         }
     }
 }

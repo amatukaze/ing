@@ -11,7 +11,7 @@
 
         partial void UpdateCore(IRawEquipment raw)
         {
-            Info = equipmentInfos[raw.EquipmentInfoId];
+            Info = equipmentInfoTable[raw.EquipmentInfoId];
         }
     }
 }

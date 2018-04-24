@@ -2,6 +2,6 @@
 {
     partial class UseItemCount
     {
-        partial void CreateDummy() => Item = useItemInfos[Id];
+        partial void CreateDummy() => Item = useItemInfoTable[Id];
     }
 }

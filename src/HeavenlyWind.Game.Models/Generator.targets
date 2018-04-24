@@ -71,7 +71,7 @@ foreach (var infile in Inputs)
             output.WriteLine("        {");
             foreach (var t in tables)
             {
-                string fieldName = char.ToLowerInvariant(t[0]) + t.Substring(1) + "s";
+                string fieldName = char.ToLowerInvariant(t[0]) + t.Substring(1) + "Table";
                 output.WriteLine("            " + fieldName + " = owner.GetTable<" + t + ">();");
             }
             var unlocalized = new List<string>();
@@ -91,7 +91,7 @@ foreach (var infile in Inputs)
             output.WriteLine("        }");
             foreach (var t in tables)
             {
-                string fieldName = char.ToLowerInvariant(t[0]) + t.Substring(1) + "s";
+                string fieldName = char.ToLowerInvariant(t[0]) + t.Substring(1) + "Table";
                 output.WriteLine();
                 output.WriteLine("        private readonly ITable<" + t + "> " + fieldName + ";");
             }

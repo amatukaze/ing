@@ -15,16 +15,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     {
         public ShipInfo(int id, ITableProvider owner) : base(id, owner)
         {
-            shipTypeInfos = owner.GetTable<ShipTypeInfo>();
-            shipInfos = owner.GetTable<ShipInfo>();
+            shipTypeInfoTable = owner.GetTable<ShipTypeInfo>();
+            shipInfoTable = owner.GetTable<ShipInfo>();
             NameTranslation = Module.Localize.GetLocalized("ShipName", id.ToString());
             IntroductionTranslation = Module.Localize.GetLocalized("ShipIntro", id.ToString());
             CreateDummy();
         }
 
-        private readonly ITable<ShipTypeInfo> shipTypeInfos;
+        private readonly ITable<ShipTypeInfo> shipTypeInfoTable;
 
-        private readonly ITable<ShipInfo> shipInfos;
+        private readonly ITable<ShipInfo> shipInfoTable;
 
         public string NameTranslation { get; }
 
@@ -253,13 +253,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     {
         public ShipTypeInfo(int id, ITableProvider owner) : base(id, owner)
         {
-            equipmentTypeInfos = owner.GetTable<EquipmentTypeInfo>();
+            equipmentTypeInfoTable = owner.GetTable<EquipmentTypeInfo>();
             NameTranslation = Module.Localize.GetLocalized("ShipType", id.ToString());
             _unlocalizedName = Module.Localize.GetUnlocalized("ShipType", id.ToString());
             CreateDummy();
         }
 
-        private readonly ITable<EquipmentTypeInfo> equipmentTypeInfos;
+        private readonly ITable<EquipmentTypeInfo> equipmentTypeInfoTable;
 
         public string NameTranslation { get; }
         private readonly string _unlocalizedName;
@@ -343,16 +343,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     {
         public EquipmentInfo(int id, ITableProvider owner) : base(id, owner)
         {
-            equipmentTypeInfos = owner.GetTable<EquipmentTypeInfo>();
-            shipInfos = owner.GetTable<ShipInfo>();
+            equipmentTypeInfoTable = owner.GetTable<EquipmentTypeInfo>();
+            shipInfoTable = owner.GetTable<ShipInfo>();
             NameTranslation = Module.Localize.GetLocalized("EquipName", id.ToString());
             DescriptionTranslation = Module.Localize.GetLocalized("EquipDesc", id.ToString());
             CreateDummy();
         }
 
-        private readonly ITable<EquipmentTypeInfo> equipmentTypeInfos;
+        private readonly ITable<EquipmentTypeInfo> equipmentTypeInfoTable;
 
-        private readonly ITable<ShipInfo> shipInfos;
+        private readonly ITable<ShipInfo> shipInfoTable;
 
         public string NameTranslation { get; }
 
@@ -589,17 +589,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     {
         public MapInfo(int id, ITableProvider owner) : base(id, owner)
         {
-            mapAreaInfos = owner.GetTable<MapAreaInfo>();
-            useItemInfos = owner.GetTable<UseItemInfo>();
+            mapAreaInfoTable = owner.GetTable<MapAreaInfo>();
+            useItemInfoTable = owner.GetTable<UseItemInfo>();
             NameTranslation = Module.Localize.GetLocalized("MapName", id.ToString());
             OperationNameTranslation = Module.Localize.GetLocalized("MapOperation", id.ToString());
             DescriptionTranslation = Module.Localize.GetLocalized("MapDescription", id.ToString());
             CreateDummy();
         }
 
-        private readonly ITable<MapAreaInfo> mapAreaInfos;
+        private readonly ITable<MapAreaInfo> mapAreaInfoTable;
 
-        private readonly ITable<UseItemInfo> useItemInfos;
+        private readonly ITable<UseItemInfo> useItemInfoTable;
 
         public string NameTranslation { get; }
 
@@ -684,13 +684,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.MasterData
     {
         public ExpeditionInfo(int id, ITableProvider owner) : base(id, owner)
         {
-            mapAreaInfos = owner.GetTable<MapAreaInfo>();
+            mapAreaInfoTable = owner.GetTable<MapAreaInfo>();
             NameTranslation = Module.Localize.GetLocalized("ExpeditionName", id.ToString());
             DescriptionTranslation = Module.Localize.GetLocalized("ExpeditionDesc", id.ToString());
             CreateDummy();
         }
 
-        private readonly ITable<MapAreaInfo> mapAreaInfos;
+        private readonly ITable<MapAreaInfo> mapAreaInfoTable;
 
         public string NameTranslation { get; }
 
