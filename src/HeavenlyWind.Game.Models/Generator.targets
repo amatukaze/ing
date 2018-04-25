@@ -127,7 +127,7 @@ foreach (var infile in Inputs)
                 output.WriteLine("        public " + propType + " " + propName);
                 output.WriteLine("        {");
                 output.WriteLine("            get => " + fieldName + ";");
-                output.WriteLine("            private set => Set(ref " + fieldName + ", value);");
+                output.WriteLine("            internal set => Set(ref " + fieldName + ", value);");
                 output.WriteLine("        }");
             }
             output.WriteLine();

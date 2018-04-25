@@ -8,6 +8,7 @@ p:EquipmentInfo Info
 p:bool IsLocked -
 p:int ImprovementLevel -
 p:int AirProficiency -
+p:bool IsAvailable
 
 BuildingDock:IRawBuildingDock
 t:ShipInfo

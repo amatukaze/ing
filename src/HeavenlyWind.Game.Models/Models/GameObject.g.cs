@@ -25,28 +25,35 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public EquipmentInfo Info
         {
             get => _info;
-            private set => Set(ref _info, value);
+            internal set => Set(ref _info, value);
         }
 
         private bool _isLocked;
         public bool IsLocked
         {
             get => _isLocked;
-            private set => Set(ref _isLocked, value);
+            internal set => Set(ref _isLocked, value);
         }
 
         private int _improvementLevel;
         public int ImprovementLevel
         {
             get => _improvementLevel;
-            private set => Set(ref _improvementLevel, value);
+            internal set => Set(ref _improvementLevel, value);
         }
 
         private int _airProficiency;
         public int AirProficiency
         {
             get => _airProficiency;
-            private set => Set(ref _airProficiency, value);
+            internal set => Set(ref _airProficiency, value);
+        }
+
+        private bool _isAvailable;
+        public bool IsAvailable
+        {
+            get => _isAvailable;
+            internal set => Set(ref _isAvailable, value);
         }
 
         public override void Update(IRawEquipment raw)
@@ -73,35 +80,35 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public DateTimeOffset CompletionTime
         {
             get => _completionTime;
-            private set => Set(ref _completionTime, value);
+            internal set => Set(ref _completionTime, value);
         }
 
         private BuildingDockState _state;
         public BuildingDockState State
         {
             get => _state;
-            private set => Set(ref _state, value);
+            internal set => Set(ref _state, value);
         }
 
         private Materials _consumption;
         public Materials Consumption
         {
             get => _consumption;
-            private set => Set(ref _consumption, value);
+            internal set => Set(ref _consumption, value);
         }
 
         private ShipInfo _builtShip;
         public ShipInfo BuiltShip
         {
             get => _builtShip;
-            private set => Set(ref _builtShip, value);
+            internal set => Set(ref _builtShip, value);
         }
 
         private bool _isLSC;
         public bool IsLSC
         {
             get => _isLSC;
-            private set => Set(ref _isLSC, value);
+            internal set => Set(ref _isLSC, value);
         }
 
         public override void Update(IRawBuildingDock raw)
@@ -129,14 +136,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public UseItemInfo Item
         {
             get => _item;
-            private set => Set(ref _item, value);
+            internal set => Set(ref _item, value);
         }
 
         private int _count;
         public int Count
         {
             get => _count;
-            private set => Set(ref _count, value);
+            internal set => Set(ref _count, value);
         }
 
         public override void Update(IRawUseItemCount raw)
@@ -158,77 +165,77 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public string Name
         {
             get => _name;
-            private set => Set(ref _name, value);
+            internal set => Set(ref _name, value);
         }
 
         private Leveling _leveling;
         public Leveling Leveling
         {
             get => _leveling;
-            private set => Set(ref _leveling, value);
+            internal set => Set(ref _leveling, value);
         }
 
         private AdmiralRank _rank;
         public AdmiralRank Rank
         {
             get => _rank;
-            private set => Set(ref _rank, value);
+            internal set => Set(ref _rank, value);
         }
 
         private string _comment;
         public string Comment
         {
             get => _comment;
-            private set => Set(ref _comment, value);
+            internal set => Set(ref _comment, value);
         }
 
         private int _maxShipCount;
         public int MaxShipCount
         {
             get => _maxShipCount;
-            private set => Set(ref _maxShipCount, value);
+            internal set => Set(ref _maxShipCount, value);
         }
 
         private int _maxEquipmentCount;
         public int MaxEquipmentCount
         {
             get => _maxEquipmentCount;
-            private set => Set(ref _maxEquipmentCount, value);
+            internal set => Set(ref _maxEquipmentCount, value);
         }
 
         private BattleStat _battleStat;
         public BattleStat BattleStat
         {
             get => _battleStat;
-            private set => Set(ref _battleStat, value);
+            internal set => Set(ref _battleStat, value);
         }
 
         private BattleStat _practiceStat;
         public BattleStat PracticeStat
         {
             get => _practiceStat;
-            private set => Set(ref _practiceStat, value);
+            internal set => Set(ref _practiceStat, value);
         }
 
         private ExpeditionStat _expeditionStat;
         public ExpeditionStat ExpeditionStat
         {
             get => _expeditionStat;
-            private set => Set(ref _expeditionStat, value);
+            internal set => Set(ref _expeditionStat, value);
         }
 
         private bool _canLSC;
         public bool CanLSC
         {
             get => _canLSC;
-            private set => Set(ref _canLSC, value);
+            internal set => Set(ref _canLSC, value);
         }
 
         private int _maxMaterial;
         public int MaxMaterial
         {
             get => _maxMaterial;
-            private set => Set(ref _maxMaterial, value);
+            internal set => Set(ref _maxMaterial, value);
         }
 
         public override void Update(IRawAdmiral raw)
@@ -266,147 +273,147 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public ShipInfo Info
         {
             get => _info;
-            private set => Set(ref _info, value);
+            internal set => Set(ref _info, value);
         }
 
         private Leveling _leveling;
         public Leveling Leveling
         {
             get => _leveling;
-            private set => Set(ref _leveling, value);
+            internal set => Set(ref _leveling, value);
         }
 
         private ClampedValue _hP;
         public ClampedValue HP
         {
             get => _hP;
-            private set => Set(ref _hP, value);
+            internal set => Set(ref _hP, value);
         }
 
         private ShipSpeed _speed;
         public ShipSpeed Speed
         {
             get => _speed;
-            private set => Set(ref _speed, value);
+            internal set => Set(ref _speed, value);
         }
 
         private FireRange _fireRange;
         public FireRange FireRange
         {
             get => _fireRange;
-            private set => Set(ref _fireRange, value);
+            internal set => Set(ref _fireRange, value);
         }
 
         private int _slotCount;
         public int SlotCount
         {
             get => _slotCount;
-            private set => Set(ref _slotCount, value);
+            internal set => Set(ref _slotCount, value);
         }
 
         private ClampedValue _fuel;
         public ClampedValue Fuel
         {
             get => _fuel;
-            private set => Set(ref _fuel, value);
+            internal set => Set(ref _fuel, value);
         }
 
         private ClampedValue _bullet;
         public ClampedValue Bullet
         {
             get => _bullet;
-            private set => Set(ref _bullet, value);
+            internal set => Set(ref _bullet, value);
         }
 
         private TimeSpan _repairingTime;
         public TimeSpan RepairingTime
         {
             get => _repairingTime;
-            private set => Set(ref _repairingTime, value);
+            internal set => Set(ref _repairingTime, value);
         }
 
         private Materials _repairingCost;
         public Materials RepairingCost
         {
             get => _repairingCost;
-            private set => Set(ref _repairingCost, value);
+            internal set => Set(ref _repairingCost, value);
         }
 
         private int _morale;
         public int Morale
         {
             get => _morale;
-            private set => Set(ref _morale, value);
+            internal set => Set(ref _morale, value);
         }
 
         private ShipMordenizationStatus _firepower;
         public ShipMordenizationStatus Firepower
         {
             get => _firepower;
-            private set => Set(ref _firepower, value);
+            internal set => Set(ref _firepower, value);
         }
 
         private ShipMordenizationStatus _torpedo;
         public ShipMordenizationStatus Torpedo
         {
             get => _torpedo;
-            private set => Set(ref _torpedo, value);
+            internal set => Set(ref _torpedo, value);
         }
 
         private ShipMordenizationStatus _antiAir;
         public ShipMordenizationStatus AntiAir
         {
             get => _antiAir;
-            private set => Set(ref _antiAir, value);
+            internal set => Set(ref _antiAir, value);
         }
 
         private ShipMordenizationStatus _armor;
         public ShipMordenizationStatus Armor
         {
             get => _armor;
-            private set => Set(ref _armor, value);
+            internal set => Set(ref _armor, value);
         }
 
         private ShipMordenizationStatus _evasion;
         public ShipMordenizationStatus Evasion
         {
             get => _evasion;
-            private set => Set(ref _evasion, value);
+            internal set => Set(ref _evasion, value);
         }
 
         private ShipMordenizationStatus _antiSubmarine;
         public ShipMordenizationStatus AntiSubmarine
         {
             get => _antiSubmarine;
-            private set => Set(ref _antiSubmarine, value);
+            internal set => Set(ref _antiSubmarine, value);
         }
 
         private ShipMordenizationStatus _lightOfSight;
         public ShipMordenizationStatus LightOfSight
         {
             get => _lightOfSight;
-            private set => Set(ref _lightOfSight, value);
+            internal set => Set(ref _lightOfSight, value);
         }
 
         private ShipMordenizationStatus _luck;
         public ShipMordenizationStatus Luck
         {
             get => _luck;
-            private set => Set(ref _luck, value);
+            internal set => Set(ref _luck, value);
         }
 
         private bool _isLocked;
         public bool IsLocked
         {
             get => _isLocked;
-            private set => Set(ref _isLocked, value);
+            internal set => Set(ref _isLocked, value);
         }
 
         private int? _shipLockingTag;
         public int? ShipLockingTag
         {
             get => _shipLockingTag;
-            private set => Set(ref _shipLockingTag, value);
+            internal set => Set(ref _shipLockingTag, value);
         }
 
         public override void Update(IRawShip raw)
@@ -439,14 +446,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public string Name
         {
             get => _name;
-            private set => Set(ref _name, value);
+            internal set => Set(ref _name, value);
         }
 
         private FleetExpeditionState _expeditionState;
         public FleetExpeditionState ExpeditionState
         {
             get => _expeditionState;
-            private set => Set(ref _expeditionState, value);
+            internal set => Set(ref _expeditionState, value);
         }
 
         public override void Update(IRawFleet raw)
