@@ -122,6 +122,47 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         partial void UpdateCore(IRawBuildingDock raw);
         partial void CreateDummy();
     }
+    public partial class RepairingDock : Calculated<IRawRepairingDock>
+    {
+        public RepairingDock(int id, ITableProvider owner) : base(id, owner)
+        {
+            shipTable = owner.GetTable<Ship>();
+            CreateDummy();
+        }
+
+        private readonly ITable<Ship> shipTable;
+
+        private RepairingDockState _state;
+        public RepairingDockState State
+        {
+            get => _state;
+            internal set => Set(ref _state, value);
+        }
+
+        private DateTimeOffset _completionTime;
+        public DateTimeOffset CompletionTime
+        {
+            get => _completionTime;
+            internal set => Set(ref _completionTime, value);
+        }
+
+        private Materials _consumption;
+        public Materials Consumption
+        {
+            get => _consumption;
+            internal set => Set(ref _consumption, value);
+        }
+
+        public override void Update(IRawRepairingDock raw)
+        {
+            State = raw.State;
+            CompletionTime = raw.CompletionTime;
+            Consumption = raw.Consumption;
+            UpdateCore(raw);
+        }
+        partial void UpdateCore(IRawRepairingDock raw);
+        partial void CreateDummy();
+    }
     public partial class UseItemCount : Calculated<IRawUseItemCount>
     {
         public UseItemCount(int id, ITableProvider owner) : base(id, owner)
@@ -414,6 +455,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             get => _shipLockingTag;
             internal set => Set(ref _shipLockingTag, value);
+        }
+
+        private bool _isRepairing;
+        public bool IsRepairing
+        {
+            get => _isRepairing;
+            internal set => Set(ref _isRepairing, value);
         }
 
         public override void Update(IRawShip raw)

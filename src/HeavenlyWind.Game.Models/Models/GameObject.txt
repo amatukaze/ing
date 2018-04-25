@@ -18,6 +18,12 @@ p:Materials Consumption -
 p:ShipInfo BuiltShip
 p:bool IsLSC -
 
+RepairingDock:IRawRepairingDock
+t:Ship
+p:RepairingDockState State -
+p:DateTimeOffset CompletionTime -
+p:Materials Consumption -
+
 UseItemCount:IRawUseItemCount
 t:UseItemInfo
 p:UseItemInfo Item
@@ -60,6 +66,7 @@ p:ShipMordenizationStatus LightOfSight
 p:ShipMordenizationStatus Luck
 p:bool IsLocked -
 p:int? ShipLockingTag -
+p:bool IsRepairing
 
 Fleet:IRawFleet
 t:Ship

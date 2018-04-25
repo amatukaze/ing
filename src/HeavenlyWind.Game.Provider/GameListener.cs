@@ -44,6 +44,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 .CombineWith<ITimedMessage<IRawAdmiral>>(RegisterRaw<AdmiralRecordJson>("api_get_member/record"));
             MaterialsUpdated = homeport.Select(x => x.SelectResponse(r => new MaterialUpdates(r.api_material)))
                 .CombineWith(RegisterRaw<MaterialJson[]>("api_get_member/material").Select(x => x.SelectResponse(r => new MaterialUpdates(r))));
+            RepairingDockUpdated = homeport.Select(x => x.SelectResponse(r => r.api_ndock))
+                .CombineWith<ITimedMessage<IReadOnlyCollection<RepairingDockJson>>>(RegisterRaw<RepairingDockJson[]>("api_get_member/ndock"));
             HomeportUpdated = homeport.Select(x => x.SelectResponse(ParseHomeport));
         }
 

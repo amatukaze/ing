@@ -10,6 +10,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             MasterData = new MasterDataRoot(listener);
             _allEquipment = new IdTable<Equipment, IRawEquipment>(this);
             _buildingDocks = new IdTable<BuildingDock, IRawBuildingDock>(this);
+            _repairingDocks = new IdTable<RepairingDock, IRawRepairingDock>(this);
             _useItems = new IdTable<UseItemCount, IRawUseItemCount>(this);
             _allShips = new IdTable<Ship, IRawShip>(this);
             _fleets = new IdTable<Fleet, IRawFleet>(this);
@@ -44,6 +45,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 _allShips.BatchUpdate(msg.Message.Ships);
                 _fleets.BatchUpdate(msg.Message.Fleets);
             };
+            listener.RepairingDockUpdated.Received += msg =>_repairingDocks.BatchUpdate(msg.Message);
         }
 
         public MasterDataRoot MasterData { get; }
@@ -53,6 +55,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         private readonly IdTable<BuildingDock, IRawBuildingDock> _buildingDocks;
         public ITable<BuildingDock> BuildingDocks => _buildingDocks;
+
+        private readonly IdTable<RepairingDock, IRawRepairingDock> _repairingDocks;
+        public ITable<RepairingDock> RepairingDocks => _repairingDocks;
 
         private readonly IdTable<UseItemCount, IRawUseItemCount> _useItems;
         public ITable<UseItemCount> UseItems => _useItems;

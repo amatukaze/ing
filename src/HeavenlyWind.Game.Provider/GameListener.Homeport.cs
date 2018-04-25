@@ -1,4 +1,5 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Events;
+﻿using System.Collections.Generic;
+using Sakuno.KanColle.Amatsukaze.Game.Events;
 using Sakuno.KanColle.Amatsukaze.Game.Json;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Messaging;
@@ -10,6 +11,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game
         public readonly IProducer<ITimedMessage<HomeportUpdate>> HomeportUpdated;
         public readonly IProducer<ITimedMessage<IRawAdmiral>> AdmiralUpdated;
         public readonly IProducer<ITimedMessage<MaterialUpdates>> MaterialsUpdated;
+        public readonly IProducer<ITimedMessage<IReadOnlyCollection<IRawRepairingDock>>> RepairingDockUpdated;
 
         private static HomeportUpdate ParseHomeport(HomeportJson raw)
             => new HomeportUpdate
