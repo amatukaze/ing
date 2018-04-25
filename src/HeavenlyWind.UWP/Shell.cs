@@ -22,11 +22,13 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
     {
         private readonly IDataService dataService;
         private readonly ITextStreamProvider gameProvider;
+        private readonly ILocalizationService localizationService;
 
-        public Shell(IDataService dataService, ITextStreamProvider gameProvider, LocaleSetting localeSetting)
+        public Shell(IDataService dataService, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localizationService)
         {
             this.dataService = dataService;
             this.gameProvider = gameProvider;
+            this.localizationService = localizationService;
 
             Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = localeSetting.Language.Value;
         }
@@ -54,7 +56,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             {
                 layout = new LayoutRoot();
                 layout.Entries.Add(new LayoutItem { Id = "ApiDebug" });
-                layout.Entries.Add(new LayoutItem { Id = "MasterData", Title = "MasterData" });
+                layout.Entries.Add(new LayoutItem { Id = "MasterData" });
                 // load browser only
             }
 
@@ -137,7 +139,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                     main.MainContent.Content = BuildLayout(entry);
                 else
                 {
-                    var button = new Button { Content = entry.Title, Tag = entry };
+                    var button = new Button { Content = GetTitle(entry), Tag = entry };
                     button.Tapped += async (sender, e) =>
                     {
                         var le = (sender as Button).Tag as LayoutBase;
@@ -165,6 +167,11 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
             }
         }
 
+        private string GetTitle(LayoutBase item)
+            => item.Title
+            ?? localizationService.GetLocalized("ViewTitle", item.Id)
+            ?? item.Id;
+
         private UIElement BuildLayout(LayoutBase layout)
         {
             switch (layout)
@@ -174,7 +181,7 @@ namespace Sakuno.KanColle.Amatsukaze.UWP
                     foreach (var child in tab.Children)
                         pivot.Items.Add(new PivotItem
                         {
-                            Header = child.Title,
+                            Header = GetTitle(child),
                             Content = BuildLayout(child)
                         });
                     return pivot;
