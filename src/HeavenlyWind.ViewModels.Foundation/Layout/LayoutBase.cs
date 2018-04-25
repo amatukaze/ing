@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
 {
@@ -9,28 +9,24 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
         public string Title { get; set; }
         private protected abstract string TypeName { get; }
 
-        internal virtual void FromXml(XmlElement xml)
+        internal virtual XElement ToXml()
         {
-            if (xml.HasAttribute("Id"))
-                Id = xml.GetAttribute("Id");
-            if (xml.HasAttribute("Title"))
-                Title = xml.GetAttribute("Title");
-        }
-
-        internal virtual XmlElement ToXml(XmlDocument document)
-        {
-            var element = document.CreateElement(TypeName);
-            if (Id != null)
-                element.SetAttribute("Id", Id);
-            if (Title != null)
-                element.SetAttribute("Title", Title);
+            var element = new XElement(TypeName);
+            element.SetAttributeValue(nameof(Id), Id);
+            element.SetAttributeValue(nameof(Title), Title);
             return element;
         }
 
-        internal static LayoutBase Resolve(XmlElement xml)
+        internal virtual void FromXml(XElement xml)
+        {
+            Id = xml.Attribute(nameof(Id))?.Value;
+            Title = xml.Attribute(nameof(Title))?.Value;
+        }
+
+        internal static LayoutBase Resolve(XElement xml)
         {
             LayoutBase item;
-            switch (xml.Name)
+            switch (xml.Name.LocalName)
             {
                 case "Item":
                     item = new LayoutItem();

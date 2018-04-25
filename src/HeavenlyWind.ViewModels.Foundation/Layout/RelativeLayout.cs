@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
 {
@@ -10,53 +10,48 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
         public IList<LayoutBase> Children { get; } = new List<LayoutBase>();
         public IList<RelativeRelation> Relations { get; } = new List<RelativeRelation>();
 
-        internal override void FromXml(XmlElement xml)
+        internal override void FromXml(XElement xml)
         {
             base.FromXml(xml);
-            foreach (XmlElement element in xml.ChildNodes)
-                switch (element.Name)
+
+            var children = xml.Element(nameof(Children));
+            if (children != null)
+                foreach (var child in children.Elements())
+                    Children.Add(Resolve(child));
+
+            var relations = xml.Element(nameof(Relations));
+            if (relations != null)
+                foreach (var relation in relations.Elements())
                 {
-                    case "Children":
-                        foreach (XmlElement child in element.ChildNodes)
-                            Children.Add(Resolve(child));
-                        break;
-                    case "Relations":
-                        foreach (XmlElement node in element.ChildNodes)
-                        {
-                            if (node.Name != "Relation")
-                                throw new ArgumentException("Unknown element type.");
-                            var relation = new RelativeRelation
-                            {
-                                Item = node.GetAttribute("Item"),
-                                Type = (RelativeRelationType)Enum.Parse(typeof(RelativeRelationType), node.GetAttribute("Type"))
-                            };
-                            if (node.HasAttribute("Base"))
-                                relation.Base = node.GetAttribute("Base");
-                            Relations.Add(relation);
-                        }
-                        break;
+                    if (relation.Name.LocalName != "Relation")
+                        throw new ArgumentException("Unknown element type.");
+                    Relations.Add(new RelativeRelation
+                    {
+                        Item = relation.Attribute(nameof(RelativeRelation.Item)).Value,
+                        Type = (RelativeRelationType)Enum.Parse(typeof(RelativeRelationType), relation.Attribute(nameof(RelativeRelation.Type)).Value),
+                        Base = relation.Attribute(nameof(RelativeRelation.Base))?.Value
+                    });
                 }
         }
 
-        internal override XmlElement ToXml(XmlDocument document)
+        internal override XElement ToXml()
         {
-            var xml = base.ToXml(document);
+            var xml = base.ToXml();
 
-            var children = document.CreateElement("Children");
-            xml.AppendChild(children);
+            var children = new XElement(nameof(Children));
+            xml.Add(children);
             foreach (var child in Children)
-                children.AppendChild(child.ToXml(document));
+                children.Add(child.ToXml());
 
-            var relations = document.CreateElement("Relations");
-            xml.AppendChild(relations);
+            var relations = new XElement(nameof(Relations));
+            xml.Add(relations);
             foreach (var relation in Relations)
             {
-                var node = document.CreateElement("Relation");
-                relations.AppendChild(node);
-                node.SetAttribute("Item", relation.Item);
-                if (relation.Base != null)
-                    node.SetAttribute("Base", relation.Base);
-                node.SetAttribute("Type", relation.Type.ToString());
+                var node = new XElement("Relation");
+                relations.Add(node);
+                node.SetAttributeValue(nameof(RelativeRelation.Item), relation.Item);
+                node.SetAttributeValue(nameof(RelativeRelation.Base), relation.Base);
+                node.SetAttributeValue(nameof(RelativeRelation.Type), relation.Type.ToString());
             }
 
             return xml;

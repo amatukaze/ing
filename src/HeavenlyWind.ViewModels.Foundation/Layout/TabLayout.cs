@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
 {
@@ -8,17 +8,17 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
         private protected override string TypeName => "Tab";
         public IList<LayoutBase> Children { get; } = new List<LayoutBase>();
 
-        internal override void FromXml(XmlElement xml)
+        internal override void FromXml(XElement xml)
         {
             base.FromXml(xml);
-            foreach (XmlElement element in xml.ChildNodes)
+            foreach (var element in xml.Elements())
                 Children.Add(Resolve(element));
         }
-        internal override XmlElement ToXml(XmlDocument document)
+        internal override XElement ToXml()
         {
-            var element = base.ToXml(document);
+            var element = base.ToXml();
             foreach (var child in Children)
-                element.AppendChild(child.ToXml(document));
+                element.Add(child.ToXml());
             return element;
         }
     }

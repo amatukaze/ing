@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Xml;
+using System.Xml.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
 {
@@ -7,20 +7,21 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
     {
         public IList<LayoutBase> Entries { get; } = new List<LayoutBase>();
 
-        public XmlDocument ToXml()
+        public XDocument ToXml()
         {
-            var document = new XmlDocument();
-            document.AppendChild(document.CreateElement("LayoutRoot"));
+            var document = new XDocument();
+            var root = new XElement("LayoutRoot");
+            document.Add(root);
 
             foreach (var entry in Entries)
-                document.DocumentElement.AppendChild(entry.ToXml(document));
+                root.Add(entry.ToXml());
 
             return document;
         }
 
-        public LayoutRoot FromXml(XmlDocument document)
+        public LayoutRoot FromXml(XDocument document)
         {
-            foreach (XmlElement element in document.DocumentElement.ChildNodes)
+            foreach (var element in document.Element("LayoutRoot").Elements())
                 Entries.Add(LayoutBase.Resolve(element));
             return this;
         }
