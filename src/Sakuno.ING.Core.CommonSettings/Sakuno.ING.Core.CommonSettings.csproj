@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>Sakuno.ING.Settings</RootNamespace>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Common settings for ING</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(SolutionDir)src\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
+    <ProjectReference Include="$(SolutionDir)src\Sakuno.ING.Data\Sakuno.ING.Data.csproj" />
+  </ItemGroup>
+
+</Project>

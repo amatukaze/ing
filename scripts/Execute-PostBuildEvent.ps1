@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$SolutionDir=$(throw "Parameter missing: -SolutionDir"),
     [string]$ProjectPath=$(throw "Parameter missing: -ProjectPath"),
     [string]$Configuration=$(throw "Parameter missing: -Configuration"),
