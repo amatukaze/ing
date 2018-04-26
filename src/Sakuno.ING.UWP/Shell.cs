@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
+using System.Xml.Linq;
 using Sakuno.ING.Data;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
@@ -37,18 +37,18 @@ namespace Sakuno.ING.UWP
         {
             started = true;
 
-            XmlDocument layoutDocument = new XmlDocument();
+            XDocument layoutDocument = null;
             try
             {
                 using (var file = await dataService.ReadFile("layout.xml"))
-                    layoutDocument.Load(file);
+                    layoutDocument = XDocument.Load(file);
             }
             catch (FileNotFoundException)
             {
                 // load default
             }
 
-            if (layoutDocument.DocumentElement != null)
+            if (layoutDocument != null)
             {
                 layout = new LayoutRoot().FromXml(layoutDocument);
             }
