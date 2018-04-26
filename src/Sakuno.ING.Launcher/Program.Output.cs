@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     partial class Program
     {

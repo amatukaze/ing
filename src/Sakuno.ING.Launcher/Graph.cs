@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     class Graph
     {

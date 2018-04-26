@@ -1,6 +1,6 @@
-﻿using Sakuno.KanColle.Amatsukaze.Composition;
+﻿using Sakuno.ING.Composition;
 
-namespace Sakuno.KanColle.Amatsukaze.Shell
+namespace Sakuno.ING.Shell
 {
     class Module : IModule, IExposableModule
     {

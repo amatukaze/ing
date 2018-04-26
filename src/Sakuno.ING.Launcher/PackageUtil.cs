@@ -1,4 +1,4 @@
-﻿namespace Sakuno.KanColle.Amatsukaze
+﻿namespace Sakuno.ING
 {
     static class PackageUtil
     {

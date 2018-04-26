@@ -9,11 +9,11 @@ using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     static class ManifestUtil
     {
-        const string ManifestSchameResourceName = "Sakuno.KanColle.Amatsukaze.nuspec.xsd";
+        const string ManifestSchameResourceName = "Sakuno.ING.nuspec.xsd";
 
         static XmlReaderSettings _readerSettings = new XmlReaderSettings()
         {

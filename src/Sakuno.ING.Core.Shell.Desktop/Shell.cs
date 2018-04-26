@@ -1,7 +1,9 @@
-﻿using Sakuno.KanColle.Amatsukaze.ViewModels;
+﻿using Sakuno.ING.Settings;
+using Sakuno.ING.ViewModels;
+using System;
 using System.Windows;
 
-namespace Sakuno.KanColle.Amatsukaze.Shell
+namespace Sakuno.ING.Shell
 {
     class Shell : IShell
     {
@@ -14,6 +16,9 @@ namespace Sakuno.KanColle.Amatsukaze.Shell
                 Title = "Intelligent Naval Gun",
             };
         }
+
+        public void RegisterSettingView(Type viewType, SettingCategory category = SettingCategory.Misc) => throw new NotImplementedException();
+        public void RegisterView(Type viewType, string id, bool isFixedSize = true, bool singleWindowRecommended = false) => throw new NotImplementedException();
 
         public void Run()
         {

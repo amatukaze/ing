@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Sakuno.KanColle.Amatsukaze.Bootstrap;
+using Sakuno.ING.Bootstrap;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     public class PackageStorage : IPackageStorage
     {

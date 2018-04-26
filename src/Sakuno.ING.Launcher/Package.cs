@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     class Package
     {

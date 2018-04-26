@@ -10,15 +10,15 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using PackageContainer = System.IO.Packaging.Package;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     static partial class Program
     {
         const string PackagesDirectoryName = "Packages";
         const string StagingPackagesDirectoryName = "Staging";
 
-        const string FoundationPackageName = "HeavenlyWind.Foundation";
-        const string LauncherPackageName = "HeavenlyWind.Launcher";
+        const string FoundationPackageName = "Sakuno.ING.Foundation";
+        const string LauncherPackageName = "Sakuno.ING.Launcher";
 
         static string _currentDirectory;
         public static string StagingPackagesDirectory;
@@ -225,10 +225,10 @@ namespace Sakuno.KanColle.Amatsukaze
 
             if (localDebug)
             {
-                packages.Add(new PackageInfo("HeavenlyWind.Foundation", "0.1.0-blueprint2"));
-                packages.Add(new PackageInfo("HeavenlyWind.Launcher", "0.1.0-blueprint2"));
-                packages.Add(new PackageInfo("HeavenlyWind.Bootstrap", "0.1.0-blueprint2"));
-                packages.Add(new PackageInfo("HeavenlyWind.Standard", "0.1.0-blueprint"));
+                packages.Add(new PackageInfo("Sakuno.ING.Foundation", "0.1.0-blueprint2"));
+                packages.Add(new PackageInfo("Sakuno.ING.Launcher", "0.1.0-blueprint2"));
+                packages.Add(new PackageInfo("Sakuno.ING.Bootstrap", "0.1.0-blueprint2"));
+                packages.Add(new PackageInfo("Sakuno.ING.Standard", "0.1.0-blueprint"));
                 packages.Add(new PackageInfo("Sakuno.Base", "0.3.1"));
                 packages.Add(new PackageInfo("Newtonsoft.Json", "11.0.1"));
                 packages.Add(new PackageInfo("Autofac", "4.6.2"));
@@ -430,9 +430,9 @@ namespace Sakuno.KanColle.Amatsukaze
             var toolsDirectory = Path.Combine(directory, "tools");
 
             File.Move(launcherFilename, launcherFilename + ".old");
-            File.Move(Path.Combine(toolsDirectory, "HeavenlyWind.exe"), launcherFilename);
+            File.Move(Path.Combine(toolsDirectory, "Sakuno.ING.exe"), launcherFilename);
 
-            var configFilename = Path.Combine(toolsDirectory, "HeavenlyWind.exe.config");
+            var configFilename = Path.Combine(toolsDirectory, "Sakuno.ING.exe.config");
             var currentConfigFilename = launcherFilename + ".config";
 
             if (File.Exists(currentConfigFilename))

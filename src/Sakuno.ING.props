@@ -1,4 +1,4 @@
-<Project>
+﻿<Project>
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -9,8 +9,8 @@
     <Company>Kodama Sakuno</Company>
     <Copyright>Copyright © 2017 Kodama Sakuno</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/amatukaze/HeavenlyWind.Infrastructure/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/amatukaze/HeavenlyWind.Infrastructure</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/amatukaze/ING.Desktop/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/amatukaze/ING.Desktop</PackageProjectUrl>
     <PackageTags>KanColle;ING</PackageTags>
   </PropertyGroup>
 

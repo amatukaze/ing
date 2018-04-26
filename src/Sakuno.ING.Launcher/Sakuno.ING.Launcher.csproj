@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+  <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
-    <AssemblyName>HeavenlyWind</AssemblyName>
+    <RootNamespace>Sakuno.ING</RootNamespace>
+    <AssemblyName>IntelligentNavalGun</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Version>0.1.0-blueprint2</Version>
     <Description>The launcher of Intelligent Naval Gun</Description>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HeavenlyWind.Bootstrap" Version="0.1.0-blueprint3" />
+    <PackageReference Include="Sakuno.ING.Bootstrap" Version="0.1.0-blueprint3" />
   </ItemGroup>
 
 </Project>

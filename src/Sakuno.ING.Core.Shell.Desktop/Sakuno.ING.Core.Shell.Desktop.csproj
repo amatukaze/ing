@@ -1,15 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+  <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
 
   <PropertyGroup>
     <LanguageTargets>$(MSBuildExtensionsPath)\$(VisualStudioVersion)\Bin\Microsoft.CSharp.targets</LanguageTargets>
     <EnableDefaultItems>false</EnableDefaultItems>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <RootNamespace>Sakuno.KanColle.Amatsukaze.Shell</RootNamespace>
-    <AssemblyName>HeavenlyWind.Core.Shell.Desktop</AssemblyName>
-    <PackageId>HeavenlyWind.Core.Shell.Desktop</PackageId>
+    <RootNamespace>Sakuno.ING.Shell</RootNamespace>
     <Version>0.1.0-blueprint</Version>
     <Description>The shell of Intelligent Naval Gun</Description>
   </PropertyGroup>
@@ -25,8 +23,8 @@
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.1">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="HeavenlyWind.Standard" Version="0.1.0-blueprint" />
-    <PackageReference Include="HeavenlyWind.ViewModels.Foundation" Version="0.1.0-blueprint" />
+    <PackageReference Include="Sakuno.ING.Standard" Version="0.1.0-blueprint" />
+    <PackageReference Include="Sakuno.ING.ViewModels.Foundation" Version="0.1.0-blueprint" />
   </ItemGroup>
 
   <ItemGroup>

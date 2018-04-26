@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sakuno.KanColle.Amatsukaze.Bootstrap;
+using Sakuno.ING.Bootstrap;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     static class BootstrapperLoader
     {

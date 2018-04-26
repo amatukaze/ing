@@ -1,4 +1,4 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Shell
+﻿namespace Sakuno.ING.Shell
 {
     partial class MainWindow
     {

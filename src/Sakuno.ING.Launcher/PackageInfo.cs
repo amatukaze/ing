@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     struct PackageInfo : IEquatable<PackageInfo>
     {

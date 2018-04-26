@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     class PackageAssembly
     {

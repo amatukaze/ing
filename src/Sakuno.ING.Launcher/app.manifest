@@ -2,7 +2,7 @@
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
   <assemblyIdentity
       version="1.0.0.0"
-      name="HeavenlyWind"
+      name="IntelligentNavalGun"
       type="win32"/>
   <description>A KanColle assisant tool</description>
   <dependency>

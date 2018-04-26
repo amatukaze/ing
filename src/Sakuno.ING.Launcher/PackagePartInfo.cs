@@ -1,7 +1,7 @@
 ﻿using System.IO.Compression;
 using System.IO.Packaging;
 
-namespace Sakuno.KanColle.Amatsukaze
+namespace Sakuno.ING
 {
     struct PackagePartInfo
     {
