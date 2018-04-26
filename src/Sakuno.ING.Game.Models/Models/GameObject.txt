@@ -1,0 +1,76 @@
+﻿Sakuno.ING.Game.Models
+System
+Sakuno.ING.Game.Models.MasterData
+
+Equipment:IRawEquipment
+t:EquipmentInfo
+p:EquipmentInfo Info
+p:bool IsLocked -
+p:int ImprovementLevel -
+p:int AirProficiency -
+p:bool IsAvailable
+
+BuildingDock:IRawBuildingDock
+t:ShipInfo
+p:DateTimeOffset CompletionTime -
+p:BuildingDockState State -
+p:Materials Consumption -
+p:ShipInfo BuiltShip
+p:bool IsLSC -
+
+RepairingDock:IRawRepairingDock
+t:Ship
+p:RepairingDockState State -
+p:DateTimeOffset CompletionTime -
+p:Materials Consumption -
+
+UseItemCount:IRawUseItemCount
+t:UseItemInfo
+p:UseItemInfo Item
+p:int Count -
+
+Admiral:IRawAdmiral
+p:string Name -
+p:Leveling Leveling -
+p:AdmiralRank Rank -
+p:string Comment -
+p:int MaxShipCount -
+p:int MaxEquipmentCount -
+p:BattleStat BattleStat -
+p:BattleStat PracticeStat -
+p:ExpeditionStat ExpeditionStat -
+p:bool CanLSC -
+p:int MaxMaterial -
+
+Ship:IRawShip
+t:ShipInfo
+t:Equipment
+p:ShipInfo Info
+p:Leveling Leveling -
+p:ClampedValue HP -
+p:ShipSpeed Speed -
+p:FireRange FireRange -
+p:int SlotCount
+p:ClampedValue Fuel
+p:ClampedValue Bullet
+p:TimeSpan RepairingTime -
+p:Materials RepairingCost -
+p:int Morale -
+p:ShipMordenizationStatus Firepower
+p:ShipMordenizationStatus Torpedo
+p:ShipMordenizationStatus AntiAir
+p:ShipMordenizationStatus Armor
+p:ShipMordenizationStatus Evasion
+p:ShipMordenizationStatus AntiSubmarine
+p:ShipMordenizationStatus LightOfSight
+p:ShipMordenizationStatus Luck
+p:bool IsLocked -
+p:int? ShipLockingTag -
+p:bool IsRepairing
+
+Fleet:IRawFleet
+t:Ship
+p:string Name -
+p:FleetExpeditionState ExpeditionState -
+b:Ship Ships
+

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>Sakuno.ING.Game</RootNamespace>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Game api parser of Intelligent Naval Gun</Description>
+    <NoWarn>CS0649</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sakuno.ING.Game.Models.Raw\Sakuno.ING.Game.Models.Raw.csproj" />
+  </ItemGroup>
+
+</Project>
