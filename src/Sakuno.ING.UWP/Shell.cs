@@ -8,6 +8,7 @@ using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
 using Sakuno.ING.ViewModels;
 using Sakuno.ING.ViewModels.Layout;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.Core;
@@ -37,7 +38,7 @@ namespace Sakuno.ING.UWP
         {
             started = true;
 
-            XDocument layoutDocument = null;
+            XDocument layoutDocument;
             try
             {
                 using (var file = await dataService.ReadFile("layout.xml"))
@@ -45,7 +46,10 @@ namespace Sakuno.ING.UWP
             }
             catch (FileNotFoundException)
             {
-                // load default
+                var folder = await Package.Current.InstalledLocation.GetFolderAsync("Layout");
+                var defaultFile = await folder.GetFileAsync("Default.xml");
+                using (var stream = await defaultFile.OpenStreamForReadAsync())
+                    layoutDocument = XDocument.Load(stream);
             }
 
             if (layoutDocument != null)
@@ -55,8 +59,6 @@ namespace Sakuno.ING.UWP
             else
             {
                 layout = new LayoutRoot();
-                layout.Entries.Add(new LayoutItem { Id = "ApiDebug" });
-                layout.Entries.Add(new LayoutItem { Id = "MasterData" });
                 // load browser only
             }
 
@@ -172,7 +174,7 @@ namespace Sakuno.ING.UWP
             ?? localizationService.GetLocalized("ViewTitle", item.Id)
             ?? item.Id;
 
-        private UIElement BuildLayout(LayoutBase layout)
+        private FrameworkElement BuildLayout(LayoutBase layout)
         {
             switch (layout)
             {
@@ -188,7 +190,19 @@ namespace Sakuno.ING.UWP
                 case RelativeLayout relative:
                     var panel = new RelativePanel();
                     foreach (var child in relative.Children)
-                        panel.Children.Add(BuildLayout(child));
+                    {
+                        var view = BuildLayout(child);
+                        panel.Children.Add(new Border
+                        {
+                            Margin = new Thickness(2),
+                            Padding = new Thickness(2),
+                            BorderThickness = new Thickness(2),
+                            BorderBrush = new SolidColorBrush(Colors.Gray),
+                            HorizontalAlignment = view.HorizontalAlignment,
+                            VerticalAlignment = view.VerticalAlignment,
+                            Child = view
+                        });
+                    }
                     foreach (var relation in relative.Relations)
                     {
                         var item = panel.FindName(relation.Item) as UIElement;
@@ -248,17 +262,7 @@ namespace Sakuno.ING.UWP
                 case LayoutItem item:
                     if (!views.TryGetValue(item.Id, out var descriptor))
                         return null;
-                    var view = (FrameworkElement)Activator.CreateInstance(descriptor.ViewType);
-                    return new Border
-                    {
-                        Margin = new Thickness(2),
-                        Padding = new Thickness(2),
-                        BorderThickness = new Thickness(2),
-                        BorderBrush = new SolidColorBrush(Colors.Gray),
-                        HorizontalAlignment = view.HorizontalAlignment,
-                        VerticalAlignment = view.VerticalAlignment,
-                        Child = view
-                    };
+                    return (FrameworkElement)Activator.CreateInstance(descriptor.ViewType);
                 default:
                     return null;
             }
