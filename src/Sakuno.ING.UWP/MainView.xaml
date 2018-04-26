@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="Sakuno.ING.UWP.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontSize="16"
+                       Margin="20,4,0,4"
+                       x:Uid="AppTitle"/>
+            <Rectangle Fill="Transparent"
+                       x:Name="DraggableTitle"/>
+            <Button HorizontalAlignment="Right"
+                    Grid.Column="1"
+                    Margin="0,0,180,0"
+                    Style="{ThemeResource ButtonRevealStyle}"
+                    Tapped="{x:Bind Shell.ShowSettingsView}">
+                <SymbolIcon Symbol="Setting"/>
+            </Button>
+        </Grid>
+        <ContentControl x:Name="MainContent" x:FieldModifier="Internal"
+                        Grid.Row="1"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"/>
+        <StackPanel x:Name="ViewSwitcher" x:FieldModifier="Internal"
+                    Orientation="Horizontal"
+                    Grid.Row="2"/>
+    </Grid>
+</Page>

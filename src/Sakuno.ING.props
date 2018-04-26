@@ -1,0 +1,18 @@
+﻿<Project>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <VisualStudioVersion>15.0</VisualStudioVersion>
+    <MinimumVisualStudioVersion>15</MinimumVisualStudioVersion>
+    <LangVersion>7.2</LangVersion>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <OutputPath>$(SolutionDir)artifacts\$(Platform)\$(Configuration)\$(AssemblyName)\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(SolutionDir)src\SharedAssemblyInfo.cs" />
+    <PackageReference Include="Sakuno.ING.Standard" Version="0.1.0-blueprint" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.8" />
+  </ItemGroup>
+</Project>

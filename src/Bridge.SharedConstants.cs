@@ -1,4 +1,4 @@
-namespace Sakuno.KanColle.Amatsukaze.UWP.Bridge
+﻿namespace Sakuno.ING.UWP.Bridge
 {
     internal static class Constants
     {

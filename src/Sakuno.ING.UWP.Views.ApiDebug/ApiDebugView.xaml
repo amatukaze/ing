@@ -1,0 +1,41 @@
+﻿<UserControl
+    x:Class="Sakuno.ING.UWP.Views.ApiDebug.ApiDebugView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:local="using:Sakuno.ING.UWP.Views.ApiDebug"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="600"
+    d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="SessionList" Grid.Column="0" Grid.RowSpan="2" ItemsSource="{x:Bind Sessions}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Message">
+                    <TextBlock Text="{x:Bind Name}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <tk:GridSplitter Grid.Column="1" Grid.RowSpan="2"
+                         ResizeBehavior="PreviousAndNext"
+                         GripperForeground="White"
+                         Background="Black"/>
+        <TextBlock Grid.Column="2"
+                   Text="{x:Bind ((local:Message)SessionList.SelectedValue).TimeStamp.LocalDateTime.ToString(), Mode=OneWay}"/>
+        <Pivot Grid.Column="2" Grid.Row="1">
+            <PivotItem Header="Response">
+                <TextBlock Text="{x:Bind ((local:Message)SessionList.SelectedValue).Body.ToString(), Mode=OneWay}"/>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</UserControl>
