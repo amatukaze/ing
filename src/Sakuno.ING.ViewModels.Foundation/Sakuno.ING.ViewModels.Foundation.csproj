@@ -1,13 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+  <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <RootNamespace>Sakuno.KanColle.Amatsukaze.ViewModels</RootNamespace>
-    <AssemblyName>HeavenlyWind.ViewModels.Foundation</AssemblyName>
-    <PackageId>HeavenlyWind.ViewModels.Foundation</PackageId>
+    <RootNamespace>Sakuno.ING.ViewModels</RootNamespace>
     <Version>0.1.0-blueprint</Version>
     <Description>View models for foundational parts of Intelligent Naval Gun</Description>
   </PropertyGroup>

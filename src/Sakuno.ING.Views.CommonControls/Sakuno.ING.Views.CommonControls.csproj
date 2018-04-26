@@ -1,12 +1,11 @@
 ﻿<Project>
 
-   <Import Project="$(SolutionDir)src\HeavenlyWind.Wpf.props" />
+   <Import Project="$(SolutionDir)src\Sakuno.ING.Wpf.props" />
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <RootNamespace>Sakuno.KanColle.Amatsukaze.Views</RootNamespace>
-    <AssemblyName>HeavenlyWind.Views.CommonControls</AssemblyName>
+    <RootNamespace>Sakuno.ING.Views</RootNamespace>
     <Version>0.1.0-blueprint</Version>
     <Description>Common controls used by Intelligent Naval Gun</Description>
   </PropertyGroup>

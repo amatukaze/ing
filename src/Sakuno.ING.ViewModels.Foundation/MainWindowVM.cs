@@ -1,4 +1,4 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.ViewModels
+﻿namespace Sakuno.ING.ViewModels
 {
     public class MainWindowVM : ManualNotifyObject
     {

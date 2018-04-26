@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Markup;
-using Sakuno.KanColle.Amatsukaze.Composition;
+using Sakuno.ING.Composition;
 
-namespace Sakuno.KanColle.Amatsukaze.Views
+namespace Sakuno.ING.Views
 {
     public class ResolveExtension : MarkupExtension
     {

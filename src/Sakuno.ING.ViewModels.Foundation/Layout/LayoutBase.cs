@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 
-namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
+namespace Sakuno.ING.ViewModels.Layout
 {
     public abstract class LayoutBase
     {

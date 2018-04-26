@@ -1,4 +1,4 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.ViewModels.Layout
+﻿namespace Sakuno.ING.ViewModels.Layout
 {
     public sealed class LayoutItem : LayoutBase
     {

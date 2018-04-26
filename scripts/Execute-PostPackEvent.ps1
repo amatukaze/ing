@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$SolutionDir=$(throw "Parameter missing: -SolutionDir"),
     [string]$PackageId=$(throw "Parameter missing: -PackageId"),
     [string]$PackageVersion=$(throw "Parameter missing: -PackageVersion"),
