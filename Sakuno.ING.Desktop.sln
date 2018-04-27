@@ -6,13 +6,15 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C29D66F9-D2E7-4C82-84CE-7A56EEBBA684}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		src\Sakuno.ING.props = src\Sakuno.ING.props
 		README.md = README.md
+		src\Sakuno.ING.props = src\Sakuno.ING.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Launcher", "src\Sakuno.ING.Launcher\Sakuno.ING.Launcher.csproj", "{96E968EB-417E-40DC-A9EF-F83D12733FF7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.Shell.Desktop", "src\Sakuno.ING.Core.Shell.Desktop\Sakuno.ING.Core.Shell.Desktop.csproj", "{F90C7AD1-0918-4CD2-B775-305C19379EDB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.Data.Desktop", "src\Sakuno.ING.Core.Data.Desktop\Sakuno.ING.Core.Data.Desktop.csproj", "{B579EBD9-4C99-466D-B9A2-DC6E6B8BA314}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,10 @@ Global
 		{F90C7AD1-0918-4CD2-B775-305C19379EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F90C7AD1-0918-4CD2-B775-305C19379EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F90C7AD1-0918-4CD2-B775-305C19379EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B579EBD9-4C99-466D-B9A2-DC6E6B8BA314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B579EBD9-4C99-466D-B9A2-DC6E6B8BA314}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B579EBD9-4C99-466D-B9A2-DC6E6B8BA314}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B579EBD9-4C99-466D-B9A2-DC6E6B8BA314}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

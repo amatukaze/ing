@@ -23,7 +23,6 @@
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.1">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Sakuno.ING.Standard" Version="0.1.0-blueprint" />
     <PackageReference Include="Sakuno.ING.ViewModels.Foundation" Version="0.1.0-blueprint" />
   </ItemGroup>
 
