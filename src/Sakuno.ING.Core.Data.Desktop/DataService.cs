@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,11 +7,8 @@ namespace Sakuno.ING.Data
 {
     internal class DataService : IDataService
     {
-        private readonly string basePath = Path.Combine
-        (
-            Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().CodeBase),
-            "data"
-        );
+        private readonly string basePath =
+            Path.Combine(Environment.CurrentDirectory, "data");
 
         public void ConfigureDbContext(DbContextOptionsBuilder builder)
             => builder.UseSqlite($"DataSource={Path.Combine(basePath, "ing.db")}");
