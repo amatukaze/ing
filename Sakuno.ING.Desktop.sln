@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.Data.Deskto
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Launcher.Canonical", "src\Sakuno.ING.Launcher.Canonical\Sakuno.ING.Launcher.Canonical.csproj", "{0D940FFD-E834-4B73-AF34-B1937936C9C4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.Localization", "src\Sakuno.ING.Core.Localization\Sakuno.ING.Core.Localization.csproj", "{B4A2ED9D-C6D6-4332-8891-AA36D55D4B7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{0D940FFD-E834-4B73-AF34-B1937936C9C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D940FFD-E834-4B73-AF34-B1937936C9C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D940FFD-E834-4B73-AF34-B1937936C9C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4A2ED9D-C6D6-4332-8891-AA36D55D4B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4A2ED9D-C6D6-4332-8891-AA36D55D4B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4A2ED9D-C6D6-4332-8891-AA36D55D4B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4A2ED9D-C6D6-4332-8891-AA36D55D4B7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

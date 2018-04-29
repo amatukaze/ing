@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Sakuno.ING.Bootstrap;
@@ -13,13 +14,19 @@ namespace Sakuno.ING
             "Sakuno.ING.Core.CommonSettings",
             "Sakuno.ING.Core.Data.Desktop",
             "Sakuno.ING.Core.DateTime",
+            "Sakuno.ING.Core.Listener",
+            "Sakuno.ING.Core.Localization",
             "Sakuno.ING.Core.Shell.Desktop",
             "Sakuno.ING.Data",
+            "Sakuno.ING.Game.Models",
+            "Sakuno.ING.Game.Provider",
         };
 
         [STAThread]
         public static void Main(string[] args)
         {
+            Directory.CreateDirectory("data");
+
             var emptyDictionary = new Dictionary<string, string>();
             Bootstraper.Initialize(args, modules
                 .Select(Assembly.Load)

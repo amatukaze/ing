@@ -17,11 +17,13 @@
     <PackageReference Include="Sakuno.ING.Bootstrap" Version="0.1.0-blueprint3" />
     <PackageReference Include="Sakuno.ING.Core.CommonSettings" Version="0.1.0-blueprint" />
     <PackageReference Include="Sakuno.ING.Core.DateTime" Version="0.1.0-blueprint" />
+    <PackageReference Include="Sakuno.ING.Core.Listener" Version="0.1.0-blueprint" />
     <PackageReference Include="Sakuno.ING.Game.Models" Version="0.1.0-blueprint" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Sakuno.ING.Core.Data.Desktop\Sakuno.ING.Core.Data.Desktop.csproj" />
+    <ProjectReference Include="..\Sakuno.ING.Core.Localization\Sakuno.ING.Core.Localization.csproj" />
     <ProjectReference Include="..\Sakuno.ING.Core.Shell.Desktop\Sakuno.ING.Core.Shell.Desktop.csproj" />
   </ItemGroup>
 
