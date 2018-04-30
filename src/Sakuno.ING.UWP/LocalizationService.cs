@@ -1,4 +1,7 @@
-﻿using Sakuno.ING.Services;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using Sakuno.ING.Services;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Resources.Core;
 
@@ -12,6 +15,9 @@ namespace Sakuno.ING.UWP
         {
             Languages = new[] { "ja" }
         };
+
+        public IReadOnlyCollection<CultureInfo> SupportedCultures { get; }
+            = Windows.Globalization.ApplicationLanguages.ManifestLanguages.Select(x => new CultureInfo(x)).ToArray();
 
         public string GetLocalized(string category, string id) => NullIfEmpty(localizedLoader.GetString($"/{category}/{id}"));
         public string GetUnlocalized(string category, string id) => NullIfEmpty(resourceMap.GetValue($"/{category}/{id}", unlocalizedContext).ValueAsString);
