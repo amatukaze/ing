@@ -13,6 +13,6 @@ namespace Sakuno.ING.Views
 
         internal static IResolver Resolver;
 
-        public override object ProvideValue(IServiceProvider serviceProvider) => Resolver.Resolve(TargetType);
+        public override object ProvideValue(IServiceProvider serviceProvider) => Resolver?.Resolve(TargetType);
     }
 }
