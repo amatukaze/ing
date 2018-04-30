@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
+using System.Windows.Media;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
 using Sakuno.ING.ViewModels;
@@ -14,14 +16,21 @@ namespace Sakuno.ING.Shell
     {
         MainWindowVM _mainWindowVM;
         private readonly ILocalizationService localization;
+        private readonly string localeName;
+        private readonly FontFamily userFont;
 
-        public Shell(ILocalizationService localization)
+        public Shell(ILocalizationService localization, LocaleSetting locale)
         {
             _mainWindowVM = new MainWindowVM()
             {
                 Title = "Intelligent Naval Gun",
             };
             this.localization = localization;
+
+            localeName = locale.Language.Value;
+            var userFontName = locale.UserLanguageFont.Value;
+            if (!string.IsNullOrEmpty(userFontName))
+                userFont = new FontFamily(userFontName);
         }
 
         private readonly Dictionary<string, (Type ViewType, bool IsFixedSize, bool SingleWindowRecommended)> views = new Dictionary<string, (Type, bool, bool)>();
@@ -50,6 +59,7 @@ namespace Sakuno.ING.Shell
 
             layout = new LayoutRoot();
             main = new MainWindow() { DataContext = _mainWindowVM };
+            InitWindow(main);
             main.Settings.Click += (_, __) =>
             {
                 if (settings == null)
@@ -65,6 +75,7 @@ namespace Sakuno.ING.Shell
                                 Content = e.Select(t => Activator.CreateInstance(t.ViewType)).ToArray()
                             }).ToArray()
                     };
+                    InitWindow(settings);
                     settings.Closed += (___, ____) => settings = null;
                 }
                 settings.Show();
@@ -75,11 +86,20 @@ namespace Sakuno.ING.Shell
             var app = new DesktopApp
             {
                 MainWindow = main,
+                ShutdownMode = ShutdownMode.OnMainWindowClose
             };
 
             app.MainWindow.Show();
 
             app.Run();
+        }
+
+        private void InitWindow(Window window)
+        {
+            if (!string.IsNullOrEmpty(localeName))
+                window.Language = XmlLanguage.GetLanguage(localeName);
+            if (userFont != null)
+                window.FontFamily = userFont;
         }
 
         private string GetTitle(LayoutBase item)
@@ -99,6 +119,7 @@ namespace Sakuno.ING.Shell
                     {
                         var le = (sender as Button).Tag as LayoutBase;
                         var window = new Window { Content = BuildLayout(le) };
+                        InitWindow(window);
                         window.Show();
                         window.Activate();
                     };

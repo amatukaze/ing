@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
 using Sakuno.ING.Services;
@@ -15,11 +16,15 @@ namespace Sakuno.ING.Localization
         {
             var asm = Assembly.GetExecutingAssembly();
 
+            SupportedCultures = asm.GetManifestResourceNames()
+                .Select(x => new CultureInfo(Path.GetFileNameWithoutExtension(x).Split('.').Last()))
+                .ToArray();
+
             CultureInfo culture;
             if (string.IsNullOrEmpty(setting.Language.Value))
                 culture = CultureInfo.CurrentCulture;
             else
-                culture = new CultureInfo(setting.Language.Value);
+                CultureInfo.CurrentCulture = culture = new CultureInfo(setting.Language.Value);
 
             while (!string.IsNullOrEmpty(culture.Name))
             {
@@ -37,6 +42,8 @@ namespace Sakuno.ING.Localization
             if (_currentCulture == null)
                 _currentCulture = _fallback;
         }
+
+        public IReadOnlyCollection<CultureInfo> SupportedCultures { get; }
 
         private static Dictionary<string, Dictionary<string, string>> LoadStrings(Stream stream)
             => new JsonSerializer().Deserialize<Dictionary<string, Dictionary<string, string>>>
