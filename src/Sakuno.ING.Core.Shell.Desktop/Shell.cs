@@ -13,6 +13,7 @@ namespace Sakuno.ING.Shell
     class Shell : IShell
     {
         MainWindowVM _mainWindowVM;
+        private readonly ILocalizationService localization;
 
         public Shell(ILocalizationService localization)
         {
@@ -20,6 +21,7 @@ namespace Sakuno.ING.Shell
             {
                 Title = "Intelligent Naval Gun",
             };
+            this.localization = localization;
         }
 
         private readonly Dictionary<string, (Type ViewType, bool IsFixedSize, bool SingleWindowRecommended)> views = new Dictionary<string, (Type, bool, bool)>();
@@ -59,9 +61,9 @@ namespace Sakuno.ING.Shell
                             .OrderBy(e => e.Key)
                             .Select(e => new
                             {
-                                Title = e.Key.ToString(),
+                                Title = localization.GetLocalized("SettingCategory", e.Key.ToString()) ?? e.Key.ToString(),
                                 Content = e.Select(t => Activator.CreateInstance(t.ViewType)).ToArray()
-                            })
+                            }).ToArray()
                     };
                     settings.Closed += (___, ____) => settings = null;
                 }
@@ -80,7 +82,10 @@ namespace Sakuno.ING.Shell
             app.Run();
         }
 
-        private string GetTitle(LayoutBase item) => item.Id;
+        private string GetTitle(LayoutBase item)
+            => item.Title
+            ?? localization.GetLocalized("ViewTitle", item.Id)
+            ?? item.Id;
 
         private void Arrange()
         {

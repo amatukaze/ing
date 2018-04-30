@@ -20,6 +20,7 @@ namespace Sakuno.ING
             "Sakuno.ING.Data",
             "Sakuno.ING.Game.Models",
             "Sakuno.ING.Game.Provider",
+            "Sakuno.ING.Views.CommonControls",
         };
 
         [STAThread]

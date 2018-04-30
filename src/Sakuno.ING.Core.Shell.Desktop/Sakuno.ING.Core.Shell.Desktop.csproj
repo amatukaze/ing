@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Sakuno.ING.ViewModels.Foundation" Version="0.1.0-blueprint" />
+    <PackageReference Include="Sakuno.ING.Views.CommonControls" Version="0.1.0-blueprint" />
   </ItemGroup>
 
 </Project>
