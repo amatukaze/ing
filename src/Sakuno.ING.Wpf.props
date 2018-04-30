@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/1.2.2">
+﻿<Project>
 
   <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
 

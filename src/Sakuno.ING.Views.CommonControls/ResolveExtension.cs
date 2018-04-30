@@ -11,6 +11,8 @@ namespace Sakuno.ING.Views
         [ConstructorArgument("targetType")]
         public Type TargetType { get; set; }
 
-        public override object ProvideValue(IServiceProvider serviceProvider) => StaticResolver.Instance.Resolve(TargetType);
+        internal static IResolver Resolver;
+
+        public override object ProvideValue(IServiceProvider serviceProvider) => Resolver.Resolve(TargetType);
     }
 }
