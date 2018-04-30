@@ -56,10 +56,10 @@ namespace Sakuno.ING.Data
             }
         }
 
-        T ISettingItem<T>.Value
+        public new T Value
         {
-            get => Convert(Value);
-            set => Value = Convert(value);
+            get => Convert(base.Value);
+            set => base.Value = Convert(value);
         }
 
         public event Action<T> ValueChanged;
