@@ -1,4 +1,4 @@
-﻿<Application x:Class="Sakuno.ING.Shell.App"
+﻿<Application x:Class="Sakuno.ING.Shell.DesktopApp"
              x:ClassModifier="internal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

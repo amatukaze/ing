@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Shell
 {
-    partial class App
+    partial class DesktopApp
     {
     }
 }

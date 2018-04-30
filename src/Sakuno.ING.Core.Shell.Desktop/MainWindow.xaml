@@ -9,6 +9,15 @@
         Width="800" Height="600"
         TextOptions.TextFormattingMode="Display">
     <Grid>
-    
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Button Content="Settings" x:Name="Settings" x:FieldModifier="internal"/>
+        <ContentControl Grid.Row="1" x:Name="MainContent" x:FieldModifier="internal"
+                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+        <StackPanel x:Name="Switcher" x:FieldModifier="internal"
+                    Grid.Row="2" Orientation="Horizontal"/>
     </Grid>
 </Window>
