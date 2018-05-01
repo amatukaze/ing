@@ -1,14 +1,21 @@
-﻿using Sakuno.ING.Game.Models.Knowledge;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Sakuno.ING.Game.Events;
+using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Knowledge;
 
 namespace Sakuno.ING.Game.Json
 {
-    internal class HomeportJson
+    internal class HomeportJson: IHomeportUpdate
     {
-        public MaterialJson[] api_material;
+        public MaterialJsonArray api_material;
         public FleetJson[] api_deck_port;
+        IReadOnlyCollection<IRawFleet> IHomeportUpdate.Fleets => api_deck_port;
         public AdmiralJson api_basic;
         public RepairingDockJson[] api_ndock;
         public ShipJson[] api_ship;
-        public KnownCombinedFleet api_combined_flag;
+        IReadOnlyCollection<IRawShip> IHomeportUpdate.Ships => api_ship;
+        [JsonProperty("api_combined_flag")]
+        public KnownCombinedFleet CombinedFleetType { get; set; }
     }
 }
