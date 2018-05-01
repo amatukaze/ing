@@ -61,40 +61,44 @@ namespace Sakuno.ING.Shell
             layout = new LayoutRoot();
             layout.Entries.Add(new LayoutItem { Id = "Fleets" });
 
-            main = new MainWindow() { DataContext = _mainWindowVM };
-            InitWindow(main);
-            main.Settings.Click += (_, __) =>
+            var app = new Application
             {
-                if (settings == null)
-                {
-                    settings = new SettingsWindow
-                    {
-                        DataContext = settingViews
-                            .GroupBy(e => e.Category)
-                            .OrderBy(e => e.Key)
-                            .Select(e => new
-                            {
-                                Title = localization.GetLocalized("SettingCategory", e.Key.ToString()) ?? e.Key.ToString(),
-                                Content = e.Select(t => Activator.CreateInstance(t.ViewType)).ToArray()
-                            }).ToArray()
-                    };
-                    InitWindow(settings);
-                    settings.Closed += (___, ____) => settings = null;
-                }
-                settings.Show();
-                settings.Activate();
-            };
-            Arrange();
-
-            var app = new DesktopApp
-            {
-                MainWindow = main,
                 ShutdownMode = ShutdownMode.OnMainWindowClose
             };
 
-            app.MainWindow.Show();
+            app.Startup += (sender, args) =>
+            {
+                main = new MainWindow() { DataContext = _mainWindowVM };
+                InitWindow(main);
+                main.Settings.Click += (_, __) =>
+                {
+                    if (settings == null)
+                    {
+                        settings = new SettingsWindow
+                        {
+                            DataContext = settingViews
+                                .GroupBy(e => e.Category)
+                                .OrderBy(e => e.Key)
+                                .Select(e => new
+                                {
+                                    Title = localization.GetLocalized("SettingCategory", e.Key.ToString()) ?? e.Key.ToString(),
+                                    Content = e.Select(t => Activator.CreateInstance(t.ViewType)).ToArray()
+                                }).ToArray()
+                        };
+                        InitWindow(settings);
+                        settings.Closed += (___, ____) => settings = null;
+                    }
+                    settings.Show();
+                    settings.Activate();
+                };
 
-            provider.Enabled = true;
+                Arrange();
+
+                provider.Enabled = true;
+
+                (sender as Application).MainWindow = main;
+                main.Show();
+            };
 
             app.Run();
         }
