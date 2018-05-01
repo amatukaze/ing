@@ -7,6 +7,7 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawFleet raw)
         {
             ships.Query = raw.ShipIds.Select(shipTable.TryGetOrDummy);
+            Expedition = expeditionInfoTable[raw.ExpeditionId];
         }
     }
 }

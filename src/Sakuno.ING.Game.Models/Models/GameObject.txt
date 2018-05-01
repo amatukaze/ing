@@ -70,7 +70,10 @@ p:bool IsRepairing
 
 Fleet:IRawFleet
 t:Ship
+t:ExpeditionInfo
 p:string Name -
 p:FleetExpeditionState ExpeditionState -
+p:ExpeditionInfo Expedition
+p:DateTimeOffset ExpeditionCompletionTime -
 b:Ship Ships
 

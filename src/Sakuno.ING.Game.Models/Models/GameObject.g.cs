@@ -485,10 +485,13 @@ namespace Sakuno.ING.Game.Models
         public Fleet(int id, ITableProvider owner) : base(id, owner)
         {
             shipTable = owner.GetTable<Ship>();
+            expeditionInfoTable = owner.GetTable<ExpeditionInfo>();
             CreateDummy();
         }
 
         private readonly ITable<Ship> shipTable;
+
+        private readonly ITable<ExpeditionInfo> expeditionInfoTable;
 
         private string _name;
         public string Name
@@ -504,10 +507,25 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _expeditionState, value);
         }
 
+        private ExpeditionInfo _expedition;
+        public ExpeditionInfo Expedition
+        {
+            get => _expedition;
+            internal set => Set(ref _expedition, value);
+        }
+
+        private DateTimeOffset _expeditionCompletionTime;
+        public DateTimeOffset ExpeditionCompletionTime
+        {
+            get => _expeditionCompletionTime;
+            internal set => Set(ref _expeditionCompletionTime, value);
+        }
+
         public override void Update(IRawFleet raw)
         {
             Name = raw.Name;
             ExpeditionState = raw.ExpeditionState;
+            ExpeditionCompletionTime = raw.ExpeditionCompletionTime;
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawFleet raw);

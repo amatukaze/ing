@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -6,6 +7,8 @@ namespace Sakuno.ING.Game.Models
     {
         string Name { get; }
         FleetExpeditionState ExpeditionState { get; }
+        int ExpeditionId { get; }
+        DateTimeOffset ExpeditionCompletionTime { get; }
         IReadOnlyList<int> ShipIds { get; }
     }
 }
