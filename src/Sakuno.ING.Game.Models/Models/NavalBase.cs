@@ -87,8 +87,17 @@ namespace Sakuno.ING.Game.Models
             if (type == typeof(BuildingDock))
                 return (ITable<T>)BuildingDocks;
 
+            if (type == typeof(RepairingDock))
+                return (ITable<T>)RepairingDocks;
+
             if (type == typeof(UseItemCount))
                 return (ITable<T>)UseItems;
+
+            if (type == typeof(Ship))
+                return (ITable<T>)AllShips;
+
+            if (type == typeof(Fleet))
+                return (ITable<T>)Fleets;
 
             return MasterData.GetTable<T>();
         }

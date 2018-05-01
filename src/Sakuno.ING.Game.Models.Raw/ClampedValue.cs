@@ -6,7 +6,6 @@ namespace Sakuno.ING.Game.Models
     {
         public ClampedValue(int current, int max)
         {
-            if (max <= 0) throw new ArgumentOutOfRangeException(nameof(max));
             Current =
                 current > max ? max :
                 current < 0 ? 0 :

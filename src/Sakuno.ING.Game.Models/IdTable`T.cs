@@ -36,6 +36,8 @@ namespace Sakuno.ING.Game
 
         public T TryGetOrDummy(int id)
         {
+            if (id <= 0) return null;
+
             if (TryGetValue(id, out var item))
                 return item;
 
