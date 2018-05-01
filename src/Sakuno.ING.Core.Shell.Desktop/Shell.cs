@@ -16,17 +16,18 @@ namespace Sakuno.ING.Shell
     {
         MainWindowVM _mainWindowVM;
         private readonly ILocalizationService localization;
+        private readonly ITextStreamProvider provider;
         private readonly string localeName;
         private readonly FontFamily userFont;
 
-        public Shell(ILocalizationService localization, LocaleSetting locale)
+        public Shell(ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider)
         {
             _mainWindowVM = new MainWindowVM()
             {
                 Title = "Intelligent Naval Gun",
             };
             this.localization = localization;
-
+            this.provider = provider;
             localeName = locale.Language.Value;
             var userFontName = locale.UserLanguageFont.Value;
             if (!string.IsNullOrEmpty(userFontName))
@@ -58,6 +59,8 @@ namespace Sakuno.ING.Shell
             started = true;
 
             layout = new LayoutRoot();
+            layout.Entries.Add(new LayoutItem { Id = "Fleets" });
+
             main = new MainWindow() { DataContext = _mainWindowVM };
             InitWindow(main);
             main.Settings.Click += (_, __) =>
@@ -90,6 +93,8 @@ namespace Sakuno.ING.Shell
             };
 
             app.MainWindow.Show();
+
+            provider.Enabled = true;
 
             app.Run();
         }

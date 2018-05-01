@@ -21,6 +21,7 @@ namespace Sakuno.ING
             "Sakuno.ING.Game.Models",
             "Sakuno.ING.Game.Provider",
             "Sakuno.ING.Views.CommonControls",
+            "Sakuno.ING.Views.Homeport",
             "Sakuno.ING.Views.Settings",
         };
 
