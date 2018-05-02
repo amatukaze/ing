@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Sakuno.ING.Messaging
 {
@@ -12,5 +13,8 @@ namespace Sakuno.ING.Messaging
 
         public static IProducer<T> CombineWith<T>(this IProducer<T> first, IProducer<T> second)
             => new Combiner<T>(first, second);
+
+        public static IProducer<T> CombineWith<T>(this IProducer<T> first, params IProducer<T>[] others)
+            => new Combiner<T>(others.Prepend(first).ToArray());
     }
 }
