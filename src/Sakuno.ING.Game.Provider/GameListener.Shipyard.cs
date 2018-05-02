@@ -14,8 +14,9 @@ namespace Sakuno.ING.Game
         public readonly IProducer<ITimedMessage<EquipmentCreation>> EquipmentCreated;
         public readonly IProducer<ITimedMessage<ShipDismantling>> ShipDismantled;
         public readonly IProducer<ITimedMessage<EquipmentDismantling>> EquipmentDismantled;
+        public readonly IProducer<ITimedMessage<EquipmentImprove>> EquipmentImproved;
 
-        private ShipCreation ParseShipCreation(NameValueCollection request)
+        private static ShipCreation ParseShipCreation(NameValueCollection request)
             => new ShipCreation
             {
                 BuildingDockId = request.GetInt("api_kdock_id"),
@@ -31,10 +32,10 @@ namespace Sakuno.ING.Game
                 }
             };
 
-        private BuildingDockId ParseInstantBuilt(NameValueCollection request)
+        private static BuildingDockId ParseInstantBuilt(NameValueCollection request)
             => new BuildingDockId(request.GetInt("api_kdock_id"));
 
-        private EquipmentCreation ParseEquipmentCreation(NameValueCollection request, EquipmentCreationJson response)
+        private static EquipmentCreation ParseEquipmentCreation(NameValueCollection request, EquipmentCreationJson response)
         {
             var result = new EquipmentCreation
             {
@@ -59,17 +60,28 @@ namespace Sakuno.ING.Game
             return result;
         }
 
-        private ShipDismantling ParseShipDismantling(NameValueCollection request)
+        private static ShipDismantling ParseShipDismantling(NameValueCollection request)
             => new ShipDismantling
             {
                 ShipIds = request.GetInts("api_ship_id"),
                 DismantleEquipments = request.GetBool("api_slot_dest_flag")
             };
 
-        private EquipmentDismantling ParseEquipmentDimantling(NameValueCollection request)
+        private static EquipmentDismantling ParseEquipmentDimantling(NameValueCollection request)
             => new EquipmentDismantling
             {
                 EquipmentIds = request.GetInts("api_slotitem_ids")
+            };
+
+        private static EquipmentImprove ParseEquipmentImprove(NameValueCollection request, EquipmentImproveJson response)
+            => new EquipmentImprove
+            {
+                EquipmentId = request.GetInt("api_slot_id"),
+                RecipeId = request.GetInt("api_slot_id"),
+                GuaranteedSuccess = request.GetBool("api_certain_flag"),
+                IsSuccess = response.api_remodel_flag,
+                UpdatedTo = response.api_after_slot,
+                ConsumedEquipmentId = response.api_use_slot_id
             };
     }
 }

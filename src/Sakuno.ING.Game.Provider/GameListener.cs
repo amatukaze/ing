@@ -45,6 +45,10 @@ namespace Sakuno.ING.Game
                 .CombineWith<ITimedMessage<IReadOnlyCollection<RepairingDockJson>>>(RegisterRaw<RepairingDockJson[]>("api_get_member/ndock"));
             HomeportUpdated = homeport;
 
+            RepairStarted = RegisterRaw("api_req_nyukyo/start")
+                .Select(x => x.SelectRequest(ParseRepairStart));
+            InstantRepaired = RegisterRaw("api_req_nyukyo/speedchange")
+                .Select(x => x.SelectRequest(ParseInstantRepair));
             ShipCreated = RegisterRaw("api_req_kousyou/createship")
                 .Select(x => x.SelectRequest(ParseShipCreation));
             InstantBuilt = RegisterRaw("api_req_kousyou/createship_speedchange")
@@ -69,6 +73,9 @@ namespace Sakuno.ING.Game
                     (RegisterRaw<MaterialJsonArray>("api_get_member/material"),
                     createItem, destroyShip, destroyItem);
             EquipmentDismantled = destroyItem.Select(x => x.SelectRequest(ParseEquipmentDimantling));
+
+            EquipmentImproved = RegisterRaw<EquipmentImproveJson>("api_req_kousyou/remodel_slot")
+                .Select(x => x.SelectRequestAndResponse(ParseEquipmentImprove));
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
