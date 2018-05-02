@@ -87,6 +87,13 @@ namespace Sakuno.ING.Game
             Updated?.Invoke();
         }
 
+        public void Add(TRaw raw)
+        {
+            var item = creation(raw.Id, owner);
+            item.Update(raw);
+            Add(item);
+        }
+
         public bool TryGetValue(int id, out T item)
         {
             if (Dictionary != null)

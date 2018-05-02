@@ -45,7 +45,55 @@ namespace Sakuno.ING.Game.Models
                 _allShips.BatchUpdate(msg.Message.Ships);
                 _fleets.BatchUpdate(msg.Message.Fleets);
             };
-            listener.RepairingDockUpdated.Received += msg =>_repairingDocks.BatchUpdate(msg.Message);
+            listener.RepairingDockUpdated.Received += msg => _repairingDocks.BatchUpdate(msg.Message);
+
+            listener.RepairStarted.Received += msg =>
+            {
+                if (msg.Message.InstantRepair)
+                    AllShips[msg.Message.ShipId]?.SetRepaired();
+            };
+            listener.InstantRepaired.Received += msg =>
+            {
+                var dock = RepairingDocks[msg.Message.DockId];
+                dock.State = RepairingDockState.Empty;
+                dock.RepairingShip = null;
+            };
+            listener.InstantBuilt.Received += msg => BuildingDocks[msg.Message.DockId].State = BuildingDockState.BuildCompleted;
+            listener.ShipBuildCompleted.Received += msg =>
+            {
+                _allEquipment.BatchUpdate(msg.Message.Equipments, removal: false);
+                _allShips.Add(msg.Message.Ship);
+            };
+            listener.EquipmentCreated.Received += msg =>
+            {
+                if (msg.Message.IsSuccess)
+                    _allEquipment.Add(msg.Message.Equipment);
+            };
+            listener.ShipDismantled.Received += msg => RemoveShip(msg.Message.ShipIds, msg.Message.DismantleEquipments);
+            listener.EquipmentDismantled.Received += msg => RemoveEquipment(msg.Message.EquipmentIds);
+            listener.EquipmentImproved.Received += msg =>
+            {
+                if (msg.Message.IsSuccess)
+                    AllEquipment[msg.Message.EquipmentId]?.Update(msg.Message.UpdatedTo);
+                RemoveEquipment(msg.Message.ConsumedEquipmentId);
+            };
+        }
+
+        private void RemoveShip(IEnumerable<int> shipIds, bool removeEquipment)
+        {
+            foreach (int id in shipIds)
+            {
+                var ship = AllShips[id];
+                if (removeEquipment)
+                    RemoveEquipment(ship.Slots.Where(x => !x.IsEmpty).Select(x => x.Equipment.Id));
+                _allShips.Remove(ship);
+            }
+        }
+
+        private void RemoveEquipment(IEnumerable<int> ids)
+        {
+            foreach (int id in ids)
+                _allEquipment.Remove(id);
         }
 
         public MasterDataRoot MasterData { get; }

@@ -56,5 +56,14 @@ namespace Sakuno.ING.Game.Models
         private Slot[] _slots;
         private IBindableCollection<Slot> _bindableSlots;
         public IBindableCollection<Slot> Slots => _bindableSlots ?? (_bindableSlots = _slots.AsBindable());
+
+        internal void SetRepaired()
+        {
+            IsRepairing = false;
+            var maxHp = HP.Max;
+            HP = new ClampedValue(maxHp, maxHp);
+            if (Morale < 40)
+                Morale = 40;
+        }
     }
 }

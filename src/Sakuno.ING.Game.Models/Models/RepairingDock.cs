@@ -10,7 +10,7 @@
             {
                 if (_repairingShip != value)
                 {
-                    _repairingShip.IsRepairing = false;
+                    _repairingShip?.SetRepaired();
                     value.IsRepairing = true;
                     _repairingShip = value;
                     NotifyPropertyChanged();
@@ -20,7 +20,7 @@
 
         partial void UpdateCore(IRawRepairingDock raw)
         {
-            RepairingShip = shipTable.TryGetOrDummy(raw.RepairingShipId);
+            RepairingShip = shipTable[raw.RepairingShipId];
         }
     }
 }
