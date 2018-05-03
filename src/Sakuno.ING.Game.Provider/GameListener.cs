@@ -76,6 +76,11 @@ namespace Sakuno.ING.Game
 
             EquipmentImproved = RegisterRaw<EquipmentImproveJson>("api_req_kousyou/remodel_slot")
                 .Select(x => x.SelectRequestAndResponse(ParseEquipmentImprove));
+
+            QuestUpdated = RegisterRaw<QuestPageJson>("api_get_member/questlist")
+                .Select(x => x.SelectRequestAndResponse(ParseQuestPage));
+            QuestCompleted = RegisterRaw("api_req_quest/clearitemget")
+                .Select(x => x.SelectRequest(ParseQuestComplete));
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)

@@ -77,3 +77,12 @@ p:ExpeditionInfo Expedition
 p:DateTimeOffset ExpeditionCompletionTime -
 b:Ship Ships
 
+Quest:IRawQuest
+l:Name QuestName -
+l:Description QuestDesc -
+p:QuestCategoty Category -
+p:QuestFilter Period -
+p:QuestState State -
+p:QuestProgress Progress -
+p:Materials Rewards -
+

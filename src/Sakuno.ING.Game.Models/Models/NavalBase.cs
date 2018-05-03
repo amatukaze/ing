@@ -8,6 +8,7 @@ namespace Sakuno.ING.Game.Models
         public NavalBase(GameListener listener)
         {
             MasterData = new MasterDataRoot(listener);
+            Quests = new QuestManager(listener);
             _allEquipment = new IdTable<Equipment, IRawEquipment>(this);
             _buildingDocks = new IdTable<BuildingDock, IRawBuildingDock>(this);
             _repairingDocks = new IdTable<RepairingDock, IRawRepairingDock>(this);
@@ -97,6 +98,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         public MasterDataRoot MasterData { get; }
+        public QuestManager Quests { get; }
 
         private readonly IdTable<Equipment, IRawEquipment> _allEquipment;
         public ITable<Equipment> AllEquipment => _allEquipment;
@@ -125,7 +127,7 @@ namespace Sakuno.ING.Game.Models
             set => Set(ref _materials, value);
         }
 
-        public ITable<T> GetTable<T>()
+        public ITable<T> TryGetTable<T>()
         {
             var type = typeof(T);
 
@@ -147,7 +149,7 @@ namespace Sakuno.ING.Game.Models
             if (type == typeof(Fleet))
                 return (ITable<T>)Fleets;
 
-            return MasterData.GetTable<T>();
+            return MasterData.TryGetTable<T>() ?? Quests.TryGetTable<T>();
         }
     }
 }

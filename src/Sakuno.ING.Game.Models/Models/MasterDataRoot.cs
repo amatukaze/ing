@@ -1,5 +1,4 @@
-﻿using System;
-using Sakuno.ING.Game.Events;
+﻿using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
@@ -57,7 +56,7 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<ExpeditionInfo, IRawExpeditionInfo> _expeditions;
         public ITable<ExpeditionInfo> Expeditions => _expeditions;
 
-        public ITable<T> GetTable<T>()
+        public ITable<T> TryGetTable<T>()
         {
             var type = typeof(T);
 
@@ -85,7 +84,7 @@ namespace Sakuno.ING.Game.Models
             if (type == typeof(ExpeditionInfo))
                 return (ITable<T>)Expeditions;
 
-            throw new ArgumentException($"Unknown type {type}.");
+            return null;
         }
     }
 }

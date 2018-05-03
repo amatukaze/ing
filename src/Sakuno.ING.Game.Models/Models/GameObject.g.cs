@@ -534,4 +534,80 @@ namespace Sakuno.ING.Game.Models
         private readonly BindableSnapshotCollection<Ship> ships = new BindableSnapshotCollection<Ship>();
         public IBindableCollection<Ship> Ships => ships;
     }
+    public partial class Quest : Calculated<IRawQuest>
+    {
+        public Quest(int id, ITableProvider owner) : base(id, owner)
+        {
+            NameTranslation = Module.Localize.GetLocalized("QuestName", id.ToString());
+            DescriptionTranslation = Module.Localize.GetLocalized("QuestDesc", id.ToString());
+            CreateDummy();
+        }
+
+        public string NameTranslation { get; }
+
+        public string DescriptionTranslation { get; }
+
+        private QuestCategoty _category;
+        public QuestCategoty Category
+        {
+            get => _category;
+            internal set => Set(ref _category, value);
+        }
+
+        private QuestFilter _period;
+        public QuestFilter Period
+        {
+            get => _period;
+            internal set => Set(ref _period, value);
+        }
+
+        private QuestState _state;
+        public QuestState State
+        {
+            get => _state;
+            internal set => Set(ref _state, value);
+        }
+
+        private QuestProgress _progress;
+        public QuestProgress Progress
+        {
+            get => _progress;
+            internal set => Set(ref _progress, value);
+        }
+
+        private Materials _rewards;
+        public Materials Rewards
+        {
+            get => _rewards;
+            internal set => Set(ref _rewards, value);
+        }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            internal set => Set(ref _name, value);
+        }
+
+        private string _description;
+        public string Description
+        {
+            get => _description;
+            internal set => Set(ref _description, value);
+        }
+
+        public override void Update(IRawQuest raw)
+        {
+            Category = raw.Category;
+            Period = raw.Period;
+            State = raw.State;
+            Progress = raw.Progress;
+            Rewards = raw.Rewards;
+            Name = raw.Name;
+            Description = raw.Description;
+            UpdateCore(raw);
+        }
+        partial void UpdateCore(IRawQuest raw);
+        partial void CreateDummy();
+    }
 }
