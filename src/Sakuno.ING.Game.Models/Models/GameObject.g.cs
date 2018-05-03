@@ -554,8 +554,8 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _category, value);
         }
 
-        private QuestFilter _period;
-        public QuestFilter Period
+        private QuestPeriod _period;
+        public QuestPeriod Period
         {
             get => _period;
             internal set => Set(ref _period, value);

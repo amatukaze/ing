@@ -4,7 +4,6 @@
     {
         public int Id { get; }
         protected ITableProvider Owner { get; }
-        internal bool UpdateFlag;
 
         protected Calculated(int id, ITableProvider owner)
         {

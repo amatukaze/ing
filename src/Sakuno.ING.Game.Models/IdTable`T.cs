@@ -1,19 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Sakuno.ING.Game
 {
-    public class IdTable<T, TRaw> : KeyedCollection<int, T>, ITable<T>
+    public class IdTable<T, TRaw> : ITable<T>
         where T : Calculated<TRaw>
         where TRaw : IIdentifiable
     {
-        protected override int GetKeyForItem(T item) => item.Id;
-
         public event Action Updated;
-        public event Action<IdTable<T, TRaw>> BatchUpdated;
         private static readonly Func<int, ITableProvider, T> creation;
 
         static IdTable()
@@ -25,6 +22,7 @@ namespace Sakuno.ING.Game
             creation = Expression.Lambda<Func<int, ITableProvider, T>>(call, argId, argOwner).Compile();
         }
 
+        private List<T> list = new List<T>();
         private readonly ITableProvider owner;
         public IdTable(ITableProvider owner)
         {
@@ -32,7 +30,7 @@ namespace Sakuno.ING.Game
             DefaultView = new BindableSnapshotCollection<T>(this, this.OrderBy(x => x.Id));
         }
 
-        public new T this[int id] => TryGetValue(id, out var item) ? item : null;
+        public T this[int id] => TryGetValue(id, out var item) ? item : null;
 
         public T TryGetOrDummy(int id)
         {
@@ -47,43 +45,28 @@ namespace Sakuno.ING.Game
         }
 
         public IBindableCollection<T> DefaultView { get; }
+        public int Count => list.Count;
 
         public void BatchUpdate(IEnumerable<TRaw> source, bool removal = true)
         {
-            if (removal)
+            int i = 0;
+            foreach (var raw in source)
             {
-                foreach (var raw in source)
-                    if (TryGetValue(raw.Id, out var item))
-                    {
-                        item.Update(raw);
-                        item.UpdateFlag = true;
-                    }
+                while (i < list.Count && list[i].Id < raw.Id)
+                    if (removal)
+                        list.RemoveAt(i);
                     else
-                    {
-                        item = creation(raw.Id, owner);
-                        item.Update(raw);
-                        item.UpdateFlag = true;
-                        Add(item);
-                    }
-                foreach (var item in this.ToArray())
-                    if (item.UpdateFlag)
-                        item.UpdateFlag = false;
-                    else
-                        Remove(item);
+                        i++;
+
+                if (i < list.Count && list[i].Id == raw.Id)
+                    list[i].Update(raw);
+                else
+                {
+                    var item = creation(raw.Id, owner);
+                    item.Update(raw);
+                    list.Insert(i, item);
+                }
             }
-            else
-            {
-                foreach (var raw in source)
-                    if (TryGetValue(raw.Id, out var item))
-                        item.Update(raw);
-                    else
-                    {
-                        item = creation(raw.Id, owner);
-                        item.Update(raw);
-                        Add(item);
-                    }
-            }
-            BatchUpdated?.Invoke(this);
             Updated?.Invoke();
         }
 
@@ -94,20 +77,77 @@ namespace Sakuno.ING.Game
             Add(item);
         }
 
+        public void Add(T item)
+        {
+            int i;
+            for (i = 0; i < list.Count; i++)
+            {
+                if (list[i].Id > item.Id)
+                {
+                    list.Insert(i, item);
+                    break;
+                }
+                else if (list[i].Id == item.Id)
+                {
+                    list[i] = item;
+                    break;
+                }
+            }
+            if (i == list.Count)
+                list.Add(item);
+            Updated?.Invoke();
+        }
+
+        public bool Remove(int id) => Remove(this[id]);
+        public bool Remove(T item)
+        {
+            var result = list.Remove(item);
+            if (result)
+                Updated?.Invoke();
+            return result;
+        }
+
+        public int RemoveAll(Predicate<T> predicate)
+        {
+            var result = list.RemoveAll(predicate);
+            if (result > 0)
+                Updated?.Invoke();
+            return result;
+        }
+
+        public void Clear()
+        {
+            list.Clear();
+            Updated?.Invoke();
+        }
+
         public bool TryGetValue(int id, out T item)
         {
-            if (Dictionary != null)
-                return Dictionary.TryGetValue(id, out item);
+            int lo = 0, hi = list.Count - 1;
+            while (lo <= hi)
+            {
+                int i = lo + ((hi - lo) >> 1);
+                var t = list[i];
 
-            foreach (var i in this)
-                if (i.Id == id)
+                int order = t.Id - id;
+                if (order == 0)
                 {
-                    item = i;
+                    item = t;
                     return true;
                 }
+
+                if (order < 0)
+                    lo = i + 1;
+                else
+                    hi = i - 1;
+            }
 
             item = default;
             return false;
         }
+
+        public List<T>.Enumerator GetEnumerator() => list.GetEnumerator();
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

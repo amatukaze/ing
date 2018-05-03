@@ -3,7 +3,7 @@
     public interface IRawQuest : IIdentifiable
     {
         QuestCategoty Category { get; }
-        QuestFilter Period { get; }
+        QuestPeriod Period { get; }
         QuestState State { get; }
         QuestProgress Progress { get; }
         string Name { get; }
@@ -19,20 +19,16 @@
         Expedition = 4,
         Supply = 5,
         Arsenal = 6,
-        Mordenization = 7,
-        Sortie2 = 8,
-        Other = 9
+        Mordenization = 7
     }
 
-    public enum QuestFilter
+    public enum QuestPeriod
     {
-        All = 0,
         Daily = 1,
         Weekly = 2,
         Monthly = 3,
         Once = 4,
-        Other = 5,
-        Active = 9
+        Quarterly = 5
     }
 
     public enum QuestState

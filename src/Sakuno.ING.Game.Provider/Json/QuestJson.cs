@@ -8,10 +8,16 @@ namespace Sakuno.ING.Game.Json
     {
         [JsonProperty("api_no")]
         public int Id { get; set; }
-        [JsonProperty("api_category")]
-        public QuestCategoty Category { get; set; }
-        [JsonProperty("api_type")]
-        public QuestFilter Period { get; set; }
+
+        public int api_category;
+        public QuestCategoty Category => api_category == 8 ?
+            QuestCategoty.Sortie : (QuestCategoty)api_category;
+
+        public int api_type;
+        public QuestPeriod Period =>
+            api_type == 218 || api_type == 211 ?
+            QuestPeriod.Daily : (QuestPeriod)api_type;
+
         [JsonProperty("api_state")]
         public QuestState State { get; set; }
         [JsonProperty("api_title")]
