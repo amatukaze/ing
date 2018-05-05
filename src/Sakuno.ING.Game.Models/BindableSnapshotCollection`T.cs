@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game
     public partial class BindableSnapshotCollection<T> : IDisposable, IBindableCollection<T>
     {
         private readonly IUpdationSource source;
-        private T[] snapshot;
+        private List<T> snapshot = new List<T>();
 
         private IEnumerable<T> _query;
         public IEnumerable<T> Query
@@ -24,10 +24,7 @@ namespace Sakuno.ING.Game
             }
         }
 
-        public BindableSnapshotCollection()
-        {
-            snapshot = Array.Empty<T>();
-        }
+        public BindableSnapshotCollection() { }
 
         public BindableSnapshotCollection(IUpdationSource source, IEnumerable<T> query)
         {
@@ -37,7 +34,7 @@ namespace Sakuno.ING.Game
             if (BindableObject.ThreadSafeEnabled)
                 pHandlers = new List<(SynchronizationContext, PropertyChangedEventHandler)>();
 
-            snapshot = query.ToArray();
+            snapshot = query.ToList();
             source.Updated += Refresh;
         }
 
@@ -105,7 +102,7 @@ namespace Sakuno.ING.Game
                             cHandlers.RemoveAt(i--);
             }
         }
-        private void NotifyCollectionChanged(IEnumerable<NotifyCollectionChangedEventArgs> args)
+        private void NotifyCollectionChanged(params NotifyCollectionChangedEventArgs[] args)
         {
             lock (cHandlers)
                 foreach (var (context, handler) in cHandlers)
@@ -119,7 +116,7 @@ namespace Sakuno.ING.Game
 
         public void Refresh()
         {
-            var @new = Query.ToArray();
+            var @new = Query.ToList();
             var diff = SequenceDiffer(snapshot, @new);
             snapshot = @new;
             if (diff.Length == 0) return;
@@ -137,36 +134,70 @@ namespace Sakuno.ING.Game
             NotifyCollectionChanged(args);
         }
 
-        public int Count => snapshot.Length;
-        public T this[int index] => snapshot[index];
+        public void Remove(T item) => Remove(snapshot.IndexOf(item), item);
+
+        public void RemoveAt(int index) => Remove(index, snapshot[index]);
+
+        private void Remove(int index, T item)
+        {
+            if (index >= 0)
+            {
+                snapshot.RemoveAt(index);
+                NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, index, item));
+            }
+        }
+
+        public void Replace(T oldItem, T newItem)
+        {
+            int i = snapshot.IndexOf(oldItem);
+
+            if (i >= 0)
+            {
+                snapshot[i] = newItem;
+                NotifyCollectionChanged
+                    (
+                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, i, oldItem),
+                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, i, newItem)
+                    );
+            }
+        }
+
+        public int Count => snapshot.Count;
+        public T this[int index]
+        {
+            get => snapshot[index];
+            set
+            {
+                if (index > snapshot.Count)
+                    throw new IndexOutOfRangeException(nameof(index));
+                else if (index == snapshot.Count)
+                {
+                    snapshot.Add(value);
+                    NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, index, value));
+                }
+                else
+                {
+                    var oldValue = snapshot[index];
+                    snapshot[index] = value;
+                    NotifyCollectionChanged
+                    (
+                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, index, oldValue),
+                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, index, value)
+                    );
+                }
+            }
+        }
 
         #region IEnumerable
-        public Enumerator GetEnumerator() => new Enumerator(this);
+        public List<T>.Enumerator GetEnumerator() => snapshot.GetEnumerator();
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        public struct Enumerator : IEnumerator<T>
-        {
-            private T[] array;
-            private int index;
-            public Enumerator(BindableSnapshotCollection<T> origin)
-            {
-                array = origin.snapshot;
-                index = 0;
-            }
-
-            public T Current => array[index];
-            object IEnumerator.Current => array[index];
-
-            public void Dispose() { }
-            public bool MoveNext() => ++index < array.Length;
-            public void Reset() => index = 0;
-        }
         #endregion
 
         #region IList
         bool ICollection.IsSynchronized => false;
         object ICollection.SyncRoot { get; } = new object();
-        void ICollection.CopyTo(Array array, int index) => snapshot.CopyTo(array, index);
+        void ICollection.CopyTo(Array array, int index) => snapshot.CopyTo((T[])array, index);
         object IList.this[int index]
         {
             get => snapshot[index];
@@ -177,13 +208,7 @@ namespace Sakuno.ING.Game
         int IList.Add(object value) => throw new NotSupportedException();
         void IList.Clear() => throw new NotSupportedException();
         bool IList.Contains(object value) => snapshot.Contains((T)value);
-        int IList.IndexOf(object value)
-        {
-            T v = (T)value;
-            for (int i = 0; i < snapshot.Length; i++)
-                if (EqualityComparer<T>.Default.Equals(snapshot[i], v)) return i;
-            return -1;
-        }
+        int IList.IndexOf(object value) => snapshot.IndexOf((T)value);
         void IList.Insert(int index, object value) => throw new NotSupportedException();
         void IList.Remove(object value) => throw new NotSupportedException();
         void IList.RemoveAt(int index) => throw new NotSupportedException();

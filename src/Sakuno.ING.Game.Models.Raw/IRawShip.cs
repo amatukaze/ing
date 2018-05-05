@@ -11,6 +11,7 @@ namespace Sakuno.ING.Game.Models
         ShipSpeed Speed { get; }
         FireRange FireRange { get; }
         IReadOnlyList<int> EquipmentIds { get; }
+        bool ExtraSlotOpened { get; }
         int ExtraSlotEquipId { get; }
         IReadOnlyList<int> SlotAircraft { get; }
 

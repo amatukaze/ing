@@ -34,6 +34,7 @@ namespace Sakuno.ING.Game.Json
         public IReadOnlyList<int> EquipmentIds { get; set; }
         [JsonProperty("api_onslot")]
         public IReadOnlyList<int> SlotAircraft { get; set; }
+        public bool ExtraSlotOpened => ExtraSlotEquipId != 0;
         [JsonProperty("api_slot_ex")]
         public int ExtraSlotEquipId { get; set; }
 

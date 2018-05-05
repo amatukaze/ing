@@ -1,5 +1,6 @@
 ﻿Sakuno.ING.Game.Models
 System
+System.Collections.Generic
 Sakuno.ING.Game.Models.MasterData
 
 Equipment:IRawEquipment
@@ -51,6 +52,7 @@ p:ClampedValue HP -
 p:ShipSpeed Speed -
 p:FireRange FireRange -
 p:int SlotCount
+p:Slot ExtraSlot
 p:ClampedValue Fuel
 p:ClampedValue Bullet
 p:TimeSpan RepairingTime -
@@ -81,7 +83,7 @@ Quest:IRawQuest
 l:Name QuestName -
 l:Description QuestDesc -
 p:QuestCategoty Category -
-p:QuestFilter Period -
+p:QuestPeriod Period -
 p:QuestState State -
 p:QuestProgress Progress -
 p:Materials Rewards -

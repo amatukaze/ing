@@ -19,12 +19,6 @@ namespace Sakuno.ING.Game.Models
             listener.AllEquipmentUpdated.Received += msg => _allEquipment.BatchUpdate(msg.Message);
             listener.BuildingDockUpdated.Received += msg => _buildingDocks.BatchUpdate(msg.Message);
             listener.UseItemUpdated.Received += msg => _useItems.BatchUpdate(msg.Message);
-            listener.FreeEquipmentUpdated.Received += msg =>
-            {
-                var free = new HashSet<int>(msg.Message.SelectMany(x => x.Value));
-                foreach (var e in AllEquipment)
-                    e.IsAvailable = free.Contains(e.Id);
-            };
 
             listener.AdmiralUpdated.Received += msg =>
             {
@@ -42,8 +36,23 @@ namespace Sakuno.ING.Game.Models
                 Materials = materials;
             };
             listener.HomeportReturned.Received += msg => _allShips.BatchUpdate(msg.Message.Ships);
+            listener.CompositionChanged.Received += msg =>
+            {
+                var fleet = Fleets[msg.Message.FleetId];
+                if (fleet != null)
+                {
+                    if (msg.Message.ShipId is int shipId)
+                    {
+                        var ship = AllShips.TryGetOrDummy(shipId);
+                        fleet.ChangeComposition(msg.Message.Index, ship, Fleets.FirstOrDefault(x => x.Ships.Contains(ship)));
+                    }
+                    else
+                        fleet.ChangeComposition(msg.Message.Index, null, null);
+                }
+            };
             listener.FleetsUpdated.Received += msg => _fleets.BatchUpdate(msg.Message);
             listener.FleetPresetSelected.Received += msg => Fleets[msg.Message.Id]?.Update(msg.Message);
+            listener.ShipEquipmentUdated.Received += msg => AllShips[msg.Message.ShipId]?.UpdateEquipments(msg.Message.EquipmentIds);
             listener.PartialFleetsUpdated.Received += msg => _fleets.BatchUpdate(msg.Message, removal: false);
             listener.PartialShipsUpdated.Received += msg => _allShips.BatchUpdate(msg.Message, removal: false);
             listener.RepairingDockUpdated.Received += msg => _repairingDocks.BatchUpdate(msg.Message);

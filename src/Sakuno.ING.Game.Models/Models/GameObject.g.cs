@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using System.Collections.Generic;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
@@ -352,6 +353,13 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _slotCount, value);
         }
 
+        private Slot _extraSlot;
+        public Slot ExtraSlot
+        {
+            get => _extraSlot;
+            internal set => Set(ref _extraSlot, value);
+        }
+
         private ClampedValue _fuel;
         public ClampedValue Fuel
         {
@@ -532,7 +540,7 @@ namespace Sakuno.ING.Game.Models
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<Ship> ships = new BindableSnapshotCollection<Ship>();
-        public IBindableCollection<Ship> Ships => ships;
+        public IReadOnlyList<Ship> Ships => ships;
     }
     public partial class Quest : Calculated<IRawQuest>
     {

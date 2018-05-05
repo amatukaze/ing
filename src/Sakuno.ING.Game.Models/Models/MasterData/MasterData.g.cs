@@ -304,7 +304,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
-        public IBindableCollection<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
+        public IReadOnlyList<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
     }
     public partial class EquipmentTypeInfo : Calculated<IRawEquipmentTypeInfo>
     {
@@ -525,7 +525,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<ShipInfo> extraSlotAcceptingShips = new BindableSnapshotCollection<ShipInfo>();
-        public IBindableCollection<ShipInfo> ExtraSlotAcceptingShips => extraSlotAcceptingShips;
+        public IReadOnlyList<ShipInfo> ExtraSlotAcceptingShips => extraSlotAcceptingShips;
     }
     public partial class UseItemInfo : Calculated<IRawUseItem>
     {
@@ -678,7 +678,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<UseItemInfo> itemAcquirements = new BindableSnapshotCollection<UseItemInfo>();
-        public IBindableCollection<UseItemInfo> ItemAcquirements => itemAcquirements;
+        public IReadOnlyList<UseItemInfo> ItemAcquirements => itemAcquirements;
     }
     public partial class ExpeditionInfo : Calculated<IRawExpeditionInfo>
     {

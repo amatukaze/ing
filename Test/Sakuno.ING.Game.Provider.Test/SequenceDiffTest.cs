@@ -18,14 +18,14 @@ namespace Sakuno.ING.Game.Test
         [TestMethod]
         public void DiffTest()
         {
-            var s = new[]
+            var s = new List<object>
             {
                 pool[0],
                 pool[1],
                 pool[3],
                 pool[4]
             };
-            var t = new[]
+            var t = new List<object>
             {
                 pool[0],
                 pool[1],
@@ -64,7 +64,7 @@ namespace Sakuno.ING.Game.Test
             CollectionAssert.AllItemsAreUnique(t);
 
             int offset = 0;
-            foreach (var a in BindableSnapshotCollection<object>.SequenceDiffer(s.ToArray(), t.ToArray()))
+            foreach (var a in BindableSnapshotCollection<object>.SequenceDiffer(s, t))
                 if (a.IsAdd)
                     s.Insert(a.OriginalIndex + (offset++), a.Item);
                 else

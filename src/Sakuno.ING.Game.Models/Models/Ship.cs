@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Sakuno.ING.Game.Events;
 
 namespace Sakuno.ING.Game.Models
@@ -17,23 +18,24 @@ namespace Sakuno.ING.Game.Models
             Luck = Combine(raw.Luck, Info.Luck);
 
             SlotCount = Info.SlotCount;
-            if (SlotCount != _slots?.Length)
-            {
-                _slots = new Slot[SlotCount];
-                for (int i = 0; i < _slots.Length; i++)
-                    _slots[i] = new Slot();
-                _bindableSlots = null;
-                NotifyPropertyChanged(nameof(Slots));
-            }
+            while (slots.Count < SlotCount)
+                slots.Add(new Slot());
+            while (slots.Count > SlotCount)
+                slots.RemoveAt(slots.Count - 1);
 
-            for (int i = 0; i < _slots.Length; i++)
-            {
-                _slots[i].Equipment = equipmentTable.TryGetOrDummy(raw.EquipmentIds[i]);
-                _slots[i].Aircraft = new ClampedValue(raw.SlotAircraft[i], Info.Aircraft[i]);
-            }
-            LightOfSight = Substract(raw.LightOfSight, _slots.Sum(s => s.Equipment?.Info.LightOfSight ?? 0));
-            Evasion = Substract(raw.Evasion, _slots.Sum(s => s.Equipment?.Info.Evasion ?? 0));
-            AntiSubmarine = Substract(raw.AntiSubmarine, _slots.Sum(s => s.Equipment?.Info.AntiSubmarine ?? 0));
+            if (raw.ExtraSlotOpened)
+                ExtraSlot = new Slot
+                {
+                    Equipment = equipmentTable.TryGetOrDummy(raw.ExtraSlotEquipId)
+                };
+            else
+                ExtraSlot = null;
+
+            UpdateEquipments(raw.EquipmentIds);
+            UpdateSlotAircraft(raw.SlotAircraft);
+            LightOfSight = Substract(raw.LightOfSight, slots.Sum(s => s.Equipment?.Info.LightOfSight ?? 0));
+            Evasion = Substract(raw.Evasion, slots.Sum(s => s.Equipment?.Info.Evasion ?? 0));
+            AntiSubmarine = Substract(raw.AntiSubmarine, slots.Sum(s => s.Equipment?.Info.AntiSubmarine ?? 0));
         }
 
         private static ShipMordenizationStatus Combine(ShipMordenizationStatus current, ShipMordenizationStatus master)
@@ -54,9 +56,8 @@ namespace Sakuno.ING.Game.Models
                 Displaying = current.Displaying
             };
 
-        private Slot[] _slots;
-        private IBindableCollection<Slot> _bindableSlots;
-        public IBindableCollection<Slot> Slots => _bindableSlots ?? (_bindableSlots = _slots.AsBindable());
+        private BindableCollection<Slot> slots = new BindableCollection<Slot>();
+        public IReadOnlyList<Slot> Slots => slots;
 
         internal void SetRepaired()
         {
@@ -71,8 +72,19 @@ namespace Sakuno.ING.Game.Models
         {
             Fuel = new ClampedValue(raw.CurrentFuel, Info.FuelConsumption);
             Bullet = new ClampedValue(raw.CurrentBullet, Info.BulletConsumption);
-            for (int i = 0; i < _slots.Length; i++)
-                _slots[i].Aircraft = new ClampedValue(raw.SlotAircraft[i], Info.Aircraft[i]);
+            UpdateSlotAircraft(raw.SlotAircraft);
+        }
+
+        internal void UpdateEquipments(IReadOnlyList<int> equipmentIds)
+        {
+            for (int i = 0; i < slots.Count; i++)
+                slots[i].Equipment = equipmentTable.TryGetOrDummy(equipmentIds[i]);
+        }
+
+        internal void UpdateSlotAircraft(IReadOnlyList<int> aircrafts)
+        {
+            for (int i = 0; i < slots.Count; i++)
+                slots[i].Aircraft = new ClampedValue(aircrafts[i], Info.Aircraft[i]);
         }
     }
 }

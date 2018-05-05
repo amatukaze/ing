@@ -149,7 +149,7 @@ foreach (var infile in Inputs)
                 string field = char.ToLowerInvariant(name[0]) + name.Substring(1);
                 output.WriteLine();
                 output.WriteLine("        private readonly BindableSnapshotCollection<" + type + "> " + field + " = new BindableSnapshotCollection<" + type + ">();");
-                output.WriteLine("        public IBindableCollection<" + type +"> " + name + " => " + field + ";");
+                output.WriteLine("        public IReadOnlyList<" + type +"> " + name + " => " + field + ";");
             }
             output.WriteLine("    }");
         }
