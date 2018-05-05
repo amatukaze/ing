@@ -15,6 +15,7 @@ namespace Sakuno.ING.Game
         public readonly IProducer<ITimedMessage<ShipDismantling>> ShipDismantled;
         public readonly IProducer<ITimedMessage<EquipmentDismantling>> EquipmentDismantled;
         public readonly IProducer<ITimedMessage<EquipmentImprove>> EquipmentImproved;
+        public readonly IProducer<ITimedMessage<ShipPowerup>> ShipPoweruped;
 
         private static ShipCreation ParseShipCreation(NameValueCollection request)
             => new ShipCreation
@@ -82,6 +83,15 @@ namespace Sakuno.ING.Game
                 IsSuccess = response.api_remodel_flag,
                 UpdatedTo = response.api_after_slot,
                 ConsumedEquipmentId = response.api_use_slot_id
+            };
+
+        private static ShipPowerup ParseShipPowerup(NameValueCollection request, ShipPowerupJson response)
+            => new ShipPowerup
+            {
+                ShipId = request.GetInt("api_id"),
+                ConsumedShipIds = request.GetInts("api_id_items"),
+                IsSuccess = response.api_powerup_flag,
+                ShipAfter = response.api_ship
             };
     }
 }

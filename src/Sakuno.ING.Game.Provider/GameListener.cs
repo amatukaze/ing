@@ -43,7 +43,21 @@ namespace Sakuno.ING.Game
                 .CombineWith<ITimedMessage<IRawAdmiral>>(RegisterRaw<AdmiralRecordJson>("api_get_member/record"));
             RepairingDockUpdated = homeport.Select(x => x.SelectResponse(r => r.api_ndock))
                 .CombineWith<ITimedMessage<IReadOnlyCollection<RepairingDockJson>>>(RegisterRaw<RepairingDockJson[]>("api_get_member/ndock"));
-            HomeportUpdated = homeport;
+            HomeportReturned = homeport;
+            CompositionChanged = RegisterRaw("api_req_hensei/change")
+                .Select(x => x.SelectRequest(ParseCompositionChange));
+            FleetPresetSelected = RegisterRaw<FleetJson>("api_req_hensei/preset_select");
+            ShipExtraSlotOpened = RegisterRaw("api_req_kaisou/open_exslot")
+                .Select(x => x.SelectRequest(ParseShipExtraSlotOpen));
+            ShipEquipmentUdated = RegisterRaw<ShipEquipmentJson>("api_req_kaisou/slot_exchange_index")
+                .Select(x => x.SelectRequestAndResponse(ParseShipEquipmentUpdate));
+
+            var ship3 = RegisterRaw<Ship3Json>("api_get_member/ship3")
+                .CombineWith(RegisterRaw<Ship3Json>("api_get_member/ship_deck"));
+            PartialFleetsUpdated = ship3.Select(x => x.SelectResponse(r => r.api_deck_data));
+            PartialShipsUpdated = ship3.Select(x => x.SelectResponse(r => r.api_ship_data))
+                .CombineWith(RegisterRaw<ShipJson[]>("api_get_member/ship2"),
+                RegisterRaw<DepriveJson>("api_req_kaisou/slot_deprive").Select(x => x.SelectResponse(ParseShipDeprive)));
 
             RepairStarted = RegisterRaw("api_req_nyukyo/start")
                 .Select(x => x.SelectRequest(ParseRepairStart));
@@ -53,6 +67,9 @@ namespace Sakuno.ING.Game
                 .Select(x => x.SelectRequest(ParseShipCreation));
             InstantBuilt = RegisterRaw("api_req_kousyou/createship_speedchange")
                 .Select(x => x.SelectRequest(ParseInstantBuilt));
+
+            var charge = RegisterRaw<ShipsSupplyJson>("api_req_hokyu/charge");
+            ShipSupplied = charge.Select(x => x.SelectResponse(r => r.api_ship));
 
             var getShip = RegisterRaw<ShipBuildCompletionJson>("api_req_kousyou/getship");
             BuildingDockUpdated = requireInfo.Select(x => x.SelectResponse(r => r.api_kdock))
@@ -71,11 +88,16 @@ namespace Sakuno.ING.Game
             MaterialsUpdated = homeport.Select(x => x.SelectResponse(r => r.api_material))
                 .CombineWith<ITimedMessage<IMaterialsUpdate>>
                     (RegisterRaw<MaterialJsonArray>("api_get_member/material"),
-                    createItem, destroyShip, destroyItem);
+                    charge, createItem, destroyShip, destroyItem);
             EquipmentDismantled = destroyItem.Select(x => x.SelectRequest(ParseEquipmentDimantling));
-
             EquipmentImproved = RegisterRaw<EquipmentImproveJson>("api_req_kousyou/remodel_slot")
                 .Select(x => x.SelectRequestAndResponse(ParseEquipmentImprove));
+
+            var powerup = RegisterRaw<ShipPowerupJson>("api_req_kaisou/powerup");
+            FleetsUpdated = homeport.Select(x => x.SelectResponse(r => r.api_deck_port))
+                .CombineWith(powerup.Select(x => x.SelectResponse(r => r.api_deck)),
+                    RegisterRaw<FleetJson[]>("api_get_member/deck"));
+            ShipPoweruped = powerup.Select(x => x.SelectRequestAndResponse(ParseShipPowerup));
 
             QuestUpdated = RegisterRaw<QuestPageJson>("api_get_member/questlist")
                 .Select(x => x.SelectRequestAndResponse(ParseQuestPage));

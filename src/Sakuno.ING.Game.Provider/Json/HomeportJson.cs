@@ -10,7 +10,6 @@ namespace Sakuno.ING.Game.Json
     {
         public MaterialJsonArray api_material;
         public FleetJson[] api_deck_port;
-        IReadOnlyCollection<IRawFleet> IHomeportUpdate.Fleets => api_deck_port;
         public AdmiralJson api_basic;
         public RepairingDockJson[] api_ndock;
         public ShipJson[] api_ship;

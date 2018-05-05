@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Sakuno.ING.Game.Events;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -64,6 +65,14 @@ namespace Sakuno.ING.Game.Models
             HP = new ClampedValue(maxHp, maxHp);
             if (Morale < 40)
                 Morale = 40;
+        }
+
+        internal void Supply(IShipSupply raw)
+        {
+            Fuel = new ClampedValue(raw.CurrentFuel, Info.FuelConsumption);
+            Bullet = new ClampedValue(raw.CurrentBullet, Info.BulletConsumption);
+            for (int i = 0; i < _slots.Length; i++)
+                _slots[i].Aircraft = new ClampedValue(raw.SlotAircraft[i], Info.Aircraft[i]);
         }
     }
 }

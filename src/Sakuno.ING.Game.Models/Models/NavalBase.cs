@@ -41,12 +41,17 @@ namespace Sakuno.ING.Game.Models
                 msg.Message.Apply(ref materials);
                 Materials = materials;
             };
-            listener.HomeportUpdated.Received += msg =>
-            {
-                _allShips.BatchUpdate(msg.Message.Ships);
-                _fleets.BatchUpdate(msg.Message.Fleets);
-            };
+            listener.HomeportReturned.Received += msg => _allShips.BatchUpdate(msg.Message.Ships);
+            listener.FleetsUpdated.Received += msg => _fleets.BatchUpdate(msg.Message);
+            listener.FleetPresetSelected.Received += msg => Fleets[msg.Message.Id]?.Update(msg.Message);
+            listener.PartialFleetsUpdated.Received += msg => _fleets.BatchUpdate(msg.Message, removal: false);
+            listener.PartialShipsUpdated.Received += msg => _allShips.BatchUpdate(msg.Message, removal: false);
             listener.RepairingDockUpdated.Received += msg => _repairingDocks.BatchUpdate(msg.Message);
+            listener.ShipSupplied.Received += msg =>
+            {
+                foreach (var raw in msg.Message)
+                    AllShips[raw.ShipId]?.Supply(raw);
+            };
 
             listener.RepairStarted.Received += msg =>
             {
@@ -77,6 +82,12 @@ namespace Sakuno.ING.Game.Models
                 if (msg.Message.IsSuccess)
                     AllEquipment[msg.Message.EquipmentId]?.Update(msg.Message.UpdatedTo);
                 RemoveEquipment(msg.Message.ConsumedEquipmentId);
+            };
+            listener.ShipPoweruped.Received += msg =>
+            {
+                AllShips[msg.Message.ShipId]?.Update(msg.Message.ShipAfter);
+                foreach (var id in msg.Message.ConsumedShipIds)
+                    _allShips.Remove(id);
             };
         }
 
