@@ -54,6 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             if (!OS.IsWin8OrLater)
                 InitializeNotifyIcon();
+#if RELEASE
             else
                 try
                 {
@@ -64,6 +65,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     r_IsToastNotificationUnavailable = true;
                     InitializeNotifyIcon();
                 }
+#endif
 
             var rGamePCEL = PropertyChangedEventListener.FromSource(KanColleGame.Current);
             rGamePCEL.Add(nameof(KanColleGame.Current.IsStarted), delegate
