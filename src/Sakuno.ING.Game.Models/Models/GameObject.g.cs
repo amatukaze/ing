@@ -618,4 +618,115 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawQuest raw);
         partial void CreateDummy();
     }
+    public partial class Map : Calculated<IRawMap>
+    {
+        public Map(int id, ITableProvider owner) : base(id, owner)
+        {
+            mapInfoTable = owner.GetTable<MapInfo>();
+            CreateDummy();
+        }
+
+        private readonly ITable<MapInfo> mapInfoTable;
+
+        private MapInfo _info;
+        public MapInfo Info
+        {
+            get => _info;
+            internal set => Set(ref _info, value);
+        }
+
+        private bool _isCleared;
+        public bool IsCleared
+        {
+            get => _isCleared;
+            internal set => Set(ref _isCleared, value);
+        }
+
+        private EventMapRank? _rank;
+        public EventMapRank? Rank
+        {
+            get => _rank;
+            internal set => Set(ref _rank, value);
+        }
+
+        private int? _gaugeIndex;
+        public int? GaugeIndex
+        {
+            get => _gaugeIndex;
+            internal set => Set(ref _gaugeIndex, value);
+        }
+
+        private EventMapGaugeType? _gaugeType;
+        public EventMapGaugeType? GaugeType
+        {
+            get => _gaugeType;
+            internal set => Set(ref _gaugeType, value);
+        }
+
+        private int _availableAirForceGroups;
+        public int AvailableAirForceGroups
+        {
+            get => _availableAirForceGroups;
+            internal set => Set(ref _availableAirForceGroups, value);
+        }
+
+        private ClampedValue _gauge;
+        public ClampedValue Gauge
+        {
+            get => _gauge;
+            internal set => Set(ref _gauge, value);
+        }
+
+        public override void Update(IRawMap raw)
+        {
+            IsCleared = raw.IsCleared;
+            Rank = raw.Rank;
+            GaugeIndex = raw.GaugeIndex;
+            GaugeType = raw.GaugeType;
+            AvailableAirForceGroups = raw.AvailableAirForceGroups;
+            UpdateCore(raw);
+        }
+        partial void UpdateCore(IRawMap raw);
+        partial void CreateDummy();
+    }
+    public partial class AirForceSquadron : Calculated<IRawAirForceSquadron>
+    {
+        public AirForceSquadron(int id, ITableProvider owner) : base(id, owner)
+        {
+            equipmentTable = owner.GetTable<Equipment>();
+            CreateDummy();
+        }
+
+        private readonly ITable<Equipment> equipmentTable;
+
+        private Equipment _equipment;
+        public Equipment Equipment
+        {
+            get => _equipment;
+            internal set => Set(ref _equipment, value);
+        }
+
+        private ClampedValue _aircraftCount;
+        public ClampedValue AircraftCount
+        {
+            get => _aircraftCount;
+            internal set => Set(ref _aircraftCount, value);
+        }
+
+        private SquadronMorale _morale;
+        public SquadronMorale Morale
+        {
+            get => _morale;
+            internal set => Set(ref _morale, value);
+        }
+
+        public override void Update(IRawAirForceSquadron raw)
+        {
+            AircraftCount = raw.AircraftCount;
+            Morale = raw.Morale;
+            UpdateCore(raw);
+        }
+        partial void UpdateCore(IRawAirForceSquadron raw);
+        partial void CreateDummy();
+    }
 }

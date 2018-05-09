@@ -85,10 +85,6 @@ namespace Sakuno.ING.Game
             ShipDismantled = destroyShip.Select(x => x.SelectRequest(ParseShipDismantling));
 
             var destroyItem = RegisterRaw<EquipmentDismantleJson>("api_req_kousyou/destroyitem2");
-            MaterialsUpdated = homeport.Select(x => x.SelectResponse(r => r.api_material))
-                .CombineWith<ITimedMessage<IMaterialsUpdate>>
-                    (RegisterRaw<MaterialJsonArray>("api_get_member/material"),
-                    charge, createItem, destroyShip, destroyItem);
             EquipmentDismantled = destroyItem.Select(x => x.SelectRequest(ParseEquipmentDimantling));
             EquipmentImproved = RegisterRaw<EquipmentImproveJson>("api_req_kousyou/remodel_slot")
                 .Select(x => x.SelectRequestAndResponse(ParseEquipmentImprove));
@@ -103,6 +99,26 @@ namespace Sakuno.ING.Game
                 .Select(x => x.SelectRequestAndResponse(ParseQuestPage));
             QuestCompleted = RegisterRaw("api_req_quest/clearitemget")
                 .Select(x => x.SelectRequest(ParseQuestComplete));
+
+            var mapinfo = RegisterRaw<MapsJson>("api_get_member/mapinfo");
+            MapsUpdated = mapinfo.Select(x => x.SelectResponse(r => r.api_map_info));
+            AirForceUpdated = mapinfo.Select(x => x.SelectResponse(r => r.api_air_base));
+
+            var setPlane = RegisterRaw<AirForceSetPlaneJson>("api_req_air_corps/set_plane");
+            AirForcePlaneSet = setPlane.Select(x => x.SelectRequestAndResponse(ParseAirForcePlaneSet));
+
+            AirForceActionSet = RegisterRaw("api_req_air_corps/set_action")
+                .Select(x => x.SelectRequest(ParseAirForceActionSet));
+            AirForceExpanded = RegisterRaw<AirForceJson>("api_req_air_corps/expand_base");
+
+            var airSupply = RegisterRaw<AirForceSupplyJson>("api_req_air_corps/supply");
+            AirForceSupplied = airSupply.Select(x => x.SelectRequestAndResponse(ParseAirForceSupply));
+
+            MaterialsUpdated = homeport.Select(x => x.SelectResponse(r => r.api_material))
+                .CombineWith<ITimedMessage<IMaterialsUpdate>>
+                    (RegisterRaw<MaterialJsonArray>("api_get_member/material"),
+                    charge, createItem, destroyShip, destroyItem, airSupply,
+                    setPlane.Where(x => x.Response.api_after_bauxite.HasValue));
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)

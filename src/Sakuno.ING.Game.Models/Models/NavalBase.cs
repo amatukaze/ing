@@ -15,6 +15,8 @@ namespace Sakuno.ING.Game.Models
             _useItems = new IdTable<UseItemCount, IRawUseItemCount>(this);
             _allShips = new IdTable<Ship, IRawShip>(this);
             _fleets = new IdTable<Fleet, IRawFleet>(this);
+            _maps = new IdTable<Map, IRawMap>(this);
+            _airForce = new IdTable<AirForceGroup, IRawAirForceGroup>(this);
 
             listener.AllEquipmentUpdated.Received += msg => _allEquipment.BatchUpdate(msg.Message);
             listener.BuildingDockUpdated.Received += msg => _buildingDocks.BatchUpdate(msg.Message);
@@ -98,6 +100,24 @@ namespace Sakuno.ING.Game.Models
                 foreach (var id in msg.Message.ConsumedShipIds)
                     _allShips.Remove(id);
             };
+
+            listener.MapsUpdated.Received += msg => _maps.BatchUpdate(msg.Message);
+            listener.AirForceUpdated.Received += msg => _airForce.BatchUpdate(msg.Message);
+            listener.AirForcePlaneSet.Received += msg =>
+            {
+                var m = msg.Message;
+                var group = AirForce[(m.MapAreaId << 16) + m.AirForceId];
+                group.Distance = m.NewDistance;
+                group.squadrons.BatchUpdate(m.UpdatedSquadrons, removal: false);
+            };
+            listener.AirForceActionSet.Received += msg =>
+            {
+                foreach (var m in msg.Message)
+                    AirForce[(m.MapAreaId << 16) + m.AirForceId].Action = m.Action;
+            };
+            listener.AirForceSupplied.Received += msg
+                => AirForce[(msg.Message.MapAreaId << 16) + msg.Message.AirForceId].squadrons.BatchUpdate(msg.Message.UpdatedSquadrons, removal: false);
+            listener.AirForceExpanded.Received += msg => _airForce.Add(msg.Message);
         }
 
         private void RemoveShip(IEnumerable<int> shipIds, bool removeEquipment)
@@ -138,6 +158,12 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<Fleet, IRawFleet> _fleets;
         public ITable<Fleet> Fleets => _fleets;
 
+        private readonly IdTable<Map, IRawMap> _maps;
+        public ITable<Map> Maps => _maps;
+
+        private readonly IdTable<AirForceGroup, IRawAirForceGroup> _airForce;
+        public ITable<AirForceGroup> AirForce => _airForce;
+
         public Admiral Admiral { get; private set; }
 
         private Materials _materials;
@@ -168,6 +194,12 @@ namespace Sakuno.ING.Game.Models
 
             if (type == typeof(Fleet))
                 return (ITable<T>)Fleets;
+
+            if (type == typeof(Map))
+                return (ITable<T>)Maps;
+
+            if (type == typeof(AirForceGroup))
+                return (ITable<T>)AirForce;
 
             return MasterData.TryGetTable<T>() ?? Quests.TryGetTable<T>();
         }

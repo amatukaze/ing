@@ -88,3 +88,19 @@ p:QuestState State -
 p:QuestProgress Progress -
 p:Materials Rewards -
 
+Map:IRawMap
+t:MapInfo
+p:MapInfo Info
+p:bool IsCleared -
+p:EventMapRank? Rank -
+p:int? GaugeIndex -
+p:EventMapGaugeType? GaugeType -
+p:int AvailableAirForceGroups -
+p:ClampedValue Gauge
+
+AirForceSquadron:IRawAirForceSquadron
+t:Equipment
+p:Equipment Equipment
+p:ClampedValue AircraftCount -
+p:SquadronMorale Morale -
+
