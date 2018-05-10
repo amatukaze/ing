@@ -22,12 +22,12 @@ namespace Sakuno.ING.UWP.Views.ApiDebug
         {
             this.InitializeComponent();
             Provider.RegisterAny().Received +=
-                async obj => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                async (timeStamp, obj) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     Sessions.Add(new Message
                     {
                         Name = obj.Name,
-                        TimeStamp = obj.TimeStamp,
+                        TimeStamp = timeStamp,
                         Body = obj.Response
                     });
                     while (Sessions.Count >= 50)

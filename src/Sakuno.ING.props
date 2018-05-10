@@ -12,7 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(SolutionDir)src\SharedAssemblyInfo.cs" />
-    <PackageReference Include="Sakuno.ING.Standard" Version="0.1.0-blueprint" />
+    <PackageReference Include="Sakuno.ING.Standard" Version="0.1.0-blueprint2" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.4" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using Sakuno.ING.Messaging;
 using Sakuno.ING.Services;
 using Windows.Web.Http;
 
@@ -47,7 +48,7 @@ namespace Sakuno.ING.UWP.Bridge
             }
         }
 
-        public event Action<TextMessage> Received;
+        public event TimedMessageHandler<TextMessage> Received;
 
         private CancellationTokenSource cts;
         private readonly HttpClient client = new HttpClient();
@@ -76,7 +77,7 @@ namespace Sakuno.ING.UWP.Bridge
                         w.Flush();
                         mms.Seek(0, SeekOrigin.Begin);
                     }
-                    Received?.Invoke(new TextMessage(path, timeStamp, request, mms));
+                    Received?.Invoke(timeStamp, new TextMessage(path, request, mms));
                 }
                 catch
                 {
