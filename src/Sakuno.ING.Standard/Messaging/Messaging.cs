@@ -3,29 +3,31 @@ using System.Runtime.ExceptionServices;
 
 namespace Sakuno.ING.Messaging
 {
-    public interface IProducer<out T>
+    public delegate void TimedMessageHandler<in T>(DateTimeOffset timeStamp, T message);
+
+    public interface ITimedMessageProvider<out T>
     {
-        event Action<T> Received;
+        event TimedMessageHandler<T> Received;
     }
 
     internal abstract class Sender<T>
     {
-        protected Action<T> Downstreams;
-        protected void SendToDownstream(T value)
+        protected TimedMessageHandler<T> Downstreams;
+        protected void SendToDownstream(DateTimeOffset timeStamp, T value)
         {
             var temp = Downstreams;
             if (temp == null) return;
             var list = temp.GetInvocationList();
             if (list.Length == 1)
-                temp(value);
+                temp(timeStamp, value);
             else
             {
                 Exception exception = null;
-                foreach (Action<T> invo in list)
+                foreach (TimedMessageHandler<T> invo in list)
                 {
                     try
                     {
-                        invo(value);
+                        invo(timeStamp, value);
                     }
                     catch (Exception ex)
                     {
@@ -47,15 +49,15 @@ namespace Sakuno.ING.Messaging
     }
 
     internal abstract class Chainer<TInput, TOutput>
-        : Sender<TOutput>, IProducer<TOutput>
+        : Sender<TOutput>, ITimedMessageProvider<TOutput>
     {
-        private IProducer<TInput> upstream;
+        private ITimedMessageProvider<TInput> upstream;
 
-        public Chainer(IProducer<TInput> upstream)
+        public Chainer(ITimedMessageProvider<TInput> upstream)
             => this.upstream = upstream
             ?? throw new ArgumentNullException(nameof(upstream));
 
-        public event Action<TOutput> Received
+        public event TimedMessageHandler<TOutput> Received
         {
             add
             {
@@ -69,48 +71,48 @@ namespace Sakuno.ING.Messaging
             }
         }
 
-        public abstract void Send(TInput arg);
+        public abstract void Send(DateTimeOffset timeStamp, TInput arg);
     }
 
     internal class Transformer<TInput, TOutput>
         : Chainer<TInput, TOutput>
     {
-        private Func<TInput, TOutput> converter;
+        private readonly Func<TInput, TOutput> converter;
 
-        public Transformer(IProducer<TInput> upstream, Func<TInput, TOutput> converter)
+        public Transformer(ITimedMessageProvider<TInput> upstream, Func<TInput, TOutput> converter)
             : base(upstream)
             => this.converter = converter
             ?? throw new ArgumentNullException(nameof(converter));
 
-        public override void Send(TInput arg) => SendToDownstream(converter(arg));
+        public override void Send(DateTimeOffset timeStamp, TInput arg) => SendToDownstream(timeStamp, converter(arg));
     }
 
     internal class Conditioner<T>
         : Chainer<T, T>
     {
-        private Predicate<T> predicate;
+        private readonly Predicate<T> predicate;
 
-        public Conditioner(IProducer<T> upstream, Predicate<T> predicate)
+        public Conditioner(ITimedMessageProvider<T> upstream, Predicate<T> predicate)
             : base(upstream)
             => this.predicate = predicate
             ?? throw new ArgumentNullException(nameof(predicate));
 
-        public override void Send(T arg)
+        public override void Send(DateTimeOffset timeStamp, T arg)
         {
             if (predicate(arg))
-                SendToDownstream(arg);
+                SendToDownstream(timeStamp, arg);
         }
     }
 
-    internal class Combiner<T> : Sender<T>, IProducer<T>
+    internal class Combiner<T> : Sender<T>, ITimedMessageProvider<T>
     {
-        private readonly IProducer<T>[] upstreams;
+        private readonly ITimedMessageProvider<T>[] upstreams;
 
-        public Combiner(params IProducer<T>[] upstreams)
+        public Combiner(params ITimedMessageProvider<T>[] upstreams)
             => this.upstreams = upstreams
             ?? throw new ArgumentNullException(nameof(upstreams));
 
-        public event Action<T> Received
+        public event TimedMessageHandler<T> Received
         {
             add
             {

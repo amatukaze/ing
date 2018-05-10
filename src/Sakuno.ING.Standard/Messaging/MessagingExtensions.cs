@@ -5,16 +5,16 @@ namespace Sakuno.ING.Messaging
 {
     public static class MessagingExtensions
     {
-        public static IProducer<T> Where<T>(this IProducer<T> producer, Predicate<T> predicate)
+        public static ITimedMessageProvider<T> Where<T>(this ITimedMessageProvider<T> producer, Predicate<T> predicate)
             => new Conditioner<T>(producer, predicate);
 
-        public static IProducer<TOutput> Select<TInput, TOutput>(this IProducer<TInput> producer, Func<TInput, TOutput> converter)
+        public static ITimedMessageProvider<TOutput> Select<TInput, TOutput>(this ITimedMessageProvider<TInput> producer, Func<TInput, TOutput> converter)
             => new Transformer<TInput, TOutput>(producer, converter);
 
-        public static IProducer<T> CombineWith<T>(this IProducer<T> first, IProducer<T> second)
+        public static ITimedMessageProvider<T> CombineWith<T>(this ITimedMessageProvider<T> first, ITimedMessageProvider<T> second)
             => new Combiner<T>(first, second);
 
-        public static IProducer<T> CombineWith<T>(this IProducer<T> first, params IProducer<T>[] others)
+        public static ITimedMessageProvider<T> CombineWith<T>(this ITimedMessageProvider<T> first, params ITimedMessageProvider<T>[] others)
             => new Combiner<T>(others.Prepend(first).ToArray());
     }
 }

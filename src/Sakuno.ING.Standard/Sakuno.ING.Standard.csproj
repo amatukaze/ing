@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <RootNamespace>Sakuno.ING</RootNamespace>
-    <Version>0.1.0-blueprint</Version>
+    <Version>0.1.0-blueprint2</Version>
     <Description>The module standard of Intelligent Naval Gun</Description>
   </PropertyGroup>
 

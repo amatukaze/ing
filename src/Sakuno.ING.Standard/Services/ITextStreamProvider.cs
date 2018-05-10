@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Services
 {
-    public interface ITextStreamProvider : IProducer<TextMessage>
+    public interface ITextStreamProvider : ITimedMessageProvider<TextMessage>
     {
         bool Enabled { get; set; }
     }
