@@ -9,8 +9,8 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawShip raw)
         {
             Info = shipInfoTable[raw.ShipInfoId];
-            Fuel = new ClampedValue(raw.CurrentFuel, Info.FuelConsumption);
-            Bullet = new ClampedValue(raw.CurrentBullet, Info.BulletConsumption);
+            Fuel = (raw.CurrentFuel, Info.FuelConsumption);
+            Bullet = (raw.CurrentBullet, Info.BulletConsumption);
             Firepower = Combine(raw.Firepower, Info.Firepower);
             Torpedo = Combine(raw.Torpedo, Info.Torpedo);
             AntiAir = Combine(raw.AntiAir, Info.AntiAir);
@@ -63,15 +63,15 @@ namespace Sakuno.ING.Game.Models
         {
             IsRepairing = false;
             var maxHp = HP.Max;
-            HP = new ClampedValue(maxHp, maxHp);
+            HP = (maxHp, maxHp);
             if (Morale < 40)
                 Morale = 40;
         }
 
         internal void Supply(IShipSupply raw)
         {
-            Fuel = new ClampedValue(raw.CurrentFuel, Info.FuelConsumption);
-            Bullet = new ClampedValue(raw.CurrentBullet, Info.BulletConsumption);
+            Fuel = (raw.CurrentFuel, Info.FuelConsumption);
+            Bullet = (raw.CurrentBullet, Info.BulletConsumption);
             UpdateSlotAircraft(raw.SlotAircraft);
         }
 
@@ -84,7 +84,7 @@ namespace Sakuno.ING.Game.Models
         internal void UpdateSlotAircraft(IReadOnlyList<int> aircrafts)
         {
             for (int i = 0; i < slots.Count; i++)
-                slots[i].Aircraft = new ClampedValue(aircrafts[i], Info.Aircraft[i]);
+                slots[i].Aircraft = (aircrafts[i], Info.Aircraft[i]);
         }
     }
 }

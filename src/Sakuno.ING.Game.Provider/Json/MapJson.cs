@@ -19,7 +19,7 @@ namespace Sakuno.ING.Game.Json
         EventMapGaugeType? IRawMap.GaugeType => api_eventmap?.api_gauge_type;
         int? IRawMap.GaugeIndex => api_eventmap?.api_gauge_num;
         ClampedValue? IRawMap.Gauge => api_eventmap != null ?
-            new ClampedValue(api_eventmap.api_now_maphp, api_eventmap.api_max_maphp)
+            (api_eventmap.api_now_maphp, api_eventmap.api_max_maphp)
             : (ClampedValue?)null;
     }
 

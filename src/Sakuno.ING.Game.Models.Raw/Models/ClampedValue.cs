@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Sakuno.ING.Game.Models
+﻿namespace Sakuno.ING.Game.Models
 {
     public struct ClampedValue
     {
@@ -27,5 +25,14 @@ namespace Sakuno.ING.Game.Models
 
         public override bool Equals(object obj) => obj is ClampedValue v && this == v;
         public override int GetHashCode() => Current.GetHashCode() ^ Max.GetHashCode();
+
+        public static implicit operator ClampedValue((int current, int max) tuple)
+            => new ClampedValue(tuple.current, tuple.max);
+
+        public void Deconstruct(out int current, out int max)
+        {
+            current = Current;
+            max = Max;
+        }
     }
 }

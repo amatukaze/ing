@@ -31,7 +31,7 @@ namespace Sakuno.ING.Game.Json
 
         public int api_count;
         public int api_max_count;
-        public ClampedValue AircraftCount => new ClampedValue(api_count, api_max_count);
+        public ClampedValue AircraftCount => (api_count, api_max_count);
 
         [JsonProperty("api_cond")]
         public SquadronMorale Morale { get; }
