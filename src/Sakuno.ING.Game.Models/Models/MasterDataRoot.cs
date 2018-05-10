@@ -1,4 +1,5 @@
-﻿using Sakuno.ING.Game.Events;
+﻿using System;
+using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
@@ -19,9 +20,8 @@ namespace Sakuno.ING.Game.Models
             listener.MasterDataUpdated.Received += OnMasterDataUpdated;
         }
 
-        private void OnMasterDataUpdated(ITimedMessage<MasterDataUpdate> obj)
+        private void OnMasterDataUpdated(DateTimeOffset timeStamp, MasterDataUpdate message)
         {
-            var message = obj.Message;
             _shipTypes.BatchUpdate(message.ShipTypes);
             _shipInfos.BatchUpdate(message.ShipInfos);
             _equipmentTypes.BatchUpdate(message.EquipmentTypes);

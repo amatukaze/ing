@@ -9,7 +9,7 @@ namespace Sakuno.ING.Game
 {
     partial class GameListener
     {
-        public IProducer<ITimedMessage<MasterDataUpdate>> MasterDataUpdated;
+        public ITimedMessageProvider<MasterDataUpdate> MasterDataUpdated;
 
         private static MasterDataUpdate ParseMasterData(MasterDataJson raw)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Sakuno.ING.Messaging;
 using Sakuno.ING.Services;
 
 namespace Sakuno.ING.Game.Test
@@ -8,9 +9,9 @@ namespace Sakuno.ING.Game.Test
     {
         public bool Enabled { get; set; }
 
-        public event Action<TextMessage> Received;
+        public event TimedMessageHandler<TextMessage> Received;
 
         public void Push(string key, DateTimeOffset timeStamp, string request, Stream stream)
-            => Received?.Invoke(new TextMessage(key, timeStamp, request, stream));
+            => Received?.Invoke(timeStamp, new TextMessage(key, request, stream));
     }
 }

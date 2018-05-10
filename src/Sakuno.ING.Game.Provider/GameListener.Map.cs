@@ -10,12 +10,12 @@ namespace Sakuno.ING.Game
 {
     partial class GameListener
     {
-        public readonly IProducer<ITimedMessage<IReadOnlyCollection<IRawMap>>> MapsUpdated;
-        public readonly IProducer<ITimedMessage<IReadOnlyCollection<IRawAirForceGroup>>> AirForceUpdated;
-        public readonly IProducer<ITimedMessage<AirForceSetPlane>> AirForcePlaneSet;
-        public readonly IProducer<ITimedMessage<IEnumerable<AirForceSetAction>>> AirForceActionSet;
-        public readonly IProducer<ITimedMessage<AirForceSupply>> AirForceSupplied;
-        public readonly IProducer<ITimedMessage<IRawAirForceGroup>> AirForceExpanded;
+        public readonly ITimedMessageProvider<IReadOnlyCollection<IRawMap>> MapsUpdated;
+        public readonly ITimedMessageProvider<IReadOnlyCollection<IRawAirForceGroup>> AirForceUpdated;
+        public readonly ITimedMessageProvider<AirForceSetPlane> AirForcePlaneSet;
+        public readonly ITimedMessageProvider<IEnumerable<AirForceSetAction>> AirForceActionSet;
+        public readonly ITimedMessageProvider<AirForceSupply> AirForceSupplied;
+        public readonly ITimedMessageProvider<IRawAirForceGroup> AirForceExpanded;
 
         private static AirForceSetPlane ParseAirForcePlaneSet(NameValueCollection request, AirForceSetPlaneJson response)
             => new AirForceSetPlane

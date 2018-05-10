@@ -9,15 +9,15 @@ namespace Sakuno.ING.Game.Models
         {
             _allQuests = new IdTable<Quest, IRawQuest>(this);
             listener.QuestUpdated.Received += QuestUpdated;
-            listener.QuestCompleted.Received += msg => _allQuests.Remove(msg.Message.QuestId);
+            listener.QuestCompleted.Received += (_, msg) => _allQuests.Remove(msg.QuestId);
         }
 
-        private void QuestUpdated(ITimedMessage<QuestPageUpdate> msg)
+        private void QuestUpdated(DateTimeOffset timeStamp, QuestPageUpdate msg)
         {
-            _allQuests.BatchUpdate(msg.Message.Quests, removal: false);
-            foreach (var raw in msg.Message.Quests)
-                _allQuests[raw.Id].CreationTime = msg.TimeStamp;
-            _allQuests.RemoveAll(q => IsOutOfDate(q, msg.TimeStamp));
+            _allQuests.BatchUpdate(msg.Quests, removal: false);
+            foreach (var raw in msg.Quests)
+                _allQuests[raw.Id].CreationTime = timeStamp;
+            _allQuests.RemoveAll(q => IsOutOfDate(q, timeStamp));
         }
 
         private static bool IsOutOfDate(Quest quest, DateTimeOffset timeStamp)

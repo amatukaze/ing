@@ -8,14 +8,14 @@ namespace Sakuno.ING.Game
 {
     partial class GameListener
     {
-        public readonly IProducer<ITimedMessage<ShipCreation>> ShipCreated;
-        public readonly IProducer<ITimedMessage<BuildingDockId>> InstantBuilt;
-        public readonly IProducer<ITimedMessage<IShipBuildCompletion>> ShipBuildCompleted;
-        public readonly IProducer<ITimedMessage<EquipmentCreation>> EquipmentCreated;
-        public readonly IProducer<ITimedMessage<ShipDismantling>> ShipDismantled;
-        public readonly IProducer<ITimedMessage<EquipmentDismantling>> EquipmentDismantled;
-        public readonly IProducer<ITimedMessage<EquipmentImprove>> EquipmentImproved;
-        public readonly IProducer<ITimedMessage<ShipPowerup>> ShipPoweruped;
+        public readonly ITimedMessageProvider<ShipCreation> ShipCreated;
+        public readonly ITimedMessageProvider<BuildingDockId> InstantBuilt;
+        public readonly ITimedMessageProvider<IShipBuildCompletion> ShipBuildCompleted;
+        public readonly ITimedMessageProvider<EquipmentCreation> EquipmentCreated;
+        public readonly ITimedMessageProvider<ShipDismantling> ShipDismantled;
+        public readonly ITimedMessageProvider<EquipmentDismantling> EquipmentDismantled;
+        public readonly ITimedMessageProvider<EquipmentImprove> EquipmentImproved;
+        public readonly ITimedMessageProvider<ShipPowerup> ShipPoweruped;
 
         private static ShipCreation ParseShipCreation(NameValueCollection request)
             => new ShipCreation

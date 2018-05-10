@@ -1,4 +1,5 @@
 ﻿using System;
+using Sakuno.ING.Messaging;
 using Sakuno.ING.Settings;
 using Sakuno.Nekomimi;
 
@@ -6,7 +7,7 @@ namespace Sakuno.ING.Services.Listener
 {
     internal class NekomimiProvider : ITextStreamProvider
     {
-        public event Action<TextMessage> Received;
+        public event TimedMessageHandler<TextMessage> Received;
         private readonly ProxyServer server;
         private readonly IDateTimeService dateTime;
         private readonly ProxySetting setting;
@@ -65,13 +66,16 @@ namespace Sakuno.ING.Services.Listener
             var localPath = session.Request.RequestUri.LocalPath;
             if (localPath.StartsWith("/kcsapi/"))
             {
-                Received?.Invoke(new TextMessage
+                Received?.Invoke
                 (
-                    localPath.Substring(8),// /kcsapi/
                     session.Response.Headers.Date ?? DateTimeOffset.UtcNow,
-                    session.Request.Content.ReadAsStringAsync().Result,
-                    new SkippingStream(session.Response.Content.ReadAsStreamAsync().Result, 7)// svdata=
-                ));
+                    new TextMessage
+                    (
+                        localPath.Substring(8),// /kcsapi/
+                        session.Request.Content.ReadAsStringAsync().Result,
+                        new SkippingStream(session.Response.Content.ReadAsStreamAsync().Result, 7)// svdata=
+                    )
+                );
             }
         }
     }

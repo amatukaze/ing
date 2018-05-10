@@ -10,20 +10,20 @@ namespace Sakuno.ING.Game
 {
     partial class GameListener
     {
-        public readonly IProducer<ITimedMessage<IHomeportUpdate>> HomeportReturned;
-        public readonly IProducer<ITimedMessage<IRawAdmiral>> AdmiralUpdated;
-        public readonly IProducer<ITimedMessage<IReadOnlyCollection<IRawFleet>>> FleetsUpdated;
-        public readonly IProducer<ITimedMessage<CompositionChange>> CompositionChanged;
-        public readonly IProducer<ITimedMessage<IRawFleet>> FleetPresetSelected;
-        public readonly IProducer<ITimedMessage<ShipId>> ShipExtraSlotOpened;
-        public readonly IProducer<ITimedMessage<ShipEquipmentUpdate>> ShipEquipmentUdated;
-        public readonly IProducer<ITimedMessage<IReadOnlyCollection<IRawShip>>> PartialShipsUpdated;
-        public readonly IProducer<ITimedMessage<IReadOnlyCollection<IRawFleet>>> PartialFleetsUpdated;
-        public readonly IProducer<ITimedMessage<IMaterialsUpdate>> MaterialsUpdated;
-        public readonly IProducer<ITimedMessage<IReadOnlyCollection<IRawRepairingDock>>> RepairingDockUpdated;
-        public readonly IProducer<ITimedMessage<RepairStart>> RepairStarted;
-        public readonly IProducer<ITimedMessage<RepairingDockId>> InstantRepaired;
-        public readonly IProducer<ITimedMessage<IReadOnlyCollection<IShipSupply>>> ShipSupplied;
+        public readonly ITimedMessageProvider<IHomeportUpdate> HomeportReturned;
+        public readonly ITimedMessageProvider<IRawAdmiral> AdmiralUpdated;
+        public readonly ITimedMessageProvider<IReadOnlyCollection<IRawFleet>> FleetsUpdated;
+        public readonly ITimedMessageProvider<CompositionChange> CompositionChanged;
+        public readonly ITimedMessageProvider<IRawFleet> FleetPresetSelected;
+        public readonly ITimedMessageProvider<ShipId> ShipExtraSlotOpened;
+        public readonly ITimedMessageProvider<ShipEquipmentUpdate> ShipEquipmentUdated;
+        public readonly ITimedMessageProvider<IReadOnlyCollection<IRawShip>> PartialShipsUpdated;
+        public readonly ITimedMessageProvider<IReadOnlyCollection<IRawFleet>> PartialFleetsUpdated;
+        public readonly ITimedMessageProvider<IMaterialsUpdate> MaterialsUpdated;
+        public readonly ITimedMessageProvider<IReadOnlyCollection<IRawRepairingDock>> RepairingDockUpdated;
+        public readonly ITimedMessageProvider<RepairStart> RepairStarted;
+        public readonly ITimedMessageProvider<RepairingDockId> InstantRepaired;
+        public readonly ITimedMessageProvider<IReadOnlyCollection<IShipSupply>> ShipSupplied;
 
         private static RepairStart ParseRepairStart(NameValueCollection request)
             => new RepairStart

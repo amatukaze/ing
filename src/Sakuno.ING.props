@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sakuno.ING.Standard" Version="0.1.0-blueprint" />
+    <PackageReference Include="Sakuno.ING.Standard" Version="0.1.0-blueprint2" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

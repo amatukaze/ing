@@ -7,10 +7,10 @@ namespace Sakuno.ING.Game
 {
     partial class GameListener
     {
-        public readonly IProducer<ITimedMessage<QuestPageUpdate>> QuestUpdated;
-        public readonly IProducer<ITimedMessage<QuestComplete>> QuestCompleted;
+        public readonly ITimedMessageProvider<QuestPageUpdate> QuestUpdated;
+        public readonly ITimedMessageProvider<QuestComplete> QuestCompleted;
 
-        private static QuestPageUpdate ParseQuestPage(NameValueCollection request, QuestPageJson response)
+        private static QuestPageUpdate ParseQuestPage(QuestPageJson response)
             => new QuestPageUpdate
             {
                 TotalCount = response.api_count,

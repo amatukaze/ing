@@ -18,106 +18,105 @@ namespace Sakuno.ING.Game.Models
             _maps = new IdTable<Map, IRawMap>(this);
             _airForce = new IdTable<AirForceGroup, IRawAirForceGroup>(this);
 
-            listener.AllEquipmentUpdated.Received += msg => _allEquipment.BatchUpdate(msg.Message);
-            listener.BuildingDockUpdated.Received += msg => _buildingDocks.BatchUpdate(msg.Message);
-            listener.UseItemUpdated.Received += msg => _useItems.BatchUpdate(msg.Message);
+            listener.AllEquipmentUpdated.Received += (_, msg) => _allEquipment.BatchUpdate(msg);
+            listener.BuildingDockUpdated.Received += (_, msg) => _buildingDocks.BatchUpdate(msg);
+            listener.UseItemUpdated.Received += (_, msg) => _useItems.BatchUpdate(msg);
 
-            listener.AdmiralUpdated.Received += msg =>
+            listener.AdmiralUpdated.Received += (_, msg) =>
             {
                 if (Admiral == null)
                 {
-                    Admiral = new Admiral(msg.Message.Id, this);
+                    Admiral = new Admiral(msg.Id, this);
                     NotifyPropertyChanged(nameof(Admiral));
                 }
-                Admiral.Update(msg.Message);
+                Admiral.Update(msg);
             };
-            listener.MaterialsUpdated.Received += msg =>
+            listener.MaterialsUpdated.Received += (_, msg) =>
             {
                 var materials = Materials;
-                msg.Message.Apply(ref materials);
+                msg.Apply(ref materials);
                 Materials = materials;
             };
-            listener.HomeportReturned.Received += msg => _allShips.BatchUpdate(msg.Message.Ships);
-            listener.CompositionChanged.Received += msg =>
+            listener.HomeportReturned.Received += (_, msg) => _allShips.BatchUpdate(msg.Ships);
+            listener.CompositionChanged.Received += (_, msg) =>
             {
-                var fleet = Fleets[msg.Message.FleetId];
+                var fleet = Fleets[msg.FleetId];
                 if (fleet != null)
                 {
-                    if (msg.Message.ShipId is int shipId)
+                    if (msg.ShipId is int shipId)
                     {
                         var ship = AllShips.TryGetOrDummy(shipId);
-                        fleet.ChangeComposition(msg.Message.Index, ship, Fleets.FirstOrDefault(x => x.Ships.Contains(ship)));
+                        fleet.ChangeComposition(msg.Index, ship, Fleets.FirstOrDefault(x => x.Ships.Contains(ship)));
                     }
                     else
-                        fleet.ChangeComposition(msg.Message.Index, null, null);
+                        fleet.ChangeComposition(msg.Index, null, null);
                 }
             };
-            listener.FleetsUpdated.Received += msg => _fleets.BatchUpdate(msg.Message);
-            listener.FleetPresetSelected.Received += msg => Fleets[msg.Message.Id]?.Update(msg.Message);
-            listener.ShipEquipmentUdated.Received += msg => AllShips[msg.Message.ShipId]?.UpdateEquipments(msg.Message.EquipmentIds);
-            listener.PartialFleetsUpdated.Received += msg => _fleets.BatchUpdate(msg.Message, removal: false);
-            listener.PartialShipsUpdated.Received += msg => _allShips.BatchUpdate(msg.Message, removal: false);
-            listener.RepairingDockUpdated.Received += msg => _repairingDocks.BatchUpdate(msg.Message);
-            listener.ShipSupplied.Received += msg =>
+            listener.FleetsUpdated.Received += (_, msg) => _fleets.BatchUpdate(msg);
+            listener.FleetPresetSelected.Received += (_, msg) => Fleets[msg.Id]?.Update(msg);
+            listener.ShipEquipmentUdated.Received += (_, msg) => AllShips[msg.ShipId]?.UpdateEquipments(msg.EquipmentIds);
+            listener.PartialFleetsUpdated.Received += (_, msg) => _fleets.BatchUpdate(msg, removal: false);
+            listener.PartialShipsUpdated.Received += (_, msg) => _allShips.BatchUpdate(msg, removal: false);
+            listener.RepairingDockUpdated.Received += (_, msg) => _repairingDocks.BatchUpdate(msg);
+            listener.ShipSupplied.Received += (_, msg) =>
             {
-                foreach (var raw in msg.Message)
+                foreach (var raw in msg)
                     AllShips[raw.ShipId]?.Supply(raw);
             };
 
-            listener.RepairStarted.Received += msg =>
+            listener.RepairStarted.Received += (_, msg) =>
             {
-                if (msg.Message.InstantRepair)
-                    AllShips[msg.Message.ShipId]?.SetRepaired();
+                if (msg.InstantRepair)
+                    AllShips[msg.ShipId]?.SetRepaired();
             };
-            listener.InstantRepaired.Received += msg =>
+            listener.InstantRepaired.Received += (_, msg) =>
             {
-                var dock = RepairingDocks[msg.Message.DockId];
+                var dock = RepairingDocks[msg.DockId];
                 dock.State = RepairingDockState.Empty;
                 dock.RepairingShip = null;
             };
-            listener.InstantBuilt.Received += msg => BuildingDocks[msg.Message.DockId].State = BuildingDockState.BuildCompleted;
-            listener.ShipBuildCompleted.Received += msg =>
+            listener.InstantBuilt.Received += (_, msg) => BuildingDocks[msg.DockId].State = BuildingDockState.BuildCompleted;
+            listener.ShipBuildCompleted.Received += (_, msg) =>
             {
-                _allEquipment.BatchUpdate(msg.Message.Equipments, removal: false);
-                _allShips.Add(msg.Message.Ship);
+                _allEquipment.BatchUpdate(msg.Equipments, removal: false);
+                _allShips.Add(msg.Ship);
             };
-            listener.EquipmentCreated.Received += msg =>
+            listener.EquipmentCreated.Received += (_, msg) =>
             {
-                if (msg.Message.IsSuccess)
-                    _allEquipment.Add(msg.Message.Equipment);
+                if (msg.IsSuccess)
+                    _allEquipment.Add(msg.Equipment);
             };
-            listener.ShipDismantled.Received += msg => RemoveShip(msg.Message.ShipIds, msg.Message.DismantleEquipments);
-            listener.EquipmentDismantled.Received += msg => RemoveEquipment(msg.Message.EquipmentIds);
-            listener.EquipmentImproved.Received += msg =>
+            listener.ShipDismantled.Received += (_, msg) => RemoveShip(msg.ShipIds, msg.DismantleEquipments);
+            listener.EquipmentDismantled.Received += (_, msg) => RemoveEquipment(msg.EquipmentIds);
+            listener.EquipmentImproved.Received += (_, msg) =>
             {
-                if (msg.Message.IsSuccess)
-                    AllEquipment[msg.Message.EquipmentId]?.Update(msg.Message.UpdatedTo);
-                RemoveEquipment(msg.Message.ConsumedEquipmentId);
+                if (msg.IsSuccess)
+                    AllEquipment[msg.EquipmentId]?.Update(msg.UpdatedTo);
+                RemoveEquipment(msg.ConsumedEquipmentId);
             };
-            listener.ShipPoweruped.Received += msg =>
+            listener.ShipPoweruped.Received += (_, msg) =>
             {
-                AllShips[msg.Message.ShipId]?.Update(msg.Message.ShipAfter);
-                foreach (var id in msg.Message.ConsumedShipIds)
+                AllShips[msg.ShipId]?.Update(msg.ShipAfter);
+                foreach (var id in msg.ConsumedShipIds)
                     _allShips.Remove(id);
             };
 
-            listener.MapsUpdated.Received += msg => _maps.BatchUpdate(msg.Message);
-            listener.AirForceUpdated.Received += msg => _airForce.BatchUpdate(msg.Message);
-            listener.AirForcePlaneSet.Received += msg =>
+            listener.MapsUpdated.Received += (_, msg) => _maps.BatchUpdate(msg);
+            listener.AirForceUpdated.Received += (_, msg) => _airForce.BatchUpdate(msg);
+            listener.AirForcePlaneSet.Received += (_, msg) =>
             {
-                var m = msg.Message;
-                var group = AirForce[(m.MapAreaId << 16) + m.AirForceId];
-                group.Distance = m.NewDistance;
-                group.squadrons.BatchUpdate(m.UpdatedSquadrons, removal: false);
+                var group = AirForce[(msg.MapAreaId << 16) + msg.AirForceId];
+                group.Distance = msg.NewDistance;
+                group.squadrons.BatchUpdate(msg.UpdatedSquadrons, removal: false);
             };
-            listener.AirForceActionSet.Received += msg =>
+            listener.AirForceActionSet.Received += (_, msg) =>
             {
-                foreach (var m in msg.Message)
+                foreach (var m in msg)
                     AirForce[(m.MapAreaId << 16) + m.AirForceId].Action = m.Action;
             };
-            listener.AirForceSupplied.Received += msg
-                => AirForce[(msg.Message.MapAreaId << 16) + msg.Message.AirForceId].squadrons.BatchUpdate(msg.Message.UpdatedSquadrons, removal: false);
-            listener.AirForceExpanded.Received += msg => _airForce.Add(msg.Message);
+            listener.AirForceSupplied.Received += (_, msg)
+                => AirForce[(msg.MapAreaId << 16) + msg.AirForceId].squadrons.BatchUpdate(msg.UpdatedSquadrons, removal: false);
+            listener.AirForceExpanded.Received += (_, msg) => _airForce.Add(msg);
         }
 
         private void RemoveShip(IEnumerable<int> shipIds, bool removeEquipment)
