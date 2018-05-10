@@ -10,21 +10,58 @@ namespace Sakuno.ING.Game
 {
     partial class GameListener
     {
-        public readonly ITimedMessageProvider<IReadOnlyCollection<IRawMap>> MapsUpdated;
-        public readonly ITimedMessageProvider<IReadOnlyCollection<IRawAirForceGroup>> AirForceUpdated;
-        public readonly ITimedMessageProvider<AirForceSetPlane> AirForcePlaneSet;
-        public readonly ITimedMessageProvider<IEnumerable<AirForceSetAction>> AirForceActionSet;
-        public readonly ITimedMessageProvider<AirForceSupply> AirForceSupplied;
-        public readonly ITimedMessageProvider<IRawAirForceGroup> AirForceExpanded;
+        #region Events
+        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawMap>> mapsUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<IRawMap>> MapsUpdated
+        {
+            add => mapsUpdated.Received += value;
+            remove => mapsUpdated.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawAirForceGroup>> airForceUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<IRawAirForceGroup>> AirForceUpdated
+        {
+            add => airForceUpdated.Received += value;
+            remove => airForceUpdated.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<AirForceSetPlane> airForcePlaneSet;
+        public event TimedMessageHandler<AirForceSetPlane> AirForcePlaneSet
+        {
+            add => airForcePlaneSet.Received += value;
+            remove => airForcePlaneSet.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<IEnumerable<AirForceSetAction>> airForceActionSet;
+        public event TimedMessageHandler<IEnumerable<AirForceSetAction>> AirForceActionSet
+        {
+            add => airForceActionSet.Received += value;
+            remove => airForceActionSet.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<AirForceSupply> airForceSupplied;
+        public event TimedMessageHandler<AirForceSupply> AirForceSupplied
+        {
+            add => airForceSupplied.Received += value;
+            remove => airForceSupplied.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<IRawAirForceGroup> airForceExpanded;
+        public event TimedMessageHandler<IRawAirForceGroup> AirForceExpanded
+        {
+            add => airForceExpanded.Received += value;
+            remove => airForceExpanded.Received -= value;
+        }
+        #endregion
 
         private static AirForceSetPlane ParseAirForcePlaneSet(NameValueCollection request, AirForceSetPlaneJson response)
             => new AirForceSetPlane
-            {
-                MapAreaId = request.GetInt("api_area_id"),
-                AirForceId = request.GetInt("api_base_id"),
-                NewDistance = response.api_distance,
-                UpdatedSquadrons = response.api_plane_info
-            };
+            (
+                mapAreaId: request.GetInt("api_area_id"),
+                airForceId: request.GetInt("api_base_id"),
+                newDistance: response.api_distance,
+                updatedSquadrons: response.api_plane_info
+            );
 
         private static IEnumerable<AirForceSetAction> ParseAirForceActionSet(NameValueCollection request)
         {
@@ -32,19 +69,19 @@ namespace Sakuno.ING.Game
             return request.GetInts("api_base_id").Zip(
                 request.GetInts("api_action_kind"),
                 (id, action) => new AirForceSetAction
-                {
-                    MapAreaId = mapArea,
-                    AirForceId = id,
-                    Action = (AirForceAction)action
-                });
+                (
+                    mapAreaId: mapArea,
+                    airForceId: id,
+                    action: (AirForceAction)action
+                ));
         }
 
         private static AirForceSupply ParseAirForceSupply(NameValueCollection request, AirForceSupplyJson response)
             => new AirForceSupply
-            {
-                MapAreaId = request.GetInt("api_area_id"),
-                AirForceId = request.GetInt("api_base_id"),
-                UpdatedSquadrons = response.api_plane_info
-            };
+            (
+                mapAreaId: request.GetInt("api_area_id"),
+                airForceId: request.GetInt("api_base_id"),
+                updatedSquadrons: response.api_plane_info
+            );
     }
 }

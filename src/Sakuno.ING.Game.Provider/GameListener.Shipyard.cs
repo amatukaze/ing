@@ -1,5 +1,8 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using Sakuno.ING.Game.Events.Shipyard;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Shipyard;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Messaging;
@@ -8,22 +11,71 @@ namespace Sakuno.ING.Game
 {
     partial class GameListener
     {
-        public readonly ITimedMessageProvider<ShipCreation> ShipCreated;
-        public readonly ITimedMessageProvider<BuildingDockId> InstantBuilt;
-        public readonly ITimedMessageProvider<IShipBuildCompletion> ShipBuildCompleted;
-        public readonly ITimedMessageProvider<EquipmentCreation> EquipmentCreated;
-        public readonly ITimedMessageProvider<ShipDismantling> ShipDismantled;
-        public readonly ITimedMessageProvider<EquipmentDismantling> EquipmentDismantled;
-        public readonly ITimedMessageProvider<EquipmentImprove> EquipmentImproved;
-        public readonly ITimedMessageProvider<ShipPowerup> ShipPoweruped;
+        #region Events
+        private readonly ITimedMessageProvider<ShipCreation> shipCreated;
+        public event TimedMessageHandler<ShipCreation> ShipCreated
+        {
+            add => shipCreated.Received += value;
+            remove => shipCreated.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<int> instantBuilt;
+        public event TimedMessageHandler<int> InstantBuilt
+        {
+            add => instantBuilt.Received += value;
+            remove => instantBuilt.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<ShipBuildCompletion> shipBuildCompleted;
+        public event TimedMessageHandler<ShipBuildCompletion> ShipBuildCompleted
+        {
+            add => shipBuildCompleted.Received += value;
+            remove => shipBuildCompleted.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<EquipmentCreation> equipmentCreated;
+        public event TimedMessageHandler<EquipmentCreation> EquipmentCreated
+        {
+            add => equipmentCreated.Received += value;
+            remove => equipmentCreated.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<ShipDismantling> shipDismantled;
+        public event TimedMessageHandler<ShipDismantling> ShipDismantled
+        {
+            add => shipDismantled.Received += value;
+            remove => shipDismantled.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<IReadOnlyCollection<int>> equipmentDismantled;
+        public event TimedMessageHandler<IReadOnlyCollection<int>> EquipmentDismantled
+        {
+            add => equipmentDismantled.Received += value;
+            remove => equipmentDismantled.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<EquipmentImprove> equipmentImproved;
+        public event TimedMessageHandler<EquipmentImprove> EquipmentImproved
+        {
+            add => equipmentImproved.Received += value;
+            remove => equipmentImproved.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<ShipPowerup> shipPoweruped;
+        public event TimedMessageHandler<ShipPowerup> ShipPoweruped
+        {
+            add => shipPoweruped.Received += value;
+            remove => shipPoweruped.Received -= value;
+        }
+        #endregion
 
         private static ShipCreation ParseShipCreation(NameValueCollection request)
             => new ShipCreation
-            {
-                BuildingDockId = request.GetInt("api_kdock_id"),
-                InstantBuild = request.GetBool("api_highspeed"),
-                IsLSC = request.GetBool("api_large_flag"),
-                Consumption = new Materials
+            (
+                buildingDockId: request.GetInt("api_kdock_id"),
+                instantBuild: request.GetBool("api_highspeed"),
+                isLSC: request.GetBool("api_large_flag"),
+                consumption: new Materials
                 {
                     Fuel = request.GetInt("api_item1"),
                     Bullet = request.GetInt("api_item2"),
@@ -31,67 +83,82 @@ namespace Sakuno.ING.Game
                     Bauxite = request.GetInt("api_item4"),
                     Development = request.GetInt("api_item5"),
                 }
-            };
+            );
 
-        private static BuildingDockId ParseInstantBuilt(NameValueCollection request)
-            => new BuildingDockId(request.GetInt("api_kdock_id"));
+        private static int ParseInstantBuilt(NameValueCollection request)
+            => request.GetInt("api_kdock_id");
+
+        private static ShipBuildCompletion ParseShipBuildCompletion(ShipBuildCompletionJson response)
+            => new ShipBuildCompletion
+            (
+                ship: response.api_ship,
+                equipments: response.api_slotitem ?? Array.Empty<EquipmentJson>()
+            );
 
         private static EquipmentCreation ParseEquipmentCreation(NameValueCollection request, EquipmentCreationJson response)
         {
-            var result = new EquipmentCreation
-            {
-                IsSuccess = response.api_create_flag,
-                Equipment = response.api_slot_item,
-                Consumption = new Materials
-                {
-                    Fuel = request.GetInt("api_item1"),
-                    Bullet = request.GetInt("api_item2"),
-                    Steel = request.GetInt("api_item3"),
-                    Bauxite = request.GetInt("api_item4"),
-                }
-            };
             if (response.api_slot_item != null)
-                result.SelectedEquipentInfoId = response.api_slot_item.EquipmentInfoId;
+                return new EquipmentCreation
+                (
+                    isSuccess: response.api_create_flag,
+                    equipment: response.api_slot_item,
+                    consumption: new Materials
+                    {
+                        Fuel = request.GetInt("api_item1"),
+                        Bullet = request.GetInt("api_item2"),
+                        Steel = request.GetInt("api_item3"),
+                        Bauxite = request.GetInt("api_item4"),
+                    },
+                    selectedEquipentInfoId: response.api_slot_item.EquipmentInfoId
+                );
             else
             {
                 var index = response.api_fdata.IndexOf(',');
                 int.TryParse(response.api_fdata.Substring(index + 1), out int id);
-                result.SelectedEquipentInfoId = id;
+                return new EquipmentCreation
+                (
+                    isSuccess: response.api_create_flag,
+                    equipment: response.api_slot_item,
+                    consumption: new Materials
+                    {
+                        Fuel = request.GetInt("api_item1"),
+                        Bullet = request.GetInt("api_item2"),
+                        Steel = request.GetInt("api_item3"),
+                        Bauxite = request.GetInt("api_item4"),
+                    },
+                    selectedEquipentInfoId: id
+                );
             }
-            return result;
         }
 
         private static ShipDismantling ParseShipDismantling(NameValueCollection request)
             => new ShipDismantling
-            {
-                ShipIds = request.GetInts("api_ship_id"),
-                DismantleEquipments = request.GetBool("api_slot_dest_flag")
-            };
+            (
+                shipIds: request.GetInts("api_ship_id"),
+                dismantleEquipments: request.GetBool("api_slot_dest_flag")
+            );
 
-        private static EquipmentDismantling ParseEquipmentDimantling(NameValueCollection request)
-            => new EquipmentDismantling
-            {
-                EquipmentIds = request.GetInts("api_slotitem_ids")
-            };
+        private static IReadOnlyCollection<int> ParseEquipmentDimantling(NameValueCollection request)
+            => request.GetInts("api_slotitem_ids");
 
         private static EquipmentImprove ParseEquipmentImprove(NameValueCollection request, EquipmentImproveJson response)
             => new EquipmentImprove
-            {
-                EquipmentId = request.GetInt("api_slot_id"),
-                RecipeId = request.GetInt("api_slot_id"),
-                GuaranteedSuccess = request.GetBool("api_certain_flag"),
-                IsSuccess = response.api_remodel_flag,
-                UpdatedTo = response.api_after_slot,
-                ConsumedEquipmentId = response.api_use_slot_id
-            };
+            (
+                equipmentId: request.GetInt("api_slot_id"),
+                recipeId: request.GetInt("api_slot_id"),
+                guaranteedSuccess: request.GetBool("api_certain_flag"),
+                isSuccess: response.api_remodel_flag,
+                updatedTo: response.api_after_slot,
+                consumedEquipmentIds: response.api_use_slot_id
+            );
 
         private static ShipPowerup ParseShipPowerup(NameValueCollection request, ShipPowerupJson response)
             => new ShipPowerup
-            {
-                ShipId = request.GetInt("api_id"),
-                ConsumedShipIds = request.GetInts("api_id_items"),
-                IsSuccess = response.api_powerup_flag,
-                ShipAfter = response.api_ship
-            };
+            (
+                shipId: request.GetInt("api_id"),
+                consumedShipIds: request.GetInts("api_id_items"),
+                isSuccess: response.api_powerup_flag,
+                shipAfter: response.api_ship
+            );
     }
 }

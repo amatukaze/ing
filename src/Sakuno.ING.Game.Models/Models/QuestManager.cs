@@ -5,11 +5,11 @@ namespace Sakuno.ING.Game.Models
 {
     public class QuestManager : ITableProvider
     {
-        internal QuestManager(GameListener listener)
+        internal QuestManager(IGameProvider listener)
         {
             _allQuests = new IdTable<Quest, IRawQuest>(this);
-            listener.QuestUpdated.Received += QuestUpdated;
-            listener.QuestCompleted.Received += (_, msg) => _allQuests.Remove(msg.QuestId);
+            listener.QuestUpdated += QuestUpdated;
+            listener.QuestCompleted += (_, msg) => _allQuests.Remove(msg);
         }
 
         private void QuestUpdated(DateTimeOffset timeStamp, QuestPageUpdate msg)

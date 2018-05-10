@@ -10,7 +10,7 @@ using Sakuno.ING.Services;
 
 namespace Sakuno.ING.Game
 {
-    public sealed partial class GameListener
+    public sealed partial class GameListener : IGameProvider
     {
         private ITextStreamProvider provider;
         private JsonSerializer jSerializer = new JsonSerializer
@@ -23,93 +23,93 @@ namespace Sakuno.ING.Game
             this.provider = provider;
             jSerializer.Error += JsonError;
 
-            MasterDataUpdated = RegisterResponse<MasterDataJson>("api_start2")
+            masterDataUpdated = RegisterResponse<MasterDataJson>("api_start2")
                 .Select(ParseMasterData);
 
             var requireInfo = RegisterResponse<GameStartupInfoJson>("api_get_member/require_info");
-            AllEquipmentUpdated = requireInfo.Select(x => x.api_slot_item)
+            allEquipmentUpdated = requireInfo.Select(x => x.api_slot_item)
                 .CombineWith(RegisterResponse<EquipmentJson[]>("api_get_member/slot_item"));
-            UseItemUpdated = requireInfo.Select(x => x.api_useitem)
+            useItemUpdated = requireInfo.Select(x => x.api_useitem)
                 .CombineWith(RegisterResponse<UseItemCountJson[]>("api_get_member/useitem"));
-            FreeEquipmentUpdated = requireInfo.Select(x => x.api_unsetslot)
+            freeEquipmentUpdated = requireInfo.Select(x => x.api_unsetslot)
                 .CombineWith(RegisterResponse<Dictionary<string, int[]>>("api_get_member/unsetslot"));
 
             var homeport = RegisterResponse<HomeportJson>("api_port/port");
-            AdmiralUpdated = homeport.Select(x => x.api_basic)
+            admiralUpdated = homeport.Select(x => x.api_basic)
                 .CombineWith<IRawAdmiral>(RegisterResponse<AdmiralRecordJson>("api_get_member/record"));
-            RepairingDockUpdated = homeport.Select(x => x.api_ndock)
+            repairingDockUpdated = homeport.Select(x => x.api_ndock)
                 .CombineWith(RegisterResponse<RepairingDockJson[]>("api_get_member/ndock"));
-            HomeportReturned = homeport;
-            CompositionChanged = RegisterRequest("api_req_hensei/change")
+            homeportReturned = homeport.Select(ParseHomeport);
+            compositionChanged = RegisterRequest("api_req_hensei/change")
                 .Select(ParseCompositionChange);
-            FleetPresetSelected = RegisterResponse<FleetJson>("api_req_hensei/preset_select");
-            ShipExtraSlotOpened = RegisterRequest("api_req_kaisou/open_exslot")
+            fleetPresetSelected = RegisterResponse<FleetJson>("api_req_hensei/preset_select");
+            shipExtraSlotOpened = RegisterRequest("api_req_kaisou/open_exslot")
                 .Select(ParseShipExtraSlotOpen);
-            ShipEquipmentUdated = RegisterRaw<ShipEquipmentJson>("api_req_kaisou/slot_exchange_index")
+            shipEquipmentUdated = RegisterRaw<ShipEquipmentJson>("api_req_kaisou/slot_exchange_index")
                 .Select(x => ParseShipEquipmentUpdate(x.Request, x.Response));
 
             var ship3 = RegisterResponse<Ship3Json>("api_get_member/ship3")
                 .CombineWith(RegisterResponse<Ship3Json>("api_get_member/ship_deck"));
-            PartialFleetsUpdated = ship3.Select(x => x.api_deck_data);
-            PartialShipsUpdated = ship3.Select(x => x.api_ship_data)
+            partialFleetsUpdated = ship3.Select(x => x.api_deck_data);
+            partialShipsUpdated = ship3.Select(x => x.api_ship_data)
                 .CombineWith(RegisterResponse<ShipJson[]>("api_get_member/ship2"),
                 RegisterResponse<DepriveJson>("api_req_kaisou/slot_deprive").Select(ParseShipDeprive));
 
-            RepairStarted = RegisterRequest("api_req_nyukyo/start")
+            repairStarted = RegisterRequest("api_req_nyukyo/start")
                 .Select(ParseRepairStart);
-            InstantRepaired = RegisterRequest("api_req_nyukyo/speedchange")
+            instantRepaired = RegisterRequest("api_req_nyukyo/speedchange")
                 .Select(ParseInstantRepair);
-            ShipCreated = RegisterRequest("api_req_kousyou/createship")
+            shipCreated = RegisterRequest("api_req_kousyou/createship")
                 .Select(ParseShipCreation);
-            InstantBuilt = RegisterRequest("api_req_kousyou/createship_speedchange")
+            instantBuilt = RegisterRequest("api_req_kousyou/createship_speedchange")
                 .Select(ParseInstantBuilt);
 
             var charge = RegisterResponse<ShipsSupplyJson>("api_req_hokyu/charge");
-            ShipSupplied = charge.Select(x => x.api_ship);
+            shipSupplied = charge.Select(x => x.api_ship);
 
             var getShip = RegisterResponse<ShipBuildCompletionJson>("api_req_kousyou/getship");
-            BuildingDockUpdated = requireInfo.Select(x => x.api_kdock)
+            buildingDockUpdated = requireInfo.Select(x => x.api_kdock)
                 .CombineWith(getShip.Select(x => x.api_kdock),
                     RegisterResponse<BuildingDockJson[]>("api_get_member/kdock"));
-            ShipBuildCompleted = getShip;
+            shipBuildCompleted = getShip.Select(ParseShipBuildCompletion);
 
             var createItem = RegisterRaw<EquipmentCreationJson>("api_req_kousyou/createitem");
-            EquipmentCreated = createItem.Select(x => ParseEquipmentCreation(x.Request, x.Response));
+            equipmentCreated = createItem.Select(x => ParseEquipmentCreation(x.Request, x.Response));
 
             var destroyShip = RegisterRaw<ShipDismantleJson>("api_req_kousyou/destroyship");
-            ShipDismantled = destroyShip.Select(x => ParseShipDismantling(x.Request));
+            shipDismantled = destroyShip.Select(x => ParseShipDismantling(x.Request));
 
             var destroyItem = RegisterRaw<EquipmentDismantleJson>("api_req_kousyou/destroyitem2");
-            EquipmentDismantled = destroyItem.Select(x => ParseEquipmentDimantling(x.Request));
-            EquipmentImproved = RegisterRaw<EquipmentImproveJson>("api_req_kousyou/remodel_slot")
+            equipmentDismantled = destroyItem.Select(x => ParseEquipmentDimantling(x.Request));
+            equipmentImproved = RegisterRaw<EquipmentImproveJson>("api_req_kousyou/remodel_slot")
                 .Select(x => ParseEquipmentImprove(x.Request, x.Response));
 
             var powerup = RegisterRaw<ShipPowerupJson>("api_req_kaisou/powerup");
-            FleetsUpdated = homeport.Select(x => x.api_deck_port)
+            fleetsUpdated = homeport.Select(x => x.api_deck_port)
                 .CombineWith(powerup.Select(x => x.Response.api_deck),
                     RegisterResponse<FleetJson[]>("api_get_member/deck"));
-            ShipPoweruped = powerup.Select(x => ParseShipPowerup(x.Request, x.Response));
+            shipPoweruped = powerup.Select(x => ParseShipPowerup(x.Request, x.Response));
 
-            QuestUpdated = RegisterResponse<QuestPageJson>("api_get_member/questlist")
+            questUpdated = RegisterResponse<QuestPageJson>("api_get_member/questlist")
                 .Select(ParseQuestPage);
-            QuestCompleted = RegisterRequest("api_req_quest/clearitemget")
+            questCompleted = RegisterRequest("api_req_quest/clearitemget")
                 .Select(ParseQuestComplete);
 
             var mapinfo = RegisterResponse<MapsJson>("api_get_member/mapinfo");
-            MapsUpdated = mapinfo.Select(x => x.api_map_info);
-            AirForceUpdated = mapinfo.Select(x => x.api_air_base);
+            mapsUpdated = mapinfo.Select(x => x.api_map_info);
+            airForceUpdated = mapinfo.Select(x => x.api_air_base);
 
             var setPlane = RegisterRaw<AirForceSetPlaneJson>("api_req_air_corps/set_plane");
-            AirForcePlaneSet = setPlane.Select(x => ParseAirForcePlaneSet(x.Request, x.Response));
+            airForcePlaneSet = setPlane.Select(x => ParseAirForcePlaneSet(x.Request, x.Response));
 
-            AirForceActionSet = RegisterRequest("api_req_air_corps/set_action")
+            airForceActionSet = RegisterRequest("api_req_air_corps/set_action")
                 .Select(ParseAirForceActionSet);
-            AirForceExpanded = RegisterResponse<AirForceJson>("api_req_air_corps/expand_base");
+            airForceExpanded = RegisterResponse<AirForceJson>("api_req_air_corps/expand_base");
 
             var airSupply = RegisterRaw<AirForceSupplyJson>("api_req_air_corps/supply");
-            AirForceSupplied = airSupply.Select(x => ParseAirForceSupply(x.Request, x.Response));
+            airForceSupplied = airSupply.Select(x => ParseAirForceSupply(x.Request, x.Response));
 
-            MaterialsUpdated = homeport.Select(x => x.api_material)
+            materialsUpdated = homeport.Select(x => x.api_material)
                 .CombineWith<IMaterialsUpdate>
                     (charge,
                     RegisterResponse<MaterialJsonArray>("api_get_member/material"),

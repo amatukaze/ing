@@ -9,7 +9,12 @@ namespace Sakuno.ING.Game
 {
     partial class GameListener
     {
-        public ITimedMessageProvider<MasterDataUpdate> MasterDataUpdated;
+        private readonly ITimedMessageProvider<MasterDataUpdate> masterDataUpdated;
+        public event TimedMessageHandler<MasterDataUpdate> MasterDataUpdated
+        {
+            add => masterDataUpdated.Received += value;
+            remove => masterDataUpdated.Received -= value;
+        }
 
         private static MasterDataUpdate ParseMasterData(MasterDataJson raw)
         {
@@ -47,18 +52,18 @@ namespace Sakuno.ING.Game
             }
 
             return new MasterDataUpdate
-            {
-                ShipInfos = raw.api_mst_ship,
-                ShipTypes = raw.api_mst_stype,
-                EquipmentInfos = raw.api_mst_slotitem,
-                EquipmentTypes = raw.api_mst_slotitem_equiptype,
-                FurnitureInfos = raw.api_mst_furniture,
-                UseItems = raw.api_mst_useitem,
-                MapAreas = raw.api_mst_maparea,
-                Maps = raw.api_mst_mapinfo,
-                Expeditions = raw.api_mst_mission,
-                Bgms = raw.api_mst_bgm
-            };
+            (
+                shipInfos: raw.api_mst_ship,
+                shipTypes: raw.api_mst_stype,
+                equipmentInfos: raw.api_mst_slotitem,
+                equipmentTypes: raw.api_mst_slotitem_equiptype,
+                furnitureInfos: raw.api_mst_furniture,
+                useItems: raw.api_mst_useitem,
+                mapAreas: raw.api_mst_maparea,
+                maps: raw.api_mst_mapinfo,
+                expeditions: raw.api_mst_mission,
+                bgms: raw.api_mst_bgm
+            );
         }
     }
 }

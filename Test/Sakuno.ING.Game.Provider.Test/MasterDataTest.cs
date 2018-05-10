@@ -18,7 +18,7 @@ namespace Sakuno.ING.Game.Test
             var provider = new UnitTestProvider();
             var gameListener = new GameListener(provider);
 
-            gameListener.MasterDataUpdated.Received += (_, u) => parseResult = u;
+            gameListener.MasterDataUpdated += (_, u) => parseResult = u;
 
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(typeof(MasterDataTest), "Data.masterdata.json"))

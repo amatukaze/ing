@@ -6,7 +6,7 @@ namespace Sakuno.ING.Game.Models
 {
     public class MasterDataRoot : ITableProvider
     {
-        internal MasterDataRoot(GameListener listener)
+        internal MasterDataRoot(IGameProvider listener)
         {
             _shipInfos = new IdTable<ShipInfo, IRawShipInfo>(this);
             _shipTypes = new IdTable<ShipTypeInfo, IRawShipTypeInfo>(this);
@@ -17,7 +17,7 @@ namespace Sakuno.ING.Game.Models
             _mapInfos = new IdTable<MapInfo, IRawMapInfo>(this);
             _expeditions = new IdTable<ExpeditionInfo, IRawExpeditionInfo>(this);
 
-            listener.MasterDataUpdated.Received += OnMasterDataUpdated;
+            listener.MasterDataUpdated += OnMasterDataUpdated;
         }
 
         private void OnMasterDataUpdated(DateTimeOffset timeStamp, MasterDataUpdate message)

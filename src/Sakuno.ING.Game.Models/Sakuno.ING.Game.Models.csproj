@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sakuno.ING.Game.Models.Raw\Sakuno.ING.Game.Models.Raw.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Scaffold Include="Models\MasterData\MasterData.txt">
       <Generator>MSBuild:UpdateScaffold</Generator>
     </Scaffold>
@@ -23,10 +27,6 @@
     <Compile Update="Models\GameObject.g.cs">
       <DependentUpon>Models\GameObject.txt</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
   </ItemGroup>
 
   <Import Project="Generator.targets" />

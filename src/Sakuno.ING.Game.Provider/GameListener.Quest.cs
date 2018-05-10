@@ -7,21 +7,32 @@ namespace Sakuno.ING.Game
 {
     partial class GameListener
     {
-        public readonly ITimedMessageProvider<QuestPageUpdate> QuestUpdated;
-        public readonly ITimedMessageProvider<QuestComplete> QuestCompleted;
+        private readonly ITimedMessageProvider<QuestPageUpdate> questUpdated;
+        public event TimedMessageHandler<QuestPageUpdate> QuestUpdated
+        {
+            add => questUpdated.Received += value;
+            remove => questUpdated.Received -= value;
+        }
 
+        private readonly ITimedMessageProvider<int> questCompleted;
+        public event TimedMessageHandler<int> QuestCompleted
+        {
+            add => questCompleted.Received += value;
+            remove => questCompleted.Received -= value;
+        }
+        
         private static QuestPageUpdate ParseQuestPage(QuestPageJson response)
             => new QuestPageUpdate
-            {
-                TotalCount = response.api_count,
-                AnyCompleted = response.api_completed_kind,
-                PageCount = response.api_page_count,
-                PageId = response.api_disp_page,
-                Quests = response.api_list,
-                ActiveCount = response.api_exec_count
-            };
+            (
+                totalCount: response.api_count,
+                anyCompleted: response.api_completed_kind,
+                pageCount: response.api_page_count,
+                pageId: response.api_disp_page,
+                quests: response.api_list,
+                activeCount: response.api_exec_count
+            );
 
-        private static QuestComplete ParseQuestComplete(NameValueCollection request)
-            => new QuestComplete(request.GetInt("api_quest_id"));
+        private static int ParseQuestComplete(NameValueCollection request)
+            => request.GetInt("api_quest_id");
     }
 }
