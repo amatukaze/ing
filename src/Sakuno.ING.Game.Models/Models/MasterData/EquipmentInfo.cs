@@ -6,8 +6,8 @@ namespace Sakuno.ING.Game.Models.MasterData
     {
         partial void UpdateCore(IRawEquipmentInfo raw)
         {
-            Type = equipmentTypeInfoTable[raw.TypeId];
-            extraSlotAcceptingShips.Query = raw.ExtraSlotAcceptingShips.Select(shipInfoTable.TryGetOrDummy);
+            Type = owner.EquipmentTypes[raw.TypeId];
+            extraSlotAcceptingShips.Query = raw.ExtraSlotAcceptingShips.Select(owner.ShipInfos.TryGetOrDummy);
         }
     }
 }

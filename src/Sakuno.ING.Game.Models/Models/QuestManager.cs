@@ -3,11 +3,11 @@ using Sakuno.ING.Game.Events;
 
 namespace Sakuno.ING.Game.Models
 {
-    public class QuestManager : ITableProvider
+    public class QuestManager
     {
         internal QuestManager(IGameProvider listener)
         {
-            _allQuests = new IdTable<Quest, IRawQuest>(this);
+            _allQuests = new IdTable<int, Quest, IRawQuest, QuestManager>(this);
             listener.QuestUpdated += QuestUpdated;
             listener.QuestCompleted += (_, msg) => _allQuests.Remove(msg);
         }
@@ -46,17 +46,9 @@ namespace Sakuno.ING.Game.Models
 
         private static readonly TimeSpan questUpdate = TimeSpan.FromHours(4);
 
-        private readonly IdTable<Quest, IRawQuest> _allQuests;
-        public ITable<Quest> AllQuests => _allQuests;
+        private readonly IdTable<int, Quest, IRawQuest, QuestManager> _allQuests;
+        public ITable<int, Quest> AllQuests => _allQuests;
 
         public void Reset() => _allQuests.Clear();
-
-        public ITable<T> TryGetTable<T>()
-        {
-            if (typeof(T) == typeof(Quest))
-                return (ITable<T>)AllQuests;
-
-            return null;
-        }
     }
 }

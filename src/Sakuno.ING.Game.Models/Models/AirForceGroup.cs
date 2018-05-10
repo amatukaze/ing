@@ -2,10 +2,12 @@
 
 namespace Sakuno.ING.Game.Models
 {
-    public class AirForceGroup : Calculated<IRawAirForceGroup>, ITableProvider
+    public class AirForceGroup : Calculated<int, IRawAirForceGroup>
     {
-        internal readonly IdTable<AirForceSquadron, IRawAirForceSquadron> squadrons;
-        public ITable<AirForceSquadron> Squadrons => squadrons;
+        internal readonly IdTable<int, AirForceSquadron, IRawAirForceSquadron, NavalBase> squadrons;
+        public ITable<int, AirForceSquadron> Squadrons => squadrons;
+
+        private readonly NavalBase owner;
 
         public MapAreaInfo MapArea { get; }
 
@@ -32,12 +34,12 @@ namespace Sakuno.ING.Game.Models
             set => Set(ref _action, value);
         }
 
-        public AirForceGroup(int id, ITableProvider owner)
-            : base(id, owner)
+        public AirForceGroup(int id, NavalBase owner)
+            : base(id)
         {
-            MapArea = owner.GetTable<MapAreaInfo>()[id >> 16];
+            this.owner = owner;
             GroupId = (ushort)id;
-            squadrons = new IdTable<AirForceSquadron, IRawAirForceSquadron>(this);
+            squadrons = new IdTable<int, AirForceSquadron, IRawAirForceSquadron, NavalBase>(owner);
         }
 
         public override void Update(IRawAirForceGroup raw)
@@ -46,14 +48,6 @@ namespace Sakuno.ING.Game.Models
             Distance = raw.Distance;
             Action = raw.Action;
             squadrons.BatchUpdate(raw.Squadrons);
-        }
-
-        public ITable<T> TryGetTable<T>()
-        {
-            if (typeof(T) == typeof(AirForceSquadron))
-                return (ITable<T>)Squadrons;
-
-            return null;
         }
     }
 }

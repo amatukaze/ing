@@ -3,20 +3,20 @@ using System.Linq;
 
 namespace Sakuno.ING.Game.Models
 {
-    public class NavalBase : BindableObject, ITableProvider
+    public class NavalBase : BindableObject
     {
         public NavalBase(IGameProvider listener)
         {
             MasterData = new MasterDataRoot(listener);
             Quests = new QuestManager(listener);
-            _allEquipment = new IdTable<Equipment, IRawEquipment>(this);
-            _buildingDocks = new IdTable<BuildingDock, IRawBuildingDock>(this);
-            _repairingDocks = new IdTable<RepairingDock, IRawRepairingDock>(this);
-            _useItems = new IdTable<UseItemCount, IRawUseItemCount>(this);
-            _allShips = new IdTable<Ship, IRawShip>(this);
-            _fleets = new IdTable<Fleet, IRawFleet>(this);
-            _maps = new IdTable<Map, IRawMap>(this);
-            _airForce = new IdTable<AirForceGroup, IRawAirForceGroup>(this);
+            _allEquipment = new IdTable<int, Equipment, IRawEquipment, NavalBase>(this);
+            _buildingDocks = new IdTable<int, BuildingDock, IRawBuildingDock, NavalBase>(this);
+            _repairingDocks = new IdTable<int, RepairingDock, IRawRepairingDock, NavalBase>(this);
+            _useItems = new IdTable<int, UseItemCount, IRawUseItemCount, NavalBase>(this);
+            _allShips = new IdTable<int, Ship, IRawShip, NavalBase>(this);
+            _fleets = new IdTable<int, Fleet, IRawFleet, NavalBase>(this);
+            _maps = new IdTable<int, Map, IRawMap, NavalBase>(this);
+            _airForce = new IdTable<int, AirForceGroup, IRawAirForceGroup, NavalBase>(this);
 
             listener.AllEquipmentUpdated += (_, msg) => _allEquipment.BatchUpdate(msg);
             listener.BuildingDockUpdated += (_, msg) => _buildingDocks.BatchUpdate(msg);
@@ -139,29 +139,29 @@ namespace Sakuno.ING.Game.Models
         public MasterDataRoot MasterData { get; }
         public QuestManager Quests { get; }
 
-        private readonly IdTable<Equipment, IRawEquipment> _allEquipment;
-        public ITable<Equipment> AllEquipment => _allEquipment;
+        private readonly IdTable<int, Equipment, IRawEquipment, NavalBase> _allEquipment;
+        public ITable<int, Equipment> AllEquipment => _allEquipment;
 
-        private readonly IdTable<BuildingDock, IRawBuildingDock> _buildingDocks;
-        public ITable<BuildingDock> BuildingDocks => _buildingDocks;
+        private readonly IdTable<int, BuildingDock, IRawBuildingDock, NavalBase> _buildingDocks;
+        public ITable<int, BuildingDock> BuildingDocks => _buildingDocks;
 
-        private readonly IdTable<RepairingDock, IRawRepairingDock> _repairingDocks;
-        public ITable<RepairingDock> RepairingDocks => _repairingDocks;
+        private readonly IdTable<int, RepairingDock, IRawRepairingDock, NavalBase> _repairingDocks;
+        public ITable<int, RepairingDock> RepairingDocks => _repairingDocks;
 
-        private readonly IdTable<UseItemCount, IRawUseItemCount> _useItems;
-        public ITable<UseItemCount> UseItems => _useItems;
+        private readonly IdTable<int, UseItemCount, IRawUseItemCount, NavalBase> _useItems;
+        public ITable<int, UseItemCount> UseItems => _useItems;
 
-        private readonly IdTable<Ship, IRawShip> _allShips;
-        public ITable<Ship> AllShips => _allShips;
+        private readonly IdTable<int, Ship, IRawShip, NavalBase> _allShips;
+        public ITable<int, Ship> AllShips => _allShips;
 
-        private readonly IdTable<Fleet, IRawFleet> _fleets;
-        public ITable<Fleet> Fleets => _fleets;
+        private readonly IdTable<int, Fleet, IRawFleet, NavalBase> _fleets;
+        public ITable<int, Fleet> Fleets => _fleets;
 
-        private readonly IdTable<Map, IRawMap> _maps;
-        public ITable<Map> Maps => _maps;
+        private readonly IdTable<int, Map, IRawMap, NavalBase> _maps;
+        public ITable<int, Map> Maps => _maps;
 
-        private readonly IdTable<AirForceGroup, IRawAirForceGroup> _airForce;
-        public ITable<AirForceGroup> AirForce => _airForce;
+        private readonly IdTable<int, AirForceGroup, IRawAirForceGroup, NavalBase> _airForce;
+        public ITable<int, AirForceGroup> AirForce => _airForce;
 
         public Admiral Admiral { get; private set; }
 
@@ -170,37 +170,6 @@ namespace Sakuno.ING.Game.Models
         {
             get => _materials;
             set => Set(ref _materials, value);
-        }
-
-        public ITable<T> TryGetTable<T>()
-        {
-            var type = typeof(T);
-
-            if (type == typeof(Equipment))
-                return (ITable<T>)AllEquipment;
-
-            if (type == typeof(BuildingDock))
-                return (ITable<T>)BuildingDocks;
-
-            if (type == typeof(RepairingDock))
-                return (ITable<T>)RepairingDocks;
-
-            if (type == typeof(UseItemCount))
-                return (ITable<T>)UseItems;
-
-            if (type == typeof(Ship))
-                return (ITable<T>)AllShips;
-
-            if (type == typeof(Fleet))
-                return (ITable<T>)Fleets;
-
-            if (type == typeof(Map))
-                return (ITable<T>)Maps;
-
-            if (type == typeof(AirForceGroup))
-                return (ITable<T>)AirForce;
-
-            return MasterData.TryGetTable<T>() ?? Quests.TryGetTable<T>();
         }
     }
 }

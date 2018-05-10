@@ -4,7 +4,7 @@
     {
         partial void UpdateCore(IRawEquipment raw)
         {
-            Info = equipmentInfoTable[raw.EquipmentInfoId];
+            Info = owner.MasterData.EquipmentInfos[raw.EquipmentInfoId];
         }
     }
 }

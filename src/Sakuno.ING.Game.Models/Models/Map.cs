@@ -4,7 +4,7 @@
     {
         partial void UpdateCore(IRawMap raw)
         {
-            Info = mapInfoTable[raw.Id];
+            Info = owner.MasterData.MapInfos[raw.Id];
         }
     }
 }

@@ -3,34 +3,30 @@ System
 System.Collections.Generic
 Sakuno.ING.Game.Models.MasterData
 
-Equipment:IRawEquipment
-t:EquipmentInfo
+Equipment:int:IRawEquipment:NavalBase
 p:EquipmentInfo Info
 p:bool IsLocked -
 p:int ImprovementLevel -
 p:int AirProficiency -
 p:bool IsAvailable
 
-BuildingDock:IRawBuildingDock
-t:ShipInfo
+BuildingDock:int:IRawBuildingDock:NavalBase
 p:DateTimeOffset CompletionTime -
 p:BuildingDockState State -
 p:Materials Consumption -
 p:ShipInfo BuiltShip
 p:bool IsLSC -
 
-RepairingDock:IRawRepairingDock
-t:Ship
+RepairingDock:int:IRawRepairingDock:NavalBase
 p:RepairingDockState State -
 p:DateTimeOffset CompletionTime -
 p:Materials Consumption -
 
-UseItemCount:IRawUseItemCount
-t:UseItemInfo
+UseItemCount:int:IRawUseItemCount:NavalBase
 p:UseItemInfo Item
 p:int Count -
 
-Admiral:IRawAdmiral
+Admiral:int:IRawAdmiral:NavalBase
 p:string Name -
 p:Leveling Leveling -
 p:AdmiralRank Rank -
@@ -43,9 +39,7 @@ p:ExpeditionStat ExpeditionStat -
 p:bool CanLSC -
 p:int MaxMaterial -
 
-Ship:IRawShip
-t:ShipInfo
-t:Equipment
+Ship:int:IRawShip:NavalBase
 p:ShipInfo Info
 p:Leveling Leveling -
 p:ClampedValue HP -
@@ -70,16 +64,14 @@ p:bool IsLocked -
 p:int? ShipLockingTag -
 p:bool IsRepairing
 
-Fleet:IRawFleet
-t:Ship
-t:ExpeditionInfo
+Fleet:int:IRawFleet:NavalBase
 p:string Name -
 p:FleetExpeditionState ExpeditionState -
 p:ExpeditionInfo Expedition
 p:DateTimeOffset ExpeditionCompletionTime -
 b:Ship Ships
 
-Quest:IRawQuest
+Quest:int:IRawQuest:QuestManager
 l:Name QuestName -
 l:Description QuestDesc -
 p:QuestCategoty Category -
@@ -88,8 +80,7 @@ p:QuestState State -
 p:QuestProgress Progress -
 p:Materials Rewards -
 
-Map:IRawMap
-t:MapInfo
+Map:int:IRawMap:NavalBase
 p:MapInfo Info
 p:bool IsCleared -
 p:EventMapRank? Rank -
@@ -98,8 +89,7 @@ p:EventMapGaugeType? GaugeType -
 p:int AvailableAirForceGroups -
 p:ClampedValue Gauge
 
-AirForceSquadron:IRawAirForceSquadron
-t:Equipment
+AirForceSquadron:int:IRawAirForceSquadron:NavalBase
 p:Equipment Equipment
 p:ClampedValue AircraftCount -
 p:SquadronMorale Morale -

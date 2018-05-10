@@ -8,7 +8,7 @@ namespace Sakuno.ING.Game.Models
     {
         partial void UpdateCore(IRawShip raw)
         {
-            Info = shipInfoTable[raw.ShipInfoId];
+            Info = owner.MasterData.ShipInfos[raw.ShipInfoId];
             Fuel = (raw.CurrentFuel, Info.FuelConsumption);
             Bullet = (raw.CurrentBullet, Info.BulletConsumption);
             Firepower = Combine(raw.Firepower, Info.Firepower);
@@ -26,7 +26,7 @@ namespace Sakuno.ING.Game.Models
             if (raw.ExtraSlotOpened)
                 ExtraSlot = new Slot
                 {
-                    Equipment = equipmentTable.TryGetOrDummy(raw.ExtraSlotEquipId)
+                    Equipment = owner.AllEquipment.TryGetOrDummy(raw.ExtraSlotEquipId)
                 };
             else
                 ExtraSlot = null;
@@ -78,7 +78,7 @@ namespace Sakuno.ING.Game.Models
         internal void UpdateEquipments(IReadOnlyList<int> equipmentIds)
         {
             for (int i = 0; i < slots.Count; i++)
-                slots[i].Equipment = equipmentTable.TryGetOrDummy(equipmentIds[i]);
+                slots[i].Equipment = owner.AllEquipment.TryGetOrDummy(equipmentIds[i]);
         }
 
         internal void UpdateSlotAircraft(IReadOnlyList<int> aircrafts)

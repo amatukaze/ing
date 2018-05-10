@@ -6,36 +6,35 @@ using System.Linq.Expressions;
 
 namespace Sakuno.ING.Game
 {
-    public class IdTable<T, TRaw> : ITable<T>
-        where T : Calculated<TRaw>
-        where TRaw : IIdentifiable
+    public class IdTable<TId, T, TRaw, TOwner> : ITable<TId, T>
+        where TId : IComparable<TId>, IEquatable<TId>
+        where T : Calculated<TId, TRaw>
+        where TRaw : IIdentifiable<TId>
     {
         public event Action Updated;
-        private static readonly Func<int, ITableProvider, T> creation;
+        private static readonly Func<TId, TOwner, T> creation;
 
         static IdTable()
         {
-            var argId = Expression.Parameter(typeof(int));
-            var argOwner = Expression.Parameter(typeof(ITableProvider));
-            var ctor = typeof(T).GetConstructor(new[] { typeof(int), typeof(ITableProvider) });
+            var argId = Expression.Parameter(typeof(TId));
+            var argOwner = Expression.Parameter(typeof(TOwner));
+            var ctor = typeof(T).GetConstructor(new[] { typeof(TId), typeof(TOwner) });
             var call = Expression.New(ctor, argId, argOwner);
-            creation = Expression.Lambda<Func<int, ITableProvider, T>>(call, argId, argOwner).Compile();
+            creation = Expression.Lambda<Func<TId, TOwner, T>>(call, argId, argOwner).Compile();
         }
 
         private List<T> list = new List<T>();
-        private readonly ITableProvider owner;
-        public IdTable(ITableProvider owner)
+        private readonly TOwner owner;
+        public IdTable(TOwner owner)
         {
             this.owner = owner;
             DefaultView = new BindableSnapshotCollection<T>(this, this.OrderBy(x => x.Id));
         }
 
-        public T this[int id] => TryGetValue(id, out var item) ? item : null;
+        public T this[TId id] => TryGetValue(id, out var item) ? item : null;
 
-        public T TryGetOrDummy(int id)
+        public T TryGetOrDummy(TId id)
         {
-            if (id <= 0) return null;
-
             if (TryGetValue(id, out var item))
                 return item;
 
@@ -52,13 +51,13 @@ namespace Sakuno.ING.Game
             int i = 0;
             foreach (var raw in source)
             {
-                while (i < list.Count && list[i].Id < raw.Id)
+                while (i < list.Count && list[i].Id.CompareTo(raw.Id) < 0)
                     if (removal)
                         list.RemoveAt(i);
                     else
                         i++;
 
-                if (i < list.Count && list[i].Id == raw.Id)
+                if (i < list.Count && EqualityComparer<TId>.Default.Equals(list[i].Id, raw.Id))
                     list[i].Update(raw);
                 else
                 {
@@ -82,12 +81,12 @@ namespace Sakuno.ING.Game
             int i;
             for (i = 0; i < list.Count; i++)
             {
-                if (list[i].Id > item.Id)
+                if (list[i].Id.CompareTo(item.Id) > 0)
                 {
                     list.Insert(i, item);
                     break;
                 }
-                else if (list[i].Id == item.Id)
+                else if (EqualityComparer<TId>.Default.Equals(list[i].Id, item.Id))
                 {
                     list[i] = item;
                     break;
@@ -98,7 +97,7 @@ namespace Sakuno.ING.Game
             Updated?.Invoke();
         }
 
-        public bool Remove(int id) => Remove(this[id]);
+        public bool Remove(TId id) => Remove(this[id]);
         public bool Remove(T item)
         {
             var result = list.Remove(item);
@@ -121,7 +120,7 @@ namespace Sakuno.ING.Game
             Updated?.Invoke();
         }
 
-        public bool TryGetValue(int id, out T item)
+        public bool TryGetValue(TId id, out T item)
         {
             int lo = 0, hi = list.Count - 1;
             while (lo <= hi)
@@ -129,7 +128,7 @@ namespace Sakuno.ING.Game
                 int i = lo + ((hi - lo) >> 1);
                 var t = list[i];
 
-                int order = t.Id - id;
+                int order = t.Id.CompareTo(id);
                 if (order == 0)
                 {
                     item = t;

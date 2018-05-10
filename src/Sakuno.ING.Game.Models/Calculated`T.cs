@@ -1,14 +1,12 @@
 ﻿namespace Sakuno.ING.Game
 {
-    public abstract class Calculated<TRaw> : BindableObject, IIdentifiable
+    public abstract class Calculated<TId, TRaw> : BindableObject, IIdentifiable<TId>
     {
-        public int Id { get; }
-        protected ITableProvider Owner { get; }
+        public TId Id { get; }
 
-        protected Calculated(int id, ITableProvider owner)
+        protected Calculated(TId id)
         {
             Id = id;
-            Owner = owner;
         }
 
         public abstract void Update(TRaw raw);

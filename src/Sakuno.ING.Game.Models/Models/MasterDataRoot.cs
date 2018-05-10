@@ -4,18 +4,18 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    public class MasterDataRoot : ITableProvider
+    public class MasterDataRoot
     {
         internal MasterDataRoot(IGameProvider listener)
         {
-            _shipInfos = new IdTable<ShipInfo, IRawShipInfo>(this);
-            _shipTypes = new IdTable<ShipTypeInfo, IRawShipTypeInfo>(this);
-            _equipmentTypes = new IdTable<EquipmentTypeInfo, IRawEquipmentTypeInfo>(this);
-            _equipmentInfos = new IdTable<EquipmentInfo, IRawEquipmentInfo>(this);
-            _useItems = new IdTable<UseItemInfo, IRawUseItem>(this);
-            _mapAreas = new IdTable<MapAreaInfo, IRawMapArea>(this);
-            _mapInfos = new IdTable<MapInfo, IRawMapInfo>(this);
-            _expeditions = new IdTable<ExpeditionInfo, IRawExpeditionInfo>(this);
+            _shipInfos = new IdTable<int, ShipInfo, IRawShipInfo, MasterDataRoot>(this);
+            _shipTypes = new IdTable<int, ShipTypeInfo, IRawShipTypeInfo, MasterDataRoot>(this);
+            _equipmentTypes = new IdTable<int, EquipmentTypeInfo, IRawEquipmentTypeInfo, MasterDataRoot>(this);
+            _equipmentInfos = new IdTable<int, EquipmentInfo, IRawEquipmentInfo, MasterDataRoot>(this);
+            _useItems = new IdTable<int, UseItemInfo, IRawUseItem, MasterDataRoot>(this);
+            _mapAreas = new IdTable<int, MapAreaInfo, IRawMapArea, MasterDataRoot>(this);
+            _mapInfos = new IdTable<int, MapInfo, IRawMapInfo, MasterDataRoot>(this);
+            _expeditions = new IdTable<int, ExpeditionInfo, IRawExpeditionInfo, MasterDataRoot>(this);
 
             listener.MasterDataUpdated += OnMasterDataUpdated;
         }
@@ -32,59 +32,28 @@ namespace Sakuno.ING.Game.Models
             _expeditions.BatchUpdate(message.Expeditions);
         }
 
-        private readonly IdTable<ShipInfo, IRawShipInfo> _shipInfos;
-        public ITable<ShipInfo> ShipInfos => _shipInfos;
+        private readonly IdTable<int, ShipInfo, IRawShipInfo, MasterDataRoot> _shipInfos;
+        public ITable<int, ShipInfo> ShipInfos => _shipInfos;
 
-        private readonly IdTable<ShipTypeInfo, IRawShipTypeInfo> _shipTypes;
-        public ITable<ShipTypeInfo> ShipTypes => _shipTypes;
+        private readonly IdTable<int, ShipTypeInfo, IRawShipTypeInfo, MasterDataRoot> _shipTypes;
+        public ITable<int, ShipTypeInfo> ShipTypes => _shipTypes;
 
-        private readonly IdTable<EquipmentTypeInfo, IRawEquipmentTypeInfo> _equipmentTypes;
-        public ITable<EquipmentTypeInfo> EquipmentTypes => _equipmentTypes;
+        private readonly IdTable<int, EquipmentTypeInfo, IRawEquipmentTypeInfo, MasterDataRoot> _equipmentTypes;
+        public ITable<int, EquipmentTypeInfo> EquipmentTypes => _equipmentTypes;
 
-        private readonly IdTable<EquipmentInfo, IRawEquipmentInfo> _equipmentInfos;
-        public ITable<EquipmentInfo> EquipmentInfos => _equipmentInfos;
+        private readonly IdTable<int, EquipmentInfo, IRawEquipmentInfo, MasterDataRoot> _equipmentInfos;
+        public ITable<int, EquipmentInfo> EquipmentInfos => _equipmentInfos;
 
-        private readonly IdTable<UseItemInfo, IRawUseItem> _useItems;
-        public ITable<UseItemInfo> UseItems => _useItems;
+        private readonly IdTable<int, UseItemInfo, IRawUseItem, MasterDataRoot> _useItems;
+        public ITable<int, UseItemInfo> UseItems => _useItems;
 
-        private readonly IdTable<MapAreaInfo, IRawMapArea> _mapAreas;
-        public ITable<MapAreaInfo> MapAreas => _mapAreas;
+        private readonly IdTable<int, MapAreaInfo, IRawMapArea, MasterDataRoot> _mapAreas;
+        public ITable<int, MapAreaInfo> MapAreas => _mapAreas;
 
-        private readonly IdTable<MapInfo, IRawMapInfo> _mapInfos;
-        public ITable<MapInfo> MapInfos => _mapInfos;
+        private readonly IdTable<int, MapInfo, IRawMapInfo, MasterDataRoot> _mapInfos;
+        public ITable<int, MapInfo> MapInfos => _mapInfos;
 
-        private readonly IdTable<ExpeditionInfo, IRawExpeditionInfo> _expeditions;
-        public ITable<ExpeditionInfo> Expeditions => _expeditions;
-
-        public ITable<T> TryGetTable<T>()
-        {
-            var type = typeof(T);
-
-            if (type == typeof(ShipInfo))
-                return (ITable<T>)ShipInfos;
-
-            if (type == typeof(ShipTypeInfo))
-                return (ITable<T>)ShipTypes;
-
-            if (type == typeof(EquipmentTypeInfo))
-                return (ITable<T>)EquipmentTypes;
-
-            if (type == typeof(EquipmentInfo))
-                return (ITable<T>)EquipmentInfos;
-
-            if (type == typeof(UseItemInfo))
-                return (ITable<T>)UseItems;
-
-            if (type == typeof(MapAreaInfo))
-                return (ITable<T>)MapAreas;
-
-            if (type == typeof(MapInfo))
-                return (ITable<T>)MapInfos;
-
-            if (type == typeof(ExpeditionInfo))
-                return (ITable<T>)Expeditions;
-
-            return null;
-        }
+        private readonly IdTable<int, ExpeditionInfo, IRawExpeditionInfo, MasterDataRoot> _expeditions;
+        public ITable<int, ExpeditionInfo> Expeditions => _expeditions;
     }
 }

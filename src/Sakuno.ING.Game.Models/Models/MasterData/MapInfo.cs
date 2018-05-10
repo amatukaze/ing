@@ -6,8 +6,8 @@ namespace Sakuno.ING.Game.Models.MasterData
     {
         partial void UpdateCore(IRawMapInfo raw)
         {
-            MapArea = mapAreaInfoTable[raw.MapAreaId];
-            itemAcquirements.Query = raw.ItemAcquirements.Select(useItemInfoTable.TryGetOrDummy);
+            MapArea = owner.MapAreas[raw.MapAreaId];
+            itemAcquirements.Query = raw.ItemAcquirements.Select(owner.UseItems.TryGetOrDummy);
         }
     }
 }

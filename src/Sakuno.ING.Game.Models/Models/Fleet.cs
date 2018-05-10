@@ -6,8 +6,8 @@ namespace Sakuno.ING.Game.Models
     {
         partial void UpdateCore(IRawFleet raw)
         {
-            ships.Query = raw.ShipIds.Where(x => x > 0).Select(shipTable.TryGetOrDummy);
-            Expedition = expeditionInfoTable[raw.ExpeditionId];
+            ships.Query = raw.ShipIds.Where(x => x > 0).Select(owner.AllShips.TryGetOrDummy);
+            Expedition = owner.MasterData.Expeditions[raw.ExpeditionId];
         }
 
         internal void ChangeComposition(int? index, Ship ship, Fleet fromFleet)

@@ -2,6 +2,6 @@
 {
     partial class UseItemCount
     {
-        partial void CreateDummy() => Item = useItemInfoTable[Id];
+        partial void CreateDummy() => Item = owner.MasterData.UseItems[Id];
     }
 }

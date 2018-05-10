@@ -12,15 +12,15 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    public partial class Equipment : Calculated<IRawEquipment>
+    public partial class Equipment : Calculated<int, IRawEquipment>
     {
-        public Equipment(int id, ITableProvider owner) : base(id, owner)
+        public Equipment(int id, NavalBase owner) : base(id)
         {
-            equipmentInfoTable = owner.GetTable<EquipmentInfo>();
+            this.owner = owner;
             CreateDummy();
         }
 
-        private readonly ITable<EquipmentInfo> equipmentInfoTable;
+        private readonly NavalBase owner;
 
         private EquipmentInfo _info;
         public EquipmentInfo Info
@@ -67,15 +67,15 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawEquipment raw);
         partial void CreateDummy();
     }
-    public partial class BuildingDock : Calculated<IRawBuildingDock>
+    public partial class BuildingDock : Calculated<int, IRawBuildingDock>
     {
-        public BuildingDock(int id, ITableProvider owner) : base(id, owner)
+        public BuildingDock(int id, NavalBase owner) : base(id)
         {
-            shipInfoTable = owner.GetTable<ShipInfo>();
+            this.owner = owner;
             CreateDummy();
         }
 
-        private readonly ITable<ShipInfo> shipInfoTable;
+        private readonly NavalBase owner;
 
         private DateTimeOffset _completionTime;
         public DateTimeOffset CompletionTime
@@ -123,15 +123,15 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawBuildingDock raw);
         partial void CreateDummy();
     }
-    public partial class RepairingDock : Calculated<IRawRepairingDock>
+    public partial class RepairingDock : Calculated<int, IRawRepairingDock>
     {
-        public RepairingDock(int id, ITableProvider owner) : base(id, owner)
+        public RepairingDock(int id, NavalBase owner) : base(id)
         {
-            shipTable = owner.GetTable<Ship>();
+            this.owner = owner;
             CreateDummy();
         }
 
-        private readonly ITable<Ship> shipTable;
+        private readonly NavalBase owner;
 
         private RepairingDockState _state;
         public RepairingDockState State
@@ -164,15 +164,15 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawRepairingDock raw);
         partial void CreateDummy();
     }
-    public partial class UseItemCount : Calculated<IRawUseItemCount>
+    public partial class UseItemCount : Calculated<int, IRawUseItemCount>
     {
-        public UseItemCount(int id, ITableProvider owner) : base(id, owner)
+        public UseItemCount(int id, NavalBase owner) : base(id)
         {
-            useItemInfoTable = owner.GetTable<UseItemInfo>();
+            this.owner = owner;
             CreateDummy();
         }
 
-        private readonly ITable<UseItemInfo> useItemInfoTable;
+        private readonly NavalBase owner;
 
         private UseItemInfo _item;
         public UseItemInfo Item
@@ -196,12 +196,15 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawUseItemCount raw);
         partial void CreateDummy();
     }
-    public partial class Admiral : Calculated<IRawAdmiral>
+    public partial class Admiral : Calculated<int, IRawAdmiral>
     {
-        public Admiral(int id, ITableProvider owner) : base(id, owner)
+        public Admiral(int id, NavalBase owner) : base(id)
         {
+            this.owner = owner;
             CreateDummy();
         }
+
+        private readonly NavalBase owner;
 
         private string _name;
         public string Name
@@ -298,18 +301,15 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawAdmiral raw);
         partial void CreateDummy();
     }
-    public partial class Ship : Calculated<IRawShip>
+    public partial class Ship : Calculated<int, IRawShip>
     {
-        public Ship(int id, ITableProvider owner) : base(id, owner)
+        public Ship(int id, NavalBase owner) : base(id)
         {
-            shipInfoTable = owner.GetTable<ShipInfo>();
-            equipmentTable = owner.GetTable<Equipment>();
+            this.owner = owner;
             CreateDummy();
         }
 
-        private readonly ITable<ShipInfo> shipInfoTable;
-
-        private readonly ITable<Equipment> equipmentTable;
+        private readonly NavalBase owner;
 
         private ShipInfo _info;
         public ShipInfo Info
@@ -488,18 +488,15 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawShip raw);
         partial void CreateDummy();
     }
-    public partial class Fleet : Calculated<IRawFleet>
+    public partial class Fleet : Calculated<int, IRawFleet>
     {
-        public Fleet(int id, ITableProvider owner) : base(id, owner)
+        public Fleet(int id, NavalBase owner) : base(id)
         {
-            shipTable = owner.GetTable<Ship>();
-            expeditionInfoTable = owner.GetTable<ExpeditionInfo>();
+            this.owner = owner;
             CreateDummy();
         }
 
-        private readonly ITable<Ship> shipTable;
-
-        private readonly ITable<ExpeditionInfo> expeditionInfoTable;
+        private readonly NavalBase owner;
 
         private string _name;
         public string Name
@@ -542,14 +539,17 @@ namespace Sakuno.ING.Game.Models
         private readonly BindableSnapshotCollection<Ship> ships = new BindableSnapshotCollection<Ship>();
         public IReadOnlyList<Ship> Ships => ships;
     }
-    public partial class Quest : Calculated<IRawQuest>
+    public partial class Quest : Calculated<int, IRawQuest>
     {
-        public Quest(int id, ITableProvider owner) : base(id, owner)
+        public Quest(int id, QuestManager owner) : base(id)
         {
+            this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("QuestName", id.ToString());
             DescriptionTranslation = Module.Localize.GetLocalized("QuestDesc", id.ToString());
             CreateDummy();
         }
+
+        private readonly QuestManager owner;
 
         public string NameTranslation { get; }
 
@@ -618,15 +618,15 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawQuest raw);
         partial void CreateDummy();
     }
-    public partial class Map : Calculated<IRawMap>
+    public partial class Map : Calculated<int, IRawMap>
     {
-        public Map(int id, ITableProvider owner) : base(id, owner)
+        public Map(int id, NavalBase owner) : base(id)
         {
-            mapInfoTable = owner.GetTable<MapInfo>();
+            this.owner = owner;
             CreateDummy();
         }
 
-        private readonly ITable<MapInfo> mapInfoTable;
+        private readonly NavalBase owner;
 
         private MapInfo _info;
         public MapInfo Info
@@ -689,15 +689,15 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawMap raw);
         partial void CreateDummy();
     }
-    public partial class AirForceSquadron : Calculated<IRawAirForceSquadron>
+    public partial class AirForceSquadron : Calculated<int, IRawAirForceSquadron>
     {
-        public AirForceSquadron(int id, ITableProvider owner) : base(id, owner)
+        public AirForceSquadron(int id, NavalBase owner) : base(id)
         {
-            equipmentTable = owner.GetTable<Equipment>();
+            this.owner = owner;
             CreateDummy();
         }
 
-        private readonly ITable<Equipment> equipmentTable;
+        private readonly NavalBase owner;
 
         private Equipment _equipment;
         public Equipment Equipment

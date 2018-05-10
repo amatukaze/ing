@@ -2,9 +2,7 @@
 System
 System.Collections.Generic
 
-ShipInfo:IRawShipInfo
-t:ShipTypeInfo
-t:ShipInfo
+ShipInfo:int:IRawShipInfo:MasterDataRoot
 p:int SortNo -
 l:Name ShipName -
 p:string Phonetic -
@@ -33,21 +31,18 @@ p:IReadOnlyList<int> PowerupWorth -
 p:int FuelConsumption -
 p:int BulletConsumption -
 
-ShipTypeInfo:IRawShipTypeInfo
-t:EquipmentTypeInfo
+ShipTypeInfo:int:IRawShipTypeInfo:MasterDataRoot
 p:int SortNo -
 l:Name ShipType u
 p:int RepairTimeRatio -
 p:int BuildOutlineId -
 b:EquipmentTypeInfo AvailableEquipmentTypes
 
-EquipmentTypeInfo:IRawEquipmentTypeInfo
+EquipmentTypeInfo:int:IRawEquipmentTypeInfo:MasterDataRoot
 l:Name EquipType -
 p:bool AvailableInExtraSlot -
 
-EquipmentInfo:IRawEquipmentInfo
-t:EquipmentTypeInfo
-t:ShipInfo
+EquipmentInfo:int:IRawEquipmentInfo:MasterDataRoot
 l:Name EquipName -
 l:Description EquipDesc -
 p:EquipmentTypeInfo Type
@@ -70,16 +65,14 @@ p:Materials DeploymentConsumption -
 p:Materials DismantleAcquirement -
 p:int Rarity -
 
-UseItemInfo:IRawUseItem
+UseItemInfo:int:IRawUseItem:MasterDataRoot
 l:Name UseItem -
 
-MapAreaInfo:IRawMapArea
+MapAreaInfo:int:IRawMapArea:MasterDataRoot
 l:Name MapArea -
 p:bool IsEvent -
 
-MapInfo:IRawMapInfo
-t:MapAreaInfo
-t:UseItemInfo
+MapInfo:int:IRawMapInfo:MasterDataRoot
 p:MapAreaInfo MapArea
 l:Name MapName -
 p:int StarDifficulty -
@@ -90,8 +83,7 @@ p:int? RequiredDefeatCount -
 p:IReadOnlyCollection<FleetType> AvailableFleetTypes -
 p:IRawMapBgmInfo BgmInfo -
 
-ExpeditionInfo:IRawExpeditionInfo
-t:MapAreaInfo
+ExpeditionInfo:int:IRawExpeditionInfo:MasterDataRoot
 p:string DisplayId -
 p:MapAreaInfo MapArea
 l:Name ExpeditionName -

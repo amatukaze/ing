@@ -4,7 +4,7 @@
     {
         partial void UpdateCore(IRawAirForceSquadron raw)
         {
-            Equipment = equipmentTable.TryGetOrDummy(raw.EquipmentId);
+            Equipment = owner.AllEquipment.TryGetOrDummy(raw.EquipmentId);
         }
     }
 }

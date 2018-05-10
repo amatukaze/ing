@@ -6,9 +6,9 @@ namespace Sakuno.ING.Game.Models.MasterData
     {
         partial void UpdateCore(IRawShipInfo raw)
         {
-            Type = shipTypeInfoTable[raw.TypeId];
+            Type = owner.ShipTypes[raw.TypeId];
             CanUpgrade = raw.UpgradeTo != 0;
-            UpgradeTo = shipInfoTable.TryGetOrDummy(raw.UpgradeTo);
+            UpgradeTo = owner.ShipInfos.TryGetOrDummy(raw.UpgradeTo);
             TotalAircraft = Aircraft?.Sum();
         }
     }

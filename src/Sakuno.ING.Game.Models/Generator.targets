@@ -41,7 +41,6 @@ foreach (var infile in Inputs)
         {
             var cls = input.ReadLine().Split(':');
             var props = new List<string>();
-            var tables = new List<string>();
             var bindables = new List<string>();
             var localizables = new List<string>();
             while (true)
@@ -54,9 +53,6 @@ foreach (var infile in Inputs)
                     case "p":
                         props.Add(line.Substring(p + 1));
                         break;
-                    case "t":
-                        tables.Add(line.Substring(p + 1));
-                        break;
                     case "b":
                         bindables.Add(line.Substring(p + 1));
                         break;
@@ -65,15 +61,11 @@ foreach (var infile in Inputs)
                         break;
                 }
             }
-            output.WriteLine("    public partial class " + cls[0] + " : Calculated<" + cls[1] + ">");
+            output.WriteLine("    public partial class " + cls[0] + " : Calculated<" + cls[1] + ", " + cls[2] + ">");
             output.WriteLine("    {");
-            output.WriteLine("        public " + cls[0] + "(int id, ITableProvider owner) : base(id, owner)");
+            output.WriteLine("        public " + cls[0] + "(int id, " + cls[3] + " owner) : base(id)");
             output.WriteLine("        {");
-            foreach (var t in tables)
-            {
-                string fieldName = char.ToLowerInvariant(t[0]) + t.Substring(1) + "Table";
-                output.WriteLine("            " + fieldName + " = owner.GetTable<" + t + ">();");
-            }
+            output.WriteLine("            this.owner = owner;");
             var unlocalized = new List<string>();
             foreach (var l in localizables)
             {
@@ -89,12 +81,8 @@ foreach (var infile in Inputs)
             }
             output.WriteLine("            CreateDummy();");
             output.WriteLine("        }");
-            foreach (var t in tables)
-            {
-                string fieldName = char.ToLowerInvariant(t[0]) + t.Substring(1) + "Table";
-                output.WriteLine();
-                output.WriteLine("        private readonly ITable<" + t + "> " + fieldName + ";");
-            }
+            output.WriteLine();
+            output.WriteLine("        private readonly " + cls[3] + " owner;");
             var dummyList = new List<string>();
             foreach (var l in localizables)
             {
@@ -131,7 +119,7 @@ foreach (var infile in Inputs)
                 output.WriteLine("        }");
             }
             output.WriteLine();
-            output.WriteLine("        public override void Update(" + cls[1] + " raw)");
+            output.WriteLine("        public override void Update(" + cls[2] + " raw)");
             output.WriteLine("        {");
             foreach (string prop in dummyList)
                 output.WriteLine("            " + prop + " = raw." + prop + ";");
@@ -139,7 +127,7 @@ foreach (var infile in Inputs)
                 output.WriteLine("            " + u + " = _unlocalized" + u + " ?? raw." + u + ";");
             output.WriteLine("            UpdateCore(raw);");
             output.WriteLine("        }");
-            output.WriteLine("        partial void UpdateCore(" + cls[1] + " raw);");
+            output.WriteLine("        partial void UpdateCore(" + cls[2] + " raw);");
             output.WriteLine("        partial void CreateDummy();");
             foreach (var b in bindables)
             {
