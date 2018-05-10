@@ -6,7 +6,7 @@ namespace Sakuno.ING.Game.Json.MasterData
     internal class EquipmentTypeInfoJson : IRawEquipmentTypeInfo
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public EquipmentTypeId Id { get; set; }
         [JsonProperty("api_name")]
         public string Name { get; set; }
 

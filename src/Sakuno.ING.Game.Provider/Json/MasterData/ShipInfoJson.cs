@@ -10,7 +10,7 @@ namespace Sakuno.ING.Game.Json.MasterData
     internal class ShipInfoJson : IRawShipInfo
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public ShipInfoId Id { get; set; }
         [JsonProperty("api_sortno")]
         public int SortNo { get; set; }
         [JsonProperty("api_name")]
@@ -24,14 +24,14 @@ namespace Sakuno.ING.Game.Json.MasterData
         public string AbyssalClass => IsAbyssal ? api_yomi : string.Empty;
 
         [JsonProperty("api_stype")]
-        public int TypeId { get; set; }
+        public ShipTypeId TypeId { get; set; }
         [JsonProperty("api_ctype")]
         public int ClassId { get; set; }
 
         [JsonProperty("api_afterlv")]
         public int UpgradeLevel { get; set; }
         [JsonProperty("api_aftershipid")]
-        public int UpgradeTo { get; set; }
+        public ShipInfoId UpgradeTo { get; set; }
         public int api_afterfuel;
         public int api_afterbull;
         public Materials UpgradeConsumption => new Materials

@@ -12,9 +12,9 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    public partial class Equipment : Calculated<int, IRawEquipment>
+    public partial class Equipment : Calculated<EquipmentId, IRawEquipment>
     {
-        public Equipment(int id, NavalBase owner) : base(id)
+        public Equipment(EquipmentId id, NavalBase owner) : base(id)
         {
             this.owner = owner;
             CreateDummy();
@@ -67,9 +67,9 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawEquipment raw);
         partial void CreateDummy();
     }
-    public partial class BuildingDock : Calculated<int, IRawBuildingDock>
+    public partial class BuildingDock : Calculated<BuildingDockId, IRawBuildingDock>
     {
-        public BuildingDock(int id, NavalBase owner) : base(id)
+        public BuildingDock(BuildingDockId id, NavalBase owner) : base(id)
         {
             this.owner = owner;
             CreateDummy();
@@ -123,9 +123,9 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawBuildingDock raw);
         partial void CreateDummy();
     }
-    public partial class RepairingDock : Calculated<int, IRawRepairingDock>
+    public partial class RepairingDock : Calculated<RepairingDockId, IRawRepairingDock>
     {
-        public RepairingDock(int id, NavalBase owner) : base(id)
+        public RepairingDock(RepairingDockId id, NavalBase owner) : base(id)
         {
             this.owner = owner;
             CreateDummy();
@@ -164,9 +164,9 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawRepairingDock raw);
         partial void CreateDummy();
     }
-    public partial class UseItemCount : Calculated<int, IRawUseItemCount>
+    public partial class UseItemCount : Calculated<UseItemId, IRawUseItemCount>
     {
-        public UseItemCount(int id, NavalBase owner) : base(id)
+        public UseItemCount(UseItemId id, NavalBase owner) : base(id)
         {
             this.owner = owner;
             CreateDummy();
@@ -301,9 +301,9 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawAdmiral raw);
         partial void CreateDummy();
     }
-    public partial class Ship : Calculated<int, IRawShip>
+    public partial class Ship : Calculated<ShipId, IRawShip>
     {
-        public Ship(int id, NavalBase owner) : base(id)
+        public Ship(ShipId id, NavalBase owner) : base(id)
         {
             this.owner = owner;
             CreateDummy();
@@ -488,9 +488,9 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawShip raw);
         partial void CreateDummy();
     }
-    public partial class Fleet : Calculated<int, IRawFleet>
+    public partial class Fleet : Calculated<FleetId, IRawFleet>
     {
-        public Fleet(int id, NavalBase owner) : base(id)
+        public Fleet(FleetId id, NavalBase owner) : base(id)
         {
             this.owner = owner;
             CreateDummy();
@@ -539,9 +539,9 @@ namespace Sakuno.ING.Game.Models
         private readonly BindableSnapshotCollection<Ship> ships = new BindableSnapshotCollection<Ship>();
         public IReadOnlyList<Ship> Ships => ships;
     }
-    public partial class Quest : Calculated<int, IRawQuest>
+    public partial class Quest : Calculated<QuestId, IRawQuest>
     {
-        public Quest(int id, QuestManager owner) : base(id)
+        public Quest(QuestId id, QuestManager owner) : base(id)
         {
             this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("QuestName", id.ToString());
@@ -618,9 +618,9 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(IRawQuest raw);
         partial void CreateDummy();
     }
-    public partial class Map : Calculated<int, IRawMap>
+    public partial class Map : Calculated<MapId, IRawMap>
     {
-        public Map(int id, NavalBase owner) : base(id)
+        public Map(MapId id, NavalBase owner) : base(id)
         {
             this.owner = owner;
             CreateDummy();

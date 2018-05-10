@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -9,14 +10,14 @@ namespace Sakuno.ING.Game.Models
         {
             MasterData = new MasterDataRoot(listener);
             Quests = new QuestManager(listener);
-            _allEquipment = new IdTable<int, Equipment, IRawEquipment, NavalBase>(this);
-            _buildingDocks = new IdTable<int, BuildingDock, IRawBuildingDock, NavalBase>(this);
-            _repairingDocks = new IdTable<int, RepairingDock, IRawRepairingDock, NavalBase>(this);
-            _useItems = new IdTable<int, UseItemCount, IRawUseItemCount, NavalBase>(this);
-            _allShips = new IdTable<int, Ship, IRawShip, NavalBase>(this);
-            _fleets = new IdTable<int, Fleet, IRawFleet, NavalBase>(this);
-            _maps = new IdTable<int, Map, IRawMap, NavalBase>(this);
-            _airForce = new IdTable<int, AirForceGroup, IRawAirForceGroup, NavalBase>(this);
+            _allEquipment = new IdTable<EquipmentId, Equipment, IRawEquipment, NavalBase>(this);
+            _buildingDocks = new IdTable<BuildingDockId, BuildingDock, IRawBuildingDock, NavalBase>(this);
+            _repairingDocks = new IdTable<RepairingDockId, RepairingDock, IRawRepairingDock, NavalBase>(this);
+            _useItems = new IdTable<UseItemId, UseItemCount, IRawUseItemCount, NavalBase>(this);
+            _allShips = new IdTable<ShipId, Ship, IRawShip, NavalBase>(this);
+            _fleets = new IdTable<FleetId, Fleet, IRawFleet, NavalBase>(this);
+            _maps = new IdTable<MapId, Map, IRawMap, NavalBase>(this);
+            _airForce = new IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, IRawAirForceGroup, NavalBase>(this);
 
             listener.AllEquipmentUpdated += (_, msg) => _allEquipment.BatchUpdate(msg);
             listener.BuildingDockUpdated += (_, msg) => _buildingDocks.BatchUpdate(msg);
@@ -43,7 +44,7 @@ namespace Sakuno.ING.Game.Models
                 var fleet = Fleets[msg.FleetId];
                 if (fleet != null)
                 {
-                    if (msg.ShipId is int shipId)
+                    if (msg.ShipId is ShipId shipId)
                     {
                         var ship = AllShips.TryGetOrDummy(shipId);
                         fleet.ChangeComposition(msg.Index, ship, Fleets.FirstOrDefault(x => x.Ships.Contains(ship)));
@@ -55,6 +56,7 @@ namespace Sakuno.ING.Game.Models
             listener.FleetsUpdated += (_, msg) => _fleets.BatchUpdate(msg);
             listener.FleetPresetSelected += (_, msg) => Fleets[msg.Id]?.Update(msg);
             listener.ShipEquipmentUdated += (_, msg) => AllShips[msg.ShipId]?.UpdateEquipments(msg.EquipmentIds);
+            listener.ShipExtraSlotOpened += (_, msg) => AllShips[msg].ExtraSlot = new Slot();
             listener.PartialFleetsUpdated += (_, msg) => _fleets.BatchUpdate(msg, removal: false);
             listener.PartialShipsUpdated += (_, msg) => _allShips.BatchUpdate(msg, removal: false);
             listener.RepairingDockUpdated += (_, msg) => _repairingDocks.BatchUpdate(msg);
@@ -105,23 +107,23 @@ namespace Sakuno.ING.Game.Models
             listener.AirForceUpdated += (_, msg) => _airForce.BatchUpdate(msg);
             listener.AirForcePlaneSet += (_, msg) =>
             {
-                var group = AirForce[(msg.MapAreaId << 16) + msg.AirForceId];
+                var group = AirForce[(msg.MapAreaId, msg.GroupId)];
                 group.Distance = msg.NewDistance;
                 group.squadrons.BatchUpdate(msg.UpdatedSquadrons, removal: false);
             };
             listener.AirForceActionSet += (_, msg) =>
             {
                 foreach (var m in msg)
-                    AirForce[(m.MapAreaId << 16) + m.AirForceId].Action = m.Action;
+                    AirForce[(m.MapAreaId, m.GroupId)].Action = m.Action;
             };
             listener.AirForceSupplied += (_, msg)
-                => AirForce[(msg.MapAreaId << 16) + msg.AirForceId].squadrons.BatchUpdate(msg.UpdatedSquadrons, removal: false);
+                => AirForce[(msg.MapAreaId, msg.GroupId)].squadrons.BatchUpdate(msg.UpdatedSquadrons, removal: false);
             listener.AirForceExpanded += (_, msg) => _airForce.Add(msg);
         }
 
-        private void RemoveShip(IEnumerable<int> shipIds, bool removeEquipment)
+        private void RemoveShip(IEnumerable<ShipId> shipIds, bool removeEquipment)
         {
-            foreach (int id in shipIds)
+            foreach (var id in shipIds)
             {
                 var ship = AllShips[id];
                 if (removeEquipment)
@@ -130,38 +132,38 @@ namespace Sakuno.ING.Game.Models
             }
         }
 
-        private void RemoveEquipment(IEnumerable<int> ids)
+        private void RemoveEquipment(IEnumerable<EquipmentId> ids)
         {
-            foreach (int id in ids)
+            foreach (var id in ids)
                 _allEquipment.Remove(id);
         }
 
         public MasterDataRoot MasterData { get; }
         public QuestManager Quests { get; }
 
-        private readonly IdTable<int, Equipment, IRawEquipment, NavalBase> _allEquipment;
-        public ITable<int, Equipment> AllEquipment => _allEquipment;
+        private readonly IdTable<EquipmentId, Equipment, IRawEquipment, NavalBase> _allEquipment;
+        public ITable<EquipmentId, Equipment> AllEquipment => _allEquipment;
 
-        private readonly IdTable<int, BuildingDock, IRawBuildingDock, NavalBase> _buildingDocks;
-        public ITable<int, BuildingDock> BuildingDocks => _buildingDocks;
+        private readonly IdTable<BuildingDockId, BuildingDock, IRawBuildingDock, NavalBase> _buildingDocks;
+        public ITable<BuildingDockId, BuildingDock> BuildingDocks => _buildingDocks;
 
-        private readonly IdTable<int, RepairingDock, IRawRepairingDock, NavalBase> _repairingDocks;
-        public ITable<int, RepairingDock> RepairingDocks => _repairingDocks;
+        private readonly IdTable<RepairingDockId, RepairingDock, IRawRepairingDock, NavalBase> _repairingDocks;
+        public ITable<RepairingDockId, RepairingDock> RepairingDocks => _repairingDocks;
 
-        private readonly IdTable<int, UseItemCount, IRawUseItemCount, NavalBase> _useItems;
-        public ITable<int, UseItemCount> UseItems => _useItems;
+        private readonly IdTable<UseItemId, UseItemCount, IRawUseItemCount, NavalBase> _useItems;
+        public ITable<UseItemId, UseItemCount> UseItems => _useItems;
 
-        private readonly IdTable<int, Ship, IRawShip, NavalBase> _allShips;
-        public ITable<int, Ship> AllShips => _allShips;
+        private readonly IdTable<ShipId, Ship, IRawShip, NavalBase> _allShips;
+        public ITable<ShipId, Ship> AllShips => _allShips;
 
-        private readonly IdTable<int, Fleet, IRawFleet, NavalBase> _fleets;
-        public ITable<int, Fleet> Fleets => _fleets;
+        private readonly IdTable<FleetId, Fleet, IRawFleet, NavalBase> _fleets;
+        public ITable<FleetId, Fleet> Fleets => _fleets;
 
-        private readonly IdTable<int, Map, IRawMap, NavalBase> _maps;
-        public ITable<int, Map> Maps => _maps;
+        private readonly IdTable<MapId, Map, IRawMap, NavalBase> _maps;
+        public ITable<MapId, Map> Maps => _maps;
 
-        private readonly IdTable<int, AirForceGroup, IRawAirForceGroup, NavalBase> _airForce;
-        public ITable<int, AirForceGroup> AirForce => _airForce;
+        private readonly IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, IRawAirForceGroup, NavalBase> _airForce;
+        public ITable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup> AirForce => _airForce;
 
         public Admiral Admiral { get; private set; }
 

@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events
 {
     public readonly struct AirForceSupply
     {
-        public AirForceSupply(int mapAreaId, int airForceId, IReadOnlyCollection<IRawAirForceSquadron> updatedSquadrons)
+        public AirForceSupply(MapAreaId mapAreaId, AirForceGroupId groupId, IReadOnlyCollection<IRawAirForceSquadron> updatedSquadrons)
         {
             MapAreaId = mapAreaId;
-            AirForceId = airForceId;
+            GroupId = groupId;
             UpdatedSquadrons = updatedSquadrons;
         }
 
-        public int MapAreaId { get; }
-        public int AirForceId { get; }
+        public MapAreaId MapAreaId { get; }
+        public AirForceGroupId GroupId { get; }
         public IReadOnlyCollection<IRawAirForceSquadron> UpdatedSquadrons { get; }
     }
 }

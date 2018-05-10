@@ -1,7 +1,9 @@
-﻿namespace Sakuno.ING.Game.Json
+﻿using Sakuno.ING.Game.Models;
+
+namespace Sakuno.ING.Game.Json
 {
     internal class ShipEquipmentJson
     {
-        public int[] api_slot;
+        public EquipmentId?[] api_slot;
     }
 }

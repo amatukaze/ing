@@ -1,11 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    public interface IRawAirForceGroup : IIdentifiable
+    public readonly struct AirForceGroupId : IEquatable<AirForceGroupId>, IComparable<AirForceGroupId>
     {
-        int MapAreaId { get; }
-        int GroupId { get; }
+        private readonly int value;
+        public AirForceGroupId(int value) => this.value = value;
+
+        public int CompareTo(AirForceGroupId other) => value - other.value;
+        public bool Equals(AirForceGroupId other) => value == other.value;
+
+        public static implicit operator int(AirForceGroupId id) => id.value;
+        public static explicit operator AirForceGroupId(long value) => new AirForceGroupId((int)value);
+
+        public override string ToString() => value.ToString();
+    }
+
+    public interface IRawAirForceGroup : IIdentifiable<(MapAreaId MapArea, AirForceGroupId GroupId)>
+    {
+        MapAreaId MapAreaId { get; }
+        AirForceGroupId GroupId { get; }
         string Name { get; }
         int Distance { get; }
         AirForceAction Action { get; }

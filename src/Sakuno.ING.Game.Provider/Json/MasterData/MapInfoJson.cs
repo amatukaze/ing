@@ -9,9 +9,9 @@ namespace Sakuno.ING.Game.Json.MasterData
     internal class MapInfoJson : IRawMapInfo
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public MapId Id { get; set; }
         [JsonProperty("api_maparea_id")]
-        public int MapAreaId { get; set; }
+        public MapAreaId MapAreaId { get; set; }
         [JsonProperty("api_no")]
         public int CategoryNo { get; set; }
 
@@ -25,7 +25,7 @@ namespace Sakuno.ING.Game.Json.MasterData
         public string Description { get; set; }
 
         [JsonProperty("api_item")]
-        public IReadOnlyCollection<int> ItemAcquirements { get; set; }
+        public IReadOnlyCollection<UseItemId> ItemAcquirements { get; set; }
         [JsonProperty("api_required_defeat_count")]
         public int? RequiredDefeatCount { get; set; }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game
 {
@@ -25,5 +26,11 @@ namespace Sakuno.ING.Game
 
         public static int[] GetInts(this NameValueCollection source, string name)
             => source[name]?.Split(',').Select(int.Parse).ToArray() ?? Array.Empty<int>();
+
+        public static ShipId[] GetShipIds(this NameValueCollection source, string name)
+            => source[name]?.Split(',').Select(x => (ShipId)int.Parse(x)).ToArray() ?? Array.Empty<ShipId>();
+
+        public static EquipmentId[] GetEquipmentIds(this NameValueCollection source, string name)
+            => source[name]?.Split(',').Select(x => (EquipmentId)int.Parse(x)).ToArray() ?? Array.Empty<EquipmentId>();
     }
 }

@@ -10,7 +10,7 @@ namespace Sakuno.ING.Game.Json.MasterData
     internal class EquipmentInfoJson : IRawEquipmentInfo
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public EquipmentInfoId Id { get; set; }
 
         [JsonProperty("api_name")]
         public string Name { get; set; }
@@ -19,10 +19,10 @@ namespace Sakuno.ING.Game.Json.MasterData
         public string Description { get; set; }
 
         public int[] api_type;
-        public int TypeId => api_type.ElementAtOrDefault(2);
+        public EquipmentTypeId TypeId => (EquipmentTypeId)api_type.ElementAtOrDefault(2);
         public int IconId => api_type.ElementAtOrDefault(3);
 
-        public IReadOnlyCollection<int> ExtraSlotAcceptingShips { get; set; } = Array.Empty<int>();
+        public IReadOnlyCollection<ShipInfoId> ExtraSlotAcceptingShips { get; set; } = Array.Empty<ShipInfoId>();
 
         [JsonProperty("api_houg")]
         public int Firepower { get; set; }

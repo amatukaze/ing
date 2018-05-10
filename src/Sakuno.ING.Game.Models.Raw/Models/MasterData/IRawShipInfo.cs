@@ -3,7 +3,21 @@ using System.Collections.Generic;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    public interface IRawShipInfo : IIdentifiable
+    public readonly struct ShipInfoId : IEquatable<ShipInfoId>, IComparable<ShipInfoId>
+    {
+        private readonly int value;
+        public ShipInfoId(int value) => this.value = value;
+
+        public int CompareTo(ShipInfoId other) => value - other.value;
+        public bool Equals(ShipInfoId other) => value == other.value;
+
+        public static implicit operator int(ShipInfoId id) => id.value;
+        public static explicit operator ShipInfoId(long value) => new ShipInfoId((int)value);
+
+        public override string ToString() => value.ToString();
+    }
+
+    public interface IRawShipInfo : IIdentifiable<ShipInfoId>
     {
         int SortNo { get; }
         string Name { get; }
@@ -13,11 +27,11 @@ namespace Sakuno.ING.Game.Models.MasterData
         bool IsAbyssal { get; }
         string AbyssalClass { get; }
 
-        int TypeId { get; }
+        ShipTypeId TypeId { get; }
         int ClassId { get; }
 
         int UpgradeLevel { get; }
-        int UpgradeTo { get; }
+        ShipInfoId UpgradeTo { get; }
         Materials UpgradeConsumption { get; }
         IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption { get; }
 

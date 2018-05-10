@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Models
 {
-    public class AirForceGroup : Calculated<int, IRawAirForceGroup>
+    public class AirForceGroup : Calculated<(MapAreaId MapArea, AirForceGroupId GroupId), IRawAirForceGroup>
     {
         internal readonly IdTable<int, AirForceSquadron, IRawAirForceSquadron, NavalBase> squadrons;
         public ITable<int, AirForceSquadron> Squadrons => squadrons;
@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game.Models
 
         public MapAreaInfo MapArea { get; }
 
-        public int GroupId { get; }
+        public AirForceGroupId GroupId { get; }
 
         private string _name;
         public string Name
@@ -34,11 +34,12 @@ namespace Sakuno.ING.Game.Models
             set => Set(ref _action, value);
         }
 
-        public AirForceGroup(int id, NavalBase owner)
+        public AirForceGroup((MapAreaId MapArea, AirForceGroupId GroupId) id, NavalBase owner)
             : base(id)
         {
             this.owner = owner;
-            GroupId = (ushort)id;
+            GroupId = id.GroupId;
+            MapArea = owner.MasterData.MapAreas[id.MapArea];
             squadrons = new IdTable<int, AirForceSquadron, IRawAirForceSquadron, NavalBase>(owner);
         }
 

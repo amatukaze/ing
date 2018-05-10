@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
+using Sakuno.ING.Game.Models;
 using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
@@ -14,13 +15,13 @@ namespace Sakuno.ING.Game
             remove => questUpdated.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<int> questCompleted;
-        public event TimedMessageHandler<int> QuestCompleted
+        private readonly ITimedMessageProvider<QuestId> questCompleted;
+        public event TimedMessageHandler<QuestId> QuestCompleted
         {
             add => questCompleted.Received += value;
             remove => questCompleted.Received -= value;
         }
-        
+
         private static QuestPageUpdate ParseQuestPage(QuestPageJson response)
             => new QuestPageUpdate
             (
@@ -32,7 +33,7 @@ namespace Sakuno.ING.Game
                 activeCount: response.api_exec_count
             );
 
-        private static int ParseQuestComplete(NameValueCollection request)
-            => request.GetInt("api_quest_id");
+        private static QuestId ParseQuestComplete(NameValueCollection request)
+            => (QuestId)request.GetInt("api_quest_id");
     }
 }

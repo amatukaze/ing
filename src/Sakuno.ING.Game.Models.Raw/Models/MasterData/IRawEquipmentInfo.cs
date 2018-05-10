@@ -1,15 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    public interface IRawEquipmentInfo : IIdentifiable
+    public readonly struct EquipmentInfoId : IEquatable<EquipmentInfoId>, IComparable<EquipmentInfoId>
+    {
+        private readonly int value;
+        public EquipmentInfoId(int value) => this.value = value;
+
+        public int CompareTo(EquipmentInfoId other) => value - other.value;
+        public bool Equals(EquipmentInfoId other) => value == other.value;
+
+        public static implicit operator int(EquipmentInfoId id) => id.value;
+        public static explicit operator EquipmentInfoId(long value) => new EquipmentInfoId((int)value);
+
+        public override string ToString() => value.ToString();
+    }
+
+    public interface IRawEquipmentInfo : IIdentifiable<EquipmentInfoId>
     {
         string Name { get; }
         string Description { get; }
 
-        int TypeId { get; }
+        EquipmentTypeId TypeId { get; }
         int IconId { get; }
-        IReadOnlyCollection<int> ExtraSlotAcceptingShips { get; }
+        IReadOnlyCollection<ShipInfoId> ExtraSlotAcceptingShips { get; }
 
         /// <summary>
         /// 火力

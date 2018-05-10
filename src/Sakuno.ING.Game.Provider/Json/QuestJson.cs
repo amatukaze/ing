@@ -7,7 +7,7 @@ namespace Sakuno.ING.Game.Json
     internal class QuestJson : IRawQuest
     {
         [JsonProperty("api_no")]
-        public int Id { get; set; }
+        public QuestId Id { get; set; }
 
         public int api_category;
         public QuestCategoty Category => api_category == 8 ?

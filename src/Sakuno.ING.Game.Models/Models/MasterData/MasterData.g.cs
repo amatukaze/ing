@@ -11,9 +11,9 @@ using System.Collections.Generic;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    public partial class ShipInfo : Calculated<int, IRawShipInfo>
+    public partial class ShipInfo : Calculated<ShipInfoId, IRawShipInfo>
     {
-        public ShipInfo(int id, MasterDataRoot owner) : base(id)
+        public ShipInfo(ShipInfoId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("ShipName", id.ToString());
@@ -246,9 +246,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void UpdateCore(IRawShipInfo raw);
         partial void CreateDummy();
     }
-    public partial class ShipTypeInfo : Calculated<int, IRawShipTypeInfo>
+    public partial class ShipTypeInfo : Calculated<ShipTypeId, IRawShipTypeInfo>
     {
-        public ShipTypeInfo(int id, MasterDataRoot owner) : base(id)
+        public ShipTypeInfo(ShipTypeId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("ShipType", id.ToString());
@@ -303,9 +303,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
         public IReadOnlyList<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
     }
-    public partial class EquipmentTypeInfo : Calculated<int, IRawEquipmentTypeInfo>
+    public partial class EquipmentTypeInfo : Calculated<EquipmentTypeId, IRawEquipmentTypeInfo>
     {
-        public EquipmentTypeInfo(int id, MasterDataRoot owner) : base(id)
+        public EquipmentTypeInfo(EquipmentTypeId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("EquipType", id.ToString());
@@ -339,9 +339,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void UpdateCore(IRawEquipmentTypeInfo raw);
         partial void CreateDummy();
     }
-    public partial class EquipmentInfo : Calculated<int, IRawEquipmentInfo>
+    public partial class EquipmentInfo : Calculated<EquipmentInfoId, IRawEquipmentInfo>
     {
-        public EquipmentInfo(int id, MasterDataRoot owner) : base(id)
+        public EquipmentInfo(EquipmentInfoId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("EquipName", id.ToString());
@@ -524,9 +524,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         private readonly BindableSnapshotCollection<ShipInfo> extraSlotAcceptingShips = new BindableSnapshotCollection<ShipInfo>();
         public IReadOnlyList<ShipInfo> ExtraSlotAcceptingShips => extraSlotAcceptingShips;
     }
-    public partial class UseItemInfo : Calculated<int, IRawUseItem>
+    public partial class UseItemInfo : Calculated<UseItemId, IRawUseItem>
     {
-        public UseItemInfo(int id, MasterDataRoot owner) : base(id)
+        public UseItemInfo(UseItemId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("UseItem", id.ToString());
@@ -552,9 +552,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void UpdateCore(IRawUseItem raw);
         partial void CreateDummy();
     }
-    public partial class MapAreaInfo : Calculated<int, IRawMapArea>
+    public partial class MapAreaInfo : Calculated<MapAreaId, IRawMapArea>
     {
-        public MapAreaInfo(int id, MasterDataRoot owner) : base(id)
+        public MapAreaInfo(MapAreaId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("MapArea", id.ToString());
@@ -588,9 +588,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void UpdateCore(IRawMapArea raw);
         partial void CreateDummy();
     }
-    public partial class MapInfo : Calculated<int, IRawMapInfo>
+    public partial class MapInfo : Calculated<MapId, IRawMapInfo>
     {
-        public MapInfo(int id, MasterDataRoot owner) : base(id)
+        public MapInfo(MapId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("MapName", id.ToString());
@@ -680,9 +680,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         private readonly BindableSnapshotCollection<UseItemInfo> itemAcquirements = new BindableSnapshotCollection<UseItemInfo>();
         public IReadOnlyList<UseItemInfo> ItemAcquirements => itemAcquirements;
     }
-    public partial class ExpeditionInfo : Calculated<int, IRawExpeditionInfo>
+    public partial class ExpeditionInfo : Calculated<ExpeditionId, IRawExpeditionInfo>
     {
-        public ExpeditionInfo(int id, MasterDataRoot owner) : base(id)
+        public ExpeditionInfo(ExpeditionId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
             NameTranslation = Module.Localize.GetLocalized("ExpeditionName", id.ToString());

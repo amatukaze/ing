@@ -1,8 +1,10 @@
-﻿namespace Sakuno.ING.Game.Events.Shipyard
+﻿using Sakuno.ING.Game.Models;
+
+namespace Sakuno.ING.Game.Events.Shipyard
 {
     public class RepairStart
     {
-        public RepairStart(bool instantRepair, int shipId, int repairingDockId)
+        public RepairStart(bool instantRepair, ShipId shipId, int repairingDockId)
         {
             InstantRepair = instantRepair;
             ShipId = shipId;
@@ -10,7 +12,7 @@
         }
 
         public bool InstantRepair { get; }
-        public int ShipId { get; }
+        public ShipId ShipId { get; }
         public int RepairingDockId { get; }
     }
 }

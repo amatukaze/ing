@@ -8,7 +8,7 @@ namespace Sakuno.ING.Game.Json
     internal class ShipSupplyJson : IShipSupply
     {
         [JsonProperty("api_id")]
-        public int ShipId { get; set; }
+        public ShipId ShipId { get; set; }
         [JsonProperty("api_fuel")]
         public int CurrentFuel { get; set; }
         [JsonProperty("api_bull")]

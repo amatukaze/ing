@@ -1,4 +1,5 @@
 ﻿using System;
+using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Json.Shipyard
 {
@@ -6,6 +7,6 @@ namespace Sakuno.ING.Game.Json.Shipyard
     {
         public bool api_remodel_flag;
         public EquipmentJson api_after_slot;
-        public int[] api_use_slot_id = Array.Empty<int>();
+        public EquipmentId[] api_use_slot_id = Array.Empty<EquipmentId>();
     }
 }

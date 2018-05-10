@@ -1,6 +1,8 @@
-﻿namespace Sakuno.ING.Game.Models
+﻿using Sakuno.ING.Game.Models.MasterData;
+
+namespace Sakuno.ING.Game.Models
 {
-    public interface IRawMap : IIdentifiable
+    public interface IRawMap : IIdentifiable<MapId>
     {
         bool IsCleared { get; }
         EventMapRank? Rank { get; }

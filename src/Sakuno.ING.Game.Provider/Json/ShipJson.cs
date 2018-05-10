@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Knowledge;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Json
 {
     internal class ShipJson : IRawShip
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public ShipId Id { get; set; }
         [JsonProperty("api_ship_id")]
-        public int ShipInfoId { get; set; }
+        public ShipInfoId ShipInfoId { get; set; }
 
         public int api_lv;
         public int[] api_exp;
@@ -30,13 +32,13 @@ namespace Sakuno.ING.Game.Json
         [JsonProperty("api_leng")]
         public FireRange FireRange { get; set; }
 
-        [JsonProperty("api_slot")]
-        public IReadOnlyList<int> EquipmentIds { get; set; }
+        public int[] api_slot;
+        public IReadOnlyList<EquipmentId?> EquipmentIds => api_slot.Select(x => x > 0 ? (EquipmentId?)x : null).ToArray();
         [JsonProperty("api_onslot")]
         public IReadOnlyList<int> SlotAircraft { get; set; }
-        public bool ExtraSlotOpened => ExtraSlotEquipId != 0;
-        [JsonProperty("api_slot_ex")]
-        public int ExtraSlotEquipId { get; set; }
+        public bool ExtraSlotOpened => api_slot_ex != 0;
+        public int api_slot_ex;
+        public EquipmentId? ExtraSlotEquipId => api_slot_ex > 0 ? (EquipmentId?)api_slot_ex : null;
 
         [JsonProperty("api_fuel")]
         public int CurrentFuel { get; set; }

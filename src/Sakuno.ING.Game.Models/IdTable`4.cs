@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 namespace Sakuno.ING.Game
 {
     public class IdTable<TId, T, TRaw, TOwner> : ITable<TId, T>
-        where TId : IComparable<TId>, IEquatable<TId>
+        where TId : struct, IComparable<TId>, IEquatable<TId>
         where T : Calculated<TId, TRaw>
         where TRaw : IIdentifiable<TId>
     {
@@ -31,7 +31,9 @@ namespace Sakuno.ING.Game
             DefaultView = new BindableSnapshotCollection<T>(this, this.OrderBy(x => x.Id));
         }
 
-        public T this[TId id] => TryGetValue(id, out var item) ? item : null;
+        public T this[TId id] => TryGetValue(id, out var item) ? item : throw new ArgumentException(nameof(id));
+
+        public T this[TId? id] => id is TId value ? this[value] : null;
 
         public T TryGetOrDummy(TId id)
         {
@@ -42,6 +44,8 @@ namespace Sakuno.ING.Game
             Add(item);
             return item;
         }
+
+        public T TryGetOrDummy(TId? id) => id is TId value ? TryGetOrDummy(value) : null;
 
         public IBindableCollection<T> DefaultView { get; }
         public int Count => list.Count;
@@ -57,7 +61,7 @@ namespace Sakuno.ING.Game
                     else
                         i++;
 
-                if (i < list.Count && EqualityComparer<TId>.Default.Equals(list[i].Id, raw.Id))
+                if (i < list.Count && list[i].Id.Equals(raw.Id))
                     list[i].Update(raw);
                 else
                 {
@@ -86,7 +90,7 @@ namespace Sakuno.ING.Game
                     list.Insert(i, item);
                     break;
                 }
-                else if (EqualityComparer<TId>.Default.Equals(list[i].Id, item.Id))
+                else if (list[i].Id.Equals(item.Id))
                 {
                     list[i] = item;
                     break;

@@ -19,7 +19,7 @@ namespace Sakuno.ING.Game
         private static MasterDataUpdate ParseMasterData(MasterDataJson raw)
         {
 
-            foreach (int id in raw.api_mst_equip_exslot)
+            foreach (var id in raw.api_mst_equip_exslot)
             {
                 var type = raw.api_mst_slotitem_equiptype.Find(x => x.Id == id);
                 if (type != null)

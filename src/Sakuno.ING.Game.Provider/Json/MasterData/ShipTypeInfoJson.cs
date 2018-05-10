@@ -8,7 +8,7 @@ namespace Sakuno.ING.Game.Json.MasterData
     internal class ShipTypeInfoJson : IRawShipTypeInfo
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public ShipTypeId Id { get; set; }
         [JsonProperty("api_sortno")]
         public int SortNo { get; set; }
         [JsonProperty("api_name")]
@@ -20,6 +20,6 @@ namespace Sakuno.ING.Game.Json.MasterData
         public int BuildOutlineId { get; set; }
 
         [JsonProperty("api_equip_type"), JsonConverter(typeof(BoolDictionaryConverter))]
-        public IReadOnlyCollection<int> AvailableEquipmentTypes { get; set; }
+        public IReadOnlyCollection<EquipmentTypeId> AvailableEquipmentTypes { get; set; }
     }
 }

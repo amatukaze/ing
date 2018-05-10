@@ -10,11 +10,11 @@ namespace Sakuno.ING.Game.Json.MasterData
     internal class ExpeditionInfoJson : IRawExpeditionInfo
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public ExpeditionId Id { get; set; }
         [JsonProperty("api_disp_no")]
         public string DisplayId { get; set; }
         [JsonProperty("api_maparea_id")]
-        public int MapAreaId { get; set; }
+        public MapAreaId MapAreaId { get; set; }
 
         [JsonProperty("api_name")]
         public string Name { get; set; }

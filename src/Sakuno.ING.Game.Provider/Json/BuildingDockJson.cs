@@ -1,13 +1,14 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Json
 {
     internal class BuildingDockJson : IRawBuildingDock
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public BuildingDockId Id { get; set; }
 
         public long api_complete_time;
         public DateTimeOffset CompletionTime => DateTimeOffset.FromUnixTimeMilliseconds(api_complete_time);
@@ -25,8 +26,8 @@ namespace Sakuno.ING.Game.Json
             Development = api_item5
         };
 
-        [JsonProperty("api_created_ship_id")]
-        public int BuiltShipId { get; set; }
+        public int api_created_ship_id;
+        public ShipInfoId? BuiltShipId => api_created_ship_id > 0 ? (ShipInfoId?)api_created_ship_id : null;
 
         public bool IsLSC => api_item1 >= 1000;
     }

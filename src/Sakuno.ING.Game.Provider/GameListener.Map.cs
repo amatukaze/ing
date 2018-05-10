@@ -4,6 +4,7 @@ using System.Linq;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
@@ -57,8 +58,8 @@ namespace Sakuno.ING.Game
         private static AirForceSetPlane ParseAirForcePlaneSet(NameValueCollection request, AirForceSetPlaneJson response)
             => new AirForceSetPlane
             (
-                mapAreaId: request.GetInt("api_area_id"),
-                airForceId: request.GetInt("api_base_id"),
+                mapAreaId: (MapAreaId)request.GetInt("api_area_id"),
+                groupId: (AirForceGroupId)request.GetInt("api_base_id"),
                 newDistance: response.api_distance,
                 updatedSquadrons: response.api_plane_info
             );
@@ -70,8 +71,8 @@ namespace Sakuno.ING.Game
                 request.GetInts("api_action_kind"),
                 (id, action) => new AirForceSetAction
                 (
-                    mapAreaId: mapArea,
-                    airForceId: id,
+                    mapAreaId: (MapAreaId)mapArea,
+                    groupId: (AirForceGroupId)id,
                     action: (AirForceAction)action
                 ));
         }
@@ -79,8 +80,8 @@ namespace Sakuno.ING.Game
         private static AirForceSupply ParseAirForceSupply(NameValueCollection request, AirForceSupplyJson response)
             => new AirForceSupply
             (
-                mapAreaId: request.GetInt("api_area_id"),
-                airForceId: request.GetInt("api_base_id"),
+                mapAreaId: (MapAreaId)request.GetInt("api_area_id"),
+                groupId: (AirForceGroupId)request.GetInt("api_base_id"),
                 updatedSquadrons: response.api_plane_info
             );
     }

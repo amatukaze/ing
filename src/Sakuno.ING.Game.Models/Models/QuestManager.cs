@@ -7,7 +7,7 @@ namespace Sakuno.ING.Game.Models
     {
         internal QuestManager(IGameProvider listener)
         {
-            _allQuests = new IdTable<int, Quest, IRawQuest, QuestManager>(this);
+            _allQuests = new IdTable<QuestId, Quest, IRawQuest, QuestManager>(this);
             listener.QuestUpdated += QuestUpdated;
             listener.QuestCompleted += (_, msg) => _allQuests.Remove(msg);
         }
@@ -46,8 +46,8 @@ namespace Sakuno.ING.Game.Models
 
         private static readonly TimeSpan questUpdate = TimeSpan.FromHours(4);
 
-        private readonly IdTable<int, Quest, IRawQuest, QuestManager> _allQuests;
-        public ITable<int, Quest> AllQuests => _allQuests;
+        private readonly IdTable<QuestId, Quest, IRawQuest, QuestManager> _allQuests;
+        public ITable<QuestId, Quest> AllQuests => _allQuests;
 
         public void Reset() => _allQuests.Clear();
     }

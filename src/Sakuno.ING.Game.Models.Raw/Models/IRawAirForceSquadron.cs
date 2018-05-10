@@ -2,7 +2,7 @@
 {
     public interface IRawAirForceSquadron : IIdentifiable
     {
-        int EquipmentId { get; }
+        EquipmentId EquipmentId { get; }
         ClampedValue AircraftCount { get; }
         SquadronMorale Morale { get; }
     }

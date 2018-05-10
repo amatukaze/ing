@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Events
 {
     public class ShipEquipmentUpdate
     {
-        public ShipEquipmentUpdate(int shipId, IReadOnlyList<int> equipmentIds)
+        public ShipEquipmentUpdate(ShipId shipId, IReadOnlyList<EquipmentId?> equipmentIds)
         {
             ShipId = shipId;
             EquipmentIds = equipmentIds;
         }
 
-        public int ShipId { get; }
-        public IReadOnlyList<int> EquipmentIds { get; }
+        public ShipId ShipId { get; }
+        public IReadOnlyList<EquipmentId?> EquipmentIds { get; }
     }
 }

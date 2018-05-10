@@ -1,6 +1,22 @@
-﻿namespace Sakuno.ING.Game.Models
+﻿using System;
+
+namespace Sakuno.ING.Game.Models
 {
-    public interface IRawQuest : IIdentifiable
+    public readonly struct QuestId : IEquatable<QuestId>, IComparable<QuestId>
+    {
+        private readonly int value;
+        public QuestId(int value) => this.value = value;
+
+        public int CompareTo(QuestId other) => value - other.value;
+        public bool Equals(QuestId other) => value == other.value;
+
+        public static implicit operator int(QuestId id) => id.value;
+        public static explicit operator QuestId(long value) => new QuestId((int)value);
+
+        public override string ToString() => value.ToString();
+    }
+
+    public interface IRawQuest : IIdentifiable<QuestId>
     {
         QuestCategoty Category { get; }
         QuestPeriod Period { get; }

@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Json
 {
     internal class EquipmentJson : IRawEquipment
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public EquipmentId Id { get; set; }
         [JsonProperty("api_slotitem_id")]
-        public int EquipmentInfoId { get; set; }
+        public EquipmentInfoId EquipmentInfoId { get; set; }
         [JsonProperty("api_locked")]
         public bool IsLocked { get; set; }
         [JsonProperty("api_level")]

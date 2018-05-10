@@ -20,27 +20,27 @@ namespace Sakuno.ING.Game
         event TimedMessageHandler<IReadOnlyCollection<IRawFleet>> FleetsUpdated;
         event TimedMessageHandler<CompositionChange> CompositionChanged;
         event TimedMessageHandler<IRawFleet> FleetPresetSelected;
-        event TimedMessageHandler<int> ShipExtraSlotOpened;
+        event TimedMessageHandler<ShipId> ShipExtraSlotOpened;
         event TimedMessageHandler<ShipEquipmentUpdate> ShipEquipmentUdated;
         event TimedMessageHandler<IReadOnlyCollection<IRawShip>> PartialShipsUpdated;
         event TimedMessageHandler<IReadOnlyCollection<IRawFleet>> PartialFleetsUpdated;
         event TimedMessageHandler<IMaterialsUpdate> MaterialsUpdated;
         event TimedMessageHandler<IReadOnlyCollection<IRawRepairingDock>> RepairingDockUpdated;
         event TimedMessageHandler<RepairStart> RepairStarted;
-        event TimedMessageHandler<int> InstantRepaired;
+        event TimedMessageHandler<RepairingDockId> InstantRepaired;
         event TimedMessageHandler<IReadOnlyCollection<IShipSupply>> ShipSupplied;
 
         event TimedMessageHandler<ShipCreation> ShipCreated;
-        event TimedMessageHandler<int> InstantBuilt;
+        event TimedMessageHandler<BuildingDockId> InstantBuilt;
         event TimedMessageHandler<ShipBuildCompletion> ShipBuildCompleted;
         event TimedMessageHandler<EquipmentCreation> EquipmentCreated;
         event TimedMessageHandler<ShipDismantling> ShipDismantled;
-        event TimedMessageHandler<IReadOnlyCollection<int>> EquipmentDismantled;
+        event TimedMessageHandler<IReadOnlyCollection<EquipmentId>> EquipmentDismantled;
         event TimedMessageHandler<EquipmentImprove> EquipmentImproved;
         event TimedMessageHandler<ShipPowerup> ShipPoweruped;
 
         event TimedMessageHandler<QuestPageUpdate> QuestUpdated;
-        event TimedMessageHandler<int> QuestCompleted;
+        event TimedMessageHandler<QuestId> QuestCompleted;
 
         event TimedMessageHandler<IReadOnlyCollection<IRawMap>> MapsUpdated;
         event TimedMessageHandler<IReadOnlyCollection<IRawAirForceGroup>> AirForceUpdated;

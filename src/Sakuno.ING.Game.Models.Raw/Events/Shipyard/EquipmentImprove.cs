@@ -5,7 +5,7 @@ namespace Sakuno.ING.Game.Events.Shipyard
 {
     public class EquipmentImprove
     {
-        public EquipmentImprove(int equipmentId, int recipeId, bool guaranteedSuccess, bool isSuccess, IRawEquipment updatedTo, IReadOnlyCollection<int> consumedEquipmentIds)
+        public EquipmentImprove(EquipmentId equipmentId, int recipeId, bool guaranteedSuccess, bool isSuccess, IRawEquipment updatedTo, IReadOnlyCollection<EquipmentId> consumedEquipmentIds)
         {
             EquipmentId = equipmentId;
             RecipeId = recipeId;
@@ -15,11 +15,11 @@ namespace Sakuno.ING.Game.Events.Shipyard
             ConsumedEquipmentIds = consumedEquipmentIds;
         }
 
-        public int EquipmentId { get; }
+        public EquipmentId EquipmentId { get; }
         public int RecipeId { get; }
         public bool GuaranteedSuccess { get; }
         public bool IsSuccess { get; }
         public IRawEquipment UpdatedTo { get; }
-        public IReadOnlyCollection<int> ConsumedEquipmentIds { get; }
+        public IReadOnlyCollection<EquipmentId> ConsumedEquipmentIds { get; }
     }
 }

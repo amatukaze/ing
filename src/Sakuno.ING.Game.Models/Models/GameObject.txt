@@ -3,26 +3,26 @@ System
 System.Collections.Generic
 Sakuno.ING.Game.Models.MasterData
 
-Equipment:int:IRawEquipment:NavalBase
+Equipment:EquipmentId:IRawEquipment:NavalBase
 p:EquipmentInfo Info
 p:bool IsLocked -
 p:int ImprovementLevel -
 p:int AirProficiency -
 p:bool IsAvailable
 
-BuildingDock:int:IRawBuildingDock:NavalBase
+BuildingDock:BuildingDockId:IRawBuildingDock:NavalBase
 p:DateTimeOffset CompletionTime -
 p:BuildingDockState State -
 p:Materials Consumption -
 p:ShipInfo BuiltShip
 p:bool IsLSC -
 
-RepairingDock:int:IRawRepairingDock:NavalBase
+RepairingDock:RepairingDockId:IRawRepairingDock:NavalBase
 p:RepairingDockState State -
 p:DateTimeOffset CompletionTime -
 p:Materials Consumption -
 
-UseItemCount:int:IRawUseItemCount:NavalBase
+UseItemCount:UseItemId:IRawUseItemCount:NavalBase
 p:UseItemInfo Item
 p:int Count -
 
@@ -39,7 +39,7 @@ p:ExpeditionStat ExpeditionStat -
 p:bool CanLSC -
 p:int MaxMaterial -
 
-Ship:int:IRawShip:NavalBase
+Ship:ShipId:IRawShip:NavalBase
 p:ShipInfo Info
 p:Leveling Leveling -
 p:ClampedValue HP -
@@ -64,14 +64,14 @@ p:bool IsLocked -
 p:int? ShipLockingTag -
 p:bool IsRepairing
 
-Fleet:int:IRawFleet:NavalBase
+Fleet:FleetId:IRawFleet:NavalBase
 p:string Name -
 p:FleetExpeditionState ExpeditionState -
 p:ExpeditionInfo Expedition
 p:DateTimeOffset ExpeditionCompletionTime -
 b:Ship Ships
 
-Quest:int:IRawQuest:QuestManager
+Quest:QuestId:IRawQuest:QuestManager
 l:Name QuestName -
 l:Description QuestDesc -
 p:QuestCategoty Category -
@@ -80,7 +80,7 @@ p:QuestState State -
 p:QuestProgress Progress -
 p:Materials Rewards -
 
-Map:int:IRawMap:NavalBase
+Map:MapId:IRawMap:NavalBase
 p:MapInfo Info
 p:bool IsCleared -
 p:EventMapRank? Rank -

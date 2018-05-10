@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Json
 {
     internal class MapJson : IRawMap
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public MapId Id { get; set; }
         [JsonProperty("api_cleared")]
         public bool IsCleared { get; set; }
         [JsonProperty("api_air_base_decks")]

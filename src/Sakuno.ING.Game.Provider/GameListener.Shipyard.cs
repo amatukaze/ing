@@ -19,8 +19,8 @@ namespace Sakuno.ING.Game
             remove => shipCreated.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<int> instantBuilt;
-        public event TimedMessageHandler<int> InstantBuilt
+        private readonly ITimedMessageProvider<BuildingDockId> instantBuilt;
+        public event TimedMessageHandler<BuildingDockId> InstantBuilt
         {
             add => instantBuilt.Received += value;
             remove => instantBuilt.Received -= value;
@@ -47,8 +47,8 @@ namespace Sakuno.ING.Game
             remove => shipDismantled.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IReadOnlyCollection<int>> equipmentDismantled;
-        public event TimedMessageHandler<IReadOnlyCollection<int>> EquipmentDismantled
+        private readonly ITimedMessageProvider<IReadOnlyCollection<EquipmentId>> equipmentDismantled;
+        public event TimedMessageHandler<IReadOnlyCollection<EquipmentId>> EquipmentDismantled
         {
             add => equipmentDismantled.Received += value;
             remove => equipmentDismantled.Received -= value;
@@ -85,8 +85,8 @@ namespace Sakuno.ING.Game
                 }
             );
 
-        private static int ParseInstantBuilt(NameValueCollection request)
-            => request.GetInt("api_kdock_id");
+        private static BuildingDockId ParseInstantBuilt(NameValueCollection request)
+            => (BuildingDockId)request.GetInt("api_kdock_id");
 
         private static ShipBuildCompletion ParseShipBuildCompletion(ShipBuildCompletionJson response)
             => new ShipBuildCompletion
@@ -134,17 +134,17 @@ namespace Sakuno.ING.Game
         private static ShipDismantling ParseShipDismantling(NameValueCollection request)
             => new ShipDismantling
             (
-                shipIds: request.GetInts("api_ship_id"),
+                shipIds: request.GetShipIds("api_ship_id"),
                 dismantleEquipments: request.GetBool("api_slot_dest_flag")
             );
 
-        private static IReadOnlyCollection<int> ParseEquipmentDimantling(NameValueCollection request)
-            => request.GetInts("api_slotitem_ids");
+        private static IReadOnlyCollection<EquipmentId> ParseEquipmentDimantling(NameValueCollection request)
+            => request.GetEquipmentIds("api_slotitem_ids");
 
         private static EquipmentImprove ParseEquipmentImprove(NameValueCollection request, EquipmentImproveJson response)
             => new EquipmentImprove
             (
-                equipmentId: request.GetInt("api_slot_id"),
+                equipmentId: (EquipmentId)request.GetInt("api_slot_id"),
                 recipeId: request.GetInt("api_slot_id"),
                 guaranteedSuccess: request.GetBool("api_certain_flag"),
                 isSuccess: response.api_remodel_flag,
@@ -155,8 +155,8 @@ namespace Sakuno.ING.Game
         private static ShipPowerup ParseShipPowerup(NameValueCollection request, ShipPowerupJson response)
             => new ShipPowerup
             (
-                shipId: request.GetInt("api_id"),
-                consumedShipIds: request.GetInts("api_id_items"),
+                shipId: (ShipId)request.GetInt("api_id"),
+                consumedShipIds: request.GetShipIds("api_id_items"),
                 isSuccess: response.api_powerup_flag,
                 shipAfter: response.api_ship
             );

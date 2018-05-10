@@ -46,8 +46,8 @@ namespace Sakuno.ING.Game
             remove => fleetPresetSelected.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<int> shipExtraSlotOpened;
-        public event TimedMessageHandler<int> ShipExtraSlotOpened
+        private readonly ITimedMessageProvider<ShipId> shipExtraSlotOpened;
+        public event TimedMessageHandler<ShipId> ShipExtraSlotOpened
         {
             add => shipExtraSlotOpened.Received += value;
             remove => shipExtraSlotOpened.Received -= value;
@@ -95,8 +95,8 @@ namespace Sakuno.ING.Game
             remove => repairStarted.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<int> instantRepaired;
-        public event TimedMessageHandler<int> InstantRepaired
+        private readonly ITimedMessageProvider<RepairingDockId> instantRepaired;
+        public event TimedMessageHandler<RepairingDockId> InstantRepaired
         {
             add => instantRepaired.Received += value;
             remove => instantRepaired.Received -= value;
@@ -121,18 +121,18 @@ namespace Sakuno.ING.Game
             => new RepairStart
             (
                 instantRepair: request.GetBool("api_highspeed"),
-                shipId: request.GetInt("api_ship_id"),
+                shipId: (ShipId)request.GetInt("api_ship_id"),
                 repairingDockId: request.GetInt("api_ndock_id")
             );
 
-        private static int ParseInstantRepair(NameValueCollection request)
-            => request.GetInt("api_ndock_id");
+        private static RepairingDockId ParseInstantRepair(NameValueCollection request)
+            => (RepairingDockId)request.GetInt("api_ndock_id");
 
         private static CompositionChange ParseCompositionChange(NameValueCollection request)
         {
-            int fleetId = request.GetInt("api_id");
+            var fleetId = (FleetId)request.GetInt("api_id");
             int position = request.GetInt("api_ship_idx");
-            int shipId = request.GetInt("api_ship_id");
+            var shipId = (ShipId)request.GetInt("api_ship_id");
             if (position == -1)
                 return new CompositionChange(fleetId, null, null);
             else if (shipId == -1)
@@ -141,13 +141,13 @@ namespace Sakuno.ING.Game
                 return new CompositionChange(fleetId, position - 1, null);
         }
 
-        private static int ParseShipExtraSlotOpen(NameValueCollection request)
-            => request.GetInt("api_id");
+        private static ShipId ParseShipExtraSlotOpen(NameValueCollection request)
+            => (ShipId)request.GetInt("api_id");
 
         private static ShipEquipmentUpdate ParseShipEquipmentUpdate(NameValueCollection request, ShipEquipmentJson response)
             => new ShipEquipmentUpdate
             (
-                shipId: request.GetInt("api_id"),
+                shipId: (ShipId)request.GetInt("api_id"),
                 equipmentIds: response.api_slot
             );
 

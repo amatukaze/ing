@@ -1,18 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    public interface IRawShip : IIdentifiable
+    public readonly struct ShipId : IEquatable<ShipId>, IComparable<ShipId>
     {
-        int ShipInfoId { get; }
+        private readonly int value;
+        public ShipId(int value) => this.value = value;
+
+        public int CompareTo(ShipId other) => value - other.value;
+        public bool Equals(ShipId other) => value == other.value;
+
+        public static implicit operator int(ShipId id) => id.value;
+        public static explicit operator ShipId(long value) => new ShipId((int)value);
+
+        public override string ToString() => value.ToString();
+    }
+
+    public interface IRawShip : IIdentifiable<ShipId>
+    {
+        ShipInfoId ShipInfoId { get; }
         Leveling Leveling { get; }
         ClampedValue HP { get; }
         ShipSpeed Speed { get; }
         FireRange FireRange { get; }
-        IReadOnlyList<int> EquipmentIds { get; }
+        IReadOnlyList<EquipmentId?> EquipmentIds { get; }
         bool ExtraSlotOpened { get; }
-        int ExtraSlotEquipId { get; }
+        EquipmentId? ExtraSlotEquipId { get; }
         IReadOnlyList<int> SlotAircraft { get; }
 
         int CurrentFuel { get; }

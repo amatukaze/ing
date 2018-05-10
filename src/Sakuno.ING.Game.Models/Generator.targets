@@ -63,7 +63,7 @@ foreach (var infile in Inputs)
             }
             output.WriteLine("    public partial class " + cls[0] + " : Calculated<" + cls[1] + ", " + cls[2] + ">");
             output.WriteLine("    {");
-            output.WriteLine("        public " + cls[0] + "(int id, " + cls[3] + " owner) : base(id)");
+            output.WriteLine("        public " + cls[0] + "(" + cls[1] + " id, " + cls[3] + " owner) : base(id)");
             output.WriteLine("        {");
             output.WriteLine("            this.owner = owner;");
             var unlocalized = new List<string>();

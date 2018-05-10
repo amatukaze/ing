@@ -1,18 +1,19 @@
 ﻿using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events
 {
     public readonly struct AirForceSetAction
     {
-        public AirForceSetAction(int mapAreaId, int airForceId, AirForceAction action)
+        public AirForceSetAction(MapAreaId mapAreaId, AirForceGroupId groupId, AirForceAction action)
         {
             MapAreaId = mapAreaId;
-            AirForceId = airForceId;
+            GroupId = groupId;
             Action = action;
         }
 
-        public int MapAreaId { get; }
-        public int AirForceId { get; }
+        public MapAreaId MapAreaId { get; }
+        public AirForceGroupId GroupId { get; }
         public AirForceAction Action { get; }
     }
 }
