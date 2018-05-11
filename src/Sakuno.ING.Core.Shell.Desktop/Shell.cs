@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Xml.Linq;
+using Sakuno.ING.Data;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
 using Sakuno.ING.ViewModels;
@@ -15,17 +19,19 @@ namespace Sakuno.ING.Shell
     class Shell : IShell
     {
         MainWindowVM _mainWindowVM;
+        private readonly IDataService dataService;
         private readonly ILocalizationService localization;
         private readonly ITextStreamProvider provider;
         private readonly string localeName;
         private readonly FontFamily userFont;
 
-        public Shell(ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider)
+        public Shell(IDataService dataService, ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider)
         {
             _mainWindowVM = new MainWindowVM()
             {
                 Title = "Intelligent Naval Gun",
             };
+            this.dataService = dataService;
             this.localization = localization;
             this.provider = provider;
             localeName = locale.Language.Value;
@@ -54,12 +60,23 @@ namespace Sakuno.ING.Shell
         private MainWindow main;
         private SettingsWindow settings;
 
-        public void Run()
+        public async void Run()
         {
             started = true;
 
-            layout = new LayoutRoot();
-            layout.Entries.Add(new LayoutItem { Id = "Fleets" });
+            XDocument layoutDocument;
+            try
+            {
+                using (var file = await dataService.ReadFile("layout.xml"))
+                    layoutDocument = XDocument.Load(file);
+            }
+            catch (FileNotFoundException)
+            {
+                using (var file = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(Shell), "Layout.Default.xml"))
+                    layoutDocument = XDocument.Load(file);
+            }
+
+            layout = new LayoutRoot().FromXml(layoutDocument);
 
             var app = new Application
             {
