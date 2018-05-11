@@ -3,6 +3,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
+    [Identifier(typeof(int))]
     public readonly struct BuildingDockId : IEquatable<BuildingDockId>, IComparable<BuildingDockId>
     {
         private readonly int value;
@@ -12,7 +13,7 @@ namespace Sakuno.ING.Game.Models
         public bool Equals(BuildingDockId other) => value == other.value;
 
         public static implicit operator int(BuildingDockId id) => id.value;
-        public static explicit operator BuildingDockId(long value) => new BuildingDockId((int)value);
+        public static explicit operator BuildingDockId(int value) => new BuildingDockId(value);
 
         public override string ToString() => value.ToString();
     }

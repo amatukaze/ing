@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
@@ -12,7 +13,7 @@ namespace Sakuno.ING.Game.Json.Converters
         {
             if (reader.TokenType != JsonToken.StartObject)
                 return null;
-            var result = new List<int>();
+            var result = new List<EquipmentTypeId>();
             while (true)
             {
                 reader.Read();
@@ -20,7 +21,7 @@ namespace Sakuno.ING.Game.Json.Converters
                 string name = reader.Value.ToString();
                 var value = reader.ReadAsInt32();
                 if (value == 1)
-                    result.Add(int.Parse(name));
+                    result.Add((EquipmentTypeId)int.Parse(name));
             }
             return result;
         }

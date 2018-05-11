@@ -4,6 +4,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
+    [Identifier(typeof(int))]
     public readonly struct FleetId : IEquatable<FleetId>, IComparable<FleetId>
     {
         private readonly int value;
@@ -13,7 +14,7 @@ namespace Sakuno.ING.Game.Models
         public bool Equals(FleetId other) => value == other.value;
 
         public static implicit operator int(FleetId id) => id.value;
-        public static explicit operator FleetId(long value) => new FleetId((int)value);
+        public static explicit operator FleetId(int value) => new FleetId(value);
 
         public override string ToString() => value.ToString();
     }

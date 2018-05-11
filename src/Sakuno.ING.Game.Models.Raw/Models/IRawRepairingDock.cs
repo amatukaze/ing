@@ -2,6 +2,7 @@
 
 namespace Sakuno.ING.Game.Models
 {
+    [Identifier(typeof(int))]
     public readonly struct RepairingDockId : IEquatable<RepairingDockId>, IComparable<RepairingDockId>
     {
         private readonly int value;
@@ -11,7 +12,7 @@ namespace Sakuno.ING.Game.Models
         public bool Equals(RepairingDockId other) => value == other.value;
 
         public static implicit operator int(RepairingDockId id) => id.value;
-        public static explicit operator RepairingDockId(long value) => new RepairingDockId((int)value);
+        public static explicit operator RepairingDockId(int value) => new RepairingDockId(value);
 
         public override string ToString() => value.ToString();
     }

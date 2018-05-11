@@ -4,6 +4,7 @@ using Sakuno.ING.Game.Models.Knowledge;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
+    [Identifier(typeof(int))]
     public readonly struct ShipTypeId : IEquatable<ShipTypeId>, IComparable<ShipTypeId>
     {
         private readonly int value;
@@ -13,7 +14,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public bool Equals(ShipTypeId other) => value == other.value;
 
         public static implicit operator int(ShipTypeId id) => id.value;
-        public static explicit operator ShipTypeId(long value) => new ShipTypeId((int)value);
+        public static explicit operator ShipTypeId(int value) => new ShipTypeId(value);
 
         public static implicit operator ShipTypeId(KnownShipType known) => new ShipTypeId((int)known);
         public static explicit operator KnownShipType(ShipTypeId id) => (KnownShipType)id.value;

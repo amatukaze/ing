@@ -2,6 +2,7 @@
 
 namespace Sakuno.ING.Game.Models
 {
+    [Identifier(typeof(int))]
     public readonly struct QuestId : IEquatable<QuestId>, IComparable<QuestId>
     {
         private readonly int value;
@@ -11,7 +12,7 @@ namespace Sakuno.ING.Game.Models
         public bool Equals(QuestId other) => value == other.value;
 
         public static implicit operator int(QuestId id) => id.value;
-        public static explicit operator QuestId(long value) => new QuestId((int)value);
+        public static explicit operator QuestId(int value) => new QuestId(value);
 
         public override string ToString() => value.ToString();
     }

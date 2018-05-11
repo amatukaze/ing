@@ -3,6 +3,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
+    [Identifier(typeof(int))]
     public readonly struct EquipmentId : IEquatable<EquipmentId>, IComparable<EquipmentId>
     {
         private readonly int value;
@@ -12,7 +13,7 @@ namespace Sakuno.ING.Game.Models
         public bool Equals(EquipmentId other) => value == other.value;
 
         public static implicit operator int(EquipmentId id) => id.value;
-        public static explicit operator EquipmentId(long value) => new EquipmentId((int)value);
+        public static explicit operator EquipmentId(int value) => new EquipmentId(value);
 
         public override string ToString() => value.ToString();
     }

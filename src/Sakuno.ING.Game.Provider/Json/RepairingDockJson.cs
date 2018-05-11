@@ -12,8 +12,8 @@ namespace Sakuno.ING.Game.Json
         public RepairingDockState State { get; set; }
         [JsonProperty("api_ship_id")]
         public ShipId RepairingShipId { get; set; }
-        public long api_complete_time;
-        public DateTimeOffset CompletionTime => DateTimeOffset.FromUnixTimeMilliseconds(api_complete_time);
+        [JsonProperty("api_complete_time")]
+        public DateTimeOffset CompletionTime { get; set; }
         public int api_item1;
         public int api_item3;
         public Materials Consumption => new Materials

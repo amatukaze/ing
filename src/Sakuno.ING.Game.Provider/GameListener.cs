@@ -15,7 +15,8 @@ namespace Sakuno.ING.Game
         private ITextStreamProvider provider;
         private JsonSerializer jSerializer = new JsonSerializer
         {
-            MissingMemberHandling = MissingMemberHandling.Ignore
+            MissingMemberHandling = MissingMemberHandling.Ignore,
+            ContractResolver = new GameContractResolver()
         };
 
         public GameListener(ITextStreamProvider provider)
