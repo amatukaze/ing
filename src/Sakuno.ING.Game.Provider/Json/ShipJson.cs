@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Knowledge;
@@ -31,14 +30,13 @@ namespace Sakuno.ING.Game.Json
         public ShipSpeed Speed { get; set; }
         [JsonProperty("api_leng")]
         public FireRange FireRange { get; set; }
-
-        public int[] api_slot;
-        public IReadOnlyList<EquipmentId?> EquipmentIds => api_slot.Select(x => x > 0 ? (EquipmentId?)x : null).ToArray();
+        [JsonProperty("api_slot")]
+        public IReadOnlyList<EquipmentId> EquipmentIds { get; set; }
         [JsonProperty("api_onslot")]
         public IReadOnlyList<int> SlotAircraft { get; set; }
-        public bool ExtraSlotOpened => api_slot_ex != 0;
-        public int api_slot_ex;
-        public EquipmentId? ExtraSlotEquipId => api_slot_ex > 0 ? (EquipmentId?)api_slot_ex : null;
+        public bool ExtraSlotOpened => ExtraSlotEquipId != 0;
+        [JsonProperty("api_slot_ex")]
+        public EquipmentId ExtraSlotEquipId { get; set; }
 
         [JsonProperty("api_fuel")]
         public int CurrentFuel { get; set; }

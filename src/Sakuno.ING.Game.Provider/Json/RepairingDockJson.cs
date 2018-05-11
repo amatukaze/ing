@@ -10,9 +10,8 @@ namespace Sakuno.ING.Game.Json
         public RepairingDockId Id { get; set; }
         [JsonProperty("api_state")]
         public RepairingDockState State { get; set; }
-
-        public int api_ship_id;
-        public ShipId? RepairingShipId => api_ship_id > 0 ? (ShipId?)api_ship_id : null;
+        [JsonProperty("api_ship_id")]
+        public ShipId RepairingShipId { get; set; }
         public long api_complete_time;
         public DateTimeOffset CompletionTime => DateTimeOffset.FromUnixTimeMilliseconds(api_complete_time);
         public int api_item1;

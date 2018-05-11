@@ -22,7 +22,7 @@ namespace Sakuno.ING.Game.Models
     {
         string Name { get; }
         FleetExpeditionState ExpeditionState { get; }
-        ExpeditionId? ExpeditionId { get; }
+        ExpeditionId ExpeditionId { get; }
         DateTimeOffset ExpeditionCompletionTime { get; }
         IReadOnlyList<ShipId> ShipIds { get; }
     }

@@ -22,7 +22,7 @@ namespace Sakuno.ING.Game.Models
         DateTimeOffset CompletionTime { get; }
         BuildingDockState State { get; }
         Materials Consumption { get; }
-        ShipInfoId? BuiltShipId { get; }
+        ShipInfoId BuiltShipId { get; }
         bool IsLSC { get; }
     }
 

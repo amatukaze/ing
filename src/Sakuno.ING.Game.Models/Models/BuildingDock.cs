@@ -4,7 +4,7 @@
     {
         partial void UpdateCore(IRawBuildingDock raw)
         {
-            BuiltShip = owner.MasterData.ShipInfos[raw.BuiltShipId];
+            BuiltShip = owner.MasterData.ShipInfos.TryGetIfValid(raw.BuiltShipId);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Sakuno.ING.Game.Events
 {
     public class CompositionChange
     {
-        public CompositionChange(FleetId fleetId, int? index, ShipId? shipId)
+        public CompositionChange(FleetId fleetId, int? index, ShipId shipId)
         {
             FleetId = fleetId;
             Index = index;
@@ -13,6 +13,6 @@ namespace Sakuno.ING.Game.Events
 
         public FleetId FleetId { get; }
         public int? Index { get; }
-        public ShipId? ShipId { get; }
+        public ShipId ShipId { get; }
     }
 }

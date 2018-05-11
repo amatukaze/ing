@@ -24,11 +24,10 @@ namespace Sakuno.ING.Game.Models
                 slots.RemoveAt(slots.Count - 1);
 
             if (raw.ExtraSlotOpened)
-            {
-                ExtraSlot = new Slot();
-                if (raw.ExtraSlotEquipId is EquipmentId id)
-                    ExtraSlot.Equipment = owner.AllEquipment.TryGetOrDummy(id);
-            }
+                ExtraSlot = new Slot
+                {
+                    Equipment = owner.AllEquipment.TryGetOrDummyIfValid(raw.ExtraSlotEquipId)
+                };
             else
                 ExtraSlot = null;
 
@@ -76,10 +75,10 @@ namespace Sakuno.ING.Game.Models
             UpdateSlotAircraft(raw.SlotAircraft);
         }
 
-        internal void UpdateEquipments(IReadOnlyList<EquipmentId?> equipmentIds)
+        internal void UpdateEquipments(IReadOnlyList<EquipmentId> equipmentIds)
         {
             for (int i = 0; i < slots.Count; i++)
-                slots[i].Equipment = owner.AllEquipment.TryGetOrDummy(equipmentIds[i]);
+                slots[i].Equipment = owner.AllEquipment.TryGetOrDummyIfValid(equipmentIds[i]);
         }
 
         internal void UpdateSlotAircraft(IReadOnlyList<int> aircrafts)

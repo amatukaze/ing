@@ -31,9 +31,11 @@ namespace Sakuno.ING.Game
             DefaultView = new BindableSnapshotCollection<T>(this, this.OrderBy(x => x.Id));
         }
 
+        private static bool IsValid(TId id) => id.CompareTo(default) > 0;
+
         public T this[TId id] => TryGetValue(id, out var item) ? item : throw new ArgumentException(nameof(id));
 
-        public T this[TId? id] => id is TId value ? this[value] : null;
+        public T TryGetIfValid(TId id) => IsValid(id) ? this[id] : null;
 
         public T TryGetOrDummy(TId id)
         {
@@ -45,7 +47,7 @@ namespace Sakuno.ING.Game
             return item;
         }
 
-        public T TryGetOrDummy(TId? id) => id is TId value ? TryGetOrDummy(value) : null;
+        public T TryGetOrDummyIfValid(TId id) => IsValid(id) ? TryGetOrDummy(id) : null;
 
         public IBindableCollection<T> DefaultView { get; }
         public int Count => list.Count;
@@ -126,6 +128,10 @@ namespace Sakuno.ING.Game
 
         public bool TryGetValue(TId id, out T item)
         {
+            item = default;
+            if (!IsValid(id))
+                return false;
+
             int lo = 0, hi = list.Count - 1;
             while (lo <= hi)
             {
@@ -145,7 +151,6 @@ namespace Sakuno.ING.Game
                     hi = i - 1;
             }
 
-            item = default;
             return false;
         }
 

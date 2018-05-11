@@ -20,7 +20,7 @@
 
         partial void UpdateCore(IRawRepairingDock raw)
         {
-            RepairingShip = owner.AllShips[raw.RepairingShipId];
+            RepairingShip = owner.AllShips.TryGetIfValid(raw.RepairingShipId);
         }
     }
 }

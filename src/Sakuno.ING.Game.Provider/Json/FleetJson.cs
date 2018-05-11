@@ -16,15 +16,7 @@ namespace Sakuno.ING.Game.Json
 
         public long[] api_mission;
         public FleetExpeditionState ExpeditionState => (FleetExpeditionState)api_mission.ElementAtOrDefault(0);
-        public ExpeditionId? ExpeditionId
-        {
-            get
-            {
-                var result = api_mission.ElementAtOrDefault(1);
-                if (result > 0) return (ExpeditionId)result;
-                else return null;
-            }
-        }
+        public ExpeditionId ExpeditionId => (ExpeditionId)api_mission.ElementAtOrDefault(1);
 
         public DateTimeOffset ExpeditionCompletionTime => DateTimeOffset.FromUnixTimeMilliseconds(api_mission.ElementAtOrDefault(2));
 

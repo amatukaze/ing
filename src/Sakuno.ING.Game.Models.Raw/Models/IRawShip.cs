@@ -25,9 +25,9 @@ namespace Sakuno.ING.Game.Models
         ClampedValue HP { get; }
         ShipSpeed Speed { get; }
         FireRange FireRange { get; }
-        IReadOnlyList<EquipmentId?> EquipmentIds { get; }
+        IReadOnlyList<EquipmentId> EquipmentIds { get; }
         bool ExtraSlotOpened { get; }
-        EquipmentId? ExtraSlotEquipId { get; }
+        EquipmentId ExtraSlotEquipId { get; }
         IReadOnlyList<int> SlotAircraft { get; }
 
         int CurrentFuel { get; }

@@ -134,11 +134,9 @@ namespace Sakuno.ING.Game
             int position = request.GetInt("api_ship_idx");
             var shipId = (ShipId)request.GetInt("api_ship_id");
             if (position == -1)
-                return new CompositionChange(fleetId, null, null);
-            else if (shipId == -1)
-                return new CompositionChange(fleetId, position - 1, shipId);
+                return new CompositionChange(fleetId, null, default);
             else
-                return new CompositionChange(fleetId, position - 1, null);
+                return new CompositionChange(fleetId, position - 1, shipId);
         }
 
         private static ShipId ParseShipExtraSlotOpen(NameValueCollection request)

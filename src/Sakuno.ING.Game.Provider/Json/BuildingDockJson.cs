@@ -26,8 +26,8 @@ namespace Sakuno.ING.Game.Json
             Development = api_item5
         };
 
-        public int api_created_ship_id;
-        public ShipInfoId? BuiltShipId => api_created_ship_id > 0 ? (ShipInfoId?)api_created_ship_id : null;
+        [JsonProperty("api_created_ship_id")]
+        public ShipInfoId BuiltShipId { get; set; }
 
         public bool IsLSC => api_item1 >= 1000;
     }

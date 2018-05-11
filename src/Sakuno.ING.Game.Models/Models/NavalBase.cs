@@ -42,20 +42,17 @@ namespace Sakuno.ING.Game.Models
             listener.CompositionChanged += (_, msg) =>
             {
                 var fleet = Fleets[msg.FleetId];
-                if (fleet != null)
+                if (msg.ShipId > 0)
                 {
-                    if (msg.ShipId is ShipId shipId)
-                    {
-                        var ship = AllShips.TryGetOrDummy(shipId);
-                        fleet.ChangeComposition(msg.Index, ship, Fleets.FirstOrDefault(x => x.Ships.Contains(ship)));
-                    }
-                    else
-                        fleet.ChangeComposition(msg.Index, null, null);
+                    var ship = AllShips.TryGetOrDummy(msg.ShipId);
+                    fleet.ChangeComposition(msg.Index, ship, Fleets.FirstOrDefault(x => x.Ships.Contains(ship)));
                 }
+                else
+                    fleet.ChangeComposition(msg.Index, null, null);
             };
             listener.FleetsUpdated += (_, msg) => _fleets.BatchUpdate(msg);
-            listener.FleetPresetSelected += (_, msg) => Fleets[msg.Id]?.Update(msg);
-            listener.ShipEquipmentUdated += (_, msg) => AllShips[msg.ShipId]?.UpdateEquipments(msg.EquipmentIds);
+            listener.FleetPresetSelected += (_, msg) => Fleets[msg.Id].Update(msg);
+            listener.ShipEquipmentUdated += (_, msg) => AllShips[msg.ShipId].UpdateEquipments(msg.EquipmentIds);
             listener.ShipExtraSlotOpened += (_, msg) => AllShips[msg].ExtraSlot = new Slot();
             listener.PartialFleetsUpdated += (_, msg) => _fleets.BatchUpdate(msg, removal: false);
             listener.PartialShipsUpdated += (_, msg) => _allShips.BatchUpdate(msg, removal: false);
@@ -98,7 +95,7 @@ namespace Sakuno.ING.Game.Models
             };
             listener.ShipPoweruped += (_, msg) =>
             {
-                AllShips[msg.ShipId]?.Update(msg.ShipAfter);
+                AllShips[msg.ShipId].Update(msg.ShipAfter);
                 foreach (var id in msg.ConsumedShipIds)
                     _allShips.Remove(id);
             };
