@@ -9,12 +9,15 @@ namespace Sakuno.ING.Game
         {
             Name = name;
             Request = request;
-            IsSuccess = response.api_result == 1;
+            ResultCode = response.api_result;
+            ResultMesssage = response.api_result_msg;
         }
 
         public string Name { get; }
         public NameValueCollection Request { get; }
-        public bool IsSuccess { get; }
+        public int ResultCode { get; }
+        public string ResultMesssage { get; }
+        public bool IsSuccess => ResultCode == 1;
     }
 
     public sealed class ParsedMessage<T> : ParsedMessage

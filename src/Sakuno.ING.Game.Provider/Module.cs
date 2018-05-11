@@ -7,6 +7,7 @@ namespace Sakuno.ING.Game
         public void Expose(IBuilder builder)
         {
             builder.RegisterType<GameListener>();
+            builder.RegisterService<GameListener, IGameProvider>();
         }
         public void Initialize(IResolver resolver) { }
     }

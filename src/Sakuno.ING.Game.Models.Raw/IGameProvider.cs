@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Events.Shipyard;
 using Sakuno.ING.Game.Models;
@@ -8,6 +9,7 @@ namespace Sakuno.ING.Game
 {
     public interface IGameProvider
     {
+        event Action<SerializationError> SerialzationError;
         event TimedMessageHandler<MasterDataUpdate> MasterDataUpdated;
 
         event TimedMessageHandler<IReadOnlyCollection<IRawEquipment>> AllEquipmentUpdated;

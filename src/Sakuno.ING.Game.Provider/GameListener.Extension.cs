@@ -43,9 +43,14 @@ namespace Sakuno.ING.Game
             ))
             .Where(m => m.IsSuccess);
 
-        public ITimedMessageProvider<SvData> RegisterFail() => provider
-            .Select(arg => Convert<SvData>(arg.Stream))
-            .Where(v => v.api_result != 1);
+        public ITimedMessageProvider<ParsedMessage> RegisterFail() => provider
+            .Select(arg => new ParsedMessage
+            (
+                arg.Key,
+                HttpUtility.ParseQueryString(arg.Request),
+                Convert<SvData>(arg.Stream)
+            ))
+            .Where(m => !m.IsSuccess);
 
         public ITimedMessageProvider<ParsedMessage<JToken>> RegisterAny() => provider
             .Select(arg => new ParsedMessage<JToken>

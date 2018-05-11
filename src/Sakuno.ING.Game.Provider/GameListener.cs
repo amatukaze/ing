@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
@@ -123,7 +124,10 @@ namespace Sakuno.ING.Game
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
         {
-            //Debug usage
+            SerialzationError?.Invoke(new SerializationError(e.ErrorContext.Error, e.ErrorContext.Path));
+            e.ErrorContext.Handled = true;
         }
+
+        public event Action<SerializationError> SerialzationError;
     }
 }
