@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 
 namespace Sakuno.ING.Messaging
@@ -12,38 +13,30 @@ namespace Sakuno.ING.Messaging
 
     internal abstract class Sender<T>
     {
-        protected TimedMessageHandler<T> Downstreams;
+        protected List<TimedMessageHandler<T>> Downstreams { get; } = new List<TimedMessageHandler<T>>();
         protected void SendToDownstream(DateTimeOffset timeStamp, T value)
         {
-            var temp = Downstreams;
-            if (temp == null) return;
-            var list = temp.GetInvocationList();
-            if (list.Length == 1)
-                temp(timeStamp, value);
-            else
+            Exception exception = null;
+            foreach (var invo in Downstreams)
             {
-                Exception exception = null;
-                foreach (TimedMessageHandler<T> invo in list)
+                try
                 {
-                    try
-                    {
-                        invo(timeStamp, value);
-                    }
-                    catch (Exception ex)
-                    {
-                        if (exception == null)
-                            exception = ex;
-                        else
-                            exception = new AggregateException(exception, ex);
-                    }
+                    invo(timeStamp, value);
                 }
-                if (exception is AggregateException agg)
-                    throw agg.Flatten();
-                else if (exception != null)
+                catch (Exception ex)
                 {
-                    var di = ExceptionDispatchInfo.Capture(exception);
-                    di.Throw();
+                    if (exception == null)
+                        exception = ex;
+                    else
+                        exception = new AggregateException(exception, ex);
                 }
+            }
+            if (exception is AggregateException agg)
+                throw agg.Flatten();
+            else if (exception != null)
+            {
+                var di = ExceptionDispatchInfo.Capture(exception);
+                di.Throw();
             }
         }
     }
@@ -61,12 +54,14 @@ namespace Sakuno.ING.Messaging
         {
             add
             {
-                if ((Downstreams += value) != null)
+                if (Downstreams.Count == 0)
                     upstream.Received += Send;
+                Downstreams.Add(value);
             }
             remove
             {
-                if ((Downstreams -= value) == null)
+                Downstreams.Remove(value);
+                if (Downstreams.Count == 0)
                     upstream.Received -= Send;
             }
         }
@@ -116,13 +111,15 @@ namespace Sakuno.ING.Messaging
         {
             add
             {
-                if ((Downstreams += value) != null)
+                if (Downstreams.Count == 0)
                     foreach (var u in upstreams)
                         u.Received += SendToDownstream;
+                Downstreams.Add(value);
             }
             remove
             {
-                if ((Downstreams -= value) == null)
+                Downstreams.Remove(value);
+                if (Downstreams.Count == 0)
                     foreach (var u in upstreams)
                         u.Received -= SendToDownstream;
             }
