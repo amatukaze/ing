@@ -20,6 +20,7 @@
     <PackageReference Include="Sakuno.ING.Core.DateTime" Version="0.1.0-blueprint" />
     <PackageReference Include="Sakuno.ING.Core.Listener" Version="0.1.0-blueprint" />
     <PackageReference Include="Sakuno.ING.Game.Models" Version="0.1.0-blueprint" />
+    <PackageReference Include="Sakuno.ING.Game.Provider" Version="0.1.0-blueprint" />
     <PackageReference Include="Sakuno.ING.Views.Homeport" Version="0.1.0-blueprint" />
     <PackageReference Include="Sakuno.ING.Views.Settings" Version="0.1.0-blueprint" />
   </ItemGroup>
