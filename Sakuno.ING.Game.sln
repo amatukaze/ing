@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Data", "src\Sakuno.ING.Data\Sakuno.ING.Data.csproj", "{AB6EC829-12AC-4B7C-A348-5C7620C96EB5}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.Listener", "src\Sakuno.ING.Core.Listener\Sakuno.ING.Core.Listener.csproj", "{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider", "src\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj", "{05EB7B5D-CC39-4D62-8D11-EF3EAA99DD91}"
@@ -20,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Models.Raw"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F56CCD2C-4509-47A4-A64E-1AE8A127938D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.Game.Provider.Test", "Test\Sakuno.ING.Game.Provider.Test\Sakuno.ING.Game.Provider.Test.csproj", "{DD061355-BCEC-4512-A262-8FBDDF2F3C5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider.Test", "Test\Sakuno.ING.Game.Provider.Test\Sakuno.ING.Game.Provider.Test.csproj", "{DD061355-BCEC-4512-A262-8FBDDF2F3C5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,6 +30,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB6EC829-12AC-4B7C-A348-5C7620C96EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB6EC829-12AC-4B7C-A348-5C7620C96EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB6EC829-12AC-4B7C-A348-5C7620C96EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB6EC829-12AC-4B7C-A348-5C7620C96EB5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
