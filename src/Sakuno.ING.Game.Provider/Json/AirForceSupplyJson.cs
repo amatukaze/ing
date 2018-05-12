@@ -9,6 +9,8 @@ namespace Sakuno.ING.Game.Json
         public int api_after_bauxite;
         public AirForceSquadronJson[] api_plane_info;
 
+        MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.AirForceSupply;
+
         void IMaterialsUpdate.Apply(ref Materials materials)
         {
             materials.Fuel = api_after_fuel;

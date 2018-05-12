@@ -15,6 +15,9 @@ namespace Sakuno.ING.Game.Json
     internal class MaterialJsonArray : List<MaterialJson>, IMaterialsUpdate
     {
         public MaterialJsonArray() : base(8) { }
+
+        MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.Unknown;
+
         public void Apply(ref Materials materials)
         {
             foreach (var r in this)
@@ -46,5 +49,7 @@ namespace Sakuno.ING.Game.Json
                         break;
                 }
         }
+
+        void IMaterialsUpdate.Apply(ref Materials materials) => throw new System.NotImplementedException();
     }
 }

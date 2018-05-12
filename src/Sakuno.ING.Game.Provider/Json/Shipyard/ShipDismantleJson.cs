@@ -5,10 +5,12 @@ using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Json.Shipyard
 {
-    internal class ShipDismantleJson:IMaterialsUpdate
+    internal class ShipDismantleJson : IMaterialsUpdate
     {
         [JsonConverter(typeof(MaterialsConverter))]
         public Materials api_material;
+
+        MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.ShipDismantle;
 
         void IMaterialsUpdate.Apply(ref Materials materials) => materials = api_material;
     }

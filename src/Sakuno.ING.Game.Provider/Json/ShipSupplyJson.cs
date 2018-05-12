@@ -22,7 +22,9 @@ namespace Sakuno.ING.Game.Json
         public ShipSupplyJson[] api_ship;
         public int[] api_material;
 
-        public void Apply(ref Materials materials)
+        MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.ShipSupply;
+
+        void IMaterialsUpdate.Apply(ref Materials materials)
         {
             if (api_material.Length > 0)
                 materials.Fuel = api_material[0];

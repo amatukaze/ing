@@ -13,6 +13,8 @@ namespace Sakuno.ING.Game.Json.Shipyard
         public Materials api_material;
         public string api_fdata;
 
+        MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.EquipmentCreate;
+
         void IMaterialsUpdate.Apply(ref Materials materials) => materials = api_material;
     }
 }

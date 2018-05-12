@@ -10,6 +10,8 @@ namespace Sakuno.ING.Game.Json.Shipyard
         [JsonConverter(typeof(MaterialsConverter))]
         public Materials api_get_material;
 
+        MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.EquipmentDismantle;
+
         void IMaterialsUpdate.Apply(ref Materials materials) => materials += api_get_material;
     }
 }
