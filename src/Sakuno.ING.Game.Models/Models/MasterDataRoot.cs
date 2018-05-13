@@ -22,14 +22,14 @@ namespace Sakuno.ING.Game.Models
 
         private void OnMasterDataUpdated(DateTimeOffset timeStamp, MasterDataUpdate message)
         {
-            _shipTypes.BatchUpdate(message.ShipTypes);
-            _shipInfos.BatchUpdate(message.ShipInfos);
-            _equipmentTypes.BatchUpdate(message.EquipmentTypes);
-            _equipmentInfos.BatchUpdate(message.EquipmentInfos);
-            _useItems.BatchUpdate(message.UseItems);
-            _mapAreas.BatchUpdate(message.MapAreas);
-            _mapInfos.BatchUpdate(message.Maps);
-            _expeditions.BatchUpdate(message.Expeditions);
+            _shipTypes.BatchUpdate(message.ShipTypes, timeStamp);
+            _shipInfos.BatchUpdate(message.ShipInfos, timeStamp);
+            _equipmentTypes.BatchUpdate(message.EquipmentTypes, timeStamp);
+            _equipmentInfos.BatchUpdate(message.EquipmentInfos, timeStamp);
+            _useItems.BatchUpdate(message.UseItems, timeStamp);
+            _mapAreas.BatchUpdate(message.MapAreas, timeStamp);
+            _mapInfos.BatchUpdate(message.Maps, timeStamp);
+            _expeditions.BatchUpdate(message.Expeditions, timeStamp);
         }
 
         private readonly IdTable<ShipInfoId, ShipInfo, IRawShipInfo, MasterDataRoot> _shipInfos;

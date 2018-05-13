@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sakuno.ING.Game.Models.MasterData;
 
@@ -19,27 +20,28 @@ namespace Sakuno.ING.Game.Models
             _maps = new IdTable<MapId, Map, IRawMap, NavalBase>(this);
             _airForce = new IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, IRawAirForceGroup, NavalBase>(this);
 
-            listener.AllEquipmentUpdated += (_, msg) => _allEquipment.BatchUpdate(msg);
-            listener.BuildingDockUpdated += (_, msg) => _buildingDocks.BatchUpdate(msg);
-            listener.UseItemUpdated += (_, msg) => _useItems.BatchUpdate(msg);
+            listener.AllEquipmentUpdated += (t, msg) => _allEquipment.BatchUpdate(msg, t);
+            listener.BuildingDockUpdated += (t, msg) => _buildingDocks.BatchUpdate(msg, t);
+            listener.UseItemUpdated += (t, msg) => _useItems.BatchUpdate(msg, t);
 
-            listener.AdmiralUpdated += (_, msg) =>
+            listener.AdmiralUpdated += (t, msg) =>
             {
                 if (Admiral == null)
                 {
-                    Admiral = new Admiral(msg.Id, this);
+                    Admiral = new Admiral(msg, this, t);
                     NotifyPropertyChanged(nameof(Admiral));
                 }
-                Admiral.Update(msg);
+                else
+                    Admiral.Update(msg, t);
             };
-            listener.MaterialsUpdated += (_, msg) =>
+            listener.MaterialsUpdated += (t, msg) =>
             {
                 var materials = Materials;
                 msg.Apply(ref materials);
                 Materials = materials;
             };
-            listener.HomeportReturned += (_, msg) => _allShips.BatchUpdate(msg.Ships);
-            listener.CompositionChanged += (_, msg) =>
+            listener.HomeportReturned += (t, msg) => _allShips.BatchUpdate(msg.Ships, t);
+            listener.CompositionChanged += (t, msg) =>
             {
                 var fleet = Fleets[msg.FleetId];
                 if (msg.ShipId > 0)
@@ -50,86 +52,86 @@ namespace Sakuno.ING.Game.Models
                 else
                     fleet.ChangeComposition(msg.Index, null, null);
             };
-            listener.FleetsUpdated += (_, msg) => _fleets.BatchUpdate(msg);
-            listener.FleetPresetSelected += (_, msg) => Fleets[msg.Id].Update(msg);
-            listener.ShipEquipmentUdated += (_, msg) => AllShips[msg.ShipId].UpdateEquipments(msg.EquipmentIds);
-            listener.ShipExtraSlotOpened += (_, msg) => AllShips[msg].ExtraSlot = new Slot();
-            listener.PartialFleetsUpdated += (_, msg) => _fleets.BatchUpdate(msg, removal: false);
-            listener.PartialShipsUpdated += (_, msg) => _allShips.BatchUpdate(msg, removal: false);
-            listener.RepairingDockUpdated += (_, msg) => _repairingDocks.BatchUpdate(msg);
-            listener.ShipSupplied += (_, msg) =>
+            listener.FleetsUpdated += (t, msg) => _fleets.BatchUpdate(msg, t);
+            listener.FleetPresetSelected += (t, msg) => Fleets[msg.Id].Update(msg, t);
+            listener.ShipEquipmentUdated += (t, msg) => AllShips[msg.ShipId].UpdateEquipments(msg.EquipmentIds);
+            listener.ShipExtraSlotOpened += (t, msg) => AllShips[msg].ExtraSlot = new Slot();
+            listener.PartialFleetsUpdated += (t, msg) => _fleets.BatchUpdate(msg, t, removal: false);
+            listener.PartialShipsUpdated += (t, msg) => _allShips.BatchUpdate(msg, t, removal: false);
+            listener.RepairingDockUpdated += (t, msg) => _repairingDocks.BatchUpdate(msg, t);
+            listener.ShipSupplied += (t, msg) =>
             {
                 foreach (var raw in msg)
                     AllShips[raw.ShipId]?.Supply(raw);
             };
 
-            listener.RepairStarted += (_, msg) =>
+            listener.RepairStarted += (t, msg) =>
             {
                 if (msg.InstantRepair)
                     AllShips[msg.ShipId]?.SetRepaired();
             };
-            listener.InstantRepaired += (_, msg) =>
+            listener.InstantRepaired += (t, msg) =>
             {
                 var dock = RepairingDocks[msg];
                 dock.State = RepairingDockState.Empty;
                 dock.RepairingShip = null;
             };
-            listener.InstantBuilt += (_, msg) => BuildingDocks[msg].State = BuildingDockState.BuildCompleted;
-            listener.ShipBuildCompleted += (_, msg) =>
+            listener.InstantBuilt += (t, msg) => BuildingDocks[msg].State = BuildingDockState.BuildCompleted;
+            listener.ShipBuildCompleted += (t, msg) =>
             {
-                _allEquipment.BatchUpdate(msg.Equipments, removal: false);
-                _allShips.Add(msg.Ship);
+                _allEquipment.BatchUpdate(msg.Equipments, t, removal: false);
+                _allShips.Add(msg.Ship, t);
             };
-            listener.EquipmentCreated += (_, msg) =>
+            listener.EquipmentCreated += (t, msg) =>
             {
                 if (msg.IsSuccess)
-                    _allEquipment.Add(msg.Equipment);
+                    _allEquipment.Add(msg.Equipment, t);
             };
-            listener.ShipDismantled += (_, msg) => RemoveShip(msg.ShipIds, msg.DismantleEquipments);
-            listener.EquipmentDismantled += (_, msg) => RemoveEquipment(msg);
-            listener.EquipmentImproved += (_, msg) =>
+            listener.ShipDismantled += (t, msg) => RemoveShip(msg.ShipIds, msg.DismantleEquipments, t);
+            listener.EquipmentDismantled += (t, msg) => RemoveEquipment(msg, t);
+            listener.EquipmentImproved += (t, msg) =>
             {
                 if (msg.IsSuccess)
-                    AllEquipment[msg.EquipmentId]?.Update(msg.UpdatedTo);
-                RemoveEquipment(msg.ConsumedEquipmentIds);
+                    AllEquipment[msg.EquipmentId].Update(msg.UpdatedTo, t);
+                RemoveEquipment(msg.ConsumedEquipmentIds, t);
             };
-            listener.ShipPoweruped += (_, msg) =>
+            listener.ShipPoweruped += (t, msg) =>
             {
-                AllShips[msg.ShipId].Update(msg.ShipAfter);
+                AllShips[msg.ShipId].Update(msg.ShipAfter, t);
                 foreach (var id in msg.ConsumedShipIds)
                     _allShips.Remove(id);
             };
 
-            listener.MapsUpdated += (_, msg) => _maps.BatchUpdate(msg);
-            listener.AirForceUpdated += (_, msg) => _airForce.BatchUpdate(msg);
-            listener.AirForcePlaneSet += (_, msg) =>
+            listener.MapsUpdated += (t, msg) => _maps.BatchUpdate(msg, t);
+            listener.AirForceUpdated += (t, msg) => _airForce.BatchUpdate(msg, t);
+            listener.AirForcePlaneSet += (t, msg) =>
             {
                 var group = AirForce[(msg.MapAreaId, msg.GroupId)];
                 group.Distance = msg.NewDistance;
-                group.squadrons.BatchUpdate(msg.UpdatedSquadrons, removal: false);
+                group.squadrons.BatchUpdate(msg.UpdatedSquadrons, t, removal: false);
             };
-            listener.AirForceActionSet += (_, msg) =>
+            listener.AirForceActionSet += (t, msg) =>
             {
                 foreach (var m in msg)
                     AirForce[(m.MapAreaId, m.GroupId)].Action = m.Action;
             };
-            listener.AirForceSupplied += (_, msg)
-                => AirForce[(msg.MapAreaId, msg.GroupId)].squadrons.BatchUpdate(msg.UpdatedSquadrons, removal: false);
-            listener.AirForceExpanded += (_, msg) => _airForce.Add(msg);
+            listener.AirForceSupplied += (t, msg)
+                => AirForce[(msg.MapAreaId, msg.GroupId)].squadrons.BatchUpdate(msg.UpdatedSquadrons, t, removal: false);
+            listener.AirForceExpanded += (t, msg) => _airForce.Add(msg, t);
         }
 
-        private void RemoveShip(IEnumerable<ShipId> shipIds, bool removeEquipment)
+        private void RemoveShip(IEnumerable<ShipId> shipIds, bool removeEquipment, DateTimeOffset timeStamp)
         {
             foreach (var id in shipIds)
             {
                 var ship = AllShips[id];
                 if (removeEquipment)
-                    RemoveEquipment(ship.Slots.Where(x => !x.IsEmpty).Select(x => x.Equipment.Id));
+                    RemoveEquipment(ship.Slots.Where(x => !x.IsEmpty).Select(x => x.Equipment.Id), timeStamp);
                 _allShips.Remove(ship);
             }
         }
 
-        private void RemoveEquipment(IEnumerable<EquipmentId> ids)
+        private void RemoveEquipment(IEnumerable<EquipmentId> ids, DateTimeOffset timeStamp)
         {
             foreach (var id in ids)
                 _allEquipment.Remove(id);

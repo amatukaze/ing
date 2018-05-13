@@ -3,27 +3,33 @@ using Sakuno.ING.Game.Events;
 
 namespace Sakuno.ING.Game.Models
 {
-    public class QuestManager
+    public class QuestManager : BindableObject
     {
+        private DateTimeOffset _updationTime;
+        public DateTimeOffset UpdationTime
+        {
+            get => _updationTime;
+            set => Set(ref _updationTime, value);
+        }
+
         internal QuestManager(IGameProvider listener)
         {
             _allQuests = new IdTable<QuestId, Quest, IRawQuest, QuestManager>(this);
             listener.QuestUpdated += QuestUpdated;
-            listener.QuestCompleted += (_, msg) => _allQuests.Remove(msg);
+            listener.QuestCompleted += (t, msg) => _allQuests.Remove(msg);
         }
 
         private void QuestUpdated(DateTimeOffset timeStamp, QuestPageUpdate msg)
         {
-            _allQuests.BatchUpdate(msg.Quests, removal: false);
-            foreach (var raw in msg.Quests)
-                _allQuests[raw.Id].CreationTime = timeStamp;
-            _allQuests.RemoveAll(q => IsOutOfDate(q, timeStamp));
+            UpdationTime = timeStamp;
+            _allQuests.BatchUpdate(msg.Quests, timeStamp, removal: false);
+            _allQuests.RemoveAll(IsOutOfDate);
         }
 
-        private static bool IsOutOfDate(Quest quest, DateTimeOffset timeStamp)
+        private bool IsOutOfDate(Quest quest)
         {
-            var questDate = quest.CreationTime.ToOffset(questUpdate);
-            var updateDate = timeStamp.ToOffset(questUpdate);
+            var questDate = quest.UpdationTime.ToOffset(questUpdate);
+            var updateDate = UpdationTime.ToOffset(questUpdate);
             switch (quest.Period)
             {
                 case QuestPeriod.Daily:

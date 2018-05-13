@@ -12,15 +12,26 @@ namespace Sakuno.ING.Game
         where TRaw : IIdentifiable<TId>
     {
         public event Action Updated;
-        private static readonly Func<TId, TOwner, T> creation;
+        private static readonly Func<TId, TOwner, T> dummyCreation;
+        private static readonly Func<TRaw, TOwner, DateTimeOffset, T> creation;
 
         static IdTable()
         {
-            var argId = Expression.Parameter(typeof(TId));
-            var argOwner = Expression.Parameter(typeof(TOwner));
-            var ctor = typeof(T).GetConstructor(new[] { typeof(TId), typeof(TOwner) });
-            var call = Expression.New(ctor, argId, argOwner);
-            creation = Expression.Lambda<Func<TId, TOwner, T>>(call, argId, argOwner).Compile();
+            {
+                var argId = Expression.Parameter(typeof(TId));
+                var argOwner = Expression.Parameter(typeof(TOwner));
+                var ctor = typeof(T).GetConstructor(new[] { typeof(TId), typeof(TOwner) });
+                var call = Expression.New(ctor, argId, argOwner);
+                dummyCreation = Expression.Lambda<Func<TId, TOwner, T>>(call, argId, argOwner).Compile();
+            }
+            {
+                var argRaw = Expression.Parameter(typeof(TRaw));
+                var argOwner = Expression.Parameter(typeof(TOwner));
+                var argTime = Expression.Parameter(typeof(DateTimeOffset));
+                var ctor = typeof(T).GetConstructor(new[] { typeof(TRaw), typeof(TOwner), typeof(DateTimeOffset) });
+                var call = Expression.New(ctor, argRaw, argOwner);
+                creation = Expression.Lambda<Func<TRaw, TOwner, DateTimeOffset, T>>(call, argRaw, argOwner).Compile();
+            }
         }
 
         private List<T> list = new List<T>();
@@ -42,7 +53,7 @@ namespace Sakuno.ING.Game
             if (TryGetValue(id, out var item))
                 return item;
 
-            item = creation(id, owner);
+            item = dummyCreation(id, owner);
             Add(item);
             return item;
         }
@@ -52,7 +63,7 @@ namespace Sakuno.ING.Game
         public IBindableCollection<T> DefaultView { get; }
         public int Count => list.Count;
 
-        public void BatchUpdate(IEnumerable<TRaw> source, bool removal = true)
+        public void BatchUpdate(IEnumerable<TRaw> source, DateTimeOffset timeStamp, bool removal = true)
         {
             int i = 0;
             foreach (var raw in source)
@@ -64,23 +75,14 @@ namespace Sakuno.ING.Game
                         i++;
 
                 if (i < list.Count && list[i].Id.Equals(raw.Id))
-                    list[i].Update(raw);
+                    list[i].Update(raw, timeStamp);
                 else
-                {
-                    var item = creation(raw.Id, owner);
-                    item.Update(raw);
-                    list.Insert(i, item);
-                }
+                    list.Insert(i, creation(raw, owner, timeStamp));
             }
             Updated?.Invoke();
         }
 
-        public void Add(TRaw raw)
-        {
-            var item = creation(raw.Id, owner);
-            item.Update(raw);
-            Add(item);
-        }
+        public void Add(TRaw raw, DateTimeOffset timeStamp) => Add(creation(raw, owner, timeStamp));
 
         public void Add(T item)
         {

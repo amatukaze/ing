@@ -20,6 +20,8 @@ namespace Sakuno.ING.Game.Models
             CreateDummy();
         }
 
+        public Equipment(IRawEquipment raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+
         private readonly NavalBase owner;
 
         private EquipmentInfo _info;
@@ -57,11 +59,20 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _isAvailable, value);
         }
 
-        public override void Update(IRawEquipment raw)
+        public event Action<Equipment, IRawEquipment, DateTimeOffset> Updating;
+        public override void Update(IRawEquipment raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawEquipment raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             IsLocked = raw.IsLocked;
             ImprovementLevel = raw.ImprovementLevel;
             AirProficiency = raw.AirProficiency;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawEquipment raw);
@@ -74,6 +85,8 @@ namespace Sakuno.ING.Game.Models
             this.owner = owner;
             CreateDummy();
         }
+
+        public BuildingDock(IRawBuildingDock raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly NavalBase owner;
 
@@ -112,12 +125,21 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _isLSC, value);
         }
 
-        public override void Update(IRawBuildingDock raw)
+        public event Action<BuildingDock, IRawBuildingDock, DateTimeOffset> Updating;
+        public override void Update(IRawBuildingDock raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawBuildingDock raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             CompletionTime = raw.CompletionTime;
             State = raw.State;
             Consumption = raw.Consumption;
             IsLSC = raw.IsLSC;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawBuildingDock raw);
@@ -130,6 +152,8 @@ namespace Sakuno.ING.Game.Models
             this.owner = owner;
             CreateDummy();
         }
+
+        public RepairingDock(IRawRepairingDock raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly NavalBase owner;
 
@@ -154,11 +178,20 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _consumption, value);
         }
 
-        public override void Update(IRawRepairingDock raw)
+        public event Action<RepairingDock, IRawRepairingDock, DateTimeOffset> Updating;
+        public override void Update(IRawRepairingDock raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawRepairingDock raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             State = raw.State;
             CompletionTime = raw.CompletionTime;
             Consumption = raw.Consumption;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawRepairingDock raw);
@@ -171,6 +204,8 @@ namespace Sakuno.ING.Game.Models
             this.owner = owner;
             CreateDummy();
         }
+
+        public UseItemCount(IRawUseItemCount raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly NavalBase owner;
 
@@ -188,9 +223,18 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _count, value);
         }
 
-        public override void Update(IRawUseItemCount raw)
+        public event Action<UseItemCount, IRawUseItemCount, DateTimeOffset> Updating;
+        public override void Update(IRawUseItemCount raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawUseItemCount raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             Count = raw.Count;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawUseItemCount raw);
@@ -203,6 +247,8 @@ namespace Sakuno.ING.Game.Models
             this.owner = owner;
             CreateDummy();
         }
+
+        public Admiral(IRawAdmiral raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly NavalBase owner;
 
@@ -283,8 +329,16 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _maxMaterial, value);
         }
 
-        public override void Update(IRawAdmiral raw)
+        public event Action<Admiral, IRawAdmiral, DateTimeOffset> Updating;
+        public override void Update(IRawAdmiral raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawAdmiral raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             Name = raw.Name;
             Leveling = raw.Leveling;
             Rank = raw.Rank;
@@ -296,6 +350,7 @@ namespace Sakuno.ING.Game.Models
             ExpeditionStat = raw.ExpeditionStat;
             CanLSC = raw.CanLSC;
             MaxMaterial = raw.MaxMaterial;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawAdmiral raw);
@@ -308,6 +363,8 @@ namespace Sakuno.ING.Game.Models
             this.owner = owner;
             CreateDummy();
         }
+
+        public Ship(IRawShip raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly NavalBase owner;
 
@@ -472,8 +529,16 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _isRepairing, value);
         }
 
-        public override void Update(IRawShip raw)
+        public event Action<Ship, IRawShip, DateTimeOffset> Updating;
+        public override void Update(IRawShip raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawShip raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             Leveling = raw.Leveling;
             HP = raw.HP;
             Speed = raw.Speed;
@@ -483,6 +548,7 @@ namespace Sakuno.ING.Game.Models
             Morale = raw.Morale;
             IsLocked = raw.IsLocked;
             ShipLockingTag = raw.ShipLockingTag;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawShip raw);
@@ -495,6 +561,8 @@ namespace Sakuno.ING.Game.Models
             this.owner = owner;
             CreateDummy();
         }
+
+        public Fleet(IRawFleet raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly NavalBase owner;
 
@@ -526,11 +594,20 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _expeditionCompletionTime, value);
         }
 
-        public override void Update(IRawFleet raw)
+        public event Action<Fleet, IRawFleet, DateTimeOffset> Updating;
+        public override void Update(IRawFleet raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawFleet raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             Name = raw.Name;
             ExpeditionState = raw.ExpeditionState;
             ExpeditionCompletionTime = raw.ExpeditionCompletionTime;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawFleet raw);
@@ -548,6 +625,8 @@ namespace Sakuno.ING.Game.Models
             DescriptionTranslation = Module.Localize.GetLocalized("QuestDesc", id.ToString());
             CreateDummy();
         }
+
+        public Quest(IRawQuest raw, QuestManager owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly QuestManager owner;
 
@@ -604,8 +683,16 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _description, value);
         }
 
-        public override void Update(IRawQuest raw)
+        public event Action<Quest, IRawQuest, DateTimeOffset> Updating;
+        public override void Update(IRawQuest raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawQuest raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             Category = raw.Category;
             Period = raw.Period;
             State = raw.State;
@@ -613,6 +700,7 @@ namespace Sakuno.ING.Game.Models
             Rewards = raw.Rewards;
             Name = raw.Name;
             Description = raw.Description;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawQuest raw);
@@ -625,6 +713,8 @@ namespace Sakuno.ING.Game.Models
             this.owner = owner;
             CreateDummy();
         }
+
+        public Map(IRawMap raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly NavalBase owner;
 
@@ -677,13 +767,22 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _gauge, value);
         }
 
-        public override void Update(IRawMap raw)
+        public event Action<Map, IRawMap, DateTimeOffset> Updating;
+        public override void Update(IRawMap raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawMap raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             IsCleared = raw.IsCleared;
             Rank = raw.Rank;
             GaugeIndex = raw.GaugeIndex;
             GaugeType = raw.GaugeType;
             AvailableAirForceGroups = raw.AvailableAirForceGroups;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawMap raw);
@@ -696,6 +795,8 @@ namespace Sakuno.ING.Game.Models
             this.owner = owner;
             CreateDummy();
         }
+
+        public AirForceSquadron(IRawAirForceSquadron raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly NavalBase owner;
 
@@ -720,10 +821,19 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _morale, value);
         }
 
-        public override void Update(IRawAirForceSquadron raw)
+        public event Action<AirForceSquadron, IRawAirForceSquadron, DateTimeOffset> Updating;
+        public override void Update(IRawAirForceSquadron raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawAirForceSquadron raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             AircraftCount = raw.AircraftCount;
             Morale = raw.Morale;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawAirForceSquadron raw);

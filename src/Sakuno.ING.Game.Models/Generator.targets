@@ -82,6 +82,8 @@ foreach (var infile in Inputs)
             output.WriteLine("            CreateDummy();");
             output.WriteLine("        }");
             output.WriteLine();
+            output.WriteLine("        public " + cls[0] + "(" + cls[2] + " raw, " + cls[3] + " owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);");
+            output.WriteLine();
             output.WriteLine("        private readonly " + cls[3] + " owner;");
             var dummyList = new List<string>();
             foreach (var l in localizables)
@@ -119,12 +121,21 @@ foreach (var infile in Inputs)
                 output.WriteLine("        }");
             }
             output.WriteLine();
-            output.WriteLine("        public override void Update(" + cls[2] + " raw)");
+            output.WriteLine("        public event Action<" + cls[0] + ", " + cls[2] + ", DateTimeOffset> Updating;");
+            output.WriteLine("        public override void Update(" + cls[2] + " raw, DateTimeOffset timeStamp)");
             output.WriteLine("        {");
+            output.WriteLine("            Updating?.Invoke(this, raw, timeStamp);");
+            output.WriteLine("            UpdateProps(raw, timeStamp);");
+            output.WriteLine("        }");
+            output.WriteLine();
+            output.WriteLine("        private void UpdateProps(" + cls[2] + " raw, DateTimeOffset timeStamp)");
+            output.WriteLine("        {");
+            output.WriteLine("            UpdationTime = timeStamp;");
             foreach (string prop in dummyList)
                 output.WriteLine("            " + prop + " = raw." + prop + ";");
             foreach (string u in unlocalized)
                 output.WriteLine("            " + u + " = _unlocalized" + u + " ?? raw." + u + ";");
+            output.WriteLine();
             output.WriteLine("            UpdateCore(raw);");
             output.WriteLine("        }");
             output.WriteLine("        partial void UpdateCore(" + cls[2] + " raw);");

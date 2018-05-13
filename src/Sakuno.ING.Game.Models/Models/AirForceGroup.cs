@@ -1,4 +1,5 @@
-﻿using Sakuno.ING.Game.Models.MasterData;
+﻿using System;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -43,12 +44,21 @@ namespace Sakuno.ING.Game.Models
             squadrons = new IdTable<int, AirForceSquadron, IRawAirForceSquadron, NavalBase>(owner);
         }
 
-        public override void Update(IRawAirForceGroup raw)
+        public AirForceGroup(IRawAirForceGroup raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+
+        public event Action<AirForceGroup, IRawAirForceGroup, DateTimeOffset> Updating;
+        public override void Update(IRawAirForceGroup raw, DateTimeOffset timeStamp)
+        {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawAirForceGroup raw, DateTimeOffset timeStamp)
         {
             Name = raw.Name;
             Distance = raw.Distance;
             Action = raw.Action;
-            squadrons.BatchUpdate(raw.Squadrons);
+            squadrons.BatchUpdate(raw.Squadrons, timeStamp);
         }
     }
 }

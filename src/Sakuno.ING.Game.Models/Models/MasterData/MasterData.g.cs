@@ -21,6 +21,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
+        public ShipInfo(IRawShipInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+
         private readonly MasterDataRoot owner;
 
         public string NameTranslation { get; }
@@ -216,8 +218,16 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _introduction, value);
         }
 
-        public override void Update(IRawShipInfo raw)
+        public event Action<ShipInfo, IRawShipInfo, DateTimeOffset> Updating;
+        public override void Update(IRawShipInfo raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawShipInfo raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             SortNo = raw.SortNo;
             Phonetic = raw.Phonetic;
             ClassId = raw.ClassId;
@@ -241,6 +251,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             BulletConsumption = raw.BulletConsumption;
             Name = raw.Name;
             Introduction = raw.Introduction;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawShipInfo raw);
@@ -255,6 +266,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             _unlocalizedName = Module.Localize.GetUnlocalized("ShipType", id.ToString());
             CreateDummy();
         }
+
+        public ShipTypeInfo(IRawShipTypeInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -289,12 +302,21 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _name, value);
         }
 
-        public override void Update(IRawShipTypeInfo raw)
+        public event Action<ShipTypeInfo, IRawShipTypeInfo, DateTimeOffset> Updating;
+        public override void Update(IRawShipTypeInfo raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawShipTypeInfo raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             SortNo = raw.SortNo;
             RepairTimeRatio = raw.RepairTimeRatio;
             BuildOutlineId = raw.BuildOutlineId;
             Name = _unlocalizedName ?? raw.Name;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawShipTypeInfo raw);
@@ -311,6 +333,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             NameTranslation = Module.Localize.GetLocalized("EquipType", id.ToString());
             CreateDummy();
         }
+
+        public EquipmentTypeInfo(IRawEquipmentTypeInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -330,10 +354,19 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _name, value);
         }
 
-        public override void Update(IRawEquipmentTypeInfo raw)
+        public event Action<EquipmentTypeInfo, IRawEquipmentTypeInfo, DateTimeOffset> Updating;
+        public override void Update(IRawEquipmentTypeInfo raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawEquipmentTypeInfo raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             AvailableInExtraSlot = raw.AvailableInExtraSlot;
             Name = raw.Name;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawEquipmentTypeInfo raw);
@@ -348,6 +381,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             DescriptionTranslation = Module.Localize.GetLocalized("EquipDesc", id.ToString());
             CreateDummy();
         }
+
+        public EquipmentInfo(IRawEquipmentInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -495,8 +530,16 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _description, value);
         }
 
-        public override void Update(IRawEquipmentInfo raw)
+        public event Action<EquipmentInfo, IRawEquipmentInfo, DateTimeOffset> Updating;
+        public override void Update(IRawEquipmentInfo raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawEquipmentInfo raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             IconId = raw.IconId;
             Firepower = raw.Firepower;
             Torpedo = raw.Torpedo;
@@ -516,6 +559,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             Rarity = raw.Rarity;
             Name = raw.Name;
             Description = raw.Description;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawEquipmentInfo raw);
@@ -533,6 +577,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
+        public UseItemInfo(IRawUseItem raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+
         private readonly MasterDataRoot owner;
 
         public string NameTranslation { get; }
@@ -544,9 +590,18 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _name, value);
         }
 
-        public override void Update(IRawUseItem raw)
+        public event Action<UseItemInfo, IRawUseItem, DateTimeOffset> Updating;
+        public override void Update(IRawUseItem raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawUseItem raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             Name = raw.Name;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawUseItem raw);
@@ -560,6 +615,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             NameTranslation = Module.Localize.GetLocalized("MapArea", id.ToString());
             CreateDummy();
         }
+
+        public MapAreaInfo(IRawMapArea raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -579,10 +636,19 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _name, value);
         }
 
-        public override void Update(IRawMapArea raw)
+        public event Action<MapAreaInfo, IRawMapArea, DateTimeOffset> Updating;
+        public override void Update(IRawMapArea raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawMapArea raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             IsEvent = raw.IsEvent;
             Name = raw.Name;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawMapArea raw);
@@ -598,6 +664,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             DescriptionTranslation = Module.Localize.GetLocalized("MapDescription", id.ToString());
             CreateDummy();
         }
+
+        public MapInfo(IRawMapInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -663,8 +731,16 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _description, value);
         }
 
-        public override void Update(IRawMapInfo raw)
+        public event Action<MapInfo, IRawMapInfo, DateTimeOffset> Updating;
+        public override void Update(IRawMapInfo raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawMapInfo raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             StarDifficulty = raw.StarDifficulty;
             RequiredDefeatCount = raw.RequiredDefeatCount;
             AvailableFleetTypes = raw.AvailableFleetTypes;
@@ -672,6 +748,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             Name = raw.Name;
             OperationName = raw.OperationName;
             Description = raw.Description;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawMapInfo raw);
@@ -689,6 +766,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             DescriptionTranslation = Module.Localize.GetLocalized("ExpeditionDesc", id.ToString());
             CreateDummy();
         }
+
+        public ExpeditionInfo(IRawExpeditionInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -773,8 +852,16 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _description, value);
         }
 
-        public override void Update(IRawExpeditionInfo raw)
+        public event Action<ExpeditionInfo, IRawExpeditionInfo, DateTimeOffset> Updating;
+        public override void Update(IRawExpeditionInfo raw, DateTimeOffset timeStamp)
         {
+            Updating?.Invoke(this, raw, timeStamp);
+            UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(IRawExpeditionInfo raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
             DisplayId = raw.DisplayId;
             Duration = raw.Duration;
             RequiredShipCount = raw.RequiredShipCount;
@@ -785,6 +872,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             CanRecall = raw.CanRecall;
             Name = raw.Name;
             Description = raw.Description;
+
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawExpeditionInfo raw);
