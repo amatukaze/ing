@@ -1,5 +1,4 @@
 ﻿using System;
-using Sakuno.ING.Game.Events;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -15,15 +14,14 @@ namespace Sakuno.ING.Game.Models
         internal QuestManager(IGameProvider listener)
         {
             _allQuests = new IdTable<QuestId, Quest, IRawQuest, QuestManager>(this);
-            listener.QuestUpdated += QuestUpdated;
-            listener.QuestCompleted += (t, msg) => _allQuests.Remove(msg);
-        }
-
-        private void QuestUpdated(DateTimeOffset timeStamp, QuestPageUpdate msg)
-        {
-            UpdationTime = timeStamp;
-            _allQuests.BatchUpdate(msg.Quests, timeStamp, removal: false);
-            _allQuests.RemoveAll(IsOutOfDate);
+            listener.QuestUpdated += (t, msg) =>
+            {
+                UpdationTime = t;
+                _allQuests.BatchUpdate(msg.Quests, t, removal: false);
+                _allQuests.RemoveAll(IsOutOfDate);
+            };
+            listener.QuestCompleted += (t, msg)
+                => QuestCompleting?.Invoke(t, _allQuests.Remove(msg));
         }
 
         private bool IsOutOfDate(Quest quest)
@@ -56,5 +54,9 @@ namespace Sakuno.ING.Game.Models
         public ITable<QuestId, Quest> AllQuests => _allQuests;
 
         public void Reset() => _allQuests.Clear();
+
+        public event QuestCompletingHandler QuestCompleting;
     }
+
+    public delegate void QuestCompletingHandler(DateTimeOffset timeStamp, Quest quest);
 }

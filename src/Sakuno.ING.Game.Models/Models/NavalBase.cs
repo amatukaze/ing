@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -26,9 +28,11 @@ namespace Sakuno.ING.Game.Models
 
             listener.AdmiralUpdated += (t, msg) =>
             {
-                if (Admiral == null)
+                if (Admiral?.Id != msg.Id)
                 {
-                    Admiral = new Admiral(msg, this, t);
+                    var @new = new Admiral(msg, this, t);
+                    AdmiralChanging?.Invoke(t, Admiral, @new);
+                    Admiral = @new;
                     NotifyPropertyChanged(nameof(Admiral));
                 }
                 else
@@ -38,7 +42,11 @@ namespace Sakuno.ING.Game.Models
             {
                 var materials = Materials;
                 msg.Apply(ref materials);
-                Materials = materials;
+                if (Materials != materials)
+                {
+                    Materials = materials;
+                    MaterialsUpdating?.Invoke(t, Materials, materials, msg.Reason);
+                }
             };
             listener.HomeportReturned += (t, msg) => _allShips.BatchUpdate(msg.Ships, t);
             listener.CompositionChanged += (t, msg) =>
@@ -87,19 +95,23 @@ namespace Sakuno.ING.Game.Models
                 if (msg.IsSuccess)
                     _allEquipment.Add(msg.Equipment, t);
             };
-            listener.ShipDismantled += (t, msg) => RemoveShip(msg.ShipIds, msg.DismantleEquipments, t);
-            listener.EquipmentDismantled += (t, msg) => RemoveEquipment(msg, t);
+            listener.ShipDismantled += (t, msg)
+                => ShipDismantling?.Invoke(t, RemoveShips(msg.ShipIds, msg.DismantleEquipments, t), msg.DismantleEquipments);
+            listener.EquipmentDismantled += (t, msg) => EquipmentDismantling?.Invoke(t, RemoveEquipments(msg, t));
             listener.EquipmentImproved += (t, msg) =>
             {
+                var consumed = RemoveEquipments(msg.ConsumedEquipmentIds, t);
+                var original = AllEquipment[msg.EquipmentId];
+                EquipmentImproving?.Invoke(t, original, msg.UpdatedTo, consumed, msg.IsSuccess);
                 if (msg.IsSuccess)
-                    AllEquipment[msg.EquipmentId].Update(msg.UpdatedTo, t);
-                RemoveEquipment(msg.ConsumedEquipmentIds, t);
+                    original.Update(msg.UpdatedTo, t);
             };
             listener.ShipPoweruped += (t, msg) =>
             {
-                AllShips[msg.ShipId].Update(msg.ShipAfter, t);
-                foreach (var id in msg.ConsumedShipIds)
-                    _allShips.Remove(id);
+                var consumed = RemoveShips(msg.ConsumedShipIds, true, t);
+                var original = AllShips[msg.ShipId];
+                ShipPoweruping?.Invoke(t, original, msg.UpdatedTo, consumed);
+                original.Update(msg.UpdatedTo, t);
             };
 
             listener.MapsUpdated += (t, msg) => _maps.BatchUpdate(msg, t);
@@ -120,22 +132,18 @@ namespace Sakuno.ING.Game.Models
             listener.AirForceExpanded += (t, msg) => _airForce.Add(msg, t);
         }
 
-        private void RemoveShip(IEnumerable<ShipId> shipIds, bool removeEquipment, DateTimeOffset timeStamp)
-        {
-            foreach (var id in shipIds)
-            {
-                var ship = AllShips[id];
-                if (removeEquipment)
-                    RemoveEquipment(ship.Slots.Where(x => !x.IsEmpty).Select(x => x.Equipment.Id), timeStamp);
-                _allShips.Remove(ship);
-            }
-        }
+        private IReadOnlyCollection<Ship> RemoveShips(IEnumerable<ShipId> shipIds, bool removeEquipment, DateTimeOffset timeStamp)
+            => shipIds.Select(id =>
+                {
+                    var ship = AllShips[id];
+                    if (removeEquipment)
+                        RemoveEquipments(ship.Slots.Where(x => !x.IsEmpty).Select(x => x.Equipment.Id), timeStamp);
+                    _allShips.Remove(ship);
+                    return ship;
+                }).ToArray();
 
-        private void RemoveEquipment(IEnumerable<EquipmentId> ids, DateTimeOffset timeStamp)
-        {
-            foreach (var id in ids)
-                _allEquipment.Remove(id);
-        }
+        private IReadOnlyCollection<Equipment> RemoveEquipments(IEnumerable<EquipmentId> ids, DateTimeOffset timeStamp)
+            => ids.Select(_allEquipment.Remove).ToArray();
 
         public MasterDataRoot MasterData { get; }
         public QuestManager Quests { get; }
@@ -172,5 +180,19 @@ namespace Sakuno.ING.Game.Models
             get => _materials;
             set => Set(ref _materials, value);
         }
+
+        public event AdmiralChanging AdmiralChanging;
+        public event MaterialsUpdatingHandler MaterialsUpdating;
+        public event ShipDismantlingHandler ShipDismantling;
+        public event ShipPowerupingHandler ShipPoweruping;
+        public event EquipmentDismantlingHandler EquipmentDismantling;
+        public event EquipmentImprovingHandler EquipmentImproving;
     }
+
+    public delegate void AdmiralChanging(DateTimeOffset timeStamp, Admiral oldAdmiral, Admiral newAdmiral);
+    public delegate void MaterialsUpdatingHandler(DateTimeOffset timeStamp, Materials oldMaterials, Materials newMaterials, MaterialsChangeReason reason);
+    public delegate void ShipDismantlingHandler(DateTimeOffset timeStamp, IReadOnlyCollection<Ship> ships, bool dismantleEquipments);
+    public delegate void ShipPowerupingHandler(DateTimeOffset timeStamp, Ship original, IRawShip updatedTo, IReadOnlyCollection<Ship> consumed);
+    public delegate void EquipmentDismantlingHandler(DateTimeOffset timeStamp, IReadOnlyCollection<Equipment> equipments);
+    public delegate void EquipmentImprovingHandler(DateTimeOffset timeStamp, Equipment original, IRawEquipment updatedTo, IReadOnlyCollection<Equipment> consumed, bool isSuccess);
 }

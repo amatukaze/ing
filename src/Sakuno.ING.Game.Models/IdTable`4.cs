@@ -105,7 +105,16 @@ namespace Sakuno.ING.Game
             Updated?.Invoke();
         }
 
-        public bool Remove(TId id) => Remove(this[id]);
+        public T Remove(TId id)
+        {
+            if (TryGetValue(id, out T item))
+            {
+                Remove(item);
+                return item;
+            }
+            return null;
+        }
+
         public bool Remove(T item)
         {
             var result = list.Remove(item);
