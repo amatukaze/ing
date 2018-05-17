@@ -14,7 +14,10 @@
 
   <ItemGroup>
     <PackageReference Include="Expression.Interaction" Version="3.0.40218.0" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.108" />
   </ItemGroup>
+
+  <Import Project="$(PackagesDirectory)System.Data.SQLite.Core.1.0.108.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('$(PackagesDirectory)System.Data.SQLite.Core.1.0.108.0\build\net45\System.Data.SQLite.Core.targets')" /> 
 
   <ItemGroup>
     <Compile Include="**\*.cs" Exclude="$(BaseIntermediateOutputPath)\**" />
