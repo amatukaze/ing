@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+  <PropertyGroup>
+    <AssemblyName>HeavenlyWind.Base</AssemblyName>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
+    <Description>Common library for ING</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.108" />
+    <PackageReference Include="System.Reactive" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.Extensibility\HeavenlyWind.Extensibility.csproj" />
+    <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj" />
+    <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj" />
+    <ProjectReference Include="..\Library\Sakuno.UserInterface\Sakuno.UserInterface.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Strings\*.xml" /> 
+  </ItemGroup>
+
+</Project>
+

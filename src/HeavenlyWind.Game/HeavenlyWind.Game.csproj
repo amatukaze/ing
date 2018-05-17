@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+  <PropertyGroup>
+    <AssemblyName>HeavenlyWind.Game</AssemblyName>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.Game</RootNamespace>
+    <Description>KanColle game wrapper</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FiddlerCore" Version="4.6.2.0" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.108" />
+    <PackageReference Include="System.Reactive" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.Base\HeavenlyWind.Base.csproj" />
+  </ItemGroup>
+
+</Project>
+

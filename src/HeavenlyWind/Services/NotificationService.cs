@@ -25,7 +25,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
         public static NotificationService Instance { get; } = new NotificationService();
 
+#if RELEASE
         bool r_IsToastNotificationUnavailable;
+#endif
 
         NotifyIcon r_NotifyIcon;
 
@@ -233,7 +235,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
         void ShowCore(string rpTitle, string rpBody, NotificationSound rpSound, string rpCustomSoundFilename, string rpSecondLine = null)
         {
-            if (!OS.IsWin8OrLater || r_IsToastNotificationUnavailable)
+            if (!OS.IsWin8OrLater
+#if RELEASE
+                || r_IsToastNotificationUnavailable
+#endif
+                )
             {
                 var rBody = rpBody;
                 if (rpSecondLine != null)

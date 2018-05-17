@@ -1,0 +1,51 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.5.4">
+
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+  <PropertyGroup>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <OutputType>WinExe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>HeavenlyWind</AssemblyName>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Expression.Interaction" Version="3.0.40218.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="**\*.cs" Exclude="$(BaseIntermediateOutputPath)\**" />
+    <Page Include="**\*.xaml" Exclude="App.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+    <ApplicationDefinition Include="App.xaml" SubType="Designer" Generator="MSBuild:Compile" />
+    <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Sakuno.Toast">
+      <HintPath>..\..\assemblies\Sakuno.Toast.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" /> 
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.Game\HeavenlyWind.Game.csproj" />
+    <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj" />
+    <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj" />
+    <ProjectReference Include="..\Library\Sakuno.UserInterface\Sakuno.UserInterface.csproj" />
+  </ItemGroup>
+
+  <Target Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
+    <PropertyGroup>
+      <BuildingProject>false</BuildingProject>
+    </PropertyGroup>
+  </Target>
+
+</Project>

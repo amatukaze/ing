@@ -1,0 +1,13 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <TargetFramework>net45</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <OutputPath>$(SolutionDir)artifacts\$(Configuration)\$(AssemblyName)\</OutputPath>
+    <Authors>Kodama Sakuno</Authors>
+    <Product>Intelligent Naval Gun</Product>
+    <Company>sakuno.moe</Company>
+    <Copyright>Copyright © 2015-2018 Kodama Sakuno</Copyright>
+  </PropertyGroup>
+
+</Project>
