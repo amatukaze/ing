@@ -35,4 +35,8 @@
     <ProjectReference Include="..\Library\Sakuno.UserInterface\Sakuno.UserInterface.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="IF NOT EXIST &quot;$(SolutionDir)Resources&quot; exit  &#xD;&#xA;xcopy /D /Y /E /I &quot;$(SolutionDir)Resources&quot; &quot;$(TargetDir)Resources&quot;" />
+  </Target>
+
 </Project>
