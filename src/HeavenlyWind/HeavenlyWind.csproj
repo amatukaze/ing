@@ -3,7 +3,6 @@
   <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
 
   <PropertyGroup>
-    <EnableDefaultItems>false</EnableDefaultItems>
     <OutputType>WinExe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyName>HeavenlyWind</AssemblyName>
@@ -20,22 +19,11 @@
   <Import Project="$(PackagesDirectory)System.Data.SQLite.Core.1.0.108.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('$(PackagesDirectory)System.Data.SQLite.Core.1.0.108.0\build\net45\System.Data.SQLite.Core.targets')" /> 
 
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="$(BaseIntermediateOutputPath)\**" />
-    <Page Include="**\*.xaml" Exclude="App.xaml" SubType="Designer" Generator="MSBuild:Compile" />
-    <ApplicationDefinition Include="App.xaml" SubType="Designer" Generator="MSBuild:Compile" />
-    <Compile Update="**\*.xaml.cs" SubType="Code" DependentUpon="%(Filename)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="Sakuno.Toast">
       <HintPath>..\..\assemblies\Sakuno.Toast.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" /> 
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,11 +32,5 @@
     <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj" />
     <ProjectReference Include="..\Library\Sakuno.UserInterface\Sakuno.UserInterface.csproj" />
   </ItemGroup>
-
-  <Target Name="WorkaroundForXAMLIntellisenseBuildIssue" AfterTargets="_CheckCompileDesignTimePrerequisite">
-    <PropertyGroup>
-      <BuildingProject>false</BuildingProject>
-    </PropertyGroup>
-  </Target>
 
 </Project>
