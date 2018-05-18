@@ -159,17 +159,24 @@
 
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Name="Name" Text="{rb:ExtraStringResource Ship, DroppedShip.ID, DroppedShip.Name}" Margin="0, 4" />
+                                    <StackPanel Orientation="Horizontal" Margin="0, 4">
+                                        <TextBlock Name="DroppedShip" Text="{rb:ExtraStringResource Ship, DroppedShip.ID, DroppedShip.Name}" />
+                                        <TextBlock Name="DroppedItem" Text="{rb:ExtraStringResource Item, DroppedItem.ID, DroppedItem.Name, StringFormat={}\, {0}}" Visibility="{rb:CollapsedIfNull DroppedItem}" />
+                                    </StackPanel>
 
                                     <DataTemplate.Triggers>
                                         <DataTrigger Binding="{Binding DroppedShip.Rarity, Converter={StaticResource IsLessThanConverter}, ConverterParameter=4}" Value="True">
-                                            <Setter TargetName="Name" Property="Opacity" Value=".7" />
+                                            <Setter TargetName="DroppedShip" Property="Opacity" Value=".7" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding DroppedShip.Rarity, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=4}" Value="True">
-                                            <Setter TargetName="Name" Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
+                                            <Setter TargetName="DroppedShip" Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding DroppedShip.Rarity, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=6}" Value="True">
-                                            <Setter TargetName="Name" Property="Foreground" Value="Yellow" />
+                                            <Setter TargetName="DroppedShip" Property="Foreground" Value="Yellow" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding DroppedShip}" Value="{x:Null}">
+                                            <Setter TargetName="DroppedItem" Property="Text" Value="{rb:ExtraStringResource Item, DroppedItem.ID, DroppedItem.Name}" />
                                         </DataTrigger>
                                     </DataTemplate.Triggers>
                                 </DataTemplate>

@@ -24,6 +24,7 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
 
         public BattleRank? BattleRank { get; private set; }
         public ShipInfo DroppedShip { get; private set; }
+        public ItemInfo DroppedItem { get; private set; }
 
         public bool IsBattleDetailAvailable { get; private set; }
 
@@ -61,6 +62,10 @@ namespace Sakuno.KanColle.Amatsukaze.Models.Records
             var rDroppedShip = rpReader.GetInt32Optional("dropped_ship");
             if (rDroppedShip.HasValue)
                 DroppedShip = KanColleGame.Current.MasterInfo.Ships[rDroppedShip.Value];
+
+            var droppedItem = rpReader.GetInt32Optional("dropped_item");
+            if (droppedItem.HasValue)
+                DroppedItem = KanColleGame.Current.MasterInfo.Items[droppedItem.Value];
 
             IsBattleDetailAvailable = rpReader.GetBoolean("battle_detail");
 
