@@ -2,6 +2,7 @@
 {
     public enum MaterialsDifferenceType
     {
+        Previous,
         Day,
         Week,
         Month,
