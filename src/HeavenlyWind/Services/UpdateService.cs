@@ -142,7 +142,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 client = new
                 {
                     version = Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                    type = ProductInfo.ReleaseType,
                     fw = OS.DotNetFrameworkReleaseNumber,
+                    is64bit = Environment.Is64BitOperatingSystem,
                 },
 
                 data = GetOfficialDataStoreItem().Select(r => new

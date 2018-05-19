@@ -20,6 +20,19 @@
         <TextBlock Margin="0, 8, 0, 0">
             <Run Text="Version" FontSize="18" />
             <Run Text="{Binding Source={x:Static rb:ProductInfo.Version}, Mode=OneWay}" FontSize="18" />
+            <Run FontSize="14">
+                <Run.Style>
+                    <Style TargetType="{x:Type Run}">
+                        <Setter Property="Text" Value="{Binding Source={x:Static rb:ProductInfo.ReleaseType}, Mode=OneWay}" />
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Source={x:Static rb:ProductInfo.ReleaseType}, Mode=OneWay}" Value="Release">
+                                <Setter Property="Text" Value="" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Run.Style>
+            </Run>
             <Run Text="{Binding Source={x:Static rb:ProductInfo.ReleaseCodeName}, StringFormat=({0}), Mode=OneWay}" FontSize="14" />
             <Run Text="{Binding Source={x:Static rb:ProductInfo.ReleaseDate}, StringFormat=({0}), Mode=OneWay}" FontSize="14" />
         </TextBlock>
