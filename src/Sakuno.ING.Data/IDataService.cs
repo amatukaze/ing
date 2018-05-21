@@ -6,7 +6,7 @@ namespace Sakuno.ING.Data
 {
     public interface IDataService
     {
-        void ConfigureDbContext(DbContextOptionsBuilder builder);
+        void ConfigureDbContext(string name, DbContextOptionsBuilder builder);
         Task<Stream> ReadFile(string filename);
         Task<Stream> WriteFile(string filename);
     }

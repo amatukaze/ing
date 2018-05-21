@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)src\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
-    <ProjectReference Include="$(SolutionDir)src\Sakuno.ING.Data\Sakuno.ING.Data.csproj" />
   </ItemGroup>
 
 </Project>

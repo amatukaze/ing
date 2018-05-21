@@ -1,5 +1,8 @@
-﻿using Sakuno.ING.Composition;
+﻿using System.Runtime.CompilerServices;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Settings;
+
+[assembly: InternalsVisibleTo("Sakuno.ING.Data.Design")]
 
 namespace Sakuno.ING.Data
 {
@@ -10,9 +13,6 @@ namespace Sakuno.ING.Data
             builder.RegisterService<SettingsManager, ISettingsManager>();
         }
 
-        public void Initialize(IResolver resolver)
-        {
-            Context.DataService = resolver.Resolve<IDataService>();
-        }
+        public void Initialize(IResolver resolver) { }
     }
 }
