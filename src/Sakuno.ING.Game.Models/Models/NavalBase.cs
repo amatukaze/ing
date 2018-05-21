@@ -174,6 +174,8 @@ namespace Sakuno.ING.Game.Models
 
         public Admiral Admiral { get; private set; }
 
+        public Ship Secretary => Fleets.First().Ships[0];
+
         private Materials _materials;
         public Materials Materials
         {

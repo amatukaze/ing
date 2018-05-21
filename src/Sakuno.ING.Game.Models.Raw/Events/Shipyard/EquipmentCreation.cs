@@ -1,10 +1,11 @@
 ﻿using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events.Shipyard
 {
     public class EquipmentCreation
     {
-        public EquipmentCreation(bool isSuccess, IRawEquipment equipment, int selectedEquipentInfoId, Materials consumption)
+        public EquipmentCreation(bool isSuccess, IRawEquipment equipment, EquipmentInfoId selectedEquipentInfoId, Materials consumption)
         {
             IsSuccess = isSuccess;
             Equipment = equipment;
@@ -14,7 +15,7 @@ namespace Sakuno.ING.Game.Events.Shipyard
 
         public bool IsSuccess { get; }
         public IRawEquipment Equipment { get; }
-        public int SelectedEquipentInfoId { get; }
+        public EquipmentInfoId SelectedEquipentInfoId { get; }
         public Materials Consumption { get; }
     }
 }

@@ -5,6 +5,7 @@ using Sakuno.ING.Game.Events.Shipyard;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Shipyard;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
@@ -72,7 +73,7 @@ namespace Sakuno.ING.Game
         private static ShipCreation ParseShipCreation(NameValueCollection request)
             => new ShipCreation
             (
-                buildingDockId: request.GetInt("api_kdock_id"),
+                buildingDockId: (BuildingDockId)request.GetInt("api_kdock_id"),
                 instantBuild: request.GetBool("api_highspeed"),
                 isLSC: request.GetBool("api_large_flag"),
                 consumption: new Materials
@@ -126,7 +127,7 @@ namespace Sakuno.ING.Game
                         Steel = request.GetInt("api_item3"),
                         Bauxite = request.GetInt("api_item4"),
                     },
-                    selectedEquipentInfoId: id
+                    selectedEquipentInfoId: (EquipmentInfoId)id
                 );
             }
         }

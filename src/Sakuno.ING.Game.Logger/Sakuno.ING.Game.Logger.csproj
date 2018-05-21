@@ -10,14 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.0-preview1-final" />
     <PackageReference Include="Sakuno.ING.Data" Version="0.1.0-blueprint2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sakuno.ING.Game.Models.Raw\Sakuno.ING.Game.Models.Raw.csproj" />
     <ProjectReference Include="..\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
-    <ProjectReference Include="..\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
   </ItemGroup>
 
 </Project>
