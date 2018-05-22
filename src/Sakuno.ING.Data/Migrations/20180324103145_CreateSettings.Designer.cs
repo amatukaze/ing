@@ -7,7 +7,7 @@ using Sakuno.ING.Data;
 
 namespace Sakuno.ING.Data.Migrations
 {
-    [DbContext(typeof(SettingsManager))]
+    [DbContext(typeof(SettingsDbContext))]
     [Migration("20180324103145_CreateSettings")]
     partial class CreateSettings
     {

@@ -4,31 +4,48 @@ namespace Sakuno.ING.Data
 {
     internal abstract class SettingItemBase : BindableObject
     {
-        private SettingsManager manager;
-        private SettingDbEntry entry;
+        private readonly SettingsManager manager;
+        private readonly string key;
+        private string value;
 
-        protected SettingItemBase(SettingsManager manager,string key, string defaultValue)
+        protected SettingItemBase(SettingsManager manager, string key, string defaultValue)
         {
             this.manager = manager;
-            entry = manager.SettingEntries.Find(key)
-                ?? manager.SettingEntries.Add(new SettingDbEntry
+            this.key = key;
+            using (var context = manager.CreateDbContext())
+            {
+                var entry = context.SettingEntries.Find(key);
+                if (entry != null)
+                    value = entry.Value;
+                else
                 {
-                    Id = key,
-                    Value = defaultValue
-                }).Entity;
+                    value = defaultValue;
+                    context.SettingEntries.Add(new SettingDbEntry
+                    {
+                        Id = key,
+                        Value = defaultValue
+                    });
+                    context.SaveChanges();
+                }
+            }
         }
 
         protected string Value
         {
-            get => entry.Value;
+            get => value;
             set
             {
-                if (!string.Equals(value, entry.Value, StringComparison.Ordinal))
+                if (!string.Equals(value, this.value, StringComparison.Ordinal))
                 {
-                    entry.Value = value;
-                    manager.SaveChanges();
+                    this.value = value;
                     OnValueChanged(value);
                     NotifyPropertyChanged();
+
+                    using (var context = manager.CreateDbContext())
+                    {
+                        context.SettingEntries.Find(key).Value = value;
+                        context.SaveChanges();
+                    }
                 }
             }
         }

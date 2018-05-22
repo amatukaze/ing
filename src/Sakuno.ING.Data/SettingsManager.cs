@@ -5,14 +5,17 @@ using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Data
 {
-    internal class SettingsManager : DatabaseContext, ISettingsManager
+    internal class SettingsManager : ISettingsManager
     {
-        public DbSet<SettingDbEntry> SettingEntries { get; set; }
-        protected override string Name => "settings";
-
+        private readonly DbContextOptions<SettingsDbContext> options;
         private Dictionary<string, SettingItemBase> items = new Dictionary<string, SettingItemBase>();
 
-        public SettingsManager(IDataService dataService) : base(dataService) { }
+        public SettingsManager(IDataService dataService)
+        {
+            options = dataService.ConfigureDbContext<SettingsDbContext>("settings");
+        }
+
+        public SettingsDbContext CreateDbContext() => new SettingsDbContext(options);
 
         public ISettingItem<T> Register<T>(string name, T defaultValue = default)
         {

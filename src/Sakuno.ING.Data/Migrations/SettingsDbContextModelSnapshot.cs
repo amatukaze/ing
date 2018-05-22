@@ -6,8 +6,8 @@ using Sakuno.ING.Data;
 
 namespace Sakuno.ING.Data.Migrations
 {
-    [DbContext(typeof(SettingsManager))]
-    partial class SettingsManagerModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SettingsDbContext))]
+    partial class SettingsDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
