@@ -3,7 +3,7 @@
   <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net461;net471</TargetFrameworks>
+    <TargetFramework>net471</TargetFramework>
     <OutputType>WinExe</OutputType>
     <PlatformTarget>x64</PlatformTarget>
     <RootNamespace>Sakuno.ING</RootNamespace>

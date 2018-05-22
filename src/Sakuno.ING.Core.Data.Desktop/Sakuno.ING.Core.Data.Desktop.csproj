@@ -3,6 +3,7 @@
   <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
 
   <PropertyGroup>
+    <TargetFrameworks>net461</TargetFrameworks>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <RootNamespace>Sakuno.ING.Data</RootNamespace>
     <Version>0.1.0-blueprint</Version>

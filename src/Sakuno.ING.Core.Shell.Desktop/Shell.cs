@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Xml.Linq;
-using Sakuno.ING.Data;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
 using Sakuno.ING.ViewModels;
@@ -19,19 +18,19 @@ namespace Sakuno.ING.Shell
     class Shell : IShell
     {
         MainWindowVM _mainWindowVM;
-        private readonly IDataService dataService;
+        private readonly LayoutSetting layoutSetting;
         private readonly ILocalizationService localization;
         private readonly ITextStreamProvider provider;
         private readonly string localeName;
         private readonly FontFamily userFont;
 
-        public Shell(IDataService dataService, ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider)
+        public Shell(LayoutSetting layoutSetting, ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider)
         {
             _mainWindowVM = new MainWindowVM()
             {
                 Title = "Intelligent Naval Gun",
             };
-            this.dataService = dataService;
+            this.layoutSetting = layoutSetting;
             this.localization = localization;
             this.provider = provider;
             localeName = locale.Language.Value;
@@ -60,23 +59,25 @@ namespace Sakuno.ING.Shell
         private MainWindow main;
         private SettingsWindow settings;
 
-        public async void Run()
+        public void Run()
         {
             started = true;
 
             XDocument layoutDocument;
             try
             {
-                using (var file = await dataService.ReadFile("layout.xml"))
-                    layoutDocument = XDocument.Load(file);
+                layoutDocument = XDocument.Parse(layoutSetting.XmlString.Value);
             }
-            catch (FileNotFoundException)
+            catch
             {
-                using (var file = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(Shell), "Layout.Default.xml"))
-                    layoutDocument = XDocument.Load(file);
+                string layoutString;
+                using (var file = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(Shell), "Layout.Default.xml")))
+                    layoutString = file.ReadToEnd();
+                layoutSetting.XmlString.Value = layoutString;
+                layoutDocument = XDocument.Parse(layoutString);
             }
 
-            layout = new LayoutRoot().FromXml(layoutDocument);
+            layout = LayoutRoot.FromXml(layoutDocument);
 
             var app = new Application
             {
@@ -109,7 +110,20 @@ namespace Sakuno.ING.Shell
                     settings.Activate();
                 };
 
-                Arrange();
+                Rearrange();
+
+                layoutSetting.XmlString.ValueChanged += s =>
+                {
+                    try
+                    {
+                        layout = LayoutRoot.FromXml(XDocument.Parse(s));
+                        Rearrange();
+                    }
+                    catch
+                    {
+                        // log:fail to reload layout
+                    }
+                };
 
                 provider.Enabled = true;
 
@@ -133,7 +147,7 @@ namespace Sakuno.ING.Shell
             ?? localization.GetLocalized("ViewTitle", item.Id)
             ?? item.Id;
 
-        private void Arrange()
+        private void Rearrange()
         {
             foreach (var entry in layout.Entries)
                 if (main.MainContent.Content == null)
