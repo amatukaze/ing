@@ -29,8 +29,8 @@ namespace Sakuno.ING.Game
                 var argOwner = Expression.Parameter(typeof(TOwner));
                 var argTime = Expression.Parameter(typeof(DateTimeOffset));
                 var ctor = typeof(T).GetConstructor(new[] { typeof(TRaw), typeof(TOwner), typeof(DateTimeOffset) });
-                var call = Expression.New(ctor, argRaw, argOwner);
-                creation = Expression.Lambda<Func<TRaw, TOwner, DateTimeOffset, T>>(call, argRaw, argOwner).Compile();
+                var call = Expression.New(ctor, argRaw, argOwner, argTime);
+                creation = Expression.Lambda<Func<TRaw, TOwner, DateTimeOffset, T>>(call, argRaw, argOwner, argTime).Compile();
             }
         }
 
