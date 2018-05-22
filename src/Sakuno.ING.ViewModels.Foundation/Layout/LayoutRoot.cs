@@ -19,11 +19,12 @@ namespace Sakuno.ING.ViewModels.Layout
             return document;
         }
 
-        public LayoutRoot FromXml(XDocument document)
+        public static LayoutRoot FromXml(XDocument document)
         {
+            var item = new LayoutRoot();
             foreach (var element in document.Element("LayoutRoot").Elements())
-                Entries.Add(LayoutBase.Resolve(element));
-            return this;
+                item.Entries.Add(LayoutBase.Resolve(element));
+            return item;
         }
     }
 }
