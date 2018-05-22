@@ -10,8 +10,12 @@ namespace Sakuno.ING.UWP.Data
     {
         private readonly StorageFolder dataRoot = ApplicationData.Current.RoamingFolder;
 
-        public void ConfigureDbContext(string name, DbContextOptionsBuilder builder)
-            => builder.UseSqlite("Data Source=" + Path.Combine(dataRoot.Path, name + ".db"));
+        public DbContextOptions<TContext> ConfigureDbContext<TContext>(string name)
+            where TContext : DbContext
+            => new DbContextOptionsBuilder<TContext>()
+                .UseSqlite("Data Source=" + Path.Combine(dataRoot.Path, "ing.db"),
+                    s => s.MigrationsHistoryTable("__Migration_" + name))
+                .Options;
 
         public Task<Stream> ReadFile(string filename)
             => dataRoot.OpenStreamForReadAsync(filename);
