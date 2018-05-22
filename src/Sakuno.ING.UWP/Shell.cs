@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
-using Sakuno.ING.Data;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
@@ -21,13 +20,13 @@ namespace Sakuno.ING.UWP
 {
     internal class Shell : IShell
     {
-        private readonly IDataService dataService;
+        private readonly LayoutSetting layoutSetting;
         private readonly ITextStreamProvider gameProvider;
         private readonly ILocalizationService localizationService;
 
-        public Shell(IDataService dataService, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localizationService)
+        public Shell(LayoutSetting layoutSetting, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localizationService)
         {
-            this.dataService = dataService;
+            this.layoutSetting = layoutSetting;
             this.gameProvider = gameProvider;
             this.localizationService = localizationService;
 
@@ -41,26 +40,20 @@ namespace Sakuno.ING.UWP
             XDocument layoutDocument;
             try
             {
-                using (var file = await dataService.ReadFile("layout.xml"))
-                    layoutDocument = XDocument.Load(file);
+                layoutDocument = XDocument.Parse(layoutSetting.XmlString.Value);
             }
-            catch (FileNotFoundException)
+            catch
             {
+                string layoutString;
                 var folder = await Package.Current.InstalledLocation.GetFolderAsync("Layout");
                 var defaultFile = await folder.GetFileAsync("Default.xml");
-                using (var stream = await defaultFile.OpenStreamForReadAsync())
-                    layoutDocument = XDocument.Load(stream);
+                using (var file = new StreamReader(await defaultFile.OpenStreamForReadAsync()))
+                    layoutString = file.ReadToEnd();
+                layoutSetting.XmlString.Value = layoutString;
+                layoutDocument = XDocument.Parse(layoutString);
             }
 
-            if (layoutDocument != null)
-            {
-                layout = new LayoutRoot().FromXml(layoutDocument);
-            }
-            else
-            {
-                layout = new LayoutRoot();
-                // load browser only
-            }
+            layout = LayoutRoot.FromXml(layoutDocument);
 
             SetupTransparencity();
             new UISettings().ColorValuesChanged += async (sender, _) =>
@@ -71,6 +64,20 @@ namespace Sakuno.ING.UWP
             };
             Window.Current.Content = main = new MainView(new MainWindowVM(), this);
             Rearrange();
+
+            layoutSetting.XmlString.ValueChanged += s =>
+            {
+                try
+                {
+                    layout = LayoutRoot.FromXml(XDocument.Parse(s));
+                    Rearrange();
+                }
+                catch
+                {
+                    // log:fail to reload layout
+                }
+            };
+
             gameProvider.Enabled = true;
         }
 
