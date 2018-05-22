@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Settings;
 
@@ -13,6 +14,10 @@ namespace Sakuno.ING.Data
             builder.RegisterService<SettingsManager, ISettingsManager>();
         }
 
-        public void Initialize(IResolver resolver) { }
+        public void Initialize(IResolver resolver)
+        {
+            using (var context = ((SettingsManager)resolver.Resolve<ISettingsManager>()).CreateDbContext())
+                context.Database.Migrate();
+        }
     }
 }
