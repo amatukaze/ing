@@ -9,9 +9,11 @@ namespace Sakuno.ING.Game.Logger
     {
         public void Expose(IBuilder builder)
         {
-            builder.RegisterType<LoggerContext>();
             builder.RegisterType<Logger>();
         }
-        public void Initialize(IResolver resolver) => throw new System.NotImplementedException();
+        public void Initialize(IResolver resolver)
+        {
+            resolver.Resolve<Logger>();
+        }
     }
 }

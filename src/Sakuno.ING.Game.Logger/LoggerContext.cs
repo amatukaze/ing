@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Sakuno.ING.Data;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Logger
 {
-    internal class LoggerContext : DatabaseContext
+    internal class LoggerContext : DbContext
     {
-        public LoggerContext(IDataService dataService) : base(dataService) { }
-        protected override string Name => "logs";
+        public LoggerContext(DbContextOptions<LoggerContext> options) : base(options) { }
 
         public DbSet<ShipCreation> ShipCreationTable { get; private set; }
         public DbSet<EquipmentCreation> EquipmentCreationTable { get; private set; }
