@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F56CCD2C-4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider.Test", "Test\Sakuno.ING.Game.Provider.Test\Sakuno.ING.Game.Provider.Test.csproj", "{DD061355-BCEC-4512-A262-8FBDDF2F3C5D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nekomimi", "Nekomimi\src\Nekomimi\Nekomimi.csproj", "{27A2F92A-B419-4DA2-94BE-B53E29AC5604}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,9 +66,7 @@ Global
 		{AB6EC829-12AC-4B7C-A348-5C7620C96EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB6EC829-12AC-4B7C-A348-5C7620C96EB5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A16DFBEC-F553-4F70-B1F8-24FB37012CF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A16DFBEC-F553-4F70-B1F8-24FB37012CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A16DFBEC-F553-4F70-B1F8-24FB37012CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A16DFBEC-F553-4F70-B1F8-24FB37012CF3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -92,13 +92,15 @@ Global
 		{159E60F5-E46D-48E8-BC31-3987AC70F991}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{159E60F5-E46D-48E8-BC31-3987AC70F991}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86E8F33C-8ACF-4AFE-BE87-FF6A30034C17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86E8F33C-8ACF-4AFE-BE87-FF6A30034C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86E8F33C-8ACF-4AFE-BE87-FF6A30034C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{86E8F33C-8ACF-4AFE-BE87-FF6A30034C17}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DD061355-BCEC-4512-A262-8FBDDF2F3C5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DD061355-BCEC-4512-A262-8FBDDF2F3C5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD061355-BCEC-4512-A262-8FBDDF2F3C5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD061355-BCEC-4512-A262-8FBDDF2F3C5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27A2F92A-B419-4DA2-94BE-B53E29AC5604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27A2F92A-B419-4DA2-94BE-B53E29AC5604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A2F92A-B419-4DA2-94BE-B53E29AC5604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27A2F92A-B419-4DA2-94BE-B53E29AC5604}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
