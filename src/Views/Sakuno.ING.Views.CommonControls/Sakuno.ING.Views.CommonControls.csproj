@@ -1,0 +1,13 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.3.1">
+
+  <PropertyGroup>
+    <RootNamespace>Sakuno.ING.Views</RootNamespace>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Common controls used by Intelligent Naval Gun</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
+  </ItemGroup>
+
+</Project>

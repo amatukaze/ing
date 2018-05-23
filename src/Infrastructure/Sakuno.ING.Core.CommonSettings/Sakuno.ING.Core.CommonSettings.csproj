@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Sakuno.ING.Settings</RootNamespace>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Common settings for ING</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
+  </ItemGroup>
+
+</Project>

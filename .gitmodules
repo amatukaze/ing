@@ -1,3 +1,6 @@
-[submodule "ING.Localization"]
-	path = ING.Localization
+[submodule "Nekomimi"]
+	path = Nekomimi
+	url = https://github.com/amatukaze/Nekomimi.git
+[submodule "Localization"]
+	path = Localization
 	url = https://github.com/amatukaze/ING.Localization.git

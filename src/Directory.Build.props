@@ -1,0 +1,24 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <BaseOutputPath>$(SolutionDir)artifacts\$(MSBuildProjectName)\</BaseOutputPath>
+    <IntermediateOutputPath>$(SolutionDir)intermediate\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <Authors>Kodama Sakuno</Authors>
+    <Product>Intelligent Naval Gun</Product>
+    <Company>Kodama Sakuno</Company>
+    <Copyright>Copyright © 2017-2018 Kodama Sakuno</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/amatukaze/ing/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/amatukaze/ing</PackageProjectUrl>
+    <PackageTags>KanColle;ING</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+</Project>

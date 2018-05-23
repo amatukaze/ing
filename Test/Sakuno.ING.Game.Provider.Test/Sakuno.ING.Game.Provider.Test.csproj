@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
-    <ProjectReference Include="..\..\src\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
+    <ProjectReference Include="..\..\src\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
+    <ProjectReference Include="..\..\src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
   </ItemGroup>
 
 </Project>

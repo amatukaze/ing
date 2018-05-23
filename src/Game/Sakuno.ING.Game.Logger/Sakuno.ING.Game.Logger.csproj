@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Game logger for ING</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.0-preview1-final" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Sakuno.ING.Data\Sakuno.ING.Data.csproj" />
+    <ProjectReference Include="..\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
+  </ItemGroup>
+
+</Project>

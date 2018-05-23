@@ -1,9 +1,0 @@
-﻿<Project>
-
-  <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
-
-  <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
-  </PropertyGroup>
-
-</Project>

@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Sakuno.ING.props" />
+  <PropertyGroup>
+    <ProjectGuid>{872A67E9-1A02-45CB-8948-0AA25BC71974}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <OutputPath>$(SolutionDir)artifacts\Appx\$(Platform)\$(Configuration)\</OutputPath>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sakuno.ING.UWP</RootNamespace>
+    <AssemblyName>Sakuno.ING.UWP</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxPackageDir>$(SolutionDir)artifacts\AppxPackages\</AppxPackageDir>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateKeyFile>Sakuno.ING.UWP_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>57A6D0EDE0DCEAFA90551A9AD019CF770C059B57</PackageCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWarn>;2008</NoWarn>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'DebugNative'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DebugType>full</DebugType>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Platform)' == 'x64'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LocalizationService.cs" />
+    <Compile Include="MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Module.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Shell.cs" />
+    <Compile Include="SubView.xaml.cs">
+      <DependentUpon>SubView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sakuno.ING.UWP_StoreKey.pfx" />
+    <None Include="Package.xml" />
+    <Content Include="Assets\LargeTile.scale-100.png" />
+    <Content Include="Assets\LargeTile.scale-125.png" />
+    <Content Include="Assets\LargeTile.scale-150.png" />
+    <Content Include="Assets\LargeTile.scale-200.png" />
+    <Content Include="Assets\LargeTile.scale-400.png" />
+    <Content Include="Assets\SmallTile.scale-100.png" />
+    <Content Include="Assets\SmallTile.scale-125.png" />
+    <Content Include="Assets\SmallTile.scale-150.png" />
+    <Content Include="Assets\SmallTile.scale-200.png" />
+    <Content Include="Assets\SmallTile.scale-400.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-125.png" />
+    <Content Include="Assets\StoreLogo.scale-150.png" />
+    <Content Include="Assets\StoreLogo.scale-200.png" />
+    <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="Layout\Default.xml" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(SolutionDir)Localization\locales\*.json">
+      <Link>Strings\Raw\%(Filename)</Link>
+    </None>
+    <None Include="$(SolutionDir)Localization\fieldmap.json">
+      <Link>Strings\fieldmap.json</Link>
+    </None>
+    <PRIResource Include="$(SolutionDir)Localization\artifacts\resw\**\*.resw">
+      <Link>Strings\%(RecursiveDir)%(Filename)</Link>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SubView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj">
+      <Project>{773d4281-944d-4154-ae00-a69cfca6659c}</Project>
+      <Name>Sakuno.ING.Bootstrap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Sakuno.ING.Core.CommonSettings\Sakuno.ING.Core.CommonSettings.csproj">
+      <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
+      <Name>Sakuno.ING.Core.CommonSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Views\Sakuno.ING.ViewModels.Foundation\Sakuno.ING.ViewModels.Foundation.csproj">
+      <Project>{f7401bdd-57a6-4b0c-bf56-e708f146ece6}</Project>
+      <Name>Sakuno.ING.ViewModels.Foundation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakuno.ING.UWP.Bridge.Listener\Sakuno.ING.UWP.Bridge.Listener.csproj">
+      <Project>{e38f80d6-2e82-4716-b47d-c15e54aec590}</Project>
+      <Name>Sakuno.ING.UWP.Bridge.Listener</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakuno.ING.UWP.Data\Sakuno.ING.UWP.Data.csproj">
+      <Project>{9f2de7a3-b59d-4234-b886-a1e23fe03775}</Project>
+      <Name>Sakuno.ING.UWP.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakuno.ING.UWP.Views.ApiDebug\Sakuno.ING.UWP.Views.ApiDebug.csproj">
+      <Project>{185f9a4d-07de-4c67-aa3a-e0b837c23036}</Project>
+      <Name>Sakuno.ING.UWP.Views.ApiDebug</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakuno.ING.UWP.Views.MasterData\Sakuno.ING.UWP.Views.MasterData.csproj">
+      <Project>{9458a085-a9bc-4fb7-91ca-370db87d0eca}</Project>
+      <Name>Sakuno.ING.UWP.Views.MasterData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakuno.ING.UWP.Views.Settings\Sakuno.ING.UWP.Views.Settings.csproj">
+      <Project>{e5d369e8-b344-410c-8d1a-c87e9c621c80}</Project>
+      <Name>Sakuno.ING.UWP.Views.Settings</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
