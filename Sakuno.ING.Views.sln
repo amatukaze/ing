@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C29D66F9-D2E7-4C82-84CE-7A56EEBBA684}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		README.md = README.md
+		src\Sakuno.ING.props = src\Sakuno.ING.props
+		src\Sakuno.ING.Wpf.props = src\Sakuno.ING.Wpf.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.ViewModels.Foundation", "src\Sakuno.ING.ViewModels.Foundation\Sakuno.ING.ViewModels.Foundation.csproj", "{F7401BDD-57A6-4B0C-BF56-E708F146ECE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.CommonControls", "src\Sakuno.ING.Views.CommonControls\Sakuno.ING.Views.CommonControls.csproj", "{0F5123BF-F32D-4F2A-A605-6EFDCB07BAF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Settings", "src\Sakuno.ING.Views.Settings\Sakuno.ING.Views.Settings.csproj", "{CEEDDA10-843F-4F30-A359-CF29ACDC73D6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Homeport", "src\Sakuno.ING.Views.Homeport\Sakuno.ING.Views.Homeport.csproj", "{67DEDEB5-1B30-4826-A9FA-BE3F29B16E6C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7401BDD-57A6-4B0C-BF56-E708F146ECE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7401BDD-57A6-4B0C-BF56-E708F146ECE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7401BDD-57A6-4B0C-BF56-E708F146ECE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7401BDD-57A6-4B0C-BF56-E708F146ECE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F5123BF-F32D-4F2A-A605-6EFDCB07BAF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5123BF-F32D-4F2A-A605-6EFDCB07BAF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F5123BF-F32D-4F2A-A605-6EFDCB07BAF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F5123BF-F32D-4F2A-A605-6EFDCB07BAF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEEDDA10-843F-4F30-A359-CF29ACDC73D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEEDDA10-843F-4F30-A359-CF29ACDC73D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEEDDA10-843F-4F30-A359-CF29ACDC73D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEEDDA10-843F-4F30-A359-CF29ACDC73D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67DEDEB5-1B30-4826-A9FA-BE3F29B16E6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67DEDEB5-1B30-4826-A9FA-BE3F29B16E6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67DEDEB5-1B30-4826-A9FA-BE3F29B16E6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67DEDEB5-1B30-4826-A9FA-BE3F29B16E6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D453CD6A-4918-42E2-A29D-43391DB418D2}
+	EndGlobalSection
+EndGlobal
