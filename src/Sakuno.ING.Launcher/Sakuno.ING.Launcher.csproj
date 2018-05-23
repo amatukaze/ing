@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>Sakuno.ING</RootNamespace>
+    <AssemblyName>IntelligentNavalGun</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Version>0.1.0-blueprint2</Version>
+    <Description>The launcher of Intelligent Naval Gun</Description>
+    <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="nuspec.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sakuno.ING.Bootstrap" Version="0.1.0-blueprint3" />
+  </ItemGroup>
+
+</Project>

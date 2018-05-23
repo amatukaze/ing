@@ -1,0 +1,30 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.3.1">
+
+  <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>Sakuno.ING.Shell</RootNamespace>
+    <Version>0.1.0-blueprint</Version>
+    <Description>The shell of Intelligent Naval Gun</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Layout\Default.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sakuno.ING.Core.CommonSettings" Version="0.1.0-blueprint" />
+    <PackageReference Include="Sakuno.ING.ViewModels.Foundation" Version="0.1.0-blueprint" />
+    <PackageReference Include="Sakuno.ING.Views.CommonControls" Version="0.1.0-blueprint" />
+  </ItemGroup>
+
+</Project>

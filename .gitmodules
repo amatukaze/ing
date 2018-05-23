@@ -1,0 +1,3 @@
+[submodule "ING.Localization"]
+	path = ING.Localization
+	url = https://github.com/amatukaze/ING.Localization.git

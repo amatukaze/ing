@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)src\Sakuno.ING.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net461</TargetFrameworks>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RootNamespace>Sakuno.ING.Data</RootNamespace>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Desktop storage interface of Intelligent Naval Gun</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.0-rc1-final" />
+    <PackageReference Include="Sakuno.ING.Data" Version="0.1.0-blueprint2" />
+  </ItemGroup>
+
+</Project>
