@@ -5,8 +5,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
-    <BaseOutputPath>$(SolutionDir)artifacts\$(MSBuildProjectName)\</BaseOutputPath>
-    <IntermediateOutputPath>$(SolutionDir)intermediate\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <BaseOutputPath>$(BasePath)artifacts\$(MSBuildProjectName)\</BaseOutputPath>
+    <IntermediateOutputPath>$(BasePath)intermediate\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
     <Authors>Kodama Sakuno</Authors>
     <Product>Intelligent Naval Gun</Product>
     <Company>Kodama Sakuno</Company>

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <ProjectGuid>{872A67E9-1A02-45CB-8948-0AA25BC71974}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
-    <OutputPath>$(SolutionDir)artifacts\Appx\$(Platform)\$(Configuration)\</OutputPath>
+    <OutputPath>$(BasePath)artifacts\Appx\$(Platform)\$(Configuration)\</OutputPath>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Sakuno.ING.UWP</RootNamespace>
     <AssemblyName>Sakuno.ING.UWP</AssemblyName>
@@ -12,7 +12,7 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxPackageDir>$(SolutionDir)artifacts\AppxPackages\</AppxPackageDir>
+    <AppxPackageDir>$(BasePath)artifacts\AppxPackages\</AppxPackageDir>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateKeyFile>Sakuno.ING.UWP_StoreKey.pfx</PackageCertificateKeyFile>
@@ -130,13 +130,13 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(SolutionDir)Localization\locales\*.json">
+    <None Include="$(BasePath)Localization\locales\*.json">
       <Link>Strings\Raw\%(Filename)</Link>
     </None>
-    <None Include="$(SolutionDir)Localization\fieldmap.json">
+    <None Include="$(BasePath)Localization\fieldmap.json">
       <Link>Strings\fieldmap.json</Link>
     </None>
-    <PRIResource Include="$(SolutionDir)Localization\artifacts\resw\**\*.resw">
+    <PRIResource Include="$(BasePath)Localization\artifacts\resw\**\*.resw">
       <Link>Strings\%(RecursiveDir)%(Filename)</Link>
     </PRIResource>
   </ItemGroup>

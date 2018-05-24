@@ -1,19 +1,19 @@
 ﻿<Project>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="..\Directory.Build.props" />
   <PropertyGroup>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <VisualStudioVersion>15.0</VisualStudioVersion>
     <MinimumVisualStudioVersion>15</MinimumVisualStudioVersion>
-    <LangVersion>7.3</LangVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <OutputPath>$(SolutionDir)artifacts\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
-    <IntermediateOutputPath>$(SolutionDir)intermediate\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <OutputPath>$(BasePath)artifacts\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>$(BasePath)intermediate\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.cs" />
-    <ProjectReference Include="$(SolutionDir)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj">
+    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj">
       <Project>{d5e9fd1a-a812-4feb-b252-a84242b0e4cc}</Project>
       <Name>Sakuno.ING.Standard</Name>
     </ProjectReference>
