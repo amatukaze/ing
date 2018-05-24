@@ -1,0 +1,13 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Homeport view in Intelligent Naval Gun</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
+    <ProjectReference Include="$(BasePath)src\Views\Desktop\Sakuno.ING.Views.CommonControls\Sakuno.ING.Views.CommonControls.csproj" />
+  </ItemGroup>
+
+</Project>

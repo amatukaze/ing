@@ -1,0 +1,36 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+    <Authors>Kodama Sakuno</Authors>
+    <Product>Intelligent Naval Gun</Product>
+    <Company>Kodama Sakuno</Company>
+    <Copyright>Copyright © 2018 Huo Yaoyuan</Copyright>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Sakuno.ING.UWP.Bridge</RootNamespace>
+    <!-- <StartupObject>Sakuno.ING.UWP.Bridge.Program</StartupObject> -->
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="app.ico">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <Compile Include="..\Bridge.SharedConstants.cs">
+      <Link>Bridge.SharedConstants.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Nekomimi\src\Nekomimi\Nekomimi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+</Project>
