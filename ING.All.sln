@@ -6,10 +6,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		src\Directory.Build.props = src\Directory.Build.props
+		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{51A97823-F0E6-42BE-B01B-F6686C1C4BD1}"
+	ProjectSection(SolutionItems) = preProject
+		src\Infrastructure\Directory.Build.props = src\Infrastructure\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Bootstrap", "src\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj", "{773D4281-944D-4154-AE00-A69CFCA6659C}"
 EndProject
@@ -24,6 +28,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Standard", "src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj", "{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{38D02581-E437-4553-815D-C4FBB67029A0}"
+	ProjectSection(SolutionItems) = preProject
+		src\Game\Directory.Build.props = src\Game\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.Listener", "src\Game\Sakuno.ING.Core.Listener\Sakuno.ING.Core.Listener.csproj", "{08C823F1-7E6A-47A9-83E1-D3E9EAE07E51}"
 EndProject

@@ -3,7 +3,6 @@
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
     <BaseOutputPath>$(BasePath)artifacts\$(MSBuildProjectName)\</BaseOutputPath>
     <IntermediateOutputPath>$(BasePath)intermediate\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
@@ -15,6 +14,12 @@
     <PackageLicenseUrl>https://github.com/amatukaze/ing/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/amatukaze/ing</PackageProjectUrl>
     <PackageTags>KanColle;ING</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PortableFramework>netstandard2.0</PortableFramework>
+    <DesktopFramework>net461</DesktopFramework>
+    <CrossFramework>netcoreapp2.0</CrossFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">

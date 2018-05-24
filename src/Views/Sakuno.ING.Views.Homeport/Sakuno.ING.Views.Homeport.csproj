@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/1.3.1">
+﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
     <Version>0.1.0-blueprint</Version>
@@ -8,12 +8,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
     <ProjectReference Include="..\Sakuno.ING.Views.CommonControls\Sakuno.ING.Views.CommonControls.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="FleetsView.xaml.cs">
-      <DependentUpon>FleetsView.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>
