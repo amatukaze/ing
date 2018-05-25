@@ -31,6 +31,7 @@ namespace Sakuno.ING.Game
         event TimedMessageHandler<RepairStart> RepairStarted;
         event TimedMessageHandler<RepairingDockId> InstantRepaired;
         event TimedMessageHandler<IReadOnlyCollection<IShipSupply>> ShipSupplied;
+        event TimedMessageHandler<ExpeditionCompletion> ExpeditionCompleted;
 
         event TimedMessageHandler<ShipCreation> ShipCreated;
         event TimedMessageHandler<BuildingDockId> InstantBuilt;

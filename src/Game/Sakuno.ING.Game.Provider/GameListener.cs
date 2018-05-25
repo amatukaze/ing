@@ -49,6 +49,8 @@ namespace Sakuno.ING.Game
                 .Select(ParseShipExtraSlotOpen);
             shipEquipmentUdated = RegisterRaw<ShipEquipmentJson>("api_req_kaisou/slot_exchange_index")
                 .Select(x => ParseShipEquipmentUpdate(x.Request, x.Response));
+            expeditionCompleted = RegisterRaw<ExpeditionCompletionJson>("api_req_mission/result")
+                .Select(x => ParseExpeditionCompletion(x.Request, x.Response));
 
             var ship3 = RegisterResponse<Ship3Json>("api_get_member/ship3")
                 .CombineWith(RegisterResponse<Ship3Json>("api_get_member/ship_deck"));

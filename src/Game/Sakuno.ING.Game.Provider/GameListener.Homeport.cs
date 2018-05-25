@@ -108,6 +108,13 @@ namespace Sakuno.ING.Game
             add => shipSupplied.Received += value;
             remove => shipSupplied.Received -= value;
         }
+
+        private readonly ITimedMessageProvider<ExpeditionCompletion> expeditionCompleted;
+        public event TimedMessageHandler<ExpeditionCompletion> ExpeditionCompleted
+        {
+            add => expeditionCompleted.Received += value;
+            remove => expeditionCompleted.Received -= value;
+        }
         #endregion
 
         private static HomeportUpdate ParseHomeport(HomeportJson response)
@@ -151,5 +158,48 @@ namespace Sakuno.ING.Game
 
         private static ShipJson[] ParseShipDeprive(DepriveJson response)
             => new[] { response.api_ship_data.api_set_ship, response.api_ship_data.api_unset_ship };
+
+        private static ExpeditionCompletion ParseExpeditionCompletion(NameValueCollection request, ExpeditionCompletionJson response)
+        {
+            ItemRecord item1 = default, item2 = default;
+
+            var id1 = response.api_useitem_flag.ElementAtOrDefault(0);
+            if (id1 == 4)
+                item1 = new ItemRecord
+                {
+                    ItemId = response.api_get_item1.api_useitem_id,
+                    Count = response.api_get_item1.api_useitem_count
+                };
+            else if (id1 > 0)
+                item1 = new ItemRecord
+                {
+                    ItemId = id1,
+                    Count = response.api_get_item1.api_useitem_count
+                };
+
+            var id2 = response.api_useitem_flag.ElementAtOrDefault(1);
+            if (id2 == 4)
+                item2 = new ItemRecord
+                {
+                    ItemId = response.api_get_item2.api_useitem_id,
+                    Count = response.api_get_item2.api_useitem_count
+                };
+            else if (id2 > 0)
+                item2 = new ItemRecord
+                {
+                    ItemId = id2,
+                    Count = response.api_get_item2.api_useitem_count
+                };
+
+            return new ExpeditionCompletion
+            (
+                fleetId: (FleetId)request.GetInt("api_deck_id"),
+                expeditionName: response.api_quest_name,
+                result: response.api_clear_result,
+                materialsAcquired: response.api_get_material,
+                rewardItem1: item1,
+                rewardItem2: item2
+            );
+        }
     }
 }
