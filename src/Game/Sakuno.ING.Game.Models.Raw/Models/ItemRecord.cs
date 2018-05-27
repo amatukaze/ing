@@ -1,8 +1,10 @@
-﻿namespace Sakuno.ING.Game.Models
+﻿using Sakuno.ING.Game.Models.MasterData;
+
+namespace Sakuno.ING.Game.Models
 {
     public struct ItemRecord
     {
-        public int ItemId;
+        public UseItemId ItemId;
         public int Count;
     }
 }

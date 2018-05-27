@@ -76,10 +76,16 @@ namespace Sakuno.ING.Game.Logger
                 .HasConversion<int>(v => v, v => (ExpeditionId)v);
             modelBuilder
                 .Entity<ExpeditionCompletion>()
-                .OwnsOne(x => x.RewardItem1);
+                .OwnsOne(x => x.RewardItem1,
+                    rb => rb
+                        .Property(r => r.ItemId)
+                        .HasConversion<int>(v => v, v => (UseItemId)v));
             modelBuilder
                 .Entity<ExpeditionCompletion>()
-                .OwnsOne(x => x.RewardItem2);
+                .OwnsOne(x => x.RewardItem2,
+                    rb => rb
+                        .Property(r => r.ItemId)
+                        .HasConversion<int>(v => v, v => (UseItemId)v));
         }
     }
 }

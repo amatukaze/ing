@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Logger.Entities
 {
     [Owned]
     public class ItemRecordEntity
     {
-        public int ItemId { get; set; }
+        public UseItemId ItemId { get; set; }
         public int Count { get; set; }
         public static implicit operator ItemRecordEntity(ItemRecord record)
             => new ItemRecordEntity

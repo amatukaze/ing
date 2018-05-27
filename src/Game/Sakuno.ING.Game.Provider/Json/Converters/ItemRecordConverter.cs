@@ -1,5 +1,5 @@
-﻿using System;
-using Sakuno.ING.Game.Models;
+﻿using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
@@ -10,7 +10,7 @@ namespace Sakuno.ING.Game.Json.Converters
         protected override ItemRecord ConvertValue(int[] array)
             => new ItemRecord
             {
-                ItemId = array[0],
+                ItemId = (UseItemId)array[0],
                 Count = array[1]
             };
     }

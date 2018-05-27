@@ -43,11 +43,11 @@ namespace Sakuno.ING.Game
 
                 var l = new List<ItemRecord>(3);
                 if (u.api_drawing_count != 0)
-                    l.Add(new ItemRecord { ItemId = (int)KnownUseItem.Blueprint, Count = u.api_drawing_count });
+                    l.Add(new ItemRecord { ItemId = KnownUseItem.Blueprint, Count = u.api_drawing_count });
                 if (u.api_catapult_count != 0)
-                    l.Add(new ItemRecord { ItemId = (int)KnownUseItem.FlightDeckCatapult, Count = u.api_catapult_count });
+                    l.Add(new ItemRecord { ItemId = KnownUseItem.FlightDeckCatapult, Count = u.api_catapult_count });
                 if (u.api_report_count != 0)
-                    l.Add(new ItemRecord { ItemId = (int)KnownUseItem.ActionReport, Count = u.api_report_count });
+                    l.Add(new ItemRecord { ItemId = KnownUseItem.ActionReport, Count = u.api_report_count });
                 s.UpgradeSpecialConsumption = l;
             }
 
