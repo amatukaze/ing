@@ -75,9 +75,9 @@ namespace Sakuno.ING.Game
                         i++;
 
                 if (i < list.Count && list[i].Id.Equals(raw.Id))
-                    list[i].Update(raw, timeStamp);
+                    list[i++].Update(raw, timeStamp);
                 else
-                    list.Insert(i, creation(raw, owner, timeStamp));
+                    list.Insert(i++, creation(raw, owner, timeStamp));
             }
             Updated?.Invoke();
         }

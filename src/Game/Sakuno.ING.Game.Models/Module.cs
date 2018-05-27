@@ -1,6 +1,8 @@
-﻿using Sakuno.ING.Composition;
+﻿using System.Runtime.CompilerServices;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Services;
 
+[assembly: InternalsVisibleTo("Sakuno.ING.Game.Provider.Test")]
 namespace Sakuno.ING.Game.Models
 {
     internal class Module : IExposableModule

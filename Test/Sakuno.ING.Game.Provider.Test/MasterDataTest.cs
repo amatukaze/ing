@@ -12,11 +12,13 @@ namespace Sakuno.ING.Game.Test
     public class MasterDataTest
     {
         private static MasterDataUpdate parseResult;
+        private static MasterDataRoot masterData;
         [ClassInitialize]
         public static void LoadData(TestContext context)
         {
             var provider = new UnitTestProvider();
             var gameListener = new GameListener(provider);
+            masterData = new MasterDataRoot(gameListener);
 
             gameListener.MasterDataUpdated += (_, u) => parseResult = u;
 

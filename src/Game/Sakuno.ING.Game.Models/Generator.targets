@@ -72,10 +72,10 @@ foreach (var infile in Inputs)
                 var prop = l.Split(' ');
                 string propName = prop[0];
                 string category = prop[1];
-                output.WriteLine("            " + propName + "Translation = Module.Localize.GetLocalized(\"" + category + "\", id.ToString());");
+                output.WriteLine("            " + propName + "Translation = Module.Localize?.GetLocalized(\"" + category + "\", id.ToString()) ?? " + propName + ";");
                 if (prop.Length >= 3 && prop[2] == "u")
                 {
-                    output.WriteLine("            _unlocalized" + propName + " = Module.Localize.GetUnlocalized(\"" + category + "\", id.ToString());");
+                    output.WriteLine("            _unlocalized" + propName + " = Module.Localize?.GetUnlocalized(\"" + category + "\", id.ToString()) ?? " + propName + ";");
                     unlocalized.Add(propName);
                 }
             }

@@ -16,8 +16,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         public ShipInfo(ShipInfoId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize.GetLocalized("ShipName", id.ToString());
-            IntroductionTranslation = Module.Localize.GetLocalized("ShipIntro", id.ToString());
+            NameTranslation = Module.Localize?.GetLocalized("ShipName", id.ToString()) ?? Name;
+            IntroductionTranslation = Module.Localize?.GetLocalized("ShipIntro", id.ToString()) ?? Introduction;
             CreateDummy();
         }
 
@@ -262,8 +262,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         public ShipTypeInfo(ShipTypeId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize.GetLocalized("ShipType", id.ToString());
-            _unlocalizedName = Module.Localize.GetUnlocalized("ShipType", id.ToString());
+            NameTranslation = Module.Localize?.GetLocalized("ShipType", id.ToString()) ?? Name;
+            _unlocalizedName = Module.Localize?.GetUnlocalized("ShipType", id.ToString()) ?? Name;
             CreateDummy();
         }
 
@@ -330,7 +330,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public EquipmentTypeInfo(EquipmentTypeId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize.GetLocalized("EquipType", id.ToString());
+            NameTranslation = Module.Localize?.GetLocalized("EquipType", id.ToString()) ?? Name;
             CreateDummy();
         }
 
@@ -377,8 +377,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         public EquipmentInfo(EquipmentInfoId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize.GetLocalized("EquipName", id.ToString());
-            DescriptionTranslation = Module.Localize.GetLocalized("EquipDesc", id.ToString());
+            NameTranslation = Module.Localize?.GetLocalized("EquipName", id.ToString()) ?? Name;
+            DescriptionTranslation = Module.Localize?.GetLocalized("EquipDesc", id.ToString()) ?? Description;
             CreateDummy();
         }
 
@@ -573,7 +573,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public UseItemInfo(UseItemId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize.GetLocalized("UseItem", id.ToString());
+            NameTranslation = Module.Localize?.GetLocalized("UseItem", id.ToString()) ?? Name;
             CreateDummy();
         }
 
@@ -612,7 +612,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public MapAreaInfo(MapAreaId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize.GetLocalized("MapArea", id.ToString());
+            NameTranslation = Module.Localize?.GetLocalized("MapArea", id.ToString()) ?? Name;
             CreateDummy();
         }
 
@@ -659,9 +659,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         public MapInfo(MapId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize.GetLocalized("MapName", id.ToString());
-            OperationNameTranslation = Module.Localize.GetLocalized("MapOperation", id.ToString());
-            DescriptionTranslation = Module.Localize.GetLocalized("MapDescription", id.ToString());
+            NameTranslation = Module.Localize?.GetLocalized("MapName", id.ToString()) ?? Name;
+            OperationNameTranslation = Module.Localize?.GetLocalized("MapOperation", id.ToString()) ?? OperationName;
+            DescriptionTranslation = Module.Localize?.GetLocalized("MapDescription", id.ToString()) ?? Description;
             CreateDummy();
         }
 
@@ -762,8 +762,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         public ExpeditionInfo(ExpeditionId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize.GetLocalized("ExpeditionName", id.ToString());
-            DescriptionTranslation = Module.Localize.GetLocalized("ExpeditionDesc", id.ToString());
+            NameTranslation = Module.Localize?.GetLocalized("ExpeditionName", id.ToString()) ?? Name;
+            DescriptionTranslation = Module.Localize?.GetLocalized("ExpeditionDesc", id.ToString()) ?? Description;
             CreateDummy();
         }
 
