@@ -120,5 +120,13 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(MaterialItem), new FrameworkPropertyMetadata(typeof(MaterialItem)));
         }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            VisualStateManager.GoToState(this, "Normal", false);
+            VisualStateManager.GoToState(this, "Increment", false);
+        }
     }
 }
