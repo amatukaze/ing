@@ -27,8 +27,6 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
             set => throw new NotSupportedException();
         }
 
-        object _threadSyncLock = new object();
-
         public event PropertyChangedEventHandler PropertyChanged;
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
@@ -39,10 +37,10 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
             _source = source ?? throw new ArgumentNullException(nameof(source));
             _projector = projector ?? throw new ArgumentNullException(nameof(projector));
 
-            _sourceSnapshot = new List<TSource>();
+            _sourceSnapshot = new List<TSource>(_source.Count + 4);
             _sourceSnapshot.AddRange(_source);
 
-            _destination = new List<TDestination>();
+            _destination = new List<TDestination>(_source.Count + 4);
             ProjectFromSource();
 
             if (_source is INotifyCollectionChanged sourceCollectionChanged)
@@ -67,6 +65,8 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
 
                             newItems[i] = newItem;
                         }
+
+                        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, newItems, e.NewStartingIndex));
                     }
                     break;
 
@@ -80,9 +80,12 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
                             var oldItemIndex = _sourceSnapshot.IndexOf(oldSourceItem);
 
                             oldItems[i] = _destination[oldItemIndex];
+
                             _sourceSnapshot.RemoveAt(oldItemIndex);
                             _destination.RemoveAt(oldItemIndex);
                         }
+
+                        NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItems, e.OldStartingIndex));
                     }
                     break;
 
@@ -95,6 +98,8 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
 
                         _sourceSnapshot[e.OldStartingIndex] = newSourceItem;
                         _destination[e.OldStartingIndex] = newItem;
+
+                        NotifyCollectionItemChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, newItem, oldItem, e.NewStartingIndex));
                     }
                     break;
 
@@ -107,11 +112,21 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
 
                     _destination.Insert(e.NewStartingIndex, movedItem);
                     _sourceSnapshot.Insert(e.NewStartingIndex, movedItemOfSource);
+
+                    NotifyCollectionItemChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Move, movedItem, e.OldStartingIndex, e.NewStartingIndex));
                     break;
 
                 case NotifyCollectionChangedAction.Reset:
                     _destination.Clear();
                     _sourceSnapshot.Clear();
+
+                    if (_source.Count > 0)
+                    {
+                        _sourceSnapshot.AddRange(_source);
+                        ProjectFromSource();
+                    }
+
+                    NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                     break;
             }
         }
@@ -119,7 +134,7 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
         void ProjectFromSource()
         {
             for (var i = 0; i < _source.Count; i++)
-                _destination[i] = _projector.Project(_source[i]);
+                _destination.Insert(i, _projector.Project(_source[i]));
         }
 
         public int IndexOf(TDestination item) => _destination.IndexOf(item);
@@ -136,7 +151,7 @@ namespace Sakuno.KanColle.Amatsukaze.Collections
             var propertyChanged = PropertyChanged;
             if (propertyChanged != null)
             {
-                propertyChanged(this, new PropertyChangedEventArgs("Count"));
+                propertyChanged(this, new PropertyChangedEventArgs(nameof(Count)));
                 propertyChanged(this, new PropertyChangedEventArgs("Item[]"));
             }
 
