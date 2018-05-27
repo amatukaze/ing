@@ -63,6 +63,24 @@ namespace Sakuno.ING.Game.Logger
                         context.SaveChanges();
                     }
             };
+
+            provider.ExpeditionCompleted += (t, m) =>
+            {
+                using (var context = CreateContext())
+                {
+                    context.ExpeditionCompletionTable.Add(new ExpeditionCompletion
+                    {
+                        TimeStamp = t,
+                        ExpeditionId = this.navalBase.Fleets[m.FleetId].Expedition.Id,
+                        ExpeditionName = m.ExpeditionName,
+                        Result = m.Result,
+                        MaterialsAcquired = m.MaterialsAcquired,
+                        RewardItem1 = m.RewardItem1,
+                        RewardItem2 = m.RewardItem2
+                    });
+                    context.SaveChanges();
+                }
+            };
         }
 
         public LoggerContext CreateContext() => new LoggerContext(dataService.ConfigureDbContext<LoggerContext>("logs"));
