@@ -31,12 +31,13 @@ namespace Sakuno.ING.Game.Json
         [JsonProperty("api_leng")]
         public FireRange FireRange { get; set; }
         [JsonProperty("api_slot")]
-        public IReadOnlyList<EquipmentId> EquipmentIds { get; set; }
+        public IReadOnlyList<EquipmentId?> EquipmentIds { get; set; }
         [JsonProperty("api_onslot")]
         public IReadOnlyList<int> SlotAircraft { get; set; }
-        public bool ExtraSlotOpened => ExtraSlotEquipId != 0;
-        [JsonProperty("api_slot_ex")]
-        public EquipmentId ExtraSlotEquipId { get; set; }
+
+        public int api_slot_ex;
+        public bool ExtraSlotOpened => api_slot_ex != 0;
+        public EquipmentId? ExtraSlotEquipId => api_slot_ex > 0 ? (EquipmentId?)api_slot_ex : null;
 
         [JsonProperty("api_fuel")]
         public int CurrentFuel { get; set; }

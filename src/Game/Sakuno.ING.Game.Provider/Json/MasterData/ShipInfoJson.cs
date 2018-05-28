@@ -31,7 +31,7 @@ namespace Sakuno.ING.Game.Json.MasterData
         [JsonProperty("api_afterlv")]
         public int UpgradeLevel { get; set; }
         [JsonProperty("api_aftershipid")]
-        public ShipInfoId UpgradeTo { get; set; }
+        public ShipInfoId? UpgradeTo { get; set; }
         public int api_afterfuel;
         public int api_afterbull;
         public Materials UpgradeConsumption => new Materials

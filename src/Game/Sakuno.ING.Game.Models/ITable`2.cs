@@ -6,9 +6,7 @@ namespace Sakuno.ING.Game
         where TId : struct
     {
         T this[TId id] { get; }
-        T TryGetIfValid(TId id);
-        T TryGetOrDummy(TId id);
-        T TryGetOrDummyIfValid(TId id);
+        T this[TId? id] { get; }
         IBindableCollection<T> DefaultView { get; }
     }
 }

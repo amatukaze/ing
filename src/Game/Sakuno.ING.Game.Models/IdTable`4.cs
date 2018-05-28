@@ -42,23 +42,21 @@ namespace Sakuno.ING.Game
             DefaultView = new BindableSnapshotCollection<T>(this, this.OrderBy(x => x.Id));
         }
 
-        private static bool IsValid(TId id) => id.CompareTo(default) > 0;
-
-        public T this[TId id] => TryGetValue(id, out var item) ? item : throw new ArgumentException(nameof(id));
-
-        public T TryGetIfValid(TId id) => IsValid(id) ? this[id] : null;
-
-        public T TryGetOrDummy(TId id)
+        public T this[TId id]
         {
-            if (TryGetValue(id, out var item))
-                return item;
+            get
+            {
+                if (TryGetValue(id, out var item))
+                    return item;
 
-            item = dummyCreation(id, owner);
-            Add(item);
-            return item;
+                item = dummyCreation(id, owner);
+                Add(item);
+                return item;
+            }
         }
 
-        public T TryGetOrDummyIfValid(TId id) => IsValid(id) ? TryGetOrDummy(id) : null;
+        public T this[TId? id]
+            => id is TId valid ? this[valid] : null;
 
         public IBindableCollection<T> DefaultView { get; }
         public int Count => list.Count;
@@ -140,7 +138,7 @@ namespace Sakuno.ING.Game
         public bool TryGetValue(TId id, out T item)
         {
             item = default;
-            if (!IsValid(id))
+            if (id.CompareTo(default) <= 0)
                 throw new ArgumentException("Id must be valid.");
 
             int lo = 0, hi = list.Count - 1;

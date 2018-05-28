@@ -6,7 +6,7 @@ namespace Sakuno.ING.Game.Json.MasterData
     internal class MasterDataJson
     {
         public ShipInfoJson[] api_mst_ship;
-        public EquipmentInfoId[] api_mst_equip_exslot;
+        public List<EquipmentInfoId> api_mst_equip_exslot;
         public EquipmentInExtraSlotJson[] api_mst_equip_exslot_ship;
         public ShipTypeInfoJson[] api_mst_stype;
         public List<EquipmentTypeInfoJson> api_mst_slotitem_equiptype;
@@ -23,12 +23,12 @@ namespace Sakuno.ING.Game.Json.MasterData
     internal class EquipmentInExtraSlotJson
     {
         public EquipmentInfoId api_slotitem_id;
-        public ShipInfoId[] api_ship_ids;
+        public List<ShipInfoId> api_ship_ids;
     }
     internal class ShipUpgradeJson
     {
         public int api_id;
-        public ShipInfoId api_current_ship_id;
+        public ShipInfoId? api_current_ship_id;
         public ShipInfoId api_original_ship_id;
         public int api_drawing_count;
         public int api_catapult_count;

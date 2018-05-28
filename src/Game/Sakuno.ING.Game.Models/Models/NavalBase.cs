@@ -52,9 +52,9 @@ namespace Sakuno.ING.Game.Models
             listener.CompositionChanged += (t, msg) =>
             {
                 var fleet = Fleets[msg.FleetId];
-                if (msg.ShipId > 0)
+                if (msg.ShipId is ShipId shipId)
                 {
-                    var ship = AllShips.TryGetOrDummy(msg.ShipId);
+                    var ship = AllShips[shipId];
                     fleet.ChangeComposition(msg.Index, ship, Fleets.FirstOrDefault(x => x.Ships.Contains(ship)));
                 }
                 else

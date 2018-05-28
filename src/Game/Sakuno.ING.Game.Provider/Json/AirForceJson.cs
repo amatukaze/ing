@@ -28,7 +28,7 @@ namespace Sakuno.ING.Game.Json
         [JsonProperty("api_squadron_id")]
         public int Id { get; set; }
         [JsonProperty("api_slotid")]
-        public EquipmentId EquipmentId { get; set; }
+        public EquipmentId? EquipmentId { get; set; }
 
         public int api_count;
         public int api_max_count;

@@ -27,7 +27,7 @@ namespace Sakuno.ING.Game.Json
         };
 
         [JsonProperty("api_created_ship_id")]
-        public ShipInfoId BuiltShipId { get; set; }
+        public ShipInfoId? BuiltShipId { get; set; }
 
         public bool IsLSC => api_item1 >= 1000;
     }

@@ -6,7 +6,7 @@ namespace Sakuno.ING.Game.Models.MasterData
     {
         partial void UpdateCore(IRawShipTypeInfo raw)
         {
-            availableEquipmentTypes.Query = raw.AvailableEquipmentTypes.Select(owner.EquipmentTypes.TryGetOrDummy);
+            availableEquipmentTypes.Query = raw.AvailableEquipmentTypes.Select(x => owner.EquipmentTypes[x]);
         }
     }
 }

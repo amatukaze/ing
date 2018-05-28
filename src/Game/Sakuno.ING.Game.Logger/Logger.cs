@@ -56,7 +56,7 @@ namespace Sakuno.ING.Game.Logger
                 if (shipCreation != null)
                     using (var context = CreateContext())
                     {
-                        shipCreation.ShipBuilt = m.Single(x => x.Id == lastBuildingDock).BuiltShipId;
+                        shipCreation.ShipBuilt = m.Single(x => x.Id == lastBuildingDock).BuiltShipId.Value;
                         context.ShipCreationTable.Add(shipCreation);
                         shipCreation = null;
                         lastBuildingDock = default;

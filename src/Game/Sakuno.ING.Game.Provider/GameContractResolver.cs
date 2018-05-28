@@ -12,15 +12,36 @@ namespace Sakuno.ING.Game
         {
             var contract = base.CreateContract(objectType);
 
-            var id = objectType.GetCustomAttribute<IdentifierAttribute>();
+            Type valueType;
+            if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                valueType = objectType.GetGenericArguments()[0];
+            else
+                valueType = objectType;
+
+            var id = valueType.GetCustomAttribute<IdentifierAttribute>();
             if (id != null)
             {
-                var type = typeof(IdConverter<,>).MakeGenericType(objectType, id.UnderlyingType);
+                var type = typeof(IdConverter<,>).MakeGenericType(valueType, id.UnderlyingType);
                 contract.Converter = (JsonConverter)Activator.CreateInstance(type);
             }
 
-            if (objectType == typeof(DateTimeOffset))
+            if (valueType == typeof(DateTimeOffset))
                 contract.Converter = new DateTimeMillisecondConverter();
+
+            return contract;
+        }
+
+        protected override JsonArrayContract CreateArrayContract(Type objectType)
+        {
+            var contract = base.CreateArrayContract(objectType);
+            var valueType = contract.CollectionItemType;
+
+            var id = valueType.GetCustomAttribute<IdentifierAttribute>();
+            if (id != null)
+            {
+                var type = typeof(ValidIdArrayConverter<,>).MakeGenericType(valueType, id.UnderlyingType);
+                contract.Converter = (JsonConverter)Activator.CreateInstance(type);
+            }
 
             return contract;
         }

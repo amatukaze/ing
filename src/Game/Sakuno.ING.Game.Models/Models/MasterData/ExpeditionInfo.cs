@@ -4,7 +4,7 @@
     {
         partial void UpdateCore(IRawExpeditionInfo raw)
         {
-            MapArea = owner.MapAreas.TryGetOrDummy(raw.MapAreaId);
+            MapArea = owner.MapAreas[raw.MapAreaId];
         }
     }
 }

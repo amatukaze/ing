@@ -25,8 +25,8 @@ namespace Sakuno.ING.Game.Json.MasterData
         [JsonProperty("api_infotext"), JsonConverter(typeof(HtmlNewLineEater))]
         public string Description { get; set; }
 
-        public UseItemId[] api_item;
-        public IReadOnlyCollection<UseItemId> ItemAcquirements => api_item.Where(x => x > 0).ToArray();
+        [JsonProperty("api_item")]
+        public IReadOnlyCollection<UseItemId> ItemAcquirements { get; set; }
         [JsonProperty("api_required_defeat_count")]
         public int? RequiredDefeatCount { get; set; }
 

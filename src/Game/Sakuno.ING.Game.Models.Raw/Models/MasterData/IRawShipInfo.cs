@@ -32,7 +32,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         int ClassId { get; }
 
         int UpgradeLevel { get; }
-        ShipInfoId UpgradeTo { get; }
+        ShipInfoId? UpgradeTo { get; }
         Materials UpgradeConsumption { get; }
         IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption { get; }
 

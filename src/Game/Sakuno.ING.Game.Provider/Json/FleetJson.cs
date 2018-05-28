@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
@@ -16,11 +15,21 @@ namespace Sakuno.ING.Game.Json
 
         public long[] api_mission;
         public FleetExpeditionState ExpeditionState => (FleetExpeditionState)api_mission.ElementAtOrDefault(0);
-        public ExpeditionId ExpeditionId => (ExpeditionId)api_mission.ElementAtOrDefault(1);
+        public ExpeditionId? ExpeditionId
+        {
+            get
+            {
+                long id=api_mission.ElementAtOrDefault(1);
+                if (id > 0)
+                    return (ExpeditionId)id;
+                else
+                    return null;
+            }
+    }
 
         public DateTimeOffset ExpeditionCompletionTime => DateTimeOffset.FromUnixTimeMilliseconds(api_mission.ElementAtOrDefault(2));
 
-        public ShipId[] api_ship;
-        public IReadOnlyList<ShipId> ShipIds => api_ship.Where(x => x > 0).ToArray();
+        [JsonProperty("api_ship")]
+        public IReadOnlyList<ShipId> ShipIds { get; set; }
     }
 }

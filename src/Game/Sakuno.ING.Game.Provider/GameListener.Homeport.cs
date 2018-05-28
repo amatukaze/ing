@@ -141,7 +141,7 @@ namespace Sakuno.ING.Game
             int position = request.GetInt("api_ship_idx");
             var shipId = (ShipId)request.GetInt("api_ship_id");
             if (position == -1)
-                return new CompositionChange(fleetId, null, default);
+                return new CompositionChange(fleetId, null, null);
             else
                 return new CompositionChange(fleetId, position - 1, shipId);
         }

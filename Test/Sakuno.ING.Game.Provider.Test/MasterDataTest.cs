@@ -43,7 +43,7 @@ namespace Sakuno.ING.Game.Test
             Assert.AreEqual(mutsuki.TypeId, 2);
             Assert.AreEqual(mutsuki.ClassId, 28);
             Assert.AreEqual(mutsuki.UpgradeConsumption.Bullet, 100);
-            Assert.AreEqual(mutsuki.UpgradeTo, 254);
+            Assert.AreEqual(mutsuki.UpgradeTo.Value, 254);
             Assert.AreEqual(mutsuki.UpgradeLevel, 20);
             Assert.AreEqual(mutsuki.Speed, ShipSpeed.Fast);
             Assert.AreEqual(mutsuki.FireRange, FireRange.Short);
@@ -125,7 +125,7 @@ namespace Sakuno.ING.Game.Test
                 Assert.IsNotNull(m.BgmInfo);
 
             var musashi = parseResult.ShipInfos.Single(x => x.Id == 148);
-            Assert.AreEqual(musashi.UpgradeTo, 546);
+            Assert.AreEqual(musashi.UpgradeTo.Value, 546);
             foreach (var r in musashi.UpgradeSpecialConsumption)
             {
                 if (r.ItemId == (int)KnownUseItem.Blueprint)

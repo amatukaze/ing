@@ -20,7 +20,7 @@ namespace Sakuno.ING.Game.Models
     public interface IRawRepairingDock : IIdentifiable<RepairingDockId>
     {
         RepairingDockState State { get; }
-        ShipId RepairingShipId { get; }
+        ShipId? RepairingShipId { get; }
         DateTimeOffset CompletionTime { get; }
         Materials Consumption { get; }
     }
