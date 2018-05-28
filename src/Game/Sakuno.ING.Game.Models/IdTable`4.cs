@@ -141,7 +141,7 @@ namespace Sakuno.ING.Game
         {
             item = default;
             if (!IsValid(id))
-                return false;
+                throw new ArgumentException("Id must be valid.");
 
             int lo = 0, hi = list.Count - 1;
             while (lo <= hi)

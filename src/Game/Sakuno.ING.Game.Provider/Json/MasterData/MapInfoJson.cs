@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
@@ -24,8 +25,8 @@ namespace Sakuno.ING.Game.Json.MasterData
         [JsonProperty("api_infotext"), JsonConverter(typeof(HtmlNewLineEater))]
         public string Description { get; set; }
 
-        [JsonProperty("api_item")]
-        public IReadOnlyCollection<UseItemId> ItemAcquirements { get; set; }
+        public UseItemId[] api_item;
+        public IReadOnlyCollection<UseItemId> ItemAcquirements => api_item.Where(x => x > 0).ToArray();
         [JsonProperty("api_required_defeat_count")]
         public int? RequiredDefeatCount { get; set; }
 

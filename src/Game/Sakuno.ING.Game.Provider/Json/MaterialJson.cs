@@ -18,7 +18,7 @@ namespace Sakuno.ING.Game.Json
 
         MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.Unknown;
 
-        public void Apply(ref Materials materials)
+        void IMaterialsUpdate.Apply(ref Materials materials)
         {
             foreach (var r in this)
                 switch (r.api_id)
@@ -49,7 +49,5 @@ namespace Sakuno.ING.Game.Json
                         break;
                 }
         }
-
-        void IMaterialsUpdate.Apply(ref Materials materials) => throw new System.NotImplementedException();
     }
 }
