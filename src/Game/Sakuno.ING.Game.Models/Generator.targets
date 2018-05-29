@@ -39,10 +39,15 @@ foreach (var infile in Inputs)
         output.WriteLine("{");
         while (!input.EndOfStream)
         {
-            var cls = input.ReadLine().Split(':');
+            var classes = input.ReadLine().Split(':');
+            string thisClass = classes[0];
+            string idClass = classes[1];
+            string rawClass = classes[2];
+            string ownerClass = classes[3];
             var props = new List<string>();
             var bindables = new List<string>();
             var localizables = new List<string>();
+            bool hasName = false;
             while (true)
             {
                 var line = input.ReadLine();
@@ -61,9 +66,9 @@ foreach (var infile in Inputs)
                         break;
                 }
             }
-            output.WriteLine("    public partial class " + cls[0] + " : Calculated<" + cls[1] + ", " + cls[2] + ">");
+            output.WriteLine("    public partial class " + thisClass + " : Calculated<" + idClass + ", " + rawClass + ">");
             output.WriteLine("    {");
-            output.WriteLine("        public " + cls[0] + "(" + cls[1] + " id, " + cls[3] + " owner) : base(id)");
+            output.WriteLine("        public " + thisClass + "(" + idClass + " id, " + ownerClass + " owner) : base(id)");
             output.WriteLine("        {");
             output.WriteLine("            this.owner = owner;");
             var unlocalized = new List<string>();
@@ -72,19 +77,21 @@ foreach (var infile in Inputs)
                 var prop = l.Split(' ');
                 string propName = prop[0];
                 string category = prop[1];
-                output.WriteLine("            " + propName + "Translation = Module.Localize?.GetLocalized(\"" + category + "\", id.ToString()) ?? " + propName + ";");
+                if (propName == "Name")
+                    hasName = true;
+                output.WriteLine("            " + propName + "Translation = Module.Localize?.GetLocalized(\"" + category + "\", id.ToString());");
                 if (prop.Length >= 3 && prop[2] == "u")
                 {
-                    output.WriteLine("            _unlocalized" + propName + " = Module.Localize?.GetUnlocalized(\"" + category + "\", id.ToString()) ?? " + propName + ";");
+                    output.WriteLine("            _unlocalized" + propName + " = Module.Localize?.GetUnlocalized(\"" + category + "\", id.ToString());");
                     unlocalized.Add(propName);
                 }
             }
             output.WriteLine("            CreateDummy();");
             output.WriteLine("        }");
             output.WriteLine();
-            output.WriteLine("        public " + cls[0] + "(" + cls[2] + " raw, " + cls[3] + " owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);");
+            output.WriteLine("        public " + thisClass + "(" + rawClass + " raw, " + ownerClass + " owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);");
             output.WriteLine();
-            output.WriteLine("        private readonly " + cls[3] + " owner;");
+            output.WriteLine("        private readonly " + ownerClass + " owner;");
             var dummyList = new List<string>();
             foreach (var l in localizables)
             {
@@ -121,14 +128,14 @@ foreach (var infile in Inputs)
                 output.WriteLine("        }");
             }
             output.WriteLine();
-            output.WriteLine("        public event Action<" + cls[0] + ", " + cls[2] + ", DateTimeOffset> Updating;");
-            output.WriteLine("        public override void Update(" + cls[2] + " raw, DateTimeOffset timeStamp)");
+            output.WriteLine("        public event Action<" + thisClass + ", " + rawClass + ", DateTimeOffset> Updating;");
+            output.WriteLine("        public override void Update(" + rawClass + " raw, DateTimeOffset timeStamp)");
             output.WriteLine("        {");
             output.WriteLine("            Updating?.Invoke(this, raw, timeStamp);");
             output.WriteLine("            UpdateProps(raw, timeStamp);");
             output.WriteLine("        }");
             output.WriteLine();
-            output.WriteLine("        private void UpdateProps(" + cls[2] + " raw, DateTimeOffset timeStamp)");
+            output.WriteLine("        private void UpdateProps(" + rawClass + " raw, DateTimeOffset timeStamp)");
             output.WriteLine("        {");
             output.WriteLine("            UpdationTime = timeStamp;");
             foreach (string prop in dummyList)
@@ -138,7 +145,7 @@ foreach (var infile in Inputs)
             output.WriteLine();
             output.WriteLine("            UpdateCore(raw);");
             output.WriteLine("        }");
-            output.WriteLine("        partial void UpdateCore(" + cls[2] + " raw);");
+            output.WriteLine("        partial void UpdateCore(" + rawClass + " raw);");
             output.WriteLine("        partial void CreateDummy();");
             foreach (var b in bindables)
             {
@@ -150,6 +157,9 @@ foreach (var infile in Inputs)
                 output.WriteLine("        private readonly BindableSnapshotCollection<" + type + "> " + field + " = new BindableSnapshotCollection<" + type + ">();");
                 output.WriteLine("        public IReadOnlyList<" + type +"> " + name + " => " + field + ";");
             }
+            output.WriteLine();
+            if (hasName)
+                output.WriteLine("        public override string ToString() => $\"" + thisClass + " {Id}: {Name}\";");
             output.WriteLine("    }");
         }
         output.WriteLine("}");

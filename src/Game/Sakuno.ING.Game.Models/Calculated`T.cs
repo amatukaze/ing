@@ -15,5 +15,7 @@ namespace Sakuno.ING.Game
         }
 
         public abstract void Update(TRaw raw, DateTimeOffset timeStamp);
+
+        public override string ToString() => $"{GetType().Name} {Id}";
     }
 }

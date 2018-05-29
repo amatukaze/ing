@@ -77,6 +77,7 @@ namespace Sakuno.ING.Game.Models
         }
         partial void UpdateCore(IRawEquipment raw);
         partial void CreateDummy();
+
     }
     public partial class BuildingDock : Calculated<BuildingDockId, IRawBuildingDock>
     {
@@ -144,6 +145,7 @@ namespace Sakuno.ING.Game.Models
         }
         partial void UpdateCore(IRawBuildingDock raw);
         partial void CreateDummy();
+
     }
     public partial class RepairingDock : Calculated<RepairingDockId, IRawRepairingDock>
     {
@@ -196,6 +198,7 @@ namespace Sakuno.ING.Game.Models
         }
         partial void UpdateCore(IRawRepairingDock raw);
         partial void CreateDummy();
+
     }
     public partial class UseItemCount : Calculated<UseItemId, IRawUseItemCount>
     {
@@ -239,6 +242,7 @@ namespace Sakuno.ING.Game.Models
         }
         partial void UpdateCore(IRawUseItemCount raw);
         partial void CreateDummy();
+
     }
     public partial class Admiral : Calculated<int, IRawAdmiral>
     {
@@ -355,6 +359,7 @@ namespace Sakuno.ING.Game.Models
         }
         partial void UpdateCore(IRawAdmiral raw);
         partial void CreateDummy();
+
     }
     public partial class Ship : Calculated<ShipId, IRawShip>
     {
@@ -553,6 +558,7 @@ namespace Sakuno.ING.Game.Models
         }
         partial void UpdateCore(IRawShip raw);
         partial void CreateDummy();
+
     }
     public partial class Fleet : Calculated<FleetId, IRawFleet>
     {
@@ -615,14 +621,15 @@ namespace Sakuno.ING.Game.Models
 
         private readonly BindableSnapshotCollection<Ship> ships = new BindableSnapshotCollection<Ship>();
         public IReadOnlyList<Ship> Ships => ships;
+
     }
     public partial class Quest : Calculated<QuestId, IRawQuest>
     {
         public Quest(QuestId id, QuestManager owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize?.GetLocalized("QuestName", id.ToString()) ?? Name;
-            DescriptionTranslation = Module.Localize?.GetLocalized("QuestDesc", id.ToString()) ?? Description;
+            NameTranslation = Module.Localize?.GetLocalized("QuestName", id.ToString());
+            DescriptionTranslation = Module.Localize?.GetLocalized("QuestDesc", id.ToString());
             CreateDummy();
         }
 
@@ -705,6 +712,8 @@ namespace Sakuno.ING.Game.Models
         }
         partial void UpdateCore(IRawQuest raw);
         partial void CreateDummy();
+
+        public override string ToString() => $"Quest {Id}: {Name}";
     }
     public partial class Map : Calculated<MapId, IRawMap>
     {
@@ -787,6 +796,7 @@ namespace Sakuno.ING.Game.Models
         }
         partial void UpdateCore(IRawMap raw);
         partial void CreateDummy();
+
     }
     public partial class AirForceSquadron : Calculated<int, IRawAirForceSquadron>
     {
@@ -838,5 +848,6 @@ namespace Sakuno.ING.Game.Models
         }
         partial void UpdateCore(IRawAirForceSquadron raw);
         partial void CreateDummy();
+
     }
 }

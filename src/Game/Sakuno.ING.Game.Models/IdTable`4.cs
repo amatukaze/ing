@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace Sakuno.ING.Game
 {
+    [DebuggerDisplay("Count = {Count}")]
+    [DebuggerTypeProxy(typeof(IdTableDebuggerProxy<,,,>))]
     public class IdTable<TId, T, TRaw, TOwner> : ITable<TId, T>
         where TId : struct, IComparable<TId>, IEquatable<TId>
         where T : Calculated<TId, TRaw>
@@ -34,7 +37,7 @@ namespace Sakuno.ING.Game
             }
         }
 
-        private List<T> list = new List<T>();
+        internal readonly List<T> list = new List<T>();
         private readonly TOwner owner;
         public IdTable(TOwner owner)
         {
