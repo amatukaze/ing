@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.1.0-preview1-final" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\Sakuno.ING.Data\Sakuno.ING.Data.csproj" />
     <ProjectReference Include="..\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
   </ItemGroup>
