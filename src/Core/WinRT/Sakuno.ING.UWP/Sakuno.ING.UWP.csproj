@@ -15,8 +15,14 @@
     <AppxPackageDir>$(BasePath)artifacts\AppxPackages\</AppxPackageDir>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+  </PropertyGroup>
+  <PropertyGroup Condition="Exists('Sakuno.ING.UWP_StoreKey.pfx')">
     <PackageCertificateKeyFile>Sakuno.ING.UWP_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>57A6D0EDE0DCEAFA90551A9AD019CF770C059B57</PackageCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup Condition="!Exists('Sakuno.ING.UWP_StoreKey.pfx')">
+    <PackageCertificateKeyFile>Sakuno.ING.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>8864F28EB36CDC08E22BCB96E7ABEA27C6AE65F7</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <NoWarn>;2008</NoWarn>
@@ -122,6 +128,7 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <None Include="Sakuno.ING.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
