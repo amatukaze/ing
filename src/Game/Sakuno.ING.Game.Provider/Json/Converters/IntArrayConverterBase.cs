@@ -13,7 +13,7 @@ namespace Sakuno.ING.Game.Json.Converters
             if (reader.TokenType != JsonToken.StartArray)
                 return default(T);
 
-            var array = new int[RequiredCount];
+            Span<int> array = stackalloc int[RequiredCount];
             int i;
             for (i = 0; reader.ReadAsInt32() is int current; i++)
                 if (i < array.Length)
@@ -26,6 +26,6 @@ namespace Sakuno.ING.Game.Json.Converters
         }
 
         protected abstract int RequiredCount { get; }
-        protected abstract T ConvertValue(int[] array);
+        protected abstract T ConvertValue(ReadOnlySpan<int> array);
     }
 }

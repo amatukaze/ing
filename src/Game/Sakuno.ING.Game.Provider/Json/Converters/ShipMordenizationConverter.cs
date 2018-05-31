@@ -1,4 +1,5 @@
-﻿using Sakuno.ING.Game.Models;
+﻿using System;
+using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
@@ -6,7 +7,7 @@ namespace Sakuno.ING.Game.Json.Converters
     {
         protected override int RequiredCount => 2;
 
-        protected override ShipMordenizationStatus ConvertValue(int[] array)
+        protected override ShipMordenizationStatus ConvertValue(ReadOnlySpan<int> array)
             => new ShipMordenizationStatus
             {
                 Min = array[0],
