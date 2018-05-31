@@ -22,6 +22,22 @@ namespace Sakuno.ING.Bootstrap
 
         public static bool IsInitialized { get; private set; }
 
+        public static void InitializeFromAssemblyNames(string[] commandLine, params string[] assemblyNames)
+        {
+            var emptyDictionary = new Dictionary<string, string>();
+
+            Initialize(commandLine, assemblyNames
+                .Select(Assembly.Load).Prepend(Assembly.GetCallingAssembly())
+                .Select(asm => new PackageStartupInfo
+                {
+                    Id = asm.GetName().Name,
+                    Version = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+                                ?? asm.GetName().Version.ToString(),
+                    Module = new Lazy<Assembly>(() => asm),
+                    Dependencies = emptyDictionary
+                }), null);
+        }
+
         public static void Initialize(string[] commandLine, IEnumerable<PackageStartupInfo> packages, IPackageStorage storage)
         {
             if (IsInitialized)

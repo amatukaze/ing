@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Sakuno.ING.Bootstrap;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -35,36 +32,21 @@ namespace Sakuno.ING.UWP
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             if (!Bootstraper.IsInitialized)
-            {
-                var assemblyNames = new[]
-                {
-                    "Sakuno.ING.Core.CommonSettings",
-                    "Sakuno.ING.Core.DateTime",
+                Bootstraper.InitializeFromAssemblyNames
+                (
+                    Array.Empty<string>(),
                     "Sakuno.ING.Data",
+                    "Sakuno.ING.Data.UWP",
                     "Sakuno.ING.Game.Models",
                     "Sakuno.ING.Game.Provider",
+                    "Sakuno.ING.Settings.Common",
+                    "Sakuno.ING.Timing.NTP",
                     "Sakuno.ING.UWP.Bridge.Listener",
-                    "Sakuno.ING.UWP.Data",
                     "Sakuno.ING.Views.UWP.ApiDebug",
                     "Sakuno.ING.Views.UWP.MasterData",
                     "Sakuno.ING.Views.UWP.Settings",
-                    "Sakuno.ING.ViewModels.Foundation",
-                };
-
-                var emptyDictionary = new Dictionary<string, string>();
-
-                Bootstraper.Initialize(Array.Empty<string>(),
-                    assemblyNames.Select(Assembly.Load).Prepend(Assembly.GetExecutingAssembly())
-                        .Select(asm => new PackageStartupInfo
-                        {
-                            Id = asm.GetName().Name,
-                            Version = asm.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
-                                ?? asm.GetName().Version.ToString(),
-                            Dependencies = emptyDictionary,
-                            Module = new Lazy<Assembly>(asm)
-                        }).ToArray(),
-                    null);
-            }
+                    "Sakuno.ING.ViewModels.Foundation"
+                );
 
             if (e.PrelaunchActivated == false)
             {
