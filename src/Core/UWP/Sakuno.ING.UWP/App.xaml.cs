@@ -45,9 +45,9 @@ namespace Sakuno.ING.UWP
                     "Sakuno.ING.Game.Provider",
                     "Sakuno.ING.UWP.Bridge.Listener",
                     "Sakuno.ING.UWP.Data",
-                    "Sakuno.ING.UWP.Views.ApiDebug",
-                    "Sakuno.ING.UWP.Views.MasterData",
-                    "Sakuno.ING.UWP.Views.Settings",
+                    "Sakuno.ING.Views.UWP.ApiDebug",
+                    "Sakuno.ING.Views.UWP.MasterData",
+                    "Sakuno.ING.Views.UWP.Settings",
                     "Sakuno.ING.ViewModels.Foundation",
                 };
 

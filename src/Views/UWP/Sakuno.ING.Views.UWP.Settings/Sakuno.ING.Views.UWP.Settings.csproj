@@ -3,10 +3,9 @@
   <Import Project="..\..\..\UWP.props" />
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <ProjectGuid>{E38F80D6-2E82-4716-B47D-C15E54AEC590}</ProjectGuid>
+    <ProjectGuid>{E5D369E8-B344-410C-8D1A-C87E9C621C80}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sakuno.ING.UWP.Bridge</RootNamespace>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -20,27 +19,24 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Bridge.SharedConstants.cs">
-      <Link>Bridge.SharedConstants.cs</Link>
-    </Compile>
-    <Compile Include="BridgeInfo.xaml.cs">
-      <DependentUpon>BridgeInfo.xaml</DependentUpon>
+    <Compile Include="LocaleSettingView.xaml.cs">
+      <DependentUpon>LocaleSettingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider.cs" />
-    <EmbeddedResource Include="Properties\Sakuno.ING.UWP.Bridge.Listener.rd.xml" />
+    <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.Settings.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="BridgeInfo.xaml">
+    <Page Include="LocaleSettingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>11.0.2</Version>
-    </PackageReference>
+    <ProjectReference Include="..\..\..\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj">
+      <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
+      <Name>Sakuno.ING.Core.CommonSettings</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

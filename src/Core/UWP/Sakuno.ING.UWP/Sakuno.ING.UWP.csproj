@@ -6,8 +6,6 @@
     <OutputType>AppContainerExe</OutputType>
     <OutputPath>$(BasePath)artifacts\Appx\$(Platform)\$(Configuration)\</OutputPath>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sakuno.ING.UWP</RootNamespace>
-    <AssemblyName>Sakuno.ING.UWP</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
@@ -182,21 +180,21 @@
       <Project>{e38f80d6-2e82-4716-b47d-c15e54aec590}</Project>
       <Name>Sakuno.ING.UWP.Bridge.Listener</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sakuno.ING.UWP.Data\Sakuno.ING.UWP.Data.csproj">
+    <ProjectReference Include="..\Sakuno.ING.Data.UWP\Sakuno.ING.Data.UWP.csproj">
       <Project>{9f2de7a3-b59d-4234-b886-a1e23fe03775}</Project>
       <Name>Sakuno.ING.UWP.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.UWP.Views.ApiDebug\Sakuno.ING.UWP.Views.ApiDebug.csproj">
+    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.ApiDebug\Sakuno.ING.Views.UWP.ApiDebug.csproj">
       <Project>{185f9a4d-07de-4c67-aa3a-e0b837c23036}</Project>
-      <Name>Sakuno.ING.UWP.Views.ApiDebug</Name>
+      <Name>Sakuno.ING.Views.UWP.ApiDebug</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.UWP.Views.MasterData\Sakuno.ING.UWP.Views.MasterData.csproj">
+    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.MasterData\Sakuno.ING.Views.UWP.MasterData.csproj">
       <Project>{9458a085-a9bc-4fb7-91ca-370db87d0eca}</Project>
-      <Name>Sakuno.ING.UWP.Views.MasterData</Name>
+      <Name>Sakuno.ING.Views.UWP.MasterData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.UWP.Views.Settings\Sakuno.ING.UWP.Views.Settings.csproj">
+    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.Settings\Sakuno.ING.Views.UWP.Settings.csproj">
       <Project>{e5d369e8-b344-410c-8d1a-c87e9c621c80}</Project>
-      <Name>Sakuno.ING.UWP.Views.Settings</Name>
+      <Name>Sakuno.ING.Views.UWP.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

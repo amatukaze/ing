@@ -77,7 +77,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UWP", "UWP", "{DE2A5BB5-F56
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP", "src\Core\UWP\Sakuno.ING.UWP\Sakuno.ING.UWP.csproj", "{872A67E9-1A02-45CB-8948-0AA25BC71974}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Data", "src\Core\UWP\Sakuno.ING.UWP.Data\Sakuno.ING.UWP.Data.csproj", "{9F2DE7A3-B59D-4234-B886-A1E23FE03775}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.Data.UWP", "src\Core\UWP\Sakuno.ING.Data.UWP\Sakuno.ING.Data.UWP.csproj", "{9F2DE7A3-B59D-4234-B886-A1E23FE03775}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bridge", "Bridge", "{B540A9B0-CAFD-434C-BAA1-7CE09D7FF45D}"
 EndProject
@@ -99,19 +99,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{13AE
 		src\Views\Desktop\Directory.Build.props = src\Views\Desktop\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.CommonControls", "src\Views\Desktop\Sakuno.ING.Views.CommonControls\Sakuno.ING.Views.CommonControls.csproj", "{0F5123BF-F32D-4F2A-A605-6EFDCB07BAF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Desktop.Common", "src\Views\Desktop\Sakuno.ING.Views.Desktop.Common\Sakuno.ING.Views.Desktop.Common.csproj", "{0F5123BF-F32D-4F2A-A605-6EFDCB07BAF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Settings", "src\Views\Desktop\Sakuno.ING.Views.Settings\Sakuno.ING.Views.Settings.csproj", "{CEEDDA10-843F-4F30-A359-CF29ACDC73D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Desktop.Settings", "src\Views\Desktop\Sakuno.ING.Views.Desktop.Settings\Sakuno.ING.Views.Desktop.Settings.csproj", "{CEEDDA10-843F-4F30-A359-CF29ACDC73D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Homeport", "src\Views\Desktop\Sakuno.ING.Views.Homeport\Sakuno.ING.Views.Homeport.csproj", "{67DEDEB5-1B30-4826-A9FA-BE3F29B16E6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Desktop.Homeport", "src\Views\Desktop\Sakuno.ING.Views.Desktop.Homeport\Sakuno.ING.Views.Desktop.Homeport.csproj", "{67DEDEB5-1B30-4826-A9FA-BE3F29B16E6C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UWP", "UWP", "{5DCA75CC-ABFA-4CE0-A4FA-4666D4D1255F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Views.ApiDebug", "src\Views\UWP\Sakuno.ING.UWP.Views.ApiDebug\Sakuno.ING.UWP.Views.ApiDebug.csproj", "{185F9A4D-07DE-4C67-AA3A-E0B837C23036}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.Views.UWP.ApiDebug", "src\Views\UWP\Sakuno.ING.Views.UWP.ApiDebug\Sakuno.ING.Views.UWP.ApiDebug.csproj", "{185F9A4D-07DE-4C67-AA3A-E0B837C23036}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Views.MasterData", "src\Views\UWP\Sakuno.ING.UWP.Views.MasterData\Sakuno.ING.UWP.Views.MasterData.csproj", "{9458A085-A9BC-4FB7-91CA-370DB87D0ECA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.Views.UWP.MasterData", "src\Views\UWP\Sakuno.ING.Views.UWP.MasterData\Sakuno.ING.Views.UWP.MasterData.csproj", "{9458A085-A9BC-4FB7-91CA-370DB87D0ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Views.Settings", "src\Views\UWP\Sakuno.ING.UWP.Views.Settings\Sakuno.ING.UWP.Views.Settings.csproj", "{E5D369E8-B344-410C-8D1A-C87E9C621C80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.Views.UWP.Settings", "src\Views\UWP\Sakuno.ING.Views.UWP.Settings\Sakuno.ING.Views.UWP.Settings.csproj", "{E5D369E8-B344-410C-8D1A-C87E9C621C80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
