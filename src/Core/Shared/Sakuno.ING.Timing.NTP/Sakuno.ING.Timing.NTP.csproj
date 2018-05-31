@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>0.1.0-blueprint</Version>
+    <Description>NTP service for ING</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sakuno.Base" Version="0.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
+  </ItemGroup>
+
+</Project>

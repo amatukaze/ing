@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Desktop storage interface of Intelligent Naval Gun</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Data\Sakuno.ING.Data.csproj" />
+  </ItemGroup>
+
+</Project>

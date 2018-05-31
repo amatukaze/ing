@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Nekomimi\src\Nekomimi\Nekomimi.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Sakuno.ING.Core.CommonSettings\Sakuno.ING.Core.CommonSettings.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj" />
   </ItemGroup>
 
 </Project>

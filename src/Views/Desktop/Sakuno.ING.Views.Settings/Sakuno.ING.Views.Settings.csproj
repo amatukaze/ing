@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Core.CommonSettings\Sakuno.ING.Core.CommonSettings.csproj" />
+    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj" />
     <ProjectReference Include="$(BasePath)src\Views\Desktop\Sakuno.ING.Views.CommonControls\Sakuno.ING.Views.CommonControls.csproj" />
   </ItemGroup>
 

@@ -1,10 +1,10 @@
-﻿using Sakuno.ING.Composition;
-using Sakuno.ING.Services;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
+using Sakuno.ING.Composition;
+using Sakuno.ING.Localization;
 
 namespace Sakuno.ING.Views.Settings
 {

@@ -1,5 +1,5 @@
 ﻿using Sakuno.ING.Composition;
-using Sakuno.ING.Services;
+using Sakuno.ING.Localization;
 
 namespace Sakuno.ING.Views
 {

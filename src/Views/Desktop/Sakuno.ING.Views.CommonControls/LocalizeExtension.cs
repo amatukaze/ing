@@ -1,6 +1,6 @@
-﻿using Sakuno.ING.Services;
-using System;
+﻿using System;
 using System.Windows.Markup;
+using Sakuno.ING.Localization;
 
 namespace Sakuno.ING.Views
 {

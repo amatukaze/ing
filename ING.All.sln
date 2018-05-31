@@ -18,15 +18,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Bootstrap", "src\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj", "{773D4281-944D-4154-AE00-A69CFCA6659C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.CommonSettings", "src\Infrastructure\Sakuno.ING.Core.CommonSettings\Sakuno.ING.Core.CommonSettings.csproj", "{A3E0327E-E89C-4B56-B9D2-75C6E60EBB39}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.DateTime", "src\Infrastructure\Sakuno.ING.Core.DateTime\Sakuno.ING.Core.DateTime.csproj", "{6BBBE871-BEB9-47CF-BBF9-28DB9B64729A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Data", "src\Infrastructure\Sakuno.ING.Data\Sakuno.ING.Data.csproj", "{AB6EC829-12AC-4B7C-A348-5C7620C96EB5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Data.Design", "src\Infrastructure\Sakuno.ING.Data.Design\Sakuno.ING.Data.Design.csproj", "{A16DFBEC-F553-4F70-B1F8-24FB37012CF3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Standard", "src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj", "{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Settings.Common", "src\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj", "{A3E0327E-E89C-4B56-B9D2-75C6E60EBB39}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{38D02581-E437-4553-815D-C4FBB67029A0}"
 	ProjectSection(SolutionItems) = preProject
@@ -58,32 +56,34 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{C9BC41
 		src\Core\Shared\Directory.Build.props = src\Core\Shared\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.Data.Desktop", "src\Core\Shared\Sakuno.ING.Core.Data.Desktop\Sakuno.ING.Core.Data.Desktop.csproj", "{B579EBD9-4C99-466D-B9A2-DC6E6B8BA314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Data.Desktop", "src\Core\Shared\Sakuno.ING.Data.Desktop\Sakuno.ING.Data.Desktop.csproj", "{B579EBD9-4C99-466D-B9A2-DC6E6B8BA314}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.Localization", "src\Core\Shared\Sakuno.ING.Core.Localization\Sakuno.ING.Core.Localization.csproj", "{B4A2ED9D-C6D6-4332-8891-AA36D55D4B7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Localization.Embed", "src\Core\Shared\Sakuno.ING.Localization.Embed\Sakuno.ING.Localization.Embed.csproj", "{B4A2ED9D-C6D6-4332-8891-AA36D55D4B7D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Timing.NTP", "src\Core\Shared\Sakuno.ING.Timing.NTP\Sakuno.ING.Timing.NTP.csproj", "{6BBBE871-BEB9-47CF-BBF9-28DB9B64729A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{C7F25EE9-2529-47AE-8328-A4F986799234}"
 	ProjectSection(SolutionItems) = preProject
 		src\Core\Desktop\Directory.Build.props = src\Core\Desktop\Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Core.Shell.Desktop", "src\Core\Desktop\Sakuno.ING.Core.Shell.Desktop\Sakuno.ING.Core.Shell.Desktop.csproj", "{F90C7AD1-0918-4CD2-B775-305C19379EDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Shell.Desktop", "src\Core\Desktop\Sakuno.ING.Shell.Desktop\Sakuno.ING.Shell.Desktop.csproj", "{F90C7AD1-0918-4CD2-B775-305C19379EDB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Launcher", "src\Core\Desktop\Sakuno.ING.Launcher\Sakuno.ING.Launcher.csproj", "{96E968EB-417E-40DC-A9EF-F83D12733FF7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Launcher.Canonical", "src\Core\Desktop\Sakuno.ING.Launcher.Canonical\Sakuno.ING.Launcher.Canonical.csproj", "{0D940FFD-E834-4B73-AF34-B1937936C9C4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinRT", "WinRT", "{DE2A5BB5-F569-4BA6-88C8-06EF340A51EA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UWP", "UWP", "{DE2A5BB5-F569-4BA6-88C8-06EF340A51EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP", "src\Core\WinRT\Sakuno.ING.UWP\Sakuno.ING.UWP.csproj", "{872A67E9-1A02-45CB-8948-0AA25BC71974}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP", "src\Core\UWP\Sakuno.ING.UWP\Sakuno.ING.UWP.csproj", "{872A67E9-1A02-45CB-8948-0AA25BC71974}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Data", "src\Core\WinRT\Sakuno.ING.UWP.Data\Sakuno.ING.UWP.Data.csproj", "{9F2DE7A3-B59D-4234-B886-A1E23FE03775}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Data", "src\Core\UWP\Sakuno.ING.UWP.Data\Sakuno.ING.UWP.Data.csproj", "{9F2DE7A3-B59D-4234-B886-A1E23FE03775}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bridge", "Bridge", "{B540A9B0-CAFD-434C-BAA1-7CE09D7FF45D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.UWP.Bridge.Proxy", "src\Core\WinRT\Sakuno.ING.UWP.Bridge.Proxy\Sakuno.ING.UWP.Bridge.Proxy.csproj", "{54D66FB9-FD17-440C-8E2C-18079FF0189F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.UWP.Bridge.Proxy", "src\Core\UWP\Sakuno.ING.UWP.Bridge.Proxy\Sakuno.ING.UWP.Bridge.Proxy.csproj", "{54D66FB9-FD17-440C-8E2C-18079FF0189F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Bridge.Listener", "src\Core\WinRT\Sakuno.ING.UWP.Bridge.Listener\Sakuno.ING.UWP.Bridge.Listener.csproj", "{E38F80D6-2E82-4716-B47D-C15E54AEC590}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Bridge.Listener", "src\Core\UWP\Sakuno.ING.UWP.Bridge.Listener\Sakuno.ING.UWP.Bridge.Listener.csproj", "{E38F80D6-2E82-4716-B47D-C15E54AEC590}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Views", "Views", "{B8A48836-73E5-4AB3-AA71-C3C70B426963}"
 EndProject
@@ -105,13 +105,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Settings",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Homeport", "src\Views\Desktop\Sakuno.ING.Views.Homeport\Sakuno.ING.Views.Homeport.csproj", "{67DEDEB5-1B30-4826-A9FA-BE3F29B16E6C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinRT", "WinRT", "{5DCA75CC-ABFA-4CE0-A4FA-4666D4D1255F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UWP", "UWP", "{5DCA75CC-ABFA-4CE0-A4FA-4666D4D1255F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Views.ApiDebug", "src\Views\WinRT\Sakuno.ING.UWP.Views.ApiDebug\Sakuno.ING.UWP.Views.ApiDebug.csproj", "{185F9A4D-07DE-4C67-AA3A-E0B837C23036}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Views.ApiDebug", "src\Views\UWP\Sakuno.ING.UWP.Views.ApiDebug\Sakuno.ING.UWP.Views.ApiDebug.csproj", "{185F9A4D-07DE-4C67-AA3A-E0B837C23036}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Views.MasterData", "src\Views\WinRT\Sakuno.ING.UWP.Views.MasterData\Sakuno.ING.UWP.Views.MasterData.csproj", "{9458A085-A9BC-4FB7-91CA-370DB87D0ECA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Views.MasterData", "src\Views\UWP\Sakuno.ING.UWP.Views.MasterData\Sakuno.ING.UWP.Views.MasterData.csproj", "{9458A085-A9BC-4FB7-91CA-370DB87D0ECA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Views.Settings", "src\Views\WinRT\Sakuno.ING.UWP.Views.Settings\Sakuno.ING.UWP.Views.Settings.csproj", "{E5D369E8-B344-410C-8D1A-C87E9C621C80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.UWP.Views.Settings", "src\Views\UWP\Sakuno.ING.UWP.Views.Settings\Sakuno.ING.UWP.Views.Settings.csproj", "{E5D369E8-B344-410C-8D1A-C87E9C621C80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -837,7 +837,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{773D4281-944D-4154-AE00-A69CFCA6659C} = {51A97823-F0E6-42BE-B01B-F6686C1C4BD1}
 		{A3E0327E-E89C-4B56-B9D2-75C6E60EBB39} = {51A97823-F0E6-42BE-B01B-F6686C1C4BD1}
-		{6BBBE871-BEB9-47CF-BBF9-28DB9B64729A} = {51A97823-F0E6-42BE-B01B-F6686C1C4BD1}
+		{6BBBE871-BEB9-47CF-BBF9-28DB9B64729A} = {C9BC41C7-7558-4441-823F-682BBB4A436B}
 		{AB6EC829-12AC-4B7C-A348-5C7620C96EB5} = {51A97823-F0E6-42BE-B01B-F6686C1C4BD1}
 		{A16DFBEC-F553-4F70-B1F8-24FB37012CF3} = {51A97823-F0E6-42BE-B01B-F6686C1C4BD1}
 		{D5E9FD1A-A812-4FEB-B252-A84242B0E4CC} = {51A97823-F0E6-42BE-B01B-F6686C1C4BD1}
