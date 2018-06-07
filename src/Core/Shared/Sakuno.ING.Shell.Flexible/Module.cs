@@ -1,7 +1,6 @@
 ﻿using Sakuno.ING.Composition;
-using Sakuno.ING.ViewModels.Layout;
 
-namespace Sakuno.ING.ViewModels
+namespace Sakuno.ING.Shell
 {
     internal class Module : IExposableModule
     {

@@ -8,7 +8,7 @@ namespace Sakuno.ING.UWP
     {
         public void Expose(IBuilder builder)
         {
-            builder.RegisterService<Shell, IShell>();
+            builder.RegisterService<UWPShell, IShell>();
             builder.RegisterService<LocalizationService, ILocalizationService>();
         }
         public void Initialize(IResolver resolver) { }

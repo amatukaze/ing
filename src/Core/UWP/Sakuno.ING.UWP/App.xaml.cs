@@ -40,12 +40,12 @@ namespace Sakuno.ING.UWP
                     "Sakuno.ING.Game.Models",
                     "Sakuno.ING.Game.Provider",
                     "Sakuno.ING.Settings.Common",
+                    "Sakuno.ING.Shell.Flexible",
                     "Sakuno.ING.Timing.NTP",
                     "Sakuno.ING.UWP.Bridge.Listener",
                     "Sakuno.ING.Views.UWP.ApiDebug",
                     "Sakuno.ING.Views.UWP.MasterData",
-                    "Sakuno.ING.Views.UWP.Settings",
-                    "Sakuno.ING.ViewModels.Foundation"
+                    "Sakuno.ING.Views.UWP.Settings"
                 );
 
             if (e.PrelaunchActivated == false)

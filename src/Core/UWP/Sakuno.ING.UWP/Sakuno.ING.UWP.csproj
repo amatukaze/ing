@@ -66,10 +66,10 @@
     <Compile Include="SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Shell.cs" />
     <Compile Include="SubView.xaml.cs">
       <DependentUpon>SubView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UWPShell.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -119,7 +119,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
-    <Content Include="Layout\Default.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
@@ -146,6 +145,10 @@
     </PRIResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Layout\Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,13 +171,13 @@
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
       <Name>Sakuno.ING.Core.CommonSettings</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Sakuno.ING.Shell.Flexible\Sakuno.ING.Shell.Flexible.csproj">
+      <Project>{e74514ec-5378-44d5-91e8-1ca30d9ad3aa}</Project>
+      <Name>Sakuno.ING.Shell.Flexible</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Shared\Sakuno.ING.Timing.NTP\Sakuno.ING.Timing.NTP.csproj">
       <Project>{6bbbe871-beb9-47cf-bbf9-28db9b64729a}</Project>
       <Name>Sakuno.ING.Core.DateTime</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\Shared\Sakuno.ING.ViewModels.Foundation\Sakuno.ING.ViewModels.Foundation.csproj">
-      <Project>{f7401bdd-57a6-4b0c-bf56-e708f146ece6}</Project>
-      <Name>Sakuno.ING.ViewModels.Foundation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sakuno.ING.UWP.Bridge.Listener\Sakuno.ING.UWP.Bridge.Listener.csproj">
       <Project>{e38f80d6-2e82-4716-b47d-c15e54aec590}</Project>

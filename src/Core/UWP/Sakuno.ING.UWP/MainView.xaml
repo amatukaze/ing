@@ -25,8 +25,7 @@
             <Button HorizontalAlignment="Right"
                     Grid.Column="1"
                     Margin="0,0,180,0"
-                    Style="{ThemeResource ButtonRevealStyle}"
-                    Tapped="{x:Bind Shell.ShowSettingsView}">
+                    Style="{ThemeResource ButtonRevealStyle}">
                 <SymbolIcon Symbol="Setting"/>
             </Button>
         </Grid>

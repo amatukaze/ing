@@ -6,7 +6,7 @@ namespace Sakuno.ING.Shell.Desktop
     {
         public void Expose(IBuilder builder)
         {
-            builder.RegisterService<Shell, IShell>();
+            builder.RegisterService<DesktopShell, IShell>();
         }
 
         public void Initialize(IResolver resolver)
