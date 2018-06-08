@@ -13,6 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Expression.Interaction" Version="3.0.40218.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Data.SQLite.Core" Version="1.0.108" />
@@ -34,6 +38,10 @@
     <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj" />
     <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj" />
     <ProjectReference Include="..\Library\Sakuno.UserInterface\Sakuno.UserInterface.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="app.ico" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
