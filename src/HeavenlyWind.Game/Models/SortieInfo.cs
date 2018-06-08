@@ -1,7 +1,10 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
@@ -9,6 +12,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
     public class SortieInfo : ModelBase
     {
         internal static SortieInfo Current { get; private set; }
+
+        static IDictionary<int, int> _shipStockEquipmentCount;
 
         public long ID { get; }
 
@@ -38,6 +43,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
             }
         }
+        int _pendingEquipmentCount;
+        public int PendingEquipmentCount
+        {
+            get { return _pendingEquipmentCount; }
+            private set
+            {
+                if (_pendingEquipmentCount != value)
+                {
+                    _pendingEquipmentCount = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public AirForceGroup[] AirForceGroups { get; }
 
@@ -53,13 +71,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             {
                 var rData = (RawBattleResult)r.Data;
                 if (rData.DroppedShip != null)
-                     Current.PendingShipCount++;
+                {
+                    Current.PendingShipCount++;
+
+                    if (_shipStockEquipmentCount != null && _shipStockEquipmentCount.TryGetValue(rData.DroppedShip.ID, out var equipmentCount))
+                        Current.PendingEquipmentCount += equipmentCount;
+                }
 
                 var rFriendParticipantSnapshots = BattleInfo.Current?.CurrentStage?.Friend;
                 if (rFriendParticipantSnapshots != null)
                     foreach (var rSnapshot in rFriendParticipantSnapshots)
                         ((FriendShip)rSnapshot.Participant).Ship.HP.Set(rSnapshot.Maximum, rSnapshot.Current);
             });
+
+            if (!DataStore.TryGet("ship_stock_equipment_count", out byte[] content))
+                return;
+
+            var reader = new JsonTextReader(new StreamReader(new MemoryStream(content)));
+
+            _shipStockEquipmentCount = JArray.Load(reader).ToDictionary(r => (int)r["id"], r => (int)r["count"]);
         }
         internal SortieInfo() { }
         internal SortieInfo(long rpID, Fleet rpFleet, int rpMapID)

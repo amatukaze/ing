@@ -217,12 +217,15 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
             {
                 var rSortie = SortieInfo.Current;
                 if (rSortie != null)
+                {
                     ShipCount = rPort.Ships.Count + rSortie.PendingShipCount;
+                    EquipmentCount = rPort.Equipment.Count + rSortie.PendingEquipmentCount;
+                }
             });
         }
 
         void CheckShipCapacity() => ShowShipCountWarning = r_ShipCount > Admiral.Source.MaxShipCount - 5;
-        void CheckEquipmentCapacity() =>ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 17;
+        void CheckEquipmentCapacity() => ShowEquipmentCountWarning = r_EquipmentCount > Admiral.Source.MaxEquipmentCount - 17;
         void CheckCapacity()
         {
             CheckShipCapacity();
