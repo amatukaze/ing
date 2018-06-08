@@ -149,8 +149,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal void Update(RawMaterial[] rpData)
         {
-            PreviousDifference?.Reload();
-
             if (rpData?.Length >= 8)
             {
                 Fuel = rpData[0].Amount;
@@ -167,8 +165,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         }
         internal void Update(int[] rpData)
         {
-            PreviousDifference?.Reload();
-
             if (rpData?.Length >= 4)
             {
                 Fuel = rpData[0];
