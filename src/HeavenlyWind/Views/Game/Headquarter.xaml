@@ -67,7 +67,7 @@
                     </Run.Style>
                 </Run>
             </TextBlock>
-            <rc:Indicator Background="#20FFFFFF" Foreground="#70FFFFFF" Value="{Binding Experience}" Maximum="120000000" Height="2" Margin="0, 0, 0, -3" VerticalAlignment="Bottom" Grid.Column="1">
+            <rc:Indicator Background="#20FFFFFF" Foreground="#70FFFFFF" Value="{Binding Experience}" Maximum="180000000" Height="2" Margin="0, 0, 0, -3" VerticalAlignment="Bottom" Grid.Column="1">
                 <rc:Indicator.Style>
                     <Style TargetType="{x:Type rc:Indicator}">
                         <Setter Property="Visibility" Value="Collapsed" />
