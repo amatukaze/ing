@@ -29,7 +29,7 @@
                 <SymbolIcon Symbol="Setting"/>
             </Button>
         </Grid>
-        <ContentControl x:Name="MainContent" x:FieldModifier="Internal"
+        <ContentPresenter x:Name="MainContent" x:FieldModifier="Internal"
                         Grid.Row="1"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"/>

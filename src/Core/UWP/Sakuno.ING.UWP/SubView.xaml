@@ -14,7 +14,7 @@
         <TextBlock FontSize="16"
                    Margin="20,4,0,4"
                    x:Uid="AppTitle"/>
-        <ContentControl x:Name="ActualContent"
+        <ContentPresenter x:Name="ActualContent"
                         Grid.Row="1"
                         HorizontalContentAlignment="Stretch"
                         VerticalContentAlignment="Stretch"/>

@@ -21,7 +21,6 @@ namespace Sakuno.ING
                 "Sakuno.ING.Game.Models",
                 "Sakuno.ING.Game.Provider",
                 "Sakuno.ING.Settings.Common",
-                "Sakuno.ING.Shell.Flexible",
                 "Sakuno.ING.Shell.Desktop",
                 "Sakuno.ING.Timing.NTP",
                 "Sakuno.ING.Views.Desktop.Common",

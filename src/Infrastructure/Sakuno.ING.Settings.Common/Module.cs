@@ -8,6 +8,7 @@ namespace Sakuno.ING.Settings
         {
             builder.RegisterType<ProxySetting>();
             builder.RegisterType<LocaleSetting>();
+            builder.RegisterType<LayoutSetting>();
         }
 
         public void Initialize(IResolver resolver) { }

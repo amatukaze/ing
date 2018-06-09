@@ -47,6 +47,14 @@ namespace Sakuno.ING.Shell.Desktop
             {
                 ShutdownMode = ShutdownMode.OnMainWindowClose
             };
+
+            var style = new Style
+            {
+                TargetType = typeof(ViewPresenter),
+            };
+            style.Setters.Add(new Setter(ViewPresenter.ViewSourceProperty, Views));
+            app.Resources[typeof(ViewPresenter)] = style;
+
             app.Startup += (s, e) => provider.Enabled = true;
             app.Run(window);
         }
@@ -56,6 +64,7 @@ namespace Sakuno.ING.Shell.Desktop
             var root = (LayoutRoot)xamlObject;
             var mainWindow = new MainWindow();
             InitWindow(mainWindow);
+            mainWindow.MainContent.Content = root.MainWindow.Content.LoadContent();
 
             return mainWindow;
         }

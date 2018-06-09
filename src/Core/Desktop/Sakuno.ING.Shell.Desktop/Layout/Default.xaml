@@ -1,4 +1,11 @@
 ﻿<sh:LayoutRoot xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:sh="clr-namespace:Sakuno.ING.Shell.Layout;assembly=Sakuno.ING.Shell.Flexible"
-/>
+               xmlns:sh="clr-namespace:Sakuno.ING.Shell.Layout">
+    <sh:LayoutRoot.MainWindow>
+        <sh:LayoutWindow>
+            <DataTemplate>
+                <sh:ViewPresenter ViewId="Homeport"/>
+            </DataTemplate>
+        </sh:LayoutWindow>
+    </sh:LayoutRoot.MainWindow>
+</sh:LayoutRoot>

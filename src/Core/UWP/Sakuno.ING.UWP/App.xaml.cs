@@ -40,7 +40,6 @@ namespace Sakuno.ING.UWP
                     "Sakuno.ING.Game.Models",
                     "Sakuno.ING.Game.Provider",
                     "Sakuno.ING.Settings.Common",
-                    "Sakuno.ING.Shell.Flexible",
                     "Sakuno.ING.Timing.NTP",
                     "Sakuno.ING.UWP.Bridge.Listener",
                     "Sakuno.ING.Views.UWP.ApiDebug",

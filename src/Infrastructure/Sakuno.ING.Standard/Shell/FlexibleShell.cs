@@ -21,15 +21,15 @@ namespace Sakuno.ING.Shell
             started = true;
         }
 
-        private readonly Dictionary<string, (Type ViewType, bool IsFixedSize, bool SingleWindowRecommended)> views
-            = new Dictionary<string, (Type, bool, bool)>();
+        private readonly Dictionary<string, Type> views
+            = new Dictionary<string, Type>();
         private readonly List<(Type ViewType, SettingCategory Category)> settingViews
             = new List<(Type, SettingCategory)>();
 
         public void RegisterView(Type viewType, string id, bool isFixedSize = true, bool singleWindowRecommended = false)
         {
             if (started) throw new InvalidOperationException("Shell already started.");
-            views.Add(id, (viewType, isFixedSize, singleWindowRecommended));
+            views.Add(id, viewType);
         }
 
         public void RegisterSettingView(Type viewType, SettingCategory category = SettingCategory.Misc)
@@ -41,10 +41,7 @@ namespace Sakuno.ING.Shell
         protected string GetString(string id)
             => localization.GetLocalized("ViewTitle", id) ?? id;
 
-        protected object CreateView(string id)
-            => views.TryGetValue(id, out var d)
-            ? Activator.CreateInstance(d.ViewType)
-            : null;
+        protected IReadOnlyDictionary<string, Type> Views => views;
 
         protected CategorizedSettingViews[] CreateSettingViews()
             => settingViews

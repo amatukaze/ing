@@ -1,6 +1,4 @@
-﻿using Sakuno.ING.Settings;
-
-namespace Sakuno.ING.Shell
+﻿namespace Sakuno.ING.Settings
 {
     public class LayoutSetting
     {

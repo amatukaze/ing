@@ -1,4 +1,6 @@
 ﻿using Sakuno.ING.Composition;
+using Sakuno.ING.Localization;
+using Sakuno.ING.Shell.Layout;
 
 namespace Sakuno.ING.Shell.Desktop
 {
@@ -11,6 +13,7 @@ namespace Sakuno.ING.Shell.Desktop
 
         public void Initialize(IResolver resolver)
         {
+            LocalizedTitleExtension.LocalizationService = resolver.Resolve<ILocalizationService>();
         }
     }
 }

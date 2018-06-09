@@ -51,12 +51,21 @@ namespace Sakuno.ING.UWP
                         ApplicationView.GetForCurrentView().TitleBar.ButtonForegroundColor = sender.GetColorValue(UIColorType.Foreground));
             };
 
+            var style = new Style
+            {
+                TargetType = typeof(ViewPresenter),
+            };
+            style.Setters.Add(new Setter(ViewPresenter.ViewSourceProperty, Views));
+            Application.Current.Resources[typeof(ViewPresenter)] = style;
+
+            Window.Current.Content = main;
             gameProvider.Enabled = true;
         }
 
         private UIElement BuildXaml(LayoutRoot root)
         {
             var mainView = new MainView();
+            mainView.MainContent.Content = root.MainWindow.Content.LoadContent();
 
             return mainView;
         }
