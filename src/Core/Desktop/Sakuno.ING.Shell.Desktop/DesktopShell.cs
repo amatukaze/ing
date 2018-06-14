@@ -17,6 +17,7 @@ namespace Sakuno.ING.Shell.Desktop
         private readonly string localeName;
         private readonly FontFamily userFont;
         private readonly List<Window> layoutWindows = new List<Window>();
+        private LayoutRoot layout;
 
         public DesktopShell(LayoutSetting layoutSetting, ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider)
             : base(localization)
@@ -36,12 +37,16 @@ namespace Sakuno.ING.Shell.Desktop
             Window window;
             try
             {
-                window = BuildXaml(XamlReader.Parse(layoutSetting.XamlString.Value));
+                layout = (LayoutRoot)XamlReader.Parse(layoutSetting.XamlString.Value);
+                window = new MainWindow { MainContent = layout.MainWindow.Content.LoadContent() };
             }
             catch
             {
-                window = BuildXaml(Application.LoadComponent(new Uri("/Sakuno.ING.Shell.Desktop;component/Layout/Default.xaml", UriKind.Relative)));
+                layout = (LayoutRoot)Application.LoadComponent(new Uri("/Sakuno.ING.Shell.Desktop;component/Layout/Default.xaml", UriKind.Relative));
+                window = new MainWindow { MainContent = layout.MainWindow.Content.LoadContent() };
             }
+
+            InitWindow(window);
 
             var app = new Application
             {
@@ -54,19 +59,36 @@ namespace Sakuno.ING.Shell.Desktop
             };
             style.Setters.Add(new Setter(ViewPresenter.ViewSourceProperty, Views));
             app.Resources[typeof(ViewPresenter)] = style;
+            app.Resources[ViewSwitcher.SwitchActionKey] = new Action<string>(viewId =>
+            {
+                var windows = Application.Current.Windows;
+                for (int i = 0; i < windows.Count; i++)
+                {
+                    var w = windows[i];
+                    if (w.Tag.ToString() == viewId)
+                    {
+                        w.Activate();
+                        return;
+                    }
+                }
+
+                var view = layout[viewId];
+                if (view != null)
+                {
+                    var w = new Window
+                    {
+                        Tag = viewId,
+                        Title = LocalizedTitleExtension.GetViewTitle(viewId),
+                        Content = view.Content.LoadContent(),
+                    };
+                    InitWindow(w);
+                    w.Show();
+                    w.Activate();
+                }
+            });
 
             app.Startup += (s, e) => provider.Enabled = true;
             app.Run(window);
-        }
-
-        private Window BuildXaml(object xamlObject)
-        {
-            var root = (LayoutRoot)xamlObject;
-            var mainWindow = new MainWindow();
-            InitWindow(mainWindow);
-            mainWindow.MainContent.Content = root.MainWindow.Content.LoadContent();
-
-            return mainWindow;
         }
 
         private void InitWindow(Window window)

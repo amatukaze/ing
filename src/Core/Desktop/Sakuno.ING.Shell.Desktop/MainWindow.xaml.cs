@@ -6,5 +6,11 @@
         {
             InitializeComponent();
         }
+
+        public object MainContent
+        {
+            get => mainContent.Content;
+            set => mainContent.Content = value;
+        }
     }
 }

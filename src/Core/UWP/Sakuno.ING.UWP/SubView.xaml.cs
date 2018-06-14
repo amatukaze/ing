@@ -8,10 +8,11 @@ namespace Sakuno.ING.UWP
         {
             this.InitializeComponent();
         }
-        public new object Content
+
+        public object ActualContent
         {
-            get => ActualContent.Content;
-            set => ActualContent.Content = value;
+            get => actualContent.Content;
+            set => actualContent.Content = value;
         }
     }
 }

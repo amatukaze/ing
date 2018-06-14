@@ -16,8 +16,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Button Content="{c:Localize Application/Settings}" x:Name="Settings" x:FieldModifier="internal"/>
-        <ContentPresenter Grid.Row="1" x:Name="MainContent" x:FieldModifier="internal"/>
-        <StackPanel x:Name="Switcher" x:FieldModifier="internal"
-                    Grid.Row="2" Orientation="Horizontal"/>
+        <ContentPresenter Grid.Row="1" x:Name="mainContent"/>
     </Grid>
 </Window>

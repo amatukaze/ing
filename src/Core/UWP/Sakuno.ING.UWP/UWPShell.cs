@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Concurrent;
+using System.Linq;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
@@ -17,6 +19,9 @@ namespace Sakuno.ING.UWP
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ITextStreamProvider gameProvider;
+        private Func<LayoutRoot> layoutFactory;
+        private string[] viewIds;
+        private readonly ConcurrentDictionary<string, int> applicationViewIds = new ConcurrentDictionary<string, int>();
 
         public UWPShell(LayoutSetting layoutSetting, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localizationService)
             : base(localizationService)
@@ -34,16 +39,26 @@ namespace Sakuno.ING.UWP
             UIElement main;
             try
             {
-                main = BuildXaml((LayoutRoot)XamlReader.Load(layoutSetting.XamlString.Value));
+                string layoutString = layoutSetting.XamlString.Value;
+                layoutFactory = () => (LayoutRoot)XamlReader.Load(layoutString);
+                var layout = layoutFactory();
+                main = new MainView { MainContent = layout.MainWindow.Content.LoadContent() };
+                viewIds = layout.SubWindows.Select(x => x.Id).ToArray();
             }
             catch
             {
-                var layout = new LayoutRoot();
-                Application.LoadComponent(layout, new Uri("ms-appx:///Layout/Default.xaml"));
-                main = BuildXaml(layout);
+                layoutFactory = () =>
+                {
+                    var l = new LayoutRoot();
+                    Application.LoadComponent(l, new Uri("ms-appx:///Layout/Default.xaml"));
+                    return l;
+                };
+                var layout = layoutFactory();
+                main = new MainView { MainContent = layout.MainWindow.Content.LoadContent() };
+                viewIds = layout.SubWindows.Select(x => x.Id).ToArray();
             }
 
-            SetupTransparencity();
+            InitWindow();
             new UISettings().ColorValuesChanged += async (sender, _) =>
             {
                 foreach (var view in CoreApplication.Views)
@@ -57,20 +72,43 @@ namespace Sakuno.ING.UWP
             };
             style.Setters.Add(new Setter(ViewPresenter.ViewSourceProperty, Views));
             Application.Current.Resources[typeof(ViewPresenter)] = style;
+            Application.Current.Resources[ViewSwitcher.SwitchActionKey] = new Action<string>(async viewId =>
+            {
+                if (applicationViewIds.TryGetValue(viewId, out int id))
+                {
+                    await ApplicationViewSwitcher.SwitchAsync(id);
+                    return;
+                }
+
+                if (viewIds.Contains(viewId))
+                {
+                    var coreView = CoreApplication.CreateNewView();
+                    await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+                    {
+                        CoreApplication.GetCurrentView().Properties["Id"] = viewId;
+                        var view = ApplicationView.GetForCurrentView();
+                        applicationViewIds[viewId] = view.Id;
+
+                        InitWindow();
+                        Window.Current.Content = new SubView { ActualContent = layoutFactory()[viewId].Content.LoadContent() };
+
+                        view.Consolidated += (s, e) =>
+                        {
+                            Window.Current.Content = null;
+                            applicationViewIds.TryRemove(viewId, out _);
+                        };
+
+                        Window.Current.Activate();
+                    });
+                    await ApplicationViewSwitcher.TryShowAsStandaloneAsync(applicationViewIds[viewId]);
+                }
+            });
 
             Window.Current.Content = main;
             gameProvider.Enabled = true;
         }
 
-        private UIElement BuildXaml(LayoutRoot root)
-        {
-            var mainView = new MainView();
-            mainView.MainContent.Content = root.MainWindow.Content.LoadContent();
-
-            return mainView;
-        }
-
-        private void SetupTransparencity()
+        private void InitWindow()
         {
             var coreView = CoreApplication.GetCurrentView();
             coreView.TitleBar.ExtendViewIntoTitleBar = true;

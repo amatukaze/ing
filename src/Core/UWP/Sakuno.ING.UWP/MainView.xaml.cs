@@ -10,5 +10,11 @@ namespace Sakuno.ING.UWP
             this.InitializeComponent();
             Window.Current.SetTitleBar(DraggableTitle);
         }
+
+        public object MainContent
+        {
+            get => mainContent.Content;
+            set => mainContent.Content = value;
+        }
     }
 }
