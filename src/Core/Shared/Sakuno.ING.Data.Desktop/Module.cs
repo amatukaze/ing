@@ -8,6 +8,5 @@ namespace Sakuno.ING.Data.Desktop
         {
             builder.RegisterService<DataService, IDataService>();
         }
-        public void Initialize(IResolver resolver) { }
     }
 }

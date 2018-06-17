@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Localization;
 using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game.Models
 {
     public class NavalBase : BindableObject
     {
-        public NavalBase(IGameProvider listener)
+        public ILocalizationService Localization { get; }
+
+        public NavalBase(IGameProvider listener, ILocalizationService localization)
         {
-            MasterData = new MasterDataRoot(listener);
-            Quests = new QuestManager(listener);
+            Localization = localization;
+
+            MasterData = new MasterDataRoot(listener, localization);
+            Quests = new QuestManager(listener, localization);
             _allEquipment = new IdTable<EquipmentId, Equipment, IRawEquipment, NavalBase>(this);
             _buildingDocks = new IdTable<BuildingDockId, BuildingDock, IRawBuildingDock, NavalBase>(this);
             _repairingDocks = new IdTable<RepairingDockId, RepairingDock, IRawRepairingDock, NavalBase>(this);

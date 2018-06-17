@@ -18,7 +18,7 @@ namespace Sakuno.ING.Game.Test
         {
             var provider = new UnitTestProvider();
             var gameListener = new GameListener(provider);
-            masterData = new MasterDataRoot(gameListener);
+            masterData = new MasterDataRoot(gameListener, null);
 
             gameListener.MasterDataUpdated += (_, u) => parseResult = u;
 

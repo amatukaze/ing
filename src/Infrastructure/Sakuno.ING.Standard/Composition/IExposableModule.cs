@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Composition
 {
-    public interface IExposableModule : IModule
+    public interface IExposableModule
     {
         void Expose(IBuilder builder);
     }

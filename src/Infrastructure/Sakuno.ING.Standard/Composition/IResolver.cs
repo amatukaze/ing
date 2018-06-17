@@ -6,5 +6,7 @@ namespace Sakuno.ING.Composition
     {
         T Resolve<T>() where T : class;
         object Resolve(Type type);
+        T TryResolve<T>() where T : class;
+        object TryResolve(Type type);
     }
 }

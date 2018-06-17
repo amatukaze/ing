@@ -8,6 +8,5 @@ namespace Sakuno.ING.Localization.Embed
         {
             builder.RegisterService<LocalizationService, ILocalizationService>();
         }
-        public void Initialize(IResolver resolver) { }
     }
 }

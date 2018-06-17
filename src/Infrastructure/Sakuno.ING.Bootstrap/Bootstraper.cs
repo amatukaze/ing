@@ -130,7 +130,7 @@ namespace Sakuno.ING.Bootstrap
 
         static void InitializeModules()
         {
-            StaticResolver.Instance = _resolver = _container.Resolve<IResolver>();
+            StaticResolver.Initialize(_resolver = _container.Resolve<IResolver>());
 
             foreach (var module in _modules)
                 module.Initialize(_resolver);

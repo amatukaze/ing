@@ -13,6 +13,7 @@ namespace Sakuno.ING.Shell.Desktop
     internal class DesktopShell : FlexibleShell
     {
         private readonly LayoutSetting layoutSetting;
+        private readonly ILocalizationService localization;
         private readonly ITextStreamProvider provider;
         private readonly string localeName;
         private readonly FontFamily userFont;
@@ -23,6 +24,7 @@ namespace Sakuno.ING.Shell.Desktop
             : base(localization)
         {
             this.layoutSetting = layoutSetting;
+            this.localization = localization;
             this.provider = provider;
             localeName = locale.Language.Value;
             var userFontName = locale.UserLanguageFont.Value;
@@ -78,7 +80,7 @@ namespace Sakuno.ING.Shell.Desktop
                     var w = new Window
                     {
                         Tag = viewId,
-                        Title = LocalizedTitleExtension.GetViewTitle(viewId),
+                        Title = localization.GetLocalized("ViewTitle", viewId) ?? viewId,
                         Content = view.Content.LoadContent(),
                     };
                     InitWindow(w);

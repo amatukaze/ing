@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Settings
 {
-    class Module : IModule, IExposableModule
+    class Module : IExposableModule
     {
         public void Expose(IBuilder builder)
         {
@@ -10,7 +10,5 @@ namespace Sakuno.ING.Settings
             builder.RegisterType<LocaleSetting>();
             builder.RegisterType<LayoutSetting>();
         }
-
-        public void Initialize(IResolver resolver) { }
     }
 }

@@ -9,7 +9,5 @@ namespace Sakuno.ING.Services.Listener
             builder.RegisterType<Nekomimi.ProxyServer>();
             builder.RegisterService<NekomimiProvider, ITextStreamProvider>();
         }
-
-        public void Initialize(IResolver resolver) { }
     }
 }

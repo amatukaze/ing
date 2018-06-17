@@ -628,8 +628,8 @@ namespace Sakuno.ING.Game.Models
         public Quest(QuestId id, QuestManager owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = Module.Localize?.GetLocalized("QuestName", id.ToString());
-            DescriptionTranslation = Module.Localize?.GetLocalized("QuestDesc", id.ToString());
+            NameTranslation = owner.Localization?.GetLocalized("QuestName", id.ToString());
+            DescriptionTranslation = owner.Localization?.GetLocalized("QuestDesc", id.ToString());
             CreateDummy();
         }
 

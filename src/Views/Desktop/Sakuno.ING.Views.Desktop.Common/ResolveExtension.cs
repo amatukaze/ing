@@ -11,8 +11,6 @@ namespace Sakuno.ING.Views.Desktop
         [ConstructorArgument("targetType")]
         public Type TargetType { get; set; }
 
-        internal static IResolver Resolver;
-
-        public override object ProvideValue(IServiceProvider serviceProvider) => Resolver?.Resolve(TargetType);
+        public override object ProvideValue(IServiceProvider serviceProvider) => StaticResolver.Instance?.Resolve(TargetType);
     }
 }

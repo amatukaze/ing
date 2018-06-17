@@ -1,20 +1,24 @@
 ﻿using System;
+using Sakuno.ING.Localization;
+using Sakuno.ING.Timing;
 
 namespace Sakuno.ING.Composition
 {
     public static class StaticResolver
     {
-        private static IResolver _instance;
-        public static IResolver Instance
-        {
-            get => _instance;
-            set
-            {
-                if (_instance != null)
-                    throw new InvalidOperationException("Resolver instance can be only set at initializion.");
+        public static IResolver Instance { get; private set; }
 
-                _instance = value;
-            }
+        public static void Initialize(IResolver resolver)
+        {
+            if (Instance != null)
+                throw new InvalidOperationException("Resolver instance can be only set at initializion.");
+
+            Instance = resolver;
+            LocalizationService = resolver.TryResolve<ILocalizationService>();
+            TimingService = resolver.TryResolve<ITimingService>();
         }
+
+        public static ILocalizationService LocalizationService { get; private set; }
+        public static ITimingService TimingService { get; private set; }
     }
 }

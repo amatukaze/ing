@@ -79,10 +79,10 @@ foreach (var infile in Inputs)
                 string category = prop[1];
                 if (propName == "Name")
                     hasName = true;
-                output.WriteLine("            " + propName + "Translation = Module.Localize?.GetLocalized(\"" + category + "\", id.ToString());");
+                output.WriteLine("            " + propName + "Translation = owner.Localization?.GetLocalized(\"" + category + "\", id.ToString());");
                 if (prop.Length >= 3 && prop[2] == "u")
                 {
-                    output.WriteLine("            _unlocalized" + propName + " = Module.Localize?.GetUnlocalized(\"" + category + "\", id.ToString());");
+                    output.WriteLine("            _unlocalized" + propName + " = owner.Localization?.GetUnlocalized(\"" + category + "\", id.ToString());");
                     unlocalized.Add(propName);
                 }
             }
