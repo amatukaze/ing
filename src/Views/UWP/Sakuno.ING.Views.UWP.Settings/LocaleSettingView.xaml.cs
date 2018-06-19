@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Sakuno.ING.Composition;
 using Sakuno.ING.Settings;
+using Sakuno.ING.Shell;
 using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.ING.Views.UWP.Settings

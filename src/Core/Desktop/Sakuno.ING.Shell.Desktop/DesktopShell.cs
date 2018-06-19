@@ -11,7 +11,7 @@ using Sakuno.ING.Shell.Layout;
 
 namespace Sakuno.ING.Shell.Desktop
 {
-    [Export(typeof(IShell))]
+    [Export(typeof(IShell), LazyCreate = false)]
     internal class DesktopShell : FlexibleShell
     {
         private readonly LayoutSetting layoutSetting;
@@ -22,8 +22,8 @@ namespace Sakuno.ING.Shell.Desktop
         private readonly List<Window> layoutWindows = new List<Window>();
         private LayoutRoot layout;
 
-        public DesktopShell(LayoutSetting layoutSetting, ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider)
-            : base(localization)
+        public DesktopShell(LayoutSetting layoutSetting, ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider, Compositor compositor)
+            : base(localization, compositor)
         {
             this.layoutSetting = layoutSetting;
             this.localization = localization;
@@ -36,18 +36,16 @@ namespace Sakuno.ING.Shell.Desktop
 
         public override void Run()
         {
-            base.Run();
-
             Window window;
             try
             {
                 layout = (LayoutRoot)XamlReader.Parse(layoutSetting.XamlString.Value);
-                window = new MainWindow { MainContent = layout.MainWindow.Content.LoadContent() };
+                window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
             }
             catch
             {
                 layout = (LayoutRoot)Application.LoadComponent(new Uri("/Sakuno.ING.Shell.Desktop;component/Layout/Default.xaml", UriKind.Relative));
-                window = new MainWindow { MainContent = layout.MainWindow.Content.LoadContent() };
+                window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
             }
 
             InitWindow(window);
@@ -69,11 +67,19 @@ namespace Sakuno.ING.Shell.Desktop
                 for (int i = 0; i < windows.Count; i++)
                 {
                     var w = windows[i];
-                    if (w.Tag.ToString() == viewId)
+                    if (viewId.Equals(w.Tag))
                     {
                         w.Activate();
                         return;
                     }
+                }
+
+                if (viewId == "Settings")
+                {
+                    var w = new SettingsWindow { DataContext = CreateSettingViews() };
+                    InitWindow(w);
+                    w.Show();
+                    w.Activate();
                 }
 
                 var view = layout[viewId];
@@ -83,7 +89,7 @@ namespace Sakuno.ING.Shell.Desktop
                     {
                         Tag = viewId,
                         Title = localization.GetLocalized("ViewTitle", viewId) ?? viewId,
-                        Content = view.Content.LoadContent(),
+                        Content = view.LoadContent(),
                     };
                     InitWindow(w);
                     w.Show();

@@ -1,6 +1,6 @@
-﻿using Sakuno.ING.Composition;
-using Sakuno.ING.Services;
+﻿using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
+using Sakuno.ING.Shell;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

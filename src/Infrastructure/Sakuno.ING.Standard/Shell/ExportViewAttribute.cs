@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sakuno.ING.Composition
+namespace Sakuno.ING.Shell
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class ExportViewAttribute : Attribute

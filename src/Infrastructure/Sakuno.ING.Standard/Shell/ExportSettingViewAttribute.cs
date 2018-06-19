@@ -1,7 +1,7 @@
 ﻿using System;
 using Sakuno.ING.Settings;
 
-namespace Sakuno.ING.Composition
+namespace Sakuno.ING.Shell
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class ExportSettingViewAttribute : Attribute

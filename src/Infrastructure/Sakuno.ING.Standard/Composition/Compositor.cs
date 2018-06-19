@@ -8,26 +8,24 @@ namespace Sakuno.ING.Composition
     public class Compositor : IDisposable
     {
         private readonly Compositor parent;
-        private Dictionary<Type, Type> impls = new Dictionary<Type, Type>();
+        private Dictionary<object, Type> impls = new Dictionary<object, Type>();
         private Dictionary<Type, (ConstructorInfo creation, bool singleton)> creations = new Dictionary<Type, (ConstructorInfo, bool)>();
-        private Dictionary<Type, object> sharedInstances = new Dictionary<Type, object>();
+        private Dictionary<object, object> sharedInstances = new Dictionary<object, object>();
 
         public Compositor(IEnumerable<Export> source, Compositor parent = null)
         {
             this.parent = parent;
 
-            var eagar = new List<Type>();
+            var eagar = new List<object>();
             foreach (var export in source ?? throw new ArgumentNullException(nameof(source)))
             {
-                if (!export.ContractType.IsAssignableFrom(export.ImplementationType))
-                    throw new ArgumentException($"{export.ContractType} is not assignable from {export.ImplementationType}.");
                 if (!export.LazyCreate)
                     if (!export.SingleInstance)
                         throw new ArgumentException("Transient object must be lazy.");
                     else
-                        eagar.Add(export.ContractType);
+                        eagar.Add(export.Contract);
 
-                var ctor = export.ImplementationType.GetConstructors();
+                var ctor = export.Implementation.GetConstructors();
                 ConstructorInfo candidate;
                 if (ctor.Length == 1)
                     candidate = ctor[0];
@@ -37,12 +35,13 @@ namespace Sakuno.ING.Composition
                     if (valid.Length == 1)
                         candidate = valid[0];
                     else
-                        throw new CompositionException($"Can't decide constructor for {export.ImplementationType}.");
+                        throw new CompositionException($"Can't decide constructor for {export.Implementation}.");
                 }
 
-                impls.Add(export.ContractType, export.ImplementationType);
-                creations[export.ImplementationType] = (candidate, export.SingleInstance);
+                impls.Add(export.Contract, export.Implementation);
+                creations[export.Implementation] = (candidate, export.SingleInstance);
             }
+            sharedInstances.Add(typeof(Compositor), this);
 
             foreach (var type in eagar)
                 Resolve(type);
@@ -50,11 +49,7 @@ namespace Sakuno.ING.Composition
 
         public void AttachInstance<T>(T instance) where T : class
         {
-            if (instance == null)
-                throw new ArgumentNullException(nameof(instance));
-            var impl = instance.GetType();
-            impls.Add(typeof(T), impl);
-            sharedInstances[impl] = instance;
+            sharedInstances[typeof(T)] = instance ?? throw new ArgumentNullException(nameof(instance));
         }
 
         public void Dispose()
@@ -66,24 +61,27 @@ namespace Sakuno.ING.Composition
                 (obj as IDisposable)?.Dispose();
         }
 
-        private object ResolveImpl(Type type, Stack<Type> dependencies)
+        private object ResolveImpl(object contract, Stack<Type> dependencies)
         {
             if (sharedInstances == null)
                 throw new ObjectDisposedException(nameof(Compositor));
 
-            if (dependencies == null)
-                dependencies = new Stack<Type>();
-            else if (dependencies.Contains(type))
+            if (dependencies?.Contains(contract) == true)
                 throw new CompositionException("Circular dependency detected when resolving type "
-                    + type + ". Route: " + string.Join(" -> ", dependencies));
+                    + contract + ". Route: " + string.Join(" -> ", dependencies));
 
-            if (sharedInstances.TryGetValue(type, out object shared))
-                return shared;
+            if (sharedInstances.TryGetValue(contract, out object attatched))
+                return attatched;
 
-            dependencies.Push(type);
-
-            if (impls.TryGetValue(type, out Type impl))
+            if (impls.TryGetValue(contract, out Type impl))
             {
+                if (sharedInstances.TryGetValue(impl, out object shared))
+                    return shared;
+
+                if (dependencies == null)
+                    dependencies = new Stack<Type>();
+                dependencies.Push(impl);
+
                 var (ctor, singleton) = creations[impl];
                 var parameters = ctor.GetParameters();
                 var p = new object[parameters.Length];
@@ -92,23 +90,22 @@ namespace Sakuno.ING.Composition
                 {
                     p[i] = ResolveImpl(parameters[i].ParameterType, dependencies);
                     if (p[i] == null)
-                        throw new CompositionException($"Can't resolve parameter {parameters[i].ParameterType} for {type}.");
+                        throw new CompositionException($"Can't resolve parameter {parameters[i].ParameterType} for {impl}.");
                 }
 
                 var created = ctor.Invoke(p);
                 if (singleton)
-                    sharedInstances.Add(type, created);
+                    sharedInstances.Add(impl, created);
 
                 dependencies.Pop();
                 return created;
             }
 
-            var fromParent = parent?.ResolveImpl(type, dependencies);
-            dependencies.Pop();
+            var fromParent = parent?.ResolveImpl(contract, dependencies);
             return fromParent;
         }
 
-        public object Resolve(Type type) => ResolveImpl(type, null);
+        public object Resolve(object contract) => ResolveImpl(contract, null);
 
         public T Resolve<T>() where T : class => (T)ResolveImpl(typeof(T), null);
 

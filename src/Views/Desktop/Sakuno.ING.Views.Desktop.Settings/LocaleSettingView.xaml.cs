@@ -3,9 +3,9 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
-using Sakuno.ING.Composition;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Settings;
+using Sakuno.ING.Shell;
 
 namespace Sakuno.ING.Views.Desktop.Settings
 {

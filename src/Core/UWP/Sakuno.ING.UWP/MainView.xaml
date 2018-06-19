@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sh="using:Sakuno.ING.Shell.Layout"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
     <Grid>
@@ -22,12 +23,13 @@
                        x:Uid="AppTitle"/>
             <Rectangle Fill="Transparent"
                        x:Name="DraggableTitle"/>
-            <Button HorizontalAlignment="Right"
-                    Grid.Column="1"
-                    Margin="0,0,180,0"
-                    Style="{ThemeResource ButtonRevealStyle}">
+            <sh:ViewSwitcher HorizontalAlignment="Right"
+                             Grid.Column="1"
+                             Margin="0,0,180,0"
+                             Style="{ThemeResource ButtonRevealStyle}"
+                             ViewId="Settings">
                 <SymbolIcon Symbol="Setting"/>
-            </Button>
+            </sh:ViewSwitcher>
         </Grid>
         <ContentPresenter x:Name="mainContent"
                         Grid.Row="1"

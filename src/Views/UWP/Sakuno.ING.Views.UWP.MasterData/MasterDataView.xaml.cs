@@ -1,5 +1,5 @@
-﻿using Sakuno.ING.Composition;
-using Sakuno.ING.Game.Models;
+﻿using Sakuno.ING.Game.Models;
+using Sakuno.ING.Shell;
 using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.ING.Views.UWP.MasterData
@@ -8,9 +8,9 @@ namespace Sakuno.ING.Views.UWP.MasterData
     public sealed partial class MasterDataView : UserControl
     {
         private readonly MasterDataRoot MasterData;
-        public MasterDataView(MasterDataRoot masterData)
+        public MasterDataView(NavalBase navalBase)
         {
-            MasterData = masterData;
+            MasterData = navalBase.MasterData;
             this.InitializeComponent();
         }
     }

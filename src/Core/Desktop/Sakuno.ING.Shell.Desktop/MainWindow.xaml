@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:c="clr-namespace:Sakuno.ING.Views.Desktop;assembly=Sakuno.ING.Views.Desktop.Common"
+        xmlns:sh="clr-namespace:Sakuno.ING.Shell.Layout"
         mc:Ignorable="d"
         Title="{c:Localize Application/Title}"
         Width="800" Height="600"
@@ -15,7 +16,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Content="{c:Localize Application/Settings}" x:Name="Settings" x:FieldModifier="internal"/>
+        <sh:ViewSwitcher Content="{c:Localize Application/Settings}" ViewId="Settings"/>
         <ContentPresenter Grid.Row="1" x:Name="mainContent"/>
     </Grid>
 </Window>

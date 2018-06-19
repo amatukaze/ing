@@ -61,8 +61,8 @@ namespace Sakuno.ING.Bootstrap
                 .SelectMany(t => t.GetCustomAttributes<ExportAttribute>()
                 .Select(attr => new Export
                 {
-                    ImplementationType = t,
-                    ContractType = attr.ContractType,
+                    Implementation = t,
+                    Contract = attr.ContractType,
                     SingleInstance = attr.SingleInstance,
                     LazyCreate = attr.LazyCreate
                 }))));

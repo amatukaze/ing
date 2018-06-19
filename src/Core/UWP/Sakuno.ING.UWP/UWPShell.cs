@@ -21,31 +21,31 @@ namespace Sakuno.ING.UWP
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ITextStreamProvider gameProvider;
+        private readonly ILocalizationService localizationService;
         private Func<LayoutRoot> layoutFactory;
         private string[] viewIds;
         private readonly ConcurrentDictionary<string, int> applicationViewIds = new ConcurrentDictionary<string, int>();
 
-        public UWPShell(LayoutSetting layoutSetting, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localizationService)
-            : base(localizationService)
+        public UWPShell(LayoutSetting layoutSetting, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localizationService, Compositor compositor)
+            : base(localizationService, compositor)
         {
             this.layoutSetting = layoutSetting;
             this.gameProvider = gameProvider;
+            this.localizationService = localizationService;
 
             Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = localeSetting.Language.Value;
         }
 
         public override void Run()
         {
-            base.Run();
-
             UIElement main;
             try
             {
                 string layoutString = layoutSetting.XamlString.Value;
                 layoutFactory = () => (LayoutRoot)XamlReader.Load(layoutString);
                 var layout = layoutFactory();
-                main = new MainView { MainContent = layout.MainWindow.Content.LoadContent() };
-                viewIds = layout.SubWindows.Select(x => x.Id).ToArray();
+                main = new MainView { MainContent = layout.MainWindow.LoadContent() };
+                viewIds = layout.SubWindows.Select(x => x.Id).Append("Settings").ToArray();
             }
             catch
             {
@@ -56,8 +56,8 @@ namespace Sakuno.ING.UWP
                     return l;
                 };
                 var layout = layoutFactory();
-                main = new MainView { MainContent = layout.MainWindow.Content.LoadContent() };
-                viewIds = layout.SubWindows.Select(x => x.Id).ToArray();
+                main = new MainView { MainContent = layout.MainWindow.LoadContent() };
+                viewIds = layout.SubWindows.Select(x => x.Id).Append("Settings").ToArray();
             }
 
             InitWindow();
@@ -92,7 +92,10 @@ namespace Sakuno.ING.UWP
                         applicationViewIds[viewId] = view.Id;
 
                         InitWindow();
-                        Window.Current.Content = new SubView { ActualContent = layoutFactory()[viewId].Content.LoadContent() };
+                        if (viewId == "Settings")
+                            Window.Current.Content = new SettingsView(CreateSettingViews(), localizationService);
+                        else
+                            Window.Current.Content = new SubView { ActualContent = layoutFactory()[viewId].LoadContent() };
 
                         view.Consolidated += (s, e) =>
                         {

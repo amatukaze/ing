@@ -2,9 +2,9 @@
     x:Class="Sakuno.ING.UWP.SettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Sakuno.ING.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sh="using:Sakuno.ING.Shell"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
     <Grid>
@@ -18,12 +18,12 @@
         <Pivot ItemsSource="{x:Bind Pages}"
                Grid.Row="1">
             <Pivot.HeaderTemplate>
-                <DataTemplate x:DataType="local:SettingsPageModel">
+                <DataTemplate x:DataType="sh:CategorizedSettingViews">
                     <PivotHeaderItem Content="{x:Bind Title}"/>
                 </DataTemplate>
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>
-                <DataTemplate x:DataType="local:SettingsPageModel">
+                <DataTemplate x:DataType="sh:CategorizedSettingViews">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Auto">
                         <ItemsControl ItemsSource="{x:Bind Content}"/>

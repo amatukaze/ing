@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json.Linq;
-using Sakuno.ING.Composition;
 using Sakuno.ING.Game;
+using Sakuno.ING.Shell;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Localization;
+using System.ComponentModel;
 #if NET461
 using System.Windows;
 using System.Windows.Controls;
@@ -34,7 +35,9 @@ namespace Sakuno.ING.Shell.Layout
     {
         public string Id { get; set; }
         public string Title { get; set; }
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public DataTemplate Content { get; set; }
+        internal object LoadContent() => Content.LoadContent();
     }
 
     public class ViewPresenter : ContentControl
@@ -45,9 +48,9 @@ namespace Sakuno.ING.Shell.Layout
         }
 
         internal static readonly DependencyProperty ViewSourceProperty
-            = DependencyProperty.Register(nameof(ViewSource), typeof(IReadOnlyDictionary<string, Type>), typeof(ViewPresenter), new PropertyMetadata(null, (d, _) => ((ViewPresenter)d).UpdateContent()));
+            = DependencyProperty.Register(nameof(ViewSource), typeof(Func<string, object>), typeof(ViewPresenter), new PropertyMetadata(null, (d, _) => ((ViewPresenter)d).UpdateContent()));
 
-        private IReadOnlyDictionary<string, Type> ViewSource => (IReadOnlyDictionary<string, Type>)GetValue(ViewSourceProperty);
+        private Func<string, object> ViewSource => (Func<string, object>)GetValue(ViewSourceProperty);
 
         private string _viewId;
         public string ViewId
@@ -62,8 +65,9 @@ namespace Sakuno.ING.Shell.Layout
 
         private void UpdateContent()
         {
-            if (ViewSource != null && ViewSource.TryGetValue(ViewId, out Type viewType))
-                Content = Activator.CreateInstance(viewType);
+            var obj = ViewSource?.Invoke(ViewId);
+            if (obj != null)
+                Content = obj;
             else
                 Content = null;
         }
@@ -83,11 +87,12 @@ namespace Sakuno.ING.Shell.Layout
 #elif WINDOWS_UWP
         protected override object ProvideValue()
 #endif
-            => Compositor.Default.Resolve<ILocalizationService>()?.GetLocalized("ViewTitle", ViewId) ?? ViewId;
+            => Compositor.Default?.Resolve<ILocalizationService>()?.GetLocalized("ViewTitle", ViewId) ?? ViewId;
     }
 
     public class ViewSwitcher : Button
     {
+        private bool autoContent = true;
         private string _viewId;
         public string ViewId
         {
@@ -95,11 +100,21 @@ namespace Sakuno.ING.Shell.Layout
             set
             {
                 _viewId = value;
-                Content = Compositor.Default.Resolve<ILocalizationService>()?.GetLocalized("ViewTitle", value) ?? value;
+                if (Content == null || autoContent)
+                {
+                    Content = Compositor.Default?.Resolve<ILocalizationService>()?.GetLocalized("ViewTitle", value) ?? value;
+                    autoContent = false;
+                }
             }
         }
 
         internal const string SwitchActionKey = "ViewSwitchAction";
+
+        protected override void OnContentChanged(object oldContent, object newContent)
+        {
+            base.OnContentChanged(oldContent, newContent);
+            autoContent = false;
+        }
 
 #if NET461
         protected override void OnClick()
