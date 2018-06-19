@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Localization;
 using Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel.Resources.Core;
 
 namespace Sakuno.ING.UWP
 {
+    [Export(typeof(ILocalizationService))]
     internal class LocalizationService : ILocalizationService
     {
         private readonly ResourceLoader localizedLoader = ResourceLoader.GetForViewIndependentUse();

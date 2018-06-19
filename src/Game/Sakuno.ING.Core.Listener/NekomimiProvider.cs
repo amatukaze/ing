@@ -1,4 +1,5 @@
 ﻿using System;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Messaging;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Timing;
@@ -6,10 +7,11 @@ using Sakuno.Nekomimi;
 
 namespace Sakuno.ING.Services.Listener
 {
+    [Export(typeof(ITextStreamProvider))]
     internal class NekomimiProvider : ITextStreamProvider
     {
         public event TimedMessageHandler<TextMessage> Received;
-        private readonly ProxyServer server;
+        private readonly ProxyServer server = new ProxyServer();
         private readonly ITimingService dateTime;
         private readonly ProxySetting setting;
         private bool enabled;
@@ -29,9 +31,8 @@ namespace Sakuno.ING.Services.Listener
             }
         }
 
-        public NekomimiProvider(ProxyServer server, ITimingService dateTime, ProxySetting setting)
+        public NekomimiProvider(ITimingService dateTime, ProxySetting setting)
         {
-            this.server = server;
             this.dateTime = dateTime;
             this.setting = setting;
             server.AfterResponse += Server_AfterResponse;

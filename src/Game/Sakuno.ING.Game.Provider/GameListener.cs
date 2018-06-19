@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.MasterData;
@@ -11,6 +12,8 @@ using Sakuno.ING.Services;
 
 namespace Sakuno.ING.Game
 {
+    [Export(typeof(IGameProvider))]
+    [Export(typeof(GameListener))]
     public sealed partial class GameListener : IGameProvider
     {
         private ITextStreamProvider provider;

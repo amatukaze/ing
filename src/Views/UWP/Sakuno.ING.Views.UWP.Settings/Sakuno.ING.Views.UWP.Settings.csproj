@@ -22,7 +22,6 @@
     <Compile Include="LocaleSettingView.xaml.cs">
       <DependentUpon>LocaleSettingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.Settings.rd.xml" />
   </ItemGroup>

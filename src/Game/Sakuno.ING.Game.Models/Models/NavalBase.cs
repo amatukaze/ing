@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Localization;
@@ -8,6 +9,7 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game.Models
 {
+    [Export(typeof(NavalBase))]
     public class NavalBase : BindableObject
     {
         public ILocalizationService Localization { get; }

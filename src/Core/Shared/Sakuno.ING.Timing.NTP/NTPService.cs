@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
+using Sakuno.ING.Composition;
 
 namespace Sakuno.ING.Timing.NTP
 {
+    [Export(typeof(ITimingService), LazyCreate = false)]
     public class NTPService : ITimingService
     {
         const int NDPPort = 123;
@@ -45,6 +47,20 @@ namespace Sakuno.ING.Timing.NTP
             _allPropertiesChanged = EventArgsCache.PropertyChanged.Get(string.Empty);
 
             _tickFrequency = DateTimeUtil.TicksPerSecond / Stopwatch.Frequency;
+        }
+
+        public NTPService()
+        {
+            SyncDateTime();
+
+            PropertyChanged += (s, e) =>
+            {
+                if (!IsSycned)
+                    return;
+
+                Console.Write('\r');
+                Console.Write(Now.ToString("JST: yyyy/MM/dd HH:mm:ss"));
+            };
         }
 
         async void SetTimer()

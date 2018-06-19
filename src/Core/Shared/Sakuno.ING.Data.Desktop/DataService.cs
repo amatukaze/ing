@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Sakuno.ING.Composition;
 
 namespace Sakuno.ING.Data.Desktop
 {
+    [Export(typeof(IDataService))]
     internal class DataService : IDataService
     {
         private readonly string basePath =

@@ -4,11 +4,13 @@ using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.ING.Views.UWP.MasterData
 {
+    [ExportView("MasterData")]
     public sealed partial class MasterDataView : UserControl
     {
-        private readonly MasterDataRoot MasterData = StaticResolver.Instance.Resolve<NavalBase>().MasterData;
-        public MasterDataView()
+        private readonly MasterDataRoot MasterData;
+        public MasterDataView(MasterDataRoot masterData)
         {
+            MasterData = masterData;
             this.InitializeComponent();
         }
     }

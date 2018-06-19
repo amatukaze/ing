@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
@@ -10,6 +11,7 @@ using Sakuno.ING.Shell.Layout;
 
 namespace Sakuno.ING.Shell.Desktop
 {
+    [Export(typeof(IShell))]
     internal class DesktopShell : FlexibleShell
     {
         private readonly LayoutSetting layoutSetting;

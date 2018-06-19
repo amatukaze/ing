@@ -22,7 +22,6 @@
     <Compile Include="ApiDebugView.xaml.cs">
       <DependentUpon>ApiDebugView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.ApiDebug.rd.xml" />
   </ItemGroup>

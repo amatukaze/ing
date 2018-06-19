@@ -5,18 +5,20 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Localization;
+using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Views.Desktop.Settings
 {
+    [ExportSettingView(SettingCategory.Appearance)]
     public partial class LocaleSettingView : UserControl
     {
-        public LocaleSettingView()
+        public LocaleSettingView(ILocalizationService localization)
         {
             InitializeComponent();
             languages.ItemsSource = new[]
             {
                 new { Name = "(default)", Key = string.Empty }
-            }.Concat(StaticResolver.Instance.Resolve<ILocalizationService>()
+            }.Concat(localization
             .SupportedCultures
             .Select(x => new
             {

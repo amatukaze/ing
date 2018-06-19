@@ -22,7 +22,6 @@
     <Compile Include="MasterDataView.xaml.cs">
       <DependentUpon>MasterDataView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.MasterData.rd.xml" />
   </ItemGroup>

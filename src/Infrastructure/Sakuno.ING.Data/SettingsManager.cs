@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Data
 {
+    [Export(typeof(ISettingsManager), LazyCreate = false)]
     internal class SettingsManager : ISettingsManager
     {
         private readonly DbContextOptions<SettingsDbContext> options;
@@ -13,6 +15,9 @@ namespace Sakuno.ING.Data
         public SettingsManager(IDataService dataService)
         {
             options = dataService.ConfigureDbContext<SettingsDbContext>("settings");
+
+            using (var context = CreateDbContext())
+                context.Database.Migrate();
         }
 
         public SettingsDbContext CreateDbContext() => new SettingsDbContext(options);

@@ -1,9 +1,11 @@
 ﻿using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Sakuno.ING.Composition;
 using Windows.Storage;
 
 namespace Sakuno.ING.Data.UWP
 {
+    [Export(typeof(IDataService))]
     internal class DataService : IDataService
     {
         private readonly StorageFolder dataRoot = ApplicationData.Current.LocalFolder;

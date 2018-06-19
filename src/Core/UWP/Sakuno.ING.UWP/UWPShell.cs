@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
@@ -15,6 +16,7 @@ using Windows.UI.Xaml.Markup;
 
 namespace Sakuno.ING.UWP
 {
+    [Export(typeof(IShell))]
     internal class UWPShell : FlexibleShell
     {
         private readonly LayoutSetting layoutSetting;

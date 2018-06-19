@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Messaging;
 using Sakuno.ING.Services;
 using Sakuno.ING.Timing;
@@ -8,6 +9,7 @@ using Windows.Web.Http;
 
 namespace Sakuno.ING.UWP.Bridge
 {
+    [Export(typeof(ITextStreamProvider))]
     internal class Provider : BindableObject, ITextStreamProvider
     {
         private readonly ITimingService dateTimeService;

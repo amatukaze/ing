@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sakuno.ING.Composition;
+using Sakuno.ING.Localization;
 #if NET461
 using System.Windows;
 using System.Windows.Controls;
@@ -82,7 +83,7 @@ namespace Sakuno.ING.Shell.Layout
 #elif WINDOWS_UWP
         protected override object ProvideValue()
 #endif
-            => StaticResolver.LocalizationService?.GetLocalized("ViewTitle", ViewId) ?? ViewId;
+            => Compositor.Default.Resolve<ILocalizationService>()?.GetLocalized("ViewTitle", ViewId) ?? ViewId;
     }
 
     public class ViewSwitcher : Button
@@ -94,7 +95,7 @@ namespace Sakuno.ING.Shell.Layout
             set
             {
                 _viewId = value;
-                Content = StaticResolver.LocalizationService?.GetLocalized("ViewTitle", value) ?? value;
+                Content = Compositor.Default.Resolve<ILocalizationService>()?.GetLocalized("ViewTitle", value) ?? value;
             }
         }
 

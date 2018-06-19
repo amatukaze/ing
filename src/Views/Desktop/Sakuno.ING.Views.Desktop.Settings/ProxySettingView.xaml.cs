@@ -1,10 +1,10 @@
 ﻿using System.Windows.Controls;
+using Sakuno.ING.Composition;
+using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Views.Desktop.Settings
 {
-    /// <summary>
-    /// ProxySettingView.xaml 的交互逻辑
-    /// </summary>
+    [ExportSettingView(SettingCategory.Network)]
     public partial class ProxySettingView : UserControl
     {
         public ProxySettingView()

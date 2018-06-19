@@ -1,5 +1,8 @@
-﻿namespace Sakuno.ING.Settings
+﻿using Sakuno.ING.Composition;
+
+namespace Sakuno.ING.Settings
 {
+    [Export(typeof(LocaleSetting))]
     public class LocaleSetting
     {
         public LocaleSetting(ISettingsManager manager)

@@ -1,5 +1,8 @@
-﻿namespace Sakuno.ING.Settings
+﻿using Sakuno.ING.Composition;
+
+namespace Sakuno.ING.Settings
 {
+    [Export(typeof(LayoutSetting))]
     public class LayoutSetting
     {
         public LayoutSetting(ISettingsManager manager)

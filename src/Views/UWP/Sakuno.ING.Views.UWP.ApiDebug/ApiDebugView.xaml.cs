@@ -14,14 +14,14 @@ namespace Sakuno.ING.Views.UWP.ApiDebug
         public DateTimeOffset TimeStamp;
         public JToken Body;
     }
+    [ExportView("ApiDebug")]
     public sealed partial class ApiDebugView : UserControl
     {
-        private readonly GameListener Provider = StaticResolver.Instance.Resolve<GameListener>();
         private readonly ObservableCollection<Message> Sessions = new ObservableCollection<Message>();
-        public ApiDebugView()
+        public ApiDebugView(GameListener provider)
         {
             this.InitializeComponent();
-            Provider.RegisterAny().Received +=
+            provider.RegisterAny().Received +=
                 async (timeStamp, obj) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     Sessions.Add(new Message

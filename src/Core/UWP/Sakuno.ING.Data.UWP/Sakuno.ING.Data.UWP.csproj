@@ -20,7 +20,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataService.cs" />
-    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageSelectionDialog.xaml.cs">
       <DependentUpon>StorageSelectionDialog.xaml</DependentUpon>

@@ -1,18 +1,19 @@
 ﻿using Sakuno.ING.Composition;
 using Sakuno.ING.Services;
+using Sakuno.ING.Settings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-//https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
-
 namespace Sakuno.ING.UWP.Bridge
 {
+    [ExportSettingView(SettingCategory.Network)]
     public sealed partial class BridgeInfo : UserControl
     {
         private string Version = Constants.Version;
-        private Provider Provider = (Provider)StaticResolver.Instance.Resolve<ITextStreamProvider>();
-        public BridgeInfo()
+        private readonly Provider Provider;
+        public BridgeInfo(ITextStreamProvider provider)
         {
+            Provider = (Provider)provider;
             this.InitializeComponent();
         }
 

@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Newtonsoft.Json;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Localization.Embed
 {
+    [Export(typeof(ILocalizationService))]
     internal class LocalizationService : ILocalizationService
     {
         private readonly Dictionary<string, Dictionary<string, string>> _currentCulture, _fallback, _gameContent;

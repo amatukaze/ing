@@ -1,10 +1,12 @@
 ﻿using System.Linq;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Data;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Logger
 {
+    [Export(typeof(Logger), LazyCreate = false)]
     internal class Logger
     {
         private readonly IDataService dataService;

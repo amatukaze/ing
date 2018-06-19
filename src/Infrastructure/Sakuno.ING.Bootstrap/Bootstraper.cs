@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Autofac;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Services;
 using Sakuno.ING.Shell;
@@ -11,15 +10,6 @@ namespace Sakuno.ING.Bootstrap
 {
     public static class Bootstraper
     {
-        static IEnumerable<PackageStartupInfo> _packages;
-        static IPackageStorage _storage;
-
-        static IList<IModule> _modules;
-        static IDictionary<string, ModuleInfo> _moduleInfos;
-
-        static IContainer _container;
-        static IResolver _resolver;
-
         public static bool IsInitialized { get; private set; }
 
         public static void InitializeFromAssemblyNames(string[] commandLine, params string[] assemblyNames)
@@ -44,9 +34,6 @@ namespace Sakuno.ING.Bootstrap
                 throw new InvalidOperationException("Bootstrapper can only be initialized once.");
             IsInitialized = true;
 
-            _packages = packages;
-            _storage = storage;
-
             var currentAssembly = typeof(Bootstraper).Assembly;
             var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 
@@ -67,73 +54,28 @@ namespace Sakuno.ING.Bootstrap
             Console.ForegroundColor = foregroundColor;
             Console.WriteLine();
 
-            ImportModuleTypes();
-            ComposeModules();
-            InitializeModules();
+            var moduleInfos = packages.ToDictionary(p => p.Id, p => new ModuleInfo(p.Id, p.Version, p.Dependencies.Keys), StringComparer.OrdinalIgnoreCase);
+            var assemblies = packages.Select(p => p.Module.Value).ToArray();
+            var compositor = new Compositor(assemblies
+                .SelectMany(a => a.DefinedTypes
+                .SelectMany(t => t.GetCustomAttributes<ExportAttribute>()
+                .Select(attr => new Export
+                {
+                    ImplementationType = t,
+                    ContractType = attr.ContractType,
+                    SingleInstance = attr.SingleInstance,
+                    LazyCreate = attr.LazyCreate
+                }))));
+            compositor.AttachInstance<IModuleList>(new ModuleList(moduleInfos));
+            compositor.AttachInstance<IPackageService>(new PackageService(packages, storage));
+            Compositor.SetDefault(compositor);
         }
 
         public static void Startup()
         {
-            _resolver.Resolve<IShell>().Run();
-        }
-
-        static void ImportModuleTypes()
-        {
-            _moduleInfos = new Dictionary<string, ModuleInfo>(StringComparer.OrdinalIgnoreCase);
-
-            foreach (var item in _packages)
-            {
-                if (item.Module == null) continue;
-                var packageId = item.Id;
-
-                var isDuplicate = false;
-
-                foreach (var moduleType in item.Module.Value.GetTypes().Where(r => r.IsConcrete() && r.IsAssignableTo<IModule>()))
-                {
-                    if (isDuplicate)
-                        continue;
-
-                    isDuplicate = true;
-
-                    var info = new ModuleInfo(packageId, item.Version, item.Dependencies.Keys, moduleType);
-
-                    _moduleInfos.Add(packageId, info);
-                }
-            }
-
-            var graph = new Graph(_moduleInfos.Values);
-
-            graph.Build(_moduleInfos);
-
-            var orderedModules = graph.GenerateSortedModuleList();
-
-            _modules = orderedModules.Select(r => (IModule)Activator.CreateInstance(r.EntryType)).ToArray();
-        }
-        static void ComposeModules()
-        {
-            var containerBuilder = new ContainerBuilder();
-
-            var builder = new Builder(containerBuilder);
-
-            foreach (var exposableModule in _modules.OfType<IExposableModule>())
-                exposableModule.Expose(builder);
-
-            builder.Complete();
-
-            containerBuilder.Register(_ => new Resolver(_container)).As<IResolver>().SingleInstance();
-
-            containerBuilder.RegisterInstance(new ModuleList(_moduleInfos)).As<IModuleList>().SingleInstance();
-            containerBuilder.RegisterInstance(new PackageService(_packages, _storage)).As<IPackageService>().SingleInstance();
-
-            _container = containerBuilder.Build();
-        }
-
-        static void InitializeModules()
-        {
-            StaticResolver.Initialize(_resolver = _container.Resolve<IResolver>());
-
-            foreach (var module in _modules)
-                module.Initialize(_resolver);
+            if (Compositor.Default == null)
+                throw new InvalidOperationException("Bootstrapper not initialized.");
+            Compositor.Default.Resolve<IShell>().Run();
         }
     }
 }
