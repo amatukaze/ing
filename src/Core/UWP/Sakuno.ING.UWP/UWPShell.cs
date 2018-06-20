@@ -99,8 +99,8 @@ namespace Sakuno.ING.UWP
 
                         view.Consolidated += (s, e) =>
                         {
-                            Window.Current.Content = null;
                             applicationViewIds.TryRemove(viewId, out _);
+                            CoreApplication.GetCurrentView().CoreWindow.Close();
                         };
 
                         Window.Current.Activate();
