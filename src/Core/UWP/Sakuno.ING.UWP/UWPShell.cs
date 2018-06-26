@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Markup;
 namespace Sakuno.ING.UWP
 {
     [Export(typeof(IShell))]
-    internal class UWPShell : FlexibleShell
+    internal class UWPShell : FlexibleShell<FrameworkElement>
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ITextStreamProvider gameProvider;
@@ -26,8 +26,8 @@ namespace Sakuno.ING.UWP
         private string[] viewIds;
         private readonly ConcurrentDictionary<string, int> applicationViewIds = new ConcurrentDictionary<string, int>();
 
-        public UWPShell(LayoutSetting layoutSetting, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localizationService, Compositor compositor)
-            : base(localizationService, compositor)
+        public UWPShell(LayoutSetting layoutSetting, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localizationService)
+            : base(localizationService)
         {
             this.layoutSetting = layoutSetting;
             this.gameProvider = gameProvider;

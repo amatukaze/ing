@@ -87,7 +87,7 @@ namespace Sakuno.ING.Shell.Layout
 #elif WINDOWS_UWP
         protected override object ProvideValue()
 #endif
-            => Compositor.Default?.Resolve<ILocalizationService>()?.GetLocalized("ViewTitle", ViewId) ?? ViewId;
+            => Compositor.Static<ILocalizationService>()?.GetLocalized("ViewTitle", ViewId) ?? ViewId;
     }
 
     public class ViewSwitcher : Button
@@ -102,7 +102,7 @@ namespace Sakuno.ING.Shell.Layout
                 _viewId = value;
                 if (Content == null || autoContent)
                 {
-                    Content = Compositor.Default?.Resolve<ILocalizationService>()?.GetLocalized("ViewTitle", value) ?? value;
+                    Content = Compositor.Static<ILocalizationService>()?.GetLocalized("ViewTitle", value) ?? value;
                     autoContent = false;
                 }
             }

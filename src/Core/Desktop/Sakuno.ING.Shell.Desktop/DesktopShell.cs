@@ -12,7 +12,7 @@ using Sakuno.ING.Shell.Layout;
 namespace Sakuno.ING.Shell.Desktop
 {
     [Export(typeof(IShell), LazyCreate = false)]
-    internal class DesktopShell : FlexibleShell
+    internal class DesktopShell : FlexibleShell<FrameworkElement>
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ILocalizationService localization;
@@ -22,8 +22,8 @@ namespace Sakuno.ING.Shell.Desktop
         private readonly List<Window> layoutWindows = new List<Window>();
         private LayoutRoot layout;
 
-        public DesktopShell(LayoutSetting layoutSetting, ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider, Compositor compositor)
-            : base(localization, compositor)
+        public DesktopShell(LayoutSetting layoutSetting, ILocalizationService localization, LocaleSetting locale, ITextStreamProvider provider)
+            : base(localization)
         {
             this.layoutSetting = layoutSetting;
             this.localization = localization;

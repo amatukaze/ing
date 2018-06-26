@@ -34,6 +34,7 @@ namespace Sakuno.ING.UWP
             if (!Bootstraper.IsInitialized)
                 Bootstraper.InitializeFromAssemblyNames
                 (
+                    typeof(FrameworkElement),
                     Array.Empty<string>(),
                     "Sakuno.ING.Data",
                     "Sakuno.ING.Data.UWP",

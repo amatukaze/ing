@@ -15,7 +15,7 @@ namespace Sakuno.ING.Views.Desktop
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
             var split = Key.Split('/');
-            return Compositor.Default?.Resolve<ILocalizationService>()?.GetLocalized(split[0], split[1]) ?? Key;
+            return Compositor.Static<ILocalizationService>()?.GetLocalized(split[0], split[1]) ?? Key;
         }
     }
 }

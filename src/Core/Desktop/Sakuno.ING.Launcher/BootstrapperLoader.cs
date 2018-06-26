@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using Sakuno.ING.Bootstrap;
 
 namespace Sakuno.ING
@@ -9,7 +10,7 @@ namespace Sakuno.ING
     {
         public static void Startup(string[] commandLine, IEnumerable<Package> packages)
         {
-            Bootstraper.Initialize(commandLine, packages.Select(p => new PackageStartupInfo
+            Bootstraper.Initialize(typeof(FrameworkElement), commandLine, packages.Select(p => new PackageStartupInfo
             {
                 Id = p.Id,
                 Version = p.Version,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
 using Sakuno.ING.Bootstrap;
 
 namespace Sakuno.ING
@@ -13,6 +14,7 @@ namespace Sakuno.ING
 
             Bootstraper.InitializeFromAssemblyNames
             (
+                typeof(FrameworkElement),
                 Array.Empty<string>(),
                 "Sakuno.ING.Core.Listener",
                 "Sakuno.ING.Data",
