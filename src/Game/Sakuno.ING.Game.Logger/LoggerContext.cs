@@ -5,9 +5,9 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Logger
 {
-    internal class LoggerContext : DbContext
+    public class LoggerContext : DbContext
     {
-        public LoggerContext(DbContextOptions<LoggerContext> options) : base(options) { }
+        internal LoggerContext(DbContextOptions<LoggerContext> options) : base(options) { }
 
         public DbSet<ShipCreation> ShipCreationTable { get; private set; }
         public DbSet<EquipmentCreation> EquipmentCreationTable { get; private set; }

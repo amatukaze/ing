@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Data;
 using Sakuno.ING.Game.Logger.Entities;
@@ -7,7 +8,7 @@ using Sakuno.ING.Game.Models;
 namespace Sakuno.ING.Game.Logger
 {
     [Export(typeof(Logger), LazyCreate = false)]
-    internal class Logger
+    public class Logger
     {
         private readonly IDataService dataService;
         private readonly NavalBase navalBase;
@@ -83,6 +84,9 @@ namespace Sakuno.ING.Game.Logger
                     context.SaveChanges();
                 }
             };
+
+            using (var context = CreateContext())
+                context.Database.Migrate();
         }
 
         public LoggerContext CreateContext() => new LoggerContext(dataService.ConfigureDbContext<LoggerContext>("logs"));
