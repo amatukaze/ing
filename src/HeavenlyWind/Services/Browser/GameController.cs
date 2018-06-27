@@ -169,8 +169,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             Preference.Instance.Browser.Zoom.Value = rpZoom;
 
-            r_Owner.Communicator.Write(CommunicatorMessages.SetZoom + ":" + rpZoom);
-            r_Owner.Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
+            r_Owner.SendMessage(CommunicatorMessages.SetZoom + ":" + rpZoom).Forget();
+            r_Owner.SendMessage(CommunicatorMessages.ResizeBrowserToFitGame).Forget();
             r_Owner.BrowserControl.Dispatcher.InvokeAsync(r_Owner.BrowserControl.ResizeBrowserToFitGame);
         }
 

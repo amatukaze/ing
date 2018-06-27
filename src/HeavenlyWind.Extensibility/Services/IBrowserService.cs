@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Sakuno.KanColle.Amatsukaze.Extensibility.Services
@@ -11,6 +12,7 @@ namespace Sakuno.KanColle.Amatsukaze.Extensibility.Services
         event EventHandler<Size> Resized;
         event Action ResizedToFitGame;
 
-        IDisposable RegisterMessageObserver(string message, Action<string> observer);
+        void RegisterMessageHandler(string command, Action<string> handler);
+        void RegisterAsyncMessageHandler(string command, Func<string, Task> handler);
     }
 }

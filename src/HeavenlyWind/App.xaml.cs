@@ -49,14 +49,7 @@ namespace Sakuno.KanColle.Amatsukaze
                 var rLayoutEngine = e.Args[1];
                 var rHostProcessID = int.Parse(e.Args[2]);
 
-                new BrowserWrapper(rLayoutEngine, rHostProcessID);
-
-                Task.Factory.StartNew(() =>
-                {
-                    Process.GetProcessById(rHostProcessID).WaitForExit();
-                    Process.GetCurrentProcess().Kill();
-                }, TaskCreationOptions.LongRunning);
-
+                BrowserCore(rLayoutEngine, rHostProcessID);
                 return;
             }
 
@@ -102,6 +95,16 @@ namespace Sakuno.KanColle.Amatsukaze
             MainWindow = rMainWindow;
             MainWindow.DataContext = Root = new MainWindowViewModel();
             MainWindow.Show();
+        }
+        async void BrowserCore(string layoutEngine, int hostProcessId)
+        {
+            var browser = new BrowserWrapper(layoutEngine, hostProcessId);
+
+            browser.Connect();
+
+            await Process.GetProcessById(hostProcessId);
+
+            Process.GetCurrentProcess().Kill();
         }
 
         protected override void OnExit(ExitEventArgs e)

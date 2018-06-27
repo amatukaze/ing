@@ -80,9 +80,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         {
             r_Owner = rpOwner;
 
-            r_Owner.Messages.Subscribe(CommunicatorMessages.LoadCompleted, r =>
+            r_Owner.RegisterMessageHandler(CommunicatorMessages.LoadCompleted, parameter =>
             {
-                var rMatch = r_LoadCompletedParameterRegex.Match(r);
+                var rMatch = r_LoadCompletedParameterRegex.Match(parameter);
                 if (!rMatch.Success)
                     return;
 
@@ -101,15 +101,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             ResizeBrowserToFitGameCommand = new DelegatedCommand(ResizeBrowserToFitGame);
         }
 
-        public void GoBack() => r_Owner.Communicator.Write(CommunicatorMessages.GoBack);
-        public void GoForward() => r_Owner.Communicator.Write(CommunicatorMessages.GoForward);
+        public void GoBack() => r_Owner.SendMessage(CommunicatorMessages.GoBack).Forget();
+        public void GoForward() => r_Owner.SendMessage(CommunicatorMessages.GoForward).Forget();
 
         public void Navigate() => Navigate(Url);
         public void Navigate(string rpUrl)
         {
-            Uri rUri;
-            if (!rpUrl.IsNullOrEmpty() && Uri.TryCreate(rpUrl, UriKind.Absolute, out rUri))
-                r_Owner.Communicator.Write(CommunicatorMessages.Navigate + ":" + rUri.ToString());
+            if (rpUrl.IsNullOrEmpty() || !Uri.TryCreate(rpUrl, UriKind.Absolute, out var rUri))
+                return;
+
+            r_Owner.SendMessage(CommunicatorMessages.Navigate + ":" + rUri.ToString()).Forget();
         }
 
         public void Refresh()
@@ -117,10 +118,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             if (r_Url.IsNullOrEmpty())
                 return;
 
-            r_Owner.Communicator.Write(CommunicatorMessages.Refresh);
+            r_Owner.SendMessage(CommunicatorMessages.Refresh).Forget();
         }
 
-        public void ResizeBrowserToFitGame() => r_Owner.ResizeBrowserToFitGame();
+        public void ResizeBrowserToFitGame() => r_Owner.ResizeBrowserToFitGame().Forget();
 
         void SetCookie()
         {
@@ -131,7 +132,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             if (!Uri.TryCreate(rScript, UriKind.Absolute, out rUri))
                 return;
 
-            r_Owner.Communicator.Write(CommunicatorMessages.Navigate + ":" + rUri.ToString());
+            r_Owner.SendMessage(CommunicatorMessages.Navigate + ":" + rUri.ToString()).Forget();
 
             var rDialog = new TaskDialog()
             {

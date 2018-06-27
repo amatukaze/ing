@@ -21,7 +21,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         {
             r_Handle = rpHandle;
 
-            BrowserService.Instance.Messages.SubscribeOnDispatcher(CommunicatorMessages.InvalidateArrange, _ => InvalidateArrange());
+            BrowserService.Instance.RegisterMessageHandler(CommunicatorMessages.InvalidateArrange, _ => InvalidateArrange());
 
             var rUIZoom = Preference.Instance.UI.Zoom.Value;
             LayoutTransform = r_ScaleTransform = new ScaleTransform(1.0 / rUIZoom, 1.0 / rUIZoom);

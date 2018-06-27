@@ -9,10 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Pipes;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using System.Windows;
 using System.Windows.Input;
 
@@ -22,8 +24,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services
     {
         public static BrowserService Instance { get; } = new BrowserService();
 
-        internal MemoryMappedFileCommunicator Communicator { get; private set; }
-        internal IConnectableObservable<KeyValuePair<string, string>> Messages { get; private set; }
+        NamedPipeServerStream _namedPipeServer;
+        StreamWriter _writer;
+        SortedList<string, List<object>> _messageHandlers = new SortedList<string, List<object>>(StringComparer.OrdinalIgnoreCase);
+
+        BufferBlock<string> _messageQueue = new BufferBlock<string>();
 
         public IList<LayoutEngineInfo> InstalledLayoutEngines { get; private set; }
 
@@ -82,8 +87,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             r_IsNavigatorVisible = true;
 
-            ClearCacheCommand = new DelegatedCommand(() => Communicator.Write(CommunicatorMessages.ClearCache));
-            ClearCacheAndCookieCommand = new DelegatedCommand(() => Communicator.Write(CommunicatorMessages.ClearCacheAndCookie));
+            ClearCacheCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCache).Forget());
+            ClearCacheAndCookieCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCacheAndCookie).Forget());
         }
 
         public void Initialize()
@@ -97,7 +102,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     return;
                 }
 
-                InitializeCommunicator();
+                InitializeNamedPipe();
 
                 var rStartInfo = new ProcessStartInfo()
                 {
@@ -110,16 +115,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 r_BrowserProcess.BeginOutputReadLine();
                 r_BrowserProcess.OutputDataReceived += (s, e) => Trace.WriteLine(e.Data);
 
-                Messages.Subscribe(CommunicatorMessages.Ready, _ => Communicator.Write(CommunicatorMessages.SetPort + ":" + Preference.Instance.Network.Port));
-                Messages.SubscribeOnDispatcher(CommunicatorMessages.Attach, rpHandle => Attach((IntPtr)int.Parse(rpHandle)));
+                RegisterAsyncMessageHandler(CommunicatorMessages.Ready, _=> SendMessage(CommunicatorMessages.SetPort + ":" + Preference.Instance.Network.Port));
+                RegisterAsyncMessageHandler(CommunicatorMessages.Attach, parameter => Attach((IntPtr)int.Parse(parameter)));
 
                 r_Initialized = true;
 
-                Messages.Subscribe(CommunicatorMessages.LoadCompleted, _ => Communicator.Write(CommunicatorMessages.SetZoom + ":" + Preference.Instance.Browser.Zoom));
-                Messages.Subscribe(CommunicatorMessages.LoadGamePageCompleted, _ => ResizeBrowserToFitGame());
+                RegisterAsyncMessageHandler(CommunicatorMessages.LoadCompleted, _=> SendMessage(CommunicatorMessages.SetZoom + ":" + Preference.Instance.Browser.Zoom));
+                RegisterAsyncMessageHandler(CommunicatorMessages.LoadGamePageCompleted, _ => ResizeBrowserToFitGame());
 
                 Navigator = new BrowserNavigator(this);
                 GameController = new GameController(this);
+
+                ConsumeMessageQueue();
+                MessageReceiverCore();
             }
         }
         bool LoadLayoutEngines()
@@ -151,19 +159,74 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             return true;
         }
-        void InitializeCommunicator()
+
+        void InitializeNamedPipe()
         {
-            Communicator = new MemoryMappedFileCommunicator($"Sakuno/HeavenlyWind({HostProcessID})", 4096);
-            Communicator.ReadPosition = 2048;
-            Communicator.WritePosition = 0;
-
-            Messages = Communicator.GetMessageObservable().Publish();
-            Messages.Connect();
-
-            Communicator.StartReader();
+            _namedPipeServer = new NamedPipeServerStream($"Sakuno/HeavenlyWind({HostProcessID})", PipeDirection.InOut, 1, PipeTransmissionMode.Message, PipeOptions.Asynchronous);
         }
 
-        async void Attach(IntPtr rpHandle)
+        public void RegisterMessageHandler(string command, Action<string> handler) => RegisterMessageHandlerCore(command, handler);
+        public void RegisterAsyncMessageHandler(string command, Func<string, Task> handler) => RegisterMessageHandlerCore(command, handler);
+        void RegisterMessageHandlerCore(string command, object handler)
+        {
+            if (!_messageHandlers.TryGetValue(command, out var handlers))
+                _messageHandlers.Add(command, handlers = new List<object>(1));
+
+            handlers.Add(handler);
+        }
+
+        public Task SendMessage(string message) => _messageQueue.SendAsync(message);
+        async void ConsumeMessageQueue()
+        {
+            while (true)
+            {
+                var message = await _messageQueue.ReceiveAsync();
+
+                await _writer.WriteLineAsync(message);
+                await _writer.FlushAsync();
+            }
+        }
+
+        async void MessageReceiverCore()
+        {
+            await Task.Factory.FromAsync(_namedPipeServer.BeginWaitForConnection, _namedPipeServer.EndWaitForConnection, null);
+
+            _writer = new StreamWriter(_namedPipeServer);
+
+            var reader = new StreamReader(_namedPipeServer);
+
+            while (true)
+            {
+                var message = await reader.ReadLineAsync();
+                if (message == null)
+                    return;
+
+                var command = message;
+                var parameter = string.Empty;
+
+                var position = message.IndexOf(':');
+                if (position != -1)
+                {
+                    command = message.Remove(position);
+                    parameter = message.Substring(position + 1);
+                }
+
+                if (_messageHandlers.TryGetValue(command, out var handlers))
+                    foreach (var handler in handlers)
+                        switch (handler)
+                        {
+                            case Action<string> syncHandler:
+                                syncHandler(parameter);
+                                break;
+
+                            case Func<string, Task> asyncHandler:
+                                await asyncHandler(parameter);
+                                break;
+                        }
+            }
+        }
+
+        async Task Attach(IntPtr rpHandle)
         {
             BrowserControl = new BrowserHost(rpHandle);
             OnPropertyChanged(nameof(BrowserControl));
@@ -177,29 +240,24 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             Navigator.Navigate(Preference.Instance.Browser.Homepage);
         }
 
-        internal async void ResizeBrowserToFitGame()
+        internal async Task ResizeBrowserToFitGame()
         {
             if (BrowserControl == null)
                 return;
 
-            var rDispatcher = BrowserControl.Dispatcher;
+            await SendMessage(CommunicatorMessages.ResizeBrowserToFitGame);
 
-            Communicator.Write(CommunicatorMessages.ResizeBrowserToFitGame);
             IsNavigatorVisible = false;
 
-            await rDispatcher.InvokeAsync(BrowserControl.ResizeBrowserToFitGame);
+            BrowserControl.ResizeBrowserToFitGame();
 
             IsResizedToFitGame = true;
             OnPropertyChanged(nameof(IsResizedToFitGame));
 
-            var rDesiredSize = await rDispatcher.InvokeAsync(() => BrowserControl.DesiredSize);
-            Resized?.Invoke(this, rDesiredSize);
+            Resized?.Invoke(this, BrowserControl.DesiredSize);
 
             ResizedToFitGame?.Invoke();
         }
-
-        public IDisposable RegisterMessageObserver(string rpMessage, Action<string> rpObserver) =>
-            Messages.Where(r => r.Key == rpMessage).Subscribe(r => rpObserver(r.Value));
 
         public void SetDefaultHomepage(string rpUrl) => Preference.Instance.Browser.Homepage.Value = rpUrl;
     }

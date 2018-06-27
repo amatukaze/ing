@@ -2,18 +2,23 @@
 using Newtonsoft.Json.Linq;
 using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Browser;
+using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.MemoryMappedFiles;
+using System.IO.Pipes;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -25,10 +30,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
     {
         static DirectoryInfo r_BrowsersDirectory;
 
+        string _layoutEngine;
+
         ContentControl r_Container;
 
-        MemoryMappedFileCommunicator r_Communicator;
-        IConnectableObservable<KeyValuePair<string, string>> r_Messages;
+        NamedPipeClientStream _namedPipeClient;
+
+        StreamWriter _writer;
+        BufferBlock<string> _messageQueue = new BufferBlock<string>();
+
+        SortedList<string, object> _messageHandlers = new SortedList<string, object>(StringComparer.OrdinalIgnoreCase);
 
         HwndSource r_HwndSource;
 
@@ -76,7 +87,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 return null;
             };
         }
-        public BrowserWrapper(string rpLayoutEngine, int rpHostProcessID)
+        public BrowserWrapper(string layoutEngine, int hostProcessId)
         {
             r_Container = new ContentControl();
             r_Container.PreviewKeyDown += (_, e) =>
@@ -85,15 +96,22 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                     e.Handled = true;
             };
 
-            InitializeCommunicator(rpHostProcessID);
+            _layoutEngine = layoutEngine;
 
-            r_Messages.Subscribe(CommunicatorMessages.SetPort, r =>
+            InitializeNamedPipe(hostProcessId);
+        }
+
+        void InitializeNamedPipe(int hostProcessId)
+        {
+            _namedPipeClient = new NamedPipeClientStream(".", $"Sakuno/HeavenlyWind({hostProcessId})", PipeDirection.InOut, PipeOptions.Asynchronous);
+
+            RegisterAsyncMessageHandler(CommunicatorMessages.SetPort, parameter =>
             {
                 try
                 {
-                    LoadBrowser(rpLayoutEngine);
+                    LoadBrowser(_layoutEngine);
 
-                    r_BrowserProvider.SetPort(int.Parse(r));
+                    r_BrowserProvider.SetPort(int.Parse(parameter));
 
                     InitializeBrowserControl();
                     r_Container.Content = r_Browser;
@@ -108,48 +126,115 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 }
 
                 InitializeHwndSource();
-                r_Communicator.Write(CommunicatorMessages.Attach + ":" + r_HwndSource.Handle.ToInt32());
 
+                return SendMessage(CommunicatorMessages.Attach + ":" + r_HwndSource.Handle.ToInt32());
             });
 
-            r_Communicator.Write(CommunicatorMessages.Ready);
-        }
+            RegisterMessageHandler(CommunicatorMessages.ClearCache, _ => r_BrowserProvider?.ClearCache(false));
+            RegisterMessageHandler(CommunicatorMessages.ClearCacheAndCookie, _ => r_BrowserProvider?.ClearCache(true));
 
-        void InitializeCommunicator(int rpHostProcessID)
-        {
-            r_Communicator = new MemoryMappedFileCommunicator($"Sakuno/HeavenlyWind({rpHostProcessID})", 4096);
-            r_Communicator.ReadPosition = 0;
-            r_Communicator.WritePosition = 2048;
+            RegisterMessageHandler(CommunicatorMessages.GoBack, _ => r_Browser?.GoBack());
+            RegisterMessageHandler(CommunicatorMessages.GoForward, _ => r_Browser?.GoForward());
+            RegisterMessageHandler(CommunicatorMessages.Navigate, rpUrl => r_Browser?.Navigate(rpUrl));
+            RegisterMessageHandler(CommunicatorMessages.Refresh, _ => r_Browser?.Refresh());
 
-            r_Messages = r_Communicator.GetMessageObservable().ObserveOnDispatcher().Publish();
-            r_Messages.Connect();
-
-            r_Communicator.StartReader();
-
-            r_Messages.Subscribe(CommunicatorMessages.ClearCache, _ => r_BrowserProvider?.ClearCache(false));
-            r_Messages.Subscribe(CommunicatorMessages.ClearCacheAndCookie, _ => r_BrowserProvider?.ClearCache(true));
-
-            r_Messages.Subscribe(CommunicatorMessages.GoBack, _ => r_Browser?.GoBack());
-            r_Messages.Subscribe(CommunicatorMessages.GoForward, _ => r_Browser?.GoForward());
-            r_Messages.Subscribe(CommunicatorMessages.Navigate, rpUrl => r_Browser?.Navigate(rpUrl));
-            r_Messages.Subscribe(CommunicatorMessages.Refresh, _ => r_Browser?.Refresh());
-
-            r_Messages.Subscribe(CommunicatorMessages.SetZoom, r =>
+            RegisterAsyncMessageHandler(CommunicatorMessages.SetZoom, r =>
             {
                 r_Zoom = double.Parse(r);
                 r_Browser?.SetZoom(r_Zoom);
-                r_Communicator.Write(CommunicatorMessages.InvalidateArrange);
+
+                return SendMessage(CommunicatorMessages.InvalidateArrange);
             });
 
-            r_Messages.Subscribe(CommunicatorMessages.ResizeBrowserToFitGame, _ =>
+            RegisterAsyncMessageHandler(CommunicatorMessages.ResizeBrowserToFitGame, delegate
             {
                 r_Container.Width = GameConstants.GameWidth * r_Zoom / DpiUtil.ScaleX / DpiUtil.ScaleX;
                 r_Container.Height = GameConstants.GameHeight * r_Zoom / DpiUtil.ScaleY / DpiUtil.ScaleY;
-                r_Communicator.Write(CommunicatorMessages.InvalidateArrange);
+
+                return SendMessage(CommunicatorMessages.InvalidateArrange);
             });
+        }
 
-            InitializeScreenshotMessagesSubscription();
+        public void RegisterMessageHandler(string command, Action<string> handler) => _messageHandlers.Add(command, handler);
+        public void RegisterAsyncMessageHandler(string command, Func<string, Task> handler) => _messageHandlers.Add(command, handler);
 
+        public Task SendMessage(string message) => _messageQueue.SendAsync(message);
+        async void ConsumeMessageQueue()
+        {
+            while (true)
+            {
+                var message = await _messageQueue.ReceiveAsync();
+
+                await _writer.WriteLineAsync(message);
+                await _writer.FlushAsync();
+            }
+        }
+
+        public void Connect()
+        {
+            _namedPipeClient.Connect();
+
+            _writer = new StreamWriter(_namedPipeClient);
+
+            ConsumeMessageQueue();
+            MessageReceiverCore();
+        }
+        async void MessageReceiverCore()
+        {
+            await SendMessage(CommunicatorMessages.Ready);
+
+            var reader = new StreamReader(_namedPipeClient);
+
+            try
+            {
+                while (true)
+                {
+                    var message = await reader.ReadLineAsync();
+                    if (message == null)
+                        return;
+
+                    var command = message;
+                    var parameter = string.Empty;
+
+                    var position = message.IndexOf(':');
+                    if (position != -1)
+                    {
+                        command = message.Remove(position);
+                        parameter = message.Substring(position + 1);
+                    }
+
+                    if (_messageHandlers.TryGetValue(command, out var value))
+                        switch (value)
+                        {
+                            case Action<string> syncHandler:
+                                syncHandler(parameter);
+                                break;
+
+                            case Func<string, Task> asyncHandler:
+                                await asyncHandler(parameter);
+                                break;
+                        }
+                }
+            }
+            catch (IOException e)
+            {
+                var rDialog = new TaskDialog()
+                {
+                    Caption = UnhandledExceptionDialogStringResources.ProductName,
+                    Instruction = UnhandledExceptionDialogStringResources.Instruction,
+                    Icon = TaskDialogIcon.Error,
+                    Content = UnhandledExceptionDialogStringResources.Content,
+
+                    Detail = e.ToString(),
+                    ShowDetailAtTheBottom = true,
+
+                    ShowAtTheCenterOfOwner = true,
+                };
+
+                rDialog.ShowAndDispose();
+
+                Process.GetCurrentProcess().Kill();
+            }
         }
 
         void InitializeHwndSource()
@@ -185,11 +270,12 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         {
             r_Browser = r_BrowserProvider.CreateBrowserInstance();
 
-            r_Browser.LoadCompleted += (rpCanGoBack, rpCanGoForward, rpUrl) =>
+            r_Browser.LoadCompleted += async (rpCanGoBack, rpCanGoForward, rpUrl) =>
             {
-                r_Communicator.Write(CommunicatorMessages.LoadCompleted + $":{rpCanGoBack};{rpCanGoForward};{rpUrl}");
+                await SendMessage(CommunicatorMessages.LoadCompleted + $":{rpCanGoBack};{rpCanGoForward};{rpUrl}");
+
                 if (rpUrl == GameConstants.GamePageUrl || rpUrl.Contains(".swf"))
-                    r_Communicator.Write(CommunicatorMessages.LoadGamePageCompleted);
+                    await SendMessage(CommunicatorMessages.LoadGamePageCompleted);
             };
         }
 
@@ -222,58 +308,5 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             r_BrowserProvider = (IBrowserProvider)rAssembly.CreateInstance(rType.FullName);
         }
-
-        void InitializeScreenshotMessagesSubscription()
-        {
-            MemoryMappedFile rScreenshotMMF = null;
-
-            r_Messages.Subscribe(CommunicatorMessages.TakeScreenshot, r =>
-            {
-                try
-                {
-                    var rScreenshotData = r_Browser.TakeScreenshot();
-                    if (rScreenshotData == null || rScreenshotData.BitmapData == null)
-                    {
-                        r_Communicator.Write(CommunicatorMessages.ScreenshotFail + ":" + StringResources.Instance.Main.Log_Screenshot_Failed_NoData);
-                        rScreenshotMMF = null;
-                        return;
-                    }
-
-                    var rMapName = "HeavenlyWind/ScreenshotTransmission/" + r.ToString();
-                    var rMemoryMappedFile = MemoryMappedFile.CreateNew(rMapName, rScreenshotData.BitmapData.Length, MemoryMappedFileAccess.ReadWrite);
-                    using (var rStream = rMemoryMappedFile.CreateViewStream())
-                        rStream.Write(rScreenshotData.BitmapData, 0, rScreenshotData.BitmapData.Length);
-
-                    r_Communicator.Write(CommunicatorMessages.StartScreenshotTransmission + $":{rMapName};{rScreenshotData.Width};{rScreenshotData.Height};{rScreenshotData.BitCount}");
-
-                    rScreenshotMMF = rMemoryMappedFile;
-                }
-                catch (Exception e)
-                {
-                    r_Communicator.Write($"{CommunicatorMessages.ScreenshotFail}:{r};{e.Message}");
-                    rScreenshotMMF = null;
-
-                    try
-                    {
-                        using (var rStreamWriter = new StreamWriter(Logger.GetNewExceptionLogFilename(), false, new UTF8Encoding(true)))
-                        {
-                            rStreamWriter.WriteLine("Screenshot error");
-                            rStreamWriter.WriteLine();
-                            rStreamWriter.WriteLine(e.ToString());
-                        }
-                    }
-                    catch { }
-                }
-            });
-            r_Messages.Subscribe(CommunicatorMessages.FinishScreenshotTransmission, delegate
-            {
-                if (rScreenshotMMF != null)
-                {
-                    rScreenshotMMF.Dispose();
-                    rScreenshotMMF = null;
-                }
-            });
-        }
-
     }
 }
