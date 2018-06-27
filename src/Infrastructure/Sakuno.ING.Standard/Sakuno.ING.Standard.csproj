@@ -6,4 +6,8 @@
     <Description>The module standard of Intelligent Naval Gun</Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.1" />
+  </ItemGroup>
+
 </Project>
