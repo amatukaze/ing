@@ -113,6 +113,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", 
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Sakuno.ING.ViewModels.Logging", "src\ViewModels\Sakuno.ING.ViewModels.Logging\Sakuno.ING.ViewModels.Logging.vbproj", "{1C87416D-DDEF-4416-86E6-13DC44931CF5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Logger.Migrators", "src\Game\Sakuno.ING.Game.Logger.Migrators\Sakuno.ING.Game.Logger.Migrators.csproj", "{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -830,6 +832,30 @@ Global
 		{1C87416D-DDEF-4416-86E6-13DC44931CF5}.Release|x64.Build.0 = Release|Any CPU
 		{1C87416D-DDEF-4416-86E6-13DC44931CF5}.Release|x86.ActiveCfg = Release|Any CPU
 		{1C87416D-DDEF-4416-86E6-13DC44931CF5}.Release|x86.Build.0 = Release|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Debug|ARM.Build.0 = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Debug|x64.Build.0 = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Debug|x86.Build.0 = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.DebugNative|Any CPU.ActiveCfg = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.DebugNative|Any CPU.Build.0 = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.DebugNative|ARM.ActiveCfg = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.DebugNative|ARM.Build.0 = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.DebugNative|x64.ActiveCfg = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.DebugNative|x64.Build.0 = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.DebugNative|x86.ActiveCfg = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.DebugNative|x86.Build.0 = Debug|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|ARM.Build.0 = Release|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|x64.ActiveCfg = Release|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|x64.Build.0 = Release|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|x86.ActiveCfg = Release|Any CPU
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -870,6 +896,7 @@ Global
 		{9458A085-A9BC-4FB7-91CA-370DB87D0ECA} = {5DCA75CC-ABFA-4CE0-A4FA-4666D4D1255F}
 		{E5D369E8-B344-410C-8D1A-C87E9C621C80} = {5DCA75CC-ABFA-4CE0-A4FA-4666D4D1255F}
 		{1C87416D-DDEF-4416-86E6-13DC44931CF5} = {1C43A003-5E6B-4354-BA6E-C402BE43028D}
+		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F} = {38D02581-E437-4553-815D-C4FBB67029A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D453CD6A-4918-42E2-A29D-43391DB418D2}
