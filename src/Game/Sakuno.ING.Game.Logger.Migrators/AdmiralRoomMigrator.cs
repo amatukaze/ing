@@ -19,7 +19,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
         public bool RequireFolder => true;
         public string Id => "提督の部屋";
 
-        public async ValueTask MigrateAsync(FileSystemInfo source, LoggerContext context, LogType selectedTypes)
+        public async ValueTask MigrateAsync(FileSystemInfo source, LoggerContext context, LogType selectedTypes, TimeSpan timeZoneOffset, TimeRange? range)
         {
             var folder = source as DirectoryInfo ?? throw new ArgumentException("Source must be a folder.");
 
@@ -35,7 +35,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                             continue;
                         var s = line.Split(',');
                         if (s.Length < 11) continue;
-                        DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Utc);
+                        DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]) - timeZoneOffset, DateTimeKind.Utc);
+                        if (range?.Contains(time) == false) continue;
 
                         if (context.ShipCreationTable.Find(time) != null)
                             context.ShipCreationTable.Add(new ShipCreation
@@ -71,7 +72,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                             continue;
                         var s = line.Split(',');
                         if (s.Length < 10) continue;
-                        DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Utc);
+                        DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]) - timeZoneOffset, DateTimeKind.Utc);
+                        if (range?.Contains(time) == false) continue;
 
                         if (context.EquipmentCreationTable.Find(time) != null)
                             context.EquipmentCreationTable.Add(new EquipmentCreation
@@ -107,7 +109,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                             continue;
                         var s = line.Split(',');
                         if (s.Length < 11) continue;
-                        DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Utc);
+                        DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]) - timeZoneOffset, DateTimeKind.Utc);
+                        if (range?.Contains(time) == false) continue;
 
                         if (context.ExpeditionCompletionTable.Find(time) != null)
                             context.ExpeditionCompletionTable.Add(new ExpeditionCompletion

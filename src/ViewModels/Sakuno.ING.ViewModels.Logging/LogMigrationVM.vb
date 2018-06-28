@@ -65,6 +65,19 @@ Public Class LogMigrationVM
         Me.Migrators = migrators.AsBindable()
     End Sub
 
+    Private _ranged As Boolean
+    Public Property Ranged As Boolean
+        Get
+            Return _ranged
+        End Get
+        Set(value As Boolean)
+            [Set](_ranged, value)
+        End Set
+    End Property
+    Public Property TimeZoneOffset As Double
+    Public Property DateFrom As DateTime
+    Public Property DateTo As DateTime
+
     Public Async Sub PickFile()
         Dim fs As FileSystemInfo
         If SelectedMigrator.RequireFolder Then
@@ -81,9 +94,15 @@ Public Class LogMigrationVM
         If SelectEquipmentCreation AndAlso SupportEquipmentCreation Then types = types Or LogType.EquipmentCreation
         If SelectExpeditionCompletion AndAlso SupportExpeditionCompletion Then types = types Or LogType.ExpeditionCompletion
 
+        Dim offset = TimeSpan.FromHours(TimeZoneOffset)
+        Dim range As TimeRange? = Nothing
+        Dim from = DateTime.SpecifyKind(DateFrom, DateTimeKind.Utc).Subtract(offset)
+        Dim [to] = DateTime.SpecifyKind(DateTo, DateTimeKind.Utc).Subtract(offset)
+        If Ranged Then range = New TimeRange(from, [to])
+
         Try
             Using context = logger.CreateContext()
-                Await SelectedMigrator.MigrateAsync(SelectedPath, context, types)
+                Await SelectedMigrator.MigrateAsync(SelectedPath, context, types, offset, range)
                 Await context.SaveChangesAsync()
             End Using
         Catch
