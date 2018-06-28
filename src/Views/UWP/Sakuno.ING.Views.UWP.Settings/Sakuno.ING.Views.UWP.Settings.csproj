@@ -34,7 +34,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj">
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
-      <Name>Sakuno.ING.Core.CommonSettings</Name>
+      <Name>Sakuno.ING.Settings.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

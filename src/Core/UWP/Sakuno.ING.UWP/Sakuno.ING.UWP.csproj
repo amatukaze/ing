@@ -172,11 +172,11 @@
     </ProjectReference>
     <ProjectReference Include="..\..\..\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj">
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
-      <Name>Sakuno.ING.Core.CommonSettings</Name>
+      <Name>Sakuno.ING.Settings.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Sakuno.ING.Timing.NTP\Sakuno.ING.Timing.NTP.csproj">
       <Project>{6bbbe871-beb9-47cf-bbf9-28db9b64729a}</Project>
-      <Name>Sakuno.ING.Core.DateTime</Name>
+      <Name>Sakuno.ING.Timing.NTP</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sakuno.ING.UWP.Bridge.Listener\Sakuno.ING.UWP.Bridge.Listener.csproj">
       <Project>{e38f80d6-2e82-4716-b47d-c15e54aec590}</Project>
@@ -184,7 +184,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Sakuno.ING.Data.UWP\Sakuno.ING.Data.UWP.csproj">
       <Project>{9f2de7a3-b59d-4234-b886-a1e23fe03775}</Project>
-      <Name>Sakuno.ING.UWP.Data</Name>
+      <Name>Sakuno.ING.Data.UWP</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.ApiDebug\Sakuno.ING.Views.UWP.ApiDebug.csproj">
       <Project>{185f9a4d-07de-4c67-aa3a-e0b837c23036}</Project>
