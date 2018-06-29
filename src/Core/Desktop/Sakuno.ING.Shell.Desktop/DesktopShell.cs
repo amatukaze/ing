@@ -11,7 +11,7 @@ using Sakuno.ING.Shell.Layout;
 
 namespace Sakuno.ING.Shell.Desktop
 {
-    [Export(typeof(IShell), LazyCreate = false)]
+    [Export(typeof(IShell))]
     internal class DesktopShell : FlexibleShell<FrameworkElement>
     {
         private readonly LayoutSetting layoutSetting;
@@ -55,48 +55,6 @@ namespace Sakuno.ING.Shell.Desktop
                 ShutdownMode = ShutdownMode.OnMainWindowClose
             };
 
-            var style = new Style
-            {
-                TargetType = typeof(ViewPresenter),
-            };
-            style.Setters.Add(new Setter(ViewPresenter.ViewSourceProperty, Views));
-            app.Resources[typeof(ViewPresenter)] = style;
-            app.Resources[ViewSwitcher.SwitchActionKey] = new Action<string>(viewId =>
-            {
-                var windows = Application.Current.Windows;
-                for (int i = 0; i < windows.Count; i++)
-                {
-                    var w = windows[i];
-                    if (viewId.Equals(w.Tag))
-                    {
-                        w.Activate();
-                        return;
-                    }
-                }
-
-                if (viewId == "Settings")
-                {
-                    var w = new SettingsWindow { DataContext = CreateSettingViews() };
-                    InitWindow(w);
-                    w.Show();
-                    w.Activate();
-                }
-
-                var view = layout[viewId];
-                if (view != null)
-                {
-                    var w = new Window
-                    {
-                        Tag = viewId,
-                        Title = localization.GetLocalized("ViewTitle", viewId) ?? viewId,
-                        Content = view.LoadContent(),
-                    };
-                    InitWindow(w);
-                    w.Show();
-                    w.Activate();
-                }
-            });
-
             app.Startup += (s, e) => provider.Enabled = true;
             app.Run(window);
         }
@@ -107,6 +65,42 @@ namespace Sakuno.ING.Shell.Desktop
                 window.Language = XmlLanguage.GetLanguage(localeName);
             if (userFont != null)
                 window.FontFamily = userFont;
+        }
+
+        public override void SwitchWindow(string windowId)
+        {
+            var windows = Application.Current.Windows;
+            for (int i = 0; i < windows.Count; i++)
+            {
+                var w = windows[i];
+                if (windowId.Equals(w.Tag))
+                {
+                    w.Activate();
+                    return;
+                }
+            }
+
+            if (windowId == "Settings")
+            {
+                var w = new SettingsWindow { DataContext = CreateSettingViews() };
+                InitWindow(w);
+                w.Show();
+                w.Activate();
+            }
+
+            var view = layout[windowId];
+            if (view != null)
+            {
+                var w = new Window
+                {
+                    Tag = windowId,
+                    Title = localization.GetLocalized("ViewTitle", windowId) ?? windowId,
+                    Content = view.LoadContent(),
+                };
+                InitWindow(w);
+                w.Show();
+                w.Activate();
+            }
         }
     }
 }

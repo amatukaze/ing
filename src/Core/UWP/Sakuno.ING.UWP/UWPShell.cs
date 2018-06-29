@@ -68,47 +68,6 @@ namespace Sakuno.ING.UWP
                         ApplicationView.GetForCurrentView().TitleBar.ButtonForegroundColor = sender.GetColorValue(UIColorType.Foreground));
             };
 
-            var style = new Style
-            {
-                TargetType = typeof(ViewPresenter),
-            };
-            style.Setters.Add(new Setter(ViewPresenter.ViewSourceProperty, Views));
-            Application.Current.Resources[typeof(ViewPresenter)] = style;
-            Application.Current.Resources[ViewSwitcher.SwitchActionKey] = new Action<string>(async viewId =>
-            {
-                if (applicationViewIds.TryGetValue(viewId, out int id))
-                {
-                    await ApplicationViewSwitcher.SwitchAsync(id);
-                    return;
-                }
-
-                if (viewIds.Contains(viewId))
-                {
-                    var coreView = CoreApplication.CreateNewView();
-                    await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
-                    {
-                        CoreApplication.GetCurrentView().Properties["Id"] = viewId;
-                        var view = ApplicationView.GetForCurrentView();
-                        applicationViewIds[viewId] = view.Id;
-
-                        InitWindow();
-                        if (viewId == "Settings")
-                            Window.Current.Content = new SettingsView(CreateSettingViews(), localizationService);
-                        else
-                            Window.Current.Content = new SubView { ActualContent = layoutFactory()[viewId].LoadContent() };
-
-                        view.Consolidated += (s, e) =>
-                        {
-                            applicationViewIds.TryRemove(viewId, out _);
-                            CoreApplication.GetCurrentView().CoreWindow.Close();
-                        };
-
-                        Window.Current.Activate();
-                    });
-                    await ApplicationViewSwitcher.TryShowAsStandaloneAsync(applicationViewIds[viewId]);
-                }
-            });
-
             Window.Current.Content = main;
             gameProvider.Enabled = true;
         }
@@ -120,6 +79,41 @@ namespace Sakuno.ING.UWP
             var titlebar = ApplicationView.GetForCurrentView().TitleBar;
             titlebar.ButtonBackgroundColor = Colors.Transparent;
             titlebar.ButtonForegroundColor = new UISettings().GetColorValue(UIColorType.Foreground);
+        }
+
+        public async override void SwitchWindow(string windowId)
+        {
+            if (applicationViewIds.TryGetValue(windowId, out int id))
+            {
+                await ApplicationViewSwitcher.SwitchAsync(id);
+                return;
+            }
+
+            if (viewIds.Contains(windowId))
+            {
+                var coreView = CoreApplication.CreateNewView();
+                await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+                {
+                    CoreApplication.GetCurrentView().Properties["Id"] = windowId;
+                    var view = ApplicationView.GetForCurrentView();
+                    applicationViewIds[windowId] = view.Id;
+
+                    InitWindow();
+                    if (windowId == "Settings")
+                        Window.Current.Content = new SettingsView(CreateSettingViews(), localizationService);
+                    else
+                        Window.Current.Content = new SubView { ActualContent = layoutFactory()[windowId].LoadContent() };
+
+                    view.Consolidated += (s, e) =>
+                    {
+                        applicationViewIds.TryRemove(windowId, out _);
+                        CoreApplication.GetCurrentView().CoreWindow.Close();
+                    };
+
+                    Window.Current.Activate();
+                });
+                await ApplicationViewSwitcher.TryShowAsStandaloneAsync(applicationViewIds[windowId]);
+            }
         }
     }
 }

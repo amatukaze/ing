@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Localization;
-using System.ComponentModel;
 #if NET461
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -48,11 +48,6 @@ namespace Sakuno.ING.Shell.Layout
             VerticalContentAlignment = VerticalAlignment.Stretch;
         }
 
-        internal static readonly DependencyProperty ViewSourceProperty
-            = DependencyProperty.Register(nameof(ViewSource), typeof(Func<string, object>), typeof(ViewPresenter), new PropertyMetadata(null, (d, _) => ((ViewPresenter)d).UpdateContent()));
-
-        private Func<string, object> ViewSource => (Func<string, object>)GetValue(ViewSourceProperty);
-
         private string _viewId;
         public string ViewId
         {
@@ -60,17 +55,8 @@ namespace Sakuno.ING.Shell.Layout
             set
             {
                 _viewId = value;
-                UpdateContent();
+                Content = Compositor.Default?.ResolveNamed<FrameworkElement>(value);
             }
-        }
-
-        private void UpdateContent()
-        {
-            var obj = ViewSource?.Invoke(ViewId);
-            if (obj != null)
-                Content = obj;
-            else
-                Content = null;
         }
     }
 
@@ -109,8 +95,6 @@ namespace Sakuno.ING.Shell.Layout
             }
         }
 
-        internal const string SwitchActionKey = "ViewSwitchAction";
-
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);
@@ -123,8 +107,8 @@ namespace Sakuno.ING.Shell.Layout
         protected override void OnTapped(TappedRoutedEventArgs e)
 #endif
         {
-            if (ViewId != null && Application.Current.Resources[SwitchActionKey] is Action<string> action)
-                action(ViewId);
+            if (ViewId != null)
+                Compositor.Static<IShell>()?.SwitchWindow(ViewId);
 #if WINDOWS_UWP
             e.Handled = true;
 #endif
