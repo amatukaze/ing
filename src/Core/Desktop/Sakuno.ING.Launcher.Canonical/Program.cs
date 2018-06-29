@@ -20,12 +20,16 @@ namespace Sakuno.ING
                 "Sakuno.ING.Data",
                 "Sakuno.ING.Data.Desktop",
                 "Sakuno.ING.Localization.Embed",
+                "Sakuno.ING.Game.Logger",
+                "Sakuno.ING.Game.Logger.Migrators",
                 "Sakuno.ING.Game.Models",
                 "Sakuno.ING.Game.Provider",
                 "Sakuno.ING.Settings.Common",
                 "Sakuno.ING.Shell.Desktop",
                 "Sakuno.ING.Timing.NTP",
+                "Sakuno.ING.ViewModels.Logging",
                 "Sakuno.ING.Views.Desktop.Common",
+                "Sakuno.ING.Views.Desktop.Logging",
                 "Sakuno.ING.Views.Desktop.Homeport",
                 "Sakuno.ING.Views.Desktop.Settings"
             );

@@ -28,6 +28,14 @@ Public Class LogMigrationVM
         End Set
     End Property
 
+    Public ReadOnly Property Ready As Boolean
+        Get
+            Return SelectedMigrator IsNot Nothing AndAlso
+                SelectedPath IsNot Nothing AndAlso
+                SelectedPath.Exists
+        End Get
+    End Property
+
     Private _selectedFs As FileSystemInfo
     Public Property SelectedPath As FileSystemInfo
         Get
@@ -35,6 +43,7 @@ Public Class LogMigrationVM
         End Get
         Private Set(value As FileSystemInfo)
             [Set](_selectedFs, value)
+            NotifyPropertyChanged(NameOf(Ready))
         End Set
     End Property
 
@@ -78,7 +87,7 @@ Public Class LogMigrationVM
     Public Property DateFrom As DateTime
     Public Property DateTo As DateTime
 
-    Public Async Sub PickFile()
+    Public Async Sub PickPath()
         Dim fs As FileSystemInfo
         If SelectedMigrator.RequireFolder Then
             fs = Await fsPicker.PickFolderAsync()

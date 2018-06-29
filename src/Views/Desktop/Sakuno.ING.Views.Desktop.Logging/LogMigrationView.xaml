@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Logging.LogMigrationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Logging;assembly=Sakuno.ING.ViewModels.Logging"
+             xmlns:c="clr-namespace:Sakuno.ING.Views.Desktop;assembly=Sakuno.ING.Views.Desktop.Common"
+             DataContext="{c:Resolve {x:Type vm:LogMigrationVM}}"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.RowSpan="6"
+                  ItemsSource="{Binding Migrators}"
+                  SelectedValue="{Binding SelectedMigrator}"
+                  DisplayMemberPath="Id"/>
+        <TextBlock Grid.Column="1" Grid.Row="0"
+                   Text="{Binding SelectedPath.FullName}"/>
+        <c:InvokeMethodButton
+            Grid.Column="1" Grid.Row="0"
+            HorizontalAlignment="Right"
+            Content="Browse"
+            MethodName="PickPath"/>
+        <CheckBox Grid.Column="1" Grid.Row="1"
+                  Content="Ship creation"
+                  IsEnabled="{Binding SupportShipCreation}"
+                  IsChecked="{Binding SelectShipCreation}"/>
+        <CheckBox Grid.Column="1" Grid.Row="2"
+                  Content="Equipment creation"
+                  IsEnabled="{Binding SupportEquipmentCreation}"
+                  IsChecked="{Binding SelectEquipmentCreation}"/>
+        <CheckBox Grid.Column="1" Grid.Row="3"
+                  Content="Expedition"
+                  IsEnabled="{Binding SupportExpeditionCompletion}"
+                  IsChecked="{Binding SelectExpeditionCompletion}"/>
+        <c:InvokeMethodButton
+            Grid.Column="1" Grid.Row="5"
+            HorizontalAlignment="Right"
+            Content="Run"
+            IsEnabled="{Binding Ready}"
+            MethodName="DoMigration"/>
+    </Grid>
+</UserControl>

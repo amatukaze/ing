@@ -4,8 +4,22 @@
     <sh:LayoutRoot.MainWindow>
         <sh:LayoutWindow>
             <DataTemplate>
-                <sh:ViewPresenter ViewId="Homeport"/>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <sh:ViewPresenter Grid.Row="0" ViewId="Homeport"/>
+                    <sh:ViewSwitcher Grid.Row="1" ViewId="LogMigration"/>
+                </Grid>
             </DataTemplate>
         </sh:LayoutWindow>
     </sh:LayoutRoot.MainWindow>
+    <sh:LayoutRoot.SubWindows>
+        <sh:LayoutWindow Id="LogMigration">
+            <DataTemplate>
+                <sh:ViewPresenter ViewId="LogMigration"/>
+            </DataTemplate>
+        </sh:LayoutWindow>
+    </sh:LayoutRoot.SubWindows>
 </sh:LayoutRoot>

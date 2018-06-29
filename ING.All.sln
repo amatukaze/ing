@@ -115,6 +115,8 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "Sakuno.ING.ViewModels.Loggi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Logger.Migrators", "src\Game\Sakuno.ING.Game.Logger.Migrators\Sakuno.ING.Game.Logger.Migrators.csproj", "{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Desktop.Logging", "src\Views\Desktop\Sakuno.ING.Views.Desktop.Logging\Sakuno.ING.Views.Desktop.Logging.csproj", "{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -856,6 +858,30 @@ Global
 		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|x64.Build.0 = Release|Any CPU
 		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|x86.ActiveCfg = Release|Any CPU
 		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F}.Release|x86.Build.0 = Release|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Debug|x64.Build.0 = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Debug|x86.Build.0 = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.DebugNative|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.DebugNative|Any CPU.Build.0 = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.DebugNative|ARM.ActiveCfg = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.DebugNative|ARM.Build.0 = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.DebugNative|x64.ActiveCfg = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.DebugNative|x64.Build.0 = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.DebugNative|x86.ActiveCfg = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.DebugNative|x86.Build.0 = Debug|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Release|ARM.Build.0 = Release|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Release|x64.ActiveCfg = Release|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Release|x64.Build.0 = Release|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Release|x86.ActiveCfg = Release|Any CPU
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -897,6 +923,7 @@ Global
 		{E5D369E8-B344-410C-8D1A-C87E9C621C80} = {5DCA75CC-ABFA-4CE0-A4FA-4666D4D1255F}
 		{1C87416D-DDEF-4416-86E6-13DC44931CF5} = {1C43A003-5E6B-4354-BA6E-C402BE43028D}
 		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F} = {38D02581-E437-4553-815D-C4FBB67029A0}
+		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D} = {13AEA7CB-B526-4F8F-89EC-C0DEAEF0F43F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D453CD6A-4918-42E2-A29D-43391DB418D2}
