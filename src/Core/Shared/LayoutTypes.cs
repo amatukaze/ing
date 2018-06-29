@@ -44,7 +44,8 @@ namespace Sakuno.ING.Shell.Layout
     {
         public ViewPresenter()
         {
-            DefaultStyleKey = typeof(ViewPresenter);
+            HorizontalContentAlignment = HorizontalAlignment.Stretch;
+            VerticalContentAlignment = VerticalAlignment.Stretch;
         }
 
         internal static readonly DependencyProperty ViewSourceProperty
