@@ -166,6 +166,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Logger.Migrators\Sakuno.ING.Game.Logger.Migrators.csproj">
+      <Project>{1879752a-af06-4aba-b8a0-043d79b5ba4f}</Project>
+      <Name>Sakuno.ING.Game.Logger.Migrators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj">
       <Project>{773d4281-944d-4154-ae00-a69cfca6659c}</Project>
       <Name>Sakuno.ING.Bootstrap</Name>
@@ -173,6 +177,10 @@
     <ProjectReference Include="..\..\..\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj">
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
       <Name>Sakuno.ING.Settings.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.Logging\Sakuno.ING.Views.UWP.Logging.csproj">
+      <Project>{0b790e9c-eb63-487f-93b3-97b4bde25385}</Project>
+      <Name>Sakuno.ING.Views.UWP.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Sakuno.ING.Timing.NTP\Sakuno.ING.Timing.NTP.csproj">
       <Project>{6bbbe871-beb9-47cf-bbf9-28db9b64729a}</Project>

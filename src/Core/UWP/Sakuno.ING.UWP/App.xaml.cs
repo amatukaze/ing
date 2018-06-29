@@ -38,12 +38,16 @@ namespace Sakuno.ING.UWP
                     Array.Empty<string>(),
                     "Sakuno.ING.Data",
                     "Sakuno.ING.Data.UWP",
+                    "Sakuno.ING.Game.Logger",
+                    "Sakuno.ING.Game.Logger.Migrators",
                     "Sakuno.ING.Game.Models",
                     "Sakuno.ING.Game.Provider",
                     "Sakuno.ING.Settings.Common",
                     "Sakuno.ING.Timing.NTP",
                     "Sakuno.ING.UWP.Bridge.Listener",
+                    "Sakuno.ING.ViewModels.Logging",
                     "Sakuno.ING.Views.UWP.ApiDebug",
+                    "Sakuno.ING.Views.UWP.Logging",
                     "Sakuno.ING.Views.UWP.MasterData",
                     "Sakuno.ING.Views.UWP.Settings"
                 );
