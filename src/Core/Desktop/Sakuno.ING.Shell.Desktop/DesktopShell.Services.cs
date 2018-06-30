@@ -1,13 +1,12 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Sakuno.ING.Composition;
 
 namespace Sakuno.ING.Shell.Desktop
 {
-    [Export(typeof(IFileSystemPickerService))]
-    internal class WindowsApiPicker : IFileSystemPickerService
+    partial class DesktopShell : IShell
     {
         public ValueTask<FileInfo> OpenFileAsync(params string[] extensions)
         {
@@ -41,23 +40,43 @@ namespace Sakuno.ING.Shell.Desktop
             return new ValueTask<DirectoryInfo>(result);
         }
 
-        private static CommonFileDialogResult ShowModal(CommonFileDialog dialog)
+        private static Window GetForegroundWindow()
         {
-            Window window = null;
             for (int i = 0; i < Application.Current.Windows.Count; i++)
             {
                 var w = Application.Current.Windows[i];
                 if (w.IsActive)
-                {
-                    window = w;
-                    break;
-                }
+                    return w;
             }
+
+            return null;
+        }
+
+        private static CommonFileDialogResult ShowModal(CommonFileDialog dialog)
+        {
+            var window = GetForegroundWindow();
 
             if (window == null)
                 return dialog.ShowDialog();
             else
                 return dialog.ShowDialog(window);
+        }
+
+        public ValueTask ShowMessageAsync(string detail, string title)
+        {
+            var dialog = new TaskDialog
+            {
+                Text = detail,
+                InstructionText = title,
+                Caption = localization.GetLocalized("Application", "Title"),
+            };
+
+            var window = GetForegroundWindow();
+            if (window != null)
+                dialog.OwnerWindowHandle = new WindowInteropHelper(window).Handle;
+
+            dialog.Show();
+            return default;
         }
     }
 }

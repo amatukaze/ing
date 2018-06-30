@@ -17,26 +17,26 @@ using Windows.UI.Xaml.Markup;
 namespace Sakuno.ING.UWP
 {
     [Export(typeof(IShell))]
-    internal class UWPShell : FlexibleShell<FrameworkElement>
+    internal partial class UWPShell : FlexibleShell<FrameworkElement>, IShell
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ITextStreamProvider gameProvider;
-        private readonly ILocalizationService localizationService;
+        private readonly ILocalizationService localization;
         private Func<LayoutRoot> layoutFactory;
         private string[] viewIds;
         private readonly ConcurrentDictionary<string, int> applicationViewIds = new ConcurrentDictionary<string, int>();
 
-        public UWPShell(LayoutSetting layoutSetting, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localizationService)
-            : base(localizationService)
+        public UWPShell(LayoutSetting layoutSetting, ITextStreamProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localization)
+            : base(localization)
         {
             this.layoutSetting = layoutSetting;
             this.gameProvider = gameProvider;
-            this.localizationService = localizationService;
+            this.localization = localization;
 
             Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = localeSetting.Language.Value;
         }
 
-        public override void Run()
+        public void Run()
         {
             UIElement main;
             try
@@ -81,7 +81,7 @@ namespace Sakuno.ING.UWP
             titlebar.ButtonForegroundColor = new UISettings().GetColorValue(UIColorType.Foreground);
         }
 
-        public async override void SwitchWindow(string windowId)
+        public async void SwitchWindow(string windowId)
         {
             if (applicationViewIds.TryGetValue(windowId, out int id))
             {
@@ -100,7 +100,7 @@ namespace Sakuno.ING.UWP
 
                     InitWindow();
                     if (windowId == "Settings")
-                        Window.Current.Content = new SettingsView(CreateSettingViews(), localizationService);
+                        Window.Current.Content = new SettingsView(CreateSettingViews(), localization);
                     else
                         Window.Current.Content = new SubView { ActualContent = layoutFactory()[windowId].LoadContent() };
 

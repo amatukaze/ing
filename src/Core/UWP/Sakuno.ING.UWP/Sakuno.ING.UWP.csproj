@@ -68,7 +68,7 @@
     <Compile Include="SubView.xaml.cs">
       <DependentUpon>SubView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UWPFileSystemPicker.cs" />
+    <Compile Include="UWPShell.Services.cs" />
     <Compile Include="UWPShell.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@ using Sakuno.ING.Shell.Layout;
 namespace Sakuno.ING.Shell.Desktop
 {
     [Export(typeof(IShell))]
-    internal class DesktopShell : FlexibleShell<FrameworkElement>
+    internal partial class DesktopShell : FlexibleShell<FrameworkElement>, IShell
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ILocalizationService localization;
@@ -34,7 +34,7 @@ namespace Sakuno.ING.Shell.Desktop
                 userFont = new FontFamily(userFontName);
         }
 
-        public override void Run()
+        public void Run()
         {
             Window window;
             try
@@ -67,7 +67,7 @@ namespace Sakuno.ING.Shell.Desktop
                 window.FontFamily = userFont;
         }
 
-        public override void SwitchWindow(string windowId)
+        public void SwitchWindow(string windowId)
         {
             var windows = Application.Current.Windows;
             for (int i = 0; i < windows.Count; i++)

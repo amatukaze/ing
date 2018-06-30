@@ -1,15 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using Sakuno.ING.Composition;
 using Sakuno.ING.Shell;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.ING.UWP
 {
-    [Export(typeof(IFileSystemPickerService))]
-    internal class UWPFileSystemPicker : IFileSystemPickerService
+    partial class UWPShell : IShell
     {
         public async ValueTask<FileInfo> OpenFileAsync(params string[] extensions)
         {
@@ -51,5 +50,13 @@ namespace Sakuno.ING.UWP
             foreach (var folder in await source.GetFoldersAsync())
                 await CopyFolderAsync(folder, await destination.CreateFolderAsync(folder.Name));
         }
+
+        public ValueTask ShowMessageAsync(string detail, string title)
+            => new ValueTask(new ContentDialog
+            {
+                Title = title,
+                Content = detail,
+                CloseButtonText = "OK"
+            }.ShowAsync().AsTask());
     }
 }

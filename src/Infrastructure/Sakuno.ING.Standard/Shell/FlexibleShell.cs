@@ -5,7 +5,7 @@ using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Shell
 {
-    public abstract class FlexibleShell<TElement> : IShell
+    public abstract class FlexibleShell<TElement>
         where TElement : class
     {
         private readonly ILocalizationService localization;
@@ -16,8 +16,6 @@ namespace Sakuno.ING.Shell
             this.localization = localization;
         }
 
-        public abstract void Run();
-
         protected CategorizedSettingViews[] CreateSettingViews()
             => Compositor.Default.ResolveWithMetadata<TElement>()
                 .GroupBy(m => (SettingCategory)m.MetaData[SettingCategoryName])
@@ -27,7 +25,5 @@ namespace Sakuno.ING.Shell
                     localization.GetLocalized(SettingCategoryName, g.Key.ToString()) ?? g.Key.ToString(),
                     g.Select(m => (object)m.Value).ToArray()
                 )).ToArray();
-
-        public abstract void SwitchWindow(string windowId);
     }
 }

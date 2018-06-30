@@ -8,7 +8,7 @@ Public Class LogMigrationVM
     Inherits BindableObject
 
     Private ReadOnly logger As Logger
-    Private ReadOnly fsPicker As IFileSystemPickerService
+    Private ReadOnly shell As IShell
     Public ReadOnly Property Migrators As IBindableCollection(Of ILogMigrator)
 
     Private _selectedMigrator As ILogMigrator
@@ -68,9 +68,9 @@ Public Class LogMigrationVM
     End Property
     Public Property SelectExpeditionCompletion As Boolean
 
-    Public Sub New(logger As Logger, migrators As ILogMigrator(), fsPicker As IFileSystemPickerService)
+    Public Sub New(logger As Logger, migrators As ILogMigrator(), shell As IShell)
         Me.logger = logger
-        Me.fsPicker = fsPicker
+        Me.shell = shell
         Me.Migrators = migrators.AsBindable()
     End Sub
 
@@ -90,9 +90,9 @@ Public Class LogMigrationVM
     Public Async Sub PickPath()
         Dim fs As FileSystemInfo
         If SelectedMigrator.RequireFolder Then
-            fs = Await fsPicker.PickFolderAsync()
+            fs = Await shell.PickFolderAsync()
         Else
-            fs = Await fsPicker.OpenFileAsync()
+            fs = Await shell.OpenFileAsync()
         End If
         If fs IsNot Nothing Then SelectedPath = fs
     End Sub
@@ -109,13 +109,20 @@ Public Class LogMigrationVM
         Dim [to] = DateTime.SpecifyKind(DateTo, DateTimeKind.Utc).Subtract(offset)
         If Ranged Then range = New TimeRange(from, [to])
 
+        Dim ex As Exception = Nothing
         Try
             Using context = logger.CreateContext()
                 Await SelectedMigrator.MigrateAsync(SelectedPath, context, types, offset, range)
                 Await context.SaveChangesAsync()
             End Using
-        Catch
-            ' Prompt
+        Catch e As Exception
+            ex = e
         End Try
+
+        If ex Is Nothing Then
+            Await shell.ShowMessageAsync("Log migration completed successfully.", "Migration Completed")
+        Else
+            Await shell.ShowMessageAsync(ex.ToString(), "Migration Failed")
+        End If
     End Sub
 End Class
