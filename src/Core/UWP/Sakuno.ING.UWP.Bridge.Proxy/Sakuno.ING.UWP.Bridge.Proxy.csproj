@@ -11,13 +11,12 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Sakuno.ING.UWP.Bridge</RootNamespace>
-    <!-- <StartupObject>Sakuno.ING.UWP.Bridge.Program</StartupObject> -->
-    <ApplicationIcon>app.ico</ApplicationIcon>
+    <ApplicationIcon>$(BasePath)src\app.ico</ApplicationIcon>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="app.ico">
+    <EmbeddedResource Include="$(BasePath)src\app.ico">
       <Generator></Generator>
     </EmbeddedResource>
     <Compile Include="..\Bridge.SharedConstants.cs">
@@ -26,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Nekomimi\src\Nekomimi\Nekomimi.csproj" />
+    <ProjectReference Include="$(BasePath)Nekomimi\src\Nekomimi\Nekomimi.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,7 +4,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Sakuno.ING</RootNamespace>
     <AssemblyName>IntelligentNavalGun</AssemblyName>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>$(BasePath)src\app.ico</ApplicationIcon>
+    <ApplicationManifest>$(BasePath)src\app.manifest</ApplicationManifest>
     <Version>0.1.0-blueprint2</Version>
     <Description>The launcher of Intelligent Naval Gun</Description>
     <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
