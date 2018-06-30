@@ -2,7 +2,7 @@
 using System.Windows.Markup;
 using Sakuno.ING.Composition;
 
-namespace Sakuno.ING.Views.Desktop
+namespace Sakuno.ING.Views.Desktop.Markup
 {
     public class ResolveExtension : MarkupExtension
     {

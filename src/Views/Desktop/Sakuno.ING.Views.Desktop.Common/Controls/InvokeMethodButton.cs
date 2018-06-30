@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Sakuno.ING.Views.Desktop
+namespace Sakuno.ING.Views.Desktop.Controls
 {
     public class InvokeMethodButton : Button
     {
