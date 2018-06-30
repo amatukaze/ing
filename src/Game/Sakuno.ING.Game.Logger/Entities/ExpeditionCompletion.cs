@@ -5,7 +5,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Logger.Entities
 {
-    public class ExpeditionCompletion
+    public class ExpeditionCompletion : ITimedEntity
     {
         [Key]
         public DateTimeOffset TimeStamp { get; set; }

@@ -1,6 +1,8 @@
 ﻿Imports System.IO
+Imports Microsoft.EntityFrameworkCore
 Imports Sakuno.ING.Composition
 Imports Sakuno.ING.Game.Logger
+Imports Sakuno.ING.Game.Logger.Entities
 Imports Sakuno.ING.Shell
 
 <Export(GetType(LogMigrationVM), SingleInstance:=False)>
@@ -49,21 +51,21 @@ Public Class LogMigrationVM
 
     Public ReadOnly Property SupportShipCreation As Boolean
         Get
-            Return If(SelectedMigrator?.SupportedTypes.HasFlag(LogType.ShipCreation), False)
+            Return TypeOf SelectedMigrator Is ILogProvider(Of ShipCreation)
         End Get
     End Property
     Public Property SelectShipCreation As Boolean
 
     Public ReadOnly Property SupportEquipmentCreation As Boolean
         Get
-            Return If(SelectedMigrator?.SupportedTypes.HasFlag(LogType.EquipmentCreation), False)
+            Return TypeOf SelectedMigrator Is ILogProvider(Of EquipmentCreation)
         End Get
     End Property
     Public Property SelectEquipmentCreation As Boolean
 
     Public ReadOnly Property SupportExpeditionCompletion As Boolean
         Get
-            Return If(SelectedMigrator?.SupportedTypes.HasFlag(LogType.ExpeditionCompletion), False)
+            Return TypeOf SelectedMigrator Is ILogProvider(Of ExpeditionCompletion)
         End Get
     End Property
     Public Property SelectExpeditionCompletion As Boolean
@@ -84,8 +86,8 @@ Public Class LogMigrationVM
         End Set
     End Property
     Public Property TimeZoneOffset As Double
-    Public Property DateFrom As DateTime
-    Public Property DateTo As DateTime
+    Public Property DateFrom As DateTime = DateTime.Now
+    Public Property DateTo As DateTime = DateTime.Now
 
     Public Async Sub PickPath()
         Dim fs As FileSystemInfo
@@ -97,22 +99,28 @@ Public Class LogMigrationVM
         If fs IsNot Nothing Then SelectedPath = fs
     End Sub
 
+    Private Async Function TryMigrate(Of T As {Class, ITimedEntity})(db As DbSet(Of T), provider As ILogProvider(Of T)) As Task
+        If provider Is Nothing Then Return
+
+        Dim source = (Await provider.GetLogsAsync(SelectedPath, TimeSpan.FromHours(TimeZoneOffset))).AsEnumerable()
+        If Ranged Then
+            Dim timeZone = TimeSpan.FromHours(TimeZoneOffset)
+            Dim timeFrom = DateTime.SpecifyKind(DateFrom, DateTimeKind.Utc).Subtract(timeZone)
+            Dim timeTo = DateTime.SpecifyKind(DateTo, DateTimeKind.Utc).Subtract(timeZone)
+            source = From e In source Where e.TimeStamp > timeFrom AndAlso e.TimeStamp < timeTo
+        End If
+
+        Dim index As New HashSet(Of Long)(From e In db Select e.TimeStamp.ToUnixTimeSeconds())
+        Await db.AddRangeAsync(From e In source Where Not index.Contains(e.TimeStamp.ToUnixTimeSeconds()))
+    End Function
+
     Public Async Sub DoMigration()
-        Dim types As LogType = 0
-        If SelectShipCreation AndAlso SupportShipCreation Then types = types Or LogType.ShipCreation
-        If SelectEquipmentCreation AndAlso SupportEquipmentCreation Then types = types Or LogType.EquipmentCreation
-        If SelectExpeditionCompletion AndAlso SupportExpeditionCompletion Then types = types Or LogType.ExpeditionCompletion
-
-        Dim offset = TimeSpan.FromHours(TimeZoneOffset)
-        Dim range As TimeRange? = Nothing
-        Dim from = DateTime.SpecifyKind(DateFrom, DateTimeKind.Utc).Subtract(offset)
-        Dim [to] = DateTime.SpecifyKind(DateTo, DateTimeKind.Utc).Subtract(offset)
-        If Ranged Then range = New TimeRange(from, [to])
-
         Dim ex As Exception = Nothing
         Try
             Using context = logger.CreateContext()
-                Await SelectedMigrator.MigrateAsync(SelectedPath, context, types, offset, range)
+                Await TryMigrate(context.ShipCreationTable, TryCast(SelectedMigrator, ILogProvider(Of ShipCreation)))
+                Await TryMigrate(context.EquipmentCreationTable, TryCast(SelectedMigrator, ILogProvider(Of EquipmentCreation)))
+                Await TryMigrate(context.ExpeditionCompletionTable, TryCast(SelectedMigrator, ILogProvider(Of ExpeditionCompletion)))
                 Await context.SaveChangesAsync()
             End Using
         Catch e As Exception
