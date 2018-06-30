@@ -16,6 +16,10 @@ namespace Sakuno.ING.Game.Models
         public static implicit operator int(AirForceGroupId id) => id.value;
         public static explicit operator AirForceGroupId(int value) => new AirForceGroupId(value);
 
+        public static bool operator ==(AirForceGroupId left, AirForceGroupId right) => left.value == right.value;
+        public static bool operator !=(AirForceGroupId left, AirForceGroupId right) => left.value != right.value;
+        public override bool Equals(object obj) => (AirForceGroupId)obj == this;
+        public override int GetHashCode() => value.GetHashCode();
         public override string ToString() => value.ToString();
     }
 

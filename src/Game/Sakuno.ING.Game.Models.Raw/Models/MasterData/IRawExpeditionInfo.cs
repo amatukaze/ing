@@ -15,6 +15,10 @@ namespace Sakuno.ING.Game.Models.MasterData
         public static implicit operator int(ExpeditionId id) => id.value;
         public static explicit operator ExpeditionId(int value) => new ExpeditionId(value);
 
+        public static bool operator ==(ExpeditionId left, ExpeditionId right) => left.value == right.value;
+        public static bool operator !=(ExpeditionId left, ExpeditionId right) => left.value != right.value;
+        public override bool Equals(object obj) => (ExpeditionId)obj == this;
+        public override int GetHashCode() => value.GetHashCode();
         public override string ToString() => value.ToString();
     }
 

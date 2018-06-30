@@ -16,6 +16,10 @@ namespace Sakuno.ING.Game.Models
         public static implicit operator int(ShipId id) => id.value;
         public static explicit operator ShipId(int value) => new ShipId(value);
 
+        public static bool operator ==(ShipId left, ShipId right) => left.value == right.value;
+        public static bool operator !=(ShipId left, ShipId right) => left.value != right.value;
+        public override bool Equals(object obj) => (ShipId)obj == this;
+        public override int GetHashCode() => value.GetHashCode();
         public override string ToString() => value.ToString();
     }
 

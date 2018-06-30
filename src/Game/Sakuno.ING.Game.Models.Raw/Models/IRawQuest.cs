@@ -14,6 +14,10 @@ namespace Sakuno.ING.Game.Models
         public static implicit operator int(QuestId id) => id.value;
         public static explicit operator QuestId(int value) => new QuestId(value);
 
+        public static bool operator ==(QuestId left, QuestId right) => left.value == right.value;
+        public static bool operator !=(QuestId left, QuestId right) => left.value != right.value;
+        public override bool Equals(object obj) => (QuestId)obj == this;
+        public override int GetHashCode() => value.GetHashCode();
         public override string ToString() => value.ToString();
     }
 

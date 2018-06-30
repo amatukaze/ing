@@ -18,6 +18,10 @@ namespace Sakuno.ING.Game.Models.MasterData
         public static implicit operator EquipmentTypeId(KnownEquipmentType known) => new EquipmentTypeId((int)known);
         public static explicit operator KnownEquipmentType(EquipmentTypeId id) => (KnownEquipmentType)id.value;
 
+        public static bool operator ==(EquipmentTypeId left, EquipmentTypeId right) => left.value == right.value;
+        public static bool operator !=(EquipmentTypeId left, EquipmentTypeId right) => left.value != right.value;
+        public override bool Equals(object obj) => (EquipmentTypeId)obj == this;
+        public override int GetHashCode() => value.GetHashCode();
         public override string ToString() => value.ToString();
     }
 

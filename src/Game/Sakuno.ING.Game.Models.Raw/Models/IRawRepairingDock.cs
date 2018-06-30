@@ -14,6 +14,10 @@ namespace Sakuno.ING.Game.Models
         public static implicit operator int(RepairingDockId id) => id.value;
         public static explicit operator RepairingDockId(int value) => new RepairingDockId(value);
 
+        public static bool operator ==(RepairingDockId left, RepairingDockId right) => left.value == right.value;
+        public static bool operator !=(RepairingDockId left, RepairingDockId right) => left.value != right.value;
+        public override bool Equals(object obj) => (RepairingDockId)obj == this;
+        public override int GetHashCode() => value.GetHashCode();
         public override string ToString() => value.ToString();
     }
 

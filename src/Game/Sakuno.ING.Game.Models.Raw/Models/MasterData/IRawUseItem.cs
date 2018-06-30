@@ -18,6 +18,10 @@ namespace Sakuno.ING.Game.Models.MasterData
         public static implicit operator UseItemId(KnownUseItem known) => new UseItemId((int)known);
         public static explicit operator KnownUseItem(UseItemId id) => (KnownUseItem)id.value;
 
+        public static bool operator ==(UseItemId left, UseItemId right) => left.value == right.value;
+        public static bool operator !=(UseItemId left, UseItemId right) => left.value != right.value;
+        public override bool Equals(object obj) => (UseItemId)obj == this;
+        public override int GetHashCode() => value.GetHashCode();
         public override string ToString() => value.ToString();
     }
 
