@@ -31,14 +31,14 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     while (!reader.EndOfStream)
                     {
                         var line = await reader.ReadLineAsync();
-                        if (!string.IsNullOrWhiteSpace(line))
+                        if (string.IsNullOrWhiteSpace(line))
                             continue;
                         var s = line.Split(',');
-                        if (s.Length < 11) continue;
+                        if (s.Length < 12) continue;
                         DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]) - timeZoneOffset, DateTimeKind.Utc);
                         if (range?.Contains(time) == false) continue;
 
-                        if (context.ShipCreationTable.Find(time) != null)
+                        if (context.ShipCreationTable.Find(time) == null)
                             context.ShipCreationTable.Add(new ShipCreation
                             {
                                 TimeStamp = time,
@@ -68,14 +68,14 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     while (!reader.EndOfStream)
                     {
                         var line = await reader.ReadLineAsync();
-                        if (!string.IsNullOrWhiteSpace(line))
+                        if (string.IsNullOrWhiteSpace(line))
                             continue;
                         var s = line.Split(',');
                         if (s.Length < 10) continue;
                         DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]) - timeZoneOffset, DateTimeKind.Utc);
                         if (range?.Contains(time) == false) continue;
 
-                        if (context.EquipmentCreationTable.Find(time) != null)
+                        if (context.EquipmentCreationTable.Find(time) == null)
                             context.EquipmentCreationTable.Add(new EquipmentCreation
                             {
                                 TimeStamp = time,
@@ -105,14 +105,14 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     while (!reader.EndOfStream)
                     {
                         var line = await reader.ReadLineAsync();
-                        if (!string.IsNullOrWhiteSpace(line))
+                        if (string.IsNullOrWhiteSpace(line))
                             continue;
                         var s = line.Split(',');
                         if (s.Length < 11) continue;
                         DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]) - timeZoneOffset, DateTimeKind.Utc);
                         if (range?.Contains(time) == false) continue;
 
-                        if (context.ExpeditionCompletionTable.Find(time) != null)
+                        if (context.ExpeditionCompletionTable.Find(time) == null)
                             context.ExpeditionCompletionTable.Add(new ExpeditionCompletion
                             {
                                 TimeStamp = time,
