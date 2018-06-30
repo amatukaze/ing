@@ -15,14 +15,6 @@
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
-  <!-- <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'" >
-    <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vbproj'" >
-    <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.vb" />
-  </ItemGroup> -->
-
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.cs" Condition="'$(MSBuildProjectExtension)' == '.csproj'" />
     <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.vb" Condition="'$(MSBuildProjectExtension)' == '.vbproj'" />

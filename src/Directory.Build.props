@@ -19,7 +19,20 @@
   <PropertyGroup>
     <PortableFramework>netstandard2.0</PortableFramework>
     <DesktopFramework>net461</DesktopFramework>
-    <CrossFramework>netcoreapp2.0</CrossFramework>
+    <DesktopLatestFramework>net471</DesktopLatestFramework>
+    <CrossOSFramework>netcoreapp2.0</CrossOSFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AppPlatform)' == 'Portable'">
+    <TargetFramework>$(PortableFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AppPlatform)' == 'Desktop'">
+    <TargetFramework>$(DesktopFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AppPlatform)' == 'CrossOS'">
+    <TargetFramework>$(CrossOSFramework)</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">

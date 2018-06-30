@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\UWP.props" />
+  <Import Project="..\..\..\UWP.Views.props" />
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ProjectGuid>{E5D369E8-B344-410C-8D1A-C87E9C621C80}</ProjectGuid>

@@ -1,0 +1,12 @@
+<Project>
+
+  <Import Project="$(MSBuildThisFileDirectory)\UWP.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)\src\Core\UWP\Sakuno.ING.Views.UWP.Common\Sakuno.ING.Views.UWP.Common.vbproj">
+      <Project>{7aadb43e-3e31-4e9f-b2e7-ae225833a7a8}</Project>
+      <Name>Sakuno.ING.Views.UWP.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>

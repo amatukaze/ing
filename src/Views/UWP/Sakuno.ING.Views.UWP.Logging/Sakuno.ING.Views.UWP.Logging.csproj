@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\UWP.props" />
+  <Import Project="..\..\..\UWP.Views.props" />
   <PropertyGroup>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ProjectGuid>{0B790E9C-EB63-487F-93B3-97B4BDE25385}</ProjectGuid>
@@ -39,10 +39,6 @@
     <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Logging\Sakuno.ING.ViewModels.Logging.vbproj">
       <Project>{1c87416d-ddef-4416-86e6-13dc44931cf5}</Project>
       <Name>Sakuno.ING.ViewModels.Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sakuno.ING.Views.UWP.Common\Sakuno.ING.Views.UWP.Common.vbproj">
-      <Project>{7aadb43e-3e31-4e9f-b2e7-ae225833a7a8}</Project>
-      <Name>Sakuno.ING.Views.UWP.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
