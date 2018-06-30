@@ -4,10 +4,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c="using:Sakuno.ING.Views.UWP"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <Grid>
+    <Grid x:DefaultBindMode="OneWay">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -21,31 +22,32 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ListView Grid.RowSpan="6"
-                  ItemsSource="{x:Bind ViewModel.Migrators}"
+                  ItemsSource="{x:Bind ViewModel.Migrators, Mode=OneTime}"
                   SelectedValue="{x:Bind ViewModel.SelectedMigrator, Mode=TwoWay}"
                   DisplayMemberPath="Id"/>
         <TextBlock Grid.Column="1" Grid.Row="0"
-                   Text="{x:Bind ViewModel.SelectedPath.FullName, Mode=OneWay}"/>
+                   Text="{x:Bind ViewModel.SelectedPath.FullName}"/>
         <Button Grid.Column="1" Grid.Row="0"
                 HorizontalAlignment="Right"
                 Content="Browse"
+                IsEnabled="{x:Bind c:Helpers.IsNotNull(ViewModel.SelectedMigrator)}"
                 Tapped="{x:Bind ViewModel.PickPath}"/>
         <ToggleSwitch Grid.Column="1" Grid.Row="1"
                       Header="Ship creation"
-                      IsEnabled="{x:Bind ViewModel.SupportShipCreation, Mode=OneWay}"
+                      IsEnabled="{x:Bind ViewModel.SupportShipCreation}"
                       IsOn="{x:Bind ViewModel.SelectShipCreation, Mode=TwoWay}"/>
         <ToggleSwitch Grid.Column="1" Grid.Row="2"
                       Header="Equipment creation"
-                      IsEnabled="{x:Bind ViewModel.SupportEquipmentCreation, Mode=OneWay}"
+                      IsEnabled="{x:Bind ViewModel.SupportEquipmentCreation}"
                       IsOn="{x:Bind ViewModel.SelectEquipmentCreation, Mode=TwoWay}"/>
         <ToggleSwitch Grid.Column="1" Grid.Row="3"
                       Header="Expedition"
-                      IsEnabled="{x:Bind ViewModel.SupportExpeditionCompletion, Mode=OneWay}"
+                      IsEnabled="{x:Bind ViewModel.SupportExpeditionCompletion}"
                       IsOn="{x:Bind ViewModel.SelectExpeditionCompletion, Mode=TwoWay}"/>
         <Button Grid.Column="1" Grid.Row="5"
                 HorizontalAlignment="Right"
                 Content="Run"
-                IsEnabled="{x:Bind ViewModel.Ready, Mode=OneWay}"
+                IsEnabled="{x:Bind ViewModel.Ready}"
                 Tapped="{x:Bind ViewModel.DoMigration}"/>
     </Grid>
 </UserControl>

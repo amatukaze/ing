@@ -40,6 +40,10 @@
       <Project>{1c87416d-ddef-4416-86e6-13dc44931cf5}</Project>
       <Name>Sakuno.ING.ViewModels.Logging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sakuno.ING.Views.UWP.Common\Sakuno.ING.Views.UWP.Common.vbproj">
+      <Project>{7aadb43e-3e31-4e9f-b2e7-ae225833a7a8}</Project>
+      <Name>Sakuno.ING.Views.UWP.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

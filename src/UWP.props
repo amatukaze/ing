@@ -1,5 +1,7 @@
 ﻿<Project>
+
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
   <PropertyGroup>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
@@ -12,12 +14,23 @@
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <AssemblyName>$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
-  <ItemGroup>
+
+  <!-- <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'" >
     <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vbproj'" >
+    <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.vb" />
+  </ItemGroup> -->
+
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.cs" Condition="'$(MSBuildProjectExtension)' == '.csproj'" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharedAssemblyInfo.vb" Condition="'$(MSBuildProjectExtension)' == '.vbproj'" />
     <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj">
       <Project>{d5e9fd1a-a812-4feb-b252-a84242b0e4cc}</Project>
       <Name>Sakuno.ING.Standard</Name>
     </ProjectReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
   </ItemGroup>
+
 </Project>
