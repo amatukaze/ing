@@ -89,6 +89,16 @@ Public Class LogMigrationVM
     Public Property DateFrom As DateTime = DateTime.Now
     Public Property DateTo As DateTime = DateTime.Now
 
+    Private _running As Boolean
+    Public Property Running As Boolean
+        Get
+            Return _running
+        End Get
+        Set(value As Boolean)
+            [Set](_running, value)
+        End Set
+    End Property
+
     Public Async Sub PickPath()
         Dim fs As FileSystemInfo
         If SelectedMigrator.RequireFolder Then
@@ -115,6 +125,8 @@ Public Class LogMigrationVM
     End Function
 
     Public Async Sub DoMigration()
+        Running = True
+
         Dim ex As Exception = Nothing
         Try
             Using context = logger.CreateContext()
@@ -126,6 +138,8 @@ Public Class LogMigrationVM
         Catch e As Exception
             ex = e
         End Try
+
+        Running = False
 
         If ex Is Nothing Then
             Await shell.ShowMessageAsync("Log migration completed successfully.", "Migration Completed")

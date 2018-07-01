@@ -6,22 +6,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
-    <Grid x:DefaultBindMode="OneWay">
+    d:DesignHeight="300" d:DesignWidth="400"
+    x:DefaultBindMode="OneWay"
+    IsEnabled="{x:Bind c:Helpers.Not(ViewModel.Running)}">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.RowSpan="6"
+        <ListView Grid.RowSpan="3"
                   ItemsSource="{x:Bind ViewModel.Migrators, Mode=OneTime}"
                   SelectedValue="{x:Bind ViewModel.SelectedMigrator, Mode=TwoWay}"
                   DisplayMemberPath="Id"/>
@@ -32,19 +30,24 @@
                 Content="Browse"
                 IsEnabled="{x:Bind c:Helpers.IsNotNull(ViewModel.SelectedMigrator)}"
                 Tapped="{x:Bind ViewModel.PickPath}"/>
-        <ToggleSwitch Grid.Column="1" Grid.Row="1"
-                      Header="Ship creation"
-                      IsEnabled="{x:Bind ViewModel.SupportShipCreation}"
-                      IsOn="{x:Bind ViewModel.SelectShipCreation, Mode=TwoWay}"/>
-        <ToggleSwitch Grid.Column="1" Grid.Row="2"
-                      Header="Equipment creation"
-                      IsEnabled="{x:Bind ViewModel.SupportEquipmentCreation}"
-                      IsOn="{x:Bind ViewModel.SelectEquipmentCreation, Mode=TwoWay}"/>
-        <ToggleSwitch Grid.Column="1" Grid.Row="3"
-                      Header="Expedition"
-                      IsEnabled="{x:Bind ViewModel.SupportExpeditionCompletion}"
-                      IsOn="{x:Bind ViewModel.SelectExpeditionCompletion, Mode=TwoWay}"/>
-        <Button Grid.Column="1" Grid.Row="5"
+        <StackPanel Orientation="Vertical"
+                    Grid.Column="1" Grid.Row="1">
+            <ToggleSwitch Grid.Column="1" Grid.Row="1"
+                          Header="Ship creation"
+                          IsEnabled="{x:Bind ViewModel.SupportShipCreation}"
+                          IsOn="{x:Bind ViewModel.SelectShipCreation, Mode=TwoWay}"/>
+            <ToggleSwitch Grid.Column="1" Grid.Row="2"
+                          Header="Equipment creation"
+                          IsEnabled="{x:Bind ViewModel.SupportEquipmentCreation}"
+                          IsOn="{x:Bind ViewModel.SelectEquipmentCreation, Mode=TwoWay}"/>
+            <ToggleSwitch Grid.Column="1" Grid.Row="3"
+                          Header="Expedition"
+                          IsEnabled="{x:Bind ViewModel.SupportExpeditionCompletion}"
+                          IsOn="{x:Bind ViewModel.SelectExpeditionCompletion, Mode=TwoWay}"/>
+        </StackPanel>
+        <ProgressRing Grid.Column="1" Grid.Row="2"
+                      IsActive="{x:Bind ViewModel.Running}"/>
+        <Button Grid.Column="1" Grid.Row="2"
                 HorizontalAlignment="Right"
                 Content="Run"
                 IsEnabled="{x:Bind ViewModel.Ready}"
