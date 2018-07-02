@@ -124,6 +124,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Desktop.Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sakuno.ING.Views.UWP.Logging", "src\Views\UWP\Sakuno.ING.Views.UWP.Logging\Sakuno.ING.Views.UWP.Logging.csproj", "{0B790E9C-EB63-487F-93B3-97B4BDE25385}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{46000D44-CD1D-4443-BBA5-88430A032608}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

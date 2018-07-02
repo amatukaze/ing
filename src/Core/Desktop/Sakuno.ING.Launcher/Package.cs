@@ -29,6 +29,7 @@ namespace Sakuno.ING
 
         static string[] supportedTFMs =
         {
+            "net462",
             "net461",
             "net46",
             "net452",

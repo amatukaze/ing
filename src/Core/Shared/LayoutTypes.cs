@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Localization;
-#if NET461
+#if WPF
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +26,7 @@ namespace Sakuno.ING.Shell.Layout
             => SubWindows.Find(x => x.Id == viewId);
     }
 
-#if NET461
+#if WPF
     [ContentProperty(nameof(Content))]
 #elif WINDOWS_UWP
     [ContentProperty(Name = nameof(Content))]
@@ -64,12 +64,12 @@ namespace Sakuno.ING.Shell.Layout
     {
         public LocalizedTitleExtension(string viewId) => ViewId = viewId;
 
-#if NET461
+#if WPF
         [ConstructorArgument("viewId")]
 #endif
         public string ViewId { get; set; }
 
-#if NET461
+#if WPF
         public override object ProvideValue(IServiceProvider serviceProvider)
 #elif WINDOWS_UWP
         protected override object ProvideValue()
@@ -101,7 +101,7 @@ namespace Sakuno.ING.Shell.Layout
             autoContent = false;
         }
 
-#if NET461
+#if WPF
         protected override void OnClick()
 #elif WINDOWS_UWP
         protected override void OnTapped(TappedRoutedEventArgs e)

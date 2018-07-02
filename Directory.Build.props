@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
+
   <PropertyGroup Label="BasePath">
     <BasePath>$(MSBuildThisFileDirectory)</BasePath>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PortableFramework>netstandard2.0</PortableFramework>
+    <DesktopFramework>net462</DesktopFramework>
+    <DesktopLatestFramework>net471</DesktopLatestFramework>
+    <CrossOSFramework>netcoreapp2.0</CrossOSFramework>
+  </PropertyGroup>
+
 </Project>

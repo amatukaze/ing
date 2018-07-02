@@ -16,13 +16,6 @@
     <PackageTags>KanColle;ING</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <PortableFramework>netstandard2.0</PortableFramework>
-    <DesktopFramework>net461</DesktopFramework>
-    <DesktopLatestFramework>net471</DesktopLatestFramework>
-    <CrossOSFramework>netcoreapp2.0</CrossOSFramework>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(AppPlatform)' == 'Portable'">
     <TargetFramework>$(PortableFramework)</TargetFramework>
   </PropertyGroup>

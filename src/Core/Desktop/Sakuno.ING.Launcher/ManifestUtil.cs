@@ -26,6 +26,7 @@ namespace Sakuno.ING
 
         public static string[] TargetFrameworks = new[]
         {
+            ".NETFramework4.6.2",
             ".NETFramework4.6.1",
             ".NETFramework4.6",
             ".NETFramework4.5.2",

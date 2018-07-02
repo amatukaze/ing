@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>$(DesktopLatestFramework)</TargetFramework>
+    <TargetFrameworks>$(DesktopLatestFramework);$(DesktopFramework)</TargetFrameworks>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Sakuno.ING</RootNamespace>
     <AssemblyName>IntelligentNavalGun</AssemblyName>
@@ -11,6 +11,7 @@
     <Description>The canonical launcher of Intelligent Naval Gun</Description>
     <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
     <IsPackable>false</IsPackable>
+    <TrimUnusedDependencies>true</TrimUnusedDependencies>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Packaging.Tools.Trimming" Version="1.1.0-preview1-26619-01" />
   </ItemGroup>
 
   <ItemGroup>
