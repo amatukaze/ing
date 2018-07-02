@@ -121,7 +121,13 @@ Public Class LogMigrationVM
         End If
 
         Dim index As New HashSet(Of Long)(From e In db Select e.TimeStamp.ToUnixTimeSeconds())
-        Await db.AddRangeAsync(From e In source Where Not index.Contains(e.TimeStamp.ToUnixTimeSeconds()))
+        For Each e In source
+            Dim time = e.TimeStamp.ToUnixTimeSeconds()
+            If Not index.Contains(time) Then
+                Await db.AddAsync(e)
+                index.Add(time)
+            End If
+        Next
     End Function
 
     Public Async Sub DoMigration()
