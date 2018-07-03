@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>$(DesktopLatestFramework);$(DesktopFramework)</TargetFrameworks>
+    <TargetFrameworks>$(DesktopFramework)</TargetFrameworks>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Sakuno.ING</RootNamespace>
     <AssemblyName>IntelligentNavalGun</AssemblyName>
@@ -13,6 +13,10 @@
     <IsPackable>false</IsPackable>
     <TrimUnusedDependencies>true</TrimUnusedDependencies>
   </PropertyGroup>
+
+  <ItemGroup>
+    <TrimFilesRootPackages Include="SQLitePCLRaw.bundle_green" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="PresentationFramework" />
