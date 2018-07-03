@@ -26,7 +26,7 @@ namespace Sakuno.ING
 
     public static class ImmutableCollectionExtension
     {
-        public static ImmutableBindableCollection<T> AsBindable<T>(this IEnumerable<T> source)
+        public static ImmutableBindableCollection<T> ToBindable<T>(this IEnumerable<T> source)
             => new ImmutableBindableCollection<T>(source as IList<T> ?? source.ToList());
     }
 }

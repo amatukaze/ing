@@ -73,7 +73,7 @@ Public Class LogMigrationVM
     Public Sub New(logger As Logger, migrators As ILogMigrator(), shell As IShell)
         Me.logger = logger
         Me.shell = shell
-        Me.Migrators = migrators.AsBindable()
+        Me.Migrators = migrators.ToBindable()
     End Sub
 
     Private _ranged As Boolean
