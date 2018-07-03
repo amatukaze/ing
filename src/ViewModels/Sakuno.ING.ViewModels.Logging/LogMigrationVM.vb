@@ -131,6 +131,10 @@ Public Class LogMigrationVM
     End Function
 
     Public Async Sub DoMigration()
+        If Not logger.PlayerLoaded Then
+            Await shell.ShowMessageAsync("Game player not loaded", "Cannot migrate")
+        End If
+
         Running = True
 
         Dim ex As Exception = Nothing

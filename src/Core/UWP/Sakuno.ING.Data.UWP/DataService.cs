@@ -10,11 +10,11 @@ namespace Sakuno.ING.Data.UWP
     {
         private readonly StorageFolder dataRoot = ApplicationData.Current.LocalFolder;
 
-        public DbContextOptions<TContext> ConfigureDbContext<TContext>(string name)
+        public DbContextOptions<TContext> ConfigureDbContext<TContext>(string filename, string entityname = null)
             where TContext : DbContext
             => new DbContextOptionsBuilder<TContext>()
-                .UseSqlite("Data Source=" + Path.Combine(dataRoot.Path, "ing.db"),
-                    s => s.MigrationsHistoryTable("__Migration_" + name))
+                .UseSqlite($"DataSource={Path.Combine(dataRoot.Path, filename + ".db")}",
+                    s => s.MigrationsHistoryTable("__Migration_" + (entityname ?? "Default")))
                 .Options;
     }
 }

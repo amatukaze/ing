@@ -11,11 +11,11 @@ namespace Sakuno.ING.Data.Desktop
         private readonly string basePath =
             Path.Combine(Environment.CurrentDirectory, "data");
 
-        public DbContextOptions<TContext> ConfigureDbContext<TContext>(string name)
+        public DbContextOptions<TContext> ConfigureDbContext<TContext>(string filename, string entityname = null)
             where TContext : DbContext
             => new DbContextOptionsBuilder<TContext>()
-                .UseSqlite($"DataSource={Path.Combine(basePath, "ing.db")}",
-                    s => s.MigrationsHistoryTable("__Migration_" + name))
+                .UseSqlite($"DataSource={Path.Combine(basePath, filename + ".db")}",
+                    s => s.MigrationsHistoryTable("__Migration_" + (entityname ?? "Default")))
                 .Options;
     }
 }

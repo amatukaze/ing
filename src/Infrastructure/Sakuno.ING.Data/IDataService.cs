@@ -4,6 +4,6 @@ namespace Sakuno.ING.Data
 {
     public interface IDataService
     {
-        DbContextOptions<TContext> ConfigureDbContext<TContext>(string name) where TContext : DbContext;
+        DbContextOptions<TContext> ConfigureDbContext<TContext>(string filename, string entityname = null) where TContext : DbContext;
     }
 }

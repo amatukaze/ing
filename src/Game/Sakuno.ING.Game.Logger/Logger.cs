@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Data;
@@ -85,10 +86,22 @@ namespace Sakuno.ING.Game.Logger
                 }
             };
 
-            using (var context = CreateContext())
-                context.Database.Migrate();
+
+            provider.AdmiralUpdated += (t, m) =>
+            {
+                if (PlayerLoaded)
+                    using (var context = CreateContext())
+                        context.Database.Migrate();
+            };
         }
 
-        public LoggerContext CreateContext() => new LoggerContext(dataService.ConfigureDbContext<LoggerContext>("logs"));
+        public bool PlayerLoaded => navalBase.Admiral != null;
+
+        public LoggerContext CreateContext()
+            => new LoggerContext(dataService.ConfigureDbContext<LoggerContext>
+            (
+                navalBase.Admiral?.Id.ToString() ?? throw new InvalidOperationException("Game not loaded"),
+                "logs"
+            ));
     }
 }
