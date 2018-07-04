@@ -10,12 +10,20 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <sh:ViewPresenter Grid.Row="0" ViewId="Homeport"/>
-                    <sh:ViewSwitcher Grid.Row="1" ViewId="LogMigration"/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <sh:ViewSwitcher ViewId="LogMigration"/>
+                        <sh:ViewSwitcher ViewId="ShipCreation"/>
+                    </StackPanel>
                 </Grid>
             </DataTemplate>
         </sh:LayoutWindow>
     </sh:LayoutRoot.MainWindow>
     <sh:LayoutRoot.SubWindows>
+        <sh:LayoutWindow Id="ShipCreation">
+            <DataTemplate>
+                <sh:ViewPresenter ViewId="ShipCreationLogs"/>
+            </DataTemplate>
+        </sh:LayoutWindow>
         <sh:LayoutWindow Id="LogMigration">
             <DataTemplate>
                 <sh:ViewPresenter ViewId="LogMigration"/>

@@ -133,6 +133,7 @@ Public Class LogMigrationVM
     Public Async Sub DoMigration()
         If Not logger.PlayerLoaded Then
             Await shell.ShowMessageAsync("Game player not loaded", "Cannot migrate")
+            Return
         End If
 
         Running = True
@@ -140,9 +141,9 @@ Public Class LogMigrationVM
         Dim ex As Exception = Nothing
         Try
             Using context = logger.CreateContext()
-                Await TryMigrate(context.ShipCreationTable, TryCast(SelectedMigrator, ILogProvider(Of ShipCreation)))
-                Await TryMigrate(context.EquipmentCreationTable, TryCast(SelectedMigrator, ILogProvider(Of EquipmentCreation)))
-                Await TryMigrate(context.ExpeditionCompletionTable, TryCast(SelectedMigrator, ILogProvider(Of ExpeditionCompletion)))
+                If SelectShipCreation Then Await TryMigrate(context.ShipCreationTable, TryCast(SelectedMigrator, ILogProvider(Of ShipCreation)))
+                If SelectEquipmentCreation Then Await TryMigrate(context.EquipmentCreationTable, TryCast(SelectedMigrator, ILogProvider(Of EquipmentCreation)))
+                If SelectExpeditionCompletion Then Await TryMigrate(context.ExpeditionCompletionTable, TryCast(SelectedMigrator, ILogProvider(Of ExpeditionCompletion)))
                 Await context.SaveChangesAsync()
             End Using
         Catch e As Exception

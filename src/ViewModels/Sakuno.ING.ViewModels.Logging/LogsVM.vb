@@ -3,7 +3,7 @@ Imports Sakuno.ING.Game.Logger
 
 Public MustInherit Class LogsVM(Of T As {Class, ITimedEntity})
     Protected MustOverride Function CreateFilters() As FilterVM(Of T)()
-    Protected MustOverride Function GetEntities() As IEnumerable(Of T)
+    Protected MustOverride Function GetEntities() As IReadOnlyCollection(Of T)
 
     Private ReadOnly _filters As IBindableCollection(Of FilterVM(Of T))
     Public ReadOnly Property Filters As IBindableCollection(Of IFilterVM)
@@ -21,11 +21,10 @@ Public MustInherit Class LogsVM(Of T As {Class, ITimedEntity})
 
     Public Sub New()
         _filters = CreateFilters().ToBindable()
-        Refresh()
     End Sub
 
     Public Sub Refresh()
-        Dim source = GetEntities().ToList().AsEnumerable()
+        Dim source = GetEntities().AsEnumerable()
         For Each filter In _filters
             filter.UpdateCandidates(source)
             source = source.Where(AddressOf filter.Hits)

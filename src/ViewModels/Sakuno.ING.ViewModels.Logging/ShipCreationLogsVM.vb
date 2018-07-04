@@ -13,6 +13,7 @@ Public Class ShipCreationLogsVM
     Public Sub New(logger As Logger, navalBase As NavalBase)
         Me.logger = logger
         masterData = navalBase.MasterData
+        Refresh()
     End Sub
 
     Protected Overrides Function CreateFilters() As FilterVM(Of ShipCreationModel)()
@@ -23,11 +24,11 @@ Public Class ShipCreationLogsVM
         }
     End Function
 
-    Protected Overrides Function GetEntities() As IEnumerable(Of ShipCreationModel)
+    Protected Overrides Function GetEntities() As IReadOnlyCollection(Of ShipCreationModel)
         If Not logger.PlayerLoaded Then Return Array.Empty(Of ShipCreationModel)
         Using context = logger.CreateContext()
-            Return From e In context.ShipCreationTable.AsEnumerable()
-                   Select New ShipCreationModel(masterData.ShipInfos, e)
+            Return (From e In context.ShipCreationTable.AsEnumerable()
+                    Select New ShipCreationModel(masterData.ShipInfos, e)).ToList()
         End Using
     End Function
 End Class

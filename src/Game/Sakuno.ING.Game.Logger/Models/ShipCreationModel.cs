@@ -1,6 +1,5 @@
 ﻿using System;
 using Sakuno.ING.Game.Logger.Entities;
-using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Logger.Models
@@ -17,7 +16,7 @@ namespace Sakuno.ING.Game.Logger.Models
         }
 
         public DateTimeOffset TimeStamp => entity.TimeStamp;
-        public Materials Consumption => entity.Consumption;
+        public MaterialsEntity Consumption => entity.Consumption;
         public bool IsLSC => entity.IsLSC;
         public ShipInfo ShipBuilt { get; }
         public int EmptyDockCount => entity.EmptyDockCount;

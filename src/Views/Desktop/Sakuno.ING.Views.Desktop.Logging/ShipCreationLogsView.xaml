@@ -38,7 +38,7 @@
                 <GridView>
                     <GridViewColumn Header="Time" DisplayMemberBinding="{Binding TimeStamp, Mode=OneTime}"/>
                     <GridViewColumn Header="Fuel" DisplayMemberBinding="{Binding Consumption.Fuel, Mode=OneTime}"/>
-                    <GridViewColumn Header="Bullet" DisplayMemberBinding="{Binding Consumption.BUllet, Mode=OneTime}"/>
+                    <GridViewColumn Header="Bullet" DisplayMemberBinding="{Binding Consumption.Bullet, Mode=OneTime}"/>
                     <GridViewColumn Header="Steel" DisplayMemberBinding="{Binding Consumption.Steel, Mode=OneTime}"/>
                     <GridViewColumn Header="Bauxite" DisplayMemberBinding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
                     <GridViewColumn Header="IsLSC" DisplayMemberBinding="{Binding IsLSC, Mode=OneTime}"/>
