@@ -1,4 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project>
+
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
   <PropertyGroup>
     <RootNamespace>Sakuno.ING.Game</RootNamespace>
@@ -11,20 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Scaffold Include="Models\MasterData\MasterData.txt">
-      <Generator>MSBuild:UpdateScaffold</Generator>
-    </Scaffold>
-    <Compile Update="Models\MasterData\MasterData.g.cs">
-      <DependentUpon>Models\MasterData\MasterData.txt</DependentUpon>
-    </Compile>
-    <Scaffold Include="Models\GameObject.txt">
-      <Generator>MSBuild:UpdateScaffold</Generator>
-    </Scaffold>
-    <Compile Update="Models\GameObject.g.cs">
-      <DependentUpon>Models\GameObject.txt</DependentUpon>
-    </Compile>
+    <Scaffold Include="Models\MasterData\MasterData.txt" />
+    <Scaffold Include="Models\GameObject.txt" />
   </ItemGroup>
 
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <Import Project="Generator.targets" />
 
 </Project>

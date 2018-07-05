@@ -1,6 +1,10 @@
 ﻿<Project>
   <ItemGroup>
-    <UpToDateCheckInput Include="@(Scaffold)" />
+    <UpToDateCheckInput Include="$(MSBuildThisFileFullPath);@(Scaffold)" />
+    <None Update="@(Scaffold)">
+      <Generator>MSBuild:UpdateScaffold</Generator>
+      <LastGenOutput>%(RelativeDir)%(Filename).g.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <UsingTask TaskName="CalculatedScaffold" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
@@ -171,7 +175,11 @@ foreach (var infile in Inputs)
     </Task>
   </UsingTask>
 
-  <Target Name="UpdateScaffold" Inputs="$(MSBuildProjectFile);@(Scaffold)" Outputs="@(Scaffold->'%(RelativeDir)%(Filename).g.cs')" BeforeTargets="CoreCompile">
+  <Target Name="UpdateScaffold" Inputs="$(MSBuildThisFileFullPath);@(Scaffold)" Outputs="@(Scaffold->'%(RelativeDir)%(Filename).g.cs')" BeforeTargets="CoreCompile">
     <CalculatedScaffold Inputs="@(Scaffold)" />
   </Target>
+
+  <PropertyGroup>
+    <CoreCompileDependsOn>UpdateScaffold;$(CoreCompileDependsOn)</CoreCompileDependsOn>
+  </PropertyGroup>
 </Project>
