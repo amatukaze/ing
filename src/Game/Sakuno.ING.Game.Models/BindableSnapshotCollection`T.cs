@@ -117,21 +117,11 @@ namespace Sakuno.ING.Game
         public void Refresh()
         {
             var @new = Query.ToList();
-            var diff = SequenceDiffer(snapshot, @new);
-            snapshot = @new;
-            if (diff.Length == 0) return;
-
-            var args = new NotifyCollectionChangedEventArgs[diff.Length];
-            int offset = 0;
-            for (int i = 0; i < args.Length; i++)
+            if(!snapshot.SequenceEqual(@new))
             {
-                var d = diff[i];
-                if (d.IsAdd)
-                    args[i] = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, d.Item, d.OriginalIndex + (offset++));
-                else
-                    args[i] = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, d.Item, d.OriginalIndex + (offset--));
+                snapshot = @new;
+                NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
-            NotifyCollectionChanged(args);
         }
 
         public void Remove(T item) => Remove(snapshot.IndexOf(item), item);
