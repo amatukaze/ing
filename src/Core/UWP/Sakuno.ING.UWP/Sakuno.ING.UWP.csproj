@@ -13,6 +13,9 @@
     <AppxPackageDir>$(BasePath)artifacts\AppxPackages\</AppxPackageDir>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
   <PropertyGroup Condition="Exists('Sakuno.ING.UWP_StoreKey.pfx')">
     <PackageCertificateKeyFile>Sakuno.ING.UWP_StoreKey.pfx</PackageCertificateKeyFile>
@@ -78,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Sakuno.ING.UWP_StoreKey.pfx" />
-    <None Include="Package.xml" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
