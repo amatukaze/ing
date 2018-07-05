@@ -8,12 +8,15 @@
              mc:Ignorable="d"
              DataContext="{c:Resolve {x:Type vm:ShipCreationLogsVM}}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <c:DateTimeDisplayConverter x:Key="DateTimeDisplay"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ItemsControl ItemsSource="{Binding Filters}">
+        <ItemsControl ItemsSource="{Binding Filters, Mode=OneTime}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -36,7 +39,7 @@
         <ListView Grid.Row="1" ItemsSource="{Binding Entities}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding TimeStamp, Mode=OneTime}"/>
+                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding TimeStamp, Mode=OneTime, Converter={StaticResource DateTimeDisplay}}"/>
                     <GridViewColumn Header="Fuel" DisplayMemberBinding="{Binding Consumption.Fuel, Mode=OneTime}"/>
                     <GridViewColumn Header="Bullet" DisplayMemberBinding="{Binding Consumption.Bullet, Mode=OneTime}"/>
                     <GridViewColumn Header="Steel" DisplayMemberBinding="{Binding Consumption.Steel, Mode=OneTime}"/>

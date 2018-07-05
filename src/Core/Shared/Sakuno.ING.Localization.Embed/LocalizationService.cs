@@ -9,7 +9,7 @@ using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Localization.Embed
 {
-    [Export(typeof(ILocalizationService))]
+    [Export(typeof(ILocalizationService), LazyCreate = false)]
     internal class LocalizationService : ILocalizationService
     {
         private readonly Dictionary<string, Dictionary<string, string>> _currentCulture, _fallback, _gameContent;
@@ -25,7 +25,8 @@ namespace Sakuno.ING.Localization.Embed
             if (string.IsNullOrEmpty(setting.Language.Value))
                 culture = CultureInfo.CurrentCulture;
             else
-                CultureInfo.CurrentCulture = culture = new CultureInfo(setting.Language.Value);
+                CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.DefaultThreadCurrentCulture
+                    = culture = new CultureInfo(setting.Language.Value);
 
             while (!string.IsNullOrEmpty(culture.Name))
             {
