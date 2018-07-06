@@ -19,7 +19,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
         public bool RequireFolder => true;
         public string Id => "Logbook";
 
-        private readonly Encoding shiftJIS = Encoding.GetEncoding(932);
+        private readonly Encoding shiftJIS = CodePagesEncodingProvider.Instance.GetEncoding(932);
 
         private static TValue TryGetOrDefault<TKey, TValue>(Dictionary<TKey, TValue> dictionary, TKey key)
             => dictionary.TryGetValue(key, out TValue value) ? value : default;

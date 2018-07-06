@@ -27,7 +27,7 @@ namespace Sakuno.ING.ViewModels.Logging
                 if (_selectedMigrator != value)
                 {
                     _selectedMigrator = value;
-                    SelectedMigrator = null;
+                    SelectedPath = null;
                     NotifyPropertyChanged();
                     NotifyPropertyChanged(nameof(SupportShipCreation));
                     NotifyPropertyChanged(nameof(SupportEquipmentCreation));
