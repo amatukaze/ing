@@ -24,7 +24,7 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
                         <CheckBox VerticalAlignment="Center"
                                   IsChecked="{Binding IsEnabled}"
                                   Content="{Binding Name, Mode=OneTime}"/>

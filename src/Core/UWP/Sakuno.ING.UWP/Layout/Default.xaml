@@ -13,6 +13,7 @@
                     <sh:ViewPresenter ViewId="MasterData"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="1">
                         <sh:ViewSwitcher ViewId="LogMigration"/>
+                        <sh:ViewSwitcher ViewId="ShipCreation"/>
                     </StackPanel>
                 </Grid>
             </DataTemplate>
@@ -22,6 +23,11 @@
         <sh:LayoutWindow Id="LogMigration">
             <DataTemplate>
                 <sh:ViewPresenter ViewId="LogMigration"/>
+            </DataTemplate>
+        </sh:LayoutWindow>
+        <sh:LayoutWindow Id="ShipCreation">
+            <DataTemplate>
+                <sh:ViewPresenter ViewId="ShipCreationLogs"/>
             </DataTemplate>
         </sh:LayoutWindow>
     </sh:LayoutRoot.SubWindows>
