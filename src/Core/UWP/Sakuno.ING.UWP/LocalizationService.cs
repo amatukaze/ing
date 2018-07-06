@@ -31,7 +31,7 @@ namespace Sakuno.ING.UWP
             = Windows.Globalization.ApplicationLanguages.ManifestLanguages.Select(x => new CultureInfo(x)).ToArray();
 
         public string GetLocalized(string category, string id) => NullIfEmpty(localizedLoader.GetString($"/{category}/{id}"));
-        public string GetUnlocalized(string category, string id) => NullIfEmpty(resourceMap.GetValue($"/{category}/{id}", unlocalizedContext).ValueAsString);
+        public string GetUnlocalized(string category, string id) => NullIfEmpty(resourceMap.GetValue($"/{category}/{id}", unlocalizedContext)?.ValueAsString);
 
         private static string NullIfEmpty(string input) => string.IsNullOrEmpty(input) ? null : input;
     }
