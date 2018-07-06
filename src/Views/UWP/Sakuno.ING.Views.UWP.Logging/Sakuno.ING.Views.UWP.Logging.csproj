@@ -36,7 +36,7 @@
       <Project>{159e60f5-e46d-48e8-bc31-3987ac70f991}</Project>
       <Name>Sakuno.ING.Game.Logger</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Logging\Sakuno.ING.ViewModels.Logging.vbproj">
+    <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Logging\Sakuno.ING.ViewModels.Logging.csproj">
       <Project>{1c87416d-ddef-4416-86e6-13dc44931cf5}</Project>
       <Name>Sakuno.ING.ViewModels.Logging</Name>
     </ProjectReference>
