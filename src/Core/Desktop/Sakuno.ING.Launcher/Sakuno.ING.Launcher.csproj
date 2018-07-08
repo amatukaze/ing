@@ -9,7 +9,7 @@
     <Version>0.1.0-blueprint2</Version>
     <Description>The launcher of Intelligent Naval Gun</Description>
     <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeShim</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +23,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj" />
+    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj" TreatAsPackageReference="true" PrivateAssets="All" />
   </ItemGroup>
+
+  <Target Name="IncludeShim">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(OutputPath)netstandard.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)Microsoft.Win32.Primitives.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)System.*.dll" />
+      <BuildOutputInPackage Include="$(OutputPath)$(AssemblyName).exe.config" />
+    </ItemGroup>
+  </Target>
 
 </Project>
