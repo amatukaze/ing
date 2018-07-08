@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +7,7 @@ using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.IO;
 
 namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
 {
@@ -20,9 +20,9 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
         public bool RequireFolder => false;
         public string Id => "Intelligent Naval Gun (Old)";
 
-        async ValueTask<IReadOnlyCollection<ShipCreation>> ILogProvider<ShipCreation>.GetLogsAsync(FileSystemInfo source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ShipCreation>> ILogProvider<ShipCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            using (var context = new INGLegacyContext(source.FullName))
+            using (var context = new INGLegacyContext(await (source as IFileFacade ?? throw new ArgumentException("Source must be a file.")).GetAccessPathAsync()))
                 return (await context.ConstructionTable.ToListAsync())
                     .Select(x => new ShipCreation
                     {
@@ -43,9 +43,9 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                     }).ToList();
         }
 
-        async ValueTask<IReadOnlyCollection<EquipmentCreation>> ILogProvider<EquipmentCreation>.GetLogsAsync(FileSystemInfo source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<EquipmentCreation>> ILogProvider<EquipmentCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            using (var context = new INGLegacyContext(source.FullName))
+            using (var context = new INGLegacyContext(await (source as IFileFacade ?? throw new ArgumentException("Source must be a file.")).GetAccessPathAsync()))
                 return (await context.DevelopmentTable.ToListAsync())
                     .Select(x => new EquipmentCreation
                     {
@@ -64,10 +64,10 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                     }).ToList();
         }
 
-        async ValueTask<IReadOnlyCollection<ExpeditionCompletion>> ILogProvider<ExpeditionCompletion>.GetLogsAsync(FileSystemInfo source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ExpeditionCompletion>> ILogProvider<ExpeditionCompletion>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var expeditions = Compositor.Static<NavalBase>().MasterData.Expeditions;
-            using (var context = new INGLegacyContext(source.FullName))
+            using (var context = new INGLegacyContext(await (source as IFileFacade ?? throw new ArgumentException("Source must be a file.")).GetAccessPathAsync()))
                 return (await context.ExpeditionTable.ToListAsync())
                     .Select(x => new ExpeditionCompletion
                     {

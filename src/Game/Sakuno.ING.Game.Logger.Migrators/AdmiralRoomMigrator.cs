@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.IO;
 
 namespace Sakuno.ING.Game.Logger.Migrators
 {
@@ -19,13 +21,14 @@ namespace Sakuno.ING.Game.Logger.Migrators
         public bool RequireFolder => true;
         public string Id => "提督の部屋";
 
-        async ValueTask<IReadOnlyCollection<ShipCreation>> ILogProvider<ShipCreation>.GetLogsAsync(FileSystemInfo source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ShipCreation>> ILogProvider<ShipCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var folder = source as DirectoryInfo ?? throw new ArgumentException("Source must be a folder.");
-            if (!folder.TryGetFile("createship.csv", out var file)) return Array.Empty<ShipCreation>();
+            var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
+            var file = await folder.GetFileAsync("createship.csv");
+            if (file == null) return Array.Empty<ShipCreation>();
 
             var table = new List<ShipCreation>();
-            using (var reader = file.OpenText())
+            using (var reader = new StreamReader(await file.OpenReadAsync(), Encoding.UTF8))
             {
                 await reader.ReadLineAsync();
                 while (!reader.EndOfStream)
@@ -60,13 +63,14 @@ namespace Sakuno.ING.Game.Logger.Migrators
             return table;
         }
 
-        async ValueTask<IReadOnlyCollection<EquipmentCreation>> ILogProvider<EquipmentCreation>.GetLogsAsync(FileSystemInfo source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<EquipmentCreation>> ILogProvider<EquipmentCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var folder = source as DirectoryInfo ?? throw new ArgumentException("Source must be a folder.");
-            if (!folder.TryGetFile("createitem.csv", out var scFile)) return Array.Empty<EquipmentCreation>();
+            var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
+            var file = await folder.GetFileAsync("createitem.csv");
+            if (file == null) return Array.Empty<EquipmentCreation>();
 
             var table = new List<EquipmentCreation>();
-            using (var reader = scFile.OpenText())
+            using (var reader = new StreamReader(await file.OpenReadAsync(), Encoding.UTF8))
             {
                 await reader.ReadLineAsync();
                 while (!reader.EndOfStream)
@@ -99,14 +103,15 @@ namespace Sakuno.ING.Game.Logger.Migrators
             return table;
         }
 
-        async ValueTask<IReadOnlyCollection<ExpeditionCompletion>> ILogProvider<ExpeditionCompletion>.GetLogsAsync(FileSystemInfo source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ExpeditionCompletion>> ILogProvider<ExpeditionCompletion>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var folder = source as DirectoryInfo ?? throw new ArgumentException("Source must be a folder.");
-            if (!folder.TryGetFile("mission.csv", out var scFile)) return Array.Empty<ExpeditionCompletion>();
+            var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
+            var file = await folder.GetFileAsync("mission.csv");
+            if (file == null) return Array.Empty<ExpeditionCompletion>();
 
             var expeditionTable = Compositor.Static<NavalBase>().MasterData.Expeditions;
             var table = new List<ExpeditionCompletion>();
-            using (var reader = scFile.OpenText())
+            using (var reader = new StreamReader(await file.OpenReadAsync(), Encoding.UTF8))
             {
                 await reader.ReadLineAsync();
                 while (!reader.EndOfStream)

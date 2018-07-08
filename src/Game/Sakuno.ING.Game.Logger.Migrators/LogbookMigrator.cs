@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.IO;
 
 namespace Sakuno.ING.Game.Logger.Migrators
 {
@@ -24,14 +25,15 @@ namespace Sakuno.ING.Game.Logger.Migrators
         private static TValue TryGetOrDefault<TKey, TValue>(Dictionary<TKey, TValue> dictionary, TKey key)
             => dictionary.TryGetValue(key, out TValue value) ? value : default;
 
-        async ValueTask<IReadOnlyCollection<ShipCreation>> ILogProvider<ShipCreation>.GetLogsAsync(FileSystemInfo source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ShipCreation>> ILogProvider<ShipCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var folder = source as DirectoryInfo ?? throw new ArgumentException("Source must be a folder.");
-            if (!folder.TryGetFile("建造報告書.csv", out var file)) return Array.Empty<ShipCreation>();
+            var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
+            var file = await folder.GetFileAsync("建造報告書.csv");
+            if (file == null) return Array.Empty<ShipCreation>();
 
             var table = new List<ShipCreation>();
             var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name);
-            using (var reader = new StreamReader(file.Open(FileMode.Open, FileAccess.Read, FileShare.Read), shiftJIS))
+            using (var reader = new StreamReader(await file.OpenReadAsync(), shiftJIS))
             {
                 await reader.ReadLineAsync();
                 while (!reader.EndOfStream)
@@ -69,15 +71,16 @@ namespace Sakuno.ING.Game.Logger.Migrators
             return table;
         }
 
-        async ValueTask<IReadOnlyCollection<EquipmentCreation>> ILogProvider<EquipmentCreation>.GetLogsAsync(FileSystemInfo source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<EquipmentCreation>> ILogProvider<EquipmentCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var folder = source as DirectoryInfo ?? throw new ArgumentException("Source must be a folder.");
-            if (!folder.TryGetFile("開発報告書.csv", out var file)) return Array.Empty<EquipmentCreation>();
+            var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
+            var file = await folder.GetFileAsync("開発報告書.csv");
+            if (file == null) return Array.Empty<EquipmentCreation>();
 
             var table = new List<EquipmentCreation>();
             var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name);
             var equipments = Compositor.Static<NavalBase>().MasterData.EquipmentInfos.ToDictionary(x => x.Name);
-            using (var reader = new StreamReader(file.Open(FileMode.Open, FileAccess.Read, FileShare.Read), shiftJIS))
+            using (var reader = new StreamReader(await file.OpenReadAsync(), shiftJIS))
             {
                 await reader.ReadLineAsync();
                 while (!reader.EndOfStream)
@@ -113,15 +116,16 @@ namespace Sakuno.ING.Game.Logger.Migrators
             return table;
         }
 
-        async ValueTask<IReadOnlyCollection<ExpeditionCompletion>> ILogProvider<ExpeditionCompletion>.GetLogsAsync(FileSystemInfo source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ExpeditionCompletion>> ILogProvider<ExpeditionCompletion>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var folder = source as DirectoryInfo ?? throw new ArgumentException("Source must be a folder.");
-            if (!folder.TryGetFile("遠征報告書.csv", out var file)) return Array.Empty<ExpeditionCompletion>();
+            var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
+            var file = await folder.GetFileAsync("遠征報告書.csv");
+            if (file == null) return Array.Empty<ExpeditionCompletion>();
 
             var table = new List<ExpeditionCompletion>();
             var expeditions = Compositor.Static<NavalBase>().MasterData.Expeditions.ToDictionary(x => x.Name);
             var useitems = Compositor.Static<NavalBase>().MasterData.UseItems.ToDictionary(x => x.Name);
-            using (var reader = new StreamReader(file.Open(FileMode.Open, FileAccess.Read, FileShare.Read), shiftJIS))
+            using (var reader = new StreamReader(await file.OpenReadAsync(), shiftJIS))
             {
                 await reader.ReadLineAsync();
                 while (!reader.EndOfStream)

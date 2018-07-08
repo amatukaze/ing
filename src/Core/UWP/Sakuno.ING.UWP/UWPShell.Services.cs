@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Sakuno.ING.IO;
 using Sakuno.ING.Shell;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -10,7 +11,7 @@ namespace Sakuno.ING.UWP
 {
     partial class UWPShell : IShell
     {
-        public async ValueTask<FileInfo> OpenFileAsync(params string[] extensions)
+        public async ValueTask<IFileFacade> OpenFileAsync(params string[] extensions)
         {
             var picker = new FileOpenPicker
             {
@@ -21,13 +22,10 @@ namespace Sakuno.ING.UWP
             picker.FileTypeFilter.Add("*");
 
             var file = await picker.PickSingleFileAsync();
-            if (file == null) return null;
-
-            var temp = await file.CopyAsync(ApplicationData.Current.TemporaryFolder, Path.GetRandomFileName());
-            return new FileInfo(temp.Path);
+            return file == null ? null : new StorageFileFacade(file);
         }
 
-        public async ValueTask<DirectoryInfo> PickFolderAsync()
+        public async ValueTask<IFolderFacade> PickFolderAsync()
         {
             var picker = new FolderPicker
             {
@@ -36,19 +34,34 @@ namespace Sakuno.ING.UWP
             picker.FileTypeFilter.Add("*");
 
             var folder = await picker.PickSingleFolderAsync();
-            if (folder == null) return null;
-
-            var temp = await ApplicationData.Current.TemporaryFolder.CreateFolderAsync(Path.GetRandomFileName());
-            await CopyFolderAsync(folder, temp);
-            return new DirectoryInfo(temp.Path);
+            return folder == null ? null : new StorageFolderFacade(folder);
         }
 
-        private async ValueTask CopyFolderAsync(StorageFolder source, StorageFolder destination)
+        private class StorageFileFacade : IFileFacade
         {
-            foreach (var file in await source.GetFilesAsync())
-                await file.CopyAsync(destination);
-            foreach (var folder in await source.GetFoldersAsync())
-                await CopyFolderAsync(folder, await destination.CreateFolderAsync(folder.Name));
+            private readonly StorageFile storageFile;
+            public StorageFileFacade(StorageFile storageFile) => this.storageFile = storageFile;
+
+            public string FullName => storageFile.Path;
+
+            public ValueTask<Stream> OpenReadAsync()
+                => new ValueTask<Stream>(storageFile.OpenStreamForReadAsync());
+
+            public async ValueTask<string> GetAccessPathAsync()
+                => (await storageFile.CopyAsync(ApplicationData.Current.TemporaryFolder, Path.GetRandomFileName(), NameCollisionOption.ReplaceExisting)).Path;
+        }
+
+        private class StorageFolderFacade : IFolderFacade
+        {
+            private readonly StorageFolder storageFolder;
+            public StorageFolderFacade(StorageFolder storageFolder) => this.storageFolder = storageFolder;
+
+            public string FullName => storageFolder.Path;
+
+            public async ValueTask<IFileFacade> GetFileAsync(string filename)
+                => new StorageFileFacade(await storageFolder.GetFileAsync(filename));
+            public async ValueTask<IFolderFacade> GetFolderAsync(string foldername)
+                => new StorageFolderFacade(await storageFolder.GetFolderAsync(foldername));
         }
 
         public ValueTask ShowMessageAsync(string detail, string title)

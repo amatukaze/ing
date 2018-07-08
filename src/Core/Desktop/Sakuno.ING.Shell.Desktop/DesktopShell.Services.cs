@@ -3,12 +3,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Sakuno.ING.IO;
 
 namespace Sakuno.ING.Shell.Desktop
 {
     partial class DesktopShell : IShell
     {
-        public ValueTask<FileInfo> OpenFileAsync(params string[] extensions)
+        public ValueTask<IFileFacade> OpenFileAsync(params string[] extensions)
         {
             var dialog = new CommonOpenFileDialog
             {
@@ -18,14 +19,13 @@ namespace Sakuno.ING.Shell.Desktop
                 dialog.Filters.Add(new CommonFileDialogFilter(ext, "*." + ext));
             dialog.Filters.Add(new CommonFileDialogFilter("*", "*"));
 
-            FileInfo result = null;
             if (ShowModal(dialog) == CommonFileDialogResult.Ok)
-                result = new FileInfo(dialog.FileName);
-
-            return new ValueTask<FileInfo>(result);
+                return new ValueTask<IFileFacade>(new FilePathFacade(dialog.FileName));
+            else
+                return default;
         }
 
-        public ValueTask<DirectoryInfo> PickFolderAsync()
+        public ValueTask<IFolderFacade> PickFolderAsync()
         {
             var dialog = new CommonOpenFileDialog
             {
@@ -33,11 +33,44 @@ namespace Sakuno.ING.Shell.Desktop
                 ShowHiddenItems = true
             };
 
-            DirectoryInfo result = null;
             if (ShowModal(dialog) == CommonFileDialogResult.Ok)
-                result = new DirectoryInfo(dialog.FileName);
+                return new ValueTask<IFolderFacade>(new FolderPathFacade(dialog.FileName));
+            else
+                return default;
+        }
 
-            return new ValueTask<DirectoryInfo>(result);
+        private class FilePathFacade : IFileFacade
+        {
+            public FilePathFacade(string path) => FullName = path;
+            public string FullName { get; }
+
+            public ValueTask<string> GetAccessPathAsync() => new ValueTask<string>(FullName);
+            public ValueTask<Stream> OpenReadAsync()
+                => new ValueTask<Stream>(File.OpenRead(FullName));
+        }
+
+        private class FolderPathFacade : IFolderFacade
+        {
+            public FolderPathFacade(string path) => FullName = path;
+            public string FullName { get; }
+
+            public ValueTask<IFileFacade> GetFileAsync(string filename)
+            {
+                string path = Path.Combine(FullName, filename);
+                if (File.Exists(path))
+                    return new ValueTask<IFileFacade>(new FilePathFacade(path));
+                else
+                    return default;
+            }
+
+            public ValueTask<IFolderFacade> GetFolderAsync(string foldername)
+            {
+                string path = Path.Combine(FullName, foldername);
+                if (Directory.Exists(path))
+                    return new ValueTask<IFolderFacade>(new FolderPathFacade(path));
+                else
+                    return default;
+            }
         }
 
         private static Window GetForegroundWindow()

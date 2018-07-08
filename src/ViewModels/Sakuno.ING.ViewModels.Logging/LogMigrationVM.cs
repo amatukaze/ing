@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Logger;
 using Sakuno.ING.Game.Logger.Entities;
+using Sakuno.ING.IO;
 using Sakuno.ING.Shell;
 
 namespace Sakuno.ING.ViewModels.Logging
@@ -38,11 +38,10 @@ namespace Sakuno.ING.ViewModels.Logging
 
         public bool Ready
             => SelectedMigrator != null
-            && SelectedPath != null
-            && SelectedPath.Exists;
+            && SelectedPath != null;
 
-        private FileSystemInfo _selectedFs;
-        public FileSystemInfo SelectedPath
+        private IFileSystemFacade _selectedFs;
+        public IFileSystemFacade SelectedPath
         {
             get => _selectedFs;
             set
@@ -92,7 +91,7 @@ namespace Sakuno.ING.ViewModels.Logging
 
         public async void PickPath()
         {
-            FileSystemInfo fs;
+            IFileSystemFacade fs;
             if (SelectedMigrator.RequireFolder)
                 fs = await shell.PickFolderAsync();
             else

@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Sakuno.ING.IO;
 
 namespace Sakuno.ING.Shell
 {
@@ -8,8 +8,8 @@ namespace Sakuno.ING.Shell
         void Run();
         void SwitchWindow(string windowId);
 
-        ValueTask<FileInfo> OpenFileAsync(params string[] extensions);
-        ValueTask<DirectoryInfo> PickFolderAsync();
+        ValueTask<IFileFacade> OpenFileAsync(params string[] extensions);
+        ValueTask<IFolderFacade> PickFolderAsync();
 
         ValueTask ShowMessageAsync(string detail, string title);
     }
