@@ -157,6 +157,8 @@ namespace Sakuno.ING.ViewModels.Logging
             {
                 await shell.ShowMessageAsync(ex.ToString(), "Migration Failed");
             }
+
+            Running = false;
         }
     }
 }

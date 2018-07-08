@@ -7,7 +7,10 @@ namespace Sakuno.ING.Game.Logger
 {
     public class LoggerContext : DbContext
     {
-        internal LoggerContext(DbContextOptions<LoggerContext> options) : base(options) { }
+        internal LoggerContext(DbContextOptions<LoggerContext> options) : base(options)
+        {
+            ChangeTracker.AutoDetectChangesEnabled = false;
+        }
 
         public DbSet<ShipCreation> ShipCreationTable { get; private set; }
         public DbSet<EquipmentCreation> EquipmentCreationTable { get; private set; }
