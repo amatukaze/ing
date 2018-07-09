@@ -26,10 +26,11 @@ namespace Sakuno.ING.ViewModels.Logging
 
         public void Refresh()
         {
-            IEnumerable<T> source = GetEntities();
-            foreach(var filter in _filters)
+            var entities = GetEntities();
+            IEnumerable<T> source = entities;
+            foreach (var filter in _filters)
             {
-                filter.UpdateCandidates(source);
+                filter.UpdateCandidates(entities);
                 if (filter.IsEnabled)
                     source = source.Where(filter.Hits);
             }

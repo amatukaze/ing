@@ -29,7 +29,7 @@
                                   IsChecked="{Binding IsEnabled}"
                                   Content="{Binding Name, Mode=OneTime}"/>
                         <ComboBox VerticalAlignment="Center"
-                                  IsEnabled="{Binding IsEnabled}" IsEditable="True"
+                                  IsEnabled="{Binding IsEnabled}"
                                   ItemsSource="{Binding Candidates}"
                                   SelectedValue="{Binding SelectedText}"/>
                     </StackPanel>
