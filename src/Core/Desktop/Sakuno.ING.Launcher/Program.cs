@@ -427,21 +427,20 @@ namespace Sakuno.ING
         static void ReplaceMyself(string directory)
         {
             var launcherFilename = Assembly.GetEntryAssembly().Location;
-            var toolsDirectory = Path.Combine(directory, "tools");
+            var libDirectory = Path.Combine(directory, "lib");
 
             File.Move(launcherFilename, launcherFilename + ".old");
-            File.Move(Path.Combine(toolsDirectory, "Sakuno.ING.exe"), launcherFilename);
+            File.Copy(Path.Combine(libDirectory, "Sakuno.ING.exe"), launcherFilename);
 
-            var configFilename = Path.Combine(toolsDirectory, "Sakuno.ING.exe.config");
+            var configFilename = Path.Combine(libDirectory, "Sakuno.ING.exe.config");
             var currentConfigFilename = launcherFilename + ".config";
 
             if (File.Exists(currentConfigFilename))
                 File.Delete(currentConfigFilename);
 
             if (File.Exists(configFilename))
-                File.Move(configFilename, currentConfigFilename);
+                File.Copy(configFilename, currentConfigFilename);
 
-            Directory.Delete(toolsDirectory);
             needRestart = true;
         }
 
