@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Markup;
 namespace Sakuno.ING.UWP
 {
     [Export(typeof(IShell))]
-    internal partial class UWPShell : FlexibleShell<FrameworkElement>, IShell
+    internal class UWPShell : FlexibleShell<FrameworkElement>, IShell
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ITextStreamProvider gameProvider;

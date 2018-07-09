@@ -23,7 +23,9 @@ namespace Sakuno.ING.Views.Desktop.Controls
             var method = DataContext?.GetType().GetMethod(MethodName);
             if (method == null) return;
 
+            DesktopShellContextService.Instance.Window = Window.GetWindow(this);
             method.Invoke(DataContext, Array.Empty<object>());
+            DesktopShellContextService.Instance.Window = null;
         }
     }
 }

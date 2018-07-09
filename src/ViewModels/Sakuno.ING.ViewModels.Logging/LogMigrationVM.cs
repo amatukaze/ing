@@ -15,7 +15,7 @@ namespace Sakuno.ING.ViewModels.Logging
     public class LogMigrationVM : BindableObject
     {
         private readonly Logger logger;
-        private readonly IShell shell;
+        private readonly IShellContextService shellContextService;
         public IBindableCollection<ILogMigrator> Migrators { get; }
 
         private ILogMigrator _selectedMigrator;
@@ -64,10 +64,10 @@ namespace Sakuno.ING.ViewModels.Logging
         public bool SupportExpeditionCompletion => SelectedMigrator is ILogProvider<ExpeditionCompletion>;
         public bool SelectExpeditionCompletion { get; set; }
 
-        public LogMigrationVM(Logger logger, ILogMigrator[] migrators, IShell shell)
+        public LogMigrationVM(Logger logger, ILogMigrator[] migrators, IShellContextService shellContextService)
         {
             this.logger = logger;
-            this.shell = shell;
+            this.shellContextService = shellContextService;
             Migrators = migrators.ToBindable();
         }
 
@@ -93,9 +93,9 @@ namespace Sakuno.ING.ViewModels.Logging
         {
             IFileSystemFacade fs;
             if (SelectedMigrator.RequireFolder)
-                fs = await shell.PickFolderAsync();
+                fs = await shellContextService.Capture().PickFolderAsync();
             else
-                fs = await shell.OpenFileAsync();
+                fs = await shellContextService.Capture().OpenFileAsync();
 
             if (fs != null)
                 SelectedPath = fs;
@@ -129,9 +129,11 @@ namespace Sakuno.ING.ViewModels.Logging
 
         public async void DoMigration()
         {
+            var shellContext = shellContextService.Capture();
+
             if(!logger.PlayerLoaded)
             {
-                await shell.ShowMessageAsync("Game player not loaded", "Cannot migrate");
+                await shellContext.ShowMessageAsync("Game player not loaded", "Cannot migrate");
                 return;
             }
 
@@ -142,22 +144,23 @@ namespace Sakuno.ING.ViewModels.Logging
                 using (var context = logger.CreateContext())
                 {
                     if (SelectShipCreation)
-                        await TryMigrate(context.ShipCreationTable, SelectedMigrator as ILogProvider<ShipCreation>);
+                        await TryMigrate(context.ShipCreationTable, SelectedMigrator as ILogProvider<ShipCreation>).ConfigureAwait(false);
                     if (SelectEquipmentCreation)
-                        await TryMigrate(context.EquipmentCreationTable, SelectedMigrator as ILogProvider<EquipmentCreation>);
+                        await TryMigrate(context.EquipmentCreationTable, SelectedMigrator as ILogProvider<EquipmentCreation>).ConfigureAwait(false);
                     if (SelectExpeditionCompletion)
-                        await TryMigrate(context.ExpeditionCompletionTable, SelectedMigrator as ILogProvider<ExpeditionCompletion>);
+                        await TryMigrate(context.ExpeditionCompletionTable, SelectedMigrator as ILogProvider<ExpeditionCompletion>).ConfigureAwait(false);
 
-                    await context.SaveChangesAsync();
-                    await shell.ShowMessageAsync("Log migration completed successfully.", "Migration Completed");
+                    await context.SaveChangesAsync().ConfigureAwait(false);
+
+                    Running = false;
+                    await shellContext.ShowMessageAsync("Log migration completed successfully.", "Migration Completed");
                 }
             }
             catch(Exception ex)
             {
-                await shell.ShowMessageAsync(ex.ToString(), "Migration Failed");
+                Running = false;
+                await shellContext.ShowMessageAsync(ex.ToString(), "Migration Failed");
             }
-
-            Running = false;
         }
     }
 }
