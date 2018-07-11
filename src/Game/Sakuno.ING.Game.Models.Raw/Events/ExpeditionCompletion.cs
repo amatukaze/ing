@@ -4,7 +4,7 @@ namespace Sakuno.ING.Game.Events
 {
     public class ExpeditionCompletion
     {
-        public ExpeditionCompletion(FleetId fleetId, string expeditionName, ExpeditionResult result, Materials materialsAcquired, ItemRecord rewardItem1, ItemRecord rewardItem2)
+        public ExpeditionCompletion(FleetId fleetId, string expeditionName, ExpeditionResult result, Materials materialsAcquired, ItemRecord? rewardItem1, ItemRecord? rewardItem2)
         {
             FleetId = fleetId;
             ExpeditionName = expeditionName;
@@ -18,7 +18,7 @@ namespace Sakuno.ING.Game.Events
         public string ExpeditionName { get; }
         public ExpeditionResult Result { get; }
         public Materials MaterialsAcquired { get; }
-        public ItemRecord RewardItem1 { get; }
-        public ItemRecord RewardItem2 { get; }
+        public ItemRecord? RewardItem1 { get; }
+        public ItemRecord? RewardItem2 { get; }
     }
 }

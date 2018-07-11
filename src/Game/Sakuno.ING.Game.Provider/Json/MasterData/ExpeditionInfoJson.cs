@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
@@ -33,22 +32,10 @@ namespace Sakuno.ING.Game.Json.MasterData
         public double BulletConsumption { get; set; }
 
         [JsonProperty("api_win_item1"), JsonConverter(typeof(ItemRecordConverter))]
-        public ItemRecord RewardItem1;
+        public ItemRecord? RewardItem1 { get; set; }
 
         [JsonProperty("api_win_item2"), JsonConverter(typeof(ItemRecordConverter))]
-        public ItemRecord RewardItem2;
-
-        public IReadOnlyList<ItemRecord> RewardItems
-        {
-            get
-            {
-                if (RewardItem1.ItemId == 0)
-                    return Array.Empty<ItemRecord>();
-                if (RewardItem2.ItemId == 0)
-                    return new[] { RewardItem1 };
-                return new[] { RewardItem1, RewardItem2 };
-            }
-        }
+        public ItemRecord? RewardItem2 { get; set; }
 
         [JsonProperty("api_return_flag")]
         public bool CanRecall { get; set; }

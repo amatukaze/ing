@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
@@ -36,7 +35,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         double FuelConsumption { get; }
         double BulletConsumption { get; }
 
-        IReadOnlyList<ItemRecord> RewardItems { get; }
+        ItemRecord? RewardItem1 { get; }
+        ItemRecord? RewardItem2 { get; }
 
         bool CanRecall { get; }
     }

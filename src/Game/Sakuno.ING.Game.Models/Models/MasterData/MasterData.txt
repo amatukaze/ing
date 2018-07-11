@@ -93,6 +93,7 @@ p:int RequiredShipCount -
 p:int Difficulty -
 p:double FuelConsumption -
 p:double BulletConsumption -
-p:IReadOnlyList<ItemRecord> RewardItems -
+p:ItemRecord? RewardItem1 -
+p:ItemRecord? RewardItem2 -
 p:bool CanRecall -
 

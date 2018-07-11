@@ -161,7 +161,7 @@ namespace Sakuno.ING.Game
 
         private static ExpeditionCompletion ParseExpeditionCompletion(NameValueCollection request, ExpeditionCompletionJson response)
         {
-            ItemRecord item1 = default, item2 = default;
+            ItemRecord? item1 = null, item2 = null;
 
             var id1 = response.api_useitem_flag.ElementAtOrDefault(0);
             if (id1 == 4)

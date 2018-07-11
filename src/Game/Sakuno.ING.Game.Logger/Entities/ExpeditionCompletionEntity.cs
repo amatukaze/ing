@@ -35,37 +35,41 @@ namespace Sakuno.ING.Game.Logger.Entities
         private int MaterialsAcquired_Bauxite { get; set; }
 
         [NotMapped]
-        public ItemRecord RewardItem1
+        public ItemRecord? RewardItem1
         {
-            get => new ItemRecord
-            {
-                ItemId = (UseItemId)RewardItem1_ItemId,
-                Count = RewardItem1_Count
-            };
+            get => (RewardItem1_ItemId is int id
+                && RewardItem1_Count is int count) ?
+                new ItemRecord
+                {
+                    ItemId = (UseItemId)id,
+                    Count = count
+                } : (ItemRecord?)null;
             set
             {
-                RewardItem1_ItemId = value.ItemId;
-                RewardItem1_Count = value.Count;
+                RewardItem1_ItemId = value?.ItemId;
+                RewardItem1_Count = value?.Count;
             }
         }
-        private int RewardItem1_ItemId { get; set; }
-        private int RewardItem1_Count { get; set; }
+        private int? RewardItem1_ItemId { get; set; }
+        private int? RewardItem1_Count { get; set; }
 
         [NotMapped]
-        public ItemRecord RewardItem2
+        public ItemRecord? RewardItem2
         {
-            get => new ItemRecord
-            {
-                ItemId = (UseItemId)RewardItem2_ItemId,
-                Count = RewardItem2_Count
-            };
+            get => (RewardItem2_ItemId is int id
+                && RewardItem2_Count is int count) ?
+                new ItemRecord
+                {
+                    ItemId = (UseItemId)id,
+                    Count = count
+                } : (ItemRecord?)null;
             set
             {
-                RewardItem2_ItemId = value.ItemId;
-                RewardItem2_Count = value.Count;
+                RewardItem2_ItemId = value?.ItemId;
+                RewardItem2_Count = value?.Count;
             }
         }
-        private int RewardItem2_ItemId { get; set; }
-        private int RewardItem2_Count { get; set; }
+        private int? RewardItem2_ItemId { get; set; }
+        private int? RewardItem2_Count { get; set; }
     }
 }

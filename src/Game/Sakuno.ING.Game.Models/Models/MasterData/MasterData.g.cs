@@ -838,11 +838,18 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _bulletConsumption, value);
         }
 
-        private IReadOnlyList<ItemRecord> _rewardItems;
-        public IReadOnlyList<ItemRecord> RewardItems
+        private ItemRecord? _rewardItem1;
+        public ItemRecord? RewardItem1
         {
-            get => _rewardItems;
-            internal set => Set(ref _rewardItems, value);
+            get => _rewardItem1;
+            internal set => Set(ref _rewardItem1, value);
+        }
+
+        private ItemRecord? _rewardItem2;
+        public ItemRecord? RewardItem2
+        {
+            get => _rewardItem2;
+            internal set => Set(ref _rewardItem2, value);
         }
 
         private bool _canRecall;
@@ -882,7 +889,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             Difficulty = raw.Difficulty;
             FuelConsumption = raw.FuelConsumption;
             BulletConsumption = raw.BulletConsumption;
-            RewardItems = raw.RewardItems;
+            RewardItem1 = raw.RewardItem1;
+            RewardItem2 = raw.RewardItem2;
             CanRecall = raw.CanRecall;
             Name = raw.Name;
             Description = raw.Description;
