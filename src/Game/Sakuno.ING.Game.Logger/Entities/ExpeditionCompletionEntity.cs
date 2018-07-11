@@ -29,10 +29,10 @@ namespace Sakuno.ING.Game.Logger.Entities
             }
         }
 
-        private int MaterialsAcquired_Fuel { get; set; }
-        private int MaterialsAcquired_Bullet { get; set; }
-        private int MaterialsAcquired_Steel { get; set; }
-        private int MaterialsAcquired_Bauxite { get; set; }
+        public int MaterialsAcquired_Fuel { get; set; }
+        public int MaterialsAcquired_Bullet { get; set; }
+        public int MaterialsAcquired_Steel { get; set; }
+        public int MaterialsAcquired_Bauxite { get; set; }
 
         [NotMapped]
         public ItemRecord? RewardItem1
@@ -50,8 +50,8 @@ namespace Sakuno.ING.Game.Logger.Entities
                 RewardItem1_Count = value?.Count;
             }
         }
-        private int? RewardItem1_ItemId { get; set; }
-        private int? RewardItem1_Count { get; set; }
+        public int? RewardItem1_ItemId { get; set; }
+        public int? RewardItem1_Count { get; set; }
 
         [NotMapped]
         public ItemRecord? RewardItem2
@@ -69,7 +69,7 @@ namespace Sakuno.ING.Game.Logger.Entities
                 RewardItem2_Count = value?.Count;
             }
         }
-        private int? RewardItem2_ItemId { get; set; }
-        private int? RewardItem2_Count { get; set; }
+        public int? RewardItem2_ItemId { get; set; }
+        public int? RewardItem2_Count { get; set; }
     }
 }

@@ -7,5 +7,6 @@ namespace Sakuno.ING.Game.Logger
     {
         [Key]
         public DateTimeOffset TimeStamp { get; set; }
+        public string Source { get; set; }
     }
 }

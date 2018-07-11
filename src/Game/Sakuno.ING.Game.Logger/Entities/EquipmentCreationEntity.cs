@@ -25,10 +25,10 @@ namespace Sakuno.ING.Game.Logger.Entities
             }
         }
 
-        private int Consumption_Fuel { get; set; }
-        private int Consumption_Bullet { get; set; }
-        private int Consumption_Steel { get; set; }
-        private int Consumption_Bauxite { get; set; }
+        public int Consumption_Fuel { get; set; }
+        public int Consumption_Bullet { get; set; }
+        public int Consumption_Steel { get; set; }
+        public int Consumption_Bauxite { get; set; }
 
         public bool IsSuccess { get; set; }
         public EquipmentInfoId EquipmentCreated { get; set; }
