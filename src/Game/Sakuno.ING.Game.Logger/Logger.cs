@@ -13,7 +13,7 @@ namespace Sakuno.ING.Game.Logger
         private readonly IDataService dataService;
         private readonly NavalBase navalBase;
 
-        private ShipCreation shipCreation;
+        private ShipCreationEntity shipCreation;
         private BuildingDockId lastBuildingDock;
 
         public Logger(IDataService dataService, IGameProvider provider, NavalBase navalBase)
@@ -25,7 +25,7 @@ namespace Sakuno.ING.Game.Logger
             {
                 using (var context = CreateContext())
                 {
-                    context.EquipmentCreationTable.Add(new EquipmentCreation
+                    context.EquipmentCreationTable.Add(new EquipmentCreationEntity
                     {
                         TimeStamp = t,
                         Consumption = m.Consumption,
@@ -41,7 +41,7 @@ namespace Sakuno.ING.Game.Logger
 
             provider.ShipCreated += (t, m) =>
             {
-                shipCreation = new ShipCreation
+                shipCreation = new ShipCreationEntity
                 {
                     TimeStamp = t,
                     Consumption = m.Consumption,
@@ -71,7 +71,7 @@ namespace Sakuno.ING.Game.Logger
             {
                 using (var context = CreateContext())
                 {
-                    context.ExpeditionCompletionTable.Add(new ExpeditionCompletion
+                    context.ExpeditionCompletionTable.Add(new ExpeditionCompletionEntity
                     {
                         TimeStamp = t,
                         ExpeditionId = this.navalBase.Fleets[m.FleetId].Expedition.Id,

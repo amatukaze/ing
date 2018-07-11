@@ -13,9 +13,9 @@ namespace Sakuno.ING.Game.Logger.Migrators
 {
     [Export(typeof(ILogMigrator))]
     internal class LogbookMigrator : ILogMigrator,
-        ILogProvider<ShipCreation>,
-        ILogProvider<EquipmentCreation>,
-        ILogProvider<ExpeditionCompletion>
+        ILogProvider<ShipCreationEntity>,
+        ILogProvider<EquipmentCreationEntity>,
+        ILogProvider<ExpeditionCompletionEntity>
     {
         public bool RequireFolder => true;
         public string Id => "Logbook";
@@ -25,13 +25,13 @@ namespace Sakuno.ING.Game.Logger.Migrators
         private static TValue TryGetOrDefault<TKey, TValue>(Dictionary<TKey, TValue> dictionary, TKey key)
             => dictionary.TryGetValue(key, out TValue value) ? value : default;
 
-        async ValueTask<IReadOnlyCollection<ShipCreation>> ILogProvider<ShipCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
             var file = await folder.GetFileAsync("建造報告書.csv");
-            if (file == null) return Array.Empty<ShipCreation>();
+            if (file == null) return Array.Empty<ShipCreationEntity>();
 
-            var table = new List<ShipCreation>();
+            var table = new List<ShipCreationEntity>();
             var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name);
             using (var reader = new StreamReader(await file.OpenReadAsync(), shiftJIS))
             {
@@ -48,13 +48,13 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     string secretaryName = s[10].Substring(0, index);
                     string secretaryLevel = s[10].Substring(index + 3, s[10].Length - index - 4);
                     if (secretaryLevel[0] == '.') secretaryLevel = secretaryLevel.Substring(1);
-                    table.Add(new ShipCreation
+                    table.Add(new ShipCreationEntity
                     {
                         TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Local) - timeZone,
                         SecretaryLevel = int.Parse(secretaryLevel),
                         Secretary = TryGetOrDefault(ships, secretaryName)?.Id ?? default,
                         ShipBuilt = TryGetOrDefault(ships, s[2])?.Id ?? default,
-                        Consumption = new MaterialsEntity
+                        Consumption = new Materials
                         {
                             Fuel = int.Parse(s[4]),
                             Bullet = int.Parse(s[5]),
@@ -71,13 +71,13 @@ namespace Sakuno.ING.Game.Logger.Migrators
             return table;
         }
 
-        async ValueTask<IReadOnlyCollection<EquipmentCreation>> ILogProvider<EquipmentCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> ILogProvider<EquipmentCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
             var file = await folder.GetFileAsync("開発報告書.csv");
-            if (file == null) return Array.Empty<EquipmentCreation>();
+            if (file == null) return Array.Empty<EquipmentCreationEntity>();
 
-            var table = new List<EquipmentCreation>();
+            var table = new List<EquipmentCreationEntity>();
             var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name);
             var equipments = Compositor.Static<NavalBase>().MasterData.EquipmentInfos.ToDictionary(x => x.Name);
             using (var reader = new StreamReader(await file.OpenReadAsync(), shiftJIS))
@@ -95,14 +95,14 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     string secretaryName = s[7].Substring(0, index);
                     string secretaryLevel = s[7].Substring(index + 3, s[7].Length - index - 4);
                     if (secretaryLevel[0] == '.') secretaryLevel = secretaryLevel.Substring(1);
-                    table.Add(new EquipmentCreation
+                    table.Add(new EquipmentCreationEntity
                     {
                         TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Local) - timeZone,
                         SecretaryLevel = int.Parse(secretaryLevel),
                         Secretary = TryGetOrDefault(ships, secretaryName)?.Id ?? default,
                         EquipmentCreated = TryGetOrDefault(equipments, s[2])?.Id ?? default,
                         IsSuccess = s[2] != "失敗",
-                        Consumption = new MaterialsEntity
+                        Consumption = new Materials
                         {
                             Fuel = int.Parse(s[3]),
                             Bullet = int.Parse(s[4]),
@@ -116,13 +116,13 @@ namespace Sakuno.ING.Game.Logger.Migrators
             return table;
         }
 
-        async ValueTask<IReadOnlyCollection<ExpeditionCompletion>> ILogProvider<ExpeditionCompletion>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> ILogProvider<ExpeditionCompletionEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
             var file = await folder.GetFileAsync("遠征報告書.csv");
-            if (file == null) return Array.Empty<ExpeditionCompletion>();
+            if (file == null) return Array.Empty<ExpeditionCompletionEntity>();
 
-            var table = new List<ExpeditionCompletion>();
+            var table = new List<ExpeditionCompletionEntity>();
             var expeditions = Compositor.Static<NavalBase>().MasterData.Expeditions.ToDictionary(x => x.Name);
             var useitems = Compositor.Static<NavalBase>().MasterData.UseItems.ToDictionary(x => x.Name);
             using (var reader = new StreamReader(await file.OpenReadAsync(), shiftJIS))
@@ -136,26 +136,26 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     var s = line.Split(',');
                     if (s.Length < 11) continue;
 
-                    table.Add(new ExpeditionCompletion
+                    table.Add(new ExpeditionCompletionEntity
                     {
                         TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Local) - timeZone,
                         Result = s[1] == "大成功" ? ExpeditionResult.GreatSuccess :
                             s[1] == "成功" ? ExpeditionResult.Success :
                             ExpeditionResult.Fail,
                         ExpeditionId = TryGetOrDefault(expeditions, s[2])?.Id ?? default,
-                        MaterialsAcquired = new MaterialsEntity
+                        MaterialsAcquired = new Materials
                         {
                             Fuel = int.Parse(s[3]),
                             Bullet = int.Parse(s[4]),
                             Steel = int.Parse(s[5]),
                             Bauxite = int.Parse(s[6])
                         },
-                        RewardItem1 = new ItemRecordEntity
+                        RewardItem1 = new ItemRecord
                         {
                             ItemId = string.IsNullOrEmpty(s[7]) ? default : TryGetOrDefault(useitems, s[7])?.Id ?? default,
                             Count = string.IsNullOrEmpty(s[8]) ? 0 : int.Parse(s[8])
                         },
-                        RewardItem2 = new ItemRecordEntity
+                        RewardItem2 = new ItemRecord
                         {
                             ItemId = string.IsNullOrEmpty(s[9]) ? default : TryGetOrDefault(useitems, s[9])?.Id ?? default,
                             Count = string.IsNullOrEmpty(s[10]) ? 0 : int.Parse(s[10])

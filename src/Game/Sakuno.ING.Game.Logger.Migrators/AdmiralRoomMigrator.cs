@@ -14,20 +14,20 @@ namespace Sakuno.ING.Game.Logger.Migrators
 {
     [Export(typeof(ILogMigrator))]
     internal class AdmiralRoomMigrator : ILogMigrator,
-        ILogProvider<ShipCreation>,
-        ILogProvider<EquipmentCreation>,
-        ILogProvider<ExpeditionCompletion>
+        ILogProvider<ShipCreationEntity>,
+        ILogProvider<EquipmentCreationEntity>,
+        ILogProvider<ExpeditionCompletionEntity>
     {
         public bool RequireFolder => true;
         public string Id => "提督の部屋";
 
-        async ValueTask<IReadOnlyCollection<ShipCreation>> ILogProvider<ShipCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
             var file = await folder.GetFileAsync("createship.csv");
-            if (file == null) return Array.Empty<ShipCreation>();
+            if (file == null) return Array.Empty<ShipCreationEntity>();
 
-            var table = new List<ShipCreation>();
+            var table = new List<ShipCreationEntity>();
             using (var reader = new StreamReader(await file.OpenReadAsync(), Encoding.UTF8))
             {
                 await reader.ReadLineAsync();
@@ -40,12 +40,12 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     if (s.Length < 12) continue;
                     DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]) - timeZone, DateTimeKind.Utc);
 
-                    table.Add(new ShipCreation
+                    table.Add(new ShipCreationEntity
                     {
                         TimeStamp = time,
                         SecretaryLevel = int.Parse(s[1]),
                         Secretary = (ShipInfoId)int.Parse(s[2]),
-                        Consumption = new MaterialsEntity
+                        Consumption = new Materials
                         {
                             Fuel = int.Parse(s[3]),
                             Bullet = int.Parse(s[4]),
@@ -63,13 +63,13 @@ namespace Sakuno.ING.Game.Logger.Migrators
             return table;
         }
 
-        async ValueTask<IReadOnlyCollection<EquipmentCreation>> ILogProvider<EquipmentCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> ILogProvider<EquipmentCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
             var file = await folder.GetFileAsync("createitem.csv");
-            if (file == null) return Array.Empty<EquipmentCreation>();
+            if (file == null) return Array.Empty<EquipmentCreationEntity>();
 
-            var table = new List<EquipmentCreation>();
+            var table = new List<EquipmentCreationEntity>();
             using (var reader = new StreamReader(await file.OpenReadAsync(), Encoding.UTF8))
             {
                 await reader.ReadLineAsync();
@@ -82,12 +82,12 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     if (s.Length < 10) continue;
                     DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]) - timeZone, DateTimeKind.Utc);
 
-                    table.Add(new EquipmentCreation
+                    table.Add(new EquipmentCreationEntity
                     {
                         TimeStamp = time,
                         SecretaryLevel = int.Parse(s[1]),
                         Secretary = (ShipInfoId)int.Parse(s[2]),
-                        Consumption = new MaterialsEntity
+                        Consumption = new Materials
                         {
                             Fuel = int.Parse(s[3]),
                             Bullet = int.Parse(s[4]),
@@ -103,14 +103,14 @@ namespace Sakuno.ING.Game.Logger.Migrators
             return table;
         }
 
-        async ValueTask<IReadOnlyCollection<ExpeditionCompletion>> ILogProvider<ExpeditionCompletion>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> ILogProvider<ExpeditionCompletionEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
             var file = await folder.GetFileAsync("mission.csv");
-            if (file == null) return Array.Empty<ExpeditionCompletion>();
+            if (file == null) return Array.Empty<ExpeditionCompletionEntity>();
 
             var expeditionTable = Compositor.Static<NavalBase>().MasterData.Expeditions;
-            var table = new List<ExpeditionCompletion>();
+            var table = new List<ExpeditionCompletionEntity>();
             using (var reader = new StreamReader(await file.OpenReadAsync(), Encoding.UTF8))
             {
                 await reader.ReadLineAsync();
@@ -123,25 +123,25 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     if (s.Length < 11) continue;
                     DateTimeOffset time = DateTime.SpecifyKind(DateTime.Parse(s[0]) - timeZone, DateTimeKind.Utc);
 
-                    table.Add(new ExpeditionCompletion
+                    table.Add(new ExpeditionCompletionEntity
                     {
                         TimeStamp = time,
                         ExpeditionName = s[1],
                         ExpeditionId = expeditionTable.FirstOrDefault(e => e.Name == s[1])?.Id ?? default,
                         Result = (ExpeditionResult)int.Parse(s[2]),
-                        MaterialsAcquired = new MaterialsEntity
+                        MaterialsAcquired = new Materials
                         {
                             Fuel = int.Parse(s[3]),
                             Bullet = int.Parse(s[4]),
                             Steel = int.Parse(s[5]),
                             Bauxite = int.Parse(s[6])
                         },
-                        RewardItem1 = new ItemRecordEntity
+                        RewardItem1 = new ItemRecord
                         {
                             ItemId = (UseItemId)int.Parse(s[7]),
                             Count = int.Parse(s[8])
                         },
-                        RewardItem2 = new ItemRecordEntity
+                        RewardItem2 = new ItemRecord
                         {
                             ItemId = (UseItemId)int.Parse(s[9]),
                             Count = int.Parse(s[10])

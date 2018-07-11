@@ -13,22 +13,22 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
 {
     [Export(typeof(ILogMigrator))]
     internal class INGLegacyMigrator : ILogMigrator,
-        ILogProvider<ShipCreation>,
-        ILogProvider<EquipmentCreation>,
-        ILogProvider<ExpeditionCompletion>
+        ILogProvider<ShipCreationEntity>,
+        ILogProvider<EquipmentCreationEntity>,
+        ILogProvider<ExpeditionCompletionEntity>
     {
         public bool RequireFolder => false;
         public string Id => "Intelligent Naval Gun (Old)";
 
-        async ValueTask<IReadOnlyCollection<ShipCreation>> ILogProvider<ShipCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             using (var context = new INGLegacyContext(await (source as IFileFacade ?? throw new ArgumentException("Source must be a file.")).GetAccessPathAsync()))
                 return (await context.ConstructionTable.ToListAsync())
-                    .Select(x => new ShipCreation
+                    .Select(x => new ShipCreationEntity
                     {
                         TimeStamp = DateTimeOffset.FromUnixTimeSeconds(x.time),
                         ShipBuilt = (ShipInfoId)x.ship,
-                        Consumption = new MaterialsEntity
+                        Consumption = new Materials
                         {
                             Fuel = x.fuel,
                             Bullet = x.bullet,
@@ -43,16 +43,16 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                     }).ToList();
         }
 
-        async ValueTask<IReadOnlyCollection<EquipmentCreation>> ILogProvider<EquipmentCreation>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> ILogProvider<EquipmentCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             using (var context = new INGLegacyContext(await (source as IFileFacade ?? throw new ArgumentException("Source must be a file.")).GetAccessPathAsync()))
                 return (await context.DevelopmentTable.ToListAsync())
-                    .Select(x => new EquipmentCreation
+                    .Select(x => new EquipmentCreationEntity
                     {
                         TimeStamp = DateTimeOffset.FromUnixTimeSeconds(x.time),
                         IsSuccess = x.equipment != null,
                         EquipmentCreated = (EquipmentInfoId)(x.equipment ?? 0),
-                        Consumption = new MaterialsEntity
+                        Consumption = new Materials
                         {
                             Fuel = x.fuel,
                             Bullet = x.bullet,
@@ -64,30 +64,30 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                     }).ToList();
         }
 
-        async ValueTask<IReadOnlyCollection<ExpeditionCompletion>> ILogProvider<ExpeditionCompletion>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        async ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> ILogProvider<ExpeditionCompletionEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var expeditions = Compositor.Static<NavalBase>().MasterData.Expeditions;
             using (var context = new INGLegacyContext(await (source as IFileFacade ?? throw new ArgumentException("Source must be a file.")).GetAccessPathAsync()))
                 return (await context.ExpeditionTable.ToListAsync())
-                    .Select(x => new ExpeditionCompletion
+                    .Select(x => new ExpeditionCompletionEntity
                     {
                         TimeStamp = DateTimeOffset.FromUnixTimeSeconds(x.time),
                         ExpeditionId = (ExpeditionId)x.expedition,
                         ExpeditionName = expeditions[(ExpeditionId)x.expedition].Name,
                         Result = (ExpeditionResult)x.result,
-                        MaterialsAcquired = new MaterialsEntity
+                        MaterialsAcquired = new Materials
                         {
                             Fuel = x.fuel ?? 0,
                             Bullet = x.bullet ?? 0,
                             Steel = x.steel ?? 0,
                             Bauxite = x.bauxite ?? 0
                         },
-                        RewardItem1 = new ItemRecordEntity
+                        RewardItem1 = new ItemRecord
                         {
                             ItemId = (UseItemId)(x.item1 ?? 0),
                             Count = x.item1_count ?? 0
                         },
-                        RewardItem2 = new ItemRecordEntity
+                        RewardItem2 = new ItemRecord
                         {
                             ItemId = (UseItemId)(x.item2 ?? 0),
                             Count = x.item2_count ?? 0

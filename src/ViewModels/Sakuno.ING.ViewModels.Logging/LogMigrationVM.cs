@@ -55,13 +55,13 @@ namespace Sakuno.ING.ViewModels.Logging
             }
         }
 
-        public bool SupportShipCreation => SelectedMigrator is ILogProvider<ShipCreation>;
+        public bool SupportShipCreation => SelectedMigrator is ILogProvider<ShipCreationEntity>;
         public bool SelectShipCreation { get; set; }
 
-        public bool SupportEquipmentCreation => SelectedMigrator is ILogProvider<EquipmentCreation>;
+        public bool SupportEquipmentCreation => SelectedMigrator is ILogProvider<EquipmentCreationEntity>;
         public bool SelectEquipmentCreation { get; set; }
 
-        public bool SupportExpeditionCompletion => SelectedMigrator is ILogProvider<ExpeditionCompletion>;
+        public bool SupportExpeditionCompletion => SelectedMigrator is ILogProvider<ExpeditionCompletionEntity>;
         public bool SelectExpeditionCompletion { get; set; }
 
         public LogMigrationVM(Logger logger, ILogMigrator[] migrators, IShellContextService shellContextService)
@@ -144,11 +144,11 @@ namespace Sakuno.ING.ViewModels.Logging
                 using (var context = logger.CreateContext())
                 {
                     if (SelectShipCreation)
-                        await TryMigrate(context.ShipCreationTable, SelectedMigrator as ILogProvider<ShipCreation>).ConfigureAwait(false);
+                        await TryMigrate(context.ShipCreationTable, SelectedMigrator as ILogProvider<ShipCreationEntity>).ConfigureAwait(false);
                     if (SelectEquipmentCreation)
-                        await TryMigrate(context.EquipmentCreationTable, SelectedMigrator as ILogProvider<EquipmentCreation>).ConfigureAwait(false);
+                        await TryMigrate(context.EquipmentCreationTable, SelectedMigrator as ILogProvider<EquipmentCreationEntity>).ConfigureAwait(false);
                     if (SelectExpeditionCompletion)
-                        await TryMigrate(context.ExpeditionCompletionTable, SelectedMigrator as ILogProvider<ExpeditionCompletion>).ConfigureAwait(false);
+                        await TryMigrate(context.ExpeditionCompletionTable, SelectedMigrator as ILogProvider<ExpeditionCompletionEntity>).ConfigureAwait(false);
 
                     await context.SaveChangesAsync().ConfigureAwait(false);
 
