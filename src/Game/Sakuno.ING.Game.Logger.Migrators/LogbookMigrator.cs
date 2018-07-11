@@ -19,6 +19,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
     {
         public bool RequireFolder => true;
         public string Id => "Logbook";
+        public string Title => "Logbook";
 
         private readonly Encoding shiftJIS = CodePagesEncodingProvider.Instance.GetEncoding(932);
 
@@ -150,16 +151,20 @@ namespace Sakuno.ING.Game.Logger.Migrators
                             Steel = int.Parse(s[5]),
                             Bauxite = int.Parse(s[6])
                         },
-                        RewardItem1 = new ItemRecord
-                        {
-                            ItemId = string.IsNullOrEmpty(s[7]) ? default : TryGetOrDefault(useitems, s[7])?.Id ?? default,
-                            Count = string.IsNullOrEmpty(s[8]) ? 0 : int.Parse(s[8])
-                        },
-                        RewardItem2 = new ItemRecord
-                        {
-                            ItemId = string.IsNullOrEmpty(s[9]) ? default : TryGetOrDefault(useitems, s[9])?.Id ?? default,
-                            Count = string.IsNullOrEmpty(s[10]) ? 0 : int.Parse(s[10])
-                        }
+                        RewardItem1 = string.IsNullOrEmpty(s[7]) ?
+                            (ItemRecord?)null :
+                            new ItemRecord
+                            {
+                                ItemId = TryGetOrDefault(useitems, s[7])?.Id ?? default,
+                                Count = int.Parse(s[8])
+                            },
+                        RewardItem2 = string.IsNullOrEmpty(s[9]) ?
+                            (ItemRecord?)null :
+                            new ItemRecord
+                            {
+                                ItemId = TryGetOrDefault(useitems, s[9])?.Id ?? default,
+                                Count = int.Parse(s[10])
+                            }
                     });
                 }
             }

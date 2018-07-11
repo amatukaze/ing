@@ -18,7 +18,8 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
         ILogProvider<ExpeditionCompletionEntity>
     {
         public bool RequireFolder => false;
-        public string Id => "Intelligent Naval Gun (Old)";
+        public string Id => "ING Legacy";
+        public string Title => "Intelligent Naval Gun (Old)";
 
         async ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
@@ -82,16 +83,10 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                             Steel = x.steel ?? 0,
                             Bauxite = x.bauxite ?? 0
                         },
-                        RewardItem1 = new ItemRecord
-                        {
-                            ItemId = (UseItemId)(x.item1 ?? 0),
-                            Count = x.item1_count ?? 0
-                        },
-                        RewardItem2 = new ItemRecord
-                        {
-                            ItemId = (UseItemId)(x.item2 ?? 0),
-                            Count = x.item2_count ?? 0
-                        }
+                        RewardItem1_ItemId = x.item1,
+                        RewardItem1_Count = x.item1_count,
+                        RewardItem2_ItemId = x.item2,
+                        RewardItem2_Count = x.item2_count
                     }).ToList();
         }
     }

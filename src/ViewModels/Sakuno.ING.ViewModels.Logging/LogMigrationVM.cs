@@ -101,14 +101,14 @@ namespace Sakuno.ING.ViewModels.Logging
                 SelectedPath = fs;
         }
 
-        private async ValueTask TryMigrate<T>(DbSet<T> dbSet, ILogProvider<T> provider)
-            where T : class, ITimedEntity
+        private async ValueTask TryMigrate<T>(DbSet<T> dbSet, ILogProvider<T> provider, string id)
+            where T : EntityBase
         {
             if (provider == null) return;
 
             var timeZone = TimeSpan.FromHours(TimeZoneOffset);
             IEnumerable<T> source = await provider.GetLogsAsync(SelectedPath, timeZone);
-            if(Ranged)
+            if (Ranged)
             {
                 var timeFrom = DateTime.SpecifyKind(DateFrom, DateTimeKind.Utc) - timeZone;
                 var timeTo = DateTime.SpecifyKind(DateTo, DateTimeKind.Utc) - timeZone;
@@ -116,10 +116,11 @@ namespace Sakuno.ING.ViewModels.Logging
             }
 
             var index = new HashSet<long>(dbSet.Select(e => e.TimeStamp.ToUnixTimeSeconds()));
-            foreach(T e in source)
+            foreach (T e in source)
             {
                 long time = e.TimeStamp.ToUnixTimeSeconds();
-                if(!index.Contains(time))
+                e.Source = id;
+                if (!index.Contains(time))
                 {
                     await dbSet.AddAsync(e);
                     index.Add(time);
@@ -131,7 +132,7 @@ namespace Sakuno.ING.ViewModels.Logging
         {
             var shellContext = shellContextService.Capture();
 
-            if(!logger.PlayerLoaded)
+            if (!logger.PlayerLoaded)
             {
                 await shellContext.ShowMessageAsync("Game player not loaded", "Cannot migrate");
                 return;
@@ -144,11 +145,14 @@ namespace Sakuno.ING.ViewModels.Logging
                 using (var context = logger.CreateContext())
                 {
                     if (SelectShipCreation)
-                        await TryMigrate(context.ShipCreationTable, SelectedMigrator as ILogProvider<ShipCreationEntity>).ConfigureAwait(false);
+                        await TryMigrate(context.ShipCreationTable, SelectedMigrator as ILogProvider<ShipCreationEntity>, SelectedMigrator.Id)
+                            .ConfigureAwait(false);
                     if (SelectEquipmentCreation)
-                        await TryMigrate(context.EquipmentCreationTable, SelectedMigrator as ILogProvider<EquipmentCreationEntity>).ConfigureAwait(false);
+                        await TryMigrate(context.EquipmentCreationTable, SelectedMigrator as ILogProvider<EquipmentCreationEntity>, SelectedMigrator.Id)
+                            .ConfigureAwait(false);
                     if (SelectExpeditionCompletion)
-                        await TryMigrate(context.ExpeditionCompletionTable, SelectedMigrator as ILogProvider<ExpeditionCompletionEntity>).ConfigureAwait(false);
+                        await TryMigrate(context.ExpeditionCompletionTable, SelectedMigrator as ILogProvider<ExpeditionCompletionEntity>, SelectedMigrator.Id)
+                            .ConfigureAwait(false);
 
                     await context.SaveChangesAsync().ConfigureAwait(false);
 
@@ -156,11 +160,14 @@ namespace Sakuno.ING.ViewModels.Logging
                     await shellContext.ShowMessageAsync("Log migration completed successfully.", "Migration Completed");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Running = false;
                 await shellContext.ShowMessageAsync(ex.ToString(), "Migration Failed");
             }
+
+            GC.Collect();
+            GC.Collect();
         }
     }
 }

@@ -22,7 +22,7 @@
         <ListView Grid.RowSpan="3"
                   ItemsSource="{x:Bind ViewModel.Migrators, Mode=OneTime}"
                   SelectedValue="{x:Bind ViewModel.SelectedMigrator, Mode=TwoWay}"
-                  DisplayMemberPath="Id"/>
+                  DisplayMemberPath="Title"/>
         <TextBlock Grid.Column="1" Grid.Row="0"
                    Text="{x:Bind ViewModel.SelectedPath.FullName}"/>
         <Button Grid.Column="1" Grid.Row="0"

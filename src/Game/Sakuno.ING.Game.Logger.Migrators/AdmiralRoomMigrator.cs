@@ -19,7 +19,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
         ILogProvider<ExpeditionCompletionEntity>
     {
         public bool RequireFolder => true;
-        public string Id => "提督の部屋";
+        public string Id => "AdmiralRoom";
+        public string Title => "提督の部屋";
 
         async ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
@@ -136,16 +137,18 @@ namespace Sakuno.ING.Game.Logger.Migrators
                             Steel = int.Parse(s[5]),
                             Bauxite = int.Parse(s[6])
                         },
-                        RewardItem1 = new ItemRecord
-                        {
-                            ItemId = (UseItemId)int.Parse(s[7]),
-                            Count = int.Parse(s[8])
-                        },
-                        RewardItem2 = new ItemRecord
-                        {
-                            ItemId = (UseItemId)int.Parse(s[9]),
-                            Count = int.Parse(s[10])
-                        }
+                        RewardItem1 = int.Parse(s[7]) > 0 ?
+                            new ItemRecord
+                            {
+                                ItemId = (UseItemId)int.Parse(s[7]),
+                                Count = int.Parse(s[8])
+                            } : (ItemRecord?)null,
+                        RewardItem2 = int.Parse(s[9]) > 0 ?
+                            new ItemRecord
+                            {
+                                ItemId = (UseItemId)int.Parse(s[9]),
+                                Count = int.Parse(s[10])
+                            } : (ItemRecord?)null
                     });
                 }
             }

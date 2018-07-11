@@ -2,6 +2,7 @@
 {
     public interface ILogMigrator : IIdentifiable<string>
     {
+        string Title { get; }
         bool RequireFolder { get; }
     }
 }

@@ -26,7 +26,7 @@
         <ListView Grid.RowSpan="3"
                   ItemsSource="{Binding Migrators}"
                   SelectedValue="{Binding SelectedMigrator}"
-                  DisplayMemberPath="Id"/>
+                  DisplayMemberPath="Title"/>
         <TextBlock Grid.Column="1" Grid.Row="0"
                    Text="{Binding SelectedPath.FullName}"/>
         <c:InvokeMethodButton
