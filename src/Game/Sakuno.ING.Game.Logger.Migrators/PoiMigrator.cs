@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Logger.Entities;
@@ -11,33 +10,28 @@ using Sakuno.ING.IO;
 namespace Sakuno.ING.Game.Logger.Migrators
 {
     [Export(typeof(ILogMigrator))]
-    internal class LogbookMigrator : ILogMigrator,
+    internal class PoiMigrator : ILogMigrator,
         ILogProvider<ShipCreationEntity>,
         ILogProvider<EquipmentCreationEntity>,
         ILogProvider<ExpeditionCompletionEntity>
     {
+        public string Id => "Poi";
+        public string Title => "Poi";
         public bool RequireFolder => true;
-        public string Id => "Logbook";
-        public string Title => "Logbook";
-
-        private readonly Encoding shiftJIS = CodePagesEncodingProvider.Instance.GetEncoding(932);
 
         ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name);
-            return Helper.ParseCsv(source, "建造報告書.csv", 12,
+            return Helper.ParseCsv(source, "createship/data", 12,
                 s =>
                 {
                     var index = s[10].IndexOf('(');
                     string secretaryName = s[10].Substring(0, index);
-                    string secretaryLevel = s[10].Substring(index + 3, s[10].Length - index - 4);
-                    if (secretaryLevel[0] == '.') secretaryLevel = secretaryLevel.Substring(1);
+                    string secretaryLevel = s[10].Substring(index + 4, s[10].Length - index - 5);
 
                     return new ShipCreationEntity
                     {
-                        TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Local) - timeZone,
-                        SecretaryLevel = int.Parse(secretaryLevel),
-                        Secretary = ships.TryGetOrDefault(secretaryName)?.Id ?? default,
+                        TimeStamp = DateTimeOffset.FromUnixTimeMilliseconds(long.Parse(s[0])),
                         ShipBuilt = ships.TryGetOrDefault(s[2])?.Id ?? default,
                         Consumption = new Materials
                         {
@@ -47,56 +41,56 @@ namespace Sakuno.ING.Game.Logger.Migrators
                             Bauxite = int.Parse(s[7]),
                             Development = int.Parse(s[8])
                         },
-                        IsLSC = int.Parse(s[4]) >= 1000,
-                        EmptyDockCount = int.Parse(s[9]),
+                        EmptyDockCount = int.Parse(s[9]) + 1,
+                        Secretary = ships.TryGetOrDefault(secretaryName)?.Id ?? default,
+                        SecretaryLevel = int.Parse(secretaryLevel),
                         AdmiralLevel = int.Parse(s[11])
                     };
-                }, shiftJIS);
+                }, trimHeader: false);
         }
 
         ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> ILogProvider<EquipmentCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name);
             var equipments = Compositor.Static<NavalBase>().MasterData.EquipmentInfos.ToDictionary(x => x.Name);
-            return Helper.ParseCsv(source, "開発報告書.csv", 9,
+            return Helper.ParseCsv(source, "createitem/data", 10,
                 s =>
                 {
-                    var index = s[7].IndexOf('(');
-                    string secretaryName = s[7].Substring(0, index);
-                    string secretaryLevel = s[7].Substring(index + 3, s[7].Length - index - 4);
-                    if (secretaryLevel[0] == '.') secretaryLevel = secretaryLevel.Substring(1);
+                    var index = s[8].IndexOf('(');
+                    string secretaryName = s[8].Substring(0, index);
+                    string secretaryLevel = s[8].Substring(index + 4, s[10].Length - index - 5);
 
                     return new EquipmentCreationEntity
                     {
-                        TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Local) - timeZone,
-                        SecretaryLevel = int.Parse(secretaryLevel),
-                        Secretary = ships.TryGetOrDefault(secretaryName)?.Id ?? default,
+                        TimeStamp = DateTimeOffset.FromUnixTimeMilliseconds(long.Parse(s[0])),
+                        IsSuccess = s[1] != "失敗",
                         EquipmentCreated = equipments.TryGetOrDefault(s[2])?.Id ?? default,
-                        IsSuccess = s[2] != "失敗",
                         Consumption = new Materials
                         {
-                            Fuel = int.Parse(s[3]),
-                            Bullet = int.Parse(s[4]),
-                            Steel = int.Parse(s[5]),
-                            Bauxite = int.Parse(s[6])
+                            Fuel = int.Parse(s[4]),
+                            Bullet = int.Parse(s[5]),
+                            Steel = int.Parse(s[6]),
+                            Bauxite = int.Parse(s[7])
                         },
-                        AdmiralLevel = int.Parse(s[8])
+                        Secretary = ships.TryGetOrDefault(secretaryName)?.Id ?? default,
+                        SecretaryLevel = int.Parse(secretaryLevel),
+                        AdmiralLevel = int.Parse(s[9])
                     };
-                }, shiftJIS);
+                }, trimHeader: false);
         }
 
         ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> ILogProvider<ExpeditionCompletionEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var expeditions = Compositor.Static<NavalBase>().MasterData.Expeditions.ToDictionary(x => x.Name);
             var useitems = Compositor.Static<NavalBase>().MasterData.UseItems.ToDictionary(x => x.Name);
-            return Helper.ParseCsv(source, "遠征報告書.csv", 11,
+            return Helper.ParseCsv(source, "mission/data", 11,
                 s => new ExpeditionCompletionEntity
                 {
-                    TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Local) - timeZone,
-                    Result = s[1] == "大成功" ? ExpeditionResult.GreatSuccess :
-                        s[1] == "成功" ? ExpeditionResult.Success :
+                    TimeStamp = DateTimeOffset.FromUnixTimeMilliseconds(long.Parse(s[0])),
+                    ExpeditionId = expeditions.TryGetOrDefault(s[1])?.Id ?? default,
+                    Result = s[2] == "大成功" ? ExpeditionResult.GreatSuccess :
+                        s[2] == "成功" ? ExpeditionResult.Success :
                         ExpeditionResult.Fail,
-                    ExpeditionId = expeditions.TryGetOrDefault(s[2])?.Id ?? default,
                     MaterialsAcquired = new Materials
                     {
                         Fuel = int.Parse(s[3]),
@@ -118,7 +112,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                             ItemId = useitems.TryGetOrDefault(s[9])?.Id ?? default,
                             Count = int.Parse(s[10])
                         }
-                }, shiftJIS);
+                }, trimHeader: false);
         }
     }
 }
