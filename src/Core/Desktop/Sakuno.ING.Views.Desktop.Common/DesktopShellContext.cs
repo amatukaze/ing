@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
@@ -101,6 +103,10 @@ namespace Sakuno.ING.Views.Desktop
                 else
                     return default;
             }
+
+            public ValueTask<IEnumerable<IFileFacade>> GetFilesAsync()
+                => new ValueTask<IEnumerable<IFileFacade>>
+                    (Directory.GetFiles(FullName).Select(x => new FilePathFacade(x)));
         }
 
         private DispatcherOperation<CommonFileDialogResult> ShowModalAsync(CommonFileDialog dialog)

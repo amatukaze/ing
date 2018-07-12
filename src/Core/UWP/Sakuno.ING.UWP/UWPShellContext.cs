@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Sakuno.ING.Composition;
 using Sakuno.ING.IO;
@@ -93,6 +95,8 @@ namespace Sakuno.ING.UWP
                 => new StorageFileFacade(await storageFolder.GetFileAsync(filename));
             public async ValueTask<IFolderFacade> GetFolderAsync(string foldername)
                 => new StorageFolderFacade(await storageFolder.GetFolderAsync(foldername));
+            public async ValueTask<IEnumerable<IFileFacade>> GetFilesAsync()
+                => (await storageFolder.GetFilesAsync()).Select(f => new StorageFileFacade(f));
         }
 
         public async Task ShowMessageAsync(string detail, string title)

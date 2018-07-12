@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Sakuno.ING.IO
 {
@@ -6,5 +7,6 @@ namespace Sakuno.ING.IO
     {
         ValueTask<IFileFacade> GetFileAsync(string filename);
         ValueTask<IFolderFacade> GetFolderAsync(string foldername);
+        ValueTask<IEnumerable<IFileFacade>> GetFilesAsync();
     }
 }
