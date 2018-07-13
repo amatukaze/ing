@@ -33,15 +33,15 @@
         <StackPanel Orientation="Vertical"
                     Grid.Column="1" Grid.Row="1">
             <ToggleSwitch Grid.Column="1" Grid.Row="1"
-                          Header="Ship creation"
+                          x:Uid="/Resources/LogMigration_ShipCreation"
                           IsEnabled="{x:Bind ViewModel.SupportShipCreation}"
                           IsOn="{x:Bind ViewModel.SelectShipCreation, Mode=TwoWay}"/>
             <ToggleSwitch Grid.Column="1" Grid.Row="2"
-                          Header="Equipment creation"
+                          x:Uid="/Resources/LogMigration_EquipmentCreation"
                           IsEnabled="{x:Bind ViewModel.SupportEquipmentCreation}"
                           IsOn="{x:Bind ViewModel.SelectEquipmentCreation, Mode=TwoWay}"/>
             <ToggleSwitch Grid.Column="1" Grid.Row="3"
-                          Header="Expedition"
+                          x:Uid="/Resources/LogMigration_ExpeditionCompletion"
                           IsEnabled="{x:Bind ViewModel.SupportExpeditionCompletion}"
                           IsOn="{x:Bind ViewModel.SelectExpeditionCompletion, Mode=TwoWay}"/>
         </StackPanel>
@@ -49,7 +49,7 @@
                       IsActive="{x:Bind ViewModel.Running}"/>
         <Button Grid.Column="1" Grid.Row="2"
                 HorizontalAlignment="Right"
-                Content="Run"
+                x:Uid="/Resources/LogMigration_DoMigrate"
                 IsEnabled="{x:Bind ViewModel.Ready}"
                 Tapped="{x:Bind ViewModel.DoMigration}"/>
     </Grid>

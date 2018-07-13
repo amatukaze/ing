@@ -40,17 +40,17 @@
         <tk:DataGrid Grid.Row="1" ItemsSource="{x:Bind ViewModel.Entities}"
                      FrozenColumnCount="1" AutoGenerateColumns="False">
             <tk:DataGrid.Columns>
-                <tk:DataGridTextColumn Header="Time" Binding="{Binding TimeStamp, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="Fuel" Binding="{Binding Consumption.Fuel, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="Bullet" Binding="{Binding Consumption.Bullet, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="Steel" Binding="{Binding Consumption.Steel, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="Bauxite" Binding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="IsLSC" Binding="{Binding IsLSC, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="Ship" Binding="{Binding ShipBuilt.Name, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="Empty dock" Binding="{Binding EmptyDockCount, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="Secretary" Binding="{Binding Secretary, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="Secretary Level" Binding="{Binding SecretaryLevel, Mode=OneTime}"/>
-                <tk:DataGridTextColumn Header="Admiral Level" Binding="{Binding AdmiralLevel, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Fuel" Binding="{Binding Consumption.Fuel, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bullet" Binding="{Binding Consumption.Bullet, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding Consumption.Steel, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_ConstructionType" Binding="{Binding IsLSC, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Result" Binding="{Binding ShipBuilt.Name, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EmptyDockCount" Binding="{Binding EmptyDockCount, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Secretary" Binding="{Binding Secretary, Mode=OneTime}"/>
+                <!--<tk:DataGridTextColumn Header="Secretary Level" Binding="{Binding SecretaryLevel, Mode=OneTime}"/>-->
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_AdmiralLevel" Binding="{Binding AdmiralLevel, Mode=OneTime}"/>
             </tk:DataGrid.Columns>
         </tk:DataGrid>
     </Grid>

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Material_Fuel">
+    <value>Fuel</value>
+  </data>
+  <data name="Material_Bullet">
+    <value>Bullet</value>
+  </data>
+  <data name="Material_Steel">
+    <value>Steel</value>
+  </data>
+  <data name="Material_Bauxite">
+    <value>Bauxite</value>
+  </data>
+  <data name="Material_Development">
+    <value>Development material</value>
+  </data>
+  <data name="Material_Improvement">
+    <value>Improvement material</value>
+  </data>
+  <data name="Material_InstantBuild">
+    <value>Instant build</value>
+  </data>
+  <data name="Material_InstantRepair">
+    <value>Instant repair</value>
+  </data>
+  <data name="Level">
+    <value>Level</value>
+  </data>
+  <data name="Secretary">
+    <value>Secretary</value>
+  </data>
+  <data name="AdmiralLevel">
+    <value>HQ Level</value>
+  </data>
+  <data name="AdmiralLevel_Short">
+    <value>HQ Lv.</value>
+  </data>
+  <data name="ConstructionType">
+    <value>Construction type</value>
+  </data>
+  <data name="ConstructionType_Normal">
+    <value>NSC</value>
+  </data>
+  <data name="ConstructionType_Large">
+    <value>LSC</value>
+  </data>
+  <data name="Result">
+    <value>Result</value>
+  </data>
+  <data name="Success">
+    <value>Success</value>
+  </data>
+  <data name="Fail">
+    <value>Fail</value>
+  </data>
+  <data name="GreatSuccess">
+    <value>Great Success</value>
+  </data>
+  <data name="UseItem">
+    <value>Item</value>
+  </data>
+</root>

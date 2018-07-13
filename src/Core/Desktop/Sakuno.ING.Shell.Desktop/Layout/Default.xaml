@@ -12,14 +12,14 @@
                     <sh:ViewPresenter Grid.Row="0" ViewId="Homeport"/>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <sh:ViewSwitcher ViewId="LogMigration"/>
-                        <sh:ViewSwitcher ViewId="ShipCreation"/>
+                        <sh:ViewSwitcher ViewId="ShipCreationLogs"/>
                     </StackPanel>
                 </Grid>
             </DataTemplate>
         </sh:LayoutWindow>
     </sh:LayoutRoot.MainWindow>
     <sh:LayoutRoot.SubWindows>
-        <sh:LayoutWindow Id="ShipCreation">
+        <sh:LayoutWindow Id="ShipCreationLogs">
             <DataTemplate>
                 <sh:ViewPresenter ViewId="ShipCreationLogs"/>
             </DataTemplate>

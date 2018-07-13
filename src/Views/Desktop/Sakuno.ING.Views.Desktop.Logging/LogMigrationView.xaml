@@ -37,13 +37,13 @@
             MethodName="PickPath"/>
         <StackPanel Orientation="Vertical"
                     Grid.Column="1" Grid.Row="1">
-            <CheckBox Content="Ship creation"
+            <CheckBox Content="{c:Localize ViewTitle/ShipCreationLogs}"
                       IsEnabled="{Binding SupportShipCreation}"
                       IsChecked="{Binding SelectShipCreation}"/>
-            <CheckBox Content="Equipment creation"
+            <CheckBox Content="{c:Localize ViewTitle/EquipmentCreationLogs}"
                       IsEnabled="{Binding SupportEquipmentCreation}"
                       IsChecked="{Binding SelectEquipmentCreation}"/>
-            <CheckBox Content="Expedition"
+            <CheckBox Content="{c:Localize ViewTitle/ExpeditionCompletionLogs}"
                       IsEnabled="{Binding SupportExpeditionCompletion}"
                       IsChecked="{Binding SelectExpeditionCompletion}"/>
         </StackPanel>
@@ -57,7 +57,7 @@
             <c:InvokeMethodButton
                 Grid.Column="1"
                 HorizontalAlignment="Right"
-                Content="Run"
+                Content="{c:Localize Logging/DoMigrate}"
                 IsEnabled="{Binding Ready}"
                 MethodName="DoMigration"/>
         </Grid>

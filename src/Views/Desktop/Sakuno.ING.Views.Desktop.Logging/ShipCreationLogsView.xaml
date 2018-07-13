@@ -39,17 +39,18 @@
         <ListView Grid.Row="1" ItemsSource="{Binding Entities}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding TimeStamp, Mode=OneTime, Converter={StaticResource DateTimeDisplay}}"/>
-                    <GridViewColumn Header="Fuel" DisplayMemberBinding="{Binding Consumption.Fuel, Mode=OneTime}"/>
-                    <GridViewColumn Header="Bullet" DisplayMemberBinding="{Binding Consumption.Bullet, Mode=OneTime}"/>
-                    <GridViewColumn Header="Steel" DisplayMemberBinding="{Binding Consumption.Steel, Mode=OneTime}"/>
-                    <GridViewColumn Header="Bauxite" DisplayMemberBinding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
-                    <GridViewColumn Header="IsLSC" DisplayMemberBinding="{Binding IsLSC, Mode=OneTime}"/>
-                    <GridViewColumn Header="Ship" DisplayMemberBinding="{Binding ShipBuilt.Name, Mode=OneTime}"/>
-                    <GridViewColumn Header="Empty dock" DisplayMemberBinding="{Binding EmptyDockCount, Mode=OneTime}"/>
-                    <GridViewColumn Header="Secretary" DisplayMemberBinding="{Binding Secretary.Name, Mode=OneTime}"/>
-                    <GridViewColumn Header="Secretary level" DisplayMemberBinding="{Binding SecretaryLevel, Mode=OneTime}"/>
-                    <GridViewColumn Header="Admiral level" DisplayMemberBinding="{Binding AdmiralLevel, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize Application/Time}" DisplayMemberBinding="{Binding TimeStamp, Mode=OneTime, Converter={StaticResource DateTimeDisplay}}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Fuel}" DisplayMemberBinding="{Binding Consumption.Fuel, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Bullet}" DisplayMemberBinding="{Binding Consumption.Bullet, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Steel}" DisplayMemberBinding="{Binding Consumption.Steel, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Bauxite}" DisplayMemberBinding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Development}" DisplayMemberBinding="{Binding Consumption.Development, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/ConstructionType}" DisplayMemberBinding="{Binding IsLSC, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/Result}" DisplayMemberBinding="{Binding ShipBuilt.Name, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize Logging/Construction_EmptyDockCount}" DisplayMemberBinding="{Binding EmptyDockCount, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/Secretary}" DisplayMemberBinding="{Binding Secretary.Name, Mode=OneTime}"/>
+                    <!--<GridViewColumn Header="Secretary level" DisplayMemberBinding="{Binding SecretaryLevel, Mode=OneTime}"/>-->
+                    <GridViewColumn Header="{c:Localize GameModel/AdmiralLevel_Short}" DisplayMemberBinding="{Binding AdmiralLevel, Mode=OneTime}"/>
                 </GridView>
             </ListView.View>
         </ListView>

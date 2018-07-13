@@ -143,10 +143,10 @@
     <None Include="$(BasePath)Localization\locales\*.json">
       <Link>Strings\Raw\%(Filename)</Link>
     </None>
-    <None Include="$(BasePath)Localization\fieldmap.json">
+    <None Include="..\Localization\fieldmap.json">
       <Link>Strings\fieldmap.json</Link>
     </None>
-    <PRIResource Include="$(BasePath)Localization\artifacts\resw\**\*.resw">
+    <PRIResource Include="..\Localization\resw\**\*.resw">
       <Link>Strings\%(RecursiveDir)%(Filename)</Link>
     </PRIResource>
   </ItemGroup>
@@ -211,6 +211,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <ProjectExtensions />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

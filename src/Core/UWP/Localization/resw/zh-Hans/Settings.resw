@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="UserFont">
+    <value>用户语言字体</value>
+  </data>
+  <data name="ContentFont">
+    <value>游戏内容字体</value>
+  </data>
+  <data name="SelectFont">
+    <value>选择字体</value>
+  </data>
+  <data name="Translate">
+    <value>翻译游戏内容</value>
+  </data>
+  <data name="RestartRequired">
+    <value>重启后生效</value>
+  </data>
+  <data name="SampleText">
+    <value>测试文本 Sample Text</value>
+  </data>
+</root>

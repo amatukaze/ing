@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle.Text">
+    <value>智能型连装炮君</value>
+  </data>
+  <data name="SettingsTitle.Text">
+    <value>设置</value>
+  </data>
+  <data name="UserFont.Text">
+    <value>用户语言字体</value>
+  </data>
+  <data name="ContentFont.Text">
+    <value>游戏内容字体</value>
+  </data>
+  <data name="TraslateGameContent.Header">
+    <value>翻译游戏内容</value>
+  </data>
+  <data name="RestartRequired.Text">
+    <value>重启后生效</value>
+  </data>
+  <data name="SampleText.Text">
+    <value>测试文本 Sample Text</value>
+  </data>
+  <data name="FontPicker.Title">
+    <value>选择字体</value>
+  </data>
+  <data name="FontPicker.PrimaryButtonText">
+    <value>确认</value>
+  </data>
+  <data name="FontPicker.SecondaryButtonText">
+    <value>取消</value>
+  </data>
+  <data name="LogMigration_ShipCreation.Header">
+    <value>建造记录</value>
+  </data>
+  <data name="LogMigration_EquipmentCreation.Header">
+    <value>开发记录</value>
+  </data>
+  <data name="LogMigration_ExpeditionCompletion.Header">
+    <value>远征记录</value>
+  </data>
+  <data name="LogMigration_DoMigrate.Content">
+    <value>导入</value>
+  </data>
+  <data name="Logging_Column_Time.Header">
+    <value>时间</value>
+  </data>
+  <data name="Logging_Column_Fuel.Header">
+    <value>燃料</value>
+  </data>
+  <data name="Logging_Column_Bullet.Header">
+    <value>弹药</value>
+  </data>
+  <data name="Logging_Column_Steel.Header">
+    <value>钢材</value>
+  </data>
+  <data name="Logging_Column_Bauxite.Header">
+    <value>铝土</value>
+  </data>
+  <data name="Logging_Column_Development.Header">
+    <value>开发资材</value>
+  </data>
+  <data name="Logging_Column_ConstructionType.Header">
+    <value>建造类型</value>
+  </data>
+  <data name="Logging_Column_Result.Header">
+    <value>结果</value>
+  </data>
+  <data name="Logging_Column_EmptyDockCount.Header">
+    <value>空渠数</value>
+  </data>
+  <data name="Logging_Column_Secretary.Header">
+    <value>秘书舰</value>
+  </data>
+  <data name="Logging_Column_AdmiralLevel.Header">
+    <value>提督等级</value>
+  </data>
+  <data name="Logging_Column_Success.Header">
+    <value>成功</value>
+  </data>
+  <data name="Logging_Column_Item1.Header">
+    <value>物品1</value>
+  </data>
+  <data name="Logging_Column_Item2.Header">
+    <value>物品2</value>
+  </data>
+</root>

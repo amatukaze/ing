@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Material_Fuel">
+    <value>燃料</value>
+  </data>
+  <data name="Material_Bullet">
+    <value>弹药</value>
+  </data>
+  <data name="Material_Steel">
+    <value>钢材</value>
+  </data>
+  <data name="Material_Bauxite">
+    <value>铝土</value>
+  </data>
+  <data name="Material_Development">
+    <value>开发资材</value>
+  </data>
+  <data name="Material_Improvement">
+    <value>改修资材</value>
+  </data>
+  <data name="Material_InstantBuild">
+    <value>高速建造</value>
+  </data>
+  <data name="Material_InstantRepair">
+    <value>高速修复</value>
+  </data>
+  <data name="Level">
+    <value>等级</value>
+  </data>
+  <data name="Secretary">
+    <value>秘书舰</value>
+  </data>
+  <data name="AdmiralLevel">
+    <value>提督等级</value>
+  </data>
+  <data name="AdmiralLevel_Short">
+    <value>提督等级</value>
+  </data>
+  <data name="ConstructionType">
+    <value>建造类型</value>
+  </data>
+  <data name="ConstructionType_Normal">
+    <value>通常舰建造</value>
+  </data>
+  <data name="ConstructionType_Large">
+    <value>大型舰建造</value>
+  </data>
+  <data name="Result">
+    <value>结果</value>
+  </data>
+  <data name="Success">
+    <value>成功</value>
+  </data>
+  <data name="Fail">
+    <value>失败</value>
+  </data>
+  <data name="GreatSuccess">
+    <value>大成功</value>
+  </data>
+  <data name="UseItem">
+    <value>物品</value>
+  </data>
+</root>
