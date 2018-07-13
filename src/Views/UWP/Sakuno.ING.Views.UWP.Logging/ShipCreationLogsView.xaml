@@ -45,7 +45,7 @@
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bullet" Binding="{Binding Consumption.Bullet, Mode=OneTime}"/>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding Consumption.Steel, Mode=OneTime}"/>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_ConstructionType" Binding="{Binding IsLSC, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_ConstructionType" Binding="{Binding ConstructionType, Mode=OneTime}"/>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Result" Binding="{Binding ShipBuilt.Name, Mode=OneTime}"/>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EmptyDockCount" Binding="{Binding EmptyDockCount, Mode=OneTime}"/>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Secretary" Binding="{Binding Secretary, Mode=OneTime}"/>

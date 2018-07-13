@@ -7,35 +7,35 @@ namespace Sakuno.ING.Game.Models
         /// <summary>
         /// 燃料
         /// </summary>
-        public int Fuel;
+        public int Fuel { get; set; }
         /// <summary>
         /// 弾薬
         /// </summary>
-        public int Bullet;
+        public int Bullet { get; set; }
         /// <summary>
         /// 鋼材
         /// </summary>
-        public int Steel;
+        public int Steel { get; set; }
         /// <summary>
         /// ボーキサイト
         /// </summary>
-        public int Bauxite;
+        public int Bauxite { get; set; }
         /// <summary>
         /// 高速建造材
         /// </summary>
-        public int InstantBuild;
+        public int InstantBuild { get; set; }
         /// <summary>
         /// 高速修復材
         /// </summary>
-        public int InstantRepair;
+        public int InstantRepair { get; set; }
         /// <summary>
         /// 開発資材
         /// </summary>
-        public int Development;
+        public int Development { get; set; }
         /// <summary>
         /// 改修資材
         /// </summary>
-        public int Improvement;
+        public int Improvement { get; set; }
 
         public static Materials operator +(Materials left, Materials right)
             => new Materials

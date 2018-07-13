@@ -22,6 +22,7 @@ namespace Sakuno.ING.ViewModels.Logging
 
         public bool Hits(T value)
         {
+            if (SelectedText == null) return true;
             if (defaultText(value).Contains(SelectedText)) return true;
             if (acceptingText == null) return false;
             foreach (string str in acceptingText(value))

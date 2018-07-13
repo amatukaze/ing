@@ -11,18 +11,24 @@ namespace Sakuno.ING.ViewModels.Logging
         private protected abstract FilterVM<T>[] CreateFilters();
         private protected abstract IReadOnlyCollection<T> GetEntities();
 
-        private readonly IBindableCollection<FilterVM<T>> _filters;
-        public IBindableCollection<IFilterVM> Filters => _filters;
+        private IBindableCollection<FilterVM<T>> _filters;
+        public IBindableCollection<IFilterVM> Filters
+        {
+            get
+            {
+                if (_filters == null)
+                {
+                    _filters = CreateFilters().ToBindable();
+                    foreach (var filter in _filters)
+                        filter.Updated += Refresh;
+                    Refresh();
+                }
+                return _filters;
+            }
+        }
 
         private readonly BindableSnapshotCollection<T> snapshot = new BindableSnapshotCollection<T>();
         public IBindableCollection<T> Entities => snapshot;
-
-        public LogsVM()
-        {
-            _filters = CreateFilters().ToBindable();
-            foreach (var filter in _filters)
-                filter.Updated += Refresh;
-        }
 
         public void Refresh()
         {

@@ -141,8 +141,8 @@ namespace Sakuno.ING.Game
         public bool TryGetValue(TId id, out T item)
         {
             item = default;
-            if (id.CompareTo(default) <= 0)
-                throw new ArgumentException("Id must be valid.");
+            if (id.CompareTo(default) < 0)
+                throw new ArgumentException("Negative id is not valid.");
 
             int lo = 0, hi = list.Count - 1;
             while (lo <= hi)

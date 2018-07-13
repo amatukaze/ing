@@ -45,7 +45,7 @@
                     <GridViewColumn Header="{c:Localize GameModel/Material_Steel}" DisplayMemberBinding="{Binding Consumption.Steel, Mode=OneTime}"/>
                     <GridViewColumn Header="{c:Localize GameModel/Material_Bauxite}" DisplayMemberBinding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
                     <GridViewColumn Header="{c:Localize GameModel/Material_Development}" DisplayMemberBinding="{Binding Consumption.Development, Mode=OneTime}"/>
-                    <GridViewColumn Header="{c:Localize GameModel/ConstructionType}" DisplayMemberBinding="{Binding IsLSC, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/ConstructionType}" DisplayMemberBinding="{Binding ConstructionType, Mode=OneTime}"/>
                     <GridViewColumn Header="{c:Localize GameModel/Result}" DisplayMemberBinding="{Binding ShipBuilt.Name, Mode=OneTime}"/>
                     <GridViewColumn Header="{c:Localize Logging/Construction_EmptyDockCount}" DisplayMemberBinding="{Binding EmptyDockCount, Mode=OneTime}"/>
                     <GridViewColumn Header="{c:Localize GameModel/Secretary}" DisplayMemberBinding="{Binding Secretary.Name, Mode=OneTime}"/>
