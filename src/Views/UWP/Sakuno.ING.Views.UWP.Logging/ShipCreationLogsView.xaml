@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:vm="using:Sakuno.ING.ViewModels.Logging"
+    xmlns:c="using:Sakuno.ING.Views.UWP"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -46,10 +47,24 @@
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding Consumption.Steel, Mode=OneTime}"/>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_ConstructionType" Binding="{Binding ConstructionType, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Result" Binding="{Binding ShipBuilt.Name, Mode=OneTime}"/>
+                <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Result">
+                    <tk:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="vm:ShipCreationVM">
+                            <TextBlock Text="{x:Bind c:Helpers.SelectName(ShipBuilt.Name)}"/>
+                        </DataTemplate>
+                    </tk:DataGridTemplateColumn.CellTemplate>
+                </tk:DataGridTemplateColumn>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EmptyDockCount" Binding="{Binding EmptyDockCount, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Secretary" Binding="{Binding Secretary, Mode=OneTime}"/>
-                <!--<tk:DataGridTextColumn Header="Secretary Level" Binding="{Binding SecretaryLevel, Mode=OneTime}"/>-->
+                <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Secretary">
+                    <tk:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="vm:ShipCreationVM">
+                            <TextBlock>
+                                <Run Text="{x:Bind c:Helpers.SelectName(Secretary.Name)}"/>
+                                (Lv. <Run Text="{x:Bind SecretaryLevel}"/>)
+                            </TextBlock>
+                        </DataTemplate>
+                    </tk:DataGridTemplateColumn.CellTemplate>
+                </tk:DataGridTemplateColumn>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_AdmiralLevel" Binding="{Binding AdmiralLevel, Mode=OneTime}"/>
             </tk:DataGrid.Columns>
         </tk:DataGrid>

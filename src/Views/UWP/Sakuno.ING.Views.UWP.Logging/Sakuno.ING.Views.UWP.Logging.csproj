@@ -43,6 +43,14 @@
       <Project>{159e60f5-e46d-48e8-bc31-3987ac70f991}</Project>
       <Name>Sakuno.ING.Game.Logger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models.Raw\Sakuno.ING.Game.Models.Raw.csproj">
+      <Project>{9ccc28ad-acc3-4043-a408-6e67ce46d7b5}</Project>
+      <Name>Sakuno.ING.Game.Models.Raw</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj">
+      <Project>{2DB243BB-D99C-4D5C-AAA9-98104CC7EFA0}</Project>
+      <Name>Sakuno.ING.Game.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Logging\Sakuno.ING.ViewModels.Logging.csproj">
       <Project>{1c87416d-ddef-4416-86e6-13dc44931cf5}</Project>
       <Name>Sakuno.ING.ViewModels.Logging</Name>

@@ -69,6 +69,7 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawEquipment raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             IsLocked = raw.IsLocked;
             ImprovementLevel = raw.ImprovementLevel;
             AirProficiency = raw.AirProficiency;
@@ -136,6 +137,7 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawBuildingDock raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             CompletionTime = raw.CompletionTime;
             State = raw.State;
             Consumption = raw.Consumption;
@@ -190,6 +192,7 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawRepairingDock raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             State = raw.State;
             CompletionTime = raw.CompletionTime;
             Consumption = raw.Consumption;
@@ -236,6 +239,7 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawUseItemCount raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             Count = raw.Count;
 
             UpdateCore(raw);
@@ -343,6 +347,7 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawAdmiral raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             Name = raw.Name;
             Leveling = raw.Leveling;
             Rank = raw.Rank;
@@ -544,6 +549,7 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawShip raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             Leveling = raw.Leveling;
             HP = raw.HP;
             Speed = raw.Speed;
@@ -610,6 +616,7 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawFleet raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             Name = raw.Name;
             ExpeditionState = raw.ExpeditionState;
             ExpeditionCompletionTime = raw.ExpeditionCompletionTime;
@@ -628,8 +635,8 @@ namespace Sakuno.ING.Game.Models
         public Quest(QuestId id, QuestManager owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = owner.Localization?.GetLocalized("QuestName", id.ToString());
-            DescriptionTranslation = owner.Localization?.GetLocalized("QuestDesc", id.ToString());
+            Name.Translation = owner.Localization?.GetLocalized("QuestName", id.ToString());
+            Description.Translation = owner.Localization?.GetLocalized("QuestDesc", id.ToString());
             CreateDummy();
         }
 
@@ -637,9 +644,9 @@ namespace Sakuno.ING.Game.Models
 
         private readonly QuestManager owner;
 
-        public string NameTranslation { get; }
+        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
-        public string DescriptionTranslation { get; }
+        public TextTranslationGroup Description { get; } = new TextTranslationGroup();
 
         private QuestCategoty _category;
         public QuestCategoty Category
@@ -676,20 +683,6 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _rewards, value);
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            internal set => Set(ref _name, value);
-        }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            internal set => Set(ref _description, value);
-        }
-
         public event Action<Quest, IRawQuest, DateTimeOffset> Updating;
         public override void Update(IRawQuest raw, DateTimeOffset timeStamp)
         {
@@ -700,20 +693,31 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawQuest raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
+            if (raw.Name != Name.Origin)
+            {
+                Name.Origin = raw.Name;
+                NotifyPropertyChanged(nameof(Name));
+            }
+
+            if (raw.Description != Description.Origin)
+            {
+                Description.Origin = raw.Description;
+                NotifyPropertyChanged(nameof(Description));
+            }
+
             Category = raw.Category;
             Period = raw.Period;
             State = raw.State;
             Progress = raw.Progress;
             Rewards = raw.Rewards;
-            Name = raw.Name;
-            Description = raw.Description;
 
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawQuest raw);
         partial void CreateDummy();
 
-        public override string ToString() => $"Quest {Id}: {Name}";
+        public override string ToString() => $"Quest {Id}: {Name.Origin}";
     }
     public partial class Map : Calculated<MapId, IRawMap>
     {
@@ -786,6 +790,7 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawMap raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             IsCleared = raw.IsCleared;
             Rank = raw.Rank;
             GaugeIndex = raw.GaugeIndex;
@@ -841,6 +846,7 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawAirForceSquadron raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             AircraftCount = raw.AircraftCount;
             Morale = raw.Morale;
 

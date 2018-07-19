@@ -16,8 +16,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public ShipInfo(ShipInfoId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = owner.Localization?.GetLocalized("ShipName", id.ToString());
-            IntroductionTranslation = owner.Localization?.GetLocalized("ShipIntro", id.ToString());
+            Introduction.Translation = owner.Localization?.GetLocalized("ShipIntro", id.ToString());
             CreateDummy();
         }
 
@@ -25,9 +24,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         private readonly MasterDataRoot owner;
 
-        public string NameTranslation { get; }
-
-        public string IntroductionTranslation { get; }
+        public TextTranslationGroup Introduction { get; } = new TextTranslationGroup();
 
         private int _sortNo;
         public int SortNo
@@ -36,11 +33,11 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _sortNo, value);
         }
 
-        private string _phonetic;
-        public string Phonetic
+        private bool _isAbyssal;
+        public bool IsAbyssal
         {
-            get => _phonetic;
-            internal set => Set(ref _phonetic, value);
+            get => _isAbyssal;
+            internal set => Set(ref _isAbyssal, value);
         }
 
         private ShipTypeInfo _type;
@@ -204,20 +201,6 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _bulletConsumption, value);
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            internal set => Set(ref _name, value);
-        }
-
-        private string _introduction;
-        public string Introduction
-        {
-            get => _introduction;
-            internal set => Set(ref _introduction, value);
-        }
-
         public event Action<ShipInfo, IRawShipInfo, DateTimeOffset> Updating;
         public override void Update(IRawShipInfo raw, DateTimeOffset timeStamp)
         {
@@ -228,8 +211,15 @@ namespace Sakuno.ING.Game.Models.MasterData
         private void UpdateProps(IRawShipInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
+            if (raw.Introduction != Introduction.Origin)
+            {
+                Introduction.Origin = raw.Introduction;
+                NotifyPropertyChanged(nameof(Introduction));
+            }
+
             SortNo = raw.SortNo;
-            Phonetic = raw.Phonetic;
+            IsAbyssal = raw.IsAbyssal;
             ClassId = raw.ClassId;
             UpgradeConsumption = raw.UpgradeConsumption;
             UpgradeSpecialConsumption = raw.UpgradeSpecialConsumption;
@@ -249,32 +239,24 @@ namespace Sakuno.ING.Game.Models.MasterData
             PowerupWorth = raw.PowerupWorth;
             FuelConsumption = raw.FuelConsumption;
             BulletConsumption = raw.BulletConsumption;
-            Name = raw.Name;
-            Introduction = raw.Introduction;
 
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawShipInfo raw);
         partial void CreateDummy();
 
-        public override string ToString() => $"ShipInfo {Id}: {Name}";
     }
     public partial class ShipTypeInfo : Calculated<ShipTypeId, IRawShipTypeInfo>
     {
         public ShipTypeInfo(ShipTypeId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = owner.Localization?.GetLocalized("ShipType", id.ToString());
-            _unlocalizedName = owner.Localization?.GetUnlocalized("ShipType", id.ToString());
             CreateDummy();
         }
 
         public ShipTypeInfo(IRawShipTypeInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
-
-        public string NameTranslation { get; }
-        private readonly string _unlocalizedName;
 
         private int _sortNo;
         public int SortNo
@@ -297,13 +279,6 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _buildOutlineId, value);
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            internal set => Set(ref _name, value);
-        }
-
         public event Action<ShipTypeInfo, IRawShipTypeInfo, DateTimeOffset> Updating;
         public override void Update(IRawShipTypeInfo raw, DateTimeOffset timeStamp)
         {
@@ -314,10 +289,10 @@ namespace Sakuno.ING.Game.Models.MasterData
         private void UpdateProps(IRawShipTypeInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
             SortNo = raw.SortNo;
             RepairTimeRatio = raw.RepairTimeRatio;
             BuildOutlineId = raw.BuildOutlineId;
-            Name = _unlocalizedName ?? raw.Name;
 
             UpdateCore(raw);
         }
@@ -327,14 +302,13 @@ namespace Sakuno.ING.Game.Models.MasterData
         private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
         public IReadOnlyList<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
 
-        public override string ToString() => $"ShipTypeInfo {Id}: {Name}";
     }
     public partial class EquipmentTypeInfo : Calculated<EquipmentTypeId, IRawEquipmentTypeInfo>
     {
         public EquipmentTypeInfo(EquipmentTypeId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = owner.Localization?.GetLocalized("EquipType", id.ToString());
+            Name.Translation = owner.Localization?.GetLocalized("EquipType", id.ToString());
             CreateDummy();
         }
 
@@ -342,20 +316,13 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         private readonly MasterDataRoot owner;
 
-        public string NameTranslation { get; }
+        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
         private bool _availableInExtraSlot;
         public bool AvailableInExtraSlot
         {
             get => _availableInExtraSlot;
             internal set => Set(ref _availableInExtraSlot, value);
-        }
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            internal set => Set(ref _name, value);
         }
 
         public event Action<EquipmentTypeInfo, IRawEquipmentTypeInfo, DateTimeOffset> Updating;
@@ -368,23 +335,29 @@ namespace Sakuno.ING.Game.Models.MasterData
         private void UpdateProps(IRawEquipmentTypeInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
+            if (raw.Name != Name.Origin)
+            {
+                Name.Origin = raw.Name;
+                NotifyPropertyChanged(nameof(Name));
+            }
+
             AvailableInExtraSlot = raw.AvailableInExtraSlot;
-            Name = raw.Name;
 
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawEquipmentTypeInfo raw);
         partial void CreateDummy();
 
-        public override string ToString() => $"EquipmentTypeInfo {Id}: {Name}";
+        public override string ToString() => $"EquipmentTypeInfo {Id}: {Name.Origin}";
     }
     public partial class EquipmentInfo : Calculated<EquipmentInfoId, IRawEquipmentInfo>
     {
         public EquipmentInfo(EquipmentInfoId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = owner.Localization?.GetLocalized("EquipName", id.ToString());
-            DescriptionTranslation = owner.Localization?.GetLocalized("EquipDesc", id.ToString());
+            Name.Translation = owner.Localization?.GetLocalized("EquipName", id.ToString());
+            Description.Translation = owner.Localization?.GetLocalized("EquipDesc", id.ToString());
             CreateDummy();
         }
 
@@ -392,9 +365,9 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         private readonly MasterDataRoot owner;
 
-        public string NameTranslation { get; }
+        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
-        public string DescriptionTranslation { get; }
+        public TextTranslationGroup Description { get; } = new TextTranslationGroup();
 
         private EquipmentTypeInfo _type;
         public EquipmentTypeInfo Type
@@ -522,20 +495,6 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _rarity, value);
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            internal set => Set(ref _name, value);
-        }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            internal set => Set(ref _description, value);
-        }
-
         public event Action<EquipmentInfo, IRawEquipmentInfo, DateTimeOffset> Updating;
         public override void Update(IRawEquipmentInfo raw, DateTimeOffset timeStamp)
         {
@@ -546,6 +505,19 @@ namespace Sakuno.ING.Game.Models.MasterData
         private void UpdateProps(IRawEquipmentInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
+            if (raw.Name != Name.Origin)
+            {
+                Name.Origin = raw.Name;
+                NotifyPropertyChanged(nameof(Name));
+            }
+
+            if (raw.Description != Description.Origin)
+            {
+                Description.Origin = raw.Description;
+                NotifyPropertyChanged(nameof(Description));
+            }
+
             IconId = raw.IconId;
             Firepower = raw.Firepower;
             Torpedo = raw.Torpedo;
@@ -563,8 +535,6 @@ namespace Sakuno.ING.Game.Models.MasterData
             DeploymentConsumption = raw.DeploymentConsumption;
             DismantleAcquirement = raw.DismantleAcquirement;
             Rarity = raw.Rarity;
-            Name = raw.Name;
-            Description = raw.Description;
 
             UpdateCore(raw);
         }
@@ -574,14 +544,14 @@ namespace Sakuno.ING.Game.Models.MasterData
         private readonly BindableSnapshotCollection<ShipInfo> extraSlotAcceptingShips = new BindableSnapshotCollection<ShipInfo>();
         public IReadOnlyList<ShipInfo> ExtraSlotAcceptingShips => extraSlotAcceptingShips;
 
-        public override string ToString() => $"EquipmentInfo {Id}: {Name}";
+        public override string ToString() => $"EquipmentInfo {Id}: {Name.Origin}";
     }
     public partial class UseItemInfo : Calculated<UseItemId, IRawUseItem>
     {
         public UseItemInfo(UseItemId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = owner.Localization?.GetLocalized("UseItem", id.ToString());
+            Name.Translation = owner.Localization?.GetLocalized("UseItem", id.ToString());
             CreateDummy();
         }
 
@@ -589,14 +559,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         private readonly MasterDataRoot owner;
 
-        public string NameTranslation { get; }
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            internal set => Set(ref _name, value);
-        }
+        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
         public event Action<UseItemInfo, IRawUseItem, DateTimeOffset> Updating;
         public override void Update(IRawUseItem raw, DateTimeOffset timeStamp)
@@ -608,21 +571,27 @@ namespace Sakuno.ING.Game.Models.MasterData
         private void UpdateProps(IRawUseItem raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
-            Name = raw.Name;
+
+            if (raw.Name != Name.Origin)
+            {
+                Name.Origin = raw.Name;
+                NotifyPropertyChanged(nameof(Name));
+            }
+
 
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawUseItem raw);
         partial void CreateDummy();
 
-        public override string ToString() => $"UseItemInfo {Id}: {Name}";
+        public override string ToString() => $"UseItemInfo {Id}: {Name.Origin}";
     }
     public partial class MapAreaInfo : Calculated<MapAreaId, IRawMapArea>
     {
         public MapAreaInfo(MapAreaId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = owner.Localization?.GetLocalized("MapArea", id.ToString());
+            Name.Translation = owner.Localization?.GetLocalized("MapArea", id.ToString());
             CreateDummy();
         }
 
@@ -630,20 +599,13 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         private readonly MasterDataRoot owner;
 
-        public string NameTranslation { get; }
+        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
         private bool _isEvent;
         public bool IsEvent
         {
             get => _isEvent;
             internal set => Set(ref _isEvent, value);
-        }
-
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            internal set => Set(ref _name, value);
         }
 
         public event Action<MapAreaInfo, IRawMapArea, DateTimeOffset> Updating;
@@ -656,24 +618,30 @@ namespace Sakuno.ING.Game.Models.MasterData
         private void UpdateProps(IRawMapArea raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
+            if (raw.Name != Name.Origin)
+            {
+                Name.Origin = raw.Name;
+                NotifyPropertyChanged(nameof(Name));
+            }
+
             IsEvent = raw.IsEvent;
-            Name = raw.Name;
 
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawMapArea raw);
         partial void CreateDummy();
 
-        public override string ToString() => $"MapAreaInfo {Id}: {Name}";
+        public override string ToString() => $"MapAreaInfo {Id}: {Name.Origin}";
     }
     public partial class MapInfo : Calculated<MapId, IRawMapInfo>
     {
         public MapInfo(MapId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = owner.Localization?.GetLocalized("MapName", id.ToString());
-            OperationNameTranslation = owner.Localization?.GetLocalized("MapOperation", id.ToString());
-            DescriptionTranslation = owner.Localization?.GetLocalized("MapDescription", id.ToString());
+            Name.Translation = owner.Localization?.GetLocalized("MapName", id.ToString());
+            OperationName.Translation = owner.Localization?.GetLocalized("MapOperation", id.ToString());
+            Description.Translation = owner.Localization?.GetLocalized("MapDescription", id.ToString());
             CreateDummy();
         }
 
@@ -681,11 +649,11 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         private readonly MasterDataRoot owner;
 
-        public string NameTranslation { get; }
+        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
-        public string OperationNameTranslation { get; }
+        public TextTranslationGroup OperationName { get; } = new TextTranslationGroup();
 
-        public string DescriptionTranslation { get; }
+        public TextTranslationGroup Description { get; } = new TextTranslationGroup();
 
         private MapAreaInfo _mapArea;
         public MapAreaInfo MapArea
@@ -722,27 +690,6 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _bgmInfo, value);
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            internal set => Set(ref _name, value);
-        }
-
-        private string _operationName;
-        public string OperationName
-        {
-            get => _operationName;
-            internal set => Set(ref _operationName, value);
-        }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            internal set => Set(ref _description, value);
-        }
-
         public event Action<MapInfo, IRawMapInfo, DateTimeOffset> Updating;
         public override void Update(IRawMapInfo raw, DateTimeOffset timeStamp)
         {
@@ -753,13 +700,29 @@ namespace Sakuno.ING.Game.Models.MasterData
         private void UpdateProps(IRawMapInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
+            if (raw.Name != Name.Origin)
+            {
+                Name.Origin = raw.Name;
+                NotifyPropertyChanged(nameof(Name));
+            }
+
+            if (raw.OperationName != OperationName.Origin)
+            {
+                OperationName.Origin = raw.OperationName;
+                NotifyPropertyChanged(nameof(OperationName));
+            }
+
+            if (raw.Description != Description.Origin)
+            {
+                Description.Origin = raw.Description;
+                NotifyPropertyChanged(nameof(Description));
+            }
+
             StarDifficulty = raw.StarDifficulty;
             RequiredDefeatCount = raw.RequiredDefeatCount;
             AvailableFleetTypes = raw.AvailableFleetTypes;
             BgmInfo = raw.BgmInfo;
-            Name = raw.Name;
-            OperationName = raw.OperationName;
-            Description = raw.Description;
 
             UpdateCore(raw);
         }
@@ -769,15 +732,15 @@ namespace Sakuno.ING.Game.Models.MasterData
         private readonly BindableSnapshotCollection<UseItemInfo> itemAcquirements = new BindableSnapshotCollection<UseItemInfo>();
         public IReadOnlyList<UseItemInfo> ItemAcquirements => itemAcquirements;
 
-        public override string ToString() => $"MapInfo {Id}: {Name}";
+        public override string ToString() => $"MapInfo {Id}: {Name.Origin}";
     }
     public partial class ExpeditionInfo : Calculated<ExpeditionId, IRawExpeditionInfo>
     {
         public ExpeditionInfo(ExpeditionId id, MasterDataRoot owner) : base(id)
         {
             this.owner = owner;
-            NameTranslation = owner.Localization?.GetLocalized("ExpeditionName", id.ToString());
-            DescriptionTranslation = owner.Localization?.GetLocalized("ExpeditionDesc", id.ToString());
+            Name.Translation = owner.Localization?.GetLocalized("ExpeditionName", id.ToString());
+            Description.Translation = owner.Localization?.GetLocalized("ExpeditionDesc", id.ToString());
             CreateDummy();
         }
 
@@ -785,9 +748,9 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         private readonly MasterDataRoot owner;
 
-        public string NameTranslation { get; }
+        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
-        public string DescriptionTranslation { get; }
+        public TextTranslationGroup Description { get; } = new TextTranslationGroup();
 
         private string _displayId;
         public string DisplayId
@@ -859,20 +822,6 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _canRecall, value);
         }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            internal set => Set(ref _name, value);
-        }
-
-        private string _description;
-        public string Description
-        {
-            get => _description;
-            internal set => Set(ref _description, value);
-        }
-
         public event Action<ExpeditionInfo, IRawExpeditionInfo, DateTimeOffset> Updating;
         public override void Update(IRawExpeditionInfo raw, DateTimeOffset timeStamp)
         {
@@ -883,6 +832,19 @@ namespace Sakuno.ING.Game.Models.MasterData
         private void UpdateProps(IRawExpeditionInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
+
+            if (raw.Name != Name.Origin)
+            {
+                Name.Origin = raw.Name;
+                NotifyPropertyChanged(nameof(Name));
+            }
+
+            if (raw.Description != Description.Origin)
+            {
+                Description.Origin = raw.Description;
+                NotifyPropertyChanged(nameof(Description));
+            }
+
             DisplayId = raw.DisplayId;
             Duration = raw.Duration;
             RequiredShipCount = raw.RequiredShipCount;
@@ -892,14 +854,12 @@ namespace Sakuno.ING.Game.Models.MasterData
             RewardItem1 = raw.RewardItem1;
             RewardItem2 = raw.RewardItem2;
             CanRecall = raw.CanRecall;
-            Name = raw.Name;
-            Description = raw.Description;
 
             UpdateCore(raw);
         }
         partial void UpdateCore(IRawExpeditionInfo raw);
         partial void CreateDummy();
 
-        public override string ToString() => $"ExpeditionInfo {Id}: {Name}";
+        public override string ToString() => $"ExpeditionInfo {Id}: {Name.Origin}";
     }
 }

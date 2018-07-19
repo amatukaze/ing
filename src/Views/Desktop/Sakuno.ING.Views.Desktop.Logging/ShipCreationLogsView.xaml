@@ -46,10 +46,26 @@
                     <GridViewColumn Header="{c:Localize GameModel/Material_Bauxite}" DisplayMemberBinding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
                     <GridViewColumn Header="{c:Localize GameModel/Material_Development}" DisplayMemberBinding="{Binding Consumption.Development, Mode=OneTime}"/>
                     <GridViewColumn Header="{c:Localize GameModel/ConstructionType}" DisplayMemberBinding="{Binding ConstructionType, Mode=OneTime}"/>
-                    <GridViewColumn Header="{c:Localize GameModel/Result}" DisplayMemberBinding="{Binding ShipBuilt.Name, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/Result}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <c:LocalizableText Source="{Binding Secretary.Name, Mode=OneTime}"/>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="{c:Localize Logging/Construction_EmptyDockCount}" DisplayMemberBinding="{Binding EmptyDockCount, Mode=OneTime}"/>
-                    <GridViewColumn Header="{c:Localize GameModel/Secretary}" DisplayMemberBinding="{Binding Secretary.Name, Mode=OneTime}"/>
-                    <!--<GridViewColumn Header="Secretary level" DisplayMemberBinding="{Binding SecretaryLevel, Mode=OneTime}"/>-->
+                    <GridViewColumn Header="{c:Localize GameModel/Secretary}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <c:LocalizableText Source="{Binding Secretary.Name, Mode=OneTime}"/>
+                                    (Lv. <Run Text="{Binding SecretaryLevel, Mode=OneTime}"/>)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="{c:Localize GameModel/AdmiralLevel_Short}" DisplayMemberBinding="{Binding AdmiralLevel, Mode=OneTime}"/>
                 </GridView>
             </ListView.View>

@@ -69,7 +69,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                 {
                     TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Utc),
                     ExpeditionName = s[1],
-                    ExpeditionId = expeditionTable.FirstOrDefault(e => e.Name == s[1])?.Id ?? default,
+                    ExpeditionId = expeditionTable.FirstOrDefault(e => e.Name.Origin == s[1])?.Id ?? default,
                     Result = (ExpeditionResult)int.Parse(s[2]),
                     MaterialsAcquired = new Materials
                     {

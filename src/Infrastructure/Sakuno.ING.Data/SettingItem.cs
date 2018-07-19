@@ -20,7 +20,10 @@ namespace Sakuno.ING.Data
             }
         }
 
-        public SettingItem(SettingsManager manager, string key, T defaultValue) : base(manager, key, Convert(defaultValue)) { }
+        public SettingItem(SettingsManager manager, string key, T defaultValue) : base(manager, key, Convert(defaultValue))
+        {
+            InitialValue = Convert(base.Value);
+        }
 
         private static string Convert(T value)
         {
@@ -61,6 +64,8 @@ namespace Sakuno.ING.Data
             get => Convert(base.Value);
             set => base.Value = Convert(value);
         }
+
+        public T InitialValue { get; }
 
         public event Action<T> ValueChanged;
 

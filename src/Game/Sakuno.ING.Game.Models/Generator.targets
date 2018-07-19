@@ -83,12 +83,7 @@ foreach (var infile in Inputs)
                 string category = prop[1];
                 if (propName == "Name")
                     hasName = true;
-                output.WriteLine("            " + propName + "Translation = owner.Localization?.GetLocalized(\"" + category + "\", id.ToString());");
-                if (prop.Length >= 3 && prop[2] == "u")
-                {
-                    output.WriteLine("            _unlocalized" + propName + " = owner.Localization?.GetUnlocalized(\"" + category + "\", id.ToString());");
-                    unlocalized.Add(propName);
-                }
+                output.WriteLine("            " + propName + ".Translation = owner.Localization?.GetLocalized(\"" + category + "\", id.ToString());");
             }
             output.WriteLine("            CreateDummy();");
             output.WriteLine("        }");
@@ -102,18 +97,7 @@ foreach (var infile in Inputs)
                 var prop = l.Split(' ');
                 output.WriteLine();
                 string propName = prop[0];
-                output.WriteLine("        public string " + propName + "Translation { get; }");
-                if (prop.Length >= 3)
-                    switch (prop[2])
-                    {
-                        case "-":
-                            props.Add("string " + propName + " -");
-                            break;
-                        case "u":
-                            props.Add("string " + propName);
-                            output.WriteLine("        private readonly string _unlocalized" + propName + ";");
-                            break;
-                    }
+                output.WriteLine("        public TextTranslationGroup " + propName + " { get; } = new TextTranslationGroup();");
             }
             foreach (var line in props)
             {
@@ -142,10 +126,20 @@ foreach (var infile in Inputs)
             output.WriteLine("        private void UpdateProps(" + rawClass + " raw, DateTimeOffset timeStamp)");
             output.WriteLine("        {");
             output.WriteLine("            UpdationTime = timeStamp;");
+            foreach (string l in localizables)
+            {
+                output.WriteLine();
+                var prop = l.Split(' ');
+                string propName = prop[0];
+                output.WriteLine("            if (raw." + propName + " != " + propName + ".Origin)");
+                output.WriteLine("            {");
+                output.WriteLine("                " + propName + ".Origin = raw." + propName + ";");
+                output.WriteLine("                NotifyPropertyChanged(nameof(" + propName + "));");
+                output.WriteLine("            }");
+            }
+            output.WriteLine();
             foreach (string prop in dummyList)
                 output.WriteLine("            " + prop + " = raw." + prop + ";");
-            foreach (string u in unlocalized)
-                output.WriteLine("            " + u + " = _unlocalized" + u + " ?? raw." + u + ";");
             output.WriteLine();
             output.WriteLine("            UpdateCore(raw);");
             output.WriteLine("        }");
@@ -163,7 +157,7 @@ foreach (var infile in Inputs)
             }
             output.WriteLine();
             if (hasName)
-                output.WriteLine("        public override string ToString() => $\"" + thisClass + " {Id}: {Name}\";");
+                output.WriteLine("        public override string ToString() => $\"" + thisClass + " {Id}: {Name.Origin}\";");
             output.WriteLine("    }");
         }
         output.WriteLine("}");

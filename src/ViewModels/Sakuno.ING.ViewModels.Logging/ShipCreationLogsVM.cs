@@ -60,10 +60,20 @@ namespace Sakuno.ING.ViewModels.Logging
                     x => x.IsLSC ? lsc : nsc),
                 new FilterVM<ShipCreationVM>(localization.GetLocalized("GameModel", "Result"),
                     x => x.ShipBuilt.Id,
-                    x => x.ShipBuilt.Name),
+                    x => x.ShipBuilt.Name.Origin,
+                    x => new[]
+                    {
+                        x.ShipBuilt.Name.Origin,
+                        x.ShipBuilt.Name.Phonetic
+                    }),
                 new FilterVM<ShipCreationVM>(localization.GetLocalized("GameModel", "Secretary"),
                     x => x.Secretary.Id,
-                    x => x.Secretary.Name)
+                    x => x.Secretary.Name.Origin,
+                    x => new[]
+                    {
+                        x.Secretary.Name.Origin,
+                        x.Secretary.Name.Phonetic
+                    })
             };
         }
 

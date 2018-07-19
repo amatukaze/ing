@@ -21,7 +21,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
 
         ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name);
+            var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name.Origin);
             return Helper.ParseCsv(source, "createship/data", 12,
                 s =>
                 {
@@ -51,8 +51,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
 
         ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> ILogProvider<EquipmentCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name);
-            var equipments = Compositor.Static<NavalBase>().MasterData.EquipmentInfos.ToDictionary(x => x.Name);
+            var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name.Origin);
+            var equipments = Compositor.Static<NavalBase>().MasterData.EquipmentInfos.ToDictionary(x => x.Name.Origin);
             return Helper.ParseCsv(source, "createitem/data", 10,
                 s =>
                 {
@@ -81,8 +81,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
 
         ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> ILogProvider<ExpeditionCompletionEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var expeditions = Compositor.Static<NavalBase>().MasterData.Expeditions.ToDictionary(x => x.Name);
-            var useitems = Compositor.Static<NavalBase>().MasterData.UseItems.ToDictionary(x => x.Name);
+            var expeditions = Compositor.Static<NavalBase>().MasterData.Expeditions.ToDictionary(x => x.Name.Origin);
+            var useitems = Compositor.Static<NavalBase>().MasterData.UseItems.ToDictionary(x => x.Name.Origin);
             return Helper.ParseCsv(source, "mission/data", 11,
                 s => new ExpeditionCompletionEntity
                 {

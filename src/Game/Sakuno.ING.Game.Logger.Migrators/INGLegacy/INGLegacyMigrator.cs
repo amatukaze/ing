@@ -74,7 +74,7 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                     {
                         TimeStamp = DateTimeOffset.FromUnixTimeSeconds(x.time),
                         ExpeditionId = (ExpeditionId)x.expedition,
-                        ExpeditionName = expeditions[(ExpeditionId)x.expedition].Name,
+                        ExpeditionName = expeditions[(ExpeditionId)x.expedition].Name.Origin,
                         Result = (ExpeditionResult)x.result,
                         MaterialsAcquired = new Materials
                         {

@@ -72,8 +72,8 @@ p:DateTimeOffset ExpeditionCompletionTime -
 b:Ship Ships
 
 Quest:QuestId:IRawQuest:QuestManager
-l:Name QuestName -
-l:Description QuestDesc -
+l:Name QuestName
+l:Description QuestDesc
 p:QuestCategoty Category -
 p:QuestPeriod Period -
 p:QuestState State -
