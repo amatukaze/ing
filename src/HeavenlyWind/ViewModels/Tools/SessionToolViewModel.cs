@@ -1,25 +1,25 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Proxy;
-using System;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
+using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 
 namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
 {
     class SessionToolViewModel : ModelBase
     {
-        static readonly object r_ThreadLockSync = new object();
+        ITargetBlock<NetworkSession> _sessionReceiver;
 
         public ObservableCollection<SessionViewModel> Sessions { get; } = new ObservableCollection<SessionViewModel>();
 
-        bool r_IsRecording;
+        bool _isRecording;
         public bool IsRecording
         {
-            get { return r_IsRecording; }
+            get { return _isRecording; }
             set
             {
-                if (r_IsRecording != value)
+                if (_isRecording != value)
                 {
-                    r_IsRecording = value;
+                    _isRecording = value;
                     OnPropertyChanged(nameof(IsRecording));
                 }
             }
@@ -42,21 +42,17 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
         public SessionToolViewModel()
         {
             if (Preference.Instance.Other.SessionTool.StartRecordingOnAppStartup)
-                r_IsRecording = true;
+                _isRecording = true;
 
-            KanColleProxy.SessionSubject.ObserveOnDispatcher().Subscribe(r =>
+            _sessionReceiver = new ActionBlock<NetworkSession>(session =>
             {
-                if (!r_IsRecording || r.DisplayUrl.OICContains("ShimakazeGo"))
-                    return;
+                Sessions.Add(new SessionViewModel(session));
 
-                lock (r_ThreadLockSync)
-                {
-                    Sessions.Add(new SessionViewModel(r));
+                if (Sessions.Count > 50)
+                    Sessions.RemoveAt(0);
+            }, new ExecutionDataflowBlockOptions() { TaskScheduler = TaskScheduler.FromCurrentSynchronizationContext() });
 
-                    if (Sessions.Count > 50)
-                        Sessions.RemoveAt(0);
-                }
-            });
+            KanColleProxy.SessionSource.LinkTo(_sessionReceiver, session => _isRecording && !session.DisplayUrl.OICContains("ShimakazeGo"));
         }
     }
 }

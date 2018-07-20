@@ -12,15 +12,15 @@ using System.Collections.Specialized;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
-using System.Reactive.Subjects;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks.Dataflow;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
     public static class KanColleProxy
     {
-        public static Subject<NetworkSession> SessionSubject { get; } = new Subject<NetworkSession>();
+        public static IPropagatorBlock<NetworkSession, NetworkSession> SessionSource { get; }
 
         static Regex r_RemoveGoogleAnalyticsRegex = new Regex(@"gapush\(.+?\);", RegexOptions.Singleline);
         static Regex r_UserIDRegex { get; } = new Regex(@"(?:(?<=api_world%2Fget_id%2F)|(?<=api_world\\/get_id\\/)|(?<=api_auth_member\\/dmmlogin\\/))\d+");
@@ -41,6 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         static KanColleProxy()
         {
+            SessionSource = new BufferBlock<NetworkSession>();
+
             FiddlerApplication.BeforeRequest += FiddlerApplication_BeforeRequest;
             FiddlerApplication.OnReadResponseBuffer += FiddlerApplication_OnReadResponseBuffer;
             FiddlerApplication.ResponseHeadersAvailable += FiddlerApplication_ResponseHeadersAvailable;
@@ -120,7 +122,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             rSession.RequestHeaders = rpSession.RequestHeaders.Select(r => new SessionHeader(r.Name, r.Value)).ToArray();
 
-            SessionSubject.OnNext(rSession);
+            SessionSource.Post(rSession);
 
             if (!rpSession.bHasResponse && r_TrafficBarrier != null)
                 r_TrafficBarrier.Wait();
