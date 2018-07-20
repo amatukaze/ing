@@ -40,7 +40,7 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                         Secretary = (ShipInfoId)x.flagship,
                         AdmiralLevel = x.hq_level,
                         IsLSC = x.is_lsc,
-                        EmptyDockCount = (x.empty_dock ?? -1) + 1
+                        EmptyDockCount = x.empty_dock ?? 0
                     }).ToList();
         }
 

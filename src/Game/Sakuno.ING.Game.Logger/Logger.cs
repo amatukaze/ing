@@ -48,8 +48,7 @@ namespace Sakuno.ING.Game.Logger
                     IsLSC = m.IsLSC,
                     AdmiralLevel = this.navalBase.Admiral.Leveling.Level,
                     Secretary = this.navalBase.Secretary.Info.Id,
-                    SecretaryLevel = this.navalBase.Secretary.Leveling.Level,
-                    EmptyDockCount = navalBase.BuildingDocks.Count(x => x.State == BuildingDockState.Empty)
+                    SecretaryLevel = this.navalBase.Secretary.Leveling.Level
                 };
                 lastBuildingDock = m.BuildingDockId;
             };
@@ -60,6 +59,7 @@ namespace Sakuno.ING.Game.Logger
                     using (var context = CreateContext())
                     {
                         shipCreation.ShipBuilt = m.Single(x => x.Id == lastBuildingDock).BuiltShipId.Value;
+                        shipCreation.EmptyDockCount = navalBase.BuildingDocks.Count(x => x.State == BuildingDockState.Empty);
                         context.ShipCreationTable.Add(shipCreation);
                         shipCreation = null;
                         lastBuildingDock = default;

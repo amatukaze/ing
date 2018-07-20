@@ -33,7 +33,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                         Development = int.Parse(s[7])
                     },
                     IsLSC = int.Parse(s[8]) > 0,
-                    EmptyDockCount = int.Parse(s[9]) + 1,
+                    EmptyDockCount = int.Parse(s[9]),
                     Secretary = (ShipInfoId)int.Parse(s[10]),
                     AdmiralLevel = int.Parse(s[12])
                 });

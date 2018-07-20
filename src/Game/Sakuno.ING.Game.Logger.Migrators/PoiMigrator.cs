@@ -41,7 +41,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                             Bauxite = int.Parse(s[7]),
                             Development = int.Parse(s[8])
                         },
-                        EmptyDockCount = int.Parse(s[9]) + 1,
+                        EmptyDockCount = int.Parse(s[9]),
                         Secretary = ships.TryGetOrDefault(secretaryName)?.Id ?? default,
                         SecretaryLevel = int.Parse(secretaryLevel),
                         AdmiralLevel = int.Parse(s[11])
