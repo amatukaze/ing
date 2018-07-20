@@ -1,5 +1,6 @@
 ﻿Imports Sakuno.ING.Composition
 Imports Sakuno.ING.Game
+Imports Sakuno.ING.Game.Models.MasterData
 Imports Sakuno.ING.Settings
 
 Public Module Helpers
@@ -23,5 +24,9 @@ Public Module Helpers
 
     Public Function SelectName(name As TextTranslationGroup) As String
         Return If(lazyLocaleSetting.Value.TranslateContent.InitialValue, name.Translation, name.Origin)
+    End Function
+
+    Public Function SelectShipName(name As ShipName) As String
+        Return SelectName(name)
     End Function
 End Module

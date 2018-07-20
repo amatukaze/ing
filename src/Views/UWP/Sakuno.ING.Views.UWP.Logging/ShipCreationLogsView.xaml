@@ -50,7 +50,7 @@
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Result">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:ShipCreationVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectName(ShipBuilt.Name)}"/>
+                            <TextBlock Text="{x:Bind c:Helpers.SelectShipName(ShipBuilt.Name)}"/>
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
@@ -59,7 +59,7 @@
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:ShipCreationVM">
                             <TextBlock>
-                                <Run Text="{x:Bind c:Helpers.SelectName(Secretary.Name)}"/>
+                                <Run Text="{x:Bind c:Helpers.SelectShipName(Secretary.Name)}"/>
                                 (Lv. <Run Text="{x:Bind SecretaryLevel}"/>)
                             </TextBlock>
                         </DataTemplate>

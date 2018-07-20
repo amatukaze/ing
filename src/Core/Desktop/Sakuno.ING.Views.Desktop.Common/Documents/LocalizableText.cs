@@ -8,8 +8,6 @@ namespace Sakuno.ING.Views.Desktop.Documents
 {
     public class LocalizableText : Run, IServiceProvider, IProvideValueTarget
     {
-        public static readonly object ShouldTranslateKey = new object();
-
         public static readonly DependencyProperty SourceProperty
             = DependencyProperty.Register(nameof(Source), typeof(TextTranslationGroup), typeof(LocalizableText), new PropertyMetadata(Update));
 
@@ -24,7 +22,7 @@ namespace Sakuno.ING.Views.Desktop.Documents
 
         public LocalizableText()
         {
-            SetValue(ShouldTranslateProperty, new DynamicResourceExtension(ShouldTranslateKey).ProvideValue(this));
+            SetValue(ShouldTranslateProperty, new DynamicResourceExtension(Constants.TranslateContentKey).ProvideValue(this));
             Update();
         }
 

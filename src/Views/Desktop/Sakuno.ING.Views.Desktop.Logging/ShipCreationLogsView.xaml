@@ -50,7 +50,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:LocalizableText Source="{Binding Secretary.Name, Mode=OneTime}"/>
+                                    <c:ShipNameText Source="{Binding Secretary.Name, Mode=OneTime}"/>
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -60,7 +60,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:LocalizableText Source="{Binding Secretary.Name, Mode=OneTime}"/>
+                                    <c:ShipNameText Source="{Binding Secretary.Name, Mode=OneTime}"/>
                                     (Lv. <Run Text="{Binding SecretaryLevel, Mode=OneTime}"/>)
                                 </TextBlock>
                             </DataTemplate>

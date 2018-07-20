@@ -8,7 +8,7 @@ using Sakuno.ING.Localization;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Shell.Layout;
-using Sakuno.ING.Views.Desktop.Documents;
+using Sakuno.ING.Views.Desktop;
 
 namespace Sakuno.ING.Shell.Desktop
 {
@@ -70,7 +70,7 @@ namespace Sakuno.ING.Shell.Desktop
 
         private static void UpdateContentTranslating(bool value)
         {
-            Application.Current.Resources[LocalizableText.ShouldTranslateKey] = value;
+            Application.Current.Resources[Constants.TranslateContentKey] = value;
         }
 
         private void InitWindow(Window window)
