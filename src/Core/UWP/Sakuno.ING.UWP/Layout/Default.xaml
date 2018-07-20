@@ -14,6 +14,8 @@
                     <StackPanel Orientation="Horizontal" Grid.Row="1">
                         <sh:ViewSwitcher ViewId="LogMigration"/>
                         <sh:ViewSwitcher ViewId="ShipCreationLogs"/>
+                        <sh:ViewSwitcher ViewId="EquipmentCreationLogs"/>
+                        <sh:ViewSwitcher ViewId="ExpeditionCompletionLogs"/>
                     </StackPanel>
                 </Grid>
             </DataTemplate>
@@ -28,6 +30,16 @@
         <sh:LayoutWindow Id="ShipCreationLogs">
             <DataTemplate>
                 <sh:ViewPresenter ViewId="ShipCreationLogs"/>
+            </DataTemplate>
+        </sh:LayoutWindow>
+        <sh:LayoutWindow Id="EquipmentCreationLogs">
+            <DataTemplate>
+                <sh:ViewPresenter ViewId="EquipmentCreationLogs"/>
+            </DataTemplate>
+        </sh:LayoutWindow>
+        <sh:LayoutWindow Id="ExpeditionCompletionLogs">
+            <DataTemplate>
+                <sh:ViewPresenter ViewId="ExpeditionCompletionLogs"/>
             </DataTemplate>
         </sh:LayoutWindow>
     </sh:LayoutRoot.SubWindows>

@@ -19,6 +19,12 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="EquipmentCreationLogsView.xaml.cs">
+      <DependentUpon>EquipmentCreationLogsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExpeditionCompletionLogsView.xaml.cs">
+      <DependentUpon>ExpeditionCompletionLogsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LogMigrationView.xaml.cs">
       <DependentUpon>LogMigrationView.xaml</DependentUpon>
     </Compile>
@@ -29,6 +35,14 @@
     <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.Logging.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="EquipmentCreationLogsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpeditionCompletionLogsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LogMigrationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

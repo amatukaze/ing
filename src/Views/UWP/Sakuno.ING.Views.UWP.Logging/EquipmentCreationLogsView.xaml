@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Sakuno.ING.Views.UWP.Logging.ShipCreationLogsView"
+    x:Class="Sakuno.ING.Views.UWP.Logging.EquipmentCreationLogsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -46,19 +46,23 @@
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bullet" Binding="{Binding Consumption.Bullet, Mode=OneTime}"/>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding Consumption.Steel, Mode=OneTime}"/>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Development" Binding="{Binding Consumption.Development, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_ConstructionType" Binding="{Binding ConstructionType, Mode=OneTime}"/>
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Result">
                     <tk:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate x:DataType="vm:ShipCreationVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectShipName(ShipBuilt.Name)}"/>
+                        <DataTemplate x:DataType="vm:EquipmentCreationVM">
+                            <TextBlock Text="{x:Bind c:Helpers.SelectName(EquipmentCreated.Name)}"/>
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EmptyDockCount" Binding="{Binding EmptyDockCount, Mode=OneTime}"/>
+                <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_EquipmentType">
+                    <tk:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="vm:EquipmentCreationVM">
+                            <TextBlock Text="{x:Bind c:Helpers.SelectName(EquipmentCreated.Type.Name)}"/>
+                        </DataTemplate>
+                    </tk:DataGridTemplateColumn.CellTemplate>
+                </tk:DataGridTemplateColumn>
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Secretary">
                     <tk:DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate x:DataType="vm:ShipCreationVM">
+                        <DataTemplate x:DataType="vm:EquipmentCreationVM">
                             <TextBlock>
                                 <Run Text="{x:Bind c:Helpers.SelectShipName(Secretary.Name)}"/>
                                 (Lv. <Run Text="{x:Bind SecretaryLevel}"/>)

@@ -25,6 +25,8 @@
   "Logging_Column_Secretary.Header": "GameModel/Secretary",
   "Logging_Column_AdmiralLevel.Header": "GameModel/AdmiralLevel_Short",
   "Logging_Column_Success.Header": "GameModel/Success",
+  "Logging_Column_EquipmentType.Header": "GameModel/EquipmentType",
+  "Logging_Column_Expedition.Header": "GameModel/Expedition",
   "Logging_Column_Item1.Header": "Logging/Expedition_Item1",
   "Logging_Column_Item2.Header": "Logging/Expedition_Item2"
 }

@@ -90,6 +90,12 @@
   <data name="Logging_Column_Success.Header">
     <value>Success</value>
   </data>
+  <data name="Logging_Column_EquipmentType.Header">
+    <value>Equipment Type</value>
+  </data>
+  <data name="Logging_Column_Expedition.Header">
+    <value>Expedition</value>
+  </data>
   <data name="Logging_Column_Item1.Header">
     <value>Item1</value>
   </data>

@@ -72,4 +72,10 @@
   <data name="UseItem">
     <value>Item</value>
   </data>
+  <data name="EquipmentType">
+    <value>Equipment Type</value>
+  </data>
+  <data name="Expedition">
+    <value>Expedition</value>
+  </data>
 </root>

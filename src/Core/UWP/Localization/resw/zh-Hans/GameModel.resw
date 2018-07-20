@@ -72,4 +72,10 @@
   <data name="UseItem">
     <value>物品</value>
   </data>
+  <data name="EquipmentType">
+    <value>装备类型</value>
+  </data>
+  <data name="Expedition">
+    <value>远征</value>
+  </data>
 </root>

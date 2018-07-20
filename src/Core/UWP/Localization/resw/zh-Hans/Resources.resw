@@ -90,6 +90,12 @@
   <data name="Logging_Column_Success.Header">
     <value>成功</value>
   </data>
+  <data name="Logging_Column_EquipmentType.Header">
+    <value>装备类型</value>
+  </data>
+  <data name="Logging_Column_Expedition.Header">
+    <value>远征</value>
+  </data>
   <data name="Logging_Column_Item1.Header">
     <value>物品1</value>
   </data>
