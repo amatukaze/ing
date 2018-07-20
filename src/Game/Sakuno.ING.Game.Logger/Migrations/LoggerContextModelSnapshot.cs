@@ -96,7 +96,8 @@ namespace Sakuno.ING.Game.Logger.Migrations
 
                     b.Property<int>("EmptyDockCount");
 
-                    b.Property<bool>("IsLSC");
+                    b.Property<bool>("IsLSC")
+                        .HasColumnName("ConstructionType");
 
                     b.Property<int>("Secretary");
 

@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Logger.Migrations
 {
-    public partial class ResetDbModel : Migration
+    public partial class ResetModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,7 +61,7 @@ namespace Sakuno.ING.Game.Logger.Migrations
                     Consumption_Steel = table.Column<int>(nullable: false),
                     Consumption_Bauxite = table.Column<int>(nullable: false),
                     Consumption_Development = table.Column<int>(nullable: false),
-                    IsLSC = table.Column<bool>(nullable: false),
+                    ConstructionType = table.Column<bool>(nullable: false),
                     ShipBuilt = table.Column<int>(nullable: false),
                     EmptyDockCount = table.Column<int>(nullable: false),
                     Secretary = table.Column<int>(nullable: false),

@@ -9,8 +9,8 @@ using Sakuno.ING.Game.Logger;
 namespace Sakuno.ING.Game.Logger.Migrations
 {
     [DbContext(typeof(LoggerContext))]
-    [Migration("20180711095108_ResetDbModel")]
-    partial class ResetDbModel
+    [Migration("20180720052302_ResetModel")]
+    partial class ResetModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,7 +98,8 @@ namespace Sakuno.ING.Game.Logger.Migrations
 
                     b.Property<int>("EmptyDockCount");
 
-                    b.Property<bool>("IsLSC");
+                    b.Property<bool>("IsLSC")
+                        .HasColumnName("ConstructionType");
 
                     b.Property<int>("Secretary");
 

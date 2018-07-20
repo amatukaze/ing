@@ -33,6 +33,7 @@ namespace Sakuno.ING.Game.Logger.Entities
         public int Consumption_Bauxite { get; set; }
         public int Consumption_Development { get; set; }
 
+        [Column("ConstructionType")]
         public bool IsLSC { get; set; }
         public ShipInfoId ShipBuilt { get; set; }
         public int EmptyDockCount { get; set; }
