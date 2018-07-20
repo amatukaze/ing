@@ -67,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 var rTimestamp = new DateTimeOffset(File.GetLastWriteTime(rFilename));
 
-                if (rpResourceSession.Path.OICContains("mainD2.swf") || !CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
+                if (rpResourceSession.Path.OICContains("mainD2.swf") || rpResourceSession.Path.StartsWith("/gadget/") || !CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
                 {
                     rpSession.oRequest["If-Modified-Since"] = rTimestamp.ToString("R");
                     rpSession.bBufferResponse = true;
