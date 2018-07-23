@@ -8,7 +8,6 @@ using Sakuno.ING.Localization;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Shell.Layout;
-using Sakuno.ING.Views.Desktop;
 
 namespace Sakuno.ING.Shell.Desktop
 {
@@ -17,7 +16,6 @@ namespace Sakuno.ING.Shell.Desktop
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ILocalizationService localization;
-        private readonly LocaleSetting locale;
         private readonly ITextStreamProvider provider;
         private readonly string localeName;
         private readonly FontFamily userFont;
@@ -29,7 +27,6 @@ namespace Sakuno.ING.Shell.Desktop
         {
             this.layoutSetting = layoutSetting;
             this.localization = localization;
-            this.locale = locale;
             this.provider = provider;
             localeName = locale.Language.Value;
             var userFontName = locale.UserLanguageFont.Value;
@@ -53,24 +50,13 @@ namespace Sakuno.ING.Shell.Desktop
 
             InitWindow(window);
 
-            locale.TranslateContent.ValueChanged += UpdateContentTranslating;
-
             var app = new Application
             {
                 ShutdownMode = ShutdownMode.OnMainWindowClose
             };
 
-            app.Startup += (s, e) =>
-            {
-                UpdateContentTranslating(locale.TranslateContent.Value);
-                provider.Enabled = true;
-            };
+            app.Startup += (s, e) => provider.Enabled = true; ;
             app.Run(window);
-        }
-
-        private static void UpdateContentTranslating(bool value)
-        {
-            Application.Current.Resources[Constants.TranslateContentKey] = value;
         }
 
         private void InitWindow(Window window)

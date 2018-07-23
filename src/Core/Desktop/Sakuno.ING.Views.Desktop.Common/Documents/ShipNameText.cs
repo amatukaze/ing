@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Views.Desktop.Documents
 {
-    public class ShipNameText : LocalizableText
+    public class ShipNameText : NameText
     {
     }
 }

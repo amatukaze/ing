@@ -55,6 +55,10 @@
     <Import Include="Windows.UI.Xaml.Navigation" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models.Raw\Sakuno.ING.Game.Models.Raw.csproj">
+      <Project>{9CCC28AD-ACC3-4043-A408-6E67CE46D7B5}</Project>
+      <Name>Sakuno.ING.Game.Models.Raw</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj">
       <Project>{2db243bb-d99c-4d5c-aaa9-98104cc7efa0}</Project>
       <Name>Sakuno.ING.Game.Models</Name>

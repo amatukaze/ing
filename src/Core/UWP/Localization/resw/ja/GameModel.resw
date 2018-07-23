@@ -16,40 +16,40 @@
     <value>燃料</value>
   </data>
   <data name="Material_Bullet">
-    <value>弹药</value>
+    <value>弾薬</value>
   </data>
   <data name="Material_Steel">
-    <value>钢材</value>
+    <value>鋼材</value>
   </data>
   <data name="Material_Bauxite">
-    <value>铝土</value>
+    <value>ボーキサイト</value>
   </data>
   <data name="Material_Development">
-    <value>开发资材</value>
+    <value>開発資材</value>
   </data>
   <data name="Material_Improvement">
-    <value>改修资材</value>
+    <value>改修資材</value>
   </data>
   <data name="Material_InstantBuild">
-    <value>高速建造</value>
+    <value>高速建造材</value>
   </data>
   <data name="Material_InstantRepair">
-    <value>高速修复</value>
+    <value>高速修復材</value>
   </data>
   <data name="Level">
-    <value>等级</value>
+    <value>レベル</value>
   </data>
   <data name="Secretary">
-    <value>秘书舰</value>
+    <value>秘書艦</value>
   </data>
   <data name="AdmiralLevel">
-    <value>提督等级</value>
+    <value>提督レベル</value>
   </data>
   <data name="AdmiralLevel_Short">
-    <value>提督等级</value>
+    <value>提督レベル</value>
   </data>
   <data name="ConstructionType">
-    <value>建造类型</value>
+    <value>建造タイプ</value>
   </data>
   <data name="ConstructionType_Normal">
     <value>通常舰建造</value>
@@ -58,28 +58,28 @@
     <value>大型舰建造</value>
   </data>
   <data name="Result">
-    <value>结果</value>
+    <value>結果</value>
   </data>
   <data name="Success">
     <value>成功</value>
   </data>
   <data name="Fail">
-    <value>失败</value>
+    <value>失敗</value>
   </data>
   <data name="GreatSuccess">
     <value>大成功</value>
   </data>
   <data name="UseItem">
-    <value>物品</value>
+    <value>アイテム</value>
   </data>
   <data name="EquipmentType">
-    <value>装备类型</value>
+    <value>装備タイプ</value>
   </data>
   <data name="Expedition">
-    <value>远征</value>
+    <value>遠征</value>
   </data>
   <data name="AdmiralRank_1">
-    <value>元帅</value>
+    <value>元帥</value>
   </data>
   <data name="AdmiralRank_2">
     <value>大将</value>
@@ -103,7 +103,7 @@
     <value>少佐</value>
   </data>
   <data name="AdmiralRank_9">
-    <value>中坚少佐</value>
+    <value>中堅少佐</value>
   </data>
   <data name="AdmiralRank_10">
     <value>新米少佐</value>
@@ -118,13 +118,13 @@
     <value>中</value>
   </data>
   <data name="FireRange_3">
-    <value>长</value>
+    <value>長</value>
   </data>
   <data name="FireRange_4">
-    <value>超长</value>
+    <value>超長</value>
   </data>
   <data name="ShipSpeed_0">
-    <value>陆上基地</value>
+    <value>陸上基地</value>
   </data>
   <data name="ShipSpeed_5">
     <value>低速</value>

@@ -78,4 +78,64 @@
   <data name="Expedition">
     <value>Expedition</value>
   </data>
+  <data name="AdmiralRank_1">
+    <value>Marshal Admiral</value>
+  </data>
+  <data name="AdmiralRank_2">
+    <value>Admiral</value>
+  </data>
+  <data name="AdmiralRank_3">
+    <value>Vice Admiral</value>
+  </data>
+  <data name="AdmiralRank_4">
+    <value>Rear Admiral</value>
+  </data>
+  <data name="AdmiralRank_5">
+    <value>Captain</value>
+  </data>
+  <data name="AdmiralRank_6">
+    <value>Commander</value>
+  </data>
+  <data name="AdmiralRank_7">
+    <value>Novice Commander</value>
+  </data>
+  <data name="AdmiralRank_8">
+    <value>Lieutenant</value>
+  </data>
+  <data name="AdmiralRank_9">
+    <value>Vice Lieutenant</value>
+  </data>
+  <data name="AdmiralRank_10">
+    <value>Novice Lieutenant</value>
+  </data>
+  <data name="FireRange_0">
+    <value>Very Short</value>
+  </data>
+  <data name="FireRange_1">
+    <value>Short</value>
+  </data>
+  <data name="FireRange_2">
+    <value>Medium</value>
+  </data>
+  <data name="FireRange_3">
+    <value>Long</value>
+  </data>
+  <data name="FireRange_4">
+    <value>Very Long</value>
+  </data>
+  <data name="ShipSpeed_0">
+    <value>Land Base</value>
+  </data>
+  <data name="ShipSpeed_5">
+    <value>Slow</value>
+  </data>
+  <data name="ShipSpeed_10">
+    <value>Fast</value>
+  </data>
+  <data name="ShipSpeed_15">
+    <value>Fast+</value>
+  </data>
+  <data name="ShipSpeed_20">
+    <value>Ultra Fast</value>
+  </data>
 </root>

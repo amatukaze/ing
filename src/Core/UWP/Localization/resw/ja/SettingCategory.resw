@@ -12,19 +12,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title">
-    <value>いんてりじぇんと連装砲くん</value>
+  <data name="Appearance">
+    <value>UI</value>
   </data>
-  <data name="Settings">
-    <value>設定</value>
+  <data name="Theme">
+    <value>テーマ</value>
   </data>
-  <data name="OK">
-    <value>OK</value>
+  <data name="Network">
+    <value>通信</value>
   </data>
-  <data name="Cancel">
-    <value>キャンセル</value>
+  <data name="Browser">
+    <value>ブラウザ</value>
   </data>
-  <data name="Time">
-    <value>日時</value>
+  <data name="Notification">
+    <value>通知</value>
+  </data>
+  <data name="Game">
+    <value>ゲーム</value>
+  </data>
+  <data name="Misc">
+    <value>その他</value>
   </data>
 </root>

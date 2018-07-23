@@ -12,19 +12,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title">
-    <value>いんてりじぇんと連装砲くん</value>
+  <data name="UserFont">
+    <value>UI フォント</value>
   </data>
-  <data name="Settings">
-    <value>設定</value>
+  <data name="ContentFont">
+    <value>ゲームテキストフォント</value>
   </data>
-  <data name="OK">
-    <value>OK</value>
+  <data name="SelectFont">
+    <value>フォントを選択</value>
   </data>
-  <data name="Cancel">
-    <value>キャンセル</value>
+  <data name="Translate">
+    <value>ゲームテキストを翻訳</value>
   </data>
-  <data name="Time">
-    <value>日時</value>
+  <data name="RestartRequired">
+    <value>再起動が必要</value>
+  </data>
+  <data name="SampleText">
+    <value>サンプルテキスト Sample Text</value>
   </data>
 </root>

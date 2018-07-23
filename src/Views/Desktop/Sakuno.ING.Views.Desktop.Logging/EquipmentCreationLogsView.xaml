@@ -49,7 +49,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:LocalizableText Source="{Binding EquipmentCreated.Name, Mode=OneTime}"/>
+                                    <c:NameText Source="{Binding EquipmentCreated.Name, Mode=OneTime}"/>
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -58,7 +58,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:LocalizableText Source="{Binding EquipmentCreated.Type.Name, Mode=OneTime}"/>
+                                    <c:NameText Source="{Binding EquipmentCreated.Type.Name, Mode=OneTime}"/>
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

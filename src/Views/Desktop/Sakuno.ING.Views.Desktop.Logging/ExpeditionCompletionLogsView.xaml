@@ -44,7 +44,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:LocalizableText Source="{Binding Expedition.Name, Mode=OneTime}"/>
+                                    <c:NameText Source="{Binding Expedition.Name, Mode=OneTime}"/>
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

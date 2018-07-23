@@ -45,7 +45,8 @@
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Expedition">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:ExpeditionCompletionVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectName(Expedition.Name)}"/>
+                            <TextBlock Text="{x:Bind c:Helpers.SelectName(Expedition.Name)}"
+                                       Style="{StaticResource TranslatableTextStyle}"/>
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>

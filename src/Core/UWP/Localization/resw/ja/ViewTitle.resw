@@ -12,19 +12,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title">
-    <value>いんてりじぇんと連装砲くん</value>
+  <data name="ApiDebug">
+    <value>API デバッグ</value>
   </data>
-  <data name="Settings">
-    <value>設定</value>
+  <data name="MasterData">
+    <value>図鑑</value>
   </data>
-  <data name="OK">
-    <value>OK</value>
+  <data name="LogMigration">
+    <value>データを取り込む</value>
   </data>
-  <data name="Cancel">
-    <value>キャンセル</value>
+  <data name="ShipCreationLogs">
+    <value>建造歴史</value>
   </data>
-  <data name="Time">
-    <value>日時</value>
+  <data name="EquipmentCreationLogs">
+    <value>開発歴史</value>
+  </data>
+  <data name="ExpeditionCompletionLogs">
+    <value>遠征歴史</value>
   </data>
 </root>
