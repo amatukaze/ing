@@ -20,6 +20,8 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Controls\LevelingIndicator.vb" />
+    <Compile Include="Controls\ProgressCircle.vb" />
     <Compile Include="Helpers.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <EmbeddedResource Include="My Project\Sakuno.ING.Views.UWP.Common.rd.xml" />
@@ -67,6 +69,12 @@
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
       <Name>Sakuno.ING.Settings.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
