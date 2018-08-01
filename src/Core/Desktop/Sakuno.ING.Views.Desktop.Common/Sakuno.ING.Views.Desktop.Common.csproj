@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Resource Include="$(BasePath)src\Core\Shared\Images\**\*">
+      <Link>Images\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="$(BasePath)src\Core\Desktop\Sakuno.ING.Views.Desktop.Base\Sakuno.ING.Views.Desktop.Base.csproj" />
     <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
     <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj" />

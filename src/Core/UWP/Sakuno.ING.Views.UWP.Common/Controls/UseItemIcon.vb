@@ -1,0 +1,39 @@
+﻿Imports Sakuno.ING.Game.Models.Knowledge
+
+Namespace Controls
+    Public Class UseItemIcon
+        Inherits UserControl
+
+        Private ReadOnly _image As Image
+        Public Sub New()
+            _image = New Image()
+            Content = _image
+        End Sub
+
+        Private _id As KnownUseItem
+        Public Property Id As KnownUseItem
+            Get
+                Return _id
+            End Get
+            Set(value As KnownUseItem)
+                If (_id <> value) Then
+                    _id = value
+                    Dim intId As Integer = value
+                    If DesignMode.DesignModeEnabled Then
+                        _image.Source = New BitmapImage(New Uri($"ms-appx:///Sakuno.ING.Views.UWP.Common/Assets/Images/UseItem/{intId}.png"))
+                    Else
+                        Dim stringId = "UseItemIcon_Bitmap_" & intId
+                        Dim source As Object = Nothing
+                        If Application.Current.Resources.TryGetValue(stringId, source) Then
+                            _image.Source = DirectCast(source, BitmapImage)
+                        Else
+                            Dim s = New BitmapImage(New Uri($"ms-appx:///Sakuno.ING.Views.UWP.Common/Assets/Images/UseItem/{intId}.png"))
+                            Application.Current.Resources.Add(stringId, s)
+                            _image.Source = s
+                        End If
+                    End If
+                End If
+            End Set
+        End Property
+    End Class
+End Namespace

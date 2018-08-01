@@ -20,8 +20,15 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="$(BasePath)src\Core\Shared\Images\**\*">
+      <Link>Assets\Images\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\EquipmentIcon.vb" />
     <Compile Include="Controls\LevelingIndicator.vb" />
     <Compile Include="Controls\ProgressCircle.vb" />
+    <Compile Include="Controls\UseItemIcon.vb" />
     <Compile Include="Helpers.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <EmbeddedResource Include="My Project\Sakuno.ING.Views.UWP.Common.rd.xml" />
