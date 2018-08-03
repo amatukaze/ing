@@ -37,8 +37,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
         static ManualResetEventSlim r_TrafficBarrier;
 
-        static SQLiteConnection r_Connection;
-
         static KanColleProxy()
         {
             SessionSource = new BufferBlock<NetworkSession>();
@@ -59,8 +57,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             Preference.Instance.Network.UpstreamProxy.Host.Subscribe(_ => UpdateUpstreamProxy());
             Preference.Instance.Network.UpstreamProxy.Port.Subscribe(_ => UpdateUpstreamProxy());
             UpdateUpstreamProxy();
-
-            InitializeAntiBlankScreenDataCollector();
         }
 
         public static void Start()
@@ -149,21 +145,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             {
                 if (rSession.State == NetworkSessionState.Requested)
                     rSession.State = NetworkSessionState.Responsed;
-
-                if (rSession.FullUrl.OICStartsWith("http://osapi.dmm.com/gadgets/makeRequest"))
-                    using (var rCommand = r_Connection.CreateCommand())
-                    {
-                        rCommand.CommandText = "INSERT INTO anti_blank_screen.history(time, url, body) VALUES(@time, @url, @body);";
-                        rCommand.Parameters.AddWithValue("@time", DateTimeOffset.Now.Ticks);
-                        rCommand.Parameters.AddWithValue("@url", r_UserIDRegex.Replace(rSession.FullUrl, "******"));
-
-                        var rBody = rpSession.GetResponseBodyAsString();
-                        rBody = r_UserIDRegex.Replace(rBody, "******");
-                        rBody = r_TokenResponseRegex.Replace(rBody, "******");
-                        rCommand.Parameters.AddWithValue("@body", r_UserIDRegex.Replace(rBody, "******"));
-
-                        rCommand.ExecuteNonQuery();
-                    }
 
                 var rResourceSession = rSession as ResourceSession;
                 if (rResourceSession != null)
@@ -307,28 +288,6 @@ body {
             }
 
             ServiceManager.Register<INetworkAvailabilityService>(new NetworkAvailabilityService());
-        }
-
-        static void InitializeAntiBlankScreenDataCollector()
-        {
-            using (var rConnection = new SQLiteConnection(@"Data Source=Data\AntiBlankScreen.db; Page Size=8192").OpenAndReturn())
-            using (var rCommand = rConnection.CreateCommand())
-            {
-                rCommand.CommandText =
-                    "CREATE TABLE IF NOT EXISTS history(time INTEGER PRIMARY KEY NOT NULL, url TEXT NULL, body TEXT NULL); " +
-                    "DELETE FROM history WHERE (time / 10000000 - 62135596800) < strftime('%s', 'now', '-3 day');";
-
-                rCommand.ExecuteNonQuery();
-            }
-
-            r_Connection = CoreDatabase.Connection;
-            using (var rCommand = r_Connection.CreateCommand())
-            {
-                rCommand.CommandText = "ATTACH @filename AS anti_blank_screen;";
-                rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\AntiBlankScreen.db").FullName);
-
-                rCommand.ExecuteNonQuery();
-            }
         }
 
         static void Retry(ApiSession rpSession, Session rpFiddlerSession)
