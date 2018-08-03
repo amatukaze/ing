@@ -9,7 +9,7 @@ namespace Sakuno.ING.Game
 {
     [DebuggerDisplay("Count = {Count}")]
     [DebuggerTypeProxy(typeof(IdTableDebuggerProxy<,,,>))]
-    public class IdTable<TId, T, TRaw, TOwner> : ITable<TId, T>
+    public class IdTable<TId, T, TRaw, TOwner> : BindableObject, ITable<TId, T>
         where TId : struct, IComparable<TId>, IEquatable<TId>
         where T : Calculated<TId, TRaw>
         where TRaw : IIdentifiable<TId>
@@ -81,6 +81,7 @@ namespace Sakuno.ING.Game
                     list.Insert(i++, creation(raw, owner, timeStamp));
             }
             Updated?.Invoke();
+            NotifyPropertyChanged(nameof(Count));
         }
 
         public void Add(TRaw raw, DateTimeOffset timeStamp) => Add(creation(raw, owner, timeStamp));
@@ -104,6 +105,7 @@ namespace Sakuno.ING.Game
             if (i == list.Count)
                 list.Add(item);
             Updated?.Invoke();
+            NotifyPropertyChanged(nameof(Count));
         }
 
         public T Remove(TId id)
@@ -111,6 +113,7 @@ namespace Sakuno.ING.Game
             if (TryGetValue(id, out T item))
             {
                 Remove(item);
+                NotifyPropertyChanged(nameof(Count));
                 return item;
             }
             return null;
@@ -120,7 +123,10 @@ namespace Sakuno.ING.Game
         {
             var result = list.Remove(item);
             if (result)
+            {
                 Updated?.Invoke();
+                NotifyPropertyChanged(nameof(Count));
+            }
             return result;
         }
 
@@ -128,7 +134,10 @@ namespace Sakuno.ING.Game
         {
             var result = list.RemoveAll(predicate);
             if (result > 0)
+            {
                 Updated?.Invoke();
+                NotifyPropertyChanged(nameof(Count));
+            }
             return result;
         }
 
@@ -136,6 +145,7 @@ namespace Sakuno.ING.Game
         {
             list.Clear();
             Updated?.Invoke();
+            NotifyPropertyChanged(nameof(Count));
         }
 
         public bool TryGetValue(TId id, out T item)

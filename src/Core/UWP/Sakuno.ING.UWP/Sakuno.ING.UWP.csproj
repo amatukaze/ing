@@ -181,6 +181,10 @@
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
       <Name>Sakuno.ING.Settings.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.Homeport\Sakuno.ING.Views.UWP.Homeport.csproj">
+      <Project>{c34c3e85-5453-47d9-8495-a085b88d73fe}</Project>
+      <Name>Sakuno.ING.Views.UWP.Homeport</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.Logging\Sakuno.ING.Views.UWP.Logging.csproj">
       <Project>{0b790e9c-eb63-487f-93b3-97b4bde25385}</Project>
       <Name>Sakuno.ING.Views.UWP.Logging</Name>

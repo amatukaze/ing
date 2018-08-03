@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Homeport.AdmiralView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:c="http://schemas.heavenlywind.cc/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:g="clr-namespace:Sakuno.ING.Game.Models;assembly=Sakuno.ING.Game.Models"
+             mc:Ignorable="d"
+             DataContext="{c:Resolve {x:Type g:NavalBase}}"
+             d:DataContext="{d:DesignInstance g:NavalBase}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="9"
+                    Orientation="Horizontal"
+                    DataContext="{Binding Admiral}">
+            <TextBlock FontSize="24" Text="{Binding Name}"/>
+            <c:LevelingIndicator Level="{Binding Leveling}"
+                                 FontSize="16" Width="24"/>
+            <TextBlock FontSize="16">
+                <c:EnumText Source="{Binding Rank}"/>
+            </TextBlock>
+        </StackPanel>
+        <TextBlock Grid.Row="1" FontSize="16"
+                   Text="Ships:"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12">
+            <Run Text="{Binding AllShips.Count, Mode=OneWay}" FontSize="16"/><Run Text=" / "/><Run Text="{Binding Admiral.MaxShipCount, Mode=OneWay}"/>
+        </TextBlock>
+        <TextBlock Grid.Row="2" FontSize="16"
+                   Text="Equipment:"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="12">
+            <Run Text="{Binding AllEquipment.Count, Mode=OneWay}" FontSize="16"/><Run Text=" / "/><Run Text="{Binding Admiral.MaxEquipmentCount, Mode=OneWay}"/>
+        </TextBlock>
+        <c:UseItemIcon Grid.Row="1" Grid.Column="2" Id="Fuel"/>
+        <TextBlock Grid.Row="1" Grid.Column="3"
+                   FontSize="16" Text="{Binding Materials.Fuel}"/>
+        <c:UseItemIcon Grid.Row="2" Grid.Column="2" Id="Bullet"/>
+        <TextBlock Grid.Row="2" Grid.Column="3"
+                   FontSize="16" Text="{Binding Materials.Bullet}"/>
+        <c:UseItemIcon Grid.Row="1" Grid.Column="4" Id="Steel"/>
+        <TextBlock Grid.Row="1" Grid.Column="5"
+                   FontSize="16" Text="{Binding Materials.Steel}"/>
+        <c:UseItemIcon Grid.Row="2" Grid.Column="4" Id="Bauxite"/>
+        <TextBlock Grid.Row="2" Grid.Column="5"
+                   FontSize="16" Text="{Binding Materials.Bauxite}"/>
+        <c:UseItemIcon Grid.Row="1" Grid.Column="6" Id="InstantRepair"/>
+        <TextBlock Grid.Row="1" Grid.Column="7"
+                   FontSize="16" Text="{Binding Materials.InstantRepair}"/>
+        <c:UseItemIcon Grid.Row="2" Grid.Column="6" Id="InstantBuild"/>
+        <TextBlock Grid.Row="2" Grid.Column="7"
+                   FontSize="16" Text="{Binding Materials.InstantBuild}"/>
+        <c:UseItemIcon Grid.Row="1" Grid.Column="8" Id="Development"/>
+        <TextBlock Grid.Row="1" Grid.Column="9"
+                   FontSize="16" Text="{Binding Materials.Development}"/>
+        <c:UseItemIcon Grid.Row="2" Grid.Column="8" Id="Improvement"/>
+        <TextBlock Grid.Row="2" Grid.Column="9"
+                   FontSize="16" Text="{Binding Materials.Improvement}"/>
+    </Grid>
+</UserControl>

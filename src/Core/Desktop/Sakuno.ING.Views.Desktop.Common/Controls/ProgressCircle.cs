@@ -70,7 +70,7 @@ namespace Sakuno.ING.Views.Desktop.Controls
 
         public static readonly DependencyProperty StrokeThicknessProperty
             = DependencyProperty.Register(nameof(StrokeThickness), typeof(double), typeof(ProgressCircle),
-                new FrameworkPropertyMetadata(4.0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
+                new FrameworkPropertyMetadata(2.0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
         public double StrokeThickness
         {
             get => (double)GetValue(StrokeThicknessProperty);

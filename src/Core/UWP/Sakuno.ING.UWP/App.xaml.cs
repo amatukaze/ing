@@ -47,6 +47,7 @@ namespace Sakuno.ING.UWP
                     "Sakuno.ING.UWP.Bridge.Listener",
                     "Sakuno.ING.ViewModels.Logging",
                     "Sakuno.ING.Views.UWP.ApiDebug",
+                    "Sakuno.ING.Views.UWP.Homeport",
                     "Sakuno.ING.Views.UWP.Logging",
                     "Sakuno.ING.Views.UWP.MasterData",
                     "Sakuno.ING.Views.UWP.Settings"

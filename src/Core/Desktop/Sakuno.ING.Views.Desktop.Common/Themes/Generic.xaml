@@ -15,5 +15,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="TextForeground" Value="Black"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="LimeGreen"/>
     </Style>
 </ResourceDictionary>

@@ -12,9 +12,9 @@ Namespace Controls
             DefaultStyleKey = GetType(ProgressCircle)
         End Sub
 
-        Protected Overrides Function MeasureOverride(availableSize As Size) As Size
-            Return availableSize
-        End Function
+        'Protected Overrides Function MeasureOverride(availableSize As Size) As Size
+        '    Return availableSize
+        'End Function
 
         Protected Overrides Function ArrangeOverride(finalSize As Size) As Size
             Dim min = Math.Min(finalSize.Height, finalSize.Width)
@@ -33,7 +33,7 @@ Namespace Controls
 
         Public Shared ReadOnly StrokeThicknessProperty As DependencyProperty =
             DependencyProperty.Register(NameOf(StrokeThickness), GetType(Double), GetType(ProgressCircle),
-                New PropertyMetadata(4.0))
+                New PropertyMetadata(2.0))
         Public Property StrokeThickness As Double
             Get
                 Return DirectCast(GetValue(StrokeThicknessProperty), Double)

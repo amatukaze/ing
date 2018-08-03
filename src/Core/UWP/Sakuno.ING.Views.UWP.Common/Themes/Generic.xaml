@@ -16,6 +16,9 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="TextForeground" Value="{ThemeResource DefaultTextForegroundThemeBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="LimeGreen"/>
     </Style>
     <Style TargetType="local:ProgressCircle">
         <Setter Property="Template">

@@ -7,11 +7,12 @@
             <DataTemplate>
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <sh:ViewPresenter ViewId="MasterData"/>
-                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <sh:ViewPresenter Grid.Row="0" ViewId="Admiral"/>
+                    <StackPanel Orientation="Horizontal" Grid.Row="2">
                         <sh:ViewSwitcher ViewId="LogMigration"/>
                         <sh:ViewSwitcher ViewId="ShipCreationLogs"/>
                         <sh:ViewSwitcher ViewId="EquipmentCreationLogs"/>

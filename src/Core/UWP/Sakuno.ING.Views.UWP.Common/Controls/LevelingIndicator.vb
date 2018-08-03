@@ -25,7 +25,7 @@ Namespace Controls
         End Property
 
         Public Shared ReadOnly TextForegroundProperty As DependencyProperty =
-            DependencyProperty.Register("", GetType(Brush), GetType(LevelingIndicator),
+            DependencyProperty.Register(NameOf(TextForeground), GetType(Brush), GetType(LevelingIndicator),
                 New PropertyMetadata(New SolidColorBrush(Colors.Transparent)))
         Public Property TextForeground As Brush
             Get
