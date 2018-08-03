@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Game.Proxy;
 using System;
 using System.Collections.Generic;
@@ -44,45 +45,45 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
             return rParser;
         }
 
-        public static void Process(ApiSession rpSession)
+        public static void Process(ApiSession session)
         {
-            var rApi = rpSession.DisplayUrl;
-            var rResponse = rpSession.ResponseBodyString;
+            var api = session.DisplayUrl;
 
             try
             {
-                var rContent = rResponse.Replace("svdata=", string.Empty);
+                if (BitConverter.ToInt64(session.ResponseBody, 0) != 0x7B3D617461647673)
+                    return;
 
-                ApiParserBase rParser;
-                if (!rContent.IsNullOrEmpty() && rContent.StartsWith("{") && r_Parsers.TryGetValue(rApi, out rParser))
+                if (!r_Parsers.TryGetValue(api, out var parser))
+                    return;
+
+                var stream = new MemoryStream(session.ResponseBody) { Position = 7 };
+                var json = JObject.Load(new JsonTextReader(new StreamReader(stream)));
+
+                var resultCode = (int)json["api_result"];
+                if (resultCode != 1)
                 {
-                    var rJson = JObject.Parse(rContent);
-
-                    var rResultCode = (int)rJson["api_result"];
-                    if (rResultCode != 1)
-                    {
-                        Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_Failed, rApi, rResultCode));
-                        return;
-                    }
-
-                    var rData = new ApiInfo(rpSession, rApi, rpSession.Parameters, rJson);
-
-                    rParser.Process(rData);
+                    Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_Failed, api, resultCode));
+                    return;
                 }
+
+                var info = new ApiInfo(session, api, session.Parameters, json);
+
+                parser.Process(info);
             }
             catch (AggregateException e) when (e.InnerExceptions.Count == 1)
             {
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_ParseException, e.InnerExceptions[0].Message));
 
-                rpSession.ErrorMessage = e.ToString();
-                HandleException(rpSession, e);
+                session.ErrorMessage = e.ToString();
+                HandleException(session, e);
             }
             catch (Exception e)
             {
                 Logger.Write(LoggingLevel.Error, string.Format(StringResources.Instance.Main.Log_Exception_API_ParseException, e.Message));
 
-                rpSession.ErrorMessage = e.ToString();
-                HandleException(rpSession, e);
+                session.ErrorMessage = e.ToString();
+                HandleException(session, e);
             }
         }
 
