@@ -10,7 +10,7 @@ namespace Sakuno.ING.Views.Desktop.Controls
     public class EquipmentIcon : Control
     {
         public static readonly DependencyProperty IdProperty
-            = DependencyProperty.Register(nameof(Id), typeof(int), typeof(UseItemIcon), new PropertyMetadata(0, Update));
+            = DependencyProperty.Register(nameof(Id), typeof(int), typeof(EquipmentIcon), new PropertyMetadata(0, Update));
 
         public int Id
         {

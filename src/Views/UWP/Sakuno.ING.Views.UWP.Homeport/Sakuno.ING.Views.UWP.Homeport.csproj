@@ -22,11 +22,18 @@
     <Compile Include="AdmiralView.xaml.cs">
       <DependentUpon>AdmiralView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FleetsView.xaml.cs">
+      <DependentUpon>FleetsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.Homeport.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="AdmiralView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FleetsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

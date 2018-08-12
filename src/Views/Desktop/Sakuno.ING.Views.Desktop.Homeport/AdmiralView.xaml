@@ -29,12 +29,11 @@
         <StackPanel Grid.Row="0" Grid.ColumnSpan="9"
                     Orientation="Horizontal"
                     DataContext="{Binding Admiral}">
-            <TextBlock FontSize="24" Text="{Binding Name}"/>
-            <c:LevelingIndicator Level="{Binding Leveling}"
-                                 FontSize="16" Width="24"/>
-            <TextBlock FontSize="16">
-                <c:EnumText Source="{Binding Rank}"/>
+            <TextBlock FontSize="24">
+                <Run Text="{Binding Name, Mode=OneWay}"/><c:EnumText Source="{Binding Rank, Mode=OneWay}" FontSize="16"/>
             </TextBlock>
+            <c:LevelingIndicator Level="{Binding Leveling}"
+                                 FontSize="16" Width="32"/>
         </StackPanel>
         <TextBlock Grid.Row="1" FontSize="16"
                    Text="Ships:"/>

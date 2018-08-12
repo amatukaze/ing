@@ -24,13 +24,75 @@
                         <DataTemplate DataType="{x:Type g:Ship}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="1"/>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="2"/>
-                                    <ColumnDefinition Width="Auto" SharedSizeGroup="3"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ShipName"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Leveling"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="HP"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Morale"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Consumption"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Slots"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="Seperator"/>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="ExtraSlot"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Text="{Binding Info.Name}"/>
-                                <TextBlock Grid.Column="1" Text="{Binding Info.Type.Name}"/>
-                                <TextBlock Grid.Column="2" Text="{Binding Leveling.Level}"/>
+                                <TextBlock Grid.Column="0">
+                                    <c:ShipNameText Source="{Binding Info.Name}" FontSize="18"/>
+                                    <LineBreak/>
+                                    <c:NameText Source="{Binding Info.Type}" FontSize="14"/>
+                                </TextBlock>
+                                <c:LevelingIndicator Grid.Column="1"
+                                                     Level="{Binding Leveling}"
+                                                     FontSize="16" Width="32"/>
+                                <StackPanel Grid.Column="2" Orientation="Vertical"
+                                            DataContext="{Binding HP}">
+                                    <TextBlock FontSize="14">
+                                        <Run Text="HP:  "/><Run Text="{Binding Current, Mode=OneTime}" FontSize="16"/><Run Text=" / "/><Run Text="{Binding Max, Mode=OneTime}"/>
+                                    </TextBlock>
+                                    <ProgressBar Width="120" Height="16"
+                                                 Minimum="0" Maximum="{Binding Max, Mode=OneTime}"
+                                                 Value="{Binding Current, Mode=OneTime}"
+                                                 Background="Transparent"/>
+                                </StackPanel>
+                                <TextBlock Grid.Column="3" VerticalAlignment="Center">
+                                    <Run Text="cond. " FontStyle="Italic" FontSize="12"/><Run Text="{Binding Morale, Mode=OneWay}" FontSize="18"/>
+                                </TextBlock>
+                                <Grid Grid.Column="4" VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="16"/>
+                                        <RowDefinition Height="16"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="16"/>
+                                        <ColumnDefinition Width="80"/>
+                                    </Grid.ColumnDefinitions>
+                                    <c:UseItemIcon Id="Fuel" Grid.Row="0" Margin="1"/>
+                                    <ProgressBar Grid.Row="0" Grid.Column="1" Margin="2"
+                                                 DataContext="{Binding Fuel}" Minimum="0"
+                                                 Maximum="{Binding Max, Mode=OneTime}"
+                                                 Value="{Binding Current,Mode=OneTime}"/>
+                                    <c:UseItemIcon Id="Bullet" Grid.Row="1" Margin="1"/>
+                                    <ProgressBar Grid.Row="1" Grid.Column="1" Margin="2"
+                                                 DataContext="{Binding Bullet}" Minimum="0"
+                                                 Maximum="{Binding Max, Mode=OneTime}"
+                                                 Value="{Binding Current,Mode=OneTime}"/>
+                                </Grid>
+                                <ItemsControl Grid.Column="5" ItemsSource="{Binding Slots}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type g:Slot}">
+                                            <Grid>
+                                                <c:EquipmentIcon Id="{Binding Equipment.Info.IconId}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <Rectangle Grid.Column="6" Fill="Gray"
+                                           Width="1" Margin="0,2,2,4"/>
+                                <Grid Grid.Column="7">
+                                    <c:EquipmentIcon Id="{Binding ExtraSlot.Equipment.Info.IconId}"/>
+                                </Grid>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
