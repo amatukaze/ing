@@ -21,6 +21,11 @@ namespace Sakuno.ING.Views.Desktop.Controls
 
         private readonly Image image = new Image();
 
+        public UseItemIcon()
+        {
+            AddVisualChild(image);
+        }
+
         protected override int VisualChildrenCount => 1;
         protected override Visual GetVisualChild(int index) => image;
 

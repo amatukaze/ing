@@ -31,6 +31,9 @@ namespace Sakuno.ING.Views.Desktop.Controls
             BindingOperations.SetBinding(circle,
                 Shape.StrokeThicknessProperty,
                 new Binding(nameof(StrokeThickness)) { Source = this });
+
+            AddVisualChild(background);
+            AddVisualChild(circle);
         }
 
         protected override int VisualChildrenCount => 2;
