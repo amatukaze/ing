@@ -11,7 +11,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <sh:ViewPresenter Grid.Row="0" ViewId="Admiral"/>
-                    <sh:ViewPresenter Grid.Row="1" ViewId="Homeport"/>
+                    <sh:ViewPresenter Grid.Row="1" ViewId="Fleets"/>
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
                         <sh:ViewSwitcher ViewId="LogMigration"/>
                         <sh:ViewSwitcher ViewId="ShipCreationLogs"/>

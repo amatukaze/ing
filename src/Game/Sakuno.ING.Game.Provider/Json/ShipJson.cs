@@ -19,7 +19,7 @@ namespace Sakuno.ING.Game.Json
         public Leveling Leveling => new Leveling(api_lv,
             api_exp.ElementAtOrDefault(0),
             KnownLeveling.GetShipExp(api_lv),
-            api_exp.ElementAtOrDefault(1),
+            api_exp.ElementAtOrDefault(0) + api_exp.ElementAtOrDefault(1),
             api_lv >= KnownLeveling.MaxShipLevel);
 
         public int api_nowhp;

@@ -51,11 +51,11 @@ namespace Sakuno.ING.Views.Desktop.Controls
 
             if (PART_Range != null)
             {
-                if (level.CurrentLevelExperience == level.NextLevelExperience)
+                if (level.CurrentLevelExperience >= level.NextLevelExperience)
                 {
                     PART_Range.Minimum = 0;
                     PART_Range.Maximum = 1;
-                    PART_Range.Value = 0;
+                    PART_Range.Value = 1;
                 }
                 else
                 {

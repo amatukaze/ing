@@ -36,7 +36,7 @@
                                 <TextBlock Grid.Column="0">
                                     <c:ShipNameText Source="{Binding Info.Name}" FontSize="18"/>
                                     <LineBreak/>
-                                    <c:NameText Source="{Binding Info.Type}" FontSize="14"/>
+                                    <c:NameText Source="{Binding Info.Type.Name}" FontSize="14"/>
                                 </TextBlock>
                                 <c:LevelingIndicator Grid.Column="1"
                                                      Level="{Binding Leveling}"

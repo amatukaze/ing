@@ -28,10 +28,12 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="9"
                     Orientation="Horizontal">
-            <TextBlock FontSize="24" Text="{x:Bind ViewModel.Admiral.Name}"/>
+            <TextBlock>
+                <Run FontSize="24" Text="{x:Bind ViewModel.Admiral.Name}"/>
+                <Run FontSize="16" Text="{x:Bind c:Helpers.FormatAdmiralRank(ViewModel.Admiral)}"/>
+            </TextBlock>
             <con:LevelingIndicator Level="{x:Bind ViewModel.Admiral.Leveling}"
                                    Width="24" FontSize="16"/>
-            <TextBlock FontSize="16" Text="{x:Bind c:Helpers.FormatAdmiralRank(ViewModel.Admiral)}"/>
         </StackPanel>
         <TextBlock Grid.Row="1" FontSize="16"
                    Text="Ships:"/>

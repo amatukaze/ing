@@ -67,11 +67,11 @@
                                                  Minimum="0"
                                                  Value="{x:Bind Fuel.Current}"
                                                  Maximum="{x:Bind Fuel.Max}"/>
-                                    <con:UseItemIcon Id="Fuel" Grid.Row="1"/>
+                                    <con:UseItemIcon Id="Bullet" Grid.Row="1"/>
                                     <ProgressBar Grid.Row="1" Grid.Column="1" Margin="2"
                                                  Minimum="0"
-                                                 Value="{x:Bind Fuel.Current}"
-                                                 Maximum="{x:Bind Fuel.Max}"/>
+                                                 Value="{x:Bind Bullet.Current}"
+                                                 Maximum="{x:Bind Bullet.Max}"/>
                                 </Grid>
                                 <ItemsControl Grid.Column="5" ItemsSource="{x:Bind Slots}">
                                     <ItemsControl.ItemsPanel>

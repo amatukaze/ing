@@ -49,10 +49,10 @@ Namespace Controls
             Dim l = Level
 
             If PART_Range IsNot Nothing Then
-                If l.CurrentLevelExperience = l.NextLevelExperience Then
+                If l.CurrentLevelExperience >= l.NextLevelExperience Then
                     PART_Range.Minimum = 0
                     PART_Range.Maximum = 1
-                    PART_Range.Value = 0
+                    PART_Range.Value = 1
                 Else
                     PART_Range.Minimum = l.CurrentLevelExperience
                     PART_Range.Maximum = l.NextLevelExperience

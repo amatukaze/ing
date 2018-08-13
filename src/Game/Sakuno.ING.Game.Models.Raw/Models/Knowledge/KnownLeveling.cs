@@ -140,6 +140,8 @@
                 return f99exp[level - 1];
             if (level <= 120)
                 return ad100exp[level - 100];
+            if (level == 121)
+                return 180_000_000;
             return 0;
         }
 

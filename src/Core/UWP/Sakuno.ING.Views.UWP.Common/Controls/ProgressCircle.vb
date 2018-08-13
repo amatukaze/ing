@@ -54,7 +54,7 @@ Namespace Controls
 
         Private Sub UpdateOffset()
             Dim rate = (Value - Minimum) / (Maximum - Minimum)
-            If circle IsNot Nothing Then
+            If (Not Double.IsNaN(rate)) AndAlso circle IsNot Nothing Then
                 circle.StrokeDashOffset = -rate * roundRate
             End If
         End Sub

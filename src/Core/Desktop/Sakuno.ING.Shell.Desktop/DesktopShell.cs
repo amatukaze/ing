@@ -36,27 +36,34 @@ namespace Sakuno.ING.Shell.Desktop
 
         public void Run()
         {
-            Window window;
-            try
-            {
-                layout = (LayoutRoot)XamlReader.Parse(layoutSetting.XamlString.Value);
-                window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
-            }
-            catch
-            {
-                layout = (LayoutRoot)Application.LoadComponent(new Uri("/Sakuno.ING.Shell.Desktop;component/Layout/Default.xaml", UriKind.Relative));
-                window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
-            }
-
-            InitWindow(window);
-
             var app = new Application
             {
                 ShutdownMode = ShutdownMode.OnMainWindowClose
             };
 
-            app.Startup += (s, e) => provider.Enabled = true; ;
-            app.Run(window);
+            app.Startup += (s, e) =>
+            {
+                provider.Enabled = true;
+
+                Window window;
+                try
+                {
+                    layout = (LayoutRoot)XamlReader.Parse(layoutSetting.XamlString.Value);
+                    window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
+                }
+                catch
+                {
+                    layout = (LayoutRoot)Application.LoadComponent(new Uri("/Sakuno.ING.Shell.Desktop;component/Layout/Default.xaml", UriKind.Relative));
+                    window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
+                }
+
+                InitWindow(window);
+
+                Application.Current.MainWindow = window;
+                window.Show();
+            };
+
+            app.Run();
         }
 
         private void InitWindow(Window window)
