@@ -33,9 +33,25 @@ namespace Sakuno.ING.Game.Models
 
             UpdateEquipments(raw.EquipmentIds);
             UpdateSlotAircraft(raw.SlotAircraft);
-            LightOfSight = Substract(raw.LightOfSight, slots.Sum(s => s.Equipment?.Info.LightOfSight ?? 0));
-            Evasion = Substract(raw.Evasion, slots.Sum(s => s.Equipment?.Info.Evasion ?? 0));
-            AntiSubmarine = Substract(raw.AntiSubmarine, slots.Sum(s => s.Equipment?.Info.AntiSubmarine ?? 0));
+
+            var lightOfSight = 0;
+            var evasion = 0;
+            var antiSubmarine = 0;
+
+            foreach (var slot in slots)
+            {
+                var equipment = slot.Equipment?.Info;
+                if (equipment == null)
+                    continue;
+
+                lightOfSight += equipment.LightOfSight;
+                evasion += equipment.Evasion;
+                antiSubmarine += equipment.AntiSubmarine;
+            }
+
+            LightOfSight = Substract(raw.LightOfSight, lightOfSight);
+            Evasion = Substract(raw.Evasion, evasion);
+            AntiSubmarine = Substract(raw.AntiSubmarine, antiSubmarine);
         }
 
         private static ShipMordenizationStatus Combine(ShipMordenizationStatus current, ShipMordenizationStatus master)
