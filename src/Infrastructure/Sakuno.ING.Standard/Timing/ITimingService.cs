@@ -2,8 +2,9 @@
 
 namespace Sakuno.ING.Timing
 {
-    public interface ITimingService : IBindable
+    public interface ITimingService
     {
         DateTimeOffset Now { get; }
+        event Action<DateTimeOffset> Elapsed;
     }
 }

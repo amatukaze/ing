@@ -1,87 +1,44 @@
-﻿using Sakuno.Net;
-using System;
-using System.Net.Sockets;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System;
 using System.Diagnostics;
 using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 using Sakuno.ING.Composition;
+using Sakuno.Net;
 
 namespace Sakuno.ING.Timing.NTP
 {
     [Export(typeof(ITimingService), LazyCreate = false)]
     public class NTPService : ITimingService
     {
-        const int NDPPort = 123;
-        const int JapanTimeZoneOffset = 9;
-
-        TimeSpan _jstOffset = TimeSpan.FromHours(JapanTimeZoneOffset);
+        private const int NDPPort = 123;
+        private const int JapanTimeZoneOffset = 9;
+        private static readonly TimeSpan _jstOffset = TimeSpan.FromHours(JapanTimeZoneOffset);
 
         public bool IsSycned { get; private set; }
 
-        long _baseTimestamp;
-        DateTimeOffset _baseTime;
+        private DateTimeOffset _baseTime;
+        private TimeSpan _initialTimestamp;
+        private readonly Stopwatch _stopwatch = Stopwatch.StartNew();
 
-        long _initialTimestamp;
-        DateTimeOffset _now;
+        public DateTimeOffset Now => IsSycned ?
+            _baseTime + _stopwatch.Elapsed - _initialTimestamp : DateTimeOffset.Now;
 
-        static long _tickFrequency;
-
-        public DateTimeOffset Now
-        {
-            get
-            {
-                if (!IsSycned)
-                    return DateTimeOffset.Now;
-
-                return _now;
-            }
-        }
-
-        static PropertyChangedEventArgs _allPropertiesChanged;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        static NTPService()
-        {
-            _allPropertiesChanged = EventArgsCache.PropertyChanged.Get(string.Empty);
-
-            _tickFrequency = DateTimeUtil.TicksPerSecond / Stopwatch.Frequency;
-        }
+        private System.Threading.Timer _timer;
 
         public NTPService()
         {
             SyncDateTime();
-
-            PropertyChanged += (s, e) =>
-            {
-                if (!IsSycned)
-                    return;
-
-                Console.Write('\r');
-                Console.Write(Now.ToString("JST: yyyy/MM/dd HH:mm:ss"));
-            };
         }
 
-        async void SetTimer()
+        private void TimerElapsed(object state)
         {
-            var frequency = (double)Stopwatch.Frequency;
-
-            while (true)
-            {
-                var timestamp = Stopwatch.GetTimestamp();
-                var diff = timestamp - _initialTimestamp;
-                var increment = diff * _tickFrequency;
-
-                _now = _baseTime.AddSeconds(diff / frequency);
-
-                PropertyChanged?.Invoke(this, _allPropertiesChanged);
-
-                await Task.Delay(1000);
-            }
+            Elapsed?.Invoke(Now);
         }
 
-        public async void SyncDateTime()
+        public event Action<DateTimeOffset> Elapsed;
+
+        private async void SyncDateTime()
         {
             var hostnames = new[]
             {
@@ -98,18 +55,18 @@ namespace Sakuno.ING.Timing.NTP
             {
                 var task = SynchronizeAsync(hostname);
 
-                if (await Task.WhenAny(task, Task.Delay(3000)) != task)
-                    continue;
+                if (await Task.WhenAny(task, Task.Delay(3000)) == task)
+                {
+                    _timer = new System.Threading.Timer(TimerElapsed, null, 1000, System.Threading.Timeout.Infinite);
 
-                SetTimer();
-
-                IsSycned = true;
-                Console.WriteLine("Date & time synchronized.");
-                return;
+                    IsSycned = true;
+                    Console.WriteLine("Date & time synchronized.");
+                    return;
+                }
             }
         }
 
-        async Task SynchronizeAsync(string hostname)
+        private async Task SynchronizeAsync(string hostname)
         {
             using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp))
             {
@@ -133,9 +90,9 @@ namespace Sakuno.ING.Timing.NTP
                 const long TicksOf20thCentury = 599266080000000000;
                 const long TicksPerMillisecond = 10000;
 
-                _baseTimestamp = TicksOf20thCentury + milliseconds * TicksPerMillisecond;
-                _baseTime = new DateTimeOffset(_baseTimestamp, TimeSpan.Zero).ToOffset(_jstOffset);
-                _initialTimestamp = Stopwatch.GetTimestamp();
+                var baseTimestamp = TicksOf20thCentury + milliseconds * TicksPerMillisecond;
+                _baseTime = new DateTimeOffset(baseTimestamp, TimeSpan.Zero).ToOffset(_jstOffset);
+                _initialTimestamp = _stopwatch.Elapsed;
             }
         }
     }
