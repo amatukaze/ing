@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
@@ -13,7 +14,7 @@ namespace Sakuno.ING.Game.Json
         public Materials api_get_material;
         public ExpeditionItemJson api_get_item1;
         public ExpeditionItemJson api_get_item2;
-        public UseItemId[] api_useitem_flag;
+        public IReadOnlyList<UseItemId> api_useitem_flag;
     }
 
     internal class ExpeditionItemJson

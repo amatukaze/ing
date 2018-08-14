@@ -133,7 +133,7 @@ namespace Sakuno.ING.Game
             if (index >= 0)
             {
                 snapshot.RemoveAt(index);
-                NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, index, item));
+                NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
             }
         }
 
@@ -144,11 +144,7 @@ namespace Sakuno.ING.Game
             if (i >= 0)
             {
                 snapshot[i] = newItem;
-                NotifyCollectionChanged
-                    (
-                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, i, oldItem),
-                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, i, newItem)
-                    );
+                NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, newItem, oldItem, i));
             }
         }
 
@@ -163,17 +159,13 @@ namespace Sakuno.ING.Game
                 else if (index == snapshot.Count)
                 {
                     snapshot.Add(value);
-                    NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, index, value));
+                    NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, value, index));
                 }
                 else
                 {
                     var oldValue = snapshot[index];
                     snapshot[index] = value;
-                    NotifyCollectionChanged
-                    (
-                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, index, oldValue),
-                        new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, index, value)
-                    );
+                    NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, value, oldValue, index));
                 }
             }
         }
