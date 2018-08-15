@@ -1,6 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
     <Version>0.1.0-blueprint</Version>
     <Description>The shell of Intelligent Naval Gun</Description>
     <DefineConstants>WPF</DefineConstants>

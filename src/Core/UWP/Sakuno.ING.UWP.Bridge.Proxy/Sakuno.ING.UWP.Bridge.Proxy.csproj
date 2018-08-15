@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>$(DesktopLatestFramework)</TargetFramework>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
     <Authors>Kodama Sakuno</Authors>
     <Product>Intelligent Naval Gun</Product>
     <Company>Kodama Sakuno</Company>
@@ -29,7 +30,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 
 </Project>

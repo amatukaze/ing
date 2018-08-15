@@ -1,6 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
   <PropertyGroup>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
     <RootNamespace>Sakuno.ING.Views.Desktop</RootNamespace>
     <Version>0.1.0-blueprint</Version>
     <Description>Common controls used by Intelligent Naval Gun</Description>
