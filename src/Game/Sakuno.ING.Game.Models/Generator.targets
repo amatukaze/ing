@@ -7,7 +7,7 @@
     </None>
   </ItemGroup>
 
-  <UsingTask TaskName="CalculatedScaffold" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+  <UsingTask TaskName="CalculatedScaffold" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
     <ParameterGroup>
       <Inputs ParameterType="System.String[]" Required="True" />
     </ParameterGroup>
@@ -35,11 +35,10 @@ foreach (var infile in Inputs)
             var line = input.ReadLine();
             if (string.IsNullOrEmpty(line))
                 break;
-            output.WriteLine("using " + line + ";");
+            output.WriteLine($"using {line};");
         }
         output.WriteLine();
-        output.Write("namespace ");
-        output.WriteLine(ns);
+        output.WriteLine($"namespace {ns}");
         output.WriteLine("{");
         while (!input.EndOfStream)
         {
@@ -70,9 +69,9 @@ foreach (var infile in Inputs)
                         break;
                 }
             }
-            output.WriteLine("    public partial class " + thisClass + " : Calculated<" + idClass + ", " + rawClass + ">");
+            output.WriteLine($"    public partial class {thisClass} : Calculated<{idClass}, {rawClass}>");
             output.WriteLine("    {");
-            output.WriteLine("        public " + thisClass + "(" + idClass + " id, " + ownerClass + " owner) : base(id)");
+            output.WriteLine($"        public {thisClass}({idClass} id, {ownerClass} owner) : base(id)");
             output.WriteLine("        {");
             output.WriteLine("            this.owner = owner;");
             var unlocalized = new List<string>();
@@ -83,21 +82,21 @@ foreach (var infile in Inputs)
                 string category = prop[1];
                 if (propName == "Name")
                     hasName = true;
-                output.WriteLine("            " + propName + ".Translation = owner.Localization?.GetLocalized(\"" + category + "\", id.ToString());");
+                output.WriteLine($"            {propName}.Translation = owner.Localization?.GetLocalized(\"{category}\", id.ToString());");
             }
             output.WriteLine("            CreateDummy();");
             output.WriteLine("        }");
             output.WriteLine();
-            output.WriteLine("        public " + thisClass + "(" + rawClass + " raw, " + ownerClass + " owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);");
+            output.WriteLine($"        public {thisClass}({rawClass} raw, {ownerClass} owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);");
             output.WriteLine();
-            output.WriteLine("        private readonly " + ownerClass + " owner;");
+            output.WriteLine($"        private readonly {ownerClass} owner;");
             var dummyList = new List<string>();
             foreach (var l in localizables)
             {
                 var prop = l.Split(' ');
                 output.WriteLine();
                 string propName = prop[0];
-                output.WriteLine("        public TextTranslationGroup " + propName + " { get; } = new TextTranslationGroup();");
+                output.WriteLine($"        public TextTranslationGroup {propName} {{ get; }} = new TextTranslationGroup();");
             }
             foreach (var line in props)
             {
@@ -108,22 +107,22 @@ foreach (var infile in Inputs)
                 if (prop.Length >= 3 && prop[2] == "-")
                     dummyList.Add(propName);
                 output.WriteLine();
-                output.WriteLine("        private " + propType + " " + fieldName + ";");
-                output.WriteLine("        public " + propType + " " + propName);
+                output.WriteLine($"        private {propType} {fieldName};");
+                output.WriteLine($"        public {propType} {propName}");
                 output.WriteLine("        {");
-                output.WriteLine("            get => " + fieldName + ";");
-                output.WriteLine("            internal set => Set(ref " + fieldName + ", value);");
+                output.WriteLine($"            get => {fieldName};");
+                output.WriteLine($"            internal set => Set(ref {fieldName}, value);");
                 output.WriteLine("        }");
             }
             output.WriteLine();
-            output.WriteLine("        public event Action<" + thisClass + ", " + rawClass + ", DateTimeOffset> Updating;");
-            output.WriteLine("        public override void Update(" + rawClass + " raw, DateTimeOffset timeStamp)");
+            output.WriteLine($"        public event Action<{thisClass}, {rawClass}, DateTimeOffset> Updating;");
+            output.WriteLine($"        public override void Update({rawClass} raw, DateTimeOffset timeStamp)");
             output.WriteLine("        {");
             output.WriteLine("            Updating?.Invoke(this, raw, timeStamp);");
             output.WriteLine("            UpdateProps(raw, timeStamp);");
             output.WriteLine("        }");
             output.WriteLine();
-            output.WriteLine("        private void UpdateProps(" + rawClass + " raw, DateTimeOffset timeStamp)");
+            output.WriteLine($"        private void UpdateProps({rawClass} raw, DateTimeOffset timeStamp)");
             output.WriteLine("        {");
             output.WriteLine("            UpdationTime = timeStamp;");
             foreach (string l in localizables)
@@ -131,19 +130,20 @@ foreach (var infile in Inputs)
                 output.WriteLine();
                 var prop = l.Split(' ');
                 string propName = prop[0];
-                output.WriteLine("            if (raw." + propName + " != " + propName + ".Origin)");
+                output.WriteLine($"            if (raw.{propName} != {propName}.Origin)");
                 output.WriteLine("            {");
-                output.WriteLine("                " + propName + ".Origin = raw." + propName + ";");
-                output.WriteLine("                NotifyPropertyChanged(nameof(" + propName + "));");
+                output.WriteLine($"                {propName}.Origin = raw.{propName};");
+                output.WriteLine($"                NotifyPropertyChanged(nameof({propName}));");
                 output.WriteLine("            }");
             }
             output.WriteLine();
             foreach (string prop in dummyList)
-                output.WriteLine("            " + prop + " = raw." + prop + ";");
+                output.WriteLine($"            {prop} = raw.{prop};");
             output.WriteLine();
             output.WriteLine("            UpdateCore(raw, timeStamp);");
             output.WriteLine("        }");
-            output.WriteLine("        partial void UpdateCore(" + rawClass + " raw, DateTimeOffset timeStamp);");
+            output.WriteLine();
+            output.WriteLine($"        partial void UpdateCore({rawClass} raw, DateTimeOffset timeStamp);");
             output.WriteLine("        partial void CreateDummy();");
             foreach (var b in bindables)
             {
@@ -152,12 +152,14 @@ foreach (var infile in Inputs)
                 string type = prop[0];
                 string field = char.ToLowerInvariant(name[0]) + name.Substring(1);
                 output.WriteLine();
-                output.WriteLine("        private readonly BindableSnapshotCollection<" + type + "> " + field + " = new BindableSnapshotCollection<" + type + ">();");
-                output.WriteLine("        public IReadOnlyList<" + type +"> " + name + " => " + field + ";");
+                output.WriteLine($"        private readonly BindableSnapshotCollection<{type}> {field} = new BindableSnapshotCollection<{type}>();");
+                output.WriteLine($"        public IReadOnlyList<{type}> {name} => {field};");
             }
-            output.WriteLine();
             if (hasName)
-                output.WriteLine("        public override string ToString() => $\"" + thisClass + " {Id}: {Name.Origin}\";");
+            {
+                output.WriteLine();
+                output.WriteLine($"        public override string ToString() => $\"{thisClass} {{Id}}: {{Name.Origin}}\";");
+            }
             output.WriteLine("    }");
         }
         output.WriteLine("}");

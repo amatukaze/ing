@@ -76,9 +76,9 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawEquipment raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
     }
     public partial class BuildingDock : Calculated<BuildingDockId, IRawBuildingDock>
     {
@@ -152,9 +152,9 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawBuildingDock raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
     }
     public partial class RepairingDock : Calculated<RepairingDockId, IRawRepairingDock>
     {
@@ -213,9 +213,9 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawRepairingDock raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
     }
     public partial class UseItemCount : Calculated<UseItemId, IRawUseItemCount>
     {
@@ -258,9 +258,9 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawUseItemCount raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
     }
     public partial class Admiral : Calculated<int, IRawAdmiral>
     {
@@ -376,9 +376,9 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawAdmiral raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
     }
     public partial class Ship : Calculated<ShipId, IRawShip>
     {
@@ -576,9 +576,9 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawShip raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
     }
     public partial class Fleet : Calculated<FleetId, IRawFleet>
     {
@@ -644,12 +644,12 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawFleet raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<Ship> ships = new BindableSnapshotCollection<Ship>();
         public IReadOnlyList<Ship> Ships => ships;
-
     }
     public partial class Quest : Calculated<QuestId, IRawQuest>
     {
@@ -735,6 +735,7 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawQuest raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
@@ -820,9 +821,9 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawMap raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
     }
     public partial class AirForceSquadron : Calculated<int, IRawAirForceSquadron>
     {
@@ -873,8 +874,8 @@ namespace Sakuno.ING.Game.Models
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawAirForceSquadron raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
     }
 }

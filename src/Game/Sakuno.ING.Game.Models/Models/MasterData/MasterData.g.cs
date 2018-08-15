@@ -242,9 +242,9 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawShipInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
     }
     public partial class ShipTypeInfo : Calculated<ShipTypeId, IRawShipTypeInfo>
     {
@@ -296,12 +296,12 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawShipTypeInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
         public IReadOnlyList<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
-
     }
     public partial class EquipmentTypeInfo : Calculated<EquipmentTypeId, IRawEquipmentTypeInfo>
     {
@@ -346,6 +346,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawEquipmentTypeInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
@@ -538,6 +539,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawEquipmentInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
@@ -581,6 +583,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawUseItem raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
@@ -629,6 +632,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawMapArea raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
@@ -726,6 +730,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawMapInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
@@ -857,6 +862,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             UpdateCore(raw, timeStamp);
         }
+
         partial void UpdateCore(IRawExpeditionInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
