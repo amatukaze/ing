@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
+using Xunit;
 
-namespace Sakuno.ING.Game.Test
+namespace Sakuno.ING.Game.Tests
 {
-    [TestClass]
-    public class SequenceDiffTest
+    public static class SequenceDiffTest
     {
         private static object[] pool;
-        [ClassInitialize]
-        public static void Setup(TestContext context)
+
+        static SequenceDiffTest()
         {
             pool = new object[20];
             for (int i = 0; i < pool.Length; i++)
                 pool[i] = new object();
         }
-        [TestMethod]
-        public void DiffTest()
+
+        [Fact]
+        public static void DiffTest()
         {
             var s = new List<object>
             {
@@ -33,17 +34,17 @@ namespace Sakuno.ING.Game.Test
                 pool[3]
             };
             var result = BindableSnapshotCollection<object>.SequenceDiffer(s, t);
-            Assert.AreEqual(result.Length, 2);
+            Assert.Equal(2, result.Length);
 
-            Assert.IsTrue(result[0].IsAdd);
-            Assert.AreEqual(result[0].OriginalIndex, 2);
-            Assert.AreSame(result[0].Item, pool[2]);
+            Assert.True(result[0].IsAdd);
+            Assert.Equal(2, result[0].OriginalIndex);
+            Assert.Same(pool[2], result[0].Item);
 
-            Assert.IsFalse(result[1].IsAdd);
-            Assert.AreEqual(result[1].OriginalIndex, 3);
+            Assert.False(result[1].IsAdd);
+            Assert.Equal(3, result[1].OriginalIndex);
         }
-        [TestMethod]
-        public void RandomDiffTest()
+        [Fact]
+        public static void RandomDiffTest()
         {
             var r = new Random();
             var s = new List<object>();
@@ -54,14 +55,14 @@ namespace Sakuno.ING.Game.Test
                 if (!s.Contains(obj))
                     s.Add(obj);
             }
-            CollectionAssert.AllItemsAreUnique(s);
+            Assert.Equal(s.Distinct(), s);
             for (int i = 0; i < pool.Length; i++)
             {
                 var obj = pool[r.Next(pool.Length)];
                 if (!t.Contains(obj))
                     t.Add(obj);
             }
-            CollectionAssert.AllItemsAreUnique(t);
+            Assert.Equal(t.Distinct(), t);
 
             int offset = 0;
             foreach (var a in BindableSnapshotCollection<object>.SequenceDiffer(s, t))
@@ -69,7 +70,7 @@ namespace Sakuno.ING.Game.Test
                     s.Insert(a.OriginalIndex + (offset++), a.Item);
                 else
                     s.RemoveAt(a.OriginalIndex + (offset--));
-            CollectionAssert.AreEqual(s, t);
+            Assert.Equal(t, s);
         }
     }
 }

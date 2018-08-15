@@ -3,7 +3,7 @@ using System.IO;
 using Sakuno.ING.Messaging;
 using Sakuno.ING.Services;
 
-namespace Sakuno.ING.Game.Test
+namespace Sakuno.ING.Game.Tests
 {
     internal class UnitTestProvider : ITextStreamProvider
     {

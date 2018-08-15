@@ -43,9 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Logger", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Logger.Design", "src\Game\Sakuno.ING.Game.Logger.Design\Sakuno.ING.Game.Logger.Design.csproj", "{86E8F33C-8ACF-4AFE-BE87-FF6A30034C17}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F56CCD2C-4509-47A4-A64E-1AE8A127938D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "tests", "{F56CCD2C-4509-47A4-A64E-1AE8A127938D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider.Test", "Test\Sakuno.ING.Game.Provider.Test\Sakuno.ING.Game.Provider.Test.csproj", "{DD061355-BCEC-4512-A262-8FBDDF2F3C5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider.Tests", "tests\Sakuno.ING.Game.Provider.Tests\Sakuno.ING.Game.Provider.Tests.csproj", "{DD061355-BCEC-4512-A262-8FBDDF2F3C5D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nekomimi", "Nekomimi\src\Nekomimi\Nekomimi.csproj", "{27A2F92A-B419-4DA2-94BE-B53E29AC5604}"
 EndProject

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Sakuno.ING.Game.Models;
+using Xunit;
 
-namespace Sakuno.ING.Game.Test
+namespace Sakuno.ING.Game.Tests
 {
-    [TestClass]
-    public class HomeportTest
+    public static class HomeportTest
     {
-        [TestMethod]
-        public void TestHomeportParse()
+        [Fact]
+        public static void TestHomeportParse()
         {
             var provider = new UnitTestProvider();
             var gameListener = new GameListener(provider);
