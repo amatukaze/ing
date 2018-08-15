@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Homeport.DocksView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:c="http://schemas.heavenlywind.cc/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:g="clr-namespace:Sakuno.ING.Game.Models;assembly=Sakuno.ING.Game.Models"
+             mc:Ignorable="d"
+             DataContext="{c:Resolve {x:Type g:NavalBase}}"
+             d:DataContext="{d:DesignInstance g:NavalBase}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <TabControl FontSize="16">
+        <TabControl.Template>
+            <ControlTemplate TargetType="TabControl">
+                <Grid ClipToBounds="True" KeyboardNavigation.TabNavigation="Local" SnapsToDevicePixels="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" IsItemsHost="True"
+                                KeyboardNavigation.TabIndex="1"
+                                Margin="2,2,2,0"
+                                Panel.ZIndex="1"/>
+                    <Border Grid.Column="1"
+                            Name="ContentPanel"
+                            Background="{TemplateBinding Panel.Background}"
+                            BorderBrush="{TemplateBinding Border.BorderBrush}"
+                            BorderThickness="{TemplateBinding Border.BorderThickness}"
+                            KeyboardNavigation.DirectionalNavigation="Contained"
+                            KeyboardNavigation.TabIndex="2"
+                            KeyboardNavigation.TabNavigation="Local">
+                        <ContentPresenter Name="PART_SelectedContentHost"
+                                          Margin="{TemplateBinding Control.Padding}"
+                                          Content="{TemplateBinding TabControl.SelectedContent}"
+                                          ContentSource="SelectedContent"
+                                          ContentStringFormat="{TemplateBinding TabControl.SelectedContentStringFormat}"
+                                          ContentTemplate="{TemplateBinding TabControl.SelectedContentTemplate}"
+                                          SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+        </TabControl.Template>
+        <TabItem Header="Build">
+            <ItemsControl ItemsSource="{Binding BuildingDocks.DefaultView}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type g:BuildingDock}">
+                        <Grid>
+                            <TextBlock>
+                                <c:ShipNameText Source="{Binding BuiltShip.Name}"/>
+                            </TextBlock>
+                            <TextBlock TextAlignment="Right"
+                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='hh\:mm\:ss'}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </TabItem>
+        <TabItem Header="Repair">
+            <ItemsControl ItemsSource="{Binding RepairingDocks.DefaultView}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type g:RepairingDock}">
+                        <Grid>
+                            <TextBlock>
+                                <c:ShipNameText Source="{Binding RepairingShip.Info.Name}"/>
+                            </TextBlock>
+                            <TextBlock TextAlignment="Right"
+                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='hh\:mm\:ss'}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </TabItem>
+    </TabControl>
+</UserControl>

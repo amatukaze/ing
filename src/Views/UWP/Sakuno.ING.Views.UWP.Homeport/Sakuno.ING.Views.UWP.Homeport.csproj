@@ -22,6 +22,9 @@
     <Compile Include="AdmiralView.xaml.cs">
       <DependentUpon>AdmiralView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DocksView.xaml.cs">
+      <DependentUpon>DocksView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FleetsView.xaml.cs">
       <DependentUpon>FleetsView.xaml</DependentUpon>
     </Compile>
@@ -30,6 +33,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="AdmiralView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DocksView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

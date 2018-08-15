@@ -9,10 +9,12 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <sh:ViewPresenter Grid.Row="0" ViewId="Admiral"/>
                     <sh:ViewPresenter Grid.Row="1" ViewId="Fleets"/>
-                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <sh:ViewPresenter Grid.Row="2" ViewId="Docks"/>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal">
                         <sh:ViewSwitcher ViewId="LogMigration"/>
                         <sh:ViewSwitcher ViewId="ShipCreationLogs"/>
                         <sh:ViewSwitcher ViewId="EquipmentCreationLogs"/>
