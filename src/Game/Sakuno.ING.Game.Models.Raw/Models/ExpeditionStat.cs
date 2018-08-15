@@ -7,16 +7,16 @@ namespace Sakuno.ING.Game.Models
         public int Total { get; }
         public int Success { get; }
         public int Fail => Total - Success;
-        public int WinPercentage { get; }
+        public double WinPercentage { get; }
 
         public ExpeditionStat(int success, int total)
         {
             Success = success;
             Total = total;
-            WinPercentage = (int)Math.Round((double)success / total);
+            WinPercentage = (double)success / total;
         }
 
-        public ExpeditionStat(int success, int total, int percentage)
+        public ExpeditionStat(int success, int total, double percentage)
         {
             Success = success;
             Total = total;

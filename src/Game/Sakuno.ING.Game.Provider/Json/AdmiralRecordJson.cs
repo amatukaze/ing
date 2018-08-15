@@ -49,7 +49,7 @@ namespace Sakuno.ING.Game.Json
     {
         public int api_win;
         public int api_lose;
-        public int api_rate;
+        public double api_rate;
         public BattleStat ToValue()
             => new BattleStat(api_win, api_lose, api_rate);
     }
@@ -58,7 +58,7 @@ namespace Sakuno.ING.Game.Json
     {
         public int api_count;
         public int api_success;
-        public int api_rate;
+        public double api_rate;
         public ExpeditionStat ToValue()
             => new ExpeditionStat(api_success, api_count, api_rate);
     }

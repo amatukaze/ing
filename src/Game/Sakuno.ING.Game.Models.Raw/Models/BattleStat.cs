@@ -7,16 +7,16 @@ namespace Sakuno.ING.Game.Models
         public int Total => Win + Lose;
         public int Win { get; }
         public int Lose { get; }
-        public int WinPercentage { get; }
+        public double WinPercentage { get; }
 
         public BattleStat(int win, int lose)
         {
             Win = win;
             Lose = lose;
-            WinPercentage = (int)Math.Round((double)win / (win + lose));
+            WinPercentage = (double)win / (win + lose);
         }
 
-        public BattleStat(int win, int lose, int percentage)
+        public BattleStat(int win, int lose, double percentage)
         {
             Win = win;
             Lose = lose;

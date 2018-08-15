@@ -108,7 +108,7 @@ namespace Sakuno.ING.Game.Models
             listener.EquipmentDismantled += (t, msg) => EquipmentDismantling?.Invoke(t, RemoveEquipments(msg, t));
             listener.EquipmentImproved += (t, msg) =>
             {
-                var consumed = RemoveEquipments(msg.ConsumedEquipmentIds, t);
+                var consumed = msg.ConsumedEquipmentIds != null ? RemoveEquipments(msg.ConsumedEquipmentIds, t) : null;
                 var original = AllEquipment[msg.EquipmentId];
                 EquipmentImproving?.Invoke(t, original, msg.UpdatedTo, consumed, msg.IsSuccess);
                 if (msg.IsSuccess)

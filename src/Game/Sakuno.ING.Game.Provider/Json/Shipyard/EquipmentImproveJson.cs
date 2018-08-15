@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Json.Shipyard
@@ -7,6 +8,6 @@ namespace Sakuno.ING.Game.Json.Shipyard
     {
         public bool api_remodel_flag;
         public EquipmentJson api_after_slot;
-        public EquipmentId[] api_use_slot_id = Array.Empty<EquipmentId>();
+        public IReadOnlyList<EquipmentId> api_use_slot_id;
     }
 }

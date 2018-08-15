@@ -13,7 +13,8 @@ namespace Sakuno.ING.Game.Models
                 if (_repairingShip != value)
                 {
                     _repairingShip?.SetRepaired();
-                    value.IsRepairing = true;
+                    if (value != null)
+                        value.IsRepairing = true;
                     _repairingShip = value;
                     NotifyPropertyChanged();
                 }
