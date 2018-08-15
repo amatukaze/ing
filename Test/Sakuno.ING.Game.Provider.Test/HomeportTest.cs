@@ -13,7 +13,7 @@ namespace Sakuno.ING.Game.Test
         {
             var provider = new UnitTestProvider();
             var gameListener = new GameListener(provider);
-            var navalBase = new NavalBase(gameListener, null);
+            var navalBase = new NavalBase(gameListener, null, null);
 
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(typeof(MasterDataTest), "Data.port.2018-05-28_015208.676_START2.json"))

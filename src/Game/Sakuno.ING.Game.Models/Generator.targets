@@ -141,9 +141,9 @@ foreach (var infile in Inputs)
             foreach (string prop in dummyList)
                 output.WriteLine("            " + prop + " = raw." + prop + ";");
             output.WriteLine();
-            output.WriteLine("            UpdateCore(raw);");
+            output.WriteLine("            UpdateCore(raw, timeStamp);");
             output.WriteLine("        }");
-            output.WriteLine("        partial void UpdateCore(" + rawClass + " raw);");
+            output.WriteLine("        partial void UpdateCore(" + rawClass + " raw, DateTimeOffset timeStamp);");
             output.WriteLine("        partial void CreateDummy();");
             foreach (var b in bindables)
             {

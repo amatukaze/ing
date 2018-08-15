@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
     partial class EquipmentInfo
     {
-        partial void UpdateCore(IRawEquipmentInfo raw)
+        partial void UpdateCore(IRawEquipmentInfo raw, DateTimeOffset timeStamp)
         {
             Type = owner.EquipmentTypes[raw.TypeId];
             extraSlotAcceptingShips.Query = raw.ExtraSlotAcceptingShips.Select(x => owner.ShipInfos[x]);

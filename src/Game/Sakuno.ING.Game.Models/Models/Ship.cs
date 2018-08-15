@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sakuno.ING.Game.Events;
 
@@ -6,7 +7,7 @@ namespace Sakuno.ING.Game.Models
 {
     partial class Ship
     {
-        partial void UpdateCore(IRawShip raw)
+        partial void UpdateCore(IRawShip raw, DateTimeOffset timeStamp)
         {
             Info = owner.MasterData.ShipInfos[raw.ShipInfoId];
             Fuel = (raw.CurrentFuel, Info.FuelConsumption);

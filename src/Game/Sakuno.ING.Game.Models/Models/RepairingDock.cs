@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.Game.Models
+﻿using System;
+
+namespace Sakuno.ING.Game.Models
 {
     partial class RepairingDock
     {
@@ -18,9 +20,18 @@
             }
         }
 
-        partial void UpdateCore(IRawRepairingDock raw)
+        partial void UpdateCore(IRawRepairingDock raw, DateTimeOffset timeStamp)
         {
             RepairingShip = owner.AllShips[raw.RepairingShipId];
+            UpdateTimer(timeStamp);
+        }
+
+        internal void UpdateTimer(DateTimeOffset timeStamp)
+        {
+            if (RepairingShip == null)
+                TimeRemaining = default;
+            else
+                TimeRemaining = CompletionTime - timeStamp;
         }
     }
 }

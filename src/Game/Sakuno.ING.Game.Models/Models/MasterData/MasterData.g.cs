@@ -240,9 +240,9 @@ namespace Sakuno.ING.Game.Models.MasterData
             FuelConsumption = raw.FuelConsumption;
             BulletConsumption = raw.BulletConsumption;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawShipInfo raw);
+        partial void UpdateCore(IRawShipInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
     }
@@ -294,9 +294,9 @@ namespace Sakuno.ING.Game.Models.MasterData
             RepairTimeRatio = raw.RepairTimeRatio;
             BuildOutlineId = raw.BuildOutlineId;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawShipTypeInfo raw);
+        partial void UpdateCore(IRawShipTypeInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
@@ -344,9 +344,9 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             AvailableInExtraSlot = raw.AvailableInExtraSlot;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawEquipmentTypeInfo raw);
+        partial void UpdateCore(IRawEquipmentTypeInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         public override string ToString() => $"EquipmentTypeInfo {Id}: {Name.Origin}";
@@ -536,9 +536,9 @@ namespace Sakuno.ING.Game.Models.MasterData
             DismantleAcquirement = raw.DismantleAcquirement;
             Rarity = raw.Rarity;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawEquipmentInfo raw);
+        partial void UpdateCore(IRawEquipmentInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<ShipInfo> extraSlotAcceptingShips = new BindableSnapshotCollection<ShipInfo>();
@@ -579,9 +579,9 @@ namespace Sakuno.ING.Game.Models.MasterData
             }
 
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawUseItem raw);
+        partial void UpdateCore(IRawUseItem raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         public override string ToString() => $"UseItemInfo {Id}: {Name.Origin}";
@@ -627,9 +627,9 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             IsEvent = raw.IsEvent;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawMapArea raw);
+        partial void UpdateCore(IRawMapArea raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         public override string ToString() => $"MapAreaInfo {Id}: {Name.Origin}";
@@ -724,9 +724,9 @@ namespace Sakuno.ING.Game.Models.MasterData
             AvailableFleetTypes = raw.AvailableFleetTypes;
             BgmInfo = raw.BgmInfo;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawMapInfo raw);
+        partial void UpdateCore(IRawMapInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<UseItemInfo> itemAcquirements = new BindableSnapshotCollection<UseItemInfo>();
@@ -855,9 +855,9 @@ namespace Sakuno.ING.Game.Models.MasterData
             RewardItem2 = raw.RewardItem2;
             CanRecall = raw.CanRecall;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawExpeditionInfo raw);
+        partial void UpdateCore(IRawExpeditionInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         public override string ToString() => $"ExpeditionInfo {Id}: {Name.Origin}";

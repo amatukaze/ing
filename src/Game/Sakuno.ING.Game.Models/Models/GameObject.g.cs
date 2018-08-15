@@ -74,9 +74,9 @@ namespace Sakuno.ING.Game.Models
             ImprovementLevel = raw.ImprovementLevel;
             AirProficiency = raw.AirProficiency;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawEquipment raw);
+        partial void UpdateCore(IRawEquipment raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
     }
@@ -127,6 +127,13 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _isLSC, value);
         }
 
+        private TimeSpan _timeRemaining;
+        public TimeSpan TimeRemaining
+        {
+            get => _timeRemaining;
+            internal set => Set(ref _timeRemaining, value);
+        }
+
         public event Action<BuildingDock, IRawBuildingDock, DateTimeOffset> Updating;
         public override void Update(IRawBuildingDock raw, DateTimeOffset timeStamp)
         {
@@ -143,9 +150,9 @@ namespace Sakuno.ING.Game.Models
             Consumption = raw.Consumption;
             IsLSC = raw.IsLSC;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawBuildingDock raw);
+        partial void UpdateCore(IRawBuildingDock raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
     }
@@ -182,6 +189,13 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _consumption, value);
         }
 
+        private TimeSpan _timeRemaining;
+        public TimeSpan TimeRemaining
+        {
+            get => _timeRemaining;
+            internal set => Set(ref _timeRemaining, value);
+        }
+
         public event Action<RepairingDock, IRawRepairingDock, DateTimeOffset> Updating;
         public override void Update(IRawRepairingDock raw, DateTimeOffset timeStamp)
         {
@@ -197,9 +211,9 @@ namespace Sakuno.ING.Game.Models
             CompletionTime = raw.CompletionTime;
             Consumption = raw.Consumption;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawRepairingDock raw);
+        partial void UpdateCore(IRawRepairingDock raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
     }
@@ -242,9 +256,9 @@ namespace Sakuno.ING.Game.Models
 
             Count = raw.Count;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawUseItemCount raw);
+        partial void UpdateCore(IRawUseItemCount raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
     }
@@ -360,9 +374,9 @@ namespace Sakuno.ING.Game.Models
             CanLSC = raw.CanLSC;
             MaxMaterial = raw.MaxMaterial;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawAdmiral raw);
+        partial void UpdateCore(IRawAdmiral raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
     }
@@ -560,9 +574,9 @@ namespace Sakuno.ING.Game.Models
             IsLocked = raw.IsLocked;
             ShipLockingTag = raw.ShipLockingTag;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawShip raw);
+        partial void UpdateCore(IRawShip raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
     }
@@ -606,6 +620,13 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _expeditionCompletionTime, value);
         }
 
+        private TimeSpan _expeditionTimeRemaining;
+        public TimeSpan ExpeditionTimeRemaining
+        {
+            get => _expeditionTimeRemaining;
+            internal set => Set(ref _expeditionTimeRemaining, value);
+        }
+
         public event Action<Fleet, IRawFleet, DateTimeOffset> Updating;
         public override void Update(IRawFleet raw, DateTimeOffset timeStamp)
         {
@@ -621,9 +642,9 @@ namespace Sakuno.ING.Game.Models
             ExpeditionState = raw.ExpeditionState;
             ExpeditionCompletionTime = raw.ExpeditionCompletionTime;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawFleet raw);
+        partial void UpdateCore(IRawFleet raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<Ship> ships = new BindableSnapshotCollection<Ship>();
@@ -712,9 +733,9 @@ namespace Sakuno.ING.Game.Models
             Progress = raw.Progress;
             Rewards = raw.Rewards;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawQuest raw);
+        partial void UpdateCore(IRawQuest raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         public override string ToString() => $"Quest {Id}: {Name.Origin}";
@@ -797,9 +818,9 @@ namespace Sakuno.ING.Game.Models
             GaugeType = raw.GaugeType;
             AvailableAirForceGroups = raw.AvailableAirForceGroups;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawMap raw);
+        partial void UpdateCore(IRawMap raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
     }
@@ -850,9 +871,9 @@ namespace Sakuno.ING.Game.Models
             AircraftCount = raw.AircraftCount;
             Morale = raw.Morale;
 
-            UpdateCore(raw);
+            UpdateCore(raw, timeStamp);
         }
-        partial void UpdateCore(IRawAirForceSquadron raw);
+        partial void UpdateCore(IRawAirForceSquadron raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
     }

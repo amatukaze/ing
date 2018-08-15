@@ -6,6 +6,7 @@ using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Messaging;
+using Sakuno.ING.Timing;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -14,7 +15,7 @@ namespace Sakuno.ING.Game.Models
     {
         public ILocalizationService Localization { get; }
 
-        public NavalBase(IGameProvider listener, ILocalizationService localization)
+        public NavalBase(IGameProvider listener, ILocalizationService localization, ITimingService timingService)
         {
             Localization = localization;
 
@@ -137,6 +138,14 @@ namespace Sakuno.ING.Game.Models
             listener.AirForceSupplied += (t, msg)
                 => AirForce[(msg.MapAreaId, msg.GroupId)].squadrons.BatchUpdate(msg.UpdatedSquadrons, t, removal: false);
             listener.AirForceExpanded += (t, msg) => _airForce.Add(msg, t);
+
+            if (timingService != null)
+                timingService.Elapsed += t =>
+                {
+                    foreach (var f in Fleets) f.UpdateTimer(t);
+                    foreach (var b in BuildingDocks) b.UpdateTimer(t);
+                    foreach (var r in RepairingDocks) r.UpdateTimer(t);
+                };
         }
 
         private IReadOnlyCollection<Ship> RemoveShips(IEnumerable<ShipId> shipIds, bool removeEquipment, DateTimeOffset timeStamp)

@@ -16,11 +16,13 @@ p:BuildingDockState State -
 p:Materials Consumption -
 p:ShipInfo BuiltShip
 p:bool IsLSC -
+p:TimeSpan TimeRemaining
 
 RepairingDock:RepairingDockId:IRawRepairingDock:NavalBase
 p:RepairingDockState State -
 p:DateTimeOffset CompletionTime -
 p:Materials Consumption -
+p:TimeSpan TimeRemaining
 
 UseItemCount:UseItemId:IRawUseItemCount:NavalBase
 p:UseItemInfo Item
@@ -70,6 +72,7 @@ p:FleetExpeditionState ExpeditionState -
 p:ExpeditionInfo Expedition
 p:DateTimeOffset ExpeditionCompletionTime -
 b:Ship Ships
+p:TimeSpan ExpeditionTimeRemaining
 
 Quest:QuestId:IRawQuest:QuestManager
 l:Name QuestName
