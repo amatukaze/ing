@@ -30,7 +30,7 @@
                     Orientation="Horizontal">
             <TextBlock>
                 <Run FontSize="24" Text="{x:Bind ViewModel.Admiral.Name}"/>
-                <Run FontSize="16" Text="{x:Bind c:Helpers.FormatAdmiralRank(ViewModel.Admiral)}"/>
+                <Run FontSize="16" Text="{x:Bind c:Helpers.FormatAdmiralRank(ViewModel.Admiral.Rank), FallbackValue=''}"/>
             </TextBlock>
             <con:LevelingIndicator Level="{x:Bind ViewModel.Admiral.Leveling}"
                                    Width="24" FontSize="16"/>

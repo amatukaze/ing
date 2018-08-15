@@ -32,9 +32,8 @@ Public Module Helpers
     End Sub
 
     Private ReadOnly admiralRankStrings As String()
-    Public Function FormatAdmiralRank(admiral As Admiral) As String
-        If admiral Is Nothing Then Return Nothing
-        Dim i = admiral.Rank - 1
+    Public Function FormatAdmiralRank(admiral As AdmiralRank) As String
+        Dim i = admiral - 1
         If i >= 0 AndAlso i < 10 Then
             Return admiralRankStrings(i)
         Else

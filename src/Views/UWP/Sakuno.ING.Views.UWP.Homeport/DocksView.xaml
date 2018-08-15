@@ -18,7 +18,7 @@
                         <Grid>
                             <TextBlock FontSize="16"
                                        Style="{StaticResource ShipNameTextStyle}"
-                                       Text="{x:Bind c:Helpers.SelectShipName(BuiltShip.Name)}"/>
+                                       Text="{x:Bind c:Helpers.SelectShipName(BuiltShip.Name), FallbackValue=''}"/>
                             <TextBlock FontSize="16" TextAlignment="Right"
                                        Text="{x:Bind TimeRemaining.ToString('hh\:mm\:ss')}"/>
                         </Grid>
@@ -33,7 +33,7 @@
                         <Grid>
                             <TextBlock FontSize="16"
                                        Style="{StaticResource ShipNameTextStyle}"
-                                       Text="{x:Bind c:Helpers.SelectShipName(RepairingShip.Info.Name)}"/>
+                                       Text="{x:Bind c:Helpers.SelectShipName(RepairingShip.Info.Name), FallbackValue=''}"/>
                             <TextBlock FontSize="16" TextAlignment="Right"
                                        Text="{x:Bind TimeRemaining.ToString('hh\:mm\:ss')}"/>
                         </Grid>
