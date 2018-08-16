@@ -26,8 +26,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\EquipmentIcon.vb" />
+    <Compile Include="Controls\EquipmentImprovementPresenter.vb" />
     <Compile Include="Controls\LevelingIndicator.vb" />
     <Compile Include="Controls\ProgressCircle.vb" />
+    <Compile Include="Controls\ShipSlotPresenter.xaml.vb">
+      <DependentUpon>ShipSlotPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SlotAircraftPresenter.vb" />
     <Compile Include="Controls\UseItemIcon.vb" />
     <Compile Include="Helpers.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -78,6 +83,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ShipSlotPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -39,4 +39,64 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="local:EquipmentImprovementPresenter">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:EquipmentImprovementPresenter">
+                    <TextBlock x:Name="Root">
+                        <Run Text="★"/><Run x:Name="ValueText" Text="{Binding Level, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="Status">
+                                <VisualState x:Name="NotImproved">
+                                    <VisualState.Setters>
+                                        <Setter Target="Root.Visibility" Value="Collapsed"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="MaxImproved">
+                                    <VisualState.Setters>
+                                        <Setter Target="ValueText.Text" Value="max"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="DarkCyan"/>
+    </Style>
+    <Style TargetType="local:SlotAircraftPresenter">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SlotAircraftPresenter">
+                    <TextBlock Name="PART_Text">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="Status">
+                                <VisualState x:Name="NotPlane">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="Gray"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Full">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="SpringGreen"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Empty">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="Red"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Half">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="YellowGreen"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

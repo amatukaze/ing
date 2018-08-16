@@ -81,16 +81,14 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate x:DataType="g:Slot">
-                                            <Grid>
-                                                <con:EquipmentIcon Id="{x:Bind Equipment.Info.IconId}"/>
-                                            </Grid>
+                                            <con:ShipSlotPresenter Slot="{x:Bind}"/>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                                 <Rectangle Grid.Column="6" Fill="Gray"
                                            Width="1" Margin="0,2,2,4"/>
                                 <Grid Grid.Column="7">
-                                    <con:EquipmentIcon Id="{x:Bind ExtraSlot.Equipment.Info.IconId}"/>
+                                    <con:ShipSlotPresenter Slot="{x:Bind ExtraSlot}"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>

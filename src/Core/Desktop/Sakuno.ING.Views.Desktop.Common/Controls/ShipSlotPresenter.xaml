@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Controls.ShipSlotPresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding Slot, RelativeSource={RelativeSource Self}}">
+    <Viewbox>
+        <Grid Grid.IsSharedSizeScope="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+            <local:EquipmentIcon
+                Grid.Row="0" Grid.Column="0"
+                Id="{Binding Equipment.Info.IconId}"/>
+            <local:SlotAircraftPresenter
+                Grid.Row="0" Grid.Column="1" FontSize="60"
+                Aircraft="{Binding Aircraft}"/>
+            <local:EquipmentImprovementPresenter
+                Grid.Row="1" Grid.Column="0" FontSize="60"
+                Level="{Binding Equipment.ImprovementLevel}"/>
+        </Grid>
+    </Viewbox>
+</UserControl>
