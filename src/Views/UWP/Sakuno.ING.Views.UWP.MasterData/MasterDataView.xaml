@@ -7,42 +7,40 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Frame>
-        <Pivot>
-            <PivotItem Header="Ships">
-                <tk:MasterDetailsView ItemsSource="{x:Bind MasterData.ShipInfos.DefaultView}" Background="Transparent">
-                    <tk:MasterDetailsView.ItemTemplate>
-                        <DataTemplate x:DataType="gms:ShipInfo">
-                            <TextBlock Text="{x:Bind Name, Mode=OneWay}"/>
-                        </DataTemplate>
-                    </tk:MasterDetailsView.ItemTemplate>
-                    <tk:MasterDetailsView.DetailsTemplate>
-                        <DataTemplate x:DataType="gms:ShipInfo">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Vertical" Grid.Column="0">
-                                    <TextBlock Text="Name"/>
-                                    <TextBlock Text="Type"/>
-                                    <TextBlock Text="Id"/>
-                                    <TextBlock Text="SortNo"/>
-                                    <TextBlock Text="Speed"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Vertical" Grid.Column="1">
-                                    <TextBlock Text="{x:Bind Name, Mode=OneWay}"/>
-                                    <TextBlock Text="{x:Bind Type.Name, Mode=OneWay}"/>
-                                    <TextBlock Text="{x:Bind Id, Mode=OneWay}"/>
-                                    <TextBlock Text="{x:Bind SortNo, Mode=OneWay}"/>
-                                    <TextBlock Text="{x:Bind Speed, Mode=OneWay}"/>
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </tk:MasterDetailsView.DetailsTemplate>
-                </tk:MasterDetailsView>
-            </PivotItem>
-            <PivotItem Header="Equipments"/>
-        </Pivot>
-    </Frame>
+    <Pivot>
+        <PivotItem Header="Ships">
+            <tk:MasterDetailsView ItemsSource="{x:Bind MasterData.ShipInfos.DefaultView}" Background="Transparent">
+                <tk:MasterDetailsView.ItemTemplate>
+                    <DataTemplate x:DataType="gms:ShipInfo">
+                        <TextBlock Text="{x:Bind Name, Mode=OneWay}"/>
+                    </DataTemplate>
+                </tk:MasterDetailsView.ItemTemplate>
+                <tk:MasterDetailsView.DetailsTemplate>
+                    <DataTemplate x:DataType="gms:ShipInfo">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Vertical" Grid.Column="0">
+                                <TextBlock Text="Name"/>
+                                <TextBlock Text="Type"/>
+                                <TextBlock Text="Id"/>
+                                <TextBlock Text="SortNo"/>
+                                <TextBlock Text="Speed"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="1">
+                                <TextBlock Text="{x:Bind Name, Mode=OneWay}"/>
+                                <TextBlock Text="{x:Bind Type.Name, Mode=OneWay}"/>
+                                <TextBlock Text="{x:Bind Id, Mode=OneWay}"/>
+                                <TextBlock Text="{x:Bind SortNo, Mode=OneWay}"/>
+                                <TextBlock Text="{x:Bind Speed, Mode=OneWay}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </tk:MasterDetailsView.DetailsTemplate>
+            </tk:MasterDetailsView>
+        </PivotItem>
+        <PivotItem Header="Equipments"/>
+    </Pivot>
 </UserControl>
