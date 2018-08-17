@@ -68,7 +68,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels
             r_Page = new InitializationPageViewModel(this);
             GameInformation = new GameInformationViewModel(this);
 
-            ApiService.SubscribeOnce("api_start2", delegate
+            ApiService.SubscribeOnce("api_start2/getData", delegate
             {
                 IsGameStarted = true;
                 OnPropertyChanged(nameof(IsGameStarted));

@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
             DisposableObjects.Add(ApiService.Subscribe(new[] { "api_req_sortie/battleresult", "api_req_combined_battle/battleresult" }, ProcessBattleResult));
             DisposableObjects.Add(ApiService.Subscribe("api_port/port", CommitReward));
-            DisposableObjects.Add(ApiService.Subscribe("api_start2", ForfeitReward));
+            DisposableObjects.Add(ApiService.Subscribe("api_start2/getData", ForfeitReward));
 
             DisposableObjects.Add(ApiService.Subscribe("api_port/port", ProcessLossesFromEnemyAerialRaid));
 

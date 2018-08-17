@@ -1,4 +1,4 @@
-﻿using Fiddler;
+using Fiddler;
 using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
@@ -25,9 +25,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
         static Regex r_RemoveGoogleAnalyticsRegex = new Regex(@"gapush\(.+?\);", RegexOptions.Singleline);
         static Regex r_UserIDRegex { get; } = new Regex(@"(?:(?<=api_world%2Fget_id%2F)|(?<=api_world\\/get_id\\/)|(?<=api_auth_member\\/dmmlogin\\/))\d+");
         static Regex r_TokenResponseRegex { get; } = new Regex(@"(?<=\\""api_token\\"":\\"")\w+");
-
-        static Regex r_FlashQualityRegex = new Regex("(\"quality\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Singleline);
-        static Regex r_FlashRenderModeRegex = new Regex("(\"wmode\"\\s+:\\s+\")\\w+(\",)", RegexOptions.Singleline);
 
         static Regex r_SuppressReloadConfirmation = new Regex("(?<=if \\()confirm\\(\"エラーが発生したため、ページ更新します。\"\\)(?=\\) {)");
 
@@ -150,29 +147,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                 if (rResourceSession != null)
                     CacheService.Instance.ProcessResponse(rResourceSession, rpSession);
 
-                if (rpSession.PathAndQuery.OICEquals("/gadget/js/kcs_flash.js"))
-                {
-                    var rScript = rpSession.GetResponseBodyAsString();
-                    var rModified = false;
-
-                    var rQuality = Preference.Instance.Browser.Flash.Quality;
-                    if (rQuality != FlashQuality.Default)
-                    {
-                        rScript = r_FlashQualityRegex.Replace(rScript, $"$1{rQuality}$2");
-                        rModified = true;
-                    }
-
-                    var rRenderMode = Preference.Instance.Browser.Flash.RenderMode;
-                    if (rRenderMode != FlashRenderMode.Default)
-                    {
-                        rScript = r_FlashRenderModeRegex.Replace(rScript, $"$1{rRenderMode}$2");
-                        rModified = true;
-                    }
-
-                    if (rModified)
-                        rpSession.utilSetResponseBody(rScript);
-                }
-
                 if (rSession.FullUrl.OICEquals("http://www.dmm.com/netgame_s/kancolle/") || rSession.FullUrl.OICEquals("http://games.dmm.com/detail/kancolle/"))
                 {
                     var rSource = rpSession.GetResponseBodyAsString();
@@ -190,6 +164,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
                     rpSession.utilSetResponseBody(rSource);
                 }
+
+                if (rSession is ApiSession)
+                    rpSession.utilDecodeResponse();
 
                 rSession.StatusCode = rpSession.responseCode;
                 rSession.ResponseHeaders = rpSession.ResponseHeaders.Select(r => new SessionHeader(r.Name, r.Value)).ToArray();
