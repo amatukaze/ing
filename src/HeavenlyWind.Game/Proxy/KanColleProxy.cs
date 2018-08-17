@@ -224,7 +224,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             switch (rSession)
             {
                 case ApiSession api:
-                    rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
+                    rSession.ResponseBody = rpSession.ResponseBody;
                     ApiParserManager.Process(api);
                     break;
 
@@ -233,7 +233,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
                     break;
 
                 default:
-                    rSession.ResponseBodyString = rpSession.GetResponseBodyAsString();
+                    rSession.ResponseBody = rpSession.ResponseBody;
                     break;
             }
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 {
@@ -61,17 +62,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
             }
         }
 
-        string r_ResponseBodyString;
+        public byte[] ResponseBody { get; internal set; }
+
+        WeakReference<string> _responseBodyString;
         public string ResponseBodyString
         {
-            get { return r_ResponseBodyString; }
-            internal set
+            get
             {
-                if (r_ResponseBodyString != value)
+                if (_responseBodyString == null || !_responseBodyString.TryGetTarget(out var result))
                 {
-                    r_ResponseBodyString = value;
-                    OnPropertyChanged(nameof(ResponseBodyString));
+                    result = Encoding.UTF8.GetString(ResponseBody);
+
+                    if (_responseBodyString == null)
+                        _responseBodyString = new WeakReference<string>(result);
+                    else
+                        _responseBodyString.SetTarget(result);
                 }
+
+                return result;
             }
         }
 
