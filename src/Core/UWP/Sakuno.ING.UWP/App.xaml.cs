@@ -36,6 +36,7 @@ namespace Sakuno.ING.UWP
                 (
                     typeof(FrameworkElement),
                     Array.Empty<string>(),
+                    "Sakuno.ING.Core.Listener",
                     "Sakuno.ING.Data",
                     "Sakuno.ING.Data.UWP",
                     "Sakuno.ING.Game.Logger",
@@ -44,7 +45,6 @@ namespace Sakuno.ING.UWP
                     "Sakuno.ING.Game.Provider",
                     "Sakuno.ING.Settings.Common",
                     "Sakuno.ING.Timing.NTP",
-                    "Sakuno.ING.UWP.Bridge.Listener",
                     "Sakuno.ING.ViewModels.Logging",
                     "Sakuno.ING.Views.UWP.ApiDebug",
                     "Sakuno.ING.Views.UWP.Homeport",

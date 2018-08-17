@@ -169,6 +169,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Core.Listener\Sakuno.ING.Core.Listener.csproj">
+      <Project>{08c823f1-7e6a-47a9-83e1-d3e9eae07e51}</Project>
+      <Name>Sakuno.ING.Core.Listener</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Logger.Migrators\Sakuno.ING.Game.Logger.Migrators.csproj">
       <Project>{1879752a-af06-4aba-b8a0-043d79b5ba4f}</Project>
       <Name>Sakuno.ING.Game.Logger.Migrators</Name>
@@ -192,10 +196,6 @@
     <ProjectReference Include="..\..\Shared\Sakuno.ING.Timing.NTP\Sakuno.ING.Timing.NTP.csproj">
       <Project>{6bbbe871-beb9-47cf-bbf9-28db9b64729a}</Project>
       <Name>Sakuno.ING.Timing.NTP</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sakuno.ING.UWP.Bridge.Listener\Sakuno.ING.UWP.Bridge.Listener.csproj">
-      <Project>{e38f80d6-2e82-4716-b47d-c15e54aec590}</Project>
-      <Name>Sakuno.ING.UWP.Bridge.Listener</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sakuno.ING.Data.UWP\Sakuno.ING.Data.UWP.csproj">
       <Project>{9f2de7a3-b59d-4234-b886-a1e23fe03775}</Project>
