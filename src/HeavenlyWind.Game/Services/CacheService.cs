@@ -67,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 var rTimestamp = new DateTimeOffset(File.GetLastWriteTime(rFilename));
 
-                if (rpResourceSession.Path.OICContains("mainD2.swf") || rpResourceSession.Path.StartsWith("/gadget/") || !CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
+                if (rpResourceSession.Path.StartsWith("/kcs2/") || rpResourceSession.Path.StartsWith("/gadget_html5/") || !CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
                 {
                     rpSession.oRequest["If-Modified-Since"] = rTimestamp.ToString("R");
                     rpSession.bBufferResponse = true;
@@ -135,7 +135,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
         internal void ProcessResponse(ResourceSession rpResourceSession, Session rpSession)
         {
-            if (rpSession.responseCode != 304 || !rpResourceSession.Path.OICContains("mainD2.swf") && CurrentMode != CacheMode.VerifyVersion)
+            rpSession.utilDecodeResponse();
+
+            if (rpSession.responseCode != 304)
                 return;
 
             LoadFile(rpResourceSession.CacheFilename, rpResourceSession, rpSession);
@@ -148,15 +150,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         void LoadFile(string rpFilename, ResourceSession rpResourceSession, Session rpSession)
         {
             rpSession.ResponseBody = File.ReadAllBytes(rpFilename);
-            rpSession.oResponse["Server"] = "Apache";
+            rpSession.oResponse["Server"] = "nginx";
             rpSession.oResponse["Connection"] = "close";
             rpSession.oResponse["Accept-Ranges"] = "bytes";
-            rpSession.oResponse["Cache-Control"] = "max-age=18000, public";
+            rpSession.oResponse["Cache-Control"] = "max-age=2592000, public";
             rpSession.oResponse["Date"] = DateTime.Now.ToString("R");
 
-            if (rpFilename.EndsWith(".swf", StringComparison.OrdinalIgnoreCase))
-                rpSession.oResponse["Content-Type"] = "application/x-shockwave-flash";
-            else if (rpFilename.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
+            if (rpFilename.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
                 rpSession.oResponse["Content-Type"] = "audio/mpeg";
             else if (rpFilename.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
                 rpSession.oResponse["Content-Type"] = "image/png";
@@ -164,6 +164,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 rpSession.oResponse["Content-Type"] = "text/css";
             else if (rpFilename.EndsWith(".js", StringComparison.OrdinalIgnoreCase))
                 rpSession.oResponse["Content-Type"] = "application/x-javascript";
+            else if (rpFilename.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+                rpSession.oResponse["Content-Type"] = "application/json";
+            else if (rpFilename.EndsWith(".woff", StringComparison.OrdinalIgnoreCase))
+                rpSession.oResponse["Content-Type"] = "font/woff";
+            else if (rpFilename.EndsWith(".woff2", StringComparison.OrdinalIgnoreCase))
+                rpSession.oResponse["Content-Type"] = "font/woff2";
 
             rpSession.responseCode = 200;
 
@@ -184,9 +190,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                     if (rLastModified.IsNullOrEmpty())
                         return;
 
-                    var rDirectoryName = Path.GetDirectoryName(rpResourceSession.CacheFilename);
-                    if (!Directory.Exists(rDirectoryName))
-                        Directory.CreateDirectory(rDirectoryName);
+                    Directory.CreateDirectory(Path.GetDirectoryName(rpResourceSession.CacheFilename));
 
                     var rFile = new FileInfo(rpResourceSession.CacheFilename);
                     if (rFile.Exists)

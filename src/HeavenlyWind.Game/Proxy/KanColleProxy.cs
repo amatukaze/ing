@@ -89,7 +89,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Proxy
 
             if (rPath.StartsWith("/kcsapi/"))
                 rSession = rApiSession = new ApiSession(rFullUrl);
-            else if (rPath.StartsWith("/kcs/") || rPath.StartsWith("/gadget/"))
+            else if (!rPath.StartsWith("/kcs2/index.php") && rPath.StartsWith("/kcs2/") || rPath.StartsWith("/gadget_html5/"))
                 rSession = new ResourceSession(rFullUrl, rPath);
             else
                 rSession = new NetworkSession(rFullUrl);
