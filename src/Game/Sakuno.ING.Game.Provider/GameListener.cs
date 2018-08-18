@@ -29,6 +29,7 @@ namespace Sakuno.ING.Game
             jSerializer.Error += JsonError;
 
             masterDataUpdated = RegisterResponse<MasterDataJson>("api_start2")
+                .CombineWith(RegisterResponse<MasterDataJson>("api_start2/getData"))
                 .Select(ParseMasterData);
 
             var requireInfo = RegisterResponse<GameStartupInfoJson>("api_get_member/require_info");
