@@ -52,10 +52,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             if (IsExtracted)
             {
-                var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
-
-                rWidth = Math.Min(rWidth, GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX);
-                rHeight = Math.Min(rHeight, GameConstants.GameHeight * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY);
+                rWidth = Math.Min(rWidth, GameConstants.GameWidth * Preference.Instance.Browser.Zoom);
+                rHeight = Math.Min(rHeight, GameConstants.GameHeight * Preference.Instance.Browser.Zoom);
             }
 
             NativeMethods.User32.PostMessageW(r_Handle, CommunicatorMessages.ResizeBrowserWindow, (IntPtr)rWidth, (IntPtr)rHeight);
@@ -69,10 +67,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
             if (IsExtracted)
             {
-                var rZoom = DpiUtil.ScaleX + Preference.Instance.Browser.Zoom - 1.0;
-
-                rWidth = Math.Min(rWidth, GameConstants.GameWidth * rZoom / DpiUtil.ScaleX / DpiUtil.ScaleX);
-                rHeight = Math.Min(rHeight, GameConstants.GameHeight * rZoom / DpiUtil.ScaleY / DpiUtil.ScaleY);
+                rWidth = Math.Min(rWidth, GameConstants.GameWidth * Preference.Instance.Browser.Zoom);
+                rHeight = Math.Min(rHeight, GameConstants.GameHeight * Preference.Instance.Browser.Zoom);
             }
 
             return new Size(rWidth, rHeight);

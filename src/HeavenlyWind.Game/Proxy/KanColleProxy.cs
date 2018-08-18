@@ -239,9 +239,8 @@ body {
 
 #game_frame {
     position: fixed;
-    left: 50%;
+    left: 0;
     top: -16px;
-    margin-left: -450px;
     z-index: 255;
 }
 </style></head>");
