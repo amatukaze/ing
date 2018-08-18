@@ -24,15 +24,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             {
                 var rFleet = this[int.Parse(r.Parameters["api_id"])];
 
-                var rIndex = int.Parse(r.Parameters["api_ship_idx"]);
-                if (rIndex == -1)
+                var rShipID = int.Parse(r.Parameters["api_ship_id"]);
+                if (rShipID == -2)
                 {
                     rFleet.RemoveAllExceptFlagship();
                     rFleet.Update();
                     return;
                 }
 
-                var rShipID = int.Parse(r.Parameters["api_ship_id"]);
+                var rIndex = int.Parse(r.Parameters["api_ship_idx"]);
                 if (rShipID == -1)
                 {
                     rFleet.Remove(rIndex);
