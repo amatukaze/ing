@@ -189,7 +189,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
             rCommand.Parameters.AddWithValue("@id", rpSortie.ID);
             rCommand.Parameters.AddWithValue("@extra_info", (rNode.Event as IExtraInfo)?.GetExtraInfo());
 
-            if (!rpSortie.Map.IsCleared && rNode.IsDeadEnd && (rNode.EventType == SortieEventType.EscortSuccess || rNode.EventType == SortieEventType.NothingHappened))
+            if (!rpSortie.Map.IsCleared && rpSortie.Map.HasGauge && rNode.IsDeadEnd && (rNode.EventType == SortieEventType.EscortSuccess || rNode.EventType == SortieEventType.NothingHappened))
             {
                 var rHP = rpSortie.Map.HP.Current;
 
