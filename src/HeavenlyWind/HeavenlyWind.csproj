@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras/1.5.4">
+﻿<Project Sdk="MSBuild.Sdk.Extras/1.6.46">
 
   <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
 
@@ -10,6 +10,7 @@
     <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>app.ico</ApplicationIcon>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
   </PropertyGroup>
 
   <ItemGroup>
