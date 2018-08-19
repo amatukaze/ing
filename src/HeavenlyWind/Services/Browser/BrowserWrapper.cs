@@ -159,6 +159,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                 return SendMessage(CommunicatorMessages.InvalidateArrange);
             });
+            RegisterMessageHandler(CommunicatorMessages.SetBlinkMaxFramerate, r =>
+            {
+                Console.WriteLine(r);
+
+                if (r_Browser is IBlinkBrowser blinkBrowser)
+                    blinkBrowser.OnMaxFramerateChanged(int.Parse(r));
+            });
 
             RegisterAsyncMessageHandler(CommunicatorMessages.ResizeBrowserToFitGame, delegate
             {

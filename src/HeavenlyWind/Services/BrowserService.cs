@@ -248,7 +248,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
             if (Preference.Instance.Browser.CurrentLayoutEngine == "blink")
                 Preference.Instance.Browser.Blink.MaxFramerate.Subscribe(value =>
-                    SendMessage(CommunicatorMessages.SetBlinkMaxFramerate + ":" + value.ToString()));
+                    SendMessage(CommunicatorMessages.SetBlinkMaxFramerate + ":" + value.ToString()), true);
         }
 
         internal async Task ResizeBrowserToFitGame()
