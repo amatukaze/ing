@@ -26,7 +26,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
 
             ApiService.SubscribeOnce("api_get_member/require_info", delegate
             {
-                using (var rConnection = new SQLiteConnection(@"Data Source=Data\AbyssalFleets.db; Page Size=8192").OpenAndReturn())
+                using (var rConnection = new SQLiteConnection(@"Data Source=Data\AbyssalFleets2.db; Page Size=8192").OpenAndReturn())
                 using (var rCommand = rConnection.CreateCommand())
                 {
                     rCommand.CommandText =
@@ -52,7 +52,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
                 using (var rCommand = r_Connection.CreateCommand())
                 {
                     rCommand.CommandText = "ATTACH @filename AS abyssal;";
-                    rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\AbyssalFleets.db").FullName);
+                    rCommand.Parameters.AddWithValue("@filename", new FileInfo(@"Data\AbyssalFleets2.db").FullName);
 
                     rCommand.ExecuteNonQuery();
                 }
