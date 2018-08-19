@@ -455,6 +455,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Blink => GetString(nameof(PreferenceWindow_Browser_Blink));
         public string PreferenceWindow_Browser_Blink_DisableHWA => GetString(nameof(PreferenceWindow_Browser_Blink_DisableHWA));
         public string PreferenceWindow_Browser_Blink_MaxFramerate => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate));
+        public string PreferenceWindow_Browser_Blink_MaxFramerate_15 => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate_15));
+        public string PreferenceWindow_Browser_Blink_MaxFramerate_30 => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate_30));
+        public string PreferenceWindow_Browser_Blink_MaxFramerate_60 => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate_60));
         public string PreferenceWindow_Browser_Placement_AtBottom => GetString(nameof(PreferenceWindow_Browser_Placement_AtBottom));
         public string PreferenceWindow_Browser_Placement_StickToBrowser => GetString(nameof(PreferenceWindow_Browser_Placement_StickToBrowser));
         public string PreferenceWindow_Browser_RefreshConfirmation => GetString(nameof(PreferenceWindow_Browser_RefreshConfirmation));

@@ -466,6 +466,9 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Browser_Blink">Blink 設置</String>
   <String Key="PreferenceWindow_Browser_Blink_DisableHWA">禁用硬體加速 (如果卡頓请嘗試尝试開啓/關閉) (需要重啓)</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate">限定最大幀數 (可降低幀數減輕硬體負擔)</String>
+  <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_15">15 fps (節省資源)</String>
+  <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_30">30 fps (基本運行)</String>
+  <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_60">60 fps (畫面流暢)</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">工具欄顯示在底部</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">工具欄黏附在瀏覽器旁</String>
   <String Key="PreferenceWindow_Browser_RefreshConfirmation">重整詢問</String>
