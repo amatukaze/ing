@@ -1,10 +1,17 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Browser
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Sakuno.KanColle.Amatsukaze.Browser
 {
     public interface IBrowserProvider
     {
+        void Initialize(object parameter);
+
         IBrowser CreateBrowserInstance();
 
-        void SetPort(int rpPort);
-        void ClearCache(bool rpClearCookie);
+        void SetPort(int port);
+
+        void ClearCache();
+        void ClearCookie();
     }
 }

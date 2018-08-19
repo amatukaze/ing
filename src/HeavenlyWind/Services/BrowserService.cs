@@ -88,7 +88,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             r_IsNavigatorVisible = true;
 
             ClearCacheCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCache).Forget());
-            ClearCacheAndCookieCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCacheAndCookie).Forget());
+            ClearCacheAndCookieCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCookie).Forget());
         }
 
         public void Initialize()
@@ -115,12 +115,19 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 r_BrowserProcess.BeginOutputReadLine();
                 r_BrowserProcess.OutputDataReceived += (s, e) => Trace.WriteLine(e.Data);
 
-                RegisterAsyncMessageHandler(CommunicatorMessages.Ready, _=> SendMessage(CommunicatorMessages.SetPort + ":" + Preference.Instance.Network.Port));
+                RegisterAsyncMessageHandler(CommunicatorMessages.Ready, async _ =>
+                {
+                    await SendMessage(CommunicatorMessages.Initialize);
+
+                    if (Preference.Instance.Browser.CurrentLayoutEngine == "blink")
+                        await SendMessage(CommunicatorMessages.InitializeBlink + ":" + Preference.Instance.Browser.Blink.DisableHWA.Value.ToString());
+
+                    await SendMessage(CommunicatorMessages.SetPort + ":" + Preference.Instance.Network.Port);
+                });
                 RegisterAsyncMessageHandler(CommunicatorMessages.Attach, parameter => Attach((IntPtr)int.Parse(parameter)));
 
                 r_Initialized = true;
 
-                RegisterAsyncMessageHandler(CommunicatorMessages.LoadCompleted, _=> SendMessage(CommunicatorMessages.SetZoom + ":" + Preference.Instance.Browser.Zoom));
                 RegisterAsyncMessageHandler(CommunicatorMessages.LoadGamePageCompleted, _ => ResizeBrowserToFitGame());
 
                 Navigator = new BrowserNavigator(this);
@@ -238,12 +245,21 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             await Task.Delay(2000);
 
             Navigator.Navigate(Preference.Instance.Browser.Homepage);
+
+            if (Preference.Instance.Browser.CurrentLayoutEngine == "blink")
+                Preference.Instance.Browser.Blink.MaxFramerate.Subscribe(value =>
+                    SendMessage(CommunicatorMessages.SetBlinkMaxFramerate + ":" + value.ToString()));
         }
 
         internal async Task ResizeBrowserToFitGame()
         {
             if (BrowserControl == null)
                 return;
+
+            await SendMessage(CommunicatorMessages.SetZoom + ":" + Preference.Instance.Browser.Zoom);
+
+            if (Preference.Instance.Browser.CurrentLayoutEngine == "blink")
+                await SendMessage(CommunicatorMessages.SetBlinkMaxFramerate + ":" + Preference.Instance.Browser.Blink.MaxFramerate.Value.ToString());
 
             await SendMessage(CommunicatorMessages.ResizeBrowserToFitGame);
 

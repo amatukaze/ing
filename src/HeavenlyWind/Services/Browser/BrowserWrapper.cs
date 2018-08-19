@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Browser;
@@ -105,12 +105,26 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         {
             _namedPipeClient = new NamedPipeClientStream(".", $"Sakuno/HeavenlyWind({hostProcessId})", PipeDirection.InOut, PipeOptions.Asynchronous);
 
-            RegisterAsyncMessageHandler(CommunicatorMessages.SetPort, parameter =>
+            RegisterMessageHandler(CommunicatorMessages.Initialize, delegate
             {
                 try
                 {
                     LoadBrowser(_layoutEngine);
-
+                }
+                catch (ReflectionTypeLoadException e)
+                {
+                    r_Container.Content = e.LoaderExceptions[0].ToString();
+                }
+                catch (Exception e)
+                {
+                    r_Container.Content = e.ToString();
+                }
+            });
+            RegisterMessageHandler(CommunicatorMessages.InitializeBlink, parameter => r_BrowserProvider.Initialize(bool.Parse(parameter)));
+            RegisterAsyncMessageHandler(CommunicatorMessages.SetPort, async parameter =>
+            {
+                try
+                {
                     r_BrowserProvider.SetPort(int.Parse(parameter));
 
                     InitializeBrowserControl();
@@ -127,11 +141,11 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                 InitializeHwndSource();
 
-                return SendMessage(CommunicatorMessages.Attach + ":" + r_HwndSource.Handle.ToInt32());
+                await SendMessage(CommunicatorMessages.Attach + ":" + r_HwndSource.Handle.ToInt32());
             });
 
-            RegisterMessageHandler(CommunicatorMessages.ClearCache, _ => r_BrowserProvider?.ClearCache(false));
-            RegisterMessageHandler(CommunicatorMessages.ClearCacheAndCookie, _ => r_BrowserProvider?.ClearCache(true));
+            RegisterMessageHandler(CommunicatorMessages.ClearCache, _ => r_BrowserProvider?.ClearCache());
+            RegisterMessageHandler(CommunicatorMessages.ClearCookie, _ => r_BrowserProvider?.ClearCookie());
 
             RegisterMessageHandler(CommunicatorMessages.GoBack, _ => r_Browser?.GoBack());
             RegisterMessageHandler(CommunicatorMessages.GoForward, _ => r_Browser?.GoForward());
@@ -274,7 +288,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             {
                 await SendMessage(CommunicatorMessages.LoadCompleted + $":{rpCanGoBack};{rpCanGoForward};{rpUrl}");
 
-                if (rpUrl == GameConstants.GamePageUrl || rpUrl.Contains(".swf"))
+                if (rpUrl == GameConstants.GamePageUrl)
                     await SendMessage(CommunicatorMessages.LoadGamePageCompleted);
             };
         }

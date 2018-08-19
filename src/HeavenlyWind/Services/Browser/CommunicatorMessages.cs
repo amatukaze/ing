@@ -5,11 +5,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
     public static class CommunicatorMessages
     {
         public const string Ready = nameof(Ready);
+        public const string Initialize = nameof(Initialize);
+        public const string InitializeBlink = nameof(InitializeBlink);
         public const string SetPort = nameof(SetPort);
         public const string Attach = nameof(Attach);
 
         public const string ClearCache = nameof(ClearCache);
-        public const string ClearCacheAndCookie = nameof(ClearCacheAndCookie);
+        public const string ClearCookie = nameof(ClearCookie);
 
         public const string GoBack = nameof(GoBack);
         public const string GoForward = nameof(GoForward);
@@ -23,6 +25,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         public const string InvalidateArrange = nameof(InvalidateArrange);
 
         public const string ResizeBrowserToFitGame = nameof(ResizeBrowserToFitGame);
+
+        public const string SetBlinkMaxFramerate = nameof(SetBlinkMaxFramerate);
 
         public const string TakeScreenshot = nameof(TakeScreenshot);
         public const string ScreenshotFail = nameof(ScreenshotFail);
