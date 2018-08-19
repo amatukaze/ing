@@ -52,15 +52,5 @@
                 <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_AutoRetry_Confirmation}" />
             </CheckBox>
         </StackPanel>
-
-        <Button MinWidth="250" HorizontalAlignment="Left" Margin="0, 12, 0, 0">
-            <Button.Command>
-                <ruico:ObjectOperationCommand>
-                    <ruioo:InvokeMethod Method="OpenInternetOptionConnectionDialog" />
-                </ruico:ObjectOperationCommand>
-            </Button.Command>
-
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Network_OpenInternetOptionConnectionDialog}" Margin="4, 2" />
-        </Button>
     </StackPanel>
 </UserControl>
