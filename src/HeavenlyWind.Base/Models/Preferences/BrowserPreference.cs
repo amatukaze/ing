@@ -8,7 +8,7 @@
 
         public Property<string> CurrentLayoutEngine { get; } = new Property<string>("browser.layout_engine", "trident");
 
-        public FlashPreference Flash { get; } = new FlashPreference();
+        public BlinkPreference Blink { get; } = new BlinkPreference();
 
         public ScreenshotPreference Screenshot { get; } = new ScreenshotPreference();
 

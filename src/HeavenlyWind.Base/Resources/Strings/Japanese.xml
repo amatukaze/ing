@@ -461,9 +461,9 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage">ログインページ</String>
   <String Key="PreferenceWindow_Browser_ClearCache">キャッシュの削除</String>
   <String Key="PreferenceWindow_Browser_ClearCacheAndCookie">キャッシュとクッキーの削除</String>
-  <String Key="PreferenceWindow_Browser_Flash">Flash の設定</String>
-  <String Key="PreferenceWindow_Browser_Flash_Quality">品質</String>
-  <String Key="PreferenceWindow_Browser_Flash_RenderMode">レンダーモード</String>
+  <String Key="PreferenceWindow_Browser_Blink">Blink の設定</String>
+  <String Key="PreferenceWindow_Browser_Blink_DisableHWA">ハードウェア アクセラレーションを無効にする (再起動が必要)</String>
+  <String Key="PreferenceWindow_Browser_Blink_MaxFramerate">最大フレームレート</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">アクションバーを下部に表示する</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">アクションバーをブラウザの隣に表示する</String>
   <String Key="PreferenceWindow_Browser_RefreshConfirmation">ブラウザを再読み込み時の確認動作</String>

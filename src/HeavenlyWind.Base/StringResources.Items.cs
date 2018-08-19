@@ -452,9 +452,9 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage => GetString(nameof(PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage));
         public string PreferenceWindow_Browser_ClearCache => GetString(nameof(PreferenceWindow_Browser_ClearCache));
         public string PreferenceWindow_Browser_ClearCacheAndCookie => GetString(nameof(PreferenceWindow_Browser_ClearCacheAndCookie));
-        public string PreferenceWindow_Browser_Flash => GetString(nameof(PreferenceWindow_Browser_Flash));
-        public string PreferenceWindow_Browser_Flash_Quality => GetString(nameof(PreferenceWindow_Browser_Flash_Quality));
-        public string PreferenceWindow_Browser_Flash_RenderMode => GetString(nameof(PreferenceWindow_Browser_Flash_RenderMode));
+        public string PreferenceWindow_Browser_Blink => GetString(nameof(PreferenceWindow_Browser_Blink));
+        public string PreferenceWindow_Browser_Blink_DisableHWA => GetString(nameof(PreferenceWindow_Browser_Blink_DisableHWA));
+        public string PreferenceWindow_Browser_Blink_MaxFramerate => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate));
         public string PreferenceWindow_Browser_Placement_AtBottom => GetString(nameof(PreferenceWindow_Browser_Placement_AtBottom));
         public string PreferenceWindow_Browser_Placement_StickToBrowser => GetString(nameof(PreferenceWindow_Browser_Placement_StickToBrowser));
         public string PreferenceWindow_Browser_RefreshConfirmation => GetString(nameof(PreferenceWindow_Browser_RefreshConfirmation));

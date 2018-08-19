@@ -73,16 +73,13 @@
 
         <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
 
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash}" FontSize="14" FontWeight="Bold" />
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink}" FontSize="14" FontWeight="Bold" />
 
-        <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash_Quality}" />
-            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:FlashQuality}}" SelectedValue="{rb:Preference Browser.Flash.Quality}" Width="120" Margin="6, 0, 0, 0" />
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="0, 6, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Flash_RenderMode}" />
-            <ComboBox ItemsSource="{rb:Enumeration {x:Type rbm:FlashRenderMode}}" SelectedValue="{rb:Preference Browser.Flash.RenderMode}" Width="120" Margin="6, 0, 0, 0" />
-        </StackPanel>
+        <CheckBox IsChecked="{rb:Preference Browser.Blink.DisableHWA}" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink_DisableHWA}" />
+        </CheckBox>
+        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink_MaxFramerate}" Margin="0, 6, 0, 0" />
+        <Slider Minimum="15" Maximum="120" Value="{rb:Preference Browser.Blink.MaxFramerate}" TickFrequency="1" AutoToolTipPlacement="TopLeft" Width="200" Margin="0, 4, 0, 0" HorizontalAlignment="Left" />
 
         <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
 
