@@ -128,6 +128,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 r_Initialized = true;
 
+                RegisterAsyncMessageHandler(CommunicatorMessages.LoadCompleted, _ => SendMessage(CommunicatorMessages.SetZoom + ":1.0"));
                 RegisterAsyncMessageHandler(CommunicatorMessages.LoadGamePageCompleted, _ => ResizeBrowserToFitGame());
 
                 Navigator = new BrowserNavigator(this);
