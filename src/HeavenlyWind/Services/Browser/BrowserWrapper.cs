@@ -143,6 +143,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                 await SendMessage(CommunicatorMessages.Attach + ":" + r_HwndSource.Handle.ToInt32());
             });
+            RegisterMessageHandler(CommunicatorMessages.Shutdown, _ => r_BrowserProvider?.Shutdown());
 
             RegisterMessageHandler(CommunicatorMessages.ClearCache, _ => r_BrowserProvider?.ClearCache());
             RegisterMessageHandler(CommunicatorMessages.ClearCookie, _ => r_BrowserProvider?.ClearCookie());

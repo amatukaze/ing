@@ -277,5 +277,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
 
         public void SetDefaultHomepage(string rpUrl) => Preference.Instance.Browser.Homepage.Value = rpUrl;
+
+        public void Shutdown() => SendMessage(CommunicatorMessages.Shutdown);
     }
 }

@@ -6,6 +6,7 @@ namespace Sakuno.KanColle.Amatsukaze.Browser
     public interface IBrowserProvider
     {
         void Initialize(object parameter);
+        void Shutdown();
 
         IBrowser CreateBrowserInstance();
 

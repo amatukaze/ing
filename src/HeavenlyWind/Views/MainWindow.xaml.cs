@@ -80,6 +80,8 @@ namespace Sakuno.KanColle.Amatsukaze.Views
                 }
             }
 
+            BrowserService.Instance.Shutdown();
+
             base.OnClosing(e);
         }
 
