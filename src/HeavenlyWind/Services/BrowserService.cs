@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Services.Browser;
+using Sakuno.SystemInterop;
 using Sakuno.UserInterface;
 using Sakuno.UserInterface.Commands;
 using System;
@@ -13,6 +14,7 @@ using System.IO.Pipes;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using System.Windows;
@@ -83,11 +85,54 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         public event EventHandler<Size> Resized;
         public event Action ResizedToFitGame;
 
+        [DllImport("shell32.dll", PreserveSig = false)]
+        public static extern void SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string pszName, IntPtr pbc, out IntPtr ppidl, NativeEnums.SFGAO sfgaoIn, out NativeEnums.SFGAO psfgaoOut);
+        [DllImport("shell32.dll")]
+        public static extern int SHOpenFolderAndSelectItems(IntPtr pidlFolder, int cidl, [MarshalAs(UnmanagedType.LPArray)] IntPtr[] apidl, int dwFlags);
+
         BrowserService()
         {
             r_IsNavigatorVisible = true;
 
-            ClearCacheCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCache).Forget());
+            ClearCacheCommand = new DelegatedCommand(() =>
+            {
+                if (Preference.Instance.Browser.CurrentLayoutEngine != "blink")
+                {
+                    SendMessage(CommunicatorMessages.ClearCache).Forget();
+                    return;
+                }
+
+                var rDialog = new TaskDialog()
+                {
+                    Caption = StringResources.Instance.Main.Product_Name,
+                    Instruction = StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Instruction,
+                    Content = StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Content,
+                    Icon = TaskDialogIcon.Information,
+                    Buttons =
+                    {
+                        new TaskDialogCommandLink(TaskDialogCommonButton.Yes, StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Button_Yes, StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction),
+                        new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Button_No),
+                    },
+                    DefaultCommonButton = TaskDialogCommonButton.No,
+
+                    OwnerWindowHandle = ServiceManager.GetService<IMainWindowService>().Handle,
+                    ShowAtTheCenterOfOwner = true,
+                };
+
+                if (rDialog.ShowAndDispose().ClickedCommonButton == TaskDialogCommonButton.Yes)
+                {
+                    var path = Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "Browser Cache");
+                    SHParseDisplayName(path, IntPtr.Zero, out var browserCachefolder, 0, out _);
+
+                    path = Path.Combine(path, "Blink");
+                    SHParseDisplayName(path, IntPtr.Zero, out var blinkFolder, 0, out _);
+
+                    SHOpenFolderAndSelectItems(browserCachefolder, 1, new[] { blinkFolder }, 0);
+
+                    Marshal.FreeCoTaskMem(browserCachefolder);
+                    Marshal.FreeCoTaskMem(blinkFolder);
+                }
+            });
             ClearCookieCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCookie).Forget());
         }
 

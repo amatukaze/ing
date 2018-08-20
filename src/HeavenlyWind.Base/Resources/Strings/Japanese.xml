@@ -467,6 +467,13 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_15">15 fps</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_30">30 fps</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_60">60 fps</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Instruction">注意！</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Content">CefSharp の制限により、キャッシュの削除には自分でキャッシュフォルダを削除する必要があります。
+  
+  PS：キャッシュフォルダの削除の前にアプリを終了してください。</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes">キャッシュフォルダへ</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction">削除の前にアプリを終了してください</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_No">何もしない</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">アクションバーを下部に表示する</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">アクションバーをブラウザの隣に表示する</String>
   <String Key="PreferenceWindow_Browser_RefreshConfirmation">ブラウザを再読み込み時の確認動作</String>

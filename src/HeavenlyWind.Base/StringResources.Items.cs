@@ -458,6 +458,11 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Blink_MaxFramerate_15 => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate_15));
         public string PreferenceWindow_Browser_Blink_MaxFramerate_30 => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate_30));
         public string PreferenceWindow_Browser_Blink_MaxFramerate_60 => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate_60));
+        public string PreferenceWindow_Browser_Blink_ClearCache_Instruction => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Instruction));
+        public string PreferenceWindow_Browser_Blink_ClearCache_Content => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Content));
+        public string PreferenceWindow_Browser_Blink_ClearCache_Button_Yes => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Button_Yes));
+        public string PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction));
+        public string PreferenceWindow_Browser_Blink_ClearCache_Button_No => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Button_No));
         public string PreferenceWindow_Browser_Placement_AtBottom => GetString(nameof(PreferenceWindow_Browser_Placement_AtBottom));
         public string PreferenceWindow_Browser_Placement_StickToBrowser => GetString(nameof(PreferenceWindow_Browser_Placement_StickToBrowser));
         public string PreferenceWindow_Browser_RefreshConfirmation => GetString(nameof(PreferenceWindow_Browser_RefreshConfirmation));

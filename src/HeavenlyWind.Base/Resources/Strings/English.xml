@@ -468,6 +468,13 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_15">15 fps</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_30">30 fps</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_60">60 fps</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Instruction">Caution!</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Content">Due to the limitation of CefSharp, to clear cache, you must delete the cache folder by yourself.
+  
+  PS: Close this tool before deleting it</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes">Go to that folder</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction">Close this tool before deleting it</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_No">Do nothing</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">Show action bar at the bottom</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">Stick to the browser</String>
   <String Key="PreferenceWindow_Browser_RefreshConfirmation">Refresh confirmation</String>

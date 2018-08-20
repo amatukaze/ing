@@ -469,6 +469,13 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_15">15 fps (节省资源)</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_30">30 fps (基本运行)</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_60">60 fps (画面流畅)</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Instruction">注意！</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Content">因 CefSharp 自身的限制缺乏删除缓存的接口，删除缓存需要人工删除相关的文件夹。
+  
+  PS：删除之前请关闭本工具。</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes">前往缓存文件夹</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction">删除之前请关闭本工具</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_No">什么都不做</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">工具栏显示在底部</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">工具栏粘附在浏览器旁</String>
   <String Key="PreferenceWindow_Browser_RefreshConfirmation">刷新询问</String>
