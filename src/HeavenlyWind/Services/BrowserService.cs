@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
@@ -77,7 +77,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         public GameController GameController { get; private set; }
 
         public ICommand ClearCacheCommand { get; }
-        public ICommand ClearCacheAndCookieCommand { get; }
+        public ICommand ClearCookieCommand { get; }
 
         public event Action Attached;
         public event EventHandler<Size> Resized;
@@ -88,7 +88,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
             r_IsNavigatorVisible = true;
 
             ClearCacheCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCache).Forget());
-            ClearCacheAndCookieCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCookie).Forget());
+            ClearCookieCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCookie).Forget());
         }
 
         public void Initialize()

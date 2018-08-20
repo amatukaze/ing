@@ -451,7 +451,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Homepage_DefaultValue_Introduction => GetString(nameof(PreferenceWindow_Browser_Homepage_DefaultValue_Introduction));
         public string PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage => GetString(nameof(PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage));
         public string PreferenceWindow_Browser_ClearCache => GetString(nameof(PreferenceWindow_Browser_ClearCache));
-        public string PreferenceWindow_Browser_ClearCacheAndCookie => GetString(nameof(PreferenceWindow_Browser_ClearCacheAndCookie));
+        public string PreferenceWindow_Browser_ClearCookie => GetString(nameof(PreferenceWindow_Browser_ClearCookie));
         public string PreferenceWindow_Browser_Blink => GetString(nameof(PreferenceWindow_Browser_Blink));
         public string PreferenceWindow_Browser_Blink_DisableHWA => GetString(nameof(PreferenceWindow_Browser_Blink_DisableHWA));
         public string PreferenceWindow_Browser_Blink_MaxFramerate => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate));
