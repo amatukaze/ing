@@ -8,6 +8,8 @@ using Sakuno.ING.Localization;
 using Sakuno.ING.Services;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Shell.Layout;
+using Sakuno.UserInterface;
+using Sakuno.UserInterface.Controls;
 
 namespace Sakuno.ING.Shell.Desktop
 {
@@ -36,7 +38,7 @@ namespace Sakuno.ING.Shell.Desktop
 
         public void Run()
         {
-            var app = new Application
+            var app = new ThemedApp
             {
                 ShutdownMode = ShutdownMode.OnMainWindowClose
             };
@@ -98,7 +100,7 @@ namespace Sakuno.ING.Shell.Desktop
             var view = layout[windowId];
             if (view != null)
             {
-                var w = new Window
+                var w = new ModernWindow
                 {
                     Tag = windowId,
                     Title = localization.GetLocalized("ViewTitle", windowId) ?? windowId,

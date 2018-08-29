@@ -95,6 +95,13 @@ namespace Sakuno.ING.Shell.Layout
             }
         }
 
+        public ViewSwitcher()
+        {
+#if WPF
+            SetResourceReference(StyleProperty, typeof(Button));
+#endif
+        }
+
         protected override void OnContentChanged(object oldContent, object newContent)
         {
             base.OnContentChanged(oldContent, newContent);

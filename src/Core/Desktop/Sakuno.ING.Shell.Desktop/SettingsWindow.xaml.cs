@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Shell.Desktop
 {
-    public partial class SettingsWindow : Window
+    partial class SettingsWindow
     {
         public SettingsWindow()
         {

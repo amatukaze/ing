@@ -9,37 +9,7 @@
              DataContext="{c:Resolve {x:Type g:NavalBase}}"
              d:DataContext="{d:DesignInstance g:NavalBase}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <TabControl FontSize="16">
-        <TabControl.Template>
-            <ControlTemplate TargetType="TabControl">
-                <Grid ClipToBounds="True" KeyboardNavigation.TabNavigation="Local" SnapsToDevicePixels="True">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Vertical" IsItemsHost="True"
-                                KeyboardNavigation.TabIndex="1"
-                                Margin="2,2,2,0"
-                                Panel.ZIndex="1"/>
-                    <Border Grid.Column="1"
-                            Name="ContentPanel"
-                            Background="{TemplateBinding Panel.Background}"
-                            BorderBrush="{TemplateBinding Border.BorderBrush}"
-                            BorderThickness="{TemplateBinding Border.BorderThickness}"
-                            KeyboardNavigation.DirectionalNavigation="Contained"
-                            KeyboardNavigation.TabIndex="2"
-                            KeyboardNavigation.TabNavigation="Local">
-                        <ContentPresenter Name="PART_SelectedContentHost"
-                                          Margin="{TemplateBinding Control.Padding}"
-                                          Content="{TemplateBinding TabControl.SelectedContent}"
-                                          ContentSource="SelectedContent"
-                                          ContentStringFormat="{TemplateBinding TabControl.SelectedContentStringFormat}"
-                                          ContentTemplate="{TemplateBinding TabControl.SelectedContentTemplate}"
-                                          SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
-                    </Border>
-                </Grid>
-            </ControlTemplate>
-        </TabControl.Template>
+    <TabControl FontSize="16" TabStripPlacement="Left">
         <TabItem Header="Build">
             <ItemsControl ItemsSource="{Binding BuildingDocks.DefaultView}">
                 <ItemsControl.ItemTemplate>
