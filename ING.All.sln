@@ -127,6 +127,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{46000D44-C
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Browser", "Browser", "{60A2096A-49B1-42AB-938A-33534F6AC5F8}"
+	ProjectSection(SolutionItems) = preProject
+		src\Browser\Directory.Build.props = src\Browser\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Browser.Desktop", "src\Browser\Sakuno.ING.Browser.Desktop\Sakuno.ING.Browser.Desktop.csproj", "{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -948,6 +955,30 @@ Global
 		{0B790E9C-EB63-487F-93B3-97B4BDE25385}.Release|x64.Build.0 = Release|Any CPU
 		{0B790E9C-EB63-487F-93B3-97B4BDE25385}.Release|x86.ActiveCfg = Release|Any CPU
 		{0B790E9C-EB63-487F-93B3-97B4BDE25385}.Release|x86.Build.0 = Release|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Debug|ARM.Build.0 = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Debug|x64.Build.0 = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Debug|x86.Build.0 = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.DebugNative|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.DebugNative|Any CPU.Build.0 = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.DebugNative|ARM.ActiveCfg = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.DebugNative|ARM.Build.0 = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.DebugNative|x64.ActiveCfg = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.DebugNative|x64.Build.0 = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.DebugNative|x86.ActiveCfg = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.DebugNative|x86.Build.0 = Debug|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Release|ARM.ActiveCfg = Release|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Release|ARM.Build.0 = Release|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Release|x64.ActiveCfg = Release|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Release|x64.Build.0 = Release|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Release|x86.ActiveCfg = Release|Any CPU
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -991,6 +1022,7 @@ Global
 		{1879752A-AF06-4ABA-B8A0-043D79B5BA4F} = {38D02581-E437-4553-815D-C4FBB67029A0}
 		{A5BF1D19-DBF2-4CFF-939D-ADBA933B216D} = {13AEA7CB-B526-4F8F-89EC-C0DEAEF0F43F}
 		{0B790E9C-EB63-487F-93B3-97B4BDE25385} = {5DCA75CC-ABFA-4CE0-A4FA-4666D4D1255F}
+		{D2C1A78A-DAEC-493C-B8C6-A7A6263621B3} = {60A2096A-49B1-42AB-938A-33534F6AC5F8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D453CD6A-4918-42E2-A29D-43391DB418D2}

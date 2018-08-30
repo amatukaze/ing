@@ -1,0 +1,13 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras">
+
+  <PropertyGroup>
+    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Browser hosting standard for Intelligent Naval Gun</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
+  </ItemGroup>
+
+</Project>
