@@ -15,6 +15,11 @@ namespace Sakuno.ING.Views.Desktop.Controls
             set => SetValue(MethodNameProperty, value);
         }
 
+        public InvokeMethodButton()
+        {
+            SetResourceReference(StyleProperty, typeof(Button));
+        }
+
         protected override void OnClick()
         {
             base.OnClick();
