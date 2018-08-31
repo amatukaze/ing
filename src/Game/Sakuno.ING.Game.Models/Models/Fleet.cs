@@ -10,6 +10,7 @@ namespace Sakuno.ING.Game.Models
             ships.Query = raw.ShipIds.Select(x => owner.AllShips[x]);
             Expedition = owner.MasterData.Expeditions[raw.ExpeditionId];
             UpdateTimer(timeStamp);
+            SlowestShipSpeed = ships.Count > 0 ? ships.Min(s => s.Speed) : ShipSpeed.None;
         }
 
         internal void ChangeComposition(int? index, Ship ship, Fleet fromFleet)

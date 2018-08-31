@@ -73,6 +73,7 @@ p:ExpeditionInfo Expedition
 p:DateTimeOffset ExpeditionCompletionTime -
 b:Ship Ships
 p:TimeSpan ExpeditionTimeRemaining
+p:ShipSpeed SlowestShipSpeed
 
 Quest:QuestId:IRawQuest:QuestManager
 l:Name QuestName

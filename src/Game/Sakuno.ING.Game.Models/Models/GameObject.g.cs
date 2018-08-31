@@ -627,6 +627,13 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _expeditionTimeRemaining, value);
         }
 
+        private ShipSpeed _slowestShipSpeed;
+        public ShipSpeed SlowestShipSpeed
+        {
+            get => _slowestShipSpeed;
+            internal set => Set(ref _slowestShipSpeed, value);
+        }
+
         public event Action<Fleet, IRawFleet, DateTimeOffset> Updating;
         public override void Update(IRawFleet raw, DateTimeOffset timeStamp)
         {
