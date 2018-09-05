@@ -1,15 +1,18 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace Sakuno.ING.Browser.Desktop
 {
-    public interface IBrowserProvider
+    public interface IBrowserProvider : IDisposable
     {
         string Id { get; }
 
-        IBrowserHost CreateBrowser();
+        BrowserHost CreateBrowser();
 
         void ClearCache();
         void ClearCookie();
         UIElement CreateSettingsView();
+
+        void Initialize();
     }
 }

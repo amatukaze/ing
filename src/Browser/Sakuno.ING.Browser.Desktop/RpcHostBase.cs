@@ -2,77 +2,34 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
-using System.Windows;
 
 namespace Sakuno.ING.Browser.Desktop
 {
-    public abstract class RpcHostBase : BindableObject, IBrowserHost
+    public abstract class RpcHostBase : BrowserHost
     {
-        public abstract UIElement BrowserElement { get; }
-
-        private string _address;
-        public string Address
+        public override void GoBack() => pipeStream.WriteByte((byte)RpcAction.GoBack);
+        public override void GoForward() => pipeStream.WriteByte((byte)RpcAction.GoForward);
+        public override void Navigate(string address)
         {
-            get => _address;
-            set => Set(ref _address, value);
-        }
-
-        private bool _canGoBack;
-        public bool CanGoBack
-        {
-            get => _canGoBack;
-            set => Set(ref _canGoBack, value);
-        }
-
-        private bool _canGoForward;
-        public bool CanGoForward
-        {
-            get => _canGoForward;
-            set => Set(ref _canGoForward, value);
-        }
-
-        private bool _canRefresh;
-        public bool CanRefresh
-        {
-            get => _canRefresh;
-            set => Set(ref _canRefresh, value);
-        }
-
-        public void GoBack() => pipeStream.WriteByte((byte)RpcAction.GoBack);
-        public void GoForward() => pipeStream.WriteByte((byte)RpcAction.GoForward);
-        public void Navigate(string address)
-        {
-            var sendBuffer = new byte[address.Length*2 + 4];
+            var sendBuffer = new byte[address.Length * 2 + 4];
             sendBuffer[0] = (byte)RpcAction.Navigate;
             Buffer.BlockCopy(address.ToCharArray(), 0, sendBuffer, 4, address.Length * 2);
             pipeStream.Write(sendBuffer, 0, sendBuffer.Length);
         }
-        public void Refresh() => pipeStream.WriteByte((byte)RpcAction.Refresh);
+        public override void Refresh() => pipeStream.WriteByte((byte)RpcAction.Refresh);
 
-        #region IDisposable
-        private bool disposedValue = false;
-
-        protected virtual void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            try
             {
                 pipeStream.Dispose();
                 remoteProcess.Kill();
-                disposedValue = true;
+            }
+            finally
+            {
+                base.Dispose(disposing);
             }
         }
-
-        ~RpcHostBase()
-        {
-            Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
 
         protected readonly NamedPipeServerStream pipeStream;
         protected readonly Process remoteProcess;
