@@ -7,11 +7,16 @@ namespace Sakuno.ING.Game.Tests
 {
     internal class UnitTestProvider : IHttpProvider
     {
-        public bool Enabled { get; set; }
-
         public event TimedMessageHandler<HttpMessage> Received;
 
         public void Push(string key, DateTimeOffset timeStamp, string request, Stream stream)
             => Received?.Invoke(timeStamp, new HttpMessage(key, request, stream));
+    }
+
+    internal class UnitTestProviderSelector : IHttpProviderSelector
+    {
+        public UnitTestProviderSelector(UnitTestProvider provider)
+            => Current = provider;
+        public IHttpProvider Current { get; }
     }
 }

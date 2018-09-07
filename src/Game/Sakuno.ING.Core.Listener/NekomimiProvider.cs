@@ -7,28 +7,12 @@ using Sakuno.Nekomimi;
 
 namespace Sakuno.ING.Services.Listener
 {
-    internal class NekomimiProvider : IHttpProvider
+    public class NekomimiProvider : IHttpProvider
     {
         public event TimedMessageHandler<HttpMessage> Received;
         private readonly ProxyServer server = new ProxyServer();
         private readonly ITimingService dateTime;
         private readonly ProxySetting setting;
-        private bool enabled;
-        public bool Enabled
-        {
-            get => enabled;
-            set
-            {
-                if (enabled != value)
-                {
-                    enabled = value;
-                    if (value)
-                        server.Start(setting.ListeningPort.Value);
-                    else
-                        server.Stop();
-                }
-            }
-        }
 
         public NekomimiProvider(ITimingService dateTime, ProxySetting setting)
         {
@@ -36,13 +20,10 @@ namespace Sakuno.ING.Services.Listener
             this.setting = setting;
             server.AfterResponse += Server_AfterResponse;
 
-            setting.ListeningPort.PropertyChanged += (_, __) =>
+            setting.ListeningPort.ValueChanged += port =>
             {
-                if (Enabled)
-                {
-                    Enabled = false;
-                    Enabled = true;
-                }
+                server.Stop();
+                server.Start(port);
             };
 
             setting.UseUpstream.PropertyChanged += UpdateUpstream;

@@ -23,9 +23,9 @@ namespace Sakuno.ING.Game
             ContractResolver = new GameContractResolver()
         };
 
-        public GameListener(IHttpProvider provider)
+        public GameListener(IHttpProviderSelector providerSelector)
         {
-            this.provider = provider;
+            this.provider = providerSelector.Current;
             jSerializer.Error += JsonError;
 
             masterDataUpdated = RegisterResponse<MasterDataJson>("api_start2")

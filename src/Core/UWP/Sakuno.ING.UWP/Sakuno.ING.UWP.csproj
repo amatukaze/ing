@@ -71,6 +71,7 @@
     <Compile Include="SubView.xaml.cs">
       <DependentUpon>SubView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UWPHttpProviderSelector.cs" />
     <Compile Include="UWPShellContext.cs" />
     <Compile Include="UWPShell.cs" />
   </ItemGroup>

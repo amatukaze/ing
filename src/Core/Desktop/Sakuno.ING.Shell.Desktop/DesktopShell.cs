@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 using Sakuno.ING.Composition;
-using Sakuno.ING.Http;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Shell.Layout;
@@ -18,18 +17,16 @@ namespace Sakuno.ING.Shell.Desktop
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ILocalizationService localization;
-        private readonly IHttpProvider provider;
         private readonly string localeName;
         private readonly FontFamily userFont;
         private readonly List<Window> layoutWindows = new List<Window>();
         private LayoutRoot layout;
 
-        public DesktopShell(LayoutSetting layoutSetting, ILocalizationService localization, LocaleSetting locale, IHttpProvider provider)
+        public DesktopShell(LayoutSetting layoutSetting, ILocalizationService localization, LocaleSetting locale)
             : base(localization)
         {
             this.layoutSetting = layoutSetting;
             this.localization = localization;
-            this.provider = provider;
             localeName = locale.Language.Value;
             var userFontName = locale.UserLanguageFont.Value;
             if (!string.IsNullOrEmpty(userFontName))
@@ -45,8 +42,6 @@ namespace Sakuno.ING.Shell.Desktop
 
             app.Startup += (s, e) =>
             {
-                provider.Enabled = true;
-
                 Window window;
                 try
                 {

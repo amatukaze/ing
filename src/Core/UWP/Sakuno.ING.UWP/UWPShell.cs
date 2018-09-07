@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using Sakuno.ING.Composition;
-using Sakuno.ING.Http;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
@@ -21,18 +20,16 @@ namespace Sakuno.ING.UWP
     internal class UWPShell : FlexibleShell<FrameworkElement>, IShell
     {
         private readonly LayoutSetting layoutSetting;
-        private readonly IHttpProvider gameProvider;
         private readonly LocaleSetting localeSetting;
         private readonly ILocalizationService localization;
         private Func<LayoutRoot> layoutFactory;
         private string[] viewIds;
         private readonly ConcurrentDictionary<string, int> applicationViewIds = new ConcurrentDictionary<string, int>();
 
-        public UWPShell(LayoutSetting layoutSetting, IHttpProvider gameProvider, LocaleSetting localeSetting, ILocalizationService localization)
+        public UWPShell(LayoutSetting layoutSetting, LocaleSetting localeSetting, ILocalizationService localization)
             : base(localization)
         {
             this.layoutSetting = layoutSetting;
-            this.gameProvider = gameProvider;
             this.localeSetting = localeSetting;
             this.localization = localization;
 
@@ -73,7 +70,6 @@ namespace Sakuno.ING.UWP
             };
 
             Window.Current.Content = main;
-            gameProvider.Enabled = true;
         }
 
         private void InitWindow()
