@@ -3,9 +3,9 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sakuno.ING.Services.Listener
+namespace Sakuno.ING.Http
 {
-    internal class SkippingStream : Stream
+    public sealed class SkippingStream : Stream
     {
         private readonly Stream original;
         private readonly int skipLength;
@@ -14,8 +14,7 @@ namespace Sakuno.ING.Services.Listener
         {
             this.original = original;
             this.skipLength = skipLength;
-            var skipBuffer = new byte[skipLength];
-            original.Read(skipBuffer, 0, skipLength);
+            original.Seek(skipLength, SeekOrigin.Begin);
         }
 
         public override bool CanRead => original.CanRead;

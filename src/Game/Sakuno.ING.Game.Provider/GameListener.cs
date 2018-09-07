@@ -7,8 +7,8 @@ using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.MasterData;
 using Sakuno.ING.Game.Json.Shipyard;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Http;
 using Sakuno.ING.Messaging;
-using Sakuno.ING.Services;
 
 namespace Sakuno.ING.Game
 {
@@ -16,14 +16,14 @@ namespace Sakuno.ING.Game
     [Export(typeof(GameListener))]
     public sealed partial class GameListener : IGameProvider
     {
-        private ITextStreamProvider provider;
+        private IHttpProvider provider;
         private JsonSerializer jSerializer = new JsonSerializer
         {
             MissingMemberHandling = MissingMemberHandling.Ignore,
             ContractResolver = new GameContractResolver()
         };
 
-        public GameListener(ITextStreamProvider provider)
+        public GameListener(IHttpProvider provider)
         {
             this.provider = provider;
             jSerializer.Error += JsonError;

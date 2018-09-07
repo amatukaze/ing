@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO;
+using Sakuno.ING.Http;
 using Sakuno.ING.Messaging;
-using Sakuno.ING.Services;
 
 namespace Sakuno.ING.Game.Tests
 {
-    internal class UnitTestProvider : ITextStreamProvider
+    internal class UnitTestProvider : IHttpProvider
     {
         public bool Enabled { get; set; }
 
-        public event TimedMessageHandler<TextMessage> Received;
+        public event TimedMessageHandler<HttpMessage> Received;
 
         public void Push(string key, DateTimeOffset timeStamp, string request, Stream stream)
-            => Received?.Invoke(timeStamp, new TextMessage(key, request, stream));
+            => Received?.Invoke(timeStamp, new HttpMessage(key, request, stream));
     }
 }

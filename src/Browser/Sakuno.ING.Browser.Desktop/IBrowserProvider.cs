@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Windows;
+using Sakuno.ING.Http;
 
 namespace Sakuno.ING.Browser.Desktop
 {
     public interface IBrowserProvider : IDisposable
     {
         string Id { get; }
+        IHttpProvider HttpProvider { get; }
 
         BrowserHost CreateBrowser();
 

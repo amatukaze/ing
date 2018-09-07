@@ -1,10 +1,10 @@
 ﻿using System.IO;
 
-namespace Sakuno.ING.Services
+namespace Sakuno.ING.Http
 {
-    public sealed class TextMessage
+    public sealed class HttpMessage
     {
-        public TextMessage(string key, string request, Stream stream)
+        public HttpMessage(string key, string request, Stream stream)
         {
             Key = key;
             Request = request;
