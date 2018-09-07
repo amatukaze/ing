@@ -16,13 +16,13 @@ namespace Sakuno.ING.Game.Tests
 
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(typeof(MasterDataTest), "Data.port.2018-05-28_015208.676_START2.json"))
-                provider.Push("api_start2", DateTimeOffset.Now, string.Empty, stream);
+                provider.Push("api_start2", DateTimeOffset.Now, null, stream);
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(typeof(MasterDataTest), "Data.port.2018-05-28_015210.298_REQUIRE_INFO.json"))
-                provider.Push("api_get_member/require_info", DateTimeOffset.Now, string.Empty, stream);
+                provider.Push("api_get_member/require_info", DateTimeOffset.Now, null, stream);
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(typeof(MasterDataTest), "Data.port.2018-05-28_015212.349_PORT.json"))
-                provider.Push("api_port/port", DateTimeOffset.Now, string.Empty, stream);
+                provider.Push("api_port/port", DateTimeOffset.Now, null, stream);
         }
     }
 }

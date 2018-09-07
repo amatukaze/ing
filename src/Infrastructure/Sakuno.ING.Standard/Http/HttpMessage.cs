@@ -4,15 +4,15 @@ namespace Sakuno.ING.Http
 {
     public sealed class HttpMessage
     {
-        public HttpMessage(string key, string request, Stream stream)
+        public HttpMessage(string key, Stream request, Stream response)
         {
             Key = key;
             Request = request;
-            Stream = stream;
+            Response = response;
         }
 
         public string Key { get; }
-        public string Request { get; }
-        public Stream Stream { get; }
+        public Stream Request { get; }
+        public Stream Response { get; }
     }
 }

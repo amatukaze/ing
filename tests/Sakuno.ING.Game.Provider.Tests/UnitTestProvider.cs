@@ -9,8 +9,14 @@ namespace Sakuno.ING.Game.Tests
     {
         public event TimedMessageHandler<HttpMessage> Received;
 
-        public void Push(string key, DateTimeOffset timeStamp, string request, Stream stream)
-            => Received?.Invoke(timeStamp, new HttpMessage(key, request, stream));
+        public void Push(string key, DateTimeOffset timeStamp, Stream request, Stream response)
+        {
+            var mms = new MemoryStream();
+            mms.Write(new byte[7], 0, 7);
+            response.CopyTo(mms);
+            mms.Seek(0, SeekOrigin.Begin);
+            Received?.Invoke(timeStamp, new HttpMessage(key, request ?? new MemoryStream(0), mms));
+        }
     }
 
     internal class UnitTestProviderSelector : IHttpProviderSelector

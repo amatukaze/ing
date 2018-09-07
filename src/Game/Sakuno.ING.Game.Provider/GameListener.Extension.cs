@@ -9,12 +9,18 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameListener
+    public partial class GameListener
     {
         private T Convert<T>(Stream stream)
         {
-            stream.Seek(0, SeekOrigin.Begin);
+            stream.Seek(7, SeekOrigin.Begin); //svdata=
             return jSerializer.Deserialize<T>(new JsonTextReader(new StreamReader(stream)));
+        }
+
+        private static NameValueCollection ParseRequest(Stream request)
+        {
+            request.Seek(0, SeekOrigin.Begin);
+            return HttpUtility.ParseQueryString(new StreamReader(request).ReadToEnd());
         }
 
         public ITimedMessageProvider<T> RegisterResponse<T>(string api)
@@ -28,8 +34,8 @@ namespace Sakuno.ING.Game
             .Select(arg => new ParsedMessage<T>
             (
                 arg.Key,
-                HttpUtility.ParseQueryString(arg.Request),
-                Convert<SvData<T>>(arg.Stream)
+                ParseRequest(arg.Request),
+                Convert<SvData<T>>(arg.Response)
             ))
             .Where(m => m.IsSuccess);
 
@@ -38,8 +44,8 @@ namespace Sakuno.ING.Game
             .Select(arg => new ParsedMessage
             (
                 arg.Key,
-                HttpUtility.ParseQueryString(arg.Request),
-                Convert<SvData>(arg.Stream)
+                ParseRequest(arg.Request),
+                Convert<SvData>(arg.Response)
             ))
             .Where(m => m.IsSuccess);
 
@@ -47,8 +53,8 @@ namespace Sakuno.ING.Game
             .Select(arg => new ParsedMessage
             (
                 arg.Key,
-                HttpUtility.ParseQueryString(arg.Request),
-                Convert<SvData>(arg.Stream)
+                ParseRequest(arg.Request),
+                Convert<SvData>(arg.Response)
             ))
             .Where(m => !m.IsSuccess);
 
@@ -56,8 +62,8 @@ namespace Sakuno.ING.Game
             .Select(arg => new ParsedMessage<JToken>
             (
                 arg.Key,
-                HttpUtility.ParseQueryString(arg.Request),
-                Convert<SvData<JToken>>(arg.Stream)
+                ParseRequest(arg.Request),
+                Convert<SvData<JToken>>(arg.Response)
             ));
     }
 }
