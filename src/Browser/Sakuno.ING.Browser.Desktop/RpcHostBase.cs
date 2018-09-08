@@ -33,15 +33,15 @@ namespace Sakuno.ING.Browser.Desktop
 
         protected readonly NamedPipeServerStream pipeStream;
         protected readonly Process remoteProcess;
-        protected RpcHostBase()
+        protected RpcHostBase(int port)
         {
             string pipeName = Path.GetRandomFileName();
             pipeStream = new NamedPipeServerStream(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Message, PipeOptions.WriteThrough | PipeOptions.Asynchronous);
-            remoteProcess = CreateRemoteProcess(pipeName);
+            remoteProcess = CreateRemoteProcess(pipeName, port);
             PipeReceivingLoop();
         }
 
-        protected abstract Process CreateRemoteProcess(string pipeName);
+        protected abstract Process CreateRemoteProcess(string pipeName, int port);
 
         private async void PipeReceivingLoop()
         {
