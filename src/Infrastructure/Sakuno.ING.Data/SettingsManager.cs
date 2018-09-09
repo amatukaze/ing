@@ -26,11 +26,12 @@ namespace Sakuno.ING.Data
         {
             lock (items)
             {
-                if (items.ContainsKey(name))
-                    throw new InvalidOperationException("One setting name can be registered only once.");
-                var item = new SettingItem<T>(this, name, defaultValue);
-                items[name] = item;
-                return item;
+                if (items.TryGetValue(name, out var item))
+                    return (ISettingItem<T>)item;
+
+                var newItem = new SettingItem<T>(this, name, defaultValue);
+                items[name] = newItem;
+                return newItem;
             }
         }
     }
