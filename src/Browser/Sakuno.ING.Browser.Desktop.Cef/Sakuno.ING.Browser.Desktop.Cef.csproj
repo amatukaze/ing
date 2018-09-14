@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PlatformTargets>x86;x64</PlatformTargets>
+    <Version>0.1.0-blueprint</Version>
+    <Description>Cef host for Intelligent Naval Gun</Description>
+    <Platforms>x86;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sakuno.CefSharp.Wpf" Version="67.0.0-pre" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Browser\Sakuno.ING.Browser.Desktop\Sakuno.ING.Browser.Desktop.csproj" />
+  </ItemGroup>
+
+</Project>
