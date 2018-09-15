@@ -2,11 +2,13 @@
 using System.Threading;
 using System.Windows;
 using Sakuno.CefSharp.Wpf;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Http;
 using CefClass = CefSharp.Cef;
 
 namespace Sakuno.ING.Browser.Desktop.Cef
 {
+    [Export(typeof(IBrowserProvider))]
     sealed class CefBrowserProvider : IBrowserProvider
     {
         volatile int _isDisposed = 0;
