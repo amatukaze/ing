@@ -19,6 +19,7 @@ namespace Sakuno.ING.Game.Json.MasterData
         public ExpeditionInfoJson[] api_mst_mission;
         public List<ShipUpgradeJson> api_mst_shipupgrade;
         public BgmInfoJson[] api_mst_bgm;
+        public ShipEquipLimitationJson[] api_mst_equip_ship;
     }
     internal class EquipmentInExtraSlotJson
     {

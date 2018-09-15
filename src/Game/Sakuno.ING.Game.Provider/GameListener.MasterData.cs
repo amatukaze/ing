@@ -62,7 +62,8 @@ namespace Sakuno.ING.Game
                 mapAreas: raw.api_mst_maparea,
                 maps: raw.api_mst_mapinfo,
                 expeditions: raw.api_mst_mission,
-                bgms: raw.api_mst_bgm
+                bgms: raw.api_mst_bgm,
+                shipEquipLimitations: raw.api_mst_equip_ship
             );
         }
     }
