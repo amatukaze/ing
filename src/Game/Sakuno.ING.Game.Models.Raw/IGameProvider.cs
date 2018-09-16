@@ -23,7 +23,7 @@ namespace Sakuno.ING.Game
         event TimedMessageHandler<CompositionChange> CompositionChanged;
         event TimedMessageHandler<IRawFleet> FleetPresetSelected;
         event TimedMessageHandler<ShipId> ShipExtraSlotOpened;
-        event TimedMessageHandler<ShipEquipmentUpdate> ShipEquipmentUdated;
+        event TimedMessageHandler<ShipEquipmentUpdate> ShipEquipmentUpdated;
         event TimedMessageHandler<IReadOnlyCollection<IRawShip>> PartialShipsUpdated;
         event TimedMessageHandler<IReadOnlyCollection<IRawFleet>> PartialFleetsUpdated;
         event TimedMessageHandler<IMaterialsUpdate> MaterialsUpdated;

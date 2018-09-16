@@ -51,7 +51,7 @@ namespace Sakuno.ING.Game
             fleetPresetSelected = RegisterResponse<FleetJson>("api_req_hensei/preset_select");
             shipExtraSlotOpened = RegisterRequest("api_req_kaisou/open_exslot")
                 .Select(ParseShipExtraSlotOpen);
-            shipEquipmentUdated = RegisterRaw<ShipEquipmentJson>("api_req_kaisou/slot_exchange_index")
+            shipEquipmentUpdated = RegisterRaw<ShipEquipmentJson>("api_req_kaisou/slot_exchange_index")
                 .Select(x => ParseShipEquipmentUpdate(x.Request, x.Response));
             expeditionCompleted = RegisterRaw<ExpeditionCompletionJson>("api_req_mission/result")
                 .Select(x => ParseExpeditionCompletion(x.Request, x.Response));

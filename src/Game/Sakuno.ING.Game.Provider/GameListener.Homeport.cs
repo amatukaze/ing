@@ -53,11 +53,11 @@ namespace Sakuno.ING.Game
             remove => shipExtraSlotOpened.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<ShipEquipmentUpdate> shipEquipmentUdated;
-        public event TimedMessageHandler<ShipEquipmentUpdate> ShipEquipmentUdated
+        private readonly ITimedMessageProvider<ShipEquipmentUpdate> shipEquipmentUpdated;
+        public event TimedMessageHandler<ShipEquipmentUpdate> ShipEquipmentUpdated
         {
-            add => shipEquipmentUdated.Received += value;
-            remove => shipEquipmentUdated.Received -= value;
+            add => shipEquipmentUpdated.Received += value;
+            remove => shipEquipmentUpdated.Received -= value;
         }
 
         private readonly ITimedMessageProvider<IReadOnlyCollection<IRawShip>> partialShipsUpdated;
