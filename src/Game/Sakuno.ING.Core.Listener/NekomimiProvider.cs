@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Http;
 using Sakuno.ING.Messaging;
 using Sakuno.ING.Settings;
@@ -7,7 +9,8 @@ using Sakuno.Nekomimi;
 
 namespace Sakuno.ING.Services.Listener
 {
-    public class NekomimiProvider : IHttpProvider
+    [Export(typeof(IHttpProxy))]
+    internal class NekomimiProvider : IHttpProxy
     {
         public event TimedMessageHandler<HttpMessage> Received;
         private readonly ProxyServer server = new ProxyServer();
@@ -20,11 +23,7 @@ namespace Sakuno.ING.Services.Listener
             this.setting = setting;
             server.AfterResponse += Server_AfterResponse;
 
-            setting.ListeningPort.ValueChanged += port =>
-            {
-                server.Stop();
-                server.Start(port);
-            };
+            ListeningPort = setting.ListeningPort.InitialValue;
 
             setting.UseUpstream.PropertyChanged += UpdateUpstream;
             setting.Upstream.PropertyChanged += UpdateUpstream;
@@ -33,14 +32,37 @@ namespace Sakuno.ING.Services.Listener
             UpdateUpstream(null, null);
         }
 
+        public int ListeningPort { get; }
+
+        private bool isEnabled;
+        public bool IsEnabled
+        {
+            get => isEnabled;
+            set
+            {
+                isEnabled = value;
+                CheckServer();
+            }
+        }
+
+        private IWebProxy proxy;
         private void UpdateUpstream(object sender, object e)
         {
-            server.Stop();
             if (setting.UseUpstream.Value)
-                server.UpstreamProxy = new Proxy($"http://{setting.Upstream.Value}:{setting.UpstreamPort.Value}");
+                proxy = new Proxy($"http://{setting.Upstream.Value}:{setting.UpstreamPort.Value}");
             else
-                server.UpstreamProxy = null;
-            server.Start(setting.ListeningPort.Value);
+                proxy = null;
+            CheckServer();
+        }
+
+        private void CheckServer()
+        {
+            server.Stop();
+            if (IsEnabled)
+            {
+                server.UpstreamProxy = proxy;
+                server.Start(ListeningPort);
+            }
         }
 
         private void Server_AfterResponse(Session session)

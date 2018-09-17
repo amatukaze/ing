@@ -1,7 +1,5 @@
 ﻿using Sakuno.ING.Composition;
 using Sakuno.ING.Http;
-using Sakuno.ING.Services.Listener;
-using Sakuno.ING.Settings;
 using Sakuno.ING.Timing;
 
 namespace Sakuno.ING.UWP
@@ -9,9 +7,9 @@ namespace Sakuno.ING.UWP
     [Export(typeof(IHttpProviderSelector))]
     internal class UWPHttpProviderSelector : IHttpProviderSelector
     {
-        public UWPHttpProviderSelector(ITimingService dateTime, ProxySetting setting)
+        public UWPHttpProviderSelector(ITimingService dateTime, IHttpProxy proxy)
         {
-            Current = new NekomimiProvider(dateTime, setting);
+            Current = proxy;
         }
         public IHttpProvider Current { get; }
     }

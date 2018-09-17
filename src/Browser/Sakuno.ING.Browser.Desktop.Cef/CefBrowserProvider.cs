@@ -5,20 +5,29 @@ using Sakuno.CefSharp.Wpf;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Http;
 using CefClass = CefSharp.Cef;
+using CefProxy = CefSharp.ProxyOptions;
+using CefSetting = CefSharp.CefSharpSettings;
 
 namespace Sakuno.ING.Browser.Desktop.Cef
 {
     [Export(typeof(IBrowserProvider))]
-    sealed class CefBrowserProvider : IBrowserProvider
+    internal sealed class CefBrowserProvider : IBrowserProvider
     {
-        volatile int _isDisposed = 0;
+        private int _isDisposed = 0;
 
         public string Id => "Cef";
 
-        public IHttpProvider HttpProvider => throw new NotImplementedException();
+        private readonly IHttpProxy proxy;
+        public IHttpProvider HttpProvider => proxy;
+
+        public CefBrowserProvider(IHttpProxy proxy)
+        {
+            this.proxy = proxy;
+        }
 
         public void Initialize()
         {
+            CefSetting.Proxy = new CefProxy("localhost", proxy.ListeningPort.ToString());
             CefClass.Initialize(new DefaultCefSettings());
         }
 
@@ -28,7 +37,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
         public void ClearCache() { }
         public void ClearCookie() => CefClass.GetGlobalCookieManager().DeleteCookies(null, null);
 
-        void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (_isDisposed != 0 || Interlocked.CompareExchange(ref _isDisposed, 1, 0) != 0)
                 return;
