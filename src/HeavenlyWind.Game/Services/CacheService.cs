@@ -67,7 +67,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
             {
                 var rTimestamp = new DateTimeOffset(File.GetLastWriteTime(rFilename));
 
-                if (rpResourceSession.Path.StartsWith("/kcs2/") || rpResourceSession.Path.StartsWith("/gadget_html5/") || !CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
+                if (rpResourceSession.Path.StartsWith("/kcs2/") || rpResourceSession.Path.StartsWith("/kcs/sound/") || rpResourceSession.Path.StartsWith("/gadget_html5/") || !CheckFileVersionAndTimestamp(rpResourceSession, rTimestamp))
                 {
                     rpSession.oRequest["If-Modified-Since"] = rTimestamp.ToString("R");
                     rpSession.bBufferResponse = true;
@@ -151,7 +151,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services
         {
             rpSession.ResponseBody = File.ReadAllBytes(rpFilename);
             rpSession.oResponse["Server"] = "nginx";
-            rpSession.oResponse["Connection"] = "close";
+            rpSession.oResponse["Connection"] = "keep-alive";
+            rpSession.oResponse["Pragma"] = "public";
             rpSession.oResponse["Accept-Ranges"] = "bytes";
             rpSession.oResponse["Cache-Control"] = "max-age=2592000, public";
             rpSession.oResponse["Date"] = DateTime.Now.ToString("R");
