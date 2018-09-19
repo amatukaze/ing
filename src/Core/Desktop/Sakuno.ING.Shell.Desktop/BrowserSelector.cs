@@ -17,6 +17,7 @@ namespace Sakuno.ING.Shell.Desktop
             string engine = browserSetting.InitialValue;
             SelectedBrowser = browsers.FirstOrDefault(x => x.Id == engine)
                 ?? browsers.FirstOrDefault();
+            SelectedBrowser.Initialize();
         }
 
         public IBrowserProvider SelectedBrowser { get; }

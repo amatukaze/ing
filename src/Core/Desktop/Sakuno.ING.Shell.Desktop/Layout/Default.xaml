@@ -5,16 +5,21 @@
         <sh:LayoutWindow>
             <DataTemplate>
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <sh:ViewPresenter Grid.Row="0" ViewId="Admiral"/>
-                    <sh:ViewPresenter Grid.Row="1" ViewId="Fleets"/>
-                    <sh:ViewPresenter Grid.Row="2" ViewId="Docks"/>
-                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    <sh:ViewPresenter Grid.Column="0" Grid.RowSpan="3" ViewId="Browser"/>
+                    <sh:ViewPresenter Grid.Column="1" Grid.Row="0" ViewId="Admiral"/>
+                    <sh:ViewPresenter Grid.Column="1" Grid.Row="1" ViewId="Fleets"/>
+                    <sh:ViewPresenter Grid.Column="1" Grid.Row="2" ViewId="Docks"/>
+                    <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal">
                         <sh:ViewSwitcher ViewId="LogMigration"/>
                         <sh:ViewSwitcher ViewId="ShipCreationLogs"/>
                         <sh:ViewSwitcher ViewId="EquipmentCreationLogs"/>

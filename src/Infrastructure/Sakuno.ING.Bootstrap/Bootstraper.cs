@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Autofac;
+using Autofac.Builder;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Services;
 using Sakuno.ING.Shell;
@@ -62,11 +63,15 @@ namespace Sakuno.ING.Bootstrap
             var eager = new HashSet<Type>();
             foreach (var a in assemblies)
                 foreach (var t in a.DefinedTypes)
+                {
+                    IRegistrationBuilder<object, ConcreteReflectionActivatorData, SingleRegistrationStyle> b = null;
                     foreach (var attr in t.GetCustomAttributes())
                         switch (attr)
                         {
                             case ExportAttribute export:
-                                var b = builder.RegisterType(t).As(export.ContractType);
+                                if (b == null)
+                                    b = builder.RegisterType(t);
+                                b.As(export.ContractType);
                                 if (export.SingleInstance)
                                     b.SingleInstance();
                                 else
@@ -81,6 +86,7 @@ namespace Sakuno.ING.Bootstrap
                                 builder.RegisterType(t).WithMetadata(FlexibleShell<object>.SettingCategoryName, setting.Category).As(visualElementType);
                                 break;
                         }
+                }
 
             builder.RegisterInstance(new ModuleList(moduleInfos)).As<IModuleList>();
             builder.RegisterInstance(new PackageService(packages, storage)).As<IPackageService>();
