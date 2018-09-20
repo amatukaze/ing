@@ -51,7 +51,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
             try
             {
-                if (BitConverter.ToInt64(session.ResponseBody, 0) != 0x7B3D617461647673)
+                if (session.ResponseBody.Length <= 4 || BitConverter.ToInt64(session.ResponseBody, 0) != 0x7B3D617461647673)
                     return;
 
                 if (!r_Parsers.TryGetValue(api, out var parser))
