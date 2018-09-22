@@ -16,6 +16,7 @@ namespace Sakuno.ING
             (
                 typeof(FrameworkElement),
                 Array.Empty<string>(),
+                "Sakuno.ING.Browser.Desktop",
                 "Sakuno.ING.Browser.Desktop.Cef",
                 "Sakuno.ING.Core.Listener",
                 "Sakuno.ING.Data",

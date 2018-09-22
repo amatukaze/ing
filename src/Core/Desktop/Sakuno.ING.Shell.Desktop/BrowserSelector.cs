@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Sakuno.ING.Browser.Desktop;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Http;
@@ -16,7 +17,8 @@ namespace Sakuno.ING.Shell.Desktop
             browserSetting = settings.Register<string>("browser_engine");
             string engine = browserSetting.InitialValue;
             SelectedBrowser = browsers.FirstOrDefault(x => x.Id == engine)
-                ?? browsers.FirstOrDefault();
+                ?? browsers.FirstOrDefault()
+                ?? throw new InvalidOperationException("It must have at least one browser provider.");
             SelectedBrowser.Initialize();
         }
 
