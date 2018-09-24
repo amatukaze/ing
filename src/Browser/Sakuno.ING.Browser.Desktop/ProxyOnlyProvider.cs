@@ -5,11 +5,11 @@ using Sakuno.ING.Http;
 namespace Sakuno.ING.Browser.Desktop
 {
     [Export(typeof(IBrowserProvider))]
-    class ProxyOnlyProvider : IBrowserProvider
+    internal class ProxyOnlyProvider : IBrowserProvider
     {
         public string Id => "ProxyOnly";
 
-        IHttpProxy _httpProxy;
+        private readonly IHttpProxy _httpProxy;
         public IHttpProvider HttpProvider => _httpProxy;
 
         public ProxyOnlyProvider(IHttpProxy httpProxy)
@@ -19,7 +19,7 @@ namespace Sakuno.ING.Browser.Desktop
 
         public void Initialize() => _httpProxy.IsEnabled = true;
 
-        public BrowserHost CreateBrowser() => null;
+        public IBrowser CreateBrowser() => null;
         public UIElement CreateSettingsView() => null;
 
         public void ClearCache() { }

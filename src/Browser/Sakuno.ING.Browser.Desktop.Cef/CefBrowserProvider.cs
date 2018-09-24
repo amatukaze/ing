@@ -31,7 +31,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
             CefClass.Initialize(new DefaultCefSettings());
         }
 
-        public BrowserHost CreateBrowser() => new CefWebView();
+        public IBrowser CreateBrowser() => new CefHost();
         public UIElement CreateSettingsView() => null;
 
         public void ClearCache() { }

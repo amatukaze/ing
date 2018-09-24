@@ -9,7 +9,7 @@ namespace Sakuno.ING.Browser.Desktop
         string Id { get; }
         IHttpProvider HttpProvider { get; }
 
-        BrowserHost CreateBrowser();
+        IBrowser CreateBrowser();
 
         void ClearCache();
         void ClearCookie();
