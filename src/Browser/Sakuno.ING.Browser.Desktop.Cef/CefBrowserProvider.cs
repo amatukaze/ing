@@ -29,6 +29,8 @@ namespace Sakuno.ING.Browser.Desktop.Cef
         {
             CefSetting.Proxy = new CefProxy("localhost", proxy.ListeningPort.ToString());
             CefClass.Initialize(new DefaultCefSettings());
+
+            proxy.IsEnabled = true;
         }
 
         public IBrowser CreateBrowser() => new CefHost();
