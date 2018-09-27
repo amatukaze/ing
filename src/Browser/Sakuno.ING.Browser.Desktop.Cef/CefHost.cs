@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Sakuno.CefSharp.Wpf;
 
 namespace Sakuno.ING.Browser.Desktop.Cef
@@ -14,5 +14,10 @@ namespace Sakuno.ING.Browser.Desktop.Cef
         }
 
         void IBrowser.Navigate(string address) => Load(address);
+
+        public CefHost()
+        {
+            MenuHandler = new ContextMenuHandler();
+        }
     }
 }
