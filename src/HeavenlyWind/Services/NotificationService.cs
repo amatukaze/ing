@@ -255,7 +255,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     Audio = rpSound == NotificationSound.SystemSound ? ToastAudio.Default : ToastAudio.None,
                 };
 
-                ToastNotificationUtil.Show(rToast);
+                DispatcherUtil.UIDispatcher.InvokeAsync(() => ToastNotificationUtil.Show(rToast));
 #endif
             }
 
