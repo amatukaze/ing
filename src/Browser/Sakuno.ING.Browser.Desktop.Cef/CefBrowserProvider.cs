@@ -19,6 +19,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
 
         private readonly IHttpProxy proxy;
         public IHttpProvider HttpProvider => proxy;
+        public bool IsSupported => true;
 
         public CefBrowserProvider(IHttpProxy proxy)
         {

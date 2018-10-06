@@ -8,6 +8,7 @@ namespace Sakuno.ING.Browser.Desktop
     {
         string Id { get; }
         IHttpProvider HttpProvider { get; }
+        bool IsSupported { get; }
 
         IBrowser CreateBrowser();
 

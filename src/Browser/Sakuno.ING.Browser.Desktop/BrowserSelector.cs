@@ -14,6 +14,7 @@ namespace Sakuno.ING.Browser.Desktop
         public IBindableCollection<string> AvailableBrowsers { get; }
         public BrowserSelector(IBrowserProvider[] browsers, ISettingsManager settings)
         {
+            browsers = browsers.Where(x => x.IsSupported).ToArray();
             AvailableBrowsers = browsers.Select(x => x.Id).ToBindable();
             BrowserSetting = settings.Register<string>("browser_engine");
             string engine = BrowserSetting.InitialValue;

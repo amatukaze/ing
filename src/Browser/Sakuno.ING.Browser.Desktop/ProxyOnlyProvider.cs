@@ -11,6 +11,7 @@ namespace Sakuno.ING.Browser.Desktop
 
         private readonly IHttpProxy _httpProxy;
         public IHttpProvider HttpProvider => _httpProxy;
+        public bool IsSupported => true;
 
         public ProxyOnlyProvider(IHttpProxy httpProxy)
         {
