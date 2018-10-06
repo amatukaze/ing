@@ -1,13 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Sakuno.ING.Browser.Desktop;
+using Sakuno.ING.Shell;
 
-namespace Sakuno.ING.Shell.Desktop
+namespace Sakuno.ING.Browser.Desktop
 {
     [ExportView("Browser")]
     internal class BrowserElement : ContentControl
     {
-        IBrowserProvider _browserProvider;
+        private IBrowserProvider _browserProvider;
 
         public BrowserElement(BrowserSelector selector)
         {
@@ -18,7 +18,7 @@ namespace Sakuno.ING.Shell.Desktop
             Application.Current.Exit += OnApplicationExit;
         }
 
-        void OnApplicationExit(object sender, ExitEventArgs e)
+        private void OnApplicationExit(object sender, ExitEventArgs e)
         {
             _browserProvider.Dispose();
         }

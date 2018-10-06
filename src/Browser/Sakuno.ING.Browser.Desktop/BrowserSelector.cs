@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Linq;
-using Sakuno.ING.Browser.Desktop;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Http;
 using Sakuno.ING.Settings;
 
-namespace Sakuno.ING.Shell.Desktop
+namespace Sakuno.ING.Browser.Desktop
 {
     [Export(typeof(IHttpProviderSelector))]
     [Export(typeof(BrowserSelector))]
     internal class BrowserSelector : IHttpProviderSelector
     {
-        private readonly ISettingItem<string> browserSetting;
+        public ISettingItem<string> BrowserSetting { get; }
+        public IBindableCollection<string> AvailableBrowsers { get; }
         public BrowserSelector(IBrowserProvider[] browsers, ISettingsManager settings)
         {
-            browserSetting = settings.Register<string>("browser_engine");
-            string engine = browserSetting.InitialValue;
+            AvailableBrowsers = browsers.Select(x => x.Id).ToBindable();
+            BrowserSetting = settings.Register<string>("browser_engine");
+            string engine = BrowserSetting.InitialValue;
             SelectedBrowser = browsers.FirstOrDefault(x => x.Id == engine)
                 ?? browsers.FirstOrDefault()
                 ?? throw new InvalidOperationException("It must have at least one browser provider.");
