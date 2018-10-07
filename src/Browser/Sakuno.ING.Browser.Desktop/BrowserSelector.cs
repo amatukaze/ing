@@ -10,14 +10,18 @@ namespace Sakuno.ING.Browser.Desktop
     [Export(typeof(BrowserSelector))]
     internal class BrowserSelector : IHttpProviderSelector
     {
-        public ISettingItem<string> BrowserSetting { get; }
+        public ISettingItem<string> BrowserEngine { get; }
+        public ISettingItem<string> DefaultUrl { get; }
         public IBindableCollection<string> AvailableBrowsers { get; }
         public BrowserSelector(IBrowserProvider[] browsers, ISettingsManager settings)
         {
             browsers = browsers.Where(x => x.IsSupported).ToArray();
             AvailableBrowsers = browsers.Select(x => x.Id).ToBindable();
-            BrowserSetting = settings.Register<string>("browser_engine");
-            string engine = BrowserSetting.InitialValue;
+
+            BrowserEngine = settings.Register<string>("browser_engine");
+            DefaultUrl = settings.Register("browser_gameurl", "http://www.dmm.com/netgame_s/kancolle/");
+
+            string engine = BrowserEngine.InitialValue;
             SelectedBrowser = browsers.FirstOrDefault(x => x.Id == engine)
                 ?? browsers.FirstOrDefault()
                 ?? throw new InvalidOperationException("It must have at least one browser provider.");

@@ -13,7 +13,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
             remove { }
         }
 
-        void IBrowser.Navigate(string address) => Load(address);
+        void IBrowser.Navigate(string address) => Address = address;
 
         public CefHost()
         {
