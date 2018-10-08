@@ -12,7 +12,7 @@
     x:DefaultBindMode="OneWay">
     <Pivot>
         <PivotItem Header="Build">
-            <ItemsControl ItemsSource="{x:Bind ViewModel.BuildingDocks}">
+            <ItemsControl ItemsSource="{x:Bind ViewModel.BuildingDocks.DefaultView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="g:BuildingDock">
                         <Grid>
@@ -27,7 +27,7 @@
             </ItemsControl>
         </PivotItem>
         <PivotItem Header="Repair">
-            <ItemsControl ItemsSource="{x:Bind ViewModel.RepairingDocks}">
+            <ItemsControl ItemsSource="{x:Bind ViewModel.RepairingDocks.DefaultView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="g:RepairingDock">
                         <Grid>

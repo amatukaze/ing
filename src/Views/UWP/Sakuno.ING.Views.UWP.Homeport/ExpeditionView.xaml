@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     x:DefaultBindMode="OneWay">
-    <ItemsControl ItemsSource="{x:Bind ViewModel.Fleets}">
+    <ItemsControl ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}">
         <ItemsControl.ItemTemplate>
             <DataTemplate x:DataType="g:Fleet">
                 <Grid>
