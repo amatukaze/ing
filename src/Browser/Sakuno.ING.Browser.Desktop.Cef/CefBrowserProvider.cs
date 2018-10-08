@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Windows;
 using Sakuno.CefSharp.Wpf;
@@ -29,7 +30,11 @@ namespace Sakuno.ING.Browser.Desktop.Cef
         public void Initialize()
         {
             CefSetting.Proxy = new CefProxy("localhost", proxy.ListeningPort.ToString());
-            CefClass.Initialize(new DefaultCefSettings());
+            CefClass.Initialize(new DefaultCefSettings
+            {
+                CachePath = cachePath = Path.Combine(Environment.CurrentDirectory, "Cef", "Cache")
+            });
+            CefClass.GetGlobalCookieManager().SetStoragePath(Path.Combine(Environment.CurrentDirectory, "Cef", "Cookies"), true);
 
             proxy.IsEnabled = true;
         }
@@ -37,7 +42,15 @@ namespace Sakuno.ING.Browser.Desktop.Cef
         public IBrowser CreateBrowser() => new CefHost();
         public UIElement CreateSettingsView() => null;
 
-        public void ClearCache() { }
+        private string cachePath;
+        public void ClearCache()
+        {
+            try
+            {
+                Directory.Delete(cachePath, true);
+            }
+            catch { }
+        }
         public void ClearCookie() => CefClass.GetGlobalCookieManager().DeleteCookies(null, null);
 
         private void Dispose(bool disposing)
