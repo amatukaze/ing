@@ -17,6 +17,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
 
         public CefHost()
         {
+            DragHandler = new DragHandler();
             LifeSpanHandler = new LifeSpanHandler();
             MenuHandler = new ContextMenuHandler();
         }
