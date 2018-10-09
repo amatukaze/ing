@@ -5,9 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{Binding Slot, RelativeSource={RelativeSource Self}}">
-    <Viewbox>
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Viewbox DataContext="{Binding Slot, RelativeSource={RelativeSource AncestorType=local:ShipSlotPresenter}}">
         <Grid Grid.IsSharedSizeScope="True">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>

@@ -74,7 +74,7 @@ namespace Sakuno.ING.Game.Models
             };
 
         private BindableCollection<Slot> slots = new BindableCollection<Slot>();
-        public IReadOnlyList<Slot> Slots => slots;
+        public IBindableCollection<Slot> Slots => slots;
 
         internal void SetRepaired()
         {
