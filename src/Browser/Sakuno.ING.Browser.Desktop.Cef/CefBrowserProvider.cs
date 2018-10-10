@@ -14,8 +14,6 @@ namespace Sakuno.ING.Browser.Desktop.Cef
     [Export(typeof(IBrowserProvider))]
     internal sealed class CefBrowserProvider : IBrowserProvider
     {
-        private int _isDisposed = 0;
-
         public string Id => "Cef";
 
         private readonly IHttpProxy proxy;
@@ -53,19 +51,6 @@ namespace Sakuno.ING.Browser.Desktop.Cef
         }
         public void ClearCookie() => CefClass.GetGlobalCookieManager().DeleteCookies(null, null);
 
-        private void Dispose(bool disposing)
-        {
-            if (_isDisposed != 0 || Interlocked.CompareExchange(ref _isDisposed, 1, 0) != 0)
-                return;
-
-            CefClass.Shutdown();
-        }
-
-        ~CefBrowserProvider() => Dispose(false);
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        public void Dispose() => CefClass.Shutdown();
     }
 }
