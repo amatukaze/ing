@@ -7,7 +7,7 @@ namespace Sakuno.ING.Settings
     {
         public LayoutSetting(ISettingsManager manager)
         {
-            XamlString = manager.Register("application_layout", string.Empty);
+            XamlString = manager.Register("application.layout", string.Empty);
         }
 
         public ISettingItem<string> XamlString { get; }

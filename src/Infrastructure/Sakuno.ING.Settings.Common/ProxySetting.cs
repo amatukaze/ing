@@ -7,10 +7,10 @@ namespace Sakuno.ING.Settings
     {
         public ProxySetting(ISettingsManager manager)
         {
-            ListeningPort = manager.Register("proxy_listening_port", 15551);
-            UseUpstream = manager.Register("proxy_upstream_enabled", false);
-            Upstream = manager.Register("proxy_upstream", "localhost");
-            UpstreamPort = manager.Register("proxy_upstream_port", 8099);
+            ListeningPort = manager.Register("proxy.listening_port", 15551);
+            UseUpstream = manager.Register("proxy.upstream.enabled", false);
+            Upstream = manager.Register("proxy.upstream", "localhost");
+            UpstreamPort = manager.Register("proxy.upstream.port", 8099);
         }
 
         public ISettingItem<int> ListeningPort { get; }

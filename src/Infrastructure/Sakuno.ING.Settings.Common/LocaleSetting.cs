@@ -7,10 +7,10 @@ namespace Sakuno.ING.Settings
     {
         public LocaleSetting(ISettingsManager manager)
         {
-            Language = manager.Register("application_language", string.Empty);
-            UserLanguageFont = manager.Register("application_font_user", string.Empty);
-            ContentLanguageFont = manager.Register("application_font_content", string.Empty);
-            TranslateContent = manager.Register("application_translate", false);
+            Language = manager.Register("application.language", string.Empty);
+            UserLanguageFont = manager.Register("application.font.user", string.Empty);
+            ContentLanguageFont = manager.Register("application.font.content", string.Empty);
+            TranslateContent = manager.Register("application.translate_content", false);
         }
 
         public ISettingItem<string> Language { get; }

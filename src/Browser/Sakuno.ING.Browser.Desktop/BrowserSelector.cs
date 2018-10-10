@@ -19,7 +19,7 @@ namespace Sakuno.ING.Browser.Desktop
             AvailableBrowsers = browsers.Select(x => x.Id).ToBindable();
 
             BrowserEngine = settings.Register<string>("browser_engine");
-            DefaultUrl = settings.Register("browser_gameurl", "http://www.dmm.com/netgame_s/kancolle/");
+            DefaultUrl = settings.Register("browser.game_url", "http://www.dmm.com/netgame_s/kancolle/");
 
             string engine = BrowserEngine.InitialValue;
             SelectedBrowser = browsers.FirstOrDefault(x => x.Id == engine)
