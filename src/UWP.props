@@ -22,7 +22,7 @@
       <Project>{d5e9fd1a-a812-4feb-b252-a84242b0e4cc}</Project>
       <Name>Sakuno.ING.Standard</Name>
     </ProjectReference>
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.7" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.9" />
     <!--<PackageReference Include="Microsoft.Toolkit.Uwp.PlatformSpecificAnalyzer" Version="3.0.0" />-->
   </ItemGroup>
 
