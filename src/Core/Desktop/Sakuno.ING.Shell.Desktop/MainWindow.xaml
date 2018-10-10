@@ -9,6 +9,7 @@
                   xmlns:sh="clr-namespace:Sakuno.ING.Shell.Layout"
                   mc:Ignorable="d"
                   Title="{c:Localize Application/Title}"
+                  HideDefaultTitleBar="True"
                   Width="800" Height="600"
                   TextOptions.TextFormattingMode="Display">
     <Grid>
@@ -17,7 +18,11 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <sh:ViewSwitcher Content="{c:Localize Application/Settings}" ViewId="Settings"/>
+        <DockPanel Name="DefaultTitleBar">
+            <uic:WindowCaptionButtons DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" />
+            <sh:ViewSwitcher Content="⚙" ViewId="Settings" DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" />
+            <TextBlock Text="{c:Localize Application/Title}" Margin="8, 0" VerticalAlignment="Center" />
+        </DockPanel>
         <ContentPresenter Grid.Row="1" x:Name="mainContent"/>
     </Grid>
 </uic:ModernWindow>
