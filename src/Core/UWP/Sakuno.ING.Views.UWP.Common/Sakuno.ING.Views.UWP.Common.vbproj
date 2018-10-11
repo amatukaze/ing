@@ -25,6 +25,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AirProficiencyPresenter.vb" />
     <Compile Include="Controls\EquipmentIcon.vb" />
     <Compile Include="Controls\EquipmentImprovementPresenter.vb" />
     <Compile Include="Controls\LevelingIndicator.vb" />

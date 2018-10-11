@@ -25,6 +25,9 @@
             <local:EquipmentImprovementPresenter
                 Grid.Row="1" Grid.Column="0" FontSize="60"
                 Level="{Binding Equipment.ImprovementLevel}"/>
+            <local:AirProficiencyPresenter
+                Grid.Row="1" Grid.Column="1"
+                Proficiency="{Binding Equipment.AirProficiency}"/>
         </Grid>
     </Viewbox>
 </UserControl>

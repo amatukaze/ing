@@ -28,6 +28,9 @@
             <local:EquipmentImprovementPresenter
                 Grid.Row="1" Grid.Column="0" FontSize="60"
                 Level="{x:Bind Slot.Equipment.ImprovementLevel, FallbackValue=0}"/>
+            <local:AirProficiencyPresenter
+                Grid.Row="1" Grid.Column="1"
+                Proficiency="{x:Bind Slot.Equipment.AirProficiency, FallbackValue=0}"/>
         </Grid>
     </Viewbox>
 </UserControl>
