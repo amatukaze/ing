@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,7 +26,7 @@ namespace Sakuno.ING.Views.Desktop
         internal static DesktopShellContextService Instance { get; private set; }
         internal Window Window { get; set; }
 
-        public IShellContext Capture() => new DesktopShellContext(localization, Window ?? throw new InvalidOperationException("Not called from UI thread."));
+        public IShellContext Capture() => new DesktopShellContext(localization, Window ?? Application.Current.MainWindow);
     }
 
     internal class DesktopShellContext : IShellContext
