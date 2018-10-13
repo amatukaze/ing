@@ -19,7 +19,7 @@
                                 <c:ShipNameText Source="{Binding BuiltShip.Name}"/>
                             </TextBlock>
                             <TextBlock TextAlignment="Right"
-                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='hh\:mm\:ss'}"/>
+                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -34,7 +34,7 @@
                                 <c:ShipNameText Source="{Binding RepairingShip.Info.Name}"/>
                             </TextBlock>
                             <TextBlock TextAlignment="Right"
-                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='hh\:mm\:ss'}"/>
+                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

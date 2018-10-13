@@ -17,7 +17,7 @@
                         <c:NameText Source="{Binding Expedition.Name}"/>
                     </TextBlock>
                     <TextBlock TextAlignment="Right"
-                               Text="{Binding ExpeditionTimeRemaining, StringFormat='hh\:mm\:ss'}"/>
+                               Text="{Binding ExpeditionTimeRemaining, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
