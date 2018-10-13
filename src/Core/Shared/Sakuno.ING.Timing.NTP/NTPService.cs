@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Sakuno.ING.Composition;
-using Sakuno.Net;
 
 namespace Sakuno.ING.Timing.NTP
 {
@@ -24,11 +23,12 @@ namespace Sakuno.ING.Timing.NTP
         public DateTimeOffset Now => IsSycned ?
             _baseTime + _stopwatch.Elapsed - _initialTimestamp : DateTimeOffset.Now;
 
-        private System.Threading.Timer _timer;
+        private readonly System.Threading.Timer _timer;
 
         public NTPService()
         {
-            SyncDateTime();
+            _timer = new System.Threading.Timer(TimerElapsed, null, default, TimeSpan.FromSeconds(1));
+            Task.Run(SyncDateTime);
         }
 
         private void TimerElapsed(object state)
@@ -38,7 +38,7 @@ namespace Sakuno.ING.Timing.NTP
 
         public event Action<DateTimeOffset> Elapsed;
 
-        private async void SyncDateTime()
+        private void SyncDateTime()
         {
             var hostnames = new[]
             {
@@ -52,36 +52,36 @@ namespace Sakuno.ING.Timing.NTP
             };
 
             foreach (var hostname in hostnames)
-            {
-                var task = SynchronizeAsync(hostname);
-
-                if (await Task.WhenAny(task, Task.Delay(3000)) == task)
+                if (SynchronizeFromHost(hostname))
                 {
-                    _timer = new System.Threading.Timer(TimerElapsed, null, 1000, System.Threading.Timeout.Infinite);
-
                     IsSycned = true;
-                    Console.WriteLine("Date & time synchronized.");
                     return;
                 }
-            }
         }
 
-        private async Task SynchronizeAsync(string hostname)
+        private bool SynchronizeFromHost(string hostname)
         {
-            using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp))
+            using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)
             {
-                var addresses = await Dns.GetHostAddressesAsync(hostname);
-                var ipEndPoint = new IPEndPoint(addresses[0], NDPPort);
-
-                var context = new SocketAsyncOperationContext() { RemoteEndPoint = ipEndPoint };
+                SendTimeout = 3000,
+                ReceiveTimeout = 3000
+            })
+            {
+                var addresses = Dns.GetHostAddresses(hostname);
+                EndPoint ipEndPoint = new IPEndPoint(addresses[0], NDPPort);
 
                 var buffer = new byte[48];
                 buffer[0] = 0x1B;
 
-                context.SetBuffer(buffer);
-
-                await socket.SendToAsync(context);
-                await socket.ReceiveFromAsync(context);
+                try
+                {
+                    socket.SendTo(buffer, ipEndPoint);
+                    socket.ReceiveFrom(buffer, ref ipEndPoint);
+                }
+                catch
+                {
+                    return false;
+                }
 
                 var integer = (ulong)buffer[40] << 24 | (ulong)buffer[41] << 16 | (ulong)buffer[42] << 8 | buffer[43];
                 var fraction = (ulong)buffer[44] << 24 | (ulong)buffer[45] << 16 | (ulong)buffer[46] << 8 | buffer[47];
@@ -93,6 +93,8 @@ namespace Sakuno.ING.Timing.NTP
                 var baseTimestamp = TicksOf20thCentury + milliseconds * TicksPerMillisecond;
                 _baseTime = new DateTimeOffset(baseTimestamp, TimeSpan.Zero).ToOffset(_jstOffset);
                 _initialTimestamp = _stopwatch.Elapsed;
+
+                return true;
             }
         }
     }
