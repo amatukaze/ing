@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -53,6 +53,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
             }
 
             CefSetting.Proxy = new CefProxy("localhost", proxy.ListeningPort.ToString());
+            CefSetting.SubprocessExitIfParentProcessClosed = true;
             CefClass.Initialize(new DefaultCefSettings
             {
                 CachePath = cachePath
