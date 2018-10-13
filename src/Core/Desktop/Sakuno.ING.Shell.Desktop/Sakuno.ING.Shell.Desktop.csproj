@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sakuno.UserInterface" Version="0.3.0-pre3" />
+    <PackageReference Include="Sakuno.UserInterface" Version="0.3.0-pre4" />
   </ItemGroup>
 
   <ItemGroup>
