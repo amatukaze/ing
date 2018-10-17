@@ -79,6 +79,8 @@ namespace Sakuno.ING.Game.Models
             {
                 foreach (var raw in msg)
                     AllShips[raw.ShipId]?.Supply(raw);
+                foreach (var fleet in Fleets.Where(f => f.IntersectWith(msg.Select(raw => raw.ShipId))))
+                    fleet.UpdateSupplyingCost();
             };
 
             listener.RepairStarted += (t, msg) =>

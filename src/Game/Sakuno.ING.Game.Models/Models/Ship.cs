@@ -53,6 +53,8 @@ namespace Sakuno.ING.Game.Models
             LightOfSight = Substract(raw.LightOfSight, lightOfSight);
             Evasion = Substract(raw.Evasion, evasion);
             AntiSubmarine = Substract(raw.AntiSubmarine, antiSubmarine);
+
+            UpdateSupplyingCost();
         }
 
         private static ShipMordenizationStatus Combine(ShipMordenizationStatus current, ShipMordenizationStatus master)
@@ -90,7 +92,16 @@ namespace Sakuno.ING.Game.Models
             Fuel = (raw.CurrentFuel, Info.FuelConsumption);
             Bullet = (raw.CurrentBullet, Info.BulletConsumption);
             UpdateSlotAircraft(raw.SlotAircraft);
+            UpdateSupplyingCost();
         }
+
+        private void UpdateSupplyingCost()
+            => SupplyingCost = new Materials
+            {
+                Fuel = Fuel.Shortage,
+                Bullet = Bullet.Shortage,
+                Bauxite = Slots.Sum(x => x.Aircraft.Shortage) * 5
+            };
 
         internal void UpdateEquipments(IReadOnlyList<EquipmentId?> equipmentIds)
         {

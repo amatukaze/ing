@@ -65,6 +65,7 @@ p:ShipMordenizationStatus Luck
 p:bool IsLocked -
 p:int? ShipLockingTag -
 p:bool IsRepairing
+p:Materials SupplyingCost
 
 Fleet:FleetId:IRawFleet:NavalBase
 p:string Name -
@@ -74,6 +75,8 @@ p:DateTimeOffset ExpeditionCompletionTime -
 b:Ship Ships
 p:TimeSpan ExpeditionTimeRemaining
 p:ShipSpeed SlowestShipSpeed
+p:Materials SupplyingCost
+p:Materials RepairingCost
 
 Quest:QuestId:IRawQuest:QuestManager
 l:Name QuestName

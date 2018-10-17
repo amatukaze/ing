@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.ING.Game.Models
@@ -11,6 +12,8 @@ namespace Sakuno.ING.Game.Models
             Expedition = owner.MasterData.Expeditions[raw.ExpeditionId];
             UpdateTimer(timeStamp);
             SlowestShipSpeed = ships.Count > 0 ? ships.Min(s => s.Speed) : ShipSpeed.None;
+            UpdateSupplyingCost();
+            UpdateRepairingCost();
         }
 
         internal void ChangeComposition(int? index, Ship ship, Fleet fromFleet)
@@ -41,6 +44,31 @@ namespace Sakuno.ING.Game.Models
                 ExpeditionTimeRemaining = default;
             else
                 ExpeditionTimeRemaining = ExpeditionCompletionTime - timeStamp;
+        }
+
+        internal bool IntersectWith(IEnumerable<ShipId> ids)
+        {
+            foreach (var id in ids)
+                foreach (var ship in Ships)
+                    if (id == ship.Id)
+                        return true;
+            return false;
+        }
+
+        internal void UpdateSupplyingCost()
+        {
+            Materials cost = default;
+            foreach (var ship in Ships)
+                cost += ship.SupplyingCost;
+            SupplyingCost = cost;
+        }
+
+        internal void UpdateRepairingCost()
+        {
+            Materials cost = default;
+            foreach (var ship in Ships)
+                cost += ship.RepairingCost;
+            RepairingCost = cost;
         }
     }
 }

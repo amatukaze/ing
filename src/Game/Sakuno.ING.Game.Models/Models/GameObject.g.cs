@@ -553,6 +553,13 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _isRepairing, value);
         }
 
+        private Materials _supplyingCost;
+        public Materials SupplyingCost
+        {
+            get => _supplyingCost;
+            internal set => Set(ref _supplyingCost, value);
+        }
+
         public event Action<Ship, IRawShip, DateTimeOffset> Updating;
         public override void Update(IRawShip raw, DateTimeOffset timeStamp)
         {
@@ -632,6 +639,20 @@ namespace Sakuno.ING.Game.Models
         {
             get => _slowestShipSpeed;
             internal set => Set(ref _slowestShipSpeed, value);
+        }
+
+        private Materials _supplyingCost;
+        public Materials SupplyingCost
+        {
+            get => _supplyingCost;
+            internal set => Set(ref _supplyingCost, value);
+        }
+
+        private Materials _repairingCost;
+        public Materials RepairingCost
+        {
+            get => _repairingCost;
+            internal set => Set(ref _repairingCost, value);
         }
 
         public event Action<Fleet, IRawFleet, DateTimeOffset> Updating;

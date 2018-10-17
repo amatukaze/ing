@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Game.Models
 {
-    public struct ClampedValue
+    public readonly struct ClampedValue
     {
         public ClampedValue(int current, int max)
         {
@@ -14,6 +14,7 @@
         public int Current { get; }
         public int Max { get; }
         public double Precentage => (double)Current / Max;
+        public int Shortage => Max - Current;
 
         public static ClampedValue operator +(ClampedValue clamped, int value) => new ClampedValue(clamped.Current + value, clamped.Max);
         public static ClampedValue operator -(ClampedValue clamped, int value) => new ClampedValue(clamped.Current - value, clamped.Max);
