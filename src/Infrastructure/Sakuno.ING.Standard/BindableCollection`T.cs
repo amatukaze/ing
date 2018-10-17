@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -83,7 +84,9 @@ namespace Sakuno.ING
             var oldItem = this[index];
             base.SetItem(index, item);
 
+            ItemRemoved?.Invoke(oldItem);
             NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItem, index));
+            ItemAdded?.Invoke(item);
             NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
         }
 
@@ -92,6 +95,7 @@ namespace Sakuno.ING
             base.InsertItem(index, item);
 
             NotifyPropertyChanged(nameof(Count));
+            ItemAdded?.Invoke(item);
             NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
         }
 
@@ -101,15 +105,34 @@ namespace Sakuno.ING
             base.RemoveItem(index);
 
             NotifyPropertyChanged(nameof(Count));
+            ItemRemoved?.Invoke(oldItem);
             NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItem, index));
         }
 
         protected override void ClearItems()
         {
+            foreach (var item in this)
+                ItemRemoved?.Invoke(item);
             base.ClearItems();
 
             NotifyPropertyChanged(nameof(Count));
             NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
+
+        public void Exchange(int index1, int index2)
+        {
+            var item1 = this[index1];
+            var item2 = this[index2];
+            base.SetItem(index1, item2);
+            base.SetItem(index2, item1);
+
+            NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item1, index1));
+            NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item2, index1));
+            NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item2, index2));
+            NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item1, index2));
+        }
+
+        public event Action<T> ItemAdded;
+        public event Action<T> ItemRemoved;
     }
 }

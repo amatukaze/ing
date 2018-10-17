@@ -6,29 +6,56 @@ namespace Sakuno.ING.Game.Models
 {
     public partial class Fleet
     {
-        partial void UpdateCore(IRawFleet raw, DateTimeOffset timeStamp)
+        private readonly BindableCollection<Ship> ships = new BindableCollection<Ship>();
+        public IReadOnlyList<Ship> Ships => ships;
+
+        partial void CreateDummy()
         {
-            ships.Query = raw.ShipIds.Select(x => owner.AllShips[x]);
-            Expedition = owner.MasterData.Expeditions[raw.ExpeditionId];
-            UpdateTimer(timeStamp);
-            SlowestShipSpeed = ships.Count > 0 ? ships.Min(s => s.Speed) : ShipSpeed.None;
-            UpdateSupplyingCost();
-            UpdateRepairingCost();
+            ships.ItemAdded += s => s.Fleet = this;
+            ships.ItemRemoved += s => s.Fleet = null;
         }
 
-        internal void ChangeComposition(int? index, Ship ship, Fleet fromFleet)
+        partial void UpdateCore(IRawFleet raw, DateTimeOffset timeStamp)
         {
-            var oldShips = ships.ToList();
+            for (int i = 0; i < ships.Count || i < raw.ShipIds.Count; i++)
+                if (i >= raw.ShipIds.Count)
+                {
+                    ships.RemoveAt(i);
+                    i--;
+                }
+                else if (i >= ships.Count)
+                    ships.Add(owner.AllShips[raw.ShipIds[i]]);
+                else if (raw.ShipIds[i] != ships[i].Id)
+                    ships[i] = owner.AllShips[raw.ShipIds[i]];
+
+            Expedition = owner.MasterData.Expeditions[raw.ExpeditionId];
+            UpdateStatus();
+            UpdateTimer(timeStamp);
+        }
+
+        internal void ChangeComposition(int? index, Ship ship)
+        {
             if (index is int i)
             {
                 if (ship != null)
                 {
+                    var fromFleet = ship.Fleet;
                     if (fromFleet != null)
-                        if (i >= ships.Count)
-                            fromFleet.ships.Remove(ship);
+                    {
+                        var oldIndex = fromFleet.ships.IndexOf(ship);
+                        if (fromFleet == this)
+                            ships.Exchange(i, oldIndex);
                         else
-                            fromFleet.ships.Replace(ship, ships[i]);
-                    ships[i] = ship;
+                        {
+                            var oldShip = ships[i];
+                            ships.RemoveAt(i);
+                            fromFleet.ships.RemoveAt(oldIndex);
+                            ships.Insert(i, oldShip);
+                            fromFleet.ships.Insert(oldIndex, oldShip);
+                        }
+                    }
+                    else
+                        ships[i] = ship;
                 }
                 else
                     ships.RemoveAt(i);
@@ -38,6 +65,8 @@ namespace Sakuno.ING.Game.Models
                     ships.RemoveAt(1);
         }
 
+        internal bool Remove(Ship ship) => ships.Remove(ship);
+
         internal void UpdateTimer(DateTimeOffset timeStamp)
         {
             if (Expedition == null)
@@ -46,29 +75,21 @@ namespace Sakuno.ING.Game.Models
                 ExpeditionTimeRemaining = ExpeditionCompletionTime - timeStamp;
         }
 
-        internal bool IntersectWith(IEnumerable<ShipId> ids)
+        internal void UpdateStatus()
         {
-            foreach (var id in ids)
+            SlowestShipSpeed = ships.Count > 0 ? ships.Min(s => s.Speed) : ShipSpeed.None;
+            {
+                Materials cost = default;
                 foreach (var ship in Ships)
-                    if (id == ship.Id)
-                        return true;
-            return false;
-        }
-
-        internal void UpdateSupplyingCost()
-        {
-            Materials cost = default;
-            foreach (var ship in Ships)
-                cost += ship.SupplyingCost;
-            SupplyingCost = cost;
-        }
-
-        internal void UpdateRepairingCost()
-        {
-            Materials cost = default;
-            foreach (var ship in Ships)
-                cost += ship.RepairingCost;
-            RepairingCost = cost;
+                    cost += ship.SupplyingCost;
+                SupplyingCost = cost;
+            }
+            {
+                Materials cost = default;
+                foreach (var ship in Ships)
+                    cost += ship.RepairingCost;
+                RepairingCost = cost;
+            }
         }
     }
 }

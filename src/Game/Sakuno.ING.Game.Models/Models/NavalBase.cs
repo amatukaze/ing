@@ -63,10 +63,10 @@ namespace Sakuno.ING.Game.Models
                 if (msg.ShipId is ShipId shipId)
                 {
                     var ship = AllShips[shipId];
-                    fleet.ChangeComposition(msg.Index, ship, Fleets.FirstOrDefault(x => x.Ships.Contains(ship)));
+                    fleet.ChangeComposition(msg.Index, ship);
                 }
                 else
-                    fleet.ChangeComposition(msg.Index, null, null);
+                    fleet.ChangeComposition(msg.Index, null);
             };
             listener.FleetsUpdated += (t, msg) => _fleets.BatchUpdate(msg, t);
             listener.FleetPresetSelected += (t, msg) => Fleets[msg.Id].Update(msg, t);
@@ -79,8 +79,6 @@ namespace Sakuno.ING.Game.Models
             {
                 foreach (var raw in msg)
                     AllShips[raw.ShipId]?.Supply(raw);
-                foreach (var fleet in Fleets.Where(f => f.IntersectWith(msg.Select(raw => raw.ShipId))))
-                    fleet.UpdateSupplyingCost();
             };
 
             listener.RepairStarted += (t, msg) =>
@@ -157,6 +155,7 @@ namespace Sakuno.ING.Game.Models
                     if (removeEquipment)
                         RemoveEquipments(ship.Slots.Where(x => !x.IsEmpty).Select(x => x.Equipment.Id), timeStamp);
                     _allShips.Remove(ship);
+                    ship.Fleet?.Remove(ship);
                     return ship;
                 }).ToArray();
 

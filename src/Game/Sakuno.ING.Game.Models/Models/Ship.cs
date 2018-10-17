@@ -32,8 +32,8 @@ namespace Sakuno.ING.Game.Models
             else
                 ExtraSlot = null;
 
-            UpdateEquipments(raw.EquipmentIds);
-            UpdateSlotAircraft(raw.SlotAircraft);
+            UpdateEquipmentsCore(raw.EquipmentIds);
+            UpdateSlotAircraftCore(raw.SlotAircraft);
 
             var lightOfSight = 0;
             var evasion = 0;
@@ -85,6 +85,7 @@ namespace Sakuno.ING.Game.Models
             HP = (maxHp, maxHp);
             if (Morale < 40)
                 Morale = 40;
+            Fleet?.UpdateStatus();
         }
 
         internal void Supply(IShipSupply raw)
@@ -93,6 +94,7 @@ namespace Sakuno.ING.Game.Models
             Bullet = (raw.CurrentBullet, Info.BulletConsumption);
             UpdateSlotAircraft(raw.SlotAircraft);
             UpdateSupplyingCost();
+            Fleet?.UpdateStatus();
         }
 
         private void UpdateSupplyingCost()
@@ -105,11 +107,23 @@ namespace Sakuno.ING.Game.Models
 
         internal void UpdateEquipments(IReadOnlyList<EquipmentId?> equipmentIds)
         {
+            UpdateEquipmentsCore(equipmentIds);
+            Fleet?.UpdateStatus();
+        }
+
+        private void UpdateEquipmentsCore(IReadOnlyList<EquipmentId?> equipmentIds)
+        {
             for (int i = 0; i < slots.Count; i++)
                 slots[i].Equipment = owner.AllEquipment[equipmentIds[i]];
         }
 
         internal void UpdateSlotAircraft(IReadOnlyList<int> aircrafts)
+        {
+            UpdateSlotAircraftCore(aircrafts);
+            Fleet?.UpdateStatus();
+        }
+
+        internal void UpdateSlotAircraftCore(IReadOnlyList<int> aircrafts)
         {
             for (int i = 0; i < slots.Count; i++)
                 slots[i].Aircraft = (aircrafts[i], Info.Aircraft[i]);

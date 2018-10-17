@@ -66,13 +66,13 @@ p:bool IsLocked -
 p:int? ShipLockingTag -
 p:bool IsRepairing
 p:Materials SupplyingCost
+p:Fleet Fleet
 
 Fleet:FleetId:IRawFleet:NavalBase
 p:string Name -
 p:FleetExpeditionState ExpeditionState -
 p:ExpeditionInfo Expedition
 p:DateTimeOffset ExpeditionCompletionTime -
-b:Ship Ships
 p:TimeSpan ExpeditionTimeRemaining
 p:ShipSpeed SlowestShipSpeed
 p:Materials SupplyingCost

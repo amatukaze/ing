@@ -560,6 +560,13 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _supplyingCost, value);
         }
 
+        private Fleet _fleet;
+        public Fleet Fleet
+        {
+            get => _fleet;
+            internal set => Set(ref _fleet, value);
+        }
+
         public event Action<Ship, IRawShip, DateTimeOffset> Updating;
         public override void Update(IRawShip raw, DateTimeOffset timeStamp)
         {
@@ -675,9 +682,6 @@ namespace Sakuno.ING.Game.Models
 
         partial void UpdateCore(IRawFleet raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
-
-        private readonly BindableSnapshotCollection<Ship> ships = new BindableSnapshotCollection<Ship>();
-        public IReadOnlyList<Ship> Ships => ships;
     }
     public partial class Quest : Calculated<QuestId, IRawQuest>
     {
