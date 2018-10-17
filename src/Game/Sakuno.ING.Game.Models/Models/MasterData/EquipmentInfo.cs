@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    partial class EquipmentInfo
+    public partial class EquipmentInfo
     {
         partial void UpdateCore(IRawEquipmentInfo raw, DateTimeOffset timeStamp)
         {

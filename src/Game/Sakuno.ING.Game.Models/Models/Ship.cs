@@ -5,7 +5,7 @@ using Sakuno.ING.Game.Events;
 
 namespace Sakuno.ING.Game.Models
 {
-    partial class Ship
+    public partial class Ship
     {
         partial void UpdateCore(IRawShip raw, DateTimeOffset timeStamp)
         {

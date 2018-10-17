@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Models
 {
-    partial class Equipment
+    public partial class Equipment
     {
         partial void UpdateCore(IRawEquipment raw, DateTimeOffset timeStamp)
         {

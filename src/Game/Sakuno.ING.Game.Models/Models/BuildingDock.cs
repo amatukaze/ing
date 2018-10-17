@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Models
 {
-    partial class BuildingDock
+    public partial class BuildingDock
     {
         partial void UpdateCore(IRawBuildingDock raw, DateTimeOffset timeStamp)
         {

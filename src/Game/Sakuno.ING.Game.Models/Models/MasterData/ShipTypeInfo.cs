@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    partial class ShipTypeInfo
+    public partial class ShipTypeInfo
     {
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 

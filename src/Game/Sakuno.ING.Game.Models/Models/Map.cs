@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Models
 {
-    partial class Map
+    public partial class Map
     {
         partial void UpdateCore(IRawMap raw, DateTimeOffset timeStamp)
         {

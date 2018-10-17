@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Sakuno.ING.Game.Models
 {
-    partial class Fleet
+    public partial class Fleet
     {
         partial void UpdateCore(IRawFleet raw, DateTimeOffset timeStamp)
         {

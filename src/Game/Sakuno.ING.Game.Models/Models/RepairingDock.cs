@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Models
 {
-    partial class RepairingDock
+    public partial class RepairingDock
     {
         private Ship _repairingShip;
         public Ship RepairingShip

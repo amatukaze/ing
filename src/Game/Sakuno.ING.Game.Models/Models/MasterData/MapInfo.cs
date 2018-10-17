@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    partial class MapInfo
+    public partial class MapInfo
     {
         partial void UpdateCore(IRawMapInfo raw, DateTimeOffset timeStamp)
         {
