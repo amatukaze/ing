@@ -31,9 +31,6 @@ namespace Sakuno.ING.Game
             this.source = source ?? throw new ArgumentNullException(nameof(source));
             _query = query ?? throw new ArgumentNullException(nameof(query));
 
-            if (BindableObject.ThreadSafeEnabled)
-                pHandlers = new List<(SynchronizationContext, PropertyChangedEventHandler)>();
-
             snapshot = query.ToList();
             source.Updated += Refresh;
         }
@@ -45,42 +42,31 @@ namespace Sakuno.ING.Game
         }
 
         #region PropertyChange
-        private List<(SynchronizationContext syncContext, PropertyChangedEventHandler handler)> pHandlers;
-        private PropertyChangedEventHandler pHandler;
+        private readonly List<(SynchronizationContext syncContext, PropertyChangedEventHandler handler)> pHandlers
+            = new List<(SynchronizationContext, PropertyChangedEventHandler)>();
 
         public event PropertyChangedEventHandler PropertyChanged
         {
             add
             {
-                if (BindableObject.ThreadSafeEnabled)
-                    lock (pHandlers)
-                        pHandlers.Add((SynchronizationContext.Current, value));
-                else
-                    pHandler += value;
+                lock (pHandlers)
+                    pHandlers.Add((SynchronizationContext.Current, value));
             }
             remove
             {
-                if (BindableObject.ThreadSafeEnabled)
-                {
-                    lock (pHandlers)
-                        for (int i = 0; i < pHandlers.Count; i++)
-                            if (pHandlers[i].handler == value)
-                                pHandlers.RemoveAt(i--);
-                }
-                else
-                    pHandler -= value;
+                lock (pHandlers)
+                    for (int i = 0; i < pHandlers.Count; i++)
+                        if (pHandlers[i].handler == value)
+                            pHandlers.RemoveAt(i--);
             }
         }
 
         private void NotifyPropertyChanged(string propertyName)
         {
             var arg = new PropertyChangedEventArgs(propertyName);
-            if (BindableObject.ThreadSafeEnabled)
-                lock (pHandlers)
-                    foreach (var (syncContext, handler) in pHandlers)
-                        syncContext.Post(o => handler(this, arg), null);
-            else
-                pHandler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            lock (pHandlers)
+                foreach (var (syncContext, handler) in pHandlers)
+                    syncContext.Post(o => handler(this, arg), null);
         }
         #endregion
 
@@ -117,7 +103,7 @@ namespace Sakuno.ING.Game
         public void Refresh()
         {
             var @new = Query.ToList();
-            if(!snapshot.SequenceEqual(@new))
+            if (!snapshot.SequenceEqual(@new))
             {
                 snapshot = @new;
                 NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));

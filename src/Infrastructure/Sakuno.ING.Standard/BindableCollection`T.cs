@@ -10,48 +10,31 @@ namespace Sakuno.ING
     public sealed class BindableCollection<T> : Collection<T>, IBindableCollection<T>, IList<T>
     {
         #region PropertyChange
-        private List<(SynchronizationContext syncContext, PropertyChangedEventHandler handler)> pHandlers;
-        private PropertyChangedEventHandler pHandler;
-
-        public BindableCollection()
-        {
-            if (BindableObject.ThreadSafeEnabled)
-                pHandlers = new List<(SynchronizationContext, PropertyChangedEventHandler)>();
-        }
+        private readonly List<(SynchronizationContext syncContext, PropertyChangedEventHandler handler)> pHandlers
+            = new List<(SynchronizationContext, PropertyChangedEventHandler)>();
 
         public event PropertyChangedEventHandler PropertyChanged
         {
             add
             {
-                if (BindableObject.ThreadSafeEnabled)
-                    lock (pHandlers)
-                        pHandlers.Add((SynchronizationContext.Current, value));
-                else
-                    pHandler += value;
+                lock (pHandlers)
+                    pHandlers.Add((SynchronizationContext.Current, value));
             }
             remove
             {
-                if (BindableObject.ThreadSafeEnabled)
-                {
-                    lock (pHandlers)
-                        for (int i = 0; i < pHandlers.Count; i++)
-                            if (pHandlers[i].handler == value)
-                                pHandlers.RemoveAt(i--);
-                }
-                else
-                    pHandler -= value;
+                lock (pHandlers)
+                    for (int i = 0; i < pHandlers.Count; i++)
+                        if (pHandlers[i].handler == value)
+                            pHandlers.RemoveAt(i--);
             }
         }
 
         private void NotifyPropertyChanged(string propertyName)
         {
             var arg = new PropertyChangedEventArgs(propertyName);
-            if (BindableObject.ThreadSafeEnabled)
-                lock (pHandlers)
-                    foreach (var (syncContext, handler) in pHandlers)
-                        syncContext.Post(o => handler(this, arg), null);
-            else
-                pHandler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            lock (pHandlers)
+                foreach (var (syncContext, handler) in pHandlers)
+                    syncContext.Post(o => handler(this, arg), null);
         }
         #endregion
 

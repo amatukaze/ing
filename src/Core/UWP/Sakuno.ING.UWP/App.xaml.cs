@@ -21,7 +21,6 @@ namespace Sakuno.ING.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            BindableObject.ThreadSafeEnabled = true;
         }
 
         /// <summary>

@@ -107,11 +107,13 @@ foreach (var infile in Inputs)
                 if (prop.Length >= 3 && prop[2] == "-")
                     dummyList.Add(propName);
                 output.WriteLine();
+                output.WriteLine("        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]");
+                output.WriteLine($"        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs_{fieldName} = new System.ComponentModel.PropertyChangedEventArgs(nameof({fieldName}));");
                 output.WriteLine($"        private {propType} {fieldName};");
                 output.WriteLine($"        public {propType} {propName}");
                 output.WriteLine("        {");
                 output.WriteLine($"            get => {fieldName};");
-                output.WriteLine($"            internal set => Set(ref {fieldName}, value);");
+                output.WriteLine($"            internal set => Set(ref {fieldName}, value, __eventArgs_{fieldName});");
                 output.WriteLine("        }");
             }
             output.WriteLine();
@@ -119,7 +121,8 @@ foreach (var infile in Inputs)
             output.WriteLine($"        public override void Update({rawClass} raw, DateTimeOffset timeStamp)");
             output.WriteLine("        {");
             output.WriteLine("            Updating?.Invoke(this, raw, timeStamp);");
-            output.WriteLine("            UpdateProps(raw, timeStamp);");
+            output.WriteLine("            using (var scope = EnterBatchNotifyScope())");
+            output.WriteLine("                UpdateProps(raw, timeStamp);");
             output.WriteLine("        }");
             output.WriteLine();
             output.WriteLine($"        private void UpdateProps({rawClass} raw, DateTimeOffset timeStamp)");

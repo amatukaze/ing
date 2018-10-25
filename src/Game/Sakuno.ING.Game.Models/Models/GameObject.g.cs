@@ -24,46 +24,57 @@ namespace Sakuno.ING.Game.Models
 
         private readonly NavalBase owner;
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__info = new System.ComponentModel.PropertyChangedEventArgs(nameof(_info));
         private EquipmentInfo _info;
         public EquipmentInfo Info
         {
             get => _info;
-            internal set => Set(ref _info, value);
+            internal set => Set(ref _info, value, __eventArgs__info);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isLocked = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isLocked));
         private bool _isLocked;
         public bool IsLocked
         {
             get => _isLocked;
-            internal set => Set(ref _isLocked, value);
+            internal set => Set(ref _isLocked, value, __eventArgs__isLocked);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__improvementLevel = new System.ComponentModel.PropertyChangedEventArgs(nameof(_improvementLevel));
         private int _improvementLevel;
         public int ImprovementLevel
         {
             get => _improvementLevel;
-            internal set => Set(ref _improvementLevel, value);
+            internal set => Set(ref _improvementLevel, value, __eventArgs__improvementLevel);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__airProficiency = new System.ComponentModel.PropertyChangedEventArgs(nameof(_airProficiency));
         private int _airProficiency;
         public int AirProficiency
         {
             get => _airProficiency;
-            internal set => Set(ref _airProficiency, value);
+            internal set => Set(ref _airProficiency, value, __eventArgs__airProficiency);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isAvailable = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isAvailable));
         private bool _isAvailable;
         public bool IsAvailable
         {
             get => _isAvailable;
-            internal set => Set(ref _isAvailable, value);
+            internal set => Set(ref _isAvailable, value, __eventArgs__isAvailable);
         }
 
         public event Action<Equipment, IRawEquipment, DateTimeOffset> Updating;
         public override void Update(IRawEquipment raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawEquipment raw, DateTimeOffset timeStamp)
@@ -92,53 +103,66 @@ namespace Sakuno.ING.Game.Models
 
         private readonly NavalBase owner;
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__completionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(_completionTime));
         private DateTimeOffset _completionTime;
         public DateTimeOffset CompletionTime
         {
             get => _completionTime;
-            internal set => Set(ref _completionTime, value);
+            internal set => Set(ref _completionTime, value, __eventArgs__completionTime);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(_state));
         private BuildingDockState _state;
         public BuildingDockState State
         {
             get => _state;
-            internal set => Set(ref _state, value);
+            internal set => Set(ref _state, value, __eventArgs__state);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__consumption = new System.ComponentModel.PropertyChangedEventArgs(nameof(_consumption));
         private Materials _consumption;
         public Materials Consumption
         {
             get => _consumption;
-            internal set => Set(ref _consumption, value);
+            internal set => Set(ref _consumption, value, __eventArgs__consumption);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__builtShip = new System.ComponentModel.PropertyChangedEventArgs(nameof(_builtShip));
         private ShipInfo _builtShip;
         public ShipInfo BuiltShip
         {
             get => _builtShip;
-            internal set => Set(ref _builtShip, value);
+            internal set => Set(ref _builtShip, value, __eventArgs__builtShip);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isLSC = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isLSC));
         private bool _isLSC;
         public bool IsLSC
         {
             get => _isLSC;
-            internal set => Set(ref _isLSC, value);
+            internal set => Set(ref _isLSC, value, __eventArgs__isLSC);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__timeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(_timeRemaining));
         private TimeSpan _timeRemaining;
         public TimeSpan TimeRemaining
         {
             get => _timeRemaining;
-            internal set => Set(ref _timeRemaining, value);
+            internal set => Set(ref _timeRemaining, value, __eventArgs__timeRemaining);
         }
 
         public event Action<BuildingDock, IRawBuildingDock, DateTimeOffset> Updating;
         public override void Update(IRawBuildingDock raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawBuildingDock raw, DateTimeOffset timeStamp)
@@ -168,39 +192,48 @@ namespace Sakuno.ING.Game.Models
 
         private readonly NavalBase owner;
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(_state));
         private RepairingDockState _state;
         public RepairingDockState State
         {
             get => _state;
-            internal set => Set(ref _state, value);
+            internal set => Set(ref _state, value, __eventArgs__state);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__completionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(_completionTime));
         private DateTimeOffset _completionTime;
         public DateTimeOffset CompletionTime
         {
             get => _completionTime;
-            internal set => Set(ref _completionTime, value);
+            internal set => Set(ref _completionTime, value, __eventArgs__completionTime);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__consumption = new System.ComponentModel.PropertyChangedEventArgs(nameof(_consumption));
         private Materials _consumption;
         public Materials Consumption
         {
             get => _consumption;
-            internal set => Set(ref _consumption, value);
+            internal set => Set(ref _consumption, value, __eventArgs__consumption);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__timeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(_timeRemaining));
         private TimeSpan _timeRemaining;
         public TimeSpan TimeRemaining
         {
             get => _timeRemaining;
-            internal set => Set(ref _timeRemaining, value);
+            internal set => Set(ref _timeRemaining, value, __eventArgs__timeRemaining);
         }
 
         public event Action<RepairingDock, IRawRepairingDock, DateTimeOffset> Updating;
         public override void Update(IRawRepairingDock raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawRepairingDock raw, DateTimeOffset timeStamp)
@@ -229,25 +262,30 @@ namespace Sakuno.ING.Game.Models
 
         private readonly NavalBase owner;
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__item = new System.ComponentModel.PropertyChangedEventArgs(nameof(_item));
         private UseItemInfo _item;
         public UseItemInfo Item
         {
             get => _item;
-            internal set => Set(ref _item, value);
+            internal set => Set(ref _item, value, __eventArgs__item);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__count = new System.ComponentModel.PropertyChangedEventArgs(nameof(_count));
         private int _count;
         public int Count
         {
             get => _count;
-            internal set => Set(ref _count, value);
+            internal set => Set(ref _count, value, __eventArgs__count);
         }
 
         public event Action<UseItemCount, IRawUseItemCount, DateTimeOffset> Updating;
         public override void Update(IRawUseItemCount raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawUseItemCount raw, DateTimeOffset timeStamp)
@@ -274,88 +312,111 @@ namespace Sakuno.ING.Game.Models
 
         private readonly NavalBase owner;
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__name = new System.ComponentModel.PropertyChangedEventArgs(nameof(_name));
         private string _name;
         public string Name
         {
             get => _name;
-            internal set => Set(ref _name, value);
+            internal set => Set(ref _name, value, __eventArgs__name);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__leveling = new System.ComponentModel.PropertyChangedEventArgs(nameof(_leveling));
         private Leveling _leveling;
         public Leveling Leveling
         {
             get => _leveling;
-            internal set => Set(ref _leveling, value);
+            internal set => Set(ref _leveling, value, __eventArgs__leveling);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rank = new System.ComponentModel.PropertyChangedEventArgs(nameof(_rank));
         private AdmiralRank _rank;
         public AdmiralRank Rank
         {
             get => _rank;
-            internal set => Set(ref _rank, value);
+            internal set => Set(ref _rank, value, __eventArgs__rank);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__comment = new System.ComponentModel.PropertyChangedEventArgs(nameof(_comment));
         private string _comment;
         public string Comment
         {
             get => _comment;
-            internal set => Set(ref _comment, value);
+            internal set => Set(ref _comment, value, __eventArgs__comment);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__maxShipCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(_maxShipCount));
         private int _maxShipCount;
         public int MaxShipCount
         {
             get => _maxShipCount;
-            internal set => Set(ref _maxShipCount, value);
+            internal set => Set(ref _maxShipCount, value, __eventArgs__maxShipCount);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__maxEquipmentCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(_maxEquipmentCount));
         private int _maxEquipmentCount;
         public int MaxEquipmentCount
         {
             get => _maxEquipmentCount;
-            internal set => Set(ref _maxEquipmentCount, value);
+            internal set => Set(ref _maxEquipmentCount, value, __eventArgs__maxEquipmentCount);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__battleStat = new System.ComponentModel.PropertyChangedEventArgs(nameof(_battleStat));
         private BattleStat _battleStat;
         public BattleStat BattleStat
         {
             get => _battleStat;
-            internal set => Set(ref _battleStat, value);
+            internal set => Set(ref _battleStat, value, __eventArgs__battleStat);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__practiceStat = new System.ComponentModel.PropertyChangedEventArgs(nameof(_practiceStat));
         private BattleStat _practiceStat;
         public BattleStat PracticeStat
         {
             get => _practiceStat;
-            internal set => Set(ref _practiceStat, value);
+            internal set => Set(ref _practiceStat, value, __eventArgs__practiceStat);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionStat = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expeditionStat));
         private ExpeditionStat _expeditionStat;
         public ExpeditionStat ExpeditionStat
         {
             get => _expeditionStat;
-            internal set => Set(ref _expeditionStat, value);
+            internal set => Set(ref _expeditionStat, value, __eventArgs__expeditionStat);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__canLSC = new System.ComponentModel.PropertyChangedEventArgs(nameof(_canLSC));
         private bool _canLSC;
         public bool CanLSC
         {
             get => _canLSC;
-            internal set => Set(ref _canLSC, value);
+            internal set => Set(ref _canLSC, value, __eventArgs__canLSC);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__maxMaterial = new System.ComponentModel.PropertyChangedEventArgs(nameof(_maxMaterial));
         private int _maxMaterial;
         public int MaxMaterial
         {
             get => _maxMaterial;
-            internal set => Set(ref _maxMaterial, value);
+            internal set => Set(ref _maxMaterial, value, __eventArgs__maxMaterial);
         }
 
         public event Action<Admiral, IRawAdmiral, DateTimeOffset> Updating;
         public override void Update(IRawAdmiral raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawAdmiral raw, DateTimeOffset timeStamp)
@@ -392,186 +453,237 @@ namespace Sakuno.ING.Game.Models
 
         private readonly NavalBase owner;
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__info = new System.ComponentModel.PropertyChangedEventArgs(nameof(_info));
         private ShipInfo _info;
         public ShipInfo Info
         {
             get => _info;
-            internal set => Set(ref _info, value);
+            internal set => Set(ref _info, value, __eventArgs__info);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__leveling = new System.ComponentModel.PropertyChangedEventArgs(nameof(_leveling));
         private Leveling _leveling;
         public Leveling Leveling
         {
             get => _leveling;
-            internal set => Set(ref _leveling, value);
+            internal set => Set(ref _leveling, value, __eventArgs__leveling);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__hP = new System.ComponentModel.PropertyChangedEventArgs(nameof(_hP));
         private ClampedValue _hP;
         public ClampedValue HP
         {
             get => _hP;
-            internal set => Set(ref _hP, value);
+            internal set => Set(ref _hP, value, __eventArgs__hP);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__speed = new System.ComponentModel.PropertyChangedEventArgs(nameof(_speed));
         private ShipSpeed _speed;
         public ShipSpeed Speed
         {
             get => _speed;
-            internal set => Set(ref _speed, value);
+            internal set => Set(ref _speed, value, __eventArgs__speed);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__fireRange = new System.ComponentModel.PropertyChangedEventArgs(nameof(_fireRange));
         private FireRange _fireRange;
         public FireRange FireRange
         {
             get => _fireRange;
-            internal set => Set(ref _fireRange, value);
+            internal set => Set(ref _fireRange, value, __eventArgs__fireRange);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__slotCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(_slotCount));
         private int _slotCount;
         public int SlotCount
         {
             get => _slotCount;
-            internal set => Set(ref _slotCount, value);
+            internal set => Set(ref _slotCount, value, __eventArgs__slotCount);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__extraSlot = new System.ComponentModel.PropertyChangedEventArgs(nameof(_extraSlot));
         private Slot _extraSlot;
         public Slot ExtraSlot
         {
             get => _extraSlot;
-            internal set => Set(ref _extraSlot, value);
+            internal set => Set(ref _extraSlot, value, __eventArgs__extraSlot);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__fuel = new System.ComponentModel.PropertyChangedEventArgs(nameof(_fuel));
         private ClampedValue _fuel;
         public ClampedValue Fuel
         {
             get => _fuel;
-            internal set => Set(ref _fuel, value);
+            internal set => Set(ref _fuel, value, __eventArgs__fuel);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__bullet = new System.ComponentModel.PropertyChangedEventArgs(nameof(_bullet));
         private ClampedValue _bullet;
         public ClampedValue Bullet
         {
             get => _bullet;
-            internal set => Set(ref _bullet, value);
+            internal set => Set(ref _bullet, value, __eventArgs__bullet);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__repairingTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(_repairingTime));
         private TimeSpan _repairingTime;
         public TimeSpan RepairingTime
         {
             get => _repairingTime;
-            internal set => Set(ref _repairingTime, value);
+            internal set => Set(ref _repairingTime, value, __eventArgs__repairingTime);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__repairingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(_repairingCost));
         private Materials _repairingCost;
         public Materials RepairingCost
         {
             get => _repairingCost;
-            internal set => Set(ref _repairingCost, value);
+            internal set => Set(ref _repairingCost, value, __eventArgs__repairingCost);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__morale = new System.ComponentModel.PropertyChangedEventArgs(nameof(_morale));
         private int _morale;
         public int Morale
         {
             get => _morale;
-            internal set => Set(ref _morale, value);
+            internal set => Set(ref _morale, value, __eventArgs__morale);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__firepower = new System.ComponentModel.PropertyChangedEventArgs(nameof(_firepower));
         private ShipMordenizationStatus _firepower;
         public ShipMordenizationStatus Firepower
         {
             get => _firepower;
-            internal set => Set(ref _firepower, value);
+            internal set => Set(ref _firepower, value, __eventArgs__firepower);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__torpedo = new System.ComponentModel.PropertyChangedEventArgs(nameof(_torpedo));
         private ShipMordenizationStatus _torpedo;
         public ShipMordenizationStatus Torpedo
         {
             get => _torpedo;
-            internal set => Set(ref _torpedo, value);
+            internal set => Set(ref _torpedo, value, __eventArgs__torpedo);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__antiAir = new System.ComponentModel.PropertyChangedEventArgs(nameof(_antiAir));
         private ShipMordenizationStatus _antiAir;
         public ShipMordenizationStatus AntiAir
         {
             get => _antiAir;
-            internal set => Set(ref _antiAir, value);
+            internal set => Set(ref _antiAir, value, __eventArgs__antiAir);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__armor = new System.ComponentModel.PropertyChangedEventArgs(nameof(_armor));
         private ShipMordenizationStatus _armor;
         public ShipMordenizationStatus Armor
         {
             get => _armor;
-            internal set => Set(ref _armor, value);
+            internal set => Set(ref _armor, value, __eventArgs__armor);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__evasion = new System.ComponentModel.PropertyChangedEventArgs(nameof(_evasion));
         private ShipMordenizationStatus _evasion;
         public ShipMordenizationStatus Evasion
         {
             get => _evasion;
-            internal set => Set(ref _evasion, value);
+            internal set => Set(ref _evasion, value, __eventArgs__evasion);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__antiSubmarine = new System.ComponentModel.PropertyChangedEventArgs(nameof(_antiSubmarine));
         private ShipMordenizationStatus _antiSubmarine;
         public ShipMordenizationStatus AntiSubmarine
         {
             get => _antiSubmarine;
-            internal set => Set(ref _antiSubmarine, value);
+            internal set => Set(ref _antiSubmarine, value, __eventArgs__antiSubmarine);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__lightOfSight = new System.ComponentModel.PropertyChangedEventArgs(nameof(_lightOfSight));
         private ShipMordenizationStatus _lightOfSight;
         public ShipMordenizationStatus LightOfSight
         {
             get => _lightOfSight;
-            internal set => Set(ref _lightOfSight, value);
+            internal set => Set(ref _lightOfSight, value, __eventArgs__lightOfSight);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__luck = new System.ComponentModel.PropertyChangedEventArgs(nameof(_luck));
         private ShipMordenizationStatus _luck;
         public ShipMordenizationStatus Luck
         {
             get => _luck;
-            internal set => Set(ref _luck, value);
+            internal set => Set(ref _luck, value, __eventArgs__luck);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isLocked = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isLocked));
         private bool _isLocked;
         public bool IsLocked
         {
             get => _isLocked;
-            internal set => Set(ref _isLocked, value);
+            internal set => Set(ref _isLocked, value, __eventArgs__isLocked);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__shipLockingTag = new System.ComponentModel.PropertyChangedEventArgs(nameof(_shipLockingTag));
         private int? _shipLockingTag;
         public int? ShipLockingTag
         {
             get => _shipLockingTag;
-            internal set => Set(ref _shipLockingTag, value);
+            internal set => Set(ref _shipLockingTag, value, __eventArgs__shipLockingTag);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isRepairing = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isRepairing));
         private bool _isRepairing;
         public bool IsRepairing
         {
             get => _isRepairing;
-            internal set => Set(ref _isRepairing, value);
+            internal set => Set(ref _isRepairing, value, __eventArgs__isRepairing);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__supplyingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(_supplyingCost));
         private Materials _supplyingCost;
         public Materials SupplyingCost
         {
             get => _supplyingCost;
-            internal set => Set(ref _supplyingCost, value);
+            internal set => Set(ref _supplyingCost, value, __eventArgs__supplyingCost);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__fleet = new System.ComponentModel.PropertyChangedEventArgs(nameof(_fleet));
         private Fleet _fleet;
         public Fleet Fleet
         {
             get => _fleet;
-            internal set => Set(ref _fleet, value);
+            internal set => Set(ref _fleet, value, __eventArgs__fleet);
         }
 
         public event Action<Ship, IRawShip, DateTimeOffset> Updating;
         public override void Update(IRawShip raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawShip raw, DateTimeOffset timeStamp)
@@ -606,67 +718,84 @@ namespace Sakuno.ING.Game.Models
 
         private readonly NavalBase owner;
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__name = new System.ComponentModel.PropertyChangedEventArgs(nameof(_name));
         private string _name;
         public string Name
         {
             get => _name;
-            internal set => Set(ref _name, value);
+            internal set => Set(ref _name, value, __eventArgs__name);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionState = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expeditionState));
         private FleetExpeditionState _expeditionState;
         public FleetExpeditionState ExpeditionState
         {
             get => _expeditionState;
-            internal set => Set(ref _expeditionState, value);
+            internal set => Set(ref _expeditionState, value, __eventArgs__expeditionState);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expedition = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expedition));
         private ExpeditionInfo _expedition;
         public ExpeditionInfo Expedition
         {
             get => _expedition;
-            internal set => Set(ref _expedition, value);
+            internal set => Set(ref _expedition, value, __eventArgs__expedition);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionCompletionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expeditionCompletionTime));
         private DateTimeOffset _expeditionCompletionTime;
         public DateTimeOffset ExpeditionCompletionTime
         {
             get => _expeditionCompletionTime;
-            internal set => Set(ref _expeditionCompletionTime, value);
+            internal set => Set(ref _expeditionCompletionTime, value, __eventArgs__expeditionCompletionTime);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionTimeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expeditionTimeRemaining));
         private TimeSpan _expeditionTimeRemaining;
         public TimeSpan ExpeditionTimeRemaining
         {
             get => _expeditionTimeRemaining;
-            internal set => Set(ref _expeditionTimeRemaining, value);
+            internal set => Set(ref _expeditionTimeRemaining, value, __eventArgs__expeditionTimeRemaining);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__slowestShipSpeed = new System.ComponentModel.PropertyChangedEventArgs(nameof(_slowestShipSpeed));
         private ShipSpeed _slowestShipSpeed;
         public ShipSpeed SlowestShipSpeed
         {
             get => _slowestShipSpeed;
-            internal set => Set(ref _slowestShipSpeed, value);
+            internal set => Set(ref _slowestShipSpeed, value, __eventArgs__slowestShipSpeed);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__supplyingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(_supplyingCost));
         private Materials _supplyingCost;
         public Materials SupplyingCost
         {
             get => _supplyingCost;
-            internal set => Set(ref _supplyingCost, value);
+            internal set => Set(ref _supplyingCost, value, __eventArgs__supplyingCost);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__repairingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(_repairingCost));
         private Materials _repairingCost;
         public Materials RepairingCost
         {
             get => _repairingCost;
-            internal set => Set(ref _repairingCost, value);
+            internal set => Set(ref _repairingCost, value, __eventArgs__repairingCost);
         }
 
         public event Action<Fleet, IRawFleet, DateTimeOffset> Updating;
         public override void Update(IRawFleet raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawFleet raw, DateTimeOffset timeStamp)
@@ -701,46 +830,57 @@ namespace Sakuno.ING.Game.Models
 
         public TextTranslationGroup Description { get; } = new TextTranslationGroup();
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__category = new System.ComponentModel.PropertyChangedEventArgs(nameof(_category));
         private QuestCategoty _category;
         public QuestCategoty Category
         {
             get => _category;
-            internal set => Set(ref _category, value);
+            internal set => Set(ref _category, value, __eventArgs__category);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__period = new System.ComponentModel.PropertyChangedEventArgs(nameof(_period));
         private QuestPeriod _period;
         public QuestPeriod Period
         {
             get => _period;
-            internal set => Set(ref _period, value);
+            internal set => Set(ref _period, value, __eventArgs__period);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(_state));
         private QuestState _state;
         public QuestState State
         {
             get => _state;
-            internal set => Set(ref _state, value);
+            internal set => Set(ref _state, value, __eventArgs__state);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__progress = new System.ComponentModel.PropertyChangedEventArgs(nameof(_progress));
         private QuestProgress _progress;
         public QuestProgress Progress
         {
             get => _progress;
-            internal set => Set(ref _progress, value);
+            internal set => Set(ref _progress, value, __eventArgs__progress);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rewards = new System.ComponentModel.PropertyChangedEventArgs(nameof(_rewards));
         private Materials _rewards;
         public Materials Rewards
         {
             get => _rewards;
-            internal set => Set(ref _rewards, value);
+            internal set => Set(ref _rewards, value, __eventArgs__rewards);
         }
 
         public event Action<Quest, IRawQuest, DateTimeOffset> Updating;
         public override void Update(IRawQuest raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawQuest raw, DateTimeOffset timeStamp)
@@ -785,60 +925,75 @@ namespace Sakuno.ING.Game.Models
 
         private readonly NavalBase owner;
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__info = new System.ComponentModel.PropertyChangedEventArgs(nameof(_info));
         private MapInfo _info;
         public MapInfo Info
         {
             get => _info;
-            internal set => Set(ref _info, value);
+            internal set => Set(ref _info, value, __eventArgs__info);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isCleared = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isCleared));
         private bool _isCleared;
         public bool IsCleared
         {
             get => _isCleared;
-            internal set => Set(ref _isCleared, value);
+            internal set => Set(ref _isCleared, value, __eventArgs__isCleared);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rank = new System.ComponentModel.PropertyChangedEventArgs(nameof(_rank));
         private EventMapRank? _rank;
         public EventMapRank? Rank
         {
             get => _rank;
-            internal set => Set(ref _rank, value);
+            internal set => Set(ref _rank, value, __eventArgs__rank);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__gaugeIndex = new System.ComponentModel.PropertyChangedEventArgs(nameof(_gaugeIndex));
         private int? _gaugeIndex;
         public int? GaugeIndex
         {
             get => _gaugeIndex;
-            internal set => Set(ref _gaugeIndex, value);
+            internal set => Set(ref _gaugeIndex, value, __eventArgs__gaugeIndex);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__gaugeType = new System.ComponentModel.PropertyChangedEventArgs(nameof(_gaugeType));
         private EventMapGaugeType? _gaugeType;
         public EventMapGaugeType? GaugeType
         {
             get => _gaugeType;
-            internal set => Set(ref _gaugeType, value);
+            internal set => Set(ref _gaugeType, value, __eventArgs__gaugeType);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__availableAirForceGroups = new System.ComponentModel.PropertyChangedEventArgs(nameof(_availableAirForceGroups));
         private int _availableAirForceGroups;
         public int AvailableAirForceGroups
         {
             get => _availableAirForceGroups;
-            internal set => Set(ref _availableAirForceGroups, value);
+            internal set => Set(ref _availableAirForceGroups, value, __eventArgs__availableAirForceGroups);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__gauge = new System.ComponentModel.PropertyChangedEventArgs(nameof(_gauge));
         private ClampedValue _gauge;
         public ClampedValue Gauge
         {
             get => _gauge;
-            internal set => Set(ref _gauge, value);
+            internal set => Set(ref _gauge, value, __eventArgs__gauge);
         }
 
         public event Action<Map, IRawMap, DateTimeOffset> Updating;
         public override void Update(IRawMap raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawMap raw, DateTimeOffset timeStamp)
@@ -869,32 +1024,39 @@ namespace Sakuno.ING.Game.Models
 
         private readonly NavalBase owner;
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__equipment = new System.ComponentModel.PropertyChangedEventArgs(nameof(_equipment));
         private Equipment _equipment;
         public Equipment Equipment
         {
             get => _equipment;
-            internal set => Set(ref _equipment, value);
+            internal set => Set(ref _equipment, value, __eventArgs__equipment);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__aircraftCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(_aircraftCount));
         private ClampedValue _aircraftCount;
         public ClampedValue AircraftCount
         {
             get => _aircraftCount;
-            internal set => Set(ref _aircraftCount, value);
+            internal set => Set(ref _aircraftCount, value, __eventArgs__aircraftCount);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__morale = new System.ComponentModel.PropertyChangedEventArgs(nameof(_morale));
         private SquadronMorale _morale;
         public SquadronMorale Morale
         {
             get => _morale;
-            internal set => Set(ref _morale, value);
+            internal set => Set(ref _morale, value, __eventArgs__morale);
         }
 
         public event Action<AirForceSquadron, IRawAirForceSquadron, DateTimeOffset> Updating;
         public override void Update(IRawAirForceSquadron raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            UpdateProps(raw, timeStamp);
+            using (var scope = EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
         }
 
         private void UpdateProps(IRawAirForceSquadron raw, DateTimeOffset timeStamp)
