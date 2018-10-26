@@ -27,19 +27,14 @@ namespace Sakuno.ING
             }
         }
 
-        protected BindableObject()
-        {
-            batchNotifyScope = new BatchNotifyScope(this);
-        }
-
         protected void NotifyPropertyChanged([CallerMemberName]string propertyName = null)
             => NotifyPropertyChanged(new PropertyChangedEventArgs(propertyName));
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void NotifyPropertyChanged(PropertyChangedEventArgs args)
         {
-            if (batchNotifyScope.IsInScope)
-                batchNotifyScope.Args.Add(args);
+            if (isInBatchNotifyScope)
+                batchNotifyArgs.Add(args);
             else
                 lock (handlers)
                     foreach (var (syncContext, handler) in handlers)
@@ -65,38 +60,43 @@ namespace Sakuno.ING
             }
         }
 
-        private readonly BatchNotifyScope batchNotifyScope;
-        protected IDisposable EnterBatchNotifyScope()
+        private bool isInBatchNotifyScope;
+        private List<PropertyChangedEventArgs> batchNotifyArgs;
+
+        protected BatchNotifyScope EnterBatchNotifyScope()
         {
-            if (!batchNotifyScope.IsInScope)
+            if (!isInBatchNotifyScope)
             {
-                batchNotifyScope.IsInScope = true;
-                return batchNotifyScope;
+                isInBatchNotifyScope = true;
+                batchNotifyArgs = new List<PropertyChangedEventArgs>();
+                return new BatchNotifyScope(this);
             }
             else
-                throw new InvalidOperationException();
+                return default;
         }
 
-        protected class BatchNotifyScope : IDisposable
+        private void BatchNotify()
+        {
+            var args = batchNotifyArgs;
+            batchNotifyArgs = null;
+
+            lock (handlers)
+                foreach (var (syncContext, handler) in handlers)
+                    syncContext.Post(o =>
+                    {
+                        foreach (var arg in args)
+                            handler(this, arg);
+                    }, null);
+
+            isInBatchNotifyScope = false;
+        }
+
+        protected struct BatchNotifyScope : IDisposable
         {
             private readonly BindableObject owner;
             public BatchNotifyScope(BindableObject owner) => this.owner = owner;
-            public List<PropertyChangedEventArgs> Args { get; private set; } = new List<PropertyChangedEventArgs>();
-            public bool IsInScope { get; set; }
 
-            void IDisposable.Dispose()
-            {
-                var args = Args;
-                Args = new List<PropertyChangedEventArgs>();
-                lock (owner.handlers)
-                    foreach (var (syncContext, handler) in owner.handlers)
-                        syncContext.Post(o =>
-                        {
-                            foreach (var arg in Args)
-                                handler(this, arg);
-                        }, null);
-                IsInScope = false;
-            }
+            public void Dispose() => owner?.BatchNotify();
         }
     }
 }
