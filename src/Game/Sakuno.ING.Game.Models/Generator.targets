@@ -108,7 +108,7 @@ foreach (var infile in Inputs)
                     dummyList.Add(propName);
                 output.WriteLine();
                 output.WriteLine("        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]");
-                output.WriteLine($"        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs_{fieldName} = new System.ComponentModel.PropertyChangedEventArgs(nameof({fieldName}));");
+                output.WriteLine($"        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs_{fieldName} = new System.ComponentModel.PropertyChangedEventArgs(nameof({propName}));");
                 output.WriteLine($"        private {propType} {fieldName};");
                 output.WriteLine($"        public {propType} {propName}");
                 output.WriteLine("        {");

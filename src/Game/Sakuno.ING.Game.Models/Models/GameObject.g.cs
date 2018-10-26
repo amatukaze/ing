@@ -25,7 +25,7 @@ namespace Sakuno.ING.Game.Models
         private readonly NavalBase owner;
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__info = new System.ComponentModel.PropertyChangedEventArgs(nameof(_info));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__info = new System.ComponentModel.PropertyChangedEventArgs(nameof(Info));
         private EquipmentInfo _info;
         public EquipmentInfo Info
         {
@@ -34,7 +34,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isLocked = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isLocked));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isLocked = new System.ComponentModel.PropertyChangedEventArgs(nameof(IsLocked));
         private bool _isLocked;
         public bool IsLocked
         {
@@ -43,7 +43,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__improvementLevel = new System.ComponentModel.PropertyChangedEventArgs(nameof(_improvementLevel));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__improvementLevel = new System.ComponentModel.PropertyChangedEventArgs(nameof(ImprovementLevel));
         private int _improvementLevel;
         public int ImprovementLevel
         {
@@ -52,7 +52,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__airProficiency = new System.ComponentModel.PropertyChangedEventArgs(nameof(_airProficiency));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__airProficiency = new System.ComponentModel.PropertyChangedEventArgs(nameof(AirProficiency));
         private int _airProficiency;
         public int AirProficiency
         {
@@ -61,7 +61,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isAvailable = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isAvailable));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isAvailable = new System.ComponentModel.PropertyChangedEventArgs(nameof(IsAvailable));
         private bool _isAvailable;
         public bool IsAvailable
         {
@@ -104,7 +104,7 @@ namespace Sakuno.ING.Game.Models
         private readonly NavalBase owner;
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__completionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(_completionTime));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__completionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(CompletionTime));
         private DateTimeOffset _completionTime;
         public DateTimeOffset CompletionTime
         {
@@ -113,7 +113,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(_state));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(State));
         private BuildingDockState _state;
         public BuildingDockState State
         {
@@ -122,7 +122,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__consumption = new System.ComponentModel.PropertyChangedEventArgs(nameof(_consumption));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__consumption = new System.ComponentModel.PropertyChangedEventArgs(nameof(Consumption));
         private Materials _consumption;
         public Materials Consumption
         {
@@ -131,7 +131,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__builtShip = new System.ComponentModel.PropertyChangedEventArgs(nameof(_builtShip));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__builtShip = new System.ComponentModel.PropertyChangedEventArgs(nameof(BuiltShip));
         private ShipInfo _builtShip;
         public ShipInfo BuiltShip
         {
@@ -140,7 +140,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isLSC = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isLSC));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isLSC = new System.ComponentModel.PropertyChangedEventArgs(nameof(IsLSC));
         private bool _isLSC;
         public bool IsLSC
         {
@@ -149,7 +149,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__timeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(_timeRemaining));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__timeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(TimeRemaining));
         private TimeSpan _timeRemaining;
         public TimeSpan TimeRemaining
         {
@@ -193,7 +193,7 @@ namespace Sakuno.ING.Game.Models
         private readonly NavalBase owner;
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(_state));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(State));
         private RepairingDockState _state;
         public RepairingDockState State
         {
@@ -202,7 +202,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__completionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(_completionTime));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__completionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(CompletionTime));
         private DateTimeOffset _completionTime;
         public DateTimeOffset CompletionTime
         {
@@ -211,7 +211,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__consumption = new System.ComponentModel.PropertyChangedEventArgs(nameof(_consumption));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__consumption = new System.ComponentModel.PropertyChangedEventArgs(nameof(Consumption));
         private Materials _consumption;
         public Materials Consumption
         {
@@ -220,7 +220,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__timeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(_timeRemaining));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__timeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(TimeRemaining));
         private TimeSpan _timeRemaining;
         public TimeSpan TimeRemaining
         {
@@ -263,7 +263,7 @@ namespace Sakuno.ING.Game.Models
         private readonly NavalBase owner;
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__item = new System.ComponentModel.PropertyChangedEventArgs(nameof(_item));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__item = new System.ComponentModel.PropertyChangedEventArgs(nameof(Item));
         private UseItemInfo _item;
         public UseItemInfo Item
         {
@@ -272,7 +272,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__count = new System.ComponentModel.PropertyChangedEventArgs(nameof(_count));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__count = new System.ComponentModel.PropertyChangedEventArgs(nameof(Count));
         private int _count;
         public int Count
         {
@@ -313,7 +313,7 @@ namespace Sakuno.ING.Game.Models
         private readonly NavalBase owner;
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__name = new System.ComponentModel.PropertyChangedEventArgs(nameof(_name));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__name = new System.ComponentModel.PropertyChangedEventArgs(nameof(Name));
         private string _name;
         public string Name
         {
@@ -322,7 +322,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__leveling = new System.ComponentModel.PropertyChangedEventArgs(nameof(_leveling));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__leveling = new System.ComponentModel.PropertyChangedEventArgs(nameof(Leveling));
         private Leveling _leveling;
         public Leveling Leveling
         {
@@ -331,7 +331,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rank = new System.ComponentModel.PropertyChangedEventArgs(nameof(_rank));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rank = new System.ComponentModel.PropertyChangedEventArgs(nameof(Rank));
         private AdmiralRank _rank;
         public AdmiralRank Rank
         {
@@ -340,7 +340,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__comment = new System.ComponentModel.PropertyChangedEventArgs(nameof(_comment));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__comment = new System.ComponentModel.PropertyChangedEventArgs(nameof(Comment));
         private string _comment;
         public string Comment
         {
@@ -349,7 +349,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__maxShipCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(_maxShipCount));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__maxShipCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(MaxShipCount));
         private int _maxShipCount;
         public int MaxShipCount
         {
@@ -358,7 +358,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__maxEquipmentCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(_maxEquipmentCount));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__maxEquipmentCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(MaxEquipmentCount));
         private int _maxEquipmentCount;
         public int MaxEquipmentCount
         {
@@ -367,7 +367,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__battleStat = new System.ComponentModel.PropertyChangedEventArgs(nameof(_battleStat));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__battleStat = new System.ComponentModel.PropertyChangedEventArgs(nameof(BattleStat));
         private BattleStat _battleStat;
         public BattleStat BattleStat
         {
@@ -376,7 +376,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__practiceStat = new System.ComponentModel.PropertyChangedEventArgs(nameof(_practiceStat));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__practiceStat = new System.ComponentModel.PropertyChangedEventArgs(nameof(PracticeStat));
         private BattleStat _practiceStat;
         public BattleStat PracticeStat
         {
@@ -385,7 +385,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionStat = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expeditionStat));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionStat = new System.ComponentModel.PropertyChangedEventArgs(nameof(ExpeditionStat));
         private ExpeditionStat _expeditionStat;
         public ExpeditionStat ExpeditionStat
         {
@@ -394,7 +394,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__canLSC = new System.ComponentModel.PropertyChangedEventArgs(nameof(_canLSC));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__canLSC = new System.ComponentModel.PropertyChangedEventArgs(nameof(CanLSC));
         private bool _canLSC;
         public bool CanLSC
         {
@@ -403,7 +403,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__maxMaterial = new System.ComponentModel.PropertyChangedEventArgs(nameof(_maxMaterial));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__maxMaterial = new System.ComponentModel.PropertyChangedEventArgs(nameof(MaxMaterial));
         private int _maxMaterial;
         public int MaxMaterial
         {
@@ -454,7 +454,7 @@ namespace Sakuno.ING.Game.Models
         private readonly NavalBase owner;
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__info = new System.ComponentModel.PropertyChangedEventArgs(nameof(_info));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__info = new System.ComponentModel.PropertyChangedEventArgs(nameof(Info));
         private ShipInfo _info;
         public ShipInfo Info
         {
@@ -463,7 +463,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__leveling = new System.ComponentModel.PropertyChangedEventArgs(nameof(_leveling));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__leveling = new System.ComponentModel.PropertyChangedEventArgs(nameof(Leveling));
         private Leveling _leveling;
         public Leveling Leveling
         {
@@ -472,7 +472,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__hP = new System.ComponentModel.PropertyChangedEventArgs(nameof(_hP));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__hP = new System.ComponentModel.PropertyChangedEventArgs(nameof(HP));
         private ClampedValue _hP;
         public ClampedValue HP
         {
@@ -481,7 +481,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__speed = new System.ComponentModel.PropertyChangedEventArgs(nameof(_speed));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__speed = new System.ComponentModel.PropertyChangedEventArgs(nameof(Speed));
         private ShipSpeed _speed;
         public ShipSpeed Speed
         {
@@ -490,7 +490,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__fireRange = new System.ComponentModel.PropertyChangedEventArgs(nameof(_fireRange));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__fireRange = new System.ComponentModel.PropertyChangedEventArgs(nameof(FireRange));
         private FireRange _fireRange;
         public FireRange FireRange
         {
@@ -499,7 +499,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__slotCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(_slotCount));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__slotCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(SlotCount));
         private int _slotCount;
         public int SlotCount
         {
@@ -508,7 +508,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__extraSlot = new System.ComponentModel.PropertyChangedEventArgs(nameof(_extraSlot));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__extraSlot = new System.ComponentModel.PropertyChangedEventArgs(nameof(ExtraSlot));
         private Slot _extraSlot;
         public Slot ExtraSlot
         {
@@ -517,7 +517,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__fuel = new System.ComponentModel.PropertyChangedEventArgs(nameof(_fuel));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__fuel = new System.ComponentModel.PropertyChangedEventArgs(nameof(Fuel));
         private ClampedValue _fuel;
         public ClampedValue Fuel
         {
@@ -526,7 +526,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__bullet = new System.ComponentModel.PropertyChangedEventArgs(nameof(_bullet));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__bullet = new System.ComponentModel.PropertyChangedEventArgs(nameof(Bullet));
         private ClampedValue _bullet;
         public ClampedValue Bullet
         {
@@ -535,7 +535,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__repairingTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(_repairingTime));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__repairingTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(RepairingTime));
         private TimeSpan _repairingTime;
         public TimeSpan RepairingTime
         {
@@ -544,7 +544,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__repairingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(_repairingCost));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__repairingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(RepairingCost));
         private Materials _repairingCost;
         public Materials RepairingCost
         {
@@ -553,7 +553,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__morale = new System.ComponentModel.PropertyChangedEventArgs(nameof(_morale));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__morale = new System.ComponentModel.PropertyChangedEventArgs(nameof(Morale));
         private int _morale;
         public int Morale
         {
@@ -562,7 +562,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__firepower = new System.ComponentModel.PropertyChangedEventArgs(nameof(_firepower));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__firepower = new System.ComponentModel.PropertyChangedEventArgs(nameof(Firepower));
         private ShipMordenizationStatus _firepower;
         public ShipMordenizationStatus Firepower
         {
@@ -571,7 +571,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__torpedo = new System.ComponentModel.PropertyChangedEventArgs(nameof(_torpedo));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__torpedo = new System.ComponentModel.PropertyChangedEventArgs(nameof(Torpedo));
         private ShipMordenizationStatus _torpedo;
         public ShipMordenizationStatus Torpedo
         {
@@ -580,7 +580,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__antiAir = new System.ComponentModel.PropertyChangedEventArgs(nameof(_antiAir));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__antiAir = new System.ComponentModel.PropertyChangedEventArgs(nameof(AntiAir));
         private ShipMordenizationStatus _antiAir;
         public ShipMordenizationStatus AntiAir
         {
@@ -589,7 +589,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__armor = new System.ComponentModel.PropertyChangedEventArgs(nameof(_armor));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__armor = new System.ComponentModel.PropertyChangedEventArgs(nameof(Armor));
         private ShipMordenizationStatus _armor;
         public ShipMordenizationStatus Armor
         {
@@ -598,7 +598,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__evasion = new System.ComponentModel.PropertyChangedEventArgs(nameof(_evasion));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__evasion = new System.ComponentModel.PropertyChangedEventArgs(nameof(Evasion));
         private ShipMordenizationStatus _evasion;
         public ShipMordenizationStatus Evasion
         {
@@ -607,7 +607,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__antiSubmarine = new System.ComponentModel.PropertyChangedEventArgs(nameof(_antiSubmarine));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__antiSubmarine = new System.ComponentModel.PropertyChangedEventArgs(nameof(AntiSubmarine));
         private ShipMordenizationStatus _antiSubmarine;
         public ShipMordenizationStatus AntiSubmarine
         {
@@ -616,7 +616,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__lightOfSight = new System.ComponentModel.PropertyChangedEventArgs(nameof(_lightOfSight));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__lightOfSight = new System.ComponentModel.PropertyChangedEventArgs(nameof(LightOfSight));
         private ShipMordenizationStatus _lightOfSight;
         public ShipMordenizationStatus LightOfSight
         {
@@ -625,7 +625,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__luck = new System.ComponentModel.PropertyChangedEventArgs(nameof(_luck));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__luck = new System.ComponentModel.PropertyChangedEventArgs(nameof(Luck));
         private ShipMordenizationStatus _luck;
         public ShipMordenizationStatus Luck
         {
@@ -634,7 +634,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isLocked = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isLocked));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isLocked = new System.ComponentModel.PropertyChangedEventArgs(nameof(IsLocked));
         private bool _isLocked;
         public bool IsLocked
         {
@@ -643,7 +643,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__shipLockingTag = new System.ComponentModel.PropertyChangedEventArgs(nameof(_shipLockingTag));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__shipLockingTag = new System.ComponentModel.PropertyChangedEventArgs(nameof(ShipLockingTag));
         private int? _shipLockingTag;
         public int? ShipLockingTag
         {
@@ -652,7 +652,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isRepairing = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isRepairing));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isRepairing = new System.ComponentModel.PropertyChangedEventArgs(nameof(IsRepairing));
         private bool _isRepairing;
         public bool IsRepairing
         {
@@ -661,7 +661,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__supplyingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(_supplyingCost));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__supplyingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(SupplyingCost));
         private Materials _supplyingCost;
         public Materials SupplyingCost
         {
@@ -670,7 +670,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__fleet = new System.ComponentModel.PropertyChangedEventArgs(nameof(_fleet));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__fleet = new System.ComponentModel.PropertyChangedEventArgs(nameof(Fleet));
         private Fleet _fleet;
         public Fleet Fleet
         {
@@ -719,7 +719,7 @@ namespace Sakuno.ING.Game.Models
         private readonly NavalBase owner;
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__name = new System.ComponentModel.PropertyChangedEventArgs(nameof(_name));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__name = new System.ComponentModel.PropertyChangedEventArgs(nameof(Name));
         private string _name;
         public string Name
         {
@@ -728,7 +728,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionState = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expeditionState));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionState = new System.ComponentModel.PropertyChangedEventArgs(nameof(ExpeditionState));
         private FleetExpeditionState _expeditionState;
         public FleetExpeditionState ExpeditionState
         {
@@ -737,7 +737,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expedition = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expedition));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expedition = new System.ComponentModel.PropertyChangedEventArgs(nameof(Expedition));
         private ExpeditionInfo _expedition;
         public ExpeditionInfo Expedition
         {
@@ -746,7 +746,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionCompletionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expeditionCompletionTime));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionCompletionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(ExpeditionCompletionTime));
         private DateTimeOffset _expeditionCompletionTime;
         public DateTimeOffset ExpeditionCompletionTime
         {
@@ -755,7 +755,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionTimeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(_expeditionTimeRemaining));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionTimeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(ExpeditionTimeRemaining));
         private TimeSpan _expeditionTimeRemaining;
         public TimeSpan ExpeditionTimeRemaining
         {
@@ -764,7 +764,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__slowestShipSpeed = new System.ComponentModel.PropertyChangedEventArgs(nameof(_slowestShipSpeed));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__slowestShipSpeed = new System.ComponentModel.PropertyChangedEventArgs(nameof(SlowestShipSpeed));
         private ShipSpeed _slowestShipSpeed;
         public ShipSpeed SlowestShipSpeed
         {
@@ -773,7 +773,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__supplyingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(_supplyingCost));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__supplyingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(SupplyingCost));
         private Materials _supplyingCost;
         public Materials SupplyingCost
         {
@@ -782,7 +782,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__repairingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(_repairingCost));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__repairingCost = new System.ComponentModel.PropertyChangedEventArgs(nameof(RepairingCost));
         private Materials _repairingCost;
         public Materials RepairingCost
         {
@@ -831,7 +831,7 @@ namespace Sakuno.ING.Game.Models
         public TextTranslationGroup Description { get; } = new TextTranslationGroup();
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__category = new System.ComponentModel.PropertyChangedEventArgs(nameof(_category));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__category = new System.ComponentModel.PropertyChangedEventArgs(nameof(Category));
         private QuestCategoty _category;
         public QuestCategoty Category
         {
@@ -840,7 +840,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__period = new System.ComponentModel.PropertyChangedEventArgs(nameof(_period));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__period = new System.ComponentModel.PropertyChangedEventArgs(nameof(Period));
         private QuestPeriod _period;
         public QuestPeriod Period
         {
@@ -849,7 +849,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(_state));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(State));
         private QuestState _state;
         public QuestState State
         {
@@ -858,7 +858,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__progress = new System.ComponentModel.PropertyChangedEventArgs(nameof(_progress));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__progress = new System.ComponentModel.PropertyChangedEventArgs(nameof(Progress));
         private QuestProgress _progress;
         public QuestProgress Progress
         {
@@ -867,7 +867,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rewards = new System.ComponentModel.PropertyChangedEventArgs(nameof(_rewards));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rewards = new System.ComponentModel.PropertyChangedEventArgs(nameof(Rewards));
         private Materials _rewards;
         public Materials Rewards
         {
@@ -926,7 +926,7 @@ namespace Sakuno.ING.Game.Models
         private readonly NavalBase owner;
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__info = new System.ComponentModel.PropertyChangedEventArgs(nameof(_info));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__info = new System.ComponentModel.PropertyChangedEventArgs(nameof(Info));
         private MapInfo _info;
         public MapInfo Info
         {
@@ -935,7 +935,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isCleared = new System.ComponentModel.PropertyChangedEventArgs(nameof(_isCleared));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__isCleared = new System.ComponentModel.PropertyChangedEventArgs(nameof(IsCleared));
         private bool _isCleared;
         public bool IsCleared
         {
@@ -944,7 +944,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rank = new System.ComponentModel.PropertyChangedEventArgs(nameof(_rank));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rank = new System.ComponentModel.PropertyChangedEventArgs(nameof(Rank));
         private EventMapRank? _rank;
         public EventMapRank? Rank
         {
@@ -953,7 +953,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__gaugeIndex = new System.ComponentModel.PropertyChangedEventArgs(nameof(_gaugeIndex));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__gaugeIndex = new System.ComponentModel.PropertyChangedEventArgs(nameof(GaugeIndex));
         private int? _gaugeIndex;
         public int? GaugeIndex
         {
@@ -962,7 +962,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__gaugeType = new System.ComponentModel.PropertyChangedEventArgs(nameof(_gaugeType));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__gaugeType = new System.ComponentModel.PropertyChangedEventArgs(nameof(GaugeType));
         private EventMapGaugeType? _gaugeType;
         public EventMapGaugeType? GaugeType
         {
@@ -971,7 +971,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__availableAirForceGroups = new System.ComponentModel.PropertyChangedEventArgs(nameof(_availableAirForceGroups));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__availableAirForceGroups = new System.ComponentModel.PropertyChangedEventArgs(nameof(AvailableAirForceGroups));
         private int _availableAirForceGroups;
         public int AvailableAirForceGroups
         {
@@ -980,7 +980,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__gauge = new System.ComponentModel.PropertyChangedEventArgs(nameof(_gauge));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__gauge = new System.ComponentModel.PropertyChangedEventArgs(nameof(Gauge));
         private ClampedValue _gauge;
         public ClampedValue Gauge
         {
@@ -1025,7 +1025,7 @@ namespace Sakuno.ING.Game.Models
         private readonly NavalBase owner;
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__equipment = new System.ComponentModel.PropertyChangedEventArgs(nameof(_equipment));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__equipment = new System.ComponentModel.PropertyChangedEventArgs(nameof(Equipment));
         private Equipment _equipment;
         public Equipment Equipment
         {
@@ -1034,7 +1034,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__aircraftCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(_aircraftCount));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__aircraftCount = new System.ComponentModel.PropertyChangedEventArgs(nameof(AircraftCount));
         private ClampedValue _aircraftCount;
         public ClampedValue AircraftCount
         {
@@ -1043,7 +1043,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__morale = new System.ComponentModel.PropertyChangedEventArgs(nameof(_morale));
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__morale = new System.ComponentModel.PropertyChangedEventArgs(nameof(Morale));
         private SquadronMorale _morale;
         public SquadronMorale Morale
         {
