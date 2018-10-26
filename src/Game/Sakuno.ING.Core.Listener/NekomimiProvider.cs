@@ -76,8 +76,8 @@ namespace Sakuno.ING.Services.Listener
                     new HttpMessage
                     (
                         localPath.Substring(8),// /kcsapi/
-                        session.Request.Content.ReadAsStreamAsync().Result,
-                        session.Response.Content.ReadAsStreamAsync().Result
+                        session.Request.Content.ReadAsStringAsync().Result.AsMemory(),
+                        session.Response.Content.ReadAsStringAsync().Result.AsMemory(7) // svdata=
                     )
                 );
             }

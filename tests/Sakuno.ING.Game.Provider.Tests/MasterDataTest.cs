@@ -23,7 +23,7 @@ namespace Sakuno.ING.Game.Tests
 
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream(typeof(MasterDataTest), "Data.masterdata.json"))
-                provider.Push("api_start2", DateTimeOffset.Now, null, stream);
+                provider.Push("api_start2", DateTimeOffset.Now, default, stream);
         }
 
         [Fact]

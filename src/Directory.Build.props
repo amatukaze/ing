@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
@@ -26,18 +26,6 @@
 
   <PropertyGroup Condition="'$(AppPlatform)' == 'CrossOS'">
     <TargetFramework>$(CrossOSFramework)</TargetFramework>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
-    <LangVersion>7.3</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.vbproj'">
-    <LangVersion>15.5</LangVersion>
-    <OptionExplicit>On</OptionExplicit>
-    <OptionInfer>On</OptionInfer>
-    <OptionStrict>On</OptionStrict>
-    <OptionCompare>Binary</OptionCompare>
   </PropertyGroup>
 
 </Project>

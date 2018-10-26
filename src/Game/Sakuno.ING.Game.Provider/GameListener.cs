@@ -17,7 +17,7 @@ namespace Sakuno.ING.Game
     public sealed partial class GameListener : IGameProvider
     {
         private readonly ITimedMessageProvider<HttpMessage> provider;
-        private JsonSerializer jSerializer = new JsonSerializer
+        private readonly JsonSerializer jSerializer = new JsonSerializer
         {
             MissingMemberHandling = MissingMemberHandling.Ignore,
             ContractResolver = new GameContractResolver()

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Specialized;
-using System.IO;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -11,17 +10,11 @@ namespace Sakuno.ING.Game
 {
     public partial class GameListener
     {
-        private T Convert<T>(Stream stream)
-        {
-            stream.Seek(7, SeekOrigin.Begin); //svdata=
-            return jSerializer.Deserialize<T>(new JsonTextReader(new StreamReader(stream)));
-        }
+        private T Convert<T>(ReadOnlyMemory<char> response)
+            => jSerializer.Deserialize<T>(new JsonTextReader(new MemoryReader(response)));
 
-        private static NameValueCollection ParseRequest(Stream request)
-        {
-            request.Seek(0, SeekOrigin.Begin);
-            return HttpUtility.ParseQueryString(new StreamReader(request).ReadToEnd());
-        }
+        private static NameValueCollection ParseRequest(ReadOnlyMemory<char> request)
+            => HttpUtility.ParseQueryString(request.ToString());
 
         public ITimedMessageProvider<T> RegisterResponse<T>(string api)
             => RegisterRaw<T>(api).Select(x => x.Response);
