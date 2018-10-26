@@ -16,7 +16,7 @@ namespace Sakuno.ING.Game
     [Export(typeof(GameListener))]
     public sealed partial class GameListener : IGameProvider
     {
-        private IHttpProvider provider;
+        private readonly ITimedMessageProvider<HttpMessage> provider;
         private JsonSerializer jSerializer = new JsonSerializer
         {
             MissingMemberHandling = MissingMemberHandling.Ignore,
@@ -25,7 +25,7 @@ namespace Sakuno.ING.Game
 
         public GameListener(IHttpProviderSelector providerSelector)
         {
-            this.provider = providerSelector.Current;
+            provider = new SynchronizedMessageProvider<HttpMessage>(providerSelector.Current);
             jSerializer.Error += JsonError;
 
             masterDataUpdated = RegisterResponse<MasterDataJson>("api_start2")
