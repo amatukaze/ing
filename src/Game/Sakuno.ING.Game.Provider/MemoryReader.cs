@@ -24,8 +24,8 @@ namespace Sakuno.ING.Game
 
         public override int Read(char[] buffer, int index, int count)
         {
-            count = Math.Max(count, memory.Length);
-            memory.CopyTo(buffer.AsMemory(index));
+            count = Math.Min(count, memory.Length);
+            memory.Slice(0, count).CopyTo(buffer.AsMemory(index));
             memory = memory.Slice(count);
             return count;
         }
