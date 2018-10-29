@@ -74,7 +74,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         /// <summary>
         /// 索敵
         /// </summary>
-        int LightOfSight { get; }
+        int LineOfSight { get; }
         /// <summary>
         /// 射程
         /// </summary>

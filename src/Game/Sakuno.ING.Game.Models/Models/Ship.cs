@@ -35,7 +35,7 @@ namespace Sakuno.ING.Game.Models
             UpdateEquipmentsCore(raw.EquipmentIds);
             UpdateSlotAircraftCore(raw.SlotAircraft);
 
-            var lightOfSight = 0;
+            var lineOfSight = 0;
             var evasion = 0;
             var antiSubmarine = 0;
 
@@ -45,16 +45,17 @@ namespace Sakuno.ING.Game.Models
                 if (equipment == null)
                     continue;
 
-                lightOfSight += equipment.LightOfSight;
+                lineOfSight += equipment.LineOfSight;
                 evasion += equipment.Evasion;
                 antiSubmarine += equipment.AntiSubmarine;
             }
 
-            LightOfSight = Substract(raw.LightOfSight, lightOfSight);
+            LineOfSight = Substract(raw.LineOfSight, lineOfSight);
             Evasion = Substract(raw.Evasion, evasion);
             AntiSubmarine = Substract(raw.AntiSubmarine, antiSubmarine);
 
             UpdateSupplyingCost();
+            UpdateFromSlot();
         }
 
         private static ShipMordenizationStatus Combine(ShipMordenizationStatus current, ShipMordenizationStatus master)
@@ -108,6 +109,7 @@ namespace Sakuno.ING.Game.Models
         internal void UpdateEquipments(IReadOnlyList<EquipmentId?> equipmentIds)
         {
             UpdateEquipmentsCore(equipmentIds);
+            UpdateFromSlot();
             Fleet?.UpdateStatus();
         }
 
@@ -120,6 +122,7 @@ namespace Sakuno.ING.Game.Models
         internal void UpdateSlotAircraft(IReadOnlyList<int> aircrafts)
         {
             UpdateSlotAircraftCore(aircrafts);
+            UpdateFromSlot();
             Fleet?.UpdateStatus();
         }
 
@@ -127,6 +130,12 @@ namespace Sakuno.ING.Game.Models
         {
             for (int i = 0; i < slots.Count; i++)
                 slots[i].Aircraft = (aircrafts[i], Info.Aircraft[i]);
+        }
+
+        private void UpdateFromSlot()
+        {
+            AirFightPower = Slots.Sum(x => x.AirFightPower);
+            EffectiveLoS = new LineOfSight(Slots.Sum(x => x.EffectiveLoS), Math.Sqrt(LineOfSight.Current));
         }
     }
 }

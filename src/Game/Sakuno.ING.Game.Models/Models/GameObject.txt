@@ -60,13 +60,15 @@ p:ShipMordenizationStatus AntiAir
 p:ShipMordenizationStatus Armor
 p:ShipMordenizationStatus Evasion
 p:ShipMordenizationStatus AntiSubmarine
-p:ShipMordenizationStatus LightOfSight
+p:ShipMordenizationStatus LineOfSight
 p:ShipMordenizationStatus Luck
 p:bool IsLocked -
 p:int? ShipLockingTag -
 p:bool IsRepairing
 p:Materials SupplyingCost
 p:Fleet Fleet
+p:AirFightPower AirFightPower
+p:LineOfSight EffectiveLoS
 
 Fleet:FleetId:IRawFleet:NavalBase
 p:string Name -
@@ -77,6 +79,9 @@ p:TimeSpan ExpeditionTimeRemaining
 p:ShipSpeed SlowestShipSpeed
 p:Materials SupplyingCost
 p:Materials RepairingCost
+p:AirFightPower AirFightPower
+p:int SimpleLos
+p:LineOfSight EffectiveLoS
 
 Quest:QuestId:IRawQuest:QuestManager
 l:Name QuestName

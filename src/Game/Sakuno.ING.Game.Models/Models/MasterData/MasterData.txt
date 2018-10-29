@@ -56,7 +56,7 @@ p:int Accuracy -
 p:int Evasion -
 p:int AntiBomber -
 p:int Interception -
-p:int LightOfSight -
+p:int LineOfSight -
 p:FireRange FireRange -
 p:int FlightRadius -
 p:Materials DeploymentConsumption -

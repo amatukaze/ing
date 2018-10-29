@@ -112,7 +112,7 @@ namespace Sakuno.ING.Game.Json
             };
 
         public int[] api_sakuteki;
-        public ShipMordenizationStatus LightOfSight =>
+        public ShipMordenizationStatus LineOfSight =>
             new ShipMordenizationStatus
             {
                 Displaying = api_sakuteki.ElementAtOrDefault(0),

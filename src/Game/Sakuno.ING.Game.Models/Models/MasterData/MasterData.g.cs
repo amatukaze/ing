@@ -540,12 +540,12 @@ namespace Sakuno.ING.Game.Models.MasterData
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__lightOfSight = new System.ComponentModel.PropertyChangedEventArgs(nameof(LightOfSight));
-        private int _lightOfSight;
-        public int LightOfSight
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__lineOfSight = new System.ComponentModel.PropertyChangedEventArgs(nameof(LineOfSight));
+        private int _lineOfSight;
+        public int LineOfSight
         {
-            get => _lightOfSight;
-            internal set => Set(ref _lightOfSight, value, __eventArgs__lightOfSight);
+            get => _lineOfSight;
+            internal set => Set(ref _lineOfSight, value, __eventArgs__lineOfSight);
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -628,7 +628,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             Evasion = raw.Evasion;
             AntiBomber = raw.AntiBomber;
             Interception = raw.Interception;
-            LightOfSight = raw.LightOfSight;
+            LineOfSight = raw.LineOfSight;
             FireRange = raw.FireRange;
             FlightRadius = raw.FlightRadius;
             DeploymentConsumption = raw.DeploymentConsumption;

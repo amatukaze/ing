@@ -616,12 +616,12 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__lightOfSight = new System.ComponentModel.PropertyChangedEventArgs(nameof(LightOfSight));
-        private ShipMordenizationStatus _lightOfSight;
-        public ShipMordenizationStatus LightOfSight
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__lineOfSight = new System.ComponentModel.PropertyChangedEventArgs(nameof(LineOfSight));
+        private ShipMordenizationStatus _lineOfSight;
+        public ShipMordenizationStatus LineOfSight
         {
-            get => _lightOfSight;
-            internal set => Set(ref _lightOfSight, value, __eventArgs__lightOfSight);
+            get => _lineOfSight;
+            internal set => Set(ref _lineOfSight, value, __eventArgs__lineOfSight);
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -676,6 +676,24 @@ namespace Sakuno.ING.Game.Models
         {
             get => _fleet;
             internal set => Set(ref _fleet, value, __eventArgs__fleet);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__airFightPower = new System.ComponentModel.PropertyChangedEventArgs(nameof(AirFightPower));
+        private AirFightPower _airFightPower;
+        public AirFightPower AirFightPower
+        {
+            get => _airFightPower;
+            internal set => Set(ref _airFightPower, value, __eventArgs__airFightPower);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__effectiveLoS = new System.ComponentModel.PropertyChangedEventArgs(nameof(EffectiveLoS));
+        private LineOfSight _effectiveLoS;
+        public LineOfSight EffectiveLoS
+        {
+            get => _effectiveLoS;
+            internal set => Set(ref _effectiveLoS, value, __eventArgs__effectiveLoS);
         }
 
         public event Action<Ship, IRawShip, DateTimeOffset> Updating;
@@ -788,6 +806,33 @@ namespace Sakuno.ING.Game.Models
         {
             get => _repairingCost;
             internal set => Set(ref _repairingCost, value, __eventArgs__repairingCost);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__airFightPower = new System.ComponentModel.PropertyChangedEventArgs(nameof(AirFightPower));
+        private AirFightPower _airFightPower;
+        public AirFightPower AirFightPower
+        {
+            get => _airFightPower;
+            internal set => Set(ref _airFightPower, value, __eventArgs__airFightPower);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__simpleLos = new System.ComponentModel.PropertyChangedEventArgs(nameof(SimpleLos));
+        private int _simpleLos;
+        public int SimpleLos
+        {
+            get => _simpleLos;
+            internal set => Set(ref _simpleLos, value, __eventArgs__simpleLos);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__effectiveLoS = new System.ComponentModel.PropertyChangedEventArgs(nameof(EffectiveLoS));
+        private LineOfSight _effectiveLoS;
+        public LineOfSight EffectiveLoS
+        {
+            get => _effectiveLoS;
+            internal set => Set(ref _effectiveLoS, value, __eventArgs__effectiveLoS);
         }
 
         public event Action<Fleet, IRawFleet, DateTimeOffset> Updating;

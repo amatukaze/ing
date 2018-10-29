@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Game.Models
 {
-    public class Slot : BindableObject
+    public partial class Slot : BindableObject
     {
         private Equipment _equipment;
         public Equipment Equipment
@@ -8,8 +8,12 @@
             get => _equipment;
             internal set
             {
-                Set(ref _equipment, value);
-                IsEmpty = value == null;
+                if (_equipment != value)
+                {
+                    _equipment = value;
+                    IsEmpty = value == null;
+                    UpdateCalculations();
+                }
             }
         }
 
@@ -17,7 +21,14 @@
         public ClampedValue Aircraft
         {
             get => _aircraft;
-            internal set => Set(ref _aircraft, value);
+            internal set
+            {
+                if (_aircraft != value)
+                {
+                    _aircraft = value;
+                    UpdateCalculations();
+                }
+            }
         }
 
         private bool _isEmpty;
@@ -25,6 +36,20 @@
         {
             get => _isEmpty;
             private set => Set(ref _isEmpty, value);
+        }
+
+        private AirFightPower _airFightPower;
+        public AirFightPower AirFightPower
+        {
+            get => _airFightPower;
+            private set => Set(ref _airFightPower, value);
+        }
+
+        private double _effectiveLoS;
+        public double EffectiveLoS
+        {
+            get => _effectiveLoS;
+            private set => Set(ref _effectiveLoS, value);
         }
     }
 }

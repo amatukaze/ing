@@ -50,7 +50,7 @@ namespace Sakuno.ING.Game.Json.MasterData
         public int Interception => TypeId == 48 ? api_houk : 0;
 
         [JsonProperty("api_saku")]
-        public int LightOfSight { get; set; }
+        public int LineOfSight { get; set; }
 
         [JsonProperty("api_length")]
         public FireRange FireRange { get; set; }

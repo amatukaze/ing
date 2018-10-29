@@ -47,7 +47,7 @@ namespace Sakuno.ING.Game.Models
         ShipMordenizationStatus Armor { get; }
         ShipMordenizationStatus Evasion { get; }
         ShipMordenizationStatus AntiSubmarine { get; }
-        ShipMordenizationStatus LightOfSight { get; }
+        ShipMordenizationStatus LineOfSight { get; }
         ShipMordenizationStatus Luck { get; }
 
         bool IsLocked { get; }
