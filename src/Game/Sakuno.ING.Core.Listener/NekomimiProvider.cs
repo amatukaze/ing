@@ -25,11 +25,11 @@ namespace Sakuno.ING.Services.Listener
 
             ListeningPort = setting.ListeningPort.InitialValue;
 
-            setting.UseUpstream.PropertyChanged += UpdateUpstream;
-            setting.Upstream.PropertyChanged += UpdateUpstream;
-            setting.UpstreamPort.PropertyChanged += UpdateUpstream;
+            setting.UseUpstream.ValueChanged += _ => UpdateUpstream();
+            setting.Upstream.ValueChanged += _ => UpdateUpstream();
+            setting.UpstreamPort.ValueChanged += _ => UpdateUpstream();
 
-            UpdateUpstream(null, null);
+            UpdateUpstream();
         }
 
         public int ListeningPort { get; }
@@ -46,7 +46,7 @@ namespace Sakuno.ING.Services.Listener
         }
 
         private IWebProxy proxy;
-        private void UpdateUpstream(object sender, object e)
+        private void UpdateUpstream()
         {
             if (setting.UseUpstream.Value)
                 proxy = new Proxy($"http://{setting.Upstream.Value}:{setting.UpstreamPort.Value}");

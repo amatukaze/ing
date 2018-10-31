@@ -16,7 +16,7 @@ namespace Sakuno.ING
             add
             {
                 lock (handlers)
-                    handlers.Add((SynchronizationContext.Current, value));
+                    handlers.Add((SynchronizationContext.Current ?? throw new InvalidOperationException("UI thread not initialized"), value));
             }
             remove
             {
