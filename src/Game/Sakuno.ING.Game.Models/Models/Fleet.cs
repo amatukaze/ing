@@ -69,7 +69,7 @@ namespace Sakuno.ING.Game.Models
 
         internal void UpdateTimer(DateTimeOffset timeStamp)
         {
-            if (Expedition == null)
+            if (Expedition == null || timeStamp > ExpeditionCompletionTime)
                 ExpeditionTimeRemaining = default;
             else
                 ExpeditionTimeRemaining = ExpeditionCompletionTime - timeStamp;

@@ -29,7 +29,7 @@ namespace Sakuno.ING.Game.Models
 
         internal void UpdateTimer(DateTimeOffset timeStamp)
         {
-            if (RepairingShip == null)
+            if (RepairingShip == null || timeStamp > CompletionTime)
                 TimeRemaining = default;
             else
                 TimeRemaining = CompletionTime - timeStamp;
