@@ -473,8 +473,8 @@ namespace Sakuno.ING.Game.Models
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__hP = new System.ComponentModel.PropertyChangedEventArgs(nameof(HP));
-        private ClampedValue _hP;
-        public ClampedValue HP
+        private ShipHP _hP;
+        public ShipHP HP
         {
             get => _hP;
             internal set => Set(ref _hP, value, __eventArgs__hP);

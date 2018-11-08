@@ -15,6 +15,7 @@
         public int Max { get; }
         public double Percentage => (double)Current / Max;
         public int Shortage => Max - Current;
+        public bool IsMaximum => Current == Max;
 
         public static ClampedValue operator +(ClampedValue clamped, int value) => new ClampedValue(clamped.Current + value, clamped.Max);
         public static ClampedValue operator -(ClampedValue clamped, int value) => new ClampedValue(clamped.Current - value, clamped.Max);

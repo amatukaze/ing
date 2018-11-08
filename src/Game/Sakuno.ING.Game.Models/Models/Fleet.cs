@@ -94,9 +94,9 @@ namespace Sakuno.ING.Game.Models
                 return FleetStatus.Expedition;
             if (Ships.Any(s => s.IsRepairing))
                 return FleetStatus.Repairing;
-            if (Ships.Any(s => s.HP.Percentage <= 0.25))
+            if (Ships.Any(s => s.HP.DamageState >= ShipDamageState.HeavilyDamaged))
                 return FleetStatus.Damaged;
-            if (Ships.Any(s => s.Fuel.Percentage < 1 || s.Bullet.Percentage < 1))
+            if (Ships.Any(s => !s.Fuel.IsMaximum || !s.Bullet.IsMaximum))
                 return FleetStatus.Insufficient;
             if (Ships.Any(s => s.Morale < 40))
                 return FleetStatus.Fatigued;

@@ -44,7 +44,7 @@ p:int MaxMaterial -
 Ship:ShipId:IRawShip:NavalBase
 p:ShipInfo Info
 p:Leveling Leveling -
-p:ClampedValue HP -
+p:ShipHP HP -
 p:ShipSpeed Speed -
 p:FireRange FireRange -
 p:int SlotCount

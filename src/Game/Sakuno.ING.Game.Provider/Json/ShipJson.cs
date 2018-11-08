@@ -24,7 +24,7 @@ namespace Sakuno.ING.Game.Json
 
         public int api_nowhp;
         public int api_maxhp;
-        public ClampedValue HP => (api_nowhp, api_maxhp);
+        public ShipHP HP => (api_nowhp, api_maxhp);
 
         [JsonProperty("api_soku")]
         public ShipSpeed Speed { get; set; }

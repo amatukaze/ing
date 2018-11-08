@@ -27,7 +27,7 @@ namespace Sakuno.ING.Game.Models
     {
         ShipInfoId ShipInfoId { get; }
         Leveling Leveling { get; }
-        ClampedValue HP { get; }
+        ShipHP HP { get; }
         ShipSpeed Speed { get; }
         FireRange FireRange { get; }
         IReadOnlyList<EquipmentId?> EquipmentIds { get; }
