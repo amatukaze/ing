@@ -835,6 +835,15 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _effectiveLoS, value, __eventArgs__effectiveLoS);
         }
 
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__status = new System.ComponentModel.PropertyChangedEventArgs(nameof(Status));
+        private FleetStatus _status;
+        public FleetStatus Status
+        {
+            get => _status;
+            internal set => Set(ref _status, value, __eventArgs__status);
+        }
+
         public event Action<Fleet, IRawFleet, DateTimeOffset> Updating;
         public override void Update(IRawFleet raw, DateTimeOffset timeStamp)
         {

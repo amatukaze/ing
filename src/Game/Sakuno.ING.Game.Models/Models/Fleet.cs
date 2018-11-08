@@ -83,6 +83,24 @@ namespace Sakuno.ING.Game.Models
             AirFightPower = Ships.Sum(s => s.AirFightPower);
             SimpleLos = Ships.Sum(s => s.LineOfSight.Displaying);
             EffectiveLoS = Ships.Sum(s => s.EffectiveLoS) + (2 * (6 - Ships.Count) - Math.Ceiling(0.4 * owner.Admiral.Leveling.Level));
+            Status = CheckFleetStatus();
+        }
+
+        private FleetStatus CheckFleetStatus()
+        {
+            if (Ships.Count == 0)
+                return FleetStatus.Empty;
+            if (Expedition != null)
+                return FleetStatus.Expedition;
+            if (Ships.Any(s => s.IsRepairing))
+                return FleetStatus.Repairing;
+            if (Ships.Any(s => s.HP.Percentage <= 0.25))
+                return FleetStatus.Damaged;
+            if (Ships.Any(s => s.Fuel.Percentage < 1 || s.Bullet.Percentage < 1))
+                return FleetStatus.Insufficient;
+            if (Ships.Any(s => s.Morale < 40))
+                return FleetStatus.Fatigued;
+            return FleetStatus.Ready;
         }
     }
 }

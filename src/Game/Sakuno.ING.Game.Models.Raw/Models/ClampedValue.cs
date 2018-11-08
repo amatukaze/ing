@@ -13,7 +13,7 @@
 
         public int Current { get; }
         public int Max { get; }
-        public double Precentage => (double)Current / Max;
+        public double Percentage => (double)Current / Max;
         public int Shortage => Max - Current;
 
         public static ClampedValue operator +(ClampedValue clamped, int value) => new ClampedValue(clamped.Current + value, clamped.Max);
