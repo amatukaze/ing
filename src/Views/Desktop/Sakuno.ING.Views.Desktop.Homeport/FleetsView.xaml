@@ -14,7 +14,36 @@
     <TabControl ItemsSource="{Binding Fleets.DefaultView}" SelectedIndex="0" FontSize="16">
         <TabControl.ItemTemplate>
             <DataTemplate DataType="{x:Type g:Fleet}">
-                <TextBlock Text="{Binding Name}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Height="18" Width="18" x:Name="statusIcon"/>
+                    <TextBlock Text="{Binding Name}" FontSize="18"/>
+                </StackPanel>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Status}" Value="Empty">
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Gray"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Ready">
+                        <Setter TargetName="statusIcon" Property="Fill" Value="SpringGreen"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Sortie">
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Red"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Expedition">
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Aqua"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Fatigued">
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Repairing">
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Damaged">
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Damaged">
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Insufficient"/>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
             </DataTemplate>
         </TabControl.ItemTemplate>
         <TabControl.ContentTemplate>
@@ -33,6 +62,10 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Margin="2">
+                        <Rectangle x:Name="statusColor"/>
+                        <TextBlock x:Name="statusText" FontSize="16" Margin="2"/>
+                    </Grid>
                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="5"
                                   HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Auto">
@@ -158,6 +191,40 @@
                         <Run Text="{Binding Offset, Mode=OneTime, StringFormat=F2}"/><Run Text="+"/><Run Text="{Binding Multiplied, Mode=OneTime, StringFormat=F2}"/>
                     </TextBlock>
                 </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Status}" Value="Empty">
+                        <Setter TargetName="statusColor" Property="Fill" Value="Gray"/>
+                        <Setter TargetName="statusText" Property="Text" Value="Empty fleet"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Ready">
+                        <Setter TargetName="statusColor" Property="Fill" Value="SpringGreen"/>
+                        <Setter TargetName="statusText" Property="Text" Value="Ready"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Sortie">
+                        <Setter TargetName="statusColor" Property="Fill" Value="Red"/>
+                        <Setter TargetName="statusText" Property="Text" Value="In sortie"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Expedition">
+                        <Setter TargetName="statusColor" Property="Fill" Value="Aqua"/>
+                        <Setter TargetName="statusText" Property="Text" Value="In expedition"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Fatigued">
+                        <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
+                        <Setter TargetName="statusText" Property="Text" Value="Low morale"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Repairing">
+                        <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
+                        <Setter TargetName="statusText" Property="Text" Value="Repairing"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Damaged">
+                        <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
+                        <Setter TargetName="statusText" Property="Text" Value="Heavily damaged"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Damaged">
+                        <Setter TargetName="statusColor" Property="Fill" Value="Insufficient"/>
+                        <Setter TargetName="statusText" Property="Text" Value="Supply required"/>
+                    </DataTrigger>
+                </DataTemplate.Triggers>
             </DataTemplate>
         </TabControl.ContentTemplate>
     </TabControl>
