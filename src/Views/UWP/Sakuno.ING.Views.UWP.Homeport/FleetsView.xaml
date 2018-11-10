@@ -7,17 +7,22 @@
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     xmlns:con="using:Sakuno.ING.Views.UWP.Controls"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Homeport"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
     x:DefaultBindMode="OneWay">
-    <Pivot ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}" FontSize="16">
-        <Pivot.HeaderTemplate>
+    <tk:TabView ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}" FontSize="16" Background="Transparent">
+        <tk:TabView.HeaderTemplate>
             <DataTemplate x:DataType="g:Fleet">
-                <TextBlock Text="{x:Bind Name}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Ellipse Height="18" Width="18" Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
+                    <TextBlock FontSize="18" Text="{x:Bind Name}"/>
+                </StackPanel>
             </DataTemplate>
-        </Pivot.HeaderTemplate>
-        <Pivot.ItemTemplate>
+        </tk:TabView.HeaderTemplate>
+        <tk:TabView.ItemTemplate>
             <DataTemplate x:DataType="g:Fleet">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -33,6 +38,10 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Margin="2">
+                        <Rectangle Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
+                        <TextBlock FontSize="16" Margin="2" Text="{x:Bind local:FleetsView.StatusText(Status)}"/>
+                    </Grid>
                     <ItemsControl ItemsSource="{x:Bind Ships}"
                                   Grid.Row="1" Grid.ColumnSpan="5">
                         <ItemsControl.ItemTemplate>
@@ -145,6 +154,6 @@
                     </TextBlock>
                 </Grid>
             </DataTemplate>
-        </Pivot.ItemTemplate>
-    </Pivot>
+        </tk:TabView.ItemTemplate>
+    </tk:TabView>
 </UserControl>
