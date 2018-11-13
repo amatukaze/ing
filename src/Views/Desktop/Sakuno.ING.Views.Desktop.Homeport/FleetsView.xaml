@@ -41,7 +41,7 @@
                         <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Damaged">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="Insufficient"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
@@ -220,8 +220,8 @@
                         <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
                         <Setter TargetName="statusText" Property="Text" Value="Heavily damaged"/>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Status}" Value="Damaged">
-                        <Setter TargetName="statusColor" Property="Fill" Value="Insufficient"/>
+                    <DataTrigger Binding="{Binding Status}" Value="Insufficient">
+                        <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
                         <Setter TargetName="statusText" Property="Text" Value="Supply required"/>
                     </DataTrigger>
                 </DataTemplate.Triggers>
