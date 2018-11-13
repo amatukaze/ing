@@ -45,19 +45,27 @@ namespace Sakuno.ING.Shell.Desktop
                 Window window;
                 try
                 {
-                    layout = (LayoutRoot)XamlReader.Parse(layoutSetting.XamlString.Value);
-                    window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
+                    if (layoutSetting.XamlString.Value.IsNullOrEmpty())
+                        LayoutFallback();
+                    else
+                        layout = (LayoutRoot)XamlReader.Parse(layoutSetting.XamlString.Value);
                 }
                 catch
                 {
-                    layout = (LayoutRoot)Application.LoadComponent(new Uri("/Sakuno.ING.Shell.Desktop;component/Layout/Default.xaml", UriKind.Relative));
-                    window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
+                    LayoutFallback();
                 }
+
+                window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
 
                 InitWindow(window);
 
                 Application.Current.MainWindow = window;
                 window.Show();
+
+                void LayoutFallback()
+                {
+                    layout = (LayoutRoot)Application.LoadComponent(new Uri("/Sakuno.ING.Shell.Desktop;component/Layout/Default.xaml", UriKind.Relative));
+                }
             };
 
             app.Run();
