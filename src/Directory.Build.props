@@ -11,7 +11,7 @@
     <Company>Kodama Sakuno</Company>
     <Copyright>Copyright © 2017-2018 Kodama Sakuno</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/amatukaze/ing/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/amatukaze/ing</PackageProjectUrl>
     <PackageTags>KanColle;ING</PackageTags>
   </PropertyGroup>
