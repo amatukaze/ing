@@ -89,7 +89,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Squadrons.UpdateRawData(RawData.Squadrons, r => new AirForceSquadron(this, r), (rpData, rpRawData) => rpData.Update(rpRawData));
 
-            CombatRadius = RawData.CombatRadius;
+            CombatRadius = RawData.CombatRadius.Base + RawData.CombatRadius.Bonus;
 
             UpdateFighterPower();
             UpdateLBASConsumption();
