@@ -15,12 +15,25 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type g:BuildingDock}">
                         <Grid>
-                            <TextBlock>
+                            <TextBlock x:Name="name">
                                 <c:ShipNameText Source="{Binding BuiltShip.Name}"/>
                             </TextBlock>
-                            <TextBlock TextAlignment="Right"
+                            <TextBlock x:Name="time" TextAlignment="Right"
                                        Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
                         </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="Empty">
+                                <Setter TargetName="name" Property="Text" Value=""/>
+                                <Setter TargetName="time" Property="Text" Value=""/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="Locked">
+                                <Setter TargetName="name" Property="Text" Value="Locked"/>
+                                <Setter TargetName="time" Property="Text" Value=""/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="BuildCompleted">
+                                <Setter TargetName="time" Property="Text" Value="Completed"/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -30,12 +43,22 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type g:RepairingDock}">
                         <Grid>
-                            <TextBlock>
+                            <TextBlock x:Name="name">
                                 <c:ShipNameText Source="{Binding RepairingShip.Info.Name}"/>
                             </TextBlock>
-                            <TextBlock TextAlignment="Right"
+                            <TextBlock x:Name="time" TextAlignment="Right"
                                        Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
                         </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="Empty">
+                                <Setter TargetName="name" Property="Text" Value=""/>
+                                <Setter TargetName="time" Property="Text" Value=""/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="Locked">
+                                <Setter TargetName="name" Property="Text" Value="Locked"/>
+                                <Setter TargetName="time" Property="Text" Value=""/>
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

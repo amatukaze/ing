@@ -6,20 +6,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Homeport"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
     x:DefaultBindMode="OneWay">
     <Pivot>
         <PivotItem Header="Build">
-            <ItemsControl ItemsSource="{x:Bind ViewModel.BuildingDocks.DefaultView}">
+            <ItemsControl ItemsSource="{x:Bind ViewModel.BuildingDocks.DefaultView}" FontSize="16">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="g:BuildingDock">
                         <Grid>
-                            <TextBlock FontSize="16"
-                                       Style="{StaticResource ShipNameTextStyle}"
+                            <TextBlock Style="{StaticResource ShipNameTextStyle}"
                                        Text="{x:Bind c:Helpers.SelectShipName(BuiltShip.Name), FallbackValue=''}"/>
-                            <TextBlock FontSize="16" TextAlignment="Right"
+                            <TextBlock TextAlignment="Center"
+                                       Text="{x:Bind local:DocksView.BuildingStateText(State)}"/>
+                            <TextBlock TextAlignment="Right"
                                        Text="{x:Bind TimeRemaining.ToString('hh\:mm\:ss')}"/>
                         </Grid>
                     </DataTemplate>
@@ -27,14 +29,15 @@
             </ItemsControl>
         </PivotItem>
         <PivotItem Header="Repair">
-            <ItemsControl ItemsSource="{x:Bind ViewModel.RepairingDocks.DefaultView}">
+            <ItemsControl ItemsSource="{x:Bind ViewModel.RepairingDocks.DefaultView}" FontSize="16">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="g:RepairingDock">
                         <Grid>
-                            <TextBlock FontSize="16"
-                                       Style="{StaticResource ShipNameTextStyle}"
+                            <TextBlock Style="{StaticResource ShipNameTextStyle}"
                                        Text="{x:Bind c:Helpers.SelectShipName(RepairingShip.Info.Name), FallbackValue=''}"/>
-                            <TextBlock FontSize="16" TextAlignment="Right"
+                            <TextBlock TextAlignment="Center"
+                                       Text="{x:Bind local:DocksView.RepairingStateText(State)}"/>
+                            <TextBlock TextAlignment="Right"
                                        Text="{x:Bind TimeRemaining.ToString('hh\:mm\:ss')}"/>
                         </Grid>
                     </DataTemplate>

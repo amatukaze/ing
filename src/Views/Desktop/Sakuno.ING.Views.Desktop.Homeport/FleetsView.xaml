@@ -40,7 +40,7 @@
                     <DataTrigger Binding="{Binding Status}" Value="Damaged">
                         <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
                     </DataTrigger>
-                    <DataTrigger Binding="{Binding Status}" Value="Damaged">
+                    <DataTrigger Binding="{Binding Status}" Value="Insufficient">
                         <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
                     </DataTrigger>
                 </DataTemplate.Triggers>
