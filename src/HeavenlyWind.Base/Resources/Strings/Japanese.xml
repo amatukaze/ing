@@ -149,10 +149,11 @@
   <String Key="Fleet_LoS_Formula_AutumnSimplified">新秋式簡易</String>
   <String Key="Fleet_LoS_Formula_Formula33">判定式 (33)</String>
   <String Key="Fleet_LoS_Note">判定式 (33) の備考</String>
-  <String Key="Fleet_LoS_Note_25">ボスへ: [b]33[/b] 以上</String>
+  <String Key="Fleet_LoS_Note_25">ボスへ: [b]34[/b] 以上</String>
   <String Key="Fleet_LoS_Note_35">G->K(ボス): [b]28[/b] 以上
 
 ※ C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_55">ボスへ: [b]43[/b] 以上</String>
   <String Key="Fleet_LoS_Note_61">Fへ: [b]16[/b] 以上
 F->K(ボス): [b]25[/b] 以上
 

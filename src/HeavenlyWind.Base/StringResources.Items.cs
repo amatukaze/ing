@@ -154,6 +154,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Fleet_LoS_Note => GetString(nameof(Fleet_LoS_Note));
         public string Fleet_LoS_Note_25 => GetString(nameof(Fleet_LoS_Note_25));
         public string Fleet_LoS_Note_35 => GetString(nameof(Fleet_LoS_Note_35));
+        public string Fleet_LoS_Note_55 => GetString(nameof(Fleet_LoS_Note_55));
         public string Fleet_LoS_Note_61 => GetString(nameof(Fleet_LoS_Note_61));
         public string Fleet_LoS_Note_62 => GetString(nameof(Fleet_LoS_Note_62));
         public string Fleet_LoS_Note_63 => GetString(nameof(Fleet_LoS_Note_63));
