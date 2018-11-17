@@ -24,16 +24,16 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public FleetLoSStatus[] LoS { get; }
 
-        FleetSpeed? r_Speed;
-        public FleetSpeed? Speed
+        ShipSpeed? _slowestShipSpeed;
+        public ShipSpeed? SlowestShipSpeed
         {
-            get { return r_Speed; }
+            get { return _slowestShipSpeed; }
             private set
             {
-                if (r_Speed != value)
+                if (_slowestShipSpeed != value)
                 {
-                    r_Speed = value;
-                    OnPropertyChanged(nameof(Speed));
+                    _slowestShipSpeed = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -78,27 +78,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         void UpdateFleetSpeed()
         {
             if (r_Fleet.Ships.Count == 0)
-                Speed = null;
+                SlowestShipSpeed = null;
             else
-            {
-                FleetSpeed rResult = 0;
-
-                foreach (var rShip in r_Fleet.Ships)
-                    switch (rShip.Speed)
-                    {
-                        case ShipSpeed.Slow:
-                            rResult |= FleetSpeed.Slow;
-                            break;
-
-                        case ShipSpeed.Fast:
-                        case ShipSpeed.FastPlus:
-                        case ShipSpeed.UltraFast:
-                            rResult |= FleetSpeed.Fast;
-                            break;
-                    }
-
-                Speed = rResult;
-            }
+                SlowestShipSpeed = r_Fleet.Ships.Min(r => r.Speed);
         }
 
         void CalculateTransportPoint()

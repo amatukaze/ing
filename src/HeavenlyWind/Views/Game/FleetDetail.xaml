@@ -25,7 +25,7 @@
                 <rc:LoSFormulas ItemsSource="{Binding Status.LoS}" Margin="3, 0, 0, 0" />
                 <rc:FighterPower ItemsSource="{Binding Status.FighterPower.Formulas}" Margin="3, 0, 0, 0" />
 
-                <TextBlock Text="{rb:EnumToStringResource Status.Speed, Fleet_Speed}" Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull Status.Speed}" />
+                <TextBlock Text="{rb:EnumToStringResource Status.SlowestShipSpeed, Ship_Speed}" Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull Status.SlowestShipSpeed}" />
             </StackPanel>
 
             <Border Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull ConditionRegeneration.TimeToComplete}">
