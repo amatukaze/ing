@@ -238,21 +238,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             }
             catch (IOException e)
             {
-                var rDialog = new TaskDialog()
-                {
-                    Caption = UnhandledExceptionDialogStringResources.ProductName,
-                    Instruction = UnhandledExceptionDialogStringResources.Instruction,
-                    Icon = TaskDialogIcon.Error,
-                    Content = UnhandledExceptionDialogStringResources.Content,
-
-                    Detail = e.ToString(),
-                    ShowDetailAtTheBottom = true,
-
-                    ShowAtTheCenterOfOwner = true,
-                };
-
-                rDialog.ShowAndDispose();
-
                 Process.GetCurrentProcess().Kill();
             }
         }
