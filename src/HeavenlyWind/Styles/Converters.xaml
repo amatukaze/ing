@@ -16,6 +16,7 @@
     <rbc:IsLessThanOrEqualToConverter x:Key="IsLessThanOrEqualToConverter" />
 
     <rb:PercentConverter x:Key="PercentConverter" />
+    <rb:SumConverter x:Key="SumConverter" />
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <ruic:BooleanToInvisibilityConverter x:Key="BooleanToInvisibilityConverter" />

@@ -25,10 +25,24 @@
 
                         <TextBlock Text="{Binding Source.ID}" />
                         <TextBlock Name="Option" Text="{rb:EnumToStringResource Source.Option, AirBase_Group_Option}" FontWeight="Bold" Margin="4, 0, 0, 0" Grid.Column="1" />
-                        <TextBlock Margin="4, 0, 0, 0" Grid.Column="2">
-                            <Run Text="{rb:StringResource Main.AirBase_Group_CombatRadius}" />:
-                            <Run Text="{Binding Source.CombatRadius, StringFormat=0.#, Mode=OneWay}" />
-                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="4, 0, 0, 0" Grid.Column="2">
+                            <TextBlock>
+                                <Run Text="{rb:StringResource Main.AirBase_Group_CombatRadius}" />:
+                                <Run>
+                                    <Run.Text>
+                                        <MultiBinding Converter="{StaticResource SumConverter}" StringFormat="0" Mode="OneWay">
+                                            <Binding Path="Source.CombatRadiusBase" />
+                                            <Binding Path="Source.CombatRadiusBonus" />
+                                        </MultiBinding>
+                                    </Run.Text>
+                                </Run>
+                            </TextBlock>
+                            <TextBlock Name="DetailedCombatRadius" Margin="4, 0, 0, 0">
+                                (<Run Text="{Binding Source.CombatRadiusBase, Mode=OneWay}" />
+                                <Run Text="+" />
+                                <Run Text="{Binding Source.CombatRadiusBonus, Mode=OneWay}" />)
+                            </TextBlock>
+                        </StackPanel>
                         <TextBlock Margin="4, 0, 0, 0" Grid.Column="3">
                             <Run Text="{rb:StringResource Main.Fleet_FighterPower}" />:
                             <Run Text="{Binding Source.FighterPower, Mode=OneWay}" />
@@ -163,6 +177,10 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Source.Option}" Value="Rest">
                         <Setter TargetName="Option" Property="Foreground" Value="Yellow" />
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding Source.CombatRadiusBonus}" Value="0">
+                        <Setter TargetName="DetailedCombatRadius" Property="Visibility" Value="Collapsed" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
