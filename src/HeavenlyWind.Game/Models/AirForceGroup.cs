@@ -25,16 +25,29 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        int r_CombatRadius;
-        public int CombatRadius
+        int _combatRadiusBase;
+        public int CombatRadiusBase
         {
-            get { return r_CombatRadius; }
+            get => _combatRadiusBase;
             internal set
             {
-                if (r_CombatRadius != value)
+                if (_combatRadiusBase != value)
                 {
-                    r_CombatRadius = value;
-                    OnPropertyChanged(nameof(CombatRadius));
+                    _combatRadiusBase = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        int _combatRadiusBonus;
+        public int CombatRadiusBonus
+        {
+            get => _combatRadiusBonus;
+            internal set
+            {
+                if (_combatRadiusBonus != value)
+                {
+                    _combatRadiusBonus = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -89,7 +102,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Squadrons.UpdateRawData(RawData.Squadrons, r => new AirForceSquadron(this, r), (rpData, rpRawData) => rpData.Update(rpRawData));
 
-            CombatRadius = RawData.CombatRadius.Base + RawData.CombatRadius.Bonus;
+            CombatRadiusBase = RawData.CombatRadius.Base;
+            CombatRadiusBonus = RawData.CombatRadius.Bonus;
 
             UpdateFighterPower();
             UpdateLBASConsumption();

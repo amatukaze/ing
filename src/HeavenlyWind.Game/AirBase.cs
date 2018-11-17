@@ -41,7 +41,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 foreach (var rSquadron in rData.Squadrons)
                     rGroup.Squadrons[rSquadron.ID].Update(rSquadron);
 
-                rGroup.CombatRadius = rData.CombatRadius;
+                rGroup.CombatRadiusBase = rData.CombatRadius.Base;
+                rGroup.CombatRadiusBonus = rData.CombatRadius.Bonus;
                 rGroup.UpdateFighterPower();
                 rGroup.UpdateLBASConsumption();
             });
