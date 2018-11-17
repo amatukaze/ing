@@ -25,7 +25,17 @@
                 <rc:LoSFormulas ItemsSource="{Binding Status.LoS}" Margin="3, 0, 0, 0" />
                 <rc:FighterPower ItemsSource="{Binding Status.FighterPower.Formulas}" Margin="3, 0, 0, 0" />
 
-                <TextBlock Text="{rb:EnumToStringResource Status.SlowestShipSpeed, Ship_Speed}" Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull Status.SlowestShipSpeed}" />
+                <TextBlock Text="{rb:EnumToStringResource Status.SlowestShipSpeed, Ship_Speed}" Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull Status.SlowestShipSpeed}">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Status.SlowestShipSpeed, Converter={StaticResource IsGreaterThanConverter}, ConverterParameter={x:Static rgm:ShipSpeed.Fast}}" Value="True">
+                                    <Setter Property="Foreground" Value="#AAEBFD" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </StackPanel>
 
             <Border Margin="6, 0, 0, 0" Visibility="{rb:CollapsedIfNull ConditionRegeneration.TimeToComplete}">
