@@ -21,11 +21,18 @@ namespace Sakuno.ING.Game.Models
             set => Set(ref _name, value);
         }
 
-        private int _distance;
-        public int Distance
+        private int _distanceBase;
+        public int DistanceBase
         {
-            get => _distance;
-            set => Set(ref _distance, value);
+            get => _distanceBase;
+            set => Set(ref _distanceBase, value);
+        }
+
+        private int _distanceBonus;
+        public int DistanceBonus
+        {
+            get => _distanceBonus;
+            set => Set(ref _distanceBonus, value);
         }
 
         private AirForceAction _action;
@@ -56,7 +63,8 @@ namespace Sakuno.ING.Game.Models
         private void UpdateProps(IRawAirForceGroup raw, DateTimeOffset timeStamp)
         {
             Name = raw.Name;
-            Distance = raw.Distance;
+            DistanceBase = raw.DistanceBase;
+            DistanceBonus = raw.DistanceBonus;
             Action = raw.Action;
             squadrons.BatchUpdate(raw.Squadrons, timeStamp);
         }

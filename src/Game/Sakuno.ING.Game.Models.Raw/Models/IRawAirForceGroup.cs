@@ -28,7 +28,8 @@ namespace Sakuno.ING.Game.Models
         MapAreaId MapAreaId { get; }
         AirForceGroupId GroupId { get; }
         string Name { get; }
-        int Distance { get; }
+        int DistanceBase { get; }
+        int DistanceBonus { get; }
         AirForceAction Action { get; }
         IReadOnlyCollection<IRawAirForceSquadron> Squadrons { get; }
     }

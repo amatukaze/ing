@@ -6,17 +6,19 @@ namespace Sakuno.ING.Game.Events
 {
     public class AirForceSetPlane
     {
-        public AirForceSetPlane(MapAreaId mapAreaId, AirForceGroupId groupId, int newDistance, IReadOnlyCollection<IRawAirForceSquadron> updatedSquadrons)
+        public AirForceSetPlane(MapAreaId mapAreaId, AirForceGroupId groupId, int newDistanceBase, int newDistanceBonus, IReadOnlyCollection<IRawAirForceSquadron> updatedSquadrons)
         {
             MapAreaId = mapAreaId;
             GroupId = groupId;
-            NewDistance = newDistance;
+            NewDistanceBase = newDistanceBase;
+            NewDistanceBonus = newDistanceBonus;
             UpdatedSquadrons = updatedSquadrons;
         }
 
         public MapAreaId MapAreaId { get; }
         public AirForceGroupId GroupId { get; }
-        public int NewDistance { get; }
+        public int NewDistanceBase { get; }
+        public int NewDistanceBonus { get; }
         public IReadOnlyCollection<IRawAirForceSquadron> UpdatedSquadrons { get; }
     }
 }

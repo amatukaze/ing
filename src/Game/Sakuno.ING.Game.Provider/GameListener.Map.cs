@@ -60,7 +60,8 @@ namespace Sakuno.ING.Game
             (
                 mapAreaId: (MapAreaId)request.GetInt("api_area_id"),
                 groupId: (AirForceGroupId)request.GetInt("api_base_id"),
-                newDistance: response.api_distance,
+                newDistanceBase: response.api_distance.api_base,
+                newDistanceBonus: response.api_distance.api_bonus,
                 updatedSquadrons: response.api_plane_info
             );
 

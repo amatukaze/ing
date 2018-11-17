@@ -127,7 +127,8 @@ namespace Sakuno.ING.Game.Models
             listener.AirForcePlaneSet += (t, msg) =>
             {
                 var group = AirForce[(msg.MapAreaId, msg.GroupId)];
-                group.Distance = msg.NewDistance;
+                group.DistanceBase = msg.NewDistanceBase;
+                group.DistanceBonus = msg.NewDistanceBonus;
                 group.squadrons.BatchUpdate(msg.UpdatedSquadrons, t, removal: false);
             };
             listener.AirForceActionSet += (t, msg) =>
