@@ -236,7 +236,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                         }
                 }
             }
-            catch (IOException e)
+            catch (IOException)
             {
                 Process.GetCurrentProcess().Kill();
             }
