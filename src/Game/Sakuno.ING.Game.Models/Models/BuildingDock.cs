@@ -12,8 +12,10 @@ namespace Sakuno.ING.Game.Models
 
         internal void UpdateTimer(DateTimeOffset timeStamp)
         {
-            if (BuiltShip == null || timeStamp > CompletionTime)
-                TimeRemaining = default;
+            if (BuiltShip == null)
+                TimeRemaining = null;
+            else if (timeStamp > CompletionTime)
+                TimeRemaining = default(TimeSpan);
             else
                 TimeRemaining = CompletionTime - timeStamp;
         }

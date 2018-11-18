@@ -11,18 +11,18 @@ p:int AirProficiency -
 p:bool IsAvailable
 
 BuildingDock:BuildingDockId:IRawBuildingDock:NavalBase
-p:DateTimeOffset CompletionTime -
+p:DateTimeOffset? CompletionTime -
 p:BuildingDockState State -
 p:Materials Consumption -
 p:ShipInfo BuiltShip
 p:bool IsLSC -
-p:TimeSpan TimeRemaining
+p:TimeSpan? TimeRemaining
 
 RepairingDock:RepairingDockId:IRawRepairingDock:NavalBase
 p:RepairingDockState State -
-p:DateTimeOffset CompletionTime -
+p:DateTimeOffset? CompletionTime -
 p:Materials Consumption -
-p:TimeSpan TimeRemaining
+p:TimeSpan? TimeRemaining
 
 UseItemCount:UseItemId:IRawUseItemCount:NavalBase
 p:UseItemInfo Item
@@ -74,8 +74,8 @@ Fleet:FleetId:IRawFleet:NavalBase
 p:string Name -
 p:FleetExpeditionState ExpeditionState -
 p:ExpeditionInfo Expedition
-p:DateTimeOffset ExpeditionCompletionTime -
-p:TimeSpan ExpeditionTimeRemaining
+p:DateTimeOffset? ExpeditionCompletionTime -
+p:TimeSpan? ExpeditionTimeRemaining
 p:ShipSpeed SlowestShipSpeed
 p:Materials SupplyingCost
 p:Materials RepairingCost

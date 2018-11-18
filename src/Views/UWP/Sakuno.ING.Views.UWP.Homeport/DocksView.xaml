@@ -7,6 +7,7 @@
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     xmlns:local="using:Sakuno.ING.Views.UWP.Homeport"
+    xmlns:sys="using:System"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -22,7 +23,7 @@
                             <TextBlock TextAlignment="Center"
                                        Text="{x:Bind local:DocksView.BuildingStateText(State)}"/>
                             <TextBlock TextAlignment="Right"
-                                       Text="{x:Bind TimeRemaining.ToString('hh\:mm\:ss')}"/>
+                                       Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -38,7 +39,7 @@
                             <TextBlock TextAlignment="Center"
                                        Text="{x:Bind local:DocksView.RepairingStateText(State)}"/>
                             <TextBlock TextAlignment="Right"
-                                       Text="{x:Bind TimeRemaining.ToString('hh\:mm\:ss')}"/>
+                                       Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

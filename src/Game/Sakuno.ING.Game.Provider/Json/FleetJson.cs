@@ -19,15 +19,24 @@ namespace Sakuno.ING.Game.Json
         {
             get
             {
-                long id=api_mission.ElementAtOrDefault(1);
+                long id = api_mission.ElementAtOrDefault(1);
                 if (id > 0)
                     return (ExpeditionId)id;
                 else
                     return null;
             }
-    }
+        }
 
-        public DateTimeOffset ExpeditionCompletionTime => DateTimeOffset.FromUnixTimeMilliseconds(api_mission.ElementAtOrDefault(2));
+        public DateTimeOffset? ExpeditionCompletionTime
+        {
+            get
+            {
+                long value = api_mission.ElementAtOrDefault(2);
+                return value > 0 ?
+                    DateTimeOffset.FromUnixTimeMilliseconds(value) :
+                    (DateTimeOffset?)null;
+            }
+        }
 
         [JsonProperty("api_ship")]
         public IReadOnlyList<ShipId> ShipIds { get; set; }

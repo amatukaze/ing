@@ -7,7 +7,9 @@ namespace Sakuno.ING.Game.Json.Converters
     {
         public override bool CanConvert(Type objectType) => objectType == typeof(DateTimeOffset);
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            => DateTimeOffset.FromUnixTimeMilliseconds((long)reader.Value);
+            => reader.Value is long value && value > 0
+            ? (object)DateTimeOffset.FromUnixTimeMilliseconds(value)
+            : null;
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotSupportedException();
     }
 }

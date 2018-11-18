@@ -25,7 +25,7 @@ namespace Sakuno.ING.Game.Models
     {
         RepairingDockState State { get; }
         ShipId? RepairingShipId { get; }
-        DateTimeOffset CompletionTime { get; }
+        DateTimeOffset? CompletionTime { get; }
         Materials Consumption { get; }
     }
 

@@ -24,7 +24,7 @@ namespace Sakuno.ING.Game.Models
 
     public interface IRawBuildingDock : IIdentifiable<BuildingDockId>
     {
-        DateTimeOffset CompletionTime { get; }
+        DateTimeOffset? CompletionTime { get; }
         BuildingDockState State { get; }
         Materials Consumption { get; }
         ShipInfoId? BuiltShipId { get; }

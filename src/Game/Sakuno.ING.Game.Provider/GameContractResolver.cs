@@ -25,7 +25,7 @@ namespace Sakuno.ING.Game
                 contract.Converter = (JsonConverter)Activator.CreateInstance(type);
             }
 
-            if (valueType == typeof(DateTimeOffset))
+            if (valueType == typeof(DateTimeOffset?))
                 contract.Converter = new DateTimeMillisecondConverter();
 
             return contract;

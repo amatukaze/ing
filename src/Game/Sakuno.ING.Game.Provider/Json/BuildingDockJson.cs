@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game.Json
         public BuildingDockId Id { get; set; }
 
         [JsonProperty("api_complete_time")]
-        public DateTimeOffset CompletionTime { get; set; }
+        public DateTimeOffset? CompletionTime { get; set; }
 
         [JsonProperty("api_state")]
         public BuildingDockState State { get; set; }

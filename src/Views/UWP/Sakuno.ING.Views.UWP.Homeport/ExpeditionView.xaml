@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:sys="using:System"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -18,7 +19,7 @@
                                Style="{StaticResource NameTextStyle}"
                                Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}"/>
                     <TextBlock FontSize="16" TextAlignment="Right"
-                               Text="{x:Bind ExpeditionTimeRemaining.ToString('hh\:mm\:ss')}"/>
+                               Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}"/>
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

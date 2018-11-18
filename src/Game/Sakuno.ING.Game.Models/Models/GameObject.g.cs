@@ -105,8 +105,8 @@ namespace Sakuno.ING.Game.Models
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__completionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(CompletionTime));
-        private DateTimeOffset _completionTime;
-        public DateTimeOffset CompletionTime
+        private DateTimeOffset? _completionTime;
+        public DateTimeOffset? CompletionTime
         {
             get => _completionTime;
             internal set => Set(ref _completionTime, value, __eventArgs__completionTime);
@@ -150,8 +150,8 @@ namespace Sakuno.ING.Game.Models
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__timeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(TimeRemaining));
-        private TimeSpan _timeRemaining;
-        public TimeSpan TimeRemaining
+        private TimeSpan? _timeRemaining;
+        public TimeSpan? TimeRemaining
         {
             get => _timeRemaining;
             internal set => Set(ref _timeRemaining, value, __eventArgs__timeRemaining);
@@ -203,8 +203,8 @@ namespace Sakuno.ING.Game.Models
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__completionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(CompletionTime));
-        private DateTimeOffset _completionTime;
-        public DateTimeOffset CompletionTime
+        private DateTimeOffset? _completionTime;
+        public DateTimeOffset? CompletionTime
         {
             get => _completionTime;
             internal set => Set(ref _completionTime, value, __eventArgs__completionTime);
@@ -221,8 +221,8 @@ namespace Sakuno.ING.Game.Models
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__timeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(TimeRemaining));
-        private TimeSpan _timeRemaining;
-        public TimeSpan TimeRemaining
+        private TimeSpan? _timeRemaining;
+        public TimeSpan? TimeRemaining
         {
             get => _timeRemaining;
             internal set => Set(ref _timeRemaining, value, __eventArgs__timeRemaining);
@@ -765,8 +765,8 @@ namespace Sakuno.ING.Game.Models
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionCompletionTime = new System.ComponentModel.PropertyChangedEventArgs(nameof(ExpeditionCompletionTime));
-        private DateTimeOffset _expeditionCompletionTime;
-        public DateTimeOffset ExpeditionCompletionTime
+        private DateTimeOffset? _expeditionCompletionTime;
+        public DateTimeOffset? ExpeditionCompletionTime
         {
             get => _expeditionCompletionTime;
             internal set => Set(ref _expeditionCompletionTime, value, __eventArgs__expeditionCompletionTime);
@@ -774,8 +774,8 @@ namespace Sakuno.ING.Game.Models
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__expeditionTimeRemaining = new System.ComponentModel.PropertyChangedEventArgs(nameof(ExpeditionTimeRemaining));
-        private TimeSpan _expeditionTimeRemaining;
-        public TimeSpan ExpeditionTimeRemaining
+        private TimeSpan? _expeditionTimeRemaining;
+        public TimeSpan? ExpeditionTimeRemaining
         {
             get => _expeditionTimeRemaining;
             internal set => Set(ref _expeditionTimeRemaining, value, __eventArgs__expeditionTimeRemaining);

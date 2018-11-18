@@ -20,18 +20,14 @@
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
                                        Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
+                            <TextBlock x:Name="state" TextAlignment="Center"/>
                         </Grid>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding State}" Value="Empty">
-                                <Setter TargetName="name" Property="Text" Value=""/>
-                                <Setter TargetName="time" Property="Text" Value=""/>
+                                <Setter TargetName="state" Property="Text" Value="Empty"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding State}" Value="Locked">
-                                <Setter TargetName="name" Property="Text" Value="Locked"/>
-                                <Setter TargetName="time" Property="Text" Value=""/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding State}" Value="BuildCompleted">
-                                <Setter TargetName="time" Property="Text" Value="Completed"/>
+                                <Setter TargetName="state" Property="Text" Value="Locked"/>
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
@@ -48,15 +44,14 @@
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
                                        Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
+                            <TextBlock x:Name="state" TextAlignment="Center"/>
                         </Grid>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding State}" Value="Empty">
-                                <Setter TargetName="name" Property="Text" Value=""/>
-                                <Setter TargetName="time" Property="Text" Value=""/>
+                                <Setter TargetName="state" Property="Text" Value="Empty"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding State}" Value="Locked">
-                                <Setter TargetName="name" Property="Text" Value="Locked"/>
-                                <Setter TargetName="time" Property="Text" Value=""/>
+                                <Setter TargetName="state" Property="Text" Value="Locked"/>
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
