@@ -143,13 +143,17 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                         var rTorpedoDiff = rNow.ModernizedStatus[1] - rOriginal.ModernizedStatus[1];
                         var rAADiff = rNow.ModernizedStatus[2] - rOriginal.ModernizedStatus[2];
                         var rArmorDiff = rNow.ModernizedStatus[3] - rOriginal.ModernizedStatus[3];
-                        var rLuckDiff = rNow.Luck[0] - rOriginal.Luck[0];
+                        var rLuckDiff = rNow.ModernizedStatus[4] - rOriginal.ModernizedStatus[4];
+                        var hpDiff = rNow.ModernizedStatus[5] - rOriginal.ModernizedStatus[5];
+                        var aswDiff = rNow.ModernizedStatus[6] - rOriginal.ModernizedStatus[6];
 
                         var rFirepowerRemain = rInfo.FirepowerMaximum - rInfo.FirepowerMinimum - rNow.ModernizedStatus[0];
                         var rTorpedoRemain = rInfo.TorpedoMaximum - rInfo.TorpedoMinimum - rNow.ModernizedStatus[1];
                         var rAARemain = rInfo.AAMaximum - rInfo.AAMinimum - rNow.ModernizedStatus[2];
                         var rArmorRemain = rInfo.ArmorMaximum - rInfo.ArmorMinimum - rNow.ModernizedStatus[3];
                         var rLuckRemain = rNow.Luck[1] - rNow.Luck[0];
+                        var hpRemain = 2 - rNow.ModernizedStatus[5];
+                        var aswRemain = 9 - rNow.ModernizedStatus[6];
 
                         var rMaximumStatuses = new List<string>(5);
                         var rNotMaximumStatuses = new List<string>(5);
@@ -205,6 +209,26 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                                 rNotMaximumStatuses.Add(rShowStatusGrowth ? $"{rHeader} +{rLuckDiff}" : $"{rHeader} {rLuckRemain}");
                             else
                                 rMaximumStatuses.Add(rHeader +" MAX");
+                        }
+
+                        if (hpDiff > 0)
+                        {
+                            var header = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_HP : "[icon]hp[/icon]";
+
+                            if (hpRemain > 0)
+                                rNotMaximumStatuses.Add(rShowStatusGrowth ? $"{header} +{hpDiff}" : $"{header} {hpRemain}");
+                            else
+                                rMaximumStatuses.Add(header + " MAX");
+                        }
+
+                        if (aswDiff > 0)
+                        {
+                            var header = rUseText ? StringResources.Instance.Main.Ship_ToolTip_Status_ASW : "[icon]asw[/icon]";
+
+                            if (aswRemain > 0)
+                                rNotMaximumStatuses.Add(rShowStatusGrowth ? $"{header} +{aswDiff}" : $"{header} {aswRemain}");
+                            else
+                                rMaximumStatuses.Add(header + " MAX");
                         }
 
                         var rBuilder = new StringBuilder(128);

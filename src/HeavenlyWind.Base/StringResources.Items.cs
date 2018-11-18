@@ -181,6 +181,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Ship_ToolTip_Status_LoS => GetString(nameof(Ship_ToolTip_Status_LoS));
         public string Ship_ToolTip_Status_Speed => GetString(nameof(Ship_ToolTip_Status_Speed));
         public string Ship_ToolTip_Status_Range => GetString(nameof(Ship_ToolTip_Status_Range));
+        public string Ship_ToolTip_Status_HP => GetString(nameof(Ship_ToolTip_Status_HP));
         public string Ship_ToolTip_DayBattle => GetString(nameof(Ship_ToolTip_DayBattle));
         public string Ship_ToolTip_NightBattle => GetString(nameof(Ship_ToolTip_NightBattle));
         public string Ship_ToolTip_AttackMode => GetString(nameof(Ship_ToolTip_AttackMode));

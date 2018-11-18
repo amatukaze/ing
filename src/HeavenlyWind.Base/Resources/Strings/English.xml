@@ -191,6 +191,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="Ship_ToolTip_Status_LoS">LoS</String>
   <String Key="Ship_ToolTip_Status_Speed">Speed</String>
   <String Key="Ship_ToolTip_Status_Range">Range</String>
+  <String Key="Ship_ToolTip_Status_HP">HP</String>
   <String Key="Ship_ToolTip_DayBattle">Day</String>
   <String Key="Ship_ToolTip_NightBattle">Night</String>
   <String Key="Ship_ToolTip_AttackMode">Attack Mode</String>

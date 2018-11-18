@@ -190,6 +190,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Ship_ToolTip_Status_LoS">索敵</String>
   <String Key="Ship_ToolTip_Status_Speed">速力</String>
   <String Key="Ship_ToolTip_Status_Range">射程</String>
+  <String Key="Ship_ToolTip_Status_HP">耐久</String>
   <String Key="Ship_ToolTip_DayBattle">昼戰</String>
   <String Key="Ship_ToolTip_NightBattle">夜戰</String>
   <String Key="Ship_ToolTip_AttackMode">攻擊形式</String>

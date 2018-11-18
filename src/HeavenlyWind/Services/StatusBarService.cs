@@ -189,6 +189,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     return GetUIContainer(new CommonPropertyIcon() { Type = CommonProperty.Armor });
                 if (rIcon.OICEquals("luck"))
                     return GetUIContainer(new CommonPropertyIcon() { Type = CommonProperty.Luck });
+                if (rIcon.OICEquals("hp"))
+                    return GetUIContainer(new CommonPropertyIcon() { Type = CommonProperty.HP });
+                if (rIcon.OICEquals("asw"))
+                    return GetUIContainer(new CommonPropertyIcon() { Type = CommonProperty.ASW });
 
                 return null;
             });
