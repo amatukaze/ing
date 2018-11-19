@@ -158,6 +158,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Fleet_LoS_Note_61 => GetString(nameof(Fleet_LoS_Note_61));
         public string Fleet_LoS_Note_62 => GetString(nameof(Fleet_LoS_Note_62));
         public string Fleet_LoS_Note_63 => GetString(nameof(Fleet_LoS_Note_63));
+        public string Fleet_LoS_Note_72 => GetString(nameof(Fleet_LoS_Note_72));
         public string Fleet_FighterPower => GetString(nameof(Fleet_FighterPower));
         public string Fleet_FighterPower_Formula_WithoutBonus => GetString(nameof(Fleet_FighterPower_Formula_WithoutBonus));
         public string Fleet_FighterPower_Formula_WithBonus => GetString(nameof(Fleet_FighterPower_Formula_WithBonus));

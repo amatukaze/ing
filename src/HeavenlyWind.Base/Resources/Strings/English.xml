@@ -168,6 +168,9 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="Fleet_LoS_Note_63">Boss entry: At least [b]38[/b]
 
 PS: C[sub]n[/sub]=3</String>
+  <String Key="Fleet_LoS_Note_72">Boss entry (M): At least [b]69[/b]
+
+PS: C[sub]n[/sub]=4</String>
   <String Key="Fleet_FighterPower">FP</String>
   <String Key="Fleet_FighterPower_Formula_WithoutBonus">Without FP Bonus</String>
   <String Key="Fleet_FighterPower_Formula_WithBonus">With FP Bonus</String>

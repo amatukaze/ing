@@ -166,6 +166,9 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="Fleet_LoS_Note_63">ボスへ: [b]38[/b] 以上
 
 ※ C[sub]n[/sub]=3</String>
+  <String Key="Fleet_LoS_Note_72">ボス(M)へ: [b]69[/b] 以上
+
+※ C[sub]n[/sub]=4</String>
   <String Key="Fleet_FighterPower">制空</String>
   <String Key="Fleet_FighterPower_Formula_WithoutBonus">熟練度ボーナスを無視</String>
   <String Key="Fleet_FighterPower_Formula_WithBonus">熟練度ボーナスあり</String>

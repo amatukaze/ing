@@ -167,6 +167,9 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Fleet_LoS_Note_63">需要至少 [b]38[/b] 确保进 Boss 点
 
 注: C[sub]n[/sub]=3</String>
+  <String Key="Fleet_LoS_Note_72">需要至少 [b]69[/b] 确保进 Boss(M) 点
+
+注: C[sub]n[/sub]=4</String>
   <String Key="Fleet_FighterPower">制空</String>
   <String Key="Fleet_FighterPower_Formula_WithoutBonus">忽略熟练度奖励</String>
   <String Key="Fleet_FighterPower_Formula_WithBonus">有熟练度奖励</String>
