@@ -28,6 +28,30 @@
                     <DataTrigger Binding="{Binding Status}" Value="Sortie">
                         <Setter TargetName="statusIcon" Property="Fill" Value="Red"/>
                     </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Warning">
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Red"/>
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="statusIcon"
+                                                                   Storyboard.TargetProperty="Opacity">
+                                        <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                                        <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                                        <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="statusIcon"
+                                                     Storyboard.TargetProperty="Opacity" From="1"
+                                                     To="1" Duration="1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.ExitActions>
+                    </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Expedition">
                         <Setter TargetName="statusIcon" Property="Fill" Value="Aqua"/>
                     </DataTrigger>
@@ -203,6 +227,30 @@
                     <DataTrigger Binding="{Binding Status}" Value="Sortie">
                         <Setter TargetName="statusColor" Property="Fill" Value="Red"/>
                         <Setter TargetName="statusText" Property="Text" Value="In sortie"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Status}" Value="Warning">
+                        <Setter TargetName="statusColor" Property="Fill" Value="Red"/>
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="statusColor"
+                                                                   Storyboard.TargetProperty="Opacity">
+                                        <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
+                                        <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+                                        <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.EnterActions>
+                        <DataTrigger.ExitActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="statusColor"
+                                                     Storyboard.TargetProperty="Opacity" From="1"
+                                                     To="1" Duration="1"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </DataTrigger.ExitActions>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Expedition">
                         <Setter TargetName="statusColor" Property="Fill" Value="Aqua"/>

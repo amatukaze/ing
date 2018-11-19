@@ -18,6 +18,25 @@
             <DataTemplate x:DataType="g:Fleet">
                 <StackPanel Orientation="Horizontal">
                     <Ellipse Height="18" Width="18" Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
+                    <Ellipse x:Name="warningIcon" Fill="Red"
+                                   x:Load="{x:Bind local:FleetsView.IsStatusWarning(Status)}">
+                        <Ellipse.Triggers>
+                            <EventTrigger RoutedEvent="Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="warningIcon"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="1" To="0" Duration="1"
+                                                         AutoReverse="True" RepeatBehavior="Forever">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Ellipse.Triggers>
+                    </Ellipse>
                     <TextBlock FontSize="18" Text="{x:Bind Name}"/>
                 </StackPanel>
             </DataTemplate>
@@ -40,6 +59,25 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Margin="2">
                         <Rectangle Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
+                        <Rectangle x:Name="warningRibbon" Fill="Red"
+                                   x:Load="{x:Bind local:FleetsView.IsStatusWarning(Status)}">
+                            <Rectangle.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="warningRibbon"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             From="1" To="0" Duration="1"
+                                                             AutoReverse="True" RepeatBehavior="Forever">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <SineEase EasingMode="EaseInOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Rectangle.Triggers>
+                        </Rectangle>
                         <TextBlock FontSize="16" Margin="2" Text="{x:Bind local:FleetsView.StatusText(Status)}"/>
                     </Grid>
                     <ItemsControl ItemsSource="{x:Bind Ships}"

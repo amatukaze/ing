@@ -62,5 +62,8 @@ namespace Sakuno.ING.Views.UWP.Homeport
                     return string.Empty;
             }
         }
+
+        private static bool IsStatusWarning(FleetStatus status)
+            => status == FleetStatus.Warning;
     }
 }
