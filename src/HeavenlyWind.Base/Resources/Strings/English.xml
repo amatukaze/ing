@@ -151,10 +151,16 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Fleet_LoS_Formula_AutumnSimplified">Autumn Simplified</String>
   <String Key="Fleet_LoS_Formula_Formula33">Formula 33</String>
   <String Key="Fleet_LoS_Note">Note</String>
-  <String Key="Fleet_LoS_Note_25">Boss entry: At least [b]34[/b]</String>
+  <String Key="Fleet_LoS_Note_25">I->Boss: At least [b]34[/b]
+J->Boss : At least [b]49[/b]</String>
   <String Key="Fleet_LoS_Note_35">G->Boss: At least [b]28[/b]
 
 PS: C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_52">F->Boss: At least [b]70[/b]
+
+PS: C[sub]n[/sub]=2</String>
+  <String Key="Fleet_LoS_Note_54">L->Boss: At least [b]34[/b]
+M->Boss: At least [b]24[/b]</String>
   <String Key="Fleet_LoS_Note_55">Boss entry: At least [b]43[/b]</String>
   <String Key="Fleet_LoS_Note_61">E->F: At least [b]16[/b]
 F->K(Boss): At least [b]25[/b]

@@ -129,6 +129,20 @@
                                     </TabItem>
                                     <TabItem>
                                         <TabItem.Header>
+                                            <TextBlock Text="5-2" />
+                                        </TabItem.Header>
+
+                                        <ruic:BBCodeBlock BBCode="{rb:StringResource Main.Fleet_LoS_Note_52}" />
+                                    </TabItem>
+                                    <TabItem>
+                                        <TabItem.Header>
+                                            <TextBlock Text="5-4" />
+                                        </TabItem.Header>
+
+                                        <ruic:BBCodeBlock BBCode="{rb:StringResource Main.Fleet_LoS_Note_54}" />
+                                    </TabItem>
+                                    <TabItem>
+                                        <TabItem.Header>
                                             <TextBlock Text="5-5" />
                                         </TabItem.Header>
 
@@ -203,7 +217,7 @@
                                     <MultiDataTrigger>
                                         <MultiDataTrigger.Conditions>
                                             <Condition Binding="{Binding Formula}" Value="Formula33" />
-                                            <Condition Binding="{Binding LoS, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=33}" Value="True" />
+                                            <Condition Binding="{Binding LoS, Converter={StaticResource IsGreaterThanOrEqualToConverter}, ConverterParameter=34}" Value="True" />
                                         </MultiDataTrigger.Conditions>
 
                                         <Setter TargetName="LoS" Property="Foreground" Value="Yellow" />
@@ -218,6 +232,11 @@
                                         <Setter TargetName="FormulaName" Property="Text" Value="{rb:StringResource Main.Fleet_LoS_Formula_Formula33}" />
                                         <Setter TargetName="NodeFactor" Property="Visibility" Value="Visible" />
                                         <Setter TargetName="NodeFactorValue" Property="Text" Value="3" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Formula}" Value="Formula33Cn2">
+                                        <Setter TargetName="FormulaName" Property="Text" Value="{rb:StringResource Main.Fleet_LoS_Formula_Formula33}" />
+                                        <Setter TargetName="NodeFactor" Property="Visibility" Value="Visible" />
+                                        <Setter TargetName="NodeFactorValue" Property="Text" Value="2" />
                                     </DataTrigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>

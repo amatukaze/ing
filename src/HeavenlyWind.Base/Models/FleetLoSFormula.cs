@@ -8,5 +8,6 @@
         Formula33,
         Formula33Cn4,
         Formula33Cn3,
+        Formula33Cn2,
     }
 }

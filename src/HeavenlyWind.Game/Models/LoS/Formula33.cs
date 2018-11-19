@@ -26,6 +26,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.LoS
                 case FleetLoSFormula.Formula33Cn3:
                     r_NodeFactor = 3;
                     break;
+
+                case FleetLoSFormula.Formula33Cn2:
+                    r_NodeFactor = 2;
+                    break;
             }
         }
 

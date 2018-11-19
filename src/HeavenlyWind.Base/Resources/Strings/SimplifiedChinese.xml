@@ -151,10 +151,16 @@
   <String Key="Fleet_LoS_Formula_AutumnSimplified">2-5 (秋)简易</String>
   <String Key="Fleet_LoS_Formula_Formula33">判定式 (33)</String>
   <String Key="Fleet_LoS_Note">判定式 (33) 索敌要求速查</String>
-  <String Key="Fleet_LoS_Note_25">至少 [b]34[/b] 确保进 Boss 点</String>
+  <String Key="Fleet_LoS_Note_25">在 I 点至少 [b]34[/b] 确保进 Boss 点
+在 J 点至少 [b]49[/b] 确保进 Boss 点</String>
   <String Key="Fleet_LoS_Note_35">在下路 G 点至少 [b]28[/b] 确保进 Boss 点
 
 注: C[sub]n[/sub]=4</String>
+  <String Key="Fleet_LoS_Note_52">在 F 点至少 [b]70[/b] 确保进 Boss 点
+
+注: C[sub]n[/sub]=2</String>
+  <String Key="Fleet_LoS_Note_54">在 L 点至少 [b]24[/b] 确保进 Boss 点
+在 M 点至少 [b]34[/b] 确保进 Boss 点</String>
   <String Key="Fleet_LoS_Note_55">至少 [b]43[/b] 确保进 Boss 点</String>
   <String Key="Fleet_LoS_Note_61">去往 F 点需要至少 [b]16[/b]，而 Boss 点需要至少 [b]25[/b]
 

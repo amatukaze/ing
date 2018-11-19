@@ -18,6 +18,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 new AutumnFormula(),
                 new AutumnSimplifiedFormula(),
                 new Formula33(FleetLoSFormula.Formula33),
+                new Formula33(FleetLoSFormula.Formula33Cn2),
                 new Formula33(FleetLoSFormula.Formula33Cn3),
                 new Formula33(FleetLoSFormula.Formula33Cn4),
             };
