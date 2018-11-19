@@ -466,6 +466,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Browser_ClearCache">刪除緩存檔案</String>
   <String Key="PreferenceWindow_Browser_ClearCookie">刪除 Cookie</String>
   <String Key="PreferenceWindow_Browser_Blink">Blink 設置</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCacheOnEveryStartup">每次啟動時自動刪除緩存檔案</String>
   <String Key="PreferenceWindow_Browser_Blink_DisableHWA">禁用硬體加速 (如果卡頓请嘗試尝试開啓/關閉) (需要重啓)</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate">限定最大幀數 (可降低幀數減輕硬體負擔)</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_15">15 fps (節省資源)</String>
@@ -477,6 +478,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   PS：刪除之前請關閉本工具。</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes">前往緩存資料夾</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction">刪除之前請關閉本工具</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes2">下次啟動時刪除</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_No">什麼都不做</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">工具欄顯示在底部</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">工具欄黏附在瀏覽器旁</String>

@@ -464,6 +464,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="PreferenceWindow_Browser_ClearCache">キャッシュの削除</String>
   <String Key="PreferenceWindow_Browser_ClearCookie">クッキーの削除</String>
   <String Key="PreferenceWindow_Browser_Blink">Blink の設定</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCacheOnEveryStartup">毎回起動にキャッシュを削除する</String>
   <String Key="PreferenceWindow_Browser_Blink_DisableHWA">ハードウェア アクセラレーションを無効にする (再起動が必要)</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate">最大フレームレート</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_15">15 fps</String>
@@ -475,6 +476,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   PS：キャッシュフォルダの削除の前にアプリを終了してください。</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes">キャッシュフォルダへ</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction">削除の前にアプリを終了してください</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes2">次回起動時にキャッシュを削除する</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_No">何もしない</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">アクションバーを下部に表示する</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">アクションバーをブラウザの隣に表示する</String>

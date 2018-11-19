@@ -465,6 +465,7 @@ PS: C[sub]n[/sub]=3</String>
   <String Key="PreferenceWindow_Browser_ClearCache">Clear cache</String>
   <String Key="PreferenceWindow_Browser_ClearCookie">Clear cookie</String>
   <String Key="PreferenceWindow_Browser_Blink">Blink Settings</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCacheOnEveryStartup">Clear cache on every startup</String>
   <String Key="PreferenceWindow_Browser_Blink_DisableHWA">Disable HW acceleration</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate">Max framerate</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_15">15 fps</String>
@@ -476,6 +477,7 @@ PS: C[sub]n[/sub]=3</String>
   PS: Close this tool before deleting it</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes">Go to that folder</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction">Close this tool before deleting it</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes2">Delete on the next startup</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_No">Do nothing</String>
   <String Key="PreferenceWindow_Browser_Placement_AtBottom">Show action bar at the bottom</String>
   <String Key="PreferenceWindow_Browser_Placement_StickToBrowser">Stick to the browser</String>

@@ -75,19 +75,12 @@
 
         <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink}" FontSize="14" FontWeight="Bold" />
 
+        <CheckBox IsChecked="{rb:Preference Browser.Blink.ClearCacheOnEveryStartup}" Margin="0, 6, 0, 0">
+            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink_ClearCacheOnEveryStartup}" />
+        </CheckBox>
         <CheckBox IsChecked="{rb:Preference Browser.Blink.DisableHWA}" Margin="0, 6, 0, 0">
             <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink_DisableHWA}" />
         </CheckBox>
-        <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink_MaxFramerate}" Margin="0, 6, 0, 0" />
-        <RadioButton IsChecked="{rb:Preference Browser.Blink.MaxFramerate, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={rui:Integer 15}}" Margin="0, 4, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink_MaxFramerate_15}" />
-        </RadioButton>
-        <RadioButton IsChecked="{rb:Preference Browser.Blink.MaxFramerate, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={rui:Integer 30}}" Margin="0, 4, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink_MaxFramerate_30}" />
-        </RadioButton>
-        <RadioButton IsChecked="{rb:Preference Browser.Blink.MaxFramerate, Converter={StaticResource EqualityToBooleanConverter}, ConverterParameter={rui:Integer 60}}" Margin="0, 4, 0, 0">
-            <TextBlock Text="{rb:StringResource Main.PreferenceWindow_Browser_Blink_MaxFramerate_60}" />
-        </RadioButton>
 
         <Rectangle Fill="{DynamicResource InactiveForegroundBrushKey}" Height="1" Margin="0, 6" />
 

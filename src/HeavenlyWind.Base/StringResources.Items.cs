@@ -455,6 +455,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_ClearCache => GetString(nameof(PreferenceWindow_Browser_ClearCache));
         public string PreferenceWindow_Browser_ClearCookie => GetString(nameof(PreferenceWindow_Browser_ClearCookie));
         public string PreferenceWindow_Browser_Blink => GetString(nameof(PreferenceWindow_Browser_Blink));
+        public string PreferenceWindow_Browser_Blink_ClearCacheOnEveryStartup => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCacheOnEveryStartup));
         public string PreferenceWindow_Browser_Blink_DisableHWA => GetString(nameof(PreferenceWindow_Browser_Blink_DisableHWA));
         public string PreferenceWindow_Browser_Blink_MaxFramerate => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate));
         public string PreferenceWindow_Browser_Blink_MaxFramerate_15 => GetString(nameof(PreferenceWindow_Browser_Blink_MaxFramerate_15));
@@ -464,6 +465,7 @@ namespace Sakuno.KanColle.Amatsukaze
         public string PreferenceWindow_Browser_Blink_ClearCache_Content => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Content));
         public string PreferenceWindow_Browser_Blink_ClearCache_Button_Yes => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Button_Yes));
         public string PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction));
+        public string PreferenceWindow_Browser_Blink_ClearCache_Button_Yes2 => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Button_Yes2));
         public string PreferenceWindow_Browser_Blink_ClearCache_Button_No => GetString(nameof(PreferenceWindow_Browser_Blink_ClearCache_Button_No));
         public string PreferenceWindow_Browser_Placement_AtBottom => GetString(nameof(PreferenceWindow_Browser_Placement_AtBottom));
         public string PreferenceWindow_Browser_Placement_StickToBrowser => GetString(nameof(PreferenceWindow_Browser_Placement_StickToBrowser));
