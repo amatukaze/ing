@@ -261,7 +261,31 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 }
             });
 
-            ApiService.Subscribe("api_req_kousyou/createship", r => ConstructionDocks[int.Parse(r.Parameters["api_kdock_id"])].IsConstructionStarted = true);
+            ApiService.Subscribe("api_req_kousyou/createship", r =>
+            {
+                var fuelConsumption = int.Parse(r.Parameters["api_item1"]);
+                var bulletConsumption = int.Parse(r.Parameters["api_item2"]);
+                var steelConsumption = int.Parse(r.Parameters["api_item3"]);
+                var bauxiteConsumption = int.Parse(r.Parameters["api_item4"]);
+                var developmentMaterialConsumption = int.Parse(r.Parameters["api_item5"]);
+                var useInstantConstruction = r.Parameters["api_highspeed"] == "1";
+
+                Materials.Fuel -= fuelConsumption;
+                Materials.Bullet -= bulletConsumption;
+                Materials.Steel -= steelConsumption;
+                Materials.Bauxite -= bauxiteConsumption;
+                Materials.DevelopmentMaterial -= developmentMaterialConsumption;
+
+                if (useInstantConstruction)
+                {
+                    if (fuelConsumption >= 1000 && bulletConsumption >= 1000 && steelConsumption >= 1000 & bauxiteConsumption >= 1000)
+                        Materials.InstantConstruction--;
+                    else
+                        Materials.InstantConstruction -= 10;
+                }
+
+                ConstructionDocks[int.Parse(r.Parameters["api_kdock_id"])].IsConstructionStarted = true;
+            });
             ApiService.Subscribe("api_req_kousyou/getship", r =>
             {
                 var rData = r.GetData<RawConstructionResult>();
