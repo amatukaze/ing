@@ -472,10 +472,10 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Browser_Homepage">首页</String>
   <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_Introduction">游戏主页</String>
   <String Key="PreferenceWindow_Browser_Homepage_DefaultValue_LoginPage">登录页面</String>
-  <String Key="PreferenceWindow_Browser_ClearCache">删除缓存文件</String>
+  <String Key="PreferenceWindow_Browser_ClearCache">删除浏览器缓存</String>
   <String Key="PreferenceWindow_Browser_ClearCookie">删除 Cookie</String>
   <String Key="PreferenceWindow_Browser_Blink">Blink 设置</String>
-  <String Key="PreferenceWindow_Browser_Blink_ClearCacheOnEveryStartup">每次启动时自动删除缓存</String>
+  <String Key="PreferenceWindow_Browser_Blink_ClearCacheOnEveryStartup">每次启动时自动删除浏览器缓存</String>
   <String Key="PreferenceWindow_Browser_Blink_DisableHWA">禁用硬件加速 (如果卡顿尝试开启/关闭) (需要重启)</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate">限定最大帧数 (可降低帧数减轻硬件负担)</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_15">15 fps (节省资源)</String>
