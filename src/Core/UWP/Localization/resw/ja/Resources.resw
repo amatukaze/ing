@@ -102,4 +102,16 @@
   <data name="Logging_Column_Item2.Header">
     <value>アイテム2</value>
   </data>
+  <data name="ShipsCount.Text">
+    <value>艦娘数：</value>
+  </data>
+  <data name="EquipmentCount.Text">
+    <value>装備数：</value>
+  </data>
+  <data name="BuildingDocks.Header">
+    <value>建造</value>
+  </data>
+  <data name="RepairingDocks.Header">
+    <value>入渠</value>
+  </data>
 </root>

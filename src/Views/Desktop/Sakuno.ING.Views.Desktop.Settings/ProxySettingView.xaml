@@ -10,12 +10,12 @@
              DataContext="{c:Resolve {x:Type s:ProxySetting}}"
              d:DataContext="{d:DesignInstance s:ProxySetting}">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="200">
-        <TextBlock Text="Listening port"/>
+        <TextBlock Text="{c:Localize Settings/ListeningPort}"/>
         <TextBox Text="{Binding ListeningPort.Value}"/>
-        <CheckBox Content="Use upstream" IsChecked="{Binding UseUpstream.Value}"/>
-        <TextBlock Text="Upsteram address"/>
+        <CheckBox Content="{c:Localize Settings/UseUpstream}" IsChecked="{Binding UseUpstream.Value}"/>
+        <TextBlock Text="{c:Localize Settings/UpstreamAddress}"/>
         <TextBox Text="{Binding Upstream.Value}" IsEnabled="{Binding UseUpstream.Value}"/>
-        <TextBlock Text="Upsteram port"/>
+        <TextBlock Text="{c:Localize Settings/UpstreamPort}"/>
         <TextBox Text="{Binding UpstreamPort.Value}" IsEnabled="{Binding UseUpstream.Value}"/>
     </StackPanel>
 </UserControl>

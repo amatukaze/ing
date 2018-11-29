@@ -138,4 +138,49 @@
   <data name="ShipSpeed_20">
     <value>Ultra Fast</value>
   </data>
+  <data name="Count_Ship">
+    <value>Ships count: </value>
+  </data>
+  <data name="Count_Equipment">
+    <value>Equipment count: </value>
+  </data>
+  <data name="Build">
+    <value>Build</value>
+  </data>
+  <data name="Repair">
+    <value>Repair</value>
+  </data>
+  <data name="Dock_Empty">
+    <value>Empty</value>
+  </data>
+  <data name="Dock_Locked">
+    <value>Locked</value>
+  </data>
+  <data name="FleetStatus_Detail_Empty">
+    <value>Fleet is empty</value>
+  </data>
+  <data name="FleetStatus_Detail_Ready">
+    <value>Ready</value>
+  </data>
+  <data name="FleetStatus_Detail_Sortie">
+    <value>In sortie</value>
+  </data>
+  <data name="FleetStatus_Detail_Warning">
+    <value>In sortie</value>
+  </data>
+  <data name="FleetStatus_Detail_Expedition">
+    <value>In expedition</value>
+  </data>
+  <data name="FleetStatus_Detail_Fatigued">
+    <value>Morale regenerating</value>
+  </data>
+  <data name="FleetStatus_Detail_Repairing">
+    <value>Repairing in dock</value>
+  </data>
+  <data name="FleetStatus_Detail_Damaged">
+    <value>Ship is heavily damaged</value>
+  </data>
+  <data name="FleetStatus_Detail_Insufficient">
+    <value>Supply required</value>
+  </data>
 </root>

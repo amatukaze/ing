@@ -30,4 +30,16 @@
   <data name="SampleText">
     <value>测试文本 Sample Text</value>
   </data>
+  <data name="ListeningPort">
+    <value>监听端口</value>
+  </data>
+  <data name="UseUpstream">
+    <value>使用上游代理</value>
+  </data>
+  <data name="UpstreamAddress">
+    <value>上游代理地址</value>
+  </data>
+  <data name="UpstreamPort">
+    <value>上游代理端口</value>
+  </data>
 </root>

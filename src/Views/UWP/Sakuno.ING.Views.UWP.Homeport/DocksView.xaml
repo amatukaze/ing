@@ -6,14 +6,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
-    xmlns:local="using:Sakuno.ING.Views.UWP.Homeport"
     xmlns:sys="using:System"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
     x:DefaultBindMode="OneWay">
     <Pivot>
-        <PivotItem Header="Build">
+        <PivotItem x:Uid="/Resources/BuildingDocks">
             <ItemsControl ItemsSource="{x:Bind ViewModel.BuildingDocks.DefaultView}" FontSize="16">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="g:BuildingDock">
@@ -21,7 +20,7 @@
                             <TextBlock Style="{StaticResource ShipNameTextStyle}"
                                        Text="{x:Bind c:Helpers.SelectShipName(BuiltShip.Name), FallbackValue=''}"/>
                             <TextBlock TextAlignment="Center"
-                                       Text="{x:Bind local:DocksView.BuildingStateText(State)}"/>
+                                       Text="{x:Bind c:Helpers.FormatBuildingDockState(State)}"/>
                             <TextBlock TextAlignment="Right"
                                        Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}"/>
                         </Grid>
@@ -29,7 +28,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </PivotItem>
-        <PivotItem Header="Repair">
+        <PivotItem x:Uid="/Resources/RepairingDocks">
             <ItemsControl ItemsSource="{x:Bind ViewModel.RepairingDocks.DefaultView}" FontSize="16">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="g:RepairingDock">
@@ -37,7 +36,7 @@
                             <TextBlock Style="{StaticResource ShipNameTextStyle}"
                                        Text="{x:Bind c:Helpers.SelectShipName(RepairingShip.Info.Name), FallbackValue=''}"/>
                             <TextBlock TextAlignment="Center"
-                                       Text="{x:Bind local:DocksView.RepairingStateText(State)}"/>
+                                       Text="{x:Bind c:Helpers.FormatRepairingDockState(State)}"/>
                             <TextBlock TextAlignment="Right"
                                        Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}"/>
                         </Grid>

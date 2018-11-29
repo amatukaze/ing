@@ -30,4 +30,16 @@
   <data name="SampleText">
     <value>Sample Text</value>
   </data>
+  <data name="ListeningPort">
+    <value>Listening port</value>
+  </data>
+  <data name="UseUpstream">
+    <value>Use upstream proxy</value>
+  </data>
+  <data name="UpstreamAddress">
+    <value>Upstream address</value>
+  </data>
+  <data name="UpstreamPort">
+    <value>Upstream port</value>
+  </data>
 </root>

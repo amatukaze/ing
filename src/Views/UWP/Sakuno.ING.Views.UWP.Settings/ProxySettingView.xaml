@@ -8,15 +8,15 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <StackPanel Orientation="Vertical" Width="200" HorizontalAlignment="Left">
-        <ToggleSwitch Header="Use proxy"
+        <ToggleSwitch x:Uid="/Resources/UseUpstream"
                       IsOn="{x:Bind Instance.UseUpstream.Value, Mode=TwoWay}"/>
-        <TextBox Header="Proxy address"
+        <TextBox x:Uid="/Resources/UpstreamAddress"
                  IsEnabled="{x:Bind Instance.UseUpstream.Value, Mode=OneWay}"
                  Text="{x:Bind Instance.Upstream.Value, Mode=TwoWay}"/>
-        <TextBox Header="Proxy port"
+        <TextBox x:Uid="/Resources/UpstreamPort"
                  IsEnabled="{x:Bind Instance.UseUpstream.Value, Mode=OneWay}"
                  Text="{x:Bind Instance.UpstreamPort.Value, Mode=TwoWay}"/>
-        <TextBox Header="Listening port"
+        <TextBox x:Uid="/Resources/ListeningPort"
                  Text="{x:Bind Instance.ListeningPort.Value, Mode=TwoWay}"/>
     </StackPanel>
 </UserControl>

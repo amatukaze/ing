@@ -10,7 +10,7 @@
              d:DataContext="{d:DesignInstance g:NavalBase}"
              d:DesignHeight="450" d:DesignWidth="800">
     <TabControl FontSize="16" TabStripPlacement="Left">
-        <TabItem Header="Build">
+        <TabItem Header="{c:Localize GameModel/Build}">
             <ItemsControl ItemsSource="{Binding BuildingDocks.DefaultView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type g:BuildingDock}">
@@ -24,17 +24,17 @@
                         </Grid>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding State}" Value="Empty">
-                                <Setter TargetName="state" Property="Text" Value="Empty"/>
+                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Empty}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding State}" Value="Locked">
-                                <Setter TargetName="state" Property="Text" Value="Locked"/>
+                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Locked}"/>
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </TabItem>
-        <TabItem Header="Repair">
+        <TabItem Header="{c:Localize GameModel/Repair}">
             <ItemsControl ItemsSource="{Binding RepairingDocks.DefaultView}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type g:RepairingDock}">
@@ -48,10 +48,10 @@
                         </Grid>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding State}" Value="Empty">
-                                <Setter TargetName="state" Property="Text" Value="Empty"/>
+                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Empty}"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding State}" Value="Locked">
-                                <Setter TargetName="state" Property="Text" Value="Locked"/>
+                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Locked}"/>
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>

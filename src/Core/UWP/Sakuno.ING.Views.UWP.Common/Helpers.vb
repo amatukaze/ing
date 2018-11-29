@@ -29,6 +29,8 @@ Public Module Helpers
         admiralRankStrings = Enumerable.Range(1, 10).Select(Function(i) localization.GetLocalized("GameModel", "AdmiralRank_" & i)).ToArray()
         fireRangeTexts = Enumerable.Range(0, 5).Select(Function(i) localization.GetLocalized("GameModel", "FireRange_" & i)).ToArray()
         shipSpeedTexts = Enumerable.Range(0, 5).Select(Function(i) localization.GetLocalized("GameModel", "ShipSpeed_" & (i * 5))).ToArray()
+        dockEmpty = localization.GetLocalized("GameModel", "Dock_Empty")
+        dockLocked = localization.GetLocalized("GameModel", "Dock_Locked")
     End Sub
 
     Private ReadOnly admiralRankStrings As String()
@@ -72,6 +74,28 @@ Public Module Helpers
                 Return shipSpeedTexts(3)
             Case ShipSpeed.UltraFast
                 Return shipSpeedTexts(4)
+            Case Else
+                Return Nothing
+        End Select
+    End Function
+
+    Private ReadOnly dockEmpty, dockLocked As String
+    Public Function FormatBuildingDockState(state As BuildingDockState) As String
+        Select Case state
+            Case BuildingDockState.Empty
+                Return dockEmpty
+            Case BuildingDockState.Locked
+                Return dockLocked
+            Case Else
+                Return Nothing
+        End Select
+    End Function
+    Public Function FormatRepairingDockState(state As RepairingDockState) As String
+        Select Case state
+            Case RepairingDockState.Empty
+                Return dockEmpty
+            Case RepairingDockState.Locked
+                Return dockLocked
             Case Else
                 Return Nothing
         End Select

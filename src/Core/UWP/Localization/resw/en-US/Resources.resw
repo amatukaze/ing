@@ -33,6 +33,18 @@
   <data name="SampleText.Text">
     <value>Sample Text</value>
   </data>
+  <data name="UseUpstream.Header">
+    <value>Use upstream proxy</value>
+  </data>
+  <data name="UpstreamAddress.Header">
+    <value>Upstream address</value>
+  </data>
+  <data name="UpstreamPort.Header">
+    <value>Upstream port</value>
+  </data>
+  <data name="ListeningPort.Header">
+    <value>Listening port</value>
+  </data>
   <data name="FontPicker.Title">
     <value>Select Font</value>
   </data>
@@ -101,5 +113,17 @@
   </data>
   <data name="Logging_Column_Item2.Header">
     <value>Item2</value>
+  </data>
+  <data name="ShipsCount.Text">
+    <value>Ships count: </value>
+  </data>
+  <data name="EquipmentCount.Text">
+    <value>Equipment count: </value>
+  </data>
+  <data name="BuildingDocks.Header">
+    <value>Build</value>
+  </data>
+  <data name="RepairingDocks.Header">
+    <value>Repair</value>
   </data>
 </root>

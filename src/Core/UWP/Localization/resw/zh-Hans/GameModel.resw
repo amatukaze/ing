@@ -138,4 +138,49 @@
   <data name="ShipSpeed_20">
     <value>最速</value>
   </data>
+  <data name="Count_Ship">
+    <value>舰娘数：</value>
+  </data>
+  <data name="Count_Equipment">
+    <value>装备数：</value>
+  </data>
+  <data name="Build">
+    <value>建造</value>
+  </data>
+  <data name="Repair">
+    <value>入渠</value>
+  </data>
+  <data name="Dock_Empty">
+    <value>未使用</value>
+  </data>
+  <data name="Dock_Locked">
+    <value>未开放</value>
+  </data>
+  <data name="FleetStatus_Detail_Empty">
+    <value>舰队为空</value>
+  </data>
+  <data name="FleetStatus_Detail_Ready">
+    <value>就绪</value>
+  </data>
+  <data name="FleetStatus_Detail_Sortie">
+    <value>出击中</value>
+  </data>
+  <data name="FleetStatus_Detail_Warning">
+    <value>出击中</value>
+  </data>
+  <data name="FleetStatus_Detail_Expedition">
+    <value>远征中</value>
+  </data>
+  <data name="FleetStatus_Detail_Fatigued">
+    <value>疲劳回复中</value>
+  </data>
+  <data name="FleetStatus_Detail_Repairing">
+    <value>入渠修理中</value>
+  </data>
+  <data name="FleetStatus_Detail_Damaged">
+    <value>有舰娘处于大破状态</value>
+  </data>
+  <data name="FleetStatus_Detail_Insufficient">
+    <value>需要补给</value>
+  </data>
 </root>

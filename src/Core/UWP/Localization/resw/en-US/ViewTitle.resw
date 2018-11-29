@@ -30,4 +30,16 @@
   <data name="ExpeditionCompletionLogs">
     <value>Expedition record</value>
   </data>
+  <data name="Admiral">
+    <value>Admiral information</value>
+  </data>
+  <data name="Fleets">
+    <value>Fleets overview</value>
+  </data>
+  <data name="Docks">
+    <value>Docks overview</value>
+  </data>
+  <data name="Expedition">
+    <value>Expedition overview</value>
+  </data>
 </root>

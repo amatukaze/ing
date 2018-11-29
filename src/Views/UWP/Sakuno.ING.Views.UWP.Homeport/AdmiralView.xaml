@@ -35,13 +35,11 @@
             <con:LevelingIndicator Level="{x:Bind ViewModel.Admiral.Leveling}"
                                    Width="24" FontSize="16"/>
         </StackPanel>
-        <TextBlock Grid.Row="1" FontSize="16"
-                   Text="Ships:"/>
+        <TextBlock Grid.Row="1" FontSize="16" x:Uid="/Resources/ShipsCount"/>
         <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12">
             <Run Text="{x:Bind ViewModel.AllShips.Count}" FontSize="16"/><Run Text=" / "/><Run Text="{x:Bind ViewModel.Admiral.MaxShipCount}"/>
         </TextBlock>
-        <TextBlock Grid.Row="2" FontSize="16"
-                   Text="Equipment:"/>
+        <TextBlock Grid.Row="2" FontSize="16" x:Uid="/Resources/EquipmentCount"/>
         <TextBlock Grid.Row="2" Grid.Column="1" FontSize="12">
             <Run Text="{x:Bind ViewModel.AllEquipment.Count}" FontSize="16"/><Run Text=" / "/><Run Text="{x:Bind ViewModel.Admiral.MaxEquipmentCount}"/>
         </TextBlock>

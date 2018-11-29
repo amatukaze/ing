@@ -33,6 +33,18 @@
   <data name="SampleText.Text">
     <value>测试文本 Sample Text</value>
   </data>
+  <data name="UseUpstream.Header">
+    <value>使用上游代理</value>
+  </data>
+  <data name="UpstreamAddress.Header">
+    <value>上游代理地址</value>
+  </data>
+  <data name="UpstreamPort.Header">
+    <value>上游代理端口</value>
+  </data>
+  <data name="ListeningPort.Header">
+    <value>监听端口</value>
+  </data>
   <data name="FontPicker.Title">
     <value>选择字体</value>
   </data>
@@ -101,5 +113,17 @@
   </data>
   <data name="Logging_Column_Item2.Header">
     <value>物品2</value>
+  </data>
+  <data name="ShipsCount.Text">
+    <value>舰娘数：</value>
+  </data>
+  <data name="EquipmentCount.Text">
+    <value>装备数：</value>
+  </data>
+  <data name="BuildingDocks.Header">
+    <value>建造</value>
+  </data>
+  <data name="RepairingDocks.Header">
+    <value>入渠</value>
   </data>
 </root>

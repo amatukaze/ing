@@ -30,4 +30,16 @@
   <data name="ExpeditionCompletionLogs">
     <value>遠征歴史</value>
   </data>
+  <data name="Admiral">
+    <value>司令部情報</value>
+  </data>
+  <data name="Fleets">
+    <value>艦隊一覧</value>
+  </data>
+  <data name="Docks">
+    <value>ドック一覧</value>
+  </data>
+  <data name="Expedition">
+    <value>遠征一覧</value>
+  </data>
 </root>
