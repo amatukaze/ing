@@ -16,7 +16,7 @@ namespace Sakuno.ING.Views.UWP.Homeport
             this.InitializeComponent();
         }
 
-        private static Brush StatusColor(FleetStatus status)
+        internal static Brush StatusColor(FleetStatus status)
         {
             switch (status)
             {
@@ -25,6 +25,7 @@ namespace Sakuno.ING.Views.UWP.Homeport
                 case FleetStatus.Ready:
                     return new SolidColorBrush(Colors.SpringGreen);
                 case FleetStatus.Sortie:
+                case FleetStatus.Warning:
                     return new SolidColorBrush(Colors.Red);
                 case FleetStatus.Expedition:
                     return new SolidColorBrush(Colors.Aqua);
@@ -37,33 +38,5 @@ namespace Sakuno.ING.Views.UWP.Homeport
                     return null;
             }
         }
-
-        private static string StatusText(FleetStatus status)
-        {
-            switch (status)
-            {
-                case FleetStatus.Empty:
-                    return "Empty fleet";
-                case FleetStatus.Ready:
-                    return "Ready";
-                case FleetStatus.Sortie:
-                    return "In sortie";
-                case FleetStatus.Expedition:
-                    return "In expedition";
-                case FleetStatus.Fatigued:
-                    return "Low morale";
-                case FleetStatus.Repairing:
-                    return "Repairing";
-                case FleetStatus.Damaged:
-                    return "Heavily damaged";
-                case FleetStatus.Insufficient:
-                    return "Supply required";
-                default:
-                    return string.Empty;
-            }
-        }
-
-        private static bool IsStatusWarning(FleetStatus status)
-            => status == FleetStatus.Warning;
     }
 }

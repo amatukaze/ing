@@ -88,7 +88,9 @@
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Margin="2">
                         <Rectangle x:Name="statusColor"/>
-                        <TextBlock x:Name="statusText" FontSize="16" Margin="2"/>
+                        <TextBlock FontSize="16" Margin="2">
+                            <Run x:Name="statusText"/><Run x:Name="statusDetail"/>
+                        </TextBlock>
                     </Grid>
                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="5"
                                   HorizontalScrollBarVisibility="Auto"
@@ -256,6 +258,15 @@
                     <DataTrigger Binding="{Binding Status}" Value="Expedition">
                         <Setter TargetName="statusColor" Property="Fill" Value="Aqua"/>
                         <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Expedition}"/>
+                        <Setter TargetName="statusDetail" Property="Text">
+                            <Setter.Value>
+                                <MultiBinding StringFormat="\ - {0} {1} - {2:hh\\:mm\\:ss}">
+                                    <Binding Path="Expedition.DisplayId" Mode="OneWay"/>
+                                    <Binding Path="Expedition.Name" Mode="OneWay"/>
+                                    <Binding Path="ExpeditionTimeRemaining" Mode="OneWay"/>
+                                </MultiBinding>
+                            </Setter.Value>
+                        </Setter>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Fatigued">
                         <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>

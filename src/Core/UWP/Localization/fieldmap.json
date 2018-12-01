@@ -36,5 +36,14 @@
     "ShipsCount.Text": "GameModel/Count_Ship",
     "EquipmentCount.Text": "GameModel/Count_Equipment",
     "BuildingDocks.Header": "GameModel/Build",
-    "RepairingDocks.Header": "GameModel/Repair"
+    "RepairingDocks.Header": "GameModel/Repair",
+    "FleetStatus_Empty.Text": "GameModel/FleetStatus_Detail_Empty",
+    "FleetStatus_Ready.Text": "GameModel/FleetStatus_Detail_Ready",
+    "FleetStatus_Sortie.Text": "GameModel/FleetStatus_Detail_Sortie",
+    "FleetStatus_Warning.Text": "GameModel/FleetStatus_Detail_Warning",
+    "FleetStatus_Expedition.Text": "GameModel/FleetStatus_Detail_Expedition",
+    "FleetStatus_Fatigued.Text": "GameModel/FleetStatus_Detail_Fatigued",
+    "FleetStatus_Repairing.Text": "GameModel/FleetStatus_Detail_Repairing",
+    "FleetStatus_Damaged.Text": "GameModel/FleetStatus_Detail_Damaged",
+    "FleetStatus_Insufficient.Text": "GameModel/FleetStatus_Detail_Insufficient"
 }

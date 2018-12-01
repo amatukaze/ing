@@ -9,6 +9,7 @@
     xmlns:con="using:Sakuno.ING.Views.UWP.Controls"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:local="using:Sakuno.ING.Views.UWP.Homeport"
+    xmlns:sys="using:System"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -16,29 +17,35 @@
     <tk:TabView ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}" FontSize="16" Background="Transparent">
         <tk:TabView.HeaderTemplate>
             <DataTemplate x:DataType="g:Fleet">
-                <StackPanel Orientation="Horizontal">
-                    <Ellipse Height="18" Width="18" Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
-                    <Ellipse x:Name="warningIcon" Fill="Red"
-                                   x:Load="{x:Bind local:FleetsView.IsStatusWarning(Status)}">
-                        <Ellipse.Triggers>
-                            <EventTrigger RoutedEvent="Loaded">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="warningIcon"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         From="1" To="0" Duration="1"
-                                                         AutoReverse="True" RepeatBehavior="Forever">
-                                            <DoubleAnimation.EasingFunction>
-                                                <SineEase EasingMode="EaseInOut"/>
-                                            </DoubleAnimation.EasingFunction>
-                                        </DoubleAnimation>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Ellipse.Triggers>
-                    </Ellipse>
-                    <TextBlock FontSize="18" Text="{x:Bind Name}"/>
-                </StackPanel>
+                <Grid Height="18">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="18"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse x:Name="statusIcon" Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
+                    <TextBlock Grid.Column="1" FontSize="18" Text="{x:Bind Name}"/>
+                    <!--#region Warning animation-->
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup>
+                            <VisualState>
+                                <VisualState.StateTriggers>
+                                    <StateTrigger IsActive="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Warning)}"/>
+                                </VisualState.StateTriggers>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="statusIcon"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     From="1" To="0" Duration="0:0:0.5"
+                                                     AutoReverse="True" RepeatBehavior="Forever">
+                                        <DoubleAnimation.EasingFunction>
+                                            <SineEase EasingMode="EaseInOut"/>
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                    <!--#endregion-->
+                </Grid>
             </DataTemplate>
         </tk:TabView.HeaderTemplate>
         <tk:TabView.ItemTemplate>
@@ -58,27 +65,58 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Margin="2">
-                        <Rectangle Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
-                        <Rectangle x:Name="warningRibbon" Fill="Red"
-                                   x:Load="{x:Bind local:FleetsView.IsStatusWarning(Status)}">
-                            <Rectangle.Triggers>
-                                <EventTrigger RoutedEvent="Loaded">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="warningRibbon"
-                                                             Storyboard.TargetProperty="Opacity"
-                                                             From="1" To="0" Duration="1"
-                                                             AutoReverse="True" RepeatBehavior="Forever">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <SineEase EasingMode="EaseInOut"/>
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </Rectangle.Triggers>
-                        </Rectangle>
-                        <TextBlock FontSize="16" Margin="2" Text="{x:Bind local:FleetsView.StatusText(Status)}"/>
+                        <Rectangle x:Name="statusRibbon" Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
+                        <!--#region Status texts-->
+                        <TextBlock FontSize="16" Margin="2" x:Name="statusTextEmpty"
+                                   x:Load="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Empty)}"
+                                   x:Uid="/Resources/FleetStatus_Empty"/>
+                        <TextBlock FontSize="16" Margin="2" x:Name="statusTextReady"
+                                   x:Load="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Ready)}"
+                                   x:Uid="/Resources/FleetStatus_Ready"/>
+                        <TextBlock FontSize="16" Margin="2" x:Name="statusTextSortie"
+                                   x:Load="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Sortie)}"
+                                   x:Uid="/Resources/FleetStatus_Sortie"/>
+                        <TextBlock FontSize="16" Margin="2" x:Name="statusTextWarning"
+                                   x:Load="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Warning)}"
+                                   x:Uid="/Resources/FleetStatus_Warning"/>
+                        <TextBlock FontSize="16" Margin="2" x:Name="statusTextExpedition"
+                                   x:Load="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Expedition)}">
+                            <Run x:Uid="/Resources/FleetStatus_Expedition"/><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}"/><Run Text="{x:Bind c:Helpers.SelectName(Expedition.Name)}"/><Run Text="{x:Bind sys:String.Format(' - {0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}"/>
+                        </TextBlock>
+                        <TextBlock FontSize="16" Margin="2" x:Name="statusTextFatigued"
+                                   x:Load="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Fatigued)}"
+                                   x:Uid="/Resources/FleetStatus_Fatigued"/>
+                        <TextBlock FontSize="16" Margin="2" x:Name="statusTextRepairing"
+                                   x:Load="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Repairing)}"
+                                   x:Uid="/Resources/FleetStatus_Repairing"/>
+                        <TextBlock FontSize="16" Margin="2" x:Name="statusTextDamaged"
+                                   x:Load="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Damaged)}"
+                                   x:Uid="/Resources/FleetStatus_Damaged"/>
+                        <TextBlock FontSize="16" Margin="2" x:Name="statusTextInsufficient"
+                                   x:Load="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Insufficient)}"
+                                   x:Uid="/Resources/FleetStatus_Insufficient"/>
+                        <!--#endregion-->
+                        <!--#region Warning animation-->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState>
+                                    <VisualState.StateTriggers>
+                                        <StateTrigger IsActive="{x:Bind c:Helpers.FleetStatusEquals(Status, g:FleetStatus.Warning)}"/>
+                                    </VisualState.StateTriggers>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="statusRibbon"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     From="1" To="0" Duration="0:0:0.5"
+                                                     AutoReverse="True" RepeatBehavior="Forever">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseInOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <!--#endregion-->
                     </Grid>
                     <ItemsControl ItemsSource="{x:Bind Ships}"
                                   Grid.Row="1" Grid.ColumnSpan="5">
