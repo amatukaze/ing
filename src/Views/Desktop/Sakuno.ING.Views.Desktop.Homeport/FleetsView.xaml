@@ -260,7 +260,7 @@
                         <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Expedition}"/>
                         <Setter TargetName="statusDetail" Property="Text">
                             <Setter.Value>
-                                <MultiBinding StringFormat="\ - {0} {1} - {2:hh\\:mm\\:ss}">
+                                <MultiBinding StringFormat=" - {0} {1} - {2:hh\:mm\:ss}">
                                     <Binding Path="Expedition.DisplayId" Mode="OneWay"/>
                                     <Binding Path="Expedition.Name" Mode="OneWay"/>
                                     <Binding Path="ExpeditionTimeRemaining" Mode="OneWay"/>
