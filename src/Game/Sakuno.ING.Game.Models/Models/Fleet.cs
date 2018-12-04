@@ -54,8 +54,10 @@ namespace Sakuno.ING.Game.Models
                             fromFleet.ships.Insert(oldIndex, oldShip);
                         }
                     }
-                    else
+                    else if (i < ships.Count)
                         ships[i] = ship;
+                    else
+                        ships.Add(ship);
                 }
                 else
                     ships.RemoveAt(i);
