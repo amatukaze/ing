@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sakuno.ING.Game.Events;
+using Sakuno.ING.Game.Events.Battle;
 using Sakuno.ING.Game.Events.Shipyard;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Battle;
 using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
@@ -51,5 +53,8 @@ namespace Sakuno.ING.Game
         event TimedMessageHandler<IEnumerable<AirForceSetAction>> AirForceActionSet;
         event TimedMessageHandler<AirForceSupply> AirForceSupplied;
         event TimedMessageHandler<IRawAirForceGroup> AirForceExpanded;
+
+        event TimedMessageHandler<SortieStart> SortieStarting;
+        event TimedMessageHandler<IRawMapRouting> MapRouting;
     }
 }

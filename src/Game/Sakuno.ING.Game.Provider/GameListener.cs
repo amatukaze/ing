@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
+using Sakuno.ING.Game.Json.Battle;
 using Sakuno.ING.Game.Json.MasterData;
 using Sakuno.ING.Game.Json.Shipyard;
 using Sakuno.ING.Game.Models;
@@ -126,6 +127,11 @@ namespace Sakuno.ING.Game
                     destroyItem.Select(x => x.Response),
                     airSupply.Select(x => x.Response),
                     setPlane.Select(x => x.Response).Where(x => x.api_after_bauxite.HasValue));
+
+            var mapStart = RegisterRaw<MapRoutingJson>("api_req_map/start");
+            sortieStarting = mapStart.Select(x => ParseSortieStart(x.Request));
+            mapRouting = mapStart.Select(x => x.Response)
+                .CombineWith(RegisterResponse<MapRoutingJson>("api_req_map/next"));
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
