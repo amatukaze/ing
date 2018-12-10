@@ -82,7 +82,7 @@ p:Materials RepairingCost
 p:AirFightPower AirFightPower
 p:int SimpleLos
 p:LineOfSight EffectiveLoS
-p:FleetStatus Status
+p:FleetState Status
 
 Quest:QuestId:IRawQuest:QuestManager
 l:Name QuestName

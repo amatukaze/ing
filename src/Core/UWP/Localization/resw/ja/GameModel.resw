@@ -156,31 +156,31 @@
   <data name="Dock_Locked">
     <value>ロック</value>
   </data>
-  <data name="FleetStatus_Detail_Empty">
+  <data name="FleetState_Detail_Empty">
     <value>艦隊は空き</value>
   </data>
-  <data name="FleetStatus_Detail_Ready">
+  <data name="FleetState_Detail_Ready">
     <value>準備完了</value>
   </data>
-  <data name="FleetStatus_Detail_Sortie">
+  <data name="FleetState_Detail_Sortie">
     <value>出撃中</value>
   </data>
-  <data name="FleetStatus_Detail_Warning">
+  <data name="FleetState_Detail_Warning">
     <value>出撃中</value>
   </data>
-  <data name="FleetStatus_Detail_Expedition">
+  <data name="FleetState_Detail_Expedition">
     <value>遠征中</value>
   </data>
-  <data name="FleetStatus_Detail_Fatigued">
+  <data name="FleetState_Detail_Fatigued">
     <value>疲労回復中</value>
   </data>
-  <data name="FleetStatus_Detail_Repairing">
+  <data name="FleetState_Detail_Repairing">
     <value>入渠修理中</value>
   </data>
-  <data name="FleetStatus_Detail_Damaged">
+  <data name="FleetState_Detail_Damaged">
     <value>大破の艦娘があります</value>
   </data>
-  <data name="FleetStatus_Detail_Insufficient">
+  <data name="FleetState_Detail_Insufficient">
     <value>補給が必要</value>
   </data>
 </root>

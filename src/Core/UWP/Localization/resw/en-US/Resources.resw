@@ -126,31 +126,31 @@
   <data name="RepairingDocks.Header">
     <value>Repair</value>
   </data>
-  <data name="FleetStatus_Empty.Text">
+  <data name="FleetState_Empty.Text">
     <value>Fleet is empty</value>
   </data>
-  <data name="FleetStatus_Ready.Text">
+  <data name="FleetState_Ready.Text">
     <value>Ready</value>
   </data>
-  <data name="FleetStatus_Sortie.Text">
+  <data name="FleetState_Sortie.Text">
     <value>In sortie</value>
   </data>
-  <data name="FleetStatus_Warning.Text">
+  <data name="FleetState_Warning.Text">
     <value>In sortie</value>
   </data>
-  <data name="FleetStatus_Expedition.Text">
+  <data name="FleetState_Expedition.Text">
     <value>In expedition</value>
   </data>
-  <data name="FleetStatus_Fatigued.Text">
+  <data name="FleetState_Fatigued.Text">
     <value>Morale regenerating</value>
   </data>
-  <data name="FleetStatus_Repairing.Text">
+  <data name="FleetState_Repairing.Text">
     <value>Repairing in dock</value>
   </data>
-  <data name="FleetStatus_Damaged.Text">
+  <data name="FleetState_Damaged.Text">
     <value>Ship is heavily damaged</value>
   </data>
-  <data name="FleetStatus_Insufficient.Text">
+  <data name="FleetState_Insufficient.Text">
     <value>Supply required</value>
   </data>
 </root>

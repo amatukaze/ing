@@ -156,31 +156,31 @@
   <data name="Dock_Locked">
     <value>Locked</value>
   </data>
-  <data name="FleetStatus_Detail_Empty">
+  <data name="FleetState_Detail_Empty">
     <value>Fleet is empty</value>
   </data>
-  <data name="FleetStatus_Detail_Ready">
+  <data name="FleetState_Detail_Ready">
     <value>Ready</value>
   </data>
-  <data name="FleetStatus_Detail_Sortie">
+  <data name="FleetState_Detail_Sortie">
     <value>In sortie</value>
   </data>
-  <data name="FleetStatus_Detail_Warning">
+  <data name="FleetState_Detail_Warning">
     <value>In sortie</value>
   </data>
-  <data name="FleetStatus_Detail_Expedition">
+  <data name="FleetState_Detail_Expedition">
     <value>In expedition</value>
   </data>
-  <data name="FleetStatus_Detail_Fatigued">
+  <data name="FleetState_Detail_Fatigued">
     <value>Morale regenerating</value>
   </data>
-  <data name="FleetStatus_Detail_Repairing">
+  <data name="FleetState_Detail_Repairing">
     <value>Repairing in dock</value>
   </data>
-  <data name="FleetStatus_Detail_Damaged">
+  <data name="FleetState_Detail_Damaged">
     <value>Ship is heavily damaged</value>
   </data>
-  <data name="FleetStatus_Detail_Insufficient">
+  <data name="FleetState_Detail_Insufficient">
     <value>Supply required</value>
   </data>
 </root>

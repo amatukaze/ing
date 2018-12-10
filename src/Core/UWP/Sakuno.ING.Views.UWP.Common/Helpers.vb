@@ -101,7 +101,7 @@ Public Module Helpers
         End Select
     End Function
 
-    Public Function FleetStatusEquals(left As FleetStatus, right As FleetStatus) As Boolean
+    Public Function FleetStateEquals(left As FleetState, right As FleetState) As Boolean
         Return left = right
     End Function
 End Module

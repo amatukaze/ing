@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Game.Models
 {
-    public enum FleetStatus
+    public enum FleetState
     {
         Empty,
         Ready,

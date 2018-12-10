@@ -37,13 +37,13 @@
   "EquipmentCount.Text": "GameModel/Count_Equipment",
   "BuildingDocks.Header": "GameModel/Build",
   "RepairingDocks.Header": "GameModel/Repair",
-  "FleetStatus_Empty.Text": "GameModel/FleetStatus_Detail_Empty",
-  "FleetStatus_Ready.Text": "GameModel/FleetStatus_Detail_Ready",
-  "FleetStatus_Sortie.Text": "GameModel/FleetStatus_Detail_Sortie",
-  "FleetStatus_Warning.Text": "GameModel/FleetStatus_Detail_Warning",
-  "FleetStatus_Expedition.Text": "GameModel/FleetStatus_Detail_Expedition",
-  "FleetStatus_Fatigued.Text": "GameModel/FleetStatus_Detail_Fatigued",
-  "FleetStatus_Repairing.Text": "GameModel/FleetStatus_Detail_Repairing",
-  "FleetStatus_Damaged.Text": "GameModel/FleetStatus_Detail_Damaged",
-  "FleetStatus_Insufficient.Text": "GameModel/FleetStatus_Detail_Insufficient"
+  "FleetState_Empty.Text": "GameModel/FleetState_Detail_Empty",
+  "FleetState_Ready.Text": "GameModel/FleetState_Detail_Ready",
+  "FleetState_Sortie.Text": "GameModel/FleetState_Detail_Sortie",
+  "FleetState_Warning.Text": "GameModel/FleetState_Detail_Warning",
+  "FleetState_Expedition.Text": "GameModel/FleetState_Detail_Expedition",
+  "FleetState_Fatigued.Text": "GameModel/FleetState_Detail_Fatigued",
+  "FleetState_Repairing.Text": "GameModel/FleetState_Detail_Repairing",
+  "FleetState_Damaged.Text": "GameModel/FleetState_Detail_Damaged",
+  "FleetState_Insufficient.Text": "GameModel/FleetState_Detail_Insufficient"
 }

@@ -114,31 +114,31 @@
   <data name="RepairingDocks.Header">
     <value>入渠</value>
   </data>
-  <data name="FleetStatus_Empty.Text">
+  <data name="FleetState_Empty.Text">
     <value>艦隊は空き</value>
   </data>
-  <data name="FleetStatus_Ready.Text">
+  <data name="FleetState_Ready.Text">
     <value>準備完了</value>
   </data>
-  <data name="FleetStatus_Sortie.Text">
+  <data name="FleetState_Sortie.Text">
     <value>出撃中</value>
   </data>
-  <data name="FleetStatus_Warning.Text">
+  <data name="FleetState_Warning.Text">
     <value>出撃中</value>
   </data>
-  <data name="FleetStatus_Expedition.Text">
+  <data name="FleetState_Expedition.Text">
     <value>遠征中</value>
   </data>
-  <data name="FleetStatus_Fatigued.Text">
+  <data name="FleetState_Fatigued.Text">
     <value>疲労回復中</value>
   </data>
-  <data name="FleetStatus_Repairing.Text">
+  <data name="FleetState_Repairing.Text">
     <value>入渠修理中</value>
   </data>
-  <data name="FleetStatus_Damaged.Text">
+  <data name="FleetState_Damaged.Text">
     <value>大破の艦娘があります</value>
   </data>
-  <data name="FleetStatus_Insufficient.Text">
+  <data name="FleetState_Insufficient.Text">
     <value>補給が必要</value>
   </data>
 </root>

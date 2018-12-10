@@ -220,19 +220,19 @@
                 <DataTemplate.Triggers>
                     <DataTrigger Binding="{Binding Status}" Value="Empty">
                         <Setter TargetName="statusColor" Property="Fill" Value="Gray"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Empty}"/>
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Empty}"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Ready">
                         <Setter TargetName="statusColor" Property="Fill" Value="SpringGreen"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Ready}"/>
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Ready}"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Sortie">
                         <Setter TargetName="statusColor" Property="Fill" Value="Red"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Sortie}"/>
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Sortie}"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Warning">
                         <Setter TargetName="statusColor" Property="Fill" Value="Red"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Warning}"/>
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Warning}"/>
                         <DataTrigger.EnterActions>
                             <BeginStoryboard>
                                 <Storyboard RepeatBehavior="Forever">
@@ -257,7 +257,7 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Expedition">
                         <Setter TargetName="statusColor" Property="Fill" Value="Aqua"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Expedition}"/>
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Expedition}"/>
                         <Setter TargetName="statusDetail" Property="Text">
                             <Setter.Value>
                                 <MultiBinding StringFormat=" - {0} {1} - {2:hh\:mm\:ss}">
@@ -270,19 +270,19 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Fatigued">
                         <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Fatigued}"/>
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Fatigued}"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Repairing">
                         <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Repairing}"/>
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Repairing}"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Damaged">
                         <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Damaged}"/>
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Damaged}"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Insufficient">
                         <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetStatus_Detail_Insufficient}"/>
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Insufficient}"/>
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
