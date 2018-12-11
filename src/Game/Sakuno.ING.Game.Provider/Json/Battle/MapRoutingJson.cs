@@ -84,24 +84,24 @@ namespace Sakuno.ING.Game.Json.Battle
                 return (UseItemId)iconId;
             else return default;
         }
-        private ItemRecord ParseItemGet(ItemGet api)
-            => new ItemRecord
+        private UseItemRecord ParseItemGet(ItemGet api)
+            => new UseItemRecord
             {
                 ItemId = IconIdToItemId(api.api_usemst, api.api_id),
                 Count = api.api_getcount
             };
-        public IReadOnlyCollection<ItemRecord> ItemAcquired
+        public IReadOnlyCollection<UseItemRecord> ItemAcquired
             => api_itemget_eo_comment != null ?
                 new[] { ParseItemGet(api_itemget_eo_comment) } :
-                api_itemget?.Select(ParseItemGet).ToArray() ?? Array.Empty<ItemRecord>();
-        public IReadOnlyCollection<ItemRecord> ItemLost
+                api_itemget?.Select(ParseItemGet).ToArray() ?? Array.Empty<UseItemRecord>();
+        public IReadOnlyCollection<UseItemRecord> ItemLost
             => api_happening != null ?
-                new[] { new ItemRecord
+                new[] { new UseItemRecord
                 {
                     ItemId = IconIdToItemId(api_happening.api_type, api_happening.api_mst_id),
                     Count = api_happening.api_count
                 } } :
-                Array.Empty<ItemRecord>();
+                Array.Empty<UseItemRecord>();
 
         [JsonProperty("api_get_eo_rate")]
         public int? RankingPointAcquired { get; set; }

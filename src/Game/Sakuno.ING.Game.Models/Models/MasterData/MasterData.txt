@@ -11,7 +11,7 @@ p:int ClassId -
 p:bool CanUpgrade
 p:ShipInfo UpgradeTo
 p:Materials UpgradeConsumption -
-p:IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption -
+p:IReadOnlyCollection<UseItemRecord> UpgradeSpecialConsumption -
 p:ShipMordenizationStatus HP -
 p:ShipMordenizationStatus Armor -
 p:ShipMordenizationStatus Firepower -
@@ -91,7 +91,7 @@ p:int RequiredShipCount -
 p:int Difficulty -
 p:double FuelConsumption -
 p:double BulletConsumption -
-p:ItemRecord? RewardItem1 -
-p:ItemRecord? RewardItem2 -
+p:UseItemRecord? RewardItem1 -
+p:UseItemRecord? RewardItem2 -
 p:bool CanRecall -
 

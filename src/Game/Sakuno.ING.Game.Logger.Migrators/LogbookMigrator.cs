@@ -105,15 +105,15 @@ namespace Sakuno.ING.Game.Logger.Migrators
                         Bauxite = int.Parse(s[6])
                     },
                     RewardItem1 = string.IsNullOrEmpty(s[7]) ?
-                        (ItemRecord?)null :
-                        new ItemRecord
+                        (UseItemRecord?)null :
+                        new UseItemRecord
                         {
                             ItemId = useitems.TryGetOrDefault(s[7])?.Id ?? default,
                             Count = int.Parse(s[8])
                         },
                     RewardItem2 = string.IsNullOrEmpty(s[9]) ?
-                        (ItemRecord?)null :
-                        new ItemRecord
+                        (UseItemRecord?)null :
+                        new UseItemRecord
                         {
                             ItemId = useitems.TryGetOrDefault(s[9])?.Id ?? default,
                             Count = int.Parse(s[10])

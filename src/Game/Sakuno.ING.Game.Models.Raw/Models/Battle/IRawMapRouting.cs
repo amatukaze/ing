@@ -13,8 +13,8 @@ namespace Sakuno.ING.Game.Models.Battle
         bool Reconnaissance { get; }
         string Message { get; }
         bool CanSelectRoute { get; }
-        IReadOnlyCollection<ItemRecord> ItemAcquired { get; }
-        IReadOnlyCollection<ItemRecord> ItemLost { get; }
+        IReadOnlyCollection<UseItemRecord> ItemAcquired { get; }
+        IReadOnlyCollection<UseItemRecord> ItemLost { get; }
         int? RankingPointAcquired { get; }
     }
 }

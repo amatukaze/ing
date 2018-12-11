@@ -91,8 +91,8 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__upgradeSpecialConsumption = new System.ComponentModel.PropertyChangedEventArgs(nameof(UpgradeSpecialConsumption));
-        private IReadOnlyCollection<ItemRecord> _upgradeSpecialConsumption;
-        public IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption
+        private IReadOnlyCollection<UseItemRecord> _upgradeSpecialConsumption;
+        public IReadOnlyCollection<UseItemRecord> UpgradeSpecialConsumption
         {
             get => _upgradeSpecialConsumption;
             internal set => Set(ref _upgradeSpecialConsumption, value, __eventArgs__upgradeSpecialConsumption);
@@ -935,8 +935,8 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rewardItem1 = new System.ComponentModel.PropertyChangedEventArgs(nameof(RewardItem1));
-        private ItemRecord? _rewardItem1;
-        public ItemRecord? RewardItem1
+        private UseItemRecord? _rewardItem1;
+        public UseItemRecord? RewardItem1
         {
             get => _rewardItem1;
             internal set => Set(ref _rewardItem1, value, __eventArgs__rewardItem1);
@@ -944,8 +944,8 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__rewardItem2 = new System.ComponentModel.PropertyChangedEventArgs(nameof(RewardItem2));
-        private ItemRecord? _rewardItem2;
-        public ItemRecord? RewardItem2
+        private UseItemRecord? _rewardItem2;
+        public UseItemRecord? RewardItem2
         {
             get => _rewardItem2;
             internal set => Set(ref _rewardItem2, value, __eventArgs__rewardItem2);

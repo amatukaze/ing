@@ -35,8 +35,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         double FuelConsumption { get; }
         double BulletConsumption { get; }
 
-        ItemRecord? RewardItem1 { get; }
-        ItemRecord? RewardItem2 { get; }
+        UseItemRecord? RewardItem1 { get; }
+        UseItemRecord? RewardItem2 { get; }
 
         bool CanRecall { get; }
     }

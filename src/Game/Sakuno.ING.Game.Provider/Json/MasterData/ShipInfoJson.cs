@@ -40,7 +40,7 @@ namespace Sakuno.ING.Game.Json.MasterData
             Steel = api_afterfuel
         };
 
-        public IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption { get; set; } = Array.Empty<ItemRecord>();
+        public IReadOnlyCollection<UseItemRecord> UpgradeSpecialConsumption { get; set; } = Array.Empty<UseItemRecord>();
 
         [JsonProperty("api_taik"), JsonConverter(typeof(ShipMordenizationConverter))]
         public ShipMordenizationStatus HP { get; set; }

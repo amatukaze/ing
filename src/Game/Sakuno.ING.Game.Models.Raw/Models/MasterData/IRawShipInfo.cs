@@ -38,7 +38,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         int UpgradeLevel { get; }
         ShipInfoId? UpgradeTo { get; }
         Materials UpgradeConsumption { get; }
-        IReadOnlyCollection<ItemRecord> UpgradeSpecialConsumption { get; }
+        IReadOnlyCollection<UseItemRecord> UpgradeSpecialConsumption { get; }
 
         /// <summary>
         /// 耐久

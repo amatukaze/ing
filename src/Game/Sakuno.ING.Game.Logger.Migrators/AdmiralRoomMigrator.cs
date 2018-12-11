@@ -79,17 +79,17 @@ namespace Sakuno.ING.Game.Logger.Migrators
                         Bauxite = int.Parse(s[6])
                     },
                     RewardItem1 = int.Parse(s[7]) > 0 ?
-                            new ItemRecord
+                            new UseItemRecord
                             {
                                 ItemId = (UseItemId)int.Parse(s[7]),
                                 Count = int.Parse(s[8])
-                            } : (ItemRecord?)null,
+                            } : (UseItemRecord?)null,
                     RewardItem2 = int.Parse(s[9]) > 0 ?
-                            new ItemRecord
+                            new UseItemRecord
                             {
                                 ItemId = (UseItemId)int.Parse(s[9]),
                                 Count = int.Parse(s[10])
-                            } : (ItemRecord?)null
+                            } : (UseItemRecord?)null
                 });
         }
     }

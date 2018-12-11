@@ -35,15 +35,15 @@ namespace Sakuno.ING.Game.Logger.Entities
         public int MaterialsAcquired_Bauxite { get; set; }
 
         [NotMapped]
-        public ItemRecord? RewardItem1
+        public UseItemRecord? RewardItem1
         {
             get => (RewardItem1_ItemId is int id
                 && RewardItem1_Count is int count) ?
-                new ItemRecord
+                new UseItemRecord
                 {
                     ItemId = (UseItemId)id,
                     Count = count
-                } : (ItemRecord?)null;
+                } : (UseItemRecord?)null;
             set
             {
                 RewardItem1_ItemId = value?.ItemId;
@@ -54,15 +54,15 @@ namespace Sakuno.ING.Game.Logger.Entities
         public int? RewardItem1_Count { get; set; }
 
         [NotMapped]
-        public ItemRecord? RewardItem2
+        public UseItemRecord? RewardItem2
         {
             get => (RewardItem2_ItemId is int id
                 && RewardItem2_Count is int count) ?
-                new ItemRecord
+                new UseItemRecord
                 {
                     ItemId = (UseItemId)id,
                     Count = count
-                } : (ItemRecord?)null;
+                } : (UseItemRecord?)null;
             set
             {
                 RewardItem2_ItemId = value?.ItemId;

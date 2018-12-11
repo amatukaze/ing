@@ -163,17 +163,17 @@ namespace Sakuno.ING.Game
 
         private static ExpeditionCompletion ParseExpeditionCompletion(NameValueCollection request, ExpeditionCompletionJson response)
         {
-            ItemRecord? item1 = null, item2 = null;
+            UseItemRecord? item1 = null, item2 = null;
 
             var id1 = response.api_useitem_flag.ElementAtOrDefault(0);
             if (id1 == 4)
-                item1 = new ItemRecord
+                item1 = new UseItemRecord
                 {
                     ItemId = response.api_get_item1.api_useitem_id,
                     Count = response.api_get_item1.api_useitem_count
                 };
             else if (id1 > 0)
-                item1 = new ItemRecord
+                item1 = new UseItemRecord
                 {
                     ItemId = id1,
                     Count = response.api_get_item1.api_useitem_count
@@ -181,13 +181,13 @@ namespace Sakuno.ING.Game
 
             var id2 = response.api_useitem_flag.ElementAtOrDefault(1);
             if (id2 == 4)
-                item2 = new ItemRecord
+                item2 = new UseItemRecord
                 {
                     ItemId = response.api_get_item2.api_useitem_id,
                     Count = response.api_get_item2.api_useitem_count
                 };
             else if (id2 > 0)
-                item2 = new ItemRecord
+                item2 = new UseItemRecord
                 {
                     ItemId = id2,
                     Count = response.api_get_item2.api_useitem_count

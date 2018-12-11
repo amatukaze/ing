@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Models
 {
-    public struct ItemRecord
+    public struct UseItemRecord
     {
         public UseItemId ItemId;
         public int Count;

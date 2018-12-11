@@ -42,8 +42,8 @@ namespace Sakuno.ING.ViewModels.Logging
             }
         }
         public Materials MaterialsAcquired => entity.MaterialsAcquired;
-        public ItemRecord? RewardItem1 => entity.RewardItem1;
-        public ItemRecord? RewardItem2 => entity.RewardItem2;
+        public UseItemRecord? RewardItem1 => entity.RewardItem1;
+        public UseItemRecord? RewardItem2 => entity.RewardItem2;
     }
 
     [Export(typeof(ExpeditionCompletionLogsVM), SingleInstance = false)]

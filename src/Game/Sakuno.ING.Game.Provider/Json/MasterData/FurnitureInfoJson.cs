@@ -7,7 +7,7 @@ namespace Sakuno.ING.Game.Json.MasterData
     internal class FurnitureInfoJson : IRawFurnitureInfo
     {
         [JsonProperty("api_id")]
-        public int Id { get; set; }
+        public FurnitureId Id { get; set; }
         [JsonProperty("api_type")]
         public int Type { get; set; }
         [JsonProperty("api_no")]

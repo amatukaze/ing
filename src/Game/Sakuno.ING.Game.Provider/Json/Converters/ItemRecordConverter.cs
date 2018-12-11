@@ -4,16 +4,16 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
-    internal class ItemRecordConverter : IntArrayConverterBase<ItemRecord?>
+    internal class ItemRecordConverter : IntArrayConverterBase<UseItemRecord?>
     {
         protected override int RequiredCount => 2;
 
-        protected override ItemRecord? ConvertValue(ReadOnlySpan<int> array)
+        protected override UseItemRecord? ConvertValue(ReadOnlySpan<int> array)
             => array[0] > 0 ?
-            new ItemRecord
+            new UseItemRecord
             {
                 ItemId = (UseItemId)array[0],
                 Count = array[1]
-            } : (ItemRecord?)null;
+            } : (UseItemRecord?)null;
     }
 }

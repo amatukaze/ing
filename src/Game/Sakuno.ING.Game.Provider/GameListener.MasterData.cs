@@ -41,13 +41,13 @@ namespace Sakuno.ING.Game
                 var u = raw.api_mst_shipupgrade.Find(x => x.api_current_ship_id == s.Id);
                 if (u == null) continue;
 
-                var l = new List<ItemRecord>(3);
+                var l = new List<UseItemRecord>(3);
                 if (u.api_drawing_count != 0)
-                    l.Add(new ItemRecord { ItemId = KnownUseItem.Blueprint, Count = u.api_drawing_count });
+                    l.Add(new UseItemRecord { ItemId = KnownUseItem.Blueprint, Count = u.api_drawing_count });
                 if (u.api_catapult_count != 0)
-                    l.Add(new ItemRecord { ItemId = KnownUseItem.FlightDeckCatapult, Count = u.api_catapult_count });
+                    l.Add(new UseItemRecord { ItemId = KnownUseItem.FlightDeckCatapult, Count = u.api_catapult_count });
                 if (u.api_report_count != 0)
-                    l.Add(new ItemRecord { ItemId = KnownUseItem.ActionReport, Count = u.api_report_count });
+                    l.Add(new UseItemRecord { ItemId = KnownUseItem.ActionReport, Count = u.api_report_count });
                 s.UpgradeSpecialConsumption = l;
             }
 

@@ -32,10 +32,10 @@ namespace Sakuno.ING.Game.Json.MasterData
         public double BulletConsumption { get; set; }
 
         [JsonProperty("api_win_item1"), JsonConverter(typeof(ItemRecordConverter))]
-        public ItemRecord? RewardItem1 { get; set; }
+        public UseItemRecord? RewardItem1 { get; set; }
 
         [JsonProperty("api_win_item2"), JsonConverter(typeof(ItemRecordConverter))]
-        public ItemRecord? RewardItem2 { get; set; }
+        public UseItemRecord? RewardItem2 { get; set; }
 
         [JsonProperty("api_return_flag")]
         public bool CanRecall { get; set; }
