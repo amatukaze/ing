@@ -48,9 +48,9 @@ namespace Sakuno.ING.Game.Json.Battle
 
                 var l = new List<int>(2);
                 if (api_escape.api_escape_idx is int escape)
-                    l.Add(escape);
+                    l.Add(escape - 1);
                 if (api_escape.api_tow_idx is int tow)
-                    l.Add(tow);
+                    l.Add(tow - 1);
                 return l;
             }
         }
