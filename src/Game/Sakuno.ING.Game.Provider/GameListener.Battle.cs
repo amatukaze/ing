@@ -13,29 +13,29 @@ namespace Sakuno.ING.Game
         private readonly ITimedMessageProvider<EnemyDebuffConfirm> enemyDebuffConfirmed;
         public event TimedMessageHandler<EnemyDebuffConfirm> EnemyDebuffConfirmed
         {
-            add { enemyDebuffConfirmed.Received += value; }
-            remove { enemyDebuffConfirmed.Received -= value; }
+            add => enemyDebuffConfirmed.Received += value;
+            remove => enemyDebuffConfirmed.Received -= value;
         }
 
         private readonly ITimedMessageProvider<SortieStart> sortieStarting;
         public event TimedMessageHandler<SortieStart> SortieStarting
         {
-            add { sortieStarting.Received += value; }
-            remove { sortieStarting.Received -= value; }
+            add => sortieStarting.Received += value;
+            remove => sortieStarting.Received -= value;
         }
 
         private readonly ITimedMessageProvider<IRawMapRouting> mapRouting;
         public event TimedMessageHandler<IRawMapRouting> MapRouting
         {
-            add { mapRouting.Received += value; }
-            remove { mapRouting.Received -= value; }
+            add => mapRouting.Received += value;
+            remove => mapRouting.Received -= value;
         }
 
         private readonly ITimedMessageProvider<IRawBattleResult> battleCompleted;
         public event TimedMessageHandler<IRawBattleResult> BattleCompleted
         {
-            add { battleCompleted.Received += value; }
-            remove { battleCompleted.Received -= value; }
+            add => battleCompleted.Received += value;
+            remove => battleCompleted.Received -= value;
         }
         #endregion
 
