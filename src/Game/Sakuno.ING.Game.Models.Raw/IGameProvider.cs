@@ -54,7 +54,9 @@ namespace Sakuno.ING.Game
         event TimedMessageHandler<AirForceSupply> AirForceSupplied;
         event TimedMessageHandler<IRawAirForceGroup> AirForceExpanded;
 
+        event TimedMessageHandler<EnemyDebuffConfirm> EnemyDebuffConfirmed;
         event TimedMessageHandler<SortieStart> SortieStarting;
         event TimedMessageHandler<IRawMapRouting> MapRouting;
+        event TimedMessageHandler<IRawBattleResult> BattleCompleted;
     }
 }

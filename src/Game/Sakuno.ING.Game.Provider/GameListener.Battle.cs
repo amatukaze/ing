@@ -10,6 +10,13 @@ namespace Sakuno.ING.Game
     partial class GameListener
     {
         #region Events
+        private readonly ITimedMessageProvider<EnemyDebuffConfirm> enemyDebuffConfirmed;
+        public event TimedMessageHandler<EnemyDebuffConfirm> EnemyDebuffConfirmed
+        {
+            add { enemyDebuffConfirmed.Received += value; }
+            remove { enemyDebuffConfirmed.Received -= value; }
+        }
+
         private readonly ITimedMessageProvider<SortieStart> sortieStarting;
         public event TimedMessageHandler<SortieStart> SortieStarting
         {
@@ -22,6 +29,13 @@ namespace Sakuno.ING.Game
         {
             add { mapRouting.Received += value; }
             remove { mapRouting.Received -= value; }
+        }
+
+        private readonly ITimedMessageProvider<IRawBattleResult> battleCompleted;
+        public event TimedMessageHandler<IRawBattleResult> BattleCompleted
+        {
+            add { battleCompleted.Received += value; }
+            remove { battleCompleted.Received -= value; }
         }
         #endregion
 
