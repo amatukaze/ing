@@ -2,11 +2,11 @@
 {
     internal class DepriveJson
     {
-        public DepriveJsonData api_ship_data;
-    }
-    internal class DepriveJsonData
-    {
-        public ShipJson api_unset_ship;
-        public ShipJson api_set_ship;
+        public class Data
+        {
+            public ShipJson api_unset_ship;
+            public ShipJson api_set_ship;
+        }
+        public Data api_ship_data;
     }
 }

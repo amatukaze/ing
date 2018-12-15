@@ -12,14 +12,14 @@ namespace Sakuno.ING.Game.Json
         public ExpeditionResult api_clear_result;
         [JsonConverter(typeof(MaterialsConverter))]
         public Materials api_get_material;
-        public ExpeditionItemJson api_get_item1;
-        public ExpeditionItemJson api_get_item2;
-        public IReadOnlyList<UseItemId> api_useitem_flag;
-    }
 
-    internal class ExpeditionItemJson
-    {
-        public UseItemId api_useitem_id;
-        public int api_useitem_count;
+        public class GetItem
+        {
+            public UseItemId api_useitem_id;
+            public int api_useitem_count;
+        }
+        public GetItem api_get_item1;
+        public GetItem api_get_item2;
+        public IReadOnlyList<UseItemId> api_useitem_flag;
     }
 }

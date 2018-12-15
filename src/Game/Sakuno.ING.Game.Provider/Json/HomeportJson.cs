@@ -10,10 +10,10 @@ namespace Sakuno.ING.Game.Json
         public RepairingDockJson[] api_ndock;
         public ShipJson[] api_ship;
         public KnownCombinedFleet api_combined_flag;
-        public HomeportEventObject api_event_object;
-    }
-    internal class HomeportEventObject
-    {
-        public bool api_m_flag2;
+        internal class EventObject
+        {
+            public bool api_m_flag2;
+        }
+        public EventObject api_event_object;
     }
 }

@@ -16,7 +16,13 @@ namespace Sakuno.ING.Game.Json
         [JsonProperty("api_name")]
         public string Name { get; set; }
 
-        public AirForceDistanceJson api_distance;
+
+        public class Distance
+        {
+            public int api_base;
+            public int api_bonus;
+        }
+        public Distance api_distance;
         public int DistanceBase => api_distance.api_base;
         public int DistanceBonus => api_distance.api_bonus;
 
@@ -24,12 +30,6 @@ namespace Sakuno.ING.Game.Json
         public AirForceAction Action { get; set; }
         public AirForceSquadronJson[] api_plane_info;
         IReadOnlyCollection<IRawAirForceSquadron> IRawAirForceGroup.Squadrons => api_plane_info;
-    }
-
-    internal class AirForceDistanceJson
-    {
-        public int api_base;
-        public int api_bonus;
     }
 
     internal class AirForceSquadronJson : IRawAirForceSquadron

@@ -30,12 +30,29 @@ namespace Sakuno.ING.Game.Json
         public int[] api_slotitem;
         public int MaxEquipmentCount => api_slotitem.ElementAtOrDefault(1);
 
+        public class RecordBattleStat
+        {
+            public int api_win;
+            public int api_lose;
+            public double api_rate;
+            public BattleStat ToValue()
+                => new BattleStat(api_win, api_lose, api_rate);
+        }
         public RecordBattleStat api_war;
         public BattleStat BattleStat => api_war.ToValue();
 
         public RecordBattleStat api_practice;
         public BattleStat PracticeStat => api_practice.ToValue();
 
+
+        public class RecordExpeditionStat
+        {
+            public int api_count;
+            public int api_success;
+            public double api_rate;
+            public ExpeditionStat ToValue()
+                => new ExpeditionStat(api_success, api_count, api_rate);
+        }
         public RecordExpeditionStat api_mission;
         public ExpeditionStat ExpeditionStat => api_mission.ToValue();
 
@@ -43,23 +60,5 @@ namespace Sakuno.ING.Game.Json
         public bool CanLSC { get; set; }
         [JsonProperty("api_material_max")]
         public int MaxMaterial { get; set; }
-    }
-
-    internal class RecordBattleStat
-    {
-        public int api_win;
-        public int api_lose;
-        public double api_rate;
-        public BattleStat ToValue()
-            => new BattleStat(api_win, api_lose, api_rate);
-    }
-
-    internal class RecordExpeditionStat
-    {
-        public int api_count;
-        public int api_success;
-        public double api_rate;
-        public ExpeditionStat ToValue()
-            => new ExpeditionStat(api_success, api_count, api_rate);
     }
 }

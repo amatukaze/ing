@@ -18,15 +18,27 @@ namespace Sakuno.ING.Game.Json.Battle
         [JsonProperty("api_first_clear")]
         public bool MapCleared { get; set; }
 
+        public class EnemyInfo
+        {
+            public string api_deck_name;
+        }
         public EnemyInfo api_enemy_info;
         public string EnemyFleetName => api_enemy_info?.api_deck_name;
 
         [JsonProperty("api_mapcell_incentive")]
         public bool? AirReconnaissanceSuccessed { get; set; }
 
+        public class GetUseItem
+        {
+            public UseItemId api_useitem_id;
+        }
         public GetUseItem api_get_useitem;
         public UseItemId? UseItemAcquired => api_get_useitem?.api_useitem_id;
 
+        public class GetShip
+        {
+            public ShipInfoId api_ship_id;
+        }
         public GetShip api_get_ship;
         public ShipInfoId? ShipDropped => api_get_ship?.api_ship_id;
 
@@ -35,9 +47,18 @@ namespace Sakuno.ING.Game.Json.Battle
         [JsonProperty("api_m1")]
         public bool MapPartUnlocked { get; set; }
 
+        public class LandingHP
+        {
+            public int api_sub_value;
+        }
         public LandingHP api_landing_hp;
         public int? TransportationPoint => api_landing_hp?.api_sub_value;
 
+        public class Escape
+        {
+            public int? api_escape_idx;
+            public int? api_tow_idx;
+        }
         public Escape api_escape;
         public IReadOnlyCollection<int> EscapableShipIndices
         {
@@ -55,6 +76,13 @@ namespace Sakuno.ING.Game.Json.Battle
             }
         }
 
+        public class GetEventItem
+        {
+            public int api_type;
+            public int api_id;
+            public int api_value;
+            public int api_slot_level;
+        }
         public GetEventItem[] api_get_eventitem;
         public IRawRewards Rewards
         {
@@ -92,33 +120,5 @@ namespace Sakuno.ING.Game.Json.Battle
                 return rewards;
             }
         }
-    }
-    internal class EnemyInfo
-    {
-        public string api_deck_name;
-    }
-    internal class GetUseItem
-    {
-        public UseItemId api_useitem_id;
-    }
-    internal class GetShip
-    {
-        public ShipInfoId api_ship_id;
-    }
-    internal class LandingHP
-    {
-        public int api_sub_value;
-    }
-    internal class GetEventItem
-    {
-        public int api_type;
-        public int api_id;
-        public int api_value;
-        public int api_slot_level;
-    }
-    internal class Escape
-    {
-        public int? api_escape_idx;
-        public int? api_tow_idx;
     }
 }
