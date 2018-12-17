@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls">
+    <Style TargetType="local:EquipmentImprovementPresenter">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:EquipmentImprovementPresenter">
+                    <TextBlock Name="ValueText"
+                               Text="{Binding RelativeSource={RelativeSource TemplatedParent}, StringFormat={}★{0}}" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Level" Value="0">
+                            <Setter TargetName="ValueText" Property="Text" Value="" />
+                        </Trigger>
+                        <Trigger Property="Level" Value="10">
+                            <Setter TargetName="ValueText" Property="Text" Value="★max" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="DarkCyan" />
+    </Style>
+</ResourceDictionary>

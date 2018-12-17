@@ -1,0 +1,39 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Controls">
+    <Style TargetType="local:SlotAircraftPresenter">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SlotAircraftPresenter">
+                    <TextBlock Name="PART_Text">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="Status">
+                                <VisualState x:Name="NotPlane">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="Gray" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Full">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="SpringGreen" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Empty">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="Red" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Half">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="YellowGreen" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
