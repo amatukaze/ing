@@ -11,30 +11,30 @@
     d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="7*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ListView x:Name="SessionList" Grid.Column="0" Grid.RowSpan="2" ItemsSource="{x:Bind Sessions}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:Message">
-                    <TextBlock Text="{x:Bind Name}"/>
+                    <TextBlock Text="{x:Bind Name}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <tk:GridSplitter Grid.Column="1" Grid.RowSpan="2"
                          ResizeBehavior="PreviousAndNext"
                          GripperForeground="White"
-                         Background="Black"/>
+                         Background="Black" />
         <TextBlock Grid.Column="2"
-                   Text="{x:Bind ((local:Message)SessionList.SelectedValue).TimeStamp.LocalDateTime.ToString(), Mode=OneWay}"/>
+                   Text="{x:Bind ((local:Message)SessionList.SelectedValue).TimeStamp.LocalDateTime.ToString(), Mode=OneWay}" />
         <Pivot Grid.Column="2" Grid.Row="1">
             <PivotItem Header="Response">
-                <TextBlock Text="{x:Bind ((local:Message)SessionList.SelectedValue).Body.ToString(), Mode=OneWay}"/>
+                <TextBlock Text="{x:Bind ((local:Message)SessionList.SelectedValue).Body.ToString(), Mode=OneWay}" />
             </PivotItem>
         </Pivot>
     </Grid>

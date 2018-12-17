@@ -10,23 +10,23 @@
              DataContext="{c:Resolve {x:Type s:LocaleSetting}}"
              d:DataContext="{d:DesignInstance s:LocaleSetting}">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="200">
-        <TextBlock Text="Language"/>
+        <TextBlock Text="Language" />
         <ComboBox x:Name="languages"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Key"
-                  SelectedValue="{Binding Language.Value}"/>
-        <TextBlock TextWrapping="Wrap" Text="{c:Localize Settings/UserFont}"/>
+                  SelectedValue="{Binding Language.Value}" />
+        <TextBlock TextWrapping="Wrap" Text="{c:Localize Settings/UserFont}" />
         <ComboBox x:Name="userFont"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Key"
-                  SelectedValue="{Binding UserLanguageFont.Value}"/>
-        <TextBlock TextWrapping="Wrap" Text="{c:Localize Settings/ContentFont}"/>
+                  SelectedValue="{Binding UserLanguageFont.Value}" />
+        <TextBlock TextWrapping="Wrap" Text="{c:Localize Settings/ContentFont}" />
         <ComboBox x:Name="contentFont"
                   DisplayMemberPath="Name"
                   SelectedValuePath="Key"
-                  SelectedValue="{Binding ContentLanguageFont.Value}"/>
-        <TextBlock TextWrapping="Wrap" Text="{c:Localize Settings/RestartRequired}"/>
+                  SelectedValue="{Binding ContentLanguageFont.Value}" />
+        <TextBlock TextWrapping="Wrap" Text="{c:Localize Settings/RestartRequired}" />
         <CheckBox Content="{c:Localize Settings/Translate}"
-                  IsChecked="{Binding TranslateContent.Value}"/>
+                  IsChecked="{Binding TranslateContent.Value}" />
     </StackPanel>
 </UserControl>

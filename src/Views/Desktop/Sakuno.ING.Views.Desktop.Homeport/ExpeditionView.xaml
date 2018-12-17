@@ -14,10 +14,10 @@
             <DataTemplate DataType="{x:Type g:Fleet}">
                 <Grid>
                     <TextBlock>
-                        <c:NameText Source="{Binding Expedition.Name}"/>
+                        <c:NameText Source="{Binding Expedition.Name}" />
                     </TextBlock>
                     <TextBlock TextAlignment="Right"
-                               Text="{Binding ExpeditionTimeRemaining, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
+                               Text="{Binding ExpeditionTimeRemaining, StringFormat='\{0:hh\\:mm\\:ss}'}" />
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

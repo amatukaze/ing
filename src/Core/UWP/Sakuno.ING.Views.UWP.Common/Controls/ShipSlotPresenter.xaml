@@ -12,25 +12,25 @@
     <Viewbox>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="80" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="80" />
             </Grid.ColumnDefinitions>
             <local:EquipmentIcon
                 Grid.Row="0" Grid.Column="0"
-                Id="{x:Bind Slot.Equipment.Info.IconId, FallbackValue=0}"/>
+                Id="{x:Bind Slot.Equipment.Info.IconId, FallbackValue=0}" />
             <local:SlotAircraftPresenter
                 Grid.Row="0" Grid.Column="1" FontSize="60"
-                Aircraft="{x:Bind Slot.Aircraft}"/>
+                Aircraft="{x:Bind Slot.Aircraft}" />
             <local:EquipmentImprovementPresenter
                 Grid.Row="1" Grid.Column="0" FontSize="60"
-                Level="{x:Bind Slot.Equipment.ImprovementLevel, FallbackValue=0}"/>
+                Level="{x:Bind Slot.Equipment.ImprovementLevel, FallbackValue=0}" />
             <local:AirProficiencyPresenter
                 Grid.Row="1" Grid.Column="1"
-                Proficiency="{x:Bind Slot.Equipment.AirProficiency, FallbackValue=0}"/>
+                Proficiency="{x:Bind Slot.Equipment.AirProficiency, FallbackValue=0}" />
         </Grid>
     </Viewbox>
 </UserControl>

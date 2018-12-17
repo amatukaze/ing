@@ -11,46 +11,46 @@
     IsEnabled="{x:Bind c:Helpers.Not(ViewModel.Running)}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ListView Grid.RowSpan="3"
                   ItemsSource="{x:Bind ViewModel.Migrators, Mode=OneTime}"
                   SelectedValue="{x:Bind ViewModel.SelectedMigrator, Mode=TwoWay}"
-                  DisplayMemberPath="Title"/>
+                  DisplayMemberPath="Title" />
         <TextBlock Grid.Column="1" Grid.Row="0"
-                   Text="{x:Bind ViewModel.SelectedPath.FullName}"/>
+                   Text="{x:Bind ViewModel.SelectedPath.FullName}" />
         <Button Grid.Column="1" Grid.Row="0"
                 HorizontalAlignment="Right"
                 Content="Browse"
                 IsEnabled="{x:Bind c:Helpers.IsNotNull(ViewModel.SelectedMigrator)}"
-                Tapped="{x:Bind ViewModel.PickPath}"/>
+                Tapped="{x:Bind ViewModel.PickPath}" />
         <StackPanel Orientation="Vertical"
                     Grid.Column="1" Grid.Row="1">
             <ToggleSwitch Grid.Column="1" Grid.Row="1"
                           x:Uid="/Resources/LogMigration_ShipCreation"
                           IsEnabled="{x:Bind ViewModel.SupportShipCreation}"
-                          IsOn="{x:Bind ViewModel.SelectShipCreation, Mode=TwoWay}"/>
+                          IsOn="{x:Bind ViewModel.SelectShipCreation, Mode=TwoWay}" />
             <ToggleSwitch Grid.Column="1" Grid.Row="2"
                           x:Uid="/Resources/LogMigration_EquipmentCreation"
                           IsEnabled="{x:Bind ViewModel.SupportEquipmentCreation}"
-                          IsOn="{x:Bind ViewModel.SelectEquipmentCreation, Mode=TwoWay}"/>
+                          IsOn="{x:Bind ViewModel.SelectEquipmentCreation, Mode=TwoWay}" />
             <ToggleSwitch Grid.Column="1" Grid.Row="3"
                           x:Uid="/Resources/LogMigration_ExpeditionCompletion"
                           IsEnabled="{x:Bind ViewModel.SupportExpeditionCompletion}"
-                          IsOn="{x:Bind ViewModel.SelectExpeditionCompletion, Mode=TwoWay}"/>
+                          IsOn="{x:Bind ViewModel.SelectExpeditionCompletion, Mode=TwoWay}" />
         </StackPanel>
         <ProgressRing Grid.Column="1" Grid.Row="2"
-                      IsActive="{x:Bind ViewModel.Running}"/>
+                      IsActive="{x:Bind ViewModel.Running}" />
         <Button Grid.Column="1" Grid.Row="2"
                 HorizontalAlignment="Right"
                 x:Uid="/Resources/LogMigration_DoMigrate"
                 IsEnabled="{x:Bind ViewModel.Ready}"
-                Tapped="{x:Bind ViewModel.DoMigration}"/>
+                Tapped="{x:Bind ViewModel.DoMigration}" />
     </Grid>
 </UserControl>

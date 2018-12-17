@@ -9,17 +9,17 @@
              DataContext="{c:Resolve {x:Type vm:ShipCreationLogsVM}}"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <c:DateTimeDisplayConverter x:Key="DateTimeDisplay"/>
+        <c:DateTimeDisplayConverter x:Key="DateTimeDisplay" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ItemsControl ItemsSource="{Binding Filters, Mode=OneTime}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
+                    <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
@@ -27,11 +27,11 @@
                     <StackPanel Orientation="Vertical">
                         <CheckBox VerticalAlignment="Center"
                                   IsChecked="{Binding IsEnabled}"
-                                  Content="{Binding Name, Mode=OneTime}"/>
+                                  Content="{Binding Name, Mode=OneTime}" />
                         <ComboBox VerticalAlignment="Center"
                                   IsEnabled="{Binding IsEnabled}"
                                   ItemsSource="{Binding Candidates}"
-                                  SelectedValue="{Binding SelectedText}"/>
+                                  SelectedValue="{Binding SelectedText}" />
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -39,34 +39,34 @@
         <ListView Grid.Row="1" ItemsSource="{Binding Entities}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="{c:Localize Application/Time}" DisplayMemberBinding="{Binding TimeStamp, Mode=OneTime, Converter={StaticResource DateTimeDisplay}}"/>
-                    <GridViewColumn Header="{c:Localize GameModel/Material_Fuel}" DisplayMemberBinding="{Binding Consumption.Fuel, Mode=OneTime}"/>
-                    <GridViewColumn Header="{c:Localize GameModel/Material_Bullet}" DisplayMemberBinding="{Binding Consumption.Bullet, Mode=OneTime}"/>
-                    <GridViewColumn Header="{c:Localize GameModel/Material_Steel}" DisplayMemberBinding="{Binding Consumption.Steel, Mode=OneTime}"/>
-                    <GridViewColumn Header="{c:Localize GameModel/Material_Bauxite}" DisplayMemberBinding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
-                    <GridViewColumn Header="{c:Localize GameModel/Material_Development}" DisplayMemberBinding="{Binding Consumption.Development, Mode=OneTime}"/>
-                    <GridViewColumn Header="{c:Localize GameModel/ConstructionType}" DisplayMemberBinding="{Binding ConstructionType, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize Application/Time}" DisplayMemberBinding="{Binding TimeStamp, Mode=OneTime, Converter={StaticResource DateTimeDisplay}}" />
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Fuel}" DisplayMemberBinding="{Binding Consumption.Fuel, Mode=OneTime}" />
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Bullet}" DisplayMemberBinding="{Binding Consumption.Bullet, Mode=OneTime}" />
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Steel}" DisplayMemberBinding="{Binding Consumption.Steel, Mode=OneTime}" />
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Bauxite}" DisplayMemberBinding="{Binding Consumption.Bauxite, Mode=OneTime}" />
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Development}" DisplayMemberBinding="{Binding Consumption.Development, Mode=OneTime}" />
+                    <GridViewColumn Header="{c:Localize GameModel/ConstructionType}" DisplayMemberBinding="{Binding ConstructionType, Mode=OneTime}" />
                     <GridViewColumn Header="{c:Localize GameModel/Result}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:ShipNameText Source="{Binding ShipBuilt.Name, Mode=OneTime}"/>
+                                    <c:ShipNameText Source="{Binding ShipBuilt.Name, Mode=OneTime}" />
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="{c:Localize Logging/Construction_EmptyDockCount}" DisplayMemberBinding="{Binding EmptyDockCount, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize Logging/Construction_EmptyDockCount}" DisplayMemberBinding="{Binding EmptyDockCount, Mode=OneTime}" />
                     <GridViewColumn Header="{c:Localize GameModel/Secretary}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:ShipNameText Source="{Binding Secretary.Name, Mode=OneTime}"/>
-                                    (Lv. <Run Text="{Binding SecretaryLevel, Mode=OneTime}"/>)
+                                    <c:ShipNameText Source="{Binding Secretary.Name, Mode=OneTime}" />
+                                    (Lv. <Run Text="{Binding SecretaryLevel, Mode=OneTime}" />)
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="{c:Localize GameModel/AdmiralLevel_Short}" DisplayMemberBinding="{Binding AdmiralLevel, Mode=OneTime}"/>
+                    <GridViewColumn Header="{c:Localize GameModel/AdmiralLevel_Short}" DisplayMemberBinding="{Binding AdmiralLevel, Mode=OneTime}" />
                 </GridView>
             </ListView.View>
         </ListView>

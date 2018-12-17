@@ -8,20 +8,20 @@
     Title="Choose storage position"
     PrimaryButtonText="OK">
     <StackPanel Orientation="Vertical" Width="300">
-        <RadioButton x:Name="AppDataRadioButton" Content="Use Application Data" IsChecked="True"/>
-        <RadioButton x:Name="CustomRadioButton" Content="Custom"/>
+        <RadioButton x:Name="AppDataRadioButton" Content="Use Application Data" IsChecked="True" />
+        <RadioButton x:Name="CustomRadioButton" Content="Custom" />
         <TextBlock Text="Will lost if uninstalled" Visibility="{x:Bind AppDataRadioButton.IsChecked, Mode=OneWay}"
-                   Margin="8" Foreground="Red"/>
+                   Margin="8" Foreground="Red" />
         <Grid Visibility="{x:Bind CustomRadioButton.IsChecked, Mode=OneWay}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="CustomTextBox"
                        Margin="2" VerticalAlignment="Center"
-                       Opacity="0.8"/>
+                       Opacity="0.8" />
             <Button Grid.Column="1" Margin="2" Tapped="SelectCustomPath">
-                <SymbolIcon Symbol="More"/>
+                <SymbolIcon Symbol="More" />
             </Button>
         </Grid>
     </StackPanel>

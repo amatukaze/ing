@@ -9,25 +9,25 @@
     <Viewbox DataContext="{Binding Slot, RelativeSource={RelativeSource AncestorType=local:ShipSlotPresenter}}">
         <Grid Grid.IsSharedSizeScope="True">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="80"/>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="80" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="80" />
             </Grid.ColumnDefinitions>
             <local:EquipmentIcon
                 Grid.Row="0" Grid.Column="0"
-                Id="{Binding Equipment.Info.IconId}"/>
+                Id="{Binding Equipment.Info.IconId}" />
             <local:SlotAircraftPresenter
                 Grid.Row="0" Grid.Column="1" FontSize="60"
-                Aircraft="{Binding Aircraft}"/>
+                Aircraft="{Binding Aircraft}" />
             <local:EquipmentImprovementPresenter
                 Grid.Row="1" Grid.Column="0" FontSize="60"
-                Level="{Binding Equipment.ImprovementLevel}"/>
+                Level="{Binding Equipment.ImprovementLevel}" />
             <local:AirProficiencyPresenter
                 Grid.Row="1" Grid.Column="1"
-                Proficiency="{Binding Equipment.AirProficiency}"/>
+                Proficiency="{Binding Equipment.AirProficiency}" />
         </Grid>
     </Viewbox>
 </UserControl>

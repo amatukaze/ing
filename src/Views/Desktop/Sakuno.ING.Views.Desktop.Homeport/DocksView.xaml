@@ -16,18 +16,18 @@
                     <DataTemplate DataType="{x:Type g:BuildingDock}">
                         <Grid>
                             <TextBlock x:Name="name">
-                                <c:ShipNameText Source="{Binding BuiltShip.Name}"/>
+                                <c:ShipNameText Source="{Binding BuiltShip.Name}" />
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
-                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
-                            <TextBlock x:Name="state" TextAlignment="Center"/>
+                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />
+                            <TextBlock x:Name="state" TextAlignment="Center" />
                         </Grid>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding State}" Value="Empty">
-                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Empty}"/>
+                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Empty}" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding State}" Value="Locked">
-                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Locked}"/>
+                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Locked}" />
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
@@ -40,18 +40,18 @@
                     <DataTemplate DataType="{x:Type g:RepairingDock}">
                         <Grid>
                             <TextBlock x:Name="name">
-                                <c:ShipNameText Source="{Binding RepairingShip.Info.Name}"/>
+                                <c:ShipNameText Source="{Binding RepairingShip.Info.Name}" />
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
-                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}"/>
-                            <TextBlock x:Name="state" TextAlignment="Center"/>
+                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />
+                            <TextBlock x:Name="state" TextAlignment="Center" />
                         </Grid>
                         <DataTemplate.Triggers>
                             <DataTrigger Binding="{Binding State}" Value="Empty">
-                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Empty}"/>
+                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Empty}" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding State}" Value="Locked">
-                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Locked}"/>
+                                <Setter TargetName="state" Property="Text" Value="{c:Localize GameModel/Dock_Locked}" />
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>

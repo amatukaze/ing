@@ -10,62 +10,62 @@
     x:DefaultBindMode="OneWay">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="9"
                     Orientation="Horizontal">
             <TextBlock>
-                <Run FontSize="24" Text="{x:Bind ViewModel.Admiral.Name}"/>
-                <Run FontSize="16" Text="{x:Bind c:Helpers.FormatAdmiralRank(ViewModel.Admiral.Rank), FallbackValue=''}"/>
+                <Run FontSize="24" Text="{x:Bind ViewModel.Admiral.Name}" />
+                <Run FontSize="16" Text="{x:Bind c:Helpers.FormatAdmiralRank(ViewModel.Admiral.Rank), FallbackValue=''}" />
             </TextBlock>
             <con:LevelingIndicator Level="{x:Bind ViewModel.Admiral.Leveling}"
-                                   Width="24" FontSize="16"/>
+                                   Width="24" FontSize="16" />
         </StackPanel>
-        <TextBlock Grid.Row="1" FontSize="16" x:Uid="/Resources/ShipsCount"/>
+        <TextBlock Grid.Row="1" FontSize="16" x:Uid="/Resources/ShipsCount" />
         <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12">
-            <Run Text="{x:Bind ViewModel.AllShips.Count}" FontSize="16"/><Run Text=" / "/><Run Text="{x:Bind ViewModel.Admiral.MaxShipCount}"/>
+            <Run Text="{x:Bind ViewModel.AllShips.Count}" FontSize="16" /><Run Text=" / " /><Run Text="{x:Bind ViewModel.Admiral.MaxShipCount}" />
         </TextBlock>
-        <TextBlock Grid.Row="2" FontSize="16" x:Uid="/Resources/EquipmentCount"/>
+        <TextBlock Grid.Row="2" FontSize="16" x:Uid="/Resources/EquipmentCount" />
         <TextBlock Grid.Row="2" Grid.Column="1" FontSize="12">
-            <Run Text="{x:Bind ViewModel.AllEquipment.Count}" FontSize="16"/><Run Text=" / "/><Run Text="{x:Bind ViewModel.Admiral.MaxEquipmentCount}"/>
+            <Run Text="{x:Bind ViewModel.AllEquipment.Count}" FontSize="16" /><Run Text=" / " /><Run Text="{x:Bind ViewModel.Admiral.MaxEquipmentCount}" />
         </TextBlock>
-        <con:UseItemIcon Grid.Row="1" Grid.Column="2" Id="Fuel"/>
+        <con:UseItemIcon Grid.Row="1" Grid.Column="2" Id="Fuel" />
         <TextBlock Grid.Row="1" Grid.Column="3"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Fuel}"/>
-        <con:UseItemIcon Grid.Row="2" Grid.Column="2" Id="Bullet"/>
+                   FontSize="16" Text="{x:Bind ViewModel.Materials.Fuel}" />
+        <con:UseItemIcon Grid.Row="2" Grid.Column="2" Id="Bullet" />
         <TextBlock Grid.Row="2" Grid.Column="3"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Bullet}"/>
-        <con:UseItemIcon Grid.Row="1" Grid.Column="4" Id="Steel"/>
+                   FontSize="16" Text="{x:Bind ViewModel.Materials.Bullet}" />
+        <con:UseItemIcon Grid.Row="1" Grid.Column="4" Id="Steel" />
         <TextBlock Grid.Row="1" Grid.Column="5"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Steel}"/>
-        <con:UseItemIcon Grid.Row="2" Grid.Column="4" Id="Bauxite"/>
+                   FontSize="16" Text="{x:Bind ViewModel.Materials.Steel}" />
+        <con:UseItemIcon Grid.Row="2" Grid.Column="4" Id="Bauxite" />
         <TextBlock Grid.Row="2" Grid.Column="5"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Bauxite}"/>
-        <con:UseItemIcon Grid.Row="1" Grid.Column="6" Id="InstantRepair"/>
+                   FontSize="16" Text="{x:Bind ViewModel.Materials.Bauxite}" />
+        <con:UseItemIcon Grid.Row="1" Grid.Column="6" Id="InstantRepair" />
         <TextBlock Grid.Row="1" Grid.Column="7"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.InstantRepair}"/>
-        <con:UseItemIcon Grid.Row="2" Grid.Column="6" Id="InstantBuild"/>
+                   FontSize="16" Text="{x:Bind ViewModel.Materials.InstantRepair}" />
+        <con:UseItemIcon Grid.Row="2" Grid.Column="6" Id="InstantBuild" />
         <TextBlock Grid.Row="2" Grid.Column="7"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.InstantBuild}"/>
-        <con:UseItemIcon Grid.Row="1" Grid.Column="8" Id="Development"/>
+                   FontSize="16" Text="{x:Bind ViewModel.Materials.InstantBuild}" />
+        <con:UseItemIcon Grid.Row="1" Grid.Column="8" Id="Development" />
         <TextBlock Grid.Row="1" Grid.Column="9"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Development}"/>
-        <con:UseItemIcon Grid.Row="2" Grid.Column="8" Id="Improvement"/>
+                   FontSize="16" Text="{x:Bind ViewModel.Materials.Development}" />
+        <con:UseItemIcon Grid.Row="2" Grid.Column="8" Id="Improvement" />
         <TextBlock Grid.Row="2" Grid.Column="9"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Improvement}"/>
+                   FontSize="16" Text="{x:Bind ViewModel.Materials.Improvement}" />
     </Grid>
 </UserControl>

@@ -10,8 +10,8 @@
              DataContext="{c:Resolve {x:Type local:BrowserSelector}}"
              d:DataContext="{d:DesignInstance local:BrowserSelector}">
     <StackPanel Orientation="Vertical">
-        <TextBlock Text="Browser engine"/>
+        <TextBlock Text="Browser engine" />
         <ComboBox ItemsSource="{Binding AvailableBrowsers, Mode=OneTime}"
-                  SelectedValue="{Binding BrowserEngine.Value, Mode=TwoWay}"/>
+                  SelectedValue="{Binding BrowserEngine.Value, Mode=TwoWay}" />
     </StackPanel>
 </UserControl>

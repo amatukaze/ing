@@ -14,15 +14,15 @@
                   TextOptions.TextFormattingMode="Display">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <DockPanel Name="DefaultTitleBar">
             <uic:WindowCaptionButtons DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" />
             <sh:ViewSwitcher Content="⚙" ViewId="Settings" DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" />
             <TextBlock Text="{c:Localize Application/Title}" Margin="8, 0" VerticalAlignment="Center" />
         </DockPanel>
-        <ContentPresenter Grid.Row="1" x:Name="mainContent"/>
+        <ContentPresenter Grid.Row="1" x:Name="mainContent" />
     </Grid>
 </uic:ModernWindow>

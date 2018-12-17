@@ -9,57 +9,57 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <c:IsNotNullConverter x:Key="IsNotNull"/>
-        <c:VisibilityConverter x:Key="Visibility"/>
-        <c:InverseConverter x:Key="Inverse"/>
+        <c:IsNotNullConverter x:Key="IsNotNull" />
+        <c:VisibilityConverter x:Key="Visibility" />
+        <c:InverseConverter x:Key="Inverse" />
     </UserControl.Resources>
     <Grid IsEnabled="{Binding Running, Converter={StaticResource Inverse}}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ListView Grid.RowSpan="3"
                   ItemsSource="{Binding Migrators}"
                   SelectedValue="{Binding SelectedMigrator}"
-                  DisplayMemberPath="Title"/>
+                  DisplayMemberPath="Title" />
         <TextBlock Grid.Column="1" Grid.Row="0"
-                   Text="{Binding SelectedPath.FullName}"/>
+                   Text="{Binding SelectedPath.FullName}" />
         <c:InvokeMethodButton
             Grid.Column="1" Grid.Row="0"
             HorizontalAlignment="Right"
             Content="Browse"
             IsEnabled="{Binding SelectedMigrator, Converter={StaticResource IsNotNull}}"
-            MethodName="PickPath"/>
+            MethodName="PickPath" />
         <StackPanel Orientation="Vertical"
                     Grid.Column="1" Grid.Row="1">
             <CheckBox Content="{c:Localize ViewTitle/ShipCreationLogs}"
                       IsEnabled="{Binding SupportShipCreation}"
-                      IsChecked="{Binding SelectShipCreation}"/>
+                      IsChecked="{Binding SelectShipCreation}" />
             <CheckBox Content="{c:Localize ViewTitle/EquipmentCreationLogs}"
                       IsEnabled="{Binding SupportEquipmentCreation}"
-                      IsChecked="{Binding SelectEquipmentCreation}"/>
+                      IsChecked="{Binding SelectEquipmentCreation}" />
             <CheckBox Content="{c:Localize ViewTitle/ExpeditionCompletionLogs}"
                       IsEnabled="{Binding SupportExpeditionCompletion}"
-                      IsChecked="{Binding SelectExpeditionCompletion}"/>
+                      IsChecked="{Binding SelectExpeditionCompletion}" />
         </StackPanel>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <ProgressBar IsIndeterminate="True"
-                         Visibility="{Binding Running, Converter={StaticResource Visibility}}"/>
+                         Visibility="{Binding Running, Converter={StaticResource Visibility}}" />
             <c:InvokeMethodButton
                 Grid.Column="1"
                 HorizontalAlignment="Right"
                 Content="{c:Localize Logging/DoMigrate}"
                 IsEnabled="{Binding Ready}"
-                MethodName="DoMigration"/>
+                MethodName="DoMigration" />
         </Grid>
     </Grid>
 </UserControl>

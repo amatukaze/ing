@@ -9,14 +9,14 @@
     d:DesignWidth="400">
     <StackPanel Orientation="Vertical" Width="200" HorizontalAlignment="Left">
         <ToggleSwitch x:Uid="/Resources/UseUpstream"
-                      IsOn="{x:Bind Instance.UseUpstream.Value, Mode=TwoWay}"/>
+                      IsOn="{x:Bind Instance.UseUpstream.Value, Mode=TwoWay}" />
         <TextBox x:Uid="/Resources/UpstreamAddress"
                  IsEnabled="{x:Bind Instance.UseUpstream.Value, Mode=OneWay}"
-                 Text="{x:Bind Instance.Upstream.Value, Mode=TwoWay}"/>
+                 Text="{x:Bind Instance.Upstream.Value, Mode=TwoWay}" />
         <TextBox x:Uid="/Resources/UpstreamPort"
                  IsEnabled="{x:Bind Instance.UseUpstream.Value, Mode=OneWay}"
-                 Text="{x:Bind Instance.UpstreamPort.Value, Mode=TwoWay}"/>
+                 Text="{x:Bind Instance.UpstreamPort.Value, Mode=TwoWay}" />
         <TextBox x:Uid="/Resources/ListeningPort"
-                 Text="{x:Bind Instance.ListeningPort.Value, Mode=TwoWay}"/>
+                 Text="{x:Bind Instance.ListeningPort.Value, Mode=TwoWay}" />
     </StackPanel>
 </UserControl>

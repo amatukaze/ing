@@ -9,24 +9,24 @@
     Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock FontSize="16"
-                   Margin="20,4,0,4"
-                   x:Uid="SettingsTitle"/>
+                   Margin="20, 4, 0, 4"
+                   x:Uid="SettingsTitle" />
         <Pivot ItemsSource="{x:Bind Pages}"
                Grid.Row="1">
             <Pivot.HeaderTemplate>
                 <DataTemplate x:DataType="sh:CategorizedSettingViews">
-                    <PivotHeaderItem Content="{x:Bind Title}"/>
+                    <PivotHeaderItem Content="{x:Bind Title}" />
                 </DataTemplate>
             </Pivot.HeaderTemplate>
             <Pivot.ItemTemplate>
                 <DataTemplate x:DataType="sh:CategorizedSettingViews">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{x:Bind Content}"/>
+                        <ItemsControl ItemsSource="{x:Bind Content}" />
                     </ScrollViewer>
                 </DataTemplate>
             </Pivot.ItemTemplate>

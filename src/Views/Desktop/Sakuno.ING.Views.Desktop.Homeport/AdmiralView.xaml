@@ -10,64 +10,64 @@
              d:DataContext="{d:DesignInstance g:NavalBase}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.ColumnSpan="9"
                     Orientation="Horizontal"
                     DataContext="{Binding Admiral}">
             <TextBlock FontSize="24">
-                <Run Text="{Binding Name, Mode=OneWay}"/><c:EnumText Source="{Binding Rank, Mode=OneWay}" FontSize="16"/>
+                <Run Text="{Binding Name, Mode=OneWay}" /><c:EnumText Source="{Binding Rank, Mode=OneWay}" FontSize="16" />
             </TextBlock>
             <c:LevelingIndicator Level="{Binding Leveling}"
-                                 FontSize="16" Width="32"/>
+                                 FontSize="16" Width="32" />
         </StackPanel>
         <TextBlock Grid.Row="1" FontSize="16"
-                   Text="{c:Localize GameModel/Count_Ship}"/>
+                   Text="{c:Localize GameModel/Count_Ship}" />
         <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12">
-            <Run Text="{Binding AllShips.Count, Mode=OneWay}" FontSize="16"/><Run Text=" / "/><Run Text="{Binding Admiral.MaxShipCount, Mode=OneWay}"/>
+            <Run Text="{Binding AllShips.Count, Mode=OneWay}" FontSize="16" /><Run Text=" / " /><Run Text="{Binding Admiral.MaxShipCount, Mode=OneWay}" />
         </TextBlock>
         <TextBlock Grid.Row="2" FontSize="16"
-                   Text="{c:Localize GameModel/Count_Equipment}"/>
+                   Text="{c:Localize GameModel/Count_Equipment}" />
         <TextBlock Grid.Row="2" Grid.Column="1" FontSize="12">
-            <Run Text="{Binding AllEquipment.Count, Mode=OneWay}" FontSize="16"/><Run Text=" / "/><Run Text="{Binding Admiral.MaxEquipmentCount, Mode=OneWay}"/>
+            <Run Text="{Binding AllEquipment.Count, Mode=OneWay}" FontSize="16" /><Run Text=" / " /><Run Text="{Binding Admiral.MaxEquipmentCount, Mode=OneWay}" />
         </TextBlock>
-        <c:UseItemIcon Grid.Row="1" Grid.Column="2" Id="Fuel"/>
+        <c:UseItemIcon Grid.Row="1" Grid.Column="2" Id="Fuel" />
         <TextBlock Grid.Row="1" Grid.Column="3"
-                   FontSize="16" Text="{Binding Materials.Fuel}"/>
-        <c:UseItemIcon Grid.Row="2" Grid.Column="2" Id="Bullet"/>
+                   FontSize="16" Text="{Binding Materials.Fuel}" />
+        <c:UseItemIcon Grid.Row="2" Grid.Column="2" Id="Bullet" />
         <TextBlock Grid.Row="2" Grid.Column="3"
-                   FontSize="16" Text="{Binding Materials.Bullet}"/>
-        <c:UseItemIcon Grid.Row="1" Grid.Column="4" Id="Steel"/>
+                   FontSize="16" Text="{Binding Materials.Bullet}" />
+        <c:UseItemIcon Grid.Row="1" Grid.Column="4" Id="Steel" />
         <TextBlock Grid.Row="1" Grid.Column="5"
-                   FontSize="16" Text="{Binding Materials.Steel}"/>
-        <c:UseItemIcon Grid.Row="2" Grid.Column="4" Id="Bauxite"/>
+                   FontSize="16" Text="{Binding Materials.Steel}" />
+        <c:UseItemIcon Grid.Row="2" Grid.Column="4" Id="Bauxite" />
         <TextBlock Grid.Row="2" Grid.Column="5"
-                   FontSize="16" Text="{Binding Materials.Bauxite}"/>
-        <c:UseItemIcon Grid.Row="1" Grid.Column="6" Id="InstantRepair"/>
+                   FontSize="16" Text="{Binding Materials.Bauxite}" />
+        <c:UseItemIcon Grid.Row="1" Grid.Column="6" Id="InstantRepair" />
         <TextBlock Grid.Row="1" Grid.Column="7"
-                   FontSize="16" Text="{Binding Materials.InstantRepair}"/>
-        <c:UseItemIcon Grid.Row="2" Grid.Column="6" Id="InstantBuild"/>
+                   FontSize="16" Text="{Binding Materials.InstantRepair}" />
+        <c:UseItemIcon Grid.Row="2" Grid.Column="6" Id="InstantBuild" />
         <TextBlock Grid.Row="2" Grid.Column="7"
-                   FontSize="16" Text="{Binding Materials.InstantBuild}"/>
-        <c:UseItemIcon Grid.Row="1" Grid.Column="8" Id="Development"/>
+                   FontSize="16" Text="{Binding Materials.InstantBuild}" />
+        <c:UseItemIcon Grid.Row="1" Grid.Column="8" Id="Development" />
         <TextBlock Grid.Row="1" Grid.Column="9"
-                   FontSize="16" Text="{Binding Materials.Development}"/>
-        <c:UseItemIcon Grid.Row="2" Grid.Column="8" Id="Improvement"/>
+                   FontSize="16" Text="{Binding Materials.Development}" />
+        <c:UseItemIcon Grid.Row="2" Grid.Column="8" Id="Improvement" />
         <TextBlock Grid.Row="2" Grid.Column="9"
-                   FontSize="16" Text="{Binding Materials.Improvement}"/>
+                   FontSize="16" Text="{Binding Materials.Improvement}" />
     </Grid>
 </UserControl>

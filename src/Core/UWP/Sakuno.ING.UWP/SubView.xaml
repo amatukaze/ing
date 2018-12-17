@@ -8,15 +8,15 @@
     Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock FontSize="16"
-                   Margin="20,4,0,4"
-                   x:Uid="AppTitle"/>
+                   Margin="20, 4, 0, 4"
+                   x:Uid="AppTitle" />
         <ContentPresenter x:Name="actualContent"
                           Grid.Row="1"
                           HorizontalContentAlignment="Stretch"
-                          VerticalContentAlignment="Stretch"/>
+                          VerticalContentAlignment="Stretch" />
     </Grid>
 </Page>

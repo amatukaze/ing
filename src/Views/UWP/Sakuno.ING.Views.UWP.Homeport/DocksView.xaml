@@ -18,11 +18,11 @@
                     <DataTemplate x:DataType="g:BuildingDock">
                         <Grid>
                             <TextBlock Style="{StaticResource ShipNameTextStyle}"
-                                       Text="{x:Bind c:Helpers.SelectShipName(BuiltShip.Name), FallbackValue=''}"/>
+                                       Text="{x:Bind c:Helpers.SelectShipName(BuiltShip.Name), FallbackValue=''}" />
                             <TextBlock TextAlignment="Center"
-                                       Text="{x:Bind c:Helpers.FormatBuildingDockState(State)}"/>
+                                       Text="{x:Bind c:Helpers.FormatBuildingDockState(State)}" />
                             <TextBlock TextAlignment="Right"
-                                       Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}"/>
+                                       Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -34,11 +34,11 @@
                     <DataTemplate x:DataType="g:RepairingDock">
                         <Grid>
                             <TextBlock Style="{StaticResource ShipNameTextStyle}"
-                                       Text="{x:Bind c:Helpers.SelectShipName(RepairingShip.Info.Name), FallbackValue=''}"/>
+                                       Text="{x:Bind c:Helpers.SelectShipName(RepairingShip.Info.Name), FallbackValue=''}" />
                             <TextBlock TextAlignment="Center"
-                                       Text="{x:Bind c:Helpers.FormatRepairingDockState(State)}"/>
+                                       Text="{x:Bind c:Helpers.FormatRepairingDockState(State)}" />
                             <TextBlock TextAlignment="Right"
-                                       Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}"/>
+                                       Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

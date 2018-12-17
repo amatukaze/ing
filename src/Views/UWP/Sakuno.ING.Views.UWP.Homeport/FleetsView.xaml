@@ -19,17 +19,17 @@
             <DataTemplate x:DataType="g:Fleet">
                 <Grid Height="18">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="18"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="18" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Ellipse x:Name="statusIcon" Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
-                    <TextBlock Grid.Column="1" FontSize="18" Text="{x:Bind Name}"/>
+                    <Ellipse x:Name="statusIcon" Fill="{x:Bind local:FleetsView.StatusColor(Status)}" />
+                    <TextBlock Grid.Column="1" FontSize="18" Text="{x:Bind Name}" />
                     <!--#region Warning animation-->
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroup>
                             <VisualState>
                                 <VisualState.StateTriggers>
-                                    <StateTrigger IsActive="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Warning)}"/>
+                                    <StateTrigger IsActive="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Warning)}" />
                                 </VisualState.StateTriggers>
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="statusIcon"
@@ -37,7 +37,7 @@
                                                      From="1" To="0" Duration="0:0:0.5"
                                                      AutoReverse="True" RepeatBehavior="Forever">
                                         <DoubleAnimation.EasingFunction>
-                                            <SineEase EasingMode="EaseInOut"/>
+                                            <SineEase EasingMode="EaseInOut" />
                                         </DoubleAnimation.EasingFunction>
                                     </DoubleAnimation>
                                 </Storyboard>
@@ -52,56 +52,56 @@
             <DataTemplate x:DataType="g:Fleet">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Margin="2">
-                        <Rectangle x:Name="statusRibbon" Fill="{x:Bind local:FleetsView.StatusColor(Status)}"/>
+                        <Rectangle x:Name="statusRibbon" Fill="{x:Bind local:FleetsView.StatusColor(Status)}" />
                         <!--#region Status texts-->
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextEmpty"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Empty)}"
-                                   x:Uid="/Resources/FleetState_Empty"/>
+                                   x:Uid="/Resources/FleetState_Empty" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextReady"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Ready)}"
-                                   x:Uid="/Resources/FleetState_Ready"/>
+                                   x:Uid="/Resources/FleetState_Ready" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextSortie"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Sortie)}"
-                                   x:Uid="/Resources/FleetState_Sortie"/>
+                                   x:Uid="/Resources/FleetState_Sortie" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextWarning"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Warning)}"
-                                   x:Uid="/Resources/FleetState_Warning"/>
+                                   x:Uid="/Resources/FleetState_Warning" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextExpedition"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Expedition)}">
-                            <Run x:Uid="/Resources/FleetState_Expedition"/><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}"/><Run Text="{x:Bind c:Helpers.SelectName(Expedition.Name)}"/><Run Text="{x:Bind sys:String.Format(' - {0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}"/>
+                            <Run x:Uid="/Resources/FleetState_Expedition" /><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}" /><Run Text="{x:Bind c:Helpers.SelectName(Expedition.Name)}" /><Run Text="{x:Bind sys:String.Format(' - {0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}" />
                         </TextBlock>
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextFatigued"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Fatigued)}"
-                                   x:Uid="/Resources/FleetState_Fatigued"/>
+                                   x:Uid="/Resources/FleetState_Fatigued" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextRepairing"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Repairing)}"
-                                   x:Uid="/Resources/FleetState_Repairing"/>
+                                   x:Uid="/Resources/FleetState_Repairing" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextDamaged"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Damaged)}"
-                                   x:Uid="/Resources/FleetState_Damaged"/>
+                                   x:Uid="/Resources/FleetState_Damaged" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextInsufficient"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Insufficient)}"
-                                   x:Uid="/Resources/FleetState_Insufficient"/>
+                                   x:Uid="/Resources/FleetState_Insufficient" />
                         <!--#endregion-->
                         <!--#region Warning animation-->
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup>
                                 <VisualState>
                                     <VisualState.StateTriggers>
-                                        <StateTrigger IsActive="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Warning)}"/>
+                                        <StateTrigger IsActive="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Warning)}" />
                                     </VisualState.StateTriggers>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="statusRibbon"
@@ -109,7 +109,7 @@
                                                      From="1" To="0" Duration="0:0:0.5"
                                                      AutoReverse="True" RepeatBehavior="Forever">
                                             <DoubleAnimation.EasingFunction>
-                                                <SineEase EasingMode="EaseInOut"/>
+                                                <SineEase EasingMode="EaseInOut" />
                                             </DoubleAnimation.EasingFunction>
                                         </DoubleAnimation>
                                     </Storyboard>
@@ -124,109 +124,109 @@
                             <DataTemplate x:DataType="g:Ship">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Style="{StaticResource ShipNameTextStyle}">
-                                        <Run Text="{x:Bind c:Helpers.SelectShipName(Info.Name)}" FontSize="18"/>
-                                        <LineBreak/>
-                                        <Run Text="{x:Bind c:Helpers.SelectName(Info.Type.Name)}" FontSize="14"/>
+                                        <Run Text="{x:Bind c:Helpers.SelectShipName(Info.Name)}" FontSize="18" />
+                                        <LineBreak />
+                                        <Run Text="{x:Bind c:Helpers.SelectName(Info.Type.Name)}" FontSize="14" />
                                     </TextBlock>
                                     <con:LevelingIndicator Grid.Column="1"
                                                            Level="{x:Bind Leveling}"
-                                                           FontSize="16" Width="32"/>
+                                                           FontSize="16" Width="32" />
                                     <StackPanel Grid.Column="2" Orientation="Vertical">
                                         <TextBlock FontSize="14">
-                                            <Run Text="HP:  "/><Run Text="{x:Bind HP.Current}" FontSize="16"/><Run Text=" / "/><Run Text="{x:Bind HP.Max}"/>
+                                            <Run Text="HP:  " /><Run Text="{x:Bind HP.Current}" FontSize="16" /><Run Text=" / " /><Run Text="{x:Bind HP.Max}" />
                                         </TextBlock>
                                         <ProgressBar Width="120" Height="16"
                                                      Minimum="0" Maximum="{x:Bind HP.Max}"
                                                      Value="{x:Bind HP.Current}"
-                                                     Background="Transparent"/>
+                                                     Background="Transparent" />
                                     </StackPanel>
                                     <TextBlock Grid.Column="3" VerticalAlignment="Center">
-                                        <Run Text="cond. " FontStyle="Italic" FontSize="12"/><Run Text="{x:Bind Morale}" FontSize="18"/>
+                                        <Run Text="cond. " FontStyle="Italic" FontSize="12" /><Run Text="{x:Bind Morale}" FontSize="18" />
                                     </TextBlock>
                                     <Grid Grid.Column="4" HorizontalAlignment="Center">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="16"/>
-                                            <RowDefinition Height="16"/>
+                                            <RowDefinition Height="16" />
+                                            <RowDefinition Height="16" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="16"/>
-                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="16" />
+                                            <ColumnDefinition Width="80" />
                                         </Grid.ColumnDefinitions>
-                                        <con:UseItemIcon Id="Fuel" Grid.Row="0"/>
+                                        <con:UseItemIcon Id="Fuel" Grid.Row="0" />
                                         <ProgressBar Grid.Row="0" Grid.Column="1" Margin="2"
                                                      Minimum="0"
                                                      Value="{x:Bind Fuel.Current}"
-                                                     Maximum="{x:Bind Fuel.Max}"/>
-                                        <con:UseItemIcon Id="Bullet" Grid.Row="1"/>
+                                                     Maximum="{x:Bind Fuel.Max}" />
+                                        <con:UseItemIcon Id="Bullet" Grid.Row="1" />
                                         <ProgressBar Grid.Row="1" Grid.Column="1" Margin="2"
                                                      Minimum="0"
                                                      Value="{x:Bind Bullet.Current}"
-                                                     Maximum="{x:Bind Bullet.Max}"/>
+                                                     Maximum="{x:Bind Bullet.Max}" />
                                     </Grid>
                                     <ItemsControl Grid.Column="5" ItemsSource="{x:Bind Slots}">
                                         <ItemsControl.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Horizontal"/>
+                                                <StackPanel Orientation="Horizontal" />
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
                                             <DataTemplate x:DataType="g:Slot">
-                                                <con:ShipSlotPresenter Slot="{x:Bind}"/>
+                                                <con:ShipSlotPresenter Slot="{x:Bind}" />
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>
                                     </ItemsControl>
                                     <Rectangle Grid.Column="6" Fill="Gray"
-                                               Width="1" Margin="0,2,2,4"/>
+                                               Width="1" Margin="0, 2, 2, 4" />
                                     <Grid Grid.Column="7">
-                                        <con:ShipSlotPresenter Slot="{x:Bind ExtraSlot}"/>
+                                        <con:ShipSlotPresenter Slot="{x:Bind ExtraSlot}" />
                                     </Grid>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                    <TextBlock Grid.Row="2" Text="Supplying Cost"/>
+                    <TextBlock Grid.Row="2" Text="Supplying Cost" />
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="2" Grid.Column="1"
-                                Margin="2,0,12,0">
-                        <con:UseItemIcon Id="Fuel" Margin="4,0,0,0"/>
-                        <TextBlock Text="{x:Bind SupplyingCost.Fuel}"/>
-                        <con:UseItemIcon Id="Bullet" Margin="4,0,0,0"/>
-                        <TextBlock Text="{x:Bind SupplyingCost.Bullet}"/>
-                        <con:UseItemIcon Id="Bauxite" Margin="4,0,0,0"/>
-                        <TextBlock Text="{x:Bind SupplyingCost.Bauxite}"/>
+                                Margin="2, 0, 12, 0">
+                        <con:UseItemIcon Id="Fuel" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{x:Bind SupplyingCost.Fuel}" />
+                        <con:UseItemIcon Id="Bullet" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{x:Bind SupplyingCost.Bullet}" />
+                        <con:UseItemIcon Id="Bauxite" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{x:Bind SupplyingCost.Bauxite}" />
                     </StackPanel>
-                    <TextBlock Grid.Row="3" Text="Repairing Cost"/>
+                    <TextBlock Grid.Row="3" Text="Repairing Cost" />
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="3" Grid.Column="1"
-                                Margin="2,0,12,0"
+                                Margin="2, 0, 12, 0"
                                 DataContext="{Binding RepairingCost}">
-                        <con:UseItemIcon Id="Fuel" Margin="4,0,0,0"/>
-                        <TextBlock Text="{x:Bind RepairingCost.Fuel}"/>
-                        <con:UseItemIcon Id="Steel" Margin="4,0,0,0"/>
-                        <TextBlock Text="{x:Bind RepairingCost.Steel}"/>
+                        <con:UseItemIcon Id="Fuel" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{x:Bind RepairingCost.Fuel}" />
+                        <con:UseItemIcon Id="Steel" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{x:Bind RepairingCost.Steel}" />
                     </StackPanel>
                     <TextBlock Grid.Row="2" Grid.Column="2"
-                               Text="AFP:"/>
+                               Text="AFP:" />
                     <TextBlock Grid.Row="2" Grid.Column="3"
-                               Margin="2,0,12,0">
-                        <Run Text="{x:Bind AirFightPower.Minimum.ToString('F0', x:Null)}"/><Run Text="~"/><Run Text="{x:Bind AirFightPower.Maximum.ToString('F0', x:Null)}"/>
+                               Margin="2, 0, 12, 0">
+                        <Run Text="{x:Bind AirFightPower.Minimum.ToString('F0', x:Null)}" /><Run Text="~" /><Run Text="{x:Bind AirFightPower.Maximum.ToString('F0', x:Null)}" />
                     </TextBlock>
                     <TextBlock Grid.Row="3" Grid.Column="2"
-                               Text="eLoS:"/>
+                               Text="eLoS:" />
                     <TextBlock Grid.Row="3" Grid.Column="3"
-                               Margin="2,0,12,0"
+                               Margin="2, 0, 12, 0"
                                DataContext="{Binding EffectiveLoS}">
-                        <Run Text="{x:Bind EffectiveLoS.Offset.ToString('F2', x:Null)}"/><Run Text="+"/><Run Text="{x:Bind EffectiveLoS.Multiplied.ToString('F2', x:Null)}"/>
+                        <Run Text="{x:Bind EffectiveLoS.Offset.ToString('F2', x:Null)}" /><Run Text="+" /><Run Text="{x:Bind EffectiveLoS.Multiplied.ToString('F2', x:Null)}" />
                     </TextBlock>
                 </Grid>
             </DataTemplate>

@@ -7,21 +7,21 @@
             <DataTemplate>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <sh:ViewPresenter Grid.Row="0" ViewId="Admiral"/>
-                    <sh:ViewPresenter Grid.Row="1" ViewId="Fleets"/>
-                    <sh:ViewPresenter Grid.Row="2" ViewId="Docks"/>
-                    <sh:ViewPresenter Grid.Row="3" ViewId="Expedition"/>
+                    <sh:ViewPresenter Grid.Row="0" ViewId="Admiral" />
+                    <sh:ViewPresenter Grid.Row="1" ViewId="Fleets" />
+                    <sh:ViewPresenter Grid.Row="2" ViewId="Docks" />
+                    <sh:ViewPresenter Grid.Row="3" ViewId="Expedition" />
                     <StackPanel Orientation="Horizontal" Grid.Row="4">
-                        <sh:ViewSwitcher ViewId="LogMigration"/>
-                        <sh:ViewSwitcher ViewId="ShipCreationLogs"/>
-                        <sh:ViewSwitcher ViewId="EquipmentCreationLogs"/>
-                        <sh:ViewSwitcher ViewId="ExpeditionCompletionLogs"/>
+                        <sh:ViewSwitcher ViewId="LogMigration" />
+                        <sh:ViewSwitcher ViewId="ShipCreationLogs" />
+                        <sh:ViewSwitcher ViewId="EquipmentCreationLogs" />
+                        <sh:ViewSwitcher ViewId="ExpeditionCompletionLogs" />
                     </StackPanel>
                 </Grid>
             </DataTemplate>
@@ -30,22 +30,22 @@
     <sh:LayoutRoot.SubWindows>
         <sh:LayoutWindow Id="LogMigration">
             <DataTemplate>
-                <sh:ViewPresenter ViewId="LogMigration"/>
+                <sh:ViewPresenter ViewId="LogMigration" />
             </DataTemplate>
         </sh:LayoutWindow>
         <sh:LayoutWindow Id="ShipCreationLogs">
             <DataTemplate>
-                <sh:ViewPresenter ViewId="ShipCreationLogs"/>
+                <sh:ViewPresenter ViewId="ShipCreationLogs" />
             </DataTemplate>
         </sh:LayoutWindow>
         <sh:LayoutWindow Id="EquipmentCreationLogs">
             <DataTemplate>
-                <sh:ViewPresenter ViewId="EquipmentCreationLogs"/>
+                <sh:ViewPresenter ViewId="EquipmentCreationLogs" />
             </DataTemplate>
         </sh:LayoutWindow>
         <sh:LayoutWindow Id="ExpeditionCompletionLogs">
             <DataTemplate>
-                <sh:ViewPresenter ViewId="ExpeditionCompletionLogs"/>
+                <sh:ViewPresenter ViewId="ExpeditionCompletionLogs" />
             </DataTemplate>
         </sh:LayoutWindow>
     </sh:LayoutRoot.SubWindows>

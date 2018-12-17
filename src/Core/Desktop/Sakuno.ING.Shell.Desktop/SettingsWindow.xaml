@@ -11,14 +11,14 @@
     <TabControl ItemsSource="{Binding}" SelectedIndex="0">
         <TabControl.ItemTemplate>
             <DataTemplate>
-                <TextBlock Text="{Binding Title}"/>
+                <TextBlock Text="{Binding Title}" />
             </DataTemplate>
         </TabControl.ItemTemplate>
         <TabControl.ContentTemplate>
             <DataTemplate>
                 <ScrollViewer HorizontalScrollBarVisibility="Auto"
                               VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding Content}"/>
+                    <ItemsControl ItemsSource="{Binding Content}" />
                 </ScrollViewer>
             </DataTemplate>
         </TabControl.ContentTemplate>

@@ -9,31 +9,31 @@
     Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="16"
-                       Margin="20,4,0,4"
-                       x:Uid="AppTitle"/>
+                       Margin="20, 4, 0, 4"
+                       x:Uid="AppTitle" />
             <Rectangle Fill="Transparent"
-                       x:Name="DraggableTitle"/>
+                       x:Name="DraggableTitle" />
             <sh:ViewSwitcher HorizontalAlignment="Right"
                              Grid.Column="1"
-                             Margin="0,0,180,0"
+                             Margin="0, 0, 180, 0"
                              Style="{ThemeResource ButtonRevealStyle}"
                              ViewId="Settings">
-                <SymbolIcon Symbol="Setting"/>
+                <SymbolIcon Symbol="Setting" />
             </sh:ViewSwitcher>
         </Grid>
         <ContentPresenter x:Name="mainContent"
                         Grid.Row="1"
                         HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"/>
+                        VerticalContentAlignment="Stretch" />
     </Grid>
 </Page>

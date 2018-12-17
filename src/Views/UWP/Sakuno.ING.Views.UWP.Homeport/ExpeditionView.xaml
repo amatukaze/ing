@@ -17,9 +17,9 @@
                 <Grid>
                     <TextBlock FontSize="16"
                                Style="{StaticResource NameTextStyle}"
-                               Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}"/>
+                               Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}" />
                     <TextBlock FontSize="16" TextAlignment="Right"
-                               Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}"/>
+                               Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}" />
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

@@ -15,29 +15,29 @@
         <TabControl.ItemTemplate>
             <DataTemplate DataType="{x:Type g:Fleet}">
                 <StackPanel Orientation="Horizontal">
-                    <Ellipse Height="18" Width="18" x:Name="statusIcon"/>
-                    <TextBlock Text="{Binding Name}" FontSize="18"/>
+                    <Ellipse Height="18" Width="18" x:Name="statusIcon" />
+                    <TextBlock Text="{Binding Name}" FontSize="18" />
                 </StackPanel>
                 <DataTemplate.Triggers>
                     <DataTrigger Binding="{Binding Status}" Value="Empty">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="Gray"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Gray" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Ready">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="SpringGreen"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="SpringGreen" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Sortie">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="Red"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Red" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Warning">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="Red"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Red" />
                         <DataTrigger.EnterActions>
                             <BeginStoryboard>
                                 <Storyboard RepeatBehavior="Forever">
                                     <DoubleAnimationUsingKeyFrames Storyboard.TargetName="statusIcon"
                                                                    Storyboard.TargetProperty="Opacity">
-                                        <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
-                                        <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-                                        <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                        <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                        <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+                                        <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1" />
                                     </DoubleAnimationUsingKeyFrames>
                                 </Storyboard>
                             </BeginStoryboard>
@@ -47,25 +47,25 @@
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="statusIcon"
                                                      Storyboard.TargetProperty="Opacity" From="1"
-                                                     To="1" Duration="1"/>
+                                                     To="1" Duration="1" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </DataTrigger.ExitActions>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Expedition">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="Aqua"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Aqua" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Fatigued">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Repairing">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Damaged">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Insufficient">
-                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange"/>
+                        <Setter TargetName="statusIcon" Property="Fill" Value="Orange" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
@@ -74,22 +74,22 @@
             <DataTemplate DataType="{x:Type g:Fleet}">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Margin="2">
-                        <Rectangle x:Name="statusColor"/>
+                        <Rectangle x:Name="statusColor" />
                         <TextBlock FontSize="16" Margin="2">
-                            <Run x:Name="statusText"/><Run x:Name="statusDetail"/>
+                            <Run x:Name="statusText" /><Run x:Name="statusDetail" />
                         </TextBlock>
                     </Grid>
                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="5"
@@ -100,147 +100,147 @@
                                 <DataTemplate DataType="{x:Type g:Ship}">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" SharedSizeGroup="ShipName"/>
-                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Leveling"/>
-                                            <ColumnDefinition Width="Auto" SharedSizeGroup="HP"/>
-                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Morale"/>
-                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Consumption"/>
-                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Slots"/>
-                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Seperator"/>
-                                            <ColumnDefinition Width="Auto" SharedSizeGroup="ExtraSlot"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="ShipName" />
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Leveling" />
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="HP" />
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Morale" />
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Consumption" />
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Slots" />
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Seperator" />
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="ExtraSlot" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="48"/>
-                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="48" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Rectangle Grid.Row="1" Grid.ColumnSpan="9"
                                                    Height="1" Margin="2"
-                                                   Fill="Gray"/>
+                                                   Fill="Gray" />
                                         <TextBlock Grid.Column="0">
-                                            <c:ShipNameText Source="{Binding Info.Name}" FontSize="18"/>
-                                            <LineBreak/>
-                                            <c:NameText Source="{Binding Info.Type.Name}" FontSize="14"/>
+                                            <c:ShipNameText Source="{Binding Info.Name}" FontSize="18" />
+                                            <LineBreak />
+                                            <c:NameText Source="{Binding Info.Type.Name}" FontSize="14" />
                                         </TextBlock>
                                         <c:LevelingIndicator Grid.Column="1"
                                                              Level="{Binding Leveling}"
-                                                             FontSize="16" Width="32"/>
+                                                             FontSize="16" Width="32" />
                                         <StackPanel Grid.Column="2" Orientation="Vertical"
                                                     DataContext="{Binding HP}">
                                             <TextBlock FontSize="14">
-                                                <Run Text="HP:  "/><Run Text="{Binding Current, Mode=OneTime}" FontSize="16"/><Run Text=" / "/><Run Text="{Binding Max, Mode=OneTime}"/>
+                                                <Run Text="HP:  " /><Run Text="{Binding Current, Mode=OneTime}" FontSize="16" /><Run Text=" / " /><Run Text="{Binding Max, Mode=OneTime}" />
                                             </TextBlock>
                                             <ProgressBar Width="120" Height="16"
                                                          Minimum="0" Maximum="{Binding Max, Mode=OneTime}"
                                                          Value="{Binding Current, Mode=OneTime}"
-                                                         Background="Transparent"/>
+                                                         Background="Transparent" />
                                         </StackPanel>
                                         <TextBlock Grid.Column="3" VerticalAlignment="Center">
-                                            <Run Text="cond. " FontStyle="Italic" FontSize="12"/><Run Text="{Binding Morale, Mode=OneWay}" FontSize="18"/>
+                                            <Run Text="cond. " FontStyle="Italic" FontSize="12" /><Run Text="{Binding Morale, Mode=OneWay}" FontSize="18" />
                                         </TextBlock>
                                         <Grid Grid.Column="4" VerticalAlignment="Center">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="16"/>
-                                                <RowDefinition Height="16"/>
+                                                <RowDefinition Height="16" />
+                                                <RowDefinition Height="16" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="16"/>
-                                                <ColumnDefinition Width="80"/>
+                                                <ColumnDefinition Width="16" />
+                                                <ColumnDefinition Width="80" />
                                             </Grid.ColumnDefinitions>
-                                            <c:UseItemIcon Id="Fuel" Grid.Row="0" Margin="1"/>
+                                            <c:UseItemIcon Id="Fuel" Grid.Row="0" Margin="1" />
                                             <ProgressBar Grid.Row="0" Grid.Column="1" Margin="2"
                                                          DataContext="{Binding Fuel}" Minimum="0"
                                                          Maximum="{Binding Max, Mode=OneTime}"
-                                                         Value="{Binding Current,Mode=OneTime}"/>
-                                            <c:UseItemIcon Id="Bullet" Grid.Row="1" Margin="1"/>
+                                                         Value="{Binding Current,Mode=OneTime}" />
+                                            <c:UseItemIcon Id="Bullet" Grid.Row="1" Margin="1" />
                                             <ProgressBar Grid.Row="1" Grid.Column="1" Margin="2"
                                                          DataContext="{Binding Bullet}" Minimum="0"
                                                          Maximum="{Binding Max, Mode=OneTime}"
-                                                         Value="{Binding Current,Mode=OneTime}"/>
+                                                         Value="{Binding Current,Mode=OneTime}" />
                                         </Grid>
                                         <ItemsControl Grid.Column="5" ItemsSource="{Binding Slots}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Horizontal"/>
+                                                    <StackPanel Orientation="Horizontal" />
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
                                                 <DataTemplate DataType="{x:Type g:Slot}">
-                                                    <c:ShipSlotPresenter Slot="{Binding}"/>
+                                                    <c:ShipSlotPresenter Slot="{Binding}" />
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
                                         <Rectangle Grid.Column="6" Fill="Gray"
-                                                   Width="1" Margin="0,2,2,4"/>
+                                                   Width="1" Margin="0, 2, 2, 4" />
                                         <Grid Grid.Column="7">
-                                            <c:ShipSlotPresenter Slot="{Binding ExtraSlot}"/>
+                                            <c:ShipSlotPresenter Slot="{Binding ExtraSlot}" />
                                         </Grid>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
-                    <TextBlock Grid.Row="2" Text="Supplying Cost"/>
+                    <TextBlock Grid.Row="2" Text="Supplying Cost" />
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="2" Grid.Column="1"
-                                Margin="2,0,12,0"
+                                Margin="2, 0, 12, 0"
                                 DataContext="{Binding SupplyingCost}">
-                        <c:UseItemIcon Id="Fuel" Margin="4,0,0,0"/>
-                        <TextBlock Text="{Binding Fuel, Mode=OneTime}"/>
-                        <c:UseItemIcon Id="Bullet" Margin="4,0,0,0"/>
-                        <TextBlock Text="{Binding Bullet, Mode=OneTime}"/>
-                        <c:UseItemIcon Id="Bauxite" Margin="4,0,0,0"/>
-                        <TextBlock Text="{Binding Bauxite, Mode=OneTime}"/>
+                        <c:UseItemIcon Id="Fuel" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{Binding Fuel, Mode=OneTime}" />
+                        <c:UseItemIcon Id="Bullet" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{Binding Bullet, Mode=OneTime}" />
+                        <c:UseItemIcon Id="Bauxite" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{Binding Bauxite, Mode=OneTime}" />
                     </StackPanel>
-                    <TextBlock Grid.Row="3" Text="Repairing Cost"/>
+                    <TextBlock Grid.Row="3" Text="Repairing Cost" />
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="3" Grid.Column="1"
-                                Margin="2,0,12,0"
+                                Margin="2, 0, 12, 0"
                                 DataContext="{Binding RepairingCost}">
-                        <c:UseItemIcon Id="Fuel" Margin="4,0,0,0"/>
-                        <TextBlock Text="{Binding Fuel, Mode=OneTime}"/>
-                        <c:UseItemIcon Id="Steel" Margin="4,0,0,0"/>
-                        <TextBlock Text="{Binding Steel, Mode=OneTime}"/>
+                        <c:UseItemIcon Id="Fuel" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{Binding Fuel, Mode=OneTime}" />
+                        <c:UseItemIcon Id="Steel" Margin="4, 0, 0, 0" />
+                        <TextBlock Text="{Binding Steel, Mode=OneTime}" />
                     </StackPanel>
                     <TextBlock Grid.Row="2" Grid.Column="2"
-                               Text="AFP:"/>
+                               Text="AFP:" />
                     <TextBlock Grid.Row="2" Grid.Column="3"
-                               Margin="2,0,12,0"
+                               Margin="2, 0, 12, 0"
                                DataContext="{Binding AirFightPower}">
-                        <Run Text="{Binding Minimum, Mode=OneTime, StringFormat=F0}"/><Run Text="~"/><Run Text="{Binding Maximum, Mode=OneTime, StringFormat=F0}"/>
+                        <Run Text="{Binding Minimum, Mode=OneTime, StringFormat=F0}" /><Run Text="~" /><Run Text="{Binding Maximum, Mode=OneTime, StringFormat=F0}" />
                     </TextBlock>
                     <TextBlock Grid.Row="3" Grid.Column="2"
-                               Text="eLoS:"/>
+                               Text="eLoS:" />
                     <TextBlock Grid.Row="3" Grid.Column="3"
-                               Margin="2,0,12,0"
+                               Margin="2, 0, 12, 0"
                                DataContext="{Binding EffectiveLoS}">
-                        <Run Text="{Binding Offset, Mode=OneTime, StringFormat=F2}"/><Run Text="+"/><Run Text="{Binding Multiplied, Mode=OneTime, StringFormat=F2}"/>
+                        <Run Text="{Binding Offset, Mode=OneTime, StringFormat=F2}" /><Run Text="+" /><Run Text="{Binding Multiplied, Mode=OneTime, StringFormat=F2}" />
                     </TextBlock>
                 </Grid>
                 <DataTemplate.Triggers>
                     <DataTrigger Binding="{Binding Status}" Value="Empty">
-                        <Setter TargetName="statusColor" Property="Fill" Value="Gray"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Empty}"/>
+                        <Setter TargetName="statusColor" Property="Fill" Value="Gray" />
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Empty}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Ready">
-                        <Setter TargetName="statusColor" Property="Fill" Value="SpringGreen"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Ready}"/>
+                        <Setter TargetName="statusColor" Property="Fill" Value="SpringGreen" />
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Ready}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Sortie">
-                        <Setter TargetName="statusColor" Property="Fill" Value="Red"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Sortie}"/>
+                        <Setter TargetName="statusColor" Property="Fill" Value="Red" />
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Sortie}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Warning">
-                        <Setter TargetName="statusColor" Property="Fill" Value="Red"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Warning}"/>
+                        <Setter TargetName="statusColor" Property="Fill" Value="Red" />
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Warning}" />
                         <DataTrigger.EnterActions>
                             <BeginStoryboard>
                                 <Storyboard RepeatBehavior="Forever">
                                     <DoubleAnimationUsingKeyFrames Storyboard.TargetName="statusColor"
                                                                    Storyboard.TargetProperty="Opacity">
-                                        <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1"/>
-                                        <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-                                        <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
+                                        <LinearDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                        <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="0" />
+                                        <LinearDoubleKeyFrame KeyTime="0:0:1" Value="1" />
                                     </DoubleAnimationUsingKeyFrames>
                                 </Storyboard>
                             </BeginStoryboard>
@@ -250,39 +250,39 @@
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="statusColor"
                                                      Storyboard.TargetProperty="Opacity" From="1"
-                                                     To="1" Duration="1"/>
+                                                     To="1" Duration="1" />
                                 </Storyboard>
                             </BeginStoryboard>
                         </DataTrigger.ExitActions>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Expedition">
-                        <Setter TargetName="statusColor" Property="Fill" Value="Aqua"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Expedition}"/>
+                        <Setter TargetName="statusColor" Property="Fill" Value="Aqua" />
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Expedition}" />
                         <Setter TargetName="statusDetail" Property="Text">
                             <Setter.Value>
                                 <MultiBinding StringFormat=" - {0} {1} - {2:hh\:mm\:ss}">
-                                    <Binding Path="Expedition.DisplayId" Mode="OneWay"/>
-                                    <Binding Path="Expedition.Name" Mode="OneWay"/>
-                                    <Binding Path="ExpeditionTimeRemaining" Mode="OneWay"/>
+                                    <Binding Path="Expedition.DisplayId" Mode="OneWay" />
+                                    <Binding Path="Expedition.Name" Mode="OneWay" />
+                                    <Binding Path="ExpeditionTimeRemaining" Mode="OneWay" />
                                 </MultiBinding>
                             </Setter.Value>
                         </Setter>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Fatigued">
-                        <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Fatigued}"/>
+                        <Setter TargetName="statusColor" Property="Fill" Value="Orange" />
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Fatigued}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Repairing">
-                        <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Repairing}"/>
+                        <Setter TargetName="statusColor" Property="Fill" Value="Orange" />
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Repairing}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Damaged">
-                        <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Damaged}"/>
+                        <Setter TargetName="statusColor" Property="Fill" Value="Orange" />
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Damaged}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Status}" Value="Insufficient">
-                        <Setter TargetName="statusColor" Property="Fill" Value="Orange"/>
-                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Insufficient}"/>
+                        <Setter TargetName="statusColor" Property="Fill" Value="Orange" />
+                        <Setter TargetName="statusText" Property="Text" Value="{c:Localize GameModel/FleetState_Detail_Insufficient}" />
                     </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>

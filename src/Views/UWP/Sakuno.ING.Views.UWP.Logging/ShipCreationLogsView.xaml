@@ -12,25 +12,25 @@
     d:DesignWidth="400">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ItemsControl ItemsSource="{x:Bind ViewModel.Filters}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
+                    <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="vm:IFilterVM">
                     <StackPanel Orientation="Vertical">
                         <ToggleSwitch Header="{x:Bind Name}"
-                                      IsOn="{x:Bind IsEnabled, Mode=TwoWay}"/>
+                                      IsOn="{x:Bind IsEnabled, Mode=TwoWay}" />
                         <ComboBox ItemsSource="{x:Bind Candidates}"
                                   SelectedItem="{x:Bind SelectedText, Mode=TwoWay}">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate x:DataType="x:String">
-                                    <TextBlock Text="{x:Bind}"/>
+                                    <TextBlock Text="{x:Bind}" />
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -41,33 +41,33 @@
         <tk:DataGrid Grid.Row="1" ItemsSource="{x:Bind ViewModel.Entities}"
                      FrozenColumnCount="1" AutoGenerateColumns="False">
             <tk:DataGrid.Columns>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Fuel" Binding="{Binding Consumption.Fuel, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bullet" Binding="{Binding Consumption.Bullet, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding Consumption.Steel, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding Consumption.Bauxite, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Development" Binding="{Binding Consumption.Development, Mode=OneTime}"/>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_ConstructionType" Binding="{Binding ConstructionType, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Fuel" Binding="{Binding Consumption.Fuel, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bullet" Binding="{Binding Consumption.Bullet, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding Consumption.Steel, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding Consumption.Bauxite, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Development" Binding="{Binding Consumption.Development, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_ConstructionType" Binding="{Binding ConstructionType, Mode=OneTime}" />
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Result">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:ShipCreationVM">
                             <TextBlock Text="{x:Bind c:Helpers.SelectShipName(ShipBuilt.Name)}"
-                                       Style="{StaticResource ShipNameTextStyle}"/>
+                                       Style="{StaticResource ShipNameTextStyle}" />
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EmptyDockCount" Binding="{Binding EmptyDockCount, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EmptyDockCount" Binding="{Binding EmptyDockCount, Mode=OneTime}" />
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Secretary">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:ShipCreationVM">
                             <TextBlock Style="{StaticResource ShipNameTextStyle}">
-                                <Run Text="{x:Bind c:Helpers.SelectShipName(Secretary.Name)}"/>
-                                (Lv. <Run Text="{x:Bind SecretaryLevel}"/>)
+                                <Run Text="{x:Bind c:Helpers.SelectShipName(Secretary.Name)}" />
+                                (Lv. <Run Text="{x:Bind SecretaryLevel}" />)
                             </TextBlock>
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_AdmiralLevel" Binding="{Binding AdmiralLevel, Mode=OneTime}"/>
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_AdmiralLevel" Binding="{Binding AdmiralLevel, Mode=OneTime}" />
             </tk:DataGrid.Columns>
         </tk:DataGrid>
     </Grid>

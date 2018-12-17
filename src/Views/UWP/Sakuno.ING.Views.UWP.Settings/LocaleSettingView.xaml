@@ -9,9 +9,9 @@
         <ComboBox HorizontalAlignment="Stretch"
                   Header="Language" ItemsSource="{x:Bind Languages}"
                   DisplayMemberPath="Value" SelectedValuePath="Key"
-                  SelectedValue="{x:Bind Instance.Language.Value, Mode=TwoWay}"/>
+                  SelectedValue="{x:Bind Instance.Language.Value, Mode=TwoWay}" />
         <TextBlock TextWrapping="Wrap"
-                   x:Uid="/Resources/RestartRequired"/>
-        <ToggleSwitch x:Uid="/Resources/TraslateGameContent" IsOn="{x:Bind Instance.TranslateContent.Value, Mode=TwoWay}"/>
+                   x:Uid="/Resources/RestartRequired" />
+        <ToggleSwitch x:Uid="/Resources/TraslateGameContent" IsOn="{x:Bind Instance.TranslateContent.Value, Mode=TwoWay}" />
     </StackPanel>
 </UserControl>
