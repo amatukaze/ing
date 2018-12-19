@@ -90,8 +90,8 @@ namespace Sakuno.ING.Game
 
             var destroyItem = RegisterRaw<EquipmentDismantleJson>("api_req_kousyou/destroyitem2");
             equipmentDismantled = destroyItem.Select(x => ParseEquipmentDimantling(x.Request));
-            equipmentImproved = RegisterRaw<EquipmentImproveJson>("api_req_kousyou/remodel_slot")
-                .Select(x => ParseEquipmentImprove(x.Request, x.Response));
+            var improveItem = RegisterRaw<EquipmentImproveJson>("api_req_kousyou/remodel_slot");
+            equipmentImproved = improveItem.Select(x => ParseEquipmentImprove(x.Request, x.Response));
 
             var powerup = RegisterRaw<ShipPowerupJson>("api_req_kaisou/powerup");
             fleetsUpdated = homeport.Select(x => x.api_deck_port)
@@ -127,6 +127,7 @@ namespace Sakuno.ING.Game
                     createItem.Select(x => x.Response),
                     destroyShip.Select(x => x.Response),
                     destroyItem.Select(x => x.Response),
+                    improveItem.Select(x => x.Response),
                     airSupply.Select(x => x.Response),
                     setPlane.Select(x => x.Response).Where(x => x.api_after_bauxite.HasValue));
 
