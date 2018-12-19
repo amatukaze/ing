@@ -121,6 +121,8 @@ namespace Sakuno.ING.Game
             materialsUpdated = homeport.Select(x => x.api_material)
                 .CombineWith<IMaterialsUpdate>
                     (charge,
+                    instantRepaired.Select(x => new InstantRepair()),
+                    shipCreated,
                     RegisterResponse<MaterialJsonArray>("api_get_member/material"),
                     createItem.Select(x => x.Response),
                     destroyShip.Select(x => x.Response),

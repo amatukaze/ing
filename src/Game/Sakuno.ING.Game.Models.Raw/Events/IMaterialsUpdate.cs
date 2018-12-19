@@ -20,5 +20,8 @@ namespace Sakuno.ING.Game.Events
         AirForcePlaneSet,
         AirForceSupply,
         QuestComplete,
+        ShipRepair,
+        InstantRepair,
+        InstantBuilt,
     }
 }

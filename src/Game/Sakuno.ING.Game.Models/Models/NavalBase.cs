@@ -84,8 +84,19 @@ namespace Sakuno.ING.Game.Models
 
             listener.RepairStarted += (t, msg) =>
             {
+                var ship = AllShips[msg.ShipId];
+                if (ship == null)
+                    return;
+
                 if (msg.InstantRepair)
-                    AllShips[msg.ShipId]?.SetRepaired();
+                    ship.SetRepaired();
+
+                var oldMaterials = Materials;
+                var materials = oldMaterials;
+                materials.Fuel -= ship.RepairingCost.Fuel;
+                materials.Steel -= ship.RepairingCost.Steel;
+                Materials = materials;
+                MaterialsUpdating?.Invoke(t, oldMaterials, materials, MaterialsChangeReason.ShipRepair);
             };
             listener.InstantRepaired += (t, msg) =>
             {
@@ -93,7 +104,17 @@ namespace Sakuno.ING.Game.Models
                 dock.State = RepairingDockState.Empty;
                 dock.RepairingShip = null;
             };
-            listener.InstantBuilt += (t, msg) => BuildingDocks[msg].State = BuildingDockState.BuildCompleted;
+            listener.InstantBuilt += (t, msg) =>
+            {
+                var dock = BuildingDocks[msg];
+                dock.State = BuildingDockState.BuildCompleted;
+
+                var oldMaterials = Materials;
+                var materials = oldMaterials;
+                materials.InstantBuild -= dock.IsLSC ? 10 : 1;
+                Materials = materials;
+                MaterialsUpdating?.Invoke(t, oldMaterials, materials, MaterialsChangeReason.InstantBuilt);
+            };
             listener.ShipBuildCompleted += (t, msg) =>
             {
                 _allEquipment.BatchUpdate(msg.Equipments, t, removal: false);
