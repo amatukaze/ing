@@ -48,12 +48,13 @@ namespace Sakuno.ING.Game.Models
             };
             listener.MaterialsUpdated += (t, msg) =>
             {
-                var materials = Materials;
+                var oldMaterials = Materials;
+                var materials = oldMaterials;
                 msg.Apply(ref materials);
                 if (Materials != materials)
                 {
                     Materials = materials;
-                    MaterialsUpdating?.Invoke(t, Materials, materials, msg.Reason);
+                    MaterialsUpdating?.Invoke(t, oldMaterials, materials, msg.Reason);
                 }
             };
             listener.HomeportReturned += (t, msg) => _allShips.BatchUpdate(msg.Ships, t);
