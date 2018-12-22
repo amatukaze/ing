@@ -7,7 +7,7 @@ namespace Sakuno.ING.Game.Json.Converters
 {
     internal class BoolDictionaryConverter : JsonConverter
     {
-        public override bool CanConvert(Type objectType) => objectType.IsAssignableFrom(typeof(List<int>));
+        public override bool CanConvert(Type objectType) => objectType == typeof(List<int>);
         public override bool CanWrite => false;
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
