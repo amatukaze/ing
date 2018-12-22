@@ -5,7 +5,7 @@ namespace Sakuno.ING.Game.Json.Converters
 {
     internal abstract class IntArrayConverterBase<T> : JsonConverter
     {
-        public override bool CanConvert(Type objectType) => objectType.IsAssignableFrom(typeof(T));
+        public override bool CanConvert(Type objectType) => typeof(T).IsAssignableFrom(objectType);
         public override bool CanWrite => false;
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotSupportedException();
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
