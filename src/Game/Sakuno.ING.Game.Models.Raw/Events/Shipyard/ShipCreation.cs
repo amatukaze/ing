@@ -25,6 +25,7 @@ namespace Sakuno.ING.Game.Events.Shipyard
             materials.Bullet -= Consumption.Bullet;
             materials.Steel -= Consumption.Steel;
             materials.Bauxite -= Consumption.Bauxite;
+            materials.Development -= Consumption.Development;
 
             if (InstantBuild)
                 materials.InstantBuild -= IsLSC ? 10 : 1;
