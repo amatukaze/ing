@@ -125,12 +125,19 @@ namespace Sakuno.ING.Game.Models
                 if (msg.IsSuccess)
                     _allEquipment.Add(msg.Equipment, t);
             };
-            listener.ShipDismantled += (t, msg)
-                => ShipDismantling?.Invoke(t, RemoveShips(msg.ShipIds, msg.DismantleEquipments, t), msg.DismantleEquipments);
-            listener.EquipmentDismantled += (t, msg) => EquipmentDismantling?.Invoke(t, RemoveEquipments(msg, t));
+            listener.ShipDismantled += (t, msg) =>
+            {
+                var removed = RemoveShips(msg.ShipIds, msg.DismantleEquipments, t);
+                ShipDismantling?.Invoke(t, removed, msg.DismantleEquipments);
+            };
+            listener.EquipmentDismantled += (t, msg) =>
+            {
+                var removed = RemoveEquipment(msg, t);
+                EquipmentDismantling?.Invoke(t, removed);
+            };
             listener.EquipmentImproved += (t, msg) =>
             {
-                var consumed = msg.ConsumedEquipmentIds != null ? RemoveEquipments(msg.ConsumedEquipmentIds, t) : null;
+                var consumed = msg.ConsumedEquipmentIds != null ? RemoveEquipment(msg.ConsumedEquipmentIds, t) : null;
                 var original = AllEquipment[msg.EquipmentId];
                 EquipmentImproving?.Invoke(t, original, msg.UpdatedTo, consumed, msg.IsSuccess);
                 if (msg.IsSuccess)
@@ -176,13 +183,13 @@ namespace Sakuno.ING.Game.Models
                 {
                     var ship = AllShips[id];
                     if (removeEquipment)
-                        RemoveEquipments(ship.Slots.Where(x => !x.IsEmpty).Select(x => x.Equipment.Id), timeStamp);
+                        RemoveEquipment(ship.Slots.Where(x => !x.IsEmpty).Select(x => x.Equipment.Id), timeStamp);
                     _allShips.Remove(ship);
                     ship.Fleet?.Remove(ship);
                     return ship;
                 }).ToArray();
 
-        private IReadOnlyCollection<Equipment> RemoveEquipments(IEnumerable<EquipmentId> ids, DateTimeOffset timeStamp)
+        private IReadOnlyCollection<Equipment> RemoveEquipment(IEnumerable<EquipmentId> ids, DateTimeOffset timeStamp)
             => ids.Select(_allEquipment.Remove).ToArray();
 
         public MasterDataRoot MasterData { get; }
