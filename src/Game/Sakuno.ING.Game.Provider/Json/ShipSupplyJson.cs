@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Events;
+using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Json
@@ -20,14 +21,17 @@ namespace Sakuno.ING.Game.Json
     internal class ShipsSupplyJson : IMaterialsUpdate
     {
         public ShipSupplyJson[] api_ship;
-        public int[] api_material;
+        [JsonConverter(typeof(MaterialsConverter))]
+        public Materials api_material;
 
         MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.ShipSupply;
 
         void IMaterialsUpdate.Apply(ref Materials materials)
         {
-            if (api_material.Length > 0)
-                materials.Fuel = api_material[0];
+            materials.Fuel = api_material.Fuel;
+            materials.Bullet = api_material.Bullet;
+            materials.Steel = api_material.Steel;
+            materials.Bauxite = api_material.Bauxite;
         }
     }
 }
