@@ -31,7 +31,7 @@
             }
         }
 
-        private bool _isEmpty;
+        private bool _isEmpty = true;
         public bool IsEmpty
         {
             get => _isEmpty;
