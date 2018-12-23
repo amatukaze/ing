@@ -5,6 +5,8 @@ namespace Sakuno.ING.Game.Models.Battle
 {
     public interface IRawShipInBattle
     {
+        ShipInfoId Id { get; }
+        int Level { get; }
         ClampedValue HP { get; }
         IReadOnlyList<EquipmentInfoId> Equipments { get; }
         int Firepower { get; }
