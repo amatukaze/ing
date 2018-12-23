@@ -15,7 +15,7 @@ namespace Sakuno.ING.Game.Json
 
         public class GetItem
         {
-            public UseItemId api_useitem_id;
+            public UseItemId? api_useitem_id;
             public int api_useitem_count;
         }
         public GetItem api_get_item1;

@@ -169,7 +169,7 @@ namespace Sakuno.ING.Game
             if (id1 == 4)
                 item1 = new UseItemRecord
                 {
-                    ItemId = response.api_get_item1.api_useitem_id,
+                    ItemId = response.api_get_item1.api_useitem_id.Value,
                     Count = response.api_get_item1.api_useitem_count
                 };
             else if (id1 > 0)
@@ -183,7 +183,7 @@ namespace Sakuno.ING.Game
             if (id2 == 4)
                 item2 = new UseItemRecord
                 {
-                    ItemId = response.api_get_item2.api_useitem_id,
+                    ItemId = response.api_get_item2.api_useitem_id.Value,
                     Count = response.api_get_item2.api_useitem_count
                 };
             else if (id2 > 0)
