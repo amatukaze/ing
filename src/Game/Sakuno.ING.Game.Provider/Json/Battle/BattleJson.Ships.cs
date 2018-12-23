@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Battle;
 using Sakuno.ING.Game.Models.MasterData;
@@ -122,24 +123,33 @@ namespace Sakuno.ING.Game.Json.Battle
             else return result;
         }
 
-        public RawSide Ally => new RawSide
-        (
-            (Formation)api_formation.ElementAtOrDefault(0),
-            new ShipCollection(api_f_nowhps, api_f_maxhps, api_fParam, null, null, null),
-            new ShipCollection(api_f_nowhps_combined, api_f_maxhps_combined, api_fParam_combined, null, null, null),
-            api_search?.ElementAtOrDefault(0),
-            (EquipmentInfoId?)GetFromArray(api_touch_plane, 0),
-            GetFromArray(api_flare_pos, 0) - 1
-        );
+        private RawSide ally;
+        public ref RawSide Ally => ref ally;
 
-        public RawSide Enemy => new RawSide
-        (
-            (Formation)api_formation.ElementAtOrDefault(1),
-            new ShipCollection(api_e_nowhps, api_e_maxhps, api_eParam, api_ship_ke, api_ship_lv, api_eSlot),
-            new ShipCollection(api_e_nowhps_combined, api_e_maxhps_combined, api_eParam_combined, api_ship_ke_combined, api_ship_lv_combined, api_eSlot_combined),
-            api_search?.ElementAtOrDefault(1),
-            (EquipmentInfoId?)GetFromArray(api_touch_plane, 1),
-            GetFromArray(api_flare_pos, 1) - 1
-        );
+        private RawSide enemy;
+        public ref RawSide Enemy => ref enemy;
+
+        [OnDeserialized]
+        internal void Deserialized(StreamingContext context)
+        {
+            ally = new RawSide
+            (
+                (Formation)api_formation.ElementAtOrDefault(0),
+                new ShipCollection(api_f_nowhps, api_f_maxhps, api_fParam, null, null, null),
+                new ShipCollection(api_f_nowhps_combined, api_f_maxhps_combined, api_fParam_combined, null, null, null),
+                api_search?.ElementAtOrDefault(0),
+                (EquipmentInfoId?)GetFromArray(api_touch_plane, 0),
+                GetFromArray(api_flare_pos, 0) - 1
+            );
+            enemy= new RawSide
+            (
+                (Formation)api_formation.ElementAtOrDefault(1),
+                new ShipCollection(api_e_nowhps, api_e_maxhps, api_eParam, api_ship_ke, api_ship_lv, api_eSlot),
+                new ShipCollection(api_e_nowhps_combined, api_e_maxhps_combined, api_eParam_combined, api_ship_ke_combined, api_ship_lv_combined, api_eSlot_combined),
+                api_search?.ElementAtOrDefault(1),
+                (EquipmentInfoId?)GetFromArray(api_touch_plane, 1),
+                GetFromArray(api_flare_pos, 1) - 1
+            );
+        }
     }
 }
