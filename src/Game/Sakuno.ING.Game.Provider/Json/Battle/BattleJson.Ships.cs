@@ -114,14 +114,8 @@ namespace Sakuno.ING.Game.Json.Battle
             => api_friendly_info?.ToFleet();
 
         public Detection[] api_search;
-        public int[] api_touch_plane;
+        public EquipmentInfoId[] api_touch_plane;
         public int[] api_flare_pos;
-        private int? GetFromArray(int[] array, int index)
-        {
-            int result = array.ElementAtOrDefault(index);
-            if (result <= 0) return null;
-            else return result;
-        }
 
         private RawSide ally;
         public ref RawSide Ally => ref ally;
@@ -138,18 +132,24 @@ namespace Sakuno.ING.Game.Json.Battle
                 new ShipCollection(api_f_nowhps, api_f_maxhps, api_fParam, null, null, null),
                 new ShipCollection(api_f_nowhps_combined, api_f_maxhps_combined, api_fParam_combined, null, null, null),
                 api_search?.ElementAtOrDefault(0),
-                (EquipmentInfoId?)GetFromArray(api_touch_plane, 0),
-                GetFromArray(api_flare_pos, 0) - 1
+                api_touch_plane.ElementAtOrNull(0),
+                api_flare_pos.ElementAtOrNull(0) - 1
             );
-            enemy= new RawSide
+            enemy = new RawSide
             (
                 (Formation)api_formation.ElementAtOrDefault(1),
                 new ShipCollection(api_e_nowhps, api_e_maxhps, api_eParam, api_ship_ke, api_ship_lv, api_eSlot),
                 new ShipCollection(api_e_nowhps_combined, api_e_maxhps_combined, api_eParam_combined, api_ship_ke_combined, api_ship_lv_combined, api_eSlot_combined),
                 api_search?.ElementAtOrDefault(1),
-                (EquipmentInfoId?)GetFromArray(api_touch_plane, 1),
-                GetFromArray(api_flare_pos, 1) - 1
+                api_touch_plane.ElementAtOrNull(1),
+                api_flare_pos.ElementAtOrNull(1) - 1
             );
+        }
+
+        private static (int damage, bool protection) ParseDamage(double number)
+        {
+            int d = (int)number;
+            return (d, number > d);
         }
     }
 }

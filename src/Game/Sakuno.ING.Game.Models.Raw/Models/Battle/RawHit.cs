@@ -2,17 +2,17 @@
 {
     public readonly struct RawHit
     {
-        public RawHit(int? sourceIndex, int targetIndex, int damage, bool isCritical)
+        public RawHit(int targetIndex, int damage, bool isCritical, bool isProtection)
         {
-            SourceIndex = sourceIndex;
             TargetIndex = targetIndex;
             Damage = damage;
             IsCritical = isCritical;
+            IsProtection = isProtection;
         }
 
-        public int? SourceIndex { get; }
         public int TargetIndex { get; }
         public int Damage { get; }
         public bool IsCritical { get; }
+        public bool IsProtection { get; }
     }
 }

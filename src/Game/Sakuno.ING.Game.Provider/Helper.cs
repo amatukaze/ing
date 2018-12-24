@@ -15,6 +15,16 @@ namespace Sakuno.ING.Game
             return source[index];
         }
 
+        public static T? ElementAtOrNull<T>(this T[] source, int index)
+            where T : struct, IComparable<T>
+        {
+            if (source == null) return null;
+            if (source.Length <= index) return null;
+            T result = source[index];
+            if (result.CompareTo(default) <= 0) return null;
+            else return result;
+        }
+
         public static int GetInt(this NameValueCollection source, string name)
         {
             int.TryParse(source[name], out int r);
