@@ -31,6 +31,9 @@
         public static implicit operator ClampedValue((int current, int max) tuple)
             => new ClampedValue(tuple.current, tuple.max);
 
+        public static ClampedValue FromShortage(int max, int shortage)
+            => new ClampedValue(max - shortage, max);
+
         public void Deconstruct(out int current, out int max)
         {
             current = Current;
