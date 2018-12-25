@@ -6,7 +6,7 @@ namespace Sakuno.ING.Game.Json.Battle
 {
     partial class BattleJson
     {
-        public class Attack : IRawAttack
+        public class ComboAttack : IRawAttack
         {
             public int? SourceIndex { get; set; }
             public bool IsEnemy { get; set; }
@@ -22,6 +22,15 @@ namespace Sakuno.ING.Game.Json.Battle
             public int Damage => (int)damage;
             public bool IsCritical { get; set; }
             public bool IsProtection => damage > (int)damage;
+        }
+        public class SingleAttack : IRawAttack
+        {
+            public int? SourceIndex { get; set; }
+            public bool IsEnemy { get; set; }
+            public int Type { get; set; }
+            public IReadOnlyList<EquipmentInfoId> EquipmentUsed { get; set; }
+            public IRawHit Hit { get; set; }
+            public IReadOnlyList<IRawHit> Hits => new[] { Hit };
         }
     }
 }

@@ -16,5 +16,7 @@ namespace Sakuno.ING.Game.Models.Battle
         IRawBattlePhase NightPhase { get; }
         IRawBattlePhase NightPhase1 { get; }
         IRawBattlePhase NightPhase2 { get; }
+        IRawBattlePhase OpendingTorpedoPhase { get; }
+        IRawBattlePhase ClosingTorpedoPhase { get; }
     }
 }
