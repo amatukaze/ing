@@ -11,5 +11,6 @@ namespace Sakuno.ING.Game.Models.Battle
         Detection? Detection { get; }
         EquipmentInfoId? NightTouchingId { get; }
         int? FlareIndex { get; }
+        int? ActiveFleetId { get; }
     }
 }

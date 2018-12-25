@@ -89,6 +89,15 @@ namespace Sakuno.ING.Game.Json.Battle
             public Detection? Detection => owner.api_search.ElementAtOrDefault(index);
             public EquipmentInfoId? NightTouchingId => owner.api_touch_plane.ElementAtOrDefault(index);
             public int? FlareIndex => FindFlarePosition(owner.api_flare_pos, index);
+            public int? ActiveFleetId
+            {
+                get
+                {
+                    int i = owner.api_active_deck.ElementAtOrDefault(index);
+                    if (i <= 0) return null;
+                    return i;
+                }
+            }
         }
 
         internal ShipOwner api_friendly_info;
@@ -103,6 +112,8 @@ namespace Sakuno.ING.Game.Json.Battle
 
         private readonly Side enemy;
         public IRawSide Enemy => enemy;
+
+        public int[] api_active_deck;
 
         public BattleJson()
         {
