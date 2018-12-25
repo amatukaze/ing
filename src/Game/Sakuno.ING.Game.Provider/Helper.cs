@@ -15,14 +15,15 @@ namespace Sakuno.ING.Game
             return source[index];
         }
 
-        public static T? ElementAtOrNull<T>(this T[] source, int index)
-            where T : struct, IComparable<T>
+        public static void AlignSet<TRow, TElement>(this IList<TElement> values, IList<TRow> list, Action<TRow, TElement> setter)
+            where TRow : new()
         {
-            if (source == null) return null;
-            if (source.Length <= index) return null;
-            T result = source[index];
-            if (result.CompareTo(default) <= 0) return null;
-            else return result;
+            for (int i = 0; i < values.Count; i++)
+            {
+                if (i >= list.Count)
+                    list.Add(new TRow());
+                setter(list[i], values[i]);
+            }
         }
 
         public static int GetInt(this NameValueCollection source, string name)

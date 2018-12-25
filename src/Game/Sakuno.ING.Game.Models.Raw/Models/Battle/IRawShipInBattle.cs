@@ -8,7 +8,7 @@ namespace Sakuno.ING.Game.Models.Battle
         ShipInfoId Id { get; }
         int Level { get; }
         ClampedValue HP { get; }
-        IReadOnlyList<EquipmentInfoId> Equipments { get; }
+        IReadOnlyList<EquipmentInfoId> Equipment { get; }
         int Firepower { get; }
         int Torpedo { get; }
         int AntiAir { get; }

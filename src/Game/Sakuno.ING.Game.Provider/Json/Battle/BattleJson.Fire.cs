@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Sakuno.ING.Game.Models.Battle;
 using Sakuno.ING.Game.Models.MasterData;
 
@@ -10,39 +8,19 @@ namespace Sakuno.ING.Game.Json.Battle
     {
         public class Shelling : IRawBattlePhase
         {
-            public bool[] api_at_eflag;
-            public int[] api_at_list;
-            public int[] api_at_type;
-            public int[] api_sp_list;
-            public int[][] api_df_list;
-            public EquipmentInfoId[][] api_si_list;
-            public bool[][] api_cl_list;
-            public double[][] api_damage;
+#pragma warning disable IDE1006 // Naming Styles
+            public bool[] api_at_eflag { set => value.AlignSet(attacks, (r, v) => r.IsEnemy = v); }
+            public int[] api_at_list { set => value.AlignSet(attacks, (r, v) => r.SourceIndex = v); }
+            public int[] api_at_type { set => value.AlignSet(attacks, (r, v) => r.Type = v); }
+            public int[] api_sp_list { set => value.AlignSet(attacks, (r, v) => r.Type = v); }
+            public int[][] api_df_list { set => value.AlignSet(attacks, (r, v) => v.AlignSet(r.hits, (h, i) => h.TargetIndex = i)); }
+            public EquipmentInfoId[][] api_si_list { set => value.AlignSet(attacks, (r, v) => r.EquipmentUsed = v); }
+            public bool[][] api_cl_list { set => value.AlignSet(attacks, (r, v) => v.AlignSet(r.hits, (h, i) => h.IsCritical = i)); }
+            public double[][] api_damage { set => value.AlignSet(attacks, (r, v) => v.AlignSet(r.hits, (h, i) => h.damage = i)); }
+#pragma warning restore IDE1006 // Naming Styles
 
-            public IReadOnlyList<RawAttack> Attacks
-                => api_at_eflag.Select((x, i) =>
-                {
-                    var cl = api_cl_list.ElementAtOrDefault(i);
-                    var damage = api_damage.ElementAtOrDefault(i);
-                    return new RawAttack
-                    (
-                        api_at_list.ElementAtOrNull(i),
-                        api_at_eflag.ElementAtOrDefault(i),
-                        (api_at_type ?? api_sp_list).ElementAtOrDefault(i),
-                        api_si_list.ElementAtOrDefault(i)?.Where(e => e > 0).ToArray() ?? Array.Empty<EquipmentInfoId>(),
-                        api_df_list.ElementAtOrDefault(i)?.Select((t, j) =>
-                        {
-                            var (d, p) = ParseDamage(damage.ElementAtOrDefault(i));
-                            return new RawHit
-                            (
-                                t,
-                                d,
-                                cl.ElementAtOrDefault(j),
-                                p
-                            );
-                        }).ToArray() ?? Array.Empty<RawHit>()
-                    );
-                }).ToArray() ?? Array.Empty<RawAttack>();
+            private readonly List<Attack> attacks = new List<Attack>();
+            public IReadOnlyList<IRawAttack> Attacks => attacks;
         }
 
         public Shelling api_hougeki1;

@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Battle;
 using Sakuno.ING.Game.Models.MasterData;
@@ -13,143 +13,108 @@ namespace Sakuno.ING.Game.Json.Battle
         public int[] api_formation;
         public Engagement Engagement => (Engagement)api_formation.ElementAtOrDefault(2);
 
-        public int[] api_f_nowhps;
-        public int[] api_f_maxhps;
-        public int[][] api_fParam;
+#pragma warning disable IDE1006 // Naming Styles
+        public int[] api_f_nowhps { set => ally.fleet1.Value.NowHP = value; }
+        public int[] api_f_maxhps { set => ally.fleet1.Value.MaxHP = value; }
+        public int[][] api_fParam { set => ally.fleet1.Value.Param = value; }
 
-        public int[] api_f_nowhps_combined;
-        public int[] api_f_maxhps_combined;
-        public int[][] api_fParam_combined;
+        public int[] api_f_nowhps_combined { set => ally.fleet2.Value.NowHP = value; }
+        public int[] api_f_maxhps_combined { set => ally.fleet2.Value.MaxHP = value; }
+        public int[][] api_fParam_combined { set => ally.fleet2.Value.Param = value; }
 
-        public ShipInfoId[] api_ship_ke;
-        public int[] api_ship_lv;
-        public int[] api_e_nowhps;
-        public int[] api_e_maxhps;
-        public EquipmentInfoId[][] api_eSlot;
-        public int[][] api_eParam;
+        public ShipInfoId[] api_ship_ke { set => enemy.fleet1.Value.Id = value; }
+        public int[] api_ship_lv { set => enemy.fleet1.Value.Level = value; }
+        public int[] api_e_nowhps { set => enemy.fleet1.Value.NowHP = value; }
+        public int[] api_e_maxhps { set => enemy.fleet1.Value.MaxHP = value; }
+        public EquipmentInfoId[][] api_eSlot { set => enemy.fleet1.Value.Equipment = value; }
+        public int[][] api_eParam { set => enemy.fleet1.Value.Param = value; }
 
-        public ShipInfoId[] api_ship_ke_combined;
-        public int[] api_ship_lv_combined;
-        public int[] api_e_nowhps_combined;
-        public int[] api_e_maxhps_combined;
-        public EquipmentInfoId[][] api_eSlot_combined;
-        public int[][] api_eParam_combined;
+        public ShipInfoId[] api_ship_ke_combined { set => enemy.fleet2.Value.Id = value; }
+        public int[] api_ship_lv_combined { set => enemy.fleet2.Value.Level = value; }
+        public int[] api_e_nowhps_combined { set => enemy.fleet2.Value.NowHP = value; }
+        public int[] api_e_maxhps_combined { set => enemy.fleet2.Value.MaxHP = value; }
+        public EquipmentInfoId[][] api_eSlot_combined { set => enemy.fleet2.Value.Equipment = value; }
+        public int[][] api_eParam_combined { set => enemy.fleet2.Value.Param = value; }
+#pragma warning restore IDE1006 // Naming Styles
 
         public int[] api_escape_idx;
         public IReadOnlyList<int> EscapedIndices => api_escape_idx.Select(x => x - 1).ToArray();
 
-        private class Ship : IRawShipInBattle
+        public class Ship : IRawShipInBattle
         {
             public ShipInfoId Id { get; set; }
             public int Level { get; set; }
-            public ClampedValue HP { get; set; }
-            public IReadOnlyList<EquipmentInfoId> Equipments { get; set; }
-            public int Firepower { get; set; }
-            public int Torpedo { get; set; }
-            public int AntiAir { get; set; }
-            public int Armor { get; set; }
+            public int nowhp, maxhp;
+            public ClampedValue HP => (nowhp, maxhp);
+            public IReadOnlyList<EquipmentInfoId> Equipment { get; set; }
+            public int[] param;
+            public int Firepower => param.ElementAtOrDefault(0);
+            public int Torpedo => param.ElementAtOrDefault(1);
+            public int AntiAir => param.ElementAtOrDefault(2);
+            public int Armor => param.ElementAtOrDefault(3);
         }
 
-        internal class ShipCollection : IReadOnlyList<IRawShipInBattle>
+        internal class ShipOwner
         {
-            private readonly int[] nowhp;
-            private readonly int[] maxhp;
-            private readonly int[][] param;
-            private readonly ShipInfoId[] id;
-            private readonly int[] lv;
-            private readonly EquipmentInfoId[][] slot;
+            [JsonProperty("api_nowhps")]
+            public IList<int> NowHP { set => value.AlignSet(Ships, (s, v) => s.nowhp = v); }
+            [JsonProperty("api_maxhps")]
+            public IList<int> MaxHP { set => value.AlignSet(Ships, (s, v) => s.maxhp = v); }
+            [JsonProperty("api_ship_id")]
+            public IList<ShipInfoId> Id { set => value.AlignSet(Ships, (s, v) => s.Id = v); }
+            [JsonProperty("api_ship_lv")]
+            public IList<int> Level { set => value.AlignSet(Ships, (s, v) => s.Level = v); }
+            [JsonProperty("api_Slot")]
+            public IList<EquipmentInfoId[]> Equipment { set => value.AlignSet(Ships, (s, v) => s.Equipment = v); }
+            [JsonProperty("api_Param")]
+            public IList<int[]> Param { set => value.AlignSet(Ships, (s, v) => s.param = v); }
 
-            public ShipCollection(int[] nowhp, int[] maxhp, int[][] param, ShipInfoId[] id, int[] lv, EquipmentInfoId[][] slot)
+            public List<Ship> Ships { get; } = new List<Ship>();
+        }
+
+        internal class Side : IRawSide
+        {
+            private readonly BattleJson owner;
+            private readonly int index;
+            public Side(BattleJson owner, int index)
             {
-                this.nowhp = nowhp;
-                this.maxhp = maxhp;
-                this.param = param;
-                this.id = id;
-                this.lv = lv;
-                this.slot = slot;
+                this.owner = owner;
+                this.index = index;
             }
 
-            public IRawShipInBattle this[int index] => new Ship
+            public Formation Formation => (Formation)owner.api_formation.ElementAtOrDefault(index);
+            public Lazy<ShipOwner> fleet1, fleet2;
+            public IReadOnlyList<IRawShipInBattle> Fleet => fleet1.IsValueCreated ? fleet1.Value.Ships : null;
+            public IReadOnlyList<IRawShipInBattle> Fleet2 => fleet2.IsValueCreated ? fleet2.Value.Ships : null;
+            public Detection? Detection => owner.api_search.ElementAtOrDefault(index);
+            public EquipmentInfoId? NightTouchingId => owner.api_touch_plane.ElementAtOrDefault(index);
+            public int? FlareIndex
             {
-                Id = id.ElementAtOrDefault(index),
-                Level = lv.ElementAtOrDefault(index),
-                HP = (nowhp.ElementAtOrDefault(index), maxhp.ElementAtOrDefault(index)),
-                Equipments = slot.ElementAtOrDefault(index)?.Where(x => x >= 0).ToArray(),
-                Firepower = param.ElementAtOrDefault(index).ElementAtOrDefault(0),
-                Torpedo = param.ElementAtOrDefault(index).ElementAtOrDefault(1),
-                AntiAir = param.ElementAtOrDefault(index).ElementAtOrDefault(2),
-                Armor = param.ElementAtOrDefault(index).ElementAtOrDefault(3),
-            };
-
-            public int Count { get; }
-
-            public IEnumerator<IRawShipInBattle> GetEnumerator()
-            {
-                for (int i = 0; i < Count; i++)
-                    yield return this[i];
+                get
+                {
+                    var i = owner.api_flare_pos.ElementAtOrDefault(index);
+                    return i > 0 ? i - 1 : (int?)null;
+                }
             }
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
-        public class Friendly
-        {
-            public ShipInfoId[] api_ship_id;
-            public int[] api_ship_lv;
-            public int[] api_nowhps;
-            public int[] api_maxhps;
-            public EquipmentInfoId[][] api_Slot;
-            public int[][] api_Param;
-            internal ShipCollection ToFleet() => new ShipCollection
-            (
-                api_nowhps,
-                api_maxhps,
-                api_Param,
-                api_ship_id,
-                api_ship_lv,
-                api_Slot
-            );
-        }
-        public Friendly api_friendly_info;
-        public IReadOnlyList<IRawShipInBattle> NpcFleet
-            => api_friendly_info?.ToFleet();
+        internal ShipOwner api_friendly_info;
+        public IReadOnlyList<IRawShipInBattle> NpcFleet => api_friendly_info?.Ships;
 
         public Detection[] api_search;
-        public EquipmentInfoId[] api_touch_plane;
+        public EquipmentInfoId?[] api_touch_plane;
         public int[] api_flare_pos;
 
-        private RawSide ally;
-        public ref RawSide Ally => ref ally;
+        private readonly Side ally;
+        public IRawSide Ally => ally;
 
-        private RawSide enemy;
-        public ref RawSide Enemy => ref enemy;
+        private readonly Side enemy;
+        public IRawSide Enemy => enemy;
 
-        [OnDeserialized]
-        internal void Deserialized(StreamingContext context)
+        public BattleJson()
         {
-            ally = new RawSide
-            (
-                (Formation)api_formation.ElementAtOrDefault(0),
-                new ShipCollection(api_f_nowhps, api_f_maxhps, api_fParam, null, null, null),
-                new ShipCollection(api_f_nowhps_combined, api_f_maxhps_combined, api_fParam_combined, null, null, null),
-                api_search?.ElementAtOrDefault(0),
-                api_touch_plane.ElementAtOrNull(0),
-                api_flare_pos.ElementAtOrNull(0) - 1
-            );
-            enemy = new RawSide
-            (
-                (Formation)api_formation.ElementAtOrDefault(1),
-                new ShipCollection(api_e_nowhps, api_e_maxhps, api_eParam, api_ship_ke, api_ship_lv, api_eSlot),
-                new ShipCollection(api_e_nowhps_combined, api_e_maxhps_combined, api_eParam_combined, api_ship_ke_combined, api_ship_lv_combined, api_eSlot_combined),
-                api_search?.ElementAtOrDefault(1),
-                api_touch_plane.ElementAtOrNull(1),
-                api_flare_pos.ElementAtOrNull(1) - 1
-            );
-        }
-
-        private static (int damage, bool protection) ParseDamage(double number)
-        {
-            int d = (int)number;
-            return (d, number > d);
+            ally = new Side(this, 0);
+            enemy = new Side(this, 1);
         }
     }
 }

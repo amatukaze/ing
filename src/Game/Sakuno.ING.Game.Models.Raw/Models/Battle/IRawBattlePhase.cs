@@ -4,6 +4,6 @@ namespace Sakuno.ING.Game.Models.Battle
 {
     public interface IRawBattlePhase
     {
-        IReadOnlyList<RawAttack> Attacks { get; }
+        IReadOnlyList<IRawAttack> Attacks { get; }
     }
 }
