@@ -88,14 +88,7 @@ namespace Sakuno.ING.Game.Json.Battle
             public IReadOnlyList<IRawShipInBattle> Fleet2 => fleet2.IsValueCreated ? fleet2.Value.Ships : null;
             public Detection? Detection => owner.api_search.ElementAtOrDefault(index);
             public EquipmentInfoId? NightTouchingId => owner.api_touch_plane.ElementAtOrDefault(index);
-            public int? FlareIndex
-            {
-                get
-                {
-                    var i = owner.api_flare_pos.ElementAtOrDefault(index);
-                    return i > 0 ? i - 1 : (int?)null;
-                }
-            }
+            public int? FlareIndex => FindFlarePosition(owner.api_flare_pos, index);
         }
 
         internal ShipOwner api_friendly_info;
@@ -115,6 +108,14 @@ namespace Sakuno.ING.Game.Json.Battle
         {
             ally = new Side(this, 0);
             enemy = new Side(this, 1);
+        }
+
+        private static int? FindFlarePosition(int[] array, int i)
+        {
+            if (array == null) return null;
+            if (array.Length <= i) return null;
+            if (array[i] < 0) return null;
+            return array[i];
         }
     }
 }

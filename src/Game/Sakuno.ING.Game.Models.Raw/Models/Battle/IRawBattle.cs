@@ -22,6 +22,11 @@ namespace Sakuno.ING.Game.Models.Battle
         IRawAerialPhase AerialPhase2 { get; }
         IRawAerialPhase JetPhase { get; }
         IRawAerialPhase LandBaseJetPhase { get; }
-        IReadOnlyList<IRawAerialPhase> LandBasePhases { get; }
+        IReadOnlyList<IRawLandBaseAerialPhase> LandBasePhases { get; }
+        SupportFireType? SupportFireType { get; }
+        IReadOnlyList<ShipId?> SupportFleet { get; }
+        IRawAerialPhase AerialSupportPhase { get; }
+        IRawBattlePhase SupportPhase { get; }
+        IRawNpcPhase NpcPhase { get; }
     }
 }

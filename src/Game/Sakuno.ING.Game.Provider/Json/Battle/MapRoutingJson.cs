@@ -105,6 +105,9 @@ namespace Sakuno.ING.Game.Json.Battle
 
         [JsonProperty("api_get_eo_rate")]
         public int? RankingPointAcquired { get; set; }
+
+        public BattleJson api_destruction_battle;
+        public IRawBattle LandBaseDefence => api_destruction_battle;
         [JsonProperty("api_m1")]
         public bool MapPartUnlocked { get; set; }
     }

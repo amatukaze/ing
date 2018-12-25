@@ -29,8 +29,13 @@ namespace Sakuno.ING.Game.Json.Battle
             public bool IsEnemy { get; set; }
             public int Type { get; set; }
             public IReadOnlyList<EquipmentInfoId> EquipmentUsed { get; set; }
-            public IRawHit Hit { get; set; }
+            public Hit Hit { get; set; }
             public IReadOnlyList<IRawHit> Hits => new[] { Hit };
+        }
+        public class PartialHit
+        {
+            public double damage;
+            public bool critical, torpedo, diving;
         }
     }
 }

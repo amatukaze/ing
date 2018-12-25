@@ -87,13 +87,8 @@ namespace Sakuno.ING.Game.Json.Battle
                 public double[] api_edam { set => value.AlignSet(enemy, (r, v) => r.damage = v); }
 #pragma warning restore IDE1006 // Naming Styles
 
-                public class AerialHit
-                {
-                    public double damage;
-                    public bool critical, torpedo, diving;
-                }
-                public readonly List<AerialHit> ally = new List<AerialHit>();
-                public readonly List<AerialHit> enemy = new List<AerialHit>();
+                public readonly List<PartialHit> ally = new List<PartialHit>();
+                public readonly List<PartialHit> enemy = new List<PartialHit>();
 
                 public IEnumerable<SingleAttack> GetAttacks(int baseIndex)
                     => ally.Skip(1).Select((x, i) => new SingleAttack
