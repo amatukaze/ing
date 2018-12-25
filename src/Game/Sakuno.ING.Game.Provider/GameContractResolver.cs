@@ -11,12 +11,7 @@ namespace Sakuno.ING.Game
         protected override JsonContract CreateContract(Type objectType)
         {
             var contract = base.CreateContract(objectType);
-
-            Type valueType;
-            if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                valueType = objectType.GetGenericArguments()[0];
-            else
-                valueType = objectType;
+            var valueType = Nullable.GetUnderlyingType(objectType) ?? objectType;
 
             var id = valueType.GetCustomAttribute<IdentifierAttribute>();
             if (id != null)
