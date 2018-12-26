@@ -8,6 +8,7 @@
         Aerial = 4,
         Combined = 5,
         AirDefence = 6,
-        CombinedNightToDay = 7
+        CombinedNightToDay = 7,
+        RadarDefence = 8
     }
 }

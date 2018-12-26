@@ -152,6 +152,10 @@ namespace Sakuno.ING.Game
                     RegisterResponse<BattleJson>("api_req_sortie/night_to_day"),
                     RegisterResponse<BattleJson>("api_req_combined_battle/sp_midnight"),
                     RegisterResponse<BattleJson>("api_req_battle_midnight/sp_midnight"),
+                    RegisterResponse<BattleJson>("api_req_sortie/ld_airbattle"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/ld_airbattle"),
+                    RegisterResponse<BattleJson>("api_req_sortie/ld_shooting"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/ld_shooting"),
                     practice.Select(x => x.Response));
             battleAppended = RegisterResponse<BattleJson>("api_req_battle_midnight/battle")
                 .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/midnight_battle"),
