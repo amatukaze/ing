@@ -31,6 +31,20 @@ namespace Sakuno.ING.Game
             remove => mapRouting.Received -= value;
         }
 
+        private readonly ITimedMessageProvider<IRawBattle> battleStarted;
+        public event TimedMessageHandler<IRawBattle> BattleStarted
+        {
+            add => battleStarted.Received += value;
+            remove => battleStarted.Received -= value;
+        }
+
+        private readonly ITimedMessageProvider<IRawBattle> battleAppended;
+        public event TimedMessageHandler<IRawBattle> BattleAppended
+        {
+            add => battleAppended.Received += value;
+            remove => battleAppended.Received -= value;
+        }
+
         private readonly ITimedMessageProvider<IRawBattleResult> battleCompleted;
         public event TimedMessageHandler<IRawBattleResult> BattleCompleted
         {

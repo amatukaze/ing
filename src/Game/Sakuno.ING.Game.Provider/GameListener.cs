@@ -140,6 +140,23 @@ namespace Sakuno.ING.Game
             sortieStarting = mapStart.Select(x => ParseSortieStart(x.Request));
             mapRouting = mapStart.Select(x => x.Response)
                 .CombineWith(RegisterResponse<MapRoutingJson>("api_req_map/next"));
+            battleStarted = RegisterResponse<BattleJson>("api_req_sortie/battle")
+                .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/ec_battle"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/battle"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/each_battle"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/battle_water"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/each_battle_water"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/ec_night_to_day"),
+                    RegisterResponse<BattleJson>("api_req_sortie/night_to_day"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/sp_midnight"),
+                    RegisterResponse<BattleJson>("api_req_battle_midnight/sp_midnight"),
+                    RegisterResponse<BattleJson>("api_req_practce/battle"));
+            battleAppended = RegisterResponse<BattleJson>("api_req_battle_midnight/battle")
+                .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/midnight_battle"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/ec_midnight_battle"),
+                    RegisterResponse<BattleJson>("api_req_practce/midnight_battle"));
+            battleCompleted = RegisterResponse<BattleResultJson>("api_req_sortie/battleresult")
+                .CombineWith(RegisterResponse<BattleResultJson>("api_req_combined_battle/battleresult"));
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)

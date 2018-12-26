@@ -58,6 +58,8 @@ namespace Sakuno.ING.Game
         event TimedMessageHandler<EnemyDebuffConfirm> EnemyDebuffConfirmed;
         event TimedMessageHandler<SortieStart> SortieStarting;
         event TimedMessageHandler<IRawMapRouting> MapRouting;
+        event TimedMessageHandler<IRawBattle> BattleStarted;
+        event TimedMessageHandler<IRawBattle> BattleAppended;
         event TimedMessageHandler<IRawBattleResult> BattleCompleted;
     }
 }
