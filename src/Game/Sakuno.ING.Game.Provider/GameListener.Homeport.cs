@@ -115,6 +115,13 @@ namespace Sakuno.ING.Game
             add => expeditionCompleted.Received += value;
             remove => expeditionCompleted.Received -= value;
         }
+
+        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawIncentiveReward>> incentiveRewarded;
+        public event TimedMessageHandler<IReadOnlyCollection<IRawIncentiveReward>> IncentiveRewarded
+        {
+            add => incentiveRewarded.Received += value;
+            remove => incentiveRewarded.Received += value;
+        }
         #endregion
 
         private static HomeportUpdate ParseHomeport(HomeportJson response)

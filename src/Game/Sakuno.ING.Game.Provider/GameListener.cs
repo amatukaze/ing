@@ -131,6 +131,9 @@ namespace Sakuno.ING.Game
                     airSupply.Select(x => x.Response),
                     setPlane.Select(x => x.Response).Where(x => x.api_after_bauxite.HasValue));
 
+            incentiveRewarded = RegisterResponse<IncentiveJson>("api_req_member/get_incentive")
+                .Select(x => x.api_item);
+
             enemyDebuffConfirmed = homeport.Where(x => x.api_event_object?.api_m_flag2 == true)
                 .Select(x => new Events.Battle.EnemyDebuffConfirm());
             var mapStart = RegisterRaw<MapRoutingJson>("api_req_map/start");

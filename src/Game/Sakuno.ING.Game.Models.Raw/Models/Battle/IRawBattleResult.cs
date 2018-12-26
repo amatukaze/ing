@@ -15,7 +15,7 @@ namespace Sakuno.ING.Game.Models.Battle
         ShipInfoId? ShipDropped { get; }
         int? RankingPointAcquired { get; }
         int? TransportationPoint { get; }
-        IRawRewards Rewards { get; }
+        IReadOnlyCollection<IRawReward> Rewards { get; }
         IReadOnlyCollection<int> EscapableShipIndices { get; }
         bool MapPartUnlocked { get; }
     }

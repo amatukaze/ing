@@ -76,49 +76,76 @@ namespace Sakuno.ING.Game.Json.Battle
             }
         }
 
-        public class GetEventItem
+        public class GetEventItem : IRawReward
         {
             public int api_type;
             public int api_id;
             public int api_value;
             public int api_slot_level;
-        }
-        public GetEventItem[] api_get_eventitem;
-        public IRawRewards Rewards
-        {
-            get
-            {
-                if (api_get_eventitem == null)
-                    return null;
 
-                var rewards = new Rewards();
-                foreach (var r in api_get_eventitem)
-                    switch (r.api_type)
+            public bool TryGetUseItem(out UseItemRecord useItem)
+            {
+                if (api_type == 1)
+                {
+                    useItem = new UseItemRecord
                     {
-                        case 1:
-                            rewards.UseItem.Add(new UseItemRecord
-                            {
-                                ItemId = (UseItemId)r.api_id,
-                                Count = r.api_value
-                            });
-                            break;
-                        case 2:
-                            rewards.Ship.Add((ShipInfoId)r.api_id);
-                            break;
-                        case 3:
-                            rewards.Equipment.Add(new EquipmentRecord
-                            {
-                                Id = (EquipmentInfoId)r.api_id,
-                                ImprovementLevel = r.api_slot_level,
-                                Count = r.api_value
-                            });
-                            break;
-                        case 5:
-                            rewards.Furniture.Add((FurnitureId)r.api_id);
-                            break;
-                    }
-                return rewards;
+                        ItemId = (UseItemId)api_id,
+                        Count = api_value
+                    };
+                    return true;
+                }
+                else
+                {
+                    useItem = default;
+                    return false;
+                }
+            }
+            public bool TryGetShip(out ShipInfoId ship)
+            {
+                if (api_type == 2)
+                {
+                    ship = (ShipInfoId)api_id;
+                    return true;
+                }
+                else
+                {
+                    ship = default;
+                    return false;
+                }
+            }
+            public bool TryGetEquipment(out EquipmentRecord equipment)
+            {
+                if (api_type == 3)
+                {
+                    equipment = new EquipmentRecord
+                    {
+                        Id = (EquipmentInfoId)api_id,
+                        ImprovementLevel = api_slot_level,
+                        Count = api_value
+                    };
+                    return true;
+                }
+                else
+                {
+                    equipment = default;
+                    return false;
+                }
+            }
+            public bool TryGetFurniture(out FurnitureId furniture)
+            {
+                if (api_type == 5)
+                {
+                    furniture = (FurnitureId)api_id;
+                    return true;
+                }
+                else
+                {
+                    furniture = default;
+                    return false;
+                }
             }
         }
+        public GetEventItem[] api_get_eventitem;
+        public IReadOnlyCollection<IRawReward> Rewards => api_get_eventitem ?? Array.Empty<GetEventItem>();
     }
 }
