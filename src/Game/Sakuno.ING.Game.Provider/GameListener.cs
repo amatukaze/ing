@@ -140,6 +140,8 @@ namespace Sakuno.ING.Game
             sortieStarting = mapStart.Select(x => ParseSortieStart(x.Request));
             mapRouting = mapStart.Select(x => x.Response)
                 .CombineWith(RegisterResponse<MapRoutingJson>("api_req_map/next"));
+            var practice = RegisterRaw<BattleJson>("api_req_practce/battle");
+            practiceStarted = practice.Select(x => ParsePracticeStart(x.Request));
             battleStarted = RegisterResponse<BattleJson>("api_req_sortie/battle")
                 .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/ec_battle"),
                     RegisterResponse<BattleJson>("api_req_combined_battle/battle"),
@@ -150,7 +152,7 @@ namespace Sakuno.ING.Game
                     RegisterResponse<BattleJson>("api_req_sortie/night_to_day"),
                     RegisterResponse<BattleJson>("api_req_combined_battle/sp_midnight"),
                     RegisterResponse<BattleJson>("api_req_battle_midnight/sp_midnight"),
-                    RegisterResponse<BattleJson>("api_req_practce/battle"));
+                    practice.Select(x => x.Response));
             battleAppended = RegisterResponse<BattleJson>("api_req_battle_midnight/battle")
                 .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/midnight_battle"),
                     RegisterResponse<BattleJson>("api_req_combined_battle/ec_midnight_battle"),

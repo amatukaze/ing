@@ -31,6 +31,13 @@ namespace Sakuno.ING.Game
             remove => mapRouting.Received -= value;
         }
 
+        private readonly ITimedMessageProvider<FleetId> practiceStarted;
+        public event TimedMessageHandler<FleetId> PracticeStarted
+        {
+            add => practiceStarted.Received += value;
+            remove => practiceStarted.Received -= value;
+        }
+
         private readonly ITimedMessageProvider<IRawBattle> battleStarted;
         public event TimedMessageHandler<IRawBattle> BattleStarted
         {
@@ -59,5 +66,8 @@ namespace Sakuno.ING.Game
                 (FleetId)req.GetInt("api_deck_id"),
                 (MapId)(req.GetInt("api_maparea_id") * 10 + req.GetInt("api_mapinfo_no"))
             );
+
+        private static FleetId ParsePracticeStart(NameValueCollection req)
+            => (FleetId)req.GetInt("api_deck_id");
     }
 }
