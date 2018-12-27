@@ -17,6 +17,13 @@ namespace Sakuno.ING.Game
             remove => enemyDebuffConfirmed.Received -= value;
         }
 
+        private readonly ITimedMessageProvider<MapPartUnlock> mapPartUnlocked;
+        public event TimedMessageHandler<MapPartUnlock> MapPartUnlocked
+        {
+            add => mapPartUnlocked.Received += value;
+            remove => mapPartUnlocked.Received -= value;
+        }
+
         private readonly ITimedMessageProvider<SortieStart> sortieStarting;
         public event TimedMessageHandler<SortieStart> SortieStarting
         {

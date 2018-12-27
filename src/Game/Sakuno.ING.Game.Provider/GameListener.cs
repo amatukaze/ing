@@ -138,8 +138,9 @@ namespace Sakuno.ING.Game
                 .Select(x => new Events.Battle.EnemyDebuffConfirm());
             var mapStart = RegisterRaw<MapRoutingJson>("api_req_map/start");
             sortieStarting = mapStart.Select(x => ParseSortieStart(x.Request));
-            mapRouting = mapStart.Select(x => x.Response)
+            var routing = mapStart.Select(x => x.Response)
                 .CombineWith(RegisterResponse<MapRoutingJson>("api_req_map/next"));
+            mapRouting = routing;
             var practice = RegisterRaw<BattleJson>("api_req_practce/battle");
             practiceStarted = practice.Select(x => ParsePracticeStart(x.Request));
             battleStarted = RegisterResponse<BattleJson>("api_req_sortie/battle")
@@ -161,8 +162,11 @@ namespace Sakuno.ING.Game
                 .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/midnight_battle"),
                     RegisterResponse<BattleJson>("api_req_combined_battle/ec_midnight_battle"),
                     RegisterResponse<BattleJson>("api_req_practce/midnight_battle"));
-            battleCompleted = RegisterResponse<BattleResultJson>("api_req_sortie/battleresult")
+            var battleResult = RegisterResponse<BattleResultJson>("api_req_sortie/battleresult")
                 .CombineWith(RegisterResponse<BattleResultJson>("api_req_combined_battle/battleresult"));
+            battleCompleted = battleResult;
+            mapPartUnlocked = routing.Where(x => x.api_m1).Select(x => new Events.Battle.MapPartUnlock())
+                .CombineWith(battleResult.Where(x => x.api_m1).Select(x => new Events.Battle.MapPartUnlock()));
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)

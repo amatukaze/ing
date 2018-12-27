@@ -108,7 +108,7 @@ namespace Sakuno.ING.Game.Json.Battle
 
         public BattleJson api_destruction_battle;
         public IRawBattle LandBaseDefence => api_destruction_battle;
-        [JsonProperty("api_m1")]
-        public bool MapPartUnlocked { get; set; }
+
+        public bool api_m1;
     }
 }

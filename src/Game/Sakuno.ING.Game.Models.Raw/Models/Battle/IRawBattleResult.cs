@@ -17,6 +17,5 @@ namespace Sakuno.ING.Game.Models.Battle
         int? TransportationPoint { get; }
         IReadOnlyCollection<IRawReward> Rewards { get; }
         IReadOnlyCollection<int> EscapableShipIndices { get; }
-        bool MapPartUnlocked { get; }
     }
 }

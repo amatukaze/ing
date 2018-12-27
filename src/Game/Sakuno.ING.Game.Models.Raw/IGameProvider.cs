@@ -56,6 +56,7 @@ namespace Sakuno.ING.Game
         event TimedMessageHandler<IRawAirForceGroup> AirForceExpanded;
 
         event TimedMessageHandler<EnemyDebuffConfirm> EnemyDebuffConfirmed;
+        event TimedMessageHandler<MapPartUnlock> MapPartUnlocked;
         event TimedMessageHandler<SortieStart> SortieStarting;
         event TimedMessageHandler<IRawMapRouting> MapRouting;
         event TimedMessageHandler<FleetId> PracticeStarted;

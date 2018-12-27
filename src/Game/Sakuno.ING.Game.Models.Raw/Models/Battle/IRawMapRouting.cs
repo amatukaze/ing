@@ -17,6 +17,5 @@ namespace Sakuno.ING.Game.Models.Battle
         IReadOnlyCollection<UseItemRecord> ItemLost { get; }
         int? RankingPointAcquired { get; }
         IRawBattle LandBaseDefence { get; }
-        bool MapPartUnlocked { get; }
     }
 }
