@@ -43,7 +43,9 @@ namespace Sakuno.ING.Game
 
             var homeport = RegisterResponse<HomeportJson>("api_port/port");
             admiralUpdated = homeport.Select(x => x.api_basic)
-                .CombineWith<IRawAdmiral>(RegisterResponse<AdmiralRecordJson>("api_get_member/record"));
+                .CombineWith<IRawAdmiral>(
+                    RegisterResponse<AdmiralJson>("api_get_member/basic"),
+                    RegisterResponse<AdmiralRecordJson>("api_get_member/record"));
             repairingDockUpdated = homeport.Select(x => x.api_ndock)
                 .CombineWith(RegisterResponse<RepairingDockJson[]>("api_get_member/ndock"));
             homeportReturned = homeport.Select(ParseHomeport);
