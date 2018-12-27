@@ -1,4 +1,4 @@
-﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle;
 using Sakuno.KanColle.Amatsukaze.Game.Parsers;
@@ -47,6 +47,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 "api_req_sortie/airbattle",
                 "api_req_sortie/ld_airbattle",
                 "api_req_sortie/night_to_day",
+                "api_req_sortie/ld_shooting",
                 "api_req_combined_battle/airbattle",
                 "api_req_combined_battle/battle",
                 "api_req_combined_battle/battle_water",
@@ -56,6 +57,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 "api_req_combined_battle/ec_night_to_day",
                 "api_req_combined_battle/each_battle",
                 "api_req_combined_battle/each_battle_water",
+                "api_req_combined_battle/ld_shooting",
 
                 "api_req_practice/battle",
             };
@@ -144,6 +146,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
                 case "api_req_sortie/ld_airbattle":
                 case "api_req_combined_battle/ld_airbattle":
                     First = new AerialAttackStage(this, rpInfo);
+                    break;
+
+                case "api_req_sortie/ld_shooting":
+                case "api_req_combined_battle/ld_shooting":
+                    First = new EnemyAmbushStage(this, rpInfo);
                     break;
 
                 case "api_req_sortie/night_to_day": First = new NightToDayStage(this, rpInfo); break;

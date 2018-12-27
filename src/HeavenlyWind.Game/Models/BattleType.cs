@@ -10,5 +10,6 @@
         EnemyCombinedFleet,
         AerialAttack,
         NightToDay,
+        EnemyAmbush,
     }
 }

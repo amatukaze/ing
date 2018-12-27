@@ -9,5 +9,6 @@
         NightToDay,
         AerialCombat,
         AerialAttack,
+        EnemyAmbush,
     }
 }

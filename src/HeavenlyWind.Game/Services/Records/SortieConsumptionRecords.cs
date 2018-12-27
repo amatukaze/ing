@@ -68,6 +68,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_sortie/airbattle",
                 "api_req_sortie/ld_airbattle",
                 "api_req_sortie/night_to_day",
+                "api_req_sortie/ld_shooting",
                 "api_req_combined_battle/airbattle",
                 "api_req_combined_battle/battle",
                 "api_req_combined_battle/battle_water",
@@ -77,6 +78,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
                 "api_req_combined_battle/ec_night_to_day",
                 "api_req_combined_battle/each_battle",
                 "api_req_combined_battle/each_battle_water",
+                "api_req_combined_battle/ld_shooting",
                 "api_req_practice/battle",
             };
             DisposableObjects.Add(ApiService.Subscribe(rBattleApis, ProcessJetPoweredAircraftConsumption));

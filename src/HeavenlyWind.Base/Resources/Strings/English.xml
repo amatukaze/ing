@@ -281,6 +281,7 @@ PS: C[sub]n[/sub]=4</String>
   <String Key="Sortie_BattleType_EnemyCombinedFleet">ACF Battle</String>
   <String Key="Sortie_BattleType_AerialAttack">Aerial Attack</String>
   <String Key="Sortie_BattleType_NightToDay">Night to Day</String>
+  <String Key="Sortie_BattleType_EnemyAmbush">Enemy Ambush</String>
   <String Key="Sortie_NothingHappened_Imagination">It's must be my imagination.</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">There is no sigh of the enemy.</String>
   <String Key="Sortie_NothingHappened_ManualSelection">Manual Selection</String>

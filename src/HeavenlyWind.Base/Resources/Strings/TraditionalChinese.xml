@@ -280,6 +280,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="Sortie_BattleType_EnemyCombinedFleet">深海聯合艦隊戰</String>
   <String Key="Sortie_BattleType_AerialAttack">空襲戰</String>
   <String Key="Sortie_BattleType_NightToDay">夜轉晝</String>
+  <String Key="Sortie_BattleType_EnemyAmbush">敵方伏擊</String>
   <String Key="Sortie_NothingHappened_Imagination">也許是錯覺吧。</String>
   <String Key="Sortie_NothingHappened_NoSighOfTheEnemy">沒有看到敵影。</String>
   <String Key="Sortie_NothingHappened_ManualSelection">可動分歧</String>
