@@ -120,7 +120,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        public MaterialsDifference PreviousDifference { get; private set; }
         public MaterialsDifference DayDifference { get; private set; }
         public MaterialsDifference WeekDifference { get; private set; }
         public MaterialsDifference MonthDifference { get; private set; }
@@ -129,7 +128,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             ApiService.SubscribeOnce("api_port/port", delegate
             {
-                PreviousDifference = new MaterialsDifference(this, MaterialsDifferenceType.Previous);
                 DayDifference = new MaterialsDifference(this, MaterialsDifferenceType.Day);
                 WeekDifference = new MaterialsDifference(this, MaterialsDifferenceType.Week);
                 MonthDifference = new MaterialsDifference(this, MaterialsDifferenceType.Month);
@@ -192,7 +190,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public void UpdateDifference(MaterialType rpType)
         {
-            PreviousDifference?.Update(rpType);
             DayDifference?.Update(rpType);
             WeekDifference?.Update(rpType);
             MonthDifference?.Update(rpType);

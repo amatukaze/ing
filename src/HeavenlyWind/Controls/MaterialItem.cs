@@ -20,8 +20,16 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             DependencyProperty.Register(nameof(Value), typeof(int), typeof(MaterialItem), new PropertyMetadata(Int32Util.Zero, OnValueChanged, OnValueCoerce));
 
         static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) =>
-            ((MaterialItem)d).OnValueChanged((int)e.NewValue);
-        void OnValueChanged(int newValue) => IsRegenerating = newValue < RegenerationLimit;
+            ((MaterialItem)d).OnValueChanged((int)e.OldValue, (int)e.NewValue);
+        void OnValueChanged(int oldValue, int newValue)
+        {
+            IsRegenerating = newValue < RegenerationLimit;
+
+            _difference += newValue - oldValue;
+            _differenceText.Text = _difference.ToString("+0;-0;0");
+
+            UpdateVisualState();
+        }
 
         static object OnValueCoerce(DependencyObject d, object baseValue)
         {
@@ -30,6 +38,9 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             if (value <= 0)
                 return Int32Util.Zero;
 
+            if (value > 300000)
+                return 300000;
+
             return baseValue;
         }
 
@@ -37,34 +48,6 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
         {
             get => (int)GetValue(ValueProperty);
             set => SetValue(ValueProperty, value);
-        }
-
-        public static readonly DependencyProperty PreviousDifferenceProperty =
-            DependencyProperty.Register(nameof(PreviousDifference), typeof(int), typeof(MaterialItem), new PropertyMetadata(Int32Util.Zero, OnPreviousDifferenceChanged));
-
-        static void OnPreviousDifferenceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) =>
-            ((MaterialItem)d).OnPreviousDifferenceChanged((int)e.NewValue > 0);
-        async void OnPreviousDifferenceChanged(bool isIncreased)
-        {
-            VisualStateManager.GoToState(this, "Updated", true);
-            VisualStateManager.GoToState(this, isIncreased ? "Increment" : "Decrement", false);
-
-            _updateAnimationNestingCount++;
-
-            await Task.Delay(2000);
-
-            _updateAnimationNestingCount--;
-
-            if (_updateAnimationNestingCount > 0)
-                return;
-
-            VisualStateManager.GoToState(this, "Normal", true);
-        }
-
-        public int PreviousDifference
-        {
-            get => (int)GetValue(PreviousDifferenceProperty);
-            set => SetValue(PreviousDifferenceProperty, value);
         }
 
         public static readonly DependencyProperty DayDifferenceProperty =
@@ -114,7 +97,9 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             private set => SetValue(IsRegeneratingPropertyKey, BooleanUtil.GetBoxed(value));
         }
 
-        int _updateAnimationNestingCount;
+        int _difference;
+        int _updateNestingCount;
+        TextBlock _differenceText;
 
         static MaterialItem()
         {
@@ -125,8 +110,28 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
         {
             base.OnApplyTemplate();
 
-            VisualStateManager.GoToState(this, "Normal", false);
-            VisualStateManager.GoToState(this, "Increment", false);
+            _differenceText = GetTemplateChild("PART_Difference") as TextBlock;
+
+            VisualStateManager.GoToState(this, "Idle", false);
+        }
+
+        async void UpdateVisualState()
+        {
+            VisualStateManager.GoToState(this, "ValueChanged", true);
+
+            _updateNestingCount++;
+
+            await Task.Delay(3000);
+
+            _updateNestingCount--;
+
+            if (_updateNestingCount > 0)
+                return;
+
+            VisualStateManager.GoToState(this, "Idle", true);
+
+            _difference = 0;
+            _differenceText.Text = string.Empty;
         }
     }
 }

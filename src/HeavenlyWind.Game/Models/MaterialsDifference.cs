@@ -43,20 +43,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         }
         internal void Reload()
         {
-            if (Type == MaterialsDifferenceType.Previous)
-            {
-                r_Fuel = r_Owner.Fuel;
-                r_Bullet = r_Owner.Bullet;
-                r_Steel = r_Owner.Steel;
-                r_Bauxite = r_Owner.Bauxite;
-                r_InstantConstruction = r_Owner.InstantConstruction;
-                r_Bucket = r_Owner.Bucket;
-                r_DevelopmentMaterial = r_Owner.DevelopmentMaterial;
-                r_ImprovementMaterial = r_Owner.ImprovementMaterial;
-
-                return;
-            }
-
             using (var rCommand = RecordService.Instance.CreateCommand())
             {
                 switch (Type)

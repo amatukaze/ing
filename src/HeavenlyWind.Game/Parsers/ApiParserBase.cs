@@ -13,12 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers
 
         internal abstract void Process(ApiInfo rpInfo);
 
-        protected void OnBeforeProcessStarted(ApiInfo rpInfo)
-        {
-            KanColleGame.Current.Port.Materials.PreviousDifference?.Reload();
-
-            BeforeProcessStarted?.Invoke(rpInfo);
-        }
+        protected void OnBeforeProcessStarted(ApiInfo rpInfo) => BeforeProcessStarted?.Invoke(rpInfo);
 
         protected void OnAfterProcessCompleted(ApiInfo rpInfo) => AfterProcessCompleted?.Invoke(rpInfo);
     }
