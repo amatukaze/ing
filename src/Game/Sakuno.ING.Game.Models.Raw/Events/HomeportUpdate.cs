@@ -4,7 +4,7 @@ using Sakuno.ING.Game.Models.Knowledge;
 
 namespace Sakuno.ING.Game.Events
 {
-    public class HomeportUpdate
+    public readonly struct HomeportUpdate
     {
         public HomeportUpdate(IReadOnlyCollection<IRawShip> ships, KnownCombinedFleet combinedFleetType)
         {

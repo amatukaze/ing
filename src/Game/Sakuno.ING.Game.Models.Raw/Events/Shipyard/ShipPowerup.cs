@@ -3,7 +3,7 @@ using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Events.Shipyard
 {
-    public class ShipPowerup
+    public sealed class ShipPowerup
     {
         public ShipPowerup(ShipId shipId, IReadOnlyCollection<ShipId> consumedShipIds, bool isSuccess, IRawShip updatedTo)
         {

@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Events.Shipyard
 {
-    public class RepairStart
+    public readonly struct RepairStart
     {
         public RepairStart(bool instantRepair, ShipId shipId, int repairingDockId)
         {

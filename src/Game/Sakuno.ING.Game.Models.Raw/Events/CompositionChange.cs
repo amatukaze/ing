@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Events
 {
-    public class CompositionChange
+    public readonly struct CompositionChange
     {
         public CompositionChange(FleetId fleetId, int? index, ShipId? shipId)
         {

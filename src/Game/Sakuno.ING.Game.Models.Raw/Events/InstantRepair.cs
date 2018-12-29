@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Events
 {
-    public class InstantRepair : IMaterialsUpdate
+    public sealed class InstantRepair : IMaterialsUpdate
     {
         public MaterialsChangeReason Reason => MaterialsChangeReason.InstantRepair;
 

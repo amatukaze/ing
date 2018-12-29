@@ -3,7 +3,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events.Shipyard
 {
-    public class EquipmentCreation
+    public sealed class EquipmentCreation
     {
         public EquipmentCreation(bool isSuccess, IRawEquipment equipment, EquipmentInfoId selectedEquipentInfoId, Materials consumption)
         {

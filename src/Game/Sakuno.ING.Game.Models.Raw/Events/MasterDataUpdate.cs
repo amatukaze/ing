@@ -3,7 +3,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events
 {
-    public class MasterDataUpdate
+    public sealed class MasterDataUpdate
     {
         public MasterDataUpdate
         (

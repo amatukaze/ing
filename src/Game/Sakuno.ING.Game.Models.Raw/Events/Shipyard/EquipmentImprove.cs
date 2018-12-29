@@ -3,7 +3,7 @@ using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Events.Shipyard
 {
-    public class EquipmentImprove
+    public sealed class EquipmentImprove
     {
         public EquipmentImprove(EquipmentId equipmentId, int recipeId, bool guaranteedSuccess, bool isSuccess, IRawEquipment updatedTo, IReadOnlyCollection<EquipmentId> consumedEquipmentIds)
         {

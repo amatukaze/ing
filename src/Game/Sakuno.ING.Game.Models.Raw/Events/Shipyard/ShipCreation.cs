@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Events.Shipyard
 {
-    public class ShipCreation : IMaterialsUpdate
+    public sealed class ShipCreation : IMaterialsUpdate
     {
         public ShipCreation(BuildingDockId buildingDockId, bool instantBuild, bool isLSC, Materials consumption)
         {

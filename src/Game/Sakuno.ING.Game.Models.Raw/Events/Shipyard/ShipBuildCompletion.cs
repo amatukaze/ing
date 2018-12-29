@@ -3,7 +3,7 @@ using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Events.Shipyard
 {
-    public class ShipBuildCompletion
+    public readonly struct ShipBuildCompletion
     {
         public ShipBuildCompletion(IRawShip ship, IReadOnlyCollection<IRawEquipment> equipments)
         {

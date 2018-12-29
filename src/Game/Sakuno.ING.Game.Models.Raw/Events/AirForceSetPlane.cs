@@ -4,7 +4,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events
 {
-    public class AirForceSetPlane
+    public sealed class AirForceSetPlane
     {
         public AirForceSetPlane(MapAreaId mapAreaId, AirForceGroupId groupId, int newDistanceBase, int newDistanceBonus, IReadOnlyCollection<IRawAirForceSquadron> updatedSquadrons)
         {

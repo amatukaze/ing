@@ -3,7 +3,7 @@ using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Events.Shipyard
 {
-    public class ShipDismantling
+    public readonly struct ShipDismantling
     {
         public ShipDismantling(IReadOnlyCollection<ShipId> shipIds, bool dismantleEquipments)
         {

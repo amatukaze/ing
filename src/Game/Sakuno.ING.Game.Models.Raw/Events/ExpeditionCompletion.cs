@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Events
 {
-    public class ExpeditionCompletion
+    public sealed class ExpeditionCompletion
     {
         public ExpeditionCompletion(FleetId fleetId, string expeditionName, ExpeditionResult result, Materials materialsAcquired, UseItemRecord? rewardItem1, UseItemRecord? rewardItem2)
         {
