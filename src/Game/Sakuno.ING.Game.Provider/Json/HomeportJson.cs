@@ -1,4 +1,5 @@
-﻿using Sakuno.ING.Game.Models.Knowledge;
+﻿using System;
+using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Json
 {
@@ -9,7 +10,8 @@ namespace Sakuno.ING.Game.Json
         public AdmiralJson api_basic;
         public RepairingDockJson[] api_ndock;
         public ShipJson[] api_ship;
-        public KnownCombinedFleet api_combined_flag;
+        public int api_combined_flag;
+        public CombinedFleetType CombinedFleet => (CombinedFleetType)Math.Max(api_combined_flag, 0);
         internal class EventObject
         {
             public bool api_m_flag2;

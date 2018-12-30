@@ -128,7 +128,7 @@ namespace Sakuno.ING.Game
             => new HomeportUpdate
             (
                 response.api_ship,
-                response.api_combined_flag
+                response.CombinedFleet
             );
 
         private static RepairStart ParseRepairStart(NameValueCollection request)

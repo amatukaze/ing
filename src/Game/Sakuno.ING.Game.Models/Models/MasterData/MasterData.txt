@@ -78,8 +78,12 @@ l:OperationName MapOperation
 l:Description MapDescription
 b:UseItemInfo ItemAcquirements
 p:int? RequiredDefeatCount -
-p:IReadOnlyCollection<FleetType> AvailableFleetTypes -
 p:IRawMapBgmInfo BgmInfo -
+p:bool CanUseNormalFleet -
+p:bool CanUseStrikingForceFleet -
+p:bool CanUseCarrierTaskForceFleet
+p:bool CanUseSurfaceTaskForceFleet
+p:bool CanUseTransportEscortFleet
 
 ExpeditionInfo:ExpeditionId:IRawExpeditionInfo:MasterDataRoot
 p:string DisplayId -

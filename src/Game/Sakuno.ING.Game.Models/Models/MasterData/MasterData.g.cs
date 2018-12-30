@@ -789,21 +789,57 @@ namespace Sakuno.ING.Game.Models.MasterData
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__availableFleetTypes = new System.ComponentModel.PropertyChangedEventArgs(nameof(AvailableFleetTypes));
-        private IReadOnlyCollection<FleetType> _availableFleetTypes;
-        public IReadOnlyCollection<FleetType> AvailableFleetTypes
-        {
-            get => _availableFleetTypes;
-            internal set => Set(ref _availableFleetTypes, value, __eventArgs__availableFleetTypes);
-        }
-
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__bgmInfo = new System.ComponentModel.PropertyChangedEventArgs(nameof(BgmInfo));
         private IRawMapBgmInfo _bgmInfo;
         public IRawMapBgmInfo BgmInfo
         {
             get => _bgmInfo;
             internal set => Set(ref _bgmInfo, value, __eventArgs__bgmInfo);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__canUseNormalFleet = new System.ComponentModel.PropertyChangedEventArgs(nameof(CanUseNormalFleet));
+        private bool _canUseNormalFleet;
+        public bool CanUseNormalFleet
+        {
+            get => _canUseNormalFleet;
+            internal set => Set(ref _canUseNormalFleet, value, __eventArgs__canUseNormalFleet);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__canUseStrikingForceFleet = new System.ComponentModel.PropertyChangedEventArgs(nameof(CanUseStrikingForceFleet));
+        private bool _canUseStrikingForceFleet;
+        public bool CanUseStrikingForceFleet
+        {
+            get => _canUseStrikingForceFleet;
+            internal set => Set(ref _canUseStrikingForceFleet, value, __eventArgs__canUseStrikingForceFleet);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__canUseCarrierTaskForceFleet = new System.ComponentModel.PropertyChangedEventArgs(nameof(CanUseCarrierTaskForceFleet));
+        private bool _canUseCarrierTaskForceFleet;
+        public bool CanUseCarrierTaskForceFleet
+        {
+            get => _canUseCarrierTaskForceFleet;
+            internal set => Set(ref _canUseCarrierTaskForceFleet, value, __eventArgs__canUseCarrierTaskForceFleet);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__canUseSurfaceTaskForceFleet = new System.ComponentModel.PropertyChangedEventArgs(nameof(CanUseSurfaceTaskForceFleet));
+        private bool _canUseSurfaceTaskForceFleet;
+        public bool CanUseSurfaceTaskForceFleet
+        {
+            get => _canUseSurfaceTaskForceFleet;
+            internal set => Set(ref _canUseSurfaceTaskForceFleet, value, __eventArgs__canUseSurfaceTaskForceFleet);
+        }
+
+        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__canUseTransportEscortFleet = new System.ComponentModel.PropertyChangedEventArgs(nameof(CanUseTransportEscortFleet));
+        private bool _canUseTransportEscortFleet;
+        public bool CanUseTransportEscortFleet
+        {
+            get => _canUseTransportEscortFleet;
+            internal set => Set(ref _canUseTransportEscortFleet, value, __eventArgs__canUseTransportEscortFleet);
         }
 
         public event Action<MapInfo, IRawMapInfo, DateTimeOffset> Updating;
@@ -838,8 +874,9 @@ namespace Sakuno.ING.Game.Models.MasterData
 
             StarDifficulty = raw.StarDifficulty;
             RequiredDefeatCount = raw.RequiredDefeatCount;
-            AvailableFleetTypes = raw.AvailableFleetTypes;
             BgmInfo = raw.BgmInfo;
+            CanUseNormalFleet = raw.CanUseNormalFleet;
+            CanUseStrikingForceFleet = raw.CanUseStrikingForceFleet;
 
             UpdateCore(raw, timeStamp);
         }

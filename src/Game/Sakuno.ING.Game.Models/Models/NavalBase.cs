@@ -57,7 +57,11 @@ namespace Sakuno.ING.Game.Models
                     MaterialsUpdating?.Invoke(t, oldMaterials, materials, msg.Reason);
                 }
             };
-            listener.HomeportReturned += (t, msg) => _allShips.BatchUpdate(msg.Ships, t);
+            listener.HomeportReturned += (t, msg) =>
+            {
+                _allShips.BatchUpdate(msg.Ships, t);
+                CombinedFleet = msg.CombinedFleetType;
+            };
             listener.CompositionChanged += (t, msg) =>
             {
                 var fleet = Fleets[msg.FleetId];
@@ -228,6 +232,13 @@ namespace Sakuno.ING.Game.Models
         {
             get => _materials;
             set => Set(ref _materials, value);
+        }
+
+        private CombinedFleetType _combinedFleet;
+        public CombinedFleetType CombinedFleet
+        {
+            get => _combinedFleet;
+            set => Set(ref _combinedFleet, value);
         }
 
         public event AdmiralChanging AdmiralChanging;

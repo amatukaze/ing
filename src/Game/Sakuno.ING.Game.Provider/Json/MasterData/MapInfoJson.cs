@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
@@ -31,27 +30,10 @@ namespace Sakuno.ING.Game.Json.MasterData
         public int? RequiredDefeatCount { get; set; }
 
         public int[] api_sally_flag;
-        public IReadOnlyCollection<FleetType> AvailableFleetTypes
-        {
-            get
-            {
-                var list = new List<FleetType>(5);
-
-                if (api_sally_flag.ElementAtOrDefault(0) != 0)
-                    list.Add(FleetType.SingleFleet);
-                int combined = api_sally_flag.ElementAtOrDefault(1);
-                if ((combined & 1) != 0)
-                    list.Add(FleetType.CarrierTaskForceFleet);
-                if ((combined & 2) != 0)
-                    list.Add(FleetType.SurfaceTaskForceFleet);
-                if ((combined & 4) != 0)
-                    list.Add(FleetType.TransportEscortFleet);
-                if (api_sally_flag.ElementAtOrDefault(2) != 0)
-                    list.Add(FleetType.StrikingForceFleet);
-
-                return list;
-            }
-        }
+        public bool CanUseNormalFleet => api_sally_flag.ElementAtOrDefault(0) != 0;
+        public bool CanUseStrikingForceFleet => api_sally_flag.ElementAtOrDefault(2) != 0;
+        public bool CanUseCombinedFleet(CombinedFleetType type)
+            => (api_sally_flag.ElementAtOrDefault(1) & (1 << ((int)type - 1))) != 0;
 
         public IRawMapBgmInfo BgmInfo { get; set; }
     }

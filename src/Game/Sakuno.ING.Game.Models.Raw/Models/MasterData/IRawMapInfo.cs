@@ -35,7 +35,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         IReadOnlyCollection<UseItemId> ItemAcquirements { get; }
         int? RequiredDefeatCount { get; }
 
-        IReadOnlyCollection<FleetType> AvailableFleetTypes { get; }
+        bool CanUseNormalFleet { get; }
+        bool CanUseStrikingForceFleet { get; }
+        bool CanUseCombinedFleet(CombinedFleetType type);
 
         IRawMapBgmInfo BgmInfo { get; }
     }
