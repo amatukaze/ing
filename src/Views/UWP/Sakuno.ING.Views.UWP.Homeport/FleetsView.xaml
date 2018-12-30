@@ -22,14 +22,14 @@
                         <ColumnDefinition Width="18" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Ellipse x:Name="statusIcon" Fill="{x:Bind local:FleetsView.StatusColor(Status)}" />
+                    <Ellipse x:Name="statusIcon" Fill="{x:Bind local:FleetsView.StatusColor(State)}" />
                     <TextBlock Grid.Column="1" FontSize="18" Text="{x:Bind Name}" />
                     <!--#region Warning animation-->
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroup>
                             <VisualState>
                                 <VisualState.StateTriggers>
-                                    <StateTrigger IsActive="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Warning)}" />
+                                    <StateTrigger IsActive="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Warning)}" />
                                 </VisualState.StateTriggers>
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="statusIcon"
@@ -65,35 +65,35 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Margin="2">
-                        <Rectangle x:Name="statusRibbon" Fill="{x:Bind local:FleetsView.StatusColor(Status)}" />
+                        <Rectangle x:Name="statusRibbon" Fill="{x:Bind local:FleetsView.StatusColor(State)}" />
                         <!--#region Status texts-->
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextEmpty"
-                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Empty)}"
+                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Empty)}"
                                    x:Uid="/Resources/FleetState_Empty" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextReady"
-                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Ready)}"
+                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Ready)}"
                                    x:Uid="/Resources/FleetState_Ready" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextSortie"
-                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Sortie)}"
+                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Sortie)}"
                                    x:Uid="/Resources/FleetState_Sortie" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextWarning"
-                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Warning)}"
+                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Warning)}"
                                    x:Uid="/Resources/FleetState_Warning" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextExpedition"
-                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Expedition)}">
+                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Expedition)}">
                             <Run x:Uid="/Resources/FleetState_Expedition" /><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}" /><Run Text="{x:Bind c:Helpers.SelectName(Expedition.Name)}" /><Run Text="{x:Bind sys:String.Format(' - {0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}" />
                         </TextBlock>
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextFatigued"
-                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Fatigued)}"
+                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Fatigued)}"
                                    x:Uid="/Resources/FleetState_Fatigued" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextRepairing"
-                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Repairing)}"
+                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Repairing)}"
                                    x:Uid="/Resources/FleetState_Repairing" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextDamaged"
-                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Damaged)}"
+                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Damaged)}"
                                    x:Uid="/Resources/FleetState_Damaged" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextInsufficient"
-                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Insufficient)}"
+                                   x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Insufficient)}"
                                    x:Uid="/Resources/FleetState_Insufficient" />
                         <!--#endregion-->
                         <!--#region Warning animation-->
@@ -101,7 +101,7 @@
                             <VisualStateGroup>
                                 <VisualState>
                                     <VisualState.StateTriggers>
-                                        <StateTrigger IsActive="{x:Bind c:Helpers.FleetStateEquals(Status, g:FleetState.Warning)}" />
+                                        <StateTrigger IsActive="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Warning)}" />
                                     </VisualState.StateTriggers>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="statusRibbon"
