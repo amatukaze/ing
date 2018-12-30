@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
-using Sakuno.ING.Game.Json.Battle;
+using Sakuno.ING.Game.Json.Combat;
 using Sakuno.ING.Game.Json.MasterData;
 using Sakuno.ING.Game.Json.Shipyard;
 using Sakuno.ING.Game.Models;
@@ -137,7 +137,7 @@ namespace Sakuno.ING.Game
                 .Select(x => x.api_item);
 
             enemyDebuffConfirmed = homeport.Where(x => x.api_event_object?.api_m_flag2 == true)
-                .Select(x => new Events.Battle.EnemyDebuffConfirm());
+                .Select(x => new Events.Combat.EnemyDebuffConfirm());
             var mapStart = RegisterRaw<MapRoutingJson>("api_req_map/start");
             sortieStarting = mapStart.Select(x => ParseSortieStart(x.Request));
             var routing = mapStart.Select(x => x.Response)
@@ -167,8 +167,8 @@ namespace Sakuno.ING.Game
             var battleResult = RegisterResponse<BattleResultJson>("api_req_sortie/battleresult")
                 .CombineWith(RegisterResponse<BattleResultJson>("api_req_combined_battle/battleresult"));
             battleCompleted = battleResult;
-            mapPartUnlocked = routing.Where(x => x.api_m1).Select(x => new Events.Battle.MapPartUnlock())
-                .CombineWith(battleResult.Where(x => x.api_m1).Select(x => new Events.Battle.MapPartUnlock()));
+            mapPartUnlocked = routing.Where(x => x.api_m1).Select(x => new Events.Combat.MapPartUnlock())
+                .CombineWith(battleResult.Where(x => x.api_m1).Select(x => new Events.Combat.MapPartUnlock()));
         }
 
         private void JsonError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)

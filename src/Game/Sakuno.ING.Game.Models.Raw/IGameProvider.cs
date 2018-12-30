@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sakuno.ING.Game.Events;
-using Sakuno.ING.Game.Events.Battle;
+using Sakuno.ING.Game.Events.Combat;
 using Sakuno.ING.Game.Events.Shipyard;
 using Sakuno.ING.Game.Models;
-using Sakuno.ING.Game.Models.Battle;
+using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
