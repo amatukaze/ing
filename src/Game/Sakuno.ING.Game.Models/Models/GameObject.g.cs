@@ -836,12 +836,12 @@ namespace Sakuno.ING.Game.Models
         }
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__status = new System.ComponentModel.PropertyChangedEventArgs(nameof(Status));
-        private FleetState _status;
-        public FleetState Status
+        private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__state = new System.ComponentModel.PropertyChangedEventArgs(nameof(State));
+        private FleetState _state;
+        public FleetState State
         {
-            get => _status;
-            internal set => Set(ref _status, value, __eventArgs__status);
+            get => _state;
+            internal set => Set(ref _state, value, __eventArgs__state);
         }
 
         public event Action<Fleet, IRawFleet, DateTimeOffset> Updating;

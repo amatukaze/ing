@@ -86,7 +86,7 @@ namespace Sakuno.ING.Game.Models
             HP = (maxHp, maxHp);
             if (Morale < 40)
                 Morale = 40;
-            Fleet?.UpdateStatus();
+            Fleet?.UpdateState();
         }
 
         internal void Supply(IShipSupply raw)
@@ -95,7 +95,7 @@ namespace Sakuno.ING.Game.Models
             Bullet = (raw.CurrentBullet, Info.BulletConsumption);
             UpdateSlotAircraft(raw.SlotAircraft);
             UpdateSupplyingCost();
-            Fleet?.UpdateStatus();
+            Fleet?.UpdateState();
         }
 
         private void UpdateSupplyingCost()
@@ -110,7 +110,7 @@ namespace Sakuno.ING.Game.Models
         {
             UpdateEquipmentsCore(equipmentIds);
             UpdateFromSlot();
-            Fleet?.UpdateStatus();
+            Fleet?.UpdateState();
         }
 
         private void UpdateEquipmentsCore(IReadOnlyList<EquipmentId?> equipmentIds)
@@ -123,7 +123,7 @@ namespace Sakuno.ING.Game.Models
         {
             UpdateSlotAircraftCore(aircrafts);
             UpdateFromSlot();
-            Fleet?.UpdateStatus();
+            Fleet?.UpdateState();
         }
 
         internal void UpdateSlotAircraftCore(IReadOnlyList<int> aircrafts)

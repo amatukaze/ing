@@ -29,7 +29,7 @@ namespace Sakuno.ING.Game.Models
                     ships[i] = owner.AllShips[raw.ShipIds[i]];
 
             Expedition = owner.MasterData.Expeditions[raw.ExpeditionId];
-            UpdateStatus();
+            UpdateState();
             UpdateTimer(timeStamp);
         }
 
@@ -79,7 +79,7 @@ namespace Sakuno.ING.Game.Models
                 ExpeditionTimeRemaining = ExpeditionCompletionTime - timeStamp;
         }
 
-        internal void UpdateStatus()
+        internal void UpdateState()
         {
             SlowestShipSpeed = ships.Count > 0 ? ships.Min(s => s.Speed) : ShipSpeed.None;
             SupplyingCost = Ships.Sum(s => s.SupplyingCost);
@@ -87,7 +87,7 @@ namespace Sakuno.ING.Game.Models
             AirFightPower = Ships.Sum(s => s.AirFightPower);
             SimpleLos = Ships.Sum(s => s.LineOfSight.Displaying);
             EffectiveLoS = Ships.Sum(s => s.EffectiveLoS) + (2 * (6 - Ships.Count) - Math.Ceiling(0.4 * owner.Admiral.Leveling.Level));
-            Status = CheckFleetState();
+            State = CheckFleetState();
         }
 
         private FleetState CheckFleetState()
@@ -104,6 +104,8 @@ namespace Sakuno.ING.Game.Models
                 return FleetState.Insufficient;
             if (Ships.Any(s => s.Morale < 40))
                 return FleetState.Fatigued;
+            if (owner.CombinedFleet > 0 && (Id == 1 || Id == 2))
+                return FleetState.Combined;
             return FleetState.Ready;
         }
     }
