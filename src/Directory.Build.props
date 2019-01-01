@@ -9,7 +9,7 @@
     <Authors>Kodama Sakuno</Authors>
     <Product>Intelligent Naval Gun</Product>
     <Company>Kodama Sakuno</Company>
-    <Copyright>Copyright © 2017-2018 Kodama Sakuno</Copyright>
+    <Copyright>Copyright © 2017-2019 Kodama Sakuno</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/amatukaze/ing</PackageProjectUrl>
