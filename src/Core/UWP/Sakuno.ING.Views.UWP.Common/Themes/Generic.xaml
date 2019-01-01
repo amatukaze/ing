@@ -1,8 +1,8 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Styles/LevelingIndicator.xaml" />
-        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Styles/ProgressCircle.xaml" />
-        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Styles/EquipmentImprovementPresenter.xaml" />
-        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Styles/SlotAircraftPresenter.xaml" />
+        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/LevelingIndicator.xaml" />
+        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/ProgressCircle.xaml" />
+        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/EquipmentImprovementPresenter.xaml" />
+        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/SlotAircraftPresenter.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
