@@ -17,6 +17,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         public bool IsIncompleted { get; set; }
         [JsonProperty("api_defeat_count")]
         public int? DefeatedCount { get; set; }
+        [JsonProperty("api_required_defeat_count")]
+        public int? RequiredDefeatCount { get; set; }
 
         [JsonProperty("api_air_base_decks")]
         public int AvailableAirBaseGroupCount { get; set; }

@@ -12,8 +12,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public string Name => RawData.Name;
         public string TranslatedName => StringResources.Instance.Extra?.GetMapName(ID) ?? Name;
 
-        public int? RequiredDefeatCount => RawData.RequiredDefeatCount;
-
         public CombinedFleetType SortieFleetType => (CombinedFleetType)RawData.SortieFleetType[1];
 
         internal MapMasterInfo(RawMapMasterInfo rpRawData) : base(rpRawData) { }

@@ -46,16 +46,15 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         protected override void OnRawDataUpdated()
         {
-            if (RawData.DefeatedCount.HasValue)
+            if (RawData.DefeatedCount is int defeatedCount && RawData.RequiredDefeatCount is int requredDefeatCount)
             {
-                var rMaximum = MasterInfo.RequiredDefeatCount.Value;
-                var rCurrent = rMaximum - RawData.DefeatedCount.Value;
+                var rCurrent = requredDefeatCount - defeatedCount;
 
                 if (HP != null)
-                    HP.Set(rMaximum, rCurrent);
+                    HP.Set(requredDefeatCount, rCurrent);
                 else
                 {
-                    HP = new ClampedValue(rMaximum, rCurrent);
+                    HP = new ClampedValue(requredDefeatCount, rCurrent);
                     OnPropertyChanged(nameof(HP));
                 }
                 HP.Before = HP.Current;

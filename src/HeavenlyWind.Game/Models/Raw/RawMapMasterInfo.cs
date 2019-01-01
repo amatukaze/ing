@@ -29,9 +29,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_max_maphp")]
         public object MaxMapHP { get; set; }
 
-        [JsonProperty("api_required_defeat_count")]
-        public int? RequiredDefeatCount { get; set; }
-
         [JsonProperty("api_sally_flag")]
         public int[] SortieFleetType { get; set; }
     }
