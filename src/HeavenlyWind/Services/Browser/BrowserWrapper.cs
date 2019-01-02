@@ -173,6 +173,13 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                 return SendMessage(CommunicatorMessages.InvalidateArrange);
             });
+
+            RegisterAsyncMessageHandler(CommunicatorMessages.TakeScreenshot, async delegate
+            {
+                var result = await r_Browser.TakeScreenshotAsync();
+
+                await SendMessage(CommunicatorMessages.ScreenshotData + ":" + result);
+            });
         }
 
         public void RegisterMessageHandler(string command, Action<string> handler) => _messageHandlers.Add(command, handler);

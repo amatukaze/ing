@@ -15,6 +15,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using System.Windows;
@@ -84,6 +85,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         public event Action Attached;
         public event EventHandler<Size> Resized;
         public event Action ResizedToFitGame;
+
+        TaskCompletionSource<string> _screenshotTcs;
 
         [DllImport("shell32.dll", PreserveSig = false)]
         public static extern void SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string pszName, IntPtr pbc, out IntPtr ppidl, NativeEnums.SFGAO sfgaoIn, out NativeEnums.SFGAO psfgaoOut);
@@ -194,6 +197,8 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 RegisterAsyncMessageHandler(CommunicatorMessages.LoadCompleted, _ => SendMessage(CommunicatorMessages.SetZoom + ":1.0"));
                 RegisterAsyncMessageHandler(CommunicatorMessages.LoadGamePageCompleted, _ => ResizeBrowserToFitGame());
+
+                RegisterMessageHandler(CommunicatorMessages.ScreenshotData, data => Interlocked.Exchange(ref _screenshotTcs, null)?.SetResult(data));
 
                 Navigator = new BrowserNavigator(this);
                 GameController = new GameController(this);
@@ -341,6 +346,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         }
 
         public void SetDefaultHomepage(string rpUrl) => Preference.Instance.Browser.Homepage.Value = rpUrl;
+
+        public async Task<string> TakeScreenshot()
+        {
+            var screenshotTcs = new TaskCompletionSource<string>();
+            _screenshotTcs = screenshotTcs;
+
+            await SendMessage(CommunicatorMessages.TakeScreenshot);
+
+            return await screenshotTcs.Task;
+        }
 
         public void Shutdown() => SendMessage(CommunicatorMessages.Shutdown);
     }

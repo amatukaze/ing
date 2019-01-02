@@ -31,8 +31,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
         public const string TakeScreenshot = nameof(TakeScreenshot);
         public const string ScreenshotFail = nameof(ScreenshotFail);
-        public const string StartScreenshotTransmission = nameof(StartScreenshotTransmission);
-        public const string FinishScreenshotTransmission = nameof(FinishScreenshotTransmission);
+        public const string ScreenshotData = nameof(ScreenshotData);
 
         public static readonly NativeConstants.WindowMessage ResizeBrowserWindow;
 

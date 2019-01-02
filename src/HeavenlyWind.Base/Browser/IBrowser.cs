@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Sakuno.KanColle.Amatsukaze.Browser
 {
@@ -15,6 +16,6 @@ namespace Sakuno.KanColle.Amatsukaze.Browser
 
         void SetZoom(double rpPercentage);
 
-        ScreenshotData TakeScreenshot();
+        Task<string> TakeScreenshotAsync();
     }
 }

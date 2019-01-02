@@ -18,9 +18,9 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
         {
             Owner = rpOwner;
 
-            TakeScreenshotCommand = new DelegatedCommand(() =>
+            TakeScreenshotCommand = new DelegatedCommand(async () =>
             {
-                Screenshot = ScreenshotService.Instance.TakePartialScreenshot(ScreenshotToolViewModel.Regions[Owner.Type]);
+                Screenshot = await ScreenshotService.Instance.TakePartialScreenshot(ScreenshotToolViewModel.Regions[Owner.Type]);
                 OnPropertyChanged(nameof(Screenshot));
             });
         }
