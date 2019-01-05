@@ -37,13 +37,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models.Raw\Sakuno.ING.Game.Models.Raw.csproj">
-      <Project>{9ccc28ad-acc3-4043-a408-6e67ce46d7b5}</Project>
-      <Name>Sakuno.ING.Game.Models.Raw</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj">
       <Project>{2db243bb-d99c-4d5c-aaa9-98104cc7efa0}</Project>
       <Name>Sakuno.ING.Game.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj">
+      <Project>{05eb7b5d-cc39-4d62-8d11-ef3eaa99dd91}</Project>
+      <Name>Sakuno.ING.Game.Provider</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

@@ -70,13 +70,13 @@
     <Import Include="Windows.UI.Xaml.Navigation" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models.Raw\Sakuno.ING.Game.Models.Raw.csproj">
-      <Project>{9CCC28AD-ACC3-4043-A408-6E67CE46D7B5}</Project>
-      <Name>Sakuno.ING.Game.Models.Raw</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj">
       <Project>{2db243bb-d99c-4d5c-aaa9-98104cc7efa0}</Project>
       <Name>Sakuno.ING.Game.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj">
+      <Project>{05eb7b5d-cc39-4d62-8d11-ef3eaa99dd91}</Project>
+      <Name>Sakuno.ING.Game.Provider</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj">
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>

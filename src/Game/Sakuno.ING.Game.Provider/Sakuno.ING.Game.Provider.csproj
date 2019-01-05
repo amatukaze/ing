@@ -3,17 +3,17 @@
   <PropertyGroup>
     <RootNamespace>Sakuno.ING.Game</RootNamespace>
     <Version>0.1.0-blueprint</Version>
-    <Description>Game api parser of Intelligent Naval Gun</Description>
+    <Description>Game api parser and object model of Intelligent Naval Gun</Description>
     <NoWarn>CS0649</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="System.Memory" Version="4.5.1" />
+    <ProjectReference Include="..\..\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sakuno.ING.Game.Models.Raw\Sakuno.ING.Game.Models.Raw.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="System.Memory" Version="4.5.1" />
   </ItemGroup>
 
 </Project>

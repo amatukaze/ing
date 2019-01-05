@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sakuno.ING.Game.Models.Raw\Sakuno.ING.Game.Models.Raw.csproj" />
+    <ProjectReference Include="..\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
   </ItemGroup>
 
   <ItemGroup>
