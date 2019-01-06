@@ -5,7 +5,7 @@ namespace Sakuno.ING.Game.Json.MasterData
 {
     internal class MasterDataJson
     {
-        public RawShipInfo[] api_mst_ship;
+        public List<RawShipInfo> api_mst_ship;
         public List<EquipmentInfoId> api_mst_equip_exslot;
         public EquipmentInExtraSlotJson[] api_mst_equip_exslot_ship;
         public RawShipTypeInfo[] api_mst_stype;
@@ -34,5 +34,11 @@ namespace Sakuno.ING.Game.Json.MasterData
         public int api_drawing_count;
         public int api_catapult_count;
         public int api_report_count;
+    }
+
+    internal class RawShipEquipLimitation
+    {
+        public ShipInfoId api_ship_id;
+        public List<EquipmentTypeId> api_equip_type;
     }
 }

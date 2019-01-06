@@ -114,5 +114,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public int FuelConsumption { get; internal set; }
         [JsonProperty("api_bull_max")]
         public int BulletConsumption { get; internal set; }
+
+        public IReadOnlyCollection<EquipmentTypeId> OverrideAvailableEquipmentTypes { get; internal set; }
     }
 }

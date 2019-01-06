@@ -16,8 +16,7 @@ namespace Sakuno.ING.Game.Events
             IReadOnlyCollection<RawMapArea> mapAreas,
             IReadOnlyCollection<RawMapInfo> maps,
             IReadOnlyCollection<RawExpeditionInfo> expeditions,
-            IReadOnlyCollection<RawBgmInfo> bgms,
-            IReadOnlyCollection<RawShipEquipLimitation> shipEquipLimitations
+            IReadOnlyCollection<RawBgmInfo> bgms
         )
         {
             ShipInfos = shipInfos;
@@ -30,7 +29,6 @@ namespace Sakuno.ING.Game.Events
             Maps = maps;
             Expeditions = expeditions;
             Bgms = bgms;
-            ShipEquipLimitations = shipEquipLimitations;
         }
 
         public IReadOnlyCollection<RawShipInfo> ShipInfos { get; }
@@ -43,6 +41,5 @@ namespace Sakuno.ING.Game.Events
         public IReadOnlyCollection<RawMapInfo> Maps { get; }
         public IReadOnlyCollection<RawExpeditionInfo> Expeditions { get; }
         public IReadOnlyCollection<RawBgmInfo> Bgms { get; }
-        public IReadOnlyCollection<RawShipEquipLimitation> ShipEquipLimitations { get; }
     }
 }
