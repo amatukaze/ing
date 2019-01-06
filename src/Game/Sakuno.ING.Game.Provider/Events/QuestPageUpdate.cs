@@ -5,7 +5,7 @@ namespace Sakuno.ING.Game.Events
 {
     public sealed class QuestPageUpdate
     {
-        public QuestPageUpdate(int totalCount, bool anyCompleted, int pageCount, int pageId, int activeCount, IReadOnlyList<IRawQuest> quests)
+        public QuestPageUpdate(int totalCount, bool anyCompleted, int pageCount, int pageId, int activeCount, IReadOnlyList<RawQuest> quests)
         {
             TotalCount = totalCount;
             AnyCompleted = anyCompleted;
@@ -20,6 +20,6 @@ namespace Sakuno.ING.Game.Events
         public int PageCount { get; }
         public int PageId { get; }
         public int ActiveCount { get; }
-        public IReadOnlyList<IRawQuest> Quests { get; }
+        public IReadOnlyList<RawQuest> Quests { get; }
     }
 }

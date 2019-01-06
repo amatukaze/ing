@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game.Json.Shipyard
         public bool api_remodel_flag;
         [JsonConverter(typeof(MaterialsConverter))]
         public Materials api_after_material;
-        public EquipmentJson api_after_slot;
+        public RawEquipment api_after_slot;
         public IReadOnlyList<EquipmentId> api_use_slot_id;
 
         MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.EquipmentImprove;

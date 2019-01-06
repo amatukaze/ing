@@ -9,18 +9,18 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameListener
+    partial class GameProvider
     {
         #region Events
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawMap>> mapsUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawMap>> MapsUpdated
+        private readonly ITimedMessageProvider<IReadOnlyCollection<RawMap>> mapsUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawMap>> MapsUpdated
         {
             add => mapsUpdated.Received += value;
             remove => mapsUpdated.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawAirForceGroup>> airForceUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawAirForceGroup>> AirForceUpdated
+        private readonly ITimedMessageProvider<IReadOnlyCollection<RawAirForceGroup>> airForceUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawAirForceGroup>> AirForceUpdated
         {
             add => airForceUpdated.Received += value;
             remove => airForceUpdated.Received -= value;
@@ -47,8 +47,8 @@ namespace Sakuno.ING.Game
             remove => airForceSupplied.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IRawAirForceGroup> airForceExpanded;
-        public event TimedMessageHandler<IRawAirForceGroup> AirForceExpanded
+        private readonly ITimedMessageProvider<RawAirForceGroup> airForceExpanded;
+        public event TimedMessageHandler<RawAirForceGroup> AirForceExpanded
         {
             add => airForceExpanded.Received += value;
             remove => airForceExpanded.Received -= value;

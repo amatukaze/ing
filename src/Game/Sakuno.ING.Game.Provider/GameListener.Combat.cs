@@ -7,7 +7,7 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameListener
+    partial class GameProvider
     {
         #region Events
         private readonly ITimedMessageProvider<EnemyDebuffConfirm> enemyDebuffConfirmed;

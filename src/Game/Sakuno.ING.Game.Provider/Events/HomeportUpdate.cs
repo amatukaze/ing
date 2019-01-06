@@ -5,13 +5,13 @@ namespace Sakuno.ING.Game.Events
 {
     public readonly struct HomeportUpdate
     {
-        public HomeportUpdate(IReadOnlyCollection<IRawShip> ships, CombinedFleetType combinedFleetType)
+        public HomeportUpdate(IReadOnlyCollection<RawShip> ships, CombinedFleetType combinedFleetType)
         {
             Ships = ships;
             CombinedFleetType = combinedFleetType;
         }
 
-        public IReadOnlyCollection<IRawShip> Ships { get; }
+        public IReadOnlyCollection<RawShip> Ships { get; }
         public CombinedFleetType CombinedFleetType { get; }
     }
 }

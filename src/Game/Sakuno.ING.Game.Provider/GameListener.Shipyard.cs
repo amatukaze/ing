@@ -10,7 +10,7 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameListener
+    partial class GameProvider
     {
         #region Events
         private readonly ITimedMessageProvider<ShipCreation> shipCreated;
@@ -93,7 +93,7 @@ namespace Sakuno.ING.Game
             => new ShipBuildCompletion
             (
                 ship: response.api_ship,
-                equipments: response.api_slotitem ?? Array.Empty<EquipmentJson>()
+                equipments: response.api_slotitem ?? Array.Empty<RawEquipment>()
             );
 
         private static EquipmentCreation ParseEquipmentCreation(NameValueCollection request, EquipmentCreationJson response)

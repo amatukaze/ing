@@ -15,20 +15,20 @@ namespace Sakuno.ING.Game.Models
     {
         public ILocalizationService Localization { get; }
 
-        public NavalBase(IGameProvider listener, ILocalizationService localization, ITimingService timingService)
+        public NavalBase(GameProvider listener, ILocalizationService localization, ITimingService timingService)
         {
             Localization = localization;
 
             MasterData = new MasterDataRoot(listener, localization);
             Quests = new QuestManager(listener, localization);
-            _allEquipment = new IdTable<EquipmentId, Equipment, IRawEquipment, NavalBase>(this);
-            _buildingDocks = new IdTable<BuildingDockId, BuildingDock, IRawBuildingDock, NavalBase>(this);
-            _repairingDocks = new IdTable<RepairingDockId, RepairingDock, IRawRepairingDock, NavalBase>(this);
-            _useItems = new IdTable<UseItemId, UseItemCount, IRawUseItemCount, NavalBase>(this);
-            _allShips = new IdTable<ShipId, Ship, IRawShip, NavalBase>(this);
-            _fleets = new IdTable<FleetId, Fleet, IRawFleet, NavalBase>(this);
-            _maps = new IdTable<MapId, Map, IRawMap, NavalBase>(this);
-            _airForce = new IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, IRawAirForceGroup, NavalBase>(this);
+            _allEquipment = new IdTable<EquipmentId, Equipment, RawEquipment, NavalBase>(this);
+            _buildingDocks = new IdTable<BuildingDockId, BuildingDock, RawBuildingDock, NavalBase>(this);
+            _repairingDocks = new IdTable<RepairingDockId, RepairingDock, RawRepairingDock, NavalBase>(this);
+            _useItems = new IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase>(this);
+            _allShips = new IdTable<ShipId, Ship, RawShip, NavalBase>(this);
+            _fleets = new IdTable<FleetId, Fleet, RawFleet, NavalBase>(this);
+            _maps = new IdTable<MapId, Map, RawMap, NavalBase>(this);
+            _airForce = new IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, RawAirForceGroup, NavalBase>(this);
 
             listener.AllEquipmentUpdated += (t, msg) => _allEquipment.BatchUpdate(msg, t);
             listener.BuildingDockUpdated += (t, msg) => _buildingDocks.BatchUpdate(msg, t);
@@ -199,28 +199,28 @@ namespace Sakuno.ING.Game.Models
         public MasterDataRoot MasterData { get; }
         public QuestManager Quests { get; }
 
-        private readonly IdTable<EquipmentId, Equipment, IRawEquipment, NavalBase> _allEquipment;
+        private readonly IdTable<EquipmentId, Equipment, RawEquipment, NavalBase> _allEquipment;
         public ITable<EquipmentId, Equipment> AllEquipment => _allEquipment;
 
-        private readonly IdTable<BuildingDockId, BuildingDock, IRawBuildingDock, NavalBase> _buildingDocks;
+        private readonly IdTable<BuildingDockId, BuildingDock, RawBuildingDock, NavalBase> _buildingDocks;
         public ITable<BuildingDockId, BuildingDock> BuildingDocks => _buildingDocks;
 
-        private readonly IdTable<RepairingDockId, RepairingDock, IRawRepairingDock, NavalBase> _repairingDocks;
+        private readonly IdTable<RepairingDockId, RepairingDock, RawRepairingDock, NavalBase> _repairingDocks;
         public ITable<RepairingDockId, RepairingDock> RepairingDocks => _repairingDocks;
 
-        private readonly IdTable<UseItemId, UseItemCount, IRawUseItemCount, NavalBase> _useItems;
+        private readonly IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase> _useItems;
         public ITable<UseItemId, UseItemCount> UseItems => _useItems;
 
-        private readonly IdTable<ShipId, Ship, IRawShip, NavalBase> _allShips;
+        private readonly IdTable<ShipId, Ship, RawShip, NavalBase> _allShips;
         public ITable<ShipId, Ship> AllShips => _allShips;
 
-        private readonly IdTable<FleetId, Fleet, IRawFleet, NavalBase> _fleets;
+        private readonly IdTable<FleetId, Fleet, RawFleet, NavalBase> _fleets;
         public ITable<FleetId, Fleet> Fleets => _fleets;
 
-        private readonly IdTable<MapId, Map, IRawMap, NavalBase> _maps;
+        private readonly IdTable<MapId, Map, RawMap, NavalBase> _maps;
         public ITable<MapId, Map> Maps => _maps;
 
-        private readonly IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, IRawAirForceGroup, NavalBase> _airForce;
+        private readonly IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, RawAirForceGroup, NavalBase> _airForce;
         public ITable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup> AirForce => _airForce;
 
         public Admiral Admiral { get; private set; }
@@ -252,7 +252,7 @@ namespace Sakuno.ING.Game.Models
     public delegate void AdmiralChanging(DateTimeOffset timeStamp, Admiral oldAdmiral, Admiral newAdmiral);
     public delegate void MaterialsUpdatingHandler(DateTimeOffset timeStamp, Materials oldMaterials, Materials newMaterials, MaterialsChangeReason reason);
     public delegate void ShipDismantlingHandler(DateTimeOffset timeStamp, IReadOnlyCollection<Ship> ships, bool dismantleEquipments);
-    public delegate void ShipPowerupingHandler(DateTimeOffset timeStamp, Ship original, IRawShip updatedTo, IReadOnlyCollection<Ship> consumed);
+    public delegate void ShipPowerupingHandler(DateTimeOffset timeStamp, Ship original, RawShip updatedTo, IReadOnlyCollection<Ship> consumed);
     public delegate void EquipmentDismantlingHandler(DateTimeOffset timeStamp, IReadOnlyCollection<Equipment> equipments);
-    public delegate void EquipmentImprovingHandler(DateTimeOffset timeStamp, Equipment original, IRawEquipment updatedTo, IReadOnlyCollection<Equipment> consumed, bool isSuccess);
+    public delegate void EquipmentImprovingHandler(DateTimeOffset timeStamp, Equipment original, RawEquipment updatedTo, IReadOnlyCollection<Equipment> consumed, bool isSuccess);
 }

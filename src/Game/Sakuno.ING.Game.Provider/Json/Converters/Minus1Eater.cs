@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
     internal class Minus1Eater<T> : JsonConverter
     {
-        public override bool CanConvert(Type objectType) => objectType == typeof(List<QuestJson>);
+        public override bool CanConvert(Type objectType) => objectType == typeof(List<RawQuest>);
         public override bool CanWrite => false;
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotSupportedException();
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

@@ -6,7 +6,7 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameListener
+    partial class GameProvider
     {
         private readonly ITimedMessageProvider<QuestPageUpdate> questUpdated;
         public event TimedMessageHandler<QuestPageUpdate> QuestUpdated

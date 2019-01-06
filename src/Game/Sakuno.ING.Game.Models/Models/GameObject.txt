@@ -3,14 +3,14 @@ System
 System.Collections.Generic
 Sakuno.ING.Game.Models.MasterData
 
-Equipment:EquipmentId:IRawEquipment:NavalBase
+Equipment:EquipmentId:RawEquipment:NavalBase
 p:EquipmentInfo Info
 p:bool IsLocked -
 p:int ImprovementLevel -
 p:int AirProficiency -
 p:bool IsAvailable
 
-BuildingDock:BuildingDockId:IRawBuildingDock:NavalBase
+BuildingDock:BuildingDockId:RawBuildingDock:NavalBase
 p:DateTimeOffset? CompletionTime -
 p:BuildingDockState State -
 p:Materials Consumption -
@@ -18,17 +18,17 @@ p:ShipInfo BuiltShip
 p:bool IsLSC -
 p:TimeSpan? TimeRemaining
 
-RepairingDock:RepairingDockId:IRawRepairingDock:NavalBase
+RepairingDock:RepairingDockId:RawRepairingDock:NavalBase
 p:RepairingDockState State -
 p:DateTimeOffset? CompletionTime -
 p:Materials Consumption -
 p:TimeSpan? TimeRemaining
 
-UseItemCount:UseItemId:IRawUseItemCount:NavalBase
+UseItemCount:UseItemId:RawUseItemCount:NavalBase
 p:UseItemInfo Item
 p:int Count -
 
-Admiral:int:IRawAdmiral:NavalBase
+Admiral:int:RawAdmiral:NavalBase
 p:string Name -
 p:Leveling Leveling -
 p:AdmiralRank Rank -
@@ -41,7 +41,7 @@ p:ExpeditionStat ExpeditionStat -
 p:bool CanLSC -
 p:int MaxMaterial -
 
-Ship:ShipId:IRawShip:NavalBase
+Ship:ShipId:RawShip:NavalBase
 p:ShipInfo Info
 p:Leveling Leveling -
 p:ShipHP HP -
@@ -70,7 +70,7 @@ p:Fleet Fleet
 p:AirFightPower AirFightPower
 p:LineOfSight EffectiveLoS
 
-Fleet:FleetId:IRawFleet:NavalBase
+Fleet:FleetId:RawFleet:NavalBase
 p:string Name -
 p:FleetExpeditionState ExpeditionState -
 p:ExpeditionInfo Expedition
@@ -84,7 +84,7 @@ p:int SimpleLos
 p:LineOfSight EffectiveLoS
 p:FleetState State
 
-Quest:QuestId:IRawQuest:QuestManager
+Quest:QuestId:RawQuest:QuestManager
 l:Name QuestName
 l:Description QuestDesc
 p:QuestCategoty Category -
@@ -93,7 +93,7 @@ p:QuestState State -
 p:QuestProgress Progress -
 p:Materials Rewards -
 
-Map:MapId:IRawMap:NavalBase
+Map:MapId:RawMap:NavalBase
 p:MapInfo Info
 p:bool IsCleared -
 p:EventMapRank? Rank -
@@ -102,7 +102,7 @@ p:EventMapGaugeType? GaugeType -
 p:int AvailableAirForceGroups -
 p:ClampedValue Gauge
 
-AirForceSquadron:int:IRawAirForceSquadron:NavalBase
+AirForceSquadron:int:RawAirForceSquadron:NavalBase
 p:Equipment Equipment
 p:ClampedValue AircraftCount -
 p:SquadronMorale Morale -

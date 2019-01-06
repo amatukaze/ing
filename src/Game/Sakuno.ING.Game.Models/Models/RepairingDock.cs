@@ -21,7 +21,7 @@ namespace Sakuno.ING.Game.Models
             }
         }
 
-        partial void UpdateCore(IRawRepairingDock raw, DateTimeOffset timeStamp)
+        partial void UpdateCore(RawRepairingDock raw, DateTimeOffset timeStamp)
         {
             RepairingShip = owner.AllShips[raw.RepairingShipId];
             UpdateTimer(timeStamp);

@@ -4,24 +4,24 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameListener
+    partial class GameProvider
     {
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawEquipment>> allEquipmentUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawEquipment>> AllEquipmentUpdated
+        private readonly ITimedMessageProvider<IReadOnlyCollection<RawEquipment>> allEquipmentUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawEquipment>> AllEquipmentUpdated
         {
             add => allEquipmentUpdated.Received += value;
             remove => allEquipmentUpdated.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawBuildingDock>> buildingDockUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawBuildingDock>> BuildingDockUpdated
+        private readonly ITimedMessageProvider<IReadOnlyCollection<RawBuildingDock>> buildingDockUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawBuildingDock>> BuildingDockUpdated
         {
             add => buildingDockUpdated.Received += value;
             remove => buildingDockUpdated.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawUseItemCount>> useItemUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawUseItemCount>> UseItemUpdated
+        private readonly ITimedMessageProvider<IReadOnlyCollection<RawUseItemCount>> useItemUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawUseItemCount>> UseItemUpdated
         {
             add => useItemUpdated.Received += value;
             remove => useItemUpdated.Received -= value;

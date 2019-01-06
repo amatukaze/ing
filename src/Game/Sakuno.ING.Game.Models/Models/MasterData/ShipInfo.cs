@@ -12,7 +12,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             Name.Translation = owner.Localization?.GetLocalized("ShipName", Id.ToString());
         }
 
-        partial void UpdateCore(IRawShipInfo raw, DateTimeOffset timeStamp)
+        partial void UpdateCore(RawShipInfo raw, DateTimeOffset timeStamp)
         {
             if (Name.Origin != raw.Name ||
                 Name.Phonetic != raw.Phonetic ||

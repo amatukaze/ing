@@ -6,7 +6,7 @@ namespace Sakuno.ING.Game.Events
 {
     public sealed class AirForceSetPlane
     {
-        public AirForceSetPlane(MapAreaId mapAreaId, AirForceGroupId groupId, int newDistanceBase, int newDistanceBonus, IReadOnlyCollection<IRawAirForceSquadron> updatedSquadrons)
+        public AirForceSetPlane(MapAreaId mapAreaId, AirForceGroupId groupId, int newDistanceBase, int newDistanceBonus, IReadOnlyCollection<RawAirForceSquadron> updatedSquadrons)
         {
             MapAreaId = mapAreaId;
             GroupId = groupId;
@@ -19,6 +19,6 @@ namespace Sakuno.ING.Game.Events
         public AirForceGroupId GroupId { get; }
         public int NewDistanceBase { get; }
         public int NewDistanceBonus { get; }
-        public IReadOnlyCollection<IRawAirForceSquadron> UpdatedSquadrons { get; }
+        public IReadOnlyCollection<RawAirForceSquadron> UpdatedSquadrons { get; }
     }
 }

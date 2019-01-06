@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    public partial class ShipInfo : Calculated<ShipInfoId, IRawShipInfo>
+    public partial class ShipInfo : Calculated<ShipInfoId, RawShipInfo>
     {
         public ShipInfo(ShipInfoId id, MasterDataRoot owner) : base(id)
         {
@@ -20,7 +20,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
-        public ShipInfo(IRawShipInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public ShipInfo(RawShipInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -251,15 +251,15 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _bulletConsumption, value, __eventArgs__bulletConsumption);
         }
 
-        public event Action<ShipInfo, IRawShipInfo, DateTimeOffset> Updating;
-        public override void Update(IRawShipInfo raw, DateTimeOffset timeStamp)
+        public event Action<ShipInfo, RawShipInfo, DateTimeOffset> Updating;
+        public override void Update(RawShipInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             using (var scope = EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
-        private void UpdateProps(IRawShipInfo raw, DateTimeOffset timeStamp)
+        private void UpdateProps(RawShipInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
 
@@ -294,10 +294,10 @@ namespace Sakuno.ING.Game.Models.MasterData
             UpdateCore(raw, timeStamp);
         }
 
-        partial void UpdateCore(IRawShipInfo raw, DateTimeOffset timeStamp);
+        partial void UpdateCore(RawShipInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
     }
-    public partial class ShipTypeInfo : Calculated<ShipTypeId, IRawShipTypeInfo>
+    public partial class ShipTypeInfo : Calculated<ShipTypeId, RawShipTypeInfo>
     {
         public ShipTypeInfo(ShipTypeId id, MasterDataRoot owner) : base(id)
         {
@@ -305,7 +305,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
-        public ShipTypeInfo(IRawShipTypeInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public ShipTypeInfo(RawShipTypeInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -336,15 +336,15 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _buildOutlineId, value, __eventArgs__buildOutlineId);
         }
 
-        public event Action<ShipTypeInfo, IRawShipTypeInfo, DateTimeOffset> Updating;
-        public override void Update(IRawShipTypeInfo raw, DateTimeOffset timeStamp)
+        public event Action<ShipTypeInfo, RawShipTypeInfo, DateTimeOffset> Updating;
+        public override void Update(RawShipTypeInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             using (var scope = EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
-        private void UpdateProps(IRawShipTypeInfo raw, DateTimeOffset timeStamp)
+        private void UpdateProps(RawShipTypeInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
 
@@ -355,13 +355,13 @@ namespace Sakuno.ING.Game.Models.MasterData
             UpdateCore(raw, timeStamp);
         }
 
-        partial void UpdateCore(IRawShipTypeInfo raw, DateTimeOffset timeStamp);
+        partial void UpdateCore(RawShipTypeInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
         public IReadOnlyList<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
     }
-    public partial class EquipmentTypeInfo : Calculated<EquipmentTypeId, IRawEquipmentTypeInfo>
+    public partial class EquipmentTypeInfo : Calculated<EquipmentTypeId, RawEquipmentTypeInfo>
     {
         public EquipmentTypeInfo(EquipmentTypeId id, MasterDataRoot owner) : base(id)
         {
@@ -370,7 +370,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
-        public EquipmentTypeInfo(IRawEquipmentTypeInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public EquipmentTypeInfo(RawEquipmentTypeInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -385,15 +385,15 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _availableInExtraSlot, value, __eventArgs__availableInExtraSlot);
         }
 
-        public event Action<EquipmentTypeInfo, IRawEquipmentTypeInfo, DateTimeOffset> Updating;
-        public override void Update(IRawEquipmentTypeInfo raw, DateTimeOffset timeStamp)
+        public event Action<EquipmentTypeInfo, RawEquipmentTypeInfo, DateTimeOffset> Updating;
+        public override void Update(RawEquipmentTypeInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             using (var scope = EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
-        private void UpdateProps(IRawEquipmentTypeInfo raw, DateTimeOffset timeStamp)
+        private void UpdateProps(RawEquipmentTypeInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
 
@@ -408,12 +408,12 @@ namespace Sakuno.ING.Game.Models.MasterData
             UpdateCore(raw, timeStamp);
         }
 
-        partial void UpdateCore(IRawEquipmentTypeInfo raw, DateTimeOffset timeStamp);
+        partial void UpdateCore(RawEquipmentTypeInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         public override string ToString() => $"EquipmentTypeInfo {Id}: {Name.Origin}";
     }
-    public partial class EquipmentInfo : Calculated<EquipmentInfoId, IRawEquipmentInfo>
+    public partial class EquipmentInfo : Calculated<EquipmentInfoId, RawEquipmentInfo>
     {
         public EquipmentInfo(EquipmentInfoId id, MasterDataRoot owner) : base(id)
         {
@@ -423,7 +423,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
-        public EquipmentInfo(IRawEquipmentInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public EquipmentInfo(RawEquipmentInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -593,15 +593,15 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _rarity, value, __eventArgs__rarity);
         }
 
-        public event Action<EquipmentInfo, IRawEquipmentInfo, DateTimeOffset> Updating;
-        public override void Update(IRawEquipmentInfo raw, DateTimeOffset timeStamp)
+        public event Action<EquipmentInfo, RawEquipmentInfo, DateTimeOffset> Updating;
+        public override void Update(RawEquipmentInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             using (var scope = EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
-        private void UpdateProps(IRawEquipmentInfo raw, DateTimeOffset timeStamp)
+        private void UpdateProps(RawEquipmentInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
 
@@ -638,7 +638,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             UpdateCore(raw, timeStamp);
         }
 
-        partial void UpdateCore(IRawEquipmentInfo raw, DateTimeOffset timeStamp);
+        partial void UpdateCore(RawEquipmentInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<ShipInfo> extraSlotAcceptingShips = new BindableSnapshotCollection<ShipInfo>();
@@ -646,7 +646,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public override string ToString() => $"EquipmentInfo {Id}: {Name.Origin}";
     }
-    public partial class UseItemInfo : Calculated<UseItemId, IRawUseItem>
+    public partial class UseItemInfo : Calculated<UseItemId, RawUseItem>
     {
         public UseItemInfo(UseItemId id, MasterDataRoot owner) : base(id)
         {
@@ -655,21 +655,21 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
-        public UseItemInfo(IRawUseItem raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public UseItemInfo(RawUseItem raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
-        public event Action<UseItemInfo, IRawUseItem, DateTimeOffset> Updating;
-        public override void Update(IRawUseItem raw, DateTimeOffset timeStamp)
+        public event Action<UseItemInfo, RawUseItem, DateTimeOffset> Updating;
+        public override void Update(RawUseItem raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             using (var scope = EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
-        private void UpdateProps(IRawUseItem raw, DateTimeOffset timeStamp)
+        private void UpdateProps(RawUseItem raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
 
@@ -683,12 +683,12 @@ namespace Sakuno.ING.Game.Models.MasterData
             UpdateCore(raw, timeStamp);
         }
 
-        partial void UpdateCore(IRawUseItem raw, DateTimeOffset timeStamp);
+        partial void UpdateCore(RawUseItem raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         public override string ToString() => $"UseItemInfo {Id}: {Name.Origin}";
     }
-    public partial class MapAreaInfo : Calculated<MapAreaId, IRawMapArea>
+    public partial class MapAreaInfo : Calculated<MapAreaId, RawMapArea>
     {
         public MapAreaInfo(MapAreaId id, MasterDataRoot owner) : base(id)
         {
@@ -697,7 +697,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
-        public MapAreaInfo(IRawMapArea raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public MapAreaInfo(RawMapArea raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -712,15 +712,15 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _isEvent, value, __eventArgs__isEvent);
         }
 
-        public event Action<MapAreaInfo, IRawMapArea, DateTimeOffset> Updating;
-        public override void Update(IRawMapArea raw, DateTimeOffset timeStamp)
+        public event Action<MapAreaInfo, RawMapArea, DateTimeOffset> Updating;
+        public override void Update(RawMapArea raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             using (var scope = EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
-        private void UpdateProps(IRawMapArea raw, DateTimeOffset timeStamp)
+        private void UpdateProps(RawMapArea raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
 
@@ -735,12 +735,12 @@ namespace Sakuno.ING.Game.Models.MasterData
             UpdateCore(raw, timeStamp);
         }
 
-        partial void UpdateCore(IRawMapArea raw, DateTimeOffset timeStamp);
+        partial void UpdateCore(RawMapArea raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         public override string ToString() => $"MapAreaInfo {Id}: {Name.Origin}";
     }
-    public partial class MapInfo : Calculated<MapId, IRawMapInfo>
+    public partial class MapInfo : Calculated<MapId, RawMapInfo>
     {
         public MapInfo(MapId id, MasterDataRoot owner) : base(id)
         {
@@ -751,7 +751,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
-        public MapInfo(IRawMapInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public MapInfo(RawMapInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -790,8 +790,8 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
         private static readonly System.ComponentModel.PropertyChangedEventArgs __eventArgs__bgmInfo = new System.ComponentModel.PropertyChangedEventArgs(nameof(BgmInfo));
-        private IRawMapBgmInfo _bgmInfo;
-        public IRawMapBgmInfo BgmInfo
+        private RawMapBgmInfo _bgmInfo;
+        public RawMapBgmInfo BgmInfo
         {
             get => _bgmInfo;
             internal set => Set(ref _bgmInfo, value, __eventArgs__bgmInfo);
@@ -842,15 +842,15 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _canUseTransportEscortFleet, value, __eventArgs__canUseTransportEscortFleet);
         }
 
-        public event Action<MapInfo, IRawMapInfo, DateTimeOffset> Updating;
-        public override void Update(IRawMapInfo raw, DateTimeOffset timeStamp)
+        public event Action<MapInfo, RawMapInfo, DateTimeOffset> Updating;
+        public override void Update(RawMapInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             using (var scope = EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
-        private void UpdateProps(IRawMapInfo raw, DateTimeOffset timeStamp)
+        private void UpdateProps(RawMapInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
 
@@ -881,7 +881,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             UpdateCore(raw, timeStamp);
         }
 
-        partial void UpdateCore(IRawMapInfo raw, DateTimeOffset timeStamp);
+        partial void UpdateCore(RawMapInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         private readonly BindableSnapshotCollection<UseItemInfo> itemAcquirements = new BindableSnapshotCollection<UseItemInfo>();
@@ -889,7 +889,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public override string ToString() => $"MapInfo {Id}: {Name.Origin}";
     }
-    public partial class ExpeditionInfo : Calculated<ExpeditionId, IRawExpeditionInfo>
+    public partial class ExpeditionInfo : Calculated<ExpeditionId, RawExpeditionInfo>
     {
         public ExpeditionInfo(ExpeditionId id, MasterDataRoot owner) : base(id)
         {
@@ -899,7 +899,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             CreateDummy();
         }
 
-        public ExpeditionInfo(IRawExpeditionInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public ExpeditionInfo(RawExpeditionInfo raw, MasterDataRoot owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         private readonly MasterDataRoot owner;
 
@@ -997,15 +997,15 @@ namespace Sakuno.ING.Game.Models.MasterData
             internal set => Set(ref _canRecall, value, __eventArgs__canRecall);
         }
 
-        public event Action<ExpeditionInfo, IRawExpeditionInfo, DateTimeOffset> Updating;
-        public override void Update(IRawExpeditionInfo raw, DateTimeOffset timeStamp)
+        public event Action<ExpeditionInfo, RawExpeditionInfo, DateTimeOffset> Updating;
+        public override void Update(RawExpeditionInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             using (var scope = EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
-        private void UpdateProps(IRawExpeditionInfo raw, DateTimeOffset timeStamp)
+        private void UpdateProps(RawExpeditionInfo raw, DateTimeOffset timeStamp)
         {
             UpdationTime = timeStamp;
 
@@ -1034,7 +1034,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             UpdateCore(raw, timeStamp);
         }
 
-        partial void UpdateCore(IRawExpeditionInfo raw, DateTimeOffset timeStamp);
+        partial void UpdateCore(RawExpeditionInfo raw, DateTimeOffset timeStamp);
         partial void CreateDummy();
 
         public override string ToString() => $"ExpeditionInfo {Id}: {Name.Origin}";

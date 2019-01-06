@@ -9,18 +9,18 @@ namespace Sakuno.ING.Game.Models
     {
         public ILocalizationService Localization { get; }
 
-        internal MasterDataRoot(IGameProvider listener, ILocalizationService localization)
+        internal MasterDataRoot(GameProvider listener, ILocalizationService localization)
         {
             Localization = localization;
 
-            _shipInfos = new IdTable<ShipInfoId, ShipInfo, IRawShipInfo, MasterDataRoot>(this);
-            _shipTypes = new IdTable<ShipTypeId, ShipTypeInfo, IRawShipTypeInfo, MasterDataRoot>(this);
-            _equipmentTypes = new IdTable<EquipmentTypeId, EquipmentTypeInfo, IRawEquipmentTypeInfo, MasterDataRoot>(this);
-            _equipmentInfos = new IdTable<EquipmentInfoId, EquipmentInfo, IRawEquipmentInfo, MasterDataRoot>(this);
-            _useItems = new IdTable<UseItemId, UseItemInfo, IRawUseItem, MasterDataRoot>(this);
-            _mapAreas = new IdTable<MapAreaId, MapAreaInfo, IRawMapArea, MasterDataRoot>(this);
-            _mapInfos = new IdTable<MapId, MapInfo, IRawMapInfo, MasterDataRoot>(this);
-            _expeditions = new IdTable<ExpeditionId, ExpeditionInfo, IRawExpeditionInfo, MasterDataRoot>(this);
+            _shipInfos = new IdTable<ShipInfoId, ShipInfo, RawShipInfo, MasterDataRoot>(this);
+            _shipTypes = new IdTable<ShipTypeId, ShipTypeInfo, RawShipTypeInfo, MasterDataRoot>(this);
+            _equipmentTypes = new IdTable<EquipmentTypeId, EquipmentTypeInfo, RawEquipmentTypeInfo, MasterDataRoot>(this);
+            _equipmentInfos = new IdTable<EquipmentInfoId, EquipmentInfo, RawEquipmentInfo, MasterDataRoot>(this);
+            _useItems = new IdTable<UseItemId, UseItemInfo, RawUseItem, MasterDataRoot>(this);
+            _mapAreas = new IdTable<MapAreaId, MapAreaInfo, RawMapArea, MasterDataRoot>(this);
+            _mapInfos = new IdTable<MapId, MapInfo, RawMapInfo, MasterDataRoot>(this);
+            _expeditions = new IdTable<ExpeditionId, ExpeditionInfo, RawExpeditionInfo, MasterDataRoot>(this);
 
             listener.MasterDataUpdated += OnMasterDataUpdated;
         }
@@ -37,28 +37,28 @@ namespace Sakuno.ING.Game.Models
             _expeditions.BatchUpdate(message.Expeditions, timeStamp);
         }
 
-        private readonly IdTable<ShipInfoId, ShipInfo, IRawShipInfo, MasterDataRoot> _shipInfos;
+        private readonly IdTable<ShipInfoId, ShipInfo, RawShipInfo, MasterDataRoot> _shipInfos;
         public ITable<ShipInfoId, ShipInfo> ShipInfos => _shipInfos;
 
-        private readonly IdTable<ShipTypeId, ShipTypeInfo, IRawShipTypeInfo, MasterDataRoot> _shipTypes;
+        private readonly IdTable<ShipTypeId, ShipTypeInfo, RawShipTypeInfo, MasterDataRoot> _shipTypes;
         public ITable<ShipTypeId, ShipTypeInfo> ShipTypes => _shipTypes;
 
-        private readonly IdTable<EquipmentTypeId, EquipmentTypeInfo, IRawEquipmentTypeInfo, MasterDataRoot> _equipmentTypes;
+        private readonly IdTable<EquipmentTypeId, EquipmentTypeInfo, RawEquipmentTypeInfo, MasterDataRoot> _equipmentTypes;
         public ITable<EquipmentTypeId, EquipmentTypeInfo> EquipmentTypes => _equipmentTypes;
 
-        private readonly IdTable<EquipmentInfoId, EquipmentInfo, IRawEquipmentInfo, MasterDataRoot> _equipmentInfos;
+        private readonly IdTable<EquipmentInfoId, EquipmentInfo, RawEquipmentInfo, MasterDataRoot> _equipmentInfos;
         public ITable<EquipmentInfoId, EquipmentInfo> EquipmentInfos => _equipmentInfos;
 
-        private readonly IdTable<UseItemId, UseItemInfo, IRawUseItem, MasterDataRoot> _useItems;
+        private readonly IdTable<UseItemId, UseItemInfo, RawUseItem, MasterDataRoot> _useItems;
         public ITable<UseItemId, UseItemInfo> UseItems => _useItems;
 
-        private readonly IdTable<MapAreaId, MapAreaInfo, IRawMapArea, MasterDataRoot> _mapAreas;
+        private readonly IdTable<MapAreaId, MapAreaInfo, RawMapArea, MasterDataRoot> _mapAreas;
         public ITable<MapAreaId, MapAreaInfo> MapAreas => _mapAreas;
 
-        private readonly IdTable<MapId, MapInfo, IRawMapInfo, MasterDataRoot> _mapInfos;
+        private readonly IdTable<MapId, MapInfo, RawMapInfo, MasterDataRoot> _mapInfos;
         public ITable<MapId, MapInfo> MapInfos => _mapInfos;
 
-        private readonly IdTable<ExpeditionId, ExpeditionInfo, IRawExpeditionInfo, MasterDataRoot> _expeditions;
+        private readonly IdTable<ExpeditionId, ExpeditionInfo, RawExpeditionInfo, MasterDataRoot> _expeditions;
         public ITable<ExpeditionId, ExpeditionInfo> Expeditions => _expeditions;
     }
 }

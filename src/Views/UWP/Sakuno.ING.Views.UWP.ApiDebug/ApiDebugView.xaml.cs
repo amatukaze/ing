@@ -18,7 +18,7 @@ namespace Sakuno.ING.Views.UWP.ApiDebug
     public sealed partial class ApiDebugView : UserControl
     {
         private readonly ObservableCollection<Message> Sessions = new ObservableCollection<Message>();
-        public ApiDebugView(GameListener provider)
+        public ApiDebugView(GameProvider provider)
         {
             this.InitializeComponent();
             provider.RegisterAny().Received +=

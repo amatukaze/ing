@@ -8,7 +8,7 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameListener
+    partial class GameProvider
     {
         #region Events
         private readonly ITimedMessageProvider<HomeportUpdate> homeportReturned;
@@ -18,15 +18,15 @@ namespace Sakuno.ING.Game
             remove => homeportReturned.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IRawAdmiral> admiralUpdated;
-        public event TimedMessageHandler<IRawAdmiral> AdmiralUpdated
+        private readonly ITimedMessageProvider<RawAdmiral> admiralUpdated;
+        public event TimedMessageHandler<RawAdmiral> AdmiralUpdated
         {
             add => admiralUpdated.Received += value;
             remove => admiralUpdated.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawFleet>> fleetsUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawFleet>> FleetsUpdated
+        private readonly ITimedMessageProvider<IReadOnlyCollection<RawFleet>> fleetsUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawFleet>> FleetsUpdated
         {
             add => fleetsUpdated.Received += value;
             remove => fleetsUpdated.Received -= value;
@@ -39,8 +39,8 @@ namespace Sakuno.ING.Game
             remove => compositionChanged.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IRawFleet> fleetPresetSelected;
-        public event TimedMessageHandler<IRawFleet> FleetPresetSelected
+        private readonly ITimedMessageProvider<RawFleet> fleetPresetSelected;
+        public event TimedMessageHandler<RawFleet> FleetPresetSelected
         {
             add => fleetPresetSelected.Received += value;
             remove => fleetPresetSelected.Received -= value;
@@ -60,15 +60,15 @@ namespace Sakuno.ING.Game
             remove => shipEquipmentUpdated.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawShip>> partialShipsUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawShip>> PartialShipsUpdated
+        private readonly ITimedMessageProvider<IReadOnlyCollection<RawShip>> partialShipsUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawShip>> PartialShipsUpdated
         {
             add => partialShipsUpdated.Received += value;
             remove => partialShipsUpdated.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawFleet>> partialFleetsUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawFleet>> PartialFleetsUpdated
+        private readonly ITimedMessageProvider<IReadOnlyCollection<RawFleet>> partialFleetsUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawFleet>> PartialFleetsUpdated
         {
             add => partialFleetsUpdated.Received += value;
             remove => partialFleetsUpdated.Received -= value;
@@ -81,8 +81,8 @@ namespace Sakuno.ING.Game
             remove => materialsUpdated.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawRepairingDock>> repairingDockUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawRepairingDock>> RepairingDockUpdated
+        private readonly ITimedMessageProvider<IReadOnlyCollection<RawRepairingDock>> repairingDockUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawRepairingDock>> RepairingDockUpdated
         {
             add => repairingDockUpdated.Received += value;
             remove => repairingDockUpdated.Received -= value;
@@ -102,8 +102,8 @@ namespace Sakuno.ING.Game
             remove => instantRepaired.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IShipSupply>> shipSupplied;
-        public event TimedMessageHandler<IReadOnlyCollection<IShipSupply>> ShipSupplied
+        private readonly ITimedMessageProvider<IReadOnlyCollection<ShipSupply>> shipSupplied;
+        public event TimedMessageHandler<IReadOnlyCollection<ShipSupply>> ShipSupplied
         {
             add => shipSupplied.Received += value;
             remove => shipSupplied.Received -= value;
@@ -165,7 +165,7 @@ namespace Sakuno.ING.Game
                 equipmentIds: response.api_slot
             );
 
-        private static ShipJson[] ParseShipDeprive(DepriveJson response)
+        private static RawShip[] ParseShipDeprive(DepriveJson response)
             => new[] { response.api_ship_data.api_set_ship, response.api_ship_data.api_unset_ship };
 
         private static ExpeditionCompletion ParseExpeditionCompletion(NameValueCollection request, ExpeditionCompletionJson response)

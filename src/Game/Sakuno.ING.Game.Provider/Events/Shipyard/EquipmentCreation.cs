@@ -5,7 +5,7 @@ namespace Sakuno.ING.Game.Events.Shipyard
 {
     public sealed class EquipmentCreation
     {
-        public EquipmentCreation(bool isSuccess, IRawEquipment equipment, EquipmentInfoId selectedEquipentInfoId, Materials consumption)
+        public EquipmentCreation(bool isSuccess, RawEquipment equipment, EquipmentInfoId selectedEquipentInfoId, Materials consumption)
         {
             IsSuccess = isSuccess;
             Equipment = equipment;
@@ -14,7 +14,7 @@ namespace Sakuno.ING.Game.Events.Shipyard
         }
 
         public bool IsSuccess { get; }
-        public IRawEquipment Equipment { get; }
+        public RawEquipment Equipment { get; }
         public EquipmentInfoId SelectedEquipentInfoId { get; }
         public Materials Consumption { get; }
     }

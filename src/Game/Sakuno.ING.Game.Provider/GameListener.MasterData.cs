@@ -7,7 +7,7 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameListener
+    partial class GameProvider
     {
         private readonly ITimedMessageProvider<MasterDataUpdate> masterDataUpdated;
         public event TimedMessageHandler<MasterDataUpdate> MasterDataUpdated

@@ -6,7 +6,7 @@ namespace Sakuno.ING.Game.Events
 {
     public readonly struct AirForceSupply
     {
-        public AirForceSupply(MapAreaId mapAreaId, AirForceGroupId groupId, IReadOnlyCollection<IRawAirForceSquadron> updatedSquadrons)
+        public AirForceSupply(MapAreaId mapAreaId, AirForceGroupId groupId, IReadOnlyCollection<RawAirForceSquadron> updatedSquadrons)
         {
             MapAreaId = mapAreaId;
             GroupId = groupId;
@@ -15,6 +15,6 @@ namespace Sakuno.ING.Game.Events
 
         public MapAreaId MapAreaId { get; }
         public AirForceGroupId GroupId { get; }
-        public IReadOnlyCollection<IRawAirForceSquadron> UpdatedSquadrons { get; }
+        public IReadOnlyCollection<RawAirForceSquadron> UpdatedSquadrons { get; }
     }
 }

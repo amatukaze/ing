@@ -5,13 +5,13 @@ namespace Sakuno.ING.Game.Events.Shipyard
 {
     public readonly struct ShipBuildCompletion
     {
-        public ShipBuildCompletion(IRawShip ship, IReadOnlyCollection<IRawEquipment> equipments)
+        public ShipBuildCompletion(RawShip ship, IReadOnlyCollection<RawEquipment> equipments)
         {
             Ship = ship;
             Equipments = equipments;
         }
 
-        public IRawShip Ship { get; }
-        public IReadOnlyCollection<IRawEquipment> Equipments { get; }
+        public RawShip Ship { get; }
+        public IReadOnlyCollection<RawEquipment> Equipments { get; }
     }
 }

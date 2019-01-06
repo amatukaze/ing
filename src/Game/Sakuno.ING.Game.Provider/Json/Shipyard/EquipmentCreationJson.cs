@@ -8,7 +8,7 @@ namespace Sakuno.ING.Game.Json.Shipyard
     internal class EquipmentCreationJson : IMaterialsUpdate
     {
         public bool api_create_flag;
-        public EquipmentJson api_slot_item;
+        public RawEquipment api_slot_item;
         [JsonConverter(typeof(MaterialsConverter))]
         public Materials api_material;
         public string api_fdata;

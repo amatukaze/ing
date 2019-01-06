@@ -4,7 +4,7 @@ namespace Sakuno.ING.Game.Models
 {
     public partial class BuildingDock
     {
-        partial void UpdateCore(IRawBuildingDock raw, DateTimeOffset timeStamp)
+        partial void UpdateCore(RawBuildingDock raw, DateTimeOffset timeStamp)
         {
             BuiltShip = owner.MasterData.ShipInfos[raw.BuiltShipId];
             UpdateTimer(timeStamp);

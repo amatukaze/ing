@@ -15,7 +15,7 @@ namespace Sakuno.ING.Game.Models
             ships.ItemRemoved += s => s.Fleet = null;
         }
 
-        partial void UpdateCore(IRawFleet raw, DateTimeOffset timeStamp)
+        partial void UpdateCore(RawFleet raw, DateTimeOffset timeStamp)
         {
             for (int i = 0; i < ships.Count || i < raw.ShipIds.Count; i++)
                 if (i >= raw.ShipIds.Count)

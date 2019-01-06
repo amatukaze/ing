@@ -8,7 +8,7 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    public partial class GameListener
+    public partial class GameProvider
     {
         private T Convert<T>(ReadOnlyMemory<char> response)
             => jSerializer.Deserialize<T>(new JsonTextReader(new MemoryReader(response)));

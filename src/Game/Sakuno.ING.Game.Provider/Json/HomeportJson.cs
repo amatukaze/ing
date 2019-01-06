@@ -6,10 +6,10 @@ namespace Sakuno.ING.Game.Json
     internal class HomeportJson
     {
         public MaterialJsonArray api_material;
-        public FleetJson[] api_deck_port;
-        public AdmiralJson api_basic;
-        public RepairingDockJson[] api_ndock;
-        public ShipJson[] api_ship;
+        public RawFleet[] api_deck_port;
+        public BasicAdmiral api_basic;
+        public RawRepairingDock[] api_ndock;
+        public RawShip[] api_ship;
         public int api_combined_flag;
         public CombinedFleetType CombinedFleet => (CombinedFleetType)Math.Max(api_combined_flag, 0);
         internal class EventObject

@@ -5,7 +5,7 @@ namespace Sakuno.ING.Game
 {
     public class ParsedMessage
     {
-        public ParsedMessage(string name, NameValueCollection request, SvData response)
+        internal ParsedMessage(string name, NameValueCollection request, SvData response)
         {
             Name = name;
             Request = request;
@@ -22,7 +22,7 @@ namespace Sakuno.ING.Game
 
     public sealed class ParsedMessage<T> : ParsedMessage
     {
-        public ParsedMessage(string name, NameValueCollection request, SvData<T> response)
+        internal ParsedMessage(string name, NameValueCollection request, SvData<T> response)
             : base(name, request, response)
         {
             Response = response.api_data;

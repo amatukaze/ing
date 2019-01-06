@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game.Tests
         public static void TestHomeportParse()
         {
             var provider = new UnitTestProvider();
-            var gameListener = new GameListener(new UnitTestProviderSelector(provider));
+            var gameListener = new GameProvider(new UnitTestProviderSelector(provider));
             var navalBase = new NavalBase(gameListener, null, null);
 
             using (var stream = Assembly.GetExecutingAssembly()

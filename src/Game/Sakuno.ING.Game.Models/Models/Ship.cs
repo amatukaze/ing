@@ -7,7 +7,7 @@ namespace Sakuno.ING.Game.Models
 {
     public partial class Ship
     {
-        partial void UpdateCore(IRawShip raw, DateTimeOffset timeStamp)
+        partial void UpdateCore(RawShip raw, DateTimeOffset timeStamp)
         {
             Info = owner.MasterData.ShipInfos[raw.ShipInfoId];
             Fuel = (raw.CurrentFuel, Info.FuelConsumption);
@@ -89,7 +89,7 @@ namespace Sakuno.ING.Game.Models
             Fleet?.UpdateState();
         }
 
-        internal void Supply(IShipSupply raw)
+        internal void Supply(ShipSupply raw)
         {
             Fuel = (raw.CurrentFuel, Info.FuelConsumption);
             Bullet = (raw.CurrentBullet, Info.BulletConsumption);

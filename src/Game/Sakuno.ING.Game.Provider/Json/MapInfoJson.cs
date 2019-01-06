@@ -1,8 +1,10 @@
-﻿namespace Sakuno.ING.Game.Json
+﻿using Sakuno.ING.Game.Models;
+
+namespace Sakuno.ING.Game.Json
 {
     internal class MapsJson
     {
-        public MapJson[] api_map_info;
-        public AirForceJson[] api_air_base;
+        public RawMap[] api_map_info;
+        public RawAirForceGroup[] api_air_base;
     }
 }

@@ -5,8 +5,8 @@ namespace Sakuno.ING.Game.Json
 {
     internal class AirForceSetPlaneJson : IMaterialsUpdate
     {
-        public AirForceJson.Distance api_distance;
-        public AirForceSquadronJson[] api_plane_info;
+        public RawAirForceGroup.Distance api_distance;
+        public RawAirForceSquadron[] api_plane_info;
         public int? api_after_bauxite;
 
         MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.AirForcePlaneSet;

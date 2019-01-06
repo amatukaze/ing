@@ -5,7 +5,7 @@ namespace Sakuno.ING.Game.Events.Shipyard
 {
     public sealed class ShipPowerup
     {
-        public ShipPowerup(ShipId shipId, IReadOnlyCollection<ShipId> consumedShipIds, bool isSuccess, IRawShip updatedTo)
+        public ShipPowerup(ShipId shipId, IReadOnlyCollection<ShipId> consumedShipIds, bool isSuccess, RawShip updatedTo)
         {
             ShipId = shipId;
             ConsumedShipIds = consumedShipIds;
@@ -16,6 +16,6 @@ namespace Sakuno.ING.Game.Events.Shipyard
         public ShipId ShipId { get; }
         public IReadOnlyCollection<ShipId> ConsumedShipIds { get; }
         public bool IsSuccess { get; }
-        public IRawShip UpdatedTo { get; }
+        public RawShip UpdatedTo { get; }
     }
 }

@@ -3,9 +3,9 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    public class AirForceGroup : Calculated<(MapAreaId MapArea, AirForceGroupId GroupId), IRawAirForceGroup>
+    public class AirForceGroup : Calculated<(MapAreaId MapArea, AirForceGroupId GroupId), RawAirForceGroup>
     {
-        internal readonly IdTable<int, AirForceSquadron, IRawAirForceSquadron, NavalBase> squadrons;
+        internal readonly IdTable<int, AirForceSquadron, RawAirForceSquadron, NavalBase> squadrons;
         public ITable<int, AirForceSquadron> Squadrons => squadrons;
 
         private readonly NavalBase owner;
@@ -48,19 +48,19 @@ namespace Sakuno.ING.Game.Models
             this.owner = owner;
             GroupId = id.GroupId;
             MapArea = owner.MasterData.MapAreas[id.MapArea];
-            squadrons = new IdTable<int, AirForceSquadron, IRawAirForceSquadron, NavalBase>(owner);
+            squadrons = new IdTable<int, AirForceSquadron, RawAirForceSquadron, NavalBase>(owner);
         }
 
-        public AirForceGroup(IRawAirForceGroup raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public AirForceGroup(RawAirForceGroup raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
-        public event Action<AirForceGroup, IRawAirForceGroup, DateTimeOffset> Updating;
-        public override void Update(IRawAirForceGroup raw, DateTimeOffset timeStamp)
+        public event Action<AirForceGroup, RawAirForceGroup, DateTimeOffset> Updating;
+        public override void Update(RawAirForceGroup raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             UpdateProps(raw, timeStamp);
         }
 
-        private void UpdateProps(IRawAirForceGroup raw, DateTimeOffset timeStamp)
+        private void UpdateProps(RawAirForceGroup raw, DateTimeOffset timeStamp)
         {
             Name = raw.Name;
             DistanceBase = raw.DistanceBase;

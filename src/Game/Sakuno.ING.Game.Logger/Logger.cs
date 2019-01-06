@@ -16,7 +16,7 @@ namespace Sakuno.ING.Game.Logger
         private ShipCreationEntity shipCreation;
         private BuildingDockId lastBuildingDock;
 
-        public Logger(IDataService dataService, IGameProvider provider, NavalBase navalBase)
+        public Logger(IDataService dataService, GameProvider provider, NavalBase navalBase)
         {
             this.dataService = dataService;
             this.navalBase = navalBase;

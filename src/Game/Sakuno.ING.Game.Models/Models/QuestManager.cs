@@ -15,11 +15,11 @@ namespace Sakuno.ING.Game.Models
             set => Set(ref _updationTime, value);
         }
 
-        internal QuestManager(IGameProvider listener, ILocalizationService localization)
+        internal QuestManager(GameProvider listener, ILocalizationService localization)
         {
             Localization = localization;
 
-            _allQuests = new IdTable<QuestId, Quest, IRawQuest, QuestManager>(this);
+            _allQuests = new IdTable<QuestId, Quest, RawQuest, QuestManager>(this);
             listener.QuestUpdated += (t, msg) =>
             {
                 UpdationTime = t;
@@ -56,7 +56,7 @@ namespace Sakuno.ING.Game.Models
 
         private static readonly TimeSpan questUpdate = TimeSpan.FromHours(4);
 
-        private readonly IdTable<QuestId, Quest, IRawQuest, QuestManager> _allQuests;
+        private readonly IdTable<QuestId, Quest, RawQuest, QuestManager> _allQuests;
         public ITable<QuestId, Quest> AllQuests => _allQuests;
         public void Reset() => _allQuests.Clear();
 
