@@ -13,11 +13,11 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Tools
     {
         internal static readonly ListDictionary<ScreenshotRegion, Int32Rect> Regions = new ListDictionary<ScreenshotRegion, Int32Rect>()
         {
-            { ScreenshotRegion.All, new Int32Rect(0, 0, 800, 480) },
-            { ScreenshotRegion.FleetComposition, new Int32Rect(105, 100, 690, 370) },
-            { ScreenshotRegion.Materials, new Int32Rect(651, 6, 149, 64) },
-            { ScreenshotRegion.ShipDetail, new Int32Rect(319, 102, 468, 366) },
-            { ScreenshotRegion.ShipList, new Int32Rect(356, 100, 441, 362) },
+            { ScreenshotRegion.All, new Int32Rect(0, 0, 1200, 720) },
+            { ScreenshotRegion.FleetComposition, new Int32Rect(158, 150, 1035, 555) },
+            { ScreenshotRegion.Materials, new Int32Rect(976, 9, 224, 96) },
+            { ScreenshotRegion.ShipDetail, new Int32Rect(480, 153, 702, 549) },
+            { ScreenshotRegion.ShipList, new Int32Rect(534, 150, 662, 543) },
         };
 
         public OverviewScreenshotToolViewModel Overview { get; }
