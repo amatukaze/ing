@@ -18,44 +18,54 @@ namespace Sakuno.ING.Game
 
         private static MasterDataUpdate ParseMasterData(MasterDataJson raw)
         {
+            if (raw.api_mst_equip_exslot != null &&
+                raw.api_mst_slotitem_equiptype != null)
+                foreach (var id in raw.api_mst_equip_exslot)
+                {
+                    var type = raw.api_mst_slotitem_equiptype.Find(x => x.Id == id);
+                    if (type != null)
+                        type.AvailableInExtraSlot = true;
+                }
 
-            foreach (var id in raw.api_mst_equip_exslot)
+            if (raw.api_mst_equip_exslot_ship != null &&
+                raw.api_mst_slotitem != null)
+                foreach (var i in raw.api_mst_equip_exslot_ship)
+                {
+                    var e = raw.api_mst_slotitem.Find(x => x.Id == i.api_slotitem_id);
+                    if (e != null)
+                        e.ExtraSlotAcceptingShips = i.api_ship_ids;
+                }
+
+            if (raw.api_mst_mapinfo != null &&
+                raw.api_mst_mapbgm != null)
+                foreach (var m in raw.api_mst_mapinfo)
+                    m.BgmInfo = raw.api_mst_mapbgm.Find(x => x.Id == m.Id);
+
+            if (raw.api_mst_ship != null)
             {
-                var type = raw.api_mst_slotitem_equiptype.Find(x => x.Id == id);
-                if (type != null)
-                    type.AvailableInExtraSlot = true;
-            }
+                if (raw.api_mst_shipupgrade != null)
+                    foreach (var s in raw.api_mst_ship)
+                    {
+                        var u = raw.api_mst_shipupgrade.Find(x => x.api_current_ship_id == s.Id);
+                        if (u == null) continue;
 
-            foreach (var i in raw.api_mst_equip_exslot_ship)
-            {
-                var e = raw.api_mst_slotitem.Find(x => x.Id == i.api_slotitem_id);
-                if (e != null)
-                    e.ExtraSlotAcceptingShips = i.api_ship_ids;
-            }
+                        var l = new List<UseItemRecord>(3);
+                        if (u.api_drawing_count != 0)
+                            l.Add(new UseItemRecord { ItemId = KnownUseItem.Blueprint, Count = u.api_drawing_count });
+                        if (u.api_catapult_count != 0)
+                            l.Add(new UseItemRecord { ItemId = KnownUseItem.FlightDeckCatapult, Count = u.api_catapult_count });
+                        if (u.api_report_count != 0)
+                            l.Add(new UseItemRecord { ItemId = KnownUseItem.ActionReport, Count = u.api_report_count });
+                        s.UpgradeSpecialConsumption = l;
+                    }
 
-            foreach (var m in raw.api_mst_mapinfo)
-                m.BgmInfo = raw.api_mst_mapbgm.Find(x => x.Id == m.Id);
-
-            foreach (var s in raw.api_mst_ship)
-            {
-                var u = raw.api_mst_shipupgrade.Find(x => x.api_current_ship_id == s.Id);
-                if (u == null) continue;
-
-                var l = new List<UseItemRecord>(3);
-                if (u.api_drawing_count != 0)
-                    l.Add(new UseItemRecord { ItemId = KnownUseItem.Blueprint, Count = u.api_drawing_count });
-                if (u.api_catapult_count != 0)
-                    l.Add(new UseItemRecord { ItemId = KnownUseItem.FlightDeckCatapult, Count = u.api_catapult_count });
-                if (u.api_report_count != 0)
-                    l.Add(new UseItemRecord { ItemId = KnownUseItem.ActionReport, Count = u.api_report_count });
-                s.UpgradeSpecialConsumption = l;
-            }
-
-            foreach (var l in raw.api_mst_equip_ship)
-            {
-                var ship = raw.api_mst_ship.Find(x => x.Id == l.api_ship_id);
-                if (ship != null)
-                    ship.OverrideAvailableEquipmentTypes = l.api_equip_type;
+                if (raw.api_mst_equip_ship != null)
+                    foreach (var l in raw.api_mst_equip_ship)
+                    {
+                        var ship = raw.api_mst_ship.Find(x => x.Id == l.api_ship_id);
+                        if (ship != null)
+                            ship.OverrideAvailableEquipmentTypes = l.api_equip_type;
+                    }
             }
 
             return new MasterDataUpdate
