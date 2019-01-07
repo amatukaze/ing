@@ -46,12 +46,19 @@ namespace Sakuno.ING.Game.Json.Combat
             public int Level { get; set; }
             public int nowhp, maxhp;
             public ClampedValue HP => (nowhp, maxhp);
-            public IReadOnlyList<EquipmentInfoId> Equipment { get; set; }
+            public IReadOnlyList<IRawEquipmentInBattle> Equipment { get; set; }
             public int[] param;
             public int Firepower => param.ElementAtOrDefault(0);
             public int Torpedo => param.ElementAtOrDefault(1);
             public int AntiAir => param.ElementAtOrDefault(2);
             public int Armor => param.ElementAtOrDefault(3);
+        }
+
+        public class Equipment : IRawEquipmentInBattle
+        {
+            public EquipmentInfoId Id { get; set; }
+            public int ImprovementLevel { get; set; }
+            public int AirProficiency { get; set; }
         }
 
         internal class ShipOwner
@@ -65,7 +72,7 @@ namespace Sakuno.ING.Game.Json.Combat
             [JsonProperty("api_ship_lv")]
             public IList<int> Level { set => value.AlignSet(Ships, (s, v) => s.Level = v); }
             [JsonProperty("api_Slot")]
-            public IList<EquipmentInfoId[]> Equipment { set => value.AlignSet(Ships, (s, v) => s.Equipment = v); }
+            public IList<EquipmentInfoId[]> Equipment { set => value.AlignSet(Ships, (s, v) => s.Equipment = v.Select(x => new Equipment { Id = x }).ToArray()); }
             [JsonProperty("api_Param")]
             public IList<int[]> Param { set => value.AlignSet(Ships, (s, v) => s.param = v); }
 
