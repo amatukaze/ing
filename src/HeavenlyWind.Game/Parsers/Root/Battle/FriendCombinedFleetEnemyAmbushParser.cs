@@ -3,9 +3,9 @@
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Battle
 {
     [Api("api_req_combined_battle/ld_shooting")]
-    class FriendCombinedFleetEnemyAmbushParser : ApiParser<RawDay>
+    class FriendCombinedFleetEnemyAmbushParser : ApiParser<RawCombinedFleetDay>
     {
-        public override void ProcessCore(ApiInfo rpInfo, RawDay rpData)
+        public override void ProcessCore(ApiInfo rpInfo, RawCombinedFleetDay rpData)
         {
         }
     }
