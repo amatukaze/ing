@@ -48,7 +48,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
             FriendDamageRate = (rFriendInitialTotalHP - rFriendTotalHP) / (double)rFriendInitialTotalHP * 100.0;
             EnemyDamageRate = (rEnemyInitialTotalHP - rEnemyTotalHP) / (double)rEnemyInitialTotalHP * 100.0;
 
-            if (rCurrentStage is AerialAttackStage)
+            if (rCurrentStage is AerialAttackStage || rCurrentStage is EnemyAmbushStage)
             {
                 if (FriendDamageRate == .0)
                     Rank = BattleRank.SS;
