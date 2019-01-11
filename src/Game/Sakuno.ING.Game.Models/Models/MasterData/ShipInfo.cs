@@ -7,7 +7,7 @@ namespace Sakuno.ING.Game.Models.MasterData
     {
         public ShipName Name { get; } = new ShipName();
 
-        partial void CreateDummy()
+        partial void CreateCore()
         {
             Name.Translation = owner.Localization?.GetLocalized("ShipName", Id.ToString());
         }

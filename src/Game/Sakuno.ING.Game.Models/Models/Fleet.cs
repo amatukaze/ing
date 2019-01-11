@@ -9,7 +9,7 @@ namespace Sakuno.ING.Game.Models
         private readonly BindableCollection<Ship> ships = new BindableCollection<Ship>();
         public IReadOnlyList<Ship> Ships => ships;
 
-        partial void CreateDummy()
+        partial void CreateCore()
         {
             ships.ItemAdded += s => s.Fleet = this;
             ships.ItemRemoved += s => s.Fleet = null;

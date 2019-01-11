@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<classTemplate namespace="Sakuno.ING.Game.Models">
+  <using>Sakuno.ING.Game.Models.MasterData</using>
+  <class name="Equipment" id="EquipmentId" raw="RawEquipment" owner="NavalBase">
+    <property type="EquipmentInfo" name="Info" />
+    <property type="bool" name="IsLocked" autoFill="true" />
+    <property type="int" name="ImprovementLevel" autoFill="true" />
+    <property type="int" name="AirProficiency" autoFill="true" />
+    <property type="bool" name="IsAvailable" />
+  </class>
+  <class name="BuildingDock" id="BuildingDockId" raw="RawBuildingDock" owner="NavalBase">
+    <property type="DateTimeOffset?" name="CompletionTime" autoFill="true" />
+    <property type="BuildingDockState" name="State" autoFill="true" />
+    <property type="Materials" name="Consumption" autoFill="true" />
+    <property type="ShipInfo" name="BuiltShip" />
+    <property type="bool" name="IsLSC" autoFill="true" />
+    <property type="TimeSpan?" name="TimeRemaining" />
+  </class>
+  <class name="RepairingDock" id="RepairingDockId" raw="RawRepairingDock" owner="NavalBase">
+    <property type="RepairingDockState" name="State" autoFill="true" />
+    <property type="DateTimeOffset?" name="CompletionTime" autoFill="true" />
+    <property type="Materials" name="Consumption" autoFill="true" />
+    <property type="TimeSpan?" name="TimeRemaining" />
+  </class>
+  <class name="UseItemCount" id="UseItemId" raw="RawUseItemCount" owner="NavalBase">
+    <property type="UseItemInfo" name="Item" />
+    <property type="int" name="Count" autoFill="true" />
+  </class>
+  <class name="Admiral" id="int" raw="RawAdmiral" owner="NavalBase">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="Leveling" name="Leveling" autoFill="true" />
+    <property type="AdmiralRank" name="Rank" autoFill="true" />
+    <property type="string" name="Comment" autoFill="true" />
+    <property type="int" name="MaxShipCount" autoFill="true" />
+    <property type="int" name="MaxEquipmentCount" autoFill="true" />
+    <property type="BattleStat" name="BattleStat" autoFill="true" />
+    <property type="BattleStat" name="PracticeStat" autoFill="true" />
+    <property type="ExpeditionStat" name="ExpeditionStat" autoFill="true" />
+    <property type="bool" name="CanLSC" autoFill="true" />
+    <property type="int" name="MaxMaterial" autoFill="true" />
+  </class>
+  <class name="Ship" id="ShipId" raw="RawShip" owner="NavalBase">
+    <property type="ShipInfo" name="Info" />
+    <property type="Leveling" name="Leveling" autoFill="true" />
+    <property type="ShipHP" name="HP" autoFill="true" />
+    <property type="ShipSpeed" name="Speed" autoFill="true" />
+    <property type="FireRange" name="FireRange" autoFill="true" />
+    <property type="int" name="SlotCount" />
+    <property type="Slot" name="ExtraSlot" set="internal" />
+    <property type="ClampedValue" name="Fuel" />
+    <property type="ClampedValue" name="Bullet" />
+    <property type="TimeSpan" name="RepairingTime" autoFill="true" />
+    <property type="Materials" name="RepairingCost" autoFill="true" />
+    <property type="int" name="Morale" autoFill="true" />
+    <property type="ShipMordenizationStatus" name="Firepower" />
+    <property type="ShipMordenizationStatus" name="Torpedo" />
+    <property type="ShipMordenizationStatus" name="AntiAir" />
+    <property type="ShipMordenizationStatus" name="Armor" />
+    <property type="ShipMordenizationStatus" name="Evasion" />
+    <property type="ShipMordenizationStatus" name="AntiSubmarine" />
+    <property type="ShipMordenizationStatus" name="LineOfSight" />
+    <property type="ShipMordenizationStatus" name="Luck" />
+    <property type="bool" name="IsLocked" autoFill="true" />
+    <property type="int?" name="ShipLockingTag" autoFill="true" />
+    <property type="bool" name="IsRepairing" set="internal" />
+    <property type="Materials" name="SupplyingCost" />
+    <property type="Fleet" name="Fleet" set="internal" />
+    <property type="AirFightPower" name="AirFightPower" />
+    <property type="LineOfSight" name="EffectiveLoS" />
+  </class>
+  <class name="Fleet" id="FleetId" raw="RawFleet" owner="NavalBase">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="FleetExpeditionState" name="ExpeditionState" autoFill="true" />
+    <property type="ExpeditionInfo" name="Expedition" />
+    <property type="DateTimeOffset?" name="ExpeditionCompletionTime" autoFill="true" />
+    <property type="TimeSpan?" name="ExpeditionTimeRemaining" />
+    <property type="ShipSpeed" name="SlowestShipSpeed" />
+    <property type="Materials" name="SupplyingCost" />
+    <property type="Materials" name="RepairingCost" />
+    <property type="AirFightPower" name="AirFightPower" />
+    <property type="int" name="SimpleLos" />
+    <property type="LineOfSight" name="EffectiveLoS" />
+    <property type="FleetState" name="State" />
+  </class>
+  <class name="Quest" id="QuestId" raw="RawQuest" owner="QuestManager">
+    <localizable name="Name" category="QuestName" />
+    <localizable name="Description" category="QuestDesc" />
+    <property type="QuestCategoty" name="Category" autoFill="true" />
+    <property type="QuestPeriod" name="Period" autoFill="true" />
+    <property type="QuestState" name="State" autoFill="true" />
+    <property type="QuestProgress" name="Progress" autoFill="true" />
+    <property type="Materials" name="Rewards" autoFill="true" />
+  </class>
+  <class name="Map" id="MapId" raw="RawMap" owner="NavalBase">
+    <property type="MapInfo" name="Info" />
+    <property type="bool" name="IsCleared" autoFill="true" />
+    <property type="EventMapRank?" name="Rank" autoFill="true" />
+    <property type="int?" name="GaugeIndex" autoFill="true" />
+    <property type="EventMapGaugeType?" name="GaugeType" autoFill="true" />
+    <property type="int" name="AvailableAirForceGroups" autoFill="true" />
+    <property type="ClampedValue" name="Gauge" />
+  </class>
+  <class name="AirForceSquadron" id="int" raw="RawAirForceSquadron" owner="NavalBase">
+    <property type="Equipment" name="Equipment" />
+    <property type="ClampedValue" name="AircraftCount" autoFill="true" />
+    <property type="SquadronMorale" name="Morale" autoFill="true" />
+  </class>
+</classTemplate>

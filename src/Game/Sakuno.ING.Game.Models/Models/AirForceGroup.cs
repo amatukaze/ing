@@ -3,7 +3,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    public class AirForceGroup : Calculated<(MapAreaId MapArea, AirForceGroupId GroupId), RawAirForceGroup>
+    public class AirForceGroup : BindableObject, IUpdatable<(MapAreaId MapArea, AirForceGroupId GroupId), RawAirForceGroup>
     {
         internal readonly IdTable<int, AirForceSquadron, RawAirForceSquadron, NavalBase> squadrons;
         public ITable<int, AirForceSquadron> Squadrons => squadrons;
@@ -42,9 +42,12 @@ namespace Sakuno.ING.Game.Models
             set => Set(ref _action, value);
         }
 
+        public (MapAreaId MapArea, AirForceGroupId GroupId) Id { get; }
+        public DateTimeOffset UpdationTime { get; }
+
         public AirForceGroup((MapAreaId MapArea, AirForceGroupId GroupId) id, NavalBase owner)
-            : base(id)
         {
+            Id = id;
             this.owner = owner;
             GroupId = id.GroupId;
             MapArea = owner.MasterData.MapAreas[id.MapArea];
@@ -54,7 +57,7 @@ namespace Sakuno.ING.Game.Models
         public AirForceGroup(RawAirForceGroup raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
         public event Action<AirForceGroup, RawAirForceGroup, DateTimeOffset> Updating;
-        public override void Update(RawAirForceGroup raw, DateTimeOffset timeStamp)
+        public void Update(RawAirForceGroup raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
             UpdateProps(raw, timeStamp);

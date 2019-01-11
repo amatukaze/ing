@@ -9,9 +9,9 @@ namespace Sakuno.ING.Game
 {
     [DebuggerDisplay("Count = {Count}")]
     [DebuggerTypeProxy(typeof(IdTableDebuggerProxy<,,,>))]
-    public class IdTable<TId, T, TRaw, TOwner> : BindableObject, ITable<TId, T>
+    internal class IdTable<TId, T, TRaw, TOwner> : BindableObject, ITable<TId, T>
         where TId : struct, IComparable<TId>, IEquatable<TId>
-        where T : Calculated<TId, TRaw>
+        where T : class, IUpdatable<TId, TRaw>
         where TRaw : IIdentifiable<TId>
     {
         public event Action Updated;

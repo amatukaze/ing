@@ -13,8 +13,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Scaffold Include="Models\MasterData\MasterData.txt" />
-    <Scaffold Include="Models\GameObject.txt" />
+    <ClassTemplate Include="Models\MasterData\MasterData.xml" />
+    <Compile Update="Models\MasterData\MasterData.g.cs">
+      <DependentUpon>Models\MasterData\MasterData.xml</DependentUpon>
+    </Compile>
+    <ClassTemplate Include="Models\GameObject.xml" />
+    <Compile Update="Models\GameObject.g.cs">
+      <DependentUpon>Models\GameObject.xml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />

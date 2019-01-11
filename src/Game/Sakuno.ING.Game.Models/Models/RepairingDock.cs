@@ -27,9 +27,17 @@ namespace Sakuno.ING.Game.Models
             UpdateTimer(timeStamp);
         }
 
+        internal void Instant()
+        {
+            State = RepairingDockState.Empty;
+            RepairingShip = null;
+            CompletionTime = null;
+            TimeRemaining = null;
+        }
+
         internal void UpdateTimer(DateTimeOffset timeStamp)
         {
-            if (RepairingShip == null)
+            if (RepairingShip == null || CompletionTime == null)
                 TimeRemaining = null;
             else if (timeStamp > CompletionTime)
                 TimeRemaining = default(TimeSpan);

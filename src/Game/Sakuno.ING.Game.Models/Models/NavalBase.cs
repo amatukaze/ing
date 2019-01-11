@@ -102,16 +102,11 @@ namespace Sakuno.ING.Game.Models
                 Materials = materials;
                 MaterialsUpdating?.Invoke(t, oldMaterials, materials, MaterialsChangeReason.ShipRepair);
             };
-            listener.InstantRepaired += (t, msg) =>
-            {
-                var dock = RepairingDocks[msg];
-                dock.State = RepairingDockState.Empty;
-                dock.RepairingShip = null;
-            };
+            listener.InstantRepaired += (t, msg) => RepairingDocks[msg].Instant();
             listener.InstantBuilt += (t, msg) =>
             {
                 var dock = BuildingDocks[msg];
-                dock.State = BuildingDockState.BuildCompleted;
+                dock.Instant();
 
                 var oldMaterials = Materials;
                 var materials = oldMaterials;

@@ -38,7 +38,7 @@ namespace Sakuno.ING
         }
         #endregion
 
-        private List<(SynchronizationContext syncContext, NotifyCollectionChangedEventHandler handler)>
+        private readonly List<(SynchronizationContext syncContext, NotifyCollectionChangedEventHandler handler)>
             cHandlers = new List<(SynchronizationContext, NotifyCollectionChangedEventHandler)>();
         public event NotifyCollectionChangedEventHandler CollectionChanged
         {

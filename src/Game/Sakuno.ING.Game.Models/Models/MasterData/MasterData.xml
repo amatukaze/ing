@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<classTemplate namespace="Sakuno.ING.Game.Models.MasterData">
+  <class name="ShipInfo" id="ShipInfoId" raw="RawShipInfo" owner="MasterDataRoot" noToString="true">
+    <property type="int" name="SortNo" autoFill="true" />
+    <property type="bool" name="IsAbyssal" autoFill="true" />
+    <localizable name="Introduction" category="ShipIntro" />
+    <property type="ShipTypeInfo" name="Type" />
+    <property type="int" name="ClassId" autoFill="true" />
+    <property type="bool" name="CanUpgrade" />
+    <property type="ShipInfo" name="UpgradeTo" />
+    <property type="Materials" name="UpgradeConsumption" autoFill="true" />
+    <property type="IReadOnlyCollection&lt;UseItemRecord&gt;" name="UpgradeSpecialConsumption" autoFill="true" />
+    <property type="ShipMordenizationStatus" name="HP" autoFill="true" />
+    <property type="ShipMordenizationStatus" name="Armor" autoFill="true" />
+    <property type="ShipMordenizationStatus" name="Firepower" autoFill="true" />
+    <property type="ShipMordenizationStatus" name="Torpedo" autoFill="true" />
+    <property type="ShipMordenizationStatus" name="AntiAir" autoFill="true" />
+    <property type="ShipMordenizationStatus" name="Luck" autoFill="true" />
+    <property type="ShipSpeed" name="Speed" autoFill="true" />
+    <property type="FireRange" name="FireRange" autoFill="true" />
+    <property type="int" name="SlotCount" autoFill="true" />
+    <property type="IReadOnlyList&lt;int&gt;" name="Aircraft" autoFill="true" />
+    <property type="int?" name="TotalAircraft" />
+    <property type="int" name="Rarity" autoFill="true" />
+    <property type="Materials" name="DismantleAcquirement" autoFill="true" />
+    <property type="TimeSpan" name="ConstructionTime" autoFill="true" />
+    <property type="IReadOnlyList&lt;int&gt;" name="PowerupWorth" autoFill="true" />
+    <property type="int" name="FuelConsumption" autoFill="true" />
+    <property type="int" name="BulletConsumption" autoFill="true" />
+  </class>
+  <class name="ShipTypeInfo" id="ShipTypeId" raw="RawShipTypeInfo" owner="MasterDataRoot" noToString="true">
+    <property type="int" name="SortNo" autoFill="true" />
+    <property type="int" name="RepairTimeRatio" autoFill="true" />
+    <property type="int" name="BuildOutlineId" autoFill="true" />
+    <snapshot type="EquipmentTypeInfo" name="AvailableEquipmentTypes" />
+  </class>
+  <class name="EquipmentTypeInfo" id="EquipmentTypeId" raw="RawEquipmentTypeInfo" owner="MasterDataRoot">
+    <localizable name="Name" category="EquipType" />
+    <property type="bool" name="AvailableInExtraSlot" autoFill="true" />
+  </class>
+  <class name="EquipmentInfo" id="EquipmentInfoId" raw="RawEquipmentInfo" owner="MasterDataRoot">
+    <localizable name="Name" category="EquipName" />
+    <localizable name="Description" category="EquipDesc" />
+    <property type="EquipmentTypeInfo" name="Type" />
+    <property type="int" name="IconId" autoFill="true" />
+    <snapshot type="ShipInfo" name="ExtraSlotAcceptingShips" />
+    <property type="int" name="Firepower" autoFill="true" />
+    <property type="int" name="Torpedo" autoFill="true" />
+    <property type="int" name="AntiAir" autoFill="true" />
+    <property type="int" name="Armor" autoFill="true" />
+    <property type="int" name="DiveBomberAttack" autoFill="true" />
+    <property type="int" name="AntiSubmarine" autoFill="true" />
+    <property type="int" name="Accuracy" autoFill="true" />
+    <property type="int" name="Evasion" autoFill="true" />
+    <property type="int" name="AntiBomber" autoFill="true" />
+    <property type="int" name="Interception" autoFill="true" />
+    <property type="int" name="LineOfSight" autoFill="true" />
+    <property type="FireRange" name="FireRange" autoFill="true" />
+    <property type="int" name="FlightRadius" autoFill="true" />
+    <property type="Materials" name="DeploymentConsumption" autoFill="true" />
+    <property type="Materials" name="DismantleAcquirement" autoFill="true" />
+    <property type="int" name="Rarity" autoFill="true" />
+  </class>
+  <class name="UseItemInfo" id="UseItemId" raw="RawUseItem" owner="MasterDataRoot">
+    <localizable name="Name" category="UseItem" />
+  </class>
+  <class name="MapAreaInfo" id="MapAreaId" raw="RawMapArea" owner="MasterDataRoot">
+    <localizable name="Name" category="MapArea" />
+    <property type="bool" name="IsEvent" autoFill="true" />
+  </class>
+  <class name="MapInfo" id="MapId" raw="RawMapInfo" owner="MasterDataRoot">
+    <property type="MapAreaInfo" name="MapArea" />
+    <localizable name="Name" category="MapName" />
+    <property type="int" name="StarDifficulty" autoFill="true" />
+    <localizable name="OperationName" category="MapOperation" />
+    <localizable name="Description" category="MapDescription" />
+    <snapshot type="UseItemInfo" name="ItemAcquirements" />
+    <property type="int?" name="RequiredDefeatCount" autoFill="true" />
+    <property type="RawMapBgmInfo" name="BgmInfo" autoFill="true" />
+    <property type="bool" name="CanUseNormalFleet" autoFill="true" />
+    <property type="bool" name="CanUseStrikingForceFleet" autoFill="true" />
+    <property type="bool" name="CanUseCarrierTaskForceFleet" />
+    <property type="bool" name="CanUseSurfaceTaskForceFleet" />
+    <property type="bool" name="CanUseTransportEscortFleet" />
+  </class>
+  <class name="ExpeditionInfo" id="ExpeditionId" raw="RawExpeditionInfo" owner="MasterDataRoot">
+    <property type="string" name="DisplayId" autoFill="true" />
+    <property type="MapAreaInfo" name="MapArea" />
+    <localizable name="Name" category="ExpeditionName" />
+    <localizable name="Description" category="ExpeditionDesc" />
+    <property type="TimeSpan" name="Duration" autoFill="true" />
+    <property type="int" name="RequiredShipCount" autoFill="true" />
+    <property type="int" name="Difficulty" autoFill="true" />
+    <property type="double" name="FuelConsumption" autoFill="true" />
+    <property type="double" name="BulletConsumption" autoFill="true" />
+    <property type="UseItemRecord?" name="RewardItem1" autoFill="true" />
+    <property type="UseItemRecord?" name="RewardItem2" autoFill="true" />
+    <property type="bool" name="CanRecall" autoFill="true" />
+  </class>
+</classTemplate>

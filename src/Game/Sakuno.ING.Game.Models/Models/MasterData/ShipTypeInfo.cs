@@ -7,7 +7,7 @@ namespace Sakuno.ING.Game.Models.MasterData
     {
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
-        partial void CreateDummy()
+        partial void CreateCore()
         {
             Name.Origin = owner.Localization?.GetUnlocalized("ShipTypeName", Id.ToString());
             Name.Translation = owner.Localization?.GetLocalized("ShipTypeName", Id.ToString());
