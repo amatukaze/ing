@@ -21,12 +21,8 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="9"
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="5"
                     Orientation="Horizontal">
             <TextBlock>
                 <Run FontSize="24" Text="{x:Bind ViewModel.Admiral.Name}" />
@@ -43,29 +39,13 @@
         <TextBlock Grid.Row="2" Grid.Column="1" FontSize="12">
             <Run Text="{x:Bind ViewModel.AllEquipment.Count}" FontSize="16" /><Run Text=" / " /><Run Text="{x:Bind ViewModel.Admiral.MaxEquipmentCount}" />
         </TextBlock>
-        <con:UseItemIcon Grid.Row="1" Grid.Column="2" Id="Fuel" />
-        <TextBlock Grid.Row="1" Grid.Column="3"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Fuel}" />
-        <con:UseItemIcon Grid.Row="2" Grid.Column="2" Id="Bullet" />
-        <TextBlock Grid.Row="2" Grid.Column="3"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Bullet}" />
-        <con:UseItemIcon Grid.Row="1" Grid.Column="4" Id="Steel" />
-        <TextBlock Grid.Row="1" Grid.Column="5"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Steel}" />
-        <con:UseItemIcon Grid.Row="2" Grid.Column="4" Id="Bauxite" />
-        <TextBlock Grid.Row="2" Grid.Column="5"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Bauxite}" />
-        <con:UseItemIcon Grid.Row="1" Grid.Column="6" Id="InstantRepair" />
-        <TextBlock Grid.Row="1" Grid.Column="7"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.InstantRepair}" />
-        <con:UseItemIcon Grid.Row="2" Grid.Column="6" Id="InstantBuild" />
-        <TextBlock Grid.Row="2" Grid.Column="7"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.InstantBuild}" />
-        <con:UseItemIcon Grid.Row="1" Grid.Column="8" Id="Development" />
-        <TextBlock Grid.Row="1" Grid.Column="9"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Development}" />
-        <con:UseItemIcon Grid.Row="2" Grid.Column="8" Id="Improvement" />
-        <TextBlock Grid.Row="2" Grid.Column="9"
-                   FontSize="16" Text="{x:Bind ViewModel.Materials.Improvement}" />
+        <con:UseItemPresenter Grid.Row="1" Grid.Column="2" Id="Fuel" Amount="{x:Bind ViewModel.Materials.Fuel}" />
+        <con:UseItemPresenter Grid.Row="2" Grid.Column="2" Id="Bullet" Amount="{x:Bind ViewModel.Materials.Bullet}" />
+        <con:UseItemPresenter Grid.Row="1" Grid.Column="3" Id="Steel" Amount="{x:Bind ViewModel.Materials.Steel}" />
+        <con:UseItemPresenter Grid.Row="2" Grid.Column="3" Id="Bauxite" Amount="{x:Bind ViewModel.Materials.Bauxite}" />
+        <con:UseItemPresenter Grid.Row="1" Grid.Column="4" Id="InstantRepair" Amount="{x:Bind ViewModel.Materials.InstantRepair}" />
+        <con:UseItemPresenter Grid.Row="2" Grid.Column="4" Id="InstantBuild" Amount="{x:Bind ViewModel.Materials.InstantBuild}" />
+        <con:UseItemPresenter Grid.Row="1" Grid.Column="5" Id="Development" Amount="{x:Bind ViewModel.Materials.Development}" />
+        <con:UseItemPresenter Grid.Row="2" Grid.Column="5" Id="Improvement" Amount="{x:Bind ViewModel.Materials.Improvement}" />
     </Grid>
 </UserControl>

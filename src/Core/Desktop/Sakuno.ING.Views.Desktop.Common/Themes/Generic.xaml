@@ -2,5 +2,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/EquipmentImprovementPresenter.xaml" />
         <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/LevelingIndicator.xaml" />
+        <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/UseItemPresenter.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

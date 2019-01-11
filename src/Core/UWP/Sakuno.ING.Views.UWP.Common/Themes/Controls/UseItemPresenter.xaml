@@ -1,0 +1,53 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Controls">
+    <Style TargetType="local:UseItemPresenter">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:UseItemPresenter">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="18" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:.5"/>
+                                </VisualStateGroup.Transitions>
+
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DifferenceBorder"
+                                                         Storyboard.TargetProperty="Background.Opacity"
+                                                         To="0" />
+                                        <DoubleAnimation Storyboard.TargetName="PART_Difference"
+                                                         Storyboard.TargetProperty="Foreground.Opacity"
+                                                         To="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="ValueChanged">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DifferenceBorder"
+                                                         Storyboard.TargetProperty="Background.Opacity"
+                                                         To="1" />
+                                        <DoubleAnimation Storyboard.TargetName="PART_Difference"
+                                                         Storyboard.TargetProperty="Foreground.Opacity"
+                                                         To="1" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <local:UseItemIcon Id="{TemplateBinding Id}" />
+                        <TextBlock Text="{Binding Amount, RelativeSource={RelativeSource Mode=TemplatedParent}}" FontSize="16" Margin="2, 0" Grid.Column="2" />
+                        <Border Name="DifferenceBorder" Background="Transparent" Padding="2, 0" Grid.Column="2">
+                            <TextBlock Name="PART_Difference" Foreground="Transparent" FontSize="16" HorizontalAlignment="Right" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

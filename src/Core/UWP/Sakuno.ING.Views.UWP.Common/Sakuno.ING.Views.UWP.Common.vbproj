@@ -35,6 +35,7 @@
     </Compile>
     <Compile Include="Controls\SlotAircraftPresenter.vb" />
     <Compile Include="Controls\UseItemIcon.vb" />
+    <Compile Include="Controls\UseItemPresenter.vb" />
     <Compile Include="Helpers.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <EmbeddedResource Include="My Project\Sakuno.ING.Views.UWP.Common.rd.xml" />
@@ -101,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\SlotAircraftPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\UseItemPresenter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

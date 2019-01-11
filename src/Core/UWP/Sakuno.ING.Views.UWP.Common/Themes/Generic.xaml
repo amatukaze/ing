@@ -1,8 +1,9 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/LevelingIndicator.xaml" />
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/ProgressCircle.xaml" />
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/EquipmentImprovementPresenter.xaml" />
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/SlotAircraftPresenter.xaml" />
+        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/UseItemPresenter.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
