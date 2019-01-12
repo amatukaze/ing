@@ -25,7 +25,7 @@ namespace Sakuno.ING.Game.Models
             _buildingDocks = new IdTable<BuildingDockId, BuildingDock, RawBuildingDock, NavalBase>(this);
             _repairingDocks = new IdTable<RepairingDockId, RepairingDock, RawRepairingDock, NavalBase>(this);
             _useItems = new IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase>(this);
-            _allShips = new IdTable<ShipId, Ship, RawShip, NavalBase>(this);
+            _allShips = new IdTable<ShipId, HomeportShip, RawShip, NavalBase>(this);
             _fleets = new IdTable<FleetId, Fleet, RawFleet, NavalBase>(this);
             _maps = new IdTable<MapId, Map, RawMap, NavalBase>(this);
             _airForce = new IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, RawAirForceGroup, NavalBase>(this);
@@ -200,8 +200,8 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase> _useItems;
         public ITable<UseItemId, UseItemCount> UseItems => _useItems;
 
-        private readonly IdTable<ShipId, Ship, RawShip, NavalBase> _allShips;
-        public ITable<ShipId, Ship> AllShips => _allShips;
+        private readonly IdTable<ShipId, HomeportShip, RawShip, NavalBase> _allShips;
+        public ITable<ShipId, HomeportShip> AllShips => _allShips;
 
         private readonly IdTable<FleetId, Fleet, RawFleet, NavalBase> _fleets;
         public ITable<FleetId, Fleet> Fleets => _fleets;

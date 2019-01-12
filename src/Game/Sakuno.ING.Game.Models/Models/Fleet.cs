@@ -6,8 +6,8 @@ namespace Sakuno.ING.Game.Models
 {
     public partial class Fleet
     {
-        private readonly BindableCollection<Ship> ships = new BindableCollection<Ship>();
-        public IReadOnlyList<Ship> Ships => ships;
+        private readonly BindableCollection<HomeportShip> ships = new BindableCollection<HomeportShip>();
+        public IReadOnlyList<HomeportShip> Ships => ships;
 
         partial void CreateCore()
         {
@@ -33,7 +33,7 @@ namespace Sakuno.ING.Game.Models
             UpdateTimer(timeStamp);
         }
 
-        internal void ChangeComposition(int? index, Ship ship)
+        internal void ChangeComposition(int? index, HomeportShip ship)
         {
             if (index is int i)
             {
@@ -67,7 +67,7 @@ namespace Sakuno.ING.Game.Models
                     ships.RemoveAt(1);
         }
 
-        internal bool Remove(Ship ship) => ships.Remove(ship);
+        internal bool Remove(HomeportShip ship) => ships.Remove(ship);
 
         internal void UpdateTimer(DateTimeOffset timeStamp)
         {

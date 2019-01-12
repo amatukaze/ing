@@ -81,7 +81,7 @@ foreach (var infile in Inputs)
             if (@virtual)
             {
                 output.WriteLine("    }");
-                output.WriteLine($"    internal sealed partial class {implClass} : {thisClass}, IUpdatable<{idClass}, {rawClass}>");
+                output.WriteLine($"    public sealed partial class {implClass} : {thisClass}, IUpdatable<{idClass}, {rawClass}>");
                 output.WriteLine("    {");
             }
             else

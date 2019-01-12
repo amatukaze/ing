@@ -510,7 +510,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"Admiral {Id}";
     }
 
-    public sealed partial class Ship : BindableObject, IUpdatable<ShipId, RawShip>
+    public abstract partial class Ship : BindableObject
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -520,7 +520,7 @@ namespace Sakuno.ING.Game.Models
         public ShipInfo Info
         {
             get => _info;
-            private set => Set(ref _info, value, __eventArgs_info);
+            protected set => Set(ref _info, value, __eventArgs_info);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -530,7 +530,7 @@ namespace Sakuno.ING.Game.Models
         public Leveling Leveling
         {
             get => _leveling;
-            private set => Set(ref _leveling, value, __eventArgs_leveling);
+            protected set => Set(ref _leveling, value, __eventArgs_leveling);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -540,7 +540,7 @@ namespace Sakuno.ING.Game.Models
         public ShipHP HP
         {
             get => _hP;
-            private set => Set(ref _hP, value, __eventArgs_hP);
+            protected set => Set(ref _hP, value, __eventArgs_hP);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -550,7 +550,7 @@ namespace Sakuno.ING.Game.Models
         public ShipSpeed Speed
         {
             get => _speed;
-            private set => Set(ref _speed, value, __eventArgs_speed);
+            protected set => Set(ref _speed, value, __eventArgs_speed);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -560,7 +560,7 @@ namespace Sakuno.ING.Game.Models
         public FireRange FireRange
         {
             get => _fireRange;
-            private set => Set(ref _fireRange, value, __eventArgs_fireRange);
+            protected set => Set(ref _fireRange, value, __eventArgs_fireRange);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -570,7 +570,7 @@ namespace Sakuno.ING.Game.Models
         public int SlotCount
         {
             get => _slotCount;
-            private set => Set(ref _slotCount, value, __eventArgs_slotCount);
+            protected set => Set(ref _slotCount, value, __eventArgs_slotCount);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -590,7 +590,7 @@ namespace Sakuno.ING.Game.Models
         public ClampedValue Fuel
         {
             get => _fuel;
-            private set => Set(ref _fuel, value, __eventArgs_fuel);
+            protected set => Set(ref _fuel, value, __eventArgs_fuel);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -600,7 +600,7 @@ namespace Sakuno.ING.Game.Models
         public ClampedValue Bullet
         {
             get => _bullet;
-            private set => Set(ref _bullet, value, __eventArgs_bullet);
+            protected set => Set(ref _bullet, value, __eventArgs_bullet);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -610,7 +610,7 @@ namespace Sakuno.ING.Game.Models
         public TimeSpan RepairingTime
         {
             get => _repairingTime;
-            private set => Set(ref _repairingTime, value, __eventArgs_repairingTime);
+            protected set => Set(ref _repairingTime, value, __eventArgs_repairingTime);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -620,7 +620,7 @@ namespace Sakuno.ING.Game.Models
         public Materials RepairingCost
         {
             get => _repairingCost;
-            private set => Set(ref _repairingCost, value, __eventArgs_repairingCost);
+            protected set => Set(ref _repairingCost, value, __eventArgs_repairingCost);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -630,7 +630,7 @@ namespace Sakuno.ING.Game.Models
         public int Morale
         {
             get => _morale;
-            private set => Set(ref _morale, value, __eventArgs_morale);
+            protected set => Set(ref _morale, value, __eventArgs_morale);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -640,7 +640,7 @@ namespace Sakuno.ING.Game.Models
         public ShipMordenizationStatus Firepower
         {
             get => _firepower;
-            private set => Set(ref _firepower, value, __eventArgs_firepower);
+            protected set => Set(ref _firepower, value, __eventArgs_firepower);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -650,7 +650,7 @@ namespace Sakuno.ING.Game.Models
         public ShipMordenizationStatus Torpedo
         {
             get => _torpedo;
-            private set => Set(ref _torpedo, value, __eventArgs_torpedo);
+            protected set => Set(ref _torpedo, value, __eventArgs_torpedo);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -660,7 +660,7 @@ namespace Sakuno.ING.Game.Models
         public ShipMordenizationStatus AntiAir
         {
             get => _antiAir;
-            private set => Set(ref _antiAir, value, __eventArgs_antiAir);
+            protected set => Set(ref _antiAir, value, __eventArgs_antiAir);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -670,7 +670,7 @@ namespace Sakuno.ING.Game.Models
         public ShipMordenizationStatus Armor
         {
             get => _armor;
-            private set => Set(ref _armor, value, __eventArgs_armor);
+            protected set => Set(ref _armor, value, __eventArgs_armor);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -680,7 +680,7 @@ namespace Sakuno.ING.Game.Models
         public ShipMordenizationStatus Evasion
         {
             get => _evasion;
-            private set => Set(ref _evasion, value, __eventArgs_evasion);
+            protected set => Set(ref _evasion, value, __eventArgs_evasion);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -690,7 +690,7 @@ namespace Sakuno.ING.Game.Models
         public ShipMordenizationStatus AntiSubmarine
         {
             get => _antiSubmarine;
-            private set => Set(ref _antiSubmarine, value, __eventArgs_antiSubmarine);
+            protected set => Set(ref _antiSubmarine, value, __eventArgs_antiSubmarine);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -700,7 +700,7 @@ namespace Sakuno.ING.Game.Models
         public ShipMordenizationStatus LineOfSight
         {
             get => _lineOfSight;
-            private set => Set(ref _lineOfSight, value, __eventArgs_lineOfSight);
+            protected set => Set(ref _lineOfSight, value, __eventArgs_lineOfSight);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -710,7 +710,7 @@ namespace Sakuno.ING.Game.Models
         public ShipMordenizationStatus Luck
         {
             get => _luck;
-            private set => Set(ref _luck, value, __eventArgs_luck);
+            protected set => Set(ref _luck, value, __eventArgs_luck);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -720,7 +720,7 @@ namespace Sakuno.ING.Game.Models
         public bool IsLocked
         {
             get => _isLocked;
-            private set => Set(ref _isLocked, value, __eventArgs_isLocked);
+            protected set => Set(ref _isLocked, value, __eventArgs_isLocked);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -730,17 +730,7 @@ namespace Sakuno.ING.Game.Models
         public int? ShipLockingTag
         {
             get => _shipLockingTag;
-            private set => Set(ref _shipLockingTag, value, __eventArgs_shipLockingTag);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_isRepairing = new PropertyChangedEventArgs(nameof(IsRepairing));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private bool _isRepairing;
-        public bool IsRepairing
-        {
-            get => _isRepairing;
-            internal set => Set(ref _isRepairing, value, __eventArgs_isRepairing);
+            protected set => Set(ref _shipLockingTag, value, __eventArgs_shipLockingTag);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -751,16 +741,6 @@ namespace Sakuno.ING.Game.Models
         {
             get => _supplyingCost;
             private set => Set(ref _supplyingCost, value, __eventArgs_supplyingCost);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_fleet = new PropertyChangedEventArgs(nameof(Fleet));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private Fleet _fleet;
-        public Fleet Fleet
-        {
-            get => _fleet;
-            internal set => Set(ref _fleet, value, __eventArgs_fleet);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -782,21 +762,23 @@ namespace Sakuno.ING.Game.Models
             get => _effectiveLoS;
             private set => Set(ref _effectiveLoS, value, __eventArgs_effectiveLoS);
         }
-
+    }
+    public sealed partial class HomeportShip : Ship, IUpdatable<ShipId, RawShip>
+    {
         public ShipId Id { get; }
         private readonly NavalBase owner;
         public DateTimeOffset UpdationTime { get; private set; }
 
-        public Ship(ShipId id, NavalBase owner)
+        public HomeportShip(ShipId id, NavalBase owner)
         {
             Id = id;
             this.owner = owner;
             CreateCore();
         }
 
-        public Ship(RawShip raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public HomeportShip(RawShip raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
-        public event Action<Ship, RawShip, DateTimeOffset> Updating;
+        public event Action<HomeportShip, RawShip, DateTimeOffset> Updating;
         public void Update(RawShip raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
@@ -825,7 +807,7 @@ namespace Sakuno.ING.Game.Models
 
         partial void CreateCore();
 
-        public override string ToString() => $"Ship {Id}";
+        public override string ToString() => $"HomeportShip {Id}";
     }
 
     public sealed partial class Fleet : BindableObject, IUpdatable<FleetId, RawFleet>

@@ -4,8 +4,8 @@ namespace Sakuno.ING.Game.Models
 {
     public partial class RepairingDock
     {
-        private Ship _repairingShip;
-        public Ship RepairingShip
+        private HomeportShip _repairingShip;
+        public HomeportShip RepairingShip
         {
             get => _repairingShip;
             internal set

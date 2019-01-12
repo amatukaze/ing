@@ -39,7 +39,7 @@
     <property type="bool" name="CanLSC" autoFill="true" />
     <property type="int" name="MaxMaterial" autoFill="true" />
   </class>
-  <class name="Ship" id="ShipId" raw="RawShip" owner="NavalBase">
+  <class name="Ship" id="ShipId" raw="RawShip" owner="NavalBase" impl="HomeportShip">
     <property type="ShipInfo" name="Info" />
     <property type="Leveling" name="Leveling" autoFill="true" />
     <property type="ShipHP" name="HP" autoFill="true" />
@@ -62,11 +62,9 @@
     <property type="ShipMordenizationStatus" name="Luck" />
     <property type="bool" name="IsLocked" autoFill="true" />
     <property type="int?" name="ShipLockingTag" autoFill="true" />
-    <property type="bool" name="IsRepairing" set="internal" />
-    <property type="Materials" name="SupplyingCost" />
-    <property type="Fleet" name="Fleet" set="internal" />
-    <property type="AirFightPower" name="AirFightPower" />
-    <property type="LineOfSight" name="EffectiveLoS" />
+    <property type="Materials" name="SupplyingCost" set="private" />
+    <property type="AirFightPower" name="AirFightPower" set="private" />
+    <property type="LineOfSight" name="EffectiveLoS" set="private" />
   </class>
   <class name="Fleet" id="FleetId" raw="RawFleet" owner="NavalBase">
     <property type="string" name="Name" autoFill="true" />
