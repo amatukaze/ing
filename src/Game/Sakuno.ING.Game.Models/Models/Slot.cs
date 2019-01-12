@@ -9,11 +9,15 @@
             internal set
             {
                 if (_equipment != value)
-                {
-                    _equipment = value;
-                    IsEmpty = value == null;
-                    UpdateCalculations();
-                }
+                    using (EnterBatchNotifyScope())
+                    {
+                        bool isEmptyChanged = _equipment is null || value is null;
+                        _equipment = value;
+                        if (isEmptyChanged)
+                            NotifyPropertyChanged(nameof(IsEmpty));
+                        NotifyPropertyChanged();
+                        UpdateCalculations();
+                    }
             }
         }
 
@@ -24,19 +28,16 @@
             internal set
             {
                 if (_aircraft != value)
-                {
-                    _aircraft = value;
-                    UpdateCalculations();
-                }
+                    using (EnterBatchNotifyScope())
+                    {
+                        _aircraft = value;
+                        NotifyPropertyChanged();
+                        UpdateCalculations();
+                    }
             }
         }
 
-        private bool _isEmpty = true;
-        public bool IsEmpty
-        {
-            get => _isEmpty;
-            private set => Set(ref _isEmpty, value);
-        }
+        public bool IsEmpty => Equipment is null;
 
         private AirFightPower _airFightPower;
         public AirFightPower AirFightPower

@@ -152,20 +152,14 @@ namespace Sakuno.ING.Game.Models
 
             listener.MapsUpdated += (t, msg) => _maps.BatchUpdate(msg, t);
             listener.AirForceUpdated += (t, msg) => _airForce.BatchUpdate(msg, t);
-            listener.AirForcePlaneSet += (t, msg) =>
-            {
-                var group = AirForce[(msg.MapAreaId, msg.GroupId)];
-                group.DistanceBase = msg.NewDistanceBase;
-                group.DistanceBonus = msg.NewDistanceBonus;
-                group.squadrons.BatchUpdate(msg.UpdatedSquadrons, t, removal: false);
-            };
+            listener.AirForcePlaneSet += (t, msg) => AirForce[(msg.MapAreaId, msg.GroupId)].SetPlane(t, msg);
             listener.AirForceActionSet += (t, msg) =>
             {
                 foreach (var m in msg)
                     AirForce[(m.MapAreaId, m.GroupId)].Action = m.Action;
             };
             listener.AirForceSupplied += (t, msg)
-                => AirForce[(msg.MapAreaId, msg.GroupId)].squadrons.BatchUpdate(msg.UpdatedSquadrons, t, removal: false);
+                => AirForce[(msg.MapAreaId, msg.GroupId)].Supply(t, msg.UpdatedSquadrons);
             listener.AirForceExpanded += (t, msg) => _airForce.Add(msg, t);
 
             if (timingService != null)

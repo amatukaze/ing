@@ -128,7 +128,7 @@ foreach (var infile in Inputs)
             output.WriteLine($"        public void Update({rawClass} raw, DateTimeOffset timeStamp)");
             output.WriteLine("        {");
             output.WriteLine("            Updating?.Invoke(this, raw, timeStamp);");
-            output.WriteLine("            using (var scope = EnterBatchNotifyScope())");
+            output.WriteLine("            using (EnterBatchNotifyScope())");
             output.WriteLine("                UpdateProps(raw, timeStamp);");
             output.WriteLine("        }");
 

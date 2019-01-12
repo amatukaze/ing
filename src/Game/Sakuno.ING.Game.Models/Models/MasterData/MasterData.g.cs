@@ -285,7 +285,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public void Update(RawShipInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -382,7 +382,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public void Update(RawShipTypeInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -435,7 +435,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public void Update(RawEquipmentTypeInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -670,7 +670,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public void Update(RawEquipmentInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -741,7 +741,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public void Update(RawUseItem raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -799,7 +799,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public void Update(RawMapArea raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -947,7 +947,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public void Update(RawMapInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -1115,7 +1115,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public void Update(RawExpeditionInfo raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 

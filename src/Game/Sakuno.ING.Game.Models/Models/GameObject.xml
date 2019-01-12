@@ -105,4 +105,10 @@
     <property type="ClampedValue" name="AircraftCount" autoFill="true" />
     <property type="SquadronMorale" name="Morale" autoFill="true" />
   </class>
+  <class name="AirForceGroup" id="(MapAreaId MapArea, AirForceGroupId GroupId)" raw="RawAirForceGroup" owner="NavalBase">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="int" name="DistanceBase" autoFill="true" />
+    <property type="int" name="DistanceBonus" autoFill="true" />
+    <property type="AirForceAction" name="Action" autoFill="true" set="internal" />
+  </class>
 </classTemplate>

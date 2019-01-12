@@ -83,7 +83,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawEquipment raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -185,7 +185,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawBuildingDock raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -268,7 +268,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawRepairingDock raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -330,7 +330,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawUseItemCount raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -480,7 +480,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawAdmiral raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -800,7 +800,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawShip raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -968,7 +968,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawFleet raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -1066,7 +1066,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawQuest raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -1192,7 +1192,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawMap raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -1266,7 +1266,7 @@ namespace Sakuno.ING.Game.Models
         public void Update(RawAirForceSquadron raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
-            using (var scope = EnterBatchNotifyScope())
+            using (EnterBatchNotifyScope())
                 UpdateProps(raw, timeStamp);
         }
 
@@ -1285,6 +1285,89 @@ namespace Sakuno.ING.Game.Models
         partial void CreateCore();
 
         public override string ToString() => $"AirForceSquadron {Id}";
+    }
+
+    public sealed partial class AirForceGroup : BindableObject, IUpdatable<(MapAreaId MapArea, AirForceGroupId GroupId), RawAirForceGroup>
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_distanceBase = new PropertyChangedEventArgs(nameof(DistanceBase));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _distanceBase;
+        public int DistanceBase
+        {
+            get => _distanceBase;
+            private set => Set(ref _distanceBase, value, __eventArgs_distanceBase);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_distanceBonus = new PropertyChangedEventArgs(nameof(DistanceBonus));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _distanceBonus;
+        public int DistanceBonus
+        {
+            get => _distanceBonus;
+            private set => Set(ref _distanceBonus, value, __eventArgs_distanceBonus);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_action = new PropertyChangedEventArgs(nameof(Action));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private AirForceAction _action;
+        public AirForceAction Action
+        {
+            get => _action;
+            internal set => Set(ref _action, value, __eventArgs_action);
+        }
+
+        public (MapAreaId MapArea, AirForceGroupId GroupId) Id { get; }
+        private readonly NavalBase owner;
+        public DateTimeOffset UpdationTime { get; private set; }
+
+        public AirForceGroup((MapAreaId MapArea, AirForceGroupId GroupId) id, NavalBase owner)
+        {
+            Id = id;
+            this.owner = owner;
+            CreateCore();
+        }
+
+        public AirForceGroup(RawAirForceGroup raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+
+        public event Action<AirForceGroup, RawAirForceGroup, DateTimeOffset> Updating;
+        public void Update(RawAirForceGroup raw, DateTimeOffset timeStamp)
+        {
+            Updating?.Invoke(this, raw, timeStamp);
+            using (EnterBatchNotifyScope())
+                UpdateProps(raw, timeStamp);
+        }
+
+        private void UpdateProps(RawAirForceGroup raw, DateTimeOffset timeStamp)
+        {
+            UpdationTime = timeStamp;
+
+            Name = raw.Name;
+            DistanceBase = raw.DistanceBase;
+            DistanceBonus = raw.DistanceBonus;
+            Action = raw.Action;
+
+            UpdateCore(raw, timeStamp);
+        }
+
+        partial void UpdateCore(RawAirForceGroup raw, DateTimeOffset timeStamp);
+
+        partial void CreateCore();
+
+        public override string ToString() => $"AirForceGroup {Id}";
     }
 
 }
