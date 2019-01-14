@@ -183,7 +183,7 @@ foreach (var infile in Inputs)
     </Task>
   </UsingTask>
 
-  <Target Name="UpdateClassTemplate" Inputs="$(MSBuildThisFileFullPath);@(ClassTemplate)" Outputs="@(ClassTemplate->'%(RelativeDir)%(Filename).g1.cs')" BeforeTargets="CoreCompile">
+  <Target Name="UpdateClassTemplate" Inputs="$(MSBuildThisFileFullPath);@(ClassTemplate)" Outputs="@(ClassTemplate->'%(RelativeDir)%(Filename).g.cs')" BeforeTargets="CoreCompile">
     <CalculatedClassTemplate Inputs="@(ClassTemplate)" />
   </Target>
 
