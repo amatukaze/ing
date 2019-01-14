@@ -143,7 +143,7 @@ namespace Sakuno.ING.Game
             var routing = mapStart.Select(x => x.Response)
                 .CombineWith(RegisterResponse<MapRoutingJson>("api_req_map/next"));
             mapRouting = routing;
-            var practice = RegisterRaw<BattleJson>("api_req_practce/battle");
+            var practice = RegisterRaw<BattleJson>("api_req_practice/battle");
             practiceStarted = practice.Select(x => ParsePracticeStart(x.Request));
             battleStarted = RegisterResponse<BattleJson>("api_req_sortie/battle")
                 .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/ec_battle"),
@@ -163,7 +163,7 @@ namespace Sakuno.ING.Game
             battleAppended = RegisterResponse<BattleJson>("api_req_battle_midnight/battle")
                 .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/midnight_battle"),
                     RegisterResponse<BattleJson>("api_req_combined_battle/ec_midnight_battle"),
-                    RegisterResponse<BattleJson>("api_req_practce/midnight_battle"));
+                    RegisterResponse<BattleJson>("api_req_practice/midnight_battle"));
             var battleResult = RegisterResponse<BattleResultJson>("api_req_sortie/battleresult")
                 .CombineWith(RegisterResponse<BattleResultJson>("api_req_combined_battle/battleresult"));
             battleCompleted = battleResult;
