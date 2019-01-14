@@ -63,7 +63,8 @@ namespace Sakuno.ING.Game
             partialFleetsUpdated = ship3.Select(x => x.api_deck_data);
             partialShipsUpdated = ship3.Select(x => x.api_ship_data)
                 .CombineWith(RegisterResponse<RawShip[]>("api_get_member/ship2"),
-                RegisterResponse<DepriveJson>("api_req_kaisou/slot_deprive").Select(ParseShipDeprive));
+                RegisterResponse<DepriveJson>("api_req_kaisou/slot_deprive").Select(ParseShipDeprive),
+                RegisterResponse<RawShip>("api_req_kaisou/marriage").Select(x => new[] { x }));
 
             repairStarted = RegisterRequest("api_req_nyukyo/start")
                 .Select(ParseRepairStart);
