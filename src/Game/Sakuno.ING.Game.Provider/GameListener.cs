@@ -155,6 +155,8 @@ namespace Sakuno.ING.Game
                     RegisterResponse<BattleJson>("api_req_sortie/night_to_day"),
                     RegisterResponse<BattleJson>("api_req_combined_battle/sp_midnight"),
                     RegisterResponse<BattleJson>("api_req_battle_midnight/sp_midnight"),
+                    RegisterResponse<BattleJson>("api_req_sortie/airbattle"),
+                    RegisterResponse<BattleJson>("api_req_combined_battle/airbattle"),
                     RegisterResponse<BattleJson>("api_req_sortie/ld_airbattle"),
                     RegisterResponse<BattleJson>("api_req_combined_battle/ld_airbattle"),
                     RegisterResponse<BattleJson>("api_req_sortie/ld_shooting"),
@@ -165,7 +167,8 @@ namespace Sakuno.ING.Game
                     RegisterResponse<BattleJson>("api_req_combined_battle/ec_midnight_battle"),
                     RegisterResponse<BattleJson>("api_req_practice/midnight_battle"));
             var battleResult = RegisterResponse<BattleResultJson>("api_req_sortie/battleresult")
-                .CombineWith(RegisterResponse<BattleResultJson>("api_req_combined_battle/battleresult"));
+                .CombineWith(RegisterResponse<BattleResultJson>("api_req_practice/battleresult"),
+                    RegisterResponse<BattleResultJson>("api_req_combined_battle/battleresult"));
             battleCompleted = battleResult;
             mapPartUnlocked = routing.Where(x => x.api_m1).Select(x => new Events.Combat.MapPartUnlock())
                 .CombineWith(battleResult.Where(x => x.api_m1).Select(x => new Events.Combat.MapPartUnlock()));
