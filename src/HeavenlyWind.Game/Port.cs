@@ -80,7 +80,12 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 Ship rShip;
                 if (Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out rShip))
                 {
-                    rShip.UpdateEquipmentIDs(r.GetData<RawEquipmentIDs>().EquipmentIDs);
+                    var rawData = r.GetData<RawEquipmentExchange>();
+                    if (rawData.EquipmentIDs != null)
+                        rShip.UpdateEquipmentIDs(rawData.EquipmentIDs);
+                    else
+                        rShip.Update(rawData.Ship);
+
                     rShip.OwnerFleet?.Update();
                 }
             });
