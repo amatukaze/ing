@@ -3,9 +3,8 @@ using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Json
 {
-    internal class EquipmentExchangeJson : IMaterialsUpdate
+    internal class EquipmentSetupJson : IMaterialsUpdate
     {
-        public RawShip api_ship_data;
         public int? api_bauxite;
 
         public MaterialsChangeReason Reason => MaterialsChangeReason.ShipEquip;

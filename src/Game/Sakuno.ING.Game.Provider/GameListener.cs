@@ -63,9 +63,10 @@ namespace Sakuno.ING.Game
                 .CombineWith(RegisterResponse<Ship3Json>("api_get_member/ship_deck"));
             partialFleetsUpdated = ship3.Select(x => x.api_deck_data);
             var equipmentExchange = RegisterResponse<EquipmentExchangeJson>("api_req_kaisou/slot_exchange_index");
+            var equipmentDeprive = RegisterResponse<DepriveJson>("api_req_kaisou/slot_deprive");
             partialShipsUpdated = ship3.Select(x => x.api_ship_data)
                 .CombineWith(RegisterResponse<RawShip[]>("api_get_member/ship2"),
-                RegisterResponse<DepriveJson>("api_req_kaisou/slot_deprive").Select(ParseShipDeprive),
+                equipmentDeprive.Select(ParseShipDeprive),
                 RegisterResponse<RawShip>("api_req_kaisou/marriage").Select(x => new[] { x }),
                 equipmentExchange.Select(x => new[] { x.api_ship_data }));
 
@@ -134,7 +135,10 @@ namespace Sakuno.ING.Game
                     destroyItem.Select(x => x.Response),
                     improveItem.Select(x => x.Response),
                     airSupply.Select(x => x.Response),
-                    setPlane.Select(x => x.Response).Where(x => x.api_after_bauxite.HasValue));
+                    setPlane.Select(x => x.Response).Where(x => x.api_after_bauxite.HasValue),
+                    RegisterResponse<EquipmentSetupJson>("api_req_kaisou/slotset"),
+                    equipmentDeprive,
+                    equipmentExchange);
 
             incentiveRewarded = RegisterResponse<IncentiveJson>("api_req_member/get_incentive")
                 .Select(x => x.api_item);

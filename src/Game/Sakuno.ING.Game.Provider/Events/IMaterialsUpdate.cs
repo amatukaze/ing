@@ -24,5 +24,6 @@ namespace Sakuno.ING.Game.Events
         InstantRepair,
         InstantBuilt,
         EquipmentImprove,
+        ShipEquip,
     }
 }
