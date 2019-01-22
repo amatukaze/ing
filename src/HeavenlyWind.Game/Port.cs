@@ -75,12 +75,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             ApiService.Subscribe("api_get_member/unsetslot", r => ProcessUnequippedEquipment(r.Json["api_data"]));
             ApiService.Subscribe("api_get_member/require_info", r => ProcessUnequippedEquipment(r.Json["api_data"]["api_unsetslot"]));
 
+            ApiService.Subscribe("api_req_kaisou/slotset", r =>
+            {
+                var rawData = r.GetData<RawEquipmentSetup>();
+
+                if (rawData?.Bauxite is int bauxite)
+                    Materials.Bauxite = bauxite;
+            });
             ApiService.Subscribe("api_req_kaisou/slot_exchange_index", r =>
             {
-                Ship rShip;
-                if (Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out rShip))
+                var rawData = r.GetData<RawEquipmentExchange>();
+
+                if (Ships.TryGetValue(int.Parse(r.Parameters["api_id"]), out var rShip))
                 {
-                    var rawData = r.GetData<RawEquipmentExchange>();
                     if (rawData.EquipmentIDs != null)
                         rShip.UpdateEquipmentIDs(rawData.EquipmentIDs);
                     else
@@ -88,6 +95,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                     rShip.OwnerFleet?.Update();
                 }
+
+                if (rawData.Bauxite is int bauxite)
+                    Materials.Bauxite = bauxite;
             });
 
             ApiService.Subscribe("api_req_kaisou/open_exslot", r =>
@@ -112,6 +122,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 if (rData.UnequippedEquipment != null)
                     UnequippedEquipment[(EquipmentType)rData.UnequippedEquipment.Type] = rData.UnequippedEquipment.IDs.Select(rpID => Equipment[rpID]).ToArray();
+
+                if (rData.Bauxite is int bauxite)
+                    Materials.Bauxite = bauxite;
             });
 
             ApiService.Subscribe("api_req_kaisou/powerup", r =>

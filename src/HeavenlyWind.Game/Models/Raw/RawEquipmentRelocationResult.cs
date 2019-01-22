@@ -10,6 +10,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
         [JsonProperty("api_unset_list")]
         public RawUnequippedEquipment UnequippedEquipment { get; set; }
 
+        [JsonProperty("api_bauxite")]
+        public int? Bauxite { get; set; }
+
         public class RawShips
         {
             [JsonProperty("api_set_ship")]
