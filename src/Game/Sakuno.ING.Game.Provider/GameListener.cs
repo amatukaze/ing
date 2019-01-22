@@ -54,6 +54,7 @@ namespace Sakuno.ING.Game
             shipExtraSlotOpened = RegisterRequest("api_req_kaisou/open_exslot")
                 .Select(ParseShipExtraSlotOpen);
             shipEquipmentUpdated = RegisterRaw<ShipEquipmentJson>("api_req_kaisou/slot_exchange_index")
+                .Where(x => x.Response.api_slot != null)
                 .Select(x => ParseShipEquipmentUpdate(x.Request, x.Response));
             expeditionCompleted = RegisterRaw<ExpeditionCompletionJson>("api_req_mission/result")
                 .Select(x => ParseExpeditionCompletion(x.Request, x.Response));
@@ -61,10 +62,12 @@ namespace Sakuno.ING.Game
             var ship3 = RegisterResponse<Ship3Json>("api_get_member/ship3")
                 .CombineWith(RegisterResponse<Ship3Json>("api_get_member/ship_deck"));
             partialFleetsUpdated = ship3.Select(x => x.api_deck_data);
+            var equipmentExchange = RegisterResponse<EquipmentExchangeJson>("api_req_kaisou/slot_exchange_index");
             partialShipsUpdated = ship3.Select(x => x.api_ship_data)
                 .CombineWith(RegisterResponse<RawShip[]>("api_get_member/ship2"),
                 RegisterResponse<DepriveJson>("api_req_kaisou/slot_deprive").Select(ParseShipDeprive),
-                RegisterResponse<RawShip>("api_req_kaisou/marriage").Select(x => new[] { x }));
+                RegisterResponse<RawShip>("api_req_kaisou/marriage").Select(x => new[] { x }),
+                equipmentExchange.Select(x => new[] { x.api_ship_data }));
 
             repairStarted = RegisterRequest("api_req_nyukyo/start")
                 .Select(ParseRepairStart);
