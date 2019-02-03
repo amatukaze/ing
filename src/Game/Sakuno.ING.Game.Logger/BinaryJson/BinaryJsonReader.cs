@@ -3,10 +3,10 @@ using System.Text;
 
 namespace Sakuno.ING.Game.Logger.BinaryJson
 {
-    internal class BinaryJsonDecoder
+    internal ref struct BinaryJsonReader
     {
         private ReadOnlyMemory<byte> data;
-        public BinaryJsonDecoder(ReadOnlyMemory<byte> data)
+        public BinaryJsonReader(ReadOnlyMemory<byte> data)
         {
             this.data = data;
         }
@@ -20,7 +20,8 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
 
         public bool IsNextInteger() => (data.Span[0] & 0x80) == 0;
         public bool IsNextArray() => (data.Span[0] & 0b1110_0000) == 0b1000_0000;
-        public bool IsNextObject() => (data.Span[0] & 0b1110_0000) == 0b1010_0000;
+        public bool IsNextObject() => data.Span[0] == 0b1010_0000;
+        public bool IsEndObject() => data.Span[0] == 0b1010_1111;
         public bool IsNextString() => (data.Span[0] & 0b1110_0000) == 0b1100_0000;
         public bool IsNextDecimal() => (data.Span[0] & 0b1110_0000) == 0b1110_0000;
 
@@ -66,6 +67,17 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                 return lsb;
         }
 
+        public int? ReadIntegerOrSkip()
+        {
+            if (IsNextInteger())
+                return ReadInteger();
+            else
+            {
+                SkipValue();
+                return null;
+            }
+        }
+
         public decimal ReadDecimal()
         {
             int scale = ReadHeaderNumber();
@@ -88,6 +100,19 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                 return null;
         }
 
+        public decimal? ReadNumberOrSkip()
+        {
+            if (IsNextInteger())
+                return ReadInteger();
+            else if (IsNextDecimal())
+                return ReadDecimal();
+            else
+            {
+                SkipValue();
+                return null;
+            }
+        }
+
         public string ReadString()
         {
             int length = ReadHeaderNumber();
@@ -98,28 +123,73 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             return Encoding.UTF8.GetString(bytes);
         }
 
+        public string ReadStringOrSkip()
+        {
+            if (IsNextString())
+                return ReadString();
+            else
+            {
+                SkipValue();
+                return null;
+            }
+        }
+
         public int ReadJName() => ReadRemainNumber().value;
 
         public int ReadContainerLength() => ReadHeaderNumber();
-
-        public T[] ReadArray<T>(Func<BinaryJsonDecoder, T> func)
+        public bool TryReadContainerLengthOrSkip(out int length)
         {
-            int n = ReadContainerLength();
-            var result = new T[n];
-            for (int i = 0; i < n; i++)
-                result[i] = func(this);
-            return result;
+            if (IsNextArray())
+            {
+                length = ReadContainerLength();
+                return true;
+            }
+            length = 0;
+            return false;
         }
 
-        public T ReadObject<T>(Action<BinaryJsonDecoder, int, T> action)
-            where T : new()
+        public void ReadStartObject() => data = data.Slice(1);
+        public bool StartObjectOrSkip()
         {
-            int n = ReadContainerLength();
-            T result = new T();
-            while (n-- > 0)
-                action(this, ReadJName(), result);
-            return result;
+            if (IsNextObject())
+            {
+                ReadStartObject();
+                return true;
+            }
+            else
+            {
+                SkipValue();
+                return false;
+            }
         }
+        public bool UntilObjectEnds()
+        {
+            if (IsEndObject())
+            {
+                data = data.Slice(1);
+                return false;
+            }
+            return true;
+        }
+
+        //public T[] ReadArray<T>(Func<BinaryJsonReader, T> func)
+        //{
+        //    int n = ReadContainerLength();
+        //    var result = new T[n];
+        //    for (int i = 0; i < n; i++)
+        //        result[i] = func(this);
+        //    return result;
+        //}
+
+        //public T ReadObject<T>(Action<BinaryJsonReader, int, T> action)
+        //    where T : new()
+        //{
+        //    int n = ReadContainerLength();
+        //    T result = new T();
+        //    while (n-- > 0)
+        //        action(this, ReadJName(), result);
+        //    return result;
+        //}
 
         public void SkipValue()
         {
@@ -137,8 +207,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             }
             else if (IsNextObject())
             {
-                int n = ReadContainerLength();
-                while (n-- > 0)
+                while (UntilObjectEnds())
                 {
                     ReadJName();
                     SkipValue();

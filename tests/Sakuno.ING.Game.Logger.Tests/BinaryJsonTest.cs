@@ -56,29 +56,31 @@ namespace Sakuno.ING.Game.Tests
         {
             AssertEncodeEqual("{\"a\":1,\"b\":[1,2]}", new byte[]
             {
-                0b1010_0010,
+                0b1010_0000,
                 1, 1,
-                2, 0b1000_0010, 1, 2
+                2, 0b1000_0010, 1, 2,
+                0b1010_1111
             });
             AssertEncodeEqual("{\"a\":null,\"b\":0}", new byte[]
             {
-                0b1010_0010,
+                0b1010_0000,
                 1, 0b0100_0000, 0,
-                2, 0
+                2, 0,
+                0b1010_1111
             });
         }
 
         [Fact]
         public static void TestDecodeInteger()
         {
-            Assert.Equal(1, new BinaryJsonDecoder(new byte[] { 1 }).ReadInteger());
-            Assert.Equal(-1, new BinaryJsonDecoder(new byte[] { 0b0100_0001, 0b0100_0000 }).ReadInteger());
-            Assert.Equal(128, new BinaryJsonDecoder(new byte[] { 0b0100_0000, 2 }).ReadInteger());
+            Assert.Equal(1, new BinaryJsonReader(new byte[] { 1 }).ReadInteger());
+            Assert.Equal(-1, new BinaryJsonReader(new byte[] { 0b0100_0001, 0b0100_0000 }).ReadInteger());
+            Assert.Equal(128, new BinaryJsonReader(new byte[] { 0b0100_0000, 2 }).ReadInteger());
             for (int i = -512; i <= 512; i++)
             {
                 var utf8 = Encoding.UTF8.GetBytes(i.ToString());
                 var b = new BinaryJsonEncoder(utf8, jNames).Result;
-                var decoder = new BinaryJsonDecoder(b);
+                var decoder = new BinaryJsonReader(b);
                 Assert.Equal(i, decoder.ReadInteger());
                 Assert.True(decoder.Ends);
             }
@@ -86,7 +88,7 @@ namespace Sakuno.ING.Game.Tests
 
         [Fact]
         public static void TestDecodeNull()
-            => Assert.Null(new BinaryJsonDecoder(new byte[] { 0b0100_0000, 0 }).ReadInteger());
+            => Assert.Null(new BinaryJsonReader(new byte[] { 0b0100_0000, 0 }).ReadInteger());
 
         [Fact]
         public static void TestDecodeDecimal()
@@ -95,7 +97,7 @@ namespace Sakuno.ING.Game.Tests
             {
                 var utf8 = Encoding.UTF8.GetBytes(d.ToString());
                 var b = new BinaryJsonEncoder(utf8, jNames).Result;
-                var decoder = new BinaryJsonDecoder(b);
+                var decoder = new BinaryJsonReader(b);
                 Assert.Equal(d, decoder.ReadDecimal());
                 Assert.True(decoder.Ends);
             }
@@ -103,12 +105,12 @@ namespace Sakuno.ING.Game.Tests
 
         [Fact]
         public static void TestDecodeString()
-            => Assert.Equal("abc", new BinaryJsonDecoder(new byte[] { 0b1100_0011, (byte)'a', (byte)'b', (byte)'c' }).ReadString());
+            => Assert.Equal("abc", new BinaryJsonReader(new byte[] { 0b1100_0011, (byte)'a', (byte)'b', (byte)'c' }).ReadString());
 
         [Fact]
         public static void TestDecodeArray()
         {
-            var d = new BinaryJsonDecoder(new byte[] { 0b1000_0100, 1, 2, 3, 4 });
+            var d = new BinaryJsonReader(new byte[] { 0b1000_0100, 1, 2, 3, 4 });
             Assert.True(d.IsNextArray());
             Assert.Equal(4, d.ReadContainerLength());
             Assert.Equal(1, d.ReadInteger());
@@ -125,7 +127,7 @@ namespace Sakuno.ING.Game.Tests
             {
                 var utf8 = Encoding.UTF8.GetBytes(original);
                 var b = new BinaryJsonEncoder(utf8, jNames).Result;
-                var decoder = new BinaryJsonDecoder(b);
+                var decoder = new BinaryJsonReader(b);
                 decoder.SkipValue();
                 Assert.True(decoder.Ends);
             }
