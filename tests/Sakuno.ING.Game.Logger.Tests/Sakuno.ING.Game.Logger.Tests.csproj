@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Data\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Game\Sakuno.ING.Game.Logger\Sakuno.ING.Game.Logger.csproj" />
   </ItemGroup>
 

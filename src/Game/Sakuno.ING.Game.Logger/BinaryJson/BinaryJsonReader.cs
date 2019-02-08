@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Sakuno.ING.Game.Logger.BinaryJson
 {
-    internal ref struct BinaryJsonReader
+    internal class BinaryJsonReader
     {
         private ReadOnlyMemory<byte> data;
         public BinaryJsonReader(ReadOnlyMemory<byte> data)
@@ -21,7 +21,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
         public bool IsNextInteger() => (data.Span[0] & 0x80) == 0;
         public bool IsNextArray() => (data.Span[0] & 0b1110_0000) == 0b1000_0000;
         public bool IsNextObject() => data.Span[0] == 0b1010_0000;
-        public bool IsEndObject() => data.Span[0] == 0b1010_1111;
+        public bool IsEndObject() => data.Span[0] == 0;
         public bool IsNextString() => (data.Span[0] & 0b1110_0000) == 0b1100_0000;
         public bool IsNextDecimal() => (data.Span[0] & 0b1110_0000) == 0b1110_0000;
 
@@ -118,7 +118,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             int length = ReadHeaderNumber();
             // use span/u8string in new std
             var bytes = new byte[length];
-            data.CopyTo(bytes);
+            data.Slice(0, length).CopyTo(bytes);
             data = data.Slice(length);
             return Encoding.UTF8.GetString(bytes);
         }
@@ -171,25 +171,6 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             }
             return true;
         }
-
-        //public T[] ReadArray<T>(Func<BinaryJsonReader, T> func)
-        //{
-        //    int n = ReadContainerLength();
-        //    var result = new T[n];
-        //    for (int i = 0; i < n; i++)
-        //        result[i] = func(this);
-        //    return result;
-        //}
-
-        //public T ReadObject<T>(Action<BinaryJsonReader, int, T> action)
-        //    where T : new()
-        //{
-        //    int n = ReadContainerLength();
-        //    T result = new T();
-        //    while (n-- > 0)
-        //        action(this, ReadJName(), result);
-        //    return result;
-        //}
 
         public void SkipValue()
         {

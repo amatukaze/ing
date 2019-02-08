@@ -43,7 +43,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
         public void WriteJName(int index) => WriteRemainNumber((uint)index, false);
         public void WriteArraySize(int size) => WriteRecordHeader(0b1000_0000, size);
         public void WriteStartObject() => buffer.Add(0b1010_0000);
-        public void WriteEndObject() => buffer.Add(0b1010_1111);
+        public void WriteEndObject() => buffer.Add(0);
 
         public void WriteString(string str)
         {
