@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sakuno.ING.Game.Logger.Entities;
+using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models.MasterData;
 
 [assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Design")]
+[assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Tests")]
 namespace Sakuno.ING.Game.Logger
 {
     public class LoggerContext : DbContext
@@ -12,6 +14,7 @@ namespace Sakuno.ING.Game.Logger
         internal LoggerContext(DbContextOptions<LoggerContext> options) : base(options)
         {
             ChangeTracker.AutoDetectChangesEnabled = false;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public DbSet<ShipCreationEntity> ShipCreationTable { get; private set; }
