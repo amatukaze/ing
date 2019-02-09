@@ -1,64 +1,22 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Sakuno.ING.Game.Logger.Entities;
-using Sakuno.ING.Game.Logger.Entities.Combat;
-using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Game.Json.Combat;
+using Sakuno.ING.Game.Logger.BinaryJson;
 
-[assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Design")]
-[assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Tests")]
 namespace Sakuno.ING.Game.Logger
 {
-    public class LoggerContext : DbContext
+    public class LoggerContext : LoggerContextBase
     {
-        internal LoggerContext(DbContextOptions<LoggerContext> options) : base(options)
+        private readonly BattleApiDeserializer deserializer;
+
+        internal LoggerContext(DbContextOptions<LoggerContextBase> options, BattleApiDeserializer deserializer) : base(options)
         {
-            ChangeTracker.AutoDetectChangesEnabled = false;
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+            this.deserializer = deserializer;
         }
 
-        public DbSet<ShipCreationEntity> ShipCreationTable { get; private set; }
-        public DbSet<EquipmentCreationEntity> EquipmentCreationTable { get; private set; }
-        public DbSet<ExpeditionCompletionEntity> ExpeditionCompletionTable { get; private set; }
+        public byte[] StoreBattle(ReadOnlyMemory<byte> json, bool wrappedWithStatusCode)
+            => new BinaryJsonEncoder(json, new BinaryJsonIdResolver(JNameTable), wrappedWithStatusCode ? "api_data" : null).Result;
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder
-                .Entity<ShipCreationEntity>()
-                .Property(x => x.TimeStamp)
-                .HasConversion(new DateTimeOffsetToBinaryConverter());
-            modelBuilder
-                .Entity<ShipCreationEntity>()
-                .Property(x => x.ShipBuilt)
-                .HasConversion<int>(v => v, v => (ShipInfoId)v);
-            modelBuilder
-                .Entity<ShipCreationEntity>()
-                .Property(x => x.Secretary)
-                .HasConversion<int>(v => v, v => (ShipInfoId)v);
-
-            modelBuilder
-                .Entity<EquipmentCreationEntity>()
-                .Property(x => x.TimeStamp)
-                .HasConversion(new DateTimeOffsetToBinaryConverter());
-            modelBuilder
-                .Entity<EquipmentCreationEntity>()
-                .Property(x => x.EquipmentCreated)
-                .HasConversion<int>(v => v, v => (EquipmentInfoId)v);
-            modelBuilder
-                .Entity<EquipmentCreationEntity>()
-                .Property(x => x.Secretary)
-                .HasConversion<int>(v => v, v => (ShipInfoId)v);
-
-            modelBuilder
-                .Entity<ExpeditionCompletionEntity>()
-                .Property(x => x.TimeStamp)
-                .HasConversion(new DateTimeOffsetToBinaryConverter());
-            modelBuilder
-                .Entity<ExpeditionCompletionEntity>()
-                .Property(x => x.ExpeditionId)
-                .HasConversion<int>(v => v, v => (ExpeditionId)v);
-        }
+        public BattleApi LoadBattle(byte[] data) => deserializer.Deserialize(data);
     }
 }

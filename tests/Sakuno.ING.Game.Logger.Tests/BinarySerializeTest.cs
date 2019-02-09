@@ -25,8 +25,8 @@ namespace Sakuno.ING.Game.Tests
                     Armor = 222,
                     Slots = new[]
                     {
-                        new EquipmentInBattleEntity { Id = (EquipmentInfoId)432, AirProficiency = 1, ImprovementLevel = 2, Count = 3, MaxCount = 4},
-                        new EquipmentInBattleEntity { Id = (EquipmentInfoId)321, AirProficiency = 2, ImprovementLevel = 3},
+                        new SlotInBattleEntity { Id = (EquipmentInfoId)432, AirProficiency = 1, ImprovementLevel = 2, Count = 3, MaxCount = 4},
+                        new SlotInBattleEntity { Id = (EquipmentInfoId)321, AirProficiency = 2, ImprovementLevel = 3},
                     },
                     Fuel = 100,
                     MaxFuel = 100,

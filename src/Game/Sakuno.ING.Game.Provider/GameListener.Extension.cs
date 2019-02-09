@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -58,5 +59,10 @@ namespace Sakuno.ING.Game
                 ParseRequest(arg.Request),
                 Convert<SvData<JToken>>(arg.Response)
             ));
+
+        // use utf8 string in new std
+        private ITimedMessageProvider<byte[]> RegisterUnparsedResponse(params string[] apis) => provider
+            .Where(arg => apis.Contains(arg.Key))
+            .Select(arg => System.Text.Encoding.UTF8.GetBytes(arg.Response.ToArray()));
     }
 }

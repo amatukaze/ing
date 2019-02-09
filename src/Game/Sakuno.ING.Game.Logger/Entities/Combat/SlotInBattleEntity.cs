@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Logger.Entities.Combat
 {
-    public struct EquipmentInBattleEntity
+    public struct SlotInBattleEntity
     {
         public EquipmentInfoId Id { get; set; }
         public int Count { get; set; }

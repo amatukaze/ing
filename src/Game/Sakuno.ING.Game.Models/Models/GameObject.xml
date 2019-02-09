@@ -96,7 +96,7 @@
     <property type="int?" name="GaugeIndex" autoFill="true" />
     <property type="EventMapGaugeType?" name="GaugeType" autoFill="true" />
     <property type="int" name="AvailableAirForceGroups" autoFill="true" />
-    <property type="ClampedValue" name="Gauge" />
+    <property type="ClampedValue?" name="Gauge" autoFill="true" />
   </class>
   <class name="AirForceSquadron" id="int" raw="RawAirForceSquadron" owner="NavalBase">
     <property type="Equipment" name="Equipment" />

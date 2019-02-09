@@ -1,4 +1,6 @@
-﻿using Sakuno.ING.Game.Logger.BinaryJson;
+﻿using System.Linq;
+using Sakuno.ING.Game.Logger.BinaryJson;
+using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Logger.Entities.Combat
@@ -11,8 +13,8 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         public int Torpedo { get; internal set; }
         public int AntiAir { get; internal set; }
         public int Armor { get; internal set; }
-        public EquipmentInBattleEntity[] Slots { get; internal set; }
-        public EquipmentInBattleEntity? ExtraSlot { get; internal set; }
+        public SlotInBattleEntity[] Slots { get; internal set; }
+        public SlotInBattleEntity? ExtraSlot { get; internal set; }
         public int Fuel { get; internal set; }
         public int MaxFuel { get; internal set; }
         public int Bullet { get; internal set; }
@@ -57,7 +59,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
                     foreach (var e in ship.Slots)
                         WriteSlot(writer, e);
                 }
-                if (ship.ExtraSlot is EquipmentInBattleEntity ex)
+                if (ship.ExtraSlot is SlotInBattleEntity ex)
                 {
                     writer.WriteJName(8);
                     WriteSlot(writer, ex);
@@ -67,7 +69,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
             return writer.Complete();
         }
 
-        public static byte[] StoreLandBase(EquipmentInBattleEntity[] group)
+        public static byte[] StoreLandBase(SlotInBattleEntity[] group)
         {
             var writer = new BinaryJsonWriter();
             writer.WriteArraySize(group.Length);
@@ -76,7 +78,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
             return writer.Complete();
         }
 
-        private static void WriteSlot(BinaryJsonWriter w, in EquipmentInBattleEntity slot)
+        private static void WriteSlot(BinaryJsonWriter w, in SlotInBattleEntity slot)
         {
             w.WriteStartObject();
             w.WriteJName(9);
@@ -146,7 +148,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
                         case 7:
                             if (reader.TryReadContainerLengthOrSkip(out int l))
                             {
-                                ship.Slots = new EquipmentInBattleEntity[l];
+                                ship.Slots = new SlotInBattleEntity[l];
                                 for (int j = 0; j < l; j++)
                                     ship.Slots[j] = TryReadSlot(ref reader) ?? default;
                             }
@@ -164,12 +166,12 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
             return result;
         }
 
-        public static EquipmentInBattleEntity[] ParseLandBase(byte[] data)
+        public static SlotInBattleEntity[] ParseLandBase(byte[] data)
         {
             var reader = new BinaryJsonReader(data);
             if (reader.TryReadContainerLengthOrSkip(out int l))
             {
-                var result = new EquipmentInBattleEntity[l];
+                var result = new SlotInBattleEntity[l];
                 for (int j = 0; j < l; j++)
                     result[j] = TryReadSlot(ref reader) ?? default;
                 return result;
@@ -177,11 +179,11 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
             return null;
         }
 
-        private static EquipmentInBattleEntity? TryReadSlot(ref BinaryJsonReader r)
+        private static SlotInBattleEntity? TryReadSlot(ref BinaryJsonReader r)
         {
             if (!r.StartObjectOrSkip())
                 return default;
-            var e = new EquipmentInBattleEntity();
+            var e = new SlotInBattleEntity();
             while (r.UntilObjectEnds())
                 switch (r.ReadJName())
                 {
@@ -202,6 +204,42 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
                         break;
                 }
             return e;
+        }
+
+        public static SlotInBattleEntity[] SelectLandBase(AirForceGroup group)
+            => group.Squadrons
+                .Select(x => new SlotInBattleEntity
+                {
+                    Id = x.Equipment?.Info.Id ?? default,
+                    Count = x.AircraftCount.Current,
+                    MaxCount = x.AircraftCount.Max
+                }).ToArray();
+
+        public ShipInBattleEntity() { }
+
+        public ShipInBattleEntity(Ship ship)
+        {
+            Id = ship.Info.Id;
+            Level = ship.Leveling.Level;
+            Firepower = ship.Firepower.Current;
+            Torpedo = ship.Torpedo.Current;
+            AntiAir = ship.AntiAir.Current;
+            Armor = ship.Armor.Current;
+            Slots = ship.Slots
+                .Select(x => new SlotInBattleEntity
+                {
+                    Id = x.Equipment?.Info.Id ?? default,
+                    Count = x.Aircraft.Current,
+                    MaxCount = x.Aircraft.Max
+                }).ToArray();
+            ExtraSlot = new SlotInBattleEntity
+            {
+                Id = ship.ExtraSlot?.Equipment?.Info.Id ?? default
+            };
+            Fuel = ship.Fuel.Current;
+            MaxFuel = ship.Fuel.Max;
+            Bullet = ship.Bullet.Current;
+            MaxBullet = ship.Bullet.Max;
         }
     }
 }

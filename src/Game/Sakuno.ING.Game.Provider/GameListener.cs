@@ -152,27 +152,27 @@ namespace Sakuno.ING.Game
             mapRouting = routing;
             var practice = RegisterRaw<BattleJson>("api_req_practice/battle");
             practiceStarted = practice.Select(x => ParsePracticeStart(x.Request));
-            battleStarted = RegisterResponse<BattleJson>("api_req_sortie/battle")
-                .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/ec_battle"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/battle"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/each_battle"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/battle_water"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/each_battle_water"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/ec_night_to_day"),
-                    RegisterResponse<BattleJson>("api_req_sortie/night_to_day"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/sp_midnight"),
-                    RegisterResponse<BattleJson>("api_req_battle_midnight/sp_midnight"),
-                    RegisterResponse<BattleJson>("api_req_sortie/airbattle"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/airbattle"),
-                    RegisterResponse<BattleJson>("api_req_sortie/ld_airbattle"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/ld_airbattle"),
-                    RegisterResponse<BattleJson>("api_req_sortie/ld_shooting"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/ld_shooting"),
-                    practice.Select(x => x.Response));
-            battleAppended = RegisterResponse<BattleJson>("api_req_battle_midnight/battle")
-                .CombineWith(RegisterResponse<BattleJson>("api_req_combined_battle/midnight_battle"),
-                    RegisterResponse<BattleJson>("api_req_combined_battle/ec_midnight_battle"),
-                    RegisterResponse<BattleJson>("api_req_practice/midnight_battle"));
+            battleStarted = RegisterBattleDetail("api_req_practice/battle",
+                "api_req_sortie/battle",
+                "api_req_combined_battle/ec_battle",
+                "api_req_combined_battle/battle",
+                "api_req_combined_battle/each_battle",
+                "api_req_combined_battle/battle_water",
+                "api_req_combined_battle/each_battle_water",
+                "api_req_combined_battle/ec_night_to_day",
+                "api_req_sortie/night_to_day",
+                "api_req_combined_battle/sp_midnight",
+                "api_req_battle_midnight/sp_midnight",
+                "api_req_sortie/airbattle",
+                "api_req_combined_battle/airbattle",
+                "api_req_sortie/ld_airbattle",
+                "api_req_combined_battle/ld_airbattle",
+                "api_req_sortie/ld_shooting",
+                "api_req_combined_battle/ld_shooting");
+            battleAppended = RegisterBattleDetail("api_req_battle_midnight/battle",
+                "api_req_combined_battle/midnight_battle",
+                "api_req_combined_battle/ec_midnight_battle",
+                "api_req_practice/midnight_battle");
             var battleResult = RegisterResponse<BattleResultJson>("api_req_sortie/battleresult")
                 .CombineWith(RegisterResponse<BattleResultJson>("api_req_practice/battleresult"),
                     RegisterResponse<BattleResultJson>("api_req_combined_battle/battleresult"));

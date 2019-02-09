@@ -1,8 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Data;
+using Sakuno.ING.Game.Logger.BinaryJson;
 using Sakuno.ING.Game.Logger.Entities;
+using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Logger
@@ -15,6 +18,15 @@ namespace Sakuno.ING.Game.Logger
 
         private ShipCreationEntity shipCreation;
         private BuildingDockId lastBuildingDock;
+
+        private readonly object admiralLock = new object();
+        private Admiral currentAdmiral;
+        private BattleApiDeserializer battleApiDeserializer;
+
+        private LoggerContext currentBattleContext;
+        private Fleet currentFleetInBattle, currentFleet2InBattle;
+        private CombinedFleetType currentCombinedFleet;
+        private BattleEntity currentBattle;
 
         public Logger(IDataService dataService, GameProvider provider, NavalBase navalBase)
         {
@@ -86,16 +98,94 @@ namespace Sakuno.ING.Game.Logger
             };
 
 #if DEBUG
-            using (var context = CreateContext())
-                context.Database.Migrate();
+            InitializeAdmiral(null);
 #endif
 
-            provider.AdmiralUpdated += (t, m) =>
+            navalBase.AdmiralChanging += (t, _, a) =>
             {
-                if (PlayerLoaded)
-                    using (var context = CreateContext())
-                        context.Database.Migrate();
+                if (a != null)
+                    lock (admiralLock)
+                        InitializeAdmiral(a);
             };
+
+            provider.SortieStarting += (t, m) =>
+            {
+                currentFleetInBattle = navalBase.Fleets[m.FleetId];
+                currentCombinedFleet = navalBase.CombinedFleet;
+                if (currentCombinedFleet != CombinedFleetType.None)
+                    currentFleet2InBattle = navalBase.Fleets[(FleetId)2];
+                currentBattleContext = CreateContext();
+            };
+
+            provider.MapRouting += (t, m) =>
+            {
+                var map = navalBase.Maps[m.MapId];
+                currentBattle = new BattleEntity
+                {
+                    TimeStamp = t,
+                    MapId = m.MapId,
+                    MapName = map.Info.Name.Origin,
+                    RouteId = m.RouteId,
+                    EventKind = m.EventKind,
+                    BattleKind = m.BattleKind,
+                    MapRank = map.Rank,
+                    MapGaugeType = map.GaugeType,
+                    MapGaugeNumber = map.GaugeIndex,
+                    MapGaugeHP = map.Gauge?.Current,
+                    MapGaugeMaxHP = map.Gauge?.Max,
+                    Details = new BattleDetailEntity()
+                };
+                currentBattleContext.BattleTable.Add(currentBattle);
+                currentBattleContext.SaveChanges();
+            };
+
+            provider.BattleStarted += (t, m) =>
+            {
+                currentBattle.TimeStamp = t;
+                currentBattle.Details.SortieFleetState = ShipInBattleEntity.StoreFleet(currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray());
+                if (currentFleet2InBattle != null)
+                    currentBattle.Details.SortieFleet2State = ShipInBattleEntity.StoreFleet(currentFleet2InBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray());
+                currentBattle.Details.FirstBattleDetail = currentBattleContext.StoreBattle(m.Unparsed, true);
+                currentBattleContext.SaveChanges();
+            };
+
+            provider.BattleAppended += (t, m) =>
+            {
+                currentBattle.TimeStamp = t;
+                currentBattle.Details.SecondBattleDetail = currentBattleContext.StoreBattle(m.Unparsed, true);
+                currentBattleContext.SaveChanges();
+            };
+
+            provider.BattleCompleted += (t, m) =>
+            {
+                currentBattle.TimeStamp = t;
+                currentBattle.Rank = m.Rank;
+                currentBattle.AdmiralExperience = m.AdmiralExperience;
+                currentBattle.BaseExperience = m.BaseExperience;
+                currentBattle.MapCleared = m.MapCleared;
+                currentBattle.EnemyFleetName = m.EnemyFleetName;
+                currentBattle.UseItemAcquired = m.UseItemAcquired;
+                currentBattle.ShipDropped = m.ShipDropped;
+                currentBattleContext.SaveChanges();
+            };
+
+            provider.HomeportReturned += (t, m) =>
+            {
+                currentBattle = null;
+                currentBattleContext?.Dispose();
+                currentFleetInBattle = null;
+                currentFleet2InBattle = null;
+            };
+        }
+
+        private void InitializeAdmiral(Admiral admiral)
+        {
+            using (var context = new LoggerContextBase(ConfigureContext(admiral?.Id)))
+            {
+                context.Database.Migrate();
+                battleApiDeserializer = new BattleApiDeserializer(new BinaryJsonIdResolver(context.JNameTable));
+            }
+            currentAdmiral = admiral;
         }
 
         public bool PlayerLoaded
@@ -106,15 +196,13 @@ namespace Sakuno.ING.Game.Logger
 #endif
 
         public LoggerContext CreateContext()
-            => new LoggerContext(dataService.ConfigureDbContext<LoggerContext>
-            (
-                navalBase.Admiral?.Id.ToString() ??
-#if DEBUG
-                    "0",
-#else
-                    throw new System.InvalidOperationException("Game not loaded"),
-#endif
-                "logs"
-            ));
+        {
+            lock (admiralLock)
+                return new LoggerContext(ConfigureContext(currentAdmiral?.Id),
+                    battleApiDeserializer ?? throw new InvalidOperationException("Game not loaded"));
+        }
+
+        private DbContextOptions<LoggerContextBase> ConfigureContext(int? admiralId)
+            => dataService.ConfigureDbContext<LoggerContextBase>(admiralId?.ToString() ?? "0", "logs");
     }
 }

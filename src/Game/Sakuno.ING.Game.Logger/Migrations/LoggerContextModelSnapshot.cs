@@ -7,14 +7,108 @@ using Sakuno.ING.Game.Logger;
 
 namespace Sakuno.ING.Game.Logger.Migrations
 {
-    [DbContext(typeof(LoggerContext))]
+    [DbContext(typeof(LoggerContextBase))]
     partial class LoggerContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
+
+            modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.BattleDetailEntity", b =>
+                {
+                    b.Property<long>("TimeStamp");
+
+                    b.Property<byte[]>("FirstBattleDetail");
+
+                    b.Property<byte[]>("LandBaseDefence");
+
+                    b.Property<byte[]>("LbasState");
+
+                    b.Property<byte[]>("SecondBattleDetail");
+
+                    b.Property<byte[]>("SortieFleet2State");
+
+                    b.Property<byte[]>("SortieFleetState");
+
+                    b.Property<string>("Source");
+
+                    b.Property<byte[]>("SupportFleetState");
+
+                    b.HasKey("TimeStamp");
+
+                    b.ToTable("BattleDetailEntity");
+                });
+
+            modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.BattleEntity", b =>
+                {
+                    b.Property<long>("TimeStamp");
+
+                    b.Property<int?>("AdmiralExperience");
+
+                    b.Property<int?>("BaseExperience");
+
+                    b.Property<int>("BattleKind");
+
+                    b.Property<string>("EnemyFleetName");
+
+                    b.Property<int>("EventKind");
+
+                    b.Property<bool?>("MapCleared");
+
+                    b.Property<int?>("MapGaugeHP");
+
+                    b.Property<int?>("MapGaugeMaxHP");
+
+                    b.Property<int?>("MapGaugeNumber");
+
+                    b.Property<int?>("MapGaugeType");
+
+                    b.Property<int>("MapId");
+
+                    b.Property<string>("MapName");
+
+                    b.Property<int?>("MapRank");
+
+                    b.Property<int?>("Rank");
+
+                    b.Property<int>("RouteId");
+
+                    b.Property<int?>("ShipDropped");
+
+                    b.Property<string>("Source");
+
+                    b.Property<int?>("UseItemAcquired");
+
+                    b.HasKey("TimeStamp");
+
+                    b.HasIndex("MapId");
+
+                    b.ToTable("BattleTable");
+                });
+
+            modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.JNameEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("JNameTable");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = ""
+                        });
+                });
 
             modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.EquipmentCreationEntity", b =>
                 {
@@ -110,6 +204,14 @@ namespace Sakuno.ING.Game.Logger.Migrations
                     b.HasKey("TimeStamp");
 
                     b.ToTable("ShipCreationTable");
+                });
+
+            modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.BattleDetailEntity", b =>
+                {
+                    b.HasOne("Sakuno.ING.Game.Logger.Entities.Combat.BattleEntity")
+                        .WithOne("Details")
+                        .HasForeignKey("Sakuno.ING.Game.Logger.Entities.Combat.BattleDetailEntity", "TimeStamp")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

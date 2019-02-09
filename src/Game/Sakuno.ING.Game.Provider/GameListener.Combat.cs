@@ -1,5 +1,10 @@
 ﻿using System.Collections.Specialized;
+using System.IO;
+using System.Linq;
+using Newtonsoft.Json;
 using Sakuno.ING.Game.Events.Combat;
+using Sakuno.ING.Game.Json;
+using Sakuno.ING.Game.Json.Combat;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
@@ -45,15 +50,15 @@ namespace Sakuno.ING.Game
             remove => practiceStarted.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IRawBattle> battleStarted;
-        public event TimedMessageHandler<IRawBattle> BattleStarted
+        private readonly ITimedMessageProvider<BattleDetail> battleStarted;
+        public event TimedMessageHandler<BattleDetail> BattleStarted
         {
             add => battleStarted.Received += value;
             remove => battleStarted.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IRawBattle> battleAppended;
-        public event TimedMessageHandler<IRawBattle> BattleAppended
+        private readonly ITimedMessageProvider<BattleDetail> battleAppended;
+        public event TimedMessageHandler<BattleDetail> BattleAppended
         {
             add => battleAppended.Received += value;
             remove => battleAppended.Received -= value;
@@ -76,5 +81,12 @@ namespace Sakuno.ING.Game
 
         private static FleetId ParsePracticeStart(NameValueCollection req)
             => (FleetId)req.GetInt("api_deck_id");
+
+        private ITimedMessageProvider<BattleDetail> RegisterBattleDetail(params string[] apis)
+            => provider.Where(arg => apis.Contains(arg.Key))
+                .Select(arg => System.Text.Encoding.UTF8.GetBytes(arg.Response.ToArray()))
+                .Select(m => (jSerializer.Deserialize<SvData<BattleApi>>(new JsonTextReader(new StreamReader(new MemoryStream(m)))), m))
+                .Where(((SvData<BattleApi> svdata, byte[] memory) x) => x.svdata.api_result == 1)
+                .Select(((SvData<BattleApi> svdata, byte[] memory) x) => new BattleDetail(x.svdata.api_data, x.memory));
     }
 }

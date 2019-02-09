@@ -1150,8 +1150,8 @@ namespace Sakuno.ING.Game.Models
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_gauge = new PropertyChangedEventArgs(nameof(Gauge));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private ClampedValue _gauge;
-        public ClampedValue Gauge
+        private ClampedValue? _gauge;
+        public ClampedValue? Gauge
         {
             get => _gauge;
             private set => Set(ref _gauge, value, __eventArgs_gauge);
@@ -1187,6 +1187,7 @@ namespace Sakuno.ING.Game.Models
             GaugeIndex = raw.GaugeIndex;
             GaugeType = raw.GaugeType;
             AvailableAirForceGroups = raw.AvailableAirForceGroups;
+            Gauge = raw.Gauge;
 
             UpdateCore(raw, timeStamp);
         }
