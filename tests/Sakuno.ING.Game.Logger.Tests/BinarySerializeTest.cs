@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Sakuno.ING.Game.Logger.BinaryJson;
 using Sakuno.ING.Game.Logger.Entities.Combat;
+using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
 using Xunit;
 
@@ -13,41 +14,44 @@ namespace Sakuno.ING.Game.Tests
         [Fact]
         public static void TestConvertFleet()
         {
-            var fleet = new[]
-            {
-                new ShipInBattleEntity
+            ShipMordenizationStatus CreateParameter(int current, int displaying)
+                => new Models.ShipMordenizationStatus
                 {
-                    Id = (ShipInfoId)1234,
-                    Level = 100,
-                    Firepower = 123,
-                    Torpedo = 321,
-                    AntiAir = 111,
-                    Armor = 222,
-                    Slots = new[]
-                    {
-                        new SlotInBattleEntity { Id = (EquipmentInfoId)432, AirProficiency = 1, ImprovementLevel = 2, Count = 3, MaxCount = 4},
-                        new SlotInBattleEntity { Id = (EquipmentInfoId)321, AirProficiency = 2, ImprovementLevel = 3},
-                    },
-                    Fuel = 100,
-                    MaxFuel = 100,
-                    Bullet = 100,
-                    MaxBullet = 100
-                }
+                    Min = current,
+                    Max = current,
+                    Displaying = displaying
+                };
+
+            var s = new ShipInBattleEntity
+            {
+                Id = (ShipInfoId)1234,
+                Level = 100,
+                Firepower = CreateParameter(123, 123),
+                Torpedo = CreateParameter(321, 321),
+                AntiAir = CreateParameter(111, 111),
+                Armor = CreateParameter(222, 222),
+                Slots = new[]
+                {
+                    new SlotInBattleEntity { Id = (EquipmentInfoId)432, AirProficiency = 1, ImprovementLevel = 2, Count = 3, MaxCount = 4},
+                    new SlotInBattleEntity { Id = (EquipmentInfoId)321, AirProficiency = 2, ImprovementLevel = 3},
+                },
+                Fuel = (100, 100),
+                Bullet = (100, 100)
             };
-            var binary = ShipInBattleEntity.StoreFleet(fleet);
+            var binary = ShipInBattleEntity.StoreFleet(new[] { s });
             var parsed = ShipInBattleEntity.ParseFleet(binary);
             Assert.Single(parsed);
             var ship = parsed[0];
             Assert.Equal(1234, ship.Id);
             Assert.Equal(100, ship.Level);
-            Assert.Equal(123, ship.Firepower);
-            Assert.Equal(321, ship.Torpedo);
-            Assert.Equal(111, ship.AntiAir);
-            Assert.Equal(222, ship.Armor);
-            Assert.Equal(100, ship.Fuel);
-            Assert.Equal(100, ship.MaxFuel);
-            Assert.Equal(100, ship.Bullet);
-            Assert.Equal(100, ship.MaxBullet);
+            Assert.Equal(123, ship.Firepower.Current);
+            Assert.Equal(321, ship.Torpedo.Current);
+            Assert.Equal(111, ship.AntiAir.Current);
+            Assert.Equal(222, ship.Armor.Current);
+            Assert.Equal(100, ship.Fuel.Value.Current);
+            Assert.Equal(100, ship.Fuel.Value.Max);
+            Assert.Equal(100, ship.Bullet.Value.Current);
+            Assert.Equal(100, ship.Bullet.Value.Max);
             Assert.Equal(2, ship.Slots.Length);
             Assert.Equal(432, ship.Slots[0].Id);
             Assert.Equal(1, ship.Slots[0].AirProficiency);

@@ -59,14 +59,14 @@ namespace Sakuno.ING.Game.Tests
                 0b1010_0000,
                 1, 1,
                 2, 0b1000_0010, 1, 2,
-                0b1010_1111
+                0
             });
             AssertEncodeEqual("{\"a\":null,\"b\":0}", new byte[]
             {
                 0b1010_0000,
                 1, 0b0100_0000, 0,
                 2, 0,
-                0b1010_1111
+                0
             });
         }
 

@@ -9,21 +9,31 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
     {
         public ShipInfoId Id { get; internal set; }
         public int Level { get; internal set; }
-        public int Firepower { get; internal set; }
-        public int Torpedo { get; internal set; }
-        public int AntiAir { get; internal set; }
-        public int Armor { get; internal set; }
+        public ShipMordenizationStatus Firepower { get; internal set; }
+        public ShipMordenizationStatus Torpedo { get; internal set; }
+        public ShipMordenizationStatus AntiAir { get; internal set; }
+        public ShipMordenizationStatus Armor { get; internal set; }
+        public ShipMordenizationStatus Luck { get; internal set; }
+        public ShipMordenizationStatus LineOfSight { get; internal set; }
+        public ShipMordenizationStatus Evasion { get; internal set; }
+        public ShipMordenizationStatus AntiSubmarine { get; internal set; }
         public SlotInBattleEntity[] Slots { get; internal set; }
         public SlotInBattleEntity? ExtraSlot { get; internal set; }
-        public int Fuel { get; internal set; }
-        public int MaxFuel { get; internal set; }
-        public int Bullet { get; internal set; }
-        public int MaxBullet { get; internal set; }
+        public ClampedValue? Fuel { get; internal set; }
+        public ClampedValue? Bullet { get; internal set; }
 
         public static byte[] StoreFleet(ShipInBattleEntity[] fleet)
         {
             var writer = new BinaryJsonWriter();
             writer.WriteArraySize(fleet.Length);
+
+            void WriteShipParameter(BinaryJsonWriter w, ShipMordenizationStatus p)
+            {
+                w.WriteArraySize(2);
+                w.WriteInteger(p.Current);
+                w.WriteInteger(p.Displaying);
+            }
+
             foreach (var ship in fleet)
             {
                 if (ship is null)
@@ -37,21 +47,35 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
                 writer.WriteJName(2);
                 writer.WriteInteger(ship.Level);
                 writer.WriteJName(3);
-                writer.WriteInteger(ship.Firepower);
+                WriteShipParameter(writer, ship.Firepower);
                 writer.WriteJName(4);
-                writer.WriteInteger(ship.Torpedo);
+                WriteShipParameter(writer, ship.Torpedo);
                 writer.WriteJName(5);
-                writer.WriteInteger(ship.AntiAir);
+                WriteShipParameter(writer, ship.AntiAir);
                 writer.WriteJName(6);
-                writer.WriteInteger(ship.Armor);
-                writer.WriteJName(14);
-                writer.WriteInteger(ship.Fuel);
-                writer.WriteJName(15);
-                writer.WriteInteger(ship.MaxFuel);
+                WriteShipParameter(writer, ship.Armor);
                 writer.WriteJName(16);
-                writer.WriteInteger(ship.Bullet);
+                WriteShipParameter(writer, ship.Luck);
                 writer.WriteJName(17);
-                writer.WriteInteger(ship.MaxBullet);
+                WriteShipParameter(writer, ship.LineOfSight);
+                writer.WriteJName(18);
+                WriteShipParameter(writer, ship.Evasion);
+                writer.WriteJName(19);
+                WriteShipParameter(writer, ship.AntiSubmarine);
+                if (ship.Fuel is ClampedValue fuel)
+                {
+                    writer.WriteJName(14);
+                    writer.WriteArraySize(2);
+                    writer.WriteInteger(fuel.Current);
+                    writer.WriteInteger(fuel.Max);
+                }
+                if (ship.Bullet is ClampedValue bullet)
+                {
+                    writer.WriteJName(15);
+                    writer.WriteArraySize(2);
+                    writer.WriteInteger(bullet.Current);
+                    writer.WriteInteger(bullet.Max);
+                }
                 if (ship.Slots != null)
                 {
                     writer.WriteJName(7);
@@ -106,6 +130,33 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
             if (!reader.IsNextArray())
                 return null;
             var result = new ShipInBattleEntity[reader.ReadContainerLength()];
+
+            (int, int) ReadArray2(BinaryJsonReader r)
+            {
+                if (r.TryReadContainerLengthOrSkip(out int l))
+                    if (l == 2)
+                    {
+                        int a = r.ReadIntegerOrSkip() ?? 0;
+                        int b = r.ReadIntegerOrSkip() ?? 0;
+                        return (a, b);
+                    }
+                    else while (l-- > 0)
+                            r.SkipValue();
+                return default;
+            }
+
+            ShipMordenizationStatus ReadShipParameter(BinaryJsonReader r)
+            {
+                (int a, int b) = ReadArray2(r);
+                return new ShipMordenizationStatus
+                {
+                    Min = a,
+                    Max = a,
+                    Improved = 0,
+                    Displaying = b
+                };
+            }
+
             for (int i = 0; i < result.Length; i++)
             {
                 if (!reader.StartObjectOrSkip())
@@ -122,28 +173,34 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
                             ship.Level = reader.ReadIntegerOrSkip() ?? 0;
                             break;
                         case 3:
-                            ship.Firepower = reader.ReadIntegerOrSkip() ?? 0;
+                            ship.Firepower = ReadShipParameter(reader);
                             break;
                         case 4:
-                            ship.Torpedo = reader.ReadIntegerOrSkip() ?? 0;
+                            ship.Torpedo = ReadShipParameter(reader);
                             break;
                         case 5:
-                            ship.AntiAir = reader.ReadIntegerOrSkip() ?? 0;
+                            ship.AntiAir = ReadShipParameter(reader);
                             break;
                         case 6:
-                            ship.Armor = reader.ReadIntegerOrSkip() ?? 0;
+                            ship.Armor = ReadShipParameter(reader);
                             break;
                         case 14:
-                            ship.Fuel = reader.ReadIntegerOrSkip() ?? 0;
+                            ship.Fuel = ReadArray2(reader);
                             break;
                         case 15:
-                            ship.MaxFuel = reader.ReadIntegerOrSkip() ?? 0;
+                            ship.Bullet = ReadArray2(reader);
                             break;
                         case 16:
-                            ship.Bullet = reader.ReadIntegerOrSkip() ?? 0;
+                            ship.Luck = ReadShipParameter(reader);
                             break;
                         case 17:
-                            ship.MaxBullet = reader.ReadIntegerOrSkip() ?? 0;
+                            ship.LineOfSight = ReadShipParameter(reader);
+                            break;
+                        case 18:
+                            ship.Evasion = ReadShipParameter(reader);
+                            break;
+                        case 19:
+                            ship.AntiSubmarine = ReadShipParameter(reader);
                             break;
                         case 7:
                             if (reader.TryReadContainerLengthOrSkip(out int l))
@@ -221,10 +278,14 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         {
             Id = ship.Info.Id;
             Level = ship.Leveling.Level;
-            Firepower = ship.Firepower.Current;
-            Torpedo = ship.Torpedo.Current;
-            AntiAir = ship.AntiAir.Current;
-            Armor = ship.Armor.Current;
+            Firepower = ship.Firepower;
+            Torpedo = ship.Torpedo;
+            AntiAir = ship.AntiAir;
+            Armor = ship.Armor;
+            Luck = ship.Luck;
+            LineOfSight = ship.LineOfSight;
+            Evasion = ship.Evasion;
+            AntiSubmarine = ship.AntiSubmarine;
             Slots = ship.Slots
                 .Select(x => new SlotInBattleEntity
                 {
@@ -236,10 +297,8 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
             {
                 Id = ship.ExtraSlot?.Equipment?.Info.Id ?? default
             };
-            Fuel = ship.Fuel.Current;
-            MaxFuel = ship.Fuel.Max;
-            Bullet = ship.Bullet.Current;
-            MaxBullet = ship.Bullet.Max;
+            Fuel = ship.Fuel;
+            Bullet = ship.Bullet;
         }
     }
 }
