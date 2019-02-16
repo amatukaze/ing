@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Sakuno.ING.Game.Json.Combat;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Logger.BinaryJson;
 
 namespace Sakuno.ING.Game.Logger
@@ -17,6 +17,6 @@ namespace Sakuno.ING.Game.Logger
         public byte[] StoreBattle(ReadOnlyMemory<byte> json, bool wrappedWithStatusCode)
             => new BinaryJsonEncoder(json, new BinaryJsonIdResolver(JNameTable), wrappedWithStatusCode ? "api_data" : null).Result;
 
-        public BattleApi LoadBattle(byte[] data) => deserializer.Deserialize(data);
+        public BattleDetailJson LoadBattle(byte[] data) => deserializer.Deserialize(data);
     }
 }

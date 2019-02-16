@@ -14,9 +14,9 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         internal int[] api_map_bgm;
         internal int[] api_boss_bgm;
-        public int NormalBattleDayBgmId => api_map_bgm.ElementAtOrDefault(0);
-        public int NormalBattleNightBgmId => api_map_bgm.ElementAtOrDefault(1);
-        public int BossBattleDayBgmId => api_boss_bgm.ElementAtOrDefault(0);
-        public int BossBattleNightBgmId => api_boss_bgm.ElementAtOrDefault(1);
+        public int NormalBattleDayBgmId => api_map_bgm.At(0);
+        public int NormalBattleNightBgmId => api_map_bgm.At(1);
+        public int BossBattleDayBgmId => api_boss_bgm.At(0);
+        public int BossBattleNightBgmId => api_boss_bgm.At(1);
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Sakuno.ING.Game.Json.Combat;
+using Sakuno.ING.Game.Json;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
     public class RawTorpedoPhase : RawBattlePhase
     {
-        public RawTorpedoPhase(BattleApi.Torpedo api)
+        public RawTorpedoPhase(BattleDetailJson.Torpedo api)
             : base(SelectTorpedo(api.api_frai, api.api_fydam, api.api_fcl, false)
                   .Concat(SelectTorpedo(api.api_erai, api.api_eydam, api.api_ecl, true)))
         {

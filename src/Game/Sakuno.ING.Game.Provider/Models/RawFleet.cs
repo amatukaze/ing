@@ -34,12 +34,12 @@ namespace Sakuno.ING.Game.Models
         public string Name { get; internal set; }
 
         internal long[] api_mission;
-        public FleetExpeditionState ExpeditionState => (FleetExpeditionState)api_mission.ElementAtOrDefault(0);
+        public FleetExpeditionState ExpeditionState => (FleetExpeditionState)api_mission.At(0);
         public ExpeditionId? ExpeditionId
         {
             get
             {
-                long id = api_mission.ElementAtOrDefault(1);
+                long id = api_mission.At(1);
                 if (id > 0)
                     return (ExpeditionId)id;
                 else
@@ -51,7 +51,7 @@ namespace Sakuno.ING.Game.Models
         {
             get
             {
-                long value = api_mission.ElementAtOrDefault(2);
+                long value = api_mission.At(2);
                 return value > 0 ?
                     DateTimeOffset.FromUnixTimeMilliseconds(value) :
                     (DateTimeOffset?)null;

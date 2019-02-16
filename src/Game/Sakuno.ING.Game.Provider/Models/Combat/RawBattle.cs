@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sakuno.ING.Game.Json.Combat;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
@@ -38,13 +38,13 @@ namespace Sakuno.ING.Game.Models.Combat
         public RawSupportPhase SupportPhase { get; }
         public RawShellingPhase NpcPhase { get; }
 
-        public RawBattle(BattleApi api)
+        public RawBattle(BattleDetailJson api)
         {
             // Fleets
 
-            ally.Formation = (Formation)api.api_formation.ElementAtOrDefault(0);
-            enemy.Formation = (Formation)api.api_formation.ElementAtOrDefault(1);
-            Engagement = (Engagement)api.api_formation.ElementAtOrDefault(2);
+            ally.Formation = (Formation)api.api_formation.At(0);
+            enemy.Formation = (Formation)api.api_formation.At(1);
+            Engagement = (Engagement)api.api_formation.At(2);
             ally.NightTouchingId = (EquipmentInfoId?)SelectPositive(api.api_touch_plane, 0);
             enemy.NightTouchingId = (EquipmentInfoId?)SelectPositive(api.api_touch_plane, 1);
             ally.FlareIndex = SelectPositive(api.api_flare_pos, 0);
@@ -145,16 +145,16 @@ namespace Sakuno.ING.Game.Models.Combat
             for (int i = 0; i < maxhp.Length; i++)
             {
                 if (maxhp[i] <= 0) continue;
-                var p = param.ElementAtOrDefault(i);
-                var u = upgrade.ElementAtOrDefault(i);
+                var p = param.At(i);
+                var u = upgrade.At(i);
                 var s = new RawShipInBattle
                 {
                     HP = (nowhp[i], maxhp[i]),
-                    Firepower = p.ElementAtOrDefault(0) + u.ElementAtOrDefault(0),
-                    Torpedo = p.ElementAtOrDefault(1) + u.ElementAtOrDefault(1),
-                    AntiAir = p.ElementAtOrDefault(2) + u.ElementAtOrDefault(2),
-                    Armor = p.ElementAtOrDefault(3) + u.ElementAtOrDefault(3),
-                    Equipment = slot.ElementAtOrDefault(i)?.Where(x => x > 0).Select(x => (EquipmentInfoId)x).ToArray()
+                    Firepower = p.At(0) + u.At(0),
+                    Torpedo = p.At(1) + u.At(1),
+                    AntiAir = p.At(2) + u.At(2),
+                    Armor = p.At(3) + u.At(3),
+                    Equipment = slot.At(i)?.Where(x => x > 0).Select(x => (EquipmentInfoId)x).ToArray()
                 };
                 if (id != default) s.Id = (ShipInfoId)id[i];
                 if (lv != default) s.Level = lv[i];

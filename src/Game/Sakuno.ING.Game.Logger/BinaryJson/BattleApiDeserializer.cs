@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Sakuno.ING.Game.Json.Combat;
+using Sakuno.ING.Game.Json;
 using static System.Linq.Expressions.Expression;
 
 namespace Sakuno.ING.Game.Logger.BinaryJson
 {
     internal class BattleApiDeserializer
     {
-        private readonly Func<BinaryJsonReader, BattleApi> func;
+        private readonly Func<BinaryJsonReader, BattleDetailJson> func;
 
         private static readonly MethodInfo
             startObjectOrSkip, untilObjectEnds, readJName, tryReadContainerLengthOrSkip,
@@ -31,7 +31,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
         public BattleApiDeserializer(IReadOnlyDictionary<string, int> resolver)
         {
             var reader = Parameter(typeof(BinaryJsonReader));
-            func = Lambda<Func<BinaryJsonReader, BattleApi>>(Invoke(ReadObject(typeof(BattleApi), resolver, reader)), reader).Compile();
+            func = Lambda<Func<BinaryJsonReader, BattleDetailJson>>(Invoke(ReadObject(typeof(BattleDetailJson), resolver, reader)), reader).Compile();
         }
 
         public static Expression ReadValue(Type type, IReadOnlyDictionary<string, int> resolver, ParameterExpression reader)
@@ -92,6 +92,6 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             ));
         }
 
-        public BattleApi Deserialize(ReadOnlyMemory<byte> data) => func(new BinaryJsonReader(data));
+        public BattleDetailJson Deserialize(ReadOnlyMemory<byte> data) => func(new BinaryJsonReader(data));
     }
 }

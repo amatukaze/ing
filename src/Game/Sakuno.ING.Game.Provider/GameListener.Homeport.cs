@@ -172,7 +172,7 @@ namespace Sakuno.ING.Game
         {
             UseItemRecord? item1 = null, item2 = null;
 
-            var id1 = response.api_useitem_flag.ElementAtOrDefault(0);
+            var id1 = response.api_useitem_flag.At(0);
             if (id1 == 4)
                 item1 = new UseItemRecord
                 {
@@ -186,7 +186,7 @@ namespace Sakuno.ING.Game
                     Count = response.api_get_item1.api_useitem_count
                 };
 
-            var id2 = response.api_useitem_flag.ElementAtOrDefault(1);
+            var id2 = response.api_useitem_flag.At(1);
             if (id2 == 4)
                 item2 = new UseItemRecord
                 {

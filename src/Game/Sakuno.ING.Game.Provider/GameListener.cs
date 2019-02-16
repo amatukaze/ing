@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
-using Sakuno.ING.Game.Json.Combat;
 using Sakuno.ING.Game.Json.MasterData;
 using Sakuno.ING.Game.Json.Shipyard;
 using Sakuno.ING.Game.Models;
@@ -151,7 +150,7 @@ namespace Sakuno.ING.Game
             var routing = mapStart.Select(x => x.Response)
                 .CombineWith(RegisterResponse<RawMapRouting>("api_req_map/next"));
             mapRouting = routing;
-            var practice = RegisterRaw<BattleApi>("api_req_practice/battle");
+            var practice = RegisterRaw<BattleDetailJson>("api_req_practice/battle");
             practiceStarted = practice.Select(x => ParsePracticeStart(x.Request));
             battleStarted = RegisterBattleDetail("api_req_practice/battle",
                 "api_req_sortie/battle",

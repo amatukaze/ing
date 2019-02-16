@@ -17,19 +17,19 @@ namespace Sakuno.ING.Game.Json
         public int api_level;
         public int[] api_experience;
         public override Leveling Leveling => new Leveling(api_level,
-            api_experience.ElementAtOrDefault(0),
+            api_experience.At(0),
             KnownLeveling.GetAdmiralExp(api_level),
-            api_experience.ElementAtOrDefault(1),
+            api_experience.At(1),
             api_level >= KnownLeveling.MaxAdmiralLevel);
 
         internal AdmiralRank api_rank;
         public override AdmiralRank Rank => api_rank;
 
         internal int[] api_ship;
-        public override int MaxShipCount => api_ship.ElementAtOrDefault(1);
+        public override int MaxShipCount => api_ship.At(1);
 
         internal int[] api_slotitem;
-        public override int MaxEquipmentCount => api_slotitem.ElementAtOrDefault(1);
+        public override int MaxEquipmentCount => api_slotitem.At(1);
 
         public class RecordBattleStat
         {

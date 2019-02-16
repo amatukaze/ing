@@ -8,22 +8,11 @@ namespace Sakuno.ING.Game
 {
     internal static class Helper
     {
-        public static T ElementAtOrDefault<T>(this IReadOnlyList<T> source, int index)
+        public static T At<T>(this IReadOnlyList<T> source, int index)
         {
             if (source == null) return default;
             if (source.Count <= index) return default;
             return source[index];
-        }
-
-        public static void AlignSet<TRow, TElement>(this IList<TElement> values, IList<TRow> list, Action<TRow, TElement> setter)
-            where TRow : new()
-        {
-            for (int i = 0; i < values.Count; i++)
-            {
-                if (i >= list.Count)
-                    list.Add(new TRow());
-                setter(list[i], values[i]);
-            }
         }
 
         public static int GetInt(this NameValueCollection source, string name)

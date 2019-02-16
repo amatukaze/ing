@@ -38,8 +38,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         public string Description { get; internal set; }
 
         internal int[] api_type;
-        public EquipmentTypeId TypeId => (EquipmentTypeId)api_type.ElementAtOrDefault(2);
-        public int IconId => api_type.ElementAtOrDefault(3);
+        public EquipmentTypeId TypeId => (EquipmentTypeId)api_type.At(2);
+        public int IconId => api_type.At(3);
 
         public IReadOnlyCollection<ShipInfoId> ExtraSlotAcceptingShips { get; internal set; } = Array.Empty<ShipInfoId>();
 

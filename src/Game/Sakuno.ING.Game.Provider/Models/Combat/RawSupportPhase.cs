@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using Sakuno.ING.Game.Json.Combat;
+using Sakuno.ING.Game.Json;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
     public class RawSupportPhase : RawBattlePhase
     {
-        public RawSupportPhase(BattleApi.Support.ShellingSupport api) : base(SelectSupport(api))
+        public RawSupportPhase(BattleDetailJson.Support.ShellingSupport api) : base(SelectSupport(api))
         {
         }
 
-        private static IEnumerable<RawAttack> SelectSupport(BattleApi.Support.ShellingSupport api)
+        private static IEnumerable<RawAttack> SelectSupport(BattleDetailJson.Support.ShellingSupport api)
         {
             for (int i = 0; i < api.api_damage.Length; i++)
             {

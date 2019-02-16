@@ -50,10 +50,10 @@ namespace Sakuno.ING.Game.Models.MasterData
         public int? RequiredDefeatCount { get; internal set; }
 
         internal int[] api_sally_flag;
-        public bool CanUseNormalFleet => api_sally_flag.ElementAtOrDefault(0) != 0;
-        public bool CanUseStrikingForceFleet => api_sally_flag.ElementAtOrDefault(2) != 0;
+        public bool CanUseNormalFleet => api_sally_flag.At(0) != 0;
+        public bool CanUseStrikingForceFleet => api_sally_flag.At(2) != 0;
         public bool CanUseCombinedFleet(CombinedFleetType type)
-            => (api_sally_flag.ElementAtOrDefault(1) & (1 << ((int)type - 1))) != 0;
+            => (api_sally_flag.At(1) & (1 << ((int)type - 1))) != 0;
 
         public RawMapBgmInfo BgmInfo { get; internal set; }
     }

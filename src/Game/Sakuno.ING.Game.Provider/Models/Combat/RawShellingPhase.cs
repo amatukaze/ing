@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Sakuno.ING.Game.Json.Combat;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
@@ -9,12 +9,12 @@ namespace Sakuno.ING.Game.Models.Combat
     {
         public bool OldSchema { get; }
 
-        public RawShellingPhase(BattleApi.Shelling api) : base(SelectShelling(api))
+        public RawShellingPhase(BattleDetailJson.Shelling api) : base(SelectShelling(api))
         {
             OldSchema = api.api_at_eflag == null;
         }
 
-        private static IEnumerable<RawAttack> SelectShelling(BattleApi.Shelling api)
+        private static IEnumerable<RawAttack> SelectShelling(BattleDetailJson.Shelling api)
         {
             for (int i = 0; i < api.api_at_list.Length; i++)
             {
@@ -36,8 +36,8 @@ namespace Sakuno.ING.Game.Models.Combat
                 for (int j = 0; j < api.api_df_list[i].Length; i++)
                     if (api.api_damage[i][j] >= 0)
                         hits.Add(new RawHit(api.api_df_list[i][j], api.api_damage[i][j], api.api_cl_list[i][j]));
-                yield return new ComboAttack(idx, isEnemy, api.api_at_type.ElementAtOrDefault(i) + api.api_sp_list.ElementAtOrDefault(i),
-                    api.api_si_list.ElementAtOrDefault(i)?.Select(x => (EquipmentInfoId)x).ToArray(), hits);
+                yield return new ComboAttack(idx, isEnemy, api.api_at_type.At(i) + api.api_sp_list.At(i),
+                    api.api_si_list.At(i)?.Select(x => (EquipmentInfoId)x).ToArray(), hits);
             }
         }
     }

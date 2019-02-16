@@ -1,6 +1,6 @@
-﻿namespace Sakuno.ING.Game.Json.Combat
+﻿namespace Sakuno.ING.Game.Json
 {
-    public class BattleApi
+    public class BattleDetailJson
     {
         public int[] api_active_deck;
         public int[] api_ship_ke;

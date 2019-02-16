@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Sakuno.ING.Game.Json.Combat;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
@@ -12,7 +12,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public ref readonly RawAerialSide Ally => ref ally;
         public ref readonly RawAerialSide Enemy => ref enemy;
         public RawAntiAirFire AntiAirFire { get; }
-        public RawAerialPhase(BattleApi.Aerial api)
+        public RawAerialPhase(BattleDetailJson.Aerial api)
             : base(SelectStage3(api.api_stage3, 0).Concat(SelectStage3(api.api_stage3_combined, 6)))
         {
             if (api.api_stage1 != null)
@@ -33,7 +33,7 @@ namespace Sakuno.ING.Game.Models.Combat
             }
         }
 
-        private static IEnumerable<RawAttack> SelectStage3(BattleApi.Aerial.Stage3 stage3, int indexBase)
+        private static IEnumerable<RawAttack> SelectStage3(BattleDetailJson.Aerial.Stage3 stage3, int indexBase)
             => stage3 is null ?
                 Enumerable.Empty<RawAttack>() :
                 SelectAerial(stage3.api_frai_flag, stage3.api_fbak_flag, stage3.api_fdam, stage3.api_fcl_flag, true, indexBase)
@@ -45,10 +45,10 @@ namespace Sakuno.ING.Game.Models.Combat
                 yield break;
             for (int i = 0; i < damages.Length; i++)
             {
-                int typeNumber = (torpedoed.ElementAtOrDefault(i) > 0 ? 2 : 0) + (bombed.ElementAtOrDefault(i) > 0 ? 1 : 0);
-                if (typeNumber == 0 && damages.ElementAtOrDefault(i) == 0)
+                int typeNumber = (torpedoed.At(i) > 0 ? 2 : 0) + (bombed.At(i) > 0 ? 1 : 0);
+                if (typeNumber == 0 && damages.At(i) == 0)
                     continue;
-                yield return new SingleAttack(null, enemyAttacks, typeNumber, null, new RawHit(i + indexBase, damages.ElementAtOrDefault(i), criticals.ElementAtOrDefault(i)));
+                yield return new SingleAttack(null, enemyAttacks, typeNumber, null, new RawHit(i + indexBase, damages.At(i), criticals.At(i)));
             }
         }
     }
