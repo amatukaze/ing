@@ -14,6 +14,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public ref readonly RawSide Ally => ref ally;
         public ref readonly RawSide Enemy => ref enemy;
         public IReadOnlyList<RawShipInBattle> NpcFleet { get; }
+        public bool HasNextPart { get; }
 
         public RawShellingPhase OpeningAswPhase { get; }
         public RawShellingPhase ShellingPhase1 { get; }
@@ -32,7 +33,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public RawAerialPhase LandBaseJetPhase { get; }
         public IReadOnlyList<RawLandBaseAerialPhase> LandBasePhases { get; }
 
-        public SupportFireType? SupportFireType { get; }
+        public SupportFireType SupportFireType { get; }
         public IReadOnlyList<ShipId> SupportFleet { get; }
         public RawAerialPhase AerialSupportPhase { get; }
         public RawSupportPhase SupportPhase { get; }
@@ -51,6 +52,9 @@ namespace Sakuno.ING.Game.Models.Combat
             enemy.FlareIndex = SelectPositive(api.api_flare_pos, 1);
             ally.ActiveFleetId = SelectPositive(api.api_active_deck, 0);
             enemy.ActiveFleetId = SelectPositive(api.api_active_deck, 1);
+            ally.Detection = api.api_search.At(0);
+            enemy.Detection = api.api_search.At(1);
+            HasNextPart = api.api_midnight_flag;
 
             if (api.api_maxhps != null) // Deprecated from 17Q4
             {
@@ -110,7 +114,7 @@ namespace Sakuno.ING.Game.Models.Combat
 
             // Support
 
-            SupportFireType = (SupportFireType?)(api.api_support_flag ?? api.api_n_support_flag);
+            SupportFireType = (api.api_support_flag == SupportFireType.None) ? api.api_n_support_flag : api.api_support_flag;
             var support = api.api_support_info ?? api.api_n_support_info;
             if (support != null)
             {

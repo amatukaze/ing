@@ -24,7 +24,7 @@ namespace Sakuno.ING.Game.Models.Combat
                 bool isEnemy;
                 if (api.api_at_eflag != null)
                 {
-                    isEnemy = api.api_at_eflag[i] != 0;
+                    isEnemy = api.api_at_eflag[i];
                     idx = api.api_at_list[i] - 1;
                 }
                 else // Old schema before 17Q4

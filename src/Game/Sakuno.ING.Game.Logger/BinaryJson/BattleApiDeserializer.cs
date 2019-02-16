@@ -14,7 +14,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
 
         private static readonly MethodInfo
             startObjectOrSkip, untilObjectEnds, readJName, tryReadContainerLengthOrSkip,
-            readIntegerOrSkip, readNumberOrSkip, readStringOrSkip, skipValue;
+            readIntegerOrSkip, readBooleanOrSkip, readNumberOrSkip, readStringOrSkip, skipValue;
         static BattleApiDeserializer()
         {
             var reader = typeof(BinaryJsonReader);
@@ -23,6 +23,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             tryReadContainerLengthOrSkip = reader.GetMethod(nameof(BinaryJsonReader.TryReadContainerLengthOrSkip));
             readJName = reader.GetMethod(nameof(BinaryJsonReader.ReadJName));
             readIntegerOrSkip = reader.GetMethod(nameof(BinaryJsonReader.ReadIntegerOrSkip));
+            readBooleanOrSkip = reader.GetMethod(nameof(BinaryJsonReader.ReadBooleanOrSkip));
             readNumberOrSkip = reader.GetMethod(nameof(BinaryJsonReader.ReadNumberOrSkip));
             readStringOrSkip = reader.GetMethod(nameof(BinaryJsonReader.ReadStringOrSkip));
             skipValue = reader.GetMethod(nameof(BinaryJsonReader.SkipValue));
@@ -40,10 +41,14 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                 return Coalesce(Call(reader, readIntegerOrSkip), Constant(0));
             else if (type == typeof(int?))
                 return Call(reader, readIntegerOrSkip);
+            else if (type == typeof(bool))
+                return Coalesce(Call(reader, readBooleanOrSkip), Constant(false));
             else if (type == typeof(decimal))
                 return Coalesce(Call(reader, readNumberOrSkip), Constant(0m));
             else if (type == typeof(string))
                 return Call(reader, readStringOrSkip);
+            else if (type.IsEnum)
+                return Convert(Coalesce(Call(reader, readIntegerOrSkip), Constant(0)), type);
             else if (type.IsArray)
                 return Invoke(ReadArray(type, resolver, reader));
             else

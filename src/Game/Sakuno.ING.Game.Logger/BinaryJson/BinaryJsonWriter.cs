@@ -47,6 +47,12 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
 
         public void WriteString(string str)
         {
+            if (int.TryParse(str, out int i))
+            {
+                WriteInteger(i);
+                return;
+            }
+
             var u8 = Encoding.UTF8.GetBytes(str);
             WriteRecordHeader(0b1100_0000, u8.Length);
             buffer.AddRange(u8);

@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.Game.Json
+﻿using Sakuno.ING.Game.Models.Combat;
+
+namespace Sakuno.ING.Game.Json
 {
     public class BattleDetailJson
     {
@@ -28,7 +30,7 @@
         public int[] api_e_nowhps_combined;
         public int[] api_e_maxhps_combined;
 
-        public int api_midnight_flag;
+        public bool api_midnight_flag;
         public int[][] api_eSlot;
         public int[][] api_eSlot_combined;
         public int[][] api_fParam;
@@ -37,7 +39,7 @@
         public int[][] api_eParam_combined;
         public int[] api_escape_idx;
         public int[] api_escape_idx_combined;
-        public int[] api_search;
+        public Detection[] api_search;
         public int[] api_formation;
         public class LandBase : Aerial
         {
@@ -82,12 +84,12 @@
             public Stage2 api_stage2;
             public class Stage3
             {
-                public int[] api_erai_flag;
-                public int[] api_ebak_flag;
+                public bool[] api_erai_flag;
+                public bool[] api_ebak_flag;
                 public int[] api_ecl_flag;
                 public decimal[] api_edam;
-                public int[] api_frai_flag;
-                public int[] api_fbak_flag;
+                public bool[] api_frai_flag;
+                public bool[] api_fbak_flag;
                 public int[] api_fcl_flag;
                 public decimal[] api_fdam;
             }
@@ -96,7 +98,7 @@
         }
         public Aerial api_kouku;
         public Aerial api_kouku2;
-        public int? api_support_flag;
+        public SupportFireType api_support_flag;
         public class Support
         {
             public class AerialSupport : Aerial
@@ -113,7 +115,7 @@
             public ShellingSupport api_support_hourai;
         }
         public Support api_support_info;
-        public int? api_n_support_flag;
+        public SupportFireType api_n_support_flag;
         public Support api_n_support_info;
         public Shelling api_opening_taisen;
         public class Torpedo
@@ -130,7 +132,7 @@
         public Torpedo api_opening_atack;
         public class Shelling
         {
-            public int[] api_at_eflag;
+            public bool[] api_at_eflag;
             public int[] api_at_list;
             public int[] api_at_type;
             public int[] api_sp_list;

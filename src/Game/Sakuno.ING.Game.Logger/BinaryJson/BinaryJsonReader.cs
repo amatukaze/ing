@@ -78,6 +78,9 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             }
         }
 
+        public bool? ReadBooleanOrSkip()
+            => ReadIntegerOrSkip() > 0;
+
         public decimal ReadDecimal()
         {
             int scale = ReadHeaderNumber();
@@ -127,6 +130,8 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
         {
             if (IsNextString())
                 return ReadString();
+            else if (IsNextInteger())
+                return ReadInteger().ToString();
             else
             {
                 SkipValue();

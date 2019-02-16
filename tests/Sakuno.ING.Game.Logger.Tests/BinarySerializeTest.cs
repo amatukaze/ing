@@ -4,6 +4,7 @@ using System.Reflection;
 using Sakuno.ING.Game.Logger.BinaryJson;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
 using Xunit;
 
@@ -80,16 +81,16 @@ namespace Sakuno.ING.Game.Tests
                 }
             }
 
-            public IEnumerable<string> Keys => ((IReadOnlyDictionary<string, int>)dict).Keys;
+            public IEnumerable<string> Keys => dict.Keys;
 
-            public IEnumerable<int> Values => ((IReadOnlyDictionary<string, int>)dict).Values;
+            public IEnumerable<int> Values => dict.Values;
 
             public int Count => dict.Count;
 
             public bool ContainsKey(string key) => dict.ContainsKey(key);
-            public IEnumerator<KeyValuePair<string, int>> GetEnumerator() => ((IReadOnlyDictionary<string, int>)dict).GetEnumerator();
+            public IEnumerator<KeyValuePair<string, int>> GetEnumerator() => dict.GetEnumerator();
             public bool TryGetValue(string key, out int value) => dict.TryGetValue(key, out value);
-            IEnumerator IEnumerable.GetEnumerator() => ((IReadOnlyDictionary<string, int>)dict).GetEnumerator();
+            IEnumerator IEnumerable.GetEnumerator() => dict.GetEnumerator();
         }
 
         [Fact]
@@ -107,6 +108,10 @@ namespace Sakuno.ING.Game.Tests
             var obj = new BattleApiDeserializer(resolver).Deserialize(data);
             Assert.NotNull(obj);
             Assert.Equal(new[] { 12, 14, 1 }, obj.api_formation);
+            Assert.True(obj.api_midnight_flag);
+            Assert.Equal(SupportFireType.None, obj.api_support_flag);
+            Assert.Equal(Detection.Success, obj.api_search[0]);
+            Assert.Equal(Detection.Success, obj.api_search[1]);
         }
     }
 }

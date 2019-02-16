@@ -39,13 +39,13 @@ namespace Sakuno.ING.Game.Models.Combat
                 SelectAerial(stage3.api_frai_flag, stage3.api_fbak_flag, stage3.api_fdam, stage3.api_fcl_flag, true, indexBase)
                     .Concat(SelectAerial(stage3.api_erai_flag, stage3.api_ebak_flag, stage3.api_edam, stage3.api_ecl_flag, false, indexBase));
 
-        private static IEnumerable<RawAttack> SelectAerial(int[] torpedoed, int[] bombed, decimal[] damages, int[] criticals, bool enemyAttacks, int indexBase)
+        private static IEnumerable<RawAttack> SelectAerial(bool[] torpedoed, bool[] bombed, decimal[] damages, int[] criticals, bool enemyAttacks, int indexBase)
         {
             if (torpedoed is null || bombed is null || damages is null || criticals is null)
                 yield break;
             for (int i = 0; i < damages.Length; i++)
             {
-                int typeNumber = (torpedoed.At(i) > 0 ? 2 : 0) + (bombed.At(i) > 0 ? 1 : 0);
+                int typeNumber = (torpedoed.At(i) ? 2 : 0) + (bombed.At(i) ? 1 : 0);
                 if (typeNumber == 0 && damages.At(i) == 0)
                     continue;
                 yield return new SingleAttack(null, enemyAttacks, typeNumber, null, new RawHit(i + indexBase, damages.At(i), criticals.At(i)));
