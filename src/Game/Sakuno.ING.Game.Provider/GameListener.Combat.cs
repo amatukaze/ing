@@ -36,8 +36,8 @@ namespace Sakuno.ING.Game
             remove => sortieStarting.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IRawMapRouting> mapRouting;
-        public event TimedMessageHandler<IRawMapRouting> MapRouting
+        private readonly ITimedMessageProvider<RawMapRouting> mapRouting;
+        public event TimedMessageHandler<RawMapRouting> MapRouting
         {
             add => mapRouting.Received += value;
             remove => mapRouting.Received -= value;
@@ -64,8 +64,8 @@ namespace Sakuno.ING.Game
             remove => battleAppended.Received -= value;
         }
 
-        private readonly ITimedMessageProvider<IRawBattleResult> battleCompleted;
-        public event TimedMessageHandler<IRawBattleResult> BattleCompleted
+        private readonly ITimedMessageProvider<RawBattleResult> battleCompleted;
+        public event TimedMessageHandler<RawBattleResult> BattleCompleted
         {
             add => battleCompleted.Received += value;
             remove => battleCompleted.Received -= value;
@@ -87,6 +87,6 @@ namespace Sakuno.ING.Game
                 .Select(arg => System.Text.Encoding.UTF8.GetBytes(arg.Response.ToArray()))
                 .Select(m => (jSerializer.Deserialize<SvData<BattleApi>>(new JsonTextReader(new StreamReader(new MemoryStream(m)))), m))
                 .Where(((SvData<BattleApi> svdata, byte[] memory) x) => x.svdata.api_result == 1)
-                .Select(((SvData<BattleApi> svdata, byte[] memory) x) => new BattleDetail(x.svdata.api_data, x.memory));
+                .Select(((SvData<BattleApi> svdata, byte[] memory) x) => new BattleDetail(new RawBattle(x.svdata.api_data), x.memory));
     }
 }

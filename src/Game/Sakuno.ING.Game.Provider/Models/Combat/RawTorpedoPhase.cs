@@ -1,0 +1,25 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using Sakuno.ING.Game.Json.Combat;
+
+namespace Sakuno.ING.Game.Models.Combat
+{
+    public class RawTorpedoPhase : RawBattlePhase
+    {
+        public RawTorpedoPhase(BattleApi.Torpedo api)
+            : base(SelectTorpedo(api.api_frai, api.api_fydam, api.api_fcl, false)
+                  .Concat(SelectTorpedo(api.api_erai, api.api_eydam, api.api_ecl, true)))
+        {
+        }
+
+        private static IEnumerable<RawAttack> SelectTorpedo(int[] targets, decimal[] damages, int[] criticals, bool enemyAttacks)
+        {
+            if (targets == null) yield break;
+            for (int i = 0; i < targets.Length; i++)
+            {
+                if (targets[i] < 0) continue;
+                yield return new SingleAttack(i, enemyAttacks, 0, null, new RawHit(targets[i], damages[i], criticals[i]));
+            }
+        }
+    }
+}

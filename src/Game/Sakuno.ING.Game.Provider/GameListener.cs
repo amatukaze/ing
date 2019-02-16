@@ -8,6 +8,7 @@ using Sakuno.ING.Game.Json.Combat;
 using Sakuno.ING.Game.Json.MasterData;
 using Sakuno.ING.Game.Json.Shipyard;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Http;
 using Sakuno.ING.Messaging;
 
@@ -145,12 +146,12 @@ namespace Sakuno.ING.Game
 
             enemyDebuffConfirmed = homeport.Where(x => x.api_event_object?.api_m_flag2 == true)
                 .Select(x => new Events.Combat.EnemyDebuffConfirm());
-            var mapStart = RegisterRaw<MapRoutingJson>("api_req_map/start");
+            var mapStart = RegisterRaw<RawMapRouting>("api_req_map/start");
             sortieStarting = mapStart.Select(x => ParseSortieStart(x.Request));
             var routing = mapStart.Select(x => x.Response)
-                .CombineWith(RegisterResponse<MapRoutingJson>("api_req_map/next"));
+                .CombineWith(RegisterResponse<RawMapRouting>("api_req_map/next"));
             mapRouting = routing;
-            var practice = RegisterRaw<BattleJson>("api_req_practice/battle");
+            var practice = RegisterRaw<BattleApi>("api_req_practice/battle");
             practiceStarted = practice.Select(x => ParsePracticeStart(x.Request));
             battleStarted = RegisterBattleDetail("api_req_practice/battle",
                 "api_req_sortie/battle",
@@ -173,9 +174,9 @@ namespace Sakuno.ING.Game
                 "api_req_combined_battle/midnight_battle",
                 "api_req_combined_battle/ec_midnight_battle",
                 "api_req_practice/midnight_battle");
-            var battleResult = RegisterResponse<BattleResultJson>("api_req_sortie/battleresult")
-                .CombineWith(RegisterResponse<BattleResultJson>("api_req_practice/battleresult"),
-                    RegisterResponse<BattleResultJson>("api_req_combined_battle/battleresult"));
+            var battleResult = RegisterResponse<RawBattleResult>("api_req_sortie/battleresult")
+                .CombineWith(RegisterResponse<RawBattleResult>("api_req_practice/battleresult"),
+                    RegisterResponse<RawBattleResult>("api_req_combined_battle/battleresult"));
             battleCompleted = battleResult;
             mapPartUnlocked = routing.Where(x => x.api_m1).Select(x => new Events.Combat.MapPartUnlock())
                 .CombineWith(battleResult.Where(x => x.api_m1).Select(x => new Events.Combat.MapPartUnlock()));

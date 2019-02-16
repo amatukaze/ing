@@ -2,58 +2,57 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-using Sakuno.ING.Game.Models;
-using Sakuno.ING.Game.Models.Combat;
+using Sakuno.ING.Game.Json.Combat;
 using Sakuno.ING.Game.Models.MasterData;
 
-namespace Sakuno.ING.Game.Json.Combat
+namespace Sakuno.ING.Game.Models.Combat
 {
-    internal class MapRoutingJson : IRawMapRouting
+    public sealed class RawMapRouting
     {
-        public int api_maparea_id;
-        public int api_mapinfo_no;
+        internal int api_maparea_id;
+        internal int api_mapinfo_no;
         public MapId MapId => (MapId)(api_maparea_id * 10 + api_mapinfo_no);
 
         [JsonProperty("api_no")]
-        public int RouteId { get; set; }
+        public int RouteId { get; internal set; }
 
         [JsonProperty("api_event_id")]
-        public MapEventKind EventKind { get; set; }
+        public MapEventKind EventKind { get; internal set; }
         [JsonProperty("api_event_kind")]
-        public BattleKind BattleKind { get; set; }
+        public BattleKind BattleKind { get; internal set; }
         [JsonProperty("api_next")]
-        public bool CanMoveAdvance { get; set; }
+        public bool CanMoveAdvance { get; internal set; }
         [JsonProperty("api_production_kind")]
-        public bool Reconnaissance { get; set; }
+        public bool Reconnaissance { get; internal set; }
 
-        public class CellFlavor
+        internal class CellFlavor
         {
             public int api_type;
             public string api_message;
         }
-        public CellFlavor api_cell_flavor;
+        internal CellFlavor api_cell_flavor;
         public string Message => api_cell_flavor?.api_message;
 
         [JsonProperty("api_select_route")]
-        public int[] SelectableRoutes { get; set; }
+        public int[] SelectableRoutes { get; internal set; }
         public bool CanSelectRoute => SelectableRoutes != null;
 
-        public class ItemGet
+        internal class ItemGet
         {
             public int api_usemst;
             public int api_id;
             public int api_getcount;
         }
-        public ItemGet[] api_itemget;
-        public class ItemLose
+        internal ItemGet[] api_itemget;
+        internal class ItemLose
         {
             public int api_usemst;
             public int api_type;
             public int api_mst_id;
             public int api_count;
         }
-        public ItemLose api_happening;
-        public ItemGet api_itemget_eo_comment;
+        internal ItemLose api_happening;
+        internal ItemGet api_itemget_eo_comment;
         private UseItemId IconIdToItemId(int type, int iconId)
         {
             if (type == 4)
@@ -104,11 +103,11 @@ namespace Sakuno.ING.Game.Json.Combat
                 Array.Empty<UseItemRecord>();
 
         [JsonProperty("api_get_eo_rate")]
-        public int? RankingPointAcquired { get; set; }
+        public int? RankingPointAcquired { get; internal set; }
 
-        public BattleJson api_destruction_battle;
-        public IRawBattle LandBaseDefence => api_destruction_battle;
+        internal BattleApi api_destruction_battle;
+        public RawBattle LandBaseDefence => new RawBattle(api_destruction_battle);
 
-        public bool api_m1;
+        internal bool api_m1;
     }
 }

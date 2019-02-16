@@ -7,6 +7,18 @@
         public int[] api_ship_ke_combined;
         public int[] api_ship_lv;
         public int[] api_ship_lv_combined;
+
+        #region Deprecated in 17Q4
+        public int[] api_nowhps;
+        public int[] api_maxhps;
+        public int[] api_nowhps_combined;
+        public int[] api_maxhps_combined;
+        #endregion
+
+        #region Deprecated in 15Q2
+        public int[][] api_eKyouka;
+        #endregion
+
         public int[] api_f_nowhps;
         public int[] api_f_maxhps;
         public int[] api_f_nowhps_combined;
@@ -15,6 +27,7 @@
         public int[] api_e_maxhps;
         public int[] api_e_nowhps_combined;
         public int[] api_e_maxhps_combined;
+
         public int api_midnight_flag;
         public int[][] api_eSlot;
         public int[][] api_eSlot_combined;
@@ -48,7 +61,7 @@
                 public int api_f_lostcount;
                 public int api_e_count;
                 public int api_e_lostcount;
-                public int api_disp_seiku;
+                public int? api_disp_seiku;
                 public int[] api_touch_plane;
             }
             public Stage1 api_stage1;
@@ -83,7 +96,7 @@
         }
         public Aerial api_kouku;
         public Aerial api_kouku2;
-        public int api_support_flag;
+        public int? api_support_flag;
         public class Support
         {
             public class AerialSupport : Aerial
@@ -100,7 +113,7 @@
             public ShellingSupport api_support_hourai;
         }
         public Support api_support_info;
-        public int api_n_support_flag;
+        public int? api_n_support_flag;
         public Support api_n_support_info;
         public Shelling api_opening_taisen;
         public class Torpedo

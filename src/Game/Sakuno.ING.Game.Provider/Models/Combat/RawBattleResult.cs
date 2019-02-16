@@ -1,65 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Sakuno.ING.Game.Models;
-using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
 
-namespace Sakuno.ING.Game.Json.Combat
+namespace Sakuno.ING.Game.Models.Combat
 {
-    internal class BattleResultJson : IRawBattleResult
+    public sealed class RawBattleResult
     {
         [JsonProperty("api_win_rank")]
-        public BattleRank Rank { get; set; }
+        public BattleRank Rank { get; internal set; }
         [JsonProperty("api_get_exp")]
-        public int AdmiralExperience { get; set; }
+        public int AdmiralExperience { get; internal set; }
         [JsonProperty("api_get_base_exp")]
-        public int BaseExperience { get; set; }
+        public int BaseExperience { get; internal set; }
         [JsonProperty("api_first_clear")]
-        public bool MapCleared { get; set; }
+        public bool MapCleared { get; internal set; }
 
-        public class EnemyInfo
+        internal class EnemyInfo
         {
             public string api_deck_name;
         }
-        public EnemyInfo api_enemy_info;
+        internal EnemyInfo api_enemy_info;
         public string EnemyFleetName => api_enemy_info?.api_deck_name;
 
         [JsonProperty("api_mapcell_incentive")]
-        public bool? AirReconnaissanceSuccessed { get; set; }
+        public bool? AirReconnaissanceSuccessed { get; internal set; }
 
-        public class GetUseItem
+        internal class GetUseItem
         {
             public UseItemId api_useitem_id;
         }
-        public GetUseItem api_get_useitem;
+        internal GetUseItem api_get_useitem;
         public UseItemId? UseItemAcquired => api_get_useitem?.api_useitem_id;
 
-        public class GetShip
+        internal class GetShip
         {
             public ShipInfoId api_ship_id;
         }
-        public GetShip api_get_ship;
+        internal GetShip api_get_ship;
         public ShipInfoId? ShipDropped => api_get_ship?.api_ship_id;
 
         [JsonProperty("api_get_exmap_rate")]
-        public int? RankingPointAcquired { get; set; }
+        public int? RankingPointAcquired { get; internal set; }
 
-        public bool api_m1;
+        internal bool api_m1;
 
-        public class LandingHP
+        internal class LandingHP
         {
             public int api_sub_value;
         }
-        public LandingHP api_landing_hp;
+        internal LandingHP api_landing_hp;
         public int? TransportationPoint => api_landing_hp?.api_sub_value;
 
-        public class Escape
+        internal class Escape
         {
             public int? api_escape_idx;
             public int? api_tow_idx;
         }
-        public Escape api_escape;
+        internal Escape api_escape;
         public IReadOnlyCollection<int> EscapableShipIndices
         {
             get
@@ -76,7 +74,7 @@ namespace Sakuno.ING.Game.Json.Combat
             }
         }
 
-        public class GetEventItem : IRawReward
+        internal class GetEventItem : IRawReward
         {
             public int api_type;
             public int api_id;
@@ -145,7 +143,7 @@ namespace Sakuno.ING.Game.Json.Combat
                 }
             }
         }
-        public GetEventItem[] api_get_eventitem;
+        internal GetEventItem[] api_get_eventitem;
         public IReadOnlyCollection<IRawReward> Rewards => api_get_eventitem ?? Array.Empty<GetEventItem>();
     }
 }
