@@ -7,11 +7,11 @@ namespace Sakuno.ING.Game.Models.Combat
 {
     public class RawLandBaseAerialPhase : RawAerialPhase
     {
-        public int GroupId { get; }
+        public AirForceGroupId GroupId { get; }
         public IReadOnlyList<EquipmentRecord> Squadrons { get; }
         public RawLandBaseAerialPhase(BattleDetailJson.LandBase api) : base(api)
         {
-            GroupId = api.api_base_id;
+            GroupId = (AirForceGroupId)api.api_base_id;
             Squadrons = api.api_squadron_plane.Select(x => new EquipmentRecord
             {
                 Id = (EquipmentInfoId)x.api_mst_id,

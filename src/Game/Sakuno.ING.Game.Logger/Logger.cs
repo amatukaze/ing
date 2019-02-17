@@ -7,6 +7,7 @@ using Sakuno.ING.Game.Logger.BinaryJson;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Logger
 {
@@ -71,7 +72,7 @@ namespace Sakuno.ING.Game.Logger
                     using (var context = CreateContext())
                     {
                         shipCreation.ShipBuilt = m.Single(x => x.Id == lastBuildingDock).BuiltShipId.Value;
-                        shipCreation.EmptyDockCount = navalBase.BuildingDocks.Count(x => x.State == BuildingDockState.Empty);
+                        shipCreation.EmptyDockCount = this.navalBase.BuildingDocks.Count(x => x.State == BuildingDockState.Empty);
                         context.ShipCreationTable.Add(shipCreation);
                         shipCreation = null;
                         lastBuildingDock = default;
@@ -110,8 +111,8 @@ namespace Sakuno.ING.Game.Logger
 
             provider.SortieStarting += (t, m) =>
             {
-                currentFleetInBattle = navalBase.Fleets[m.FleetId];
-                currentCombinedFleet = navalBase.CombinedFleet;
+                currentFleetInBattle = this.navalBase.Fleets[m.FleetId];
+                currentCombinedFleet = this.navalBase.CombinedFleet;
                 if (currentCombinedFleet != CombinedFleetType.None)
                     currentFleet2InBattle = navalBase.Fleets[(FleetId)2];
                 currentBattleContext = CreateContext();
@@ -119,7 +120,7 @@ namespace Sakuno.ING.Game.Logger
 
             provider.MapRouting += (t, m) =>
             {
-                var map = navalBase.Maps[m.MapId];
+                var map = this.navalBase.Maps[m.MapId];
                 currentBattle = new BattleEntity
                 {
                     TimeStamp = t,
@@ -142,10 +143,13 @@ namespace Sakuno.ING.Game.Logger
             provider.BattleStarted += (t, m) =>
             {
                 currentBattle.TimeStamp = t;
-                currentBattle.Details.SortieFleetState = ShipInBattleEntity.StoreFleet(currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray());
-                if (currentFleet2InBattle != null)
-                    currentBattle.Details.SortieFleet2State = ShipInBattleEntity.StoreFleet(currentFleet2InBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray());
+                currentBattle.Details.SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).Store();
+                currentBattle.Details.SortieFleet2State = currentFleet2InBattle?.Ships.Select(x => new ShipInBattleEntity(x)).Store();
                 currentBattle.Details.FirstBattleDetail = currentBattleContext.StoreBattle(m.Unparsed, true);
+                currentBattle.Details.LbasState = m.Parsed.LandBasePhases
+                    .Select(x => new AirForceInBattle(this.navalBase.AirForce[(currentBattle.MapId.AreaId, x.GroupId)]))
+                    .Store();
+                currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
             };
 
@@ -153,6 +157,7 @@ namespace Sakuno.ING.Game.Logger
             {
                 currentBattle.TimeStamp = t;
                 currentBattle.Details.SecondBattleDetail = currentBattleContext.StoreBattle(m.Unparsed, true);
+                currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
             };
 
@@ -166,6 +171,7 @@ namespace Sakuno.ING.Game.Logger
                 currentBattle.EnemyFleetName = m.EnemyFleetName;
                 currentBattle.UseItemAcquired = m.UseItemAcquired;
                 currentBattle.ShipDropped = m.ShipDropped;
+                currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
             };
 

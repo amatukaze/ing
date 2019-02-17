@@ -11,6 +11,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         private readonly int value;
         public MapId(int value) => this.value = value;
 
+        public MapAreaId AreaId => (MapAreaId)(value / 10);
+        public int CategoryNo => value % 10;
+
         public int CompareTo(MapId other) => value - other.value;
         public bool Equals(MapId other) => value == other.value;
 
