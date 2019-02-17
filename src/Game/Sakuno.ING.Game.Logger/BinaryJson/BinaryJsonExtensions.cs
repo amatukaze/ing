@@ -87,20 +87,6 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                 return null;
             var result = new ShipInBattleEntity[reader.ReadContainerLength()];
 
-            (int, int) ReadArray2(BinaryJsonReader r)
-            {
-                if (r.TryReadContainerLengthOrSkip(out int l))
-                    if (l == 2)
-                    {
-                        int a = r.ReadIntegerOrSkip() ?? 0;
-                        int b = r.ReadIntegerOrSkip() ?? 0;
-                        return (a, b);
-                    }
-                    else while (l-- > 0)
-                            r.SkipValue();
-                return default;
-            }
-
             ShipMordenizationStatus ReadShipParameter(BinaryJsonReader r)
             {
                 (int a, int b) = ReadArray2(r);
@@ -179,6 +165,20 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             return result;
         }
 
+        private static (int, int) ReadArray2(BinaryJsonReader r)
+        {
+            if (r.TryReadContainerLengthOrSkip(out int l))
+                if (l == 2)
+                {
+                    int a = r.ReadIntegerOrSkip() ?? 0;
+                    int b = r.ReadIntegerOrSkip() ?? 0;
+                    return (a, b);
+                }
+                else while (l-- > 0)
+                        r.SkipValue();
+            return default;
+        }
+
         public static byte[] Store(this IEnumerable<AirForceInBattle> groups)
         {
             var writer = new BinaryJsonWriter();
@@ -238,9 +238,12 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             w.WriteJName(9);
             w.WriteInteger(slot.Id);
             w.WriteJName(12);
-            w.WriteInteger(slot.Count);
-            w.WriteJName(13);
-            w.WriteInteger(slot.MaxCount);
+            if (slot.Count != default)
+            {
+                w.WriteArraySize(2);
+                w.WriteInteger(slot.Count.Current);
+                w.WriteInteger(slot.Count.Max);
+            }
             if (slot.ImprovementLevel > 0)
             {
                 w.WriteJName(10);
@@ -272,10 +275,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                         e.AirProficiency = r.ReadIntegerOrSkip() ?? 0;
                         break;
                     case 12:
-                        e.Count = r.ReadIntegerOrSkip() ?? 0;
-                        break;
-                    case 13:
-                        e.MaxCount = r.ReadIntegerOrSkip() ?? 0;
+                        e.Count = ReadArray2(r);
                         break;
                 }
             return e;

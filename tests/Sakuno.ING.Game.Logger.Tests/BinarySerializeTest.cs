@@ -33,7 +33,7 @@ namespace Sakuno.ING.Game.Tests
                 Armor = CreateParameter(222, 222),
                 Slots = new[]
                 {
-                    new SlotInBattleEntity { Id = (EquipmentInfoId)432, AirProficiency = 1, ImprovementLevel = 2, Count = 3, MaxCount = 4},
+                    new SlotInBattleEntity { Id = (EquipmentInfoId)432, AirProficiency = 1, ImprovementLevel = 2, Count = (3, 4)},
                     new SlotInBattleEntity { Id = (EquipmentInfoId)321, AirProficiency = 2, ImprovementLevel = 3},
                 },
                 Fuel = (100, 100),
@@ -57,13 +57,13 @@ namespace Sakuno.ING.Game.Tests
             Assert.Equal(432, ship.Slots[0].Id);
             Assert.Equal(1, ship.Slots[0].AirProficiency);
             Assert.Equal(2, ship.Slots[0].ImprovementLevel);
-            Assert.Equal(3, ship.Slots[0].Count);
-            Assert.Equal(4, ship.Slots[0].MaxCount);
+            Assert.Equal(3, ship.Slots[0].Count.Current);
+            Assert.Equal(4, ship.Slots[0].Count.Max);
             Assert.Equal(321, ship.Slots[1].Id);
             Assert.Equal(2, ship.Slots[1].AirProficiency);
             Assert.Equal(3, ship.Slots[1].ImprovementLevel);
-            Assert.Equal(0, ship.Slots[1].Count);
-            Assert.Equal(0, ship.Slots[1].MaxCount);
+            Assert.Equal(0, ship.Slots[1].Count.Current);
+            Assert.Equal(0, ship.Slots[1].Count.Max);
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace Sakuno.ING.Game.Tests
                 Id = (AirForceGroupId)1,
                 Squadrons = new[]
                 {
-                    new SlotInBattleEntity { Id = (EquipmentInfoId)432, AirProficiency = 1, ImprovementLevel = 2, Count = 3, MaxCount = 4},
+                    new SlotInBattleEntity { Id = (EquipmentInfoId)432, AirProficiency = 1, ImprovementLevel = 2, Count = (3, 4)},
                     new SlotInBattleEntity { Id = (EquipmentInfoId)321, AirProficiency = 2, ImprovementLevel = 3},
                 }
             };
@@ -87,8 +87,8 @@ namespace Sakuno.ING.Game.Tests
             Assert.Equal(432, group.Squadrons[0].Id);
             Assert.Equal(1, group.Squadrons[0].AirProficiency);
             Assert.Equal(2, group.Squadrons[0].ImprovementLevel);
-            Assert.Equal(3, group.Squadrons[0].Count);
-            Assert.Equal(4, group.Squadrons[0].MaxCount);
+            Assert.Equal(3, group.Squadrons[0].Count.Current);
+            Assert.Equal(4, group.Squadrons[0].Count.Max);
             Assert.Equal(321, group.Squadrons[1].Id);
             Assert.Equal(2, group.Squadrons[1].AirProficiency);
             Assert.Equal(3, group.Squadrons[1].ImprovementLevel);

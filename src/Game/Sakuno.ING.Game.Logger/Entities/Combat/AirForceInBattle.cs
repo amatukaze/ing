@@ -16,8 +16,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
                 .Select(x => new SlotInBattleEntity
                 {
                     Id = x.Equipment?.Info.Id ?? default,
-                    Count = x.AircraftCount.Current,
-                    MaxCount = x.AircraftCount.Max
+                    Count = x.AircraftCount
                 }).ToArray();
         }
     }
