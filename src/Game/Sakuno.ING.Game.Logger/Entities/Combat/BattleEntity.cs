@@ -17,6 +17,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         public int RouteId { get; set; }
         public MapEventKind EventKind { get; set; }
         public BattleKind BattleKind { get; set; }
+        public CombinedFleetType CombinedFleetType { get; set; }
         public EventMapRank? MapRank { get; set; }
         public EventMapGaugeType? MapGaugeType { get; set; }
         public int? MapGaugeNumber { get; set; }

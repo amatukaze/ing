@@ -129,6 +129,7 @@ namespace Sakuno.ING.Game.Logger
                     RouteId = m.RouteId,
                     EventKind = m.EventKind,
                     BattleKind = m.BattleKind,
+                    CombinedFleetType = this.navalBase.CombinedFleet,
                     MapRank = map.Rank,
                     MapGaugeType = map.GaugeType,
                     MapGaugeNumber = map.GaugeIndex,

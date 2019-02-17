@@ -18,6 +18,7 @@ namespace Sakuno.ING.Game.Logger.Migrations
                     RouteId = table.Column<int>(nullable: false),
                     EventKind = table.Column<int>(nullable: false),
                     BattleKind = table.Column<int>(nullable: false),
+                    CombinedFleetType = table.Column<int>(nullable: false),
                     MapRank = table.Column<int>(nullable: true),
                     MapGaugeType = table.Column<int>(nullable: true),
                     MapGaugeNumber = table.Column<int>(nullable: true),
