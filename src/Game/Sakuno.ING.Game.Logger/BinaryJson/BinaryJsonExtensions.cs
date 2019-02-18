@@ -104,9 +104,8 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                 if (!reader.StartObjectOrSkip())
                     continue;
                 var ship = new ShipInBattleEntity();
-                while (reader.UntilObjectEnds())
-                {
-                    switch (reader.ReadJName())
+                while (reader.TryReadJName(out int jName))
+                    switch (jName)
                     {
                         case 1:
                             ship.Id = (ShipInfoId)(reader.ReadIntegerOrSkip() ?? 0);
@@ -159,7 +158,6 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                             reader.SkipValue();
                             break;
                     }
-                }
                 result[i] = ship;
             }
             return result;
@@ -209,9 +207,8 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                 if (!reader.StartObjectOrSkip())
                     continue;
                 var group = new AirForceInBattle();
-                while (reader.UntilObjectEnds())
-                {
-                    switch (reader.ReadJName())
+                while (reader.TryReadJName(out int jName))
+                    switch (jName)
                     {
                         case 1:
                             group.Id = (AirForceGroupId)(reader.ReadIntegerOrSkip() ?? 0);
@@ -226,7 +223,6 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                             }
                             break;
                     }
-                }
                 result[i] = group;
             }
             return result;
@@ -262,8 +258,8 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             if (!r.StartObjectOrSkip())
                 return default;
             var e = new SlotInBattleEntity();
-            while (r.UntilObjectEnds())
-                switch (r.ReadJName())
+            while (r.TryReadJName(out int jName))
+                switch (jName)
                 {
                     case 9:
                         e.Id = (EquipmentInfoId)(r.ReadIntegerOrSkip() ?? 0);

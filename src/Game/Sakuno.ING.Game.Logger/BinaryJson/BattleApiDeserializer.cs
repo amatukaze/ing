@@ -13,15 +13,14 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
         private readonly Func<BinaryJsonReader, BattleDetailJson> func;
 
         private static readonly MethodInfo
-            startObjectOrSkip, untilObjectEnds, readJName, tryReadContainerLengthOrSkip,
+            startObjectOrSkip, tryReadJName, tryReadContainerLengthOrSkip,
             readIntegerOrSkip, readBooleanOrSkip, readNumberOrSkip, readStringOrSkip, skipValue;
         static BattleApiDeserializer()
         {
             var reader = typeof(BinaryJsonReader);
             startObjectOrSkip = reader.GetMethod(nameof(BinaryJsonReader.StartObjectOrSkip));
-            untilObjectEnds = reader.GetMethod(nameof(BinaryJsonReader.UntilObjectEnds));
+            tryReadJName = reader.GetMethod(nameof(BinaryJsonReader.TryReadJName));
             tryReadContainerLengthOrSkip = reader.GetMethod(nameof(BinaryJsonReader.TryReadContainerLengthOrSkip));
-            readJName = reader.GetMethod(nameof(BinaryJsonReader.ReadJName));
             readIntegerOrSkip = reader.GetMethod(nameof(BinaryJsonReader.ReadIntegerOrSkip));
             readBooleanOrSkip = reader.GetMethod(nameof(BinaryJsonReader.ReadBooleanOrSkip));
             readNumberOrSkip = reader.GetMethod(nameof(BinaryJsonReader.ReadNumberOrSkip));
@@ -59,13 +58,14 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
         {
             var ret = Label(type);
             var result = Variable(type);
+            var jName = Variable(typeof(int));
             return Lambda(Block
             (
                 IfThen(Call(reader, startObjectOrSkip),
-                    Block(new[] { result },
+                    Block(new[] { result, jName },
                         Assign(result, New(type)),
-                        Loop(IfThenElse(Call(reader, untilObjectEnds),
-                            Switch(typeof(void), Call(reader, readJName),
+                        Loop(IfThenElse(Call(reader, tryReadJName, jName),
+                            Switch(typeof(void), jName,
                                 Call(reader, skipValue), null,
                                 type.GetFields().Select(f =>
                                     SwitchCase(Assign(Field(result, f), ReadValue(f.FieldType, resolver, reader)),

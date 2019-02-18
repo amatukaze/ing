@@ -167,13 +167,16 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                 return false;
             }
         }
-        public bool UntilObjectEnds()
+
+        public bool TryReadJName(out int jName)
         {
             if (IsEndObject())
             {
+                jName = 0;
                 data = data.Slice(1);
                 return false;
             }
+            jName = ReadJName();
             return true;
         }
 
@@ -193,11 +196,9 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             }
             else if (IsNextObject())
             {
-                while (UntilObjectEnds())
-                {
-                    ReadJName();
+                ReadStartObject();
+                while (TryReadJName(out _))
                     SkipValue();
-                }
             }
         }
     }
