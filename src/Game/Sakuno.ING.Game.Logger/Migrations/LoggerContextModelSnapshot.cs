@@ -14,7 +14,7 @@ namespace Sakuno.ING.Game.Logger.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
+                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034");
 
             modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.BattleDetailEntity", b =>
                 {
@@ -93,11 +93,12 @@ namespace Sakuno.ING.Game.Logger.Migrations
             modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.JNameEntity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .HasAnnotation("Sqlite:Autoincrement", false);
 
                     b.Property<string>("Name");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasAnnotation("Sqlite:Autoincrement", false);
 
                     b.HasIndex("Name")
                         .IsUnique();

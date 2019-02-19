@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sakuno.ING.Game.Logger.Entities;
@@ -62,6 +62,15 @@ namespace Sakuno.ING.Game.Logger
                 .Property(x => x.ExpeditionId)
                 .HasConversion<int>(v => v, v => (ExpeditionId)v);
 
+            modelBuilder
+                .Entity<JNameEntity>()
+                .HasKey(x => x.Id)
+                .HasAnnotation("Sqlite:Autoincrement", false);
+            modelBuilder
+                .Entity<JNameEntity>()
+                .Property(x => x.Id)
+                .ValueGeneratedNever()
+                .HasAnnotation("Sqlite:Autoincrement", false);
             modelBuilder
                 .Entity<JNameEntity>()
                 .HasIndex(x => x.Name)
