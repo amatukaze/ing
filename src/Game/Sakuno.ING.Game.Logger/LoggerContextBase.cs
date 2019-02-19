@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sakuno.ING.Game.Logger.Entities;
@@ -17,11 +17,11 @@ namespace Sakuno.ING.Game.Logger
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public DbSet<ShipCreationEntity> ShipCreationTable { get; private set; }
-        public DbSet<EquipmentCreationEntity> EquipmentCreationTable { get; private set; }
-        public DbSet<ExpeditionCompletionEntity> ExpeditionCompletionTable { get; private set; }
-        internal DbSet<JNameEntity> JNameTable { get; private set; }
-        public DbSet<BattleEntity> BattleTable { get; private set; }
+        public DbSet<ShipCreationEntity> ShipCreationTable { get; protected set; }
+        public DbSet<EquipmentCreationEntity> EquipmentCreationTable { get; protected set; }
+        public DbSet<ExpeditionCompletionEntity> ExpeditionCompletionTable { get; protected set; }
+        internal DbSet<JNameEntity> JNameTable { get; set; }
+        public DbSet<BattleEntity> BattleTable { get; protected set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
