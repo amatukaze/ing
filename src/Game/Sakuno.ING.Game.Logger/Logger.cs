@@ -191,6 +191,7 @@ namespace Sakuno.ING.Game.Logger
             {
                 context.Database.Migrate();
                 battleApiDeserializer = new BattleApiDeserializer(new BinaryJsonIdResolver(context.JNameTable));
+                context.SaveChanges();
             }
             currentAdmiral = admiral;
         }

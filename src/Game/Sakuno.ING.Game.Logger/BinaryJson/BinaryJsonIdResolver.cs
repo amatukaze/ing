@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -15,12 +16,16 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
         {
             get
             {
-                var jName = jNameTable.SingleOrDefault(x => x.Name == key);
+                var jName = jNameTable.Local.SingleOrDefault(x => x.Name == key) ??
+                    jNameTable.SingleOrDefault(x => x.Name == key);
                 if (jName == null)
                 {
+                    int maxId = jNameTable.Max(x => x.Id);
+                    if (jNameTable.Local.Count > 0)
+                        maxId = Math.Max(maxId, jNameTable.Local.Max(x => x.Id));
                     jName = new JNameEntity
                     {
-                        Id = jNameTable.Max(x => x.Id) + 1,
+                        Id = maxId + 1,
                         Name = key
                     };
                     jNameTable.Add(jName);
