@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
@@ -27,9 +28,15 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         private BattleDetailEntity _details;
         public BattleDetailEntity Details
         {
-            get => lazyLoader.Load(this, ref _details);
+            get => lazyLoader?.Load(this, ref _details);
             set => _details = value;
         }
+
+        /// <summary>
+        /// Use <see cref="LoggerContext.StoreBattle(System.Text.Json.JsonElement)"/> and <see cref="BinaryJson.BinaryJsonExtensions"/> to store.
+        /// </summary>
+        [NotMapped]
+        public UnstoredBattleDetail UnstoredDetails { get; set; }
 
         public BattleRank? Rank { get; set; }
         public int? AdmiralExperience { get; set; }

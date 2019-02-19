@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 using Sakuno.ING.Game.Logger.BinaryJson;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace Sakuno.ING.Game.Tests
         private static void AssertEncodeEqual(string json, byte[] value)
         {
             var utf8 = Encoding.UTF8.GetBytes(json);
-            var result = new BinaryJsonEncoder(utf8, jNames).Result;
+            var result = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(utf8).RootElement, jNames);
             Assert.Equal(value, result);
         }
 
@@ -79,7 +80,7 @@ namespace Sakuno.ING.Game.Tests
             for (int i = -512; i <= 512; i++)
             {
                 var utf8 = Encoding.UTF8.GetBytes(i.ToString());
-                var b = new BinaryJsonEncoder(utf8, jNames).Result;
+                var b = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(utf8).RootElement, jNames);
                 var decoder = new BinaryJsonReader(b);
                 Assert.Equal(i, decoder.ReadInteger());
                 Assert.True(decoder.Ends);
@@ -96,7 +97,7 @@ namespace Sakuno.ING.Game.Tests
             for (decimal d = -512.5m; d <= 512; d++)
             {
                 var utf8 = Encoding.UTF8.GetBytes(d.ToString());
-                var b = new BinaryJsonEncoder(utf8, jNames).Result;
+                var b = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(utf8).RootElement, jNames);
                 var decoder = new BinaryJsonReader(b);
                 Assert.Equal(d, decoder.ReadDecimal());
                 Assert.True(decoder.Ends);
@@ -126,7 +127,7 @@ namespace Sakuno.ING.Game.Tests
             void AssertSkip(string original)
             {
                 var utf8 = Encoding.UTF8.GetBytes(original);
-                var b = new BinaryJsonEncoder(utf8, jNames).Result;
+                var b = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(utf8).RootElement, jNames);
                 var decoder = new BinaryJsonReader(b);
                 decoder.SkipValue();
                 Assert.True(decoder.Ends);

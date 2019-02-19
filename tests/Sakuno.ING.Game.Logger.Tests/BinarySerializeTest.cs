@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text.Json;
 using Sakuno.ING.Game.Logger.BinaryJson;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
@@ -132,7 +133,7 @@ namespace Sakuno.ING.Game.Tests
                 text = new byte[stream.Length];
                 stream.Read(text, 0, (int)stream.Length);
             }
-            var data = new BinaryJsonEncoder(text, resolver, "api_data").Result;
+            var data = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(text).RootElement.GetProperty("api_data"), resolver);
             var obj = new BattleApiDeserializer(resolver).Deserialize(data);
             Assert.NotNull(obj);
             Assert.Equal(new[] { 12, 14, 1 }, obj.api_formation);

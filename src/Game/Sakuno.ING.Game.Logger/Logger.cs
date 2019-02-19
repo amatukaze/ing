@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Data;
@@ -7,7 +8,6 @@ using Sakuno.ING.Game.Logger.BinaryJson;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
-using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Logger
 {
@@ -146,7 +146,7 @@ namespace Sakuno.ING.Game.Logger
                 currentBattle.TimeStamp = t;
                 currentBattle.Details.SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).Store();
                 currentBattle.Details.SortieFleet2State = currentFleet2InBattle?.Ships.Select(x => new ShipInBattleEntity(x)).Store();
-                currentBattle.Details.FirstBattleDetail = currentBattleContext.StoreBattle(m.Unparsed, true);
+                currentBattle.Details.FirstBattleDetail = currentBattleContext.StoreBattle(JsonDocument.Parse(m.Unparsed).RootElement.GetProperty("api_data"));
                 currentBattle.Details.LbasState = m.Parsed.LandBasePhases
                     .Select(x => new AirForceInBattle(this.navalBase.AirForce[(currentBattle.MapId.AreaId, x.GroupId)]))
                     .Store();
@@ -157,7 +157,7 @@ namespace Sakuno.ING.Game.Logger
             provider.BattleAppended += (t, m) =>
             {
                 currentBattle.TimeStamp = t;
-                currentBattle.Details.SecondBattleDetail = currentBattleContext.StoreBattle(m.Unparsed, true);
+                currentBattle.Details.SecondBattleDetail = currentBattleContext.StoreBattle(JsonDocument.Parse(m.Unparsed).RootElement.GetProperty("api_data"));
                 currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
             };

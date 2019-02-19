@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
@@ -275,6 +277,61 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                         break;
                 }
             return e;
+        }
+
+        internal static byte[] StoreBattle(JsonElement element, IReadOnlyDictionary<string, int> jNames)
+        {
+            var writer = new BinaryJsonWriter();
+            Format(element, writer, jNames);
+            return writer.Complete();
+
+            void Format(JsonElement e, BinaryJsonWriter w, IReadOnlyDictionary<string, int> j)
+            {
+                switch (e.Type)
+                {
+                    case JsonValueType.Object:
+                        w.WriteStartObject();
+                        foreach (var child in e.EnumerateObject())
+                        {
+                            w.WriteJName(j[child.Name]);
+                            Format(child.Value, w, j);
+                        }
+                        w.WriteEndObject();
+                        break;
+
+                    case JsonValueType.Array:
+                        w.WriteArraySize(e.GetArrayLength());
+                        foreach (var child in e.EnumerateArray())
+                            Format(child, w, j);
+                        break;
+
+                    case JsonValueType.String:
+                        w.WriteString(e.GetString());
+                        break;
+
+                    case JsonValueType.Number:
+                        if (e.TryGetInt32(out int ivalue))
+                            w.WriteInteger(ivalue);
+                        else
+                            w.WriteDecimal(e.GetDecimal());
+                        break;
+
+                    case JsonValueType.True:
+                        w.WriteInteger(1);
+                        break;
+
+                    case JsonValueType.False:
+                        w.WriteInteger(0);
+                        break;
+
+                    case JsonValueType.Undefined:
+                    case JsonValueType.Null:
+                        w.WriteNull();
+                        break;
+                    default:
+                        throw new InvalidOperationException("Unknown json value type.");
+                }
+            }
         }
     }
 }

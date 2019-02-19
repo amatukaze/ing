@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Logger.BinaryJson;
@@ -14,8 +14,8 @@ namespace Sakuno.ING.Game.Logger
             this.deserializer = deserializer;
         }
 
-        public byte[] StoreBattle(ReadOnlyMemory<byte> json, bool wrappedWithStatusCode)
-            => new BinaryJsonEncoder(json, new BinaryJsonIdResolver(JNameTable), wrappedWithStatusCode ? "api_data" : null).Result;
+        internal byte[] StoreBattle(JsonElement json)
+            => BinaryJsonExtensions.StoreBattle(json, new BinaryJsonIdResolver(JNameTable));
 
         public BattleDetailJson LoadBattle(byte[] data) => deserializer.Deserialize(data);
     }
