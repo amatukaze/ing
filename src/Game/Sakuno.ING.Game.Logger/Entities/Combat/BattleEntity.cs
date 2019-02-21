@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
@@ -13,6 +14,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         public BattleEntity() { }
         public BattleEntity(ILazyLoader lazyLoader) => this.lazyLoader = lazyLoader;
 
+        public DateTimeOffset CompletionTime { get; set; }
         public MapId MapId { get; set; }
         public string MapName { get; set; }
         public int RouteId { get; set; }

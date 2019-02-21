@@ -53,6 +53,8 @@ namespace Sakuno.ING.Game.Logger.Migrations
 
                     b.Property<int>("CombinedFleetType");
 
+                    b.Property<long>("CompletionTime");
+
                     b.Property<string>("EnemyFleetName");
 
                     b.Property<int>("EventKind");

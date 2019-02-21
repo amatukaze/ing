@@ -108,6 +108,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                 s => new BattleEntity
                 {
                     TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Utc),
+                    CompletionTime = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Utc),
                     MapId = (MapId)int.Parse(s[1]),
                     MapName = s[2],
                     RouteId = int.Parse(s[3]),

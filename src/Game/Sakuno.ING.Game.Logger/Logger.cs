@@ -124,6 +124,7 @@ namespace Sakuno.ING.Game.Logger
                 currentBattle = new BattleEntity
                 {
                     TimeStamp = t,
+                    CompletionTime = t,
                     MapId = m.MapId,
                     MapName = map.Info.Name.Origin,
                     RouteId = m.RouteId,
@@ -143,7 +144,7 @@ namespace Sakuno.ING.Game.Logger
 
             provider.BattleStarted += (t, m) =>
             {
-                currentBattle.TimeStamp = t;
+                currentBattle.CompletionTime = t;
                 currentBattle.Details.SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).Store();
                 currentBattle.Details.SortieFleet2State = currentFleet2InBattle?.Ships.Select(x => new ShipInBattleEntity(x)).Store();
                 using (var doc = JsonDocument.Parse(m.Unparsed))
@@ -157,7 +158,7 @@ namespace Sakuno.ING.Game.Logger
 
             provider.BattleAppended += (t, m) =>
             {
-                currentBattle.TimeStamp = t;
+                currentBattle.CompletionTime = t;
                 using (var doc = JsonDocument.Parse(m.Unparsed))
                     currentBattle.Details.SecondBattleDetail = currentBattleContext.StoreBattle(doc.RootElement.GetProperty("api_data"));
                 currentBattleContext.ChangeTracker.DetectChanges();
@@ -166,7 +167,7 @@ namespace Sakuno.ING.Game.Logger
 
             provider.BattleCompleted += (t, m) =>
             {
-                currentBattle.TimeStamp = t;
+                currentBattle.CompletionTime = t;
                 currentBattle.Rank = m.Rank;
                 currentBattle.AdmiralExperience = m.AdmiralExperience;
                 currentBattle.BaseExperience = m.BaseExperience;

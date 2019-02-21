@@ -9,7 +9,7 @@ using Sakuno.ING.Game.Logger;
 namespace Sakuno.ING.Game.Logger.Migrations
 {
     [DbContext(typeof(LoggerContextBase))]
-    [Migration("20190219171726_BattleDetail")]
+    [Migration("20190221123835_BattleDetail")]
     partial class BattleDetail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,8 @@ namespace Sakuno.ING.Game.Logger.Migrations
                     b.Property<int>("BattleKind");
 
                     b.Property<int>("CombinedFleetType");
+
+                    b.Property<long>("CompletionTime");
 
                     b.Property<string>("EnemyFleetName");
 

@@ -90,6 +90,10 @@ namespace Sakuno.ING.Game.Logger
                 .HasForeignKey<BattleDetailEntity>(x => x.TimeStamp);
             modelBuilder
                 .Entity<BattleEntity>()
+                .Property(x => x.CompletionTime)
+                .HasConversion(new DateTimeOffsetToBinaryConverter());
+            modelBuilder
+                .Entity<BattleEntity>()
                 .Property(x => x.MapId)
                 .HasConversion<int>(v => v, v => (MapId)v);
             modelBuilder

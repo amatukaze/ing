@@ -13,6 +13,7 @@ namespace Sakuno.ING.Game.Logger.Migrations
                 {
                     TimeStamp = table.Column<long>(nullable: false),
                     Source = table.Column<string>(nullable: true),
+                    CompletionTime = table.Column<long>(nullable: false),
                     MapId = table.Column<int>(nullable: false),
                     MapName = table.Column<string>(nullable: true),
                     RouteId = table.Column<int>(nullable: false),
