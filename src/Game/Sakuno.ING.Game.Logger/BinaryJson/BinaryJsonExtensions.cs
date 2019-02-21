@@ -73,10 +73,10 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                     foreach (var e in ship.Slots)
                         WriteSlot(writer, e);
                 }
-                if (ship.ExtraSlot is SlotInBattleEntity ex)
+                if (ship.ExtraSlot.Id > 0)
                 {
                     writer.WriteJName(8);
-                    WriteSlot(writer, ex);
+                    WriteSlot(writer, ship.ExtraSlot);
                 }
                 writer.WriteEndObject();
             }
@@ -151,7 +151,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                             {
                                 ship.Slots = new SlotInBattleEntity[l];
                                 for (int j = 0; j < l; j++)
-                                    ship.Slots[j] = TryReadSlot(ref reader) ?? default;
+                                    ship.Slots[j] = TryReadSlot(ref reader);
                             }
                             break;
                         case 8:
@@ -221,7 +221,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                             {
                                 var squadrons = new SlotInBattleEntity[l2];
                                 for (int j = 0; j < l2; j++)
-                                    squadrons[j] = TryReadSlot(ref reader) ?? default;
+                                    squadrons[j] = TryReadSlot(ref reader);
                                 group.Squadrons = squadrons;
                             }
                             break;
@@ -256,7 +256,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             w.WriteEndObject();
         }
 
-        private static SlotInBattleEntity? TryReadSlot(ref BinaryJsonReader r)
+        private static SlotInBattleEntity TryReadSlot(ref BinaryJsonReader r)
         {
             if (!r.StartObjectOrSkip())
                 return default;

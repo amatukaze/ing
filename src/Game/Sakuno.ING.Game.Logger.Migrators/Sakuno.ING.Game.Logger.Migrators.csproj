@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Version>0.1.0-blueprint</Version>
     <Description>Migrate logs from other tools to Intelligent Naval Gun.</Description>
+    <NoWarn>CS0649</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

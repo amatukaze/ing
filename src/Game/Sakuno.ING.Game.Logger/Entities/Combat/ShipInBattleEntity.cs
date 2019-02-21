@@ -6,20 +6,20 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
 {
     public class ShipInBattleEntity
     {
-        public ShipInfoId Id { get; internal set; }
-        public int Level { get; internal set; }
-        public ShipMordenizationStatus Firepower { get; internal set; }
-        public ShipMordenizationStatus Torpedo { get; internal set; }
-        public ShipMordenizationStatus AntiAir { get; internal set; }
-        public ShipMordenizationStatus Armor { get; internal set; }
-        public ShipMordenizationStatus Luck { get; internal set; }
-        public ShipMordenizationStatus LineOfSight { get; internal set; }
-        public ShipMordenizationStatus Evasion { get; internal set; }
-        public ShipMordenizationStatus AntiSubmarine { get; internal set; }
-        public SlotInBattleEntity[] Slots { get; internal set; }
-        public SlotInBattleEntity? ExtraSlot { get; internal set; }
-        public ClampedValue? Fuel { get; internal set; }
-        public ClampedValue? Bullet { get; internal set; }
+        public ShipInfoId Id { get; set; }
+        public int Level { get; set; }
+        public ShipMordenizationStatus Firepower { get; set; }
+        public ShipMordenizationStatus Torpedo { get; set; }
+        public ShipMordenizationStatus AntiAir { get; set; }
+        public ShipMordenizationStatus Armor { get; set; }
+        public ShipMordenizationStatus Luck { get; set; }
+        public ShipMordenizationStatus LineOfSight { get; set; }
+        public ShipMordenizationStatus Evasion { get; set; }
+        public ShipMordenizationStatus AntiSubmarine { get; set; }
+        public SlotInBattleEntity[] Slots { get; set; }
+        public SlotInBattleEntity ExtraSlot { get; set; }
+        public ClampedValue? Fuel { get; set; }
+        public ClampedValue? Bullet { get; set; }
 
         public ShipInBattleEntity() { }
 
