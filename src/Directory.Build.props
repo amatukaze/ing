@@ -5,7 +5,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <BaseOutputPath>$(BasePath)artifacts\$(MSBuildProjectName)\</BaseOutputPath>
-    <IntermediateOutputPath>$(BasePath)intermediate\$(MSBuildProjectName)\$(Configuration)\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>$(BasePath)intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <Authors>Kodama Sakuno</Authors>
     <Product>Intelligent Naval Gun</Product>
     <Company>Kodama Sakuno</Company>
