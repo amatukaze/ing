@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
@@ -326,6 +327,59 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
 
                     case JsonValueType.Undefined:
                     case JsonValueType.Null:
+                        w.WriteNull();
+                        break;
+                    default:
+                        throw new InvalidOperationException("Unknown json value type.");
+                }
+            }
+        }
+
+        public static byte[] StoreBattle(JToken element, IReadOnlyDictionary<string, int> jNames)
+        {
+            var writer = new BinaryJsonWriter();
+            Format(element, writer, jNames);
+            return writer.Complete();
+
+            void Format(JToken e, BinaryJsonWriter w, IReadOnlyDictionary<string, int> j)
+            {
+                switch (e.Type)
+                {
+                    case JTokenType.Object:
+                        w.WriteStartObject();
+                        foreach (var child in e as JObject)
+                        {
+                            w.WriteJName(j[child.Key]);
+                            Format(child.Value, w, j);
+                        }
+                        w.WriteEndObject();
+                        break;
+
+                    case JTokenType.Array:
+                        var arr = e as JArray;
+                        w.WriteArraySize(arr.Count);
+                        foreach (var child in e)
+                            Format(child, w, j);
+                        break;
+
+                    case JTokenType.String:
+                        w.WriteString((string)e);
+                        break;
+
+                    case JTokenType.Integer:
+                        w.WriteInteger((int)e);
+                        break;
+
+                    case JTokenType.Float:
+                        w.WriteDecimal((decimal)e);
+                        break;
+
+                    case JTokenType.Boolean:
+                        w.WriteInteger((bool)e ? 1 : 0);
+                        break;
+
+                    case JTokenType.Undefined:
+                    case JTokenType.Null:
                         w.WriteNull();
                         break;
                     default:

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using Sakuno.ING.Game.Logger.BinaryJson;
 using Xunit;
 
@@ -16,8 +16,9 @@ namespace Sakuno.ING.Game.Tests
 
         private static void AssertEncodeEqual(string json, byte[] value)
         {
-            var utf8 = Encoding.UTF8.GetBytes(json);
-            var result = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(utf8).RootElement, jNames);
+            //var utf8 = Encoding.UTF8.GetBytes(json);
+            //var result = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(utf8).RootElement, jNames);
+            var result = BinaryJsonExtensions.StoreBattle(JToken.Parse(json), jNames);
             Assert.Equal(value, result);
         }
 
@@ -71,6 +72,16 @@ namespace Sakuno.ING.Game.Tests
             });
         }
 
+        private static BinaryJsonReader ParseAndStore(string json)
+        {
+            //using (var doc = JsonDocument.Parse(json))
+            //{
+            //    var b = BinaryJsonExtensions.StoreBattle(doc.RootElement, jNames);
+            //    return new BinaryJsonReader(b);
+            //}
+            return new BinaryJsonReader(BinaryJsonExtensions.StoreBattle(JToken.Parse(json), jNames));
+        }
+
         [Fact]
         public static void TestDecodeInteger()
         {
@@ -79,9 +90,7 @@ namespace Sakuno.ING.Game.Tests
             Assert.Equal(128, new BinaryJsonReader(new byte[] { 0b0100_0000, 2 }).ReadInteger());
             for (int i = -512; i <= 512; i++)
             {
-                var utf8 = Encoding.UTF8.GetBytes(i.ToString());
-                var b = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(utf8).RootElement, jNames);
-                var decoder = new BinaryJsonReader(b);
+                var decoder = ParseAndStore(i.ToString());
                 Assert.Equal(i, decoder.ReadInteger());
                 Assert.True(decoder.Ends);
             }
@@ -96,9 +105,7 @@ namespace Sakuno.ING.Game.Tests
         {
             for (decimal d = -512.5m; d <= 512; d++)
             {
-                var utf8 = Encoding.UTF8.GetBytes(d.ToString());
-                var b = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(utf8).RootElement, jNames);
-                var decoder = new BinaryJsonReader(b);
+                var decoder = ParseAndStore(d.ToString());
                 Assert.Equal(d, decoder.ReadDecimal());
                 Assert.True(decoder.Ends);
             }
@@ -126,9 +133,7 @@ namespace Sakuno.ING.Game.Tests
         {
             void AssertSkip(string original)
             {
-                var utf8 = Encoding.UTF8.GetBytes(original);
-                var b = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(utf8).RootElement, jNames);
-                var decoder = new BinaryJsonReader(b);
+                var decoder = ParseAndStore(original);
                 decoder.SkipValue();
                 Assert.True(decoder.Ends);
             }

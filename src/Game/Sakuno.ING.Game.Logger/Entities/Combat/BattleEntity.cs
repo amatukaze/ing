@@ -33,7 +33,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         }
 
         /// <summary>
-        /// Use <see cref="LoggerContext.StoreBattle(System.Text.Json.JsonElement)"/> and <see cref="BinaryJson.BinaryJsonExtensions"/> to store.
+        /// Use <see cref="LoggerContext.StoreBattle(Newtonsoft.Json.Linq.JToken)"/> and <see cref="BinaryJson.BinaryJsonExtensions"/> to store.
         /// </summary>
         [NotMapped]
         public UnstoredBattleDetail UnstoredDetails { get; set; }
