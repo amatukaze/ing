@@ -38,14 +38,17 @@
         <StackPanel Orientation="Vertical"
                     Grid.Column="1" Grid.Row="1">
             <CheckBox Content="{c:Localize ViewTitle/ShipCreationLogs}"
-                      IsEnabled="{Binding SupportShipCreation}"
+                      IsEnabled="{Binding SelectedMigrator.SupportShipCreation}"
                       IsChecked="{Binding SelectShipCreation}" />
             <CheckBox Content="{c:Localize ViewTitle/EquipmentCreationLogs}"
-                      IsEnabled="{Binding SupportEquipmentCreation}"
+                      IsEnabled="{Binding SelectedMigrator.SupportEquipmentCreation}"
                       IsChecked="{Binding SelectEquipmentCreation}" />
             <CheckBox Content="{c:Localize ViewTitle/ExpeditionCompletionLogs}"
-                      IsEnabled="{Binding SupportExpeditionCompletion}"
+                      IsEnabled="{Binding SelectedMigrator.SupportExpeditionCompletion}"
                       IsChecked="{Binding SelectExpeditionCompletion}" />
+            <CheckBox Content="Battle and drop"
+                      IsEnabled="{Binding SelectedMigrator.SupportBattleAndDrop}"
+                      IsChecked="{Binding SelectBattleAndDrop}" />
         </StackPanel>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>

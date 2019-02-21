@@ -18,18 +18,15 @@ using Sakuno.ING.IO;
 
 namespace Sakuno.ING.Game.Logger.Migrators
 {
-    [Export(typeof(ILogMigrator))]
-    internal class AdmiralRoomMigrator : ILogMigrator,
-        ILogProvider<ShipCreationEntity>,
-        ILogProvider<EquipmentCreationEntity>,
-        ILogProvider<ExpeditionCompletionEntity>,
-        ILogProvider<BattleEntity>
+    [Export(typeof(LogMigrator))]
+    internal class AdmiralRoomMigrator : LogMigrator
     {
-        public bool RequireFolder => true;
-        public string Id => "AdmiralRoom";
-        public string Title => "提督の部屋";
+        public override bool RequireFolder => true;
+        public override string Id => "AdmiralRoom";
+        public override string Title => "提督の部屋";
 
-        ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportShipCreation => true;
+        public override ValueTask<IReadOnlyCollection<ShipCreationEntity>> GetShipCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
             => Helper.ParseCsv(source, "createship.csv", 12,
                 s => new ShipCreationEntity
                 {
@@ -50,7 +47,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     AdmiralLevel = int.Parse(s[11])
                 });
 
-        ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> ILogProvider<EquipmentCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportEquipmentCreation => true;
+        public override ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> GetEquipmentCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
             => Helper.ParseCsv(source, "createitem.csv", 10,
                 s => new EquipmentCreationEntity
                 {
@@ -69,7 +67,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     AdmiralLevel = int.Parse(s[9])
                 });
 
-        ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> ILogProvider<ExpeditionCompletionEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportExpeditionCompletion => true;
+        public override ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> GetExpeditionCompletionAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var expeditionTable = Compositor.Static<NavalBase>().MasterData.Expeditions;
 
@@ -102,7 +101,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                 });
         }
 
-        async ValueTask<IReadOnlyCollection<BattleEntity>> ILogProvider<BattleEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportBattleAndDrop => true;
+        public override async ValueTask<IReadOnlyCollection<BattleEntity>> GetBattleAndDropAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var results = (await Helper.ParseCsv(source, "drop.csv", 9,
                 s => new BattleEntity

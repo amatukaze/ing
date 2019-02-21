@@ -9,16 +9,15 @@ using Sakuno.ING.IO;
 
 namespace Sakuno.ING.Game.Logger.Migrators
 {
-    [Export(typeof(ILogMigrator))]
-    internal class ElectronicObserverMigrator : ILogMigrator,
-        ILogProvider<ShipCreationEntity>,
-        ILogProvider<EquipmentCreationEntity>
+    [Export(typeof(LogMigrator))]
+    internal class ElectronicObserverMigrator : LogMigrator
     {
-        public string Id => "74EO";
-        public string Title => "七四式電子観測儀";
-        public bool RequireFolder => true;
+        public override string Id => "74EO";
+        public override string Title => "七四式電子観測儀";
+        public override bool RequireFolder => true;
 
-        ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportShipCreation => true;
+        public override ValueTask<IReadOnlyCollection<ShipCreationEntity>> GetShipCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
             => Helper.ParseCsv(source, "ConstructionRecord.csv", 13,
                 s => new ShipCreationEntity
                 {
@@ -38,7 +37,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     AdmiralLevel = int.Parse(s[12])
                 });
 
-        ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> ILogProvider<EquipmentCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportEquipmentCreation => true;
+        public override ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> GetEquipmentCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
             => Helper.ParseCsv(source, "DevelopmentRecord.csv", 11,
                 s => new EquipmentCreationEntity
                 {

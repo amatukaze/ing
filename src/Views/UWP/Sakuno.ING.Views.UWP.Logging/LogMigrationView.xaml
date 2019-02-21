@@ -32,18 +32,18 @@
                 Tapped="{x:Bind ViewModel.PickPath}" />
         <StackPanel Orientation="Vertical"
                     Grid.Column="1" Grid.Row="1">
-            <ToggleSwitch Grid.Column="1" Grid.Row="1"
-                          x:Uid="/Resources/LogMigration_ShipCreation"
-                          IsEnabled="{x:Bind ViewModel.SupportShipCreation}"
+            <ToggleSwitch x:Uid="/Resources/LogMigration_ShipCreation"
+                          IsEnabled="{x:Bind ViewModel.SelectedMigrator.SupportShipCreation}"
                           IsOn="{x:Bind ViewModel.SelectShipCreation, Mode=TwoWay}" />
-            <ToggleSwitch Grid.Column="1" Grid.Row="2"
-                          x:Uid="/Resources/LogMigration_EquipmentCreation"
-                          IsEnabled="{x:Bind ViewModel.SupportEquipmentCreation}"
+            <ToggleSwitch x:Uid="/Resources/LogMigration_EquipmentCreation"
+                          IsEnabled="{x:Bind ViewModel.SelectedMigrator.SupportEquipmentCreation}"
                           IsOn="{x:Bind ViewModel.SelectEquipmentCreation, Mode=TwoWay}" />
-            <ToggleSwitch Grid.Column="1" Grid.Row="3"
-                          x:Uid="/Resources/LogMigration_ExpeditionCompletion"
-                          IsEnabled="{x:Bind ViewModel.SupportExpeditionCompletion}"
+            <ToggleSwitch x:Uid="/Resources/LogMigration_ExpeditionCompletion"
+                          IsEnabled="{x:Bind ViewModel.SelectedMigrator.SupportExpeditionCompletion}"
                           IsOn="{x:Bind ViewModel.SelectExpeditionCompletion, Mode=TwoWay}" />
+            <ToggleSwitch Header="Battle And Drop"
+                          IsEnabled="{x:Bind ViewModel.SelectedMigrator.SupportBattleAndDrop}"
+                          IsOn="{x:Bind ViewModel.SelectBattleAndDrop, Mode=TwoWay}" />
         </StackPanel>
         <ProgressRing Grid.Column="1" Grid.Row="2"
                       IsActive="{x:Bind ViewModel.Running}" />

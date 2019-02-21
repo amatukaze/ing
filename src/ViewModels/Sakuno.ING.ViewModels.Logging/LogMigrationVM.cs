@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Logger;
-using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.IO;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Shell;
@@ -19,10 +18,10 @@ namespace Sakuno.ING.ViewModels.Logging
         private readonly IShellContextService shellContextService;
         private readonly ILocalizationService localization;
 
-        public IBindableCollection<ILogMigrator> Migrators { get; }
+        public IBindableCollection<LogMigrator> Migrators { get; }
 
-        private ILogMigrator _selectedMigrator;
-        public ILogMigrator SelectedMigrator
+        private LogMigrator _selectedMigrator;
+        public LogMigrator SelectedMigrator
         {
             get => _selectedMigrator;
             set
@@ -32,9 +31,7 @@ namespace Sakuno.ING.ViewModels.Logging
                     _selectedMigrator = value;
                     SelectedPath = null;
                     NotifyPropertyChanged();
-                    NotifyPropertyChanged(nameof(SupportShipCreation));
-                    NotifyPropertyChanged(nameof(SupportEquipmentCreation));
-                    NotifyPropertyChanged(nameof(SupportExpeditionCompletion));
+                    NotifyPropertyChanged(nameof(SelectedMigrator));
                 }
             }
         }
@@ -58,16 +55,15 @@ namespace Sakuno.ING.ViewModels.Logging
             }
         }
 
-        public bool SupportShipCreation => SelectedMigrator is ILogProvider<ShipCreationEntity>;
         public bool SelectShipCreation { get; set; }
 
-        public bool SupportEquipmentCreation => SelectedMigrator is ILogProvider<EquipmentCreationEntity>;
         public bool SelectEquipmentCreation { get; set; }
 
-        public bool SupportExpeditionCompletion => SelectedMigrator is ILogProvider<ExpeditionCompletionEntity>;
         public bool SelectExpeditionCompletion { get; set; }
 
-        public LogMigrationVM(Logger logger, ILogMigrator[] migrators, IShellContextService shellContextService, ILocalizationService localization)
+        public bool SelectBattleAndDrop { get; set; }
+
+        public LogMigrationVM(Logger logger, LogMigrator[] migrators, IShellContextService shellContextService, ILocalizationService localization)
         {
             this.logger = logger;
             this.shellContextService = shellContextService;
@@ -105,13 +101,11 @@ namespace Sakuno.ING.ViewModels.Logging
                 SelectedPath = fs;
         }
 
-        private async ValueTask<int> TryMigrate<T>(DbSet<T> dbSet, ILogProvider<T> provider, string id)
+        private async ValueTask<int> TryMigrate<T>(DbSet<T> dbSet, IReadOnlyCollection<T> logs, string id)
             where T : EntityBase
         {
-            if (provider == null) return 0;
-
             var timeZone = TimeSpan.FromHours(TimeZoneOffset);
-            IEnumerable<T> source = await provider.GetLogsAsync(SelectedPath, timeZone);
+            IEnumerable<T> source = logs;
             if (Ranged)
             {
                 var timeFrom = DateTime.SpecifyKind(DateFrom, DateTimeKind.Utc) - timeZone;
@@ -153,14 +147,18 @@ namespace Sakuno.ING.ViewModels.Logging
                 int count = 0;
                 using (var context = logger.CreateContext())
                 {
-                    if (SelectShipCreation)
-                        count += await TryMigrate(context.ShipCreationTable, SelectedMigrator as ILogProvider<ShipCreationEntity>, SelectedMigrator.Id)
+                    var timeZone = TimeSpan.FromHours(TimeZoneOffset);
+                    if (SelectShipCreation && SelectedMigrator.SupportShipCreation)
+                        count += await TryMigrate(context.ShipCreationTable, await SelectedMigrator.GetShipCreationAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
                             .ConfigureAwait(false);
                     if (SelectEquipmentCreation)
-                        count += await TryMigrate(context.EquipmentCreationTable, SelectedMigrator as ILogProvider<EquipmentCreationEntity>, SelectedMigrator.Id)
+                        count += await TryMigrate(context.EquipmentCreationTable, await SelectedMigrator.GetEquipmentCreationAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
                             .ConfigureAwait(false);
                     if (SelectExpeditionCompletion)
-                        count += await TryMigrate(context.ExpeditionCompletionTable, SelectedMigrator as ILogProvider<ExpeditionCompletionEntity>, SelectedMigrator.Id)
+                        count += await TryMigrate(context.ExpeditionCompletionTable, await SelectedMigrator.GetExpeditionCompletionAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
+                            .ConfigureAwait(false);
+                    if (SelectBattleAndDrop)
+                        count += await TryMigrate(context.BattleTable, await SelectedMigrator.GetBattleAndDropAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
                             .ConfigureAwait(false);
 
                     await context.SaveChangesAsync().ConfigureAwait(false);

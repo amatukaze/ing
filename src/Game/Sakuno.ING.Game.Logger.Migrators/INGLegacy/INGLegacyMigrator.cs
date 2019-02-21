@@ -11,17 +11,15 @@ using Sakuno.ING.IO;
 
 namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
 {
-    [Export(typeof(ILogMigrator))]
-    internal class INGLegacyMigrator : ILogMigrator,
-        ILogProvider<ShipCreationEntity>,
-        ILogProvider<EquipmentCreationEntity>,
-        ILogProvider<ExpeditionCompletionEntity>
+    [Export(typeof(LogMigrator))]
+    internal class INGLegacyMigrator : LogMigrator
     {
-        public bool RequireFolder => false;
-        public string Id => "ING Legacy";
-        public string Title => "Intelligent Naval Gun (Old)";
+        public override bool RequireFolder => false;
+        public override string Id => "ING Legacy";
+        public override string Title => "Intelligent Naval Gun (Old)";
 
-        async ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportShipCreation => true;
+        public override async ValueTask<IReadOnlyCollection<ShipCreationEntity>> GetShipCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             using (var context = new INGLegacyContext(await (source as IFileFacade ?? throw new ArgumentException("Source must be a file.")).GetAccessPathAsync()))
                 return (await context.ConstructionTable.ToListAsync())
@@ -44,7 +42,8 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                     }).ToList();
         }
 
-        async ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> ILogProvider<EquipmentCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportEquipmentCreation => true;
+        public override async ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> GetEquipmentCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             using (var context = new INGLegacyContext(await (source as IFileFacade ?? throw new ArgumentException("Source must be a file.")).GetAccessPathAsync()))
                 return (await context.DevelopmentTable.ToListAsync())
@@ -65,7 +64,8 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                     }).ToList();
         }
 
-        async ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> ILogProvider<ExpeditionCompletionEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportExpeditionCompletion => true;
+        public override async ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> GetExpeditionCompletionAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var expeditions = Compositor.Static<NavalBase>().MasterData.Expeditions;
             using (var context = new INGLegacyContext(await (source as IFileFacade ?? throw new ArgumentException("Source must be a file.")).GetAccessPathAsync()))

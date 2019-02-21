@@ -10,19 +10,17 @@ using Sakuno.ING.IO;
 
 namespace Sakuno.ING.Game.Logger.Migrators
 {
-    [Export(typeof(ILogMigrator))]
-    internal class LogbookMigrator : ILogMigrator,
-        ILogProvider<ShipCreationEntity>,
-        ILogProvider<EquipmentCreationEntity>,
-        ILogProvider<ExpeditionCompletionEntity>
+    [Export(typeof(LogMigrator))]
+    internal class LogbookMigrator : LogMigrator
     {
-        public bool RequireFolder => true;
-        public string Id => "Logbook";
-        public string Title => "Logbook";
+        public override bool RequireFolder => true;
+        public override string Id => "Logbook";
+        public override string Title => "Logbook";
 
         private readonly Encoding shiftJIS = CodePagesEncodingProvider.Instance.GetEncoding(932);
 
-        ValueTask<IReadOnlyCollection<ShipCreationEntity>> ILogProvider<ShipCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportShipCreation => true;
+        public override ValueTask<IReadOnlyCollection<ShipCreationEntity>> GetShipCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name.Origin);
             return Helper.ParseCsv(source, "建造報告書.csv", 12,
@@ -54,7 +52,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                 }, shiftJIS);
         }
 
-        ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> ILogProvider<EquipmentCreationEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportEquipmentCreation => true;
+        public override ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> GetEquipmentCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name.Origin);
             var equipments = Compositor.Static<NavalBase>().MasterData.EquipmentInfos.ToDictionary(x => x.Name.Origin);
@@ -85,7 +84,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                 }, shiftJIS);
         }
 
-        ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> ILogProvider<ExpeditionCompletionEntity>.GetLogsAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override bool SupportExpeditionCompletion => true;
+        public override ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> GetExpeditionCompletionAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var expeditions = Compositor.Static<NavalBase>().MasterData.Expeditions.ToDictionary(x => x.Name.Origin);
             var useitems = Compositor.Static<NavalBase>().MasterData.UseItems.ToDictionary(x => x.Name.Origin);
