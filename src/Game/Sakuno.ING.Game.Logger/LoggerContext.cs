@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Logger.BinaryJson;
+using Sakuno.ING.Game.Logger.Entities.Combat;
 
 namespace Sakuno.ING.Game.Logger
 {
-    public class LoggerContext : LoggerContextBase
+    public class LoggerContext : LoggerContextBase, IBattleDetailOwner
     {
         private readonly BattleApiDeserializer deserializer;
 

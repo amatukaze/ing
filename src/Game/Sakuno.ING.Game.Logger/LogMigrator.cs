@@ -26,7 +26,7 @@ namespace Sakuno.ING.Game.Logger
             => throw new NotSupportedException();
 
         public virtual bool SupportBattleAndDrop => false;
-        public virtual ValueTask<IReadOnlyCollection<BattleEntity>> GetBattleAndDropAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public virtual ValueTask<IReadOnlyCollection<BattleEntity>> GetBattleAndDropAsync(IFileSystemFacade source, TimeSpan timeZone, IBattleDetailOwner owner)
             => throw new NotSupportedException();
     }
 }

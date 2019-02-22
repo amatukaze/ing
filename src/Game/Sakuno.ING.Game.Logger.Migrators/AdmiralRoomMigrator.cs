@@ -102,7 +102,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
         }
 
         public override bool SupportBattleAndDrop => true;
-        public override async ValueTask<IReadOnlyCollection<BattleEntity>> GetBattleAndDropAsync(IFileSystemFacade source, TimeSpan timeZone)
+        public override async ValueTask<IReadOnlyCollection<BattleEntity>> GetBattleAndDropAsync(IFileSystemFacade source, TimeSpan timeZone, IBattleDetailOwner owner)
         {
             var results = (await Helper.ParseCsv(source, "drop.csv", 9,
                 s => new BattleEntity
@@ -144,27 +144,28 @@ namespace Sakuno.ING.Game.Logger.Migrators
 
             var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
             var details = await folder.GetFolderAsync("battlelog");
-            foreach (var file in await folder.GetFilesAsync())
-            {
-                switch (Path.GetExtension(file.FullName))
+            if (details != null)
+                foreach (var file in await details.GetFilesAsync())
                 {
-                    case ".zip":
-                        using (var zip = new ZipArchive(await file.OpenReadAsync(), ZipArchiveMode.Read, false))
-                            foreach (var entry in zip.Entries)
-                                if (entry.Name.EndsWith(".log"))
-                                    using (var stream = entry.Open())
-                                        await ImportDetailAsync(stream, results);
-                        break;
-                    case ".log":
-                        using (var stream = await file.OpenReadAsync())
-                            await ImportDetailAsync(stream, results);
-                        break;
+                    switch (Path.GetExtension(file.FullName))
+                    {
+                        case ".zip":
+                            using (var zip = new ZipArchive(await file.OpenReadAsync(), ZipArchiveMode.Read, false))
+                                foreach (var entry in zip.Entries)
+                                    if (entry.Name.EndsWith(".log"))
+                                        using (var stream = entry.Open())
+                                            await ImportDetailAsync(stream);
+                            break;
+                        case ".log":
+                            using (var stream = await file.OpenReadAsync())
+                                await ImportDetailAsync(stream);
+                            break;
+                    }
                 }
-            }
 
             return results.Values;
 
-            async ValueTask ImportDetailAsync(Stream stream, Dictionary<DateTimeOffset, BattleEntity> r)
+            async ValueTask ImportDetailAsync(Stream stream)
             {
                 var reader = new StreamReader(stream);
                 while (!reader.EndOfStream)
@@ -174,12 +175,13 @@ namespace Sakuno.ING.Game.Logger.Migrators
                         line = line.Insert(line.LastIndexOf("\"battle\"") + 1, "night");
                     var log = JsonConvert.DeserializeObject<BattleDetailLog>(line);
                     DateTimeOffset t = DateTime.SpecifyKind(DateTime.Parse(log.time), DateTimeKind.Utc);
-                    if (r.TryGetValue(t, out var e))
+                    if (results.TryGetValue(t, out var e))
                     {
-                        e.UnstoredDetails = new UnstoredBattleDetail();
+                        e.Details = new BattleDetailEntity();
                         e.BattleKind = log.startnext.data.api_data.api_event_kind;
-                        e.UnstoredDetails.LandBaseDefence = log.startnext.data.api_data.api_destruction_battle;
-                        switch (log.battle.api)
+                        if (log.startnext?.data?.api_data?.api_destruction_battle != null)
+                            e.Details.LandBaseDefence = owner.StoreBattle(log.startnext.data.api_data.api_destruction_battle);
+                        switch (log.battle?.api)
                         {
                             case "api_req_sortie/battle":
                             case "api_req_battle_midnight/sp_midnight":
@@ -202,8 +204,10 @@ namespace Sakuno.ING.Game.Logger.Migrators
                                 e.CombinedFleetType = CombinedFleetType.SurfaceTaskForceFleet;
                                 break;
                         }
-                        e.UnstoredDetails.FirstBattleDetail = log.battle.data.api_data;
-                        e.UnstoredDetails.SecondBattleDetail = log.battle.data.api_data;
+                        if (log.battle?.data.api_data != null)
+                            e.Details.FirstBattleDetail = owner.StoreBattle(log.battle.data.api_data);
+                        if (log.nightbattle?.data.api_data != null)
+                            e.Details.SecondBattleDetail = owner.StoreBattle(log.nightbattle.data.api_data);
                         e.Details.SortieFleetState = SelectFleet(log.fleet1);
                         e.Details.SortieFleet2State = SelectFleet(log.fleet2);
                     }
