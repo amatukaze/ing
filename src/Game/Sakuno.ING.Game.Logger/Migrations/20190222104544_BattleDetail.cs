@@ -51,11 +51,10 @@ namespace Sakuno.ING.Game.Logger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BattleDetailEntity",
+                name: "BattleDetails",
                 columns: table => new
                 {
-                    TimeStamp = table.Column<long>(nullable: false),
-                    Source = table.Column<string>(nullable: true),
+                    BattleEntityTimeStamp = table.Column<long>(nullable: false),
                     SortieFleetState = table.Column<byte[]>(nullable: true),
                     SortieFleet2State = table.Column<byte[]>(nullable: true),
                     SupportFleetState = table.Column<byte[]>(nullable: true),
@@ -66,10 +65,10 @@ namespace Sakuno.ING.Game.Logger.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BattleDetailEntity", x => x.TimeStamp);
+                    table.PrimaryKey("PK_BattleDetails", x => x.BattleEntityTimeStamp);
                     table.ForeignKey(
-                        name: "FK_BattleDetailEntity_BattleTable_TimeStamp",
-                        column: x => x.TimeStamp,
+                        name: "FK_BattleDetails_BattleTable_BattleEntityTimeStamp",
+                        column: x => x.BattleEntityTimeStamp,
                         principalTable: "BattleTable",
                         principalColumn: "TimeStamp",
                         onDelete: ReferentialAction.Cascade);
@@ -95,7 +94,7 @@ namespace Sakuno.ING.Game.Logger.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BattleDetailEntity");
+                name: "BattleDetails");
 
             migrationBuilder.DropTable(
                 name: "JNameTable");

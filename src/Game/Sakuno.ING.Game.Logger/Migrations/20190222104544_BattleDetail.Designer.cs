@@ -9,7 +9,7 @@ using Sakuno.ING.Game.Logger;
 namespace Sakuno.ING.Game.Logger.Migrations
 {
     [DbContext(typeof(LoggerContextBase))]
-    [Migration("20190221123835_BattleDetail")]
+    [Migration("20190222104544_BattleDetail")]
     partial class BattleDetail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,31 +17,6 @@ namespace Sakuno.ING.Game.Logger.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.2-servicing-10034");
-
-            modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.BattleDetailEntity", b =>
-                {
-                    b.Property<long>("TimeStamp");
-
-                    b.Property<byte[]>("FirstBattleDetail");
-
-                    b.Property<byte[]>("LandBaseDefence");
-
-                    b.Property<byte[]>("LbasState");
-
-                    b.Property<byte[]>("SecondBattleDetail");
-
-                    b.Property<byte[]>("SortieFleet2State");
-
-                    b.Property<byte[]>("SortieFleetState");
-
-                    b.Property<string>("Source");
-
-                    b.Property<byte[]>("SupportFleetState");
-
-                    b.HasKey("TimeStamp");
-
-                    b.ToTable("BattleDetailEntity");
-                });
 
             modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.BattleEntity", b =>
                 {
@@ -213,12 +188,35 @@ namespace Sakuno.ING.Game.Logger.Migrations
                     b.ToTable("ShipCreationTable");
                 });
 
-            modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.BattleDetailEntity", b =>
+            modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.BattleEntity", b =>
                 {
-                    b.HasOne("Sakuno.ING.Game.Logger.Entities.Combat.BattleEntity")
-                        .WithOne("Details")
-                        .HasForeignKey("Sakuno.ING.Game.Logger.Entities.Combat.BattleDetailEntity", "TimeStamp")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.OwnsOne("Sakuno.ING.Game.Logger.Entities.Combat.BattleDetailEntity", "Details", b1 =>
+                        {
+                            b1.Property<long>("BattleEntityTimeStamp");
+
+                            b1.Property<byte[]>("FirstBattleDetail");
+
+                            b1.Property<byte[]>("LandBaseDefence");
+
+                            b1.Property<byte[]>("LbasState");
+
+                            b1.Property<byte[]>("SecondBattleDetail");
+
+                            b1.Property<byte[]>("SortieFleet2State");
+
+                            b1.Property<byte[]>("SortieFleetState");
+
+                            b1.Property<byte[]>("SupportFleetState");
+
+                            b1.HasKey("BattleEntityTimeStamp");
+
+                            b1.ToTable("BattleDetails");
+
+                            b1.HasOne("Sakuno.ING.Game.Logger.Entities.Combat.BattleEntity")
+                                .WithOne("Details")
+                                .HasForeignKey("Sakuno.ING.Game.Logger.Entities.Combat.BattleDetailEntity", "BattleEntityTimeStamp")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
                 });
 #pragma warning restore 612, 618
         }

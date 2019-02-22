@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Game.Logger.Entities.Combat
 {
-    public class BattleDetailEntity : EntityBase
+    public class BattleDetailEntity
     {
         public byte[] SortieFleetState { get; set; }
         public byte[] SortieFleet2State { get; set; }

@@ -29,7 +29,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         private BattleDetailEntity _details;
         public BattleDetailEntity Details
         {
-            get => lazyLoader?.Load(this, ref _details);
+            get => lazyLoader?.Load(this, ref _details) ?? _details;
             set => _details = value;
         }
 
