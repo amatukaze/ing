@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.ING.Composition;
-using Sakuno.ING.Game.Logger.Binary;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
@@ -115,7 +114,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     Rank = SwitchRank(s[5]),
                     EnemyFleetName = s[6],
                     ShipDropped = int.Parse(s[7]) > 0 ? (ShipInfoId)int.Parse(s[7]) : (ShipInfoId?)null,
-                    UseItemAcquired = int.Parse(s[7]) > 0 ? (UseItemId)int.Parse(s[8]) : (UseItemId?)null
+                    UseItemAcquired = int.Parse(s[8]) > 0 ? (UseItemId)int.Parse(s[8]) : (UseItemId?)null
                 })).ToDictionary(x => x.TimeStamp);
 
             BattleRank SwitchRank(string text)
