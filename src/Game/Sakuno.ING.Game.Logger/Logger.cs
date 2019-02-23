@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Text.Json;
+﻿using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Data;
-using Sakuno.ING.Game.Logger.BinaryJson;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
@@ -22,7 +20,6 @@ namespace Sakuno.ING.Game.Logger
 
         private readonly object admiralLock = new object();
         private Admiral currentAdmiral;
-        private BattleApiDeserializer battleApiDeserializer;
 
         private LoggerContext currentBattleContext;
         private Fleet currentFleetInBattle, currentFleet2InBattle;
@@ -145,13 +142,12 @@ namespace Sakuno.ING.Game.Logger
             provider.BattleStarted += (t, m) =>
             {
                 currentBattle.CompletionTime = t;
-                currentBattle.Details.SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).Store();
-                currentBattle.Details.SortieFleet2State = currentFleet2InBattle?.Ships.Select(x => new ShipInBattleEntity(x)).Store();
-                using (var doc = JsonDocument.Parse(m.Unparsed))
-                    currentBattle.Details.FirstBattleDetail = currentBattleContext.StoreBattle(doc.RootElement.GetProperty("api_data"));
+                currentBattle.Details.SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray();
+                currentBattle.Details.SortieFleet2State = currentFleet2InBattle?.Ships.Select(x => new ShipInBattleEntity(x)).ToArray();
+                currentBattle.Details.FirstBattleDetail = m.Unparsed.ToString(Formatting.None);
                 currentBattle.Details.LbasState = m.Parsed.LandBasePhases
                     .Select(x => new AirForceInBattle(this.navalBase.AirForce[(currentBattle.MapId.AreaId, x.GroupId)]))
-                    .Store();
+                    .ToArray();
                 currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
             };
@@ -159,8 +155,7 @@ namespace Sakuno.ING.Game.Logger
             provider.BattleAppended += (t, m) =>
             {
                 currentBattle.CompletionTime = t;
-                using (var doc = JsonDocument.Parse(m.Unparsed))
-                    currentBattle.Details.SecondBattleDetail = currentBattleContext.StoreBattle(doc.RootElement.GetProperty("api_data"));
+                currentBattle.Details.SecondBattleDetail = m.Unparsed.ToString(Formatting.None);
                 currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
             };
@@ -190,12 +185,8 @@ namespace Sakuno.ING.Game.Logger
 
         private void InitializeAdmiral(Admiral admiral)
         {
-            using (var context = new LoggerContextBase(ConfigureContext(admiral?.Id)))
-            {
+            using (var context = new LoggerContext(ConfigureContext(admiral?.Id)))
                 context.Database.Migrate();
-                battleApiDeserializer = new BattleApiDeserializer(new BinaryJsonIdResolver(context.JNameTable));
-                context.SaveChanges();
-            }
             currentAdmiral = admiral;
         }
 
@@ -209,11 +200,10 @@ namespace Sakuno.ING.Game.Logger
         public LoggerContext CreateContext()
         {
             lock (admiralLock)
-                return new LoggerContext(ConfigureContext(currentAdmiral?.Id),
-                    battleApiDeserializer ?? throw new InvalidOperationException("Game not loaded"));
+                return new LoggerContext(ConfigureContext(currentAdmiral?.Id));
         }
 
-        private DbContextOptions<LoggerContextBase> ConfigureContext(int? admiralId)
-            => dataService.ConfigureDbContext<LoggerContextBase>(admiralId?.ToString() ?? "0", "logs");
+        private DbContextOptions<LoggerContext> ConfigureContext(int? admiralId)
+            => dataService.ConfigureDbContext<LoggerContext>(admiralId?.ToString() ?? "0", "logs");
     }
 }

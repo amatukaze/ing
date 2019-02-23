@@ -8,8 +8,8 @@ using Sakuno.ING.Game.Logger;
 
 namespace Sakuno.ING.Game.Logger.Migrations
 {
-    [DbContext(typeof(LoggerContextBase))]
-    [Migration("20190222104544_BattleDetail")]
+    [DbContext(typeof(LoggerContext))]
+    [Migration("20190223070541_BattleDetail")]
     partial class BattleDetail
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,29 +67,6 @@ namespace Sakuno.ING.Game.Logger.Migrations
                     b.HasIndex("MapId");
 
                     b.ToTable("BattleTable");
-                });
-
-            modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.JNameEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasAnnotation("Sqlite:Autoincrement", false);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id")
-                        .HasAnnotation("Sqlite:Autoincrement", false);
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("JNameTable");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = ""
-                        });
                 });
 
             modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.EquipmentCreationEntity", b =>
@@ -194,13 +171,13 @@ namespace Sakuno.ING.Game.Logger.Migrations
                         {
                             b1.Property<long>("BattleEntityTimeStamp");
 
-                            b1.Property<byte[]>("FirstBattleDetail");
+                            b1.Property<string>("FirstBattleDetail");
 
-                            b1.Property<byte[]>("LandBaseDefence");
+                            b1.Property<string>("LandBaseDefence");
 
                             b1.Property<byte[]>("LbasState");
 
-                            b1.Property<byte[]>("SecondBattleDetail");
+                            b1.Property<string>("SecondBattleDetail");
 
                             b1.Property<byte[]>("SortieFleet2State");
 

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.ING.Composition;
-using Sakuno.ING.Game.Logger.BinaryJson;
+using Sakuno.ING.Game.Logger.Binary;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
@@ -102,7 +101,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
         }
 
         public override bool SupportBattleAndDrop => true;
-        public override async ValueTask<IReadOnlyCollection<BattleEntity>> GetBattleAndDropAsync(IFileSystemFacade source, TimeSpan timeZone, IBattleDetailOwner owner)
+        public override async ValueTask<IReadOnlyCollection<BattleEntity>> GetBattleAndDropAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
             var results = (await Helper.ParseCsv(source, "drop.csv", 9,
                 s => new BattleEntity
@@ -180,7 +179,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                         e.Details = new BattleDetailEntity();
                         e.BattleKind = log.startnext.data.api_data.api_event_kind;
                         if (log.startnext?.data?.api_data?.api_destruction_battle != null)
-                            e.Details.LandBaseDefence = owner.StoreBattle(log.startnext.data.api_data.api_destruction_battle);
+                            e.Details.LandBaseDefence = log.startnext.data.api_data.api_destruction_battle.ToString(Formatting.None);
                         switch (log.battle?.api)
                         {
                             case "api_req_sortie/battle":
@@ -205,15 +204,15 @@ namespace Sakuno.ING.Game.Logger.Migrators
                                 break;
                         }
                         if (log.battle?.data.api_data != null)
-                            e.Details.FirstBattleDetail = owner.StoreBattle(log.battle.data.api_data);
+                            e.Details.FirstBattleDetail = log.battle.data.api_data.ToString(Formatting.None);
                         if (log.nightbattle?.data.api_data != null)
-                            e.Details.SecondBattleDetail = owner.StoreBattle(log.nightbattle.data.api_data);
+                            e.Details.SecondBattleDetail = log.nightbattle.data.api_data.ToString(Formatting.None);
                         e.Details.SortieFleetState = SelectFleet(log.fleet1);
                         e.Details.SortieFleet2State = SelectFleet(log.fleet2);
                     }
                 }
 
-                byte[] SelectFleet(BattleDetailLog.Ship[] fleet)
+                ShipInBattleEntity[] SelectFleet(BattleDetailLog.Ship[] fleet)
                     => fleet?.Select(x => new ShipInBattleEntity
                     {
                         Id = (ShipInfoId)x.shipid,
@@ -228,7 +227,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                         Luck = new ShipMordenizationStatus(x.lucky),
                         Slots = x.slots.Select(SelectSlot).ToArray(),
                         ExtraSlot = SelectSlot(x.slotex)
-                    }).Store();
+                    }).ToArray();
 
                 SlotInBattleEntity SelectSlot(BattleDetailLog.Equipment slot)
                 {

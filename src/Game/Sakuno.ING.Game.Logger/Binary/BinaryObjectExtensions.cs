@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
-using Newtonsoft.Json.Linq;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
 
-namespace Sakuno.ING.Game.Logger.BinaryJson
+namespace Sakuno.ING.Game.Logger.Binary
 {
-    public static class BinaryJsonExtensions
+    public static class BinaryObjectExtensions
     {
         public static byte[] Store(this IEnumerable<ShipInBattleEntity> fleet)
         {
-            var writer = new BinaryJsonWriter();
+            if (fleet is null) return null;
+            var writer = new BinaryObjectWriter();
             var f = fleet.ToArray();
             writer.WriteArraySize(f.Length);
 
-            void WriteShipParameter(BinaryJsonWriter w, ShipMordenizationStatus p)
+            void WriteShipParameter(BinaryObjectWriter w, ShipMordenizationStatus p)
             {
                 w.WriteArraySize(2);
                 w.WriteInteger(p.Current);
@@ -85,12 +83,13 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
 
         public static ShipInBattleEntity[] ParseFleet(byte[] data)
         {
-            var reader = new BinaryJsonReader(data);
+            if (data is null) return null;
+            var reader = new BinaryObjectReader(data);
             if (!reader.IsNextArray())
                 return null;
             var result = new ShipInBattleEntity[reader.ReadContainerLength()];
 
-            ShipMordenizationStatus ReadShipParameter(BinaryJsonReader r)
+            ShipMordenizationStatus ReadShipParameter(BinaryObjectReader r)
             {
                 (int a, int b) = ReadArray2(r);
                 return new ShipMordenizationStatus
@@ -166,7 +165,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             return result;
         }
 
-        private static (int, int) ReadArray2(BinaryJsonReader r)
+        private static (int, int) ReadArray2(BinaryObjectReader r)
         {
             if (r.TryReadContainerLengthOrSkip(out int l))
                 if (l == 2)
@@ -182,7 +181,8 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
 
         public static byte[] Store(this IEnumerable<AirForceInBattle> groups)
         {
-            var writer = new BinaryJsonWriter();
+            if (groups is null) return null;
+            var writer = new BinaryObjectWriter();
             var g = groups.ToArray();
             writer.WriteArraySize(g.Length);
             foreach (var group in g)
@@ -201,7 +201,8 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
 
         public static AirForceInBattle[] ParseAirForce(byte[] data)
         {
-            var reader = new BinaryJsonReader(data);
+            if (data is null) return null;
+            var reader = new BinaryObjectReader(data);
             if (!reader.TryReadContainerLengthOrSkip(out int l))
                 return null;
             var result = new AirForceInBattle[l];
@@ -231,7 +232,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             return result;
         }
 
-        private static void WriteSlot(BinaryJsonWriter w, in SlotInBattleEntity slot)
+        private static void WriteSlot(BinaryObjectWriter w, in SlotInBattleEntity slot)
         {
             w.WriteStartObject();
             w.WriteJName(9);
@@ -256,7 +257,7 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
             w.WriteEndObject();
         }
 
-        private static SlotInBattleEntity TryReadSlot(ref BinaryJsonReader r)
+        private static SlotInBattleEntity TryReadSlot(ref BinaryObjectReader r)
         {
             if (!r.StartObjectOrSkip())
                 return default;
@@ -278,114 +279,6 @@ namespace Sakuno.ING.Game.Logger.BinaryJson
                         break;
                 }
             return e;
-        }
-
-        internal static byte[] StoreBattle(JsonElement element, IReadOnlyDictionary<string, int> jNames)
-        {
-            var writer = new BinaryJsonWriter();
-            Format(element, writer, jNames);
-            return writer.Complete();
-
-            void Format(JsonElement e, BinaryJsonWriter w, IReadOnlyDictionary<string, int> j)
-            {
-                switch (e.Type)
-                {
-                    case JsonValueType.Object:
-                        w.WriteStartObject();
-                        foreach (var child in e.EnumerateObject())
-                        {
-                            w.WriteJName(j[child.Name]);
-                            Format(child.Value, w, j);
-                        }
-                        w.WriteEndObject();
-                        break;
-
-                    case JsonValueType.Array:
-                        w.WriteArraySize(e.GetArrayLength());
-                        foreach (var child in e.EnumerateArray())
-                            Format(child, w, j);
-                        break;
-
-                    case JsonValueType.String:
-                        w.WriteString(e.GetString());
-                        break;
-
-                    case JsonValueType.Number:
-                        if (e.TryGetInt32(out int ivalue))
-                            w.WriteInteger(ivalue);
-                        else
-                            w.WriteDecimal(e.GetDecimal());
-                        break;
-
-                    case JsonValueType.True:
-                        w.WriteInteger(1);
-                        break;
-
-                    case JsonValueType.False:
-                        w.WriteInteger(0);
-                        break;
-
-                    case JsonValueType.Undefined:
-                    case JsonValueType.Null:
-                        w.WriteNull();
-                        break;
-                    default:
-                        throw new InvalidOperationException("Unknown json value type.");
-                }
-            }
-        }
-
-        public static byte[] StoreBattle(JToken element, IReadOnlyDictionary<string, int> jNames)
-        {
-            var writer = new BinaryJsonWriter();
-            Format(element, writer, jNames);
-            return writer.Complete();
-
-            void Format(JToken e, BinaryJsonWriter w, IReadOnlyDictionary<string, int> j)
-            {
-                switch (e.Type)
-                {
-                    case JTokenType.Object:
-                        w.WriteStartObject();
-                        foreach (var child in e as JObject)
-                        {
-                            w.WriteJName(j[child.Key]);
-                            Format(child.Value, w, j);
-                        }
-                        w.WriteEndObject();
-                        break;
-
-                    case JTokenType.Array:
-                        var arr = e as JArray;
-                        w.WriteArraySize(arr.Count);
-                        foreach (var child in e)
-                            Format(child, w, j);
-                        break;
-
-                    case JTokenType.String:
-                        w.WriteString((string)e);
-                        break;
-
-                    case JTokenType.Integer:
-                        w.WriteInteger((int)e);
-                        break;
-
-                    case JTokenType.Float:
-                        w.WriteDecimal((decimal)e);
-                        break;
-
-                    case JTokenType.Boolean:
-                        w.WriteInteger((bool)e ? 1 : 0);
-                        break;
-
-                    case JTokenType.Undefined:
-                    case JTokenType.Null:
-                        w.WriteNull();
-                        break;
-                    default:
-                        throw new InvalidOperationException("Unknown json value type.");
-                }
-            }
         }
     }
 }

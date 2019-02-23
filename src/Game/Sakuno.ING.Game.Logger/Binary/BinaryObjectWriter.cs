@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace Sakuno.ING.Game.Logger.BinaryJson
+namespace Sakuno.ING.Game.Logger.Binary
 {
-    internal class BinaryJsonWriter
+    internal class BinaryObjectWriter
     {
         private readonly List<byte> buffer = new List<byte>();
         private void WriteRecordHeader(byte flag, int number)

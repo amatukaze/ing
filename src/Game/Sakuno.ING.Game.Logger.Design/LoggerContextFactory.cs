@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Sakuno.ING.Game.Logger
 {
-    class LoggerContextFactory : IDesignTimeDbContextFactory<LoggerContextBase>
+    class LoggerContextFactory : IDesignTimeDbContextFactory<LoggerContext>
     {
-        public LoggerContextBase CreateDbContext(string[] args)
-            => new LoggerContextBase(new DbContextOptionsBuilder<LoggerContextBase>()
+        public LoggerContext CreateDbContext(string[] args)
+            => new LoggerContext(new DbContextOptionsBuilder<LoggerContext>()
                 .UseSqlite("DataSource=" + Path.GetTempFileName())
                 .Options);
     }

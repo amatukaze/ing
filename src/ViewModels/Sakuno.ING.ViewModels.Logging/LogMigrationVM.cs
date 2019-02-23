@@ -158,7 +158,7 @@ namespace Sakuno.ING.ViewModels.Logging
                         count += await TryMigrate(context.ExpeditionCompletionTable, await SelectedMigrator.GetExpeditionCompletionAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
                             .ConfigureAwait(false);
                     if (SelectBattleAndDrop)
-                        count += await TryMigrate(context.BattleTable, await SelectedMigrator.GetBattleAndDropAsync(SelectedPath, timeZone, context).ConfigureAwait(false), SelectedMigrator.Id)
+                        count += await TryMigrate(context.BattleTable, await SelectedMigrator.GetBattleAndDropAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
                             .ConfigureAwait(false);
 
                     await context.SaveChangesAsync().ConfigureAwait(false);

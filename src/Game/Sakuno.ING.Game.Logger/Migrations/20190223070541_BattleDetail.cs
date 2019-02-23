@@ -39,18 +39,6 @@ namespace Sakuno.ING.Game.Logger.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "JNameTable",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JNameTable", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BattleDetails",
                 columns: table => new
                 {
@@ -59,9 +47,9 @@ namespace Sakuno.ING.Game.Logger.Migrations
                     SortieFleet2State = table.Column<byte[]>(nullable: true),
                     SupportFleetState = table.Column<byte[]>(nullable: true),
                     LbasState = table.Column<byte[]>(nullable: true),
-                    LandBaseDefence = table.Column<byte[]>(nullable: true),
-                    FirstBattleDetail = table.Column<byte[]>(nullable: true),
-                    SecondBattleDetail = table.Column<byte[]>(nullable: true)
+                    LandBaseDefence = table.Column<string>(nullable: true),
+                    FirstBattleDetail = table.Column<string>(nullable: true),
+                    SecondBattleDetail = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -74,30 +62,16 @@ namespace Sakuno.ING.Game.Logger.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "JNameTable",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "" });
-
             migrationBuilder.CreateIndex(
                 name: "IX_BattleTable_MapId",
                 table: "BattleTable",
                 column: "MapId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_JNameTable_Name",
-                table: "JNameTable",
-                column: "Name",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "BattleDetails");
-
-            migrationBuilder.DropTable(
-                name: "JNameTable");
 
             migrationBuilder.DropTable(
                 name: "BattleTable");

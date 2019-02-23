@@ -1,11 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text.Json;
-using Sakuno.ING.Game.Logger.BinaryJson;
+﻿using Sakuno.ING.Game.Logger.Binary;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
-using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
 using Xunit;
 
@@ -41,7 +36,7 @@ namespace Sakuno.ING.Game.Tests
                 Bullet = (100, 100)
             };
             var binary = new[] { s }.Store();
-            var parsed = BinaryJsonExtensions.ParseFleet(binary);
+            var parsed = BinaryObjectExtensions.ParseFleet(binary);
             Assert.Single(parsed);
             var ship = parsed[0];
             Assert.Equal(1234, ship.Id);
@@ -80,7 +75,7 @@ namespace Sakuno.ING.Game.Tests
                 }
             };
             var binary = new[] { g }.Store();
-            var parsed = BinaryJsonExtensions.ParseAirForce(binary);
+            var parsed = BinaryObjectExtensions.ParseAirForce(binary);
             Assert.Single(parsed);
             var group = parsed[0];
             Assert.Equal(1, group.Id);
@@ -93,54 +88,6 @@ namespace Sakuno.ING.Game.Tests
             Assert.Equal(321, group.Squadrons[1].Id);
             Assert.Equal(2, group.Squadrons[1].AirProficiency);
             Assert.Equal(3, group.Squadrons[1].ImprovementLevel);
-        }
-
-        private class IncrementDictionary : IReadOnlyDictionary<string, int>
-        {
-            private int number = 1;
-            private readonly Dictionary<string, int> dict = new Dictionary<string, int>();
-
-            public int this[string key]
-            {
-                get
-                {
-                    if (!dict.ContainsKey(key))
-                        dict[key] = number++;
-                    return dict[key];
-                }
-            }
-
-            public IEnumerable<string> Keys => dict.Keys;
-
-            public IEnumerable<int> Values => dict.Values;
-
-            public int Count => dict.Count;
-
-            public bool ContainsKey(string key) => dict.ContainsKey(key);
-            public IEnumerator<KeyValuePair<string, int>> GetEnumerator() => dict.GetEnumerator();
-            public bool TryGetValue(string key, out int value) => dict.TryGetValue(key, out value);
-            IEnumerator IEnumerable.GetEnumerator() => dict.GetEnumerator();
-        }
-
-        [Fact]
-        public static void TestBattleDetail()
-        {
-            byte[] text;
-            var resolver = new IncrementDictionary();
-            using (var stream = Assembly.GetExecutingAssembly()
-                .GetManifestResourceStream(typeof(BinarySerializeTest), "Data.2018-09-19_151616.154_COMBINED_EACH_BATTLE_WATER.json"))
-            {
-                text = new byte[stream.Length];
-                stream.Read(text, 0, (int)stream.Length);
-            }
-            var data = BinaryJsonExtensions.StoreBattle(JsonDocument.Parse(text).RootElement.GetProperty("api_data"), resolver);
-            var obj = new BattleApiDeserializer(resolver).Deserialize(data);
-            Assert.NotNull(obj);
-            Assert.Equal(new[] { 12, 14, 1 }, obj.api_formation);
-            Assert.True(obj.api_midnight_flag);
-            Assert.Equal(SupportFireType.None, obj.api_support_flag);
-            Assert.Equal(Detection.Success, obj.api_search[0]);
-            Assert.Equal(Detection.Success, obj.api_search[1]);
         }
     }
 }

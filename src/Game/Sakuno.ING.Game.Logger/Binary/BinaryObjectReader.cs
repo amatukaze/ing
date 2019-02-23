@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Text;
 
-namespace Sakuno.ING.Game.Logger.BinaryJson
+namespace Sakuno.ING.Game.Logger.Binary
 {
-    internal class BinaryJsonReader
+    internal class BinaryObjectReader
     {
         private ReadOnlyMemory<byte> data;
-        public BinaryJsonReader(ReadOnlyMemory<byte> data)
+        public BinaryObjectReader(ReadOnlyMemory<byte> data)
         {
             this.data = data;
         }

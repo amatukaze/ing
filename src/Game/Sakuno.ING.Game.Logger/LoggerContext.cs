@@ -1,27 +1,70 @@
-﻿using System.Text.Json;
+﻿using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
-using Sakuno.ING.Game.Json;
-using Sakuno.ING.Game.Logger.BinaryJson;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Sakuno.ING.Game.Logger.Binary;
+using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Logger.Entities.Combat;
+using Sakuno.ING.Game.Models.MasterData;
 
+[assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Design")]
+[assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Tests")]
 namespace Sakuno.ING.Game.Logger
 {
-    public class LoggerContext : LoggerContextBase, IBattleDetailOwner
+    public class LoggerContext : DbContext
     {
-        private readonly BattleApiDeserializer deserializer;
-
-        internal LoggerContext(DbContextOptions<LoggerContextBase> options, BattleApiDeserializer deserializer) : base(options)
+        internal LoggerContext(DbContextOptions<LoggerContext> options) : base(options)
         {
-            this.deserializer = deserializer;
+            ChangeTracker.AutoDetectChangesEnabled = false;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        internal byte[] StoreBattle(JsonElement json)
-            => BinaryJsonExtensions.StoreBattle(json, new BinaryJsonIdResolver(JNameTable));
+        public DbSet<ShipCreationEntity> ShipCreationTable { get; protected set; }
+        public DbSet<EquipmentCreationEntity> EquipmentCreationTable { get; protected set; }
+        public DbSet<ExpeditionCompletionEntity> ExpeditionCompletionTable { get; protected set; }
+        public DbSet<BattleEntity> BattleTable { get; protected set; }
 
-        public byte[] StoreBattle(JToken json)
-            => BinaryJsonExtensions.StoreBattle(json, new BinaryJsonIdResolver(JNameTable));
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
-        public BattleDetailJson LoadBattle(byte[] data) => deserializer.Deserialize(data);
+            modelBuilder
+                .Entity<ShipCreationEntity>(e =>
+                {
+                    e.Property(x => x.TimeStamp).HasConversion(new DateTimeOffsetToBinaryConverter());
+                    e.Property(x => x.ShipBuilt).HasConversion<int>(v => v, v => (ShipInfoId)v);
+                    e.Property(x => x.Secretary).HasConversion<int>(v => v, v => (ShipInfoId)v);
+                });
+            modelBuilder
+                .Entity<EquipmentCreationEntity>(e =>
+                {
+                    e.Property(x => x.TimeStamp).HasConversion(new DateTimeOffsetToBinaryConverter());
+                    e.Property(x => x.EquipmentCreated).HasConversion<int>(v => v, v => (EquipmentInfoId)v);
+                    e.Property(x => x.Secretary).HasConversion<int>(v => v, v => (ShipInfoId)v);
+                });
+            modelBuilder
+                .Entity<ExpeditionCompletionEntity>(e =>
+                {
+                    e.Property(x => x.TimeStamp).HasConversion(new DateTimeOffsetToBinaryConverter());
+                    e.Property(x => x.ExpeditionId).HasConversion<int>(v => v, v => (ExpeditionId)v);
+                });
+            modelBuilder
+                .Entity<BattleEntity>(e =>
+                {
+                    e.Property(x => x.TimeStamp).HasConversion(new DateTimeOffsetToBinaryConverter());
+                    e.OwnsOne(x => x.Details, d =>
+                    {
+                        d.Property(x => x.SortieFleetState).HasConversion(x => x.Store(), x => BinaryObjectExtensions.ParseFleet(x));
+                        d.Property(x => x.SortieFleet2State).HasConversion(x => x.Store(), x => BinaryObjectExtensions.ParseFleet(x));
+                        d.Property(x => x.SupportFleetState).HasConversion(x => x.Store(), x => BinaryObjectExtensions.ParseFleet(x));
+                        d.Property(x => x.LbasState).HasConversion(x => x.Store(), x => BinaryObjectExtensions.ParseAirForce(x));
+                        d.ToTable("BattleDetails");
+                    });
+                    e.Property(x => x.CompletionTime).HasConversion(new DateTimeOffsetToBinaryConverter());
+                    e.Property(x => x.MapId).HasConversion<int>(v => v, v => (MapId)v);
+                    e.HasIndex(x => x.MapId);
+                    e.Property(x => x.ShipDropped).HasConversion<int?>(v => v, v => (ShipInfoId?)v);
+                    e.Property(x => x.UseItemAcquired).HasConversion<int?>(v => v, v => (UseItemId?)v);
+                });
+        }
     }
 }

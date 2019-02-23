@@ -1,13 +1,15 @@
-﻿namespace Sakuno.ING.Game.Logger.Entities.Combat
+﻿using System.Collections.Generic;
+
+namespace Sakuno.ING.Game.Logger.Entities.Combat
 {
     public class BattleDetailEntity
     {
-        public byte[] SortieFleetState { get; set; }
-        public byte[] SortieFleet2State { get; set; }
-        public byte[] SupportFleetState { get; set; }
-        public byte[] LbasState { get; set; }
-        public byte[] LandBaseDefence { get; set; }
-        public byte[] FirstBattleDetail { get; set; }
-        public byte[] SecondBattleDetail { get; set; }
+        public IReadOnlyList<ShipInBattleEntity> SortieFleetState { get; set; }
+        public IReadOnlyList<ShipInBattleEntity> SortieFleet2State { get; set; }
+        public IReadOnlyList<ShipInBattleEntity> SupportFleetState { get; set; }
+        public IReadOnlyCollection<AirForceInBattle> LbasState { get; set; }
+        public string LandBaseDefence { get; set; }
+        public string FirstBattleDetail { get; set; }
+        public string SecondBattleDetail { get; set; }
     }
 }

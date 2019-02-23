@@ -7,7 +7,7 @@ using Sakuno.ING.Game.Logger;
 
 namespace Sakuno.ING.Game.Logger.Migrations
 {
-    [DbContext(typeof(LoggerContextBase))]
+    [DbContext(typeof(LoggerContext))]
     partial class LoggerContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -65,29 +65,6 @@ namespace Sakuno.ING.Game.Logger.Migrations
                     b.HasIndex("MapId");
 
                     b.ToTable("BattleTable");
-                });
-
-            modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.Combat.JNameEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasAnnotation("Sqlite:Autoincrement", false);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id")
-                        .HasAnnotation("Sqlite:Autoincrement", false);
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("JNameTable");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = ""
-                        });
                 });
 
             modelBuilder.Entity("Sakuno.ING.Game.Logger.Entities.EquipmentCreationEntity", b =>
@@ -192,13 +169,13 @@ namespace Sakuno.ING.Game.Logger.Migrations
                         {
                             b1.Property<long>("BattleEntityTimeStamp");
 
-                            b1.Property<byte[]>("FirstBattleDetail");
+                            b1.Property<string>("FirstBattleDetail");
 
-                            b1.Property<byte[]>("LandBaseDefence");
+                            b1.Property<string>("LandBaseDefence");
 
                             b1.Property<byte[]>("LbasState");
 
-                            b1.Property<byte[]>("SecondBattleDetail");
+                            b1.Property<string>("SecondBattleDetail");
 
                             b1.Property<byte[]>("SortieFleet2State");
 

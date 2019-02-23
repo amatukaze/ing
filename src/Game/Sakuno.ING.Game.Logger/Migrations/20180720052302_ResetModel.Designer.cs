@@ -8,7 +8,7 @@ using Sakuno.ING.Game.Logger;
 
 namespace Sakuno.ING.Game.Logger.Migrations
 {
-    [DbContext(typeof(LoggerContextBase))]
+    [DbContext(typeof(LoggerContext))]
     [Migration("20180720052302_ResetModel")]
     partial class ResetModel
     {

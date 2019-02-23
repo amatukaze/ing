@@ -1,7 +1,8 @@
-﻿using System.Collections.Specialized;
-using System.IO;
+﻿using System;
+using System.Collections.Specialized;
 using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Sakuno.ING.Game.Events.Combat;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models;
@@ -83,9 +84,9 @@ namespace Sakuno.ING.Game
 
         private ITimedMessageProvider<BattleDetail> RegisterBattleDetail(params string[] apis)
             => provider.Where(arg => apis.Contains(arg.Key))
-                .Select(arg => System.Text.Encoding.UTF8.GetBytes(arg.Response.ToArray()))
-                .Select(m => (jSerializer.Deserialize<SvData<BattleDetailJson>>(new JsonTextReader(new StreamReader(new MemoryStream(m)))), m))
-                .Where(((SvData<BattleDetailJson> svdata, byte[] memory) x) => x.svdata.api_result == 1)
-                .Select(((SvData<BattleDetailJson> svdata, byte[] memory) x) => new BattleDetail(new RawBattle(x.svdata.api_data), x.memory));
+                .Select(m => JToken.Load(new JsonTextReader(new MemoryReader(m.Response))))
+                .Select(j => (svdata: j.ToObject<SvData<BattleDetailJson>>(jSerializer), token: j))
+                .Where(x => x.svdata.api_result == 1)
+                .Select(x => new BattleDetail(new RawBattle(x.svdata.api_data), x.token["api_data"]));
     }
 }
