@@ -19,6 +19,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BattleLogsView.xaml.cs">
+      <DependentUpon>BattleLogsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EquipmentCreationLogsView.xaml.cs">
       <DependentUpon>EquipmentCreationLogsView.xaml</DependentUpon>
     </Compile>
@@ -35,6 +38,10 @@
     <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.Logging.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BattleLogsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EquipmentCreationLogsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

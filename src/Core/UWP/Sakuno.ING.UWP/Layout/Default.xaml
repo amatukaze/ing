@@ -22,6 +22,7 @@
                         <sh:ViewSwitcher ViewId="ShipCreationLogs" />
                         <sh:ViewSwitcher ViewId="EquipmentCreationLogs" />
                         <sh:ViewSwitcher ViewId="ExpeditionCompletionLogs" />
+                        <sh:ViewSwitcher ViewId="BattleLogs" />
                     </StackPanel>
                 </Grid>
             </DataTemplate>
@@ -46,6 +47,11 @@
         <sh:LayoutWindow Id="ExpeditionCompletionLogs">
             <DataTemplate>
                 <sh:ViewPresenter ViewId="ExpeditionCompletionLogs" />
+            </DataTemplate>
+        </sh:LayoutWindow>
+        <sh:LayoutWindow Id="BattleLogs">
+            <DataTemplate>
+                <sh:ViewPresenter ViewId="BattleLogs" />
             </DataTemplate>
         </sh:LayoutWindow>
     </sh:LayoutRoot.SubWindows>
