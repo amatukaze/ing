@@ -114,8 +114,8 @@ namespace Sakuno.ING.UWP
                 await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
                 {
                     CoreApplication.GetCurrentView().Properties["Id"] = windowId;
-                    var view = ApplicationView.GetForCurrentView();
-                    applicationViewIds[windowId] = view.Id;
+                    var appView = ApplicationView.GetForCurrentView();
+                    applicationViewIds[windowId] = appView.Id;
 
                     InitWindow();
                     if (windowId == "Settings")
@@ -123,7 +123,7 @@ namespace Sakuno.ING.UWP
                     else
                         Window.Current.Content = new SubView { ActualContent = layoutFactory()[windowId].LoadContent() };
 
-                    view.Consolidated += (s, e) =>
+                    appView.Consolidated += (s, e) =>
                     {
                         applicationViewIds.TryRemove(windowId, out _);
                         CoreApplication.GetCurrentView().CoreWindow.Close();
@@ -133,6 +133,28 @@ namespace Sakuno.ING.UWP
                 });
                 await ApplicationViewSwitcher.TryShowAsStandaloneAsync(applicationViewIds[windowId]);
             }
+        }
+
+        public async void ShowViewWithParameter<T>(string viewId, T parameter)
+        {
+            var coreView = CoreApplication.CreateNewView();
+            int appViewId = 0;
+            await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+            {
+                var appView = ApplicationView.GetForCurrentView();
+                appViewId = appView.Id;
+
+                InitWindow();
+                Window.Current.Content = new SubView { ActualContent = Compositor.Default.ResolveNamedWithParameter<FrameworkElement, T>(viewId, parameter) };
+
+                appView.Consolidated += (s, e) =>
+                {
+                    CoreApplication.GetCurrentView().CoreWindow.Close();
+                };
+
+                Window.Current.Activate();
+            });
+            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(appViewId);
         }
     }
 }

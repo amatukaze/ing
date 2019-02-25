@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -19,7 +18,6 @@ namespace Sakuno.ING.Shell.Desktop
         private readonly ILocalizationService localization;
         private readonly string localeName;
         private readonly FontFamily userFont;
-        private readonly List<Window> layoutWindows = new List<Window>();
         private LayoutRoot layout;
 
         public DesktopShell(LayoutSetting layoutSetting, ILocalizationService localization, LocaleSetting locale)
@@ -57,10 +55,9 @@ namespace Sakuno.ING.Shell.Desktop
 
                 window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
 
-                InitWindow(window);
+                InitializeAndShow(window);
 
                 Application.Current.MainWindow = window;
-                window.Show();
 
                 void LayoutFallback()
                 {
@@ -71,12 +68,14 @@ namespace Sakuno.ING.Shell.Desktop
             app.Run();
         }
 
-        private void InitWindow(Window window)
+        private void InitializeAndShow(Window window)
         {
             if (!string.IsNullOrEmpty(localeName))
                 window.Language = XmlLanguage.GetLanguage(localeName);
             if (userFont != null)
                 window.FontFamily = userFont;
+            window.Show();
+            window.Activate();
         }
 
         public void SwitchWindow(string windowId)
@@ -95,7 +94,7 @@ namespace Sakuno.ING.Shell.Desktop
             if (windowId == "Settings")
             {
                 var w = new SettingsWindow { DataContext = CreateSettingViews() };
-                InitWindow(w);
+                InitializeAndShow(w);
                 w.Show();
                 w.Activate();
             }
@@ -109,10 +108,19 @@ namespace Sakuno.ING.Shell.Desktop
                     Title = localization.GetLocalized("ViewTitle", windowId) ?? windowId,
                     Content = view.LoadContent(),
                 };
-                InitWindow(w);
-                w.Show();
-                w.Activate();
+                InitializeAndShow(w);
             }
+        }
+
+        public void ShowViewWithParameter<T>(string viewId, T parameter)
+        {
+            var view = Compositor.Default.ResolveNamedWithParameter<FrameworkElement, T>(viewId, parameter);
+            var w = new ModernWindow
+            {
+                Title = localization.GetLocalized("ViewTitle", viewId) ?? viewId,
+                Content = view
+            };
+            InitializeAndShow(w);
         }
     }
 }

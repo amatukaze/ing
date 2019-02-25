@@ -13,8 +13,10 @@ namespace Sakuno.ING.Composition
 
         public abstract T Resolve<T>() where T : class;
         public abstract object Resolve(Type type);
+        public abstract T ResolveWithParameter<T, TParam>(TParam parameter) where T : class;
         public abstract T ResolveNamed<T>(string name) where T : class;
         public abstract object ResolveNamed(Type type, string name);
+        public abstract T ResolveNamedWithParameter<T, TParam>(string name, TParam parameter) where T : class;
         public abstract IEnumerable<WithMeta<T>> ResolveWithMetadata<T>() where T : class;
 
         public static Compositor Default { get; private set; }
