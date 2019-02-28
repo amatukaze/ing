@@ -46,7 +46,7 @@
     <property type="ShipSpeed" name="Speed" autoFill="true" />
     <property type="FireRange" name="FireRange" autoFill="true" />
     <property type="int" name="SlotCount" />
-    <property type="Slot" name="ExtraSlot" set="internal" />
+    <property type="Slot" name="ExtraEquipment" />
     <property type="ClampedValue" name="Fuel" />
     <property type="ClampedValue" name="Bullet" />
     <property type="TimeSpan" name="RepairingTime" autoFill="true" />

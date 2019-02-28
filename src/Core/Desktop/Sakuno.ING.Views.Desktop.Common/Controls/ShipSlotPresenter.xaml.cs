@@ -13,10 +13,10 @@ namespace Sakuno.ING.Views.Desktop.Controls
         }
 
         public static readonly DependencyProperty SlotProperty
-            = DependencyProperty.Register(nameof(Slot), typeof(Slot), typeof(ShipSlotPresenter), new PropertyMetadata(null));
-        public Slot Slot
+            = DependencyProperty.Register(nameof(Slot), typeof(HomeportSlot), typeof(ShipSlotPresenter), new PropertyMetadata(null));
+        public HomeportSlot Slot
         {
-            get => (Slot)GetValue(SlotProperty);
+            get => (HomeportSlot)GetValue(SlotProperty);
             set => SetValue(SlotProperty, null);
         }
     }

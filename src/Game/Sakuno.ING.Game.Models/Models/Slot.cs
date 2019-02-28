@@ -1,9 +1,11 @@
-﻿namespace Sakuno.ING.Game.Models
+﻿using Sakuno.ING.Game.Models.MasterData;
+
+namespace Sakuno.ING.Game.Models
 {
     public partial class Slot : BindableObject
     {
-        private Equipment _equipment;
-        public Equipment Equipment
+        private EquipmentInfo _equipment;
+        public EquipmentInfo Equipment
         {
             get => _equipment;
             internal set
@@ -20,6 +22,9 @@
                     }
             }
         }
+
+        public int ImprovementLevel { get; protected set; }
+        public int AirProficiency { get; protected set; }
 
         private ClampedValue _aircraft;
         public ClampedValue Aircraft

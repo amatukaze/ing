@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game.Models
         private static readonly int[] airProficiencyCore = { 0, 10, 25, 40, 55, 70, 85, 100, 121 };
         private void UpdateCalculations()
         {
-            if (Equipment == null || Equipment.Info == null)
+            if (Equipment is null)
             {
                 AirFightPower = default;
                 EffectiveLoS = 0;
@@ -20,7 +20,7 @@ namespace Sakuno.ING.Game.Models
 
             double losFactor = 0.6, losImprovementFactor = 0;
             int[] afpBonusTable = null;
-            switch ((KnownEquipmentType)Equipment.Info.Type.Id)
+            switch ((KnownEquipmentType)Equipment.Type.Id)
             {
                 case KnownEquipmentType.FighterAircraft:
                 case KnownEquipmentType.SeaplaneFighter:
@@ -54,15 +54,15 @@ namespace Sakuno.ING.Game.Models
                     break;
             }
 
-            EffectiveLoS = losFactor * (Equipment.Info.LineOfSight + Equipment.ImprovementLevel * losImprovementFactor);
+            EffectiveLoS = losFactor * (Equipment.LineOfSight + ImprovementLevel * losImprovementFactor);
             if (afpBonusTable == null || Aircraft.Current == 0)
                 AirFightPower = default;
             else
             {
-                double afpRaw = Equipment.Info.AntiAir * Math.Sqrt(Aircraft.Current);
+                double afpRaw = Equipment.AntiAir * Math.Sqrt(Aircraft.Current);
                 AirFightPower = new AirFightPower(afpRaw,
-                    afpRaw + Math.Sqrt(airProficiencyCore[Equipment.AirProficiency] / 10.0) + afpBonusTable[Equipment.AirProficiency],
-                    afpRaw + Math.Sqrt((airProficiencyCore[Equipment.AirProficiency + 1] - 1) / 10.0) + afpBonusTable[Equipment.AirProficiency]);
+                    afpRaw + Math.Sqrt(airProficiencyCore[AirProficiency] / 10.0) + afpBonusTable[AirProficiency],
+                    afpRaw + Math.Sqrt((airProficiencyCore[AirProficiency + 1] - 1) / 10.0) + afpBonusTable[AirProficiency]);
             }
         }
     }

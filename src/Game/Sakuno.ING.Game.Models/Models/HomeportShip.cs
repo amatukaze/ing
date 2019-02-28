@@ -20,6 +20,20 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _isRepairing, value);
         }
 
+        public HomeportSlot ExtraSlot
+        {
+            get => (HomeportSlot)ExtraEquipment;
+            internal set
+            {
+                ExtraEquipment = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private BindableCollection<HomeportSlot> slots = new BindableCollection<HomeportSlot>();
+        public override IBindableCollection<Slot> Equipment => slots;
+        public IBindableCollection<HomeportSlot> Slots => slots;
+
         partial void UpdateCore(RawShip raw, DateTimeOffset timeStamp)
         {
             Info = owner.MasterData.ShipInfos[raw.ShipInfoId];
@@ -33,12 +47,12 @@ namespace Sakuno.ING.Game.Models
 
             SlotCount = Info.SlotCount;
             while (slots.Count < SlotCount)
-                slots.Add(new Slot());
+                slots.Add(new HomeportSlot());
             while (slots.Count > SlotCount)
                 slots.RemoveAt(slots.Count - 1);
 
             if (raw.ExtraSlotOpened)
-                ExtraSlot = new Slot
+                ExtraSlot = new HomeportSlot
                 {
                     Equipment = owner.AllEquipment[raw.ExtraSlotEquipId]
                 };

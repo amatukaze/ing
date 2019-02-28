@@ -121,7 +121,7 @@
                     <ItemsControl ItemsSource="{x:Bind Ships}"
                                   Grid.Row="1" Grid.ColumnSpan="5">
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="g:Ship">
+                            <DataTemplate x:DataType="g:HomeportShip">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="100" />
@@ -180,7 +180,7 @@
                                             </ItemsPanelTemplate>
                                         </ItemsControl.ItemsPanel>
                                         <ItemsControl.ItemTemplate>
-                                            <DataTemplate x:DataType="g:Slot">
+                                            <DataTemplate x:DataType="g:HomeportSlot">
                                                 <con:ShipSlotPresenter Slot="{x:Bind}" />
                                             </DataTemplate>
                                         </ItemsControl.ItemTemplate>

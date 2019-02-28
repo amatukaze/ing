@@ -574,13 +574,13 @@ namespace Sakuno.ING.Game.Models
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_extraSlot = new PropertyChangedEventArgs(nameof(ExtraSlot));
+        private static readonly PropertyChangedEventArgs __eventArgs_extraEquipment = new PropertyChangedEventArgs(nameof(ExtraEquipment));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private Slot _extraSlot;
-        public Slot ExtraSlot
+        private Slot _extraEquipment;
+        public Slot ExtraEquipment
         {
-            get => _extraSlot;
-            internal set => Set(ref _extraSlot, value, __eventArgs_extraSlot);
+            get => _extraEquipment;
+            protected set => Set(ref _extraEquipment, value, __eventArgs_extraEquipment);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

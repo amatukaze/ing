@@ -8,12 +8,12 @@ Namespace Controls
             InitializeComponent()
         End Sub
 
-        Private _slot As Slot
-        Public Property Slot As Slot
+        Private _slot As HomeportSlot
+        Public Property Slot As HomeportSlot
             Get
                 Return _slot
             End Get
-            Set(value As Slot)
+            Set(value As HomeportSlot)
                 _slot = value
                 Bindings.Update()
             End Set

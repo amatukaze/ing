@@ -5,8 +5,7 @@ namespace Sakuno.ING.Game.Models
 {
     public partial class Ship
     {
-        protected BindableCollection<Slot> slots = new BindableCollection<Slot>();
-        public IBindableCollection<Slot> Slots => slots;
+        public abstract IBindableCollection<Slot> Equipment { get; }
 
         protected void DoCalculations()
         {
@@ -16,10 +15,10 @@ namespace Sakuno.ING.Game.Models
                 {
                     Fuel = Fuel.Shortage,
                     Bullet = Bullet.Shortage,
-                    Bauxite = Slots.Sum(x => x.Aircraft.Shortage) * 5
+                    Bauxite = Equipment.Sum(x => x.Aircraft.Shortage) * 5
                 };
-                AirFightPower = Slots.Sum(x => x.AirFightPower);
-                EffectiveLoS = new LineOfSight(Slots.Sum(x => x.EffectiveLoS), Math.Sqrt(LineOfSight.Current));
+                AirFightPower = Equipment.Sum(x => x.AirFightPower);
+                EffectiveLoS = new LineOfSight(Equipment.Sum(x => x.EffectiveLoS), Math.Sqrt(LineOfSight.Current));
             }
         }
     }

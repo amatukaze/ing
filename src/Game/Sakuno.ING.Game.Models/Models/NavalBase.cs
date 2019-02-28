@@ -76,7 +76,7 @@ namespace Sakuno.ING.Game.Models
             listener.FleetsUpdated += (t, msg) => _fleets.BatchUpdate(msg, t);
             listener.FleetPresetSelected += (t, msg) => Fleets[msg.Id].Update(msg, t);
             listener.ShipEquipmentUpdated += (t, msg) => AllShips[msg.ShipId].UpdateEquipments(msg.EquipmentIds);
-            listener.ShipExtraSlotOpened += (t, msg) => AllShips[msg].ExtraSlot = new Slot();
+            listener.ShipExtraSlotOpened += (t, msg) => AllShips[msg].ExtraSlot = new HomeportSlot();
             listener.PartialFleetsUpdated += (t, msg) => _fleets.BatchUpdate(msg, t, removal: false);
             listener.PartialShipsUpdated += (t, msg) => _allShips.BatchUpdate(msg, t, removal: false);
             listener.RepairingDockUpdated += (t, msg) => _repairingDocks.BatchUpdate(msg, t);
