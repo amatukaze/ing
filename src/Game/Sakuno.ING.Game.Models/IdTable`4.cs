@@ -61,6 +61,18 @@ namespace Sakuno.ING.Game
         public T this[TId? id]
             => id is TId valid ? this[valid] : null;
 
+        public T[] this[IReadOnlyCollection<TId> ids]
+        {
+            get
+            {
+                var result = new T[ids.Count];
+                int i = 0;
+                foreach (var id in ids)
+                    result[i++] = this[id];
+                return result;
+            }
+        }
+
         public IBindableCollection<T> DefaultView { get; }
         public int Count => list.Count;
 

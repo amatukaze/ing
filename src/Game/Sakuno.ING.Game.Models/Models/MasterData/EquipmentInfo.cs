@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
@@ -8,7 +7,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void UpdateCore(RawEquipmentInfo raw, DateTimeOffset timeStamp)
         {
             Type = owner.EquipmentTypes[raw.TypeId];
-            extraSlotAcceptingShips.Query = raw.ExtraSlotAcceptingShips.Select(x => owner.ShipInfos[x]);
+            extraSlotAcceptingShips.Query = owner.ShipInfos[raw.ExtraSlotAcceptingShips];
         }
     }
 }

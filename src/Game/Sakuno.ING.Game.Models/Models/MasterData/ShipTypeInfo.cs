@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
@@ -20,7 +19,7 @@ namespace Sakuno.ING.Game.Models.MasterData
                 Name.Origin = raw.Name;
                 NotifyPropertyChanged(nameof(Name));
             }
-            availableEquipmentTypes.Query = raw.AvailableEquipmentTypes.Select(x => owner.EquipmentTypes[x]);
+            availableEquipmentTypes.Query = owner.EquipmentTypes[raw.AvailableEquipmentTypes];
         }
 
         public override string ToString() => $"ShipTypeInfo {Id}: {Name.Origin}";

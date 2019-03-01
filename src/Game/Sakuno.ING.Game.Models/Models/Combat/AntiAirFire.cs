@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
@@ -10,7 +9,7 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             Ship = ally.FindShip(raw.Index);
             Type = raw.Type;
-            EquipmentUsed = raw.EquipmentUsed.Select(x => masterData.EquipmentInfos[x]).ToArray();
+            EquipmentUsed = masterData.EquipmentInfos[raw.EquipmentUsed];
         }
 
         public BattleParticipant Ship { get; }
