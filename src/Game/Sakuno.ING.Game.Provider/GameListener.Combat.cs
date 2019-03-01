@@ -87,6 +87,6 @@ namespace Sakuno.ING.Game
                 .Select(m => JToken.Load(new JsonTextReader(new MemoryReader(m.Response))))
                 .Select(j => (svdata: j.ToObject<SvData<BattleDetailJson>>(jSerializer), token: j))
                 .Where(x => x.svdata.api_result == 1)
-                .Select(x => new BattleDetail(new RawBattle(x.svdata.api_data), x.token["api_data"]));
+                .Select(x => new BattleDetail(new RawBattle(x.svdata.api_data, false), x.token["api_data"]));
     }
 }

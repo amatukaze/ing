@@ -24,8 +24,8 @@ namespace Sakuno.ING.Game.Models.Combat
         public RawShellingPhase NightPhase1 { get; }
         public RawShellingPhase NightPhase2 { get; }
 
-        public RawTorpedoPhase OpeningTorpedorPhase { get; }
-        public RawTorpedoPhase ClosingTorpedorPhase { get; }
+        public RawTorpedoPhase OpeningTorpedoPhase { get; }
+        public RawTorpedoPhase ClosingTorpedoPhase { get; }
 
         public RawAerialPhase AerialPhase { get; }
         public RawAerialPhase AerialPhase2 { get; }
@@ -39,7 +39,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public RawSupportPhase SupportPhase { get; }
         public RawShellingPhase NpcPhase { get; }
 
-        public RawBattle(BattleDetailJson api)
+        public RawBattle(BattleDetailJson api, bool fixEnemyId)
         {
             // Fleets
 
@@ -59,7 +59,7 @@ namespace Sakuno.ING.Game.Models.Combat
             if (api.api_maxhps != null) // Deprecated from 17Q4
             {
                 ally.Fleet = SelectFleet(api.api_maxhps.AsSpan(1, 6), api.api_nowhps.AsSpan(1, 6), api.api_fParam);
-                enemy.Fleet = SelectFleet(api.api_maxhps.AsSpan(7, 6), api.api_nowhps.AsSpan(7, 6), api.api_eParam, api.api_ship_ke.AsSpan(1), api.api_ship_lv.AsSpan(1), api.api_eSlot, api.api_eKyouka);
+                enemy.Fleet = SelectFleet(api.api_maxhps.AsSpan(7, 6), api.api_nowhps.AsSpan(7, 6), api.api_eParam, api.api_ship_ke.AsSpan(1), api.api_ship_lv.AsSpan(1), api.api_eSlot, api.api_eKyouka, fixEnemyId);
             }
             if (api.api_maxhps_combined != null)
                 ally.Fleet2 = SelectFleet(api.api_maxhps_combined.AsSpan(1), api.api_nowhps_combined.AsSpan(1), api.api_fParam_combined);
@@ -69,9 +69,9 @@ namespace Sakuno.ING.Game.Models.Combat
             if (api.api_f_maxhps_combined != null)
                 ally.Fleet2 = SelectFleet(api.api_f_maxhps_combined, api.api_f_nowhps_combined, api.api_fParam_combined);
             if (api.api_e_maxhps != null)
-                enemy.Fleet = SelectFleet(api.api_e_maxhps, api.api_e_nowhps, api.api_eParam, api.api_ship_ke, api.api_ship_lv, api.api_eSlot);
+                enemy.Fleet = SelectFleet(api.api_e_maxhps, api.api_e_nowhps, api.api_eParam, api.api_ship_ke, api.api_ship_lv, api.api_eSlot, fixEnemyId: fixEnemyId);
             if (api.api_e_maxhps_combined != null)
-                enemy.Fleet2 = SelectFleet(api.api_e_maxhps_combined, api.api_e_nowhps_combined, api.api_eParam_combined, api.api_ship_ke_combined, api.api_ship_lv_combined, api.api_eSlot_combined);
+                enemy.Fleet2 = SelectFleet(api.api_e_maxhps_combined, api.api_e_nowhps_combined, api.api_eParam_combined, api.api_ship_ke_combined, api.api_ship_lv_combined, api.api_eSlot_combined, fixEnemyId: fixEnemyId);
 
             if (api.api_friendly_info != null)
                 NpcFleet = SelectFleet(api.api_friendly_info.api_maxhps, api.api_friendly_info.api_nowhps, api.api_friendly_info.api_Param, api.api_friendly_info.api_ship_id, api.api_friendly_info.api_ship_lv, api.api_friendly_info.api_Slot);
@@ -98,9 +98,9 @@ namespace Sakuno.ING.Game.Models.Combat
                 NightPhase2 = new RawShellingPhase(api.api_n_hougeki2);
 
             if (api.api_opening_atack != null)
-                OpeningTorpedorPhase = new RawTorpedoPhase(api.api_opening_atack);
+                OpeningTorpedoPhase = new RawTorpedoPhase(api.api_opening_atack);
             if (api.api_raigeki != null)
-                ClosingTorpedorPhase = new RawTorpedoPhase(api.api_raigeki);
+                ClosingTorpedoPhase = new RawTorpedoPhase(api.api_raigeki);
 
             if (api.api_kouku != null)
                 AerialPhase = new RawAerialPhase(api.api_kouku);
@@ -143,7 +143,7 @@ namespace Sakuno.ING.Game.Models.Combat
             return i;
         }
 
-        private static IReadOnlyList<RawShipInBattle> SelectFleet(ReadOnlySpan<int> maxhp, ReadOnlySpan<int> nowhp, int[][] param, ReadOnlySpan<int> id = default, ReadOnlySpan<int> lv = default, int[][] slot = null, int[][] upgrade = null)
+        private static IReadOnlyList<RawShipInBattle> SelectFleet(ReadOnlySpan<int> maxhp, ReadOnlySpan<int> nowhp, int[][] param, ReadOnlySpan<int> id = default, ReadOnlySpan<int> lv = default, int[][] slot = null, int[][] upgrade = null, bool fixEnemyId = false)
         {
             var result = new List<RawShipInBattle>(maxhp.Length);
             for (int i = 0; i < maxhp.Length; i++)
@@ -160,7 +160,13 @@ namespace Sakuno.ING.Game.Models.Combat
                     Armor = p.At(3) + u.At(3),
                     Equipment = slot.At(i)?.Where(x => x > 0).Select(x => (EquipmentInfoId)x).ToArray()
                 };
-                if (id != default) s.Id = (ShipInfoId)id[i];
+                if (id != default)
+                {
+                    int sid = id[i];
+                    if (fixEnemyId && sid > 500)
+                        sid += 1000;
+                    s.Id = (ShipInfoId)sid;
+                }
                 if (lv != default) s.Level = lv[i];
             }
             return result;

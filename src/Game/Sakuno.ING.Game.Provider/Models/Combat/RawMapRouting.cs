@@ -34,7 +34,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public string Message => api_cell_flavor?.api_message;
 
         [JsonProperty("api_select_route")]
-        public int[] SelectableRoutes { get; internal set; }
+        public IReadOnlyCollection<int> SelectableRoutes { get; internal set; }
         public bool CanSelectRoute => SelectableRoutes != null;
 
         internal class ItemGet
@@ -106,7 +106,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public int? RankingPointAcquired { get; internal set; }
 
         internal BattleDetailJson api_destruction_battle;
-        public RawBattle LandBaseDefence => new RawBattle(api_destruction_battle);
+        public RawBattle LandBaseDefence => new RawBattle(api_destruction_battle, false);
 
         internal bool api_m1;
     }
