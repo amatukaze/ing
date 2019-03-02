@@ -9,6 +9,7 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             Formation = raw.Formation;
             Detection = raw.Detection;
+            ActiveFleetId = raw.ActiveFleetId;
             if (raw.Fleet != null)
             {
                 var f = new BattleParticipant[raw.Fleet.Count];
@@ -29,6 +30,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public IReadOnlyList<BattleParticipant> Fleet { get; }
         public IReadOnlyList<BattleParticipant> Fleet2 { get; }
         public Detection? Detection { get; }
+        public int? ActiveFleetId { get; }
         public EquipmentInfo NightTouchingPlane { get; internal set; }
         public BattleParticipant FlareShootingShip { get; internal set; }
 

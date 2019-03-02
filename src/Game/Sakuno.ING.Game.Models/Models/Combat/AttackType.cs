@@ -37,5 +37,8 @@
         AerialTorpedo,
         AerialBomb,
         AerialBoth,
+        SupportShelling,
+        SupportTorpedo,
+        SupportAerial
     }
 }

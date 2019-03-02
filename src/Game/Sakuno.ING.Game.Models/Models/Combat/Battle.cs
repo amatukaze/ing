@@ -20,18 +20,42 @@ namespace Sakuno.ING.Game.Models.Combat
             Enemy = new Side(masterData, null, null, raw.Enemy, true);
             HasNextPart = raw.HasNextPart;
 
+            if (kind == BattleKind.CombinedNightToDay)
+            {
+                if (raw.SupportPhase != null)
+                    phases.Add(SupportPhase = new SupportPhase(raw.SupportFireType, masterData, Enemy, raw.SupportPhase));
+                else if (raw.AerialSupportPhase != null)
+                    phases.Add(SupportPhase = new SupportPhase(raw.SupportFireType, masterData, Enemy, raw.AerialSupportPhase));
+
+                if (raw.NightPhase1 != null)
+                    phases.Add(CombinedNightPhase1 = new NightPhase(1, masterData, Ally, Enemy, raw.NightPhase1, true));
+                if (raw.NightPhase2 != null)
+                    phases.Add(CombinedNightPhase2 = new NightPhase(2, masterData, Ally, Enemy, raw.NightPhase2, true));
+            }
+
             if (raw.LandBaseJetPhase != null)
-                phases.Add(LandBaseJetPhase = new AerialPhase(2, masterData, Ally, Enemy, raw.LandBaseJetPhase, true));
+                phases.Add(LandBaseJetPhase = new AerialPhase(1, masterData, Ally, Enemy, raw.LandBaseJetPhase, true));
             if (raw.JetPhase != null)
                 phases.Add(JetPhase = new AerialPhase(2, masterData, Ally, Enemy, raw.AerialPhase, true));
 
             if (raw.LandBasePhases != null)
-                phases.AddRange(LandBasePhases = raw.LandBasePhases.Select((x, i) => new LandBasePhase(i + 1, masterData, Ally, Enemy, x)).ToArray());
+                phases.AddRange(LandBasePhases = raw.LandBasePhases.Select((x, i) => new LandBasePhase(i + 1, masterData, Enemy, x)).ToArray());
 
             if (raw.AerialPhase != null)
                 phases.Add(AerialPhase = new AerialPhase(1, masterData, Ally, Enemy, raw.AerialPhase));
             if (raw.AerialPhase2 != null)
                 phases.Add(AerialPhase2 = new AerialPhase(2, masterData, Ally, Enemy, raw.AerialPhase2));
+
+            if (kind != BattleKind.CombinedNightToDay)
+            {
+                if (raw.SupportPhase != null)
+                    phases.Add(SupportPhase = new SupportPhase(raw.SupportFireType, masterData, Enemy, raw.SupportPhase));
+                else if (raw.AerialSupportPhase != null)
+                    phases.Add(SupportPhase = new SupportPhase(raw.SupportFireType, masterData, Enemy, raw.AerialSupportPhase));
+
+                if (raw.NightPhase != null)
+                    phases.Add(NightPhase = new NightPhase(0, masterData, Ally, Enemy, raw.NightPhase, false));
+            }
 
             if (raw.OpeningAswPhase != null)
                 phases.Add(OpeningAswPhase = new ShellingPhase(0, masterData, Ally, Enemy, raw.OpeningAswPhase));
@@ -122,5 +146,9 @@ namespace Sakuno.ING.Game.Models.Combat
         public AerialPhase LandBaseJetPhase { get; }
         public AerialPhase JetPhase { get; }
         public IReadOnlyList<LandBasePhase> LandBasePhases { get; }
+        public SupportPhase SupportPhase { get; }
+        public NightPhase NightPhase { get; }
+        public NightPhase CombinedNightPhase1 { get; }
+        public NightPhase CombinedNightPhase2 { get; }
     }
 }
