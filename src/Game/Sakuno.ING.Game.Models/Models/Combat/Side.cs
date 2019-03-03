@@ -12,6 +12,7 @@ namespace Sakuno.ING.Game.Models.Combat
             ActiveFleetId = raw.ActiveFleetId;
             if (raw.Fleet != null)
             {
+                Count += raw.Fleet.Count;
                 var f = new BattleParticipant[raw.Fleet.Count];
                 for (int i = 0; i < raw.Fleet.Count; i++)
                     f[i] = new BattleParticipant(fleet?[i] ?? new BattlingShip(masterData, raw.Fleet[i]), raw.Fleet[i], isEnemy);
@@ -19,6 +20,7 @@ namespace Sakuno.ING.Game.Models.Combat
             }
             if (raw.Fleet2 != null)
             {
+                Count += raw.Fleet2.Count;
                 var f = new BattleParticipant[raw.Fleet2.Count];
                 for (int i = 0; i < raw.Fleet2.Count; i++)
                     f[i] = new BattleParticipant(fleet2?[i] ?? new BattlingShip(masterData, raw.Fleet2[i]), raw.Fleet2[i], isEnemy);
@@ -33,6 +35,9 @@ namespace Sakuno.ING.Game.Models.Combat
         public int? ActiveFleetId { get; }
         public EquipmentInfo NightTouchingPlane { get; internal set; }
         public BattleParticipant FlareShootingShip { get; internal set; }
+        public double DamageRate { get; private set; }
+        public int Count { get; }
+        public int SunkCount { get; private set; }
 
         public BattleParticipant FindShip(int index)
         {
@@ -41,6 +46,27 @@ namespace Sakuno.ING.Game.Models.Combat
             if (index - 6 < Fleet2?.Count)
                 return Fleet2[index - 6];
             return null;
+        }
+
+        internal void UpdateDamageRate()
+        {
+            int nowHP = 0, maxHP = 0, sunk = 0;
+            if (Fleet != null)
+                foreach (var s in Fleet)
+                {
+                    nowHP += s.ToHP;
+                    maxHP += s.FromHP;
+                    if (s.ToHP <= 0) sunk++;
+                }
+            if (Fleet2 != null)
+                foreach (var s in Fleet2)
+                {
+                    nowHP += s.ToHP;
+                    maxHP += s.FromHP;
+                    if (s.ToHP <= 0) sunk++;
+                }
+            DamageRate = (maxHP - nowHP) / (double)maxHP;
+            SunkCount = sunk;
         }
     }
 }

@@ -2,8 +2,7 @@
 {
     public interface IBattlePhaseBuilder
     {
-        BattleParticipant MapAllyShip(int index);
-        BattleParticipant MapEnemyShip(int index);
+        BattleParticipant MapShip(int index, bool isEnemy);
         AttackType MapType(int rawType);
     }
 }

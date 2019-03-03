@@ -15,8 +15,8 @@ namespace Sakuno.ING.Game.Models.Combat
                 this.enemy = enemy;
             }
 
-            public BattleParticipant MapAllyShip(int index) => ally.FindShip(index);
-            public BattleParticipant MapEnemyShip(int index) => enemy.FindShip(index);
+            public BattleParticipant MapShip(int index, bool isEnemy)
+                => (isEnemy ? enemy : ally).FindShip(index);
             public AttackType MapType(int rawType) => MapTypeStatic(rawType);
         }
 
@@ -30,9 +30,8 @@ namespace Sakuno.ING.Game.Models.Combat
                 this.enemy = enemy;
             }
 
-            public BattleParticipant MapAllyShip(int index)
+            public BattleParticipant MapShip(int index, bool isEnemy)
                 => index < 6 ? ally[index] : enemy[index - 6];
-            public BattleParticipant MapEnemyShip(int index) => MapAllyShip(index);
             public AttackType MapType(int rawType) => MapTypeStatic(rawType);
         }
 

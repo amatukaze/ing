@@ -3,7 +3,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
-    public class BattleParticipant
+    public class BattleParticipant : BindableObject
     {
         public BattleParticipant(Ship ship, RawShipInBattle raw, bool isEnemy)
         {
@@ -22,10 +22,14 @@ namespace Sakuno.ING.Game.Models.Combat
         public int MaxHP { get; }
         public bool IsEscaped { get; }
         public bool Recovored { get; private set; }
+        public int DamageGiven { get; private set; }
+        public int DamageReceived { get; private set; }
+        public bool IsMvp { get; internal set; }
 
-        internal (int toHP, bool recover) DoDamage(int damage)
+        internal (int toHP, bool recover) GetDamage(int damage)
         {
             ToHP -= damage;
+            DamageReceived += damage;
             if (ToHP <= 0 && !IsEnemy)
             {
                 EquipmentInfo damageControl = null;
@@ -50,5 +54,7 @@ namespace Sakuno.ING.Game.Models.Combat
             }
             return (ToHP, false);
         }
+
+        internal void DoDamage(int damage) => DamageGiven += damage;
     }
 }

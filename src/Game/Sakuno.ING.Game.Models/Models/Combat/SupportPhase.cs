@@ -15,8 +15,9 @@ namespace Sakuno.ING.Game.Models.Combat
                 this.type = type;
             }
 
-            public BattleParticipant MapAllyShip(int index) => throw new NotSupportedException();
-            public BattleParticipant MapEnemyShip(int index) => enemy.FindShip(index);
+            public BattleParticipant MapShip(int index, bool isEnemy)
+                => (isEnemy ? enemy : throw new InvalidOperationException()).FindShip(index);
+
             public AttackType MapType(int rawType) => type;
         }
 

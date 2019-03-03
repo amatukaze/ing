@@ -21,14 +21,15 @@ namespace Sakuno.ING.Game.Models.Combat
 
     public class Hit
     {
-        public Hit(BattleParticipant target, RawHit raw)
+        public Hit(BattleParticipant source, BattleParticipant target, RawHit raw)
         {
             Target = target;
             IsCritical = raw.IsCritical;
             IsProtection = raw.IsProtection;
             Damage = raw.Damage;
             FromHP = target.FromHP;
-            (ToHP, Recover) = target.DoDamage(Damage);
+            source?.DoDamage(Damage);
+            (ToHP, Recover) = target.GetDamage(Damage);
         }
 
         public BattleParticipant Target { get; }

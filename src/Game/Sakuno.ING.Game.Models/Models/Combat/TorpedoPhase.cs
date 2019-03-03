@@ -13,8 +13,8 @@
                 this.enemy = enemy;
             }
 
-            public BattleParticipant MapAllyShip(int index) => ally.FindShip(index);
-            public BattleParticipant MapEnemyShip(int index) => enemy.FindShip(index);
+            public BattleParticipant MapShip(int index, bool isEnemy)
+                => (isEnemy ? enemy : ally).FindShip(index);
             public AttackType MapType(int rawType) => AttackType.DayTorpedo;
         }
 

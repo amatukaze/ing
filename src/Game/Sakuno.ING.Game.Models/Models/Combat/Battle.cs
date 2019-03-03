@@ -20,7 +20,7 @@ namespace Sakuno.ING.Game.Models.Combat
             Enemy = new Side(masterData, null, null, raw.Enemy, true);
             HasNextPart = raw.HasNextPart;
 
-            if (kind == BattleKind.CombinedNightToDay)
+            if (Kind == BattleKind.CombinedNightToDay)
             {
                 if (raw.SupportPhase != null)
                     phases.Add(SupportPhase = new SupportPhase(raw.SupportFireType, masterData, Enemy, raw.SupportPhase));
@@ -46,7 +46,7 @@ namespace Sakuno.ING.Game.Models.Combat
             if (raw.AerialPhase2 != null)
                 phases.Add(AerialPhase2 = new AerialPhase(2, masterData, Ally, Enemy, raw.AerialPhase2));
 
-            if (kind != BattleKind.CombinedNightToDay)
+            if (Kind != BattleKind.CombinedNightToDay)
             {
                 if (raw.SupportPhase != null)
                     phases.Add(SupportPhase = new SupportPhase(raw.SupportFireType, masterData, Enemy, raw.SupportPhase));
@@ -62,7 +62,7 @@ namespace Sakuno.ING.Game.Models.Combat
             if (raw.OpeningTorpedoPhase != null)
                 phases.Add(OpeningTorpedoPhase = new TorpedoPhase(masterData, Ally, Enemy, raw.OpeningTorpedoPhase, true));
 
-            if (kind == BattleKind.Combined)
+            if (Kind == BattleKind.Combined)
                 switch (combined)
                 {
                     case CombinedFleetType.None:
@@ -130,6 +130,84 @@ namespace Sakuno.ING.Game.Models.Combat
                             phases.Add(ClosingTorpedoPhase = new TorpedoPhase(masterData, Ally, Enemy, raw.ClosingTorpedoPhase, false));
                         break;
                 }
+
+            DecideMvp(Ally.Fleet);
+            DecideMvp(Ally.Fleet2);
+            DecideMvp(Enemy.Fleet);
+            DecideMvp(Enemy.Fleet2);
+            Ally.UpdateDamageRate();
+            Enemy.UpdateDamageRate();
+
+            int allyPercentage = (int)(Ally.DamageRate * 100);
+            int enemyPercentage = (int)(Enemy.DamageRate * 100);
+            switch (Kind)
+            {
+                case BattleKind.AirDefence:
+                case BattleKind.RadarDefence:
+                    if (allyPercentage <= 0)
+                        Rank = BattleRank.Perfect;
+                    else if (allyPercentage < 10)
+                        Rank = BattleRank.A;
+                    else if (allyPercentage < 20)
+                        Rank = BattleRank.B;
+                    else if (allyPercentage < 50)
+                        Rank = BattleRank.C;
+                    else if (allyPercentage < 80)
+                        Rank = BattleRank.D;
+                    else
+                        Rank = BattleRank.E;
+                    break;
+                default:
+                    if (Ally.SunkCount == 0)
+                    {
+                        if (Enemy.SunkCount == Enemy.Count)
+                            Rank = allyPercentage <= 0 ? BattleRank.Perfect : BattleRank.S;
+                        else if (Enemy.SunkCount >= Math.Round(Enemy.Count * 0.625))
+                            Rank = BattleRank.A;
+                        else if (Enemy.Fleet[0].ToHP <= 0)
+                            Rank = BattleRank.B;
+                        else if (enemyPercentage > allyPercentage * 2.5)
+                            Rank = BattleRank.B;
+                        else if (enemyPercentage > allyPercentage * 0.9)
+                            Rank = BattleRank.C;
+                        else
+                            Rank = BattleRank.D;
+                    }
+                    else
+                    {
+                        if (Enemy.SunkCount == Enemy.Count)
+                            Rank = BattleRank.B;
+                        else if (Enemy.Fleet[0].ToHP <= 0 && Ally.SunkCount < Enemy.SunkCount)
+                            Rank = BattleRank.B;
+                        else if (enemyPercentage > allyPercentage * 2.5)
+                            Rank = BattleRank.B;
+                        else if (enemyPercentage > allyPercentage * 0.9)
+                            Rank = BattleRank.C;
+                        else if (Ally.SunkCount < Math.Round(Ally.Count * 0.625))
+                            Rank = BattleRank.D;
+                        else
+                            Rank = BattleRank.E;
+                    }
+                    break;
+            }
+        }
+
+        private void DecideMvp(IReadOnlyList<BattleParticipant> fleet)
+        {
+            if (fleet is null) return;
+            if (fleet.Count == 0) return;
+            var mvp = fleet[0];
+
+            foreach (var s in fleet)
+            {
+                s.IsMvp = false;
+                if (s.DamageGiven >= mvp.DamageGiven)
+                    mvp = s;
+            }
+
+            if (fleet[0].DamageGiven >= mvp.DamageGiven)
+                mvp = fleet[0];
+            mvp.IsMvp = true;
         }
 
         private readonly BindableCollection<BattlePhase> phases = new BindableCollection<BattlePhase>();
@@ -150,5 +228,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public NightPhase NightPhase { get; }
         public NightPhase CombinedNightPhase1 { get; }
         public NightPhase CombinedNightPhase2 { get; }
+
+        public BattleRank Rank { get; }
     }
 }
