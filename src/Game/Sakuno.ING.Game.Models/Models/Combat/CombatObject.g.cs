@@ -37,36 +37,6 @@ namespace Sakuno.ING.Game.Models.Combat
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_nightActiveFleet = new PropertyChangedEventArgs(nameof(NightActiveFleet));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private IReadOnlyList<BattleParticipant> _nightActiveFleet;
-        public IReadOnlyList<BattleParticipant> NightActiveFleet
-        {
-            get => _nightActiveFleet;
-            private set => Set(ref _nightActiveFleet, value, __eventArgs_nightActiveFleet);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_nightTouchingPlane = new PropertyChangedEventArgs(nameof(NightTouchingPlane));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private EquipmentInfo _nightTouchingPlane;
-        public EquipmentInfo NightTouchingPlane
-        {
-            get => _nightTouchingPlane;
-            private set => Set(ref _nightTouchingPlane, value, __eventArgs_nightTouchingPlane);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_flareShootingShip = new PropertyChangedEventArgs(nameof(FlareShootingShip));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private BattleParticipant _flareShootingShip;
-        public BattleParticipant FlareShootingShip
-        {
-            get => _flareShootingShip;
-            private set => Set(ref _flareShootingShip, value, __eventArgs_flareShootingShip);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_damageRate = new PropertyChangedEventArgs(nameof(DamageRate));
         [EditorBrowsable(EditorBrowsableState.Never)]
         private double _damageRate;
@@ -110,6 +80,16 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             get => _engagement;
             private set => Set(ref _engagement, value, __eventArgs_engagement);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_npcFleet = new PropertyChangedEventArgs(nameof(NpcFleet));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private IReadOnlyList<BattleParticipant> _npcFleet;
+        public IReadOnlyList<BattleParticipant> NpcFleet
+        {
+            get => _npcFleet;
+            private set => Set(ref _npcFleet, value, __eventArgs_npcFleet);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -290,6 +270,16 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             get => _combinedNightPhase2;
             private set => Set(ref _combinedNightPhase2, value, __eventArgs_combinedNightPhase2);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_npcPhase = new PropertyChangedEventArgs(nameof(NpcPhase));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private NightPhase _npcPhase;
+        public NightPhase NpcPhase
+        {
+            get => _npcPhase;
+            private set => Set(ref _npcPhase, value, __eventArgs_npcPhase);
         }
     }
 }

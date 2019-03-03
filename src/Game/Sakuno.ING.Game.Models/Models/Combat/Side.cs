@@ -12,9 +12,9 @@ namespace Sakuno.ING.Game.Models.Combat
             Count = (Fleet?.Count ?? 0) + (Fleet2?.Count ?? 0);
         }
 
-        public void Load(MasterDataRoot masterData, in RawSide raw)
+        public void Load(in RawSide raw)
         {
-            LoadEnvironment(masterData, raw);
+            LoadEnvironment(raw);
 
             if (raw.Fleet != null && Fleet != null)
                 for (int i = 0; i < raw.Fleet.Count; i++)
@@ -24,35 +24,18 @@ namespace Sakuno.ING.Game.Models.Combat
                     Fleet2[i].Load(raw.Fleet2[i]);
         }
 
-        private void LoadEnvironment(MasterDataRoot masterData, in RawSide raw)
+        private void LoadEnvironment(in RawSide raw)
         {
             using (EnterBatchNotifyScope())
             {
                 Formation = raw.Formation;
                 Detection = raw.Detection;
-                NightTouchingPlane = masterData.EquipmentInfos[raw.NightTouchingId];
-
-                switch (raw.ActiveFleetId)
-                {
-                    case 1:
-                        NightActiveFleet = Fleet;
-                        break;
-                    case 2:
-                        NightActiveFleet = Fleet2;
-                        break;
-                    default:
-                        NightActiveFleet = null;
-                        break;
-                }
-
-                if (raw.FlareIndex is int i)
-                    FlareShootingShip = NightActiveFleet[i];
             }
         }
 
         public Side(MasterDataRoot masterData, in RawSide raw, bool isEnemy)
         {
-            LoadEnvironment(masterData, raw);
+            LoadEnvironment(raw);
 
             if (raw.Fleet != null)
             {

@@ -8,10 +8,10 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             private readonly IReadOnlyList<BattleParticipant> ally, enemy;
 
-            public Builder(Side ally, Side enemy)
+            public Builder(IReadOnlyList<BattleParticipant> ally, IReadOnlyList<BattleParticipant> enemy)
             {
-                this.ally = ally.NightActiveFleet ?? ally.Fleet2 ?? ally.Fleet;
-                this.enemy = enemy.NightActiveFleet ?? enemy.Fleet2 ?? enemy.Fleet;
+                this.ally = ally;
+                this.enemy = enemy;
             }
 
             public BattleParticipant MapShip(int index, bool isEnemy)
@@ -36,28 +36,49 @@ namespace Sakuno.ING.Game.Models.Combat
 
         private readonly struct CombinedBuilder : IBattlePhaseBuilder
         {
-            private readonly Side ally;
+            private readonly IReadOnlyList<BattleParticipant> ally;
             private readonly Side enemy;
 
-            public CombinedBuilder(Side ally, Side enemy)
+            public CombinedBuilder(IReadOnlyList<BattleParticipant> ally, Side enemy)
             {
                 this.ally = ally;
                 this.enemy = enemy;
             }
 
             public BattleParticipant MapShip(int index, bool isEnemy)
-                => (isEnemy ? enemy : ally).FindShip(index);
+                => isEnemy ? enemy.FindShip(index) : ally[index];
             public AttackType MapType(int rawType) => MapTypeStatic(rawType);
         }
 
-        public NightPhase(int index, MasterDataRoot masterData, Side ally, Side enemy, RawShellingPhase raw, bool combined)
+        private static IReadOnlyList<BattleParticipant> SelectFleet(Side side, int? index)
+        {
+            switch (index)
+            {
+                case 1:
+                    return side.Fleet;
+                case 2:
+                    return side.Fleet2;
+                default:
+                    return side.Fleet2 ?? side.Fleet;
+            }
+        }
+
+        public NightPhase(int index, MasterDataRoot masterData, Side ally, Side enemy, RawNightPhase raw, bool combined)
             : base(raw.OldSchema
                   ? Initialze(masterData, raw, new OldBuilder(ally.Fleet2 ?? ally.Fleet, enemy.Fleet))
                   : combined
-                  ? Initialze(masterData, raw, new CombinedBuilder(ally, enemy))
-                  : Initialze(masterData, raw, new Builder(ally, enemy)))
+                  ? Initialze(masterData, raw, new CombinedBuilder(ally.Fleet, enemy))
+                  : Initialze(masterData, raw, new Builder(SelectFleet(ally, raw.Ally.ActiveFleet), SelectFleet(enemy, raw.Enemy.ActiveFleet))))
         {
             Index = index;
+            Ally = new NightEffects(masterData, SelectFleet(ally, raw.Ally.ActiveFleet), raw.Ally);
+            Enemy = new NightEffects(masterData, SelectFleet(enemy, raw.Enemy.ActiveFleet), raw.Enemy);
+        }
+
+        public NightPhase(MasterDataRoot masterData, IReadOnlyList<BattleParticipant> npc, Side enemy, RawNightPhase raw)
+            : base(Initialze(masterData, raw, new CombinedBuilder(npc, enemy)))
+        {
+            Index = -1;
         }
 
         private static AttackType MapTypeStatic(int rawType)
@@ -94,5 +115,7 @@ namespace Sakuno.ING.Game.Models.Combat
         }
 
         public int Index { get; }
+        public NightEffects Ally { get; }
+        public NightEffects Enemy { get; }
     }
 }

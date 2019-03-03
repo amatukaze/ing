@@ -5,9 +5,6 @@
   <class name="Side">
     <property type="Formation" name="Formation" />
     <property type="Detection?" name="Detection" />
-    <property type="IReadOnlyList&lt;BattleParticipant&gt;" name="NightActiveFleet" />
-    <property type="EquipmentInfo" name="NightTouchingPlane" />
-    <property type="BattleParticipant" name="FlareShootingShip" />
     <property type="double" name="DamageRate" />
     <property type="int" name="SunkCount" />
   </class>
@@ -16,6 +13,7 @@
   </class>
   <class name="Battle">
     <property type="Engagement" name="Engagement" />
+    <property type="IReadOnlyList&lt;BattleParticipant&gt;" name="NpcFleet" />
     <property type="Side" name="Enemy" />
     <property type="bool" name="Incomplete" />
     <property type="BattleRank?" name="Rank" />
@@ -34,5 +32,6 @@
     <property type="NightPhase" name="NightPhase" />
     <property type="NightPhase" name="CombinedNightPhase1" />
     <property type="NightPhase" name="CombinedNightPhase2" />
+    <property type="NightPhase" name="NpcPhase" />
   </class>
 </bindableTemplate>

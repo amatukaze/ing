@@ -24,11 +24,11 @@ namespace Sakuno.ING.Game.Models.Combat
             using (EnterBatchNotifyScope())
             {
                 Engagement = raw.Engagement;
-                Ally.Load(masterData, raw.Ally);
+                Ally.Load(raw.Ally);
                 if (Enemy is null)
                     Enemy = new Side(masterData, raw.Enemy, true);
                 else
-                    Enemy.Load(masterData, raw.Enemy);
+                    Enemy.Load(raw.Enemy);
                 Incomplete = raw.HasNextPart;
 
                 if (Kind == BattleKind.CombinedNightToDay)
@@ -64,6 +64,12 @@ namespace Sakuno.ING.Game.Models.Combat
                     else if (raw.AerialSupportPhase != null)
                         phases.Add(SupportPhase = new SupportPhase(raw.SupportFireType, masterData, Enemy, raw.AerialSupportPhase));
 
+                    if (raw.NpcFleet != null)
+                    {
+                        NpcFleet = raw.NpcFleet.Select(s => new BattleParticipant(new BattlingShip(masterData, s), s, false)).ToArray();
+                        if (raw.NpcPhase != null)
+                            NpcPhase = new NightPhase(masterData, NpcFleet, Enemy, raw.NpcPhase);
+                    }
                     if (raw.NightPhase != null)
                         phases.Add(NightPhase = new NightPhase(0, masterData, Ally, Enemy, raw.NightPhase, false));
                 }

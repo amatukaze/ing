@@ -20,9 +20,9 @@ namespace Sakuno.ING.Game.Models.Combat
         public RawShellingPhase ShellingPhase1 { get; }
         public RawShellingPhase ShellingPhase2 { get; }
         public RawShellingPhase ShellingPhase3 { get; }
-        public RawShellingPhase NightPhase { get; }
-        public RawShellingPhase NightPhase1 { get; }
-        public RawShellingPhase NightPhase2 { get; }
+        public RawNightPhase NightPhase { get; }
+        public RawNightPhase NightPhase1 { get; }
+        public RawNightPhase NightPhase2 { get; }
 
         public RawTorpedoPhase OpeningTorpedoPhase { get; }
         public RawTorpedoPhase ClosingTorpedoPhase { get; }
@@ -37,7 +37,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public IReadOnlyList<ShipId> SupportFleet { get; }
         public RawAerialPhase AerialSupportPhase { get; }
         public RawSupportPhase SupportPhase { get; }
-        public RawShellingPhase NpcPhase { get; }
+        public RawNightPhase NpcPhase { get; }
 
         public RawBattle(BattleDetailJson api, bool fixEnemyId)
         {
@@ -46,12 +46,6 @@ namespace Sakuno.ING.Game.Models.Combat
             ally.Formation = (Formation)api.api_formation.At(0);
             enemy.Formation = (Formation)api.api_formation.At(1);
             Engagement = (Engagement)api.api_formation.At(2);
-            ally.NightTouchingId = (EquipmentInfoId?)SelectPositive(api.api_touch_plane, 0);
-            enemy.NightTouchingId = (EquipmentInfoId?)SelectPositive(api.api_touch_plane, 1);
-            ally.FlareIndex = SelectPositive(api.api_flare_pos, 0);
-            enemy.FlareIndex = SelectPositive(api.api_flare_pos, 1);
-            ally.ActiveFleetId = SelectPositive(api.api_active_deck, 0);
-            enemy.ActiveFleetId = SelectPositive(api.api_active_deck, 1);
             ally.Detection = api.api_search.At(0);
             enemy.Detection = api.api_search.At(1);
             HasNextPart = api.api_midnight_flag;
@@ -91,11 +85,11 @@ namespace Sakuno.ING.Game.Models.Combat
                 OpeningAswPhase = new RawShellingPhase(api.api_opening_taisen);
 
             if (api.api_hougeki != null)
-                NightPhase = new RawShellingPhase(api.api_hougeki);
+                NightPhase = new RawNightPhase(api.api_hougeki, api.api_touch_plane, api.api_flare_pos, api.api_active_deck);
             if (api.api_n_hougeki1 != null)
-                NightPhase1 = new RawShellingPhase(api.api_n_hougeki1);
+                NightPhase1 = new RawNightPhase(api.api_n_hougeki1, api.api_touch_plane, api.api_flare_pos, api.api_active_deck);
             if (api.api_n_hougeki2 != null)
-                NightPhase2 = new RawShellingPhase(api.api_n_hougeki2);
+                NightPhase2 = new RawNightPhase(api.api_n_hougeki2, api.api_touch_plane, api.api_flare_pos, api.api_active_deck);
 
             if (api.api_opening_atack != null)
                 OpeningTorpedoPhase = new RawTorpedoPhase(api.api_opening_atack);
@@ -130,7 +124,7 @@ namespace Sakuno.ING.Game.Models.Combat
             if (api.api_friendly_battle != null)
             {
                 if (api.api_friendly_battle.api_hougeki != null)
-                    NpcPhase = new RawShellingPhase(api.api_friendly_battle.api_hougeki);
+                    NpcPhase = new RawNightPhase(api.api_friendly_battle.api_hougeki, null, api.api_friendly_battle.api_flare_pos, null);
             }
         }
 
