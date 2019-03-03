@@ -3,8 +3,17 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
-    public class BattleParticipant : BindableObject
+    public partial class BattleParticipant : BindableObject
     {
+        public BattleParticipant(Ship ship)
+        {
+            Ship = ship;
+            MaxHP = ship.HP.Current;
+            FromHP = ToHP = ship.HP.Current;
+        }
+
+        public void Load(RawShipInBattle raw) => IsEscaped = raw.IsEscaped;
+
         public BattleParticipant(Ship ship, RawShipInBattle raw, bool isEnemy)
         {
             Ship = ship;
@@ -20,7 +29,6 @@ namespace Sakuno.ING.Game.Models.Combat
         public int FromHP { get; }
         public int ToHP { get; private set; }
         public int MaxHP { get; }
-        public bool IsEscaped { get; }
         public bool Recovored { get; private set; }
         public int DamageGiven { get; private set; }
         public int DamageReceived { get; private set; }
@@ -56,5 +64,16 @@ namespace Sakuno.ING.Game.Models.Combat
         }
 
         internal void DoDamage(int damage) => DamageGiven += damage;
+        internal void Notify()
+        {
+            using (EnterBatchNotifyScope())
+            {
+                NotifyPropertyChanged(nameof(ToHP));
+                NotifyPropertyChanged(nameof(Recovored));
+                NotifyPropertyChanged(nameof(DamageGiven));
+                NotifyPropertyChanged(nameof(DamageReceived));
+                NotifyPropertyChanged(nameof(IsMvp));
+            }
+        }
     }
 }

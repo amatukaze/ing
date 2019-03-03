@@ -1,21 +1,65 @@
 ﻿using System.Collections.Generic;
-using Sakuno.ING.Game.Models.MasterData;
+using System.Linq;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
-    public class Side
+    public partial class Side : BindableObject
     {
-        public Side(MasterDataRoot masterData, IReadOnlyList<Ship> fleet, IReadOnlyList<Ship> fleet2, in RawSide raw, bool isEnemy)
+        public Side(IReadOnlyList<Ship> fleet, IReadOnlyList<Ship> fleet2)
         {
-            Formation = raw.Formation;
-            Detection = raw.Detection;
-            ActiveFleetId = raw.ActiveFleetId;
+            Fleet = fleet?.Select(s => new BattleParticipant(s)).ToArray();
+            Fleet2 = fleet2?.Select(s => new BattleParticipant(s)).ToArray();
+            Count = (Fleet?.Count ?? 0) + (Fleet2?.Count ?? 0);
+        }
+
+        public void Load(MasterDataRoot masterData, in RawSide raw)
+        {
+            LoadEnvironment(masterData, raw);
+
+            if (raw.Fleet != null && Fleet != null)
+                for (int i = 0; i < raw.Fleet.Count; i++)
+                    Fleet[i].Load(raw.Fleet[i]);
+            if (raw.Fleet2 != null && Fleet2 != null)
+                for (int i = 0; i < raw.Fleet2.Count; i++)
+                    Fleet2[i].Load(raw.Fleet2[i]);
+        }
+
+        private void LoadEnvironment(MasterDataRoot masterData, in RawSide raw)
+        {
+            using (EnterBatchNotifyScope())
+            {
+                Formation = raw.Formation;
+                Detection = raw.Detection;
+                NightTouchingPlane = masterData.EquipmentInfos[raw.NightTouchingId];
+
+                switch (raw.ActiveFleetId)
+                {
+                    case 1:
+                        NightActiveFleet = Fleet;
+                        break;
+                    case 2:
+                        NightActiveFleet = Fleet2;
+                        break;
+                    default:
+                        NightActiveFleet = null;
+                        break;
+                }
+
+                if (raw.FlareIndex is int i)
+                    FlareShootingShip = NightActiveFleet[i];
+            }
+        }
+
+        public Side(MasterDataRoot masterData, in RawSide raw, bool isEnemy)
+        {
+            LoadEnvironment(masterData, raw);
+
             if (raw.Fleet != null)
             {
                 Count += raw.Fleet.Count;
                 var f = new BattleParticipant[raw.Fleet.Count];
                 for (int i = 0; i < raw.Fleet.Count; i++)
-                    f[i] = new BattleParticipant(fleet?[i] ?? new BattlingShip(masterData, raw.Fleet[i]), raw.Fleet[i], isEnemy);
+                    f[i] = new BattleParticipant(new BattlingShip(masterData, raw.Fleet[i]), raw.Fleet[i], isEnemy);
                 Fleet = f;
             }
             if (raw.Fleet2 != null)
@@ -23,21 +67,14 @@ namespace Sakuno.ING.Game.Models.Combat
                 Count += raw.Fleet2.Count;
                 var f = new BattleParticipant[raw.Fleet2.Count];
                 for (int i = 0; i < raw.Fleet2.Count; i++)
-                    f[i] = new BattleParticipant(fleet2?[i] ?? new BattlingShip(masterData, raw.Fleet2[i]), raw.Fleet2[i], isEnemy);
+                    f[i] = new BattleParticipant(new BattlingShip(masterData, raw.Fleet2[i]), raw.Fleet2[i], isEnemy);
                 Fleet2 = f;
             }
         }
 
-        public Formation Formation { get; }
         public IReadOnlyList<BattleParticipant> Fleet { get; }
         public IReadOnlyList<BattleParticipant> Fleet2 { get; }
-        public Detection? Detection { get; }
-        public int? ActiveFleetId { get; }
-        public EquipmentInfo NightTouchingPlane { get; internal set; }
-        public BattleParticipant FlareShootingShip { get; internal set; }
-        public double DamageRate { get; private set; }
         public int Count { get; }
-        public int SunkCount { get; private set; }
 
         public BattleParticipant FindShip(int index)
         {

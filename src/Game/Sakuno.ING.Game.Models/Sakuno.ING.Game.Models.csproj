@@ -15,9 +15,11 @@
   <ItemGroup>
     <ClassTemplate Include="Models\MasterData\MasterData.xml" />
     <ClassTemplate Include="Models\GameObject.xml" />
+    <BindableTemplate Include="Models\Combat\CombatObject.xml" />
   </ItemGroup>
 
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <Import Project="Generator.targets" />
+  <Import Project="BindableGenerator.targets" />
 
 </Project>

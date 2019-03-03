@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<bindableTemplate namespace="Sakuno.ING.Game.Models.Combat">
+  <using>System.Collections.Generic</using>
+  <using>Sakuno.ING.Game.Models.MasterData</using>
+  <class name="Side">
+    <property type="Formation" name="Formation" />
+    <property type="Detection?" name="Detection" />
+    <property type="IReadOnlyList&lt;BattleParticipant&gt;" name="NightActiveFleet" />
+    <property type="EquipmentInfo" name="NightTouchingPlane" />
+    <property type="BattleParticipant" name="FlareShootingShip" />
+    <property type="double" name="DamageRate" />
+    <property type="int" name="SunkCount" />
+  </class>
+  <class name="BattleParticipant">
+    <property type="bool" name="IsEscaped" />
+  </class>
+  <class name="Battle">
+    <property type="Engagement" name="Engagement" />
+    <property type="Side" name="Enemy" />
+    <property type="bool" name="Incomplete" />
+    <property type="BattleRank?" name="Rank" />
+    <property type="ShellingPhase" name="ShellingPhase1" />
+    <property type="ShellingPhase" name="ShellingPhase2" />
+    <property type="ShellingPhase" name="ShellingPhase3" />
+    <property type="ShellingPhase" name="OpeningAswPhase" />
+    <property type="TorpedoPhase" name="OpeningTorpedoPhase" />
+    <property type="TorpedoPhase" name="ClosingTorpedoPhase" />
+    <property type="AerialPhase" name="AerialPhase" />
+    <property type="AerialPhase" name="AerialPhase2" />
+    <property type="AerialPhase" name="LandBaseJetPhase" />
+    <property type="AerialPhase" name="JetPhase" />
+    <property type="IReadOnlyList&lt;LandBasePhase&gt;" name="LandBasePhases" />
+    <property type="SupportPhase" name="SupportPhase" />
+    <property type="NightPhase" name="NightPhase" />
+    <property type="NightPhase" name="CombinedNightPhase1" />
+    <property type="NightPhase" name="CombinedNightPhase2" />
+  </class>
+</bindableTemplate>

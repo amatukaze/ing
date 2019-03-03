@@ -30,7 +30,7 @@
 
             listener.PracticeStarted += (t, m) =>
             {
-                sortieFleet = this.navalBase.Fleets[m];
+                CurrentBattle = new Battle(this.navalBase.Fleets[m].Ships, null, CombinedFleetType.None, BattleKind.Normal);
                 State = BattleState.BeforePractice;
             };
 
@@ -44,26 +44,26 @@
             listener.MapRouting += (t, m) =>
             {
                 CurrentRouting = new MapRouting(this.navalBase, m);
+                CurrentBattle = new Battle(sortieFleet.Ships, sortieFleet2?.Ships, this.navalBase.CombinedFleet, m.BattleKind);
                 State = BattleState.Routing;
             };
 
             listener.BattleStarted += (t, m) =>
             {
                 if (State == BattleState.Routing)
-                {
-                    CurrentBattle = new Battle(this.navalBase.MasterData, sortieFleet.Ships, sortieFleet2?.Ships, m.Parsed, this.navalBase.CombinedFleet, CurrentRouting.BattleKind);
                     State = BattleState.SortieDay;
-                }
                 else if (State == BattleState.BeforePractice)
-                {
-                    CurrentBattle = new Battle(this.navalBase.MasterData, sortieFleet.Ships, null, m.Parsed, CombinedFleetType.None, BattleKind.Normal);
                     State = BattleState.PracticeDay;
-                }
+                CurrentBattle.Append(this.navalBase.MasterData, m.Parsed);
             };
 
             listener.BattleAppended += (t, m) =>
             {
-
+                if (State == BattleState.SortieDay)
+                    State = BattleState.SortieNight;
+                else if (State == BattleState.PracticeDay)
+                    State = BattleState.PracticeNight;
+                CurrentBattle.Append(this.navalBase.MasterData, m.Parsed);
             };
 
             listener.BattleCompleted += (t, m) =>

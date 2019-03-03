@@ -10,15 +10,8 @@ namespace Sakuno.ING.Game.Models.Combat
 
             public Builder(Side ally, Side enemy)
             {
-                if (ally.Fleet2 is null || ally.ActiveFleetId == 1)
-                    this.ally = ally.Fleet;
-                else
-                    this.ally = ally.Fleet2;
-
-                if (enemy.Fleet2 is null || enemy.ActiveFleetId == 1)
-                    this.enemy = enemy.Fleet;
-                else
-                    this.enemy = enemy.Fleet2;
+                this.ally = ally.NightActiveFleet ?? ally.Fleet2 ?? ally.Fleet;
+                this.enemy = enemy.NightActiveFleet ?? enemy.Fleet2 ?? enemy.Fleet;
             }
 
             public BattleParticipant MapShip(int index, bool isEnemy)
