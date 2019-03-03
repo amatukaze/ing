@@ -66,7 +66,7 @@ namespace Sakuno.ING.Game.Models.Combat
 
                     if (raw.NpcFleet != null)
                     {
-                        NpcFleet = raw.NpcFleet.Select(s => new BattleParticipant(new BattlingShip(masterData, s), s, false)).ToArray();
+                        NpcFleet = raw.NpcFleet.Select((s, i) => new BattleParticipant(i + 1, new BattlingShip(masterData, s), s, false)).ToArray();
                         if (raw.NpcPhase != null)
                             NpcPhase = new NightPhase(masterData, NpcFleet, Enemy, raw.NpcPhase);
                     }
@@ -181,7 +181,7 @@ namespace Sakuno.ING.Game.Models.Combat
                                 Rank = allyPercentage <= 0 ? BattleRank.Perfect : BattleRank.S;
                             else if (Enemy.SunkCount >= Math.Round(Enemy.Count * 0.625))
                                 Rank = BattleRank.A;
-                            else if (Enemy.Fleet[0].ToHP <= 0)
+                            else if (Enemy.Fleet[0].IsSunk)
                                 Rank = BattleRank.B;
                             else if (enemyPercentage > allyPercentage * 2.5)
                                 Rank = BattleRank.B;
@@ -194,7 +194,7 @@ namespace Sakuno.ING.Game.Models.Combat
                         {
                             if (Enemy.SunkCount == Enemy.Count)
                                 Rank = BattleRank.B;
-                            else if (Enemy.Fleet[0].ToHP <= 0 && Ally.SunkCount < Enemy.SunkCount)
+                            else if (Enemy.Fleet[0].IsSunk && Ally.SunkCount < Enemy.SunkCount)
                                 Rank = BattleRank.B;
                             else if (enemyPercentage > allyPercentage * 2.5)
                                 Rank = BattleRank.B;

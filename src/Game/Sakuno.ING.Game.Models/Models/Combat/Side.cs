@@ -7,8 +7,8 @@ namespace Sakuno.ING.Game.Models.Combat
     {
         public Side(IReadOnlyList<Ship> fleet, IReadOnlyList<Ship> fleet2)
         {
-            Fleet = fleet?.Select(s => new BattleParticipant(s)).ToArray();
-            Fleet2 = fleet2?.Select(s => new BattleParticipant(s)).ToArray();
+            Fleet = fleet?.Select((s, i) => new BattleParticipant(i + 1, s)).ToArray();
+            Fleet2 = fleet2?.Select((s, i) => new BattleParticipant(i + 7, s)).ToArray();
             Count = (Fleet?.Count ?? 0) + (Fleet2?.Count ?? 0);
         }
 
@@ -42,7 +42,7 @@ namespace Sakuno.ING.Game.Models.Combat
                 Count += raw.Fleet.Count;
                 var f = new BattleParticipant[raw.Fleet.Count];
                 for (int i = 0; i < raw.Fleet.Count; i++)
-                    f[i] = new BattleParticipant(new BattlingShip(masterData, raw.Fleet[i]), raw.Fleet[i], isEnemy);
+                    f[i] = new BattleParticipant(i + 1, new BattlingShip(masterData, raw.Fleet[i]), raw.Fleet[i], isEnemy);
                 Fleet = f;
             }
             if (raw.Fleet2 != null)
@@ -50,7 +50,7 @@ namespace Sakuno.ING.Game.Models.Combat
                 Count += raw.Fleet2.Count;
                 var f = new BattleParticipant[raw.Fleet2.Count];
                 for (int i = 0; i < raw.Fleet2.Count; i++)
-                    f[i] = new BattleParticipant(new BattlingShip(masterData, raw.Fleet2[i]), raw.Fleet2[i], isEnemy);
+                    f[i] = new BattleParticipant(i + 7, new BattlingShip(masterData, raw.Fleet2[i]), raw.Fleet2[i], isEnemy);
                 Fleet2 = f;
             }
         }
@@ -74,16 +74,16 @@ namespace Sakuno.ING.Game.Models.Combat
             if (Fleet != null)
                 foreach (var s in Fleet)
                 {
-                    nowHP += s.ToHP;
-                    maxHP += s.FromHP;
-                    if (s.ToHP <= 0) sunk++;
+                    nowHP += s.ToHP.Current;
+                    maxHP += s.FromHP.Current;
+                    if (s.IsSunk) sunk++;
                 }
             if (Fleet2 != null)
                 foreach (var s in Fleet2)
                 {
-                    nowHP += s.ToHP;
-                    maxHP += s.FromHP;
-                    if (s.ToHP <= 0) sunk++;
+                    nowHP += s.ToHP.Current;
+                    maxHP += s.FromHP.Current;
+                    if (s.IsSunk) sunk++;
                 }
             DamageRate = (maxHP - nowHP) / (double)maxHP;
             SunkCount = sunk;

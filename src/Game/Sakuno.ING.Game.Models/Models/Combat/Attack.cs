@@ -9,11 +9,13 @@ namespace Sakuno.ING.Game.Models.Combat
         public Attack(BattleParticipant source, AttackType type, IEnumerable<EquipmentInfo> equipmentUsed, IEnumerable<Hit> hits)
         {
             Source = source;
+            SourceHP = source?.ToHP;
             Type = type;
             EquipmentUsed = equipmentUsed.ToArray();
             Hits = hits.ToArray();
         }
         public BattleParticipant Source { get; }
+        public ShipHP? SourceHP { get; }
         public AttackType Type { get; }
         public IReadOnlyList<EquipmentInfo> EquipmentUsed { get; }
         public IReadOnlyList<Hit> Hits { get; }
@@ -36,8 +38,8 @@ namespace Sakuno.ING.Game.Models.Combat
         public bool IsCritical { get; }
         public bool IsProtection { get; }
         public int Damage { get; }
-        public int FromHP { get; }
-        public int ToHP { get; }
+        public ShipHP FromHP { get; }
+        public ShipHP ToHP { get; }
         public bool Recover { get; }
     }
 }

@@ -5,40 +5,40 @@ namespace Sakuno.ING.Game.Models.Combat
 {
     public partial class BattleParticipant : BindableObject
     {
-        public BattleParticipant(Ship ship)
+        public BattleParticipant(int oneBasedIndex, Ship ship)
         {
+            OneBasedIndex = oneBasedIndex;
             Ship = ship;
-            MaxHP = ship.HP.Current;
-            FromHP = ToHP = ship.HP.Current;
+            FromHP = ToHP = ship.HP;
         }
 
         public void Load(RawShipInBattle raw) => IsEscaped = raw.IsEscaped;
 
-        public BattleParticipant(Ship ship, RawShipInBattle raw, bool isEnemy)
+        public BattleParticipant(int oneBasedIndex, Ship ship, RawShipInBattle raw, bool isEnemy)
         {
+            OneBasedIndex = oneBasedIndex;
             Ship = ship;
-            FromHP = raw.HP.Current;
-            MaxHP = raw.HP.Max;
-            ToHP = FromHP;
+            ToHP = FromHP = raw.HP;
             IsEnemy = isEnemy;
             IsEscaped = raw.IsEscaped;
         }
 
+        public int OneBasedIndex { get; }
         public Ship Ship { get; }
         public bool IsEnemy { get; }
-        public int FromHP { get; }
-        public int ToHP { get; private set; }
-        public int MaxHP { get; }
+        public ShipHP FromHP { get; }
+        public ShipHP ToHP { get; private set; }
+        public bool IsSunk => ToHP.Current <= 0;
         public bool Recovored { get; private set; }
         public int DamageGiven { get; private set; }
         public int DamageReceived { get; private set; }
         public bool IsMvp { get; internal set; }
 
-        internal (int toHP, bool recover) GetDamage(int damage)
+        internal (ShipHP toHP, bool recover) GetDamage(int damage)
         {
             ToHP -= damage;
             DamageReceived += damage;
-            if (ToHP <= 0 && !IsEnemy)
+            if (IsSunk && !IsEnemy)
             {
                 EquipmentInfo damageControl = null;
                 if (Ship.ExtraEquipment?.Equipment?.Type.Id == KnownEquipmentType.DamageControl)
@@ -53,9 +53,9 @@ namespace Sakuno.ING.Game.Models.Combat
                 if (damageControl != null)
                 {
                     if (damageControl.Id == 42) //応急修理要員
-                        ToHP = (int)(MaxHP * 0.2);
+                        ToHP = ((int)(ToHP.Max * 0.2), ToHP.Max);
                     else if (damageControl.Id == 43) //応急修理女神
-                        ToHP = MaxHP;
+                        ToHP = (ToHP.Max, ToHP.Max);
                     Recovored = true;
                     return (ToHP, true);
                 }
@@ -69,6 +69,7 @@ namespace Sakuno.ING.Game.Models.Combat
             using (EnterBatchNotifyScope())
             {
                 NotifyPropertyChanged(nameof(ToHP));
+                NotifyPropertyChanged(nameof(IsSunk));
                 NotifyPropertyChanged(nameof(Recovored));
                 NotifyPropertyChanged(nameof(DamageGiven));
                 NotifyPropertyChanged(nameof(DamageReceived));
