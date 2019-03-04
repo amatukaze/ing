@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <bindableTemplate namespace="Sakuno.ING.Game.Models.Combat">
   <using>System.Collections.Generic</using>
-  <using>Sakuno.ING.Game.Models.MasterData</using>
   <class name="Side">
     <property type="Formation" name="Formation" />
     <property type="Detection?" name="Detection" />
@@ -33,5 +32,11 @@
     <property type="NightPhase" name="CombinedNightPhase1" />
     <property type="NightPhase" name="CombinedNightPhase2" />
     <property type="NightPhase" name="NpcPhase" />
+  </class>
+  <class name="BattleManager">
+    <property type="BattleState" name="State" />
+    <property type="MapRouting" name="CurrentRouting" />
+    <property type="Battle" name="CurrentBattle" />
+    <property type="BattleResult" name="CurrentBattleResult" />
   </class>
 </bindableTemplate>

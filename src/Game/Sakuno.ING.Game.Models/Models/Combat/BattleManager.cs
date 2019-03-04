@@ -12,7 +12,7 @@
         Completed
     }
 
-    public class BattleManager : BindableObject
+    public partial class BattleManager : BindableObject
     {
         private readonly NavalBase navalBase;
         private Fleet sortieFleet, sortieFleet2;
@@ -72,29 +72,9 @@
 
             listener.BattleCompleted += (t, m) =>
             {
-
+                State = BattleState.Completed;
+                CurrentBattleResult = new BattleResult(this.navalBase.MasterData, m, CurrentBattle.Ally);
             };
-        }
-
-        private BattleState _state;
-        public BattleState State
-        {
-            get => _state;
-            set => Set(ref _state, value);
-        }
-
-        private MapRouting _currentRouting;
-        public MapRouting CurrentRouting
-        {
-            get => _currentRouting;
-            set => Set(ref _currentRouting, value);
-        }
-
-        private Battle _currentBattle;
-        public Battle CurrentBattle
-        {
-            get => _currentBattle;
-            set => Set(ref _currentBattle, value);
         }
     }
 }

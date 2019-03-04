@@ -9,7 +9,6 @@
 using System;
 using System.ComponentModel;
 using System.Collections.Generic;
-using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
@@ -280,6 +279,49 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             get => _npcPhase;
             private set => Set(ref _npcPhase, value, __eventArgs_npcPhase);
+        }
+    }
+    partial class BattleManager
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_state = new PropertyChangedEventArgs(nameof(State));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private BattleState _state;
+        public BattleState State
+        {
+            get => _state;
+            private set => Set(ref _state, value, __eventArgs_state);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_currentRouting = new PropertyChangedEventArgs(nameof(CurrentRouting));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private MapRouting _currentRouting;
+        public MapRouting CurrentRouting
+        {
+            get => _currentRouting;
+            private set => Set(ref _currentRouting, value, __eventArgs_currentRouting);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_currentBattle = new PropertyChangedEventArgs(nameof(CurrentBattle));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private Battle _currentBattle;
+        public Battle CurrentBattle
+        {
+            get => _currentBattle;
+            private set => Set(ref _currentBattle, value, __eventArgs_currentBattle);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_currentBattleResult = new PropertyChangedEventArgs(nameof(CurrentBattleResult));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private BattleResult _currentBattleResult;
+        public BattleResult CurrentBattleResult
+        {
+            get => _currentBattleResult;
+            private set => Set(ref _currentBattleResult, value, __eventArgs_currentBattleResult);
         }
     }
 }
