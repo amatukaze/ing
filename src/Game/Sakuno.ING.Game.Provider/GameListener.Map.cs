@@ -9,51 +9,14 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameProvider
+    public partial class GameProvider
     {
-        #region Events
-        private readonly ITimedMessageProvider<IReadOnlyCollection<RawMap>> mapsUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<RawMap>> MapsUpdated
-        {
-            add => mapsUpdated.Received += value;
-            remove => mapsUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IReadOnlyCollection<RawAirForceGroup>> airForceUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<RawAirForceGroup>> AirForceUpdated
-        {
-            add => airForceUpdated.Received += value;
-            remove => airForceUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<AirForceSetPlane> airForcePlaneSet;
-        public event TimedMessageHandler<AirForceSetPlane> AirForcePlaneSet
-        {
-            add => airForcePlaneSet.Received += value;
-            remove => airForcePlaneSet.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IEnumerable<AirForceSetAction>> airForceActionSet;
-        public event TimedMessageHandler<IEnumerable<AirForceSetAction>> AirForceActionSet
-        {
-            add => airForceActionSet.Received += value;
-            remove => airForceActionSet.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<AirForceSupply> airForceSupplied;
-        public event TimedMessageHandler<AirForceSupply> AirForceSupplied
-        {
-            add => airForceSupplied.Received += value;
-            remove => airForceSupplied.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<RawAirForceGroup> airForceExpanded;
-        public event TimedMessageHandler<RawAirForceGroup> AirForceExpanded
-        {
-            add => airForceExpanded.Received += value;
-            remove => airForceExpanded.Received -= value;
-        }
-        #endregion
+        public event TimedMessageHandler<IReadOnlyCollection<RawMap>> MapsUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawAirForceGroup>> AirForceUpdated;
+        public event TimedMessageHandler<AirForceSetPlane> AirForcePlaneSet;
+        public event TimedMessageHandler<IEnumerable<AirForceSetAction>> AirForceActionSet;
+        public event TimedMessageHandler<AirForceSupply> AirForceSupplied;
+        public event TimedMessageHandler<RawAirForceGroup> AirForceExpanded;
 
         private static AirForceSetPlane ParseAirForcePlaneSet(NameValueCollection request, AirForceSetPlaneJson response)
             => new AirForceSetPlane

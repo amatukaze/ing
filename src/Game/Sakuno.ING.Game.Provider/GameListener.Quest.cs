@@ -6,21 +6,10 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameProvider
+    public partial class GameProvider
     {
-        private readonly ITimedMessageProvider<QuestPageUpdate> questUpdated;
-        public event TimedMessageHandler<QuestPageUpdate> QuestUpdated
-        {
-            add => questUpdated.Received += value;
-            remove => questUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<QuestId> questCompleted;
-        public event TimedMessageHandler<QuestId> QuestCompleted
-        {
-            add => questCompleted.Received += value;
-            remove => questCompleted.Received -= value;
-        }
+        public event TimedMessageHandler<QuestPageUpdate> QuestUpdated;
+        public event TimedMessageHandler<QuestId> QuestCompleted;
 
         private static QuestPageUpdate ParseQuestPage(QuestPageJson response)
             => new QuestPageUpdate

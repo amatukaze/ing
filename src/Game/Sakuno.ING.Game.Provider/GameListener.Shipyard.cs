@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Sakuno.ING.Game.Events.Shipyard;
-using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Shipyard;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
@@ -10,65 +9,16 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameProvider
+    public partial class GameProvider
     {
-        #region Events
-        private readonly ITimedMessageProvider<ShipCreation> shipCreated;
-        public event TimedMessageHandler<ShipCreation> ShipCreated
-        {
-            add => shipCreated.Received += value;
-            remove => shipCreated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<BuildingDockId> instantBuilt;
-        public event TimedMessageHandler<BuildingDockId> InstantBuilt
-        {
-            add => instantBuilt.Received += value;
-            remove => instantBuilt.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<ShipBuildCompletion> shipBuildCompleted;
-        public event TimedMessageHandler<ShipBuildCompletion> ShipBuildCompleted
-        {
-            add => shipBuildCompleted.Received += value;
-            remove => shipBuildCompleted.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<EquipmentCreation> equipmentCreated;
-        public event TimedMessageHandler<EquipmentCreation> EquipmentCreated
-        {
-            add => equipmentCreated.Received += value;
-            remove => equipmentCreated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<ShipDismantling> shipDismantled;
-        public event TimedMessageHandler<ShipDismantling> ShipDismantled
-        {
-            add => shipDismantled.Received += value;
-            remove => shipDismantled.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IReadOnlyCollection<EquipmentId>> equipmentDismantled;
-        public event TimedMessageHandler<IReadOnlyCollection<EquipmentId>> EquipmentDismantled
-        {
-            add => equipmentDismantled.Received += value;
-            remove => equipmentDismantled.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<EquipmentImprove> equipmentImproved;
-        public event TimedMessageHandler<EquipmentImprove> EquipmentImproved
-        {
-            add => equipmentImproved.Received += value;
-            remove => equipmentImproved.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<ShipPowerup> shipPoweruped;
-        public event TimedMessageHandler<ShipPowerup> ShipPoweruped
-        {
-            add => shipPoweruped.Received += value;
-            remove => shipPoweruped.Received -= value;
-        }
-        #endregion
+        public event TimedMessageHandler<ShipCreation> ShipCreated;
+        public event TimedMessageHandler<BuildingDockId> InstantBuilt;
+        public event TimedMessageHandler<ShipBuildCompletion> ShipBuildCompleted;
+        public event TimedMessageHandler<EquipmentCreation> EquipmentCreated;
+        public event TimedMessageHandler<ShipDismantling> ShipDismantled;
+        public event TimedMessageHandler<IReadOnlyCollection<EquipmentId>> EquipmentDismantled;
+        public event TimedMessageHandler<EquipmentImprove> EquipmentImproved;
+        public event TimedMessageHandler<ShipPowerup> ShipPoweruped;
 
         private static ShipCreation ParseShipCreation(NameValueCollection request)
             => new ShipCreation

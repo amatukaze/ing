@@ -8,121 +8,24 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameProvider
+    public partial class GameProvider
     {
-        #region Events
-        private readonly ITimedMessageProvider<HomeportUpdate> homeportReturned;
-        public event TimedMessageHandler<HomeportUpdate> HomeportReturned
-        {
-            add => homeportReturned.Received += value;
-            remove => homeportReturned.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<RawAdmiral> admiralUpdated;
-        public event TimedMessageHandler<RawAdmiral> AdmiralUpdated
-        {
-            add => admiralUpdated.Received += value;
-            remove => admiralUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IReadOnlyCollection<RawFleet>> fleetsUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<RawFleet>> FleetsUpdated
-        {
-            add => fleetsUpdated.Received += value;
-            remove => fleetsUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<CompositionChange> compositionChanged;
-        public event TimedMessageHandler<CompositionChange> CompositionChanged
-        {
-            add => compositionChanged.Received += value;
-            remove => compositionChanged.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<RawFleet> fleetPresetSelected;
-        public event TimedMessageHandler<RawFleet> FleetPresetSelected
-        {
-            add => fleetPresetSelected.Received += value;
-            remove => fleetPresetSelected.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<ShipId> shipExtraSlotOpened;
-        public event TimedMessageHandler<ShipId> ShipExtraSlotOpened
-        {
-            add => shipExtraSlotOpened.Received += value;
-            remove => shipExtraSlotOpened.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<ShipEquipmentUpdate> shipEquipmentUpdated;
-        public event TimedMessageHandler<ShipEquipmentUpdate> ShipEquipmentUpdated
-        {
-            add => shipEquipmentUpdated.Received += value;
-            remove => shipEquipmentUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IReadOnlyCollection<RawShip>> partialShipsUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<RawShip>> PartialShipsUpdated
-        {
-            add => partialShipsUpdated.Received += value;
-            remove => partialShipsUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IReadOnlyCollection<RawFleet>> partialFleetsUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<RawFleet>> PartialFleetsUpdated
-        {
-            add => partialFleetsUpdated.Received += value;
-            remove => partialFleetsUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IMaterialsUpdate> materialsUpdated;
-        public event TimedMessageHandler<IMaterialsUpdate> MaterialsUpdated
-        {
-            add => materialsUpdated.Received += value;
-            remove => materialsUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IReadOnlyCollection<RawRepairingDock>> repairingDockUpdated;
-        public event TimedMessageHandler<IReadOnlyCollection<RawRepairingDock>> RepairingDockUpdated
-        {
-            add => repairingDockUpdated.Received += value;
-            remove => repairingDockUpdated.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<RepairStart> repairStarted;
-        public event TimedMessageHandler<RepairStart> RepairStarted
-        {
-            add => repairStarted.Received += value;
-            remove => repairStarted.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<RepairingDockId> instantRepaired;
-        public event TimedMessageHandler<RepairingDockId> InstantRepaired
-        {
-            add => instantRepaired.Received += value;
-            remove => instantRepaired.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IReadOnlyCollection<ShipSupply>> shipSupplied;
-        public event TimedMessageHandler<IReadOnlyCollection<ShipSupply>> ShipSupplied
-        {
-            add => shipSupplied.Received += value;
-            remove => shipSupplied.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<ExpeditionCompletion> expeditionCompleted;
-        public event TimedMessageHandler<ExpeditionCompletion> ExpeditionCompleted
-        {
-            add => expeditionCompleted.Received += value;
-            remove => expeditionCompleted.Received -= value;
-        }
-
-        private readonly ITimedMessageProvider<IReadOnlyCollection<IRawIncentiveReward>> incentiveRewarded;
-        public event TimedMessageHandler<IReadOnlyCollection<IRawIncentiveReward>> IncentiveRewarded
-        {
-            add => incentiveRewarded.Received += value;
-            remove => incentiveRewarded.Received += value;
-        }
-        #endregion
+        public event TimedMessageHandler<HomeportUpdate> HomeportReturned;
+        public event TimedMessageHandler<RawAdmiral> AdmiralUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawFleet>> FleetsUpdated;
+        public event TimedMessageHandler<CompositionChange> CompositionChanged;
+        public event TimedMessageHandler<RawFleet> FleetPresetSelected;
+        public event TimedMessageHandler<ShipId> ShipExtraSlotOpened;
+        //public event TimedMessageHandler<ShipEquipmentUpdate> ShipEquipmentUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawShip>> PartialShipsUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawFleet>> PartialFleetsUpdated;
+        public event TimedMessageHandler<IMaterialsUpdate> MaterialsUpdated;
+        public event TimedMessageHandler<IReadOnlyCollection<RawRepairingDock>> RepairingDockUpdated;
+        public event TimedMessageHandler<RepairStart> RepairStarted;
+        public event TimedMessageHandler<RepairingDockId> InstantRepaired;
+        public event TimedMessageHandler<IReadOnlyCollection<ShipSupply>> ShipSupplied;
+        public event TimedMessageHandler<ExpeditionCompletion> ExpeditionCompleted;
+        public event TimedMessageHandler<IReadOnlyCollection<IRawIncentiveReward>> IncentiveRewarded;
 
         private static HomeportUpdate ParseHomeport(HomeportJson response)
             => new HomeportUpdate

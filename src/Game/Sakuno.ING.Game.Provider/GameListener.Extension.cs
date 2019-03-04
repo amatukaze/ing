@@ -5,6 +5,7 @@ using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.ING.Game.Json;
+using Sakuno.ING.Http;
 using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
@@ -16,6 +17,12 @@ namespace Sakuno.ING.Game
 
         private static NameValueCollection ParseRequest(ReadOnlyMemory<char> request)
             => HttpUtility.ParseQueryString(request.ToString());
+
+        private T Response<T>(HttpMessage message)
+            => Convert<SvData<T>>(message.Response).api_data;
+
+        private static NameValueCollection Request(HttpMessage message)
+            => ParseRequest(message.Request);
 
         public ITimedMessageProvider<T> RegisterResponse<T>(string api)
             => RegisterRaw<T>(api).Select(x => x.Response);
@@ -60,9 +67,5 @@ namespace Sakuno.ING.Game
                 Convert<SvData<JToken>>(arg.Response)
             ));
 
-        // use utf8 string in new std
-        private ITimedMessageProvider<byte[]> RegisterUnparsedResponse(params string[] apis) => provider
-            .Where(arg => apis.Contains(arg.Key))
-            .Select(arg => System.Text.Encoding.UTF8.GetBytes(arg.Response.ToArray()));
     }
 }

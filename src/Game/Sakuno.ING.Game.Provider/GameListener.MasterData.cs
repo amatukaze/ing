@@ -7,14 +7,9 @@ using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
 {
-    partial class GameProvider
+    public partial class GameProvider
     {
-        private readonly ITimedMessageProvider<MasterDataUpdate> masterDataUpdated;
-        public event TimedMessageHandler<MasterDataUpdate> MasterDataUpdated
-        {
-            add => masterDataUpdated.Received += value;
-            remove => masterDataUpdated.Received -= value;
-        }
+        public event TimedMessageHandler<MasterDataUpdate> MasterDataUpdated;
 
         private static MasterDataUpdate ParseMasterData(MasterDataJson raw)
         {
