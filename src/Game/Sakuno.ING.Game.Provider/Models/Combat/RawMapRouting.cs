@@ -106,7 +106,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public int? RankingPointAcquired { get; internal set; }
 
         internal BattleDetailJson api_destruction_battle;
-        public RawBattle LandBaseDefence => new RawBattle(api_destruction_battle, false);
+        public RawBattle LandBaseDefence => new RawBattle(api_destruction_battle);
 
         internal bool api_m1;
     }

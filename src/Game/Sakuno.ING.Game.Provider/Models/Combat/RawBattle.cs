@@ -8,6 +8,7 @@ namespace Sakuno.ING.Game.Models.Combat
 {
     public sealed class RawBattle
     {
+        public static readonly DateTimeOffset EnemyIdChangeTime = new DateTimeOffset(2017, 4, 5, 3, 0, 0, TimeSpan.FromHours(9));
         public Engagement Engagement { get; }
 
         private readonly RawSide ally, enemy;
@@ -39,7 +40,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public RawSupportPhase SupportPhase { get; }
         public RawNightPhase NpcPhase { get; }
 
-        public RawBattle(BattleDetailJson api, bool fixEnemyId)
+        public RawBattle(BattleDetailJson api, bool fixEnemyId = false)
         {
             // Fleets
 

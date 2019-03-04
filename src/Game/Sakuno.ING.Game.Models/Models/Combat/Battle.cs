@@ -6,7 +6,6 @@ namespace Sakuno.ING.Game.Models.Combat
 {
     public partial class Battle : BindableObject
     {
-        public static readonly DateTimeOffset EnemyIdChangeTime = new DateTimeOffset(2017, 4, 5, 3, 0, 0, TimeSpan.FromHours(9));
         public BattleKind Kind { get; }
         public CombinedFleetType FleetType { get; }
         public Side Ally { get; }

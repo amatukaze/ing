@@ -7,13 +7,15 @@ namespace Sakuno.ING.Game.Models.Combat
         public BattlingShip(MasterDataRoot masterData, RawShipInBattle raw)
         {
             Info = masterData.ShipInfos[raw.Id];
-            Leveling = new Leveling(raw.Level, 0, 0, 0, false);
+            Leveling = new Leveling(raw.Level);
             HP = raw.HP;
-            Equipment = raw.Equipment.Select(x => new Slot { Equipment = masterData.EquipmentInfos[x] }).ToBindable();
+            Equipment = raw.Equipment.Select(x => new Slot(masterData.EquipmentInfos[x])).ToBindable();
             Firepower = new ShipMordenizationStatus(raw.Firepower);
             Torpedo = new ShipMordenizationStatus(raw.Torpedo);
             AntiAir = new ShipMordenizationStatus(raw.AntiAir);
             Armor = new ShipMordenizationStatus(raw.Armor);
+
+            DoCalculations();
         }
 
         public override IBindableCollection<Slot> Equipment { get; }

@@ -57,5 +57,15 @@ namespace Sakuno.ING.Game.Models
             get => _effectiveLoS;
             private set => Set(ref _effectiveLoS, value);
         }
+
+        protected Slot() { }
+        public Slot(EquipmentInfo equipment, ClampedValue aircraft = default, int improvementLevel = 0, int airProficiency = 0)
+        {
+            Equipment = equipment;
+            Aircraft = aircraft;
+            ImprovementLevel = improvementLevel;
+            AirProficiency = airProficiency;
+            UpdateCalculations();
+        }
     }
 }

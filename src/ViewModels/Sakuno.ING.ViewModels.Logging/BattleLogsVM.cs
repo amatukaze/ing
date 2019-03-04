@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Sakuno.ING.Composition;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Logger;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
@@ -9,6 +11,7 @@ using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Shell;
+using Sakuno.ING.ViewModels.Logging.Combat;
 
 namespace Sakuno.ING.ViewModels.Logging
 {
@@ -44,7 +47,28 @@ namespace Sakuno.ING.ViewModels.Logging
         public ShipInfo Drop { get; }
         public UseItemInfo UseItemDrop { get; }
 
-        //public void LoadDetail() => owner.shell.ShowViewWithParameter("BattleDetail", entity);
+        public void LoadDetail()
+        {
+            if (entity.Details is null) return;
+            var battle = new Battle
+            (
+                entity.Details.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
+                entity.Details.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
+                entity.CombinedFleetType,
+                entity.BattleKind
+            );
+            TryAppend(battle, entity.Details.FirstBattleDetail);
+            TryAppend(battle, entity.Details.SecondBattleDetail);
+            owner.shell.ShowViewWithParameter("BattleDetail", battle);
+        }
+
+        private void TryAppend(Battle battle, string json)
+        {
+            if (json is null) return;
+            var api = JsonConvert.DeserializeObject<BattleDetailJson>(json);
+            var raw = new RawBattle(api, TimeStamp < RawBattle.EnemyIdChangeTime);
+            battle.Append(owner.masterData, raw);
+        }
     }
 
     [Export(typeof(BattleLogsVM))]

@@ -14,6 +14,15 @@ namespace Sakuno.ING.Game.Models
 
         public bool IsMaxLevel { get; }
 
+        public Leveling(int level)
+        {
+            Level = level;
+            Experience = 0;
+            CurrentLevelExperience = 0;
+            NextLevelExperience = 0;
+            IsMaxLevel = false;
+        }
+
         public Leveling(int level, int experience, int currentLevelExperience, int nextLevelExperience, bool isMaxLevel)
         {
             Level = level;

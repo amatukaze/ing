@@ -1,6 +1,7 @@
 ﻿using System.Collections.Specialized;
 using Newtonsoft.Json.Linq;
 using Sakuno.ING.Game.Events.Combat;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
@@ -33,7 +34,8 @@ namespace Sakuno.ING.Game
         private BattleDetail ParseBattleDetail(HttpMessage message)
         {
             var detail = Response<JToken>(message);
-            return new BattleDetail(detail.ToObject<RawBattle>(jSerializer), detail);
+            var api = detail.ToObject<BattleDetailJson>(jSerializer);
+            return new BattleDetail(new RawBattle(api), detail);
         }
     }
 }
