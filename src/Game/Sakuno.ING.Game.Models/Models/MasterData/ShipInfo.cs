@@ -14,9 +14,8 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         partial void UpdateCore(RawShipInfo raw, DateTimeOffset timeStamp)
         {
-            if (Name.Origin != raw.Name ||
-                Name.Phonetic != raw.Phonetic ||
-                Name.AbyssalClass != raw.AbyssalClass)
+            if ((Name.Origin, Name.Phonetic, Name.AbyssalClass) !=
+                (raw.Name, raw.Phonetic, raw.AbyssalClass))
             {
                 Name.Origin = raw.Name;
                 Name.Phonetic = raw.Phonetic;

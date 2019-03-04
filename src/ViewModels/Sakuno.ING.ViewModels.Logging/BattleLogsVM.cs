@@ -29,31 +29,17 @@ namespace Sakuno.ING.ViewModels.Logging
         public MapInfo Map { get; }
         public string MapName => entity.MapName;
         public int RouteId => entity.RouteId;
-        public string WinRank
+        public string WinRank => entity.Rank switch
         {
-            get
-            {
-                switch (entity.Rank)
-                {
-                    case BattleRank.Perfect:
-                        return owner.rankPerfect;
-                    case BattleRank.S:
-                        return owner.rankS;
-                    case BattleRank.A:
-                        return owner.rankA;
-                    case BattleRank.B:
-                        return owner.rankB;
-                    case BattleRank.C:
-                        return owner.rankC;
-                    case BattleRank.D:
-                        return owner.rankD;
-                    case BattleRank.E:
-                        return owner.rankE;
-                    default:
-                        return null;
-                }
-            }
-        }
+            BattleRank.Perfect => owner.rankPerfect,
+            BattleRank.S => owner.rankS,
+            BattleRank.A => owner.rankA,
+            BattleRank.B => owner.rankB,
+            BattleRank.C => owner.rankC,
+            BattleRank.D => owner.rankD,
+            BattleRank.E => owner.rankE,
+            _ => null
+        };
         public string EnemyFleetName => entity.EnemyFleetName;
         public ShipInfo Drop { get; }
         public UseItemInfo UseItemDrop { get; }

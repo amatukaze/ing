@@ -24,23 +24,13 @@ namespace Sakuno.ING.ViewModels.Logging
 
         public DateTimeOffset TimeStamp => entity.TimeStamp;
         public ExpeditionInfo Expedition { get; }
-        public string Result
+        public string Result => entity.Result switch
         {
-            get
-            {
-                switch (entity.Result)
-                {
-                    case ExpeditionResult.Fail:
-                        return owner.fail;
-                    case ExpeditionResult.Success:
-                        return owner.success;
-                    case ExpeditionResult.GreatSuccess:
-                        return owner.greatSuccess;
-                    default:
-                        return null;
-                }
-            }
-        }
+            ExpeditionResult.Fail => owner.fail,
+            ExpeditionResult.Success => owner.success,
+            ExpeditionResult.GreatSuccess => owner.greatSuccess,
+            _ => null
+        };
         public Materials MaterialsAcquired => entity.MaterialsAcquired;
         public UseItemRecord? RewardItem1 => entity.RewardItem1;
         public UseItemRecord? RewardItem2 => entity.RewardItem2;

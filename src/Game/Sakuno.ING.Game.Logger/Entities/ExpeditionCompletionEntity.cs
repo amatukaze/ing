@@ -37,13 +37,15 @@ namespace Sakuno.ING.Game.Logger.Entities
         [NotMapped]
         public UseItemRecord? RewardItem1
         {
-            get => (RewardItem1_ItemId is int id
-                && RewardItem1_Count is int count) ?
-                new UseItemRecord
+            get => (RewardItem1_ItemId, RewardItem1_Count) switch
+            {
+                (int id, int count) => new UseItemRecord
                 {
                     ItemId = (UseItemId)id,
                     Count = count
-                } : (UseItemRecord?)null;
+                },
+                _ => (UseItemRecord?)null
+            };
             set
             {
                 RewardItem1_ItemId = value?.ItemId;
@@ -56,13 +58,15 @@ namespace Sakuno.ING.Game.Logger.Entities
         [NotMapped]
         public UseItemRecord? RewardItem2
         {
-            get => (RewardItem2_ItemId is int id
-                && RewardItem2_Count is int count) ?
-                new UseItemRecord
+            get => (RewardItem2_ItemId, RewardItem2_Count) switch
+            {
+                (int id, int count) => new UseItemRecord
                 {
                     ItemId = (UseItemId)id,
                     Count = count
-                } : (UseItemRecord?)null;
+                },
+                _ => (UseItemRecord?)null
+            };
             set
             {
                 RewardItem2_ItemId = value?.ItemId;

@@ -18,41 +18,21 @@ namespace Sakuno.ING.Game.Models
                 return;
             }
 
-            double losFactor = 0.6, losImprovementFactor = 0;
-            int[] afpBonusTable = null;
-            switch ((KnownEquipmentType)Equipment.Type.Id)
+            (double losFactor, double losImprovementFactor, int[] afpBonusTable) = (KnownEquipmentType)Equipment.Type.Id switch
             {
-                case KnownEquipmentType.FighterAircraft:
-                case KnownEquipmentType.SeaplaneFighter:
-                    afpBonusTable = afpBonus2;
-                    break;
-                case KnownEquipmentType.DiveBomber:
-                case KnownEquipmentType.JetBomber:
-                    afpBonusTable = afpBonus0;
-                    break;
-                case KnownEquipmentType.TorpedoBomber:
-                    losFactor = 0.8;
-                    afpBonusTable = afpBonus0;
-                    break;
-                case KnownEquipmentType.ReconnaissanceAircraft:
-                    losFactor = 1;
-                    break;
-                case KnownEquipmentType.ReconnaissanceSeaplane:
-                    losFactor = 1.2;
-                    losImprovementFactor = 1.2;
-                    break;
-                case KnownEquipmentType.SeaplaneBomber:
-                    losFactor = 1.1;
-                    afpBonusTable = afpBonus1;
-                    break;
-                case KnownEquipmentType.SmallRadar:
-                    losImprovementFactor = 1.25;
-                    break;
-                case KnownEquipmentType.LargeRadar:
-                case KnownEquipmentType.VeryLargeRadar:
-                    losImprovementFactor = 1.4;
-                    break;
-            }
+                KnownEquipmentType.FighterAircraft => (0.6, 0d, afpBonus2),
+                KnownEquipmentType.SeaplaneFighter => (0.6, 0d, afpBonus2),
+                KnownEquipmentType.DiveBomber => (0.6, 0d, afpBonus0),
+                KnownEquipmentType.JetBomber => (0.6, 0d, afpBonus0),
+                KnownEquipmentType.TorpedoBomber => (0.8, 0d, afpBonus0),
+                KnownEquipmentType.ReconnaissanceAircraft => (1, 0d, null),
+                KnownEquipmentType.ReconnaissanceSeaplane => (1.2, 1.2, null),
+                KnownEquipmentType.SeaplaneBomber => (1.1, 0d, afpBonus1),
+                KnownEquipmentType.SmallRadar => (0.6, 1.25, null),
+                KnownEquipmentType.LargeRadar => (0.6, 1.4, null),
+                KnownEquipmentType.VeryLargeRadar => (0.6, 1.4, null),
+                _ => (0.6, 0d, null)
+            };
 
             EffectiveLoS = losFactor * (Equipment.LineOfSight + ImprovementLevel * losImprovementFactor);
             if (afpBonusTable == null || Aircraft.Current == 0)
@@ -62,7 +42,7 @@ namespace Sakuno.ING.Game.Models
                 double afpRaw = Equipment.AntiAir * Math.Sqrt(Aircraft.Current);
                 AirFightPower = new AirFightPower(afpRaw,
                     afpRaw + Math.Sqrt(airProficiencyCore[AirProficiency] / 10.0) + afpBonusTable[AirProficiency],
-                    afpRaw + Math.Sqrt((airProficiencyCore[AirProficiency + 1] - 1) / 10.0) + afpBonusTable[AirProficiency]);
+                            afpRaw + Math.Sqrt((airProficiencyCore[AirProficiency + 1] - 1) / 10.0) + afpBonusTable[AirProficiency]);
             }
         }
     }

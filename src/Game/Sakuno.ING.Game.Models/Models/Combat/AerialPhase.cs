@@ -16,20 +16,13 @@
             public BattleParticipant MapShip(int index, bool isEnemy)
                 => (isEnemy ? enemy : ally).FindShip(index);
 
-            public AttackType MapType(int rawType)
+            public AttackType MapType(int rawType) => rawType switch
             {
-                switch (rawType)
-                {
-                    case RawAerialPhase.BombFlag:
-                        return AttackType.AerialBomb;
-                    case RawAerialPhase.TorpedoFlag:
-                        return AttackType.AerialTorpedo;
-                    case RawAerialPhase.BombFlag | RawAerialPhase.TorpedoFlag:
-                        return AttackType.AerialBoth;
-                    default:
-                        return AttackType.Unknown;
-                }
-            }
+                RawAerialPhase.BombFlag => AttackType.AerialBomb,
+                RawAerialPhase.TorpedoFlag => AttackType.AerialTorpedo,
+                RawAerialPhase.BombFlag | RawAerialPhase.TorpedoFlag => AttackType.AerialBoth,
+                _ => AttackType.Unknown
+            };
         }
 
         public AerialPhase(int index, MasterDataRoot masterData, Side ally, Side enemy, RawAerialPhase raw, bool isJet = false)

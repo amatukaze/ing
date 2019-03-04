@@ -50,19 +50,23 @@
 
             listener.BattleStarted += (t, m) =>
             {
-                if (State == BattleState.Routing)
-                    State = BattleState.SortieDay;
-                else if (State == BattleState.BeforePractice)
-                    State = BattleState.PracticeDay;
+                State = State switch
+                {
+                    BattleState.Routing => BattleState.SortieDay,
+                    BattleState.BeforePractice => BattleState.PracticeDay,
+                    var other => other
+                };
                 CurrentBattle.Append(this.navalBase.MasterData, m.Parsed);
             };
 
             listener.BattleAppended += (t, m) =>
             {
-                if (State == BattleState.SortieDay)
-                    State = BattleState.SortieNight;
-                else if (State == BattleState.PracticeDay)
-                    State = BattleState.PracticeNight;
+                State = State switch
+                {
+                    BattleState.SortieDay => BattleState.SortieNight,
+                    BattleState.PracticeDay => BattleState.PracticeNight,
+                    var other => other
+                };
                 CurrentBattle.Append(this.navalBase.MasterData, m.Parsed);
             };
 

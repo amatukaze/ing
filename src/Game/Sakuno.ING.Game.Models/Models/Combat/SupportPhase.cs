@@ -37,21 +37,14 @@ namespace Sakuno.ING.Game.Models.Combat
             AerialFightingResult = raw.FightingResult;
         }
 
-        private static AttackType MapTypeStatic(SupportFireType type)
+        private static AttackType MapTypeStatic(SupportFireType type) => type switch
         {
-            switch (type)
-            {
-                case SupportFireType.Shelling:
-                    return AttackType.SupportShelling;
-                case SupportFireType.Torpedo:
-                    return AttackType.SupportTorpedo;
-                case SupportFireType.Aerial:
-                case SupportFireType.AntiSubmarine:
-                    return AttackType.SupportAerial;
-                default:
-                    return AttackType.Unknown;
-            }
-        }
+            SupportFireType.Shelling => AttackType.SupportShelling,
+            SupportFireType.Torpedo => AttackType.SupportTorpedo,
+            SupportFireType.Aerial => AttackType.SupportAerial,
+            SupportFireType.AntiSubmarine => AttackType.SupportAerial,
+            _ => AttackType.Unknown
+        };
 
         public SupportFireType Type { get; }
         public AerialSide AerialAlly { get; }

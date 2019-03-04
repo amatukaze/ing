@@ -111,34 +111,21 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     MapName = s[2],
                     RouteId = int.Parse(s[3]),
                     EventKind = bool.Parse(s[4]) ? MapEventKind.Boss : MapEventKind.Battle,
-                    Rank = SwitchRank(s[5]),
+                    Rank = s[5] switch
+                    {
+                        "Perfect" => BattleRank.Perfect,
+                        "S" => BattleRank.S,
+                        "A" => BattleRank.A,
+                        "B" => BattleRank.B,
+                        "C" => BattleRank.C,
+                        "D" => BattleRank.D,
+                        "E" => BattleRank.E,
+                        _ => throw new InvalidCastException()
+                    },
                     EnemyFleetName = s[6],
                     ShipDropped = int.Parse(s[7]) > 0 ? (ShipInfoId)int.Parse(s[7]) : (ShipInfoId?)null,
                     UseItemAcquired = int.Parse(s[8]) > 0 ? (UseItemId)int.Parse(s[8]) : (UseItemId?)null
                 })).ToDictionary(x => x.TimeStamp);
-
-            BattleRank SwitchRank(string text)
-            {
-                switch (text)
-                {
-                    case "Perfect":
-                        return BattleRank.Perfect;
-                    case "S":
-                        return BattleRank.S;
-                    case "A":
-                        return BattleRank.A;
-                    case "B":
-                        return BattleRank.B;
-                    case "C":
-                        return BattleRank.C;
-                    case "D":
-                        return BattleRank.D;
-                    case "E":
-                        return BattleRank.E;
-                    default:
-                        return default;
-                }
-            }
 
             var folder = source as IFolderFacade ?? throw new ArgumentException("Source must be a folder.");
             var details = await folder.GetFolderAsync("battlelog");
@@ -179,29 +166,18 @@ namespace Sakuno.ING.Game.Logger.Migrators
                         e.BattleKind = log.startnext.data.api_data.api_event_kind;
                         if (log.startnext?.data?.api_data?.api_destruction_battle != null)
                             e.Details.LandBaseDefence = log.startnext.data.api_data.api_destruction_battle.ToString(Formatting.None);
-                        switch (log.battle?.api)
+                        e.CombinedFleetType = log.battle?.api switch
                         {
-                            case "api_req_sortie/battle":
-                            case "api_req_battle_midnight/sp_midnight":
-                            case "api_req_sortie/airbattle":
-                            case "api_req_sortie/ld_airbattle":
-                            case "api_req_sortie/ld_shooting":
-                            case "api_req_combined_battle/ec_battle":
-                                e.CombinedFleetType = CombinedFleetType.None;
-                                break;
-                            case "api_req_combined_battle/airbattle":
-                            case "api_req_combined_battle/battle":
-                            case "api_req_combined_battle/sp_midnight":
-                            case "api_req_combined_battle/each_battle":
-                            case "api_req_combined_battle/ld_airbattle":
-                            case "api_req_combined_battle/ld_shooting":
-                                e.CombinedFleetType = CombinedFleetType.CarrierTaskForceFleet;
-                                break;
-                            case "api_req_combined_battle/battle_water":
-                            case "api_req_combined_battle/each_battle_water":
-                                e.CombinedFleetType = CombinedFleetType.SurfaceTaskForceFleet;
-                                break;
-                        }
+                            "api_req_combined_battle/airbattle" => CombinedFleetType.CarrierTaskForceFleet,
+                            "api_req_combined_battle/battle" => CombinedFleetType.CarrierTaskForceFleet,
+                            "api_req_combined_battle/sp_midnight" => CombinedFleetType.CarrierTaskForceFleet,
+                            "api_req_combined_battle/each_battle" => CombinedFleetType.CarrierTaskForceFleet,
+                            "api_req_combined_battle/ld_airbattle" => CombinedFleetType.CarrierTaskForceFleet,
+                            "api_req_combined_battle/ld_shooting" => CombinedFleetType.CarrierTaskForceFleet,
+                            "api_req_combined_battle/battle_water" => CombinedFleetType.SurfaceTaskForceFleet,
+                            "api_req_combined_battle/each_battle_water" => CombinedFleetType.SurfaceTaskForceFleet,
+                            _ => CombinedFleetType.None
+                        };
                         if (log.battle?.data.api_data != null)
                             e.Details.FirstBattleDetail = log.battle.data.api_data.ToString(Formatting.None);
                         if (log.nightbattle?.data.api_data != null)

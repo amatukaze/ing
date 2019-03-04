@@ -81,38 +81,22 @@ namespace Sakuno.ING.Game.Models.Combat
             Index = -1;
         }
 
-        private static AttackType MapTypeStatic(int rawType)
+        private static AttackType MapTypeStatic(int rawType) => rawType switch
         {
-            switch (rawType)
-            {
-                case 0:
-                    return AttackType.NightShelling;
-                case 1:
-                    return AttackType.NightDoubleShelling;
-                case 2:
-                    return AttackType.NightCutInMT;
-                case 3:
-                    return AttackType.NightCutInTT;
-                case 4:
-                    return AttackType.NightCutInMMS;
-                case 5:
-                    return AttackType.NightCutInMMM;
-                case 6:
-                    return AttackType.NightAerialCutIn;
-                case 7:
-                    return AttackType.NightDestroyerMTR;
-                case 8:
-                    return AttackType.NightDestroyerTRP;
-                case 100:
-                    return AttackType.NelsonTouch;
-                case 101:
-                    return AttackType.NagatoShoot;
-                case 102:
-                    return AttackType.MutsuShoot;
-                default:
-                    return AttackType.Unknown;
-            }
-        }
+            0 => AttackType.NightShelling,
+            1 => AttackType.NightDoubleShelling,
+            2 => AttackType.NightCutInMT,
+            3 => AttackType.NightCutInTT,
+            4 => AttackType.NightCutInMMS,
+            5 => AttackType.NightCutInMMM,
+            6 => AttackType.NightAerialCutIn,
+            7 => AttackType.NightDestroyerMTR,
+            8 => AttackType.NightDestroyerTRP,
+            100 => AttackType.NelsonTouch,
+            101 => AttackType.NagatoShoot,
+            102 => AttackType.MutsuShoot,
+            _ => AttackType.Unknown
+        };
 
         public int Index { get; }
         public NightEffects Ally { get; }

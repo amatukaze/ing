@@ -43,33 +43,19 @@ namespace Sakuno.ING.Game.Models.Combat
 
         public int Index { get; }
 
-        private static AttackType MapTypeStatic(int rawType)
+        private static AttackType MapTypeStatic(int rawType) => rawType switch
         {
-            switch (rawType)
-            {
-                case 0:
-                    return AttackType.DayShelling;
-                case 2:
-                    return AttackType.DayDoubleShelling;
-                case 3:
-                    return AttackType.DayCutInMS;
-                case 4:
-                    return AttackType.DayCutInMR;
-                case 5:
-                    return AttackType.DayCutInMAp;
-                case 6:
-                    return AttackType.DayCutInMM;
-                case 7:
-                    return AttackType.DayAerialCutIn;
-                case 100:
-                    return AttackType.NelsonTouch;
-                case 101:
-                    return AttackType.NagatoShoot;
-                case 102:
-                    return AttackType.MutsuShoot;
-                default:
-                    return AttackType.Unknown;
-            }
-        }
+            0 => AttackType.DayShelling,
+            2 => AttackType.DayDoubleShelling,
+            3 => AttackType.DayCutInMS,
+            4 => AttackType.DayCutInMR,
+            5 => AttackType.DayCutInMAp,
+            6 => AttackType.DayCutInMM,
+            7 => AttackType.DayAerialCutIn,
+            100 => AttackType.NelsonTouch,
+            101 => AttackType.NagatoShoot,
+            102 => AttackType.MutsuShoot,
+            _ => AttackType.Unknown
+        };
     }
 }
