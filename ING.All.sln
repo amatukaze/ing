@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		src\SharedAssemblyInfo.cs = src\SharedAssemblyInfo.cs
 		src\SharedAssemblyInfo.vb = src\SharedAssemblyInfo.vb
 		src\UWP.props = src\UWP.props
+		src\UWPBridge.props = src\UWPBridge.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{51A97823-F0E6-42BE-B01B-F6686C1C4BD1}"
