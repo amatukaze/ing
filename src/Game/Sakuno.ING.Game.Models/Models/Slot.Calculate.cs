@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game.Models
         private static readonly int[] airProficiencyCore = { 0, 10, 25, 40, 55, 70, 85, 100, 121 };
         private void UpdateCalculations()
         {
-            if (Equipment is null)
+            if (Equipment?.Type is null)
             {
                 AirFightPower = default;
                 EffectiveLoS = 0;

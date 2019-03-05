@@ -19,21 +19,6 @@ namespace Sakuno.ING.Game.Models.Combat
             public AttackType MapType(int rawType) => MapTypeStatic(rawType);
         }
 
-        private readonly struct OldBuilder : IBattlePhaseBuilder
-        {
-            private readonly IReadOnlyList<BattleParticipant> ally, enemy;
-
-            public OldBuilder(IReadOnlyList<BattleParticipant> ally, IReadOnlyList<BattleParticipant> enemy)
-            {
-                this.ally = ally;
-                this.enemy = enemy;
-            }
-
-            public BattleParticipant MapShip(int index, bool isEnemy)
-                => index < 6 ? ally[index] : enemy[index - 6];
-            public AttackType MapType(int rawType) => MapTypeStatic(rawType);
-        }
-
         private readonly struct CombinedBuilder : IBattlePhaseBuilder
         {
             private readonly IReadOnlyList<BattleParticipant> ally;
@@ -64,9 +49,7 @@ namespace Sakuno.ING.Game.Models.Combat
         }
 
         public NightPhase(int index, MasterDataRoot masterData, Side ally, Side enemy, RawNightPhase raw, bool combined)
-            : base(raw.OldSchema
-                  ? Initialze(masterData, raw, new OldBuilder(ally.Fleet2 ?? ally.Fleet, enemy.Fleet))
-                  : combined
+            : base(combined
                   ? Initialze(masterData, raw, new CombinedBuilder(ally.Fleet, enemy))
                   : Initialze(masterData, raw, new Builder(SelectFleet(ally, raw.Ally.ActiveFleet), SelectFleet(enemy, raw.Enemy.ActiveFleet))))
         {

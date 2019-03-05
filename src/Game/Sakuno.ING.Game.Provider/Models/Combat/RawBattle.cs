@@ -163,6 +163,7 @@ namespace Sakuno.ING.Game.Models.Combat
                     s.Id = (ShipInfoId)sid;
                 }
                 if (lv != default) s.Level = lv[i];
+                result.Add(s);
             }
             return result;
         }

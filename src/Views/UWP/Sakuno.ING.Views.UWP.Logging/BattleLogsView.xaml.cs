@@ -12,6 +12,7 @@ namespace Sakuno.ING.Views.UWP.Logging
         {
             ViewModel = viewModel;
             this.InitializeComponent();
+            Unloaded += (s, e) => ViewModel.Dispose();
         }
     }
 }

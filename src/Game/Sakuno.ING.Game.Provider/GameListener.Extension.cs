@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
@@ -12,6 +13,9 @@ namespace Sakuno.ING.Game
 {
     public partial class GameProvider
     {
+        public T Deserialize<T>(string json)
+            => jSerializer.Deserialize<T>(new JsonTextReader(new StringReader(json)));
+
         private T Convert<T>(ReadOnlyMemory<char> response)
             => jSerializer.Deserialize<T>(new JsonTextReader(new MemoryReader(response)));
 

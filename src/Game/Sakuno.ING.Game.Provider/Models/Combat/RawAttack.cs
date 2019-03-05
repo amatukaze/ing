@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
@@ -10,7 +11,7 @@ namespace Sakuno.ING.Game.Models.Combat
             SourceIndex = sourceIndex;
             EnemyAttacks = enemyAttacks;
             Type = type;
-            EquipmentUsed = equipmentUsed;
+            EquipmentUsed = equipmentUsed ?? Array.Empty<EquipmentInfoId>();
         }
 
         public int? SourceIndex { get; }

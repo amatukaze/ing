@@ -31,7 +31,7 @@ namespace Sakuno.ING.Game.Models.Combat
             }
 
             public BattleParticipant MapShip(int index, bool isEnemy)
-                => index < 6 ? ally[index] : enemy[index - 6];
+                => (isEnemy ? enemy : ally)[index];
             public AttackType MapType(int rawType) => MapTypeStatic(rawType);
         }
 

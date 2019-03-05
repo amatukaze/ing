@@ -62,6 +62,14 @@
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
+                <tk:DataGridTemplateColumn>
+                    <tk:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="vm:BattleVM">
+                            <Button Content="Detail"
+                                    Tapped="{x:Bind LoadDetail}" />
+                        </DataTemplate>
+                    </tk:DataGridTemplateColumn.CellTemplate>
+                </tk:DataGridTemplateColumn>
             </tk:DataGrid.Columns>
         </tk:DataGrid>
     </Grid>

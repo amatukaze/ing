@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
 using Sakuno.ING.Composition;
+using Sakuno.ING.Game;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Logger;
 using Sakuno.ING.Game.Logger.Entities.Combat;
@@ -53,36 +53,39 @@ namespace Sakuno.ING.ViewModels.Logging
             var battle = new Battle
             (
                 entity.Details.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
-                entity.Details.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
+                entity.Details.SortieFleet2State?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
                 entity.CombinedFleetType,
                 entity.BattleKind
             );
             TryAppend(battle, entity.Details.FirstBattleDetail);
             TryAppend(battle, entity.Details.SecondBattleDetail);
-            owner.shell.ShowViewWithParameter("BattleDetail", battle);
+            owner.shell.ShowViewWithParameter("BattleLogDetail", battle);
         }
 
         private void TryAppend(Battle battle, string json)
         {
             if (json is null) return;
-            var api = JsonConvert.DeserializeObject<BattleDetailJson>(json);
+            var api = owner.provider.Deserialize<BattleDetailJson>(json);
             var raw = new RawBattle(api, TimeStamp < RawBattle.EnemyIdChangeTime);
             battle.Append(owner.masterData, raw);
         }
     }
 
     [Export(typeof(BattleLogsVM))]
-    public class BattleLogsVM : LogsVM<BattleVM>
+    public class BattleLogsVM : LogsVM<BattleVM>, IDisposable
     {
         private readonly Logger logger;
+        internal readonly GameProvider provider;
         private readonly ILocalizationService localization;
         internal readonly IShell shell;
         internal readonly MasterDataRoot masterData;
         internal readonly string rankPerfect, rankS, rankA, rankB, rankC, rankD, rankE;
+        private LoggerContext context;
 
-        public BattleLogsVM(Logger logger, NavalBase navalBase, ILocalizationService localization, IShell shell)
+        public BattleLogsVM(Logger logger, NavalBase navalBase, GameProvider provider, ILocalizationService localization, IShell shell)
         {
             this.logger = logger;
+            this.provider = provider;
             masterData = navalBase.MasterData;
             this.localization = localization;
             this.shell = shell;
@@ -105,12 +108,23 @@ namespace Sakuno.ING.ViewModels.Logging
                     x => x.WinRank.GetHashCode(),
                     x => x.WinRank),
             };
+
         private protected override IReadOnlyCollection<BattleVM> GetEntities()
         {
             if (!logger.PlayerLoaded) return Array.Empty<BattleVM>();
-            using (var context = logger.CreateContext())
-                return context.BattleTable.AsEnumerable()
-                    .Select(e => new BattleVM(this, e)).ToList();
+            if (context is null)
+                context = logger.CreateContext();
+            return context.BattleTable.AsEnumerable()
+                .Select(e => new BattleVM(this, e)).ToList();
+        }
+
+        public void Dispose()
+        {
+            if (context != null)
+            {
+                context.Dispose();
+                context = null;
+            }
         }
     }
 }

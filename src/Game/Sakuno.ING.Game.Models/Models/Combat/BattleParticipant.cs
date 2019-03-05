@@ -5,6 +5,7 @@ namespace Sakuno.ING.Game.Models.Combat
 {
     public partial class BattleParticipant : BindableObject
     {
+        private bool loaded;
         public BattleParticipant(int oneBasedIndex, Ship ship)
         {
             OneBasedIndex = oneBasedIndex;
@@ -12,10 +13,18 @@ namespace Sakuno.ING.Game.Models.Combat
             FromHP = ToHP = ship.HP;
         }
 
-        public void Load(RawShipInBattle raw) => IsEscaped = raw.IsEscaped;
+        public void Load(RawShipInBattle raw)
+        {
+            IsEscaped = raw.IsEscaped;
+            if (!loaded)
+                if (FromHP == default)
+                    FromHP = ToHP = raw.HP;
+            loaded = true;
+        }
 
         public BattleParticipant(int oneBasedIndex, Ship ship, RawShipInBattle raw, bool isEnemy)
         {
+            loaded = true;
             OneBasedIndex = oneBasedIndex;
             Ship = ship;
             ToHP = FromHP = raw.HP;
@@ -26,7 +35,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public int OneBasedIndex { get; }
         public Ship Ship { get; }
         public bool IsEnemy { get; }
-        public ShipHP FromHP { get; }
+        public ShipHP FromHP { get; private set; }
         public ShipHP ToHP { get; private set; }
         public bool IsSunk => ToHP.Current <= 0;
         public bool Recovored { get; private set; }
@@ -41,10 +50,10 @@ namespace Sakuno.ING.Game.Models.Combat
             if (IsSunk && !IsEnemy)
             {
                 EquipmentInfo damageControl = null;
-                if (Ship.ExtraEquipment?.Equipment?.Type.Id == KnownEquipmentType.DamageControl)
+                if (Ship.ExtraEquipment?.Equipment?.Type?.Id == KnownEquipmentType.DamageControl)
                     damageControl = Ship.ExtraEquipment.Equipment;
                 else foreach (var slot in Ship.Equipment)
-                        if (slot.Equipment?.Type.Id == KnownEquipmentType.DamageControl)
+                        if (slot.Equipment?.Type?.Id == KnownEquipmentType.DamageControl)
                         {
                             damageControl = slot.Equipment;
                             break;
@@ -68,6 +77,7 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             using (EnterBatchNotifyScope())
             {
+                NotifyPropertyChanged(nameof(FromHP));
                 NotifyPropertyChanged(nameof(ToHP));
                 NotifyPropertyChanged(nameof(IsSunk));
                 NotifyPropertyChanged(nameof(Recovored));
