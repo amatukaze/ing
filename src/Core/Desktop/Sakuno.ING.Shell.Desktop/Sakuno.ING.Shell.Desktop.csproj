@@ -1,5 +1,7 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras">
 
+  <Import Project="$(BasePath)src\UWPBridge.props" />
+
   <PropertyGroup>
     <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
     <Version>0.1.0-blueprint</Version>
@@ -9,10 +11,13 @@
 
   <ItemGroup>
     <Compile Include="$(BasePath)src\Core\Shared\LayoutTypes.cs" />
+    <Compile Include="$(BasePath)src\Core\Shared\ToastNotifier.Shared.cs" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
     <PackageReference Include="Sakuno.UserInterface" Version="0.3.0-pre7" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="5.1.0" />
   </ItemGroup>
 
   <ItemGroup>

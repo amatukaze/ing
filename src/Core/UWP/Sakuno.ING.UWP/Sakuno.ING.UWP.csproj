@@ -71,6 +71,7 @@
     <Compile Include="SubView.xaml.cs">
       <DependentUpon>SubView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ToastNotifier.cs" />
     <Compile Include="UWPHttpProviderSelector.cs" />
     <Compile Include="UWPShellContext.cs" />
     <Compile Include="UWPShell.cs" />
@@ -139,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(BasePath)src\Core\Shared\LayoutTypes.cs" />
+    <Compile Include="$(BasePath)src\Core\Shared\ToastNotifier.Shared.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(BasePath)Localization\locales\*.json">
@@ -214,6 +216,11 @@
       <Project>{e5d369e8-b344-410c-8d1a-c87e9c621c80}</Project>
       <Name>Sakuno.ING.Views.UWP.Settings</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>5.1.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <ProjectExtensions />

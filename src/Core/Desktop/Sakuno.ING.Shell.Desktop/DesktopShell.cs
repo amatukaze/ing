@@ -31,6 +31,8 @@ namespace Sakuno.ING.Shell.Desktop
                 userFont = new FontFamily(userFontName);
         }
 
+        public event Action Exited;
+
         public void Run()
         {
             var app = new ThemedApp
@@ -65,6 +67,7 @@ namespace Sakuno.ING.Shell.Desktop
                 }
             };
 
+            app.Exit += (s, e) => Exited?.Invoke();
             app.Run();
         }
 
