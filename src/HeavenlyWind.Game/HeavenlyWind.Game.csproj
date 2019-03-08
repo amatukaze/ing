@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.Game</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.Core\HeavenlyWind.Core.csproj" />
+  </ItemGroup>
+
+</Project>

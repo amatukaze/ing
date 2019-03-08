@@ -1,0 +1,17 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <OutputType>Library</OutputType>
+    <LangVersion>8.0</LangVersion>
+    <BaseOutputPath>$(BasePath)artifacts\$(MSBuildProjectName)\</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(BasePath)intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <Authors>Kodama Sakuno</Authors>
+    <Product>Intelligent Naval Gun</Product>
+    <Company>Kodama Sakuno</Company>
+    <Copyright>Copyright © 2016-2019 Kodama Sakuno</Copyright>
+  </PropertyGroup>
+
+</Project>

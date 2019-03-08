@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Sakuno.ING</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.9.1" />
+    <PackageReference Include="Sakuno.SystemLayer" Version="0.3.2" />
+    <PackageReference Include="Sakuno.UserInterface" Version="0.3.0-pre7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.Game\HeavenlyWind.Game.csproj" />
+  </ItemGroup>
+
+</Project>
