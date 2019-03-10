@@ -7,6 +7,7 @@
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:vm="using:Sakuno.ING.ViewModels.Logging"
     xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Logging"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -15,29 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ItemsControl ItemsSource="{x:Bind ViewModel.Filters}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate x:DataType="vm:IFilterVM">
-                    <StackPanel Orientation="Vertical">
-                        <ToggleSwitch Header="{x:Bind Name}"
-                                      IsOn="{x:Bind IsEnabled, Mode=TwoWay}" />
-                        <ComboBox ItemsSource="{x:Bind Candidates}"
-                                  SelectedItem="{x:Bind SelectedText, Mode=TwoWay}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate x:DataType="x:String">
-                                    <TextBlock Text="{x:Bind}" />
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <local:LogFilterControl ViewModel="{x:Bind ViewModel.Filters, Mode=OneTime}" />
         <tk:DataGrid Grid.Row="1" ItemsSource="{x:Bind ViewModel.Entities}"
                      FrozenColumnCount="1" AutoGenerateColumns="False">
             <tk:DataGrid.Columns>

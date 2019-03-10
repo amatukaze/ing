@@ -1,0 +1,7 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:themes="using:Sakuno.ING.Views.UWP.Logging.Themes">
+    <ResourceDictionary.MergedDictionaries>
+        <themes:LogFilter />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

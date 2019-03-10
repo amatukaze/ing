@@ -1,0 +1,40 @@
+﻿<ResourceDictionary
+    x:Class="Sakuno.ING.Views.UWP.Logging.Themes.LogFilter"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Logging"
+    xmlns:vm="using:Sakuno.ING.ViewModels.Logging">
+    <!-- TODO: move inside ControlTemplate after min version >= 17763 -->
+    <DataTemplate x:DataType="vm:IFilterVM" x:Key="LogFilterTemplate">
+        <StackPanel Orientation="Vertical">
+            <ToggleSwitch Header="{x:Bind Name}"
+                          IsOn="{x:Bind IsEnabled, Mode=TwoWay}" />
+            <ComboBox ItemsSource="{x:Bind Candidates}"
+                      SelectedItem="{x:Bind SelectedText, Mode=TwoWay}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <TextBlock Text="{x:Bind}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+    </DataTemplate>
+    <Style TargetType="local:LogFilterControl" >
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:LogFilterControl">
+                    <ItemsControl ItemsSource="{Binding ViewModel, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                  ItemTemplate="{StaticResource LogFilterTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

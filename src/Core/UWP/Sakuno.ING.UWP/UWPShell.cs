@@ -162,9 +162,5 @@ namespace Sakuno.ING.UWP
             });
             await ApplicationViewSwitcher.TryShowAsStandaloneAsync(appViewId);
         }
-
-        void IShell.Run() => throw new NotImplementedException();
-        void IShell.SwitchWindow(string windowId) => throw new NotImplementedException();
-        void IShell.ShowViewWithParameter<T>(string viewId, T parameter) => throw new NotImplementedException();
     }
 }
