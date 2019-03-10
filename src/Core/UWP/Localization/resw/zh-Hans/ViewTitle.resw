@@ -30,6 +30,9 @@
   <data name="ExpeditionCompletionLogs">
     <value>远征记录</value>
   </data>
+  <data name="BattleLogs">
+    <value>战斗/掉落记录</value>
+  </data>
   <data name="Admiral">
     <value>司令部信息</value>
   </data>

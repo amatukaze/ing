@@ -63,6 +63,9 @@
   <data name="LogMigration_ExpeditionCompletion.Header">
     <value>Expedition record</value>
   </data>
+  <data name="LogMigration_BattleAndDrop.Header">
+    <value>Drop/battle record</value>
+  </data>
   <data name="LogMigration_DoMigrate.Content">
     <value>Import</value>
   </data>
@@ -113,6 +116,27 @@
   </data>
   <data name="Logging_Column_Item2.Header">
     <value>Item2</value>
+  </data>
+  <data name="Logging_Column_MapId.Header">
+    <value>Map</value>
+  </data>
+  <data name="Logging_Column_MapName.Header">
+    <value>Map name</value>
+  </data>
+  <data name="Logging_Column_RouteId.Header">
+    <value>Point</value>
+  </data>
+  <data name="Logging_Column_EnemyFleetName.Header">
+    <value>Enemy fleet</value>
+  </data>
+  <data name="Logging_Column_Rank.Header">
+    <value>Victory Rank</value>
+  </data>
+  <data name="Logging_Column_ShipDrop.Header">
+    <value>Dropped ship</value>
+  </data>
+  <data name="Logging_Column_UseItemDrop.Header">
+    <value>Dropped item</value>
   </data>
   <data name="ShipsCount.Text">
     <value>Ships count: </value>

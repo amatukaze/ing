@@ -183,4 +183,7 @@
   <data name="FleetState_Detail_Insufficient">
     <value>Supply required</value>
   </data>
+  <data name="Details">
+    <value>Details</value>
+  </data>
 </root>

@@ -30,19 +30,11 @@ namespace Sakuno.ING.ViewModels.Logging
 
         public DateTimeOffset TimeStamp => entity.TimeStamp;
         public MapInfo Map { get; }
+        public MapId MapId => entity.MapId;
         public string MapName => entity.MapName;
         public int RouteId => entity.RouteId;
-        public string WinRank => entity.Rank switch
-        {
-            BattleRank.Perfect => owner.rankPerfect,
-            BattleRank.S => owner.rankS,
-            BattleRank.A => owner.rankA,
-            BattleRank.B => owner.rankB,
-            BattleRank.C => owner.rankC,
-            BattleRank.D => owner.rankD,
-            BattleRank.E => owner.rankE,
-            _ => null
-        };
+        public BattleRank? Rank => entity.Rank;
+        public string RankText => owner.FormatRank(Rank);
         public string EnemyFleetName => entity.EnemyFleetName;
         public ShipInfo Drop { get; }
         public UseItemInfo UseItemDrop { get; }
@@ -71,7 +63,7 @@ namespace Sakuno.ING.ViewModels.Logging
         }
     }
 
-    [Export(typeof(BattleLogsVM))]
+    [Export(typeof(BattleLogsVM), SingleInstance = false)]
     public class BattleLogsVM : LogsVM<BattleVM>, IDisposable
     {
         private readonly Logger logger;
@@ -79,7 +71,7 @@ namespace Sakuno.ING.ViewModels.Logging
         private readonly ILocalizationService localization;
         internal readonly IShell shell;
         internal readonly MasterDataRoot masterData;
-        internal readonly string rankPerfect, rankS, rankA, rankB, rankC, rankD, rankE;
+        private readonly string rankPerfect, rankS, rankA, rankB, rankC, rankD, rankE;
         private LoggerContext context;
 
         public BattleLogsVM(Logger logger, NavalBase navalBase, GameProvider provider, ILocalizationService localization, IShell shell)
@@ -89,24 +81,36 @@ namespace Sakuno.ING.ViewModels.Logging
             masterData = navalBase.MasterData;
             this.localization = localization;
             this.shell = shell;
-            rankPerfect = "SS";
-            rankS = "S";
-            rankA = "A";
-            rankB = "B";
-            rankC = "C";
-            rankD = "D";
-            rankE = "E";
+            rankPerfect = localization.GetLocalized("Combat", "BattleRank_Perfect");
+            rankS = localization.GetLocalized("Combat", "BattleRank_S");
+            rankA = localization.GetLocalized("Combat", "BattleRank_A");
+            rankB = localization.GetLocalized("Combat", "BattleRank_B");
+            rankC = localization.GetLocalized("Combat", "BattleRank_C");
+            rankD = localization.GetLocalized("Combat", "BattleRank_D");
+            rankE = localization.GetLocalized("Combat", "BattleRank_E");
         }
+
+        internal string FormatRank(BattleRank? rank) => rank switch
+        {
+            BattleRank.Perfect => rankPerfect,
+            BattleRank.S => rankS,
+            BattleRank.A => rankA,
+            BattleRank.B => rankB,
+            BattleRank.C => rankC,
+            BattleRank.D => rankD,
+            BattleRank.E => rankE,
+            _ => null
+        };
 
         private protected override FilterVM<BattleVM>[] CreateFilters()
             => new[]
             {
-                new FilterVM<BattleVM>("Map",
-                    x => x.Map.Id,
-                    x => x.Map.Id.ToString()),
-                new FilterVM<BattleVM>("WinRank",
-                    x => x.WinRank.GetHashCode(),
-                    x => x.WinRank),
+                new FilterVM<BattleVM>(localization.GetLocalized("Combat", "MapId"),
+                    x => x.MapId,
+                    x => x.MapId.ToString()),
+                new FilterVM<BattleVM>(localization.GetLocalized("Combat", "Rank"),
+                    x => x.Rank.GetHashCode(),
+                    x => x.RankText),
             };
 
         private protected override IReadOnlyCollection<BattleVM> GetEntities()

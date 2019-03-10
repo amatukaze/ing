@@ -183,4 +183,7 @@
   <data name="FleetState_Detail_Insufficient">
     <value>補給が必要</value>
   </data>
+  <data name="Details">
+    <value>詳細</value>
+  </data>
 </root>

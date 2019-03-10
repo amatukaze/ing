@@ -63,6 +63,9 @@
   <data name="LogMigration_ExpeditionCompletion.Header">
     <value>远征记录</value>
   </data>
+  <data name="LogMigration_BattleAndDrop.Header">
+    <value>战斗/掉落记录</value>
+  </data>
   <data name="LogMigration_DoMigrate.Content">
     <value>导入</value>
   </data>
@@ -113,6 +116,27 @@
   </data>
   <data name="Logging_Column_Item2.Header">
     <value>物品2</value>
+  </data>
+  <data name="Logging_Column_MapId.Header">
+    <value>地图</value>
+  </data>
+  <data name="Logging_Column_MapName.Header">
+    <value>海域名</value>
+  </data>
+  <data name="Logging_Column_RouteId.Header">
+    <value>地点</value>
+  </data>
+  <data name="Logging_Column_EnemyFleetName.Header">
+    <value>敌舰队名</value>
+  </data>
+  <data name="Logging_Column_Rank.Header">
+    <value>胜利评价</value>
+  </data>
+  <data name="Logging_Column_ShipDrop.Header">
+    <value>掉落舰娘</value>
+  </data>
+  <data name="Logging_Column_UseItemDrop.Header">
+    <value>掉落物品</value>
   </data>
   <data name="ShipsCount.Text">
     <value>舰娘数：</value>

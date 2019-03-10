@@ -20,13 +20,13 @@
         <tk:DataGrid Grid.Row="1" ItemsSource="{x:Bind ViewModel.Entities}"
                      FrozenColumnCount="1" AutoGenerateColumns="False">
             <tk:DataGrid.Columns>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Fuel" Binding="{Binding Consumption.Fuel, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bullet" Binding="{Binding Consumption.Bullet, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding Consumption.Steel, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding Consumption.Bauxite, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Development" Binding="{Binding Consumption.Development, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_ConstructionType" Binding="{Binding ConstructionType, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp.LocalDateTime, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Fuel" Binding="{Binding Consumption.Fuel, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bullet" Binding="{Binding Consumption.Bullet, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding Consumption.Steel, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding Consumption.Bauxite, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Development" Binding="{Binding Consumption.Development, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_ConstructionType" Binding="{Binding ConstructionType, Mode=OneTime}" IsReadOnly="True" />
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Result">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:ShipCreationVM">
@@ -35,7 +35,7 @@
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EmptyDockCount" Binding="{Binding EmptyDockCount, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EmptyDockCount" Binding="{Binding EmptyDockCount, Mode=OneTime}" IsReadOnly="True" />
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Secretary">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:ShipCreationVM">
@@ -46,7 +46,7 @@
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_AdmiralLevel" Binding="{Binding AdmiralLevel, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_AdmiralLevel" Binding="{Binding AdmiralLevel, Mode=OneTime}" IsReadOnly="True" />
             </tk:DataGrid.Columns>
         </tk:DataGrid>
     </Grid>

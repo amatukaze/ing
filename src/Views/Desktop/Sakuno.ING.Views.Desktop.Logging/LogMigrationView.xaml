@@ -46,7 +46,7 @@
             <CheckBox Content="{c:Localize ViewTitle/ExpeditionCompletionLogs}"
                       IsEnabled="{Binding SelectedMigrator.SupportExpeditionCompletion}"
                       IsChecked="{Binding SelectExpeditionCompletion}" />
-            <CheckBox Content="Battle and drop"
+            <CheckBox Content="{c:Localize ViewTitle/BattleLogs}"
                       IsEnabled="{Binding SelectedMigrator.SupportBattleAndDrop}"
                       IsChecked="{Binding SelectBattleAndDrop}" />
         </StackPanel>

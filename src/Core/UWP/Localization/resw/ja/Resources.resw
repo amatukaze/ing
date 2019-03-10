@@ -51,6 +51,9 @@
   <data name="LogMigration_ExpeditionCompletion.Header">
     <value>遠征歴史</value>
   </data>
+  <data name="LogMigration_BattleAndDrop.Header">
+    <value>戦闘/ドロップ歴史</value>
+  </data>
   <data name="LogMigration_DoMigrate.Content">
     <value>取り込み</value>
   </data>
@@ -101,6 +104,27 @@
   </data>
   <data name="Logging_Column_Item2.Header">
     <value>アイテム2</value>
+  </data>
+  <data name="Logging_Column_MapId.Header">
+    <value>マップ</value>
+  </data>
+  <data name="Logging_Column_MapName.Header">
+    <value>海域</value>
+  </data>
+  <data name="Logging_Column_RouteId.Header">
+    <value>マス</value>
+  </data>
+  <data name="Logging_Column_EnemyFleetName.Header">
+    <value>敵艦隊名</value>
+  </data>
+  <data name="Logging_Column_Rank.Header">
+    <value>勝利評価</value>
+  </data>
+  <data name="Logging_Column_ShipDrop.Header">
+    <value>ドロップ艦娘</value>
+  </data>
+  <data name="Logging_Column_UseItemDrop.Header">
+    <value>ドロップアイテム</value>
   </data>
   <data name="ShipsCount.Text">
     <value>艦娘数：</value>

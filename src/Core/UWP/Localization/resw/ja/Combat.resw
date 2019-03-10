@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="MapId">
+    <value>マップ</value>
+  </data>
+  <data name="MapName">
+    <value>海域</value>
+  </data>
+  <data name="RouteId">
+    <value>マス</value>
+  </data>
+  <data name="EnemyFleetName">
+    <value>敵艦隊名</value>
+  </data>
+  <data name="Rank">
+    <value>勝利評価</value>
+  </data>
+  <data name="ShipDrop">
+    <value>ドロップ艦娘</value>
+  </data>
+  <data name="UseItemDrop">
+    <value>ドロップアイテム</value>
+  </data>
+  <data name="BattleRank_Perfect">
+    <value>完全勝利S</value>
+  </data>
+  <data name="BattleRank_S">
+    <value>勝利S</value>
+  </data>
+  <data name="BattleRank_A">
+    <value>勝利A</value>
+  </data>
+  <data name="BattleRank_B">
+    <value>戦術的勝利B</value>
+  </data>
+  <data name="BattleRank_C">
+    <value>戦術的敗北C</value>
+  </data>
+  <data name="BattleRank_D">
+    <value>敗北D</value>
+  </data>
+  <data name="BattleRank_E">
+    <value>敗北E</value>
+  </data>
+</root>

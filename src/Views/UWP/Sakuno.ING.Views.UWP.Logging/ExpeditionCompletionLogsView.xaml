@@ -20,7 +20,7 @@
         <tk:DataGrid Grid.Row="1" ItemsSource="{x:Bind ViewModel.Entities}"
                      FrozenColumnCount="1" AutoGenerateColumns="False">
             <tk:DataGrid.Columns>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp.LocalDateTime, Mode=OneTime}" IsReadOnly="True" />
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Expedition">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:ExpeditionCompletionVM">
@@ -29,11 +29,11 @@
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Result" Binding="{Binding Result, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Fuel" Binding="{Binding MaterialsAcquired.Fuel, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bullet" Binding="{Binding MaterialsAcquired.Bullet, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding MaterialsAcquired.Steel, Mode=OneTime}" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding MaterialsAcquired.Bauxite, Mode=OneTime}" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Result" Binding="{Binding Result, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Fuel" Binding="{Binding MaterialsAcquired.Fuel, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bullet" Binding="{Binding MaterialsAcquired.Bullet, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Steel" Binding="{Binding MaterialsAcquired.Steel, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Bauxite" Binding="{Binding MaterialsAcquired.Bauxite, Mode=OneTime}" IsReadOnly="True" />
             </tk:DataGrid.Columns>
         </tk:DataGrid>
     </Grid>

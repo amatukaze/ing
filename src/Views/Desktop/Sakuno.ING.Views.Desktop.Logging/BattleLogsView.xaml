@@ -22,10 +22,12 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="{c:Localize Application/Time}" DisplayMemberBinding="{Binding TimeStamp, Mode=OneTime, Converter={StaticResource DateTimeDisplay}}" />
-                    <GridViewColumn Header="Map Name" DisplayMemberBinding="{Binding MapName}" />
-                    <GridViewColumn Header="Route Id" DisplayMemberBinding="{Binding RouteId}" />
-                    <GridViewColumn Header="Enemy Name" DisplayMemberBinding="{Binding EnemyFleetName}" />
-                    <GridViewColumn Header="Drop">
+                    <GridViewColumn Header="{c:Localize Combat/MapId}" DisplayMemberBinding="{Binding MapId}" />
+                    <GridViewColumn Header="{c:Localize Combat/MapName}" DisplayMemberBinding="{Binding MapName}" />
+                    <GridViewColumn Header="{c:Localize Combat/RouteId}" DisplayMemberBinding="{Binding RouteId}" />
+                    <GridViewColumn Header="{c:Localize Combat/EnemyFleetName}" DisplayMemberBinding="{Binding EnemyFleetName}" />
+                    <GridViewColumn Header="{c:Localize Combat/Rank}" DisplayMemberBinding="{Binding RankText}" />
+                    <GridViewColumn Header="{c:Localize Combat/ShipDrop}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
@@ -34,7 +36,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Item Drop">
+                    <GridViewColumn Header="{c:Localize Combat/UseItemDrop}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
@@ -46,7 +48,7 @@
                     <GridViewColumn>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <c:InvokeMethodButton Content="Detail" MethodName="LoadDetail" />
+                                <c:InvokeMethodButton Content="{c:Localize GameModel/Details}" MethodName="LoadDetail" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

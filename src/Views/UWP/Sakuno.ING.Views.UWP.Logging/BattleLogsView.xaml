@@ -20,12 +20,13 @@
         <tk:DataGrid Grid.Row="1" ItemsSource="{x:Bind ViewModel.Entities}"
                      FrozenColumnCount="1" AutoGenerateColumns="False">
             <tk:DataGrid.Columns>
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp, Mode=OneTime}" />
-                <tk:DataGridTextColumn Header="Map Name" Binding="{Binding MapName, Mode=OneTime}" />
-                <tk:DataGridTextColumn Header="Route Id" Binding="{Binding RouteId, Mode=OneTime}" />
-                <tk:DataGridTextColumn Header="Rank" Binding="{Binding WinRank, Mode=OneTime}" />
-                <tk:DataGridTextColumn Header="Enemy Name" Binding="{Binding EnemyFleetName, Mode=OneTime}" />
-                <tk:DataGridTemplateColumn Header="Drop">
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp.LocalDateTime, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_MapId" Binding="{Binding MapId, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_MapName" Binding="{Binding MapName, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_RouteId" Binding="{Binding RouteId, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EnemyFleetName" Binding="{Binding EnemyFleetName, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Rank" Binding="{Binding RankText, Mode=OneTime}" IsReadOnly="True" />
+                <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_ShipDrop">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:BattleVM">
                             <TextBlock Text="{x:Bind c:Helpers.SelectShipName(Drop.Name)}"
@@ -33,7 +34,7 @@
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
-                <tk:DataGridTemplateColumn Header="Item Drop">
+                <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_UseItemDrop">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:BattleVM">
                             <TextBlock Text="{x:Bind c:Helpers.SelectName(UseItemDrop.Name)}"
@@ -44,8 +45,9 @@
                 <tk:DataGridTemplateColumn>
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:BattleVM">
-                            <Button Content="Detail"
-                                    Tapped="{x:Bind LoadDetail}" />
+                            <Button Style="{StaticResource TextBlockButtonStyle}" Tapped="{x:Bind LoadDetail}" >
+                                <SymbolIcon Symbol="List" />
+                            </Button>
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
