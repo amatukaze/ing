@@ -127,7 +127,11 @@ namespace Sakuno.ING.UWP
                     if (windowId == "Settings")
                         Window.Current.Content = new SettingsView(CreateSettingViews(), localization);
                     else
-                        Window.Current.Content = new SubView { ActualContent = layoutFactory()[windowId].LoadContent() };
+                        Window.Current.Content = new SubView
+                        {
+                            ActualContent = layoutFactory()[windowId].LoadContent(),
+                            ActualTitle = localization.GetLocalized("ViewTitle", windowId) ?? windowId
+                        };
 
                     appView.Consolidated += (s, e) =>
                     {
@@ -151,7 +155,11 @@ namespace Sakuno.ING.UWP
                 appViewId = appView.Id;
 
                 InitWindow();
-                Window.Current.Content = new SubView { ActualContent = Compositor.Default.ResolveNamedWithParameter<FrameworkElement, T>(viewId, parameter) };
+                Window.Current.Content = new SubView
+                {
+                    ActualContent = Compositor.Default.ResolveNamedWithParameter<FrameworkElement, T>(viewId, parameter),
+                    ActualTitle = localization.GetLocalized("ViewTitle", viewId) ?? viewId
+                };
 
                 appView.Consolidated += (s, e) =>
                 {

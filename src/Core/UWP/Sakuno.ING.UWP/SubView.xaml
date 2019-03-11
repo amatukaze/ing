@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <TextBlock FontSize="16"
                    Margin="20, 4, 0, 4"
-                   x:Uid="AppTitle" />
+                   x:Name="TitleBar" />
         <ContentPresenter x:Name="actualContent"
                           Grid.Row="1"
                           HorizontalContentAlignment="Stretch"

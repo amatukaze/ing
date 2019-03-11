@@ -14,5 +14,11 @@ namespace Sakuno.ING.UWP
             get => actualContent.Content;
             set => actualContent.Content = value;
         }
+
+        public string ActualTitle
+        {
+            get => TitleBar.Text;
+            set => TitleBar.Text = value;
+        }
     }
 }
