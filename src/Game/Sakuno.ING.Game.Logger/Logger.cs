@@ -135,6 +135,9 @@ namespace Sakuno.ING.Game.Logger
                     MapGaugeHP = map.Gauge?.Current,
                     MapGaugeMaxHP = map.Gauge?.Max
                 };
+                if (m.UnparsedLandBaseDefence != null)
+                    currentBattle.LandBaseDefence = m.UnparsedLandBaseDefence.ToString(Formatting.None);
+
                 currentBattleContext.BattleTable.Add(currentBattle);
                 currentBattleContext.SaveChanges();
             };
@@ -161,24 +164,17 @@ namespace Sakuno.ING.Game.Logger
                 if (currentBattle != null)
                 {
                     currentBattle.CompletionTime = t;
-                    currentBattle.Details = new BattleDetailEntity
-                    {
-                        SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray(),
-                        SortieFleet2State = currentFleet2InBattle?.Ships.Select(x => new ShipInBattleEntity(x)).ToArray(),
-                        FirstBattleDetail = m.Unparsed.ToString(Formatting.None),
-                        LbasState = m.Parsed.LandBasePhases
-                            .Select(x => new AirForceInBattle(this.navalBase.AirForce[(currentBattle.MapId.AreaId, x.GroupId)]))
-                            .ToArray()
-                    };
-                    currentBattle.HasBattleDetail = true;
+                    currentBattle.SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray();
+                    currentBattle.SortieFleet2State = currentFleet2InBattle?.Ships.Select(x => new ShipInBattleEntity(x)).ToArray();
+                    currentBattle.FirstBattleDetail = m.Unparsed.ToString(Formatting.None);
+                    currentBattle.LbasState = m.Parsed.LandBasePhases
+                        .Select(x => new AirForceInBattle(this.navalBase.AirForce[(currentBattle.MapId.AreaId, x.GroupId)]))
+                        .ToArray();
                 }
                 else if (currentExercise != null)
                 {
-                    currentExercise.Details = new BattleDetailEntity
-                    {
-                        SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray(),
-                        FirstBattleDetail = m.Unparsed.ToString(Formatting.None)
-                    };
+                    currentExercise.SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray();
+                    currentExercise.FirstBattleDetail = m.Unparsed.ToString(Formatting.None);
                     currentBattleContext.ExerciseTable.Add(currentExercise);
                 }
 
@@ -191,10 +187,10 @@ namespace Sakuno.ING.Game.Logger
                 if (currentBattle != null)
                 {
                     currentBattle.CompletionTime = t;
-                    currentBattle.Details.SecondBattleDetail = m.Unparsed.ToString(Formatting.None);
+                    currentBattle.SecondBattleDetail = m.Unparsed.ToString(Formatting.None);
                 }
                 else if (currentExercise != null)
-                    currentExercise.Details.SecondBattleDetail = m.Unparsed.ToString(Formatting.None);
+                    currentExercise.SecondBattleDetail = m.Unparsed.ToString(Formatting.None);
 
                 currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sakuno.ING.Game.Logger;
 
 namespace Sakuno.ING.Game.Logger.Migrations
 {
     [DbContext(typeof(LoggerContext))]
-    partial class LoggerContextModelSnapshot : ModelSnapshot
+    [Migration("20190311082356_Exercise")]
+    partial class Exercise
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

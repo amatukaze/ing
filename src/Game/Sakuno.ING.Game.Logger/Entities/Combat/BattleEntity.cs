@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
@@ -27,10 +29,10 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         public int? MapGaugeMaxHP { get; set; }
 
         private BattleDetailEntity _details;
-        public BattleDetailEntity Details
+        internal BattleDetailEntity Details
         {
             get => lazyLoader?.Load(this, ref _details) ?? _details;
-            set => _details = value;
+            private set => _details = value;
         }
 
         public BattleRank? Rank { get; set; }
@@ -40,7 +42,77 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         public string EnemyFleetName { get; set; }
         public UseItemId? UseItemAcquired { get; set; }
         public ShipInfoId? ShipDropped { get; set; }
-        public bool HasBattleDetail { get; set; }
-        public bool HasLandBaseDefense { get; set; }
+
+        #region Agent properties
+        private BattleDetailEntity EnsureDetail()
+        {
+            Details ??= new BattleDetailEntity();
+            return Details;
+        }
+
+        [NotMapped]
+        public IReadOnlyList<ShipInBattleEntity> SortieFleetState
+        {
+            get => Details?.SortieFleetState;
+            set => EnsureDetail().SortieFleetState = value;
+        }
+
+        [NotMapped]
+        public IReadOnlyList<ShipInBattleEntity> SortieFleet2State
+        {
+            get => Details?.SortieFleet2State;
+            set => EnsureDetail().SortieFleet2State = value;
+        }
+
+        [NotMapped]
+        public IReadOnlyList<ShipInBattleEntity> SupportFleetState
+        {
+            get => Details?.SupportFleetState;
+            set => EnsureDetail().SupportFleetState = value;
+        }
+
+        [NotMapped]
+        public IReadOnlyCollection<AirForceInBattle> LbasState
+        {
+            get => Details?.LbasState;
+            set => EnsureDetail().LbasState = value;
+        }
+
+        [NotMapped]
+        public string LandBaseDefence
+        {
+            get => Details?.LandBaseDefence;
+            set
+            {
+                EnsureDetail().LandBaseDefence = value;
+                HasLandBaseDefense = true;
+            }
+        }
+
+        [NotMapped]
+        public string FirstBattleDetail
+        {
+            get => Details?.FirstBattleDetail;
+            set
+            {
+                EnsureDetail().FirstBattleDetail = value;
+                HasBattleDetail = true;
+            }
+        }
+
+        [NotMapped]
+        public string SecondBattleDetail
+        {
+            get => Details?.SecondBattleDetail;
+            set
+            {
+                EnsureDetail().SecondBattleDetail = value;
+                HasBattleDetail = true;
+            }
+        }
+        #endregion
+
+        public bool HasBattleDetail { get; private set; }
+        public bool HasLandBaseDefense { get; private set; }
     }
 }

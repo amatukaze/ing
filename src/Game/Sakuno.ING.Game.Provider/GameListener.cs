@@ -199,6 +199,7 @@ namespace Sakuno.ING.Game
                     goto case "api_req_map/next";
                 case "api_req_map/next":
                     var routing = Response<RawMapRouting>(m);
+                    HandleMapRouting(routing);
                     MapRouting?.Invoke(t, routing);
                     if (routing.api_m1)
                         MapPartUnlocked?.Invoke(t, default);

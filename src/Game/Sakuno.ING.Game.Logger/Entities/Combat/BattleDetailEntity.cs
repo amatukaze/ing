@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Logger.Entities.Combat
 {
-    public class BattleDetailEntity
+    internal class BattleDetailEntity
     {
         public IReadOnlyList<ShipInBattleEntity> SortieFleetState { get; set; }
         public IReadOnlyList<ShipInBattleEntity> SortieFleet2State { get; set; }

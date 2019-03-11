@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models.MasterData;
 
@@ -105,8 +106,9 @@ namespace Sakuno.ING.Game.Models.Combat
         [JsonProperty("api_get_eo_rate")]
         public int? RankingPointAcquired { get; internal set; }
 
-        internal BattleDetailJson api_destruction_battle;
-        public RawBattle LandBaseDefence => new RawBattle(api_destruction_battle);
+        [JsonProperty("api_destruction_battle")]
+        public JToken UnparsedLandBaseDefence { get; internal set; }
+        public RawBattle LandBaseDefence { get; internal set; }
 
         internal bool api_m1;
     }

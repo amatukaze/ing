@@ -162,10 +162,9 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     DateTimeOffset t = DateTime.SpecifyKind(DateTime.Parse(log.time), DateTimeKind.Utc);
                     if (results.TryGetValue(t, out var e))
                     {
-                        e.Details = new BattleDetailEntity();
                         e.BattleKind = log.startnext.data.api_data.api_event_kind;
                         if (log.startnext?.data?.api_data?.api_destruction_battle != null)
-                            e.Details.LandBaseDefence = log.startnext.data.api_data.api_destruction_battle.ToString(Formatting.None);
+                            e.LandBaseDefence = log.startnext.data.api_data.api_destruction_battle.ToString(Formatting.None);
                         e.CombinedFleetType = log.battle?.api switch
                         {
                             "api_req_combined_battle/airbattle" => CombinedFleetType.CarrierTaskForceFleet,
@@ -179,11 +178,11 @@ namespace Sakuno.ING.Game.Logger.Migrators
                             _ => CombinedFleetType.None
                         };
                         if (log.battle?.data.api_data != null)
-                            e.Details.FirstBattleDetail = log.battle.data.api_data.ToString(Formatting.None);
+                            e.FirstBattleDetail = log.battle.data.api_data.ToString(Formatting.None);
                         if (log.nightbattle?.data.api_data != null)
-                            e.Details.SecondBattleDetail = log.nightbattle.data.api_data.ToString(Formatting.None);
-                        e.Details.SortieFleetState = SelectFleet(log.fleet1);
-                        e.Details.SortieFleet2State = SelectFleet(log.fleet2);
+                            e.SecondBattleDetail = log.nightbattle.data.api_data.ToString(Formatting.None);
+                        e.SortieFleetState = SelectFleet(log.fleet1);
+                        e.SortieFleet2State = SelectFleet(log.fleet2);
                     }
                 }
 

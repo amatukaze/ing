@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Sakuno.ING.Game.Models.Combat;
 
 namespace Sakuno.ING.Game.Logger.Entities.Combat
@@ -11,10 +13,10 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         public ExerciseEntity(ILazyLoader lazyLoader) => this.lazyLoader = lazyLoader;
 
         private BattleDetailEntity _details;
-        public BattleDetailEntity Details
+        internal BattleDetailEntity Details
         {
             get => lazyLoader?.Load(this, ref _details) ?? _details;
-            set => _details = value;
+            private set => _details = value;
         }
 
         public int EnemyId { get; set; }
@@ -24,5 +26,34 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         public int? AdmiralExperience { get; set; }
         public int? BaseExperience { get; set; }
         public string EnemyFleetName { get; set; }
+
+        #region Agent properties
+        private BattleDetailEntity EnsureDetail()
+        {
+            Details ??= new BattleDetailEntity();
+            return Details;
+        }
+
+        [NotMapped]
+        public IReadOnlyList<ShipInBattleEntity> SortieFleetState
+        {
+            get => Details?.SortieFleetState;
+            set => EnsureDetail().SortieFleetState = value;
+        }
+
+        [NotMapped]
+        public string FirstBattleDetail
+        {
+            get => Details?.FirstBattleDetail;
+            set => EnsureDetail().FirstBattleDetail = value;
+        }
+
+        [NotMapped]
+        public string SecondBattleDetail
+        {
+            get => Details?.SecondBattleDetail;
+            set => EnsureDetail().SecondBattleDetail = value;
+        }
+        #endregion
     }
 }

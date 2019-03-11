@@ -38,5 +38,11 @@ namespace Sakuno.ING.Game
             var api = detail.ToObject<BattleDetailJson>(jSerializer);
             return new BattleDetail(new RawBattle(api), detail);
         }
+
+        private void HandleMapRouting(RawMapRouting routing)
+        {
+            if (routing.UnparsedLandBaseDefence is null) return;
+            routing.LandBaseDefence = new RawBattle(routing.UnparsedLandBaseDefence.ToObject<BattleDetailJson>(jSerializer));
+        }
     }
 }
