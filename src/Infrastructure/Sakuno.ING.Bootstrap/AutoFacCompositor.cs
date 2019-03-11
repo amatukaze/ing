@@ -10,8 +10,13 @@ namespace Sakuno.ING.Bootstrap
     internal class AutoFacCompositor : Compositor
     {
         private readonly IContainer container;
+        private readonly HashSet<string> viewIds;
 
-        public AutoFacCompositor(IContainer container) => this.container = container;
+        public AutoFacCompositor(IContainer container, HashSet<string> viewIds)
+        {
+            this.container = container;
+            this.viewIds = viewIds;
+        }
 
         public override T Resolve<T>() => container.ResolveOptional<T>();
         public override object Resolve(Type type) => container.ResolveOptional(type);
@@ -25,5 +30,6 @@ namespace Sakuno.ING.Bootstrap
         public override IEnumerable<WithMeta<T>> ResolveWithMetadata<T>()
             => container.Resolve<IEnumerable<Meta<T>>>()
                 .Select(m => new WithMeta<T>(m.Value, m.Metadata));
+        public override bool IsViewRegistered(string viewId) => viewIds.Contains(viewId);
     }
 }

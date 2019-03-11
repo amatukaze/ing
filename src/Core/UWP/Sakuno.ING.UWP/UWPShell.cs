@@ -114,35 +114,41 @@ namespace Sakuno.ING.UWP
                 return;
             }
 
+            bool fromLayout;
             if (viewIds.Contains(windowId))
+                fromLayout = true;
+            else if (Compositor.Default.IsViewRegistered(windowId))
+                fromLayout = false;
+            else return;
+
+            var coreView = CoreApplication.CreateNewView();
+            await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
-                var coreView = CoreApplication.CreateNewView();
-                await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
-                {
-                    CoreApplication.GetCurrentView().Properties["Id"] = windowId;
-                    var appView = ApplicationView.GetForCurrentView();
-                    applicationViewIds[windowId] = appView.Id;
+                CoreApplication.GetCurrentView().Properties["Id"] = windowId;
+                var appView = ApplicationView.GetForCurrentView();
+                applicationViewIds[windowId] = appView.Id;
 
-                    InitWindow();
-                    if (windowId == "Settings")
-                        Window.Current.Content = new SettingsView(CreateSettingViews(), localization);
-                    else
-                        Window.Current.Content = new SubView
-                        {
-                            ActualContent = layoutFactory()[windowId].LoadContent(),
-                            ActualTitle = localization.GetLocalized("ViewTitle", windowId) ?? windowId
-                        };
-
-                    appView.Consolidated += (s, e) =>
+                InitWindow();
+                if (windowId == "Settings")
+                    Window.Current.Content = new SettingsView(CreateSettingViews(), localization);
+                else
+                    Window.Current.Content = new SubView
                     {
-                        applicationViewIds.TryRemove(windowId, out _);
-                        CoreApplication.GetCurrentView().CoreWindow.Close();
+                        ActualContent = fromLayout ?
+                            layoutFactory()[windowId].LoadContent() :
+                            Compositor.Default.ResolveNamed<FrameworkElement>(windowId),
+                        ActualTitle = localization.GetLocalized("ViewTitle", windowId) ?? windowId
                     };
 
-                    Window.Current.Activate();
-                });
-                await ApplicationViewSwitcher.TryShowAsStandaloneAsync(applicationViewIds[windowId]);
-            }
+                appView.Consolidated += (s, e) =>
+                {
+                    applicationViewIds.TryRemove(windowId, out _);
+                    CoreApplication.GetCurrentView().CoreWindow.Close();
+                };
+
+                Window.Current.Activate();
+            });
+            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(applicationViewIds[windowId]);
         }
 
         public async void ShowViewWithParameter<T>(string viewId, T parameter)

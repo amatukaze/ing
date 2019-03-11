@@ -19,6 +19,7 @@ namespace Sakuno.ING.Composition
         public abstract T ResolveNamedWithParameter<T, TParam>(string name, TParam parameter) where T : class;
         public abstract IEnumerable<WithMeta<T>> ResolveWithMetadata<T>() where T : class;
 
+        public abstract bool IsViewRegistered(string viewId);
         public static Compositor Default { get; private set; }
         public static T Static<T>() where T : class => Default?.Resolve<T>();
     }

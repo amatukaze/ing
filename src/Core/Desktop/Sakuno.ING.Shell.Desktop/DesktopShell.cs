@@ -102,14 +102,14 @@ namespace Sakuno.ING.Shell.Desktop
                 w.Activate();
             }
 
-            var view = layout[windowId];
-            if (view != null)
+            var viewContent = layout[windowId]?.LoadContent() ?? Compositor.Default.ResolveNamed<FrameworkElement>(windowId);
+            if (viewContent != null)
             {
                 var w = new ModernWindow
                 {
                     Tag = windowId,
                     Title = localization.GetLocalized("ViewTitle", windowId) ?? windowId,
-                    Content = view.LoadContent(),
+                    Content = viewContent
                 };
                 InitializeAndShow(w);
             }

@@ -35,30 +35,5 @@
         </sh:LayoutWindow>
     </sh:LayoutRoot.MainWindow>
     <sh:LayoutRoot.SubWindows>
-        <sh:LayoutWindow Id="ShipCreationLogs">
-            <DataTemplate>
-                <sh:ViewPresenter ViewId="ShipCreationLogs" />
-            </DataTemplate>
-        </sh:LayoutWindow>
-        <sh:LayoutWindow Id="EquipmentCreationLogs">
-            <DataTemplate>
-                <sh:ViewPresenter ViewId="EquipmentCreationLogs" />
-            </DataTemplate>
-        </sh:LayoutWindow>
-        <sh:LayoutWindow Id="ExpeditionCompletionLogs">
-            <DataTemplate>
-                <sh:ViewPresenter ViewId="ExpeditionCompletionLogs" />
-            </DataTemplate>
-        </sh:LayoutWindow>
-        <sh:LayoutWindow Id="BattleLogs">
-            <DataTemplate>
-                <sh:ViewPresenter ViewId="BattleLogs" />
-            </DataTemplate>
-        </sh:LayoutWindow>
-        <sh:LayoutWindow Id="LogMigration">
-            <DataTemplate>
-                <sh:ViewPresenter ViewId="LogMigration" />
-            </DataTemplate>
-        </sh:LayoutWindow>
     </sh:LayoutRoot.SubWindows>
 </sh:LayoutRoot>

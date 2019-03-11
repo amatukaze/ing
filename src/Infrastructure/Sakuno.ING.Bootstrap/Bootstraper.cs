@@ -61,6 +61,7 @@ namespace Sakuno.ING.Bootstrap
 
             var builder = new ContainerBuilder();
             var eager = new HashSet<Type>();
+            var viewIds = new HashSet<string>();
             foreach (var a in assemblies)
                 foreach (var t in a.DefinedTypes)
                 {
@@ -81,6 +82,7 @@ namespace Sakuno.ING.Bootstrap
                                 break;
                             case ExportViewAttribute view:
                                 builder.RegisterType(t).Named(view.ViewId, visualElementType).InstancePerDependency();
+                                viewIds.Add(view.ViewId);
                                 break;
                             case ExportSettingViewAttribute setting:
                                 builder.RegisterType(t).WithMetadata(FlexibleShell<object>.SettingCategoryName, setting.Category).As(visualElementType);
@@ -91,7 +93,7 @@ namespace Sakuno.ING.Bootstrap
             builder.RegisterInstance(new ModuleList(moduleInfos)).As<IModuleList>();
             builder.RegisterInstance(new PackageService(packages, storage)).As<IPackageService>();
             var c = builder.Build();
-            var compositor = new AutoFacCompositor(c);
+            var compositor = new AutoFacCompositor(c, viewIds);
             foreach (var t in eager)
                 compositor.Resolve(t.MakeArrayType());
         }
