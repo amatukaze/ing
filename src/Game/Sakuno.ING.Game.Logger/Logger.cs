@@ -25,6 +25,7 @@ namespace Sakuno.ING.Game.Logger
         private Fleet currentFleetInBattle, currentFleet2InBattle;
         private CombinedFleetType currentCombinedFleet;
         private BattleEntity currentBattle;
+        private ExerciseEntity currentExercise;
 
         public Logger(IDataService dataService, GameProvider provider, NavalBase navalBase)
         {
@@ -132,44 +133,94 @@ namespace Sakuno.ING.Game.Logger
                     MapGaugeType = map.GaugeType,
                     MapGaugeNumber = map.GaugeIndex,
                     MapGaugeHP = map.Gauge?.Current,
-                    MapGaugeMaxHP = map.Gauge?.Max,
-                    Details = new BattleDetailEntity()
+                    MapGaugeMaxHP = map.Gauge?.Max
                 };
                 currentBattleContext.BattleTable.Add(currentBattle);
                 currentBattleContext.SaveChanges();
             };
 
+            provider.ExerciseCandidateSelected += (t, m) =>
+            {
+                currentExercise = new ExerciseEntity
+                {
+                    TimeStamp = t,
+                    EnemyId = m.AdmiralId,
+                    EnemyName = m.Name,
+                    EnemyLevel = m.Leveling.Level
+                };
+            };
+
+            provider.ExerciseStarted += (t, m) =>
+            {
+                currentFleetInBattle = this.navalBase.Fleets[m];
+                currentBattleContext = CreateContext();
+            };
+
             provider.BattleStarted += (t, m) =>
             {
-                currentBattle.CompletionTime = t;
-                currentBattle.Details.SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray();
-                currentBattle.Details.SortieFleet2State = currentFleet2InBattle?.Ships.Select(x => new ShipInBattleEntity(x)).ToArray();
-                currentBattle.Details.FirstBattleDetail = m.Unparsed.ToString(Formatting.None);
-                currentBattle.Details.LbasState = m.Parsed.LandBasePhases
-                    .Select(x => new AirForceInBattle(this.navalBase.AirForce[(currentBattle.MapId.AreaId, x.GroupId)]))
-                    .ToArray();
+                if (currentBattle != null)
+                {
+                    currentBattle.CompletionTime = t;
+                    currentBattle.Details = new BattleDetailEntity
+                    {
+                        SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray(),
+                        SortieFleet2State = currentFleet2InBattle?.Ships.Select(x => new ShipInBattleEntity(x)).ToArray(),
+                        FirstBattleDetail = m.Unparsed.ToString(Formatting.None),
+                        LbasState = m.Parsed.LandBasePhases
+                            .Select(x => new AirForceInBattle(this.navalBase.AirForce[(currentBattle.MapId.AreaId, x.GroupId)]))
+                            .ToArray()
+                    };
+                    currentBattle.HasBattleDetail = true;
+                }
+                else if (currentExercise != null)
+                {
+                    currentExercise.Details = new BattleDetailEntity
+                    {
+                        SortieFleetState = currentFleetInBattle.Ships.Select(x => new ShipInBattleEntity(x)).ToArray(),
+                        FirstBattleDetail = m.Unparsed.ToString(Formatting.None)
+                    };
+                    currentBattleContext.ExerciseTable.Add(currentExercise);
+                }
+
                 currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
             };
 
             provider.BattleAppended += (t, m) =>
             {
-                currentBattle.CompletionTime = t;
-                currentBattle.Details.SecondBattleDetail = m.Unparsed.ToString(Formatting.None);
+                if (currentBattle != null)
+                {
+                    currentBattle.CompletionTime = t;
+                    currentBattle.Details.SecondBattleDetail = m.Unparsed.ToString(Formatting.None);
+                }
+                else if (currentExercise != null)
+                    currentExercise.Details.SecondBattleDetail = m.Unparsed.ToString(Formatting.None);
+
                 currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
             };
 
             provider.BattleCompleted += (t, m) =>
             {
-                currentBattle.CompletionTime = t;
-                currentBattle.Rank = m.Rank;
-                currentBattle.AdmiralExperience = m.AdmiralExperience;
-                currentBattle.BaseExperience = m.BaseExperience;
-                currentBattle.MapCleared = m.MapCleared;
-                currentBattle.EnemyFleetName = m.EnemyFleetName;
-                currentBattle.UseItemAcquired = m.UseItemAcquired;
-                currentBattle.ShipDropped = m.ShipDropped;
+                if (currentBattle != null)
+                {
+                    currentBattle.CompletionTime = t;
+                    currentBattle.Rank = m.Rank;
+                    currentBattle.AdmiralExperience = m.AdmiralExperience;
+                    currentBattle.BaseExperience = m.BaseExperience;
+                    currentBattle.MapCleared = m.MapCleared;
+                    currentBattle.EnemyFleetName = m.EnemyFleetName;
+                    currentBattle.UseItemAcquired = m.UseItemAcquired;
+                    currentBattle.ShipDropped = m.ShipDropped;
+                }
+                else if (currentExercise != null)
+                {
+                    currentExercise.Rank = m.Rank;
+                    currentExercise.AdmiralExperience = m.AdmiralExperience;
+                    currentExercise.BaseExperience = m.BaseExperience;
+                    currentExercise.EnemyFleetName = m.EnemyFleetName;
+                }
+
                 currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
             };
@@ -177,6 +228,7 @@ namespace Sakuno.ING.Game.Logger
             provider.HomeportReturned += (t, m) =>
             {
                 currentBattle = null;
+                currentExercise = null;
                 currentBattleContext?.Dispose();
                 currentFleetInBattle = null;
                 currentFleet2InBattle = null;

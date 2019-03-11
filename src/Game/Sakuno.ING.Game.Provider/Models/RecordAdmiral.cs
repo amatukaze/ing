@@ -43,7 +43,7 @@ namespace Sakuno.ING.Game.Json
         public override BattleStat BattleStat => api_war.ToValue();
 
         internal RecordBattleStat api_practice;
-        public override BattleStat PracticeStat => api_practice.ToValue();
+        public override BattleStat ExerciseStat => api_practice.ToValue();
 
 
         public class RecordExpeditionStat

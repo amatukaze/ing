@@ -40,5 +40,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         public string EnemyFleetName { get; set; }
         public UseItemId? UseItemAcquired { get; set; }
         public ShipInfoId? ShipDropped { get; set; }
+        public bool HasBattleDetail { get; set; }
+        public bool HasLandBaseDefense { get; set; }
     }
 }

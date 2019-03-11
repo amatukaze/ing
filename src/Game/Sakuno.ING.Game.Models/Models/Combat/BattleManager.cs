@@ -3,9 +3,9 @@
     public enum BattleState
     {
         Idle,
-        BeforePractice,
-        PracticeDay,
-        PracticeNight,
+        BeforeExercise,
+        ExerciseDay,
+        ExerciseNight,
         Routing,
         SortieDay,
         SortieNight,
@@ -28,10 +28,10 @@
                 sortieFleet2 = null;
             };
 
-            listener.PracticeStarted += (t, m) =>
+            listener.ExerciseStarted += (t, m) =>
             {
                 CurrentBattle = new Battle(this.navalBase.Fleets[m].Ships, null, CombinedFleetType.None, BattleKind.Normal);
-                State = BattleState.BeforePractice;
+                State = BattleState.BeforeExercise;
             };
 
             listener.SortieStarting += (t, m) =>
@@ -53,7 +53,7 @@
                 State = State switch
                 {
                     BattleState.Routing => BattleState.SortieDay,
-                    BattleState.BeforePractice => BattleState.PracticeDay,
+                    BattleState.BeforeExercise => BattleState.ExerciseDay,
                     var other => other
                 };
                 CurrentBattle.Append(this.navalBase.MasterData, m.Parsed);
@@ -64,7 +64,7 @@
                 State = State switch
                 {
                     BattleState.SortieDay => BattleState.SortieNight,
-                    BattleState.PracticeDay => BattleState.PracticeNight,
+                    BattleState.ExerciseDay => BattleState.ExerciseNight,
                     var other => other
                 };
                 CurrentBattle.Append(this.navalBase.MasterData, m.Parsed);

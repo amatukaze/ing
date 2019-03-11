@@ -191,6 +191,9 @@ namespace Sakuno.ING.Game
                     MaterialsUpdated?.Invoke(t, airSupply);
                     break;
 
+                case "api_req_member/get_practice_enemyinfo":
+                    ExerciseCandidateSelected?.Invoke(t, Response<RawExerciseCandidate>(m));
+                    break;
                 case "api_req_map/start":
                     SortieStarting?.Invoke(t, ParseSortieStart(Request(m)));
                     goto case "api_req_map/next";
@@ -201,7 +204,7 @@ namespace Sakuno.ING.Game
                         MapPartUnlocked?.Invoke(t, default);
                     break;
                 case "api_req_practice/battle":
-                    PracticeStarted?.Invoke(t, ParsePracticeStart(Request(m)));
+                    ExerciseStarted?.Invoke(t, ParseExerciseStart(Request(m)));
                     goto case "api_req_sortie/battle";
                 case "api_req_sortie/battle":
                 case "api_req_combined_battle/ec_battle":

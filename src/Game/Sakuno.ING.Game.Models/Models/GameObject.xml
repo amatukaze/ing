@@ -34,7 +34,7 @@
     <property type="int" name="MaxShipCount" autoFill="true" />
     <property type="int" name="MaxEquipmentCount" autoFill="true" />
     <property type="BattleStat" name="BattleStat" autoFill="true" />
-    <property type="BattleStat" name="PracticeStat" autoFill="true" />
+    <property type="BattleStat" name="ExerciseStat" autoFill="true" />
     <property type="ExpeditionStat" name="ExpeditionStat" autoFill="true" />
     <property type="bool" name="CanLSC" autoFill="true" />
     <property type="int" name="MaxMaterial" autoFill="true" />

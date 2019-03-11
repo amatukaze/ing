@@ -11,7 +11,7 @@
         public abstract int MaxShipCount { get; }
         public abstract int MaxEquipmentCount { get; }
         public abstract BattleStat BattleStat { get; }
-        public abstract BattleStat PracticeStat { get; }
+        public abstract BattleStat ExerciseStat { get; }
         public abstract ExpeditionStat ExpeditionStat { get; }
         public abstract bool CanLSC { get; }
         public abstract int MaxMaterial { get; }

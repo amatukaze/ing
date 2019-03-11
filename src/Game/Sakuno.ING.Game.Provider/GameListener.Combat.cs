@@ -16,7 +16,8 @@ namespace Sakuno.ING.Game
         public event TimedMessageHandler<MapPartUnlock> MapPartUnlocked;
         public event TimedMessageHandler<SortieStart> SortieStarting;
         public event TimedMessageHandler<RawMapRouting> MapRouting;
-        public event TimedMessageHandler<FleetId> PracticeStarted;
+        public event TimedMessageHandler<RawExerciseCandidate> ExerciseCandidateSelected;
+        public event TimedMessageHandler<FleetId> ExerciseStarted;
         public event TimedMessageHandler<BattleDetail> BattleStarted;
         public event TimedMessageHandler<BattleDetail> BattleAppended;
         public event TimedMessageHandler<RawBattleResult> BattleCompleted;
@@ -28,7 +29,7 @@ namespace Sakuno.ING.Game
                 (MapId)(req.GetInt("api_maparea_id") * 10 + req.GetInt("api_mapinfo_no"))
             );
 
-        private static FleetId ParsePracticeStart(NameValueCollection req)
+        private static FleetId ParseExerciseStart(NameValueCollection req)
             => (FleetId)req.GetInt("api_deck_id");
 
         private BattleDetail ParseBattleDetail(HttpMessage message)

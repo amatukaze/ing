@@ -38,7 +38,7 @@ namespace Sakuno.ING.Game.Models
         internal int api_pt_lose;
 
         public override BattleStat BattleStat => new BattleStat(api_st_win, api_st_lose);
-        public override BattleStat PracticeStat => new BattleStat(api_pt_win, api_pt_lose);
+        public override BattleStat ExerciseStat => new BattleStat(api_pt_win, api_pt_lose);
         public override ExpeditionStat ExpeditionStat => new ExpeditionStat(api_ms_success, api_ms_count);
 
         internal bool api_large_dock;

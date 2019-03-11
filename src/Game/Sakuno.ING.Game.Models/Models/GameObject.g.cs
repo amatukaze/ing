@@ -424,13 +424,13 @@ namespace Sakuno.ING.Game.Models
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_practiceStat = new PropertyChangedEventArgs(nameof(PracticeStat));
+        private static readonly PropertyChangedEventArgs __eventArgs_exerciseStat = new PropertyChangedEventArgs(nameof(ExerciseStat));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private BattleStat _practiceStat;
-        public BattleStat PracticeStat
+        private BattleStat _exerciseStat;
+        public BattleStat ExerciseStat
         {
-            get => _practiceStat;
-            private set => Set(ref _practiceStat, value, __eventArgs_practiceStat);
+            get => _exerciseStat;
+            private set => Set(ref _exerciseStat, value, __eventArgs_exerciseStat);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -495,7 +495,7 @@ namespace Sakuno.ING.Game.Models
             MaxShipCount = raw.MaxShipCount;
             MaxEquipmentCount = raw.MaxEquipmentCount;
             BattleStat = raw.BattleStat;
-            PracticeStat = raw.PracticeStat;
+            ExerciseStat = raw.ExerciseStat;
             ExpeditionStat = raw.ExpeditionStat;
             CanLSC = raw.CanLSC;
             MaxMaterial = raw.MaxMaterial;

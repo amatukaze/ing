@@ -22,6 +22,7 @@ namespace Sakuno.ING.Game.Logger
         public DbSet<EquipmentCreationEntity> EquipmentCreationTable { get; protected set; }
         public DbSet<ExpeditionCompletionEntity> ExpeditionCompletionTable { get; protected set; }
         public DbSet<BattleEntity> BattleTable { get; protected set; }
+        public DbSet<ExerciseEntity> ExerciseTable { get; protected set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -64,6 +65,20 @@ namespace Sakuno.ING.Game.Logger
                     e.HasIndex(x => x.MapId);
                     e.Property(x => x.ShipDropped).HasConversion<int?>(v => v, v => (ShipInfoId?)v);
                     e.Property(x => x.UseItemAcquired).HasConversion<int?>(v => v, v => (UseItemId?)v);
+                });
+            modelBuilder
+                .Entity<ExerciseEntity>(e =>
+                {
+                    e.Property(x => x.TimeStamp).HasConversion(new DateTimeOffsetToBinaryConverter());
+                    e.OwnsOne(x => x.Details, d =>
+                    {
+                        d.Property(x => x.SortieFleetState).HasConversion(x => x.Store(), x => BinaryObjectExtensions.ParseFleet(x));
+                        d.Ignore(x => x.SortieFleet2State);
+                        d.Ignore(x => x.SupportFleetState);
+                        d.Ignore(x => x.LbasState);
+                        d.Ignore(x => x.LandBaseDefence);
+                        d.ToTable("ExerciseDetails");
+                    });
                 });
         }
     }
