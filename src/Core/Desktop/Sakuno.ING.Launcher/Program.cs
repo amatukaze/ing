@@ -352,7 +352,7 @@ namespace Sakuno.ING
 
                 var lockingFilename = Path.Combine(StagingPackagesDirectory, ".lock");
 
-                using (File.Open(lockingFilename, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                using (new FileStream(lockingFilename, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None, 4096, FileOptions.DeleteOnClose))
                     foreach (var file in files)
                     {
                         var info = ExtractPackage(file);
@@ -370,8 +370,6 @@ namespace Sakuno.ING
                             PrintLine(info.Exception.Message);
                         }
                     }
-
-                File.Delete(lockingFilename);
 
                 PrintLine();
             }
