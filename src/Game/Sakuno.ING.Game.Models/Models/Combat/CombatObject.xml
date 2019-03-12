@@ -24,14 +24,14 @@
     <property type="TorpedoPhase" name="ClosingTorpedoPhase" />
     <property type="AerialPhase" name="AerialPhase" />
     <property type="AerialPhase" name="AerialPhase2" />
-    <property type="AerialPhase" name="LandBaseJetPhase" />
-    <property type="AerialPhase" name="JetPhase" />
+    <property type="JetPhase" name="LandBaseJetPhase" />
+    <property type="JetPhase" name="JetPhase" />
     <property type="IReadOnlyList&lt;LandBasePhase&gt;" name="LandBasePhases" />
     <property type="SupportPhase" name="SupportPhase" />
     <property type="NightPhase" name="NightPhase" />
-    <property type="NightPhase" name="CombinedNightPhase1" />
-    <property type="NightPhase" name="CombinedNightPhase2" />
-    <property type="NightPhase" name="NpcPhase" />
+    <property type="CombinedNightPhase" name="CombinedNightPhase1" />
+    <property type="CombinedNightPhase" name="CombinedNightPhase2" />
+    <property type="NpcPhase" name="NpcPhase" />
   </class>
   <class name="BattleManager">
     <property type="BattleState" name="State" />

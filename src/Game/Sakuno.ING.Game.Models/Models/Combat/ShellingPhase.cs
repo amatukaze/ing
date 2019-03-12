@@ -38,10 +38,8 @@ namespace Sakuno.ING.Game.Models.Combat
         public ShellingPhase(int index, MasterDataRoot masterData, Side ally, Side enemy, RawShellingPhase raw, bool useFleet2 = false)
             : base(raw.OldSchema
                   ? Initialze(masterData, raw, new OldBuilder(useFleet2 ? ally.Fleet2 : ally.Fleet, enemy.Fleet))
-                  : Initialze(masterData, raw, new Builder(ally, enemy)))
-            => Index = index;
-
-        public int Index { get; }
+                  : Initialze(masterData, raw, new Builder(ally, enemy)), index)
+        { }
 
         private static AttackType MapTypeStatic(int rawType) => rawType switch
         {
@@ -57,5 +55,13 @@ namespace Sakuno.ING.Game.Models.Combat
             102 => AttackType.MutsuShoot,
             _ => AttackType.Unknown
         };
+    }
+
+    public class OpeningAswPhase : ShellingPhase
+    {
+        public OpeningAswPhase(MasterDataRoot masterData, Side ally, Side enemy, RawShellingPhase raw)
+            : base(0, masterData, ally, enemy, raw, true)
+        {
+        }
     }
 }

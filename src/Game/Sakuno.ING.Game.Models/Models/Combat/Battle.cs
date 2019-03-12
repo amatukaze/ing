@@ -38,15 +38,15 @@ namespace Sakuno.ING.Game.Models.Combat
                         phases.Add(SupportPhase = new SupportPhase(raw.SupportFireType, masterData, Enemy, raw.AerialSupportPhase));
 
                     if (raw.NightPhase1 != null)
-                        phases.Add(CombinedNightPhase1 = new NightPhase(1, masterData, Ally, Enemy, raw.NightPhase1, true));
+                        phases.Add(CombinedNightPhase1 = new CombinedNightPhase(1, masterData, Ally.Fleet, Enemy, raw.NightPhase1));
                     if (raw.NightPhase2 != null)
-                        phases.Add(CombinedNightPhase2 = new NightPhase(2, masterData, Ally, Enemy, raw.NightPhase2, true));
+                        phases.Add(CombinedNightPhase2 = new CombinedNightPhase(2, masterData, Ally.Fleet, Enemy, raw.NightPhase2));
                 }
 
                 if (raw.LandBaseJetPhase != null)
-                    phases.Add(LandBaseJetPhase = new AerialPhase(1, masterData, Ally, Enemy, raw.LandBaseJetPhase, true));
+                    phases.Add(LandBaseJetPhase = new JetPhase(masterData, Ally, Enemy, raw.LandBaseJetPhase, true));
                 if (raw.JetPhase != null)
-                    phases.Add(JetPhase = new AerialPhase(2, masterData, Ally, Enemy, raw.AerialPhase, true));
+                    phases.Add(JetPhase = new JetPhase(masterData, Ally, Enemy, raw.AerialPhase, false));
 
                 if (raw.LandBasePhases != null)
                     phases.AddRange(LandBasePhases = raw.LandBasePhases.Select((x, i) => new LandBasePhase(i + 1, masterData, Enemy, x)).ToArray());
@@ -67,14 +67,14 @@ namespace Sakuno.ING.Game.Models.Combat
                     {
                         NpcFleet = raw.NpcFleet.Select((s, i) => new BattleParticipant(i + 1, new BattlingShip(masterData, s), s, false)).ToArray();
                         if (raw.NpcPhase != null)
-                            NpcPhase = new NightPhase(masterData, NpcFleet, Enemy, raw.NpcPhase);
+                            NpcPhase = new NpcPhase(masterData, NpcFleet, Enemy, raw.NpcPhase);
                     }
                     if (raw.NightPhase != null)
-                        phases.Add(NightPhase = new NightPhase(0, masterData, Ally, Enemy, raw.NightPhase, false));
+                        phases.Add(NightPhase = new NightPhase(masterData, Ally, Enemy, raw.NightPhase));
                 }
 
                 if (raw.OpeningAswPhase != null)
-                    phases.Add(OpeningAswPhase = new ShellingPhase(0, masterData, Ally, Enemy, raw.OpeningAswPhase));
+                    phases.Add(OpeningAswPhase = new OpeningAswPhase(masterData, Ally, Enemy, raw.OpeningAswPhase));
                 if (raw.OpeningTorpedoPhase != null)
                     phases.Add(OpeningTorpedoPhase = new TorpedoPhase(masterData, Ally, Enemy, raw.OpeningTorpedoPhase, true));
 

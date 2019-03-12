@@ -204,8 +204,8 @@ namespace Sakuno.ING.Game.Models.Combat
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_landBaseJetPhase = new PropertyChangedEventArgs(nameof(LandBaseJetPhase));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private AerialPhase _landBaseJetPhase;
-        public AerialPhase LandBaseJetPhase
+        private JetPhase _landBaseJetPhase;
+        public JetPhase LandBaseJetPhase
         {
             get => _landBaseJetPhase;
             private set => Set(ref _landBaseJetPhase, value, __eventArgs_landBaseJetPhase);
@@ -214,8 +214,8 @@ namespace Sakuno.ING.Game.Models.Combat
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_jetPhase = new PropertyChangedEventArgs(nameof(JetPhase));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private AerialPhase _jetPhase;
-        public AerialPhase JetPhase
+        private JetPhase _jetPhase;
+        public JetPhase JetPhase
         {
             get => _jetPhase;
             private set => Set(ref _jetPhase, value, __eventArgs_jetPhase);
@@ -254,8 +254,8 @@ namespace Sakuno.ING.Game.Models.Combat
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_combinedNightPhase1 = new PropertyChangedEventArgs(nameof(CombinedNightPhase1));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private NightPhase _combinedNightPhase1;
-        public NightPhase CombinedNightPhase1
+        private CombinedNightPhase _combinedNightPhase1;
+        public CombinedNightPhase CombinedNightPhase1
         {
             get => _combinedNightPhase1;
             private set => Set(ref _combinedNightPhase1, value, __eventArgs_combinedNightPhase1);
@@ -264,8 +264,8 @@ namespace Sakuno.ING.Game.Models.Combat
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_combinedNightPhase2 = new PropertyChangedEventArgs(nameof(CombinedNightPhase2));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private NightPhase _combinedNightPhase2;
-        public NightPhase CombinedNightPhase2
+        private CombinedNightPhase _combinedNightPhase2;
+        public CombinedNightPhase CombinedNightPhase2
         {
             get => _combinedNightPhase2;
             private set => Set(ref _combinedNightPhase2, value, __eventArgs_combinedNightPhase2);
@@ -274,8 +274,8 @@ namespace Sakuno.ING.Game.Models.Combat
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_npcPhase = new PropertyChangedEventArgs(nameof(NpcPhase));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private NightPhase _npcPhase;
-        public NightPhase NpcPhase
+        private NpcPhase _npcPhase;
+        public NpcPhase NpcPhase
         {
             get => _npcPhase;
             private set => Set(ref _npcPhase, value, __eventArgs_npcPhase);

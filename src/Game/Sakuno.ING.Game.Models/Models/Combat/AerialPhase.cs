@@ -25,22 +25,27 @@
             };
         }
 
-        public AerialPhase(int index, MasterDataRoot masterData, Side ally, Side enemy, RawAerialPhase raw, bool isJet = false)
-            : base(Initialze(masterData, raw, new Builder(ally, enemy)))
+        public AerialPhase(int index, MasterDataRoot masterData, Side ally, Side enemy, RawAerialPhase raw)
+            : base(Initialze(masterData, raw, new Builder(ally, enemy)), index)
         {
-            Index = index;
-            IsJet = isJet;
             FightingResult = raw.FightingResult;
             if (raw.AntiAirFire != null)
                 AntiAirFire = new AntiAirFire(masterData, ally, raw.AntiAirFire);
             Ally = new AerialSide(masterData, raw.Ally, ally);
         }
 
-        public int Index { get; }
-        public bool IsJet { get; }
         public AirFightingResult? FightingResult { get; }
         public AntiAirFire AntiAirFire { get; }
         public AerialSide Ally { get; }
         public AerialSide Enemy { get; }
+    }
+
+    public class JetPhase : AerialPhase
+    {
+        public JetPhase(MasterDataRoot masterData, Side ally, Side enemy, RawAerialPhase raw, bool isLandBase)
+            : base(0, masterData, ally, enemy, raw)
+            => IsLandBase = isLandBase;
+
+        public bool IsLandBase { get; }
     }
 }

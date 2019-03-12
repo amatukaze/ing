@@ -34,6 +34,7 @@
       <DependentUpon>ShipSlotPresenter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SlotAircraftPresenter.vb" />
+    <Compile Include="Controls\TypeTemplateSelector.vb" />
     <Compile Include="Controls\UseItemIcon.vb" />
     <Compile Include="Controls\UseItemPresenter.vb" />
     <Compile Include="Helpers.vb" />

@@ -5,8 +5,13 @@ namespace Sakuno.ING.Game.Models.Combat
 {
     public abstract class BattlePhase
     {
+        public int Index { get; }
         public IReadOnlyList<Attack> Attacks { get; }
-        protected BattlePhase(IEnumerable<Attack> attacks) => Attacks = attacks.ToArray();
+        protected BattlePhase(IEnumerable<Attack> attacks, int index = 0)
+        {
+            Index = index;
+            Attacks = attacks.ToArray();
+        }
 
         protected static IEnumerable<Attack> Initialze<TBuilder>(MasterDataRoot masterData, RawBattlePhase raw, TBuilder builder)
             where TBuilder : IBattlePhaseBuilder
