@@ -31,6 +31,7 @@ namespace Sakuno.ING
                 "Sakuno.ING.Timing.NTP",
                 "Sakuno.ING.ViewModels.Logging",
                 "Sakuno.ING.Views.Desktop.Base",
+                "Sakuno.ING.Views.Desktop.Combat",
                 "Sakuno.ING.Views.Desktop.Common",
                 "Sakuno.ING.Views.Desktop.Logging",
                 "Sakuno.ING.Views.Desktop.Homeport",
