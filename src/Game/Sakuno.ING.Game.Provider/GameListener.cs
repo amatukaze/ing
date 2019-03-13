@@ -8,12 +8,14 @@ using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Http;
 using Sakuno.ING.Messaging;
+using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Game
 {
     [Export(typeof(GameProvider))]
     public sealed partial class GameProvider
     {
+        private readonly ISettingItem<string> savedMasterData;
         private readonly ITimedMessageProvider<HttpMessage> provider;
         private readonly JsonSerializer jSerializer = new JsonSerializer
         {
@@ -33,7 +35,8 @@ namespace Sakuno.ING.Game
             {
                 case "api_start2":
                 case "api_start2/getData":
-                    MasterDataUpdated?.Invoke(t, ParseMasterData(Response<MasterDataJson>(m)));
+                    savedMasterData.Value = m.Response.ToString();
+                    masterDataUpdated?.Invoke(t, ParseMasterData(Response<MasterDataJson>(m)));
                     break;
                 case "api_get_member/require_info":
                     var requireInfo = Response<GameStartupInfoJson>(m);
@@ -242,8 +245,9 @@ namespace Sakuno.ING.Game
             }
         }
 
-        public GameProvider(IHttpProviderSelector providerSelector)
+        public GameProvider(IHttpProviderSelector providerSelector, ISettingsManager settings)
         {
+            savedMasterData = settings.Register<string>("game.master_data");
             provider = new SynchronizedMessageProvider<HttpMessage>(providerSelector.Current);
             jSerializer.Error += JsonError;
             provider.Received += HandleMessage;

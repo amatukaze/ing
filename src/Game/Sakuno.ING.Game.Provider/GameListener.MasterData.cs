@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sakuno.ING.Game.Events;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.MasterData;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Knowledge;
@@ -9,7 +11,18 @@ namespace Sakuno.ING.Game
 {
     public partial class GameProvider
     {
-        public event TimedMessageHandler<MasterDataUpdate> MasterDataUpdated;
+        private TimedMessageHandler<MasterDataUpdate> masterDataUpdated;
+        public event TimedMessageHandler<MasterDataUpdate> MasterDataUpdated
+        {
+            add
+            {
+                string saved = savedMasterData.Value;
+                if (!string.IsNullOrEmpty(saved))
+                    value(default, ParseMasterData(Convert<SvData<MasterDataJson>>(saved.AsMemory()).api_data));
+                masterDataUpdated += value;
+            }
+            remove => masterDataUpdated -= value;
+        }
 
         private static MasterDataUpdate ParseMasterData(MasterDataJson raw)
         {
