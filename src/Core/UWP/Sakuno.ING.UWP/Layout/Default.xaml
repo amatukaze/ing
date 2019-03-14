@@ -6,6 +6,10 @@
         <sh:LayoutWindow>
             <DataTemplate>
                 <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -17,6 +21,7 @@
                     <sh:ViewPresenter Grid.Row="1" ViewId="Fleets" />
                     <sh:ViewPresenter Grid.Row="2" ViewId="Docks" />
                     <sh:ViewPresenter Grid.Row="3" ViewId="Expedition" />
+                    <sh:ViewPresenter Grid.Column="1" Grid.RowSpan="5" ViewId="CurrentBattle" />
                     <StackPanel Orientation="Horizontal" Grid.Row="4">
                         <sh:ViewSwitcher ViewId="LogMigration" />
                         <sh:ViewSwitcher ViewId="ShipCreationLogs" />

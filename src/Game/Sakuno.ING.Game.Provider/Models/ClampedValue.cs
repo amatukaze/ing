@@ -39,5 +39,7 @@
             current = Current;
             max = Max;
         }
+
+        public override string ToString() => $"{Current}/{Max}";
     }
 }

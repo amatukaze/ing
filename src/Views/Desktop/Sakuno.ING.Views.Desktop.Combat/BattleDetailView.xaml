@@ -105,9 +105,46 @@
                               ItemTemplate="{StaticResource HitTemplate}" />
             </StackPanel>
         </DataTemplate>
+        <DataTemplate x:Key="ShipTemplate" DataType="{x:Type m:BattleParticipant}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="2">
+                    <c:ShipNameText Source="{Binding Ship.Info.Name, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Margin="2" Text="{Binding FromHP, Mode=OneWay}" />
+                <TextBlock Margin="2" Text="→" />
+                <TextBlock Margin="2" Text="{Binding ToHP, Mode=OneWay}" />
+            </StackPanel>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <ItemsControl ItemsSource="{Binding OrderedPhases, Mode=OneTime}"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ItemsControl Grid.Column="0"
+                      ItemsSource="{Binding Ally.Fleet, Mode=OneWay}"
+                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
+                      ItemTemplate="{StaticResource ShipTemplate}" />
+        <ItemsControl Grid.Column="1"
+                      ItemsSource="{Binding Ally.Fleet2, Mode=OneWay}"
+                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
+                      ItemTemplate="{StaticResource ShipTemplate}" />
+        <ItemsControl Grid.Column="2"
+                      ItemsSource="{Binding Enemy.Fleet, Mode=OneWay}"
+                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
+                      ItemTemplate="{StaticResource ShipTemplate}" />
+        <ItemsControl Grid.Column="3"
+                      ItemsSource="{Binding Enemy.Fleet2, Mode=OneWay}"
+                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
+                      ItemTemplate="{StaticResource ShipTemplate}" />
+        <ItemsControl Grid.Row="1" Grid.ColumnSpan="4"
+                      ItemsSource="{Binding OrderedPhases, Mode=OneTime}"
                       ItemsPanel="{StaticResource VerticalPanelTemplate}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type m:BattlePhase}">

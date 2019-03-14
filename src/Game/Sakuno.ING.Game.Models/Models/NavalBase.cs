@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
+using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Messaging;
@@ -20,6 +21,7 @@ namespace Sakuno.ING.Game.Models
             Localization = localization;
 
             MasterData = new MasterDataRoot(listener, localization);
+            Battle = new BattleManager(listener, this);
             Quests = new QuestManager(listener, localization);
             _allEquipment = new IdTable<EquipmentId, Equipment, RawEquipment, NavalBase>(this);
             _buildingDocks = new IdTable<BuildingDockId, BuildingDock, RawBuildingDock, NavalBase>(this);
@@ -186,6 +188,7 @@ namespace Sakuno.ING.Game.Models
             => ids.Select(_allEquipment.Remove).ToArray();
 
         public MasterDataRoot MasterData { get; }
+        public BattleManager Battle { get; }
         public QuestManager Quests { get; }
 
         private readonly IdTable<EquipmentId, Equipment, RawEquipment, NavalBase> _allEquipment;

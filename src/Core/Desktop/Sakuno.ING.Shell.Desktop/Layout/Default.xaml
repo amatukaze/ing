@@ -8,6 +8,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="0.5*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -23,6 +24,9 @@
                     <sh:ViewPresenter Grid.Column="1" Grid.Row="1" ViewId="Fleets" />
                     <sh:ViewPresenter Grid.Column="1" Grid.Row="2" ViewId="Docks" />
                     <sh:ViewPresenter Grid.Column="1" Grid.Row="3" ViewId="Expedition" />
+
+                    <sh:ViewPresenter Grid.Column="2" Grid.RowSpan="5" ViewId="CurrentBattle" />
+
                     <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
                         <sh:ViewSwitcher ViewId="LogMigration" />
                         <sh:ViewSwitcher ViewId="ShipCreationLogs" />
