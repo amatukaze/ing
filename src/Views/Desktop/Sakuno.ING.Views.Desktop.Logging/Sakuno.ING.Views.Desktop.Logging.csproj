@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="$(BasePath)src\ViewModels\Sakuno.ING.ViewModels.Logging\Sakuno.ING.ViewModels.Logging.csproj" />
+    <ProjectReference Include="$(BasePath)src\Views\Desktop\Sakuno.ING.Views.Desktop.Combat\Sakuno.ING.Views.Desktop.Combat.csproj" />
   </ItemGroup>
 
 </Project>

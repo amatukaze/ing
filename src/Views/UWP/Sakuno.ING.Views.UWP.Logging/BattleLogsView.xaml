@@ -45,7 +45,9 @@
                 <tk:DataGridTemplateColumn>
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:BattleVM">
-                            <Button Style="{StaticResource TextBlockButtonStyle}" Tapped="{x:Bind LoadDetail}" >
+                            <Button Style="{StaticResource TextBlockButtonStyle}"
+                                    Tapped="{x:Bind LoadDetail}"
+                                    Visibility="{x:Bind HasBattleDetail}">
                                 <SymbolIcon Symbol="List" />
                             </Button>
                         </DataTemplate>

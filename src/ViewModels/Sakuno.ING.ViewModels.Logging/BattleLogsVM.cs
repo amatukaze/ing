@@ -38,20 +38,26 @@ namespace Sakuno.ING.ViewModels.Logging
         public string EnemyFleetName => entity.EnemyFleetName;
         public ShipInfo Drop { get; }
         public UseItemInfo UseItemDrop { get; }
+        public bool HasBattleDetail => entity.HasBattleDetail;
+        public Battle Detail { get; private set; }
 
         public void LoadDetail()
         {
-            if (!entity.HasBattleDetail) return;
-            var battle = new Battle
-            (
-                entity.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
-                entity.SortieFleet2State?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
-                entity.CombinedFleetType,
-                entity.BattleKind
-            );
-            TryAppend(battle, entity.FirstBattleDetail);
-            TryAppend(battle, entity.SecondBattleDetail);
-            owner.shell.ShowViewWithParameter("BattleLogDetail", battle);
+            if (!HasBattleDetail) return;
+            if (Detail is null)
+            {
+                var battle = new Battle
+                (
+                    entity.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
+                    entity.SortieFleet2State?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
+                    entity.CombinedFleetType,
+                    entity.BattleKind
+                );
+                TryAppend(battle, entity.FirstBattleDetail);
+                TryAppend(battle, entity.SecondBattleDetail);
+                Detail = battle;
+            }
+            owner.shell.ShowViewWithParameter("BattleLogDetail", this);
         }
 
         private void TryAppend(Battle battle, string json)

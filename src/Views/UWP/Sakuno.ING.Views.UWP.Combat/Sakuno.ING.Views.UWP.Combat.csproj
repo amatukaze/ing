@@ -33,6 +33,17 @@
       <Version>5.1.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="BattleDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BattleDetailView.xaml.cs">
+      <DependentUpon>BattleDetailView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

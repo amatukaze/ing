@@ -54,4 +54,175 @@
   <data name="BattleRank_E">
     <value>Defeat E</value>
   </data>
+  <data name="LandBaseAirDefence">
+    <value>Land base defence</value>
+  </data>
+  <data name="CombinedFleetType_0">
+    <value>Normal fleet</value>
+  </data>
+  <data name="CombinedFleetType_1">
+    <value>Carrier task force</value>
+  </data>
+  <data name="CombinedFleetType_2">
+    <value>Surface task force</value>
+  </data>
+  <data name="CombinedFleetType_3">
+    <value>Transport escort</value>
+  </data>
+  <data name="Engagement">
+    <value>Engagement</value>
+  </data>
+  <data name="Engagement_1">
+    <value>Parallel</value>
+  </data>
+  <data name="Engagement_2">
+    <value>Head on</value>
+  </data>
+  <data name="Engagement_3">
+    <value>Cross Advantage</value>
+  </data>
+  <data name="Engagement_4">
+    <value>Cross Disadvantage</value>
+  </data>
+  <data name="Formation">
+    <value>Formation</value>
+  </data>
+  <data name="Formation_1">
+    <value>Line Ahead</value>
+  </data>
+  <data name="Formation_2">
+    <value>Double Line</value>
+  </data>
+  <data name="Formation_3">
+    <value>Diamond</value>
+  </data>
+  <data name="Formation_4">
+    <value>Echelon</value>
+  </data>
+  <data name="Formation_5">
+    <value>Line Abreast</value>
+  </data>
+  <data name="Formation_6">
+    <value>Vanguard</value>
+  </data>
+  <data name="Formation_11">
+    <value>Anti-sub Cruising</value>
+  </data>
+  <data name="Formation_12">
+    <value>Forward Cruising</value>
+  </data>
+  <data name="Formation_13">
+    <value>Ring Cruising</value>
+  </data>
+  <data name="Formation_14">
+    <value>Battle Formation</value>
+  </data>
+  <data name="Detection">
+    <value>Detection</value>
+  </data>
+  <data name="Detection_1">
+    <value>Detection Success</value>
+  </data>
+  <data name="Detection_2">
+    <value>Detection Success (plane lost)</value>
+  </data>
+  <data name="Detection_3">
+    <value>Detection Fail (plane lost)</value>
+  </data>
+  <data name="Detection_4">
+    <value>Detection Fail</value>
+  </data>
+  <data name="Detection_5">
+    <value>Detection Success (without plane)</value>
+  </data>
+  <data name="Detection_6">
+    <value>Detection Fail (without plane)</value>
+  </data>
+  <data name="AirFightingResult">
+    <value>Aerial Fighting</value>
+  </data>
+  <data name="AirFightingResult_0">
+    <value>Air Parity</value>
+  </data>
+  <data name="AirFightingResult_1">
+    <value>Air Supremacy</value>
+  </data>
+  <data name="AirFightingResult_2">
+    <value>Air Superiority</value>
+  </data>
+  <data name="AirFightingResult_3">
+    <value>Air Denial</value>
+  </data>
+  <data name="AirFightingResult_4">
+    <value>Air Incapability</value>
+  </data>
+  <data name="TouchingPlane">
+    <value>Contact: </value>
+  </data>
+  <data name="NightTouchingPlane">
+    <value>Night contact: </value>
+  </data>
+  <data name="FightedPlane">
+    <value>Fighter combat</value>
+  </data>
+  <data name="ShootedPlane">
+    <value>Anti-air fire</value>
+  </data>
+  <data name="AntiAirCutIn">
+    <value>Anti-air cut-in</value>
+  </data>
+  <data name="Flare">
+    <value>Flare: </value>
+  </data>
+  <data name="SupportFireType_1">
+    <value>Aerial support</value>
+  </data>
+  <data name="SupportFireType_2">
+    <value>Shelling support</value>
+  </data>
+  <data name="SupportFireType_3">
+    <value>Torpedo support</value>
+  </data>
+  <data name="SupportFireType_4">
+    <value>Anti-sub support</value>
+  </data>
+  <data name="ShellingPhase">
+    <value>Shelling phase {0}</value>
+  </data>
+  <data name="OpeningAswPhase">
+    <value>Opening anti-sub</value>
+  </data>
+  <data name="TorpedoPhase_Opening">
+    <value>Opening torpedo</value>
+  </data>
+  <data name="TorpedoPhase_Closing">
+    <value>Closing torpedo</value>
+  </data>
+  <data name="AerialPhase">
+    <value>Aerial phase</value>
+  </data>
+  <data name="AerialPhase_2">
+    <value>Aerial phase 2</value>
+  </data>
+  <data name="AerialPhase_Jet">
+    <value>Jet assault</value>
+  </data>
+  <data name="AerialPhase_Jet_LandBase">
+    <value>LBAS Jet assault</value>
+  </data>
+  <data name="LandBasePhase">
+    <value>LBAS phase {0}</value>
+  </data>
+  <data name="SupportPhase">
+    <value>Support fire</value>
+  </data>
+  <data name="NightPhase">
+    <value>Night battle</value>
+  </data>
+  <data name="NightPhase_Combined">
+    <value>Combined night battle phase {0}</value>
+  </data>
+  <data name="NpcPhase">
+    <value>NPC fleet</value>
+  </data>
 </root>

@@ -54,4 +54,175 @@
   <data name="BattleRank_E">
     <value>败北E</value>
   </data>
+  <data name="CombinedFleetType_0">
+    <value>通常舰队</value>
+  </data>
+  <data name="CombinedFleetType_1">
+    <value>空母机动部队</value>
+  </data>
+  <data name="CombinedFleetType_2">
+    <value>水上打击部队</value>
+  </data>
+  <data name="CombinedFleetType_3">
+    <value>输送护卫部队</value>
+  </data>
+  <data name="LandBaseAirDefence">
+    <value>基地防空</value>
+  </data>
+  <data name="Engagement">
+    <value>航向</value>
+  </data>
+  <data name="Engagement_1">
+    <value>同航战</value>
+  </data>
+  <data name="Engagement_2">
+    <value>反航战</value>
+  </data>
+  <data name="Engagement_3">
+    <value>T字有利</value>
+  </data>
+  <data name="Engagement_4">
+    <value>T字不利</value>
+  </data>
+  <data name="Formation">
+    <value>阵型</value>
+  </data>
+  <data name="Formation_1">
+    <value>单纵阵</value>
+  </data>
+  <data name="Formation_2">
+    <value>复纵阵</value>
+  </data>
+  <data name="Formation_3">
+    <value>轮形阵</value>
+  </data>
+  <data name="Formation_4">
+    <value>梯形阵</value>
+  </data>
+  <data name="Formation_5">
+    <value>单横阵</value>
+  </data>
+  <data name="Formation_6">
+    <value>警戒阵</value>
+  </data>
+  <data name="Formation_11">
+    <value>对潜警戒</value>
+  </data>
+  <data name="Formation_12">
+    <value>前方警戒</value>
+  </data>
+  <data name="Formation_13">
+    <value>轮形警戒</value>
+  </data>
+  <data name="Formation_14">
+    <value>战斗队形</value>
+  </data>
+  <data name="Detection">
+    <value>索敌</value>
+  </data>
+  <data name="Detection_1">
+    <value>索敌成功</value>
+  </data>
+  <data name="Detection_2">
+    <value>索敌成功（飞机未归还）</value>
+  </data>
+  <data name="Detection_3">
+    <value>索敌失败（飞机未归还）</value>
+  </data>
+  <data name="Detection_4">
+    <value>索敌失败</value>
+  </data>
+  <data name="Detection_5">
+    <value>索敌成功（未使用飞机）</value>
+  </data>
+  <data name="Detection_6">
+    <value>索敌失败（未使用飞机）</value>
+  </data>
+  <data name="AirFightingResult">
+    <value>制空权</value>
+  </data>
+  <data name="AirFightingResult_0">
+    <value>制空均势</value>
+  </data>
+  <data name="AirFightingResult_1">
+    <value>制空权确保</value>
+  </data>
+  <data name="AirFightingResult_2">
+    <value>航空优势</value>
+  </data>
+  <data name="AirFightingResult_3">
+    <value>航空劣势</value>
+  </data>
+  <data name="AirFightingResult_4">
+    <value>制空权丧失</value>
+  </data>
+  <data name="TouchingPlane">
+    <value>触接：</value>
+  </data>
+  <data name="NightTouchingPlane">
+    <value>夜间触接：</value>
+  </data>
+  <data name="FightedPlane">
+    <value>空对空</value>
+  </data>
+  <data name="ShootedPlane">
+    <value>舰对空</value>
+  </data>
+  <data name="AntiAirCutIn">
+    <value>对空弹幕</value>
+  </data>
+  <data name="Flare">
+    <value>照明弹：</value>
+  </data>
+  <data name="SupportFireType_1">
+    <value>航空支援</value>
+  </data>
+  <data name="SupportFireType_2">
+    <value>炮击支援</value>
+  </data>
+  <data name="SupportFireType_3">
+    <value>雷击支援</value>
+  </data>
+  <data name="SupportFireType_4">
+    <value>反潜支援</value>
+  </data>
+  <data name="ShellingPhase">
+    <value>炮击战第{0}轮</value>
+  </data>
+  <data name="OpeningAswPhase">
+    <value>开幕反潜</value>
+  </data>
+  <data name="TorpedoPhase_Opening">
+    <value>开幕雷击</value>
+  </data>
+  <data name="TorpedoPhase_Closing">
+    <value>闭幕雷击</value>
+  </data>
+  <data name="AerialPhase">
+    <value>航空战</value>
+  </data>
+  <data name="AerialPhase_2">
+    <value>航空战第2轮</value>
+  </data>
+  <data name="AerialPhase_Jet">
+    <value>喷气强袭</value>
+  </data>
+  <data name="AerialPhase_Jet_LandBase">
+    <value>基地喷气强袭</value>
+  </data>
+  <data name="LandBasePhase">
+    <value>基地航空队第{0}轮</value>
+  </data>
+  <data name="SupportPhase">
+    <value>支援舰队</value>
+  </data>
+  <data name="NightPhase">
+    <value>夜战</value>
+  </data>
+  <data name="NightPhase_Combined">
+    <value>联合舰队夜战第{0}轮</value>
+  </data>
+  <data name="NpcPhase">
+    <value>友军舰队</value>
+  </data>
 </root>

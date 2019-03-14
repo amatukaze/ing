@@ -2,6 +2,7 @@
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Settings;
@@ -34,6 +35,20 @@ namespace Sakuno.ING.Views.UWP
                 .ToArray();
             dockEmpty = localization.GetLocalized("GameModel", "Dock_Empty");
             dockLocked = localization.GetLocalized("GameModel", "Dock_Locked");
+
+            phaseShelling = localization.GetLocalized("Combat", "ShellingPhase");
+            phaseOpeningAsw = localization.GetLocalized("Combat", "OpeningAswPhase");
+            phaseOpeningTorpedo = localization.GetLocalized("Combat", "TorpedoPhase_Opening");
+            phaseClosingTorpedo = localization.GetLocalized("Combat", "TorpedoPhase_Closing");
+            phaseAerial = localization.GetLocalized("Combat", "AerialPhase");
+            phaseAerial2 = localization.GetLocalized("Combat", "AerialPhase_2");
+            phaseJet = localization.GetLocalized("Combat", "AerialPhase_Jet");
+            phaseLandBaseJet = localization.GetLocalized("Combat", "AerialPhase_Jet_LandBase");
+            phaseLandBase = localization.GetLocalized("Combat", "LandBasePhase");
+            phaseSupport = localization.GetLocalized("Combat", "SupportPhase");
+            phaseNight = localization.GetLocalized("Combat", "NightPhase");
+            phaseNightCombined = localization.GetLocalized("Combat", "NightPhase_Combined");
+            phaseNpc = localization.GetLocalized("Combat", "NpcPhase");
         }
 
         private static readonly string[] admiralRankTexts;
@@ -90,5 +105,34 @@ namespace Sakuno.ING.Views.UWP
 
         public static bool FleetStateEquals(FleetState left, FleetState right)
             => left == right;
+
+        private static readonly string
+            phaseShelling,
+            phaseOpeningAsw,
+            phaseOpeningTorpedo,
+            phaseClosingTorpedo,
+            phaseAerial,
+            phaseAerial2,
+            phaseJet,
+            phaseLandBaseJet,
+            phaseLandBase,
+            phaseSupport,
+            phaseNight,
+            phaseNightCombined,
+            phaseNpc;
+        public static string FormatBattlePhaseTitle(BattlePhase phase) => phase switch
+        {
+            OpeningAswPhase _ => phaseOpeningAsw,
+            ShellingPhase shelling => string.Format(phaseShelling, shelling.Index),
+            TorpedoPhase torpedo => torpedo.IsOpening ? phaseOpeningTorpedo : phaseClosingTorpedo,
+            JetPhase jet => jet.IsLandBase ? phaseLandBaseJet : phaseJet,
+            LandBasePhase landBase => string.Format(phaseLandBase, landBase.Index),
+            AerialPhase aerial => aerial.Index == 2 ? phaseAerial2 : phaseAerial,
+            SupportPhase _ => phaseSupport,
+            NpcPhase _ => phaseNpc,
+            CombinedNightPhase combined => string.Format(phaseNightCombined, combined.Index),
+            NightPhase _ => phaseNight,
+            _ => null
+        };
     }
 }

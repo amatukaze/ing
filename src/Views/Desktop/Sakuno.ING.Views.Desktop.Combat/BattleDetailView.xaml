@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Combat.BattleDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Combat"
+             xmlns:m="clr-namespace:Sakuno.ING.Game.Models.Combat;assembly=Sakuno.ING.Game.Models"
+             xmlns:c="http://schemas.heavenlywind.cc/presentation"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance Type=m:Battle}">
+    <UserControl.Resources>
+        <ItemsPanelTemplate x:Key="VerticalPanelTemplate">
+            <StackPanel Orientation="Vertical" />
+        </ItemsPanelTemplate>
+        <!--#region Header-->
+        <c:TypeTemplateSelector x:Key="HeaderSelector">
+            <c:TypeTemplateSelection Type="m:ShellingPhase">
+                <DataTemplate>
+                    <TextBlock Text="{Binding Index, Mode=OneTime, StringFormat={c:Localize Combat/ShellingPhase}}" />
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelection Type="m:OpeningAswPhase">
+                <DataTemplate>
+                    <TextBlock Text="{c:Localize Combat/OpeningAswPhase}" />
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelection Type="m:TorpedoPhase">
+                <DataTemplate>
+                    <TextBlock Name="Title" Text="{c:Localize Combat/TorpedoPhase_Closing}" />
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsOpening, Mode=OneTime}" Value="True">
+                            <Setter TargetName="Title" Property="Text" Value="{c:Localize Combat/TorpedoPhase_Opening}" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelection Type="m:AerialPhase">
+                <DataTemplate>
+                    <TextBlock Text="{Binding Index, Mode=OneTime, StringFormat={c:Localize Combat/AerialPhase}}" />
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelection Type="m:JetPhase">
+                <DataTemplate>
+                    <TextBlock Name="Title" Text="{c:Localize Combat/AerialPhase_Jet}" />
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsLandBase, Mode=OneTime}" Value="True">
+                            <Setter TargetName="Title" Property="Text" Value="{c:Localize Combat/AerialPhase_Jet_LandBase}" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelection Type="m:LandBasePhase">
+                <DataTemplate>
+                    <TextBlock Text="{Binding Index, Mode=OneTime, StringFormat={c:Localize Combat/LandBasePhase}}" />
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelection Type="m:SupportPhase">
+                <DataTemplate>
+                    <TextBlock Text="{c:Localize Combat/SupportPhase}" />
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelection Type="m:NightPhase">
+                <DataTemplate>
+                    <TextBlock Text="{c:Localize Combat/NightPhase}" />
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelection Type="m:CombinedNightPhase">
+                <DataTemplate>
+                    <TextBlock Text="{Binding Index, Mode=OneTime, StringFormat={c:Localize Combat/NightPhase_Combined}}" />
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelection Type="m:NpcPhase">
+                <DataTemplate>
+                    <TextBlock Text="{c:Localize Combat/NpcPhase}" />
+                </DataTemplate>
+            </c:TypeTemplateSelection>
+            <c:TypeTemplateSelector.Fallback>
+                <DataTemplate>
+                    <TextBlock />
+                </DataTemplate>
+            </c:TypeTemplateSelector.Fallback>
+        </c:TypeTemplateSelector>
+        <!--#endregion-->
+        <DataTemplate x:Key="HitTemplate" DataType="{x:Type m:Hit}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="2" Text="→" />
+                <TextBlock Margin="2">
+                    <Run Text="{Binding Target.OneBasedIndex, Mode=OneTime}" /><Run Text="." /><c:ShipNameText Source="{Binding Target.Ship.Info.Name, Mode=OneTime}" />
+                </TextBlock>
+                <TextBlock Margin="2" Text="{Binding Damage, StringFormat=-{0}, Mode=OneTime}" />
+                <TextBlock Margin="2">
+                    <Run Text="{Binding FromHP.Current, Mode=OneTime}" /><Run Text="→" /><Run Text="{Binding ToHP.Current, Mode=OneTime}" />
+                </TextBlock>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="AttackTemplate" DataType="{x:Type m:Attack}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="2">
+                    <Run Text="{Binding Source.OneBasedIndex, Mode=OneTime}" /><Run Text="." /><c:ShipNameText Source="{Binding Source.Ship.Info.Name, Mode=OneTime}" />
+                </TextBlock>
+                <TextBlock Margin="2" Text="{Binding Type, Mode=OneTime}" />
+                <ItemsControl ItemsSource="{Binding Hits, Mode=OneTime}"
+                              ItemsPanel="{StaticResource VerticalPanelTemplate}"
+                              ItemTemplate="{StaticResource HitTemplate}" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <ItemsControl ItemsSource="{Binding OrderedPhases, Mode=OneTime}"
+                      ItemsPanel="{StaticResource VerticalPanelTemplate}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type m:BattlePhase}">
+                    <StackPanel Orientation="Vertical">
+                        <ContentPresenter Content="{Binding}" ContentTemplateSelector="{StaticResource HeaderSelector}" />
+                        <ItemsControl ItemsSource="{Binding Attacks, Mode=OneTime}"
+                                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
+                                      ItemTemplate="{StaticResource AttackTemplate}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

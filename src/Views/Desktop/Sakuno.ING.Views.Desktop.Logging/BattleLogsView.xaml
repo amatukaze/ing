@@ -11,6 +11,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <c:DateTimeDisplayConverter x:Key="DateTimeDisplay" />
+        <c:VisibilityConverter x:Key="VisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -48,7 +49,9 @@
                     <GridViewColumn>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <c:InvokeMethodButton Content="{c:Localize GameModel/Details}" MethodName="LoadDetail" />
+                                <c:InvokeMethodButton Content="{c:Localize GameModel/Details}"
+                                                      MethodName="LoadDetail"
+                                                      Visibility="{Binding HasBattleDetail, Mode=OneTime, Converter={StaticResource VisibilityConverter}}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

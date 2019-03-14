@@ -4,13 +4,13 @@ using Sakuno.ING.ViewModels.Logging;
 
 namespace Sakuno.ING.Views.Desktop.Logging
 {
-    [ExportView("BattleLogs")]
-    public partial class BattleLogsView : UserControl
+    [ExportView("BattleLogDetail")]
+    public partial class BattleLogDetailsView : UserControl
     {
-        public BattleLogsView()
+        public BattleLogDetailsView(BattleVM viewModel)
         {
+            DataContext = viewModel;
             InitializeComponent();
-            Unloaded += (s, e) => (DataContext as BattleLogsVM)?.Dispose();
         }
     }
 }

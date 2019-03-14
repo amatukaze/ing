@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
     public abstract class BattlePhase
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public BattlePhase This => this;
+
         public int Index { get; }
         public IReadOnlyList<Attack> Attacks { get; }
         protected BattlePhase(IEnumerable<Attack> attacks, int index = 0)

@@ -10,6 +10,7 @@ namespace Sakuno.ING.Views.Desktop.Controls
     public class TypeTemplateSelector : DataTemplateSelector
     {
         public List<TypeTemplateSelection> Selections { get; } = new List<TypeTemplateSelection>();
+        public DataTemplate Fallback { get; set; }
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item is null)
@@ -18,10 +19,11 @@ namespace Sakuno.ING.Views.Desktop.Controls
             foreach (var s in Selections)
                 if (s.Type == type)
                     return s.Template;
-            return null;
+            return Fallback;
         }
     }
 
+    [ContentProperty(nameof(Template))]
     public class TypeTemplateSelection
     {
         public Type Type { get; set; }

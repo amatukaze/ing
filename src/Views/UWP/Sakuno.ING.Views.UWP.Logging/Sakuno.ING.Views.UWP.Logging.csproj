@@ -19,6 +19,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BattleLogDetailsView.xaml.cs">
+      <DependentUpon>BattleLogDetailsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BattleLogsView.xaml.cs">
       <DependentUpon>BattleLogsView.xaml</DependentUpon>
     </Compile>
@@ -42,6 +45,10 @@
     <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.Logging.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BattleLogDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BattleLogsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,6 +94,10 @@
     <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Logging\Sakuno.ING.ViewModels.Logging.csproj">
       <Project>{1c87416d-ddef-4416-86e6-13dc44931cf5}</Project>
       <Name>Sakuno.ING.ViewModels.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sakuno.ING.Views.UWP.Combat\Sakuno.ING.Views.UWP.Combat.csproj">
+      <Project>{c2eea102-0053-4046-8f41-e317763d2b16}</Project>
+      <Name>Sakuno.ING.Views.UWP.Combat</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
