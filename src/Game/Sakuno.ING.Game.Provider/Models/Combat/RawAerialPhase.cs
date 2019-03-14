@@ -43,12 +43,15 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             if (torpedoed is null || bombed is null || damages is null || criticals is null)
                 yield break;
+            int count = 0;
             for (int i = 0; i < damages.Length; i++)
             {
+                if (damages[i] < 0) continue;
                 int typeNumber = (torpedoed.At(i) ? TorpedoFlag : 0) | (bombed.At(i) ? BombFlag : 0);
                 if (typeNumber == 0 && damages.At(i) == 0)
                     continue;
-                yield return new SingleAttack(null, enemyAttacks, typeNumber, null, new RawHit(i + indexBase, damages.At(i), criticals.At(i)));
+                yield return new SingleAttack(null, enemyAttacks, typeNumber, null, new RawHit(count + indexBase, damages.At(i), criticals.At(i)));
+                count++;
             }
         }
 

@@ -15,10 +15,12 @@ namespace Sakuno.ING.Game.Models.Combat
         private static IEnumerable<RawAttack> SelectTorpedo(int[] targets, decimal[] damages, int[] criticals, bool enemyAttacks)
         {
             if (targets == null) yield break;
+            int index = 0;
             for (int i = 0; i < targets.Length; i++)
             {
                 if (targets[i] <= 0) continue;
-                yield return new SingleAttack(i, enemyAttacks, 0, null, new RawHit(targets[i] - 1, damages[i], criticals[i]));
+                yield return new SingleAttack(index, enemyAttacks, 0, null, new RawHit(targets[i] - 1, damages[i], criticals[i]));
+                index++;
             }
         }
     }
