@@ -16,9 +16,12 @@ namespace Sakuno.ING.Game
         {
             add
             {
-                string saved = savedMasterData.Value;
-                if (!string.IsNullOrEmpty(saved))
-                    value(default, ParseMasterData(Convert<SvData<MasterDataJson>>(saved.AsMemory()).api_data));
+                if (savedMasterData != null)
+                {
+                    string saved = savedMasterData.Value;
+                    if (!string.IsNullOrEmpty(saved))
+                        value(default, ParseMasterData(Convert<SvData<MasterDataJson>>(saved.AsMemory()).api_data));
+                }
                 masterDataUpdated += value;
             }
             remove => masterDataUpdated -= value;

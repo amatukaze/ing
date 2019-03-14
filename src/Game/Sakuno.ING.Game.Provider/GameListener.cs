@@ -35,7 +35,8 @@ namespace Sakuno.ING.Game
             {
                 case "api_start2":
                 case "api_start2/getData":
-                    savedMasterData.Value = m.Response.ToString();
+                    if (savedMasterData != null)
+                        savedMasterData.Value = m.Response.ToString();
                     masterDataUpdated?.Invoke(t, ParseMasterData(Response<MasterDataJson>(m)));
                     break;
                 case "api_get_member/require_info":
@@ -245,9 +246,10 @@ namespace Sakuno.ING.Game
             }
         }
 
-        public GameProvider(IHttpProviderSelector providerSelector, ISettingsManager settings)
+        public GameProvider(IHttpProviderSelector providerSelector, ISettingsManager settings = null)
         {
-            savedMasterData = settings.Register<string>("game.master_data");
+            if (settings != null)
+                savedMasterData = settings.Register<string>("game.master_data");
             provider = new SynchronizedMessageProvider<HttpMessage>(providerSelector.Current);
             jSerializer.Error += JsonError;
             provider.Received += HandleMessage;
