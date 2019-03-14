@@ -29,7 +29,7 @@
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_ShipDrop">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:BattleVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectShipName(Drop.Name)}"
+                            <TextBlock Text="{x:Bind c:Helpers.SelectShipName(Drop.Name), FallbackValue=''}"
                                        Style="{StaticResource ShipNameTextStyle}" />
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
@@ -37,7 +37,7 @@
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_UseItemDrop">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:BattleVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectName(UseItemDrop.Name)}"
+                            <TextBlock Text="{x:Bind c:Helpers.SelectName(UseItemDrop.Name), FallbackValue=''}"
                                        Style="{StaticResource TranslatableTextStyle}" />
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>

@@ -28,7 +28,7 @@
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Result">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:EquipmentCreationVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectName(EquipmentCreated.Name)}"
+                            <TextBlock Text="{x:Bind c:Helpers.SelectName(EquipmentCreated.Name), FallbackValue=''}"
                                        Style="{StaticResource TranslatableTextStyle}" />
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
@@ -36,7 +36,7 @@
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_EquipmentType">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:EquipmentCreationVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectName(EquipmentCreated.Type.Name)}"
+                            <TextBlock Text="{x:Bind c:Helpers.SelectName(EquipmentCreated.Type.Name), FallbackValue=''}"
                                        Style="{StaticResource TranslatableTextStyle}" />
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
@@ -45,7 +45,7 @@
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:EquipmentCreationVM">
                             <TextBlock Style="{StaticResource ShipNameTextStyle}">
-                                <Run Text="{x:Bind c:Helpers.SelectShipName(Secretary.Name)}" />
+                                <Run Text="{x:Bind c:Helpers.SelectShipName(Secretary.Name), FallbackValue=''}" />
                                 (Lv. <Run Text="{x:Bind SecretaryLevel}" />)
                             </TextBlock>
                         </DataTemplate>
