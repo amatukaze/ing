@@ -7,8 +7,9 @@
             <DataTemplate>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -17,12 +18,15 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <sh:ViewPresenter Grid.Row="0" ViewId="Admiral" />
-                    <sh:ViewPresenter Grid.Row="1" ViewId="Fleets" />
-                    <sh:ViewPresenter Grid.Row="2" ViewId="Docks" />
-                    <sh:ViewPresenter Grid.Row="3" ViewId="Expedition" />
-                    <sh:ViewPresenter Grid.Column="1" Grid.RowSpan="5" ViewId="CurrentBattle" />
-                    <StackPanel Orientation="Horizontal" Grid.Row="4">
+
+                    <sh:ViewPresenter Grid.RowSpan="4" ViewId="Browser" />
+
+                    <sh:ViewPresenter Grid.Column="1" Grid.Row="0" ViewId="Admiral" />
+                    <sh:ViewPresenter Grid.Column="1" Grid.Row="1" ViewId="Fleets" />
+                    <sh:ViewPresenter Grid.Column="1" Grid.Row="2" ViewId="Docks" />
+                    <sh:ViewPresenter Grid.Column="1" Grid.Row="3" ViewId="Expedition" />
+                    <sh:ViewPresenter Grid.Column="2" Grid.RowSpan="5" ViewId="CurrentBattle" />
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4">
                         <sh:ViewSwitcher ViewId="LogMigration" />
                         <sh:ViewSwitcher ViewId="ShipCreationLogs" />
                         <sh:ViewSwitcher ViewId="EquipmentCreationLogs" />

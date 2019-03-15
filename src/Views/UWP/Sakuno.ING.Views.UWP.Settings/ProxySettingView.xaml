@@ -16,7 +16,5 @@
         <TextBox x:Uid="/Resources/UpstreamPort"
                  IsEnabled="{x:Bind Instance.UseUpstream.Value, Mode=OneWay}"
                  Text="{x:Bind Instance.UpstreamPort.Value, Mode=TwoWay}" />
-        <TextBox x:Uid="/Resources/ListeningPort"
-                 Text="{x:Bind Instance.ListeningPort.Value, Mode=TwoWay}" />
     </StackPanel>
 </UserControl>

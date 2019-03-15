@@ -1,0 +1,42 @@
+﻿<UserControl
+    x:Class="Sakuno.ING.UWP.BrowserElement"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:c="using:Sakuno.ING.Views.UWP"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    x:DefaultBindMode="OneWay">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <tk:DockPanel>
+            <Button Click="{x:Bind WebView.GoBack}"
+                    IsEnabled="{x:Bind WebView.CanGoBack, FallbackValue=False}">
+                <SymbolIcon Symbol="Back" />
+            </Button>
+            <Button Click="{x:Bind WebView.GoForward}"
+                    IsEnabled="{x:Bind WebView.CanGoForward, FallbackValue=False}">
+                <SymbolIcon Symbol="Forward" />
+            </Button>
+            <Button tk:DockPanel.Dock="Right"
+                    Click="{x:Bind WebView.Refresh}"
+                    IsEnabled="{x:Bind c:Helpers.IsNotNull(WebView)}">
+                <SymbolIcon Symbol="Refresh" />
+            </Button>
+            <Button tk:DockPanel.Dock="Right"
+                    IsEnabled="{x:Bind c:Helpers.IsNotNull(WebView)}">
+                <SymbolIcon Symbol="Home" />
+            </Button>
+            <TextBox HorizontalAlignment="Stretch"
+                     Text="{x:Bind WebView.Source}" />
+        </tk:DockPanel>
+        <ContentPresenter Grid.Row="1"
+                          Content="{x:Bind ActualContent, Mode=OneTime}" />
+    </Grid>
+</UserControl>

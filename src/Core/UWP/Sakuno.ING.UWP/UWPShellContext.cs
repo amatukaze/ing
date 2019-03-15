@@ -92,9 +92,11 @@ namespace Sakuno.ING.UWP
             public string FullName => storageFolder.Path;
 
             public async ValueTask<IFileFacade> GetFileAsync(string filename)
-                => new StorageFileFacade(await storageFolder.GetFileAsync(filename));
+                => (await storageFolder.TryGetItemAsync(filename)) is StorageFile file
+                    ? new StorageFileFacade(file) : null;
             public async ValueTask<IFolderFacade> GetFolderAsync(string foldername)
-                => new StorageFolderFacade(await storageFolder.GetFolderAsync(foldername));
+                => (await storageFolder.TryGetItemAsync(foldername)) is StorageFolder folder
+                    ? new StorageFolderFacade(folder) : null;
             public async ValueTask<IEnumerable<IFileFacade>> GetFilesAsync()
                 => (await storageFolder.GetFilesAsync()).Select(f => new StorageFileFacade(f));
         }

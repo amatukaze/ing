@@ -60,6 +60,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BrowserElement.xaml.cs">
+      <DependentUpon>BrowserElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DebugSettingView.xaml.cs">
+      <DependentUpon>DebugSettingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LocalizationService.cs" />
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -154,6 +160,14 @@
     </PRIResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BrowserElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DebugSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Layout\Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

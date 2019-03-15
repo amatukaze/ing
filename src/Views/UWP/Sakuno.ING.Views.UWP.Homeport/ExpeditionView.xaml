@@ -16,7 +16,7 @@
             <DataTemplate x:DataType="g:Fleet">
                 <Grid>
                     <TextBlock FontSize="16"
-                               Style="{StaticResource NameTextStyle}"
+                               Style="{StaticResource TranslatableTextStyle}"
                                Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}" />
                     <TextBlock FontSize="16" TextAlignment="Right"
                                Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}" />
