@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Runtime.WindowsRuntime" PrivateAssets="All">
-      <Version>4.0.0</Version>
+      <Version>4.3.0</Version>
     </PackageReference>
     <Reference Include="Windows">
       <HintPath>$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\$(TargetPlatformVersion)\Windows.winmd</HintPath>
