@@ -172,10 +172,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Core.Listener\Sakuno.ING.Core.Listener.csproj">
-      <Project>{08c823f1-7e6a-47a9-83e1-d3e9eae07e51}</Project>
-      <Name>Sakuno.ING.Core.Listener</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Logger.Migrators\Sakuno.ING.Game.Logger.Migrators.csproj">
       <Project>{1879752a-af06-4aba-b8a0-043d79b5ba4f}</Project>
       <Name>Sakuno.ING.Game.Logger.Migrators</Name>

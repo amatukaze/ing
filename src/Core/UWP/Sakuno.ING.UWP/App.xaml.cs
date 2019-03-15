@@ -35,7 +35,6 @@ namespace Sakuno.ING.UWP
                 (
                     typeof(FrameworkElement),
                     Array.Empty<string>(),
-                    "Sakuno.ING.Core.Listener",
                     "Sakuno.ING.Data",
                     "Sakuno.ING.Data.UWP",
                     "Sakuno.ING.Game.Logger",
