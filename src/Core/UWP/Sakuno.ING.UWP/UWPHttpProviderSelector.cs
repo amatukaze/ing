@@ -9,19 +9,16 @@ namespace Sakuno.ING.UWP
     [Export(typeof(IHttpProviderSelector))]
     internal class UWPHttpProviderSelector : IHttpProviderSelector
     {
-        public UWPHttpProviderSelector(IShellContextService shell, ISettingsManager settings)
+        public UWPHttpProviderSelector(IShellContextService shell, BrowserSetting settings)
         {
-            Debug = settings.Register("browser.debug_data", false);
-            DefaultUrl = settings.Register("browser.game_url", "http://www.dmm.com/netgame_s/kancolle/");
-
-            if (Debug.InitialValue)
+            if (settings.Debug.InitialValue)
                 Current = new DebugHttpProvider(shell);
             else
                 Current = new DebugHttpProvider(shell);
+            Settings = settings;
         }
 
-        public ISettingItem<bool> Debug { get; }
-        public ISettingItem<string> DefaultUrl { get; }
         public IHttpProvider Current { get; }
+        public BrowserSetting Settings { get; }
     }
 }

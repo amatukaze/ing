@@ -13,7 +13,7 @@ namespace Sakuno.ING.UWP
         public readonly UIElement ActualContent;
         public BrowserElement(UWPHttpProviderSelector selector)
         {
-            if (selector.Debug.InitialValue)
+            if (selector.Settings.Debug.InitialValue)
             {
                 var btn = new Button
                 {
@@ -30,7 +30,7 @@ namespace Sakuno.ING.UWP
             else
             {
                 ActualContent = WebView = new WebView(WebViewExecutionMode.SeparateThread);
-                WebView.Navigate(new Uri(selector.DefaultUrl.Value));
+                WebView.Navigate(new Uri(selector.Settings.DefaultUrl.Value));
             }
 
             this.InitializeComponent();

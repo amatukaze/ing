@@ -12,6 +12,8 @@
     <StackPanel Orientation="Vertical">
         <TextBlock Text="Browser engine" />
         <ComboBox ItemsSource="{Binding AvailableBrowsers, Mode=OneTime}"
-                  SelectedValue="{Binding BrowserEngine.Value, Mode=TwoWay}" />
+                  SelectedValue="{Binding Settings.BrowserEngine.Value, Mode=TwoWay}" />
+        <CheckBox IsChecked="{Binding Settings.Debug.Value, Mode=TwoWay}"
+                  Content="Load debug data" />
     </StackPanel>
 </UserControl>

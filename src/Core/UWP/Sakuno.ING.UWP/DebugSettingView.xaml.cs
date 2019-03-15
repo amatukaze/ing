@@ -11,7 +11,7 @@ namespace Sakuno.ING.UWP
 
         public DebugSettingView(UWPHttpProviderSelector selector)
         {
-            DebugData = selector.Debug;
+            DebugData = selector.Settings.Debug;
             this.InitializeComponent();
         }
     }

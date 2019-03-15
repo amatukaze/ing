@@ -48,6 +48,6 @@
             <TextBox Text="{Binding Address, Mode=TwoWay}" />
         </DockPanel>
 
-        <ContentPresenter Content="{Binding Mode=OneTime}" Grid.Row="1" />
+        <ContentPresenter x:Name="ActualContent" Grid.Row="1" />
     </Grid>
 </UserControl>

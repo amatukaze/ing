@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Sakuno.ING.Http;
 using Sakuno.ING.Shell;
 
 namespace Sakuno.ING.Browser.Desktop
@@ -14,17 +15,34 @@ namespace Sakuno.ING.Browser.Desktop
         {
             InitializeComponent();
 
-            _browserProvider = selector.SelectedBrowser;
+            if (selector.Settings.Debug.InitialValue)
+            {
+                var btn = new Button
+                {
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Content = "Next debug data"
+                };
 
-            DataContext = _browser = _browserProvider.CreateBrowser();
-            _browser?.Navigate(selector.DefaultUrl.Value);
+                var debug = (DebugHttpProvider)selector.Current;
+                btn.Click += (s, e) => debug.Send();
+
+                ActualContent.Content = btn;
+            }
+            else
+            {
+                _browserProvider = selector.SelectedBrowser;
+
+                ActualContent.Content = DataContext = _browser = _browserProvider.CreateBrowser();
+                _browser?.Navigate(selector.Settings.DefaultUrl.Value);
+            }
 
             Application.Current.Exit += OnApplicationExit;
         }
 
         private void OnApplicationExit(object sender, ExitEventArgs e)
         {
-            _browserProvider.Dispose();
+            _browserProvider?.Dispose();
         }
     }
 }
