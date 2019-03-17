@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Composition
 {
@@ -13,14 +14,15 @@ namespace Sakuno.ING.Composition
 
         public abstract T Resolve<T>() where T : class;
         public abstract object Resolve(Type type);
-        public abstract T ResolveWithParameter<T, TParam>(TParam parameter) where T : class;
-        public abstract T ResolveNamed<T>(string name) where T : class;
-        public abstract object ResolveNamed(Type type, string name);
-        public abstract T ResolveNamedWithParameter<T, TParam>(string name, TParam parameter) where T : class;
-        public abstract IEnumerable<WithMeta<T>> ResolveWithMetadata<T>() where T : class;
+        public abstract object ResolveWithParameter<TParam>(Type type, TParam parameter);
 
-        public abstract bool IsViewRegistered(string viewId);
-        public static Compositor Default { get; private set; }
+        public abstract IReadOnlyDictionary<string, Type> ViewTypes { get; }
+        public abstract object TryResolveView(string viewId);
+
+        public abstract IReadOnlyList<KeyValuePair<Type, SettingCategory>> SettingViews { get; }
+        public abstract IEnumerable<Type> GetSettingViewsForCategory(SettingCategory category);
+
+        public static Compositor Default { get; protected set; }
         public static T Static<T>() where T : class => Default?.Resolve<T>();
     }
 }

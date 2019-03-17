@@ -12,7 +12,7 @@ using Sakuno.UserInterface.Controls;
 namespace Sakuno.ING.Shell.Desktop
 {
     [Export(typeof(IShell))]
-    internal class DesktopShell : FlexibleShell<FrameworkElement>, IShell
+    internal class DesktopShell : FlexibleShell, IShell
     {
         private readonly LayoutSetting layoutSetting;
         private readonly ILocalizationService localization;
@@ -102,14 +102,16 @@ namespace Sakuno.ING.Shell.Desktop
                 w.Activate();
             }
 
-            var viewContent = layout[windowId]?.LoadContent() ?? Compositor.Default.ResolveNamed<FrameworkElement>(windowId);
-            if (viewContent != null)
+            var windowContent = layout[windowId]?.LoadContent()
+                ?? Compositor.Default.TryResolveView(windowId);
+
+            if (windowContent != null)
             {
                 var w = new ModernWindow
                 {
                     Tag = windowId,
                     Title = localization.GetLocalized("ViewTitle", windowId) ?? windowId,
-                    Content = viewContent
+                    Content = windowContent
                 };
                 InitializeAndShow(w);
             }
@@ -117,13 +119,13 @@ namespace Sakuno.ING.Shell.Desktop
 
         public void ShowViewWithParameter<T>(string viewId, T parameter)
         {
-            var view = Compositor.Default.ResolveNamedWithParameter<FrameworkElement, T>(viewId, parameter);
-            var w = new ModernWindow
-            {
-                Title = localization.GetLocalized("ViewTitle", viewId) ?? viewId,
-                Content = view
-            };
-            InitializeAndShow(w);
+            var content = Compositor.Default.TryResolveView(viewId);
+            if (content != null)
+                InitializeAndShow(new ModernWindow
+                {
+                    Title = localization.GetLocalized("ViewTitle", viewId) ?? viewId,
+                    Content = content
+                });
         }
     }
 }

@@ -6,6 +6,7 @@ using Autofac;
 using Autofac.Builder;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Services;
+using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
 
 namespace Sakuno.ING.Bootstrap
@@ -14,11 +15,11 @@ namespace Sakuno.ING.Bootstrap
     {
         public static bool IsInitialized { get; private set; }
 
-        public static void InitializeFromAssemblyNames(Type visualElementType, string[] commandLine, params string[] assemblyNames)
+        public static void InitializeFromAssemblyNames(string[] commandLine, params string[] assemblyNames)
         {
             var emptyDictionary = new Dictionary<string, string>();
 
-            Initialize(visualElementType, commandLine, assemblyNames
+            Initialize(commandLine, assemblyNames
                 .Select(Assembly.Load).Prepend(Assembly.GetCallingAssembly())
                 .Select(asm => new PackageStartupInfo
                 {
@@ -30,7 +31,7 @@ namespace Sakuno.ING.Bootstrap
                 }), null);
         }
 
-        public static void Initialize(Type visualElementType, string[] commandLine, IEnumerable<PackageStartupInfo> packages, IPackageStorage storage)
+        public static void Initialize(string[] commandLine, IEnumerable<PackageStartupInfo> packages, IPackageStorage storage)
         {
             if (IsInitialized)
                 throw new InvalidOperationException("Bootstrapper can only be initialized once.");
@@ -61,7 +62,8 @@ namespace Sakuno.ING.Bootstrap
 
             var builder = new ContainerBuilder();
             var eager = new HashSet<Type>();
-            var viewIds = new HashSet<string>();
+            var views = new Dictionary<string, Type>();
+            var settingViews = new List<KeyValuePair<Type, SettingCategory>>();
             foreach (var a in assemblies)
                 foreach (var t in a.DefinedTypes)
                 {
@@ -81,11 +83,12 @@ namespace Sakuno.ING.Bootstrap
                                     eager.Add(export.ContractType);
                                 break;
                             case ExportViewAttribute view:
-                                builder.RegisterType(t).Named(view.ViewId, visualElementType).InstancePerDependency();
-                                viewIds.Add(view.ViewId);
+                                builder.RegisterType(t).As(t).InstancePerDependency();
+                                views[view.ViewId] = t;
                                 break;
                             case ExportSettingViewAttribute setting:
-                                builder.RegisterType(t).WithMetadata(FlexibleShell<object>.SettingCategoryName, setting.Category).As(visualElementType);
+                                builder.RegisterType(t).As(t).InstancePerDependency();
+                                settingViews.Add(new KeyValuePair<Type, SettingCategory>(t, setting.Category));
                                 break;
                         }
                 }
@@ -93,7 +96,7 @@ namespace Sakuno.ING.Bootstrap
             builder.RegisterInstance(new ModuleList(moduleInfos)).As<IModuleList>();
             builder.RegisterInstance(new PackageService(packages, storage)).As<IPackageService>();
             var c = builder.Build();
-            var compositor = new AutoFacCompositor(c, viewIds);
+            var compositor = new AutoFacCompositor(c, views, settingViews);
             foreach (var t in eager)
                 compositor.Resolve(t.MakeArrayType());
         }

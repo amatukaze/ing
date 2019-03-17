@@ -1,12 +1,10 @@
 ﻿using System.Linq;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Localization;
-using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Shell
 {
-    public abstract class FlexibleShell<TElement>
-        where TElement : class
+    public abstract class FlexibleShell
     {
         private readonly ILocalizationService localization;
         public const string SettingCategoryName = "SettingCategory";
@@ -17,13 +15,13 @@ namespace Sakuno.ING.Shell
         }
 
         protected CategorizedSettingViews[] CreateSettingViews()
-            => Compositor.Default.ResolveWithMetadata<TElement>()
-                .GroupBy(m => (SettingCategory)m.MetaData[SettingCategoryName])
+            => Compositor.Default.SettingViews
+                .GroupBy(m => m.Value)
                 .OrderBy(g => g.Key)
                 .Select(g => new CategorizedSettingViews
                 (
                     localization.GetLocalized(SettingCategoryName, g.Key.ToString()) ?? g.Key.ToString(),
-                    g.Select(m => (object)m.Value).ToArray()
+                    g.Select(m => Compositor.Default.Resolve(m.Key)).ToArray()
                 )).ToArray();
     }
 }

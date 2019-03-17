@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Markup;
 namespace Sakuno.ING.UWP
 {
     [Export(typeof(IShell))]
-    internal class UWPShell : FlexibleShell<FrameworkElement>, IShell
+    internal class UWPShell : FlexibleShell, IShell
     {
         private readonly LayoutSetting layoutSetting;
         private readonly LocaleSetting localeSetting;
@@ -114,12 +114,11 @@ namespace Sakuno.ING.UWP
                 return;
             }
 
-            bool fromLayout;
+            Type viewType;
             if (viewIds.Contains(windowId))
-                fromLayout = true;
-            else if (Compositor.Default.IsViewRegistered(windowId))
-                fromLayout = false;
-            else return;
+                viewType = null;
+            else if (!Compositor.Default.ViewTypes.TryGetValue(windowId, out viewType))
+                return;
 
             var coreView = CoreApplication.CreateNewView();
             await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
@@ -134,9 +133,9 @@ namespace Sakuno.ING.UWP
                 else
                     Window.Current.Content = new SubView
                     {
-                        ActualContent = fromLayout ?
+                        ActualContent = viewType is null ?
                             layoutFactory()[windowId].LoadContent() :
-                            Compositor.Default.ResolveNamed<FrameworkElement>(windowId),
+                            Compositor.Default.Resolve(viewType),
                         ActualTitle = localization.GetLocalized("ViewTitle", windowId) ?? windowId
                     };
 
@@ -153,28 +152,31 @@ namespace Sakuno.ING.UWP
 
         public async void ShowViewWithParameter<T>(string viewId, T parameter)
         {
-            var coreView = CoreApplication.CreateNewView();
-            int appViewId = 0;
-            await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+            if (Compositor.Default.ViewTypes.TryGetValue(viewId, out var viewType))
             {
-                var appView = ApplicationView.GetForCurrentView();
-                appViewId = appView.Id;
-
-                InitWindow();
-                Window.Current.Content = new SubView
+                var coreView = CoreApplication.CreateNewView();
+                int appViewId = 0;
+                await coreView.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
                 {
-                    ActualContent = Compositor.Default.ResolveNamedWithParameter<FrameworkElement, T>(viewId, parameter),
-                    ActualTitle = localization.GetLocalized("ViewTitle", viewId) ?? viewId
-                };
+                    var appView = ApplicationView.GetForCurrentView();
+                    appViewId = appView.Id;
 
-                appView.Consolidated += (s, e) =>
-                {
-                    CoreApplication.GetCurrentView().CoreWindow.Close();
-                };
+                    InitWindow();
+                    Window.Current.Content = new SubView
+                    {
+                        ActualContent = Compositor.Default.ResolveWithParameter(viewType, parameter),
+                        ActualTitle = localization.GetLocalized("ViewTitle", viewId) ?? viewId
+                    };
 
-                Window.Current.Activate();
-            });
-            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(appViewId);
+                    appView.Consolidated += (s, e) =>
+                    {
+                        CoreApplication.GetCurrentView().CoreWindow.Close();
+                    };
+
+                    Window.Current.Activate();
+                });
+                await ApplicationViewSwitcher.TryShowAsStandaloneAsync(appViewId);
+            }
         }
     }
 }

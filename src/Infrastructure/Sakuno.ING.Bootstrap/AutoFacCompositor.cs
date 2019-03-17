@@ -2,34 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autofac;
-using Autofac.Features.Metadata;
 using Sakuno.ING.Composition;
+using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Bootstrap
 {
     internal class AutoFacCompositor : Compositor
     {
         private readonly IContainer container;
-        private readonly HashSet<string> viewIds;
+        private readonly Dictionary<string, Type> views;
+        private readonly List<KeyValuePair<Type, SettingCategory>> settingViews;
 
-        public AutoFacCompositor(IContainer container, HashSet<string> viewIds)
+        public AutoFacCompositor(IContainer container, Dictionary<string, Type> views, List<KeyValuePair<Type, SettingCategory>> settingViews)
         {
             this.container = container;
-            this.viewIds = viewIds;
+            this.views = views;
+            this.settingViews = settingViews;
         }
 
         public override T Resolve<T>() => container.ResolveOptional<T>();
         public override object Resolve(Type type) => container.ResolveOptional(type);
-        public override T ResolveWithParameter<T, TParam>(TParam parameter) => container.ResolveOptional<T>(new AutoFacParameter<TParam>(parameter));
-        public override T ResolveNamed<T>(string name) => container.ResolveOptionalNamed<T>(name);
-        public override object ResolveNamed(Type type, string name)
-            => container.TryResolveNamed(name, type, out object instance)
-            ? instance : null;
-        public override T ResolveNamedWithParameter<T, TParam>(string name, TParam parameter)
-            => container.ResolveOptionalNamed<T>(name, new AutoFacParameter<TParam>(parameter));
-        public override IEnumerable<WithMeta<T>> ResolveWithMetadata<T>()
-            => container.Resolve<IEnumerable<Meta<T>>>()
-                .Select(m => new WithMeta<T>(m.Value, m.Metadata));
-        public override bool IsViewRegistered(string viewId) => viewIds.Contains(viewId);
+        public override object ResolveWithParameter<TParam>(Type type, TParam parameter) => container.ResolveOptional(type, new AutoFacParameter<TParam>(parameter));
+
+        public override IReadOnlyDictionary<string, Type> ViewTypes => views;
+        public override object TryResolveView(string viewId)
+            => views.TryGetValue(viewId, out var viewType)
+            ? Resolve(viewType) : null;
+
+        public override IReadOnlyList<KeyValuePair<Type, SettingCategory>> SettingViews => settingViews;
+        public override IEnumerable<Type> GetSettingViewsForCategory(SettingCategory category)
+            => settingViews.Where(x => x.Value == category).Select(x => x.Key);
     }
 }

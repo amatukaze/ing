@@ -55,7 +55,7 @@ namespace Sakuno.ING.Shell.Layout
             set
             {
                 _viewId = value;
-                Content = Compositor.Default?.ResolveNamed<FrameworkElement>(value);
+                Content = Compositor.Default.TryResolveView(value);
             }
         }
     }
