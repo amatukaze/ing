@@ -15,6 +15,9 @@ namespace Sakuno.ING.Browser.Desktop
         {
             InitializeComponent();
 
+            if (selector.Settings.Debug.Value || selector.Settings.BrowserEngine.Value == "ProxyOnly")
+                Visibility = Visibility.Collapsed;
+
             if (selector.Settings.Debug.InitialValue)
             {
                 var btn = new Button

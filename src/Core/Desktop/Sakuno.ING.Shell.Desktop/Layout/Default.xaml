@@ -1,40 +1,43 @@
 ﻿<sh:LayoutRoot xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:uic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                xmlns:sh="clr-namespace:Sakuno.ING.Shell.Layout">
     <sh:LayoutRoot.MainWindow>
         <sh:LayoutWindow>
             <DataTemplate>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="0.5*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                <uic:RelativePanel>
+                    <sh:ViewPresenter x:Name="Browser" ViewId="Browser"
+                                      uic:RelativePanel.AlignLeftWithPanel="True"
+                                      uic:RelativePanel.AlignTopWithPanel="True"
+                                      uic:RelativePanel.AlignBottomWithPanel="True" />
 
-                    <sh:ViewPresenter ViewId="Browser" Grid.RowSpan="4" />
+                    <DockPanel Name="GameInfo"
+                               uic:RelativePanel.AlignTopWithPanel="True"
+                               uic:RelativePanel.RightOf="Browser"
+                               uic:RelativePanel.LeftOf="CurrentBattle"
+                               uic:RelativePanel.Above="Buttons">
+                        <sh:ViewPresenter ViewId="Admiral" DockPanel.Dock="Top" />
+                        <sh:ViewPresenter ViewId="Expedition" DockPanel.Dock="Bottom" />
+                        <sh:ViewPresenter ViewId="Docks" DockPanel.Dock="Bottom" />
+                        <sh:ViewPresenter ViewId="Fleets" />
+                    </DockPanel>
 
-                    <sh:ViewPresenter Grid.Column="1" Grid.Row="0" ViewId="Admiral" />
-                    <sh:ViewPresenter Grid.Column="1" Grid.Row="1" ViewId="Fleets" />
-                    <sh:ViewPresenter Grid.Column="1" Grid.Row="2" ViewId="Docks" />
-                    <sh:ViewPresenter Grid.Column="1" Grid.Row="3" ViewId="Expedition" />
+                    <sh:ViewPresenter x:Name="CurrentBattle" ViewId="CurrentBattle" 
+                                      uic:RelativePanel.AlignTopWithPanel="True"
+                                      uic:RelativePanel.AlignRightWithPanel="True"
+                                      uic:RelativePanel.AlignBottomWithPanel="True" />
 
-                    <sh:ViewPresenter Grid.Column="2" Grid.RowSpan="5" ViewId="CurrentBattle" />
-
-                    <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal">
+                    <StackPanel Name="Buttons" Orientation="Horizontal"
+                                uic:RelativePanel.AlignRightWithPanel="True"
+                                uic:RelativePanel.AlignBottomWithPanel="True"
+                                uic:RelativePanel.RightOf="Browser">
                         <sh:ViewSwitcher ViewId="LogMigration" />
                         <sh:ViewSwitcher ViewId="ShipCreationLogs" />
                         <sh:ViewSwitcher ViewId="EquipmentCreationLogs" />
                         <sh:ViewSwitcher ViewId="ExpeditionCompletionLogs" />
                         <sh:ViewSwitcher ViewId="BattleLogs" />
                     </StackPanel>
-                </Grid>
+                </uic:RelativePanel>
             </DataTemplate>
         </sh:LayoutWindow>
     </sh:LayoutRoot.MainWindow>
