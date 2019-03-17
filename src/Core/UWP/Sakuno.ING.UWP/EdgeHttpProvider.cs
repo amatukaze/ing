@@ -44,12 +44,15 @@ namespace Sakuno.ING.UWP
         public event TimedMessageHandler<HttpMessage> Received;
         private readonly HttpBaseProtocolFilter filter;
         private readonly HttpClient client;
+        private Uri referer;
         internal async void WebResourceRequested(WebView sender, WebViewWebResourceRequestedEventArgs args)
         {
             var request = args.Request;
             string localPath = request.RequestUri.LocalPath;
 
-            if (localPath.StartsWith("/kcsapi/"))
+            if (localPath.StartsWith("/kcs2/index.php"))
+                referer = request.RequestUri;
+            else if (localPath.StartsWith("/kcsapi/"))
             {
                 var deferral = args.GetDeferral();
                 try
@@ -65,6 +68,7 @@ namespace Sakuno.ING.UWP
                         }
                         request.Content = new HttpStringContent(reqStr, UnicodeEncoding.Utf8, "application/x-www-form-urlencoded");
                     }
+                    request.Headers.Referer = referer;
                     using (request.Content)
                     using (var response = await client.SendRequestAsync(request))
                     {
