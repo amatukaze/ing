@@ -9,12 +9,12 @@ namespace Sakuno.ING.UWP
     [Export(typeof(IHttpProviderSelector))]
     internal class UWPHttpProviderSelector : IHttpProviderSelector
     {
-        public UWPHttpProviderSelector(IShellContextService shell, BrowserSetting settings)
+        public UWPHttpProviderSelector(IShellContextService shell, BrowserSetting settings, ProxySetting proxy)
         {
             if (settings.Debug.InitialValue)
                 Current = new DebugHttpProvider(shell);
             else
-                Current = new DebugHttpProvider(shell);
+                Current = new EdgeHttpProvider(proxy);
             Settings = settings;
         }
 
