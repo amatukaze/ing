@@ -1,9 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using Sakuno.ING.Http;
 using Sakuno.ING.Messaging;
 using Sakuno.ING.Settings;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
+using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 
 namespace Sakuno.ING.UWP
 {
@@ -18,6 +22,9 @@ namespace Sakuno.ING.UWP
             proxy.Upstream.ValueChanged += _ => UpdateProxy();
             proxy.UpstreamPort.ValueChanged += _ => UpdateProxy();
             UpdateProxy();
+
+            filter = new HttpBaseProtocolFilter();
+            client = new HttpClient(filter);
         }
 
         private void UpdateProxy()
@@ -35,9 +42,49 @@ namespace Sakuno.ING.UWP
         }
 
         public event TimedMessageHandler<HttpMessage> Received;
+        private readonly HttpBaseProtocolFilter filter;
+        private readonly HttpClient client;
         internal async void WebResourceRequested(WebView sender, WebViewWebResourceRequestedEventArgs args)
         {
-            
+            var request = args.Request;
+            string localPath = request.RequestUri.LocalPath;
+
+            if (localPath.StartsWith("/kcsapi/"))
+            {
+                var deferral = args.GetDeferral();
+                try
+                {
+                    string reqStr = null;
+                    if (request.Content != null)
+                    {
+                        using (var stream = new InMemoryRandomAccessStream())
+                        {
+                            await request.Content.WriteToStreamAsync(stream);
+                            stream.Seek(0);
+                            reqStr = new StreamReader(stream.AsStream()).ReadToEnd();
+                        }
+                        request.Content = new HttpStringContent(reqStr, UnicodeEncoding.Utf8, "application/x-www-form-urlencoded");
+                    }
+                    using (request.Content)
+                    using (var response = await client.SendRequestAsync(request))
+                    {
+                        args.Response = response;
+                        deferral.Complete();
+
+                        Received?.Invoke(response.Headers.Date ?? DateTimeOffset.Now, new HttpMessage
+                        (
+                            localPath.Substring(8),
+                            reqStr.AsMemory(),
+                            (await response.Content.ReadAsStringAsync()).AsMemory(7)
+                        ));
+                    }
+                }
+                catch
+                {
+                    args.Response = new HttpResponseMessage(HttpStatusCode.BadGateway);
+                    deferral.Complete();
+                }
+            }
         }
 
         #region P/Invoke
