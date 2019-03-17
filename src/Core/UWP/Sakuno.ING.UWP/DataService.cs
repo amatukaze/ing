@@ -1,9 +1,10 @@
 ﻿using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
+using Sakuno.ING.Data;
 using Windows.Storage;
 
-namespace Sakuno.ING.Data.UWP
+namespace Sakuno.ING.UWP
 {
     [Export(typeof(IDataService))]
     internal class DataService : IDataService
