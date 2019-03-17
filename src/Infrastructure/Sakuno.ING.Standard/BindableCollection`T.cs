@@ -119,9 +119,14 @@ namespace Sakuno.ING
 
         public void AddRange(IEnumerable<T> items)
         {
+            bool shouldNotifyChanged = false;
             foreach (var item in items)
+            {
                 base.InsertItem(Count, item);
-            NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items as IList ?? items.ToArray()));
+                shouldNotifyChanged = true;
+            }
+            if (shouldNotifyChanged)
+                NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items as IList ?? items.ToArray()));
         }
 
         public event Action<T> ItemAdded;
