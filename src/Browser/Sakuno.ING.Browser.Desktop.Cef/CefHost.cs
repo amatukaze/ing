@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Sakuno.CefSharp.Wpf;
 
 namespace Sakuno.ING.Browser.Desktop.Cef
@@ -20,6 +20,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
             DragHandler = new DragHandler();
             LifeSpanHandler = new LifeSpanHandler();
             MenuHandler = new ContextMenuHandler();
+            KeyboardHandler = new KeyboardHandler();
         }
     }
 }
