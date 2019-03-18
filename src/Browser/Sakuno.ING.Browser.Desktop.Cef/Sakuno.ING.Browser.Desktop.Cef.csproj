@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sakuno.CefSharp.Wpf" Version="67.0.0-pre2" />
+    <PackageReference Include="Sakuno.CefSharp.Wpf" Version="71.0.2" />
   </ItemGroup>
 
   <ItemGroup>
