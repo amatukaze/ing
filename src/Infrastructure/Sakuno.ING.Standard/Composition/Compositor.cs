@@ -19,7 +19,7 @@ namespace Sakuno.ING.Composition
         public abstract IReadOnlyDictionary<string, Type> ViewTypes { get; }
         public abstract object TryResolveView(string viewId);
 
-        public abstract IReadOnlyList<KeyValuePair<Type, SettingCategory>> SettingViews { get; }
+        public abstract IReadOnlyCollection<KeyValuePair<Type, SettingCategory>> SettingViews { get; }
         public abstract IEnumerable<Type> GetSettingViewsForCategory(SettingCategory category);
 
         public static Compositor Default { get; protected set; }

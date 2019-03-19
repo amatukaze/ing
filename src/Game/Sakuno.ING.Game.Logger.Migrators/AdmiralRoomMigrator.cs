@@ -17,7 +17,7 @@ using Sakuno.ING.IO;
 namespace Sakuno.ING.Game.Logger.Migrators
 {
     [Export(typeof(LogMigrator))]
-    internal class AdmiralRoomMigrator : LogMigrator
+    public class AdmiralRoomMigrator : LogMigrator
     {
         public override bool RequireFolder => true;
         public override string Id => "AdmiralRoom";

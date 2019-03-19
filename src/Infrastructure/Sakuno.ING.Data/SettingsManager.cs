@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Settings;
@@ -7,10 +6,10 @@ using Sakuno.ING.Settings;
 namespace Sakuno.ING.Data
 {
     [Export(typeof(ISettingsManager), LazyCreate = false)]
-    internal class SettingsManager : ISettingsManager
+    public class SettingsManager : ISettingsManager
     {
         private readonly DbContextOptions<SettingsDbContext> options;
-        private Dictionary<string, SettingItemBase> items = new Dictionary<string, SettingItemBase>();
+        private readonly Dictionary<string, SettingItemBase> items = new Dictionary<string, SettingItemBase>();
 
         public SettingsManager(IDataService dataService)
         {
@@ -20,7 +19,7 @@ namespace Sakuno.ING.Data
                 context.Database.Migrate();
         }
 
-        public SettingsDbContext CreateDbContext() => new SettingsDbContext(options);
+        internal SettingsDbContext CreateDbContext() => new SettingsDbContext(options);
 
         public ISettingItem<T> Register<T>(string name, T defaultValue = default)
         {

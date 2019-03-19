@@ -11,7 +11,7 @@ using Sakuno.ING.IO;
 namespace Sakuno.ING.Game.Logger.Migrators
 {
     [Export(typeof(LogMigrator))]
-    internal class LogbookMigrator : LogMigrator
+    public class LogbookMigrator : LogMigrator
     {
         public override bool RequireFolder => true;
         public override string Id => "Logbook";

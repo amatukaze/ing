@@ -29,7 +29,7 @@ namespace Sakuno.ING.Bootstrap
             => views.TryGetValue(viewId, out var viewType)
             ? Resolve(viewType) : null;
 
-        public override IReadOnlyList<KeyValuePair<Type, SettingCategory>> SettingViews => settingViews;
+        public override IReadOnlyCollection<KeyValuePair<Type, SettingCategory>> SettingViews => settingViews;
         public override IEnumerable<Type> GetSettingViewsForCategory(SettingCategory category)
             => settingViews.Where(x => x.Value == category).Select(x => x.Key);
     }

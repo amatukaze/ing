@@ -10,7 +10,7 @@ using Sakuno.ING.IO;
 namespace Sakuno.ING.Game.Logger.Migrators
 {
     [Export(typeof(LogMigrator))]
-    internal class ElectronicObserverMigrator : LogMigrator
+    public class ElectronicObserverMigrator : LogMigrator
     {
         public override string Id => "74EO";
         public override string Title => "七四式電子観測儀";

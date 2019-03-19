@@ -10,7 +10,7 @@ using Sakuno.ING.IO;
 namespace Sakuno.ING.Game.Logger.Migrators
 {
     [Export(typeof(LogMigrator))]
-    internal class PoiMigrator : LogMigrator
+    public class PoiMigrator : LogMigrator
     {
         public override string Id => "Poi";
         public override string Title => "Poi";

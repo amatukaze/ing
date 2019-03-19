@@ -12,7 +12,7 @@ using Sakuno.ING.IO;
 namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
 {
     [Export(typeof(LogMigrator))]
-    internal class INGLegacyMigrator : LogMigrator
+    public class INGLegacyMigrator : LogMigrator
     {
         public override bool RequireFolder => false;
         public override string Id => "ING Legacy";

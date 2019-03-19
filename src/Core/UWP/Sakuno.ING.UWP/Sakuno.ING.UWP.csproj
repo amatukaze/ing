@@ -58,6 +58,7 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AotCompositor.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -193,9 +194,17 @@
       <Project>{1879752a-af06-4aba-b8a0-043d79b5ba4f}</Project>
       <Name>Sakuno.ING.Game.Logger.Migrators</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj">
-      <Project>{773d4281-944d-4154-ae00-a69cfca6659c}</Project>
-      <Name>Sakuno.ING.Bootstrap</Name>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Logger\Sakuno.ING.Game.Logger.csproj">
+      <Project>{159E60F5-E46D-48E8-BC31-3987AC70F991}</Project>
+      <Name>Sakuno.ING.Game.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj">
+      <Project>{2DB243BB-D99C-4D5C-AAA9-98104CC7EFA0}</Project>
+      <Name>Sakuno.ING.Game.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj">
+      <Project>{05EB7B5D-CC39-4D62-8D11-EF3EAA99DD91}</Project>
+      <Name>Sakuno.ING.Game.Provider</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Infrastructure\Sakuno.ING.Data\Sakuno.ING.Data.csproj">
       <Project>{ab6ec829-12ac-4b7c-a348-5c7620c96eb5}</Project>
@@ -204,6 +213,10 @@
     <ProjectReference Include="..\..\..\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj">
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
       <Name>Sakuno.ING.Settings.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Logging\Sakuno.ING.ViewModels.Logging.csproj">
+      <Project>{1C87416D-DDEF-4416-86E6-13DC44931CF5}</Project>
+      <Name>Sakuno.ING.ViewModels.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.Combat\Sakuno.ING.Views.UWP.Combat.csproj">
       <Project>{c2eea102-0053-4046-8f41-e317763d2b16}</Project>
