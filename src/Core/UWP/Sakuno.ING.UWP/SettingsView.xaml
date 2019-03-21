@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:sh="using:Sakuno.ING.Shell"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
@@ -15,21 +16,26 @@
         <TextBlock FontSize="16"
                    Margin="20, 4, 0, 4"
                    x:Uid="SettingsTitle" />
-        <Pivot ItemsSource="{x:Bind Pages}"
-               Grid.Row="1">
-            <Pivot.HeaderTemplate>
-                <DataTemplate x:DataType="sh:CategorizedSettingViews">
-                    <PivotHeaderItem Content="{x:Bind Title}" />
-                </DataTemplate>
-            </Pivot.HeaderTemplate>
-            <Pivot.ItemTemplate>
-                <DataTemplate x:DataType="sh:CategorizedSettingViews">
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                                  VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{x:Bind Content}" />
-                    </ScrollViewer>
-                </DataTemplate>
-            </Pivot.ItemTemplate>
-        </Pivot>
+        <tk:LayoutTransformControl Grid.Row="1">
+            <tk:LayoutTransformControl.Transform>
+                <ScaleTransform ScaleX="{x:Bind LayoutSetting.LayoutScale.Value, Mode=OneWay}"
+                                ScaleY="{x:Bind LayoutSetting.LayoutScale.Value, Mode=OneWay}" />
+            </tk:LayoutTransformControl.Transform>
+            <Pivot ItemsSource="{x:Bind Pages}">
+                <Pivot.HeaderTemplate>
+                    <DataTemplate x:DataType="sh:CategorizedSettingViews">
+                        <PivotHeaderItem Content="{x:Bind Title}" />
+                    </DataTemplate>
+                </Pivot.HeaderTemplate>
+                <Pivot.ItemTemplate>
+                    <DataTemplate x:DataType="sh:CategorizedSettingViews">
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Auto">
+                            <ItemsControl ItemsSource="{x:Bind Content}" />
+                        </ScrollViewer>
+                    </DataTemplate>
+                </Pivot.ItemTemplate>
+            </Pivot>
+        </tk:LayoutTransformControl>
     </Grid>
 </Page>

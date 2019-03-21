@@ -1,20 +1,19 @@
-﻿using Windows.UI.Xaml;
+﻿using Sakuno.ING.Settings;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.ING.UWP
 {
     internal sealed partial class MainView : Page
     {
-        public MainView()
-        {
-            this.InitializeComponent();
-            Window.Current.SetTitleBar(DraggableTitle);
-        }
+        private readonly LayoutSetting LayoutSetting;
 
-        public object MainContent
+        public MainView(LayoutSetting layoutSetting, object content)
         {
-            get => mainContent.Content;
-            set => mainContent.Content = value;
+            LayoutSetting = layoutSetting;
+            this.InitializeComponent();
+            mainContent.Child = content as FrameworkElement ?? new ContentPresenter { Content = content };
+            Window.Current.SetTitleBar(DraggableTitle);
         }
     }
 }

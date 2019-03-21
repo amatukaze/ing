@@ -36,7 +36,9 @@
             <TextBox HorizontalAlignment="Stretch"
                      Text="{x:Bind WebView.Source}" />
         </tk:DockPanel>
-        <ContentPresenter Grid.Row="1"
-                          Content="{x:Bind ActualContent, Mode=OneTime}" />
+        <tk:LayoutTransformControl
+            x:Name="Transformer"
+            Grid.Row="1"
+            Child="{x:Bind ActualContent, Mode=OneTime}" />
     </Grid>
 </UserControl>

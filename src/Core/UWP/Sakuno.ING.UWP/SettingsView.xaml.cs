@@ -1,4 +1,4 @@
-﻿using Sakuno.ING.Localization;
+﻿using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
 using Windows.UI.Xaml.Controls;
 
@@ -7,8 +7,11 @@ namespace Sakuno.ING.UWP
     public sealed partial class SettingsView : Page
     {
         private readonly CategorizedSettingViews[] Pages;
-        public SettingsView(CategorizedSettingViews[] pages, ILocalizationService localization)
+        private readonly LayoutSetting LayoutSetting;
+
+        public SettingsView(CategorizedSettingViews[] pages, LayoutSetting layoutSetting)
         {
+            LayoutSetting = layoutSetting;
             this.InitializeComponent();
             Pages = pages;
         }

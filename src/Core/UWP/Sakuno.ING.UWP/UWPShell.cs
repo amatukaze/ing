@@ -46,13 +46,13 @@ namespace Sakuno.ING.UWP
         {
             InitWindow();
 
-            UIElement main;
+            MainView main;
             try
             {
                 string layoutString = layoutSetting.XamlString.Value;
                 layoutFactory = () => (LayoutRoot)XamlReader.Load(layoutString);
                 var layout = layoutFactory();
-                main = new MainView { MainContent = layout.MainWindow.LoadContent() };
+                main = new MainView(layoutSetting, layout.MainWindow.LoadContent());
                 viewIds = layout.SubWindows.Select(x => x.Id).Append("Settings").ToArray();
             }
             catch
@@ -64,7 +64,7 @@ namespace Sakuno.ING.UWP
                     return l;
                 };
                 var layout = layoutFactory();
-                main = new MainView { MainContent = layout.MainWindow.LoadContent() };
+                main = new MainView(layoutSetting, layout.MainWindow.LoadContent());
                 viewIds = layout.SubWindows.Select(x => x.Id).Append("Settings").ToArray();
             }
 
@@ -129,15 +129,12 @@ namespace Sakuno.ING.UWP
 
                 InitWindow();
                 if (windowId == "Settings")
-                    Window.Current.Content = new SettingsView(CreateSettingViews(), localization);
+                    Window.Current.Content = new SettingsView(CreateSettingViews(), layoutSetting);
                 else
-                    Window.Current.Content = new SubView
-                    {
-                        ActualContent = viewType is null ?
+                    Window.Current.Content = new SubView(layoutSetting,
+                        localization.GetLocalized("ViewTitle", windowId) ?? windowId, viewType is null ?
                             layoutFactory()[windowId].LoadContent() :
-                            Compositor.Default.Resolve(viewType),
-                        ActualTitle = localization.GetLocalized("ViewTitle", windowId) ?? windowId
-                    };
+                            Compositor.Default.Resolve(viewType));
 
                 appView.Consolidated += (s, e) =>
                 {
@@ -162,11 +159,9 @@ namespace Sakuno.ING.UWP
                     appViewId = appView.Id;
 
                     InitWindow();
-                    Window.Current.Content = new SubView
-                    {
-                        ActualContent = Compositor.Default.ResolveWithParameter(viewType, parameter),
-                        ActualTitle = localization.GetLocalized("ViewTitle", viewId) ?? viewId
-                    };
+                    Window.Current.Content = new SubView(layoutSetting,
+                        localization.GetLocalized("ViewTitle", viewId) ?? viewId,
+                        Compositor.Default.ResolveWithParameter(viewType, parameter));
 
                     appView.Consolidated += (s, e) =>
                     {

@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:sh="using:Sakuno.ING.Shell.Layout"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
@@ -31,9 +32,15 @@
                 <SymbolIcon Symbol="Setting" />
             </sh:ViewSwitcher>
         </Grid>
-        <ContentPresenter x:Name="mainContent"
-                        Grid.Row="1"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch" />
+        <tk:LayoutTransformControl
+            x:Name="mainContent"
+            Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch">
+            <tk:LayoutTransformControl.Transform>
+                <ScaleTransform ScaleX="{x:Bind LayoutSetting.LayoutScale.Value, Mode=OneWay}"
+                                ScaleY="{x:Bind LayoutSetting.LayoutScale.Value, Mode=OneWay}" />
+            </tk:LayoutTransformControl.Transform>
+        </tk:LayoutTransformControl>
     </Grid>
 </Page>

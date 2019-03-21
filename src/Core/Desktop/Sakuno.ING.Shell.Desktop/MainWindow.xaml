@@ -23,6 +23,6 @@
             <sh:ViewSwitcher Content="⚙" ViewId="Settings" DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" />
             <TextBlock Text="{c:Localize Application/Title}" Margin="8, 0" VerticalAlignment="Center" />
         </DockPanel>
-        <ContentPresenter Grid.Row="1" x:Name="mainContent" />
+        <ContentPresenter Grid.Row="1" x:Name="mainContent" LayoutTransform="{DynamicResource LayoutScale}" />
     </Grid>
 </uic:ModernWindow>

@@ -55,10 +55,11 @@ namespace Sakuno.ING.Shell.Desktop
                     LayoutFallback();
                 }
 
+                layoutSetting.LayoutScale.ValueChanged += UpdateScale;
+                UpdateScale(layoutSetting.LayoutScale.Value);
+
                 window = new MainWindow { MainContent = layout.MainWindow.LoadContent() };
-
                 InitializeAndShow(window);
-
                 Application.Current.MainWindow = window;
 
                 void LayoutFallback()
@@ -69,6 +70,15 @@ namespace Sakuno.ING.Shell.Desktop
 
             app.Exit += (s, e) => Exited?.Invoke();
             app.Run();
+        }
+
+        private void UpdateScale(float scale)
+        {
+            if (scale < 0.25f) scale = 0.25f;
+            if (scale > 4) scale = 4;
+            var transform = new ScaleTransform(scale, scale);
+            transform.Freeze();
+            Application.Current.Resources["LayoutScale"] = transform;
         }
 
         private void InitializeAndShow(Window window)

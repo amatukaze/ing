@@ -72,6 +72,8 @@ namespace Sakuno.ING.Browser.Desktop
             Address = new string(addr);
         }
 
+        public void ScaleTo(double scale) => throw new NotImplementedException();
+
         public static readonly DependencyProperty AddressProperty
             = DependencyProperty.Register(nameof(Address), typeof(string), typeof(RpcHostBase), new PropertyMetadata(string.Empty));
         public string Address

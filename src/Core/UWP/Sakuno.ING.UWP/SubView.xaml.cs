@@ -1,24 +1,19 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Sakuno.ING.Settings;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.ING.UWP
 {
     public sealed partial class SubView : Page
     {
-        public SubView()
+        private readonly LayoutSetting LayoutSetting;
+
+        public SubView(LayoutSetting layoutSetting, string title, object content)
         {
+            LayoutSetting = layoutSetting;
             this.InitializeComponent();
-        }
-
-        public object ActualContent
-        {
-            get => actualContent.Content;
-            set => actualContent.Content = value;
-        }
-
-        public string ActualTitle
-        {
-            get => TitleBar.Text;
-            set => TitleBar.Text = value;
+            TitleBar.Text = title;
+            actualContent.Child = content as FrameworkElement ?? new ContentPresenter { Content = content };
         }
     }
 }

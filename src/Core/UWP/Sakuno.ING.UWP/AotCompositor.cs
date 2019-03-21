@@ -80,7 +80,7 @@ namespace Sakuno.ING.UWP
             Information<ExpeditionCompletionLogsView>.Factory = () => new ExpeditionCompletionLogsView(Information<ExpeditionCompletionLogsVM>.Factory());
             Information<ShipCreationLogsView>.Factory = () => new ShipCreationLogsView(Information<ShipCreationLogsVM>.Factory());
             Information<MasterDataView>.Factory = () => new MasterDataView(navalBase);
-            Information<BrowserElement>.Factory = () => new BrowserElement(selector);
+            Information<BrowserElement>.Factory = () => new BrowserElement(selector, layoutSetting);
 
             Information<LocaleSettingView>.Factory = () => new LocaleSettingView(localeSetting);
             Information<ProxySettingView>.Factory = () => new ProxySettingView(proxySetting);

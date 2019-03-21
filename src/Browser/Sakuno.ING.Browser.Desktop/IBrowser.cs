@@ -13,6 +13,7 @@ namespace Sakuno.ING.Browser.Desktop
         void GoForward();
         void Refresh();
         void Navigate(string address);
+        void ScaleTo(double scale);
 
         event Action BrowserExited;
     }
