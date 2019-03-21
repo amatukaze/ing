@@ -12,12 +12,13 @@ namespace Sakuno.ING.UWP
     internal sealed partial class BrowserElement : UserControl
     {
         public readonly WebView WebView;
-        public readonly FrameworkElement ActualContent;
         private readonly LayoutSetting layoutSetting;
 
         public BrowserElement(UWPHttpProviderSelector selector, LayoutSetting layoutSetting)
         {
             this.layoutSetting = layoutSetting;
+            this.InitializeComponent();
+
             if (selector.Settings.Debug.InitialValue)
             {
                 var btn = new Button
@@ -30,17 +31,16 @@ namespace Sakuno.ING.UWP
                 var debug = (DebugHttpProvider)selector.Current;
                 btn.Tapped += (s, e) => debug.Send();
 
-                ActualContent = btn;
+                Transformer.Child = btn;
             }
             else
             {
-                ActualContent = WebView = new WebView(WebViewExecutionMode.SeparateThread);
+                Transformer.Child = WebView = new WebView(WebViewExecutionMode.SeparateThread);
                 WebView.Navigate(new Uri(selector.Settings.DefaultUrl.Value));
             }
+
             layoutSetting.LayoutScale.ValueChanged += _ => UpdateBrowserScale();
             layoutSetting.BrowserScale.ValueChanged += _ => UpdateBrowserScale();
-
-            this.InitializeComponent();
             UpdateBrowserScale();
         }
 

@@ -39,6 +39,6 @@
         <tk:LayoutTransformControl
             x:Name="Transformer"
             Grid.Row="1"
-            Child="{x:Bind ActualContent, Mode=OneTime}" />
+            Width="1200" Height="720" />
     </Grid>
 </UserControl>
