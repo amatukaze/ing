@@ -86,7 +86,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Row="0" Margin="2">
+                    <Grid Grid.Row="0" Grid.ColumnSpan="5" Margin="2">
                         <Rectangle x:Name="statusColor" />
                         <TextBlock FontSize="16" Margin="2">
                             <Run x:Name="statusText" /><Run x:Name="statusDetail" />

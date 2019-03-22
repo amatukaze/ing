@@ -28,6 +28,7 @@
     <Compile Include="ExpeditionView.xaml.cs">
       <DependentUpon>ExpeditionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FleetStateIndicator.cs" />
     <Compile Include="FleetsView.xaml.cs">
       <DependentUpon>FleetsView.xaml</DependentUpon>
     </Compile>
