@@ -18,7 +18,7 @@
                     If DesignMode.DesignModeEnabled Then
                         _image.Source = New BitmapImage(New Uri($"ms-appx:///Sakuno.ING.Views.UWP.Common/Assets/Images/Equipment/{value}.png"))
                     Else
-                        Dim stringId = "UseItemIcon_Bitmap_" & value
+                        Dim stringId = "EquipmentIcon_Bitmap_" & value
                         Dim source As Object = Nothing
                         If Application.Current.Resources.TryGetValue(stringId, source) Then
                             _image.Source = DirectCast(source, BitmapImage)

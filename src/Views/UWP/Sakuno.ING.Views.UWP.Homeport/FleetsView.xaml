@@ -15,15 +15,15 @@
     d:DesignWidth="400"
     x:DefaultBindMode="OneWay">
     <tk:TabView ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}" FontSize="16" Background="Transparent">
-        <tk:TabView.HeaderTemplate>
+        <tk:TabView.ItemHeaderTemplate>
             <DataTemplate x:DataType="g:Fleet">
-                <Grid Height="18">
+                <Grid Height="Auto">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="18" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Ellipse x:Name="statusIcon" Fill="{x:Bind local:FleetsView.StatusColor(State)}" />
-                    <TextBlock Grid.Column="1" FontSize="18" Text="{x:Bind Name}" />
+                    <Ellipse Height="18" Width="18" x:Name="statusIcon" Fill="{x:Bind local:FleetsView.StatusColor(State)}" />
+                    <TextBlock Grid.Column="1" FontSize="18" FontWeight="Normal" Text="{x:Bind Name}" />
                     <!--#region Warning animation-->
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroup>
@@ -47,7 +47,7 @@
                     <!--#endregion-->
                 </Grid>
             </DataTemplate>
-        </tk:TabView.HeaderTemplate>
+        </tk:TabView.ItemHeaderTemplate>
         <tk:TabView.ItemTemplate>
             <DataTemplate x:DataType="g:Fleet">
                 <Grid>
@@ -132,7 +132,15 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="48" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.Row="1" Grid.ColumnSpan="9"
+                                               Height="1" Margin="2"
+                                               Fill="Gray" />
                                     <TextBlock Grid.Column="0" Style="{StaticResource ShipNameTextStyle}">
                                         <Run Text="{x:Bind c:Helpers.SelectShipName(Info.Name)}" FontSize="18" />
                                         <LineBreak />
@@ -155,8 +163,8 @@
                                     </TextBlock>
                                     <Grid Grid.Column="4" HorizontalAlignment="Center">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="16" />
-                                            <RowDefinition Height="16" />
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="16" />

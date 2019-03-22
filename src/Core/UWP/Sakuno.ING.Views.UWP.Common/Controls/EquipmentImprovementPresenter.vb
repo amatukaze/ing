@@ -33,5 +33,9 @@
             End Select
         End Sub
 
+        Protected Overrides Sub OnApplyTemplate()
+            MyBase.OnApplyTemplate()
+            CheckVisualState()
+        End Sub
     End Class
 End Namespace
