@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.Game.Models.Knowledge
+﻿using Sakuno.ING.Game.Models.MasterData;
+
+namespace Sakuno.ING.Game.Models.Knowledge
 {
     public enum KnownEquipmentType
     {
@@ -102,5 +104,23 @@
         JetBomber = 57,
         /// <summary>大型電探（II）</summary>
         VeryLargeRadar = 93
+    }
+
+    public static class KnownEquipmentTypeExtensions
+    {
+        public static bool IsPlane(this EquipmentTypeId id) => (KnownEquipmentType)id switch
+        {
+            KnownEquipmentType.FighterAircraft => true,
+            KnownEquipmentType.DiveBomber => true,
+            KnownEquipmentType.TorpedoBomber => true,
+            KnownEquipmentType.ReconnaissanceAircraft => true,
+            KnownEquipmentType.ReconnaissanceSeaplane => true,
+            KnownEquipmentType.SeaplaneBomber => true,
+            KnownEquipmentType.Autogyro => true,
+            KnownEquipmentType.AntiSubmarinePatrolAircraft => true,
+            KnownEquipmentType.LargeFlyingBoat => true,
+            KnownEquipmentType.SeaplaneFighter => true,
+            _ => false
+        };
     }
 }

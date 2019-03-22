@@ -6,31 +6,33 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
+    d:DesignHeight="100"
+    d:DesignWidth="130"
     x:DefaultBindMode="OneWay">
     <Viewbox>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100" />
-                <RowDefinition Height="80" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="80" />
-            </Grid.ColumnDefinitions>
+        <Canvas Width="55" Height="50" Margin="5, 0">
             <local:EquipmentIcon
-                Grid.Row="0" Grid.Column="0"
+                Height="35" Width="35"
                 Id="{x:Bind Slot.Equipment.Info.IconId, FallbackValue=0}" />
-            <local:SlotAircraftPresenter
-                Grid.Row="0" Grid.Column="1" FontSize="60"
-                Aircraft="{x:Bind Slot.Aircraft}" />
-            <local:EquipmentImprovementPresenter
-                Grid.Row="1" Grid.Column="0" FontSize="60"
-                Level="{x:Bind Slot.Equipment.ImprovementLevel, FallbackValue=0}" />
+            <TextBlock
+                Height="20" Width="35"
+                Canvas.Top="30"
+                FontSize="14" TextAlignment="Center"
+                Foreground="DarkCyan"
+                Text="{x:Bind local:ShipSlotPresenter.SelectImprovementText(Slot.Equipment.ImprovementLevel), FallbackValue=''}" />
+            <TextBlock
+                Height="20" Width="55"
+                Canvas.Top="5"
+                FontSize="14" TextAlignment="Right"
+                Text="{x:Bind Slot.Aircraft.Current}">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{x:Bind local:ShipSlotPresenter.SelectAircraftColor(Slot.Equipment.Info.Type.IsPlane, Slot.Aircraft), FallbackValue=Gray}" />
+                </TextBlock.Foreground>
+            </TextBlock>
             <local:AirProficiencyPresenter
-                Grid.Row="1" Grid.Column="1"
+                Height="20" Width="20"
+                Canvas.Left="30" Canvas.Top="30"
                 Proficiency="{x:Bind Slot.Equipment.AirProficiency, FallbackValue=0}" />
-        </Grid>
+        </Canvas>
     </Viewbox>
 </UserControl>

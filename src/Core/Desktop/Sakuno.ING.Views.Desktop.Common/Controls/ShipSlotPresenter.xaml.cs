@@ -17,7 +17,7 @@ namespace Sakuno.ING.Views.Desktop.Controls
         public HomeportSlot Slot
         {
             get => (HomeportSlot)GetValue(SlotProperty);
-            set => SetValue(SlotProperty, null);
+            set => SetValue(SlotProperty, value);
         }
     }
 }

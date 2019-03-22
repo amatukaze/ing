@@ -5,29 +5,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="100" d:DesignWidth="130">
     <Viewbox DataContext="{Binding Slot, RelativeSource={RelativeSource AncestorType=local:ShipSlotPresenter}}">
-        <Grid Grid.IsSharedSizeScope="True">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100" />
-                <RowDefinition Height="80" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="80" />
-            </Grid.ColumnDefinitions>
+        <Canvas Width="55" Height="50" Margin="5, 0">
             <local:EquipmentIcon
-                Grid.Row="0" Grid.Column="0"
+                Height="35" Width="35"
                 Id="{Binding Equipment.Info.IconId}" />
-            <local:SlotAircraftPresenter
-                Grid.Row="0" Grid.Column="1" FontSize="60"
-                Aircraft="{Binding Aircraft}" />
             <local:EquipmentImprovementPresenter
-                Grid.Row="1" Grid.Column="0" FontSize="60"
+                Height="20" Width="35"
+                Canvas.Top="30"
+                FontSize="14"
                 Level="{Binding Equipment.ImprovementLevel}" />
+            <local:SlotAircraftPresenter
+                Height="20" Width="55"
+                Canvas.Top="5"
+                FontSize="14"
+                Aircraft="{Binding Aircraft}"
+                IsPlane="{Binding Equipment.Info.Type.IsPlane}" />
             <local:AirProficiencyPresenter
-                Grid.Row="1" Grid.Column="1"
+                Height="20" Width="20"
+                Canvas.Left="30" Canvas.Top="30"
                 Proficiency="{Binding Equipment.AirProficiency}" />
-        </Grid>
+        </Canvas>
     </Viewbox>
 </UserControl>

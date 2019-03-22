@@ -6,13 +6,14 @@
             <Setter.Value>
                 <ControlTemplate TargetType="local:EquipmentImprovementPresenter">
                     <TextBlock Name="ValueText"
-                               Text="{Binding RelativeSource={RelativeSource TemplatedParent}, StringFormat={}★{0}}" />
+                               TextAlignment="Center"
+                               Text="{Binding Level, RelativeSource={RelativeSource TemplatedParent}, StringFormat={}★{0}}" />
                     <ControlTemplate.Triggers>
                         <Trigger Property="Level" Value="0">
                             <Setter TargetName="ValueText" Property="Text" Value="" />
                         </Trigger>
                         <Trigger Property="Level" Value="10">
-                            <Setter TargetName="ValueText" Property="Text" Value="★max" />
+                            <Setter TargetName="ValueText" Property="Text" Value="max" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

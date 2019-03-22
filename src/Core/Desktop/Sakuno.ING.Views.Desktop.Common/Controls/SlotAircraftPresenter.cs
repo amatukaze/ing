@@ -44,9 +44,17 @@ namespace Sakuno.ING.Views.Desktop.Controls
             CheckVisualState();
         }
 
-        private readonly TextBlock textblock = new TextBlock();
+        private readonly TextBlock textblock = new TextBlock
+        {
+            TextAlignment = TextAlignment.Right
+        };
 
-        public SlotAircraftPresenter() => AddVisualChild(textblock);
+        public SlotAircraftPresenter()
+        {
+            AddVisualChild(textblock);
+            UpdateCount();
+        }
+
         protected override int VisualChildrenCount => 1;
         protected override Visual GetVisualChild(int index) => textblock;
     }
