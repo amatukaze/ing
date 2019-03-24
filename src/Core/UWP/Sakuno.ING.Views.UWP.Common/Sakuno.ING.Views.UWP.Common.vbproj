@@ -29,6 +29,7 @@
     <Compile Include="Controls\EquipmentIcon.vb" />
     <Compile Include="Controls\HPIndicator.vb" />
     <Compile Include="Controls\LevelingIndicator.vb" />
+    <Compile Include="Controls\MoraleIndicator.vb" />
     <Compile Include="Controls\ProgressCircle.vb" />
     <Compile Include="Controls\ShipSlotPresenter.xaml.vb">
       <DependentUpon>ShipSlotPresenter.xaml</DependentUpon>
@@ -37,6 +38,7 @@
     <Compile Include="Controls\UseItemIcon.vb" />
     <Compile Include="Controls\UseItemPresenter.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Themes\Controls\InitializeComponent.vb" />
     <EmbeddedResource Include="My Project\Sakuno.ING.Views.UWP.Common.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\LevelingIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\MoraleIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

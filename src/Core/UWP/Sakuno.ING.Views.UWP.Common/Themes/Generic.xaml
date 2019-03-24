@@ -1,8 +1,10 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Themes">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/HPIndicator.xaml" />
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/LevelingIndicator.xaml" />
+        <local:MoraleIndicatorTheme />
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/ProgressCircle.xaml" />
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/UseItemPresenter.xaml" />
     </ResourceDictionary.MergedDictionaries>

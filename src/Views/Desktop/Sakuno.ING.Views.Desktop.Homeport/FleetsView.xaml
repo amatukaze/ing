@@ -159,9 +159,9 @@
                                                            HP="{Binding}"
                                                            Background="Transparent" />
                                         </StackPanel>
-                                        <TextBlock Grid.Column="3" VerticalAlignment="Center">
-                                            <Run Text="cond. " FontStyle="Italic" FontSize="12" /><Run Text="{Binding Morale, Mode=OneWay}" FontSize="18" />
-                                        </TextBlock>
+                                        <c:MoraleIndicator Grid.Column="3" Margin="4"
+                                                           VerticalAlignment="Center"
+                                                           Morale="{Binding Morale, Mode=OneWay}" FontSize="18" />
                                         <Grid Grid.Column="4" VerticalAlignment="Center">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="16" />

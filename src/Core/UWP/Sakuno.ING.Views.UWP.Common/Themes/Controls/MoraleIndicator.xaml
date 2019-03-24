@@ -1,0 +1,68 @@
+﻿<ResourceDictionary
+    x:Class="Sakuno.ING.Views.UWP.Themes.MoraleIndicatorTheme"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Controls">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Full" Color="#B0B000" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_High" Color="#808000" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Normal" Color="#606060" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Slight" Color="#807040" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Moderate" Color="#C07000" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Serious" Color="#C00000" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Full" Color="#D0D000" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_High" Color="#B0B000" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Normal" Color="#D0D0D0" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Slight" Color="#FFC080" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Moderate" Color="#FF8000" />
+            <SolidColorBrush x:Key="MoraleIndicatorBrush_Serious" Color="#FF0000" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+    <Style TargetType="local:MoraleIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MoraleIndicator">
+                    <TextBlock x:Name="PART_Text" Text="{x:Bind Morale}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="State">
+                                <VisualState x:Name="Full">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="{ThemeResource MoraleIndicatorBrush_Full}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="High">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="{ThemeResource MoraleIndicatorBrush_High}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="{ThemeResource MoraleIndicatorBrush_Normal}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Slight">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="{ThemeResource MoraleIndicatorBrush_Slight}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Moderate">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="{ThemeResource MoraleIndicatorBrush_Moderate}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Serious">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="{ThemeResource MoraleIndicatorBrush_Serious}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

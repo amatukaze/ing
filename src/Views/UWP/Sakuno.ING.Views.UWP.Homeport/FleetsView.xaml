@@ -136,9 +136,9 @@
                                                              HP="{x:Bind HP}"
                                                              Background="Transparent" />
                                         </StackPanel>
-                                        <TextBlock Grid.Column="3" VerticalAlignment="Center">
-                                            <Run Text="cond. " FontStyle="Italic" FontSize="12" /><Run Text="{x:Bind Morale}" FontSize="18" />
-                                        </TextBlock>
+                                        <con:MoraleIndicator Grid.Column="3" Margin="4"
+                                                             VerticalAlignment="Center"
+                                                             Morale="{x:Bind Morale}" FontSize="18" />
                                         <Grid Grid.Column="4" HorizontalAlignment="Center">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*" />

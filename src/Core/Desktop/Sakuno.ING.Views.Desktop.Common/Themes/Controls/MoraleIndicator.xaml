@@ -1,0 +1,41 @@
+﻿<ResourceDictionary
+    x:Class="Sakuno.ING.Views.UWP.Themes.MoraleIndicatorTheme"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls">
+    <SolidColorBrush x:Key="MoraleIndicatorBrush_Full" Color="#B0B000" />
+    <SolidColorBrush x:Key="MoraleIndicatorBrush_High" Color="#808000" />
+    <SolidColorBrush x:Key="MoraleIndicatorBrush_Normal" Color="#606060" />
+    <SolidColorBrush x:Key="MoraleIndicatorBrush_Slight" Color="#807040" />
+    <SolidColorBrush x:Key="MoraleIndicatorBrush_Moderate" Color="#C07000" />
+    <SolidColorBrush x:Key="MoraleIndicatorBrush_Serious" Color="#C00000" />
+    <Style TargetType="local:MoraleIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:MoraleIndicator">
+                    <TextBlock Text="{Binding Morale, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="State" Value="Full">
+                <Setter Property="Foreground" Value="{StaticResource MoraleIndicatorBrush_Full}" />
+            </Trigger>
+            <Trigger Property="State" Value="High">
+                <Setter Property="Foreground" Value="{StaticResource MoraleIndicatorBrush_High}" />
+            </Trigger>
+            <Trigger Property="State" Value="Normal">
+                <Setter Property="Foreground" Value="{StaticResource MoraleIndicatorBrush_Normal}" />
+            </Trigger>
+            <Trigger Property="State" Value="Slight">
+                <Setter Property="Foreground" Value="{StaticResource MoraleIndicatorBrush_Slight}" />
+            </Trigger>
+            <Trigger Property="State" Value="Moderate">
+                <Setter Property="Foreground" Value="{StaticResource MoraleIndicatorBrush_Moderate}" />
+            </Trigger>
+            <Trigger Property="State" Value="Serious">
+                <Setter Property="Foreground" Value="{StaticResource MoraleIndicatorBrush_Serious}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
