@@ -1,0 +1,70 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Controls">
+    <SolidColorBrush x:Key="HPIndicatorBrush_FullyHealthy" Color="SpringGreen" />
+    <SolidColorBrush x:Key="HPIndicatorBrush_Healthy" Color="Aquamarine" />
+    <SolidColorBrush x:Key="HPIndicatorBrush_LightlyDamaged" Color="GreenYellow" />
+    <SolidColorBrush x:Key="HPIndicatorBrush_ModeratelyDamaged" Color="Orange" />
+    <SolidColorBrush x:Key="HPIndicatorBrush_HeavilyDamaged" Color="Red" />
+    <SolidColorBrush x:Key="HPIndicatorBrush_Sunk" Color="Gray" />
+    <Style TargetType="local:HPIndicator">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Gray" />
+        <Setter Property="CornerRadius" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:HPIndicator">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                        <Grid>
+                            <ProgressBar x:Name="PART_Addition"
+                                         VerticalAlignment="Stretch"
+                                         Background="Transparent" />
+                            <ProgressBar x:Name="PART_Main"
+                                         VerticalAlignment="Stretch"
+                                         Background="Transparent" />
+                        </Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="DamageState">
+                                <VisualState x:Name="FullyHealthy">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Main.Foreground" Value="{StaticResource HPIndicatorBrush_FullyHealthy}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Healthy">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Main.Foreground" Value="{StaticResource HPIndicatorBrush_Healthy}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="LightlyDamaged">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Main.Foreground" Value="{StaticResource HPIndicatorBrush_LightlyDamaged}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="ModeratelyDamaged">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Main.Foreground" Value="{StaticResource HPIndicatorBrush_ModeratelyDamaged}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="HeavilyDamaged">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Main.Foreground" Value="{StaticResource HPIndicatorBrush_HeavilyDamaged}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Sunk">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Main.Foreground" Value="{StaticResource HPIndicatorBrush_Sunk}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

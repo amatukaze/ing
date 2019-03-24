@@ -5,12 +5,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:g="clr-namespace:Sakuno.ING.Game.Models;assembly=Sakuno.ING.Game.Models"
+             xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Homeport"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800"
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"
              DataContext="{c:Resolve {x:Type g:NavalBase}}"
              d:DataContext="{d:DesignInstance g:NavalBase}">
+    <UserControl.Resources>
+        <local:SupplyColorConverter x:Key="SupplyColorConverter" />
+        <Style x:Key="SupplyBarStyle" TargetType="ProgressBar">
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Minimum" Value="0" />
+            <Setter Property="Foreground" Value="{Binding Converter={StaticResource SupplyColorConverter}}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ProgressBar">
+                        <Border Height="10"
+                                BorderThickness="1.5"
+                                BorderBrush="Gray"
+                                CornerRadius="0.5">
+                            <Grid>
+                                <Rectangle Name="PART_Track" />
+                                <Rectangle Name="PART_Indicator" Fill="{TemplateBinding Foreground}" />
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <TabControl ItemsSource="{Binding Fleets.DefaultView}" SelectedIndex="0" FontSize="16">
         <TabControl.ItemTemplate>
             <DataTemplate DataType="{x:Type g:Fleet}">
@@ -130,10 +154,10 @@
                                             <TextBlock FontSize="14">
                                                 <Run Text="HP:  " /><Run Text="{Binding Current, Mode=OneTime}" FontSize="16" /><Run Text=" / " /><Run Text="{Binding Max, Mode=OneTime}" />
                                             </TextBlock>
-                                            <ProgressBar Width="120" Height="16"
-                                                         Minimum="0" Maximum="{Binding Max, Mode=OneTime}"
-                                                         Value="{Binding Current, Mode=OneTime}"
-                                                         Background="Transparent" />
+                                            <c:HPIndicator Width="120" Height="16"
+                                                           Margin="2"
+                                                           HP="{Binding}"
+                                                           Background="Transparent" />
                                         </StackPanel>
                                         <TextBlock Grid.Column="3" VerticalAlignment="Center">
                                             <Run Text="cond. " FontStyle="Italic" FontSize="12" /><Run Text="{Binding Morale, Mode=OneWay}" FontSize="18" />
@@ -148,15 +172,17 @@
                                                 <ColumnDefinition Width="80" />
                                             </Grid.ColumnDefinitions>
                                             <c:UseItemIcon Id="Fuel" Grid.Row="0" Margin="1" />
-                                            <ProgressBar Grid.Row="0" Grid.Column="1" Margin="2"
-                                                         DataContext="{Binding Fuel}" Minimum="0"
+                                            <ProgressBar Grid.Row="0" Grid.Column="1"
+                                                         DataContext="{Binding Fuel}"
                                                          Maximum="{Binding Max, Mode=OneTime}"
-                                                         Value="{Binding Current,Mode=OneTime}" />
+                                                         Value="{Binding Current, Mode=OneTime}"
+                                                         Style="{StaticResource SupplyBarStyle}" />
                                             <c:UseItemIcon Id="Bullet" Grid.Row="1" Margin="1" />
-                                            <ProgressBar Grid.Row="1" Grid.Column="1" Margin="2"
-                                                         DataContext="{Binding Bullet}" Minimum="0"
+                                            <ProgressBar Grid.Row="1" Grid.Column="1"
+                                                         DataContext="{Binding Bullet}"
                                                          Maximum="{Binding Max, Mode=OneTime}"
-                                                         Value="{Binding Current,Mode=OneTime}" />
+                                                         Value="{Binding Current, Mode=OneTime}"
+                                                         Style="{StaticResource SupplyBarStyle}" />
                                         </Grid>
                                         <ItemsControl Grid.Column="5" ItemsSource="{Binding Slots}">
                                             <ItemsControl.ItemsPanel>

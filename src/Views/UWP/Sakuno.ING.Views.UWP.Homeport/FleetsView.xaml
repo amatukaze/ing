@@ -21,6 +21,14 @@
         <ControlTemplate x:Key="RectangleIndicator" TargetType="local:FleetStateIndicator">
             <Rectangle x:Name="PART_Shape" />
         </ControlTemplate>
+        <Style x:Key="SupplyBarStyle" TargetType="ProgressBar">
+            <Setter Property="Minimum" Value="0" />
+            <Setter Property="BorderThickness" Value="1.5" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="CornerRadius" Value="0.5" />
+            <Setter Property="Height" Value="10" />
+            <Setter Property="Margin" Value="2" />
+        </Style>
     </UserControl.Resources>
     <tk:TabView ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}" FontSize="16" Background="Transparent">
         <tk:TabView.ItemHeaderTemplate>
@@ -123,13 +131,13 @@
                                             <TextBlock FontSize="14">
                                             <Run Text="HP:  " /><Run Text="{x:Bind HP.Current}" FontSize="16" /><Run Text=" / " /><Run Text="{x:Bind HP.Max}" />
                                             </TextBlock>
-                                            <ProgressBar Width="120" Height="16"
-                                                         Minimum="0" Maximum="{x:Bind HP.Max}"
-                                                         Value="{x:Bind HP.Current}"
-                                                         Background="Transparent" />
+                                            <con:HPIndicator Width="120" Height="16"
+                                                             Margin="2"
+                                                             HP="{x:Bind HP}"
+                                                             Background="Transparent" />
                                         </StackPanel>
                                         <TextBlock Grid.Column="3" VerticalAlignment="Center">
-                                        <Run Text="cond. " FontStyle="Italic" FontSize="12" /><Run Text="{x:Bind Morale}" FontSize="18" />
+                                            <Run Text="cond. " FontStyle="Italic" FontSize="12" /><Run Text="{x:Bind Morale}" FontSize="18" />
                                         </TextBlock>
                                         <Grid Grid.Column="4" HorizontalAlignment="Center">
                                             <Grid.RowDefinitions>
@@ -141,15 +149,23 @@
                                                 <ColumnDefinition Width="80" />
                                             </Grid.ColumnDefinitions>
                                             <con:UseItemIcon Id="Fuel" Grid.Row="0" />
-                                            <ProgressBar Grid.Row="0" Grid.Column="1" Margin="2"
-                                                         Minimum="0"
+                                            <ProgressBar Grid.Row="0" Grid.Column="1"
                                                          Value="{x:Bind Fuel.Current}"
-                                                         Maximum="{x:Bind Fuel.Max}" />
+                                                         Maximum="{x:Bind Fuel.Max}"
+                                                         Style="{StaticResource SupplyBarStyle}">
+                                                <ProgressBar.Foreground>
+                                                    <SolidColorBrush Color="{x:Bind local:FleetsView.SelectSupplyColor(Fuel)}" />
+                                                </ProgressBar.Foreground>
+                                            </ProgressBar>
                                             <con:UseItemIcon Id="Bullet" Grid.Row="1" />
-                                            <ProgressBar Grid.Row="1" Grid.Column="1" Margin="2"
-                                                         Minimum="0"
+                                            <ProgressBar Grid.Row="1" Grid.Column="1"
                                                          Value="{x:Bind Bullet.Current}"
-                                                         Maximum="{x:Bind Bullet.Max}" />
+                                                         Maximum="{x:Bind Bullet.Max}"
+                                                         Style="{StaticResource SupplyBarStyle}">
+                                                <ProgressBar.Foreground>
+                                                    <SolidColorBrush Color="{x:Bind local:FleetsView.SelectSupplyColor(Bullet)}" />
+                                                </ProgressBar.Foreground>
+                                            </ProgressBar>
                                         </Grid>
                                         <ItemsControl Grid.Column="5" ItemsSource="{x:Bind Slots}">
                                             <ItemsControl.ItemsPanel>

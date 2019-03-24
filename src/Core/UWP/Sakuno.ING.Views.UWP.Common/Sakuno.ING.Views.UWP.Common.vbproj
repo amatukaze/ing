@@ -27,6 +27,7 @@
   <ItemGroup>
     <Compile Include="Controls\AirProficiencyPresenter.vb" />
     <Compile Include="Controls\EquipmentIcon.vb" />
+    <Compile Include="Controls\HPIndicator.vb" />
     <Compile Include="Controls\LevelingIndicator.vb" />
     <Compile Include="Controls\ProgressCircle.vb" />
     <Compile Include="Controls\ShipSlotPresenter.xaml.vb">
@@ -84,6 +85,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ShipSlotPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\HPIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
