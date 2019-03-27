@@ -29,6 +29,7 @@
     <Compile Include="Controls\EquipmentIcon.vb" />
     <Compile Include="Controls\HPIndicator.vb" />
     <Compile Include="Controls\LevelingIndicator.vb" />
+    <Compile Include="Controls\LoSIndicator.vb" />
     <Compile Include="Controls\MoraleIndicator.vb" />
     <Compile Include="Controls\ProgressCircle.vb" />
     <Compile Include="Controls\ShipSlotPresenter.xaml.vb">
@@ -84,6 +85,10 @@
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
       <Name>Sakuno.ING.Settings.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Homeport\Sakuno.ING.ViewModels.Homeport.csproj">
+      <Project>{105fab04-bac9-443f-becd-f3e6b863e31f}</Project>
+      <Name>Sakuno.ING.ViewModels.Homeport</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ShipSlotPresenter.xaml">
@@ -95,6 +100,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\LevelingIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Controls\LoSIndicator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

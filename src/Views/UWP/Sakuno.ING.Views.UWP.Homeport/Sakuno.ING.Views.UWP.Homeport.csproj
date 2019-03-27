@@ -62,6 +62,10 @@
       <Project>{05eb7b5d-cc39-4d62-8d11-ef3eaa99dd91}</Project>
       <Name>Sakuno.ING.Game.Provider</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Homeport\Sakuno.ING.ViewModels.Homeport.csproj">
+      <Project>{105fab04-bac9-443f-becd-f3e6b863e31f}</Project>
+      <Name>Sakuno.ING.ViewModels.Homeport</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">

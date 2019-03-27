@@ -85,8 +85,9 @@ namespace Sakuno.ING.Game.Models
             SupplyingCost = Ships.Sum(s => s.SupplyingCost);
             RepairingCost = Ships.Sum(s => s.RepairingCost);
             AirFightPower = Ships.Sum(s => s.AirFightPower);
-            SimpleLos = Ships.Sum(s => s.LineOfSight.Displaying);
-            EffectiveLoS = Ships.Sum(s => s.EffectiveLoS) + (2 * (6 - Ships.Count) - Math.Ceiling(0.4 * owner.Admiral.Leveling.Level));
+            SimpleLoS = Ships.Sum(s => s.LineOfSight.Displaying);
+            var sumLoS = Ships.Sum(s => s.EffectiveLoS);
+            EffectiveLoS = new LineOfSight(sumLoS.Multiplied, sumLoS.Baseline + 2 * (6 - Ships.Count), owner.Admiral.Leveling.Level);
             State = CheckFleetState();
         }
 

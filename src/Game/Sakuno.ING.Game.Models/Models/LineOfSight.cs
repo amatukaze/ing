@@ -1,29 +1,44 @@
 ﻿using System;
+using System.ComponentModel;
+using Sakuno.ING.Game.Models.Knowledge;
 
 namespace Sakuno.ING.Game.Models
 {
     public readonly struct LineOfSight : IEquatable<LineOfSight>
     {
-        public LineOfSight(double multiplied, double offset)
+        public LineOfSight(double multiplied, double baseline, int admiralLevel = 0)
         {
             Multiplied = multiplied;
-            Offset = offset;
+            Baseline = baseline;
+            AdmiralLevel = admiralLevel;
         }
 
         public double Multiplied { get; }
-        public double Offset { get; }
-        public double Multiplier1 => Offset + Multiplied;
-        public double Multiplier3 => Offset + 3 * Multiplied;
-        public double Multiplier4 => Offset + 4 * Multiplied;
+        public double Baseline { get; }
+        public int AdmiralLevel { get; }
+        public double OffsetFromLevel => -Math.Ceiling(0.4 * AdmiralLevel);
+        public LineOfSight AtMaxLevel
+            => new LineOfSight(Multiplied, Baseline, KnownLeveling.MaxAdmiralLevel);
+        public double MultiplyWith(int factor)
+            => Baseline + factor * Multiplied + OffsetFromLevel;
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string MultiplyAndGetString(int factor)
+            => MultiplyWith(factor).ToString("F2");
 
-        public override bool Equals(object obj) => obj is LineOfSight && Equals((LineOfSight)obj);
-        public bool Equals(LineOfSight other) => Multiplied == other.Multiplied && Offset == other.Offset;
+        public override bool Equals(object obj)
+            => obj is LineOfSight other
+            && Equals(other);
+        public bool Equals(LineOfSight other)
+            => Multiplied == other.Multiplied
+            && Baseline == other.Baseline
+            && AdmiralLevel == other.AdmiralLevel;
 
         public override int GetHashCode()
         {
-            var hashCode = 1040186022;
+            var hashCode = 2023569763;
             hashCode = hashCode * -1521134295 + Multiplied.GetHashCode();
-            hashCode = hashCode * -1521134295 + Offset.GetHashCode();
+            hashCode = hashCode * -1521134295 + Baseline.GetHashCode();
+            hashCode = hashCode * -1521134295 + AdmiralLevel.GetHashCode();
             return hashCode;
         }
 
@@ -31,9 +46,6 @@ namespace Sakuno.ING.Game.Models
         public static bool operator !=(LineOfSight left, LineOfSight right) => !(left == right);
 
         public static LineOfSight operator +(LineOfSight left, LineOfSight right)
-            => new LineOfSight(left.Multiplied + right.Multiplied, left.Offset + right.Offset);
-
-        public static LineOfSight operator +(LineOfSight left, double right)
-            => new LineOfSight(left.Multiplied, left.Offset + right);
+            => new LineOfSight(left.Multiplied + right.Multiplied, left.Baseline + right.Baseline);
     }
 }

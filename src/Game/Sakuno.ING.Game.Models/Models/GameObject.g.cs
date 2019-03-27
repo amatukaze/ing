@@ -904,13 +904,13 @@ namespace Sakuno.ING.Game.Models
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_simpleLos = new PropertyChangedEventArgs(nameof(SimpleLos));
+        private static readonly PropertyChangedEventArgs __eventArgs_simpleLoS = new PropertyChangedEventArgs(nameof(SimpleLoS));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private int _simpleLos;
-        public int SimpleLos
+        private int _simpleLoS;
+        public int SimpleLoS
         {
-            get => _simpleLos;
-            private set => Set(ref _simpleLos, value, __eventArgs_simpleLos);
+            get => _simpleLoS;
+            private set => Set(ref _simpleLoS, value, __eventArgs_simpleLoS);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

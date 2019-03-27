@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels.Homeport"
+                    xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls">
+    <Style TargetType="local:LoSIndicator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:LoSIndicator">
+                    <ComboBox ItemsSource="{Binding ViewModel.Selections, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                              SelectedValue="{Binding ViewModel.SelectedItem, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate DataType="vm:FleetLoSVMItem">
+                                <TextBlock>
+                                    <Run Text="{Binding Id, Mode=OneTime}" /><Run Text=": " /><Run Text="{Binding DisplayingValue, StringFormat=F2, Mode=OneWay}" />
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

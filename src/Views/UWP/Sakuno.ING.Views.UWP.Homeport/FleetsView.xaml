@@ -107,7 +107,7 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="250" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -216,13 +216,9 @@
                                Margin="2, 0, 12, 0">
                         <Run Text="{x:Bind AirFightPower.Minimum.ToString('F0', x:Null)}" /><Run Text="~" /><Run Text="{x:Bind AirFightPower.Maximum.ToString('F0', x:Null)}" />
                     </TextBlock>
-                    <TextBlock Grid.Row="3" Grid.Column="2"
-                               Text="eLoS:" />
-                    <TextBlock Grid.Row="3" Grid.Column="3"
-                               Margin="2, 0, 12, 0"
-                               DataContext="{Binding EffectiveLoS}">
-                        <Run Text="{x:Bind EffectiveLoS.Offset.ToString('F2', x:Null)}" /><Run Text="+" /><Run Text="{x:Bind EffectiveLoS.Multiplied.ToString('F2', x:Null)}" />
-                    </TextBlock>
+                    <con:LoSIndicator Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="3"
+                                      Simple="{x:Bind SimpleLoS}"
+                                      Effective="{x:Bind EffectiveLoS}" />
                 </Grid>
             </DataTemplate>
         </tk:TabView.ItemTemplate>

@@ -76,7 +76,7 @@
     <property type="Materials" name="SupplyingCost" />
     <property type="Materials" name="RepairingCost" />
     <property type="AirFightPower" name="AirFightPower" />
-    <property type="int" name="SimpleLos" />
+    <property type="int" name="SimpleLoS" />
     <property type="LineOfSight" name="EffectiveLoS" />
     <property type="FleetState" name="State" />
   </class>
