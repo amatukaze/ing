@@ -1,5 +1,4 @@
 ﻿using System;
-using Sakuno.ING.Http;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
 using Windows.UI.Xaml;
@@ -21,27 +20,17 @@ namespace Sakuno.ING.UWP
 
             if (selector.Settings.Debug.InitialValue)
             {
-                var btn = new Button
-                {
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Content = "Next debug data"
-                };
-
-                var debug = (DebugHttpProvider)selector.Current;
-                btn.Tapped += (s, e) => debug.Send();
-
-                Transformer.Child = btn;
+                Visibility = Visibility.Collapsed;
             }
             else
             {
                 Transformer.Child = WebView = new WebView(WebViewExecutionMode.SeparateThread);
                 WebView.Navigate(new Uri(selector.Settings.DefaultUrl.Value));
-            }
 
-            layoutSetting.LayoutScale.ValueChanged += _ => UpdateBrowserScale();
-            layoutSetting.BrowserScale.ValueChanged += _ => UpdateBrowserScale();
-            UpdateBrowserScale();
+                layoutSetting.LayoutScale.ValueChanged += _ => UpdateBrowserScale();
+                layoutSetting.BrowserScale.ValueChanged += _ => UpdateBrowserScale();
+                UpdateBrowserScale();
+            }
         }
 
         private void UpdateBrowserScale()
