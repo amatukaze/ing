@@ -13,7 +13,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    public sealed partial class Equipment : BindableObject, IUpdatable<EquipmentId, RawEquipment>
+    public sealed partial class Equipment : BindableObject, IComparable<Equipment>, IUpdatable<EquipmentId, RawEquipment>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -66,6 +66,8 @@ namespace Sakuno.ING.Game.Models
             private set => Set(ref _isAvailable, value, __eventArgs_isAvailable);
         }
 
+        public int CompareTo(Equipment other) => Id.CompareTo(other?.Id ?? default);
+
         public EquipmentId Id { get; }
         private readonly NavalBase owner;
         public DateTimeOffset UpdationTime { get; private set; }
@@ -105,7 +107,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"Equipment {Id}";
     }
 
-    public sealed partial class BuildingDock : BindableObject, IUpdatable<BuildingDockId, RawBuildingDock>
+    public sealed partial class BuildingDock : BindableObject, IComparable<BuildingDock>, IUpdatable<BuildingDockId, RawBuildingDock>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -168,6 +170,8 @@ namespace Sakuno.ING.Game.Models
             private set => Set(ref _timeRemaining, value, __eventArgs_timeRemaining);
         }
 
+        public int CompareTo(BuildingDock other) => Id.CompareTo(other?.Id ?? default);
+
         public BuildingDockId Id { get; }
         private readonly NavalBase owner;
         public DateTimeOffset UpdationTime { get; private set; }
@@ -208,7 +212,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"BuildingDock {Id}";
     }
 
-    public sealed partial class RepairingDock : BindableObject, IUpdatable<RepairingDockId, RawRepairingDock>
+    public sealed partial class RepairingDock : BindableObject, IComparable<RepairingDock>, IUpdatable<RepairingDockId, RawRepairingDock>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -251,6 +255,8 @@ namespace Sakuno.ING.Game.Models
             private set => Set(ref _timeRemaining, value, __eventArgs_timeRemaining);
         }
 
+        public int CompareTo(RepairingDock other) => Id.CompareTo(other?.Id ?? default);
+
         public RepairingDockId Id { get; }
         private readonly NavalBase owner;
         public DateTimeOffset UpdationTime { get; private set; }
@@ -290,7 +296,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"RepairingDock {Id}";
     }
 
-    public sealed partial class UseItemCount : BindableObject, IUpdatable<UseItemId, RawUseItemCount>
+    public sealed partial class UseItemCount : BindableObject, IComparable<UseItemCount>, IUpdatable<UseItemId, RawUseItemCount>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -312,6 +318,8 @@ namespace Sakuno.ING.Game.Models
             get => _count;
             private set => Set(ref _count, value, __eventArgs_count);
         }
+
+        public int CompareTo(UseItemCount other) => Id.CompareTo(other?.Id ?? default);
 
         public UseItemId Id { get; }
         private readonly NavalBase owner;
@@ -350,7 +358,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"UseItemCount {Id}";
     }
 
-    public sealed partial class Admiral : BindableObject, IUpdatable<int, RawAdmiral>
+    public sealed partial class Admiral : BindableObject, IComparable<Admiral>, IUpdatable<int, RawAdmiral>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -462,6 +470,8 @@ namespace Sakuno.ING.Game.Models
             get => _maxMaterial;
             private set => Set(ref _maxMaterial, value, __eventArgs_maxMaterial);
         }
+
+        public int CompareTo(Admiral other) => Id.CompareTo(other?.Id ?? default);
 
         public int Id { get; }
         private readonly NavalBase owner;
@@ -763,8 +773,10 @@ namespace Sakuno.ING.Game.Models
             private set => Set(ref _effectiveLoS, value, __eventArgs_effectiveLoS);
         }
     }
-    public sealed partial class HomeportShip : Ship, IUpdatable<ShipId, RawShip>
+    public sealed partial class HomeportShip : Ship, IComparable<HomeportShip>, IUpdatable<ShipId, RawShip>
     {
+        public int CompareTo(HomeportShip other) => Id.CompareTo(other?.Id ?? default);
+
         public ShipId Id { get; }
         private readonly NavalBase owner;
         public DateTimeOffset UpdationTime { get; private set; }
@@ -810,7 +822,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"HomeportShip {Id}";
     }
 
-    public sealed partial class Fleet : BindableObject, IUpdatable<FleetId, RawFleet>
+    public sealed partial class Fleet : BindableObject, IComparable<Fleet>, IUpdatable<FleetId, RawFleet>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -933,6 +945,8 @@ namespace Sakuno.ING.Game.Models
             private set => Set(ref _state, value, __eventArgs_state);
         }
 
+        public int CompareTo(Fleet other) => Id.CompareTo(other?.Id ?? default);
+
         public FleetId Id { get; }
         private readonly NavalBase owner;
         public DateTimeOffset UpdationTime { get; private set; }
@@ -972,7 +986,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"Fleet {Id}";
     }
 
-    public sealed partial class Quest : BindableObject, IUpdatable<QuestId, RawQuest>
+    public sealed partial class Quest : BindableObject, IComparable<Quest>, IUpdatable<QuestId, RawQuest>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -1024,6 +1038,8 @@ namespace Sakuno.ING.Game.Models
             get => _rewards;
             private set => Set(ref _rewards, value, __eventArgs_rewards);
         }
+
+        public int CompareTo(Quest other) => Id.CompareTo(other?.Id ?? default);
 
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
@@ -1084,7 +1100,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"Quest {Id}: {Name.Origin}";
     }
 
-    public sealed partial class Map : BindableObject, IUpdatable<MapId, RawMap>
+    public sealed partial class Map : BindableObject, IComparable<Map>, IUpdatable<MapId, RawMap>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -1157,6 +1173,8 @@ namespace Sakuno.ING.Game.Models
             private set => Set(ref _gauge, value, __eventArgs_gauge);
         }
 
+        public int CompareTo(Map other) => Id.CompareTo(other?.Id ?? default);
+
         public MapId Id { get; }
         private readonly NavalBase owner;
         public DateTimeOffset UpdationTime { get; private set; }
@@ -1199,7 +1217,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"Map {Id}";
     }
 
-    public sealed partial class AirForceSquadron : BindableObject, IUpdatable<int, RawAirForceSquadron>
+    public sealed partial class AirForceSquadron : BindableObject, IComparable<AirForceSquadron>, IUpdatable<int, RawAirForceSquadron>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -1231,6 +1249,8 @@ namespace Sakuno.ING.Game.Models
             get => _morale;
             private set => Set(ref _morale, value, __eventArgs_morale);
         }
+
+        public int CompareTo(AirForceSquadron other) => Id.CompareTo(other?.Id ?? default);
 
         public int Id { get; }
         private readonly NavalBase owner;
@@ -1270,7 +1290,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"AirForceSquadron {Id}";
     }
 
-    public sealed partial class AirForceGroup : BindableObject, IUpdatable<(MapAreaId MapArea, AirForceGroupId GroupId), RawAirForceGroup>
+    public sealed partial class AirForceGroup : BindableObject, IComparable<AirForceGroup>, IUpdatable<(MapAreaId MapArea, AirForceGroupId GroupId), RawAirForceGroup>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -1312,6 +1332,8 @@ namespace Sakuno.ING.Game.Models
             get => _action;
             internal set => Set(ref _action, value, __eventArgs_action);
         }
+
+        public int CompareTo(AirForceGroup other) => Id.CompareTo(other?.Id ?? default);
 
         public (MapAreaId MapArea, AirForceGroupId GroupId) Id { get; }
         private readonly NavalBase owner;

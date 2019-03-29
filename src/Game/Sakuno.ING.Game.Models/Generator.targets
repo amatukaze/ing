@@ -57,7 +57,7 @@ foreach (var infile in Inputs)
             if (@virtual)
                 output.WriteLine($"    public abstract partial class {thisClass} : BindableObject");
             else
-                output.WriteLine($"    public sealed partial class {thisClass} : BindableObject, IUpdatable<{idClass}, {rawClass}>");
+                output.WriteLine($"    public sealed partial class {thisClass} : BindableObject, IComparable<{thisClass}>, IUpdatable<{idClass}, {rawClass}>");
             output.WriteLine("    {");
 
             foreach (var p in c.Elements("property"))
@@ -81,11 +81,14 @@ foreach (var infile in Inputs)
             if (@virtual)
             {
                 output.WriteLine("    }");
-                output.WriteLine($"    public sealed partial class {implClass} : {thisClass}, IUpdatable<{idClass}, {rawClass}>");
+                output.WriteLine($"    public sealed partial class {implClass} : {thisClass}, IComparable<{implClass}>, IUpdatable<{idClass}, {rawClass}>");
                 output.WriteLine("    {");
             }
             else
                 output.WriteLine();
+
+            output.WriteLine($"        public int CompareTo({implClass ?? thisClass} other) => Id.CompareTo(other?.Id ?? default);");
+            output.WriteLine();
 
             foreach (var l in c.Elements("localizable"))
             {

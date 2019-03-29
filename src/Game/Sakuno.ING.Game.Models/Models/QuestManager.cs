@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Sakuno.ING.Localization;
 
 namespace Sakuno.ING.Game.Models
@@ -20,11 +21,13 @@ namespace Sakuno.ING.Game.Models
             Localization = localization;
 
             _allQuests = new IdTable<QuestId, Quest, RawQuest, QuestManager>(this);
+            _activeQuests = new OrderedSnapshotCollection<Quest>(_allQuests.Where(x => x.State != QuestState.Inactive));
             listener.QuestUpdated += (t, msg) =>
             {
                 UpdationTime = t;
-                _allQuests.BatchUpdate(msg.Quests, t, removal: false);
                 _allQuests.RemoveAll(IsOutOfDate);
+                _allQuests.BatchUpdate(msg.Quests, t, removal: false);
+                _activeQuests.Update();
             };
             listener.QuestCompleted += (t, msg)
                 => QuestCompleting?.Invoke(t, _allQuests.Remove(msg));
@@ -59,6 +62,9 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<QuestId, Quest, RawQuest, QuestManager> _allQuests;
         public ITable<QuestId, Quest> AllQuests => _allQuests;
         public void Reset() => _allQuests.Clear();
+
+        private readonly OrderedSnapshotCollection<Quest> _activeQuests;
+        public IBindableCollection<Quest> ActiveQuests => _activeQuests;
 
         public event QuestCompletingHandler QuestCompleting;
     }

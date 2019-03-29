@@ -12,7 +12,7 @@ using System.ComponentModel;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    public sealed partial class ShipInfo : BindableObject, IUpdatable<ShipInfoId, RawShipInfo>
+    public sealed partial class ShipInfo : BindableObject, IComparable<ShipInfo>, IUpdatable<ShipInfoId, RawShipInfo>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -265,6 +265,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             private set => Set(ref _bulletConsumption, value, __eventArgs_bulletConsumption);
         }
 
+        public int CompareTo(ShipInfo other) => Id.CompareTo(other?.Id ?? default);
+
         public TextTranslationGroup Introduction { get; } = new TextTranslationGroup();
 
         public ShipInfoId Id { get; }
@@ -329,7 +331,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void CreateCore();
     }
 
-    public sealed partial class ShipTypeInfo : BindableObject, IUpdatable<ShipTypeId, RawShipTypeInfo>
+    public sealed partial class ShipTypeInfo : BindableObject, IComparable<ShipTypeInfo>, IUpdatable<ShipTypeId, RawShipTypeInfo>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -361,6 +363,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             get => _buildOutlineId;
             private set => Set(ref _buildOutlineId, value, __eventArgs_buildOutlineId);
         }
+
+        public int CompareTo(ShipTypeInfo other) => Id.CompareTo(other?.Id ?? default);
 
         private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
         public IReadOnlyList<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
@@ -402,7 +406,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void CreateCore();
     }
 
-    public sealed partial class EquipmentTypeInfo : BindableObject, IUpdatable<EquipmentTypeId, RawEquipmentTypeInfo>
+    public sealed partial class EquipmentTypeInfo : BindableObject, IComparable<EquipmentTypeInfo>, IUpdatable<EquipmentTypeId, RawEquipmentTypeInfo>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -414,6 +418,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             get => _availableInExtraSlot;
             private set => Set(ref _availableInExtraSlot, value, __eventArgs_availableInExtraSlot);
         }
+
+        public int CompareTo(EquipmentTypeInfo other) => Id.CompareTo(other?.Id ?? default);
 
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
@@ -461,7 +467,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public override string ToString() => $"EquipmentTypeInfo {Id}: {Name.Origin}";
     }
 
-    public sealed partial class EquipmentInfo : BindableObject, IUpdatable<EquipmentInfoId, RawEquipmentInfo>
+    public sealed partial class EquipmentInfo : BindableObject, IComparable<EquipmentInfo>, IUpdatable<EquipmentInfoId, RawEquipmentInfo>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -644,6 +650,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             private set => Set(ref _rarity, value, __eventArgs_rarity);
         }
 
+        public int CompareTo(EquipmentInfo other) => Id.CompareTo(other?.Id ?? default);
+
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
         public TextTranslationGroup Description { get; } = new TextTranslationGroup();
@@ -718,8 +726,10 @@ namespace Sakuno.ING.Game.Models.MasterData
         public override string ToString() => $"EquipmentInfo {Id}: {Name.Origin}";
     }
 
-    public sealed partial class UseItemInfo : BindableObject, IUpdatable<UseItemId, RawUseItem>
+    public sealed partial class UseItemInfo : BindableObject, IComparable<UseItemInfo>, IUpdatable<UseItemId, RawUseItem>
     {
+
+        public int CompareTo(UseItemInfo other) => Id.CompareTo(other?.Id ?? default);
 
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
@@ -766,7 +776,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public override string ToString() => $"UseItemInfo {Id}: {Name.Origin}";
     }
 
-    public sealed partial class MapAreaInfo : BindableObject, IUpdatable<MapAreaId, RawMapArea>
+    public sealed partial class MapAreaInfo : BindableObject, IComparable<MapAreaInfo>, IUpdatable<MapAreaId, RawMapArea>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -778,6 +788,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             get => _isEvent;
             private set => Set(ref _isEvent, value, __eventArgs_isEvent);
         }
+
+        public int CompareTo(MapAreaInfo other) => Id.CompareTo(other?.Id ?? default);
 
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
@@ -825,7 +837,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public override string ToString() => $"MapAreaInfo {Id}: {Name.Origin}";
     }
 
-    public sealed partial class MapInfo : BindableObject, IUpdatable<MapId, RawMapInfo>
+    public sealed partial class MapInfo : BindableObject, IComparable<MapInfo>, IUpdatable<MapId, RawMapInfo>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -918,6 +930,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             private set => Set(ref _canUseTransportEscortFleet, value, __eventArgs_canUseTransportEscortFleet);
         }
 
+        public int CompareTo(MapInfo other) => Id.CompareTo(other?.Id ?? default);
+
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
         public TextTranslationGroup OperationName { get; } = new TextTranslationGroup();
@@ -989,7 +1003,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public override string ToString() => $"MapInfo {Id}: {Name.Origin}";
     }
 
-    public sealed partial class ExpeditionInfo : BindableObject, IUpdatable<ExpeditionId, RawExpeditionInfo>
+    public sealed partial class ExpeditionInfo : BindableObject, IComparable<ExpeditionInfo>, IUpdatable<ExpeditionId, RawExpeditionInfo>
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -1091,6 +1105,8 @@ namespace Sakuno.ING.Game.Models.MasterData
             get => _canRecall;
             private set => Set(ref _canRecall, value, __eventArgs_canRecall);
         }
+
+        public int CompareTo(ExpeditionInfo other) => Id.CompareTo(other?.Id ?? default);
 
         public TextTranslationGroup Name { get; } = new TextTranslationGroup();
 
