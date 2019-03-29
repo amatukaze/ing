@@ -15,10 +15,10 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate x:DataType="g:Fleet">
                 <Grid>
-                    <TextBlock FontSize="16"
+                    <TextBlock FontSize="18"
                                Style="{StaticResource TranslatableTextStyle}"
                                Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}" />
-                    <TextBlock FontSize="16" TextAlignment="Right"
+                    <TextBlock FontSize="18" TextAlignment="Right"
                                Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}" />
                 </Grid>
             </DataTemplate>

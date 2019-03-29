@@ -189,10 +189,11 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
-                    <TextBlock Grid.Row="2" Text="Supplying Cost" />
+                    <TextBlock Grid.Row="2" Text="Supplying Cost" VerticalAlignment="Center" />
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="2" Grid.Column="1"
-                                Margin="2, 0, 12, 0">
+                                Margin="2, 0, 12, 0"
+                                VerticalAlignment="Center">
                         <con:UseItemIcon Id="Fuel" Margin="4, 0, 0, 0" />
                         <TextBlock Text="{x:Bind SupplyingCost.Fuel}" />
                         <con:UseItemIcon Id="Bullet" Margin="4, 0, 0, 0" />
@@ -200,19 +201,21 @@
                         <con:UseItemIcon Id="Bauxite" Margin="4, 0, 0, 0" />
                         <TextBlock Text="{x:Bind SupplyingCost.Bauxite}" />
                     </StackPanel>
-                    <TextBlock Grid.Row="3" Text="Repairing Cost" />
+                    <TextBlock Grid.Row="3" Text="Repairing Cost" VerticalAlignment="Center" />
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="3" Grid.Column="1"
                                 Margin="2, 0, 12, 0"
-                                DataContext="{Binding RepairingCost}">
+                                VerticalAlignment="Center">
                         <con:UseItemIcon Id="Fuel" Margin="4, 0, 0, 0" />
                         <TextBlock Text="{x:Bind RepairingCost.Fuel}" />
                         <con:UseItemIcon Id="Steel" Margin="4, 0, 0, 0" />
                         <TextBlock Text="{x:Bind RepairingCost.Steel}" />
                     </StackPanel>
                     <TextBlock Grid.Row="2" Grid.Column="2"
+                               VerticalAlignment="Center"
                                Text="AFP:" />
                     <TextBlock Grid.Row="2" Grid.Column="3"
+                               VerticalAlignment="Center"
                                Margin="2, 0, 12, 0">
                         <Run Text="{x:Bind AirFightPower.Minimum.ToString('F0', x:Null)}" /><Run Text="~" /><Run Text="{x:Bind AirFightPower.Maximum.ToString('F0', x:Null)}" />
                     </TextBlock>

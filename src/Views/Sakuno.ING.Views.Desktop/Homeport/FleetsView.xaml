@@ -206,7 +206,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                     </ScrollViewer>
-                    <TextBlock Grid.Row="2" Text="Supplying Cost" />
+                    <TextBlock Grid.Row="2" Text="{c:Localize GameModel/Cost_Supply}" />
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="2" Grid.Column="1"
                                 Margin="2, 0, 12, 0"
@@ -218,7 +218,7 @@
                         <c:UseItemIcon Id="Bauxite" Margin="4, 0, 0, 0" />
                         <TextBlock Text="{Binding Bauxite, Mode=OneTime}" />
                     </StackPanel>
-                    <TextBlock Grid.Row="3" Text="Repairing Cost" />
+                    <TextBlock Grid.Row="3" Text="{c:Localize GameModel/Cost_Repair}" />
                     <StackPanel Orientation="Horizontal"
                                 Grid.Row="3" Grid.Column="1"
                                 Margin="2, 0, 12, 0"
@@ -228,8 +228,9 @@
                         <c:UseItemIcon Id="Steel" Margin="4, 0, 0, 0" />
                         <TextBlock Text="{Binding Steel, Mode=OneTime}" />
                     </StackPanel>
-                    <TextBlock Grid.Row="2" Grid.Column="2"
-                               Text="AFP:" />
+                    <TextBlock Grid.Row="2" Grid.Column="2">
+                        <Run Text="{c:Localize GameModel/AirFightingPower}" /><Run Text=": " />
+                    </TextBlock>
                     <TextBlock Grid.Row="2" Grid.Column="3"
                                Margin="2, 0, 12, 0"
                                DataContext="{Binding AirFightPower}">

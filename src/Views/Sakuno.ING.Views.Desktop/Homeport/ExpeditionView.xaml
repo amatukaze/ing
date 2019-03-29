@@ -9,7 +9,7 @@
              DataContext="{c:Resolve {x:Type g:NavalBase}}"
              d:DataContext="{d:DesignInstance g:NavalBase}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <ItemsControl ItemsSource="{Binding Fleets.DefaultView}">
+    <ItemsControl ItemsSource="{Binding Fleets.DefaultView}" FontSize="18">
         <ItemsControl.ItemTemplate>
             <DataTemplate DataType="{x:Type g:Fleet}">
                 <Grid>

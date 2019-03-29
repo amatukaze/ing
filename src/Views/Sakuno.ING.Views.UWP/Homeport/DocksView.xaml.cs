@@ -1,5 +1,6 @@
 ﻿using Sakuno.ING.Game.Models;
 using Sakuno.ING.Shell;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.ING.Views.UWP.Homeport
@@ -12,6 +13,21 @@ namespace Sakuno.ING.Views.UWP.Homeport
         {
             ViewModel = viewModel;
             this.InitializeComponent();
+        }
+
+        private void Switching(object sender, RoutedEventArgs e)
+        {
+            if (!IsLoaded) return;
+            if (sender == buttonBuilding)
+            {
+                panelBuilding.Visibility = Visibility.Visible;
+                panelRepairing.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                panelBuilding.Visibility = Visibility.Collapsed;
+                panelRepairing.Visibility = Visibility.Visible;
+            }
         }
     }
 }

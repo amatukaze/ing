@@ -1,0 +1,33 @@
+﻿<UserControl
+    x:Class="Sakuno.ING.UWP.Layout.OverviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sh="using:Sakuno.ING.Shell.Layout"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <sh:ViewPresenter ViewId="Admiral"
+                          Grid.ColumnSpan="2" />
+        <sh:ViewPresenter ViewId="Fleets"
+                          Grid.Row="1" Grid.ColumnSpan="2" />
+        <sh:ViewPresenter ViewId="ActiveQuests"
+                          Grid.Row="2" Grid.RowSpan="2" />
+        <sh:ViewPresenter ViewId="Docks"
+                          Grid.Row="2" Grid.Column="1" />
+        <sh:ViewPresenter ViewId="Expedition"
+                          Grid.Row="3" Grid.Column="1" />
+    </Grid>
+</UserControl>

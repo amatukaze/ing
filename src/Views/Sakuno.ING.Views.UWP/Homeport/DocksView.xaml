@@ -11,38 +11,82 @@
     d:DesignHeight="300"
     d:DesignWidth="400"
     x:DefaultBindMode="OneWay">
-    <Pivot>
-        <PivotItem x:Uid="/Resources/BuildingDocks">
-            <ItemsControl ItemsSource="{x:Bind ViewModel.BuildingDocks.DefaultView}" FontSize="16">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="g:BuildingDock">
-                        <Grid>
-                            <TextBlock Style="{StaticResource ShipNameTextStyle}"
+    <UserControl.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border Name="Border" Opacity="0.5">
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <VisualState.Setters>
+                                            <Setter Target="Border.Opacity" Value="1" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <RadioButton Grid.Row="0" x:Name="buttonBuilding"
+                     x:Uid="/Resources/BuildingDocks"
+                     IsChecked="True"
+                     Checked="Switching"
+                     Content="Building" />
+        <RadioButton Grid.Row="1" x:Name="buttonRepairing"
+                     x:Uid="/Resources/RepairingDocks"
+                     Checked="Switching"
+                     Content="Reparing" />
+        <ItemsControl ItemsSource="{x:Bind ViewModel.BuildingDocks.DefaultView}" FontSize="18"
+                      Grid.Column="1" Grid.RowSpan="2"
+                      x:Name="panelBuilding">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="g:BuildingDock">
+                    <Grid>
+                        <TextBlock Style="{StaticResource ShipNameTextStyle}"
                                        Text="{x:Bind c:Helpers.SelectShipName(BuiltShip.Name), FallbackValue=''}" />
-                            <TextBlock TextAlignment="Center"
+                        <TextBlock TextAlignment="Center"
                                        Text="{x:Bind c:Helpers.FormatBuildingDockState(State)}" />
-                            <TextBlock TextAlignment="Right"
+                        <TextBlock TextAlignment="Right"
                                        Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </PivotItem>
-        <PivotItem x:Uid="/Resources/RepairingDocks">
-            <ItemsControl ItemsSource="{x:Bind ViewModel.RepairingDocks.DefaultView}" FontSize="16">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="g:RepairingDock">
-                        <Grid>
-                            <TextBlock Style="{StaticResource ShipNameTextStyle}"
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl ItemsSource="{x:Bind ViewModel.RepairingDocks.DefaultView}" FontSize="18"
+                      Grid.Column="1" Grid.RowSpan="2"
+                      x:Name="panelRepairing"
+                      Visibility="Collapsed">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="g:RepairingDock">
+                    <Grid>
+                        <TextBlock Style="{StaticResource ShipNameTextStyle}"
                                        Text="{x:Bind c:Helpers.SelectShipName(RepairingShip.Info.Name), FallbackValue=''}" />
-                            <TextBlock TextAlignment="Center"
+                        <TextBlock TextAlignment="Center"
                                        Text="{x:Bind c:Helpers.FormatRepairingDockState(State)}" />
-                            <TextBlock TextAlignment="Right"
+                        <TextBlock TextAlignment="Right"
                                        Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', TimeRemaining)}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </PivotItem>
-    </Pivot>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 </UserControl>

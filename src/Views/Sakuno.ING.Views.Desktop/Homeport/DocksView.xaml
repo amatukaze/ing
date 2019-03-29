@@ -9,7 +9,7 @@
              DataContext="{c:Resolve {x:Type g:NavalBase}}"
              d:DataContext="{d:DesignInstance g:NavalBase}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <TabControl FontSize="16" TabStripPlacement="Left">
+    <TabControl FontSize="18" TabStripPlacement="Left">
         <TabItem Header="{c:Localize GameModel/Build}">
             <ItemsControl ItemsSource="{Binding BuildingDocks.DefaultView}">
                 <ItemsControl.ItemTemplate>

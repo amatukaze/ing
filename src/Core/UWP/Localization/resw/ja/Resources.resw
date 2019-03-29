@@ -132,10 +132,10 @@
   <data name="EquipmentCount.Text">
     <value>装備数：</value>
   </data>
-  <data name="BuildingDocks.Header">
+  <data name="BuildingDocks.Content">
     <value>建造</value>
   </data>
-  <data name="RepairingDocks.Header">
+  <data name="RepairingDocks.Content">
     <value>入渠</value>
   </data>
   <data name="FleetState_Empty.Text">
