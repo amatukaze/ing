@@ -129,12 +129,11 @@ namespace Sakuno.ING.Shell.Desktop
 
         public void ShowViewWithParameter<T>(string viewId, T parameter)
         {
-            var content = Compositor.Default.TryResolveView(viewId);
-            if (content != null)
+            if (Compositor.Default.ViewTypes.TryGetValue(viewId, out var type))
                 InitializeAndShow(new ModernWindow
                 {
                     Title = localization.GetLocalized("ViewTitle", viewId) ?? viewId,
-                    Content = content
+                    Content = Compositor.Default.ResolveWithParameter(type, parameter)
                 });
         }
     }
