@@ -18,6 +18,7 @@
                                   RelativePanel.LeftOf="CurrentBattle"
                                   RelativePanel.Above="Buttons">
                         <sh:ViewPresenter ViewId="Admiral" tk:DockPanel.Dock="Top" />
+                        <sh:ViewPresenter ViewId="ActiveQuests" tk:DockPanel.Dock="Bottom" />
                         <sh:ViewPresenter ViewId="Expedition" tk:DockPanel.Dock="Bottom" />
                         <sh:ViewPresenter ViewId="Docks" tk:DockPanel.Dock="Bottom" />
                         <sh:ViewPresenter ViewId="Fleets" />

@@ -81,6 +81,7 @@ namespace Sakuno.ING.UWP
             Information<ShipCreationLogsView>.Factory = () => new ShipCreationLogsView(Information<ShipCreationLogsVM>.Factory());
             Information<MasterDataView>.Factory = () => new MasterDataView(navalBase);
             Information<BrowserElement>.Factory = () => new BrowserElement(selector, layoutSetting);
+            Information<ActiveQuestsView>.Factory = () => new ActiveQuestsView(navalBase);
 
             Information<LocaleSettingView>.Factory = () => new LocaleSettingView(localeSetting);
             Information<ProxySettingView>.Factory = () => new ProxySettingView(proxySetting);
@@ -102,6 +103,7 @@ namespace Sakuno.ING.UWP
             ["ExpeditionCompletionLogs"] = typeof(ExpeditionCompletionLogsView),
             ["BattleLogs"] = typeof(BattleLogsView),
             ["BattleLogDetail"] = typeof(BattleLogDetailsView),
+            ["ActiveQuests"] = typeof(ActiveQuestsView),
         };
 
         public override IReadOnlyCollection<KeyValuePair<Type, SettingCategory>> SettingViews { get; } = new Dictionary<Type, SettingCategory>
@@ -155,6 +157,8 @@ namespace Sakuno.ING.UWP
                 return Information<ProxySettingView>.Factory();
             else if (type == typeof(DebugSettingView))
                 return Information<DebugSettingView>.Factory();
+            else if (type == typeof(ActiveQuestsView))
+                return Information<ActiveQuestsView>.Factory();
             else return null;
         }
 
@@ -180,6 +184,7 @@ namespace Sakuno.ING.UWP
             "EquipmentCreationLogs" => Information<EquipmentCreationLogsView>.Factory(),
             "ExpeditionCompletionLogs" => Information<ExpeditionCompletionLogsView>.Factory(),
             "BattleLogs" => Information<BattleLogsView>.Factory(),
+            "ActiveQuests" => Information<ActiveQuestsView>.Factory(),
             _ => null
         };
     }

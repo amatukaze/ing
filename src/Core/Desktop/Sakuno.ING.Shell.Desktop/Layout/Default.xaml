@@ -17,6 +17,7 @@
                                uic:RelativePanel.LeftOf="CurrentBattle"
                                uic:RelativePanel.Above="Buttons">
                         <sh:ViewPresenter ViewId="Admiral" DockPanel.Dock="Top" />
+                        <sh:ViewPresenter ViewId="ActiveQuests" DockPanel.Dock="Bottom" />
                         <sh:ViewPresenter ViewId="Expedition" DockPanel.Dock="Bottom" />
                         <sh:ViewPresenter ViewId="Docks" DockPanel.Dock="Bottom" />
                         <sh:ViewPresenter ViewId="Fleets" />

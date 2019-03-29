@@ -41,6 +41,9 @@
     <Compile Include="Homeport\FleetsView.xaml.cs">
       <DependentUpon>FleetsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Quests\ActiveQuestsView.xaml.cs">
+      <DependentUpon>ActiveQuestsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logging\BattleLogDetailsView.xaml.cs">
       <DependentUpon>BattleLogDetailsView.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
     <Page Include="Homeport\FleetsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Quests\ActiveQuestsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Logging\BattleLogDetailsView.xaml">
       <Generator>MSBuild:Compile</Generator>
