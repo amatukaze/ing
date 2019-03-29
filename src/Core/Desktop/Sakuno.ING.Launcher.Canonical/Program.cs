@@ -28,12 +28,9 @@ namespace Sakuno.ING
                 "Sakuno.ING.Shell.Desktop",
                 "Sakuno.ING.Timing.NTP",
                 "Sakuno.ING.ViewModels.Logging",
+                "Sakuno.ING.Views.Desktop",
                 "Sakuno.ING.Views.Desktop.Base",
-                "Sakuno.ING.Views.Desktop.Combat",
-                "Sakuno.ING.Views.Desktop.Common",
-                "Sakuno.ING.Views.Desktop.Logging",
-                "Sakuno.ING.Views.Desktop.Homeport",
-                "Sakuno.ING.Views.Desktop.Settings"
+                "Sakuno.ING.Views.Desktop.Common"
             );
 
             Bootstraper.Startup();

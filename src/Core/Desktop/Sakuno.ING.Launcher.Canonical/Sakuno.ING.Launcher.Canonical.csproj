@@ -37,10 +37,7 @@
     <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
     <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj" />
     <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj" />
-    <ProjectReference Include="$(BasePath)src\Views\Desktop\Sakuno.ING.Views.Desktop.Combat\Sakuno.ING.Views.Desktop.Combat.csproj" />
-    <ProjectReference Include="$(BasePath)src\Views\Desktop\Sakuno.ING.Views.Desktop.Homeport\Sakuno.ING.Views.Desktop.Homeport.csproj" />
-    <ProjectReference Include="$(BasePath)src\Views\Desktop\Sakuno.ING.Views.Desktop.Logging\Sakuno.ING.Views.Desktop.Logging.csproj" />
-    <ProjectReference Include="$(BasePath)src\Views\Desktop\Sakuno.ING.Views.Desktop.Settings\Sakuno.ING.Views.Desktop.Settings.csproj" />
+    <ProjectReference Include="$(BasePath)src\Views\Sakuno.ING.Views.Desktop\Sakuno.ING.Views.Desktop.csproj" />
   </ItemGroup>
 
 </Project>

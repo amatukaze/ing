@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\UWP.Views.props" />
+  <Import Project="..\..\..\UWP.props" />
   <PropertyGroup>
     <ProjectGuid>{872A67E9-1A02-45CB-8948-0AA25BC71974}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
@@ -218,33 +218,21 @@
       <Project>{1C87416D-DDEF-4416-86E6-13DC44931CF5}</Project>
       <Name>Sakuno.ING.ViewModels.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.Combat\Sakuno.ING.Views.UWP.Combat.csproj">
-      <Project>{c2eea102-0053-4046-8f41-e317763d2b16}</Project>
-      <Name>Sakuno.ING.Views.UWP.Combat</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.Homeport\Sakuno.ING.Views.UWP.Homeport.csproj">
-      <Project>{c34c3e85-5453-47d9-8495-a085b88d73fe}</Project>
-      <Name>Sakuno.ING.Views.UWP.Homeport</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.Logging\Sakuno.ING.Views.UWP.Logging.csproj">
-      <Project>{0b790e9c-eb63-487f-93b3-97b4bde25385}</Project>
-      <Name>Sakuno.ING.Views.UWP.Logging</Name>
+    <ProjectReference Include="..\..\..\Views\Sakuno.ING.Views.UWP\Sakuno.ING.Views.UWP.csproj">
+      <Project>{c3653662-15e1-4ecf-a183-77460068ab3a}</Project>
+      <Name>Sakuno.ING.Views.UWP</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Sakuno.ING.Timing.NTP\Sakuno.ING.Timing.NTP.csproj">
       <Project>{6bbbe871-beb9-47cf-bbf9-28db9b64729a}</Project>
       <Name>Sakuno.ING.Timing.NTP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.ApiDebug\Sakuno.ING.Views.UWP.ApiDebug.csproj">
-      <Project>{185f9a4d-07de-4c67-aa3a-e0b837c23036}</Project>
-      <Name>Sakuno.ING.Views.UWP.ApiDebug</Name>
+    <ProjectReference Include="..\Sakuno.ING.Views.UWP.Common\Sakuno.ING.Views.UWP.Common.vbproj">
+      <Project>{7aadb43e-3e31-4e9f-b2e7-ae225833a7a8}</Project>
+      <Name>Sakuno.ING.Views.UWP.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.MasterData\Sakuno.ING.Views.UWP.MasterData.csproj">
-      <Project>{9458a085-a9bc-4fb7-91ca-370db87d0eca}</Project>
-      <Name>Sakuno.ING.Views.UWP.MasterData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Views\UWP\Sakuno.ING.Views.UWP.Settings\Sakuno.ING.Views.UWP.Settings.csproj">
-      <Project>{e5d369e8-b344-410c-8d1a-c87e9c621c80}</Project>
-      <Name>Sakuno.ING.Views.UWP.Settings</Name>
+    <ProjectReference Include="..\Sakuno.ING.Views.UWP.Text\Sakuno.ING.Views.UWP.Text.csproj">
+      <Project>{8e301cf6-003d-404a-87f5-18d51d869577}</Project>
+      <Name>Sakuno.ING.Views.UWP.Text</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
