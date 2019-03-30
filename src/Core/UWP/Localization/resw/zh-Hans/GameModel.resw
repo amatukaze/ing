@@ -186,4 +186,43 @@
   <data name="Details">
     <value>详情</value>
   </data>
+  <data name="Cost_Supply">
+    <value>补给消耗</value>
+  </data>
+  <data name="Cost_Repair">
+    <value>入渠消耗</value>
+  </data>
+  <data name="AirFightingPower">
+    <value>制空</value>
+  </data>
+  <data name="LineOfSight">
+    <value>索敌</value>
+  </data>
+  <data name="LineOfSight_Simple">
+    <value>简单和</value>
+  </data>
+  <data name="LineOfSight_Factor1">
+    <value>分歧系数1</value>
+  </data>
+  <data name="LineOfSight_Factor2">
+    <value>分歧系数2</value>
+  </data>
+  <data name="LineOfSight_Factor3">
+    <value>分歧系数3</value>
+  </data>
+  <data name="LineOfSight_Factor4">
+    <value>分歧系数4</value>
+  </data>
+  <data name="LineOfSight_Baseline">
+    <value>固定值</value>
+  </data>
+  <data name="LineOfSight_Multiplied">
+    <value>倍率值</value>
+  </data>
+  <data name="LineOfSight_FromLevel">
+    <value>来自等级</value>
+  </data>
+  <data name="LineOfSight_AtMaxLevel">
+    <value>满级时</value>
+  </data>
 </root>

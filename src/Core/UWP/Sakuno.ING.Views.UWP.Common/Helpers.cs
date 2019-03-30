@@ -21,9 +21,13 @@ namespace Sakuno.ING.Views.UWP
         public static string SelectShipName(ShipName name)
             => SelectName(name);
 
+        public static string Localize(string category, object value, string format)
+            => localization.GetLocalized(category, string.Format(format, value));
+
+        private static readonly ILocalizationService localization;
         static Helpers()
         {
-            var localization = Compositor.Static<ILocalizationService>();
+            localization = Compositor.Static<ILocalizationService>();
             admiralRankTexts = Enumerable.Range(1, 10)
                 .Select(i => localization.GetLocalized("GameModel", "AdmiralRank_" + i))
                 .ToArray();

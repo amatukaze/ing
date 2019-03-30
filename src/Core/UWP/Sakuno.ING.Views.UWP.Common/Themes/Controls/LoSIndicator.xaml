@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vm="using:Sakuno.ING.ViewModels.Homeport"
+    xmlns:c="using:Sakuno.ING.Views.UWP"
     xmlns:local="using:Sakuno.ING.Views.UWP.Controls">
     <Style TargetType="local:LoSIndicator">
         <Setter Property="Template">
@@ -11,7 +12,7 @@
                                  x:DefaultBindMode="OneWay">
                     <DropDownButton>
                         <TextBlock>
-                            <Run Text="LoS: " />
+                            <Run x:Uid="/Resources/Fleet_LoS" />
                             <Run Text="{x:Bind ViewModel.SelectedItem.DisplayingValue.ToString('F2', x:Null)}" />
                         </TextBlock>
                         <DropDownButton.Flyout>
@@ -27,7 +28,7 @@
                                         <ListView.ItemTemplate>
                                             <DataTemplate x:DataType="vm:FleetLoSVMItem">
                                                 <TextBlock>
-                                                    <Run Text="{x:Bind Id, Mode=OneTime}" /><Run Text=": " /><Run Text="{x:Bind DisplayingValue.ToString('F2', x:Null)}" />
+                                                    <Run Text="{x:Bind c:Helpers.Localize('GameModel', Id, 'LineOfSight_{0}'), Mode=OneTime}" /><Run Text=": " /><Run Text="{x:Bind DisplayingValue.ToString('F2', x:Null)}" />
                                                 </TextBlock>
                                             </DataTemplate>
                                         </ListView.ItemTemplate>

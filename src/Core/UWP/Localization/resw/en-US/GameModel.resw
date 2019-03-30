@@ -186,4 +186,43 @@
   <data name="Details">
     <value>Details</value>
   </data>
+  <data name="Cost_Supply">
+    <value>Supplying Cost</value>
+  </data>
+  <data name="Cost_Repair">
+    <value>Repairing Cost</value>
+  </data>
+  <data name="AirFightingPower">
+    <value>AFP</value>
+  </data>
+  <data name="LineOfSight">
+    <value>LoS</value>
+  </data>
+  <data name="LineOfSight_Simple">
+    <value>Simple sum</value>
+  </data>
+  <data name="LineOfSight_Factor1">
+    <value>Factor=1</value>
+  </data>
+  <data name="LineOfSight_Factor2">
+    <value>Factor=2</value>
+  </data>
+  <data name="LineOfSight_Factor3">
+    <value>Factor=3</value>
+  </data>
+  <data name="LineOfSight_Factor4">
+    <value>Factor=4</value>
+  </data>
+  <data name="LineOfSight_Baseline">
+    <value>Base</value>
+  </data>
+  <data name="LineOfSight_Multiplied">
+    <value>Multiplied</value>
+  </data>
+  <data name="LineOfSight_FromLevel">
+    <value>From level</value>
+  </data>
+  <data name="LineOfSight_AtMaxLevel">
+    <value>At Lv. max</value>
+  </data>
 </root>

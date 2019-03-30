@@ -1,6 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:c="http://schemas.heavenlywind.cc/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels.Homeport"
                     xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls">
+    <c:LocalizeConverter x:Key="LocalizeConverter"
+                         StringFormat="GameModel/LineOfSight_{0}" />
     <Style TargetType="local:LoSIndicator">
         <Setter Property="Template">
             <Setter.Value>
@@ -10,7 +14,7 @@
                         <ComboBox.ItemTemplate>
                             <DataTemplate DataType="vm:FleetLoSVMItem">
                                 <TextBlock>
-                                    <Run Text="{Binding Id, Mode=OneTime}" /><Run Text=": " /><Run Text="{Binding DisplayingValue, StringFormat=F2, Mode=OneWay}" />
+                                    <Run Text="{Binding Id, Converter={StaticResource LocalizeConverter}, Mode=OneTime}" /><Run Text=": " /><Run Text="{Binding DisplayingValue, StringFormat=F2, Mode=OneWay}" />
                                 </TextBlock>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>

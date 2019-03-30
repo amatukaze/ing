@@ -177,4 +177,16 @@
   <data name="FleetState_Insufficient.Text">
     <value>Supply required</value>
   </data>
+  <data name="Fleet_Cost_Supply.Text">
+    <value>Supplying Cost</value>
+  </data>
+  <data name="Fleet_Cost_Repair.Text">
+    <value>Repairing Cost</value>
+  </data>
+  <data name="Fleet_AFP.Text">
+    <value>AFP</value>
+  </data>
+  <data name="Fleet_LoS.Text">
+    <value>LoS</value>
+  </data>
 </root>

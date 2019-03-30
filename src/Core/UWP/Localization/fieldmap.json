@@ -53,5 +53,9 @@
   "FleetState_Fatigued.Text": "GameModel/FleetState_Detail_Fatigued",
   "FleetState_Repairing.Text": "GameModel/FleetState_Detail_Repairing",
   "FleetState_Damaged.Text": "GameModel/FleetState_Detail_Damaged",
-  "FleetState_Insufficient.Text": "GameModel/FleetState_Detail_Insufficient"
+  "FleetState_Insufficient.Text": "GameModel/FleetState_Detail_Insufficient",
+  "Fleet_Cost_Supply.Text": "GameModel/Cost_Supply",
+  "Fleet_Cost_Repair.Text": "GameModel/Cost_Repair",
+  "Fleet_AFP.Text": "GameModel/AirFightingPower",
+  "Fleet_LoS.Text": "GameModel/LineOfSight"
 }

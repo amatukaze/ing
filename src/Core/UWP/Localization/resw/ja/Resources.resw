@@ -165,4 +165,16 @@
   <data name="FleetState_Insufficient.Text">
     <value>補給が必要</value>
   </data>
+  <data name="Fleet_Cost_Supply.Text">
+    <value>補給消费</value>
+  </data>
+  <data name="Fleet_Cost_Repair.Text">
+    <value>入渠消费</value>
+  </data>
+  <data name="Fleet_AFP.Text">
+    <value>制空</value>
+  </data>
+  <data name="Fleet_LoS.Text">
+    <value>索敵</value>
+  </data>
 </root>
