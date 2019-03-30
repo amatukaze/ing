@@ -1,18 +1,24 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Sakuno.ING.Views.UWP.Controls">
+    xmlns:local="using:Sakuno.ING.Views.UWP.Controls"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls">
     <Style TargetType="local:LevelingIndicator">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:LevelingIndicator">
-                    <Grid>
-                        <local:ProgressCircle x:Name="PART_Range" />
-                        <TextBlock x:Name="PART_Level"
-                                   Foreground="{TemplateBinding TextForeground}"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" />
-                    </Grid>
+                    <Viewbox>
+                        <Grid Height="32" Width="32">
+                            <tk:RadialProgressBar x:Name="PART_Range"
+                                                  Outline="Transparent"
+                                                  Thickness="2" />
+                            <TextBlock x:Name="PART_Level"
+                                       FontSize="16"
+                                       Foreground="{TemplateBinding TextForeground}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                    </Viewbox>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

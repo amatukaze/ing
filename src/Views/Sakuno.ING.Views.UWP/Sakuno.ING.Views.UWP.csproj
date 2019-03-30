@@ -79,13 +79,9 @@
     <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\UWP\Sakuno.ING.Views.UWP.Common\Sakuno.ING.Views.UWP.Common.vbproj">
+    <ProjectReference Include="..\..\Core\UWP\Sakuno.ING.Views.UWP.Common\Sakuno.ING.Views.UWP.Common.csproj">
       <Project>{7aadb43e-3e31-4e9f-b2e7-ae225833a7a8}</Project>
       <Name>Sakuno.ING.Views.UWP.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\UWP\Sakuno.ING.Views.UWP.Text\Sakuno.ING.Views.UWP.Text.csproj">
-      <Project>{8e301cf6-003d-404a-87f5-18d51d869577}</Project>
-      <Name>Sakuno.ING.Views.UWP.Text</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Game\Sakuno.ING.Game.Logger\Sakuno.ING.Game.Logger.csproj">
       <Project>{159e60f5-e46d-48e8-bc31-3987ac70f991}</Project>

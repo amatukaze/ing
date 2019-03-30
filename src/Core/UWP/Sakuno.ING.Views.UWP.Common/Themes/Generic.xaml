@@ -6,7 +6,6 @@
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/LevelingIndicator.xaml" />
         <local:LoSIndicatorTheme />
         <local:MoraleIndicatorTheme />
-        <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/ProgressCircle.xaml" />
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/UseItemPresenter.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

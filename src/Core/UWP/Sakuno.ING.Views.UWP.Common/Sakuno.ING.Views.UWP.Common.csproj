@@ -5,19 +5,21 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ProjectGuid>{7AADB43E-3E31-4E9F-B2E7-AE225833A7A8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Sakuno.ING.Views.UWP</RootNamespace>
-    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <DebugSymbols>true</DebugSymbols>
-    <DefineDebug>true</DefineDebug>
-    <DefineTrace>true</DefineTrace>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <DebugType>full</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <DefineTrace>true</DefineTrace>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Sakuno.ING.Views.UWP</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="$(BasePath)src\Core\Shared\Images\**\*">
@@ -25,52 +27,22 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\AirProficiencyPresenter.vb" />
-    <Compile Include="Controls\EquipmentIcon.vb" />
-    <Compile Include="Controls\HPIndicator.vb" />
-    <Compile Include="Controls\LevelingIndicator.vb" />
-    <Compile Include="Controls\LoSIndicator.vb" />
-    <Compile Include="Controls\MoraleIndicator.vb" />
-    <Compile Include="Controls\ProgressCircle.vb" />
-    <Compile Include="Controls\ShipSlotPresenter.xaml.vb">
+    <Compile Include="Controls\AirProficiencyPresenter.cs" />
+    <Compile Include="Controls\EquipmentIcon.cs" />
+    <Compile Include="Controls\HPIndicator.cs" />
+    <Compile Include="Controls\LevelingIndicator.cs" />
+    <Compile Include="Controls\LoSIndicator.cs" />
+    <Compile Include="Controls\MoraleIndicator.cs" />
+    <Compile Include="Controls\ShipSlotPresenter.xaml.cs">
       <DependentUpon>ShipSlotPresenter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TypeTemplateSelector.vb" />
-    <Compile Include="Controls\UseItemIcon.vb" />
-    <Compile Include="Controls\UseItemPresenter.vb" />
-    <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="Themes\Controls\InitializeComponent.vb" />
-    <EmbeddedResource Include="My Project\Sakuno.ING.Views.UWP.Common.rd.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Import Include="Microsoft.VisualBasic" />
-    <Import Include="System" />
-    <Import Include="System.Collections" />
-    <Import Include="System.Collections.Generic" />
-    <Import Include="System.Collections.ObjectModel" />
-    <Import Include="System.ComponentModel" />
-    <Import Include="System.Diagnostics" />
-    <Import Include="System.IO" />
-    <Import Include="System.Linq" />
-    <Import Include="System.Runtime.CompilerServices" />
-    <Import Include="System.Threading.Tasks" />
-    <Import Include="System.Runtime.InteropServices.WindowsRuntime" />
-    <Import Include="System.Windows.Input" />
-    <Import Include="System.Xml.Linq" />
-    <Import Include="Windows.ApplicationModel" />
-    <Import Include="Windows.ApplicationModel.Activation" />
-    <Import Include="Windows.Foundation" />
-    <Import Include="Windows.Foundation.Collections" />
-    <Import Include="Windows.Graphics.Display" />
-    <Import Include="Windows.UI.ViewManagement" />
-    <Import Include="Windows.UI.Xaml" />
-    <Import Include="Windows.UI.Xaml.Controls" />
-    <Import Include="Windows.UI.Xaml.Controls.Primitives" />
-    <Import Include="Windows.UI.Xaml.Data" />
-    <Import Include="Windows.UI.Xaml.Input" />
-    <Import Include="Windows.UI.Xaml.Media" />
-    <Import Include="Windows.UI.Xaml.Media.Imaging" />
-    <Import Include="Windows.UI.Xaml.Navigation" />
+    <Compile Include="Controls\TypeTemplateSelector.cs" />
+    <Compile Include="Controls\UseItemIcon.cs" />
+    <Compile Include="Controls\UseItemPresenter.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Themes\InitializeComponent.cs" />
+    <EmbeddedResource Include="Properties\Sakuno.ING.Views.UWP.Common.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj">
@@ -86,7 +58,7 @@
       <Name>Sakuno.ING.Settings.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Homeport\Sakuno.ING.ViewModels.Homeport.csproj">
-      <Project>{105fab04-bac9-443f-becd-f3e6b863e31f}</Project>
+      <Project>{105FAB04-BAC9-443F-BECD-F3E6B863E31F}</Project>
       <Name>Sakuno.ING.ViewModels.Homeport</Name>
     </ProjectReference>
   </ItemGroup>
@@ -96,35 +68,36 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\HPIndicator.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Controls\LevelingIndicator.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Controls\LoSIndicator.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Controls\MoraleIndicator.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Controls\ProgressCircle.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\UseItemPresenter.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.VisualBasic.targets" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>5.1.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
