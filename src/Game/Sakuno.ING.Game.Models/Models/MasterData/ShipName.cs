@@ -1,36 +1,47 @@
-﻿using System.Collections.Generic;
-using System.Text;
-
-namespace Sakuno.ING.Game.Models.MasterData
+﻿namespace Sakuno.ING.Game.Models.MasterData
 {
     public class ShipName : TextTranslationGroup
     {
-        //private static readonly Dictionary<char, string> kanaMap = new Dictionary<char, string>
-        //{
+        public ShipName() { }
 
-        //};
-
-        private string _phonetic;
-        public string Phonetic
+        private static readonly char[] identifiers
+            = "イロハニホヘトチリヌルヲワカヨタレソツネナラムウヰノオクヤマケフコエテアサキユメミシヱヒモセス".ToCharArray();
+        public ShipName(string name, string phonetic, string abyssalClass)
         {
-            get => _phonetic;
-            internal set
+            Phonetic = phonetic;
+            Origin = name + (abyssalClass switch
             {
-                _phonetic = value;
-                //var sb = new StringBuilder(value.Length * 2);
-                //foreach (var c in value)
-                //    if (kanaMap.TryGetValue(c, out string roman))
-                //        sb.Append(roman);
-                //    else
-                //        sb.Append(c);
-                //sb[0] = char.ToUpperInvariant(sb[0]);
-
-                //FullRomanization = Romanization = sb.ToString();
+                "-" => string.Empty,
+                var other => other
+            });
+            if (abyssalClass != null)
+            {
+                AbyssalClass = abyssalClass switch
+                {
+                    "elite" => AbyssalShipClass.Elite,
+                    "flagship" => AbyssalShipClass.Flagship,
+                    _ => AbyssalShipClass.None
+                };
+                if (name.Contains("改"))
+                {
+                    name = name.Replace("改", string.Empty);
+                    AbyssalClass |= AbyssalShipClass.Remodel;
+                }
+                if (name.Contains("後期型"))
+                {
+                    name = name.Replace("後期型", string.Empty);
+                    AbyssalClass |= AbyssalShipClass.LateModel;
+                }
+                int index = name.IndexOfAny(identifiers);
+                if (index != -1 && name.Length > index + 1 && name[index + 1] == '級')
+                    AbyssalIdentifier = name[index];
             }
+            BasicName = name;
         }
-        public string AbyssalClass { get; internal set; }
-        public string AbyssalFullName => Origin + AbyssalClass;
-        //public string Romanization { get; private set; }
-        //public string FullRomanization { get; private set; }
+
+        public string BasicName { get; }
+        public string Phonetic { get; }
+        public AbyssalShipClass? AbyssalClass { get; }
+        public char? AbyssalIdentifier { get; }
     }
 }

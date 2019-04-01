@@ -5,7 +5,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 {
     public partial class ShipInfo
     {
-        public ShipName Name { get; } = new ShipName();
+        public ShipName Name { get; private set; } = new ShipName();
 
         partial void CreateCore()
         {
@@ -14,15 +14,12 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         partial void UpdateCore(RawShipInfo raw, DateTimeOffset timeStamp)
         {
-            if ((Name.Origin, Name.Phonetic, Name.AbyssalClass) !=
-                (raw.Name, raw.Phonetic, raw.AbyssalClass))
+            var translation = Name.Translation;
+            Name = new ShipName(raw.Name, raw.Phonetic, raw.AbyssalClass)
             {
-                Name.Origin = raw.Name;
-                Name.Phonetic = raw.Phonetic;
-                Name.AbyssalClass = raw.AbyssalClass;
-                NotifyPropertyChanged(nameof(Name));
-            }
-
+                Translation = translation
+            };
+            NotifyPropertyChanged(nameof(Name));
             Type = owner.ShipTypes[raw.TypeId];
             CanUpgrade = raw.UpgradeTo != 0;
             UpgradeTo = owner.ShipInfos[raw.UpgradeTo];
