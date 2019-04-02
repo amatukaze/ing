@@ -28,17 +28,17 @@ namespace Sakuno.ING.Game.Models.Combat
 
             for (int i = 0; i < attackList.Length; i++)
             {
-                if (attackList.Span[i] <= 0) continue;
+                if (attackList.Span[i] < 0) continue;
 
                 (int idx, bool isEnemy) = old ?
                     ((attackList.Span[i] - 1) % 6, attackList.Span[i] >= 7) :
-                    (attackList.Span[i] - 1, api.api_at_eflag[i]);
+                    (attackList.Span[i], api.api_at_eflag[i]);
                 var hits = new List<RawHit>(api.api_df_list.Length);
                 for (int j = 0; j < api.api_df_list[i].Length; j++)
                     if (api.api_damage[i][j] >= 0)
                         hits.Add(new RawHit(old ?
                                 (api.api_df_list[i][j] - 1) % 6 :
-                                (api.api_df_list[i][j] - 1),
+                                api.api_df_list[i][j],
                             api.api_damage[i][j],
                             api.api_cl_list[i][j]));
                 yield return new ComboAttack(idx, isEnemy, attackTypes.Span[i],

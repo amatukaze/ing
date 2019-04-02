@@ -29,7 +29,7 @@ namespace Sakuno.ING.Game.Models.Combat
             IsCritical = raw.IsCritical;
             IsProtection = raw.IsProtection;
             Damage = raw.Damage;
-            FromHP = target.FromHP;
+            FromHP = target.ToHP;
             source?.DoDamage(Damage);
             (ToHP, Recover) = target.GetDamage(Damage);
         }

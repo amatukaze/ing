@@ -64,7 +64,7 @@ namespace Sakuno.ING.ViewModels.Logging
         {
             if (json is null) return;
             var api = owner.provider.Deserialize<BattleDetailJson>(json);
-            var raw = new RawBattle(api, TimeStamp < RawBattle.EnemyIdChangeTime);
+            var raw = new RawBattle(api, TimeStamp);
             battle.Append(owner.masterData, raw);
         }
     }

@@ -8,7 +8,8 @@ namespace Sakuno.ING.Game.Models.Combat
 {
     public sealed class RawBattle
     {
-        public static readonly DateTimeOffset EnemyIdChangeTime = new DateTimeOffset(2017, 4, 5, 3, 0, 0, TimeSpan.FromHours(9));
+        private static readonly DateTimeOffset EnemyIdChangeTime = new DateTimeOffset(2017, 4, 5, 3, 0, 0, TimeSpan.FromHours(9));
+        private static readonly DateTimeOffset BattleSchemaChangeTime = new DateTimeOffset(2017, 11, 17, 3, 0, 0, TimeSpan.FromHours(9));
         public Engagement Engagement { get; }
 
         private readonly RawSide ally, enemy;
@@ -40,8 +41,11 @@ namespace Sakuno.ING.Game.Models.Combat
         public RawSupportPhase SupportPhase { get; }
         public RawNightPhase NpcPhase { get; }
 
-        public RawBattle(BattleDetailJson api, bool fixEnemyId = false)
+        public RawBattle(BattleDetailJson api, DateTimeOffset? timeStamp = null)
         {
+            bool fixEnemyId = timeStamp < EnemyIdChangeTime;
+            bool oldSchema = timeStamp < BattleSchemaChangeTime;
+
             // Fleets
 
             ally.Formation = (Formation)api.api_formation.At(0);
@@ -93,9 +97,9 @@ namespace Sakuno.ING.Game.Models.Combat
                 NightPhase2 = new RawNightPhase(api.api_n_hougeki2, api.api_touch_plane, api.api_flare_pos, api.api_active_deck);
 
             if (api.api_opening_atack != null)
-                OpeningTorpedoPhase = new RawTorpedoPhase(api.api_opening_atack);
+                OpeningTorpedoPhase = new RawTorpedoPhase(api.api_opening_atack, oldSchema);
             if (api.api_raigeki != null)
-                ClosingTorpedoPhase = new RawTorpedoPhase(api.api_raigeki);
+                ClosingTorpedoPhase = new RawTorpedoPhase(api.api_raigeki, oldSchema);
 
             if (api.api_kouku != null)
                 AerialPhase = new RawAerialPhase(api.api_kouku);
