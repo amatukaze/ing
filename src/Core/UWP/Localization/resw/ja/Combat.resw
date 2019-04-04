@@ -225,4 +225,61 @@
   <data name="NpcPhase">
     <value>友軍艦隊</value>
   </data>
+  <data name="MapEventKind_0">
+    <value>初期位置</value>
+  </data>
+  <data name="MapEventKind_1">
+    <value>戦闘なし</value>
+  </data>
+  <data name="MapEventKind_2">
+    <value>資源獲得</value>
+  </data>
+  <data name="MapEventKind_3">
+    <value>渦潮</value>
+  </data>
+  <data name="MapEventKind_4">
+    <value>戦闘</value>
+  </data>
+  <data name="MapEventKind_5">
+    <value>ボス</value>
+  </data>
+  <data name="MapEventKind_6">
+    <value>戦闘なし</value>
+  </data>
+  <data name="MapEventKind_7">
+    <value>航空偵察</value>
+  </data>
+  <data name="MapEventKind_8">
+    <value>船団護衛成功</value>
+  </data>
+  <data name="MapEventKind_9">
+    <value>揚陸地点</value>
+  </data>
+  <data name="BattleKind_1">
+    <value>通常戦闘</value>
+  </data>
+  <data name="BattleKind_2">
+    <value>夜戦</value>
+  </data>
+  <data name="BattleKind_3">
+    <value>夜昼戦</value>
+  </data>
+  <data name="BattleKind_4">
+    <value>航空戦</value>
+  </data>
+  <data name="BattleKind_5">
+    <value>連合艦隊戦</value>
+  </data>
+  <data name="BattleKind_6">
+    <value>敵空襲</value>
+  </data>
+  <data name="BattleKind_7">
+    <value>連合艦隊夜戦</value>
+  </data>
+  <data name="BattleKind_8">
+    <value>敵レーダー射撃</value>
+  </data>
+  <data name="SelectableRoute">
+    <value>能動分岐</value>
+  </data>
 </root>

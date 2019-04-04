@@ -225,4 +225,61 @@
   <data name="NpcPhase">
     <value>友军舰队</value>
   </data>
+  <data name="MapEventKind_0">
+    <value>初始地点</value>
+  </data>
+  <data name="MapEventKind_1">
+    <value>无战斗</value>
+  </data>
+  <data name="MapEventKind_2">
+    <value>资源</value>
+  </data>
+  <data name="MapEventKind_3">
+    <value>漩涡</value>
+  </data>
+  <data name="MapEventKind_4">
+    <value>战斗</value>
+  </data>
+  <data name="MapEventKind_5">
+    <value>BOSS战</value>
+  </data>
+  <data name="MapEventKind_6">
+    <value>无战斗</value>
+  </data>
+  <data name="MapEventKind_7">
+    <value>航空侦察</value>
+  </data>
+  <data name="MapEventKind_8">
+    <value>船团护卫成功</value>
+  </data>
+  <data name="MapEventKind_9">
+    <value>登录地点</value>
+  </data>
+  <data name="BattleKind_1">
+    <value>通常战斗</value>
+  </data>
+  <data name="BattleKind_2">
+    <value>夜战</value>
+  </data>
+  <data name="BattleKind_3">
+    <value>夜转昼</value>
+  </data>
+  <data name="BattleKind_4">
+    <value>航空战</value>
+  </data>
+  <data name="BattleKind_5">
+    <value>联合舰队战</value>
+  </data>
+  <data name="BattleKind_6">
+    <value>敌空袭</value>
+  </data>
+  <data name="BattleKind_7">
+    <value>联合舰队夜战</value>
+  </data>
+  <data name="BattleKind_8">
+    <value>敌雷达射击</value>
+  </data>
+  <data name="SelectableRoute">
+    <value>能动分歧</value>
+  </data>
 </root>

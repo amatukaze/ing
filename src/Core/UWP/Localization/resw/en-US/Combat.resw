@@ -225,4 +225,61 @@
   <data name="NpcPhase">
     <value>NPC fleet</value>
   </data>
+  <data name="MapEventKind_0">
+    <value>Initial</value>
+  </data>
+  <data name="MapEventKind_1">
+    <value>No battle</value>
+  </data>
+  <data name="MapEventKind_2">
+    <value>Materials get</value>
+  </data>
+  <data name="MapEventKind_3">
+    <value>Materials lost</value>
+  </data>
+  <data name="MapEventKind_4">
+    <value>Battle</value>
+  </data>
+  <data name="MapEventKind_5">
+    <value>BOSS</value>
+  </data>
+  <data name="MapEventKind_6">
+    <value>No battle</value>
+  </data>
+  <data name="MapEventKind_7">
+    <value>Aerial reconniance</value>
+  </data>
+  <data name="MapEventKind_8">
+    <value>Transport finish</value>
+  </data>
+  <data name="MapEventKind_9">
+    <value>Landing point</value>
+  </data>
+  <data name="BattleKind_1">
+    <value>Normal battle</value>
+  </data>
+  <data name="BattleKind_2">
+    <value>Night battle</value>
+  </data>
+  <data name="BattleKind_3">
+    <value>Night to day</value>
+  </data>
+  <data name="BattleKind_4">
+    <value>Aerial battle</value>
+  </data>
+  <data name="BattleKind_5">
+    <value>Combined fleet</value>
+  </data>
+  <data name="BattleKind_6">
+    <value>Air raid</value>
+  </data>
+  <data name="BattleKind_7">
+    <value>Combined night battle</value>
+  </data>
+  <data name="BattleKind_8">
+    <value>Radar raid</value>
+  </data>
+  <data name="SelectableRoute">
+    <value>Selectable Route</value>
+  </data>
 </root>

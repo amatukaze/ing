@@ -57,5 +57,6 @@
   "Fleet_Cost_Supply.Text": "GameModel/Cost_Supply",
   "Fleet_Cost_Repair.Text": "GameModel/Cost_Repair",
   "Fleet_AFP.Text": "GameModel/AirFightingPower",
-  "Fleet_LoS.Text": "GameModel/LineOfSight"
+  "Fleet_LoS.Text": "GameModel/LineOfSight",
+  "Combat_SelectableRoute.Text": "Combat/SelectableRoute"
 }

@@ -53,6 +53,13 @@ namespace Sakuno.ING.Views.UWP
             phaseNight = localization.GetLocalized("Combat", "NightPhase");
             phaseNightCombined = localization.GetLocalized("Combat", "NightPhase_Combined");
             phaseNpc = localization.GetLocalized("Combat", "NpcPhase");
+
+            mapEventKindTexts = Enumerable.Range(0, 10)
+                .Select(i => localization.GetLocalized("Combat", "MapEventKind_" + i))
+                .ToArray();
+            battleKindTexts = Enumerable.Range(1, 8)
+                .Select(i => localization.GetLocalized("Combat", "BattleKind_" + i))
+                .ToArray();
         }
 
         private static readonly string[] admiralRankTexts;
@@ -138,5 +145,21 @@ namespace Sakuno.ING.Views.UWP
             NightPhase _ => phaseNight,
             _ => null
         };
+
+        private static readonly string[] mapEventKindTexts;
+        public static string FormatMapEvent(MapEventKind kind)
+        {
+            int id = (int)kind;
+            if (id >= 0 && id < 10) return mapEventKindTexts[id];
+            else return null;
+        }
+
+        private static readonly string[] battleKindTexts;
+        public static string FormatBattleKind(BattleKind kind)
+        {
+            int id = (int)kind - 1;
+            if (id >= 0 && id < 8) return battleKindTexts[id];
+            else return null;
+        }
     }
 }

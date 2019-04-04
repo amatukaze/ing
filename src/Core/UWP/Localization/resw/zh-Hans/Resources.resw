@@ -189,4 +189,7 @@
   <data name="Fleet_LoS.Text">
     <value>索敌</value>
   </data>
+  <data name="Combat_SelectableRoute.Text">
+    <value>能动分歧</value>
+  </data>
 </root>

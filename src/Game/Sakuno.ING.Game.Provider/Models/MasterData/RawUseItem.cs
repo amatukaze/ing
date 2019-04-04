@@ -17,7 +17,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public static explicit operator UseItemId(int value) => new UseItemId(value);
 
         public static implicit operator UseItemId(KnownUseItem known) => new UseItemId((int)known);
-        public static explicit operator KnownUseItem(UseItemId id) => (KnownUseItem)id.value;
+        public static implicit operator KnownUseItem(UseItemId id) => (KnownUseItem)id.value;
 
         public static bool operator ==(UseItemId left, UseItemId right) => left.value == right.value;
         public static bool operator !=(UseItemId left, UseItemId right) => left.value != right.value;

@@ -34,7 +34,8 @@
     <property type="NpcPhase" name="NpcPhase" />
   </class>
   <class name="BattleManager">
-    <property type="BattleState" name="State" />
+    <property type="bool" name="IsInSortie" />
+    <property type="bool" name="IsInPractice" />
     <property type="MapRouting" name="CurrentRouting" />
     <property type="Battle" name="CurrentBattle" />
     <property type="BattleResult" name="CurrentBattleResult" />

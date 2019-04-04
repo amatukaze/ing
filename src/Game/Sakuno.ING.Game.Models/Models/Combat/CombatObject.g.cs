@@ -285,13 +285,23 @@ namespace Sakuno.ING.Game.Models.Combat
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_state = new PropertyChangedEventArgs(nameof(State));
+        private static readonly PropertyChangedEventArgs __eventArgs_isInSortie = new PropertyChangedEventArgs(nameof(IsInSortie));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private BattleState _state;
-        public BattleState State
+        private bool _isInSortie;
+        public bool IsInSortie
         {
-            get => _state;
-            private set => Set(ref _state, value, __eventArgs_state);
+            get => _isInSortie;
+            private set => Set(ref _isInSortie, value, __eventArgs_isInSortie);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_isInPractice = new PropertyChangedEventArgs(nameof(IsInPractice));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private bool _isInPractice;
+        public bool IsInPractice
+        {
+            get => _isInPractice;
+            private set => Set(ref _isInPractice, value, __eventArgs_isInPractice);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

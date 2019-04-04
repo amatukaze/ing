@@ -177,4 +177,7 @@
   <data name="Fleet_LoS.Text">
     <value>索敵</value>
   </data>
+  <data name="Combat_SelectableRoute.Text">
+    <value>能動分岐</value>
+  </data>
 </root>

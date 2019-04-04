@@ -10,6 +10,8 @@ namespace Sakuno.ING.Game.Models.Combat
             Map = navalBase.Maps[m.MapId];
             RouteId = m.RouteId;
             EventKind = m.EventKind;
+            if (EventKind == MapEventKind.Battle)
+                BattleKind = m.BattleKind;
             CanMoveAdvance = m.CanMoveAdvance;
             Reconnaissance = m.Reconnaissance;
             Message = m.Message;

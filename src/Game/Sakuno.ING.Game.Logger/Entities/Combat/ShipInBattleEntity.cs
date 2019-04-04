@@ -38,7 +38,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
             Slots = ship.Equipment
                 .Select(x => new SlotInBattleEntity
                 {
-                    Id = x?.Equipment.Id ?? default,
+                    Id = x?.Equipment?.Id ?? default,
                     Count = x.Aircraft,
                     AirProficiency = x?.AirProficiency ?? 0,
                     ImprovementLevel = x?.ImprovementLevel ?? 0

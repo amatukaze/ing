@@ -9,5 +9,59 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{c:Resolve {x:Type m:NavalBase}}">
-    <local:BattleDetailView DataContext="{Binding Battle.CurrentBattle}" />
+    <UserControl.Resources>
+        <c:VisibilityConverter x:Key="VisibilityConverter" />
+        <local:UseItemIdToKnownConverter x:Key="KnownUseItemConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal"
+                    Visibility="{Binding Battle.IsInSortie, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock FontSize="18">
+                <Run Text="Sortie" />:
+                <Run Text="{Binding Battle.CurrentRouting.Map.Id.AreaId, Mode=OneWay}" />-<Run Text="{Binding Battle.CurrentRouting.Map.Id.CategoryNo, Mode=OneWay}" />
+            </TextBlock>
+            <TextBlock FontSize="18">
+                <c:NameText Source="{Binding Battle.CurrentRouting.Map.Info.Name}" />
+                <c:NameText Source="{Binding Battle.CurrentRouting.Map.Info.OperationName}" />
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    Visibility="{Binding Battle.IsInSortie, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock FontSize="18">
+                <Run Text="Route" />:
+                <Run Text="{Binding Battle.CurrentRouting.RouteId, Mode=OneWay}" />
+                <Run Text="  " />
+                <c:EnumText Source="{Binding Battle.CurrentRouting.EventKind}" />
+                <c:EnumText Source="{Binding Battle.CurrentRouting.BattleKind}" />
+            </TextBlock>
+            <TextBlock FontSize="18"
+                       Text="{c:Localize Combat/SelectableRoute}"
+                       Visibility="{Binding Battle.CurrentRouting.CanSelectRoute, Converter={StaticResource VisibilityConverter}}"/>
+            <ItemsControl ItemsSource="{Binding Battle.CurrentRouting.UseItemChanges}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="m:UseItemChange">
+                        <StackPanel Orientation="Horizontal" Margin="10, 0">
+                            <c:UseItemIcon Id="{Binding Item, Converter={StaticResource KnownUseItemConverter}, Mode=OneTime}" />
+                            <TextBlock FontSize="18" Text="{Binding Count, Mode=OneTime}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        <Grid Grid.Row="2"
+              Visibility="{Binding Battle.IsInSortieOrPractice, Converter={StaticResource VisibilityConverter}}">
+            <local:BattleDetailView DataContext="{Binding Battle.CurrentBattle}" />
+        </Grid>
+    </Grid>
 </UserControl>

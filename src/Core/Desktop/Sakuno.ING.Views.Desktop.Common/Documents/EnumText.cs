@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Documents;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Localization;
 
 namespace Sakuno.ING.Views.Desktop.Documents
@@ -22,36 +23,29 @@ namespace Sakuno.ING.Views.Desktop.Documents
             set => SetValue(SourceProperty, value);
         }
 
-        private void Update()
+        private void Update() => Text = Source switch
         {
-            switch (Source)
-            {
-                case AdmiralRank admiralRank:
-                    Text = admiralRankText.Value.GetString(admiralRank);
-                    break;
-                case FireRange fireRange:
-                    Text = fireRangeText.Value.GetString(fireRange);
-                    break;
-                case ShipSpeed shipSpeed:
-                    Text = shipSpeedText.Value.GetString(shipSpeed);
-                    break;
-                default:
-                    Text = null;
-                    break;
-            }
-        }
+            AdmiralRank admiralRank => admiralRankText.Value.GetString(admiralRank),
+            FireRange fireRange => fireRangeText.Value.GetString(fireRange),
+            ShipSpeed shipSpeed => shipSpeedText.Value.GetString(shipSpeed),
+            MapEventKind kind => mapEventText.Value.GetString(kind),
+            BattleKind kind => battleKindText.Value.GetString(kind),
+            _ => null
+        };
 
-        private static readonly Lazy<ValueHolder<AdmiralRank>> admiralRankText = new Lazy<ValueHolder<AdmiralRank>>();
-        private static readonly Lazy<ValueHolder<FireRange>> fireRangeText = new Lazy<ValueHolder<FireRange>>();
-        private static readonly Lazy<ValueHolder<ShipSpeed>> shipSpeedText = new Lazy<ValueHolder<ShipSpeed>>();
+        private static readonly Lazy<ValueHolder<AdmiralRank>> admiralRankText = new Lazy<ValueHolder<AdmiralRank>>(() => new ValueHolder<AdmiralRank>("GameModel"));
+        private static readonly Lazy<ValueHolder<FireRange>> fireRangeText = new Lazy<ValueHolder<FireRange>>(() => new ValueHolder<FireRange>("GameModel"));
+        private static readonly Lazy<ValueHolder<ShipSpeed>> shipSpeedText = new Lazy<ValueHolder<ShipSpeed>>(() => new ValueHolder<ShipSpeed>("GameModel"));
+        private static readonly Lazy<ValueHolder<MapEventKind>> mapEventText = new Lazy<ValueHolder<MapEventKind>>(() => new ValueHolder<MapEventKind>("Combat"));
+        private static readonly Lazy<ValueHolder<BattleKind>> battleKindText = new Lazy<ValueHolder<BattleKind>>(() => new ValueHolder<BattleKind>("Combat"));
 
         private class ValueHolder<T>
             where T : Enum
         {
-            public ValueHolder()
+            public ValueHolder(string category)
             {
                 var localization = Compositor.Static<ILocalizationService>();
-                translated = Enum.GetValues(typeof(T)).Cast<T>().ToDictionary(x => x, x => localization.GetLocalized("GameModel", typeof(T).Name + "_" + Convert.ToInt32(x)));
+                translated = Enum.GetValues(typeof(T)).Cast<T>().ToDictionary(x => x, x => localization.GetLocalized(category, typeof(T).Name + "_" + Convert.ToInt32(x)));
             }
 
             private readonly Dictionary<T, string> translated;

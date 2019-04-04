@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
@@ -34,9 +33,12 @@ namespace Sakuno.ING.Game.Models.Combat
         internal CellFlavor api_cell_flavor;
         public string Message => api_cell_flavor?.api_message;
 
-        [JsonProperty("api_select_route")]
-        public IReadOnlyCollection<int> SelectableRoutes { get; internal set; }
-        public bool CanSelectRoute => SelectableRoutes != null;
+        internal class SelectRoute
+        {
+            public int[] api_select_cells;
+        }
+        internal SelectRoute api_select_route;
+        public IReadOnlyCollection<int> SelectableRoutes => api_select_route?.api_select_cells;
 
         internal class ItemGet
         {
@@ -54,36 +56,19 @@ namespace Sakuno.ING.Game.Models.Combat
         }
         internal ItemLose api_happening;
         internal ItemGet api_itemget_eo_comment;
-        private UseItemId IconIdToItemId(int type, int iconId)
+        private UseItemId IconIdToItemId(int type, int iconId) => (type, iconId) switch
         {
-            if (type == 4)
-            {
-                switch (iconId)
-                {
-                    case 1:
-                        return (UseItemId)31;
-                    case 2:
-                        return (UseItemId)32;
-                    case 3:
-                        return (UseItemId)33;
-                    case 4:
-                        return (UseItemId)34;
-                    case 5:
-                        return (UseItemId)2;
-                    case 6:
-                        return (UseItemId)1;
-                    case 7:
-                        return (UseItemId)3;
-                    case 8:
-                        return (UseItemId)4;
-                    default:
-                        return default;
-                }
-            }
-            else if (type == 5)
-                return (UseItemId)iconId;
-            else return default;
-        }
+            (4, 1) => (UseItemId)31,
+            (4, 2) => (UseItemId)32,
+            (4, 3) => (UseItemId)33,
+            (4, 4) => (UseItemId)34,
+            (4, 5) => (UseItemId)2,
+            (4, 6) => (UseItemId)1,
+            (4, 7) => (UseItemId)3,
+            (4, 8) => (UseItemId)4,
+            (5, _) => (UseItemId)iconId,
+            _ => default
+        };
         private UseItemRecord ParseItemGet(ItemGet api)
             => new UseItemRecord
             {

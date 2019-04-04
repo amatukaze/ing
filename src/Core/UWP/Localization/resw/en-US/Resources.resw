@@ -189,4 +189,7 @@
   <data name="Fleet_LoS.Text">
     <value>LoS</value>
   </data>
+  <data name="Combat_SelectableRoute.Text">
+    <value>Selectable Route</value>
+  </data>
 </root>
