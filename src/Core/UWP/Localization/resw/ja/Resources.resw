@@ -180,4 +180,16 @@
   <data name="Combat_SelectableRoute.Text">
     <value>能動分岐</value>
   </data>
+  <data name="Combat_AbyssalClass_Elite.Text">
+    <value>elite</value>
+  </data>
+  <data name="Combat_AbyssalClass_Flagship.Text">
+    <value>flagship</value>
+  </data>
+  <data name="Combat_AbyssalClass_Remodel.Text">
+    <value>改</value>
+  </data>
+  <data name="Combat_AbyssalClass_LateModel.Text">
+    <value>後期型</value>
+  </data>
 </root>

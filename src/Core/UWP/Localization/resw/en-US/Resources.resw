@@ -192,4 +192,16 @@
   <data name="Combat_SelectableRoute.Text">
     <value>Selectable Route</value>
   </data>
+  <data name="Combat_AbyssalClass_Elite.Text">
+    <value>elite</value>
+  </data>
+  <data name="Combat_AbyssalClass_Flagship.Text">
+    <value>flagship</value>
+  </data>
+  <data name="Combat_AbyssalClass_Remodel.Text">
+    <value> Kai</value>
+  </data>
+  <data name="Combat_AbyssalClass_LateModel.Text">
+    <value> Late</value>
+  </data>
 </root>

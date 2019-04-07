@@ -225,4 +225,16 @@
   <data name="LineOfSight_AtMaxLevel">
     <value>At Lv. max</value>
   </data>
+  <data name="AbyssalClass_Elite">
+    <value>elite</value>
+  </data>
+  <data name="AbyssalClass_Flagship">
+    <value>flagship</value>
+  </data>
+  <data name="AbyssalClass_Remodel">
+    <value> Kai</value>
+  </data>
+  <data name="AbyssalClass_LateModel">
+    <value> Late</value>
+  </data>
 </root>

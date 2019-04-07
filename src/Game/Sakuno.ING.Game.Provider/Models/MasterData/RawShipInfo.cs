@@ -36,12 +36,12 @@ namespace Sakuno.ING.Game.Models.MasterData
         public string Name { get; internal set; }
 
         internal string api_yomi;
-        public string Phonetic => IsAbyssal ? string.Empty : api_yomi;
+        public string Phonetic => IsAbyssal ? null : api_yomi;
         [JsonProperty("api_getmes"), JsonConverter(typeof(HtmlNewLineEater))]
         public string Introduction { get; internal set; }
 
         public bool IsAbyssal => Id > 1500;
-        public string AbyssalClass => IsAbyssal ? api_yomi : string.Empty;
+        public string AbyssalClass => IsAbyssal ? api_yomi : null;
 
         [JsonProperty("api_stype")]
         public ShipTypeId TypeId { get; internal set; }

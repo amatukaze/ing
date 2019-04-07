@@ -9,4 +9,9 @@
     {
         public LoSIndicatorTheme() => InitializeComponent();
     }
+
+    internal partial class ShipNamePresenterTheme
+    {
+        public ShipNamePresenterTheme() => InitializeComponent();
+    }
 }

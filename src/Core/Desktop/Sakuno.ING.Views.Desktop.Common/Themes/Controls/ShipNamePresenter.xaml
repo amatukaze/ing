@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls"
+                    xmlns:d="clr-namespace:Sakuno.ING.Views.Desktop.Documents">
+    <Style TargetType="local:ShipNamePresenter">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:ShipNamePresenter">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock>
+                            <d:ShipBasicNameText Source="{TemplateBinding Source}" />
+                        </TextBlock>
+                        <TextBlock Name="L_Remodel">
+                            <d:TranslatedResourceText Key="GameModel/AbyssalClass_Remodel" FontWeight="Bold" />
+                        </TextBlock>
+                        <TextBlock Name="L_LateModel">
+                            <d:TranslatedResourceText Key="GameModel/AbyssalClass_LateModel" FontStyle="Italic" />
+                        </TextBlock>
+                        <TextBlock Name="L_Elite">
+                            <d:TranslatedResourceText Key="GameModel/AbyssalClass_Elite" Foreground="Red" />
+                        </TextBlock>
+                        <TextBlock Name="L_Flagship">
+                            <d:TranslatedResourceText Key="GameModel/AbyssalClass_Flagship" Foreground="Gold" />
+                        </TextBlock>
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsElite" Value="False">
+                            <Setter TargetName="L_Elite" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsFlagship" Value="False">
+                            <Setter TargetName="L_Flagship" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsRemodel" Value="False">
+                            <Setter TargetName="L_Remodel" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="IsLateModel" Value="False">
+                            <Setter TargetName="L_LateModel" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

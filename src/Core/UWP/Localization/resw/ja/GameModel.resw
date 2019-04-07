@@ -225,4 +225,16 @@
   <data name="LineOfSight_AtMaxLevel">
     <value>最大レベル时</value>
   </data>
+  <data name="AbyssalClass_Elite">
+    <value>elite</value>
+  </data>
+  <data name="AbyssalClass_Flagship">
+    <value>flagship</value>
+  </data>
+  <data name="AbyssalClass_Remodel">
+    <value>改</value>
+  </data>
+  <data name="AbyssalClass_LateModel">
+    <value>後期型</value>
+  </data>
 </root>

@@ -5,6 +5,7 @@
         <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/MoraleIndicator.xaml" />
         <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/LevelingIndicator.xaml" />
         <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/LoSIndicator.xaml" />
+        <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/ShipNamePresenter.xaml" />
         <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/UseItemPresenter.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

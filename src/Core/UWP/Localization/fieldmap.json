@@ -58,5 +58,9 @@
   "Fleet_Cost_Repair.Text": "GameModel/Cost_Repair",
   "Fleet_AFP.Text": "GameModel/AirFightingPower",
   "Fleet_LoS.Text": "GameModel/LineOfSight",
-  "Combat_SelectableRoute.Text": "Combat/SelectableRoute"
+  "Combat_SelectableRoute.Text": "Combat/SelectableRoute",
+  "Combat_AbyssalClass_Elite.Text": "GameModel/AbyssalClass_Elite",
+  "Combat_AbyssalClass_Flagship.Text": "GameModel/AbyssalClass_Flagship",
+  "Combat_AbyssalClass_Remodel.Text": "GameModel/AbyssalClass_Remodel",
+  "Combat_AbyssalClass_LateModel.Text": "GameModel/AbyssalClass_LateModel"
 }

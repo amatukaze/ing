@@ -10,14 +10,17 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void CreateCore()
         {
             Name.Translation = owner.Localization?.GetLocalized("ShipName", Id.ToString());
+            Name.BasicTranslation = owner.Localization?.GetLocalized("ShipNameBasic", Id.ToString());
         }
 
         partial void UpdateCore(RawShipInfo raw, DateTimeOffset timeStamp)
         {
             var translation = Name.Translation;
+            var basic = Name.BasicTranslation;
             Name = new ShipName(raw.Name, raw.Phonetic, raw.AbyssalClass)
             {
-                Translation = translation
+                Translation = translation,
+                BasicTranslation = basic
             };
             NotifyPropertyChanged(nameof(Name));
             Type = owner.ShipTypes[raw.TypeId];

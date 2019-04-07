@@ -40,6 +40,7 @@
         }
 
         public string BasicName { get; }
+        public string BasicTranslation { get; internal set; }
         public string Phonetic { get; }
         public AbyssalShipClass? AbyssalClass { get; }
         public char? AbyssalIdentifier { get; }

@@ -192,4 +192,16 @@
   <data name="Combat_SelectableRoute.Text">
     <value>能动分歧</value>
   </data>
+  <data name="Combat_AbyssalClass_Elite.Text">
+    <value>elite</value>
+  </data>
+  <data name="Combat_AbyssalClass_Flagship.Text">
+    <value>flagship</value>
+  </data>
+  <data name="Combat_AbyssalClass_Remodel.Text">
+    <value>改</value>
+  </data>
+  <data name="Combat_AbyssalClass_LateModel.Text">
+    <value>后期型</value>
+  </data>
 </root>

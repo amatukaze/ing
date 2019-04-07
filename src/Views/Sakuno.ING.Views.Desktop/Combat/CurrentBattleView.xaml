@@ -59,9 +59,50 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
-        <Grid Grid.Row="2"
-              Visibility="{Binding Battle.IsInSortieOrPractice, Converter={StaticResource VisibilityConverter}}">
-            <local:BattleDetailView DataContext="{Binding Battle.CurrentBattle}" />
-        </Grid>
+        <ScrollViewer Grid.Row="2"
+                      Visibility="{Binding Battle.IsInSortieOrPractice, Converter={StaticResource VisibilityConverter}}">
+            <ScrollViewer.Resources>
+                <DataTemplate x:Key="ShipTemplate" DataType="m:BattleParticipant">
+                    <StackPanel Orientation="Horizontal">
+                        <c:ShipNamePresenter Source="{Binding Ship.Info.Name}"
+                                             FontSize="18" Width="150" />
+                        <Grid Width="100">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock FontSize="14" HorizontalAlignment="Center">
+                                <Run Text="{Binding ToHP.Current, Mode=OneWay}" FontSize="16" />
+                                /
+                                <Run Text="{Binding ToHP.Max, Mode=OneTime}" />
+                                (-<Run Text="{Binding DamageReceived, Mode=OneWay}" />)
+                            </TextBlock>
+                            <c:HPIndicator Grid.Row="1" Height="10"
+                                           HP="{Binding ToHP}"
+                                           Additional="{Binding FromHP.Current, Mode=OneTime}"
+                                           AdditionalBrush="Wheat" />
+                        </Grid>
+                        <TextBlock FontSize="18" Width="32"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Center"
+                                   Text="{Binding DamageGiven}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ScrollViewer.Resources>
+            <StackPanel Orientation="Vertical" DataContext="{Binding Battle.CurrentBattle}">
+                <StackPanel Orientation="Horizontal">
+                    <ItemsControl ItemsSource="{Binding Ally.Fleet}"
+                                  ItemTemplate="{StaticResource ShipTemplate}" />
+                    <ItemsControl ItemsSource="{Binding Ally.Fleet2}"
+                                  ItemTemplate="{StaticResource ShipTemplate}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <ItemsControl ItemsSource="{Binding Enemy.Fleet}"
+                                  ItemTemplate="{StaticResource ShipTemplate}" />
+                    <ItemsControl ItemsSource="{Binding Enemy.Fleet2}"
+                                  ItemTemplate="{StaticResource ShipTemplate}" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

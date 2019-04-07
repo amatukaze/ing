@@ -33,6 +33,7 @@
     <Compile Include="Controls\LevelingIndicator.cs" />
     <Compile Include="Controls\LoSIndicator.cs" />
     <Compile Include="Controls\MoraleIndicator.cs" />
+    <Compile Include="Controls\ShipNamePresenter.cs" />
     <Compile Include="Controls\ShipSlotPresenter.xaml.cs">
       <DependentUpon>ShipSlotPresenter.xaml</DependentUpon>
     </Compile>
@@ -82,6 +83,10 @@
     <Page Include="Themes\Controls\MoraleIndicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\ShipNamePresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\UseItemPresenter.xaml">
       <Generator>MSBuild:Compile</Generator>
