@@ -56,6 +56,14 @@ namespace Sakuno.ING.Views.UWP
             phaseNightCombined = localization.GetLocalized("Combat", "NightPhase_Combined");
             phaseNpc = localization.GetLocalized("Combat", "NpcPhase");
 
+            battleRankTextPerfect = localization.GetLocalized("Combat", "BattleRank_Perfect");
+            battleRankTextS = localization.GetLocalized("Combat", "BattleRank_S");
+            battleRankTextA = localization.GetLocalized("Combat", "BattleRank_A");
+            battleRankTextB = localization.GetLocalized("Combat", "BattleRank_B");
+            battleRankTextC = localization.GetLocalized("Combat", "BattleRank_C");
+            battleRankTextD = localization.GetLocalized("Combat", "BattleRank_D");
+            battleRankTextE = localization.GetLocalized("Combat", "BattleRank_E");
+
             mapEventKindTexts = Enumerable.Range(0, 10)
                 .Select(i => localization.GetLocalized("Combat", "MapEventKind_" + i))
                 .ToArray();
@@ -163,5 +171,39 @@ namespace Sakuno.ING.Views.UWP
             if (id >= 0 && id < 8) return battleKindTexts[id];
             else return null;
         }
+
+        private static readonly string
+            battleRankTextPerfect,
+            battleRankTextS,
+            battleRankTextA,
+            battleRankTextB,
+            battleRankTextC,
+            battleRankTextD,
+            battleRankTextE;
+        public static string FormatBattleRank(BattleRank? rank) => rank switch
+        {
+            BattleRank.Perfect => battleRankTextPerfect,
+            BattleRank.S => battleRankTextS,
+            BattleRank.A => battleRankTextA,
+            BattleRank.B => battleRankTextB,
+            BattleRank.C => battleRankTextC,
+            BattleRank.D => battleRankTextD,
+            BattleRank.E => battleRankTextE,
+            _ => null
+        };
+
+        public static string FormatFormation(Formation formation)
+            => localization.GetLocalized("Combat", "Formation_" + (int)formation);
+
+        public static string FormatEngagement(Engagement engagement)
+            => localization.GetLocalized("Combat", "Engagement_" + (int)engagement);
+
+        public static string FormatAirFightingResult(AirFightingResult? result)
+            => result is AirFightingResult r
+            ? localization.GetLocalized("Combat", "AirFightingResult_" + (int)r)
+            : null;
+
+        public static string FormatAerialPlanes(ClampedValue value)
+            => $"{value.Max}→{value.Current} (-{value.Shortage})";
     }
 }

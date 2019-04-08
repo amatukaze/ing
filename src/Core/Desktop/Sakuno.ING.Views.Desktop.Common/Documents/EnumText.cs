@@ -30,6 +30,10 @@ namespace Sakuno.ING.Views.Desktop.Documents
             ShipSpeed shipSpeed => shipSpeedText.Value.GetString(shipSpeed),
             MapEventKind kind => mapEventText.Value.GetString(kind),
             BattleKind kind => battleKindText.Value.GetString(kind),
+            BattleRank rank => Compositor.Static<ILocalizationService>().GetLocalized("Combat", "BattleRank_" + rank),
+            Formation formation => Compositor.Static<ILocalizationService>().GetLocalized("Combat", "Formation_" + (int)formation),
+            Engagement engagement => Compositor.Static<ILocalizationService>().GetLocalized("Combat", "Engagement_" + (int)engagement),
+            AirFightingResult result => Compositor.Static<ILocalizationService>().GetLocalized("Combat", "AirFightingResult_" + (int)result),
             _ => null
         };
 

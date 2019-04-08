@@ -27,7 +27,15 @@
                     <GridViewColumn Header="{c:Localize Combat/MapName}" DisplayMemberBinding="{Binding MapName}" />
                     <GridViewColumn Header="{c:Localize Combat/RouteId}" DisplayMemberBinding="{Binding RouteId}" />
                     <GridViewColumn Header="{c:Localize Combat/EnemyFleetName}" DisplayMemberBinding="{Binding EnemyFleetName}" />
-                    <GridViewColumn Header="{c:Localize Combat/Rank}" DisplayMemberBinding="{Binding RankText}" />
+                    <GridViewColumn Header="{c:Localize Combat/Rank}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <c:EnumText Source="{Binding Rank, Mode=OneTime}" />
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="{c:Localize Combat/ShipDrop}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

@@ -204,4 +204,10 @@
   <data name="Combat_AbyssalClass_LateModel.Text">
     <value> Late</value>
   </data>
+  <data name="Combat_FightedPlane.Text">
+    <value>Fighter combat</value>
+  </data>
+  <data name="Combat_ShootedPlane.Text">
+    <value>Anti-air fire</value>
+  </data>
 </root>

@@ -62,5 +62,7 @@
   "Combat_AbyssalClass_Elite.Text": "GameModel/AbyssalClass_Elite",
   "Combat_AbyssalClass_Flagship.Text": "GameModel/AbyssalClass_Flagship",
   "Combat_AbyssalClass_Remodel.Text": "GameModel/AbyssalClass_Remodel",
-  "Combat_AbyssalClass_LateModel.Text": "GameModel/AbyssalClass_LateModel"
+  "Combat_AbyssalClass_LateModel.Text": "GameModel/AbyssalClass_LateModel",
+  "Combat_FightedPlane.Text": "Combat/FightedPlane",
+  "Combat_ShootedPlane.Text": "Combat/ShootedPlane"
 }
