@@ -1,9 +1,9 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <Import Project="$(BasePath)src\UWPBridge.props" />
 
   <PropertyGroup>
-    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
+    <UseWpf>true</UseWpf>
     <Version>0.1.0-blueprint</Version>
     <Description>The shell of Intelligent Naval Gun</Description>
     <DefineConstants>WPF</DefineConstants>

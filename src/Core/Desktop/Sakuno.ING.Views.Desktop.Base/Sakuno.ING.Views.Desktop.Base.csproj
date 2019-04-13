@@ -1,7 +1,7 @@
-﻿<Project Sdk="MSBuild.Sdk.Extras">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <ExtrasEnableWpfProjectSetup>true</ExtrasEnableWpfProjectSetup>
+    <UseWpf>true</UseWpf>
     <RootNamespace>Sakuno.ING.Views.Desktop</RootNamespace>
     <Version>0.1.0-blueprint</Version>
     <Description>Common WPF services used by Intelligent Naval Gun</Description>
