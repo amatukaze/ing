@@ -1,1 +1,1 @@
-dotnet run -p buildresw ..\..\..\..\Localization\locales resw
+dotnet run -p buildresw ..\..\..\..\locales resw

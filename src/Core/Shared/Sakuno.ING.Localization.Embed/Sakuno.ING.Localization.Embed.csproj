@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="$(BasePath)Localization\locales\*.json">
+    <EmbeddedResource Include="$(BasePath)locales\*.json">
       <Link>Strings\%(Filename)%(Extension)</Link>
     </EmbeddedResource>
   </ItemGroup>
