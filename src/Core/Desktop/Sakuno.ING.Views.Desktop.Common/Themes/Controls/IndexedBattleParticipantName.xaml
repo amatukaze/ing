@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls"
+                    xmlns:c="clr-namespace:Sakuno.ING.Views.Desktop.Documents">
+    <Style TargetType="local:IndexedBattleParticipantName">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:IndexedBattleParticipantName">
+                    <TextBlock Name="PART_Text">
+                        <Run Text="{Binding Participant.OneBasedIndex, RelativeSource={RelativeSource Mode=TemplatedParent}, FallbackValue='?', Mode=OneWay}" /><Run Name="PART_Dot" Text="." />
+                        <c:ShipNameText Source="{Binding Participant.Ship.Info.Name, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+                    </TextBlock>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnemy" Value="True">
+                            <Setter TargetName="PART_Text" Property="Foreground" Value="Red" />
+                        </Trigger>
+                        <Trigger Property="IsEnemy" Value="False">
+                            <Setter TargetName="PART_Text" Property="Foreground" Value="Green" />
+                        </Trigger>
+                        <Trigger Property="IsEnemy" Value="{x:Null}">
+                            <Setter TargetName="PART_Dot" Property="Text" Value="" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

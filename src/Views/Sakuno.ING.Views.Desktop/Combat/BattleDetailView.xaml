@@ -8,7 +8,8 @@
              xmlns:c="http://schemas.heavenlywind.cc/presentation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance Type=m:Battle}">
+             d:DataContext="{d:DesignInstance Type=m:Battle}"
+             FontSize="16">
     <UserControl.Resources>
         <ItemsPanelTemplate x:Key="VerticalPanelTemplate">
             <StackPanel Orientation="Vertical" />
@@ -82,74 +83,60 @@
             </c:TypeTemplateSelector.Fallback>
         </c:TypeTemplateSelector>
         <!--#endregion-->
-        <DataTemplate x:Key="HitTemplate" DataType="{x:Type m:Hit}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="2" Text="→" />
-                <TextBlock Margin="2">
-                    <Run Text="{Binding Target.OneBasedIndex, Mode=OneTime}" /><Run Text="." /><c:ShipNameText Source="{Binding Target.Ship.Info.Name, Mode=OneTime}" />
-                </TextBlock>
-                <TextBlock Margin="2" Text="{Binding Damage, StringFormat=-{0}, Mode=OneTime}" />
-                <TextBlock Margin="2">
-                    <Run Text="{Binding FromHP.Current, Mode=OneTime}" /><Run Text="→" /><Run Text="{Binding ToHP.Current, Mode=OneTime}" />
-                </TextBlock>
+        <DataTemplate x:Key="HitTemplate" DataType="m:Hit">
+            <StackPanel Orientation="Horizontal" Margin="0, 1">
+                <TextBlock Text="→" VerticalAlignment="Center" />
+                <c:IndexedBattleParticipantName
+                    Margin="2, 0" VerticalAlignment="Center"
+                    Participant="{Binding Target, Mode=OneTime}"
+                    Width="150" />
+                <TextBlock x:Name="DamageText" Margin="6, 0" Text="{Binding Damage, Mode=OneTime}"
+                           MinWidth="30"
+                           VerticalAlignment="Center" />
+                <Grid Width="100" Margin="2, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="14" HorizontalAlignment="Center">
+                        <Run Text="{Binding FromHP.Current, Mode=OneTime}" />
+                        →
+                        <Run Text="{Binding ToHP.Current, Mode=OneTime}" />
+                    </TextBlock>
+                    <c:HPIndicator Grid.Row="1" Height="10"
+                                   HP="{Binding ToHP, Mode=OneTime}"
+                                   Additional="{Binding FromHP.Current, Mode=OneTime}"
+                                   AdditionalBrush="Wheat" />
+                </Grid>
             </StackPanel>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding IsCritical}" Value="True">
+                    <Setter TargetName="DamageText" Property="FontWeight" Value="Bold" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
-        <DataTemplate x:Key="AttackTemplate" DataType="{x:Type m:Attack}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="2">
-                    <Run Text="{Binding Source.OneBasedIndex, Mode=OneTime}" /><Run Text="." /><c:ShipNameText Source="{Binding Source.Ship.Info.Name, Mode=OneTime}" />
-                </TextBlock>
-                <TextBlock Margin="2" Text="{Binding Type, Mode=OneTime}" />
+        <DataTemplate x:Key="AttackTemplate" DataType="m:Attack">
+            <StackPanel Orientation="Horizontal" Margin="0, 1">
+                <c:IndexedBattleParticipantName
+                    VerticalAlignment="Center"
+                    Participant="{Binding Source, Mode=OneTime}"
+                    Width="150" />
                 <ItemsControl ItemsSource="{Binding Hits, Mode=OneTime}"
                               ItemsPanel="{StaticResource VerticalPanelTemplate}"
                               ItemTemplate="{StaticResource HitTemplate}" />
             </StackPanel>
         </DataTemplate>
-        <DataTemplate x:Key="ShipTemplate" DataType="{x:Type m:BattleParticipant}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="2">
-                    <c:ShipNameText Source="{Binding Ship.Info.Name, Mode=OneWay}" />
-                </TextBlock>
-                <TextBlock Margin="2" Text="{Binding FromHP, Mode=OneWay}" />
-                <TextBlock Margin="2" Text="→" />
-                <TextBlock Margin="2" Text="{Binding ToHP, Mode=OneWay}" />
-            </StackPanel>
-        </DataTemplate>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <ItemsControl Grid.Column="0"
-                      ItemsSource="{Binding Ally.Fleet, Mode=OneWay}"
-                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
-                      ItemTemplate="{StaticResource ShipTemplate}" />
-        <ItemsControl Grid.Column="1"
-                      ItemsSource="{Binding Ally.Fleet2, Mode=OneWay}"
-                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
-                      ItemTemplate="{StaticResource ShipTemplate}" />
-        <ItemsControl Grid.Column="2"
-                      ItemsSource="{Binding Enemy.Fleet, Mode=OneWay}"
-                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
-                      ItemTemplate="{StaticResource ShipTemplate}" />
-        <ItemsControl Grid.Column="3"
-                      ItemsSource="{Binding Enemy.Fleet2, Mode=OneWay}"
-                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
-                      ItemTemplate="{StaticResource ShipTemplate}" />
-        <ItemsControl Grid.Row="1" Grid.ColumnSpan="4"
-                      ItemsSource="{Binding OrderedPhases, Mode=OneTime}"
+    <StackPanel Orientation="Vertical">
+        <local:BattleOverview DataContext="{Binding}" />
+        <ItemsControl ItemsSource="{Binding OrderedPhases, Mode=OneTime}"
                       ItemsPanel="{StaticResource VerticalPanelTemplate}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="{x:Type m:BattlePhase}">
-                    <StackPanel Orientation="Vertical">
-                        <ContentPresenter Content="{Binding}" ContentTemplateSelector="{StaticResource HeaderSelector}" />
+                    <StackPanel Orientation="Vertical" Margin="0, 1">
+                        <Rectangle Fill="Gray" Height="2" Margin="2" />
+                        <ContentControl Content="{Binding}" ContentTemplateSelector="{StaticResource HeaderSelector}"
+                                        FontSize="20" />
                         <ItemsControl ItemsSource="{Binding Attacks, Mode=OneTime}"
                                       ItemsPanel="{StaticResource VerticalPanelTemplate}"
                                       ItemTemplate="{StaticResource AttackTemplate}" />
@@ -157,5 +144,5 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-    </Grid>
+    </StackPanel>
 </UserControl>

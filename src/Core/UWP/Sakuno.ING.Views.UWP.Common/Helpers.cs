@@ -21,7 +21,7 @@ namespace Sakuno.ING.Views.UWP
         public static string SelectShipName(ShipName name)
             => SelectName(name);
         public static string SelectShipBasicName(ShipName name)
-            => translate ? name.BasicTranslation : name.Origin;
+            => translate ? name.BasicTranslation : name.BasicName;
 
         public static string Localize(string category, object value, string format)
             => localization.GetLocalized(category, string.Format(format, value));

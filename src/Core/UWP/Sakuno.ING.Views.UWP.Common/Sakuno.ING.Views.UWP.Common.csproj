@@ -30,6 +30,7 @@
     <Compile Include="Controls\AirProficiencyPresenter.cs" />
     <Compile Include="Controls\EquipmentIcon.cs" />
     <Compile Include="Controls\HPIndicator.cs" />
+    <Compile Include="Controls\IndexedBattleParticipantName.cs" />
     <Compile Include="Controls\LevelingIndicator.cs" />
     <Compile Include="Controls\LoSIndicator.cs" />
     <Compile Include="Controls\MoraleIndicator.cs" />
@@ -71,6 +72,10 @@
     <Page Include="Themes\Controls\HPIndicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Controls\IndexedBattleParticipantName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Controls\LevelingIndicator.xaml">
       <Generator>MSBuild:Compile</Generator>

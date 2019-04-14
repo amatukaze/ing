@@ -19,7 +19,7 @@ namespace Sakuno.ING.Game.Models.Combat
             for (int i = 0; i + baseIndex < targets.Length; i++)
             {
                 int index = i + baseIndex;
-                if (targets[index] < 0) continue;
+                if (targets[index] - baseIndex < 0) continue;
                 yield return new SingleAttack(i, enemyAttacks, 0, null, new RawHit(targets[index] - baseIndex, damages[index], criticals[index]));
             }
         }

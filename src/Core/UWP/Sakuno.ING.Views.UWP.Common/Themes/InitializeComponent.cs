@@ -14,4 +14,9 @@
     {
         public ShipNamePresenterTheme() => InitializeComponent();
     }
+
+    internal partial class IndexedBattleParticipantNameTheme
+    {
+        public IndexedBattleParticipantNameTheme() => InitializeComponent();
+    }
 }

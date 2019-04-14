@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/HPIndicator.xaml" />
         <ResourceDictionary Source="ms-appx:///Sakuno.ING.Views.UWP.Common/Themes/Controls/LevelingIndicator.xaml" />
+        <local:IndexedBattleParticipantNameTheme />
         <local:LoSIndicatorTheme />
         <local:MoraleIndicatorTheme />
         <local:ShipNamePresenterTheme />

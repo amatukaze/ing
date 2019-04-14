@@ -1,0 +1,49 @@
+﻿<ResourceDictionary
+    x:Class="Sakuno.ING.Views.UWP.Themes.IndexedBattleParticipantNameTheme"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Controls">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Light">
+            <SolidColorBrush x:Key="AllyInBattleBrush" Color="Green" />
+            <SolidColorBrush x:Key="EnemyInBattleBrush" Color="Red" />
+        </ResourceDictionary>
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="AllyInBattleBrush" Color="Green" />
+            <SolidColorBrush x:Key="EnemyInBattleBrush" Color="Red" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+    <Style TargetType="local:IndexedBattleParticipantName">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:IndexedBattleParticipantName">
+                    <TextBlock Name="PART_Text"
+                               Style="{StaticResource ShipNameTextStyle}">
+                        <Run Text="{x:Bind Participant.OneBasedIndex, FallbackValue='?'}" /><Run x:Name="PART_Dot" Text="." />
+                        <Run Text="{x:Bind c:Helpers.SelectShipName(Participant.Ship.Info.Name), FallbackValue=''}" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup>
+                                <VisualState x:Name="Unknown">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Dot.Text" Value="" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Ally">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="{ThemeResource AllyInBattleBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Enemy">
+                                    <VisualState.Setters>
+                                        <Setter Target="PART_Text.Foreground" Value="{ThemeResource EnemyInBattleBrush}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </TextBlock>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
