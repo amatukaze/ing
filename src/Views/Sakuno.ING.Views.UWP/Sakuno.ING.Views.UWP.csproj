@@ -25,6 +25,9 @@
     <Compile Include="Combat\BattleDetailView.xaml.cs">
       <DependentUpon>BattleDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Combat\BattleOverview.xaml.cs">
+      <DependentUpon>BattleOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Combat\CurrentBattleView.xaml.cs">
       <DependentUpon>CurrentBattleView.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
     <Page Include="Combat\BattleDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Combat\BattleOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Combat\CurrentBattleView.xaml">
       <Generator>MSBuild:Compile</Generator>

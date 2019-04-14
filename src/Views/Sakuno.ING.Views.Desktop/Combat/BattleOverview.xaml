@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Combat.BattleOverview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Combat"
+             xmlns:c="http://schemas.heavenlywind.cc/presentation"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate x:Key="ShipTemplate" DataType="m:BattleParticipant">
+            <StackPanel Orientation="Horizontal">
+                <c:ShipNamePresenter Source="{Binding Ship.Info.Name}"
+                                     FontSize="18" Width="150" />
+                <Grid Width="100">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="14" HorizontalAlignment="Center">
+                        <Run Text="{Binding ToHP.Current, Mode=OneWay}" FontSize="16" />
+                        /
+                        <Run Text="{Binding ToHP.Max, Mode=OneTime}" />
+                        (-<Run Text="{Binding DamageReceived, Mode=OneWay}" />)
+                    </TextBlock>
+                    <c:HPIndicator Grid.Row="1" Height="10"
+                                   HP="{Binding ToHP}"
+                                   Additional="{Binding FromHP.Current, Mode=OneTime}"
+                                   AdditionalBrush="Wheat" />
+                </Grid>
+                <TextBlock FontSize="18" Width="32"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           Text="{Binding DamageGiven}" />
+            </StackPanel>
+        </DataTemplate>
+        <local:AerialPlanesConverter x:Key="AerialPlanesConverter" />
+    </UserControl.Resources>
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <ItemsControl ItemsSource="{Binding Ally.Fleet}"
+                          ItemTemplate="{StaticResource ShipTemplate}" />
+            <ItemsControl ItemsSource="{Binding Ally.Fleet2}"
+                          ItemTemplate="{StaticResource ShipTemplate}" />
+        </StackPanel>
+        <Rectangle Height="2" Margin="4" Fill="Gray" />
+        <Grid HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="80" />
+                <ColumnDefinition MinWidth="140" />
+                <ColumnDefinition MinWidth="140" />
+                <ColumnDefinition MinWidth="80" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" FontSize="16">
+                <c:EnumText Source="{Binding Ally.Formation}" />
+            </TextBlock>
+            <TextBlock Grid.Row="1" FontSize="16">
+                <c:EnumText Source="{Binding Engagement}" />
+            </TextBlock>
+            <TextBlock Grid.Row="2" FontSize="16">
+                <c:EnumText Source="{Binding Enemy.Formation}" />
+            </TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="16" TextAlignment="Center">
+                <c:EnumText Source="{Binding AerialPhase.FightingResult}" />
+            </TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="16" TextAlignment="Center">
+                <Run Text="{c:Localize Combat/FightedPlane}" />:
+                <Run Text="{Binding AerialPhase.Ally.FightedPlanes, Mode=OneWay, Converter={StaticResource AerialPlanesConverter}}" />
+            </TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" TextAlignment="Center">
+                <Run Text="{c:Localize Combat/ShootedPlane}" />:
+                <Run Text="{Binding AerialPhase.Ally.ShootedPlanes, Mode=OneWay, Converter={StaticResource AerialPlanesConverter}}" />
+            </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" TextAlignment="Center">
+                <Run Text="{c:Localize Combat/FightedPlane}" />:
+                <Run Text="{Binding AerialPhase.Enemy.FightedPlanes, Mode=OneWay, Converter={StaticResource AerialPlanesConverter}}" />
+            </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16" TextAlignment="Center">
+                <Run Text="{c:Localize Combat/ShootedPlane}" />:
+                <Run Text="{Binding AerialPhase.Enemy.ShootedPlanes, Mode=OneWay, Converter={StaticResource AerialPlanesConverter}}" />
+            </TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
+                       Text="{Binding Ally.DamageRate, StringFormat=P2}" />
+            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" FontSize="16">
+                <c:EnumText Source="{Binding Rank}" />
+            </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
+                       Text="{Binding Enemy.DamageRate, StringFormat=P2}" />
+        </Grid>
+        <Rectangle Height="2" Margin="4" Fill="Gray" />
+        <StackPanel Orientation="Horizontal">
+            <ItemsControl ItemsSource="{Binding Enemy.Fleet}"
+                          ItemTemplate="{StaticResource ShipTemplate}" />
+            <ItemsControl ItemsSource="{Binding Enemy.Fleet2}"
+                          ItemTemplate="{StaticResource ShipTemplate}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

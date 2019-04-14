@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:m="using:Sakuno.ING.Game.Models.Combat"
     xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Combat"
     xmlns:con="using:Sakuno.ING.Views.UWP.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -61,93 +62,7 @@
         <ScrollViewer Grid.Row="2" Visibility="{x:Bind Manager.IsInSortieOrPractice}"
                       HorizontalScrollMode="Auto"
                       VerticalScrollMode="Auto">
-            <ScrollViewer.Resources>
-                <DataTemplate x:Key="ShipTemplate" x:DataType="m:BattleParticipant">
-                    <StackPanel Orientation="Horizontal">
-                        <con:ShipNamePresenter Source="{x:Bind Ship.Info.Name, FallbackValue={x:Null}}"
-                                               FontSize="18" Width="150" />
-                        <Grid Width="100">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <TextBlock FontSize="14" HorizontalAlignment="Center">
-                                <Run Text="{x:Bind ToHP.Current}" FontSize="16" />
-                                /
-                                <Run Text="{x:Bind ToHP.Max}" />
-                                (-<Run Text="{x:Bind DamageReceived}" />)
-                            </TextBlock>
-                            <con:HPIndicator Grid.Row="1" Height="10"
-                                             HP="{x:Bind ToHP}"
-                                             Additional="{x:Bind FromHP.Current}"
-                                             AdditionalBrush="Wheat" />
-                        </Grid>
-                        <TextBlock FontSize="18" Width="32"
-                                   VerticalAlignment="Center"
-                                   HorizontalTextAlignment="Center"
-                                   Text="{x:Bind DamageGiven}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ScrollViewer.Resources>
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <ItemsControl ItemsSource="{x:Bind Manager.CurrentBattle.Ally.Fleet, FallbackValue={x:Null}}"
-                                  ItemTemplate="{StaticResource ShipTemplate}" />
-                    <ItemsControl ItemsSource="{x:Bind Manager.CurrentBattle.Ally.Fleet2, FallbackValue={x:Null}}"
-                                  ItemTemplate="{StaticResource ShipTemplate}" />
-                </StackPanel>
-                <Rectangle Height="2" Margin="4" Fill="Gray" />
-                <Grid HorizontalAlignment="Left">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="80" />
-                        <ColumnDefinition MinWidth="140" />
-                        <ColumnDefinition MinWidth="140" />
-                        <ColumnDefinition MinWidth="80" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" FontSize="16"
-                               Text="{x:Bind c:Helpers.FormatFormation(Manager.CurrentBattle.Ally.Formation), FallbackValue=''}" />
-                    <TextBlock Grid.Row="1" FontSize="16"
-                               Text="{x:Bind c:Helpers.FormatEngagement(Manager.CurrentBattle.Engagement), FallbackValue=''}" />
-                    <TextBlock Grid.Row="2" FontSize="16"
-                               Text="{x:Bind c:Helpers.FormatFormation(Manager.CurrentBattle.Enemy.Formation), FallbackValue=''}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="16"
-                               Text="{x:Bind c:Helpers.FormatAirFightingResult(Manager.CurrentBattle.AerialPhase.FightingResult), FallbackValue=''}" TextAlignment="Center" />
-                    <TextBlock Grid.Row="0" Grid.Column="1" FontSize="16" TextAlignment="Center">
-                        <Run x:Uid="/Resources/Combat_FightedPlane" />:
-                        <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Manager.CurrentBattle.AerialPhase.Ally.FightedPlanes), FallbackValue=''}" />
-                    </TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" TextAlignment="Center">
-                        <Run x:Uid="/Resources/Combat_ShootedPlane" />:
-                        <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Manager.CurrentBattle.AerialPhase.Ally.ShootedPlanes), FallbackValue=''}" />
-                    </TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" TextAlignment="Center">
-                        <Run x:Uid="/Resources/Combat_FightedPlane" />:
-                        <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Manager.CurrentBattle.AerialPhase.Enemy.FightedPlanes), FallbackValue=''}" />
-                    </TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16" TextAlignment="Center">
-                        <Run x:Uid="/Resources/Combat_ShootedPlane" />:
-                        <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Manager.CurrentBattle.AerialPhase.Enemy.ShootedPlanes), FallbackValue=''}" />
-                    </TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
-                               Text="{x:Bind Manager.CurrentBattle.Ally.DamageRate.ToString('P2', x:Null), FallbackValue=''}" />
-                    <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
-                               Text="{x:Bind c:Helpers.FormatBattleRank(Manager.CurrentBattle.Rank), FallbackValue=''}" />
-                    <TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
-                               Text="{x:Bind Manager.CurrentBattle.Enemy.DamageRate.ToString('P2', x:Null), FallbackValue=''}" />
-                </Grid>
-                <Rectangle Height="2" Margin="4" Fill="Gray" />
-                <StackPanel Orientation="Horizontal">
-                    <ItemsControl ItemsSource="{x:Bind Manager.CurrentBattle.Enemy.Fleet, FallbackValue={x:Null}}"
-                                  ItemTemplate="{StaticResource ShipTemplate}" />
-                    <ItemsControl ItemsSource="{x:Bind Manager.CurrentBattle.Enemy.Fleet2, FallbackValue={x:Null}}"
-                                  ItemTemplate="{StaticResource ShipTemplate}" />
-                </StackPanel>
-            </StackPanel>
+            <local:BattleOverview Battle="{x:Bind Manager.CurrentBattle}" />
         </ScrollViewer>
     </Grid>
 </UserControl>
