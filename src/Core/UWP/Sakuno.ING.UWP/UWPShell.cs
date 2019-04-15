@@ -98,6 +98,7 @@ namespace Sakuno.ING.UWP
             translatableTextStyle.Seal();
             Application.Current.Resources["TranslatableTextStyle"] = translatableTextStyle;
             Application.Current.Resources["ShipNameTextStyle"] = translatableTextStyle;
+            Application.Current.Resources.MergedDictionaries.Add(new Microsoft.UI.Xaml.Controls.XamlControlsResources());
 
             var coreView = CoreApplication.GetCurrentView();
             coreView.TitleBar.ExtendViewIntoTitleBar = true;
