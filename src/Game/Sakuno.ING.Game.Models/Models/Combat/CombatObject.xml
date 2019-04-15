@@ -11,6 +11,7 @@
     <property type="bool" name="IsEscaped" />
   </class>
   <class name="Battle">
+    <property type="bool" name="HasStarted" />
     <property type="Engagement" name="Engagement" />
     <property type="IReadOnlyList&lt;BattleParticipant&gt;" name="NpcFleet" />
     <property type="Side" name="Enemy" />
@@ -34,8 +35,6 @@
     <property type="NpcPhase" name="NpcPhase" />
   </class>
   <class name="BattleManager">
-    <property type="bool" name="IsInSortie" />
-    <property type="bool" name="IsInPractice" />
     <property type="MapRouting" name="CurrentRouting" />
     <property type="Battle" name="CurrentBattle" />
     <property type="BattleResult" name="CurrentBattleResult" />

@@ -72,6 +72,16 @@ namespace Sakuno.ING.Game.Models.Combat
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_hasStarted = new PropertyChangedEventArgs(nameof(HasStarted));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private bool _hasStarted;
+        public bool HasStarted
+        {
+            get => _hasStarted;
+            private set => Set(ref _hasStarted, value, __eventArgs_hasStarted);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_engagement = new PropertyChangedEventArgs(nameof(Engagement));
         [EditorBrowsable(EditorBrowsableState.Never)]
         private Engagement _engagement;
@@ -283,26 +293,6 @@ namespace Sakuno.ING.Game.Models.Combat
     }
     partial class BattleManager
     {
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_isInSortie = new PropertyChangedEventArgs(nameof(IsInSortie));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private bool _isInSortie;
-        public bool IsInSortie
-        {
-            get => _isInSortie;
-            private set => Set(ref _isInSortie, value, __eventArgs_isInSortie);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_isInPractice = new PropertyChangedEventArgs(nameof(IsInPractice));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private bool _isInPractice;
-        public bool IsInPractice
-        {
-            get => _isInPractice;
-            private set => Set(ref _isInPractice, value, __eventArgs_isInPractice);
-        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_currentRouting = new PropertyChangedEventArgs(nameof(CurrentRouting));

@@ -36,6 +36,7 @@
     <Compile Include="Combat\CurrentBattleView.xaml.cs">
       <DependentUpon>CurrentBattleView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Combat\NullToVisibilityConverter.cs" />
     <Compile Include="Homeport\AdmiralView.xaml.cs">
       <DependentUpon>AdmiralView.xaml</DependentUpon>
     </Compile>

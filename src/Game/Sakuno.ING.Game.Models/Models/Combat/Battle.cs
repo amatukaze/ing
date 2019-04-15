@@ -22,6 +22,7 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             using (EnterBatchNotifyScope())
             {
+                HasStarted = true;
                 Engagement = raw.Engagement;
                 Ally.Load(raw.Ally);
                 if (Enemy is null)

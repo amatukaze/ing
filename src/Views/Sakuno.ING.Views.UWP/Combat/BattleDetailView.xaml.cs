@@ -1,9 +1,11 @@
 ﻿using Sakuno.ING.Game.Models.Combat;
+using Sakuno.ING.Shell;
 using Windows.UI.Text;
 using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.ING.Views.UWP.Combat
 {
+    [ExportView("CurrentBattleDetail")]
     public sealed partial class BattleDetailView : UserControl
     {
         private Battle _battle;
@@ -16,8 +18,15 @@ namespace Sakuno.ING.Views.UWP.Combat
                 Bindings.Update();
             }
         }
+
         public BattleDetailView()
         {
+            this.InitializeComponent();
+        }
+
+        public BattleDetailView(Battle battle)
+        {
+            _battle = battle;
             this.InitializeComponent();
         }
 

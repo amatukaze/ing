@@ -5,12 +5,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:m="clr-namespace:Sakuno.ING.Game.Models;assembly=Sakuno.ING.Game.Models"
+             xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Combat;assembly=Sakuno.ING.ViewModels"
              xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Combat"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{c:Resolve {x:Type m:NavalBase}}">
+             DataContext="{c:Resolve {x:Type vm:CurrentBattleVM}}">
     <UserControl.Resources>
         <c:VisibilityConverter x:Key="VisibilityConverter" />
+        <c:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <local:UseItemIdToKnownConverter x:Key="KnownUseItemConverter" />
     </UserControl.Resources>
     <Grid>
@@ -18,32 +20,35 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"
-                    Visibility="{Binding Battle.IsInSortie, Converter={StaticResource VisibilityConverter}}">
-            <TextBlock FontSize="18">
+                    DataContext="{Binding BattleManager.CurrentRouting.Map}"
+                    Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}">
+            <TextBlock FontSize="18" DataContext="{Binding Id}">
                 <Run Text="Sortie" />:
-                <Run Text="{Binding Battle.CurrentRouting.Map.Id.AreaId, Mode=OneWay}" />-<Run Text="{Binding Battle.CurrentRouting.Map.Id.CategoryNo, Mode=OneWay}" />
+                <Run Text="{Binding AreaId, Mode=OneTime}" />-<Run Text="{Binding CategoryNo, Mode=OneTime}" />
             </TextBlock>
-            <TextBlock FontSize="18">
-                <c:NameText Source="{Binding Battle.CurrentRouting.Map.Info.Name}" />
-                <c:NameText Source="{Binding Battle.CurrentRouting.Map.Info.OperationName}" />
+            <TextBlock FontSize="18" DataContext="{Binding Info}">
+                <c:NameText Source="{Binding Name}" />
+                <c:NameText Source="{Binding OperationName}" />
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
-                    Visibility="{Binding Battle.IsInSortie, Converter={StaticResource VisibilityConverter}}">
+                    DataContext="{Binding BattleManager.CurrentRouting}"
+                    Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}">
             <TextBlock FontSize="18">
                 <Run Text="Route" />:
-                <Run Text="{Binding Battle.CurrentRouting.RouteId, Mode=OneWay}" />
+                <Run Text="{Binding RouteId, Mode=OneWay}" />
                 <Run Text="  " />
-                <c:EnumText Source="{Binding Battle.CurrentRouting.EventKind}" />
-                <c:EnumText Source="{Binding Battle.CurrentRouting.BattleKind}" />
+                <c:EnumText Source="{Binding EventKind}" />
+                <c:EnumText Source="{Binding BattleKind}" />
             </TextBlock>
             <TextBlock FontSize="18"
                        Text="{c:Localize Combat/SelectableRoute}"
-                       Visibility="{Binding Battle.CurrentRouting.CanSelectRoute, Converter={StaticResource VisibilityConverter}}"/>
-            <ItemsControl ItemsSource="{Binding Battle.CurrentRouting.UseItemChanges}">
+                       Visibility="{Binding CanSelectRoute, Converter={StaticResource VisibilityConverter}}"/>
+            <ItemsControl ItemsSource="{Binding UseItemChanges}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
@@ -59,9 +64,13 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
-        <ScrollViewer Grid.Row="2"
-                      Visibility="{Binding Battle.IsInSortieOrPractice, Converter={StaticResource VisibilityConverter}}">
-            <local:BattleOverview DataContext="{Binding Battle.CurrentBattle}" />
+        <ScrollViewer Grid.Row="2" DataContext="{Binding BattleManager.CurrentBattle}"
+                      Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}">
+            <local:BattleOverview />
         </ScrollViewer>
+        <c:InvokeMethodButton Grid.Row="3" HorizontalAlignment="Left"
+                              IsEnabled="{Binding BattleManager.CurrentBattle.HasStarted, FallbackValue=False}"
+                              MethodName="ShowCurrentDetail"
+                              Content="Detail" />
     </Grid>
 </UserControl>

@@ -7,6 +7,7 @@ using Sakuno.ING.Game.Logger;
 using Sakuno.ING.Game.Logger.Migrators;
 using Sakuno.ING.Game.Logger.Migrators.INGLegacy;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Notification;
 using Sakuno.ING.Http;
 using Sakuno.ING.Localization;
@@ -15,6 +16,7 @@ using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
 using Sakuno.ING.Timing;
 using Sakuno.ING.Timing.NTP;
+using Sakuno.ING.ViewModels.Combat;
 using Sakuno.ING.ViewModels.Logging;
 using Sakuno.ING.Views.UWP.ApiDebug;
 using Sakuno.ING.Views.UWP.Combat;
@@ -52,6 +54,7 @@ namespace Sakuno.ING.UWP
             var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, localization, ntp);
             var notificationManager = Information<NotificationManager>.Static = new NotificationManager(new[] { notifier }, settings, navalBase);
             var logger = Information<Logger>.Static = new Logger(data, gameProvider, navalBase);
+            var currentBattleVM = Information<CurrentBattleVM>.Static = new CurrentBattleVM(navalBase, shell);
 
             var migrators = new LogMigrator[]
             {
@@ -69,7 +72,7 @@ namespace Sakuno.ING.UWP
             Information<ShipCreationLogsVM>.Factory = () => new ShipCreationLogsVM(logger, navalBase, localization);
 
             Information<ApiDebugView>.Factory = () => new ApiDebugView(gameProvider);
-            Information<CurrentBattleView>.Factory = () => new CurrentBattleView(navalBase);
+            Information<CurrentBattleView>.Factory = () => new CurrentBattleView(currentBattleVM);
             Information<AdmiralView>.Factory = () => new AdmiralView(navalBase);
             Information<DocksView>.Factory = () => new DocksView(navalBase);
             Information<ExpeditionView>.Factory = () => new ExpeditionView(navalBase);
@@ -104,6 +107,7 @@ namespace Sakuno.ING.UWP
             ["BattleLogs"] = typeof(BattleLogsView),
             ["BattleLogDetail"] = typeof(BattleLogDetailsView),
             ["ActiveQuests"] = typeof(ActiveQuestsView),
+            ["CurrentBattleDetail"] = typeof(BattleDetailView)
         };
 
         public override IReadOnlyCollection<KeyValuePair<Type, SettingCategory>> SettingViews { get; } = new Dictionary<Type, SettingCategory>
@@ -149,8 +153,6 @@ namespace Sakuno.ING.UWP
                 return Information<ExpeditionCompletionLogsView>.Factory();
             else if (type == typeof(BattleLogsView))
                 return Information<BattleLogsView>.Factory();
-            else if (type == typeof(BattleLogDetailsView))
-                return Information<BattleLogDetailsView>.Factory();
             else if (type == typeof(LocaleSettingView))
                 return Information<LocaleSettingView>.Factory();
             else if (type == typeof(ProxySettingView))
@@ -166,6 +168,8 @@ namespace Sakuno.ING.UWP
         {
             if (type == typeof(BattleLogDetailsView) && typeof(TParam) == typeof(BattleVM))
                 return new BattleLogDetailsView((BattleVM)(object)parameter);
+            else if (type == typeof(BattleDetailView) && typeof(TParam) == typeof(Battle))
+                return new BattleDetailView((Battle)(object)parameter);
             else
                 throw new InvalidOperationException("Compositor out of date");
         }

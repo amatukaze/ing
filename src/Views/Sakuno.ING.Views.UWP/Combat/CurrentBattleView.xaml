@@ -13,14 +13,18 @@
     d:DesignHeight="300"
     d:DesignWidth="600"
     x:DefaultBindMode="OneWay">
+    <UserControl.Resources>
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal"
-                    Visibility="{x:Bind Manager.IsInSortie}">
+                    Visibility="{x:Bind Manager.CurrentRouting, Converter={StaticResource NullToVisibilityConverter}}">
             <TextBlock FontSize="18">
                 <Run Text="Sortie" />:
                 <Run Text="{x:Bind Manager.CurrentRouting.Map.Id.AreaId, FallbackValue=''}" />-<Run Text="{x:Bind Manager.CurrentRouting.Map.Id.CategoryNo, FallbackValue=''}" />
@@ -32,7 +36,7 @@
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
-                    Visibility="{x:Bind Manager.IsInSortie}">
+                    Visibility="{x:Bind Manager.CurrentRouting, Converter={StaticResource NullToVisibilityConverter}}">
             <TextBlock FontSize="18">
                 <Run Text="Route" />:
                 <Run Text="{x:Bind Manager.CurrentRouting.RouteId, FallbackValue=''}" />
@@ -59,10 +63,15 @@
                 </mux:ItemsRepeater.ItemTemplate>
             </mux:ItemsRepeater>
         </StackPanel>
-        <ScrollViewer Grid.Row="2" Visibility="{x:Bind Manager.IsInSortieOrPractice}"
+        <ScrollViewer Grid.Row="2"
+                      Visibility="{x:Bind Manager.CurrentBattle, Converter={StaticResource NullToVisibilityConverter}}"
                       HorizontalScrollMode="Auto"
                       VerticalScrollMode="Auto">
             <local:BattleOverview Battle="{x:Bind Manager.CurrentBattle}" />
         </ScrollViewer>
+        <Button Grid.Row="3" HorizontalAlignment="Left"
+                IsEnabled="{x:Bind Manager.CurrentBattle.HasStarted, FallbackValue=False}"
+                Tapped="{x:Bind ViewModel.ShowCurrentDetail}"
+                Content="Detail" />
     </Grid>
 </UserControl>
