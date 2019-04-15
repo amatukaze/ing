@@ -78,7 +78,7 @@
                                    x:Uid="/Resources/FleetState_Warning" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextExpedition"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Expedition)}">
-                            <Run x:Uid="/Resources/FleetState_Expedition" /><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}" /><Run Text="{x:Bind c:Helpers.SelectName(Expedition.Name)}" /><Run Text="{x:Bind sys:String.Format(' - {0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}" />
+                            <Run x:Uid="/Resources/FleetState_Expedition" /><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}" /><Run Text="{x:Bind c:Helpers.SelectName(Expedition.Name)}" /><Run Text="{x:Bind sys:String.Format(' - {0:hh\\\\:mm\\\\:ss}', ExpeditionTimer.Remaining)}" />
                         </TextBlock>
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextFatigued"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Fatigued)}"

@@ -20,7 +20,7 @@
                     <TextBlock Style="{StaticResource TranslatableTextStyle}"
                                Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}" />
                     <TextBlock TextAlignment="Right"
-                               Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}" />
+                               Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', ExpeditionTimer.Remaining)}" />
                 </Grid>
             </DataTemplate>
         </mux:ItemsRepeater.ItemTemplate>

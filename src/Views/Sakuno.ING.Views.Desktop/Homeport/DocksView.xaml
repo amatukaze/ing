@@ -19,7 +19,7 @@
                                 <c:ShipNameText Source="{Binding BuiltShip.Name}" />
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
-                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />
+                                       Text="{Binding Timer.Remaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />
                             <TextBlock x:Name="state" TextAlignment="Center" />
                         </Grid>
                         <DataTemplate.Triggers>
@@ -43,7 +43,7 @@
                                 <c:ShipNameText Source="{Binding RepairingShip.Info.Name}" />
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
-                                       Text="{Binding TimeRemaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />
+                                       Text="{Binding Timer.Remaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />
                             <TextBlock x:Name="state" TextAlignment="Center" />
                         </Grid>
                         <DataTemplate.Triggers>

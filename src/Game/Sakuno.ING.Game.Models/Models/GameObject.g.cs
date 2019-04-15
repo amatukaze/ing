@@ -111,16 +111,6 @@ namespace Sakuno.ING.Game.Models
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_completionTime = new PropertyChangedEventArgs(nameof(CompletionTime));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private DateTimeOffset? _completionTime;
-        public DateTimeOffset? CompletionTime
-        {
-            get => _completionTime;
-            private set => Set(ref _completionTime, value, __eventArgs_completionTime);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_state = new PropertyChangedEventArgs(nameof(State));
         [EditorBrowsable(EditorBrowsableState.Never)]
         private BuildingDockState _state;
@@ -160,16 +150,6 @@ namespace Sakuno.ING.Game.Models
             private set => Set(ref _isLSC, value, __eventArgs_isLSC);
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_timeRemaining = new PropertyChangedEventArgs(nameof(TimeRemaining));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private TimeSpan? _timeRemaining;
-        public TimeSpan? TimeRemaining
-        {
-            get => _timeRemaining;
-            private set => Set(ref _timeRemaining, value, __eventArgs_timeRemaining);
-        }
-
         public int CompareTo(BuildingDock other) => Id.CompareTo(other?.Id ?? default);
 
         public BuildingDockId Id { get; }
@@ -197,7 +177,6 @@ namespace Sakuno.ING.Game.Models
         {
             UpdationTime = timeStamp;
 
-            CompletionTime = raw.CompletionTime;
             State = raw.State;
             Consumption = raw.Consumption;
             IsLSC = raw.IsLSC;
@@ -226,16 +205,6 @@ namespace Sakuno.ING.Game.Models
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_completionTime = new PropertyChangedEventArgs(nameof(CompletionTime));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private DateTimeOffset? _completionTime;
-        public DateTimeOffset? CompletionTime
-        {
-            get => _completionTime;
-            private set => Set(ref _completionTime, value, __eventArgs_completionTime);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_consumption = new PropertyChangedEventArgs(nameof(Consumption));
         [EditorBrowsable(EditorBrowsableState.Never)]
         private Materials _consumption;
@@ -243,16 +212,6 @@ namespace Sakuno.ING.Game.Models
         {
             get => _consumption;
             private set => Set(ref _consumption, value, __eventArgs_consumption);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_timeRemaining = new PropertyChangedEventArgs(nameof(TimeRemaining));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private TimeSpan? _timeRemaining;
-        public TimeSpan? TimeRemaining
-        {
-            get => _timeRemaining;
-            private set => Set(ref _timeRemaining, value, __eventArgs_timeRemaining);
         }
 
         public int CompareTo(RepairingDock other) => Id.CompareTo(other?.Id ?? default);
@@ -283,7 +242,6 @@ namespace Sakuno.ING.Game.Models
             UpdationTime = timeStamp;
 
             State = raw.State;
-            CompletionTime = raw.CompletionTime;
             Consumption = raw.Consumption;
 
             UpdateCore(raw, timeStamp);
@@ -856,26 +814,6 @@ namespace Sakuno.ING.Game.Models
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_expeditionCompletionTime = new PropertyChangedEventArgs(nameof(ExpeditionCompletionTime));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private DateTimeOffset? _expeditionCompletionTime;
-        public DateTimeOffset? ExpeditionCompletionTime
-        {
-            get => _expeditionCompletionTime;
-            private set => Set(ref _expeditionCompletionTime, value, __eventArgs_expeditionCompletionTime);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_expeditionTimeRemaining = new PropertyChangedEventArgs(nameof(ExpeditionTimeRemaining));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private TimeSpan? _expeditionTimeRemaining;
-        public TimeSpan? ExpeditionTimeRemaining
-        {
-            get => _expeditionTimeRemaining;
-            private set => Set(ref _expeditionTimeRemaining, value, __eventArgs_expeditionTimeRemaining);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_slowestShipSpeed = new PropertyChangedEventArgs(nameof(SlowestShipSpeed));
         [EditorBrowsable(EditorBrowsableState.Never)]
         private ShipSpeed _slowestShipSpeed;
@@ -974,7 +912,6 @@ namespace Sakuno.ING.Game.Models
 
             Name = raw.Name;
             ExpeditionState = raw.ExpeditionState;
-            ExpeditionCompletionTime = raw.ExpeditionCompletionTime;
 
             UpdateCore(raw, timeStamp);
         }

@@ -9,18 +9,14 @@
     <property type="bool" name="IsAvailable" />
   </class>
   <class name="BuildingDock" id="BuildingDockId" raw="RawBuildingDock" owner="NavalBase">
-    <property type="DateTimeOffset?" name="CompletionTime" autoFill="true" />
     <property type="BuildingDockState" name="State" autoFill="true" />
     <property type="Materials" name="Consumption" autoFill="true" />
     <property type="ShipInfo" name="BuiltShip" />
     <property type="bool" name="IsLSC" autoFill="true" />
-    <property type="TimeSpan?" name="TimeRemaining" />
   </class>
   <class name="RepairingDock" id="RepairingDockId" raw="RawRepairingDock" owner="NavalBase">
     <property type="RepairingDockState" name="State" autoFill="true" />
-    <property type="DateTimeOffset?" name="CompletionTime" autoFill="true" />
     <property type="Materials" name="Consumption" autoFill="true" />
-    <property type="TimeSpan?" name="TimeRemaining" />
   </class>
   <class name="UseItemCount" id="UseItemId" raw="RawUseItemCount" owner="NavalBase">
     <property type="UseItemInfo" name="Item" />
@@ -70,8 +66,6 @@
     <property type="string" name="Name" autoFill="true" />
     <property type="FleetExpeditionState" name="ExpeditionState" autoFill="true" />
     <property type="ExpeditionInfo" name="Expedition" />
-    <property type="DateTimeOffset?" name="ExpeditionCompletionTime" autoFill="true" />
-    <property type="TimeSpan?" name="ExpeditionTimeRemaining" />
     <property type="ShipSpeed" name="SlowestShipSpeed" />
     <property type="Materials" name="SupplyingCost" />
     <property type="Materials" name="RepairingCost" />

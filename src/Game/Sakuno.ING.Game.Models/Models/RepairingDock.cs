@@ -24,25 +24,18 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(RawRepairingDock raw, DateTimeOffset timeStamp)
         {
             RepairingShip = owner.AllShips[raw.RepairingShipId];
-            UpdateTimer(timeStamp);
+            Timer.Init(raw.CompletionTime, timeStamp);
         }
 
         internal void Instant()
         {
             State = RepairingDockState.Empty;
             RepairingShip = null;
-            CompletionTime = null;
-            TimeRemaining = null;
+            Timer.Clear();
         }
 
-        internal void UpdateTimer(DateTimeOffset timeStamp)
-        {
-            if (RepairingShip == null || CompletionTime == null)
-                TimeRemaining = null;
-            else if (timeStamp > CompletionTime)
-                TimeRemaining = default(TimeSpan);
-            else
-                TimeRemaining = CompletionTime - timeStamp;
-        }
+        internal bool UpdateTimer(DateTimeOffset timeStamp) => Timer.Update(timeStamp);
+
+        public CountDown Timer { get; } = new CountDown();
     }
 }

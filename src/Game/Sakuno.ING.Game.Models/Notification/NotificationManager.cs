@@ -20,6 +20,13 @@ namespace Sakuno.ING.Game.Notification
             Notifier = settings.Register<string>("notification.notifier");
             Notifier.ValueChanged += SetNotifier;
             SetNotifier(Notifier.Value);
+
+            navalBase.RepairTiming += r =>
+                SelectedNotifier.Show("Repair completing", $"{r.Id}: {r.RepairingShip.Info?.Name.Origin}", null);
+            navalBase.BuildTiming += b =>
+                SelectedNotifier.Show("Build completing", $"{b.Id}: {b.BuiltShip?.Name.Origin}", null);
+            navalBase.ExpeditionTiming += f =>
+                SelectedNotifier.Show("Expedition completing", $"{f.Id}: {f.Expedition?.DisplayId}: {f.Expedition?.Name.Origin}", null);
         }
 
         private void SetNotifier(string id)

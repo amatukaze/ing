@@ -286,7 +286,7 @@
                                 <MultiBinding StringFormat=" - {0} {1} - {2:hh\:mm\:ss}">
                                     <Binding Path="Expedition.DisplayId" Mode="OneWay" />
                                     <Binding Path="Expedition.Name" Mode="OneWay" />
-                                    <Binding Path="ExpeditionTimeRemaining" Mode="OneWay" />
+                                    <Binding Path="ExpeditionTimer.Remaining" Mode="OneWay" />
                                 </MultiBinding>
                             </Setter.Value>
                         </Setter>

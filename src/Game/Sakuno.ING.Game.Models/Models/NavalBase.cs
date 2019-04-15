@@ -167,9 +167,15 @@ namespace Sakuno.ING.Game.Models
             if (timingService != null)
                 timingService.Elapsed += t =>
                 {
-                    foreach (var f in Fleets) f.UpdateTimer(t);
-                    foreach (var b in BuildingDocks) b.UpdateTimer(t);
-                    foreach (var r in RepairingDocks) r.UpdateTimer(t);
+                    foreach (var f in Fleets)
+                        if (f.UpdateTimer(t))
+                            ExpeditionTiming?.Invoke(f);
+                    foreach (var b in BuildingDocks)
+                        if (b.UpdateTimer(t))
+                            BuildTiming?.Invoke(b);
+                    foreach (var r in RepairingDocks)
+                        if (r.UpdateTimer(t))
+                            RepairTiming?.Invoke(r);
                 };
         }
 
@@ -239,6 +245,10 @@ namespace Sakuno.ING.Game.Models
         public event ShipPowerupingHandler ShipPoweruping;
         public event EquipmentDismantlingHandler EquipmentDismantling;
         public event EquipmentImprovingHandler EquipmentImproving;
+
+        public event Action<Fleet> ExpeditionTiming;
+        public event Action<BuildingDock> BuildTiming;
+        public event Action<RepairingDock> RepairTiming;
     }
 
     public delegate void AdmiralChanging(DateTimeOffset timeStamp, Admiral oldAdmiral, Admiral newAdmiral);
