@@ -218,9 +218,9 @@
       <Project>{a3e0327e-e89c-4b56-b9d2-75c6e60ebb39}</Project>
       <Name>Sakuno.ING.Settings.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels.Logging\Sakuno.ING.ViewModels.Logging.csproj">
-      <Project>{1C87416D-DDEF-4416-86E6-13DC44931CF5}</Project>
-      <Name>Sakuno.ING.ViewModels.Logging</Name>
+    <ProjectReference Include="..\..\..\ViewModels\Sakuno.ING.ViewModels\Sakuno.ING.ViewModels.csproj">
+      <Project>{eb22b36c-7687-4c43-b61b-1339708aa77f}</Project>
+      <Name>Sakuno.ING.ViewModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Views\Sakuno.ING.Views.UWP\Sakuno.ING.Views.UWP.csproj">
       <Project>{c3653662-15e1-4ecf-a183-77460068ab3a}</Project>

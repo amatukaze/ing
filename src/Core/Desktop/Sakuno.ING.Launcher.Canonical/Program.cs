@@ -27,7 +27,7 @@ namespace Sakuno.ING
                 "Sakuno.ING.Settings.Common",
                 "Sakuno.ING.Shell.Desktop",
                 "Sakuno.ING.Timing.NTP",
-                "Sakuno.ING.ViewModels.Logging",
+                "Sakuno.ING.ViewModels",
                 "Sakuno.ING.Views.Desktop",
                 "Sakuno.ING.Views.Desktop.Base",
                 "Sakuno.ING.Views.Desktop.Common"
