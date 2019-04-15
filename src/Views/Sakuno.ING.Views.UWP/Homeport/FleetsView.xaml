@@ -97,6 +97,7 @@
                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="5"
                                   HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Auto">
+                        <!-- TODO: ItemsRepeater can only scroll in vertical -->
                         <ItemsControl ItemsSource="{x:Bind Ships}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="g:HomeportShip">

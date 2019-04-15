@@ -8,6 +8,7 @@
     xmlns:c="using:Sakuno.ING.Views.UWP"
     xmlns:local="using:Sakuno.ING.Views.UWP.Combat"
     xmlns:con="using:Sakuno.ING.Views.UWP.Controls"
+    xmlns:mux="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="600"
@@ -42,22 +43,21 @@
             <TextBlock FontSize="18"
                        x:Uid="/Resources/Combat_SelectableRoute"
                        Visibility="{x:Bind Manager.CurrentRouting.CanSelectRoute, FallbackValue=Collapsed}"/>
-            <ItemsControl ItemsSource="{x:Bind Manager.CurrentRouting.UseItemChanges, FallbackValue={x:Null}}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
+            <mux:ItemsRepeater ItemsSource="{x:Bind Manager.CurrentRouting.UseItemChanges, FallbackValue={x:Null}}"
+                               Margin="10, 0">
+                <mux:ItemsRepeater.Layout>
+                    <mux:StackLayout Orientation="Horizontal" Spacing="10" />
+                </mux:ItemsRepeater.Layout>
+                <mux:ItemsRepeater.ItemTemplate>
                     <DataTemplate x:DataType="m:UseItemChange"
                                   x:DefaultBindMode="OneTime">
-                        <StackPanel Orientation="Horizontal" Margin="10, 0">
+                        <StackPanel Orientation="Horizontal">
                             <con:UseItemIcon Id="{x:Bind Item.Id}" />
                             <TextBlock FontSize="18" Text="{x:Bind Count}" />
                         </StackPanel>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                </mux:ItemsRepeater.ItemTemplate>
+            </mux:ItemsRepeater>
         </StackPanel>
         <ScrollViewer Grid.Row="2" Visibility="{x:Bind Manager.IsInSortieOrPractice}"
                       HorizontalScrollMode="Auto"

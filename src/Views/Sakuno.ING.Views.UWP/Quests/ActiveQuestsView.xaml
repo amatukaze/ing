@@ -4,20 +4,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mux="using:Microsoft.UI.Xaml.Controls"
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
     Height="200">
-    <ItemsControl ItemsSource="{x:Bind Manager.ActiveQuests}">
-        <ItemsControl.ItemTemplate>
+    <mux:ItemsRepeater ItemsSource="{x:Bind Manager.ActiveQuests}">
+        <mux:ItemsRepeater.ItemTemplate>
             <DataTemplate x:DataType="g:Quest">
                 <TextBlock Text="{x:Bind c:Helpers.SelectName(Name)}"
                            FontSize="20"
                            Style="{StaticResource TranslatableTextStyle}"
                            ToolTipService.ToolTip="{x:Bind Description}" />
             </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+        </mux:ItemsRepeater.ItemTemplate>
+    </mux:ItemsRepeater>
 </UserControl>

@@ -41,6 +41,7 @@
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
+            <!-- TODO: using ItemsRepeater causes thread wrong -->
             <ItemsControl ItemsSource="{x:Bind Battle.Ally.Fleet, FallbackValue={x:Null}}"
                           ItemTemplate="{StaticResource ShipTemplate}" />
             <ItemsControl ItemsSource="{x:Bind Battle.Ally.Fleet2, FallbackValue={x:Null}}"

@@ -4,24 +4,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mux="using:Microsoft.UI.Xaml.Controls"
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     xmlns:sys="using:System"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    x:DefaultBindMode="OneWay">
-    <ItemsControl ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}">
-        <ItemsControl.ItemTemplate>
+    x:DefaultBindMode="OneWay"
+    FontSize="18">
+    <mux:ItemsRepeater ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}">
+        <mux:ItemsRepeater.ItemTemplate>
             <DataTemplate x:DataType="g:Fleet">
                 <Grid>
-                    <TextBlock FontSize="18"
-                               Style="{StaticResource TranslatableTextStyle}"
+                    <TextBlock Style="{StaticResource TranslatableTextStyle}"
                                Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}" />
-                    <TextBlock FontSize="18" TextAlignment="Right"
+                    <TextBlock TextAlignment="Right"
                                Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', ExpeditionTimeRemaining)}" />
                 </Grid>
             </DataTemplate>
-        </ItemsControl.ItemTemplate>
-    </ItemsControl>
+        </mux:ItemsRepeater.ItemTemplate>
+    </mux:ItemsRepeater>
 </UserControl>
