@@ -27,34 +27,30 @@ namespace Sakuno.ING.Game.Models
                 UpdationTime = t;
                 _allQuests.RemoveAll(IsOutOfDate);
                 _allQuests.BatchUpdate(msg.Quests, t, removal: false);
-                _activeQuests.Update();
             };
-            listener.QuestCompleted += (t, msg)
-                => QuestCompleting?.Invoke(t, _allQuests.Remove(msg));
+            listener.QuestCompleted += (t, msg) =>
+            {
+                var quest = _allQuests.Remove(msg);
+                QuestCompleting?.Invoke(t, quest);
+            };
         }
 
         private bool IsOutOfDate(Quest quest)
         {
             var questDate = quest.UpdationTime.ToOffset(questUpdate);
             var updateDate = UpdationTime.ToOffset(questUpdate);
-            switch (quest.Period)
+            return quest.Period switch
             {
-                case QuestPeriod.Daily:
-                    return questDate.Date != updateDate.Date;
-                case QuestPeriod.Weekly:
-                    return questDate.Ticks / (TimeSpan.TicksPerDay * 7)
-                        != updateDate.Ticks / (TimeSpan.TicksPerDay * 7);
-                case QuestPeriod.Monthly:
-                    return questDate.Year != updateDate.Year
-                        || questDate.Month != updateDate.Month;
-                case QuestPeriod.Quarterly:
-                    return questDate.Year * 4 + (questDate.Month + 1) / 3
-                        != updateDate.Year * 4 + (questDate.Month + 1) / 3;
-                case QuestPeriod.Once:
-                    return false;
-                default:
-                    throw new InvalidOperationException($"Unknown quest period {(int)quest.Period}");
-            }
+                QuestPeriod.Daily => questDate.Date != updateDate.Date,
+                QuestPeriod.Weekly => questDate.Ticks / (TimeSpan.TicksPerDay * 7)
+                    != updateDate.Ticks / (TimeSpan.TicksPerDay * 7),
+                QuestPeriod.Monthly => (questDate.Year, questDate.Month)
+                    != (updateDate.Year, updateDate.Month),
+                QuestPeriod.Quarterly => questDate.Year * 4 + (questDate.Month + 1) / 3
+                    != updateDate.Year * 4 + (questDate.Month + 1) / 3,
+                QuestPeriod.Once => false,
+                _ => false // Unknown quest period {(int)quest.Period}
+            };
         }
 
         private static readonly TimeSpan questUpdate = TimeSpan.FromHours(4);

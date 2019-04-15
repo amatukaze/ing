@@ -17,6 +17,8 @@ namespace Sakuno.ING.Game
         {
             this.source = source;
             snapshot = source.ToList();
+            if (source is IUpdationSource updation)
+                updation.Updated += Update;
         }
 
         public void Update()
