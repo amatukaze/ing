@@ -282,4 +282,10 @@
   <data name="SelectableRoute">
     <value>能动分歧</value>
   </data>
+  <data name="Sortie_SortieAera">
+    <value>出击海域</value>
+  </data>
+  <data name="Sortie_RouteId">
+    <value>位置</value>
+  </data>
 </root>

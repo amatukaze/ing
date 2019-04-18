@@ -16,10 +16,10 @@
                            RelativePanel.RightOf="Browser"
                            RelativePanel.Above="Buttons"
                            RelativePanel.AlignRightWithPanel="True">
-                        <PivotItem Header="Overview">
+                        <PivotItem x:Uid="/Resources/MainPivot_Overview">
                             <local:OverviewPage />
                         </PivotItem>
-                        <PivotItem Header="Battle">
+                        <PivotItem x:Uid="/Resources/MainPivot_Battle">
                             <sh:ViewPresenter ViewId="CurrentBattle" />
                         </PivotItem>
                     </Pivot>

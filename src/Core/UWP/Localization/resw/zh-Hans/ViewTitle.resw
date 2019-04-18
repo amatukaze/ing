@@ -45,4 +45,16 @@
   <data name="Expedition">
     <value>远征一览</value>
   </data>
+  <data name="BattleLogDetail">
+    <value>战斗详情 - 历史</value>
+  </data>
+  <data name="CurrentBattleDetail">
+    <value>战斗详情 - 当前</value>
+  </data>
+  <data name="Page_Overview">
+    <value>概览</value>
+  </data>
+  <data name="Page_Battle">
+    <value>战斗</value>
+  </data>
 </root>

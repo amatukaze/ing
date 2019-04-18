@@ -282,4 +282,10 @@
   <data name="SelectableRoute">
     <value>能動分岐</value>
   </data>
+  <data name="Sortie_SortieAera">
+    <value>出撃海域</value>
+  </data>
+  <data name="Sortie_RouteId">
+    <value>マス</value>
+  </data>
 </root>

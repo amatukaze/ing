@@ -26,7 +26,11 @@
     "Admiral": "司令部情報",
     "Fleets": "艦隊一覧",
     "Docks": "ドック一覧",
-    "Expedition": "遠征一覧"
+    "Expedition": "遠征一覧",
+    "BattleLogDetail": "戦闘詳細 - 歴史",
+    "CurrentBattleDetail": "戦闘詳細 - 現在",
+    "Page_Overview": "一覧",
+    "Page_Battle": "戦闘"
   },
   "Settings": {
     "UserFont": "UI フォント",
@@ -214,6 +218,8 @@
     "BattleKind_6": "敵空襲",
     "BattleKind_7": "連合艦隊夜戦",
     "BattleKind_8": "敵レーダー射撃",
-    "SelectableRoute": "能動分岐"
+    "SelectableRoute": "能動分岐",
+    "Sortie_SortieAera": "出撃海域",
+    "Sortie_RouteId": "マス"
   }
 }

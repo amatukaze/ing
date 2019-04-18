@@ -282,4 +282,10 @@
   <data name="SelectableRoute">
     <value>Selectable Route</value>
   </data>
+  <data name="Sortie_SortieAera">
+    <value>In sortie</value>
+  </data>
+  <data name="Sortie_RouteId">
+    <value>Position</value>
+  </data>
 </root>

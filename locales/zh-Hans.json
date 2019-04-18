@@ -26,7 +26,11 @@
     "Admiral": "司令部信息",
     "Fleets": "舰队一览",
     "Docks": "船渠一览",
-    "Expedition": "远征一览"
+    "Expedition": "远征一览",
+    "BattleLogDetail": "战斗详情 - 历史",
+    "CurrentBattleDetail": "战斗详情 - 当前",
+    "Page_Overview": "概览",
+    "Page_Battle": "战斗"
   },
   "Settings": {
     "UserFont": "用户语言字体",
@@ -218,6 +222,8 @@
     "BattleKind_6": "敌空袭",
     "BattleKind_7": "联合舰队夜战",
     "BattleKind_8": "敌雷达射击",
-    "SelectableRoute": "能动分歧"
+    "SelectableRoute": "能动分歧",
+    "Sortie_SortieAera": "出击海域",
+    "Sortie_RouteId": "位置"
   }
 }

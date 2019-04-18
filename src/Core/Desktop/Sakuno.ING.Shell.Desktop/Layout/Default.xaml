@@ -1,8 +1,9 @@
 ﻿<sh:LayoutRoot xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:c="http://schemas.heavenlywind.cc/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:uic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+               xmlns:local="clr-namespace:Sakuno.ING.Shell.Desktop.Layout"
                xmlns:sh="clr-namespace:Sakuno.ING.Shell.Layout"
-               xmlns:local="clr-namespace:Sakuno.ING.Shell.Desktop.Layout">
+               xmlns:uic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface">
     <sh:LayoutRoot.MainWindow>
         <sh:LayoutWindow>
             <DataTemplate>
@@ -17,10 +18,10 @@
                                 uic:RelativePanel.RightOf="Browser"
                                 uic:RelativePanel.Above="Buttons"
                                 uic:RelativePanel.AlignRightWithPanel="True">
-                        <TabItem Header="Overview">
+                        <TabItem Header="{c:Localize ViewTitle/Page_Overview}">
                             <local:OverviewPage />
                         </TabItem>
-                        <TabItem Header="Battle">
+                        <TabItem Header="{c:Localize ViewTitle/Page_Battle}">
                             <sh:ViewPresenter ViewId="CurrentBattle" />
                         </TabItem>
                     </TabControl>

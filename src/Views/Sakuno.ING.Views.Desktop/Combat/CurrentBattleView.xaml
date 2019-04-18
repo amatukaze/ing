@@ -71,6 +71,6 @@
         <c:InvokeMethodButton Grid.Row="3" HorizontalAlignment="Left"
                               IsEnabled="{Binding BattleManager.CurrentBattle.HasStarted, FallbackValue=False}"
                               MethodName="ShowCurrentDetail"
-                              Content="Detail" />
+                              Content="{c:Localize GameModel/Details}" />
     </Grid>
 </UserControl>

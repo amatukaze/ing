@@ -26,7 +26,7 @@
         <StackPanel Orientation="Horizontal"
                     Visibility="{x:Bind Manager.CurrentRouting, Converter={StaticResource NullToVisibilityConverter}}">
             <TextBlock FontSize="18">
-                <Run Text="Sortie" />:
+                <Run x:Uid="/Resources/Combat_SortieAera" />:
                 <Run Text="{x:Bind Manager.CurrentRouting.Map.Id.AreaId, FallbackValue=''}" />-<Run Text="{x:Bind Manager.CurrentRouting.Map.Id.CategoryNo, FallbackValue=''}" />
             </TextBlock>
             <TextBlock FontSize="18" Style="{StaticResource TranslatableTextStyle}">
@@ -38,7 +38,7 @@
                     Orientation="Horizontal"
                     Visibility="{x:Bind Manager.CurrentRouting, Converter={StaticResource NullToVisibilityConverter}}">
             <TextBlock FontSize="18">
-                <Run Text="Route" />:
+                <Run x:Uid="/Resources/RouteId" />:
                 <Run Text="{x:Bind Manager.CurrentRouting.RouteId, FallbackValue=''}" />
                 <Run Text="  " />
                 <Run Text="{x:Bind c:Helpers.FormatMapEvent(Manager.CurrentRouting.EventKind), FallbackValue=''}" />
@@ -70,8 +70,8 @@
             <local:BattleOverview Battle="{x:Bind Manager.CurrentBattle}" />
         </ScrollViewer>
         <Button Grid.Row="3" HorizontalAlignment="Left"
+                x:Uid="/Resources/Combat_CurrentBattleDetail"
                 IsEnabled="{x:Bind Manager.CurrentBattle.HasStarted, FallbackValue=False}"
-                Tapped="{x:Bind ViewModel.ShowCurrentDetail}"
-                Content="Detail" />
+                Tapped="{x:Bind ViewModel.ShowCurrentDetail}" />
     </Grid>
 </UserControl>

@@ -45,4 +45,16 @@
   <data name="Expedition">
     <value>Expedition overview</value>
   </data>
+  <data name="BattleLogDetail">
+    <value>Battle detail - history</value>
+  </data>
+  <data name="CurrentBattleDetail">
+    <value>Battle detail - current</value>
+  </data>
+  <data name="Page_Overview">
+    <value>Overview</value>
+  </data>
+  <data name="Page_Battle">
+    <value>Battle</value>
+  </data>
 </root>
