@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<bindableTemplate namespace="Sakuno.ING.Game.Models.Combat">
+<bindableTemplate xmlns="http://schemas.heavenlywind.cc/xsd/bindable_generator"
+                  namespace="Sakuno.ING.Game.Models.Combat">
   <using>System.Collections.Generic</using>
   <class name="Side">
     <property type="Formation" name="Formation" />

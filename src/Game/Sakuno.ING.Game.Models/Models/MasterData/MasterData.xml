@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<classTemplate namespace="Sakuno.ING.Game.Models.MasterData">
+<classTemplate xmlns="http://schemas.heavenlywind.cc/xsd/game_model_generator"
+               namespace="Sakuno.ING.Game.Models.MasterData">
   <class name="ShipInfo" id="ShipInfoId" raw="RawShipInfo" owner="MasterDataRoot" noToString="true">
     <property type="int" name="SortNo" autoFill="true" />
     <property type="bool" name="IsAbyssal" autoFill="true" />

@@ -15,6 +15,7 @@
       <Using Namespace="System.Xml.Linq" />
       <Code Type="Fragment" Language="cs">
         <![CDATA[
+string xmlns = "http://schemas.heavenlywind.cc/xsd/bindable_generator";
 foreach (var infile in Inputs)
 {
     string outfile = Path.ChangeExtension(infile, ".g.cs");
@@ -36,19 +37,19 @@ foreach (var infile in Inputs)
 
         output.WriteLine("using System;");
         output.WriteLine("using System.ComponentModel;");
-        foreach (var ns in root.Elements("using"))
+        foreach (var ns in root.Elements(XName.Get("using", xmlns)))
             output.WriteLine($"using {ns.Value};");
         output.WriteLine();
 
         output.WriteLine($"namespace {root.Attribute("namespace").Value}");
         output.WriteLine("{");
 
-        foreach (var c in root.Elements("class"))
+        foreach (var c in root.Elements(XName.Get("class", xmlns)))
         {
             string thisClass = c.Attribute("name").Value;
             output.WriteLine($"    partial class {thisClass}");
             output.WriteLine("    {");
-            foreach (var p in c.Elements("property"))
+            foreach (var p in c.Elements(XName.Get("property", xmlns)))
             {
                 output.WriteLine();
                 string propName = p.Attribute("name").Value;

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Generator"
+    targetNamespace="http://schemas.heavenlywind.cc/xsd/game_model_generator"
+    elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="classTemplate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="using" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
+        <xs:element name="class" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="property">
+                  <xs:complexType>
+                    <xs:attribute name="type" type="xs:string" use="required" />
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                    <xs:attribute name="autoFill" type="xs:boolean" use="optional" default="false" />
+                    <xs:attribute name="set" type="xs:string" use="optional" />
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="snapshot">
+                  <xs:complexType>
+                    <xs:attribute name="type" type="xs:string" use="required" />
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="localizable">
+                  <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                    <xs:attribute name="category" type="xs:string" use="required" />
+                  </xs:complexType>
+                </xs:element>
+              </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="id" type="xs:string" use="required" />
+            <xs:attribute name="raw" type="xs:string" use="required" />
+            <xs:attribute name="owner" type="xs:string" use="required" />
+            <xs:attribute name="impl" type="xs:string" use="optional" />
+            <xs:attribute name="noToString" type="xs:boolean" use="optional" default="false" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="namespace" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

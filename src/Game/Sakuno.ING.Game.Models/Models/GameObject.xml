@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<classTemplate namespace="Sakuno.ING.Game.Models">
+<classTemplate xmlns="http://schemas.heavenlywind.cc/xsd/game_model_generator"
+               namespace="Sakuno.ING.Game.Models">
   <using>Sakuno.ING.Game.Models.MasterData</using>
   <class name="Equipment" id="EquipmentId" raw="RawEquipment" owner="NavalBase">
     <property type="EquipmentInfo" name="Info" />
