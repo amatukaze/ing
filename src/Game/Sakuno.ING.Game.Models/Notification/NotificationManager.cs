@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Notification;
@@ -10,13 +11,14 @@ namespace Sakuno.ING.Game.Notification
     public sealed class NotificationManager
     {
         public ISettingItem<string> Notifier { get; }
-        public IBindableCollection<string> AvailableNotifiers { get; }
+        public IReadOnlyCollection<string> AvailableNotifiers { get; }
         public INotifier SelectedNotifier { get; private set; }
         private readonly INotifier[] notifiers;
 
         public NotificationManager(INotifier[] notifiers, ISettingsManager settings, NavalBase navalBase)
         {
             this.notifiers = notifiers.Where(x => x.IsSupported).ToArray();
+            AvailableNotifiers = this.notifiers.Select(x => x.Id).ToArray();
             Notifier = settings.Register<string>("notification.notifier");
             Notifier.ValueChanged += SetNotifier;
             SetNotifier(Notifier.Value);
