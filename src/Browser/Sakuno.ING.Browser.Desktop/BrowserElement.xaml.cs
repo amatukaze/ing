@@ -54,7 +54,7 @@ namespace Sakuno.ING.Browser.Desktop
             var transform = new ScaleTransform(scale, scale);
             transform.Freeze();
             ActualContent.LayoutTransform = transform;
-            _browser?.ScaleTo(3);
+            _browser?.ScaleTo(layoutSetting.BrowserScale.Value);
         }
 
         private void OnApplicationExit(object sender, ExitEventArgs e)

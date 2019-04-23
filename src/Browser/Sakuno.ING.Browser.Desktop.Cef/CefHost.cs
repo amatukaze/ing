@@ -8,7 +8,6 @@ namespace Sakuno.ING.Browser.Desktop.Cef
     internal class CefHost : CefWebBrowser, IBrowser
     {
         private double scale = 1;
-        private DpiScale dpi;
 
         bool IBrowser.CanRefresh => IsBrowserInitialized;
 
@@ -27,8 +26,10 @@ namespace Sakuno.ING.Browser.Desktop.Cef
 
         private void UpdateScale()
         {
-            if (IsBrowserInitialized)
-                GetBrowser().GetHost().SetZoomLevel((scale - 1) * dpi.DpiScaleX / 0.25);
+            if (!IsBrowserInitialized)
+                return;
+
+            GetBrowser().GetHost().SetZoomLevel(Math.Log(scale, 1.2));
         }
 
         public CefHost()
@@ -38,14 +39,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
             MenuHandler = new ContextMenuHandler();
             KeyboardHandler = new KeyboardHandler();
 
-            dpi = VisualTreeHelper.GetDpi(this);
             FrameLoadStart += (s, e) => UpdateScale();
-        }
-
-        protected override void OnDpiChanged(DpiScale oldDpi, DpiScale newDpi)
-        {
-            dpi = newDpi;
-            UpdateScale();
         }
     }
 }
