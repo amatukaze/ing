@@ -47,7 +47,6 @@
             <TextBox Text="{Binding Address, Mode=TwoWay}" />
         </DockPanel>
 
-        <ContentPresenter x:Name="ActualContent" Grid.Row="1"
-                          Width="1200" Height="720" />
+        <ContentPresenter x:Name="ActualContent" Grid.Row="1" />
     </Grid>
 </UserControl>

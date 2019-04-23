@@ -12,7 +12,6 @@ namespace Sakuno.ING.Browser.Desktop
         private readonly IBrowserProvider _browserProvider;
         private readonly IBrowser _browser;
         private readonly LayoutSetting layoutSetting;
-        private DpiScale dpi;
 
         public BrowserElement(BrowserSelector selector, LayoutSetting layoutSetting)
         {
@@ -31,29 +30,23 @@ namespace Sakuno.ING.Browser.Desktop
 
                 layoutSetting.LayoutScale.ValueChanged += _ => UpdateScale();
                 layoutSetting.BrowserScale.ValueChanged += _ => UpdateScale();
-                Loaded += (s, e) =>
-                {
-                    dpi = VisualTreeHelper.GetDpi(this);
-                    UpdateScale();
-                };
+                Loaded += (s, e) => UpdateScale();
 
                 this.layoutSetting = layoutSetting;
             }
             Application.Current.Exit += OnApplicationExit;
         }
 
-        protected override void OnDpiChanged(DpiScale oldDpi, DpiScale newDpi)
-        {
-            base.OnDpiChanged(oldDpi, newDpi);
-            dpi = newDpi;
-        }
-
         private void UpdateScale()
         {
-            double scale = layoutSetting.BrowserScale.Value / (layoutSetting.LayoutScale.Value * dpi.DpiScaleX);
+            const int GameWidth = 1200;
+            const int GameHeight = 720;
+            double scale = 1 / layoutSetting.LayoutScale.Value;
             var transform = new ScaleTransform(scale, scale);
             transform.Freeze();
             ActualContent.LayoutTransform = transform;
+            ActualContent.Width = GameWidth * layoutSetting.BrowserScale.Value;
+            ActualContent.Height = GameHeight * layoutSetting.BrowserScale.Value;
             _browser?.ScaleTo(layoutSetting.BrowserScale.Value);
         }
 
