@@ -35,7 +35,7 @@ namespace Sakuno.ING.Shell.Desktop
                 {
                     var AUMID_KEY = new PROPERTYKEY(new Guid("9F4C2855-9F79-4B39-A8D0-E1D42DE1D5F3"), 5);
 
-                    newShortcutProperties.SetValue(ref AUMID_KEY, appId);
+                    newShortcutProperties.SetValue(AUMID_KEY, appId);
                     newShortcutProperties.Commit();
                 }
 

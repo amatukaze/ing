@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
-    <PackageReference Include="Sakuno.UserInterface" Version="0.3.0-pre7" />
+    <PackageReference Include="Sakuno.UserInterface" Version="0.3.0-pre8" />
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="5.1.1" />
   </ItemGroup>
 
