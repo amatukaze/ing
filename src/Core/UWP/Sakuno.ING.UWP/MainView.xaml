@@ -17,6 +17,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="16"
@@ -24,8 +25,11 @@
                        x:Uid="AppTitle" />
             <Rectangle Fill="Transparent"
                        x:Name="DraggableTitle" />
+            <Slider Grid.Column="1" Margin="20, 0"
+                    Minimum="0.25" Maximum="4.00" StepFrequency="0.05"
+                    Value="{x:Bind LayoutSetting.LayoutScale.Value, Mode=TwoWay}" />
             <sh:ViewSwitcher HorizontalAlignment="Right"
-                             Grid.Column="1"
+                             Grid.Column="2"
                              Margin="0, 0, 180, 0"
                              Style="{ThemeResource ButtonRevealStyle}"
                              ViewId="Settings">

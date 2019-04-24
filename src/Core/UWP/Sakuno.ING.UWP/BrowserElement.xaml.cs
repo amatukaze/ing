@@ -11,11 +11,12 @@ namespace Sakuno.ING.UWP
     internal sealed partial class BrowserElement : UserControl
     {
         public readonly WebView WebView;
-        private readonly LayoutSetting layoutSetting;
+        private readonly LayoutSetting LayoutSetting;
+        private const double browserWidth = 1200, browserHeight = 720;
 
         public BrowserElement(UWPHttpProviderSelector selector, LayoutSetting layoutSetting)
         {
-            this.layoutSetting = layoutSetting;
+            this.LayoutSetting = layoutSetting;
             this.InitializeComponent();
 
             if (selector.Settings.Debug.InitialValue)
@@ -35,8 +36,11 @@ namespace Sakuno.ING.UWP
 
         private void UpdateBrowserScale()
         {
-            float scale = layoutSetting.BrowserScale.Value / layoutSetting.LayoutScale.Value;
+            float scale = LayoutSetting.BrowserScale.Value / LayoutSetting.LayoutScale.Value;
             Transformer.Transform = new ScaleTransform { ScaleX = scale, ScaleY = scale };
+            Transformer.Width = browserWidth * scale;
+            Transformer.Height = browserHeight * scale;
+            this.Width = browserWidth * scale;
         }
     }
 }

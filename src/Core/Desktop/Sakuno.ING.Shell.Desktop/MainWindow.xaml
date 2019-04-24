@@ -5,8 +5,9 @@
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                  xmlns:uic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
+                  xmlns:s="clr-namespace:Sakuno.ING.Settings;assembly=Sakuno.ING.Settings.Common"
                   xmlns:sh="clr-namespace:Sakuno.ING.Shell.Layout"
+                  xmlns:uic="clr-namespace:Sakuno.UserInterface.Controls;assembly=Sakuno.UserInterface"
                   mc:Ignorable="d"
                   Title="{c:Localize Application/Title}"
                   HideDefaultTitleBar="True"
@@ -21,6 +22,11 @@
         <DockPanel Name="DefaultTitleBar">
             <uic:WindowCaptionButtons DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" />
             <sh:ViewSwitcher Content="⚙" ViewId="Settings" DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True" />
+            <Slider DockPanel.Dock="Right" WindowChrome.IsHitTestVisibleInChrome="True"
+                    Margin="20, 0" Width="150"
+                    Minimum="0.25" Maximum="4.00" TickFrequency="0.05" IsSnapToTickEnabled="True"
+                    DataContext="{c:Resolve {x:Type s:LayoutSetting}}" Value="{Binding LayoutScale.Value}"
+                    ToolTip="{Binding Value, RelativeSource={RelativeSource Self}}" />
             <TextBlock Text="{c:Localize Application/Title}" Margin="8, 0" VerticalAlignment="Center" />
         </DockPanel>
         <ContentPresenter Grid.Row="1" x:Name="mainContent" LayoutTransform="{DynamicResource LayoutScale}" />
