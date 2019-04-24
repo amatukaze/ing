@@ -3,6 +3,7 @@
 
   <PropertyGroup Label="BasePath">
     <BasePath>$(MSBuildThisFileDirectory)</BasePath>
+    <MinimumVisualStudioVersion>16.0</MinimumVisualStudioVersion>
   </PropertyGroup>
 
   <PropertyGroup>
