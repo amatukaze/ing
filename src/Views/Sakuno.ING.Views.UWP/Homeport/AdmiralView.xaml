@@ -33,11 +33,11 @@
         </StackPanel>
         <TextBlock Grid.Row="1" FontSize="16" x:Uid="/Resources/ShipsCount" />
         <TextBlock Grid.Row="1" Grid.Column="1" FontSize="12">
-            <Run Text="{x:Bind ViewModel.AllShips.Count}" FontSize="16" /><Run Text=" / " /><Run Text="{x:Bind ViewModel.Admiral.MaxShipCount}" />
+            <Run Text="{x:Bind ViewModel.AllShips.Count}" FontSize="16" /><Run Text=" / " /><Run Text="{x:Bind ViewModel.Admiral.MaxShipCount, FallbackValue='0'}" />
         </TextBlock>
         <TextBlock Grid.Row="2" FontSize="16" x:Uid="/Resources/EquipmentCount" />
         <TextBlock Grid.Row="2" Grid.Column="1" FontSize="12">
-            <Run Text="{x:Bind ViewModel.AllEquipment.Count}" FontSize="16" /><Run Text=" / " /><Run Text="{x:Bind ViewModel.Admiral.MaxEquipmentCount}" />
+            <Run Text="{x:Bind ViewModel.AllEquipment.Count}" FontSize="16" /><Run Text=" / " /><Run Text="{x:Bind ViewModel.Admiral.MaxEquipmentCount, FallbackValue='0'}" />
         </TextBlock>
         <con:UseItemPresenter Grid.Row="1" Grid.Column="2" Id="Fuel" Amount="{x:Bind ViewModel.Materials.Fuel}" />
         <con:UseItemPresenter Grid.Row="2" Grid.Column="2" Id="Bullet" Amount="{x:Bind ViewModel.Materials.Bullet}" />
