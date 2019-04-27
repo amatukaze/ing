@@ -36,11 +36,17 @@
                 <SymbolIcon Symbol="Refresh" />
             </Button>
             <Button tk:DockPanel.Dock="Right"
+                    Click="GoHome"
                     IsEnabled="{x:Bind c:Helpers.IsNotNull(WebView)}">
                 <SymbolIcon Symbol="Home" />
             </Button>
+            <Button tk:DockPanel.Dock="Right"
+                    Click="Goto"
+                    IsEnabled="{x:Bind c:Helpers.IsNotNull(WebView)}">
+                <SymbolIcon Symbol="Go" />
+            </Button>
             <TextBox HorizontalAlignment="Stretch"
-                     Text="{x:Bind WebView.Source}" />
+                     x:Name="AddressBox" />
         </tk:DockPanel>
         <tk:LayoutTransformControl
             x:Name="Transformer"

@@ -12,10 +12,12 @@ namespace Sakuno.ING.UWP
     {
         public readonly WebView WebView;
         private readonly LayoutSetting LayoutSetting;
+        private readonly Uri defaultUrl;
         private const double browserWidth = 1200, browserHeight = 720;
 
         public BrowserElement(UWPHttpProviderSelector selector, LayoutSetting layoutSetting)
         {
+            defaultUrl = new Uri(selector.Settings.DefaultUrl.Value);
             this.LayoutSetting = layoutSetting;
             this.InitializeComponent();
 
@@ -26,12 +28,24 @@ namespace Sakuno.ING.UWP
             else
             {
                 Transformer.Child = WebView = new WebView(WebViewExecutionMode.SeparateThread);
-                WebView.Navigate(new Uri(selector.Settings.DefaultUrl.Value));
+                WebView.NavigationStarting += (s, e) => AddressBox.Text = e.Uri.ToString();
+                WebView.WebResourceRequested += ((EdgeHttpProvider)selector.Current).WebResourceRequested;
+                WebView.Navigate(defaultUrl);
 
                 layoutSetting.LayoutScale.ValueChanged += _ => UpdateBrowserScale();
                 layoutSetting.BrowserScale.ValueChanged += _ => UpdateBrowserScale();
                 UpdateBrowserScale();
             }
+        }
+
+        private void Goto(object sender, RoutedEventArgs e)
+        {
+            WebView.Navigate(new Uri(AddressBox.Text));
+        }
+
+        private void GoHome(object sender, RoutedEventArgs e)
+        {
+            WebView.Navigate(defaultUrl);
         }
 
         private void UpdateBrowserScale()
