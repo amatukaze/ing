@@ -21,7 +21,7 @@ namespace Sakuno.ING.Views.UWP.ApiDebug
         public ApiDebugView(GameProvider provider)
         {
             this.InitializeComponent();
-            provider.RegisterAny().Received +=
+            provider.AnyRequested +=
                 async (timeStamp, obj) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     Sessions.Add(new Message

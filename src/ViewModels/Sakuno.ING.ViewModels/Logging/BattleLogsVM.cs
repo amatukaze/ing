@@ -45,16 +45,20 @@ namespace Sakuno.ING.ViewModels.Logging
             if (!HasBattleDetail) return;
             if (Detail is null)
             {
-                var battle = new Battle
-                (
-                    entity.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
-                    entity.SortieFleet2State?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
-                    entity.CombinedFleetType,
-                    entity.BattleKind
-                );
-                TryAppend(battle, entity.FirstBattleDetail);
-                TryAppend(battle, entity.SecondBattleDetail);
-                Detail = battle;
+                try
+                {
+                    var battle = new Battle
+                            (
+                                entity.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
+                                entity.SortieFleet2State?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
+                                entity.CombinedFleetType,
+                                entity.BattleKind
+                            );
+                    TryAppend(battle, entity.FirstBattleDetail);
+                    TryAppend(battle, entity.SecondBattleDetail);
+                    Detail = battle;
+                }
+                catch { }
             }
             owner.shell.ShowViewWithParameter("BattleLogDetail", this);
         }
