@@ -26,7 +26,7 @@
         <StackPanel Orientation="Horizontal"
                     Visibility="{x:Bind Manager.CurrentRouting, Converter={StaticResource NullToVisibilityConverter}}">
             <TextBlock FontSize="18">
-                <Run x:Uid="/Resources/Combat_SortieAera" />:
+                <Run x:Uid="/Resources/Combat_SortieArea" />:
                 <Run Text="{x:Bind Manager.CurrentRouting.Map.Id.AreaId, FallbackValue=''}" />-<Run Text="{x:Bind Manager.CurrentRouting.Map.Id.CategoryNo, FallbackValue=''}" />
             </TextBlock>
             <TextBlock FontSize="18" Style="{StaticResource TranslatableTextStyle}">
@@ -38,7 +38,7 @@
                     Orientation="Horizontal"
                     Visibility="{x:Bind Manager.CurrentRouting, Converter={StaticResource NullToVisibilityConverter}}">
             <TextBlock FontSize="18">
-                <Run x:Uid="/Resources/RouteId" />:
+                <Run x:Uid="/Resources/Combat_RouteId" />:
                 <Run Text="{x:Bind Manager.CurrentRouting.RouteId, FallbackValue=''}" />
                 <Run Text="  " />
                 <Run Text="{x:Bind c:Helpers.FormatMapEvent(Manager.CurrentRouting.EventKind), FallbackValue=''}" />

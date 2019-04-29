@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Sakuno.ING.Localization;
 
 namespace Sakuno.ING.Game.Models
@@ -21,7 +20,7 @@ namespace Sakuno.ING.Game.Models
             Localization = localization;
 
             _allQuests = new IdTable<QuestId, Quest, RawQuest, QuestManager>(this);
-            _activeQuests = new OrderedSnapshotCollection<Quest>(_allQuests.Where(x => x.State != QuestState.Inactive));
+            _activeQuests = new OrderedSnapshotCollection<Quest>(_allQuests, x => x.State != QuestState.Inactive);
             listener.QuestUpdated += (t, msg) =>
             {
                 UpdationTime = t;

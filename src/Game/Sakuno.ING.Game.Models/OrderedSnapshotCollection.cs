@@ -8,22 +8,22 @@ using System.Threading;
 
 namespace Sakuno.ING.Game
 {
-    public class OrderedSnapshotCollection<T> : IBindableCollection<T>
+    internal class OrderedSnapshotCollection<T> : IBindableCollection<T>
         where T : IComparable<T>
     {
         private List<T> snapshot;
-        private readonly IEnumerable<T> source;
-        public OrderedSnapshotCollection(IEnumerable<T> source)
+        private readonly IEnumerable<T> query;
+        public OrderedSnapshotCollection(IEnumerable<T> source, Func<T, bool> filter)
         {
-            this.source = source;
-            snapshot = source.ToList();
+            query = source.Where(filter);
+            snapshot = query.ToList();
             if (source is IUpdationSource updation)
                 updation.Updated += Update;
         }
 
         public void Update()
         {
-            var @new = source.ToList();
+            var @new = query.ToList();
             var args = new List<NotifyCollectionChangedEventArgs>();
 
             int i = 0, j = 0, offset = 0;

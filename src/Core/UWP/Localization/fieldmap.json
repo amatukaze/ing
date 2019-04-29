@@ -65,7 +65,7 @@
   "Combat_AbyssalClass_LateModel.Text": "GameModel/AbyssalClass_LateModel",
   "Combat_FightedPlane.Text": "Combat/FightedPlane",
   "Combat_ShootedPlane.Text": "Combat/ShootedPlane",
-  "Combat_SortieAera.Text": "Combat/Sortie_SortieArea",
+  "Combat_SortieArea.Text": "Combat/Sortie_SortieArea",
   "Combat_RouteId.Text": "Combat/Sortie_RouteId",
   "Combat_CurrentBattleDetail.Content": "GameModel/Details",
   "MainPivot_Overview.Header": "ViewTitle/Page_Overview",

@@ -223,7 +223,7 @@
     "BattleKind_7": "Combined night battle",
     "BattleKind_8": "Radar raid",
     "SelectableRoute": "Selectable Route",
-    "Sortie_SortieAera": "In sortie",
+    "Sortie_SortieArea": "In sortie",
     "Sortie_RouteId": "Position"
   }
 }

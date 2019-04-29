@@ -26,7 +26,7 @@
                     DataContext="{Binding BattleManager.CurrentRouting.Map}"
                     Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}">
             <TextBlock FontSize="18" DataContext="{Binding Id}">
-                <Run Text="Sortie" />:
+                <Run Text="{c:Localize Combat/Sortie_SortieArea}" />:
                 <Run Text="{Binding AreaId, Mode=OneTime}" />-<Run Text="{Binding CategoryNo, Mode=OneTime}" />
             </TextBlock>
             <TextBlock FontSize="18" DataContext="{Binding Info}">
@@ -39,7 +39,7 @@
                     DataContext="{Binding BattleManager.CurrentRouting}"
                     Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}">
             <TextBlock FontSize="18">
-                <Run Text="Route" />:
+                <Run Text="{c:Localize Combat/Sortie_RouteId}" />:
                 <Run Text="{Binding RouteId, Mode=OneWay}" />
                 <Run Text="  " />
                 <c:EnumText Source="{Binding EventKind}" />

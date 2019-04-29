@@ -219,7 +219,7 @@
     "BattleKind_7": "連合艦隊夜戦",
     "BattleKind_8": "敵レーダー射撃",
     "SelectableRoute": "能動分岐",
-    "Sortie_SortieAera": "出撃海域",
+    "Sortie_SortieArea": "出撃海域",
     "Sortie_RouteId": "マス"
   }
 }

@@ -2,7 +2,8 @@
     x:Class="Sakuno.ING.Views.UWP.Themes.MoraleIndicatorTheme"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Sakuno.ING.Views.UWP.Controls">
+    xmlns:local="using:Sakuno.ING.Views.UWP.Controls"
+    x:DefaultBindMode="OneWay">
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
             <SolidColorBrush x:Key="MoraleIndicatorBrush_Full" Color="#B0B000" />

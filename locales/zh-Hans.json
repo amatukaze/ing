@@ -223,7 +223,7 @@
     "BattleKind_7": "联合舰队夜战",
     "BattleKind_8": "敌雷达射击",
     "SelectableRoute": "能动分歧",
-    "Sortie_SortieAera": "出击海域",
+    "Sortie_SortieArea": "出击海域",
     "Sortie_RouteId": "位置"
   }
 }
