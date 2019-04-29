@@ -27,7 +27,7 @@
                                 CornerRadius="0.5">
                             <Grid>
                                 <Rectangle Name="PART_Track" />
-                                <Rectangle Name="PART_Indicator" Fill="{TemplateBinding Foreground}" />
+                                <Rectangle Name="PART_Indicator" HorizontalAlignment="Left" Fill="{TemplateBinding Foreground}" />
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -127,7 +127,7 @@
                                             <ColumnDefinition Width="Auto" SharedSizeGroup="ShipName" />
                                             <ColumnDefinition Width="Auto" SharedSizeGroup="Leveling" />
                                             <ColumnDefinition Width="Auto" SharedSizeGroup="HP" />
-                                            <ColumnDefinition Width="Auto" SharedSizeGroup="Morale" />
+                                            <ColumnDefinition Width="40" SharedSizeGroup="Morale" />
                                             <ColumnDefinition Width="Auto" SharedSizeGroup="Consumption" />
                                             <ColumnDefinition Width="Auto" SharedSizeGroup="Slots" />
                                             <ColumnDefinition Width="Auto" SharedSizeGroup="Seperator" />

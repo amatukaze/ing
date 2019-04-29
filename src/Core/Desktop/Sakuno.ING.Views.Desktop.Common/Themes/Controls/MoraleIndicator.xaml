@@ -12,7 +12,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:MoraleIndicator">
-                    <TextBlock Text="{Binding Morale, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                    <TextBlock Text="{Binding Morale, RelativeSource={RelativeSource Mode=TemplatedParent}}" TextAlignment="Center" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

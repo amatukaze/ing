@@ -106,7 +106,7 @@
                                             <ColumnDefinition Width="100" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="40" />
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="250" />
                                             <ColumnDefinition Width="Auto" />

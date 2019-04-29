@@ -25,7 +25,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:MoraleIndicator">
-                    <TextBlock x:Name="PART_Text" Text="{x:Bind Morale}">
+                    <TextBlock x:Name="PART_Text" Text="{x:Bind Morale}" HorizontalAlignment="Center">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="State">
                                 <VisualState x:Name="Full">
