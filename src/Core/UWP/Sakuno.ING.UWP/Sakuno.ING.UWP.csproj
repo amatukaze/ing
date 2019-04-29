@@ -13,18 +13,12 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxPackageDir>$(BasePath)artifacts\AppxPackages\</AppxPackageDir>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-  </PropertyGroup>
-  <PropertyGroup Condition="Exists('Sakuno.ING.UWP_StoreKey.pfx')">
-    <PackageCertificateKeyFile>Sakuno.ING.UWP_StoreKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>57A6D0EDE0DCEAFA90551A9AD019CF770C059B57</PackageCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup Condition="!Exists('Sakuno.ING.UWP_StoreKey.pfx')">
     <PackageCertificateKeyFile>Sakuno.ING.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>8864F28EB36CDC08E22BCB96E7ABEA27C6AE65F7</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>620FF4DD84B1677A0CAE1550FBF0EFABE73ECD7A</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <NoWarn>;2008</NoWarn>
@@ -92,8 +86,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Sakuno.ING.UWP_StoreKey.pfx" />
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
@@ -140,7 +132,6 @@
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-    <None Include="Sakuno.ING.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -159,6 +150,7 @@
     <None Include="..\Localization\fieldmap.json">
       <Link>Strings\fieldmap.json</Link>
     </None>
+    <None Include="Sakuno.ING.UWP_TemporaryKey.pfx" />
     <PRIResource Include="..\Localization\resw\**\*.resw">
       <Link>Strings\%(RecursiveDir)%(Filename)</Link>
     </PRIResource>
