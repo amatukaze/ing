@@ -88,7 +88,9 @@ namespace Sakuno.ING.UWP
 
             Information<LocaleSettingView>.Factory = () => new LocaleSettingView(localeSetting);
             Information<ProxySettingView>.Factory = () => new ProxySettingView(proxySetting);
+#if DEBUG
             Information<DebugSettingView>.Factory = () => new DebugSettingView(selector);
+#endif
             Information<NotificationSettingView>.Factory = () => new NotificationSettingView(notificationManager);
         }
 
@@ -115,15 +117,19 @@ namespace Sakuno.ING.UWP
         {
             [typeof(LocaleSettingView)] = SettingCategory.Appearance,
             [typeof(ProxySettingView)] = SettingCategory.Network,
+#if DEBUG
             [typeof(DebugSettingView)] = SettingCategory.Browser,
-            [typeof(NotificationSettingView)]=SettingCategory.Notification
+#endif
+            [typeof(NotificationSettingView)] = SettingCategory.Notification
         };
 
         public override IEnumerable<Type> GetSettingViewsForCategory(SettingCategory category) => category switch
         {
             SettingCategory.Appearance => new[] { typeof(LocaleSettingView) },
             SettingCategory.Network => new[] { typeof(ProxySettingView) },
+#if DEBUG
             SettingCategory.Browser => new[] { typeof(DebugSettingView) },
+#endif
             SettingCategory.Notification => new[] { typeof(NotificationSettingView) },
             _ => Array.Empty<Type>()
         };
@@ -160,8 +166,10 @@ namespace Sakuno.ING.UWP
                 return Information<LocaleSettingView>.Factory();
             else if (type == typeof(ProxySettingView))
                 return Information<ProxySettingView>.Factory();
+#if DEBUG
             else if (type == typeof(DebugSettingView))
                 return Information<DebugSettingView>.Factory();
+#endif
             else if (type == typeof(NotificationSettingView))
                 return Information<NotificationSettingView>.Factory();
             else if (type == typeof(ActiveQuestsView))

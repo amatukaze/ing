@@ -9,19 +9,9 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{c:Resolve {x:Type local:BrowserSelector}}"
              d:DataContext="{d:DesignInstance local:BrowserSelector}">
-    <UserControl.Resources>
-        <c:VisibilityConverter x:Key="VisibilityConverter" />
-    </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <TextBlock Text="Browser engine" />
         <ComboBox ItemsSource="{Binding AvailableBrowsers, Mode=OneTime}"
                   SelectedValue="{Binding Settings.BrowserEngine.Value, Mode=TwoWay}" />
-        <CheckBox IsChecked="{Binding Settings.Debug.Value, Mode=TwoWay}"
-                  Content="Load debug data" />
-        <c:InvokeMethodButton Visibility="{Binding Settings.Debug.InitialValue, Mode=OneTime, Converter={StaticResource VisibilityConverter}}"
-                              Content="Next Debug Data"
-                              HorizontalAlignment="Left"
-                              DataContext="{Binding Current, Mode=OneTime}"
-                              MethodName="Send" />
     </StackPanel>
 </UserControl>
