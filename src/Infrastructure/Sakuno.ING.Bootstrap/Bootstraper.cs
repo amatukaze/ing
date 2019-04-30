@@ -33,6 +33,11 @@ namespace Sakuno.ING.Bootstrap
 
         public static void Initialize(string[] commandLine, IEnumerable<PackageStartupInfo> packages, IPackageStorage storage)
         {
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
+                System.IO.File.WriteAllText($@"log\exceptions\{DateTime.Now.ToString("yyyyMMddHHmmss")}.txt", e.ExceptionObject.ToString());
+            };
+
             if (IsInitialized)
                 throw new InvalidOperationException("Bootstrapper can only be initialized once.");
             IsInitialized = true;
