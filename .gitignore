@@ -289,3 +289,4 @@ __pycache__/
 
 # ING Custom
 intermediate
+/src/Core/UWP/Sakuno.ING.UWP/App.Secret.cs

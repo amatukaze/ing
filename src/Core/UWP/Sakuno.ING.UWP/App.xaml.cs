@@ -1,4 +1,6 @@
-﻿using Sakuno.ING.Shell;
+﻿using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Sakuno.ING.Shell;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -13,6 +15,7 @@ namespace Sakuno.ING.UWP
 
         public App()
         {
+            TryStartAppCenter();
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
@@ -35,6 +38,12 @@ namespace Sakuno.ING.UWP
         {
             //var deferral = e.SuspendingOperation.GetDeferral();
             //deferral.Complete();
+        }
+
+        partial void TryStartAppCenter();
+        private void StartAppCenter(string appSecret)
+        {
+            AppCenter.Start(appSecret, typeof(Analytics));
         }
     }
 }
