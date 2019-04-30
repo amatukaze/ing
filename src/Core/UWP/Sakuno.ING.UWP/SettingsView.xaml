@@ -1,17 +1,19 @@
 ﻿<Page
     x:Class="Sakuno.ING.UWP.SettingsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:sh="using:Sakuno.ING.Shell"
+    xmlns:local="using:Sakuno.ING.UWP"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlChromeMediumLowAcrylicWindowMediumBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock FontSize="16"
                    Margin="20, 4, 0, 4"
@@ -37,5 +39,6 @@
                 </Pivot.ItemTemplate>
             </Pivot>
         </tk:LayoutTransformControl>
+        <local:UsageHintView Grid.Row="2" HorizontalAlignment="Left" />
     </Grid>
 </Page>

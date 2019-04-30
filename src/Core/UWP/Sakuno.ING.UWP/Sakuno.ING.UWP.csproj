@@ -79,6 +79,9 @@
       <DependentUpon>SubView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToastNotifier.cs" />
+    <Compile Include="UsageHintView.xaml.cs">
+      <DependentUpon>UsageHintView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UWPHttpProviderSelector.cs" />
     <Compile Include="UWPShellContext.cs" />
     <Compile Include="UWPShell.cs" />
@@ -184,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SubView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UsageHintView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
