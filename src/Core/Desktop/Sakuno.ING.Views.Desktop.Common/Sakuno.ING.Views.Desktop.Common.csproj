@@ -3,7 +3,7 @@
   <PropertyGroup>
     <UseWpf>true</UseWpf>
     <RootNamespace>Sakuno.ING.Views.Desktop</RootNamespace>
-    <Version>0.1.0-blueprint</Version>
+    <Version>1.0.0</Version>
     <Description>Common controls used by Intelligent Naval Gun</Description>
   </PropertyGroup>
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.1.0-blueprint</Version>
+    <Version>1.0.0</Version>
     <Description>Cef host for Intelligent Naval Gun</Description>
     <Platforms>x86;x64</Platforms>
   </PropertyGroup>
