@@ -63,6 +63,9 @@ namespace Sakuno.ING.Game
                         if (homeport.api_event_object?.api_m_flag2 == true)
                             EnemyDebuffConfirmed?.InvokeEach(t, default, HandlerError);
                         break;
+                    case "api_get_member/slot_item":
+                        AllEquipmentUpdated?.InvokeEach(t, Response<RawEquipment[]>(m), HandlerError);
+                        break;
                     case "api_get_member/basic":
                         AdmiralUpdated?.InvokeEach(t, Response<BasicAdmiral>(m), HandlerError);
                         break;
