@@ -204,6 +204,6 @@ namespace Sakuno.ING.Views.UWP
             : null;
 
         public static string FormatAerialPlanes(ClampedValue value)
-            => $"{value.Max}→{value.Current} (-{value.Shortage})";
+            => $"{value.Max}→{value.Shortage} (-{value.Current})";
     }
 }
