@@ -108,5 +108,6 @@ namespace Sakuno.ING.Browser.Desktop
         }
 
         public event Action BrowserExited;
+        public abstract bool LockGame { get; set; }
     }
 }

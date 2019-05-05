@@ -8,6 +8,7 @@ namespace Sakuno.ING.Browser.Desktop
         bool CanGoBack { get; }
         bool CanGoForward { get; }
         bool CanRefresh { get; }
+        bool LockGame { get; set; }
 
         void GoBack();
         void GoForward();

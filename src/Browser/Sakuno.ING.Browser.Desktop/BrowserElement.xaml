@@ -41,6 +41,9 @@
 
                 <TextBlock Text="➡️" />
             </Button>
+            <ToggleButton DockPanel.Dock="Right" IsChecked="True" Click="ToggleGameLock">
+                <TextBlock Text="🔳" />
+            </ToggleButton>
             <Button DockPanel.Dock="Right">
                 <TextBlock Text="🏠" />
             </Button>

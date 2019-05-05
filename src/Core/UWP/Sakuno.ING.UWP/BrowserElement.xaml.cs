@@ -13,7 +13,6 @@ namespace Sakuno.ING.UWP
         public readonly WebView WebView;
         private readonly LayoutSetting LayoutSetting;
         private readonly Uri defaultUrl;
-        private const double browserWidth = 1200, browserHeight = 720;
 
         public BrowserElement(UWPHttpProviderSelector selector, LayoutSetting layoutSetting)
         {
@@ -29,12 +28,31 @@ namespace Sakuno.ING.UWP
             {
                 Transformer.Child = WebView = new WebView(WebViewExecutionMode.SeparateThread);
                 WebView.NavigationStarting += (s, e) => AddressBox.Text = e.Uri.ToString();
+                WebView.NavigationCompleted += (s, e) =>
+                {
+                    if (LockGame)
+                        _ = s.InvokeScriptAsync("eval", new[] { BrowserSetting.StyleSheetSetJs });
+                };
                 WebView.WebResourceRequested += ((EdgeHttpProvider)selector.Current).WebResourceRequested;
                 WebView.Navigate(defaultUrl);
 
                 layoutSetting.LayoutScale.ValueChanged += _ => UpdateBrowserScale();
                 layoutSetting.BrowserScale.ValueChanged += _ => UpdateBrowserScale();
                 UpdateBrowserScale();
+            }
+        }
+
+        private bool _lockGame = true;
+        private bool LockGame
+        {
+            get => _lockGame;
+            set
+            {
+                if (_lockGame != value)
+                {
+                    _lockGame = value;
+                    _ = WebView.InvokeScriptAsync("eval", new[] { value ? BrowserSetting.StyleSheetSetJs : BrowserSetting.StyleSheetUnsetJs });
+                }
             }
         }
 
@@ -52,9 +70,9 @@ namespace Sakuno.ING.UWP
         {
             float scale = LayoutSetting.BrowserScale.Value / LayoutSetting.LayoutScale.Value;
             Transformer.Transform = new ScaleTransform { ScaleX = scale, ScaleY = scale };
-            Transformer.Width = browserWidth * scale;
-            Transformer.Height = browserHeight * scale;
-            this.Width = browserWidth * scale;
+            Transformer.Width = BrowserSetting.Width * scale;
+            Transformer.Height = BrowserSetting.Height * scale;
+            this.Width = BrowserSetting.Width * scale;
         }
     }
 }

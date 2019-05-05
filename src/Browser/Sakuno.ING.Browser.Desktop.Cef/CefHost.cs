@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Media;
 using Sakuno.CefSharp.Wpf;
+using Sakuno.ING.Settings;
 
 namespace Sakuno.ING.Browser.Desktop.Cef
 {
     internal class CefHost : CefWebBrowser, IBrowser
     {
         private double scale = 1;
-        //private DpiScale dpi;
 
         bool IBrowser.CanRefresh => IsBrowserInitialized;
+
 
         event Action IBrowser.BrowserExited
         {
@@ -38,14 +37,27 @@ namespace Sakuno.ING.Browser.Desktop.Cef
             MenuHandler = new ContextMenuHandler();
             KeyboardHandler = new KeyboardHandler();
 
-            //dpi = VisualTreeHelper.GetDpi(this);
-            FrameLoadStart += (s, e) => UpdateScale();
+            FrameLoadStart += (s, e) =>
+            {
+                UpdateScale();
+                if (LockGame && CanExecuteJavascriptInMainFrame)
+                    GetBrowser().MainFrame.ExecuteJavaScriptAsync(BrowserSetting.StyleSheetSetJs);
+            };
         }
 
-        //protected override void OnDpiChanged(DpiScale oldDpi, DpiScale newDpi)
-        //{
-        //    dpi = newDpi;
-        //    UpdateScale();
-        //}
+        private bool _lockGame;
+        public bool LockGame
+        {
+            get => _lockGame;
+            set
+            {
+                if (_lockGame != value)
+                {
+                    _lockGame = value;
+                    if (CanExecuteJavascriptInMainFrame)
+                        GetBrowser().MainFrame.ExecuteJavaScriptAsync(value ? BrowserSetting.StyleSheetSetJs : BrowserSetting.StyleSheetUnsetJs);
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using System.Windows.Controls.Primitives;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
 
@@ -12,8 +12,6 @@ namespace Sakuno.ING.Browser.Desktop
         private readonly IBrowserProvider _browserProvider;
         private readonly IBrowser _browser;
         private readonly LayoutSetting layoutSetting;
-        private const double browserWidth = 1200, browserHeight = 720;
-        //private DpiScale dpi;
 
         public BrowserElement(BrowserSelector selector, LayoutSetting layoutSetting)
         {
@@ -28,35 +26,32 @@ namespace Sakuno.ING.Browser.Desktop
             }
             else
             {
-                _browser?.Navigate(selector.Settings.DefaultUrl.Value);
+                _browser.LockGame = true;
+                _browser.Navigate(selector.Settings.DefaultUrl.Value);
 
                 layoutSetting.LayoutScale.ValueChanged += _ => UpdateScale();
                 layoutSetting.BrowserScale.ValueChanged += _ => UpdateScale();
-                Loaded += (s, e) =>
-                {
-                    //dpi = VisualTreeHelper.GetDpi(this);
-                    UpdateScale();
-                };
+                Loaded += (s, e) => UpdateScale();
 
                 this.layoutSetting = layoutSetting;
             }
             Application.Current.Exit += OnApplicationExit;
         }
 
-        //protected override void OnDpiChanged(DpiScale oldDpi, DpiScale newDpi)
-        //{
-        //    base.OnDpiChanged(oldDpi, newDpi);
-        //    dpi = newDpi;
-        //}
-
         private void UpdateScale()
         {
             double browserScale = layoutSetting.BrowserScale.Value;
             double sizeScale = browserScale / layoutSetting.LayoutScale.Value;
-            ActualContent.Width = browserWidth * sizeScale;
-            ActualContent.Height = browserHeight * sizeScale;
-            this.Width = browserWidth * sizeScale;
+            ActualContent.Width = BrowserSetting.Width * sizeScale;
+            ActualContent.Height = BrowserSetting.Height * sizeScale;
+            this.Width = BrowserSetting.Width * sizeScale;
             _browser?.ScaleTo(browserScale);
+        }
+
+        private void ToggleGameLock(object sender, RoutedEventArgs e)
+        {
+            if (_browser != null)
+                _browser.LockGame = ((ToggleButton)sender).IsChecked ?? false;
         }
 
         private void OnApplicationExit(object sender, ExitEventArgs e)
