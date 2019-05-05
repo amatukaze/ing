@@ -82,6 +82,7 @@ namespace Sakuno.ING.Game.Models
             AntiSubmarine = Substract(raw.AntiSubmarine, antiSubmarine);
 
             DoCalculations();
+            Fleet?.UpdateState();
         }
 
         private static ShipMordenizationStatus Combine(ShipMordenizationStatus current, ShipMordenizationStatus master)

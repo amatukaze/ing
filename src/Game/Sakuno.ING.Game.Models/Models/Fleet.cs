@@ -11,8 +11,16 @@ namespace Sakuno.ING.Game.Models
 
         partial void CreateCore()
         {
-            ships.ItemAdded += s => s.Fleet = this;
-            ships.ItemRemoved += s => s.Fleet = null;
+            ships.ItemAdded += s =>
+            {
+                s.Fleet = this;
+                UpdateState();
+            };
+            ships.ItemRemoved += s =>
+            {
+                s.Fleet = null;
+                UpdateState();
+            };
         }
 
         partial void UpdateCore(RawFleet raw, DateTimeOffset timeStamp)
