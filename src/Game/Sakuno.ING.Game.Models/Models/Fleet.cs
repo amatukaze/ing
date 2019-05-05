@@ -45,13 +45,18 @@ namespace Sakuno.ING.Game.Models
                         var oldIndex = fromFleet.ships.IndexOf(ship);
                         if (fromFleet == this)
                             ships.Exchange(i, oldIndex);
-                        else
+                        else if (i < ships.Count)
                         {
                             var oldShip = ships[i];
                             ships.RemoveAt(i);
                             fromFleet.ships.RemoveAt(oldIndex);
                             ships.Insert(i, oldShip);
                             fromFleet.ships.Insert(oldIndex, oldShip);
+                        }
+                        else
+                        {
+                            fromFleet.ships.Remove(ship);
+                            ships.Add(ship);
                         }
                     }
                     else if (i < ships.Count)
