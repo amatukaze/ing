@@ -35,6 +35,7 @@ namespace Sakuno.ING.Bootstrap
         {
             AppDomain.CurrentDomain.UnhandledException += (s, e) =>
             {
+                System.IO.Directory.CreateDirectory(@"log\exceptions");
                 System.IO.File.WriteAllText($@"log\exceptions\{DateTime.Now.ToString("yyyyMMddHHmmss")}.txt", e.ExceptionObject.ToString());
             };
 
