@@ -32,6 +32,7 @@
             if (raw.AntiAirFire != null)
                 AntiAirFire = new AntiAirFire(masterData, ally, raw.AntiAirFire);
             Ally = new AerialSide(masterData, raw.Ally, ally);
+            Enemy = new AerialSide(masterData, raw.Enemy, enemy);
         }
 
         public AirFightingResult? FightingResult { get; }
