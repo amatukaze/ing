@@ -120,10 +120,18 @@
                                         <Rectangle Grid.Row="1" Grid.ColumnSpan="9"
                                                    Height="1" Margin="2"
                                                    Fill="Gray" />
-                                        <TextBlock Grid.Column="0" Style="{StaticResource ShipNameTextStyle}">
-                                        <Run Text="{x:Bind c:Helpers.SelectShipName(Info.Name)}" FontSize="18" />
-                                        <LineBreak />
-                                        <Run Text="{x:Bind c:Helpers.SelectName(Info.Type.Name)}" FontSize="14" />
+                                        <Rectangle Name="ToolTipTarget" Width="0" HorizontalAlignment="Left" />
+                                        <TextBlock Grid.Column="0" Style="{StaticResource ShipNameTextStyle}" TextTrimming="CharacterEllipsis">
+                                            <Run Text="{x:Bind c:Helpers.SelectShipName(Info.Name)}" FontSize="18" />
+                                            <LineBreak />
+                                            <Run Text="{x:Bind c:Helpers.SelectName(Info.Type.Name)}" FontSize="14" />
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock Style="{StaticResource ShipNameTextStyle}">
+                                                    <Run Text="{x:Bind c:Helpers.SelectShipName(Info.Name)}" FontSize="18" />
+                                                    <LineBreak />
+                                                    <Run Text="{x:Bind c:Helpers.SelectName(Info.Type.Name)}" FontSize="14" />
+                                                </TextBlock>
+                                            </ToolTipService.ToolTip>
                                         </TextBlock>
                                         <con:LevelingIndicator Grid.Column="1"
                                                                Level="{x:Bind Leveling}"
@@ -153,7 +161,8 @@
                                             <ProgressBar Grid.Row="0" Grid.Column="1"
                                                          Value="{x:Bind Fuel.Current}"
                                                          Maximum="{x:Bind Fuel.Max}"
-                                                         Style="{StaticResource SupplyBarStyle}">
+                                                         Style="{StaticResource SupplyBarStyle}"
+                                                         ToolTipService.ToolTip="{x:Bind Fuel}">
                                                 <ProgressBar.Foreground>
                                                     <SolidColorBrush Color="{x:Bind local:FleetsView.SelectSupplyColor(Fuel)}" />
                                                 </ProgressBar.Foreground>
@@ -162,7 +171,8 @@
                                             <ProgressBar Grid.Row="1" Grid.Column="1"
                                                          Value="{x:Bind Bullet.Current}"
                                                          Maximum="{x:Bind Bullet.Max}"
-                                                         Style="{StaticResource SupplyBarStyle}">
+                                                         Style="{StaticResource SupplyBarStyle}"
+                                                         ToolTipService.ToolTip="{x:Bind Bullet}">
                                                 <ProgressBar.Foreground>
                                                     <SolidColorBrush Color="{x:Bind local:FleetsView.SelectSupplyColor(Bullet)}" />
                                                 </ProgressBar.Foreground>

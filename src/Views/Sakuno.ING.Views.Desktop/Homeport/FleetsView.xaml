@@ -141,10 +141,17 @@
                                         <Rectangle Grid.Row="1" Grid.ColumnSpan="9"
                                                    Height="1" Margin="2"
                                                    Fill="Gray" />
-                                        <TextBlock Grid.Column="0">
+                                        <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis">
                                             <c:ShipNameText Source="{Binding Info.Name}" FontSize="18" />
                                             <LineBreak />
                                             <c:NameText Source="{Binding Info.Type.Name}" FontSize="14" />
+                                            <TextBlock.ToolTip>
+                                                <TextBlock>
+                                                    <c:ShipNameText Source="{Binding Info.Name}" FontSize="18" />
+                                                    <LineBreak />
+                                                    <c:NameText Source="{Binding Info.Type.Name}" FontSize="14" />
+                                                </TextBlock>
+                                            </TextBlock.ToolTip>
                                         </TextBlock>
                                         <c:LevelingIndicator Grid.Column="1"
                                                              Level="{Binding Leveling}"
@@ -176,13 +183,15 @@
                                                          DataContext="{Binding Fuel}"
                                                          Maximum="{Binding Max, Mode=OneTime}"
                                                          Value="{Binding Current, Mode=OneTime}"
-                                                         Style="{StaticResource SupplyBarStyle}" />
+                                                         Style="{StaticResource SupplyBarStyle}"
+                                                         ToolTip="{Binding Fuel}" />
                                             <c:UseItemIcon Id="Bullet" Grid.Row="1" Margin="1" />
                                             <ProgressBar Grid.Row="1" Grid.Column="1"
                                                          DataContext="{Binding Bullet}"
                                                          Maximum="{Binding Max, Mode=OneTime}"
                                                          Value="{Binding Current, Mode=OneTime}"
-                                                         Style="{StaticResource SupplyBarStyle}" />
+                                                         Style="{StaticResource SupplyBarStyle}"
+                                                         ToolTip="{Binding Bullet}" />
                                         </Grid>
                                         <ItemsControl Grid.Column="5" ItemsSource="{Binding Slots}">
                                             <ItemsControl.ItemsPanel>

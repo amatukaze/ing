@@ -69,6 +69,8 @@ namespace Sakuno.ING.Views.Desktop.Controls
             {
                 PART_Level.Text = level.Level.ToString();
             }
+
+            ToolTip = $"{Level.Experience}/{Level.NextLevelExperience}\nNext. {Level.ExperienceRemaining}";
         }
     }
 }

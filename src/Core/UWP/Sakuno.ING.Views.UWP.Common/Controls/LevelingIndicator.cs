@@ -63,6 +63,8 @@ namespace Sakuno.ING.Views.UWP.Controls
 
             if (PART_Level != null)
                 PART_Level.Text = _level.Level.ToString();
+
+            ToolTipService.SetToolTip(this, $"{Level.Experience}/{Level.NextLevelExperience}\nNext. {Level.ExperienceRemaining}");
         }
     }
 }
