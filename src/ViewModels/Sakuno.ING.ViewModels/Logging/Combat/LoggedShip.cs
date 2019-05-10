@@ -19,13 +19,14 @@ namespace Sakuno.ING.ViewModels.Logging.Combat
             AntiSubmarine = e.AntiSubmarine;
             Fuel = e.Fuel ?? default;
             Bullet = e.Bullet ?? default;
-            Equipment = e.Slots?.Select(x => new Slot(masterData.EquipmentInfos[x.Id], x.Count, x.ImprovementLevel, x.AirProficiency)).ToBindable();
+            Slots = e.Slots?.Select(x => new ImplicitSlot(masterData.EquipmentInfos[x.Id], x.Count, x.ImprovementLevel, x.AirProficiency)).ToBindable();
             if (e.ExtraSlot.Id > 0)
-                ExtraEquipment = new Slot(masterData.EquipmentInfos[e.ExtraSlot.Id], e.ExtraSlot.Count, e.ExtraSlot.ImprovementLevel, e.ExtraSlot.AirProficiency);
+                ExtraSlot = new ImplicitSlot(masterData.EquipmentInfos[e.ExtraSlot.Id], e.ExtraSlot.Count, e.ExtraSlot.ImprovementLevel, e.ExtraSlot.AirProficiency);
 
             DoCalculations();
         }
 
-        public override IBindableCollection<Slot> Equipment { get; }
+        public override IBindableCollection<Slot> Slots { get; }
+        public override Slot ExtraSlot { get; }
     }
 }

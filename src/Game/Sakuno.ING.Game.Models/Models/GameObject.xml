@@ -2,7 +2,7 @@
 <classTemplate xmlns="http://schemas.heavenlywind.cc/xsd/game_model_generator"
                namespace="Sakuno.ING.Game.Models">
   <using>Sakuno.ING.Game.Models.MasterData</using>
-  <class name="Equipment" id="EquipmentId" raw="RawEquipment" owner="NavalBase">
+  <class name="Equipment" id="EquipmentId" raw="RawEquipment" owner="NavalBase" impl="HomeportEquipment">
     <property type="EquipmentInfo" name="Info" />
     <property type="bool" name="IsLocked" autoFill="true" />
     <property type="int" name="ImprovementLevel" autoFill="true" />
@@ -43,7 +43,6 @@
     <property type="ShipSpeed" name="Speed" autoFill="true" />
     <property type="FireRange" name="FireRange" autoFill="true" />
     <property type="int" name="SlotCount" />
-    <property type="Slot" name="ExtraEquipment" />
     <property type="ClampedValue" name="Fuel" />
     <property type="ClampedValue" name="Bullet" />
     <property type="TimeSpan" name="RepairingTime" autoFill="true" />

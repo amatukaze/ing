@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Sakuno.ING.Game.Events;
 
 namespace Sakuno.ING.Game.Models
@@ -20,19 +21,33 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _isRepairing, value);
         }
 
-        public HomeportSlot ExtraSlot
+        public override Slot ExtraSlot => ExtraHomeportSlot;
+        private HomeportSlot _extraHomeportSlot;
+        public HomeportSlot ExtraHomeportSlot
         {
-            get => (HomeportSlot)ExtraEquipment;
-            internal set
+            get => _extraHomeportSlot;
+            private set
             {
-                ExtraEquipment = value;
-                NotifyPropertyChanged();
+                if (_extraHomeportSlot != value)
+                {
+                    _extraHomeportSlot = value;
+                    using (EnterBatchNotifyScope())
+                    {
+                        NotifyPropertyChanged();
+                        NotifyPropertyChanged(nameof(ExtraSlot));
+                    }
+                }
             }
         }
 
-        private BindableCollection<HomeportSlot> slots = new BindableCollection<HomeportSlot>();
-        public override IBindableCollection<Slot> Equipment => slots;
-        public IBindableCollection<HomeportSlot> Slots => slots;
+        private readonly BindableCollection<HomeportSlot> slots = new BindableCollection<HomeportSlot>();
+        public override IBindableCollection<Slot> Slots => slots;
+        public IBindableCollection<HomeportSlot> HomeportSlots => slots;
+
+        internal IEnumerable<HomeportEquipment> AllEquipped => slots
+            .Append(ExtraHomeportSlot)
+            .Select(x => x?.HomeportEquipment)
+            .Where(x => x != null);
 
         partial void UpdateCore(RawShip raw, DateTimeOffset timeStamp)
         {
@@ -47,42 +62,53 @@ namespace Sakuno.ING.Game.Models
 
             SlotCount = Info.SlotCount;
             while (slots.Count < SlotCount)
-                slots.Add(new HomeportSlot());
+                slots.Add(new HomeportSlot(this, slots.Count));
             while (slots.Count > SlotCount)
+            {
+                // TODO: log fatal inconsistence
+                slots[slots.Count - 1].Destroy();
                 slots.RemoveAt(slots.Count - 1);
+            }
 
-            if (raw.ExtraSlotOpened)
-                ExtraSlot = new HomeportSlot
-                {
-                    Equipment = owner.AllEquipment[raw.ExtraSlotEquipId]
-                };
-            else
-                ExtraSlot = null;
+            if (raw.ExtraSlotOpened && ExtraHomeportSlot == null)
+                ExtraHomeportSlot = new HomeportSlot(this, -1);
+            else if (!raw.ExtraSlotOpened && ExtraHomeportSlot != null)
+            {
+                // TODO: log fatal inconsistence
+                ExtraHomeportSlot?.Destroy();
+                ExtraHomeportSlot = null;
+            }
 
-            UpdateEquipmentsCore(raw.EquipmentIds);
-            UpdateSlotAircraftCore(raw.SlotAircraft);
+            if (ExtraHomeportSlot != null)
+            {
+                ExtraHomeportSlot.HomeportEquipment = owner.AllEquipment[raw.ExtraSlotEquipId];
+            }
 
             var lineOfSight = 0;
             var evasion = 0;
             var antiSubmarine = 0;
 
-            foreach (var slot in slots)
+            for (int i = 0; i < slots.Count; i++)
             {
-                var equipment = slot.Equipment?.Info;
-                if (equipment == null)
+                var slot = slots[i];
+                slot.Aircraft = (raw.SlotAircraft[i], Info.Aircraft[i]);
+                var equipment = slot.HomeportEquipment = owner.AllEquipment[raw.EquipmentIds[i]];
+                slot.DoCalculations();
+
+                var info = equipment?.Info;
+                if (info is null)
                     continue;
 
-                lineOfSight += equipment.LineOfSight;
-                evasion += equipment.Evasion;
-                antiSubmarine += equipment.AntiSubmarine;
+                lineOfSight += info.LineOfSight;
+                evasion += info.Evasion;
+                antiSubmarine += info.AntiSubmarine;
             }
 
             LineOfSight = Substract(raw.LineOfSight, lineOfSight);
             Evasion = Substract(raw.Evasion, evasion);
             AntiSubmarine = Substract(raw.AntiSubmarine, antiSubmarine);
 
-            DoCalculations();
-            Fleet?.UpdateState();
+            CascadeUpdate();
         }
 
         private static ShipMordenizationStatus Combine(ShipMordenizationStatus current, ShipMordenizationStatus master)
@@ -103,16 +129,23 @@ namespace Sakuno.ING.Game.Models
                 Displaying = current.Displaying
             };
 
+        internal void OpenExtraSlot()
+        {
+            ExtraHomeportSlot = new HomeportSlot(this, -1);
+            CascadeUpdate();
+        }
+
         internal void SetRepaired()
         {
             using (EnterBatchNotifyScope())
             {
                 IsRepairing = false;
+                RepairingCost = default;
                 var maxHp = HP.Max;
                 HP = (maxHp, maxHp);
                 if (Morale < 40)
                     Morale = 40;
-                Fleet?.UpdateState();
+                CascadeUpdate();
             }
         }
 
@@ -122,32 +155,19 @@ namespace Sakuno.ING.Game.Models
             {
                 Fuel = (raw.CurrentFuel, Info.FuelConsumption);
                 Bullet = (raw.CurrentBullet, Info.BulletConsumption);
-                UpdateSlotAircraftCore(raw.SlotAircraft);
-                DoCalculations();
-                Fleet?.UpdateState();
+                for (int i = 0; i < slots.Count; i++)
+                {
+                    slots[i].Aircraft = (raw.SlotAircraft[i], Info.Aircraft[i]);
+                    slots[i].DoCalculations();
+                }
+                CascadeUpdate();
             }
         }
 
-        internal void UpdateEquipments(IReadOnlyList<EquipmentId?> equipmentIds)
+        internal void CascadeUpdate()
         {
-            using (EnterBatchNotifyScope())
-            {
-                UpdateEquipmentsCore(equipmentIds);
-                DoCalculations();
-                Fleet?.UpdateState();
-            }
-        }
-
-        private void UpdateEquipmentsCore(IReadOnlyList<EquipmentId?> equipmentIds)
-        {
-            for (int i = 0; i < slots.Count; i++)
-                slots[i].Equipment = owner.AllEquipment[equipmentIds[i]];
-        }
-
-        private void UpdateSlotAircraftCore(IReadOnlyList<int> aircrafts)
-        {
-            for (int i = 0; i < slots.Count; i++)
-                slots[i].Aircraft = (aircrafts[i], Info.Aircraft[i]);
+            DoCalculations();
+            Fleet?.UpdateState();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Sakuno.ING.Game.Models
             MasterData = new MasterDataRoot(listener, localization);
             Battle = new BattleManager(listener, this);
             Quests = new QuestManager(listener, localization);
-            _allEquipment = new IdTable<EquipmentId, Equipment, RawEquipment, NavalBase>(this);
+            _allEquipment = new IdTable<EquipmentId, HomeportEquipment, RawEquipment, NavalBase>(this);
             _buildingDocks = new IdTable<BuildingDockId, BuildingDock, RawBuildingDock, NavalBase>(this);
             _repairingDocks = new IdTable<RepairingDockId, RepairingDock, RawRepairingDock, NavalBase>(this);
             _useItems = new IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase>(this);
@@ -77,8 +77,7 @@ namespace Sakuno.ING.Game.Models
             };
             listener.FleetsUpdated += (t, msg) => _fleets.BatchUpdate(msg, t);
             listener.FleetPresetSelected += (t, msg) => Fleets[msg.Id].Update(msg, t);
-            //listener.ShipEquipmentUpdated += (t, msg) => AllShips[msg.ShipId].UpdateEquipments(msg.EquipmentIds);
-            listener.ShipExtraSlotOpened += (t, msg) => AllShips[msg].ExtraSlot = new HomeportSlot();
+            listener.ShipExtraSlotOpened += (t, msg) => AllShips[msg].OpenExtraSlot();
             listener.PartialFleetsUpdated += (t, msg) => _fleets.BatchUpdate(msg, t, removal: false);
             listener.PartialShipsUpdated += (t, msg) => _allShips.BatchUpdate(msg, t, removal: false);
             listener.RepairingDockUpdated += (t, msg) => _repairingDocks.BatchUpdate(msg, t);
@@ -183,8 +182,11 @@ namespace Sakuno.ING.Game.Models
             => shipIds.Select(id =>
                 {
                     var ship = AllShips[id];
-                    if (removeEquipment)
-                        RemoveEquipment(ship.Slots.Where(x => !x.IsEmpty).Select(x => x.Equipment.Id), timeStamp);
+                    foreach (var equip in ship.AllEquipped)
+                        if (removeEquipment)
+                            _allEquipment.Remove(equip);
+                        else
+                            equip.Slot = null;
                     _allShips.Remove(ship);
                     ship.Fleet?.Remove(ship);
                     return ship;
@@ -197,8 +199,8 @@ namespace Sakuno.ING.Game.Models
         public BattleManager Battle { get; }
         public QuestManager Quests { get; }
 
-        private readonly IdTable<EquipmentId, Equipment, RawEquipment, NavalBase> _allEquipment;
-        public ITable<EquipmentId, Equipment> AllEquipment => _allEquipment;
+        private readonly IdTable<EquipmentId, HomeportEquipment, RawEquipment, NavalBase> _allEquipment;
+        public ITable<EquipmentId, HomeportEquipment> AllEquipment => _allEquipment;
 
         private readonly IdTable<BuildingDockId, BuildingDock, RawBuildingDock, NavalBase> _buildingDocks;
         public ITable<BuildingDockId, BuildingDock> BuildingDocks => _buildingDocks;

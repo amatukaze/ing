@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<bindableTemplate xmlns="http://schemas.heavenlywind.cc/xsd/bindable_generator"
+                  namespace="Sakuno.ING.Game.Models">
+  <class name="Slot">
+    <property type="ClampedValue" name="Aircraft" set="internal" />
+    <property type="AirFightPower" name="AirFightPower" />
+    <property type="double" name="EffectiveLoS" />
+  </class>
+  <class name="HomeportEquipment">
+    <property type="HomeportSlot" name="Slot" set="internal" />
+  </class>
+</bindableTemplate>

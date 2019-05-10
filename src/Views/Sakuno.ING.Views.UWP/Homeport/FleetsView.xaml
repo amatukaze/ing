@@ -185,7 +185,7 @@
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
-                                                <DataTemplate x:DataType="g:HomeportSlot">
+                                                <DataTemplate x:DataType="g:Slot">
                                                     <con:ShipSlotPresenter Slot="{x:Bind}" />
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>

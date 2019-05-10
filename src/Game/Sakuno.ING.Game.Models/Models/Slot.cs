@@ -1,71 +1,69 @@
-﻿using Sakuno.ING.Game.Models.MasterData;
+﻿using System;
+using Sakuno.ING.Game.Models.Knowledge;
 
 namespace Sakuno.ING.Game.Models
 {
-    public partial class Slot : BindableObject
+    public abstract partial class Slot : BindableObject
     {
-        private EquipmentInfo _equipment;
-        public EquipmentInfo Equipment
+        public abstract Equipment Equipment { get; }
+
+        private static readonly int[] afpBonus0 = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        private static readonly int[] afpBonus1 = { 0, 0, 1, 1, 1, 3, 3, 6 };
+        private static readonly int[] afpBonus2 = { 0, 0, 2, 5, 9, 14, 14, 22 };
+        private static readonly int[] airProficiencyCore = { 0, 10, 25, 40, 55, 70, 85, 100, 121 };
+
+        internal void DoCalculations()
         {
-            get => _equipment;
-            internal set
+            using (EnterBatchNotifyScope())
             {
-                if (_equipment != value)
-                    using (EnterBatchNotifyScope())
-                    {
-                        bool isEmptyChanged = _equipment is null || value is null;
-                        _equipment = value;
-                        if (isEmptyChanged)
-                            NotifyPropertyChanged(nameof(IsEmpty));
-                        NotifyPropertyChanged();
-                        UpdateCalculations();
-                    }
+                if (Equipment?.Info?.Type is null)
+                {
+                    AirFightPower = default;
+                    EffectiveLoS = 0;
+                    return;
+                }
+
+                var id = (KnownEquipmentType)Equipment.Info.Type.Id;
+
+                double losFactor = id switch
+                {
+                    KnownEquipmentType.TorpedoBomber => 0.8,
+                    KnownEquipmentType.ReconnaissanceAircraft => 1,
+                    KnownEquipmentType.ReconnaissanceSeaplane => 1.2,
+                    KnownEquipmentType.SeaplaneBomber => 1.1,
+                    _ => 0.6,
+                };
+                double losImprovementFactor = id switch
+                {
+                    KnownEquipmentType.ReconnaissanceSeaplane => 1.2,
+                    KnownEquipmentType.SmallRadar => 1.25,
+                    KnownEquipmentType.LargeRadar => 1.4,
+                    KnownEquipmentType.VeryLargeRadar => 1.4,
+                    _ => 0
+                };
+                int[] afpBonusTable = id switch
+                {
+                    KnownEquipmentType.DiveBomber => afpBonus0,
+                    KnownEquipmentType.JetBomber => afpBonus0,
+                    KnownEquipmentType.TorpedoBomber => afpBonus0,
+                    KnownEquipmentType.SeaplaneBomber => afpBonus1,
+                    KnownEquipmentType.FighterAircraft => afpBonus2,
+                    KnownEquipmentType.SeaplaneFighter => afpBonus2,
+                    _ => null
+                };
+
+                EffectiveLoS = losFactor * (Equipment.Info.LineOfSight + Equipment.ImprovementLevel * losImprovementFactor);
+
+                if (afpBonusTable == null || Aircraft.Current == 0)
+                    AirFightPower = default;
+                else
+                {
+                    double afpRaw = Equipment.Info.AntiAir * Math.Sqrt(Aircraft.Current);
+                    AirFightPower = new AirFightPower(afpRaw,
+                        afpRaw + Math.Sqrt(airProficiencyCore[Equipment.AirProficiency] / 10.0) + afpBonusTable[Equipment.AirProficiency],
+                                afpRaw + Math.Sqrt((airProficiencyCore[Equipment.AirProficiency + 1] - 1) / 10.0) + afpBonusTable[Equipment.AirProficiency]);
+                } 
             }
-        }
-
-        public int ImprovementLevel { get; protected set; }
-        public int AirProficiency { get; protected set; }
-
-        private ClampedValue _aircraft;
-        public ClampedValue Aircraft
-        {
-            get => _aircraft;
-            internal set
-            {
-                if (_aircraft != value)
-                    using (EnterBatchNotifyScope())
-                    {
-                        _aircraft = value;
-                        NotifyPropertyChanged();
-                        UpdateCalculations();
-                    }
-            }
-        }
-
-        public bool IsEmpty => Equipment is null;
-
-        private AirFightPower _airFightPower;
-        public AirFightPower AirFightPower
-        {
-            get => _airFightPower;
-            private set => Set(ref _airFightPower, value);
-        }
-
-        private double _effectiveLoS;
-        public double EffectiveLoS
-        {
-            get => _effectiveLoS;
-            private set => Set(ref _effectiveLoS, value);
-        }
-
-        protected Slot() { }
-        public Slot(EquipmentInfo equipment, ClampedValue aircraft = default, int improvementLevel = 0, int airProficiency = 0)
-        {
-            Equipment = equipment;
-            Aircraft = aircraft;
-            ImprovementLevel = improvementLevel;
-            AirProficiency = airProficiency;
-            UpdateCalculations();
         }
     }
 }

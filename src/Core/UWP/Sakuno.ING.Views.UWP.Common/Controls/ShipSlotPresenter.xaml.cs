@@ -11,8 +11,8 @@ namespace Sakuno.ING.Views.UWP.Controls
             this.InitializeComponent();
         }
 
-        private HomeportSlot _slot;
-        public HomeportSlot Slot
+        private Slot _slot;
+        public Slot Slot
         {
             get => _slot;
             set

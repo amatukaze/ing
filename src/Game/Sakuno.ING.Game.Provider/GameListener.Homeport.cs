@@ -69,7 +69,7 @@ namespace Sakuno.ING.Game
             );
 
         private static RawShip[] ParseShipDeprive(DepriveJson response)
-            => new[] { response.api_ship_data.api_set_ship, response.api_ship_data.api_unset_ship };
+            => new[] { response.api_ship_data.api_unset_ship, response.api_ship_data.api_set_ship };
 
         private static ExpeditionCompletion ParseExpeditionCompletion(NameValueCollection request, ExpeditionCompletionJson response)
         {

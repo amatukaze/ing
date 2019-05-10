@@ -35,18 +35,18 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
             LineOfSight = ship.LineOfSight;
             Evasion = ship.Evasion;
             AntiSubmarine = ship.AntiSubmarine;
-            Slots = ship.Equipment
+            Slots = ship.Slots
                 .Select(x => new SlotInBattleEntity
                 {
-                    Id = x?.Equipment?.Id ?? default,
+                    Id = x?.Equipment?.Info?.Id ?? default,
                     Count = x.Aircraft,
-                    AirProficiency = x?.AirProficiency ?? 0,
-                    ImprovementLevel = x?.ImprovementLevel ?? 0
+                    AirProficiency = x?.Equipment?.AirProficiency ?? 0,
+                    ImprovementLevel = x?.Equipment?.ImprovementLevel ?? 0
                 }).ToArray();
             ExtraSlot = new SlotInBattleEntity
             {
-                Id = ship.ExtraEquipment?.Equipment?.Id ?? default,
-                ImprovementLevel = ship.ExtraEquipment?.ImprovementLevel ?? 0
+                Id = ship.ExtraSlot?.Equipment?.Info?.Id ?? default,
+                ImprovementLevel = ship.ExtraSlot?.Equipment?.ImprovementLevel ?? 0
             };
             Fuel = ship.Fuel;
             Bullet = ship.Bullet;

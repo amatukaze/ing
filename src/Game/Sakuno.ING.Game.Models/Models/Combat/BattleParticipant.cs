@@ -50,12 +50,12 @@ namespace Sakuno.ING.Game.Models.Combat
             if (IsSunk && !IsEnemy)
             {
                 EquipmentInfo damageControl = null;
-                if (Ship.ExtraEquipment?.Equipment?.Type?.Id == KnownEquipmentType.DamageControl)
-                    damageControl = Ship.ExtraEquipment.Equipment;
-                else foreach (var slot in Ship.Equipment)
-                        if (slot.Equipment?.Type?.Id == KnownEquipmentType.DamageControl)
+                if (Ship.ExtraSlot?.Equipment?.Info?.Type?.Id == KnownEquipmentType.DamageControl)
+                    damageControl = Ship.ExtraSlot.Equipment.Info;
+                else foreach (var slot in Ship.Slots)
+                        if (slot.Equipment?.Info?.Type?.Id == KnownEquipmentType.DamageControl)
                         {
-                            damageControl = slot.Equipment;
+                            damageControl = slot.Equipment.Info;
                             break;
                         }
 

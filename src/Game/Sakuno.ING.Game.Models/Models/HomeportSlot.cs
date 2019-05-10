@@ -1,22 +1,60 @@
-﻿namespace Sakuno.ING.Game.Models
+﻿using System;
+
+namespace Sakuno.ING.Game.Models
 {
-    public class HomeportSlot : Slot
+    public partial class HomeportSlot : Slot
     {
-        private Equipment _equipment;
-        public new Equipment Equipment
+        internal HomeportSlot(HomeportShip ship, int index)
         {
-            get => _equipment;
-            set
+            Ship = ship;
+            Index = index;
+        }
+
+        public override Equipment Equipment => HomeportEquipment;
+
+        private HomeportEquipment _homeportEquipment;
+        public HomeportEquipment HomeportEquipment
+        {
+            get => _homeportEquipment;
+            internal set
             {
-                _equipment = value;
                 using (EnterBatchNotifyScope())
                 {
-                    ImprovementLevel = value?.ImprovementLevel ?? 0;
-                    NotifyPropertyChanged(nameof(ImprovementLevel));
-                    AirProficiency = value?.AirProficiency ?? 0;
-                    NotifyPropertyChanged(nameof(AirProficiency));
-                    base.Equipment = value?.Info;
+                    if (_homeportEquipment != value)
+                    {
+                        if (_homeportEquipment != null)
+                            _homeportEquipment.Slot = null;
+                        if (value != null)
+                            if (value.Slot != null)
+                                throw new InvalidOperationException("Equipment slot inconsistent");
+                            else
+                                value.Slot = this;
+                        _homeportEquipment = value;
+                        using (EnterBatchNotifyScope())
+                        {
+                            NotifyPropertyChanged();
+                            NotifyPropertyChanged(nameof(Equipment));
+                        }
+                    }
                 }
+            }
+        }
+
+        public HomeportShip Ship { get; }
+        public int Index { get; }
+
+        internal void CascadeUpdate()
+        {
+            DoCalculations();
+            Ship.CascadeUpdate();
+        }
+
+        internal void Destroy()
+        {
+            if (HomeportEquipment != null)
+            {
+                HomeportEquipment.Slot = null;
+                HomeportEquipment = null;
             }
         }
     }

@@ -200,7 +200,7 @@
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
-                                                <DataTemplate DataType="{x:Type g:HomeportSlot}">
+                                                <DataTemplate DataType="{x:Type g:Slot}">
                                                     <c:ShipSlotPresenter Slot="{Binding}" />
                                                 </DataTemplate>
                                             </ItemsControl.ItemTemplate>

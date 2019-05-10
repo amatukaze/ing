@@ -13,7 +13,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    public sealed partial class Equipment : BindableObject, IComparable<Equipment>, IUpdatable<EquipmentId, RawEquipment>
+    public abstract partial class Equipment : BindableObject
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -23,7 +23,7 @@ namespace Sakuno.ING.Game.Models
         public EquipmentInfo Info
         {
             get => _info;
-            private set => Set(ref _info, value, __eventArgs_info);
+            protected set => Set(ref _info, value, __eventArgs_info);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -33,7 +33,7 @@ namespace Sakuno.ING.Game.Models
         public bool IsLocked
         {
             get => _isLocked;
-            private set => Set(ref _isLocked, value, __eventArgs_isLocked);
+            protected set => Set(ref _isLocked, value, __eventArgs_isLocked);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -43,7 +43,7 @@ namespace Sakuno.ING.Game.Models
         public int ImprovementLevel
         {
             get => _improvementLevel;
-            private set => Set(ref _improvementLevel, value, __eventArgs_improvementLevel);
+            protected set => Set(ref _improvementLevel, value, __eventArgs_improvementLevel);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -53,7 +53,7 @@ namespace Sakuno.ING.Game.Models
         public int AirProficiency
         {
             get => _airProficiency;
-            private set => Set(ref _airProficiency, value, __eventArgs_airProficiency);
+            protected set => Set(ref _airProficiency, value, __eventArgs_airProficiency);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -63,25 +63,27 @@ namespace Sakuno.ING.Game.Models
         public bool IsAvailable
         {
             get => _isAvailable;
-            private set => Set(ref _isAvailable, value, __eventArgs_isAvailable);
+            protected set => Set(ref _isAvailable, value, __eventArgs_isAvailable);
         }
-
-        public int CompareTo(Equipment other) => Id.CompareTo(other?.Id ?? default);
+    }
+    public sealed partial class HomeportEquipment : Equipment, IComparable<HomeportEquipment>, IUpdatable<EquipmentId, RawEquipment>
+    {
+        public int CompareTo(HomeportEquipment other) => Id.CompareTo(other?.Id ?? default);
 
         public EquipmentId Id { get; }
         private readonly NavalBase owner;
         public DateTimeOffset UpdationTime { get; private set; }
 
-        public Equipment(EquipmentId id, NavalBase owner)
+        public HomeportEquipment(EquipmentId id, NavalBase owner)
         {
             Id = id;
             this.owner = owner;
             CreateCore();
         }
 
-        public Equipment(RawEquipment raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public HomeportEquipment(RawEquipment raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
-        public event Action<Equipment, RawEquipment, DateTimeOffset> Updating;
+        public event Action<HomeportEquipment, RawEquipment, DateTimeOffset> Updating;
         public void Update(RawEquipment raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
@@ -104,7 +106,7 @@ namespace Sakuno.ING.Game.Models
 
         partial void CreateCore();
 
-        public override string ToString() => $"Equipment {Id}";
+        public override string ToString() => $"HomeportEquipment {Id}";
     }
 
     public sealed partial class BuildingDock : BindableObject, IComparable<BuildingDock>, IUpdatable<BuildingDockId, RawBuildingDock>
@@ -539,16 +541,6 @@ namespace Sakuno.ING.Game.Models
         {
             get => _slotCount;
             protected set => Set(ref _slotCount, value, __eventArgs_slotCount);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_extraEquipment = new PropertyChangedEventArgs(nameof(ExtraEquipment));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private Slot _extraEquipment;
-        public Slot ExtraEquipment
-        {
-            get => _extraEquipment;
-            protected set => Set(ref _extraEquipment, value, __eventArgs_extraEquipment);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

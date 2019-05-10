@@ -9,7 +9,7 @@ namespace Sakuno.ING.Game.Models.Combat
             Info = masterData.ShipInfos[raw.Id];
             Leveling = new Leveling(raw.Level);
             HP = raw.HP;
-            Equipment = raw.Equipment.Select(x => new Slot(masterData.EquipmentInfos[x])).ToBindable();
+            Slots = raw.Equipment.Select(x => new ImplicitSlot(masterData.EquipmentInfos[x])).ToBindable();
             Firepower = new ShipMordenizationStatus(raw.Firepower);
             Torpedo = new ShipMordenizationStatus(raw.Torpedo);
             AntiAir = new ShipMordenizationStatus(raw.AntiAir);
@@ -18,6 +18,7 @@ namespace Sakuno.ING.Game.Models.Combat
             DoCalculations();
         }
 
-        public override IBindableCollection<Slot> Equipment { get; }
+        public override IBindableCollection<Slot> Slots { get; }
+        public override Slot ExtraSlot => null;
     }
 }
