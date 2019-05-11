@@ -7,20 +7,6 @@ namespace Sakuno.ING.Game.Models
 {
     public partial class HomeportShip
     {
-        private Fleet _fleet;
-        public Fleet Fleet
-        {
-            get => _fleet;
-            internal set => Set(ref _fleet, value);
-        }
-
-        private bool _isRepairing;
-        public bool IsRepairing
-        {
-            get => _isRepairing;
-            internal set => Set(ref _isRepairing, value);
-        }
-
         public override Slot ExtraSlot => ExtraHomeportSlot;
         private HomeportSlot _extraHomeportSlot;
         public HomeportSlot ExtraHomeportSlot
@@ -167,7 +153,7 @@ namespace Sakuno.ING.Game.Models
         internal void CascadeUpdate()
         {
             DoCalculations();
-            Fleet?.UpdateState();
+            Fleet?.CascadeUpdate();
         }
     }
 }

@@ -94,8 +94,8 @@ namespace Sakuno.ING.Game.Models.Combat
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_npcFleet = new PropertyChangedEventArgs(nameof(NpcFleet));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private IReadOnlyList<BattleParticipant> _npcFleet;
-        public IReadOnlyList<BattleParticipant> NpcFleet
+        private BattleParticipantCollection _npcFleet;
+        public BattleParticipantCollection NpcFleet
         {
             get => _npcFleet;
             private set => Set(ref _npcFleet, value, __eventArgs_npcFleet);

@@ -95,7 +95,7 @@
             </DataTemplate>
         </TabControl.ItemTemplate>
         <TabControl.ContentTemplate>
-            <DataTemplate DataType="{x:Type g:Fleet}">
+            <DataTemplate DataType="{x:Type g:HomeportFleet}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -119,7 +119,7 @@
                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="5"
                                   HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Auto">
-                        <ItemsControl ItemsSource="{Binding Ships}" Grid.IsSharedSizeScope="True">
+                        <ItemsControl ItemsSource="{Binding HomeportShips}" Grid.IsSharedSizeScope="True">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type g:HomeportShip}">
                                     <Grid>

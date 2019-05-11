@@ -47,13 +47,16 @@ namespace Sakuno.ING.ViewModels.Logging
             {
                 try
                 {
+                    Fleet TryAsFleet(IEnumerable<Ship> ships)
+                        => ships is null ? null : new ImplicitFleet(ships);
+
                     var battle = new Battle
-                            (
-                                entity.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
-                                entity.SortieFleet2State?.Select(x => new LoggedShip(owner.masterData, x)).ToArray(),
-                                entity.CombinedFleetType,
-                                entity.BattleKind
-                            );
+                    (
+                        TryAsFleet(entity.SortieFleetState?.Select(x => new LoggedShip(owner.masterData, x))),
+                        TryAsFleet(entity.SortieFleet2State?.Select(x => new LoggedShip(owner.masterData, x))),
+                        entity.CombinedFleetType,
+                        entity.BattleKind
+                    );
                     TryAppend(battle, entity.FirstBattleDetail);
                     TryAppend(battle, entity.SecondBattleDetail);
                     Detail = battle;

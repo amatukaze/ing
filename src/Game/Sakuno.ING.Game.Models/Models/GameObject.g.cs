@@ -772,7 +772,7 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"HomeportShip {Id}";
     }
 
-    public sealed partial class Fleet : BindableObject, IComparable<Fleet>, IUpdatable<FleetId, RawFleet>
+    public abstract partial class Fleet : BindableObject
     {
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -782,7 +782,7 @@ namespace Sakuno.ING.Game.Models
         public string Name
         {
             get => _name;
-            private set => Set(ref _name, value, __eventArgs_name);
+            protected set => Set(ref _name, value, __eventArgs_name);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -792,7 +792,7 @@ namespace Sakuno.ING.Game.Models
         public FleetExpeditionState ExpeditionState
         {
             get => _expeditionState;
-            private set => Set(ref _expeditionState, value, __eventArgs_expeditionState);
+            protected set => Set(ref _expeditionState, value, __eventArgs_expeditionState);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -802,7 +802,7 @@ namespace Sakuno.ING.Game.Models
         public ExpeditionInfo Expedition
         {
             get => _expedition;
-            private set => Set(ref _expedition, value, __eventArgs_expedition);
+            protected set => Set(ref _expedition, value, __eventArgs_expedition);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -812,7 +812,7 @@ namespace Sakuno.ING.Game.Models
         public ShipSpeed SlowestShipSpeed
         {
             get => _slowestShipSpeed;
-            private set => Set(ref _slowestShipSpeed, value, __eventArgs_slowestShipSpeed);
+            protected set => Set(ref _slowestShipSpeed, value, __eventArgs_slowestShipSpeed);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -822,7 +822,7 @@ namespace Sakuno.ING.Game.Models
         public Materials SupplyingCost
         {
             get => _supplyingCost;
-            private set => Set(ref _supplyingCost, value, __eventArgs_supplyingCost);
+            protected set => Set(ref _supplyingCost, value, __eventArgs_supplyingCost);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -832,7 +832,7 @@ namespace Sakuno.ING.Game.Models
         public Materials RepairingCost
         {
             get => _repairingCost;
-            private set => Set(ref _repairingCost, value, __eventArgs_repairingCost);
+            protected set => Set(ref _repairingCost, value, __eventArgs_repairingCost);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -842,7 +842,7 @@ namespace Sakuno.ING.Game.Models
         public AirFightPower AirFightPower
         {
             get => _airFightPower;
-            private set => Set(ref _airFightPower, value, __eventArgs_airFightPower);
+            protected set => Set(ref _airFightPower, value, __eventArgs_airFightPower);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -852,7 +852,7 @@ namespace Sakuno.ING.Game.Models
         public int SimpleLoS
         {
             get => _simpleLoS;
-            private set => Set(ref _simpleLoS, value, __eventArgs_simpleLoS);
+            protected set => Set(ref _simpleLoS, value, __eventArgs_simpleLoS);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -862,7 +862,7 @@ namespace Sakuno.ING.Game.Models
         public LineOfSight EffectiveLoS
         {
             get => _effectiveLoS;
-            private set => Set(ref _effectiveLoS, value, __eventArgs_effectiveLoS);
+            protected set => Set(ref _effectiveLoS, value, __eventArgs_effectiveLoS);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -872,25 +872,27 @@ namespace Sakuno.ING.Game.Models
         public FleetState State
         {
             get => _state;
-            private set => Set(ref _state, value, __eventArgs_state);
+            protected set => Set(ref _state, value, __eventArgs_state);
         }
-
-        public int CompareTo(Fleet other) => Id.CompareTo(other?.Id ?? default);
+    }
+    public sealed partial class HomeportFleet : Fleet, IComparable<HomeportFleet>, IUpdatable<FleetId, RawFleet>
+    {
+        public int CompareTo(HomeportFleet other) => Id.CompareTo(other?.Id ?? default);
 
         public FleetId Id { get; }
         private readonly NavalBase owner;
         public DateTimeOffset UpdationTime { get; private set; }
 
-        public Fleet(FleetId id, NavalBase owner)
+        public HomeportFleet(FleetId id, NavalBase owner)
         {
             Id = id;
             this.owner = owner;
             CreateCore();
         }
 
-        public Fleet(RawFleet raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
+        public HomeportFleet(RawFleet raw, NavalBase owner, DateTimeOffset timeStamp) : this(raw.Id, owner) => UpdateProps(raw, timeStamp);
 
-        public event Action<Fleet, RawFleet, DateTimeOffset> Updating;
+        public event Action<HomeportFleet, RawFleet, DateTimeOffset> Updating;
         public void Update(RawFleet raw, DateTimeOffset timeStamp)
         {
             Updating?.Invoke(this, raw, timeStamp);
@@ -912,7 +914,7 @@ namespace Sakuno.ING.Game.Models
 
         partial void CreateCore();
 
-        public override string ToString() => $"Fleet {Id}";
+        public override string ToString() => $"HomeportFleet {Id}";
     }
 
     public sealed partial class Quest : BindableObject, IComparable<Quest>, IUpdatable<QuestId, RawQuest>

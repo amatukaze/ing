@@ -10,7 +10,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public CombinedFleetType FleetType { get; }
         public Side Ally { get; }
 
-        public Battle(IReadOnlyList<Ship> fleet, IReadOnlyList<Ship> fleet2, CombinedFleetType fleetType, BattleKind kind)
+        public Battle(Fleet fleet, Fleet fleet2, CombinedFleetType fleetType, BattleKind kind)
         {
             Kind = kind;
             FleetType = fleetType;
@@ -66,7 +66,7 @@ namespace Sakuno.ING.Game.Models.Combat
 
                     if (raw.NpcFleet != null)
                     {
-                        NpcFleet = raw.NpcFleet.Select((s, i) => new BattleParticipant(i + 1, new BattlingShip(masterData, s), s, false)).ToArray();
+                        NpcFleet = new BattleParticipantCollection(raw.NpcFleet, masterData, 1, false);
                         if (raw.NpcPhase != null)
                             NpcPhase = new NpcPhase(masterData, NpcFleet, Enemy, raw.NpcPhase);
                     }

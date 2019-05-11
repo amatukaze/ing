@@ -62,7 +62,7 @@
     <property type="AirFightPower" name="AirFightPower" set="private" />
     <property type="LineOfSight" name="EffectiveLoS" set="private" />
   </class>
-  <class name="Fleet" id="FleetId" raw="RawFleet" owner="NavalBase">
+  <class name="Fleet" id="FleetId" raw="RawFleet" owner="NavalBase" impl="HomeportFleet">
     <property type="string" name="Name" autoFill="true" />
     <property type="FleetExpeditionState" name="ExpeditionState" autoFill="true" />
     <property type="ExpeditionInfo" name="Expedition" />

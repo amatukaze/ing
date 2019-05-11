@@ -15,7 +15,7 @@
     FontSize="18">
     <mux:ItemsRepeater ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}">
         <mux:ItemsRepeater.ItemTemplate>
-            <DataTemplate x:DataType="g:Fleet">
+            <DataTemplate x:DataType="g:HomeportFleet">
                 <Grid>
                     <TextBlock Style="{StaticResource TranslatableTextStyle}"
                                Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}" />

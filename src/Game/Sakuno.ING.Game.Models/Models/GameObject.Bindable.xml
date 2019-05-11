@@ -9,4 +9,8 @@
   <class name="HomeportEquipment">
     <property type="HomeportSlot" name="Slot" set="internal" />
   </class>
+  <class name="HomeportShip">
+    <property type="HomeportFleet" name="Fleet" set="internal" />
+    <property type="bool" name="IsRepairing" set="internal" />
+  </class>
 </bindableTemplate>

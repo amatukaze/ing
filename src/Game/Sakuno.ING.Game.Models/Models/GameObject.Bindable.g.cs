@@ -57,4 +57,27 @@ namespace Sakuno.ING.Game.Models
             internal set => Set(ref _slot, value, __eventArgs_slot);
         }
     }
+    partial class HomeportShip
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_fleet = new PropertyChangedEventArgs(nameof(Fleet));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private HomeportFleet _fleet;
+        public HomeportFleet Fleet
+        {
+            get => _fleet;
+            internal set => Set(ref _fleet, value, __eventArgs_fleet);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_isRepairing = new PropertyChangedEventArgs(nameof(IsRepairing));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private bool _isRepairing;
+        public bool IsRepairing
+        {
+            get => _isRepairing;
+            internal set => Set(ref _isRepairing, value, __eventArgs_isRepairing);
+        }
+    }
 }

@@ -28,7 +28,7 @@ namespace Sakuno.ING.Game.Models
             _repairingDocks = new IdTable<RepairingDockId, RepairingDock, RawRepairingDock, NavalBase>(this);
             _useItems = new IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase>(this);
             _allShips = new IdTable<ShipId, HomeportShip, RawShip, NavalBase>(this);
-            _fleets = new IdTable<FleetId, Fleet, RawFleet, NavalBase>(this);
+            _fleets = new IdTable<FleetId, HomeportFleet, RawFleet, NavalBase>(this);
             _maps = new IdTable<MapId, Map, RawMap, NavalBase>(this);
             _airForce = new IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, RawAirForceGroup, NavalBase>(this);
 
@@ -214,8 +214,8 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<ShipId, HomeportShip, RawShip, NavalBase> _allShips;
         public ITable<ShipId, HomeportShip> AllShips => _allShips;
 
-        private readonly IdTable<FleetId, Fleet, RawFleet, NavalBase> _fleets;
-        public ITable<FleetId, Fleet> Fleets => _fleets;
+        private readonly IdTable<FleetId, HomeportFleet, RawFleet, NavalBase> _fleets;
+        public ITable<FleetId, HomeportFleet> Fleets => _fleets;
 
         private readonly IdTable<MapId, Map, RawMap, NavalBase> _maps;
         public ITable<MapId, Map> Maps => _maps;
@@ -225,7 +225,7 @@ namespace Sakuno.ING.Game.Models
 
         public Admiral Admiral { get; private set; }
 
-        public Ship Secretary => Fleets.First().Ships[0];
+        public Ship Secretary => Fleets.First().Ships.AsList()[0];
 
         private Materials _materials;
         public Materials Materials
@@ -248,7 +248,7 @@ namespace Sakuno.ING.Game.Models
         public event EquipmentDismantlingHandler EquipmentDismantling;
         public event EquipmentImprovingHandler EquipmentImproving;
 
-        public event Action<Fleet> ExpeditionTiming;
+        public event Action<HomeportFleet> ExpeditionTiming;
         public event Action<BuildingDock> BuildTiming;
         public event Action<RepairingDock> RepairTiming;
     }

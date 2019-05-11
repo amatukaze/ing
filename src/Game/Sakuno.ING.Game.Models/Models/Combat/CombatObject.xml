@@ -14,7 +14,7 @@
   <class name="Battle">
     <property type="bool" name="HasStarted" />
     <property type="Engagement" name="Engagement" />
-    <property type="IReadOnlyList&lt;BattleParticipant&gt;" name="NpcFleet" />
+    <property type="BattleParticipantCollection" name="NpcFleet" />
     <property type="Side" name="Enemy" />
     <property type="bool" name="Incomplete" />
     <property type="BattleRank?" name="Rank" />

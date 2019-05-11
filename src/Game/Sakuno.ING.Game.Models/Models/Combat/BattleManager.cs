@@ -22,7 +22,7 @@
 
             listener.ExerciseStarted += (t, m) =>
             {
-                CurrentBattle = new Battle(this.navalBase.Fleets[m].Ships, null, CombinedFleetType.None, BattleKind.Normal);
+                CurrentBattle = new Battle(this.navalBase.Fleets[m], null, CombinedFleetType.None, BattleKind.Normal);
             };
 
             listener.SortieStarting += (t, m) =>
@@ -35,7 +35,7 @@
             listener.MapRouting += (t, m) =>
             {
                 CurrentRouting = new MapRouting(this.navalBase, m);
-                CurrentBattle = new Battle(sortieFleet.Ships, sortieFleet2?.Ships, this.navalBase.CombinedFleet, m.BattleKind);
+                CurrentBattle = new Battle(sortieFleet, sortieFleet2, this.navalBase.CombinedFleet, m.BattleKind);
             };
 
             listener.BattleStarted += (t, m) =>

@@ -46,7 +46,7 @@
             </DataTemplate>
         </tk:TabView.ItemHeaderTemplate>
         <tk:TabView.ItemTemplate>
-            <DataTemplate x:DataType="g:Fleet">
+            <DataTemplate x:DataType="g:HomeportFleet">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -98,7 +98,7 @@
                                   HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Auto">
                         <!-- TODO: ItemsRepeater can only scroll in vertical -->
-                        <ItemsControl ItemsSource="{x:Bind Ships}">
+                        <ItemsControl ItemsSource="{x:Bind HomeportShips}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="g:HomeportShip">
                                     <Grid>
