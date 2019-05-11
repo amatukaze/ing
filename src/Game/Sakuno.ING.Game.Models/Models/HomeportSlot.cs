@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Sakuno.ING.Game.Models
+﻿namespace Sakuno.ING.Game.Models
 {
     public partial class HomeportSlot : Slot
     {
@@ -25,10 +23,14 @@ namespace Sakuno.ING.Game.Models
                         if (_homeportEquipment != null)
                             _homeportEquipment.Slot = null;
                         if (value != null)
+                        {
                             if (value.Slot != null)
-                                throw new InvalidOperationException("Equipment slot inconsistent");
-                            else
-                                value.Slot = this;
+                            {
+                                value.Slot.HomeportEquipment = null;
+                                value.Slot.DoCalculations();
+                            }
+                            value.Slot = this;
+                        }
                         _homeportEquipment = value;
                         using (EnterBatchNotifyScope())
                         {

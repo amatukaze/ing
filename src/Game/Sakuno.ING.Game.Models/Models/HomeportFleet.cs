@@ -26,6 +26,13 @@ namespace Sakuno.ING.Game.Models
 
         partial void UpdateCore(RawFleet raw, DateTimeOffset timeStamp)
         {
+            HomeportShip Exclusive(HomeportShip ship)
+            {
+                if (ship.Fleet != null)
+                    ship.Fleet.Remove(ship);
+                return ship;
+            }
+
             for (int i = 0; i < ships.Count || i < raw.ShipIds.Count; i++)
                 if (i >= raw.ShipIds.Count)
                 {
@@ -33,9 +40,9 @@ namespace Sakuno.ING.Game.Models
                     i--;
                 }
                 else if (i >= ships.Count)
-                    ships.Add(owner.AllShips[raw.ShipIds[i]]);
+                    ships.Add(Exclusive(owner.AllShips[raw.ShipIds[i]]));
                 else if (raw.ShipIds[i] != ships[i].Id)
-                    ships[i] = owner.AllShips[raw.ShipIds[i]];
+                    ships[i] = Exclusive(owner.AllShips[raw.ShipIds[i]]);
 
             Expedition = owner.MasterData.Expeditions[raw.ExpeditionId];
             CascadeUpdate();
