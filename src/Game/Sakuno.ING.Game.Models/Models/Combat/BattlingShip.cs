@@ -10,10 +10,10 @@ namespace Sakuno.ING.Game.Models.Combat
             Leveling = new Leveling(raw.Level);
             HP = raw.HP;
             Slots = raw.Equipment.Select(x => new ImplicitSlot(masterData.EquipmentInfos[x])).ToBindable();
-            Firepower = new ShipMordenizationStatus(raw.Firepower);
-            Torpedo = new ShipMordenizationStatus(raw.Torpedo);
-            AntiAir = new ShipMordenizationStatus(raw.AntiAir);
-            Armor = new ShipMordenizationStatus(raw.Armor);
+            Firepower = new ShipMordenizationStatus(raw.Firepower, raw.Firepower + Slots.Sum(x => x.Equipment.Info?.Firepower ?? 0));
+            Torpedo = new ShipMordenizationStatus(raw.Torpedo, raw.Torpedo + Slots.Sum(x => x.Equipment.Info?.Torpedo ?? 0));
+            AntiAir = new ShipMordenizationStatus(raw.AntiAir, raw.AntiAir + Slots.Sum(x => x.Equipment.Info?.AntiAir ?? 0));
+            Armor = new ShipMordenizationStatus(raw.Armor, raw.Armor + Slots.Sum(x => x.Equipment.Info?.Armor ?? 0));
 
             DoCalculations();
         }

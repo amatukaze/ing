@@ -91,14 +91,8 @@ namespace Sakuno.ING.Game.Logger.Binary
 
             ShipMordenizationStatus ReadShipParameter(BinaryObjectReader r)
             {
-                (int a, int b) = ReadArray2(r);
-                return new ShipMordenizationStatus
-                {
-                    Min = a,
-                    Max = a,
-                    Improved = 0,
-                    Displaying = b
-                };
+                (int v, int d) = ReadArray2(r);
+                return new ShipMordenizationStatus(v, d);
             }
 
             for (int i = 0; i < result.Length; i++)

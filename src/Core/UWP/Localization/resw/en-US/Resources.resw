@@ -225,4 +225,16 @@
   <data name="MainPivot_Battle.Header">
     <value>Battle</value>
   </data>
+  <data name="Parameter_Textual_Firepower.Text">
+    <value>Firepower</value>
+  </data>
+  <data name="Parameter_Textual_Torpedo.Text">
+    <value>Torpedo</value>
+  </data>
+  <data name="Parameter_Textual_AntiAir.Text">
+    <value>Anti air</value>
+  </data>
+  <data name="Parameter_Textual_Armor.Text">
+    <value>Armor</value>
+  </data>
 </root>

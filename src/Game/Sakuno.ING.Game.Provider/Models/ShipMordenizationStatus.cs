@@ -16,5 +16,14 @@ namespace Sakuno.ING.Game.Models
             Min = Max = Displaying = value;
             Improved = 0;
         }
+
+        public ShipMordenizationStatus(int value, int displaying)
+        {
+            Min = Max = value;
+            Improved = 0;
+            Displaying = displaying;
+        }
+
+        public override string ToString() => $"{Displaying} ({Current}+{Displaying - Current})";
     }
 }

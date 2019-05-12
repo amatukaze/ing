@@ -10,6 +10,26 @@
     <UserControl.Resources>
         <DataTemplate x:Key="ShipTemplate" DataType="m:BattleParticipant">
             <StackPanel Orientation="Horizontal">
+                <StackPanel.ToolTip>
+                    <StackPanel Orientation="Vertical" DataContext="{Binding Ship, Mode=OneTime}">
+                        <TextBlock>
+                            <c:ShipNameText Source="{Binding Info.Name, FallbackValue=???, Mode=OneTime}" />
+                            Lv.<Run Text="{Binding Leveling.Level, Mode=OneTime}" />
+                            <LineBreak />
+                            <Run Text="{c:Localize GameModel/Parameter_Firepower}" />
+                            <Run Text="{Binding Firepower, Mode=OneTime}" />
+                            <LineBreak />
+                            <Run Text="{c:Localize GameModel/Parameter_Torpedo}" />
+                            <Run Text="{Binding Torpedo, Mode=OneTime}" />
+                            <LineBreak />
+                            <Run Text="{c:Localize GameModel/Parameter_AntiAir}" />
+                            <Run Text="{Binding AntiAir, Mode=OneTime}" />
+                            <LineBreak />
+                            <Run Text="{c:Localize GameModel/Parameter_Armor}" />
+                            <Run Text="{Binding Armor, Mode=OneTime}" />
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel.ToolTip>
                 <c:ShipNamePresenter Source="{Binding Ship.Info.Name}"
                                      FontSize="18" Width="150" />
                 <Grid Width="100">

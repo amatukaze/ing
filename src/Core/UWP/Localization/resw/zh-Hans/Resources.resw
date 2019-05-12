@@ -225,4 +225,16 @@
   <data name="MainPivot_Battle.Header">
     <value>战斗</value>
   </data>
+  <data name="Parameter_Textual_Firepower.Text">
+    <value>火力</value>
+  </data>
+  <data name="Parameter_Textual_Torpedo.Text">
+    <value>雷装</value>
+  </data>
+  <data name="Parameter_Textual_AntiAir.Text">
+    <value>对空</value>
+  </data>
+  <data name="Parameter_Textual_Armor.Text">
+    <value>装甲</value>
+  </data>
 </root>

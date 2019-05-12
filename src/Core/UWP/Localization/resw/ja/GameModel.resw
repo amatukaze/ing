@@ -138,6 +138,30 @@
   <data name="ShipSpeed_20">
     <value>最速</value>
   </data>
+  <data name="Parameter_Firepower">
+    <value>火力</value>
+  </data>
+  <data name="Parameter_Torpedo">
+    <value>雷装</value>
+  </data>
+  <data name="Parameter_AntiAir">
+    <value>対空</value>
+  </data>
+  <data name="Parameter_Armor">
+    <value>装甲</value>
+  </data>
+  <data name="Parameter_Evasion">
+    <value>回避</value>
+  </data>
+  <data name="Parameter_AntiSubmarine">
+    <value>対潜</value>
+  </data>
+  <data name="Parameter_LineOfSight">
+    <value>索敵</value>
+  </data>
+  <data name="Parameter_Luck">
+    <value>運</value>
+  </data>
   <data name="Count_Ship">
     <value>艦娘数：</value>
   </data>

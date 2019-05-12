@@ -138,6 +138,30 @@
   <data name="ShipSpeed_20">
     <value>Ultra Fast</value>
   </data>
+  <data name="Parameter_Firepower">
+    <value>Firepower</value>
+  </data>
+  <data name="Parameter_Torpedo">
+    <value>Torpedo</value>
+  </data>
+  <data name="Parameter_AntiAir">
+    <value>Anti air</value>
+  </data>
+  <data name="Parameter_Armor">
+    <value>Armor</value>
+  </data>
+  <data name="Parameter_Evasion">
+    <value>Evasion</value>
+  </data>
+  <data name="Parameter_AntiSubmarine">
+    <value>Anti sub</value>
+  </data>
+  <data name="Parameter_LineOfSight">
+    <value>LoS</value>
+  </data>
+  <data name="Parameter_Luck">
+    <value>Luck</value>
+  </data>
   <data name="Count_Ship">
     <value>Ships count: </value>
   </data>

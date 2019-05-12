@@ -69,5 +69,9 @@
   "Combat_RouteId.Text": "Combat/Sortie_RouteId",
   "Combat_CurrentBattleDetail.Content": "GameModel/Details",
   "MainPivot_Overview.Header": "ViewTitle/Page_Overview",
-  "MainPivot_Battle.Header": "ViewTitle/Page_Battle"
+  "MainPivot_Battle.Header": "ViewTitle/Page_Battle",
+  "Parameter_Textual_Firepower.Text": "GameModel/Parameter_Firepower",
+  "Parameter_Textual_Torpedo.Text": "GameModel/Parameter_Torpedo",
+  "Parameter_Textual_AntiAir.Text": "GameModel/Parameter_AntiAir",
+  "Parameter_Textual_Armor.Text": "GameModel/Parameter_Armor"
 }

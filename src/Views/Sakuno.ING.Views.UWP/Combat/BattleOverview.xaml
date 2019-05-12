@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:m="using:Sakuno.ING.Game.Models.Combat"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     xmlns:con="using:Sakuno.ING.Views.UWP.Controls"
@@ -14,6 +15,36 @@
     <UserControl.Resources>
         <DataTemplate x:Key="ShipTemplate" x:DataType="m:BattleParticipant">
             <StackPanel Orientation="Horizontal">
+                <ToolTipService.ToolTip>
+                    <StackPanel Orientation="Vertical" x:DefaultBindMode="OneTime">
+                        <TextBlock Style="{StaticResource ShipNameTextStyle}">
+                            <Run Text="{x:Bind c:Helpers.SelectShipName(Ship.Info.Name), FallbackValue=???}" />
+                            Lv.<Run Text="{x:Bind Ship.Leveling.Level}" />
+                        </TextBlock>
+                        <TextBlock>
+                            <Run x:Uid="/Resources/Parameter_Textual_Firepower" />
+                            <Run Text="{x:Bind Ship.Firepower}" />
+                            <LineBreak />
+                            <Run x:Uid="/Resources/Parameter_Textual_Torpedo" />
+                            <Run Text="{x:Bind Ship.Torpedo}" />
+                            <LineBreak />
+                            <Run x:Uid="/Resources/Parameter_Textual_AntiAir" />
+                            <Run Text="{x:Bind Ship.AntiAir}" />
+                            <LineBreak />
+                            <Run x:Uid="/Resources/Parameter_Textual_Armor" />
+                            <Run Text="{x:Bind Ship.Armor}" />
+                        </TextBlock>
+                        <ItemsControl ItemsSource="{x:Bind Ship.Slots}">
+                            <!-- TODO: ItemsRepeater can't show in tooltip -->
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="g:Slot">
+                                    <TextBlock Style="{StaticResource TranslatableTextStyle}"
+                                               Text="{x:Bind c:Helpers.SelectName(Equipment.Info.Name), FallbackValue=''}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ToolTipService.ToolTip>
                 <con:ShipNamePresenter Source="{x:Bind Ship.Info.Name, FallbackValue={x:Null}}"
                                        FontSize="18" Width="150" />
                 <Grid Width="100">
