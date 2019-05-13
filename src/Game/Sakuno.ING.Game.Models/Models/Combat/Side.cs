@@ -8,7 +8,6 @@
                 Fleet = new BattleParticipantCollection(fleet, 1);
             if (fleet2 != null)
                 Fleet2 = new BattleParticipantCollection(fleet2, 7);
-            Count = (Fleet?.Count ?? 0) + (Fleet2?.Count ?? 0);
         }
 
         public void Load(in RawSide raw)
@@ -40,7 +39,7 @@
 
         public BattleParticipantCollection Fleet { get; }
         public BattleParticipantCollection Fleet2 { get; }
-        public int Count { get; }
+        public int Count => (Fleet?.Count ?? 0) + (Fleet2?.Count ?? 0);
 
         public BattleParticipant FindShip(int index)
         {
