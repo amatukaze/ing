@@ -25,10 +25,7 @@
                         if (value != null)
                         {
                             if (value.Slot != null)
-                            {
                                 value.Slot.HomeportEquipment = null;
-                                value.Slot.DoCalculations();
-                            }
                             value.Slot = this;
                         }
                         _homeportEquipment = value;
@@ -36,6 +33,7 @@
                         {
                             NotifyPropertyChanged();
                             NotifyPropertyChanged(nameof(Equipment));
+                            DoCalculations();
                         }
                     }
                 }
