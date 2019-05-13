@@ -33,6 +33,11 @@ namespace Sakuno.ING.UWP
                     if (LockGame)
                         _ = s.InvokeScriptAsync("eval", new[] { BrowserSetting.StyleSheetSetJs });
                 };
+                WebView.FrameNavigationStarting += (s, e) =>
+                {
+                    if (LockGame)
+                        _ = s.InvokeScriptAsync("eval", new[] { BrowserSetting.StyleSheetSetJs });
+                };
                 WebView.WebResourceRequested += ((EdgeHttpProvider)selector.Current).WebResourceRequested;
                 WebView.Navigate(defaultUrl);
 
