@@ -8,7 +8,7 @@
     <AssemblyName>IntelligentNavalGun</AssemblyName>
     <ApplicationIcon>$(BasePath)src\app.ico</ApplicationIcon>
     <ApplicationManifest>$(BasePath)src\app.manifest</ApplicationManifest>
-    <Version>2.0.0-alpha2</Version>
+    <Version>2.0.0-alpha3</Version>
     <Description>The canonical launcher of Intelligent Naval Gun</Description>
     <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
     <IsPackable>false</IsPackable>

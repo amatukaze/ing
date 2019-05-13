@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>Sakuno.ING.Game</RootNamespace>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Description>Game api parser and object model of Intelligent Naval Gun</Description>
     <NoWarn>CS0649</NoWarn>
   </PropertyGroup>
