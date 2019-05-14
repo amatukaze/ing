@@ -168,4 +168,25 @@ namespace Sakuno.ING.Game.Json
         }
         public FriendBattle api_friendly_battle;
     }
+
+    public class LandBaseDefenceDetailsJson
+    {
+        public int[] api_formation;
+        public int[] api_ship_ke;
+        public int[] api_ship_lv;
+
+        #region Deprecated in 17Q4
+        public int[] api_nowhps;
+        public int[] api_maxhps;
+        #endregion
+
+        public int[] api_f_nowhps;
+        public int[] api_f_maxhps;
+        public int[] api_e_nowhps;
+        public int[] api_e_maxhps;
+        public int[][] api_eSlot;
+
+        public BattleDetailJson.Aerial api_air_base_attack;
+        public int api_lost_kind;
+    }
 }

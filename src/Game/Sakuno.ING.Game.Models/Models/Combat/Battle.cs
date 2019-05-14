@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
-    public partial class Battle : BindableObject
+    public partial class Battle : BattleBase
     {
         public BattleKind Kind { get; }
         public CombinedFleetType FleetType { get; }
-        public Side Ally { get; }
 
         public Battle(Fleet fleet, Fleet fleet2, CombinedFleetType fleetType, BattleKind kind)
+            : base(new Side(fleet, fleet2))
         {
             Kind = kind;
             FleetType = fleetType;
-            Ally = new Side(fleet, fleet2);
             Incomplete = true;
         }
 
@@ -148,10 +146,10 @@ namespace Sakuno.ING.Game.Models.Combat
                             break;
                     }
 
-                CompletePart(Ally.Fleet);
-                CompletePart(Ally.Fleet2);
-                CompletePart(Enemy.Fleet);
-                CompletePart(Enemy.Fleet2);
+                Ally.Fleet?.CompleteAppendBattlePart();
+                Ally.Fleet2?.CompleteAppendBattlePart();
+                Enemy.Fleet?.CompleteAppendBattlePart();
+                Enemy.Fleet2?.CompleteAppendBattlePart();
                 Ally.UpdateDamageRate();
                 Enemy.UpdateDamageRate();
 
@@ -209,29 +207,5 @@ namespace Sakuno.ING.Game.Models.Combat
                 }
             }
         }
-
-        private void CompletePart(IReadOnlyList<BattleParticipant> fleet)
-        {
-            if (fleet is null) return;
-            if (fleet.Count == 0) return;
-            var mvp = fleet[0];
-
-            foreach (var s in fleet)
-            {
-                s.IsMvp = false;
-                if (s.DamageGiven >= mvp.DamageGiven)
-                    mvp = s;
-            }
-
-            if (fleet[0].DamageGiven >= mvp.DamageGiven)
-                mvp = fleet[0];
-            mvp.IsMvp = true;
-
-            foreach (var s in fleet)
-                s.Notify();
-        }
-
-        private readonly BindableCollection<BattlePhase> phases = new BindableCollection<BattlePhase>();
-        public IBindableCollection<BattlePhase> OrderedPhases => phases;
     }
 }

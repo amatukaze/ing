@@ -181,8 +181,8 @@ namespace Sakuno.ING.UWP
         {
             if (type == typeof(BattleLogDetailsView) && typeof(TParam) == typeof(BattleVM))
                 return new BattleLogDetailsView((BattleVM)(object)parameter);
-            else if (type == typeof(BattleDetailView) && typeof(TParam) == typeof(Battle))
-                return new BattleDetailView((Battle)(object)parameter);
+            else if (type == typeof(BattleDetailView) && typeof(BattleBase).IsAssignableFrom(typeof(TParam)))
+                return new BattleDetailView((BattleBase)(object)parameter);
             else
                 throw new InvalidOperationException("Compositor out of date");
         }

@@ -37,6 +37,13 @@
                 Fleet2 = new BattleParticipantCollection(raw.Fleet2, masterData, 7, isEnemy);
         }
 
+        public Side(in RawSide rawLandBase)
+        {
+            LoadEnvironment(rawLandBase);
+            if (rawLandBase.Fleet != null)
+                Fleet = new BattleParticipantCollection(rawLandBase.Fleet);
+        }
+
         public BattleParticipantCollection Fleet { get; }
         public BattleParticipantCollection Fleet2 { get; }
         public int Count => (Fleet?.Count ?? 0) + (Fleet2?.Count ?? 0);

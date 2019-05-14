@@ -49,16 +49,18 @@ namespace Sakuno.ING.Game.Models.Combat
             DamageReceived += damage;
             if (IsSunk && !IsEnemy)
             {
-                EquipmentInfo damageControl = null;
-                if (Ship.ExtraSlot?.Equipment?.Info?.Type?.Id == KnownEquipmentType.DamageControl)
-                    damageControl = Ship.ExtraSlot.Equipment.Info;
-                else foreach (var slot in Ship.Slots)
+                EquipmentInfo FindDamageControl()
+                {
+                    if (Ship is null) return null;
+                    if (Ship.ExtraSlot?.Equipment?.Info?.Type?.Id == KnownEquipmentType.DamageControl)
+                        return Ship?.ExtraSlot.Equipment.Info;
+                    foreach (var slot in Ship.Slots)
                         if (slot.Equipment?.Info?.Type?.Id == KnownEquipmentType.DamageControl)
-                        {
-                            damageControl = slot.Equipment.Info;
-                            break;
-                        }
+                            return slot.Equipment.Info;
+                    return null;
+                }
 
+                var damageControl = FindDamageControl();
                 if (damageControl != null)
                 {
                     if (damageControl.Id == 42) //応急修理要員

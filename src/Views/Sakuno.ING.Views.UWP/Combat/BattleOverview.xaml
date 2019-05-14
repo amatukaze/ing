@@ -79,49 +79,65 @@
                           ItemTemplate="{StaticResource ShipTemplate}" />
         </StackPanel>
         <Rectangle Height="2" Margin="4" Fill="Gray" />
-        <Grid HorizontalAlignment="Left">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="80" />
-                <ColumnDefinition MinWidth="140" />
-                <ColumnDefinition MinWidth="140" />
-                <ColumnDefinition MinWidth="80" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" FontSize="16"
-                       Text="{x:Bind c:Helpers.FormatFormation(Battle.Ally.Formation), FallbackValue=''}" />
-            <TextBlock Grid.Row="1" FontSize="16"
-                       Text="{x:Bind c:Helpers.FormatEngagement(Battle.Engagement), FallbackValue=''}" />
-            <TextBlock Grid.Row="2" FontSize="16"
-                       Text="{x:Bind c:Helpers.FormatFormation(Battle.Enemy.Formation), FallbackValue=''}" />
-            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="16"
-                       Text="{x:Bind c:Helpers.FormatAirFightingResult(Battle.AerialPhase.FightingResult), FallbackValue=''}" TextAlignment="Center" />
-            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="16" TextAlignment="Center">
-                <Run x:Uid="/Resources/Combat_FightedPlane" />:
-                <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Battle.AerialPhase.Ally.FightedPlanes), FallbackValue=''}" />
-            </TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" TextAlignment="Center">
-                <Run x:Uid="/Resources/Combat_ShootedPlane" />:
-                <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Battle.AerialPhase.Ally.ShootedPlanes), FallbackValue=''}" />
-            </TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" TextAlignment="Center">
-                <Run x:Uid="/Resources/Combat_FightedPlane" />:
-                <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Battle.AerialPhase.Enemy.FightedPlanes), FallbackValue=''}" />
-            </TextBlock>
-            <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16" TextAlignment="Center">
-                <Run x:Uid="/Resources/Combat_ShootedPlane" />:
-                <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Battle.AerialPhase.Enemy.ShootedPlanes), FallbackValue=''}" />
-            </TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
-                       Text="{x:Bind Battle.Ally.DamageRate.ToString('P2', x:Null), FallbackValue=''}" />
-            <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
-                       Text="{x:Bind c:Helpers.FormatBattleRank(Battle.Rank), FallbackValue=''}" />
-            <TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
-                       Text="{x:Bind Battle.Enemy.DamageRate.ToString('P2', x:Null), FallbackValue=''}" />
-        </Grid>
+        <ContentControl Content="{x:Bind Battle}" HorizontalContentAlignment="Left">
+            <ContentControl.ContentTemplateSelector>
+                <con:TypeTemplateSelector>
+                    <con:TypeTemplateSelection Type="m:Battle">
+                        <DataTemplate x:DataType="m:Battle">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition MinWidth="80" />
+                                    <ColumnDefinition MinWidth="140" />
+                                    <ColumnDefinition MinWidth="140" />
+                                    <ColumnDefinition MinWidth="80" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" FontSize="16"
+                                           Text="{x:Bind c:Helpers.FormatFormation(Ally.Formation), FallbackValue=''}" />
+                                <TextBlock Grid.Row="1" FontSize="16"
+                                           Text="{x:Bind c:Helpers.FormatEngagement(Engagement), FallbackValue=''}" />
+                                <TextBlock Grid.Row="2" FontSize="16"
+                                           Text="{x:Bind c:Helpers.FormatFormation(Enemy.Formation), FallbackValue=''}" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="16"
+                                           Text="{x:Bind c:Helpers.FormatAirFightingResult(AerialPhase.FightingResult), FallbackValue=''}" TextAlignment="Center" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" FontSize="16" TextAlignment="Center">
+                                    <Run x:Uid="/Resources/Combat_FightedPlane" />:
+                                    <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(AerialPhase.Ally.FightedPlanes), FallbackValue=''}" />
+                                </TextBlock>
+                                <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" TextAlignment="Center">
+                                    <Run x:Uid="/Resources/Combat_ShootedPlane" />:
+                                    <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(AerialPhase.Ally.ShootedPlanes), FallbackValue=''}" />
+                                </TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" TextAlignment="Center">
+                                    <Run x:Uid="/Resources/Combat_FightedPlane" />:
+                                    <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(AerialPhase.Enemy.FightedPlanes), FallbackValue=''}" />
+                                </TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="2" FontSize="16" TextAlignment="Center">
+                                    <Run x:Uid="/Resources/Combat_ShootedPlane" />:
+                                    <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(AerialPhase.Enemy.ShootedPlanes), FallbackValue=''}" />
+                                </TextBlock>
+                                <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
+                                           Text="{x:Bind Ally.DamageRate.ToString('P2', x:Null), FallbackValue=''}" />
+                                <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
+                                           Text="{x:Bind c:Helpers.FormatBattleRank(Rank), FallbackValue=''}" />
+                                <TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Right" FontSize="16"
+                                           Text="{x:Bind Enemy.DamageRate.ToString('P2', x:Null), FallbackValue=''}" />
+                            </Grid>
+                        </DataTemplate>
+                    </con:TypeTemplateSelection>
+                    <con:TypeTemplateSelection Type="m:LandBaseDefenceBattle">
+                        <DataTemplate x:DataType="m:LandBaseDefenceBattle">
+                            <StackPanel Orientation="Horizontal">
+                            </StackPanel>
+                        </DataTemplate>
+                    </con:TypeTemplateSelection>
+                </con:TypeTemplateSelector>
+            </ContentControl.ContentTemplateSelector>
+        </ContentControl>
         <Rectangle Height="2" Margin="4" Fill="Gray" />
         <StackPanel Orientation="Horizontal">
             <ItemsControl ItemsSource="{x:Bind Battle.Enemy.Fleet, FallbackValue={x:Null}}"

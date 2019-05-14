@@ -20,6 +20,10 @@ namespace Sakuno.ING.Game.Models.Combat
             FleetInfo = new ImplicitFleet(ships);
         }
 
+        public BattleParticipantCollection(IReadOnlyList<RawShipInBattle> rawAirBases)
+            : base(rawAirBases.Select((x, i) => new BattleParticipant(i + 1, null, x, false)).ToArray())
+        { }
+
         private static BattleParticipant[] Build(IReadOnlyList<Ship> ships, int startIndex)
             => ships.Select((s, i) => new BattleParticipant(startIndex + i, s)).ToArray();
         private static BattleParticipant[] BuildFromRaw(IReadOnlyList<RawShipInBattle> raw, MasterDataRoot masterData, int startIndex, bool isEnemy, out Ship[] ships)
@@ -39,6 +43,26 @@ namespace Sakuno.ING.Game.Models.Combat
             if (raw is null) return;
             for (int i = 0; i < raw.Count; i++)
                 this[i].Load(raw[i]);
+        }
+
+        internal void CompleteAppendBattlePart()
+        {
+            if (Count == 0) return;
+            var mvp = this[0];
+
+            foreach (var s in this)
+            {
+                s.IsMvp = false;
+                if (s.DamageGiven >= mvp.DamageGiven)
+                    mvp = s;
+            }
+
+            if (this[0].DamageGiven >= mvp.DamageGiven)
+                mvp = this[0];
+            mvp.IsMvp = true;
+
+            foreach (var s in this)
+                s.Notify();
         }
     }
 }

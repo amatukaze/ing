@@ -12,7 +12,7 @@ namespace Sakuno.ING.Bootstrap
         public T Value { get; }
         public override bool CanSupplyValue(ParameterInfo pi, IComponentContext context, out Func<object> valueProvider)
         {
-            if (pi.ParameterType == typeof(T))
+            if (pi.ParameterType.IsAssignableFrom(typeof(T)))
             {
                 valueProvider = () => Value;
                 return true;

@@ -15,7 +15,6 @@
     <property type="bool" name="HasStarted" />
     <property type="Engagement" name="Engagement" />
     <property type="BattleParticipantCollection" name="NpcFleet" />
-    <property type="Side" name="Enemy" />
     <property type="bool" name="Incomplete" />
     <property type="BattleRank?" name="Rank" />
     <property type="ShellingPhase" name="ShellingPhase1" />
@@ -34,6 +33,9 @@
     <property type="CombinedNightPhase" name="CombinedNightPhase1" />
     <property type="CombinedNightPhase" name="CombinedNightPhase2" />
     <property type="NpcPhase" name="NpcPhase" />
+  </class>
+  <class name="BattleBase">
+    <property type="Side" name="Enemy" set="protected" />
   </class>
   <class name="BattleManager">
     <property type="MapRouting" name="CurrentRouting" />

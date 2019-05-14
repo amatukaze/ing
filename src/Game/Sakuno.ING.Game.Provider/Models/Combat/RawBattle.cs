@@ -41,6 +41,10 @@ namespace Sakuno.ING.Game.Models.Combat
         public RawSupportPhase SupportPhase { get; }
         public RawNightPhase NpcPhase { get; }
 
+        public RawAerialPhase LandBaseDefencePhase { get; }
+        public bool LandBaseMaterialsLost { get; }
+        public bool LandBasePlanesLost { get; }
+
         public RawBattle(BattleDetailJson api, DateTimeOffset? timeStamp = null)
         {
             bool fixEnemyId = timeStamp < EnemyIdChangeTime;
@@ -131,6 +135,39 @@ namespace Sakuno.ING.Game.Models.Combat
                 if (api.api_friendly_battle.api_hougeki != null)
                     NpcPhase = new RawNightPhase(api.api_friendly_battle.api_hougeki, null, api.api_friendly_battle.api_flare_pos, null);
             }
+        }
+
+        public RawBattle(LandBaseDefenceDetailsJson api, DateTimeOffset? timeStamp = null)
+        {
+            bool fixEnemyId = timeStamp < EnemyIdChangeTime;
+
+            // Fleets
+
+            ally.Formation = (Formation)api.api_formation.At(0);
+            enemy.Formation = (Formation)api.api_formation.At(1);
+            Engagement = (Engagement)api.api_formation.At(2);
+
+            if (api.api_maxhps != null) // Deprecated from 17Q4
+            {
+                ally.Fleet = SelectFleet(api.api_maxhps.AsSpan(1, 6), api.api_nowhps.AsSpan(1, 6), null);
+                enemy.Fleet = SelectFleet(api.api_maxhps.AsSpan(7, 6), api.api_nowhps.AsSpan(7, 6), null, api.api_ship_ke.AsSpan(1), api.api_ship_lv.AsSpan(1), api.api_eSlot, null, fixEnemyId);
+            }
+
+            if (api.api_f_maxhps != null)
+                ally.Fleet = SelectFleet(api.api_f_maxhps, api.api_f_nowhps, null);
+            if (api.api_e_maxhps != null)
+                enemy.Fleet = SelectFleet(api.api_e_maxhps, api.api_e_nowhps, null, api.api_ship_ke, api.api_ship_lv, api.api_eSlot, fixEnemyId: fixEnemyId);
+
+            if (api.api_air_base_attack != null)
+                LandBaseDefencePhase = new RawAerialPhase(api.api_air_base_attack);
+
+            (LandBaseMaterialsLost, LandBasePlanesLost) = api.api_lost_kind switch
+            {
+                1 => (true, false),
+                2 => (true, true),
+                3 => (false, true),
+                _ => (false, false)
+            };
         }
 
         internal static int? SelectPositive(int[] array, int index)

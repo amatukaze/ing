@@ -12,7 +12,7 @@ namespace Sakuno.ING.Views.Desktop.Combat
             InitializeComponent();
         }
 
-        public BattleDetailView(Battle battle)
+        public BattleDetailView(BattleBase battle)
             : this()
         {
             DataContext = battle;

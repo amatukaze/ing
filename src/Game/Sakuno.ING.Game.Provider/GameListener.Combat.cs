@@ -42,7 +42,7 @@ namespace Sakuno.ING.Game
         private void HandleMapRouting(RawMapRouting routing)
         {
             if (routing.UnparsedLandBaseDefence is null) return;
-            routing.LandBaseDefence = new RawBattle(routing.UnparsedLandBaseDefence.ToObject<BattleDetailJson>(jSerializer));
+            routing.LandBaseDefence = new RawBattle(routing.UnparsedLandBaseDefence.ToObject<LandBaseDefenceDetailsJson>(jSerializer));
         }
     }
 }

@@ -5,8 +5,8 @@ namespace Sakuno.ING.Views.UWP.Combat
 {
     public sealed partial class BattleOverview : UserControl
     {
-        private Battle _battle;
-        public Battle Battle
+        private BattleBase _battle;
+        public BattleBase Battle
         {
             get => _battle;
             set

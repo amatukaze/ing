@@ -102,16 +102,6 @@ namespace Sakuno.ING.Game.Models.Combat
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_enemy = new PropertyChangedEventArgs(nameof(Enemy));
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private Side _enemy;
-        public Side Enemy
-        {
-            get => _enemy;
-            private set => Set(ref _enemy, value, __eventArgs_enemy);
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_incomplete = new PropertyChangedEventArgs(nameof(Incomplete));
         [EditorBrowsable(EditorBrowsableState.Never)]
         private bool _incomplete;
@@ -289,6 +279,19 @@ namespace Sakuno.ING.Game.Models.Combat
         {
             get => _npcPhase;
             private set => Set(ref _npcPhase, value, __eventArgs_npcPhase);
+        }
+    }
+    partial class BattleBase
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_enemy = new PropertyChangedEventArgs(nameof(Enemy));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private Side _enemy;
+        public Side Enemy
+        {
+            get => _enemy;
+            protected set => Set(ref _enemy, value, __eventArgs_enemy);
         }
     }
     partial class BattleManager

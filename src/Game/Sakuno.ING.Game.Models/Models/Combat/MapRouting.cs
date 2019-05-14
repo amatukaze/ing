@@ -20,6 +20,8 @@ namespace Sakuno.ING.Game.Models.Combat
             UseItemChanges = m.ItemAcquired.Select(x => new UseItemChange(navalBase.MasterData.UseItems[x.ItemId], x.Count))
                 .Concat(m.ItemLost.Select(x => new UseItemChange(navalBase.MasterData.UseItems[x.ItemId], -x.Count)))
                 .ToArray();
+            if (m.LandBaseDefence != null)
+                LandBaseDefence = new LandBaseDefenceBattle(navalBase.MasterData, m.LandBaseDefence);
         }
 
         public Map Map { get; }
@@ -33,5 +35,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public bool CanSelectRoute => SelectableRoutes != null;
         public int? RankingPointAcquired { get; }
         public IReadOnlyCollection<UseItemChange> UseItemChanges { get; }
+
+        public LandBaseDefenceBattle LandBaseDefence { get; }
     }
 }

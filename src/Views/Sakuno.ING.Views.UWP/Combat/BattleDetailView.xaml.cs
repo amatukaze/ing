@@ -8,8 +8,8 @@ namespace Sakuno.ING.Views.UWP.Combat
     [ExportView("CurrentBattleDetail")]
     public sealed partial class BattleDetailView : UserControl
     {
-        private Battle _battle;
-        public Battle Battle
+        private BattleBase _battle;
+        public BattleBase Battle
         {
             get => _battle;
             set
@@ -24,7 +24,7 @@ namespace Sakuno.ING.Views.UWP.Combat
             this.InitializeComponent();
         }
 
-        public BattleDetailView(Battle battle)
+        public BattleDetailView(BattleBase battle)
         {
             _battle = battle;
             this.InitializeComponent();
