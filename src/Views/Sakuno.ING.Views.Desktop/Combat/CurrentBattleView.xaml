@@ -19,6 +19,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="32" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -64,11 +65,44 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
-        <ScrollViewer Grid.Row="2" DataContext="{Binding BattleManager.CurrentBattle}"
+        <ContentControl Grid.Row="2" Content="{Binding BattleManager.CurrentRouting.LandBaseDefence}"
+                        Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center"
+                                   Text="{c:Localize Combat/LandBaseAirDefence}" />
+                        <TextBlock TextAlignment="Center" Name="_LandBase_Materials"
+                                   Grid.Row="1" Grid.Column="1" FontSize="16"
+                                   Margin="2, 0" />
+                        <TextBlock TextAlignment="Center" x:Name="_LandBase_Planes"
+                                   Grid.Row="1" Grid.Column="2" FontSize="16"
+                                   Margin="2, 0" />
+                    </StackPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding MaterialsLost}" Value="True">
+                            <Setter TargetName="_LandBase_Materials" Property="Text" Value="{c:Localize Combat/LandBaseAirDefence_Materials_Lost}" />
+                            <Setter TargetName="_LandBase_Materials" Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding MaterialsLost}" Value="False">
+                            <Setter TargetName="_LandBase_Materials" Property="Text" Value="{c:Localize Combat/LandBaseAirDefence_Materials_NotLost}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding PlanesLost}" Value="True">
+                            <Setter TargetName="_LandBase_Planes" Property="Text" Value="{c:Localize Combat/LandBaseAirDefence_Planes_Lost}" />
+                            <Setter TargetName="_LandBase_Planes" Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding PlanesLost}" Value="False">
+                            <Setter TargetName="_LandBase_Planes" Property="Text" Value="{c:Localize Combat/LandBaseAirDefence_Planes_NotLost}" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+        <ScrollViewer Grid.Row="3" DataContext="{Binding BattleManager.CurrentBattle}"
                       Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}">
             <local:BattleOverview />
         </ScrollViewer>
-        <c:InvokeMethodButton Grid.Row="3" HorizontalAlignment="Left"
+        <c:InvokeMethodButton Grid.Row="4" HorizontalAlignment="Left"
                               IsEnabled="{Binding BattleManager.CurrentBattle.HasStarted, FallbackValue=False}"
                               MethodName="ShowCurrentDetail"
                               Content="{c:Localize GameModel/Details}" />

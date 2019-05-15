@@ -57,6 +57,18 @@
   <data name="LandBaseAirDefence">
     <value>基地防空</value>
   </data>
+  <data name="LandBaseAirDefence_Materials_Lost">
+    <value>備蓄資源に損害を受けました</value>
+  </data>
+  <data name="LandBaseAirDefence_Materials_NotLost">
+    <value>備蓄資源に損害を受けません</value>
+  </data>
+  <data name="LandBaseAirDefence_Planes_Lost">
+    <value>地上撃破の損害が発生しました</value>
+  </data>
+  <data name="LandBaseAirDefence_Planes_NotLost">
+    <value>地上撃破の損害が発生しません</value>
+  </data>
   <data name="CombinedFleetType_0">
     <value>通常艦隊</value>
   </data>

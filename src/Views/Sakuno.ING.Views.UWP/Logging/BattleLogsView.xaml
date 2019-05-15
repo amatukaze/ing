@@ -53,8 +53,21 @@
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:BattleVM">
                             <Button Style="{StaticResource TextBlockButtonStyle}"
+                                    x:Uid="/Resources/Logging_Item_BattleDetail"
                                     Tapped="{x:Bind LoadDetail}"
                                     Visibility="{x:Bind HasBattleDetail}">
+                                <SymbolIcon Symbol="List" />
+                            </Button>
+                        </DataTemplate>
+                    </tk:DataGridTemplateColumn.CellTemplate>
+                </tk:DataGridTemplateColumn>
+                <tk:DataGridTemplateColumn>
+                    <tk:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="vm:BattleVM">
+                            <Button Style="{StaticResource TextBlockButtonStyle}"
+                                    x:Uid="/Resources/Logging_Item_LandBaseDefenceDetail"
+                                    Tapped="{x:Bind LoadLandBaseDefence}"
+                                    Visibility="{x:Bind HasLandBaseDefenceDetail}">
                                 <SymbolIcon Symbol="List" />
                             </Button>
                         </DataTemplate>

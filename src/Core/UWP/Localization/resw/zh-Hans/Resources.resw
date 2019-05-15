@@ -138,6 +138,12 @@
   <data name="Logging_Column_UseItemDrop.Header">
     <value>掉落物品</value>
   </data>
+  <data name="Logging_Item_BattleDetail.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip">
+    <value>详情</value>
+  </data>
+  <data name="Logging_Item_LandBaseDefenceDetail.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip">
+    <value>基地防空</value>
+  </data>
   <data name="ShipsCount.Text">
     <value>舰娘数：</value>
   </data>
@@ -236,5 +242,20 @@
   </data>
   <data name="Parameter_Textual_Armor.Text">
     <value>装甲</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence.Text">
+    <value>基地防空</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Materials_Lost.Text">
+    <value>资源受损</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Materials_NotLost.Text">
+    <value>资源未受损</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Planes_Lost.Text">
+    <value>航空队受损</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Planes_NotLost.Text">
+    <value>航空队未受损</value>
   </data>
 </root>

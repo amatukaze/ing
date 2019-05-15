@@ -29,6 +29,7 @@
     "Expedition": "遠征一覧",
     "BattleLogDetail": "戦闘詳細 - 歴史",
     "CurrentBattleDetail": "戦闘詳細 - 現在",
+    "LandBaseDefenceDetail": "戦闘詳細 - 基地防空",
     "Page_Overview": "一覧",
     "Page_Battle": "戦闘"
   },
@@ -152,6 +153,10 @@
     "BattleRank_D": "敗北D",
     "BattleRank_E": "敗北E",
     "LandBaseAirDefence": "基地防空",
+    "LandBaseAirDefence_Materials_Lost": "備蓄資源に損害を受けました",
+    "LandBaseAirDefence_Materials_NotLost": "備蓄資源に損害を受けません",
+    "LandBaseAirDefence_Planes_Lost": "地上撃破の損害が発生しました",
+    "LandBaseAirDefence_Planes_NotLost": "地上撃破の損害が発生しません",
     "CombinedFleetType_0": "通常艦隊",
     "CombinedFleetType_1": "空母機動部隊",
     "CombinedFleetType_2": "水上打撃部隊",

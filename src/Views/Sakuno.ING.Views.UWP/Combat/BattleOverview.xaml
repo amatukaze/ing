@@ -131,8 +131,46 @@
                     </con:TypeTemplateSelection>
                     <con:TypeTemplateSelection Type="m:LandBaseDefenceBattle">
                         <DataTemplate x:DataType="m:LandBaseDefenceBattle">
-                            <StackPanel Orientation="Horizontal">
-                            </StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="120" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.ColumnSpan="3" FontSize="16" TextAlignment="Center">
+                                    <Run x:Uid="/Resources/Combat_FightedPlane" />:
+                                    <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(LandBaseDefencePhase.Ally.FightedPlanes), FallbackValue=''}" />
+                                </TextBlock>
+                                <TextBlock Grid.Row="2" Grid.ColumnSpan="3" FontSize="16" TextAlignment="Center">
+                                    <Run x:Uid="/Resources/Combat_FightedPlane" />:
+                                    <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(LandBaseDefencePhase.Enemy.FightedPlanes), FallbackValue=''}" />
+                                </TextBlock>
+                                <TextBlock Grid.Row="1" FontSize="16"
+                                           Text="{x:Bind c:Helpers.FormatAirFightingResult(LandBaseDefencePhase.FightingResult), FallbackValue=''}" TextAlignment="Center" />
+                                <TextBlock TextAlignment="Center" x:Name="_LandBase_Materials_Lost"
+                                           Grid.Row="1" Grid.Column="1" FontSize="16"
+                                           x:Uid="/Resources/Combat_LandBaseAirDefence_Materials_Lost"
+                                           Foreground="Red"
+                                           x:Load="{x:Bind MaterialsLost, FallbackValue=False}" />
+                                <TextBlock TextAlignment="Center" x:Name="_LandBase_Materials_Unlost"
+                                           Grid.Row="1" Grid.Column="1" FontSize="16"
+                                           x:Uid="/Resources/Combat_LandBaseAirDefence_Materials_NotLost"
+                                           x:Load="{x:Bind c:Helpers.Not(MaterialsLost), FallbackValue=False}" />
+                                <TextBlock TextAlignment="Center" x:Name="_LandBase_Planes_Lost"
+                                           Grid.Row="1" Grid.Column="2" FontSize="16"
+                                           x:Uid="/Resources/Combat_LandBaseAirDefence_Planes_Lost"
+                                           Foreground="Red"
+                                           x:Load="{x:Bind PlanesLost, FallbackValue=False}" />
+                                <TextBlock TextAlignment="Center" x:Name="_LandBase_Planes_Unlost"
+                                           Grid.Row="1" Grid.Column="2" FontSize="16"
+                                           x:Uid="/Resources/Combat_LandBaseAirDefence_Planes_NotLost"
+                                           x:Load="{x:Bind c:Helpers.Not(PlanesLost), FallbackValue=False}" />
+                            </Grid>
                         </DataTemplate>
                     </con:TypeTemplateSelection>
                 </con:TypeTemplateSelector>
@@ -140,9 +178,9 @@
         </ContentControl>
         <Rectangle Height="2" Margin="4" Fill="Gray" />
         <StackPanel Orientation="Horizontal">
-            <ItemsControl ItemsSource="{x:Bind Battle.Enemy.Fleet, FallbackValue={x:Null}}"
-                          ItemTemplate="{StaticResource ShipTemplate}" />
             <ItemsControl ItemsSource="{x:Bind Battle.Enemy.Fleet2, FallbackValue={x:Null}}"
+                          ItemTemplate="{StaticResource ShipTemplate}" />
+            <ItemsControl ItemsSource="{x:Bind Battle.Enemy.Fleet, FallbackValue={x:Null}}"
                           ItemTemplate="{StaticResource ShipTemplate}" />
         </StackPanel>
     </StackPanel>

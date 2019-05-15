@@ -138,6 +138,12 @@
   <data name="Logging_Column_UseItemDrop.Header">
     <value>Dropped item</value>
   </data>
+  <data name="Logging_Item_BattleDetail.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip">
+    <value>Details</value>
+  </data>
+  <data name="Logging_Item_LandBaseDefenceDetail.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip">
+    <value>Land base defence</value>
+  </data>
   <data name="ShipsCount.Text">
     <value>Ships count: </value>
   </data>
@@ -236,5 +242,20 @@
   </data>
   <data name="Parameter_Textual_Armor.Text">
     <value>Armor</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence.Text">
+    <value>Land base defence</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Materials_Lost.Text">
+    <value>Materials lost</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Materials_NotLost.Text">
+    <value>Materials not lost</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Planes_Lost.Text">
+    <value>Planes lost</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Planes_NotLost.Text">
+    <value>Planes not lost</value>
   </data>
 </root>

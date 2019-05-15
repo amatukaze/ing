@@ -17,11 +17,11 @@ namespace Sakuno.ING.Views.UWP
         private static readonly bool translate
             = Compositor.Static<LocaleSetting>().TranslateContent.InitialValue;
         public static string SelectName(TextTranslationGroup name)
-            => translate ? name.Translation : name.Origin;
+            => translate ? name?.Translation : name?.Origin;
         public static string SelectShipName(ShipName name)
             => SelectName(name);
         public static string SelectShipBasicName(ShipName name)
-            => translate ? name.BasicTranslation : name.BasicName;
+            => translate ? name?.BasicTranslation : name?.BasicName;
 
         public static string Localize(string category, object value, string format)
             => localization.GetLocalized(category, string.Format(format, value));

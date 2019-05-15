@@ -51,6 +51,9 @@
   <data name="CurrentBattleDetail">
     <value>Battle detail - current</value>
   </data>
+  <data name="LandBaseDefenceDetail">
+    <value>Battle detail - land base defence</value>
+  </data>
   <data name="Page_Overview">
     <value>Overview</value>
   </data>

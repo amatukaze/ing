@@ -39,6 +39,8 @@ namespace Sakuno.ING.ViewModels.Logging
         public UseItemInfo UseItemDrop { get; }
         public bool HasBattleDetail => entity.HasBattleDetail;
         public Battle Detail { get; private set; }
+        public bool HasLandBaseDefenceDetail => entity.HasLandBaseDefense;
+        public LandBaseDefenceBattle LandBaseDefence { get; private set; }
 
         public void LoadDetail()
         {
@@ -72,6 +74,20 @@ namespace Sakuno.ING.ViewModels.Logging
             var api = owner.provider.Deserialize<BattleDetailJson>(json);
             var raw = new RawBattle(api, TimeStamp);
             battle.Append(owner.masterData, raw);
+        }
+
+        public void LoadLandBaseDefence()
+        {
+            if (!HasLandBaseDefenceDetail) return;
+            if (LandBaseDefence is null && entity.LandBaseDefence != null)
+            {
+                try
+                {
+                    LandBaseDefence = new LandBaseDefenceBattle(owner.masterData, new RawBattle(owner.provider.Deserialize<LandBaseDefenceDetailsJson>(entity.LandBaseDefence), TimeStamp));
+                }
+                catch { }
+            }
+            owner.shell.ShowViewWithParameter("LandBaseDefenceDetail", LandBaseDefence);
         }
     }
 

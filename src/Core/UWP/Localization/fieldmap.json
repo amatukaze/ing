@@ -41,6 +41,8 @@
   "Logging_Column_Rank.Header": "Combat/Rank",
   "Logging_Column_ShipDrop.Header": "Combat/ShipDrop",
   "Logging_Column_UseItemDrop.Header": "Combat/UseItemDrop",
+  "Logging_Item_BattleDetail.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip": "GameModel/Details",
+  "Logging_Item_LandBaseDefenceDetail.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip": "Combat/LandBaseAirDefence",
   "ShipsCount.Text": "GameModel/Count_Ship",
   "EquipmentCount.Text": "GameModel/Count_Equipment",
   "BuildingDocks.Content": "GameModel/Build",
@@ -73,5 +75,10 @@
   "Parameter_Textual_Firepower.Text": "GameModel/Parameter_Firepower",
   "Parameter_Textual_Torpedo.Text": "GameModel/Parameter_Torpedo",
   "Parameter_Textual_AntiAir.Text": "GameModel/Parameter_AntiAir",
-  "Parameter_Textual_Armor.Text": "GameModel/Parameter_Armor"
+  "Parameter_Textual_Armor.Text": "GameModel/Parameter_Armor",
+  "Combat_LandBaseAirDefence.Text": "Combat/LandBaseAirDefence",
+  "Combat_LandBaseAirDefence_Materials_Lost.Text": "Combat/LandBaseAirDefence_Materials_Lost",
+  "Combat_LandBaseAirDefence_Materials_NotLost.Text": "Combat/LandBaseAirDefence_Materials_NotLost",
+  "Combat_LandBaseAirDefence_Planes_Lost.Text": "Combat/LandBaseAirDefence_Planes_Lost",
+  "Combat_LandBaseAirDefence_Planes_NotLost.Text": "Combat/LandBaseAirDefence_Planes_NotLost"
 }

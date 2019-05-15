@@ -63,6 +63,15 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <c:InvokeMethodButton Content="{c:Localize Combat/LandBaseAirDefence}"
+                                                      MethodName="LoadLandBaseDefence"
+                                                      Visibility="{Binding HasLandBaseDefenceDetail, Mode=OneTime, Converter={StaticResource VisibilityConverter}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

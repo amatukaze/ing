@@ -1,8 +1,10 @@
 ﻿using Sakuno.ING.Game.Models.Combat;
+using Sakuno.ING.Shell;
 using Windows.UI.Xaml.Controls;
 
 namespace Sakuno.ING.Views.UWP.Combat
 {
+    [ExportView("LandBaseDefenceDetail")]
     public sealed partial class BattleOverview : UserControl
     {
         private BattleBase _battle;
@@ -15,8 +17,15 @@ namespace Sakuno.ING.Views.UWP.Combat
                 Bindings.Update();
             }
         }
+
         public BattleOverview()
         {
+            this.InitializeComponent();
+        }
+
+        public BattleOverview(BattleBase battle)
+        {
+            _battle = battle;
             this.InitializeComponent();
         }
     }

@@ -51,6 +51,9 @@
   <data name="CurrentBattleDetail">
     <value>戦闘詳細 - 現在</value>
   </data>
+  <data name="LandBaseDefenceDetail">
+    <value>戦闘詳細 - 基地防空</value>
+  </data>
   <data name="Page_Overview">
     <value>一覧</value>
   </data>

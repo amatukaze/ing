@@ -122,9 +122,46 @@
                     </c:TypeTemplateSelection>
                     <c:TypeTemplateSelection Type="{x:Type m:LandBaseDefenceBattle}">
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                
-                            </StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="120" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.ColumnSpan="3" FontSize="16" TextAlignment="Center">
+                                    <Run Text="{c:Localize Combat/FightedPlane}" />:
+                                    <Run Text="{Binding LandBaseDefencePhase.Ally.FightedPlanes, Mode=OneWay, Converter={StaticResource AerialPlanesConverter}}" />
+                                </TextBlock>
+                                <TextBlock Grid.Row="2" Grid.ColumnSpan="3" FontSize="16" TextAlignment="Center">
+                                    <Run Text="{c:Localize Combat/FightedPlane}" />:
+                                    <Run Text="{Binding LandBaseDefencePhase.Enemy.FightedPlanes, Mode=OneWay, Converter={StaticResource AerialPlanesConverter}}" />
+                                </TextBlock>
+                                <TextBlock TextAlignment="Center" Name="_LandBase_Materials"
+                                           Grid.Row="1" Grid.Column="1" FontSize="16" />
+                                <TextBlock TextAlignment="Center" x:Name="_LandBase_Planes"
+                                           Grid.Row="1" Grid.Column="2" FontSize="16" />
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding MaterialsLost}" Value="True">
+                                    <Setter TargetName="_LandBase_Materials" Property="Text" Value="{c:Localize Combat/LandBaseAirDefence_Materials_Lost}" />
+                                    <Setter TargetName="_LandBase_Materials" Property="Foreground" Value="Red" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding MaterialsLost}" Value="False">
+                                    <Setter TargetName="_LandBase_Materials" Property="Text" Value="{c:Localize Combat/LandBaseAirDefence_Materials_NotLost}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PlanesLost}" Value="True">
+                                    <Setter TargetName="_LandBase_Planes" Property="Text" Value="{c:Localize Combat/LandBaseAirDefence_Planes_Lost}" />
+                                    <Setter TargetName="_LandBase_Planes" Property="Foreground" Value="Red" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding PlanesLost}" Value="False">
+                                    <Setter TargetName="_LandBase_Planes" Property="Text" Value="{c:Localize Combat/LandBaseAirDefence_Planes_NotLost}" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
                         </DataTemplate>
                     </c:TypeTemplateSelection>
                 </c:TypeTemplateSelector>
@@ -132,9 +169,9 @@
         </ContentControl>
         <Rectangle Height="2" Margin="4" Fill="Gray" />
         <StackPanel Orientation="Horizontal">
-            <ItemsControl ItemsSource="{Binding Enemy.Fleet}"
-                          ItemTemplate="{StaticResource ShipTemplate}" />
             <ItemsControl ItemsSource="{Binding Enemy.Fleet2}"
+                          ItemTemplate="{StaticResource ShipTemplate}" />
+            <ItemsControl ItemsSource="{Binding Enemy.Fleet}"
                           ItemTemplate="{StaticResource ShipTemplate}" />
         </StackPanel>
     </StackPanel>

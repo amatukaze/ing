@@ -69,6 +69,18 @@
   <data name="LandBaseAirDefence">
     <value>基地防空</value>
   </data>
+  <data name="LandBaseAirDefence_Materials_Lost">
+    <value>资源受损</value>
+  </data>
+  <data name="LandBaseAirDefence_Materials_NotLost">
+    <value>资源未受损</value>
+  </data>
+  <data name="LandBaseAirDefence_Planes_Lost">
+    <value>航空队受损</value>
+  </data>
+  <data name="LandBaseAirDefence_Planes_NotLost">
+    <value>航空队未受损</value>
+  </data>
   <data name="Engagement">
     <value>航向</value>
   </data>

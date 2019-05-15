@@ -110,7 +110,8 @@ namespace Sakuno.ING.UWP
             ["BattleLogs"] = typeof(BattleLogsView),
             ["BattleLogDetail"] = typeof(BattleLogDetailsView),
             ["ActiveQuests"] = typeof(ActiveQuestsView),
-            ["CurrentBattleDetail"] = typeof(BattleDetailView)
+            ["CurrentBattleDetail"] = typeof(BattleDetailView),
+            ["LandBaseDefenceDetail"] = typeof(BattleOverview)
         };
 
         public override IReadOnlyCollection<KeyValuePair<Type, SettingCategory>> SettingViews { get; } = new Dictionary<Type, SettingCategory>
@@ -183,6 +184,8 @@ namespace Sakuno.ING.UWP
                 return new BattleLogDetailsView((BattleVM)(object)parameter);
             else if (type == typeof(BattleDetailView) && typeof(BattleBase).IsAssignableFrom(typeof(TParam)))
                 return new BattleDetailView((BattleBase)(object)parameter);
+            else if (type == typeof(BattleOverview) && typeof(BattleBase).IsAssignableFrom(typeof(TParam)))
+                return new BattleOverview((BattleBase)(object)parameter);
             else
                 throw new InvalidOperationException("Compositor out of date");
         }

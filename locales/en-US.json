@@ -29,6 +29,7 @@
     "Expedition": "Expedition overview",
     "BattleLogDetail": "Battle detail - history",
     "CurrentBattleDetail": "Battle detail - current",
+    "LandBaseDefenceDetail": "Battle detail - land base defence",
     "Page_Overview": "Overview",
     "Page_Battle": "Battle"
   },
@@ -156,6 +157,10 @@
     "BattleRank_D": "Defeat D",
     "BattleRank_E": "Defeat E",
     "LandBaseAirDefence": "Land base defence",
+    "LandBaseAirDefence_Materials_Lost": "Materials lost",
+    "LandBaseAirDefence_Materials_NotLost": "Materials not lost",
+    "LandBaseAirDefence_Planes_Lost": "Planes lost",
+    "LandBaseAirDefence_Planes_NotLost": "Planes not lost",
     "CombinedFleetType_0": "Normal fleet",
     "CombinedFleetType_1": "Carrier task force",
     "CombinedFleetType_2": "Surface task force",

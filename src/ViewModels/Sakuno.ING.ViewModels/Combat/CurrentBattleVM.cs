@@ -22,5 +22,11 @@ namespace Sakuno.ING.ViewModels.Combat
             if (BattleManager.CurrentBattle != null)
                 shell.ShowViewWithParameter("CurrentBattleDetail", BattleManager.CurrentBattle);
         }
+
+        public void ShowCurrentLandBaseDefence()
+        {
+            if (BattleManager.CurrentRouting?.LandBaseDefence != null)
+                shell.ShowViewWithParameter("LandBaseDefenceDetail", BattleManager.CurrentRouting.LandBaseDefence);
+        }
     }
 }

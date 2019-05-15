@@ -57,6 +57,18 @@
   <data name="LandBaseAirDefence">
     <value>Land base defence</value>
   </data>
+  <data name="LandBaseAirDefence_Materials_Lost">
+    <value>Materials lost</value>
+  </data>
+  <data name="LandBaseAirDefence_Materials_NotLost">
+    <value>Materials not lost</value>
+  </data>
+  <data name="LandBaseAirDefence_Planes_Lost">
+    <value>Planes lost</value>
+  </data>
+  <data name="LandBaseAirDefence_Planes_NotLost">
+    <value>Planes not lost</value>
+  </data>
   <data name="CombinedFleetType_0">
     <value>Normal fleet</value>
   </data>

@@ -20,6 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="32" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -63,13 +64,35 @@
                 </mux:ItemsRepeater.ItemTemplate>
             </mux:ItemsRepeater>
         </StackPanel>
-        <ScrollViewer Grid.Row="2"
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="4"
+                    Visibility="{x:Bind Manager.CurrentRouting.LandBaseDefence, Converter={StaticResource NullToVisibilityConverter}, FallbackValue=Collapsed}">
+            <TextBlock VerticalAlignment="Center"
+                       x:Uid="/Resources/Combat_LandBaseAirDefence" />
+            <TextBlock VerticalAlignment="Center" x:Name="_LandBase_Materials_Lost"
+                       x:Uid="/Resources/Combat_LandBaseAirDefence_Materials_Lost"
+                       Foreground="Red"
+                       x:Load="{x:Bind Manager.CurrentRouting.LandBaseDefence.MaterialsLost, FallbackValue=False}" />
+            <TextBlock VerticalAlignment="Center" x:Name="_LandBase_Materials_Unlost"
+                       x:Uid="/Resources/Combat_LandBaseAirDefence_Materials_NotLost"
+                       x:Load="{x:Bind c:Helpers.Not(Manager.CurrentRouting.LandBaseDefence.MaterialsLost), FallbackValue=False}" />
+            <TextBlock VerticalAlignment="Center" x:Name="_LandBase_Planes_Lost"
+                       x:Uid="/Resources/Combat_LandBaseAirDefence_Planes_Lost"
+                       Foreground="Red"
+                       x:Load="{x:Bind Manager.CurrentRouting.LandBaseDefence.PlanesLost, FallbackValue=False}" />
+            <TextBlock VerticalAlignment="Center" x:Name="_LandBase_Planes_Unlost"
+                       x:Uid="/Resources/Combat_LandBaseAirDefence_Planes_NotLost"
+                       x:Load="{x:Bind c:Helpers.Not(Manager.CurrentRouting.LandBaseDefence.PlanesLost), FallbackValue=False}" />
+            <Button VerticalAlignment="Center"
+                    x:Uid="/Resources/Combat_CurrentBattleDetail"
+                    Tapped="{x:Bind ViewModel.ShowCurrentLandBaseDefence}" />
+        </StackPanel>
+        <ScrollViewer Grid.Row="3"
                       Visibility="{x:Bind Manager.CurrentBattle, Converter={StaticResource NullToVisibilityConverter}}"
                       HorizontalScrollMode="Auto"
                       VerticalScrollMode="Auto">
             <local:BattleOverview Battle="{x:Bind Manager.CurrentBattle}" />
         </ScrollViewer>
-        <Button Grid.Row="3" HorizontalAlignment="Left"
+        <Button Grid.Row="4" HorizontalAlignment="Left"
                 x:Uid="/Resources/Combat_CurrentBattleDetail"
                 IsEnabled="{x:Bind Manager.CurrentBattle.HasStarted, FallbackValue=False}"
                 Tapped="{x:Bind ViewModel.ShowCurrentDetail}" />

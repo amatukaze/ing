@@ -29,6 +29,7 @@
     "Expedition": "远征一览",
     "BattleLogDetail": "战斗详情 - 历史",
     "CurrentBattleDetail": "战斗详情 - 当前",
+    "LandBaseDefenceDetail": "战斗详情 - 基地防空",
     "Page_Overview": "概览",
     "Page_Battle": "战斗"
   },
@@ -160,6 +161,10 @@
     "CombinedFleetType_2": "水上打击部队",
     "CombinedFleetType_3": "输送护卫部队",
     "LandBaseAirDefence": "基地防空",
+    "LandBaseAirDefence_Materials_Lost": "资源受损",
+    "LandBaseAirDefence_Materials_NotLost": "资源未受损",
+    "LandBaseAirDefence_Planes_Lost": "航空队受损",
+    "LandBaseAirDefence_Planes_NotLost": "航空队未受损",
     "Engagement": "航向",
     "Engagement_1": "同航战",
     "Engagement_2": "反航战",

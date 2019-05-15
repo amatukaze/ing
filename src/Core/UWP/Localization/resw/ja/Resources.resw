@@ -126,6 +126,12 @@
   <data name="Logging_Column_UseItemDrop.Header">
     <value>ドロップアイテム</value>
   </data>
+  <data name="Logging_Item_BattleDetail.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip">
+    <value>詳細</value>
+  </data>
+  <data name="Logging_Item_LandBaseDefenceDetail.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip">
+    <value>基地防空</value>
+  </data>
   <data name="ShipsCount.Text">
     <value>艦娘数：</value>
   </data>
@@ -224,5 +230,20 @@
   </data>
   <data name="Parameter_Textual_Armor.Text">
     <value>装甲</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence.Text">
+    <value>基地防空</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Materials_Lost.Text">
+    <value>備蓄資源に損害を受けました</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Materials_NotLost.Text">
+    <value>備蓄資源に損害を受けません</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Planes_Lost.Text">
+    <value>地上撃破の損害が発生しました</value>
+  </data>
+  <data name="Combat_LandBaseAirDefence_Planes_NotLost.Text">
+    <value>地上撃破の損害が発生しません</value>
   </data>
 </root>
