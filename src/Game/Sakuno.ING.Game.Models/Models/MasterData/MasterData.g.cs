@@ -267,7 +267,15 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public int CompareTo(ShipInfo other) => Id.CompareTo(other?.Id ?? default);
 
-        public TextTranslationGroup Introduction { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_introduction = new PropertyChangedEventArgs(nameof(Introduction));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _introduction;
+        public TextTranslationDescriptor Introduction
+        {
+            get => _introduction;
+            private set => Set(ref _introduction, value, __eventArgs_introduction);
+        }
 
         public ShipInfoId Id { get; }
         private readonly MasterDataRoot owner;
@@ -277,7 +285,6 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             Id = id;
             this.owner = owner;
-            Introduction.Translation = owner.Localization?.GetLocalized("ShipIntro", id.ToString());
             CreateCore();
         }
 
@@ -295,11 +302,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             UpdationTime = timeStamp;
 
-            if (raw.Introduction != Introduction.Origin)
-            {
-                Introduction.Origin = raw.Introduction;
-                NotifyPropertyChanged(nameof(Introduction));
-            }
+            if (raw.Introduction != Introduction?.Origin)
+                Introduction = new TextTranslationDescriptor(Id, "ShipIntro", raw.Introduction, true);
 
             SortNo = raw.SortNo;
             IsAbyssal = raw.IsAbyssal;
@@ -366,6 +370,16 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public int CompareTo(ShipTypeInfo other) => Id.CompareTo(other?.Id ?? default);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _name;
+        public TextTranslationDescriptor Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
+
         private readonly BindableSnapshotCollection<EquipmentTypeInfo> availableEquipmentTypes = new BindableSnapshotCollection<EquipmentTypeInfo>();
         public IReadOnlyList<EquipmentTypeInfo> AvailableEquipmentTypes => availableEquipmentTypes;
 
@@ -394,6 +408,9 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             UpdationTime = timeStamp;
 
+            if (raw.Name != Name?.Origin)
+                Name = new TextTranslationDescriptor(Id, "ShipTypeName", raw.Name, false);
+
             SortNo = raw.SortNo;
             RepairTimeRatio = raw.RepairTimeRatio;
             BuildOutlineId = raw.BuildOutlineId;
@@ -404,6 +421,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         partial void UpdateCore(RawShipTypeInfo raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
+
+        public override string ToString() => $"ShipTypeInfo {Id}: {Name.Origin}";
     }
 
     public sealed partial class EquipmentTypeInfo : BindableObject, IComparable<EquipmentTypeInfo>, IUpdatable<EquipmentTypeId, RawEquipmentTypeInfo>
@@ -421,7 +440,15 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public int CompareTo(EquipmentTypeInfo other) => Id.CompareTo(other?.Id ?? default);
 
-        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _name;
+        public TextTranslationDescriptor Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
 
         public EquipmentTypeId Id { get; }
         private readonly MasterDataRoot owner;
@@ -431,7 +458,6 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             Id = id;
             this.owner = owner;
-            Name.Translation = owner.Localization?.GetLocalized("EquipType", id.ToString());
             CreateCore();
         }
 
@@ -449,11 +475,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             UpdationTime = timeStamp;
 
-            if (raw.Name != Name.Origin)
-            {
-                Name.Origin = raw.Name;
-                NotifyPropertyChanged(nameof(Name));
-            }
+            if (raw.Name != Name?.Origin)
+                Name = new TextTranslationDescriptor(Id, "EquipType", raw.Name, true);
 
             AvailableInExtraSlot = raw.AvailableInExtraSlot;
 
@@ -652,9 +675,25 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public int CompareTo(EquipmentInfo other) => Id.CompareTo(other?.Id ?? default);
 
-        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _name;
+        public TextTranslationDescriptor Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
 
-        public TextTranslationGroup Description { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_description = new PropertyChangedEventArgs(nameof(Description));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _description;
+        public TextTranslationDescriptor Description
+        {
+            get => _description;
+            private set => Set(ref _description, value, __eventArgs_description);
+        }
 
         private readonly BindableSnapshotCollection<ShipInfo> extraSlotAcceptingShips = new BindableSnapshotCollection<ShipInfo>();
         public IReadOnlyList<ShipInfo> ExtraSlotAcceptingShips => extraSlotAcceptingShips;
@@ -667,8 +706,6 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             Id = id;
             this.owner = owner;
-            Name.Translation = owner.Localization?.GetLocalized("EquipName", id.ToString());
-            Description.Translation = owner.Localization?.GetLocalized("EquipDesc", id.ToString());
             CreateCore();
         }
 
@@ -686,17 +723,11 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             UpdationTime = timeStamp;
 
-            if (raw.Name != Name.Origin)
-            {
-                Name.Origin = raw.Name;
-                NotifyPropertyChanged(nameof(Name));
-            }
+            if (raw.Name != Name?.Origin)
+                Name = new TextTranslationDescriptor(Id, "EquipName", raw.Name, true);
 
-            if (raw.Description != Description.Origin)
-            {
-                Description.Origin = raw.Description;
-                NotifyPropertyChanged(nameof(Description));
-            }
+            if (raw.Description != Description?.Origin)
+                Description = new TextTranslationDescriptor(Id, "EquipDesc", raw.Description, true);
 
             IconId = raw.IconId;
             Firepower = raw.Firepower;
@@ -731,7 +762,15 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public int CompareTo(UseItemInfo other) => Id.CompareTo(other?.Id ?? default);
 
-        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _name;
+        public TextTranslationDescriptor Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
 
         public UseItemId Id { get; }
         private readonly MasterDataRoot owner;
@@ -741,7 +780,6 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             Id = id;
             this.owner = owner;
-            Name.Translation = owner.Localization?.GetLocalized("UseItem", id.ToString());
             CreateCore();
         }
 
@@ -759,11 +797,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             UpdationTime = timeStamp;
 
-            if (raw.Name != Name.Origin)
-            {
-                Name.Origin = raw.Name;
-                NotifyPropertyChanged(nameof(Name));
-            }
+            if (raw.Name != Name?.Origin)
+                Name = new TextTranslationDescriptor(Id, "UseItem", raw.Name, true);
 
 
             UpdateCore(raw, timeStamp);
@@ -791,7 +826,15 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public int CompareTo(MapAreaInfo other) => Id.CompareTo(other?.Id ?? default);
 
-        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _name;
+        public TextTranslationDescriptor Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
 
         public MapAreaId Id { get; }
         private readonly MasterDataRoot owner;
@@ -801,7 +844,6 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             Id = id;
             this.owner = owner;
-            Name.Translation = owner.Localization?.GetLocalized("MapArea", id.ToString());
             CreateCore();
         }
 
@@ -819,11 +861,8 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             UpdationTime = timeStamp;
 
-            if (raw.Name != Name.Origin)
-            {
-                Name.Origin = raw.Name;
-                NotifyPropertyChanged(nameof(Name));
-            }
+            if (raw.Name != Name?.Origin)
+                Name = new TextTranslationDescriptor(Id, "MapArea", raw.Name, true);
 
             IsEvent = raw.IsEvent;
 
@@ -932,11 +971,35 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public int CompareTo(MapInfo other) => Id.CompareTo(other?.Id ?? default);
 
-        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _name;
+        public TextTranslationDescriptor Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
 
-        public TextTranslationGroup OperationName { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_operationName = new PropertyChangedEventArgs(nameof(OperationName));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _operationName;
+        public TextTranslationDescriptor OperationName
+        {
+            get => _operationName;
+            private set => Set(ref _operationName, value, __eventArgs_operationName);
+        }
 
-        public TextTranslationGroup Description { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_description = new PropertyChangedEventArgs(nameof(Description));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _description;
+        public TextTranslationDescriptor Description
+        {
+            get => _description;
+            private set => Set(ref _description, value, __eventArgs_description);
+        }
 
         private readonly BindableSnapshotCollection<UseItemInfo> itemAcquirements = new BindableSnapshotCollection<UseItemInfo>();
         public IReadOnlyList<UseItemInfo> ItemAcquirements => itemAcquirements;
@@ -949,9 +1012,6 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             Id = id;
             this.owner = owner;
-            Name.Translation = owner.Localization?.GetLocalized("MapName", id.ToString());
-            OperationName.Translation = owner.Localization?.GetLocalized("MapOperation", id.ToString());
-            Description.Translation = owner.Localization?.GetLocalized("MapDescription", id.ToString());
             CreateCore();
         }
 
@@ -969,23 +1029,14 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             UpdationTime = timeStamp;
 
-            if (raw.Name != Name.Origin)
-            {
-                Name.Origin = raw.Name;
-                NotifyPropertyChanged(nameof(Name));
-            }
+            if (raw.Name != Name?.Origin)
+                Name = new TextTranslationDescriptor(Id, "MapName", raw.Name, true);
 
-            if (raw.OperationName != OperationName.Origin)
-            {
-                OperationName.Origin = raw.OperationName;
-                NotifyPropertyChanged(nameof(OperationName));
-            }
+            if (raw.OperationName != OperationName?.Origin)
+                OperationName = new TextTranslationDescriptor(Id, "MapOperation", raw.OperationName, true);
 
-            if (raw.Description != Description.Origin)
-            {
-                Description.Origin = raw.Description;
-                NotifyPropertyChanged(nameof(Description));
-            }
+            if (raw.Description != Description?.Origin)
+                Description = new TextTranslationDescriptor(Id, "MapDescription", raw.Description, true);
 
             StarDifficulty = raw.StarDifficulty;
             RequiredDefeatCount = raw.RequiredDefeatCount;
@@ -1108,9 +1159,25 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         public int CompareTo(ExpeditionInfo other) => Id.CompareTo(other?.Id ?? default);
 
-        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _name;
+        public TextTranslationDescriptor Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
 
-        public TextTranslationGroup Description { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_description = new PropertyChangedEventArgs(nameof(Description));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _description;
+        public TextTranslationDescriptor Description
+        {
+            get => _description;
+            private set => Set(ref _description, value, __eventArgs_description);
+        }
 
         public ExpeditionId Id { get; }
         private readonly MasterDataRoot owner;
@@ -1120,8 +1187,6 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             Id = id;
             this.owner = owner;
-            Name.Translation = owner.Localization?.GetLocalized("ExpeditionName", id.ToString());
-            Description.Translation = owner.Localization?.GetLocalized("ExpeditionDesc", id.ToString());
             CreateCore();
         }
 
@@ -1139,17 +1204,11 @@ namespace Sakuno.ING.Game.Models.MasterData
         {
             UpdationTime = timeStamp;
 
-            if (raw.Name != Name.Origin)
-            {
-                Name.Origin = raw.Name;
-                NotifyPropertyChanged(nameof(Name));
-            }
+            if (raw.Name != Name?.Origin)
+                Name = new TextTranslationDescriptor(Id, "ExpeditionName", raw.Name, true);
 
-            if (raw.Description != Description.Origin)
-            {
-                Description.Origin = raw.Description;
-                NotifyPropertyChanged(nameof(Description));
-            }
+            if (raw.Description != Description?.Origin)
+                Description = new TextTranslationDescriptor(Id, "ExpeditionDesc", raw.Description, true);
 
             DisplayId = raw.DisplayId;
             Duration = raw.Duration;

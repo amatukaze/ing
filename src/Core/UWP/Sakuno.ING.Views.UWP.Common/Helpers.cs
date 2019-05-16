@@ -3,9 +3,10 @@ using Sakuno.ING.Composition;
 using Sakuno.ING.Game;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
-using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Settings;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 
 namespace Sakuno.ING.Views.UWP
 {
@@ -16,12 +17,44 @@ namespace Sakuno.ING.Views.UWP
 
         private static readonly bool translate
             = Compositor.Static<LocaleSetting>().TranslateContent.InitialValue;
-        public static string SelectName(TextTranslationGroup name)
-            => translate ? name?.Translation : name?.Origin;
-        public static string SelectShipName(ShipName name)
-            => SelectName(name);
-        public static string SelectShipBasicName(ShipName name)
-            => translate ? name?.BasicTranslation : name?.BasicName;
+
+        public static void SetTranslatableSource(TextBlock text, TextTranslationDescriptor descriptor)
+        {
+            if (descriptor is null)
+                text.Text = string.Empty;
+            else if (translate)
+                text.Text = localization.GetLocalized(descriptor.Category, descriptor.Id.ToString()) ?? descriptor.Origin ?? string.Empty;
+            else if (descriptor.PreferOrigin)
+            {
+                text.Text = descriptor.Origin ?? string.Empty;
+                text.Language = "ja-jp";
+            }
+            else
+            {
+                text.Text = localization.GetUnlocalized(descriptor.Category, descriptor.Id.ToString()) ?? descriptor.Origin ?? string.Empty;
+                text.Language = "ja-jp";
+            }
+        }
+        public static TextTranslationDescriptor GetTranslatableSource(TextBlock text) => null;
+
+        public static void SetTranslatableRunSource(Run text, TextTranslationDescriptor descriptor)
+        {
+            if (descriptor is null)
+                text.Text = string.Empty;
+            else if (translate)
+                text.Text = localization.GetLocalized(descriptor.Category, descriptor.Id.ToString()) ?? descriptor.Origin ?? string.Empty;
+            else if (descriptor.PreferOrigin)
+            {
+                text.Text = descriptor.Origin ?? string.Empty;
+                text.Language = "ja-jp";
+            }
+            else
+            {
+                text.Text = localization.GetUnlocalized(descriptor.Category, descriptor.Id.ToString()) ?? descriptor.Origin ?? string.Empty;
+                text.Language = "ja-jp";
+            }
+        }
+        public static TextTranslationDescriptor GetTranslatableRunSource(Run text) => null;
 
         public static string Localize(string category, object value, string format)
             => localization.GetLocalized(category, string.Format(format, value));

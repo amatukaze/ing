@@ -17,8 +17,8 @@
             <StackPanel Orientation="Horizontal">
                 <ToolTipService.ToolTip>
                     <StackPanel Orientation="Vertical" x:DefaultBindMode="OneTime">
-                        <TextBlock Style="{StaticResource ShipNameTextStyle}">
-                            <Run Text="{x:Bind c:Helpers.SelectShipName(Ship.Info.Name), FallbackValue=???}" />
+                        <TextBlock>
+                            <Run c:Helpers.TranslatableRunSource="{x:Bind Ship.Info.Name.FullName, FallbackValue={x:Null}}" />
                             Lv.<Run Text="{x:Bind Ship.Leveling.Level}" />
                         </TextBlock>
                         <TextBlock>
@@ -38,8 +38,7 @@
                             <!-- TODO: ItemsRepeater can't show in tooltip -->
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="g:Slot">
-                                    <TextBlock Style="{StaticResource TranslatableTextStyle}"
-                                               Text="{x:Bind c:Helpers.SelectName(Equipment.Info.Name), FallbackValue=''}" />
+                                    <TextBlock c:Helpers.TranslatableSource="{x:Bind Equipment.Info.Name, FallbackValue={x:Null}}" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>

@@ -142,14 +142,14 @@
                                                    Height="1" Margin="2"
                                                    Fill="Gray" />
                                         <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis">
-                                            <c:ShipNameText Source="{Binding Info.Name}" FontSize="18" />
+                                            <c:TranslatableNameText Source="{Binding Info.Name.FullName}" FontSize="18" />
                                             <LineBreak />
-                                            <c:NameText Source="{Binding Info.Type.Name}" FontSize="14" />
+                                            <c:TranslatableNameText Source="{Binding Info.Type.Name}" FontSize="14" />
                                             <TextBlock.ToolTip>
                                                 <TextBlock>
-                                                    <c:ShipNameText Source="{Binding Info.Name}" FontSize="18" />
+                                                    <c:TranslatableNameText Source="{Binding Info.Name.FullName}" FontSize="18" />
                                                     <LineBreak />
-                                                    <c:NameText Source="{Binding Info.Type.Name}" FontSize="14" />
+                                                    <c:TranslatableNameText Source="{Binding Info.Type.Name}" FontSize="14" />
                                                 </TextBlock>
                                             </TextBlock.ToolTip>
                                         </TextBlock>

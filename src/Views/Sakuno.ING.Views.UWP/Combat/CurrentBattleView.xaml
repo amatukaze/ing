@@ -30,9 +30,9 @@
                 <Run x:Uid="/Resources/Combat_SortieArea" />:
                 <Run Text="{x:Bind Manager.CurrentRouting.Map.Id.AreaId, FallbackValue=''}" />-<Run Text="{x:Bind Manager.CurrentRouting.Map.Id.CategoryNo, FallbackValue=''}" />
             </TextBlock>
-            <TextBlock FontSize="18" Style="{StaticResource TranslatableTextStyle}">
-                <Run Text="{x:Bind c:Helpers.SelectName(Manager.CurrentRouting.Map.Info.Name), FallbackValue=''}" />
-                <Run Text="{x:Bind c:Helpers.SelectName(Manager.CurrentRouting.Map.Info.OperationName), FallbackValue=''}" />
+            <TextBlock FontSize="18">
+                <Run c:Helpers.TranslatableRunSource="{x:Bind Manager.CurrentRouting.Map.Info.Name, FallbackValue={x:Null}}" />
+                <Run c:Helpers.TranslatableRunSource="{x:Bind Manager.CurrentRouting.Map.Info.OperationName, FallbackValue={x:Null}}" />
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="1"

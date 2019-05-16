@@ -64,8 +64,7 @@
             <mux:ItemsRepeater.ItemTemplate>
                 <DataTemplate x:DataType="g:BuildingDock">
                     <Grid>
-                        <TextBlock Style="{StaticResource ShipNameTextStyle}"
-                                   Text="{x:Bind c:Helpers.SelectShipName(BuiltShip.Name), FallbackValue=''}" />
+                        <TextBlock c:Helpers.TranslatableSource="{x:Bind BuiltShip.Name.FullName, FallbackValue={x:Null}}" />
                         <TextBlock TextAlignment="Center"
                                    Text="{x:Bind c:Helpers.FormatBuildingDockState(State)}" />
                         <TextBlock TextAlignment="Right"
@@ -82,12 +81,11 @@
             <mux:ItemsRepeater.ItemTemplate>
                 <DataTemplate x:DataType="g:RepairingDock">
                     <Grid>
-                        <TextBlock Style="{StaticResource ShipNameTextStyle}"
-                                       Text="{x:Bind c:Helpers.SelectShipName(RepairingShip.Info.Name), FallbackValue=''}" />
+                        <TextBlock c:Helpers.TranslatableSource="{x:Bind RepairingShip.Info.Name.FullName, FallbackValue={x:Null}}" />
                         <TextBlock TextAlignment="Center"
-                                       Text="{x:Bind c:Helpers.FormatRepairingDockState(State)}" />
+                                   Text="{x:Bind c:Helpers.FormatRepairingDockState(State)}" />
                         <TextBlock TextAlignment="Right"
-                                       Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', Timer.Remaining), FallbackValue=''}" />
+                                   Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', Timer.Remaining), FallbackValue=''}" />
                     </Grid>
                 </DataTemplate>
             </mux:ItemsRepeater.ItemTemplate>

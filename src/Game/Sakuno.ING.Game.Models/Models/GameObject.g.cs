@@ -972,9 +972,25 @@ namespace Sakuno.ING.Game.Models
 
         public int CompareTo(Quest other) => Id.CompareTo(other?.Id ?? default);
 
-        public TextTranslationGroup Name { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _name;
+        public TextTranslationDescriptor Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
 
-        public TextTranslationGroup Description { get; } = new TextTranslationGroup();
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_description = new PropertyChangedEventArgs(nameof(Description));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TextTranslationDescriptor _description;
+        public TextTranslationDescriptor Description
+        {
+            get => _description;
+            private set => Set(ref _description, value, __eventArgs_description);
+        }
 
         public QuestId Id { get; }
         private readonly QuestManager owner;
@@ -984,8 +1000,6 @@ namespace Sakuno.ING.Game.Models
         {
             Id = id;
             this.owner = owner;
-            Name.Translation = owner.Localization?.GetLocalized("QuestName", id.ToString());
-            Description.Translation = owner.Localization?.GetLocalized("QuestDesc", id.ToString());
             CreateCore();
         }
 
@@ -1003,17 +1017,11 @@ namespace Sakuno.ING.Game.Models
         {
             UpdationTime = timeStamp;
 
-            if (raw.Name != Name.Origin)
-            {
-                Name.Origin = raw.Name;
-                NotifyPropertyChanged(nameof(Name));
-            }
+            if (raw.Name != Name?.Origin)
+                Name = new TextTranslationDescriptor(Id, "QuestName", raw.Name, true);
 
-            if (raw.Description != Description.Origin)
-            {
-                Description.Origin = raw.Description;
-                NotifyPropertyChanged(nameof(Description));
-            }
+            if (raw.Description != Description?.Origin)
+                Description = new TextTranslationDescriptor(Id, "QuestDesc", raw.Description, true);
 
             Category = raw.Category;
             Period = raw.Period;

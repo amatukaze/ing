@@ -19,8 +19,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ShipNamePresenter">
-                    <TextBlock Style="{StaticResource ShipNameTextStyle}">
-                        <Run Text="{x:Bind c:Helpers.SelectShipBasicName(Source), FallbackValue=''}" /><Run x:Name="L_Remodel" x:Uid="/Resources/Combat_AbyssalClass_Remodel" FontWeight="Bold" /><Run x:Name="L_LateModel" FontStyle="Italic" x:Uid="/Resources/Combat_AbyssalClass_LateModel" /><Run x:Name="L_Elite" x:Uid="/Resources/Combat_AbyssalClass_Elite" Foreground="{ThemeResource EliteBrush}" /><Run x:Name="L_Flagship" x:Uid="/Resources/Combat_AbyssalClass_Flagship" Foreground="{ThemeResource FlagshipBrush}" />
+                    <TextBlock>
+                        <Run c:Helpers.TranslatableRunSource="{x:Bind Source.BasicName, FallbackValue={x:Null}}" /><Run x:Name="L_Remodel" x:Uid="/Resources/Combat_AbyssalClass_Remodel" FontWeight="Bold" /><Run x:Name="L_LateModel" FontStyle="Italic" x:Uid="/Resources/Combat_AbyssalClass_LateModel" /><Run x:Name="L_Elite" x:Uid="/Resources/Combat_AbyssalClass_Elite" Foreground="{ThemeResource EliteBrush}" /><Run x:Name="L_Flagship" x:Uid="/Resources/Combat_AbyssalClass_Flagship" Foreground="{ThemeResource FlagshipBrush}" />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="Group_Remodel">
                                 <VisualState x:Name="Remodel" />

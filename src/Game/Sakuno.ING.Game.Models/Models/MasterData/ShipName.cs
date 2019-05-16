@@ -1,20 +1,18 @@
 ﻿namespace Sakuno.ING.Game.Models.MasterData
 {
-    public class ShipName : TextTranslationGroup
+    public class ShipName
     {
-        public ShipName() { }
-
         private static readonly char[] identifiers
             = "イロハニホヘトチリヌルヲワカヨタレソツネナラムウヰノオクヤマケフコエテアサキユメミシヱヒモセス".ToCharArray();
-        public ShipName(string name, string phonetic, string abyssalClass)
+        public ShipName(int id, string name, string phonetic, string abyssalClass)
         {
-            Phonetic = phonetic;
-            Origin = name + (abyssalClass switch
+            FullName = new TextTranslationDescriptor(id, "ShipName", name + (abyssalClass switch
             {
                 "-" => string.Empty,
                 var other => other
-            });
-            if (abyssalClass != null)
+            }));
+            Phonetic = phonetic;
+            if (name != null && abyssalClass != null)
             {
                 AbyssalClass = abyssalClass switch
                 {
@@ -36,11 +34,13 @@
                 if (index != -1 && name.Length > index + 1 && name[index + 1] == '級')
                     AbyssalIdentifier = name[index];
             }
-            BasicName = name;
+            BasicName = new TextTranslationDescriptor(id, "ShipNameBasic", name);
         }
 
-        public string BasicName { get; }
-        public string BasicTranslation { get; internal set; }
+        public ShipName() { }
+
+        public TextTranslationDescriptor FullName { get; }
+        public TextTranslationDescriptor BasicName { get; }
         public string Phonetic { get; }
         public AbyssalShipClass? AbyssalClass { get; }
         public char? AbyssalIdentifier { get; }

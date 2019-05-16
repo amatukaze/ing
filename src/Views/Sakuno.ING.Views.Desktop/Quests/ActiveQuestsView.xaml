@@ -14,7 +14,7 @@
             <DataTemplate DataType="g:Quest">
                 <TextBlock ToolTip="{Binding Description}"
                            FontSize="20">
-                    <c:NameText Source="{Binding Name}" />
+                    <c:TranslatableNameText Source="{Binding Name}" />
                 </TextBlock>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

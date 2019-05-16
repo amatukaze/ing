@@ -9,7 +9,7 @@
              d:DesignHeight="100" d:DesignWidth="130">
     <UserControl.ToolTip>
         <TextBlock>
-            <c:ShipNameText Source="{Binding Equipment.Info.Name}" />
+            <c:TranslatableNameText Source="{Binding Equipment.Info.Name}" />
             <Run Text="{Binding Slot.Aircraft, Mode=OneWay}" />
         </TextBlock>
     </UserControl.ToolTip>

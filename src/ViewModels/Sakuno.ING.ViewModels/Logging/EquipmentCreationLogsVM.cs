@@ -59,10 +59,10 @@ namespace Sakuno.ING.ViewModels.Logging
                     x => x.EquipmentCreated.Name.Origin),
                 new FilterVM<EquipmentCreationVM>(localization.GetLocalized("GameModel", "Secretary"),
                     x => x.Secretary.Id,
-                    x => x.Secretary.Name.Origin,
+                    x => x.Secretary.Name.FullName.Origin,
                     x => new[]
                     {
-                        x.Secretary.Name.Origin,
+                        x.Secretary.Name.FullName.Origin,
                         x.Secretary.Name.Phonetic
                     })
             };

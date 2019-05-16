@@ -11,7 +11,6 @@ using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
 
 namespace Sakuno.ING.UWP
@@ -80,26 +79,6 @@ namespace Sakuno.ING.UWP
 
         private void InitWindow()
         {
-            var translatableTextStyle = new Style
-            {
-                TargetType = typeof(TextBlock)
-            };
-            translatableTextStyle.Setters.Add(new Setter
-            {
-                Property = FrameworkElement.VerticalAlignmentProperty,
-                Value = VerticalAlignment.Center
-            });
-            if (!localeSetting.TranslateContent.InitialValue)
-                translatableTextStyle.Setters.Add(new Setter
-                {
-                    Property = FrameworkElement.LanguageProperty,
-                    Value = "ja-jp"
-                });
-            translatableTextStyle.Seal();
-            Application.Current.Resources["TranslatableTextStyle"] = translatableTextStyle;
-            Application.Current.Resources["ShipNameTextStyle"] = translatableTextStyle;
-            Application.Current.Resources.MergedDictionaries.Add(new Microsoft.UI.Xaml.Controls.XamlControlsResources());
-
             var coreView = CoreApplication.GetCurrentView();
             coreView.TitleBar.ExtendViewIntoTitleBar = true;
             var titlebar = ApplicationView.GetForCurrentView().TitleBar;

@@ -1,7 +1,4 @@
-﻿using Sakuno.ING.Composition;
-using Sakuno.ING.Localization;
-
-namespace Sakuno.ING.Views.Desktop.Documents
+﻿namespace Sakuno.ING.Views.Desktop.Documents
 {
     public class TranslatedResourceText : TranslatableText
     {
@@ -14,9 +11,9 @@ namespace Sakuno.ING.Views.Desktop.Documents
                 _key = value;
                 var split = value.Split('/');
                 if (Translate)
-                    SetCurrentValue(TextProperty, Compositor.Static<ILocalizationService>().GetLocalized(split[0], split[1]));
+                    SetCurrentValue(TextProperty, Localization.GetLocalized(split[0], split[1]));
                 else
-                    SetCurrentValue(TextProperty, Compositor.Static<ILocalizationService>().GetUnlocalized(split[0], split[1]));
+                    SetCurrentValue(TextProperty, Localization.GetUnlocalized(split[0], split[1]));
             }
         }
     }

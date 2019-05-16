@@ -11,8 +11,8 @@
     d:DesignWidth="130"
     x:DefaultBindMode="OneWay">
     <ToolTipService.ToolTip>
-        <TextBlock Style="{StaticResource TranslatableTextStyle}">
-            <Run Text="{x:Bind c:Helpers.SelectName(Slot.Equipment.Info.Name), FallbackValue=''}" />
+        <TextBlock>
+            <Run c:Helpers.TranslatableRunSource="{x:Bind Slot.Equipment.Info.Name, FallbackValue={x:Null}}" />
             <Run Text="{x:Bind Slot.Aircraft}" />
         </TextBlock>
     </ToolTipService.ToolTip>

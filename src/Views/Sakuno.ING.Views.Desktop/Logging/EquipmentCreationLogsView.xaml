@@ -31,7 +31,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:NameText Source="{Binding EquipmentCreated.Name, Mode=OneTime}" />
+                                    <c:TranslatableNameText Source="{Binding EquipmentCreated.Name, Mode=OneTime}" />
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -40,7 +40,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:NameText Source="{Binding EquipmentCreated.Type.Name, Mode=OneTime}" />
+                                    <c:TranslatableNameText Source="{Binding EquipmentCreated.Type.Name, Mode=OneTime}" />
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -49,7 +49,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:ShipNameText Source="{Binding Secretary.Name, Mode=OneTime}" />
+                                    <c:TranslatableNameText Source="{Binding Secretary.Name.FullName, Mode=OneTime}" />
                                     (Lv. <Run Text="{Binding SecretaryLevel, Mode=OneTime}" />)
                                 </TextBlock>
                             </DataTemplate>

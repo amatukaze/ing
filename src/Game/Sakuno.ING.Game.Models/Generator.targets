@@ -93,9 +93,21 @@ foreach (var infile in Inputs)
 
             foreach (var l in c.Elements(XName.Get("localizable", xmlns)))
             {
-                output.WriteLine($"        public TextTranslationGroup {l.Attribute("name").Value} {{ get; }} = new TextTranslationGroup();");
+                string propName = l.Attribute("name").Value;
+                string fieldName = "_" + char.ToLowerInvariant(propName[0]) + propName.Substring(1);
+                if (propName == "Name") hasName = true;
+                output.WriteLine("        [EditorBrowsable(EditorBrowsableState.Never)]");
+                output.WriteLine($"        private static readonly PropertyChangedEventArgs __eventArgs{fieldName} = new PropertyChangedEventArgs(nameof({propName}));");
+                output.WriteLine("        [EditorBrowsable(EditorBrowsableState.Never)]");
+                output.WriteLine($"        private TextTranslationDescriptor {fieldName};");
+                output.WriteLine($"        public TextTranslationDescriptor {propName}");
+                output.WriteLine("        {");
+                output.WriteLine($"            get => {fieldName};");
+                output.WriteLine($"            private set => Set(ref {fieldName}, value, __eventArgs{fieldName});");
+                output.WriteLine("        }");
                 output.WriteLine();
             }
+            
             foreach (var s in c.Elements(XName.Get("snapshot", xmlns)))
             {
                 string name = s.Attribute("name").Value;
@@ -115,12 +127,6 @@ foreach (var infile in Inputs)
             output.WriteLine("        {");
             output.WriteLine("            Id = id;");
             output.WriteLine("            this.owner = owner;");
-            foreach (var l in c.Elements(XName.Get("localizable", xmlns)))
-            {
-                string propName = l.Attribute("name").Value;
-                if (propName == "Name") hasName = true;
-                output.WriteLine($"            {propName}.Translation = owner.Localization?.GetLocalized(\"{l.Attribute("category").Value}\", id.ToString());");
-            }
             output.WriteLine("            CreateCore();");
             output.WriteLine("        }");
 
@@ -143,12 +149,10 @@ foreach (var infile in Inputs)
             foreach (var l in c.Elements(XName.Get("localizable", xmlns)))
             {
                 string propName = l.Attribute("name").Value;
+                string preferOrigin = l.Attribute("preferOrigin")?.Value ?? "true";
                 output.WriteLine();
-                output.WriteLine($"            if (raw.{propName} != {propName}.Origin)");
-                output.WriteLine("            {");
-                output.WriteLine($"                {propName}.Origin = raw.{propName};");
-                output.WriteLine($"                NotifyPropertyChanged(nameof({propName}));");
-                output.WriteLine("            }");
+                output.WriteLine($"            if (raw.{propName} != {propName}?.Origin)");
+                output.WriteLine($"                {propName} = new TextTranslationDescriptor(Id, \"{l.Attribute("category").Value}\", raw.{propName}, {preferOrigin});");
             }
             output.WriteLine();
             foreach (var p in c.Elements(XName.Get("property", xmlns)).Where(x => x.Attribute("autoFill")?.Value == "true"))

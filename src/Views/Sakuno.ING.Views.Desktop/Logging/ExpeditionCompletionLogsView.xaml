@@ -26,7 +26,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:NameText Source="{Binding Expedition.Name, Mode=OneTime}" />
+                                    <c:TranslatableNameText Source="{Binding Expedition.Name, Mode=OneTime}" />
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>

@@ -24,9 +24,9 @@ namespace Sakuno.ING.Game.Notification
             SetNotifier(Notifier.Value);
 
             navalBase.RepairTiming += r =>
-                SelectedNotifier.Show("Repair completing", $"{r.Id}: {r.RepairingShip.Info?.Name.Origin}", null);
+                SelectedNotifier.Show("Repair completing", $"{r.Id}: {r.RepairingShip.Info?.Name.FullName.Origin}", null);
             navalBase.BuildTiming += b =>
-                SelectedNotifier.Show("Build completing", $"{b.Id}: {b.BuiltShip?.Name.Origin}", null);
+                SelectedNotifier.Show("Build completing", $"{b.Id}: {b.BuiltShip?.Name.FullName.Origin}", null);
             navalBase.ExpeditionTiming += f =>
                 SelectedNotifier.Show("Expedition completing", $"{f.Id}: {f.Expedition?.DisplayId}: {f.Expedition?.Name.Origin}", null);
         }

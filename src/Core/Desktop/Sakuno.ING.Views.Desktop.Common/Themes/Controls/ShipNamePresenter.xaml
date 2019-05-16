@@ -7,7 +7,7 @@
                 <ControlTemplate TargetType="local:ShipNamePresenter">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock>
-                            <d:ShipBasicNameText Source="{TemplateBinding Source}" />
+                            <d:TranslatableNameText Source="{Binding Source.BasicName, RelativeSource={RelativeSource TemplatedParent}}" />
                         </TextBlock>
                         <TextBlock Name="L_Remodel">
                             <d:TranslatedResourceText Key="GameModel/AbyssalClass_Remodel" FontWeight="Bold" />

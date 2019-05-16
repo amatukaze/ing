@@ -22,7 +22,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
         public override bool SupportShipCreation => true;
         public override ValueTask<IReadOnlyCollection<ShipCreationEntity>> GetShipCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name.Origin);
+            var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name.FullName.Origin);
             return Helper.ParseCsv(source, "建造報告書.csv", 12,
                 s =>
                 {
@@ -55,7 +55,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
         public override bool SupportEquipmentCreation => true;
         public override ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> GetEquipmentCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
         {
-            var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name.Origin);
+            var ships = Compositor.Static<NavalBase>().MasterData.ShipInfos.ToDictionary(x => x.Name.FullName.Origin);
             var equipments = Compositor.Static<NavalBase>().MasterData.EquipmentInfos.ToDictionary(x => x.Name.Origin);
             return Helper.ParseCsv(source, "開発報告書.csv", 9,
                 s =>

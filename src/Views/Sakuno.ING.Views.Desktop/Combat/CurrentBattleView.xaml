@@ -31,8 +31,8 @@
                 <Run Text="{Binding AreaId, Mode=OneTime}" />-<Run Text="{Binding CategoryNo, Mode=OneTime}" />
             </TextBlock>
             <TextBlock FontSize="18" DataContext="{Binding Info}">
-                <c:NameText Source="{Binding Name}" />
-                <c:NameText Source="{Binding OperationName}" />
+                <c:TranslatableNameText Source="{Binding Name}" />
+                <c:TranslatableNameText Source="{Binding OperationName}" />
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="1"

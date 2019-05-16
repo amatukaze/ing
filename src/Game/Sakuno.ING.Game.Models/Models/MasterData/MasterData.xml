@@ -29,7 +29,8 @@
     <property type="int" name="FuelConsumption" autoFill="true" />
     <property type="int" name="BulletConsumption" autoFill="true" />
   </class>
-  <class name="ShipTypeInfo" id="ShipTypeId" raw="RawShipTypeInfo" owner="MasterDataRoot" noToString="true">
+  <class name="ShipTypeInfo" id="ShipTypeId" raw="RawShipTypeInfo" owner="MasterDataRoot">
+    <localizable name="Name" category="ShipTypeName" preferOrigin="false" />
     <property type="int" name="SortNo" autoFill="true" />
     <property type="int" name="RepairTimeRatio" autoFill="true" />
     <property type="int" name="BuildOutlineId" autoFill="true" />

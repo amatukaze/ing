@@ -14,7 +14,7 @@
                 <StackPanel.ToolTip>
                     <StackPanel Orientation="Vertical" DataContext="{Binding Ship, Mode=OneTime}">
                         <TextBlock>
-                            <c:ShipNameText Source="{Binding Info.Name, FallbackValue=???, Mode=OneTime}" />
+                            <c:TranslatableNameText Source="{Binding Info.Name.FullName, FallbackValue=???, Mode=OneTime}" />
                             Lv.<Run Text="{Binding Leveling.Level, Mode=OneTime}" />
                             <LineBreak />
                             <Run Text="{c:Localize GameModel/Parameter_Firepower}" />

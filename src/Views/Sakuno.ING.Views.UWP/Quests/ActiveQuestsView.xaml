@@ -14,9 +14,8 @@
     <mux:ItemsRepeater ItemsSource="{x:Bind Manager.ActiveQuests}">
         <mux:ItemsRepeater.ItemTemplate>
             <DataTemplate x:DataType="g:Quest">
-                <TextBlock Text="{x:Bind c:Helpers.SelectName(Name)}"
+                <TextBlock c:Helpers.TranslatableSource="{x:Bind Name, FallbackValue={x:Null}}"
                            FontSize="20"
-                           Style="{StaticResource TranslatableTextStyle}"
                            ToolTipService.ToolTip="{x:Bind Description}" />
             </DataTemplate>
         </mux:ItemsRepeater.ItemTemplate>

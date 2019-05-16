@@ -28,24 +28,22 @@
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Result">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:EquipmentCreationVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectName(EquipmentCreated.Name), FallbackValue=''}"
-                                       Style="{StaticResource TranslatableTextStyle}" />
+                            <TextBlock c:Helpers.TranslatableSource="{x:Bind EquipmentCreated.Name, FallbackValue={x:Null}}" />
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_EquipmentType">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:EquipmentCreationVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectName(EquipmentCreated.Type.Name), FallbackValue=''}"
-                                       Style="{StaticResource TranslatableTextStyle}" />
+                            <TextBlock c:Helpers.TranslatableSource="{x:Bind EquipmentCreated.Type.Name, FallbackValue={x:Null}}" />
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Secretary">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:EquipmentCreationVM">
-                            <TextBlock Style="{StaticResource ShipNameTextStyle}">
-                                <Run Text="{x:Bind c:Helpers.SelectShipName(Secretary.Name), FallbackValue=''}" />
+                            <TextBlock>
+                                <Run c:Helpers.TranslatableRunSource="{x:Bind Secretary.Name.FullName, FallbackValue={x:Null}}" />
                                 (Lv. <Run Text="{x:Bind SecretaryLevel}" />)
                             </TextBlock>
                         </DataTemplate>

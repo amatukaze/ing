@@ -16,7 +16,7 @@
                     <DataTemplate DataType="{x:Type g:BuildingDock}">
                         <Grid>
                             <TextBlock x:Name="name">
-                                <c:ShipNameText Source="{Binding BuiltShip.Name}" />
+                                <c:TranslatableNameText Source="{Binding BuiltShip.Name.FullName}" />
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
                                        Text="{Binding Timer.Remaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />
@@ -40,7 +40,7 @@
                     <DataTemplate DataType="{x:Type g:RepairingDock}">
                         <Grid>
                             <TextBlock x:Name="name">
-                                <c:ShipNameText Source="{Binding RepairingShip.Info.Name}" />
+                                <c:TranslatableNameText Source="{Binding RepairingShip.Info.Name.FullName}" />
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
                                        Text="{Binding Timer.Remaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />

@@ -24,8 +24,7 @@
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Expedition">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:ExpeditionCompletionVM">
-                            <TextBlock Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}"
-                                       Style="{StaticResource TranslatableTextStyle}" />
+                            <TextBlock c:Helpers.TranslatableSource="{x:Bind Expedition.Name, FallbackValue={x:Null}}" />
                         </DataTemplate>
                     </tk:DataGridTemplateColumn.CellTemplate>
                 </tk:DataGridTemplateColumn>

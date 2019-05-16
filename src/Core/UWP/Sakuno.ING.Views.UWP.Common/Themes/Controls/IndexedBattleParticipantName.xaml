@@ -18,10 +18,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:IndexedBattleParticipantName">
-                    <TextBlock Name="PART_Text"
-                               Style="{StaticResource ShipNameTextStyle}">
+                    <TextBlock Name="PART_Text">
                         <Run Text="{x:Bind Participant.OneBasedIndex, FallbackValue='?'}" /><Run x:Name="PART_Dot" Text="." />
-                        <Run Text="{x:Bind c:Helpers.SelectShipName(Participant.Ship.Info.Name), FallbackValue=''}" />
+                        <Run c:Helpers.TranslatableRunSource="{x:Bind Participant.Ship.Info.Name.FullName, FallbackValue={x:Null}}" />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup>
                                 <VisualState x:Name="Unknown">

@@ -14,7 +14,7 @@
             <DataTemplate DataType="{x:Type g:Fleet}">
                 <Grid>
                     <TextBlock>
-                        <c:NameText Source="{Binding Expedition.Name}" />
+                        <c:TranslatableNameText Source="{Binding Expedition.Name}" />
                     </TextBlock>
                     <TextBlock TextAlignment="Right"
                                Text="{Binding ExpeditionTimer.Remaining, StringFormat='\{0:hh\\:mm\\:ss}'}" />

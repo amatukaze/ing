@@ -17,8 +17,7 @@
         <mux:ItemsRepeater.ItemTemplate>
             <DataTemplate x:DataType="g:HomeportFleet">
                 <Grid>
-                    <TextBlock Style="{StaticResource TranslatableTextStyle}"
-                               Text="{x:Bind c:Helpers.SelectName(Expedition.Name), FallbackValue=''}" />
+                    <TextBlock c:Helpers.TranslatableSource="{x:Bind Expedition.Name, FallbackValue={x:Null}}" />
                     <TextBlock TextAlignment="Right"
                                Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', ExpeditionTimer.Remaining), FallbackValue=''}" />
                 </Grid>

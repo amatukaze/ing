@@ -78,7 +78,7 @@
                                    x:Uid="/Resources/FleetState_Warning" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextExpedition"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Expedition)}">
-                            <Run x:Uid="/Resources/FleetState_Expedition" /><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}" /><Run Text="{x:Bind c:Helpers.SelectName(Expedition.Name)}" /><Run Text="{x:Bind sys:String.Format(' - {0:hh\\\\:mm\\\\:ss}', ExpeditionTimer.Remaining), FallbackValue=''}" />
+                            <Run x:Uid="/Resources/FleetState_Expedition" /><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}" /><Run c:Helpers.TranslatableRunSource="{x:Bind Expedition.Name}" /><Run Text="{x:Bind sys:String.Format(' - {0:hh\\\\:mm\\\\:ss}', ExpeditionTimer.Remaining), FallbackValue=''}" />
                         </TextBlock>
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextFatigued"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Fatigued)}"
@@ -121,15 +121,15 @@
                                                    Height="1" Margin="2"
                                                    Fill="Gray" />
                                         <Rectangle Name="ToolTipTarget" Width="0" HorizontalAlignment="Left" />
-                                        <TextBlock Grid.Column="0" Style="{StaticResource ShipNameTextStyle}" TextTrimming="CharacterEllipsis">
-                                            <Run Text="{x:Bind c:Helpers.SelectShipName(Info.Name)}" FontSize="18" />
+                                        <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis">
+                                            <Run c:Helpers.TranslatableRunSource="{x:Bind Info.Name.FullName, FallbackValue={x:Null}}" FontSize="18" />
                                             <LineBreak />
-                                            <Run Text="{x:Bind c:Helpers.SelectName(Info.Type.Name)}" FontSize="14" />
+                                            <Run c:Helpers.TranslatableRunSource="{x:Bind Info.Type.Name, FallbackValue={x:Null}}" FontSize="14" />
                                             <ToolTipService.ToolTip>
-                                                <TextBlock Style="{StaticResource ShipNameTextStyle}">
-                                                    <Run Text="{x:Bind c:Helpers.SelectShipName(Info.Name)}" FontSize="18" />
+                                                <TextBlock>
+                                                    <Run c:Helpers.TranslatableRunSource="{x:Bind Info.Name.FullName, FallbackValue={x:Null}}" FontSize="18" />
                                                     <LineBreak />
-                                                    <Run Text="{x:Bind c:Helpers.SelectName(Info.Type.Name)}" FontSize="14" />
+                                                    <Run c:Helpers.TranslatableRunSource="{x:Bind Info.Type.Name, FallbackValue={x:Null}}" FontSize="14" />
                                                 </TextBlock>
                                             </ToolTipService.ToolTip>
                                         </TextBlock>

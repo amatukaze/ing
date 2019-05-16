@@ -40,7 +40,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:ShipNameText Source="{Binding Drop.Name, Mode=OneTime}" />
+                                    <c:TranslatableNameText Source="{Binding Drop.Name.FullName, Mode=OneTime}" />
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
@@ -49,7 +49,7 @@
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock>
-                                    <c:NameText Source="{Binding UseItemDrop.Name, Mode=OneTime}" />
+                                    <c:TranslatableNameText Source="{Binding UseItemDrop.Name, Mode=OneTime}" />
                                 </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
