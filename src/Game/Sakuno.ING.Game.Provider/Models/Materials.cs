@@ -37,7 +37,7 @@ namespace Sakuno.ING.Game.Models
         /// </summary>
         public int Improvement { get; set; }
 
-        public static Materials operator +(Materials left, Materials right)
+        public static Materials operator +(in Materials left, in Materials right)
             => new Materials
             {
                 Fuel = left.Fuel + right.Fuel,
@@ -50,7 +50,7 @@ namespace Sakuno.ING.Game.Models
                 Improvement = left.Improvement + right.Improvement
             };
 
-        public static Materials operator -(Materials left, Materials right)
+        public static Materials operator -(in Materials left, in Materials right)
             => new Materials
             {
                 Fuel = left.Fuel - right.Fuel,
@@ -63,7 +63,7 @@ namespace Sakuno.ING.Game.Models
                 Improvement = left.Improvement - right.Improvement
             };
 
-        public static Materials operator *(Materials value, int multiplier)
+        public static Materials operator *(in Materials value, int multiplier)
             => new Materials
             {
                 Fuel = value.Fuel * multiplier,
@@ -76,7 +76,7 @@ namespace Sakuno.ING.Game.Models
                 Improvement = value.Improvement * multiplier
             };
 
-        public static Materials operator *(Materials value, double multiplier)
+        public static Materials operator *(in Materials value, double multiplier)
             => new Materials
             {
                 Fuel = (int)(value.Fuel * multiplier),
@@ -89,7 +89,7 @@ namespace Sakuno.ING.Game.Models
                 Improvement = (int)(value.Improvement * multiplier)
             };
 
-        public static bool operator ==(Materials left, Materials right)
+        public static bool operator ==(in Materials left, in Materials right)
             => left.Fuel == right.Fuel
             && left.Bullet == right.Bullet
             && left.Steel == right.Steel
@@ -99,7 +99,7 @@ namespace Sakuno.ING.Game.Models
             && left.Development == right.Development
             && left.Improvement == right.Improvement;
 
-        public static bool operator !=(Materials left, Materials right)
+        public static bool operator !=(in Materials left, in Materials right)
             => !(left == right);
 
         public bool Equals(Materials other) => this == other;
