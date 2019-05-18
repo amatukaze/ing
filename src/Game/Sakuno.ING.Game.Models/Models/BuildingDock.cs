@@ -7,16 +7,18 @@ namespace Sakuno.ING.Game.Models
         partial void UpdateCore(RawBuildingDock raw, DateTimeOffset timeStamp)
         {
             BuiltShip = owner.MasterData.ShipInfos[raw.BuiltShipId];
-            Timer.Init(raw.CompletionTime, timeStamp);
+            if (Timer.SetCompletionTime(raw.CompletionTime, timeStamp))
+                owner.Notification.SetBuildCompletion(this, raw.CompletionTime);
         }
 
         internal void Instant()
         {
             State = BuildingDockState.BuildCompleted;
             Timer.Clear();
+            owner.Notification.SetBuildCompletion(this, null);
         }
 
-        internal bool UpdateTimer(DateTimeOffset timeStamp) => Timer.Update(timeStamp);
+        internal void UpdateTimer(DateTimeOffset timeStamp) => Timer.Update(timeStamp);
 
         public CountDown Timer { get; } = new CountDown();
     }

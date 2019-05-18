@@ -5,7 +5,7 @@ namespace Sakuno.ING.UWP
     internal partial class ToastNotifier
     {
         public bool IsSupported => true;
-
-        public void Initialize() => notifier = ToastNotificationManager.CreateToastNotifier();
+        public void Initialize() => ToastNotificationManager.History.Clear();
+        private Windows.UI.Notifications.ToastNotifier CreateNotifier() => ToastNotificationManager.CreateToastNotifier();
     }
 }

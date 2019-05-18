@@ -46,7 +46,8 @@ namespace Sakuno.ING.Game.Models
 
             Expedition = owner.MasterData.Expeditions[raw.ExpeditionId];
             CascadeUpdate();
-            ExpeditionTimer.Init(raw.ExpeditionCompletionTime, timeStamp);
+            if (ExpeditionTimer.SetCompletionTime(raw.ExpeditionCompletionTime, timeStamp))
+                owner.Notification.SetExpeditionCompletion(this, raw.ExpeditionCompletionTime);
         }
 
         internal void ChangeComposition(int? index, HomeportShip ship)
@@ -90,7 +91,7 @@ namespace Sakuno.ING.Game.Models
 
         internal bool Remove(HomeportShip ship) => ships.Remove(ship);
 
-        internal bool UpdateTimer(DateTimeOffset timeStamp) => ExpeditionTimer.Update(timeStamp);
+        internal void UpdateTimer(DateTimeOffset timeStamp) => ExpeditionTimer.Update(timeStamp);
 
         public CountDown ExpeditionTimer { get; } = new CountDown();
 

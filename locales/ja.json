@@ -234,5 +234,13 @@
     "SelectableRoute": "能動分岐",
     "Sortie_SortieArea": "出撃海域",
     "Sortie_RouteId": "マス"
+  },
+  "Notification": {
+    "Expedition_Title": "遠征完了",
+    "Expedition_Content": "第{0}艦隊「{1}」が遠征{2} -「{3}」から帰投しました。",
+    "Repair_Title": "入渠完了",
+    "Repair_Content": "第{0}ドックで「{1}」の修理が完了しました。",
+    "Build_Title": "建造完了",
+    "Build_Content": "第{0}ドックで「{1}」の建造が完了しました。"
   }
 }

@@ -18,13 +18,17 @@ namespace Sakuno.ING.Game
             private set => Set(ref _remaining, value);
         }
 
-        internal void Init(DateTimeOffset? completion, DateTimeOffset timeStamp)
+        internal bool SetCompletionTime(DateTimeOffset? completion, DateTimeOffset timeStamp)
         {
-            using (EnterBatchNotifyScope())
-            {
-                Completion = completion;
-                Update(timeStamp);
-            }
+            if (Completion != completion)
+                using (EnterBatchNotifyScope())
+                {
+                    Completion = completion;
+                    Update(timeStamp);
+                    return true;
+                }
+            else
+                return false;
         }
 
         internal void Clear()
@@ -36,18 +40,14 @@ namespace Sakuno.ING.Game
             }
         }
 
-        internal bool Update(DateTimeOffset timeStamp)
+        internal void Update(DateTimeOffset timeStamp)
         {
-            var lastRemaining = Remaining;
-
             if (Completion == null)
                 Remaining = null;
             else if (timeStamp > Completion)
                 Remaining = default(TimeSpan);
             else
                 Remaining = Completion - timeStamp;
-
-            return lastRemaining > default(TimeSpan) && Remaining == default(TimeSpan);
         }
     }
 }

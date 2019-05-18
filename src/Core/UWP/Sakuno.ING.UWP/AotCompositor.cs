@@ -11,7 +11,6 @@ using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Notification;
 using Sakuno.ING.Http;
 using Sakuno.ING.Localization;
-using Sakuno.ING.Notification;
 using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
 using Sakuno.ING.Timing;
@@ -51,8 +50,8 @@ namespace Sakuno.ING.UWP
             var selector = new UWPHttpProviderSelector(shellContext, browserSetting, proxySetting);
             Information<IHttpProviderSelector>.Static = selector;
             var gameProvider = Information<GameProvider>.Static = new GameProvider(selector, settings);
-            var notificationManager = Information<NotificationManager>.Static = new NotificationManager(new[] { toastNotifier }, settings);
-            var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, localization, ntp, notificationManager);
+            var notificationManager = Information<NotificationManager>.Static = new NotificationManager(new[] { toastNotifier }, settings, localization, shell, localeSetting);
+            var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, ntp, notificationManager);
             var logger = Information<Logger>.Static = new Logger(data, gameProvider, navalBase);
             var currentBattleVM = Information<CurrentBattleVM>.Static = new CurrentBattleVM(navalBase, shell);
 

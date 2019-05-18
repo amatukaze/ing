@@ -238,5 +238,13 @@
     "SelectableRoute": "能动分歧",
     "Sortie_SortieArea": "出击海域",
     "Sortie_RouteId": "位置"
+  },
+  "Notification": {
+    "Expedition_Title": "远征完成",
+    "Expedition_Content": "第{0}舰队「{1}」从远征{2} -「{3}」归来。",
+    "Repair_Title": "修理完成",
+    "Repair_Content": "第{0}修理渠中的「{1}」修理完成。",
+    "Build_Title": "建造完成",
+    "Build_Content": "第{0}建造渠中的「{1}」建造完成。"
   }
 }

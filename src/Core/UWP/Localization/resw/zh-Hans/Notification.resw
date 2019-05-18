@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Expedition_Title">
+    <value>远征完成</value>
+  </data>
+  <data name="Expedition_Content">
+    <value>第{0}舰队「{1}」从远征{2} -「{3}」归来。</value>
+  </data>
+  <data name="Repair_Title">
+    <value>修理完成</value>
+  </data>
+  <data name="Repair_Content">
+    <value>第{0}修理渠中的「{1}」修理完成。</value>
+  </data>
+  <data name="Build_Title">
+    <value>建造完成</value>
+  </data>
+  <data name="Build_Content">
+    <value>第{0}建造渠中的「{1}」建造完成。</value>
+  </data>
+</root>

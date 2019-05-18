@@ -45,7 +45,9 @@ namespace Sakuno.ING.Shell.Desktop
                 newShortcutSave.Save(shortcut, true);
             }
 
-            notifier = ToastNotificationManager.CreateToastNotifier(aumid);
+            ToastNotificationManager.History.Clear(aumid);
         }
+
+        private Windows.UI.Notifications.ToastNotifier CreateNotifier() => ToastNotificationManager.CreateToastNotifier(aumid);
     }
 }

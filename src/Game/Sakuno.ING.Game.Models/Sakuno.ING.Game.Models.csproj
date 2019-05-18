@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\Sakuno.ING.Settings.Common\Sakuno.ING.Settings.Common.csproj" />
     <ProjectReference Include="..\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
   </ItemGroup>
 

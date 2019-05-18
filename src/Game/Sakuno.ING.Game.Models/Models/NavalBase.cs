@@ -6,7 +6,6 @@ using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Game.Notification;
-using Sakuno.ING.Localization;
 using Sakuno.ING.Messaging;
 using Sakuno.ING.Timing;
 
@@ -15,12 +14,10 @@ namespace Sakuno.ING.Game.Models
     [Export(typeof(NavalBase))]
     public class NavalBase : BindableObject
     {
-        public ILocalizationService Localization { get; }
         public NotificationManager Notification { get; }
 
-        public NavalBase(GameProvider listener, ILocalizationService localization, ITimingService timingService, NotificationManager notification)
+        public NavalBase(GameProvider listener, ITimingService timingService, NotificationManager notification)
         {
-            Localization = localization;
             Notification = notification;
 
             MasterData = new MasterDataRoot(listener);
@@ -170,14 +167,11 @@ namespace Sakuno.ING.Game.Models
                 timingService.Elapsed += t =>
                 {
                     foreach (var f in Fleets)
-                        if (f.UpdateTimer(t))
-                            ExpeditionTiming?.Invoke(f);
+                        f.UpdateTimer(t);
                     foreach (var b in BuildingDocks)
-                        if (b.UpdateTimer(t))
-                            BuildTiming?.Invoke(b);
+                        b.UpdateTimer(t);
                     foreach (var r in RepairingDocks)
-                        if (r.UpdateTimer(t))
-                            RepairTiming?.Invoke(r);
+                        r.UpdateTimer(t);
                 };
         }
 
@@ -250,10 +244,6 @@ namespace Sakuno.ING.Game.Models
         public event ShipPowerupingHandler ShipPoweruping;
         public event EquipmentDismantlingHandler EquipmentDismantling;
         public event EquipmentImprovingHandler EquipmentImproving;
-
-        public event Action<HomeportFleet> ExpeditionTiming;
-        public event Action<BuildingDock> BuildTiming;
-        public event Action<RepairingDock> RepairTiming;
     }
 
     public delegate void AdmiralChanging(DateTimeOffset timeStamp, Admiral oldAdmiral, Admiral newAdmiral);

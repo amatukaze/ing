@@ -238,5 +238,13 @@
     "SelectableRoute": "Selectable Route",
     "Sortie_SortieArea": "In sortie",
     "Sortie_RouteId": "Position"
+  },
+  "Notification": {
+    "Expedition_Title": "Expedition Completed",
+    "Expedition_Content": "Fleet No.{0} \"{1}\" has returned from expedition {2} -\"{3}\".",
+    "Repair_Title": "Repairs Completed",
+    "Repair_Content": "Repairs on {1} in dock {0} have been completed.",
+    "Build_Title": "Construction Completed",
+    "Build_Content": "Construction of {0} in dock {0} has been completed."
   }
 }
