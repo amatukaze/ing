@@ -40,7 +40,7 @@ namespace Sakuno.ING.UWP
             var ntp = Information<ITimingService>.Static = new NTPService();
             var data = Information<IDataService>.Static = new DataService();
             var settings = Information<ISettingsManager>.Static = new SettingsManager(data);
-            var notifier = Information<INotifier>.Static = new ToastNotifier();
+            var toastNotifier = new ToastNotifier();
             var browserSetting = Information<BrowserSetting>.Static = new BrowserSetting(settings);
             var layoutSetting = Information<LayoutSetting>.Static = new LayoutSetting(settings);
             var localeSetting = Information<LocaleSetting>.Static = new LocaleSetting(settings);
@@ -51,8 +51,8 @@ namespace Sakuno.ING.UWP
             var selector = new UWPHttpProviderSelector(shellContext, browserSetting, proxySetting);
             Information<IHttpProviderSelector>.Static = selector;
             var gameProvider = Information<GameProvider>.Static = new GameProvider(selector, settings);
-            var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, localization, ntp);
-            var notificationManager = Information<NotificationManager>.Static = new NotificationManager(new[] { notifier }, settings, navalBase);
+            var notificationManager = Information<NotificationManager>.Static = new NotificationManager(new[] { toastNotifier }, settings);
+            var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, localization, ntp, notificationManager);
             var logger = Information<Logger>.Static = new Logger(data, gameProvider, navalBase);
             var currentBattleVM = Information<CurrentBattleVM>.Static = new CurrentBattleVM(navalBase, shell);
 

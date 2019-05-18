@@ -5,6 +5,7 @@ using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Game.Notification;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Messaging;
 using Sakuno.ING.Timing;
@@ -15,14 +16,16 @@ namespace Sakuno.ING.Game.Models
     public class NavalBase : BindableObject
     {
         public ILocalizationService Localization { get; }
+        public NotificationManager Notification { get; }
 
-        public NavalBase(GameProvider listener, ILocalizationService localization, ITimingService timingService)
+        public NavalBase(GameProvider listener, ILocalizationService localization, ITimingService timingService, NotificationManager notification)
         {
             Localization = localization;
+            Notification = notification;
 
-            MasterData = new MasterDataRoot(listener, localization);
+            MasterData = new MasterDataRoot(listener);
             Battle = new BattleManager(listener, this);
-            Quests = new QuestManager(listener, localization);
+            Quests = new QuestManager(listener);
             _allEquipment = new IdTable<EquipmentId, HomeportEquipment, RawEquipment, NavalBase>(this);
             _buildingDocks = new IdTable<BuildingDockId, BuildingDock, RawBuildingDock, NavalBase>(this);
             _repairingDocks = new IdTable<RepairingDockId, RepairingDock, RawRepairingDock, NavalBase>(this);

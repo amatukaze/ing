@@ -1,18 +1,13 @@
 ﻿using System;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.MasterData;
-using Sakuno.ING.Localization;
 
 namespace Sakuno.ING.Game.Models
 {
     public class MasterDataRoot
     {
-        public ILocalizationService Localization { get; }
-
-        internal MasterDataRoot(GameProvider listener, ILocalizationService localization)
+        internal MasterDataRoot(GameProvider listener)
         {
-            Localization = localization;
-
             _shipInfos = new IdTable<ShipInfoId, ShipInfo, RawShipInfo, MasterDataRoot>(this);
             _shipTypes = new IdTable<ShipTypeId, ShipTypeInfo, RawShipTypeInfo, MasterDataRoot>(this);
             _equipmentTypes = new IdTable<EquipmentTypeId, EquipmentTypeInfo, RawEquipmentTypeInfo, MasterDataRoot>(this);

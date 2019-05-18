@@ -1,13 +1,9 @@
 ﻿using System;
-using Sakuno.ING.Localization;
 
 namespace Sakuno.ING.Game.Models
 {
     public class QuestManager : BindableObject
     {
-        public ILocalizationService Localization { get; }
-
-
         private DateTimeOffset _updationTime;
         public DateTimeOffset UpdationTime
         {
@@ -15,10 +11,8 @@ namespace Sakuno.ING.Game.Models
             set => Set(ref _updationTime, value);
         }
 
-        internal QuestManager(GameProvider listener, ILocalizationService localization)
+        internal QuestManager(GameProvider listener)
         {
-            Localization = localization;
-
             _allQuests = new IdTable<QuestId, Quest, RawQuest, QuestManager>(this);
             _activeQuests = new OrderedSnapshotCollection<Quest>(_allQuests, x => x.State != QuestState.Inactive);
             listener.QuestUpdated += (t, msg) =>
