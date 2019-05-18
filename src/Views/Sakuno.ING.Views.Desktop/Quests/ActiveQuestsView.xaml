@@ -12,9 +12,13 @@
     <ItemsControl ItemsSource="{Binding Quests.ActiveQuests, Mode=OneTime}">
         <ItemsControl.ItemTemplate>
             <DataTemplate DataType="g:Quest">
-                <TextBlock ToolTip="{Binding Description}"
-                           FontSize="20">
+                <TextBlock FontSize="20">
                     <c:TranslatableNameText Source="{Binding Name}" />
+                    <TextBlock.ToolTip>
+                        <TextBlock>
+                            <c:TranslatableNameText Source="{Binding Description}" />
+                        </TextBlock>
+                    </TextBlock.ToolTip>
                 </TextBlock>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

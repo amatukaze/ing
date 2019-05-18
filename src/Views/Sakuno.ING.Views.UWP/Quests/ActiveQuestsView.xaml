@@ -15,8 +15,11 @@
         <mux:ItemsRepeater.ItemTemplate>
             <DataTemplate x:DataType="g:Quest">
                 <TextBlock c:Helpers.TranslatableSource="{x:Bind Name, FallbackValue={x:Null}}"
-                           FontSize="20"
-                           ToolTipService.ToolTip="{x:Bind Description}" />
+                           FontSize="20">
+                    <ToolTipService.ToolTip>
+                        <TextBlock c:Helpers.TranslatableSource="{x:Bind Description, FallbackValue={x:Null}}" />
+                    </ToolTipService.ToolTip>
+                </TextBlock>
             </DataTemplate>
         </mux:ItemsRepeater.ItemTemplate>
     </mux:ItemsRepeater>

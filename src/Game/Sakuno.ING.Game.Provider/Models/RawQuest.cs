@@ -36,7 +36,7 @@ namespace Sakuno.ING.Game.Models
 
         internal int api_type;
         public QuestPeriod Period =>
-            api_type == 218 || api_type == 211 ?
+            Id == 211 || Id == 212 ?
             QuestPeriod.Daily : (QuestPeriod)api_type;
 
         [JsonProperty("api_state")]
