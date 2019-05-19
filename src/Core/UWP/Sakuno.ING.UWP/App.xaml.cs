@@ -12,6 +12,7 @@ namespace Sakuno.ING.UWP
     public sealed partial class App : Application
     {
         private AotCompositor compositor;
+        private bool started;
 
         public App()
         {
@@ -26,6 +27,8 @@ namespace Sakuno.ING.UWP
                 compositor = new AotCompositor();
             if (e.PrelaunchActivated == false)
             {
+                if (started) return;
+                started = true;
                 var initialScreen = new Grid();
                 initialScreen.Loaded += (_, __) => compositor.Resolve<IShell>().Run();
                 CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = false;

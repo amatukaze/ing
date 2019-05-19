@@ -19,7 +19,6 @@ namespace Sakuno.ING.UWP
     internal class UWPShell : FlexibleShell, IShell
     {
         private readonly LayoutSetting layoutSetting;
-        private readonly LocaleSetting localeSetting;
         private readonly ILocalizationService localization;
         private Func<LayoutRoot> layoutFactory;
         private string[] viewIds;
@@ -29,7 +28,6 @@ namespace Sakuno.ING.UWP
             : base(localization)
         {
             this.layoutSetting = layoutSetting;
-            this.localeSetting = localeSetting;
             this.localization = localization;
 
             Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = localeSetting.Language.Value;
@@ -119,7 +117,7 @@ namespace Sakuno.ING.UWP
                 appView.Consolidated += (s, e) =>
                 {
                     applicationViewIds.TryRemove(windowId, out _);
-                    CoreApplication.GetCurrentView().CoreWindow.Close();
+                    Window.Current.Close();
                 };
 
                 Window.Current.Activate();
@@ -145,7 +143,7 @@ namespace Sakuno.ING.UWP
 
                     appView.Consolidated += (s, e) =>
                     {
-                        CoreApplication.GetCurrentView().CoreWindow.Close();
+                        Window.Current.Close();
                     };
 
                     Window.Current.Activate();
