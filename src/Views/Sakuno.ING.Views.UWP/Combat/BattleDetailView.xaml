@@ -19,7 +19,7 @@
                 <TextBlock Text="→" VerticalAlignment="Center" />
                 <con:IndexedBattleParticipantName
                     Participant="{x:Bind Target}"
-                    Width="150" />
+                    Width="150" VerticalAlignment="Center" />
                 <TextBlock Margin="4, 0" Text="{x:Bind Damage}"
                            MinWidth="30" FontWeight="{x:Bind local:BattleDetailView.BooleanToFontWeight(IsCritical)}"
                            VerticalAlignment="Center" />
@@ -44,7 +44,7 @@
             <StackPanel Orientation="Horizontal" Spacing="2">
                 <con:IndexedBattleParticipantName
                     Participant="{x:Bind Source}"
-                    Width="150" />
+                    Width="150" VerticalAlignment="Center" />
                 <mux:ItemsRepeater ItemsSource="{x:Bind Hits}"
                                    ItemTemplate="{StaticResource HitTemplate}">
                     <mux:ItemsRepeater.Layout>
@@ -54,27 +54,29 @@
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical">
-        <local:BattleOverview Battle="{x:Bind Battle, Mode=OneWay}" />
-        <mux:ItemsRepeater ItemsSource="{x:Bind Battle.OrderedPhases, Mode=OneWay, FallbackValue={x:Null}}">
-            <mux:ItemsRepeater.Layout>
-                <mux:StackLayout Orientation="Vertical" Spacing="2" />
-            </mux:ItemsRepeater.Layout>
-            <mux:ItemsRepeater.ItemTemplate>
-                <DataTemplate x:DataType="m:BattlePhase">
-                    <StackPanel Orientation="Vertical">
-                        <Rectangle Fill="Gray" Height="2" Margin="2" />
-                        <TextBlock Text="{x:Bind c:Helpers.FormatBattlePhaseTitle(This)}"
-                                   FontSize="20" />
-                        <mux:ItemsRepeater ItemsSource="{x:Bind Attacks, Mode=OneTime}"
-                                           ItemTemplate="{StaticResource AttackTemplate}">
-                            <mux:ItemsRepeater.Layout>
-                                <mux:StackLayout Orientation="Vertical" Spacing="2" />
-                            </mux:ItemsRepeater.Layout>
-                        </mux:ItemsRepeater>
-                    </StackPanel>
-                </DataTemplate>
-            </mux:ItemsRepeater.ItemTemplate>
-        </mux:ItemsRepeater>
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+            <local:BattleOverview Battle="{x:Bind Battle, Mode=OneWay}" />
+            <mux:ItemsRepeater ItemsSource="{x:Bind Battle.OrderedPhases, Mode=OneWay, FallbackValue={x:Null}}">
+                <mux:ItemsRepeater.Layout>
+                    <mux:StackLayout Orientation="Vertical" Spacing="2" />
+                </mux:ItemsRepeater.Layout>
+                <mux:ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="m:BattlePhase">
+                        <StackPanel Orientation="Vertical">
+                            <Rectangle Fill="Gray" Height="2" Margin="2" />
+                            <TextBlock Text="{x:Bind c:Helpers.FormatBattlePhaseTitle(This)}"
+                                       FontSize="20" />
+                            <mux:ItemsRepeater ItemsSource="{x:Bind Attacks, Mode=OneTime}"
+                                               ItemTemplate="{StaticResource AttackTemplate}">
+                                <mux:ItemsRepeater.Layout>
+                                    <mux:StackLayout Orientation="Vertical" Spacing="2" />
+                                </mux:ItemsRepeater.Layout>
+                            </mux:ItemsRepeater>
+                        </StackPanel>
+                    </DataTemplate>
+                </mux:ItemsRepeater.ItemTemplate>
+            </mux:ItemsRepeater>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

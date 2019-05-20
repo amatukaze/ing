@@ -127,22 +127,24 @@
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
-    <StackPanel Orientation="Vertical">
-        <local:BattleOverview DataContext="{Binding}" />
-        <ItemsControl ItemsSource="{Binding OrderedPhases, Mode=OneTime}"
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical">
+            <local:BattleOverview DataContext="{Binding}" />
+            <ItemsControl ItemsSource="{Binding OrderedPhases, Mode=OneTime}"
                       ItemsPanel="{StaticResource VerticalPanelTemplate}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type m:BattlePhase}">
-                    <StackPanel Orientation="Vertical" Margin="0, 1">
-                        <Rectangle Fill="Gray" Height="2" Margin="2" />
-                        <ContentControl Content="{Binding}" ContentTemplateSelector="{StaticResource HeaderSelector}"
-                                        FontSize="20" />
-                        <ItemsControl ItemsSource="{Binding Attacks, Mode=OneTime}"
-                                      ItemsPanel="{StaticResource VerticalPanelTemplate}"
-                                      ItemTemplate="{StaticResource AttackTemplate}" />
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type m:BattlePhase}">
+                        <StackPanel Orientation="Vertical" Margin="0, 1">
+                            <Rectangle Fill="Gray" Height="2" Margin="2" />
+                            <ContentControl Content="{Binding}" ContentTemplateSelector="{StaticResource HeaderSelector}"
+                                            FontSize="20" />
+                            <ItemsControl ItemsSource="{Binding Attacks, Mode=OneTime}"
+                                          ItemsPanel="{StaticResource VerticalPanelTemplate}"
+                                          ItemTemplate="{StaticResource AttackTemplate}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

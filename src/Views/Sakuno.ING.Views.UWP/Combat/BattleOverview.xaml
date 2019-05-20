@@ -45,7 +45,7 @@
                     </StackPanel>
                 </ToolTipService.ToolTip>
                 <con:ShipNamePresenter Source="{x:Bind Ship.Info.Name, FallbackValue={x:Null}}"
-                                       FontSize="18" Width="150" />
+                                       FontSize="18" Width="150" VerticalAlignment="Center" />
                 <Grid Width="100">
                     <Grid.RowDefinitions>
                         <RowDefinition />

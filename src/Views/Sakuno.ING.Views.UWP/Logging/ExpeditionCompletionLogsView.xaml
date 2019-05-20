@@ -19,6 +19,11 @@
         <local:LogFilterControl ViewModel="{x:Bind ViewModel.Filters, Mode=OneTime}" />
         <tk:DataGrid Grid.Row="1" ItemsSource="{x:Bind ViewModel.Entities}"
                      FrozenColumnCount="1" AutoGenerateColumns="False">
+            <tk:DataGrid.CellStyle>
+                <Style TargetType="tk:DataGridCell">
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                </Style>
+            </tk:DataGrid.CellStyle>
             <tk:DataGrid.Columns>
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Time" Binding="{Binding TimeStamp.LocalDateTime, Mode=OneTime}" IsReadOnly="True" />
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Expedition">
