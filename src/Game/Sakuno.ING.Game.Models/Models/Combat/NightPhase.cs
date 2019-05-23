@@ -15,22 +15,22 @@ namespace Sakuno.ING.Game.Models.Combat
             }
 
             public BattleParticipant MapShip(int index, bool isEnemy)
-                => (isEnemy ? enemy : ally)[index];
+            {
+                var fleet = isEnemy ? enemy : ally;
+                if (fleet.Count <= 6) index %= 6;
+                return fleet[index];
+            }
+
             public AttackType MapType(int rawType) => MapTypeStatic(rawType);
         }
 
         private static IReadOnlyList<BattleParticipant> SelectFleet(Side side, int? index)
-        {
-            switch (index)
+            => index switch
             {
-                case 1:
-                    return side.Fleet;
-                case 2:
-                    return side.Fleet2;
-                default:
-                    return side.Fleet2 ?? side.Fleet;
-            }
-        }
+                1 => side.Fleet,
+                2 => side.Fleet2,
+                _ => side.Fleet2 ?? side.Fleet
+            };
 
         public NightPhase(MasterDataRoot masterData, Side ally, Side enemy, RawNightPhase raw)
             : base(Initialze(masterData, raw, new Builder(SelectFleet(ally, raw.Ally.ActiveFleet), SelectFleet(enemy, raw.Enemy.ActiveFleet))))

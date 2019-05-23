@@ -176,7 +176,7 @@ namespace Sakuno.ING.Game.Models.Combat
                         if (Ally.SunkCount == 0)
                         {
                             if (Enemy.SunkCount == Enemy.Count)
-                                Rank = allyPercentage <= 0 ? BattleRank.Perfect : BattleRank.S;
+                                Rank = Ally.DamageRate <= 0 ? BattleRank.Perfect : BattleRank.S;
                             else if (Enemy.SunkCount >= Math.Round(Enemy.Count * 0.625))
                                 Rank = BattleRank.A;
                             else if (Enemy.Fleet[0].IsSunk)
