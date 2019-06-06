@@ -1,4 +1,4 @@
-﻿<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.MainWindow"
+<ruic:MetroWindow x:Class="Sakuno.KanColle.Amatsukaze.Views.MainWindow"
                   x:ClassModifier="internal"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,6 +14,7 @@
                   mc:Ignorable="d"
                   Title="{rb:StringResource Main.Product_Name}"
                   Width="1350" Height="720"
+                  Language="{rb:Preference Language, Converter={StaticResource LanguageConverter}}"
                   WindowPlacementPreference="{StaticResource WindowPlacementPreference}"
                   UseLayoutRounding="True">
     <ruic:MetroWindow.Resources>

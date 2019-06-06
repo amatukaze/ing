@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,6 +16,7 @@ namespace Sakuno.KanColle.Amatsukaze
 
         public IValueConverter Converter { get; set; }
         public object ConverterParameter { get; set; }
+        public CultureInfo ConverterCulture { get; set; } = CultureInfo.InvariantCulture;
 
         public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
         public ValidationRule ValidationRule { get; set; }
@@ -31,7 +33,7 @@ namespace Sakuno.KanColle.Amatsukaze
             if (DesignerProperties.GetIsInDesignMode(r_DesignModeDetector))
                 return DependencyProperty.UnsetValue;
 
-            var rBinding = new Binding(r_Path) { Source = Preference.Instance, Mode = BindingMode.TwoWay, Converter = Converter, ConverterParameter = ConverterParameter, UpdateSourceTrigger = UpdateSourceTrigger, StringFormat = StringFormat };
+            var rBinding = new Binding(r_Path) { Source = Preference.Instance, Mode = BindingMode.TwoWay, Converter = Converter, ConverterParameter = ConverterParameter, ConverterCulture = ConverterCulture, UpdateSourceTrigger = UpdateSourceTrigger, StringFormat = StringFormat };
             if (ValidationRule != null)
                 rBinding.ValidationRules.Add(ValidationRule);
 
