@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sakuno.ING.Composition
+namespace Sakuno.ING.Extensibility.Composition
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public sealed class ExportAttribute : Attribute
