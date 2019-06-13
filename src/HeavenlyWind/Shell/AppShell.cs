@@ -1,5 +1,6 @@
 ﻿using Sakuno.ING.Extensibility.Composition;
 using Sakuno.ING.Extensibility.Shell;
+using Sakuno.ING.ViewModels;
 using Sakuno.UserInterface;
 using System.Windows;
 
@@ -19,7 +20,10 @@ namespace Sakuno.ING.Shell
 
         void OnAppStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = new MainWindow();
+            var mainWindow = new MainWindow()
+            {
+                DataContext = Compositor.Static<MainViewModel>(),
+            };
 
             mainWindow.Show();
 
