@@ -4,8 +4,4 @@
     <RootNamespace>Sakuno.ING.Extensibility</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Settings\" />
-  </ItemGroup>
-
 </Project>

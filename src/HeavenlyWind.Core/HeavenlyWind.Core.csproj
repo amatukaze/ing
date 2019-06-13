@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Sakuno.Base" Version="0.5.1" />
+    <PackageReference Include="Sakuno.Base" Version="0.6.0-pre1" />
   </ItemGroup>
 
   <ItemGroup>
