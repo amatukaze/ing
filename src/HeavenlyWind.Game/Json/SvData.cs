@@ -1,4 +1,4 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Game.Json
+﻿namespace Sakuno.ING.Game.Json
 {
     class SvData
     {
