@@ -8,7 +8,7 @@
                 <ControlTemplate TargetType="local:IndexedBattleParticipantName">
                     <TextBlock Name="PART_Text">
                         <Run Text="{Binding Participant.OneBasedIndex, RelativeSource={RelativeSource Mode=TemplatedParent}, FallbackValue='?', Mode=OneWay}" /><Run Name="PART_Dot" Text="." />
-                        <c:TranslatableNameText Source="{Binding Participant.Ship.Info.Name, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
+                        <c:TranslatableNameText Source="{Binding Participant.Ship.Info.Name.FullName, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=OneWay}" />
                     </TextBlock>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnemy" Value="True">

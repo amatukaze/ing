@@ -8,7 +8,7 @@ namespace Sakuno.ING.Game.Models.Combat
         public NightEffects(MasterDataRoot masterData, IReadOnlyList<BattleParticipant> fleet, in RawNightEffects raw)
         {
             if (raw.FlareIndex is int i)
-                FlareShootingShip = fleet[i];
+                FlareShootingShip = NightPhase.SelectShipNormalized(fleet, i);
             TouchingPlane = masterData.EquipmentInfos[raw.TouchingPlane];
         }
 

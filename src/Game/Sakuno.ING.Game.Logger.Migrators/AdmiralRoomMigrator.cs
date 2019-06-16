@@ -156,9 +156,12 @@ namespace Sakuno.ING.Game.Logger.Migrators
                 while (!reader.EndOfStream)
                 {
                     string line = await reader.ReadLineAsync();
+                    if (string.IsNullOrWhiteSpace(line)) continue;
                     if (line.IndexOf("\"battle\"") != line.LastIndexOf("\"battle\""))
                         line = line.Insert(line.LastIndexOf("\"battle\"") + 1, "night");
                     var log = JsonConvert.DeserializeObject<BattleDetailLog>(line);
+                    if (log is null) continue;
+
                     DateTimeOffset t = DateTime.SpecifyKind(DateTime.Parse(log.time), DateTimeKind.Utc);
                     if (results.TryGetValue(t, out var e))
                     {

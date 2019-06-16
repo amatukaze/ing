@@ -58,11 +58,19 @@ namespace Sakuno.ING.Game.Models
                     AirFightPower = default;
                 else
                 {
-                    double afpRaw = Equipment.Info.AntiAir * Math.Sqrt(Aircraft.Current);
+                    double afpImprovementFactor = id switch
+                    {
+                        KnownEquipmentType.FighterAircraft => 0.2,
+                        KnownEquipmentType.SeaplaneFighter => 0.2,
+                        KnownEquipmentType.LandBasedFighter => 0.2,
+                        KnownEquipmentType.DiveBomber => 0.25,
+                        _ => 0
+                    };
+                    double afpRaw = (Equipment.Info.AntiAir + afpImprovementFactor * Equipment.ImprovementLevel) * Math.Sqrt(Aircraft.Current);
                     AirFightPower = new AirFightPower(afpRaw,
                         afpRaw + Math.Sqrt(airProficiencyCore[Equipment.AirProficiency] / 10.0) + afpBonusTable[Equipment.AirProficiency],
                                 afpRaw + Math.Sqrt((airProficiencyCore[Equipment.AirProficiency + 1] - 1) / 10.0) + afpBonusTable[Equipment.AirProficiency]);
-                } 
+                }
             }
         }
     }

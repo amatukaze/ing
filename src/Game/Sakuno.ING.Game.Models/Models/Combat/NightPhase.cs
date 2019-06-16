@@ -15,13 +15,15 @@ namespace Sakuno.ING.Game.Models.Combat
             }
 
             public BattleParticipant MapShip(int index, bool isEnemy)
-            {
-                var fleet = isEnemy ? enemy : ally;
-                if (fleet.Count <= 6) index %= 6;
-                return fleet[index];
-            }
+                => SelectShipNormalized(isEnemy ? enemy : ally, index);
 
             public AttackType MapType(int rawType) => MapTypeStatic(rawType);
+        }
+
+        internal static BattleParticipant SelectShipNormalized(IReadOnlyList<BattleParticipant> fleet, int index)
+        {
+            if (fleet.Count <= 6) index %= 6;
+            return fleet[index];
         }
 
         private static IReadOnlyList<BattleParticipant> SelectFleet(Side side, int? index)
