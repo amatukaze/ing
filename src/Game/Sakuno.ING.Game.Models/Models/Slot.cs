@@ -52,7 +52,7 @@ namespace Sakuno.ING.Game.Models
                     _ => null
                 };
 
-                EffectiveLoS = losFactor * (Equipment.Info.LineOfSight + Equipment.ImprovementLevel * losImprovementFactor);
+                EffectiveLoS = losFactor * (Equipment.Info.LineOfSight + Math.Sqrt(Equipment.ImprovementLevel) * losImprovementFactor);
 
                 if (afpBonusTable == null || Aircraft.Current == 0)
                     AirFightPower = default;
