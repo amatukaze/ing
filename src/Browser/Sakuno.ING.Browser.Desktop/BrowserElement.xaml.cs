@@ -58,5 +58,10 @@ namespace Sakuno.ING.Browser.Desktop
         {
             _browserProvider?.Dispose();
         }
+
+        private void ClearCache(object sender, RoutedEventArgs e)
+        {
+            _browserProvider?.ClearCache();
+        }
     }
 }

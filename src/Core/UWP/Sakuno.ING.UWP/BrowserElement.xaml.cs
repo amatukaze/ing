@@ -79,5 +79,10 @@ namespace Sakuno.ING.UWP
             Transformer.Height = BrowserSetting.Height * scale;
             this.Width = BrowserSetting.Width * scale;
         }
+
+        private void ClearCache(object sender, RoutedEventArgs e)
+        {
+            _ = WebView.ClearTemporaryWebDataAsync();
+        }
     }
 }

@@ -30,6 +30,9 @@
                     IsEnabled="{x:Bind WebView.CanGoForward, FallbackValue=False}">
                 <SymbolIcon Symbol="Forward" />
             </Button>
+            <Button Click="ClearCache">
+                <SymbolIcon Symbol="Delete" />
+            </Button>
             <ToggleButton tk:DockPanel.Dock="Right"
                           IsChecked="{x:Bind LockGame, Mode=TwoWay}">
                 <SymbolIcon Symbol="Trim" />

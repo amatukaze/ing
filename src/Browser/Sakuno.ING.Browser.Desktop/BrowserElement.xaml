@@ -41,6 +41,9 @@
 
                 <TextBlock Text="➡️" />
             </Button>
+            <Button Click="ClearCache">
+                <TextBlock Text="♻" />
+            </Button>
             <ToggleButton DockPanel.Dock="Right" IsChecked="True" Click="ToggleGameLock">
                 <TextBlock Text="🔳" />
             </ToggleButton>
