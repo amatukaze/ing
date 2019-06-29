@@ -67,7 +67,7 @@ namespace Sakuno.ING.Game.Models
                             var oldShip = ships[i];
                             ships.RemoveAt(i);
                             fromFleet.ships.RemoveAt(oldIndex);
-                            ships.Insert(i, oldShip);
+                            ships.Insert(i, ship);
                             fromFleet.ships.Insert(oldIndex, oldShip);
                         }
                         else
