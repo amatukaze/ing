@@ -88,9 +88,9 @@
     <property type="bool" name="IsCleared" autoFill="true" />
     <property type="EventMapRank?" name="Rank" autoFill="true" />
     <property type="int?" name="GaugeIndex" autoFill="true" />
-    <property type="EventMapGaugeType?" name="GaugeType" autoFill="true" />
+    <property type="MapGaugeType?" name="GaugeType" autoFill="true" />
     <property type="int" name="AvailableAirForceGroups" autoFill="true" />
-    <property type="ClampedValue?" name="Gauge" autoFill="true" />
+    <property type="ClampedValue?" name="Gauge" />
   </class>
   <class name="AirForceSquadron" id="int" raw="RawAirForceSquadron" owner="NavalBase">
     <property type="Equipment" name="Equipment" />

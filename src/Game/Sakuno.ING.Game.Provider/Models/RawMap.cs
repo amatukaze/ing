@@ -21,13 +21,16 @@ namespace Sakuno.ING.Game.Models
             public int api_now_maphp;
             public int api_max_maphp;
             public EventMapRank api_selected_rank;
-            public EventMapGaugeType api_gauge_type;
+            public MapGaugeType api_gauge_type;
             public int api_gauge_num;
         }
         internal EventMap api_eventmap;
+        internal MapGaugeType? api_gauge_type;
+        internal int? api_gauge_num;
+
         public EventMapRank? Rank => api_eventmap?.api_selected_rank;
-        public EventMapGaugeType? GaugeType => api_eventmap?.api_gauge_type;
-        public int? GaugeIndex => api_eventmap?.api_gauge_num;
+        public MapGaugeType? GaugeType => api_gauge_type ?? api_eventmap?.api_gauge_type;
+        public int? GaugeIndex => api_gauge_num ?? api_eventmap?.api_gauge_num;
         public ClampedValue? Gauge => api_eventmap != null ?
             (api_eventmap.api_now_maphp, api_eventmap.api_max_maphp)
             : (ClampedValue?)null;
@@ -54,8 +57,9 @@ namespace Sakuno.ING.Game.Models
         Hard = 4
     }
 
-    public enum EventMapGaugeType
+    public enum MapGaugeType
     {
+        SunkCount = 1,
         HP = 2,
         Transport = 3
     }

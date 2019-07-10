@@ -1085,8 +1085,8 @@ namespace Sakuno.ING.Game.Models
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_gaugeType = new PropertyChangedEventArgs(nameof(GaugeType));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private EventMapGaugeType? _gaugeType;
-        public EventMapGaugeType? GaugeType
+        private MapGaugeType? _gaugeType;
+        public MapGaugeType? GaugeType
         {
             get => _gaugeType;
             private set => Set(ref _gaugeType, value, __eventArgs_gaugeType);
@@ -1144,7 +1144,6 @@ namespace Sakuno.ING.Game.Models
             GaugeIndex = raw.GaugeIndex;
             GaugeType = raw.GaugeType;
             AvailableAirForceGroups = raw.AvailableAirForceGroups;
-            Gauge = raw.Gauge;
 
             UpdateCore(raw, timeStamp);
         }

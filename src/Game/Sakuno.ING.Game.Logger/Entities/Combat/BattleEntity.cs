@@ -23,7 +23,7 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
         public BattleKind BattleKind { get; set; }
         public CombinedFleetType CombinedFleetType { get; set; }
         public EventMapRank? MapRank { get; set; }
-        public EventMapGaugeType? MapGaugeType { get; set; }
+        public MapGaugeType? MapGaugeType { get; set; }
         public int? MapGaugeNumber { get; set; }
         public int? MapGaugeHP { get; set; }
         public int? MapGaugeMaxHP { get; set; }
