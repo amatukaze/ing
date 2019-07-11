@@ -14,6 +14,7 @@ namespace Sakuno.ING.Game.Models
                     (null, int r) => (0, r),
                     _ => raw.IsCleared ? (0, 1) : (1, 1)
                 };
+            IsInProgress = (!IsCleared) || (Gauge?.Current > 0);
         }
     }
 }

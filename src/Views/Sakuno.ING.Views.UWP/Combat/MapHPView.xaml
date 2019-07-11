@@ -89,7 +89,7 @@
                     <DataTemplate x:DataType="g:Map">
                         <Grid>
                             <ContentPresenter x:Name="NCOnly"
-                                              x:Load="{x:Bind c:Helpers.Not(IsCleared)}"
+                                              x:Load="{x:Bind IsInProgress}"
                                               Content="{x:Bind}"
                                               ContentTemplate="{StaticResource MapItemTemplate}" />
                         </Grid>

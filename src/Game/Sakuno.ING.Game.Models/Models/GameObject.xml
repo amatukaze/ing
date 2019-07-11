@@ -86,6 +86,7 @@
   <class name="Map" id="MapId" raw="RawMap" owner="NavalBase">
     <property type="MapInfo" name="Info" />
     <property type="bool" name="IsCleared" autoFill="true" />
+    <property type="bool" name="IsInProgress" />
     <property type="EventMapRank?" name="Rank" autoFill="true" />
     <property type="int?" name="GaugeIndex" autoFill="true" />
     <property type="MapGaugeType?" name="GaugeType" autoFill="true" />

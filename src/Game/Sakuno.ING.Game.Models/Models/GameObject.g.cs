@@ -1063,6 +1063,16 @@ namespace Sakuno.ING.Game.Models
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_isInProgress = new PropertyChangedEventArgs(nameof(IsInProgress));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private bool _isInProgress;
+        public bool IsInProgress
+        {
+            get => _isInProgress;
+            private set => Set(ref _isInProgress, value, __eventArgs_isInProgress);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_rank = new PropertyChangedEventArgs(nameof(Rank));
         [EditorBrowsable(EditorBrowsableState.Never)]
         private EventMapRank? _rank;

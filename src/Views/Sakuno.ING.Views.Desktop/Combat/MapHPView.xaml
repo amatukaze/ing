@@ -76,7 +76,7 @@
                                        Height="1" Margin="2" Fill="Gray" />
                         </Grid>
                         <DataTemplate.Triggers>
-                            <DataTrigger Binding="{Binding IsCleared}" Value="False">
+                            <DataTrigger Binding="{Binding IsInProgress}" Value="True">
                                 <Setter TargetName="MapItem" Property="Visibility" Value="Visible" />
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsChecked, ElementName=ShowNCOnly}" Value="False">
