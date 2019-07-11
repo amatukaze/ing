@@ -1,0 +1,101 @@
+﻿<UserControl
+    x:Class="Sakuno.ING.Views.UWP.Combat.MapHPView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mux="using:Microsoft.UI.Xaml.Controls"
+    xmlns:g="using:Sakuno.ING.Game.Models"
+    xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Combat"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    x:DefaultBindMode="OneWay">
+    <UserControl.Resources>
+        <DataTemplate x:Key="MapItemTemplate" x:DataType="g:Map">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.RowSpan="2" Grid.Column="0"
+                           FontSize="24" HorizontalTextAlignment="Center"
+                           VerticalAlignment="Center">
+                    <Run Text="{x:Bind Id.AreaId}" />-<Run Text="{x:Bind Id.CategoryNo}" />
+                </TextBlock>
+                <TextBlock Grid.RowSpan="2" Grid.Column="1"
+                           FontSize="24" HorizontalTextAlignment="Center"
+                           Text="{x:Bind local:MapHPView.SelectRankText(Rank), FallbackValue=''}"
+                           ToolTipService.ToolTip="{x:Bind local:MapHPView.SelectRankTooltip(Rank), FallbackValue={x:Null}}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"
+                           FontSize="14" TextTrimming="CharacterEllipsis"
+                           c:Helpers.TranslatableSource="{x:Bind Info.Name}">
+                    <ToolTipService.ToolTip>
+                        <TextBlock c:Helpers.TranslatableSource="{x:Bind Info.Name}" />
+                    </ToolTipService.ToolTip>
+                </TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"
+                           FontSize="14" TextTrimming="CharacterEllipsis"
+                           c:Helpers.TranslatableSource="{x:Bind Info.OperationName}">
+                    <ToolTipService.ToolTip>
+                        <TextBlock c:Helpers.TranslatableSource="{x:Bind Info.OperationName}" />
+                    </ToolTipService.ToolTip>
+                </TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="4"
+                           FontSize="16" HorizontalTextAlignment="Center"
+                           DataContext="{x:Bind Gauge}">
+                    <Run FontSize="20" Text="{Binding Current}" />
+                    /
+                    <Run Text="{Binding Max}" />
+                </TextBlock>
+                <ProgressBar Grid.Row="1" Grid.Column="4" VerticalAlignment="Stretch"
+                             DataContext="{x:Bind Gauge}"
+                             Minimum="0" Maximum="{Binding Max, Mode=OneTime}"
+                             Value="{Binding Current, Mode=OneTime}" />
+                <Rectangle Grid.Row="2" Grid.ColumnSpan="5"
+                           Height="1" Margin="2" Fill="Gray" />
+            </Grid>
+        </DataTemplate>
+        <mux:StackLayout x:Key="VerticalLayout" Orientation="Vertical" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ToggleSwitch x:Name="ShowNCOnly"
+                      x:Uid="/Resources/MapHP_Option"
+                      IsOn="True" />
+        <ScrollViewer x:Name="All" Grid.Row="1"
+                      x:Load="{x:Bind c:Helpers.Not(ShowNCOnly.IsOn)}">
+            <mux:ItemsRepeater ItemsSource="{x:Bind ViewModel.Maps.DefaultView, Mode=OneTime}"
+                               Layout="{StaticResource VerticalLayout}"
+                               ItemTemplate="{StaticResource MapItemTemplate}" />
+        </ScrollViewer>
+        <ScrollViewer x:Name="NotCleared" Grid.Row="1"
+                      x:Load="{x:Bind ShowNCOnly.IsOn}">
+            <mux:ItemsRepeater ItemsSource="{x:Bind ViewModel.Maps.DefaultView, Mode=OneTime}"
+                               Layout="{StaticResource VerticalLayout}">
+                <mux:ItemsRepeater.ItemTemplate>
+                    <DataTemplate x:DataType="g:Map">
+                        <Grid>
+                            <ContentPresenter x:Name="NCOnly"
+                                              x:Load="{x:Bind c:Helpers.Not(IsCleared)}"
+                                              Content="{x:Bind}"
+                                              ContentTemplate="{StaticResource MapItemTemplate}" />
+                        </Grid>
+                    </DataTemplate>
+                </mux:ItemsRepeater.ItemTemplate>
+            </mux:ItemsRepeater>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

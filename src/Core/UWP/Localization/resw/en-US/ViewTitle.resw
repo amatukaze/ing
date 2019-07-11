@@ -60,4 +60,7 @@
   <data name="Page_Battle">
     <value>Battle</value>
   </data>
+  <data name="Page_Maps">
+    <value>Maps</value>
+  </data>
 </root>

@@ -24,6 +24,9 @@
                         <TabItem Header="{c:Localize ViewTitle/Page_Battle}">
                             <sh:ViewPresenter ViewId="CurrentBattle" />
                         </TabItem>
+                        <TabItem Header="{c:Localize ViewTitle/Page_Maps}">
+                            <sh:ViewPresenter ViewId="MapHP" />
+                        </TabItem>
                     </TabControl>
 
                     <StackPanel Name="Buttons" Orientation="Horizontal"

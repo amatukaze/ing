@@ -300,4 +300,13 @@
   <data name="Sortie_RouteId">
     <value>Position</value>
   </data>
+  <data name="MapHP_ShowOption">
+    <value>Showing option</value>
+  </data>
+  <data name="MapHP_ShowAll">
+    <value>All maps</value>
+  </data>
+  <data name="MapHP_ShowOnly">
+    <value>Not cleared</value>
+  </data>
 </root>

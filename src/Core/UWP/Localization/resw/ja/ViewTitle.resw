@@ -60,4 +60,7 @@
   <data name="Page_Battle">
     <value>戦闘</value>
   </data>
+  <data name="Page_Maps">
+    <value>海域</value>
+  </data>
 </root>

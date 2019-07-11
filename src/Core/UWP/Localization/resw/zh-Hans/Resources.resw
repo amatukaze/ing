@@ -231,6 +231,9 @@
   <data name="MainPivot_Battle.Header">
     <value>战斗</value>
   </data>
+  <data name="MainPivot_Maps.Header">
+    <value>海域</value>
+  </data>
   <data name="Parameter_Textual_Firepower.Text">
     <value>火力</value>
   </data>
@@ -257,5 +260,14 @@
   </data>
   <data name="Combat_LandBaseAirDefence_Planes_NotLost.Text">
     <value>航空队未受损</value>
+  </data>
+  <data name="MapHP_Option.Header">
+    <value>显示选项</value>
+  </data>
+  <data name="MapHP_Option.OnContent">
+    <value>未攻略海域</value>
+  </data>
+  <data name="MapHP_Option.OffContent">
+    <value>全部海域</value>
   </data>
 </root>

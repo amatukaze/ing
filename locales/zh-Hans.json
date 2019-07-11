@@ -31,7 +31,8 @@
     "CurrentBattleDetail": "战斗详情 - 当前",
     "LandBaseDefenceDetail": "战斗详情 - 基地防空",
     "Page_Overview": "概览",
-    "Page_Battle": "战斗"
+    "Page_Battle": "战斗",
+    "Page_Maps":  "海域"
   },
   "Settings": {
     "UserFont": "用户语言字体",
@@ -237,7 +238,10 @@
     "BattleKind_8": "敌雷达射击",
     "SelectableRoute": "能动分歧",
     "Sortie_SortieArea": "出击海域",
-    "Sortie_RouteId": "位置"
+    "Sortie_RouteId": "位置",
+    "MapHP_ShowOption": "显示选项",
+    "MapHP_ShowAll": "全部海域",
+    "MapHP_ShowOnly": "未攻略海域"
   },
   "Notification": {
     "Expedition_Title": "远征完成",

@@ -1,0 +1,107 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Combat.MapHPView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:c="http://schemas.heavenlywind.cc/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:g="clr-namespace:Sakuno.ING.Game.Models;assembly=Sakuno.ING.Game.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{c:Resolve {x:Type g:NavalBase}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <CheckBox x:Name="ShowNCOnly" FontSize="20"
+                  Content="{c:Localize Combat/MapHP_ShowOnly}"
+                  IsChecked="True" />
+        <ScrollViewer Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding Maps.DefaultView, Mode=OneTime}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="g:Map">
+                        <Grid Visibility="Collapsed"
+                              Name="MapItem">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.RowSpan="2" Grid.Column="0"
+                                       FontSize="24" TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       DataContext="{Binding Id, Mode=OneWay}">
+                                <Run Text="{Binding AreaId, Mode=OneTime}" />-<Run Text="{Binding Id, Mode=OneTime}" />
+                            </TextBlock>
+                            <TextBlock Grid.RowSpan="2" Grid.Column="1"
+                                       FontSize="24" HorizontalAlignment="Center"
+                                       Name="RankText" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"
+                                       FontSize="14" TextTrimming="CharacterEllipsis">
+                                <c:TranslatableNameText Source="{Binding Info.Name}" />
+                                <ToolTipService.ToolTip>
+                                    <TextBlock>
+                                        <c:TranslatableNameText Source="{Binding Info.Name}" />
+                                    </TextBlock>
+                                </ToolTipService.ToolTip>
+                            </TextBlock>
+                            <TextBlock Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"
+                                       FontSize="14" TextTrimming="CharacterEllipsis">
+                                <c:TranslatableNameText Source="{Binding Info.OperationName}" />
+                                <ToolTipService.ToolTip>
+                                    <TextBlock>
+                                        <c:TranslatableNameText Source="{Binding Info.OperationName}" />
+                                    </TextBlock>
+                                </ToolTipService.ToolTip>
+                            </TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="4"
+                                       FontSize="16" TextAlignment="Center"
+                                       DataContext="{Binding Gauge}">
+                                <Run FontSize="20" Text="{Binding Current}" />
+                                /
+                                <Run Text="{Binding Max}" />
+                            </TextBlock>
+                            <ProgressBar Grid.Row="1" Grid.Column="4" VerticalAlignment="Stretch"
+                                         DataContext="{Binding Gauge}"
+                                         Minimum="0" Maximum="{Binding Max, Mode=OneTime}"
+                                         Value="{Binding Current, Mode=OneTime}" />
+                            <Rectangle Grid.Row="2" Grid.ColumnSpan="5"
+                                       Height="1" Margin="2" Fill="Gray" />
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsCleared}" Value="False">
+                                <Setter TargetName="MapItem" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsChecked, ElementName=ShowNCOnly}" Value="False">
+                                <Setter TargetName="MapItem" Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Rank}" Value="Hard">
+                                <Setter TargetName="RankText" Property="Text" Value="甲" />
+                                <Setter TargetName="RankText" Property="ToolTip" Value="甲 Hard" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Rank}" Value="Normal">
+                                <Setter TargetName="RankText" Property="Text" Value="乙" />
+                                <Setter TargetName="RankText" Property="ToolTip" Value="乙 Normal" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Rank}" Value="Easy">
+                                <Setter TargetName="RankText" Property="Text" Value="丙" />
+                                <Setter TargetName="RankText" Property="ToolTip" Value="丙 Easy" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Rank}" Value="Casual">
+                                <Setter TargetName="RankText" Property="Text" Value="丁" />
+                                <Setter TargetName="RankText" Property="ToolTip" Value="丁 Casual" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

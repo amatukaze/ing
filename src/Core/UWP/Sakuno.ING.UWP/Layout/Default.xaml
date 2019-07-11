@@ -22,6 +22,9 @@
                         <PivotItem x:Uid="/Resources/MainPivot_Battle">
                             <sh:ViewPresenter ViewId="CurrentBattle" />
                         </PivotItem>
+                        <PivotItem x:Uid="/Resources/MainPivot_Maps">
+                            <sh:ViewPresenter ViewId="MapHP" />
+                        </PivotItem>
                     </Pivot>
 
                     <StackPanel Name="Buttons" Orientation="Horizontal"

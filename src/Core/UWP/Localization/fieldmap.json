@@ -72,6 +72,7 @@
   "Combat_CurrentBattleDetail.Content": "GameModel/Details",
   "MainPivot_Overview.Header": "ViewTitle/Page_Overview",
   "MainPivot_Battle.Header": "ViewTitle/Page_Battle",
+  "MainPivot_Maps.Header": "ViewTitle/Page_Maps",
   "Parameter_Textual_Firepower.Text": "GameModel/Parameter_Firepower",
   "Parameter_Textual_Torpedo.Text": "GameModel/Parameter_Torpedo",
   "Parameter_Textual_AntiAir.Text": "GameModel/Parameter_AntiAir",
@@ -80,5 +81,8 @@
   "Combat_LandBaseAirDefence_Materials_Lost.Text": "Combat/LandBaseAirDefence_Materials_Lost",
   "Combat_LandBaseAirDefence_Materials_NotLost.Text": "Combat/LandBaseAirDefence_Materials_NotLost",
   "Combat_LandBaseAirDefence_Planes_Lost.Text": "Combat/LandBaseAirDefence_Planes_Lost",
-  "Combat_LandBaseAirDefence_Planes_NotLost.Text": "Combat/LandBaseAirDefence_Planes_NotLost"
+  "Combat_LandBaseAirDefence_Planes_NotLost.Text": "Combat/LandBaseAirDefence_Planes_NotLost",
+  "MapHP_Option.Header": "Combat/MapHP_ShowOption",
+  "MapHP_Option.OnContent": "Combat/MapHP_ShowOnly",
+  "MapHP_Option.OffContent": "Combat/MapHP_ShowAll"
 }

@@ -219,6 +219,9 @@
   <data name="MainPivot_Battle.Header">
     <value>戦闘</value>
   </data>
+  <data name="MainPivot_Maps.Header">
+    <value>海域</value>
+  </data>
   <data name="Parameter_Textual_Firepower.Text">
     <value>火力</value>
   </data>
@@ -245,5 +248,14 @@
   </data>
   <data name="Combat_LandBaseAirDefence_Planes_NotLost.Text">
     <value>地上撃破の損害が発生しません</value>
+  </data>
+  <data name="MapHP_Option.Header">
+    <value>海域の表示</value>
+  </data>
+  <data name="MapHP_Option.OnContent">
+    <value>攻略中のみ</value>
+  </data>
+  <data name="MapHP_Option.OffContent">
+    <value>すべて</value>
   </data>
 </root>

@@ -31,6 +31,9 @@
     <Compile Include="Combat\CurrentBattleView.xaml.cs">
       <DependentUpon>CurrentBattleView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Combat\MapHPView.xaml.cs">
+      <DependentUpon>MapHPView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Combat\NullToVisibilityConverter.cs" />
     <Compile Include="Homeport\AdmiralView.xaml.cs">
       <DependentUpon>AdmiralView.xaml</DependentUpon>
@@ -127,6 +130,10 @@
     <Page Include="Combat\CurrentBattleView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Combat\MapHPView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Homeport\AdmiralView.xaml">
       <Generator>MSBuild:Compile</Generator>

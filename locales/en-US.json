@@ -31,7 +31,8 @@
     "CurrentBattleDetail": "Battle detail - current",
     "LandBaseDefenceDetail": "Battle detail - land base defence",
     "Page_Overview": "Overview",
-    "Page_Battle": "Battle"
+    "Page_Battle": "Battle",
+    "Page_Maps": "Maps"
   },
   "Settings": {
     "UserFont": "User language font",
@@ -237,7 +238,10 @@
     "BattleKind_8": "Radar raid",
     "SelectableRoute": "Selectable Route",
     "Sortie_SortieArea": "In sortie",
-    "Sortie_RouteId": "Position"
+    "Sortie_RouteId": "Position",
+    "MapHP_ShowOption": "Showing option",
+    "MapHP_ShowAll": "All maps",
+    "MapHP_ShowOnly": "Not cleared"
   },
   "Notification": {
     "Expedition_Title": "Expedition Completed",

@@ -31,7 +31,8 @@
     "CurrentBattleDetail": "戦闘詳細 - 現在",
     "LandBaseDefenceDetail": "戦闘詳細 - 基地防空",
     "Page_Overview": "一覧",
-    "Page_Battle": "戦闘"
+    "Page_Battle": "戦闘",
+    "Page_Maps": "海域"
   },
   "Settings": {
     "UserFont": "UI フォント",
@@ -233,7 +234,10 @@
     "BattleKind_8": "敵レーダー射撃",
     "SelectableRoute": "能動分岐",
     "Sortie_SortieArea": "出撃海域",
-    "Sortie_RouteId": "マス"
+    "Sortie_RouteId": "マス",
+    "MapHP_ShowOption": "海域の表示",
+    "MapHP_ShowAll": "すべて",
+    "MapHP_ShowOnly": "攻略中のみ"
   },
   "Notification": {
     "Expedition_Title": "遠征完了",

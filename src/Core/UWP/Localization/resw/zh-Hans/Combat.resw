@@ -300,4 +300,13 @@
   <data name="Sortie_RouteId">
     <value>位置</value>
   </data>
+  <data name="MapHP_ShowOption">
+    <value>显示选项</value>
+  </data>
+  <data name="MapHP_ShowAll">
+    <value>全部海域</value>
+  </data>
+  <data name="MapHP_ShowOnly">
+    <value>未攻略海域</value>
+  </data>
 </root>
