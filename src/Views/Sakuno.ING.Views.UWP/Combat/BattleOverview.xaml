@@ -81,7 +81,7 @@
         <ContentControl Content="{x:Bind Battle}" HorizontalContentAlignment="Left">
             <ContentControl.ContentTemplateSelector>
                 <con:TypeTemplateSelector>
-                    <con:TypeTemplateSelection Type="m:Battle">
+                    <con:TypeTemplateSelection TypeName="Battle">
                         <DataTemplate x:DataType="m:Battle">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -128,7 +128,7 @@
                             </Grid>
                         </DataTemplate>
                     </con:TypeTemplateSelection>
-                    <con:TypeTemplateSelection Type="m:LandBaseDefenceBattle">
+                    <con:TypeTemplateSelection TypeName="LandBaseDefenceBattle">
                         <DataTemplate x:DataType="m:LandBaseDefenceBattle">
                             <Grid>
                                 <Grid.RowDefinitions>

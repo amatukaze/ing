@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Markup;
@@ -16,9 +15,9 @@ namespace Sakuno.ING.Views.UWP.Controls
         {
             if (item is null)
                 return null;
-            var type = item.GetType();
+            var typeName = item.GetType().Name;
             foreach (var s in Selections)
-                if (s.Type == type)
+                if (s.TypeName == typeName)
                     return s.Template;
             return Fallback;
         }
@@ -30,7 +29,8 @@ namespace Sakuno.ING.Views.UWP.Controls
     [ContentProperty(Name = nameof(Template))]
     public class TypeTemplateSelection
     {
-        public Type Type { get; set; }
+        // Using `Type` works in coreclr, but not .Net native
+        public string TypeName { get; set; }
         public DataTemplate Template { get; set; }
     }
 }
