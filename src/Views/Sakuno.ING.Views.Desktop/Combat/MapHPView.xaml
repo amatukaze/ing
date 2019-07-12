@@ -38,7 +38,7 @@
                                        FontSize="24" TextAlignment="Center"
                                        VerticalAlignment="Center"
                                        DataContext="{Binding Id, Mode=OneWay}">
-                                <Run Text="{Binding AreaId, Mode=OneTime}" />-<Run Text="{Binding Id, Mode=OneTime}" />
+                                <Run Text="{Binding AreaId, Mode=OneTime}" />-<Run Text="{Binding CategoryNo, Mode=OneTime}" />
                             </TextBlock>
                             <TextBlock Grid.RowSpan="2" Grid.Column="1"
                                        FontSize="24" HorizontalAlignment="Center"
