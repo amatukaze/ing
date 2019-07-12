@@ -64,9 +64,9 @@
                             <TextBlock Grid.Row="0" Grid.Column="4"
                                        FontSize="16" TextAlignment="Center"
                                        DataContext="{Binding Gauge}">
-                                <Run FontSize="20" Text="{Binding Current}" />
+                                <Run FontSize="20" Text="{Binding Current, Mode=OneTime}" />
                                 /
-                                <Run Text="{Binding Max}" />
+                                <Run Text="{Binding Max, Mode=OneTime}" />
                             </TextBlock>
                             <ProgressBar Grid.Row="1" Grid.Column="4" VerticalAlignment="Stretch"
                                          DataContext="{Binding Gauge}"
