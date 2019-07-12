@@ -8,7 +8,7 @@ namespace Sakuno.ING.Views.UWP.Controls
     {
         public ShipSlotPresenter()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private Slot _slot;

@@ -54,9 +54,7 @@ namespace Sakuno.ING.ViewModels.Logging
             fail = localization.GetLocalized("GameModel", "Fail");
         }
 
-        private protected override FilterVM<ExpeditionCompletionVM>[] CreateFilters()
-        {
-            return new[]
+        private protected override FilterVM<ExpeditionCompletionVM>[] CreateFilters() => new[]
             {
                 new FilterVM<ExpeditionCompletionVM>(localization.GetLocalized("GameModel", "Result"),
                     x => x.Result.GetHashCode(),
@@ -65,7 +63,6 @@ namespace Sakuno.ING.ViewModels.Logging
                     x => x.Expedition.Id,
                     x => x.Expedition.Name.Origin)
             };
-        }
         private protected override IReadOnlyCollection<ExpeditionCompletionVM> GetEntities()
         {
             if (!logger.PlayerLoaded) return Array.Empty<ExpeditionCompletionVM>();

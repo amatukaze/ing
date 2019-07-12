@@ -7,7 +7,7 @@ namespace Sakuno.ING.Game.Tests
 {
     public static class SequenceDiffTest
     {
-        private static object[] pool;
+        private static readonly object[] pool;
 
         static SequenceDiffTest()
         {

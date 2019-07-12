@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Shell.Desktop
 {
-    partial class MainWindow
+    internal partial class MainWindow
     {
         public MainWindow()
         {

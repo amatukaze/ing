@@ -11,7 +11,7 @@ namespace Sakuno.ING.Views.UWP.Settings
     public sealed partial class LocaleSettingView : UserControl
     {
         private readonly LocaleSetting Instance;
-        private KeyValuePair<string, string>[] Languages = Windows.Globalization.ApplicationLanguages.ManifestLanguages
+        private readonly KeyValuePair<string, string>[] Languages = Windows.Globalization.ApplicationLanguages.ManifestLanguages
             .Select(x => new KeyValuePair<string, string>(x, new CultureInfo(x).NativeName))
             .Prepend(new KeyValuePair<string, string>(string.Empty, "(default)"))
             .ToArray();
@@ -19,7 +19,7 @@ namespace Sakuno.ING.Views.UWP.Settings
         public LocaleSettingView(LocaleSetting instance)
         {
             Instance = instance;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

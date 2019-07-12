@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Sakuno.ING
 {
-    class PackageAssembly
+    internal class PackageAssembly
     {
         public string AssemblyName { get; }
 

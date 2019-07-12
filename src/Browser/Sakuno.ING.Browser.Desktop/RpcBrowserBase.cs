@@ -51,7 +51,8 @@ namespace Sakuno.ING.Browser.Desktop
         private readonly byte[] sendBuffer = new byte[2048];
         protected void SendState()
         {
-            byte EncodeBool(bool value) => value ? (byte)1 : (byte)0;
+            static byte EncodeBool(bool value) => value ? (byte)1 : (byte)0;
+
             sendBuffer[0] = EncodeBool(CanGoBack);
             sendBuffer[1] = EncodeBool(CanGoForward);
             sendBuffer[2] = EncodeBool(CanRefresh);

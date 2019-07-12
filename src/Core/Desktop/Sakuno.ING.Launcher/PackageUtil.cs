@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING
 {
-    static class PackageUtil
+    internal static class PackageUtil
     {
         public const string PackageManifestFilename = "package.nuspec";
 

@@ -21,13 +21,13 @@ namespace Sakuno.ING.Views.UWP.Combat
 
         public BattleDetailView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public BattleDetailView(BattleBase battle)
         {
             _battle = battle;
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public static FontWeight BooleanToFontWeight(bool isCritial)

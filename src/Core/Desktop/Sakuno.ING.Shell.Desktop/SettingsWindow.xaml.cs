@@ -1,8 +1,6 @@
-﻿using System.Windows;
-
-namespace Sakuno.ING.Shell.Desktop
+﻿namespace Sakuno.ING.Shell.Desktop
 {
-    partial class SettingsWindow
+    internal partial class SettingsWindow
     {
         public SettingsWindow()
         {

@@ -4,9 +4,7 @@ namespace Sakuno.ING.Data.Migrations
 {
     public partial class CreateSettings : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.CreateTable(
+        protected override void Up(MigrationBuilder migrationBuilder) => migrationBuilder.CreateTable(
                 name: "SettingEntries",
                 columns: table => new
                 {
@@ -17,12 +15,8 @@ namespace Sakuno.ING.Data.Migrations
                 {
                     table.PrimaryKey("PK_SettingEntries", x => x.Id);
                 });
-        }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
+        protected override void Down(MigrationBuilder migrationBuilder) => migrationBuilder.DropTable(
                 name: "SettingEntries");
-        }
     }
 }

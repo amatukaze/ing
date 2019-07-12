@@ -26,10 +26,7 @@ namespace Sakuno.ING.Game.Tests
         }
 
         [Fact]
-        public static void TestDataLoading()
-        {
-            Assert.NotNull(parseResult);
-        }
+        public static void TestDataLoading() => Assert.NotNull(parseResult);
         [Fact]
         public static void TestShipInfoFieldMap()
         {

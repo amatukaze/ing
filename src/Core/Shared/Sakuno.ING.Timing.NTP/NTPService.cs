@@ -31,10 +31,7 @@ namespace Sakuno.ING.Timing.NTP
             Task.Run(SyncDateTime);
         }
 
-        private void TimerElapsed(object state)
-        {
-            Elapsed?.Invoke(Now);
-        }
+        private void TimerElapsed(object state) => Elapsed?.Invoke(Now);
 
         public event Action<DateTimeOffset> Elapsed;
 

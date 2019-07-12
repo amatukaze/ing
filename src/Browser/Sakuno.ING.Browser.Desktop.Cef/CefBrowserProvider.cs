@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Threading;
 using System.Windows;
 using Sakuno.CefSharp.Wpf;
 using Sakuno.ING.Composition;
@@ -25,27 +24,27 @@ namespace Sakuno.ING.Browser.Desktop.Cef
         public bool IsSupported => true;
 
         private string cachePath;
-        private ISettingItem<bool> clearCacheOnStartup;
+        private readonly ISettingItem<bool> clearCacheOnStartup;
 
         public CefBrowserProvider(IHttpProxy proxy, IShellContextService shellContextService, ISettingsManager settings)
         {
             this.proxy = proxy;
             this.shellContextService = shellContextService;
 
-            this.clearCacheOnStartup = settings.Register("cef.clear_cache_on_startup", false);
+            clearCacheOnStartup = settings.Register("cef.clear_cache_on_startup", false);
         }
 
         public void Initialize()
         {
-            this.cachePath = Path.Combine(Environment.CurrentDirectory, "Browser Cache", "Cef");
+            cachePath = Path.Combine(Environment.CurrentDirectory, "Browser Cache", "Cef");
 
-            if (this.clearCacheOnStartup.Value)
+            if (clearCacheOnStartup.Value)
             {
                 try
                 {
-                    Directory.Delete(this.cachePath, true);
+                    Directory.Delete(cachePath, true);
 
-                    this.clearCacheOnStartup.Value = false;
+                    clearCacheOnStartup.Value = false;
                 }
                 catch
                 {
@@ -68,7 +67,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
 
         public void ClearCache()
         {
-            this.clearCacheOnStartup.Value = true;
+            clearCacheOnStartup.Value = true;
 
             shellContextService.Capture().ShowMessageAsync("Cache will be cleared on the next startup.", "Information");
         }

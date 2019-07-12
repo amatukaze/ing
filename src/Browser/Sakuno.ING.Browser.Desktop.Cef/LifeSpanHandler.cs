@@ -1,11 +1,10 @@
-﻿using System;
-using CefSharp;
+﻿using CefSharp;
 
 namespace Sakuno.ING.Browser.Desktop.Cef
 {
     using IBrowser = global::CefSharp.IBrowser;
 
-    class LifeSpanHandler : ILifeSpanHandler
+    internal class LifeSpanHandler : ILifeSpanHandler
     {
         public bool DoClose(IWebBrowser chromiumWebBrowser, IBrowser browser) => false;
         public void OnAfterCreated(IWebBrowser chromiumWebBrowser, IBrowser browser) { }

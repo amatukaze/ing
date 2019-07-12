@@ -4,7 +4,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
 {
     using IBrowser = global::CefSharp.IBrowser;
 
-    class ContextMenuHandler : IContextMenuHandler
+    internal class ContextMenuHandler : IContextMenuHandler
     {
         public void OnBeforeContextMenu(IWebBrowser chromiumWebBrowser, IBrowser browser, IFrame frame, IContextMenuParams parameters, IMenuModel model) =>
             model.Clear();

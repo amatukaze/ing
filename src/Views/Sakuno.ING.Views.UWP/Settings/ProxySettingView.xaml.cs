@@ -11,7 +11,7 @@ namespace Sakuno.ING.Views.UWP.Settings
         public ProxySettingView(ProxySetting instance)
         {
             Instance = instance;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

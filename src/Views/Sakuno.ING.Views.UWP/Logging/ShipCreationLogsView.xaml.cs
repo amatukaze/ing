@@ -7,11 +7,11 @@ namespace Sakuno.ING.Views.UWP.Logging
     [ExportView("ShipCreationLogs")]
     public sealed partial class ShipCreationLogsView : UserControl
     {
-        private ShipCreationLogsVM ViewModel;
+        private readonly ShipCreationLogsVM ViewModel;
         public ShipCreationLogsView(ShipCreationLogsVM viewModel)
         {
             ViewModel = viewModel;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

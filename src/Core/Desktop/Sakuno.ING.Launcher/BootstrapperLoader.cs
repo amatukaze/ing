@@ -5,7 +5,7 @@ using Sakuno.ING.Bootstrap;
 
 namespace Sakuno.ING
 {
-    static class BootstrapperLoader
+    internal static class BootstrapperLoader
     {
         public static void Startup(string[] commandLine, IEnumerable<Package> packages)
         {

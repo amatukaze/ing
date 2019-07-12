@@ -12,26 +12,22 @@ using PackageContainer = System.IO.Packaging.Package;
 
 namespace Sakuno.ING
 {
-    static partial class Program
+    internal static partial class Program
     {
-        const string PackagesDirectoryName = "Packages";
-        const string StagingPackagesDirectoryName = "Staging";
-
-        const string FoundationPackageName = "Sakuno.ING.Foundation";
-        const string LauncherPackageName = "Sakuno.ING.Launcher";
-
-        static string _currentDirectory;
+        private const string PackagesDirectoryName = "Packages";
+        private const string StagingPackagesDirectoryName = "Staging";
+        private const string FoundationPackageName = "Sakuno.ING.Foundation";
+        private const string LauncherPackageName = "Sakuno.ING.Launcher";
+        private static string _currentDirectory;
         public static string StagingPackagesDirectory;
-
-        static IDictionary<string, Package> _installedPackages;
-        static ISet<PackageInfo> _absentPackages = new HashSet<PackageInfo>();
-        static readonly IDictionary<string, PackageAssembly> _installedAssemblies = new Dictionary<string, PackageAssembly>(StringComparer.OrdinalIgnoreCase);
-
-        static bool needRestart;
-        static bool localDebug;
+        private static IDictionary<string, Package> _installedPackages;
+        private static readonly ISet<PackageInfo> _absentPackages = new HashSet<PackageInfo>();
+        private static readonly IDictionary<string, PackageAssembly> _installedAssemblies = new Dictionary<string, PackageAssembly>(StringComparer.OrdinalIgnoreCase);
+        private static bool needRestart;
+        private static bool localDebug;
 
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             _defaultConsoleColor = Console.ForegroundColor;
 
@@ -137,7 +133,7 @@ namespace Sakuno.ING
             StartupNormally(args);
         }
 
-        static void LoadInstalledPackages()
+        private static void LoadInstalledPackages()
         {
             _installedPackages = new Dictionary<string, Package>(StringComparer.OrdinalIgnoreCase);
 
@@ -160,7 +156,7 @@ namespace Sakuno.ING
             }
         }
 
-        static bool SelfTest()
+        private static bool SelfTest()
         {
             Print("Testing foundation manifest ");
 
@@ -190,7 +186,8 @@ namespace Sakuno.ING
             }
             return true;
         }
-        static IEnumerable<Package> EnumerateDependencies(Package package)
+
+        private static IEnumerable<Package> EnumerateDependencies(Package package)
         {
             foreach (var dependencyInfo in package.Dependencies)
             {
@@ -207,9 +204,9 @@ namespace Sakuno.ING
             }
         }
 
-        static void StartupNormally(string[] args) => BootstrapperLoader.Startup(args, _installedPackages.Values);
+        private static void StartupNormally(string[] args) => BootstrapperLoader.Startup(args, _installedPackages.Values);
 
-        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
             var name = args.Name.Remove(args.Name.IndexOf(','));
 
@@ -219,7 +216,7 @@ namespace Sakuno.ING
             return info.LazyAssembly.Value;
         }
 
-        static bool DownloadLastestFoundation()
+        private static bool DownloadLastestFoundation()
         {
             var packages = new List<PackageInfo>();
 
@@ -244,26 +241,25 @@ namespace Sakuno.ING
 
                 var request = WebRequest.CreateHttp(Url + versionAttribute.InformationalVersion);
 
-                using (var response = request.GetResponse())
+                using var response = request.GetResponse();
+                var responseStream = response.GetResponseStream();
+                var reader = new StreamReader(responseStream);
+
+                while (!reader.EndOfStream)
                 {
-                    var responseStream = response.GetResponseStream();
-                    var reader = new StreamReader(responseStream);
+                    var id = reader.ReadLine();
+                    var version = reader.ReadLine();
 
-                    while (!reader.EndOfStream)
-                    {
-                        var id = reader.ReadLine();
-                        var version = reader.ReadLine();
-
-                        packages.Add(new PackageInfo(id, version));
-                    }
+                    packages.Add(new PackageInfo(id, version));
                 }
             }
 
             return DownloadPackages("Download foundation:", packages);
         }
-        static bool DownloadDependencies() => DownloadPackages("Download missing dependencies:", _absentPackages.ToArray());
 
-        static bool DownloadPackages(string task, IList<PackageInfo> packages)
+        private static bool DownloadDependencies() => DownloadPackages("Download missing dependencies:", _absentPackages.ToArray());
+
+        private static bool DownloadPackages(string task, IList<PackageInfo> packages)
         {
             PrintLine(task);
 
@@ -300,7 +296,8 @@ namespace Sakuno.ING
 
             return result;
         }
-        static async Task DownloadPackage(string id, string version)
+
+        private static async Task DownloadPackage(string id, string version)
         {
             string destFile = Path.Combine(StagingPackagesDirectory, $"{id}.{version}.nupkg");
             if (localDebug)
@@ -316,33 +313,31 @@ namespace Sakuno.ING
 
             var request = WebRequest.CreateHttp($"https://api.nuget.org/v3-flatcontainer/{id}/{version}/{id}.{version}.nupkg");
 
-            using (var md5 = new MD5CryptoServiceProvider())
-            using (var response = await request.GetResponseAsync())
+            using var md5 = new MD5CryptoServiceProvider();
+            using var response = await request.GetResponseAsync();
+            var responseStream = response.GetResponseStream();
+            var file = new FileInfo(destFile);
+            var tempFilename = destFile + ".tmp";
+
+            using (var fileStream = File.Create(tempFilename))
+            using (var cryptoStream = new CryptoStream(fileStream, md5, CryptoStreamMode.Write))
             {
-                var responseStream = response.GetResponseStream();
-                var file = new FileInfo(destFile);
-                var tempFilename = destFile + ".tmp";
+                const int BufferSize = 8192;
 
-                using (var fileStream = File.Create(tempFilename))
-                using (var cryptoStream = new CryptoStream(fileStream, md5, CryptoStreamMode.Write))
-                {
-                    const int BufferSize = 8192;
+                var buffer = new byte[BufferSize];
+                var count = 0;
 
-                    var buffer = new byte[BufferSize];
-                    var count = 0;
-
-                    while ((count = await responseStream.ReadAsync(buffer, 0, BufferSize)) > 0)
-                        cryptoStream.Write(buffer, 0, count);
-                }
-
-                if (file.Exists)
-                    file.Delete();
-
-                File.Move(tempFilename, destFile);
+                while ((count = await responseStream.ReadAsync(buffer, 0, BufferSize)) > 0)
+                    cryptoStream.Write(buffer, 0, count);
             }
+
+            if (file.Exists)
+                file.Delete();
+
+            File.Move(tempFilename, destFile);
         }
 
-        static void ExtractPackages()
+        private static void ExtractPackages()
         {
             var stagingPackagesDirectory = new DirectoryInfo(StagingPackagesDirectory);
             var files = stagingPackagesDirectory.EnumerateFiles("*.nupkg");
@@ -377,7 +372,7 @@ namespace Sakuno.ING
             Directory.Delete(StagingPackagesDirectory, true);
         }
 
-        static PackageExtractionInfo ExtractPackage(FileInfo file)
+        private static PackageExtractionInfo ExtractPackage(FileInfo file)
         {
             const string ManifestRelationshipType = "http://schemas.microsoft.com/packaging/2010/07/manifest";
 
@@ -422,7 +417,7 @@ namespace Sakuno.ING
             }
         }
 
-        static void ReplaceMyself(string directory)
+        private static void ReplaceMyself(string directory)
         {
             var launcherFilename = Assembly.GetEntryAssembly().Location;
             var libDirectory = Path.Combine(directory, "lib");
@@ -442,7 +437,7 @@ namespace Sakuno.ING
             needRestart = true;
         }
 
-        static void ExtractPackagePart(PackagePartInfo info, string packageDirectory, string filename)
+        private static void ExtractPackagePart(PackagePartInfo info, string packageDirectory, string filename)
         {
             var filepath = Path.Combine(packageDirectory, filename);
 

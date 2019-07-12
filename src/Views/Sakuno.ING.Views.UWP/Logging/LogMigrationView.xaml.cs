@@ -7,11 +7,11 @@ namespace Sakuno.ING.Views.UWP.Logging
     [ExportView("LogMigration")]
     public sealed partial class LogMigrationView : UserControl
     {
-        private LogMigrationVM ViewModel;
+        private readonly LogMigrationVM ViewModel;
         public LogMigrationView(LogMigrationVM viewModel)
         {
             ViewModel = viewModel;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

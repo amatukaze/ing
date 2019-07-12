@@ -14,10 +14,7 @@ namespace Sakuno.ING.Game.Models
 
         public AirForceGroupId GroupId { get; private set; }
 
-        partial void CreateCore()
-        {
-            squadrons = new IdTable<int, AirForceSquadron, RawAirForceSquadron, NavalBase>(owner);
-        }
+        partial void CreateCore() => squadrons = new IdTable<int, AirForceSquadron, RawAirForceSquadron, NavalBase>(owner);
 
         partial void UpdateCore(RawAirForceGroup raw, DateTimeOffset timeStamp)
         {

@@ -11,7 +11,7 @@ namespace Sakuno.ING.Views.UWP.Logging
         public ExpeditionCompletionLogsView(ExpeditionCompletionLogsVM viewModel)
         {
             ViewModel = viewModel;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

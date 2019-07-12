@@ -14,7 +14,7 @@ namespace Sakuno.ING.Views.Desktop.Documents
         protected static bool Translate => translateLazy.Value;
 
         private static readonly Lazy<ILocalizationService> localizationLazy
-            = new Lazy<ILocalizationService>(()=>Compositor.Static<ILocalizationService>());
+            = new Lazy<ILocalizationService>(() => Compositor.Static<ILocalizationService>());
         protected static ILocalizationService Localization => localizationLazy.Value;
 
         private static readonly XmlLanguage japanese = XmlLanguage.GetLanguage("ja-jp");

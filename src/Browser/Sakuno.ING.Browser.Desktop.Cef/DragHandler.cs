@@ -6,7 +6,7 @@ namespace Sakuno.ING.Browser.Desktop.Cef
 {
     using IBrowser = global::CefSharp.IBrowser;
 
-    class DragHandler : IDragHandler
+    internal class DragHandler : IDragHandler
     {
         public bool OnDragEnter(IWebBrowser chromiumWebBrowser, IBrowser browser, IDragData dragData, DragOperationsMask mask) => true;
         public void OnDraggableRegionsChanged(IWebBrowser chromiumWebBrowser, IBrowser browser, IList<DraggableRegion> regions) { }

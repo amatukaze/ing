@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING
 {
-    class GraphNode
+    internal class GraphNode
     {
         public Package Package { get; }
 

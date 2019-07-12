@@ -11,7 +11,7 @@ namespace Sakuno.ING.Views.UWP.Logging
         public BattleLogsView(BattleLogsVM viewModel)
         {
             ViewModel = viewModel;
-            this.InitializeComponent();
+            InitializeComponent();
             Unloaded += (s, e) => ViewModel.Dispose();
         }
     }

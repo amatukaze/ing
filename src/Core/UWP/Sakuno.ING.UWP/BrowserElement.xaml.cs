@@ -17,8 +17,8 @@ namespace Sakuno.ING.UWP
         public BrowserElement(UWPHttpProviderSelector selector, LayoutSetting layoutSetting)
         {
             defaultUrl = new Uri(selector.Settings.DefaultUrl.Value);
-            this.LayoutSetting = layoutSetting;
-            this.InitializeComponent();
+            LayoutSetting = layoutSetting;
+            InitializeComponent();
 
             if (selector.Settings.Debug.InitialValue)
             {
@@ -61,15 +61,9 @@ namespace Sakuno.ING.UWP
             }
         }
 
-        private void Goto(object sender, RoutedEventArgs e)
-        {
-            WebView.Navigate(new Uri(AddressBox.Text));
-        }
+        private void Goto(object sender, RoutedEventArgs e) => WebView.Navigate(new Uri(AddressBox.Text));
 
-        private void GoHome(object sender, RoutedEventArgs e)
-        {
-            WebView.Navigate(defaultUrl);
-        }
+        private void GoHome(object sender, RoutedEventArgs e) => WebView.Navigate(defaultUrl);
 
         private void UpdateBrowserScale()
         {
@@ -77,12 +71,9 @@ namespace Sakuno.ING.UWP
             Transformer.Transform = new ScaleTransform { ScaleX = scale, ScaleY = scale };
             Transformer.Width = BrowserSetting.Width * scale;
             Transformer.Height = BrowserSetting.Height * scale;
-            this.Width = BrowserSetting.Width * scale;
+            Width = BrowserSetting.Width * scale;
         }
 
-        private void ClearCache(object sender, RoutedEventArgs e)
-        {
-            _ = WebView.ClearTemporaryWebDataAsync();
-        }
+        private void ClearCache(object sender, RoutedEventArgs e) => _ = WebView.ClearTemporaryWebDataAsync();
     }
 }

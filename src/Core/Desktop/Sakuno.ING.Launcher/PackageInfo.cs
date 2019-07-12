@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Sakuno.ING
 {
-    struct PackageInfo : IEquatable<PackageInfo>
+    internal struct PackageInfo : IEquatable<PackageInfo>
     {
         public string Id { get; }
         public string Version { get; }

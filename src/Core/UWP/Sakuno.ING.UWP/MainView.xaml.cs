@@ -11,7 +11,7 @@ namespace Sakuno.ING.UWP
         public MainView(LayoutSetting layoutSetting, object content)
         {
             LayoutSetting = layoutSetting;
-            this.InitializeComponent();
+            InitializeComponent();
             mainContent.Child = content as FrameworkElement ?? new ContentPresenter { Content = content };
             Window.Current.SetTitleBar(DraggableTitle);
         }

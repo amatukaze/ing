@@ -11,9 +11,9 @@ using Sakuno.ING.Services;
 
 namespace Sakuno.ING.Bootstrap
 {
-    class NugetPackageProvider : IPackageProvider
+    internal class NugetPackageProvider : IPackageProvider
     {
-        private HttpClient client = new HttpClient();
+        private readonly HttpClient client = new HttpClient();
         private const int PackagesPerPage = 20;
 
         public string[] SupportedTargetFrameworks { get; set; }

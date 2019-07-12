@@ -44,7 +44,7 @@ namespace Sakuno.ING.Browser.Desktop
             double sizeScale = browserScale / layoutSetting.LayoutScale.Value;
             ActualContent.Width = BrowserSetting.Width * sizeScale;
             ActualContent.Height = BrowserSetting.Height * sizeScale;
-            this.Width = BrowserSetting.Width * sizeScale;
+            Width = BrowserSetting.Width * sizeScale;
             _browser?.ScaleTo(browserScale);
         }
 
@@ -54,14 +54,8 @@ namespace Sakuno.ING.Browser.Desktop
                 _browser.LockGame = ((ToggleButton)sender).IsChecked ?? false;
         }
 
-        private void OnApplicationExit(object sender, ExitEventArgs e)
-        {
-            _browserProvider?.Dispose();
-        }
+        private void OnApplicationExit(object sender, ExitEventArgs e) => _browserProvider?.Dispose();
 
-        private void ClearCache(object sender, RoutedEventArgs e)
-        {
-            _browserProvider?.ClearCache();
-        }
+        private void ClearCache(object sender, RoutedEventArgs e) => _browserProvider?.ClearCache();
     }
 }

@@ -12,7 +12,7 @@ namespace Sakuno.ING.Views.UWP.Homeport
         public FleetsView(NavalBase viewModel)
         {
             ViewModel = viewModel;
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public static Color SelectSupplyColor(ClampedValue value)

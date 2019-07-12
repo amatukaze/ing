@@ -14,12 +14,9 @@ namespace Sakuno.ING.UWP
         private readonly string LoopbackCommand = "CheckNetIsolation LoopbackExempt -a -n=" + Package.Current.Id.FamilyName;
         public UsageHintView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
-        private void LaunchDataFolder()
-        {
-            _ = Launcher.LaunchFolderAsync(LocalFolder);
-        }
+        private void LaunchDataFolder() => _ = Launcher.LaunchFolderAsync(LocalFolder);
     }
 }

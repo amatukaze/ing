@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Bootstrap
 {
-    class ModuleList : IModuleList
+    internal class ModuleList : IModuleList
     {
         public IDictionary<string, ModuleInfo> Modules { get; }
 

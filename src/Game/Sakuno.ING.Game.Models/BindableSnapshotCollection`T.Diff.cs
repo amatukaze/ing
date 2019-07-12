@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Sakuno.ING.Game
 {
-    partial class BindableSnapshotCollection<T>
+    public partial class BindableSnapshotCollection<T>
     {
         public struct EditAction
         {

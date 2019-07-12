@@ -12,7 +12,7 @@ namespace Sakuno.ING.Views.UWP.Combat
         public MapHPView(NavalBase navalBase)
         {
             ViewModel = navalBase;
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public static string SelectRankText(EventMapRank? rank)

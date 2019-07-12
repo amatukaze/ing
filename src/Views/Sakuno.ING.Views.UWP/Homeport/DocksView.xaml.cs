@@ -12,7 +12,7 @@ namespace Sakuno.ING.Views.UWP.Homeport
         public DocksView(NavalBase viewModel)
         {
             ViewModel = viewModel;
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void Switching(object sender, RoutedEventArgs e)

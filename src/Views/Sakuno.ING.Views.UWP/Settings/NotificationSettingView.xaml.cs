@@ -13,7 +13,7 @@ namespace Sakuno.ING.Views.UWP.Settings
         public NotificationSettingView(NotificationManager manager)
         {
             Manager = manager;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

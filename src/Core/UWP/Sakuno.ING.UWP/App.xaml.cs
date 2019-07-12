@@ -17,8 +17,8 @@ namespace Sakuno.ING.UWP
         public App()
         {
             TryStartAppCenter();
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
@@ -44,9 +44,6 @@ namespace Sakuno.ING.UWP
         }
 
         partial void TryStartAppCenter();
-        private void StartAppCenter(string appSecret)
-        {
-            AppCenter.Start(appSecret, typeof(Analytics));
-        }
+        private void StartAppCenter(string appSecret) => AppCenter.Start(appSecret, typeof(Analytics));
     }
 }

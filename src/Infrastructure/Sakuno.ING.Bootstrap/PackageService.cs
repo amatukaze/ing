@@ -5,7 +5,7 @@ using Sakuno.ING.Services;
 
 namespace Sakuno.ING.Bootstrap
 {
-    class PackageService : IPackageService
+    internal class PackageService : IPackageService
     {
         private readonly IPackageStorage _storage;
 

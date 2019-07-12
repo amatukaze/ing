@@ -11,7 +11,7 @@ namespace Sakuno.ING.Views.UWP.Homeport
         public AdmiralView(NavalBase viewModel)
         {
             ViewModel = viewModel;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

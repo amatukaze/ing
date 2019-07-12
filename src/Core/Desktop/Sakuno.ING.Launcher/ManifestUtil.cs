@@ -11,18 +11,16 @@ using System.Xml.XPath;
 
 namespace Sakuno.ING
 {
-    static class ManifestUtil
+    internal static class ManifestUtil
     {
-        const string ManifestSchameResourceName = "Sakuno.ING.nuspec.xsd";
-
-        static XmlReaderSettings _readerSettings = new XmlReaderSettings()
+        private const string ManifestSchameResourceName = "Sakuno.ING.nuspec.xsd";
+        private static readonly XmlReaderSettings _readerSettings = new XmlReaderSettings()
         {
             DtdProcessing = DtdProcessing.Prohibit,
             XmlResolver = null,
         };
-
-        static ConcurrentDictionary<string, XmlSchemaSet> _schemas = new ConcurrentDictionary<string, XmlSchemaSet>(StringComparer.OrdinalIgnoreCase);
-        static ConcurrentDictionary<string, XmlNamespaceManager> _namespaceManagers = new ConcurrentDictionary<string, XmlNamespaceManager>(StringComparer.OrdinalIgnoreCase);
+        private static readonly ConcurrentDictionary<string, XmlSchemaSet> _schemas = new ConcurrentDictionary<string, XmlSchemaSet>(StringComparer.OrdinalIgnoreCase);
+        private static readonly ConcurrentDictionary<string, XmlNamespaceManager> _namespaceManagers = new ConcurrentDictionary<string, XmlNamespaceManager>(StringComparer.OrdinalIgnoreCase);
 
         public static string[] TargetFrameworks = new[]
         {
@@ -76,7 +74,7 @@ namespace Sakuno.ING
             return true;
         }
 
-        static string GetSchemaNamespace(XDocument manifest)
+        private static string GetSchemaNamespace(XDocument manifest)
         {
             var result = "http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd";
 
@@ -87,8 +85,9 @@ namespace Sakuno.ING
             return result;
         }
 
-        static XmlSchemaSet GetSchema(XDocument manifest) => _schemas.GetOrAdd(GetSchemaNamespace(manifest), CreateSchemaSet);
-        static XmlSchemaSet CreateSchemaSet(string schemaNamespace)
+        private static XmlSchemaSet GetSchema(XDocument manifest) => _schemas.GetOrAdd(GetSchemaNamespace(manifest), CreateSchemaSet);
+
+        private static XmlSchemaSet CreateSchemaSet(string schemaNamespace)
         {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var result = new XmlSchemaSet();
@@ -137,8 +136,7 @@ namespace Sakuno.ING
             if (node == null)
                 return Array.Empty<PackageInfo>();
 
-            var firstChildNode = node.FirstNode as XElement;
-            if (firstChildNode == null)
+            if (!(node.FirstNode is XElement firstChildNode))
                 return Array.Empty<PackageInfo>();
 
             if (firstChildNode.Name.LocalName == "dependency")
@@ -159,8 +157,9 @@ namespace Sakuno.ING
             throw new InvalidOperationException();
         }
 
-        static XmlNamespaceManager GetNamespaceManager(XDocument manifest) => _namespaceManagers.GetOrAdd(GetSchemaNamespace(manifest), CreateNamespaceManager);
-        static XmlNamespaceManager CreateNamespaceManager(string schemaNamespace)
+        private static XmlNamespaceManager GetNamespaceManager(XDocument manifest) => _namespaceManagers.GetOrAdd(GetSchemaNamespace(manifest), CreateNamespaceManager);
+
+        private static XmlNamespaceManager CreateNamespaceManager(string schemaNamespace)
         {
             var result = new XmlNamespaceManager(new NameTable());
             result.AddNamespace("nuspec", schemaNamespace);

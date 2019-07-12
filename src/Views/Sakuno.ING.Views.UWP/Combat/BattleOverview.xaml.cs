@@ -20,13 +20,13 @@ namespace Sakuno.ING.Views.UWP.Combat
 
         public BattleOverview()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         public BattleOverview(BattleBase battle)
         {
             _battle = battle;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

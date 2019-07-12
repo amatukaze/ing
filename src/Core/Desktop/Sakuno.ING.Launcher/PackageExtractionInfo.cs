@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING
 {
-    struct PackageExtractionInfo
+    internal struct PackageExtractionInfo
     {
         public string Filename { get; }
 

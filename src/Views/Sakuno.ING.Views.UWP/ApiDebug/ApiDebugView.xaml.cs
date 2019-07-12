@@ -20,7 +20,7 @@ namespace Sakuno.ING.Views.UWP.ApiDebug
         private readonly ObservableCollection<Message> Sessions = new ObservableCollection<Message>();
         public ApiDebugView(GameProvider provider)
         {
-            this.InitializeComponent();
+            InitializeComponent();
             provider.AnyRequested +=
                 async (timeStamp, obj) => await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {

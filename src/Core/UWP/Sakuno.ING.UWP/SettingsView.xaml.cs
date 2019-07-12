@@ -12,7 +12,7 @@ namespace Sakuno.ING.UWP
         public SettingsView(CategorizedSettingViews[] pages, LayoutSetting layoutSetting)
         {
             LayoutSetting = layoutSetting;
-            this.InitializeComponent();
+            InitializeComponent();
             Pages = pages;
         }
     }

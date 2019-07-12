@@ -6,7 +6,7 @@ namespace Sakuno.ING.UWP.Layout
     {
         public OverviewPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Sakuno.ING.Messaging
     internal abstract class Chainer<TInput, TOutput>
         : Sender<TOutput>, ITimedMessageProvider<TOutput>
     {
-        private ITimedMessageProvider<TInput> upstream;
+        private readonly ITimedMessageProvider<TInput> upstream;
 
         public Chainer(ITimedMessageProvider<TInput> upstream)
             => this.upstream = upstream

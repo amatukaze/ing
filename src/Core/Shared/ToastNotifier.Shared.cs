@@ -65,7 +65,7 @@ namespace Sakuno.ING.Shell.Desktop
                 {
                     ToastNotificationManager.History.Remove(id, defaultGroup
 #if WPF
-                        ,aumid
+                        , aumid
 #endif
                         );
                 }

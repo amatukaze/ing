@@ -3,7 +3,7 @@ using Sakuno.ING.Composition;
 
 namespace Sakuno.ING.Bootstrap
 {
-    class Package : IPackage
+    internal class Package : IPackage
     {
         public string Id { get; set; }
         public string Version { get; set; }

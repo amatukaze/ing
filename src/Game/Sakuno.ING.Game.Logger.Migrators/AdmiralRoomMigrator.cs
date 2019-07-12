@@ -190,7 +190,8 @@ namespace Sakuno.ING.Game.Logger.Migrators
                 }
 
                 ShipInBattleEntity[] SelectFleet(BattleDetailLog.Ship[] fleet)
-                    => fleet?.Select(x => new ShipInBattleEntity
+                {
+                    return fleet?.Select(x => new ShipInBattleEntity
                     {
                         Id = (ShipInfoId)x.shipid,
                         Level = x.lv,
@@ -205,6 +206,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                         Slots = x.slots.Select(SelectSlot).ToArray(),
                         ExtraSlot = SelectSlot(x.slotex)
                     }).ToArray();
+                }
 
                 SlotInBattleEntity SelectSlot(BattleDetailLog.Equipment slot)
                 {

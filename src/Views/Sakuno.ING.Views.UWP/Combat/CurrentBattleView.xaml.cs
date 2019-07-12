@@ -15,7 +15,7 @@ namespace Sakuno.ING.Views.UWP.Combat
         {
             ViewModel = viewModel;
             Manager = viewModel.BattleManager;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

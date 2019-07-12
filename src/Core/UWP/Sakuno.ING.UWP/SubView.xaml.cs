@@ -11,7 +11,7 @@ namespace Sakuno.ING.UWP
         public SubView(LayoutSetting layoutSetting, string title, object content)
         {
             LayoutSetting = layoutSetting;
-            this.InitializeComponent();
+            InitializeComponent();
             TitleBar.Text = title;
             actualContent.Child = content as FrameworkElement ?? new ContentPresenter { Content = content };
         }

@@ -12,7 +12,7 @@ namespace Sakuno.ING.Views.UWP.Logging
         public BattleLogDetailsView(BattleVM viewModel)
         {
             ViewModel = viewModel;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

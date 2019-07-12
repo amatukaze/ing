@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Sakuno.ING.Bootstrap
 {
-    class Graph
+    internal class Graph
     {
-        IDictionary<ModuleInfo, GraphNode> _nodeMap;
+        private readonly IDictionary<ModuleInfo, GraphNode> _nodeMap;
 
         public Graph(IEnumerable<ModuleInfo> modules)
         {

@@ -3,7 +3,7 @@ using System.IO.Packaging;
 
 namespace Sakuno.ING
 {
-    struct PackagePartInfo
+    internal struct PackagePartInfo
     {
         public string Name { get; }
 

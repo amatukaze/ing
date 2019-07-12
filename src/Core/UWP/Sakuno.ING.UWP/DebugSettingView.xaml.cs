@@ -16,7 +16,7 @@ namespace Sakuno.ING.UWP
         {
             DebugData = selector.Settings.Debug;
             DebugProvider = selector.Current as DebugHttpProvider;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

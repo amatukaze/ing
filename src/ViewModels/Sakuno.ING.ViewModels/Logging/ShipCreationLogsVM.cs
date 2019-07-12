@@ -51,9 +51,7 @@ namespace Sakuno.ING.ViewModels.Logging
             lsc = localization.GetLocalized("GameModel", "ConstructionType_Large");
         }
 
-        private protected override FilterVM<ShipCreationVM>[] CreateFilters()
-        {
-            return new[]
+        private protected override FilterVM<ShipCreationVM>[] CreateFilters() => new[]
             {
                 new FilterVM<ShipCreationVM>(localization.GetLocalized("GameModel", "ConstructionType"),
                     x => x.IsLSC ? 0 : 1,
@@ -75,7 +73,6 @@ namespace Sakuno.ING.ViewModels.Logging
                         x.Secretary.Name.Phonetic
                     })
             };
-        }
 
         private protected override IReadOnlyCollection<ShipCreationVM> GetEntities()
         {

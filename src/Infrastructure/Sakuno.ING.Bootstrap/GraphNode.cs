@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Sakuno.ING.Bootstrap
 {
-    class GraphNode
+    internal class GraphNode
     {
         public ModuleInfo Module { get; }
 

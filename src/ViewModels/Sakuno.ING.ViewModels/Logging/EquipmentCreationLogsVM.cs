@@ -47,9 +47,7 @@ namespace Sakuno.ING.ViewModels.Logging
             fail = localization.GetLocalized("GameModel", "Fail");
         }
 
-        private protected override FilterVM<EquipmentCreationVM>[] CreateFilters()
-        {
-            return new[]
+        private protected override FilterVM<EquipmentCreationVM>[] CreateFilters() => new[]
             {
                 new FilterVM<EquipmentCreationVM>(localization.GetLocalized("GameModel", "Success"),
                     x => x.IsSuccess ? 0 : 1,
@@ -66,7 +64,6 @@ namespace Sakuno.ING.ViewModels.Logging
                         x.Secretary.Name.Phonetic
                     })
             };
-        }
 
         private protected override IReadOnlyCollection<EquipmentCreationVM> GetEntities()
         {

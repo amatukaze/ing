@@ -11,7 +11,7 @@ namespace Sakuno.ING.Views.UWP.MasterData
         public MasterDataView(NavalBase navalBase)
         {
             MasterData = navalBase.MasterData;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

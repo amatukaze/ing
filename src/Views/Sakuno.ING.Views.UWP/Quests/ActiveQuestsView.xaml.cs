@@ -1,6 +1,6 @@
-﻿using Sakuno.ING.Shell;
+﻿using Sakuno.ING.Game.Models;
+using Sakuno.ING.Shell;
 using Windows.UI.Xaml.Controls;
-using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Views.UWP.Homeport
 {
@@ -11,7 +11,7 @@ namespace Sakuno.ING.Views.UWP.Homeport
         public ActiveQuestsView(NavalBase navalBase)
         {
             Manager = navalBase.Quests;
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

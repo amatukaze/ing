@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Sakuno.ING
 {
-    class Package
+    internal class Package
     {
         public static string BaseDirectory { get; set; }
 
@@ -24,10 +24,10 @@ namespace Sakuno.ING
 
         public PackageAssembly MainAssembly { get; }
 
-        private List<PackageAssembly> _assemblies = new List<PackageAssembly>();
+        private readonly List<PackageAssembly> _assemblies = new List<PackageAssembly>();
         public IEnumerable<PackageAssembly> Assemblies => _assemblies;
 
-        static string[] supportedTFMs =
+        private static readonly string[] supportedTFMs =
         {
             "net462",
             "net461",

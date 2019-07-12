@@ -12,12 +12,14 @@ namespace Sakuno.ING.Game.Tests
         public static void TestConvertFleet()
         {
             ShipMordenizationStatus CreateParameter(int current, int displaying)
-                => new ShipMordenizationStatus
+            {
+                return new ShipMordenizationStatus
                 {
                     Min = current,
                     Max = current,
                     Displaying = displaying
                 };
+            }
 
             var s = new ShipInBattleEntity
             {

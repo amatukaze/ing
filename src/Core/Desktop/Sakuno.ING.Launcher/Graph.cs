@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace Sakuno.ING
 {
-    class Graph
+    internal class Graph
     {
-        IDictionary<Package, GraphNode> _nodeMap;
+        private readonly IDictionary<Package, GraphNode> _nodeMap;
 
         public Graph(IEnumerable<Package> packages)
         {

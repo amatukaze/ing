@@ -71,7 +71,7 @@ namespace Sakuno.ING.Game
         #endregion
 
         #region CollectionChange
-        private List<(SynchronizationContext syncContext, NotifyCollectionChangedEventHandler handler)>
+        private readonly List<(SynchronizationContext syncContext, NotifyCollectionChangedEventHandler handler)>
             cHandlers = new List<(SynchronizationContext, NotifyCollectionChangedEventHandler)>();
         public event NotifyCollectionChangedEventHandler CollectionChanged
         {

@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Bootstrap
 {
-    class ModuleInfo
+    internal class ModuleInfo
     {
         public ModuleInfo(string id, string version, IEnumerable<string> dependsOn)
         {
