@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Description>The data storage standard of core part of Intelligent Naval Gun</Description>
   </PropertyGroup>
 
