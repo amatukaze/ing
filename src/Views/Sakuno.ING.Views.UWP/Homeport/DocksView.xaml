@@ -7,7 +7,6 @@
     xmlns:mux="using:Microsoft.UI.Xaml.Controls"
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
-    xmlns:sys="using:System"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -68,7 +67,7 @@
                         <TextBlock TextAlignment="Center"
                                    Text="{x:Bind c:Helpers.FormatBuildingDockState(State)}" />
                         <TextBlock TextAlignment="Right"
-                                   Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', Timer.Remaining), FallbackValue=''}" />
+                                   Text="{x:Bind Timer.RemainingDisplayString}" />
                     </Grid>
                 </DataTemplate>
             </mux:ItemsRepeater.ItemTemplate>
@@ -85,7 +84,7 @@
                         <TextBlock TextAlignment="Center"
                                    Text="{x:Bind c:Helpers.FormatRepairingDockState(State)}" />
                         <TextBlock TextAlignment="Right"
-                                   Text="{x:Bind sys:String.Format('{0:hh\\\\:mm\\\\:ss}', Timer.Remaining), FallbackValue=''}" />
+                                   Text="{x:Bind Timer.RemainingDisplayString}" />
                     </Grid>
                 </DataTemplate>
             </mux:ItemsRepeater.ItemTemplate>

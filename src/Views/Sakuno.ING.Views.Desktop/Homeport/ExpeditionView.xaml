@@ -17,7 +17,7 @@
                         <c:TranslatableNameText Source="{Binding Expedition.Name}" />
                     </TextBlock>
                     <TextBlock TextAlignment="Right"
-                               Text="{Binding ExpeditionTimer.Remaining, StringFormat='\{0:hh\\:mm\\:ss}'}" />
+                               Text="{Binding ExpeditionTimer.RemainingDisplayString}" />
                 </Grid>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

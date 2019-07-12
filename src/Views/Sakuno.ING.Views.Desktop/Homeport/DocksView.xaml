@@ -19,7 +19,7 @@
                                 <c:TranslatableNameText Source="{Binding BuiltShip.Name.FullName}" />
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
-                                       Text="{Binding Timer.Remaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />
+                                       Text="{Binding Timer.RemainingDisplayString, Mode=OneWay}" />
                             <TextBlock x:Name="state" TextAlignment="Center" />
                         </Grid>
                         <DataTemplate.Triggers>
@@ -43,7 +43,7 @@
                                 <c:TranslatableNameText Source="{Binding RepairingShip.Info.Name.FullName}" />
                             </TextBlock>
                             <TextBlock x:Name="time" TextAlignment="Right"
-                                       Text="{Binding Timer.Remaining, Mode=OneWay, StringFormat='\{0:hh\\:mm\\:ss}'}" />
+                                       Text="{Binding Timer.RemainingDisplayString, Mode=OneWay}" />
                             <TextBlock x:Name="state" TextAlignment="Center" />
                         </Grid>
                         <DataTemplate.Triggers>

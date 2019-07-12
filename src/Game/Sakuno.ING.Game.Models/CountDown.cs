@@ -15,7 +15,22 @@ namespace Sakuno.ING.Game
         public TimeSpan? Remaining
         {
             get => _remaining;
-            private set => Set(ref _remaining, value);
+            private set
+            {
+                Set(ref _remaining, value);
+                RemainingDisplayString = value switch
+                {
+                    null => null,
+                    TimeSpan t => $"{(int)t.TotalHours:00}:{t.Minutes:00}:{t.Seconds:00}"
+                };
+            }
+        }
+
+        private string _remainingDisplayString;
+        public string RemainingDisplayString
+        {
+            get => _remainingDisplayString;
+            private set => Set(ref _remainingDisplayString, value);
         }
 
         internal bool SetCompletionTime(DateTimeOffset? completion, DateTimeOffset timeStamp)

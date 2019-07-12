@@ -4,10 +4,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     xmlns:con="using:Sakuno.ING.Views.UWP.Controls"
-    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:local="using:Sakuno.ING.Views.UWP.Homeport"
     xmlns:sys="using:System"
     mc:Ignorable="d"
@@ -78,7 +78,7 @@
                                    x:Uid="/Resources/FleetState_Warning" />
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextExpedition"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Expedition)}">
-                            <Run x:Uid="/Resources/FleetState_Expedition" /><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}" /><Run c:Helpers.TranslatableRunSource="{x:Bind Expedition.Name}" /><Run Text="{x:Bind sys:String.Format(' - {0:hh\\\\:mm\\\\:ss}', ExpeditionTimer.Remaining), FallbackValue=''}" />
+                            <Run x:Uid="/Resources/FleetState_Expedition" /><Run Text="{x:Bind sys:String.Format(' - {0} ', Expedition.DisplayId)}" /><Run c:Helpers.TranslatableRunSource="{x:Bind Expedition.Name}" /><Run Text="{x:Bind ExpeditionTimer.RemainingDisplayString}" />
                         </TextBlock>
                         <TextBlock FontSize="16" Margin="2" x:Name="statusTextFatigued"
                                    x:Load="{x:Bind c:Helpers.FleetStateEquals(State, g:FleetState.Fatigued)}"
