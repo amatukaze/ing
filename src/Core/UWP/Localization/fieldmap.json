@@ -84,5 +84,19 @@
   "Combat_LandBaseAirDefence_Planes_NotLost.Text": "Combat/LandBaseAirDefence_Planes_NotLost",
   "MapHP_Option.Header": "Combat/MapHP_ShowOption",
   "MapHP_Option.OnContent": "Combat/MapHP_ShowOnly",
-  "MapHP_Option.OffContent": "Combat/MapHP_ShowAll"
+  "MapHP_Option.OffContent": "Combat/MapHP_ShowAll",
+  "ShipCatalog_Column_ShipName.Header": "GameModel/ShipName",
+  "ShipCatalog_Column_ShipType.Header": "GameModel/ShipType",
+  "ShipCatalog_Column_Level.Header": "GameModel/Level",
+  "ShipCatalog_Column_Morale.Header": "GameModel/Ship_Morale",
+  "ShipCatalog_Column_RepairingTime.Header": "GameModel/Ship_RepairingTime",
+  "ShipCatalog_Column_FirePower.Header": "GameModel/Parameter_Firepower",
+  "ShipCatalog_Column_Torpedo.Header": "GameModel/Parameter_Torpedo",
+  "ShipCatalog_Column_AntiAir.Header": "GameModel/Parameter_AntiAir",
+  "ShipCatalog_Column_Armor.Header": "GameModel/Parameter_Armor",
+  "ShipCatalog_Column_Evasion.Header": "GameModel/Parameter_Evasion",
+  "ShipCatalog_Column_AntiSubmarine.Header": "GameModel/Parameter_AntiSubmarine",
+  "ShipCatalog_Column_LineOfSight.Header": "GameModel/Parameter_LineOfSight",
+  "ShipCatalog_Column_Luck.Header": "GameModel/Parameter_Luck",
+  "ShipCatalog_Column_Equipment.Header": "GameModel/Ship_Equipment"
 }

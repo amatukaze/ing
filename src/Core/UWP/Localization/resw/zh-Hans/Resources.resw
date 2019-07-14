@@ -270,4 +270,46 @@
   <data name="MapHP_Option.OffContent">
     <value>全部海域</value>
   </data>
+  <data name="ShipCatalog_Column_ShipName.Header">
+    <value>舰名</value>
+  </data>
+  <data name="ShipCatalog_Column_ShipType.Header">
+    <value>舰种</value>
+  </data>
+  <data name="ShipCatalog_Column_Level.Header">
+    <value>等级</value>
+  </data>
+  <data name="ShipCatalog_Column_Morale.Header">
+    <value>疲劳</value>
+  </data>
+  <data name="ShipCatalog_Column_RepairingTime.Header">
+    <value>入渠时间</value>
+  </data>
+  <data name="ShipCatalog_Column_FirePower.Header">
+    <value>火力</value>
+  </data>
+  <data name="ShipCatalog_Column_Torpedo.Header">
+    <value>雷装</value>
+  </data>
+  <data name="ShipCatalog_Column_AntiAir.Header">
+    <value>对空</value>
+  </data>
+  <data name="ShipCatalog_Column_Armor.Header">
+    <value>装甲</value>
+  </data>
+  <data name="ShipCatalog_Column_Evasion.Header">
+    <value>回避</value>
+  </data>
+  <data name="ShipCatalog_Column_AntiSubmarine.Header">
+    <value>对潜</value>
+  </data>
+  <data name="ShipCatalog_Column_LineOfSight.Header">
+    <value>索敌</value>
+  </data>
+  <data name="ShipCatalog_Column_Luck.Header">
+    <value>运</value>
+  </data>
+  <data name="ShipCatalog_Column_Equipment.Header">
+    <value>装备</value>
+  </data>
 </root>

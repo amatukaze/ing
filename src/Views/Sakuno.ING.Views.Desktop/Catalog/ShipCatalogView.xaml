@@ -1,0 +1,91 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Catalog.ShipCatalogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:c="http://schemas.heavenlywind.cc/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:g="clr-namespace:Sakuno.ING.Game.Models;assembly=Sakuno.ING.Game.Models"
+             mc:Ignorable="d"
+             DataContext="{c:Resolve {x:Type g:NavalBase}}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="cvs"
+                              Source="{Binding AllShips.DefaultView}" />
+        <ItemsPanelTemplate x:Key="EquipTemplate">
+            <StackPanel Orientation="Horizontal" />
+        </ItemsPanelTemplate>
+    </UserControl.Resources>
+    <DataGrid ItemsSource="{Binding Source={StaticResource cvs}}"
+              IsReadOnly="True"
+              FrozenColumnCount="2" AutoGenerateColumns="False"
+              GridLinesVisibility="All"
+              FontSize="16">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+            <DataGridTemplateColumn Header="{c:Localize GameModel/ShipName}">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="g:Ship">
+                        <TextBlock>
+                            <c:TranslatableNameText Source="{Binding Info.Name.BasicName}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="{c:Localize GameModel/ShipType}">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="g:Ship">
+                        <TextBlock>
+                            <c:TranslatableNameText Source="{Binding Info.Type.Name}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTemplateColumn Header="{c:Localize GameModel/Level}">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="g:Ship">
+                        <TextBlock Text="{Binding Leveling.Level}" />
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+            <DataGridTextColumn Header="{c:Localize GameModel/Ship_Morale}" Binding="{Binding Morale}" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Ship_RepairingTime}" Binding="{Binding RepairingTime}" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Firepower}" Binding="{Binding Firepower}" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Torpedo}" Binding="{Binding Torpedo}" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_AntiAir}" Binding="{Binding AntiAir}" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Armor}" Binding="{Binding Armor}" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Evasion}" Binding="{Binding Evasion}" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_AntiSubmarine}" Binding="{Binding AntiSubmarine}" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_LineOfSight}" Binding="{Binding LineOfSight}" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Luck}" Binding="{Binding Luck}" />
+            <DataGridTemplateColumn Header="{c:Localize GameModel/Ship_Equipment}">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate DataType="g:HomeportShip">
+                        <StackPanel Orientation="Horizontal" Height="36">
+                            <ItemsControl ItemsSource="{Binding HomeportSlots, Mode=OneTime}"
+                                          ItemsPanel="{StaticResource EquipTemplate}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="g:HomeportSlot">
+                                        <c:EquipmentIcon Id="{Binding Equipment.Info.IconId}">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock>
+                                                    <c:TranslatableNameText Source="{Binding ExtraHomeportSlot.Equipment.Info.Name}" />
+                                                </TextBlock>
+                                            </ToolTipService.ToolTip>
+                                        </c:EquipmentIcon>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <c:EquipmentIcon Id="{Binding ExtraHomeportSlot.Equipment.Info.Id}">
+                                <ToolTipService.ToolTip>
+                                    <TextBlock>
+                                        <c:TranslatableNameText Source="{Binding ExtraHomeportSlot.Equipment.Info.Name}" />
+                                    </TextBlock>
+                                </ToolTipService.ToolTip>
+                            </c:EquipmentIcon>
+                        </StackPanel>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

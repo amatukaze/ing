@@ -54,6 +54,12 @@
   <data name="LandBaseDefenceDetail">
     <value>Battle detail - land base defence</value>
   </data>
+  <data name="ShipCatalog">
+    <value>Ship catalog</value>
+  </data>
+  <data name="EquipmentCatalog">
+    <value>Equipment catalog</value>
+  </data>
   <data name="Page_Overview">
     <value>Overview</value>
   </data>

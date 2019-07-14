@@ -21,6 +21,13 @@
         </Grid.ColumnDefinitions>
         <sh:ViewPresenter ViewId="Admiral"
                           Grid.ColumnSpan="2" />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right"
+                    Grid.ColumnSpan="2"
+                    BorderBrush="Gray" BorderThickness="1"
+                    Padding="4" Spacing="4">
+            <sh:ViewSwitcher ViewId="ShipCatalog" />
+            <sh:ViewSwitcher ViewId="EquipmentCatalog" />
+        </StackPanel>
         <sh:ViewPresenter ViewId="Fleets"
                           Grid.Row="1" Grid.ColumnSpan="2" />
         <sh:ViewPresenter ViewId="ActiveQuests"

@@ -54,6 +54,12 @@
   <data name="LandBaseDefenceDetail">
     <value>戦闘詳細 - 基地防空</value>
   </data>
+  <data name="ShipCatalog">
+    <value>艦娘一覧</value>
+  </data>
+  <data name="EquipmentCatalog">
+    <value>装備一覧</value>
+  </data>
   <data name="Page_Overview">
     <value>一覧</value>
   </data>

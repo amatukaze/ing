@@ -72,6 +72,21 @@
   <data name="UseItem">
     <value>アイテム</value>
   </data>
+  <data name="ShipName">
+    <value>艦名</value>
+  </data>
+  <data name="ShipType">
+    <value>艦種</value>
+  </data>
+  <data name="Ship_Morale">
+    <value>疲労</value>
+  </data>
+  <data name="Ship_RepairingTime">
+    <value>修復時間</value>
+  </data>
+  <data name="Ship_Equipment">
+    <value>装備</value>
+  </data>
   <data name="EquipmentType">
     <value>装備タイプ</value>
   </data>

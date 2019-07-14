@@ -18,6 +18,7 @@ using Sakuno.ING.Timing.NTP;
 using Sakuno.ING.ViewModels.Combat;
 using Sakuno.ING.ViewModels.Logging;
 using Sakuno.ING.Views.UWP.ApiDebug;
+using Sakuno.ING.Views.UWP.Catalog;
 using Sakuno.ING.Views.UWP.Combat;
 using Sakuno.ING.Views.UWP.Homeport;
 using Sakuno.ING.Views.UWP.Logging;
@@ -85,6 +86,7 @@ namespace Sakuno.ING.UWP
             Information<BrowserElement>.Factory = () => new BrowserElement(selector, layoutSetting);
             Information<ActiveQuestsView>.Factory = () => new ActiveQuestsView(navalBase);
             Information<MapHPView>.Factory = () => new MapHPView(navalBase);
+            Information<ShipCatalogView>.Factory = () => new ShipCatalogView(navalBase);
 
             Information<LocaleSettingView>.Factory = () => new LocaleSettingView(localeSetting);
             Information<ProxySettingView>.Factory = () => new ProxySettingView(proxySetting);
@@ -112,7 +114,8 @@ namespace Sakuno.ING.UWP
             ["ActiveQuests"] = typeof(ActiveQuestsView),
             ["CurrentBattleDetail"] = typeof(BattleDetailView),
             ["LandBaseDefenceDetail"] = typeof(BattleOverview),
-            ["MapHP"] = typeof(MapHPView)
+            ["MapHP"] = typeof(MapHPView),
+            ["ShipCatalog"] = typeof(ShipCatalogView)
         };
 
         public override IReadOnlyCollection<KeyValuePair<Type, SettingCategory>> SettingViews { get; } = new Dictionary<Type, SettingCategory>
@@ -178,6 +181,8 @@ namespace Sakuno.ING.UWP
                 return Information<ActiveQuestsView>.Factory();
             else if (type == typeof(MapHPView))
                 return Information<MapHPView>.Factory();
+            else if (type == typeof(ShipCatalogView))
+                return Information<ShipCatalogView>.Factory();
             else return null;
         }
 
@@ -209,6 +214,7 @@ namespace Sakuno.ING.UWP
             "BattleLogs" => Information<BattleLogsView>.Factory(),
             "ActiveQuests" => Information<ActiveQuestsView>.Factory(),
             "MapHP" => Information<MapHPView>.Factory(),
+            "ShipCatalog" => Information<ShipCatalogView>.Factory(),
             _ => null
         };
     }

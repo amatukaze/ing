@@ -72,6 +72,21 @@
   <data name="UseItem">
     <value>Item</value>
   </data>
+  <data name="ShipName">
+    <value>Ship name</value>
+  </data>
+  <data name="ShipType">
+    <value>Ship type</value>
+  </data>
+  <data name="Ship_Morale">
+    <value>Morale</value>
+  </data>
+  <data name="Ship_RepairingTime">
+    <value>Repairing Time</value>
+  </data>
+  <data name="Ship_Equipment">
+    <value>Equipped</value>
+  </data>
   <data name="EquipmentType">
     <value>Equipment Type</value>
   </data>

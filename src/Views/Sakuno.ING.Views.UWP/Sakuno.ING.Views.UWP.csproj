@@ -22,6 +22,9 @@
     <Compile Include="ApiDebug\ApiDebugView.xaml.cs">
       <DependentUpon>ApiDebugView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Catalog\ShipCatalogView.xaml.cs">
+      <DependentUpon>ShipCatalogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Combat\BattleDetailView.xaml.cs">
       <DependentUpon>BattleDetailView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Catalog\ShipCatalogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Combat\BattleDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -215,6 +222,7 @@
       <Version>2.1.190606001</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

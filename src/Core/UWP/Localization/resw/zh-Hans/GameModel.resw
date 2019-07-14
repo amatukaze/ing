@@ -72,6 +72,21 @@
   <data name="UseItem">
     <value>物品</value>
   </data>
+  <data name="ShipName">
+    <value>舰名</value>
+  </data>
+  <data name="ShipType">
+    <value>舰种</value>
+  </data>
+  <data name="Ship_Morale">
+    <value>疲劳</value>
+  </data>
+  <data name="Ship_RepairingTime">
+    <value>入渠时间</value>
+  </data>
+  <data name="Ship_Equipment">
+    <value>装备</value>
+  </data>
   <data name="EquipmentType">
     <value>装备类型</value>
   </data>

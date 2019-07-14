@@ -270,4 +270,46 @@
   <data name="MapHP_Option.OffContent">
     <value>All maps</value>
   </data>
+  <data name="ShipCatalog_Column_ShipName.Header">
+    <value>Ship name</value>
+  </data>
+  <data name="ShipCatalog_Column_ShipType.Header">
+    <value>Ship type</value>
+  </data>
+  <data name="ShipCatalog_Column_Level.Header">
+    <value>Level</value>
+  </data>
+  <data name="ShipCatalog_Column_Morale.Header">
+    <value>Morale</value>
+  </data>
+  <data name="ShipCatalog_Column_RepairingTime.Header">
+    <value>Repairing Time</value>
+  </data>
+  <data name="ShipCatalog_Column_FirePower.Header">
+    <value>Firepower</value>
+  </data>
+  <data name="ShipCatalog_Column_Torpedo.Header">
+    <value>Torpedo</value>
+  </data>
+  <data name="ShipCatalog_Column_AntiAir.Header">
+    <value>Anti air</value>
+  </data>
+  <data name="ShipCatalog_Column_Armor.Header">
+    <value>Armor</value>
+  </data>
+  <data name="ShipCatalog_Column_Evasion.Header">
+    <value>Evasion</value>
+  </data>
+  <data name="ShipCatalog_Column_AntiSubmarine.Header">
+    <value>Anti sub</value>
+  </data>
+  <data name="ShipCatalog_Column_LineOfSight.Header">
+    <value>LoS</value>
+  </data>
+  <data name="ShipCatalog_Column_Luck.Header">
+    <value>Luck</value>
+  </data>
+  <data name="ShipCatalog_Column_Equipment.Header">
+    <value>Equipped</value>
+  </data>
 </root>

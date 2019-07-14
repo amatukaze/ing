@@ -1,0 +1,87 @@
+﻿<UserControl
+    x:Class="Sakuno.ING.Views.UWP.Catalog.ShipCatalogView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:g="using:Sakuno.ING.Game.Models"
+    xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:mux="using:Microsoft.UI.Xaml.Controls"
+    xmlns:con="using:Sakuno.ING.Views.UWP.Controls"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    x:DefaultBindMode="OneWay">
+    <tk:DataGrid IsReadOnly="True"
+                 ItemsSource="{x:Bind AllShipsView, Mode=OneTime}"
+                 GridLinesVisibility="All"
+                 FrozenColumnCount="2" AutoGenerateColumns="False">
+        <tk:DataGrid.CellStyle>
+            <Style TargetType="tk:DataGridCell">
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+            </Style>
+        </tk:DataGrid.CellStyle>
+        <tk:DataGrid.Columns>
+            <tk:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
+            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_ShipName">
+                <tk:DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate x:DataType="g:Ship">
+                        <TextBlock c:Helpers.TranslatableSource="{x:Bind Info.Name.BasicName, FallbackValue={x:Null}}" />
+                    </DataTemplate>
+                </tk:DataGridTemplateColumn.CellTemplate>
+            </tk:DataGridTemplateColumn>
+            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_ShipType">
+                <tk:DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate x:DataType="g:Ship">
+                        <TextBlock c:Helpers.TranslatableSource="{x:Bind Info.Type.Name, FallbackValue={x:Null}}" />
+                    </DataTemplate>
+                </tk:DataGridTemplateColumn.CellTemplate>
+            </tk:DataGridTemplateColumn>
+            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_Level">
+                <tk:DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate x:DataType="g:Ship">
+                        <TextBlock Text="{x:Bind Leveling.Level}" />
+                    </DataTemplate>
+                </tk:DataGridTemplateColumn.CellTemplate>
+            </tk:DataGridTemplateColumn>
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Morale" Binding="{Binding Morale}" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_RepairingTime" Binding="{Binding RepairingTime}" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Firepower" Binding="{Binding Firepower}" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Torpedo" Binding="{Binding Torpedo}" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_AntiAir" Binding="{Binding AntiAir}" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Armor" Binding="{Binding Armor}" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Evasion" Binding="{Binding Evasion}" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_AntiSubmarine" Binding="{Binding AntiSubmarine}" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_LineOfSight" Binding="{Binding LineOfSight}" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Luck" Binding="{Binding Luck}" />
+            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_Equipment">
+                <tk:DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate x:DataType="g:HomeportShip">
+                        <StackPanel Orientation="Horizontal">
+                            <mux:ItemsRepeater ItemsSource="{x:Bind HomeportSlots, Mode=OneTime}">
+                                <mux:ItemsRepeater.Layout>
+                                    <mux:StackLayout Orientation="Horizontal" />
+                                </mux:ItemsRepeater.Layout>
+                                <mux:ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="g:HomeportSlot">
+                                        <con:EquipmentIcon Id="{x:Bind Equipment.Info.IconId, FallbackValue=0}">
+                                            <ToolTipService.ToolTip>
+                                                <TextBlock c:Helpers.TranslatableSource="{x:Bind Equipment.Info.Name, FallbackValue={x:Null}}" />
+                                            </ToolTipService.ToolTip>
+                                        </con:EquipmentIcon>
+                                    </DataTemplate>
+                                </mux:ItemsRepeater.ItemTemplate>
+                            </mux:ItemsRepeater>
+                            <con:EquipmentIcon Id="{x:Bind ExtraHomeportSlot.Equipment.Info.Id, FallbackValue=0}">
+                                <ToolTipService.ToolTip>
+                                    <TextBlock c:Helpers.TranslatableSource="{x:Bind ExtraHomeportSlot.Equipment.Info.Name, FallbackValue={x:Null}}" />
+                                </ToolTipService.ToolTip>
+                            </con:EquipmentIcon>
+                        </StackPanel>
+                    </DataTemplate>
+                </tk:DataGridTemplateColumn.CellTemplate>
+            </tk:DataGridTemplateColumn>
+        </tk:DataGrid.Columns>
+    </tk:DataGrid>
+</UserControl>
