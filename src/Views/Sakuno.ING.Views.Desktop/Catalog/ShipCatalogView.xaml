@@ -19,10 +19,13 @@
               IsReadOnly="True"
               FrozenColumnCount="2" AutoGenerateColumns="False"
               GridLinesVisibility="All"
-              FontSize="16">
+              FontSize="16"
+              Sorting="Catalog_Sorting">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-            <DataGridTemplateColumn Header="{c:Localize GameModel/ShipName}">
+            <DataGridTextColumn Header="Id" Binding="{Binding Id}"
+                                SortMemberPath="Id" />
+            <DataGridTemplateColumn Header="{c:Localize GameModel/ShipName}"
+                                    CanUserSort="False">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="g:Ship">
                         <TextBlock>
@@ -31,7 +34,8 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="{c:Localize GameModel/ShipType}">
+            <DataGridTemplateColumn Header="{c:Localize GameModel/ShipType}"
+                                    CanUserSort="False">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="g:Ship">
                         <TextBlock>
@@ -40,24 +44,36 @@
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTemplateColumn Header="{c:Localize GameModel/Level}">
+            <DataGridTemplateColumn Header="{c:Localize GameModel/Level}"
+                                    SortMemberPath="Level">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="g:Ship">
                         <TextBlock Text="{Binding Leveling.Level}" />
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
-            <DataGridTextColumn Header="{c:Localize GameModel/Ship_Morale}" Binding="{Binding Morale}" />
-            <DataGridTextColumn Header="{c:Localize GameModel/Ship_RepairingTime}" Binding="{Binding RepairingTime}" />
-            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Firepower}" Binding="{Binding Firepower}" />
-            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Torpedo}" Binding="{Binding Torpedo}" />
-            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_AntiAir}" Binding="{Binding AntiAir}" />
-            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Armor}" Binding="{Binding Armor}" />
-            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Evasion}" Binding="{Binding Evasion}" />
-            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_AntiSubmarine}" Binding="{Binding AntiSubmarine}" />
-            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_LineOfSight}" Binding="{Binding LineOfSight}" />
-            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Luck}" Binding="{Binding Luck}" />
-            <DataGridTemplateColumn Header="{c:Localize GameModel/Ship_Equipment}">
+            <DataGridTextColumn Header="{c:Localize GameModel/Ship_Morale}" Binding="{Binding Morale}"
+                                SortMemberPath="Morale" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Ship_RepairingTime}" Binding="{Binding RepairingTime}"
+                                SortMemberPath="RepairingTime" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Firepower}" Binding="{Binding Firepower}"
+                                SortMemberPath="Firepower" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Torpedo}" Binding="{Binding Torpedo}"
+                                SortMemberPath="Torpedo" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_AntiAir}" Binding="{Binding AntiAir}"
+                                SortMemberPath="AntiAir" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Armor}" Binding="{Binding Armor}"
+                                SortMemberPath="Armor" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Evasion}" Binding="{Binding Evasion}"
+                                SortMemberPath="Evasion" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_AntiSubmarine}" Binding="{Binding AntiSubmarine}"
+                                SortMemberPath="AntiSubmarine" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_LineOfSight}" Binding="{Binding LineOfSight}"
+                                SortMemberPath="LineOfSight" />
+            <DataGridTextColumn Header="{c:Localize GameModel/Parameter_Luck}" Binding="{Binding Luck}"
+                                SortMemberPath="Luck" />
+            <DataGridTemplateColumn Header="{c:Localize GameModel/Ship_Equipment}"
+                                    CanUserSort="False">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate DataType="g:HomeportShip">
                         <StackPanel Orientation="Horizontal" Height="36">

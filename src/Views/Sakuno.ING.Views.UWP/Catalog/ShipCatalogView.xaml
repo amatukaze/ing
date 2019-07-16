@@ -16,46 +16,63 @@
     <tk:DataGrid IsReadOnly="True"
                  ItemsSource="{x:Bind AllShipsView, Mode=OneTime}"
                  GridLinesVisibility="All"
-                 FrozenColumnCount="2" AutoGenerateColumns="False">
+                 FrozenColumnCount="2" AutoGenerateColumns="False"
+                 CanUserSortColumns="True"
+                 Sorting="Catalog_Sorting">
         <tk:DataGrid.CellStyle>
             <Style TargetType="tk:DataGridCell">
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
         </tk:DataGrid.CellStyle>
         <tk:DataGrid.Columns>
-            <tk:DataGridTextColumn Header="Id" Binding="{Binding Id}" />
-            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_ShipName">
+            <tk:DataGridTextColumn Header="Id" Binding="{Binding Id}"
+                                   Tag="Id" />
+            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_ShipName"
+                                       CanUserSort="False">
                 <tk:DataGridTemplateColumn.CellTemplate>
                     <DataTemplate x:DataType="g:Ship">
                         <TextBlock c:Helpers.TranslatableSource="{x:Bind Info.Name.BasicName, FallbackValue={x:Null}}" />
                     </DataTemplate>
                 </tk:DataGridTemplateColumn.CellTemplate>
             </tk:DataGridTemplateColumn>
-            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_ShipType">
+            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_ShipType"
+                                       CanUserSort="False">
                 <tk:DataGridTemplateColumn.CellTemplate>
                     <DataTemplate x:DataType="g:Ship">
                         <TextBlock c:Helpers.TranslatableSource="{x:Bind Info.Type.Name, FallbackValue={x:Null}}" />
                     </DataTemplate>
                 </tk:DataGridTemplateColumn.CellTemplate>
             </tk:DataGridTemplateColumn>
-            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_Level">
+            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_Level"
+                                       Tag="Level">
                 <tk:DataGridTemplateColumn.CellTemplate>
                     <DataTemplate x:DataType="g:Ship">
                         <TextBlock Text="{x:Bind Leveling.Level}" />
                     </DataTemplate>
                 </tk:DataGridTemplateColumn.CellTemplate>
             </tk:DataGridTemplateColumn>
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Morale" Binding="{Binding Morale}" />
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_RepairingTime" Binding="{Binding RepairingTime}" />
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Firepower" Binding="{Binding Firepower}" />
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Torpedo" Binding="{Binding Torpedo}" />
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_AntiAir" Binding="{Binding AntiAir}" />
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Armor" Binding="{Binding Armor}" />
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Evasion" Binding="{Binding Evasion}" />
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_AntiSubmarine" Binding="{Binding AntiSubmarine}" />
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_LineOfSight" Binding="{Binding LineOfSight}" />
-            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Luck" Binding="{Binding Luck}" />
-            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_Equipment">
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Morale" Binding="{Binding Morale}"
+                                   Tag="Morale" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_RepairingTime" Binding="{Binding RepairingTime}"
+                                   Tag="RepairingTime" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Firepower" Binding="{Binding Firepower}"
+                                   Tag="Firepower" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Torpedo" Binding="{Binding Torpedo}"
+                                   Tag="Torpedo" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_AntiAir" Binding="{Binding AntiAir}"
+                                   Tag="AntiAir" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Armor" Binding="{Binding Armor}"
+                                   Tag="Armor" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Evasion" Binding="{Binding Evasion}"
+                                   Tag="Evasion" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_AntiSubmarine" Binding="{Binding AntiSubmarine}"
+                                   Tag="AntiSubmarine" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_LineOfSight" Binding="{Binding LineOfSight}"
+                                   Tag="LineOfSight" />
+            <tk:DataGridTextColumn x:Uid="/Resources/ShipCatalog_Column_Luck" Binding="{Binding Luck}"
+                                   Tag="Luck" />
+            <tk:DataGridTemplateColumn x:Uid="/Resources/ShipCatalog_Column_Equipment"
+                                       CanUserSort="False">
                 <tk:DataGridTemplateColumn.CellTemplate>
                     <DataTemplate x:DataType="g:HomeportShip">
                         <StackPanel Orientation="Horizontal">
