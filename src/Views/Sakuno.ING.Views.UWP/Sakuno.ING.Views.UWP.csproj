@@ -22,9 +22,13 @@
     <Compile Include="ApiDebug\ApiDebugView.xaml.cs">
       <DependentUpon>ApiDebugView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Catalog\EquipmentCatalogView.xaml.cs">
+      <DependentUpon>EquipmentCatalogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Catalog\ShipCatalogView.xaml.cs">
       <DependentUpon>ShipCatalogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Catalog\WrapLayout.cs" />
     <Compile Include="Combat\BattleDetailView.xaml.cs">
       <DependentUpon>BattleDetailView.xaml</DependentUpon>
     </Compile>
@@ -121,6 +125,10 @@
     <Page Include="ApiDebug\ApiDebugView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Catalog\EquipmentCatalogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Catalog\ShipCatalogView.xaml">
       <SubType>Designer</SubType>

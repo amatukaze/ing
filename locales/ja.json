@@ -4,7 +4,8 @@
     "Settings": "設定",
     "OK": "OK",
     "Cancel": "キャンセル",
-    "Time": "日時"
+    "Time": "日時",
+    "SelectAll": "すべて"
   },
   "SettingCategory": {
     "Appearance": "UI",
@@ -81,7 +82,9 @@
     "Ship_Morale": "疲労",
     "Ship_RepairingTime": "修復時間",
     "Ship_Equipment": "装備",
+    "EquipmentName": "装備名",
     "EquipmentType": "装備タイプ",
+    "CountWithAvailable": "合計 (余り)",
     "Expedition": "遠征",
     "AdmiralRank_1": "元帥",
     "AdmiralRank_2": "大将",

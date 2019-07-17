@@ -98,5 +98,9 @@
   "ShipCatalog_Column_AntiSubmarine.Header": "GameModel/Parameter_AntiSubmarine",
   "ShipCatalog_Column_LineOfSight.Header": "GameModel/Parameter_LineOfSight",
   "ShipCatalog_Column_Luck.Header": "GameModel/Parameter_Luck",
-  "ShipCatalog_Column_Equipment.Header": "GameModel/Ship_Equipment"
+  "ShipCatalog_Column_Equipment.Header": "GameModel/Ship_Equipment",
+  "EquipmentCatalog_SelectAll.Content": "Application/SelectAll",
+  "EquipmentCatalog_Column_EquipName.Header": "GameModel/EquipmentName",
+  "EquipmentCatalog_Column_EquipType.Header": "GameModel/EquipmentType",
+  "EquipmentCatalog_Column_Count.Header": "GameModel/CountWithAvailable"
 }

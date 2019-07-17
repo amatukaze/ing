@@ -312,4 +312,16 @@
   <data name="ShipCatalog_Column_Equipment.Header">
     <value>Equipped</value>
   </data>
+  <data name="EquipmentCatalog_SelectAll.Content">
+    <value>Select all</value>
+  </data>
+  <data name="EquipmentCatalog_Column_EquipName.Header">
+    <value>Equipment name</value>
+  </data>
+  <data name="EquipmentCatalog_Column_EquipType.Header">
+    <value>Equipment Type</value>
+  </data>
+  <data name="EquipmentCatalog_Column_Count.Header">
+    <value>Count (Avail.)</value>
+  </data>
 </root>

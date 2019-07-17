@@ -15,6 +15,7 @@ using Sakuno.ING.Settings;
 using Sakuno.ING.Shell;
 using Sakuno.ING.Timing;
 using Sakuno.ING.Timing.NTP;
+using Sakuno.ING.ViewModels.Catalog;
 using Sakuno.ING.ViewModels.Combat;
 using Sakuno.ING.ViewModels.Logging;
 using Sakuno.ING.Views.UWP.ApiDebug;
@@ -70,6 +71,7 @@ namespace Sakuno.ING.UWP
             Information<EquipmentCreationLogsVM>.Factory = () => new EquipmentCreationLogsVM(logger, navalBase, localization);
             Information<ExpeditionCompletionLogsVM>.Factory = () => new ExpeditionCompletionLogsVM(logger, navalBase, localization);
             Information<ShipCreationLogsVM>.Factory = () => new ShipCreationLogsVM(logger, navalBase, localization);
+            Information<EquipmentCatalogVM>.Factory = () => new EquipmentCatalogVM(navalBase);
 
             Information<ApiDebugView>.Factory = () => new ApiDebugView(gameProvider);
             Information<CurrentBattleView>.Factory = () => new CurrentBattleView(currentBattleVM);
@@ -87,6 +89,7 @@ namespace Sakuno.ING.UWP
             Information<ActiveQuestsView>.Factory = () => new ActiveQuestsView(navalBase);
             Information<MapHPView>.Factory = () => new MapHPView(navalBase);
             Information<ShipCatalogView>.Factory = () => new ShipCatalogView(navalBase);
+            Information<EquipmentCatalogView>.Factory = () => new EquipmentCatalogView(Information<EquipmentCatalogVM>.Factory());
 
             Information<LocaleSettingView>.Factory = () => new LocaleSettingView(localeSetting);
             Information<ProxySettingView>.Factory = () => new ProxySettingView(proxySetting);
@@ -115,7 +118,8 @@ namespace Sakuno.ING.UWP
             ["CurrentBattleDetail"] = typeof(BattleDetailView),
             ["LandBaseDefenceDetail"] = typeof(BattleOverview),
             ["MapHP"] = typeof(MapHPView),
-            ["ShipCatalog"] = typeof(ShipCatalogView)
+            ["ShipCatalog"] = typeof(ShipCatalogView),
+            ["EquipmentCatalog"] = typeof(EquipmentCatalogView)
         };
 
         public override IReadOnlyCollection<KeyValuePair<Type, SettingCategory>> SettingViews { get; } = new Dictionary<Type, SettingCategory>
@@ -183,6 +187,8 @@ namespace Sakuno.ING.UWP
                 return Information<MapHPView>.Factory();
             else if (type == typeof(ShipCatalogView))
                 return Information<ShipCatalogView>.Factory();
+            else if (type == typeof(EquipmentCatalogView))
+                return Information<EquipmentCatalogView>.Factory();
             else return null;
         }
 
@@ -215,6 +221,7 @@ namespace Sakuno.ING.UWP
             "ActiveQuests" => Information<ActiveQuestsView>.Factory(),
             "MapHP" => Information<MapHPView>.Factory(),
             "ShipCatalog" => Information<ShipCatalogView>.Factory(),
+            "EquipmentCatalog" => Information<EquipmentCatalogView>.Factory(),
             _ => null
         };
     }

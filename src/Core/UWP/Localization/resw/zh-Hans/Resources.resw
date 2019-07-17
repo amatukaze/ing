@@ -312,4 +312,16 @@
   <data name="ShipCatalog_Column_Equipment.Header">
     <value>装备</value>
   </data>
+  <data name="EquipmentCatalog_SelectAll.Content">
+    <value>全选</value>
+  </data>
+  <data name="EquipmentCatalog_Column_EquipName.Header">
+    <value>装备名</value>
+  </data>
+  <data name="EquipmentCatalog_Column_EquipType.Header">
+    <value>装备类型</value>
+  </data>
+  <data name="EquipmentCatalog_Column_Count.Header">
+    <value>数量（可用）</value>
+  </data>
 </root>

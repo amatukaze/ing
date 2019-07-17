@@ -87,8 +87,14 @@
   <data name="Ship_Equipment">
     <value>装備</value>
   </data>
+  <data name="EquipmentName">
+    <value>装備名</value>
+  </data>
   <data name="EquipmentType">
     <value>装備タイプ</value>
+  </data>
+  <data name="CountWithAvailable">
+    <value>合計 (余り)</value>
   </data>
   <data name="Expedition">
     <value>遠征</value>

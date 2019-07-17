@@ -87,8 +87,14 @@
   <data name="Ship_Equipment">
     <value>Equipped</value>
   </data>
+  <data name="EquipmentName">
+    <value>Equipment name</value>
+  </data>
   <data name="EquipmentType">
     <value>Equipment Type</value>
+  </data>
+  <data name="CountWithAvailable">
+    <value>Count (Avail.)</value>
   </data>
   <data name="Expedition">
     <value>Expedition</value>

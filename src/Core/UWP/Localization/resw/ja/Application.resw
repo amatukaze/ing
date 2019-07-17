@@ -27,4 +27,7 @@
   <data name="Time">
     <value>日時</value>
   </data>
+  <data name="SelectAll">
+    <value>すべて</value>
+  </data>
 </root>

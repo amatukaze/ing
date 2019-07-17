@@ -300,4 +300,16 @@
   <data name="ShipCatalog_Column_Equipment.Header">
     <value>装備</value>
   </data>
+  <data name="EquipmentCatalog_SelectAll.Content">
+    <value>すべて</value>
+  </data>
+  <data name="EquipmentCatalog_Column_EquipName.Header">
+    <value>装備名</value>
+  </data>
+  <data name="EquipmentCatalog_Column_EquipType.Header">
+    <value>装備タイプ</value>
+  </data>
+  <data name="EquipmentCatalog_Column_Count.Header">
+    <value>合計 (余り)</value>
+  </data>
 </root>

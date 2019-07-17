@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Catalog.EquipmentCatalogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:c="http://schemas.heavenlywind.cc/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Catalog;assembly=Sakuno.ING.ViewModels"
+             mc:Ignorable="d"
+             DataContext="{c:Resolve {x:Type vm:EquipmentCatalogVM}}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ItemsPanelTemplate x:Key="LevelsPanel">
+            <StackPanel Orientation="Vertical" />
+        </ItemsPanelTemplate>
+        <ItemsPanelTemplate x:Key="WrapPanelTemplate">
+            <WrapPanel />
+        </ItemsPanelTemplate>
+        <DataTemplate x:Key="EquippedShipTemplate" DataType="vm:ShipGroup">
+            <TextBlock FontSize="16">
+                <c:TranslatableNameText Source="{Binding Ship.Info.Name.FullName}" />
+                Lv.<Run Text="{Binding Ship.Leveling.Level, Mode=OneWay}" />
+                <Run FontSize="14" Text="x" /><Run FontSize="14" Text="{Binding Count, Mode=OneWay}" />
+            </TextBlock>
+        </DataTemplate>
+        <DataTemplate x:Key="ImprovementTemplate" DataType="vm:ImprovementGroup">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <c:AirProficiencyPresenter Proficiency="{Binding AirProficiency}" Height="24" Width="50" />
+                    <c:EquipmentImprovementPresenter Width="50" FontSize="16"
+                                                     Level="{Binding ImprovementLevel}" />
+                    <TextBlock Width="60" FontSize="14">
+                        <Run Text="{Binding Total, Mode=OneWay}" FontSize="16" />
+                        (<Run Text="{Binding Available, Mode=OneWay}" />)
+                    </TextBlock>
+                    <ItemsControl ItemsSource="{Binding SubGroups}"
+                                  ItemsPanel="{StaticResource WrapPanelTemplate}"
+                                  ItemTemplate="{StaticResource EquippedShipTemplate}"
+                                  Width="850" />
+                </StackPanel>
+                <Rectangle Fill="Gray" Height="1" Width="1000" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Gray" BorderThickness="1"
+                Margin="2">
+            <StackPanel Orientation="Vertical">
+                <CheckBox FontSize="16" Margin="2"
+                          Content="{c:Localize Application/SelectAll}"
+                          IsChecked="{Binding FilterAll}" />
+                <ItemsControl Margin="2"
+                              ItemsSource="{Binding IconFilters, Mode=OneTime}"
+                              ItemsPanel="{StaticResource WrapPanelTemplate}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsSelected}"
+                                      Width="60">
+                                <c:EquipmentIcon Id="{Binding IconId}"
+                                                 Height="24" Width="24" />
+                            </CheckBox>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Border>
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding Groups}"
+                  FontSize="16"
+                  ScrollViewer.CanContentScroll="False"
+                  AlternationCount="2">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Static GridView.GridViewItemContainerStyleKey}}">
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="IsHitTestVisible" Value="False"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{c:Localize GameModel/EquipmentName}" Width="200">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <c:EquipmentIcon Height="20" Id="{Binding Info.IconId}" />
+                                    <TextBlock>
+                                        <c:TranslatableNameText Source="{Binding Info.Name}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{c:Localize GameModel/EquipmentType}" Width="150">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <c:TranslatableNameText Source="{Binding Info.Type.Name}" />
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{c:Localize GameModel/CountWithAvailable}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="14">
+                                    <Run Text="{Binding Total, Mode=OneWay}" FontSize="16" />
+                                    (<Run Text="{Binding Available, Mode=OneWay}" />)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ItemsControl ItemsSource="{Binding SubGroups}"
+                                              ItemsPanel="{StaticResource LevelsPanel}"
+                                              ItemTemplate="{StaticResource ImprovementTemplate}"
+                                              Width="1000" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

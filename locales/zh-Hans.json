@@ -4,7 +4,8 @@
     "Settings": "设置",
     "OK": "确认",
     "Cancel": "取消",
-    "Time": "时间"
+    "Time": "时间",
+    "SelectAll": "全选"
   },
   "SettingCategory": {
     "Appearance": "界面",
@@ -85,7 +86,9 @@
     "Ship_Morale": "疲劳",
     "Ship_RepairingTime": "入渠时间",
     "Ship_Equipment": "装备",
+    "EquipmentName": "装备名",
     "EquipmentType": "装备类型",
+    "CountWithAvailable": "数量（可用）",
     "Expedition": "远征",
     "AdmiralRank_1": "元帅",
     "AdmiralRank_2": "大将",

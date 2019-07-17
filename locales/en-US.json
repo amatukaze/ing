@@ -4,7 +4,8 @@
     "Settings": "Settings",
     "OK": "OK",
     "Cancel": "Cancel",
-    "Time": "Time"
+    "Time": "Time",
+    "SelectAll": "Select all"
   },
   "SettingCategory": {
     "Appearance": "Appearance",
@@ -85,7 +86,9 @@
     "Ship_Morale": "Morale",
     "Ship_RepairingTime": "Repairing Time",
     "Ship_Equipment": "Equipped",
+    "EquipmentName": "Equipment name",
     "EquipmentType": "Equipment Type",
+    "CountWithAvailable": "Count (Avail.)",
     "Expedition": "Expedition",
     "AdmiralRank_1": "Marshal Admiral",
     "AdmiralRank_2": "Admiral",
