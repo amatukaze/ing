@@ -1157,6 +1157,16 @@ namespace Sakuno.ING.Game.Models.MasterData
             private set => Set(ref _canRecall, value, __eventArgs_canRecall);
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_materialRewardsLevel = new PropertyChangedEventArgs(nameof(MaterialRewardsLevel));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private Materials _materialRewardsLevel;
+        public Materials MaterialRewardsLevel
+        {
+            get => _materialRewardsLevel;
+            private set => Set(ref _materialRewardsLevel, value, __eventArgs_materialRewardsLevel);
+        }
+
         public int CompareTo(ExpeditionInfo other) => Id.CompareTo(other?.Id ?? default);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -1178,6 +1188,9 @@ namespace Sakuno.ING.Game.Models.MasterData
             get => _description;
             private set => Set(ref _description, value, __eventArgs_description);
         }
+
+        private readonly BindableSnapshotCollection<ShipTypeInfo> sampleFleet = new BindableSnapshotCollection<ShipTypeInfo>();
+        public IReadOnlyList<ShipTypeInfo> SampleFleet => sampleFleet;
 
         public ExpeditionId Id { get; }
         private readonly MasterDataRoot owner;
@@ -1219,6 +1232,7 @@ namespace Sakuno.ING.Game.Models.MasterData
             RewardItem1 = raw.RewardItem1;
             RewardItem2 = raw.RewardItem2;
             CanRecall = raw.CanRecall;
+            MaterialRewardsLevel = raw.MaterialRewardsLevel;
 
             UpdateCore(raw, timeStamp);
         }

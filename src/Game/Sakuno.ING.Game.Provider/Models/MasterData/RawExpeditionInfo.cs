@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Json.Converters;
 
@@ -58,5 +59,10 @@ namespace Sakuno.ING.Game.Models.MasterData
 
         [JsonProperty("api_return_flag")]
         public bool CanRecall { get; internal set; }
+
+        [JsonProperty("api_win_mat_level"), JsonConverter(typeof(MaterialsConverter))]
+        public Materials MaterialRewardsLevel { get; internal set; }
+        [JsonProperty("api_sample_fleet")]
+        public IReadOnlyList<ShipTypeId> SampleFleet { get; internal set; }
     }
 }

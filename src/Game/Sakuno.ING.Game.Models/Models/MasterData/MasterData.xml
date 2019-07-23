@@ -98,5 +98,7 @@
     <property type="UseItemRecord?" name="RewardItem1" autoFill="true" />
     <property type="UseItemRecord?" name="RewardItem2" autoFill="true" />
     <property type="bool" name="CanRecall" autoFill="true" />
+    <property type="Materials" name="MaterialRewardsLevel" autoFill="true" />
+    <snapshot type="ShipTypeInfo" name="SampleFleet" />
   </class>
 </classTemplate>
