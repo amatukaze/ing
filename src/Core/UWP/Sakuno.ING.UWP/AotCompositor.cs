@@ -53,7 +53,8 @@ namespace Sakuno.ING.UWP
             Information<IHttpProviderSelector>.Static = selector;
             var gameProvider = Information<GameProvider>.Static = new GameProvider(selector, settings);
             var notificationManager = Information<NotificationManager>.Static = new NotificationManager(new[] { toastNotifier }, settings, localization, shell, localeSetting);
-            var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, ntp, notificationManager);
+            var statePersist = Information<IStatePersist>.Static = new LoggerStatePersist();
+            var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, ntp, notificationManager, statePersist);
             var logger = Information<Logger>.Static = new Logger(data, gameProvider, navalBase);
             var currentBattleVM = Information<CurrentBattleVM>.Static = new CurrentBattleVM(navalBase, shell);
 

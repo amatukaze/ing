@@ -15,10 +15,12 @@ namespace Sakuno.ING.Game.Models
     public class NavalBase : BindableObject
     {
         public NotificationManager Notification { get; }
+        internal IStatePersist StatePersist { get; }
 
-        public NavalBase(GameProvider listener, ITimingService timingService, NotificationManager notification)
+        public NavalBase(GameProvider listener, ITimingService timingService, NotificationManager notification, IStatePersist statePersist)
         {
             Notification = notification;
+            StatePersist = statePersist;
 
             MasterData = new MasterDataRoot(listener);
             Battle = new BattleManager(listener, this);
