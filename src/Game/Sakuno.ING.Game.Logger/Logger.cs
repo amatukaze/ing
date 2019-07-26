@@ -34,20 +34,18 @@ namespace Sakuno.ING.Game.Logger
 
             provider.EquipmentCreated += (t, m) =>
             {
-                using (var context = CreateContext())
+                using var context = CreateContext();
+                context.EquipmentCreationTable.Add(new EquipmentCreationEntity
                 {
-                    context.EquipmentCreationTable.Add(new EquipmentCreationEntity
-                    {
-                        TimeStamp = t,
-                        Consumption = m.Consumption,
-                        EquipmentCreated = m.SelectedEquipentInfoId,
-                        IsSuccess = m.IsSuccess,
-                        AdmiralLevel = this.navalBase.Admiral.Leveling.Level,
-                        Secretary = this.navalBase.Secretary.Info.Id,
-                        SecretaryLevel = this.navalBase.Secretary.Leveling.Level
-                    });
-                    context.SaveChanges();
-                }
+                    TimeStamp = t,
+                    Consumption = m.Consumption,
+                    EquipmentCreated = m.SelectedEquipentInfoId,
+                    IsSuccess = m.IsSuccess,
+                    AdmiralLevel = this.navalBase.Admiral.Leveling.Level,
+                    Secretary = this.navalBase.Secretary.Info.Id,
+                    SecretaryLevel = this.navalBase.Secretary.Leveling.Level
+                });
+                context.SaveChanges();
             };
 
             provider.ShipCreated += (t, m) =>
@@ -67,33 +65,31 @@ namespace Sakuno.ING.Game.Logger
             provider.BuildingDockUpdated += (t, m) =>
             {
                 if (shipCreation != null)
-                    using (var context = CreateContext())
-                    {
-                        shipCreation.ShipBuilt = m.Single(x => x.Id == lastBuildingDock).BuiltShipId.Value;
-                        shipCreation.EmptyDockCount = this.navalBase.BuildingDocks.Count(x => x.State == BuildingDockState.Empty);
-                        context.ShipCreationTable.Add(shipCreation);
-                        shipCreation = null;
-                        lastBuildingDock = default;
-                        context.SaveChanges();
-                    }
+                {
+                    using var context = CreateContext();
+                    shipCreation.ShipBuilt = m.Single(x => x.Id == lastBuildingDock).BuiltShipId.Value;
+                    shipCreation.EmptyDockCount = this.navalBase.BuildingDocks.Count(x => x.State == BuildingDockState.Empty);
+                    context.ShipCreationTable.Add(shipCreation);
+                    shipCreation = null;
+                    lastBuildingDock = default;
+                    context.SaveChanges();
+                }
             };
 
             provider.ExpeditionCompleted += (t, m) =>
             {
-                using (var context = CreateContext())
+                using var context = CreateContext();
+                context.ExpeditionCompletionTable.Add(new ExpeditionCompletionEntity
                 {
-                    context.ExpeditionCompletionTable.Add(new ExpeditionCompletionEntity
-                    {
-                        TimeStamp = t,
-                        ExpeditionId = this.navalBase.Fleets[m.FleetId].Expedition.Id,
-                        ExpeditionName = m.ExpeditionName,
-                        Result = m.Result,
-                        MaterialsAcquired = m.MaterialsAcquired,
-                        RewardItem1 = m.RewardItem1,
-                        RewardItem2 = m.RewardItem2
-                    });
-                    context.SaveChanges();
-                }
+                    TimeStamp = t,
+                    ExpeditionId = this.navalBase.Fleets[m.FleetId].Expedition.Id,
+                    ExpeditionName = m.ExpeditionName,
+                    Result = m.Result,
+                    MaterialsAcquired = m.MaterialsAcquired,
+                    RewardItem1 = m.RewardItem1,
+                    RewardItem2 = m.RewardItem2
+                });
+                context.SaveChanges();
             };
 
 #if DEBUG

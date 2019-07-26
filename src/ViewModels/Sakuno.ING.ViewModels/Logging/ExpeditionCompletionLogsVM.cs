@@ -66,9 +66,9 @@ namespace Sakuno.ING.ViewModels.Logging
         private protected override IReadOnlyCollection<ExpeditionCompletionVM> GetEntities()
         {
             if (!logger.PlayerLoaded) return Array.Empty<ExpeditionCompletionVM>();
-            using (var context = logger.CreateContext())
-                return context.ExpeditionCompletionTable.AsEnumerable()
-                    .Select(e => new ExpeditionCompletionVM(this, e)).ToList();
+            using var context = logger.CreateContext();
+            return context.ExpeditionCompletionTable.AsEnumerable()
+                .Select(e => new ExpeditionCompletionVM(this, e)).ToList();
         }
     }
 }

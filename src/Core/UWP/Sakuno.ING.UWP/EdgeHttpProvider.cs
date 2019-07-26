@@ -60,12 +60,10 @@ namespace Sakuno.ING.UWP
                     string reqStr = null;
                     if (request.Content != null)
                     {
-                        using (var stream = new InMemoryRandomAccessStream())
-                        {
-                            await request.Content.WriteToStreamAsync(stream);
-                            stream.Seek(0);
-                            reqStr = new StreamReader(stream.AsStream()).ReadToEnd();
-                        }
+                        using var stream = new InMemoryRandomAccessStream();
+                        await request.Content.WriteToStreamAsync(stream);
+                        stream.Seek(0);
+                        reqStr = new StreamReader(stream.AsStream()).ReadToEnd();
                         request.Content = new HttpStringContent(reqStr, UnicodeEncoding.Utf8, "application/x-www-form-urlencoded");
                     }
                     request.Headers.Referer = referer;

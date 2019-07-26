@@ -26,38 +26,24 @@ namespace Sakuno.ING.Data
         }
 
         private static string Convert(T value)
-        {
-            switch (Type.GetTypeCode(typeof(T)))
+            => Type.GetTypeCode(typeof(T)) switch
             {
-                case TypeCode.String:
-                    return (string)(object)value;
-                case TypeCode.Int32:
-                    return ((int)(object)value).ToString(CultureInfo.InvariantCulture);
-                case TypeCode.Single:
-                    return ((float)(object)value).ToString(CultureInfo.InvariantCulture);
-                case TypeCode.Boolean:
-                    return ((bool)(object)value).ToString(CultureInfo.InvariantCulture);
-                default:
-                    throw new NotSupportedException("How do you get here?");
-            }
-        }
+                TypeCode.String => (string)(object)value,
+                TypeCode.Int32 => ((int)(object)value).ToString(CultureInfo.InvariantCulture),
+                TypeCode.Single => ((float)(object)value).ToString(CultureInfo.InvariantCulture),
+                TypeCode.Boolean => ((bool)(object)value).ToString(CultureInfo.InvariantCulture),
+                _ => throw new NotSupportedException("How do you get here?"),
+            };
 
         private static T Convert(string value)
-        {
-            switch (Type.GetTypeCode(typeof(T)))
+            => Type.GetTypeCode(typeof(T)) switch
             {
-                case TypeCode.String:
-                    return (T)(object)value;
-                case TypeCode.Int32:
-                    return (T)(object)int.Parse(value, CultureInfo.InvariantCulture);
-                case TypeCode.Single:
-                    return (T)(object)float.Parse(value, CultureInfo.InvariantCulture);
-                case TypeCode.Boolean:
-                    return (T)(object)bool.Parse(value);
-                default:
-                    throw new InvalidOperationException("How do you get here?");
-            }
-        }
+                TypeCode.String => (T)(object)value,
+                TypeCode.Int32 => (T)(object)int.Parse(value, CultureInfo.InvariantCulture),
+                TypeCode.Single => (T)(object)float.Parse(value, CultureInfo.InvariantCulture),
+                TypeCode.Boolean => (T)(object)bool.Parse(value),
+                _ => throw new InvalidOperationException("How do you get here?"),
+            };
 
         public new T Value
         {

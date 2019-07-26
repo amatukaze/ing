@@ -77,9 +77,9 @@ namespace Sakuno.ING.ViewModels.Logging
         private protected override IReadOnlyCollection<ShipCreationVM> GetEntities()
         {
             if (!logger.PlayerLoaded) return Array.Empty<ShipCreationVM>();
-            using (var context = logger.CreateContext())
-                return context.ShipCreationTable.AsEnumerable()
-                    .Select(e => new ShipCreationVM(this, e)).ToList();
+            using var context = logger.CreateContext();
+            return context.ShipCreationTable.AsEnumerable()
+                .Select(e => new ShipCreationVM(this, e)).ToList();
         }
     }
 }

@@ -24,26 +24,24 @@ namespace Sakuno.ING.Game.Logger.Migrators
             if (file == null) return Array.Empty<T>();
 
             var table = new List<T>();
-            using (var reader = new StreamReader(await file.OpenReadAsync(), encoding ?? Encoding.UTF8))
+            using var reader = new StreamReader(await file.OpenReadAsync(), encoding ?? Encoding.UTF8);
+            if (trimHeader)
+                await reader.ReadLineAsync();
+            while (!reader.EndOfStream)
             {
-                if (trimHeader)
-                    await reader.ReadLineAsync();
-                while (!reader.EndOfStream)
+                string line = await reader.ReadLineAsync();
+                if (string.IsNullOrEmpty(line)) continue;
+
+                var s = line.Split(',');
+                if (s.Length != columnCount) continue;
+
+                try
                 {
-                    string line = await reader.ReadLineAsync();
-                    if (string.IsNullOrEmpty(line)) continue;
-
-                    var s = line.Split(',');
-                    if (s.Length != columnCount) continue;
-
-                    try
-                    {
-                        table.Add(selector(s.Select(x => x.Trim('\0')).ToArray()));
-                    }
-                    catch
-                    {
-                        // fail count ++
-                    }
+                    table.Add(selector(s.Select(x => x.Trim('\0')).ToArray()));
+                }
+                catch
+                {
+                    // fail count ++
                 }
             }
             return table;

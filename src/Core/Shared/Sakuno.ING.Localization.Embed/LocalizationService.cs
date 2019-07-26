@@ -30,12 +30,12 @@ namespace Sakuno.ING.Localization.Embed
 
             while (!string.IsNullOrEmpty(culture.Name))
             {
-                using (var stream = asm.GetManifestResourceStream(typeof(LocalizationService), $"Strings.{culture.Name}.json"))
-                    if (stream != null)
-                    {
-                        _currentCulture = LoadStrings(stream);
-                        break;
-                    }
+                using var stream = asm.GetManifestResourceStream(typeof(LocalizationService), $"Strings.{culture.Name}.json");
+                if (stream != null)
+                {
+                    _currentCulture = LoadStrings(stream);
+                    break;
+                }
                 culture = culture.Parent;
             }
 

@@ -38,14 +38,12 @@ namespace Sakuno.ING.Views.Desktop.Controls
 
         protected override int VisualChildrenCount => 2;
         protected override Visual GetVisualChild(int index)
-        {
-            switch (index)
+            => index switch
             {
-                case 0: return background;
-                case 1: return circle;
-                default: return null;
-            }
-        }
+                0 => background,
+                1 => circle,
+                _ => null,
+            };
 
         protected override Size MeasureOverride(Size constraint)
         {

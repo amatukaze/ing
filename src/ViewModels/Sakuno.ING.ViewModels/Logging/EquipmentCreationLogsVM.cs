@@ -68,9 +68,9 @@ namespace Sakuno.ING.ViewModels.Logging
         private protected override IReadOnlyCollection<EquipmentCreationVM> GetEntities()
         {
             if (!logger.PlayerLoaded) return Array.Empty<EquipmentCreationVM>();
-            using (var context = logger.CreateContext())
-                return context.EquipmentCreationTable.AsEnumerable()
-                    .Select(e => new EquipmentCreationVM(this, e)).ToList();
+            using var context = logger.CreateContext();
+            return context.EquipmentCreationTable.AsEnumerable()
+                .Select(e => new EquipmentCreationVM(this, e)).ToList();
         }
     }
 }
