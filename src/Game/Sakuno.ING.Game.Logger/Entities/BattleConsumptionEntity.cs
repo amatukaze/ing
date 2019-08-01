@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
 
-namespace Sakuno.ING.Game.Logger.Entities.Homeport
+namespace Sakuno.ING.Game.Logger.Entities
 {
     public class BattleConsumptionEntity
     {

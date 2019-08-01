@@ -5,6 +5,7 @@ using Sakuno.ING.Game.Logger.Binary;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Logger.Entities.Homeport;
+using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
 
 [assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Design")]
@@ -27,6 +28,10 @@ namespace Sakuno.ING.Game.Logger
 
         public DbSet<BattleConsumptionEntity> BattleConsumptionTable { get; protected set; }
         public DbSet<MaterialsChangeEntity> MaterialsChangeTable { get; protected set; }
+
+        internal DbSet<HomeportStateEntity> HomeportStateTable { get; private set; }
+        internal DbSet<QuestProcessEntity> QuestProcessTable { get; private set; }
+        internal DbSet<ShipSortieStateEntity> ShipSortieStateTable { get; private set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -95,6 +100,19 @@ namespace Sakuno.ING.Game.Logger
                 {
                     e.Property(x => x.TimeStamp).HasConversion(new DateTimeOffsetToBinaryConverter());
                     e.Property(x => x.MapId).HasConversion<int>(v => v, v => (MapId)v);
+                });
+
+            modelBuilder
+                .Entity<ShipSortieStateEntity>(e =>
+                {
+                    e.Property(x => x.Id).HasConversion<int>(v => v, v => (ShipId)v);
+                    e.Property(x => x.LastSortie).HasConversion(new DateTimeOffsetToBinaryConverter());
+                });
+            modelBuilder
+                .Entity<QuestProcessEntity>(e =>
+                {
+                    e.Property(x => x.QuestId).HasConversion<int>(v => v, v => (QuestId)v);
+                    e.HasKey(x => new { x.QuestId, x.CounterId });
                 });
         }
     }
