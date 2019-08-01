@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sakuno.ING.Game.Logger.Binary;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Logger.Entities.Combat;
+using Sakuno.ING.Game.Logger.Entities.Homeport;
 using Sakuno.ING.Game.Models.MasterData;
 
 [assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Design")]
@@ -23,6 +24,9 @@ namespace Sakuno.ING.Game.Logger
         public DbSet<ExpeditionCompletionEntity> ExpeditionCompletionTable { get; protected set; }
         public DbSet<BattleEntity> BattleTable { get; protected set; }
         public DbSet<ExerciseEntity> ExerciseTable { get; protected set; }
+
+        public DbSet<BattleConsumptionEntity> BattleConsumptionTable { get; protected set; }
+        public DbSet<MaterialsChangeEntity> MaterialsChangeTable { get; protected set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -79,6 +83,18 @@ namespace Sakuno.ING.Game.Logger
                         d.Ignore(x => x.LandBaseDefence);
                         d.ToTable("ExerciseDetails");
                     });
+                });
+
+            modelBuilder
+                .Entity<MaterialsChangeEntity>(e =>
+                {
+                    e.Property(x => x.TimeStamp).HasConversion(new DateTimeOffsetToBinaryConverter());
+                });
+            modelBuilder
+                .Entity<BattleConsumptionEntity>(e =>
+                {
+                    e.Property(x => x.TimeStamp).HasConversion(new DateTimeOffsetToBinaryConverter());
+                    e.Property(x => x.MapId).HasConversion<int>(v => v, v => (MapId)v);
                 });
         }
     }
