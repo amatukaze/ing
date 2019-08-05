@@ -55,7 +55,7 @@ namespace Sakuno.ING.UWP
             var notificationManager = Information<NotificationManager>.Static = new NotificationManager(new[] { toastNotifier }, settings, localization, shell, localeSetting);
             var statePersist = Information<IStatePersist>.Static = new LoggerStatePersist(data);
             var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, ntp, notificationManager, statePersist);
-            var logger = Information<Logger>.Static = new Logger(data, gameProvider, navalBase);
+            var logger = Information<Logger>.Static = new Logger(data, gameProvider, navalBase, statePersist);
             var currentBattleVM = Information<CurrentBattleVM>.Static = new CurrentBattleVM(navalBase, shell);
 
             var migrators = new LogMigrator[]

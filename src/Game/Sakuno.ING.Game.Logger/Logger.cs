@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Sakuno.ING.Composition;
@@ -14,7 +15,7 @@ namespace Sakuno.ING.Game.Logger
     {
         private readonly IDataService dataService;
         private readonly NavalBase navalBase;
-
+        private readonly IStatePersist statePersist;
         private ShipCreationEntity shipCreation;
         private BuildingDockId lastBuildingDock;
 
@@ -22,15 +23,16 @@ namespace Sakuno.ING.Game.Logger
         private Admiral currentAdmiral;
 
         private LoggerContext currentBattleContext;
-        private Fleet currentFleetInBattle, currentFleet2InBattle;
+        private HomeportFleet currentFleetInBattle, currentFleet2InBattle;
         private CombinedFleetType currentCombinedFleet;
         private BattleEntity currentBattle;
         private ExerciseEntity currentExercise;
 
-        public Logger(IDataService dataService, GameProvider provider, NavalBase navalBase)
+        public Logger(IDataService dataService, GameProvider provider, NavalBase navalBase, IStatePersist statePersist)
         {
             this.dataService = dataService;
             this.navalBase = navalBase;
+            this.statePersist = statePersist;
 
             provider.EquipmentCreated += (t, m) =>
             {
@@ -103,13 +105,61 @@ namespace Sakuno.ING.Game.Logger
                         InitializeAdmiral(a);
             };
 
+            navalBase.HomeportUpdated += (t, n) =>
+            {
+                var consumption =
+                    currentFleetInBattle.RepairingCost +
+                    currentFleetInBattle.SupplyingCost +
+                    (currentFleet2InBattle?.RepairingCost ?? default) +
+                    (currentFleet2InBattle?.SupplyingCost ?? default);
+                var diff = consumption - this.statePersist.ConsumptionBeforeSortie;
+                if (diff != default && this.statePersist.LastSortieTime is DateTimeOffset last)
+                    currentBattleContext.BattleConsumptionTable.Add(new BattleConsumptionEntity
+                    {
+                        TimeStamp = last,
+                        Consumption = diff
+                    });
+
+                currentBattle = null;
+                currentExercise = null;
+                currentBattleContext?.Dispose();
+                currentFleetInBattle = null;
+                currentFleet2InBattle = null;
+
+                this.statePersist.LastSortieFleets = null;
+                this.statePersist.LastSortieTime = null;
+                this.statePersist.SaveChanges();
+            };
+
             provider.SortieStarting += (t, m) =>
             {
+                FleetId[] fleets;
                 currentFleetInBattle = this.navalBase.Fleets[m.FleetId];
                 currentCombinedFleet = this.navalBase.CombinedFleet;
                 if (currentCombinedFleet != CombinedFleetType.None)
-                    currentFleet2InBattle = navalBase.Fleets[(FleetId)2];
+                {
+                    currentFleet2InBattle = this.navalBase.Fleets[(FleetId)2];
+                    fleets = new[] { (FleetId)1, (FleetId)2 };
+                }
+                else
+                {
+                    fleets = new[] { m.FleetId };
+                }
                 currentBattleContext = CreateContext();
+
+                this.statePersist.ConsumptionBeforeSortie =
+                    currentFleetInBattle.RepairingCost +
+                    currentFleetInBattle.SupplyingCost +
+                    (currentFleet2InBattle?.RepairingCost ?? default) +
+                    (currentFleet2InBattle?.SupplyingCost ?? default);
+                this.statePersist.LastSortieTime = t;
+                this.statePersist.LastSortieFleets = fleets;
+                foreach (var ship in currentFleetInBattle.HomeportShips)
+                    this.statePersist.SetLastSortie(ship.Id, t);
+                if (currentFleet2InBattle != null)
+                    foreach (var ship in currentFleet2InBattle.HomeportShips)
+                        this.statePersist.SetLastSortie(ship.Id, t);
+                this.statePersist.SaveChanges();
             };
 
             provider.MapRouting += (t, m) =>
@@ -215,15 +265,6 @@ namespace Sakuno.ING.Game.Logger
 
                 currentBattleContext.ChangeTracker.DetectChanges();
                 currentBattleContext.SaveChanges();
-            };
-
-            provider.HomeportReturned += (t, m) =>
-            {
-                currentBattle = null;
-                currentExercise = null;
-                currentBattleContext?.Dispose();
-                currentFleetInBattle = null;
-                currentFleet2InBattle = null;
             };
         }
 

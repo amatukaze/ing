@@ -49,6 +49,7 @@ namespace Sakuno.ING.Game.Models
                 }
                 else
                     Admiral.Update(msg, t);
+                StatePersist?.Initialize(msg.Id);
             };
             listener.MaterialsUpdated += (t, msg) =>
             {
@@ -65,6 +66,12 @@ namespace Sakuno.ING.Game.Models
             {
                 _allShips.BatchUpdate(msg.Ships, t);
                 CombinedFleet = msg.CombinedFleetType;
+                if (StatePersist != null)
+                {
+                    StatePersist.LastHomeportUpdate = t;
+                    StatePersist.SaveChanges();
+                }
+                HomeportUpdated?.Invoke(t, this);
             };
             listener.CompositionChanged += (t, msg) =>
             {
@@ -241,6 +248,7 @@ namespace Sakuno.ING.Game.Models
         }
 
         public event AdmiralChanging AdmiralChanging;
+        public event HomeportUpdatedHandler HomeportUpdated;
         public event MaterialsUpdatingHandler MaterialsUpdating;
         public event ShipDismantlingHandler ShipDismantling;
         public event ShipPowerupingHandler ShipPoweruping;
@@ -249,6 +257,7 @@ namespace Sakuno.ING.Game.Models
     }
 
     public delegate void AdmiralChanging(DateTimeOffset timeStamp, Admiral oldAdmiral, Admiral newAdmiral);
+    public delegate void HomeportUpdatedHandler(DateTimeOffset timeStamp, NavalBase sender);
     public delegate void MaterialsUpdatingHandler(DateTimeOffset timeStamp, Materials oldMaterials, Materials newMaterials, MaterialsChangeReason reason);
     public delegate void ShipDismantlingHandler(DateTimeOffset timeStamp, IReadOnlyCollection<Ship> ships, bool dismantleEquipments);
     public delegate void ShipPowerupingHandler(DateTimeOffset timeStamp, Ship original, RawShip updatedTo, IReadOnlyCollection<Ship> consumed);

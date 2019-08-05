@@ -10,6 +10,7 @@ namespace Sakuno.ING.Game.Models
 
         DateTimeOffset LastHomeportUpdate { get; set; }
         DateTimeOffset LastHomeportRepair { get; set; }
+        DateTimeOffset? LastSortieTime { get; set; }
         IReadOnlyList<FleetId> LastSortieFleets { get; set; }
         Materials ConsumptionBeforeSortie { get; set; }
 

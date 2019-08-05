@@ -30,34 +30,57 @@ namespace Sakuno.ING.Game.Logger
         private const int ID_ConsumptionBeforeSortie_Development = 9;
         private const int ID_ConsumptionBeforeSortie_Improvement = 10;
         private const int ID_LastSortieFleets = 11;
+        private const int ID_LastSortieTime = 12;
 
         public DateTimeOffset LastHomeportUpdate
         {
-            get => DateTimeOffset.FromUnixTimeMilliseconds(this[ID_LastHomeportUpdate]);
+            get => DateTimeOffset.FromUnixTimeMilliseconds(this[ID_LastHomeportUpdate] ?? 0);
             set => this[ID_LastHomeportUpdate] = value.ToUnixTimeMilliseconds();
         }
         public DateTimeOffset LastHomeportRepair
         {
-            get => DateTimeOffset.FromUnixTimeMilliseconds(this[ID_LastHomeportRepair]);
+            get => DateTimeOffset.FromUnixTimeMilliseconds(this[ID_LastHomeportRepair] ?? 0);
             set => this[ID_LastHomeportRepair] = value.ToUnixTimeMilliseconds();
+        }
+        public DateTimeOffset? LastSortieTime
+        {
+            get => this[ID_LastSortieTime] switch
+            {
+                null => (DateTimeOffset?)null,
+                long v => DateTimeOffset.FromUnixTimeMilliseconds(v)
+            };
+            set => this[ID_LastSortieTime] = value switch
+            {
+                null => (long?)null,
+                DateTimeOffset v => v.ToUnixTimeMilliseconds()
+            };
         }
         public IReadOnlyList<FleetId> LastSortieFleets
         {
             get
             {
-                var result = new List<FleetId>(2);
-                long v = this[ID_LastSortieFleets];
-                for (int i = 0; i < 8; i++)
-                    if ((v & (1 << i)) != 0)
-                        result.Add((FleetId)(i + 1));
-                return result;
+                if (this[ID_LastSortieFleets] is long v)
+                {
+                    var result = new List<FleetId>(2);
+                    for (int i = 0; i < 8; i++)
+                        if ((v & (1 << i)) != 0)
+                            result.Add((FleetId)(i + 1));
+                    return result;
+                }
+                else
+                    return null;
             }
             set
             {
-                int v = 0;
-                foreach (var id in value)
-                    v |= 1 << (id - 1);
-                this[ID_LastSortieFleets] = v;
+                if (value is null)
+                    this[ID_LastSortieFleets] = null;
+                else
+                {
+                    int v = 0;
+                    foreach (var id in value)
+                        v |= 1 << (id - 1);
+                    this[ID_LastSortieFleets] = v;
+                }
             }
         }
         public Materials ConsumptionBeforeSortie
@@ -86,23 +109,28 @@ namespace Sakuno.ING.Game.Logger
             }
         }
 
-        private long this[int id]
+        private long? this[int id]
         {
-            get => context?.HomeportStateTable.Find(id)?.Value ?? 0;
+            get => context?.HomeportStateTable.Find(id)?.Value;
             set
             {
-                var entity = context.HomeportStateTable.Find(id);
-                if (entity is null)
-                    context.HomeportStateTable.Add(new HomeportStateEntity
-                    {
-                        Id = id,
-                        Value = value
-                    });
-                else
+                if (value is long v)
                 {
-                    entity.Value = value;
-                    context.HomeportStateTable.Update(entity);
+                    var entity = context.HomeportStateTable.Find(id);
+                    if (entity is null)
+                        context.HomeportStateTable.Add(new HomeportStateEntity
+                        {
+                            Id = id,
+                            Value = v
+                        });
+                    else
+                    {
+                        entity.Value = v;
+                        context.HomeportStateTable.Update(entity);
+                    }
                 }
+                else
+                    context.HomeportStateTable.RemoveRange(context.HomeportStateTable.Where(x => x.Id == id));
             }
         }
 
