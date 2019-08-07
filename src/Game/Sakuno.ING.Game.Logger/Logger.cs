@@ -7,6 +7,7 @@ using Sakuno.ING.Data;
 using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Knowledge;
 
 namespace Sakuno.ING.Game.Logger
 {
@@ -267,6 +268,45 @@ namespace Sakuno.ING.Game.Logger
                 };
                 if (m.UnparsedLandBaseDefence != null)
                     currentBattle.LandBaseDefence = m.UnparsedLandBaseDefence.ToString(Formatting.None);
+
+                Materials acquired = default;
+                foreach (var r in m.ItemAcquired)
+                    switch ((KnownUseItem)r.ItemId)
+                    {
+                        case KnownUseItem.Fuel:
+                            acquired.Fuel += r.Count;
+                            break;
+                        case KnownUseItem.Bullet:
+                            acquired.Bullet += r.Count;
+                            break;
+                        case KnownUseItem.Steel:
+                            acquired.Steel += r.Count;
+                            break;
+                        case KnownUseItem.Bauxite:
+                            acquired.Bauxite += r.Count;
+                            break;
+                        case KnownUseItem.InstantBuild:
+                            acquired.InstantBuild += r.Count;
+                            break;
+                        case KnownUseItem.InstantRepair:
+                            acquired.InstantRepair += r.Count;
+                            break;
+                        case KnownUseItem.Development:
+                            acquired.Development += r.Count;
+                            break;
+                        case KnownUseItem.Improvement:
+                            acquired.Improvement += r.Count;
+                            break;
+                    }
+                if (acquired != default)
+                {
+                    var entity = currentBattleContext.BattleConsumptionTable.Find(this.statePersist.LastSortieTime);
+                    if (entity != null)
+                    {
+                        entity.Acquired += acquired;
+                        currentBattleContext.BattleConsumptionTable.Update(entity);
+                    }
+                }
 
                 currentBattleContext.BattleTable.Add(currentBattle);
                 currentBattleContext.SaveChanges();
