@@ -109,6 +109,18 @@ namespace Sakuno.ING.Game.Logger
                         InitializeAdmiral(a);
             };
 
+            navalBase.MaterialsUpdating += (t, old, @new, reason) =>
+            {
+                using var context = CreateContext();
+                context.MaterialsChangeTable.Add(new MaterialsChangeEntity
+                {
+                    TimeStamp = t,
+                    Materials = @new,
+                    Reason = reason
+                });
+                context.SaveChanges();
+            };
+
             navalBase.HomeportUpdated += (t, n) =>
             {
                 var consumption =
