@@ -99,6 +99,25 @@ namespace Sakuno.ING.Game.Logger.Migrators
                 });
         }
 
+        public override bool SupportMaterialsChange => true;
+        public override ValueTask<IReadOnlyCollection<MaterialsChangeEntity>> GetMaterialsChangeAsync(IFileSystemFacade source, TimeSpan timeZone)
+            => Helper.ParseCsv(source, "material.csv", 9,
+                s => new MaterialsChangeEntity
+                {
+                    TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Utc),
+                    Materials = new Materials
+                    {
+                        Fuel = int.Parse(s[1]),
+                        Bullet = int.Parse(s[2]),
+                        Steel = int.Parse(s[3]),
+                        Bauxite = int.Parse(s[4]),
+                        InstantBuild = int.Parse(s[5]),
+                        InstantRepair = int.Parse(s[6]),
+                        Development = int.Parse(s[7]),
+                        Improvement = int.Parse(s[8])
+                    }
+                });
+
         public override bool SupportBattleAndDrop => true;
         public override async ValueTask<IReadOnlyCollection<BattleEntity>> GetBattleAndDropAsync(IFileSystemFacade source, TimeSpan timeZone)
         {

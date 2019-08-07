@@ -13,20 +13,27 @@ namespace Sakuno.ING.Game.Logger
         public abstract string Title { get; }
         public abstract bool RequireFolder { get; }
 
+        private ValueTask<IReadOnlyCollection<T>> Empty<T>()
+            => new ValueTask<IReadOnlyCollection<T>>(Array.Empty<T>());
+
         public virtual bool SupportShipCreation => false;
         public virtual ValueTask<IReadOnlyCollection<ShipCreationEntity>> GetShipCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
-            => throw new NotSupportedException();
+            => Empty<ShipCreationEntity>();
 
         public virtual bool SupportEquipmentCreation => false;
         public virtual ValueTask<IReadOnlyCollection<EquipmentCreationEntity>> GetEquipmentCreationAsync(IFileSystemFacade source, TimeSpan timeZone)
-            => throw new NotSupportedException();
+            => Empty<EquipmentCreationEntity>();
 
         public virtual bool SupportExpeditionCompletion => false;
         public virtual ValueTask<IReadOnlyCollection<ExpeditionCompletionEntity>> GetExpeditionCompletionAsync(IFileSystemFacade source, TimeSpan timeZone)
-            => throw new NotSupportedException();
+            => Empty<ExpeditionCompletionEntity>();
 
         public virtual bool SupportBattleAndDrop => false;
         public virtual ValueTask<IReadOnlyCollection<BattleEntity>> GetBattleAndDropAsync(IFileSystemFacade source, TimeSpan timeZone)
-            => throw new NotSupportedException();
+            => Empty<BattleEntity>();
+
+        public virtual bool SupportMaterialsChange => false;
+        public virtual ValueTask<IReadOnlyCollection<MaterialsChangeEntity>> GetMaterialsChangeAsync(IFileSystemFacade source, TimeSpan timeZone)
+            => Empty<MaterialsChangeEntity>();
     }
 }

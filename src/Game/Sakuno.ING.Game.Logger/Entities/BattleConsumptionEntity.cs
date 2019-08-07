@@ -1,15 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Logger.Entities
 {
-    public class BattleConsumptionEntity
+    public class BattleConsumptionEntity : EntityBase
     {
-        [Key]
-        public DateTimeOffset TimeStamp { get; set; }
         public MapId MapId { get; set; }
 
         #region Consumption

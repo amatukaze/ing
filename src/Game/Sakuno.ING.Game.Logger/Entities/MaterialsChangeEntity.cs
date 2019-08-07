@@ -1,16 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Logger.Entities
 {
-    public class MaterialsChangeEntity
+    public class MaterialsChangeEntity : EntityBase
     {
-        [Key]
-        public DateTimeOffset TimeStamp { get; set; }
-
         public int Materials_Fuel { get; set; }
         public int Materials_Bullet { get; set; }
         public int Materials_Steel { get; set; }

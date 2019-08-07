@@ -63,6 +63,8 @@ namespace Sakuno.ING.ViewModels.Logging
 
         public bool SelectBattleAndDrop { get; set; }
 
+        public bool SelectMaterialsChange { get; set; }
+
         public LogMigrationVM(Logger logger, LogMigrator[] migrators, IShellContextService shellContextService, ILocalizationService localization)
         {
             this.logger = logger;
@@ -151,14 +153,17 @@ namespace Sakuno.ING.ViewModels.Logging
                     if (SelectShipCreation && SelectedMigrator.SupportShipCreation)
                         count += await TryMigrate(context.ShipCreationTable, await SelectedMigrator.GetShipCreationAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
                             .ConfigureAwait(false);
-                    if (SelectEquipmentCreation)
+                    if (SelectEquipmentCreation && SelectedMigrator.SupportEquipmentCreation)
                         count += await TryMigrate(context.EquipmentCreationTable, await SelectedMigrator.GetEquipmentCreationAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
                             .ConfigureAwait(false);
-                    if (SelectExpeditionCompletion)
+                    if (SelectExpeditionCompletion && SelectedMigrator.SupportExpeditionCompletion)
                         count += await TryMigrate(context.ExpeditionCompletionTable, await SelectedMigrator.GetExpeditionCompletionAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
                             .ConfigureAwait(false);
-                    if (SelectBattleAndDrop)
+                    if (SelectBattleAndDrop && SelectedMigrator.SupportBattleAndDrop)
                         count += await TryMigrate(context.BattleTable, await SelectedMigrator.GetBattleAndDropAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
+                            .ConfigureAwait(false);
+                    if (SelectMaterialsChange && SelectedMigrator.SupportMaterialsChange)
+                        count += await TryMigrate(context.MaterialsChangeTable, await SelectedMigrator.GetMaterialsChangeAsync(SelectedPath, timeZone).ConfigureAwait(false), SelectedMigrator.Id)
                             .ConfigureAwait(false);
 
                     await context.SaveChangesAsync().ConfigureAwait(false);
