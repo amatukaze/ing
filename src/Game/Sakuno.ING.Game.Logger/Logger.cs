@@ -81,10 +81,11 @@ namespace Sakuno.ING.Game.Logger
             provider.ExpeditionCompleted += (t, m) =>
             {
                 using var context = CreateContext();
+                var fleet = this.navalBase.Fleets[m.FleetId];
                 context.ExpeditionCompletionTable.Add(new ExpeditionCompletionEntity
                 {
                     TimeStamp = t,
-                    ExpeditionId = this.navalBase.Fleets[m.FleetId].Expedition.Id,
+                    ExpeditionId = fleet.Expedition.Id,
                     ExpeditionName = m.ExpeditionName,
                     Result = m.Result,
                     MaterialsAcquired = m.MaterialsAcquired,
@@ -92,6 +93,9 @@ namespace Sakuno.ING.Game.Logger
                     RewardItem2 = m.RewardItem2
                 });
                 context.SaveChanges();
+                foreach (var ship in fleet.HomeportShips)
+                    this.statePersist.ClearLastSortie(ship.Id);
+                this.statePersist.SaveChanges();
             };
 
 #if DEBUG
@@ -129,6 +133,64 @@ namespace Sakuno.ING.Game.Logger
                 this.statePersist.LastSortieFleets = null;
                 this.statePersist.LastSortieTime = null;
                 this.statePersist.SaveChanges();
+            };
+
+            navalBase.ShipSupplying += (t, s, raw) =>
+            {
+                if (this.statePersist.GetLastSortie(s.Id) is DateTimeOffset last)
+                {
+                    using var context = CreateContext();
+                    var entity = context.BattleConsumptionTable.Find(last);
+                    if (entity is null) return;
+
+                    int fuel = raw.CurrentFuel - s.Fuel.Current;
+                    int bullet = raw.CurrentBullet - s.Bullet.Current;
+                    bool isMarriaged = s.Leveling.Level >= 100;
+                    entity.ActualConsumption += new Materials
+                    {
+                        Fuel = isMarriaged ? (int)(fuel * 0.85) : fuel,
+                        Bullet = isMarriaged ? (int)(bullet * 0.85) : bullet,
+                        Bauxite = (raw.SlotAircraft.Sum() - s.Slots.Sum(x => x.Aircraft.Current)) * 5
+                    };
+                    context.Update(entity);
+                    context.SaveChanges();
+                }
+            };
+
+            navalBase.ShipRepairing += (t, s, i) =>
+            {
+                if (this.statePersist.GetLastSortie(s.Id) is DateTimeOffset last)
+                {
+                    using var context = CreateContext();
+                    var entity = context.BattleConsumptionTable.Find(last);
+                    if (entity is null) return;
+
+                    entity.ActualConsumption += s.RepairingCost;
+                    if (i)
+                        entity.ActualConsumption += new Materials
+                        {
+                            InstantRepair = 1
+                        };
+                    context.Update(entity);
+                    context.SaveChanges();
+                }
+            };
+            navalBase.RepairingDockInstant += (t, d, s) =>
+            {
+                if (this.statePersist.GetLastSortie(s.Id) is DateTimeOffset last)
+                {
+                    using var context = CreateContext();
+                    var entity = context.BattleConsumptionTable.Find(last);
+                    if (entity is null) return;
+
+
+                    entity.ActualConsumption += new Materials
+                    {
+                        InstantRepair = 1
+                    };
+                    context.Update(entity);
+                    context.SaveChanges();
+                }
             };
 
             provider.SortieStarting += (t, m) =>

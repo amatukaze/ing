@@ -93,7 +93,11 @@ namespace Sakuno.ING.Game.Models
             listener.ShipSupplied += (t, msg) =>
             {
                 foreach (var raw in msg)
-                    AllShips[raw.ShipId]?.Supply(raw);
+                {
+                    var ship = AllShips[raw.ShipId];
+                    ShipSupplying?.Invoke(t, ship, raw);
+                    ship?.Supply(raw);
+                }
             };
 
             listener.RepairStarted += (t, msg) =>
@@ -102,6 +106,7 @@ namespace Sakuno.ING.Game.Models
                 if (ship == null)
                     return;
 
+                ShipRepairing?.Invoke(t, ship, msg.InstantRepair);
                 if (msg.InstantRepair)
                     ship.SetRepaired();
 
@@ -112,7 +117,12 @@ namespace Sakuno.ING.Game.Models
                 Materials = materials;
                 MaterialsUpdating?.Invoke(t, oldMaterials, materials, MaterialsChangeReason.ShipRepair);
             };
-            listener.InstantRepaired += (t, msg) => RepairingDocks[msg].Instant();
+            listener.InstantRepaired += (t, msg) =>
+            {
+                var dock = RepairingDocks[msg];
+                RepairingDockInstant?.Invoke(t, msg, dock.RepairingShip);
+                dock.Instant();
+            };
             listener.InstantBuilt += (t, msg) =>
             {
                 var dock = BuildingDocks[msg];
@@ -250,6 +260,9 @@ namespace Sakuno.ING.Game.Models
         public event AdmiralChanging AdmiralChanging;
         public event HomeportUpdatedHandler HomeportUpdated;
         public event MaterialsUpdatingHandler MaterialsUpdating;
+        public event ShipSupplyingHandler ShipSupplying;
+        public event ShipRepairingHandler ShipRepairing;
+        public event RepairingDockInstantHandler RepairingDockInstant;
         public event ShipDismantlingHandler ShipDismantling;
         public event ShipPowerupingHandler ShipPoweruping;
         public event EquipmentDismantlingHandler EquipmentDismantling;
@@ -259,6 +272,9 @@ namespace Sakuno.ING.Game.Models
     public delegate void AdmiralChanging(DateTimeOffset timeStamp, Admiral oldAdmiral, Admiral newAdmiral);
     public delegate void HomeportUpdatedHandler(DateTimeOffset timeStamp, NavalBase sender);
     public delegate void MaterialsUpdatingHandler(DateTimeOffset timeStamp, Materials oldMaterials, Materials newMaterials, MaterialsChangeReason reason);
+    public delegate void ShipSupplyingHandler(DateTimeOffset timeStamp, HomeportShip ship, ShipSupply updatedTo);
+    public delegate void ShipRepairingHandler(DateTimeOffset timeStamp, HomeportShip ship, bool instant);
+    public delegate void RepairingDockInstantHandler(DateTimeOffset timeStamp, RepairingDockId dockId, HomeportShip ship);
     public delegate void ShipDismantlingHandler(DateTimeOffset timeStamp, IReadOnlyCollection<Ship> ships, bool dismantleEquipments);
     public delegate void ShipPowerupingHandler(DateTimeOffset timeStamp, Ship original, RawShip updatedTo, IReadOnlyCollection<Ship> consumed);
     public delegate void EquipmentDismantlingHandler(DateTimeOffset timeStamp, IReadOnlyCollection<Equipment> equipments);
