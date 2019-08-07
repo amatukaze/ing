@@ -123,18 +123,22 @@ namespace Sakuno.ING.Game.Logger
 
             navalBase.HomeportUpdated += (t, n) =>
             {
-                var consumption =
-                    currentFleetInBattle.RepairingCost +
-                    currentFleetInBattle.SupplyingCost +
-                    (currentFleet2InBattle?.RepairingCost ?? default) +
-                    (currentFleet2InBattle?.SupplyingCost ?? default);
-                var diff = consumption - this.statePersist.ConsumptionBeforeSortie;
-                if (diff != default && this.statePersist.LastSortieTime is DateTimeOffset last)
-                    currentBattleContext.BattleConsumptionTable.Add(new BattleConsumptionEntity
+                if (this.statePersist.LastSortieTime is DateTimeOffset last)
+                {
+                    var consumption =
+                      currentFleetInBattle.RepairingCost +
+                      currentFleetInBattle.SupplyingCost +
+                      (currentFleet2InBattle?.RepairingCost ?? default) +
+                      (currentFleet2InBattle?.SupplyingCost ?? default);
+                    var diff = consumption - this.statePersist.ConsumptionBeforeSortie;
+                    var entity = currentBattleContext.BattleConsumptionTable.Find(last);
+                    if (diff != default && entity != null)
                     {
-                        TimeStamp = last,
-                        Consumption = diff
-                    });
+                        entity.Consumption = diff;
+                        currentBattleContext.BattleConsumptionTable.Update(entity);
+                        currentBattleContext.SaveChanges();
+                    }
+                }
 
                 currentBattle = null;
                 currentExercise = null;
@@ -164,7 +168,7 @@ namespace Sakuno.ING.Game.Logger
                         Bullet = isMarriaged ? (int)(bullet * 0.85) : bullet,
                         Bauxite = (raw.SlotAircraft.Sum() - s.Slots.Sum(x => x.Aircraft.Current)) * 5
                     };
-                    context.Update(entity);
+                    context.BattleConsumptionTable.Update(entity);
                     context.SaveChanges();
                 }
             };
@@ -183,7 +187,7 @@ namespace Sakuno.ING.Game.Logger
                         {
                             InstantRepair = 1
                         };
-                    context.Update(entity);
+                    context.BattleConsumptionTable.Update(entity);
                     context.SaveChanges();
                 }
             };
@@ -200,7 +204,7 @@ namespace Sakuno.ING.Game.Logger
                     {
                         InstantRepair = 1
                     };
-                    context.Update(entity);
+                    context.BattleConsumptionTable.Update(entity);
                     context.SaveChanges();
                 }
             };
@@ -220,6 +224,12 @@ namespace Sakuno.ING.Game.Logger
                     fleets = new[] { m.FleetId };
                 }
                 currentBattleContext = CreateContext();
+                currentBattleContext.BattleConsumptionTable.Add(new BattleConsumptionEntity
+                {
+                    TimeStamp = t,
+                    MapId = m.MapId
+                });
+                currentBattleContext.SaveChanges();
 
                 this.statePersist.ConsumptionBeforeSortie =
                     currentFleetInBattle.RepairingCost +
