@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
@@ -20,6 +19,6 @@ namespace Sakuno.ING.Game.Json
         }
         public GetItem api_get_item1;
         public GetItem api_get_item2;
-        public IReadOnlyList<UseItemId> api_useitem_flag;
+        public int[] api_useitem_flag;
     }
 }

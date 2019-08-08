@@ -4,6 +4,7 @@ using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Events.Shipyard;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
@@ -73,44 +74,29 @@ namespace Sakuno.ING.Game
 
         private static ExpeditionCompletion ParseExpeditionCompletion(NameValueCollection request, ExpeditionCompletionJson response)
         {
-            UseItemRecord? item1 = null, item2 = null;
-
-            var id1 = response.api_useitem_flag.At(0);
-            if (id1 == 4)
-                item1 = new UseItemRecord
+            static UseItemRecord? GetRecord(int flag, ExpeditionCompletionJson.GetItem json)
+                => flag switch
                 {
-                    ItemId = response.api_get_item1.api_useitem_id.Value,
-                    Count = response.api_get_item1.api_useitem_count
+                    4 => new UseItemRecord
+                    {
+                        ItemId = json?.api_useitem_id ?? default,
+                        Count = json?.api_useitem_count ?? 0
+                    },
+                    var x when x > 0 => new UseItemRecord
+                    {
+                        ItemId = (UseItemId)x,
+                        Count = json?.api_useitem_count ?? 0
+                    },
+                    _ => (UseItemRecord?)null
                 };
-            else if (id1 > 0)
-                item1 = new UseItemRecord
-                {
-                    ItemId = id1,
-                    Count = response.api_get_item1.api_useitem_count
-                };
-
-            var id2 = response.api_useitem_flag.At(1);
-            if (id2 == 4)
-                item2 = new UseItemRecord
-                {
-                    ItemId = response.api_get_item2.api_useitem_id.Value,
-                    Count = response.api_get_item2.api_useitem_count
-                };
-            else if (id2 > 0)
-                item2 = new UseItemRecord
-                {
-                    ItemId = id2,
-                    Count = response.api_get_item2.api_useitem_count
-                };
-
             return new ExpeditionCompletion
             (
                 fleetId: (FleetId)request.GetInt("api_deck_id"),
                 expeditionName: response.api_quest_name,
                 result: response.api_clear_result,
                 materialsAcquired: response.api_get_material,
-                rewardItem1: item1,
-                rewardItem2: item2
+                rewardItem1: GetRecord(response.api_useitem_flag.At(0), response.api_get_item1),
+                rewardItem2: GetRecord(response.api_useitem_flag.At(1), response.api_get_item2)
             );
         }
     }
