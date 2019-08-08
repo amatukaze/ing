@@ -33,6 +33,12 @@
   <data name="BattleLogs">
     <value>Drop/battle record</value>
   </data>
+  <data name="MaterialsChangeLogs">
+    <value>Materials history</value>
+  </data>
+  <data name="BattleConsumptionLogs">
+    <value>Sortie consumptions</value>
+  </data>
   <data name="Admiral">
     <value>Admiral information</value>
   </data>

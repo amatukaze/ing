@@ -44,6 +44,9 @@
             <ToggleSwitch x:Uid="/Resources/LogMigration_BattleAndDrop"
                           IsEnabled="{x:Bind ViewModel.SelectedMigrator.SupportBattleAndDrop, FallbackValue=False}"
                           IsOn="{x:Bind ViewModel.SelectBattleAndDrop, Mode=TwoWay}" />
+            <ToggleSwitch x:Uid="/Resources/LogMigration_MaterialsChange"
+                          IsEnabled="{x:Bind ViewModel.SelectedMigrator.SupportMaterialsChange, FallbackValue=False}"
+                          IsOn="{x:Bind ViewModel.SelectMaterialsChange, Mode=TwoWay}" />
         </StackPanel>
         <ProgressRing Grid.Column="1" Grid.Row="2"
                       IsActive="{x:Bind ViewModel.Running}" />

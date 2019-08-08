@@ -24,6 +24,8 @@
     "EquipmentCreationLogs": "Equipment development record",
     "ExpeditionCompletionLogs": "Expedition record",
     "BattleLogs": "Drop/battle record",
+    "MaterialsChangeLogs": "Materials history",
+    "BattleConsumptionLogs": "Sortie consumptions",
     "Admiral": "Admiral information",
     "Fleets": "Fleets overview",
     "Docks": "Docks overview",

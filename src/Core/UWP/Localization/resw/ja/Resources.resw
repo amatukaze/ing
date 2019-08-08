@@ -54,6 +54,9 @@
   <data name="LogMigration_BattleAndDrop.Header">
     <value>戦闘/ドロップ歴史</value>
   </data>
+  <data name="LogMigration_MaterialsChange.Header">
+    <value>資材歴史</value>
+  </data>
   <data name="LogMigration_DoMigrate.Content">
     <value>取り込み</value>
   </data>

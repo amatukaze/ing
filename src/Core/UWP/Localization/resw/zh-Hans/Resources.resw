@@ -66,6 +66,9 @@
   <data name="LogMigration_BattleAndDrop.Header">
     <value>战斗/掉落记录</value>
   </data>
+  <data name="LogMigration_MaterialsChange.Header">
+    <value>资源历史</value>
+  </data>
   <data name="LogMigration_DoMigrate.Content">
     <value>导入</value>
   </data>

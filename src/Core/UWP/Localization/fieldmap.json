@@ -17,6 +17,7 @@
   "LogMigration_EquipmentCreation.Header": "ViewTitle/EquipmentCreationLogs",
   "LogMigration_ExpeditionCompletion.Header": "ViewTitle/ExpeditionCompletionLogs",
   "LogMigration_BattleAndDrop.Header": "ViewTitle/BattleLogs",
+  "LogMigration_MaterialsChange.Header": "ViewTitle/MaterialsChangeLogs",
   "LogMigration_DoMigrate.Content": "Logging/DoMigrate",
   "Logging_Column_Time.Header": "Application/Time",
   "Logging_Column_Fuel.Header": "GameModel/Material_Fuel",

@@ -49,6 +49,9 @@
             <CheckBox Content="{c:Localize ViewTitle/BattleLogs}"
                       IsEnabled="{Binding SelectedMigrator.SupportBattleAndDrop}"
                       IsChecked="{Binding SelectBattleAndDrop}" />
+            <CheckBox Content="{c:Localize ViewTitle/MaterialsChangeLogs}"
+                      IsEnabled="{Binding SelectedMigrator.SupportMaterialsChange}"
+                      IsChecked="{Binding SelectMaterialsChange}" />
         </StackPanel>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>

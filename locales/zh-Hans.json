@@ -24,6 +24,8 @@
     "EquipmentCreationLogs": "开发记录",
     "ExpeditionCompletionLogs": "远征记录",
     "BattleLogs": "战斗/掉落记录",
+    "MaterialsChangeLogs": "资源历史",
+    "BattleConsumptionLogs": "出击开销",
     "Admiral": "司令部信息",
     "Fleets": "舰队一览",
     "Docks": "船渠一览",

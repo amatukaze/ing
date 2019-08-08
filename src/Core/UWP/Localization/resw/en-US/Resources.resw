@@ -66,6 +66,9 @@
   <data name="LogMigration_BattleAndDrop.Header">
     <value>Drop/battle record</value>
   </data>
+  <data name="LogMigration_MaterialsChange.Header">
+    <value>Materials history</value>
+  </data>
   <data name="LogMigration_DoMigrate.Content">
     <value>Import</value>
   </data>

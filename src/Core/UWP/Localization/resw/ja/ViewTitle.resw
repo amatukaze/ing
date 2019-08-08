@@ -33,6 +33,12 @@
   <data name="BattleLogs">
     <value>戦闘/ドロップ歴史</value>
   </data>
+  <data name="MaterialsChangeLogs">
+    <value>資材歴史</value>
+  </data>
+  <data name="BattleConsumptionLogs">
+    <value>出撃の消費</value>
+  </data>
   <data name="Admiral">
     <value>司令部情報</value>
   </data>

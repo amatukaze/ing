@@ -24,6 +24,8 @@
     "EquipmentCreationLogs": "開発歴史",
     "ExpeditionCompletionLogs": "遠征歴史",
     "BattleLogs": "戦闘/ドロップ歴史",
+    "MaterialsChangeLogs": "資材歴史",
+    "BattleConsumptionLogs": "出撃の消費",
     "Admiral": "司令部情報",
     "Fleets": "艦隊一覧",
     "Docks": "ドック一覧",
