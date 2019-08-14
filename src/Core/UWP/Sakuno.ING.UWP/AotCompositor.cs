@@ -72,6 +72,7 @@ namespace Sakuno.ING.UWP
             Information<EquipmentCreationLogsVM>.Factory = () => new EquipmentCreationLogsVM(logger, navalBase, localization);
             Information<ExpeditionCompletionLogsVM>.Factory = () => new ExpeditionCompletionLogsVM(logger, navalBase, localization);
             Information<ShipCreationLogsVM>.Factory = () => new ShipCreationLogsVM(logger, navalBase, localization);
+            Information<MaterialsChangeLogsVM>.Factory = () => new MaterialsChangeLogsVM(logger, ntp);
             Information<EquipmentCatalogVM>.Factory = () => new EquipmentCatalogVM(navalBase);
 
             Information<ApiDebugView>.Factory = () => new ApiDebugView(gameProvider);
@@ -85,6 +86,8 @@ namespace Sakuno.ING.UWP
             Information<EquipmentCreationLogsView>.Factory = () => new EquipmentCreationLogsView(Information<EquipmentCreationLogsVM>.Factory());
             Information<ExpeditionCompletionLogsView>.Factory = () => new ExpeditionCompletionLogsView(Information<ExpeditionCompletionLogsVM>.Factory());
             Information<ShipCreationLogsView>.Factory = () => new ShipCreationLogsView(Information<ShipCreationLogsVM>.Factory());
+            Information<MaterialsChangeView>.Factory = () => new MaterialsChangeView(Information<MaterialsChangeLogsVM>.Factory());
+
             Information<MasterDataView>.Factory = () => new MasterDataView(navalBase);
             Information<BrowserElement>.Factory = () => new BrowserElement(selector, layoutSetting);
             Information<ActiveQuestsView>.Factory = () => new ActiveQuestsView(navalBase);
@@ -115,6 +118,7 @@ namespace Sakuno.ING.UWP
             ["ExpeditionCompletionLogs"] = typeof(ExpeditionCompletionLogsView),
             ["BattleLogs"] = typeof(BattleLogsView),
             ["BattleLogDetail"] = typeof(BattleLogDetailsView),
+            ["MaterialsChangeLogs"] = typeof(MaterialsChangeView),
             ["ActiveQuests"] = typeof(ActiveQuestsView),
             ["CurrentBattleDetail"] = typeof(BattleDetailView),
             ["LandBaseDefenceDetail"] = typeof(BattleOverview),
@@ -172,6 +176,8 @@ namespace Sakuno.ING.UWP
                 return Information<ExpeditionCompletionLogsView>.Factory();
             else if (type == typeof(BattleLogsView))
                 return Information<BattleLogsView>.Factory();
+            else if (type == typeof(MaterialsChangeView))
+                return Information<MaterialsChangeView>.Factory();
             else if (type == typeof(LocaleSettingView))
                 return Information<LocaleSettingView>.Factory();
             else if (type == typeof(ProxySettingView))
@@ -219,6 +225,7 @@ namespace Sakuno.ING.UWP
             "EquipmentCreationLogs" => Information<EquipmentCreationLogsView>.Factory(),
             "ExpeditionCompletionLogs" => Information<ExpeditionCompletionLogsView>.Factory(),
             "BattleLogs" => Information<BattleLogsView>.Factory(),
+            "MaterialsChangeLogs" => Information<MaterialsChangeView>.Factory(),
             "ActiveQuests" => Information<ActiveQuestsView>.Factory(),
             "MapHP" => Information<MapHPView>.Factory(),
             "ShipCatalog" => Information<ShipCatalogView>.Factory(),

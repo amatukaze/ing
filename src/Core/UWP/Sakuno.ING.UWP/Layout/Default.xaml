@@ -36,6 +36,7 @@
                         <sh:ViewSwitcher ViewId="EquipmentCreationLogs" />
                         <sh:ViewSwitcher ViewId="ExpeditionCompletionLogs" />
                         <sh:ViewSwitcher ViewId="BattleLogs" />
+                        <sh:ViewSwitcher ViewId="MaterialsChangeLogs" />
                     </StackPanel>
                 </RelativePanel>
             </DataTemplate>
