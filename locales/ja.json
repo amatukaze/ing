@@ -56,7 +56,15 @@
     "PlayerNotLoaded": "プレイヤーデータがロードされていない",
     "Construction_EmptyDockCount": "空ドック",
     "Expedition_Item1": "アイテム1",
-    "Expedition_Item2": "アイテム2"
+    "Expedition_Item2": "アイテム2",
+    "Duration_1Day": "直近1日間",
+    "Duration_1Week": "直近1週間",
+    "Duration_2Week": "直近2週間",
+    "Duration_1Month": "直近1ヶ月",
+    "Duration_3Month": "直近2ヶ月",
+    "Duration_6Month": "直近半年間",
+    "Duration_1Year": "直近1年間",
+    "Duration_All": "すべて"
   },
   "GameModel": {
     "Material_Fuel": "燃料",

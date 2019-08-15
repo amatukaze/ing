@@ -315,4 +315,28 @@
   <data name="EquipmentCatalog_Column_Count.Header">
     <value>合計 (余り)</value>
   </data>
+  <data name="Logging_Duration_1Day.Content">
+    <value>直近1日間</value>
+  </data>
+  <data name="Logging_Duration_1Week.Content">
+    <value>直近1週間</value>
+  </data>
+  <data name="Logging_Duration_2Week.Content">
+    <value>直近2週間</value>
+  </data>
+  <data name="Logging_Duration_1Month.Content">
+    <value>直近1ヶ月</value>
+  </data>
+  <data name="Logging_Duration_3Month.Content">
+    <value>直近2ヶ月</value>
+  </data>
+  <data name="Logging_Duration_6Month.Content">
+    <value>直近半年間</value>
+  </data>
+  <data name="Logging_Duration_1Year.Content">
+    <value>直近1年間</value>
+  </data>
+  <data name="Logging_Duration_All.Content">
+    <value>すべて</value>
+  </data>
 </root>

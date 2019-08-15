@@ -5,6 +5,7 @@
     xmlns:local="using:Sakuno.ING.Views.UWP.Logging"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="using:System"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -15,15 +16,28 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <ComboBox SelectedValue="{x:Bind ViewModel.Duration, Mode=TwoWay}"
+                  SelectedValuePath="Tag"
+                  x:DefaultBindMode="OneTime"
+                  x:Name="comboBox">
+            <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Day" Tag="{x:Bind sys:TimeSpan.FromDays(1)}" />
+            <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Week" Tag="{x:Bind sys:TimeSpan.FromDays(7)}" />
+            <ComboBoxItem x:Uid="/Resources/Logging_Duration_2Week" Tag="{x:Bind sys:TimeSpan.FromDays(14)}" />
+            <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Month" Tag="{x:Bind sys:TimeSpan.FromDays(30)}" />
+            <ComboBoxItem x:Uid="/Resources/Logging_Duration_3Month" Tag="{x:Bind sys:TimeSpan.FromDays(90)}" />
+            <ComboBoxItem x:Uid="/Resources/Logging_Duration_6Month" Tag="{x:Bind sys:TimeSpan.FromDays(180)}" />
+            <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Year" Tag="{x:Bind sys:TimeSpan.FromDays(360)}" />
+            <ComboBoxItem x:Uid="/Resources/Logging_Duration_All" Tag="{x:Bind sys:TimeSpan.Zero}" />
+        </ComboBox>
         <Grid Grid.Row="1" Height="400">
-            <Path Stroke="#008000" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, 0)}" />
-            <Path Stroke="#663300" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, 1)}" />
-            <Path Stroke="#808080" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, 2)}" />
-            <Path Stroke="#CC3300" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, 3)}" />
-            <Path Stroke="#A52A2A" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, 4)}" />
-            <Path Stroke="#F08080" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, 5)}" />
-            <Path Stroke="#4876FF" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, 6)}" />
-            <Path Stroke="#00ABB2" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, 7)}" />
+            <Path Stroke="#008000" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 0)}" />
+            <Path Stroke="#663300" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 1)}" />
+            <Path Stroke="#808080" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 2)}" />
+            <Path Stroke="#CC3300" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 3)}" />
+            <Path Stroke="#A52A2A" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 4)}" />
+            <Path Stroke="#F08080" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 5)}" />
+            <Path Stroke="#4876FF" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 6)}" />
+            <Path Stroke="#00ABB2" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 7)}" />
         </Grid>
     </Grid>
 </UserControl>

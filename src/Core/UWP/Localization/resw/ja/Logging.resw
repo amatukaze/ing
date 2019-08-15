@@ -39,4 +39,28 @@
   <data name="Expedition_Item2">
     <value>アイテム2</value>
   </data>
+  <data name="Duration_1Day">
+    <value>直近1日間</value>
+  </data>
+  <data name="Duration_1Week">
+    <value>直近1週間</value>
+  </data>
+  <data name="Duration_2Week">
+    <value>直近2週間</value>
+  </data>
+  <data name="Duration_1Month">
+    <value>直近1ヶ月</value>
+  </data>
+  <data name="Duration_3Month">
+    <value>直近2ヶ月</value>
+  </data>
+  <data name="Duration_6Month">
+    <value>直近半年間</value>
+  </data>
+  <data name="Duration_1Year">
+    <value>直近1年間</value>
+  </data>
+  <data name="Duration_All">
+    <value>すべて</value>
+  </data>
 </root>

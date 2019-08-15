@@ -327,4 +327,28 @@
   <data name="EquipmentCatalog_Column_Count.Header">
     <value>Count (Avail.)</value>
   </data>
+  <data name="Logging_Duration_1Day.Content">
+    <value>Last day</value>
+  </data>
+  <data name="Logging_Duration_1Week.Content">
+    <value>Last week</value>
+  </data>
+  <data name="Logging_Duration_2Week.Content">
+    <value>Last 2 weeks</value>
+  </data>
+  <data name="Logging_Duration_1Month.Content">
+    <value>Last month</value>
+  </data>
+  <data name="Logging_Duration_3Month.Content">
+    <value>Last 3 months</value>
+  </data>
+  <data name="Logging_Duration_6Month.Content">
+    <value>Last half year</value>
+  </data>
+  <data name="Logging_Duration_1Year.Content">
+    <value>Last year</value>
+  </data>
+  <data name="Logging_Duration_All.Content">
+    <value>All the time</value>
+  </data>
 </root>

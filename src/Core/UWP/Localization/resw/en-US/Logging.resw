@@ -39,4 +39,28 @@
   <data name="Expedition_Item2">
     <value>Item2</value>
   </data>
+  <data name="Duration_1Day">
+    <value>Last day</value>
+  </data>
+  <data name="Duration_1Week">
+    <value>Last week</value>
+  </data>
+  <data name="Duration_2Week">
+    <value>Last 2 weeks</value>
+  </data>
+  <data name="Duration_1Month">
+    <value>Last month</value>
+  </data>
+  <data name="Duration_3Month">
+    <value>Last 3 months</value>
+  </data>
+  <data name="Duration_6Month">
+    <value>Last half year</value>
+  </data>
+  <data name="Duration_1Year">
+    <value>Last year</value>
+  </data>
+  <data name="Duration_All">
+    <value>All the time</value>
+  </data>
 </root>

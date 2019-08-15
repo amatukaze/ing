@@ -327,4 +327,28 @@
   <data name="EquipmentCatalog_Column_Count.Header">
     <value>数量（可用）</value>
   </data>
+  <data name="Logging_Duration_1Day.Content">
+    <value>最近1天</value>
+  </data>
+  <data name="Logging_Duration_1Week.Content">
+    <value>最近1周</value>
+  </data>
+  <data name="Logging_Duration_2Week.Content">
+    <value>最近2周</value>
+  </data>
+  <data name="Logging_Duration_1Month.Content">
+    <value>最近1个月</value>
+  </data>
+  <data name="Logging_Duration_3Month.Content">
+    <value>最近3个月</value>
+  </data>
+  <data name="Logging_Duration_6Month.Content">
+    <value>最近半年</value>
+  </data>
+  <data name="Logging_Duration_1Year.Content">
+    <value>最近1年</value>
+  </data>
+  <data name="Logging_Duration_All.Content">
+    <value>全部时间</value>
+  </data>
 </root>

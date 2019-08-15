@@ -60,7 +60,15 @@
     "PlayerNotLoaded": "未加载游戏玩家信息。",
     "Construction_EmptyDockCount": "空渠数",
     "Expedition_Item1": "物品1",
-    "Expedition_Item2": "物品2"
+    "Expedition_Item2": "物品2",
+    "Duration_1Day": "最近1天",
+    "Duration_1Week": "最近1周",
+    "Duration_2Week": "最近2周",
+    "Duration_1Month": "最近1个月",
+    "Duration_3Month": "最近3个月",
+    "Duration_6Month": "最近半年",
+    "Duration_1Year": "最近1年",
+    "Duration_All": "全部时间"
   },
   "GameModel": {
     "Material_Fuel": "燃料",

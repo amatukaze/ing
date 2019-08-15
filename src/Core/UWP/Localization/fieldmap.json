@@ -103,5 +103,13 @@
   "EquipmentCatalog_SelectAll.Content": "Application/SelectAll",
   "EquipmentCatalog_Column_EquipName.Header": "GameModel/EquipmentName",
   "EquipmentCatalog_Column_EquipType.Header": "GameModel/EquipmentType",
-  "EquipmentCatalog_Column_Count.Header": "GameModel/CountWithAvailable"
+  "EquipmentCatalog_Column_Count.Header": "GameModel/CountWithAvailable",
+  "Logging_Duration_1Day.Content": "Logging/Duration_1Day",
+  "Logging_Duration_1Week.Content": "Logging/Duration_1Week",
+  "Logging_Duration_2Week.Content": "Logging/Duration_2Week",
+  "Logging_Duration_1Month.Content": "Logging/Duration_1Month",
+  "Logging_Duration_3Month.Content": "Logging/Duration_3Month",
+  "Logging_Duration_6Month.Content": "Logging/Duration_6Month",
+  "Logging_Duration_1Year.Content": "Logging/Duration_1Year",
+  "Logging_Duration_All.Content": "Logging/Duration_All"
 }

@@ -39,4 +39,28 @@
   <data name="Expedition_Item2">
     <value>物品2</value>
   </data>
+  <data name="Duration_1Day">
+    <value>最近1天</value>
+  </data>
+  <data name="Duration_1Week">
+    <value>最近1周</value>
+  </data>
+  <data name="Duration_2Week">
+    <value>最近2周</value>
+  </data>
+  <data name="Duration_1Month">
+    <value>最近1个月</value>
+  </data>
+  <data name="Duration_3Month">
+    <value>最近3个月</value>
+  </data>
+  <data name="Duration_6Month">
+    <value>最近半年</value>
+  </data>
+  <data name="Duration_1Year">
+    <value>最近1年</value>
+  </data>
+  <data name="Duration_All">
+    <value>全部时间</value>
+  </data>
 </root>

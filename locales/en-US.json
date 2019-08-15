@@ -60,7 +60,15 @@
     "PlayerNotLoaded": "Game player not loaded.",
     "Construction_EmptyDockCount": "Empty Docks",
     "Expedition_Item1": "Item1",
-    "Expedition_Item2": "Item2"
+    "Expedition_Item2": "Item2",
+    "Duration_1Day": "Last day",
+    "Duration_1Week": "Last week",
+    "Duration_2Week": "Last 2 weeks",
+    "Duration_1Month": "Last month",
+    "Duration_3Month": "Last 3 months",
+    "Duration_6Month": "Last half year",
+    "Duration_1Year": "Last year",
+    "Duration_All": "All the time"
   },
   "GameModel": {
     "Material_Fuel": "Fuel",

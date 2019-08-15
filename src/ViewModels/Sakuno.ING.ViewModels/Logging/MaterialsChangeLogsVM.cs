@@ -18,7 +18,6 @@ namespace Sakuno.ING.ViewModels.Logging
         {
             this.logger = logger;
             now = timing.Now;
-            Update();
         }
 
         private TimeSpan _duration;
@@ -36,16 +35,24 @@ namespace Sakuno.ING.ViewModels.Logging
         {
             using var context = logger.CreateContext();
             if (Duration != TimeSpan.Zero)
-                Entities = context.MaterialsChangeTable.Where(x => x.TimeStamp > now - Duration).ToArray();
+            {
+                Start = now - Duration;
+                Entities = context.MaterialsChangeTable.Where(x => x.TimeStamp > Start).ToArray();
+            }
             else
+            {
+                Start = context.MaterialsChangeTable.First().TimeStamp;
                 Entities = context.MaterialsChangeTable.ToArray();
+            }
         }
 
         private IReadOnlyList<MaterialsChangeEntity> _entities;
         public IReadOnlyList<MaterialsChangeEntity> Entities
         {
             get => _entities;
-            set => Set(ref _entities, value);
+            private set => Set(ref _entities, value);
         }
+
+        public DateTimeOffset Start { get; set; }
     }
 }
