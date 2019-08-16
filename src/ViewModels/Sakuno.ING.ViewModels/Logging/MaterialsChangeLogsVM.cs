@@ -50,15 +50,16 @@ namespace Sakuno.ING.ViewModels.Logging
         {
             using var context = logger.CreateContext();
 
+            DateTimeOffset start;
             MaterialsChangeEntity[] entities;
             if (Duration != TimeSpan.Zero)
             {
-                Start = now - Duration;
-                entities = context.MaterialsChangeTable.Where(x => x.TimeStamp > Start).ToArray();
+                start = now - Duration;
+                entities = context.MaterialsChangeTable.Where(x => x.TimeStamp > start).ToArray();
             }
             else
             {
-                Start = context.MaterialsChangeTable.First().TimeStamp;
+                start = context.MaterialsChangeTable.First().TimeStamp;
                 entities = context.MaterialsChangeTable.ToArray();
             }
 
@@ -74,22 +75,34 @@ namespace Sakuno.ING.ViewModels.Logging
                         filtered.Add(e);
                         nextTime += threshold;
                     }
-                Entities = filtered;
+                ChartData = new MaterialsChartData(filtered, start, now);
             }
             else
-                Entities = entities;
+                ChartData = new MaterialsChartData(entities, start, now);
         }
 
-        private IReadOnlyList<MaterialsChangeEntity> _entities;
-        public IReadOnlyList<MaterialsChangeEntity> Entities
+        public MaterialsChartData _chartData;
+        public MaterialsChartData ChartData
         {
-            get => _entities;
-            private set => Set(ref _entities, value);
+            get => _chartData;
+            private set => Set(ref _chartData, value);
         }
-
-        public DateTimeOffset Start { get; private set; }
 
         public IReadOnlyList<MaterialsDailyCatalog> DailyCatalogs { get; }
+    }
+
+    public class MaterialsChartData
+    {
+        public MaterialsChartData(IReadOnlyList<MaterialsChangeEntity> entities, DateTimeOffset start, DateTimeOffset end)
+        {
+            Entities = entities;
+            Start = start;
+            End = end;
+        }
+
+        public IReadOnlyList<MaterialsChangeEntity> Entities { get; }
+        public DateTimeOffset Start { get; }
+        public DateTimeOffset End { get; }
     }
 
     public class MaterialsDailyCatalog

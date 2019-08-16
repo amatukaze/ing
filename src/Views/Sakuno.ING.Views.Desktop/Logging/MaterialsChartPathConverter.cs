@@ -1,31 +1,24 @@
-﻿using Sakuno.ING.Game.Logger.Entities;
-using Sakuno.ING.Shell;
+﻿using System;
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Media;
+using Sakuno.ING.Game.Logger.Entities;
 using Sakuno.ING.ViewModels.Logging;
-using Windows.Foundation;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
-namespace Sakuno.ING.Views.UWP.Logging
+namespace Sakuno.ING.Views.Desktop.Logging
 {
-    [ExportView("MaterialsChangeLogs")]
-    public sealed partial class MaterialsChangeView : UserControl
+    internal class MaterialsChartPathConverter : IValueConverter
     {
-        private readonly MaterialsChangeLogsVM ViewModel;
-        public MaterialsChangeView(MaterialsChangeLogsVM viewModel)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ViewModel = viewModel;
-            InitializeComponent();
-
-            Loaded += (_, __) => comboBox.SelectedIndex = 2;
-        }
-
-        public static Geometry ConvertShape(MaterialsChartData chartData, int id)
-        {
-            if (chartData is null) return null;
+            int id = (int)parameter;
+            if (!(value is MaterialsChartData chartData)) return null;
 
             var duration = chartData.End - chartData.Start;
             Point SelectPoint(MaterialsChangeEntity p)
-                => new Point((p.TimeStamp - chartData.Start) / duration,
+            // TODO: TimeSpan.operator/ exists in netstandard 2.1
+                => new Point((p.TimeStamp - chartData.Start).TotalDays / duration.TotalDays,
                     id switch
                     {
                         0 => p.Materials.Fuel / 300000.0,
@@ -61,5 +54,8 @@ namespace Sakuno.ING.Views.UWP.Logging
                 }
             };
         }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => throw new NotSupportedException();
     }
 }

@@ -69,21 +69,21 @@
         <Grid Grid.Row="1" Height="400"
               x:DefaultBindMode="OneWay">
             <Path Stroke="{StaticResource MaterialsColor_Fuel}" Stretch="Fill" Visibility="{x:Bind ShowFuel.IsChecked}"
-                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 0)}" />
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.ChartData, 0)}" />
             <Path Stroke="{StaticResource MaterialsColor_Bullet}" Stretch="Fill" Visibility="{x:Bind ShowBullet.IsChecked}"
-                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 1)}" />
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.ChartData, 1)}" />
             <Path Stroke="{StaticResource MaterialsColor_Steel}" Stretch="Fill" Visibility="{x:Bind ShowSteel.IsChecked}"
-                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 2)}" />
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.ChartData, 2)}" />
             <Path Stroke="{StaticResource MaterialsColor_Bauxite}" Stretch="Fill" Visibility="{x:Bind ShowBauxite.IsChecked}"
-                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 3)}" />
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.ChartData, 3)}" />
             <Path Stroke="{StaticResource MaterialsColor_InstantBuild}" Stretch="Fill" Visibility="{x:Bind ShowInstantBuild.IsChecked}"
-                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 4)}" />
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.ChartData, 4)}" />
             <Path Stroke="{StaticResource MaterialsColor_InstantRepair}" Stretch="Fill" Visibility="{x:Bind ShowInstantRepair.IsChecked}"
-                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 5)}" />
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.ChartData, 5)}" />
             <Path Stroke="{StaticResource MaterialsColor_Development}" Stretch="Fill" Visibility="{x:Bind ShowDevelopment.IsChecked}"
-                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 6)}" />
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.ChartData, 6)}" />
             <Path Stroke="{StaticResource MaterialsColor_Improvement}" Stretch="Fill" Visibility="{x:Bind ShowImprovement.IsChecked}"
-                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 7)}" />
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.ChartData, 7)}" />
         </Grid>
         <tk:DataGrid Grid.Row="2"
                      ItemsSource="{x:Bind ViewModel.DailyCatalogs}"

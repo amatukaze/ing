@@ -1,0 +1,206 @@
+﻿<UserControl x:Class="Sakuno.ING.Views.Desktop.Logging.MaterialsChangeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Logging"
+             xmlns:c="http://schemas.heavenlywind.cc/presentation"
+             xmlns:vm="clr-namespace:Sakuno.ING.ViewModels.Logging;assembly=Sakuno.ING.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{c:Resolve {x:Type vm:MaterialsChangeLogsVM}}">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="MaterialsColor_Fuel" Color="#008000" />
+        <SolidColorBrush x:Key="MaterialsColor_Bullet" Color="#663300" />
+        <SolidColorBrush x:Key="MaterialsColor_Steel" Color="#808080" />
+        <SolidColorBrush x:Key="MaterialsColor_Bauxite" Color="#CC3300" />
+        <SolidColorBrush x:Key="MaterialsColor_InstantBuild" Color="#A52A2A" />
+        <SolidColorBrush x:Key="MaterialsColor_InstantRepair" Color="#F08080" />
+        <SolidColorBrush x:Key="MaterialsColor_Development" Color="#4876FF" />
+        <SolidColorBrush x:Key="MaterialsColor_Improvement" Color="#00ABB2" />
+        <local:MaterialsChartPathConverter x:Key="MaterialsChartPathConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <ComboBox SelectedValue="{Binding Duration, Mode=TwoWay}"
+                      SelectedValuePath="Tag"
+                      x:Name="comboBox">
+                <ComboBoxItem Content="{c:Localize Logging/Duration_1Day}">
+                    <ComboBoxItem.Tag>
+                        <sys:TimeSpan>1.0:0:0</sys:TimeSpan>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="{c:Localize Logging/Duration_1Week}">
+                    <ComboBoxItem.Tag>
+                        <sys:TimeSpan>7.0:0:0</sys:TimeSpan>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="{c:Localize Logging/Duration_2Week}">
+                    <ComboBoxItem.Tag>
+                        <sys:TimeSpan>14.0:0:0</sys:TimeSpan>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="{c:Localize Logging/Duration_1Month}">
+                    <ComboBoxItem.Tag>
+                        <sys:TimeSpan>30.0:0:0</sys:TimeSpan>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="{c:Localize Logging/Duration_3Month}">
+                    <ComboBoxItem.Tag>
+                        <sys:TimeSpan>90.0:0:0</sys:TimeSpan>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="{c:Localize Logging/Duration_6Month}">
+                    <ComboBoxItem.Tag>
+                        <sys:TimeSpan>180.0:0:0</sys:TimeSpan>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="{c:Localize Logging/Duration_1Year}">
+                    <ComboBoxItem.Tag>
+                        <sys:TimeSpan>360.0:0:0</sys:TimeSpan>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+                <ComboBoxItem Content="{c:Localize Logging/Duration_All}">
+                    <ComboBoxItem.Tag>
+                        <sys:TimeSpan>0.0:0:0</sys:TimeSpan>
+                    </ComboBoxItem.Tag>
+                </ComboBoxItem>
+            </ComboBox>
+            <CheckBox IsChecked="True" x:Name="ShowFuel">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Fuel}" Text="{c:Localize GameModel/Material_Fuel}" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowBullet">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Bullet}" Text="{c:Localize GameModel/Material_Bullet}" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowSteel">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Steel}" Text="{c:Localize GameModel/Material_Steel}" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowBauxite">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Bauxite}" Text="{c:Localize GameModel/Material_Bauxite}" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowInstantBuild">
+                <TextBlock Foreground="{StaticResource MaterialsColor_InstantBuild}" Text="{c:Localize GameModel/Material_InstantBuild}" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowInstantRepair">
+                <TextBlock Foreground="{StaticResource MaterialsColor_InstantRepair}" Text="{c:Localize GameModel/Material_InstantRepair}" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowDevelopment">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Development}" Text="{c:Localize GameModel/Material_Development}" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowImprovement">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Improvement}" Text="{c:Localize GameModel/Material_Improvement}" />
+            </CheckBox>
+        </StackPanel>
+        <Grid Grid.Row="1" Height="400">
+            <Path Stroke="{StaticResource MaterialsColor_Fuel}" Stretch="Fill" Visibility="{Binding IsChecked, ElementName=ShowFuel}"
+                  Data="{Binding ChartData, Converter={StaticResource MaterialsChartPathConverter}, ConverterParameter=0}" />
+            <Path Stroke="{StaticResource MaterialsColor_Bullet}" Stretch="Fill" Visibility="{Binding IsChecked, ElementName=ShowBullet}"
+                  Data="{Binding ChartData, Converter={StaticResource MaterialsChartPathConverter}, ConverterParameter=1}" />
+            <Path Stroke="{StaticResource MaterialsColor_Steel}" Stretch="Fill" Visibility="{Binding IsChecked, ElementName=ShowSteel}"
+                  Data="{Binding ChartData, Converter={StaticResource MaterialsChartPathConverter}, ConverterParameter=2}" />
+            <Path Stroke="{StaticResource MaterialsColor_Bauxite}" Stretch="Fill" Visibility="{Binding IsChecked, ElementName=ShowBauxite}"
+                  Data="{Binding ChartData, Converter={StaticResource MaterialsChartPathConverter}, ConverterParameter=3}" />
+            <Path Stroke="{StaticResource MaterialsColor_InstantBuild}" Stretch="Fill" Visibility="{Binding IsChecked, ElementName=ShowInstantBuild}"
+                  Data="{Binding ChartData, Converter={StaticResource MaterialsChartPathConverter}, ConverterParameter=4}" />
+            <Path Stroke="{StaticResource MaterialsColor_InstantRepair}" Stretch="Fill" Visibility="{Binding IsChecked, ElementName=ShowInstantRepair}"
+                  Data="{Binding ChartData, Converter={StaticResource MaterialsChartPathConverter}, ConverterParameter=5}" />
+            <Path Stroke="{StaticResource MaterialsColor_Development}" Stretch="Fill" Visibility="{Binding IsChecked, ElementName=ShowDevelopment}"
+                  Data="{Binding ChartData, Converter={StaticResource MaterialsChartPathConverter}, ConverterParameter=6}" />
+            <Path Stroke="{StaticResource MaterialsColor_Improvement}" Stretch="Fill" Visibility="{Binding IsChecked, ElementName=ShowImprovement}"
+                  Data="{Binding ChartData, Converter={StaticResource MaterialsChartPathConverter}, ConverterParameter=7}" />
+        </Grid>
+        <ListView Grid.Row="2" ItemsSource="{Binding DailyCatalogs}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="{c:Localize Application/Time}" DisplayMemberBinding="{Binding Date, Mode=OneTime}" />
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Fuel}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="vm:MaterialsDailyCatalog">
+                                <TextBlock>
+                                    <Run Text="{Binding Materials.Fuel, Mode=OneTime}" />
+                                    (<Run Text="{Binding Diff.Fuel, StringFormat='+0;-0;+0', Mode=OneTime}" />)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Bullet}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="vm:MaterialsDailyCatalog">
+                                <TextBlock>
+                                    <Run Text="{Binding Materials.Bullet, Mode=OneTime}" />
+                                    (<Run Text="{Binding Diff.Bullet, StringFormat='+0;-0;+0', Mode=OneTime}" />)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Steel}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="vm:MaterialsDailyCatalog">
+                                <TextBlock>
+                                    <Run Text="{Binding Materials.Steel, Mode=OneTime}" />
+                                    (<Run Text="{Binding Diff.Steel, StringFormat='+0;-0;+0', Mode=OneTime}" />)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Bauxite}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="vm:MaterialsDailyCatalog">
+                                <TextBlock>
+                                    <Run Text="{Binding Materials.Bauxite, Mode=OneTime}" />
+                                    (<Run Text="{Binding Diff.Bauxite, StringFormat='+0;-0;+0', Mode=OneTime}" />)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_InstantBuild}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="vm:MaterialsDailyCatalog">
+                                <TextBlock>
+                                    <Run Text="{Binding Materials.InstantBuild, Mode=OneTime}" />
+                                    (<Run Text="{Binding Diff.InstantBuild, StringFormat='+0;-0;+0', Mode=OneTime}" />)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_InstantRepair}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="vm:MaterialsDailyCatalog">
+                                <TextBlock>
+                                    <Run Text="{Binding Materials.InstantRepair, Mode=OneTime}" />
+                                    (<Run Text="{Binding Diff.InstantRepair, StringFormat='+0;-0;+0', Mode=OneTime}" />)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Development}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="vm:MaterialsDailyCatalog">
+                                <TextBlock>
+                                    <Run Text="{Binding Materials.Development, Mode=OneTime}" />
+                                    (<Run Text="{Binding Diff.Development, StringFormat='+0;-0;+0', Mode=OneTime}" />)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="{c:Localize GameModel/Material_Improvement}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="vm:MaterialsDailyCatalog">
+                                <TextBlock>
+                                    <Run Text="{Binding Materials.Improvement, Mode=OneTime}" />
+                                    (<Run Text="{Binding Diff.Improvement, StringFormat='+0;-0;+0', Mode=OneTime}" />)
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>
