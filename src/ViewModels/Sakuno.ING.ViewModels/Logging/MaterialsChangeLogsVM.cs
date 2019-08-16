@@ -49,16 +49,35 @@ namespace Sakuno.ING.ViewModels.Logging
         private void Update()
         {
             using var context = logger.CreateContext();
+
+            MaterialsChangeEntity[] entities;
             if (Duration != TimeSpan.Zero)
             {
                 Start = now - Duration;
-                Entities = context.MaterialsChangeTable.Where(x => x.TimeStamp > Start).ToArray();
+                entities = context.MaterialsChangeTable.Where(x => x.TimeStamp > Start).ToArray();
             }
             else
             {
                 Start = context.MaterialsChangeTable.First().TimeStamp;
-                Entities = context.MaterialsChangeTable.ToArray();
+                entities = context.MaterialsChangeTable.ToArray();
             }
+
+            if (entities.Length >= 1000)
+            {
+                var filtered = new List<MaterialsChangeEntity>(1000);
+                // TODO: TimeSpan.operator/ exists in netstandard 2.1
+                var threshold = TimeSpan.FromSeconds((entities[entities.Length - 1].TimeStamp - entities[0].TimeStamp).TotalSeconds / 1000);
+                var nextTime = entities[0].TimeStamp;
+                foreach (var e in entities)
+                    if (e.TimeStamp >= nextTime)
+                    {
+                        filtered.Add(e);
+                        nextTime += threshold;
+                    }
+                Entities = filtered;
+            }
+            else
+                Entities = entities;
         }
 
         private IReadOnlyList<MaterialsChangeEntity> _entities;
