@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>$(DesktopFramework);$(DesktopLatestFramework);$(CrossOSFramework)</TargetFrameworks>
+    <TargetFrameworks>$(DesktopFramework);$(DesktopLatestFramework);$(CoreFramework)</TargetFrameworks>
     <RootNamespace>Sakuno.ING.Game.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>

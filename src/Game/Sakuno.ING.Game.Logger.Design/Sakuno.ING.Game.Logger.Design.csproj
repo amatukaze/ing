@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>$(CrossOSFramework)</TargetFramework>
+    <TargetFramework>$(CoreFramework)</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

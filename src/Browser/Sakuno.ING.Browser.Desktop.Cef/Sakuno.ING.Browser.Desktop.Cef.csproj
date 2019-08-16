@@ -10,6 +10,10 @@
     <PackageReference Include="Sakuno.CefSharp.Wpf" Version="73.1.130" />
   </ItemGroup>
 
+  <ItemGroup Condition="$(TargetFrameworkIdentifier) != '.NETFramework'">
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.0.0-preview8.19405.3" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="$(BasePath)src\Browser\Sakuno.ING.Browser.Desktop\Sakuno.ING.Browser.Desktop.csproj" />
   </ItemGroup>

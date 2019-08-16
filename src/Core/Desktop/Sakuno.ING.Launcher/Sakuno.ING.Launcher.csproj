@@ -12,9 +12,13 @@
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeShim</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="$(TargetFrameworkIdentifier) == '.NETFramework'">
     <Reference Include="System.IO.Compression" />
     <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFrameworkIdentifier) != '.NETFramework'">
+    <PackageReference Include="System.IO.Packaging" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,9 +30,7 @@
   </ItemGroup>
 
   <Target Name="IncludeShim">
-    <ItemGroup>
-      <BuildOutputInPackage Include="$(OutputPath)netstandard.dll" />
-      <BuildOutputInPackage Include="$(OutputPath)Microsoft.Win32.Primitives.dll" />
+    <ItemGroup Condition="$(TargetFrameworkIdentifier) == '.NETFramework'">
       <BuildOutputInPackage Include="$(OutputPath)System.*.dll" />
       <BuildOutputInPackage Include="$(OutputPath)$(AssemblyName).exe.config" />
     </ItemGroup>

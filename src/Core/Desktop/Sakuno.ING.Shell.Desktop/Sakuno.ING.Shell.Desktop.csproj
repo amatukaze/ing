@@ -4,6 +4,7 @@
 
   <PropertyGroup>
     <UseWpf>true</UseWpf>
+    <UseWindowsForms>true</UseWindowsForms>
     <Version>1.0.1</Version>
     <Description>The shell of Intelligent Naval Gun</Description>
     <DefineConstants>WPF</DefineConstants>
@@ -15,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
     <PackageReference Include="Sakuno.UserInterface" Version="0.3.0-pre8" />
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="5.1.1" />
   </ItemGroup>

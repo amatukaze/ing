@@ -1,5 +1,5 @@
 ﻿{
-  "msbuild-sdks": {
-    "Microsoft.NET.Sdk.WindowsDesktop": "3.0.0-preview3-27504-2"
+  "sdk": {
+    "version": "3.0.100-preview8-013656"
   }
 }

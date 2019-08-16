@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <UseWpf>true</UseWpf>
-    <TargetFramework>$(DesktopFramework)</TargetFramework>
+    <TargetFrameworks>$(CoreFramework);$(DesktopFramework)</TargetFrameworks>
     <Version>1.2.0</Version>
     <Description>Sortie view in Intelligent Naval Gun</Description>
   </PropertyGroup>
