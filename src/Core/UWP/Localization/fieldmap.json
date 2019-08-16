@@ -114,5 +114,13 @@
   "Logging_Duration_3Month.Content": "Logging/Duration_3Month",
   "Logging_Duration_6Month.Content": "Logging/Duration_6Month",
   "Logging_Duration_1Year.Content": "Logging/Duration_1Year",
-  "Logging_Duration_All.Content": "Logging/Duration_All"
+  "Logging_Duration_All.Content": "Logging/Duration_All",
+  "TextBlock_Fuel.Text": "GameModel/Material_Fuel",
+  "TextBlock_Bullet.Text": "GameModel/Material_Bullet",
+  "TextBlock_Steel.Text": "GameModel/Material_Steel",
+  "TextBlock_Bauxite.Text": "GameModel/Material_Bauxite",
+  "TextBlock_InstantBuild.Text": "GameModel/Material_InstantBuild",
+  "TextBlock_InstantRepair.Text": "GameModel/Material_InstantRepair",
+  "TextBlock_Development.Text": "GameModel/Material_Development",
+  "TextBlock_Improvement.Text": "GameModel/Material_Improvement"
 }

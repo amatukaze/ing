@@ -360,4 +360,28 @@
   <data name="Logging_Duration_All.Content">
     <value>All the time</value>
   </data>
+  <data name="TextBlock_Fuel.Text">
+    <value>Fuel</value>
+  </data>
+  <data name="TextBlock_Bullet.Text">
+    <value>Bullet</value>
+  </data>
+  <data name="TextBlock_Steel.Text">
+    <value>Steel</value>
+  </data>
+  <data name="TextBlock_Bauxite.Text">
+    <value>Bauxite</value>
+  </data>
+  <data name="TextBlock_InstantBuild.Text">
+    <value>Instant build</value>
+  </data>
+  <data name="TextBlock_InstantRepair.Text">
+    <value>Instant repair</value>
+  </data>
+  <data name="TextBlock_Development.Text">
+    <value>Development material</value>
+  </data>
+  <data name="TextBlock_Improvement.Text">
+    <value>Improvement material</value>
+  </data>
 </root>

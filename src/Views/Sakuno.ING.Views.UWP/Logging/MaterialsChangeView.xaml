@@ -11,35 +11,79 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="MaterialsColor_Fuel" Color="#008000" />
+        <SolidColorBrush x:Key="MaterialsColor_Bullet" Color="#663300" />
+        <SolidColorBrush x:Key="MaterialsColor_Steel" Color="#808080" />
+        <SolidColorBrush x:Key="MaterialsColor_Bauxite" Color="#CC3300" />
+        <SolidColorBrush x:Key="MaterialsColor_InstantBuild" Color="#A52A2A" />
+        <SolidColorBrush x:Key="MaterialsColor_InstantRepair" Color="#F08080" />
+        <SolidColorBrush x:Key="MaterialsColor_Development" Color="#4876FF" />
+        <SolidColorBrush x:Key="MaterialsColor_Improvement" Color="#00ABB2" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ComboBox SelectedValue="{x:Bind ViewModel.Duration, Mode=TwoWay}"
-                  SelectedValuePath="Tag"
-                  x:DefaultBindMode="OneTime"
-                  x:Name="comboBox">
-            <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Day" Tag="{x:Bind sys:TimeSpan.FromDays(1)}" />
-            <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Week" Tag="{x:Bind sys:TimeSpan.FromDays(7)}" />
-            <ComboBoxItem x:Uid="/Resources/Logging_Duration_2Week" Tag="{x:Bind sys:TimeSpan.FromDays(14)}" />
-            <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Month" Tag="{x:Bind sys:TimeSpan.FromDays(30)}" />
-            <ComboBoxItem x:Uid="/Resources/Logging_Duration_3Month" Tag="{x:Bind sys:TimeSpan.FromDays(90)}" />
-            <ComboBoxItem x:Uid="/Resources/Logging_Duration_6Month" Tag="{x:Bind sys:TimeSpan.FromDays(180)}" />
-            <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Year" Tag="{x:Bind sys:TimeSpan.FromDays(360)}" />
-            <ComboBoxItem x:Uid="/Resources/Logging_Duration_All" Tag="{x:Bind sys:TimeSpan.Zero}" />
-        </ComboBox>
+        <StackPanel Orientation="Horizontal">
+            <ComboBox SelectedValue="{x:Bind ViewModel.Duration, Mode=TwoWay}"
+                      SelectedValuePath="Tag"
+                      x:DefaultBindMode="OneTime"
+                      x:Name="comboBox">
+                <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Day" Tag="{x:Bind sys:TimeSpan.FromDays(1)}" />
+                <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Week" Tag="{x:Bind sys:TimeSpan.FromDays(7)}" />
+                <ComboBoxItem x:Uid="/Resources/Logging_Duration_2Week" Tag="{x:Bind sys:TimeSpan.FromDays(14)}" />
+                <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Month" Tag="{x:Bind sys:TimeSpan.FromDays(30)}" />
+                <ComboBoxItem x:Uid="/Resources/Logging_Duration_3Month" Tag="{x:Bind sys:TimeSpan.FromDays(90)}" />
+                <ComboBoxItem x:Uid="/Resources/Logging_Duration_6Month" Tag="{x:Bind sys:TimeSpan.FromDays(180)}" />
+                <ComboBoxItem x:Uid="/Resources/Logging_Duration_1Year" Tag="{x:Bind sys:TimeSpan.FromDays(360)}" />
+                <ComboBoxItem x:Uid="/Resources/Logging_Duration_All" Tag="{x:Bind sys:TimeSpan.Zero}" />
+            </ComboBox>
+            <CheckBox IsChecked="True" x:Name="ShowFuel">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Fuel}" x:Uid="/Resources/TextBlock_Fuel" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowBullet">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Bullet}" x:Uid="/Resources/TextBlock_Bullet" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowSteel">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Steel}" x:Uid="/Resources/TextBlock_Steel" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowBauxite">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Bauxite}" x:Uid="/Resources/TextBlock_Bauxite" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowInstantBuild">
+                <TextBlock Foreground="{StaticResource MaterialsColor_InstantBuild}" x:Uid="/Resources/TextBlock_InstantBuild" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowInstantRepair">
+                <TextBlock Foreground="{StaticResource MaterialsColor_InstantRepair}" x:Uid="/Resources/TextBlock_InstantRepair" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowDevelopment">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Development}" x:Uid="/Resources/TextBlock_Development" />
+            </CheckBox>
+            <CheckBox IsChecked="True" x:Name="ShowImprovement">
+                <TextBlock Foreground="{StaticResource MaterialsColor_Improvement}" x:Uid="/Resources/TextBlock_Improvement" />
+            </CheckBox>
+        </StackPanel>
         <Grid Grid.Row="1" Height="400"
               x:DefaultBindMode="OneWay">
-            <Path Stroke="#008000" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 0)}" />
-            <Path Stroke="#663300" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 1)}" />
-            <Path Stroke="#808080" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 2)}" />
-            <Path Stroke="#CC3300" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 3)}" />
-            <Path Stroke="#A52A2A" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 4)}" />
-            <Path Stroke="#F08080" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 5)}" />
-            <Path Stroke="#4876FF" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 6)}" />
-            <Path Stroke="#00ABB2" Stretch="Fill" Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 7)}" />
+            <Path Stroke="{StaticResource MaterialsColor_Fuel}" Stretch="Fill" Visibility="{x:Bind ShowFuel.IsChecked}"
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 0)}" />
+            <Path Stroke="{StaticResource MaterialsColor_Bullet}" Stretch="Fill" Visibility="{x:Bind ShowBullet.IsChecked}"
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 1)}" />
+            <Path Stroke="{StaticResource MaterialsColor_Steel}" Stretch="Fill" Visibility="{x:Bind ShowSteel.IsChecked}"
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 2)}" />
+            <Path Stroke="{StaticResource MaterialsColor_Bauxite}" Stretch="Fill" Visibility="{x:Bind ShowBauxite.IsChecked}"
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 3)}" />
+            <Path Stroke="{StaticResource MaterialsColor_InstantBuild}" Stretch="Fill" Visibility="{x:Bind ShowInstantBuild.IsChecked}"
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 4)}" />
+            <Path Stroke="{StaticResource MaterialsColor_InstantRepair}" Stretch="Fill" Visibility="{x:Bind ShowInstantRepair.IsChecked}"
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 5)}" />
+            <Path Stroke="{StaticResource MaterialsColor_Development}" Stretch="Fill" Visibility="{x:Bind ShowDevelopment.IsChecked}"
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 6)}" />
+            <Path Stroke="{StaticResource MaterialsColor_Improvement}" Stretch="Fill" Visibility="{x:Bind ShowImprovement.IsChecked}"
+                  Data="{x:Bind local:MaterialsChangeView.ConvertShape(ViewModel.Entities, ViewModel.Start, ViewModel.Duration, 7)}" />
         </Grid>
         <tk:DataGrid Grid.Row="2"
                      ItemsSource="{x:Bind ViewModel.DailyCatalogs}"

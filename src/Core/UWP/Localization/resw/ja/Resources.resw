@@ -348,4 +348,28 @@
   <data name="Logging_Duration_All.Content">
     <value>すべて</value>
   </data>
+  <data name="TextBlock_Fuel.Text">
+    <value>燃料</value>
+  </data>
+  <data name="TextBlock_Bullet.Text">
+    <value>弾薬</value>
+  </data>
+  <data name="TextBlock_Steel.Text">
+    <value>鋼材</value>
+  </data>
+  <data name="TextBlock_Bauxite.Text">
+    <value>ボーキサイト</value>
+  </data>
+  <data name="TextBlock_InstantBuild.Text">
+    <value>高速建造材</value>
+  </data>
+  <data name="TextBlock_InstantRepair.Text">
+    <value>高速修復材</value>
+  </data>
+  <data name="TextBlock_Development.Text">
+    <value>開発資材</value>
+  </data>
+  <data name="TextBlock_Improvement.Text">
+    <value>改修資材</value>
+  </data>
 </root>

@@ -360,4 +360,28 @@
   <data name="Logging_Duration_All.Content">
     <value>全部时间</value>
   </data>
+  <data name="TextBlock_Fuel.Text">
+    <value>燃料</value>
+  </data>
+  <data name="TextBlock_Bullet.Text">
+    <value>弹药</value>
+  </data>
+  <data name="TextBlock_Steel.Text">
+    <value>钢材</value>
+  </data>
+  <data name="TextBlock_Bauxite.Text">
+    <value>铝土</value>
+  </data>
+  <data name="TextBlock_InstantBuild.Text">
+    <value>高速建造</value>
+  </data>
+  <data name="TextBlock_InstantRepair.Text">
+    <value>高速修复</value>
+  </data>
+  <data name="TextBlock_Development.Text">
+    <value>开发资材</value>
+  </data>
+  <data name="TextBlock_Improvement.Text">
+    <value>改修资材</value>
+  </data>
 </root>
