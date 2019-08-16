@@ -87,8 +87,17 @@
   <data name="Logging_Column_Bauxite.Header">
     <value>铝土</value>
   </data>
+  <data name="Logging_Column_InstantBuild.Header">
+    <value>高速建造</value>
+  </data>
+  <data name="Logging_Column_InstantRepair.Header">
+    <value>高速修复</value>
+  </data>
   <data name="Logging_Column_Development.Header">
     <value>开发资材</value>
+  </data>
+  <data name="Logging_Column_Improvement.Header">
+    <value>改修资材</value>
   </data>
   <data name="Logging_Column_ConstructionType.Header">
     <value>建造类型</value>

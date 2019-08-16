@@ -87,8 +87,17 @@
   <data name="Logging_Column_Bauxite.Header">
     <value>Bauxite</value>
   </data>
+  <data name="Logging_Column_InstantBuild.Header">
+    <value>Instant build</value>
+  </data>
+  <data name="Logging_Column_InstantRepair.Header">
+    <value>Instant repair</value>
+  </data>
   <data name="Logging_Column_Development.Header">
     <value>Development material</value>
+  </data>
+  <data name="Logging_Column_Improvement.Header">
+    <value>Improvement material</value>
   </data>
   <data name="Logging_Column_ConstructionType.Header">
     <value>Construction type</value>

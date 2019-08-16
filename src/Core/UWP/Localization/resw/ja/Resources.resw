@@ -75,8 +75,17 @@
   <data name="Logging_Column_Bauxite.Header">
     <value>ボーキサイト</value>
   </data>
+  <data name="Logging_Column_InstantBuild.Header">
+    <value>高速建造材</value>
+  </data>
+  <data name="Logging_Column_InstantRepair.Header">
+    <value>高速修復材</value>
+  </data>
   <data name="Logging_Column_Development.Header">
     <value>開発資材</value>
+  </data>
+  <data name="Logging_Column_Improvement.Header">
+    <value>改修資材</value>
   </data>
   <data name="Logging_Column_ConstructionType.Header">
     <value>建造タイプ</value>
