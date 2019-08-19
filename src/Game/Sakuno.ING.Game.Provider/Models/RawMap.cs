@@ -15,6 +15,8 @@ namespace Sakuno.ING.Game.Models
         public int AvailableAirForceGroups { get; internal set; }
         [JsonProperty("api_defeat_count")]
         public int? DefeatedCount { get; internal set; }
+        [JsonProperty("api_required_defeat_count")]
+        public int? RequiredDefeatCount { get; internal set; }
 
         internal class EventMap
         {

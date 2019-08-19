@@ -8,7 +8,7 @@ namespace Sakuno.ING.Game.Models
         {
             Info = owner.MasterData.MapInfos[raw.Id];
             Gauge = raw.Gauge ??
-                (raw.DefeatedCount, Info?.RequiredDefeatCount) switch
+                (raw.DefeatedCount, raw.RequiredDefeatCount ?? Info?.RequiredDefeatCount) switch
                 {
                     (int d, int r) => (r - d, r),
                     (null, int r) => (0, r),
