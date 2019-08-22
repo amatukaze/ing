@@ -5,6 +5,7 @@ using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models.Combat;
 using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Game.Models.Quests;
 using Sakuno.ING.Game.Notification;
 using Sakuno.ING.Messaging;
 using Sakuno.ING.Timing;

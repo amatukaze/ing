@@ -11,7 +11,7 @@
              DataContext="{c:Resolve {x:Type g:NavalBase}}">
     <ItemsControl ItemsSource="{Binding Quests.ActiveQuests, Mode=OneTime}">
         <ItemsControl.ItemTemplate>
-            <DataTemplate DataType="g:Quest">
+            <DataTemplate>
                 <TextBlock FontSize="20">
                     <c:TranslatableNameText Source="{Binding Name}" />
                     <TextBlock.ToolTip>

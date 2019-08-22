@@ -1,4 +1,5 @@
 ﻿using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Quests;
 using Sakuno.ING.Shell;
 using Windows.UI.Xaml.Controls;
 

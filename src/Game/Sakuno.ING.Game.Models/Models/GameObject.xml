@@ -74,15 +74,6 @@
     <property type="LineOfSight" name="EffectiveLoS" />
     <property type="FleetState" name="State" />
   </class>
-  <class name="Quest" id="QuestId" raw="RawQuest" owner="QuestManager">
-    <localizable name="Name" category="QuestName" />
-    <localizable name="Description" category="QuestDesc" />
-    <property type="QuestCategoty" name="Category" autoFill="true" />
-    <property type="QuestPeriod" name="Period" autoFill="true" />
-    <property type="QuestState" name="State" autoFill="true" />
-    <property type="QuestProgress" name="Progress" autoFill="true" />
-    <property type="Materials" name="Rewards" autoFill="true" />
-  </class>
   <class name="Map" id="MapId" raw="RawMap" owner="NavalBase">
     <property type="MapInfo" name="Info" />
     <property type="bool" name="IsCleared" autoFill="true" />

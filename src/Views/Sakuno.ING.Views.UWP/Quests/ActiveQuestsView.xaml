@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mux="using:Microsoft.UI.Xaml.Controls"
-    xmlns:g="using:Sakuno.ING.Game.Models"
+    xmlns:q="using:Sakuno.ING.Game.Models.Quests"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     mc:Ignorable="d"
     d:DesignHeight="300"
@@ -13,7 +13,7 @@
     Height="200">
     <mux:ItemsRepeater ItemsSource="{x:Bind Manager.ActiveQuests}">
         <mux:ItemsRepeater.ItemTemplate>
-            <DataTemplate x:DataType="g:Quest">
+            <DataTemplate x:DataType="q:Quest">
                 <TextBlock c:Helpers.TranslatableSource="{x:Bind Name, FallbackValue={x:Null}}"
                            FontSize="20">
                     <ToolTipService.ToolTip>

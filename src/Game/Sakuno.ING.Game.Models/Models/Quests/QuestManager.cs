@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sakuno.ING.Game.Models
+namespace Sakuno.ING.Game.Models.Quests
 {
     public class QuestManager : BindableObject
     {
