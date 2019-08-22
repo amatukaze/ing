@@ -8,6 +8,7 @@ using Sakuno.ING.Game.Logger.Migrators;
 using Sakuno.ING.Game.Logger.Migrators.INGLegacy;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
+using Sakuno.ING.Game.Models.Quests;
 using Sakuno.ING.Game.Notification;
 using Sakuno.ING.Http;
 using Sakuno.ING.Localization;
@@ -54,7 +55,8 @@ namespace Sakuno.ING.UWP
             var gameProvider = Information<GameProvider>.Static = new GameProvider(selector, settings);
             var notificationManager = Information<NotificationManager>.Static = new NotificationManager(new[] { toastNotifier }, settings, localization, shell, localeSetting);
             var statePersist = Information<IStatePersist>.Static = new LoggerStatePersist(data);
-            var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, ntp, notificationManager, statePersist);
+            var questKnowledges = Information<IQuestKnowledges>.Static = new QuestKnowledges();
+            var navalBase = Information<NavalBase>.Static = new NavalBase(gameProvider, ntp, notificationManager, statePersist, questKnowledges);
             var logger = Information<Logger>.Static = new Logger(data, gameProvider, navalBase, statePersist);
             var currentBattleVM = Information<CurrentBattleVM>.Static = new CurrentBattleVM(navalBase, shell);
 

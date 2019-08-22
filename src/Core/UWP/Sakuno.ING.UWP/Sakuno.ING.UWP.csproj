@@ -204,6 +204,10 @@
       <Project>{159E60F5-E46D-48E8-BC31-3987AC70F991}</Project>
       <Name>Sakuno.ING.Game.Logger</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models.Quests\Sakuno.ING.Game.Models.Quests.csproj">
+      <Project>{0225d205-f43c-49fe-a0ab-a7760a0cbd26}</Project>
+      <Name>Sakuno.ING.Game.Models.Quests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj">
       <Project>{2DB243BB-D99C-4D5C-AAA9-98104CC7EFA0}</Project>
       <Name>Sakuno.ING.Game.Models</Name>

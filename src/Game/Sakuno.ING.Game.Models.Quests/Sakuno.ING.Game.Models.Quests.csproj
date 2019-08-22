@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <Description>Quest counter implementations of Intelligent Naval Gun</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
+  </ItemGroup>
+
+</Project>

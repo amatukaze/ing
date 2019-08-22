@@ -11,8 +11,10 @@ namespace Sakuno.ING.Game.Models.Quests
             set => Set(ref _updationTime, value);
         }
 
-        internal QuestManager(GameProvider listener)
+        internal QuestManager(GameProvider listener, IQuestKnowledges knowledges)
         {
+            Knowledges = knowledges;
+
             _allQuests = new IdTable<QuestId, Quest, RawQuest, QuestManager>(this);
             _activeQuests = new OrderedSnapshotCollection<Quest>(_allQuests, x => x.State != QuestState.Inactive);
             listener.QuestUpdated += (t, msg) =>
@@ -54,6 +56,8 @@ namespace Sakuno.ING.Game.Models.Quests
 
         private readonly OrderedSnapshotCollection<Quest> _activeQuests;
         public IBindableCollection<Quest> ActiveQuests => _activeQuests;
+
+        internal IQuestKnowledges Knowledges { get; }
 
         public event QuestCompletingHandler QuestCompleting;
     }

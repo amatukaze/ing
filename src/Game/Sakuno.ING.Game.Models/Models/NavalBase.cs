@@ -18,14 +18,14 @@ namespace Sakuno.ING.Game.Models
         public NotificationManager Notification { get; }
         internal IStatePersist StatePersist { get; }
 
-        public NavalBase(GameProvider listener, ITimingService timingService, NotificationManager notification, IStatePersist statePersist)
+        public NavalBase(GameProvider listener, ITimingService timingService, NotificationManager notification, IStatePersist statePersist, IQuestKnowledges questKnowledges)
         {
             Notification = notification;
             StatePersist = statePersist;
 
             MasterData = new MasterDataRoot(listener);
             Battle = new BattleManager(listener, this);
-            Quests = new QuestManager(listener);
+            Quests = new QuestManager(listener, questKnowledges);
             _allEquipment = new IdTable<EquipmentId, HomeportEquipment, RawEquipment, NavalBase>(this);
             _buildingDocks = new IdTable<BuildingDockId, BuildingDock, RawBuildingDock, NavalBase>(this);
             _repairingDocks = new IdTable<RepairingDockId, RepairingDock, RawRepairingDock, NavalBase>(this);

@@ -117,6 +117,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Views.Desktop", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.ViewModels", "src\ViewModels\Sakuno.ING.ViewModels\Sakuno.ING.ViewModels.csproj", "{EB22B36C-7687-4C43-B61B-1339708AA77F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Models.Quests", "src\Game\Sakuno.ING.Game.Models.Quests\Sakuno.ING.Game.Models.Quests.csproj", "{0225D205-F43C-49FE-A0AB-A7760A0CBD26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -357,6 +359,14 @@ Global
 		{EB22B36C-7687-4C43-B61B-1339708AA77F}.Release|x64.Build.0 = Release|Any CPU
 		{EB22B36C-7687-4C43-B61B-1339708AA77F}.Release|x86.ActiveCfg = Release|Any CPU
 		{EB22B36C-7687-4C43-B61B-1339708AA77F}.Release|x86.Build.0 = Release|Any CPU
+		{0225D205-F43C-49FE-A0AB-A7760A0CBD26}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0225D205-F43C-49FE-A0AB-A7760A0CBD26}.Debug|x64.Build.0 = Debug|Any CPU
+		{0225D205-F43C-49FE-A0AB-A7760A0CBD26}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0225D205-F43C-49FE-A0AB-A7760A0CBD26}.Debug|x86.Build.0 = Debug|Any CPU
+		{0225D205-F43C-49FE-A0AB-A7760A0CBD26}.Release|x64.ActiveCfg = Release|Any CPU
+		{0225D205-F43C-49FE-A0AB-A7760A0CBD26}.Release|x64.Build.0 = Release|Any CPU
+		{0225D205-F43C-49FE-A0AB-A7760A0CBD26}.Release|x86.ActiveCfg = Release|Any CPU
+		{0225D205-F43C-49FE-A0AB-A7760A0CBD26}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -393,6 +403,7 @@ Global
 		{8E69489B-CC84-4965-B960-76105C4D2E80} = {60A2096A-49B1-42AB-938A-33534F6AC5F8}
 		{2B080991-01DC-4CE0-B240-42A372740F5D} = {B8A48836-73E5-4AB3-AA71-C3C70B426963}
 		{EB22B36C-7687-4C43-B61B-1339708AA77F} = {1C43A003-5E6B-4354-BA6E-C402BE43028D}
+		{0225D205-F43C-49FE-A0AB-A7760A0CBD26} = {38D02581-E437-4553-815D-C4FBB67029A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D453CD6A-4918-42E2-A29D-43391DB418D2}
