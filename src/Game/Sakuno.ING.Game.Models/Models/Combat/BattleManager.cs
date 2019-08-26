@@ -51,6 +51,7 @@
             listener.BattleCompleted += (t, m) =>
             {
                 CurrentBattleResult = new BattleResult(this.navalBase.MasterData, m, CurrentBattle.Ally);
+                navalBase.Quests.Knowledges?.OnBattleComplete(CurrentRouting, CurrentBattle, CurrentBattleResult);
             };
         }
     }
