@@ -7,5 +7,6 @@ namespace Sakuno.ING.Game.Logger.Entities.Homeport
         public QuestId QuestId { get; set; }
         public int CounterId { get; set; }
         public int Value { get; set; }
+        public bool IsActive { get; set; }
     }
 }

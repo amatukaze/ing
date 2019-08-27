@@ -4,7 +4,7 @@ namespace Sakuno.ING.Game.Models.Quests
 {
     internal class BattleResultCounter : QuestCounter
     {
-        public BattleResultCounter(IStatePersist statePersist, QuestId questId, int maximum, int counterId = 0) : base(statePersist, questId, maximum, counterId)
+        public BattleResultCounter(QuestId questId, int maximum, int counterId = 0) : base(questId, maximum, counterId)
         {
         }
 

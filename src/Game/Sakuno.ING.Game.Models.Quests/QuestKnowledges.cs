@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game.Models.Quests
         private readonly Dictionary<QuestId, KnownQuestTarget> targets;
 
         private KnownQuestTarget Create(params QuestCounter[] counters)
-            => new KnownQuestTarget(counters);
+            => new KnownQuestTarget(statePersist, counters);
 
         public QuestKnowledges(IStatePersist statePersist)
         {
@@ -33,6 +33,7 @@ namespace Sakuno.ING.Game.Models.Quests
         {
             foreach (var target in targets.Values)
                 target.OnBattleComplete(routing, battle, result);
+            statePersist.SaveChanges();
         }
     }
 }

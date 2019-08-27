@@ -4,6 +4,11 @@ namespace Sakuno.ING.Game.Models.Quests
 {
     public abstract class QuestTarget : BindableObject
     {
+        protected QuestTarget(IStatePersist statePersist)
+        {
+            StatePersist = statePersist;
+        }
+        protected IStatePersist StatePersist { get; }
         public abstract IReadOnlyList<QuestCounter> Counters { get; }
 
         protected void UpdateProgress()

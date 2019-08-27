@@ -17,6 +17,10 @@ namespace Sakuno.ING.Game.Models
         void SetQuestProgress(QuestId questId, int counterId, int value);
         int? GetQuestProgress(QuestId questId, int counterId);
         void ClearQuestProgress(QuestId questId);
+
+        void SetQuestActive(QuestId questId, bool isActive);
+        bool GetQuestActive(QuestId questId);
+
         void SetLastSortie(ShipId id, DateTimeOffset timeStamp);
         DateTimeOffset? GetLastSortie(ShipId id);
         void ClearLastSortie(ShipId id);

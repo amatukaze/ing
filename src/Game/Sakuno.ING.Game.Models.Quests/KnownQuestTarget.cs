@@ -5,7 +5,8 @@ namespace Sakuno.ING.Game.Models.Quests
 {
     internal class KnownQuestTarget : QuestTarget
     {
-        public KnownQuestTarget(IReadOnlyList<QuestCounter> counters)
+        public KnownQuestTarget(IStatePersist statePersist, IReadOnlyList<QuestCounter> counters)
+            : base(statePersist)
         {
             Counters = counters;
         }

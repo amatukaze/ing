@@ -25,7 +25,7 @@ namespace Sakuno.ING.Game.Models
 
             MasterData = new MasterDataRoot(listener);
             Battle = new BattleManager(listener, this);
-            Quests = new QuestManager(listener, questKnowledges);
+            Quests = new QuestManager(listener, questKnowledges, statePersist);
             _allEquipment = new IdTable<EquipmentId, HomeportEquipment, RawEquipment, NavalBase>(this);
             _buildingDocks = new IdTable<BuildingDockId, BuildingDock, RawBuildingDock, NavalBase>(this);
             _repairingDocks = new IdTable<RepairingDockId, RepairingDock, RawRepairingDock, NavalBase>(this);

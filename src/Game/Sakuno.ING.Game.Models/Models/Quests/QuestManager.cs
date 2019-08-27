@@ -11,9 +11,10 @@ namespace Sakuno.ING.Game.Models.Quests
             set => Set(ref _updationTime, value);
         }
 
-        internal QuestManager(GameProvider listener, IQuestKnowledges knowledges)
+        internal QuestManager(GameProvider listener, IQuestKnowledges knowledges, IStatePersist statePersist)
         {
             Knowledges = knowledges;
+            StatePersist = statePersist;
 
             _allQuests = new IdTable<QuestId, Quest, RawQuest, QuestManager>(this);
             _activeQuests = new OrderedSnapshotCollection<Quest>(_allQuests, x => x.State != QuestState.Inactive);
@@ -22,11 +23,15 @@ namespace Sakuno.ING.Game.Models.Quests
                 UpdationTime = t;
                 _allQuests.RemoveAll(IsOutOfDate);
                 _allQuests.BatchUpdate(msg.Quests, t, removal: false);
+                statePersist.SaveChanges();
             };
             listener.QuestCompleted += (t, msg) =>
             {
                 var quest = _allQuests.Remove(msg);
                 QuestCompleting?.Invoke(t, quest);
+                statePersist.ClearQuestProgress(quest.Id);
+                statePersist.SetQuestActive(quest.Id, false);
+                statePersist.SaveChanges();
             };
         }
 
@@ -58,6 +63,7 @@ namespace Sakuno.ING.Game.Models.Quests
         public IBindableCollection<Quest> ActiveQuests => _activeQuests;
 
         internal IQuestKnowledges Knowledges { get; }
+        internal IStatePersist StatePersist { get; }
 
         public event QuestCompletingHandler QuestCompleting;
     }

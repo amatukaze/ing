@@ -163,6 +163,28 @@ namespace Sakuno.ING.Game.Logger
         public void ClearQuestProgress(QuestId questId)
             => context.QuestProcessTable.RemoveRange(context.QuestProcessTable.Where(x => x.QuestId == questId));
 
+        public void SetQuestActive(QuestId questId, bool isActive)
+        {
+            var entities = context.QuestProcessTable.Where(x => x.QuestId == questId);
+            if (entities.Any())
+            {
+                var a = entities.ToArray();
+                foreach (var e in a)
+                    e.IsActive = isActive;
+                context.QuestProcessTable.UpdateRange(a);
+            }
+            else if (isActive)
+            {
+                context.QuestProcessTable.Add(new QuestProcessEntity
+                {
+                    QuestId = questId,
+                    IsActive = true
+                });
+            }
+        }
+        public bool GetQuestActive(QuestId questId)
+            => context.QuestProcessTable.Any(x => x.QuestId == questId && x.IsActive);
+
         public void SetLastSortie(ShipId id, DateTimeOffset timeStamp)
         {
             var entity = context.ShipSortieStateTable.Find(id);
