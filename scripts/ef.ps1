@@ -19,4 +19,4 @@ switch ($Project) {
     }
 }
 
-dotnet ef migrations $Verb --project "$folder\$projectName\" --startup-project "$folder\$projectName.Design\" --msbuildprojectextensionspath "$current\intermediate\$projectName.Design\" --framework netcoreapp2.2 $Noun
+dotnet ef migrations $Verb --project "$folder\$projectName\" --startup-project "$folder\$projectName.Design\" --msbuildprojectextensionspath "$current\intermediate\$projectName.Design\" --framework netcoreapp3.0 $Noun
