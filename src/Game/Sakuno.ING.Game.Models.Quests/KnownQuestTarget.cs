@@ -9,6 +9,8 @@ namespace Sakuno.ING.Game.Models.Quests
             : base(statePersist)
         {
             Counters = counters;
+            foreach (var c in counters)
+                c.Load(StatePersist);
         }
 
         public override IReadOnlyList<QuestCounter> Counters { get; }
@@ -17,7 +19,8 @@ namespace Sakuno.ING.Game.Models.Quests
         {
             foreach (var c in Counters)
                 if (c is BattleResultCounter bc)
-                    bc.OnBattleComplete(routing, battle, result);
+                    bc.OnBattleComplete(StatePersist, routing, battle, result);
+            UpdateProgress();
         }
     }
 }

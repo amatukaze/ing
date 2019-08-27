@@ -20,13 +20,16 @@
             private set => Set(ref _progress, value);
         }
 
-        protected void Load(IStatePersist statePersist)
+        public void Load(IStatePersist statePersist)
             => Progress = (statePersist.GetQuestProgress(questId, counterId) ?? 0, maximum);
 
-        protected void Increase(IStatePersist statePersist)
+        protected void Increase(IStatePersist statePersist, int increasedBy = 1)
         {
-            Progress += 1;
-            statePersist.SetQuestProgress(questId, counterId, Progress.Current);
+            if (increasedBy != 0 && statePersist.GetQuestActive(questId))
+            {
+                Progress += increasedBy;
+                statePersist.SetQuestProgress(questId, counterId, Progress.Current);
+            }
         }
     }
 }

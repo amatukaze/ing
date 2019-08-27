@@ -1,4 +1,6 @@
-﻿namespace Sakuno.ING.Game.Models
+﻿using System;
+
+namespace Sakuno.ING.Game.Models
 {
     public readonly struct ClampedValue
     {
@@ -17,8 +19,8 @@
         public int Shortage => Max - Current;
         public bool IsMaximum => Current == Max;
 
-        public static ClampedValue operator +(ClampedValue clamped, int value) => new ClampedValue(clamped.Current + value, clamped.Max);
-        public static ClampedValue operator -(ClampedValue clamped, int value) => new ClampedValue(clamped.Current - value, clamped.Max);
+        public static ClampedValue operator +(ClampedValue clamped, int value) => new ClampedValue(Math.Min(clamped.Max, clamped.Current + value), clamped.Max);
+        public static ClampedValue operator -(ClampedValue clamped, int value) => new ClampedValue(Math.Max(0, clamped.Current - value), clamped.Max);
 
         public static bool operator ==(ClampedValue left, ClampedValue right)
             => left.Current == right.Current && left.Max == right.Max;
