@@ -9,8 +9,6 @@ namespace Sakuno.ING.Game.Models.Quests
             : base(statePersist)
         {
             Counters = counters;
-            foreach (var c in counters)
-                c.Load(StatePersist);
         }
 
         public override IReadOnlyList<QuestCounter> Counters { get; }

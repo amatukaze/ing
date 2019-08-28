@@ -39,6 +39,13 @@ namespace Sakuno.ING.Game.Models.Quests
             };
         }
 
+        public void Load()
+        {
+            foreach (var target in targets.Values)
+                foreach (var c in target.Counters)
+                    c.Load(statePersist);
+        }
+
         public QuestTarget GetTargetFor(QuestId id)
         {
             targets.TryGetValue(id, out var target);

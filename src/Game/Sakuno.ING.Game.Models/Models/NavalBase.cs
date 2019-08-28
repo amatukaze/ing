@@ -17,11 +17,13 @@ namespace Sakuno.ING.Game.Models
     {
         public NotificationManager Notification { get; }
         internal IStatePersist StatePersist { get; }
+        private readonly IQuestKnowledges questKnowledges;
 
         public NavalBase(GameProvider listener, ITimingService timingService, NotificationManager notification, IStatePersist statePersist, IQuestKnowledges questKnowledges)
         {
             Notification = notification;
             StatePersist = statePersist;
+            this.questKnowledges = questKnowledges;
 
             MasterData = new MasterDataRoot(listener);
             Battle = new BattleManager(listener, this);
@@ -51,6 +53,7 @@ namespace Sakuno.ING.Game.Models
                 else
                     Admiral.Update(msg, t);
                 StatePersist?.Initialize(msg.Id);
+                this.questKnowledges.Load();
             };
             listener.MaterialsUpdated += (t, msg) =>
             {
@@ -238,6 +241,7 @@ namespace Sakuno.ING.Game.Models
         public ITable<MapId, Map> Maps => _maps;
 
         private readonly IdTable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup, RawAirForceGroup, NavalBase> _airForce;
+
         public ITable<(MapAreaId MapArea, AirForceGroupId GroupId), AirForceGroup> AirForce => _airForce;
 
         public Admiral Admiral { get; private set; }
