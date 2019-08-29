@@ -102,6 +102,7 @@ namespace Sakuno.ING.Game.Models
                     ShipSupplying?.Invoke(t, ship, raw);
                     ship?.Supply(raw);
                 }
+                questKnowledges.OnSingletonEvent(SingletonEvent.ShipSupply);
             };
 
             listener.RepairStarted += (t, msg) =>
@@ -120,6 +121,7 @@ namespace Sakuno.ING.Game.Models
                 materials.Steel -= ship.RepairingCost.Steel;
                 Materials = materials;
                 MaterialsUpdating?.Invoke(t, oldMaterials, materials, MaterialsChangeReason.ShipRepair);
+                questKnowledges.OnSingletonEvent(SingletonEvent.ShipRepair);
             };
             listener.InstantRepaired += (t, msg) =>
             {
@@ -137,7 +139,10 @@ namespace Sakuno.ING.Game.Models
                 materials.InstantBuild -= dock.IsLSC ? 10 : 1;
                 Materials = materials;
                 MaterialsUpdating?.Invoke(t, oldMaterials, materials, MaterialsChangeReason.InstantBuilt);
+                questKnowledges.OnSingletonEvent(SingletonEvent.ShipRepair);
             };
+            listener.ShipCreated += (t, msg)
+                => questKnowledges.OnSingletonEvent(SingletonEvent.ShipConstruct);
             listener.ShipBuildCompleted += (t, msg) =>
             {
                 _allEquipment.BatchUpdate(msg.Equipments, t, removal: false);
@@ -147,15 +152,18 @@ namespace Sakuno.ING.Game.Models
             {
                 if (msg.IsSuccess)
                     _allEquipment.Add(msg.Equipment, t);
+                questKnowledges.OnSingletonEvent(SingletonEvent.EquipmentCreate);
             };
             listener.ShipDismantled += (t, msg) =>
             {
                 var removed = RemoveShips(msg.ShipIds, msg.DismantleEquipments, t);
+                questKnowledges.OnShipDismantle(removed);
                 ShipDismantling?.Invoke(t, removed, msg.DismantleEquipments);
             };
             listener.EquipmentDismantled += (t, msg) =>
             {
                 var removed = RemoveEquipment(msg, t);
+                questKnowledges.OnEquipmentDismantle(removed);
                 EquipmentDismantling?.Invoke(t, removed);
             };
             listener.EquipmentImproved += (t, msg) =>
@@ -170,8 +178,14 @@ namespace Sakuno.ING.Game.Models
             {
                 var consumed = RemoveShips(msg.ConsumedShipIds, true, t);
                 var original = AllShips[msg.ShipId];
+                questKnowledges.OnShipPowerup(original, consumed, msg.IsSuccess);
                 ShipPoweruping?.Invoke(t, original, msg.UpdatedTo, consumed);
                 original.Update(msg.UpdatedTo, t);
+            };
+            listener.ExpeditionCompleted += (t, msg) =>
+            {
+                var fleet = Fleets[msg.FleetId];
+                questKnowledges?.OnExpeditionComplete(fleet, fleet.Expedition, msg.Result);
             };
 
             listener.MapsUpdated += (t, msg) => _maps.BatchUpdate(msg, t);
@@ -198,7 +212,7 @@ namespace Sakuno.ING.Game.Models
                 };
         }
 
-        private IReadOnlyCollection<Ship> RemoveShips(IEnumerable<ShipId> shipIds, bool removeEquipment, DateTimeOffset timeStamp)
+        private IReadOnlyCollection<HomeportShip> RemoveShips(IEnumerable<ShipId> shipIds, bool removeEquipment, DateTimeOffset timeStamp)
             => shipIds.Select(id =>
                 {
                     var ship = AllShips[id];
@@ -212,7 +226,7 @@ namespace Sakuno.ING.Game.Models
                     return ship;
                 }).ToArray();
 
-        private IReadOnlyCollection<Equipment> RemoveEquipment(IEnumerable<EquipmentId> ids, DateTimeOffset timeStamp)
+        private IReadOnlyCollection<HomeportEquipment> RemoveEquipment(IEnumerable<EquipmentId> ids, DateTimeOffset timeStamp)
             => ids.Select(_allEquipment.Remove).ToArray();
 
         public MasterDataRoot MasterData { get; }

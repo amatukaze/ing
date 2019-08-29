@@ -6,6 +6,16 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Quests
 {
+    internal class SortieStartCounter : QuestCounter
+    {
+        public SortieStartCounter(QuestId questId, int maximum, int counterId = 0) : base(questId, maximum, counterId)
+        {
+        }
+
+        public virtual void OnSortieStart(IStatePersist statePersist, MapId mapId, HomeportFleet fleet1, HomeportFleet fleet2)
+            => Increase(statePersist);
+    }
+
     internal class BattleResultCounter : QuestCounter
     {
         public BattleResultCounter(QuestId questId, int maximum, int counterId = 0) : base(questId, maximum, counterId)
@@ -20,12 +30,15 @@ namespace Sakuno.ING.Game.Models.Quests
 
     internal class BattleWinCounter : BattleResultCounter
     {
-        public BattleWinCounter(QuestId questId, int maximum, int counterId = 0) : base(questId, maximum, counterId)
+        private readonly BattleRank rankRequired;
+
+        public BattleWinCounter(QuestId questId, int maximum, int counterId = 0, BattleRank rankRequired = BattleRank.B) : base(questId, maximum, counterId)
         {
+            this.rankRequired = rankRequired;
         }
 
         protected override int IncreaseCount(MapRouting routing, Battle battle, BattleResult result)
-            => result.Rank <= BattleRank.B ? 1 : 0;
+            => result.Rank <= rankRequired ? 1 : 0;
     }
 
     internal class BattleBossCounter : BattleResultCounter
@@ -75,6 +88,27 @@ namespace Sakuno.ING.Game.Models.Quests
                     if (e.IsSunk && e.Ship?.Info?.Type?.Id is { } id && shipTypes.Contains((KnownShipType)id))
                         count++;
             return count;
+        }
+    }
+
+    internal class ExerciseCounter : QuestCounter
+    {
+        private readonly Predicate<HomeportFleet> fleetFilter;
+        private readonly BattleRank rankRequired;
+
+        public ExerciseCounter(QuestId questId, int maximum, int counterId = 0,
+            Predicate<HomeportFleet> fleetFilter = null, BattleRank rankRequired = BattleRank.B, QuestPeriod? periodOverride = null)
+            : base(questId, maximum, counterId, periodOverride)
+        {
+            this.fleetFilter = fleetFilter;
+            this.rankRequired = rankRequired;
+        }
+
+        public void OnExerciseComplete(IStatePersist statePersist, HomeportFleet fleet, BattleResult result)
+        {
+            if (result.Rank <= rankRequired &&
+                fleetFilter?.Invoke(fleet) != false)
+                Increase(statePersist);
         }
     }
 }

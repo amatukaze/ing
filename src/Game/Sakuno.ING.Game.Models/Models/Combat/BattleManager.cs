@@ -3,7 +3,7 @@
     public partial class BattleManager : BindableObject
     {
         private readonly NavalBase navalBase;
-        private Fleet sortieFleet, sortieFleet2;
+        private HomeportFleet sortieFleet, sortieFleet2, exerciseFleet;
 
         internal BattleManager(GameProvider listener, NavalBase navalBase)
         {
@@ -17,12 +17,14 @@
                     CurrentBattle = null;
                     sortieFleet = null;
                     sortieFleet2 = null;
+                    exerciseFleet = null;
                 }
             };
 
             listener.ExerciseStarted += (t, m) =>
             {
-                CurrentBattle = new Battle(this.navalBase.Fleets[m], null, CombinedFleetType.None, BattleKind.Normal);
+                exerciseFleet = this.navalBase.Fleets[m];
+                CurrentBattle = new Battle(exerciseFleet, null, CombinedFleetType.None, BattleKind.Normal);
             };
 
             listener.SortieStarting += (t, m) =>
@@ -30,6 +32,7 @@
                 sortieFleet = this.navalBase.Fleets[m.FleetId];
                 if (m.FleetId == 1 && this.navalBase.CombinedFleet != CombinedFleetType.None)
                     sortieFleet2 = this.navalBase.Fleets[(FleetId)2];
+                navalBase.Quests.Knowledges?.OnSortieStart(m.MapId, sortieFleet, sortieFleet2);
             };
 
             listener.MapRouting += (t, m) =>
@@ -51,7 +54,10 @@
             listener.BattleCompleted += (t, m) =>
             {
                 CurrentBattleResult = new BattleResult(this.navalBase.MasterData, m, CurrentBattle.Ally);
-                navalBase.Quests.Knowledges?.OnBattleComplete(CurrentRouting, CurrentBattle, CurrentBattleResult);
+                if (exerciseFleet is null)
+                    navalBase.Quests.Knowledges?.OnBattleComplete(CurrentRouting, CurrentBattle, CurrentBattleResult);
+                else
+                    navalBase.Quests.Knowledges?.OnExerciseComplete(exerciseFleet, CurrentBattleResult);
             };
         }
     }
