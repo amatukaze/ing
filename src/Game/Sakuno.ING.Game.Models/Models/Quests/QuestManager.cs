@@ -21,25 +21,34 @@ namespace Sakuno.ING.Game.Models.Quests
             listener.QuestUpdated += (t, msg) =>
             {
                 UpdationTime = t;
-                _allQuests.RemoveAll(IsOutOfDate);
+                _allQuests.RemoveAll(q =>
+                {
+                    if (QuestExpires(q.UpdationTime, UpdationTime, q.Period))
+                    {
+                        StatePersist.ClearQuestProgress(q.Id);
+                        StatePersist.SetQuestActive(q.Id, false);
+                        return true;
+                    }
+                    return false;
+                });
                 _allQuests.BatchUpdate(msg.Quests, t, removal: false);
-                statePersist.SaveChanges();
+                StatePersist.SaveChanges();
             };
             listener.QuestCompleted += (t, msg) =>
             {
                 var quest = _allQuests.Remove(msg);
                 QuestCompleting?.Invoke(t, quest);
-                statePersist.ClearQuestProgress(quest.Id);
-                statePersist.SetQuestActive(quest.Id, false);
-                statePersist.SaveChanges();
+                StatePersist.ClearQuestProgress(quest.Id);
+                StatePersist.SetQuestActive(quest.Id, false);
+                StatePersist.SaveChanges();
             };
         }
 
-        private bool IsOutOfDate(Quest quest)
+        public static bool QuestExpires(DateTimeOffset questTime, DateTimeOffset now, QuestPeriod period)
         {
-            var questDate = quest.UpdationTime.ToOffset(questUpdate);
-            var updateDate = UpdationTime.ToOffset(questUpdate);
-            return quest.Period switch
+            var questDate = questTime.ToOffset(questUpdate);
+            var updateDate = now.ToOffset(questUpdate);
+            return period switch
             {
                 QuestPeriod.Daily => questDate.Date != updateDate.Date,
                 QuestPeriod.Weekly => questDate.Ticks / (TimeSpan.TicksPerDay * 7)

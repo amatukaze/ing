@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sakuno.ING.Game.Models.Quests
 {
@@ -27,6 +28,12 @@ namespace Sakuno.ING.Game.Models.Quests
         {
             get => _totalProgress;
             private set => Set(ref _totalProgress, value);
+        }
+
+        public void Check(DateTimeOffset timeStamp, QuestPeriod period)
+        {
+            foreach (var c in Counters)
+                c.Check(StatePersist, timeStamp, period);
         }
     }
 }
