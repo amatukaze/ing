@@ -7,6 +7,7 @@
     xmlns:mux="using:Microsoft.UI.Xaml.Controls"
     xmlns:q="using:Sakuno.ING.Game.Models.Quests"
     xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Homeport"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -14,12 +15,42 @@
     <mux:ItemsRepeater ItemsSource="{x:Bind Manager.ActiveQuests}">
         <mux:ItemsRepeater.ItemTemplate>
             <DataTemplate x:DataType="q:Quest">
-                <TextBlock c:Helpers.TranslatableSource="{x:Bind Name, FallbackValue={x:Null}}"
-                           FontSize="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Margin="4" Width="4" Height="20"
+                               VerticalAlignment="Center">
+                        <Rectangle.Fill>
+                            <SolidColorBrush Color="{x:Bind local:ActiveQuestsView.SelectColor(Category)}" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock c:Helpers.TranslatableSource="{x:Bind Name, FallbackValue={x:Null}}"
+                               Grid.Column="1" FontSize="20" TextWrapping="Wrap" />
+                    <Border Grid.Column="3" VerticalAlignment="Center"
+                            CornerRadius="4" Padding="4">
+                        <TextBlock Grid.Column="3" FontSize="16"
+                                   Text="{x:Bind Targets.TotalProgress, FallbackValue='', Mode=OneWay}" />
+                    </Border>
                     <ToolTipService.ToolTip>
-                        <TextBlock c:Helpers.TranslatableSource="{x:Bind Description, FallbackValue={x:Null}}" />
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock TextWrapping="Wrap" FontSize="16">
+                                <Run FontWeight="Bold" c:Helpers.TranslatableRunSource="{x:Bind Name, FallbackValue={x:Null}}" />
+                                <LineBreak />
+                                <Run c:Helpers.TranslatableRunSource="{x:Bind Description, FallbackValue={x:Null}}" />
+                            </TextBlock>
+                            <ItemsControl ItemsSource="{x:Bind Targets.Counters, FallbackValue={x:Null}}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="q:QuestCounter">
+                                        <TextBlock Text="{x:Bind Progress, Mode=OneWay}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
                     </ToolTipService.ToolTip>
-                </TextBlock>
+                </Grid>
             </DataTemplate>
         </mux:ItemsRepeater.ItemTemplate>
     </mux:ItemsRepeater>

@@ -18,8 +18,8 @@ namespace Sakuno.ING.Game.Models.Quests
         [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_category = new PropertyChangedEventArgs(nameof(Category));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private QuestCategoty _category;
-        public QuestCategoty Category
+        private QuestCategory _category;
+        public QuestCategory Category
         {
             get => _category;
             private set => Set(ref _category, value, __eventArgs_category);

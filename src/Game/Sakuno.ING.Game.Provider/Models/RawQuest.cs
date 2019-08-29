@@ -31,8 +31,8 @@ namespace Sakuno.ING.Game.Models
         public QuestId Id { get; internal set; }
 
         internal int api_category;
-        public QuestCategoty Category => api_category == 8 ?
-            QuestCategoty.Sortie : (QuestCategoty)api_category;
+        public QuestCategory Category => api_category == 8 ?
+            QuestCategory.Sortie : (QuestCategory)api_category;
 
         internal int api_type;
         public QuestPeriod Period =>
@@ -51,7 +51,7 @@ namespace Sakuno.ING.Game.Models
         public QuestProgress Progress { get; internal set; }
     }
 
-    public enum QuestCategoty
+    public enum QuestCategory
     {
         Composition = 1,
         Sortie = 2,
