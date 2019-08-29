@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Data;
 using Sakuno.ING.Game.Logger.Entities.Homeport;
@@ -168,10 +169,8 @@ namespace Sakuno.ING.Game.Logger
             var entities = context.QuestProcessTable.Where(x => x.QuestId == questId);
             if (entities.Any())
             {
-                var a = entities.ToArray();
-                foreach (var e in a)
+                foreach (var e in entities.AsTracking().ToArray())
                     e.IsActive = isActive;
-                context.QuestProcessTable.UpdateRange(a);
             }
             else if (isActive)
             {
@@ -184,6 +183,25 @@ namespace Sakuno.ING.Game.Logger
         }
         public bool GetQuestActive(QuestId questId)
             => context.QuestProcessTable.Any(x => x.QuestId == questId && x.IsActive);
+
+        public void SetQuestTime(QuestId questId, int counterId, DateTimeOffset time)
+        {
+            var entity = context.QuestProcessTable.Find(questId, counterId);
+            if (entity is null)
+                context.QuestProcessTable.Add(new QuestProcessEntity
+                {
+                    QuestId = questId,
+                    CounterId = counterId,
+                    CheckedTime = time
+                });
+            else
+            {
+                entity.CheckedTime = time;
+                context.QuestProcessTable.Update(entity);
+            }
+        }
+        public DateTimeOffset? GetQuestTime(QuestId questId, int counterId)
+            => context.QuestProcessTable.Find(questId, counterId)?.CheckedTime;
 
         public void SetLastSortie(ShipId id, DateTimeOffset timeStamp)
         {

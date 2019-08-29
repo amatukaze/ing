@@ -21,6 +21,9 @@ namespace Sakuno.ING.Game.Models
         void SetQuestActive(QuestId questId, bool isActive);
         bool GetQuestActive(QuestId questId);
 
+        void SetQuestTime(QuestId questId, int counterId, DateTimeOffset time);
+        DateTimeOffset? GetQuestTime(QuestId questId, int counterId);
+
         void SetLastSortie(ShipId id, DateTimeOffset timeStamp);
         DateTimeOffset? GetLastSortie(ShipId id);
         void ClearLastSortie(ShipId id);

@@ -16,7 +16,6 @@ namespace Sakuno.ING.Game.Logger
     {
         internal LoggerContext(DbContextOptions<LoggerContext> options) : base(options)
         {
-            ChangeTracker.AutoDetectChangesEnabled = false;
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
@@ -112,6 +111,7 @@ namespace Sakuno.ING.Game.Logger
                 .Entity<QuestProcessEntity>(e =>
                 {
                     e.Property(x => x.QuestId).HasConversion<int>(v => v, v => (QuestId)v);
+                    e.Property(x => x.CheckedTime).HasConversion(new DateTimeOffsetToBinaryConverter());
                     e.HasKey(x => new { x.QuestId, x.CounterId });
                 });
         }
