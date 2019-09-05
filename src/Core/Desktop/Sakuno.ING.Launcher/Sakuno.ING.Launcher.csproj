@@ -6,7 +6,7 @@
     <AssemblyName>IntelligentNavalGun</AssemblyName>
     <ApplicationIcon>$(BasePath)src\app.ico</ApplicationIcon>
     <ApplicationManifest>$(BasePath)src\app.manifest</ApplicationManifest>
-    <Version>2.0.0-alpha4</Version>
+    <Version>2.0.0-alpha5</Version>
     <Description>The launcher of Intelligent Naval Gun</Description>
     <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
     <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);IncludeShim</TargetsForTfmSpecificBuildOutput>

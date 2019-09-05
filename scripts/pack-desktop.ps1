@@ -1,4 +1,4 @@
-$source = "..\artifacts\Sakuno.ING.Launcher.Canonical\x64\Release\net462\"
+﻿$source = "..\artifacts\Sakuno.ING.Launcher.Canonical\x64\Release\net472\"
 $exeName = "IntelligentNavalGun.exe"
 $version = (Get-Item (Join-Path $source $exeName -Resolve)).VersionInfo
 if (-not (Test-Path "..\packages"))
