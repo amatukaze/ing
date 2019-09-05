@@ -6,6 +6,7 @@ using System.Windows.Documents;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
+using Sakuno.ING.Game.Models.Quests;
 using Sakuno.ING.Localization;
 
 namespace Sakuno.ING.Views.Desktop.Documents
@@ -34,6 +35,8 @@ namespace Sakuno.ING.Views.Desktop.Documents
             Formation formation => Compositor.Static<ILocalizationService>().GetLocalized("Combat", "Formation_" + (int)formation),
             Engagement engagement => Compositor.Static<ILocalizationService>().GetLocalized("Combat", "Engagement_" + (int)engagement),
             AirFightingResult result => Compositor.Static<ILocalizationService>().GetLocalized("Combat", "AirFightingResult_" + (int)result),
+            QuestPeriod period => questPeriodText.Value.GetString(period),
+            QuestCategory category => questCategoryText.Value.GetString(category),
             _ => null
         };
 
@@ -42,6 +45,8 @@ namespace Sakuno.ING.Views.Desktop.Documents
         private static readonly Lazy<ValueHolder<ShipSpeed>> shipSpeedText = new Lazy<ValueHolder<ShipSpeed>>(() => new ValueHolder<ShipSpeed>("GameModel"));
         private static readonly Lazy<ValueHolder<MapEventKind>> mapEventText = new Lazy<ValueHolder<MapEventKind>>(() => new ValueHolder<MapEventKind>("Combat"));
         private static readonly Lazy<ValueHolder<BattleKind>> battleKindText = new Lazy<ValueHolder<BattleKind>>(() => new ValueHolder<BattleKind>("Combat"));
+        private static readonly Lazy<ValueHolder<QuestPeriod>> questPeriodText = new Lazy<ValueHolder<QuestPeriod>>(() => new ValueHolder<QuestPeriod>("GameModel"));
+        private static readonly Lazy<ValueHolder<QuestCategory>> questCategoryText = new Lazy<ValueHolder<QuestCategory>>(() => new ValueHolder<QuestCategory>("GameModel"));
 
         private class ValueHolder<T>
             where T : Enum

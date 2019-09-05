@@ -12,14 +12,102 @@
     <ItemsControl ItemsSource="{Binding Quests.ActiveQuests, Mode=OneTime}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <TextBlock FontSize="20">
-                    <c:TranslatableNameText Source="{Binding Name}" />
-                    <TextBlock.ToolTip>
-                        <TextBlock>
-                            <c:TranslatableNameText Source="{Binding Description}" />
-                        </TextBlock>
-                    </TextBlock.ToolTip>
-                </TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Margin="4" Width="4" Height="20"
+                               VerticalAlignment="Center"
+                               Name="PART_Category" />
+                    <TextBlock FontSize="20" TextWrapping="Wrap"
+                               Grid.Column="1">
+                        <c:TranslatableNameText Source="{Binding Name}" />
+                        <TextBlock.ToolTip>
+                            <TextBlock>
+                                <c:TranslatableNameText Source="{Binding Description}" />
+                            </TextBlock>
+                        </TextBlock.ToolTip>
+                    </TextBlock>
+                    <Border Grid.Column="2" VerticalAlignment="Center"
+                            CornerRadius="1" Padding="4,2"
+                            x:Name="targetProgress"
+                            Background="Orange">
+                        <TextBlock FontSize="16" Foreground="White"
+                                   Text="{Binding Targets.TotalProgress}" />
+                    </Border>
+                    <Border Grid.Column="2" VerticalAlignment="Center"
+                            x:Name="noProcess" CornerRadius="1" Padding="4,2"
+                            Visibility="Collapsed">
+                        <TextBlock x:Name="percentage" FontSize="16" Foreground="White" />
+                    </Border>
+                    <ToolTipService.ToolTip>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock TextWrapping="Wrap" FontSize="14">
+                                <c:TranslatableNameText FontWeight="Bold" FontSize="18" Source="{Binding Name}" />
+                                <LineBreak />
+                                <c:EnumText Source="{Binding Category}" />
+                                -
+                                <c:EnumText Source="{Binding Period}" />
+                                <LineBreak />
+                                <LineBreak />
+                                <c:TranslatableNameText FontSize="16" Source="{Binding Description}" />
+                            </TextBlock>
+                            <ItemsControl ItemsSource="{Binding Targets.Counters}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="q:QuestCounter">
+                                        <TextBlock FontSize="14" Text="{Binding Progress}" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ToolTipService.ToolTip>
+                </Grid>
+                <DataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding Category}" Value="Composition">
+                        <Setter TargetName="PART_Category" Property="Fill" Value="#379C5A" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Category}" Value="Sortie">
+                        <Setter TargetName="PART_Category" Property="Fill" Value="#D25050" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Category}" Value="Exercise">
+                        <Setter TargetName="PART_Category" Property="Fill" Value="#69AC48" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Category}" Value="Expedition">
+                        <Setter TargetName="PART_Category" Property="Fill" Value="#3CAAA5" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Category}" Value="Supply">
+                        <Setter TargetName="PART_Category" Property="Fill" Value="#CBAA51" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Category}" Value="Arsenal">
+                        <Setter TargetName="PART_Category" Property="Fill" Value="#744D40" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Category}" Value="Mordenization">
+                        <Setter TargetName="PART_Category" Property="Fill" Value="#B390C5" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding HasTargets}" Value="False">
+                        <Setter TargetName="targetProgress" Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Progress}" Value="Half">
+                        <Setter TargetName="noProcess" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="noProcess" Property="Background" Value="LawnGreen" />
+                        <Setter TargetName="percentage" Property="Text" Value="50%" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Progress}" Value="Almost">
+                        <Setter TargetName="noProcess" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="noProcess" Property="Background" Value="LimeGreen" />
+                        <Setter TargetName="percentage" Property="Text" Value="80%" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding State}" Value="Completed">
+                        <Setter TargetName="noProcess" Property="Visibility" Value="Visible" />
+                        <Setter TargetName="noProcess" Property="Background" Value="MediumTurquoise" />
+                        <Setter TargetName="percentage" Property="Text" Value="100%" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Targets.TotalProgress.IsMaximum}" Value="True">
+                        <Setter TargetName="targetProgress" Property="Background" Value="MediumTurquoise" />
+                    </DataTrigger>
+                </DataTemplate.Triggers>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>
