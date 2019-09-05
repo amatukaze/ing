@@ -12,8 +12,6 @@
     <DesktopFramework>net472</DesktopFramework>
     <DesktopLatestFramework>net472</DesktopLatestFramework>
     <CoreFramework>netcoreapp3.0</CoreFramework>
-    <UWPTargetVersion>10.0.18362.0</UWPTargetVersion>
-    <UWPTargetMinVersion>10.0.16299.0</UWPTargetMinVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
