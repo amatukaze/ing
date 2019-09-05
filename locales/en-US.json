@@ -160,7 +160,19 @@
     "AbyssalClass_Elite": "elite",
     "AbyssalClass_Flagship": "flagship",
     "AbyssalClass_Remodel": " Kai",
-    "AbyssalClass_LateModel": " Late"
+    "AbyssalClass_LateModel": " Late",
+    "QuestPeriod_1": "Daily",
+    "QuestPeriod_2": "Weekly",
+    "QuestPeriod_3": "Monthly",
+    "QuestPeriod_4": "Once",
+    "QuestPeriod_5": "Quaterly",
+    "QuestCategory_1": "Composition quest",
+    "QuestCategory_2": "Sortie quest",
+    "QuestCategory_3": "Exercise quest",
+    "QuestCategory_4": "Expedition quest",
+    "QuestCategory_5": "Supplying quest",
+    "QuestCategory_6": "Arsenal quest",
+    "QuestCategory_7": "mordenization quest"
   },
   "Combat": {
     "MapId": "Map",

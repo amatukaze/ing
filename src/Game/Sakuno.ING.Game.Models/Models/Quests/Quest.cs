@@ -5,6 +5,7 @@ namespace Sakuno.ING.Game.Models.Quests
     public partial class Quest
     {
         public QuestTarget Targets { get; private set; }
+        public bool HasTargets => Targets != null;
 
         partial void CreateCore() => Targets = owner.Knowledges?.GetTargetFor(Id);
 

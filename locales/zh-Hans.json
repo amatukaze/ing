@@ -160,7 +160,19 @@
     "AbyssalClass_Elite": "elite",
     "AbyssalClass_Flagship": "flagship",
     "AbyssalClass_Remodel": "改",
-    "AbyssalClass_LateModel": "后期型"
+    "AbyssalClass_LateModel": "后期型",
+    "QuestPeriod_1": "日常",
+    "QuestPeriod_2": "周常",
+    "QuestPeriod_3": "月常",
+    "QuestPeriod_4": "一次性",
+    "QuestPeriod_5": "季常",
+    "QuestCategory_1": "编成任务", 
+    "QuestCategory_2": "出击任务", 
+    "QuestCategory_3": "演习任务", 
+    "QuestCategory_4": "远征任务", 
+    "QuestCategory_5": "补给任务", 
+    "QuestCategory_6": "工厂任务", 
+    "QuestCategory_7": "强化任务" 
   },
   "Combat": {
     "MapId": "地图",

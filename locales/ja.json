@@ -156,7 +156,19 @@
     "AbyssalClass_Elite": "elite",
     "AbyssalClass_Flagship": "flagship",
     "AbyssalClass_Remodel": "改",
-    "AbyssalClass_LateModel": "後期型"
+    "AbyssalClass_LateModel": "後期型",
+    "QuestPeriod_1": "デイリー",
+    "QuestPeriod_2": "ウィークリー",
+    "QuestPeriod_3": "マンスリー",
+    "QuestPeriod_4": "単発",
+    "QuestPeriod_5": "クォータリー",
+    "QuestCategory_1": "編成任務",
+    "QuestCategory_2": "出撃任務",
+    "QuestCategory_3": "演習任務",
+    "QuestCategory_4": "遠征任務",
+    "QuestCategory_5": "補給任務",
+    "QuestCategory_6": "工廠任務",
+    "QuestCategory_7": "改装任務"
   },
   "Combat": {
     "MapId": "マップ",

@@ -14,7 +14,8 @@
     Height="200">
     <mux:ItemsRepeater ItemsSource="{x:Bind Manager.ActiveQuests}">
         <mux:ItemsRepeater.ItemTemplate>
-            <DataTemplate x:DataType="q:Quest">
+            <DataTemplate x:DataType="q:Quest"
+                          x:DefaultBindMode="OneWay">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -29,22 +30,46 @@
                     </Rectangle>
                     <TextBlock c:Helpers.TranslatableSource="{x:Bind Name, FallbackValue={x:Null}}"
                                Grid.Column="1" FontSize="20" TextWrapping="Wrap" />
-                    <Border Grid.Column="3" VerticalAlignment="Center"
-                            CornerRadius="4" Padding="4">
-                        <TextBlock Grid.Column="3" FontSize="16"
-                                   Text="{x:Bind Targets.TotalProgress, FallbackValue='', Mode=OneWay}" />
+                    <Border Grid.Column="2" VerticalAlignment="Center"
+                            CornerRadius="1" Padding="4,2"
+                            x:Name="targetProgress" x:Load="{x:Bind HasTargets}">
+                        <Border.Background>
+                            <SolidColorBrush Color="{x:Bind local:ActiveQuestsView.SelectProgressColor(Targets.TotalProgress)}" />
+                        </Border.Background>
+                        <TextBlock FontSize="16" Foreground="White"
+                                   Text="{x:Bind Targets.TotalProgress, FallbackValue=''}" />
                     </Border>
+                    <Grid Grid.Column="2" VerticalAlignment="Center"
+                          x:Name="noProcess" x:Load="{x:Bind c:Helpers.Not(HasTargets)}">
+                        <Border x:Name="progress50" CornerRadius="1" Padding="4,2" Background="LawnGreen"
+                                x:Load="{x:Bind local:ActiveQuestsView.ProgressEquals(Progress, q:QuestProgress.Half)}">
+                            <TextBlock FontSize="16" Text="50%" Foreground="White" />
+                        </Border>
+                        <Border x:Name="progress80" CornerRadius="1" Padding="4,2" Background="LimeGreen"
+                                x:Load="{x:Bind local:ActiveQuestsView.ProgressEquals(Progress, q:QuestProgress.Almost)}">
+                            <TextBlock FontSize="16" Text="80%" Foreground="White" />
+                        </Border>
+                        <Border x:Name="progress100" CornerRadius="1" Padding="4,2" Background="MediumTurquoise"
+                                x:Load="{x:Bind local:ActiveQuestsView.StateEquals(State, q:QuestState.Completed)}">
+                            <TextBlock FontSize="16" Text="100%" Foreground="White" />
+                        </Border>
+                    </Grid>
                     <ToolTipService.ToolTip>
                         <StackPanel Orientation="Vertical">
-                            <TextBlock TextWrapping="Wrap" FontSize="16">
-                                <Run FontWeight="Bold" c:Helpers.TranslatableRunSource="{x:Bind Name, FallbackValue={x:Null}}" />
+                            <TextBlock TextWrapping="Wrap" FontSize="14">
+                                <Run FontWeight="Bold" FontSize="18" c:Helpers.TranslatableRunSource="{x:Bind Name, FallbackValue={x:Null}}" />
                                 <LineBreak />
-                                <Run c:Helpers.TranslatableRunSource="{x:Bind Description, FallbackValue={x:Null}}" />
+                                <Run Text="{x:Bind c:Helpers.FormatQuestCategory(Category)}" />
+                                -
+                                <Run Text="{x:Bind c:Helpers.FormatQuestPeriod(Period)}" />
+                                <LineBreak />
+                                <LineBreak />
+                                <Run FontSize="16" c:Helpers.TranslatableRunSource="{x:Bind Description, FallbackValue={x:Null}}" />
                             </TextBlock>
-                            <ItemsControl ItemsSource="{x:Bind Targets.Counters, FallbackValue={x:Null}}">
+                            <ItemsControl ItemsSource="{x:Bind Targets.Counters, FallbackValue={x:Null}, Mode=OneTime}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="q:QuestCounter">
-                                        <TextBlock Text="{x:Bind Progress, Mode=OneWay}" />
+                                        <TextBlock FontSize="14" Text="{x:Bind Progress}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

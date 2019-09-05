@@ -3,6 +3,7 @@ using Sakuno.ING.Composition;
 using Sakuno.ING.Game;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Combat;
+using Sakuno.ING.Game.Models.Quests;
 using Sakuno.ING.Localization;
 using Sakuno.ING.Settings;
 using Windows.UI.Xaml.Controls;
@@ -238,5 +239,11 @@ namespace Sakuno.ING.Views.UWP
 
         public static string FormatAerialPlanes(ClampedValue value)
             => $"{value.Max}→{value.Shortage} (-{value.Current})";
+
+        public static string FormatQuestCategory(QuestCategory category)
+            => localization.GetLocalized("GameModel", "QuestCategory_" + (int)category);
+
+        public static string FormatQuestPeriod(QuestPeriod period)
+            => localization.GetLocalized("GameModel", "QuestPeriod_" + (int)period);
     }
 }

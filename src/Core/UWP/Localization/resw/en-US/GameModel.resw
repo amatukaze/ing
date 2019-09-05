@@ -282,4 +282,40 @@
   <data name="AbyssalClass_LateModel">
     <value> Late</value>
   </data>
+  <data name="QuestPeriod_1">
+    <value>Daily</value>
+  </data>
+  <data name="QuestPeriod_2">
+    <value>Weekly</value>
+  </data>
+  <data name="QuestPeriod_3">
+    <value>Monthly</value>
+  </data>
+  <data name="QuestPeriod_4">
+    <value>Once</value>
+  </data>
+  <data name="QuestPeriod_5">
+    <value>Quaterly</value>
+  </data>
+  <data name="QuestCategory_1">
+    <value>Composition quest</value>
+  </data>
+  <data name="QuestCategory_2">
+    <value>Sortie quest</value>
+  </data>
+  <data name="QuestCategory_3">
+    <value>Exercise quest</value>
+  </data>
+  <data name="QuestCategory_4">
+    <value>Expedition quest</value>
+  </data>
+  <data name="QuestCategory_5">
+    <value>Supplying quest</value>
+  </data>
+  <data name="QuestCategory_6">
+    <value>Arsenal quest</value>
+  </data>
+  <data name="QuestCategory_7">
+    <value>mordenization quest</value>
+  </data>
 </root>

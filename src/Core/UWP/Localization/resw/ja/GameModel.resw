@@ -282,4 +282,40 @@
   <data name="AbyssalClass_LateModel">
     <value>後期型</value>
   </data>
+  <data name="QuestPeriod_1">
+    <value>デイリー</value>
+  </data>
+  <data name="QuestPeriod_2">
+    <value>ウィークリー</value>
+  </data>
+  <data name="QuestPeriod_3">
+    <value>マンスリー</value>
+  </data>
+  <data name="QuestPeriod_4">
+    <value>単発</value>
+  </data>
+  <data name="QuestPeriod_5">
+    <value>クォータリー</value>
+  </data>
+  <data name="QuestCategory_1">
+    <value>編成任務</value>
+  </data>
+  <data name="QuestCategory_2">
+    <value>出撃任務</value>
+  </data>
+  <data name="QuestCategory_3">
+    <value>演習任務</value>
+  </data>
+  <data name="QuestCategory_4">
+    <value>遠征任務</value>
+  </data>
+  <data name="QuestCategory_5">
+    <value>補給任務</value>
+  </data>
+  <data name="QuestCategory_6">
+    <value>工廠任務</value>
+  </data>
+  <data name="QuestCategory_7">
+    <value>改装任務</value>
+  </data>
 </root>

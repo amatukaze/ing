@@ -282,4 +282,40 @@
   <data name="AbyssalClass_LateModel">
     <value>后期型</value>
   </data>
+  <data name="QuestPeriod_1">
+    <value>日常</value>
+  </data>
+  <data name="QuestPeriod_2">
+    <value>周常</value>
+  </data>
+  <data name="QuestPeriod_3">
+    <value>月常</value>
+  </data>
+  <data name="QuestPeriod_4">
+    <value>一次性</value>
+  </data>
+  <data name="QuestPeriod_5">
+    <value>季常</value>
+  </data>
+  <data name="QuestCategory_1">
+    <value>编成任务</value>
+  </data>
+  <data name="QuestCategory_2">
+    <value>出击任务</value>
+  </data>
+  <data name="QuestCategory_3">
+    <value>演习任务</value>
+  </data>
+  <data name="QuestCategory_4">
+    <value>远征任务</value>
+  </data>
+  <data name="QuestCategory_5">
+    <value>补给任务</value>
+  </data>
+  <data name="QuestCategory_6">
+    <value>工厂任务</value>
+  </data>
+  <data name="QuestCategory_7">
+    <value>强化任务</value>
+  </data>
 </root>

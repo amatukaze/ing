@@ -28,5 +28,20 @@ namespace Sakuno.ING.Views.UWP.Homeport
                 QuestCategory.Mordenization => Color.FromArgb(255, 179, 144, 197),
                 _ => Color.FromArgb(255, 135, 135, 135)
             };
+
+        public static bool StateEquals(QuestState left, QuestState right)
+            => left == right;
+
+        public static bool ProgressEquals(QuestProgress left, QuestProgress right)
+            => left == right;
+
+        public static Color SelectProgressColor(ClampedValue value)
+            => value switch
+            {
+                { IsMaximum: true } => Colors.MediumTurquoise,
+                var x when x.Percentage >= 0.8 => Colors.LimeGreen,
+                var x when x.Percentage >= 0.5 => Colors.LawnGreen,
+                _ => Colors.Orange
+            };
     }
 }
