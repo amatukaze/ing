@@ -34,6 +34,7 @@ namespace Sakuno.ING.Game.Models.Quests
         {
             foreach (var c in Counters)
                 c.Check(StatePersist, timeStamp, period);
+            UpdateProgress();
         }
     }
 }

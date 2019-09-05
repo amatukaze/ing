@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Sakuno.ING.Game.Json.Converters;
 
-namespace Sakuno.ING.Game.Models
+namespace Sakuno.ING.Game.Models.Quests
 {
     [Identifier(typeof(int))]
     public readonly struct QuestId : IEquatable<QuestId>, IComparable<QuestId>

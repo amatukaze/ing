@@ -4,7 +4,7 @@
   <class name="Quest" id="QuestId" raw="RawQuest" owner="QuestManager">
     <localizable name="Name" category="QuestName" />
     <localizable name="Description" category="QuestDesc" />
-    <property type="QuestCategoty" name="Category" autoFill="true" />
+    <property type="QuestCategory" name="Category" autoFill="true" />
     <property type="QuestPeriod" name="Period" autoFill="true" />
     <property type="QuestState" name="State" autoFill="true" />
     <property type="QuestProgress" name="Progress" autoFill="true" />

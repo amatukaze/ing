@@ -6,6 +6,7 @@ using Sakuno.ING.Composition;
 using Sakuno.ING.Data;
 using Sakuno.ING.Game.Logger.Entities.Homeport;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Quests;
 
 namespace Sakuno.ING.Game.Logger
 {
@@ -14,6 +15,7 @@ namespace Sakuno.ING.Game.Logger
     {
         private LoggerContext context;
         private readonly IDataService dataService;
+        private int admiralId;
 
         public LoggerStatePersist(IDataService dataService)
         {
@@ -137,11 +139,17 @@ namespace Sakuno.ING.Game.Logger
 
         public void Initialize(int admiralId)
         {
+            this.admiralId = admiralId;
             context?.Dispose();
             context = new LoggerContext(dataService.ConfigureDbContext<LoggerContext>(admiralId.ToString(), "logs"));
         }
 
-        public void SaveChanges() => context.SaveChanges();
+        public void SaveChanges()
+        {
+            context.SaveChanges();
+            context.Dispose();
+            context = new LoggerContext(dataService.ConfigureDbContext<LoggerContext>(admiralId.ToString(), "logs"));
+        }
 
         public void SetQuestProgress(QuestId questId, int counterId, int value)
         {

@@ -7,6 +7,7 @@ using Sakuno.ING.Game.Logger.Entities.Combat;
 using Sakuno.ING.Game.Logger.Entities.Homeport;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Game.Models.Quests;
 
 [assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Design")]
 [assembly: InternalsVisibleTo("Sakuno.ING.Game.Logger.Tests")]

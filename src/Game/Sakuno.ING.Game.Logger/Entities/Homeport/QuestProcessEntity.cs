@@ -1,5 +1,5 @@
 ﻿using System;
-using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Quests;
 
 namespace Sakuno.ING.Game.Logger.Entities.Homeport
 {

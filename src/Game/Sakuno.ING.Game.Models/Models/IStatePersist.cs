@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sakuno.ING.Game.Models.Quests;
 
 namespace Sakuno.ING.Game.Models
 {

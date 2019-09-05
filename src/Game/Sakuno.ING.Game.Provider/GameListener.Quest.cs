@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
-using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Quests;
 using Sakuno.ING.Messaging;
 
 namespace Sakuno.ING.Game
