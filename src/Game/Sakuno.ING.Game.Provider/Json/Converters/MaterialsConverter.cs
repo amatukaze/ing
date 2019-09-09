@@ -4,12 +4,11 @@ using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
-    internal class MaterialsConverter : JsonConverter
+    internal class MaterialsConverter : JsonConverter<Materials>
     {
-        public override bool CanConvert(Type objectType) => objectType == typeof(Materials);
         public override bool CanWrite => false;
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotSupportedException();
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, Materials value, JsonSerializer serializer) => throw new NotSupportedException();
+        public override Materials ReadJson(JsonReader reader, Type objectType, Materials existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             Materials result = default;
 

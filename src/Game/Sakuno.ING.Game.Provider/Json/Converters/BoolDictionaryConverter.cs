@@ -5,11 +5,11 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
-    internal class BoolDictionaryConverter : JsonConverter
+    internal class BoolDictionaryConverter : JsonConverter<List<EquipmentTypeId>>
     {
-        public override bool CanConvert(Type objectType) => objectType == typeof(List<int>);
         public override bool CanWrite => false;
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, List<EquipmentTypeId> value, JsonSerializer serializer) => throw new NotSupportedException();
+        public override List<EquipmentTypeId> ReadJson(JsonReader reader, Type objectType, List<EquipmentTypeId> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             if (reader.TokenType != JsonToken.StartObject)
                 return null;
@@ -25,6 +25,5 @@ namespace Sakuno.ING.Game.Json.Converters
             }
             return result;
         }
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotSupportedException();
     }
 }

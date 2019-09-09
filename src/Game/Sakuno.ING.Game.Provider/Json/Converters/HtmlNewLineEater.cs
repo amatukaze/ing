@@ -3,12 +3,11 @@ using Newtonsoft.Json;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
-    internal class HtmlNewLineEater : JsonConverter
+    internal class HtmlNewLineEater : JsonConverter<string>
     {
-        public override bool CanConvert(Type objectType) => objectType == typeof(string);
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            => reader.Value.ToString().Replace("<br>", string.Empty);
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotSupportedException();
         public override bool CanWrite => false;
+        public override void WriteJson(JsonWriter writer, string value, JsonSerializer serializer) => throw new NotSupportedException();
+        public override string ReadJson(JsonReader reader, Type objectType, string existingValue, bool hasExistingValue, JsonSerializer serializer)
+            => reader.Value.ToString().Replace("<br>", string.Empty);
     }
 }

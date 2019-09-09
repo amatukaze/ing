@@ -3,15 +3,14 @@ using Newtonsoft.Json;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
-    internal abstract class IntArrayConverterBase<T> : JsonConverter
+    internal abstract class IntArrayConverterBase<T> : JsonConverter<T>
     {
-        public override bool CanConvert(Type objectType) => typeof(T).IsAssignableFrom(objectType);
         public override bool CanWrite => false;
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotSupportedException();
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, T value, JsonSerializer serializer) => throw new NotSupportedException();
+        public override T ReadJson(JsonReader reader, Type objectType, T existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             if (reader.TokenType != JsonToken.StartArray)
-                return default(T);
+                return default;
 
             Span<int> array = stackalloc int[RequiredCount];
             int i;
@@ -22,7 +21,7 @@ namespace Sakuno.ING.Game.Json.Converters
             if (i >= array.Length)
                 return ConvertValue(array);
             else
-                return default(T);
+                return default;
         }
 
         protected abstract int RequiredCount { get; }

@@ -5,14 +5,13 @@ using Sakuno.ING.Game.Models.Quests;
 
 namespace Sakuno.ING.Game.Json.Converters
 {
-    internal class Minus1Eater<T> : JsonConverter
+    internal class Minus1Eater : JsonConverter<List<RawQuest>>
     {
-        public override bool CanConvert(Type objectType) => objectType == typeof(List<RawQuest>);
         public override bool CanWrite => false;
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotSupportedException();
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, List<RawQuest> value, JsonSerializer serializer) => throw new NotSupportedException();
+        public override List<RawQuest> ReadJson(JsonReader reader, Type objectType, List<RawQuest> existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
-            var result = new List<T>();
+            var result = new List<RawQuest>();
             if (reader.TokenType == JsonToken.StartArray)
             {
                 reader.Read();
@@ -20,7 +19,7 @@ namespace Sakuno.ING.Game.Json.Converters
                 {
                     if (reader.TokenType == JsonToken.StartObject ||
                         reader.TokenType == JsonToken.StartArray)
-                        result.Add(serializer.Deserialize<T>(reader));
+                        result.Add(serializer.Deserialize<RawQuest>(reader));
                     else reader.Read();
                 }
             }

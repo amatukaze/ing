@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game.Json
         public bool api_completed_kind;
         public int api_page_count;
         public int api_disp_page;
-        [JsonConverter(typeof(Minus1Eater<RawQuest>))]
+        [JsonConverter(typeof(Minus1Eater))]
         public IReadOnlyList<RawQuest> api_list;
         public int api_exec_count;
     }
