@@ -6,8 +6,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
     <LangVersion>8.0</LangVersion>
-    <BaseOutputPath>$(BasePath)artifacts\$(MSBuildProjectName)\</BaseOutputPath>
-    <BaseIntermediateOutputPath>$(BasePath)intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
     <Authors>Kodama Sakuno</Authors>
     <Product>Intelligent Naval Gun</Product>
     <Company>Kodama Sakuno</Company>
