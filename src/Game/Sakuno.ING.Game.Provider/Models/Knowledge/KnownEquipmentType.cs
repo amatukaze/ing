@@ -108,19 +108,29 @@ namespace Sakuno.ING.Game.Models.Knowledge
 
     public static class KnownEquipmentTypeExtensions
     {
-        public static bool IsPlane(this EquipmentTypeId id) => (KnownEquipmentType)id switch
-        {
-            KnownEquipmentType.FighterAircraft => true,
-            KnownEquipmentType.DiveBomber => true,
-            KnownEquipmentType.TorpedoBomber => true,
-            KnownEquipmentType.ReconnaissanceAircraft => true,
-            KnownEquipmentType.ReconnaissanceSeaplane => true,
-            KnownEquipmentType.SeaplaneBomber => true,
-            KnownEquipmentType.Autogyro => true,
-            KnownEquipmentType.AntiSubmarinePatrolAircraft => true,
-            KnownEquipmentType.LargeFlyingBoat => true,
-            KnownEquipmentType.SeaplaneFighter => true,
-            _ => false
-        };
+        public static bool IsPlane(this EquipmentTypeId id)
+            => (KnownEquipmentType)id switch
+            {
+                KnownEquipmentType.FighterAircraft => true,
+                KnownEquipmentType.DiveBomber => true,
+                KnownEquipmentType.TorpedoBomber => true,
+                KnownEquipmentType.ReconnaissanceAircraft => true,
+                KnownEquipmentType.ReconnaissanceSeaplane => true,
+                KnownEquipmentType.SeaplaneBomber => true,
+                KnownEquipmentType.Autogyro => true,
+                KnownEquipmentType.AntiSubmarinePatrolAircraft => true,
+                KnownEquipmentType.LargeFlyingBoat => true,
+                KnownEquipmentType.SeaplaneFighter => true,
+                _ => false
+            };
+
+        public static bool IsRadar(this EquipmentTypeId id)
+            => (KnownEquipmentType)id switch
+            {
+                KnownEquipmentType.SmallRadar => true,
+                KnownEquipmentType.LargeRadar => true,
+                KnownEquipmentType.VeryLargeRadar => true,
+                _ => false
+            };
     }
 }
