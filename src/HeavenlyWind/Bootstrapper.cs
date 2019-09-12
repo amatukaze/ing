@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using Sakuno.ING.Extensibility.Composition;
-using Sakuno.ING.Extensibility.Shell;
+using Sakuno.ING.Composition;
+using Sakuno.ING.Shell;
 using System;
 using System.Collections.Generic;
 using System.Linq;

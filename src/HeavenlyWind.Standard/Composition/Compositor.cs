@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Sakuno.ING.Extensibility.Composition
+namespace Sakuno.ING.Composition
 {
     public abstract class Compositor
     {

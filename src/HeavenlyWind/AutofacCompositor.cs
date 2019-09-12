@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autofac;
-using Sakuno.ING.Extensibility.Composition;
+using Sakuno.ING.Composition;
 
 namespace Sakuno.ING
 {

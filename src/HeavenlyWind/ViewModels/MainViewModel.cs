@@ -1,4 +1,4 @@
-﻿using Sakuno.ING.Extensibility.Composition;
+﻿using Sakuno.ING.Composition;
 
 namespace Sakuno.ING.ViewModels
 {

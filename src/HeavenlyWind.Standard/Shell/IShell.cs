@@ -1,4 +1,4 @@
-﻿namespace Sakuno.ING.Extensibility.Shell
+﻿namespace Sakuno.ING.Shell
 {
     public interface IShell
     {
