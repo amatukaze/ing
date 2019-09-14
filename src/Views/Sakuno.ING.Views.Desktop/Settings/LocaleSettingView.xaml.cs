@@ -36,7 +36,7 @@ namespace Sakuno.ING.Views.Desktop.Settings
                 Key = x.Source
             }));
 
-            string GetLocalizedName(LanguageSpecificStringDictionary names)
+            static string GetLocalizedName(LanguageSpecificStringDictionary names)
             {
                 if (names.TryGetValue(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.Name), out string name))
                     return name;

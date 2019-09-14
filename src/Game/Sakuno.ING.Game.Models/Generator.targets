@@ -36,6 +36,7 @@ foreach (var infile in Inputs)
         output.WriteLine("//------------------------------------------------------------------------------");
 
         output.WriteLine("using System;");
+        output.WriteLine("using System.CodeDom.Compiler;");
         output.WriteLine("using System.Collections.Generic;");
         output.WriteLine("using System.ComponentModel;");
         foreach (var ns in root.Elements(XName.Get("using", xmlns)))
@@ -165,6 +166,7 @@ foreach (var infile in Inputs)
             output.WriteLine("        }");
 
             output.WriteLine();
+            output.WriteLine("        [GeneratedCode(\"Game objects generator\", \"\")]");
             output.WriteLine($"        partial void UpdateCore({rawClass} raw, DateTimeOffset timeStamp);");
             output.WriteLine();
             output.WriteLine("        partial void CreateCore();");

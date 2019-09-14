@@ -11,15 +11,13 @@ namespace Sakuno.ING.Game.Tests
         [Fact]
         public static void TestConvertFleet()
         {
-            ShipMordenizationStatus CreateParameter(int current, int displaying)
-            {
-                return new ShipMordenizationStatus
+            static ShipMordenizationStatus CreateParameter(int current, int displaying)
+                => new ShipMordenizationStatus
                 {
                     Min = current,
                     Max = current,
                     Displaying = displaying
                 };
-            }
 
             var s = new ShipInBattleEntity
             {

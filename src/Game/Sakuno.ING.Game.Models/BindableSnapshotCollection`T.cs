@@ -107,6 +107,7 @@ namespace Sakuno.ING.Game
             {
                 snapshot = @new;
                 NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                NotifyPropertyChanged(nameof(Count));
             }
         }
 
@@ -120,6 +121,7 @@ namespace Sakuno.ING.Game
             {
                 snapshot.RemoveAt(index);
                 NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+                NotifyPropertyChanged(nameof(Count));
             }
         }
 
@@ -131,6 +133,7 @@ namespace Sakuno.ING.Game
             {
                 snapshot[i] = newItem;
                 NotifyCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, newItem, oldItem, i));
+                NotifyPropertyChanged(nameof(Count));
             }
         }
 

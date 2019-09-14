@@ -67,9 +67,9 @@ namespace Sakuno.ING.Game.Tests
             int offset = 0;
             foreach (var a in BindableSnapshotCollection<object>.SequenceDiffer(s, t))
                 if (a.IsAdd)
-                    s.Insert(a.OriginalIndex + (offset++), a.Item);
+                    s.Insert(a.OriginalIndex + offset++, a.Item);
                 else
-                    s.RemoveAt(a.OriginalIndex + (offset--));
+                    s.RemoveAt(a.OriginalIndex + offset--);
             Assert.Equal(t, s);
         }
     }

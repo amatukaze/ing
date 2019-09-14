@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -127,6 +128,7 @@ namespace Sakuno.ING.Game.Models.Quests
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawQuest raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();

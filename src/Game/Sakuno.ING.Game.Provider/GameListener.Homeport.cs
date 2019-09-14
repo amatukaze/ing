@@ -62,13 +62,6 @@ namespace Sakuno.ING.Game
         private static ShipId ParseShipExtraSlotOpen(NameValueCollection request)
             => (ShipId)request.GetInt("api_id");
 
-        private static ShipEquipmentUpdate ParseShipEquipmentUpdate(NameValueCollection request, ShipEquipmentJson response)
-            => new ShipEquipmentUpdate
-            (
-                shipId: (ShipId)request.GetInt("api_id"),
-                equipmentIds: response.api_slot
-            );
-
         private static RawShip[] ParseShipDeprive(DepriveJson response)
             => new[] { response.api_ship_data.api_unset_ship, response.api_ship_data.api_set_ship };
 

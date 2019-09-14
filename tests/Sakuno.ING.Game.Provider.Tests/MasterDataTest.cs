@@ -20,9 +20,9 @@ namespace Sakuno.ING.Game.Tests
 
             gameListener.MasterDataUpdated += (_, u) => parseResult = u;
 
-            using (var stream = Assembly.GetExecutingAssembly()
-                .GetManifestResourceStream(typeof(MasterDataTest), "Data.masterdata.json"))
-                provider.Push("api_start2", DateTimeOffset.Now, default, stream);
+            using var stream = Assembly.GetExecutingAssembly()
+                .GetManifestResourceStream(typeof(MasterDataTest), "Data.masterdata.json");
+            provider.Push("api_start2", DateTimeOffset.Now, default, stream);
         }
 
         [Fact]

@@ -42,7 +42,7 @@ namespace Sakuno.ING.Views.Desktop
 
         public async Task<IFileFacade> OpenFileAsync(params string[] extensions)
         {
-            var dialog = new CommonOpenFileDialog
+            using var dialog = new CommonOpenFileDialog
             {
                 ShowHiddenItems = true
             };
@@ -58,7 +58,7 @@ namespace Sakuno.ING.Views.Desktop
 
         public async Task<IFolderFacade> PickFolderAsync()
         {
-            var dialog = new CommonOpenFileDialog
+            using var dialog = new CommonOpenFileDialog
             {
                 IsFolderPicker = true,
                 ShowHiddenItems = true

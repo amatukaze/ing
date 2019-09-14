@@ -171,7 +171,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
 
             async ValueTask ImportDetailAsync(Stream stream)
             {
-                var reader = new StreamReader(stream);
+                using var reader = new StreamReader(stream);
                 while (!reader.EndOfStream)
                 {
                     string line = await reader.ReadLineAsync();
@@ -227,7 +227,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     }).ToArray();
                 }
 
-                SlotInBattleEntity SelectSlot(BattleDetailLog.Equipment slot)
+                static SlotInBattleEntity SelectSlot(BattleDetailLog.Equipment slot)
                 {
                     if (slot is null) return default;
                     return new SlotInBattleEntity

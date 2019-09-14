@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Sakuno.ING.Game.Models.MasterData;
@@ -102,6 +103,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawEquipment raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
@@ -186,6 +188,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawBuildingDock raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
@@ -249,6 +252,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawRepairingDock raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
@@ -311,6 +315,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawUseItemCount raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
@@ -473,6 +478,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawAdmiral raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
@@ -765,6 +771,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawShip raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
@@ -910,6 +917,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawFleet raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
@@ -1036,6 +1044,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawMap raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
@@ -1109,6 +1118,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawAirForceSquadron raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();
@@ -1194,6 +1204,7 @@ namespace Sakuno.ING.Game.Models
             UpdateCore(raw, timeStamp);
         }
 
+        [GeneratedCode("Game objects generator", "")]
         partial void UpdateCore(RawAirForceGroup raw, DateTimeOffset timeStamp);
 
         partial void CreateCore();

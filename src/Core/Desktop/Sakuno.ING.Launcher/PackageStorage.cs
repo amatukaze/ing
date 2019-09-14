@@ -14,8 +14,8 @@ namespace Sakuno.ING
         {
             string folder = Path.Combine(Program.StagingPackagesDirectory, id);
             Directory.CreateDirectory(folder);
-            using (var file = File.Create(Path.Combine(folder, $"{id}.{version}.nupkg")))
-                await stream.CopyToAsync(file);
+            using var file = File.Create(Path.Combine(folder, $"{id}.{version}.nupkg"));
+            await stream.CopyToAsync(file);
         }
 
         public void Remove(string id, string version) => Directory.Delete(Path.Combine(Package.BaseDirectory, id), true);

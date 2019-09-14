@@ -380,8 +380,8 @@ namespace Sakuno.ING
             {
                 using (var stream = file.OpenRead())
                 {
-                    var archive = new ZipArchive(stream);
-                    var package = PackageContainer.Open(stream);
+                    using var archive = new ZipArchive(stream);
+                    using var package = PackageContainer.Open(stream);
                     var identifier = package.PackageProperties.Identifier;
                     var directory = Path.Combine(Package.BaseDirectory, identifier);
                     var relationship = package.GetRelationshipsByType(ManifestRelationshipType).SingleOrDefault();

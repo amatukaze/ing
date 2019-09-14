@@ -15,8 +15,8 @@ namespace Sakuno.ING.Data
         {
             options = dataService.ConfigureDbContext<SettingsDbContext>("settings");
 
-            using (var context = CreateDbContext())
-                context.Database.Migrate();
+            using var context = CreateDbContext();
+            context.Database.Migrate();
         }
 
         internal SettingsDbContext CreateDbContext() => new SettingsDbContext(options);

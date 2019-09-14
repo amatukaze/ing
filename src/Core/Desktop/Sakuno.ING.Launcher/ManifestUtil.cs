@@ -92,13 +92,12 @@ namespace Sakuno.ING
             var currentAssembly = Assembly.GetExecutingAssembly();
             var result = new XmlSchemaSet();
 
-            using (var stream = currentAssembly.GetManifestResourceStream(ManifestSchameResourceName))
-            {
-                var format = new StreamReader(stream).ReadToEnd();
-                var content = string.Format(format, schemaNamespace);
+            using var stream = currentAssembly.GetManifestResourceStream(ManifestSchameResourceName);
+            using var streamReader = new StreamReader(stream);
+            var format = streamReader.ReadToEnd();
+            var content = string.Format(format, schemaNamespace);
 
-                result.Add(schemaNamespace, XmlReader.Create(new StringReader(content), _readerSettings));
-            }
+            result.Add(schemaNamespace, XmlReader.Create(new StringReader(content), _readerSettings));
 
             return result;
         }

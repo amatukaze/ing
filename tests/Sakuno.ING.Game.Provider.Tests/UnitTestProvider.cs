@@ -10,7 +10,10 @@ namespace Sakuno.ING.Game.Tests
         public event TimedMessageHandler<HttpMessage> Received;
 
         public void Push(string key, DateTimeOffset timeStamp, ReadOnlyMemory<char> request, Stream response)
-            => Received?.Invoke(timeStamp, new HttpMessage(key, request, new StreamReader(response).ReadToEnd().AsMemory()));
+        {
+            using var streamReader = new StreamReader(response);
+            Received?.Invoke(timeStamp, new HttpMessage(key, request, streamReader.ReadToEnd().AsMemory()));
+        }
     }
 
     internal class UnitTestProviderSelector : IHttpProviderSelector

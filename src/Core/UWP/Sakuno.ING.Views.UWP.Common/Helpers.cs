@@ -36,7 +36,7 @@ namespace Sakuno.ING.Views.UWP
                 text.Language = "ja-jp";
             }
         }
-        public static TextTranslationDescriptor GetTranslatableSource(TextBlock text) => null;
+        public static TextTranslationDescriptor GetTranslatableSource(TextBlock _) => null;
 
         public static void SetTranslatableRunSource(Run text, TextTranslationDescriptor descriptor)
         {
@@ -55,7 +55,7 @@ namespace Sakuno.ING.Views.UWP
                 text.Language = "ja-jp";
             }
         }
-        public static TextTranslationDescriptor GetTranslatableRunSource(Run text) => null;
+        public static TextTranslationDescriptor GetTranslatableRunSource(Run _) => null;
 
         public static string Localize(string category, object value, string format)
             => localization.GetLocalized(category, string.Format(format, value));

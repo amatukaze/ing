@@ -12,21 +12,20 @@ namespace Sakuno.ING.Data
         {
             this.manager = manager;
             this.key = key;
-            using (var context = manager.CreateDbContext())
+
+            using var context = manager.CreateDbContext();
+            var entry = context.SettingEntries.Find(key);
+            if (entry != null)
+                value = entry.Value;
+            else
             {
-                var entry = context.SettingEntries.Find(key);
-                if (entry != null)
-                    value = entry.Value;
-                else
+                value = defaultValue;
+                context.SettingEntries.Add(new SettingDbEntry
                 {
-                    value = defaultValue;
-                    context.SettingEntries.Add(new SettingDbEntry
-                    {
-                        Id = key,
-                        Value = defaultValue
-                    });
-                    context.SaveChanges();
-                }
+                    Id = key,
+                    Value = defaultValue
+                });
+                context.SaveChanges();
             }
         }
 
@@ -41,11 +40,9 @@ namespace Sakuno.ING.Data
                     OnValueChanged(value);
                     NotifyPropertyChanged();
 
-                    using (var context = manager.CreateDbContext())
-                    {
-                        context.SettingEntries.Find(key).Value = value;
-                        context.SaveChanges();
-                    }
+                    using var context = manager.CreateDbContext();
+                    context.SettingEntries.Find(key).Value = value;
+                    context.SaveChanges();
                 }
             }
         }

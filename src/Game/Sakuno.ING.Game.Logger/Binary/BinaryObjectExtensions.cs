@@ -15,7 +15,7 @@ namespace Sakuno.ING.Game.Logger.Binary
             var f = fleet.ToArray();
             writer.WriteArraySize(f.Length);
 
-            void WriteShipParameter(BinaryObjectWriter w, ShipMordenizationStatus p)
+            static void WriteShipParameter(BinaryObjectWriter w, ShipMordenizationStatus p)
             {
                 w.WriteArraySize(2);
                 w.WriteInteger(p.Current);
@@ -89,7 +89,7 @@ namespace Sakuno.ING.Game.Logger.Binary
                 return null;
             var result = new ShipInBattleEntity[reader.ReadContainerLength()];
 
-            ShipMordenizationStatus ReadShipParameter(BinaryObjectReader r)
+            static ShipMordenizationStatus ReadShipParameter(BinaryObjectReader r)
             {
                 (int v, int d) = ReadArray2(r);
                 return new ShipMordenizationStatus(v, d);

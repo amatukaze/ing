@@ -23,7 +23,9 @@ namespace Sakuno.ING.Timing.NTP
         public DateTimeOffset Now => IsSycned ?
             _baseTime + _stopwatch.Elapsed - _initialTimestamp : DateTimeOffset.Now;
 
+#pragma warning disable IDE0052 // Requires to keep alive
         private readonly System.Threading.Timer _timer;
+#pragma warning restore IDE0052
 
         public NTPService()
         {

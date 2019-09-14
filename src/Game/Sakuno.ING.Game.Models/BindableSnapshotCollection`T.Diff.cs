@@ -51,7 +51,7 @@ namespace Sakuno.ING.Game
         }
         public static EditAction[] SequenceDiffer(ListSegment source, ListSegment target)
         {
-            int GetLongestMatch(ListSegment _source, ListSegment _target)
+            static int GetLongestMatch(ListSegment _source, ListSegment _target)
             {
                 int i;
                 for (i = 0; i < _source.Length && i < _target.Length; i++)
@@ -60,7 +60,7 @@ namespace Sakuno.ING.Game
                 return i;
             }
 
-            EditAction[] BuildResult(LinkNode node)
+            static EditAction[] BuildResult(LinkNode node)
             {
                 int c = node.Count;
                 var result = new EditAction[c];

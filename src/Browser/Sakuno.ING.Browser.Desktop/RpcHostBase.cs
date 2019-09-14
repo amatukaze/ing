@@ -26,6 +26,7 @@ namespace Sakuno.ING.Browser.Desktop
             {
                 pipeStream.Dispose();
                 remoteProcess.Kill();
+                remoteProcess.Dispose();
             }
             finally
             {

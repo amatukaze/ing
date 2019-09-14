@@ -49,10 +49,8 @@ namespace Sakuno.ING.ViewModels.Logging
             {
                 try
                 {
-                    Fleet TryAsFleet(IEnumerable<Ship> ships)
-                    {
-                        return ships is null ? null : new ImplicitFleet(ships);
-                    }
+                    static Fleet TryAsFleet(IEnumerable<Ship> ships)
+                        => ships is null ? null : new ImplicitFleet(ships);
 
                     var battle = new Battle
                     (

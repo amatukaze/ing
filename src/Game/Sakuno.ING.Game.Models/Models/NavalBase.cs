@@ -156,19 +156,19 @@ namespace Sakuno.ING.Game.Models
             };
             listener.ShipDismantled += (t, msg) =>
             {
-                var removed = RemoveShips(msg.ShipIds, msg.DismantleEquipments, t);
+                var removed = RemoveShips(msg.ShipIds, msg.DismantleEquipments);
                 questKnowledges.OnShipDismantle(removed);
                 ShipDismantling?.Invoke(t, removed, msg.DismantleEquipments);
             };
             listener.EquipmentDismantled += (t, msg) =>
             {
-                var removed = RemoveEquipment(msg, t);
+                var removed = RemoveEquipment(msg);
                 questKnowledges.OnEquipmentDismantle(removed);
                 EquipmentDismantling?.Invoke(t, removed);
             };
             listener.EquipmentImproved += (t, msg) =>
             {
-                var consumed = msg.ConsumedEquipmentIds != null ? RemoveEquipment(msg.ConsumedEquipmentIds, t) : null;
+                var consumed = msg.ConsumedEquipmentIds != null ? RemoveEquipment(msg.ConsumedEquipmentIds) : null;
                 var original = AllEquipment[msg.EquipmentId];
                 EquipmentImproving?.Invoke(t, original, msg.UpdatedTo, consumed, msg.IsSuccess);
                 if (msg.IsSuccess)
@@ -176,7 +176,7 @@ namespace Sakuno.ING.Game.Models
             };
             listener.ShipPoweruped += (t, msg) =>
             {
-                var consumed = RemoveShips(msg.ConsumedShipIds, true, t);
+                var consumed = RemoveShips(msg.ConsumedShipIds, true);
                 var original = AllShips[msg.ShipId];
                 questKnowledges.OnShipPowerup(original, consumed, msg.IsSuccess);
                 ShipPoweruping?.Invoke(t, original, msg.UpdatedTo, consumed);
@@ -212,7 +212,7 @@ namespace Sakuno.ING.Game.Models
                 };
         }
 
-        private IReadOnlyCollection<HomeportShip> RemoveShips(IEnumerable<ShipId> shipIds, bool removeEquipment, DateTimeOffset timeStamp)
+        private IReadOnlyCollection<HomeportShip> RemoveShips(IEnumerable<ShipId> shipIds, bool removeEquipment)
             => shipIds.Select(id =>
                 {
                     var ship = AllShips[id];
@@ -226,7 +226,7 @@ namespace Sakuno.ING.Game.Models
                     return ship;
                 }).ToArray();
 
-        private IReadOnlyCollection<HomeportEquipment> RemoveEquipment(IEnumerable<EquipmentId> ids, DateTimeOffset timeStamp)
+        private IReadOnlyCollection<HomeportEquipment> RemoveEquipment(IEnumerable<EquipmentId> ids)
             => ids.Select(_allEquipment.Remove).ToArray();
 
         public MasterDataRoot MasterData { get; }

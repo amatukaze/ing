@@ -24,32 +24,31 @@ namespace Sakuno.ING.Http
                 if (folder is null) return;
                 var index = await folder.GetFileAsync("index.csv");
                 if (index is null) return;
-                using (var stream = await index.OpenReadAsync())
-                using (var reader = new StreamReader(stream))
+
+                using var stream = await index.OpenReadAsync();
+                using var reader = new StreamReader(stream);
+                var l = new List<(string, string, string)>();
+                while (!reader.EndOfStream)
                 {
-                    var l = new List<(string, string, string)>();
-                    while (!reader.EndOfStream)
-                    {
-                        var line = await reader.ReadLineAsync();
-                        if (string.IsNullOrEmpty(line)) continue;
-                        var s = line.Split(',');
-                        if (s.Length != 3) continue;
-                        l.Add((s[0], s[1], s[2]));
-                    }
-                    list = l.ToArray();
+                    var line = await reader.ReadLineAsync();
+                    if (string.IsNullOrEmpty(line)) continue;
+                    var s = line.Split(',');
+                    if (s.Length != 3) continue;
+                    l.Add((s[0], s[1], s[2]));
                 }
+                list = l.ToArray();
             }
             if (list.Length == 0)
                 return;
             var (api, req, res) = list.Span[0];
             list = list.Slice(1);
 
-            async ValueTask<string> GetContentAsync(IFileFacade file)
+            static async ValueTask<string> GetContentAsync(IFileFacade file)
             {
                 if (file is null) return null;
-                using (var stream = await file.OpenReadAsync())
-                using (var reader = new StreamReader(stream))
-                    return await reader.ReadToEndAsync();
+                using var stream = await file.OpenReadAsync();
+                using var reader = new StreamReader(stream);
+                return await reader.ReadToEndAsync();
             }
 
             var request = await GetContentAsync(await folder.GetFileAsync(req));
