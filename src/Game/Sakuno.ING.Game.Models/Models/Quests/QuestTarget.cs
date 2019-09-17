@@ -30,10 +30,11 @@ namespace Sakuno.ING.Game.Models.Quests
             private set => Set(ref _totalProgress, value);
         }
 
-        public void Check(DateTimeOffset timeStamp, QuestPeriod period)
+        public void Check(DateTimeOffset timeStamp, DateTimeOffset? lastTime, QuestPeriod period)
         {
-            foreach (var c in Counters)
-                c.Check(StatePersist, timeStamp, period);
+            if (lastTime is DateTimeOffset last)
+                foreach (var c in Counters)
+                    c.CheckExpire(StatePersist, timeStamp, last, period);
             UpdateProgress();
         }
     }

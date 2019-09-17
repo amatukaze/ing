@@ -242,7 +242,7 @@ namespace Sakuno.ING.Game
                         BattleAppended?.InvokeEach(t, ParseBattleDetail(m), HandlerError);
                         break;
                     case "api_req_sortie/battleresult":
-                    case "api_req_practice/battleresult":
+                    case "api_req_practice/battle_result":
                     case "api_req_combined_battle/battleresult":
                         var battleResult = Response<RawBattleResult>(m);
                         BattleCompleted?.InvokeEach(t, battleResult, HandlerError);

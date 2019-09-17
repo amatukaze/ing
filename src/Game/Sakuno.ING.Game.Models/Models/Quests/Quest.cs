@@ -11,8 +11,9 @@ namespace Sakuno.ING.Game.Models.Quests
 
         partial void UpdateCore(RawQuest raw, DateTimeOffset timeStamp)
         {
-            owner.StatePersist.SetQuestActive(Id, State == QuestState.Active);
-            Targets?.Check(timeStamp, Period);
+            var lastTime = owner.StatePersist.GetQuestTime(Id);
+            owner.StatePersist.SetQuestActive(Id, State == QuestState.Active, timeStamp);
+            Targets?.Check(timeStamp, lastTime, Period);
         }
     }
 }

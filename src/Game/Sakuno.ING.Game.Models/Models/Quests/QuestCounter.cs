@@ -36,15 +36,14 @@ namespace Sakuno.ING.Game.Models.Quests
             }
         }
 
-        public void Check(IStatePersist statePersist, DateTimeOffset timeStamp, QuestPeriod period)
+        internal void CheckExpire(IStatePersist statePersist, DateTimeOffset timeStamp, DateTimeOffset last, QuestPeriod period)
         {
-            if (statePersist.GetQuestTime(questId, counterId) is DateTimeOffset t &&
-                QuestManager.QuestExpires(t, timeStamp, periodOverride ?? period))
+            if (QuestManager.QuestExpires(last, timeStamp, periodOverride ?? period) &&
+                statePersist.GetQuestProgress(questId, counterId) > 0)
             {
                 Progress = (0, maximum);
                 statePersist.SetQuestProgress(questId, counterId, 0);
             }
-            statePersist.SetQuestTime(questId, counterId, timeStamp);
         }
     }
 }

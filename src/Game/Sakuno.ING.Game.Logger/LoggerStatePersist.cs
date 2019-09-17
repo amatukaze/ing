@@ -172,44 +172,32 @@ namespace Sakuno.ING.Game.Logger
         public void ClearQuestProgress(QuestId questId)
             => context.QuestProcessTable.RemoveRange(context.QuestProcessTable.Where(x => x.QuestId == questId));
 
-        public void SetQuestActive(QuestId questId, bool isActive)
+        public void SetQuestActive(QuestId questId, bool isActive, DateTimeOffset timeStamp)
         {
             var entities = context.QuestProcessTable.Where(x => x.QuestId == questId);
             if (entities.Any())
             {
                 foreach (var e in entities.AsTracking().ToArray())
+                {
                     e.IsActive = isActive;
+                    e.CheckedTime = timeStamp;
+                }
             }
             else if (isActive)
             {
                 context.QuestProcessTable.Add(new QuestProcessEntity
                 {
                     QuestId = questId,
-                    IsActive = true
+                    IsActive = true,
+                    CheckedTime = timeStamp
                 });
             }
         }
+
         public bool GetQuestActive(QuestId questId)
             => context.QuestProcessTable.Any(x => x.QuestId == questId && x.IsActive);
-
-        public void SetQuestTime(QuestId questId, int counterId, DateTimeOffset time)
-        {
-            var entity = context.QuestProcessTable.Find(questId, counterId);
-            if (entity is null)
-                context.QuestProcessTable.Add(new QuestProcessEntity
-                {
-                    QuestId = questId,
-                    CounterId = counterId,
-                    CheckedTime = time
-                });
-            else
-            {
-                entity.CheckedTime = time;
-                context.QuestProcessTable.Update(entity);
-            }
-        }
-        public DateTimeOffset? GetQuestTime(QuestId questId, int counterId)
-            => context.QuestProcessTable.Find(questId, counterId)?.CheckedTime;
+        public DateTimeOffset? GetQuestTime(QuestId questId)
+            => context.QuestProcessTable.FirstOrDefault(x => x.QuestId == questId)?.CheckedTime;
 
         public void SetLastSortie(ShipId id, DateTimeOffset timeStamp)
         {

@@ -60,8 +60,8 @@ namespace Sakuno.ING.Game.Models.Quests
                     new ExpeditionCounter((QuestId)426, counterId: 3, maximum: 1, expeditionId: (ExpeditionId)10)), //海上通商航路の警戒を厳とせよ！
                 [428] = Create(
                     new ExpeditionCounter((QuestId)428, counterId: 0, maximum: 2, expeditionId: (ExpeditionId)4),
-                    new ExpeditionCounter((QuestId)428, counterId: 1, maximum: 2, expeditionId: (ExpeditionId)102),
-                    new ExpeditionCounter((QuestId)428, counterId: 2, maximum: 2, expeditionId: (ExpeditionId)103)), //近海に侵入する敵潜を制圧せよ！
+                    new ExpeditionCounter((QuestId)428, counterId: 1, maximum: 2, expeditionId: (ExpeditionId)101),
+                    new ExpeditionCounter((QuestId)428, counterId: 2, maximum: 2, expeditionId: (ExpeditionId)102)), //近海に侵入する敵潜を制圧せよ！
 
                 [503] = Create(new SingletonEventCounter((QuestId)503, maximum: 5, SingletonEvent.ShipRepair)), //艦隊大整備！
                 [504] = Create(new SingletonEventCounter((QuestId)504, maximum: 15, SingletonEvent.ShipSupply)), //艦隊酒保祭り！
