@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Immutable;
 using Sakuno.ING.Game.Models.Combat;
-using Sakuno.ING.Game.Models.Knowledge;
 using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Quests
@@ -73,9 +72,9 @@ namespace Sakuno.ING.Game.Models.Quests
 
     internal class EnemySunkCounter : BattleResultCounter
     {
-        private readonly KnownShipType[] shipTypes;
+        private readonly ImmutableArray<int> shipTypes;
 
-        public EnemySunkCounter(QuestId questId, int maximum, KnownShipType[] shipTypes, int counterId = 0) : base(questId, maximum, counterId)
+        public EnemySunkCounter(QuestId questId, int maximum, ImmutableArray<int> shipTypes, int counterId = 0) : base(questId, maximum, counterId)
         {
             this.shipTypes = shipTypes;
         }
@@ -85,11 +84,11 @@ namespace Sakuno.ING.Game.Models.Quests
             int count = 0;
             if (battle.Enemy.Fleet is { } f1)
                 foreach (var e in f1)
-                    if (e.IsSunk && e.Ship?.Info?.Type?.Id is { } id && shipTypes.Contains((KnownShipType)id))
+                    if (e.IsSunk && e.Ship?.Info?.Type?.Id is { } id && shipTypes.Contains(id))
                         count++;
             if (battle.Enemy.Fleet2 is { } f2)
                 foreach (var e in f2)
-                    if (e.IsSunk && e.Ship?.Info?.Type?.Id is { } id && shipTypes.Contains((KnownShipType)id))
+                    if (e.IsSunk && e.Ship?.Info?.Type?.Id is { } id && shipTypes.Contains(id))
                         count++;
             return count;
         }
@@ -113,46 +112,6 @@ namespace Sakuno.ING.Game.Models.Quests
             if (result.Rank <= rankRequired &&
                 fleetFilter?.Invoke(fleet) != false)
                 Increase(statePersist);
-        }
-    }
-
-    internal static class FleetExtension
-    {
-        public static bool ContainsShips(this Fleet fleet, int requiredCount = 0, bool requireFlagship = false, bool allowUpgrade = true, params ShipInfoId[] ids)
-        {
-            bool Satisfy(Ship ship)
-            {
-                var info = ship?.Info;
-                if (info is null) return false;
-                foreach (var id in ids)
-                    if (allowUpgrade ?
-                        info.CanUpgradeFrom(id) :
-                        info.Id == id)
-                        return true;
-                return false;
-            }
-
-            if (fleet is null) return false;
-            if (requireFlagship && !Satisfy(fleet.Ships.FirstOrDefault()))
-                return false;
-            return fleet.Ships.Count(Satisfy) >= requiredCount;
-        }
-
-        public static bool ContainsShipType(this Fleet fleet, int requiredCount = 0, bool requireFlagship = false, params KnownShipType?[] ids)
-        {
-            bool Satisfy(Ship ship)
-            {
-                var type = ship?.Info?.Type;
-                foreach (var id in ids)
-                    if (type?.Id == id)
-                        return true;
-                return false;
-            }
-
-            if (fleet is null) return false;
-            if (requireFlagship && !Satisfy(fleet.Ships.FirstOrDefault()))
-                return false;
-            return fleet.Ships.Count(Satisfy) >= requiredCount;
         }
     }
 }

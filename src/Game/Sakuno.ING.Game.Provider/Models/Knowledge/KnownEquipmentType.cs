@@ -123,14 +123,5 @@ namespace Sakuno.ING.Game.Models.Knowledge
                 KnownEquipmentType.SeaplaneFighter => true,
                 _ => false
             };
-
-        public static bool IsRadar(this EquipmentTypeId id)
-            => (KnownEquipmentType)id switch
-            {
-                KnownEquipmentType.SmallRadar => true,
-                KnownEquipmentType.LargeRadar => true,
-                KnownEquipmentType.VeryLargeRadar => true,
-                _ => false
-            };
     }
 }

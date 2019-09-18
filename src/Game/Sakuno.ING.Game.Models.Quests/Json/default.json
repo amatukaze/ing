@@ -1,0 +1,417 @@
+﻿{
+  "210": [ //敵艦隊を10回邀撃せよ！
+    {
+      "type": "battle",
+      "count": 10
+    }
+  ],
+  "211": [ //敵空母を3隻撃沈せよ！
+    {
+      "type": "enemySunk",
+      "count": 3,
+      "shipType": [ 7, 11 ]
+    }
+  ],
+  "212": [ //敵輸送船団を叩け！
+    {
+      "type": "enemySunk",
+      "count": 5,
+      "shipType": [ 15 ]
+    }
+  ],
+  "213": [ //海上通商破壊作戦
+    {
+      "type": "enemySunk",
+      "count": 20,
+      "shipType": [ 15 ]
+    }
+  ],
+  "214": [ //あ号作戦
+    {
+      "type": "sortie",
+      "count": 36
+    },
+    {
+      "type": "boss",
+      "count": 24,
+      "rankRequired": "e"
+    },
+    {
+      "type": "boss",
+      "count": 12
+    },
+    {
+      "type": "battle",
+      "count": 6,
+      "rankRequired": "s"
+    }
+  ],
+  "218": [ //敵補給艦を3隻撃沈せよ！
+    {
+      "type": "enemySunk",
+      "count": 3,
+      "shipType": [ 15 ]
+    }
+  ],
+  "220": [ //い号作戦
+    {
+      "type": "enemySunk",
+      "count": 20,
+      "shipType": [ 7, 11 ]
+    }
+  ],
+  "221": [ //ろ号作戦
+    {
+      "type": "enemySunk",
+      "count": 50,
+      "shipType": [ 15 ]
+    }
+  ],
+  "226": [ //南西諸島海域の制海権を握れ！
+    {
+      "type": "boss",
+      "count": 5,
+      "map": "2-*"
+    }
+  ],
+  "228": [ //海上護衛戦
+    {
+      "type": "enemySunk",
+      "count": 15,
+      "shipType": [ 13 ]
+    }
+  ],
+  "229": [ //敵東方艦隊を撃滅せよ！
+    {
+      "type": "boss",
+      "count": 12,
+      "map": "4-*"
+    }
+  ],
+  "230": [ //敵潜水艦を制圧せよ！
+    {
+      "type": "enemySunk",
+      "count": 6,
+      "shipType": [ 13 ]
+    }
+  ],
+  "241": [ //敵北方艦隊主力を撃滅せよ！
+    {
+      "type": "boss",
+      "count": 5,
+      "map": "3-3+"
+    }
+  ],
+  "261": [ //海上輸送路の安全確保に努めよ！
+    {
+      "type": "boss",
+      "count": 3,
+      "map": "1-5"
+    }
+  ],
+  "265": [ //海上護衛強化月間
+    {
+      "type": "boss",
+      "count": 10,
+      "map": "1-5"
+    }
+  ],
+  "302": [ //大規模演習
+    {
+      "type": "exercise",
+      "count": 20
+    }
+  ],
+  "303": [ //「演習」で練度向上！
+    {
+      "type": "exercise",
+      "count": 3,
+      "rankRequired": "e"
+    }
+  ],
+  "304": [ //「演習」で他提督を圧倒せよ！
+    {
+      "type": "exercise",
+      "count": 5
+    }
+  ],
+  "311": [ //精鋭艦隊演習
+    {
+      "type": "exercise",
+      "count": 7,
+      "periodOverride": 1
+    }
+  ],
+  "402": [ //「遠征」を3回成功させよう！
+    {
+      "type": "expedition",
+      "count": 3
+    }
+  ],
+  "403": [ //「遠征」を10回成功させよう！
+    {
+      "type": "expedition",
+      "count": 10
+    }
+  ],
+  "404": [ //大規模遠征作戦、発令！
+    {
+      "type": "expedition",
+      "count": 30
+    }
+  ],
+  "410": [ //南方への輸送作戦を成功させよ！
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 37, 38 ]
+    }
+  ],
+  "411": [ //南方への鼠輸送を継続実施せよ!
+    {
+      "type": "expedition",
+      "count": 6,
+      "expedition": [ 37, 38 ]
+    }
+  ],
+  "424": [ //輸送船団護衛を強化せよ！
+    {
+      "type": "expedition",
+      "count": 4,
+      "expedition": [ 5 ]
+    }
+  ],
+  "426": [ //海上通商航路の警戒を厳とせよ！
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 3 ]
+    },
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 4 ]
+    },
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 5 ]
+    },
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 10 ]
+    }
+  ],
+  "428": [ //近海に侵入する敵潜を制圧せよ！
+    {
+      "type": "expedition",
+      "count": 2,
+      "expedition": [ 4 ]
+    },
+    {
+      "type": "expedition",
+      "count": 2,
+      "expedition": [ 101 ]
+    },
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 102 ]
+    }
+  ],
+  "503": [ //艦隊大整備！
+    {
+      "type": "repair",
+      "count": 5
+    }
+  ],
+  "504": [ //艦隊酒保祭り！
+    {
+      "type": "supply",
+      "count": 5
+    }
+  ],
+  "605": [ //新装備「開発」指令
+    {
+      "type": "equipmentCreate",
+      "count": 1
+    }
+  ],
+  "606": [ //新造艦「建造」指令
+    {
+      "type": "shipConstruct",
+      "count": 1
+    }
+  ],
+  "607": [ //装備「開発」集中強化！
+    {
+      "type": "equipmentCreate",
+      "count": 3
+    }
+  ],
+  "608": [ //艦娘「建造」艦隊強化！
+    {
+      "type": "shipConstruct",
+      "count": 3
+    }
+  ],
+  "609": [ //軍縮条約対応！
+    {
+      "type": "shipDismantle",
+      "count": 2
+    }
+  ],
+  "613": [ //資源の再利用
+    {
+      "type": "equipmentDismantle",
+      "count": 24
+    }
+  ],
+  "638": [ //対空機銃量産
+    {
+      "type": "equipmentDismantle",
+      "count": 6,
+      "equipmentType": [ 21 ]
+    }
+  ],
+  "643": [ //主力「陸攻」の調達
+    {
+      "type": "equipmentDismantle",
+      "count": 2,
+      "equipment": [ 20 ]
+    }
+  ],
+  "645": [ //「洋上補給」物資の調達
+    {
+      "type": "equipmentDismantle",
+      "count": 1,
+      "equipment": [ 35 ]
+    }
+  ],
+  "663": [ //新型艤装の継続研究
+    {
+      "type": "equipmentDismantle",
+      "count": 10,
+      "equipmentType": [ 3 ]
+    }
+  ],
+  "673": [ //装備開発力の整備
+    {
+      "type": "equipmentDismantle",
+      "count": 4,
+      "equipmentType": [ 1 ]
+    }
+  ],
+  "674": [ //工廠環境の整備
+    {
+      "type": "equipmentDismantle",
+      "count": 3,
+      "equipmentType": [ 21 ]
+    }
+  ],
+  "675": [ //運用装備の統合整備
+    {
+      "type": "equipmentDismantle",
+      "count": 6,
+      "equipmentType": [ 6 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 4,
+      "equipmentType": [ 21 ]
+    }
+  ],
+  "676": [ //装備開発力の集中整備
+    {
+      "type": "equipmentDismantle",
+      "count": 3,
+      "equipmentType": [ 2 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 3,
+      "equipmentType": [ 4 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 1,
+      "equipment": [ 75 ]
+    }
+  ],
+  "677": [ //継戦支援能力の整備
+    {
+      "type": "equipmentDismantle",
+      "count": 4,
+      "equipmentType": [ 3 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 2,
+      "equipmentType": [ 10 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 3,
+      "equipmentType": [ 5 ]
+    }
+  ],
+  "678": [ //主力艦上戦闘機の更新
+    {
+      "type": "equipmentDismantle",
+      "count": 3,
+      "equipment": [ 19 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 5,
+      "equipment": [ 20 ]
+    }
+  ],
+  "680": [ //対空兵装の整備拡充
+    {
+      "type": "equipmentDismantle",
+      "count": 4,
+      "equipmentType": [ 21 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 4,
+      "equipmentType": [ 12, 13, 93 ]
+    }
+  ],
+  "688": [ //航空戦力の強化
+    {
+      "type": "equipmentDismantle",
+      "count": 3,
+      "equipmentType": [ 6 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 3,
+      "equipmentType": [ 7 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 3,
+      "equipmentType": [ 8 ]
+    },
+    {
+      "type": "equipmentDismantle",
+      "count": 3,
+      "equipmentType": [ 10 ]
+    }
+  ],
+  "702": [ //艦の「近代化改修」を実施せよ！
+    {
+      "type": "shipPowerup",
+      "count": 2
+    }
+  ],
+  "703": [ //「近代化改修」を進め、戦備を整えよ！
+    {
+      "type": "shipPowerup",
+      "count": 15
+    }
+  ]
+}

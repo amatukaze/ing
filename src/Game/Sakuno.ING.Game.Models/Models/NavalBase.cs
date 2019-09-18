@@ -49,11 +49,11 @@ namespace Sakuno.ING.Game.Models
                     AdmiralChanging?.Invoke(t, Admiral, @new);
                     Admiral = @new;
                     NotifyPropertyChanged(nameof(Admiral));
+                    StatePersist?.Initialize(msg.Id);
+                    this.questKnowledges.Load();
                 }
                 else
                     Admiral.Update(msg, t);
-                StatePersist?.Initialize(msg.Id);
-                this.questKnowledges.Load();
             };
             listener.MaterialsUpdated += (t, msg) =>
             {
