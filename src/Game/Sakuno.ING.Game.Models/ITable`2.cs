@@ -7,6 +7,7 @@ namespace Sakuno.ING.Game
     {
         T this[TId id] { get; }
         T this[TId? id] { get; }
+        T TryGet(TId id);
         T[] this[IReadOnlyCollection<TId> ids] { get; }
         IBindableCollection<T> DefaultView { get; }
     }

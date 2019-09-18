@@ -45,18 +45,21 @@ namespace Sakuno.ING.Game.Models.Quests
     {
         private readonly Predicate<MapId> mapFilter;
         private readonly BattleRank rankRequired;
+        private readonly Predicate<Fleet> fleetFilter;
 
-        public BattleBossCounter(QuestId questId, int maximum, MapId mapId,
+        public BattleBossCounter(QuestId questId, int maximum, MapId mapId, Predicate<Fleet> fleetFilter = null,
             BattleRank rankRequired = BattleRank.B, int counterId = 0) : base(questId, maximum, counterId)
         {
             mapFilter = m => m == mapId;
+            this.fleetFilter = fleetFilter;
             this.rankRequired = rankRequired;
         }
 
-        public BattleBossCounter(QuestId questId, int maximum, Predicate<MapId> mapFilter = null,
+        public BattleBossCounter(QuestId questId, int maximum, Predicate<MapId> mapFilter = null, Predicate<Fleet> fleetFilter = null,
             BattleRank rankRequired = BattleRank.B, int counterId = 0) : base(questId, maximum, counterId)
         {
             this.mapFilter = mapFilter;
+            this.fleetFilter = fleetFilter;
             this.rankRequired = rankRequired;
         }
 
@@ -64,6 +67,7 @@ namespace Sakuno.ING.Game.Models.Quests
             => routing.EventKind == MapEventKind.Boss
             && result.Rank <= rankRequired
             && mapFilter?.Invoke(routing.Map.Id) != false
+            && fleetFilter?.Invoke(battle.Ally.Fleet?.FleetInfo) != false
             ? 1 : 0;
     }
 
@@ -109,6 +113,46 @@ namespace Sakuno.ING.Game.Models.Quests
             if (result.Rank <= rankRequired &&
                 fleetFilter?.Invoke(fleet) != false)
                 Increase(statePersist);
+        }
+    }
+
+    internal static class FleetExtension
+    {
+        public static bool ContainsShips(this Fleet fleet, int requiredCount = 0, bool requireFlagship = false, bool allowUpgrade = true, params ShipInfoId[] ids)
+        {
+            bool Satisfy(Ship ship)
+            {
+                var info = ship?.Info;
+                if (info is null) return false;
+                foreach (var id in ids)
+                    if (allowUpgrade ?
+                        info.CanUpgradeFrom(id) :
+                        info.Id == id)
+                        return true;
+                return false;
+            }
+
+            if (fleet is null) return false;
+            if (requireFlagship && !Satisfy(fleet.Ships.FirstOrDefault()))
+                return false;
+            return fleet.Ships.Count(Satisfy) >= requiredCount;
+        }
+
+        public static bool ContainsShipType(this Fleet fleet, int requiredCount = 0, bool requireFlagship = false, params KnownShipType?[] ids)
+        {
+            bool Satisfy(Ship ship)
+            {
+                var type = ship?.Info?.Type;
+                foreach (var id in ids)
+                    if (type?.Id == id)
+                        return true;
+                return false;
+            }
+
+            if (fleet is null) return false;
+            if (requireFlagship && !Satisfy(fleet.Ships.FirstOrDefault()))
+                return false;
+            return fleet.Ships.Count(Satisfy) >= requiredCount;
         }
     }
 }

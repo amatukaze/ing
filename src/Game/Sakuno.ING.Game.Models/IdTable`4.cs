@@ -160,6 +160,12 @@ namespace Sakuno.ING.Game
             NotifyPropertyChanged(nameof(Count));
         }
 
+        public T TryGet(TId id)
+        {
+            _ = TryGetValue(id, out T result);
+            return result;
+        }
+
         public bool TryGetValue(TId id, out T item)
         {
             item = default;
