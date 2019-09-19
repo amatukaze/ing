@@ -17,6 +17,14 @@ namespace Sakuno.ING.Game.Models.Quests
             this.periodOverride = periodOverride;
         }
 
+        protected QuestCounter(in QuestCounterParams @params)
+        {
+            questId = @params.QuestId;
+            maximum = @params.Maximum;
+            counterId = @params.CounterId;
+            periodOverride = @params.periodOverride;
+        }
+
         private ClampedValue _progress;
         public ClampedValue Progress
         {
@@ -44,6 +52,22 @@ namespace Sakuno.ING.Game.Models.Quests
                 Progress = (0, maximum);
                 statePersist.SetQuestProgress(questId, counterId, 0);
             }
+        }
+    }
+
+    public readonly struct QuestCounterParams
+    {
+        public readonly QuestId QuestId;
+        public readonly int Maximum;
+        public readonly int CounterId;
+        public readonly QuestPeriod? periodOverride;
+
+        public QuestCounterParams(QuestId questId, int maximum = 1, int counterId = 0, QuestPeriod? periodOverride = null)
+        {
+            QuestId = questId;
+            Maximum = maximum;
+            CounterId = counterId;
+            this.periodOverride = periodOverride;
         }
     }
 }

@@ -39,6 +39,7 @@
             {
                 CurrentRouting = new MapRouting(this.navalBase, m);
                 CurrentBattle = new Battle(sortieFleet, sortieFleet2, this.navalBase.CombinedFleet, m.BattleKind);
+                navalBase.Quests.Knowledges?.OnMapRouting(CurrentRouting);
             };
 
             listener.BattleStarted += (t, m) =>

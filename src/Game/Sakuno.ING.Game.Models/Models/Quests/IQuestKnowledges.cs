@@ -9,7 +9,8 @@ namespace Sakuno.ING.Game.Models.Quests
         ShipRepair,
         ShipSupply,
         ShipConstruct,
-        EquipmentCreate
+        EquipmentCreate,
+        EquipmentImprove
     }
 
     public interface IQuestKnowledges
@@ -26,5 +27,6 @@ namespace Sakuno.ING.Game.Models.Quests
         void OnEquipmentDismantle(IReadOnlyCollection<HomeportEquipment> equipment);
         void OnSingletonEvent(SingletonEvent @event);
         void OnExerciseComplete(HomeportFleet fleet, BattleResult currentBattleResult);
+        void OnMapRouting(MapRouting routing);
     }
 }

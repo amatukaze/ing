@@ -9,8 +9,8 @@ namespace Sakuno.ING.Game.Models.Quests
     {
         private readonly Func<HomeportShip, IReadOnlyCollection<HomeportShip>, bool> powerupFilter;
 
-        public ShipPowerupCounter(QuestId questId, int maximum, Func<HomeportShip, IReadOnlyCollection<HomeportShip>, bool> powerupFilter = null, int counterId = 0)
-            : base(questId, maximum, counterId)
+        public ShipPowerupCounter(in QuestCounterParams @params, Func<HomeportShip, IReadOnlyCollection<HomeportShip>, bool> powerupFilter = null)
+            : base(@params)
         {
             this.powerupFilter = powerupFilter;
         }
@@ -26,7 +26,7 @@ namespace Sakuno.ING.Game.Models.Quests
     {
         private readonly SingletonEvent @event;
 
-        public SingletonEventCounter(QuestId questId, int maximum, SingletonEvent @event, int counterId = 0) : base(questId, maximum, counterId)
+        public SingletonEventCounter(in QuestCounterParams @params, SingletonEvent @event) : base(@params)
         {
             this.@event = @event;
         }
@@ -40,7 +40,7 @@ namespace Sakuno.ING.Game.Models.Quests
 
     internal class ShipDismantleCounter : QuestCounter
     {
-        public ShipDismantleCounter(QuestId questId, int maximum, int counterId = 0) : base(questId, maximum, counterId)
+        public ShipDismantleCounter(in QuestCounterParams @params) : base(@params)
         {
         }
 
@@ -50,7 +50,7 @@ namespace Sakuno.ING.Game.Models.Quests
 
     internal class EquipmentDismantleCounter : QuestCounter
     {
-        public EquipmentDismantleCounter(QuestId questId, int maximum, int counterId = 0) : base(questId, maximum, counterId)
+        public EquipmentDismantleCounter(in QuestCounterParams @params) : base(@params)
         {
         }
 
@@ -64,22 +64,10 @@ namespace Sakuno.ING.Game.Models.Quests
     {
         private readonly Predicate<EquipmentInfo> equipmentFilter;
 
-        public EquipmentDismantleTypedCounter(QuestId questId, int maximum, int counterId = 0, Predicate<EquipmentInfo> equipmentFilter = null)
-            : base(questId, maximum, counterId)
+        public EquipmentDismantleTypedCounter(in QuestCounterParams @params, Predicate<EquipmentInfo> equipmentFilter = null)
+            : base(@params)
         {
             this.equipmentFilter = equipmentFilter;
-        }
-
-        public EquipmentDismantleTypedCounter(QuestId questId, int maximum, EquipmentInfoId id, int counterId = 0)
-            : base(questId, maximum, counterId)
-        {
-            equipmentFilter = e => e.Id == id;
-        }
-
-        public EquipmentDismantleTypedCounter(QuestId questId, int maximum, EquipmentTypeId typeId, int counterId = 0)
-            : base(questId, maximum, counterId)
-        {
-            equipmentFilter = e => e.Type?.Id == typeId;
         }
 
         protected override int IncreaseCount(IReadOnlyCollection<HomeportEquipment> equipment)

@@ -46,6 +46,7 @@ namespace Sakuno.ING.Game.Models.Quests
                     },
                     ReadCommentHandling = JsonCommentHandling.Skip
                 };
+                // Don't save the json with BOM
                 var json = await JsonSerializer.DeserializeAsync<ImmutableDictionary<string, ImmutableArray<QuestCounterDescriptionJson>>>(jsonStream, options);
                 foreach (var quest in json)
                 {
@@ -53,31 +54,37 @@ namespace Sakuno.ING.Game.Models.Quests
                     var q = quest.Value;
 
                     var counters = q.Select((x, i) =>
-                        x.Type switch
+                    {
+                        var @params = new QuestCounterParams(id, x.Count, i, x.PeriodOverride);
+                        return x.Type switch
                         {
-                            "repair" => (QuestCounter)new SingletonEventCounter(id, x.Count, SingletonEvent.ShipRepair, i),
-                            "supply" => new SingletonEventCounter(id, x.Count, SingletonEvent.ShipSupply, i),
-                            "shipConstruct" => new SingletonEventCounter(id, x.Count, SingletonEvent.ShipConstruct, i),
-                            "shipDismantle" => new ShipDismantleCounter(id, x.Count, i),
-                            "equipmentCreate" => new SingletonEventCounter(id, x.Count, SingletonEvent.EquipmentCreate, i),
-                            "battle" => new BattleWinCounter(id, x.Count, i, x.RankRequired ?? BattleRank.B),
-                            "enemySunk" => new EnemySunkCounter(id, x.Count, x.ShipType, i),
-                            "boss" => new BattleBossCounter(id, x.Count, m => x.Map?.Satisfy(m) ?? true,
-                                f => x.Fleet.IsDefault || x.Fleet.All(fd => fd.Satisfy(f)), x.RankRequired ?? BattleRank.B, i),
-                            "sortie" => new SortieStartCounter(id, x.Count, i),
-                            "exercise" => new ExerciseCounter(id, x.Count, i,
-                                f => x.Fleet.IsDefault || x.Fleet.All(fd => fd.Satisfy(f)), x.RankRequired ?? BattleRank.B, x.PeriodOverride),
-                            "expedition" => new ExpeditionCounter(id, x.Count, e => x.Expedition.IsDefault || x.Expedition.Contains(e), i),
-                            "shipPowerup" => new ShipPowerupCounter(id, x.Count, null, i),
+                            "repair" => (QuestCounter)new SingletonEventCounter(@params, SingletonEvent.ShipRepair),
+                            "supply" => new SingletonEventCounter(@params, SingletonEvent.ShipSupply),
+                            "shipConstruct" => new SingletonEventCounter(@params, SingletonEvent.ShipConstruct),
+                            "shipDismantle" => new ShipDismantleCounter(@params),
+                            "equipmentCreate" => new SingletonEventCounter(@params, SingletonEvent.EquipmentCreate),
+                            "battle" => new BattleWinCounter(@params, x.RankRequired ?? BattleRank.B),
+                            "enemySunk" => new EnemySunkCounter(@params, x.ShipType),
+                            "boss" => new BattleBossCounter(@params, m => x.Map?.Satisfy(m) ?? true,
+                                f => x.Fleet.IsDefault || x.Fleet.All(fd => fd.Satisfy(f)), x.RankRequired ?? BattleRank.B),
+                            "sortie" => new SortieStartCounter(@params),
+                            "exercise" => new ExerciseCounter(@params,
+                                f => x.Fleet.IsDefault || x.Fleet.All(fd => fd.Satisfy(f)), x.RankRequired ?? BattleRank.B),
+                            "expedition" => new ExpeditionCounter(@params, e => x.Expedition.IsDefault || x.Expedition.Contains(e)),
+                            "shipPowerup" => new ShipPowerupCounter(@params, null),
                             "equipmentDismantle" => (x.Equipment, x.EquipmentType) switch
                             {
-                                ({ IsDefault: true }, { IsDefault: true }) => new EquipmentDismantleCounter(id, x.Count, i),
-                                ({ IsDefault: false } equip, { IsDefault: true }) => new EquipmentDismantleTypedCounter(id, x.Count, i, e => equip.Contains(e.Id)),
-                                ({ IsDefault: true }, { IsDefault: false } type) => new EquipmentDismantleTypedCounter(id, x.Count, i, e => type.Contains(e.Type?.Id ?? 0)),
+                                ({ IsDefault: true }, { IsDefault: true }) => new EquipmentDismantleCounter(@params),
+                                ({ IsDefault: false } equip, { IsDefault: true }) => new EquipmentDismantleTypedCounter(@params, e => equip.Contains(e.Id)),
+                                ({ IsDefault: true }, { IsDefault: false } type) => new EquipmentDismantleTypedCounter(@params, e => type.Contains(e.Type?.Id ?? 0)),
                                 _ => throw new ArgumentException("Counter parameter conflict.")
                             },
+                            "equipmentImprove" => new SingletonEventCounter(@params, SingletonEvent.EquipmentImprove),
+                            "escort" => new MapRoutingCounter(@params,
+                                r => r.Map.Id == 16 && r.EventKind == MapEventKind.Escort),
                             _ => throw new ArgumentException("Unknown counter type")
-                        }).ToArray();
+                        };
+                    }).ToArray();
                     result.Add(id, Create(counters));
                 }
             }
@@ -154,6 +161,13 @@ namespace Sakuno.ING.Game.Models.Quests
         {
             foreach (var target in targets.Values)
                 target.OnExerciseComplete(fleet, currentBattleResult);
+            statePersist.SaveChanges();
+        }
+
+        public void OnMapRouting(MapRouting routing)
+        {
+            foreach (var target in targets.Values)
+                target.OnMapRouting(routing);
             statePersist.SaveChanges();
         }
     }

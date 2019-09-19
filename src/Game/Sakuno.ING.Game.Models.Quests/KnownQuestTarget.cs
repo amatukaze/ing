@@ -77,5 +77,13 @@ namespace Sakuno.ING.Game.Models.Quests
                     ec.OnExerciseComplete(StatePersist, fleet, currentBattleResult);
             UpdateProgress();
         }
+
+        public void OnMapRouting(MapRouting routing)
+        {
+            foreach (var c in Counters)
+                if (c is MapRoutingCounter rc)
+                    rc.OnMapRouting(StatePersist, routing);
+            UpdateProgress();
+        }
     }
 }

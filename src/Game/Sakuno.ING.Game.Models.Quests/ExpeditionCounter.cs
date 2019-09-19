@@ -7,14 +7,9 @@ namespace Sakuno.ING.Game.Models.Quests
     {
         private readonly Predicate<ExpeditionId> expeditionFilter;
 
-        public ExpeditionCounter(QuestId questId, int maximum, Predicate<ExpeditionId> expeditionFilter = null, int counterId = 0) : base(questId, maximum, counterId)
+        public ExpeditionCounter(in QuestCounterParams @params, Predicate<ExpeditionId> expeditionFilter = null) : base(@params)
         {
             this.expeditionFilter = expeditionFilter;
-        }
-
-        public ExpeditionCounter(QuestId questId, int maximum, ExpeditionId expeditionId, int counterId = 0) : base(questId, maximum, counterId)
-        {
-            expeditionFilter = e => e == expeditionId;
         }
 
         public virtual void OnExpeditionComplete(IStatePersist statePersist, HomeportFleet fleet, ExpeditionInfo expedition, ExpeditionResult result)

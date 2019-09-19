@@ -1,4 +1,4 @@
-﻿{
+{
   "210": [ //敵艦隊を10回邀撃せよ！
     {
       "type": "battle",
@@ -486,6 +486,12 @@
       "count": 24
     }
   ],
+  "619": [ //装備の改修強化
+    {
+      "type": "equipmentImprove",
+      "count": 1
+    }
+  ],
   "638": [ //対空機銃量産
     {
       "type": "equipmentDismantle",
@@ -666,6 +672,18 @@
       "rankRequired": "s"
     }
   ],
+  "861": [ //強行輸送艦隊、抜錨！
+    {
+      "type": "escort",
+      "count": 2,
+      "fleet": [
+        {
+          "requiredCount": 2,
+          "shipType": [ 10, 22 ]
+        }
+      ]
+    }
+  ],
   "862": [ //前線の航空偵察を実施せよ！
     {
       "type": "boss",
@@ -787,7 +805,7 @@
       "fleet": [
         {
           "requiredCount": 1,
-          "ship": [ 7, 11, 18 ]
+          "shipType": [ 7, 11, 18 ]
         }
       ]
     },
@@ -799,7 +817,7 @@
       "fleet": [
         {
           "requiredCount": 1,
-          "ship": [ 7, 11, 18 ]
+          "shipType": [ 7, 11, 18 ]
         }
       ]
     },
@@ -811,7 +829,7 @@
       "fleet": [
         {
           "requiredCount": 1,
-          "ship": [ 7, 11, 18 ]
+          "shipType": [ 7, 11, 18 ]
         }
       ]
     },
@@ -823,7 +841,7 @@
       "fleet": [
         {
           "requiredCount": 1,
-          "ship": [ 7, 11, 18 ]
+          "shipType": [ 7, 11, 18 ]
         }
       ]
     },
@@ -835,7 +853,7 @@
       "fleet": [
         {
           "requiredCount": 1,
-          "ship": [ 7, 11, 18 ]
+          "shipType": [ 7, 11, 18 ]
         }
       ]
     }

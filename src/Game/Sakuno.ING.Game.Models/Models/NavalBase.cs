@@ -173,6 +173,7 @@ namespace Sakuno.ING.Game.Models
                 EquipmentImproving?.Invoke(t, original, msg.UpdatedTo, consumed, msg.IsSuccess);
                 if (msg.IsSuccess)
                     original.Update(msg.UpdatedTo, t);
+                questKnowledges?.OnSingletonEvent(SingletonEvent.EquipmentImprove);
             };
             listener.ShipPoweruped += (t, msg) =>
             {

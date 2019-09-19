@@ -7,7 +7,7 @@ namespace Sakuno.ING.Game.Models.Quests
 {
     internal class SortieStartCounter : QuestCounter
     {
-        public SortieStartCounter(QuestId questId, int maximum, int counterId = 0) : base(questId, maximum, counterId)
+        public SortieStartCounter(in QuestCounterParams @params) : base(@params)
         {
         }
 
@@ -17,7 +17,7 @@ namespace Sakuno.ING.Game.Models.Quests
 
     internal class BattleResultCounter : QuestCounter
     {
-        public BattleResultCounter(QuestId questId, int maximum, int counterId = 0) : base(questId, maximum, counterId)
+        public BattleResultCounter(in QuestCounterParams @params) : base(@params)
         {
         }
 
@@ -31,7 +31,7 @@ namespace Sakuno.ING.Game.Models.Quests
     {
         private readonly BattleRank rankRequired;
 
-        public BattleWinCounter(QuestId questId, int maximum, int counterId = 0, BattleRank rankRequired = BattleRank.B) : base(questId, maximum, counterId)
+        public BattleWinCounter(in QuestCounterParams @params, BattleRank rankRequired = BattleRank.B) : base(@params)
         {
             this.rankRequired = rankRequired;
         }
@@ -46,16 +46,10 @@ namespace Sakuno.ING.Game.Models.Quests
         private readonly BattleRank rankRequired;
         private readonly Predicate<Fleet> fleetFilter;
 
-        public BattleBossCounter(QuestId questId, int maximum, MapId mapId, Predicate<Fleet> fleetFilter = null,
-            BattleRank rankRequired = BattleRank.B, int counterId = 0) : base(questId, maximum, counterId)
-        {
-            mapFilter = m => m == mapId;
-            this.fleetFilter = fleetFilter;
-            this.rankRequired = rankRequired;
-        }
-
-        public BattleBossCounter(QuestId questId, int maximum, Predicate<MapId> mapFilter = null, Predicate<Fleet> fleetFilter = null,
-            BattleRank rankRequired = BattleRank.B, int counterId = 0) : base(questId, maximum, counterId)
+        public BattleBossCounter(in QuestCounterParams @params,
+            Predicate<MapId> mapFilter = null,
+            Predicate<Fleet> fleetFilter = null,
+            BattleRank rankRequired = BattleRank.B) : base(@params)
         {
             this.mapFilter = mapFilter;
             this.fleetFilter = fleetFilter;
@@ -74,7 +68,7 @@ namespace Sakuno.ING.Game.Models.Quests
     {
         private readonly ImmutableArray<int> shipTypes;
 
-        public EnemySunkCounter(QuestId questId, int maximum, ImmutableArray<int> shipTypes, int counterId = 0) : base(questId, maximum, counterId)
+        public EnemySunkCounter(in QuestCounterParams @params, ImmutableArray<int> shipTypes) : base(@params)
         {
             this.shipTypes = shipTypes;
         }
@@ -99,9 +93,9 @@ namespace Sakuno.ING.Game.Models.Quests
         private readonly Predicate<HomeportFleet> fleetFilter;
         private readonly BattleRank rankRequired;
 
-        public ExerciseCounter(QuestId questId, int maximum, int counterId = 0,
-            Predicate<HomeportFleet> fleetFilter = null, BattleRank rankRequired = BattleRank.B, QuestPeriod? periodOverride = null)
-            : base(questId, maximum, counterId, periodOverride)
+        public ExerciseCounter(in QuestCounterParams @params,
+            Predicate<HomeportFleet> fleetFilter = null, BattleRank rankRequired = BattleRank.B)
+            : base(@params)
         {
             this.fleetFilter = fleetFilter;
             this.rankRequired = rankRequired;
@@ -111,6 +105,22 @@ namespace Sakuno.ING.Game.Models.Quests
         {
             if (result.Rank <= rankRequired &&
                 fleetFilter?.Invoke(fleet) != false)
+                Increase(statePersist);
+        }
+    }
+
+    internal class MapRoutingCounter : QuestCounter
+    {
+        private readonly Predicate<MapRouting> routingFilter;
+        public MapRoutingCounter(in QuestCounterParams @params, Predicate<MapRouting> routingFilter = null)
+            : base(@params)
+        {
+            this.routingFilter = routingFilter;
+        }
+
+        public void OnMapRouting(IStatePersist statePersist, MapRouting routing)
+        {
+            if (routingFilter?.Invoke(routing) != false)
                 Increase(statePersist);
         }
     }
