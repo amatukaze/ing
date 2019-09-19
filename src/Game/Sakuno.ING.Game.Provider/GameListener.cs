@@ -114,7 +114,9 @@ namespace Sakuno.ING.Game
                         MaterialsUpdated?.InvokeEach(t, Response<MaterialJsonArray>(m), HandlerError);
                         break;
                     case "api_req_kaisou/slotset":
-                        MaterialsUpdated?.InvokeEach(t, Response<EquipmentSetupJson>(m), HandlerError);
+                        var r = Response<EquipmentSetupJson>(m);
+                        if (r is object)
+                            MaterialsUpdated?.InvokeEach(t, r, HandlerError);
                         break;
 
                     case "api_req_nyukyo/start":
