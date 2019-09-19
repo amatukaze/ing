@@ -23,6 +23,7 @@ namespace Sakuno.ING.Game.Models.Quests.Json
     internal class FleetRequirementDescription
     {
         public int RequiredCount { get; set; }
+        public int? NoMoreThan { get; set; }
         public bool RequireFlagship { get; set; }
         public bool NoUpgrade { get; set; }
         public ImmutableArray<int?> ShipType { get; set; }
@@ -56,7 +57,10 @@ namespace Sakuno.ING.Game.Models.Quests.Json
 
             if (RequireFlagship && !satisfy(fleet.Ships.FirstOrDefault()))
                 return false;
-            return fleet.Ships.Count(satisfy) >= RequiredCount;
+            int count = fleet.Ships.Count(satisfy);
+            if (count > NoMoreThan)
+                return false;
+            return count >= RequiredCount;
         }
     }
 }

@@ -102,18 +102,205 @@
       "map": "3-3+"
     }
   ],
+  "242": [ //敵東方中枢艦隊を撃破せよ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-4"
+    }
+  ],
+  "243": [ //南方海域珊瑚諸島沖の制空権を握れ！
+    {
+      "type": "boss",
+      "count": 2,
+      "map": "5-2",
+      "rankRerquired": "s"
+    }
+  ],
+  "249": [ //「第五戦隊」出撃せよ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-5",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 3,
+          "ship": [ 62, 63, 65 ]
+        }
+      ]
+    }
+  ],
+  "256": [ //「潜水艦隊」出撃せよ！
+    {
+      "type": "boss",
+      "count": 3,
+      "map": "6-1",
+      "rankRequired": "s"
+    }
+  ],
+  "257": [ //「水雷戦隊」南西へ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "1-4",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 6,
+          "shipType": [ 2, 3, null ]
+        },
+        {
+          "noMoreThan": 3,
+          "requireFlagship": true,
+          "shipType": [ 3 ]
+        }
+      ]
+    }
+  ],
+  "259": [ //「水上打撃部隊」南方へ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "5-1",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "shipType": [ 3 ]
+        },
+        {
+          "requiredCount": 3,
+          "ship": [ 131, 143, 80, 81, 77, 87, 26, 27 ]
+        },
+        {
+          "noMoreThan": 3,
+          "shipType": [ 8, 9, 10 ]
+        }
+      ]
+    }
+  ],
   "261": [ //海上輸送路の安全確保に努めよ！
     {
       "type": "boss",
       "count": 3,
-      "map": "1-5"
+      "map": "1-5",
+      "rankRequired": "a"
+    }
+  ],
+  "264": [ //「空母機動部隊」西へ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-2",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 2,
+          "shipType": [ 2 ]
+        },
+        {
+          "requiredCount": 2,
+          "shipType": [ 7, 11, 18 ]
+        }
+      ]
     }
   ],
   "265": [ //海上護衛強化月間
     {
       "type": "boss",
       "count": 10,
-      "map": "1-5"
+      "map": "1-5",
+      "rankRequired": "a"
+    }
+  ],
+  "266": [ //「水上反撃部隊」突入せよ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-5",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 4,
+          "requireFlagship": true,
+          "shipType": [ 2 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 3 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 5 ]
+        }
+      ]
+    }
+  ],
+  "280": [ //兵站線確保！海上警備を強化実施せよ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "1-2",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 3,
+          "shipType": [ 1, 2 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 3, 4, 7, 21 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "1-3",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 3,
+          "shipType": [ 1, 2 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 3, 4, 7, 21 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "1-4",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 3,
+          "shipType": [ 1, 2 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 3, 4, 7, 21 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-1",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 3,
+          "shipType": [ 1, 2 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 3, 4, 7, 21 ]
+        }
+      ]
     }
   ],
   "302": [ //大規模演習
@@ -140,6 +327,37 @@
       "type": "exercise",
       "count": 7,
       "periodOverride": 1
+    }
+  ],
+  "318": [ //給糧艦「伊良湖」の支援
+    {
+      "type": "exercise",
+      "count": 2,
+      "periodOverride": 1,
+      "fleet": [
+        {
+          "requiredCount": 2,
+          "shipType": [ 3 ]
+        }
+      ]
+    }
+  ],
+  "330": [ //空母機動部隊、演習始め！
+    {
+      "type": "exercise",
+      "count": 4,
+      "periodOverride": 1,
+      "fleet": [
+        {
+          "requireFlagship": true,
+          "requiredCount": 2,
+          "shipType": [ 7, 11, 18 ]
+        },
+        {
+          "requiredCount": 2,
+          "shipType": [ 2 ]
+        }
+      ]
     }
   ],
   "402": [ //「遠征」を3回成功させよう！
@@ -412,6 +630,214 @@
     {
       "type": "shipPowerup",
       "count": 15
+    }
+  ],
+  "822": [ //沖ノ島海域迎撃戦
+    {
+      "type": "boss",
+      "count": 2,
+      "map": "2-4",
+      "rankRequired": "s"
+    }
+  ],
+  "854": [ //戦果拡張任務！「Z作戦」前段作戦
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-4",
+      "rankRequired": "a"
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "6-1",
+      "rankRequired": "a"
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "6-3",
+      "rankRequired": "a"
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "6-4",
+      "rankRequired": "s"
+    }
+  ],
+  "862": [ //前線の航空偵察を実施せよ！
+    {
+      "type": "boss",
+      "count": 2,
+      "map": "6-3",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requiredCount": 2,
+          "shipType": [ 3 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 16 ]
+        }
+      ]
+    }
+  ],
+  "873": [ //北方海域警備を実施せよ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "3-1",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "shipType": [ 3 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "3-2",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "shipType": [ 3 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "3-3",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "shipType": [ 3 ]
+        }
+      ]
+    }
+  ],
+  "875": [ //精鋭「三一駆」、鉄底海域に突入せよ！
+    {
+      "type": "boss",
+      "count": 2,
+      "map": "5-4",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "ship": [ 543 ]
+        },
+        {
+          "requiredCount": 1,
+          "ship": [ 345, 359, 344 ]
+        }
+      ]
+    }
+  ],
+  "888": [ //新編成「三川艦隊」、鉄底海峡に突入せよ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "5-1",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 4,
+          "ship": [ 69, 61, 123, 60, 59, 51, 115 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "5-3",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 4,
+          "ship": [ 69, 61, 123, 60, 59, 51, 115 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "5-4",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 4,
+          "ship": [ 69, 61, 123, 60, 59, 51, 115 ]
+        }
+      ]
+    }
+  ],
+  "894": [ //空母戦力の投入による兵站線戦闘哨戒
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "1-3",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "ship": [ 7, 11, 18 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "1-4",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "ship": [ 7, 11, 18 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-1",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "ship": [ 7, 11, 18 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-2",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "ship": [ 7, 11, 18 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-3",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "ship": [ 7, 11, 18 ]
+        }
+      ]
     }
   ]
 }
