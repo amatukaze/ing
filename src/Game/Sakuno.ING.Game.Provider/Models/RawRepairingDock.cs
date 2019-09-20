@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Sakuno.ING.Game.Models
 {
-    [Identifier(typeof(int))]
+    [Identifier]
     public readonly struct RepairingDockId : IEquatable<RepairingDockId>, IComparable<RepairingDockId>
     {
         private readonly int value;

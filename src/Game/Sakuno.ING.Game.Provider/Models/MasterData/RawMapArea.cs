@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    [Identifier(typeof(int))]
+    [Identifier]
     public readonly struct MapAreaId : IEquatable<MapAreaId>, IComparable<MapAreaId>
     {
         private readonly int value;

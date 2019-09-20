@@ -4,7 +4,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    [Identifier(typeof(int))]
+    [Identifier]
     public readonly struct BuildingDockId : IEquatable<BuildingDockId>, IComparable<BuildingDockId>
     {
         private readonly int value;

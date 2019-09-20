@@ -4,7 +4,7 @@ using Sakuno.ING.Game.Json.Converters;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    [Identifier(typeof(int))]
+    [Identifier]
     public readonly struct FurnitureId : IEquatable<FurnitureId>, IComparable<FurnitureId>
     {
         private readonly int value;

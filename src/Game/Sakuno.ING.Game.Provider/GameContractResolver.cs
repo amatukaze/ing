@@ -16,17 +16,20 @@ namespace Sakuno.ING.Game
         protected override JsonContract CreateContract(Type objectType)
         {
             var contract = base.CreateContract(objectType);
-            var valueType = Nullable.GetUnderlyingType(objectType) ?? objectType;
 
-            var id = valueType.GetCustomAttribute<IdentifierAttribute>();
-            if (id != null)
-            {
-                var type = typeof(IdConverter<,>).MakeGenericType(valueType, id.UnderlyingType);
-                contract.Converter = (JsonConverter)Activator.CreateInstance(type);
-            }
-
-            if (valueType == typeof(DateTimeOffset))
+            if (objectType == typeof(DateTimeOffset) || objectType == typeof(DateTimeOffset?))
                 contract.Converter = new DateTimeMillisecondConverter();
+            else
+            {
+                var valueType = Nullable.GetUnderlyingType(objectType) ?? objectType;
+
+                var id = valueType.GetCustomAttribute<IdentifierAttribute>();
+                if (id != null)
+                {
+                    var type = typeof(IdConverter<>).MakeGenericType(valueType);
+                    contract.Converter = (JsonConverter)Activator.CreateInstance(type);
+                }
+            }
 
             return contract;
         }
@@ -39,7 +42,7 @@ namespace Sakuno.ING.Game
             var id = valueType.GetCustomAttribute<IdentifierAttribute>();
             if (id != null)
             {
-                var type = typeof(ValidIdArrayConverter<,>).MakeGenericType(valueType, id.UnderlyingType);
+                var type = typeof(ValidIdArrayConverter<>).MakeGenericType(valueType);
                 contract.Converter = (JsonConverter)Activator.CreateInstance(type);
             }
 

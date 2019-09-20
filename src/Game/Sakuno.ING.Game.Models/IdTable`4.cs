@@ -4,21 +4,27 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 namespace Sakuno.ING.Game
 {
     [DebuggerDisplay("Count = {Count}")]
     [DebuggerTypeProxy(typeof(IdTableDebuggerProxy<,,,>))]
     internal class IdTable<TId, T, TRaw, TOwner> : BindableObject, ITable<TId, T>
-        where TId : struct, IComparable<TId>, IEquatable<TId>
+        where TId : struct
         where T : class, IUpdatable<TId, TRaw>
         where TRaw : IIdentifiable<TId>
     {
         public event Action Updated;
-        private static readonly Func<TId, TOwner, T> dummyCreation;
-        private static readonly Func<TRaw, TOwner, DateTimeOffset, T> creation;
+        private readonly Func<TId, TOwner, T> dummyCreation;
+        private readonly Func<TRaw, TOwner, DateTimeOffset, T> creation;
 
-        static IdTable()
+        private static int Compare(TId left, TId right)
+            => Unsafe.As<TId, int>(ref left) - Unsafe.As<TId, int>(ref right);
+
+        internal readonly List<T> list = new List<T>();
+        private readonly TOwner owner;
+        public IdTable(TOwner owner)
         {
             {
                 var argId = Expression.Parameter(typeof(TId));
@@ -35,12 +41,6 @@ namespace Sakuno.ING.Game
                 var call = Expression.New(ctor, argRaw, argOwner, argTime);
                 creation = Expression.Lambda<Func<TRaw, TOwner, DateTimeOffset, T>>(call, argRaw, argOwner, argTime).Compile();
             }
-        }
-
-        internal readonly List<T> list = new List<T>();
-        private readonly TOwner owner;
-        public IdTable(TOwner owner)
-        {
             this.owner = owner;
             DefaultView = new BindableSnapshotCollection<T>(this, this.OrderBy(x => x.Id));
         }
@@ -81,13 +81,13 @@ namespace Sakuno.ING.Game
             int i = 0;
             foreach (var raw in source)
             {
-                while (i < list.Count && list[i].Id.CompareTo(raw.Id) < 0)
+                while (i < list.Count && Compare(list[i].Id, raw.Id) < 0)
                     if (removal)
                         list.RemoveAt(i);
                     else
                         i++;
 
-                if (i < list.Count && list[i].Id.Equals(raw.Id))
+                if (i < list.Count && EqualityComparer<TId>.Default.Equals(list[i].Id, raw.Id))
                     list[i++].Update(raw, timeStamp);
                 else
                     list.Insert(i++, creation(raw, owner, timeStamp));
@@ -103,12 +103,12 @@ namespace Sakuno.ING.Game
             int i;
             for (i = 0; i < list.Count; i++)
             {
-                if (list[i].Id.CompareTo(item.Id) > 0)
+                if (Compare(list[i].Id, item.Id) > 0)
                 {
                     list.Insert(i, item);
                     break;
                 }
-                else if (list[i].Id.Equals(item.Id))
+                else if (EqualityComparer<TId>.Default.Equals(list[i].Id, item.Id))
                 {
                     list[i] = item;
                     break;
@@ -169,7 +169,7 @@ namespace Sakuno.ING.Game
         public bool TryGetValue(TId id, out T item)
         {
             item = default;
-            if (id.CompareTo(default) < 0)
+            if (Unsafe.As<TId, int>(ref id) < 0)
                 throw new ArgumentException("Negative id is not valid.");
 
             int lo = 0, hi = list.Count - 1;
@@ -178,7 +178,7 @@ namespace Sakuno.ING.Game
                 int i = lo + ((hi - lo) >> 1);
                 var t = list[i];
 
-                int order = t.Id.CompareTo(id);
+                int order = Compare(t.Id, id);
                 if (order == 0)
                 {
                     item = t;

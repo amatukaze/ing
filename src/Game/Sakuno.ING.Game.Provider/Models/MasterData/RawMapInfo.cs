@@ -5,7 +5,7 @@ using Sakuno.ING.Game.Json.Converters;
 
 namespace Sakuno.ING.Game.Models.MasterData
 {
-    [Identifier(typeof(int))]
+    [Identifier]
     public readonly struct MapId : IEquatable<MapId>, IComparable<MapId>
     {
         private readonly int value;

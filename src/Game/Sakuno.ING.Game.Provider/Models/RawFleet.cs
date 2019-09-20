@@ -5,7 +5,7 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models
 {
-    [Identifier(typeof(int))]
+    [Identifier]
     public readonly struct FleetId : IEquatable<FleetId>, IComparable<FleetId>
     {
         private readonly int value;

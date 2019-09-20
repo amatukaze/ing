@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace Sakuno.ING.Game
 {
     internal class IdTableDebuggerProxy<TId, T, TRaw, TOwner>
-        where TId : struct, IComparable<TId>, IEquatable<TId>
+        where TId : struct
         where T : class, IUpdatable<TId, TRaw>
         where TRaw : IIdentifiable<TId>
     {
