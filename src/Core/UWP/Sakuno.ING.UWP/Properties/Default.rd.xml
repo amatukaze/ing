@@ -22,6 +22,7 @@
  所有程序集。星号不是通配符。
 -->
     <Assembly Name="*Application*" Dynamic="Required All" />
+    <Assembly Name="System.Collections.Immutable" Dynamic="Required Public" />
     
     
     <!-- 在此处添加应用程序特定的运行时指令。-->
