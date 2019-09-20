@@ -147,8 +147,8 @@
       "rankRequired": "s",
       "fleet": [
         {
-          "requiredCount": 6,
-          "shipType": [ 2, 3, null ]
+          "requireAll": true,
+          "shipType": [ 2, 3 ]
         },
         {
           "noMoreThan": 3,
@@ -447,7 +447,7 @@
   "504": [ //艦隊酒保祭り！
     {
       "type": "supply",
-      "count": 5
+      "count": 15
     }
   ],
   "605": [ //新装備「開発」指令
