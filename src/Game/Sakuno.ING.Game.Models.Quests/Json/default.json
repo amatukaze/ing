@@ -702,6 +702,33 @@
       ]
     }
   ],
+  "872": [ //戦果拡張任務！「Z作戦」後段作戦
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "5-5",
+      "rankRequired": "s"
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "6-2",
+      "rankRequired": "s"
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "6-5",
+      "rankRequired": "s"
+    },
+    {
+      "type": "battle",
+      "count": 1,
+      "map": "7-2",
+      "route": [ 15 ],
+      "rankRequired": "s"
+    }
+  ],
   "873": [ //北方海域警備を実施せよ！
     {
       "type": "boss",
@@ -794,6 +821,34 @@
           "ship": [ 69, 61, 123, 60, 59, 51, 115 ]
         }
       ]
+    }
+  ],
+  "893": [ //泊地周辺海域の安全確保を徹底せよ！
+    {
+      "type": "boss",
+      "count": 3,
+      "map": "1-5",
+      "rankRequired": "s"
+    },
+    {
+      "type": "boss",
+      "count": 3,
+      "map": "7-1",
+      "rankRequired": "s"
+    },
+    {
+      "type": "battle",
+      "count": 3,
+      "map": "7-2",
+      "route": [ 7 ],
+      "rankRequired": "s"
+    },
+    {
+      "type": "battle",
+      "count": 3,
+      "map": "7-2",
+      "route": [ 15 ],
+      "rankRequired": "s"
     }
   ],
   "894": [ //空母戦力の投入による兵站線戦闘哨戒

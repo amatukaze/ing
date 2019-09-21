@@ -15,5 +15,6 @@ namespace Sakuno.ING.Game.Models.Quests.Json
         public ImmutableArray<int> EquipmentType { get; set; }
         public ImmutableArray<int> Equipment { get; set; }
         public ImmutableArray<FleetRequirementDescription> Fleet { get; set; }
+        public ImmutableArray<int> Route { get; set; }
     }
 }

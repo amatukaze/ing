@@ -30,14 +30,17 @@ namespace Sakuno.ING.Game.Models.Quests
     internal class BattleWinCounter : BattleResultCounter
     {
         private readonly BattleRank rankRequired;
+        private readonly Predicate<MapRouting> routingFilter;
 
-        public BattleWinCounter(in QuestCounterParams @params, BattleRank rankRequired = BattleRank.B) : base(@params)
+        public BattleWinCounter(in QuestCounterParams @params, BattleRank rankRequired = BattleRank.B, Predicate<MapRouting> routingFilter = null) : base(@params)
         {
             this.rankRequired = rankRequired;
+            this.routingFilter = routingFilter;
         }
 
         protected override int IncreaseCount(MapRouting routing, Battle battle, BattleResult result)
-            => result.Rank <= rankRequired ? 1 : 0;
+            => result.Rank <= rankRequired && routingFilter?.Invoke(routing) != false
+            ? 1 : 0;
     }
 
     internal class BattleBossCounter : BattleResultCounter
