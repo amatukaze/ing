@@ -19,7 +19,7 @@ namespace Sakuno.ING.Game.Json
         public override Leveling Leveling => new Leveling(api_level,
             api_experience.At(0),
             KnownLeveling.GetAdmiralExp(api_level),
-            api_experience.At(1),
+            KnownLeveling.GetAdmiralExp(api_level + 1),
             api_level >= KnownLeveling.MaxAdmiralLevel);
 
         internal AdmiralRank api_rank;
