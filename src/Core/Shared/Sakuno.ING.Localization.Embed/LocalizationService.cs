@@ -3,9 +3,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Newtonsoft.Json;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Settings;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Sakuno.ING.Localization.Embed
 {
@@ -31,25 +32,27 @@ namespace Sakuno.ING.Localization.Embed
             while (!string.IsNullOrEmpty(culture.Name))
             {
                 using var stream = asm.GetManifestResourceStream(typeof(LocalizationService), $"Strings.{culture.Name}.json");
-                if (stream != null)
+                if (stream is object)
                 {
-                    _currentCulture = LoadStrings(stream);
+                    _currentCulture = LoadStringsAsync(stream).Result;
                     break;
                 }
                 culture = culture.Parent;
             }
 
-            _fallback = LoadStrings(asm.GetManifestResourceStream(typeof(LocalizationService), $"Strings.en-US.json"));
-            _gameContent = LoadStrings(asm.GetManifestResourceStream(typeof(LocalizationService), $"Strings.ja.json"));
-            if (_currentCulture == null)
+            using var fallbackStream = asm.GetManifestResourceStream(typeof(LocalizationService), $"Strings.en-US.json");
+            _fallback = LoadStringsAsync(fallbackStream).Result;
+            using var gameContentStream = asm.GetManifestResourceStream(typeof(LocalizationService), $"Strings.ja.json");
+            _gameContent = LoadStringsAsync(gameContentStream).Result;
+
+            if (_currentCulture is null)
                 _currentCulture = _fallback;
         }
 
         public IReadOnlyCollection<CultureInfo> SupportedCultures { get; }
 
-        private static Dictionary<string, Dictionary<string, string>> LoadStrings(Stream stream)
-            => new JsonSerializer().Deserialize<Dictionary<string, Dictionary<string, string>>>
-                (new JsonTextReader(new StreamReader(stream)));
+        private static async Task<Dictionary<string, Dictionary<string, string>>> LoadStringsAsync(Stream stream)
+            => await JsonSerializer.DeserializeAsync<Dictionary<string, Dictionary<string, string>>>(stream);
 
         private static string TryGet(Dictionary<string, Dictionary<string, string>> dict, string category, string id)
             => dict.TryGetValue(category, out var c)

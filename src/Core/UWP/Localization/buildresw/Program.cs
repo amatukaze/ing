@@ -1,23 +1,25 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace buildresw
 {
     class Program
     {
-        static XElement ResElement(string type, string name, string value) =>
+        static async Task<int> Main(string[] args)
+        {
+            static XElement ResElement(string type, string name, string value) =>
             new XElement
             (
                 type,
                 new XAttribute("name", name),
                 new XElement("value", value)
             );
-        static int Main(string[] args)
-        {
+
             if (args.Length < 2)
             {
                 Console.WriteLine("Usage: buildresw <Input> <Output>");
@@ -28,8 +30,8 @@ namespace buildresw
             if (Directory.Exists(output))
                 Directory.Delete(output, true);
 
-            var mapfile = "fieldmap.json";
-            var map = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(mapfile));
+            using var mapFile = File.OpenRead("fieldmap.json");
+            var map = await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(mapFile);
 
             foreach (string localeFile in Directory.EnumerateFiles(locales, "*.json"))
             {
@@ -37,8 +39,8 @@ namespace buildresw
                 string outL = Path.Combine(output, localeName);
                 Directory.CreateDirectory(outL);
 
-                var contentstr = File.ReadAllText(localeFile);
-                var content = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(contentstr);
+                using var contentFile = File.OpenRead(localeFile);
+                var content = await JsonSerializer.DeserializeAsync<Dictionary<string, Dictionary<string, string>>>(contentFile);
                 foreach (var entry in content)
                 {
                     string resw = Path.Combine(outL, entry.Key + ".resw");
