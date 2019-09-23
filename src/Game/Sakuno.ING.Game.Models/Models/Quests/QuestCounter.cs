@@ -53,6 +53,8 @@ namespace Sakuno.ING.Game.Models.Quests
                 statePersist.SetQuestProgress(questId, counterId, 0);
             }
         }
+
+        internal void Clear() => Progress = default;
     }
 
     public readonly struct QuestCounterParams

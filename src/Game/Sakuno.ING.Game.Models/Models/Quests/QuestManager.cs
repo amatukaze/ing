@@ -26,6 +26,7 @@ namespace Sakuno.ING.Game.Models.Quests
                     if (QuestExpires(q.UpdationTime, UpdationTime, q.Period))
                     {
                         StatePersist.ClearQuestProgress(q.Id);
+                        q.Targets?.Clear();
                         return true;
                     }
                     return false;
@@ -38,6 +39,7 @@ namespace Sakuno.ING.Game.Models.Quests
                 var quest = _allQuests.Remove(msg);
                 QuestCompleting?.Invoke(t, quest);
                 StatePersist.ClearQuestProgress(quest.Id);
+                quest.Targets?.Clear();
                 StatePersist.SaveChanges();
             };
         }

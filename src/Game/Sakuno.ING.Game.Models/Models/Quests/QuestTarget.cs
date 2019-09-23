@@ -37,5 +37,12 @@ namespace Sakuno.ING.Game.Models.Quests
                     c.CheckExpire(StatePersist, timeStamp, last, period);
             UpdateProgress();
         }
+
+        public void Clear()
+        {
+            foreach (var c in Counters)
+                c.Clear();
+            TotalProgress = default;
+        }
     }
 }
