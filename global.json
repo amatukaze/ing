@@ -1,5 +1,10 @@
 ﻿{
+  "tools": {
+    "vs": {
+      "version": "16.4"
+    }
+  },
   "sdk": {
-    "version": "3.0.100-preview8-013656"
+    "version": "3.0.100"
   }
 }

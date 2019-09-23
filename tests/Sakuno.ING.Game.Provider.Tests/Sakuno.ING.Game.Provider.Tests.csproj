@@ -13,4 +13,8 @@
     <ProjectReference Include="..\..\src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+  </ItemGroup>
+
 </Project>
