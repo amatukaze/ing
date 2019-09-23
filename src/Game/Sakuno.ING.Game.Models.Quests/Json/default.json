@@ -303,6 +303,72 @@
       ]
     }
   ],
+  "284": [ //南西諸島方面「海上警備行動」発令！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "1-4",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "shipType": [ 3, 7, 21 ]
+        },
+        {
+          "requiredCount": 3,
+          "shipType": [ 1, 2 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-1",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "shipType": [ 3, 7, 21 ]
+        },
+        {
+          "requiredCount": 3,
+          "shipType": [ 1, 2 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-2",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "shipType": [ 3, 7, 21 ]
+        },
+        {
+          "requiredCount": 3,
+          "shipType": [ 1, 2 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-3",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 1,
+          "shipType": [ 3, 7, 21 ]
+        },
+        {
+          "requiredCount": 3,
+          "shipType": [ 1, 2 ]
+        }
+      ]
+    }
+  ],
   "302": [ //大規模演習
     {
       "type": "exercise",
