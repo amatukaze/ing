@@ -153,26 +153,23 @@ namespace Sakuno.ING.Game.Models.Combat
                 Ally.UpdateDamageRate();
                 Enemy.UpdateDamageRate();
 
-                int allyPercentage = (int)(Ally.DamageRate * 100);
-                int enemyPercentage = (int)(Enemy.DamageRate * 100);
                 switch (Kind)
                 {
                     case BattleKind.AirDefence:
                     case BattleKind.RadarDefence:
-                        if (allyPercentage <= 0)
-                            Rank = BattleRank.Perfect;
-                        else if (allyPercentage < 10)
-                            Rank = BattleRank.A;
-                        else if (allyPercentage < 20)
-                            Rank = BattleRank.B;
-                        else if (allyPercentage < 50)
-                            Rank = BattleRank.C;
-                        else if (allyPercentage < 80)
-                            Rank = BattleRank.D;
-                        else
-                            Rank = BattleRank.E;
+                        Rank = Ally.DamageRate switch
+                        {
+                            var r when r <= 0 => BattleRank.Perfect,
+                            var r when r < 0.1 => BattleRank.A,
+                            var r when r < 0.2 => BattleRank.B,
+                            var r when r < 0.5 => BattleRank.C,
+                            var r when r < 0.8 => BattleRank.D,
+                            _ => BattleRank.E,
+                        };
                         break;
                     default:
+                        int allyPercentage = (int)(Ally.DamageRate * 100);
+                        int enemyPercentage = (int)(Enemy.DamageRate * 100);
                         if (Ally.SunkCount == 0)
                         {
                             if (Enemy.SunkCount == Enemy.Count)
