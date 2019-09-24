@@ -5,9 +5,9 @@ namespace Sakuno.ING.Game.Models.Combat
 {
     public struct RawNightEffects
     {
-        public int? FlareIndex { get; set; }
-        public EquipmentInfoId? TouchingPlane { get; set; }
-        public int? ActiveFleet { get; set; }
+        public int? FlareIndex { readonly get; set; }
+        public EquipmentInfoId? TouchingPlane { readonly get; set; }
+        public int? ActiveFleet { readonly get; set; }
     }
 
     public class RawNightPhase : RawShellingPhase

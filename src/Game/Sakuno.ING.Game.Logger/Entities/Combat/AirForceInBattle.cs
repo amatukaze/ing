@@ -6,8 +6,8 @@ namespace Sakuno.ING.Game.Logger.Entities.Combat
 {
     public struct AirForceInBattle
     {
-        public AirForceGroupId Id { get; set; }
-        public IReadOnlyList<SlotInBattleEntity> Squadrons { get; set; }
+        public AirForceGroupId Id { readonly get; set; }
+        public IReadOnlyList<SlotInBattleEntity> Squadrons { readonly get; set; }
 
         public AirForceInBattle(AirForceGroup group)
         {

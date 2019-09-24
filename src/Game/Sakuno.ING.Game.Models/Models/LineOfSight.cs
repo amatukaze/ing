@@ -33,14 +33,7 @@ namespace Sakuno.ING.Game.Models
             && Baseline == other.Baseline
             && AdmiralLevel == other.AdmiralLevel;
 
-        public override int GetHashCode()
-        {
-            var hashCode = 2023569763;
-            hashCode = hashCode * -1521134295 + Multiplied.GetHashCode();
-            hashCode = hashCode * -1521134295 + Baseline.GetHashCode();
-            hashCode = hashCode * -1521134295 + AdmiralLevel.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Multiplied, Baseline, AdmiralLevel);
 
         public static bool operator ==(LineOfSight left, LineOfSight right) => left.Equals(right);
         public static bool operator !=(LineOfSight left, LineOfSight right) => !(left == right);

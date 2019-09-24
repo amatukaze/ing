@@ -22,7 +22,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public static bool operator ==(UseItemId left, UseItemId right) => left.value == right.value;
         public static bool operator !=(UseItemId left, UseItemId right) => left.value != right.value;
         public override bool Equals(object obj) => (UseItemId)obj == this;
-        public override int GetHashCode() => value.GetHashCode();
+        public override int GetHashCode() => value;
         public override string ToString() => value.ToString();
     }
 

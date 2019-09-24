@@ -27,14 +27,7 @@ namespace Sakuno.ING.Game.Models
         public override bool Equals(object obj) => obj is AirFightPower && Equals((AirFightPower)obj);
         public bool Equals(AirFightPower other) => Raw == other.Raw && Minimum == other.Minimum && Maximum == other.Maximum;
 
-        public override int GetHashCode()
-        {
-            var hashCode = -998666383;
-            hashCode = hashCode * -1521134295 + Raw.GetHashCode();
-            hashCode = hashCode * -1521134295 + Minimum.GetHashCode();
-            hashCode = hashCode * -1521134295 + Maximum.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(Raw, Minimum, Maximum);
 
         public static bool operator ==(AirFightPower left, AirFightPower right)
             => left.Equals(right);

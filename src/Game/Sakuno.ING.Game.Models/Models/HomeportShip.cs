@@ -37,6 +37,23 @@ namespace Sakuno.ING.Game.Models
 
         partial void UpdateCore(RawShip raw, DateTimeOffset timeStamp)
         {
+            static ShipMordenizationStatus Combine(ShipMordenizationStatus current, ShipMordenizationStatus master)
+               => new ShipMordenizationStatus
+               (
+                   min: master.Min,
+                   max: master.Max,
+                   displaying: current.Displaying,
+                   improved: current.Improved
+               );
+            static ShipMordenizationStatus Substract(ShipMordenizationStatus current, int equipment)
+                => new ShipMordenizationStatus
+                (
+                    min: current.Displaying - equipment - current.Improved,
+                    max: current.Max,
+                    improved: current.Improved,
+                    displaying: current.Displaying
+                );
+
             Info = owner.MasterData.ShipInfos[raw.ShipInfoId];
             Fuel = (raw.CurrentFuel, Info.FuelConsumption);
             Bullet = (raw.CurrentBullet, Info.BulletConsumption);
@@ -96,24 +113,6 @@ namespace Sakuno.ING.Game.Models
 
             CascadeUpdate();
         }
-
-        private static ShipMordenizationStatus Combine(ShipMordenizationStatus current, ShipMordenizationStatus master)
-            => new ShipMordenizationStatus
-            {
-                Min = master.Min,
-                Max = master.Max,
-                Displaying = current.Displaying,
-                Improved = current.Improved
-            };
-
-        private static ShipMordenizationStatus Substract(ShipMordenizationStatus current, int equipment)
-            => new ShipMordenizationStatus
-            {
-                Min = current.Displaying - equipment - current.Improved,
-                Max = current.Max,
-                Improved = current.Improved,
-                Displaying = current.Displaying
-            };
 
         internal void OpenExtraSlot()
         {

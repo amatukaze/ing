@@ -9,9 +9,9 @@ namespace Sakuno.ING.Game.Json.Converters
 
         protected override ShipMordenizationStatus ConvertValue(ReadOnlySpan<int> array)
             => new ShipMordenizationStatus
-            {
-                Min = array[0],
-                Max = array[1]
-            };
+            (
+                min: array[0],
+                max: array[1]
+            );
     }
 }

@@ -22,7 +22,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public static bool operator ==(EquipmentTypeId left, EquipmentTypeId right) => left.value == right.value;
         public static bool operator !=(EquipmentTypeId left, EquipmentTypeId right) => left.value != right.value;
         public override bool Equals(object obj) => (EquipmentTypeId)obj == this;
-        public override int GetHashCode() => value.GetHashCode();
+        public override int GetHashCode() => value;
         public override string ToString() => value.ToString();
     }
 

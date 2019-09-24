@@ -7,35 +7,35 @@ namespace Sakuno.ING.Game.Models
         /// <summary>
         /// 燃料
         /// </summary>
-        public int Fuel { get; set; }
+        public int Fuel { readonly get; set; }
         /// <summary>
         /// 弾薬
         /// </summary>
-        public int Bullet { get; set; }
+        public int Bullet { readonly get; set; }
         /// <summary>
         /// 鋼材
         /// </summary>
-        public int Steel { get; set; }
+        public int Steel { readonly get; set; }
         /// <summary>
         /// ボーキサイト
         /// </summary>
-        public int Bauxite { get; set; }
+        public int Bauxite { readonly get; set; }
         /// <summary>
         /// 高速建造材
         /// </summary>
-        public int InstantBuild { get; set; }
+        public int InstantBuild { readonly get; set; }
         /// <summary>
         /// 高速修復材
         /// </summary>
-        public int InstantRepair { get; set; }
+        public int InstantRepair { readonly get; set; }
         /// <summary>
         /// 開発資材
         /// </summary>
-        public int Development { get; set; }
+        public int Development { readonly get; set; }
         /// <summary>
         /// 改修資材
         /// </summary>
-        public int Improvement { get; set; }
+        public int Improvement { readonly get; set; }
 
         public static Materials operator +(in Materials left, in Materials right)
             => new Materials
@@ -102,13 +102,12 @@ namespace Sakuno.ING.Game.Models
         public static bool operator !=(in Materials left, in Materials right)
             => !(left == right);
 
-        public bool Equals(Materials other) => this == other;
+        public readonly bool Equals(Materials other) => this == other;
 
-        public override bool Equals(object other)
+        public override readonly bool Equals(object other)
             => other is Materials m && this == m;
 
-        public override int GetHashCode()
-            => Fuel ^ Bullet ^ Steel ^ Bauxite
-            ^ InstantBuild ^ InstantRepair ^ Development ^ Improvement;
+        public override readonly int GetHashCode()
+            => HashCode.Combine(Fuel, Bullet, Steel, Bauxite, InstantBuild, InstantRepair, Development, Improvement);
     }
 }

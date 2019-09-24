@@ -13,11 +13,11 @@ namespace Sakuno.ING.Game.Tests
         {
             static ShipMordenizationStatus CreateParameter(int current, int displaying)
                 => new ShipMordenizationStatus
-                {
-                    Min = current,
-                    Max = current,
-                    Displaying = displaying
-                };
+                (
+                    min: current,
+                    max: current,
+                    displaying: displaying
+                );
 
             var s = new ShipInBattleEntity
             {

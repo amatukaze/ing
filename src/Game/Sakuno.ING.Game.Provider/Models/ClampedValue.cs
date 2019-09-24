@@ -2,7 +2,7 @@
 
 namespace Sakuno.ING.Game.Models
 {
-    public readonly struct ClampedValue
+    public readonly struct ClampedValue : IEquatable<ClampedValue>
     {
         public ClampedValue(int current, int max)
         {
@@ -28,7 +28,8 @@ namespace Sakuno.ING.Game.Models
             => !(left == right);
 
         public override bool Equals(object obj) => obj is ClampedValue v && this == v;
-        public override int GetHashCode() => Current.GetHashCode() ^ Max.GetHashCode();
+        public bool Equals(ClampedValue other) => this == other;
+        public override int GetHashCode() => HashCode.Combine(Current, Max);
 
         public static implicit operator ClampedValue((int current, int max) tuple)
             => new ClampedValue(tuple.current, tuple.max);

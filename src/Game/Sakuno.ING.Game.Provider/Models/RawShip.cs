@@ -21,7 +21,7 @@ namespace Sakuno.ING.Game.Models
         public static bool operator ==(ShipId left, ShipId right) => left.value == right.value;
         public static bool operator !=(ShipId left, ShipId right) => left.value != right.value;
         public override bool Equals(object obj) => (ShipId)obj == this;
-        public override int GetHashCode() => value.GetHashCode();
+        public override int GetHashCode() => value;
         public override string ToString() => value.ToString();
     }
 
@@ -81,72 +81,72 @@ namespace Sakuno.ING.Game.Models
         internal int[] api_karyoku;
         public ShipMordenizationStatus Firepower =>
             new ShipMordenizationStatus
-            {
-                Improved = api_kyouka.At(0),
-                Displaying = api_karyoku.At(0),
-                Max = api_karyoku.At(1)
-            };
+            (
+                max: api_karyoku.At(1),
+                improved: api_kyouka.At(0),
+                displaying: api_karyoku.At(0)
+            );
 
         internal int[] api_raisou;
         public ShipMordenizationStatus Torpedo =>
             new ShipMordenizationStatus
-            {
-                Improved = api_kyouka.At(1),
-                Displaying = api_raisou.At(0),
-                Max = api_raisou.At(1)
-            };
+            (
+                improved: api_kyouka.At(1),
+                displaying: api_raisou.At(0),
+                max: api_raisou.At(1)
+            );
 
         internal int[] api_taiku;
         public ShipMordenizationStatus AntiAir =>
             new ShipMordenizationStatus
-            {
-                Improved = api_kyouka.At(2),
-                Displaying = api_taiku.At(0),
-                Max = api_taiku.At(1)
-            };
+            (
+                improved: api_kyouka.At(2),
+                displaying: api_taiku.At(0),
+                max: api_taiku.At(1)
+            );
 
         internal int[] api_soukou;
         public ShipMordenizationStatus Armor =>
             new ShipMordenizationStatus
-            {
-                Improved = api_kyouka.At(3),
-                Displaying = api_soukou.At(0),
-                Max = api_soukou.At(1)
-            };
+            (
+                improved: api_kyouka.At(3),
+                displaying: api_soukou.At(0),
+                max: api_soukou.At(1)
+            );
 
         internal int[] api_kaihi;
         public ShipMordenizationStatus Evasion =>
             new ShipMordenizationStatus
-            {
-                Displaying = api_kaihi.At(0),
-                Max = api_kaihi.At(1)
-            };
+            (
+                displaying: api_kaihi.At(0),
+                max: api_kaihi.At(1)
+            );
 
         internal int[] api_taisen;
         public ShipMordenizationStatus AntiSubmarine =>
             new ShipMordenizationStatus
-            {
-                Improved = api_kyouka.At(6),
-                Displaying = api_taisen.At(0),
-                Max = api_taisen.At(1)
-            };
+            (
+                improved: api_kyouka.At(6),
+                displaying: api_taisen.At(0),
+                max: api_taisen.At(1)
+            );
 
         internal int[] api_sakuteki;
         public ShipMordenizationStatus LineOfSight =>
             new ShipMordenizationStatus
-            {
-                Displaying = api_sakuteki.At(0),
-                Max = api_sakuteki.At(1)
-            };
+            (
+                displaying: api_sakuteki.At(0),
+                max: api_sakuteki.At(1)
+            );
 
         internal int[] api_lucky;
         public ShipMordenizationStatus Luck =>
             new ShipMordenizationStatus
-            {
-                Improved = api_kyouka.At(4),
-                Displaying = api_lucky.At(0),
-                Max = api_lucky.At(1)
-            };
+            (
+                improved: api_kyouka.At(4),
+                displaying: api_lucky.At(0),
+                max: api_lucky.At(1)
+            );
 
         [JsonProperty("api_locked")]
         public bool IsLocked { get; internal set; }

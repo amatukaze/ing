@@ -1,6 +1,8 @@
-﻿namespace Sakuno.ING.Game.Models
+﻿using System;
+
+namespace Sakuno.ING.Game.Models
 {
-    public readonly struct ShipHP
+    public readonly struct ShipHP : IEquatable<ShipHP>
     {
         private readonly ClampedValue value;
         public ShipHP(ClampedValue value) => this.value = value;
@@ -30,6 +32,7 @@
             => left.value != right.value;
 
         public override bool Equals(object obj) => obj is ShipHP v && this == v;
+        public bool Equals(ShipHP other) => this == other;
         public override int GetHashCode() => value.GetHashCode();
 
         public static implicit operator ShipHP((int current, int max) tuple)

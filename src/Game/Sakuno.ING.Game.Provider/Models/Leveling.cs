@@ -53,14 +53,6 @@ namespace Sakuno.ING.Game.Models
         public static bool operator !=(Leveling left, Leveling right) => !(left == right);
 
         public override int GetHashCode()
-        {
-            var hashCode = 50065545;
-            hashCode = hashCode * -1521134295 + Level.GetHashCode();
-            hashCode = hashCode * -1521134295 + Experience.GetHashCode();
-            hashCode = hashCode * -1521134295 + CurrentLevelExperience.GetHashCode();
-            hashCode = hashCode * -1521134295 + NextLevelExperience.GetHashCode();
-            hashCode = hashCode * -1521134295 + IsMaxLevel.GetHashCode();
-            return hashCode;
-        }
+            => HashCode.Combine(Level, Experience, CurrentLevelExperience, NextLevelExperience, IsMaxLevel);
     }
 }
