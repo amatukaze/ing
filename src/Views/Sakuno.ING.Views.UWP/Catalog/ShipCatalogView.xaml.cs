@@ -48,14 +48,12 @@ namespace Sakuno.ING.Views.UWP.Catalog
 
             static Comparer<HomeportShip> CreateComparer<T>(Func<HomeportShip, T> keySelector)
                 where T : IComparable<T>
-            {
-                return Comparer<HomeportShip>.Create((x, y) =>
+                => Comparer<HomeportShip>.Create((x, y) =>
                     keySelector(x).CompareTo(keySelector(y)) switch
                     {
                         0 => x.CompareTo(y),
                         int other => other
                     });
-            }
 
             if (nextDirection is DataGridSortDirection sd && comparer != null)
             {

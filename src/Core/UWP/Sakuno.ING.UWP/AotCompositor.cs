@@ -213,26 +213,27 @@ namespace Sakuno.ING.UWP
                 throw new InvalidOperationException("Compositor out of date");
         }
 
-        public override object TryResolveView(string viewId) => viewId switch
-        {
-            "ApiDebug" => (object)Information<ApiDebugView>.Factory(),
-            "CurrentBattle" => Information<CurrentBattleView>.Factory(),
-            "Admiral" => Information<AdmiralView>.Factory(),
-            "Docks" => Information<DocksView>.Factory(),
-            "Expedition" => Information<ExpeditionView>.Factory(),
-            "Fleets" => Information<FleetsView>.Factory(),
-            "Browser" => Information<BrowserElement>.Factory(),
-            "LogMigration" => Information<LogMigrationView>.Factory(),
-            "ShipCreationLogs" => Information<ShipCreationLogsView>.Factory(),
-            "EquipmentCreationLogs" => Information<EquipmentCreationLogsView>.Factory(),
-            "ExpeditionCompletionLogs" => Information<ExpeditionCompletionLogsView>.Factory(),
-            "BattleLogs" => Information<BattleLogsView>.Factory(),
-            "MaterialsChangeLogs" => Information<MaterialsChangeView>.Factory(),
-            "ActiveQuests" => Information<ActiveQuestsView>.Factory(),
-            "MapHP" => Information<MapHPView>.Factory(),
-            "ShipCatalog" => Information<ShipCatalogView>.Factory(),
-            "EquipmentCatalog" => Information<EquipmentCatalogView>.Factory(),
-            _ => null
-        };
+        public override object TryResolveView(string viewId)
+            => viewId switch
+            {
+                "ApiDebug" => Information<ApiDebugView>.Factory(),
+                "CurrentBattle" => Information<CurrentBattleView>.Factory(),
+                "Admiral" => Information<AdmiralView>.Factory(),
+                "Docks" => Information<DocksView>.Factory(),
+                "Expedition" => Information<ExpeditionView>.Factory(),
+                "Fleets" => Information<FleetsView>.Factory(),
+                "Browser" => Information<BrowserElement>.Factory(),
+                "LogMigration" => Information<LogMigrationView>.Factory(),
+                "ShipCreationLogs" => Information<ShipCreationLogsView>.Factory(),
+                "EquipmentCreationLogs" => Information<EquipmentCreationLogsView>.Factory(),
+                "ExpeditionCompletionLogs" => Information<ExpeditionCompletionLogsView>.Factory(),
+                "BattleLogs" => Information<BattleLogsView>.Factory(),
+                "MaterialsChangeLogs" => Information<MaterialsChangeView>.Factory(),
+                "ActiveQuests" => Information<ActiveQuestsView>.Factory(),
+                "MapHP" => Information<MapHPView>.Factory(),
+                "ShipCatalog" => Information<ShipCatalogView>.Factory(),
+                "EquipmentCatalog" => Information<EquipmentCatalogView>.Factory(),
+                _ => null
+            };
     }
 }

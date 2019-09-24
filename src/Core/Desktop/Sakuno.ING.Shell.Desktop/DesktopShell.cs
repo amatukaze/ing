@@ -63,9 +63,7 @@ namespace Sakuno.ING.Shell.Desktop
                 Application.Current.MainWindow = window;
 
                 void LayoutFallback()
-                {
-                    layout = (LayoutRoot)Application.LoadComponent(new Uri("/Sakuno.ING.Shell.Desktop;component/Layout/Default.xaml", UriKind.Relative));
-                }
+                    => layout = (LayoutRoot)Application.LoadComponent(new Uri("/Sakuno.ING.Shell.Desktop;component/Layout/Default.xaml", UriKind.Relative));
             };
 
             app.Exit += (s, e) => Exited?.Invoke();
