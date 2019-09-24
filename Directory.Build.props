@@ -10,7 +10,7 @@
   <PropertyGroup>
     <PortableFramework>netstandard2.0</PortableFramework>
     <DesktopFramework>net472</DesktopFramework>
-    <DesktopLatestFramework>net472</DesktopLatestFramework>
+    <DesktopLatestFramework>net48</DesktopLatestFramework>
     <CoreFramework>netcoreapp3.0</CoreFramework>
   </PropertyGroup>
 
