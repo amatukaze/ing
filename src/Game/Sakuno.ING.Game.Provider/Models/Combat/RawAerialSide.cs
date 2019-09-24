@@ -1,4 +1,5 @@
-﻿using Sakuno.ING.Game.Models.MasterData;
+﻿using System.Collections.Generic;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
@@ -7,5 +8,6 @@ namespace Sakuno.ING.Game.Models.Combat
         public ClampedValue FightedPlanes { get; set; }
         public ClampedValue ShootedPlanes { get; set; }
         public EquipmentInfoId? TouchingPlane { get; set; }
+        public IReadOnlyCollection<int> PlanesFrom { get; set; }
     }
 }

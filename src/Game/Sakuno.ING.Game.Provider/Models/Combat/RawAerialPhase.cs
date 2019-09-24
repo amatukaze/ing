@@ -20,6 +20,8 @@ namespace Sakuno.ING.Game.Models.Combat
                 FightingResult = (AirFightingResult?)api.api_stage1.api_disp_seiku;
                 ally.FightedPlanes = (api.api_stage1.api_f_lostcount, api.api_stage1.api_f_count);
                 enemy.FightedPlanes = (api.api_stage1.api_e_lostcount, api.api_stage1.api_e_count);
+                ally.PlanesFrom = api.api_plane_from.At(0);
+                enemy.PlanesFrom = api.api_plane_from.At(1);
                 ally.TouchingPlane = (EquipmentInfoId?)RawBattle.SelectPositive(api.api_stage1.api_touch_plane, 0);
                 enemy.TouchingPlane = (EquipmentInfoId?)RawBattle.SelectPositive(api.api_stage1.api_touch_plane, 1);
             }

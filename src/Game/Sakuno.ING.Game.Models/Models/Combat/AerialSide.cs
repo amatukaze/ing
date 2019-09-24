@@ -1,4 +1,6 @@
-﻿using Sakuno.ING.Game.Models.MasterData;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Models.Combat
 {
@@ -9,10 +11,12 @@ namespace Sakuno.ING.Game.Models.Combat
             FightedPlanes = raw.FightedPlanes;
             ShootedPlanes = raw.ShootedPlanes;
             TouchingPlane = masterData.EquipmentInfos[raw.TouchingPlane];
+            PlanesFrom = raw.PlanesFrom.Select(side.FindShip).ToArray();
         }
 
         public ClampedValue FightedPlanes { get; }
         public ClampedValue ShootedPlanes { get; }
         public EquipmentInfo TouchingPlane { get; }
+        public IReadOnlyCollection<BattleParticipant> PlanesFrom { get; }
     }
 }
