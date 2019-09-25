@@ -54,7 +54,7 @@ namespace Sakuno.ING.Game.Models.Quests
             }
         }
 
-        internal void Clear() => Progress = default;
+        internal void Clear() => Progress = (0, maximum);
     }
 
     public readonly struct QuestCounterParams

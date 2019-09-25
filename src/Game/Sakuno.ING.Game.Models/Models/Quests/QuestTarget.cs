@@ -42,7 +42,7 @@ namespace Sakuno.ING.Game.Models.Quests
         {
             foreach (var c in Counters)
                 c.Clear();
-            TotalProgress = default;
+            UpdateProgress();
         }
     }
 }
