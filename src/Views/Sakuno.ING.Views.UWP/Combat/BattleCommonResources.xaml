@@ -1,0 +1,64 @@
+﻿<ResourceDictionary
+    x:Class="Sakuno.ING.Views.UWP.Combat.BattleCommonResources"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:g="using:Sakuno.ING.Game.Models"
+    xmlns:m="using:Sakuno.ING.Game.Models.Combat"
+    xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:con="using:Sakuno.ING.Views.UWP.Controls">
+    <DataTemplate x:Key="ShipTemplate" x:DataType="m:BattleParticipant">
+        <StackPanel Orientation="Horizontal">
+            <ToolTipService.ToolTip>
+                <StackPanel Orientation="Vertical" x:DefaultBindMode="OneTime">
+                    <TextBlock>
+                            <Run c:Helpers.TranslatableRunSource="{x:Bind Ship.Info.Name.FullName, FallbackValue={x:Null}}" />
+                            Lv.<Run Text="{x:Bind Ship.Leveling.Level}" />
+                    </TextBlock>
+                    <TextBlock>
+                            <Run x:Uid="/Resources/Parameter_Textual_Firepower" />
+                            <Run Text="{x:Bind Ship.Firepower}" />
+                            <LineBreak />
+                            <Run x:Uid="/Resources/Parameter_Textual_Torpedo" />
+                            <Run Text="{x:Bind Ship.Torpedo}" />
+                            <LineBreak />
+                            <Run x:Uid="/Resources/Parameter_Textual_AntiAir" />
+                            <Run Text="{x:Bind Ship.AntiAir}" />
+                            <LineBreak />
+                            <Run x:Uid="/Resources/Parameter_Textual_Armor" />
+                            <Run Text="{x:Bind Ship.Armor}" />
+                    </TextBlock>
+                    <ItemsControl ItemsSource="{x:Bind Ship.Slots}">
+                        <!-- TODO: ItemsRepeater can't show in tooltip -->
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="g:Slot">
+                                <TextBlock c:Helpers.TranslatableSource="{x:Bind Equipment.Info.Name, FallbackValue={x:Null}}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ToolTipService.ToolTip>
+            <con:ShipNamePresenter Source="{x:Bind Ship.Info.Name, FallbackValue={x:Null}}"
+                                       FontSize="18" Width="150" VerticalAlignment="Center" />
+            <Grid Width="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock FontSize="14" HorizontalAlignment="Center">
+                        <Run Text="{x:Bind ToHP.Current}" FontSize="16" />
+                        /
+                        <Run Text="{x:Bind ToHP.Max}" />
+                        (-<Run Text="{x:Bind DamageReceived}" />)
+                </TextBlock>
+                <con:HPIndicator Grid.Row="1" Height="10"
+                                     HP="{x:Bind ToHP}"
+                                     Additional="{x:Bind FromHP.Current}"
+                                     AdditionalBrush="Wheat" />
+            </Grid>
+            <TextBlock FontSize="18" Width="50"
+                           VerticalAlignment="Center"
+                           HorizontalTextAlignment="Center"
+                           Text="{x:Bind DamageGiven}" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

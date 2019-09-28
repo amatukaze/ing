@@ -74,6 +74,8 @@
   "Combat_SortieArea.Text": "Combat/Sortie_SortieArea",
   "Combat_RouteId.Text": "Combat/Sortie_RouteId",
   "Combat_CurrentBattleDetail.Content": "GameModel/Details",
+  "Combat_Night_TouchingPlane.Text": "Combat/NightTouchingPlane",
+  "Combat_Night_Flare.Text": "Combat/Flare",
   "MainPivot_Overview.Header": "ViewTitle/Page_Overview",
   "MainPivot_Battle.Header": "ViewTitle/Page_Battle",
   "MainPivot_Maps.Header": "ViewTitle/Page_Maps",

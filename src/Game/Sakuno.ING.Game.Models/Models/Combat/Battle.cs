@@ -66,7 +66,7 @@ namespace Sakuno.ING.Game.Models.Combat
                     {
                         NpcFleet = new BattleParticipantCollection(raw.NpcFleet, masterData, 1, false);
                         if (raw.NpcPhase != null)
-                            NpcPhase = new NpcPhase(masterData, NpcFleet, Enemy, raw.NpcPhase);
+                            phases.Add(NpcPhase = new NpcPhase(masterData, NpcFleet, Enemy, raw.NpcPhase));
                     }
                     if (raw.NightPhase != null)
                         phases.Add(NightPhase = new NightPhase(masterData, Ally, Enemy, raw.NightPhase));

@@ -29,6 +29,9 @@
       <DependentUpon>ShipCatalogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Catalog\WrapLayout.cs" />
+    <Compile Include="Combat\BattleCommonResources.cs">
+      <DependentUpon>BattleCommonResources.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Combat\BattleDetailView.xaml.cs">
       <DependentUpon>BattleDetailView.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Catalog\ShipCatalogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Combat\BattleCommonResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

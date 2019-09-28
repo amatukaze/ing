@@ -1,0 +1,51 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:c="http://schemas.heavenlywind.cc/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:m="clr-namespace:Sakuno.ING.Game.Models.Combat;assembly=Sakuno.ING.Game.Models">
+    <DataTemplate x:Key="ShipTemplate" DataType="m:BattleParticipant">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel.ToolTip>
+                <StackPanel Orientation="Vertical" DataContext="{Binding Ship, Mode=OneTime}">
+                    <TextBlock>
+                        <c:TranslatableNameText Source="{Binding Info.Name.FullName, FallbackValue=???, Mode=OneTime}" />
+                        Lv.<Run Text="{Binding Leveling.Level, Mode=OneTime}" />
+                        <LineBreak />
+                        <Run Text="{c:Localize GameModel/Parameter_Firepower}" />
+                        <Run Text="{Binding Firepower, Mode=OneTime}" />
+                        <LineBreak />
+                        <Run Text="{c:Localize GameModel/Parameter_Torpedo}" />
+                        <Run Text="{Binding Torpedo, Mode=OneTime}" />
+                        <LineBreak />
+                        <Run Text="{c:Localize GameModel/Parameter_AntiAir}" />
+                        <Run Text="{Binding AntiAir, Mode=OneTime}" />
+                        <LineBreak />
+                        <Run Text="{c:Localize GameModel/Parameter_Armor}" />
+                        <Run Text="{Binding Armor, Mode=OneTime}" />
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel.ToolTip>
+            <c:ShipNamePresenter Source="{Binding Ship.Info.Name}"
+                                 FontSize="18" Width="150" />
+            <Grid Width="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock FontSize="14" HorizontalAlignment="Center">
+                    <Run Text="{Binding ToHP.Current, Mode=OneWay}" FontSize="16" />
+                    /
+                    <Run Text="{Binding ToHP.Max, Mode=OneTime}" />
+                    (-<Run Text="{Binding DamageReceived, Mode=OneWay}" />)
+                </TextBlock>
+                <c:HPIndicator Grid.Row="1" Height="10"
+                               HP="{Binding ToHP}"
+                               Additional="{Binding FromHP.Current, Mode=OneTime}"
+                               AdditionalBrush="Wheat" />
+            </Grid>
+            <TextBlock FontSize="18" Width="50"
+                       VerticalAlignment="Center"
+                       TextAlignment="Center"
+                       Text="{Binding DamageGiven}" />
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

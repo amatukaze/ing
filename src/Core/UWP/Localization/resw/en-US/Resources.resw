@@ -237,6 +237,12 @@
   <data name="Combat_CurrentBattleDetail.Content">
     <value>Details</value>
   </data>
+  <data name="Combat_Night_TouchingPlane.Text">
+    <value>Night contact: </value>
+  </data>
+  <data name="Combat_Night_Flare.Text">
+    <value>Flare: </value>
+  </data>
   <data name="MainPivot_Overview.Header">
     <value>Overview</value>
   </data>

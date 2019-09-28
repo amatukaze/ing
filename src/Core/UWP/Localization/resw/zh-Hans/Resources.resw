@@ -237,6 +237,12 @@
   <data name="Combat_CurrentBattleDetail.Content">
     <value>详情</value>
   </data>
+  <data name="Combat_Night_TouchingPlane.Text">
+    <value>夜间触接：</value>
+  </data>
+  <data name="Combat_Night_Flare.Text">
+    <value>照明弹：</value>
+  </data>
   <data name="MainPivot_Overview.Header">
     <value>概览</value>
   </data>

@@ -13,45 +13,137 @@
     d:DesignWidth="400"
     FontSize="18">
     <UserControl.Resources>
-        <DataTemplate x:Key="HitTemplate" x:DataType="m:Hit">
-            <StackPanel Orientation="Horizontal" Spacing="4">
-                <TextBlock Text="→" VerticalAlignment="Center" />
-                <con:IndexedBattleParticipantName
-                    Participant="{x:Bind Target}"
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <local:BattleCommonResources />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="HitTemplate" x:DataType="m:Hit">
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <TextBlock Text="→" VerticalAlignment="Center" />
+                    <con:IndexedBattleParticipantName
+                        Participant="{x:Bind Target}"
+                        Width="150" VerticalAlignment="Center" />
+                    <TextBlock Margin="4, 0" Text="{x:Bind Damage}"
+                               MinWidth="50" FontWeight="{x:Bind local:BattleDetailView.BooleanToFontWeight(IsCritical)}"
+                               VerticalAlignment="Center" />
+                    <Grid Width="100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock FontSize="14" HorizontalAlignment="Center">
+                            <Run Text="{x:Bind FromHP.Current}" />
+                            →
+                            <Run Text="{x:Bind ToHP.Current}" />
+                        </TextBlock>
+                        <con:HPIndicator Grid.Row="1" Height="10"
+                                         HP="{x:Bind ToHP}"
+                                         Additional="{x:Bind FromHP.Current}"
+                                         AdditionalBrush="Wheat" />
+                    </Grid>
+                </StackPanel>
+            </DataTemplate>
+            <ItemsPanelTemplate x:Key="BattleDetailPanel">
+                <StackPanel Orientation="Vertical" Spacing="2" />
+            </ItemsPanelTemplate>
+            <DataTemplate x:Key="AttackTemplate" x:DataType="m:Attack">
+                <StackPanel Orientation="Horizontal" Spacing="2">
+                    <con:IndexedBattleParticipantName
+                    Participant="{x:Bind Source}"
                     Width="150" VerticalAlignment="Center" />
-                <TextBlock Margin="4, 0" Text="{x:Bind Damage}"
-                           MinWidth="30" FontWeight="{x:Bind local:BattleDetailView.BooleanToFontWeight(IsCritical)}"
-                           VerticalAlignment="Center" />
-                <Grid Width="100">
+                    <ItemsControl ItemsSource="{x:Bind Hits}"
+                                  ItemTemplate="{StaticResource HitTemplate}"
+                                  ItemsPanel="{StaticResource BattleDetailPanel}" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="AerialPhaseTemplate" x:DataType="m:AerialPhase">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <TextBlock FontSize="14" HorizontalAlignment="Center">
-                        <Run Text="{x:Bind FromHP.Current}" />
-                        →
-                        <Run Text="{x:Bind ToHP.Current}" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="100" />
+                        <ColumnDefinition MinWidth="100" />
+                        <ColumnDefinition MinWidth="100" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.RowSpan="2" Grid.Column="1" FontSize="16" VerticalAlignment="Center"
+                               Text="{x:Bind c:Helpers.FormatAirFightingResult(FightingResult), FallbackValue=''}" TextAlignment="Center" />
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontSize="16" TextAlignment="Center">
+                        <Run x:Uid="/Resources/Combat_FightedPlane" />:
+                        <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Ally.FightedPlanes), FallbackValue=''}" />
                     </TextBlock>
-                    <con:HPIndicator Grid.Row="1" Height="10"
-                                     HP="{x:Bind ToHP}"
-                                     Additional="{x:Bind FromHP.Current}"
-                                     AdditionalBrush="Wheat" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" FontSize="16" TextAlignment="Center">
+                        <Run x:Uid="/Resources/Combat_ShootedPlane" />:
+                        <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Ally.ShootedPlanes), FallbackValue=''}" />
+                    </TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="2" FontSize="16" TextAlignment="Center">
+                        <Run x:Uid="/Resources/Combat_FightedPlane" />:
+                        <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Enemy.FightedPlanes), FallbackValue=''}" />
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="2" FontSize="16" TextAlignment="Center">
+                        <Run x:Uid="/Resources/Combat_ShootedPlane" />:
+                        <Run Text="{x:Bind c:Helpers.FormatAerialPlanes(Enemy.ShootedPlanes), FallbackValue=''}" />
+                    </TextBlock>
                 </Grid>
-            </StackPanel>
-        </DataTemplate>
-        <ItemsPanelTemplate x:Key="BattleDetailPanel">
-            <StackPanel Orientation="Vertical" Spacing="2" />
-        </ItemsPanelTemplate>
-        <DataTemplate x:Key="AttackTemplate" x:DataType="m:Attack">
-            <StackPanel Orientation="Horizontal" Spacing="2">
-                <con:IndexedBattleParticipantName
-                    Participant="{x:Bind Source}"
-                    Width="150" VerticalAlignment="Center" />
-                <ItemsControl ItemsSource="{x:Bind Hits}"
-                              ItemTemplate="{StaticResource HitTemplate}"
-                              ItemsPanel="{StaticResource BattleDetailPanel}" />
-            </StackPanel>
-        </DataTemplate>
+            </DataTemplate>
+            <DataTemplate x:Key="NightPhaseTemplate" x:DataType="m:NightPhase">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="200" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               x:Uid="/Resources/Combat_Night_TouchingPlane" />
+                    <con:EquipmentIcon Grid.Column="1"
+                                       Id="{x:Bind Ally.TouchingPlane.IconId, FallbackValue=0}" />
+                    <TextBlock Grid.Column="2"
+                               c:Helpers.TranslatableSource="{x:Bind Ally.TouchingPlane.Name, FallbackValue={x:Null}}" />
+                    <TextBlock Grid.Column="3"
+                               x:Uid="/Resources/Combat_Night_TouchingPlane" />
+                    <con:EquipmentIcon Grid.Column="4"
+                                       Id="{x:Bind Enemy.TouchingPlane.IconId, FallbackValue=0}" />
+                    <TextBlock Grid.Column="5"
+                               c:Helpers.TranslatableSource="{x:Bind Enemy.TouchingPlane.Name, FallbackValue={x:Null}}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0"
+                               x:Uid="/Resources/Combat_Night_Flare" />
+                    <con:IndexedBattleParticipantName
+                        Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                        Participant="{x:Bind Ally.FlareShootingShip}" />
+                    <TextBlock Grid.Row="1" Grid.Column="3"
+                               x:Uid="/Resources/Combat_Night_Flare" />
+                    <con:IndexedBattleParticipantName
+                        Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"
+                        Participant="{x:Bind Enemy.FlareShootingShip}" />
+                </Grid>
+            </DataTemplate>
+            <con:TypeTemplateSelector x:Key="ExtraDataSelector">
+                <con:TypeTemplateSelection TypeName="AerialPhase" Template="{StaticResource AerialPhaseTemplate}" />
+                <con:TypeTemplateSelection TypeName="LandBasePhase" Template="{StaticResource AerialPhaseTemplate}" />
+                <con:TypeTemplateSelection TypeName="NightPhase" Template="{StaticResource NightPhaseTemplate}" />
+                <con:TypeTemplateSelection TypeName="CombinedNightPhase" Template="{StaticResource NightPhaseTemplate}" />
+                <con:TypeTemplateSelection TypeName="NpcPhase">
+                    <DataTemplate x:DataType="m:NpcPhase">
+                        <StackPanel Orientation="Horizontal">
+                            <ItemsControl ItemsSource="{x:Bind NpcFleet, FallbackValue={x:Null}}"
+                                          ItemTemplate="{StaticResource ShipTemplate}" />
+                            <ContentPresenter Content="{x:Bind}" ContentTemplate="{StaticResource NightPhaseTemplate}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </con:TypeTemplateSelection>
+                <con:TypeTemplateSelector.Fallback>
+                    <DataTemplate />
+                </con:TypeTemplateSelector.Fallback>
+            </con:TypeTemplateSelector>
+        </ResourceDictionary>
     </UserControl.Resources>
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
@@ -60,12 +152,14 @@
             <ItemsControl ItemsSource="{x:Bind Battle.OrderedPhases, Mode=OneWay, FallbackValue={x:Null}}"
                           ItemsPanel="{StaticResource BattleDetailPanel}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="m:BattlePhase">
+                    <DataTemplate x:DataType="m:BattlePhase"
+                                  x:DefaultBindMode="OneTime">
                         <StackPanel Orientation="Vertical">
                             <Rectangle Fill="Gray" Height="2" Margin="2" />
                             <TextBlock Text="{x:Bind c:Helpers.FormatBattlePhaseTitle(This)}"
                                        FontSize="20" />
-                            <ItemsControl ItemsSource="{x:Bind Attacks, Mode=OneTime}"
+                            <ContentControl Content="{x:Bind}" ContentTemplateSelector="{StaticResource ExtraDataSelector}" />
+                            <ItemsControl ItemsSource="{x:Bind Attacks}"
                                           ItemTemplate="{StaticResource AttackTemplate}"
                                           ItemsPanel="{StaticResource BattleDetailPanel}" />
                         </StackPanel>

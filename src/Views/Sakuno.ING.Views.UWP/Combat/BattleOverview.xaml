@@ -4,70 +4,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:m="using:Sakuno.ING.Game.Models.Combat"
     xmlns:c="using:Sakuno.ING.Views.UWP"
+    xmlns:local="using:Sakuno.ING.Views.UWP.Combat"
     xmlns:con="using:Sakuno.ING.Views.UWP.Controls"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
     x:DefaultBindMode="OneWay">
     <UserControl.Resources>
-        <DataTemplate x:Key="ShipTemplate" x:DataType="m:BattleParticipant">
-            <StackPanel Orientation="Horizontal">
-                <ToolTipService.ToolTip>
-                    <StackPanel Orientation="Vertical" x:DefaultBindMode="OneTime">
-                        <TextBlock>
-                            <Run c:Helpers.TranslatableRunSource="{x:Bind Ship.Info.Name.FullName, FallbackValue={x:Null}}" />
-                            Lv.<Run Text="{x:Bind Ship.Leveling.Level}" />
-                        </TextBlock>
-                        <TextBlock>
-                            <Run x:Uid="/Resources/Parameter_Textual_Firepower" />
-                            <Run Text="{x:Bind Ship.Firepower}" />
-                            <LineBreak />
-                            <Run x:Uid="/Resources/Parameter_Textual_Torpedo" />
-                            <Run Text="{x:Bind Ship.Torpedo}" />
-                            <LineBreak />
-                            <Run x:Uid="/Resources/Parameter_Textual_AntiAir" />
-                            <Run Text="{x:Bind Ship.AntiAir}" />
-                            <LineBreak />
-                            <Run x:Uid="/Resources/Parameter_Textual_Armor" />
-                            <Run Text="{x:Bind Ship.Armor}" />
-                        </TextBlock>
-                        <ItemsControl ItemsSource="{x:Bind Ship.Slots}">
-                            <!-- TODO: ItemsRepeater can't show in tooltip -->
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate x:DataType="g:Slot">
-                                    <TextBlock c:Helpers.TranslatableSource="{x:Bind Equipment.Info.Name, FallbackValue={x:Null}}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </ToolTipService.ToolTip>
-                <con:ShipNamePresenter Source="{x:Bind Ship.Info.Name, FallbackValue={x:Null}}"
-                                       FontSize="18" Width="150" VerticalAlignment="Center" />
-                <Grid Width="100">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBlock FontSize="14" HorizontalAlignment="Center">
-                        <Run Text="{x:Bind ToHP.Current}" FontSize="16" />
-                        /
-                        <Run Text="{x:Bind ToHP.Max}" />
-                        (-<Run Text="{x:Bind DamageReceived}" />)
-                    </TextBlock>
-                    <con:HPIndicator Grid.Row="1" Height="10"
-                                     HP="{x:Bind ToHP}"
-                                     Additional="{x:Bind FromHP.Current}"
-                                     AdditionalBrush="Wheat" />
-                </Grid>
-                <TextBlock FontSize="18" Width="32"
-                           VerticalAlignment="Center"
-                           HorizontalTextAlignment="Center"
-                           Text="{x:Bind DamageGiven}" />
-            </StackPanel>
-        </DataTemplate>
+        <local:BattleCommonResources />
     </UserControl.Resources>
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
