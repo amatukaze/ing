@@ -17,6 +17,7 @@
         NelsonTouch,
         NagatoShoot,
         MutsuShoot,
+        ColoradoShoot,
         DayTorpedo,
         NightShelling,
         NightDoubleShelling,

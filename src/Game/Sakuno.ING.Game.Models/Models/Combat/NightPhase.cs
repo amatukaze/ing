@@ -62,6 +62,7 @@ namespace Sakuno.ING.Game.Models.Combat
             100 => AttackType.NelsonTouch,
             101 => AttackType.NagatoShoot,
             102 => AttackType.MutsuShoot,
+            103 => AttackType.ColoradoShoot,
             _ => AttackType.Unknown
         };
 
