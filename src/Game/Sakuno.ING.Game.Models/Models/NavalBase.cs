@@ -150,9 +150,12 @@ namespace Sakuno.ING.Game.Models
             };
             listener.EquipmentCreated += (t, msg) =>
             {
-                if (msg.IsSuccess)
-                    _allEquipment.Add(msg.Equipment, t);
-                questKnowledges.OnSingletonEvent(SingletonEvent.EquipmentCreate);
+                foreach (var e in msg.Equipment)
+                {
+                    if (e is object)
+                        _allEquipment.Add(e, t);
+                    questKnowledges.OnSingletonEvent(SingletonEvent.EquipmentCreate);
+                }
             };
             listener.ShipDismantled += (t, msg) =>
             {

@@ -8,10 +8,15 @@ namespace Sakuno.ING.Game.Json.Shipyard
     internal class EquipmentCreationJson : IMaterialsUpdate
     {
         public bool api_create_flag;
-        public RawEquipment api_slot_item;
+        public CreatedEquipmentJson[] api_get_items;
         [JsonConverter(typeof(MaterialsConverter))]
         public Materials api_material;
-        public string api_fdata;
+
+        public class CreatedEquipmentJson
+        {
+            internal int api_id;
+            internal int api_slotitem_id;
+        }
 
         MaterialsChangeReason IMaterialsUpdate.Reason => MaterialsChangeReason.EquipmentCreate;
 

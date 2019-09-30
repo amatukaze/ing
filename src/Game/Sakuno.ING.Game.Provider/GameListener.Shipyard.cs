@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using Sakuno.ING.Game.Events.Shipyard;
 using Sakuno.ING.Game.Json.Shipyard;
 using Sakuno.ING.Game.Models;
@@ -47,40 +48,22 @@ namespace Sakuno.ING.Game
             );
 
         private static EquipmentCreation ParseEquipmentCreation(NameValueCollection request, EquipmentCreationJson response)
-        {
-            if (response.api_slot_item != null)
-                return new EquipmentCreation
-                (
-                    isSuccess: response.api_create_flag,
-                    equipment: response.api_slot_item,
-                    consumption: new Materials
+            => new EquipmentCreation
+            (
+                isSuccess: response.api_create_flag,
+                equipment: response.api_get_items.Select(x => (x.api_id, x.api_slotitem_id) switch
                     {
-                        Fuel = request.GetInt("api_item1"),
-                        Bullet = request.GetInt("api_item2"),
-                        Steel = request.GetInt("api_item3"),
-                        Bauxite = request.GetInt("api_item4"),
-                    },
-                    selectedEquipentInfoId: response.api_slot_item.EquipmentInfoId
-                );
-            else
-            {
-                var index = response.api_fdata.IndexOf(',');
-                int.TryParse(response.api_fdata.Substring(index + 1), out int id);
-                return new EquipmentCreation
-                (
-                    isSuccess: response.api_create_flag,
-                    equipment: response.api_slot_item,
-                    consumption: new Materials
-                    {
-                        Fuel = request.GetInt("api_item1"),
-                        Bullet = request.GetInt("api_item2"),
-                        Steel = request.GetInt("api_item3"),
-                        Bauxite = request.GetInt("api_item4"),
-                    },
-                    selectedEquipentInfoId: (EquipmentInfoId)id
-                );
-            }
-        }
+                        var (id, infoId) when id > 0 && infoId > 0 => new RawEquipment { Id = (EquipmentId)id, EquipmentInfoId = (EquipmentInfoId)infoId },
+                        _ => null
+                    }).ToArray(),
+                consumption: new Materials
+                {
+                    Fuel = request.GetInt("api_item1"),
+                    Bullet = request.GetInt("api_item2"),
+                    Steel = request.GetInt("api_item3"),
+                    Bauxite = request.GetInt("api_item4"),
+                }
+            );
 
         private static ShipDismantling ParseShipDismantling(NameValueCollection request)
             => new ShipDismantling

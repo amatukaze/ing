@@ -38,16 +38,16 @@ namespace Sakuno.ING.Game.Logger
             provider.EquipmentCreated += (t, m) =>
             {
                 using var context = CreateContext();
-                context.EquipmentCreationTable.Add(new EquipmentCreationEntity
+                context.EquipmentCreationTable.AddRange(m.Equipment.Select((e, i) => new EquipmentCreationEntity
                 {
-                    TimeStamp = t,
+                    TimeStamp = t.AddMilliseconds(i),
                     Consumption = m.Consumption,
-                    EquipmentCreated = m.SelectedEquipentInfoId,
-                    IsSuccess = m.IsSuccess,
+                    EquipmentCreated = e?.EquipmentInfoId ?? default,
+                    IsSuccess = e is object,
                     AdmiralLevel = this.navalBase.Admiral.Leveling.Level,
                     Secretary = this.navalBase.Secretary.Info.Id,
                     SecretaryLevel = this.navalBase.Secretary.Leveling.Level
-                });
+                }));
                 context.SaveChanges();
             };
 

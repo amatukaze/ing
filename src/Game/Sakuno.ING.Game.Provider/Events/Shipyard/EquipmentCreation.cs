@@ -1,21 +1,19 @@
-﻿using Sakuno.ING.Game.Models;
-using Sakuno.ING.Game.Models.MasterData;
+﻿using System.Collections.Generic;
+using Sakuno.ING.Game.Models;
 
 namespace Sakuno.ING.Game.Events.Shipyard
 {
     public sealed class EquipmentCreation
     {
-        public EquipmentCreation(bool isSuccess, RawEquipment equipment, EquipmentInfoId selectedEquipentInfoId, Materials consumption)
+        public EquipmentCreation(bool isSuccess, IReadOnlyCollection<RawEquipment> equipment, Materials consumption)
         {
             IsSuccess = isSuccess;
             Equipment = equipment;
-            SelectedEquipentInfoId = selectedEquipentInfoId;
             Consumption = consumption;
         }
 
         public bool IsSuccess { get; }
-        public RawEquipment Equipment { get; }
-        public EquipmentInfoId SelectedEquipentInfoId { get; }
+        public IReadOnlyCollection<RawEquipment> Equipment { get; }
         public Materials Consumption { get; }
     }
 }
