@@ -1,5 +1,6 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System.Collections.Generic;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
 {
@@ -21,13 +22,25 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
                     rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             else
             {
-                var rEquipment = new Equipment(new RawEquipment() { ID = rpData.Result.ID, EquipmentID = rpData.Result.EquipmentID });
-                Game.Port.AddEquipment(rEquipment);
+                var names = new List<string>(rpData.Results.Length);
 
-                var rInfo = rEquipment.Info;
-                var rMessage = rInfo.Rarity > 0 ? StringResources.Instance.Main.Log_Development_Success_Rare : StringResources.Instance.Main.Log_Development_Success;
+                foreach (var item in rpData.Results)
+                {
+                    if (item.EquipmentID <= 0)
+                        continue;
 
-                rLogContent = string.Format(rMessage, rInfo.TranslatedName, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
+                    var equipment = new Equipment(new RawEquipment() { ID = item.ID, EquipmentID = item.EquipmentID });
+                    Game.Port.AddEquipment(equipment);
+
+                    if (equipment.Info.Rarity < 2)
+                        names.Add(equipment.Info.TranslatedName);
+                    else
+                        names.Add($"[b]{equipment.Info.TranslatedName}[/b]");
+                }
+
+                var developed = names.Join(StringResources.Instance.Main.Log_Modernization_Separator_Type1);
+
+                rLogContent = string.Format(StringResources.Instance.Main.Log_Development_Success, developed, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             }
 
             Logger.Write(LoggingLevel.Info, rLogContent);

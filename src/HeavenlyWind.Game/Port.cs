@@ -334,7 +334,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 if (!rData.Success)
                     return;
 
-                UnequippedEquipment[(EquipmentType)rData.EquipmentType] = r.Json["api_data"]["api_unsetslot"].Select(rpID => Equipment[(int)rpID]).ToArray();
+                foreach (var item in rData.UnequippedEquipment)
+                    UnequippedEquipment[(EquipmentType)item.Type] = item.EquipmentIDs.Select(id => Equipment[id]).ToArray();
             });
 
             ApiService.Subscribe("api_req_kousyou/destroyship", r =>

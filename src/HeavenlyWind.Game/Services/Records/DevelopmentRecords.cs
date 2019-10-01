@@ -1,4 +1,5 @@
 ﻿using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
+using System;
 using System.Data.SQLite;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
@@ -40,23 +41,41 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Services.Records
 
         void InsertRecord(RawEquipmentDevelopment rpData, int rpFuelConsumption, int rpBulletConsumption, int rpSteelConsumption, int rpBauxiteConsumption)
         {
-            var rEquipmentID = rpData.Success ? rpData.Result.EquipmentID : (int?)null;
             var rSecretaryShip = KanColleGame.Current.Port.Fleets[1].Ships[0].Info;
             var rHeadquarterLevel = KanColleGame.Current.Port.Admiral.Level;
 
-            using (var rCommand = Connection.CreateCommand())
+            var time = DateTimeOffset.Now.ToUnixTime();
+
+            using var rCommand = Connection.CreateCommand();
+            rCommand.CommandText = "INSERT INTO development(time, equipment, fuel, bullet, steel, bauxite, flagship, hq_level) " +
+"VALUES(@time, @equipment, @fuel, @bullet, @steel, @bauxite, @flagship, @hq_level);";
+            rCommand.Parameters.AddWithValue("@fuel", rpFuelConsumption);
+            rCommand.Parameters.AddWithValue("@bullet", rpBulletConsumption);
+            rCommand.Parameters.AddWithValue("@steel", rpSteelConsumption);
+            rCommand.Parameters.AddWithValue("@bauxite", rpBauxiteConsumption);
+            rCommand.Parameters.AddWithValue("@flagship", rSecretaryShip.ID);
+            rCommand.Parameters.AddWithValue("@hq_level", KanColleGame.Current.Port.Admiral.Level);
+
+            if (!rpData.Success)
             {
-                rCommand.CommandText = "INSERT INTO development(time, equipment, fuel, bullet, steel, bauxite, flagship, hq_level) " +
-                    "VALUES(strftime('%s', 'now'), @equipment, @fuel, @bullet, @steel, @bauxite, @flagship, @hq_level);";
-                rCommand.Parameters.AddWithValue("@equipment", rEquipmentID);
-                rCommand.Parameters.AddWithValue("@fuel", rpFuelConsumption);
-                rCommand.Parameters.AddWithValue("@bullet", rpBulletConsumption);
-                rCommand.Parameters.AddWithValue("@steel", rpSteelConsumption);
-                rCommand.Parameters.AddWithValue("@bauxite", rpBauxiteConsumption);
-                rCommand.Parameters.AddWithValue("@flagship", rSecretaryShip.ID);
-                rCommand.Parameters.AddWithValue("@hq_level", KanColleGame.Current.Port.Admiral.Level);
+                rCommand.Parameters.AddWithValue("@time", time);
+                rCommand.Parameters.AddWithValue("@equipment", null);
+                rCommand.ExecuteNonQuery();
+
+                return;
+            }
+
+            foreach (var item in rpData.Results)
+            {
+                if (item.EquipmentID <= 0)
+                    continue;
+
+                rCommand.Parameters.AddWithValue("@time", time);
+                rCommand.Parameters.AddWithValue("@equipment", item.EquipmentID);
 
                 rCommand.ExecuteNonQuery();
+
+                time++;
             }
         }
     }
