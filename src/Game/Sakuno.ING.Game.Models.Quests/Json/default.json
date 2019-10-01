@@ -426,6 +426,20 @@
       ]
     }
   ],
+  "337": [ //「十八駆」演習！
+    {
+      "type": "exercise",
+      "count": 3,
+      "periodOverride": 1,
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 4,
+          "ship": [ 49, 48, 17, 18 ]
+        }
+      ]
+    }
+  ],
   "402": [ //「遠征」を3回成功させよう！
     {
       "type": "expedition",
@@ -579,6 +593,13 @@
       "equipment": [ 35 ]
     }
   ],
+  "653": [ //工廠稼働！次期作戦準備！
+    {
+      "type": "equipmentDismantle",
+      "count": 6,
+      "equipment": [ 4 ]
+    }
+  ],
   "663": [ //新型艤装の継続研究
     {
       "type": "equipmentDismantle",
@@ -709,6 +730,38 @@
       "type": "boss",
       "count": 2,
       "map": "2-4",
+      "rankRequired": "s"
+    }
+  ],
+  "845": [ //発令！「西方海域作戦」
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-1",
+      "rankRequired": "s"
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-2",
+      "rankRequired": "s"
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-3",
+      "rankRequired": "s"
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-4",
+      "rankRequired": "s"
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-5",
       "rankRequired": "s"
     }
   ],
