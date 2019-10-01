@@ -14,11 +14,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
             var rSteelConsumption = int.Parse(rpInfo.Parameters["api_item3"]);
             var rBauxiteConsumption = int.Parse(rpInfo.Parameters["api_item4"]);
 
+            var multipleDevelopment = rpInfo.Parameters["api_multiple_flag"] == "1";
+
             Game.Port.Materials.Update(rpData.Materials);
 
             string rLogContent;
             if (!rpData.Success)
-                rLogContent = string.Format(StringResources.Instance.Main.Log_Development_Failure,
+                rLogContent = string.Format(multipleDevelopment ? StringResources.Instance.Main.Log_MultipleDevelopment_Failure : StringResources.Instance.Main.Log_Development_Failure,
                     rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             else
             {
@@ -39,8 +41,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Parsers.Root.Arsenal
                 }
 
                 var developed = names.Join(StringResources.Instance.Main.Log_Modernization_Separator_Type1);
+                var template = multipleDevelopment ? StringResources.Instance.Main.Log_MultipleDevelopment_Success : StringResources.Instance.Main.Log_Development_Success;
 
-                rLogContent = string.Format(StringResources.Instance.Main.Log_Development_Success, developed, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
+                rLogContent = string.Format(template, developed, rFuelConsumption, rBulletConsumption, rSteelConsumption, rBauxiteConsumption);
             }
 
             Logger.Write(LoggingLevel.Info, rLogContent);

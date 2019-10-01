@@ -16,8 +16,9 @@
   <String Key="Log_ExpeditionResult">/{0}「{1}」が遠征「{2}:{3}」から帰投しました。(結果: [b]{4}[/b])</String>
   <String Key="Log_StartConstruction">「{0}」の建造を開始しました。(投入した資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
   <String Key="Log_Development_Success">「{0}」の開発に成功しました。(投入した資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
-  <String Key="Log_Development_Success_Rare">「[b]{0}[/b]」の開発に成功しました。(投入した資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
   <String Key="Log_Development_Failure">開発に失敗しました。(投入した資材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
+  <String Key="Log_MultipleDevelopment_Success">集中開発で「{0}」の開発に成功しました。(投入した資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_MultipleDevelopment_Failure">集中開発に失敗しました。(投入した資材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}「{1}」が「{2} ({3}-{4})」へ出撃しました</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」が「{2} (E{3} {4})」へ出撃しました</String>
   <String Key="Log_ShipOrItem_Dropped">「{0}」がドロップしました</String>
@@ -482,7 +483,7 @@ F->H->K(Boss): [b]40[/b] 以上 [b]43[/b] 未満
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_60">60 fps</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Instruction">注意！</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Content">CefSharp の制限により、キャッシュの削除には自分でキャッシュフォルダを削除する必要があります。
-  
+
   PS：キャッシュフォルダの削除の前にアプリを終了してください。</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes">キャッシュフォルダへ</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction">削除の前にアプリを終了してください</String>

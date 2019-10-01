@@ -15,9 +15,10 @@
   <String Key="Log_Exception_Cache_FailedToSaveFile">Failed to save file: {0}</String>
   <String Key="Log_ExpeditionResult">/{0}"{1}" has returned from expedition {2}:{3}. (Result: [b]{4}[/b])</String>
   <String Key="Log_StartConstruction">Start construction of {0}. (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
-  <String Key="Log_Development_Success">{0} was successfully developed. (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
-  <String Key="Log_Development_Success_Rare">[b]{0}[/b] was successfully developed. (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_Development_Success">{0} was/ successfully developed. (Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
   <String Key="Log_Development_Failure">Development failed. (Material Consumption: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
+  <String Key="Log_MultipleDevelopment_Success">{0} was/were successfully developed. (Single Material Consumption: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_MultipleDevelopment_Failure">Multiple development failed. (Single material Consumption: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}"{1}" sorties to {2} ({3}-{4})</String>
   <String Key="Log_Sortie_Event">/{0}"{1}" sorties to {2} (E{3} {4})</String>
   <String Key="Log_ShipOrItem_Dropped">{0} dropped</String>
@@ -483,7 +484,7 @@ PS: C[sub]n[/sub]=4</String>
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_60">60 fps</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Instruction">Caution!</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Content">Due to the limitation of CefSharp, to clear cache, you must delete the cache folder by yourself.
-  
+
   PS: Close this tool before deleting it</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes">Go to that folder</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction">Close this tool before deleting it</String>

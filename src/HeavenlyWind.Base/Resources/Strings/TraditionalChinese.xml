@@ -16,8 +16,8 @@
   <String Key="Log_ExpeditionResult">/{0}「{1}」從遠征「{2}:{3}」歸來。(結果: [b]{4}[/b])</String>
   <String Key="Log_StartConstruction">開始建造「{0}」。(投入的資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4} [icon]dm[/icon] {5})</String>
   <String Key="Log_Development_Success">「{0}」開發成功。(投入的資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
-  <String Key="Log_Development_Success_Rare">「[b]{0}[/b]」開發成功。(投入的資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
-  <String Key="Log_Development_Failure">開發失敗。(投入的資材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
+  <String Key="Log_MultipleDevelopment_Success">使用三連開發成功開發「{0}」。(投入的資材: [icon]fuel[/icon] {1} [icon]bullet[/icon] {2} [icon]steel[/icon] {3} [icon]bauxite[/icon] {4})</String>
+  <String Key="Log_MultipleDevelopment_Failure">三連開發失敗。(投入的資材: [icon]fuel[/icon] {0} [icon]bullet[/icon] {1} [icon]steel[/icon] {2} [icon]bauxite[/icon] {3})</String>
   <String Key="Log_Sortie">/{0}「{1}」向「{2} ({3}-{4})」出擊</String>
   <String Key="Log_Sortie_Event">/{0}「{1}」向「{2} (E{3} {4})」出擊</String>
   <String Key="Log_ShipOrItem_Dropped">獲得「{0}」</String>
@@ -484,7 +484,7 @@ F->H->K(Boss): 至少 [b]40[/b] 但不足 [b]43[/b]
   <String Key="PreferenceWindow_Browser_Blink_MaxFramerate_60">60 fps (畫面流暢)</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Instruction">注意！</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Content">因 CefSharp 自身的限制缺乏刪除緩存的接口，刪除緩存需要人工刪除相關的资料夹。
-  
+
   PS：刪除之前請關閉本工具。</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes">前往緩存資料夾</String>
   <String Key="PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction">刪除之前請關閉本工具</String>
