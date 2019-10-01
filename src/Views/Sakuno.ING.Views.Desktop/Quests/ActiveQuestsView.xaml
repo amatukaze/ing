@@ -51,6 +51,8 @@
                                 -
                                 <c:EnumText Source="{Binding Period}" />
                                 <LineBreak />
+                                No. <Run Text="{Binding Id}" />
+                                <LineBreak />
                                 <LineBreak />
                                 <c:TranslatableNameText FontSize="16" Source="{Binding Description}" />
                             </TextBlock>

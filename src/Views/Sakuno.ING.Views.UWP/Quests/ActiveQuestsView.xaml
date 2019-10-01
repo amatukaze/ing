@@ -64,6 +64,8 @@
                                     -
                                     <Run Text="{x:Bind c:Helpers.FormatQuestPeriod(Period)}" />
                                     <LineBreak />
+                                    No. <Run Text="{x:Bind Id}" />
+                                    <LineBreak />
                                     <LineBreak />
                                     <Run FontSize="16" c:Helpers.TranslatableRunSource="{x:Bind Description, FallbackValue={x:Null}}" />
                                 </TextBlock>
