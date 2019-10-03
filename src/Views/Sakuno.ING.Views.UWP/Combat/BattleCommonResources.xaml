@@ -6,7 +6,9 @@
     xmlns:m="using:Sakuno.ING.Game.Models.Combat"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     xmlns:con="using:Sakuno.ING.Views.UWP.Controls">
-    <DataTemplate x:Key="ShipTemplate" x:DataType="m:BattleParticipant">
+    <DataTemplate x:Key="ShipTemplate"
+                  x:DataType="m:BattleParticipant"
+                  x:DefaultBindMode="OneWay">
         <StackPanel Orientation="Horizontal">
             <ToolTipService.ToolTip>
                 <StackPanel Orientation="Vertical" x:DefaultBindMode="OneTime">
