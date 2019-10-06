@@ -31,12 +31,18 @@
                                 RelativePanel.AlignRightWithPanel="True"
                                 RelativePanel.AlignBottomWithPanel="True"
                                 RelativePanel.RightOf="Browser">
-                        <sh:ViewSwitcher ViewId="LogMigration" />
-                        <sh:ViewSwitcher ViewId="ShipCreationLogs" />
-                        <sh:ViewSwitcher ViewId="EquipmentCreationLogs" />
-                        <sh:ViewSwitcher ViewId="ExpeditionCompletionLogs" />
-                        <sh:ViewSwitcher ViewId="BattleLogs" />
-                        <sh:ViewSwitcher ViewId="MaterialsChangeLogs" />
+                        <sh:ViewSwitcher ViewId="LogMigration"
+                                         Style="{ThemeResource ButtonRevealStyle}" />
+                        <sh:ViewSwitcher ViewId="ShipCreationLogs"
+                                         Style="{ThemeResource ButtonRevealStyle}" />
+                        <sh:ViewSwitcher ViewId="EquipmentCreationLogs"
+                                         Style="{ThemeResource ButtonRevealStyle}" />
+                        <sh:ViewSwitcher ViewId="ExpeditionCompletionLogs"
+                                         Style="{ThemeResource ButtonRevealStyle}" />
+                        <sh:ViewSwitcher ViewId="BattleLogs"
+                                         Style="{ThemeResource ButtonRevealStyle}" />
+                        <sh:ViewSwitcher ViewId="MaterialsChangeLogs"
+                                         Style="{ThemeResource ButtonRevealStyle}" />
                     </StackPanel>
                 </RelativePanel>
             </DataTemplate>
