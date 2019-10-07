@@ -116,9 +116,23 @@ namespace Sakuno.ING.ViewModels.Logging
                 new FilterVM<BattleVM>(localization.GetLocalized("Combat", "MapId"),
                     x => x.MapId,
                     x => x.MapId.ToString()),
+                new FilterVM<BattleVM>(localization.GetLocalized("Combat", "RouteId"),
+                    x => x.RouteId,
+                    x => x.RouteId.ToString()),
                 new FilterVM<BattleVM>(localization.GetLocalized("Combat", "Rank"),
                     x => x.Rank.GetHashCode(),
                     x => x.Rank.ToString()),
+                new FilterVM<BattleVM>(localization.GetLocalized("Combat", "ShipDrop"),
+                    x => x.Drop?.Id ?? 0,
+                    x => x.Drop?.Name.FullName.Origin,
+                    x => new[]
+                    {
+                        x.Drop?.Name.FullName.Origin,
+                        x.Drop?.Name.Phonetic
+                    }),
+                new FilterVM<BattleVM>(localization.GetLocalized("Combat", "UseItemDrop"),
+                    x => x.UseItemDrop?.Id ?? 0,
+                    x => x.UseItemDrop?.Name.Origin)
             };
 
         private protected override IReadOnlyCollection<BattleVM> GetEntities()

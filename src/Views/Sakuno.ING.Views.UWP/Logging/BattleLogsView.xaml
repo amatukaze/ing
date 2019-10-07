@@ -30,7 +30,6 @@
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_MapName" Binding="{Binding MapName, Mode=OneTime}" IsReadOnly="True" />
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_RouteId" Binding="{Binding RouteId, Mode=OneTime}" IsReadOnly="True" />
                 <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_EnemyFleetName" Binding="{Binding EnemyFleetName, Mode=OneTime}" IsReadOnly="True" />
-                <tk:DataGridTextColumn x:Uid="/Resources/Logging_Column_Rank" Binding="{Binding RankText, Mode=OneTime}" IsReadOnly="True" />
                 <tk:DataGridTemplateColumn x:Uid="/Resources/Logging_Column_Rank">
                     <tk:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="vm:BattleVM">
