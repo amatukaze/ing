@@ -51,7 +51,7 @@ namespace Sakuno.ING.Game.Logger.Migrators.INGLegacy
                 {
                     TimeStamp = DateTimeOffset.FromUnixTimeSeconds(x.time),
                     IsSuccess = x.equipment != null,
-                    EquipmentCreated = (EquipmentInfoId)(x.equipment ?? 0),
+                    EquipmentCreated = (EquipmentInfoId?)x.equipment,
                     Consumption = new Materials
                     {
                         Fuel = x.fuel,

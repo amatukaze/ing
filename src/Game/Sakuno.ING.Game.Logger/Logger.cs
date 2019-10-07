@@ -42,7 +42,7 @@ namespace Sakuno.ING.Game.Logger
                 {
                     TimeStamp = t.AddMilliseconds(i),
                     Consumption = m.Consumption,
-                    EquipmentCreated = e?.EquipmentInfoId ?? default,
+                    EquipmentCreated = e?.EquipmentInfoId,
                     IsSuccess = e is object,
                     AdmiralLevel = this.navalBase.Admiral.Leveling.Level,
                     Secretary = this.navalBase.Secretary.Info.Id,

@@ -48,7 +48,8 @@ namespace Sakuno.ING.Game.Logger
                 .Entity<EquipmentCreationEntity>(e =>
                 {
                     e.Property(x => x.TimeStamp).HasConversion(new DateTimeOffsetToBinaryConverter());
-                    e.Property(x => x.EquipmentCreated).HasConversion<int>(v => v, v => (EquipmentInfoId)v);
+                    e.Property(x => x.EquipmentCreated).HasConversion(v => v ?? 0,
+                        v => (v <= 0) ? (EquipmentInfoId?)null : (EquipmentInfoId)v);
                     e.Property(x => x.Secretary).HasConversion<int>(v => v, v => (ShipInfoId)v);
                 });
             modelBuilder

@@ -63,7 +63,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                     {
                         TimeStamp = DateTimeOffset.FromUnixTimeMilliseconds(long.Parse(s[0])),
                         IsSuccess = s[1] != "失敗",
-                        EquipmentCreated = equipments.TryGetOrDefault(s[2])?.Id ?? default,
+                        EquipmentCreated = equipments.TryGetOrDefault(s[2])?.Id,
                         Consumption = new Materials
                         {
                             Fuel = int.Parse(s[4]),

@@ -70,7 +70,7 @@ namespace Sakuno.ING.Game.Logger.Migrators
                         TimeStamp = DateTime.SpecifyKind(DateTime.Parse(s[0]), DateTimeKind.Local) - timeZone,
                         SecretaryLevel = int.Parse(secretaryLevel),
                         Secretary = ships.TryGetOrDefault(secretaryName)?.Id ?? default,
-                        EquipmentCreated = equipments.TryGetOrDefault(s[2])?.Id ?? default,
+                        EquipmentCreated = equipments.TryGetOrDefault(s[2])?.Id,
                         IsSuccess = s[2] != "失敗",
                         Consumption = new Materials
                         {

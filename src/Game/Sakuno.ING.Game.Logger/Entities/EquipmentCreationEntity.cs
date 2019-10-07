@@ -31,7 +31,7 @@ namespace Sakuno.ING.Game.Logger.Entities
         public int Consumption_Bauxite { get; set; }
 
         public bool IsSuccess { get; set; }
-        public EquipmentInfoId EquipmentCreated { get; set; }
+        public EquipmentInfoId? EquipmentCreated { get; set; }
         public ShipInfoId Secretary { get; set; }
         public int SecretaryLevel { get; set; }
         public int AdmiralLevel { get; set; }
