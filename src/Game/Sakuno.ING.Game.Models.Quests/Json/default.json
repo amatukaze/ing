@@ -398,7 +398,7 @@
   "318": [ //給糧艦「伊良湖」の支援
     {
       "type": "exercise",
-      "count": 2,
+      "count": 3,
       "periodOverride": 1,
       "fleet": [
         {
