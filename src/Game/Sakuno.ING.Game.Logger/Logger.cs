@@ -126,6 +126,8 @@ namespace Sakuno.ING.Game.Logger
             {
                 if (this.statePersist.LastSortieTime is DateTimeOffset last)
                 {
+                    currentBattleContext ??= CreateContext();
+
                     var consumption = this.navalBase.Fleets[this.statePersist.LastSortieFleets].Sum(f => f.RepairingCost + f.SupplyingCost);
                     var diff = consumption - this.statePersist.ConsumptionBeforeSortie;
                     var entity = currentBattleContext.BattleConsumptionTable.Find(last);
