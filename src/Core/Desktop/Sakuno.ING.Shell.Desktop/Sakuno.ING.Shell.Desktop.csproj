@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Sakuno.UserInterface" Version="0.3.0-pre8" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="5.1.1" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="6.0.0" />
     <PackageReference Include="Microsoft.Windows.SDK.Contracts" Version="10.0.18362.2005" PrivateAssets="All" />
   </ItemGroup>
 
