@@ -11,7 +11,7 @@
     <PortableFramework>netstandard2.0</PortableFramework>
     <DesktopFramework>net472</DesktopFramework>
     <DesktopLatestFramework>net48</DesktopLatestFramework>
-    <CoreFramework>netcoreapp3.0</CoreFramework>
+    <CoreFramework>netcoreapp3.1</CoreFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
