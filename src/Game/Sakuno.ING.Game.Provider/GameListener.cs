@@ -218,6 +218,10 @@ namespace Sakuno.ING.Game
                             if (routing.api_m1)
                                 MapPartUnlocked?.InvokeEach(t, default, HandlerError);
                             break;
+                        case "api_req_map/anchorage_repair":
+                            var anchorageRepair = Response<AnchorageRepairJson>(m);
+                            PartialShipsUpdated?.InvokeEach(t, anchorageRepair.api_ship_data, HandlerError);
+                            break;
                         case "api_req_practice/battle":
                             ExerciseStarted?.InvokeEach(t, ParseExerciseStart(Request(m)), HandlerError);
                             goto case "api_req_sortie/battle";
