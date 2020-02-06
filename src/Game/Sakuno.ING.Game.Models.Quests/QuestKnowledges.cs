@@ -64,8 +64,8 @@ namespace Sakuno.ING.Game.Models.Quests
                             "shipDismantle" => new ShipDismantleCounter(@params),
                             "equipmentCreate" => new SingletonEventCounter(@params, SingletonEvent.EquipmentCreate),
                             "battle" => new BattleWinCounter(@params, x.RankRequired ?? BattleRank.B,
-                                m => x.Map?.Satisfy(m.Map.Id) ?? true &&
-                                    (x.Route.IsDefault || x.Route.Contains(m.RouteId))),
+                                m => (x.Map?.Satisfy(m.Map.Id) ?? true)
+                                    && (x.Route.IsDefault || x.Route.Contains(m.RouteId))),
                             "enemySunk" => new EnemySunkCounter(@params, x.ShipType),
                             "boss" => new BattleBossCounter(@params, m => x.Map?.Satisfy(m) ?? true,
                                 f => x.Fleet.IsDefault || x.Fleet.All(fd => fd.Satisfy(f)), x.RankRequired ?? BattleRank.B),
