@@ -45,7 +45,7 @@ namespace Sakuno.ING.Game.Models.Combat
                 if (raw.LandBaseJetPhase != null)
                     phases.Add(LandBaseJetPhase = new JetPhase(masterData, Ally, Enemy, raw.LandBaseJetPhase, true));
                 if (raw.JetPhase != null)
-                    phases.Add(JetPhase = new JetPhase(masterData, Ally, Enemy, raw.AerialPhase, false));
+                    phases.Add(JetPhase = new JetPhase(masterData, Ally, Enemy, raw.JetPhase, false));
 
                 if (raw.LandBasePhases != null)
                     phases.AddRange(LandBasePhases = raw.LandBasePhases.Select((x, i) => new LandBasePhase(i + 1, masterData, Enemy, x)).ToArray());
