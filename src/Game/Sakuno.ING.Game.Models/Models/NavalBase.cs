@@ -180,7 +180,7 @@ namespace Sakuno.ING.Game.Models
             };
             listener.ShipPoweruped += (t, msg) =>
             {
-                var consumed = RemoveShips(msg.ConsumedShipIds, true);
+                var consumed = RemoveShips(msg.ConsumedShipIds, msg.DismantleEquipments);
                 var original = AllShips[msg.ShipId];
                 questKnowledges.OnShipPowerup(original, consumed, msg.IsSuccess);
                 ShipPoweruping?.Invoke(t, original, msg.UpdatedTo, consumed);

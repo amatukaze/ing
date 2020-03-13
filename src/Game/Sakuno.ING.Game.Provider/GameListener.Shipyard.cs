@@ -92,7 +92,8 @@ namespace Sakuno.ING.Game
                 shipId: (ShipId)request.GetInt("api_id"),
                 consumedShipIds: request.GetShipIds("api_id_items"),
                 isSuccess: response.api_powerup_flag,
-                updatedTo: response.api_ship
+                updatedTo: response.api_ship,
+                dismantleEquipments: request.GetBool("api_slot_dest_flag")
             );
     }
 }
