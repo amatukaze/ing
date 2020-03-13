@@ -16,11 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <TrimFilesRootPackages Include="SQLitePCLRaw.bundle_green" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.2" />
     <PackageReference Include="Microsoft.Packaging.Tools.Trimming" Version="1.1.0-preview1-26619-01" />
   </ItemGroup>
 
