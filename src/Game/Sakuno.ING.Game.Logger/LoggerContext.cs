@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sakuno.ING.Game.Logger.Binary;
 using Sakuno.ING.Game.Logger.Entities;
@@ -32,6 +33,15 @@ namespace Sakuno.ING.Game.Logger
         internal DbSet<HomeportStateEntity> HomeportStateTable { get; private set; }
         internal DbSet<QuestProcessEntity> QuestProcessTable { get; private set; }
         internal DbSet<ShipSortieStateEntity> ShipSortieStateTable { get; private set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.ConfigureWarnings(w =>
+            {
+                w.Ignore(CoreEventId.DetachedLazyLoadingWarning);
+            });
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
