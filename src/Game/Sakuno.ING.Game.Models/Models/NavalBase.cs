@@ -139,7 +139,6 @@ namespace Sakuno.ING.Game.Models
                 materials.InstantBuild -= dock.IsLSC ? 10 : 1;
                 Materials = materials;
                 MaterialsUpdating?.Invoke(t, oldMaterials, materials, MaterialsChangeReason.InstantBuilt);
-                questKnowledges.OnSingletonEvent(SingletonEvent.ShipRepair);
             };
             listener.ShipCreated += (t, msg)
                 => questKnowledges.OnSingletonEvent(SingletonEvent.ShipConstruct);
