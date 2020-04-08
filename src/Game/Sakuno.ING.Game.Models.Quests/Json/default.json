@@ -518,6 +518,33 @@
       "expedition": [ 102 ]
     }
   ],
+  "436": [ //練習航海及び警備任務を実施せよ！
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 1 ]
+    },
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 2 ]
+    },
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 3 ]
+    },
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 4 ]
+    },
+    {
+      "type": "expedition",
+      "count": 1,
+      "expedition": [ 10 ]
+    }
+  ],
   "503": [ //艦隊大整備！
     {
       "type": "repair",
