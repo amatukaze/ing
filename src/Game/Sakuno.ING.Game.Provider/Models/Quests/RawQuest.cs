@@ -31,7 +31,8 @@ namespace Sakuno.ING.Game.Models.Quests
         public QuestId Id { get; internal set; }
 
         internal int api_category;
-        public QuestCategory Category => api_category == 8 ?
+        public QuestCategory Category =>
+            api_category == 8 || api_category == 9 ?
             QuestCategory.Sortie : (QuestCategory)api_category;
 
         internal int api_type;
