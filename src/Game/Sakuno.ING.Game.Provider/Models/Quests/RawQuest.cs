@@ -36,9 +36,26 @@ namespace Sakuno.ING.Game.Models.Quests
             QuestCategory.Sortie : (QuestCategory)api_category;
 
         internal int api_type;
-        public QuestPeriod Period =>
-            Id == 211 || Id == 212 ?
-            QuestPeriod.Daily : (QuestPeriod)api_type;
+        public QuestPeriod Period
+        {
+            get
+            {
+                if (Id == 211 || Id == 212) return QuestPeriod.Daily;
+
+                if (api_type == 5)
+                    return api_label_type switch
+                    {
+                        7 => QuestPeriod.Quarterly,
+                        102 => QuestPeriod.YearlyFromFebruary,
+                        103 => QuestPeriod.YearlyFromMarch,
+                        _ => default
+                    };
+
+                return (QuestPeriod)api_type;
+            }
+        }
+
+        internal int api_label_type;
 
         [JsonProperty("api_state")]
         public QuestState State { get; internal set; }
@@ -69,7 +86,9 @@ namespace Sakuno.ING.Game.Models.Quests
         Weekly = 2,
         Monthly = 3,
         Once = 4,
-        Quarterly = 5
+        Quarterly = 5,
+        YearlyFromFebruary = 6,
+        YearlyFromMarch = 7
     }
 
     public enum QuestState

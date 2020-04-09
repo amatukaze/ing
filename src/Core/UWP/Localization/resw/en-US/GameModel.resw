@@ -297,6 +297,12 @@
   <data name="QuestPeriod_5">
     <value>Quaterly</value>
   </data>
+  <data name="QuestPeriod_6">
+    <value>Yearly</value>
+  </data>
+  <data name="QuestPeriod_7">
+    <value>Yearly</value>
+  </data>
   <data name="QuestCategory_1">
     <value>Composition quest</value>
   </data>

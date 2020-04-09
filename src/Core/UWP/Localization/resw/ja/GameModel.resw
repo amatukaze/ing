@@ -297,6 +297,12 @@
   <data name="QuestPeriod_5">
     <value>クォータリー</value>
   </data>
+  <data name="QuestPeriod_6">
+    <value>イヤーリー</value>
+  </data>
+  <data name="QuestPeriod_7">
+    <value>イヤーリー</value>
+  </data>
   <data name="QuestCategory_1">
     <value>編成任務</value>
   </data>

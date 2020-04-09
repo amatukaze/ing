@@ -297,6 +297,12 @@
   <data name="QuestPeriod_5">
     <value>季常</value>
   </data>
+  <data name="QuestPeriod_6">
+    <value>年常</value>
+  </data>
+  <data name="QuestPeriod_7">
+    <value>年常</value>
+  </data>
   <data name="QuestCategory_1">
     <value>编成任务</value>
   </data>

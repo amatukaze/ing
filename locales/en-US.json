@@ -166,6 +166,8 @@
     "QuestPeriod_3": "Monthly",
     "QuestPeriod_4": "Once",
     "QuestPeriod_5": "Quaterly",
+    "QuestPeriod_6": "Yearly",
+    "QuestPeriod_7": "Yearly",
     "QuestCategory_1": "Composition quest",
     "QuestCategory_2": "Sortie quest",
     "QuestCategory_3": "Exercise quest",

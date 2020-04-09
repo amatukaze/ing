@@ -56,7 +56,11 @@ namespace Sakuno.ING.Game.Models.Quests
                 QuestPeriod.Monthly => (questDate.Year, questDate.Month)
                     != (updateDate.Year, updateDate.Month),
                 QuestPeriod.Quarterly => questDate.Year * 4 + (questDate.Month + 1) / 3
-                    != updateDate.Year * 4 + (questDate.Month + 1) / 3,
+                    != updateDate.Year * 4 + (updateDate.Month + 1) / 3,
+                QuestPeriod.YearlyFromFebruary => questDate.Year + (questDate.Month + 10) / 12
+                    != updateDate.Year + (updateDate.Month + 10) / 12,
+                QuestPeriod.YearlyFromMarch => questDate.Year + (questDate.Month + 9) / 12
+                    != updateDate.Year + (updateDate.Month + 9) / 12,
                 QuestPeriod.Once => false,
                 _ => false // Unknown quest period {(int)quest.Period}
             };
