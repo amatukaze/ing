@@ -1058,5 +1058,206 @@
         }
       ]
     }
+  ],
+  "904": [ //精鋭「十九駆」、躍り出る！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-5",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 2,
+          "ship": [ 195, 627 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "3-4",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 2,
+          "ship": [ 195, 627 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-5",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 2,
+          "ship": [ 195, 627 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "5-3",
+      "rankRequired": "s",
+      "fleet": [
+        {
+          "requiredCount": 2,
+          "ship": [ 195, 627 ]
+        }
+      ]
+    }
+  ],
+  "912": [ //工作艦「明石」護衛任務
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "1-3",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requireFlagship": true,
+          "requiredCount": 1,
+          "ship": [ 182 ]
+        },
+        {
+          "requiredCount": 3,
+          "shipType": [ 2 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-1",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requireFlagship": true,
+          "requiredCount": 1,
+          "ship": [ 182 ]
+        },
+        {
+          "requiredCount": 3,
+          "shipType": [ 2 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-2",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requireFlagship": true,
+          "requiredCount": 1,
+          "ship": [ 182 ]
+        },
+        {
+          "requiredCount": 3,
+          "shipType": [ 2 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "2-3",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requireFlagship": true,
+          "requiredCount": 1,
+          "ship": [ 182 ]
+        },
+        {
+          "requiredCount": 3,
+          "shipType": [ 2 ]
+        }
+      ]
+    },
+    {
+      "type": "escort",
+      "count": 1,
+      "fleet": [
+        {
+          "requireFlagship": true,
+          "requiredCount": 1,
+          "ship": [ 182 ]
+        },
+        {
+          "requiredCount": 3,
+          "shipType": [ 2 ]
+        }
+      ]
+    }
+  ],
+  "914": [ //重巡戦隊、西へ！
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-1",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requiredCount": 3,
+          "shipType": [ 5 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 2 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-2",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requiredCount": 3,
+          "shipType": [ 5 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 2 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-3",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requiredCount": 3,
+          "shipType": [ 5 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 2 ]
+        }
+      ]
+    },
+    {
+      "type": "boss",
+      "count": 1,
+      "map": "4-4",
+      "rankRequired": "a",
+      "fleet": [
+        {
+          "requiredCount": 3,
+          "shipType": [ 5 ]
+        },
+        {
+          "requiredCount": 1,
+          "shipType": [ 2 ]
+        }
+      ]
+    }
   ]
 }
