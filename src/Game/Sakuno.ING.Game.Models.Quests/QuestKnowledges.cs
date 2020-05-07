@@ -83,7 +83,8 @@ namespace Sakuno.ING.Game.Models.Quests
                             },
                             "equipmentImprove" => new SingletonEventCounter(@params, SingletonEvent.EquipmentImprove),
                             "escort" => new MapRoutingCounter(@params,
-                                r => r.Map.Id == 16 && r.EventKind == MapEventKind.Escort),
+                                r => r.Map.Id == 16 && r.EventKind == MapEventKind.Escort,
+                                f => x.Fleet.IsDefault || x.Fleet.All(fd => fd.Satisfy(f))),
                             _ => throw new ArgumentException("Unknown counter type")
                         };
                     }).ToArray();
@@ -166,10 +167,10 @@ namespace Sakuno.ING.Game.Models.Quests
             statePersist.SaveChanges();
         }
 
-        public void OnMapRouting(MapRouting routing)
+        public void OnMapRouting(MapRouting routing, HomeportFleet fleet, HomeportFleet fleet2)
         {
             foreach (var target in targets.Values)
-                target.OnMapRouting(routing);
+                target.OnMapRouting(routing, fleet, fleet2);
             statePersist.SaveChanges();
         }
     }

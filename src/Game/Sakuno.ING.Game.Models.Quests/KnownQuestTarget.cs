@@ -78,11 +78,11 @@ namespace Sakuno.ING.Game.Models.Quests
             UpdateProgress();
         }
 
-        public void OnMapRouting(MapRouting routing)
+        public void OnMapRouting(MapRouting routing, HomeportFleet fleet, HomeportFleet fleet2)
         {
             foreach (var c in Counters)
                 if (c is MapRoutingCounter rc)
-                    rc.OnMapRouting(StatePersist, routing);
+                    rc.OnMapRouting(StatePersist, routing, fleet, fleet2);
             UpdateProgress();
         }
     }

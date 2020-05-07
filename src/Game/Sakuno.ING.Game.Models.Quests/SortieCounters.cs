@@ -115,15 +115,22 @@ namespace Sakuno.ING.Game.Models.Quests
     internal class MapRoutingCounter : QuestCounter
     {
         private readonly Predicate<MapRouting> routingFilter;
-        public MapRoutingCounter(in QuestCounterParams @params, Predicate<MapRouting> routingFilter = null)
+        private readonly Predicate<Fleet> fleetFilter;
+
+        public MapRoutingCounter(in QuestCounterParams @params,
+            Predicate<MapRouting> routingFilter = null,
+            Predicate<Fleet> fleetFilter = null)
             : base(@params)
         {
             this.routingFilter = routingFilter;
+            this.fleetFilter = fleetFilter;
         }
 
-        public void OnMapRouting(IStatePersist statePersist, MapRouting routing)
+        public void OnMapRouting(IStatePersist statePersist, MapRouting routing,
+            HomeportFleet fleet, HomeportFleet fleet2)
         {
-            if (routingFilter?.Invoke(routing) != false)
+            if (routingFilter?.Invoke(routing) != false &&
+                fleetFilter?.Invoke(fleet) != false)
                 Increase(statePersist);
         }
     }

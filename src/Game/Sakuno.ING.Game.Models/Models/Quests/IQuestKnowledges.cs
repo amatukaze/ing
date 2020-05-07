@@ -27,6 +27,6 @@ namespace Sakuno.ING.Game.Models.Quests
         void OnEquipmentDismantle(IReadOnlyCollection<HomeportEquipment> equipment);
         void OnSingletonEvent(SingletonEvent @event);
         void OnExerciseComplete(HomeportFleet fleet, BattleResult currentBattleResult);
-        void OnMapRouting(MapRouting routing);
+        void OnMapRouting(MapRouting routing, HomeportFleet fleet, HomeportFleet fleet2);
     }
 }
