@@ -4,7 +4,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:tk="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:g="using:Sakuno.ING.Game.Models"
     xmlns:c="using:Sakuno.ING.Views.UWP"
     xmlns:con="using:Sakuno.ING.Views.UWP.Controls"
@@ -30,8 +29,8 @@
             <Setter Property="Margin" Value="2" />
         </Style>
     </UserControl.Resources>
-    <tk:TabView ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}" FontSize="16" Background="Transparent">
-        <tk:TabView.ItemHeaderTemplate>
+    <Pivot ItemsSource="{x:Bind ViewModel.Fleets.DefaultView}" FontSize="16" Background="Transparent">
+        <Pivot.HeaderTemplate>
             <DataTemplate x:DataType="g:Fleet">
                 <Grid Height="Auto">
                     <Grid.ColumnDefinitions>
@@ -44,8 +43,8 @@
                     <TextBlock Grid.Column="1" FontSize="18" FontWeight="Normal" Text="{x:Bind Name}" />
                 </Grid>
             </DataTemplate>
-        </tk:TabView.ItemHeaderTemplate>
-        <tk:TabView.ItemTemplate>
+        </Pivot.HeaderTemplate>
+        <Pivot.ItemTemplate>
             <DataTemplate x:DataType="g:HomeportFleet">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -235,6 +234,6 @@
                                       Effective="{x:Bind EffectiveLoS}" />
                 </Grid>
             </DataTemplate>
-        </tk:TabView.ItemTemplate>
-    </tk:TabView>
+        </Pivot.ItemTemplate>
+    </Pivot>
 </UserControl>
