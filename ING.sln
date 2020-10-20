@@ -15,10 +15,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 		src\Infrastructure\Directory.Build.props = src\Infrastructure\Directory.Build.props
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Standard", "src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj", "{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{30A48A41-32EA-426D-9817-DC9843F5728F}"
 	ProjectSection(SolutionItems) = preProject
 		src\Game\Directory.Build.props = src\Game\Directory.Build.props
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider", "src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj", "{5E09738D-EF15-4311-905C-AEEFF6F38182}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E95570D8-E5C4-4A78-AC91-67B35BFEA135}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,8 +38,38 @@ Global
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Debug|x64.Build.0 = Debug|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Debug|x86.Build.0 = Debug|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Release|x64.ActiveCfg = Release|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Release|x64.Build.0 = Release|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Release|x86.ActiveCfg = Release|Any CPU
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A}.Release|x86.Build.0 = Release|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Debug|x64.Build.0 = Debug|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Debug|x86.Build.0 = Debug|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Release|x64.ActiveCfg = Release|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Release|x64.Build.0 = Release|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Release|x86.ActiveCfg = Release|Any CPU
+		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A} = {B1D34408-D334-448B-9A11-E0590FD28CDF}
+		{5E09738D-EF15-4311-905C-AEEFF6F38182} = {30A48A41-32EA-426D-9817-DC9843F5728F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF0E5A4C-10D8-4943-954D-1D652A07E08A}
