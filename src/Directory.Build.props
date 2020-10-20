@@ -1,0 +1,23 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <BaseOutputPath>$(BasePath)artifacts\$(MSBuildProjectName)\</BaseOutputPath>
+    <BaseIntermediateOutputPath>$(BasePath)intermediate\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AppPlatform)' == 'Portable'">
+    <TargetFramework>$(PortableFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AppPlatform)' == 'Desktop'">
+    <TargetFrameworks>$(CoreFramework);$(DesktopFramework)</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AppPlatform)' == 'CrossOS'">
+    <TargetFramework>$(CoreFramework)</TargetFramework>
+  </PropertyGroup>
+
+</Project>

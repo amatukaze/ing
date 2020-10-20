@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+
+  <PropertyGroup Label="BasePath">
+    <BasePath>$(MSBuildThisFileDirectory)</BasePath>
+    <MinimumVisualStudioVersion>16</MinimumVisualStudioVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PortableFramework>netstandard2.0</PortableFramework>
+    <DesktopFramework>net472</DesktopFramework>
+    <DesktopLatestFramework>net48</DesktopLatestFramework>
+    <CoreFramework>netcoreapp3.1</CoreFramework>
+  </PropertyGroup>
+
+</Project>
