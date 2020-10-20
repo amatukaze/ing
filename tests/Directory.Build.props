@@ -1,9 +1,9 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 
   <PropertyGroup>
-    <TargetFrameworks>$(DesktopFramework);$(DesktopLatestFramework);$(CoreFramework)</TargetFrameworks>
+    <TargetFrameworks>$(DesktopFramework);$(CoreFramework)</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
