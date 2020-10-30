@@ -12,6 +12,7 @@
     <DesktopFramework>net472</DesktopFramework>
     <DesktopLatestFramework>net48</DesktopLatestFramework>
     <CoreFramework>netcoreapp3.1</CoreFramework>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
 </Project>
