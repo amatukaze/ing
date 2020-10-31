@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <RootNamespace>Sakuno.ING.Game</RootNamespace>
+    <NoWarn>IDE1006</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,8 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.0" />
     <PackageReference Include="System.Reactive" Version="4.4.1" />
-    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0-rc.2.20475.5" />
+    <PackageReference Include="System.Text.Json" Version="5.0.0-rc.2.20475.5" />
   </ItemGroup>
 
 </Project>
