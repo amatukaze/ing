@@ -8,7 +8,7 @@ namespace Sakuno.ING.Game
     {
         public static IObservable<TEvent> Parse<TRaw, TEvent>(this IObservable<SvData?> source, Func<TRaw, TEvent> eventSelector)
         {
-            var events = source.OfType<SvData<TRaw>>().Select(svdata => eventSelector(svdata.api_data)).Publish();
+            var events = source.OfType<SvData<TRaw>>().Where(svdata => svdata.api_result == 1).Select(svdata => eventSelector(svdata.api_data)).Publish();
             events.Connect();
 
             return events.AsObservable();

@@ -31,9 +31,7 @@ namespace Sakuno.ING.Game
                 _ => (SvData?)null,
             }).Publish();
 
-            var successful = deserialized.Where(svdata => svdata != null && svdata.api_result == 1);
-
-            MasterDataUpdated = successful.Parse<MasterDataJson, MasterDataUpdate>(raw => new MasterDataUpdate
+            MasterDataUpdated = deserialized.Parse<MasterDataJson, MasterDataUpdate>(raw => new MasterDataUpdate
             (
                 shipInfos: raw.api_mst_ship,
                 shipTypes: raw.api_mst_stype,
@@ -45,18 +43,18 @@ namespace Sakuno.ING.Game
                 expeditions: raw.api_mst_mission
             ));
 
-            SlotItemsUpdated = successful.Parse<StartupInfoJson, RawSlotItem[]>(raw => raw.api_slot_item);
-            ConstructionDocksUpdated = successful.Parse<StartupInfoJson, RawConstructionDock[]>(raw => raw.api_kdock);
-            UseItemsUpdated = successful.Parse<StartupInfoJson, RawUseItemCount[]>(raw => raw.api_useitem);
-            UnequippedSlotItemInfoUpdated = successful.Parse<StartupInfoJson, RawUnequippedSlotItemInfo[]>(raw => raw.api_unsetslot);
+            SlotItemsUpdated = deserialized.Parse<StartupInfoJson, RawSlotItem[]>(raw => raw.api_slot_item);
+            ConstructionDocksUpdated = deserialized.Parse<StartupInfoJson, RawConstructionDock[]>(raw => raw.api_kdock);
+            UseItemsUpdated = deserialized.Parse<StartupInfoJson, RawUseItemCount[]>(raw => raw.api_useitem);
+            UnequippedSlotItemInfoUpdated = deserialized.Parse<StartupInfoJson, RawUnequippedSlotItemInfo[]>(raw => raw.api_unsetslot);
 
-            ShipsUpdate = successful.Parse<HomeportJson, RawShip[]>(raw => raw.api_ship);
-            RepairDocksUpdate = successful.Parse<HomeportJson, RawRepairDock[]>(raw => raw.api_ndock);
-            FleetsUpdate = successful.Parse<HomeportJson, RawFleet[]>(raw => raw.api_deck_port);
+            ShipsUpdate = deserialized.Parse<HomeportJson, RawShip[]>(raw => raw.api_ship);
+            RepairDocksUpdate = deserialized.Parse<HomeportJson, RawRepairDock[]>(raw => raw.api_ndock);
+            FleetsUpdate = deserialized.Parse<HomeportJson, RawFleet[]>(raw => raw.api_deck_port);
 
             MaterialUpdate = Observable.Merge
             (
-                successful.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material))
+                deserialized.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material))
             );
 
             deserialized.Connect();
