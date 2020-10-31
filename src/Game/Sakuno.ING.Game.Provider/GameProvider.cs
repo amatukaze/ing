@@ -1,6 +1,7 @@
-using Sakuno.ING.Game.Events;
+﻿using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Converters;
+using Sakuno.ING.Game.Models;
 using Sakuno.ING.Messaging;
 using System.Reactive.Linq;
 using System.Text.Json;
@@ -18,10 +19,13 @@ namespace Sakuno.ING.Game
             _serializerOptions.Converters.Add(new MaterialsConverter());
             _serializerOptions.Converters.Add(new ShipModernizationConverter());
             _serializerOptions.Converters.Add(new ExpeditionUseItemRewardConverter());
+            _serializerOptions.Converters.Add(new TimestampInMillisecondConverter());
+            _serializerOptions.Converters.Add(new UnequippedSlotItemInfoConverter());
 
             var deserialized = apiMessageSource.ApiMessageSource.Select(message => message.Api switch
             {
                 "api_start2/getData" => Deserialize<MasterDataJson>(message),
+                "api_get_member/require_info" => Deserialize<StartupInfoJson>(message),
 
                 _ => (SvData?)null,
             }).Publish();
@@ -39,6 +43,11 @@ namespace Sakuno.ING.Game
                 maps: raw.api_mst_mapinfo,
                 expeditions: raw.api_mst_mission
             ));
+
+            SlotItemUpdated = successful.Parse<StartupInfoJson, RawSlotItem[]>(raw => raw.api_slot_item);
+            ConstructionDockUpdated = successful.Parse<StartupInfoJson, RawConstructionDock[]>(raw => raw.api_kdock);
+            UseItemUpdated = successful.Parse<StartupInfoJson, RawUseItemCount[]>(raw => raw.api_useitem);
+            UnequippedSlotItemInfoUpdated = successful.Parse<StartupInfoJson, RawUnequippedSlotItemInfo[]>(raw => raw.api_unsetslot);
 
             deserialized.Connect();
         }
