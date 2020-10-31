@@ -26,6 +26,7 @@ namespace Sakuno.ING.Game
             {
                 "api_start2/getData" => Deserialize<MasterDataJson>(message),
                 "api_get_member/require_info" => Deserialize<StartupInfoJson>(message),
+                "api_port/port" => Deserialize<HomeportJson>(message),
 
                 _ => (SvData?)null,
             }).Publish();
@@ -44,10 +45,19 @@ namespace Sakuno.ING.Game
                 expeditions: raw.api_mst_mission
             ));
 
-            SlotItemUpdated = successful.Parse<StartupInfoJson, RawSlotItem[]>(raw => raw.api_slot_item);
-            ConstructionDockUpdated = successful.Parse<StartupInfoJson, RawConstructionDock[]>(raw => raw.api_kdock);
-            UseItemUpdated = successful.Parse<StartupInfoJson, RawUseItemCount[]>(raw => raw.api_useitem);
+            SlotItemsUpdated = successful.Parse<StartupInfoJson, RawSlotItem[]>(raw => raw.api_slot_item);
+            ConstructionDocksUpdated = successful.Parse<StartupInfoJson, RawConstructionDock[]>(raw => raw.api_kdock);
+            UseItemsUpdated = successful.Parse<StartupInfoJson, RawUseItemCount[]>(raw => raw.api_useitem);
             UnequippedSlotItemInfoUpdated = successful.Parse<StartupInfoJson, RawUnequippedSlotItemInfo[]>(raw => raw.api_unsetslot);
+
+            ShipsUpdate = successful.Parse<HomeportJson, RawShip[]>(raw => raw.api_ship);
+            RepairDocksUpdate = successful.Parse<HomeportJson, RawRepairDock[]>(raw => raw.api_ndock);
+            FleetsUpdate = successful.Parse<HomeportJson, RawFleet[]>(raw => raw.api_deck_port);
+
+            MaterialUpdate = Observable.Merge
+            (
+                successful.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material))
+            );
 
             deserialized.Connect();
         }

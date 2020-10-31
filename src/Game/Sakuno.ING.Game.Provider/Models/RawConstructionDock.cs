@@ -9,9 +9,6 @@ namespace Sakuno.ING.Game.Models
         [JsonPropertyName("api_id")]
         public ConstructionDockId Id { get; set; }
 
-        [JsonPropertyName("api_complete_time")]
-        public DateTimeOffset? CompletionTime { get; set; }
-
         [JsonPropertyName("api_state")]
         public ConstructionDockState State { get; set; }
 
@@ -26,20 +23,15 @@ namespace Sakuno.ING.Game.Models
             Bullet = api_item2,
             Steel = api_item3,
             Bauxite = api_item4,
-            Development = api_item5
+            Development = api_item5,
         };
+
+        [JsonPropertyName("api_complete_time")]
+        public DateTimeOffset? CompletionTime { get; set; }
 
         [JsonPropertyName("api_created_ship_id")]
         public ShipInfoId? BuiltShipId { get; set; }
 
         public bool IsLSC => api_item1 >= 1000;
-    }
-
-    public enum ConstructionDockState
-    {
-        Locked = -1,
-        Idle = 0,
-        Building = 2,
-        Completed = 3,
     }
 }

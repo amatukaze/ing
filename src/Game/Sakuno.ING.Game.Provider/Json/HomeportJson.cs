@@ -1,0 +1,15 @@
+﻿using Sakuno.ING.Game.Models;
+
+namespace Sakuno.ING.Game.Json
+{
+#nullable disable
+    public sealed class HomeportJson
+    {
+        public RawShip[] api_ship { get; set; }
+        public RawRepairDock[] api_ndock { get; set; }
+        public RawMaterialItem[] api_material { get; set; }
+        public RawFleet[] api_deck_port { get; set; }
+        public CombinedFleetType api_combined_flag { get; set; }
+    }
+#nullable enable
+}

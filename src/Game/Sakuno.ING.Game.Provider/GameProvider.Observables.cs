@@ -8,9 +8,15 @@ namespace Sakuno.ING.Game
     {
         public IObservable<MasterDataUpdate> MasterDataUpdated { get; private set; }
 
-        public IObservable<RawSlotItem[]> SlotItemUpdated{ get; private set; }
-        public IObservable<RawConstructionDock[]> ConstructionDockUpdated { get; private set; }
-        public IObservable<RawUseItemCount[]> UseItemUpdated { get; private set; }
+        public IObservable<RawSlotItem[]> SlotItemsUpdated{ get; private set; }
+        public IObservable<RawConstructionDock[]> ConstructionDocksUpdated { get; private set; }
+        public IObservable<RawUseItemCount[]> UseItemsUpdated { get; private set; }
         public IObservable<RawUnequippedSlotItemInfo[]> UnequippedSlotItemInfoUpdated { get; private set; }
+
+        public IObservable<RawShip[]> ShipsUpdate { get; private set; }
+        public IObservable<RawRepairDock[]> RepairDocksUpdate { get; private set; }
+        public IObservable<RawFleet[]> FleetsUpdate { get; private set; }
+
+        public IObservable<IMaterialUpdate> MaterialUpdate { get; private set; }
     }
 }
