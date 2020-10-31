@@ -13,5 +13,12 @@ namespace Sakuno.ING.Game
 
             return events.AsObservable();
         }
+        public static IObservable<T> OfData<T>(this IObservable<SvData?> source)
+        {
+            var events = source.OfType<SvData<T>>().Where(svdata => svdata.api_result == 1).Select(svdata => svdata.api_data).Publish();
+            events.Connect();
+
+            return events.AsObservable();
+        }
     }
 }

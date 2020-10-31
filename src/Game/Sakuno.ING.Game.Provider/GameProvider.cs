@@ -27,6 +27,13 @@ namespace Sakuno.ING.Game
                 "api_start2/getData" => Deserialize<MasterDataJson>(message),
                 "api_get_member/require_info" => Deserialize<StartupInfoJson>(message),
                 "api_port/port" => Deserialize<HomeportJson>(message),
+                "api_get_member/slot_item" => Deserialize<RawSlotItem[]>(message),
+                "api_get_member/ndock" => Deserialize<RawRepairDock[]>(message),
+                "api_get_member/material" => Deserialize<RawMaterialItem[]>(message),
+                "api_get_member/deck" => Deserialize<RawFleet[]>(message),
+                "api_get_member/useitem" => Deserialize<RawUseItemCount[]>(message),
+                "api_get_member/unsetslot" => Deserialize<RawUnequippedSlotItemInfo[]>(message),
+                "api_get_member/kdock" => Deserialize<RawConstructionDock[]>(message),
 
                 _ => (SvData?)null,
             }).Publish();
@@ -43,19 +50,43 @@ namespace Sakuno.ING.Game
                 expeditions: raw.api_mst_mission
             ));
 
-            SlotItemsUpdated = deserialized.Parse<StartupInfoJson, RawSlotItem[]>(raw => raw.api_slot_item);
-            ConstructionDocksUpdated = deserialized.Parse<StartupInfoJson, RawConstructionDock[]>(raw => raw.api_kdock);
-            UseItemsUpdated = deserialized.Parse<StartupInfoJson, RawUseItemCount[]>(raw => raw.api_useitem);
-            UnequippedSlotItemInfoUpdated = deserialized.Parse<StartupInfoJson, RawUnequippedSlotItemInfo[]>(raw => raw.api_unsetslot);
-
             ShipsUpdate = deserialized.Parse<HomeportJson, RawShip[]>(raw => raw.api_ship);
-            RepairDocksUpdate = deserialized.Parse<HomeportJson, RawRepairDock[]>(raw => raw.api_ndock);
-            FleetsUpdate = deserialized.Parse<HomeportJson, RawFleet[]>(raw => raw.api_deck_port);
 
-            MaterialUpdate = Observable.Merge
-            (
-                deserialized.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material))
-            );
+            FleetsUpdate = Observable.Merge(new[]
+            {
+                deserialized.Parse<HomeportJson, RawFleet[]>(raw => raw.api_deck_port),
+                deserialized.OfData<RawFleet[]>(),
+            });
+            SlotItemsUpdated = Observable.Merge(new[]
+            {
+                deserialized.Parse<StartupInfoJson, RawSlotItem[]>(raw => raw.api_slot_item),
+                deserialized.OfData<RawSlotItem[]>(),
+            });
+            MaterialUpdate = Observable.Merge(new[]
+            {
+                deserialized.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material)),
+                deserialized.Parse<RawMaterialItem[], IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw)),
+            });
+            RepairDocksUpdate = Observable.Merge(new[]
+            {
+                deserialized.Parse<HomeportJson, RawRepairDock[]>(raw => raw.api_ndock),
+                deserialized.OfData<RawRepairDock[]>(),
+            });
+            UseItemsUpdated = Observable.Merge(new[]
+            {
+                deserialized.Parse<StartupInfoJson, RawUseItemCount[]>(raw => raw.api_useitem),
+                deserialized.OfData<RawUseItemCount[]>(),
+            });
+            UnequippedSlotItemInfoUpdated = Observable.Merge(new[]
+            {
+                deserialized.Parse<StartupInfoJson, RawUnequippedSlotItemInfo[]>(raw => raw.api_unsetslot),
+                deserialized.OfData<RawUnequippedSlotItemInfo[]>(),
+            });
+            ConstructionDocksUpdated = Observable.Merge(new[]
+            {
+                deserialized.Parse<StartupInfoJson, RawConstructionDock[]>(raw => raw.api_kdock),
+                deserialized.OfData<RawConstructionDock[]>(),
+            });
 
             deserialized.Connect();
         }
