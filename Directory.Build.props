@@ -11,7 +11,7 @@
     <PortableFramework>netstandard2.0</PortableFramework>
     <DesktopFramework>net472</DesktopFramework>
     <DesktopLatestFramework>net48</DesktopLatestFramework>
-    <CoreFramework>netcoreapp3.1</CoreFramework>
+    <CoreFramework>net5.0</CoreFramework>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
