@@ -19,6 +19,9 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<SlotItemId, PlayerSlotItem, RawSlotItem, NavalBase> _slotItems;
         public ITable<SlotItemId, PlayerSlotItem> SlotItems => _slotItems;
 
+        private readonly IdTable<ShipId, PlayerShip, RawShip, NavalBase> _ships;
+        public ITable<ShipId, PlayerShip> Ships => _ships;
+
         public NavalBase(GameProvider provider)
         {
             MasterData = new MasterDataRoot(provider);
@@ -27,11 +30,13 @@ namespace Sakuno.ING.Game.Models
             _repairDocks = new IdTable<RepairDockId, RepairDock, RawRepairDock, NavalBase>(this);
             _useItems = new IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase>(this);
             _slotItems = new IdTable<SlotItemId, PlayerSlotItem, RawSlotItem, NavalBase>(this);
+            _ships = new IdTable<ShipId, PlayerShip, RawShip, NavalBase>(this);
 
             provider.ConstructionDocksUpdated.Subscribe(message => _constructionDocks.BatchUpdate(message));
             provider.RepairDocksUpdate.Subscribe(message => _repairDocks.BatchUpdate(message));
             provider.UseItemsUpdated.Subscribe(message => _useItems.BatchUpdate(message));
             provider.SlotItemsUpdated.Subscribe(message => _slotItems.BatchUpdate(message));
+            provider.ShipsUpdate.Subscribe(message => _ships.BatchUpdate(message));
         }
     }
 }

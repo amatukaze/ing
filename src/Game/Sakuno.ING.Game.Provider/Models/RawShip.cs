@@ -2,13 +2,12 @@
 using Sakuno.ING.Game.Models.MasterData;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace Sakuno.ING.Game.Models
 {
 #nullable disable
-    public sealed class RawShip
+    public sealed class RawShip : IIdentifiable<ShipId>
     {
         [JsonPropertyName("api_id")]
         public ShipId Id { get; set; }
@@ -20,6 +19,7 @@ namespace Sakuno.ING.Game.Models
 
         public int api_nowhp { get; set; }
         public int api_maxhp { get; set; }
+        public ShipHP HP => (api_nowhp, api_maxhp);
 
         [JsonPropertyName("api_soku")]
         public ShipSpeed Speed { get; set; }

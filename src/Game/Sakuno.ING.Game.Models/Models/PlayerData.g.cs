@@ -279,4 +279,245 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"PlayerSlotItem {Id}";
     }
 
+    public abstract partial class Ship : BindableObject
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_info = new PropertyChangedEventArgs(nameof(Info));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipInfo _info;
+        public ShipInfo Info
+        {
+            get => _info;
+            protected set => Set(ref _info, value, __eventArgs_info);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_hP = new PropertyChangedEventArgs(nameof(HP));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipHP _hP;
+        public ShipHP HP
+        {
+            get => _hP;
+            protected set => Set(ref _hP, value, __eventArgs_hP);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_speed = new PropertyChangedEventArgs(nameof(Speed));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipSpeed _speed;
+        public ShipSpeed Speed
+        {
+            get => _speed;
+            protected set => Set(ref _speed, value, __eventArgs_speed);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_fireRange = new PropertyChangedEventArgs(nameof(FireRange));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private FireRange _fireRange;
+        public FireRange FireRange
+        {
+            get => _fireRange;
+            protected set => Set(ref _fireRange, value, __eventArgs_fireRange);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_fuel = new PropertyChangedEventArgs(nameof(Fuel));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ClampedValue _fuel;
+        public ClampedValue Fuel
+        {
+            get => _fuel;
+            protected set => Set(ref _fuel, value, __eventArgs_fuel);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_bullet = new PropertyChangedEventArgs(nameof(Bullet));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ClampedValue _bullet;
+        public ClampedValue Bullet
+        {
+            get => _bullet;
+            protected set => Set(ref _bullet, value, __eventArgs_bullet);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_supplyConsumption = new PropertyChangedEventArgs(nameof(SupplyConsumption));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private Materials _supplyConsumption;
+        public Materials SupplyConsumption
+        {
+            get => _supplyConsumption;
+            private set => Set(ref _supplyConsumption, value, __eventArgs_supplyConsumption);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_repairTime = new PropertyChangedEventArgs(nameof(RepairTime));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private TimeSpan _repairTime;
+        public TimeSpan RepairTime
+        {
+            get => _repairTime;
+            protected set => Set(ref _repairTime, value, __eventArgs_repairTime);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_repairConsumption = new PropertyChangedEventArgs(nameof(RepairConsumption));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private Materials _repairConsumption;
+        public Materials RepairConsumption
+        {
+            get => _repairConsumption;
+            protected set => Set(ref _repairConsumption, value, __eventArgs_repairConsumption);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_morale = new PropertyChangedEventArgs(nameof(Morale));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _morale;
+        public int Morale
+        {
+            get => _morale;
+            protected set => Set(ref _morale, value, __eventArgs_morale);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_firepower = new PropertyChangedEventArgs(nameof(Firepower));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipModernizationStatus _firepower;
+        public ShipModernizationStatus Firepower
+        {
+            get => _firepower;
+            protected set => Set(ref _firepower, value, __eventArgs_firepower);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_torpedo = new PropertyChangedEventArgs(nameof(Torpedo));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipModernizationStatus _torpedo;
+        public ShipModernizationStatus Torpedo
+        {
+            get => _torpedo;
+            protected set => Set(ref _torpedo, value, __eventArgs_torpedo);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_antiAir = new PropertyChangedEventArgs(nameof(AntiAir));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipModernizationStatus _antiAir;
+        public ShipModernizationStatus AntiAir
+        {
+            get => _antiAir;
+            protected set => Set(ref _antiAir, value, __eventArgs_antiAir);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_armor = new PropertyChangedEventArgs(nameof(Armor));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipModernizationStatus _armor;
+        public ShipModernizationStatus Armor
+        {
+            get => _armor;
+            protected set => Set(ref _armor, value, __eventArgs_armor);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_evasion = new PropertyChangedEventArgs(nameof(Evasion));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipModernizationStatus _evasion;
+        public ShipModernizationStatus Evasion
+        {
+            get => _evasion;
+            protected set => Set(ref _evasion, value, __eventArgs_evasion);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_antiSubmarine = new PropertyChangedEventArgs(nameof(AntiSubmarine));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipModernizationStatus _antiSubmarine;
+        public ShipModernizationStatus AntiSubmarine
+        {
+            get => _antiSubmarine;
+            protected set => Set(ref _antiSubmarine, value, __eventArgs_antiSubmarine);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_lineOfSight = new PropertyChangedEventArgs(nameof(LineOfSight));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipModernizationStatus _lineOfSight;
+        public ShipModernizationStatus LineOfSight
+        {
+            get => _lineOfSight;
+            protected set => Set(ref _lineOfSight, value, __eventArgs_lineOfSight);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_luck = new PropertyChangedEventArgs(nameof(Luck));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ShipModernizationStatus _luck;
+        public ShipModernizationStatus Luck
+        {
+            get => _luck;
+            protected set => Set(ref _luck, value, __eventArgs_luck);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_isLocked = new PropertyChangedEventArgs(nameof(IsLocked));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private bool _isLocked;
+        public bool IsLocked
+        {
+            get => _isLocked;
+            protected set => Set(ref _isLocked, value, __eventArgs_isLocked);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_shipLockingTagId = new PropertyChangedEventArgs(nameof(ShipLockingTagId));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int? _shipLockingTagId;
+        public int? ShipLockingTagId
+        {
+            get => _shipLockingTagId;
+            protected set => Set(ref _shipLockingTagId, value, __eventArgs_shipLockingTagId);
+        }
+    }
+    public sealed partial class PlayerShip : Ship, IComparable<PlayerShip>, IUpdatable<ShipId, RawShip>
+    {
+        public int CompareTo(PlayerShip other) => Id.CompareTo(other?.Id ?? default);
+
+        public ShipId Id { get; }
+        private readonly NavalBase _owner;
+
+        public PlayerShip(ShipId id, NavalBase owner)
+        {
+            Id = id;
+            _owner = owner;
+            CreateCore();
+        }
+
+        public PlayerShip(RawShip raw, NavalBase owner) : this(raw.Id, owner) => Update(raw);
+
+        partial void CreateCore();
+
+        public void Update(RawShip raw)
+        {
+            HP = raw.HP;
+            Speed = raw.Speed;
+            FireRange = raw.FireRange;
+            RepairTime = raw.RepairTime;
+            RepairConsumption = raw.RepairConsumption;
+            Morale = raw.Morale;
+            IsLocked = raw.IsLocked;
+            ShipLockingTagId = raw.ShipLockingTagId;
+
+            UpdateCore(raw);
+        }
+
+        [GeneratedCode("Game objects generator", "")]
+        partial void UpdateCore(RawShip raw);
+
+        public override string ToString() => $"PlayerShip {Id}";
+    }
+
 }

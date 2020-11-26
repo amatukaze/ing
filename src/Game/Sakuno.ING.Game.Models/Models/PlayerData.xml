@@ -23,4 +23,26 @@
     <property type="int" name="AerialProficiency" autoFill="true" />
     <property type="bool" name="IsAvailable" />
   </class>
+  <class name="Ship" id="ShipId" raw="RawShip" owner="NavalBase" impl="PlayerShip">
+    <property type="ShipInfo" name="Info" />
+    <property type="ShipHP" name="HP" autoFill="true" />
+    <property type="ShipSpeed" name="Speed" autoFill="true" />
+    <property type="FireRange" name="FireRange" autoFill="true" />
+    <property type="ClampedValue" name="Fuel" />
+    <property type="ClampedValue" name="Bullet" />
+    <property type="Materials" name="SupplyConsumption" set="private" />
+    <property type="TimeSpan" name="RepairTime" autoFill="true" />
+    <property type="Materials" name="RepairConsumption" autoFill="true" />
+    <property type="int" name="Morale" autoFill="true" />
+    <property type="ShipModernizationStatus" name="Firepower" />
+    <property type="ShipModernizationStatus" name="Torpedo" />
+    <property type="ShipModernizationStatus" name="AntiAir" />
+    <property type="ShipModernizationStatus" name="Armor" />
+    <property type="ShipModernizationStatus" name="Evasion" />
+    <property type="ShipModernizationStatus" name="AntiSubmarine" />
+    <property type="ShipModernizationStatus" name="LineOfSight" />
+    <property type="ShipModernizationStatus" name="Luck" />
+    <property type="bool" name="IsLocked" autoFill="true" />
+    <property type="int?" name="ShipLockingTagId" autoFill="true" />
+  </class>
 </classTemplate>
