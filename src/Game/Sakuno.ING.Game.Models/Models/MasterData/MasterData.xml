@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<classTemplate xmlns="http://schemas.heavenlywind.cc/xsd/game_model_generator"
+               namespace="Sakuno.ING.Game.Models.MasterData">
+  <class name="ShipTypeInfo" id="ShipTypeId" raw="RawShipTypeInfo" owner="MasterDataRoot">
+    <property type="string" name="Name" autoFill="true" />
+  </class>
+  <class name="ShipInfo" id="ShipInfoId" raw="RawShipInfo" owner="MasterDataRoot" noToString="true">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="bool" name="IsAbyssal" autoFill="true" />
+    <property type="ShipTypeInfo" name="Type" />
+    <property type="int" name="ClassId" autoFill="true" />
+    <property type="bool" name="CanRemodel" />
+    <property type="ShipInfo" name="RemodelTo" />
+    <property type="Materials" name="RemodelConsumption" autoFill="true" />
+    <property type="ShipModernizationStatus" name="HP" autoFill="true" />
+    <property type="ShipModernizationStatus" name="Armor" autoFill="true" />
+    <property type="ShipModernizationStatus" name="Firepower" autoFill="true" />
+    <property type="ShipModernizationStatus" name="Torpedo" autoFill="true" />
+    <property type="ShipModernizationStatus" name="AntiAir" autoFill="true" />
+    <property type="ShipModernizationStatus" name="Luck" autoFill="true" />
+    <property type="ShipSpeed" name="Speed" autoFill="true" />
+    <property type="FireRange" name="FireRange" autoFill="true" />
+    <property type="int" name="SlotCount" autoFill="true" />
+    <property type="IReadOnlyList&lt;int&gt;" name="PlaneCapacities" autoFill="true" />
+    <property type="int" name="Rarity" autoFill="true" />
+    <property type="TimeSpan" name="ConstructionTime" autoFill="true" />
+    <property type="Materials" name="DismantleAcquirement" autoFill="true" />
+    <property type="IReadOnlyList&lt;int&gt;" name="PowerUpAmount" autoFill="true" />
+    <property type="int" name="FuelConsumption" autoFill="true" />
+    <property type="int" name="BulletConsumption" autoFill="true" />
+  </class>
+  <class name="SlotItemTypeInfo" id="SlotItemTypeId" raw="RawSlotItemTypeInfo" owner="MasterDataRoot">
+    <property type="string" name="Name" autoFill="true" />
+  </class>
+  <class name="SlotItemInfo" id="SlotItemInfoId" raw="RawSlotItemInfo" owner="MasterDataRoot">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="SlotItemTypeInfo" name="Type" />
+    <property type="int" name="IconId" autoFill="true" />
+    <property type="int" name="PlaneId" autoFill="true" />
+    <property type="int" name="Firepower" autoFill="true" />
+    <property type="int" name="Torpedo" autoFill="true" />
+    <property type="int" name="AntiAir" autoFill="true" />
+    <property type="int" name="Armor" autoFill="true" />
+    <property type="int" name="DiveBomberAttack" autoFill="true" />
+    <property type="int" name="AntiSubmarine" autoFill="true" />
+    <property type="int" name="Accuracy" autoFill="true" />
+    <property type="int" name="Evasion" autoFill="true" />
+    <property type="int" name="AntiBomber" autoFill="true" />
+    <property type="int" name="Interception" autoFill="true" />
+    <property type="int" name="LineOfSight" autoFill="true" />
+    <property type="FireRange" name="FireRange" autoFill="true" />
+    <property type="int" name="FlightRadius" autoFill="true" />
+    <property type="Materials" name="DeploymentConsumption" autoFill="true" />
+    <property type="Materials" name="DismantleAcquirement" autoFill="true" />
+    <property type="int" name="Rarity" autoFill="true" />
+  </class>
+  <class name="UseItemInfo" id="UseItemId" raw="RawUseItem" owner="MasterDataRoot">
+    <property type="string" name="Name" autoFill="true" />
+  </class>
+  <class name="MapAreaInfo" id="MapAreaId" raw="RawMapArea" owner="MasterDataRoot">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="bool" name="IsEventArea" autoFill="true" />
+  </class>
+  <class name="MapInfo" id="MapId" raw="RawMapInfo" owner="MasterDataRoot">
+    <property type="MapAreaInfo" name="MapArea" />
+    <property type="string" name="Name" autoFill="true" />
+    <property type="int" name="Difficulty" autoFill="true" />
+    <property type="int?" name="RequiredDefeatCount" autoFill="true" />
+    <property type="bool" name="CanUseNormalFleet" autoFill="true" />
+    <property type="bool" name="CanUseStrikingForceFleet" autoFill="true" />
+    <property type="bool" name="CanUseCarrierTaskForceFleet" />
+    <property type="bool" name="CanUseSurfaceTaskForceFleet" />
+    <property type="bool" name="CanUseTransportEscortFleet" />
+  </class>
+  <class name="ExpeditionInfo" id="ExpeditionId" raw="RawExpeditionInfo" owner="MasterDataRoot">
+    <property type="string" name="DisplayId" autoFill="true" />
+    <property type="MapAreaInfo" name="MapArea" />
+    <property type="string" name="Name" autoFill="true" />
+    <property type="TimeSpan" name="Duration" autoFill="true" />
+    <property type="int" name="MinShipCount" autoFill="true" />
+    <property type="int" name="Difficulty" autoFill="true" />
+    <property type="double" name="FuelConsumptionPercentage" autoFill="true" />
+    <property type="double" name="BulletConsumptionPercentage" autoFill="true" />
+    <property type="ExpeditionUseItemReward?" name="UseItemReward1" autoFill="true" />
+    <property type="ExpeditionUseItemReward?" name="UseItemReward2" autoFill="true" />
+    <property type="bool" name="CanRecall" autoFill="true" />
+    <property type="Materials" name="MaterialRewardLevel" autoFill="true" />
+  </class>
+</classTemplate>

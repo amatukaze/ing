@@ -8,4 +8,10 @@
     <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
   </ItemGroup>
 
+  <Import Project="ModelGenerator.targets" />
+
+  <ItemGroup>
+    <ClassTemplate Include="Models\MasterData\MasterData.xml" />
+  </ItemGroup>
+
 </Project>
