@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E95570D8
 	ProjectSection(SolutionItems) = preProject
 		tests\Directory.Build.props = tests\Directory.Build.props
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Models", "src\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj", "{CABE0F77-6751-4C5C-84E0-65F919BE291B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,18 @@ Global
 		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Release|x64.Build.0 = Release|Any CPU
 		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Release|x86.ActiveCfg = Release|Any CPU
 		{5E09738D-EF15-4311-905C-AEEFF6F38182}.Release|x86.Build.0 = Release|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Debug|x64.Build.0 = Debug|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Debug|x86.Build.0 = Debug|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Release|x64.ActiveCfg = Release|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Release|x64.Build.0 = Release|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Release|x86.ActiveCfg = Release|Any CPU
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +84,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{27D2EB0D-3FED-4FAC-AD60-6D93B450096A} = {B1D34408-D334-448B-9A11-E0590FD28CDF}
 		{5E09738D-EF15-4311-905C-AEEFF6F38182} = {30A48A41-32EA-426D-9817-DC9843F5728F}
+		{CABE0F77-6751-4C5C-84E0-65F919BE291B} = {30A48A41-32EA-426D-9817-DC9843F5728F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF0E5A4C-10D8-4943-954D-1D652A07E08A}
