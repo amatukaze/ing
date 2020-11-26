@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 namespace Sakuno.ING.Game.Models.MasterData
 {
 #nullable disable
-    public sealed class RawShipInfo
+    public sealed class RawShipInfo : IIdentifiable<ShipInfoId>
     {
         [JsonPropertyName("api_id")]
         public ShipInfoId Id { get; set; }

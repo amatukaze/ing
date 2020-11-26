@@ -6,7 +6,7 @@ using Sakuno.ING.Game.Json.Converters;
 namespace Sakuno.ING.Game.Models.MasterData
 {
 #nullable disable
-    public sealed class RawExpeditionInfo
+    public sealed class RawExpeditionInfo : IIdentifiable<ExpeditionId>
     {
         [JsonPropertyName("api_id")]
         public ExpeditionId Id { get; set; }

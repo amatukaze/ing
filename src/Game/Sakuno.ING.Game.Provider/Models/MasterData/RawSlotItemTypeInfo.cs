@@ -4,7 +4,7 @@ namespace Sakuno.ING.Game.Models.MasterData
 {
 #nullable disable
 
-    public sealed class RawSlotItemTypeInfo
+    public sealed class RawSlotItemTypeInfo : IIdentifiable<SlotItemTypeId>
     {
         [JsonPropertyName("api_id")]
         public SlotItemTypeId Id { get; set; }

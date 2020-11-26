@@ -3,7 +3,7 @@
 namespace Sakuno.ING.Game.Models.MasterData
 {
 #nullable disable
-    public sealed class RawShipTypeInfo
+    public sealed class RawShipTypeInfo : IIdentifiable<ShipTypeId>
     {
         [JsonPropertyName("api_id")]
         public ShipTypeId Id { get; set; }

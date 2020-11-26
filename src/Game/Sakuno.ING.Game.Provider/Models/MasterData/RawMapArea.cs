@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Sakuno.ING.Game.Models.MasterData
 {
 #nullable disable
-    public sealed class RawMapArea
+    public sealed class RawMapArea : IIdentifiable<MapAreaId>
     {
         [JsonPropertyName("api_id")]
         public MapAreaId Id { get; set; }

@@ -3,7 +3,7 @@
 namespace Sakuno.ING.Game.Models.MasterData
 {
 #nullable disable
-    public sealed class RawMapInfo
+    public sealed class RawMapInfo : IIdentifiable<MapId>
     {
         [JsonPropertyName("api_id")]
         public MapId Id { get; set; }
