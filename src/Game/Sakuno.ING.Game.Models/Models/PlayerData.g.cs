@@ -141,4 +141,56 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"RepairDock {Id}";
     }
 
+    public sealed partial class UseItemCount : BindableObject, IComparable<UseItemCount>, IUpdatable<UseItemId, RawUseItemCount>
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_useItem = new PropertyChangedEventArgs(nameof(UseItem));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private UseItemInfo _useItem;
+        public UseItemInfo UseItem
+        {
+            get => _useItem;
+            private set => Set(ref _useItem, value, __eventArgs_useItem);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_count = new PropertyChangedEventArgs(nameof(Count));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _count;
+        public int Count
+        {
+            get => _count;
+            private set => Set(ref _count, value, __eventArgs_count);
+        }
+
+        public int CompareTo(UseItemCount other) => Id.CompareTo(other?.Id ?? default);
+
+        public UseItemId Id { get; }
+        private readonly NavalBase _owner;
+
+        public UseItemCount(UseItemId id, NavalBase owner)
+        {
+            Id = id;
+            _owner = owner;
+            CreateCore();
+        }
+
+        public UseItemCount(RawUseItemCount raw, NavalBase owner) : this(raw.Id, owner) => Update(raw);
+
+        partial void CreateCore();
+
+        public void Update(RawUseItemCount raw)
+        {
+            Count = raw.Count;
+
+            UpdateCore(raw);
+        }
+
+        [GeneratedCode("Game objects generator", "")]
+        partial void UpdateCore(RawUseItemCount raw);
+
+        public override string ToString() => $"UseItemCount {Id}";
+    }
+
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sakuno.ING.Game.Models.MasterData;
+using System;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -12,15 +13,20 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<RepairDockId, RepairDock, RawRepairDock, NavalBase> _repairDocks;
         public ITable<RepairDockId, RepairDock> RepairDocks => _repairDocks;
 
+        private readonly IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase> _useItems;
+        public ITable<UseItemId, UseItemCount> UseItems => _useItems;
+
         public NavalBase(GameProvider provider)
         {
             MasterData = new MasterDataRoot(provider);
 
             _constructionDocks = new IdTable<ConstructionDockId, ConstructionDock, RawConstructionDock, NavalBase>(this);
             _repairDocks = new IdTable<RepairDockId, RepairDock, RawRepairDock, NavalBase>(this);
+            _useItems = new IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase>(this);
 
             provider.ConstructionDocksUpdated.Subscribe(message => _constructionDocks.BatchUpdate(message));
             provider.RepairDocksUpdate.Subscribe(message => _repairDocks.BatchUpdate(message));
+            provider.UseItemsUpdated.Subscribe(message => _useItems.BatchUpdate(message));
         }
     }
 }

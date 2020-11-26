@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Sakuno.ING.Game.Models
 {
-    public sealed class RawUseItemCount
+    public sealed class RawUseItemCount : IIdentifiable<UseItemId>
     {
         [JsonPropertyName("api_id")]
         public UseItemId Id { get; set; }

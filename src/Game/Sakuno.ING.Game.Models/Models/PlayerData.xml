@@ -12,4 +12,8 @@
     <property type="RepairDockState" name="State" autoFill="true" />
     <property type="Materials" name="Consumption" autoFill="true" />
   </class>
+  <class name="UseItemCount" id="UseItemId" raw="RawUseItemCount" owner="NavalBase">
+    <property type="UseItemInfo" name="UseItem" />
+    <property type="int" name="Count" autoFill="true" />
+  </class>
 </classTemplate>
