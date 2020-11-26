@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ClassTemplate Include="Models\MasterData\MasterData.xml" />
+    <ClassTemplate Include="Models\PlayerData.xml" />
   </ItemGroup>
 
 </Project>

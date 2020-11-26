@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<classTemplate xmlns="http://schemas.heavenlywind.cc/xsd/game_model_generator"
+               namespace="Sakuno.ING.Game.Models">
+  <using>Sakuno.ING.Game.Models.MasterData</using>
+  <class name="ConstructionDock" id="ConstructionDockId" raw="RawConstructionDock" owner="NavalBase">
+    <property type="ConstructionDockState" name="State" autoFill="true" />
+    <property type="Materials" name="Consumption" autoFill="true" />
+    <property type="ShipInfo" name="BuiltShip" />
+    <property type="bool" name="IsLSC" autoFill="true" />
+  </class>
+  <class name="RepairDock" id="RepairDockId" raw="RawRepairDock" owner="NavalBase">
+    <property type="RepairDockState" name="State" autoFill="true" />
+    <property type="Materials" name="Consumption" autoFill="true" />
+  </class>
+</classTemplate>

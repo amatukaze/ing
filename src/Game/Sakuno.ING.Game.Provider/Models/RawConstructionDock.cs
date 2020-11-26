@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Sakuno.ING.Game.Models
 {
-    public sealed class RawConstructionDock
+    public sealed class RawConstructionDock : IIdentifiable<ConstructionDockId>
     {
         [JsonPropertyName("api_id")]
         public ConstructionDockId Id { get; set; }

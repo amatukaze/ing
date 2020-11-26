@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Sakuno.ING.Game.Models
 {
-    public sealed class RawRepairDock
+    public sealed class RawRepairDock : IIdentifiable<RepairDockId>
     {
         [JsonPropertyName("api_id")]
         public RepairDockId Id { get; set; }
