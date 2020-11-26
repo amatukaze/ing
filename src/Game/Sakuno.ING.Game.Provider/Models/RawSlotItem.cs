@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Sakuno.ING.Game.Models
 {
-    public sealed class RawSlotItem
+    public sealed class RawSlotItem : IIdentifiable<SlotItemId>
     {
         [JsonPropertyName("api_id")]
         public SlotItemId Id { get; set; }

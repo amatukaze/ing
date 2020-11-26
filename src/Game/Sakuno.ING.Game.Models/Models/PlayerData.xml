@@ -16,4 +16,11 @@
     <property type="UseItemInfo" name="UseItem" />
     <property type="int" name="Count" autoFill="true" />
   </class>
+  <class name="SlotItem" id="SlotItemId" raw="RawSlotItem" owner="NavalBase" impl="PlayerSlotItem">
+    <property type="SlotItemInfo" name="Info" />
+    <property type="bool" name="IsLocked" autoFill="true" />
+    <property type="int" name="ImprovementLevel" autoFill="true" />
+    <property type="int" name="AerialProficiency" autoFill="true" />
+    <property type="bool" name="IsAvailable" />
+  </class>
 </classTemplate>

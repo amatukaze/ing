@@ -193,4 +193,90 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"UseItemCount {Id}";
     }
 
+    public abstract partial class SlotItem : BindableObject
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_info = new PropertyChangedEventArgs(nameof(Info));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private SlotItemInfo _info;
+        public SlotItemInfo Info
+        {
+            get => _info;
+            protected set => Set(ref _info, value, __eventArgs_info);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_isLocked = new PropertyChangedEventArgs(nameof(IsLocked));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private bool _isLocked;
+        public bool IsLocked
+        {
+            get => _isLocked;
+            protected set => Set(ref _isLocked, value, __eventArgs_isLocked);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_improvementLevel = new PropertyChangedEventArgs(nameof(ImprovementLevel));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _improvementLevel;
+        public int ImprovementLevel
+        {
+            get => _improvementLevel;
+            protected set => Set(ref _improvementLevel, value, __eventArgs_improvementLevel);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_aerialProficiency = new PropertyChangedEventArgs(nameof(AerialProficiency));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _aerialProficiency;
+        public int AerialProficiency
+        {
+            get => _aerialProficiency;
+            protected set => Set(ref _aerialProficiency, value, __eventArgs_aerialProficiency);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_isAvailable = new PropertyChangedEventArgs(nameof(IsAvailable));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private bool _isAvailable;
+        public bool IsAvailable
+        {
+            get => _isAvailable;
+            protected set => Set(ref _isAvailable, value, __eventArgs_isAvailable);
+        }
+    }
+    public sealed partial class PlayerSlotItem : SlotItem, IComparable<PlayerSlotItem>, IUpdatable<SlotItemId, RawSlotItem>
+    {
+        public int CompareTo(PlayerSlotItem other) => Id.CompareTo(other?.Id ?? default);
+
+        public SlotItemId Id { get; }
+        private readonly NavalBase _owner;
+
+        public PlayerSlotItem(SlotItemId id, NavalBase owner)
+        {
+            Id = id;
+            _owner = owner;
+            CreateCore();
+        }
+
+        public PlayerSlotItem(RawSlotItem raw, NavalBase owner) : this(raw.Id, owner) => Update(raw);
+
+        partial void CreateCore();
+
+        public void Update(RawSlotItem raw)
+        {
+            IsLocked = raw.IsLocked;
+            ImprovementLevel = raw.ImprovementLevel;
+            AerialProficiency = raw.AerialProficiency;
+
+            UpdateCore(raw);
+        }
+
+        [GeneratedCode("Game objects generator", "")]
+        partial void UpdateCore(RawSlotItem raw);
+
+        public override string ToString() => $"PlayerSlotItem {Id}";
+    }
+
 }
