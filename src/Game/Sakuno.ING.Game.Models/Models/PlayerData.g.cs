@@ -520,4 +520,68 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"PlayerShip {Id}";
     }
 
+    public abstract partial class Fleet : BindableObject
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            protected set => Set(ref _name, value, __eventArgs_name);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_expeditionState = new PropertyChangedEventArgs(nameof(ExpeditionState));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private FleetExpeditionState _expeditionState;
+        public FleetExpeditionState ExpeditionState
+        {
+            get => _expeditionState;
+            protected set => Set(ref _expeditionState, value, __eventArgs_expeditionState);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_expedition = new PropertyChangedEventArgs(nameof(Expedition));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ExpeditionInfo _expedition;
+        public ExpeditionInfo Expedition
+        {
+            get => _expedition;
+            protected set => Set(ref _expedition, value, __eventArgs_expedition);
+        }
+    }
+    public sealed partial class PlayerFleet : Fleet, IComparable<PlayerFleet>, IUpdatable<FleetId, RawFleet>
+    {
+        public int CompareTo(PlayerFleet other) => Id.CompareTo(other?.Id ?? default);
+
+        public FleetId Id { get; }
+        private readonly NavalBase _owner;
+
+        public PlayerFleet(FleetId id, NavalBase owner)
+        {
+            Id = id;
+            _owner = owner;
+            CreateCore();
+        }
+
+        public PlayerFleet(RawFleet raw, NavalBase owner) : this(raw.Id, owner) => Update(raw);
+
+        partial void CreateCore();
+
+        public void Update(RawFleet raw)
+        {
+            Name = raw.Name;
+
+            UpdateCore(raw);
+        }
+
+        [GeneratedCode("Game objects generator", "")]
+        partial void UpdateCore(RawFleet raw);
+
+        public override string ToString() => $"PlayerFleet {Id}";
+    }
+
 }

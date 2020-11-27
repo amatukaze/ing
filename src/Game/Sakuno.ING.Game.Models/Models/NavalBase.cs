@@ -22,6 +22,9 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<ShipId, PlayerShip, RawShip, NavalBase> _ships;
         public ITable<ShipId, PlayerShip> Ships => _ships;
 
+        private readonly IdTable<FleetId, PlayerFleet, RawFleet, NavalBase> _fleets;
+        public ITable<FleetId, PlayerFleet> Fleets => _fleets;
+
         private Materials _materials;
         public Materials Materials
         {
@@ -38,12 +41,14 @@ namespace Sakuno.ING.Game.Models
             _useItems = new IdTable<UseItemId, UseItemCount, RawUseItemCount, NavalBase>(this);
             _slotItems = new IdTable<SlotItemId, PlayerSlotItem, RawSlotItem, NavalBase>(this);
             _ships = new IdTable<ShipId, PlayerShip, RawShip, NavalBase>(this);
+            _fleets = new IdTable<FleetId, PlayerFleet, RawFleet, NavalBase>(this);
 
             provider.ConstructionDocksUpdated.Subscribe(message => _constructionDocks.BatchUpdate(message));
             provider.RepairDocksUpdate.Subscribe(message => _repairDocks.BatchUpdate(message));
             provider.UseItemsUpdated.Subscribe(message => _useItems.BatchUpdate(message));
             provider.SlotItemsUpdated.Subscribe(message => _slotItems.BatchUpdate(message));
             provider.ShipsUpdate.Subscribe(message => _ships.BatchUpdate(message));
+            provider.FleetsUpdate.Subscribe(message => _fleets.BatchUpdate(message));
 
             provider.MaterialUpdate.Subscribe(message =>
             {

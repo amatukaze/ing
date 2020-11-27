@@ -16,7 +16,7 @@ namespace Sakuno.ING.Game.Json.Converters
             reader.Read();
             var state = (FleetExpeditionState)reader.GetInt32();
             reader.Read();
-            var expeditionId = (ExpeditionId)reader.GetInt32();
+            var expeditionId = (ExpeditionId?)reader.GetInt32();
             reader.Read();
             var returnTime = DateTimeOffset.FromUnixTimeMilliseconds(reader.GetInt64());
             reader.Read();

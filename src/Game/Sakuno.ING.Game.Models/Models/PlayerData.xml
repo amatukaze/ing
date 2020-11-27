@@ -45,4 +45,9 @@
     <property type="bool" name="IsLocked" autoFill="true" />
     <property type="int?" name="ShipLockingTagId" autoFill="true" />
   </class>
+  <class name="Fleet" id="FleetId" raw="RawFleet" owner="NavalBase" impl="PlayerFleet">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="FleetExpeditionState" name="ExpeditionState" />
+    <property type="ExpeditionInfo" name="Expedition" />
+  </class>
 </classTemplate>

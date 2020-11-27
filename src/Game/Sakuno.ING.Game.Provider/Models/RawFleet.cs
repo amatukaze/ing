@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Sakuno.ING.Game.Models
 {
 #nullable disable
-    public sealed class RawFleet
+    public sealed class RawFleet : IIdentifiable<FleetId>
     {
         [JsonPropertyName("api_id")]
         public FleetId Id { get; set; }
