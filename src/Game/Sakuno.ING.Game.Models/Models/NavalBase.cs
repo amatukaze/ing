@@ -22,6 +22,13 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<ShipId, PlayerShip, RawShip, NavalBase> _ships;
         public ITable<ShipId, PlayerShip> Ships => _ships;
 
+        private Materials _materials;
+        public Materials Materials
+        {
+            get => _materials;
+            set => Set(ref _materials, value);
+        }
+
         public NavalBase(GameProvider provider)
         {
             MasterData = new MasterDataRoot(provider);
@@ -37,6 +44,19 @@ namespace Sakuno.ING.Game.Models
             provider.UseItemsUpdated.Subscribe(message => _useItems.BatchUpdate(message));
             provider.SlotItemsUpdated.Subscribe(message => _slotItems.BatchUpdate(message));
             provider.ShipsUpdate.Subscribe(message => _ships.BatchUpdate(message));
+
+            provider.MaterialUpdate.Subscribe(message =>
+            {
+                var old = Materials;
+                var materials = old;
+
+                message.Apply(ref materials);
+
+                if (old == materials)
+                    return;
+
+                Materials = materials;
+            });
         }
     }
 }
