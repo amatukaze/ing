@@ -25,6 +25,7 @@
   </class>
   <class name="Ship" id="ShipId" raw="RawShip" owner="NavalBase" impl="PlayerShip">
     <property type="ShipInfo" name="Info" />
+    <property type="Leveling" name="Leveling" autoFill="true" />
     <property type="ShipHP" name="HP" autoFill="true" />
     <property type="ShipSpeed" name="Speed" autoFill="true" />
     <property type="FireRange" name="FireRange" autoFill="true" />

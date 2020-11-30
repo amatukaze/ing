@@ -293,6 +293,16 @@ namespace Sakuno.ING.Game.Models
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_leveling = new PropertyChangedEventArgs(nameof(Leveling));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private Leveling _leveling;
+        public Leveling Leveling
+        {
+            get => _leveling;
+            protected set => Set(ref _leveling, value, __eventArgs_leveling);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_hP = new PropertyChangedEventArgs(nameof(HP));
         [EditorBrowsable(EditorBrowsableState.Never)]
         private ShipHP _hP;
@@ -502,6 +512,7 @@ namespace Sakuno.ING.Game.Models
 
         public void Update(RawShip raw)
         {
+            Leveling = raw.Leveling;
             HP = raw.HP;
             Speed = raw.Speed;
             FireRange = raw.FireRange;

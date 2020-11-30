@@ -1,4 +1,5 @@
 ﻿using Sakuno.ING.Game.Json.Converters;
+using Sakuno.ING.Game.Models.Knowledge;
 using Sakuno.ING.Game.Models.MasterData;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace Sakuno.ING.Game.Models
 
         public int api_lv { get; set; }
         public int[] api_exp { get; set; }
+        public Leveling Leveling => new Leveling(api_lv, api_exp[0],
+            KnownLeveling.GetShipExp(api_lv), api_exp[0] + api_exp[1],
+            api_lv >= KnownLeveling.MaxShipLevel);
 
         public int api_nowhp { get; set; }
         public int api_maxhp { get; set; }
