@@ -692,4 +692,67 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"Admiral {Id}";
     }
 
+    public sealed partial class Map : BindableObject, IComparable<Map>, IUpdatable<MapId, RawMap>
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_info = new PropertyChangedEventArgs(nameof(Info));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private MapInfo _info;
+        public MapInfo Info
+        {
+            get => _info;
+            private set => Set(ref _info, value, __eventArgs_info);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_isCleared = new PropertyChangedEventArgs(nameof(IsCleared));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private bool _isCleared;
+        public bool IsCleared
+        {
+            get => _isCleared;
+            private set => Set(ref _isCleared, value, __eventArgs_isCleared);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_availableAirForceGroups = new PropertyChangedEventArgs(nameof(AvailableAirForceGroups));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _availableAirForceGroups;
+        public int AvailableAirForceGroups
+        {
+            get => _availableAirForceGroups;
+            private set => Set(ref _availableAirForceGroups, value, __eventArgs_availableAirForceGroups);
+        }
+
+        public int CompareTo(Map other) => Id.CompareTo(other?.Id ?? default);
+
+        public MapId Id { get; }
+        private readonly NavalBase _owner;
+
+        public Map(MapId id, NavalBase owner)
+        {
+            Id = id;
+            _owner = owner;
+            CreateCore();
+        }
+
+        public Map(RawMap raw, NavalBase owner) : this(raw.Id, owner) => Update(raw);
+
+        partial void CreateCore();
+
+        public void Update(RawMap raw)
+        {
+            IsCleared = raw.IsCleared;
+            AvailableAirForceGroups = raw.AvailableAirForceGroups;
+
+            UpdateCore(raw);
+        }
+
+        [GeneratedCode("Game objects generator", "")]
+        partial void UpdateCore(RawMap raw);
+
+        public override string ToString() => $"Map {Id}";
+    }
+
 }

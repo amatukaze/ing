@@ -59,4 +59,9 @@
     <property type="int" name="MaxEquipmentCount" autoFill="true" />
     <property type="int" name="MaxMaterial" autoFill="true" />
   </class>
+  <class name="Map" id="MapId" raw="RawMap" owner="NavalBase">
+    <property type="MapInfo" name="Info" />
+    <property type="bool" name="IsCleared" autoFill="true" />
+    <property type="int" name="AvailableAirForceGroups" autoFill="true" />
+  </class>
 </classTemplate>

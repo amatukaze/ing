@@ -1,4 +1,4 @@
-using Sakuno.ING.Game.Events;
+﻿using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
@@ -43,6 +43,7 @@ namespace Sakuno.ING.Game
                 "api_get_member/useitem" => Deserialize<RawUseItemCount[]>(message),
                 "api_get_member/unsetslot" => Deserialize<RawUnequippedSlotItemInfo[]>(message),
                 "api_get_member/kdock" => Deserialize<RawConstructionDock[]>(message),
+                "api_get_member/mapinfo" =>  Deserialize<MapInfoJson>(message),
 
                 _ => (SvData?)null,
             }).Publish();
@@ -98,6 +99,8 @@ namespace Sakuno.ING.Game
                 deserialized.Parse<StartupInfoJson, RawConstructionDock[]>(raw => raw.api_kdock),
                 deserialized.OfData<RawConstructionDock[]>(),
             });
+
+            MapsUpdated = deserialized.Parse<MapInfoJson, RawMap[]>(raw => raw.api_map_info);
 
             deserialized.Connect();
 

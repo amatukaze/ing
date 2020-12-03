@@ -25,6 +25,9 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<FleetId, PlayerFleet, RawFleet, NavalBase> _fleets;
         public ITable<FleetId, PlayerFleet> Fleets => _fleets;
 
+        private readonly IdTable<MapId, Map, RawMap, NavalBase> _maps;
+        public ITable<MapId, Map> Maps => _maps;
+
         private Admiral? _admiral;
         public Admiral Admiral => _admiral ?? throw new InvalidOperationException("Game not initialized");
 
@@ -45,6 +48,7 @@ namespace Sakuno.ING.Game.Models
             _slotItems = new IdTable<SlotItemId, PlayerSlotItem, RawSlotItem, NavalBase>(this);
             _ships = new IdTable<ShipId, PlayerShip, RawShip, NavalBase>(this);
             _fleets = new IdTable<FleetId, PlayerFleet, RawFleet, NavalBase>(this);
+            _maps = new IdTable<MapId, Map, RawMap, NavalBase>(this);
 
             provider.AdmiralUpdated.Subscribe(message =>
             {
@@ -64,6 +68,7 @@ namespace Sakuno.ING.Game.Models
             provider.SlotItemsUpdated.Subscribe(message => _slotItems.BatchUpdate(message));
             provider.ShipsUpdate.Subscribe(message => _ships.BatchUpdate(message));
             provider.FleetsUpdate.Subscribe(message => _fleets.BatchUpdate(message));
+            provider.MapsUpdated.Subscribe(message => _maps.BatchUpdate(message));
 
             provider.MaterialUpdate.Subscribe(message =>
             {
