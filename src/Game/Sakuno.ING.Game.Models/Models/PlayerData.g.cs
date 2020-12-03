@@ -595,4 +595,101 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"PlayerFleet {Id}";
     }
 
+    public sealed partial class Admiral : BindableObject, IComparable<Admiral>, IUpdatable<int, RawAdmiral>
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_leveling = new PropertyChangedEventArgs(nameof(Leveling));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private Leveling _leveling;
+        public Leveling Leveling
+        {
+            get => _leveling;
+            private set => Set(ref _leveling, value, __eventArgs_leveling);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_rank = new PropertyChangedEventArgs(nameof(Rank));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private AdmiralRank _rank;
+        public AdmiralRank Rank
+        {
+            get => _rank;
+            private set => Set(ref _rank, value, __eventArgs_rank);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_maxShipCount = new PropertyChangedEventArgs(nameof(MaxShipCount));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _maxShipCount;
+        public int MaxShipCount
+        {
+            get => _maxShipCount;
+            private set => Set(ref _maxShipCount, value, __eventArgs_maxShipCount);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_maxEquipmentCount = new PropertyChangedEventArgs(nameof(MaxEquipmentCount));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _maxEquipmentCount;
+        public int MaxEquipmentCount
+        {
+            get => _maxEquipmentCount;
+            private set => Set(ref _maxEquipmentCount, value, __eventArgs_maxEquipmentCount);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_maxMaterial = new PropertyChangedEventArgs(nameof(MaxMaterial));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _maxMaterial;
+        public int MaxMaterial
+        {
+            get => _maxMaterial;
+            private set => Set(ref _maxMaterial, value, __eventArgs_maxMaterial);
+        }
+
+        public int CompareTo(Admiral other) => Id.CompareTo(other?.Id ?? default);
+
+        public int Id { get; }
+        private readonly NavalBase _owner;
+
+        public Admiral(int id, NavalBase owner)
+        {
+            Id = id;
+            _owner = owner;
+            CreateCore();
+        }
+
+        public Admiral(RawAdmiral raw, NavalBase owner) : this(raw.Id, owner) => Update(raw);
+
+        partial void CreateCore();
+
+        public void Update(RawAdmiral raw)
+        {
+            Name = raw.Name;
+            Leveling = raw.Leveling;
+            Rank = raw.Rank;
+            MaxShipCount = raw.MaxShipCount;
+            MaxEquipmentCount = raw.MaxEquipmentCount;
+            MaxMaterial = raw.MaxMaterial;
+
+            UpdateCore(raw);
+        }
+
+        [GeneratedCode("Game objects generator", "")]
+        partial void UpdateCore(RawAdmiral raw);
+
+        public override string ToString() => $"Admiral {Id}";
+    }
+
 }

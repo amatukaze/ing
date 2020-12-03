@@ -1,4 +1,4 @@
-﻿using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Game.Models.MasterData;
 using System;
 
 namespace Sakuno.ING.Game.Models
@@ -25,6 +25,9 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<FleetId, PlayerFleet, RawFleet, NavalBase> _fleets;
         public ITable<FleetId, PlayerFleet> Fleets => _fleets;
 
+        private Admiral? _admiral;
+        public Admiral Admiral => _admiral ?? throw new InvalidOperationException("Game not initialized");
+
         private Materials _materials;
         public Materials Materials
         {
@@ -42,6 +45,18 @@ namespace Sakuno.ING.Game.Models
             _slotItems = new IdTable<SlotItemId, PlayerSlotItem, RawSlotItem, NavalBase>(this);
             _ships = new IdTable<ShipId, PlayerShip, RawShip, NavalBase>(this);
             _fleets = new IdTable<FleetId, PlayerFleet, RawFleet, NavalBase>(this);
+
+            provider.AdmiralUpdated.Subscribe(message =>
+            {
+                if (_admiral?.Id == message.Id)
+                {
+                    _admiral.Update(message);
+                    return;
+                }
+
+                _admiral = new Admiral(message, this);
+                NotifyPropertyChanged(nameof(Admiral));
+            });
 
             provider.ConstructionDocksUpdated.Subscribe(message => _constructionDocks.BatchUpdate(message));
             provider.RepairDocksUpdate.Subscribe(message => _repairDocks.BatchUpdate(message));

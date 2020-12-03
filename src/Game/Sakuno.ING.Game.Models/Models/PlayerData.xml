@@ -51,4 +51,12 @@
     <property type="FleetExpeditionState" name="ExpeditionState" />
     <property type="ExpeditionInfo" name="Expedition" />
   </class>
+  <class name="Admiral" id="int" raw="RawAdmiral" owner="NavalBase">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="Leveling" name="Leveling" autoFill="true" />
+    <property type="AdmiralRank" name="Rank" autoFill="true" />
+    <property type="int" name="MaxShipCount" autoFill="true" />
+    <property type="int" name="MaxEquipmentCount" autoFill="true" />
+    <property type="int" name="MaxMaterial" autoFill="true" />
+  </class>
 </classTemplate>

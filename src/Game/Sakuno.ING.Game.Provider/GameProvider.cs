@@ -5,6 +5,7 @@ using Sakuno.ING.Game.Models;
 using Sakuno.ING.Messaging;
 using System.Reactive.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Sakuno.ING.Game
 {
@@ -14,7 +15,10 @@ namespace Sakuno.ING.Game
 
         public GameProvider(IApiMessageSource apiMessageSource)
         {
-            _serializerOptions = new JsonSerializerOptions();
+            _serializerOptions = new JsonSerializerOptions()
+            {
+                NumberHandling = JsonNumberHandling.AllowReadingFromString,
+            };
             _serializerOptions.Converters.Add(new IdentifierConverterFactory());
             _serializerOptions.Converters.Add(new MaterialsConverter());
             _serializerOptions.Converters.Add(new ShipModernizationConverter());
@@ -27,6 +31,8 @@ namespace Sakuno.ING.Game
                 "api_start2/getData" => Deserialize<MasterDataJson>(message),
                 "api_get_member/require_info" => Deserialize<StartupInfoJson>(message),
                 "api_port/port" => Deserialize<HomeportJson>(message),
+                "api_get_member/basic" => Deserialize<BasicAdmiral>(message),
+                "api_get_member/record" => Deserialize<RecordAdmiral>(message),
                 "api_get_member/slot_item" => Deserialize<RawSlotItem[]>(message),
                 "api_get_member/ndock" => Deserialize<RawRepairDock[]>(message),
                 "api_get_member/material" => Deserialize<RawMaterialItem[]>(message),
@@ -49,6 +55,13 @@ namespace Sakuno.ING.Game
                 maps: raw.api_mst_mapinfo,
                 expeditions: raw.api_mst_mission
             ));
+
+            AdmiralUpdated = Observable.Merge(new[]
+            {
+                deserialized.Parse<HomeportJson, RawAdmiral>(raw => raw.api_basic),
+                deserialized.OfData<BasicAdmiral>(),
+                deserialized.OfData<RecordAdmiral>(),
+            });
 
             ShipsUpdate = deserialized.Parse<HomeportJson, RawShip[]>(raw => raw.api_ship);
 

@@ -8,6 +8,8 @@ namespace Sakuno.ING.Game
     {
         public IObservable<MasterDataUpdate> MasterDataUpdated { get; private set; }
 
+        public IObservable<RawAdmiral> AdmiralUpdated { get; private set; }
+
         public IObservable<RawSlotItem[]> SlotItemsUpdated{ get; private set; }
         public IObservable<RawConstructionDock[]> ConstructionDocksUpdated { get; private set; }
         public IObservable<RawUseItemCount[]> UseItemsUpdated { get; private set; }

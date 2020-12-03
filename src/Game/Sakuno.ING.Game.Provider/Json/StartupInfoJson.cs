@@ -3,7 +3,7 @@
 namespace Sakuno.ING.Game.Json
 {
 #nullable disable
-    public sealed class StartupInfoJson
+    internal sealed class StartupInfoJson
     {
         public RawSlotItem[] api_slot_item { get; set; }
         public RawConstructionDock[] api_kdock { get; set; }

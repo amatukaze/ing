@@ -3,9 +3,10 @@
 namespace Sakuno.ING.Game.Json
 {
 #nullable disable
-    public sealed class HomeportJson
+    internal sealed class HomeportJson
     {
         public RawShip[] api_ship { get; set; }
+        public BasicAdmiral api_basic { get; set; }
         public RawRepairDock[] api_ndock { get; set; }
         public RawMaterialItem[] api_material { get; set; }
         public RawFleet[] api_deck_port { get; set; }
