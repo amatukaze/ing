@@ -75,6 +75,9 @@ namespace Sakuno.ING.Game.Models
             provider.MapsUpdated.Subscribe(message => _maps.BatchUpdate(message));
             provider.AirForceGroupsUpdated.Subscribe(message => _airForceGroups.BatchUpdate(message));
 
+            provider.ShipUpdate.Subscribe(message => _ships[message.Id].Update(message));
+            provider.FleetUpdate.Subscribe(message => _fleets[message.Id].Update(message));
+
             provider.AirForceActionUpdated.Subscribe(message => AirForceGroups[(message.MapAreaId, message.GroupId)].Action = message.Action);
 
             provider.MaterialUpdate.Subscribe(message =>

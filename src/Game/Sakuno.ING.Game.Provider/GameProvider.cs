@@ -43,7 +43,10 @@ namespace Sakuno.ING.Game
                 "api_get_member/useitem" => Deserialize<RawUseItemCount[]>(message),
                 "api_get_member/unsetslot" => Deserialize<RawUnequippedSlotItemInfo[]>(message),
                 "api_get_member/kdock" => Deserialize<RawConstructionDock[]>(message),
-                "api_get_member/mapinfo" =>  Deserialize<MapInfoJson>(message),
+                "api_get_member/mapinfo" => Deserialize<MapInfoJson>(message),
+                "api_get_member/ship3" => Deserialize<Ship3Json>(message),
+                "api_get_member/ship_deck" => Deserialize<ShipDeckJson>(message),
+                "api_req_kaisou/marriage" => Deserialize<RawShip>(message),
 
                 _ => (SvData?)null,
             }).Publish();
@@ -93,6 +96,7 @@ namespace Sakuno.ING.Game
             {
                 deserialized.Parse<StartupInfoJson, RawUnequippedSlotItemInfo[]>(raw => raw.api_unsetslot),
                 deserialized.OfData<RawUnequippedSlotItemInfo[]>(),
+                deserialized.Parse<Ship3Json, RawUnequippedSlotItemInfo[]>(raw => raw.api_slot_data),
             });
             ConstructionDocksUpdated = Observable.Merge(new[]
             {
@@ -102,6 +106,24 @@ namespace Sakuno.ING.Game
 
             MapsUpdated = deserialized.Parse<MapInfoJson, RawMap[]>(raw => raw.api_map_info);
             AirForceGroupsUpdated = deserialized.Parse<MapInfoJson, RawAirForceGroup[]>(raw => raw.api_air_base);
+
+            var ship2Event = apiMessageSource.ApiMessageSource
+                .Where(message => message.Api == "api_get_member/ship2")
+                .Select(message => Deserialize<RawShip[]>(message))
+                .Where(svdata => svdata.api_result == 1)
+                .Select(svdata => svdata.api_data);
+            ShipUpdate = Observable.Merge(new[]
+            {
+                deserialized.OfData<RawShip>(),
+                ship2Event.SelectMany(ships => ships),
+                deserialized.Parse<Ship3Json, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
+                deserialized.Parse<ShipDeckJson, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
+            });
+            FleetUpdate = Observable.Merge(new[]
+            {
+                deserialized.Parse<Ship3Json, RawFleet[]>(raw => raw.api_deck_data),
+                deserialized.Parse<ShipDeckJson, RawFleet[]>(raw => raw.api_deck_data),
+            }).SelectMany(fleets => fleets);
 
             deserialized.Connect();
 

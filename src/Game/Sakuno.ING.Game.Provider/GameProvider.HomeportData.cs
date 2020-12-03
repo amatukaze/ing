@@ -19,6 +19,9 @@ namespace Sakuno.ING.Game
         public IObservable<RawRepairDock[]> RepairDocksUpdate { get; private set; }
         public IObservable<RawFleet[]> FleetsUpdate { get; private set; }
 
+        public IObservable<RawShip> ShipUpdate { get; private set; }
+        public IObservable<RawFleet> FleetUpdate { get; private set; }
+
         public IObservable<IMaterialUpdate> MaterialUpdate { get; private set; }
     }
 }
