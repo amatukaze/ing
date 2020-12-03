@@ -1,7 +1,10 @@
 ﻿using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.MasterData;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 
 namespace Sakuno.ING.Game
 {
@@ -54,5 +57,20 @@ namespace Sakuno.ING.Game
         );
         private static ConstructionDockId ParseInstantConstruction(NameValueCollection request) =>
             (ConstructionDockId)request.GetInt("api_kdock_id");
+
+        public IObservable<AirForceActionUpdate> AirForceActionUpdated { get; private set; }
+
+        private static IEnumerable<AirForceActionUpdate> ParseAirForceUpdates(NameValueCollection request)
+        {
+            var mapArea = request.GetInt("api_area_id");
+
+            return request.GetInts("api_base_id").Zip(request.GetInts("api_action_kind"),
+                (id, action) => new AirForceActionUpdate
+                (
+                    mapAreaId: (MapAreaId)mapArea,
+                    groupId: (AirForceGroupId)id,
+                    action: (AirForceAction)action
+                ));
+        }
     }
 }

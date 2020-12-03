@@ -101,6 +101,7 @@ namespace Sakuno.ING.Game
             });
 
             MapsUpdated = deserialized.Parse<MapInfoJson, RawMap[]>(raw => raw.api_map_info);
+            AirForceGroupsUpdated = deserialized.Parse<MapInfoJson, RawAirForceGroup[]>(raw => raw.api_air_base);
 
             deserialized.Connect();
 
@@ -121,6 +122,10 @@ namespace Sakuno.ING.Game
             InstantConstructionUsed = apiMessageSource.ApiMessageSource
                 .Where(message => message.Api == "api_req_kousyou/createship_speedchange")
                 .Select(message => ParseInstantConstruction(ParseRequest(message.Request)));
+
+            AirForceActionUpdated = apiMessageSource.ApiMessageSource
+                .Where(message => message.Api == "api_req_air_corps/set_action")
+                .SelectMany(message => ParseAirForceUpdates(ParseRequest(message.Request)));
 
             MaterialUpdate = Observable.Merge(new[]
             {

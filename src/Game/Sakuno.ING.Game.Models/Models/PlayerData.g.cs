@@ -755,4 +755,142 @@ namespace Sakuno.ING.Game.Models
         public override string ToString() => $"Map {Id}";
     }
 
+    public sealed partial class AirForceSquadron : BindableObject, IComparable<AirForceSquadron>, IUpdatable<int, RawAirForceSquadron>
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_slotItem = new PropertyChangedEventArgs(nameof(SlotItem));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private SlotItem _slotItem;
+        public SlotItem SlotItem
+        {
+            get => _slotItem;
+            private set => Set(ref _slotItem, value, __eventArgs_slotItem);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_count = new PropertyChangedEventArgs(nameof(Count));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private ClampedValue _count;
+        public ClampedValue Count
+        {
+            get => _count;
+            private set => Set(ref _count, value, __eventArgs_count);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_morale = new PropertyChangedEventArgs(nameof(Morale));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private AirForceSquadronMorale _morale;
+        public AirForceSquadronMorale Morale
+        {
+            get => _morale;
+            private set => Set(ref _morale, value, __eventArgs_morale);
+        }
+
+        public int CompareTo(AirForceSquadron other) => Id.CompareTo(other?.Id ?? default);
+
+        public int Id { get; }
+        private readonly NavalBase _owner;
+
+        public AirForceSquadron(int id, NavalBase owner)
+        {
+            Id = id;
+            _owner = owner;
+            CreateCore();
+        }
+
+        public AirForceSquadron(RawAirForceSquadron raw, NavalBase owner) : this(raw.Id, owner) => Update(raw);
+
+        partial void CreateCore();
+
+        public void Update(RawAirForceSquadron raw)
+        {
+            Count = raw.Count;
+            Morale = raw.Morale;
+
+            UpdateCore(raw);
+        }
+
+        [GeneratedCode("Game objects generator", "")]
+        partial void UpdateCore(RawAirForceSquadron raw);
+
+        public override string ToString() => $"AirForceSquadron {Id}";
+    }
+
+    public sealed partial class AirForceGroup : BindableObject, IComparable<AirForceGroup>, IUpdatable<(MapAreaId MapArea, AirForceGroupId Group), RawAirForceGroup>
+    {
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_name = new PropertyChangedEventArgs(nameof(Name));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            private set => Set(ref _name, value, __eventArgs_name);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_baseCombatRadius = new PropertyChangedEventArgs(nameof(BaseCombatRadius));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _baseCombatRadius;
+        public int BaseCombatRadius
+        {
+            get => _baseCombatRadius;
+            private set => Set(ref _baseCombatRadius, value, __eventArgs_baseCombatRadius);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_bonusCombatRadius = new PropertyChangedEventArgs(nameof(BonusCombatRadius));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private int _bonusCombatRadius;
+        public int BonusCombatRadius
+        {
+            get => _bonusCombatRadius;
+            private set => Set(ref _bonusCombatRadius, value, __eventArgs_bonusCombatRadius);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_action = new PropertyChangedEventArgs(nameof(Action));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private AirForceAction _action;
+        public AirForceAction Action
+        {
+            get => _action;
+            internal set => Set(ref _action, value, __eventArgs_action);
+        }
+
+        public int CompareTo(AirForceGroup other) => Id.CompareTo(other?.Id ?? default);
+
+        public (MapAreaId MapArea, AirForceGroupId Group) Id { get; }
+        private readonly NavalBase _owner;
+
+        public AirForceGroup((MapAreaId MapArea, AirForceGroupId Group) id, NavalBase owner)
+        {
+            Id = id;
+            _owner = owner;
+            CreateCore();
+        }
+
+        public AirForceGroup(RawAirForceGroup raw, NavalBase owner) : this(raw.Id, owner) => Update(raw);
+
+        partial void CreateCore();
+
+        public void Update(RawAirForceGroup raw)
+        {
+            Name = raw.Name;
+            BaseCombatRadius = raw.BaseCombatRadius;
+            BonusCombatRadius = raw.BonusCombatRadius;
+            Action = raw.Action;
+
+            UpdateCore(raw);
+        }
+
+        [GeneratedCode("Game objects generator", "")]
+        partial void UpdateCore(RawAirForceGroup raw);
+
+        public override string ToString() => $"AirForceGroup {Id}";
+    }
+
 }

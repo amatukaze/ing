@@ -64,4 +64,15 @@
     <property type="bool" name="IsCleared" autoFill="true" />
     <property type="int" name="AvailableAirForceGroups" autoFill="true" />
   </class>
+  <class name="AirForceSquadron" id="int" raw="RawAirForceSquadron" owner="NavalBase">
+    <property type="SlotItem" name="SlotItem" />
+    <property type="ClampedValue" name="Count" autoFill="true" />
+    <property type="AirForceSquadronMorale" name="Morale" autoFill="true" />
+  </class>
+  <class name="AirForceGroup" id="(MapAreaId MapArea, AirForceGroupId Group)" raw="RawAirForceGroup" owner="NavalBase">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="int" name="BaseCombatRadius" autoFill="true" />
+    <property type="int" name="BonusCombatRadius" autoFill="true" />
+    <property type="AirForceAction" name="Action" autoFill="true" set="internal" />
+  </class>
 </classTemplate>

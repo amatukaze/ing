@@ -6,5 +6,6 @@ namespace Sakuno.ING.Game
     public partial class GameProvider
     {
         public IObservable<RawMap[]> MapsUpdated { get; private set; }
+        public IObservable<RawAirForceGroup[]> AirForceGroupsUpdated { get; private set; }
     }
 }

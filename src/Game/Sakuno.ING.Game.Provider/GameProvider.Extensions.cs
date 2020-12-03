@@ -1,6 +1,7 @@
 ﻿using Sakuno.ING.Game.Json;
 using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Reactive.Linq;
 
 namespace Sakuno.ING.Game
@@ -19,6 +20,8 @@ namespace Sakuno.ING.Game
         }
 
         public static int GetInt(this NameValueCollection source, string name) => int.Parse(source[name]);
+        public static int[] GetInts(this NameValueCollection source, string name) =>
+            source[name]?.Split(',').Select(int.Parse).ToArray() ?? Array.Empty<int>();
         public static bool GetBool(this NameValueCollection source, string name) => source.GetInt(name) != 0;
     }
 }

@@ -28,6 +28,9 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<MapId, Map, RawMap, NavalBase> _maps;
         public ITable<MapId, Map> Maps => _maps;
 
+        private readonly IdTable<(MapAreaId MapArea, AirForceGroupId Group), AirForceGroup, RawAirForceGroup, NavalBase> _airForceGroups;
+        public ITable<(MapAreaId MapArea, AirForceGroupId Group), AirForceGroup> AirForceGroups => _airForceGroups;
+
         private Admiral? _admiral;
         public Admiral Admiral => _admiral ?? throw new InvalidOperationException("Game not initialized");
 
@@ -49,6 +52,7 @@ namespace Sakuno.ING.Game.Models
             _ships = new IdTable<ShipId, PlayerShip, RawShip, NavalBase>(this);
             _fleets = new IdTable<FleetId, PlayerFleet, RawFleet, NavalBase>(this);
             _maps = new IdTable<MapId, Map, RawMap, NavalBase>(this);
+            _airForceGroups = new IdTable<(MapAreaId MapArea, AirForceGroupId Group), AirForceGroup, RawAirForceGroup, NavalBase>(this);
 
             provider.AdmiralUpdated.Subscribe(message =>
             {
@@ -69,6 +73,9 @@ namespace Sakuno.ING.Game.Models
             provider.ShipsUpdate.Subscribe(message => _ships.BatchUpdate(message));
             provider.FleetsUpdate.Subscribe(message => _fleets.BatchUpdate(message));
             provider.MapsUpdated.Subscribe(message => _maps.BatchUpdate(message));
+            provider.AirForceGroupsUpdated.Subscribe(message => _airForceGroups.BatchUpdate(message));
+
+            provider.AirForceActionUpdated.Subscribe(message => AirForceGroups[(message.MapAreaId, message.GroupId)].Action = message.Action);
 
             provider.MaterialUpdate.Subscribe(message =>
             {
