@@ -1,5 +1,6 @@
 ﻿using Sakuno.ING.Game.Json;
 using System;
+using System.Collections.Specialized;
 using System.Reactive.Linq;
 
 namespace Sakuno.ING.Game
@@ -16,5 +17,8 @@ namespace Sakuno.ING.Game
 
             return events.AsObservable();
         }
+
+        public static int GetInt(this NameValueCollection source, string name) => int.Parse(source[name]);
+        public static bool GetBool(this NameValueCollection source, string name) => source.GetInt(name) != 0;
     }
 }

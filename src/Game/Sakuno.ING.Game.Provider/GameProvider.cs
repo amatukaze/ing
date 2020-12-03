@@ -1,11 +1,14 @@
-﻿using Sakuno.ING.Game.Events;
+using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Messaging;
+using System;
+using System.Collections.Specialized;
 using System.Reactive.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Web;
 
 namespace Sakuno.ING.Game
 {
@@ -75,11 +78,6 @@ namespace Sakuno.ING.Game
                 deserialized.Parse<StartupInfoJson, RawSlotItem[]>(raw => raw.api_slot_item),
                 deserialized.OfData<RawSlotItem[]>(),
             });
-            MaterialUpdate = Observable.Merge(new[]
-            {
-                deserialized.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material)),
-                deserialized.Parse<RawMaterialItem[], IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw)),
-            });
             RepairDocksUpdate = Observable.Merge(new[]
             {
                 deserialized.Parse<HomeportJson, RawRepairDock[]>(raw => raw.api_ndock),
@@ -102,9 +100,36 @@ namespace Sakuno.ING.Game
             });
 
             deserialized.Connect();
+
+            FleetCompositionChanged = apiMessageSource.ApiMessageSource
+                .Where(message => message.Api == "api_req_hensei/change")
+                .Select(message => ParseFleetCompositionChange(ParseRequest(message.Request)));
+
+            RepairStarted = apiMessageSource.ApiMessageSource
+                .Where(message => message.Api == "api_req_nyukyo/start")
+                .Select(message => ParseRepairStart(ParseRequest(message.Request)));
+            InstantRepairUsed = apiMessageSource.ApiMessageSource
+                .Where(message => message.Api == "api_req_nyukyo/speedchange")
+                .Select(message => ParseInstantRepair(ParseRequest(message.Request)));
+
+            ConstructionStarted = apiMessageSource.ApiMessageSource
+                .Where(message => message.Api == "api_req_kousyou/createship")
+                .Select(message => ParseConstructionStart(ParseRequest(message.Request)));
+            InstantConstructionUsed = apiMessageSource.ApiMessageSource
+                .Where(message => message.Api == "api_req_kousyou/createship_speedchange")
+                .Select(message => ParseInstantConstruction(ParseRequest(message.Request)));
+
+            MaterialUpdate = Observable.Merge(new[]
+            {
+                deserialized.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material)),
+                deserialized.Parse<RawMaterialItem[], IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw)),
+                ConstructionStarted,
+            });
         }
 
         private SvData<T> Deserialize<T>(ApiMessage message) =>
             JsonSerializer.Deserialize<SvData<T>>(message.Response.Span, _serializerOptions)!;
+        private NameValueCollection ParseRequest(ReadOnlyMemory<char> request) =>
+            HttpUtility.ParseQueryString(request.ToString());
     }
 }
