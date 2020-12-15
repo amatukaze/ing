@@ -44,11 +44,13 @@ namespace Sakuno.ING.Game
                 "api_get_member/unsetslot" => Deserialize<RawUnequippedSlotItemInfo[]>(message),
                 "api_get_member/kdock" => Deserialize<RawConstructionDock[]>(message),
                 "api_get_member/mapinfo" => Deserialize<MapInfoJson>(message),
+                "api_get_member/ship2" => Deserialize<RawShip[]>(message),
                 "api_get_member/ship3" => Deserialize<Ship3Json>(message),
                 "api_get_member/ship_deck" => Deserialize<ShipDeckJson>(message),
                 "api_req_kaisou/marriage" => Deserialize<RawShip>(message),
+                "api_req_air_corps/set_plane" => DeserializeWithRequest<AirForceSquadronDeploymentJson>(message),
 
-                _ => (SvData?)null,
+                _ => (SvData)DeserializeRequestOnly(message),
             }).Publish();
 
             MasterDataUpdated = deserialized.Parse<MasterDataJson, MasterDataUpdate>(raw => new MasterDataUpdate
@@ -107,15 +109,10 @@ namespace Sakuno.ING.Game
             MapsUpdated = deserialized.Parse<MapInfoJson, RawMap[]>(raw => raw.api_map_info);
             AirForceGroupsUpdated = deserialized.Parse<MapInfoJson, RawAirForceGroup[]>(raw => raw.api_air_base);
 
-            var ship2Event = apiMessageSource.ApiMessageSource
-                .Where(message => message.Api == "api_get_member/ship2")
-                .Select(message => Deserialize<RawShip[]>(message))
-                .Where(svdata => svdata.api_result == 1)
-                .Select(svdata => svdata.api_data);
             ShipUpdate = Observable.Merge(new[]
             {
                 deserialized.OfData<RawShip>(),
-                ship2Event.SelectMany(ships => ships),
+                deserialized.OfData<RawShip[]>().SelectMany(ships => ships),
                 deserialized.Parse<Ship3Json, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
                 deserialized.Parse<ShipDeckJson, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
             });
@@ -125,41 +122,48 @@ namespace Sakuno.ING.Game
                 deserialized.Parse<ShipDeckJson, RawFleet[]>(raw => raw.api_deck_data),
             }).SelectMany(fleets => fleets);
 
+            FleetCompositionChanged = deserialized.Parse("api_req_hensei/change", ParseFleetCompositionChange);
+
+            RepairStarted = deserialized.Parse("api_req_nyukyo/start", ParseRepairStart);
+            InstantRepairUsed = deserialized.Parse("api_req_nyukyo/speedchange", ParseInstantRepair);
+
+            ConstructionStarted = deserialized.Parse("api_req_kousyou/createship", ParseConstructionStart);
+            InstantConstructionUsed = deserialized.Parse("api_req_kousyou/createship_speedchange", ParseInstantConstruction);
+
+            AirForceSquadronDeployed = deserialized.Parse<AirForceSquadronDeploymentJson, AirForceSquadronDeployment>((request, raw) =>
+                ParseAirForceSquadronDeployment(request, raw));
+            AirForceActionUpdated = deserialized.Parse("api_req_air_corps/set_action", ParseAirForceActionUpdates).SelectMany(updates => updates);
+
             deserialized.Connect();
-
-            FleetCompositionChanged = apiMessageSource.ApiMessageSource
-                .Where(message => message.Api == "api_req_hensei/change")
-                .Select(message => ParseFleetCompositionChange(ParseRequest(message.Request)));
-
-            RepairStarted = apiMessageSource.ApiMessageSource
-                .Where(message => message.Api == "api_req_nyukyo/start")
-                .Select(message => ParseRepairStart(ParseRequest(message.Request)));
-            InstantRepairUsed = apiMessageSource.ApiMessageSource
-                .Where(message => message.Api == "api_req_nyukyo/speedchange")
-                .Select(message => ParseInstantRepair(ParseRequest(message.Request)));
-
-            ConstructionStarted = apiMessageSource.ApiMessageSource
-                .Where(message => message.Api == "api_req_kousyou/createship")
-                .Select(message => ParseConstructionStart(ParseRequest(message.Request)));
-            InstantConstructionUsed = apiMessageSource.ApiMessageSource
-                .Where(message => message.Api == "api_req_kousyou/createship_speedchange")
-                .Select(message => ParseInstantConstruction(ParseRequest(message.Request)));
-
-            AirForceActionUpdated = apiMessageSource.ApiMessageSource
-                .Where(message => message.Api == "api_req_air_corps/set_action")
-                .SelectMany(message => ParseAirForceUpdates(ParseRequest(message.Request)));
 
             MaterialUpdate = Observable.Merge(new[]
             {
                 deserialized.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material)),
                 deserialized.Parse<RawMaterialItem[], IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw)),
                 ConstructionStarted,
+                deserialized.OfData<AirForceSquadronDeploymentJson>(),
             });
         }
 
-        private SvData<T> Deserialize<T>(ApiMessage message) =>
-            JsonSerializer.Deserialize<SvData<T>>(message.Response.Span, _serializerOptions)!;
         private NameValueCollection ParseRequest(ReadOnlyMemory<char> request) =>
             HttpUtility.ParseQueryString(request.ToString());
+
+        private SvData<T> Deserialize<T>(ApiMessage message) =>
+            JsonSerializer.Deserialize<SvData<T>>(message.Response.Span, _serializerOptions)!;
+        private SvDataRequestOnly DeserializeRequestOnly(ApiMessage message)
+        {
+            var result = JsonSerializer.Deserialize<SvDataRequestOnly>(message.Response.Span, _serializerOptions)!;
+            result.Api = message.Api;
+            result.Request = ParseRequest(message.Request);
+
+            return result;
+        }
+        private SvDataWithRequest<T> DeserializeWithRequest<T>(ApiMessage message)
+        {
+            var result = JsonSerializer.Deserialize<SvDataWithRequest<T>>(message.Response.Span, _serializerOptions)!;
+            result.Request = ParseRequest(message.Request);
+
+            return result;
+        }
     }
 }

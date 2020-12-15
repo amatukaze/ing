@@ -1,4 +1,5 @@
 ﻿using Sakuno.ING.Game.Events;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
 using System;
@@ -58,9 +59,19 @@ namespace Sakuno.ING.Game
         private static ConstructionDockId ParseInstantConstruction(NameValueCollection request) =>
             (ConstructionDockId)request.GetInt("api_kdock_id");
 
+        public IObservable<AirForceSquadronDeployment> AirForceSquadronDeployed { get; private set; }
         public IObservable<AirForceActionUpdate> AirForceActionUpdated { get; private set; }
 
-        private static IEnumerable<AirForceActionUpdate> ParseAirForceUpdates(NameValueCollection request)
+        private static AirForceSquadronDeployment ParseAirForceSquadronDeployment(NameValueCollection request, AirForceSquadronDeploymentJson response) =>
+            new AirForceSquadronDeployment
+            (
+                mapAreaId: (MapAreaId)request.GetInt("api_area_id"),
+                groupId: (AirForceGroupId)request.GetInt("api_base_id"),
+                baseCombatRadius: response.api_distance.api_base,
+                bonusCombatRadius: response.api_distance.api_bonus,
+                updatedSquadrons: response.api_plane_info
+            );
+        private static IEnumerable<AirForceActionUpdate> ParseAirForceActionUpdates(NameValueCollection request)
         {
             var mapArea = request.GetInt("api_area_id");
 
