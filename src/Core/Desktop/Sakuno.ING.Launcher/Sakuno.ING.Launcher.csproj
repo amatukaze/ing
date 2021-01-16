@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Sakuno.ING</RootNamespace>
+    <AssemblyName>IntelligentNavalGun</AssemblyName>
+    <ApplicationIcon>$(BasePath)src\app.ico</ApplicationIcon>
+    <ApplicationManifest>$(BasePath)src\app.manifest</ApplicationManifest>
+    <AutoGenerateBindingRedirect>true</AutoGenerateBindingRedirect>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
+    <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
+    <ProjectReference Include="$(BasePath)src\Core\Desktop\Sakuno.ING.Shell.Desktop\Sakuno.ING.Shell.Desktop.csproj" />
+    <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj" />
+  </ItemGroup>
+
+</Project>

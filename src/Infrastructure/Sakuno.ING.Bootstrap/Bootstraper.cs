@@ -1,5 +1,4 @@
 ﻿using DryIoc;
-using ReactiveUI;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Shell;
 using Splat;

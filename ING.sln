@@ -33,6 +33,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Models", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Bootstrap", "src\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj", "{525E9DFD-A51C-4ACB-A95E-45B8AFBC5D3B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{EFE26BB4-5B74-42D1-AD40-4DC376F146D1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{3753FC62-B775-4A12-82CE-06DD4E0601B3}"
+	ProjectSection(SolutionItems) = preProject
+		src\Core\Desktop\Directory.Build.props = src\Core\Desktop\Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Launcher", "src\Core\Desktop\Sakuno.ING.Launcher\Sakuno.ING.Launcher.csproj", "{254B0EE4-343E-4E8C-9A39-8041B1938A81}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Shell.Desktop", "src\Core\Desktop\Sakuno.ING.Shell.Desktop\Sakuno.ING.Shell.Desktop.csproj", "{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +102,30 @@ Global
 		{525E9DFD-A51C-4ACB-A95E-45B8AFBC5D3B}.Release|x64.Build.0 = Release|Any CPU
 		{525E9DFD-A51C-4ACB-A95E-45B8AFBC5D3B}.Release|x86.ActiveCfg = Release|Any CPU
 		{525E9DFD-A51C-4ACB-A95E-45B8AFBC5D3B}.Release|x86.Build.0 = Release|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Debug|x64.Build.0 = Debug|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Debug|x86.Build.0 = Debug|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Release|x64.ActiveCfg = Release|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Release|x64.Build.0 = Release|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Release|x86.ActiveCfg = Release|Any CPU
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81}.Release|x86.Build.0 = Release|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Debug|x64.Build.0 = Debug|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Debug|x86.Build.0 = Debug|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Release|x64.ActiveCfg = Release|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Release|x64.Build.0 = Release|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -100,6 +135,9 @@ Global
 		{5E09738D-EF15-4311-905C-AEEFF6F38182} = {30A48A41-32EA-426D-9817-DC9843F5728F}
 		{CABE0F77-6751-4C5C-84E0-65F919BE291B} = {30A48A41-32EA-426D-9817-DC9843F5728F}
 		{525E9DFD-A51C-4ACB-A95E-45B8AFBC5D3B} = {B1D34408-D334-448B-9A11-E0590FD28CDF}
+		{3753FC62-B775-4A12-82CE-06DD4E0601B3} = {EFE26BB4-5B74-42D1-AD40-4DC376F146D1}
+		{254B0EE4-343E-4E8C-9A39-8041B1938A81} = {3753FC62-B775-4A12-82CE-06DD4E0601B3}
+		{5A3AFDB9-1CE4-4D43-8B81-BD556CAC6D1F} = {3753FC62-B775-4A12-82CE-06DD4E0601B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF0E5A4C-10D8-4943-954D-1D652A07E08A}
