@@ -21,8 +21,8 @@
       },
       "Microsoft.Bcl.HashCode": {
         "type": "Transitive",
-        "resolved": "1.1.0",
-        "contentHash": "J2G1k+u5unBV+aYcwxo94ip16Rkp65pgWFb0R6zwJipzWNMgvqlWeuI7/+R+e8bob66LnSG+llLJ+z8wI94cHg=="
+        "resolved": "1.1.1",
+        "contentHash": "MalY0Y/uM/LjXtHfX/26l2VtN4LDNZ2OE3aumNOHDLsT4fNYy2hiHXI4CXCqKpNUNm7iJ2brrc4J89UdaL56FA=="
       },
       "Microsoft.NETCore.Platforms": {
         "type": "Transitive",
@@ -95,8 +95,8 @@
       },
       "System.Text.Json": {
         "type": "Transitive",
-        "resolved": "5.0.0",
-        "contentHash": "+luxMQNZ2WqeffBU7Ml6njIvxc8169NW2oU+ygNudXQGZiarjE7DOtN7bILiQjTZjkmwwRZGTtLzmdrSI/Ustw==",
+        "resolved": "5.0.1",
+        "contentHash": "/UM3UK1dXKl8Ybysg/21gM4S8DJgkR+yLU8JwqCVbuNqQNImelntgYFAN5QxR8sJJ1kMx//hOUdf0lltosi8cQ==",
         "dependencies": {
           "Microsoft.Bcl.AsyncInterfaces": "5.0.0",
           "System.Buffers": "4.5.1",
@@ -118,11 +118,11 @@
       "sakuno.ing.game.provider": {
         "type": "Project",
         "dependencies": {
-          "Microsoft.Bcl.HashCode": "1.1.0",
+          "Microsoft.Bcl.HashCode": "1.1.1",
           "Sakuno.ING.Standard": "1.0.0",
           "System.Reactive": "5.0.0",
           "System.Runtime.CompilerServices.Unsafe": "5.0.0",
-          "System.Text.Json": "5.0.0"
+          "System.Text.Json": "5.0.1"
         }
       },
       "sakuno.ing.standard": {
