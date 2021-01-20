@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DynamicData;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -66,6 +67,9 @@ namespace Sakuno.ING.Game
             }
         }
 
+        private readonly SourceCache<T, TId> _viewSource;
+        public IObservable<IChangeSet<T, TId>> DefaultViewSource { get; }
+
         static IdTable()
         {
             {
@@ -88,6 +92,9 @@ namespace Sakuno.ING.Game
         public IdTable(TOwner owner)
         {
             _owner = owner;
+
+            _viewSource = new SourceCache<T, TId>(r => r.Id);
+            DefaultViewSource = _viewSource.Connect();
         }
 
         public void Add(TRaw raw) => Add(_creation(raw, _owner));
@@ -108,6 +115,7 @@ namespace Sakuno.ING.Game
             }
 
             _list.Insert(~index, item);
+            _viewSource.AddOrUpdate(item);
             NotifyPropertyChanged(_countChangedEventArgs);
         }
 
@@ -123,7 +131,10 @@ namespace Sakuno.ING.Game
         {
             var result = _list.Remove(item);
             if (result)
+            {
+                _viewSource.Remove(item);
                 NotifyPropertyChanged(_countChangedEventArgs);
+            }
 
             return result;
         }
@@ -131,7 +142,10 @@ namespace Sakuno.ING.Game
         {
             var result = _list.RemoveAll(predicate);
             if (result > 0)
+            {
+                _viewSource.EditDiff(_list, (x, y) => EqualityComparer<TId>.Default.Equals(x.Id, y.Id));
                 NotifyPropertyChanged(_countChangedEventArgs);
+            }
 
             return result;
         }
@@ -139,6 +153,7 @@ namespace Sakuno.ING.Game
         public void Clear()
         {
             _list.Clear();
+            _viewSource.Clear();
             NotifyPropertyChanged(_countChangedEventArgs);
         }
 
@@ -169,19 +184,29 @@ namespace Sakuno.ING.Game
         {
             var i = 0;
 
-            foreach (var raw in source)
+            _viewSource.Edit(updater =>
             {
-                while (i < _list.Count && Compare(_list[i].Id, raw.Id) < 0)
-                    if (removal)
-                        _list.RemoveAt(i);
-                    else
-                        i++;
+                foreach (var raw in source)
+                {
+                    while (i < _list.Count && Compare(_list[i].Id, raw.Id) < 0)
+                        if (!removal)
+                            i++;
+                        else
+                        {
+                            updater.RemoveKey(_list[i].Id);
+                            _list.RemoveAt(i);
+                        }
 
-                if (i < _list.Count && EqualityComparer<TId>.Default.Equals(_list[i].Id, raw.Id))
-                    _list[i++].Update(raw);
-                else
-                    _list.Insert(i++, _creation(raw, _owner));
-            }
+                    if (i < _list.Count && EqualityComparer<TId>.Default.Equals(_list[i].Id, raw.Id))
+                        _list[i++].Update(raw);
+                    else
+                    {
+                        var newItem = _creation(raw, _owner);
+                        updater.AddOrUpdate(newItem);
+                        _list.Insert(i++, newItem);
+                    }
+                }
+            });
 
             NotifyPropertyChanged(_countChangedEventArgs);
         }

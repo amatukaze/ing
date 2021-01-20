@@ -146,6 +146,7 @@
       "sakuno.ing.game.models": {
         "type": "Project",
         "dependencies": {
+          "DynamicData": "7.1.1",
           "Sakuno.ING.Game.Provider": "1.0.0"
         }
       },
@@ -387,6 +388,7 @@
       "sakuno.ing.game.models": {
         "type": "Project",
         "dependencies": {
+          "DynamicData": "7.1.1",
           "Sakuno.ING.Game.Provider": "1.0.0"
         }
       },
