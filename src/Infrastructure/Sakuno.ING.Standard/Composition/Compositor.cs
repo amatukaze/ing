@@ -14,5 +14,6 @@ namespace Sakuno.ING.Composition
 
         public abstract T Resolve<T>() where T : class;
         public abstract object Resolve(Type type);
+        public abstract object? ResolveViewOrDefault(string? viewId);
     }
 }
