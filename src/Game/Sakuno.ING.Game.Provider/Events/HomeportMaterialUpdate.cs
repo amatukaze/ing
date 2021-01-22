@@ -11,7 +11,7 @@ namespace Sakuno.ING.Game.Events
             _items = items;
         }
 
-        public void Apply(ref Materials materials)
+        public void Apply(Materials materials)
         {
             foreach (var item in _items)
             {

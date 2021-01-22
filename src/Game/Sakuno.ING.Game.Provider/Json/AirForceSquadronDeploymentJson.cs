@@ -10,7 +10,7 @@ namespace Sakuno.ING.Game.Json
         public RawAirForceSquadron[] api_plane_info { get; set; }
         public int? api_after_bauxite { get; set; }
 
-        public void Apply(ref Materials materials)
+        public void Apply(Materials materials)
         {
             if (api_after_bauxite is int bauxite)
                 materials.Bauxite = bauxite;

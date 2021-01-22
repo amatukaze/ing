@@ -17,7 +17,7 @@ namespace Sakuno.ING.Game.Events
             Consumption = consumption;
         }
 
-        public void Apply(ref Materials materials)
+        public void Apply(Materials materials)
         {
             materials.Fuel -= Consumption.Fuel;
             materials.Bullet -= Consumption.Bullet;
