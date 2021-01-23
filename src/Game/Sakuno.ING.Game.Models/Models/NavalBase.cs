@@ -1,5 +1,6 @@
 using Sakuno.ING.Game.Models.MasterData;
 using System;
+using System.Reactive.Linq;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -31,15 +32,8 @@ namespace Sakuno.ING.Game.Models
         private readonly IdTable<(MapAreaId MapArea, AirForceGroupId Group), AirForceGroup, RawAirForceGroup, NavalBase> _airForceGroups;
         public ITable<(MapAreaId MapArea, AirForceGroupId Group), AirForceGroup> AirForceGroups => _airForceGroups;
 
-        private Admiral? _admiral;
-        public Admiral Admiral => _admiral ?? throw new InvalidOperationException("Game not initialized");
-
-        private Materials _materials;
-        public Materials Materials
-        {
-            get => _materials;
-            set => Set(ref _materials, value);
-        }
+        public IObservable<Admiral> Admiral { get; }
+        public IObservable<Materials> Materials { get; }
 
         public NavalBase(GameProvider provider)
         {
@@ -54,16 +48,13 @@ namespace Sakuno.ING.Game.Models
             _maps = new IdTable<MapId, Map, RawMap, NavalBase>(this);
             _airForceGroups = new IdTable<(MapAreaId MapArea, AirForceGroupId Group), AirForceGroup, RawAirForceGroup, NavalBase>(this);
 
-            provider.AdmiralUpdated.Subscribe(message =>
+            Admiral = provider.AdmiralUpdated.Scan((Admiral)null!, (admiral, message) =>
             {
-                if (_admiral?.Id == message.Id)
-                {
-                    _admiral.Update(message);
-                    return;
-                }
+                if (admiral?.Id != message.Id)
+                    return new Admiral(message, this);
 
-                _admiral = new Admiral(message, this);
-                NotifyPropertyChanged(nameof(Admiral));
+                admiral.Update(message);
+                return admiral;
             });
 
             provider.ConstructionDocksUpdated.Subscribe(message => _constructionDocks.BatchUpdate(message));
@@ -80,17 +71,10 @@ namespace Sakuno.ING.Game.Models
 
             provider.AirForceActionUpdated.Subscribe(message => AirForceGroups[(message.MapAreaId, message.GroupId)].Action = message.Action);
 
-            provider.MaterialUpdate.Subscribe(message =>
+            Materials = provider.MaterialUpdate.Scan(new Materials(), (materials, message) =>
             {
-                var old = Materials;
-                var materials = old;
-
-                message.Apply(ref materials);
-
-                if (old == materials)
-                    return;
-
-                Materials = materials;
+                message.Apply(materials);
+                return materials;
             });
         }
     }
