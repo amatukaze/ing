@@ -2,8 +2,8 @@
 
   <ItemGroup>
     <PackageReference Include="DryIoc.dll" Version="4.7.2" />
-    <PackageReference Include="ReactiveUI" Version="13.0.38" />
-    <PackageReference Include="Splat.DryIoc" Version="9.8.1" />
+    <PackageReference Include="ReactiveUI" Version="13.1.1" />
+    <PackageReference Include="Splat.DryIoc" Version="10.0.1" />
   </ItemGroup>
 
   <ItemGroup>
