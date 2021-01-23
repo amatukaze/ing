@@ -639,13 +639,13 @@ namespace Sakuno.ING.Game.Models
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private static readonly PropertyChangedEventArgs __eventArgs_maxEquipmentCount = new PropertyChangedEventArgs(nameof(MaxEquipmentCount));
+        private static readonly PropertyChangedEventArgs __eventArgs_maxSlotItemCount = new PropertyChangedEventArgs(nameof(MaxSlotItemCount));
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private int _maxEquipmentCount;
-        public int MaxEquipmentCount
+        private int _maxSlotItemCount;
+        public int MaxSlotItemCount
         {
-            get => _maxEquipmentCount;
-            private set => Set(ref _maxEquipmentCount, value, __eventArgs_maxEquipmentCount);
+            get => _maxSlotItemCount;
+            private set => Set(ref _maxSlotItemCount, value, __eventArgs_maxSlotItemCount);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -680,7 +680,7 @@ namespace Sakuno.ING.Game.Models
             Leveling = raw.Leveling;
             Rank = raw.Rank;
             MaxShipCount = raw.MaxShipCount;
-            MaxEquipmentCount = raw.MaxEquipmentCount;
+            MaxSlotItemCount = raw.MaxSlotItemCount;
             MaxMaterial = raw.MaxMaterial;
 
             UpdateCore(raw);

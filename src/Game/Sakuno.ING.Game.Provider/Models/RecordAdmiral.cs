@@ -26,7 +26,7 @@ namespace Sakuno.ING.Game.Models
         public override int MaxShipCount => api_ship[1];
 
         public int[] api_slotitem { get; set; }
-        public override int MaxEquipmentCount => api_slotitem[1];
+        public override int MaxSlotItemCount => api_slotitem[1];
 
         public int api_material_max { get; set; }
         public override int MaxMaterial => api_material_max;

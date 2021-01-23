@@ -56,7 +56,7 @@
     <property type="Leveling" name="Leveling" autoFill="true" />
     <property type="AdmiralRank" name="Rank" autoFill="true" />
     <property type="int" name="MaxShipCount" autoFill="true" />
-    <property type="int" name="MaxEquipmentCount" autoFill="true" />
+    <property type="int" name="MaxSlotItemCount" autoFill="true" />
     <property type="int" name="MaxMaterial" autoFill="true" />
   </class>
   <class name="Map" id="MapId" raw="RawMap" owner="NavalBase">

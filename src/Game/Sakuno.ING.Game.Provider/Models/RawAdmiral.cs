@@ -8,7 +8,7 @@
         public abstract Leveling Leveling { get; }
         public abstract AdmiralRank Rank { get; }
         public abstract int MaxShipCount { get; }
-        public abstract int MaxEquipmentCount { get; }
+        public abstract int MaxSlotItemCount { get; }
         public abstract int MaxMaterial { get; }
     }
 }
