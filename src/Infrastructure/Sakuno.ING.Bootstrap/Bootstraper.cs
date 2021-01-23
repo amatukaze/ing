@@ -1,4 +1,4 @@
-﻿using DryIoc;
+using DryIoc;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Shell;
 using Splat;
@@ -33,7 +33,7 @@ namespace Sakuno.ING.Bootstrap
                         switch (attribute)
                         {
                             case ExportAttribute exportAttribute:
-                                container.Register(exportAttribute.ContractType ?? type, type, exportAttribute.LazyCreate ? null : Reuse.Singleton);
+                                container.Register(exportAttribute.ContractType ?? type, type, !exportAttribute.SingleInstance ? null : Reuse.Singleton);
                                 break;
 
                             case ExportViewAttribute exportViewAttribute:
