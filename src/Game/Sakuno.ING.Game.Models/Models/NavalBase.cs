@@ -1,9 +1,11 @@
+﻿using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Models.MasterData;
 using System;
 using System.Reactive.Linq;
 
 namespace Sakuno.ING.Game.Models
 {
+    [Export]
     public class NavalBase : BindableObject
     {
         public MasterDataRoot MasterData { get; }

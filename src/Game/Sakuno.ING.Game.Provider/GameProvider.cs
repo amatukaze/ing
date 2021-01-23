@@ -1,4 +1,5 @@
-﻿using Sakuno.ING.Game.Events;
+﻿using Sakuno.ING.Composition;
+using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
@@ -12,6 +13,7 @@ using System.Web;
 
 namespace Sakuno.ING.Game
 {
+    [Export]
     public sealed partial class GameProvider
     {
         private readonly JsonSerializerOptions _serializerOptions;

@@ -15,6 +15,7 @@
     <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
     <ProjectReference Include="$(BasePath)src\Core\Desktop\Sakuno.ING.Shell.Desktop\Sakuno.ING.Shell.Desktop.csproj" />
     <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Bootstrap\Sakuno.ING.Bootstrap.csproj" />
+    <ProjectReference Include="$(BasePath)src\Views\Sakuno.ING.Views.Desktop\Sakuno.ING.Views.Desktop.csproj" />
   </ItemGroup>
 
 </Project>
