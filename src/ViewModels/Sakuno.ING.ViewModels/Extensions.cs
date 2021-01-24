@@ -19,5 +19,23 @@ namespace Sakuno.ING.ViewModels
 
             return result;
         }
+        public static IReadOnlyCollection<T> Bind<T>(this IObservable<IChangeSet<T>> source, CompositeDisposable? disposables = null)
+        {
+            var subscription = source.ObserveOn(RxApp.MainThreadScheduler).Bind(out var result).Subscribe();
+
+            if (disposables is not null)
+                subscription.DisposeWith(disposables);
+
+            return result;
+        }
+        public static IReadOnlyCollection<T> Bind<TId, T>(this IObservable<IChangeSet<T, TId>> source, CompositeDisposable? disposables = null) where TId : struct
+        {
+            var subscription = source.ObserveOn(RxApp.MainThreadScheduler).Bind(out var result).Subscribe();
+
+            if (disposables is not null)
+                subscription.DisposeWith(disposables);
+
+            return result;
+        }
     }
 }

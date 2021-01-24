@@ -1,4 +1,5 @@
-using DryIoc;
+﻿using DryIoc;
+using ReactiveUI;
 using Sakuno.ING.Composition;
 using Sakuno.ING.Shell;
 using Splat;
@@ -41,6 +42,10 @@ namespace Sakuno.ING.Bootstrap
                                 container.Register(type);
                                 break;
                         }
+
+                    if (type.IsAssignableTo(typeof(IViewFor)) && !container.IsRegistered(type) &&
+                        type.ImplementedInterfaces.SingleOrDefault(r => r.IsGenericType && r.GetGenericTypeDefinition() == typeof(IViewFor<>)) is Type viewForType)
+                        container.Register(viewForType, type);
                 }
 
             Locator.CurrentMutable.InitializeSplat();
