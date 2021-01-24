@@ -1,4 +1,5 @@
-﻿using Sakuno.ING.Game.Models.MasterData;
+﻿using Sakuno.ING.Game.Json.Converters;
+using Sakuno.ING.Game.Models.MasterData;
 using System.Text.Json.Serialization;
 
 namespace Sakuno.ING.Game.Models
@@ -10,6 +11,7 @@ namespace Sakuno.ING.Game.Models
         public MapId Id { get; set; }
 
         [JsonPropertyName("api_cleared")]
+        [JsonConverter(typeof(IntToBooleanConverter))]
         public bool IsCleared { get; set; }
 
         [JsonPropertyName("api_air_base_decks")]
