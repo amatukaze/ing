@@ -6,6 +6,7 @@
                           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:viewmodel="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
+                          xmlns:controls="clr-namespace:Sakuno.ING.Views.Desktop.Controls;assembly=Sakuno.ING.Views.Desktop.Common"
                           mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -19,13 +20,13 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Name="Fuel" />
-        <TextBlock Name="Bullet" Grid.Column="1" />
-        <TextBlock Name="Steel" Grid.Column="2" />
-        <TextBlock Name="Bauxite" Grid.Column="3" />
-        <TextBlock Name="InstantRepair" Grid.Row="1" />
-        <TextBlock Name="InstantBuild" Grid.Row="1" Grid.Column="1" />
-        <TextBlock Name="Development" Grid.Row="1" Grid.Column="2" />
-        <TextBlock Name="Improvement" Grid.Row="1" Grid.Column="3" />
+        <controls:UseItemPresenter x:Name="Fuel" Id="Fuel" />
+        <controls:UseItemPresenter x:Name="Bullet" Id="Bullet" Grid.Column="1" />
+        <controls:UseItemPresenter x:Name="Steel" Id="Steel" Grid.Column="2" />
+        <controls:UseItemPresenter x:Name="Bauxite" Id="Bauxite" Grid.Column="3" />
+        <controls:UseItemPresenter x:Name="InstantRepair" Id="InstantRepair" Grid.Row="1" />
+        <controls:UseItemPresenter x:Name="InstantBuild" Id="InstantBuild" Grid.Row="1" Grid.Column="1" />
+        <controls:UseItemPresenter x:Name="Development" Id="Development" Grid.Row="1" Grid.Column="2" />
+        <controls:UseItemPresenter x:Name="Improvement" Id="Improvement" Grid.Row="1" Grid.Column="3" />
     </Grid>
 </rxui:ReactiveUserControl>

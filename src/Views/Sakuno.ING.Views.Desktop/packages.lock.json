@@ -150,6 +150,12 @@
           "ReactiveUI": "13.1.1",
           "Sakuno.ING.Game.Models": "1.0.0"
         }
+      },
+      "sakuno.ing.views.desktop.common": {
+        "type": "Project",
+        "dependencies": {
+          "Sakuno.ING.Game.Models": "1.0.0"
+        }
       }
     },
     ".NETCoreApp,Version=v5.0": {
@@ -343,6 +349,12 @@
         "type": "Project",
         "dependencies": {
           "ReactiveUI": "13.1.1",
+          "Sakuno.ING.Game.Models": "1.0.0"
+        }
+      },
+      "sakuno.ing.views.desktop.common": {
+        "type": "Project",
+        "dependencies": {
           "Sakuno.ING.Game.Models": "1.0.0"
         }
       }

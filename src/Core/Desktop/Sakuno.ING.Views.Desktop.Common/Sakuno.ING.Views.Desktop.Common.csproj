@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+    <PropertyGroup>
+      <UseWpf>true</UseWpf>
+      <RootNamespace>Sakuno.ING.Views.Desktop</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Resource Include="Images\**\*.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Models\Sakuno.ING.Game.Models.csproj" />
+    </ItemGroup>
+
+  </Project>

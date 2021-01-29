@@ -185,7 +185,14 @@
         "dependencies": {
           "ReactiveUI.WPF": "13.1.1",
           "Sakuno.ING.Game.Models": "1.0.0",
-          "Sakuno.ING.ViewModels": "1.0.0"
+          "Sakuno.ING.ViewModels": "1.0.0",
+          "Sakuno.ING.Views.Desktop.Common": "1.0.0"
+        }
+      },
+      "sakuno.ing.views.desktop.common": {
+        "type": "Project",
+        "dependencies": {
+          "Sakuno.ING.Game.Models": "1.0.0"
         }
       }
     },
@@ -442,7 +449,14 @@
         "dependencies": {
           "ReactiveUI.WPF": "13.1.1",
           "Sakuno.ING.Game.Models": "1.0.0",
-          "Sakuno.ING.ViewModels": "1.0.0"
+          "Sakuno.ING.ViewModels": "1.0.0",
+          "Sakuno.ING.Views.Desktop.Common": "1.0.0"
+        }
+      },
+      "sakuno.ing.views.desktop.common": {
+        "type": "Project",
+        "dependencies": {
+          "Sakuno.ING.Game.Models": "1.0.0"
         }
       }
     },
