@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace Sakuno.ING.Views.Desktop.Controls
 {
-    public class UseItemIcon : Control
+    public sealed class UseItemIcon : Control
     {
         public static readonly DependencyProperty IdProperty =
             DependencyProperty.Register(nameof(Id), typeof(KnownUseItem), typeof(UseItemIcon), new PropertyMetadata(default(KnownUseItem), Update));
@@ -19,23 +19,23 @@ namespace Sakuno.ING.Views.Desktop.Controls
             set => SetValue(IdProperty, value);
         }
 
-        private readonly Image image = new Image();
+        private readonly Image _image = new Image();
 
         public UseItemIcon()
         {
-            AddVisualChild(image);
+            AddVisualChild(_image);
         }
 
         protected override int VisualChildrenCount => 1;
-        protected override Visual GetVisualChild(int index) => image;
+        protected override Visual GetVisualChild(int index) => _image;
 
-        private static readonly SortedList<KnownUseItem, BitmapImage?> bitmapSources = new SortedList<KnownUseItem, BitmapImage?>();
+        private static readonly SortedList<KnownUseItem, BitmapImage?> _bitmapSources = new SortedList<KnownUseItem, BitmapImage?>();
         private static void Update(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var i = (UseItemIcon)d;
             var id = (KnownUseItem)e.NewValue;
 
-            if (!bitmapSources.TryGetValue(id, out var source))
+            if (!_bitmapSources.TryGetValue(id, out var source))
             {
                 try
                 {
@@ -47,10 +47,10 @@ namespace Sakuno.ING.Views.Desktop.Controls
                     source = null;
                 }
 
-                bitmapSources[id] = source;
+                _bitmapSources[id] = source;
             }
 
-            i.image.Source = source;
+            i._image.Source = source;
         }
     }
 }

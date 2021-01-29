@@ -6,7 +6,7 @@ using System.Windows.Controls;
 namespace Sakuno.ING.Views.Desktop.Controls
 {
     [TemplatePart(Name = Name_PART_Difference, Type = typeof(TextBlock))]
-    public class UseItemPresenter : Control
+    public sealed class UseItemPresenter : Control
     {
         private const string Name_PART_Difference = "PART_Difference";
 
