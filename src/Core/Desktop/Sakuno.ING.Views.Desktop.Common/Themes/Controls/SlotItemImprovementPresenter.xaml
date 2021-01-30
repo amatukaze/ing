@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls">
+    <Style TargetType="local:SlotItemImprovementPresenter">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SlotItemImprovementPresenter">
+                    <TextBlock>
+                        <Run Name="Star" /><Run Name="PART_Level" />
+                    </TextBlock>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ShowStar" Value="True">
+                            <Setter TargetName="Star" Property="Text" Value="★" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
