@@ -1,4 +1,5 @@
-﻿using DynamicData.Aggregation;
+﻿using DynamicData;
+using DynamicData.Aggregation;
 using ReactiveUI;
 using Sakuno.ING.Game.Models;
 using System.Collections.Generic;
@@ -23,10 +24,11 @@ namespace Sakuno.ING.ViewModels.Homeport
         {
             Model = fleet;
 
-            Ships = fleet.Ships.Bind();
+            var ships = fleet.Ships.AsObservableChangeSet();
+            Ships = ships.Bind();
 
-            _totalLevel = fleet.Ships.Sum(r => r.Leveling.Level).ToProperty(this, nameof(TotalLevel), deferSubscription: true);
-            _speed = fleet.Ships.Minimum(r => (int)r.Speed).ToProperty(this, nameof(ShipSpeed));
+            _totalLevel = ships.Sum(r => r.Leveling.Level).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalLevel), deferSubscription: true);
+            _speed = ships.Minimum(r => (int)r.Speed).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(ShipSpeed));
         }
     }
 }
