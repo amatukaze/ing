@@ -44,7 +44,7 @@ namespace Sakuno.ING.Game
         {
             get
             {
-                if (id is TId validId && TryGetValue(validId, out var item))
+                if (id is TId validId && Unsafe.As<TId, int>(ref validId) > 0 && TryGetValue(validId, out var item))
                     return item;
 
                 return default;
