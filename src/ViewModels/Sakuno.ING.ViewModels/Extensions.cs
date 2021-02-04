@@ -28,7 +28,7 @@ namespace Sakuno.ING.ViewModels
 
             return result;
         }
-        public static IReadOnlyCollection<T> Bind<TId, T>(this IObservable<IChangeSet<T, TId>> source, CompositeDisposable? disposables = null) where TId : struct
+        public static IReadOnlyCollection<T> Bind<TId, T>(this IObservable<IChangeSet<T, TId>> source, CompositeDisposable? disposables = null) where TId : notnull
         {
             var subscription = source.ObserveOn(RxApp.MainThreadScheduler).Bind(out var result).Subscribe();
 
