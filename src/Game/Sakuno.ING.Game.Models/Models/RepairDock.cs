@@ -4,6 +4,7 @@
     {
         partial void UpdateCore(RawRepairDock raw)
         {
+            RepairingShip = _owner.Ships[raw.RepairingShipId];
         }
     }
 }

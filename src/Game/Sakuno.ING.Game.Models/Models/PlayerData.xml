@@ -11,6 +11,7 @@
   <class name="RepairDock" id="RepairDockId" raw="RawRepairDock" owner="NavalBase">
     <property type="RepairDockState" name="State" autoFill="true" />
     <property type="Materials" name="Consumption" autoFill="true" />
+    <property type="PlayerShip" name="RepairingShip" />
   </class>
   <class name="UseItemCount" id="UseItemId" raw="RawUseItemCount" owner="NavalBase">
     <property type="UseItemInfo" name="UseItem" />

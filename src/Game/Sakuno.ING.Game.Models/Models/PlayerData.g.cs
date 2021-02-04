@@ -111,6 +111,16 @@ namespace Sakuno.ING.Game.Models
             private set => Set(ref _consumption, value, __eventArgs_consumption);
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_repairingShip = new PropertyChangedEventArgs(nameof(RepairingShip));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private PlayerShip _repairingShip;
+        public PlayerShip RepairingShip
+        {
+            get => _repairingShip;
+            private set => Set(ref _repairingShip, value, __eventArgs_repairingShip);
+        }
+
         public int CompareTo(RepairDock other) => Id.CompareTo(other?.Id ?? default);
 
         public RepairDockId Id { get; }
