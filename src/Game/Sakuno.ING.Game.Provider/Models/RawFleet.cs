@@ -16,6 +16,7 @@ namespace Sakuno.ING.Game.Models
         public RawFleetExpeditionStatus ExpeditionStatus { get; set; }
 
         [JsonPropertyName("api_ship")]
+        [JsonConverter(typeof(ValidIdArrayConverterFactory))]
         public ShipId[] ShipIds { get; set; }
     }
 #nullable enable
