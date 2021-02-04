@@ -16,7 +16,7 @@ namespace Sakuno.ING.Views.Desktop.Controls
         private const string Proficiency6Path = "M0,0 L5,20 7,20 2,0 L10,20 12,20 7,0 M10,0 L15,20 17,20 12,0";
         private const string Proficiency7Path = "M0,0 L5,10 0,20 2,20 7,10 2,0 M5,0 L10,10 5,20 7,20 12,10 7,0";
 
-        public static DependencyProperty ProficiencyProperty =
+        public static readonly DependencyProperty ProficiencyProperty =
             DependencyProperty.Register(nameof(Proficiency), typeof(int), typeof(AerialProficiencyPresenter), new PropertyMetadata(0, Update));
         public int Proficiency
         {

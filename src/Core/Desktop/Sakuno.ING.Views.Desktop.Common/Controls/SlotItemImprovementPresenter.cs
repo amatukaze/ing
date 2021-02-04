@@ -10,7 +10,7 @@ namespace Sakuno.ING.Views.Desktop.Controls
     {
         private const string Name_PART_Level = "PART_Level";
 
-        public static DependencyProperty LevelProperty =
+        public static readonly DependencyProperty LevelProperty =
             DependencyProperty.Register(nameof(Level), typeof(int), typeof(SlotItemImprovementPresenter), new PropertyMetadata(0, UpdateLevel));
         public int Level
         {
@@ -18,7 +18,7 @@ namespace Sakuno.ING.Views.Desktop.Controls
             set => SetValue(LevelProperty, value);
         }
 
-        public static DependencyProperty ShowStarProperty =
+        public static readonly DependencyProperty ShowStarProperty =
             DependencyProperty.Register(nameof(ShowStar), typeof(bool), typeof(SlotItemImprovementPresenter), new PropertyMetadata(true));
         public bool ShowStar
         {
