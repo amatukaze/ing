@@ -3,6 +3,7 @@ using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
+using Sakuno.ING.Game.Models.Quests;
 using Sakuno.ING.Messaging;
 using System;
 using System.Collections.Specialized;
@@ -51,6 +52,7 @@ namespace Sakuno.ING.Game
                 "api_get_member/ship_deck" => Deserialize<ShipDeckJson>(message),
                 "api_req_kaisou/marriage" => Deserialize<RawShip>(message),
                 "api_req_air_corps/set_plane" => DeserializeWithRequest<AirForceSquadronDeploymentJson>(message),
+                "api_get_member/questlist" => Deserialize<QuestListJson>(message),
 
                 _ => (SvData)DeserializeRequestOnly(message),
             }).Publish();
@@ -135,6 +137,9 @@ namespace Sakuno.ING.Game
             AirForceSquadronDeployed = deserialized.Parse<AirForceSquadronDeploymentJson, AirForceSquadronDeployment>((request, raw) =>
                 ParseAirForceSquadronDeployment(request, raw));
             AirForceActionUpdated = deserialized.Parse("api_req_air_corps/set_action", ParseAirForceActionUpdates).SelectMany(updates => updates);
+
+            QuestListUpdated = deserialized.Parse<QuestListJson, RawQuest[]>(raw => raw.api_list);
+            QuestCompleted = deserialized.Parse("api_req_quest/clearitemget", ParseQuestCompleted);
 
             deserialized.Connect();
 

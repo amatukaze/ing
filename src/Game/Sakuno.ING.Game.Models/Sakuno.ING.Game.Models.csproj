@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClassTemplate Include="Models\MasterData\MasterData.xml" />
     <ClassTemplate Include="Models\PlayerData.xml" />
+    <ClassTemplate Include="Models\Quests\Quest.xml" />
   </ItemGroup>
 
   <ItemGroup>

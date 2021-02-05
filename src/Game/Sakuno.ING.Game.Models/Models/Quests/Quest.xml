@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<classTemplate xmlns="http://schemas.heavenlywind.cc/xsd/game_model_generator"
+               namespace="Sakuno.ING.Game.Models.Quests">
+  <class name="Quest" id="QuestId" raw="RawQuest" owner="QuestManager">
+    <property type="string" name="Name" autoFill="true" />
+    <property type="QuestState" name="State" autoFill="true" />
+  </class>
+</classTemplate>
