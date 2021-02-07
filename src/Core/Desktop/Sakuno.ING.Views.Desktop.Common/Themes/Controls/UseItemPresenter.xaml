@@ -35,7 +35,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
 
-                        <local:UseItemIcon Id="{TemplateBinding Id}" Width="18" />
+                        <local:UseItemIcon Id="{TemplateBinding Id}" />
                         <Grid>
                             <TextBlock Text="{Binding Amount, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="2, 0" />
                             <Border Name="DifferenceBorder" Background="Transparent" Padding="2, 0">

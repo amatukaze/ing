@@ -21,6 +21,11 @@ namespace Sakuno.ING.Views.Desktop.Controls
 
         private readonly Image _image = new Image();
 
+        static UseItemIcon()
+        {
+            WidthProperty.OverrideMetadata(typeof(UseItemIcon), new FrameworkPropertyMetadata(18d));
+            HeightProperty.OverrideMetadata(typeof(UseItemIcon), new FrameworkPropertyMetadata(18d));
+        }
         public UseItemIcon()
         {
             AddVisualChild(_image);
