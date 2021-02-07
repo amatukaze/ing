@@ -31,6 +31,8 @@
 
             <TextBlock Name="Id" />
             <TextBlock Name="Ship" TextTrimming="CharacterEllipsis" Grid.Column="1" />
+            <controls:CountdownPresenter Name="RemainingTime" Grid.Column="2" />
+            <TextBlock Name="CompletionText" Text="Completed" Grid.Column="2" />
         </Grid>
     </Border>
 </rxui:ReactiveUserControl>

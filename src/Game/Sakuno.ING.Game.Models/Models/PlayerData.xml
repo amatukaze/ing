@@ -6,12 +6,14 @@
     <property type="ConstructionDockState" name="State" autoFill="true" />
     <property type="Materials" name="Consumption" autoFill="true" />
     <property type="ShipInfo" name="BuiltShip" />
+    <property type="DateTimeOffset?" name="CompletionTime" autoFill="true" />
     <property type="bool" name="IsLSC" autoFill="true" />
   </class>
   <class name="RepairDock" id="RepairDockId" raw="RawRepairDock" owner="NavalBase">
     <property type="RepairDockState" name="State" autoFill="true" />
     <property type="Materials" name="Consumption" autoFill="true" />
     <property type="PlayerShip" name="RepairingShip" />
+    <property type="DateTimeOffset?" name="CompletionTime" autoFill="true" />
   </class>
   <class name="UseItemCount" id="UseItemId" raw="RawUseItemCount" owner="NavalBase">
     <property type="UseItemInfo" name="UseItem" />

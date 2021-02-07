@@ -48,6 +48,16 @@ namespace Sakuno.ING.Game.Models
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_completionTime = new PropertyChangedEventArgs(nameof(CompletionTime));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private DateTimeOffset? _completionTime;
+        public DateTimeOffset? CompletionTime
+        {
+            get => _completionTime;
+            private set => Set(ref _completionTime, value, __eventArgs_completionTime);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         private static readonly PropertyChangedEventArgs __eventArgs_isLSC = new PropertyChangedEventArgs(nameof(IsLSC));
         [EditorBrowsable(EditorBrowsableState.Never)]
         private bool _isLSC;
@@ -77,6 +87,7 @@ namespace Sakuno.ING.Game.Models
         {
             State = raw.State;
             Consumption = raw.Consumption;
+            CompletionTime = raw.CompletionTime;
             IsLSC = raw.IsLSC;
 
             UpdateCore(raw);
@@ -121,6 +132,16 @@ namespace Sakuno.ING.Game.Models
             private set => Set(ref _repairingShip, value, __eventArgs_repairingShip);
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_completionTime = new PropertyChangedEventArgs(nameof(CompletionTime));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private DateTimeOffset? _completionTime;
+        public DateTimeOffset? CompletionTime
+        {
+            get => _completionTime;
+            private set => Set(ref _completionTime, value, __eventArgs_completionTime);
+        }
+
         public int CompareTo(RepairDock other) => Id.CompareTo(other?.Id ?? default);
 
         public RepairDockId Id { get; }
@@ -141,6 +162,7 @@ namespace Sakuno.ING.Game.Models
         {
             State = raw.State;
             Consumption = raw.Consumption;
+            CompletionTime = raw.CompletionTime;
 
             UpdateCore(raw);
         }
