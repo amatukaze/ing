@@ -24,7 +24,11 @@ namespace Sakuno.ING.Views.Desktop.Controls
             set => SetValue(ProficiencyProperty, value);
         }
 
-        private readonly Path _path = new Path();
+        private readonly Path _path = new Path()
+        {
+            VerticalAlignment = VerticalAlignment.Center,
+            HorizontalAlignment = HorizontalAlignment.Center,
+        };
 
         public AerialProficiencyPresenter()
         {
