@@ -9,6 +9,8 @@
                      xmlns:shell="clr-namespace:Sakuno.ING.Shell.Desktop"
                      mc:Ignorable="d"
                      Title="MainWindow"
+                     UseLayoutRounding="True"
+                     TextOptions.TextRenderingMode="ClearType"
                      Width="800" Height="450">
     <Grid>
     </Grid>
