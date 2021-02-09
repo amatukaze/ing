@@ -8,10 +8,10 @@ namespace Sakuno.ING.ViewModels.Homeport
     [Export]
     public sealed class AdmiralViewModel : ReactiveObject
     {
-        private ObservableAsPropertyHelper<string> _name;
+        private readonly ObservableAsPropertyHelper<string> _name;
         public string Name => _name.Value;
 
-        private ObservableAsPropertyHelper<int> _level;
+        private readonly ObservableAsPropertyHelper<int> _level;
         public int Level => _level.Value;
 
         public AdmiralViewModel(NavalBase navalBase)

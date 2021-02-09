@@ -8,7 +8,7 @@ namespace Sakuno.ING.ViewModels.Homeport
     {
         public ConstructionDock Model { get; }
 
-        private ObservableAsPropertyHelper<bool> _isCompleted;
+        private readonly ObservableAsPropertyHelper<bool> _isCompleted;
         public bool IsCompleted => _isCompleted.Value;
 
         public ConstructionDockViewModel(ConstructionDock constructionDock)

@@ -8,28 +8,28 @@ namespace Sakuno.ING.ViewModels.Homeport
     [Export]
     public sealed class MaterialsViewModel : ReactiveObject
     {
-        private ObservableAsPropertyHelper<int> _fuel;
+        private readonly ObservableAsPropertyHelper<int> _fuel;
         public int Fuel => _fuel.Value;
 
-        private ObservableAsPropertyHelper<int> _bullet;
+        private readonly ObservableAsPropertyHelper<int> _bullet;
         public int Bullet => _bullet.Value;
 
-        private ObservableAsPropertyHelper<int> _steel;
+        private readonly ObservableAsPropertyHelper<int> _steel;
         public int Steel => _steel.Value;
 
-        private ObservableAsPropertyHelper<int> _bauxite;
+        private readonly ObservableAsPropertyHelper<int> _bauxite;
         public int Bauxite => _bauxite.Value;
 
-        private ObservableAsPropertyHelper<int> _instantBuild;
+        private readonly ObservableAsPropertyHelper<int> _instantBuild;
         public int InstantBuild => _instantBuild.Value;
 
-        private ObservableAsPropertyHelper<int> _instantRepair;
+        private readonly ObservableAsPropertyHelper<int> _instantRepair;
         public int InstantRepair => _instantRepair.Value;
 
-        private ObservableAsPropertyHelper<int> _development;
+        private readonly ObservableAsPropertyHelper<int> _development;
         public int Development => _development.Value;
 
-        private ObservableAsPropertyHelper<int> _improvement;
+        private readonly ObservableAsPropertyHelper<int> _improvement;
         public int Improvement => _improvement.Value;
 
         public MaterialsViewModel(NavalBase navalBase)

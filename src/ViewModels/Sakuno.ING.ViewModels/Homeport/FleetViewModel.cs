@@ -14,10 +14,10 @@ namespace Sakuno.ING.ViewModels.Homeport
 
         public IReadOnlyCollection<PlayerShip> Ships { get; }
 
-        private ObservableAsPropertyHelper<int> _totalLevel;
+        private readonly ObservableAsPropertyHelper<int> _totalLevel;
         public int TotalLevel => _totalLevel.Value;
 
-        private ObservableAsPropertyHelper<int> _speed;
+        private readonly ObservableAsPropertyHelper<int> _speed;
         public ShipSpeed Speed => (ShipSpeed)_speed.Value;
 
         public FleetViewModel(PlayerFleet fleet)
