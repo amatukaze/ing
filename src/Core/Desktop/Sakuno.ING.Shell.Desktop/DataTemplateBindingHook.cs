@@ -52,6 +52,14 @@ namespace Sakuno.ING.Shell.Desktop
                 if (itemsControl is TabControl tabControl && tabControl.ContentTemplate is null && tabControl.ContentTemplateSelector is null)
                     tabControl.ContentTemplate = DefaultTemplate;
             }
+            else if (lastViewProperty?.Sender is ContentPresenter contentPresenter)
+            {
+                if (viewProperties.Last().GetPropertyName() != nameof(ContentPresenter.Content))
+                    return true;
+
+                if (contentPresenter.ContentTemplate is null && contentPresenter.ContentTemplateSelector is null)
+                    contentPresenter.ContentTemplate = DefaultTemplate;
+            }
 
             return true;
         }
