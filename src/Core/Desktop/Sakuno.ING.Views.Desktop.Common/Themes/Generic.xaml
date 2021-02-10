@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/SlotItemImprovementPresenter.xaml" />
+        <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/SlotPlaneCountPresenter.xaml" />
         <ResourceDictionary Source="/Sakuno.ING.Views.Desktop.Common;component/Themes/Controls/UseItemPresenter.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

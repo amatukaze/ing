@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Sakuno.ING.Views.Desktop.Controls">
+    <Style TargetType="local:SlotPlaneCountPresenter">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:SlotPlaneCountPresenter">
+                    <TextBlock x:Name="Count" Text="{Binding Current, RelativeSource={RelativeSource TemplatedParent}}" TextAlignment="Center" />
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMaximum" Value="False">
+                            <Setter TargetName="Count" Property="Foreground" Value="Orange" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="PlaneId" Value="0">
+                <Setter Property="Opacity" Value="0.25" />
+            </Trigger>
+            <Trigger Property="Maximum" Value="0">
+                <Setter Property="Visibility" Value="Hidden" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
