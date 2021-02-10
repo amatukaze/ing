@@ -6,7 +6,6 @@
                           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:viewmodel="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
-                          xmlns:view="clr-namespace:Sakuno.ING.Views.Desktop.Homeport"
                           mc:Ignorable="d">
     <ItemsControl Name="Fleets" />
 </rxui:ReactiveUserControl>
