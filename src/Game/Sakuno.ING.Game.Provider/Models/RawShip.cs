@@ -33,7 +33,7 @@ namespace Sakuno.ING.Game.Models
         [JsonPropertyName("api_slot")]
         public IReadOnlyList<SlotItemId?> SlotItemIds { get; set; }
         [JsonPropertyName("api_onslot")]
-        public IReadOnlyList<int> PlaneCapacities { get; set; }
+        public IReadOnlyList<int> PlaneCount { get; set; }
 
         public int api_slot_ex { get; set; }
         public bool IsExtraSlotAvailable => api_slot_ex != 0;

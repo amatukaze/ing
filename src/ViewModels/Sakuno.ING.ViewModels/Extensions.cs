@@ -3,6 +3,7 @@ using ReactiveUI;
 using Sakuno.ING.Game;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 
@@ -10,7 +11,7 @@ namespace Sakuno.ING.ViewModels
 {
     internal static class Extensions
     {
-        public static IReadOnlyCollection<T> Bind<TId, T>(this ITable<TId, T> table, CompositeDisposable? disposables = null) where TId : struct
+        public static ReadOnlyObservableCollection<T> Bind<TId, T>(this ITable<TId, T> table, CompositeDisposable? disposables = null) where TId : struct
         {
             var subscription = table.DefaultViewSource.ObserveOn(RxApp.MainThreadScheduler).Bind(out var result).Subscribe();
 
@@ -19,7 +20,7 @@ namespace Sakuno.ING.ViewModels
 
             return result;
         }
-        public static IReadOnlyCollection<T> Bind<T>(this IObservable<IChangeSet<T>> source, CompositeDisposable? disposables = null)
+        public static ReadOnlyObservableCollection<T> Bind<T>(this IObservable<IChangeSet<T>> source, CompositeDisposable? disposables = null)
         {
             var subscription = source.ObserveOn(RxApp.MainThreadScheduler).Bind(out var result).Subscribe();
 
@@ -28,7 +29,7 @@ namespace Sakuno.ING.ViewModels
 
             return result;
         }
-        public static IReadOnlyCollection<T> Bind<TId, T>(this IObservable<IChangeSet<T, TId>> source, CompositeDisposable? disposables = null) where TId : notnull
+        public static ReadOnlyObservableCollection<T> Bind<TId, T>(this IObservable<IChangeSet<T, TId>> source, CompositeDisposable? disposables = null) where TId : notnull
         {
             var subscription = source.ObserveOn(RxApp.MainThreadScheduler).Bind(out var result).Subscribe();
 

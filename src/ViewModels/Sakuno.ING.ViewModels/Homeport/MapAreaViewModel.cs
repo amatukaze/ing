@@ -7,13 +7,20 @@ using System.Collections.Generic;
 
 namespace Sakuno.ING.ViewModels.Homeport
 {
-    public sealed class AirForceGroupsOfAreaViewModel : ReactiveObject
+    public sealed class MapAreaViewModel : ReactiveObject, IHomeportTabViewModel
     {
         public MapAreaInfo Model { get; }
 
         public IReadOnlyCollection<AirForceGroupViewModel> Groups { get; }
 
-        public AirForceGroupsOfAreaViewModel(MapAreaInfo mapAreaInfo, IObservable<IChangeSet<AirForceGroup, (MapAreaId MapArea, AirForceGroupId Group)>> groups)
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => this.RaiseAndSetIfChanged(ref _isSelected, value);
+        }
+
+        public MapAreaViewModel(MapAreaInfo mapAreaInfo, IObservable<IChangeSet<AirForceGroup, (MapAreaId MapArea, AirForceGroupId Group)>> groups)
         {
             Model = mapAreaInfo;
 

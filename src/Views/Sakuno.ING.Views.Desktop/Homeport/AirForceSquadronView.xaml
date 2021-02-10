@@ -1,20 +1,15 @@
-﻿<rxui:ReactiveUserControl x:Class="Sakuno.ING.Views.Desktop.Homeport.ShipView"
-                          x:TypeArguments="viewmodel:ShipViewModel"
+﻿<rxui:ReactiveUserControl x:Class="Sakuno.ING.Views.Desktop.Homeport.AirForceSquadronView"
+                          x:TypeArguments="viewmodel:AirForceSquadronViewModel"
                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:viewmodel="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
+                          xmlns:controls="clr-namespace:Sakuno.ING.Views.Desktop.Controls;assembly=Sakuno.ING.Views.Desktop.Common"
                           mc:Ignorable="d">
-    <StackPanel Orientation="Horizontal">
-        <TextBlock Name="ShipName" />
-        <ItemsControl Name="Slots">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+    <StackPanel Orientation="Horizontal" Height="35">
+        <controls:SlotItemIcon x:Name="Icon" Width="24" Height="24" />
+        <TextBlock Name="Plane" />
     </StackPanel>
 </rxui:ReactiveUserControl>
