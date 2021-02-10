@@ -595,6 +595,16 @@ namespace Sakuno.ING.Game.Models
             get => _expedition;
             protected set => Set(ref _expedition, value, __eventArgs_expedition);
         }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private static readonly PropertyChangedEventArgs __eventArgs_expeditionCompletionTime = new PropertyChangedEventArgs(nameof(ExpeditionCompletionTime));
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        private DateTimeOffset? _expeditionCompletionTime;
+        public DateTimeOffset? ExpeditionCompletionTime
+        {
+            get => _expeditionCompletionTime;
+            protected set => Set(ref _expeditionCompletionTime, value, __eventArgs_expeditionCompletionTime);
+        }
     }
     public sealed partial class PlayerFleet : Fleet, IComparable<PlayerFleet>, IUpdatable<FleetId, RawFleet>
     {

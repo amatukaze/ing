@@ -1,5 +1,5 @@
-﻿<rxui:ReactiveUserControl x:Class="Sakuno.ING.Views.Desktop.Homeport.FleetsView"
-                          x:TypeArguments="viewmodel:FleetsViewModel"
+﻿<rxui:ReactiveUserControl x:Class="Sakuno.ING.Views.Desktop.Homeport.FleetOverviewView"
+                          x:TypeArguments="viewmodel:FleetOverviewViewModel"
                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,16 +8,5 @@
                           xmlns:viewmodel="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
                           xmlns:view="clr-namespace:Sakuno.ING.Views.Desktop.Homeport"
                           mc:Ignorable="d">
-    <TabControl Name="Fleets">
-        <TabControl.ItemTemplate>
-            <DataTemplate>
-                <TextBlock Text="{Binding Model.Id, Mode=OneTime}" />
-            </DataTemplate>
-        </TabControl.ItemTemplate>
-        <TabControl.ContentTemplate>
-            <DataTemplate>
-                <view:FleetView ViewModel="{Binding ., Mode=OneTime}" />
-            </DataTemplate>
-        </TabControl.ContentTemplate>
-    </TabControl>
+    <ItemsControl Name="Fleets" />
 </rxui:ReactiveUserControl>

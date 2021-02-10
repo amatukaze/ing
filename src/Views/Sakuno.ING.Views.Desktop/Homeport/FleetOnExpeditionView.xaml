@@ -1,0 +1,30 @@
+﻿<rxui:ReactiveUserControl x:Class="Sakuno.ING.Views.Desktop.Homeport.FleetOnExpeditionView"
+                          x:TypeArguments="viewmodel:FleetOnExpeditionViewModel"
+                          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                          xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                          xmlns:rxui="http://reactiveui.net"
+                          xmlns:viewmodel="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
+                          xmlns:controls="clr-namespace:Sakuno.ING.Views.Desktop.Controls;assembly=Sakuno.ING.Views.Desktop.Common"
+                          mc:Ignorable="d">
+    <Border Background="Transparent">
+        <Border.ToolTip>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock />
+            </StackPanel>
+        </Border.ToolTip>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Name="Id" />
+            <TextBlock Name="Expedition" TextTrimming="CharacterEllipsis" Grid.Column="1" />
+            <controls:CountdownPresenter Name="RemainingTime" Grid.Column="2" />
+        </Grid>
+    </Border>
+</rxui:ReactiveUserControl>

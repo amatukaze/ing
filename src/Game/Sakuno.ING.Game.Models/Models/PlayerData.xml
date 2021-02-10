@@ -53,6 +53,7 @@
     <property type="string" name="Name" autoFill="true" />
     <property type="FleetExpeditionState" name="ExpeditionState" />
     <property type="ExpeditionInfo" name="Expedition" />
+    <property type="DateTimeOffset?" name="ExpeditionCompletionTime" />
   </class>
   <class name="Admiral" id="int" raw="RawAdmiral" owner="NavalBase">
     <property type="string" name="Name" autoFill="true" />

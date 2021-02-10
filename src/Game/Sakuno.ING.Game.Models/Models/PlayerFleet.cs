@@ -28,6 +28,7 @@ namespace Sakuno.ING.Game.Models
 
             ExpeditionState = raw.ExpeditionStatus.State;
             Expedition = _owner.MasterData.Expeditions[raw.ExpeditionStatus.ExpeditionId];
+            ExpeditionCompletionTime = raw.ExpeditionStatus.ReturnTime;
         }
     }
 }

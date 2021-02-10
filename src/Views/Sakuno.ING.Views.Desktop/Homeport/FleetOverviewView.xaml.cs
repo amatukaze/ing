@@ -5,10 +5,10 @@ using System.Reactive.Disposables;
 
 namespace Sakuno.ING.Views.Desktop.Homeport
 {
-    [ExportView("Fleets")]
-    public partial class FleetsView
+    [ExportView("FleetOverview")]
+    public partial class FleetOverviewView
     {
-        public FleetsView(FleetsViewModel fleetsViewModel)
+        public FleetOverviewView(FleetOverviewViewModel fleetsViewModel)
         {
             InitializeComponent();
 
@@ -17,7 +17,6 @@ namespace Sakuno.ING.Views.Desktop.Homeport
             this.WhenActivated(disposable =>
             {
                 this.OneWayBind(ViewModel, vm => vm.Fleets, v => v.Fleets.ItemsSource).DisposeWith(disposable);
-                this.Bind(ViewModel, vm => vm.SelectedFleet, v => v.Fleets.SelectedValue).DisposeWith(disposable);
             });
         }
     }
