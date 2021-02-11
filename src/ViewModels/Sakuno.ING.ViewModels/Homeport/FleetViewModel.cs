@@ -35,7 +35,7 @@ namespace Sakuno.ING.ViewModels.Homeport
             var ships = fleet.Ships.ToObservableChangeSet();
             Ships = ships.Transform(r => new ShipViewModel(r)).Bind();
 
-            _totalLevel = ships.Sum(r => r.Leveling.Level).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalLevel), deferSubscription: true);
+            _totalLevel = ships.Sum(r => r.Leveling.Level).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalLevel));
             _speed = ships.Minimum(r => (int)r.Speed).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(ShipSpeed));
         }
     }
