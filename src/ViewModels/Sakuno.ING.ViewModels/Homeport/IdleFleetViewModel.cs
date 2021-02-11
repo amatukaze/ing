@@ -5,11 +5,11 @@ namespace Sakuno.ING.ViewModels.Homeport
 {
     public sealed class IdleFleetViewModel : ReactiveObject, IFleetViewModel
     {
-        public PlayerFleet Model { get; }
+        public FleetId Id { get; }
 
         public IdleFleetViewModel(PlayerFleet fleet)
         {
-            Model = fleet;
+            Id = fleet.Id;
         }
     }
 }

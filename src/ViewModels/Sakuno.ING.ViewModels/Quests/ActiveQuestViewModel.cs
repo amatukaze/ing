@@ -5,11 +5,11 @@ namespace Sakuno.ING.ViewModels.Quests
 {
     public sealed class ActiveQuestViewModel : ReactiveObject
     {
-        public Quest Model { get; }
+        public string Name { get; }
 
         public ActiveQuestViewModel(Quest quest)
         {
-            Model = quest;
+            Name = quest.Name;
         }
     }
 }

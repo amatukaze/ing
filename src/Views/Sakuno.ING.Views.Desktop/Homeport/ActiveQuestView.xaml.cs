@@ -11,7 +11,7 @@ namespace Sakuno.ING.Views.Desktop.Homeport
 
             this.WhenActivated(disposable =>
             {
-                this.OneWayBind(ViewModel, vm => vm.Model.Name, v => v.QuestName.Text).DisposeWith(disposable);
+                this.OneWayBind(ViewModel, vm => vm.Name, v => v.QuestName.Text).DisposeWith(disposable);
             });
         }
     }
