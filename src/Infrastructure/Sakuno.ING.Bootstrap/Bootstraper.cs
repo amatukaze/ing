@@ -45,7 +45,11 @@ namespace Sakuno.ING.Bootstrap
 
                     if (type.IsAssignableTo(typeof(IViewFor)) && !container.IsRegistered(type) &&
                         type.ImplementedInterfaces.SingleOrDefault(r => r.IsGenericType && r.GetGenericTypeDefinition() == typeof(IViewFor<>)) is Type viewForType)
-                        container.Register(viewForType, type);
+                    {
+                        var viewContract = type.GetCustomAttribute<ViewContractAttribute>()?.Contract;
+
+                        container.Register(viewForType, type, serviceKey: viewContract, ifAlreadyRegistered: IfAlreadyRegistered.Throw);
+                    }
                 }
 
             Locator.CurrentMutable.InitializeSplat();

@@ -12,8 +12,11 @@ namespace Sakuno.ING.Composition
             _default ??= this;
         }
 
-        public abstract T Resolve<T>() where T : class;
-        public abstract object Resolve(Type type);
-        public abstract object? ResolveViewOrDefault(string? viewId);
+        public abstract T Resolve<T>(string? serviceKey = null) where T : class;
+        public abstract object Resolve(Type type, string? serviceKey = null);
+        public abstract T ResolveOrDefault<T>(string? serviceKey = null) where T : class;
+        public abstract object ResolveOrDefault(Type type, string? serviceKey = null);
+
+        public abstract object? ResolveViewOrDefault(string? viewId, string? serviceKey = null);
     }
 }

@@ -1,31 +1,18 @@
 ﻿using ReactiveUI;
+using Sakuno.ING.Composition;
 using Splat;
 using System;
 using System.Linq;
-using System.Reactive;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Sakuno.ING.Shell.Desktop
 {
-    internal class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger, IDisposable
+    internal sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger, IDisposable
     {
-        public static readonly DependencyProperty DefaultContentProperty =
-            DependencyProperty.Register(nameof(DefaultContent), typeof(object), typeof(ViewModelViewHost), new PropertyMetadata(null));
-
-        public object DefaultContent
-        {
-            get => GetValue(DefaultContentProperty);
-            set => SetValue(DefaultContentProperty, value);
-        }
-
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(ViewModel), typeof(object), typeof(ViewModelViewHost), new PropertyMetadata(null, new PropertyChangedCallback(ViewModelChanged)));
-
-        private static void ViewModelChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) =>
-            ((ViewModelViewHost)d)._updateViewModel.OnNext(Unit.Default);
+            DependencyProperty.Register(nameof(ViewModel), typeof(object), typeof(ViewModelViewHost), new PropertyMetadata(null));
 
         public object? ViewModel
         {
@@ -33,80 +20,35 @@ namespace Sakuno.ING.Shell.Desktop
             set => SetValue(ViewModelProperty, value);
         }
 
-        public static readonly DependencyProperty ViewContractObservableProperty =
-            DependencyProperty.Register(nameof(ViewContractObservable), typeof(IObservable<string>), typeof(ViewModelViewHost), new PropertyMetadata(Observable.Return<string?>(null), ViewContractChanged));
+        public static readonly DependencyProperty DefaultContentProperty =
+            DependencyProperty.Register(nameof(DefaultContent), typeof(object), typeof(ViewModelViewHost), new PropertyMetadata(null));
 
-        private static void ViewContractChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) =>
-            ((ViewModelViewHost)d)._updateViewContract.OnNext(Unit.Default);
-
-        public IObservable<string?> ViewContractObservable
+        public object? DefaultContent
         {
-            get => (IObservable<string?>)GetValue(ViewContractObservableProperty);
-            set => SetValue(ViewContractObservableProperty, value);
+            get => GetValue(DefaultContentProperty);
+            set => SetValue(DefaultContentProperty, value);
         }
 
-        private readonly Subject<Unit> _updateViewModel = new Subject<Unit>();
-        private readonly Subject<Unit> _updateViewContract = new Subject<Unit>();
-
-        private string? _viewContract;
-        public string? ViewContract
-        {
-            get => _viewContract;
-            set => ViewContractObservable = Observable.Return(value);
-        }
-
-        public IViewLocator? ViewLocator { get; set; }
-
+        private readonly IDisposable _subscription;
         private bool _isDisposed;
 
         public ViewModelViewHost()
         {
-            if (ModeDetector.InUnitTestRunner())
+            _subscription = this.WhenAnyValue(r => r.ViewModel).Select(vm =>
             {
-                ViewContractObservable = Observable.Never<string>();
-                return;
-            }
+                if (vm is not IViewContractObservable viewContractObservable)
+                    return Observable.Return(new
+                    {
+                        ViewModel = vm,
+                        Contract = (string?)null,
+                    });
 
-            var contractChanged = _updateViewContract.Select(_ => ViewContractObservable).Switch();
-            var viewModelChanged = _updateViewModel.Select(_ => ViewModel);
-
-            contractChanged.CombineLatest(viewModelChanged, (contract, vm) => new
-            {
-                ViewModel = vm,
-                Contract = contract
-            }).Subscribe(x => ResolveViewForViewModel(x.ViewModel, x.Contract));
-
-            contractChanged.ObserveOn(RxApp.MainThreadScheduler).Subscribe(x =>_viewContract = x ?? string.Empty);
-
-            ViewContractObservable = Observable.FromEvent<SizeChangedEventHandler, string?>(
-                eventHandler =>
+                return viewContractObservable.ViewContractObservable.DistinctUntilChanged().ObserveOn(RxApp.MainThreadScheduler).Select(contract => new
                 {
-                    void Handler(object? sender, SizeChangedEventArgs e) => eventHandler(null!);
-                    return Handler;
-                },
-                x => SizeChanged += x,
-                x => SizeChanged -= x)
-                .StartWith((string?)null)
-                .DistinctUntilChanged();
-        }
-
-        public void Dispose()
-        {
-            Dispose(isDisposing: true);
-            GC.SuppressFinalize(this);
-        }
-        protected virtual void Dispose(bool isDisposing)
-        {
-            if (_isDisposed)
-                return;
-
-            if (isDisposing)
-            {
-                _updateViewModel.Dispose();
-                _updateViewContract.Dispose();
-            }
-
-            _isDisposed = true;
+                    ViewModel = (object?)vm,
+                    Contract = contract,
+                });
+            }).Switch().Subscribe(r => ResolveViewForViewModel(r.ViewModel, r.Contract));
         }
 
         private void ResolveViewForViewModel(object? viewModel, string? contract)
@@ -117,10 +59,10 @@ namespace Sakuno.ING.Shell.Desktop
                 return;
             }
 
-            var viewLocator = ViewLocator ?? ReactiveUI.ViewLocator.Current;
-            var viewInstance = viewLocator.ResolveView(viewModel, contract) ?? viewLocator.ResolveView(viewModel);
+            var viewLocator = Compositor.Default;
+            var viewForType = typeof(IViewFor<>).MakeGenericType(viewModel.GetType());
 
-            if (viewInstance is null)
+            if ((viewLocator.ResolveOrDefault(viewForType, contract) ?? viewLocator.ResolveOrDefault(viewForType)) is not IViewFor viewInstance)
             {
                 Content = DefaultContent;
                 this.Log().Warn($"The {nameof(ViewModelViewHost)} could not find a valid view for the view model of type {viewModel.GetType()} and value {viewModel}.");
@@ -130,6 +72,16 @@ namespace Sakuno.ING.Shell.Desktop
             viewInstance.ViewModel = viewModel;
 
             Content = viewInstance;
+        }
+
+        public void Dispose()
+        {
+            if (_isDisposed)
+                return;
+
+            _subscription.Dispose();
+
+            _isDisposed = true;
         }
     }
 }

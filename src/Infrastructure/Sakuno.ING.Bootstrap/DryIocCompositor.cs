@@ -16,8 +16,12 @@ namespace Sakuno.ING.Bootstrap
             _registeredViews = registeredViews;
         }
 
-        public override T Resolve<T>() => _container.Resolve<T>();
-        public override object Resolve(Type type) => _container.Resolve(type);
-        public override object? ResolveViewOrDefault(string? viewId) => viewId is not null && _registeredViews.TryGetValue(viewId, out var type) ? Resolve(type) : null;
+        public override T Resolve<T>(string? serviceKey = null) => _container.Resolve<T>(serviceKey);
+        public override object Resolve(Type type, string? serviceKey = null) => _container.Resolve(type, serviceKey);
+        public override T ResolveOrDefault<T>(string? serviceKey = null) => _container.Resolve<T>(serviceKey, IfUnresolved.ReturnDefaultIfNotRegistered);
+        public override object ResolveOrDefault(Type type, string? serviceKey = null) => _container.Resolve(type, serviceKey, IfUnresolved.ReturnDefaultIfNotRegistered);
+
+        public override object? ResolveViewOrDefault(string? viewId, string? serviceKey = null) =>
+            viewId is not null && _registeredViews.TryGetValue(viewId, out var type) ? Resolve(type, serviceKey) : null;
     }
 }
