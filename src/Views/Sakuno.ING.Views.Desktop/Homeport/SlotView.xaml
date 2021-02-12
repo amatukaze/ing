@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <controls:SlotItemIcon x:Name="Icon" Width="22" Height="22" Margin="0, -4, 0, 0" Grid.RowSpan="4" />
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="2, 2, 0, 0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="2, 0, 0, 0" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <controls:AerialProficiencyPresenter x:Name="Proficiency" />
             <controls:SlotItemImprovementPresenter x:Name="Improvement" ShowStar="False" />
         </StackPanel>

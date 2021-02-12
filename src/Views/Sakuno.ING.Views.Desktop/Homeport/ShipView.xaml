@@ -7,14 +7,40 @@
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:viewmodel="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
                           mc:Ignorable="d">
-    <StackPanel Orientation="Horizontal">
-        <TextBlock Name="ShipName" />
-        <ItemsControl Name="Slots">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition SharedSizeGroup="Header" />
+            <ColumnDefinition SharedSizeGroup="Leveling" />
+            <ColumnDefinition SharedSizeGroup="HP" MinWidth="60" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Name="ShipName" Grid.RowSpan="2" />
+
+        <TextBlock Grid.Column="1">
+            <Run Text="Lv." FontSize="10" />
+            <Run Name="Level" />
+        </TextBlock>
+        <TextBlock FontSize="10" Grid.Row="1" Grid.Column="1">
+            <Run Text="Next:" />
+            <Run Name="NextExperience" />
+        </TextBlock>
+        <TextBlock TextAlignment="Right" Margin="3, 0, 0, 0" Grid.Column="2">
+            <Run Name="CurrentHP" />
+            <Run Text=" /" Foreground="Gray" />
+            <Run Name="MaxHP" FontSize="11" />
+        </TextBlock>
+
+        <ItemsControl Name="Slots" Grid.Column="3" Grid.RowSpan="2">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-    </StackPanel>
+    </Grid>
 </rxui:ReactiveUserControl>

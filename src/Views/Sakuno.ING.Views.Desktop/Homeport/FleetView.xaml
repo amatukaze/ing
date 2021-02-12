@@ -34,6 +34,6 @@
                 <Run Name="TotalLoS" />
             </TextBlock>
         </StackPanel>
-        <ItemsControl Name="Ships" />
+        <ItemsControl Name="Ships" Grid.IsSharedSizeScope="True" />
     </StackPanel>
 </rxui:ReactiveUserControl>
