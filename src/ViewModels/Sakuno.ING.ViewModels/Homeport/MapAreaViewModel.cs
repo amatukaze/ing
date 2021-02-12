@@ -9,7 +9,7 @@ namespace Sakuno.ING.ViewModels.Homeport
 {
     public sealed class MapAreaViewModel : ReactiveObject, IHomeportTabViewModel
     {
-        public MapAreaInfo Model { get; }
+        public string Name { get; }
 
         public IReadOnlyCollection<AirForceGroupViewModel> Groups { get; }
 
@@ -22,7 +22,7 @@ namespace Sakuno.ING.ViewModels.Homeport
 
         public MapAreaViewModel(MapAreaInfo mapAreaInfo, IObservable<IChangeSet<AirForceGroup, (MapAreaId MapArea, AirForceGroupId Group)>> groups)
         {
-            Model = mapAreaInfo;
+            Name = mapAreaInfo.Name;
 
             Groups = groups.Transform(r => new AirForceGroupViewModel(r)).Bind();
         }

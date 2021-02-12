@@ -14,14 +14,14 @@
             </Border>
         </ControlTemplate>
     </UserControl.Resources>
-    
+
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <ItemsControl Name="Fleets">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <RadioButton Template="{StaticResource TabStyle}" GroupName="HomeportDetail" IsChecked="{Binding IsSelected}">
-                            <TextBlock Text="{Binding Model.Id, Mode=OneTime}" />
+                            <TextBlock Text="{Binding Id, Mode=OneTime}" />
                         </RadioButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -35,7 +35,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <RadioButton Template="{StaticResource TabStyle}" GroupName="HomeportDetail" IsChecked="{Binding IsSelected}">
-                            <TextBlock Text="{Binding Model.Name, Mode=OneTime}" />
+                            <TextBlock Text="{Binding Name, Mode=OneTime}" />
                         </RadioButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

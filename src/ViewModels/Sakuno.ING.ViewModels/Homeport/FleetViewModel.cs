@@ -11,7 +11,7 @@ namespace Sakuno.ING.ViewModels.Homeport
 {
     public sealed class FleetViewModel : ReactiveObject, IHomeportTabViewModel
     {
-        public PlayerFleet Model { get; }
+        public FleetId Id { get; }
 
         public IReadOnlyCollection<ShipViewModel> Ships { get; }
 
@@ -30,9 +30,10 @@ namespace Sakuno.ING.ViewModels.Homeport
 
         public FleetViewModel(PlayerFleet fleet)
         {
-            Model = fleet;
+            Id = fleet.Id;
 
             var ships = fleet.Ships.ToObservableChangeSet();
+
             Ships = ships.Transform(r => new ShipViewModel(r)).Bind();
 
             _totalLevel = ships.Sum(r => r.Leveling.Level).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalLevel));
