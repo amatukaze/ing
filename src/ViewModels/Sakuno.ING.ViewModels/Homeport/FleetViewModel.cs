@@ -1,5 +1,4 @@
 ﻿using DynamicData;
-using DynamicData.Aggregation;
 using DynamicData.Binding;
 using ReactiveUI;
 using Sakuno.ING.Game.Models;
@@ -28,6 +27,18 @@ namespace Sakuno.ING.ViewModels.Homeport
             set => this.RaiseAndSetIfChanged(ref _isSelected, value);
         }
 
+        private readonly ObservableAsPropertyHelper<int> _totalFirepower;
+        public int TotalFirepower => _totalFirepower.Value;
+
+        private readonly ObservableAsPropertyHelper<int> _totalAntiAir;
+        public int TotalAntiAir => _totalAntiAir.Value;
+
+        private readonly ObservableAsPropertyHelper<int> _totalAntiSubmarine;
+        public int TotalAntiSubmarine => _totalAntiSubmarine.Value;
+
+        private readonly ObservableAsPropertyHelper<int> _totalLoS;
+        public int TotalLoS => _totalLoS.Value;
+
         public FleetViewModel(PlayerFleet fleet)
         {
             Id = fleet.Id;
@@ -36,8 +47,19 @@ namespace Sakuno.ING.ViewModels.Homeport
 
             Ships = ships.Transform(r => new ShipViewModel(r)).Bind();
 
-            _totalLevel = ships.Sum(r => r.Leveling.Level).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalLevel));
-            _speed = ships.Minimum(r => (int)r.Speed).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(ShipSpeed));
+            _totalLevel = ships.AutoRefresh(r => r.Leveling).QueryWhenChanged(ships => ships.Sum(r => r.Leveling.Level))
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalLevel));
+            _speed = ships.AutoRefresh(r => r.Speed).QueryWhenChanged(ships => ships.Min(r => (int)r.Speed))
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(ShipSpeed));
+
+            _totalFirepower = ships.AutoRefresh(r => r.Firepower).QueryWhenChanged(ships => ships.Sum(r => r.Firepower.Displaying))
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalFirepower));
+            _totalAntiAir = ships.AutoRefresh(r => r.AntiAir).QueryWhenChanged(ships => ships.Sum(r => r.AntiAir.Displaying))
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalAntiAir));
+            _totalAntiSubmarine = ships.AutoRefresh(r => r.AntiSubmarine).QueryWhenChanged(ships => ships.Sum(r => r.AntiSubmarine.Displaying))
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalAntiSubmarine));
+            _totalLoS = ships.AutoRefresh(r => r.LineOfSight).QueryWhenChanged(ships => ships.Sum(r => r.LineOfSight.Displaying))
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalLoS));
         }
     }
 }

@@ -17,6 +17,22 @@
                 <Run Text="Speed:" />
                 <Run Name="Speed" />
             </TextBlock>
+            <TextBlock Margin="4, 0, 0, 0">
+                <Run Text="火力:" />
+                <Run Name="TotalFirepower" />
+            </TextBlock>
+            <TextBlock Margin="4, 0, 0, 0">
+                <Run Text="対空:" />
+                <Run Name="TotalAntiAir" />
+            </TextBlock>
+            <TextBlock Margin="4, 0, 0, 0">
+                <Run Text="対潜:" />
+                <Run Name="TotalAntiSubmarine" />
+            </TextBlock>
+            <TextBlock Margin="4, 0, 0, 0">
+                <Run Text="索敵:" />
+                <Run Name="TotalLoS" />
+            </TextBlock>
         </StackPanel>
         <ItemsControl Name="Ships" />
     </StackPanel>
