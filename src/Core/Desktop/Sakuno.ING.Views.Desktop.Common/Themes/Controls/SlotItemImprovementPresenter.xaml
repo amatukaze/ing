@@ -5,7 +5,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:SlotItemImprovementPresenter">
-                    <TextBlock>
+                    <TextBlock VerticalAlignment="Center">
                         <Run Name="Star" /><Run Name="PART_Level" />
                     </TextBlock>
 
