@@ -13,7 +13,11 @@ namespace Sakuno.ING.Game.Models
         public PlayerSlotItem? PlayerSlotItem
         {
             get => _slotItem;
-            internal set => Set(ref _slotItem, value);
+            internal set
+            {
+                Set(ref _slotItem, value);
+                NotifyPropertyChanged(nameof(Item));
+            }
         }
 
         public PlayerShipSlot(PlayerShip owner, int index)
