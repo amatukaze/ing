@@ -22,7 +22,8 @@ namespace Sakuno.ING.ViewModels.Homeport
             var planeCount = slot.WhenAnyValue(r => r.PlaneCount);
 
             _planeCount = planeCount.ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(PlaneCount));
-            _isPlaneCountVisible = planeCount.Select(r => r.Max > 0).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(IsPlaneCountVisible));
+            _isPlaneCountVisible = planeCount.Select(r => r.Max > 0)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(IsPlaneCountVisible));
         }
     }
 }

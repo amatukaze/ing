@@ -19,8 +19,10 @@ namespace Sakuno.ING.ViewModels.Homeport
         {
             Id= repairDock.Id;
 
-            _repairingShip = repairDock.WhenAnyValue(r => r.RepairingShip).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(RepairingShip));
-            _completionTime = repairDock.WhenAnyValue(r => r.CompletionTime).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(CompletionTime));
+            _repairingShip = repairDock.WhenAnyValue(r => r.RepairingShip)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(RepairingShip));
+            _completionTime = repairDock.WhenAnyValue(r => r.CompletionTime)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(CompletionTime));
         }
     }
 }

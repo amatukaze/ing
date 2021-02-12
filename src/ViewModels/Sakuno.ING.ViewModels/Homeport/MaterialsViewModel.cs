@@ -34,14 +34,22 @@ namespace Sakuno.ING.ViewModels.Homeport
 
         public MaterialsViewModel(NavalBase navalBase)
         {
-            _fuel = navalBase.Materials.Select(r => r.Fuel).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Fuel));
-            _bullet = navalBase.Materials.Select(r => r.Bullet).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Bullet));
-            _steel = navalBase.Materials.Select(r => r.Steel).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Steel));
-            _bauxite = navalBase.Materials.Select(r => r.Bauxite).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Bauxite));
-            _instantBuild = navalBase.Materials.Select(r => r.InstantBuild).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(InstantBuild));
-            _instantRepair = navalBase.Materials.Select(r => r.InstantRepair).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(InstantRepair));
-            _development = navalBase.Materials.Select(r => r.Development).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Development));
-            _improvement = navalBase.Materials.Select(r => r.Improvement).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Improvement));
+            _fuel = navalBase.Materials.Select(r => r.Fuel)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Fuel));
+            _bullet = navalBase.Materials.Select(r => r.Bullet)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Bullet));
+            _steel = navalBase.Materials.Select(r => r.Steel)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Steel));
+            _bauxite = navalBase.Materials.Select(r => r.Bauxite)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Bauxite));
+            _instantBuild = navalBase.Materials.Select(r => r.InstantBuild)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(InstantBuild));
+            _instantRepair = navalBase.Materials.Select(r => r.InstantRepair)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(InstantRepair));
+            _development = navalBase.Materials.Select(r => r.Development)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Development));
+            _improvement = navalBase.Materials.Select(r => r.Improvement)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Improvement));
         }
     }
 }

@@ -26,13 +26,16 @@ namespace Sakuno.ING.ViewModels.Homeport
         {
             Id = constructionDock.Id;
 
-            _builtShip = constructionDock.WhenAnyValue(r => r.BuiltShip).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(BuiltShip));
-            _consumption = constructionDock.WhenAnyValue(r => r.Consumption).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Consumption));
+            _builtShip = constructionDock.WhenAnyValue(r => r.BuiltShip)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(BuiltShip));
+            _consumption = constructionDock.WhenAnyValue(r => r.Consumption)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Consumption));
 
             _isCompleted = constructionDock.WhenAnyValue(r => r.State).Select(r => r == ConstructionDockState.Completed)
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(IsCompleted));
 
-            _completionTime = constructionDock.WhenAnyValue(r => r.CompletionTime).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(CompletionTime));
+            _completionTime = constructionDock.WhenAnyValue(r => r.CompletionTime)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(CompletionTime));
         }
     }
 }

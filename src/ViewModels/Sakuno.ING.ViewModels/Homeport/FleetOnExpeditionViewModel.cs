@@ -20,8 +20,10 @@ namespace Sakuno.ING.ViewModels.Homeport
         {
             Id = fleet.Id;
 
-            _expedition = fleet.WhenAnyValue(r => r.Expedition).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Expedition));
-            _completionTime = fleet.WhenAnyValue(r => r.ExpeditionCompletionTime).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(CompletionTime));
+            _expedition = fleet.WhenAnyValue(r => r.Expedition)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Expedition));
+            _completionTime = fleet.WhenAnyValue(r => r.ExpeditionCompletionTime)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(CompletionTime));
         }
     }
 }
