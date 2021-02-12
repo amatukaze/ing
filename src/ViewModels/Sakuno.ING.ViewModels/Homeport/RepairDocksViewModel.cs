@@ -9,13 +9,11 @@ namespace Sakuno.ING.ViewModels.Homeport
     [Export]
     public class RepairDocksViewModel : ReactiveObject
     {
-        public IReadOnlyCollection<IDockViewModel> RepairDocks { get; }
+        public IReadOnlyCollection<RepairDockViewModel> RepairDocks { get; }
 
         public RepairDocksViewModel(NavalBase navalBase)
         {
-            RepairDocks = navalBase.RepairDocks.DefaultViewSource
-                .AutoRefresh(r => r.State)
-                .Transform(r => r.State != RepairDockState.Locked ? (IDockViewModel)new RepairDockViewModel(r) : new LockedDockViewModel(r.Id)).Bind();
+            RepairDocks = navalBase.RepairDocks.DefaultViewSource.Transform(r => new RepairDockViewModel(r)).Bind();
         }
     }
 }

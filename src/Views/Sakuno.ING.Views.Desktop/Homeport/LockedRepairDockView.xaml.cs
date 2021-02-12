@@ -1,11 +1,13 @@
 ﻿using ReactiveUI;
+using Sakuno.ING.Game.Models;
 using System.Reactive.Disposables;
 
 namespace Sakuno.ING.Views.Desktop.Homeport
 {
-    public partial class LockedDockView
+    [ViewContract(nameof(RepairDockState.Locked))]
+    public partial class LockedRepairDockView
     {
-        public LockedDockView()
+        public LockedRepairDockView()
         {
             InitializeComponent();
 

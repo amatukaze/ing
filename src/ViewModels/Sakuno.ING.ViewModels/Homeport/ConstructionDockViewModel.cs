@@ -1,14 +1,17 @@
 ﻿using ReactiveUI;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Shell;
 using System;
 using System.Reactive.Linq;
 
 namespace Sakuno.ING.ViewModels.Homeport
 {
-    public class ConstructionDockViewModel : ReactiveObject, IDockViewModel
+    public class ConstructionDockViewModel : ReactiveObject, IViewContractObservable
     {
         public ConstructionDockId Id { get; }
+
+        public IObservable<string?> ViewContractObservable { get; }
 
         private readonly ObservableAsPropertyHelper<ShipInfo> _builtShip;
         public ShipInfo BuiltShip => _builtShip.Value;
@@ -25,6 +28,8 @@ namespace Sakuno.ING.ViewModels.Homeport
         public ConstructionDockViewModel(ConstructionDock constructionDock)
         {
             Id = constructionDock.Id;
+
+            ViewContractObservable = constructionDock.WhenAnyValue(r => r.State).Select(r => r.ToString());
 
             _builtShip = constructionDock.WhenAnyValue(r => r.BuiltShip)
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(BuiltShip));
