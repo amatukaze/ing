@@ -5,10 +5,10 @@ using System.Reactive.Disposables;
 
 namespace Sakuno.ING.Views.Desktop.Homeport
 {
-    [ExportView("FleetOverview")]
+    [ExportView("FleetOverviews")]
     public partial class FleetOverviewView
     {
-        public FleetOverviewView(FleetOverviewViewModel fleetsViewModel)
+        public FleetOverviewView(FleetOverviewsViewModel fleetsViewModel)
         {
             InitializeComponent();
 

@@ -1,21 +1,38 @@
-﻿using DynamicData;
-using ReactiveUI;
-using Sakuno.ING.Composition;
+﻿using ReactiveUI;
 using Sakuno.ING.Game.Models;
-using System.Collections.Generic;
+using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Shell;
+using System;
+using System.Reactive.Linq;
 
 namespace Sakuno.ING.ViewModels.Homeport
 {
-    [Export]
-    public sealed class FleetOverviewViewModel : ReactiveObject
+    public sealed class FleetOverviewViewModel : ReactiveObject, IViewContractObservable
     {
-        public IReadOnlyCollection<IFleetViewModel> Fleets { get; }
+        public FleetId Id { get; }
 
-        public FleetOverviewViewModel(NavalBase navalBase)
+        public IObservable<string?> ViewContractObservable { get; }
+
+        private readonly ObservableAsPropertyHelper<ExpeditionInfo> _expedition;
+        public ExpeditionInfo Expedition => _expedition.Value;
+
+        private readonly ObservableAsPropertyHelper<DateTimeOffset?> _completionTime;
+        public DateTimeOffset? CompletionTime => _completionTime.Value;
+
+        public FleetOverviewViewModel(PlayerFleet fleet)
         {
-            Fleets = navalBase.Fleets.DefaultViewSource
-                .AutoRefresh(r => r.ExpeditionState)
-                .Transform(r => r.ExpeditionState == FleetExpeditionState.None ? (IFleetViewModel)new IdleFleetViewModel(r) : new FleetOnExpeditionViewModel(r)).Bind();
+            Id = fleet.Id;
+
+            ViewContractObservable = fleet.WhenAnyValue(r => r.ExpeditionState).Select(r => r switch
+            {
+                FleetExpeditionState.None => null,
+                _ => "OnExpedition",
+            });
+
+            _expedition = fleet.WhenAnyValue(r => r.Expedition)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Expedition));
+            _completionTime = fleet.WhenAnyValue(r => r.ExpeditionCompletionTime)
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(CompletionTime));
         }
     }
 }

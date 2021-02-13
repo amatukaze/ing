@@ -3,6 +3,7 @@ using System.Reactive.Disposables;
 
 namespace Sakuno.ING.Views.Desktop.Homeport
 {
+    [ViewContract("OnExpedition")]
     public partial class FleetOnExpeditionView
     {
         public FleetOnExpeditionView()
