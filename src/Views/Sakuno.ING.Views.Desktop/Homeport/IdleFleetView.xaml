@@ -15,6 +15,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Name="Id" />
-        <TextBlock Text="Idle" TextAlignment="Center" Grid.Column="1" />
+        <TextBlock Name="IdleState" Text="待機中" TextAlignment="Center" Grid.Column="1" />
+        <TextBlock Name="ShouldSupplyState" Text="未補給" TextAlignment="Center" Grid.Column="1" />
     </Grid>
 </rxui:ReactiveUserControl>

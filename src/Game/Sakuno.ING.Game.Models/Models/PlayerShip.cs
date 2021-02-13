@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Sakuno.ING.Game.Events;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Sakuno.ING.Game.Models
@@ -77,6 +78,12 @@ namespace Sakuno.ING.Game.Models
             LineOfSight = Substract(raw.LineOfSight, lineOfSight);
             Evasion = Substract(raw.Evasion, evasion);
             AntiSubmarine = Substract(raw.AntiSubmarine, antiSubmarine);
+        }
+
+        internal void Supply(ShipSupply message)
+        {
+            Fuel = (message.CurrentFuel, Info.FuelConsumption);
+            Bullet = (message.CurrentBullet, Info.BulletConsumption);
         }
     }
 }

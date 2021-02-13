@@ -27,6 +27,8 @@ namespace Sakuno.ING.Game
                 return new FleetCompositionChange(fleetId, position, shipId);
         }
 
+        public IObservable<ShipSupply> ShipSupplied { get; private set; }
+
         public IObservable<RepairStart> RepairStarted { get; private set; }
         public IObservable<RepairDockId> InstantRepairUsed { get; private set; }
 

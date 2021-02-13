@@ -50,6 +50,7 @@ namespace Sakuno.ING.Game
                 "api_get_member/ship2" => Deserialize<RawShip[]>(message),
                 "api_get_member/ship3" => Deserialize<Ship3Json>(message),
                 "api_get_member/ship_deck" => Deserialize<ShipDeckJson>(message),
+                "api_req_hokyu/charge" => Deserialize<ShipsSupplyJson>(message),
                 "api_req_kaisou/marriage" => Deserialize<RawShip>(message),
                 "api_req_air_corps/set_plane" => DeserializeWithRequest<AirForceSquadronDeploymentJson>(message),
                 "api_get_member/questlist" => Deserialize<QuestListJson>(message),
@@ -128,6 +129,8 @@ namespace Sakuno.ING.Game
 
             FleetCompositionChanged = deserialized.Parse("api_req_hensei/change", ParseFleetCompositionChange);
 
+            ShipSupplied = deserialized.OfData<ShipsSupplyJson>().SelectMany(raw => raw.api_ship);
+
             RepairStarted = deserialized.Parse("api_req_nyukyo/start", ParseRepairStart);
             InstantRepairUsed = deserialized.Parse("api_req_nyukyo/speedchange", ParseInstantRepair);
 
@@ -147,6 +150,7 @@ namespace Sakuno.ING.Game
             {
                 deserialized.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material)),
                 deserialized.Parse<RawMaterialItem[], IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw)),
+                deserialized.OfData<ShipsSupplyJson>(),
                 ConstructionStarted,
                 deserialized.OfData<AirForceSquadronDeploymentJson>(),
             });
