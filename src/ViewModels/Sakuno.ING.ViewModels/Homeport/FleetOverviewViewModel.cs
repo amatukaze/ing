@@ -19,6 +19,9 @@ namespace Sakuno.ING.ViewModels.Homeport
         private readonly ObservableAsPropertyHelper<bool> _shouldSupply;
         public bool ShouldSupply => _shouldSupply.Value;
 
+        private readonly ObservableAsPropertyHelper<bool> _hasHeavilyDamagedShip;
+        public bool HasHeavilyDamagedShip => _hasHeavilyDamagedShip.Value;
+
         private readonly ObservableAsPropertyHelper<ExpeditionInfo> _expedition;
         public ExpeditionInfo Expedition => _expedition.Value;
 
@@ -39,6 +42,9 @@ namespace Sakuno.ING.ViewModels.Homeport
 
             _shouldSupply = ships.AutoRefresh(r => r.Fuel).AutoRefresh(r => r.Bullet).QueryWhenChanged(ships => ships.Any(ship => !ship.Fuel.IsMaximum || !ship.Bullet.IsMaximum))
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(ShouldSupply));
+
+            _hasHeavilyDamagedShip = ships.AutoRefresh(r => r.HP).QueryWhenChanged(ships => ships.Any(ship => ship.HP.DamageState == ShipDamageState.HeavilyDamaged))
+                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(HasHeavilyDamagedShip));
 
             _expedition = fleet.WhenAnyValue(r => r.Expedition)
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Expedition));
