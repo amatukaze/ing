@@ -20,12 +20,8 @@ namespace Sakuno.ING.ViewModels.Homeport
         private readonly ObservableAsPropertyHelper<int> _speed;
         public ShipSpeed Speed => (ShipSpeed)_speed.Value;
 
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => this.RaiseAndSetIfChanged(ref _isSelected, value);
-        }
+        private readonly ObservableAsPropertyHelper<bool> _isSpeedVisible;
+        public bool IsSpeedVisible => _isSpeedVisible.Value;
 
         private readonly ObservableAsPropertyHelper<int> _totalFirepower;
         public int TotalFirepower => _totalFirepower.Value;
@@ -39,6 +35,13 @@ namespace Sakuno.ING.ViewModels.Homeport
         private readonly ObservableAsPropertyHelper<int> _totalLoS;
         public int TotalLoS => _totalLoS.Value;
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => this.RaiseAndSetIfChanged(ref _isSelected, value);
+        }
+
         public FleetViewModel(PlayerFleet fleet)
         {
             Id = fleet.Id;
@@ -49,8 +52,11 @@ namespace Sakuno.ING.ViewModels.Homeport
 
             _totalLevel = ships.AutoRefresh(r => r.Leveling).QueryWhenChanged(ships => ships.Sum(r => r.Leveling.Level))
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalLevel));
-            _speed = ships.AutoRefresh(r => r.Speed).QueryWhenChanged(ships => ships.Min(r => (int)r.Speed))
-                .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(ShipSpeed));
+
+            var speed = ships.AutoRefresh(r => r.Speed).QueryWhenChanged(ships => ships.Count != 0 ? ships.Min(r => (int)r.Speed) : 0);
+
+            _speed = speed.ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Speed));
+            _isSpeedVisible = speed.Select(r => r > 0).ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(IsSpeedVisible));
 
             _totalFirepower = ships.AutoRefresh(r => r.Firepower).QueryWhenChanged(ships => ships.Sum(r => r.Firepower.Displaying))
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(TotalFirepower));

@@ -71,6 +71,8 @@ namespace Sakuno.ING.Game.Models
             provider.ShipUpdate.Subscribe(message => _ships[message.Id].Update(message));
             provider.FleetUpdate.Subscribe(message => _fleets[message.Id].Update(message));
 
+            provider.FleetCompositionChanged.Subscribe(message => _fleets[message.FleetId].ChangeComposition(message.Index, _ships[message.ShipId]));
+
             provider.ShipSupplied.Subscribe(message => _ships[message.Id].Supply(message));
 
             provider.AirForceActionUpdated.Subscribe(message => AirForceGroups[(message.MapAreaId, message.GroupId)].Action = message.Action);

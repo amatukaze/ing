@@ -13,10 +13,7 @@
                 <Run Text="Total Lv:" />
                 <Run Name="TotalLevel" />
             </TextBlock>
-            <TextBlock Margin="4, 0, 0, 0">
-                <Run Text="Speed:" />
-                <Run Name="Speed" />
-            </TextBlock>
+            <TextBlock Name="Speed" Margin="4, 0, 0, 0" />
             <TextBlock Margin="4, 0, 0, 0">
                 <Run Text="火力:" />
                 <Run Name="TotalFirepower" />
