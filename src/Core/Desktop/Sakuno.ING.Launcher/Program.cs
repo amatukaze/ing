@@ -14,6 +14,7 @@ namespace Sakuno.ING
                 "Sakuno.ING.Game.Models",
                 "Sakuno.ING.Shell.Desktop",
                 "Sakuno.ING.ViewModels",
+                "Sakuno.ING.Views.Desktop.Common",
                 "Sakuno.ING.Views.Desktop",
             });
 

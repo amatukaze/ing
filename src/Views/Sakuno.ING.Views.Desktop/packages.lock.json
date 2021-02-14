@@ -154,6 +154,7 @@
       "sakuno.ing.views.desktop.common": {
         "type": "Project",
         "dependencies": {
+          "ReactiveUI.WPF": "13.1.1",
           "Sakuno.ING.Game.Models": "1.0.0"
         }
       }
@@ -355,6 +356,7 @@
       "sakuno.ing.views.desktop.common": {
         "type": "Project",
         "dependencies": {
+          "ReactiveUI.WPF": "13.1.1",
           "Sakuno.ING.Game.Models": "1.0.0"
         }
       }

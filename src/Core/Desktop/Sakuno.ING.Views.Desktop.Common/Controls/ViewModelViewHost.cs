@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 namespace Sakuno.ING.Shell.Desktop
 {
-    internal sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger, IDisposable
+    public sealed class ViewModelViewHost : ContentControl, IViewFor, IEnableLogger, IDisposable
     {
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(ViewModel), typeof(object), typeof(ViewModelViewHost), new PropertyMetadata(null));
