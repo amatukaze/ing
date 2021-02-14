@@ -11,5 +11,7 @@
     <StackPanel Orientation="Horizontal" Height="35">
         <controls:SlotItemIcon x:Name="Icon" Width="24" Height="24" />
         <TextBlock Name="Plane" />
+        <controls:AerialProficiencyPresenter x:Name="Proficiency" />
+        <controls:SlotItemImprovementPresenter x:Name="Improvement" ShowStar="False" />
     </StackPanel>
 </rxui:ReactiveUserControl>

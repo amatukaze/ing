@@ -11,6 +11,7 @@ namespace Sakuno.ING.Views.Desktop.Homeport
 
             this.WhenActivated(disposable =>
             {
+                this.OneWayBind(ViewModel, vm => vm.CombatRadius, v => v.CombatRadius.Text).DisposeWith(disposable);
                 this.OneWayBind(ViewModel, vm => vm.Squadrons, v => v.Squadrons.ItemsSource).DisposeWith(disposable);
             });
         }

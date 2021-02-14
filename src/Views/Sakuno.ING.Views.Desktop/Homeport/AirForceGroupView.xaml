@@ -7,5 +7,11 @@
                           xmlns:rxui="http://reactiveui.net"
                           xmlns:viewmodel="clr-namespace:Sakuno.ING.ViewModels.Homeport;assembly=Sakuno.ING.ViewModels"
                           mc:Ignorable="d">
-    <ItemsControl Name="Squadrons" />
+    <StackPanel>
+        <TextBlock>
+            <Run Text="行動半径:" />
+            <Run Name="CombatRadius" />
+        </TextBlock>
+        <ItemsControl Name="Squadrons" />
+    </StackPanel>
 </rxui:ReactiveUserControl>
