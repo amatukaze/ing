@@ -1,4 +1,4 @@
-﻿using Sakuno.ING.Composition;
+using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Converters;
@@ -137,8 +137,7 @@ namespace Sakuno.ING.Game
             ConstructionStarted = deserialized.Parse("api_req_kousyou/createship", ParseConstructionStart);
             InstantConstructionUsed = deserialized.Parse("api_req_kousyou/createship_speedchange", ParseInstantConstruction);
 
-            AirForceSquadronDeployed = deserialized.Parse<AirForceSquadronDeploymentJson, AirForceSquadronDeployment>((request, raw) =>
-                ParseAirForceSquadronDeployment(request, raw));
+            AirForceSquadronDeployed = deserialized.Parse<AirForceSquadronDeploymentJson, AirForceSquadronDeployment>(ParseAirForceSquadronDeployment);
             AirForceActionUpdated = deserialized.Parse("api_req_air_corps/set_action", ParseAirForceActionUpdates).SelectMany(updates => updates);
 
             QuestListUpdated = deserialized.Parse<QuestListJson, RawQuest[]>(raw => raw.api_list);
