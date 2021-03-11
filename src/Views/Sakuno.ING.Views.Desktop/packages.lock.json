@@ -4,11 +4,11 @@
     ".NETFramework,Version=v4.7.2": {
       "ReactiveUI.WPF": {
         "type": "Direct",
-        "requested": "[13.1.1, )",
-        "resolved": "13.1.1",
-        "contentHash": "Ns6Cw0qgqrorcuQVOGQ9RYOxnFkaBr2dP/1Qy1Qj6avSESI76agP3CMFxUBJpgT+1wDuZf7/KB3+2v0yEldF8w==",
+        "requested": "[13.2.2, )",
+        "resolved": "13.2.2",
+        "contentHash": "Y5ryYmwLGacX5/0f3KQGKO/cLZbH1cX/xVeoU5RkuxbKJN7w6VWdtZSVqmO4q+yUWgC/wVKq7qcmxgAgEzlrwg==",
         "dependencies": {
-          "ReactiveUI": "13.1.1",
+          "ReactiveUI": "13.2.2",
           "System.Reactive": "5.0.0"
         }
       },
@@ -35,8 +35,8 @@
       },
       "ReactiveUI": {
         "type": "Transitive",
-        "resolved": "13.1.1",
-        "contentHash": "YX7zv/d5j7mZVzNZ2TLK+r7hUMQpPtcuEhM89xgSnrLEnVKAdXVUKrbHd3ez2oY/4a4mfOr13so6LcwyJh6vgA==",
+        "resolved": "13.2.2",
+        "contentHash": "WF17f6r8GvMQaTAa0PBuFwdTHGJ0vOIkEDDNc5vl5cklTc8lIXc/B65wkqXLIY6AWyKUYcPmmw3AHpnDugKNIQ==",
         "dependencies": {
           "DynamicData": "7.1.1",
           "Splat": "10.0.1",
@@ -147,14 +147,14 @@
       "sakuno.ing.viewmodels": {
         "type": "Project",
         "dependencies": {
-          "ReactiveUI": "13.1.1",
+          "ReactiveUI": "13.2.2",
           "Sakuno.ING.Game.Models": "1.0.0"
         }
       },
       "sakuno.ing.views.desktop.common": {
         "type": "Project",
         "dependencies": {
-          "ReactiveUI.WPF": "13.1.1",
+          "ReactiveUI.WPF": "13.2.2",
           "Sakuno.ING.Game.Models": "1.0.0"
         }
       }
@@ -162,11 +162,11 @@
     ".NETCoreApp,Version=v5.0": {
       "ReactiveUI.WPF": {
         "type": "Direct",
-        "requested": "[13.1.1, )",
-        "resolved": "13.1.1",
-        "contentHash": "Ns6Cw0qgqrorcuQVOGQ9RYOxnFkaBr2dP/1Qy1Qj6avSESI76agP3CMFxUBJpgT+1wDuZf7/KB3+2v0yEldF8w==",
+        "requested": "[13.2.2, )",
+        "resolved": "13.2.2",
+        "contentHash": "Y5ryYmwLGacX5/0f3KQGKO/cLZbH1cX/xVeoU5RkuxbKJN7w6VWdtZSVqmO4q+yUWgC/wVKq7qcmxgAgEzlrwg==",
         "dependencies": {
-          "ReactiveUI": "13.1.1",
+          "ReactiveUI": "13.2.2",
           "System.Reactive": "5.0.0"
         }
       },
@@ -195,8 +195,8 @@
       },
       "ReactiveUI": {
         "type": "Transitive",
-        "resolved": "13.1.1",
-        "contentHash": "YX7zv/d5j7mZVzNZ2TLK+r7hUMQpPtcuEhM89xgSnrLEnVKAdXVUKrbHd3ez2oY/4a4mfOr13so6LcwyJh6vgA==",
+        "resolved": "13.2.2",
+        "contentHash": "WF17f6r8GvMQaTAa0PBuFwdTHGJ0vOIkEDDNc5vl5cklTc8lIXc/B65wkqXLIY6AWyKUYcPmmw3AHpnDugKNIQ==",
         "dependencies": {
           "DynamicData": "7.1.1",
           "Splat": "10.0.1",
@@ -349,14 +349,14 @@
       "sakuno.ing.viewmodels": {
         "type": "Project",
         "dependencies": {
-          "ReactiveUI": "13.1.1",
+          "ReactiveUI": "13.2.2",
           "Sakuno.ING.Game.Models": "1.0.0"
         }
       },
       "sakuno.ing.views.desktop.common": {
         "type": "Project",
         "dependencies": {
-          "ReactiveUI.WPF": "13.1.1",
+          "ReactiveUI.WPF": "13.2.2",
           "Sakuno.ING.Game.Models": "1.0.0"
         }
       }

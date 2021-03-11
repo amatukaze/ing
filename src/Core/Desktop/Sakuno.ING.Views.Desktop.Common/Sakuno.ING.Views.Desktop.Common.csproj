@@ -10,7 +10,7 @@
     </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ReactiveUI.WPF" Version="13.1.1" />
+    <PackageReference Include="ReactiveUI.WPF" Version="13.2.2" />
   </ItemGroup>
 
     <ItemGroup>
