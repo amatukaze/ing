@@ -32,7 +32,7 @@ namespace Sakuno.ING.Game
         public IObservable<RepairStart> RepairStarted { get; private set; }
         public IObservable<RepairDockId> InstantRepairUsed { get; private set; }
 
-        private static RepairStart ParseRepairStart(NameValueCollection request) => new RepairStart
+        private static RepairStart ParseRepairStart(NameValueCollection request) => new
         (
             instantRepair: request.GetBool("api_highspeed"),
             shipId: (ShipId)request.GetInt("api_ship_id"),
@@ -44,7 +44,7 @@ namespace Sakuno.ING.Game
         public IObservable<ConstructionStart> ConstructionStarted { get; private set; }
         public IObservable<ConstructionDockId> InstantConstructionUsed { get; private set; }
 
-        private static ConstructionStart ParseConstructionStart(NameValueCollection request) => new ConstructionStart
+        private static ConstructionStart ParseConstructionStart(NameValueCollection request) => new
         (
             dockId: (ConstructionDockId)request.GetInt("api_kdock_id"),
             instantBuild: request.GetBool("api_highspeed"),
@@ -64,15 +64,14 @@ namespace Sakuno.ING.Game
         public IObservable<AirForceSquadronDeployment> AirForceSquadronDeployed { get; private set; }
         public IObservable<AirForceActionUpdate> AirForceActionUpdated { get; private set; }
 
-        private static AirForceSquadronDeployment ParseAirForceSquadronDeployment(NameValueCollection request, AirForceSquadronDeploymentJson response) =>
-            new AirForceSquadronDeployment
-            (
-                mapAreaId: (MapAreaId)request.GetInt("api_area_id"),
-                groupId: (AirForceGroupId)request.GetInt("api_base_id"),
-                baseCombatRadius: response.api_distance.api_base,
-                bonusCombatRadius: response.api_distance.api_bonus,
-                updatedSquadrons: response.api_plane_info
-            );
+        private static AirForceSquadronDeployment ParseAirForceSquadronDeployment(NameValueCollection request, AirForceSquadronDeploymentJson response) => new
+        (
+            mapAreaId: (MapAreaId)request.GetInt("api_area_id"),
+            groupId: (AirForceGroupId)request.GetInt("api_base_id"),
+            baseCombatRadius: response.api_distance.api_base,
+            bonusCombatRadius: response.api_distance.api_bonus,
+            updatedSquadrons: response.api_plane_info
+        );
         private static IEnumerable<AirForceActionUpdate> ParseAirForceActionUpdates(NameValueCollection request)
         {
             var mapArea = request.GetInt("api_area_id");

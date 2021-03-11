@@ -7,11 +7,10 @@ namespace Sakuno.ING.Game.Json.Converters
     {
         protected override int MaxLength => 2;
 
-        protected override ShipModernizationStatus Parse(ReadOnlySpan<int> span) =>
-            new ShipModernizationStatus
-            (
-                min: span[0],
-                max: span[1]
-            );
+        protected override ShipModernizationStatus Parse(ReadOnlySpan<int> span) => new
+        (
+            min: span[0],
+            max: span[1]
+        );
     }
 }

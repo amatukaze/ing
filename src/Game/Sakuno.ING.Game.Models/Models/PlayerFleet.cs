@@ -1,11 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Sakuno.ING.Game.Models
 {
     public partial class PlayerFleet
     {
-        private ObservableCollection<PlayerShip> _ships = new ObservableCollection<PlayerShip>();
+        private ObservableCollection<PlayerShip> _ships;
         public ReadOnlyObservableCollection<PlayerShip> Ships { get; private set; }
 
         partial void CreateCore()
