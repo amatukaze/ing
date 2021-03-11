@@ -29,6 +29,17 @@ namespace Sakuno.ING.Game
 
         public IObservable<ShipSupply> ShipSupplied { get; private set; }
 
+        public IObservable<ShipModernization> ShipModernization { get; private set; }
+
+        private static ShipModernization ParseShipModernization(NameValueCollection request, ShipModernizationResultJson response) => new
+        (
+            shipId: (ShipId)request.GetInt("api_id"),
+            consumedShipIds: request.GetShipIds("api_id_items"),
+            isSuccess: response.api_powerup_flag,
+            newRawData: response.api_ship,
+            removeSlotItems: request.GetBool("api_slot_dest_flag")
+        );
+
         public IObservable<RepairStart> RepairStarted { get; private set; }
         public IObservable<RepairDockId> InstantRepairUsed { get; private set; }
 

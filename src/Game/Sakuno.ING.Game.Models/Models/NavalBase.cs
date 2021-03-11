@@ -76,6 +76,14 @@ namespace Sakuno.ING.Game.Models
 
             provider.ShipSupplied.Subscribe(message => _ships[message.Id].Supply(message));
 
+            provider.ShipModernization.Subscribe(message =>
+            {
+                foreach (var shipId in message.ConsumedShipIds)
+                    RemoveShip(shipId, message.RemoveSlotItems);
+
+                _ships[message.ShipId].Update(message.NewRawData);
+            });
+
             provider.AirForceActionUpdated.Subscribe(message => AirForceGroups[(message.MapAreaId, message.GroupId)].Action = message.Action);
 
             var materials = new Subject<Materials>();
@@ -87,6 +95,22 @@ namespace Sakuno.ING.Game.Models
             }).Subscribe(materials);
 
             Materials = materials.AsObservable();
+        }
+
+        private void RemoveShip(ShipId shipId, bool removeSlotItems)
+        {
+            var ship = _ships.Remove(shipId) ?? throw new InvalidOperationException();
+
+            foreach (var fleet in _fleets)
+                if (fleet.Remove(ship))
+                    break;
+
+            if (!removeSlotItems)
+                return;
+
+            foreach (var slot in ship.Slots)
+                if (slot.PlayerSlotItem is not null)
+                    _slotItems.Remove(slot.PlayerSlotItem);
         }
     }
 }

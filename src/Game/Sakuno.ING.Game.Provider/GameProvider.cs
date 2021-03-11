@@ -51,6 +51,7 @@ namespace Sakuno.ING.Game
                 "api_get_member/ship3" => Deserialize<Ship3Json>(message),
                 "api_get_member/ship_deck" => Deserialize<ShipDeckJson>(message),
                 "api_req_hokyu/charge" => Deserialize<ShipsSupplyJson>(message),
+                "api_req_kaisou/powerup" => DeserializeWithRequest<ShipModernizationResultJson>(message),
                 "api_req_kaisou/marriage" => Deserialize<RawShip>(message),
                 "api_req_kousyou/destroyship" => DeserializeWithRequest<ShipDismantlingJson>(message),
                 "api_req_kousyou/destroyitem2" => DeserializeWithRequest<SlotItemScrappingJson>(message),
@@ -85,6 +86,7 @@ namespace Sakuno.ING.Game
             {
                 deserialized.Parse<HomeportJson, RawFleet[]>(raw => raw.api_deck_port),
                 deserialized.OfData<RawFleet[]>(),
+                deserialized.Parse<ShipModernizationResultJson, RawFleet[]>(raw => raw.api_deck),
             });
             SlotItemsUpdated = Observable.Merge(new[]
             {
@@ -122,6 +124,7 @@ namespace Sakuno.ING.Game
                 deserialized.OfData<RawShip[]>().SelectMany(ships => ships),
                 deserialized.Parse<Ship3Json, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
                 deserialized.Parse<ShipDeckJson, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
+                deserialized.Parse<ShipModernizationResultJson, RawShip>(raw => raw.api_ship),
             });
             FleetUpdate = Observable.Merge(new[]
             {
@@ -132,6 +135,8 @@ namespace Sakuno.ING.Game
             FleetCompositionChanged = deserialized.Parse("api_req_hensei/change", ParseFleetCompositionChange);
 
             ShipSupplied = deserialized.OfData<ShipsSupplyJson>().SelectMany(raw => raw.api_ship);
+
+            ShipModernization = deserialized.Parse<ShipModernizationResultJson, ShipModernization>(ParseShipModernization);
 
             RepairStarted = deserialized.Parse("api_req_nyukyo/start", ParseRepairStart);
             InstantRepairUsed = deserialized.Parse("api_req_nyukyo/speedchange", ParseInstantRepair);
