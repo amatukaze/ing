@@ -52,6 +52,8 @@ namespace Sakuno.ING.Game
                 "api_get_member/ship_deck" => Deserialize<ShipDeckJson>(message),
                 "api_req_hokyu/charge" => Deserialize<ShipsSupplyJson>(message),
                 "api_req_kaisou/marriage" => Deserialize<RawShip>(message),
+                "api_req_kousyou/destroyship" => DeserializeWithRequest<ShipDismantlingJson>(message),
+                "api_req_kousyou/destroyitem2" => DeserializeWithRequest<SlotItemScrappingJson>(message),
                 "api_req_air_corps/set_plane" => DeserializeWithRequest<AirForceSquadronDeploymentJson>(message),
                 "api_get_member/questlist" => Deserialize<QuestListJson>(message),
 
@@ -143,16 +145,18 @@ namespace Sakuno.ING.Game
             QuestListUpdated = deserialized.Parse<QuestListJson, RawQuest[]>(raw => raw.api_list);
             QuestCompleted = deserialized.Parse("api_req_quest/clearitemget", ParseQuestCompleted);
 
-            deserialized.Connect();
-
             MaterialUpdate = Observable.Merge(new[]
             {
-                deserialized.Parse<HomeportJson, IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw.api_material)),
-                deserialized.Parse<RawMaterialItem[], IMaterialUpdate>(raw => new HomeportMaterialUpdate(raw)),
+                deserialized.Parse((Func<HomeportJson, IMaterialUpdate>)(raw => new HomeportMaterialUpdate(raw.api_material))),
+                deserialized.Parse((Func<RawMaterialItem[], IMaterialUpdate>)(raw => new HomeportMaterialUpdate(raw))),
                 deserialized.OfData<ShipsSupplyJson>(),
                 ConstructionStarted,
+                deserialized.OfDataWithRequest<ShipDismantlingJson>(),
+                deserialized.OfDataWithRequest<SlotItemScrappingJson>(),
                 deserialized.OfData<AirForceSquadronDeploymentJson>(),
             });
+
+            deserialized.Connect();
         }
 
         private NameValueCollection ParseRequest(ReadOnlyMemory<char> request) =>

@@ -95,5 +95,7 @@ namespace Sakuno.ING.Game.Models
                 return default;
             }
         }
+
+        internal bool Remove(PlayerShip ship) => _ships.Remove(ship);
     }
 }

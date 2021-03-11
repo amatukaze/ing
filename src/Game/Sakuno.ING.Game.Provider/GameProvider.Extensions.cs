@@ -1,4 +1,5 @@
 ﻿using Sakuno.ING.Game.Json;
+using Sakuno.ING.Game.Models;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace Sakuno.ING.Game
     {
         public static IObservable<T> OfData<T>(this IObservable<SvData> source) =>
             source.OfType<SvData<T>>().Where(svdata => svdata.api_result == 1).Select(svdata => svdata.api_data);
+        public static IObservable<T> OfDataWithRequest<T>(this IObservable<SvData> source) =>
+            source.OfType<SvDataWithRequest<T>>().Where(svdata => svdata.api_result == 1).Select(svdata => svdata.api_data);
 
         public static IObservable<TEvent> Parse<TRaw, TEvent>(this IObservable<SvData> source, Func<TRaw, TEvent> eventSelector)
         {
@@ -37,5 +40,8 @@ namespace Sakuno.ING.Game
         public static int[] GetInts(this NameValueCollection source, string name) =>
             source[name]?.Split(',').Select(int.Parse).ToArray() ?? Array.Empty<int>();
         public static bool GetBool(this NameValueCollection source, string name) => source.GetInt(name) != 0;
+
+        public static ShipId[] GetShipIds(this NameValueCollection source, string name) =>
+            source[name]?.Split(',').Select(id => (ShipId)int.Parse(id)).ToArray() ?? Array.Empty<ShipId>();
     }
 }
