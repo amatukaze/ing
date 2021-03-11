@@ -2,6 +2,7 @@
 using Sakuno.ING.Game.Models.MasterData;
 using System;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace Sakuno.ING.Game.Models
 {
@@ -77,11 +78,15 @@ namespace Sakuno.ING.Game.Models
 
             provider.AirForceActionUpdated.Subscribe(message => AirForceGroups[(message.MapAreaId, message.GroupId)].Action = message.Action);
 
-            Materials = provider.MaterialUpdate.Scan(new Materials(), (materials, message) =>
+            var materials = new Subject<Materials>();
+
+            provider.MaterialUpdate.Scan(new Materials(), (materials, message) =>
             {
                 message.Apply(materials);
                 return materials;
-            });
+            }).Subscribe(materials);
+
+            Materials = materials.AsObservable();
         }
     }
 }
