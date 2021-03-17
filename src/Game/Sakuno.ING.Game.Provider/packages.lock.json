@@ -2,6 +2,12 @@
   "version": 1,
   "dependencies": {
     ".NETStandard,Version=v2.0": {
+      "IsExternalInit": {
+        "type": "Direct",
+        "requested": "[1.0.0, )",
+        "resolved": "1.0.0",
+        "contentHash": "xGTfHXnk6NT94zR4tVWoxraY+9FnXn2R2uMe1HY7hLpmU/rTkdpexZT+4UlEUXr7oVHK7ogtWIMcrwrH/GMBiw=="
+      },
       "Microsoft.Bcl.HashCode": {
         "type": "Direct",
         "requested": "[1.1.1, )",

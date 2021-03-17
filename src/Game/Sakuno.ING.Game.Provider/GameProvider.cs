@@ -1,4 +1,4 @@
-using Sakuno.ING.Composition;
+﻿using Sakuno.ING.Composition;
 using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Json.Converters;
@@ -53,8 +53,8 @@ namespace Sakuno.ING.Game
                 "api_req_hokyu/charge" => Deserialize<ShipsSupplyJson>(message),
                 "api_req_kaisou/powerup" => DeserializeWithRequest<ShipModernizationResultJson>(message),
                 "api_req_kaisou/marriage" => Deserialize<RawShip>(message),
-                "api_req_kousyou/destroyship" => DeserializeWithRequest<ShipDismantlingJson>(message),
-                "api_req_kousyou/destroyitem2" => DeserializeWithRequest<SlotItemScrappingJson>(message),
+                "api_req_kousyou/destroyship" => DeserializeWithRequest<ShipsDismantlingJson>(message),
+                "api_req_kousyou/destroyitem2" => DeserializeWithRequest<SlotItemsScrappingJson>(message),
                 "api_req_air_corps/set_plane" => DeserializeWithRequest<AirForceSquadronDeploymentJson>(message),
                 "api_get_member/questlist" => Deserialize<QuestListJson>(message),
 
@@ -144,6 +144,9 @@ namespace Sakuno.ING.Game
             ConstructionStarted = deserialized.Parse("api_req_kousyou/createship", ParseConstructionStart);
             InstantConstructionUsed = deserialized.Parse("api_req_kousyou/createship_speedchange", ParseInstantConstruction);
 
+            ShipsDismantled = deserialized.OfDataWithRequest<ShipsDismantlingJson>().Select(ParseShipDismantled);
+            SlotItemsScrapped = deserialized.OfDataWithRequest<SlotItemsScrappingJson>().Select(raw => raw.Request.GetSlotItemIds("api_slotitem_ids"));
+
             AirForceSquadronDeployed = deserialized.Parse<AirForceSquadronDeploymentJson, AirForceSquadronDeployment>(ParseAirForceSquadronDeployment);
             AirForceActionUpdated = deserialized.Parse("api_req_air_corps/set_action", ParseAirForceActionUpdates).SelectMany(updates => updates);
 
@@ -156,8 +159,8 @@ namespace Sakuno.ING.Game
                 deserialized.Parse((Func<RawMaterialItem[], IMaterialUpdate>)(raw => new HomeportMaterialUpdate(raw))),
                 deserialized.OfData<ShipsSupplyJson>(),
                 ConstructionStarted,
-                deserialized.OfDataWithRequest<ShipDismantlingJson>().Select(raw => raw.api_data),
-                deserialized.OfDataWithRequest<SlotItemScrappingJson>().Select(raw => raw.api_data),
+                deserialized.OfDataWithRequest<ShipsDismantlingJson>().Select(raw => raw.api_data),
+                deserialized.OfDataWithRequest<SlotItemsScrappingJson>().Select(raw => raw.api_data),
                 deserialized.OfData<AirForceSquadronDeploymentJson>(),
             });
 

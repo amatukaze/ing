@@ -72,6 +72,15 @@ namespace Sakuno.ING.Game
         private static ConstructionDockId ParseInstantConstruction(NameValueCollection request) =>
             (ConstructionDockId)request.GetInt("api_kdock_id");
 
+        public IObservable<ShipsDismantled> ShipsDismantled { get; private set; }
+        public IObservable<SlotItemId[]> SlotItemsScrapped { get; private set; }
+
+        private static ShipsDismantled ParseShipDismantled(SvDataWithRequest<ShipsDismantlingJson> rawData) => new
+        (
+            rawData.Request.GetShipIds("api_ship_id"),
+            rawData.Request.GetBool("api_slot_dest_flag")
+        );
+
         public IObservable<AirForceSquadronDeployment> AirForceSquadronDeployed { get; private set; }
         public IObservable<AirForceActionUpdate> AirForceActionUpdated { get; private set; }
 

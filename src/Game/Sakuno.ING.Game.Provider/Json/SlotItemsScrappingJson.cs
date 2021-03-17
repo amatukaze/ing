@@ -4,7 +4,7 @@ using Sakuno.ING.Game.Models;
 namespace Sakuno.ING.Game.Json
 {
 #nullable disable
-    internal sealed class SlotItemScrappingJson : IMaterialUpdate
+    internal sealed class SlotItemsScrappingJson : IMaterialUpdate
     {
         public Materials api_get_material { get; set; }
 

@@ -1,4 +1,4 @@
-using Sakuno.ING.Game.Json;
+﻿using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models;
 using System;
 using System.Collections.Specialized;
@@ -43,5 +43,7 @@ namespace Sakuno.ING.Game
 
         public static ShipId[] GetShipIds(this NameValueCollection source, string name) =>
             source[name]?.Split(',').Select(id => (ShipId)int.Parse(id)).ToArray() ?? Array.Empty<ShipId>();
+        public static SlotItemId[] GetSlotItemIds(this NameValueCollection source, string name) =>
+            source[name]?.Split(',').Select(x => (SlotItemId)int.Parse(x)).ToArray() ?? Array.Empty<SlotItemId>();
     }
 }
