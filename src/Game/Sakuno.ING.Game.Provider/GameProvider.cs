@@ -156,8 +156,8 @@ namespace Sakuno.ING.Game
                 deserialized.Parse((Func<RawMaterialItem[], IMaterialUpdate>)(raw => new HomeportMaterialUpdate(raw))),
                 deserialized.OfData<ShipsSupplyJson>(),
                 ConstructionStarted,
-                deserialized.OfDataWithRequest<ShipDismantlingJson>(),
-                deserialized.OfDataWithRequest<SlotItemScrappingJson>(),
+                deserialized.OfDataWithRequest<ShipDismantlingJson>().Select(raw => raw.api_data),
+                deserialized.OfDataWithRequest<SlotItemScrappingJson>().Select(raw => raw.api_data),
                 deserialized.OfData<AirForceSquadronDeploymentJson>(),
             });
 

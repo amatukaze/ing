@@ -1,4 +1,4 @@
-﻿using Sakuno.ING.Game.Json;
+using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models;
 using System;
 using System.Collections.Specialized;
@@ -11,8 +11,8 @@ namespace Sakuno.ING.Game
     {
         public static IObservable<T> OfData<T>(this IObservable<SvData> source) =>
             source.OfType<SvData<T>>().Where(svdata => svdata.api_result == 1).Select(svdata => svdata.api_data);
-        public static IObservable<T> OfDataWithRequest<T>(this IObservable<SvData> source) =>
-            source.OfType<SvDataWithRequest<T>>().Where(svdata => svdata.api_result == 1).Select(svdata => svdata.api_data);
+        public static IObservable<SvDataWithRequest<T>> OfDataWithRequest<T>(this IObservable<SvData> source) =>
+            source.OfType<SvDataWithRequest<T>>().Where(svdata => svdata.api_result == 1);
 
         public static IObservable<TEvent> Parse<TRaw, TEvent>(this IObservable<SvData> source, Func<TRaw, TEvent> eventSelector)
         {
