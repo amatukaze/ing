@@ -84,6 +84,17 @@ namespace Sakuno.ING.Game.Models
                 _ships[message.ShipId].Update(message.NewRawData);
             });
 
+            provider.ShipsDismantled.Subscribe(message =>
+            {
+                foreach (var shipId in message.ShipIds)
+                    RemoveShip(shipId, message.RemoveSlotItems);
+            });
+            provider.SlotItemsScrapped.Subscribe(message =>
+            {
+                foreach (var slotItemId in message)
+                    _slotItems.Remove(slotItemId);
+            });
+
             provider.AirForceActionUpdated.Subscribe(message => AirForceGroups[(message.MapAreaId, message.GroupId)].Action = message.Action);
 
             var materials = new Subject<Materials>();
