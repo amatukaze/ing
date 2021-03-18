@@ -84,6 +84,18 @@ namespace Sakuno.ING.Game.Models
                 _ships[message.ShipId].Update(message.NewRawData);
             });
 
+            provider.ShipConstructed.Subscribe(message =>
+            {
+                _slotItems.BatchUpdate(message.SlotItems, false);
+                _ships.Add(message.Ship);
+            });
+            provider.SlotItemsDeveloped.Where(message => message.IsSuccessful).Subscribe(message =>
+            {
+                foreach (var slotItem in message.SlotItems)
+                    if (slotItem is not null)
+                        _slotItems.Add(slotItem);
+            });
+
             provider.ShipsDismantled.Subscribe(message =>
             {
                 foreach (var shipId in message.ShipIds)
@@ -92,6 +104,15 @@ namespace Sakuno.ING.Game.Models
             provider.SlotItemsScrapped.Subscribe(message =>
             {
                 foreach (var slotItemId in message)
+                    _slotItems.Remove(slotItemId);
+            });
+
+            provider.SlotItemImproved.Subscribe(message =>
+            {
+                if (message.IsSuccessful)
+                    _slotItems[message.SlotItemId].Update(message.NewRawData);
+
+                foreach (var slotItemId in message.ConsumedSlotItemIds)
                     _slotItems.Remove(slotItemId);
             });
 

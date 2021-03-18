@@ -53,8 +53,11 @@ namespace Sakuno.ING.Game
                 "api_req_hokyu/charge" => Deserialize<ShipsSupplyJson>(message),
                 "api_req_kaisou/powerup" => DeserializeWithRequest<ShipModernizationResultJson>(message),
                 "api_req_kaisou/marriage" => Deserialize<RawShip>(message),
+                "api_req_kousyou/getship" => Deserialize<ShipConstructionResultJson>(message),
+                "api_req_kousyou/createitem" => DeserializeWithRequest<SlotItemsDevelopedJson>(message),
                 "api_req_kousyou/destroyship" => DeserializeWithRequest<ShipsDismantlingJson>(message),
                 "api_req_kousyou/destroyitem2" => DeserializeWithRequest<SlotItemsScrappingJson>(message),
+                "api_req_kousyou/remodel_slot" => DeserializeWithRequest<SlotItemImprovementJson>(message),
                 "api_req_air_corps/set_plane" => DeserializeWithRequest<AirForceSquadronDeploymentJson>(message),
                 "api_get_member/questlist" => Deserialize<QuestListJson>(message),
 
@@ -144,8 +147,13 @@ namespace Sakuno.ING.Game
             ConstructionStarted = deserialized.Parse("api_req_kousyou/createship", ParseConstructionStart);
             InstantConstructionUsed = deserialized.Parse("api_req_kousyou/createship_speedchange", ParseInstantConstruction);
 
+            ShipConstructed = deserialized.Parse<ShipConstructionResultJson, ShipConstructed>(ParseShipConstructed);
+            SlotItemsDeveloped = deserialized.Parse<SlotItemsDevelopedJson, SlotItemsDeveloped>(ParseSlotItemsDeveloped);
+
             ShipsDismantled = deserialized.OfDataWithRequest<ShipsDismantlingJson>().Select(ParseShipDismantled);
             SlotItemsScrapped = deserialized.OfDataWithRequest<SlotItemsScrappingJson>().Select(raw => raw.Request.GetSlotItemIds("api_slotitem_ids"));
+
+            SlotItemImproved = deserialized.OfDataWithRequest<SlotItemImprovementJson>().Select(ParseSlotItemImproved);
 
             AirForceSquadronDeployed = deserialized.Parse<AirForceSquadronDeploymentJson, AirForceSquadronDeployment>(ParseAirForceSquadronDeployment);
             AirForceActionUpdated = deserialized.Parse("api_req_air_corps/set_action", ParseAirForceActionUpdates).SelectMany(updates => updates);
@@ -159,8 +167,10 @@ namespace Sakuno.ING.Game
                 deserialized.Parse((Func<RawMaterialItem[], IMaterialUpdate>)(raw => new HomeportMaterialUpdate(raw))),
                 deserialized.OfData<ShipsSupplyJson>(),
                 ConstructionStarted,
+                deserialized.OfData<SlotItemsDevelopedJson>(),
                 deserialized.OfDataWithRequest<ShipsDismantlingJson>().Select(raw => raw.api_data),
                 deserialized.OfDataWithRequest<SlotItemsScrappingJson>().Select(raw => raw.api_data),
+                deserialized.OfDataWithRequest<SlotItemImprovementJson>().Select(raw => raw.api_data),
                 deserialized.OfData<AirForceSquadronDeploymentJson>(),
             });
 

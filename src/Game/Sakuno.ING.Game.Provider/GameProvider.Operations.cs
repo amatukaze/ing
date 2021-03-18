@@ -72,13 +72,43 @@ namespace Sakuno.ING.Game
         private static ConstructionDockId ParseInstantConstruction(NameValueCollection request) =>
             (ConstructionDockId)request.GetInt("api_kdock_id");
 
+        public IObservable<ShipConstructed> ShipConstructed { get; private set; }
+
+        private static ShipConstructed ParseShipConstructed(ShipConstructionResultJson response) => new
+        (
+            Ship: response.api_ship,
+            SlotItems: response.api_slotitem ?? Array.Empty<RawSlotItem>()
+        );
+
+        public IObservable<SlotItemsDeveloped> SlotItemsDeveloped { get; private set; }
+
+        private static SlotItemsDeveloped ParseSlotItemsDeveloped(SlotItemsDevelopedJson response) => new
+        (
+            IsSuccessful: response.api_create_flag,
+            SlotItems: response.api_get_items.Select(raw => (raw.api_id, raw.api_slotitem_id) switch
+            {
+                var (id, masterId) when id > 0 && masterId > 0 => new RawSlotItem() { Id = (SlotItemId)id, SlotItemInfoId = (SlotItemInfoId)masterId },
+                _ => null,
+            }).ToArray()
+        );
+
         public IObservable<ShipsDismantled> ShipsDismantled { get; private set; }
         public IObservable<SlotItemId[]> SlotItemsScrapped { get; private set; }
 
         private static ShipsDismantled ParseShipDismantled(SvDataWithRequest<ShipsDismantlingJson> rawData) => new
         (
-            rawData.Request.GetShipIds("api_ship_id"),
-            rawData.Request.GetBool("api_slot_dest_flag")
+            ShipIds: rawData.Request.GetShipIds("api_ship_id"),
+            RemoveSlotItems: rawData.Request.GetBool("api_slot_dest_flag")
+        );
+
+        public IObservable<SlotItemImproved> SlotItemImproved { get; private set; }
+
+        private static SlotItemImproved ParseSlotItemImproved(SvDataWithRequest<SlotItemImprovementJson> rawData) => new
+        (
+            SlotItemId: (SlotItemId)rawData.Request.GetInt("api_slot_id"),
+            IsSuccessful: rawData.api_data.api_remodel_flag,
+            NewRawData: rawData.api_data.api_after_slot,
+            ConsumedSlotItemIds: rawData.api_data.api_use_slot_id
         );
 
         public IObservable<AirForceSquadronDeployment> AirForceSquadronDeployed { get; private set; }
