@@ -6,5 +6,12 @@
         {
             RepairingShip = _owner.Ships[raw.RepairingShipId];
         }
+
+        internal void InstantRepair()
+        {
+            State = RepairDockState.Empty;
+            CompletionTime = null;
+            RepairingShip = null;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Sakuno.ING.Composition;
+using Sakuno.ING.Game.Models.Events;
 using Sakuno.ING.Game.Models.MasterData;
 using System;
 using System.Reactive.Linq;
@@ -84,6 +85,8 @@ namespace Sakuno.ING.Game.Models
                 _ships[message.ShipId].Update(message.NewRawData);
             });
 
+            provider.InstantRepairUsed.Subscribe(message => _repairDocks[message].InstantRepair());
+
             provider.ShipConstructed.Subscribe(message =>
             {
                 _slotItems.BatchUpdate(message.SlotItems, false);
@@ -95,6 +98,9 @@ namespace Sakuno.ING.Game.Models
                     if (slotItem is not null)
                         _slotItems.Add(slotItem);
             });
+
+            var instantConstructionUsed = provider.InstantConstructionUsed.Select(message => _constructionDocks[message]);
+            instantConstructionUsed.Subscribe(message => message.InstantBuild());
 
             provider.ShipsDismantled.Subscribe(message =>
             {
@@ -119,8 +125,12 @@ namespace Sakuno.ING.Game.Models
             provider.AirForceActionUpdated.Subscribe(message => AirForceGroups[(message.MapAreaId, message.GroupId)].Action = message.Action);
 
             var materials = new Subject<Materials>();
-
-            provider.MaterialUpdate.Scan(new Materials(), (materials, message) =>
+            var materialUpdate = Observable.Merge(new[]
+            {
+                provider.MaterialUpdate,
+                instantConstructionUsed.Select(message => new InstantConstructionMaterialUpdate(message.IsLSC)),
+            });
+            materialUpdate.Scan(new Materials(), (materials, message) =>
             {
                 message.Apply(materials);
                 return materials;
