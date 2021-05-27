@@ -4,9 +4,9 @@
     ".NETStandard,Version=v2.0": {
       "DryIoc.dll": {
         "type": "Direct",
-        "requested": "[4.7.4, )",
-        "resolved": "4.7.4",
-        "contentHash": "wSuSodBC4WPNg130JtBEDJO+LeXC9W8V9oRpFP9tU/4VaBpz1sfKZpsTJoxbnZnfKtCZ7DpRmEDBhYu6I/yXEg==",
+        "requested": "[4.7.8, )",
+        "resolved": "4.7.8",
+        "contentHash": "qjcDvB/6jTlN8k093hWXrHe107RgjvZEa0+HXunpnY+b8Qr32JpL1c9LgdmLMtBa6jthLyjl0fmLbDggQKO7vw==",
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.3.0"
         }
@@ -22,12 +22,12 @@
       },
       "ReactiveUI": {
         "type": "Direct",
-        "requested": "[13.2.2, )",
-        "resolved": "13.2.2",
-        "contentHash": "WF17f6r8GvMQaTAa0PBuFwdTHGJ0vOIkEDDNc5vl5cklTc8lIXc/B65wkqXLIY6AWyKUYcPmmw3AHpnDugKNIQ==",
+        "requested": "[13.3.2, )",
+        "resolved": "13.3.2",
+        "contentHash": "+XJGnk+u7ZuYuAaBVfs0X3nLZ6g4ysiZrVou7ndVJYOUFeUW0jyfaMl3TfOqpr/afQNaIw8nY6yOwtI6HGkgsQ==",
         "dependencies": {
-          "DynamicData": "7.1.1",
-          "Splat": "10.0.1",
+          "DynamicData": "7.1.16",
+          "Splat": "11.1.1",
           "System.ComponentModel": "4.3.0",
           "System.Diagnostics.Contracts": "4.3.0",
           "System.Dynamic.Runtime": "4.3.0",
@@ -37,18 +37,18 @@
       },
       "Splat.DryIoc": {
         "type": "Direct",
-        "requested": "[10.0.1, )",
-        "resolved": "10.0.1",
-        "contentHash": "LUKjOSvQGh+RzwJU4wOP2mimSEBKCgPSV26LO94dN5frvqR1G82/39EtGzj6H68bjhnkx/aJ2DkLdMmvTmfxUQ==",
+        "requested": "[11.1.1, )",
+        "resolved": "11.1.1",
+        "contentHash": "zHlVqOn5sj12eQUaqgYI1Vg0TzCQXU35ZEZ79jFpQqzjaDwhhapYDqRzyR6xnYgLZkgvgC3gsC8gbzRyv8jX1A==",
         "dependencies": {
-          "DryIoc.Dll": "4.7.2",
-          "Splat": "10.0.1"
+          "DryIoc.Dll": "4.7.7",
+          "Splat": "11.1.1"
         }
       },
       "DynamicData": {
         "type": "Transitive",
-        "resolved": "7.1.1",
-        "contentHash": "Pc6J5bFnSxEa64PV2V67FMcLlDdpv6m+zTBKSnRN3aLon/WtWWy8kuDpHFbJlgXHtqc6Nxloj9ItuvDlvKC/8w==",
+        "resolved": "7.1.16",
+        "contentHash": "CMXT1lXzKSW3siHty4sNZO5XUHPWMH51aksCwFIW1u3e3Js0zkMSw9DqgNC3eLoIiOKwUO5gPK0YSg96nHl1bQ==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }
@@ -65,8 +65,8 @@
       },
       "Splat": {
         "type": "Transitive",
-        "resolved": "10.0.1",
-        "contentHash": "N8BMGVuUBnVLAHSVbna/st8XiLd8ulF3BfkKUSGCPqYpDCis3ELvM+aFaZQLBUIBEcweCYVLq3HFEBqHkCKFyA=="
+        "resolved": "11.1.1",
+        "contentHash": "qIgixm6tg+6Sztd5BM36Y+sRWdmzlCV2TYnViOSwqvOGAMaYYE9EhIaKHLbZHn6KXWAML8GMGx0kaosUMUA0rA=="
       },
       "System.Buffers": {
         "type": "Transitive",
