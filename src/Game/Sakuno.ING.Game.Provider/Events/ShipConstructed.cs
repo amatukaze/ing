@@ -1,8 +1,8 @@
-﻿using Sakuno.ING.Game.Models;
+﻿using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events
 {
-    public sealed record ShipConstructed(RawShip Ship, RawSlotItem[] SlotItems)
+    public sealed record ShipConstructed(ShipInfoId ShipInfoId)
     {
     }
 }

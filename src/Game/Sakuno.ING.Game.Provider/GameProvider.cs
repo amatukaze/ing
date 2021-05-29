@@ -50,7 +50,11 @@ namespace Sakuno.ING.Game
                 "api_get_member/ship2" => Deserialize<RawShip[]>(message),
                 "api_get_member/ship3" => Deserialize<Ship3Json>(message),
                 "api_get_member/ship_deck" => Deserialize<ShipDeckJson>(message),
+                "api_req_hensei/lock" => DeserializeWithRequest<RawShipLockInfo>(message),
+                "api_req_hensei/preset_select" => Deserialize<RawFleet>(message),
                 "api_req_hokyu/charge" => Deserialize<ShipsSupplyJson>(message),
+                "api_req_kaisou/lock" => DeserializeWithRequest<RawSlotItemLockInfo>(message),
+                "api_req_kaisou/slot_deprive" => Deserialize<SlotItemTransferJson>(message),
                 "api_req_kaisou/powerup" => DeserializeWithRequest<ShipModernizationResultJson>(message),
                 "api_req_kaisou/marriage" => Deserialize<RawShip>(message),
                 "api_req_kousyou/getship" => Deserialize<ShipConstructionResultJson>(message),
@@ -59,6 +63,7 @@ namespace Sakuno.ING.Game
                 "api_req_kousyou/destroyitem2" => DeserializeWithRequest<SlotItemsScrappingJson>(message),
                 "api_req_kousyou/remodel_slot" => DeserializeWithRequest<SlotItemImprovementJson>(message),
                 "api_req_air_corps/set_plane" => DeserializeWithRequest<AirForceSquadronDeploymentJson>(message),
+                "api_req_air_corps/supply" => DeserializeWithRequest<AirForceSquadronSupplyJson>(message),
                 "api_get_member/questlist" => Deserialize<QuestListJson>(message),
 
                 _ => (SvData)DeserializeRequestOnly(message),
@@ -83,20 +88,21 @@ namespace Sakuno.ING.Game
                 deserialized.OfData<RecordAdmiral>(),
             });
 
-            ShipsUpdate = deserialized.Parse<HomeportJson, RawShip[]>(raw => raw.api_ship);
+            ShipsUpdated = deserialized.Parse<HomeportJson, RawShip[]>(raw => raw.api_ship);
 
-            FleetsUpdate = Observable.Merge(new[]
+            FleetsUpdated = Observable.Merge(new[]
             {
                 deserialized.Parse<HomeportJson, RawFleet[]>(raw => raw.api_deck_port),
                 deserialized.OfData<RawFleet[]>(),
                 deserialized.Parse<ShipModernizationResultJson, RawFleet[]>(raw => raw.api_deck),
+                deserialized.Parse<Ship3Json, RawFleet[]>(raw => raw.api_deck_data),
             });
             SlotItemsUpdated = Observable.Merge(new[]
             {
                 deserialized.Parse<StartupInfoJson, RawSlotItem[]>(raw => raw.api_slot_item),
                 deserialized.OfData<RawSlotItem[]>(),
             });
-            RepairDocksUpdate = Observable.Merge(new[]
+            RepairDocksUpdated = Observable.Merge(new[]
             {
                 deserialized.Parse<HomeportJson, RawRepairDock[]>(raw => raw.api_ndock),
                 deserialized.OfData<RawRepairDock[]>(),
@@ -116,28 +122,21 @@ namespace Sakuno.ING.Game
             {
                 deserialized.Parse<StartupInfoJson, RawConstructionDock[]>(raw => raw.api_kdock),
                 deserialized.OfData<RawConstructionDock[]>(),
+                deserialized.Parse<ShipConstructionResultJson, RawConstructionDock[]>(raw => raw.api_kdock),
             });
 
             MapsUpdated = deserialized.Parse<MapInfoJson, RawMap[]>(raw => raw.api_map_info);
             AirForceGroupsUpdated = deserialized.Parse<MapInfoJson, RawAirForceGroup[]>(raw => raw.api_air_base);
 
-            ShipUpdate = Observable.Merge(new[]
-            {
-                deserialized.OfData<RawShip>(),
-                deserialized.OfData<RawShip[]>().SelectMany(ships => ships),
-                deserialized.Parse<Ship3Json, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
-                deserialized.Parse<ShipDeckJson, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
-                deserialized.Parse<ShipModernizationResultJson, RawShip>(raw => raw.api_ship),
-            });
-            FleetUpdate = Observable.Merge(new[]
-            {
-                deserialized.Parse<Ship3Json, RawFleet[]>(raw => raw.api_deck_data),
-                deserialized.Parse<ShipDeckJson, RawFleet[]>(raw => raw.api_deck_data),
-            }).SelectMany(fleets => fleets);
-
             FleetCompositionChanged = deserialized.Parse("api_req_hensei/change", ParseFleetCompositionChange);
 
+            ShipLocked = deserialized.OfDataWithRequest<RawShipLockInfo>().Where(raw => raw.api_data.api_locked).Select(raw => (ShipId)raw.Request.GetInt("api_ship_id"));
+            ShipUnlocked = deserialized.OfDataWithRequest<RawShipLockInfo>().Where(raw => !raw.api_data.api_locked).Select(raw => (ShipId)raw.Request.GetInt("api_ship_id"));
+
             ShipSupplied = deserialized.OfData<ShipsSupplyJson>().SelectMany(raw => raw.api_ship);
+
+            SlotItemLocked = deserialized.OfDataWithRequest<RawSlotItemLockInfo>().Where(raw => raw.api_data.api_locked).Select(raw => (SlotItemId)raw.Request.GetInt("api_slotitem_id"));
+            SlotItemUnlocked = deserialized.OfDataWithRequest<RawSlotItemLockInfo>().Where(raw => !raw.api_data.api_locked).Select(raw => (SlotItemId)raw.Request.GetInt("api_slotitem_id"));
 
             ShipModernization = deserialized.Parse<ShipModernizationResultJson, ShipModernization>(ParseShipModernization);
 
@@ -147,7 +146,6 @@ namespace Sakuno.ING.Game
             ConstructionStarted = deserialized.Parse("api_req_kousyou/createship", ParseConstructionStart);
             InstantConstructionUsed = deserialized.Parse("api_req_kousyou/createship_speedchange", ParseInstantConstruction);
 
-            ShipConstructed = deserialized.Parse<ShipConstructionResultJson, ShipConstructed>(ParseShipConstructed);
             SlotItemsDeveloped = deserialized.Parse<SlotItemsDevelopedJson, SlotItemsDeveloped>(ParseSlotItemsDeveloped);
 
             ShipsDismantled = deserialized.OfDataWithRequest<ShipsDismantlingJson>().Select(ParseShipDismantled);
@@ -155,13 +153,14 @@ namespace Sakuno.ING.Game
 
             SlotItemImproved = deserialized.OfDataWithRequest<SlotItemImprovementJson>().Select(ParseSlotItemImproved);
 
+            AirForceGroupActionUpdated = deserialized.Parse("api_req_air_corps/set_action", ParseAirForceGroupActionUpdates).SelectMany(updates => updates);
             AirForceSquadronDeployed = deserialized.Parse<AirForceSquadronDeploymentJson, AirForceSquadronDeployment>(ParseAirForceSquadronDeployment);
-            AirForceActionUpdated = deserialized.Parse("api_req_air_corps/set_action", ParseAirForceActionUpdates).SelectMany(updates => updates);
+            AirForceSquadronSupplied = deserialized.Parse<AirForceSquadronSupplyJson, AirForceSquadronSupplied>(ParseAirForceSquadronSupply);
 
             QuestListUpdated = deserialized.Parse<QuestListJson, RawQuest[]>(raw => raw.api_list);
             QuestCompleted = deserialized.Parse("api_req_quest/clearitemget", ParseQuestCompleted);
 
-            MaterialUpdate = Observable.Merge(new[]
+            MaterialUpdated = Observable.Merge(new[]
             {
                 deserialized.Parse((Func<HomeportJson, IMaterialUpdate>)(raw => new HomeportMaterialUpdate(raw.api_material))),
                 deserialized.Parse((Func<RawMaterialItem[], IMaterialUpdate>)(raw => new HomeportMaterialUpdate(raw))),
@@ -172,6 +171,31 @@ namespace Sakuno.ING.Game
                 deserialized.OfDataWithRequest<SlotItemsScrappingJson>().Select(raw => raw.api_data),
                 deserialized.OfDataWithRequest<SlotItemImprovementJson>().Select(raw => raw.api_data),
                 deserialized.OfData<AirForceSquadronDeploymentJson>(),
+                deserialized.OfData<AirForceSquadronSupplyJson>(),
+            });
+
+            SlotItemUpdated = Observable.Merge(new[]
+            {
+                deserialized.Parse<ShipConstructionResultJson, RawSlotItem[]>(raw => raw.api_slotitem).SelectMany(slotItems => slotItems),
+                //SlotItemsDeveloped.SelectMany(message => message.SlotItems).Where(slotItem => slotItem is not null),
+
+                SlotItemImproved.Where(message => message.IsSuccessful).Select(message => message.NewRawData),
+            });
+
+            ShipUpdated = Observable.Merge(new[]
+            {
+                deserialized.OfData<RawShip>(),
+                deserialized.OfData<RawShip[]>().SelectMany(ships => ships),
+                deserialized.Parse<Ship3Json, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
+                deserialized.Parse<ShipDeckJson, RawShip[]>(raw => raw.api_ship_data).SelectMany(ships => ships),
+                deserialized.Parse<ShipModernizationResultJson, RawShip>(raw => raw.api_ship),
+                deserialized.OfData<SlotItemTransferJson>().SelectMany(raw => raw.Ships),
+                deserialized.Parse<ShipConstructionResultJson, RawShip>(raw => raw.api_ship),
+            });
+            FleetUpdated = Observable.Merge(new[]
+            {
+                deserialized.OfData<RawFleet>(),
+                deserialized.Parse<ShipDeckJson, RawFleet[]>(raw => raw.api_deck_data).SelectMany(fleets => fleets),
             });
 
             deserialized.Connect();

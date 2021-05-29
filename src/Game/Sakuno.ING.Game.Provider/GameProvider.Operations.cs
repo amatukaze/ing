@@ -72,14 +72,6 @@ namespace Sakuno.ING.Game
         private static ConstructionDockId ParseInstantConstruction(NameValueCollection request) =>
             (ConstructionDockId)request.GetInt("api_kdock_id");
 
-        public IObservable<ShipConstructed> ShipConstructed { get; private set; }
-
-        private static ShipConstructed ParseShipConstructed(ShipConstructionResultJson response) => new
-        (
-            Ship: response.api_ship,
-            SlotItems: response.api_slotitem ?? Array.Empty<RawSlotItem>()
-        );
-
         public IObservable<SlotItemsDeveloped> SlotItemsDeveloped { get; private set; }
 
         private static SlotItemsDeveloped ParseSlotItemsDeveloped(SlotItemsDevelopedJson response) => new
@@ -111,18 +103,11 @@ namespace Sakuno.ING.Game
             ConsumedSlotItemIds: rawData.api_data.api_use_slot_id
         );
 
+        public IObservable<AirForceActionUpdate> AirForceGroupActionUpdated { get; private set; }
         public IObservable<AirForceSquadronDeployment> AirForceSquadronDeployed { get; private set; }
-        public IObservable<AirForceActionUpdate> AirForceActionUpdated { get; private set; }
+        public IObservable<AirForceSquadronSupplied> AirForceSquadronSupplied { get; private set; }
 
-        private static AirForceSquadronDeployment ParseAirForceSquadronDeployment(NameValueCollection request, AirForceSquadronDeploymentJson response) => new
-        (
-            mapAreaId: (MapAreaId)request.GetInt("api_area_id"),
-            groupId: (AirForceGroupId)request.GetInt("api_base_id"),
-            baseCombatRadius: response.api_distance.api_base,
-            bonusCombatRadius: response.api_distance.api_bonus,
-            updatedSquadrons: response.api_plane_info
-        );
-        private static IEnumerable<AirForceActionUpdate> ParseAirForceActionUpdates(NameValueCollection request)
+        private static IEnumerable<AirForceActionUpdate> ParseAirForceGroupActionUpdates(NameValueCollection request)
         {
             var mapArea = request.GetInt("api_area_id");
 
@@ -133,6 +118,21 @@ namespace Sakuno.ING.Game
                     groupId: (AirForceGroupId)id,
                     action: (AirForceAction)action
                 ));
+        }
+        private static AirForceSquadronDeployment ParseAirForceSquadronDeployment(NameValueCollection request, AirForceSquadronDeploymentJson response) => new
+        (
+            mapAreaId: (MapAreaId)request.GetInt("api_area_id"),
+            groupId: (AirForceGroupId)request.GetInt("api_base_id"),
+            baseCombatRadius: response.api_distance.api_base,
+            bonusCombatRadius: response.api_distance.api_bonus,
+            updatedSquadrons: response.api_plane_info
+        );
+        private static AirForceSquadronSupplied ParseAirForceSquadronSupply(NameValueCollection request, AirForceSquadronSupplyJson response)
+        {
+            var mapAreaId = (MapAreaId)request.GetInt("api_area_id");
+            var groupId = (AirForceGroupId)request.GetInt("api_base_id");
+
+            return new((mapAreaId, groupId), response.api_plane_info);
         }
     }
 }

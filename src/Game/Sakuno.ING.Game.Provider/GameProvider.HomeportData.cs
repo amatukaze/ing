@@ -15,13 +15,20 @@ namespace Sakuno.ING.Game
         public IObservable<RawUseItemCount[]> UseItemsUpdated { get; private set; }
         public IObservable<RawUnequippedSlotItemInfo[]> UnequippedSlotItemInfoUpdated { get; private set; }
 
-        public IObservable<RawShip[]> ShipsUpdate { get; private set; }
-        public IObservable<RawRepairDock[]> RepairDocksUpdate { get; private set; }
-        public IObservable<RawFleet[]> FleetsUpdate { get; private set; }
+        public IObservable<RawShip[]> ShipsUpdated { get; private set; }
+        public IObservable<RawRepairDock[]> RepairDocksUpdated { get; private set; }
+        public IObservable<RawFleet[]> FleetsUpdated { get; private set; }
 
-        public IObservable<RawShip> ShipUpdate { get; private set; }
-        public IObservable<RawFleet> FleetUpdate { get; private set; }
+        public IObservable<RawShip> ShipUpdated { get; private set; }
+        public IObservable<RawSlotItem> SlotItemUpdated { get; private set; }
+        public IObservable<RawFleet> FleetUpdated { get; private set; }
 
-        public IObservable<IMaterialUpdate> MaterialUpdate { get; private set; }
+        public IObservable<IMaterialUpdate> MaterialUpdated { get; private set; }
+
+        public IObservable<ShipId> ShipLocked { get; private set; }
+        public IObservable<ShipId> ShipUnlocked { get; private set; }
+
+        public IObservable<SlotItemId> SlotItemLocked { get; private set; }
+        public IObservable<SlotItemId> SlotItemUnlocked { get; private set; }
     }
 }
