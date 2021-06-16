@@ -9,13 +9,13 @@
     mc:Ignorable="d">
     <Pivot>
         <PivotItem Header="Ships">
-            <tk:MasterDetailsView ItemsSource="{x:Bind MasterData.ShipInfos.DefaultView}" Background="Transparent">
-                <tk:MasterDetailsView.ItemTemplate>
+            <tk:ListDetailsView ItemsSource="{x:Bind MasterData.ShipInfos.DefaultView}" Background="Transparent">
+                <tk:ListDetailsView.ItemTemplate>
                     <DataTemplate x:DataType="gms:ShipInfo">
                         <TextBlock Text="{x:Bind Name, Mode=OneWay}" />
                     </DataTemplate>
-                </tk:MasterDetailsView.ItemTemplate>
-                <tk:MasterDetailsView.DetailsTemplate>
+                </tk:ListDetailsView.ItemTemplate>
+                <tk:ListDetailsView.DetailsTemplate>
                     <DataTemplate x:DataType="gms:ShipInfo">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -38,8 +38,8 @@
                             </StackPanel>
                         </Grid>
                     </DataTemplate>
-                </tk:MasterDetailsView.DetailsTemplate>
-            </tk:MasterDetailsView>
+                </tk:ListDetailsView.DetailsTemplate>
+            </tk:ListDetailsView>
         </PivotItem>
         <PivotItem Header="Equipments" />
     </Pivot>
