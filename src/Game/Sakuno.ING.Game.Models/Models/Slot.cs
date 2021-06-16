@@ -35,7 +35,10 @@ namespace Sakuno.ING.Game.Models
                 };
                 double losImprovementFactor = id switch
                 {
+                    KnownEquipmentType.ReconnaissanceAircraft => 1.2,
+                    KnownEquipmentType.LargeFlyingBoat => 1.2,
                     KnownEquipmentType.ReconnaissanceSeaplane => 1.2,
+                    KnownEquipmentType.SeaplaneBomber => 1.15,
                     KnownEquipmentType.SmallRadar => 1.25,
                     KnownEquipmentType.LargeRadar => 1.4,
                     KnownEquipmentType.VeryLargeRadar => 1.4,
