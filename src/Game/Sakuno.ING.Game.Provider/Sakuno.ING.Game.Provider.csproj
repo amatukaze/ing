@@ -3,10 +3,15 @@
   <PropertyGroup>
     <RootNamespace>Sakuno.ING.Game</RootNamespace>
     <NoWarn>IDE1006</NoWarn>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
+    <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider.SourceGenerator\Sakuno.ING.Game.Provider.SourceGenerator.csproj">
+      <OutputItemType>Analyzer</OutputItemType>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>

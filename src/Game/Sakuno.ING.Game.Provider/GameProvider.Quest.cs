@@ -1,16 +1,22 @@
-﻿using Sakuno.ING.Game.Models;
+﻿using Sakuno.ING.Game.Json;
+using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.Quests;
-using System;
 using System.Collections.Specialized;
+using System.Reactive.Subjects;
 
 namespace Sakuno.ING.Game
 {
     public partial class GameProvider
     {
-        public IObservable<RawQuest[]> QuestListUpdated { get; private set; }
-        public IObservable<QuestId> QuestCompleted { get; private set; }
+        private readonly Subject<RawQuest[]> _questListUpdated = new();
+        private readonly Subject<QuestId> _questCompleted = new();
 
-        private static QuestId ParseQuestCompleted(NameValueCollection request) =>
-            (QuestId)request.GetInt("api_quest_id");
+        [Api("api_get_member/questlist")]
+        private void HandleQuestListUpdated(QuestListJson response) =>
+            _questListUpdated.OnNext(response.api_list);
+
+        [Api("api_req_quest/clearitemget")]
+        private void HandleQuestCompleted(NameValueCollection request) =>
+            _questCompleted.OnNext((QuestId)request.GetInt("api_quest_id"));
     }
 }
