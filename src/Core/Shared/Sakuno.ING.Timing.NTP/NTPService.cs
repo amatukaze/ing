@@ -30,7 +30,8 @@ namespace Sakuno.ING.Timing.NTP
         public NTPService()
         {
             _timer = new System.Threading.Timer(TimerElapsed, null, default, TimeSpan.FromSeconds(1));
-            Task.Run(SyncDateTime);
+            // Task.Run(SyncDateTime);
+            // disabled: unreliable
         }
 
         private void TimerElapsed(object state) => Elapsed?.Invoke(Now);
