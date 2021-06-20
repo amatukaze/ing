@@ -28,7 +28,14 @@ namespace Sakuno.ING.Game
             _serializerOptions.Converters.Add(new ExpeditionUseItemRewardConverter());
             _serializerOptions.Converters.Add(new TimestampInMillisecondConverter());
             _serializerOptions.Converters.Add(new UnequippedSlotItemInfoConverter());
+
+            apiMessageSource.ApiMessageSource.Subscribe(message =>
+            {
+                HandleApiMessageCore(message);
+            });
         }
+
+        private partial void HandleApiMessageCore(ApiMessage message);
 
         private NameValueCollection ParseRequest(ReadOnlyMemory<char> request) =>
             HttpUtility.ParseQueryString(request.ToString());
@@ -49,6 +56,12 @@ namespace Sakuno.ING.Game
             result.Request = ParseRequest(message.Request);
 
             return result;
+        }
+
+        private void CheckResultCode(SvData response)
+        {
+            if (response.api_result is not 1)
+                throw new Exception();
         }
     }
 }
