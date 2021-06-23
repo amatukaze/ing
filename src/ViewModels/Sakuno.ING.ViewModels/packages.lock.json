@@ -13,11 +13,11 @@
       },
       "ReactiveUI": {
         "type": "Direct",
-        "requested": "[13.3.2, )",
-        "resolved": "13.3.2",
-        "contentHash": "+XJGnk+u7ZuYuAaBVfs0X3nLZ6g4ysiZrVou7ndVJYOUFeUW0jyfaMl3TfOqpr/afQNaIw8nY6yOwtI6HGkgsQ==",
+        "requested": "[14.1.1, )",
+        "resolved": "14.1.1",
+        "contentHash": "ciPAewJlxOZ9ieCxPWCk7AeFM70m+OviHBO9TMAzAnRSYh63UjZ+aac5J1G+Z6djeEi1Ns9I1IqBMWNcamUeWg==",
         "dependencies": {
-          "DynamicData": "7.1.16",
+          "DynamicData": "7.1.17",
           "Splat": "11.1.1",
           "System.ComponentModel": "4.3.0",
           "System.Diagnostics.Contracts": "4.3.0",

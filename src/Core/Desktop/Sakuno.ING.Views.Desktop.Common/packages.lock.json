@@ -4,11 +4,11 @@
     ".NETFramework,Version=v4.7.2": {
       "ReactiveUI.WPF": {
         "type": "Direct",
-        "requested": "[13.3.2, )",
-        "resolved": "13.3.2",
-        "contentHash": "b0BPNQSV/WWEVLndxSaUZ9JiUp9FK1ue+fnkOFBhvRVSNMK4x5l9pyruWUKsqoAY/IMcrJhwM5ALXzOQh2RXIg==",
+        "requested": "[14.1.1, )",
+        "resolved": "14.1.1",
+        "contentHash": "QZkEDQAu6QieAfHttA0DKro+UCp69Qe0FQE8M5WTif6+JBc4QmqOTn3JWjdOmjnEZr+J0mBhbj8wMzP2EJUdfg==",
         "dependencies": {
-          "ReactiveUI": "13.3.2",
+          "ReactiveUI": "14.1.1",
           "System.Reactive": "5.0.0"
         }
       },
@@ -35,10 +35,10 @@
       },
       "ReactiveUI": {
         "type": "Transitive",
-        "resolved": "13.3.2",
-        "contentHash": "+XJGnk+u7ZuYuAaBVfs0X3nLZ6g4ysiZrVou7ndVJYOUFeUW0jyfaMl3TfOqpr/afQNaIw8nY6yOwtI6HGkgsQ==",
+        "resolved": "14.1.1",
+        "contentHash": "ciPAewJlxOZ9ieCxPWCk7AeFM70m+OviHBO9TMAzAnRSYh63UjZ+aac5J1G+Z6djeEi1Ns9I1IqBMWNcamUeWg==",
         "dependencies": {
-          "DynamicData": "7.1.16",
+          "DynamicData": "7.1.17",
           "Splat": "11.1.1",
           "System.Reactive": "5.0.0"
         }
@@ -145,11 +145,11 @@
     ".NETCoreApp,Version=v5.0": {
       "ReactiveUI.WPF": {
         "type": "Direct",
-        "requested": "[13.3.2, )",
-        "resolved": "13.3.2",
-        "contentHash": "b0BPNQSV/WWEVLndxSaUZ9JiUp9FK1ue+fnkOFBhvRVSNMK4x5l9pyruWUKsqoAY/IMcrJhwM5ALXzOQh2RXIg==",
+        "requested": "[14.1.1, )",
+        "resolved": "14.1.1",
+        "contentHash": "QZkEDQAu6QieAfHttA0DKro+UCp69Qe0FQE8M5WTif6+JBc4QmqOTn3JWjdOmjnEZr+J0mBhbj8wMzP2EJUdfg==",
         "dependencies": {
-          "ReactiveUI": "13.3.2",
+          "ReactiveUI": "14.1.1",
           "System.Reactive": "5.0.0"
         }
       },
@@ -178,10 +178,10 @@
       },
       "ReactiveUI": {
         "type": "Transitive",
-        "resolved": "13.3.2",
-        "contentHash": "+XJGnk+u7ZuYuAaBVfs0X3nLZ6g4ysiZrVou7ndVJYOUFeUW0jyfaMl3TfOqpr/afQNaIw8nY6yOwtI6HGkgsQ==",
+        "resolved": "14.1.1",
+        "contentHash": "ciPAewJlxOZ9ieCxPWCk7AeFM70m+OviHBO9TMAzAnRSYh63UjZ+aac5J1G+Z6djeEi1Ns9I1IqBMWNcamUeWg==",
         "dependencies": {
-          "DynamicData": "7.1.16",
+          "DynamicData": "7.1.17",
           "Splat": "11.1.1",
           "System.Reactive": "5.0.0",
           "System.Runtime.Serialization.Primitives": "4.3.0"

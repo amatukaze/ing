@@ -4,9 +4,9 @@
     ".NETStandard,Version=v2.0": {
       "DryIoc.dll": {
         "type": "Direct",
-        "requested": "[4.7.8, )",
-        "resolved": "4.7.8",
-        "contentHash": "qjcDvB/6jTlN8k093hWXrHe107RgjvZEa0+HXunpnY+b8Qr32JpL1c9LgdmLMtBa6jthLyjl0fmLbDggQKO7vw==",
+        "requested": "[4.8.0, )",
+        "resolved": "4.8.0",
+        "contentHash": "rCEADJenUhi4ynpaDMRaoJlJll9nd8/7tJKxRWGQWnFqpNmCttvWuebQ0SKh7hRdMz1qVoELrHMwaK79bA6Nww==",
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.3.0"
         }
@@ -22,11 +22,11 @@
       },
       "ReactiveUI": {
         "type": "Direct",
-        "requested": "[13.3.2, )",
-        "resolved": "13.3.2",
-        "contentHash": "+XJGnk+u7ZuYuAaBVfs0X3nLZ6g4ysiZrVou7ndVJYOUFeUW0jyfaMl3TfOqpr/afQNaIw8nY6yOwtI6HGkgsQ==",
+        "requested": "[14.1.1, )",
+        "resolved": "14.1.1",
+        "contentHash": "ciPAewJlxOZ9ieCxPWCk7AeFM70m+OviHBO9TMAzAnRSYh63UjZ+aac5J1G+Z6djeEi1Ns9I1IqBMWNcamUeWg==",
         "dependencies": {
-          "DynamicData": "7.1.16",
+          "DynamicData": "7.1.17",
           "Splat": "11.1.1",
           "System.ComponentModel": "4.3.0",
           "System.Diagnostics.Contracts": "4.3.0",
@@ -47,8 +47,8 @@
       },
       "DynamicData": {
         "type": "Transitive",
-        "resolved": "7.1.16",
-        "contentHash": "CMXT1lXzKSW3siHty4sNZO5XUHPWMH51aksCwFIW1u3e3Js0zkMSw9DqgNC3eLoIiOKwUO5gPK0YSg96nHl1bQ==",
+        "resolved": "7.1.17",
+        "contentHash": "xCPDDyitEYMtLa+UN985RDQ4VgxLz3MgIjfQgIUC6sYFiO6S+WNTBa/BE6g7WDiz1XFe+JGIJF1SFX0ju2Yl8g==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }
