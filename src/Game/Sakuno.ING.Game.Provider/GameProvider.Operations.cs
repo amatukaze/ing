@@ -54,16 +54,21 @@ namespace Sakuno.ING.Game
         [Api("api_req_kaisou/powerup")]
         private void HandleShipModernization(NameValueCollection request, ShipModernizationResultJson response)
         {
-            _shipModernization.OnNext(new
-            (
-                shipId: (ShipId)request.GetInt("api_id"),
-                consumedShipIds: request.GetShipIds("api_id_items"),
-                isSuccess: response.api_powerup_flag,
-                newRawData: response.api_ship,
-                removeSlotItems: request.GetBool("api_slot_dest_flag")
-            ));
+            //_shipModernization.OnNext(new
+            //(
+            //    shipId: (ShipId)request.GetInt("api_id"),
+            //    isSuccess: response.api_powerup_flag,
+            //    newRawData: response.api_ship,
+            //    removeSlotItems: request.GetBool("api_slot_dest_flag")
+            //));
             _partialShipsUpdated.OnNext(new[] { response.api_ship });
             _fleetsUpdated.OnNext(response.api_deck);
+
+            var consumedShipIds = request.GetShipIds("api_id_items");
+            if (!request.GetBool("api_slot_dest_flag"))
+                _shipsRemoved.OnNext(consumedShipIds);
+            else
+                _shipsAndSlotItemsRemoved.OnNext(consumedShipIds);
         }
 
         [Api("api_req_kaisou/marriage")]
@@ -71,8 +76,11 @@ namespace Sakuno.ING.Game
             _partialShipsUpdated.OnNext(new[] { response });
 
         [Api("api_req_kaisou/slot_deprive")]
-        private void HandleSlotItemTransferApi(SlotItemTransferJson response) =>
+        private void HandleSlotItemTransferApi(SlotItemTransferJson response)
+        {
             _partialShipsUpdated.OnNext(new[] { response.api_ship_data.api_set_ship, response.api_ship_data.api_unset_ship });
+            _materialUpdated.OnNext(response);
+        }
 
         private readonly Subject<RepairStart> _repairStarted = new();
         private readonly Subject<RepairDockId> _instantRepairUsed = new();
@@ -141,24 +149,22 @@ namespace Sakuno.ING.Game
             _materialUpdated.OnNext(response);
         }
 
-        private readonly Subject<ShipsDismantled> _shipsDismantled = new();
-        private readonly Subject<SlotItemId[]> _slotItemsScrapped = new();
-
         [Api("api_req_kousyou/destroyship")]
         private void HandleShipDismantled(NameValueCollection request, ShipsDismantlingJson response)
         {
-            _shipsDismantled.OnNext(new
-            (
-            ShipIds: request.GetShipIds("api_ship_id"),
-            RemoveSlotItems: request.GetBool("api_slot_dest_flag")
-            ));
+            var shipIds = request.GetShipIds("api_ship_id");
+            if (!request.GetBool("api_slot_dest_flag"))
+                _shipsRemoved.OnNext(shipIds);
+            else
+                _shipsAndSlotItemsRemoved.OnNext(shipIds);
+
             _materialUpdated.OnNext(response);
         }
 
         [Api("api_req_kousyou/destroyitem2")]
         private void HandleSlotItemsScrapped(NameValueCollection request, SlotItemsScrappingJson response)
         {
-            _slotItemsScrapped.OnNext(request.GetSlotItemIds("api_slotitem_ids"));
+            _slotItemsRemoved.OnNext(request.GetSlotItemIds("api_slotitem_ids"));
             _materialUpdated.OnNext(response);
         }
 
@@ -167,17 +173,19 @@ namespace Sakuno.ING.Game
         [Api("api_req_kousyou/remodel_slot")]
         private void HandleSlotItemImproved(NameValueCollection request, SlotItemImprovementJson response)
         {
-            _slotItemImproved.OnNext(new
-            (
-                SlotItemId: (SlotItemId)request.GetInt("api_slot_id"),
-                IsSuccessful: response.api_remodel_flag,
-                NewRawData: response.api_after_slot,
-                ConsumedSlotItemIds: response.api_use_slot_id
-            ));
+            //_slotItemImproved.OnNext(new
+            //(
+            //    SlotItemId: (SlotItemId)request.GetInt("api_slot_id"),
+            //    IsSuccessful: response.api_remodel_flag,
+            //    NewRawData: response.api_after_slot,
+            //    ConsumedSlotItemIds: response.api_use_slot_id
+            //));
             _materialUpdated.OnNext(response);
 
             if (response.api_remodel_flag)
                 _partialSlotItemsUpdated.OnNext(new[] { response.api_after_slot });
+
+            _slotItemsRemoved.OnNext(response.api_use_slot_id);
         }
 
         private readonly Subject<AirForceActionUpdate[]> _airForceGroupActionUpdated = new();

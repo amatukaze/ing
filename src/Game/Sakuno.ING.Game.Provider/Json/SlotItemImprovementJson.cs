@@ -1,7 +1,6 @@
 ﻿using Sakuno.ING.Game.Events;
 using Sakuno.ING.Game.Json.Converters;
 using Sakuno.ING.Game.Models;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Sakuno.ING.Game.Json
@@ -13,7 +12,7 @@ namespace Sakuno.ING.Game.Json
         public bool api_remodel_flag { get; set; }
         public Materials api_after_material { get; set; }
         public RawSlotItem api_after_slot { get; set; }
-        public IReadOnlyList<SlotItemId> api_use_slot_id { get; set; }
+        public SlotItemId[] api_use_slot_id { get; set; }
 
         public void Apply(Materials materials)
         {

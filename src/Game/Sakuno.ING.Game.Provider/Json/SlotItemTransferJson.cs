@@ -1,10 +1,11 @@
-﻿using Sakuno.ING.Game.Models;
+﻿using Sakuno.ING.Game.Events;
+using Sakuno.ING.Game.Models;
 using System.Collections.Generic;
 
 namespace Sakuno.ING.Game.Json
 {
 #nullable disable
-    internal sealed class SlotItemTransferJson
+    internal sealed class SlotItemTransferJson : IMaterialUpdate
     {
         public ShipData api_ship_data { get; set; }
 
@@ -24,6 +25,8 @@ namespace Sakuno.ING.Game.Json
             public RawShip api_set_ship { get; set; }
             public RawShip api_unset_ship { get; set; }
         }
+
+        public void Apply(Materials materials) => materials.Bauxite = api_bauxite;
     }
 #nullable enable
 }

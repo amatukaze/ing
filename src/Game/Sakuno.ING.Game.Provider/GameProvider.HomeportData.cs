@@ -22,6 +22,10 @@ namespace Sakuno.ING.Game
         private readonly Subject<RawSlotItem[]> _partialSlotItemsUpdated = new();
         private readonly Subject<RawFleet[]> _partialFleetsUpdated = new();
 
+        private readonly Subject<ShipId[]> _shipsRemoved = new();
+        private readonly Subject<SlotItemId[]> _slotItemsRemoved = new();
+        private readonly Subject<ShipId[]> _shipsAndSlotItemsRemoved = new();
+
         private readonly Subject<IMaterialUpdate> _materialUpdated = new();
 
         [Api("api_get_member/require_info")]
