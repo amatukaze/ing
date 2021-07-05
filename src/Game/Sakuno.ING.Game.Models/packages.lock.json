@@ -4,9 +4,9 @@
     ".NETStandard,Version=v2.0": {
       "DynamicData": {
         "type": "Direct",
-        "requested": "[7.1.17, )",
-        "resolved": "7.1.17",
-        "contentHash": "xCPDDyitEYMtLa+UN985RDQ4VgxLz3MgIjfQgIUC6sYFiO6S+WNTBa/BE6g7WDiz1XFe+JGIJF1SFX0ju2Yl8g==",
+        "requested": "[7.2.1, )",
+        "resolved": "7.2.1",
+        "contentHash": "kjzcz13spIQoXlR4nZhIOsyXfW42rtr7ncOyymD83vPa/S+m0CkZdDx3/z2oYneUV84J7wNZnRZISATat/Iobg==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }

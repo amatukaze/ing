@@ -4,9 +4,9 @@
     ".NETStandard,Version=v2.0": {
       "DryIoc.dll": {
         "type": "Direct",
-        "requested": "[4.8.0, )",
-        "resolved": "4.8.0",
-        "contentHash": "rCEADJenUhi4ynpaDMRaoJlJll9nd8/7tJKxRWGQWnFqpNmCttvWuebQ0SKh7hRdMz1qVoELrHMwaK79bA6Nww==",
+        "requested": "[4.8.1, )",
+        "resolved": "4.8.1",
+        "contentHash": "mWLsRUfORrHkJ/UdhX6YEo9XLpI734ABd9cA5WC4vCS5FF7ttpFdl+NJ8jxURbdP+wmNMn2W3xsjDgRmuitYfQ==",
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.3.0"
         }

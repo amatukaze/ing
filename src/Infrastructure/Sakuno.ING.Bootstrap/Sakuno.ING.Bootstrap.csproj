@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="DryIoc.dll" Version="4.8.0" />
+    <PackageReference Include="DryIoc.dll" Version="4.8.1" />
     <PackageReference Include="ReactiveUI" Version="14.1.1" />
     <PackageReference Include="Splat.DryIoc" Version="11.1.1" />
   </ItemGroup>

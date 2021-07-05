@@ -4,13 +4,13 @@
     ".NETFramework,Version=v4.7.2": {
       "DryIoc.dll": {
         "type": "Transitive",
-        "resolved": "4.8.0",
-        "contentHash": "rCEADJenUhi4ynpaDMRaoJlJll9nd8/7tJKxRWGQWnFqpNmCttvWuebQ0SKh7hRdMz1qVoELrHMwaK79bA6Nww=="
+        "resolved": "4.8.1",
+        "contentHash": "mWLsRUfORrHkJ/UdhX6YEo9XLpI734ABd9cA5WC4vCS5FF7ttpFdl+NJ8jxURbdP+wmNMn2W3xsjDgRmuitYfQ=="
       },
       "DynamicData": {
         "type": "Transitive",
-        "resolved": "7.1.17",
-        "contentHash": "xCPDDyitEYMtLa+UN985RDQ4VgxLz3MgIjfQgIUC6sYFiO6S+WNTBa/BE6g7WDiz1XFe+JGIJF1SFX0ju2Yl8g==",
+        "resolved": "7.2.1",
+        "contentHash": "kjzcz13spIQoXlR4nZhIOsyXfW42rtr7ncOyymD83vPa/S+m0CkZdDx3/z2oYneUV84J7wNZnRZISATat/Iobg==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }
@@ -134,7 +134,7 @@
       "sakuno.ing.bootstrap": {
         "type": "Project",
         "dependencies": {
-          "DryIoc.dll": "4.8.0",
+          "DryIoc.dll": "4.8.1",
           "ReactiveUI": "14.1.1",
           "Sakuno.ING.Standard": "1.0.0",
           "Splat.DryIoc": "11.1.1"
@@ -143,7 +143,7 @@
       "sakuno.ing.game.models": {
         "type": "Project",
         "dependencies": {
-          "DynamicData": "7.1.17",
+          "DynamicData": "7.2.1",
           "Sakuno.ING.Game.Provider": "1.0.0"
         }
       },
@@ -199,16 +199,16 @@
     ".NETCoreApp,Version=v5.0": {
       "DryIoc.dll": {
         "type": "Transitive",
-        "resolved": "4.8.0",
-        "contentHash": "rCEADJenUhi4ynpaDMRaoJlJll9nd8/7tJKxRWGQWnFqpNmCttvWuebQ0SKh7hRdMz1qVoELrHMwaK79bA6Nww==",
+        "resolved": "4.8.1",
+        "contentHash": "mWLsRUfORrHkJ/UdhX6YEo9XLpI734ABd9cA5WC4vCS5FF7ttpFdl+NJ8jxURbdP+wmNMn2W3xsjDgRmuitYfQ==",
         "dependencies": {
           "System.Reflection.Emit.Lightweight": "4.3.0"
         }
       },
       "DynamicData": {
         "type": "Transitive",
-        "resolved": "7.1.17",
-        "contentHash": "xCPDDyitEYMtLa+UN985RDQ4VgxLz3MgIjfQgIUC6sYFiO6S+WNTBa/BE6g7WDiz1XFe+JGIJF1SFX0ju2Yl8g==",
+        "resolved": "7.2.1",
+        "contentHash": "kjzcz13spIQoXlR4nZhIOsyXfW42rtr7ncOyymD83vPa/S+m0CkZdDx3/z2oYneUV84J7wNZnRZISATat/Iobg==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }
@@ -400,7 +400,7 @@
       "sakuno.ing.bootstrap": {
         "type": "Project",
         "dependencies": {
-          "DryIoc.dll": "4.8.0",
+          "DryIoc.dll": "4.8.1",
           "ReactiveUI": "14.1.1",
           "Sakuno.ING.Standard": "1.0.0",
           "Splat.DryIoc": "11.1.1"
@@ -409,7 +409,7 @@
       "sakuno.ing.game.models": {
         "type": "Project",
         "dependencies": {
-          "DynamicData": "7.1.17",
+          "DynamicData": "7.2.1",
           "Sakuno.ING.Game.Provider": "1.0.0"
         }
       },
