@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>$(CoreFramework);$(DesktopFramework)</TargetFrameworks>
+    <TargetFrameworks>$(CoreFramework)-windows;$(DesktopFramework)</TargetFrameworks>
     <UseWpf>true</UseWpf>
   </PropertyGroup>
 

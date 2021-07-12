@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(AppPlatform)' == 'Desktop'">
+    <CoreFramework>$(CoreFramework)-windows</CoreFramework>
     <TargetFrameworks>$(CoreFramework);$(DesktopFramework)</TargetFrameworks>
   </PropertyGroup>
 
