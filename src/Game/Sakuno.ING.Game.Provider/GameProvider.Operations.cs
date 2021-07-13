@@ -2,6 +2,7 @@
 using Sakuno.ING.Game.Json;
 using Sakuno.ING.Game.Models;
 using Sakuno.ING.Game.Models.MasterData;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive.Linq;
@@ -49,18 +50,9 @@ namespace Sakuno.ING.Game
         private void HandleSlotItemLockApi(NameValueCollection request, RawSlotItemLockInfo response) =>
             _slotItemLockUpdated.OnNext(((SlotItemId)request.GetInt("api_slotitem_id"), response.api_locked));
 
-        private readonly Subject<ShipModernization> _shipModernization = new();
-
         [Api("api_req_kaisou/powerup")]
         private void HandleShipModernization(NameValueCollection request, ShipModernizationResultJson response)
         {
-            //_shipModernization.OnNext(new
-            //(
-            //    shipId: (ShipId)request.GetInt("api_id"),
-            //    isSuccess: response.api_powerup_flag,
-            //    newRawData: response.api_ship,
-            //    removeSlotItems: request.GetBool("api_slot_dest_flag")
-            //));
             _partialShipsUpdated.OnNext(new[] { response.api_ship });
             _fleetsUpdated.OnNext(response.api_deck);
 
@@ -132,20 +124,20 @@ namespace Sakuno.ING.Game
             _partialSlotItemsUpdated.OnNext(response.api_slotitem);
         }
 
-        private readonly Subject<SlotItemsDeveloped> _slotItemsDeveloped = new();
-
         [Api("api_req_kousyou/createitem")]
         private void HandleSlotItemsDeveloped(SlotItemsDevelopedJson response)
         {
-            _slotItemsDeveloped.OnNext(new
-            (
-                IsSuccessful: response.api_create_flag,
-                SlotItems: response.api_get_items.Select(raw => (raw.api_id, raw.api_slotitem_id) switch
-                {
-                    var (id, masterId) when id > 0 && masterId > 0 => new RawSlotItem() { Id = (SlotItemId)id, SlotItemInfoId = (SlotItemInfoId)masterId },
-                    _ => null,
-                }).ToArray()
-            ));
+            if (response.api_create_flag)
+            {
+                var slotItems = new List<RawSlotItem>(3);
+
+                foreach (var item in response.api_get_items)
+                    if (item is { api_id: > 0, api_slotitem_id: > 0 })
+                        slotItems.Add(new() { Id = (SlotItemId)item.api_id, SlotItemInfoId = (SlotItemInfoId)item.api_slotitem_id });
+
+                _partialSlotItemsUpdated.OnNext(slotItems.ToArray());
+            }
+
             _materialUpdated.OnNext(response);
         }
 
@@ -168,18 +160,9 @@ namespace Sakuno.ING.Game
             _materialUpdated.OnNext(response);
         }
 
-        private readonly Subject<SlotItemImproved> _slotItemImproved = new();
-
         [Api("api_req_kousyou/remodel_slot")]
         private void HandleSlotItemImproved(NameValueCollection request, SlotItemImprovementJson response)
         {
-            //_slotItemImproved.OnNext(new
-            //(
-            //    SlotItemId: (SlotItemId)request.GetInt("api_slot_id"),
-            //    IsSuccessful: response.api_remodel_flag,
-            //    NewRawData: response.api_after_slot,
-            //    ConsumedSlotItemIds: response.api_use_slot_id
-            //));
             _materialUpdated.OnNext(response);
 
             if (response.api_remodel_flag)
