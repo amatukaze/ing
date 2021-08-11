@@ -149,6 +149,26 @@ namespace Sakuno.ING.Game
 
             return result;
         }
+        public void RemoveIds(IEnumerable<TId> ids)
+        {
+            var removed = false;
+
+            foreach (var id in ids)
+            {
+                var index = BinarySearch(id);
+                if (index > 0)
+                {
+                    _list.RemoveAt(index);
+                    removed = true;
+                }
+            }
+
+            if (!removed)
+                return;
+
+            _viewSource.RemoveKeys(ids);
+            NotifyPropertyChanged(_countChangedEventArgs);
+        }
 
         public void Clear()
         {

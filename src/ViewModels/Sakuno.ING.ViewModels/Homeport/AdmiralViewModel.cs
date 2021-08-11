@@ -16,9 +16,9 @@ namespace Sakuno.ING.ViewModels.Homeport
 
         public AdmiralViewModel(NavalBase navalBase)
         {
-            _name = navalBase.Admiral.Select(r => r.Name)
+            _name = navalBase.AdmiralUpdated.Select(r => r.Name)
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Name));
-            _level = navalBase.Admiral.Select(r => r.Leveling.Level)
+            _level = navalBase.AdmiralUpdated.Select(r => r.Leveling.Level)
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(Level));
         }
     }

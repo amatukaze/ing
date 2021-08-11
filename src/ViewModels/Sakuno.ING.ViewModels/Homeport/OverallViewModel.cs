@@ -25,12 +25,12 @@ namespace Sakuno.ING.ViewModels.Homeport
         {
             _shipCount = navalBase.Ships.DefaultViewSource.Count()
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(ShipCount));
-            _maxShipCount = navalBase.Admiral.Select(r => r.MaxShipCount)
+            _maxShipCount = navalBase.AdmiralUpdated.Select(r => r.MaxShipCount)
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(MaxShipCount));
 
             _slotItemCount = navalBase.SlotItems.DefaultViewSource.Count()
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(SlotItemCount));
-            _maxSlotItemCount = navalBase.Admiral.Select(r => r.MaxSlotItemCount)
+            _maxSlotItemCount = navalBase.AdmiralUpdated.Select(r => r.MaxSlotItemCount)
                 .ObserveOn(RxApp.MainThreadScheduler).ToProperty(this, nameof(MaxSlotItemCount));
         }
     }
