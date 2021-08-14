@@ -40,7 +40,7 @@ namespace Sakuno.ING.Game.Models
 
         private readonly BehaviorSubject<Admiral> _admiralUpdated = new(null!);
         private IObservable<Admiral>? _admiralUpdatedObservable;
-        public IObservable<Admiral> AdmiralUpdated => _admiralUpdatedObservable ??= _admiralUpdated.AsObservable();
+        public IObservable<Admiral> AdmiralUpdated => _admiralUpdatedObservable ??= _admiralUpdated.AsObservable().Where(r => r is not null);
         public Admiral Admiral => _admiralUpdated.Value;
 
         private readonly BehaviorSubject<Materials> _materialsUpdated = new(new());
