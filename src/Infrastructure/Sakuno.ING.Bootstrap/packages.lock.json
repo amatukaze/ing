@@ -22,12 +22,12 @@
       },
       "ReactiveUI": {
         "type": "Direct",
-        "requested": "[14.3.1, )",
-        "resolved": "14.3.1",
-        "contentHash": "MOu2JbfQ+Qpx4zNk7mnLzh25KMpb064NYuFtQBDRbnnVkDai9AEUFAMVNemhyzPATh4QNpq17SbqewhV4q+rhA==",
+        "requested": "[16.1.1, )",
+        "resolved": "16.1.1",
+        "contentHash": "Do1+i3hodad5lzXoKCIx1IDf4H8E98aIbkU06oTnt2fq02aCTL/vkdIZm83IAKA9n51d2A+pdsGHrQ+3dVarZQ==",
         "dependencies": {
-          "DynamicData": "7.2.1",
-          "Splat": "12.1.6",
+          "DynamicData": "7.3.1",
+          "Splat": "13.1.1",
           "System.ComponentModel": "4.3.0",
           "System.Diagnostics.Contracts": "4.3.0",
           "System.Dynamic.Runtime": "4.3.0",
@@ -36,18 +36,18 @@
       },
       "Splat.DryIoc": {
         "type": "Direct",
-        "requested": "[12.1.6, )",
-        "resolved": "12.1.6",
-        "contentHash": "YQy8KRJCi9uYybTojJzsFR/4HQq+jxoSEw2fLNOFRvkGFM7QpJJhssJ0zRk+zTOU7h1NplsmsM/FuhlNKqzqZA==",
+        "requested": "[13.1.1, )",
+        "resolved": "13.1.1",
+        "contentHash": "a4yWFpIt9CeQ5DZmsOIcffXW4HYtXE3w/NdK7wblLN4vp6DXUNS+37sBQv4hKOHIQIbrkV2NIzDUprAwswUaeA==",
         "dependencies": {
           "DryIoc.Dll": "4.8.1",
-          "Splat": "12.1.6"
+          "Splat": "13.1.1"
         }
       },
       "DynamicData": {
         "type": "Transitive",
-        "resolved": "7.2.1",
-        "contentHash": "kjzcz13spIQoXlR4nZhIOsyXfW42rtr7ncOyymD83vPa/S+m0CkZdDx3/z2oYneUV84J7wNZnRZISATat/Iobg==",
+        "resolved": "7.3.1",
+        "contentHash": "E9oTvWlAgzct0MuWt6k+0s+nSDA3LkFVvDwkMUTklIZZnva314KZAEF2vG4XX9I98ia+EpMqjte67jWEBJlsRw==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }
@@ -64,8 +64,8 @@
       },
       "Splat": {
         "type": "Transitive",
-        "resolved": "12.1.6",
-        "contentHash": "pHVXd5+CeZDeFcnjNN9qeHuVJPmsKC6Xll+N2DzOGUGIRaPKqLhY//Yar1kXyPnmUz575+kFxD5EN/o4Ou+LYQ=="
+        "resolved": "13.1.1",
+        "contentHash": "Hv41NNJwYEoxjpCrUw0BdzN17YLZrduhrnHgJyXatSgT6Dq/N/viVkPLfohCeoXf7MqA6ppB/AxtUGU3vJ7YEA=="
       },
       "System.Buffers": {
         "type": "Transitive",

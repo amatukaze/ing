@@ -27,8 +27,8 @@
       },
       "DynamicData": {
         "type": "Transitive",
-        "resolved": "7.2.1",
-        "contentHash": "kjzcz13spIQoXlR4nZhIOsyXfW42rtr7ncOyymD83vPa/S+m0CkZdDx3/z2oYneUV84J7wNZnRZISATat/Iobg==",
+        "resolved": "7.3.1",
+        "contentHash": "E9oTvWlAgzct0MuWt6k+0s+nSDA3LkFVvDwkMUTklIZZnva314KZAEF2vG4XX9I98ia+EpMqjte67jWEBJlsRw==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }
@@ -154,7 +154,7 @@
       "sakuno.ing.game.models": {
         "type": "Project",
         "dependencies": {
-          "DynamicData": "7.2.1",
+          "DynamicData": "7.3.1",
           "Sakuno.ING.Game.Provider": "1.0.0"
         }
       },
@@ -201,8 +201,8 @@
       },
       "DynamicData": {
         "type": "Transitive",
-        "resolved": "7.2.1",
-        "contentHash": "kjzcz13spIQoXlR4nZhIOsyXfW42rtr7ncOyymD83vPa/S+m0CkZdDx3/z2oYneUV84J7wNZnRZISATat/Iobg==",
+        "resolved": "7.3.1",
+        "contentHash": "E9oTvWlAgzct0MuWt6k+0s+nSDA3LkFVvDwkMUTklIZZnva314KZAEF2vG4XX9I98ia+EpMqjte67jWEBJlsRw==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }
@@ -1173,7 +1173,7 @@
       "sakuno.ing.game.models": {
         "type": "Project",
         "dependencies": {
-          "DynamicData": "7.2.1",
+          "DynamicData": "7.3.1",
           "Sakuno.ING.Game.Provider": "1.0.0"
         }
       },

@@ -4,17 +4,17 @@
     ".NETFramework,Version=v4.7.2": {
       "ReactiveUI.WPF": {
         "type": "Direct",
-        "requested": "[14.3.1, )",
-        "resolved": "14.3.1",
-        "contentHash": "SUdXcYDnSumONZUtNI1TD2otbFEuhIAiwj1XrffARrnlZ1LUwj2xalIIKObw4p1zUJZ9Y5j3E4qgUdQALuz4EQ==",
+        "requested": "[16.1.1, )",
+        "resolved": "16.1.1",
+        "contentHash": "ORTgsh8biCdG/PdNDxstyniaE5n/sEnAD/GOGu/FjlczGvKc/GMgKOEbdzuXvg8+V5JTxxLQDtoMMhJ2guhFKw==",
         "dependencies": {
-          "ReactiveUI": "14.3.1"
+          "ReactiveUI": "16.1.1"
         }
       },
       "DynamicData": {
         "type": "Transitive",
-        "resolved": "7.2.1",
-        "contentHash": "kjzcz13spIQoXlR4nZhIOsyXfW42rtr7ncOyymD83vPa/S+m0CkZdDx3/z2oYneUV84J7wNZnRZISATat/Iobg==",
+        "resolved": "7.3.1",
+        "contentHash": "E9oTvWlAgzct0MuWt6k+0s+nSDA3LkFVvDwkMUTklIZZnva314KZAEF2vG4XX9I98ia+EpMqjte67jWEBJlsRw==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }
@@ -34,17 +34,17 @@
       },
       "ReactiveUI": {
         "type": "Transitive",
-        "resolved": "14.3.1",
-        "contentHash": "MOu2JbfQ+Qpx4zNk7mnLzh25KMpb064NYuFtQBDRbnnVkDai9AEUFAMVNemhyzPATh4QNpq17SbqewhV4q+rhA==",
+        "resolved": "16.1.1",
+        "contentHash": "Do1+i3hodad5lzXoKCIx1IDf4H8E98aIbkU06oTnt2fq02aCTL/vkdIZm83IAKA9n51d2A+pdsGHrQ+3dVarZQ==",
         "dependencies": {
-          "DynamicData": "7.2.1",
-          "Splat": "12.1.6"
+          "DynamicData": "7.3.1",
+          "Splat": "13.1.1"
         }
       },
       "Splat": {
         "type": "Transitive",
-        "resolved": "12.1.6",
-        "contentHash": "pHVXd5+CeZDeFcnjNN9qeHuVJPmsKC6Xll+N2DzOGUGIRaPKqLhY//Yar1kXyPnmUz575+kFxD5EN/o4Ou+LYQ=="
+        "resolved": "13.1.1",
+        "contentHash": "Hv41NNJwYEoxjpCrUw0BdzN17YLZrduhrnHgJyXatSgT6Dq/N/viVkPLfohCeoXf7MqA6ppB/AxtUGU3vJ7YEA=="
       },
       "System.Buffers": {
         "type": "Transitive",
@@ -119,7 +119,7 @@
       "sakuno.ing.game.models": {
         "type": "Project",
         "dependencies": {
-          "DynamicData": "7.2.1",
+          "DynamicData": "7.3.1",
           "Sakuno.ING.Game.Provider": "1.0.0"
         }
       },
@@ -143,17 +143,17 @@
     ".NETCoreApp,Version=v5.0": {
       "ReactiveUI.WPF": {
         "type": "Direct",
-        "requested": "[14.3.1, )",
-        "resolved": "14.3.1",
-        "contentHash": "SUdXcYDnSumONZUtNI1TD2otbFEuhIAiwj1XrffARrnlZ1LUwj2xalIIKObw4p1zUJZ9Y5j3E4qgUdQALuz4EQ==",
+        "requested": "[16.1.1, )",
+        "resolved": "16.1.1",
+        "contentHash": "ORTgsh8biCdG/PdNDxstyniaE5n/sEnAD/GOGu/FjlczGvKc/GMgKOEbdzuXvg8+V5JTxxLQDtoMMhJ2guhFKw==",
         "dependencies": {
-          "ReactiveUI": "14.3.1"
+          "ReactiveUI": "16.1.1"
         }
       },
       "DynamicData": {
         "type": "Transitive",
-        "resolved": "7.2.1",
-        "contentHash": "kjzcz13spIQoXlR4nZhIOsyXfW42rtr7ncOyymD83vPa/S+m0CkZdDx3/z2oYneUV84J7wNZnRZISATat/Iobg==",
+        "resolved": "7.3.1",
+        "contentHash": "E9oTvWlAgzct0MuWt6k+0s+nSDA3LkFVvDwkMUTklIZZnva314KZAEF2vG4XX9I98ia+EpMqjte67jWEBJlsRw==",
         "dependencies": {
           "System.Reactive": "5.0.0"
         }
@@ -163,52 +163,19 @@
         "resolved": "1.1.1",
         "contentHash": "MalY0Y/uM/LjXtHfX/26l2VtN4LDNZ2OE3aumNOHDLsT4fNYy2hiHXI4CXCqKpNUNm7iJ2brrc4J89UdaL56FA=="
       },
-      "Microsoft.NETCore.Platforms": {
-        "type": "Transitive",
-        "resolved": "1.1.0",
-        "contentHash": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A=="
-      },
-      "Microsoft.NETCore.Targets": {
-        "type": "Transitive",
-        "resolved": "1.1.0",
-        "contentHash": "aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg=="
-      },
       "ReactiveUI": {
         "type": "Transitive",
-        "resolved": "14.3.1",
-        "contentHash": "MOu2JbfQ+Qpx4zNk7mnLzh25KMpb064NYuFtQBDRbnnVkDai9AEUFAMVNemhyzPATh4QNpq17SbqewhV4q+rhA==",
+        "resolved": "16.1.1",
+        "contentHash": "Do1+i3hodad5lzXoKCIx1IDf4H8E98aIbkU06oTnt2fq02aCTL/vkdIZm83IAKA9n51d2A+pdsGHrQ+3dVarZQ==",
         "dependencies": {
-          "DynamicData": "7.2.1",
-          "Splat": "12.1.6",
-          "System.Runtime.Serialization.Primitives": "4.3.0"
+          "DynamicData": "7.3.1",
+          "Splat": "13.1.1"
         }
       },
       "Splat": {
         "type": "Transitive",
-        "resolved": "12.1.6",
-        "contentHash": "pHVXd5+CeZDeFcnjNN9qeHuVJPmsKC6Xll+N2DzOGUGIRaPKqLhY//Yar1kXyPnmUz575+kFxD5EN/o4Ou+LYQ=="
-      },
-      "System.Globalization": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "kYdVd2f2PAdFGblzFswE4hkNANJBKRmsfa2X5LG2AcWE1c7/4t0pYae1L8vfZ5xvE2nK/R9JprtToA61OSHWIg==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
-      "System.IO": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "3qjaHvxQPDpSOYICjUoTsmoq5u6QJAFRUITgeT/4gqkF1bajbSmb1kwSxEA8AHlofqgcKJcM8udgieRNhaJ5Cg==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0",
-          "System.Text.Encoding": "4.3.0",
-          "System.Threading.Tasks": "4.3.0"
-        }
+        "resolved": "13.1.1",
+        "contentHash": "Hv41NNJwYEoxjpCrUw0BdzN17YLZrduhrnHgJyXatSgT6Dq/N/viVkPLfohCeoXf7MqA6ppB/AxtUGU3vJ7YEA=="
       },
       "System.Memory": {
         "type": "Transitive",
@@ -220,92 +187,20 @@
         "resolved": "5.0.0",
         "contentHash": "erBZjkQHWL9jpasCE/0qKAryzVBJFxGHVBAvgRN1bzM0q2s1S4oYREEEL0Vb+1kA/6BKb5FjUZMp5VXmy+gzkQ=="
       },
-      "System.Reflection": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "KMiAFoW7MfJGa9nDFNcfu+FpEdiHpWgTcS2HdMpDvt9saK3y/G4GwprPyzqjFH9NTaGPQeWNHU+iDlDILj96aQ==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.IO": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
-      "System.Reflection.Primitives": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "5RXItQz5As4xN2/YUDxdpsEkMhvw3e6aNveFXUn4Hl/udNTCNhnKp8lT9fnc3MhvGKh1baak5CovpuQUXHAlIA==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
-      "System.Resources.ResourceManager": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "/zrcPkkWdZmI4F92gL/TPumP98AVDu/Wxr3CSJGQQ+XN6wbRZcyfSKVoPo17ilb3iOr0cCRqJInGwNMolqhS8A==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Globalization": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
-      "System.Runtime": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "JufQi0vPQ0xGnAczR13AUFglDyVYt4Kqnz1AZaiKZ5+GICq0/1MH/mO/eAJHt/mHW1zjKBJd7kV26SrxddAhiw==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0"
-        }
-      },
       "System.Runtime.CompilerServices.Unsafe": {
         "type": "Transitive",
         "resolved": "5.0.0",
         "contentHash": "ZD9TMpsmYJLrxbbmdvhwt9YEgG5WntEnZ/d1eH8JBX9LBp+Ju8BSBhUGbZMNVHHomWo2KVImJhTDl2hIgw/6MA=="
-      },
-      "System.Runtime.Serialization.Primitives": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "Wz+0KOukJGAlXjtKr+5Xpuxf8+c8739RI1C+A2BoQZT+wMCCoMDDdO8/4IRHfaVINqL78GO8dW8G2lW/e45Mcw==",
-        "dependencies": {
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
-      "System.Text.Encoding": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "BiIg+KWaSDOITze6jGQynxg64naAPtqGHBwDrLaCtixsa5bKiR8dpPOHA7ge3C0JJQizJE+sfkz1wV+BAKAYZw==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0"
-        }
       },
       "System.Text.Json": {
         "type": "Transitive",
         "resolved": "5.0.2",
         "contentHash": "I47dVIGiV6SfAyppphxqupertT/5oZkYLDCX6vC3HpOI4ZLjyoKAreUoem2ie6G0RbRuFrlqz/PcTQjfb2DOfQ=="
       },
-      "System.Threading.Tasks": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "LbSxKEdOUhVe8BezB/9uOGGppt+nZf6e1VFyw6v3DN6lqitm0OSn2uXMOdtP0M3W4iMcqcivm2J6UgqiwwnXiA==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
       "sakuno.ing.game.models": {
         "type": "Project",
         "dependencies": {
-          "DynamicData": "7.2.1",
+          "DynamicData": "7.3.1",
           "Sakuno.ING.Game.Provider": "1.0.0"
         }
       },
