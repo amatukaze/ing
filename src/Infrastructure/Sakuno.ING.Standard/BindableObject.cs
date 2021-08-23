@@ -8,13 +8,13 @@ namespace Sakuno.ING
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null) =>
+        protected void NotifyPropertyChanged([CallerMemberName] string? propertyName = null) =>
             NotifyPropertyChanged(new PropertyChangedEventArgs(propertyName));
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected void NotifyPropertyChanged(PropertyChangedEventArgs args) =>
             PropertyChanged?.Invoke(this, args);
 
-        protected void Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        protected void Set<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value))
                 return;
