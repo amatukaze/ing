@@ -1,4 +1,4 @@
-﻿using Sakuno.ING.Game.Models.MasterData;
+using Sakuno.ING.Game.Models.MasterData;
 using System.Text.Json.Serialization;
 
 namespace Sakuno.ING.Game.Models.Sortie
@@ -14,9 +14,9 @@ namespace Sakuno.ING.Game.Models.Sortie
         public int RouteId { get; set; }
 
         [JsonPropertyName("api_event_id")]
-        public SortieEventType Type { get; set; }
+        public SortieEventKind Type { get; set; }
         [JsonPropertyName("api_event_kind")]
-        public BattleType BattleType { get; set; }
+        public BattleKind BattleType { get; set; }
 
         [JsonPropertyName("api_next")]
         public bool CanAdvance { get; set; }

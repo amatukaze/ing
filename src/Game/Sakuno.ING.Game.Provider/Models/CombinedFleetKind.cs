@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Game.Models
 {
-    public enum CombinedFleetType
+    public enum CombinedFleetKind
     {
         None = 0,
         /// <summary>空母機動部隊</summary>

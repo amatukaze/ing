@@ -29,7 +29,7 @@ namespace Sakuno.ING.Game.Models.MasterData
         public int[] api_sally_flag { get; set; }
         public bool CanUseNormalFleet => api_sally_flag[0] != 0;
         public bool CanUseStrikingForceFleet => api_sally_flag[2] != 0;
-        public bool CanUseCombinedFleet(CombinedFleetType type) =>
+        public bool CanUseCombinedFleet(CombinedFleetKind type) =>
             (api_sally_flag[1] & (1 << ((int)type - 1))) != 0;
     }
 #nullable enable

@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Game.Models.Sortie
 {
-    public enum BattleType
+    public enum BattleKind
     {
         None,
         Normal,

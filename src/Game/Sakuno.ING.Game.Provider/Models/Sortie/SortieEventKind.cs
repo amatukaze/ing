@@ -1,6 +1,6 @@
 ﻿namespace Sakuno.ING.Game.Models.Sortie
 {
-    public enum SortieEventType
+    public enum SortieEventKind
     {
         Initialized,
         Unknown,

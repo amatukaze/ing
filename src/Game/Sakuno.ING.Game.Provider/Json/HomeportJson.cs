@@ -10,7 +10,7 @@ namespace Sakuno.ING.Game.Json
         public RawRepairDock[] api_ndock { get; set; }
         public RawMaterialItem[] api_material { get; set; }
         public RawFleet[] api_deck_port { get; set; }
-        public CombinedFleetType api_combined_flag { get; set; }
+        public CombinedFleetKind api_combined_flag { get; set; }
     }
 #nullable enable
 }
