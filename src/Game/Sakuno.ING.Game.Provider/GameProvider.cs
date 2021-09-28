@@ -35,7 +35,7 @@ namespace Sakuno.ING.Game
             });
         }
 
-        private partial void HandleApiMessageCore(ApiMessage message);
+        private partial bool HandleApiMessageCore(ApiMessage message);
 
         private NameValueCollection ParseRequest(ReadOnlyMemory<char> request) =>
             HttpUtility.ParseQueryString(request.ToString());

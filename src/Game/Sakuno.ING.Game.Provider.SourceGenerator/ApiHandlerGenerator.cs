@@ -29,7 +29,7 @@ namespace Sakuno.ING.Game.Provider.SourceGenerator
                             .WithInitializer(SyntaxFactory.EqualsValueClause(SyntaxFactory.InvocationExpression(GetInitializer(info), SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("message")))))))))),
                     SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("CheckResultCode"), SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("deserialized")))))),
                     SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName(info.MethodName), SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(GetArguments(info))))),
-                    SyntaxFactory.BreakStatement(),
+                    SyntaxFactory.ReturnStatement(SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression)),
                 }));
 
                 sections.Add(SyntaxFactory.SwitchSection(labels, statements));
@@ -55,11 +55,11 @@ namespace Sakuno.ING.Game.Provider.SourceGenerator
             var switchStatement = SyntaxFactory.SwitchStatement(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("message"), SyntaxFactory.IdentifierName("Api")))
                 .AddSections(sections.ToArray());
 
-            var handlerMethod = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), "HandleApiMessageCore")
+            var handlerMethod = SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.BoolKeyword)), "HandleApiMessageCore")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PrivateKeyword))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
                 .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("message")).WithType(SyntaxFactory.ParseTypeName("Sakuno.ING.Messaging.ApiMessage")))
-                .WithBody(SyntaxFactory.Block(switchStatement));
+                .WithBody(SyntaxFactory.Block(switchStatement, SyntaxFactory.ReturnStatement(SyntaxFactory.LiteralExpression(SyntaxKind.FalseLiteralExpression))));
 
             var @class = SyntaxFactory.ClassDeclaration("GameProvider")
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
