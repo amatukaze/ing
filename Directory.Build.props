@@ -12,7 +12,6 @@
     <DesktopFramework>net472</DesktopFramework>
     <DesktopLatestFramework>net48</DesktopLatestFramework>
     <CoreFramework>net5.0</CoreFramework>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
 </Project>
