@@ -12,8 +12,8 @@ namespace Sakuno.ING.Views.Desktop.Controls
         private const string Proficiency2Path = "M0,0 L0,20 2,20 2,0 M4,0 L4,20 6,20 6,0";
         private const string Proficiency3Path = "M0,0 L0,20 2,20 2,0 M4,0 L4,20 6,20 6,0 M8,0 L8,20 10,20 10,0";
         private const string Proficiency4Path = "M0,0 L5,20 7,20 2,0";
-        private const string Proficiency5Path = "M0,0 L5,20 7,20 2,0 L10,20 12,20 7,0";
-        private const string Proficiency6Path = "M0,0 L5,20 7,20 2,0 L10,20 12,20 7,0 M10,0 L15,20 17,20 12,0";
+        private const string Proficiency5Path = "M0,0 L5,20 7,20 2,0 M5,0 10,20 12,20 7,0";
+        private const string Proficiency6Path = "M0,0 L5,20 7,20 2,0 M5,0 10,20 12,20 7,0 M10,0 15,20 17,20 12,0 ";
         private const string Proficiency7Path = "M0,0 L5,10 0,20 2,20 7,10 2,0 M5,0 L10,10 5,20 7,20 12,10 7,0";
 
         public static readonly DependencyProperty ProficiencyProperty =
@@ -24,7 +24,7 @@ namespace Sakuno.ING.Views.Desktop.Controls
             set => SetValue(ProficiencyProperty, value);
         }
 
-        private readonly Path _path = new Path()
+        private readonly Path _path = new()
         {
             VerticalAlignment = VerticalAlignment.Center,
             HorizontalAlignment = HorizontalAlignment.Center,
