@@ -75,6 +75,11 @@ namespace Sakuno.ING.Game.Models
                 foreach (var message in messages)
                     _ships[message.Id].Update(message);
             });
+            provider.PartialSlotItemsUpdated.Subscribe(messages =>
+            {
+                foreach (var message in messages)
+                    _slotItems[message.Id].Update(message);
+            });
             provider.PartialFleetsUpdated.Subscribe(messages =>
             {
                 foreach (var message in messages)
