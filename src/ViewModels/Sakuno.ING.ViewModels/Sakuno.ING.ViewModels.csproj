@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="ReactiveUI" Version="16.1.1" />
+    <PackageReference Include="ReactiveUI" Version="16.2.6" />
   </ItemGroup>
 
   <ItemGroup>
