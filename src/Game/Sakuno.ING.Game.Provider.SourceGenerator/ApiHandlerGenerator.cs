@@ -28,7 +28,7 @@ namespace Sakuno.ING.Game.Provider.SourceGenerator
                         SyntaxFactory.SingletonSeparatedList(SyntaxFactory.VariableDeclarator("deserialized")
                             .WithInitializer(SyntaxFactory.EqualsValueClause(SyntaxFactory.InvocationExpression(GetInitializer(info), SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("message")))))))))),
                     SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName("CheckResultCode"), SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("deserialized")))))),
-                    SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName(info.MethodName), GetArgumentList(info))),
+                    SyntaxFactory.ExpressionStatement(SyntaxFactory.InvocationExpression(SyntaxFactory.IdentifierName(info.MethodName), SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(GetArguments(info))))),
                     SyntaxFactory.BreakStatement(),
                 }));
 
@@ -40,16 +40,16 @@ namespace Sakuno.ING.Game.Provider.SourceGenerator
                     (true, null) => SyntaxFactory.IdentifierName("DeserializeRequestOnly"),
                     (true, var symbol) => SyntaxFactory.GenericName("DeserializeWithRequest").AddTypeArgumentListArguments(SyntaxFactory.ParseTypeName(symbol!.ToDisplayString())),
                 };
-                ArgumentListSyntax GetArgumentList(ApiInfo info) => (info.HasRequest, info.ResponseSymbol) switch
+                IEnumerable<ArgumentSyntax> GetArguments(ApiInfo info)
                 {
-                    (false, var symbol) => SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("deserialized"), SyntaxFactory.IdentifierName("api_data"))))),
-                    (true, null) => SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("deserialized"), SyntaxFactory.IdentifierName("Request"))))),
-                    (true, var symbol) => SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[]
-                    {
-                        SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("deserialized"), SyntaxFactory.IdentifierName("Request"))),
-                        SyntaxFactory.Argument(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("deserialized"), SyntaxFactory.IdentifierName("api_data"))),
-                    })),
-                };
+                    if (info.HasRequest)
+                        yield return SyntaxFactory.Argument(
+                            SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("deserialized"), SyntaxFactory.IdentifierName("Request")));
+
+                    if (info.ResponseSymbol is not null)
+                        yield return SyntaxFactory.Argument(
+                            SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("deserialized"), SyntaxFactory.IdentifierName("api_data")));
+                }
             }
 
             var switchStatement = SyntaxFactory.SwitchStatement(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("message"), SyntaxFactory.IdentifierName("Api")))
