@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Sakuno.ING.Game.Provider.SourceGenerator
 {
@@ -21,6 +22,8 @@ namespace Sakuno.ING.Game.Provider.SourceGenerator
             if (context.Node is not MethodDeclarationSyntax { Parent: ClassDeclarationSyntax { Identifier: { Text: "GameProvider" } } } methodDeclaration)
                 return;
 
+            ApiInfo? info = null;
+
             foreach (var attributeList in methodDeclaration.AttributeLists)
                 foreach (var attribute in attributeList.Attributes)
                 {
@@ -29,27 +32,42 @@ namespace Sakuno.ING.Game.Provider.SourceGenerator
                     if (!SymbolEqualityComparer.Default.Equals(symbolInfo.Symbol?.ContainingType, _attributeSymbol))
                         continue;
 
-                    var apiExpression = (LiteralExpressionSyntax)attribute.ArgumentList!.Arguments[0].Expression;
-                    var firstParameter = methodDeclaration.ParameterList.Parameters[0];
-
-                    var info = new ApiInfo(apiExpression, methodDeclaration.Identifier.Text);
-
-                    if (methodDeclaration.ParameterList.Parameters.Count is 2)
+                    if (info is null)
                     {
-                        info.HasRequest = true;
-                        info.ResponseSymbol = context.SemanticModel.GetDeclaredSymbol(methodDeclaration.ParameterList.Parameters[1])!.Type;
-                    }
-                    else
-                    {
-                        var parameterTypeSymbol = context.SemanticModel.GetDeclaredSymbol(firstParameter)!.Type;
+                        info = new ApiInfo(methodDeclaration.Identifier.Text);
 
-                        if (SymbolEqualityComparer.Default.Equals(parameterTypeSymbol, _nameValueCollectionSymbol))
+                        var parameters = new Queue<ITypeSymbol>(methodDeclaration.ParameterList.Parameters
+                            .Select(r => context.SemanticModel.GetDeclaredSymbol(r)!.Type));
+
+                        if (parameters.Peek().SpecialType is SpecialType.System_String)
+                        {
+                            info.ShouldHandleApi = true;
+                            parameters.Dequeue();
+                        }
+
+                        if (parameters.Count is 2)
+                        {
+                            parameters.Dequeue();
+
                             info.HasRequest = true;
+                            info.ResponseSymbol = parameters.Dequeue();
+                        }
                         else
-                            info.ResponseSymbol = parameterTypeSymbol;
+                        {
+                            var parameterTypeSymbol = parameters.Dequeue();
+
+                            if (SymbolEqualityComparer.Default.Equals(parameterTypeSymbol, _nameValueCollectionSymbol))
+                                info.HasRequest = true;
+                            else
+                                info.ResponseSymbol = parameterTypeSymbol;
+                        }
+
+                        _candidateApis.Add(info);
                     }
 
-                    _candidateApis.Add(info);
+                    var apiExpression = (LiteralExpressionSyntax)attribute.ArgumentList!.Arguments[0].Expression;
+
+                    info.Apis.Add(apiExpression);
                 }
         }
     }

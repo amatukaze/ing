@@ -2,6 +2,7 @@
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Sakuno.ING.Game.Provider.SourceGenerator
@@ -21,7 +22,7 @@ namespace Sakuno.ING.Game.Provider.SourceGenerator
 
             foreach (var info in receiver.CandidateApis)
             {
-                var labels = SyntaxFactory.SingletonList<SwitchLabelSyntax>(SyntaxFactory.CaseSwitchLabel(info.Api));
+                var labels = SyntaxFactory.List<SwitchLabelSyntax>(info.Apis.Select(SyntaxFactory.CaseSwitchLabel));
                 var statements = SyntaxFactory.SingletonList<StatementSyntax>(SyntaxFactory.Block(new StatementSyntax[]
                 {
                     SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(SyntaxFactory.IdentifierName("var"),
@@ -42,6 +43,10 @@ namespace Sakuno.ING.Game.Provider.SourceGenerator
                 };
                 IEnumerable<ArgumentSyntax> GetArguments(ApiInfo info)
                 {
+                    if (info.ShouldHandleApi)
+                        yield return SyntaxFactory.Argument(
+                            SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("message"), SyntaxFactory.IdentifierName("Api")));
+
                     if (info.HasRequest)
                         yield return SyntaxFactory.Argument(
                             SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("deserialized"), SyntaxFactory.IdentifierName("Request")));
