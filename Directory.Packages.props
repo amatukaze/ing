@@ -1,0 +1,11 @@
+<Project>
+
+    <PropertyGroup>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageVersion Include="System.Reactive" Version="5.0.0" />
+    </ItemGroup>
+
+</Project>
