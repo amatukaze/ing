@@ -1,0 +1,21 @@
+@using Sakuno.ING.Game.Models.MasterData
+
+ExpeditionId id
+string disp_no
+MapAreaId maparea_id
+
+string name
+string details
+int time
+
+int deck_num
+int difficulty
+double use_fuel
+double use_bull
+
+int[] win_item1
+int[] win_item2
+
+int return_flag
+
+ShipTypeId[] sample_fleet

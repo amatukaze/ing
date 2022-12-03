@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{0BD5BD3A-A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game", "src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj", "{26E834F6-E532-4094-9D64-911DFD7DD06A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider", "src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj", "{1F910F69-815C-4A7D-AC57-FC1B40DEE309}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider.SourceGenerators", "src\Game\Sakuno.ING.Game.Provider.SourceGenerators\Sakuno.ING.Game.Provider.SourceGenerators.csproj", "{2B182479-38B6-4C33-83BE-47532ECD8E03}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,9 +40,19 @@ Global
 		{26E834F6-E532-4094-9D64-911DFD7DD06A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26E834F6-E532-4094-9D64-911DFD7DD06A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26E834F6-E532-4094-9D64-911DFD7DD06A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F910F69-815C-4A7D-AC57-FC1B40DEE309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F910F69-815C-4A7D-AC57-FC1B40DEE309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F910F69-815C-4A7D-AC57-FC1B40DEE309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F910F69-815C-4A7D-AC57-FC1B40DEE309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B182479-38B6-4C33-83BE-47532ECD8E03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B182479-38B6-4C33-83BE-47532ECD8E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B182479-38B6-4C33-83BE-47532ECD8E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B182479-38B6-4C33-83BE-47532ECD8E03}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9B1245EB-DFEF-4DCA-8172-5FDE4FF90596} = {2226138F-17D3-48A9-8F9F-65024C5BB300}
 		{26E834F6-E532-4094-9D64-911DFD7DD06A} = {0BD5BD3A-AECC-4124-AC6D-FC48DF0F56E6}
+		{1F910F69-815C-4A7D-AC57-FC1B40DEE309} = {0BD5BD3A-AECC-4124-AC6D-FC48DF0F56E6}
+		{2B182479-38B6-4C33-83BE-47532ECD8E03} = {0BD5BD3A-AECC-4124-AC6D-FC48DF0F56E6}
 	EndGlobalSection
 EndGlobal

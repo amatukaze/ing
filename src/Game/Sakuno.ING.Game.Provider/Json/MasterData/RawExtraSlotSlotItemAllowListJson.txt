@@ -1,0 +1,4 @@
+@using Sakuno.ING.Game.Models.MasterData
+
+SlotItemInfoId slotitem_id
+ShipInfoId[] ship_ids

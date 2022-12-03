@@ -1,0 +1,10 @@
+@using Sakuno.ING.Game.Models.MasterData
+
+MapId id
+MapAreaId maparea_id
+int no
+string name
+
+int? max_maphp
+int? required_defeat_count
+int[] sally_flag

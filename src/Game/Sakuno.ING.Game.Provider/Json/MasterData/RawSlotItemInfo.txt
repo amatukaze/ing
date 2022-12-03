@@ -1,0 +1,28 @@
+@using Sakuno.ING.Game.Models.MasterData
+
+SlotItemInfoId id
+string name
+int[] type
+
+int taik
+int souk
+int houg
+int raig
+int soku
+int baku
+int tyku
+int tais
+int atap
+int houm
+int raim
+int houk
+int raik
+int bakk
+int saku
+int sakb
+int luck
+int leng
+int rare
+
+int[] broken
+int usebull

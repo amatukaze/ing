@@ -1,0 +1,4 @@
+@using Sakuno.ING.Game.Models.MasterData
+
+SlotItemTypeId id
+string name

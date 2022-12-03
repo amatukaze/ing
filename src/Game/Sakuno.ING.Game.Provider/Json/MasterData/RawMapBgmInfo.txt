@@ -1,0 +1,6 @@
+@using Sakuno.ING.Game.Models.MasterData
+
+MapId id
+int moving_bgm
+int[] api_map_bgm
+int[] api_boss_bgm

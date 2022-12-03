@@ -1,0 +1,32 @@
+@using Sakuno.ING.Game.Models.MasterData
+
+ShipInfoId id
+string name
+string yomi
+string getmes
+
+ShipTypeId stype
+int ctype
+
+int afterlv
+ShipInfoId aftershipid
+
+int[] taik
+int[] souk
+int[] houg
+int[] raig
+int[] tyku
+int[] luck
+int soku
+
+int slot_num
+int[] maxeq
+
+int buildtime
+int[] broken
+int[] powup
+
+int backs
+
+int fuel_max
+int bull_max
