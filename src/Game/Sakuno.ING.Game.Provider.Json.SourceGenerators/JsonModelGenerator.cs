@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Text;
 
-namespace Sakuno.ING.Game.Provider.SourceGenerators;
+namespace Sakuno.ING.Game.Provider.Json.SourceGenerators;
 
 [Generator(LanguageNames.CSharp)]
 public class JsonModelGenerator : IIncrementalGenerator
@@ -13,7 +13,7 @@ public class JsonModelGenerator : IIncrementalGenerator
         var modelDescriptionDirectoryProvider = context.AnalyzerConfigOptionsProvider.Select(static (context, _) =>
         {
             if (context.GlobalOptions.TryGetValue("build_property.ProjectDir", out var result))
-                return Path.Join(result, "Json");
+                return Path.Join(result, "Metadata");
 
             throw new InvalidOperationException("Missing build build_property.ProjectDir");
         });
@@ -22,16 +22,16 @@ public class JsonModelGenerator : IIncrementalGenerator
 
         context.RegisterSourceOutput(modelDescriptionFilesProvider.Combine(modelDescriptionDirectoryProvider), (context, tuple) =>
         {
-            var (additionalText, directory) = tuple;
+            var (file, directory) = tuple;
 
-            var className = Path.GetFileNameWithoutExtension(additionalText.Path);
-            var additionTextDirectory = Path.GetDirectoryName(additionalText.Path)!;
+            var className = Path.GetFileNameWithoutExtension(file.Path);
+            var additionTextDirectory = Path.GetDirectoryName(file.Path)!;
             var subNamespace = additionTextDirectory == directory ? string.Empty : additionTextDirectory.Substring(directory.Length + 1).Replace(Path.PathSeparator, '.');
 
             var usings = new List<UsingDirectiveSyntax>();
             var properties = new List<MemberDeclarationSyntax>();
 
-            using var reader = File.OpenText(additionalText.Path);
+            using var reader = File.OpenText(file.Path);
 
             while (true)
             {
@@ -60,7 +60,7 @@ public class JsonModelGenerator : IIncrementalGenerator
             }
 
             var @class = SyntaxFactory.ClassDeclaration(className)
-                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
                 .AddMembers(properties.ToArray());
             var fullNamespace = subNamespace.Length is 0 ? "Sakuno.ING.Game.Provider.Json" : $"Sakuno.ING.Game.Provider.Json.{subNamespace}";
             var @namespace = SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName(fullNamespace))
