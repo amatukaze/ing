@@ -1,5 +1,3 @@
-@using Sakuno.ING.Game.Models.MasterData
-
 SlotItemInfoId id
 string name
 int[] type

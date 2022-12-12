@@ -1,4 +1,2 @@
-@using Sakuno.ING.Game.Models.MasterData
-
 ShipTypeId id
 string name

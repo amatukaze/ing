@@ -1,4 +1,2 @@
-@using Sakuno.ING.Game.Models.MasterData
-
 ShipInfoId ship_id
 SlotItemTypeId[] equip_type

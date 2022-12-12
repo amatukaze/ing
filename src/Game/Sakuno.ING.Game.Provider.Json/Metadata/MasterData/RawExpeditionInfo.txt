@@ -1,5 +1,3 @@
-@using Sakuno.ING.Game.Models.MasterData
-
 ExpeditionId id
 string disp_no
 MapAreaId maparea_id

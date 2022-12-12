@@ -1,4 +1,3 @@
-@using Sakuno.ING.Game.Models.MasterData
 @using Sakuno.ING.Game.Provider.Json.MasterData
 
 RawShipInfo[] mst_ship

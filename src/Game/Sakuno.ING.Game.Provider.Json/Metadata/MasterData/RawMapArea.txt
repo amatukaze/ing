@@ -1,5 +1,3 @@
-@using Sakuno.ING.Game.Models.MasterData
-
 MapAreaId id
 string name
 int api_type
