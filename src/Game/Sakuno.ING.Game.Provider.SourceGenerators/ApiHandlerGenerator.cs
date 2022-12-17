@@ -18,11 +18,11 @@ public class ApiHandlerGenerator : IIncrementalGenerator
             var responseTypeName = ParameterKinds.Any(parameter => parameter is ParameterKind.ResponseData) ? "SvData" + ResponseDataType.Name : "SvData";
             var context = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("_jsonModelContext"), SyntaxFactory.IdentifierName(responseTypeName));
 
-            return SyntaxFactory.InvocationExpression(deserializeMethod, SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[]
+            return SyntaxFactory.PostfixUnaryExpression(SyntaxKind.SuppressNullableWarningExpression, SyntaxFactory.InvocationExpression(deserializeMethod, SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[]
             {
                 SyntaxFactory.Argument(messageResponse),
                 SyntaxFactory.Argument(context),
-            })));
+            }))));
         }
 
         public IEnumerable<ArgumentSyntax> GenerateHandlerArguments()
