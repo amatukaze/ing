@@ -4,7 +4,6 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <AssemblyName>HeavenlyWind</AssemblyName>
     <RootNamespace>Sakuno.KanColle.Amatsukaze</RootNamespace>
