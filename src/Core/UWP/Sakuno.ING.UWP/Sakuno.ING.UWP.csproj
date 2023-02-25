@@ -24,6 +24,7 @@
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <TargetPlatformVersion>10.0.22000.0</TargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup>
     <NoWarn>;2008</NoWarn>
