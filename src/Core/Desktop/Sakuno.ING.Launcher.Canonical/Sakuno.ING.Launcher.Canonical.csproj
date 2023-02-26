@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>$(CoreFramework);$(DesktopFramework)</TargetFrameworks>
+    <TargetFrameworks>$(CoreWindowsFramework);$(DesktopFramework)</TargetFrameworks>
     <Platforms>x86;x64</Platforms>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Sakuno.ING</RootNamespace>
