@@ -117,6 +117,15 @@
                     <DataTrigger Binding="{Binding Participant.Ship}" Value="{x:Null}">
                         <Setter TargetName="HeavyDamageLine" Property="Visibility" Value="Collapsed" />
                     </DataTrigger>
+
+                    <DataTrigger Binding="{Binding State}" Value="NotParticipated">
+                        <Setter TargetName="HPIndicator" Property="Maximum" Value="0" />
+                        <Setter TargetName="HPIndicator" Property="Value" Value="0" />
+                        <Setter TargetName="HPIndicator" Property="Visibility" Value="Hidden" />
+                        <Setter TargetName="StateText" Property="Text" Value="" />
+                        <Setter TargetName="StateColor" Property="Visibility" Value="Hidden" />
+                        <Setter TargetName="HP" Property="Visibility" Value="Hidden" />
+                    </DataTrigger>
                 </DataTemplate.Triggers>
             </DataTemplate>
         </ItemsControl.ItemTemplate>

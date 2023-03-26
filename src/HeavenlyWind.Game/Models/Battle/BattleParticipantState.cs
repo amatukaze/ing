@@ -7,5 +7,6 @@
         ModeratelyDamaged,
         HeavilyDamaged,
         Sunk,
+        NotParticipated,
     }
 }

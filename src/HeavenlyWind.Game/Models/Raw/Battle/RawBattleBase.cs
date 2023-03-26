@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
 {
@@ -12,9 +13,54 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
         public int[] FriendMaximumHPs { get; set; }
 
         [JsonProperty("api_e_nowhps")]
-        public int[] EnemyCurrentHPs { get; set; }
+        public JArray RawEnemyCurrentHPs { get; set; }
         [JsonProperty("api_e_maxhps")]
-        public int[] EnemyMaximumHPs { get; set; }
+        public JArray RawEnemyMaximumHPs { get; set; }
+
+        public int[] EnemyCurrentHPs
+        {
+            get
+            {
+                var result = new int[RawEnemyCurrentHPs.Count];
+
+                for (int i = 0; i < result.Length; i++)
+                {
+                    var item = RawEnemyCurrentHPs[i];
+
+                    if (item.Type is JTokenType.Integer)
+                    {
+                        result[i] = item.ToObject<int>();
+                        continue;
+                    }
+
+                    result[i] = -99999;
+                }
+
+                return result;
+            }
+        }
+        public int[] EnemyMaximumHPs
+        {
+            get
+            {
+                var result = new int[RawEnemyMaximumHPs.Count];
+
+                for (int i = 0; i < result.Length; i++)
+                {
+                    var item = RawEnemyMaximumHPs[i];
+
+                    if (item.Type is JTokenType.Integer)
+                    {
+                        result[i] = item.ToObject<int>();
+                        continue;
+                    }
+
+                    result[i] = -99999;
+                }
+
+                return result;
+            }
+        }
 
         [JsonProperty("api_ship_ke")]
         public int[] EnemyShipTypeIDs { get; set; }

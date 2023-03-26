@@ -53,6 +53,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle
 
         BattleParticipantState GetState(int rpHP)
         {
+            if (Current is -99999 && Maximum is -99999)
+                return BattleParticipantState.NotParticipated;
+
             var rRatio = rpHP / (double)Maximum;
 
             if (rRatio <= 0.0) return BattleParticipantState.Sunk;
