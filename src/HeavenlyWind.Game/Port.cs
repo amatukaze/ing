@@ -131,16 +131,19 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             {
                 var rShipID = int.Parse(r.Parameters["api_id"]);
                 var rData = r.GetData<RawModernizationResult>();
+                var shouldConsumeSlotItem = r.Parameters["api_slot_dest_flag"] == "1";
 
                 var rConsumedShips = r.Parameters["api_id_items"].Split(',').Select(rpID => Ships[int.Parse(rpID)]).ToArray();
                 var rConsumedEquipment = rConsumedShips.SelectMany(rpShip => rpShip.EquipedEquipment).ToArray();
 
-                foreach (var rEquipment in rConsumedEquipment)
-                    Equipment.Remove(rEquipment);
+                if (shouldConsumeSlotItem)
+                    foreach (var rEquipment in rConsumedEquipment)
+                        Equipment.Remove(rEquipment);
                 foreach (var rShip in rConsumedShips)
                     Ships.Remove(rShip);
 
-                RemoveEquipmentFromUnequippedList(rConsumedEquipment);
+                if (shouldConsumeSlotItem)
+                    RemoveEquipmentFromUnequippedList(rConsumedEquipment);
 
                 UpdateShipsCore();
                 OnPropertyChanged(nameof(Equipment));
