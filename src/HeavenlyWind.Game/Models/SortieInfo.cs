@@ -111,9 +111,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             Map = KanColleGame.Current.Maps[rpMapID];
 
-            if (Map.AvailableAirBaseGroupCount > 0)
+            if (Map.AvailableAirBaseGroupCount > 0 && rPort.AirBase.Table.TryGetValue(Map.MasterInfo.AreaID, out var groupTable))
             {
-                var rAllGroups = rPort.AirBase.Table[Map.MasterInfo.AreaID].Values;
+                var rAllGroups = groupTable.Values;
 
                 AirForceGroups = rAllGroups.Take(Map.AvailableAirBaseGroupCount).Where(r => r.Option == AirForceGroupOption.Sortie)
                     .Concat(rAllGroups.Where(r => r.Option == AirForceGroupOption.AirDefense))
