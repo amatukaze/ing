@@ -170,6 +170,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                         case EquipmentType.SeaplaneFighter:
                         case EquipmentType.InterceptorFighter:
                         case EquipmentType.JetPoweredFighter:
+                        case EquipmentType.ASAircraft when rInfo.ID is 489 or 491: // 一式戦 隼II型改(20戦隊)/一式戦 隼III型改(熟練/20戦隊)
                             rResult += r_FighterFPBouns[rProficiency];
                             break;
 
