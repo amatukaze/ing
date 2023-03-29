@@ -269,7 +269,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rResult = Math.Max(rPlanePower, rResult);
             }
 
-            rResult = GetAttackPowerAfterCaps(rResult, 150.0);
+            rResult = GetAttackPowerAfterCaps(rResult, 170.0);
 
             DayBattleOpeningAerialStrikePower = (int)rResult;
         }
@@ -283,7 +283,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rResult *= GetHealthModifier();
                 rResult += GetAttackPowerBonusFromLightCruiserFitGun();
 
-                rResult = GetAttackPowerAfterCaps(rResult, 180.0);
+                rResult = GetAttackPowerAfterCaps(rResult, 220.0);
 
                 rResult *= GetArtillerySpottingModifier();
 
@@ -301,7 +301,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rResult = Math.Floor((rStatus.Firepower + rStatus.Torpedo + Math.Floor(Math.Max(r_Ship.EquipedEquipment.Sum(r => r.Info.DiveBomberAttack), 0) * 1.3) + GetDayBattleAttackPowerBonusFromImprovedEquipment()) * 1.5) + 55;
             rResult *= GetHealthModifier();
 
-            rResult = GetAttackPowerAfterCaps(rResult, 180.0);
+            rResult = GetAttackPowerAfterCaps(rResult, 170.0);
 
             DayBattleCarrierShellingPower = (int)rResult;
         }
@@ -314,7 +314,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             rResult *= GetNightSpecialAttackModifier();
             rResult += GetAttackPowerBonusFromLightCruiserFitGun();
 
-            rResult = GetAttackPowerAfterCaps(rResult, 300.0);
+            rResult = GetAttackPowerAfterCaps(rResult, 360.0);
 
             NightBattleAttackPower = (int)rResult;
         }
@@ -330,7 +330,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             var rResult = rStatus.Torpedo + GetTorpedoAttackPowerBonusFromImprovedEquipment() + 5.0;
             rResult *= GetHealthModifier();
 
-            GetAttackPowerAfterCaps(rResult, 150.0);
+            GetAttackPowerAfterCaps(rResult, 180.0);
 
             TorpedoAttackPower = (int)rResult;
         }
@@ -432,7 +432,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     rResult *= 1.15;
             }
 
-            GetAttackPowerAfterCaps(rResult, 100.0);
+            GetAttackPowerAfterCaps(rResult, 170.0);
 
             ASWAttackPower = (int)rResult;
         }
