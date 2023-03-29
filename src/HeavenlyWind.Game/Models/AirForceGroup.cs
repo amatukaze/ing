@@ -128,6 +128,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     case EquipmentType.CarrierBasedRecon:
                     case EquipmentType.ReconSeaplane:
                     case EquipmentType.LargeFlyingBoat:
+                    case EquipmentType.LandBasedRecon:
                         if (rReconnaissancePlane == null || rReconnaissancePlane.LoS < rInfo.LoS || rReconnaissancePlane.Type > rInfo.Type)
                             rReconnaissancePlane = rInfo;
                         break;
@@ -185,25 +186,28 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rFighterPower += rResult;
             }
 
-            if (rReconnaissancePlane != null && r_Option == AirForceGroupOption.AirDefense)
-                switch (rReconnaissancePlane.Type)
-                {
-                    case EquipmentType.CarrierBasedRecon:
-                        if (rReconnaissancePlane.LoS < 8)
-                            rFighterPower *= 1.2;
-                        else if (rReconnaissancePlane.LoS > 8)
-                            rFighterPower *= 1.3;
-                        break;
-
-                    default:
-                        if (rReconnaissancePlane.LoS < 8)
-                            rFighterPower *= 1.1;
-                        else if (rReconnaissancePlane.LoS == 8)
-                            rFighterPower *= 1.13;
-                        else
-                            rFighterPower *= 1.16;
-                        break;
-                }
+            if (rReconnaissancePlane != null)
+            {
+                if (r_Option is AirForceGroupOption.Sortie && rReconnaissancePlane.Type is EquipmentType.LandBasedRecon)
+                    rFighterPower *= rReconnaissancePlane.LoS switch
+                    {
+                        8 => 1.15,
+                        9 => 1.18,
+                        _ => 1.0,
+                    };
+                else if (r_Option is AirForceGroupOption.AirDefense)
+                    rFighterPower *= (rReconnaissancePlane.Type, rReconnaissancePlane.LoS) switch
+                    {
+                        (EquipmentType.ReconSeaplane or EquipmentType.LargeFlyingBoat, < 8) => 1.1,
+                        (EquipmentType.ReconSeaplane or EquipmentType.LargeFlyingBoat, 8) => 1.13,
+                        (EquipmentType.ReconSeaplane or EquipmentType.LargeFlyingBoat, _) => 1.16,
+                        (EquipmentType.CarrierBasedRecon, <= 8) => 1.2,
+                        (EquipmentType.CarrierBasedRecon, _) => 1.3,
+                        (EquipmentType.LandBasedRecon, 9) => 1.24,
+                        (EquipmentType.LandBasedRecon, _) => 1.18,
+                        _ => 1.0,
+                    };
+            }
 
             FighterPower = (int)rFighterPower;
         }

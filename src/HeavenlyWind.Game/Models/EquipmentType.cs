@@ -47,6 +47,7 @@
         SpecialAmphibiousLandingCraft,
         LandBasedAttackAircraft,
         InterceptorFighter,
+        LandBasedRecon,
         JetPoweredFighter = 56,
         JetPoweredFighterBomber,
         JetPoweredAttackAircraft,
