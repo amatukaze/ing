@@ -4,7 +4,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Records.Primitives
 {
     class CustomTimeSpanViewModel : TimeSpanViewModel
     {
-        public DateTime MinDisplayDateStart { get; internal set; }
+        public DateTime MinDisplayDateStart { get; set; }
 
         DateTime r_SelectedDateStart;
         public DateTime SelectedDateStart

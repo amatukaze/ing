@@ -5,7 +5,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Statistics
 {
     class SortieStatisticCustomTimeSpanGroupViewModel : SortieStatisticTimeSpanGroupViewModel
     {
-        public DateTime MinDisplayDateStart { get; internal set; }
+        public DateTime MinDisplayDateStart { get; set; }
 
         DateTime r_SelectedDateStart;
         public DateTime SelectedDateStart
