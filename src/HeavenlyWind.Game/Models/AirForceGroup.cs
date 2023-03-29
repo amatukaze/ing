@@ -66,6 +66,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        int r_HighDefenseFighterPower;
+        public int HighDefenseFighterPower
+        {
+            get { return r_HighDefenseFighterPower; }
+            internal set
+            {
+                if (r_HighDefenseFighterPower != value)
+                {
+                    r_HighDefenseFighterPower = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         AirForceGroupOption r_Option;
         public AirForceGroupOption Option
         {
@@ -115,6 +129,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             EquipmentInfo rReconnaissancePlane = null;
 
+            var rocketCount = 0;
+
             foreach (var rSquadron in Squadrons.Values)
             {
                 if (rSquadron.State != AirForceSquadronState.Idle)
@@ -133,6 +149,9 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                             rReconnaissancePlane = rInfo;
                         break;
                 }
+
+                if (rInfo.ID is 350 or 351 or 352)
+                    rocketCount++;
 
                 if (!rInfo.CanParticipateInFighterCombat)
                     continue;
@@ -210,6 +229,20 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
 
             FighterPower = (int)rFighterPower;
+
+            if (r_Option is not AirForceGroupOption.AirDefense)
+            {
+                HighDefenseFighterPower = 0;
+                return;
+            }
+
+            HighDefenseFighterPower = (int)(rFighterPower * rocketCount switch
+            {
+                >= 3 => 1.2,
+                2 => 1.1,
+                1 => 0.8,
+                _ => 0.5,
+            });
         }
 
         internal void UpdateRelocationCountdown()

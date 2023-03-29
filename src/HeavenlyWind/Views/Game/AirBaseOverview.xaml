@@ -43,10 +43,15 @@
                                 <Run Text="{Binding Source.CombatRadiusBonus, Mode=OneWay}" />)
                             </TextBlock>
                         </StackPanel>
-                        <TextBlock Margin="4, 0, 0, 0" Grid.Column="3">
-                            <Run Text="{rb:StringResource Main.Fleet_FighterPower}" />:
-                            <Run Text="{Binding Source.FighterPower, Mode=OneWay}" />
-                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="4, 0, 0, 0" Grid.Column="3">
+                            <TextBlock>
+                                <Run Text="{rb:StringResource Main.Fleet_FighterPower}" />:
+                                <Run Text="{Binding Source.FighterPower, Mode=OneWay}" />
+                            </TextBlock>
+                            <TextBlock Name="ExtraDefenseFighterPower" Margin="4, 0, 0, 0" Visibility="Collapsed">
+                                (🚀<Run Text="{Binding Source.HighDefenseFighterPower, Mode=OneWay}" />)
+                            </TextBlock>
+                        </StackPanel>
 
                         <ItemsControl ItemsSource="{Binding Source.Squadrons.Values}" Margin="6, 0, 0, 0" Grid.Column="4">
                             <ItemsControl.ItemsPanel>
@@ -171,6 +176,7 @@
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Source.Option}" Value="AirDefense">
                         <Setter TargetName="Option" Property="Foreground" Value="Orange" />
+                        <Setter TargetName="ExtraDefenseFighterPower" Property="Visibility" Value="Visible" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Source.Option}" Value="Retreat">
                         <Setter TargetName="Option" Property="Foreground" Value="Gray" />
