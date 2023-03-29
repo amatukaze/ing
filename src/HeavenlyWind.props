@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>11.0</LangVersion>
     <OutputPath>$(SolutionDir)artifacts\$(Configuration)\$(AssemblyName)\</OutputPath>
     <Authors>Kodama Sakuno</Authors>
     <Product>Intelligent Naval Gun</Product>
