@@ -25,8 +25,6 @@
     <PackageReference Include="System.Threading.Tasks.Dataflow" Version="4.10.0" />
   </ItemGroup>
 
-  <Import Project="$(PackagesDirectory)System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('$(PackagesDirectory)System.Data.SQLite.Core.1.0.109.2\build\net45\System.Data.SQLite.Core.targets')" />
-
   <ItemGroup>
     <Reference Include="Sakuno.Toast">
       <HintPath>..\..\assemblies\Sakuno.Toast.dll</HintPath>
