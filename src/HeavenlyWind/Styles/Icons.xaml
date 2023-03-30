@@ -9,5 +9,6 @@
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/Bucket.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/InstantConstruction.xaml" />
         <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/Materials/ImprovementMaterial.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/HeavenlyWind;component/Styles/Icons/RocketPlane.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
