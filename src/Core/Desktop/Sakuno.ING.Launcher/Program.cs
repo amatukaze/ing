@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace Sakuno.ING
         private static readonly IDictionary<string, PackageAssembly> _installedAssemblies = new Dictionary<string, PackageAssembly>(StringComparer.OrdinalIgnoreCase);
         private static bool needRestart;
         private static bool localDebug;
+        private static readonly HttpClient _httpClient = new HttpClient();
 
         [STAThread]
         private static void Main(string[] args)
@@ -239,10 +241,7 @@ namespace Sakuno.ING
                 var currentAssembly = Assembly.GetEntryAssembly();
                 var versionAttribute = currentAssembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 
-                var request = WebRequest.CreateHttp(Url + versionAttribute.InformationalVersion);
-
-                using var response = request.GetResponse();
-                var responseStream = response.GetResponseStream();
+                using var responseStream = _httpClient.GetStreamAsync(Url + versionAttribute.InformationalVersion).Result;
                 var reader = new StreamReader(responseStream);
 
                 while (!reader.EndOfStream)
@@ -311,11 +310,9 @@ namespace Sakuno.ING
                 }
             }
 
-            var request = WebRequest.CreateHttp($"https://api.nuget.org/v3-flatcontainer/{id}/{version}/{id}.{version}.nupkg");
+            using var responseStream = await _httpClient.GetStreamAsync($"https://api.nuget.org/v3-flatcontainer/{id}/{version}/{id}.{version}.nupkg").ConfigureAwait(false);
 
-            using var md5 = new MD5CryptoServiceProvider();
-            using var response = await request.GetResponseAsync();
-            var responseStream = response.GetResponseStream();
+            using var md5 = MD5.Create();
             var file = new FileInfo(destFile);
             var tempFilename = destFile + ".tmp";
 

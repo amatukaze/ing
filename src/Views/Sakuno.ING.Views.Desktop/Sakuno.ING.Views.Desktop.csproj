@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk>
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <UseWpf>true</UseWpf>
-    <TargetFrameworks>CoreWindowsFramework;$(DesktopFramework)</TargetFrameworks>
+    <TargetFrameworks>$(CoreWindowsFramework);$(DesktopFramework)</TargetFrameworks>
     <Version>1.3.0</Version>
     <Description>Sortie view in Intelligent Naval Gun</Description>
   </PropertyGroup>
