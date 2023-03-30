@@ -38,9 +38,6 @@ namespace Sakuno.KanColle.Amatsukaze.Controls
             if (value <= 0)
                 return Int32Util.Zero;
 
-            if (value > 300000)
-                return 300000;
-
             return baseValue;
         }
 
