@@ -13,7 +13,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public ClampedValue HP { get; private set; }
 
-        public bool HasGauge => !IsCleared && HP != null && HP.Current > 0;
+        public bool HasGauge => HP != null && HP.Current > 0;
 
         public bool IsEventMap => RawData.Event != null;
 
