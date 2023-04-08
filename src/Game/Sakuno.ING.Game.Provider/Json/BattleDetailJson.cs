@@ -1,4 +1,8 @@
-﻿using Sakuno.ING.Game.Models.Combat;
+﻿using System;
+using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Sakuno.ING.Game.Models.Combat;
 
 namespace Sakuno.ING.Game.Json
 {
@@ -25,9 +29,13 @@ namespace Sakuno.ING.Game.Json
         public int[] api_f_maxhps;
         public int[] api_f_nowhps_combined;
         public int[] api_f_maxhps_combined;
+        [JsonConverter(typeof(HPNaConverter))]
         public int[] api_e_nowhps;
+        [JsonConverter(typeof(HPNaConverter))]
         public int[] api_e_maxhps;
+        [JsonConverter(typeof(HPNaConverter))]
         public int[] api_e_nowhps_combined;
+        [JsonConverter(typeof(HPNaConverter))]
         public int[] api_e_maxhps_combined;
 
         public bool api_midnight_flag;
@@ -188,5 +196,15 @@ namespace Sakuno.ING.Game.Json
 
         public BattleDetailJson.Aerial api_air_base_attack;
         public int api_lost_kind;
+    }
+
+    internal class HPNaConverter : JsonConverter<int[]>
+    {
+        public override void WriteJson(JsonWriter writer, int[] value, JsonSerializer serializer) => throw new NotImplementedException();
+        public override int[] ReadJson(JsonReader reader, Type objectType, int[] existingValue, bool hasExistingValue, JsonSerializer serializer)
+        {
+            JArray values = serializer.Deserialize<JArray>(reader);
+            return values.Select(x => x.Type is JTokenType.Integer ? ((int)x) : 1).ToArray();
+        }
     }
 }
