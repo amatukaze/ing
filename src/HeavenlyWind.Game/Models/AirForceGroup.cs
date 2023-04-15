@@ -54,6 +54,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        double _fighterPower;
         int r_FighterPower;
         public int FighterPower
         {
@@ -204,16 +205,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             var rocketCount = 0;
 
-            foreach (var group in KanColleGame.Current.Port.AirBase.Table[AreaId])
-            {
-                if (group.Option != AirForceGroupOption.AirDefense)
-                    continue;
-
-                foreach (var squadron in group.Squadrons)
-                    if (squadron.Plane.Info.ID is 350 or 351 or 352)
-                        rocketCount++;
-            }
-
             if (rReconnaissancePlane != null)
             {
                 if (r_Option is AirForceGroupOption.Sortie && rReconnaissancePlane.Type is EquipmentType.LandBasedRecon)
@@ -237,15 +228,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                     };
             }
 
-            FighterPower = (int)rFighterPower;
-
+            _fighterPower = rFighterPower;
+            FighterPower = (int)_fighterPower;
+        }
+        internal void UpdateHighDefenseFighterPower(int rocketCount)
+        {
             if (r_Option is not AirForceGroupOption.AirDefense)
             {
                 HighDefenseFighterPower = 0;
                 return;
             }
 
-            HighDefenseFighterPower = (int)(rFighterPower * rocketCount switch
+            HighDefenseFighterPower = (int)(_fighterPower * rocketCount switch
             {
                 >= 3 => 1.2,
                 2 => 1.1,

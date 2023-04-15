@@ -23,6 +23,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 for (int i = 0; i < rGroups.Length; i++)
                     rGroups[i].Option = rOptions[i];
+
+                UpdateHighDefenseFighterPower(rAreaID);
             });
 
             ApiService.Subscribe("api_req_air_corps/change_name", r =>
@@ -45,6 +47,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                 rGroup.CombatRadiusBonus = rData.CombatRadius.Bonus;
                 rGroup.UpdateFighterPower();
                 rGroup.UpdateLBASConsumption();
+
+                UpdateHighDefenseFighterPower(rAreaID);
             });
 
             ApiService.Subscribe("api_req_air_corps/supply", r =>
@@ -58,6 +62,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 rGroup.UpdateFighterPower();
                 rGroup.UpdateLBASConsumption();
+
+                UpdateHighDefenseFighterPower(rAreaID);
             });
 
             ApiService.Subscribe("api_req_air_corps/expand_base", r =>
@@ -101,6 +107,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
                 rUpdate |= rGroups.UpdateRawData(rArea, r => new AirForceGroup(r), (rpData, rpRawData) => rpData.Update(rpRawData));
 
+                UpdateHighDefenseFighterPower(rAreaID);
+
                 if (rRemovedIDs != null)
                     rRemovedIDs.Remove(rAreaID);
             }
@@ -114,6 +122,24 @@ namespace Sakuno.KanColle.Amatsukaze.Game
 
             if (rUpdate)
                 OnPropertyChanged(nameof(AllGroups));
+        }
+
+        private void UpdateHighDefenseFighterPower(int areaId)
+        {
+            var rocketCount = 0;
+
+            foreach (var group in Table[areaId])
+            {
+                if (group.Option != AirForceGroupOption.AirDefense)
+                    continue;
+
+                foreach (var squadron in group.Squadrons)
+                    if (squadron.Plane.Info.ID is 350 or 351 or 352)
+                        rocketCount++;
+            }
+
+            foreach (var group in Table[areaId])
+                group.UpdateHighDefenseFighterPower(rocketCount);
         }
     }
 }
