@@ -11,6 +11,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         public int ID => RawData.ID;
 
+        public int AreaId => RawData.AreaID;
+
         string r_Name;
         public string Name
         {
@@ -129,8 +131,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
             EquipmentInfo rReconnaissancePlane = null;
 
-            var rocketCount = 0;
-
             foreach (var rSquadron in Squadrons.Values)
             {
                 if (rSquadron.State != AirForceSquadronState.Idle)
@@ -149,9 +149,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                             rReconnaissancePlane = rInfo;
                         break;
                 }
-
-                if (rInfo.ID is 350 or 351 or 352)
-                    rocketCount++;
 
                 if (!rInfo.CanParticipateInFighterCombat)
                     continue;
@@ -203,6 +200,18 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 }
 
                 rFighterPower += rResult;
+            }
+
+            var rocketCount = 0;
+
+            foreach (var group in KanColleGame.Current.Port.AirBase.Table[AreaId])
+            {
+                if (group.Option != AirForceGroupOption.AirDefense)
+                    continue;
+
+                foreach (var squadron in group.Squadrons)
+                    if (squadron.Plane.Info.ID is 350 or 351 or 352)
+                        rocketCount++;
             }
 
             if (rReconnaissancePlane != null)
