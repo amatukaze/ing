@@ -203,8 +203,6 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
                 rFighterPower += rResult;
             }
 
-            var rocketCount = 0;
-
             if (rReconnaissancePlane != null)
             {
                 if (r_Option is AirForceGroupOption.Sortie && rReconnaissancePlane.Type is EquipmentType.LandBasedRecon)

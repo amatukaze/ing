@@ -83,6 +83,27 @@ namespace Sakuno.KanColle.Amatsukaze.Game
                         rGroup.Update(rRawGroup);
                 }
             });
+
+            ApiService.Subscribe("api_req_air_corps/change_deployment_base", info =>
+            {
+                var areaID = int.Parse(info.Parameters["api_area_id"]);
+                var result = info.GetData<RawAirForceSquadronExchangeResult>();
+                foreach (var rawGroup in result.Groups)
+                {
+                    var group = Table[areaID][rawGroup.ID];
+
+                    group.CombatRadiusBase = rawGroup.CombatRadius.Base;
+                    group.CombatRadiusBonus = rawGroup.CombatRadius.Bonus;
+
+                    foreach (var rSquadron in rawGroup.Squadrons)
+                        group.Squadrons[rSquadron.ID].Update(rSquadron);
+
+                    group.UpdateFighterPower();
+                    group.UpdateLBASConsumption();
+                }
+
+                UpdateHighDefenseFighterPower(areaID);
+            });
         }
 
         internal void UpdateGroups(RawAirForceGroup[] rpGroups)
