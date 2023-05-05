@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Sakuno.ING.Game.Models
@@ -7,6 +8,8 @@ namespace Sakuno.ING.Game.Models
     {
         public abstract IBindableCollection<Slot> Slots { get; }
         public abstract Slot ExtraSlot { get; }
+
+        public IEnumerable<Slot> AllSlots => ExtraSlot is null ? Slots : Slots.Append(ExtraSlot);
 
         internal event Action CalculationUpdated;
         protected void DoCalculations()
@@ -21,7 +24,7 @@ namespace Sakuno.ING.Game.Models
                     Bauxite = Slots.Sum(x => x.Aircraft.Shortage) * 5
                 };
                 AirFightPower = Slots.Sum(x => x.AirFightPower);
-                EffectiveLoS = new LineOfSight(Slots.Sum(x => x.EffectiveLoS), Math.Sqrt(LineOfSight.Current));
+                EffectiveLoS = new LineOfSight(AllSlots.Sum(x => x.EffectiveLoS), Math.Sqrt(LineOfSight.Current));
             }
             CalculationUpdated?.Invoke();
         }
