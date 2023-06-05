@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Text;
@@ -13,7 +13,7 @@ public class JsonModelGenerator : IIncrementalGenerator
         var modelDescriptionDirectoryProvider = context.AnalyzerConfigOptionsProvider.Select(static (context, _) =>
         {
             if (context.GlobalOptions.TryGetValue("build_property.ProjectDir", out var result))
-                return Path.Join(result, "Metadata");
+                return Path.Combine(result, "Metadata");
 
             throw new InvalidOperationException("Missing build build_property.ProjectDir");
         });
