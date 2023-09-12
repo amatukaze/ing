@@ -97,52 +97,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
         {
             r_IsNavigatorVisible = true;
 
-            ClearCacheCommand = new DelegatedCommand(() =>
-            {
-                if (Preference.Instance.Browser.CurrentLayoutEngine != "blink")
-                {
-                    SendMessage(CommunicatorMessages.ClearCache).Forget();
-                    return;
-                }
-
-                var rDialog = new TaskDialog()
-                {
-                    Caption = StringResources.Instance.Main.Product_Name,
-                    Instruction = StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Instruction,
-                    Content = StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Content,
-                    Icon = TaskDialogIcon.Information,
-                    Buttons =
-                    {
-                        new TaskDialogCommandLink(10, StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Button_Yes, StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Button_Yes_Instruction),
-                        new TaskDialogCommandLink(11, StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Button_Yes2),
-                        new TaskDialogCommandLink(TaskDialogCommonButton.No, StringResources.Instance.Main.PreferenceWindow_Browser_Blink_ClearCache_Button_No),
-                    },
-                    DefaultCommonButton = TaskDialogCommonButton.No,
-
-                    OwnerWindowHandle = ServiceManager.GetService<IMainWindowService>().Handle,
-                    ShowAtTheCenterOfOwner = true,
-                };
-
-                switch (rDialog.ShowAndDispose().SelectedButton.ID)
-                {
-                    case 10:
-                        var path = Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "Browser Cache");
-                        SHParseDisplayName(path, IntPtr.Zero, out var browserCachefolder, 0, out _);
-
-                        path = Path.Combine(path, "Blink");
-                        SHParseDisplayName(path, IntPtr.Zero, out var blinkFolder, 0, out _);
-
-                        SHOpenFolderAndSelectItems(browserCachefolder, 1, new[] { blinkFolder }, 0);
-
-                        Marshal.FreeCoTaskMem(browserCachefolder);
-                        Marshal.FreeCoTaskMem(blinkFolder);
-                        break;
-
-                    case 11:
-                        Preference.Instance.Browser.Blink.ClearCacheOnStartup.Value = true;
-                        break;
-                }
-            });
+            ClearCacheCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCache).Forget());
             ClearCookieCommand = new DelegatedCommand(() => SendMessage(CommunicatorMessages.ClearCookie).Forget());
         }
 
@@ -155,18 +110,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                     NoInstalledLayoutEngines = true;
                     r_Initialized = true;
                     return;
-                }
-
-                if (Preference.Instance.Browser.CurrentLayoutEngine == "blink" && (Preference.Instance.Browser.Blink.ClearCacheOnStartup.Value || Preference.Instance.Browser.Blink.ClearCacheOnEveryStartup.Value))
-                {
-                    var path = Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), "Browser Cache", "Blink");
-
-                    try
-                    {
-                        Directory.Delete(path, true);
-                        Preference.Instance.Browser.Blink.ClearCacheOnStartup.Value = false;
-                    }
-                    catch { }
                 }
 
                 InitializeNamedPipe();
