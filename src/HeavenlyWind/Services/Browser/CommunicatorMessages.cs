@@ -6,8 +6,6 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
     {
         public const string Ready = nameof(Ready);
         public const string Initialize = nameof(Initialize);
-        public const string InitializeBlink = nameof(InitializeBlink);
-        public const string SetPort = nameof(SetPort);
         public const string Attach = nameof(Attach);
         public const string Shutdown = nameof(Shutdown);
 

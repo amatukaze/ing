@@ -105,7 +105,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
         {
             _namedPipeClient = new NamedPipeClientStream(".", $"Sakuno/HeavenlyWind({hostProcessId})", PipeDirection.InOut, PipeOptions.Asynchronous);
 
-            RegisterMessageHandler(CommunicatorMessages.Initialize, delegate
+            RegisterAsyncMessageHandler(CommunicatorMessages.Initialize, async parameter =>
             {
                 try
                 {
@@ -119,15 +119,16 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
                 {
                     r_Container.Content = e.ToString();
                 }
-            });
-            RegisterMessageHandler(CommunicatorMessages.InitializeBlink, parameter => r_BrowserProvider.Initialize(bool.Parse(parameter)));
-            RegisterAsyncMessageHandler(CommunicatorMessages.SetPort, async parameter =>
-            {
+
+                var args = parameter.Split(';');
+                var disableHWA = bool.Parse(args[0]);
+                var port = int.Parse(args[1]);
+
                 try
                 {
-                    r_BrowserProvider.SetPort(int.Parse(parameter));
+                    await r_BrowserProvider.Initialize(disableHWA, port);
 
-                    InitializeBrowserControl();
+                    await InitializeBrowserControl();
                     r_Container.Content = r_Browser;
                 }
                 catch (ReflectionTypeLoadException e)
@@ -143,10 +144,10 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
 
                 await SendMessage(CommunicatorMessages.Attach + ":" + r_HwndSource.Handle.ToInt32());
             });
-            RegisterMessageHandler(CommunicatorMessages.Shutdown, _ => r_BrowserProvider?.Shutdown());
+            RegisterAsyncMessageHandler(CommunicatorMessages.Shutdown, _ => r_BrowserProvider?.Shutdown());
 
-            RegisterMessageHandler(CommunicatorMessages.ClearCache, _ => r_BrowserProvider?.ClearCache());
-            RegisterMessageHandler(CommunicatorMessages.ClearCookie, _ => r_BrowserProvider?.ClearCookie());
+            RegisterAsyncMessageHandler(CommunicatorMessages.ClearCache, _ => r_BrowserProvider?.ClearCache());
+            RegisterAsyncMessageHandler(CommunicatorMessages.ClearCookie, _ => r_BrowserProvider?.ClearCookie());
 
             RegisterMessageHandler(CommunicatorMessages.GoBack, _ => r_Browser?.GoBack());
             RegisterMessageHandler(CommunicatorMessages.GoForward, _ => r_Browser?.GoForward());
@@ -278,9 +279,9 @@ namespace Sakuno.KanColle.Amatsukaze.Services.Browser
             return IntPtr.Zero;
         }
 
-        void InitializeBrowserControl()
+        async Task InitializeBrowserControl()
         {
-            r_Browser = r_BrowserProvider.CreateBrowserInstance();
+            r_Browser = await r_BrowserProvider.CreateBrowserInstance();
 
             r_Browser.LoadCompleted += async (rpCanGoBack, rpCanGoForward, rpUrl) =>
             {

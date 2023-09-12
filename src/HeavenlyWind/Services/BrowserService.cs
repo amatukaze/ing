@@ -127,12 +127,7 @@ namespace Sakuno.KanColle.Amatsukaze.Services
 
                 RegisterAsyncMessageHandler(CommunicatorMessages.Ready, async _ =>
                 {
-                    await SendMessage(CommunicatorMessages.Initialize);
-
-                    if (Preference.Instance.Browser.CurrentLayoutEngine == "blink")
-                        await SendMessage(CommunicatorMessages.InitializeBlink + ":" + Preference.Instance.Browser.Blink.DisableHWA.Value.ToString());
-
-                    await SendMessage(CommunicatorMessages.SetPort + ":" + Preference.Instance.Network.Port);
+                    await SendMessage(CommunicatorMessages.Initialize + $":{Preference.Instance.Browser.Blink.DisableHWA.Value};{Preference.Instance.Network.Port}");
                 });
                 RegisterAsyncMessageHandler(CommunicatorMessages.Attach, parameter => Attach((IntPtr)int.Parse(parameter)));
 

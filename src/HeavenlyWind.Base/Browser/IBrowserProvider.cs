@@ -5,14 +5,12 @@ namespace Sakuno.KanColle.Amatsukaze.Browser
 {
     public interface IBrowserProvider
     {
-        void Initialize(object parameter);
-        void Shutdown();
+        Task Initialize(bool disableHWA, int port);
+        Task Shutdown();
 
-        IBrowser CreateBrowserInstance();
+        Task<IBrowser> CreateBrowserInstance();
 
-        void SetPort(int port);
-
-        void ClearCache();
-        void ClearCookie();
+        Task ClearCache();
+        Task ClearCookie();
     }
 }
