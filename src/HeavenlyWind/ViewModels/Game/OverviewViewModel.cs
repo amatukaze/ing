@@ -172,28 +172,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
             var rPortPCEL = PropertyChangedEventListener.FromSource(rPort);
             rPortPCEL.Add(nameof(rPort.Ships), (s, e) => ShipCount = rPort.Ships.Count);
-            rPortPCEL.Add(nameof(rPort.Equipment), (s, e) =>
-            {
-                var result = 0;
-
-                foreach (var item in rPort.Equipment)
-                {
-                    switch (item.Info.ID)
-                    {
-                        case 42:
-                        case 43:
-                        case 145:
-                        case 146:
-                        case 150:
-                        case 241:
-                            continue;
-                    }
-
-                    result++;
-                }
-
-                EquipmentCount = result;
-            });
+            rPortPCEL.Add(nameof(rPort.Equipment), (s, e) => EquipmentCount = GetActualSlotItemCount());
             rPortPCEL.Add(nameof(rPort.RepairDocks), (s, e) => RepairDocks = rPort.RepairDocks.Values.Select(r => new RepairDockViewModel(r)).ToList());
             rPortPCEL.Add(nameof(rPort.ConstructionDocks), (s, e) => ConstructionDocks = rPort.ConstructionDocks.Values.Select(r => new ConstructionDockViewModel(r)).ToList());
             rPortPCEL.Add(nameof(rPort.Admiral), delegate
@@ -240,7 +219,7 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
                 if (rSortie != null)
                 {
                     ShipCount = rPort.Ships.Count + rSortie.PendingShipCount;
-                    EquipmentCount = rPort.Equipment.Count + rSortie.PendingEquipmentCount;
+                    EquipmentCount = GetActualSlotItemCount() + rSortie.PendingEquipmentCount;
                 }
             });
         }
@@ -258,5 +237,28 @@ namespace Sakuno.KanColle.Amatsukaze.ViewModels.Game
 
         public void ShareComposition() =>
             WindowService.Instance.Show<CompositionSharingWindow>(new CompositionSharingViewModel());
+
+        private int GetActualSlotItemCount()
+        {
+            var result = 0;
+
+            foreach (var item in KanColleGame.Current.Port.Equipment)
+            {
+                switch (item.Info.ID)
+                {
+                    case 42:
+                    case 43:
+                    case 145:
+                    case 146:
+                    case 150:
+                    case 241:
+                        continue;
+                }
+
+                result++;
+            }
+
+            return result;
+        }
     }
 }
