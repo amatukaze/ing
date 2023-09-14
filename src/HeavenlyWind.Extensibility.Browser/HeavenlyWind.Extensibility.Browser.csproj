@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+	<PropertyGroup>
+		<AssemblyName>HeavenlyWind.Extensibility.Browser</AssemblyName>
+		<RootNamespace>Sakuno.KanColle.Amatsukaze.Extensibility.Browser</RootNamespace>
+		<Description>Foundation of ING browser</Description>
+		<TargetFramework>netstandard2.0</TargetFramework>
+	</PropertyGroup>
+
+</Project>

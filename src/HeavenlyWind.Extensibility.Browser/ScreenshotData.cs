@@ -1,4 +1,4 @@
-﻿namespace Sakuno.KanColle.Amatsukaze.Browser
+﻿namespace Sakuno.KanColle.Amatsukaze.Extensibility.Browser
 {
     public class ScreenshotData
     {

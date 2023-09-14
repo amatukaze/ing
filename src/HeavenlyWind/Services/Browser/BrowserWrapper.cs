@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.Collections;
 using Sakuno.KanColle.Amatsukaze.Browser;
+using Sakuno.KanColle.Amatsukaze.Extensibility.Browser;
 using Sakuno.KanColle.Amatsukaze.Internal;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface;

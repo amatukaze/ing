@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HeavenlyWind.Extensibility.Browser\HeavenlyWind.Extensibility.Browser.csproj" />
     <ProjectReference Include="..\HeavenlyWind.Game\HeavenlyWind.Game.csproj" />
     <ProjectReference Include="..\Library\Sakuno.Base\Sakuno.Base.csproj" />
     <ProjectReference Include="..\Library\Sakuno.SystemInterop\Sakuno.SystemInterop.csproj" />
