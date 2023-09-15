@@ -557,6 +557,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game
             ApiService.Subscribe("api_req_kaisou/lock", r => Equipment[int.Parse(r.Parameters["api_slotitem_id"])].IsLocked = (bool)r.Json["api_data"]["api_locked"]);
 
             ApiService.Subscribe("api_get_member/useitem", r => UpdateItemCount((JArray)r.Json["api_data"]));
+
+            ApiService.Subscribe("api_req_kaisou/marriage", info =>
+            {
+                var data = info.GetData<RawShip>();
+
+                Ships[data.ID].Update(data);
+            });
         }
 
         #region Update
