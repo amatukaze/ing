@@ -20,6 +20,50 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
+        int _totalFirepower;
+        public int TotalFirepower
+        {
+            get => _totalFirepower;
+            set
+            {
+                _totalFirepower = value;
+                OnPropertyChanged();
+            }
+        }
+
+        int _totalAA;
+        public int TotalAA
+        {
+            get => _totalAA;
+            set
+            {
+                _totalAA = value;
+                OnPropertyChanged();
+            }
+        }
+
+        int _totalASW;
+        public int TotalASW
+        {
+            get => _totalASW;
+            set
+            {
+                _totalASW = value;
+                OnPropertyChanged();
+            }
+        }
+
+        int _totalLoS;
+        public int TotalLoS
+        {
+            get => _totalLoS;
+            set
+            {
+                _totalLoS = value;
+                OnPropertyChanged();
+            }
+        }
+
         public FleetFighterPowerStatus FighterPower { get; }
 
         public FleetLoSStatus[] LoS { get; }
@@ -64,6 +108,10 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         internal void Update()
         {
             TotalLevel = r_Fleet.Ships.Sum(r => r.Level);
+            TotalFirepower = r_Fleet.Ships.Sum(r => r.Status.Firepower);
+            TotalAA = r_Fleet.Ships.Sum(r => r.Status.AA);
+            TotalASW = r_Fleet.Ships.Sum(r => r.Status.ASW);
+            TotalLoS = r_Fleet.Ships.Sum(r => r.Status.LoS);
 
             FighterPower.Update();
 
