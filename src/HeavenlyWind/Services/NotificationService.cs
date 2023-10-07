@@ -1,8 +1,9 @@
-﻿using Sakuno.KanColle.Amatsukaze.Extensibility;
+using Sakuno.KanColle.Amatsukaze.Extensibility;
 using Sakuno.KanColle.Amatsukaze.Extensibility.Services;
 using Sakuno.KanColle.Amatsukaze.Game;
 using Sakuno.KanColle.Amatsukaze.Game.Models;
 using Sakuno.KanColle.Amatsukaze.Game.Models.Battle;
+using Sakuno.KanColle.Amatsukaze.Game.Models.Raw;
 using Sakuno.KanColle.Amatsukaze.Game.Services;
 using Sakuno.KanColle.Amatsukaze.Models;
 using Sakuno.SystemInterop;
@@ -112,6 +113,14 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                                 Show(StringResources.Instance.Main.Notification_Repair, string.Format(StringResources.Instance.Main.Notification_Repair_Content, rpShipName));
                         };
                 });
+            });
+
+            ApiService.Subscribe("api_port/port", info =>
+            {
+                var data = info.GetData<RawPort>();
+
+                if (data.EventData?.Flag is 1)
+                    Show(StringResources.Instance.Main.Notification_EventMap_BellSoundRung, StringResources.Instance.Main.Notification_EventMap_BellSoundRung_Content);
             });
 
             InitializeHeavyDamageWarning(rGamePCEL);

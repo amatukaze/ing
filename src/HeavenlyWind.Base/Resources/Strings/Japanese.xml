@@ -53,6 +53,8 @@
   <String Key="Notification_RecoveryFromFatigue_Content">「{0}」に所属する艦娘の疲労が回復しました。</String>
   <String Key="Notification_AnchorageRepair">泊地修理</String>
   <String Key="Notification_AnchorageRepair_Content">泊地修理の開始から 20 分が経過したので、母港画面に戻ってください</String>
+  <String Key="Notification_EventMap_BellSoundRung">ピローン♪</String>
+  <String Key="Notification_EventMap_BellSoundRung_Content">ピローンという音が鳴りました。</String>
 
   <String Key="MessageDialog_AudioSessionDisconnected">オーディオデバイスが抜かれたので、音量を設定に失敗しました。</String>
   <String Key="MessageDialog_Proxy_AutoRetry">しまった！</String>

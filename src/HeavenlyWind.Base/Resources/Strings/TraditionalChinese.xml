@@ -52,6 +52,8 @@
   <String Key="Notification_RecoveryFromFatigue_Content">艦隊「{0}」中的艦娘已從疲勞中恢復過來。</String>
   <String Key="Notification_AnchorageRepair">泊地修理</String>
   <String Key="Notification_AnchorageRepair_Content">從泊地修理開始已過 20 分鐘，請返回母港畫面。</String>
+  <String Key="Notification_EventMap_BellSoundRung">通知音效♪</String>
+  <String Key="Notification_EventMap_BellSoundRung_Content">通知音效響起。</String>
 
   <String Key="MessageDialog_AudioSessionDisconnected">音訊裝置有變動，導致無法設置靜音。
 

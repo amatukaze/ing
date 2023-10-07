@@ -24,5 +24,14 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw
 
         [JsonProperty("api_p_bgm_id")]
         public int BgmID { get; set; }
+
+        [JsonProperty("api_event_object")]
+        public RawEventData EventData { get; set; }
+
+        public class RawEventData
+        {
+            [JsonProperty("api_m_flag2")]
+            public int Flag { get; set; }
+        }
     }
 }

@@ -53,6 +53,8 @@
   <String Key="Notification_RecoveryFromFatigue_Content">Ship(s) from fleet "{0}" recovered from fatigue.</String>
   <String Key="Notification_AnchorageRepair">Anchorage Repair</String>
   <String Key="Notification_AnchorageRepair_Content">Please return to the HQ screen to get ships' HP repaired.</String>
+  <String Key="Notification_EventMap_BellSoundRung">Bell♪</String>
+  <String Key="Notification_EventMap_BellSoundRung_Content">A bell sound is rung.</String>
 
   <String Key="MessageDialog_AudioSessionDisconnected">Audio device has been unplugged, which results in failing to mute/unmute.
 

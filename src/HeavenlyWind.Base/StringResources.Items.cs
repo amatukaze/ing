@@ -57,6 +57,8 @@ namespace Sakuno.KanColle.Amatsukaze
         public string Notification_RecoveryFromFatigue_Content => GetString(nameof(Notification_RecoveryFromFatigue_Content));
         public string Notification_AnchorageRepair => GetString(nameof(Notification_AnchorageRepair));
         public string Notification_AnchorageRepair_Content => GetString(nameof(Notification_AnchorageRepair_Content));
+        public string Notification_EventMap_BellSoundRung => GetString(nameof(Notification_EventMap_BellSoundRung));
+        public string Notification_EventMap_BellSoundRung_Content => GetString(nameof(Notification_EventMap_BellSoundRung_Content));
 
         public string MessageDialog_AudioSessionDisconnected => GetString(nameof(MessageDialog_AudioSessionDisconnected));
         public string MessageDialog_Proxy_AutoRetry => GetString(nameof(MessageDialog_Proxy_AutoRetry));
