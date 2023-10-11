@@ -19,7 +19,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ListBox">
-                        <ruic:DropDownButton Style="{DynamicResource FlatDropDownButtonStyle}" ShowDropDownMarker="{TemplateBinding IsMouseOver}" PopupAutoClose="False">
+                        <ruic:DropDownButton Style="{DynamicResource FlatDropDownButtonStyle}" ShowDropDownMarker="True" PopupAutoClose="False">
                             <ruic:DropDownButton.Header>
                                 <TextBlock Text="{rb:StringResource Fleet_TotalStatus}" />
                             </ruic:DropDownButton.Header>

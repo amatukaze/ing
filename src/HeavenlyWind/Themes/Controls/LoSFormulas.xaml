@@ -76,7 +76,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type rc:LoSFormulas}">
-                    <ruic:DropDownButton Style="{DynamicResource FlatDropDownButtonStyle}" ShowDropDownMarker="{TemplateBinding IsMouseOver}" PopupAutoClose="False">
+                    <ruic:DropDownButton Style="{DynamicResource FlatDropDownButtonStyle}" ShowDropDownMarker="True" PopupAutoClose="False">
                         <ruic:DropDownButton.Header>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock>
