@@ -145,7 +145,12 @@
   <String Key="Overview_ActiveQuest_None">遂行中の任務なし</String>
   <String Key="Overview_ActiveQuest_NotLoaded">遂行中の任務未取得</String>
 
-  <String Key="Fleet_TotalLevel">Lv合計</String>
+  <String Key="Fleet_TotalStatus">合計値</String>
+  <String Key="Fleet_Total_Level">Lv合計</String>
+  <String Key="Fleet_Total_Firepower">火力合計</String>
+  <String Key="Fleet_Total_AA">対空合計</String>
+  <String Key="Fleet_Total_ASW">対潜合計</String>
+  <String Key="Fleet_Total_LoS">索敵合計</String>
   <String Key="Fleet_LoS">索敵</String>
   <String Key="Fleet_LoS_Formula_Old">2-5 式(旧)</String>
   <String Key="Fleet_LoS_Formula_Autumn">2-5 式(秋)</String>

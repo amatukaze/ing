@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using Sakuno.KanColle.Amatsukaze.Models;
+using System;
+using System.Linq;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
@@ -20,49 +22,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
             }
         }
 
-        int _totalFirepower;
-        public int TotalFirepower
-        {
-            get => _totalFirepower;
-            set
-            {
-                _totalFirepower = value;
-                OnPropertyChanged();
-            }
-        }
-
-        int _totalAA;
-        public int TotalAA
-        {
-            get => _totalAA;
-            set
-            {
-                _totalAA = value;
-                OnPropertyChanged();
-            }
-        }
-
-        int _totalASW;
-        public int TotalASW
-        {
-            get => _totalASW;
-            set
-            {
-                _totalASW = value;
-                OnPropertyChanged();
-            }
-        }
-
-        int _totalLoS;
-        public int TotalLoS
-        {
-            get => _totalLoS;
-            set
-            {
-                _totalLoS = value;
-                OnPropertyChanged();
-            }
-        }
+        public FleetTotalStatusItem[] TotalItems { get; }
 
         public FleetFighterPowerStatus FighterPower { get; }
 
@@ -100,6 +60,8 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         {
             r_Fleet = rpOwner;
 
+            TotalItems = ((FleetTotalStatusKind[])Enum.GetValues(typeof(FleetTotalStatusKind))).Select(kind => new FleetTotalStatusItem(kind)).ToArray();
+
             FighterPower = new FleetFighterPowerStatus(rpOwner);
 
             LoS = FleetLoSFormulaInfo.Formulas.Select(r => new FleetLoSStatus(rpOwner, r)).ToArray();
@@ -107,11 +69,11 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
 
         internal void Update()
         {
-            TotalLevel = r_Fleet.Ships.Sum(r => r.Level);
-            TotalFirepower = r_Fleet.Ships.Sum(r => r.Status.Firepower);
-            TotalAA = r_Fleet.Ships.Sum(r => r.Status.AA);
-            TotalASW = r_Fleet.Ships.Sum(r => r.Status.ASW);
-            TotalLoS = r_Fleet.Ships.Sum(r => r.Status.LoS);
+            TotalItems[0].Value = TotalLevel = r_Fleet.Ships.Sum(r => r.Level);
+            TotalItems[1].Value = r_Fleet.Ships.Sum(r => r.Status.Firepower);
+            TotalItems[2].Value = r_Fleet.Ships.Sum(r => r.Status.AA);
+            TotalItems[3].Value = r_Fleet.Ships.Sum(r => r.Status.ASW);
+            TotalItems[4].Value = r_Fleet.Ships.Sum(r => r.Status.LoS);
 
             FighterPower.Update();
 

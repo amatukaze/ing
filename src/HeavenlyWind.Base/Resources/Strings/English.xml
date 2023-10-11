@@ -147,7 +147,12 @@ The current version can't handle this problem. To mute/unmute, please do it with
   <String Key="Overview_ActiveQuest_None">No active quest</String>
   <String Key="Overview_ActiveQuest_NotLoaded">Active quests not loaded</String>
 
-  <String Key="Fleet_TotalLevel">Total Lv</String>
+  <String Key="Fleet_TotalStatus">Total</String>
+  <String Key="Fleet_Total_Level">Total Lv</String>
+  <String Key="Fleet_Total_Firepower">Total FP</String>
+  <String Key="Fleet_Total_AA">Total AA</String>
+  <String Key="Fleet_Total_ASW">Total ASW</String>
+  <String Key="Fleet_Total_LoS">Total LoS</String>
   <String Key="Fleet_LoS">LoS</String>
   <String Key="Fleet_LoS_Formula_Old">2-5 Old</String>
   <String Key="Fleet_LoS_Formula_Autumn">2-5 Autumn</String>

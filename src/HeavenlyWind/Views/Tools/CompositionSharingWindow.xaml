@@ -103,7 +103,7 @@
                             <DockPanel>
                                 <StackPanel DataContext="{Binding Source}" Orientation="Horizontal" DockPanel.Dock="Top">
                                     <TextBlock>
-                                        <Run Text="{rb:StringResource Main.Fleet_TotalLevel}" />:
+                                        <Run Text="{rb:StringResource Main.Fleet_Total_Level}" />:
                                         <Run Text="{Binding Status.TotalLevel, Mode=OneWay}" />
                                     </TextBlock>
 
