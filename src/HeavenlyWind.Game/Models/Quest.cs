@@ -4,7 +4,7 @@ using System;
 
 namespace Sakuno.KanColle.Amatsukaze.Game.Models
 {
-    public enum QuestCategory { Composition = 1, Sortie, Practice, Expedition, SupplyOrDocking, Arsenal, Modernization, Sortie2 }
+    public enum QuestCategory { Composition = 1, Sortie, Practice, Expedition, SupplyOrDocking, Arsenal, Modernization, Sortie2, Sortie3 }
     public enum QuestType { Daily = 1, Weekly, Monthly, Once, Special }
     public enum QuestState { None = 1, Active, Completed }
     public enum QuestProgress { None, Progress50, Progress80, }
@@ -24,7 +24,13 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models
         public int SteelReward => RawData.RewardMaterials != null ? RawData.RewardMaterials[2] : 0;
         public int BauxiteReward => RawData.RewardMaterials != null ? RawData.RewardMaterials[3] : 0;
 
-        public QuestCategory Category => RawData.Category;
+        public QuestCategory Category => RawData.Category switch
+        {
+            QuestCategory.Sortie2 => QuestCategory.Sortie,
+            QuestCategory.Sortie3 => QuestCategory.Sortie,
+
+            var raw => raw,
+        };
         public QuestType Type => RawData.Type;
         public QuestState State => RawData.State;
         public QuestProgress Progress => RawData.Progress;
