@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Roslyn": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\Sakuno.ING.Game\\Sakuno.ING.Game.csproj"
+    }
+  }
+}
