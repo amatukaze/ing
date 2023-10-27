@@ -33,21 +33,21 @@ namespace {@namespace};
 
 public readonly partial struct {typeName} : IEquatable<{typeName}>, IComparable<{typeName}>
 {{
-    private readonly int value;
+    private readonly int _value;
 
-    public {typeName}(int value) => this.value = value;
+    public {typeName}(int value) => _value = value;
 
-    public int CompareTo({typeName} other) => value - other.value;
-    public bool Equals({typeName} other) => value == other.value;
+    public int CompareTo({typeName} other) => _value - other._value;
+    public bool Equals({typeName} other) => _value == other._value;
 
-    public static bool operator ==({typeName} left, {typeName} right) => left.value == right.value;
-    public static bool operator !=({typeName} left, {typeName} right) => left.value != right.value;
-    public static implicit operator int({typeName} id) => id.value;
+    public static bool operator ==({typeName} left, {typeName} right) => left._value == right._value;
+    public static bool operator !=({typeName} left, {typeName} right) => left._value != right._value;
+    public static implicit operator int({typeName} id) => id._value;
     public static explicit operator {typeName}(int value) => new(value);
 
     public override bool Equals(object? obj) => obj is {typeName} other && other == this;
-    public override int GetHashCode() => value;
-    public override string ToString() => value.ToString();
+    public override int GetHashCode() => _value;
+    public override string ToString() => _value.ToString();
 }}");
         });
     }
