@@ -1,4 +1,7 @@
-ConstructionDockId id
+@using Sakuno.ING.Game.Events
+@implements IConstructionDockUpdated
+
+ConstructionDockId id IConstructionDockUpdated.Id
 int state
 
 int item1

@@ -15,7 +15,9 @@ public class ApiHandlerGenerator : IIncrementalGenerator
         {
             var deserializeMethod = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("JsonSerializer"), SyntaxFactory.IdentifierName("Deserialize"));
             var messageResponse = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("message"), SyntaxFactory.IdentifierName("Response"));
-            var responseTypeName = ParameterKinds.Any(parameter => parameter is ParameterKind.ResponseData) ? "SvData" + ResponseDataType.Name : "SvData";
+            var responseTypeName = ParameterKinds.Any(parameter => parameter is ParameterKind.ResponseData) ?
+                ("SvData" + (ResponseDataType is not IArrayTypeSymbol arrayTypeSymbol ? ResponseDataType.Name : arrayTypeSymbol.ElementType.Name + "Array")) :
+                "SvData";
             var context = SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("_jsonModelContext"), SyntaxFactory.IdentifierName(responseTypeName));
 
             return SyntaxFactory.PostfixUnaryExpression(SyntaxKind.SuppressNullableWarningExpression, SyntaxFactory.InvocationExpression(deserializeMethod, SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(new[]

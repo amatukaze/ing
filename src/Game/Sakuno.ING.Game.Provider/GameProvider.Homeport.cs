@@ -1,0 +1,38 @@
+﻿using Sakuno.ING.Game.Provider.Json;
+
+namespace Sakuno.ING.Game.Provider;
+
+public sealed partial class GameProvider
+{
+    [Api("api_get_member/require_info")]
+    private void HandleStartupInfo(PreHomeportJson response)
+    {
+        _slotItemsUpdated.OnNext(response.api_slot_item);
+        _constructionDocksUpdated.OnNext(response.api_kdock);
+    }
+
+    [Api("api_port/port")]
+    private void HandleHomeport(HomeportJson response)
+    {
+        _shipsUpdated.OnNext(response.api_ship);
+        _fleetsUpdated.OnNext(response.api_deck_port);
+        _repairDocksUpdated.OnNext(response.api_ndock);
+    }
+
+    [Api("api_get_member/deck")]
+    private void HandleFleetsUpdated(RawFleet[] response) =>
+        _fleetsUpdated.OnNext(response);
+
+    [Api("api_get_member/ndock")]
+    private void HandleRepairDocksUpdated(RawRepairDock[] response) =>
+        _repairDocksUpdated.OnNext(response);
+
+    [Api("api_get_member/slot_item")]
+    private void HandleSlotItemsUpdated(RawSlotItem[] response) =>
+        _slotItemsUpdated.OnNext(response);
+
+    [Api("api_get_member/kdock")]
+    private void HandleConstructionDocksUpdated(RawConstructionDock[] response) =>
+        _constructionDocksUpdated.OnNext(response);
+}
+
