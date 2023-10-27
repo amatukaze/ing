@@ -1,0 +1,9 @@
+@using Sakuno.ING.Game.Events
+@implements IRepairDockUpdated
+
+RepairDockId id IRepairDockUpdated.Id
+int state
+ShipId? ship_id
+long? complete_time
+int item1
+int item3

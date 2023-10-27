@@ -1,0 +1,41 @@
+@using Sakuno.ING.Game.Events
+@implements IShipUpdated
+
+ShipId id IShipUpdated.Id
+ShipInfoId ship_id
+
+int lv
+int[] exp
+
+int nowhp
+int maxhp
+
+int soku
+int leng
+
+SlotItemId?[] slot
+int[] onslot
+
+int slot_ex
+
+int fuel
+int bull
+
+int ndock_time
+int[] ndock_item
+
+int cond
+
+int[] kyouka
+int[] karyoku
+int[] raisou
+int[] taiku
+int[] soukou
+int[] kaihi
+int[] taisen
+int[] sakuteiki
+int[] lucky
+
+int locked
+
+int? sally_area

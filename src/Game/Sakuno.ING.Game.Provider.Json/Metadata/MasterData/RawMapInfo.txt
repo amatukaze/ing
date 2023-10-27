@@ -1,7 +1,10 @@
-MapId id
+@using Sakuno.ING.Game.Events.MasterData
+@implements IMapInfoUpdated
+
+MapId id IMapInfoUpdated.Id
 MapAreaId maparea_id
 int no
-string name
+string name IMapInfoUpdated.Name
 
 int? max_maphp
 int? required_defeat_count

@@ -1,0 +1,5 @@
+SlotItemId id
+SlotItemInfoId slotitem_id
+int locked
+int level
+int alv

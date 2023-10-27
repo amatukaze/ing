@@ -1,2 +1,2 @@
 UseItemId id
-string name
+int count

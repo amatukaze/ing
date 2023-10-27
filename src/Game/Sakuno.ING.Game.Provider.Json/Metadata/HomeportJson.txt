@@ -1,0 +1,8 @@
+@using Sakuno.ING.Game.Events
+@implements IHomeportDataUpdated
+
+RawShip[] ship IHomeportDataUpdated.Ships
+RawRepairDock[] ndock IHomeportDataUpdated.RepairDocks
+RawMaterial[] material
+RawFleet[] deck_port IHomeportDataUpdated.Fleets
+int combined_flag

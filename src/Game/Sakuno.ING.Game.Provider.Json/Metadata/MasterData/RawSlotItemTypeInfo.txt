@@ -1,2 +1,5 @@
-SlotItemTypeId id
-string name
+@using Sakuno.ING.Game.Events.MasterData
+@implements ISlotItemTypeInfoUpdated
+
+SlotItemTypeId id ISlotItemTypeInfoUpdated.Id
+string name ISlotItemTypeInfoUpdated.Name

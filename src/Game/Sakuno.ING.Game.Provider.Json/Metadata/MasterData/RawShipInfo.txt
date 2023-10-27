@@ -1,5 +1,8 @@
-ShipInfoId id
-string name
+@using Sakuno.ING.Game.Events.MasterData
+@implements IShipInfoUpdated
+
+ShipInfoId id IShipInfoUpdated.Id
+string name IShipInfoUpdated.Name
 string yomi
 string getmes
 

@@ -1,2 +1,5 @@
-ShipTypeId id
-string name
+@using Sakuno.ING.Game.Events.MasterData
+@implements IShipTypeInfoUpdated
+
+ShipTypeId id IShipTypeInfoUpdated.Id
+string name IShipTypeInfoUpdated.Name

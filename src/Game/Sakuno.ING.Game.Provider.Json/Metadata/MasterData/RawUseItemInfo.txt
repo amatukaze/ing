@@ -1,0 +1,5 @@
+@using Sakuno.ING.Game.Events.MasterData
+@implements IUseItemInfoUpdated
+
+UseItemId id IUseItemInfoUpdated.Id
+string name IUseItemInfoUpdated.Name

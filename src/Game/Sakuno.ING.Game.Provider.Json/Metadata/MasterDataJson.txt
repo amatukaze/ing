@@ -1,14 +1,16 @@
 @using Sakuno.ING.Game.Provider.Json.MasterData
+@using Sakuno.ING.Game.Events.MasterData
+@implements IMasterDataUpdated
 
-RawShipInfo[] mst_ship
-RawSlotItemTypeInfo[] mst_slotitem_equiptype
+RawShipInfo[] mst_ship IMasterDataUpdated.Ships
+RawSlotItemTypeInfo[] mst_slotitem_equiptype IMasterDataUpdated.SlotItemTypes
 SlotItemInfoId[] mst_equip_exslot
 RawExtraSlotSlotItemAllowListJson[] mst_equip_exslot_ship
-RawShipTypeInfo[] mst_stype
-RawSlotItemInfo[] mst_slotitem
-RawUseItem[] mst_useitem
-RawMapArea[] mst_maparea
-RawMapInfo[] mst_mapinfo
+RawShipTypeInfo[] mst_stype IMasterDataUpdated.ShipTypes
+RawSlotItemInfo[] mst_slotitem IMasterDataUpdated.SlotItems
+RawUseItemInfo[] mst_useitem IMasterDataUpdated.UseItems
+RawMapAreaInfo[] mst_maparea IMasterDataUpdated.MapAreas
+RawMapInfo[] mst_mapinfo IMasterDataUpdated.Maps
 RawMapBgmInfo[] mst_mapbgm
-RawExpeditionInfo[] mst_mission
+RawExpeditionInfo[] mst_mission IMasterDataUpdated.Expeditions
 RawShipEquipLimitation[] mst_equip_ship

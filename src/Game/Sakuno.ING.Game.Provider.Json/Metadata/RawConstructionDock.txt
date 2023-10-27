@@ -1,0 +1,11 @@
+ConstructionDockId id
+int state
+
+int item1
+int item2
+int item3
+int item4
+int item5
+
+long? complete_time
+ShipInfoId? created_ship_id

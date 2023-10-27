@@ -1,5 +1,8 @@
-SlotItemInfoId id
-string name
+@using Sakuno.ING.Game.Events.MasterData
+@implements ISlotItemInfoUpdated
+
+SlotItemInfoId id ISlotItemInfoUpdated.Id
+string name ISlotItemInfoUpdated.Name
 int[] type
 
 int taik

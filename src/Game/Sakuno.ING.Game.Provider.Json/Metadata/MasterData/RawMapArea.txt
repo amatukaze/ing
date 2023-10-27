@@ -1,3 +1,0 @@
-MapAreaId id
-string name
-int api_type

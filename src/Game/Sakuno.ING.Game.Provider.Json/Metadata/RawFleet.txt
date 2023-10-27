@@ -1,0 +1,7 @@
+@using Sakuno.ING.Game.Events
+@implements IFleetUpdated
+
+FleetId id IFleetUpdated.Id
+string name IFleetUpdated.Name
+ShipId[] ship IFleetUpdated.Ships
+long[] mission

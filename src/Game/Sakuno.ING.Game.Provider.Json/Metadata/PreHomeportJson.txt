@@ -1,0 +1,3 @@
+RawSlotItem[] slot_item
+RawConstructionDock[] kdock
+RawUseItemCount[] useitem
