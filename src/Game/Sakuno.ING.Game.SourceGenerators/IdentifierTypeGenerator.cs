@@ -1,8 +1,6 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections.Immutable;
-using System.Text;
 
 namespace Sakuno.ING.Game.SourceGenerators;
 
@@ -16,14 +14,17 @@ public class IdentifierTypeGenerator : IIncrementalGenerator
             static (context, _) =>
             {
                 var node = (StructDeclarationSyntax)context.TargetNode;
+                var attributeData = context.Attributes.Single(attr => attr.AttributeClass!.Name is "IdentifierAttribute");
+                var noToStringValue = attributeData.NamedArguments.SingleOrDefault(arg => arg.Key is "NoToString").Value;
+                var noToString = noToStringValue.IsNull ? false : (bool)noToStringValue.Value!;
 
-                return (node.Identifier.Text, ((BaseNamespaceDeclarationSyntax)node.Parent!).Name.ToString());
+                return (node.Identifier.Text, ((BaseNamespaceDeclarationSyntax)node.Parent!).Name.ToString(), noToString);
             });
 
         context.RegisterSourceOutput(provider, (context, info) =>
         {
             const string ModelNamespace = "Sakuno.ING.Game.Models";
-            var (typeName, @namespace) = info;
+            var (typeName, @namespace, noToString) = info;
 
             var prefix = @namespace is ModelNamespace ? string.Empty : $"{@namespace.Substring(ModelNamespace.Length + 1)}.";
 
@@ -47,7 +48,7 @@ public readonly partial struct {typeName} : IEquatable<{typeName}>, IComparable<
 
     public override bool Equals(object? obj) => obj is {typeName} other && other == this;
     public override int GetHashCode() => _value;
-    public override string ToString() => _value.ToString();
+    {(!noToString ? "public override string ToString() => _value.ToString();" : string.Empty)}
 }}");
         });
     }
