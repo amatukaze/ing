@@ -17,92 +17,77 @@ public class JsonModelGenerator : IIncrementalGenerator
 
             throw new InvalidOperationException("Missing build build_property.ProjectDir");
         });
-        var modelDescriptionFilesProvider = context.AdditionalTextsProvider.
+        var modelDescriptionFileProvider = context.AdditionalTextsProvider.
             Where(static file => string.Equals(Path.GetExtension(file.Path), ".txt", StringComparison.OrdinalIgnoreCase));
 
-        var provider = modelDescriptionFilesProvider.Combine(modelDescriptionDirectoryProvider).Combine(context.CompilationProvider);
-
-        context.RegisterSourceOutput(provider, (context, tuple) =>
+        var modelInfoProvider = modelDescriptionFileProvider.Combine(modelDescriptionDirectoryProvider).Select(static (tuple, cancellationToken) =>
         {
-            var ((file, directory), compilation) = tuple;
-
+            var (file, projectDirectory) = tuple;
             var className = Path.GetFileNameWithoutExtension(file.Path);
-            var additionTextDirectory = Path.GetDirectoryName(file.Path)!;
-            var subNamespace = additionTextDirectory == directory ? string.Empty : additionTextDirectory.Substring(directory.Length + 1).Replace(Path.PathSeparator, '.');
+            var fileDirectory = Path.GetDirectoryName(file.Path)!;
+            var subNamespace = fileDirectory == projectDirectory ? string.Empty : fileDirectory.Substring(projectDirectory.Length + 1).Replace(Path.PathSeparator, '.');
 
-            var usings = new Dictionary<string, UsingDirectiveSyntax>();
-            var implementations = new Dictionary<string, INamedTypeSymbol>();
-            var properties = new List<MemberDeclarationSyntax>();
-            var properties2 = new List<MemberDeclarationSyntax>();
+            return JsonModelInfo.Create(file, className, subNamespace, cancellationToken);
+        });
 
-            foreach (var lineInfo in file.GetText(context.CancellationToken)!.Lines)
+        var provider = modelInfoProvider.Combine(context.CompilationProvider);
+
+        context.RegisterSourceOutput(provider, static (context, tuple) =>
+        {
+            var (info, compilation) = tuple;
+
+            var usings = info.Usings.ToDictionary(u => u, u => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(u)), StringComparer.Ordinal);
+            var properties = info.Properties.Select(p => SyntaxFactory.PropertyDeclaration(SyntaxFactory.ParseTypeName(p.Type), "api_" + p.Name)
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                .AddAccessorListAccessors(
+                    SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
+                    SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken))
+                )).ToArray();
+
+            var implementations = new Dictionary<string, INamedTypeSymbol>(StringComparer.Ordinal);
+            var mappingProperties = new List<MemberDeclarationSyntax>();
+
+            foreach (var implementation in info.Implementations)
             {
-                if (lineInfo.Span.IsEmpty)
-                    continue;
+                var implementationSymbol = compilation.GetTypeByMetadataName(implementation);
 
-                var parts = lineInfo.ToString().Split(' ');
-
-                if (parts[0] is "@using")
+                if (implementationSymbol is null)
                 {
-                    usings[parts[1]] = SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(parts[1]));
-                    continue;
-                }
-
-                if (parts[0] is "@implements")
-                {
-                    var implementationSymbol = compilation.GetTypeByMetadataName(parts[1]);
-
-                    if (implementationSymbol is null)
+                    foreach (var @using in usings.Keys)
                     {
-                        foreach (var @using in usings.Keys)
-                        {
-                            implementationSymbol = compilation.GetTypeByMetadataName($"{@using}.{parts[1]}");
+                        implementationSymbol = compilation.GetTypeByMetadataName($"{@using}.{implementation}");
 
-                            if (implementationSymbol is not null)
-                                break;
-                        }
-
-                        if (implementationSymbol is null)
-                            throw new Exception();
+                        if (implementationSymbol is not null)
+                            break;
                     }
 
-                    implementations[implementationSymbol.Name] = implementationSymbol;
-                    continue;
+                    if (implementationSymbol is null)
+                        throw new Exception();
                 }
 
-                var property = SyntaxFactory.PropertyDeclaration(SyntaxFactory.ParseTypeName(parts[0]), "api_" + parts[1])
-                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                    .AddAccessorListAccessors(
-                        SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)),
-                        SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken))
-                    );
-
-                properties.Add(property);
-
-                for (var i = 2; i < parts.Length; i++)
-                {
-                    var implParts = parts[i].Split('.');
-                    var impl = implementations[implParts[0]];
-                    var members = impl.GetMembers(implParts[1]);
-                    var propertyType = SyntaxFactory.ParseTypeName((members[0] as IPropertySymbol)!.Type.ToDisplayString());
-                    var property2 = SyntaxFactory.PropertyDeclaration(propertyType, implParts[1])
-                        .WithExplicitInterfaceSpecifier(SyntaxFactory.ExplicitInterfaceSpecifier(SyntaxFactory.IdentifierName(implParts[0])))
-                        .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.IdentifierName("api_" + parts[1])))
-                        .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
-
-                    properties2.Add(property2);
-                }
+                implementations[implementationSymbol.Name] = implementationSymbol;
             }
 
-            var @class = SyntaxFactory.ClassDeclaration(className)
+            foreach (var (implementation, implementationProperty, property) in info.Mappings)
+            {
+                var members = implementations[implementation].GetMembers(implementationProperty);
+                var propertyType = SyntaxFactory.ParseTypeName((members[0] as IPropertySymbol)!.Type.ToDisplayString());
+
+                mappingProperties.Add(SyntaxFactory.PropertyDeclaration(propertyType, implementationProperty)
+                    .WithExplicitInterfaceSpecifier(SyntaxFactory.ExplicitInterfaceSpecifier(SyntaxFactory.IdentifierName(implementation)))
+                    .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.IdentifierName("api_" + property)))
+                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+            }
+
+            var @class = SyntaxFactory.ClassDeclaration(info.ClassName)
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
                 .AddMembers(properties.ToArray())
-                .AddMembers(properties2.ToArray());
+                .AddMembers(mappingProperties.ToArray());
 
             if (implementations.Count > 0)
                 @class = @class.AddBaseListTypes(implementations.Keys.Select(i => SyntaxFactory.SimpleBaseType(SyntaxFactory.IdentifierName(i))).ToArray());
 
-            var fullNamespace = subNamespace.Length is 0 ? "Sakuno.ING.Game.Provider.Json" : $"Sakuno.ING.Game.Provider.Json.{subNamespace}";
+            var fullNamespace = string.IsNullOrWhiteSpace(info.Subnamespace) ? "Sakuno.ING.Game.Provider.Json" : $"Sakuno.ING.Game.Provider.Json.{info.Subnamespace}";
             var @namespace = SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName(fullNamespace))
                 .AddMembers(@class);
             var compilationUnit = SyntaxFactory.CompilationUnit()
@@ -111,9 +96,9 @@ public class JsonModelGenerator : IIncrementalGenerator
                 .WithLeadingTrivia(SyntaxFactory.Trivia(SyntaxFactory.NullableDirectiveTrivia(SyntaxFactory.Token(SyntaxKind.DisableKeyword), true)))
                 .NormalizeWhitespace();
 
-            var outputFilename = subNamespace.Length is 0 ? $"{className}.g.cs" : $"{subNamespace}.{className}.g.cs";
+            var outputFilename = string.IsNullOrWhiteSpace(info.Subnamespace) ? $"{info.ClassName}.g.cs" : $"{info.Subnamespace}.{info.ClassName}.g.cs";
 
-            context.AddSource(outputFilename, SyntaxFactory.SyntaxTree(compilationUnit, encoding: Encoding.UTF8).GetText());
+            context.AddSource(outputFilename, SyntaxFactory.SyntaxTree(compilationUnit, encoding: Encoding.UTF8).GetText(context.CancellationToken));
         });
     }
 }
