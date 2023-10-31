@@ -14,4 +14,8 @@
         </ProjectReference>
     </ItemGroup>
 
+    <ItemGroup>
+        <AdditionalFiles Include="Models\Metadata\**\*.txt" />
+    </ItemGroup>
+
 </Project>
