@@ -1,0 +1,13 @@
+﻿@using Sakuno.ING.Game.Events.MasterData
+@id SlotItemInfoId
+@raw ISlotItemInfoUpdated
+
+string Name
+
+SlotItemTypeId TypeId
+int IconId
+int PlaneId
+
+FireRange FireRange
+
+int Rarity

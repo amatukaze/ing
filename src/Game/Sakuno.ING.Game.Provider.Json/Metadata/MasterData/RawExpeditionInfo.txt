@@ -2,8 +2,8 @@
 @implements IExpeditionInfoUpdated
 
 ExpeditionId id IExpeditionInfoUpdated.Id
-string disp_no
-MapAreaId maparea_id
+string disp_no IExpeditionInfoUpdated.DisplayId
+MapAreaId maparea_id IExpeditionInfoUpdated.MapAreaId
 
 string name IExpeditionInfoUpdated.Name
 string details
@@ -11,8 +11,8 @@ int time
 
 int deck_num
 int difficulty
-double use_fuel
-double use_bull
+double use_fuel IExpeditionInfoUpdated.FuelConsumptionPercentage
+double use_bull IExpeditionInfoUpdated.BulletConsumptionPercentage
 
 int[] win_item1
 int[] win_item2

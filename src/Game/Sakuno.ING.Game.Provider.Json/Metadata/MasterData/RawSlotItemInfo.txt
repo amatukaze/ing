@@ -22,7 +22,9 @@ int bakk
 int saku
 int sakb
 int luck
-int leng
-int rare
+
+FireRange leng ISlotItemInfoUpdated.FireRange
+
+int rare ISlotItemInfoUpdated.Rarity
 
 int[] broken

@@ -1,0 +1,11 @@
+﻿@using Sakuno.ING.Game.Events
+@using Sakuno.ING.Game.Models.MasterData
+@id SlotItemId
+@raw ISlotItemUpdated
+
+SlotItemInfoId MasterId
+
+bool IsLocked
+
+int ImprovementLevel
+int AerialProficiency

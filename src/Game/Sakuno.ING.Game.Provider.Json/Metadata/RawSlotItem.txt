@@ -2,7 +2,7 @@
 @implements ISlotItemUpdated
 
 SlotItemId id ISlotItemUpdated.Id
-SlotItemInfoId slotitem_id
+SlotItemInfoId slotitem_id ISlotItemUpdated.MasterId
 int locked
-int level
-int alv
+int level ISlotItemUpdated.ImprovementLevel
+int alv ISlotItemUpdated.AerialProficiency

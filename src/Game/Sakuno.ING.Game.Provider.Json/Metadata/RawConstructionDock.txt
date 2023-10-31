@@ -2,7 +2,7 @@
 @implements IConstructionDockUpdated
 
 ConstructionDockId id IConstructionDockUpdated.Id
-int state
+ConstructionDockState state IConstructionDockUpdated.State
 
 int item1
 int item2
@@ -10,5 +10,5 @@ int item3
 int item4
 int item5
 
-long? complete_time
-ShipInfoId? created_ship_id
+long complete_time
+ShipInfoId created_ship_id IConstructionDockUpdated.ResultShipId

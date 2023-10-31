@@ -1,0 +1,9 @@
+﻿@using Sakuno.ING.Game.Events
+@using Sakuno.ING.Game.Models.MasterData
+@id ConstructionDockId
+@raw IConstructionDockUpdated
+
+ConstructionDockState State
+Materials Consumption
+DateTimeOffset CompletionTime
+ShipInfoId ResultShipId

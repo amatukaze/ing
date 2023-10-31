@@ -1,0 +1,11 @@
+﻿@using Sakuno.ING.Game.Events
+@using Sakuno.ING.Game.Models.MasterData
+@id FleetId
+@raw IFleetUpdated
+
+string Name
+IReadOnlyList<ShipId> Ships
+
+FleetExpeditionState ExpeditionState
+ExpeditionId ExpeditionId
+DateTimeOffset ExpeditionCompletionTime

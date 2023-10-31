@@ -1,0 +1,12 @@
+﻿@using Sakuno.ING.Game.Events.MasterData
+@id ExpeditionId
+@raw IExpeditionInfoUpdated
+
+string DisplayId
+string Name
+MapAreaId MapAreaId
+
+TimeSpan Duration
+
+double FuelConsumptionPercentage
+double BulletConsumptionPercentage

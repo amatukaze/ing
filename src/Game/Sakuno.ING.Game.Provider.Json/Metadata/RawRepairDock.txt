@@ -2,8 +2,8 @@
 @implements IRepairDockUpdated
 
 RepairDockId id IRepairDockUpdated.Id
-int state
-ShipId? ship_id
-long? complete_time
+RepairDockState state IRepairDockUpdated.State
+ShipId ship_id IRepairDockUpdated.ShipId
+long complete_time
 int item1
 int item3

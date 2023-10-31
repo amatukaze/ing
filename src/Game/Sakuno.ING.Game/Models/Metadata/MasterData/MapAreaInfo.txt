@@ -1,0 +1,5 @@
+﻿@using Sakuno.ING.Game.Events.MasterData
+@id MapAreaId
+@raw IMapAreaInfoUpdated
+
+string Name

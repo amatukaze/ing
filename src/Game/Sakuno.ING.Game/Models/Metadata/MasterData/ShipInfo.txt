@@ -1,0 +1,24 @@
+﻿@using Sakuno.ING.Game.Events.MasterData
+@id ShipInfoId
+@raw IShipInfoUpdated
+
+string Name
+ShipTypeId TypeId
+int ClassId
+
+int RemodelLevel
+ShipInfoId? RemodelTo
+Materials RemodelConsumption
+
+ShipSpeed Speed
+FireRange FireRange
+
+int SlotCount
+IReadOnlyList<int> PlaneCapacities
+
+TimeSpan ConstructionTime
+
+int Rarity
+
+int FuelConsumption
+int BulletConsumption

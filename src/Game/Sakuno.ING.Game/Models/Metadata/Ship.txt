@@ -1,0 +1,10 @@
+﻿@using Sakuno.ING.Game.Events
+@using Sakuno.ING.Game.Models.MasterData
+@id ShipId
+@raw IShipUpdated
+
+ShipInfoId MasterId
+
+int Morale
+
+bool IsLocked

@@ -6,11 +6,13 @@ string name IShipInfoUpdated.Name
 string yomi
 string getmes
 
-ShipTypeId stype
-int ctype
+ShipTypeId stype IShipInfoUpdated.TypeId
+int ctype IShipInfoUpdated.ClassId
 
-int afterlv
-ShipInfoId aftershipid
+int afterlv IShipInfoUpdated.RemodelLevel
+ShipInfoId? aftershipid IShipInfoUpdated.RemodelTo
+int afterfuel
+int afterbull
 
 int[] taik
 int[] souk
@@ -18,16 +20,17 @@ int[] houg
 int[] raig
 int[] tyku
 int[] luck
-int soku
+ShipSpeed soku IShipInfoUpdated.Speed
+FireRange leng IShipInfoUpdated.FireRange
 
-int slot_num
-int[] maxeq
+int slot_num IShipInfoUpdated.SlotCount
+int[] maxeq IShipInfoUpdated.PlaneCapacities
 
 int buildtime
 int[] broken
 int[] powup
 
-int backs
+int backs IShipInfoUpdated.Rarity
 
-int fuel_max
-int bull_max
+int fuel_max IShipInfoUpdated.FuelConsumption
+int bull_max IShipInfoUpdated.BulletConsumption

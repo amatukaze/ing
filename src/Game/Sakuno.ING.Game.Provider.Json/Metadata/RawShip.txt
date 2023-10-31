@@ -2,9 +2,9 @@
 @implements IShipUpdated
 
 ShipId id IShipUpdated.Id
-ShipInfoId ship_id
+ShipInfoId ship_id IShipUpdated.MasterId
 
-int lv
+int lv IShipUpdated.Level
 int[] exp
 
 int nowhp
@@ -18,13 +18,13 @@ int[] onslot
 
 int slot_ex
 
-int fuel
-int bull
+int fuel IShipUpdated.Fuel
+int bull IShipUpdated.Bullet
 
 int ndock_time
 int[] ndock_item
 
-int cond
+int cond IShipUpdated.Morale
 
 int[] kyouka
 int[] karyoku
@@ -38,4 +38,4 @@ int[] lucky
 
 int locked
 
-int? sally_area
+int? sally_area IShipUpdated.SortieLockingTagId
