@@ -26,6 +26,12 @@ internal sealed class IdentifierConverter<T> : JsonConverter<T> where T : struct
 
         return Unsafe.As<int, T>(ref value);
     }
+    public override T ReadAsPropertyName(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        var value = ReadAsInt32(ref reader);
+
+        return Unsafe.As<int, T>(ref value);
+    }
 
     private int ReadAsInt32(ref Utf8JsonReader reader)
     {
@@ -38,5 +44,7 @@ internal sealed class IdentifierConverter<T> : JsonConverter<T> where T : struct
     }
 
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options) =>
+        throw new NotSupportedException();
+    public override void WriteAsPropertyName(Utf8JsonWriter writer, T value, JsonSerializerOptions options) =>
         throw new NotSupportedException();
 }
