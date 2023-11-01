@@ -1,2 +1,0 @@
-SlotItemInfoId slotitem_id
-ShipInfoId[] ship_ids

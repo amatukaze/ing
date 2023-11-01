@@ -5,7 +5,6 @@
 RawShipInfo[] mst_ship IMasterDataUpdated.Ships
 RawSlotItemTypeInfo[] mst_slotitem_equiptype IMasterDataUpdated.SlotItemTypes
 SlotItemInfoId[] mst_equip_exslot
-RawExtraSlotSlotItemAllowListJson[] mst_equip_exslot_ship
 RawShipTypeInfo[] mst_stype IMasterDataUpdated.ShipTypes
 RawSlotItemInfo[] mst_slotitem IMasterDataUpdated.SlotItems
 RawUseItemInfo[] mst_useitem IMasterDataUpdated.UseItems
