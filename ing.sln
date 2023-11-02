@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Standard", "src\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{0BD5BD3A-AECC-4124-AC6D-FC48DF0F56E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game", "src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj", "{26E834F6-E532-4094-9D64-911DFD7DD06A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Core", "src\Game\Sakuno.ING.Game.Core\Sakuno.ING.Game.Core.csproj", "{26E834F6-E532-4094-9D64-911DFD7DD06A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider", "src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj", "{1F910F69-815C-4A7D-AC57-FC1B40DEE309}"
 EndProject
@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider.Js
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Provider.Json.SourceGenerators", "src\Game\Sakuno.ING.Game.Provider.Json.SourceGenerators\Sakuno.ING.Game.Provider.Json.SourceGenerators.csproj", "{2B182479-38B6-4C33-83BE-47532ECD8E03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.SourceGenerators", "src\Game\Sakuno.ING.Game.SourceGenerators\Sakuno.ING.Game.SourceGenerators.csproj", "{729FDE41-BA40-4FCC-A5E4-BFF76B3685A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Core.SourceGenerators", "src\Game\Sakuno.ING.Game.Core.SourceGenerators\Sakuno.ING.Game.Core.SourceGenerators.csproj", "{729FDE41-BA40-4FCC-A5E4-BFF76B3685A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

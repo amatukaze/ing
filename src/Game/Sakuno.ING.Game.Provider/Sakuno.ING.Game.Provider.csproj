@@ -12,7 +12,7 @@
 
     <ItemGroup>
         <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
-        <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj" />
+        <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Core\Sakuno.ING.Game.Core.csproj" />
         <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider.Json\Sakuno.ING.Game.Provider.Json.csproj" />
         <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider.SourceGenerators\Sakuno.ING.Game.Provider.SourceGenerators.csproj">
             <OutputItemType>Analyzer</OutputItemType>
