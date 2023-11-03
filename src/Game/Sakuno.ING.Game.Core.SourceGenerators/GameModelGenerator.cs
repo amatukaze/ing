@@ -130,7 +130,7 @@ public class GameModelGenerator : IIncrementalGenerator
                 .WithBody(SyntaxFactory.Block(SyntaxFactory.List(GenerateUpdateMethodBody(info, compilation, context.CancellationToken).ToArray()))));
 
             var @class = SyntaxFactory.ClassDeclaration(info.ClassName)
-                .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("BindableObject")))
+                .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("BindableObject")), SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName($"IIdentifiable<{info.IdType}>")))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.SealedKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
                 .AddMembers(members.ToArray());
 

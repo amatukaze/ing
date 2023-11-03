@@ -2,8 +2,7 @@
 
 namespace Sakuno.ING.Game.Events.MasterData;
 
-public interface ISlotItemTypeInfoUpdated
+public interface ISlotItemTypeInfoUpdated : IIdentifiable<SlotItemTypeId>
 {
-    SlotItemTypeId Id { get; }
     string Name { get; }
 }

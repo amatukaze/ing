@@ -2,9 +2,8 @@
 
 namespace Sakuno.ING.Game.Events.MasterData;
 
-public interface IExpeditionInfoUpdated
+public interface IExpeditionInfoUpdated : IIdentifiable<ExpeditionId>
 {
-    ExpeditionId Id { get; }
     string DisplayId { get; }
     string Name { get; }
     MapAreaId MapAreaId { get; }

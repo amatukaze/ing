@@ -3,9 +3,8 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events;
 
-public interface IConstructionDockUpdated
+public interface IConstructionDockUpdated : IIdentifiable<ConstructionDockId>
 {
-    ConstructionDockId Id { get; }
     ConstructionDockState State { get; }
     Materials Consumption { get; }
     DateTimeOffset CompletionTime { get; }

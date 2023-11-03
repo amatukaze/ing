@@ -2,8 +2,7 @@
 
 namespace Sakuno.ING.Game.Events.MasterData;
 
-public interface IMapAreaInfoUpdated
+public interface IMapAreaInfoUpdated : IIdentifiable<MapAreaId>
 {
-    MapAreaId Id { get; }
     string Name { get; }
 }

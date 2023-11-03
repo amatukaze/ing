@@ -68,6 +68,12 @@ public class JsonModelGenerator : IIncrementalGenerator
                 implementations[implementationSymbol.Name] = implementationSymbol;
             }
 
+            if (info.IdType is not null)
+                mappingProperties.Add(SyntaxFactory.PropertyDeclaration(SyntaxFactory.ParseTypeName(info.IdType), "Id")
+                    .WithExplicitInterfaceSpecifier(SyntaxFactory.ExplicitInterfaceSpecifier(SyntaxFactory.IdentifierName($"IIdentifiable<{info.IdType}>")))
+                    .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.IdentifierName("api_id")))
+                    .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+
             foreach (var (implementation, implementationProperty, property) in info.Mappings)
             {
                 var members = implementations[implementation].GetMembers(implementationProperty);

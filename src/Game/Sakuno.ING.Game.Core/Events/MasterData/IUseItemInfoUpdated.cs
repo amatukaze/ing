@@ -2,8 +2,7 @@
 
 namespace Sakuno.ING.Game.Events.MasterData;
 
-public interface IUseItemInfoUpdated
+public interface IUseItemInfoUpdated : IIdentifiable<UseItemId>
 {
-    UseItemId Id { get; }
     string Name { get; }
 }

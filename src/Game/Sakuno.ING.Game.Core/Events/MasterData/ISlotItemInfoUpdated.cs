@@ -3,9 +3,8 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events.MasterData;
 
-public interface ISlotItemInfoUpdated
+public interface ISlotItemInfoUpdated : IIdentifiable<SlotItemInfoId>
 {
-    SlotItemInfoId Id { get; }
     string Name { get; }
 
     SlotItemTypeId TypeId { get; }

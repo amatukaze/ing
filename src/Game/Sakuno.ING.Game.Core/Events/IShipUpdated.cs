@@ -3,9 +3,8 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events;
 
-public interface IShipUpdated
+public interface IShipUpdated : IIdentifiable<ShipId>
 {
-    ShipId Id { get; }
     ShipInfoId MasterId { get; }
 
     int Level { get; }

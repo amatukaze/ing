@@ -1,7 +1,7 @@
 @using Sakuno.ING.Game.Events.MasterData
+@id ExpeditionId
 @implements IExpeditionInfoUpdated
 
-ExpeditionId id IExpeditionInfoUpdated.Id
 string disp_no IExpeditionInfoUpdated.DisplayId
 MapAreaId maparea_id IExpeditionInfoUpdated.MapAreaId
 

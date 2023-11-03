@@ -1,7 +1,7 @@
 @using Sakuno.ING.Game.Events
+@id SlotItemId
 @implements ISlotItemUpdated
 
-SlotItemId id ISlotItemUpdated.Id
 SlotItemInfoId slotitem_id ISlotItemUpdated.MasterId
 int locked
 int level ISlotItemUpdated.ImprovementLevel

@@ -2,9 +2,8 @@
 
 namespace Sakuno.ING.Game.Events;
 
-public interface IRepairDockUpdated
+public interface IRepairDockUpdated : IIdentifiable<RepairDockId>
 {
-    RepairDockId Id { get; }
     RepairDockState State { get; }
     ShipId ShipId { get; }
     DateTimeOffset CompletionTime { get; }

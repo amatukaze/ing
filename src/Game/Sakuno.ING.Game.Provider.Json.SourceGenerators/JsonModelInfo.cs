@@ -2,10 +2,11 @@
 
 namespace Sakuno.ING.Game.Provider.Json.SourceGenerators;
 
-internal record JsonModelInfo(string ClassName, string Subnamespace, IReadOnlyList<string> Usings, IReadOnlyList<string> Implementations, IReadOnlyList<(string Type, string Name)> Properties, IReadOnlyList<(string, string, string)> Mappings)
+internal record JsonModelInfo(string ClassName, string Subnamespace, IReadOnlyList<string> Usings, string? IdType, IReadOnlyList<string> Implementations, IReadOnlyList<(string Type, string Name)> Properties, IReadOnlyList<(string, string, string)> Mappings)
 {
     public static JsonModelInfo Create(AdditionalText file, string className, string subNamespace, CancellationToken cancellationToken)
     {
+        string? idType = null;
         var usings = new List<string>();
         var implementations = new List<string>();
         var properties = new List<(string, string)>();
@@ -21,6 +22,13 @@ internal record JsonModelInfo(string ClassName, string Subnamespace, IReadOnlyLi
             if (parts[0] is "@using")
             {
                 usings.Add(parts[1]);
+                continue;
+            }
+
+            if (parts[0] is "@id")
+            {
+                idType = parts[1];
+                properties.Add((idType, "id"));
                 continue;
             }
 
@@ -40,6 +48,6 @@ internal record JsonModelInfo(string ClassName, string Subnamespace, IReadOnlyLi
             }
         }
 
-        return new(className, subNamespace, usings, implementations, properties, mappings);
+        return new(className, subNamespace, usings, idType, implementations, properties, mappings);
     }
 }

@@ -1,7 +1,7 @@
 @using Sakuno.ING.Game.Events
+@id ShipId
 @implements IShipUpdated
 
-ShipId id IShipUpdated.Id
 ShipInfoId ship_id IShipUpdated.MasterId
 
 int lv IShipUpdated.Level

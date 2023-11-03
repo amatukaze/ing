@@ -3,9 +3,8 @@ using Sakuno.ING.Game.Models.MasterData;
 
 namespace Sakuno.ING.Game.Events;
 
-public interface IFleetUpdated
+public interface IFleetUpdated : IIdentifiable<FleetId>
 {
-    FleetId Id { get; }
     string Name { get; }
     IReadOnlyList<ShipId> Ships { get; }
 

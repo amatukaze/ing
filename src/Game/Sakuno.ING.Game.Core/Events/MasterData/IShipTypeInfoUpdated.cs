@@ -2,8 +2,7 @@
 
 namespace Sakuno.ING.Game.Events.MasterData;
 
-public interface IShipTypeInfoUpdated
+public interface IShipTypeInfoUpdated : IIdentifiable<ShipTypeId>
 {
-    ShipTypeId Id { get; }
     string Name { get; }
 }

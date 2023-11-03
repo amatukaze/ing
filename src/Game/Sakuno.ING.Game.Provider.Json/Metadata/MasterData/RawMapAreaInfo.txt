@@ -1,6 +1,6 @@
 @using Sakuno.ING.Game.Events.MasterData
+@id MapAreaId
 @implements IMapAreaInfoUpdated
 
-MapAreaId id IMapAreaInfoUpdated.Id
 string name IMapAreaInfoUpdated.Name
 int api_type
