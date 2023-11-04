@@ -113,7 +113,7 @@ public class GameModelGenerator : IIncrementalGenerator
                 }))));
 
             members.Add(SyntaxFactory.ConstructorDeclaration(info.ClassName)
-                .AddModifiers(SyntaxFactory.Token(SyntaxKind.InternalKeyword))
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("raw")).WithType(SyntaxFactory.ParseTypeName(info.RawType)))
                 .WithInitializer(SyntaxFactory.ConstructorInitializer(SyntaxKind.ThisConstructorInitializer,
                     SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(
@@ -124,13 +124,22 @@ public class GameModelGenerator : IIncrementalGenerator
                         SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Argument(SyntaxFactory.IdentifierName("raw")))))),
                 }))));
 
+            members.Add(SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(info.ClassName), "Create")
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword))
+                .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("raw")).WithType(SyntaxFactory.ParseTypeName(info.RawType)))
+                .WithExpressionBody(SyntaxFactory.ArrowExpressionClause(SyntaxFactory.ImplicitObjectCreationExpression(SyntaxFactory.ArgumentList(SyntaxFactory.SingletonSeparatedList(
+                    SyntaxFactory.Argument(SyntaxFactory.IdentifierName("raw")))), null)))
+                .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
+
             members.Add(SyntaxFactory.MethodDeclaration(SyntaxFactory.PredefinedType(SyntaxFactory.Token(SyntaxKind.VoidKeyword)), "Update")
-                .AddModifiers(SyntaxFactory.Token(SyntaxKind.InternalKeyword))
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .AddParameterListParameters(SyntaxFactory.Parameter(SyntaxFactory.Identifier("raw")).WithType(SyntaxFactory.ParseTypeName(info.RawType)))
                 .WithBody(SyntaxFactory.Block(SyntaxFactory.List(GenerateUpdateMethodBody(info, compilation, context.CancellationToken).ToArray()))));
 
             var @class = SyntaxFactory.ClassDeclaration(info.ClassName)
-                .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("BindableObject")), SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName($"IIdentifiable<{info.IdType}>")))
+                .AddBaseListTypes(
+                    SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName("BindableObject")),
+                    SyntaxFactory.SimpleBaseType(SyntaxFactory.ParseTypeName($"IModel<{info.ClassName}, {info.IdType}, {info.RawType}>")))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.SealedKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
                 .AddMembers(members.ToArray());
 
