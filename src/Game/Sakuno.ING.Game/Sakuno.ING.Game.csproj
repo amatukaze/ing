@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="$(BasePath)src\Infrastructure\Sakuno.ING.Standard\Sakuno.ING.Standard.csproj" />
+        <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Core\Sakuno.ING.Game.Core.csproj" />
+        <ProjectReference Include="$(BasePath)src\Game\Sakuno.ING.Game.Provider\Sakuno.ING.Game.Provider.csproj" />
+    </ItemGroup>
+
+</Project>
