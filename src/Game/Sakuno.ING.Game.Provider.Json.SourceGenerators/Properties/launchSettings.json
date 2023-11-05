@@ -2,7 +2,7 @@
   "profiles": {
     "Roslyn": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\Sakuno.ING.Game.Provider.Json\\Sakuno.ING.Game.Provider.Json.csproj"
+      "targetProject": "../Sakuno.ING.Game.Provider.Json/Sakuno.ING.Game.Provider.Json.csproj"
     }
   }
 }
