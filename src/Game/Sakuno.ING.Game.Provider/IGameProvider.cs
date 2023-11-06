@@ -18,4 +18,6 @@ public interface IGameProvider
 
     IObservable<IReadOnlyList<IConstructionDockUpdated>> ConstructionDocksUpdated { get; }
     IObservable<IReadOnlyList<IRepairDockUpdated>> RepairDocksUpdated { get; }
+
+    IObservable<IReadOnlyList<IUseItemUpdated>> UseItemsUpdated { get; }
 }

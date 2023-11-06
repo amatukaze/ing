@@ -1,0 +1,6 @@
+﻿@using Sakuno.ING.Game.Events
+@using Sakuno.ING.Game.Models.MasterData
+@id UseItemId
+@raw IUseItemUpdated
+
+int Amount

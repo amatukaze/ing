@@ -9,6 +9,7 @@ public sealed partial class GameProvider
     {
         _slotItemsUpdated.OnNext(response.api_slot_item);
         _constructionDocksUpdated.OnNext(response.api_kdock);
+        _useItemsUpdated.OnNext(response.api_useitem);
     }
 
     [Api("api_port/port")]
@@ -34,5 +35,9 @@ public sealed partial class GameProvider
     [Api("api_get_member/kdock")]
     private void HandleConstructionDocksUpdated(RawConstructionDock[] response) =>
         _constructionDocksUpdated.OnNext(response);
+
+    [Api("api_get_member/useitem")]
+    private void HandleUseItemsUpdated(RawUseItemCount[] response) =>
+        _useItemsUpdated.OnNext(response);
 }
 

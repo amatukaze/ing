@@ -13,6 +13,7 @@ namespace Sakuno.ING.Game.Provider;
 [JsonSerializable(typeof(SvData<RawFleet[]>))]
 [JsonSerializable(typeof(SvData<RawConstructionDock[]>))]
 [JsonSerializable(typeof(SvData<RawRepairDock[]>))]
+[JsonSerializable(typeof(SvData<RawUseItemCount[]>))]
 public partial class JsonModelContext : JsonSerializerContext
 {
 }

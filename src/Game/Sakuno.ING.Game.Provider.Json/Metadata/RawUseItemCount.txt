@@ -1,2 +1,5 @@
-UseItemId id
-int count
+@using Sakuno.ING.Game.Events
+@id UseItemId
+@implements IUseItemUpdated
+
+int count IUseItemUpdated.Amount
