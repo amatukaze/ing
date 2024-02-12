@@ -1,15 +1,8 @@
 ﻿namespace Sakuno.ING.Game.Tests;
 
-internal record TestItem : IModel<TestItem, int, RawTestItem>
+internal record TestItem(int Id, int Value) : IModel<TestItem, int, RawTestItem>
 {
-    public int Id { get; }
-    public int Value { get; private set; }
-
-    public TestItem(int id, int value)
-    {
-        Id = id;
-        Value = value;
-    }
+    public int Value { get; private set; } = Value;
 
     public static TestItem Create(RawTestItem raw)
     {
