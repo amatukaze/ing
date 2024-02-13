@@ -31,6 +31,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game", "src\Game\Sakuno.ING.Game\Sakuno.ING.Game.csproj", "{36A9F2F6-A635-47E0-860A-818CBF5F0810}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3DBE4F8F-4DCB-4CF4-B7E3-60860EE4D423}"
+	ProjectSection(SolutionItems) = preProject
+		tests\Directory.Packages.props = tests\Directory.Packages.props
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sakuno.ING.Game.Tests", "tests\Sakuno.ING.Game.Tests\Sakuno.ING.Game.Tests.csproj", "{8F23A9AA-9968-4CC5-8BFF-81FDA232D4F5}"
 EndProject
