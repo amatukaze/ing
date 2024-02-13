@@ -19,6 +19,7 @@ public sealed partial class GameProvider : IGameProvider
             Converters =
             {
                 new IdentifierConverterFactory(),
+                new UnequippedSlotItemGroupConverter(),
             },
         };
 

@@ -20,4 +20,6 @@ public interface IGameProvider
     IObservable<IReadOnlyList<IRepairDockUpdated>> RepairDocksUpdated { get; }
 
     IObservable<IReadOnlyList<IUseItemUpdated>> UseItemsUpdated { get; }
+
+    IObservable<IReadOnlyList<IUnequippedSlotItemsUpdated>> UnequippedSlotItemsUpdated { get; }
 }
