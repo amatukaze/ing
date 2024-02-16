@@ -1,6 +1,4 @@
-﻿using Sakuno.ING.Game.Services;
-
-namespace Sakuno.ING.ViewModels.Homeport;
+﻿namespace Sakuno.ING.ViewModels.Homeport;
 
 public class ShipsViewModel : ReactiveObject
 {
