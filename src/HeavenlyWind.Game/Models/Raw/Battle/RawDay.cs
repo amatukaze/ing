@@ -61,7 +61,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Raw.Battle
         [JsonProperty("api_opening_flag")]
         public bool IsOpeningTorpedoSalvoAvailable { get; set; }
         [JsonProperty("api_opening_atack")]
-        public RawTorpedoSalvoPhase OpeningTorpedoSalvo { get; set; }
+        public RawOpeningTorpedoSalvoPhase OpeningTorpedoSalvo { get; set; }
 
         //[JsonProperty("api_hourai_flag")]
 

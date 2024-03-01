@@ -37,7 +37,7 @@ namespace Sakuno.KanColle.Amatsukaze.Game.Models.Battle.Stages
             AerialCombat = new AerialCombatPhase(this, rRawData.AerialCombat);
             SupportingFire = new SupportingFirePhase(this, rRawData.SupportingFire);
             OpeningASW = new ShellingPhase(this, rRawData.OpeningASW);
-            OpeningTorpedo = new TorpedoSalvoPhase(this, rRawData.OpeningTorpedoSalvo);
+            OpeningTorpedo = new OpeningTorpedoSalvoPhase(this, rRawData.OpeningTorpedoSalvo);
 
             ShellingFirstRound = new ShellingPhase(this, rRawData.ShellingFirstRound);
             ShellingSecondRound = new ShellingPhase(this, rRawData.ShellingSecondRound);
