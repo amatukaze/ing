@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <Import Project="$(SolutionDir)src\HeavenlyWind.props" />
+
+  <PropertyGroup>
+    <RootNamespace>Sakuno.KanColle.Amatsukaze.Browser.Blink</RootNamespace>
+    <AssemblyName>HeavenlyWind.Browser.Blink</AssemblyName>
+	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	<UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CefSharp.Wpf.HwndHost" Version="121.3.70" />
+  </ItemGroup>
+
+  <ItemGroup>
+   <ProjectReference Include="$(SolutionDir)src\HeavenlyWind.Extensibility.Browser\HeavenlyWind.Extensibility.Browser.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{7649
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImprovementArsenal", "src\Plugins\ImprovementArsenal\ImprovementArsenal.csproj", "{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Browsers", "Browsers", "{415977A3-8575-4661-A101-FF461702E3C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HeavenlyWind.Browser.Blink", "src\Browsers\Blink\HeavenlyWind.Browser.Blink.csproj", "{0C1A2DEA-0C32-41FD-AF8F-DF26D2141099}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +71,10 @@ Global
 		{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C1A2DEA-0C32-41FD-AF8F-DF26D2141099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C1A2DEA-0C32-41FD-AF8F-DF26D2141099}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C1A2DEA-0C32-41FD-AF8F-DF26D2141099}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C1A2DEA-0C32-41FD-AF8F-DF26D2141099}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,5 +84,6 @@ Global
 		{3CD66841-054E-409B-8653-F846216061AA} = {C061BBB9-7802-4BCF-B411-C852DAA1C217}
 		{DBA4B269-E3EC-43BE-83E6-EE9DEDFA21F8} = {C061BBB9-7802-4BCF-B411-C852DAA1C217}
 		{E3CFE817-C1FF-4B07-B8E4-8973876AF1A1} = {76495C31-6169-4378-85DE-8B2E856AA213}
+		{0C1A2DEA-0C32-41FD-AF8F-DF26D2141099} = {415977A3-8575-4661-A101-FF461702E3C7}
 	EndGlobalSection
 EndGlobal

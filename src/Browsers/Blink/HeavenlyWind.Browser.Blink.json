@@ -1,0 +1,1 @@
+{"name":"blink","displayname":"Blink (Chromium)","entry":"HeavenlyWind.Browser.Blink.dll","dependencies":[{"assembly":"CefSharp","path":"Blink\\CefSharp.dll"},{"assembly":"CefSharp.Core","path":"Blink\\CefSharp.Core.dll"},{"assembly":"CefSharp.Wpf","path":"Blink\\CefSharp.Wpf.dll"}]}
