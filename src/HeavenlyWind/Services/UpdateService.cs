@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using MessagePack;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sakuno.KanColle.Amatsukaze.Models;
-using Sakuno.Serialization.MessagePack;
 using Sakuno.SystemInterop;
 using Sakuno.UserInterface.Commands;
 using System;
@@ -314,21 +314,18 @@ namespace Sakuno.KanColle.Amatsukaze.Services
                 using (var rResponse = await rRequest.GetResponseAsync())
                 using (var rStream = rResponse.GetResponseStream())
                 {
-                    var rResult = (IDictionary<object, object>)MessagePack.Unpack(new MessagePackReader(rStream));
+                    var result = await MessagePackSerializer.DeserializeAsync<IDictionary<int, byte[][]>>(rStream);
 
-                    foreach (var rInfo in rResult)
+                    foreach (var info in result)
                     {
-                        var rData = rInfo.Value as object[];
-                        if (rData == null || rData.Length == 0)
+                        var data = info.Value;
+                        if (data.Length == 0)
                             continue;
 
-                        var rShip = rInfo.Key.ToString();
+                        var rShip = info.Key.ToString();
 
-                        if (rData[0] != null)
-                            File.WriteAllBytes(rPath + rShip + "_n.png", (byte[])rData[0]);
-
-                        if (rData.Length > 1 && rData[1] != null)
-                            File.WriteAllBytes(rPath + rShip + "_d.png", (byte[])rData[1]);
+                        if (data[0] != null)
+                            File.WriteAllBytes(rPath + rShip + "_n.png", data[0]);
                     }
                 }
             }
